@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2005/01/27 14:26:08  dkrajzew
+// patched several problems on determination of the turning direction; code beautifying
+//
 // Revision 1.27  2004/11/23 10:21:41  dkrajzew
 // debugging
 //
@@ -46,7 +49,8 @@ namespace
 // unneeded debug-ifs removed
 //
 // Revision 1.20  2003/10/06 07:46:12  dkrajzew
-// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
+// further work on vissim import (unsignalised vs. signalised streams modality
+//  cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
 // Revision 1.18  2003/09/30 14:48:52  dkrajzew
 // debug work on vissim-junctions
@@ -55,10 +59,14 @@ namespace
 // umlaute conversion; node geometry computation; internal links computation
 //
 // Revision 1.16  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of geometry information
+// some further refinements due to the new 1:N traffic lights and usage of
+//  geometry information
 //
 // Revision 1.15  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message, warning
+//  or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.14  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
@@ -67,7 +75,8 @@ namespace
 // yellow traffic lights implemented
 //
 // Revision 1.12  2003/05/20 09:33:48  dkrajzew
-// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+// false computation of yielding on lane ends debugged; some debugging on
+//  tl-import; further work on vissim-import
 //
 // Revision 1.11  2003/04/16 10:03:48  dkrajzew
 // further work on Vissim-import
@@ -79,10 +88,12 @@ namespace
 // some lost changes reapplied
 //
 // Revision 1.8  2003/04/07 12:15:43  dkrajzew
-// first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
+// first steps towards a junctions geometry; tyellow removed again,
+//  traffic lights have yellow times given explicitely, now
 //
 // Revision 1.7  2003/04/04 07:43:04  dkrajzew
-// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+// Yellow phases must be now explicetely given; comments added;
+//  order of edge sorting (false lane connections) debugged
 //
 // Revision 1.6  2003/04/01 15:15:54  dkrajzew
 // further work on vissim-import
@@ -103,10 +114,12 @@ namespace
 // initial commit for net building classes
 //
 // Revision 1.6  2002/06/11 16:00:42  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+// windows eol removed; template class definition inclusion depends now
+//  on the EXTERNAL_TEMPLATE_DEFINITION-definition
 //
 // Revision 1.5  2002/06/07 14:58:45  dkrajzew
-// Bugs on dead ends and junctions with too few outgoing roads fixed; Comments improved
+// Bugs on dead ends and junctions with too few outgoing roads fixed;
+//  Comments improved
 //
 // Revision 1.4  2002/05/14 04:42:56  dkrajzew
 // new computation flow
@@ -124,11 +137,11 @@ namespace
 // Memory leaks debugging added (MSVC++)
 //
 // Revision 1.2  2002/03/15 09:19:01  traffic
-// False data output patched; Number of lanes added to output; Warnings (conversion, unused variables) patched
+// False data output patched; Number of lanes added to output;
+//  Warnings (conversion, unused variables) patched
 //
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
-//
 //
 /* =========================================================================
  * included modules
@@ -333,6 +346,26 @@ void
 NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
                        NBEdge *from2, NBEdge *to2)
 {
+    /* debug
+    if(_junction->getID()=="15030407") {
+        int bla = 0;
+    }
+    if(_junction->getID()=="15030449") {
+        int bla = 0;
+    }
+    string from1ID = "15032263";
+    string to1ID = "153120314";
+    string from2ID = "15030816";
+    string to2ID = "153120314";
+    if(from1->getID()==from1ID&&to1->getID()==to1ID&&from2->getID()==from2ID&&to2->getID()==to2ID) {
+        int bla = 0;
+    }
+
+    if(from2->getID()==from1ID&&to2->getID()==to1ID&&from1->getID()==from2ID&&to1->getID()==to2ID) {
+        int bla = 0;
+    }
+    debug */
+
     // check whether one of the links has a dead end
     if(to1==0||to2==0) {
         return;
@@ -352,11 +385,11 @@ NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
     _done[idx1][idx2] = true;
     _done[idx2][idx1] = true;
     // check if one of the links is a turn; this link is always not priorised
-    if(from1->isTurningDirection(to1)) {
+    if(from1->isTurningDirectionAt(_junction, to1)) {
         _forbids[idx2][idx1] = true;
         return;
     }
-    if(from2->isTurningDirection(to2)) {
+    if(from2->isTurningDirectionAt(_junction, to2)) {
         _forbids[idx1][idx2] = true;
         return;
     }

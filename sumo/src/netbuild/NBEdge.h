@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.35  2005/01/27 14:26:08  dkrajzew
+// patched several problems on determination of the turning direction; code beautifying
+//
 // Revision 1.34  2004/12/16 12:16:06  dkrajzew
 // code beautifying
 //
@@ -353,7 +356,7 @@ public:
 
     /** returns the information whether the given edge is the opposite
         direction to this edge */
-    bool isTurningDirection(NBEdge *edge) const;
+    bool isTurningDirectionAt(const NBNode *n, NBEdge *edge) const;
 
 
     /** @brief Returns the node at the given edges length (using an epsilon)
@@ -446,9 +449,9 @@ public:
 
     bool isNearEnough2BeJoined2(NBEdge *e);
 
-    double getAngle(NBNode &atNode) const;
+    double getAngle(const NBNode &atNode) const;
 
-    double getNormedAngle(NBNode &atNode) const;
+    double getNormedAngle(const NBNode &atNode) const;
 
     void addGeometryPoint(int index, const Position2D &p);
 

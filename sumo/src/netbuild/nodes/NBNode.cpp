@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/01/27 14:26:08  dkrajzew
+// patched several problems on determination of the turning direction; code beautifying
+//
 // Revision 1.9  2004/12/21 12:50:33  dkrajzew
 // post-release clean-up
 //
@@ -521,7 +524,7 @@ NBNode::swapWhenReversed(const vector<NBEdge*>::iterator &i1,
 {
     NBEdge *e1 = *i1;
     NBEdge *e2 = *i2;
-    if(e2->isTurningDirection(e1) && e2->getToNode()==this) {
+    if(e2->getToNode()==this && e2->isTurningDirectionAt(this, e1)) {
         swap(*i1, *i2);
         return true;
     }
@@ -889,10 +892,6 @@ NBNode::writeXMLInternalEdgePos(ostream &into)
                 into << "   <edgepos id=\"" << id
                     << "\" from=\"" << _id << "\" to=\"" << _id << "\" "
                     << "lane=\"" << 0 << "\" function=\"internal\"/>"
-//                    << shape
-/*                    << myPosition.x() << "," << myPosition.y() << " "
-                    << myPosition.x() << "," << myPosition.y()*/
-//                    << "</edgepos>"
                     << endl;
                 lno++;
             }
@@ -1065,10 +1064,7 @@ writeinternal(EdgeVector *_incomingEdges, ostream &into, const std::string &id)
                     into << ' ';
                 }
                 into << ':' << id << '_' << l << "_0";
-/*                string lid = string(":") + id + string("_")
-                    + toString<size_t>(l) ;*/
                 l++;
-//                into << lid;
             }
         }
     }
@@ -1997,7 +1993,7 @@ NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
     if(outgoing==0) {
         return MMLDIR_NODIR;
     }
-    if(incoming->isTurningDirection(outgoing)) {
+    if(incoming->isTurningDirectionAt(this, outgoing)) {
         return MMLDIR_TURN;
     }
     double angle =
@@ -2028,7 +2024,7 @@ NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
             find(_allEdges.begin(), _allEdges.end(), outgoing);
         NBContHelper::nextCCW(&_allEdges, i);
         while((*i)!=incoming) {
-            if((*i)->getFromNode()==this&&!incoming->isTurningDirection(*i)) {
+            if((*i)->getFromNode()==this&&!incoming->isTurningDirectionAt(this, *i)) {
                 return MMLDIR_PARTLEFT;
             }
             NBContHelper::nextCCW(&_allEdges, i);

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2005/01/27 14:26:08  dkrajzew
+// patched several problems on determination of the turning direction; code beautifying
+//
 // Revision 1.12  2004/07/02 09:32:26  dkrajzew
 // mapping of joined edges names added; removal of edges with a too low speed added
 //
@@ -429,16 +432,17 @@ public:
     class opposite_finder {
     public:
         /// constructor
-        opposite_finder(NBEdge *edge)
-            : myReferenceEdge(edge) { }
+        opposite_finder(NBEdge *edge, const NBNode *n)
+            : myReferenceEdge(edge), myAtNode(n) { }
 
         bool operator() (NBEdge *e) const {
-            return e->isTurningDirection(myReferenceEdge)||
-                myReferenceEdge->isTurningDirection(e);
+            return e->isTurningDirectionAt(myAtNode, myReferenceEdge)||
+                myReferenceEdge->isTurningDirectionAt(myAtNode, e);
         }
 
     private:
         NBEdge *myReferenceEdge;
+        const NBNode *myAtNode;
 
     };
 
@@ -446,9 +450,6 @@ public:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NBContHelper.icc"
-//#endif
 
 #endif
 

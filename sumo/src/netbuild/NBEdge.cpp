@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.49  2005/01/27 14:26:08  dkrajzew
+// patched several problems on determination of the turning direction; code beautifying
+//
 // Revision 1.48  2004/12/20 14:00:24  dkrajzew
 // debugging
 //
@@ -346,6 +349,7 @@ NBEdge::MainDirections::empty() const
     return _dirs.empty();
 }
 
+
 bool
 NBEdge::MainDirections::includes(Direction d) const {
     return find(_dirs.begin(), _dirs.end(), d)!=_dirs.end();
@@ -518,28 +522,6 @@ NBEdge::setJunctionPriority(NBNode *node, int prio)
     }
 }
 
-/*
-void
-NBEdge::setJunctionAngle(NBNode *node, double angle)
-{
-    if(node==_from) {
-        _fromJunctionAngle = angle;
-    } else {
-        _toJunctionAngle = angle;
-    }
-}
-
-
-double
-NBEdge::getJunctionAngle(NBNode *node)
-{
-    if(node==_from) {
-        return _fromJunctionAngle;
-    } else {
-        return _toJunctionAngle;
-    }
-}
-*/
 
 string
 NBEdge::getID()
@@ -612,7 +594,7 @@ NBEdge::computeTurningDirections()
 
 
 double
-NBEdge::getAngle(NBNode &atNode) const
+NBEdge::getAngle(const NBNode &atNode) const
 {
     if(&atNode==_from) {
         return myGeom.getBegLine().atan2DegreeAngle();
@@ -650,7 +632,6 @@ NBEdge::acceptBeingTurning(NBEdge *e)
     if(myAmTurningWithAngle>angle) {
         return false;
     }
-//    assert(myAmTurningWithAngle!=angle);
     if(myAmTurningWithAngle==angle) {
         return false; // !!! ok, this happens only within a cell-network (backgrnd), we have to take a further look sometime
     }
@@ -918,9 +899,6 @@ NBEdge::writeSucceeding(std::ostream &into, size_t lane)
             << endl;
     }
     // output list of connected lanes
-/*        // order the outgoing edges by relative angle
-    sort((*_reachable)[lane].begin(), (*_reachable)[lane].end(),
-        NBContHelper::relative_edgelane_sorter(this, _to));*/
         // go through each connected edge
     for(size_t j=0; j<noApproached; j++) {
         writeSingleSucceeding(into, lane, j);
@@ -1474,7 +1452,7 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge, size_t dest_lane)
 
 
 bool
-NBEdge::isTurningDirection(NBEdge *edge) const
+NBEdge::isTurningDirectionAt(const NBNode *n, NBEdge *edge) const
 {
     // maybe it was already set as the turning direction
     if(edge == _turnDestination) {
@@ -1489,17 +1467,15 @@ NBEdge::isTurningDirection(NBEdge *edge) const
     }
     // we have to checke whether the connection between the nodes is
     //  geometrically similar
-    double thisFromAngle = getNormedAngle(*_from);
-    double thisToAngle = getNormedAngle(*_to);
-    double otherToAngle = edge->getNormedAngle(*edge->getToNode());
-    double otherFromAngle = edge->getNormedAngle(*edge->getFromNode());
-    if( fabs(thisFromAngle-otherToAngle) < 170 ) {
-        /*
-        ||
-        fabs(thisToAngle-otherFromAngle) < 170) {*/
-        return false;
+    double thisFromAngle2 = getAngle(*n);
+    double otherToAngle2 = edge->getAngle(*n);
+    if(thisFromAngle2<otherToAngle2) {
+        swap(thisFromAngle2, otherToAngle2);
     }
-    return true;
+    if(thisFromAngle2-otherToAngle2>170&&thisFromAngle2-otherToAngle2<190) {
+        return true;
+    }
+    return false;
 }
 
 
@@ -2080,20 +2056,6 @@ NBEdge::append(NBEdge *e)
     _to = e->_to;
 }
 
-/*
-NBEdge *
-NBEdge::getTurningDirection() const
-{
-    return _turnDestination;
-}
-*/
-/*
-bool
-NBEdge::isJoinable() const
-{
-    return _step==INIT||_step==INIT_REJECT_CONNECTIONS;
-}
-*/
 
 void
 NBEdge::computeEdgeShape()
@@ -2228,7 +2190,7 @@ NBEdge::isNearEnough2BeJoined2(NBEdge *e)
 
 
 double
-NBEdge::getNormedAngle(NBNode &atNode) const
+NBEdge::getNormedAngle(const NBNode &atNode) const
 {
     double angle = getAngle(atNode);
     if(angle<0) {
@@ -2257,6 +2219,7 @@ NBEdge::addGeometryPoint(int index, const Position2D &p)
     myGeom.insertAt(index, p);
     computeLaneShapes();
 }
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

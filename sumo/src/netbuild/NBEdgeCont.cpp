@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2005/01/27 14:26:08  dkrajzew
+// patched several problems on determination of the turning direction; code beautifying
+//
 // Revision 1.31  2004/12/16 13:59:17  dkrajzew
 // debugging
 //
@@ -222,7 +225,7 @@ NBEdgeCont::insert(NBEdge *edge)
             return true;
         }
     }
-    if( !OptionsSubSys::getOptions().isSet("keep-edges.postload")
+    if( !OptionsSubSys::getOptions().getBool("keep-edges.postload")
         &&
         OptionsSubSys::getOptions().isSet("keep-edges")) {
 
@@ -824,7 +827,7 @@ NBEdgeCont::removeUnwishedEdges(OptionsCont &oc)
         if(!found) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
-	    toRemove.push_back(edge);
+        toRemove.push_back(edge);
         }
         ++i;
     }

@@ -171,7 +171,7 @@ NBNodeShapeComputer::computeContinuationNodeShape()
                 *(find_if(
                     myNode.getOutgoingEdges().begin(),
                     myNode.getOutgoingEdges().end(),
-                    NBContHelper::opposite_finder(inc)));
+                    NBContHelper::opposite_finder(inc, &myNode)));
             double v2 = myOutPos[out];
             addCCWPoint(ret, inc, MAX(v1, v2), 1.5);
             addCWPoint(ret, out, MAX(v1, v2), 1.5);
@@ -207,7 +207,7 @@ NBNodeShapeComputer::computeRealNodeShape()
         EdgeVector::const_iterator li = i;
         NBContHelper::nextCW(&(myNode._allEdges), li);
         NBEdge *current = *i;
-        if(myNode.hasIncoming(current)&&current->isTurningDirection(*li)) {
+        if(myNode.hasIncoming(current)&&current->isTurningDirectionAt(&myNode, *li)) {
             EdgeCrossDefVector::iterator j2 = j+1;
             if(j2==edgeOffsets.end()) {
                 j2 = edgeOffsets.begin();
@@ -222,7 +222,7 @@ NBNodeShapeComputer::computeRealNodeShape()
             EdgeVector::const_iterator ri = i;
             NBContHelper::nextCCW(&(myNode._allEdges), ri);
             // skip outgoing that have an incoming
-            if((*ri)->isTurningDirection(current)) {
+            if((*ri)->isTurningDirectionAt(&myNode, current)) {
                 continue;
             }
             addCCWPoint(ret, current, used.myCrossingPosition, 1.5);
@@ -278,7 +278,7 @@ NBNodeShapeComputer::getEdgeNeighborCrossings(
         NBContHelper::nextCCW(&(myNode._allEdges), ri);
         //  check the clockwise edge
         NBContHelper::nextCW(&(myNode._allEdges), li);
-        if(current->isTurningDirection(*li)) {
+        if(current->isTurningDirectionAt(&myNode, *li)) {
             mli = li;
             cb = (*li)->getCWBoundaryLine(myNode, 2.5);
             NBContHelper::nextCW(&(myNode._allEdges), li);
@@ -287,7 +287,7 @@ NBNodeShapeComputer::getEdgeNeighborCrossings(
         cl = (*li)->getCCWBoundaryLine(myNode, 2.5);
     } else {
         NBContHelper::nextCCW(&(myNode._allEdges), ri);
-        if((*ri)->isTurningDirection(current)) {
+        if((*ri)->isTurningDirectionAt(&myNode, current)) {
             mri = ri;
             ccb = (*ri)->getCCWBoundaryLine(myNode, 2.5);
             NBContHelper::nextCCW(&(myNode._allEdges), ri);
@@ -456,7 +456,8 @@ NBNodeShapeComputer::isSimpleContinuation(const NBNode &n) const
         for(EdgeVector::const_iterator i=incoming.begin(); i!=incoming.end(); i++) {
             NBEdge *in = *i;
             EdgeVector::const_iterator opposite =
-                find_if(outgoing.begin(), outgoing.end(), NBContHelper::opposite_finder(in));
+                find_if(outgoing.begin(), outgoing.end(),
+                NBContHelper::opposite_finder(in, &myNode));
             // must have an opposite edge
             if(opposite==outgoing.end()) {
                 return false;

@@ -24,26 +24,33 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/01/27 14:26:08  dkrajzew
+// patched several problems on determination of the turning direction; code beautifying
+//
 // Revision 1.12  2004/11/23 10:21:41  dkrajzew
 // debugging
 //
 // Revision 1.11  2003/10/06 07:46:12  dkrajzew
-// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
+// further work on vissim import (unsignalised vs. signalised streams modality
+//  cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
 // Revision 1.10  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of geometry information
+// some further refinements due to the new 1:N traffic lights and usage of
+//  geometry information
 //
 // Revision 1.9  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
 //
 // Revision 1.8  2003/05/20 09:33:48  dkrajzew
-// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+// false computation of yielding on lane ends debugged; some debugging on
+//  tl-import; further work on vissim-import
 //
 // Revision 1.7  2003/04/16 10:03:48  dkrajzew
 // further work on Vissim-import
 //
 // Revision 1.6  2003/04/04 07:43:04  dkrajzew
-// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+// Yellow phases must be now explicetely given; comments added;
+//  order of edge sorting (false lane connections) debugged
 //
 // Revision 1.5  2003/03/17 14:22:33  dkrajzew
 // further debug and windows eol removed
@@ -54,15 +61,13 @@ namespace
 // Revision 1.3  2003/02/07 10:43:44  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <bitset>
 #include <vector>
 #include <cassert>
@@ -123,8 +128,11 @@ NBRequestEdgeLinkIterator::init(
                     _isLeftMover.push_back(
                         request->isLeftMover(fromEdge, toEdge)
                         ||
-                        fromEdge->isTurningDirection(toEdge) );
-                    _isTurnaround.push_back(fromEdge->isTurningDirection(toEdge));
+                        fromEdge->isTurningDirectionAt(fromEdge->getToNode(), toEdge) );
+
+                    _isTurnaround.push_back(
+                        fromEdge->isTurningDirectionAt(
+                            fromEdge->getToNode(), toEdge));
                 } else {
                     _isLeftMover.push_back(true);
                     _isTurnaround.push_back(true);
@@ -145,8 +153,8 @@ NBRequestEdgeLinkIterator::setValidNonLeft(
     for(size_t i1=0; i1<_fromEdges.size()&&i1<64; i1++) { // !!! hell happens when i1>=64
         assert(i1<_fromEdges.size());
         if( currentEdge!=_fromEdges[i1] ||
-//            currentLane!=_fromLanes[i1] ||
             valid(i1, removeTurnArounds, removalType) ) {
+
             _validNonLeft.set(i1, 1);
         } else {
             _validNonLeft.set(i1, 0);
@@ -236,28 +244,8 @@ NBRequestEdgeLinkIterator::valid(size_t pos,
             }
         }
     }
-
     // all other are left-movers (no turnings) with no
     return false;
-
-/*
-    // check whether the next is a left mover from the same edge
-        // no further from same edge as the list is over -> unwanted
-    if(pos+1==_fromEdges.size()) {
-        return false;
-    }
-
-        // no further from the same edge -> unwanted
-    if(_fromEdges[pos+1]!=_fromEdges[pos]) {
-        return false;
-    }
-
-    // check whether is left mover and not a turning
-    if(_isTurnaround[pos+1]) {
-        return false;
-    }
-    return !_isLeftMover[pos+1];
-*/
 }
 
 
@@ -420,8 +408,10 @@ NBRequestEdgeLinkIterator::internJoinLaneForbids(NBEdge *fromEdge,
 bool
 NBRequestEdgeLinkIterator::testBrakeMask(bool hasGreen, size_t pos) const
 {
-    return _request->mustBrake(_fromEdges[pos], _toEdges[pos])
-        || !hasGreen;
+    return
+        _request->mustBrake(_fromEdges[pos], _toEdges[pos])
+        ||
+        !hasGreen;
 }
 
 
@@ -449,9 +439,6 @@ NBRequestEdgeLinkIterator::testBrakeMask(size_t pos,
         }
     }
     return false;
-/*
-    return _request->mustBrake(_fromEdges[pos], _toEdges[pos])
-        || !hasGreen;*/
 }
 
 
@@ -463,31 +450,8 @@ operator<<(std::ostream &os, const NBRequestEdgeLinkIterator &o)
     return os;
 }
 
-/*
-bool
-NBRequestEdgeLinkIterator::getDriveAllowed(const NBNode::SignalGroupCont &defs,
-                                           double time)
-{
-    NBEdge *from = getFromEdge();
-    NBEdge *to = getToEdge();
-    NBNode::SignalGroup *group = NBNode::findGroup(defs, from, to);
-    return group->mayDrive(time);
-}
 
-bool
-NBRequestEdgeLinkIterator::getBrakeNeeded(const NBNode::SignalGroupCont &defs,
-                                          double time)
-{
-    NBEdge *from = getFromEdge();
-    NBEdge *to = getToEdge();
-    NBNode::SignalGroup *group = NBNode::findGroup(defs, from, to);
-    return group->mustBrake(time);
-}
-*/
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBRequestEdgeLinkIterator.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
