@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/07/22 15:17:42  dkrajzew
+// traffic light duration may now be changed on command line
+//
 // Revision 1.4  2003/07/21 11:05:30  dkrajzew
 // patched some bugs found in first real-life execution
 //
@@ -183,6 +186,8 @@ fillOptions(OptionsCont &oc)
     // register building options
     oc.doRegister("default-junction-type", 'j', new Option_String("priority"));
     oc.doRegister("traffic-light-green", new Option_Integer());
+    oc.doRegister("traffic-light-red", new Option_Integer());
+    oc.doRegister("traffic-light-yellow", new Option_Integer());
     oc.doRegister("min-decel", new Option_Float(3.0));
     oc.doRegister("all-logics", new Option_Bool(false));
     oc.addSynonyme("default-junction-type", "junctions");
