@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.6  2003/07/30 10:02:38  dkrajzew
+// support for the vehicle display removed by now
+//
 // Revision 1.5  2003/07/18 12:35:04  dkrajzew
 // removed some warnings
 //
@@ -136,23 +139,6 @@ MSVehicleType::DictType MSVehicleType::myDict;
 double MSVehicleType::myMinDecel  = 0;
 double MSVehicleType::myMaxLength = 0;
 
-const char * const
-MSVehicleType::myTableItems[] =
-{
-    "a", "d",
-    "vmax", "eps",
-    "length", 0
-};
-
-const TableType
-MSVehicleType::myTableItemTypes[] =
-{
-    TT_DOUBLE, TT_DOUBLE,
-    TT_DOUBLE, TT_DOUBLE,
-    TT_DOUBLE
-};
-
-
 /* =========================================================================
  * method definitions
  * ======================================================================= */
@@ -226,57 +212,6 @@ MSVehicleType::clear()
         delete (*i).second;
     }
     myDict.clear();
-}
-
-
-size_t
-MSVehicleType::getNoParameter() const
-{
-	return 5;
-}
-
-
-void
-MSVehicleType::fillTableParameter(double *parameter) const
-{
-	parameter[0] = myAccel;
-	parameter[1] = myDecel;
-	parameter[2] = myMaxSpeed;
-	parameter[3] = myDawdle;
-	parameter[4] = myLength;
-}
-
-double
-MSVehicleType::getTableParameter(size_t pos) const
-{
-    switch(pos) {
-    case 0:
-        return myAccel;
-    case 1:
-        return myDecel;
-    case 2:
-        return myMaxSpeed;
-    case 3:
-        return myDawdle;
-    case 4:
-        return myLength;
-    default:
-        throw 1;
-    }
-}
-
-
-const char * const
-MSVehicleType::getTableItem(size_t pos) const
-{
-    return myTableItems[pos];
-}
-
-
-const TableType
-MSVehicleType::getTableType(size_t pos) const
-{
-    return myTableItemTypes[pos];
 }
 
 

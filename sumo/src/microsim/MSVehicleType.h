@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/07/30 10:02:38  dkrajzew
+// support for the vehicle display removed by now
+//
 // Revision 1.5  2003/05/27 18:40:49  roessel
 // Removed superfluous const.
 //
@@ -93,7 +96,6 @@
  * ======================================================================= */
 #include <map>
 #include <string>
-#include <gui/TableTypes.h> // !!!
 
 
 /* =========================================================================
@@ -172,21 +174,6 @@ public:
     /** Clears the dictionary */
     static void clear();
 
-	/// Returns the current value for the described parameter
-    double getTableParameter(size_t pos) const;
-
-	/// Filss the given double array with the current values
-	void fillTableParameter(double *parameter) const;
-
-	/// Returns the number of parameter
-	size_t getNoParameter() const;
-
-	/// Returns the name of the described parameter
-    const char * const getTableItem(size_t pos) const;
-
-	/// Returns the type of the described parameter
-    const TableType getTableType(size_t pos) const;
-
 	/// returns the name of the vehicle type
     const std::string &id() const;
 
@@ -236,12 +223,6 @@ private:
 
     /// Assignment operator.
     MSVehicleType& operator=( const MSVehicleType& );
-
-	/// A static list of parameter names
-	static const char * const myTableItems[];
-
-	/// A static list of parameter types
-	static const TableType myTableItemTypes[];
 
 };
 
