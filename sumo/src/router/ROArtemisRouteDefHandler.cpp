@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/05/20 09:48:34  dkrajzew
+// debugging
+//
 // Revision 1.3  2003/03/20 16:39:15  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -108,7 +111,7 @@ ROArtemisRouteDefHandler::readNextRoute(long start)
         string orig = (*i).first;
         // check whether a vehicle shall be emitted at this time
         if(start%period==0) {
-            double prob = (double)rand() / (double)(RAND_MAX+1) * 100.0;
+            double prob = (double)rand() / (double)(RAND_MAX) * 100.0;
             // check which destination to use
             DestProbVector poss = myNodeConnections[orig];
             for(DestProbVector::iterator j=poss.begin(); j!=poss.end(); j++) {

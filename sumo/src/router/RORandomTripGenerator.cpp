@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/05/20 09:48:35  dkrajzew
+// debugging
+//
 // Revision 1.2  2003/04/10 15:47:01  dkrajzew
 // random routes are now being prunned to avoid some stress with turning vehicles
 //
@@ -50,7 +53,8 @@ namespace
 
 using namespace std;
 
-RORandomTripGenerator::RORandomTripGenerator(RONet &net, const std::string &file)
+RORandomTripGenerator::RORandomTripGenerator(RONet &net,
+                                             const std::string &file)
     : ROTypedRoutesLoader(net),
     myIDSupplier("Rand")
 {
@@ -137,7 +141,7 @@ RORandomTripGenerator::readNextRoute(long start)
 bool
 RORandomTripGenerator::myInit(OptionsCont &options)
 {
-    myWishedPerSecond = options.getFloat("random_per_second");
+    myWishedPerSecond = options.getFloat("random-per-second");
     myCurrentProgress = myWishedPerSecond / 2.0;
     if(myWishedPerSecond<0) {
         SErrorHandler::add(

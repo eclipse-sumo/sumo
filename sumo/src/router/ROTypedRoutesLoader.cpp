@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/05/20 09:48:35  dkrajzew
+// debugging
+//
 // Revision 1.5  2003/04/09 15:39:11  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
@@ -80,7 +83,6 @@ ROTypedRoutesLoader::skipPreviousRoutes(long start)
     }
     while(!_ended&&ok&&_currentTimeStep<start) {
         ok = readNextRoute(start);
-        cout << "Skipping.";
     }
     if(_options->getBool("v")) {
         cout << "Skipped until: " << _currentTimeStep << endl;

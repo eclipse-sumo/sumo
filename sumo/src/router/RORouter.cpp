@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/05/20 09:48:35  dkrajzew
+// debugging
+//
 // Revision 1.6  2003/04/09 15:39:11  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
@@ -44,9 +47,12 @@ namespace
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
+
 #include <string>
 #include <deque>
 #include <algorithm>
+#include <utils/common/SErrorHandler.h>
 #include "RONet.h"
 #include "RORouter.h"
 #include "ROEdge.h"
@@ -136,6 +142,10 @@ RORouter::dijkstraCompute(ROEdge *from, ROEdge *to, long time) {
             return buildPathFrom(to);
 		}
 	}
+	cout << endl;
+    SErrorHandler::add(
+        string("No connection between '") + from->getID()
+        + string("' and '") + to->getID() + string("' found."));
     return buildPathFrom(to);
 }
 

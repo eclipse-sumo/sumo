@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/05/20 09:48:35  dkrajzew
+// debugging
+//
 // Revision 1.8  2003/04/09 15:39:11  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
@@ -51,6 +54,7 @@ namespace
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <iomanip>
 #include <parsers/SAXParser.hpp>
 #include <util/PlatformUtils.hpp>
 #include <util/TransService.hpp>
@@ -180,13 +184,24 @@ ROLoader::processRoutesStepWise(long start, long end,
                                 std::ofstream &altres,
                                 RONet &net)
 {
+	long absNo = end - start;
     // skip routes that begin before the simulation's begin
     skipPreviousRoutes(start);
     // loop till the end
     bool endReached = false;
-    for(long time=getMinTimeStep(); (!endReached||net.furtherStored())&&time<end; time++) {
+    long time=getMinTimeStep();
+    long firstStep = time;
+    long lastStep = time;
+//    cout << firstStep << ", " << lastStep << ", " << time << ", " << absNo << endl;
+    for(; (!endReached||net.furtherStored())&&time<end; time++) {
         if(_options.getBool("v")) {
-            cout << "Reading time step: " << time << endl;
+			double perc =
+				(double) (time-start) / (double) absNo;
+			cout.setf ( ios::fixed , ios::floatfield ) ; // use decimal format
+			cout.setf ( ios::showpoint ) ; // print decimal point
+            cout << "Reading time step: " << time
+				<< "  (" << (time-start) << "/" <<  absNo
+				<< " = " << setprecision( 2 ) << perc * 100 << "% done)       " << (char) 13;
         }
         endReached = true;
         RouteLoaderCont::iterator i;
@@ -201,12 +216,24 @@ ROLoader::processRoutesStepWise(long start, long end,
         }
         // check whether further data exist
         endReached = true;
+        lastStep = time;
         for(i=_handler.begin(); endReached&&i!=_handler.end(); i++) {
             if(!(*i)->ended()) {
                 endReached = false;
             }
         }
     }
+    time = end;
+    double perc =
+        (double) (time-start) / (double) absNo;
+    cout.setf ( ios::fixed , ios::floatfield ) ; // use decimal format
+    cout.setf ( ios::showpoint ) ; // print decimal point
+    cout << "Reading time step: " << time
+        << "  (" << (time-start) << "/" <<  absNo
+        << " = " << setprecision( 2 ) << perc * 100 << "% done)       " << endl;
+
+    cout << "Routes found between time steps " << firstStep
+        << " and " << lastStep << "." << endl;
 }
 
 long

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/05/20 09:48:35  dkrajzew
+// debugging
+//
 // Revision 1.5  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -38,6 +41,7 @@ namespace
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <vector>
 #include <cmath>
@@ -186,7 +190,7 @@ RORouteAlternativesDef::addAlternative(RORoute *current, long begin)
         }
     }
     // find the route to use
-    double chosen = ( (double)rand() / (double)(RAND_MAX+1) * _alternatives.size());
+    double chosen = ( (double)rand() / (double)(RAND_MAX) * _alternatives.size());
     size_t pos = 0;
     for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++, pos++) {
         chosen = chosen - (*i)->getPropability();

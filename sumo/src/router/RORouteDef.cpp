@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/05/20 09:48:35  dkrajzew
+// debugging
+//
 // Revision 1.5  2003/03/20 16:39:17  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -79,6 +82,7 @@ RORouteDef::computeAndSave(OptionsCont &options,
     RORoute *current = buildCurrentRoute(router, begin);
     if(current->size()<2) {
         if(!options.getBool("suppress-short-trip-warnings")) {
+			cout << endl;
             SErrorHandler::add(
                 string("The route '") + _id
                 + string("' is too short, propably ending at the starting edge."));
