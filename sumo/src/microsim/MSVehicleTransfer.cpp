@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/12/12 12:37:42  dkrajzew
+// proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
+//
 // Revision 1.6  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -57,10 +60,8 @@ MSVehicleTransfer *MSVehicleTransfer::myInstance = 0;
  * member method definitions
  * ======================================================================= */
 void
-MSVehicleTransfer::addVeh(MSLane &from)
+MSVehicleTransfer::addVeh(MSVehicle *veh)
 {
-    // remove the vehicle from the lane
-    MSVehicle *veh = from.removeFirstVehicle(*this);
     // get the current edge of the vehicle
     MSEdge *e = MSEdge::dictionary(veh->getEdge()->id());
     MsgHandler::getWarningInstance()->inform(
@@ -69,7 +70,6 @@ MSVehicleTransfer::addVeh(MSLane &from)
     // let the vehicle be on the one
     if(veh->proceedVirtualReturnIfEnded(*this, MSEdge::dictionary(veh->succEdge(1)->id()))) {
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
-//        removeVehicle(veh->id());
         return;
     }
     // mark the next one
@@ -113,7 +113,6 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
                         + string("' ends teleporting on end edge '") + e->id()
                         + string("'."));
                     MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
-//                    removeVehicle(desc.myVeh->id());
                     i = myVehicles.erase(i);
                     continue;
                 }
@@ -128,13 +127,6 @@ MSVehicleTransfer::checkEmissions(MSNet::Time time)
     }
 }
 
-/*
-void
-MSVehicleTransfer::removeVehicle(const std::string &id)
-{
-    MSVehicle::remove(id);
-}
-*/
 
 MSVehicleTransfer *
 MSVehicleTransfer::getInstance()

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2003/12/12 12:36:00  dkrajzew
+// proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
+//
 // Revision 1.23  2003/12/11 06:24:55  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -105,6 +108,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSVehicleTransfer.h>
 #include <microsim/MSNet.h>
 #include "GUILane.h"
 #include "GUIVehicle.h"
@@ -198,19 +202,24 @@ GUILane::push( MSVehicle* veh )
 	    DEBUG_OUT << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
     }
 #endif
+    MSVehicle *last = myVehicles.size()!=0
+        ? myVehicles.front()
+        : 0;
 
     // Insert vehicle only if it's destination isn't reached.
-    if( myVehBuffer != 0 ) {
+    //  and it does not collide with previous
+    if( myVehBuffer != 0 || (last!=0 && last->pos() < veh->pos()) ) {
         MsgHandler::getWarningInstance()->inform(
             string("Vehicle '") + veh->id()
-            + string("' removed due to a collision on push!\n")
+            + string("' beamed due to a collision on push!\n")
             + string("  Lane: '") + id() + string("', previous vehicle: '")
             + myVehBuffer->id() + string("', time: ")
             + toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())
             + string("."));
         veh->onTripEnd(*this);
         veh->removeApproachingInformationOnKill(this);
-        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
+        MSVehicleTransfer::getInstance()->addVeh(veh);
+//        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         // maybe the vehicle is being tracked; mark as not within the simulation any longer
         _lock.unlock();//Display();
         return true;
@@ -218,7 +227,7 @@ GUILane::push( MSVehicle* veh )
     // check whether the vehicle has ended his route
     if ( ! veh->destReached( myEdge ) ) { // adjusts vehicles routeIterator
         myVehBuffer = veh;
-        veh->enterLaneAtMove( this );
+        veh->enterLaneAtMove( this, veh->speed() * MSNet::deltaT() - veh->pos() );
         double pspeed = veh->speed();
         double oldPos = veh->pos() - veh->speed() * MSNet::deltaT();
         veh->workOnMoveReminders( oldPos, veh->pos(), pspeed );

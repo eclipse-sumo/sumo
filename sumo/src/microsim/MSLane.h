@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.20  2003/12/12 12:37:42  dkrajzew
+// proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
+//
 // Revision 1.19  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -494,8 +497,7 @@ public:
     virtual GUILaneWrapper *buildLaneWrapper(
             GUIGlObjectStorage &idStorage, bool allowAggregation);
 
-    MSVehicle *
-        removeFirstVehicle(const MSVehicleTransfer &rightsCheck);
+    MSVehicle *removeFirstVehicle();
 
 
 protected:

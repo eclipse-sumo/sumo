@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/12/12 12:37:42  dkrajzew
+// proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
+//
 // Revision 1.4  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -62,9 +65,8 @@ public:
     // Default constructor
     MSVehicleTransfer();
 
-    /** @brief Adds a vehicle to this transfer object
-        The vehicle is removed from the lane, assuming it is the first one */
-    void addVeh(MSLane &firstFrom);
+    /** @brief Adds a vehicle to this transfer object */
+    void addVeh(MSVehicle *veh);
 
     /** @brief Checks whether one of the stored vehicles may be inserted back into the network
         Otherwise, the vehicle may ove virtually to the next lane of it's route */
@@ -78,10 +80,6 @@ public:
 
     /// destructor
     virtual ~MSVehicleTransfer();
-
-protected:
-    /// Kills a vehicle from the network
-    void removeVehicle(const std::string &id);
 
 private:
     /**

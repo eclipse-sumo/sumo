@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.45  2003/12/12 12:37:42  dkrajzew
+// proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
+//
 // Revision 1.44  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -928,6 +931,7 @@ MSVehicle::move( MSLane* lane,
                  const MSVehicle* pred,
                  const MSVehicle* neigh )
 {
+    myTarget = 0;
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
         DEBUG_OUT << "movea/1:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
@@ -1059,11 +1063,15 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
 void
 MSVehicle::moveFirstChecked()
 {
+    myTarget = 0;
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2) ) {
 	    int textdummy = 0;
     }
 #endif
+    if(MSNet::globaltime==52961&&myID=="8119") {
+        int bla = 0;
+    }
     // get vsafe
     double vSafe = 0;
     assert(myLFLinkLanes.size()!=0);
@@ -1088,8 +1096,8 @@ MSVehicle::moveFirstChecked()
                         vSafe = /*MIN(v_safe,*/ (*i).myVLinkPass;//);
                     } else {
                         vSafe = (*i).myVLinkWait;
+                        cont = false;
                     }
-                    cont = false;
 			    }
 		    }
         } else {
@@ -1120,59 +1128,89 @@ MSVehicle::moveFirstChecked()
 
     // update position
     myState.myPos += vNext * MSNet::deltaT();
+    // update speed
+    myState.mySpeed = vNext;
     MSLane *approachedLane = myLane;
 
+    // move the vehicle forward
+    if(myID=="3"&&MSNet::globaltime==50425) {
+        int bla = 0;
+    }
     size_t no = 0;
+    double driven = approachedLane->length() - pos;
     for(i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()&&myState.myPos>approachedLane->length(); i++) {
         if(approachedLane!=myLane) {
-            leaveLaneAtMove();
+            leaveLaneAtMove(driven);
         }
         MSLinkCont::const_iterator &link = (*i).myLink;
         // check whether the vehicle was allowed to enter lane
         //  otherwise it is decelareted and we do not need to test for it's
         //  approach on the following lanes when a lane changing is performed
-//        bool approachAllowed = false;
-//        bool approachInformationReached = false;
         assert(approachedLane!=0);
 		myState.myPos -= approachedLane->length();
-//        myTargetVia = (*link)->myJunctionInlane;
         assert(myState.myPos>0);
 //		assert(myState.myPos<myTarget->length());
-/*		// we assume there is only one lane the vehicle can pass in
-		//  a single step (otherise it would brake in vSafeCriticalCont)
-		//  so the approached lane was found
-		approachInformationReached = true;
-		approachAllowed = true;
-        // when we did not reach the approached lane yet, we have to
-        //  search it, as the vehicle must register itself as the approaching one
-        if(!approachInformationReached&&!onLinkEnd) {
-	    	if((*link)->opened()) {
-		    	approachAllowed = true;
-    		}
-        }
-        // set information for lane changing (approaching vehicle)
-        if(!onLinkEnd&&approachAllowed&&approachedLane!=0&&myApproachedLane!=myTarget) {
-            myApproachedLane->setApproaching(myTarget->length() - myState.pos(), this);
-        }*/
         if(approachedLane!=myLane) {
-            enterLaneAtMove(approachedLane);
+            enterLaneAtMove(approachedLane, driven);
+            driven += approachedLane->length();
         }
-
+        // proceed to the next lane
         if(!approachedLane->isLinkEnd(link)) {
             approachedLane = (*link)->getViaLane();
             if(approachedLane==0) {
                 approachedLane = (*link)->getLane();
             }
         }
+        // set information about approaching
         approachedLane->setApproaching(myState.pos(), this);
         no++;
     }
+    // set approaching information for consecutive lanes the vehicle may reach in the
+    //  next steps
+    double tmpV = myState.mySpeed;
+    MSLane *tmpApproached = approachedLane;
+    double dist = this->brakeGap(tmpV);
+    double tmpPos = myState.myPos;
+    for(; dist>0&&tmpApproached->length()<dist+tmpPos&&i!=myLFLinkLanes.end(); i++) {
+        MSLinkCont::const_iterator &link = (*i).myLink;
+        tmpPos -= approachedLane->length();
+        dist -= approachedLane->length();
+        if(!tmpApproached->isLinkEnd(link)) {
+            tmpApproached = (*link)->getViaLane();
+            if(tmpApproached==0) {
+                tmpApproached = (*link)->getLane();
+            }
+        }
+        approachedLane->setApproaching(tmpPos, this);
+    }
+    // needed as the lane changer maybe looks back
+    MSLane *nextLane = myTarget==0 ? myLane : myTarget;
+    double distToEnd = nextLane->length() - myState.myPos;
+    if(distToEnd<MSVehicleType::maxLength()) {
+    	MSLinkCont::iterator link =
+	    	nextLane->succLinkSec( *this, 1, *nextLane );
+        if(!nextLane->isLinkEnd(link)) {
+        	nextLane = (*link)->getViaLane();
+            if(nextLane==0) {
+                nextLane = (*link)->getLane();
+            }
+            nextLane->setApproaching(-distToEnd, this);
+        }
+
+    }
+
+
+    // enter lane herein if no push occures (otherwise, do it there)
     if(no==0) {
         workOnMoveReminders( pos, pos + vNext * MSNet::deltaT(), vNext );
     }
     myTarget = approachedLane;
-    // update speed
-    myState.mySpeed = vNext;
+
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
+        DEBUG_OUT << "moveb/1:" << MSNet::globaltime << ": " << id() << " at " << getLane().id() << ": " << myState.myPos << ", " << myState.mySpeed << endl;
+    }
+#endif
 }
 
 
@@ -1672,7 +1710,6 @@ MSVehicle::updateMeanData( double entryTimestep,
 
         md->entryContTimestep  = entryTimestep;
         md->entryDiscreteTimestep = discreteTimestep;
-//         md->entryPos       = pos;
         md->speedSum       = speed;
         md->speedSquareSum = speedSquare;
         if ( pos == 0 ) {
@@ -1685,17 +1722,12 @@ MSVehicle::updateMeanData( double entryTimestep,
         }
         md->enteredLaneWithinIntervall = true;
     }
-//     if (myLane->id() == string("1_0") &&
-//         MSNet::getInstance()->timestep() <= 59 ){
-//         cout << "MSVehicle::updateMeanData speed " << speed << " at "
-//              << MSNet::getInstance()->timestep() << " veh " << myID << endl;
-//     }
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSVehicle::enterLaneAtMove( MSLane* enteredLane )
+MSVehicle::enterLaneAtMove( MSLane* enteredLane, double driven )
 {
     // save the old work reminders, patching the position information
     // add the information about the new offset to the old lane reminders
@@ -1715,8 +1747,9 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane )
     myTarget = enteredLane;
     // and update the mean data
     double entryTimestep =
-        static_cast< double >( MSNet::getInstance()->timestep() ) -
-        myState.myPos / myState.mySpeed;
+        static_cast< double >( MSNet::getInstance()->timestep() ) - 1 +
+        driven / myState.mySpeed;
+    assert(entryTimestep<MSNet::globaltime);
     updateMeanData( entryTimestep, 0, myState.mySpeed );
     // get new move reminder
     myMoveReminders = enteredLane->getMoveReminders();
@@ -1765,11 +1798,11 @@ MSVehicle::enterLaneAtEmit( MSLane* enteredLane )
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSVehicle::leaveLaneAtMove( void )
+MSVehicle::leaveLaneAtMove( double driven )
 {
     double leaveTimestep =
         static_cast< double >( MSNet::getInstance()->timestep() ) - 1 +
-        ( MSNet::deltaT() - myState.myPos / myState.mySpeed );
+        ( driven / myState.mySpeed );
 
     for ( unsigned index = 0; index < myMeanData.size(); ++index ) {
 

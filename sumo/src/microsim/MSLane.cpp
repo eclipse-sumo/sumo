@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.41  2003/12/12 12:37:42  dkrajzew
+// proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
+//
 // Revision 1.40  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -529,7 +532,7 @@ MSLane::detectCollisions( MSNet::Time timestep ) const
         double gap = ( *pred )->pos() - ( *pred )->length() - ( *veh )->pos();
         if ( gap < 0 ) {
             MsgHandler *handler = 0;
-            if(OptionsSubSys::getOptions().getBool("continue-on-accident")) {
+            if(!OptionsSubSys::getOptions().getBool("quit-on-accident")) {
                 handler = MsgHandler::getWarningInstance();
             } else {
                 handler = MsgHandler::getErrorInstance();
@@ -541,8 +544,10 @@ MSLane::detectCollisions( MSNet::Time timestep ) const
                 + string(" during timestep ") + toString<int>(timestep));
             DEBUG_OUT << ( *veh )->id() << ":" << ( *veh )->pos() << ", " << ( *veh )->speed() << endl;
             DEBUG_OUT << ( *pred )->id() << ":" << ( *pred )->pos() << ", " << ( *pred )->speed() << endl;
-            if(!OptionsSubSys::getOptions().getBool("continue-on-accident")) {
+            if(OptionsSubSys::getOptions().getBool("quit-on-accident")) {
                 throw ProcessError();
+            } else {
+                throw 1;
             }
         }
     }
@@ -826,7 +831,9 @@ MSLane::setCritical()
     }
     if(myVehicles.size()>0) {
         if((*(myVehicles.end()-1))->getWaitingTime()>MSGlobals::myTimeToGridlock) {
-            MSVehicleTransfer::getInstance()->addVeh(*this);
+            MSVehicleTransfer *vt = MSVehicleTransfer::getInstance();
+            MSVehicle *veh = removeFirstVehicle();
+            vt->addVeh(veh);
         }
     }
 
@@ -882,25 +889,31 @@ MSLane::push(MSVehicle* veh)
 	    DEBUG_OUT << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
     }
 #endif
+    MSVehicle *last = myVehicles.size()!=0
+        ? myVehicles.front()
+        : 0;
 
     // Insert vehicle only if it's destination isn't reached.
-    if( myVehBuffer != 0 ) {
+    //  and it does not collide with previous
+    if( myVehBuffer != 0 || (last!=0 && last->pos() < veh->pos()) ) {
         veh->onTripEnd(*this);
         MsgHandler::getWarningInstance()->inform(
             string("Vehicle '") + veh->id()
-            + string("' removed due to a collision on push!\n")
+            + string("' beamed due to a collision on push!\n")
             + string("  Lane: '") + id() + string("', previous vehicle: '")
             + myVehBuffer->id() + string("', time: ")
             + toString<MSNet::Time>(MSNet::getInstance()->getCurrentTimeStep())
             + string("."));
+        veh->onTripEnd(*this);
         veh->removeApproachingInformationOnKill(this);
-        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
+        MSVehicleTransfer::getInstance()->addVeh(veh);
+//        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return true;
     }
     // check whether the vehicle has ended his route
     if ( ! veh->destReached( myEdge ) ) { // adjusts vehicles routeIterator
         myVehBuffer = veh;
-        veh->enterLaneAtMove( this );
+        veh->enterLaneAtMove( this, veh->speed() * MSNet::deltaT() - veh->pos() );
         double pspeed = veh->speed();
         double oldPos = veh->pos() - veh->speed() * MSNet::deltaT();
         veh->workOnMoveReminders( oldPos, veh->pos(), pspeed );
@@ -923,7 +936,7 @@ MSLane::pop()
     assert( ! myVehicles.empty() );
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     MSVehicle* first = myVehicles.back( );
-    first->leaveLaneAtMove();
+    first->leaveLaneAtMove( first->speed() * MSNet::deltaT() - first->pos() );
     myVehicles.pop_back();
     myUseDefinition->noVehicles--;
     assert(myVehicles.size()==myUseDefinition->noVehicles);
@@ -1115,6 +1128,7 @@ MSLane::addVehicleData( double contTimesteps,
         assert( hasLeftLane );
     }
 
+    assert(contTimesteps>=0);
     md.nVehContributed      += 1;
     md.nVehLeftLane         += hasLeftLane;
     md.nVehEnteredLane      += hasEnteredLane;
@@ -1275,6 +1289,7 @@ operator<<( ostream& os, const MSLane::MeanData& obj )
                 meanSpeedSquare = -1;
                 meanDensity = 0;
             }
+            assert(meanSpeed!=0);
             traveltime  = lane.myLength / meanSpeed;
         }
     }
@@ -1286,7 +1301,9 @@ operator<<( ostream& os, const MSLane::MeanData& obj )
         meanDensity = 0;
 
     }
-
+    if(obj.myObj.myID=="220_0") {
+        int bla = 0;
+    }
     os << "      <lane id=\""      << obj.myObj.myID
        << "\" traveltime=\""  << traveltime
        << "\" speed=\""       << meanSpeed
@@ -1477,7 +1494,7 @@ MSLane::getVehicleNumber() const
 
 
 MSVehicle *
-MSLane::removeFirstVehicle(const MSVehicleTransfer &rightsCheck)
+MSLane::removeFirstVehicle()
 {
     MSVehicle *veh = *(myVehicles.end()-1);
     veh->leaveLaneAtLaneChange();

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.30  2003/12/12 12:37:42  dkrajzew
+// proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
+//
 // Revision 1.29  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -626,7 +629,7 @@ public:
 
     /** Update of members if vehicle enters a new lane in the move step.
         @param Pointer to the entered Lane. */
-    void enterLaneAtMove( MSLane* enteredLane );
+    void enterLaneAtMove( MSLane* enteredLane, double driven );
 
     /** Update of members if vehicle enters a new lane in the emit step.
         @param Pointer to the entered Lane. */
@@ -637,7 +640,7 @@ public:
     void enterLaneAtLaneChange( MSLane* enteredLane );
 
     /** Update of members if vehicle leaves a new lane in the move step. */
-    void leaveLaneAtMove( void );
+    void leaveLaneAtMove( double driven );
 
     /** Update of members if vehicle leaves a new lane in the
         laneChange step. */
