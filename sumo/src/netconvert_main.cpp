@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2004/02/06 08:54:28  dkrajzew
+// _INC_MALLOC definition removed (does not work on MSVC7.0)
+//
 // Revision 1.21  2004/01/12 15:43:04  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -164,7 +167,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+//   #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #ifdef WIN32
    #include <utils/dev/MemDiff.h>
    #include <crtdbg.h>

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2004/02/06 08:54:28  dkrajzew
+// _INC_MALLOC definition removed (does not work on MSVC7.0)
+//
 // Revision 1.10  2003/12/04 12:51:26  dkrajzew
 // documentation added; possibility to use actuated and agentbased junctions added; usage of street types patched
 //
@@ -79,7 +82,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+//   #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #ifdef WIN32
    #include <utils/dev/MemDiff.h>
 #endif
