@@ -37,10 +37,9 @@
 
 template<
     class ObservedType
-    , bool observableIsPassed
     , class ObservedQuantity
     >
-class MSObserver
+class MSObserverPassesObserved
 {
 public:
     typedef ObservedType Observed;
@@ -67,11 +66,7 @@ template<
     class ObservedType
     , class ObservedQuantity
     >
-class MSObserver<
-    ObservedType
-    , false
-    , ObservedQuantity
-    >
+class MSObserver
 {
 public:
     // Return bool (instead of void) to please MSVC++

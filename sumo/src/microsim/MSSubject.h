@@ -90,18 +90,16 @@ class EmptyType{};
 
 template<
     class ObservedType
-    , bool passesObserved
     , class ObservedQuantity = EmptyType
     >
-class MSSubject
+class MSSubjectPassesObserved
 {
 public:
     typedef ObservedType Observed;
     typedef typename Loki::TypeTraits< Observed >::ParameterType ParameterType;
     
-    typedef MSObserver<
+    typedef MSObserverPassesObserved<
         Observed
-        , passesObserved
         , ObservedQuantity
         > Observer;
     
@@ -151,23 +149,18 @@ private:
 };
 
 
-// specialization for passesObserved == false
+
 template<
     class ObservedType
-    , class ObservedQuantity
+    , class ObservedQuantity = EmptyType
     >
-class MSSubject<
-    ObservedType
-    , false
-    , ObservedQuantity
-    >
+class MSSubject
 {
 public:
     typedef ObservedType Observed;
     
     typedef MSObserver<
         Observed
-        , false
         , ObservedQuantity
         > Observer;
     
