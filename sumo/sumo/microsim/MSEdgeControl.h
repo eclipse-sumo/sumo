@@ -21,8 +21,12 @@
 #define MSEdgeControl_H
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/24 13:06:47  croessel
+// Changed signature of void detectCollisions() to void detectCollisions(
+// MSNet::Time )
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.2  2002/03/20 11:11:09  croessel
 // Splitted friend from class-declaration.
@@ -75,8 +79,8 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include "MSNet.h"
 
-class MSNet;
 class MSEdge;
 
 
@@ -123,7 +127,7 @@ public:
 
     /** Detect collisions. Shouldn't be necessary if
         model-implementation is correct. */
-    void detectCollisions();
+    void detectCollisions( MSNet::Time timestep );
 
     /// loads persons waiting for a vehicle into this if it is on the same 
     /// edge as the persons

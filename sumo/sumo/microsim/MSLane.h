@@ -21,6 +21,10 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2002/04/24 13:06:47  croessel
+// Changed signature of void detectCollisions() to void detectCollisions(
+// MSNet::Time )
+//
 // Revision 1.4  2002/04/11 15:25:56  croessel
 // Changed float to double.
 //
@@ -133,6 +137,7 @@
 #include <string>
 #include <iostream>
 #include "MSVehicle.h"
+#include "MSNet.h"
 
 class MSModel;
 class MSLaneChanger;
@@ -235,7 +240,7 @@ public:
                           MSEdge::LaneCont::const_iterator lastNeighLane );
 
     /// Check if vehicles are too close.
-    void detectCollisions() const;
+    void detectCollisions( MSNet::Time timestep ) const;
 
     /// Emit vehicle into lane if possible.
     bool emit( MSVehicle& newVeh );

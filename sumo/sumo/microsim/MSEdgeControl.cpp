@@ -24,8 +24,12 @@ namespace
 }
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/24 13:06:47  croessel
+// Changed signature of void detectCollisions() to void detectCollisions(
+// MSNet::Time )
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.1  2002/03/13 16:56:34  croessel
 // Changed the simpleOutput to XMLOutput by introducing nested classes
@@ -145,17 +149,17 @@ MSEdgeControl::changeLanes()
 
 
 void
-MSEdgeControl::detectCollisions()
+MSEdgeControl::detectCollisions( MSNet::Time timestep )
 {
     EdgeCont::iterator edge;
     // Detections is made by the edge's lanes, therefore hand over. 
     for (edge = mySingleLaneEdges->begin();
          edge != mySingleLaneEdges->end(); ++edge) {
-        (*edge)->detectCollisions();
+        (*edge)->detectCollisions( timestep );
     }
     for (edge = myMultiLaneEdges->begin();
          edge != myMultiLaneEdges->end(); ++edge) {
-        (*edge)->detectCollisions();
+        (*edge)->detectCollisions( timestep );
     }
 }
 

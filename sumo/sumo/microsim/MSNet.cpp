@@ -25,6 +25,10 @@ namespace
 } 
 
 // $Log$
+// Revision 1.7  2002/04/24 13:06:47  croessel
+// Changed signature of void detectCollisions() to void detectCollisions(
+// MSNet::Time )
+//
 // Revision 1.6  2002/04/17 10:44:13  croessel
 // (Windows) Carriage returns removed.
 // 
@@ -216,7 +220,7 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
 
         // emit Vehicles
         myEmitter->emitVehicles(myStep);
-        myEdges->detectCollisions();
+        myEdges->detectCollisions( myStep );
           
         // execute Events
         myEvents->execute(myStep);
@@ -229,7 +233,7 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
         // move Vehicles
         myEdges->moveExceptFirst();
         myJunctions->moveFirstVehicles();
-        myEdges->detectCollisions();
+        myEdges->detectCollisions( myStep );
 
         // Let's detect.
         for( DetectorCont::iterator detec = myDetectors->begin();
@@ -240,7 +244,7 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
 
         // Vehicles change Lanes (maybe)
         myEdges->changeLanes();
-        myEdges->detectCollisions();
+        myEdges->detectCollisions( myStep );
 
         // simple output.     
         if ( craw ) { 

@@ -23,8 +23,12 @@ namespace
 }
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/24 13:06:47  croessel
+// Changed signature of void detectCollisions() to void detectCollisions(
+// MSNet::Time )
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.3  2002/03/13 16:56:34  croessel
 // Changed the simpleOutput to XMLOutput by introducing nested classes
@@ -163,12 +167,12 @@ MSEdge::moveExceptFirstMulti()
 
 
 void
-MSEdge::detectCollisions()
+MSEdge::detectCollisions( MSNet::Time timestep )
 {
     // Ask lanes about collisions.
     for (LaneCont::iterator lane = myLanes->begin();
          lane != myLanes->end() - 1; ++lane) {
-        (*lane)->detectCollisions();
+        (*lane)->detectCollisions( timestep );
     }
 }
 

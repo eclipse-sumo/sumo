@@ -20,8 +20,12 @@
 #define MSEdge_H
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/24 13:06:47  croessel
+// Changed signature of void detectCollisions() to void detectCollisions(
+// MSNet::Time )
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.3  2002/03/20 11:11:08  croessel
 // Splitted friend from class-declaration.
@@ -146,7 +150,7 @@ public:
 
     /** Ask edge's lanes about collisions. Shouldn't be neccessary if
         model is implemented correctly. */
-    void detectCollisions();
+    void detectCollisions( MSNet::Time timestep );
      
     /** Get the allowed lanes to reach the destination-edge. If there 
         is no such edge, get 0. Then you are on the wrong edge. */

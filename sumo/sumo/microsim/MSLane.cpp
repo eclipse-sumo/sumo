@@ -24,6 +24,10 @@ namespace
 } 
                        
 // $Log$
+// Revision 1.8  2002/04/24 13:06:47  croessel
+// Changed signature of void detectCollisions() to void detectCollisions(
+// MSNet::Time )
+//
 // Revision 1.7  2002/04/18 14:51:11  croessel
 // In setDriveRequests(): set gap to UINT_MAX instead of 0 for vehicles
 // without a predecessor.
@@ -343,7 +347,7 @@ MSLane::moveExceptFirst( MSEdge::LaneCont::const_iterator firstNeighLane,
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSLane::detectCollisions() const
+MSLane::detectCollisions( MSNet::Time timestep ) const
 {
     if ( myVehicles.size() < 2 ) {
         return;
@@ -357,8 +361,8 @@ MSLane::detectCollisions() const
         double gap = ( *pred )->pos() - ( *pred )->length() - ( *veh )->pos();
         if ( gap < 0 ) {
             cerr << "MSLane::detectCollision: Collision of " << ( *veh )->id() 
-                 << " with " << ( *pred )->id() << " on MSLane " << this 
-                 << endl;
+                 << " with " << ( *pred )->id() << " on MSLane " << myID  
+                 << " during timestep " << timestep << endl;
         }
     }
 }
