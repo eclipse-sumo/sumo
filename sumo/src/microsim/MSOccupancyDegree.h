@@ -54,19 +54,20 @@ protected:
         }
     
 private:
-    const VehicleCont& containerM;
     const MSUnit::Meters detectorLengthM;
+    const VehicleCont& containerM;
 };
 
 namespace 
 {    
-    inline double occupancySum( double sumSoFar,
+    inline double occupancySumUp( double sumSoFar,
                                 const MSOccupancyDegree::Vehicle data )
     {
         return sumSoFar + data->length();
     }
 }
 
+inline
 MSOccupancyDegree::DetectorAggregate 
 MSOccupancyDegree::getDetectorAggregate( void )
 {
@@ -76,7 +77,7 @@ MSOccupancyDegree::getDetectorAggregate( void )
     }
     double occupanceDegree =
         ( std::accumulate( containerM.begin(), containerM.end(),
-                           0.0, occupancySum )
+                           0.0, occupancySumUp )
           - containerM.front()->length() * getOccupancyEntryCorrection()
           - containerM.back()->length() *  getOccupancyLeaveCorrection() ) /
         detectorLengthM;
