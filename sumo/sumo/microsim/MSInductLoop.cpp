@@ -24,6 +24,10 @@ namespace
 }
 
 // $Log$
+// Revision 1.8  2002/04/18 13:49:29  croessel
+// Added some static_casts in writeData. Added the output of the number of
+// vehicles that contributed to the sampling.
+//
 // Revision 1.7  2002/04/17 14:50:36  croessel
 // Modified assert in constructor. Added assert in constructor.
 //
@@ -112,10 +116,10 @@ MSInductLoop::MSInductLoop( string         id,
             header << "#   at position " << myPos << endl;
             header << "#   sampleIntervall = " 
                    << mySampleIntervall << " seconds" << endl << endl;
-            header << "# n   endOfInterv avgDensity avgFlow avgSpeed "
-                   << "avgOccup avgLength" << endl;
-            header << "#         [s]      [veh/km]  [veh/h]   [m/s]  "
-                   << "   [s]      [m]" << endl;
+            header << "# n   endOfInterv nVehicles avgDensity avgFlow "
+                   << "avgSpeed avgOccup avgLength" << endl;
+            header << "#         [s]                [veh/km]  [veh/h] "
+                   << " [m/s]     [s]       [m]" << endl;
 
             *myFile << header.str() << endl;
             break;
@@ -220,17 +224,35 @@ MSInductLoop::localDensity( const MSVehicle& veh, double simSec )
 void   
 MSInductLoop::writeData()
 {
+    double avgDensity = 0;
+    double avgFlow    = 0;
+    double avgSpeed   = 0;
+    double avgLength  = 0;
 
-    double avgDensity = myLocalDensitySum / ( myNPassedVeh - 1 ) 
-        * 1000; // [veh/km], first detectect vehicle doesn't contribute.
-    double avgFlow    = myNPassedVeh / mySampleIntervall * 60; // [veh/h]
-    double avgSpeed   = mySpeedSum / myNPassedVeh;  // [m/s]
-    double avgLength  = myVehLengthSum / myNPassedVeh; // [m]
-//    double avgOccup = myOccupancySum / myNPassedVeh;
+    if ( myNPassedVeh > 0 ) {
+
+        if ( myNPassedVeh > 1 ) {
+
+            avgDensity = myLocalDensitySum / 
+                static_cast< double >( myNPassedVeh - 1 ) * 1000.0; 
+                // [veh/km], first detectect vehicle doesn't contribute.
+        }
+
+        avgFlow   = static_cast< double >( myNPassedVeh ) / 
+            static_cast< double >( mySampleIntervall * 60 ); // [veh/h]
+        avgSpeed  = mySpeedSum / 
+            static_cast< double >( myNPassedVeh ); // [m/s]
+        avgLength = myVehLengthSum / 
+            static_cast< double >( myNPassedVeh ); // [m]
+        
+    }
+
+    MSNet::Time endOfInterv = myNIntervalls * mySampleIntervall; // [s]
+
 
     switch ( myStyle ) {
         case GNUPLOT: 
-            writeGnuPlot( myNIntervalls * mySampleIntervall,
+            writeGnuPlot( endOfInterv,
                           avgDensity,
                           avgFlow,
                           avgSpeed,
@@ -238,7 +260,7 @@ MSInductLoop::writeData()
                           avgLength );
             break;
         case CSV:
-            writeCSV( myNIntervalls * mySampleIntervall,
+            writeCSV( endOfInterv,
                       avgDensity,
                       avgFlow,
                       avgSpeed,
@@ -262,6 +284,7 @@ MSInductLoop::writeGnuPlot( MSNet::Time endOfInterv,
 {
     *myFile << setw( 5 ) << setprecision( 0 ) << myNIntervalls << " "
             << setw(11 ) << setprecision( 0 ) << endOfInterv << " "
+            << setw( 9 ) << setprecision( 0 ) << myNPassedVeh << " "
             << setw(10 ) << setprecision( 2 ) << avgDensity << " "
             << setw( 7 ) << setprecision( 1 ) << avgFlow << " "
             << setw( 8 ) << setprecision( 3 ) << avgSpeed << " "
@@ -281,6 +304,7 @@ MSInductLoop::writeCSV( MSNet::Time endOfInterv,
 {
     *myFile << setw( 4 ) << setprecision( 0 ) << myNIntervalls << ";"
             << setw( 6 ) << setprecision( 0 ) << endOfInterv << ";"
+            << setw( 5 ) << setprecision( 0 ) << myNPassedVeh << ";"
             << setw( 6 ) << setprecision( 2 ) << avgDensity << ";"
             << setw( 4 ) << setprecision( 1 ) << avgFlow << ";"
             << setw( 6 ) << setprecision( 3 ) << avgSpeed << ";"
