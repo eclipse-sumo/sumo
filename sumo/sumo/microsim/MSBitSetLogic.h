@@ -16,8 +16,8 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.2  2002/06/18 10:58:56  croessel
-// Moved code from .cpp to .h. Removed .cpp
+// Revision 1.3  2002/06/18 16:39:21  croessel
+// Moved code to cpp and made file cfront-compliant.
 //
 // Revision 1.1.1.1  2002/04/08 07:21:23  traffic
 // new project name
@@ -50,12 +50,15 @@
 #ifndef MSBitSetLogic_H
 #define MSBitSetLogic_H
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 #include <bitset>
 #include <vector>
 #include <cassert>
 #include "MSJunctionLogic.h"
 #include "MSLogicJunction.h"
-
 
 /** N is sum of the number of links of the junction's inLanes.
  */
@@ -108,66 +111,9 @@ private:
 };
 
 
-//-------------------------------------------------------------------------//
-
-template< size_t N >
-MSBitSetLogic< N >::MSBitSetLogic< N >( unsigned int nLinks,
-                                        unsigned int nInLanes,
-                                        Logic* logic,
-                                        Link2LaneTrafo* transform ) :
-    MSJunctionLogic( nLinks, nInLanes ),
-    myLogic( logic ),
-    myTransform( transform )
-{
-}
-
-//-------------------------------------------------------------------------//
-
-template< size_t N >
-MSBitSetLogic< N >::~MSBitSetLogic< N >()
-{
-    ( *myLogic ).clear();
-    ( *myTransform ).clear();
-}
-               
-//-------------------------------------------------------------------------//
-    
-template< size_t N > void 
-MSBitSetLogic< N >::respond( const MSLogicJunction::Request& request,
-                             MSLogicJunction::Respond& respond ) const
-{
-    
-    // convert request to bitset
-    std::bitset< N > requestBS;
-     unsigned int i = 0;   
-    for ( ; i < myNLinks; ++i ) {
-    
-        requestBS.set( i, request[ i ] );
-    } 
-    
-    // calculate respond
-    std::bitset< N > respondBS;    
-    
-    for ( i = 0; i < myNLinks; ++i ) {
-
-        bool linkPermit = requestBS.test( i ) &&
-            ( requestBS & ( *myLogic )[ i ]).none();   
-        respondBS.set( i, linkPermit ); 
-    }
-    
-    // perform the link to lane transformation  
-    assert( respond.size() == myNInLanes );
-    for ( i = 0; i < myNInLanes; ++i ) {
-    
-        bool lanePermit = ( ( *myTransform)[ i ] & respondBS ).any();
-        respond[ i ] = lanePermit;   
-    }
-    
-    return;
-}   
-
-//-------------------------------------------------------------------------//
-
+#ifndef EXTERNAL_TEMPLATE_DEFINITION
+#include "MSBitSetLogic.cpp"
+#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 /** To make things easier we use a fixed size. 64 will be sufficient even for
     pathological junctions. If it will consume to much space, reduce it to 32.
