@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2002/10/17 13:30:01  dkrajzew
+// possibility to specify the type of the junction added
+//
 // Revision 1.1  2002/10/16 15:45:36  dkrajzew
 // initial commit for xml-importing classes
 //
@@ -150,10 +153,18 @@ NBXMLNodesHandler::myStartElement(int element, const std::string &tag,
                 return;
             }
             // insert the node
-            if(!NBNodeCont::insert(id, x, y)) {
+            string type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
+            if(type.length()==0&&!NBNodeCont::insert(id, x, y)) {
                 addError("xml-nodes - file",
                     string("Duplicate node occured. ID='") + id
                     + string("'"));
+            }
+            if(type.length()>0&&!NBNodeCont::insert(id, x, y, type)) {
+                if(NBNodeCont::retrieve(x, y)!=0) {
+                    addError("xml-nodes - file",
+                        string("Duplicate node occured. ID='") + id
+                        + string("'"));
+                } 
             }
         } catch (EmptyData) {
             if(_verbose) {
