@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/08/18 12:49:59  dkrajzew
+// possibility to print node positions added
+//
 // Revision 1.18  2003/08/14 13:51:51  dkrajzew
 // reshifting of networks added
 //
@@ -474,6 +477,21 @@ NBNodeCont::computeNodeShapes()
     }
     return true;
 }
+
+
+void
+NBNodeCont::printNodePositions()
+{
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+        string ni = (*i).second->getID();
+        ni += string(":")
+            + toString<double>((*i).second->getXCoordinate())
+            + string(", ")
+            + toString<double>((*i).second->getYCoordinate());
+        MsgHandler::getMessageInstance()->inform(ni);
+    }
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/08/18 12:49:59  dkrajzew
+// possibility to print node positions added
+//
 // Revision 1.18  2003/08/14 13:51:51  dkrajzew
 // reshifting of networks added
 //
@@ -212,6 +215,8 @@ NBOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("print-options", 'p', new Option_Bool(false));
     oc.doRegister("help", new Option_Bool(false));
     oc.doRegister("log-file", 'l', new Option_FileName());
+    // extended
+    oc.doRegister("print-node-positions", new Option_Bool(false));
     // register the data processing options
     oc.doRegister("recompute-junction-logics", new Option_Bool(false));
     oc.doRegister("omit-corrupt-edges", new Option_Bool(false));

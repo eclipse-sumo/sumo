@@ -69,6 +69,8 @@ protected:
 
     bool reshiftRotateNet(int step, OptionsCont &oc);
 
+    void checkPrint(OptionsCont &oc) ;
+
 };
 
 

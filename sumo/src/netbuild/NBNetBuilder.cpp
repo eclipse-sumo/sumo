@@ -176,10 +176,10 @@ NBNetBuilder::computeTLLogic(int step, OptionsCont &oc)
 bool
 NBNetBuilder::reshiftRotateNet(int step, OptionsCont &oc)
 {
-    inform(-1, "Transposing network");
-    if(!oc.isDefault("x-offset-to-apply")) {
+    if(oc.isDefault("x-offset-to-apply")) {
         return true;
     }
+    inform(-1, "Transposing network");
     double xoff = oc.getFloat("x-offset-to-apply");
     double yoff = oc.getFloat("y-offset-to-apply");
     double rot = oc.getFloat("rotation-to-apply");
@@ -200,6 +200,7 @@ NBNetBuilder::compute(OptionsCont &oc)
     bool ok = true;
     int step = 1;
 //    if(ok) ok = setInit(step++);
+    //
     if(ok) ok = removeDummyEdges(step++);
     if(ok) ok = joinEdges(step++);
     if(ok) ok = computeTurningDirections(step++);
@@ -219,7 +220,19 @@ NBNetBuilder::compute(OptionsCont &oc)
 
     NBNode::reportBuild();
     NBRequest::reportWarnings();
-    if(!ok) throw ProcessError();
+    checkPrint(oc);
+    if(!ok) {
+        throw ProcessError();
+    }
+}
+
+
+void
+NBNetBuilder::checkPrint(OptionsCont &oc)
+{
+    if(oc.getBool("print-node-positions")) {
+        NBNodeCont::printNodePositions();
+    }
 }
 
 

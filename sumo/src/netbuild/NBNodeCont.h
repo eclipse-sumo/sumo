@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2003/08/18 12:49:59  dkrajzew
+// possibility to print node positions added
+//
 // Revision 1.15  2003/08/14 13:51:51  dkrajzew
 // reshifting of networks added
 //
@@ -203,6 +206,8 @@ public:
     static Position2D getNetworkOffset();
 
     static bool computeNodeShapes();
+
+    static void printNodePositions();
 
 
 private:
