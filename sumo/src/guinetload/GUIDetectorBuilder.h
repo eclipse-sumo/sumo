@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2004/04/02 11:14:36  dkrajzew
+// extended traffic lights are no longer template classes
+//
 // Revision 1.4  2004/03/19 12:56:48  dkrajzew
 // porting to FOX
 //
@@ -87,9 +90,6 @@ protected:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIDetectorBuilder.icc"
-//#endif
 
 #endif
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/04/02 11:14:36  dkrajzew
+// extended traffic lights are no longer template classes
+//
 // Revision 1.6  2004/01/26 06:49:06  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics
 //
@@ -31,7 +34,6 @@
 //
 // Revision 1.3  2003/02/07 10:38:19  dkrajzew
 // updated
-//
 //
 /* =========================================================================
  * included modules
@@ -77,8 +79,8 @@ public:
     ~GUIContainer();
 
     /// builds a GUI-net after the reading of all artifacts
-    GUINet *buildGUINet(/*MSNet::TimeVector dumpMeanDataIntervalls,
-        std::string baseNameDumpFiles, */const OptionsCont &options);
+    GUINet *buildGUINet(NLDetectorBuilder &db,
+        const OptionsCont &options);
 
     /// adds information about the source and the destination junction
     void addSrcDestInfo(const std::string &id, const std::string &from,
@@ -119,9 +121,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIContainer.icc"
-//#endif
 
 #endif
 

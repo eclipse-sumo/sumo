@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2004/04/02 11:14:36  dkrajzew
+// extended traffic lights are no longer template classes
+//
 // Revision 1.16  2004/03/19 12:56:48  dkrajzew
 // porting to FOX
 //
@@ -65,7 +68,6 @@ namespace
 // Revision 1.3  2003/02/07 10:38:19  dkrajzew
 // updated
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -89,6 +91,7 @@ namespace
 #include "GUIContainer.h"
 #include "GUIDetectorBuilder.h"
 #include "GUINetBuilder.h"
+#include <guisim/GUIVehicleControl.h>
 
 
 /* =========================================================================
@@ -128,15 +131,19 @@ GUINetBuilder::buildNet()
     // preinit network
     GUINet::preInitGUINet(
         m_pOptions.getInt("b"),
+        new GUIVehicleControl(),
         m_pOptions.getUIntVector("dump-intervals"),
         m_pOptions.getString("dump-basename"));
 
+    // we need a specialised detector builder
+    GUIDetectorBuilder db;
     // initialise loading buffer ...
     GUIContainer *container = new GUIContainer(
-        new GUIEdgeControlBuilder(),
+        new GUIEdgeControlBuilder(
+            static_cast<GUINet*>(GUINet::getInstance())->getIDStorage()),
         new GUIJunctionControlBuilder());
     // get the matching handler
-    GUINetHandler handler("", *container, new GUIDetectorBuilder(),
+    GUINetHandler handler("", *container, db,
         m_pOptions.getFloat("actuating-detector-pos"),
         m_pOptions.getFloat("agent-detector-len"));
     // ... and the parser
@@ -145,7 +152,7 @@ GUINetBuilder::buildNet()
     bool ok = load(handler, *parser);
     subreport("Loading done.", "Loading failed.");
     if(!MsgHandler::getErrorInstance()->wasInformed()) {
-        net = container->buildGUINet(m_pOptions);
+        net = container->buildGUINet(db, m_pOptions);
     }
     delete parser;
     delete container;
@@ -154,9 +161,6 @@ GUINetBuilder::buildNet()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUINetBuilder.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

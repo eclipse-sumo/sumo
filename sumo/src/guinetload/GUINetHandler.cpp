@@ -24,8 +24,13 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2004/04/02 11:14:36  dkrajzew
+// extended traffic lights are no longer template classes
+//
 // Revision 1.16  2004/01/26 06:49:06  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics
+// work on detectors: e3-detectors loading and visualisation;
+//  variable offsets and lengths for lsa-detectors;
+//  coupling of detectors to tl-logics
 //
 // Revision 1.15  2004/01/12 14:59:51  dkrajzew
 // more wise definition of lane predeccessors implemented
@@ -37,7 +42,8 @@ namespace
 // made the code a little bit more pretty
 //
 // Revision 1.12  2003/12/04 13:25:52  dkrajzew
-// handling of internal links added; documentation added; some dead code removed
+// handling of internal links added; documentation added;
+//  some dead code removed
 //
 // Revision 1.11  2003/11/17 07:13:48  dkrajzew
 // e2-detector over lanes merger added
@@ -58,20 +64,24 @@ namespace
 // changes due to new detector handling
 //
 // Revision 1.5  2003/07/16 15:21:16  dkrajzew
-// conversion tools splitted and relocated to avoid mandatory inclusion of unused files
+// conversion tools splitted and relocated to avoid mandatory inclusion
+//  of unused files
 //
 // Revision 1.4  2003/07/07 08:13:15  dkrajzew
-// first steps towards the usage of a real lane and junction geometry implemented
+// first steps towards the usage of a real lane and junction geometry
+//  implemented
 //
 // Revision 1.3  2003/06/18 11:08:05  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message, warning
+//  or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.2  2003/02/13 15:59:00  dkrajzew
 // unnecessary output of build edges id removed
 //
 // Revision 1.1  2003/02/07 10:38:19  dkrajzew
 // updated
-//
 //
 /* =========================================================================
  * included modules
@@ -115,7 +125,7 @@ using namespace std;
  * ======================================================================= */
 GUINetHandler::GUINetHandler(const std::string &file,
                              NLContainer &container,
-                             NLDetectorBuilder *detBuilder,
+                             NLDetectorBuilder &detBuilder,
                              double stdDetectorPositions,
                              double stdDetectorLengths)
     : NLNetHandler(file, container, detBuilder,
@@ -187,46 +197,6 @@ GUINetHandler::addLaneShape(const std::string &chars)
 {
     Position2DVector shape = GeomConvHelper::parseShape(chars);
     static_cast<GUIContainer&>(myContainer).addLaneShape(shape);
-}
-
-
-void
-GUINetHandler::closeTrafficLightLogic()
-{
-    if(_tlLogicNo!=0) {
-        return;
-    }
-    if(m_Type=="actuated") {
-        MSActuatedTrafficLightLogic<GUIInductLoop, MSLaneState  >
-            *tlLogic =
-            new MSActuatedTrafficLightLogic<GUIInductLoop, MSLaneState > (
-				m_Key, m_ActivePhases, 0, m_Offset);
-        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
-        // !!! replacement within the dictionary
-        m_ActivePhases.clear();
-        myContainer.addTLLogic(tlLogic);
-		myContainer.addJunctionInitInfo(tlLogic,
-            myContainer.getIncomingLanes(), m_DetectorOffset);
-    } else if (m_Type=="agentbased") {
-        MSAgentbasedTrafficLightLogic<GUI_E2_ZS_CollectorOverLanes>
-            *tlLogic =
-            new MSAgentbasedTrafficLightLogic<GUI_E2_ZS_CollectorOverLanes> (
-                    m_Key, m_ActivePhases, 0, m_Offset);
-        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
-        // !!! replacement within the dictionary
-        m_ActivePhases.clear();
-        myContainer.addTLLogic(tlLogic);
-		myContainer.addJunctionInitInfo(tlLogic,
-            myContainer.getIncomingLanes(), m_DetectorOffset);
-	} else {
-        MSTrafficLightLogic *tlLogic =
-            new MSSimpleTrafficLightLogic(
-                m_Key, m_ActivePhases, 0, m_Offset);
-        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
-        // !!! replacement within the dictionary
-        m_ActivePhases.clear();
-        myContainer.addTLLogic(tlLogic);
-    }
 }
 
 

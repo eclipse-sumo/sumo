@@ -23,8 +23,13 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/04/02 11:14:36  dkrajzew
+// extended traffic lights are no longer template classes
+//
 // Revision 1.13  2004/01/26 06:49:06  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics
+// work on detectors: e3-detectors loading and visualisation;
+//  variable offsets and lengths for lsa-detectors;
+//  coupling of detectors to tl-logics
 //
 // Revision 1.12  2004/01/12 14:59:51  dkrajzew
 // more wise definition of lane predeccessors implemented
@@ -33,7 +38,8 @@ namespace
 // changes due to new detector handling
 //
 // Revision 1.10  2003/07/07 08:13:15  dkrajzew
-// first steps towards the usage of a real lane and junction geometry implemented
+// first steps towards the usage of a real lane and junction geometry
+//  implemented
 //
 // Revision 1.9  2003/06/05 11:39:31  dkrajzew
 // class templates applied; documentation added
@@ -55,7 +61,6 @@ namespace
 //
 // Revision 1.3  2003/02/07 10:38:17  dkrajzew
 // updated
-//
 //
 /* =========================================================================
  * included modules
@@ -82,6 +87,7 @@ namespace
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
+#include <sumo_only/SUMOFrame.h>
 #include "GUIContainer.h"
 #include "microsim/MSRouteLoaderControl.h"
 
@@ -108,11 +114,9 @@ GUIContainer::~GUIContainer()
 
 
 GUINet *
-GUIContainer::buildGUINet(/*MSNet::TimeVector dumpMeanDataIntervalls,
-                          std::string baseNameDumpFiles,*/
-                          const OptionsCont &options)
+GUIContainer::buildGUINet(NLDetectorBuilder &db, const OptionsCont &options)
 {
-	closeJunctions();
+	closeJunctions(db);
     MSEdgeControl *edges = 0;
     MSJunctionControl *junctions = 0;
     MSEmitControl *emitters = 0;
@@ -122,7 +126,9 @@ GUIContainer::buildGUINet(/*MSNet::TimeVector dumpMeanDataIntervalls,
         MSJunctionControl *junctions = m_pJCB->build();
         MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
         MSTLLogicControl *tlc = new MSTLLogicControl(getTLLogicVector());
-        GUINet::initGUINet( "", edges, junctions, /*m_pDetectors, */routeLoaders, tlc );
+        std::vector<std::ostream*> streams = SUMOFrame::buildStreams(options);
+        GUINet::initGUINet( "", edges, junctions, routeLoaders, tlc,
+            streams);
         return static_cast<GUINet*>(GUINet::getInstance());
     } catch (ProcessError &e) {
         delete edges;
@@ -188,7 +194,6 @@ void
 GUIContainer::addLaneShape(const Position2DVector &shape)
 {
     myShape = shape;
-//    static_cast<GUIEdgeControlBuilder*>(m_pECB)->addLaneShape(shape);
 }
 
 
@@ -207,9 +212,6 @@ GUIContainer::closeLane()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIContainer.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

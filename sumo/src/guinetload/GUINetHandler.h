@@ -21,8 +21,13 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/04/02 11:14:36  dkrajzew
+// extended traffic lights are no longer template classes
+//
 // Revision 1.7  2004/01/26 06:49:06  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics
+// work on detectors: e3-detectors loading and visualisation;
+//  variable offsets and lengths for lsa-detectors;
+//  coupling of detectors to tl-logics
 //
 // Revision 1.6  2004/01/12 14:44:30  dkrajzew
 // handling of e2-detectors within the gui added
@@ -37,11 +42,13 @@
 // first steps towards the usage of a real lane and junction geometry implemented
 //
 // Revision 1.2  2003/06/18 11:08:05  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message, warning or
+//  an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.1  2003/02/07 10:38:19  dkrajzew
 // updated
-//
 //
 /* =========================================================================
  * included modules
@@ -72,7 +79,7 @@ class GUINetHandler : public NLNetHandler {
 public:
     /// standard constructor
     GUINetHandler(const std::string &file,
-        NLContainer &container, NLDetectorBuilder *detBuilder,
+        NLContainer &container, NLDetectorBuilder &detBuilder,
         double stdDetectorPositions, double stdDetectorlength);
 
     /// standard destructor
@@ -95,9 +102,6 @@ private:
     void addJunctionShape(const std::string &chars);
 
     void addLaneShape(const std::string &chars);
-
-    /// ends the loading of a traffic lights logic
-    void closeTrafficLightLogic();
 
 private:
     /** invalid copy constructor */
