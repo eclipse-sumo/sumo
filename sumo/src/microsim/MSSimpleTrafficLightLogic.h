@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/04/04 07:13:20  dkrajzew
+// Yellow phases must be now explicetely given
+//
 // Revision 1.3  2003/03/03 14:56:25  dkrajzew
 // some debugging; new detector types added; actuated traffic lights added
 //
@@ -123,9 +126,6 @@ public:
 protected:
     /// the list of phases this logic uses
     Phases _phases;
-
-    /// information whether all light are red at the moment
-    bool _allRed;
 
     /// static container for all lights being set to red
     static std::bitset<64> _allClear;

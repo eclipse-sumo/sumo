@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/04/04 07:13:20  dkrajzew
+// Yellow phases must be now explicetely given
+//
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -46,7 +49,7 @@ template< size_t N >
 MSSimpleTrafficLightLogic<N>::MSSimpleTrafficLightLogic<N>(
     const std::string &id, const Phases &phases, size_t step)
     : MSTrafficLightLogic(id), _phases(phases),
-    _allRed(false), _step(step)
+    _step(step)
 {
 }
 
@@ -60,14 +63,10 @@ MSSimpleTrafficLightLogic<N>::~MSSimpleTrafficLightLogic<N>()
 template< size_t N > void
 MSSimpleTrafficLightLogic<N>::applyPhase(MSLogicJunction::Request &request) const
 {
-    if(_allRed) {
-        request = std::bitset<64>(0);
-    } else {
-        assert(_phases.size()>_step);
-        std::bitset<64> allowed = _phases[_step].driveMask;
-        for(size_t i=0; i<request.size(); i++) {
-            request[i] = request[i] & allowed.test(i);
-        }
+    assert(_phases.size()>_step);
+    std::bitset<64> allowed = _phases[_step].driveMask;
+    for(size_t i=0; i<request.size(); i++) {
+        request[i] = request[i] & allowed.test(i);
     }
 }
 
@@ -75,12 +74,8 @@ MSSimpleTrafficLightLogic<N>::applyPhase(MSLogicJunction::Request &request) cons
 template< size_t N > const std::bitset<64> &
 MSSimpleTrafficLightLogic<N>::linkPriorities() const
 {
-    if(_allRed) {
-        return _allClear;
-    } else {
-        assert(_phases.size()>_step);
-        return _phases[_step].breakMask;
-    }
+    assert(_phases.size()>_step);
+    return _phases[_step].breakMask;
 }
 
 
@@ -88,11 +83,6 @@ template< size_t N > size_t
 MSSimpleTrafficLightLogic<N>::nextStep()
 {
     // increment the index to the current phase
-    if(!_allRed) {
-        _allRed = true;
-        return _step;
-    }
-    _allRed = false;
     _step++;
     if(_step==_phases.size()) {
         _step = 0;
@@ -104,9 +94,6 @@ MSSimpleTrafficLightLogic<N>::nextStep()
 template< size_t N > MSNet::Time
 MSSimpleTrafficLightLogic<N>::duration() const
 {
-    if(_allRed) {
-        return 20;
-    }
     assert(_phases.size()>_step);
     return _phases[_step].duration;
 }
