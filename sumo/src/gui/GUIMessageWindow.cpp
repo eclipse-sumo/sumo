@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/04/23 12:35:42  dkrajzew
+// the message window now scrolls to the end if new messages are appended
+//
 // Revision 1.3  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -129,6 +132,9 @@ GUIMessageWindow::appendText(GUIEventType eType, const std::string &msg)
     // insert message to buffer
     std::string mmsg = msg + "\n";
     FXText::appendStyledText(mmsg.c_str(), mmsg.length(), style+1, true);
+    FXText::setCursorPos(getLength()-1);
+    FXText::setBottomLine(getLength()-1);
+    layout();
     update();
 }
 
@@ -138,6 +144,9 @@ GUIMessageWindow::addSeparator()
 {
     std::string msg = "----------------------------------------------------------------------------------------\n";
     FXText::appendStyledText(msg.c_str(), msg.length(), 1, true);
+    FXText::setCursorPos(getLength()-1);
+    FXText::setBottomLine(getLength()-1);
+    layout();
     update();
 }
 

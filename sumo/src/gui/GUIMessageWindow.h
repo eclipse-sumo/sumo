@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/04/23 12:35:42  dkrajzew
+// the message window now scrolls to the end if new messages are appended
+//
 // Revision 1.2  2004/03/19 12:54:08  dkrajzew
 // porting to FOX
 //
@@ -62,7 +65,9 @@ public:
     void appendText(GUIEventType eType, const std::string &msg);
 
 private:
+    /// The text colors used
     FXHiliteStyle* myStyles;
+
 };
 
 
