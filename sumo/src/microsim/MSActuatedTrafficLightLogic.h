@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2003/11/17 07:18:21  dkrajzew
+// e2-detector over lanes merger added
+//
 // Revision 1.13  2003/10/01 13:59:53  dkrajzew
 // logic building completed (Julia Ringel)
 //
@@ -103,7 +106,8 @@ public:
     /// constructor
     MSActuatedTrafficLightLogic(const std::string &id,
         const MSSimpleTrafficLightLogic::Phases &phases,
-        size_t step, const std::vector<MSLane*> &lanes, size_t delay);
+        size_t step, const std::vector<MSLane*> &lanes, size_t delay,
+        std::map<std::string, std::vector<std::string> > &laneContinuations);
 
     /// destructor
     ~MSActuatedTrafficLightLogic();
@@ -128,7 +132,8 @@ public:
 
 protected:
     /// Builds the detectors
-    virtual void sproutDetectors(const std::vector<MSLane*> &lanes);
+    virtual void sproutDetectors(const std::vector<MSLane*> &lanes,
+        std::map<std::string, std::vector<std::string> > &laneContinuations);
 
     MSActuatedPhaseDefinition * currentPhaseDef() const ;
 

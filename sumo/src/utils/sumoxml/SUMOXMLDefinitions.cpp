@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/11/17 07:23:07  dkrajzew
+// e2-detector over lanes merger added
+//
 // Revision 1.14  2003/09/05 15:28:07  dkrajzew
 // tags for internal link handling added
 //
@@ -73,9 +76,9 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-size_t noSumoTags = 39;
+size_t noSumoTags = 40;
 
-GenericSAX2Handler::Tag sumotags[39] =
+GenericSAX2Handler::Tag sumotags[40] =
 {
       { "simulation",       SUMO_TAG_SIMULATION },
       { "edge",             SUMO_TAG_EDGE },
@@ -115,7 +118,8 @@ GenericSAX2Handler::Tag sumotags[39] =
       { "step",             SUMO_TAG_STEP },
       { "interval",         SUMO_TAG_INTERVAL },
       { "shape",            SUMO_TAG_SHAPE },
-      { "timed_event",      SUMO_TAG_TIMEDEVENT }
+      { "timed_event",      SUMO_TAG_TIMEDEVENT },
+      { "lane_cont",        SUMO_TAG_LANECONT }
 };
 
 size_t noSumoAttrs = 66;

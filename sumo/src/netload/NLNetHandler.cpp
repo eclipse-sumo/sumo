@@ -49,6 +49,7 @@ namespace
 #include <microsim/MSTrafficLightLogic.h>
 #include <microsim/MSInductLoop.h>
 #include <microsim/MS_E2_ZS_Collector.h>
+#include <microsim/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/MSLaneState.h>
 #include <microsim/MSAgentbasedTrafficLightLogic.h>
 #include <microsim/logging/LoggedValue_TimeFloating.h>
@@ -128,6 +129,9 @@ NLNetHandler::myStartElement(int element, const std::string &name,
         case SUMO_TAG_LOGICITEM:
             addLogicItem(attrs);
             break;
+        case SUMO_TAG_LANECONT:
+	    cout << "a1" << endl;
+            addLaneContinuation(attrs);
         default:
             break;
         }
@@ -303,6 +307,7 @@ NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
     m_ActivePhases.clear();
     _requestSize = -1;
     _tlLogicNo = -1;
+    myContinuations.clear();
     try {
         m_Type = getString(attrs, SUMO_ATTR_TYPE);
     } catch (EmptyData) {
@@ -783,6 +788,27 @@ NLNetHandler::addInLanes(const std::string &chars)
 }
 
 
+void
+NLNetHandler::addLaneContinuation(const Attributes &attrs)
+{
+    try {
+        string from = getString(attrs, SUMO_ATTR_ID);
+        string tos = getString(attrs, SUMO_ATTR_TO);
+        myContinuations[from] = std::vector<std::string>();
+        StringTokenizer st(tos, " ");
+	    cout << "To " << from << " adding:";
+        while(st.hasNext()) {
+ string bla = st.next();
+ cout << bla << ", ";
+            myContinuations[from].push_back(bla);
+        }
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform(
+            "Error in description: false continuation definition.");
+    }
+}
+
+
 // ----------------------------------
 
 void
@@ -864,21 +890,23 @@ NLNetHandler::closeTrafficLightLogic()
         return;
     }
     if(m_Type=="actuated") {
+	cout << "Had Size " << myContinuations.size() << endl;
         MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState  >
             *tlLogic =
             new MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState > (
                     m_Key, m_ActivePhases, 0,
-                    myContainer.getInLanes(), m_Offset);
+                    myContainer.getInLanes(), m_Offset, myContinuations);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
     } else if(m_Type=="agentbased") {
-        MSAgentbasedTrafficLightLogic<MS_E2_ZS_Collector>
+	cout << "Had Size " << myContinuations.size() << endl;
+        MSAgentbasedTrafficLightLogic<MS_E2_ZS_CollectorOverLanes>
             *tlLogic =
-            new MSAgentbasedTrafficLightLogic<MS_E2_ZS_Collector> (
+            new MSAgentbasedTrafficLightLogic<MS_E2_ZS_CollectorOverLanes> (
                     m_Key, m_ActivePhases, 0,
-                    myContainer.getInLanes(), m_Offset);
+                    myContainer.getInLanes(), m_Offset, myContinuations);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();

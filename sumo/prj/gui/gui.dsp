@@ -175,6 +175,10 @@ SOURCE=..\..\src\guisim\GUI_E2_ZS_Collector.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\guisim\GUI_E2_ZS_CollectorOverLanes.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui_main.cpp
 # End Source File
 # Begin Source File
@@ -532,6 +536,10 @@ SOURCE=..\..\src\gui\qdialogs\moc_QSimulationSettings.cpp
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MS_E2_ZS_Collector.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MS_E2_ZS_CollectorOverLanes.cpp
 # End Source File
 # Begin Source File
 
@@ -996,6 +1004,10 @@ SOURCE=..\..\src\utils\glutils\GLHelper.h
 # Begin Source File
 
 SOURCE=..\..\src\guisim\GUI_E2_ZS_Collector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\guisim\GUI_E2_ZS_CollectorOverLanes.h
 # End Source File
 # Begin Source File
 
@@ -1546,6 +1558,10 @@ SOURCE=..\..\src\utils\dev\MemDiff.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MS_E2_ZS_Collector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MS_E2_ZS_CollectorOverLanes.h
 # End Source File
 # Begin Source File
 

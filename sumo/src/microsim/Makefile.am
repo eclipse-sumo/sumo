@@ -58,6 +58,7 @@ MSVehicleContainer.cpp \
 MSVehicleTransfer.cpp \
 MSVehicleType.cpp \
 MS_E2_ZS_Collector.cpp \
+MS_E2_ZS_CollectorOverLanes.cpp \
 MSActuatedTrafficLightLogic.h \
 MSAgentbasedTrafficLightLogic.h \
 MSBitSetLogic.h \
@@ -126,7 +127,8 @@ MSVehicle.h \
 MSVehicleContainer.h \
 MSVehicleTransfer.h \
 MSVehicleType.h \
-MS_E2_ZS_Collector.h
+MS_E2_ZS_Collector.h \
+MS_E2_ZS_CollectorOverLanes.h
 
 SUBDIRS = actions logging
 

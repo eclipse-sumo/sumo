@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2003/11/17 07:15:27  dkrajzew
+// e2-detector over lanes merger added
+//
 // Revision 1.19  2003/11/12 14:01:54  dkrajzew
 // visualisation of tl-logics added
 //
@@ -101,7 +104,6 @@ class MSRouteLoaderControl;
 class MSTLLogicControl;
 class MSTrafficLightLogic;
 class MSLink;
-class GUILaneWrapper;
 class GUIJunctionWrapper;
 class GUIDetectorWrapper;
 class GUIEmitterWrapper;

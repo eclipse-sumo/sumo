@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.22  2003/11/17 07:18:21  dkrajzew
+// e2-detector over lanes merger added
+//
 // Revision 1.21  2003/11/11 08:36:21  dkrajzew
 // removed some debug-variables
 //
@@ -96,11 +99,12 @@
 template< class _TInductLoop, class _TLaneState >
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>(
         const std::string &id, const Phases &phases, size_t step,
-        const std::vector<MSLane*> &lanes, size_t delay)
+        const std::vector<MSLane*> &lanes, size_t delay,
+        std::map<std::string, std::vector<std::string> > &laneContinuations)
     : MSSimpleTrafficLightLogic(id, phases, step, delay),
     _continue(false)
 {
-    sproutDetectors(lanes);
+    sproutDetectors(lanes, laneContinuations);
 }
 
 
@@ -172,7 +176,8 @@ template< class _TInductLoop, class _TLaneState >
 void
 MSActuatedTrafficLightLogic<_TInductLoop,
                             _TLaneState>::sproutDetectors(
-                                const std::vector<MSLane*> &lanes)
+        const std::vector<MSLane*> &lanes,
+        std::map<std::string, std::vector<std::string> > &laneContinuations)
 {
     // change values for setting the loops and lanestate-detectors, here
     MSNet::Time inductLoopInterval = 1; //

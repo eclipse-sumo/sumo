@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/11/17 07:13:48  dkrajzew
+// e2-detector over lanes merger added
+//
 // Revision 1.10  2003/10/08 14:48:56  dkrajzew
 // new usage of MSAgentbased... impemented
 //
@@ -82,7 +85,7 @@ namespace
 #include <microsim/MSAgentbasedTrafficLightLogic.h>
 #include <guisim/GUIInductLoop.h>
 #include <guisim/GUI_E2_ZS_Collector.h>
-//#include <guisim/GUILaneState.h>
+#include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
 #include "GUIContainer.h"
 #include "GUIDetectorBuilder.h"
 #include "GUINetHandler.h"
@@ -213,17 +216,17 @@ GUINetHandler::closeTrafficLightLogic()
             *tlLogic =
             new MSActuatedTrafficLightLogic<GUIInductLoop, MSLaneState > (
                     m_Key, m_ActivePhases, 0,
-                    myContainer.getInLanes(), m_Offset);
+                    myContainer.getInLanes(), m_Offset, myContinuations);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
     } else if (m_Type=="agentbased") {
-        MSAgentbasedTrafficLightLogic<GUI_E2_ZS_Collector>
+        MSAgentbasedTrafficLightLogic<GUI_E2_ZS_CollectorOverLanes>
             *tlLogic =
-            new MSAgentbasedTrafficLightLogic<GUI_E2_ZS_Collector> (
+            new MSAgentbasedTrafficLightLogic<GUI_E2_ZS_CollectorOverLanes> (
                     m_Key, m_ActivePhases, 0,
-                    myContainer.getInLanes(), m_Offset);
+                    myContainer.getInLanes(), m_Offset, myContinuations);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();

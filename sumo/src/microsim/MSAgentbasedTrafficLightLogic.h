@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/11/17 07:18:21  dkrajzew
+// e2-detector over lanes merger added
+//
 // Revision 1.5  2003/11/04 08:55:28  jringel
 // implemetation of the agentbased trafficlightlogic
 //
@@ -51,7 +54,7 @@
 #include "MSTrafficLightLogic.h"
 #include "MSActuatedPhaseDefinition.h"
 #include "MSSimpleTrafficLightLogic.h"
-#include "MS_E2_ZS_Collector.h"
+#include "MS_E2_ZS_CollectorOverLanes.h"
 
 class MSLane;
 class MSAgentbasedPhaseDefinition;
@@ -68,19 +71,19 @@ class MSAgentbasedPhaseDefinition;
  * is needed as a single logic may be used by many junctions and so the current
  * step is stored within them, not within the logic.
  */
-template< class _TE2_ZS_Collector >
+template< class _TE2_ZS_CollectorOverLanes >
 class MSAgentbasedTrafficLightLogic :
         public MSSimpleTrafficLightLogic
 {
 public:
 
     /// Definition of a map from lanes to lane state detectors lying on them
-    typedef std::map<MSLane*, MS_E2_ZS_Collector*> E2DetectorMap;
+    typedef std::map<MSLane*, MS_E2_ZS_CollectorOverLanes*> E2DetectorMap;
 
     ///stores the detector values of one single phase
     typedef std::deque<double> ValueType;
-    
-    ///stores the step of the greenphases and their detector values 
+
+    ///stores the step of the greenphases and their detector values
     typedef std::map<size_t, ValueType> PhaseValueMap;
 
     /// stores the mean data of several (numberOfValues) cycles
@@ -90,7 +93,8 @@ public:
     /// constructor
     MSAgentbasedTrafficLightLogic(const std::string &id,
         const MSSimpleTrafficLightLogic::Phases &phases,
-        size_t step, const std::vector<MSLane*> &lanes, size_t delay);
+        size_t step, const std::vector<MSLane*> &lanes, size_t delay,
+        std::map<std::string, std::vector<std::string> > &laneContinuations);
 
     /// destructor
     ~MSAgentbasedTrafficLightLogic();
@@ -107,10 +111,10 @@ public:
     /// or stores the activation-time in _lastphase of the phase next
     virtual size_t nextStep();
 
-    /// Collects the trafficdata 
+    /// Collects the trafficdata
     virtual void collectData();
 
-    /// Aggregates the data of one phase, collected during different cycles 
+    /// Aggregates the data of one phase, collected during different cycles
     virtual void aggregateRawData();
 
     /// Calculates the duration for all real phases except intergreen phases
@@ -121,7 +125,8 @@ public:
 
 protected:
     /// Builds the detectors
-    virtual void sproutDetectors(const std::vector<MSLane*> &lanes);
+    virtual void sproutDetectors(const std::vector<MSLane*> &lanes,
+        std::map<std::string, std::vector<std::string> > &laneContinuations);
 
     /// initializes the duration of the phases (except the intergeentimes)
     /// so that the time cycletime tCyle is kept
@@ -132,10 +137,10 @@ protected:
 
     /// cuts the actual cycle by an given value
     virtual void cutCycleTime(size_t toCut);
-    
+
     /// returns the step of the phase with the longest Queue_Lengt_Ahead_Of_Traffic_Lights
     virtual size_t findStepOfMaxValue();
-    
+
     /// returns the step of the phase with the shortest Queue_Lengt_Ahead_Of_Traffic_Lights
     virtual size_t findStepOfMinValue();
 
@@ -169,12 +174,12 @@ protected:
     /// it's only possible to get one value per cycle per greenphase
     size_t numberOfValues;
 
-    /// the cycletime of the trafficlight 
+    /// the cycletime of the trafficlight
     size_t tCycle;
 
     /* the minimum difference between the shortest and the longest
-    Queue_Lengt_Ahead_Of_Traffic_Lights of a phase before greentime is given 
-    from the phase with the shortest Queue_Lengt_Ahead_Of_Traffic_Lights to the phase with 
+    Queue_Lengt_Ahead_Of_Traffic_Lights of a phase before greentime is given
+    from the phase with the shortest Queue_Lengt_Ahead_Of_Traffic_Lights to the phase with
     the longest Queue_Lengt_Ahead_Of_Traffic_Lights*/
     double deltaLimit;
 

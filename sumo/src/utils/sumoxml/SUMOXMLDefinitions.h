@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2003/11/17 07:23:07  dkrajzew
+// e2-detector over lanes merger added
+//
 // Revision 1.16  2003/09/05 15:28:07  dkrajzew
 // tags for internal link handling added
 //
@@ -166,7 +169,9 @@ enum TagEnum
     /// The tag enclosing an object's shape
     SUMO_TAG_SHAPE,
     /// The definition of a periodic event
-    SUMO_TAG_TIMEDEVENT
+    SUMO_TAG_TIMEDEVENT,
+    /// Lane continuation description tag
+    SUMO_TAG_LANECONT
 };
 
 
@@ -276,7 +281,7 @@ enum AttrEnum
 /// The number of SUMO-XML element names
 extern size_t noSumoTags;
 /// The names of SUMO-XML elements
-extern GenericSAX2Handler::Tag sumotags[39];
+extern GenericSAX2Handler::Tag sumotags[40];
 
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;

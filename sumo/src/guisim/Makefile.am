@@ -4,6 +4,7 @@ EXTRA_DIST =
 
 libguisim_a_SOURCES = GUIEdge.cpp GUIEdge.h  GUIEdgeCont.h \
 GUI_E2_ZS_Collector.cpp GUI_E2_ZS_Collector.h \
+GUI_E2_ZS_CollectorOverLanes.cpp GUI_E2_ZS_CollectorOverLanes.h \
 GUIInternalLane.cpp GUIInternalLane.h \
 GUILane.cpp GUILane.h GUILaneChanger.cpp GUILaneChanger.h \
 GUILaneStateReporter.cpp GUILaneStateReporter.h \

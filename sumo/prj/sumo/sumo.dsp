@@ -125,6 +125,10 @@ SOURCE=..\..\src\microsim\MS_E2_ZS_Collector.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MS_E2_ZS_CollectorOverLanes.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSDensity.cpp
 # End Source File
 # Begin Source File

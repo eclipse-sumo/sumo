@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2003/11/17 07:22:03  dkrajzew
+// e2-detector over lanes merger added
+//
 // Revision 1.13  2003/09/24 09:57:13  dkrajzew
 // bug on building induct loops of an actuated tls within the gui patched
 //
@@ -181,6 +184,15 @@ protected:
     /// The offset within the junction
     size_t          m_Offset;
 
+    /// Definitions of a string vector
+    typedef std::vector<std::string> StringVector;
+
+    /// Definition of a map from string -> stringvector
+    typedef std::map<std::string, StringVector> SSVMap;
+
+    /// Backward lane continuation map
+    SSVMap myContinuations;
+
 
 private:
     /// sets the number of edges the network contains
@@ -258,6 +270,8 @@ private:
 
     /// sets the number of the current logic
     void setTLLogicNo(const std::string &chars);
+
+    void addLaneContinuation(const Attributes &attrs);
 
     /// adds a logic item
     void addLogicItem(int request, const std::string &response);
