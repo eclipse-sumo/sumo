@@ -2,7 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="z_libutils_foxtools"
+	Name="giant"
+	ProjectGUID="{EFEC5A2A-7301-45CE-A564-8DB42C619A8B}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -11,61 +12,10 @@
 	</Platforms>
 	<Configurations>
 		<Configuration
-			Name="Debug|Win32"
-			OutputDirectory=".\Debug"
-			IntermediateDirectory=".\Debug"
-			ConfigurationType="4"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="$(FOX)\include,..\..\..\src,..\..\..\src\foreign"
-				PreprocessorDefinitions="_DEBUG;FOXDLL;WIN32;_LIB;BOOST_HAS_THREADS"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				UsePrecompiledHeader="0"
-				PrecompiledHeaderFile=""
-				AssemblerListingLocation=".\Debug/"
-				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
-				WarningLevel="3"
-				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="4"
-				CompileAs="0"/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCLibrarianTool"
-				OutputFile=".\Debug\z_libutils_foxtools.lib"
-				SuppressStartupBanner="TRUE"/>
-			<Tool
-				Name="VCMIDLTool"/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="1031"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
-		</Configuration>
-		<Configuration
 			Name="Release|Win32"
 			OutputDirectory=".\Release"
 			IntermediateDirectory=".\Release"
-			ConfigurationType="4"
+			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
 			CharacterSet="2">
@@ -73,13 +23,14 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(FOX)\include,..\..\..\src,..\..\..\src\foreign"
-				PreprocessorDefinitions="NDEBUG;FOXDLL;WIN32;_LIB;BOOST_HAS_THREADS"
+				AdditionalIncludeDirectories="$(FOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
+				PreprocessorDefinitions="NDEBUG;FOXDLL;WIN32;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
-				UsePrecompiledHeader="0"
-				PrecompiledHeaderFile=""
+				RuntimeTypeInfo="TRUE"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderFile=".\Release/giant.pch"
 				AssemblerListingLocation=".\Release/"
 				ObjectFile=".\Release/"
 				ProgramDataBaseFileName=".\Release/"
@@ -89,11 +40,18 @@
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCLibrarianTool"
-				OutputFile=".\Release\z_libutils_foxtools.lib"
-				SuppressStartupBanner="TRUE"/>
+				Name="VCLinkerTool"
+				AdditionalDependencies="opengl32.lib $(XERCES)\lib\xerces-c_2.lib $(FOX)\lib\FOXDLL-1.2.lib odbc32.lib odbccp32.lib"
+				OutputFile=".\Release/giant.exe"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				ProgramDatabaseFile=".\Release/giant.pdb"
+				SubSystem="1"
+				TargetMachine="1"/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCMIDLTool"
+				TypeLibraryName=".\Release/giant.tlb"
+				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -109,6 +67,70 @@
 			<Tool
 				Name="VCXMLDataGeneratorTool"/>
 			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory=".\Debug"
+			IntermediateDirectory=".\Debug"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="$(FOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
+				PreprocessorDefinitions="_DEBUG;ABS_DEBUG;FOXDLL;WIN32;_CONSOLE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="TRUE"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderFile=".\Debug/giant.pch"
+				AssemblerListingLocation=".\Debug/"
+				ObjectFile=".\Debug/"
+				ProgramDataBaseFileName=".\Debug/"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"
+				CompileAs="0"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="opengl32.lib $(XERCES)\lib\xerces-c_2D.lib $(FOX)\lib\FOXDLLD-1.2.lib odbc32.lib odbccp32.lib"
+				OutputFile=".\Debug/giant.exe"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile=".\Debug/giant.pdb"
+				SubSystem="1"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName=".\Debug/giant.tlb"
+				HeaderFileName=""/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1031"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
 				Name="VCManagedWrapperGeneratorTool"/>
 			<Tool
 				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
@@ -121,7 +143,15 @@
 			Name="Quellcodedateien"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXBaseObject.cpp">
+				RelativePath="..\..\..\src\netedit\ConfigDialog.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -130,18 +160,18 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXLCDLabel.cpp">
+				RelativePath="..\..\..\src\netedit\Edge.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -150,18 +180,18 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXLockable.cpp">
+				RelativePath="..\..\..\src\giant_main.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -170,18 +200,18 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXMutex.cpp">
+				RelativePath="..\..\..\src\netedit\GNEApplicationWindow.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -190,18 +220,18 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXRealSpinDial.cpp">
+				RelativePath="..\..\..\src\netedit\Graph.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -210,18 +240,18 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXSevenSegment.cpp">
+				RelativePath="..\..\..\src\netedit\Image.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -230,18 +260,18 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXSingleEventThread.cpp">
+				RelativePath="..\..\..\src\netedit\Point.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -250,18 +280,18 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXThreadEvent.cpp">
+				RelativePath="..\..\..\src\helpers\PreStartInitialised.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -270,18 +300,18 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\MFXAddEditTypedTable.cpp">
+				RelativePath="..\..\..\src\sumo_version.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -290,18 +320,18 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\MFXCheckableButton.cpp">
+				RelativePath="..\..\..\src\sumo_only\SUMOFrame.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -310,27 +340,10 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\MFXEditableTable.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\netedit\Vertex.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
@@ -339,9 +352,6 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\foxtools\MFXEventQue.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -350,34 +360,6 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\foxtools\MFXMenuHeader.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
 		</Filter>
@@ -385,56 +367,39 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXBaseObject.h">
+				RelativePath="..\..\..\src\netedit\ConfigDialog.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\fxexdefs.h">
+				RelativePath="..\..\..\src\netedit\Edge.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXLCDLabel.h">
+				RelativePath="..\..\..\src\giant_help.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXLockable.h">
+				RelativePath="..\..\..\src\netedit\GNEApplicationWindow.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXMutex.h">
+				RelativePath="..\..\..\src\netedit\Graph.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXRealSpinDial.h">
+				RelativePath="..\..\..\src\netedit\Image.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXSevenSegment.h">
+				RelativePath="..\..\..\src\netedit\Point.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXSingleEventThread.h">
+				RelativePath="..\..\..\src\sumo_version.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXThreadEvent.h">
+				RelativePath="..\..\..\src\sumo_only\SUMOFrame.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\foxtools\FXThreadMessageRetriever.h">
+				RelativePath="..\..\..\src\netedit\Vertex.h">
 			</File>
-			<File
-				RelativePath="..\..\..\src\utils\foxtools\MFXAddEditTypedTable.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\foxtools\MFXCheckableButton.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\foxtools\MFXEditableTable.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\foxtools\MFXEventQue.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\foxtools\MFXInterThreadEventClient.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\foxtools\MFXMenuHeader.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\foxtools\MFXThreadDefs.h">
-			</File>
+		</Filter>
+		<Filter
+			Name="Ressourcendateien"
+			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 		</Filter>
 	</Files>
 	<Globals>
