@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2003/10/08 07:09:16  dkrajzew
+// gcc did not knew a const_iterator to a map (?)
+//
 // Revision 1.19  2003/10/01 13:59:53  dkrajzew
 // logic building completed (Julia Ringel)
 //
@@ -85,7 +88,7 @@
 #include "MSNet.h"
 #include "MSTrafficLightLogic.h"
 #include "MSActuatedTrafficLightLogic.h"
-
+#include "MSLane.h"
 
 template< class _TInductLoop, class _TLaneState >
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>(
@@ -300,9 +303,11 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::gapControl()
             if (lanes.empty())    {
                 break;
             }
-            for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end();j++) {
-                InductLoopMap::const_iterator k = myInductLoops.find(*j);
-                double actualGap =  (*k).second->getTimestepsSinceLastDetection();
+            for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end(); j++) {
+		if(myInductLoops.find(*j)==myInductLoops.end()) {
+		    continue;
+		}
+                double actualGap =  myInductLoops.find(*j)->second->getTimestepsSinceLastDetection();
                 double maxGap = 3.1;
                 if (actualGap < maxGap) {
                 return _continue = true;
