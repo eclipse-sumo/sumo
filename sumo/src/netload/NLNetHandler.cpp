@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.41  2004/01/26 11:07:50  dkrajzew
+// error checking added
+//
 // Revision 1.40  2004/01/26 07:07:36  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -397,7 +400,12 @@ NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
     myContainer.initIncomingLanes();
     try {
         m_Type = getString(attrs, SUMO_ATTR_TYPE);
-        m_DetectorOffset = getFloatSecure(attrs, SUMO_ATTR_DET_OFFSET, -1);
+        try {
+            m_DetectorOffset = getFloatSecure(attrs, SUMO_ATTR_DET_OFFSET, -1);
+        } catch (NumberFormatException&) {
+            MsgHandler::getErrorInstance()->inform(
+                "A detector offset of a triffic light logic is not numeric!");
+        }
         // recheck the offset in dependence to the type if not given
         if(m_DetectorOffset==-1) {
             // agentbased
