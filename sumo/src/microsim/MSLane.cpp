@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2002/10/17 13:35:23  dkrajzew
+// insecure usage of potentially null-link-lanes patched
+//
 // Revision 1.3  2002/10/17 10:43:35  dkrajzew
 // error of setting of link-driverequests out of a vehicles route repaired
 //
@@ -388,7 +391,6 @@ MSLane::moveExceptFirst( MSEdge::LaneCont::const_iterator firstNeighLane,
             VehCont::const_iterator pred( veh + 1 );
             const MSVehicle*
                 neigh = findNeigh( *veh, firstNeighLane, lastNeighLane );
-
             // veh has neighbour to regard.
             if ( neigh != *veh ) {
 
@@ -1359,7 +1361,8 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
     for ( link = succLinkSource.myLinks.begin();
           link != succLinkSource.myLinks.end() ; ++link ) {
 
-        if ( ( *link )->myLane->myEdge == nRouteEdge ) {
+        const MSLane * lane = ( *link )->myLane;
+        if ( lane!=0 && lane->myEdge == nRouteEdge ) {
             return link;
         }
     }
