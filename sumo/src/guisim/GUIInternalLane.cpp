@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/11/26 10:58:30  dkrajzew
+// messages from the simulation are now also passed to the message handler
+//
 // Revision 1.9  2003/11/20 14:40:26  dkrajzew
 // push() debugged; dead code removed
 //
@@ -63,6 +66,7 @@ namespace
 #include <iostream> // !!!
 #include <utility>
 #include <utils/qutils/NewQMutex.h>
+#include <utils/common/MsgHandler.h>
 #include <microsim/MSLane.h>
 #include <utils/geom/Position2D.h>
 #include <microsim/MSNet.h>
@@ -163,8 +167,11 @@ GUIInternalLane::push( MSVehicle* veh )
 #endif
     // Insert vehicle only if it's destination isn't reached.
     if( myVehBuffer != 0 ) {
-        cout << "vehicle '" << veh->id() << "' removed (new)! " << veh << endl;
-        cout << " with '" << myVehBuffer->id() << "' " << myVehBuffer << endl;
+        MsgHandler::getWarningInstance()->inform(
+            string("Vehicle '") + veh->id()
+            + string("' removed due to a collision on push!\n")
+            + string("  Lane: '") + id() + string("' Previous vehicle: '")
+            + myVehBuffer->id() + string("'."));
         veh->onTripEnd(*this);
         static_cast<GUIVehicle*>(veh)->setRemoved();
         static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(

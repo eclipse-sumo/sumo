@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/11/26 10:57:14  dkrajzew
+// messages from the simulation are now also passed to the message handler
+//
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
@@ -44,6 +47,7 @@
  * ======================================================================= */
 class GUINet;
 class GUIApplicationWindow;
+class MsgRetriever;
 
 
 /* =========================================================================
@@ -99,6 +103,15 @@ public:
     /** halts the thread before it shall be deleted */
     void prepareDestruction();
 
+    /// Retrieves messages from the loading module
+    void retrieveMessage(const std::string &msg);
+
+    /// Retrieves warnings from the loading module
+    void retrieveWarning(const std::string &msg);
+
+    /// Retrieves error from the loading module
+    void retrieveError(const std::string &msg);
+
 public slots:
     /** sets the number of milliseconds to wait between simulation steps */
     void setSimulationDelay(int value);
@@ -136,6 +149,11 @@ private:
 
     /** information whether the thread is running in single step mode */
     bool                    _single;
+
+    /** @brief The instances of message retriever encapsulations
+        Needed to be deleted from the handler later on */
+    MsgRetriever *myErrorRetriever, *myMessageRetriever, *myWarningRetreiver;
+
 };
 
 

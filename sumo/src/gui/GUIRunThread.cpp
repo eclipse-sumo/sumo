@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/11/26 10:57:14  dkrajzew
+// messages from the simulation are now also passed to the message handler
+//
 // Revision 1.16  2003/11/20 13:17:33  dkrajzew
 // further work on aggregated views
 //
@@ -63,8 +66,6 @@ namespace
 // files updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -76,11 +77,15 @@ namespace
 #include <string>
 #include <iostream>
 
+#include <utils/common/MsgRetrievingFunction.h>
+#include <utils/common/MsgHandler.h>
+
 #include <guisim/GUINet.h>
 
 #include <helpers/SingletonDictionary.h>
 #include <gui/tlstracker/GUITLLogicPhasesTrackerWindow.h>
 #include <qthread.h>
+#include "QMessageEvent.h"
 #include "QSimulationStepEvent.h"
 #include "QSimulationEndedEvent.h"
 #include "GUIApplicationWindow.h"
@@ -95,13 +100,28 @@ GUIRunThread::GUIRunThread(GUIApplicationWindow *parent, long sleepPeriod)
     _net(0), _craw(0), _quit(false), _simulationInProgress(false),
     _sleepPeriod(sleepPeriod)
 {
+    myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this,
+        &GUIRunThread::retrieveError);
+    myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this,
+        &GUIRunThread::retrieveMessage);
+    myWarningRetreiver = new MsgRetrievingFunction<GUIRunThread>(this,
+        &GUIRunThread::retrieveWarning);
+    // register message callbacks
+    MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
+    MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);
+    MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
 }
 
 
 GUIRunThread::~GUIRunThread()
 {
-    // the thread shall stop, wait for it
+    // the thread shall stop
     _quit = true;
+    // remove message callbacks
+    MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
+    MsgHandler::getWarningInstance()->removeRetriever(myWarningRetreiver);
+    MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
+    // wait for the thread
     while(_simulationInProgress||_net!=0);
 }
 
@@ -258,6 +278,41 @@ GUIRunThread::prepareDestruction()
     _halting = true;
     _quit = true;
 }
+
+
+void
+GUIRunThread::retrieveMessage(const std::string &msg)
+{
+    if(!_simulationInProgress) {
+        return;
+    }
+    QThread::postEvent( _parent,
+        new QMessageEvent(MsgHandler::MT_MESSAGE, msg));
+}
+
+
+void
+GUIRunThread::retrieveWarning(const std::string &msg)
+{
+    if(!_simulationInProgress) {
+        return;
+    }
+    QThread::postEvent( _parent,
+        new QMessageEvent(MsgHandler::MT_WARNING, msg));
+}
+
+
+void
+GUIRunThread::retrieveError(const std::string &msg)
+{
+    if(!_simulationInProgress) {
+        return;
+    }
+    QThread::postEvent( _parent,
+        new QMessageEvent(MsgHandler::MT_ERROR, msg));
+}
+
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

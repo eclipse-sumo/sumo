@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/11/26 10:58:30  dkrajzew
+// messages from the simulation are now also passed to the message handler
+//
 // Revision 1.16  2003/11/20 13:21:17  dkrajzew
 // further work on aggregated views
 //
@@ -360,9 +363,7 @@ GUILaneWrapper::buildAggregatedValuesStorage()
 {
     //
     myAggregatedValues = new LoggedValue_TimeFloating<double>*[1];
-    cout << myLane.id() << endl;
     for(size_t i=0; i<1; i++) {
-        cout << i << endl;
         myAggregatedValues[i] =
             new LoggedValue_TimeFloating<double>(myAggregationSizes[i]);
         string id = string("*") + myLane.id() + toString<size_t>(i);
