@@ -23,6 +23,7 @@
 //---------------------------------------------------------------------------//
 
 #include "MSDetectorHaltingContainerWrapper.h"
+#include "MSUnit.h"
 #include <string>
 
 class MSHaltingDurationSum
@@ -33,10 +34,8 @@ public:
 
 protected:
     typedef double DetectorAggregate;
-    typedef halt::HaltEndObserver::Observed Observed;
+    typedef halt::HaltEndObserver::ParameterType ParameterType;
     typedef DetectorContainer::HaltingsList Container;
-//     typedef Container::HaltingsConstIt HaltingsConstIt;
-//     typedef Container::InnerContainer Haltings;
 
     MSHaltingDurationSum( Container& toObserve )
         :
@@ -50,8 +49,14 @@ protected:
             toObserveM.detach( this );
         }
 
-    virtual void update( Observed& aObserved ) = 0;
-    
+    virtual void update( ParameterType aObserved ) = 0;
+
+    DetectorAggregate getValue( ParameterType aObserved )
+        {
+            return MSUnit::getInstance()->getSeconds(
+                aObserved.haltingDurationM ); 
+        }
+
     static std::string getDetectorName( void )
         {
             return "haltDurationSum";

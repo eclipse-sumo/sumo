@@ -59,9 +59,10 @@ public:
     // inherited from ConcreteDetector form MSObserver
     void update( ParameterType aObserved )
         {
+            DetAggregate value = getValue( aObserved );
             aggregatesM.push_back(
                 TimeValue(
-                    MSNet::getInstance()->simSeconds(), aObserved ) );
+                    MSNet::getInstance()->simSeconds(), value ) );
         }
     
     

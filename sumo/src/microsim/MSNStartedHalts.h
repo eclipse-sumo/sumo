@@ -50,6 +50,11 @@ protected:
         }
 
     virtual void update( ParameterType aObserved ) = 0;
+
+    DetectorAggregate getValue( ParameterType )
+        {
+            return 1; // just count the number of halts.
+        }    
     
     static std::string getDetectorName( void )
         {
