@@ -20,8 +20,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.3  2003/10/06 07:40:55  dkrajzew
-// lanes are saved for further purposes, now
+// Revision 1.4  2003/10/08 14:50:28  dkrajzew
+// new usage of MSAgentbased... impemented (Julia Ringel)
 //
 // Revision 1.1  2003/10/01 11:24:35  dkrajzew
 // agent-based traffic lights added
@@ -62,16 +62,11 @@ class MSAgentbasedPhaseDefinition;
  * is needed as a single logic may be used by many junctions and so the current
  * step is stored within them, not within the logic.
  */
-template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
+template< class _TE2_ZS_Collector >
 class MSAgentbasedTrafficLightLogic :
         public MSSimpleTrafficLightLogic
 {
 public:
-    /// Definition of a map from lanes to induct loops lying on them
-    typedef std::map<MSLane*, _TInductLoop*> InductLoopMap;
-
-    /// Definition of a map from lanes to lane state detectors lying on them
-    typedef std::map<MSLane*, MSLaneState*> LaneStateMap;
 
     /// Definition of a map from lanes to lane state detectors lying on them
     typedef std::map<MSLane*, MS_E2_ZS_Collector*> E2DetectorMap;
@@ -97,35 +92,52 @@ public:
     /// or stores the activation-time in _lastphase of the phase next
     virtual size_t nextStep();
 
-    /// Desides, whether a phase should be continued by checking the gaps of vehicles having green
-    virtual bool gapControl();
+    /// Collects the trafficdata for each real phase (no intergrennphases)
+    virtual void collectData()const;
+
+    /// Calculates the duration for all real phases except intergreen phases
+    virtual void calculateDuration();
+
+    /// Checkes wheter the tested phase is a neither a yellow nor a allred phase
+    virtual bool isGreenPhase(const size_t testStep) const ;
 
 protected:
     /// Builds the detectors
     virtual void sproutDetectors(const std::vector<MSLane*> &lanes);
 
-    MSActuatedPhaseDefinition * currentPhaseDef();
+    /// initializes the duration of the phases (except the intergeentimes)
+    /// so that the time cycletime tCyle is kept
+    virtual void initializeDuration();
+
+    /// lenghtend the actual cycle by an given value
+    virtual void lengthenCycleTime(size_t toLenghten);
+
+    /// cuts the actual cycle by an given value
+    virtual void cutCycleTime(size_t toCut);
+
+
+    MSActuatedPhaseDefinition * currentPhaseDef() const;
 
 	double currentForLane(MS_E2_ZS_Collector::DetType what,
 		MSLane *lane) const;
 
-	double currentForLane(MS_E2_ZS_Collector::DetType what,
+	double aggregatedForLane(MS_E2_ZS_Collector::DetType what,
 		MSUnit::Seconds lanstNSeconds, MSLane *lane) const;
 
 protected:
-    /// A map from lanes to induct loops lying on them
-    InductLoopMap myInductLoops;
-
-    /// A map from lanes to lane states lying on them
-    LaneStateMap myLaneStates;
 
 	/// A map from lanes to E2-detectors lying on them
 	E2DetectorMap myE2Detectors;
 
-    /// information whether the current phase should be lenghtend
-    bool _continue;
+    /// the interval in which the trafficlight can make a decision
+    /// the  interval is given in intereger numbers of cycles
+    size_t tDecide;
 
-    std::vector<MSLane*> _lanes;
+    /// the number of cycles, before the last decision was made
+    size_t tSinceLastDecision;
+
+    /// the cycletime of the trafficlight
+    size_t tCycle;
 
 };
 

@@ -17,12 +17,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.3  2003/10/06 07:40:55  dkrajzew
-// lanes are saved for further purposes, now
+// Revision 1.4  2003/10/08 14:50:28  dkrajzew
+// new usage of MSAgentbased... impemented (Julia Ringel)
 //
 // Revision 1.1  2003/10/01 11:24:35  dkrajzew
 // agent-based traffic lights added
-//
 //
 
 
@@ -44,66 +43,44 @@
 #include "MSAgentbasedTrafficLightLogic.h"
 
 
-template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>(
+
+
+
+template< class _TE2_ZS_Collector >
+MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>::MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>(
         const std::string &id, const Phases &phases, size_t step,
         const std::vector<MSLane*> &lanes, size_t delay)
     : MSSimpleTrafficLightLogic(id, phases, step, delay),
-    _continue(false), _lanes(lanes)
+    tSinceLastDecision (0), tDecide(2), tCycle(100)
 {
     sproutDetectors(lanes);
+    initializeDuration();
 }
 
 
-template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::~MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>()
+template< class _TE2_ZS_Collector >
+MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>::~MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>()
 {
 }
 
 
-template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector > MSNet::Time
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::duration() const
+template< class _TE2_ZS_Collector > MSNet::Time
+MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>::duration() const
 {
-    if(_continue) {
-        return 1;
-    }
     assert(_phases.size()>_step);
-
-    // define the duration depending from the number of waiting vehicles of the actual phase
-
-    int duration = static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->minDuration;
-    for(typename LaneStateMap::const_iterator i=myLaneStates.begin(); i!=myLaneStates.end(); i++)   {
-        MSLane *lane = (*i).first;
-        const MSLinkCont &cont = lane->getLinkCont();
-        for(MSLinkCont::const_iterator j=cont.begin(); j!=cont.end(); j++)  {
-            if((*j)->myPrio)    {
-                double waiting = (*i).second->getCurrentNumberOfWaiting();
-                double passingTime = 1.9;
-                double tmpdur =  passingTime * waiting;
-                if (tmpdur > duration) {
-                    // here we cut the decimal places, because we have to return an integer
-                    duration = (int) tmpdur;
-                }
-                if (duration > (int) static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->maxDuration)  {
-                    return static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->maxDuration;
-                }
-            }
-        }
-    }
-
-    return duration;
+    return currentPhaseDef()->duration;
 }
 
 
-
-
-template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector > MSNet::Time
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::nextPhase()
+template< class _TE2_ZS_Collector > MSNet::Time
+MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>::nextPhase()
 {
     // checks if the actual phase should be continued
-    gapControl();
-    if(_continue) {
-        return duration();
+    if(isGreenPhase(_step)) {
+        collectData();
+    }
+    if(tDecide==tSinceLastDecision) {
+        calculateDuration();
     }
     // increment the index to the current phase
     nextStep();
@@ -115,53 +92,15 @@ MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::nex
 
 
 
-template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
+template< class _TE2_ZS_Collector >
 void
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::sproutDetectors(
+MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>::sproutDetectors(
                                 const std::vector<MSLane*> &lanes)
 {
-    // change values for setting the loops and lanestate-detectors, here
-    double inductLoopPosition = 10; // 10m from the end
-    MSNet::Time inductLoopInterval = 1; //
-    double laneStateDetectorLength = 100; // length of the detecor
-    // as the laneStateDetector shall end at the end of the lane, the position
-    // is calculated, not given
-    MSNet::Time laneStateDetectorInterval = 1; //
-
+    // change values for setting the detectors, here
+    double laneStateDetectorLength = 75; // length of the detecor
     std::vector<MSLane*>::const_iterator i;
-    // build the induct loops
-    for(i=lanes.begin(); i!=lanes.end(); i++) {
-        MSLane *lane = (*i);
-        double length = lane->length();
-        double speed = lane->maxSpeed();
-        double gap = 2.5;
-        inductLoopPosition = gap * speed;
-        // check whether the lane is long enough
-        double ilpos = length - inductLoopPosition;
-        if(ilpos<0) {
-            ilpos = length;
-        }
-        // Build the induct loop and set it into the container
-        std::string id = "TL" + _id + "_InductLoopOn_" + lane->id();
-        _TInductLoop *loop = new _TInductLoop(id, lane, ilpos );
-        myInductLoops[lane] = loop;
-    }
-    // build the lane state-detectors
-    for(i=lanes.begin(); i!=lanes.end(); i++) {
-        MSLane *lane = (*i);
-        double length = lane->length();
-        // check whether the position is o.k. (not longer than the lane)
-        double lslen = laneStateDetectorLength;
-        if(lslen>length) {
-            lslen = length;
-        }
-        double lspos = length - lslen;
-        // Build the lane state detetcor and set it into the container
-        std::string id = "TL" + _id + "_LaneStateOf_" + lane->id();
-        MSLaneState* loop =
-            new MSLaneState( id, lane, lspos, lslen );
-        myLaneStates[lane] = loop;
-    }
+
     // build the E2-detectors
     for(i=lanes.begin(); i!=lanes.end(); i++) {
         MSLane *lane = (*i);
@@ -174,121 +113,217 @@ MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::spr
         double lspos = length - lslen;
         // Build the lane state detetcor and set it into the container
         std::string id = "TL" + _id + "_E2DetectorOn_" + lane->id();
-        _TE2_ZS_Collector* det =
-            new _TE2_ZS_Collector( id, lane, lspos, lslen );
-		det->addDetector( MS_E2_ZS_Collector::ALL, "detectors" );
-        myE2Detectors[lane] = det;
+
+        if ( myE2Detectors.find(lane)==myE2Detectors.end()){
+            _TE2_ZS_Collector* det =
+                new _TE2_ZS_Collector( id, lane, lspos, lslen );
+		    det->addDetector( MS_E2_ZS_Collector::ALL, "detectors" );
+            myE2Detectors[lane] = det;
+        }
     }
 }
 
 
-
-/*
-template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
-const std::bitset<64> &
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::linkPriorities() const
+template< class _TE2_ZS_Collector >
+void
+MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>::initializeDuration()
 {
-    assert(_phases.size()>_step);
-    return _phases[_step].breakMask;
+     size_t tCycleIst = 0;          // the actual cycletime
+     size_t tCycleMin = 0;          // the minimum cycle time
+     size_t tDeltaGreen = 0;         // the difference between the actual cycle time and the required cycle time
+
+     /// Calculation of starting values
+     for (size_t actStep = 0; actStep!=_phases.size(); actStep++) {
+         size_t dur = static_cast<MSActuatedPhaseDefinition*>(_phases[actStep])->duration;
+         tCycleIst = tCycleIst + dur;
+         if (isGreenPhase(actStep)) {
+             size_t mindur = static_cast<MSActuatedPhaseDefinition*>(_phases[actStep])->minDuration;
+             tCycleMin = tCycleMin + mindur;
+         }
+         else {
+             tCycleMin = tCycleMin + dur;
+         }
+     }
+     if (tCycle < tCycleMin) {
+         tCycle = tCycleMin;
+     }
+     tDeltaGreen = tCycle - tCycleIst;
+     if (tDeltaGreen < 0) {
+         cutCycleTime(tDeltaGreen);
+     }
+     if (tDeltaGreen > 0) {
+         lengthenCycleTime(tDeltaGreen);
+     }
+
+     return;
 }
 
 
-template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
-const std::bitset<64> &
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::yellowMask() const
+template< class _TE2_ZS_Collector >
+void
+MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>::lengthenCycleTime(size_t toLengthen)
 {
-    assert(_phases.size()>_step);
-    return _phases[_step].yellowMask;
+    // stores the _step and the duration of the phases, except the intergrenn phases
+    typedef std::pair <size_t, size_t> contentType;
+    typedef vector< pair <size_t,size_t> > GreenPhasesVector;
+    GreenPhasesVector myPhases (_phases.size());
+    myPhases.clear();
+    // the sum of all greentimes per phases
+    size_t tGreenAllPhases = 0;
+    size_t remainingGreen = toLengthen;
+    size_t newdur = 0;
+
+    for (size_t i_Step = 0; i_Step!=_phases.size(); i_Step++) {
+        if (isGreenPhase(i_Step)) {
+            contentType tmp;
+            tmp.second = i_Step;
+            tmp.first = static_cast<MSActuatedPhaseDefinition*>(_phases[i_Step])->duration;
+            myPhases.push_back(tmp);
+            tGreenAllPhases = tGreenAllPhases + tmp.first;
+        }
+    }
+    sort(myPhases.begin(), myPhases.end());
+
+    for (GreenPhasesVector::iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
+        double tmpdb = ((*i).first * toLengthen / double(tGreenAllPhases)) + 0.5;
+        size_t toContrib = static_cast<size_t>(tmpdb);
+        if (remainingGreen > toContrib) {
+            remainingGreen = remainingGreen - toContrib;
+            newdur = toContrib +  (*i).first;
+        }
+        else {
+            newdur = remainingGreen + (*i).first;
+        }
+        static_cast<MSActuatedPhaseDefinition*>(_phases[(*i).second])->duration = newdur;
+        cout << tmpdb << "   " << toContrib << "      ";
+        cout << (_phases[(*i).second])->duration << "   " << (*i).second << endl;
+    }
+
 }
 
 
-template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
-const std::bitset<64> &
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::allowed() const
+
+template< class _TE2_ZS_Collector >
+void
+MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>::cutCycleTime(size_t toCut)
+
 {
-    assert(_phases.size()>_step);
-    return _phases[_step].driveMask;
+    // stores the _step and the duration of the phases, except the intergrenn phases
+    typedef std::pair <size_t, size_t> contentType;
+    typedef std::vector< contentType > GreenPhasesVector;
+    GreenPhasesVector myPhases (_phases.size());
+    myPhases.clear();
+    // the sum of all greentimes per phases
+    size_t tGreenAllPhases = 0;
+
+    for (size_t i_Step = 0; i_Step!=_phases.size(); i_Step++) {
+        if (isGreenPhase(i_Step)) {
+            size_t dur = static_cast<MSActuatedPhaseDefinition*>(_phases[i_Step])->duration;
+            size_t mindur = static_cast<MSActuatedPhaseDefinition*>(_phases[i_Step])->minDuration;
+            contentType tmp;
+            tmp.second = i_Step;
+            tmp.first = static_cast<MSActuatedPhaseDefinition*>(_phases[i_Step])->duration;
+            if (dur > mindur) {
+                myPhases.push_back(tmp);
+                tGreenAllPhases = tGreenAllPhases + dur;
+            }
+         }
+     }
+
+     cout << myPhases.size() << "  " << myPhases.capacity() << endl;
+     for (GreenPhasesVector::const_iterator i=myPhases.begin(); i!=myPhases.end();i++) {
+         size_t teststep = (*i).first;
+         size_t dur = (*i).second;
+         cout << teststep << "   "  << dur <<  endl;
+     }
 }
-*/
 
 
-
-template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
+template< class _TE2_ZS_Collector >
 size_t
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::nextStep()
+MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>::nextStep()
 {
     // increment the index to the current phase
-    MSNet::Time phaseStart = static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->_lastSwitch;
-    MSNet::Time lastDuration = MSNet::globaltime - phaseStart;
-    static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->duration = lastDuration;
+    _step++;
+    assert(_step<=_phases.size());
+    if(_step==_phases.size()) {
+        _step = 0;
+    }
+    //stores the time the phase started
+    static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->_lastSwitch = MSNet::globaltime;
     return _step;
 }
 
-template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
+template< class _TE2_ZS_Collector >
 bool
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::gapControl()
+MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>::isGreenPhase(const size_t testStep) const
 {
-    // Checks, if the maxDuration is kept. No phase should be longer send than maxDuration.
-    MSNet::Time actDuration = MSNet::globaltime - static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->_lastSwitch;
-    if (actDuration >= currentPhaseDef()->maxDuration) {
-        return _continue = false;
+    assert(testStep<=_phases.size());
+    if (static_cast<MSActuatedPhaseDefinition*>(_phases[testStep])->getDriveMask().none()) {
+        return false;
     }
-
-    // now the gapcontrol starts
-    for(typename InductLoopMap::const_iterator i=myInductLoops.begin(); i!=myInductLoops.end(); i++)   {
-        MSLane *lane = (*i).first;
-        const MSLinkCont &cont = lane->getLinkCont();
-        for(MSLinkCont::const_iterator j=cont.begin(); j!=cont.end(); j++)  {
-            if((*j)->myPrio)    {
-                double actualGap =
-                    (*i).second->getTimestepsSinceLastDetection();
-                double maxGap = 3.1;
-                if (actualGap < maxGap) {
-                    return _continue = true;
-                }
-                for (LaneVector::const_iterator j=_lanes.begin(); j!=_lanes.end();j++) {
-                    double bla1 = currentForLane(MS_E2_ZS_Collector::MAX_JAM_LENGTH_IN_VEHICLES, *j);
-                    double bla2 = currentForLane(MS_E2_ZS_Collector::MAX_JAM_LENGTH_IN_METERS, *j);
-                    double bla3 = currentForLane(MS_E2_ZS_Collector::JAM_LENGTH_SUM_IN_VEHICLES, *j);
-                    double bla4 = currentForLane(MS_E2_ZS_Collector::JAM_LENGTH_SUM_IN_METERS, *j);
-                    double bla5 = currentForLane(MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES, *j);
-                    double bla6 = currentForLane(MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS, *j);
-                    cout << bla1 <<"   " << bla2 <<"   " << bla3 <<"   " << bla4 <<"   " << bla5 <<"   " << bla6 << endl;
-                }
-            }
-        }
+    if (static_cast<MSActuatedPhaseDefinition*>(_phases[testStep])->getYellowMask().any()) {
+        return false;
     }
-    return _continue = false;
+    return true;
 }
 
 
-// template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
-// MSNet::DetectorCont
-// MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::getDetectorList() const
-// {
-//     MSNet::DetectorCont ret;
-//     for(typename InductLoopMap::const_iterator i=myInductLoops.begin(); i!=myInductLoops.end(); i++) {
-//         ret.push_back((*i).second);
-//     }
-// //     for(typename LaneStateMap::const_iterator j=myLaneStates.begin(); j!=myLaneStates.end(); j++) {
-// //         ret.push_back((*j).second);
-// //     }
-//     return ret;
-// }
-
-
-
-template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
-MSActuatedPhaseDefinition *
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::currentPhaseDef()
+template< class _TE2_ZS_Collector >
+void
+MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>::collectData() const
 {
+//collects the traffic data
+
+    const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
+    for (size_t i=0; i<isgreen.size(); i++)  {
+        if(isgreen.test(i))  {
+            const std::vector<MSLane*> &lanes = getLanesAt(i);
+            if (lanes.empty())    {
+                break;
+            }
+            for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end();j++) {
+                double bla1 = currentForLane(MS_E2_ZS_Collector::MAX_JAM_LENGTH_IN_VEHICLES, *j);
+                double bla2 = currentForLane(MS_E2_ZS_Collector::MAX_JAM_LENGTH_IN_METERS, *j);
+                double bla3 = currentForLane(MS_E2_ZS_Collector::JAM_LENGTH_SUM_IN_VEHICLES, *j);
+                double bla4 = currentForLane(MS_E2_ZS_Collector::JAM_LENGTH_SUM_IN_METERS, *j);
+                double bla5 = currentForLane(MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES, *j);
+                double bla6 = currentForLane(MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS, *j);
+                cout << bla1 <<"   " << bla2 <<"   " << bla3 <<"   " << bla4 <<"   " << bla5 <<"   " << bla6 << endl;
+            }
+        }
+    }
+}
+
+
+template< class _TE2_ZS_Collector >
+void
+MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>::calculateDuration()
+{
+//calculates the duration of all phases, except the intergreen phase
+
+/*
+//  Checks, if the minDuration is kept. No phase should send shorter than minDuration.
+    MSNet::Time actDuration = MSNet::globaltime - static_cast<MSActuatedPhaseDefinition*>(_phases[_step])->_lastSwitch;
+    if (actDuration >= currentPhaseDef()->minDuration) {
+        actDuration = minDuration;
+    }
+*/
+
+}
+
+template< class _TE2_ZS_Collector >
+MSActuatedPhaseDefinition *
+MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>::currentPhaseDef() const
+{
+	assert(_phases.size()>_step);
     return static_cast<MSActuatedPhaseDefinition*>(_phases[_step]);
 }
 
 
-template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
+template< class _TE2_ZS_Collector >
 double
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::currentForLane(
+MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>::currentForLane(
 		MS_E2_ZS_Collector::DetType what, MSLane *lane) const
 {
 	E2DetectorMap::const_iterator i=myE2Detectors.find(lane);
@@ -296,9 +331,9 @@ MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::cur
 }
 
 
-template< class _TInductLoop, class _TLaneState, class _TE2_ZS_Collector >
+template< class _TE2_ZS_Collector >
 double
-MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::currentForLane(
+MSAgentbasedTrafficLightLogic<_TE2_ZS_Collector>::aggregatedForLane(
 		MS_E2_ZS_Collector::DetType what, MSUnit::Seconds lanstNSeconds,
 		MSLane *lane) const
 {
