@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.22  2003/06/06 14:04:05  dkrajzew
+// Default building of MSLaneStates removed
+//
 // Revision 1.21  2003/06/06 10:39:16  dkrajzew
 // new usage of MSEventControl applied
 //
@@ -481,10 +484,12 @@ MSNet::initialiseSimulation(std::ostream *craw, Time start, Time stop)
 //         std::string, MSLaneState* >::getInstance()->setFindMode();
 //     laneStateDetectorsM = SingletonDictionary<
 //         std::string, MSLaneState* >::getInstance()->getStdVector();
+/*
     typedef MSTravelcostDetector< MSLaneState > Traveltime;
     Traveltime::create( 900 );
     Traveltime::getInstance()->addSampleInterval( 60 );
     Traveltime::getInstance()->addSampleInterval( 300 );
+    */
 }
 
 void
@@ -495,8 +500,13 @@ MSNet::closeSimulation(std::ostream *craw, Time start, Time stop)
     if ( craw ) {
         (*craw) << "</sumo-results>" << endl;
     }
+    /*
     typedef MSTravelcostDetector< MSLaneState > Traveltime;
-    Traveltime::remove();
+    try {
+        delete Traveltime::getInstance();
+    } catch (SingletonNotCreated &e) {
+    }
+    */
 }
 
 
