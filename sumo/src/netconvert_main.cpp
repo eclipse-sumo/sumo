@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/07/07 08:41:12  dkrajzew
+// the edges positions are now normalised, too; the edges are joined if connecting the same node
+//
 // Revision 1.15  2003/06/24 14:38:46  dkrajzew
 // false instantiation of option "log-file" as Option_Strng patched into Option_FileName patched
 //
@@ -230,7 +233,11 @@ bool
 normaliseNodePositions(int step)
 {
     inform(step, "Normalising node positions");
-    return NBNodeCont::normaliseNodePositions();
+    bool ok = NBNodeCont::normaliseNodePositions();
+    if(ok) {
+        ok = NBEdgeCont::normaliseEdgePositions();
+    }
+    return ok;
 }
 
 
@@ -329,7 +336,7 @@ compute(OptionsCont &oc)
     int step = 1;
 //    if(ok) ok = setInit(step++);
     if(ok) ok = removeDummyEdges(step++);
-//    if(ok) ok = joinEdges(step++);
+    if(ok) ok = joinEdges(step++);
     if(ok) ok = computeTurningDirections(step++);
     if(ok) ok = sortNodesEdges(step++);
     if(ok) ok = normaliseNodePositions(step++);
