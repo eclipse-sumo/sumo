@@ -12,7 +12,8 @@ public:
 		: MSSimpleTrafficLightLogic(id, phases, step, delay) { }
 	~MSExtendedTrafficLightLogic() { }
 	virtual void init(const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &edgeContinuations) = 0;
+        std::map<std::string, std::vector<std::string> > &edgeContinuations,
+        double det_offset) = 0;
 
 
 };
