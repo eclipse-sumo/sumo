@@ -399,13 +399,13 @@ NLNetHandler::addDetector(const Attributes &attrs) {
         id = getString(attrs, SUMO_ATTR_ID);
         try {
 //             myContainer.addDetector(
-//                 NLDetectorBuilder::buildInductLoop(id,
-//                     getString(attrs, SUMO_ATTR_LANE),
-//                     getFloat(attrs, SUMO_ATTR_POSITION),
-//                     getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-//                     getString(attrs, SUMO_ATTR_STYLE),
-//                     getString(attrs, SUMO_ATTR_FILE),
-//                     _file));
+                 NLDetectorBuilder::buildInductLoop(id,
+                     getString(attrs, SUMO_ATTR_LANE),
+                     getFloat(attrs, SUMO_ATTR_POSITION),
+                     getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+                     getString(attrs, SUMO_ATTR_STYLE),
+                     getString(attrs, SUMO_ATTR_FILE),
+                     _file);
         } catch (XMLBuildingException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
         } catch (InvalidArgument &e) {

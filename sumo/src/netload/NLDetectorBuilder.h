@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/07/22 15:12:16  dkrajzew
+// new usage of detectors applied
+//
 // Revision 1.4  2003/07/21 18:07:44  roessel
 // Adaptions due to new MSInductLoop.
 //
@@ -69,15 +72,15 @@ class MSInductionLoop;
 class NLDetectorBuilder {
 public:
     /// builds an induct loop
-    static MSInductLoop* buildInductLoop(const std::string &id,
+    static void buildInductLoop(const std::string &id,
         const std::string &lane, float pos, int splInterval,
         const std::string &style, std::string filename,
         const std::string &basePath);
 
 private:
-//     /// converts the name of an output style into it's enumeration value
-//     static MSDetector::OutputStyle convertStyle(const std::string &id,
-//         const std::string &style);
+     /// converts the name of an output style into it's enumeration value
+/*     static MSDetector::OutputStyle convertStyle(const std::string &id,
+         const std::string &style);*/
 
 };
 

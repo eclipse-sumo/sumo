@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/22 15:12:16  dkrajzew
+// new usage of detectors applied
+//
 // Revision 1.7  2003/07/21 18:07:44  roessel
 // Adaptions due to new MSInductLoop.
 //
@@ -75,6 +78,7 @@ namespace
 #include <iostream>
 #include <microsim/MSNet.h>
 #include <microsim/MSInductLoop.h>
+#include <microsim/MSDetector2File.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/logging/LoggedValue_Single.h>
@@ -91,25 +95,26 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-MSInductLoop* NLDetectorBuilder::buildInductLoop(const std::string &id,
+void
+NLDetectorBuilder::buildInductLoop(const std::string &id,
         const std::string &lane, float pos, int splInterval,
-        const std::string &style, std::string filename,
+        const std::string &/*style*/, std::string filename,
         const std::string &basePath)
 {
-//     // get the output style
-//     MSDetector::OutputStyle cstyle = convertStyle(id, style);
-//     // check whether the file must be converted into a relative path
-//     if(!FileHelpers::isAbsolute(filename)) {
-//         filename = FileHelpers::getConfigurationRelative(basePath, filename);
-//     }
-//     // build and check the file
-//     std::ofstream *file = new std::ofstream(filename.c_str());
-//     if(!file->good()) {
-//         throw InvalidArgument(
-//             string("Could not open output for detector '") + id
-//             + string("' for writing (file:") + filename
-//             + string(")."));
-//     }
+     // get the output style
+//   MSDetector::OutputStyle cstyle = convertStyle(id, style);
+     // check whether the file must be converted into a relative path
+     if(!FileHelpers::isAbsolute(filename)) {
+         filename = FileHelpers::getConfigurationRelative(basePath, filename);
+     }
+     // build and check the file
+/*     std::ofstream *file = new std::ofstream(filename.c_str());
+     if(!file->good()) {
+         throw InvalidArgument(
+             string("Could not open output for induct loop '") + id
+             + string("' for writing (file:") + filename
+             + string(")."));
+     }*/
     // get and check the lane
     MSLane *clane = MSLane::dictionary(lane);
     if(clane==0) {
@@ -127,19 +132,23 @@ MSInductLoop* NLDetectorBuilder::buildInductLoop(const std::string &id,
 //             new MSInductLoop<LoggedValue_TimeFixed<double> >
 //                 (id, clane, pos, splInterval, cstyle, file, false);
 //     }
-    return new MSInductLoop(id, clane, pos);
+    MSInductLoop *loop = new MSInductLoop(id, clane, pos);
+    // add the file output
+    MSDetector2File<MSInductLoop>* det2file =
+        MSDetector2File<MSInductLoop>::getInstance();
+    det2file->addDetectorAndInterval(loop, filename, splInterval);
 }
-
-// MSDetector::OutputStyle NLDetectorBuilder::convertStyle(const std::string &id,
-//         const std::string &style)
-// {
-//     if(style=="GNUPLOT" || style=="GPLOT")
-//         return MSDetector::GNUPLOT;
-//     if(style=="CSV")
-//         return MSDetector::CSV;
-//     throw InvalidArgument("Unknown output style '" + style + "' while parsing the detector '" + id + "' occured.");
-// }
-
+/*
+MSDetector::OutputStyle NLDetectorBuilder::convertStyle(const std::string &id,
+        const std::string &style)
+{
+     if(style=="GNUPLOT" || style=="GPLOT")
+         return MSDetector::GNUPLOT;
+     if(style=="CSV")
+         return MSDetector::CSV;
+     throw InvalidArgument("Unknown output style '" + style + "' while parsing the detector '" + id + "' occured.");
+}
+*/
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

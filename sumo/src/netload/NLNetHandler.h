@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/07/22 15:12:16  dkrajzew
+// new usage of detectors applied
+//
 // Revision 1.6  2003/07/07 08:35:10  dkrajzew
 // changes due to loading of geometry applied from the gui-version (no major drawbacks in loading speed)
 //
@@ -99,6 +102,10 @@ protected:
         this method */
     virtual void myEndElement(int element, const std::string &name);
 
+    /// adds a detector
+    virtual void addDetector(const Attributes &attrs);
+
+
 protected:
     /** adds the message about the occured error to the error handler
 	after building it */
@@ -177,9 +184,6 @@ private:
 
     /// opens a junction for processing
     virtual void openJunction(const Attributes &attrs);
-
-    /// adds a detector
-    virtual void addDetector(const Attributes &attrs);
 
     /// adds a source
     virtual void addSource(const Attributes &attrs);
