@@ -16,12 +16,13 @@
  ***************************************************************************/
 
 
+#ifdef EXTERNAL_TEMPLATE_DEFINITION
 namespace
 {
     const char rcsid[] =
     "$Id$";
 }
-
+#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -42,6 +43,9 @@ size_t Counter< T >::count = 0;
 
 
 // $Log$
+// Revision 1.2  2002/06/18 17:20:03  croessel
+// Added #ifdef EXTERNAL_TEMPLATE_DEFINITION
+//
 // Revision 1.1  2002/06/18 16:34:27  croessel
 // Initial commit. Made files cfront compliant.
 //
