@@ -1,0 +1,73 @@
+noinst_LIBRARIES = libvissimtypeload.a
+
+EXTRA_DIST =
+
+libvissimtypeload_a_SOURCES = \
+NIVissimSingleTypeParser_Detektordefinition.cpp \
+NIVissimSingleTypeParser_Detektordefinition.h \
+NIVissimSingleTypeParser_DynUml.cpp  \
+NIVissimSingleTypeParser_DynUml.h \
+NIVissimSingleTypeParser_Fahrzeugklassendefinition.cpp \
+NIVissimSingleTypeParser_Fahrzeugklassendefinition.h \
+NIVissimSingleTypeParser_Fahrzeugtypdefinition.cpp \
+NIVissimSingleTypeParser_Fahrzeugtypdefinition.h \
+NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition.cpp \
+NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition.h \
+NIVissimSingleTypeParser_Haltestellendefinition.cpp \
+NIVissimSingleTypeParser_Haltestellendefinition.h \
+NIVissimSingleTypeParser_Kantensperrung.cpp \
+NIVissimSingleTypeParser_Kantensperrung.h \
+NIVissimSingleTypeParser_Knotendefinition.cpp \
+NIVissimSingleTypeParser_Knotendefinition.h \
+NIVissimSingleTypeParser_Laengenverteilungsdefinition.cpp \
+NIVissimSingleTypeParser_Laengenverteilungsdefinition.h \
+NIVissimSingleTypeParser_Langsamfahrbereichdefinition.cpp \
+NIVissimSingleTypeParser_Langsamfahrbereichdefinition.h \
+NIVissimSingleTypeParser_Lichtsignalanlagendefinition.cpp \
+NIVissimSingleTypeParser_Lichtsignalanlagendefinition.h \
+NIVissimSingleTypeParser_Liniendefinition.cpp \
+NIVissimSingleTypeParser_Liniendefinition.h \
+NIVissimSingleTypeParser_Messungsdefinition.cpp \
+NIVissimSingleTypeParser_Messungsdefinition.h \
+NIVissimSingleTypeParser_Parkplatzdefinition.cpp \
+NIVissimSingleTypeParser_Parkplatzdefinition.h \
+NIVissimSingleTypeParser_Querschnittsmessungsdefinition.cpp \
+NIVissimSingleTypeParser_Querschnittsmessungsdefinition.h \
+NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition.cpp \
+NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition.h \
+NIVissimSingleTypeParser_Reisezeitmessungsdefinition.cpp \
+NIVissimSingleTypeParser_Reisezeitmessungsdefinition.h \
+NIVissimSingleTypeParser_Richtungsentscheidungsdefinition.cpp \
+NIVissimSingleTypeParser_Richtungsentscheidungsdefinition.h \
+NIVissimSingleTypeParser_Richtungspfeildefinition.cpp \
+NIVissimSingleTypeParser_Richtungspfeildefinition.h \
+NIVissimSingleTypeParser_Routenentscheidungsdefinition.cpp \
+NIVissimSingleTypeParser_Routenentscheidungsdefinition.h \
+NIVissimSingleTypeParser_Signalgeberdefinition.cpp \
+NIVissimSingleTypeParser_Signalgeberdefinition.h \
+NIVissimSingleTypeParser_Signalgruppendefinition.cpp \
+NIVissimSingleTypeParser_Signalgruppendefinition.h \
+NIVissimSingleTypeParser_Simdauer.cpp \
+NIVissimSingleTypeParser_Simdauer.h \
+NIVissimSingleTypeParser_Startuhrzeit.cpp \
+NIVissimSingleTypeParser_Startuhrzeit.h \
+NIVissimSingleTypeParser_Stauzaehlerdefinition.cpp \
+NIVissimSingleTypeParser_Stauzaehlerdefinition.h \
+NIVissimSingleTypeParser_Stopschilddefinition.cpp \
+NIVissimSingleTypeParser_Stopschilddefinition.h \
+NIVissimSingleTypeParser_Streckendefinition.cpp \
+NIVissimSingleTypeParser_Streckendefinition.h \
+NIVissimSingleTypeParser_VWunschentscheidungsdefinition.cpp \
+NIVissimSingleTypeParser_VWunschentscheidungsdefinition.h \
+NIVissimSingleTypeParser_Verbindungsdefinition.cpp \
+NIVissimSingleTypeParser_Verbindungsdefinition.h \
+NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition.cpp \
+NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition.h \
+NIVissimSingleTypeParser_Verlustzeitmessungsdefinition.cpp \
+NIVissimSingleTypeParser_Verlustzeitmessungsdefinition.h \
+NIVissimSingleTypeParser_Zeitenverteilungsdefinition.cpp \
+NIVissimSingleTypeParser_Zeitenverteilungsdefinition.h \
+NIVissimSingleTypeParser_Zuflussdefinition.cpp \
+NIVissimSingleTypeParser_Zuflussdefinition.h 
+
+AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src
