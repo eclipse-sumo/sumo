@@ -629,10 +629,6 @@ SOURCE=..\..\src\utils\geom\Position2DVector.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\dev\profile.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\gfx\RGBColor.cpp
 # End Source File
 # Begin Source File
@@ -1294,10 +1290,6 @@ SOURCE=..\..\src\utils\geom\Position2D.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\geom\Position2DVector.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\dev\profile.h
 # End Source File
 # Begin Source File
 

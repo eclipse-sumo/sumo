@@ -433,10 +433,6 @@ SOURCE=..\..\src\helpers\PreStartInitialised.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\dev\profile.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\gui\QAboutSUMO.cpp
 # End Source File
 # Begin Source File
@@ -966,10 +962,6 @@ SOURCE=..\..\src\utils\options\OptionsParser.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\geom\Position2D.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\dev\profile.h
 # End Source File
 # Begin Source File
 

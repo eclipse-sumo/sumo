@@ -289,10 +289,6 @@ SOURCE=..\..\src\helpers\PreStartInitialised.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\dev\profile.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\common\SErrorHandler.cpp
 # End Source File
 # Begin Source File
@@ -586,10 +582,6 @@ SOURCE=..\..\src\utils\options\OptionsParser.h
 # Begin Source File
 
 SOURCE=..\..\src\helpers\PreStartInitialised.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\dev\profile.h
 # End Source File
 # Begin Source File
 

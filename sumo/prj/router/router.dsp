@@ -141,10 +141,6 @@ SOURCE=..\..\src\utils\options\OptionsParser.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\dev\profile.c
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\router\ROArtemisRouteDefHandler.cpp
 # End Source File
 # Begin Source File
@@ -382,10 +378,6 @@ SOURCE=..\..\src\utils\options\OptionsLoader.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\options\OptionsParser.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\dev\profile.h
 # End Source File
 # Begin Source File
 
