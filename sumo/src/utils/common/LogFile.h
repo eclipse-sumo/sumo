@@ -1,0 +1,80 @@
+#ifndef LogFile_h
+#define LogFile_h
+//---------------------------------------------------------------------------//
+//                        LogFile.cpp -
+//  A MsgRetriever - file implementation for message logging
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Mon, 23.06.2003
+//  copyright            : (C) 2003 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.1  2003/06/24 08:16:21  dkrajzew
+// LogFile - a MsgRetriever that writes into a files (logs an applications output) added
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#include <fstream>
+#include <string>
+#include "MsgRetriever.h"
+
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * @class LogFile
+ * This implementation of a MsgRetriever retrieves messages from an
+ * application's MsgHandler and writes them into a file. No distinction is
+ * being made between messages, warnings and errors beside appending the
+ * texts "Warning: " or "Error:" to the front of the message (done in
+ * MsgHandler).
+ * A log-file is build within the SystemFrame if a filename was supplied
+ * using the "log-file"-option. It is also deleted within the SystemFrame.
+ */
+class LogFile : public MsgRetriever
+{
+public:
+    /// Constructor
+    LogFile(const std::string &name);
+
+    /// Destructor
+    ~LogFile();
+
+    /// Retrieves the message to log
+    void inform(const std::string &msg);
+
+    /// Returns the information whether the is still writable
+    bool good();
+
+private:
+    /// The used file
+    std::ofstream myFile;
+
+};
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "LogFile.icc"
+//#endif
+
+#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
