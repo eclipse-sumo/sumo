@@ -30,6 +30,8 @@ public:
     double length() const;
     bool partialWithin(const AbstractPoly &poly, double offset=0) const;
     bool crosses(const Position2D &p1, const Position2D &p2) const;
+    const Position2D &getBegin() const;
+    const Position2D &getEnd() const;
 
 private:
     typedef std::vector<Position2D> ContType;

@@ -226,3 +226,20 @@ Position2DVector::crosses(const Position2D &p1, const Position2D &p2) const
     return intersects(p1, p2);
 }
 
+
+
+const Position2D &
+Position2DVector::getBegin() const
+{
+    return myCont[0];
+}
+
+
+const Position2D &
+Position2DVector::getEnd() const
+{
+    return myCont[myCont.size()-1];
+}
+
+
+

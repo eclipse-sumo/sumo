@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/03 15:24:31  dkrajzew
+// extra functionality added
+//
 // Revision 1.2  2003/02/07 10:47:17  dkrajzew
 // updated
 //
@@ -72,7 +75,7 @@ public:
         Child(FileErrorReporter &parent);
         ~Child();
         void addError(const std::string &error) const;
-    private:
+    protected:
         FileErrorReporter &myParent;
     };
 protected:
