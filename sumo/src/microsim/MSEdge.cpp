@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2002/10/28 12:58:01  dkrajzew
+// some minor output changes (intending and backslash-n replaced by endl)
+//
 // Revision 1.3  2002/10/17 10:41:12  dkrajzew
 // retrival of the id added
 //
@@ -316,7 +319,7 @@ MSEdge::MeanData::MeanData( const MSEdge& obj,
 ostream&
 operator<<( ostream& os, const MSEdge::MeanData& obj )
 {
-    os << "<edge id=\"" << obj.myObj.myID << "\">\n";
+    os << "   <edge id=\"" << obj.myObj.myID << "\">" << endl;
     for ( MSEdge::LaneCont::const_iterator lane = 
               obj.myObj.myLanes->begin();
           lane != obj.myObj.myLanes->end(); ++lane) {
@@ -324,7 +327,7 @@ operator<<( ostream& os, const MSEdge::MeanData& obj )
         os << MSLane::MeanData( **lane, obj.myIndex, obj.myInterval );
     }
 
-    os << "</edge>\n";
+    os << "   </edge>" << endl;
     return os;
 }
 
