@@ -59,7 +59,7 @@ public:
     // call every timestep. Stores detector-data in a container
     void update( void )
         {
-            aggregatesM.push_back( getDetectorAggregate( /*vehOnDetectorM */) );
+            aggregatesM.push_back( getDetectorAggregate() );
         }
 
     // returns the last aggregated data value
