@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.3  2002/04/11 10:04:12  croessel
+// Changed myFile-type from reference to pointer.
+//
 // Revision 1.2  2002/04/10 15:50:55  croessel
 // Changeg cless name from MSDetector to MSInductLoop.
 //
@@ -64,7 +67,7 @@ public:
                   float          position,
                   MSNet::Time    sampleIntervall,
                   MSDetector::OutputStyle    style,
-                  std::ofstream& file );
+                  std::ofstream* file );
     
     /// Destructor.
     ~MSInductLoop();
@@ -117,7 +120,7 @@ private:
     MSNet::Time mySampleIntervall;
 
     /// File where output goes to.
-    std::ofstream& myFile;
+    std::ofstream* myFile;
 
     /// Last vehicle that passed the detector.
     MSVehicle* myPassedVeh;

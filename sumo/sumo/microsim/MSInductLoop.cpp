@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2002/04/11 10:04:12  croessel
+// Changed myFile-type from reference to pointer.
+//
 // Revision 1.2  2002/04/10 15:50:55  croessel
 // Changeg cless name from MSDetector to MSInductLoop.
 //
@@ -56,7 +59,7 @@ using namespace std;
 
 MSInductLoop::~MSInductLoop()
 {
-
+    delete myFile;
 }
 
 //---------------------------------------------------------------------------//
@@ -66,7 +69,7 @@ MSInductLoop::MSInductLoop( string         id,
                             float          position,
                             MSNet::Time    sampleIntervall,
                             MSDetector::OutputStyle    style,
-                            ofstream&      file ) :
+                            ofstream*      file ) :
     MSDetector( id, style ),
     myLane           ( lane ),
     myPos            ( position ),
@@ -99,7 +102,8 @@ MSInductLoop::MSInductLoop( string         id,
                    << "avgOccup avgLength" << endl;
             header << "#         [s]      [veh/km]  [veh/h]   [m/s]  "
                    << "   [s]      [m]" << endl;
-            myFile << header.str() << endl;
+
+            *myFile << header.str() << endl;
             break;
         }
         case CSV:
@@ -242,13 +246,13 @@ MSInductLoop::writeGnuPlot( MSNet::Time endOfInterv,
                             double occup,
                             double avgLength )
 {
-    myFile << setw( 5 ) << setprecision( 0 ) << myNIntervalls << " "
-           << setw(11 ) << setprecision( 0 ) << endOfInterv << " "
-           << setw(10 ) << setprecision( 2 ) << avgDensity << " "
-           << setw( 7 ) << setprecision( 1 ) << avgFlow << " "
-           << setw( 8 ) << setprecision( 3 ) << avgSpeed << " "
-           << setw( 8 ) << setprecision( 2 ) << occup << " "
-           << setw( 9 ) << setprecision( 3 ) << avgLength << endl;
+    *myFile << setw( 5 ) << setprecision( 0 ) << myNIntervalls << " "
+            << setw(11 ) << setprecision( 0 ) << endOfInterv << " "
+            << setw(10 ) << setprecision( 2 ) << avgDensity << " "
+            << setw( 7 ) << setprecision( 1 ) << avgFlow << " "
+            << setw( 8 ) << setprecision( 3 ) << avgSpeed << " "
+            << setw( 8 ) << setprecision( 2 ) << occup << " "
+            << setw( 9 ) << setprecision( 3 ) << avgLength << endl;
 }
 
 //---------------------------------------------------------------------------//
@@ -261,13 +265,13 @@ MSInductLoop::writeCSV( MSNet::Time endOfInterv,
                         double occup,
                         double avgLength )
 {
-    myFile << setw( 4 ) << setprecision( 0 ) << myNIntervalls << ";"
-           << setw( 6 ) << setprecision( 0 ) << endOfInterv << ";"
-           << setw( 6 ) << setprecision( 2 ) << avgDensity << ";"
-           << setw( 4 ) << setprecision( 1 ) << avgFlow << ";"
-           << setw( 6 ) << setprecision( 3 ) << avgSpeed << ";"
-           << setw( 7 ) << setprecision( 2 ) << occup << ";"
-           << setw( 6 ) << setprecision( 3 ) << avgLength << endl;
+    *myFile << setw( 4 ) << setprecision( 0 ) << myNIntervalls << ";"
+            << setw( 6 ) << setprecision( 0 ) << endOfInterv << ";"
+            << setw( 6 ) << setprecision( 2 ) << avgDensity << ";"
+            << setw( 4 ) << setprecision( 1 ) << avgFlow << ";"
+            << setw( 6 ) << setprecision( 3 ) << avgSpeed << ";"
+            << setw( 7 ) << setprecision( 2 ) << occup << ";"
+            << setw( 6 ) << setprecision( 3 ) << avgLength << endl;
 }
 
 //---------------------------------------------------------------------------//
