@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/09/30 14:43:59  dkrajzew
+// only some make-up made
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
@@ -81,7 +84,6 @@ GUIVehicleDrawer_SGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
 }
 
 
-
 void
 GUIVehicleDrawer_SGnTasTriangle::drawVehicle(const GUIVehicle &vehicle,
             double posX, double posY, double rot,
@@ -107,6 +109,7 @@ GUIVehicleDrawer_SGnTasTriangle::drawVehicle(const GUIVehicle &vehicle,
     glRotated(-rot, 0, 0, 1);
     glTranslated(-posX, -posY, 0);
 }
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

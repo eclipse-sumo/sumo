@@ -60,8 +60,10 @@ namespace
  * ======================================================================= */
 using namespace std;
 
-//---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 MSTriggeredSource::RouteDistribution::RouteDistribution( void )
     : myDistribution()
 {}
@@ -259,14 +261,14 @@ MSTriggeredSource::emit( void )
     // try to emit
     if ( myLane->isEmissionSuccess( myVehicle ) ) {
         MSNet::getInstance()->myRunningVehNo++;
-//          myLastEmit = execTime;
         myIsNewEmitFound = false;
         readNextEmitElement();
-
         return 0;
     }
     else {
         // reschedule one timestep.
+//        cout << MSNet::globaltime << "<->" << myVehicle->desiredDepart()
+//            << "\t" << (MSNet::globaltime - myVehicle->desiredDepart()) << endl;
         return 1;
     }
 }
@@ -344,6 +346,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.13  2003/09/30 14:46:59  dkrajzew
+// only some make-up made
+//
 // Revision 1.12  2003/09/17 10:13:03  dkrajzew
 // missing report about vehicle emission added
 //
