@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.6  2002/05/02 13:46:57  croessel
+// change2left/right(): Check if veh(target) exists before passing target as argument.
+//
 // Revision 1.5  2002/04/24 13:41:57  croessel
 // Changed the condition-order in change2left(). target-validity-ckeck
 // must be the first one.
@@ -340,6 +343,7 @@ MSLaneChanger::change2right()
     }
     if ( 
 
+        veh( target ) != 0      &&
         ! overlap( target )     &&
         ! congested( target )   &&
           safeChange( target )  &&
@@ -367,9 +371,10 @@ MSLaneChanger::change2left()
 
         return false;
     }
-
+    
     if ( 
-
+    
+        veh( target ) != 0      &&
         ! overlap( target )     &&
         ! congested( target )   &&
           safeChange( target )  &&
