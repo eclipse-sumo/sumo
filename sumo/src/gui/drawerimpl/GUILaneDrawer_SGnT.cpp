@@ -23,13 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/01/26 06:41:26  dkrajzew
+// code style changes
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
-//
-//
 //
 /* =========================================================================
  * included modules
@@ -48,7 +49,6 @@ namespace
 #include <utils/geom/GeomHelper.h>
 
 #include <qgl.h>
-
 
 
 /* =========================================================================
@@ -104,12 +104,7 @@ GUILaneDrawer_SGnT::drawLane(const GUILaneWrapper &lane,
     }
 }
 
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUILaneDrawer_SGnT.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

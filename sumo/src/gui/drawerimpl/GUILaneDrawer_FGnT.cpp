@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/01/26 06:41:26  dkrajzew
+// code style changes
+//
 // Revision 1.3  2003/10/02 14:55:56  dkrajzew
 // visualisation of E2-detectors implemented
 //
@@ -31,8 +34,6 @@ namespace
 //
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
-//
-//
 //
 /* =========================================================================
  * included modules
@@ -52,7 +53,6 @@ namespace
 #include <utils/glutils/GLHelper.h>
 
 #include <qgl.h>
-
 
 
 /* =========================================================================
@@ -98,9 +98,6 @@ GUILaneDrawer_FGnT::drawLane(const GUILaneWrapper &lane,
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUILaneDrawer_FGnT.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
