@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.38  2004/02/16 15:20:21  dkrajzew
+// used a double for seconds within an hour to avoid number truncation
+//
 // Revision 1.37  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -451,7 +454,7 @@ public:
 
     static double getVehPerHour( double vehPerStep )
         {
-            return vehPerStep / myDeltaT * 3600;
+            return vehPerStep / myDeltaT * 3600.0;
         }
 
     MSVehicleControl &getVehicleControl() const;
