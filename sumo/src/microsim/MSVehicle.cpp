@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2003/05/22 12:48:12  roessel
+// New method activateRemindersByEmitOrLaneChange. Exchanged for-loop by new method.
+//
 // Revision 1.20  2003/05/21 16:20:45  dkrajzew
 // further work detectors
 //
@@ -1438,10 +1441,12 @@ MSVehicle::enterLaneAtLaneChange( MSLane* enteredLane )
                     myState.myPos, 0 );
     // switch to and activate the new lane's reminders
     myMoveReminders = enteredLane->getMoveReminders();
-    for ( vector< MSMoveReminder* >::iterator rem = myMoveReminders.begin();
-          rem != myMoveReminders.end(); ++rem ){
-        (*rem)->activateByEmitOrLaneChange( *this );
-    }
+    activateRemindersByEmitOrLaneChange();
+
+//     for ( vector< MSMoveReminder* >::iterator rem = myMoveReminders.begin();
+//           rem != myMoveReminders.end(); ++rem ){
+//         (*rem)->activateByEmitOrLaneChange( *this );
+//     }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1455,10 +1460,12 @@ MSVehicle::enterLaneAtEmit( MSLane* enteredLane )
                     myState.myPos, myState.mySpeed );
     // switch to and activate the new lane's reminders
     myMoveReminders = enteredLane->getMoveReminders();
-    for ( vector< MSMoveReminder* >::iterator rem = myMoveReminders.begin();
-          rem != myMoveReminders.end(); ++rem ){
-        (*rem)->activateByEmitOrLaneChange( *this );
-    }
+    activateRemindersByEmitOrLaneChange();
+    
+//     for ( vector< MSMoveReminder* >::iterator rem = myMoveReminders.begin();
+//           rem != myMoveReminders.end(); ++rem ){
+//         (*rem)->activateByEmitOrLaneChange( *this );
+//     }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1688,6 +1695,22 @@ MSVehicle::workOnMoveReminders( double oldPos, double newPos, double newSpeed )
         myMoveReminders.erase( myMoveReminders.begin() + removeIndices[j] );
     }
 }
+
+void
+MSVehicle::activateRemindersByEmitOrLaneChange()
+{
+    vector< int > removeIndices;
+    for ( int i = 0; i < myMoveReminders.size(); ++i ) {
+        if ( ! myMoveReminders[i]->isActivatedByEmitOrLaneChange( *this ) )
+        {
+            removeIndices.push_back( i );
+        }
+    }
+    for ( int j = removeIndices.size() - 1; j >= 0; --j ) {
+        myMoveReminders.erase( myMoveReminders.begin() + removeIndices[j] );
+    }
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
