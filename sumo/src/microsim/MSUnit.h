@@ -38,6 +38,7 @@ public:
     typedef double Seconds;
     typedef double Cells;
     typedef double Steps;
+    typedef unsigned int IntSteps;
     typedef double MetersPerSecond;
     typedef double CellsPerStep;
     typedef double MetersPerCell;
@@ -72,9 +73,9 @@ public:
             return static_cast<Seconds>( steps * secondsPerStepM );
         }
 
-    Steps getIntegerSteps( Seconds seconds ) const
+    IntSteps getIntegerSteps( Seconds seconds ) const
         {
-            return static_cast<Steps>( floor( seconds / secondsPerStepM ) );
+            return static_cast<IntSteps>( floor( seconds / secondsPerStepM ) );
         }
 
     Steps getSteps( Seconds seconds ) const
