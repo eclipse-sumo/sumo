@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/11/20 13:17:33  dkrajzew
+// further work on aggregated views
+//
 // Revision 1.6  2003/06/05 11:37:31  dkrajzew
 // class templates applied
 //
@@ -36,6 +39,8 @@ namespace
 
 #include <iostream>
 
+#include <guisim/GUINet.h>
+
 #include <qtooltip.h>
 #include <qcolor.h>
 #include <qnamespace.h>
@@ -43,7 +48,6 @@ namespace
 #include "GUIGlObjectStorage.h"
 #include "GUISUMOAbstractView.h"
 #include "GUIGlObject.h"
-#include <guisim/GUINet.h>
 #include <qfontmetrics.h>
 #include "QGLObjectToolTip.h"
 

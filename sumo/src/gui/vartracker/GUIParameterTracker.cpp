@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/11/20 13:18:34  dkrajzew
+// further work on aggregated views
+//
 // Revision 1.11  2003/11/12 14:08:23  dkrajzew
 // clean up after recent changes
 //
@@ -59,6 +62,9 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <string>
+
+#include <guisim/GUINet.h>
+
 #include <qdialog.h>
 #include <qevent.h>
 #include <qtoolbar.h>
@@ -71,7 +77,6 @@ namespace
 #include "GUIParameterTracker.h"
 #include <gui/GUIGlObject.h>
 #include <gui/GUIApplicationWindow.h>
-#include <guisim/GUINet.h>
 #include <gui/icons/filesave.xpm>
 
 

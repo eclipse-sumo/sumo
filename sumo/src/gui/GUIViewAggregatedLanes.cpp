@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/11/20 13:17:33  dkrajzew
+// further work on aggregated views
+//
 // Revision 1.6  2003/11/12 14:07:46  dkrajzew
 // clean up after recent changes
 //
@@ -163,7 +166,8 @@ GUIViewAggregatedLanes::GUIViewAggregatedLanes(GUIApplicationWindow &app,
                                GUISUMOViewParent &parent,
                                GUINet &net)
     : GUISUMOAbstractView(app, parent, net),
-    _laneDrawer(new GUIAggregatedLaneDrawer(_net.myEdgeWrapper)),
+    _laneDrawer(new GUIAggregatedLaneDrawer(_net.myEdgeWrapper,
+        _net.getAggregatedValueBoundery())),
     _junctionDrawer(new GUIJunctionDrawer_nT(_net.myJunctionWrapper)),
     _detectorDrawer(0),
     _rowDrawer(new GUIROWDrawer_FGnT(_net.myEdgeWrapper)),

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/11/20 13:21:17  dkrajzew
+// further work on aggregated views
+//
 // Revision 1.15  2003/11/12 14:01:54  dkrajzew
 // visualisation of tl-logics added
 //
@@ -356,13 +359,16 @@ void
 GUILaneWrapper::buildAggregatedValuesStorage()
 {
     //
-    myAggregatedValues = new LoggedValue_TimeFloating<double>*[5];
-    for(size_t i=0; i<5; i++) {
+    myAggregatedValues = new LoggedValue_TimeFloating<double>*[1];
+    cout << myLane.id() << endl;
+    for(size_t i=0; i<1; i++) {
+        cout << i << endl;
         myAggregatedValues[i] =
             new LoggedValue_TimeFloating<double>(myAggregationSizes[i]);
         string id = string("*") + myLane.id() + toString<size_t>(i);
         new GUILaneStateReporter(myAggregatedValues[i],
-            id, &myLane, 60);
+            id, &myLane, 60,
+            static_cast<GUINet*>(MSNet::getInstance())->getAggregatedValueBoundery());
     }
 }
 

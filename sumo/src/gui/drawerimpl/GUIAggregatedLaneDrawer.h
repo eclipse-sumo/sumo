@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/11/20 13:15:58  dkrajzew
+// further work on aggregated views
+//
 // Revision 1.3  2003/10/30 08:57:01  dkrajzew
 // first implementation of aggregated views using E2-detectors
 //
@@ -47,6 +50,7 @@
  * class declarations
  * ======================================================================= */
 class GUILaneWrapper;
+class GUILaneStateBounderiesStorage;
 
 
 /* =========================================================================
@@ -58,7 +62,8 @@ class GUILaneWrapper;
 class GUIAggregatedLaneDrawer : public GUISUMOAbstractView::GUILaneDrawer {
 public:
     /// constructor
-    GUIAggregatedLaneDrawer(std::vector<GUIEdge*> &edges);
+    GUIAggregatedLaneDrawer(std::vector<GUIEdge*> &edges,
+        GUILaneStateBounderiesStorage &bounderiesStorage);
 
     /// destructor
     ~GUIAggregatedLaneDrawer();
@@ -83,9 +88,7 @@ private:
         GUISUMOAbstractView::LaneColoringScheme scheme);
 
 private:
-    static double myMaxValues[5];
-    static double myMinValues[5];
-
+    GUILaneStateBounderiesStorage &myBounderiesStorage;
 };
 
 

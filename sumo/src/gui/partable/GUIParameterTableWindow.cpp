@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/11/20 13:18:10  dkrajzew
+// further work on aggregated views
+//
 // Revision 1.7  2003/11/12 14:09:13  dkrajzew
 // clean up after recent changes; comments added
 //
@@ -47,8 +50,6 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include <qdialog.h>
-#include <qlistview.h>
 #include <guisim/GUINet.h>
 #include <gui/GUIApplicationWindow.h>
 #include "GUIParameterTable.h"
@@ -56,6 +57,9 @@ namespace
 #include <gui/GUIGlObject.h>
 #include <utils/convert/ToString.h>
 #include <gui/partable/QParamPopupMenu.h>
+
+#include <qdialog.h>
+#include <qlistview.h>
 
 #ifndef WIN32
 #include "GUIParameterTableWindow.moc"

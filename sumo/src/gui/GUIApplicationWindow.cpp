@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2003/11/20 13:17:32  dkrajzew
+// further work on aggregated views
+//
 // Revision 1.26  2003/11/12 14:06:32  dkrajzew
 // visualisation of tl-logics added
 //
@@ -108,6 +111,14 @@ namespace
 #include <string>
 #include <sstream>
 #include <algorithm>
+
+#include <guisim/GUINet.h>
+
+#include "GUISUMOViewParent.h"
+#include "GUILoadThread.h"
+#include "GUIRunThread.h"
+#include "GUIApplicationWindow.h"
+
 #include <qpixmap.h>
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
@@ -126,7 +137,6 @@ namespace
 #include <qmessagebox.h>
 #include <qlabel.h>
 
-#include <guisim/GUINet.h>
 #include <utils/convert/ToString.h>
 
 #include <utils/fonts/arial11.h>
@@ -139,10 +149,6 @@ namespace
 
 #include <sumo_version.h>
 
-#include "GUISUMOViewParent.h"
-#include "GUILoadThread.h"
-#include "GUIRunThread.h"
-#include "GUIApplicationWindow.h"
 #include "QSimulationStepEvent.h"
 #include "QSimulationLoadedEvent.h"
 #include "QSimulationEndedEvent.h"

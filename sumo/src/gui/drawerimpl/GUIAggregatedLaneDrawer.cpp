@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/11/20 13:15:58  dkrajzew
+// further work on aggregated views
+//
 // Revision 1.3  2003/10/30 08:57:01  dkrajzew
 // first implementation of aggregated views using E2-detectors
 //
@@ -47,6 +50,7 @@ namespace
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILaneWrapper.h>
+#include <guisim/GUILaneStateBounderiesStorage.h>
 #include "GUIAggregatedLaneDrawer.h"
 
 #include <qgl.h>
@@ -60,19 +64,12 @@ using namespace std;
 
 
 /* =========================================================================
- * static value definitions
- * ======================================================================= */
-double GUIAggregatedLaneDrawer::myMaxValues[5] =
-    { -100000, -100000, -100000, -100000, -100000 };
-double GUIAggregatedLaneDrawer::myMinValues[5] =
-    { -100000, -100000, -100000, -100000, -100000 };
-
-
-/* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIAggregatedLaneDrawer::GUIAggregatedLaneDrawer(std::vector<GUIEdge*> &edges)
-    : GUILaneDrawer(edges)
+GUIAggregatedLaneDrawer::GUIAggregatedLaneDrawer(
+        std::vector<GUIEdge*> &edges,
+        GUILaneStateBounderiesStorage &bounderiesStorage)
+    : GUILaneDrawer(edges), myBounderiesStorage(bounderiesStorage)
 {
 }
 
@@ -221,23 +218,8 @@ GUIAggregatedLaneDrawer::setLaneColor(const GUILaneWrapper &lane,
         case MSEdge::EDGEFUNCTION_NORMAL:
             {
                 double density = lane.getAggregatedDensity(0);
-                if(myMaxValues[0]==-100000) {
-                    myMaxValues[0] = density;
-                    myMinValues[0] = density;
-                } else {
-                    if(myMaxValues[0]<density) {
-                        myMaxValues[0] = density;
-                    }
-                    if(myMinValues[0]>density) {
-                        myMinValues[0] = density;
-                    }
-                }
-                if(myMaxValues[0]==myMinValues[0]) {
-                    density = 0;
-                } else {
-                    density -= myMinValues[0];
-                    density /= (myMaxValues[0]-myMinValues[0]);
-                }
+                density = myBounderiesStorage.timeStepNorm(density,
+                    MS_E2_ZS_Collector::DENSITY);
                 glColor3f(1.0-density, 0.5, 0.5+density);
             }
             break;

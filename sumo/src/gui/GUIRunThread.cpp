@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/11/20 13:17:33  dkrajzew
+// further work on aggregated views
+//
 // Revision 1.15  2003/11/12 14:06:33  dkrajzew
 // visualisation of tl-logics added
 //
@@ -72,14 +75,12 @@ namespace
 #include <cassert>
 #include <string>
 #include <iostream>
+
+#include <guisim/GUINet.h>
+
 #include <helpers/SingletonDictionary.h>
-#include <microsim/MSLaneState.h>
-#include <microsim/MSUpdateEachTimestepContainer.h>
-#include <guisim/GUILaneStateReporter.h>
-#include <guisim/guilogging/GLObjectValuePassConnector.h>
 #include <gui/tlstracker/GUITLLogicPhasesTrackerWindow.h>
 #include <qthread.h>
-#include <guisim/GUINet.h>
 #include "QSimulationStepEvent.h"
 #include "QSimulationEndedEvent.h"
 #include "GUIApplicationWindow.h"
@@ -135,9 +136,7 @@ GUIRunThread::run()
             _simulationInProgress = true;
 	        // execute a single step
             _net->simulationStep(_craw, _simStartTime, _step);
-            MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GUILaneStateReporter> >::getInstance()->updateAll();
-            MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<double> > >::getInstance()->updateAll();
-            MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<SimplePhaseDef> > >::getInstance()->updateAll();
+            _net->guiSimulationStep();
 
             // inform parent that a step has been performed
             QThread::postEvent( _parent, new QSimulationStepEvent() );
