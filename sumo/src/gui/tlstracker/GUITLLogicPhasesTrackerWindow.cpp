@@ -148,9 +148,9 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
         double x2 = x + (double) duration / width;
         for(size_t j=0; j<myTLLogic.getLinks().size(); j++) {
             MSLink::LinkState state =
-                (*pi).first.test(j)==true 
+                (*pi).first.test(j)==true
                 ? MSLink::LINKSTATE_TL_GREEN
-                : (*pi).second.test(j)==true 
+                : (*pi).second.test(j)==true
                     ? MSLink::LINKSTATE_TL_YELLOW
                     : MSLink::LINKSTATE_TL_RED;
             switch(state) {
@@ -200,16 +200,17 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
     glVertex2f(0, 1);
     glVertex2f(1, 0);
     glEnd();
-    myFontRenderer.Draw(caller.getWidthInPixels(), 
+    myFontRenderer.Draw(caller.getWidthInPixels(),
         caller.getHeightInPixels());
 }
 
 
-void 
+void
 GUITLLogicPhasesTrackerWindow::addValue(SimplePhaseDef def)
 {
+    cout << "Ret:" << def.first << '/' << def.second  << endl;
     myLock.lock();
-    if(myPhases.size()==0||*(myPhases.begin())!=def) {
+    if(myPhases.size()==0||*(myPhases.end()-1)!=def) {
         myPhases.push_back(def);
         myDurations.push_back(1);
     } else {
@@ -218,7 +219,7 @@ GUITLLogicPhasesTrackerWindow::addValue(SimplePhaseDef def)
     myLock.unlock();
 }
 
-void 
+void
 GUITLLogicPhasesTrackerWindow::setFontRenderer(GUITLLogicPhasesTrackerPanel &caller)
 {
     myFontRenderer.add(myApplication.myFonts.get("std10"));
@@ -335,13 +336,13 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::paintGL()
 }
 
 
-size_t 
+size_t
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::getHeightInPixels() const
 {
     return _heightInPixels;
 }
 
-size_t 
+size_t
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::getWidthInPixels() const
 {
     return _widthInPixels;
