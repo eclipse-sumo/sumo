@@ -77,6 +77,9 @@ GUIParameterTableItem::update()
 DoubleValueSource *
 GUIParameterTableItem::getSourceCopy() const
 {
+    if(mySource==0) {
+        return 0;
+    }
     return mySource->copy();
 }
 
