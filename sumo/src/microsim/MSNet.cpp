@@ -25,11 +25,15 @@ namespace
 }
 
 // $Log$
+// Revision 1.29  2003/07/21 18:12:33  roessel
+// Comment out MSDetector specific staff.
+//
 // Revision 1.28  2003/07/21 11:00:37  dkrajzew
 // informing the network about vehicles still left within the emitters added
 //
 // Revision 1.27  2003/07/16 15:28:00  dkrajzew
-// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+// MSEmitControl now only simulates lanes which do have vehicles; the edges do
+// not go through the lanes, the EdgeControl does
 //
 // Revision 1.26  2003/06/24 14:49:52  dkrajzew
 // unneded members removed (will be replaced, soon)
@@ -41,7 +45,8 @@ namespace
 // the simulation now also ends when the last vehicle vanishes
 //
 // Revision 1.23  2003/06/18 11:33:06  dkrajzew
-// messaging system added; speedcheck removed; clearing of all structures moved from the destructor to an own method (needed for the gui when loading fails)
+// messaging system added; speedcheck removed; clearing of all structures moved
+// from the destructor to an own method (needed for the gui when loading fails)
 //
 // Revision 1.22  2003/06/06 14:04:05  dkrajzew
 // Default building of MSLaneStates removed
@@ -50,10 +55,14 @@ namespace
 // new usage of MSEventControl applied
 //
 // Revision 1.20  2003/06/05 16:06:47  dkrajzew
-// the initialisation and the ending of a simulation must be available to the gui - simulation mathod was split therefore
+// the initialisation and the ending of a simulation must be available to the
+// gui - simulation mathod was split therefore
 //
 // Revision 1.19  2003/06/05 10:29:54  roessel
-// Modified the event-handling in the simulation loop. Added the new MSTravelcostDetector< MSLaneState > which will replace the old MeanDataDetectors as an example. Needs to be shifted to the proper place (where?).
+// Modified the event-handling in the simulation loop. Added the new
+// MSTravelcostDetector< MSLaneState > which will replace the old
+// MeanDataDetectors as an example. Needs to be shifted to the proper place
+// (where?).
 //
 // Revision 1.18  2003/05/27 18:36:06  roessel
 // Removed parameter MSEventControl* evc from MSNet::init.
@@ -276,7 +285,7 @@ namespace
 #include "MSJunction.h"
 #include "MSJunctionLogic.h"
 #include "MSLane.h"
-#include "MSDetector.h"
+//#include "MSDetector.h"
 #include "MSRoute.h"
 #include "MSRouteLoaderControl.h"
 #include "MSTLLogicControl.h"
@@ -415,7 +424,7 @@ MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
 void
 MSNet::init( string id, MSEdgeControl* ec,
              MSJunctionControl* jc,
-             DetectorCont* detectors,
+//              DetectorCont* detectors,
              MSRouteLoaderControl *rlc,
              MSTLLogicControl *tlc)
 {
@@ -423,7 +432,7 @@ MSNet::init( string id, MSEdgeControl* ec,
     myInstance->myEdges        = ec;
     myInstance->myJunctions    = jc;
 //     myInstance->myEvents       = MSEventControl::getInstance();
-    myInstance->myDetectors    = detectors;
+//     myInstance->myDetectors    = detectors;
     myInstance->myRouteLoaders = rlc;
     myInstance->myLogics       = tlc;
 
@@ -444,7 +453,7 @@ MSNet::~MSNet()
     delete myEdges;
     delete myJunctions;
     delete myEmitter;
-    delete myDetectors;
+//     delete myDetectors;
     delete myRouteLoaders;
 }
 
@@ -454,7 +463,7 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
 {
     initialiseSimulation(craw, start, stop);
     // the simulation loop
-    for ( myStep = start; myStep <= stop&&myLoadedVehNo>myEndedVehNo; ++myStep ) {
+    for ( myStep = start;myStep <= stop&&myLoadedVehNo>myEndedVehNo;++myStep) {
 		cout << myStep << (char) 13;
         simulationStep(craw, start, myStep);
     }
@@ -541,7 +550,8 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
     // move Vehicles
         // move vehicles which do not interact with the lane end
     myEdges->moveNonCritical();
-        // precompute possible positions for vehicles that do interact with their lane's end
+        // precompute possible positions for vehicles that do interact with
+        // their lane's end
     myEdges->moveCritical();
 
     // set information about which vehicles may drive at all
@@ -557,11 +567,11 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
 
     myEdges->detectCollisions( myStep );
 
-    // Let's detect.
-    for( DetectorCont::iterator detec = myDetectors->begin();
-        detec != myDetectors->end(); ++detec ) {
-        ( *detec )->sample( simSeconds() );
-    }
+//     // Let's detect.
+//     for( DetectorCont::iterator detec = myDetectors->begin();
+//         detec != myDetectors->end(); ++detec ) {
+//         ( *detec )->sample( simSeconds() );
+//     }
 
 
 
@@ -679,7 +689,8 @@ MSNet::addPreStartInitialisedItem(PreStartInitialised *preinit)
 void
 MSNet::preStartInit()
 {
-    for(PreStartVector::iterator i=myPreStartInitialiseItems.begin(); i!=myPreStartInitialiseItems.end(); i++) {
+    for(PreStartVector::iterator i=myPreStartInitialiseItems.begin();
+        i!=myPreStartInitialiseItems.end(); i++) {
         (*i)->init(*this);
     }
     srand(1040208551);

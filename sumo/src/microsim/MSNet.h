@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.24  2003/07/21 18:12:33  roessel
+// Comment out MSDetector specific staff.
+//
 // Revision 1.23  2003/07/21 15:44:21  roessel
 // Added two conversion methods from steps to seconds and vice versa.
 //
@@ -223,7 +226,7 @@ class MSEmitControl;
 class MSEventControl;
 class MSRouteLoaderControl;
 class Event;
-class MSDetector;
+//class MSDetector;
 class PreStartInitialised;
 class MSVehicle;
 class MSRoute;
@@ -257,8 +260,8 @@ public:
     /// Type for time (seconds).
     typedef unsigned int Time;
 
-    /// Detector-container type.
-    typedef std::vector< MSDetector* > DetectorCont;
+//     /// Detector-container type.
+//     typedef std::vector< MSDetector* > DetectorCont;
 
     /// List of times (intervals or similar)
     typedef std::vector< Time > TimeVector;
@@ -279,7 +282,7 @@ public:
     static void init( std::string id,
                       MSEdgeControl* ec,
                       MSJunctionControl* jc,
-                      DetectorCont* detectors,
+//                       DetectorCont* detectors,
                       MSRouteLoaderControl *rlc,
                       MSTLLogicControl *tlc);
 
@@ -435,8 +438,8 @@ protected:
     /// Current time step.
     Time myStep;
 
-    /// Container of detectors.
-    DetectorCont* myDetectors;
+//     /// Container of detectors.
+//     DetectorCont* myDetectors;
 
     /// The Net's meanData is a pair of an interval-length and a filehandle.
     class MeanData
