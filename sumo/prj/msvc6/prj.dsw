@@ -81,9 +81,6 @@ Package=<4>
     Project_Dep_Name z_libutils_glutils
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name z_libutils_qutils
-    End Project Dependency
-    Begin Project Dependency
     Project_Dep_Name y_libgui
     End Project Dependency
     Begin Project Dependency
@@ -97,6 +94,9 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name y_libnetload
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_foxtools
     End Project Dependency
 }}}
 
@@ -288,30 +288,6 @@ Package=<4>
 
 ###############################################################################
 
-Project: "tagreader"=.\tagreader\tagreader.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "y_libforeign_boostthreads"=.\y_libforeign_boostthreads\y_libforeign_boostthreads.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
 Project: "y_libgui"=.\y_libgui\y_libgui.dsp - Package Owner=<4>
 
 Package=<5>
@@ -480,6 +456,18 @@ Package=<4>
 
 ###############################################################################
 
+Project: "z_libutils_foxtools"=.\z_libutils_foxtools\z_libutils_foxtools.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "z_libutils_geom"=.\z_libutils_geom\z_libutils_geom.dsp - Package Owner=<4>
 
 Package=<5>
@@ -529,18 +517,6 @@ Package=<4>
 ###############################################################################
 
 Project: "z_libutils_options"=.\z_libutils_options\z_libutils_options.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "z_libutils_qutils"=.\z_libutils_qutils\z_libutils_qutils.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
