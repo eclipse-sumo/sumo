@@ -114,7 +114,7 @@ sumo_gui_SOURCES = gui_main.cpp \
 gui_help.h \
 sumo_version.cpp \
 sumo_version.h
-sumo_gui_LDFLAGS = -L$(XERCES_LDFLAGS) $(QT_LDFLAGS) $(X_LDFLAGS)
+sumo_gui_LDFLAGS = $(QT_LDFLAGS) -L$(XERCES_LDFLAGS) $(X_LDFLAGS)
 sumo_gui_LDADD =  ./gui/libgui.a \
 ./guinetload/libguinetload.a \
 ./guisim/libguisim.a \
