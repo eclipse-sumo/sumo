@@ -501,6 +501,10 @@ SOURCE=..\..\..\src\netimport\visum\NIVisumParser_Districts.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\netimport\visum\NIVisumParser_EdgePolys.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\netimport\visum\NIVisumParser_Edges.cpp
 # End Source File
 # Begin Source File
@@ -1002,6 +1006,10 @@ SOURCE=..\..\..\src\netimport\visum\NIVisumParser_Connectors.h
 # Begin Source File
 
 SOURCE=..\..\..\src\netimport\visum\NIVisumParser_Districts.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netimport\visum\NIVisumParser_EdgePolys.h
 # End Source File
 # Begin Source File
 

@@ -115,6 +115,10 @@ SOURCE=..\..\..\src\utils\iodevices\OutputDevice_File.h
 
 SOURCE=..\..\..\src\utils\iodevices\SharedOutputDevices.h
 # End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\iodevices\XMLDevice.h
+# End Source File
 # End Group
 # End Target
 # End Project

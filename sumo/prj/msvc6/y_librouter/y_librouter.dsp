@@ -7,19 +7,19 @@
 CFG=y_librouter - Win32 Debug
 !MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
 !MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "y_librouter.mak".
-!MESSAGE 
+!MESSAGE
 !MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
 !MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "y_librouter.mak" CFG="y_librouter - Win32 Debug"
-!MESSAGE 
+!MESSAGE
 !MESSAGE Für die Konfiguration stehen zur Auswahl:
-!MESSAGE 
+!MESSAGE
 !MESSAGE "y_librouter - Win32 Release" (basierend auf  "Win32 (x86) Static Library")
 !MESSAGE "y_librouter - Win32 Debug" (basierend auf  "Win32 (x86) Static Library")
-!MESSAGE 
+!MESSAGE
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -74,7 +74,7 @@ LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
 
-!ENDIF 
+!ENDIF
 
 # Begin Target
 
@@ -86,6 +86,14 @@ LIB32=link.exe -lib
 # Begin Source File
 
 SOURCE=..\..\..\src\router\CellDriverInfoParser.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\router\FloatValueTimeLine.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\router\IDSupplier.cpp
 # End Source File
 # Begin Source File
 
@@ -106,6 +114,10 @@ SOURCE=..\..\..\src\router\ROEdgeCont.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\router\ROEdgeVector.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\router\ROFrame.cpp
 # End Source File
 # Begin Source File
 
@@ -227,6 +239,14 @@ SOURCE=..\..\..\src\router\ROVehTypeCont.cpp
 
 SOURCE=..\..\..\src\router\ROWeightsHandler.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\router\TextHelpers.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\router\ValueTimeLine.cpp
+# End Source File
 # End Group
 # Begin Group "Header-Dateien"
 
@@ -262,6 +282,10 @@ SOURCE=..\..\..\src\router\ROEdgeCont.h
 # Begin Source File
 
 SOURCE=..\..\..\src\router\ROEdgeVector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\router\ROFrame.h
 # End Source File
 # Begin Source File
 

@@ -7,19 +7,19 @@
 CFG=z_libutils_geom - Win32 Debug
 !MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
 !MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "z_libutils_geom.mak".
-!MESSAGE 
+!MESSAGE
 !MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
 !MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "z_libutils_geom.mak" CFG="z_libutils_geom - Win32 Debug"
-!MESSAGE 
+!MESSAGE
 !MESSAGE Für die Konfiguration stehen zur Auswahl:
-!MESSAGE 
+!MESSAGE
 !MESSAGE "z_libutils_geom - Win32 Release" (basierend auf  "Win32 (x86) Static Library")
 !MESSAGE "z_libutils_geom - Win32 Debug" (basierend auf  "Win32 (x86) Static Library")
-!MESSAGE 
+!MESSAGE
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -74,7 +74,7 @@ LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
 
-!ENDIF 
+!ENDIF
 
 # Begin Target
 
@@ -89,7 +89,7 @@ SOURCE=..\..\..\src\utils\geom\bezier.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\geom\Boundery.cpp
+SOURCE=..\..\..\src\utils\geom\Boundary.cpp
 # End Source File
 # Begin Source File
 
@@ -102,6 +102,10 @@ SOURCE=..\..\..\src\utils\geom\GeomConvHelper.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\geom\GeomHelper.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\geom\Helper_ConvexHull.cpp
 # End Source File
 # Begin Source File
 
@@ -129,7 +133,7 @@ SOURCE=..\..\..\src\utils\geom\bezier.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\geom\Boundery.h
+SOURCE=..\..\..\src\utils\geom\Boundary.h
 # End Source File
 # Begin Source File
 
@@ -145,7 +149,11 @@ SOURCE=..\..\..\src\utils\geom\GeomHelper.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\geom\HaveBoundery.h
+SOURCE=..\..\..\src\utils\geom\HaveBoundary.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\geom\Helper_ConvexHull.h
 # End Source File
 # Begin Source File
 

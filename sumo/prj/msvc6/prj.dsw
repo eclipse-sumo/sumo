@@ -42,6 +42,84 @@ Package=<4>
 
 ###############################################################################
 
+Project: "giant"=.\giant\giant.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name y_libgui
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name y_libguinetload
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name y_libguisim
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name y_libmicrosim
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name y_libnetload
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libmicrosim_output
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libmicrosim_tls
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_common
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_convert
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_fonts
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_foxtools
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_geom
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_gfx
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_glutils
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_guidiv
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_guievents
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_guiicons
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_importio
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_iodevices
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_options
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_sumoxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_xml
+    End Project Dependency
+}}}
+
+###############################################################################
+
 Project: "guisim"=.\guisim\guisim.dsp - Package Owner=<4>
 
 Package=<5>
@@ -103,6 +181,18 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_iodevices
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libmicrosim_tls
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_guiicons
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_guievents
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_guidiv
     End Project Dependency
 }}}
 
@@ -195,6 +285,93 @@ Package=<4>
 
 ###############################################################################
 
+Project: "netedit"=.\netedit\netedit.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name y_libnetbuild
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name y_libnetgen
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name y_libnetimport
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_common
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_convert
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_fonts
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_foxtools
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_geom
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_gfx
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_glutils
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_guidiv
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_guievents
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_guiicons
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_importio
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_options
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_sumoxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_xml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name y_libgui
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name y_libguinetload
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name y_libguisim
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name y_libmicrosim
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name y_libnetload
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libmicrosim_output
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libmicrosim_tls
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_iodevices
+    End Project Dependency
+}}}
+
+###############################################################################
+
 Project: "netgen"=.\netgen\netgen.dsp - Package Owner=<4>
 
 Package=<5>
@@ -254,18 +431,9 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name z_libutils_dev
     End Project Dependency
-}}}
-
-###############################################################################
-
-Project: "routeremapper"=.\routeremapper\routeremapper.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_importio
+    End Project Dependency
 }}}
 
 ###############################################################################
@@ -310,6 +478,9 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_geom
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libmicrosim_tls
     End Project Dependency
 }}}
 
@@ -435,6 +606,18 @@ Package=<4>
 
 ###############################################################################
 
+Project: "z_libmicrosim_tls"=.\z_libmicrosim_tls\z_libmicrosim_tls.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "z_libutils_common"=.\z_libutils_common\z_libutils_common.dsp - Package Owner=<4>
 
 Package=<5>
@@ -532,6 +715,42 @@ Package=<4>
 ###############################################################################
 
 Project: "z_libutils_glutils"=.\z_libutils_glutils\z_libutils_glutils.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "z_libutils_guidiv"=.\z_libutils_guidiv\z_libutils_guidiv.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "z_libutils_guievents"=.\z_libutils_guievents\z_libutils_guievents.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "z_libutils_guiicons"=.\z_libutils_guiicons\z_libutils_guiicons.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

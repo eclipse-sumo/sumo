@@ -85,7 +85,107 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\output\e2_detectors\MS_E2_ZS_CollectorOverLanes.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSCrossSection.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSCurrentHaltingDurationSumPerVehicle.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDensity.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetector2File.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetectorCounterContainerWrapper.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetectorFileOutput.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetectorInterfaceCommon.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetectorOccupancyCorrection.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetectorSubSys.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e1_detectors\MSE1Collector.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e1_detectors\MSE1MeanSpeed.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e2_detectors\MSE2Collector.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3Collector.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3MeanNHaltings.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3NVehicles.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3Traveltime.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSEDDetectorInterface.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSHaltDuration.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSHaltingDurationSum.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSInductLoop.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSJamLengthAheadOfTrafficLights.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSJamLengthSum.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\output\meandata\MSLaneMeanDataValues.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSLDDetectorInterface.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSMaxJamLength.cpp
 # End Source File
 # Begin Source File
 
@@ -97,6 +197,30 @@ SOURCE=..\..\..\src\microsim\output\meandata\MSMeanData_Net_Utils.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\output\MSNStartedHalts.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSNVehicles.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSOccupancyDegree.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSQueueLengthAheadOfTrafficLights.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSSpaceMeanSpeed.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSTDDetectorInterface.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\output\MSXMLRawOut.cpp
 # End Source File
 # End Group
@@ -105,7 +229,143 @@ SOURCE=..\..\..\src\microsim\output\MSXMLRawOut.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\output\e2_detectors\MS_E2_ZS_CollectorOverLanes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSCrossSection.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSCurrentHaltingDurationSumPerVehicle.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDensity.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetector2File.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetectorContainerWrapper.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetectorContainerWrapperBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetectorCounterContainerWrapper.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetectorFileOutput.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetectorHaltingContainerWrapper.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetectorInterfaceCommon.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetectorOccupancyCorrection.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetectorSubSys.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSDetectorTypedefs.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e1_detectors\MSE1.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e1_detectors\MSE1Collector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e1_detectors\MSE1MeanSpeed.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e1_detectors\MSE1MoveReminder.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e2_detectors\MSE2Collector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3Collector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3MeanNHaltings.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3MoveReminder.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3NVehicles.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3Traveltime.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSEDDetector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSEDDetectorInterface.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSHaltDuration.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSHaltingDurationSum.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSInductLoop.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSJamLengthAheadOfTrafficLights.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSJamLengthSum.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\output\meandata\MSLaneMeanDataValues.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSLDDetector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSLDDetectorInterface.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSMaxJamLength.h
 # End Source File
 # Begin Source File
 
@@ -118,6 +378,54 @@ SOURCE=..\..\..\src\microsim\output\meandata\MSMeanData_Net_Cont.h
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\output\meandata\MSMeanData_Net_Utils.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSMeanDetector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSNStartedHalts.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSNVehicles.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSObserver.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSOccupancyDegree.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSPredicates.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSQueueLengthAheadOfTrafficLights.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSSpaceMeanSpeed.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSSubject.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSSumDetector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSTDDetector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\output\MSTDDetectorInterface.h
 # End Source File
 # Begin Source File
 

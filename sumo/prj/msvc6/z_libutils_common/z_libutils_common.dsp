@@ -7,19 +7,19 @@
 CFG=z_libutils_common - Win32 Debug
 !MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
 !MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "z_libutils_common.mak".
-!MESSAGE 
+!MESSAGE
 !MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
 !MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "z_libutils_common.mak" CFG="z_libutils_common - Win32 Debug"
-!MESSAGE 
+!MESSAGE
 !MESSAGE Für die Konfiguration stehen zur Auswahl:
-!MESSAGE 
+!MESSAGE
 !MESSAGE "z_libutils_common - Win32 Release" (basierend auf  "Win32 (x86) Static Library")
 !MESSAGE "z_libutils_common - Win32 Debug" (basierend auf  "Win32 (x86) Static Library")
-!MESSAGE 
+!MESSAGE
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -74,7 +74,7 @@ LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
 
-!ENDIF 
+!ENDIF
 
 # Begin Target
 
@@ -106,6 +106,10 @@ SOURCE=..\..\..\src\utils\common\LogFile.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\common\MsgHandler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\common\RandHelper.cpp
 # End Source File
 # Begin Source File
 
@@ -185,6 +189,10 @@ SOURCE=..\..\..\src\utils\common\NamedObjectCont.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\common\RandHelper.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\common\StdDefs.h
 # End Source File
 # Begin Source File
@@ -194,6 +202,10 @@ SOURCE=..\..\..\src\utils\common\StringTokenizer.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\common\StringUtils.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\common\SUMOTime.h
 # End Source File
 # Begin Source File
 

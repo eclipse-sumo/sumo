@@ -7,19 +7,19 @@
 CFG=y_libguisim - Win32 Debug
 !MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
 !MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "y_libguisim.mak".
-!MESSAGE 
+!MESSAGE
 !MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
 !MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "y_libguisim.mak" CFG="y_libguisim - Win32 Debug"
-!MESSAGE 
+!MESSAGE
 !MESSAGE Für die Konfiguration stehen zur Auswahl:
-!MESSAGE 
+!MESSAGE
 !MESSAGE "y_libguisim - Win32 Release" (basierend auf  "Win32 (x86) Static Library")
 !MESSAGE "y_libguisim - Win32 Debug" (basierend auf  "Win32 (x86) Static Library")
-!MESSAGE 
+!MESSAGE
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -74,7 +74,7 @@ LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
 
-!ENDIF 
+!ENDIF
 
 # Begin Target
 
@@ -105,7 +105,7 @@ SOURCE=..\..\..\src\guisim\GUIEdge.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\guisim\GUIGrid.cpp
+SOURCE=..\..\..\src\guisim\GUIGridBuilder.cpp
 # End Source File
 # Begin Source File
 
@@ -217,7 +217,7 @@ SOURCE=..\..\..\src\guisim\GUIEdgeCont.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\guisim\GUIGrid.h
+SOURCE=..\..\..\src\guisim\GUIGridBuilder.h
 # End Source File
 # Begin Source File
 
