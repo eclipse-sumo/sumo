@@ -19,11 +19,19 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-
-
-// $Id$
-
-
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.35  2004/07/02 09:59:56  dkrajzew
+// code stye applied
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -41,10 +49,15 @@
 #include <cassert>
 
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
-// static member
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
 vector< MSLaneState* > MSLaneState::laneStateDetectorsM;
 
 string MSLaneState::xmlHeaderM(
@@ -80,6 +93,10 @@ string MSLaneState::xmlHeaderM(
 
 string MSLaneState::detectorInfoEndM( "</detector>\n" );
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 MSLaneState::~MSLaneState()
 {
     timestepDataM.clear();
@@ -701,6 +718,7 @@ MSLaneState::needsNewCalculation( MSNet::Time lastNTimesteps )
 }
 
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 // Local Variables:
 // mode:C++
