@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/06/05 11:37:31  dkrajzew
+// class templates applied
+//
 // Revision 1.1  2003/06/05 06:26:16  dkrajzew
 // first tries to build under linux: warnings removed; Makefiles added
 //
@@ -62,3 +65,15 @@ QGUIToggleButton::publicSetOn(bool value)
 {
     setOn(value);
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "QGUIToggleButton.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

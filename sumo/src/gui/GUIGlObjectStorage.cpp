@@ -1,3 +1,42 @@
+//---------------------------------------------------------------------------//
+//                        GUIGlObjectStorage.cpp -
+//  A storage for retrival of displayed object using a numerical id
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.4  2003/06/05 11:37:30  dkrajzew
+// class templates applied
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+
 #include "GUIGlObject.h"
 #include <map>
 #include "GUIGlObjectStorage.h"
@@ -5,9 +44,16 @@
 #include <guisim/GUIVehicle.h>
 #include <iostream> // !!! debug only
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std; // !!! debug only
 
 
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 GUIGlObjectStorage::GUIGlObjectStorage()
     : myAktID(0)
 {
@@ -94,4 +140,15 @@ GUIGlObjectStorage::unblockObject(size_t id)
     myMap[id] = o;
     _lock.unlock();
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "GUIGlObjectStorage.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
 

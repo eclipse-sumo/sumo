@@ -1,3 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        GUIGlObject.cpp -
+//  Base class for all objects that may be displayed within the openGL-gui
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.5  2003/06/05 11:37:30  dkrajzew
+// class templates applied
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 #include <qlistview.h>
 #include <string>
 #include <stack>
@@ -8,9 +46,9 @@
 #include "GUIGlObjectStorage.h"
 
 
-
-// ------------------------
-
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 GUIGlObject::GUIGlObject(GUIGlObjectStorage &idStorage,
                          std::string fullName)
     : myFullName(fullName)
@@ -128,3 +166,15 @@ GUIGlObject::getTableParameterNo() const
     throw 1;
     return 0;
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "GUIGlObject.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

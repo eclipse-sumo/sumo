@@ -1,3 +1,39 @@
+//---------------------------------------------------------------------------//
+//                        QGLObjectToolTip.cpp -
+//  A tooltip floating over a window
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.6  2003/06/05 11:37:31  dkrajzew
+// class templates applied
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
 
 #include <qtooltip.h>
@@ -11,8 +47,16 @@
 #include <qfontmetrics.h>
 #include "QGLObjectToolTip.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 QGLObjectToolTip::QGLObjectToolTip(GUISUMOAbstractView *parent)
     : QDialog(parent, 0, FALSE,
     Qt::WType_TopLevel | Qt::WStyle_Customize | Qt::WStyle_NoBorder
@@ -41,27 +85,29 @@ QGLObjectToolTip::setObjectTip(GUIGlObject *object,
         hide();
         return;
     }
-//    GUINet::lockAlloc();
     _lock->lock();
-//    hide();
     myLastX = x;
     myLastY = y;
     QString str(object->getFullName().c_str());
     QRect rect = _painter.boundingRect(0, 0, 2000, _textHeight,
         Qt::AlignLeft, str);
 
-//    _painter.drawText(5, 5, "hallo");
-//    drawText(5, 5, QString(/*object->getFullName().c_str()*/ "hallo"));
-
-//    setGeometry(x, y, rect.width()+6, _textHeight+6);
     setGeometry(x+5, y-11-_textHeight, rect.width()+6, _textHeight+6);
     show();
     erase();
-//    setGeometry(x, y, rect.width()+6, _textHeight+6);
     _painter.drawText(3, _textHeight+2, str);
     _painter.drawRect(0, 0, rect.width()+6, _textHeight+6);
     _lock->unlock();
-//    GUINet::unlockAlloc();
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "QGLObjectToolTip.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 

@@ -2,7 +2,7 @@
 #define GUIGlObject_h
 //---------------------------------------------------------------------------//
 //                        GUIGlObject.h -
-//  A class for handling of displayed objects via their numerical id
+//  Base class for all objects that may be displayed within the openGL-gui
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Oct 2002
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/06/05 11:37:30  dkrajzew
+// class templates applied
+//
 // Revision 1.4  2003/06/05 06:26:16  dkrajzew
 // first tries to build under linux: warnings removed; Makefiles added
 //

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/06/05 11:37:30  dkrajzew
+// class templates applied
+//
 // Revision 1.4  2003/05/20 09:23:54  dkrajzew
 // some statistics added; some debugging done
 //
@@ -143,4 +146,15 @@ private:
 
 };
 
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifndef DISABLE_INLINE
+//#include "GUIDanielPerspectiveChanger.icc"
+//#endif
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
+
