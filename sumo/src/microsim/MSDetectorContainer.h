@@ -67,7 +67,7 @@ struct MSDetectorContainer : public MSDetectorContainerBase
             ContainerIt eraseIt =
                 std::find_if( containerM.begin(), containerM.end(),
                               std::bind2nd(
-                                  VehEqualsPredicate(), &veh ) );
+                                  ErasePredicate(), &veh ) );
             containerM.erase( eraseIt );
         }
     
