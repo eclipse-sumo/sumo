@@ -2,7 +2,7 @@
 #define NLSAXHandler_h
 /***************************************************************************
                           NLSAXHandler.h
-			  Virtual handler that reacts on incoming tags; 
+			  Virtual handler that reacts on incoming tags;
 			  parent to the handlers that represent the parsing
 			  steps
                              -------------------
@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2002/06/11 13:44:34  dkrajzew
+// Windows eol removed
+//
 // Revision 1.4  2002/05/14 04:54:25  dkrajzew
 // Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
 //
@@ -68,12 +71,12 @@ class NLContainer;
 /**
  * NLSAXHandler
  * NLSAXHandler is an extended GenericSAX2Hendler which provides error handling.
- * This handler has no parsing functionality which is only implemented in the 
+ * This handler has no parsing functionality which is only implemented in the
  * derived classes, where each class solves a single step of the parsing
  */
 class NLSAXHandler : public GenericSAX2Handler {
 protected:
-    /// the container (storage) for build data 
+    /// the container (storage) for build data
     NLContainer                &myContainer;
     /// the handler for the SAX2-attributes
     AttributesHandler          _attrHandler;
@@ -108,10 +111,10 @@ public:
     /// called on a XML-fatal error; the error is reported to the SErrorHandler
     virtual void fatalError(const SAXParseException& exception);
 protected:
-    /** adds the message about the occured error to the error handler 
+    /** adds the message about the occured error to the error handler
 	after building it */
     void setError(const std::string &type, const SAXParseException& exception);
-    /** returns the information whether instances belonging to the 
+    /** returns the information whether instances belonging to the
         given class of data shall be extracted during this parsing */
     bool wanted(LoadFilter filter) const;
 private:

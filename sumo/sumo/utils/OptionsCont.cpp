@@ -1,6 +1,6 @@
 /***************************************************************************
                           OptionsCont.h
-			  A container for options. 
+			  A container for options.
 			  Allows the access of the values of the stored options
 			  using different option names.
                              -------------------
@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2002/06/11 13:43:35  dkrajzew
+// Windows eol removed
+//
 // Revision 1.4  2002/04/17 11:19:57  dkrajzew
 // windows-carriage returns removed
 //
@@ -79,14 +82,14 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-OptionsCont::OptionsCont() :  
-  _addresses(0), _values(), _path("") 
+OptionsCont::OptionsCont() :
+  _addresses(0), _values(), _path("")
 {
 }
 
 
-OptionsCont::OptionsCont(string path) :  
-  _addresses(0), _values(), _path(path) 
+OptionsCont::OptionsCont(string path) :
+  _addresses(0), _values(), _path(path)
 {
    char *tmp = getenv(_path.c_str());
    if(tmp==0) {
@@ -131,7 +134,7 @@ void OptionsCont::addSynonyme(string name1, string name2) {
     if(i1==_values.end()&&i2==_values.end())
       throw InvalidArgument("Neither the option '" + name1 + "' nor the option '" + name2 + "' is known yet");
     if(i1!=_values.end()&&i2!=_values.end()) {
-      if((*i1).second==(*i2).second) 
+      if((*i1).second==(*i2).second)
         return;
       throw new InvalidArgument("Both options '" + name1 + "' and '" + name2 + "' do exist and differ.");
     }
@@ -148,14 +151,14 @@ bool OptionsCont::exists(string name) const {
 
 bool OptionsCont::isSet(string name) const {
   KnownContType::const_iterator i = _values.find(name);
-  if(i==_values.end()) 
+  if(i==_values.end())
       return false;
   return (*i).second->isSet();
 }
 
 bool OptionsCont::isDefault(std::string name) const {
   KnownContType::const_iterator i = _values.find(name);
-  if(i==_values.end()) 
+  if(i==_values.end())
       return false;
   return (*i).second->isDefault();
 }
@@ -303,5 +306,5 @@ string OptionsCont::getSystemPath(string ext) const {
 
 // Local Variables:
 // mode:C++
-// 
+//
 

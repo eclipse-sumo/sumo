@@ -22,8 +22,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/06/11 13:43:37  dkrajzew
+// Windows eol removed
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.1  2002/03/20 08:20:57  dkrajzew
 // New configuration-default handling
@@ -45,7 +48,7 @@ class OptionsCont;
  * ======================================================================= */
 /**
  * OptionsIO
- * A wrapper for the complete IO of options containing the reading of a 
+ * A wrapper for the complete IO of options containing the reading of a
  * configuration file and the parsing of the command line arguments.
  * The only accessable method returns fale, when something failed during the
  * process. This may happen when the configuration file is broken or its

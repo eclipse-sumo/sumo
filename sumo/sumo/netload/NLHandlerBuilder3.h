@@ -2,7 +2,7 @@
 #define NLHandlerBuilder3_h
 /***************************************************************************
                           NLHandlerBuilder3.h
-			  The fifth-step - handler building remaining 
+			  The fifth-step - handler building remaining
 			  structures
                              -------------------
     project              : SUMO
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/06/11 13:44:34  dkrajzew
+// Windows eol removed
+//
 // Revision 1.3  2002/04/17 11:17:49  dkrajzew
 // windows-newlines removed
 //
@@ -82,13 +85,13 @@ public:
     // -----------------------------------------------------------------------
     //  Handlers for the SAX DocumentHandler interface
     // -----------------------------------------------------------------------
-    /** called on the occurence of the beginning of a tag; 
-        this method 
-        a) opens a junction for the addition of elements describing it 
-        b) adds right-of-way-logic items to it or 
+    /** called on the occurence of the beginning of a tag;
+        this method
+        a) opens a junction for the addition of elements describing it
+        b) adds right-of-way-logic items to it or
         c) allocates new vehicles in dependence of the occured tag */
     void myStartElement(int element, const std::string &name, const Attributes &attrs);
-    /** called on the end of an element; 
+    /** called on the end of an element;
         this method closes the processing of a previously chosen junction */
     void myEndElement(int element, const std::string &name);
 private:

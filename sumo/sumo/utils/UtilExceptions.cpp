@@ -24,8 +24,11 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/06/11 13:43:36  dkrajzew
+// Windows eol removed
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:29  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -79,7 +82,7 @@ ProcessError::~ProcessError()
 /* -------------------------------------------------------------------------
  * UnsupportedFeature - methods
  * ----------------------------------------------------------------------- */
-UnsupportedFeature::UnsupportedFeature(string message) : 
+UnsupportedFeature::UnsupportedFeature(string message) :
   exception(), _message(message)
 {
 }

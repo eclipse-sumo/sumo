@@ -9,8 +9,8 @@
  ***************************************************************************/
 
 /***************************************************************************
-    Attention!!!                                                             
-    As one of few, this module is under the 
+    Attention!!!
+    As one of few, this module is under the
         Lesser GNU General Public Licence
     *********************************************************************
     This library is free software; you can redistribute it and/or
@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2002/06/11 13:43:35  dkrajzew
+// Windows eol removed
+//
 // Revision 1.4  2002/06/10 08:33:22  dkrajzew
 // Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
@@ -44,7 +47,9 @@ namespace
 #include "GenericSAX2Handler.h"
 #include "TplConvert.h"
 
+#ifdef EXTERNAL_TEMPLATE_DEFINITION
 #include "TplConvert.cpp"
+#endif
 
 /* =========================================================================
  * used namespaces
@@ -54,12 +59,12 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GenericSAX2Handler::GenericSAX2Handler() 
+GenericSAX2Handler::GenericSAX2Handler()
    : DefaultHandler(), _errorOccured(false), _unknownOccured(false)
 {
 }
 
-GenericSAX2Handler::GenericSAX2Handler(const Tag *tags, int tagNo) 
+GenericSAX2Handler::GenericSAX2Handler(const Tag *tags, int tagNo)
    : DefaultHandler(), _errorOccured(false), _unknownOccured(false)
 {
    for(int i=0; i<tagNo; i++) {
@@ -91,7 +96,7 @@ void GenericSAX2Handler::startElement(const XMLCh* const uri, const XMLCh* const
 void GenericSAX2Handler::endElement(const XMLCh* const uri, const XMLCh* const localname, const XMLCh* const qname) {
    string name = TplConvert<XMLCh>::_2str(qname);
    int element = convertTag(name);
-   if(element<0) 
+   if(element<0)
       _unknownOccured = true;
    // call user handler
    myCharacters(element, name, _characters);
@@ -133,7 +138,7 @@ void GenericSAX2Handler::myEndElementDump(int element, const std::string &name) 
 
 int GenericSAX2Handler::convertTag(const std::string &tag) const {
    TagMap::const_iterator i=_tagMap.find(tag);
-   if(i==_tagMap.end()) 
+   if(i==_tagMap.end())
       return -1; // !!! should it be reported (as error)
    return (*i).second;
 }
@@ -157,5 +162,5 @@ GenericSAX2Handler::buildErrorMessage(const std::string &file, const string &typ
 
 // Local Variables:
 // mode:C++
-// 
+//
 

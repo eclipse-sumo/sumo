@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/06/11 13:44:34  dkrajzew
+// Windows eol removed
+//
 // Revision 1.3  2002/04/17 11:18:48  dkrajzew
 // windows-newlines removed
 //
@@ -49,7 +52,7 @@
  * enumeration definitions
  * ======================================================================= */
 /**
- * NLTag 
+ * NLTag
  * an enumeration type for possible XML-tags
  */
 typedef enum _NLTag {

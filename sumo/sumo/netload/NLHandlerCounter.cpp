@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2002/06/11 13:44:32  dkrajzew
+// Windows eol removed
+//
 // Revision 1.3  2002/04/17 11:17:49  dkrajzew
 // windows-newlines removed
 //
@@ -64,17 +67,17 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLHandlerCounter::NLHandlerCounter(NLContainer &container, LoadFilter filter) 
+NLHandlerCounter::NLHandlerCounter(NLContainer &container, LoadFilter filter)
     : NLSAXHandler(container, filter)
 {
 }
 
 /// standard destructor
-NLHandlerCounter::~NLHandlerCounter() 
+NLHandlerCounter::~NLHandlerCounter()
 {
 }
 
-void 
+void
 NLHandlerCounter::myStartElement(int element, const std::string &name, const Attributes &attrs)
 {
     // process static net parts when wished
@@ -119,7 +122,7 @@ NLHandlerCounter::getMessage() const {
     return "Counting structures...";
 }
 
-void 
+void
 NLHandlerCounter::changeLoadFilter(LoadFilter filter) {
     _filter = filter;
 }

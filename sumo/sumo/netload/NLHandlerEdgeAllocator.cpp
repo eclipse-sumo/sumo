@@ -1,6 +1,6 @@
 /***************************************************************************
                           NLHandlerEdgeAllocator.cpp
-			  The second-step - handler that is responsible for 
+			  The second-step - handler that is responsible for
 			  the allocation of edges
                              -------------------
     project              : SUMO
@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2002/06/11 13:44:32  dkrajzew
+// Windows eol removed
+//
 // Revision 1.4  2002/06/10 08:36:07  dkrajzew
 // Conversion of strings generalized
 //
@@ -62,7 +65,9 @@ namespace
 #include "NLTags.h"
 #include "NLLoadFilter.h"
 
+#ifdef EXTERNAL_TEMPLATE_DEFINITION
 #include "../utils/TplConvert.cpp"
+#endif
 
 /* =========================================================================
  * used namespaces
@@ -72,18 +77,18 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLHandlerEdgeAllocator::NLHandlerEdgeAllocator(NLContainer &container, LoadFilter filter) 
-    : NLSAXHandler(container, filter) 
+NLHandlerEdgeAllocator::NLHandlerEdgeAllocator(NLContainer &container, LoadFilter filter)
+    : NLSAXHandler(container, filter)
 {
     _attrHandler.add(ATTR_ID, "id");
 }
 
-NLHandlerEdgeAllocator::~NLHandlerEdgeAllocator() 
+NLHandlerEdgeAllocator::~NLHandlerEdgeAllocator()
 {
 }
 
-void 
-NLHandlerEdgeAllocator::myStartElement(int element, const std::string &name, const Attributes &attrs) 
+void
+NLHandlerEdgeAllocator::myStartElement(int element, const std::string &name, const Attributes &attrs)
 {
     if(wanted(LOADFILTER_NET)) {
         switch(element) {

@@ -11,8 +11,8 @@
  ***************************************************************************/
 
 /***************************************************************************
-    Attention!!!                                                             
-    As one of few, this module is under the 
+    Attention!!!
+    As one of few, this module is under the
         Lesser GNU General Public Licence
     *********************************************************************
     This library is free software; you can redistribute it and/or
@@ -28,7 +28,7 @@
 
 /**
  * StringTokenizer
- * A class similar to the StringTokenizer from Java. It splits a string at the 
+ * A class similar to the StringTokenizer from Java. It splits a string at the
  * given string or character (or one of the special cases NEWLINE or WHITECHAR)
  * and allows to iterate over the so generated substrings.
  *
@@ -49,7 +49,7 @@
  * There is something to know about the behaviour:
  * When using WHITECHAR, a list of whitechars occuring in  the string to split
  * is regarded as a single divider. All other parameter will use multiple occurences
- * of operators as a list of single divider and the string between them will 
+ * of operators as a list of single divider and the string between them will
  * have a length of zero.
  */
 class StringTokenizer {
@@ -70,17 +70,17 @@ private:
    /** the list of substring lengths */
    SizeVector    _lengths;
 public:
-   /** constructor 
-    same as StringTokenizer(tosplit, StringTokenizer.WHITECHARS) 
+   /** constructor
+    same as StringTokenizer(tosplit, StringTokenizer.WHITECHARS)
     tosplit is the string to split into substrings */
    StringTokenizer(std::string tosplit);
-   /** constructor 
+   /** constructor
     the first string will be split at the second string's occurences */
    StringTokenizer(std::string tosplit, std::string token);
    /** constructor
     The second parameter may be a character - the strig will then be split at all occurences of this character.
     When StringTokenizer.NEWLINE is used as second parameter, the string will be split at all occurences of a newline character (0x0d / 0x0a)
-    When StringTokenizer.WHITECHARS is used as second parameter, the string will be split at all characters below 0x20 
+    When StringTokenizer.WHITECHARS is used as second parameter, the string will be split at all characters below 0x20
     The behaviour is undefined for other parameter */
    StringTokenizer(std::string tosplit, int special);
    /** destructor */

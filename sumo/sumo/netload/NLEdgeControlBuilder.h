@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2002/06/11 13:44:33  dkrajzew
+// Windows eol removed
+//
 // Revision 1.2  2002/06/07 14:39:58  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //
@@ -57,19 +60,19 @@ class MSLane;
  * ======================================================================= */
 /**
  * NLEdgeControlBuilder
- * This class is the container for MSEdge-instances while they are build. 
- * As instances of the MSEdge-class contain references to other instances of 
- * this class which may not yet be known at their generation, they are 
+ * This class is the container for MSEdge-instances while they are build.
+ * As instances of the MSEdge-class contain references to other instances of
+ * this class which may not yet be known at their generation, they are
  * prebuild first and initialised with their correct values in a second step.
  *
- * While building an intialisation of the MSEdge, the value are stored in a 
- * preallocated list to avoid memory farction. For the same reason, the list 
- * of edges, later splitted into two lists, one containing single-lane-edges 
- * and one containing multi-lane-edges, is preallocated to the size that was 
+ * While building an intialisation of the MSEdge, the value are stored in a
+ * preallocated list to avoid memory farction. For the same reason, the list
+ * of edges, later splitted into two lists, one containing single-lane-edges
+ * and one containing multi-lane-edges, is preallocated to the size that was
  * previously computed by counting the edges in the first parser step.
  * As a result, the build MSEdgeControlBuilder is returned.
  * ToDo/Remarks:
- * The MSEdgeControlBuilder posesses an id. This is not set by the XML-file 
+ * The MSEdgeControlBuilder posesses an id. This is not set by the XML-file
  * and no interface for setting it is implemented yet.
  */
 class NLEdgeControlBuilder {
@@ -77,9 +80,9 @@ public:
     /// definition of the used storage for edges
     typedef std::vector<MSEdge*> EdgeCont;
 private:
-    /** storage for edges; to allow the splitting of edges after their number 
-        is known, they are hold inside this vector and laterly moved into two 
-        vectors, one for single-lane-edges and one for multi-lane-edges 
+    /** storage for edges; to allow the splitting of edges after their number
+        is known, they are hold inside this vector and laterly moved into two
+        vectors, one for single-lane-edges and one for multi-lane-edges
         respectively */
     EdgeCont                  *m_pEdges;
     /// pointer to the currently chosen edge
@@ -97,26 +100,26 @@ private:
     /// number of single-lane-edges
     unsigned int              m_iNoSingle;
     /// number of multi-lane-edges
-    unsigned int              m_iNoMulti;            
+    unsigned int              m_iNoMulti;
 public:
-    /** standard constructor; the parameter is a hint for the maximal number 
+    /** standard constructor; the parameter is a hint for the maximal number
         of lanes inside an edge */
     NLEdgeControlBuilder(unsigned int storageSize=10);
     /// standard destructor
     ~NLEdgeControlBuilder();
-    /** prepares the builder for the building of the specified number of 
+    /** prepares the builder for the building of the specified number of
         edges (preallocates ressources) */
     void prepare(unsigned int no);
-    /** adds an edge with the given id to the list of edges; this method 
-        throws an XMLIdAlreadyUsedException when the id was already used for 
+    /** adds an edge with the given id to the list of edges; this method
+        throws an XMLIdAlreadyUsedException when the id was already used for
         another edge */
     void addEdge(const std::string &id);
     /// chooses the previously added edge as the current edge
     void chooseEdge(const std::string &id);
-    /** returns the pointer to the edge the builder is currently working on 
+    /** returns the pointer to the edge the builder is currently working on
         (needed?!!!) */
     MSEdge *getActiveReference();
-    /** adds a lane to the current edge; this method throws an 
+    /** adds a lane to the current edge; this method throws an
         XMLDepartLaneDuplicationException when the lane is marked to be the
         depart lane and another so marked lane was added before */
     void addLane(MSLane *lane, bool isDepartLane);
@@ -126,15 +129,15 @@ public:
         edge from the current edge */
     void openAllowedEdge(MSEdge *edge);
     /** adds a lane that may be used to reach the edge previously specified by
-        "openAllowedEdge"; this method throws an XMLInvalidChildException when 
+        "openAllowedEdge"; this method throws an XMLInvalidChildException when
         the lane is not belonging to the current edge */
     void addAllowed(MSLane *lane);
     /// closes the specification of lanes that may be used to reach an edge
     void closeAllowedEdge();
-    /** closes the building of an edge; the edge is completely described by 
+    /** closes the building of an edge; the edge is completely described by
         now and may not be opened again what is not tested!!! */
     void closeEdge();
-    
+
     /// builds the MSEdgeControl-class which holds all edges
     MSEdgeControl *build();
 private:

@@ -29,7 +29,7 @@
  * ======================================================================= */
 class STRConvert {
  public:
-    /** converts the given std::string into an int; 
+    /** converts the given std::string into an int;
         throws EmptyData when the string is empty */
      static int _2int(const std::string &str);
 };

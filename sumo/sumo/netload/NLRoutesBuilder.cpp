@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2002/06/11 13:44:33  dkrajzew
+// Windows eol removed
+//
 // Revision 1.3  2002/06/07 14:39:59  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //
@@ -62,31 +65,31 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLRoutesBuilder::NLRoutesBuilder() 
+NLRoutesBuilder::NLRoutesBuilder()
 {
   m_pActiveRoute = new MSNet::Route();
   m_pActiveRoute->reserve(100);
 }
 
-NLRoutesBuilder::~NLRoutesBuilder() 
+NLRoutesBuilder::~NLRoutesBuilder()
 {
   delete m_pActiveRoute;
 }
 
-void 
-NLRoutesBuilder::openRoute(const string &id) 
+void
+NLRoutesBuilder::openRoute(const string &id)
 {
   m_ActiveId = id;
 }
 
-void 
-NLRoutesBuilder::addEdge(MSEdge *edge) 
+void
+NLRoutesBuilder::addEdge(MSEdge *edge)
 {
   m_pActiveRoute->push_back(edge);
 }
 
-void 
-NLRoutesBuilder::closeRoute() 
+void
+NLRoutesBuilder::closeRoute()
 {
     int size = m_pActiveRoute->size();
     if(/* NLNetBuilder::check&& */ size==0) throw XMLListEmptyException();

@@ -2,7 +2,7 @@
 #define NLHandlerBuilder2_h
 /***************************************************************************
                           NLHandlerBuilder2.h
-			  The fourth-step - handler building remaining 
+			  The fourth-step - handler building remaining
 			  structures
                              -------------------
     project              : SUMO
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/06/11 13:44:34  dkrajzew
+// Windows eol removed
+//
 // Revision 1.3  2002/04/17 11:17:49  dkrajzew
 // windows-newlines removed
 //
@@ -68,7 +71,7 @@ class NLContainer;
 class NLHandlerBuilder2 : public NLSAXHandler {
 private:
     /// numerical ids for the attributes
-    enum AttributeEnum { ATTR_ID, ATTR_KEY, ATTR_TYPE, ATTR_ROUTE, 
+    enum AttributeEnum { ATTR_ID, ATTR_KEY, ATTR_TYPE, ATTR_ROUTE,
         ATTR_DEPART,
         ATTR_LANE, ATTR_POSITION, ATTR_SPLINTERVAL, ATTR_STYLE, ATTR_FILE };
 
@@ -83,16 +86,16 @@ public:
     // -----------------------------------------------------------------------
     //  Handlers for the SAX DocumentHandler interface
     // -----------------------------------------------------------------------
-    /** called on the occurence of the beginning of a tag; 
-        a) this method opens a junction for the addition of elements 
-           describing it 
-        b) adds right-of-way-logic items to it or 
+    /** called on the occurence of the beginning of a tag;
+        a) this method opens a junction for the addition of elements
+           describing it
+        b) adds right-of-way-logic items to it or
         c) allocates new vehicles in dependence of the occured tag */
     void myStartElement(int element, const std::string &name, const Attributes &attrs);
-    /** called on the end of an element; 
+    /** called on the end of an element;
         this method closes the processing of a previously chosen junction */
     void myEndElement(int element, const std::string &name);
-    /** called when simple characters occure; 
+    /** called when simple characters occure;
         this method adds incoming lanes to the previously selected junction */
     void myCharacters(int element, const std::string &name, const std::string &chars);
 private:

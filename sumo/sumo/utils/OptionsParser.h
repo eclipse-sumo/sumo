@@ -20,8 +20,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/06/11 13:43:37  dkrajzew
+// Windows eol removed
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:28  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -42,7 +45,7 @@ class OptionsCont;
  * OptionsParser
  * Used for the parsing of the command line arguments.
  * Usage:
- * The only accessable method returns false when something failed. This may 
+ * The only accessable method returns false when something failed. This may
  * happend when the syntax of the arguments is invalid, a value is tried to
  * be set several times or an unknown option is tried to be set.
  * The class assumes all options are unset or using default values only.
@@ -56,10 +59,10 @@ class OptionsParser {
     static int check(OptionsCont *oc, char *arg1);
     /** parses the previous arguments */
     static int check(OptionsCont *oc, char *arg1, char *arg2);
-    /** returns the information whether the given argument is an option 
+    /** returns the information whether the given argument is an option
         (begins with '-') */
     static bool checkParameter(char *arg1);
-    /** returns the information whether the given argument consists of 
+    /** returns the information whether the given argument consists of
         abbreviations (single leading '-') */
     static bool isAbbreviation(char *arg1);
     /** converts char* to string */

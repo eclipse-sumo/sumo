@@ -1,3 +1,5 @@
+#ifndef TplConvertSec_cpp
+#define TplConvertSec_cpp
 /***************************************************************************
                           TplConvertSec.h
                           Some conversion methods (from strings to other)
@@ -9,8 +11,8 @@
  ***************************************************************************/
 
 /***************************************************************************
-    Attention!!!                                                             
-    As one of few, this module is under the 
+    Attention!!!
+    As one of few, this module is under the
         Lesser GNU General Public Licence
     *********************************************************************
     This library is free software; you can redistribute it and/or
@@ -19,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2002/06/11 13:43:36  dkrajzew
+// Windows eol removed
+//
 // Revision 1.1  2002/06/10 08:33:22  dkrajzew
 // Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
@@ -49,11 +54,11 @@ std::string TplConvertSec<E>::_2strSec(const E * const data, string def) {
 
 template<class E>
 std::string TplConvertSec<E>::_2strSec(const E * const data, int length, string def) {
-   if(data==0||length==0) 
+   if(data==0||length==0)
       return def;
    string str;
    str.reserve(length);
-   for(int i=0; i<length; i++) 
+   for(int i=0; i<length; i++)
       str = str + (char) data[i];
    return str;
 }
@@ -65,10 +70,11 @@ int TplConvertSec<E>::_2intSec(const E * const data, int def) {
 
 template<class E>
 int TplConvertSec<E>::_2intSec(const E * const data, int length, int def) {
-   if(data==0||length==0) 
+   if(data==0||length==0)
       return def;
    int val = 0;
-   for(int i=0; i<length&&data[i]!=0; i++) {
+   int i=0;
+   for(; i<length&&data[i]!=0; i++) {
       val = val * 10;
       char akt = (char) data[i];
       if(akt<'0'||akt>'9')
@@ -87,10 +93,11 @@ long TplConvertSec<E>::_2longSec(const E * const data, long def) {
 
 template<class E>
 long TplConvertSec<E>::_2longSec(const E * const data, int length, long def) {
-   if(data==0||length==0) 
+   if(data==0||length==0)
       return def;
    long ret = 0;
-   for(int i=0; i<length&&data[i]!=0; i++) {
+   int i = 0;
+   for(; i<length&&data[i]!=0; i++) {
       ret = ret * 10;
       char akt = (char) data[i];
       if(akt<'0'||akt>'9')
@@ -109,7 +116,7 @@ float TplConvertSec<E>::_2floatSec(const E * const data, float def) {
 
 template<class E>
 float TplConvertSec<E>::_2floatSec(const E * const data, int length, float def) {
-   if(data==0||length==0) 
+   if(data==0||length==0)
       return def;
    float ret = 0;
    int i=0;
@@ -135,7 +142,7 @@ float TplConvertSec<E>::_2floatSec(const E * const data, int length, float def) 
    }
    if(i==0)
       return def;
-   return ret; 
+   return ret;
 }
 
 template<class E>
@@ -145,7 +152,7 @@ bool TplConvertSec<E>::_2boolSec(const E * const data, bool def) {
 
 template<class E>
 bool TplConvertSec<E>::_2boolSec(const E * const data, int length, bool def) {
-   if(data==0||length==0) 
+   if(data==0||length==0)
       return def;
    char akt = (char) data[0];
    return akt=='1' || akt=='x' || akt=='t' || akt=='T';
@@ -158,11 +165,11 @@ char *TplConvertSec<E>::_2charpSec(const E * const data, char *def) {
 
 template<class E>
 char *TplConvertSec<E>::_2charpSec(const E * const data, int length, char *def) {
-   if(data==0||length==0) 
+   if(data==0||length==0)
       return copy(def);
    char *ret = new char[length+1];
    int i = 0;
-   for(; i<length; i++) 
+   for(; i<length; i++)
       ret[i] = data[i];
    ret[i] = 0;
    return ret;
@@ -176,3 +183,6 @@ char *TplConvertSec<E>::_2charpSec(const E * const data, int length, char *def) 
 // Local Variables:
 // mode:C++
 // End:
+
+#endif
+

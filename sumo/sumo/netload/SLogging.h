@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2002/06/11 13:44:35  dkrajzew
+// Windows eol removed
+//
 // Revision 1.2  2002/04/24 10:38:45  dkrajzew
 // Strings are now passed as references
 //

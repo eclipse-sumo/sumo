@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2002/06/11 13:44:32  dkrajzew
+// Windows eol removed
+//
 // Revision 1.4  2002/06/07 14:39:58  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //
@@ -67,7 +70,7 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLEdgeControlBuilder::NLEdgeControlBuilder(unsigned int storageSize) 
+NLEdgeControlBuilder::NLEdgeControlBuilder(unsigned int storageSize)
 {
   m_pActiveEdge = (MSEdge*) 0;
   m_pLaneStorage = new MSEdge::LaneCont();
@@ -78,20 +81,20 @@ NLEdgeControlBuilder::NLEdgeControlBuilder(unsigned int storageSize)
   m_iNoSingle = m_iNoMulti = 0;
 }
 
-NLEdgeControlBuilder::~NLEdgeControlBuilder() 
+NLEdgeControlBuilder::~NLEdgeControlBuilder()
 {
   delete m_pLaneStorage;
 }
 
-void 
-NLEdgeControlBuilder::prepare(unsigned int no) 
+void
+NLEdgeControlBuilder::prepare(unsigned int no)
 {
   m_pEdges = new EdgeCont();
   m_pEdges->reserve(no);
 }
 
-void 
-NLEdgeControlBuilder::addEdge(const string &id) 
+void
+NLEdgeControlBuilder::addEdge(const string &id)
 {
   MSEdge *edge = new MSEdge(id);
   if(!MSEdge::dictionary(id, edge))
@@ -99,8 +102,8 @@ NLEdgeControlBuilder::addEdge(const string &id)
   m_pEdges->push_back(edge);
 }
 
-void 
-NLEdgeControlBuilder::chooseEdge(const string &id) 
+void
+NLEdgeControlBuilder::chooseEdge(const string &id)
 {
   m_pActiveEdge = MSEdge::dictionary(id);
   if(/* NLNetBuilder::check && */m_pActiveEdge==0) throw XMLIdNotKnownException("edge", id);
@@ -109,13 +112,13 @@ NLEdgeControlBuilder::chooseEdge(const string &id)
 }
 
 MSEdge *
-NLEdgeControlBuilder::getActiveReference() 
+NLEdgeControlBuilder::getActiveReference()
 {
   return m_pActiveEdge;
 }
 
-void 
-NLEdgeControlBuilder::addLane(MSLane *lane, bool isDepart) 
+void
+NLEdgeControlBuilder::addLane(MSLane *lane, bool isDepart)
 {
 /*  if(NLNetBuilder::check) {*/
     // checks if the depart lane was set before
@@ -127,8 +130,8 @@ NLEdgeControlBuilder::addLane(MSLane *lane, bool isDepart)
     m_pDepartLane = lane;
 }
 
-void 
-NLEdgeControlBuilder::closeLanes() 
+void
+NLEdgeControlBuilder::closeLanes()
 {
   m_pLanes = new MSEdge::LaneCont();
   m_pLanes->reserve(m_pLaneStorage->size());
@@ -141,14 +144,14 @@ NLEdgeControlBuilder::closeLanes()
   m_pLaneStorage->clear();
 }
 
-void 
-NLEdgeControlBuilder::openAllowedEdge(MSEdge *edge) 
+void
+NLEdgeControlBuilder::openAllowedEdge(MSEdge *edge)
 {
   m_pCurrentDestination = edge;
 }
 
-void 
-NLEdgeControlBuilder::addAllowed(MSLane *lane) 
+void
+NLEdgeControlBuilder::addAllowed(MSLane *lane)
 {
 /*  if(NLNetBuilder::check) {*/
     // checks if the lane is inside the edge
@@ -159,8 +162,8 @@ NLEdgeControlBuilder::addAllowed(MSLane *lane)
   m_pLaneStorage->push_back(lane);
 }
 
-void 
-NLEdgeControlBuilder::closeAllowedEdge() 
+void
+NLEdgeControlBuilder::closeAllowedEdge()
 {
   MSEdge::LaneCont *lanes = new MSEdge::LaneCont();
   lanes->reserve(m_pLaneStorage->size());
@@ -170,14 +173,14 @@ NLEdgeControlBuilder::closeAllowedEdge()
   (*m_pAllowedLanes)[m_pCurrentDestination] = lanes;
 }
 
-void 
-NLEdgeControlBuilder::closeEdge() 
+void
+NLEdgeControlBuilder::closeEdge()
 {
   m_pActiveEdge->initialize(m_pAllowedLanes, m_pDepartLane, m_pLanes);
 }
 
 MSEdgeControl *
-NLEdgeControlBuilder::build() 
+NLEdgeControlBuilder::build()
 {
   MSEdgeControl::EdgeCont *singleLanes = new MSEdgeControl::EdgeCont();
   MSEdgeControl::EdgeCont *multiLanes = new MSEdgeControl::EdgeCont();

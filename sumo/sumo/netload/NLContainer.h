@@ -2,7 +2,7 @@
 #define NLContainer_h
 /***************************************************************************
                           NLContainer.h
-			  Holds the builded structures or structures that 
+			  Holds the builded structures or structures that
 			  hold these
                              -------------------
     project              : SUMO
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2002/06/11 13:44:33  dkrajzew
+// Windows eol removed
+//
 // Revision 1.4  2002/06/07 14:39:58  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //
@@ -72,35 +75,35 @@ class MSJunctionLogic;
  * ======================================================================= */
 /**
  * NLContainer
- * NLContainer is used as storage for structures from which the simulation 
+ * NLContainer is used as storage for structures from which the simulation
  * structures will be build.
- * As not all of these structures are atomic, the container holds pointers to 
- * other structure-holding classes i.e. the NLEdgeControlBuilder, the 
+ * As not all of these structures are atomic, the container holds pointers to
+ * other structure-holding classes i.e. the NLEdgeControlBuilder, the
  * "NLJunctionControlBuilder" and the "NLRoutesBuilder".
- * All methods are called from NLHandler* classes where each is a derivation 
- * of the NLSAXHandler-class which as the name says is a XML-SAX-Handler 
+ * All methods are called from NLHandler* classes where each is a derivation
+ * of the NLSAXHandler-class which as the name says is a XML-SAX-Handler
  * (see there).
- * When parameter checking is on, most of the classes throw exceptions on 
- * false description which are caught by the NLHandler*-classes where errors 
+ * When parameter checking is on, most of the classes throw exceptions on
+ * false description which are caught by the NLHandler*-classes where errors
  * are generated and reported.
- * As a result of parsing, the MSNet-class containing all structures is 
+ * As a result of parsing, the MSNet-class containing all structures is
  * returned.
  */
 class NLContainer {
 private:
     /// pointer to the NLEdgeControlBuilder (storage for edges during building)
     NLEdgeControlBuilder      *m_pECB;
-    /** pointer to the NLJunctionControlBuilder 
+    /** pointer to the NLJunctionControlBuilder
          (storage for junctions during building) */
     NLJunctionControlBuilder  *m_pJCB;
     /// pointer to the NLRoutesBuilder (storage for routes during building)
     NLRoutesBuilder           *m_pRCB;
-    /** pointer to the NLSucceedingLaneBuilder 
+    /** pointer to the NLSucceedingLaneBuilder
          (storage for building succeeding lanes) */
     NLSucceedingLaneBuilder   *m_pSLB;
     /// pointer to the used model
     MSModel                   *m_pModel;
-    /** pointer to a list of vehicles 
+    /** pointer to a list of vehicles
          (used during building, later stored inside the net) */
     MSEmitControl::VehCont    *m_pVehicles;
     /** pointer to the NLDetectorBuilder
@@ -113,7 +116,7 @@ private:
     typedef std::map<std::string, int> LogicKeyCont;
     /// the list of junction keys used
     LogicKeyCont            m_LogicKeys;
-    
+
     /// the number of edges inside the net
     int noEdges;
     /// the number of lanes inside the net
@@ -129,7 +132,7 @@ private:
     /// the number of routes inside the net
     int noDetectors;
 private:
-  
+
   typedef std::map<std::string, MSJunctionLogic*> LogicCont;
   static LogicCont _logics;
 
@@ -138,7 +141,7 @@ public:
     NLContainer();
     /// standard destructor
     ~NLContainer();
-    
+
     // data storage preallocation
     /// increments the number of found edges
     void incEdges();
@@ -161,81 +164,81 @@ public:
     void preallocateVehicles();
     /// inserts a new junction type key
     void addKey(std::string key);
-    
+
     // interface to use the edge control builder
-    /** adds an edge (allocates it); this method may throw an exception if 
+    /** adds an edge (allocates it); this method may throw an exception if
         an edge with the given id already exists */
     void addEdge(const std::string &id);
     /// rechooses a previously allocated edge
     void chooseEdge(const std::string &id);
-    /** adds a lane to the last chosen edge; this method may throw exceptions 
-        if a) no edge was chosen b) a lane with the given id already existed 
+    /** adds a lane to the last chosen edge; this method may throw exceptions
+        if a) no edge was chosen b) a lane with the given id already existed
         and c) another lane was already set as the depart-lane */
-    void addLane(const std::string &id, const bool isDepartLane, 
-		 const float maxSpeed, const float length, 
+    void addLane(const std::string &id, const bool isDepartLane,
+		 const float maxSpeed, const float length,
 		 const float changeUrge);
     /// closes the addition of an edges lanes
     void closeLanes();
-    /** starts the building of a connection to the next edge; 
-        this method may throw an exception if no edge with the given id 
+    /** starts the building of a connection to the next edge;
+        this method may throw an exception if no edge with the given id
         exists */
     void openAllowedEdge(const std::string &id);
-    /** adds a connecting lane of the current edge to the list of connection 
-        to the next edge; this method may throw an exception when a) no lane 
-        with this id exists or b) the lane with the given id is not a part of 
+    /** adds a connecting lane of the current edge to the list of connection
+        to the next edge; this method may throw an exception when a) no lane
+        with this id exists or b) the lane with the given id is not a part of
         the current (chosen) edge */
     void addAllowed(const std::string &id);
     /// closes the building of connections to a destination edge
     void closeAllowedEdge();
     /// closes the building of the current edge
     void closeEdge();
-    
+
     /// interfaces for the building of succeeding lanes
-    /** opens the computation of a container holding the succeding lanes of a 
+    /** opens the computation of a container holding the succeding lanes of a
         lane */
     void openSuccLane(const std::string &laneId);
     /// sets the succeeding junction
     void setSuccJunction(const std::string &junctionId);
-    /// add a succeeding lane 
+    /// add a succeeding lane
     void addSuccLane(bool yield, const std::string &laneId);
     /// closes the building
     void closeSuccLane();
     /// returns the name of the lane the succeeding lanes are added to
     std::string getSuccingLaneName() const;
 
-    
+
     /// interface to use the junction control builder
     /// begins the building of a junction with the given id
     void openJunction(const std::string &id, const std::string &key, std::string type);
-    /// adds an incoming lane to the junction; 
+    /// adds an incoming lane to the junction;
     void addInLane(const std::string &id);
-    /** adds a part of the right-of-way-logic to the junction; 
-        this method throws an exception when the key (the request) was 
+    /** adds a part of the right-of-way-logic to the junction;
+        this method throws an exception when the key (the request) was
         already used in the currently build junction */
     //void setKey(const std::string &key);
     /// closes the building of a junction
     void closeJunction();
 
     /// interface for the generation of vehicle types
-    /** adds a new vehicle type to the simulation; this method throws an 
+    /** adds a new vehicle type to the simulation; this method throws an
         exception when the id was already used for another vehicle type */
-    void addVehicleType(const std::string &id, const float length, 
-			const float maxspeed, const float bmax, 
+    void addVehicleType(const std::string &id, const float length,
+			const float maxspeed, const float bmax,
 			const float dmax, const float sigma);
 
     /// handling of routes
     /// begins the building of the route with the given id
     void openRoute(const std::string &id);
-    /// adds the next route to the currently active route; 
+    /// adds the next route to the currently active route;
     void addRoutesEdge(const std::string &id);
     /// closes the building of the route
     void closeRoute();
-    
+
     // ----- interfaces for the generation of vehicles
     /// adds a new vehicle to the simulation
-    void addVehicle(const std::string &id, const std::string &vtypeid, 
+    void addVehicle(const std::string &id, const std::string &vtypeid,
 		    const std::string &routeid, const long depart);
-    
+
     // ----- interfaces for the generation of detectors
     /// adds a new detector to the simulation
     void addDetector(MSDetector *detector);
@@ -243,7 +246,7 @@ public:
 
     /// returns the statistics about the build net
     std::string getStatistics() const;
-    
+
     /// end of operations; builds the net
     MSNet *buildNet();
     /// end of operations; builds the vehicles

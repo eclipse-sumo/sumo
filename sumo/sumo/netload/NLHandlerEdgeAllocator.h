@@ -2,7 +2,7 @@
 #define NLHandlerEdgeAllocator_h
 /***************************************************************************
                           NLHandlerEdgeAllocator.h
-			  The second-step - handler that is responsible for 
+			  The second-step - handler that is responsible for
 			  the allocation of edges
                              -------------------
     project              : SUMO
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/06/11 13:44:34  dkrajzew
+// Windows eol removed
+//
 // Revision 1.3  2002/04/17 11:18:47  dkrajzew
 // windows-newlines removed
 //
@@ -60,7 +63,7 @@ class NLContainer;
  * ======================================================================= */
 /**
  * NLHandlerEdgeAllocater
- * This is the handler for the second step of the parsing 
+ * This is the handler for the second step of the parsing
  * Only allocation of MSEdge-instances is done.
  */
 class NLHandlerEdgeAllocator : public NLSAXHandler {
@@ -75,8 +78,8 @@ public:
     // -----------------------------------------------------------------------
     //  Handlers for the SAX DocumentHandler interface
     // -----------------------------------------------------------------------
-    /** called on the occurence of the beginning of a tag; 
-        this method allocates undescribed MSEdges which were counted by 
+    /** called on the occurence of the beginning of a tag;
+        this method allocates undescribed MSEdges which were counted by
         "NLHandlerCounter" previously */
     void myStartElement(int element, const std::string &name, const Attributes &attrs);
     /// returns a message about the processing

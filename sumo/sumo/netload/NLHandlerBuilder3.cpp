@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2002/06/11 13:44:32  dkrajzew
+// Windows eol removed
+//
 // Revision 1.5  2002/06/10 08:36:07  dkrajzew
 // Conversion of strings generalized
 //
@@ -65,7 +68,9 @@ namespace
 #include "NLNetBuilder.h"
 #include "NLTags.h"
 
+#ifdef EXTERNAL_TEMPLATE_DEFINITION
 #include "../utils/TplConvert.cpp"
+#endif
 
 /* =========================================================================
  * used namespaces
@@ -75,7 +80,7 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLHandlerBuilder3::NLHandlerBuilder3(NLContainer &container, LoadFilter filter) 
+NLHandlerBuilder3::NLHandlerBuilder3(NLContainer &container, LoadFilter filter)
     : NLSAXHandler(container, filter)
 {
     _attrHandler.add(ATTR_ID, "id");
@@ -84,12 +89,12 @@ NLHandlerBuilder3::NLHandlerBuilder3(NLContainer &container, LoadFilter filter)
     _attrHandler.add(ATTR_LANE, "lane");
 }
 
-NLHandlerBuilder3::~NLHandlerBuilder3() 
+NLHandlerBuilder3::~NLHandlerBuilder3()
 {
 }
 
-void 
-NLHandlerBuilder3::myStartElement(int element, const std::string &name, const Attributes &attrs) 
+void
+NLHandlerBuilder3::myStartElement(int element, const std::string &name, const Attributes &attrs)
 {
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
@@ -109,7 +114,7 @@ NLHandlerBuilder3::myStartElement(int element, const std::string &name, const At
 }
 
 
-void 
+void
 NLHandlerBuilder3::openSuccLane(const Attributes &attrs) {
     try {
         string id = _attrHandler.getString(attrs, ATTR_ID);
@@ -121,7 +126,7 @@ NLHandlerBuilder3::openSuccLane(const Attributes &attrs) {
 }
 
 
-void 
+void
 NLHandlerBuilder3::setSuccJunction(const Attributes &attrs) {
     try {
         myContainer.setSuccJunction(_attrHandler.getString(attrs, ATTR_JUNCTION));
@@ -130,7 +135,7 @@ NLHandlerBuilder3::setSuccJunction(const Attributes &attrs) {
     }
 }
 
-void 
+void
 NLHandlerBuilder3::addSuccLane(const Attributes &attrs) {
     try {
         myContainer.addSuccLane(
@@ -145,7 +150,7 @@ NLHandlerBuilder3::addSuccLane(const Attributes &attrs) {
 }
 
 
-void 
+void
 NLHandlerBuilder3::myEndElement(int element, const std::string &name)
 {
     if(wanted(LOADFILTER_NET)) {
@@ -159,7 +164,7 @@ NLHandlerBuilder3::myEndElement(int element, const std::string &name)
     }
 }
 
-void 
+void
 NLHandlerBuilder3::closeSuccLane() {
     try {
         myContainer.closeSuccLane();

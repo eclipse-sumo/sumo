@@ -2,7 +2,7 @@
 #define AttributesHandler_h
 /***************************************************************************
                           AttributesHandler.h
-                          This class realises the access to the 
+                          This class realises the access to the
                             SAX2-Attributes
                              -------------------
     begin                : Mon, 15 Apr 2002
@@ -12,8 +12,8 @@
  ***************************************************************************/
 
 /***************************************************************************
-    Attention!!!                                                             
-    As one of few, this module is under the 
+    Attention!!!
+    As one of few, this module is under the
         Lesser GNU General Public Licence
     *********************************************************************
     This library is free software; you can redistribute it and/or
@@ -22,6 +22,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2002/06/11 13:43:36  dkrajzew
+// Windows eol removed
+//
 // Revision 1.4  2002/06/10 08:33:22  dkrajzew
 // Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
@@ -65,9 +68,9 @@ public:
     bool getBool(const Attributes &attrs, int id) const;
     /** returns the named (by id) attribute as an int */
     int getInt(const Attributes &attrs, int id) const;
-    /** returns the named (by id) attribute as a string */    
+    /** returns the named (by id) attribute as a string */
     std::string getString(const Attributes &attrs, int id) const;
-    /** returns the named (by id) attributes as a string; 
+    /** returns the named (by id) attributes as a string;
         returns the third parameter when the attribute is not found */
     std::string getStringSecure(const Attributes &attrs, int id, const std::string &str) const;
     /** returns the named (by id) attribute as a long */
@@ -91,5 +94,5 @@ public:
 
 // Local Variables:
 // mode:C++
-// 
+//
 

@@ -11,8 +11,8 @@
  ***************************************************************************/
 
 /***************************************************************************
-    Attention!!!                                                             
-    As one of few, this module is under the 
+    Attention!!!
+    As one of few, this module is under the
         Lesser GNU General Public Licence
     *********************************************************************
     This library is free software; you can redistribute it and/or
@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2002/06/11 13:43:36  dkrajzew
+// Windows eol removed
+//
 // Revision 1.4  2002/06/10 08:33:22  dkrajzew
 // Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
@@ -46,9 +49,9 @@
  * ======================================================================= */
 /**
  * GenericSAX2Handler
- * GenericSAX2Handler is an extended SAX2-DefaultHandler which provides a faster access 
+ * GenericSAX2Handler is an extended SAX2-DefaultHandler which provides a faster access
  * to a enumeration of tags through a map
- * This handler has no parsing functionality which is only implemented in the 
+ * This handler has no parsing functionality which is only implemented in the
  * derived classes, where each class solves a single step of the parsing
  */
 class GenericSAX2Handler : public DefaultHandler
@@ -58,7 +61,7 @@ public:
     struct Tag { const char *name; int value; };
 protected:
     /** the type of the map the maps tag names to ints */
-    typedef std::map<std::string, int> TagMap; 
+    typedef std::map<std::string, int> TagMap;
     /** the information whether an error occured during the parsing */
     bool _errorOccured;
     /** the information whether an unknown tag occured */
@@ -101,10 +104,10 @@ public:
     /** called when a XML-fatal error occures */
     virtual void fatalError(const SAXParseException& exception);
 protected:
-    /** the user-impemlented handler method for an opening tag 
+    /** the user-impemlented handler method for an opening tag
         this tag is only called when tha tag name was supplied by the user */
     virtual void myStartElement(int element, const std::string &name, const Attributes &attrs) = 0;
-    /** the user-implemented handler method for characters 
+    /** the user-implemented handler method for characters
         this tag is only called when tha tag name was supplied by the user */
     virtual void myCharacters(int element, const std::string &name, const std::string &chars) = 0;
     /** the user-implemented handler method for a closing tag
@@ -117,7 +120,7 @@ protected:
     /** a dump-methods that may be used to avoid "unused attribute"-warnings */
     inline void myEndElementDump(int element, const std::string &name);
     /** build an error description */
-    std::string buildErrorMessage(const std::string &file, const std::string &type, 
+    std::string buildErrorMessage(const std::string &file, const std::string &type,
         const SAXParseException& exception);
 private:
     /** converts a tag from its string into its numerical representation */
@@ -133,5 +136,5 @@ private:
 
 // Local Variables:
 // mode:C++
-// 
+//
 

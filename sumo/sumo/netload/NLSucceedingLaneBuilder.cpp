@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2002/06/11 13:44:33  dkrajzew
+// Windows eol removed
+//
 // Revision 1.3  2002/06/07 14:39:59  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //
@@ -60,31 +63,31 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLSucceedingLaneBuilder::NLSucceedingLaneBuilder() 
+NLSucceedingLaneBuilder::NLSucceedingLaneBuilder()
 {
   m_SuccLanes = new MSLane::LinkCont();
   m_SuccLanes->reserve(10);
 }
 
-NLSucceedingLaneBuilder::~NLSucceedingLaneBuilder() 
+NLSucceedingLaneBuilder::~NLSucceedingLaneBuilder()
 {
   delete m_SuccLanes;
 }
 
 void
-NLSucceedingLaneBuilder::openSuccLane(const string &laneId) 
+NLSucceedingLaneBuilder::openSuccLane(const string &laneId)
 {
   m_CurrentLane = laneId;
 }
 
-void 
-NLSucceedingLaneBuilder::setSuccJunction(const string &junctionId) 
+void
+NLSucceedingLaneBuilder::setSuccJunction(const string &junctionId)
 {
   m_JunctionId = junctionId;
 }
 
 void
-NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId) 
+NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId)
 {
    if(laneId=="SUMO_NO_DESTINATION") {
       m_SuccLanes->push_back(new MSLane::Link(0, 0));
@@ -95,14 +98,14 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId)
    }
 }
 
-void 
-NLSucceedingLaneBuilder::closeSuccLane() 
+void
+NLSucceedingLaneBuilder::closeSuccLane()
 {
   MSLane *current = MSLane::dictionary(m_CurrentLane);
   MSJunction *junction = MSJunction::dictionary(m_JunctionId);
 /*  if(NLNetBuilder::check)  {*/
     if(current==0) throw XMLIdNotKnownException("lane", m_CurrentLane);
-    if(junction==0) 
+    if(junction==0)
        throw XMLIdNotKnownException("junction", m_JunctionId);
 /*  }*/
   MSLane::LinkCont *cont = new MSLane::LinkCont();
@@ -112,7 +115,7 @@ NLSucceedingLaneBuilder::closeSuccLane()
   m_SuccLanes->clear();
 }
 
-std::string 
+std::string
 NLSucceedingLaneBuilder::getSuccingLaneName() const {
     return m_CurrentLane;
 }

@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.9  2002/06/11 13:44:33  dkrajzew
+// Windows eol removed
+//
 // Revision 1.8  2002/06/10 08:36:07  dkrajzew
 // Conversion of strings generalized
 //
@@ -83,7 +86,9 @@ namespace
 #include "../utils/TplConvert.h"
 #include "../utils/FileHelpers.h"
 
+#ifdef EXTERNAL_TEMPLATE_DEFINITION
 #include "../utils/TplConvert.cpp"
+#endif
 
 /* =========================================================================
  * used namespaces
@@ -181,7 +186,7 @@ NLNetBuilder::load(LoadFilter what, const string &files, NLContainer &cont, SAX2
     if(m_pOptions.getBool("v"))
         cout << "Loading " << getDataName(what) << "..." << endl;
     int step = 0;
-    for(std::vector<NLSAXHandler*>::iterator i=steps.begin(); 
+    for(std::vector<NLSAXHandler*>::iterator i=steps.begin();
             !SErrorHandler::errorOccured()&&i!=steps.end(); i++) {
         prepareParser(parser, *i, step);
         parse(files, *i, parser);
@@ -207,7 +212,7 @@ NLNetBuilder::parse(const string &files, NLSAXHandler *handler, SAX2XMLReader &p
     StringTokenizer st(files, ';');
     while(ok&&st.hasNext()) {
         string tmp = st.next();
-	if(FileHelpers::exists(tmp)) { 
+	if(FileHelpers::exists(tmp)) {
 	    handler->setFileName(tmp);
 	    parser.parse(tmp.c_str());
 	    ok = !(SErrorHandler::errorOccured());

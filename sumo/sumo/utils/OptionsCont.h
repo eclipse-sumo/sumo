@@ -2,7 +2,7 @@
 #define OptionsCont_h
 /***************************************************************************
                           OptionsCont.h
-			  A container for options. 
+			  A container for options.
 			  Allows the access of the values of the stored options
 			  using different option names.
                              -------------------
@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/06/11 13:43:37  dkrajzew
+// Windows eol removed
+//
 // Revision 1.3  2002/04/17 11:19:57  dkrajzew
 // windows-carriage returns removed
 //
@@ -70,12 +73,12 @@ class Option;
  * OptionsCont
  * A storage for options.
  * Once stored inside this container, options will not be visible to the
- * world and are deleted by the container. Only values and stati of the 
+ * world and are deleted by the container. Only values and stati of the
  * options may be returned. While accessing the options, the programmer
  * must assure that he asks for the right value (only Option_Bool is able
  * to return a boolean value, other option types do throw exceptions).
  * Further, options added to the container must not be deleted outside
- * this container as they get invalid and cause segmentation violations then. 
+ * this container as they get invalid and cause segmentation violations then.
  * Exceptions:
  * Only the exception "InvalidArgument" from "UtilExceptions" is thrown
  */

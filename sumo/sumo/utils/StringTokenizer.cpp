@@ -9,8 +9,8 @@
  ***************************************************************************/
 
 /***************************************************************************
-    Attention!!!                                                             
-    As one of few, this module is under the 
+    Attention!!!
+    As one of few, this module is under the
         Lesser GNU General Public Licence
     *********************************************************************
     This library is free software; you can redistribute it and/or
@@ -48,7 +48,7 @@ StringTokenizer::StringTokenizer(std::string tosplit) :
 StringTokenizer::StringTokenizer(std::string tosplit, std::string token) :
    _tosplit(tosplit), _pos(0)
 {
-   if(token.length()==1) 
+   if(token.length()==1)
       prepare(tosplit, token[0]);
    else
       prepare(tosplit, token);
@@ -202,5 +202,5 @@ void StringTokenizer::prepareNewline(const string &tosplit) {
 
 // Local Variables:
 // mode:C++
-// 
+//
 

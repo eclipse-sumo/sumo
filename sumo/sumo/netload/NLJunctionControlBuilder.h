@@ -2,7 +2,7 @@
 #define NLJunctionControlBuilder_h
 /***************************************************************************
                           NLJunctionControlBuilder.h
-			  Container for MSJunctionControl-structures during 
+			  Container for MSJunctionControl-structures during
 			  their building
                              -------------------
     project              : SUMO
@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2002/06/11 13:44:34  dkrajzew
+// Windows eol removed
+//
 // Revision 1.2  2002/06/07 14:39:59  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //
@@ -54,8 +57,8 @@
  * ======================================================================= */
 /**
  * NLJunctionControlBuilder
- * NLJunctionControlBuilder is the container for MSJunction-instances while 
- * their building until they are transfered into a MSJunctionControl-instance 
+ * NLJunctionControlBuilder is the container for MSJunction-instances while
+ * their building until they are transfered into a MSJunctionControl-instance
  * at last.
  * To avoid memory fraction, the list of the MSJunction-instances is
  * preallocated to the counted number of MSJunctions int he XML-file.
@@ -65,7 +68,7 @@
 class NLJunctionControlBuilder {
 private:
   typedef std::vector<MSLane*> LaneCont;
-    /// the list of the simulations junctions 
+    /// the list of the simulations junctions
     MSJunctionControl::JunctionCont          *m_pJunctions;
     /// the list of the incoming lanes of the currently chosen junction
     LaneCont  m_pActiveInLanes;
@@ -82,10 +85,10 @@ private:
     static const int TYPE_NOJUNCTION;
     /// numerical representation for a traffic light-steered junction
     static const int TYPE_TRAFFIC_LIGHT;
-    /** numerical representation for a junction where vehicles cominng 
+    /** numerical representation for a junction where vehicles cominng
         from the right side may drive as first */
     static const int TYPE_RIGHT_BEFORE_LEFT;
-    /** numerical representation of a junction where a street has a 
+    /** numerical representation of a junction where a street has a
         higher priority */
     static const int TYPE_PRIORITY_JUNCTION;
     /** a dead end (all roads end here) */
@@ -102,13 +105,13 @@ public:
     /// adds an incoming lane to the previously chosen junction
     void addInLane(MSLane *lane);
     /// adds the key to the junction
-    /** closes (ends) the processing of the current junction; 
-        this method may throw a XMLIdAlreadyUsedException when a junction 
+    /** closes (ends) the processing of the current junction;
+        this method may throw a XMLIdAlreadyUsedException when a junction
         with the same id as the current was already added */
     void closeJunction();
-    /** builds the MSJunctionControl which holds all of the simulations 
+    /** builds the MSJunctionControl which holds all of the simulations
         junctions */
-    MSJunctionControl *build();  
+    MSJunctionControl *build();
 private:
     /** builds a junction that does not use a logic */
     MSJunction *buildNoLogicJunction();

@@ -11,8 +11,8 @@
  ***************************************************************************/
 
 /***************************************************************************
-    Attention!!!                                                             
-    As one of few, this module is under the 
+    Attention!!!
+    As one of few, this module is under the
         Lesser GNU General Public Licence
     *********************************************************************
     This library is free software; you can redistribute it and/or
@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2002/06/11 13:43:37  dkrajzew
+// Windows eol removed
+//
 // Revision 1.1  2002/06/10 08:33:22  dkrajzew
 // Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
@@ -55,17 +58,17 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does not contain a long */
     static long _2long(const E * const data);
-    
+
     /** converts a 0-terminated char-type array into the float value described by it
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does not contain a float */
     static float _2float(const E * const data);
-    
+
     /** converts a 0-terminated char-type array into the float value described by it
         returns true when the first char is one of the following: '1', 'x', 't', 'T'
         throws an EmptyData - exception if the given string is empty */
     static bool _2bool(const E * const data);
-    
+
     /** converts a 0-terminated char-type array into a 0-terminated 0-terminated c-char-string
         throws an EmptyData - exception if the given string is empty */
     static char *_2charp(const E * const data);
@@ -75,27 +78,27 @@ public:
     /** converts a char-type array into std::string considering the given length
         throws an EmptyData - exception if the given string is empty */
     static std::string _2str(const E * const data, int length);
-    
+
     /** converts a char-type array into the integer value described by it considering the given length
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does not contain an integer */
     static int _2int(const E * const data, int length);
-    
+
     /** converts a char-type array into the long value described by it considering the given length
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does not contain a long */
     static long _2long(const E * const data, int length);
-    
+
     /** converts a char-type array into the float value described by it considering the given length
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does not contain a float */
     static float _2float(const E * const data, int length);
-    
+
     /** converts a char-type array into the float value described by it considering the given length
         returns true when the first char is one of the following: '1', 'x', 't', 'T'
         throws an EmptyData - exception if the given string is empty */
     static bool _2bool(const E * const data, int length);
-    
+
     /** converts a char-type array into a 0-terminated 0-terminated c-char-string considering the given length
         throws an EmptyData - exception if the given string is empty */
     static char *_2charp(const E * const data, int length);
@@ -103,13 +106,13 @@ public:
 
     /** duplicates the given string */
     static E *duplicate(const E * const s);
-    
+
     /** returns the length of the string (the position of the 0-character) */
     static size_t getLength(const E * const data);
 };
 
 #ifndef EXTERNAL_TEMPLATE_DEFINITION
-#include "TplConv.cpp"
+#include "TplConvert.cpp"
 #endif // EXTERNAL_TEMPLATE_DEFINITION
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

@@ -22,8 +22,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/06/11 13:43:36  dkrajzew
+// Windows eol removed
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.1  2002/02/18 11:05:48  traffic
 // "getValues()" now returns a string
@@ -52,8 +55,8 @@
  * Usage:
  * As the options should only be used during the program initialisation, some
  * methods do output error messages to cout. Error messages may be printed,
- * when a default value is overwritten. 
- * Most of the getter- and setter-methods throw exceptions as this base class 
+ * when a default value is overwritten.
+ * Most of the getter- and setter-methods throw exceptions as this base class
  * is not meant to hold any values by itself. Theses are stored in the derived
  * classes. This class does only supply common access for a common base class
  * while the real access methods are implemented in the derived classes.

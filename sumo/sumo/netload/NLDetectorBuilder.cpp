@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2002/06/11 13:44:32  dkrajzew
+// Windows eol removed
+//
 // Revision 1.5  2002/06/07 14:39:58  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //
@@ -50,7 +53,7 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-MSDetector *NLDetectorBuilder::buildInductLoop(const std::string &id, 
+MSDetector *NLDetectorBuilder::buildInductLoop(const std::string &id,
         const std::string &lane, float pos, long splInterval,
         const std::string &style, const std::string &filename) {
     // get the output style

@@ -20,8 +20,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/06/11 13:43:36  dkrajzew
+// Windows eol removed
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.1  2002/03/20 08:19:06  dkrajzew
 // removeDir - method added

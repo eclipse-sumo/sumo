@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2002/06/11 13:44:34  dkrajzew
+// Windows eol removed
+//
 // Revision 1.6  2002/06/07 14:39:59  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //

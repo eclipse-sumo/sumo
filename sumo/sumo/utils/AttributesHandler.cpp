@@ -1,6 +1,6 @@
 /***************************************************************************
                           AttributesHandler.cpp
-                          This class realises the access to the 
+                          This class realises the access to the
                             SAX2-Attributes
                              -------------------
     begin                : Mon, 15 Apr 2002
@@ -10,8 +10,8 @@
  ***************************************************************************/
 
 /***************************************************************************
-    Attention!!!                                                             
-    As one of few, this module is under the 
+    Attention!!!
+    As one of few, this module is under the
         Lesser GNU General Public Licence
     *********************************************************************
     This library is free software; you can redistribute it and/or
@@ -24,6 +24,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2002/06/11 13:43:35  dkrajzew
+// Windows eol removed
+//
 // Revision 1.4  2002/06/10 08:33:22  dkrajzew
 // Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
@@ -44,8 +47,10 @@ namespace
 #include "TplConvertSec.h"
 #include "AttributesHandler.h"
 
+#ifdef EXTERNAL_TEMPLATE_DEFINITION
 #include "TplConvert.cpp"
 #include "TplConvertSec.cpp"
+#endif
 
 /* =========================================================================
  * used namespaces

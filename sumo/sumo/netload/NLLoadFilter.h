@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/06/11 13:44:34  dkrajzew
+// Windows eol removed
+//
 // Revision 1.3  2002/04/17 11:18:47  dkrajzew
 // windows-newlines removed
 //
@@ -32,9 +35,9 @@
 /**
  * LoadFilter
  * The load filter is an information given to the handler to describe which
- * types of data shall be loaded. 
+ * types of data shall be loaded.
  */
-enum LoadFilter { 
+enum LoadFilter {
     /** load all known data */
     LOADFILTER_ALL = 255,
     /** load only the junction logics */
@@ -56,5 +59,5 @@ enum LoadFilter {
 
 // Local Variables:
 // mode:C++
-// 
+//
 

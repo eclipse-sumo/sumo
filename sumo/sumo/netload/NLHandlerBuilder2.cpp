@@ -1,6 +1,6 @@
 /***************************************************************************
                           NLHandlerBuilder2.cpp
-			  The fourth-step - handler building remaining 
+			  The fourth-step - handler building remaining
 			  structures
                              -------------------
     project              : SUMO
@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2002/06/11 13:44:32  dkrajzew
+// Windows eol removed
+//
 // Revision 1.6  2002/06/10 08:36:07  dkrajzew
 // Conversion of strings generalized
 //
@@ -76,7 +79,9 @@ namespace
 #include "NLLoadFilter.h"
 #include "NLTags.h"
 
+#ifdef EXTERNAL_TEMPLATE_DEFINITION
 #include "../utils/TplConvert.cpp"
+#endif
 
 /* =========================================================================
  * used namespaces
@@ -86,7 +91,7 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLHandlerBuilder2::NLHandlerBuilder2(NLContainer &container, LoadFilter filter) 
+NLHandlerBuilder2::NLHandlerBuilder2(NLContainer &container, LoadFilter filter)
     : NLSAXHandler(container, filter)
 {
     _attrHandler.add(ATTR_ID, "id");
@@ -101,12 +106,12 @@ NLHandlerBuilder2::NLHandlerBuilder2(NLContainer &container, LoadFilter filter)
     _attrHandler.add(ATTR_FILE, "file");
 }
 
-NLHandlerBuilder2::~NLHandlerBuilder2() 
+NLHandlerBuilder2::~NLHandlerBuilder2()
 {
 }
 
-void 
-NLHandlerBuilder2::myStartElement(int element, const std::string &name, const Attributes &attrs) 
+void
+NLHandlerBuilder2::myStartElement(int element, const std::string &name, const Attributes &attrs)
 {
     // process the net elements when wished
     if(wanted(LOADFILTER_NET)) {
@@ -140,7 +145,7 @@ NLHandlerBuilder2::openJunction(const Attributes &attrs) {
     try {
         id = _attrHandler.getString(attrs, ATTR_ID);
         try {
-            myContainer.openJunction(id, 
+            myContainer.openJunction(id,
                 _attrHandler.getStringSecure(attrs, ATTR_KEY, ""),
                 _attrHandler.getString(attrs, ATTR_TYPE));
         } catch (EmptyData &e) {
@@ -158,7 +163,7 @@ NLHandlerBuilder2::addVehicle(const Attributes &attrs) {
     try {
         id = _attrHandler.getString(attrs, ATTR_ID);
         try {
-            myContainer.addVehicle(id, 
+            myContainer.addVehicle(id,
                 _attrHandler.getString(attrs, ATTR_TYPE),
                 _attrHandler.getString(attrs, ATTR_ROUTE),
                 _attrHandler.getLong(attrs, ATTR_DEPART));
@@ -168,10 +173,10 @@ NLHandlerBuilder2::addVehicle(const Attributes &attrs) {
             SErrorHandler::add(e.getMessage("", ""));
         } catch(XMLIdAlreadyUsedException &e) {
             SErrorHandler::add(e.getMessage("vehicle", id));
-        }  
+        }
     } catch (EmptyData &e) {
         SErrorHandler::add("Error in description: missing id of a vehicle-object.");
-    }  
+    }
 }
 
 void
@@ -194,11 +199,11 @@ NLHandlerBuilder2::addDetector(const Attributes &attrs) {
         }
     } catch (EmptyData &e) {
         SErrorHandler::add("Error in description: missing id of a detector-object.");
-    }  
+    }
 }
 
 
-void 
+void
 NLHandlerBuilder2::myEndElement(int element, const std::string &name)
 {
     if(wanted(LOADFILTER_NET)) {
@@ -212,8 +217,8 @@ NLHandlerBuilder2::myEndElement(int element, const std::string &name)
     }
 }
 
-void 
-NLHandlerBuilder2::myCharacters(int element, const std::string &name, const std::string &chars) 
+void
+NLHandlerBuilder2::myCharacters(int element, const std::string &name, const std::string &chars)
 {
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
@@ -265,5 +270,5 @@ NLHandlerBuilder2::getMessage() const {
 
 // Local Variables:
 // mode:C++
-// 
+//
 

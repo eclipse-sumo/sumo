@@ -38,8 +38,8 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-int 
-STRConvert::_2int(const string &inp) 
+int
+STRConvert::_2int(const string &inp)
 {
     unsigned length = inp.length();
     if(length==0)
@@ -68,5 +68,5 @@ STRConvert::_2int(const string &inp)
 
 // Local Variables:
 // mode:C++
-// 
+//
 

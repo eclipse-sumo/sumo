@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2002/06/11 13:43:35  dkrajzew
+// Windows eol removed
+//
 // Revision 1.5  2002/06/10 08:33:23  dkrajzew
 // Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
@@ -87,7 +90,9 @@ namespace
 #include "FileHelpers.h"
 #include "TplConvert.h"
 
+#ifdef EXTERNAL_TEMPLATE_DEFINITION
 #include "../utils/TplConvert.cpp"
+#endif
 
 /* =========================================================================
  * debugging definitions (MSVC++ only)

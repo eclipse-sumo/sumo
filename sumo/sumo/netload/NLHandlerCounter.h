@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/06/11 13:44:34  dkrajzew
+// Windows eol removed
+//
 // Revision 1.3  2002/04/17 11:17:49  dkrajzew
 // windows-newlines removed
 //
@@ -61,7 +64,7 @@ class NLContainer;
 /**
  * NLHandlerCounter
  * This handler performs the first step of the parsing.
- * It counts all occurences of edges, lanes, junctions, vehicles, vehicle 
+ * It counts all occurences of edges, lanes, junctions, vehicles, vehicle
  * types and routes
  */
 class NLHandlerCounter : public NLSAXHandler {
@@ -73,8 +76,8 @@ public:
     // -----------------------------------------------------------------------
     //  Handlers for the SAX DocumentHandler interface
     // -----------------------------------------------------------------------
-    /** called on the occurence of the beginning of a tag; 
-        this method counts edges, junctions, lanes, vehicle types, 
+    /** called on the occurence of the beginning of a tag;
+        this method counts edges, junctions, lanes, vehicle types,
         vehicles and routes */
     void myStartElement(int element, const std::string &name, const Attributes &attrs);
     /// returns a message about the processing

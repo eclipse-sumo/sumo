@@ -24,6 +24,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2002/06/11 13:44:33  dkrajzew
+// Windows eol removed
+//
 // Revision 1.6  2002/06/10 08:36:07  dkrajzew
 // Conversion of strings generalized
 //
@@ -73,7 +76,9 @@ namespace
 #include "NLTags.h"
 #include "NLLoadFilter.h"
 
+#ifdef EXTERNAL_TEMPLATE_DEFINITION
 #include "../utils/TplConvert.cpp"
+#endif
 
 /* =========================================================================
  * used namespaces
@@ -140,8 +145,8 @@ NLSAXHandler::fatalError(const SAXParseException& exception)
     GenericSAX2Handler::fatalError(exception);
 }
 
-void 
-NLSAXHandler::setFileName(const std::string &file) 
+void
+NLSAXHandler::setFileName(const std::string &file)
 {
     _file = file;
 }
@@ -158,7 +163,7 @@ void
 NLSAXHandler::myCharacters(int element, const std::string &name, const std::string &chars) {
 }
 
-void 
+void
 NLSAXHandler::setError(const string &type, const SAXParseException& exception) {
     SErrorHandler::add(buildErrorMessage(_file, type, exception), true);
 }

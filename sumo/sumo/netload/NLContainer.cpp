@@ -1,6 +1,6 @@
 /***************************************************************************
                           NLContainer.cpp
-			  Holds the builded structures or structures that 
+			  Holds the builded structures or structures that
 			  hold these
                              -------------------
     project              : SUMO
@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2002/06/11 13:44:32  dkrajzew
+// Windows eol removed
+//
 // Revision 1.6  2002/06/10 08:36:07  dkrajzew
 // Conversion of strings generalized
 //
@@ -91,17 +94,17 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLContainer::NLContainer() 
-    : 
-    m_pECB(new NLEdgeControlBuilder()), 
+NLContainer::NLContainer()
+    :
+    m_pECB(new NLEdgeControlBuilder()),
     m_pJCB(new NLJunctionControlBuilder(this)),
-    m_pRCB(new NLRoutesBuilder()), 
+    m_pRCB(new NLRoutesBuilder()),
     m_pSLB(new NLSucceedingLaneBuilder()),
-    m_pVehicles(0), 
+    m_pVehicles(0),
     m_pDetectors(0),
-    noEdges(0), 
-    noLanes(0), 
-    noJunctions(0), 
+    noEdges(0),
+    noLanes(0),
+    noJunctions(0),
     noVehicles(0),
     noVehicleTypes(0),
     noRoutes(0),
@@ -110,7 +113,7 @@ NLContainer::NLContainer()
 }
 
 
-NLContainer::~NLContainer() 
+NLContainer::~NLContainer()
 {
     delete m_pECB;
     delete m_pJCB;
@@ -122,49 +125,49 @@ NLContainer::~NLContainer()
 
 
 // counting of data
-void 
-NLContainer::incEdges() 
+void
+NLContainer::incEdges()
 {
     noEdges++;
 }
 
 
-void 
-NLContainer::incLanes() 
+void
+NLContainer::incLanes()
 {
     noLanes++;
 }
 
 
-void 
-NLContainer::incJunctions() 
+void
+NLContainer::incJunctions()
 {
     noJunctions++;
 }
 
 
-void 
-NLContainer::incVehicles() 
+void
+NLContainer::incVehicles()
 {
     noVehicles++;
 }
 
 
-void 
-NLContainer::incVehicleTypes() 
+void
+NLContainer::incVehicleTypes()
 {
     noVehicleTypes++;
 }
 
 
-void 
-NLContainer::incRoutes() 
+void
+NLContainer::incRoutes()
 {
     noRoutes++;
 }
 
-void 
-NLContainer::incDetectors() 
+void
+NLContainer::incDetectors()
 {
     noRoutes++;
 }
@@ -174,8 +177,8 @@ NLContainer::addKey(string key) {
     m_LogicKeys.insert(LogicKeyCont::value_type(key, 0));
 }
 
-void 
-NLContainer::preallocate() 
+void
+NLContainer::preallocate()
 {
     // preallocate the storage for the edges
     m_pECB->prepare(noEdges);
@@ -188,8 +191,8 @@ NLContainer::preallocate()
     m_pJCB->prepare(noJunctions);
 }
 
-void 
-NLContainer::preallocateVehicles() 
+void
+NLContainer::preallocateVehicles()
 {
     m_pVehicles = new MSEmitControl::VehCont();
     m_pVehicles->reserve(noVehicles);
@@ -201,8 +204,8 @@ NLContainer::preallocateVehicles()
 
 
 // interface to use the edge control builder
-void 
-NLContainer::addEdge(const string &id) 
+void
+NLContainer::addEdge(const string &id)
 {
     try {
         m_pECB->addEdge(id);
@@ -212,8 +215,8 @@ NLContainer::addEdge(const string &id)
 }
 
 
-void 
-NLContainer::chooseEdge(const string &id) 
+void
+NLContainer::chooseEdge(const string &id)
 {
     try {
         m_pECB->chooseEdge(id);
@@ -223,8 +226,8 @@ NLContainer::chooseEdge(const string &id)
 }
 
 
-void 
-NLContainer::addLane(const string &id, const bool isDepartLane, const float maxSpeed, const float length, const float changeUrge) 
+void
+NLContainer::addLane(const string &id, const bool isDepartLane, const float maxSpeed, const float length, const float changeUrge)
 {
     MSEdge *edge = m_pECB->getActiveReference();
     if(/* NLNetBuilder::check && */ edge==0) {
@@ -243,15 +246,15 @@ NLContainer::addLane(const string &id, const bool isDepartLane, const float maxS
 }
 
 
-void 
-NLContainer::closeLanes() 
+void
+NLContainer::closeLanes()
 {
     m_pECB->closeLanes();
 }
 
 
-void 
-NLContainer::openAllowedEdge(const string &id) 
+void
+NLContainer::openAllowedEdge(const string &id)
 {
     MSEdge *edge = MSEdge::dictionary(id);
     if(/* NLNetBuilder::check && */ edge==0) throw XMLIdNotKnownException("edge", id);
@@ -259,8 +262,8 @@ NLContainer::openAllowedEdge(const string &id)
 }
 
 
-void 
-NLContainer::addAllowed(const string &id) 
+void
+NLContainer::addAllowed(const string &id)
 {
     MSLane *lane = MSLane::dictionary(id);
     if(/* NLNetBuilder::check && */ lane==0) throw XMLIdNotKnownException("lane", id);
@@ -272,15 +275,15 @@ NLContainer::addAllowed(const string &id)
 }
 
 
-void 
-NLContainer::closeAllowedEdge() 
+void
+NLContainer::closeAllowedEdge()
 {
     m_pECB->closeAllowedEdge();
 }
 
 
-void 
-NLContainer::closeEdge() 
+void
+NLContainer::closeEdge()
 {
     m_pECB->closeEdge();
 }
@@ -289,36 +292,36 @@ NLContainer::closeEdge()
 
 
 /// interfaces for the building of succeeding lanes
-void 
-NLContainer::openSuccLane(const string &laneId) 
+void
+NLContainer::openSuccLane(const string &laneId)
 {
     m_pSLB->openSuccLane(laneId);
 }
 
 
-void 
-NLContainer::setSuccJunction(const string &junctionId) 
+void
+NLContainer::setSuccJunction(const string &junctionId)
 {
     m_pSLB->setSuccJunction(junctionId);
 }
 
 
-void 
-NLContainer::addSuccLane(bool yield, const string &laneId) 
+void
+NLContainer::addSuccLane(bool yield, const string &laneId)
 {
     m_pSLB->addSuccLane(yield, laneId);
 }
 
 
-void 
-NLContainer::closeSuccLane() 
+void
+NLContainer::closeSuccLane()
 {
     m_pSLB->closeSuccLane();
 }
 
 
 std::string
-NLContainer::getSuccingLaneName() const 
+NLContainer::getSuccingLaneName() const
 {
     return m_pSLB->getSuccingLaneName();
 }
@@ -327,15 +330,15 @@ NLContainer::getSuccingLaneName() const
 
 
 // interfaces to the junction builder
-void 
-NLContainer::openJunction(const string &id, const string &key, string type) 
+void
+NLContainer::openJunction(const string &id, const string &key, string type)
 {
     m_pJCB->openJunction(id, key, type);
 }
 
 
-void 
-NLContainer::addInLane(const string &id) 
+void
+NLContainer::addInLane(const string &id)
 {
     MSLane *lane = MSLane::dictionary(id);
     if(/* NLNetBuilder::check && */ lane==0) throw XMLIdNotKnownException("lane", id);
@@ -343,15 +346,15 @@ NLContainer::addInLane(const string &id)
 }
 
 /*
-void 
-NLContainer::setKey(string key) 
+void
+NLContainer::setKey(string key)
 {
   m_pJCB->setKey(key);
 }
 */
 
-void 
-NLContainer::closeJunction() 
+void
+NLContainer::closeJunction()
 {
     try {
         m_pJCB->closeJunction();
@@ -365,9 +368,9 @@ NLContainer::closeJunction()
 
 
 
-// vehicle types 
-void 
-NLContainer::addVehicleType(const string &id, const float length, const float maxspeed, const float bmax, const float dmax, const float sigma) 
+// vehicle types
+void
+NLContainer::addVehicleType(const string &id, const float length, const float maxspeed, const float bmax, const float dmax, const float sigma)
 {
     MSVehicleType *vtype = new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma);
     if(!MSVehicleType::dictionary(id, vtype))
@@ -378,16 +381,16 @@ NLContainer::addVehicleType(const string &id, const float length, const float ma
 
 
 
-// handling of routes 
-void 
-NLContainer::openRoute(const string &id) 
+// handling of routes
+void
+NLContainer::openRoute(const string &id)
 {
     m_pRCB->openRoute(id);
 }
 
 
-void 
-NLContainer::addRoutesEdge(const string &id) 
+void
+NLContainer::addRoutesEdge(const string &id)
 {
     MSEdge *edge = MSEdge::dictionary(id);
     if(/* NLNetBuilder::check && */ edge==0) throw XMLIdNotKnownException("routes edge", id);
@@ -395,8 +398,8 @@ NLContainer::addRoutesEdge(const string &id)
 }
 
 
-void 
-NLContainer::closeRoute() 
+void
+NLContainer::closeRoute()
 {
     try {
         m_pRCB->closeRoute();
@@ -411,8 +414,8 @@ NLContainer::closeRoute()
 
 
 // ----- handling of vehicles
-void 
-NLContainer::addVehicle(const string &id, const string &vtypeid, const string &routeid, const long depart) 
+void
+NLContainer::addVehicle(const string &id, const string &vtypeid, const string &routeid, const long depart)
 {
     MSVehicleType *vtype = MSVehicleType::dictionary(vtypeid);
     if(/* NLNetBuilder::check && */ vtype==0) throw XMLIdNotKnownException("vtype", vtypeid);
@@ -425,7 +428,7 @@ NLContainer::addVehicle(const string &id, const string &vtypeid, const string &r
 
 
 // ----- handling of detectors
-void 
+void
 NLContainer::addDetector(MSDetector *detector) {
     m_pDetectors->push_back(detector);
 }
@@ -454,7 +457,7 @@ NLContainer::getStatistics() const
 
 // end of operations
 MSNet *
-NLContainer::buildNet() 
+NLContainer::buildNet()
 {
     MSEdgeControl *edges = m_pECB->build();
     MSJunctionControl *junctions = m_pJCB->build();
@@ -466,7 +469,7 @@ NLContainer::buildNet()
 
 // end of operations
 MSEmitControl *
-NLContainer::buildVehicles() 
+NLContainer::buildVehicles()
 {
     return new MSEmitControl("", m_pVehicles);
 }
@@ -484,5 +487,5 @@ NLContainer::getDetectors() {
 
 // Local Variables:
 // mode:C++
-// 
+//
 

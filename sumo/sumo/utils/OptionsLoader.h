@@ -3,7 +3,7 @@
 /***************************************************************************
                           OptionsLoader.h
 			  Loads a configuration (XML) using a SAX-Parser
-			  The class itself is a derivation of the 
+			  The class itself is a derivation of the
 			  SAX-HandlerBase
                              -------------------
     project              : SUMO
@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2002/06/11 13:43:37  dkrajzew
+// Windows eol removed
+//
 // Revision 1.2  2002/05/14 04:55:39  dkrajzew
 // Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
 //
@@ -98,7 +101,7 @@ class OptionsLoader : public HandlerBase {
     /// called on a XML-fatal error; the error is reported to the SErrorHandler
     void fatalError(const SAXParseException& exception);
     // ------------------------------------------------------------------------
-    //  The io to the application 
+    //  The io to the application
     // ------------------------------------------------------------------------
     /** returns the information whether an error occured */
     bool errorOccured();

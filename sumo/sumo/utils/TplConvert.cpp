@@ -1,5 +1,7 @@
+#ifndef TplConvert_cpp
+#define TplConvert_cpp
 /***************************************************************************
-                          TplConvert.h
+                          TplConvert.cpp
                           Some conversion methods (from strings to other)
                              -------------------
     begin                : Sun, 09 Jun 2002
@@ -9,8 +11,8 @@
  ***************************************************************************/
 
 /***************************************************************************
-    Attention!!!                                                             
-    As one of few, this module is under the 
+    Attention!!!
+    As one of few, this module is under the
         Lesser GNU General Public Licence
     *********************************************************************
     This library is free software; you can redistribute it and/or
@@ -19,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2002/06/11 13:43:36  dkrajzew
+// Windows eol removed
+//
 // Revision 1.1  2002/06/10 08:33:22  dkrajzew
 // Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
@@ -30,6 +35,7 @@
 #include <iostream>
 #include "UtilExceptions.h"
 #include "TplConvert.h"
+#include <climits>
 
 /* =========================================================================
  * used namespaces
@@ -49,7 +55,7 @@ std::string TplConvert<E>::_2str(const E * const data, int length) {
    if(length==0) throw EmptyData();
    string str;
    str.reserve(length);
-   for(int i=0; i<length; i++) 
+   for(int i=0; i<length; i++)
       str = str + (char) data[i];
    return str;
 }
@@ -150,7 +156,7 @@ float TplConvert<E>::_2float(const E * const data, int length) {
       ret = ret + ((float) (akt - 48)) / div;
       div = div * 10;
    }
-   return ret * sgn; 
+   return ret * sgn;
 }
 
 template<class E>
@@ -175,7 +181,7 @@ char *TplConvert<E>::_2charp(const E * const data, int length) {
    if(length==0) throw EmptyData();
    char *ret = new char[length+1];
    int i = 0;
-   for(; i<length; i++) 
+   for(; i<length; i++)
       ret[i] = data[i];
    ret[i] = 0;
    return ret;
@@ -210,3 +216,5 @@ size_t TplConvert<E>::getLength(const E * const data) {
 // mode:C++
 // End:
 
+
+#endif

@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2002/06/11 13:44:33  dkrajzew
+// Windows eol removed
+//
 // Revision 1.3  2002/05/14 04:54:25  dkrajzew
 // Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
 //

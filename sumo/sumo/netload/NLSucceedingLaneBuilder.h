@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2002/06/11 13:44:34  dkrajzew
+// Windows eol removed
+//
 // Revision 1.2  2002/06/07 14:39:59  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //
@@ -58,18 +61,18 @@ private:
     std::string m_JunctionId;
     /// the list of connections
     MSLane::LinkCont   *m_SuccLanes;
-    
+
 public:
     /// standard constructor
     NLSucceedingLaneBuilder();
     /// standard destructor
     ~NLSucceedingLaneBuilder();
-    /** opens the computation of a container holding the succeding lanes of 
+    /** opens the computation of a container holding the succeding lanes of
         a lane */
     void openSuccLane(const std::string &laneId);
     /// sets the succeding junction
     void setSuccJunction(const std::string &junctionId);
-    /// add a succeeding lane 
+    /// add a succeeding lane
     void addSuccLane(bool yield, const std::string &laneId);
     /// closes the building
     void closeSuccLane();

@@ -11,8 +11,8 @@
  ***************************************************************************/
 
 /***************************************************************************
-    Attention!!!                                                             
-    As one of few, this module is under the 
+    Attention!!!
+    As one of few, this module is under the
         Lesser GNU General Public Licence
     *********************************************************************
     This library is free software; you can redistribute it and/or
@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2002/06/11 13:43:37  dkrajzew
+// Windows eol removed
+//
 // Revision 1.1  2002/06/10 08:33:22  dkrajzew
 // Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
@@ -35,7 +38,7 @@
  * ======================================================================= */
 /**
  * TplConvertSec
- * The same as TplConvert, but every method 
+ * The same as TplConvert, but every method
  */
 template<class E>
 class TplConvertSec {
@@ -94,7 +97,7 @@ public:
 };
 
 #ifndef EXTERNAL_TEMPLATE_DEFINITION
-#include "STRConv.cpp"
+#include "TplConvertSec.cpp"
 #endif // EXTERNAL_TEMPLATE_DEFINITION
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

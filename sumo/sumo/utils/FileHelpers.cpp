@@ -23,8 +23,11 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:25  traffic
-// Initial revision
+// Revision 1.2  2002/06/11 13:43:35  dkrajzew
+// Windows eol removed
+//
+// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
+// new project name
 //
 // Revision 2.1  2002/03/20 08:19:06  dkrajzew
 // removeDir - method added
@@ -53,9 +56,9 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 bool
-FileHelpers::exists(string path) 
+FileHelpers::exists(string path)
 {
-    // !!! not really well 
+    // !!! not really well
     while(path.at(path.length()-1)=='/'||path.at(path.length()-1)=='\\')
         path.erase(path.end()-1);
     if(path.length()==0) return false;
@@ -64,7 +67,7 @@ FileHelpers::exists(string path)
     return ret;
 }
 
-std::string 
+std::string
 FileHelpers::removeDir(std::string path) {
     size_t beg = path.find_last_not_of("\\/");
     if(beg==string::npos||beg==0)

@@ -1,6 +1,6 @@
 /***************************************************************************
                           NLJunctionControlBuilder.cpp
-			  Container for MSJunctionControl-structures during 
+			  Container for MSJunctionControl-structures during
 			  their building
                              -------------------
     project              : SUMO
@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2002/06/11 13:44:33  dkrajzew
+// Windows eol removed
+//
 // Revision 1.4  2002/06/07 14:39:58  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //
@@ -86,19 +89,19 @@ NLJunctionControlBuilder::NLJunctionControlBuilder(NLContainer *container) :
 }
 
 
-NLJunctionControlBuilder::~NLJunctionControlBuilder() 
+NLJunctionControlBuilder::~NLJunctionControlBuilder()
 {
 }
 
-void 
-NLJunctionControlBuilder::prepare(unsigned int no) 
+void
+NLJunctionControlBuilder::prepare(unsigned int no)
 {
     m_pJunctions = new MSJunctionControl::JunctionCont();
     m_pJunctions->reserve(no);
 }
 
-void 
-NLJunctionControlBuilder::openJunction(const std::string &id, const std::string &key, const std::string &type) 
+void
+NLJunctionControlBuilder::openJunction(const std::string &id, const std::string &key, const std::string &type)
 {
     m_pActiveInLanes.clear();
     m_CurrentId = id;
@@ -118,14 +121,14 @@ NLJunctionControlBuilder::openJunction(const std::string &id, const std::string 
         throw exception();
 }
 
-void 
-NLJunctionControlBuilder::addInLane(MSLane *lane) 
+void
+NLJunctionControlBuilder::addInLane(MSLane *lane)
 {
     m_pActiveInLanes.push_back(lane);
 }
 
-void 
-NLJunctionControlBuilder::closeJunction() 
+void
+NLJunctionControlBuilder::closeJunction()
 {
     MSJunction *junction;
     switch(m_Type) {
@@ -155,13 +158,13 @@ NLJunctionControlBuilder::closeJunction()
 }
 
 MSJunctionControl *
-NLJunctionControlBuilder::build() 
+NLJunctionControlBuilder::build()
 {
     return new MSJunctionControl("", m_pJunctions);
 }
 
 MSJunction *
-NLJunctionControlBuilder::buildNoLogicJunction() 
+NLJunctionControlBuilder::buildNoLogicJunction()
 {
     MSNoLogicJunction::InLaneCont *cont = new MSNoLogicJunction::InLaneCont();
     cont->reserve(m_pActiveInLanes.size());
@@ -172,7 +175,7 @@ NLJunctionControlBuilder::buildNoLogicJunction()
 }
 
 MSJunction *
-NLJunctionControlBuilder::buildLogicJunction() 
+NLJunctionControlBuilder::buildLogicJunction()
 {
     MSJunctionLogic *jtype = MSJunctionLogic::dictionary(m_Key);
     if(jtype==0)

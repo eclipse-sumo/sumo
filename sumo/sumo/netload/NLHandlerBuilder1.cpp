@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2002/06/11 13:44:32  dkrajzew
+// Windows eol removed
+//
 // Revision 1.6  2002/06/10 08:36:07  dkrajzew
 // Conversion of strings generalized
 //
@@ -76,8 +79,9 @@ namespace
 #include "NLTags.h"
 //#ifdef EXTERNAL_TEMPLATE_DEFINITION
 #include "../microsim/MSBitSetLogic.cpp"
+#ifdef EXTERNAL_TEMPLATE_DEFINITION
 #include "../utils/TplConvert.cpp"
-//#endif // EXTERNAL_TEMPLATE_DEFINITION
+#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 
 /* =========================================================================

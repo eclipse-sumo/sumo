@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2002/06/11 13:44:34  dkrajzew
+// Windows eol removed
+//
 // Revision 1.2  2002/06/07 14:39:59  dkrajzew
 // errors occured while building larger nets and adaption of new netconverting methods debugged
 //
@@ -55,7 +58,7 @@ class MSEdge;
  * ======================================================================= */
 /**
  * NLNetBuilder
- * NLRoutesBuilder is the container for routes while they are build until 
+ * NLRoutesBuilder is the container for routes while they are build until
  * their transfering to the MSNet::RouteDict
  * The result of the operations are single MSNet::Route-instances
  */
@@ -74,10 +77,10 @@ public:
     void openRoute(const std::string &id);
     /// adds an edge to the route
     void addEdge(MSEdge *edge);
-    /** closes (ends) the building of a route. 
-        Afterwards no edges may be added to it; 
-        this method may throw exceptions when 
-        a) the route is empty or 
+    /** closes (ends) the building of a route.
+        Afterwards no edges may be added to it;
+        this method may throw exceptions when
+        a) the route is empty or
         b) another route with the same id already exists */
     void closeRoute();
 private:
