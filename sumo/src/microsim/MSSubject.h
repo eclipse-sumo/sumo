@@ -7,9 +7,9 @@
  * @author  Christian Roessel <christian.roessel@dlr.de>
  * @date    Started Fri Nov 21 12:44:14 2003
  * @version $Id$
- * 
- * @brief  
- * 
+ *
+ * @brief
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -27,6 +27,7 @@
 #include <algorithm>
 #include <functional>
 #include <vector>
+#include <cassert>
 #include "helpers/TypeTraits.h"
 
 // See Gamma et al. "Design Patterns" for information about the
@@ -42,9 +43,9 @@
 // {
 //     class Move{};
 //     class LaneChange{};
-//    
+//
 //     typedef MSSubject< MSVehicle, false, Move >      MoveSubject;
-//     typedef MSSubject< MSVehicle, true, LaneChange > LaneChangeSubject;    
+//     typedef MSSubject< MSVehicle, true, LaneChange > LaneChangeSubject;
 //
 //     typedef MoveSubject::Observer       MoveObserver;
 //     typedef LaneChangeSubject::Observer LaneChangeObserver;
@@ -68,11 +69,11 @@
 //         }
 //     void detach( veh::MoveObserver* toDetach ) {
 //             veh::MoveSubject::detach( toDetach );
-//         }    
+//         }
 //
 // If you just have one quantity to observe, omit the third template
 // parameter and do not override the detach and attach methods.
-// 
+//
 // The parameter passesObserved selects the way the Observer is
 // updated. If true, a reference to the observed object (Vehicle) is
 // passed, so the Observer need not hold a reference/pointer to the
@@ -97,17 +98,17 @@ class MSSubjectPassesObserved
 public:
     typedef ObservedType Observed;
     typedef typename Loki::TypeTraits< Observed >::ParameterType ParameterType;
-    
+
     typedef MSObserverPassesObserved<
         Observed
         , ObservedQuantity
         > Observer;
-    
+
     typedef Observer* ObserverPtr;
     typedef std::vector< ObserverPtr > Observers;
     typedef typename Observers::iterator ObserversIt;
 
-    
+
     void attach( ObserverPtr toAttach )
         {
             observersM.push_back( toAttach );
@@ -120,9 +121,9 @@ public:
             assert( eraseIt != observersM.end() );
             observersM.erase( eraseIt );
         }
-    
+
 protected:
-    
+
     MSSubjectPassesObserved( void )
         : observersM()
         {}
@@ -158,12 +159,12 @@ class MSSubject
 {
 public:
     typedef ObservedType Observed;
-    
+
     typedef MSObserver<
         Observed
         , ObservedQuantity
         > Observer;
-    
+
     typedef Observer* ObserverPtr;
     typedef std::vector< ObserverPtr > Observers;
     typedef typename Observers::iterator ObserversIt;
@@ -180,7 +181,7 @@ public:
             assert( eraseIt != observersM.end() );
             observersM.erase( eraseIt );
         }
-    
+
 protected:
 
     MSSubject( void )
@@ -191,7 +192,7 @@ protected:
         {
             observersM.clear();
         }
-    
+
     void notify( void )
         {
             std::for_each( observersM.begin(), observersM.end(),
