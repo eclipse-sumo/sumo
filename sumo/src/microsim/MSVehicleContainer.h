@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/07/07 08:20:59  dkrajzew
+// a bug on output patched (the output operator wrote to cout instead of the given stream)
+//
 // Revision 1.2  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -99,7 +102,7 @@ public:
         while(!cont.isEmpty()) {
             const VehicleVector &v = cont.top();
             for(VehicleVector::const_iterator i=v.begin(); i!=v.end(); i++) {
-                std::cout << (*i)->desiredDepart() << std::endl;
+                strm << (*i)->desiredDepart() << std::endl;
             }
             cont.pop();
         }
