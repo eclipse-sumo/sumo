@@ -1,1 +1,1 @@
-EXTRA_DIST = y_libforeign_threads.dsp
+EXTRA_DIST = y_libforeign_boostthreads.dsp
