@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2004/02/16 14:19:51  dkrajzew
+// getLane should be const
+//
 // Revision 1.9  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -301,7 +304,7 @@ public:
 
     static std::vector< MSEdge* > getEdgeVector( void );
 
-    LaneCont* getLanes( void );
+    LaneCont* getLanes( void ) const;
 
     const MSEdge *getInternalFollowingEdge(MSEdge *followerAfterInternal) const;
 

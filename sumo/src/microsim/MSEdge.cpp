@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.12  2004/02/16 14:19:51  dkrajzew
+// getLane should be const
+//
 // Revision 1.11  2004/01/27 10:36:28  dkrajzew
 // patched some linux-warnings
 //
@@ -482,7 +485,7 @@ MSEdge::getEdgeVector( void )
 
 
 MSEdge::LaneCont*
-MSEdge::getLanes( void )
+MSEdge::getLanes( void ) const
 {
     return myLanes;
 }
