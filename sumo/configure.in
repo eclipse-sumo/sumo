@@ -53,6 +53,17 @@ AC_ARG_ENABLE(speedcheck,
                          [Define to 1 in order to enable simulation-speed checking.])
 	      ])
 
+AC_ARG_ENABLE(cfront,
+              [  --enable-cfront         enable external template definitions. [default=no].],
+              [cfront_model=true],[cfront_model=false])
+
+if test x$cfront_model = xtrue; then
+	AC_DEFINE(EXTERNAL_TEMPLATE_DEFINITION, 1,
+		[Define to 1 in order to enable external template definitions (cfront-model).])
+fi
+
+AM_CONDITIONAL(CFRONT, test x$cfront_model = xtrue)
+
 
 dnl Checks for libraries.
 dnl Checks for xerces-library
@@ -165,7 +176,6 @@ dnl add here all your Makefiles. These will be created by configure
 AC_OUTPUT(
 sumo/data/config/Makefile
 sumo/data/detectors/Makefile
-sumo/data/junctions/Makefile
 sumo/data/nets/Makefile
 sumo/data/routes/Makefile
 sumo/data/routedefs/Makefile
