@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/03/20 16:17:52  dkrajzew
+// windows eol removed
+//
 // Revision 1.5  2003/03/12 16:55:19  dkrajzew
 // centering of objects debugged
 //
