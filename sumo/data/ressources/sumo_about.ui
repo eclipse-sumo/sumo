@@ -1,10 +1,10 @@
 <!DOCTYPE UI><UI>
-<class>Form1</class>
+<class>QAboutSUMO</class>
 <widget>
     <class>QDialog</class>
     <property stdset="1">
         <name>name</name>
-        <cstring>Form1</cstring>
+        <cstring>QAboutSUMO</cstring>
     </property>
     <property>
         <name>geometry</name>
