@@ -19,6 +19,9 @@
 
 
 // $Log$
+// Revision 1.20  2003/06/05 15:48:36  roessel
+// Added waitingQueueElemsM.push_back() for enterDetector-methods.
+//
 // Revision 1.19  2003/06/05 12:57:08  roessel
 // Modified #includes.
 // Changed calls to operator() of nested structs because of MSVC++ compile
@@ -488,6 +491,7 @@ MSLaneState::enterDetectorByMove( MSVehicle& veh,
                        enterTimestepFraction +
                        MSNet::getInstance()->timestep(),
                        true )));
+    waitingQueueElemsM.push_back( WaitingQueueElem (veh.pos(), veh.length()));
 }
 
 
@@ -501,6 +505,7 @@ MSLaneState::enterDetectorByEmitOrLaneChange( MSVehicle& veh )
         make_pair( veh.id(), VehicleData(
                        MSNet::getInstance()->timestep(),
                        false )));
+    waitingQueueElemsM.push_back( WaitingQueueElem (veh.pos(), veh.length()));
 }
 
 
