@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "";
 }
 // $Log$
+// Revision 1.9  2003/03/18 13:06:19  dkrajzew
+// windows eol removed
+//
 // Revision 1.8  2003/03/12 16:34:34  dkrajzew
 // some style guides applied
 //
@@ -96,7 +99,7 @@ using namespace std;
  * data processing methods
  * ----------------------------------------------------------------------- */
 /** validate options (settings) */
-bool checkSettings(OptionsCont *oc) 
+bool checkSettings(OptionsCont *oc)
 {
     // check whether the output is valid and can be build
     if(!oc->isSet("o")) {
@@ -179,7 +182,7 @@ getSettings(int argc, char **argv)
  * weights which may be supplied in a separate file
  */
 RONet *
-loadNet(ROLoader &loader, OptionsCont *oc) 
+loadNet(ROLoader &loader, OptionsCont *oc)
 {
     // load the net
     RONet *net = loader.loadNet();
@@ -215,12 +218,12 @@ buildOutput(const std::string &name)
  * Computes the routes saving them
  */
 void
-startComputation(RONet &net, ROLoader &loader, OptionsCont &oc) 
+startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
     // prepare the output
-    std::ofstream *res = 
+    std::ofstream *res =
         buildOutput(oc.getString("o"));
-    std::ofstream *altres = 
+    std::ofstream *altres =
         buildOutput(oc.getString("o")+string(".alt"));
     // begin writing
     (*res) << "<routes>" << endl;
@@ -250,7 +253,7 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 /* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
-int 
+int
 main(int argc, char **argv)
 {
 #ifdef _DEBUG
@@ -287,8 +290,8 @@ main(int argc, char **argv)
                 cout << "Error:" << e.getLineNumber() << endl;
                 ret = 1;
             } catch (SAXException e) {
-                cout << "Error:" 
-                    << TplConvert<XMLCh>::_2str(e.getMessage()) 
+                cout << "Error:"
+                    << TplConvert<XMLCh>::_2str(e.getMessage())
                     << endl;
                 ret = 1;
             }
