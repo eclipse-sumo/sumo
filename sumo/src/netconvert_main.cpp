@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/09/05 15:29:48  dkrajzew
+// a bug on comparing the return value patched
+//
 // Revision 1.18  2003/07/18 12:35:04  dkrajzew
 // removed some warnings
 //
@@ -226,7 +229,7 @@ main(int argc, char **argv)
     clearAll();
     SystemFrame::close();
     // report about ending
-    if(ret=0) {
+    if(ret==0) {
         MsgHandler::getMessageInstance()->inform("Success.");
     }
     return ret;
