@@ -93,6 +93,7 @@ NBSUMOHandlerEdges::getNode(const Attributes &attrs, unsigned int id,
             string("Missing ") + dir + string("-node name for edge with id '")
             + name + string("'"));
     }
+    return 0;
 }
 
 float

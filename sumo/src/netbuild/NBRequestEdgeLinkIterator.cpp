@@ -266,6 +266,7 @@ NBRequestEdgeLinkIterator::isLeftMover(const NBRequest * const request,
         }
         i = NBContHelper::nextCW(request->_all, i);
     }
+    return false;
 }
 
 

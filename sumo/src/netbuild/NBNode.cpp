@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2002/10/22 10:08:28  dkrajzew
+// unsupported return value patched
+//
 // Revision 1.3  2002/10/18 11:47:55  dkrajzew
 // edges must only be sorted, when at least 2 are there...
 //
@@ -780,6 +783,8 @@ NBNode::setTurningDefinition(NBNode *from, NBNode *to)
     // both edges found
     //  set them into the edge
     src->addEdge2EdgeConnection(dest);
+    // no error occured
+    return "";
 }
 
 
