@@ -258,6 +258,7 @@ MSTriggeredSource::emit( void )
 //      }
     // try to emit
     if ( myLane->isEmissionSuccess( myVehicle ) ) {
+        MSNet::getInstance()->myRunningVehNo++;
 //          myLastEmit = execTime;
         myIsNewEmitFound = false;
         readNextEmitElement();
@@ -343,6 +344,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.12  2003/09/17 10:13:03  dkrajzew
+// missing report about vehicle emission added
+//
 // Revision 1.11  2003/08/04 11:35:52  dkrajzew
 // only GUIVehicles need a color definition; process of building cars changed
 //
