@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/10/17 06:49:05  dkrajzew
+// set the number of lanes of sources and sinks to three
+//
 // Revision 1.13  2003/09/23 14:16:37  dkrajzew
 // further work on vissim-import
 //
@@ -251,7 +254,7 @@ NIVissimDistrictConnection::dict_BuildDistricts()
                     + toString<int>(c->myID);
                 NBEdge *source =
                     new NBEdge(id, id, districtNode, parkingPlace,
-                    "Connection", 100/3.6, 2, 100, 0,
+                    "Connection", 100/3.6, 3, 100, 0,
                     NBEdge::LANESPREAD_RIGHT,
                     NBEdge::EDGEFUNCTION_SOURCE);
                 if(!NBEdgeCont::insert(source)) { // !!! in den Konstruktor

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/10/17 06:49:05  dkrajzew
+// set the number of lanes of sources and sinks to three
+//
 // Revision 1.4  2003/07/07 08:30:59  dkrajzew
 // adapted the importer to the new lane geometry description
 //
@@ -133,7 +136,7 @@ NIVisumParser_Connectors::myDependentReport()
                 return;
             }
             NBEdge *edge = new NBEdge(id, id, src, dest, "VisumConnector",
-                speed, 2/*nolanes*/, 200.0, prio, NBEdge::LANESPREAD_RIGHT,
+                100, 3/*nolanes*/, 200.0, prio, NBEdge::LANESPREAD_RIGHT,
                 NBEdge::EDGEFUNCTION_SOURCE);
             if(!NBEdgeCont::insert(edge)) {
                 addError(
@@ -155,7 +158,7 @@ NIVisumParser_Connectors::myDependentReport()
             }
             id = string("-") + id;
             NBEdge *edge = new NBEdge(id, id, dest, src, "VisumConnector",
-                speed, 3/*nolanes*/, 2000.0, prio, NBEdge::LANESPREAD_RIGHT,
+                100, 3/*nolanes*/, 2000.0, prio, NBEdge::LANESPREAD_RIGHT,
                 NBEdge::EDGEFUNCTION_SINK);
             if(!NBEdgeCont::insert(edge)) {
                 addError(
