@@ -1,7 +1,7 @@
 /***************************************************************************
                           main.cpp
-			  The main procedure for the conversion /
-			  building of networks
+              The main procedure for the conversion /
+              building of networks
                              -------------------
     project              : SUMO
     subproject           : simulation
@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2004/07/02 09:49:59  dkrajzew
+// generalised for easier online-server implementation
+//
 // Revision 1.15  2004/04/02 11:32:01  dkrajzew
 // first try to optionally disable textures
 //
@@ -138,7 +141,7 @@
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // Microsoft memory leak detection procedures
-//   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+//   #define _INC_MALLOC         // exclude standard memory alloc procedures
 #ifdef WIN32
    #include <utils/dev/MemDiff.h>
    #include <crtdbg.h>
@@ -165,6 +168,7 @@
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
+#include <gui/GUIThreadFactory.h>
 #include "gui_help.h"
 
 #ifdef _WIN32
@@ -233,6 +237,7 @@ main(int argc, char **argv)
         }
         // Make application
         FXApp application("SUMO 0.8","DLR+ZAIK");
+        gFXApp = &application;
         // Open display
         application.init(argc,argv);
         OptionsCont &oc = OptionsSubSys::getOptions();
@@ -240,7 +245,7 @@ main(int argc, char **argv)
         if(!FXGLVisual::supported(&application, major, minor)) {
             MsgHandler::getErrorInstance()->inform(
                 "This system has no OpenGL support. Exiting." );
-	        throw ProcessError();
+            throw ProcessError();
         }
         // initialise global settings
         gQuitOnEnd = oc.getBool("quit-on-end");
@@ -250,10 +255,10 @@ main(int argc, char **argv)
         gSuppressEndInfo = oc.getBool("surpress-end-info");
 
         // build the main window
+        GUIThreadFactory tf;
         GUIApplicationWindow * window =
-            new GUIApplicationWindow(&application,
-                oc.getInt("w"),
-                oc.getInt("h"),
+            new GUIApplicationWindow(&application, tf,
+                oc.getInt("w"), oc.getInt("h"),
                 oc.getString("c"));
         // delete startup-options
         OptionsSubSys::close();
