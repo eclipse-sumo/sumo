@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/07/22 14:57:42  dkrajzew
+// wrong order of initialisations-warning patched
+//
 // Revision 1.5  2003/07/18 12:30:14  dkrajzew
 // removed some warnings
 //
@@ -168,7 +171,7 @@ GUIParameterTracker::resizeEvent ( QResizeEvent *e )
 GUIParameterTracker::GUIParameterTrackerPanel::GUIParameterTrackerPanel(GUIApplicationWindow *app,
                                                                         GUIParameterTracker *parent)
     : QGLWidget(parent),
-    myParent(*parent),myApplication(app), _noDrawing(0)
+    myParent(*parent), _noDrawing(0), myApplication(app)
 {
 }
 
