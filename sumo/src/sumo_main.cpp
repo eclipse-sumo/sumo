@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2004/04/02 11:29:45  dkrajzew
+// simulation-wide output files are now handled by MSNet directly
+//
 // Revision 1.20  2004/02/16 13:44:26  dkrajzew
 // dump output generating function renamed in order to add vehicle dump ability in the future
 //
@@ -233,21 +236,18 @@ main(int argc, char **argv)
         // load the net
         MSNet *net = load(oc);
         SUMOFrame::postbuild(*net);
-        // simulate when everything's ok
-        ostream *craw = SUMOFrame::buildNetDumpStream(oc);
         // report the begin when wished
         MsgHandler::getMessageInstance()->inform(
             string("Simulation started with time: ")
             + toString<int>(oc.getInt("b")));
         // simulate
         net->preStartInit();
-        net->simulate(craw, oc.getInt("b"), oc.getInt("e"));
+        net->simulate(oc.getInt("b"), oc.getInt("e"));
         // report the end when wished
         MsgHandler::getMessageInstance()->inform(
             string("Simulation ended at time: ")
             + toString<int>(net->getCurrentTimeStep()));
         delete net;
-        delete craw;
     } catch (ProcessError) {
         MSNet::clearAll();
         MsgHandler::getErrorInstance()->inform("Quitting.");

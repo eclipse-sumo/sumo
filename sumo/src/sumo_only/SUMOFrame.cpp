@@ -23,14 +23,19 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2004/04/02 11:27:36  dkrajzew
+// simulation-wide output files are now handled by MSNet directly
+//
 // Revision 1.18  2004/03/19 13:04:32  dkrajzew
 // tripstate-output is not supported in 0.8
 //
 // Revision 1.17  2004/02/16 13:44:27  dkrajzew
-// dump output generating function renamed in order to add vehicle dump ability in the future
+// dump output generating function renamed in order to add
+//  vehicle dump ability in the future
 //
 // Revision 1.16  2004/01/26 07:09:33  dkrajzew
-// added the possibility to place lsa-detectors at a default position/using a default length
+// added the possibility to place lsa-detectors at a default
+//  position/using a default length
 //
 // Revision 1.15  2003/12/12 12:31:31  dkrajzew
 // continuing on accidents is now meant to be the default behaviour
@@ -48,7 +53,8 @@ namespace
 // no configuration is loaded as default any more
 //
 // Revision 1.10  2003/06/24 14:38:46  dkrajzew
-// false instantiation of option "log-file" as Option_Strng patched into Option_FileName patched
+// false instantiation of option "log-file" as Option_String patched into
+//  Option_FileName patched
 //
 // Revision 1.9  2003/06/24 08:09:29  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
@@ -57,7 +63,10 @@ namespace
 // the simulation has default begin and end times now
 //
 // Revision 1.7  2003/06/18 11:21:10  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.6  2003/05/20 09:54:45  dkrajzew
 // configuration files are no longer set as default
@@ -71,9 +80,6 @@ namespace
 // Revision 1.3  2003/02/07 11:19:37  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -90,6 +96,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/convert/ToString.h>
 #include <microsim/MSJunction.h>
+#include <microsim/MSNet.h>
 #include "SUMOFrame.h"
 
 
@@ -117,10 +124,11 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     // register output options
     oc.doRegister("netstate-dump", new Option_FileName());
     oc.addSynonyme("netstate-dump", "ndump");
-    /* !!!
-    oc.doRegister("tripstate-output", new Option_FileName());
-    oc.addSynonyme("tripstate-output", "tout");
-    */
+    oc.addSynonyme("netstate-dump", "netstate");
+    oc.doRegister("emissions-output", new Option_FileName());
+    oc.addSynonyme("emissions-output", "emissions");
+    oc.doRegister("tripinfo-output", new Option_FileName());
+    oc.addSynonyme("tripinfo-output", "tripinfo");
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.doRegister("end", 'e', new Option_Integer(86400));
@@ -149,35 +157,32 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 }
 
 
-ostream *
-SUMOFrame::buildNetDumpStream(OptionsCont &oc) {
-    if(!oc.isSet("netstate-dump")) {
-	    return 0;
-    }
-    ostream *ret = new ofstream(oc.getString("netstate-dump").c_str(),
-        ios::out|ios::trunc);
-    if(!ret->good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The output file '") + oc.getString("netstate-dump")
-            + string("' could not be built."));
-        MsgHandler::getErrorInstance()->inform("Simulation failed.");
-        throw ProcessError();
-    }
+std::vector<std::ostream*>
+SUMOFrame::buildStreams(const OptionsCont &oc)
+{
+    std::vector<std::ostream*> ret(MSNet::OS_MAX, 0);
+    ret[MSNet::OS_NETSTATE] = buildStream(oc, "netstate-dump");
+    ret[MSNet::OS_EMISSIONS] = buildStream(oc, "emissions-output");
+    ret[MSNet::OS_TRIPINFO] = buildStream(oc, "tripinfo-output");
     return ret;
 }
 
 
 ostream *
-SUMOFrame::buildTripDescStream(OptionsCont &oc) {
-    if(!oc.isSet("tripstate-output")) {
+SUMOFrame::buildStream(const OptionsCont &oc,
+                       const std::string &optionName)
+{
+    if(!oc.isSet(optionName)) {
 	    return 0;
     }
-    ostream *ret = new ofstream(oc.getString("tripstate-output").c_str(),
+    ostream *ret = new ofstream(oc.getString(optionName).c_str(),
         ios::out|ios::trunc);
     if(!ret->good()) {
         MsgHandler::getErrorInstance()->inform(
-            string("The output file '") + oc.getString("tripstate-output")
+            string("The output file '") + oc.getString(optionName)
             + string("' could not be built."));
+        MsgHandler::getErrorInstance()->inform(
+            string(" (Used for '") + optionName + string("')."));
         MsgHandler::getErrorInstance()->inform("Simulation failed.");
         throw ProcessError();
     }
@@ -228,9 +233,6 @@ SUMOFrame::checkOptions(OptionsCont &oc)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "SUMOFrame.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
