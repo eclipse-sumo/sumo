@@ -22,11 +22,15 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2003/06/05 10:19:44  roessel
+// Added previous lane reminder-container and workOnMoveReminders().
+//
 // Revision 1.22  2003/05/25 16:15:10  roessel
 // Rewrite of workOnMoveReminders and activateRemindersByEmitOrLaneChange.
 //
 // Revision 1.21  2003/05/22 12:48:12  roessel
-// New method activateRemindersByEmitOrLaneChange. Exchanged for-loop by new method.
+// New method activateRemindersByEmitOrLaneChange. Exchanged for-loop by new
+// method.
 //
 // Revision 1.20  2003/05/21 16:20:45  dkrajzew
 // further work detectors
@@ -35,7 +39,8 @@ namespace
 // yellow lights implemented (vehicle movements debugged
 //
 // Revision 1.18  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+// emission debugged; movement model reimplemented (seems ok); detector output
+// debugged; setting and retrieval of some parameter added
 //
 // Revision 1.17  2003/04/16 10:05:06  dkrajzew
 // uah, debugging
@@ -68,7 +73,8 @@ namespace
 // updated
 //
 // Revision 1.7  2002/10/29 10:42:51  dkrajzew
-// problems accured due to the deletion of a vehicle that reached his destination debugged
+// problems accured due to the deletion of a vehicle that reached his
+// destination debugged
 //
 // Revision 1.6  2002/10/28 12:59:38  dkrajzew
 // vehicles are now deleted whe the tour is over
@@ -77,7 +83,8 @@ namespace
 // begin of the implementation of multireferenced, dynamically loadable routes
 //
 // Revision 1.4  2002/10/17 06:11:48  dkrajzew
-// forgot setting of drive request when regarding a critical non-first vehicle added
+// forgot setting of drive request when regarding a critical non-first vehicle
+// added
 //
 // Revision 1.3  2002/10/16 17:33:10  dkrajzew
 // error in moveCritical yielding in collisions removed
@@ -425,7 +432,8 @@ MSVehicle::MSVehicle( string id,
 //      myMeanData( 3 ),
     myMeanData( noMeanData ),
     myLane( 0 ),
-    myMoveReminders( 0 )
+    myMoveReminders( 0 ),
+    myOldLaneMoveReminders( 0 )
 {
     myCurrEdge = myRoute->begin();
     myAllowedLanes = ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );
@@ -1351,7 +1359,7 @@ MSVehicle::dumpData( unsigned index )
 
     double leaveTimestep =
         static_cast< double >( MSNet::getInstance()->timestep() );
-
+   
     myLane->addVehicleData( leaveTimestep - md.entryContTimestep,
                             MSNet::getInstance()->timestep() -
                             md.entryDiscreteTimestep,
@@ -1380,7 +1388,7 @@ MSVehicle::resetMeanData( unsigned index )
 //     md.entryPos              = myState.myPos;
     md.speedSum              = 0;
     md.speedSquareSum        = 0;
-    md.enteredAtLaneStart    = false;
+//     md.enteredAtLaneStart    = false;
     md.enteredLaneWithinIntervall = 0;
 }
 
@@ -1413,8 +1421,12 @@ MSVehicle::updateMeanData( double entryTimestep,
         }
         md->enteredLaneWithinIntervall = true;
     }
-}
-
+//     if (myLane->id() == string("1_0") &&
+//         MSNet::getInstance()->timestep() <= 59 ){
+//         cout << "MSVehicle::updateMeanData speed " << speed << " at "
+//              << MSNet::getInstance()->timestep() << " veh " << myID << endl;
+//     }
+}   
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -1429,8 +1441,9 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane )
         myState.myPos / myState.mySpeed;
     updateMeanData( entryTimestep, 0, myState.mySpeed );
     // switch the reminders and work on them
+    myOldLaneMoveReminders = myMoveReminders;
     myMoveReminders = enteredLane->getMoveReminders();
-    workOnMoveReminders( 0.0, myState.pos(), myState.speed() );
+    workOnMoveReminders( 0.0, myState.pos(), myState.speed(), CURRENT );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1443,13 +1456,9 @@ MSVehicle::enterLaneAtLaneChange( MSLane* enteredLane )
     updateMeanData( static_cast< double >( MSNet::getInstance()->timestep() ),
                     myState.myPos, 0 );
     // switch to and activate the new lane's reminders
+    // keep OldLaneReminders
     myMoveReminders = enteredLane->getMoveReminders();
     activateRemindersByEmitOrLaneChange();
-
-//     for ( vector< MSMoveReminder* >::iterator rem = myMoveReminders.begin();
-//           rem != myMoveReminders.end(); ++rem ){
-//         (*rem)->activateByEmitOrLaneChange( *this );
-//     }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1461,14 +1470,9 @@ MSVehicle::enterLaneAtEmit( MSLane* enteredLane )
     myLane = enteredLane;
     updateMeanData( static_cast< double >( MSNet::getInstance()->timestep() ),
                     myState.myPos, myState.mySpeed );
-    // switch to and activate the new lane's reminders
+    // set and activate the new lane's reminders
     myMoveReminders = enteredLane->getMoveReminders();
     activateRemindersByEmitOrLaneChange();
-    
-//     for ( vector< MSMoveReminder* >::iterator rem = myMoveReminders.begin();
-//           rem != myMoveReminders.end(); ++rem ){
-//         (*rem)->activateByEmitOrLaneChange( *this );
-//     }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1573,6 +1577,12 @@ MSVehicle::meanDataMove( void )
     double speed = myState.mySpeed;
     double speedSquare = speed * speed;
 
+//     if (myLane->id() == string("1_0") &&
+//         MSNet::getInstance()->timestep() <= 59 ){
+//         cout << "MSVehicle::meanDataMove speed " << speed << " at "
+//              << MSNet::getInstance()->timestep() << " veh " << myID << endl;
+//     }
+    
     for ( vector< MeanDataValues >::iterator md = myMeanData.begin();
           md != myMeanData.end(); ++md ) {
 
@@ -1685,7 +1695,8 @@ MSVehicle::getSecureGap( const MSLane &lane, const MSVehicle &pred ) const
 }
 
 void
-MSVehicle::workOnMoveReminders( double oldPos, double newPos, double newSpeed )
+MSVehicle::workOnMoveReminders( double oldPos, double newPos, double newSpeed,
+                                MoveOnReminderMode mode )
 {
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
@@ -1696,6 +1707,19 @@ MSVehicle::workOnMoveReminders( double oldPos, double newPos, double newSpeed )
         }
         else {
             ++rem;
+        }
+    }
+    if ( mode != CURRENT ) {
+        for ( MoveReminderContIt rem = myOldLaneMoveReminders.begin();
+              rem != myOldLaneMoveReminders.end(); /* empty */ ) {
+            double oldLaneLength = (*rem)->getLane()->length();           
+            if ( ! (*rem)->isStillActive( *this, oldLaneLength + oldPos,
+                                          oldLaneLength + newPos, newSpeed) ) {
+                rem = myOldLaneMoveReminders.erase( rem );
+            }
+            else {
+                ++rem;
+            }
         }
     }
 }

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.17  2003/06/05 10:19:45  roessel
+// Added previous lane reminder-container and workOnMoveReminders().
+//
 // Revision 1.16  2003/05/25 17:52:29  roessel
 // Added typedefs.
 //
@@ -30,7 +33,8 @@
 // further work detectors
 //
 // Revision 1.13  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+// emission debugged; movement model reimplemented (seems ok); detector output
+// debugged; setting and retrieval of some parameter added
 //
 // Revision 1.12  2003/04/16 10:05:07  dkrajzew
 // uah, debugging
@@ -780,8 +784,11 @@ private:
     typedef std::vector< MSMoveReminder* > MoveReminderCont;
     typedef MoveReminderCont::iterator MoveReminderContIt;
     MoveReminderCont myMoveReminders;
+    MoveReminderCont myOldLaneMoveReminders;
+    enum MoveOnReminderMode {BOTH, CURRENT};
 
-    void workOnMoveReminders( double oldPos, double newPos, double newSpeed );
+    void workOnMoveReminders( double oldPos, double newPos, double newSpeed,
+                              MoveOnReminderMode = BOTH);
     void activateRemindersByEmitOrLaneChange( void );
 };
 
