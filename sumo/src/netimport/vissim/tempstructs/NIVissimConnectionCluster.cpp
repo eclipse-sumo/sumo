@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/10/30 13:44:10  dkrajzew
+// vissim-import seems to work
+//
 // Revision 1.18  2003/10/30 09:12:59  dkrajzew
 // further work on vissim-import
 //
@@ -175,6 +178,8 @@ NIVissimConnectionCluster::NIVissimConnectionCluster(
         myIncomingEdges.push_back(c->getFromEdgeID());
         assert(c->getFromEdgeID()==edgeid||c->getToEdgeID()==edgeid);
     }
+    IntVectorHelper::removeDouble(myIncomingEdges);
+    IntVectorHelper::removeDouble(myOutgoingEdges);
 }
 
 
@@ -197,6 +202,8 @@ NIVissimConnectionCluster::NIVissimConnectionCluster(
             ||
             find(edges.begin(), edges.end(), c->getToEdgeID())!=edges.end());
     }
+    IntVectorHelper::removeDouble(myIncomingEdges);
+    IntVectorHelper::removeDouble(myOutgoingEdges);
 }
 
 
@@ -243,6 +250,13 @@ NIVissimConnectionCluster::add(NIVissimConnectionCluster *c)
         NIVissimEdge::dictionary(*j)->mergedInto(c, this);
     }
     copy(c->myEdges.begin(), c->myEdges.end(), back_inserter(myEdges));
+    copy(c->myIncomingEdges.begin(), c->myIncomingEdges.end(),
+        back_inserter(myIncomingEdges));
+    copy(c->myOutgoingEdges.begin(), c->myOutgoingEdges.end(),
+        back_inserter(myOutgoingEdges));
+    IntVectorHelper::removeDouble(myEdges);
+    IntVectorHelper::removeDouble(myIncomingEdges);
+    IntVectorHelper::removeDouble(myOutgoingEdges);
 }
 
 
@@ -293,7 +307,7 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
             pos++;
         }
     }
-
+    //
     i = myClusters.begin();
     while(i!=myClusters.end()) {
         bool restart = false;
@@ -327,23 +341,76 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
             cout << "Checked : " << pos << "/" << myClusters.size() << "         " << (char) 13;
         }
     }
+    //
+    i = myClusters.begin();
+    while(i!=myClusters.end()) {
+        bool restart = false;
+        ContType::iterator j = i + 1;
+        // check whether every combination has been processed
+        while(j!=myClusters.end()) {
+            // check whether the current clusters overlap
+			if((*i)->isWeakDistrictConnRealisation(*j)) {
+                joinAble.push_back(*j);
+            }
+            j++;
+        }
+        for(std::vector<NIVissimConnectionCluster*>::iterator k=joinAble.begin();
+                k!=joinAble.end(); k++) {
+            // add the overlaping cluster
+            (*i)->add(*k);
+            // erase the overlaping cluster
+            delete *k;
+            myClusters.erase(find(myClusters.begin(), myClusters.end(), *k));
+        }
+        //
+        if(joinAble.size()>0) {
+            i = myClusters.begin();
+			// clear temporary storages
+            incoming.clear();
+            outgoing.clear();
+            joinAble.clear();
+        } else {
+            i++;
+            pos++;
+            cout << "Checked : " << pos << "/" << myClusters.size() << "         " << (char) 13;
+        }
+    }
 }
 
 bool
 NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, double offset)
 {
-    int id1 = 2000119;
-    int id2 = 2000135;
+    int id1 = 10441;
+    int id2 = 10440;
     if(find(myConnections.begin(), myConnections.end(), id1)!=myConnections.end()) {
         if(find(c2->myConnections.begin(), c2->myConnections.end(), id2)!=c2->myConnections.end()) {
             int bla = 0;
+            cout << endl;
+            cout << "Incoming1:" << myIncomingEdges << endl;
+            cout << "Outgoing1:" << myOutgoingEdges << endl;
+            cout << "Connections1:" << myConnections << endl;
+            cout << "Incoming2:" << c2->myIncomingEdges << endl;
+            cout << "Outgoing2:" << c2->myOutgoingEdges << endl;
+            cout << "Connections2:" << c2->myConnections << endl;
         }
     }
     if(find(c2->myConnections.begin(), c2->myConnections.end(), id1)!=c2->myConnections.end()) {
         if(find(myConnections.begin(), myConnections.end(), id2)!=myConnections.end()) {
             int bla = 0;
+            cout << endl;
+            cout << "Incoming1:" << myIncomingEdges << endl;
+            cout << "Outgoing1:" << myOutgoingEdges << endl;
+            cout << "Connections1:" << myConnections << endl;
+            cout << "Incoming2:" << c2->myIncomingEdges << endl;
+            cout << "Outgoing2:" << c2->myOutgoingEdges << endl;
+            cout << "Connections2:" << c2->myConnections << endl;
         }
     }
+/*
+    if(isWeakDistrictConnRealisation(c2)) {
+        return true;
+    }
+*/
     // join clusters which have at least one connection in common
 	if(IntVectorHelper::subSetExists(myConnections, c2->myConnections)) {
 		return true;
@@ -397,6 +464,58 @@ NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, double offset
 	}
 	return false;
 }
+
+
+bool
+NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionCluster *c2)
+{
+    if( (myIncomingEdges.size()==1&&myOutgoingEdges.size()==1) ) {
+        return false;
+    }
+    if( (c2->myIncomingEdges.size()==1&&c2->myOutgoingEdges.size()==1) ) {
+        return false;
+    }
+
+    // ok, may be the other way round
+    if(myIncomingEdges.size()==1&&c2->myOutgoingEdges.size()==1) {
+        return c2->isWeakDistrictConnRealisation(this);
+    }
+    // connections must cross
+/*    if(!overlapsWith(c2, 9)) {
+        return false;
+    }*/
+    bool crosses = false;
+    for(IntVector::const_iterator j1=myConnections.begin(); j1!=myConnections.end()&&!crosses; j1++) {
+        NIVissimConnection *c1 = NIVissimConnection::dictionary(*j1);
+        const Position2DVector &g1 = c1->getGeometry();
+        for(IntVector::const_iterator j2=c2->myConnections.begin(); j2!=c2->myConnections.end()&&!crosses; j2++) {
+            NIVissimConnection *c2 = NIVissimConnection::dictionary(*j2);
+            const Position2DVector &g2 = c2->getGeometry();
+            if(g1.intersects(g2)) {
+                crosses = true;
+            }
+        }
+    }
+    if(!crosses) {
+        return false;
+    }
+    // ok, check for connection
+    if(myOutgoingEdges.size()!=1||c2->myIncomingEdges.size()!=1) {
+        return false;
+    }
+    // check whether the connection is bidirectional
+    NIVissimEdge *oe = NIVissimEdge::dictionary(myOutgoingEdges[0]);
+    NIVissimEdge *ie = NIVissimEdge::dictionary(c2->myIncomingEdges[0]);
+    if(oe==0||ie==0) {
+        return false;
+    }
+    Line2D l1(oe->getGeometry().getBegin(), oe->getGeometry().getEnd());
+    Line2D l2(ie->getGeometry().getEnd(), ie->getGeometry().getBegin());
+    double a1 = l1.atan2DegreeAngle();
+    double a2 = l2.atan2DegreeAngle();
+    return fabs(a1-a2)<5;
+}
+
 
 
 IntVector

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2003/10/30 13:44:10  dkrajzew
+// vissim-import seems to work
+//
 // Revision 1.11  2003/10/30 09:12:59  dkrajzew
 // further work on vissim-import
 //
@@ -189,6 +192,9 @@ private:
 
     IntVector extendByToTreatAsSame(const IntVector &iv1,
         const IntVector &iv2) const;
+
+    bool isWeakDistrictConnRealisation(NIVissimConnectionCluster *c2);
+
 
 private:
     /// List of connection-ids which participate within this cluster
