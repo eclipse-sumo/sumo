@@ -6,7 +6,7 @@
  * @author Christian Roessel <christian.roessel@dlr.de>
  * @date   Started Mon Jul  7 16:16:26 2003
  * @version $Id$
- * @brief  Implementation of class MSDetector2File.
+ * @brief  Declaration of class MSDetector2File.
  *
  */
 
@@ -24,38 +24,27 @@
 // $Id$
 
 #include "MSNet.h"
-#include "MSEventControl.h"
-#include <helpers/SingletonDictionary.h>
-#include <string>
-#include <cassert>
-#include <utility>
-#include <iostream>
-#include <helpers/OneArgumentCommand.h>
+#include "MSDetectorFileOutput.h"
 
 /**
- * Template-singleton class, that controls file-output of instances of
- * class Detector. Just add a existing detector, a filename (maybe
- * this will change in future) and an interval and the detector-output
- * will be written to filename at given interval. This process is
- * triggered by the MSEventControl mechanism.
+ * Singleton class, that controls file-output of instances of class
+ * MSDetectorFileOutput. Just add a existing detector, a filename
+ * (maybe this will change in future) and an interval and the
+ * detector-output will be written to filename at given interval. This
+ * process is triggered by the MSEventControl mechanism.
  *
- * The output is in XML-format.
+ * The output is in XML-format, but controlled mostly by the instances
+ * of MSDetectorFileOutput
  *
- * The template parameter class Detector must offer following methods:
- * Detector::getNamePrefix()
- * Detector::getXMLHeader()
- * Detector::getXMLOutput()
- * Detector::getXMLDetectorInfoStart()
- * Detector::getXMLDetectorInfoEnd()
- *
- * For a Detector example see MSInductLoop
+ * For a Detector example
+ * @see MSInductLoop
+ * @see MSLaneState
  */
-template< class Detector >
 class MSDetector2File
 {
 public:
-    /// Type of the Detector's singleton-dictionary.
-    typedef SingletonDictionary< std::string, Detector* > DetectorDict;
+    /// Shortening alias .
+    typedef MSDetectorFileOutput Detector;
     /// A pair of a Detector with it's associated file-stream.
     typedef std::pair< Detector*, std::ofstream* > DetectorFilePair;
     /// Container holding DetectorFilePair (with the same interval).
@@ -68,35 +57,16 @@ public:
      * 
      * @return Sole instance pointer of class MSDetector2File.
      */
-    static MSDetector2File* getInstance( void )
-        {
-            if ( instanceM == 0 ) {
-                instanceM = new MSDetector2File();
-            }
-            return instanceM;
-        }
+    static MSDetector2File* getInstance( void );
+    
 
     /** 
      * Destructor. Closes all file-streams, resets instance pointer
      * and clears the interval-DetectorFilePair map.
      * 
      */
-    ~MSDetector2File( void )
-        {
-            instanceM = 0;
-            // close files
-            for ( typename Intervals::iterator it = intervalsM.begin();
-                  it != intervalsM.end(); ++it ) {
-                for( typename DetectorFileVec::iterator df =
-                         it->second.begin(); df != it->second.end(); ++df ) {
-                    *(df->second) << (df->first)->getXMLDetectorInfoEnd()
-                                  << std::endl;
-                    delete df->second;
-                }
-            }
-            intervalsM.clear();
-            // Detector* should be deleted via the SingletonDictionary
-        }
+    ~MSDetector2File( void );
+    
 
     /** 
      * Prepare a detector for file output at given interval. The
@@ -111,66 +81,8 @@ public:
      */
     void addDetectorAndInterval( Detector* det,
                                  const std::string& filename,
-                                 MSNet::Time intervalInSeconds )
-        {
-            MSNet::Time intervalInSteps( MSNet::getSteps( intervalInSeconds ));
-            assert( intervalInSteps >= 1 );
-
-/*            Detector* det = 
-                DetectorDict::getInstance()->getValue( detectorId );*/
-/*            std::string filename = det->getNamePrefix() + "_" +
-                toString( intervalInSeconds ) + ".xml";*/
-
-            if ( det->getDataCleanUpSteps() < intervalInSteps ) {
-                intervalInSteps = det->getDataCleanUpSteps();
-                std::cerr << "MSDetector2File::addDetectorAndInterval: "
-                    "intervalInSeconds greater than\ndetectors clean-up "
-                    "interval. Reducing intervalInSeconds to clean-up "
-                    "interval." << std::endl;
-            }
-            std::ofstream* ofs = 0;
-            typename Intervals::iterator it =
-                intervalsM.find( intervalInSteps );
-            if ( it == intervalsM.end() ) {
-                DetectorFileVec detAndFileVec;
-                ofs = new std::ofstream( filename.c_str() );
-                assert( ofs != 0 );
-                detAndFileVec.push_back( std::make_pair( det, ofs ) );
-                intervalsM.insert(
-                    std::make_pair( intervalInSteps, detAndFileVec ) );
-
-                // Add command for given interval only once to MSEventControl
-                Command* writeData =
-                    new OneArgumentCommand< MSDetector2File, MSNet::Time >
-                    ( this, &MSDetector2File::write2file, intervalInSteps );
-                MSEventControl::getEndOfTimestepEvents()->addEvent(
-                    writeData,
-                    intervalInSteps - 1,
-                    MSEventControl::ADAPT_AFTER_EXECUTION );
-            }
-            else {
-                DetectorFileVec& detAndFileVec = it->second;
-                if ( find_if( detAndFileVec.begin(),
-                              detAndFileVec.end(),
-                              bind2nd( detectorEquals(), det ) )
-                     == detAndFileVec.end() ) {
-                    ofs = new std::ofstream( filename.c_str() );
-                    assert( ofs != 0 );
-                    detAndFileVec.push_back( std::make_pair( det, ofs ) );    
-                }
-                else {
-                    // detector already in container. Don't add several times
-                    std::cerr << "MSDetector2File::addDetectorAndInterval: "
-                        "detector already in container. Ignoring."<< std::endl;
-                    return;
-                }
-            }
-            
-            // write xml-intro
-            *ofs << det->getXMLHeader()
-                 << det->getXMLDetectorInfoStart() << std::endl;
-        }
-
+                                 MSNet::Time intervalInSeconds );
+    
 protected:
     /** 
      * When interval is over, search interval in map and write data of
@@ -185,27 +97,12 @@ protected:
      * 
      * @return intervalInSteps to reactivate the event.
      */
-    MSNet::Time write2file( MSNet::Time intervalInSteps )
-        {
-            typename Intervals::iterator intervalIt =
-                intervalsM.find( intervalInSteps);
-            assert( intervalIt != intervalsM.end() );
-            DetectorFileVec dfVec = intervalIt->second;
-            for ( typename DetectorFileVec::iterator it = dfVec.begin();
-                  it != dfVec.end(); ++it ) {
-                double time = MSNet::getInstance()->simSeconds();
-                *(it->second) << "<interval start=\""
-                              << time - MSNet::getSeconds( intervalInSteps) + 1
-                              << "\" stop=\"" << time << "\" "
-                              << it->first->getXMLOutput( intervalInSteps )
-                              << " />" << std::endl;
-            }
-            return intervalInSteps;
-        }
+    MSNet::Time write2file( MSNet::Time intervalInSteps );
+
 
     /// Default constructor.
-    MSDetector2File( void )
-        {}
+    MSDetector2File( void );
+    
 
     /** 
      * Binary predicate that compares the passed DetectorFilePair's
@@ -235,12 +132,6 @@ private:
 };
 
 
-
-// initialize static member
-template< class Detector >
-MSDetector2File< Detector >*
-MSDetector2File< Detector >::instanceM = 0;
-    
 #endif // MSDetector2File_H
 
 // Local Variables:
