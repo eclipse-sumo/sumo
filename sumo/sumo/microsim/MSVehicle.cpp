@@ -24,6 +24,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.6  2002/04/24 15:22:08  croessel
+// Bugfix: changed myType->decel() into myType->accel() in dadwle().
+//
 // Revision 1.5  2002/04/18 15:05:18  croessel
 // In nextStateCompete(): Returns now correct position instead of 0.
 //
@@ -665,7 +668,7 @@ MSVehicle::dawdle( double speed ) const
     // TODO:
     // We already have a safe speed, if we dawdle max, is it possible
     // to reduce the speed 2*decel?
-    speed -= myType->dawdle() * myType->decel() * MSNet::deltaT() * random;
+    speed -= myType->dawdle() * myType->accel() * MSNet::deltaT() * random;
     
     return max( static_cast< double >( 0 ), speed );
 }
