@@ -4,7 +4,8 @@ noinst_LIBRARIES = libmicrosim.a
 EXTRA_DIST = MSBitSetLogic.cpp \
 MSSimpleTrafficLightLogic.cpp \
 MSActuatedTrafficLightLogic.cpp \
-MSInductLoop.cpp 
+MSInductLoop.cpp \
+MSTravelcostDetector.h
 
 libmicrosim_a_SOURCES = MSDetector.cpp \
 MSEdgeControl.cpp \
@@ -82,6 +83,7 @@ MSMoveReminder.h
 
 
 AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
+-I$(top_srcdir)/src/helpers \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
 
 
