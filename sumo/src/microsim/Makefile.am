@@ -8,9 +8,10 @@ MSAgentbasedTrafficLightLogic.cpp
 libmicrosim_a_SOURCES = MSCurrentHaltingDurationSumPerVehicle.cpp \
 MSDensity.cpp \
 MSDetector2File.cpp \
+MSDetectorCounterContainerWrapper.cpp \
 MSDetectorFileOutput.cpp \
+MSDetectorOccupancyCorrection.cpp \
 MSDetectorSubSys.cpp \
-MSDoubleDetectorContainer.cpp \
 MSE2DetectorInterface.cpp \
 MSEdge.cpp \
 MSEdgeControl.cpp \
@@ -63,11 +64,13 @@ MSBitSetLogic.h \
 MSCurrentHaltingDurationSumPerVehicle.h \
 MSDensity.h \
 MSDetector2File.h \
-MSDetectorContainer.h \
-MSDetectorContainerBase.h \
+MSDetectorContainerWrapper.h \
+MSDetectorContainerWrapperBase.h \
+MSDetectorCounterContainerWrapper.h \
 MSDetectorFileOutput.h \
+MSDetectorHaltingContainerWrapper.h \
+MSDetectorOccupancyCorrection.h \
 MSDetectorSubSys.h \
-MSDoubleDetectorContainer.h \
 MSE2Detector.h \
 MSE2DetectorInterface.h \
 MSEdge.h \
@@ -75,7 +78,6 @@ MSEdgeControl.h \
 MSEmitControl.h \
 MSEventControl.h \
 MSGlobals.h \
-MSHaltingDetectorContainer.h \
 MSInductLoop.h \
 MSInternalLane.h \
 MSJamLengthAheadOfTrafficLights.h \
@@ -96,7 +98,6 @@ MSMoveReminder.h \
 MSNet.h \
 MSNoLogicJunction.h \
 MSNVehicles.h \
-MSOccupancyCorrection.h \
 MSOccupancyDegree.h \
 MSPredicates.h \
 MSQueueLengthAheadOfTrafficLights.h \
@@ -119,6 +120,8 @@ MSTriggeredSource.h \
 MSTriggeredSourceXMLHandler.h \
 MSTriggeredXMLReader.h \
 MSUnit.h \
+MSUpdateEachTimestep.h \
+MSUpdateEachTimestepContainer.h \
 MSVehicle.h \
 MSVehicleContainer.h \
 MSVehicleTransfer.h \
