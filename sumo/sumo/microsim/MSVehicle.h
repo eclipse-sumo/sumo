@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSVehicle.h  -  Base for all
-                          micro-simulation Vehicles. 
+                          micro-simulation Vehicles.
                              -------------------
     begin                : Mon, 12 Mar 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2002/06/20 13:44:58  dkrajzew
+// safeGap is now using fabs
+//
 // Revision 1.6  2002/06/19 15:07:54  croessel
 // Added method timeHeadWayGap( speed ) to forbid timeheadway < deltaT states.
 //
@@ -77,7 +80,7 @@
 // Comment added.
 //
 // Revision 1.13  2002/01/09 15:07:39  croessel
-// Vehicle counter added. MSVehicle::howMany() knows how many vehicles are 
+// Vehicle counter added. MSVehicle::howMany() knows how many vehicles are
 // alive.
 //
 // Revision 1.12  2001/12/20 14:49:30  croessel
@@ -110,11 +113,11 @@
 // parser bugs removed
 //
 // Revision 1.3  2001/09/06 15:35:50  croessel
-// Added operator<< to class MSVehicle for simple text output and minor 
+// Added operator<< to class MSVehicle for simple text output and minor
 // changes.
 //
 // Revision 1.2  2001/07/16 12:55:47  croessel
-// Changed id type from unsigned int to string. Added string-pointer 
+// Changed id type from unsigned int to string. Added string-pointer
 // dictionaries and dictionary methods.
 //
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
@@ -149,8 +152,8 @@ public:
     using Counter< MSVehicle >::howMany;
 
     friend class XMLOut;
-    /** Class to generate XML-output for an edges and all lanes hold by 
-        this edge. 
+    /** Class to generate XML-output for an edges and all lanes hold by
+        this edge.
         Usage, e.g.: cout << XMLOut( edge, 4, true) << endl; */
     class XMLOut
     {
@@ -158,17 +161,17 @@ public:
         XMLOut( const MSVehicle& obj,
                 unsigned indentWidth ,
                 bool withChildElemes );
-        friend std::ostream& operator<<( std::ostream& os, 
-                                         const XMLOut& obj ); 
+        friend std::ostream& operator<<( std::ostream& os,
+                                         const XMLOut& obj );
     private:
         const MSVehicle& myObj;
         unsigned myIndentWidth;
         bool myWithChildElemes;
-    };    
-    
-    friend std::ostream& operator<<( std::ostream& os, 
+    };
+
+    friend std::ostream& operator<<( std::ostream& os,
                                      const XMLOut& obj );
-                                         
+
     /// container that holds the vehicles driving state. May vary from
     /// model to model. here: SK, holds position and speed.
     class State
@@ -193,7 +196,7 @@ public:
         /// Set position of this state.
         void setPos( double pos );
         /// Return true if vehicle would prefer preferState.
-        static bool advantage( const State& preferState, 
+        static bool advantage( const State& preferState,
                                const State& compareState );
     private:
         /// Constructor.
@@ -201,10 +204,10 @@ public:
         double myPos;
         double mySpeed;
     };
-    
+
     /// Sort criterion for vehiles is the departure time.
     friend bool departTimeSortCrit( const MSVehicle* x, const MSVehicle* y );
-     
+
     /// Destructor.
     ~MSVehicle();
 
@@ -214,10 +217,10 @@ public:
 
     /// Returns the vehicles current state.
     State state() const;
-     
+
     /// Returns the lane from where vehicle will depart.
     MSLane& departLane();
-    
+
     /// Returns the desired departure time.
     MSNet::Time desiredDepart() const;
 
@@ -234,33 +237,38 @@ public:
         iterator and the allowedLanes-container. */
     bool destReached( const MSEdge* targetEdge );
 
-    /** In "gap2predecessor < brakeGap" region interaction between 
-        vehicle and predecessor with speed == 0 takes place. If 
+    /** In "gap2predecessor < brakeGap" region interaction between
+        vehicle and predecessor with speed == 0 takes place. If
         vehicle has no predecessor, it has to search within brakeGap
         for collision-free driving. */
     double brakeGap( const MSLane* lane ) const;
 
-    /** In "gap2predecessor < interactionGap" region interaction between 
+    /** In "gap2predecessor < interactionGap" region interaction between
         vehicle and predecessor with speed != 0 takes place. Else vehicle
         drives freely. */
     double interactionGap( const MSLane* lane, const MSVehicle& pred ) const;
-        
+
     /** In "gap2predecessor > safeGap" region vehicle is able to interact
         collisionfreely with predecessor. So safeGap is a minimum gap between
         the two vehicles. */
     double safeGap( const MSVehicle& pred ) const;
-    
-    /** Returns the vehicels driving distance during one timestep when  
+
+    /** A gap that includes the assuption a car must not reach his leader
+        Needed only within the lane changer */
+    double safeLaneChangeGap( const MSVehicle& pred ) const;
+
+
+    /** Returns the vehicels driving distance during one timestep when
         driving with speed. */
     double driveDist( State state ) const;
-    
-    /** Returns the distance-difference between driving at constant 
+
+    /** Returns the distance-difference between driving at constant
         speed and maximum braking in one timestep. */
     double decelDist() const;
-    
+
     // Return the vehicles state after maximum acceleration.
-    State accelState( const MSLane* lane ) const; 
-    
+    State accelState( const MSLane* lane ) const;
+
 ///////////////////////////////////////////////////////////////////////////
 // vnext for vehicles except the first in a lane
 
@@ -271,16 +279,16 @@ public:
     void move( MSLane* lane,
                MSVehicle* pred,
                MSVehicle* neigh, double gap2neigh );
-     
-    // Slow down towards lane end. Updates state. For first vehicles only.         
+
+    // Slow down towards lane end. Updates state. For first vehicles only.
     void moveDecel2laneEnd( MSLane* lane );
 
     // Use this move for first vehicles that won't leave it's lane.
     void moveUpdateState( const State newState );
-     
-    // Use this move for first vehicles that will leave it's lane.    
+
+    // Use this move for first vehicles that will leave it's lane.
     void moveSetState( const State newState );
-    
+
 ////////////////////////////////////////////////////////////////////////////
 // vnext for first vehicles
 
@@ -298,12 +306,12 @@ public:
     // Slow down to one's lane end, don't respect neighbours. Lane-end
     // need not to be the lane-end of the current lane.
     State nextState( MSLane* lane, double gap ) const;
-    
+
     // Use this form if pred would give the wrong position, e.g. if you
-    // want to know what might will happen if this vehicle would have 
+    // want to know what might will happen if this vehicle would have
     // a new pred.
-    State nextStateCompete( MSLane* lane, 
-                            State predState, 
+    State nextStateCompete( MSLane* lane,
+                            State predState,
                             double gap2pred ) const;
 
 
@@ -317,8 +325,8 @@ public:
     /// Get the vehicle's length.
     double length() const;
 
-    /// adds a person with a destination (used in public vehicles to mark 
-    /// the edge the person is stopping at) 
+    /// adds a person with a destination (used in public vehicles to mark
+    /// the edge the person is stopping at)
     void addPerson( MSPerson* person, MSEdge* destinationEdge );
 
     /// returns the persons which leave the vehicle at the given edge
@@ -331,25 +339,25 @@ public:
         if the key id isn't already in the dictionary. Otherwise returns
         false. */
     static bool dictionary( std::string id, MSVehicle* veh );
-     
+
     /** Returns the MSVehicle associated to the key id if exists,
         otherwise returns 0. */
     static MSVehicle* dictionary( std::string id );
 
-    std::string id(); 
+    std::string id();
 
     friend std::ostream& operator<<(std::ostream& os, const MSVehicle& veh);
-    
+
     /** Return true if vehicle is on an allowed lane. */
     bool onAllowed( const MSLane* lane ) const;
-    
+
     /** Returns true if the two vehicles overlap. */
     static bool overlap( const MSVehicle* veh1, const MSVehicle* veh2 );
-    
+
     /** Returns true if vehicle's speed is below 60km/h. This is only relevant
         on highways. Overtaking on the right is allowed then. */
     bool congested();
-    
+
     /// Returns current speed
     double speed() const;
 
@@ -365,14 +373,14 @@ protected:
     double vsafe( double currentSpeed, double decelAbility,
                  double gap2pred, double predSpeed) const;
 
-    /** Return the vehicle's maximum possible speed after acceleration. */        
+    /** Return the vehicle's maximum possible speed after acceleration. */
     double vaccel( const MSLane* lane ) const;
-    
+
     /** Dawdle according the vehicles dawdle parameter. Return value >= 0 */
     double dawdle( double speed ) const;
-    
+
     /** Returns the minimum of four doubles. */
-    double vMin( double v1, double v2, double v3, double v4 ) const;   
+    double vMin( double v1, double v2, double v3, double v4 ) const;
 
     /** timeHeadWay < deltaT situations may cause crashes because two
 	vehicles want to leave the same lane in one timestep. These
@@ -381,16 +389,16 @@ protected:
 	@return The distance driven with speed in the
 	next timestep.*/
     double timeHeadWayGap( double speed ) const;
-     
+
 private:
     /// Reaction time [sec]
     static double myTau;
 
     /// Unique ID.
     std::string myID;
-     
+
     /// Vehicles driving state. here: pos and speed
-    State myState; 
+    State myState;
 
     /// Vehicle's route.
     MSNet::Route* myRoute;
@@ -398,14 +406,14 @@ private:
     /** Iterator to current route-edge.  */
     MSNet::RouteIterator myCurrEdge;
 
-    /** The vehicle's allowed lanes on it'S current edge to drive 
+    /** The vehicle's allowed lanes on it'S current edge to drive
         according to it's route. */
     const MSEdge::LaneCont* myAllowedLanes;
-     
+
     /// Desired departure time (seconds).
     MSNet::Time myDesiredDepart;
- 
-    /// Vehicle-type. 
+
+    /// Vehicle-type.
     const MSVehicleType* myType;
 
     /// Static dictionary to associate string-ids with objects.
@@ -413,23 +421,23 @@ private:
     static DictType myDict;
 
     typedef std::map< MSEdge*, MSNet::PersonCont* > DestinationCont;
-    
+
     /// the container for persons
     DestinationCont myPersons;
 
     /// Default constructor.
     MSVehicle();
-     
+
     /// Copy constructor.
     MSVehicle(const MSVehicle&);
 
     /// Assignment operator.
     MSVehicle& operator=(const MSVehicle&);
 
-    /// We need our own min/max methods because MSVC++ can't use the STL-ones.    
-    inline double min(double v1, double v2) const 
+    /// We need our own min/max methods because MSVC++ can't use the STL-ones.
+    inline double min(double v1, double v2) const
         { return ((v1 < v2) ? v1 : v2); };
-    inline double max(double v1, double v2) const 
+    inline double max(double v1, double v2) const
         { return ((v1 > v2) ? v1 : v2); };
 
 };

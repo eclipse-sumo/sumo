@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.16  2002/06/20 13:44:58  dkrajzew
+// safeGap is now using fabs
+//
 // Revision 1.15  2002/06/20 08:00:59  dkrajzew
 // template and .cpp inclusion inserted due to problems with MSVC++; should be revalidated and removed as soon as possible
 //
@@ -445,7 +448,16 @@ MSVehicle::safeGap( const MSVehicle& pred ) const
                 ( ( vF + vL ) / ( 2 * dF ) + myTau ) + vL * myTau;
 
     // Don't allow timeHeadWay < deltaT situations.
-    return max( gap, timeHeadWayGap( vDecel ) );
+    return max( fabs(gap), timeHeadWayGap( vDecel ) );
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+double
+MSVehicle::safeLaneChangeGap( const MSVehicle& pred ) const
+{
+    double tmp = (myState.mySpeed - myType->decel() * MSNet::deltaT()) * MSNet::deltaT();
+    return max(safeGap(pred), tmp);
 }
 
 /////////////////////////////////////////////////////////////////////////////
