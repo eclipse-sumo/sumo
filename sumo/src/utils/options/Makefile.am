@@ -7,8 +7,8 @@ OptionsCont.cpp OptionsCont.h \
 OptionsIO.cpp OptionsIO.h \
 OptionsLoader.cpp OptionsLoader.h \
 OptionsParser.cpp OptionsParser.h \
-OptionsSubSys.cpp OptionsSubSys.h
-
+OptionsSubSys.cpp OptionsSubSys.h \
+OptionsSaveStorage.cpp OptionsSaveStorage.h
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
