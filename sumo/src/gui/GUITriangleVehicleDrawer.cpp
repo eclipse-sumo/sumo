@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/07/16 15:18:23  dkrajzew
+// new interfaces for drawing classes; junction drawer interface added
+//
 // Revision 1.9  2003/06/06 10:32:20  dkrajzew
 // got rid of glut
 //
@@ -53,6 +56,7 @@ namespace
 
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUILaneWrapper.h>
+#include <guisim/GUIEdge.h>
 #include "GUIViewTraffic.h"
 #include "GUITriangleVehicleDrawer.h"
 
@@ -62,13 +66,64 @@ namespace
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUITriangleVehicleDrawer::GUITriangleVehicleDrawer()
+GUITriangleVehicleDrawer::GUITriangleVehicleDrawer(std::vector<GUIEdge*> &edges)
+    : GUIVehicleDrawer(edges)
 {
 }
 
 
 GUITriangleVehicleDrawer::~GUITriangleVehicleDrawer()
 {
+}
+
+
+void
+GUITriangleVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
+                                         bool showToolTips,
+                                         GUIViewTraffic::VehicleColoringScheme scheme)
+{
+    initStep();
+    // draw the vehicles
+//    if(showToolTips) {
+        // go through edges
+        for(size_t i=0; i<maxEdges; i++ ) {
+            if(onWhich[i]==0) {
+                continue;
+            }
+            size_t pos = 1;
+            for(size_t j=0; j<32; j++, pos<<=1) {
+                if((onWhich[i]&pos)!=0) {
+                    GUIEdge *edge = static_cast<GUIEdge*>(myEdges[j+(i<<5)]);
+                    size_t noLanes = edge->nLanes();
+                    for(size_t i=0; i<noLanes; i++) {
+                        // get the lane
+                        GUILaneWrapper &laneGeom = edge->getLaneGeometry(i);
+                        MSLane &lane = edge->getLane(i);
+                        // retrieve vehicles from lane; disallow simulation
+                        const MSLane::VehCont &vehicles = lane.getVehiclesSecure();
+                        /// check whether tool-tip informations shall be generated
+                        if(showToolTips) {
+                            // go through the vehicles
+                            for(MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); v++) {
+                                MSVehicle *veh = *v;
+                                drawVehicleWithTooltips(laneGeom,
+                                    static_cast<GUIVehicle&>(*veh), scheme);
+                            }
+                        } else {
+                            // go through the vehicles
+                            for(MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); v++) {
+                                MSVehicle *veh = *v;
+                                drawVehicleNoTooltips(laneGeom,
+                                    static_cast<GUIVehicle&>(*veh), scheme);
+                            }
+                        }
+                        // allow lane simulation
+                        lane.releaseVehicles();
+                    }
+                }
+            }
+        }
+//    }
 }
 
 
@@ -141,13 +196,6 @@ GUITriangleVehicleDrawer::drawVehicleWithTooltips(const GUILaneWrapper &lane,
     glPopName();
     glRotated(-lane.getRotation(), 0, 0, 1);
     glTranslated(-posX, -posY, 0);
-}
-
-
-void
-GUITriangleVehicleDrawer::closeStep()
-{
-//    glEnd();
 }
 
 

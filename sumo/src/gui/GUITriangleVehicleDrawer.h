@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/16 15:18:23  dkrajzew
+// new interfaces for drawing classes; junction drawer interface added
+//
 // Revision 1.3  2003/04/15 09:09:10  dkrajzew
 // documentation added
 //
@@ -34,7 +37,7 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include "GUIViewTraffic.h"
+#include "GUISUMOAbstractView.h"
 
 
 /* =========================================================================
@@ -50,32 +53,33 @@ class GUIVehicle;
 /**
  * Draws vehicles as coloured triangles
  */
-class GUITriangleVehicleDrawer : public GUIViewTraffic::GUIVehicleDrawer {
+class GUITriangleVehicleDrawer :
+    public GUISUMOAbstractView::GUIVehicleDrawer {
 public:
     /// constructor
-    GUITriangleVehicleDrawer();
+    GUITriangleVehicleDrawer(std::vector<GUIEdge*> &edges);
 
     /// destructor
     ~GUITriangleVehicleDrawer();
 
+    void drawGLVehicles(size_t *onWhich, size_t maxEdges,
+        bool showToolTips, GUISUMOAbstractView::VehicleColoringScheme scheme);
+
+private:
     /// initialises the drawing
     void initStep();
 
     /// draws a single vehicle; no tool-tip informations (faster)
     void drawVehicleNoTooltips(const GUILaneWrapper &lane,
-        const GUIVehicle &veh, GUIViewTraffic::VehicleColoringScheme scheme);
+        const GUIVehicle &veh, GUISUMOAbstractView::VehicleColoringScheme scheme);
 
     /// draws a single vehicle; tool-tip informations shall be generated
     void drawVehicleWithTooltips(const GUILaneWrapper &lane,
-        const GUIVehicle &veh, GUIViewTraffic::VehicleColoringScheme scheme);
+        const GUIVehicle &veh, GUISUMOAbstractView::VehicleColoringScheme scheme);
 
-    /// ends the drawing
-    void closeStep();
-
-private:
     /// sets the colour of the vehicle to draw
     void setVehicleColor(const GUIVehicle &vehicle,
-        GUIViewTraffic::VehicleColoringScheme scheme);
+        GUISUMOAbstractView::VehicleColoringScheme scheme);
 
     /// Sets the front color of the vehicle if the vehicle shall be draw in more than a single color
     void setVehicleColor1Of3(const GUIVehicle &vehicle);

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/07/16 15:18:23  dkrajzew
+// new interfaces for drawing classes; junction drawer interface added
+//
 // Revision 1.15  2003/06/06 10:33:47  dkrajzew
 // changes due to moving the popup-menus into a subfolder
 //
@@ -101,6 +104,7 @@ namespace
 #include "GUISUMOViewParent.h"
 #include "GUITriangleVehicleDrawer.h"
 #include "GUISimpleLaneDrawer.h"
+#include "GUISimpleJunctionDrawer.h"
 #include "GUIDanielPerspectiveChanger.h"
 #include "GUIViewTraffic.h"
 #include "GUIApplicationWindow.h"
@@ -128,11 +132,18 @@ GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow *app,
                                GUISUMOViewParent *parent,
                                GUINet &net)
     : GUISUMOAbstractView(app, parent, net),
-    _vehicleDrawer(new GUITriangleVehicleDrawer()),
-    _laneDrawer(new GUISimpleLaneDrawer()),
+    _vehicleDrawer(new GUITriangleVehicleDrawer(_net.myEdgeWrapper)),
+    _laneDrawer(new GUISimpleLaneDrawer(_net.myEdgeWrapper)),
+    _junctionDrawer(new GUISimpleJunctionDrawer(_net.myJunctionWrapper)),
     _vehicleColScheme(VCS_BY_SPEED), _laneColScheme(LCS_BLACK),
     myTrackedID(-1), myFontsLoaded(false)
 {
+    _edges2ShowSize = (MSEdge::dictSize()>>5) + 1;
+    _edges2Show = new size_t[_edges2ShowSize];
+    clearUsetable(_edges2Show, _edges2ShowSize);
+    _junctions2ShowSize = (MSJunction::dictSize()>>5) + 1;
+    _junctions2Show = new size_t[_junctions2ShowSize];
+    clearUsetable(_junctions2Show, _junctions2ShowSize);
 }
 
 
@@ -268,8 +279,21 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     double y = (nb.getCenter().second - _changer->getYPos()); // center of view
     double yoff = 50.0 / _changer->getZoom() * _netScale
         / _addScl; // offset to top
-    _net._edgeGrid.get(_edges, x, y, xoff, yoff);
-    paintGLEdges(_edges, scale);
+/*!!!    _net._edgeGrid.get(_edges, x, y, xoff, yoff);
+    paintGLEdges(_edges, scale);*/
+
+    if(myViewSettings.differ(x, y, xoff, yoff)) {
+        clearUsetable(_edges2Show, _edges2ShowSize);
+        clearUsetable(_junctions2Show, _junctions2ShowSize);
+        _net._grid.get(GLO_LANE|GLO_JUNCTION, x, y, xoff, yoff,
+            _edges2Show, _junctions2Show, 0, 0);
+        myViewSettings.set(x, y, xoff, yoff);
+    }
+    double width = m2p(3.0) * scale;
+    _junctionDrawer->drawGLJunctions(_junctions2Show, _junctions2ShowSize,
+        _useToolTips, _junctionColScheme);
+    _laneDrawer->drawGLLanes(_edges2Show, _edges2ShowSize,
+        _useToolTips, width, _laneColScheme);
 
 /*
 	Position2DVector tmp;
@@ -285,7 +309,9 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
 */
     // draw vehicles only when they're visible
     if(scale*m2p(3)>1) {
-        paintGLVehicles(_edges);
+        _vehicleDrawer->drawGLVehicles(_edges2Show, _edges2ShowSize,
+            _useToolTips, _vehicleColScheme);
+        //paintGLVehicles(_edges);
     }
     glPopMatrix();
 
@@ -349,80 +375,6 @@ GUIViewTraffic::drawPolygon(const Position2DVector &v, double lineWidth, bool cl
         p2 = p3;
 	}
 	glEnd();
-}
-
-
-void
-GUIViewTraffic::paintGLEdges(GUIEdgeGrid::GUIEdgeSet &edges, double scale)
-{
-    // compute the width of lanes
-    double width = m2p(3.0) * scale;
-    // initialise drawing
-    _laneDrawer->initStep(width);
-    // check whether tool-tip information shall be generated
-    if(_useToolTips) {
-        // go through edges
-        for( GUIEdgeGrid::GUIEdgeSet::iterator i=edges.begin(); i!=edges.end(); i++) {
-            GUIEdge *edge = static_cast<GUIEdge*>(*i);
-            size_t noLanes = edge->nLanes();
-            // go through the current edge's lanes
-            for(size_t i=0; i<noLanes; i++) {
-                _laneDrawer->drawLaneWithTooltips(edge->getLaneGeometry(i),
-                    _laneColScheme);
-            }
-        }
-    } else {
-        // go through edges
-        for( GUIEdgeGrid::GUIEdgeSet::iterator i=edges.begin(); i!=edges.end(); i++) {
-            GUIEdge *edge = static_cast<GUIEdge*>(*i);
-            size_t noLanes = edge->nLanes();
-            // go through the current edge's lanes
-            for(size_t i=0; i<noLanes; i++) {
-                _laneDrawer->drawLaneNoTooltips(edge->getLaneGeometry(i),
-                    _laneColScheme);
-            }
-        }
-    }
-    _laneDrawer->closeStep();
-}
-
-
-void
-GUIViewTraffic::paintGLVehicles(GUIEdgeGrid::GUIEdgeSet &edges)
-{
-    _vehicleDrawer->initStep();
-    glLineWidth (0.1);
-    // draw the vehicles
-    for(GUIEdgeGrid::GUIEdgeSet::iterator i=edges.begin(); i!=edges.end(); i++) {
-        GUIEdge *edge = static_cast<GUIEdge*>((*i));
-        size_t noLanes = edge->nLanes();
-        for(size_t i=0; i<noLanes; i++) {
-            // get the lane
-            GUILaneWrapper &laneGeom = edge->getLaneGeometry(i);
-            MSLane &lane = edge->getLane(i);
-            // retrieve vehicles from lane; disallow simulation
-            const MSLane::VehCont &vehicles = lane.getVehiclesSecure();
-            /// check whether tool-tip informations shall be generated
-            if(_useToolTips) {
-                // go through the vehicles
-                for(MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); v++) {
-                    MSVehicle *veh = *v;
-                    _vehicleDrawer->drawVehicleWithTooltips(laneGeom,
-                        static_cast<GUIVehicle&>(*veh), _vehicleColScheme);
-                }
-            } else {
-                // go through the vehicles
-                for(MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); v++) {
-                    MSVehicle *veh = *v;
-                    _vehicleDrawer->drawVehicleNoTooltips(laneGeom,
-                        static_cast<GUIVehicle&>(*veh), _vehicleColScheme);
-                }
-            }
-            // allow lane simulation
-            lane.releaseVehicles();
-        }
-    }
-    _vehicleDrawer->closeStep();
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/07/16 15:18:23  dkrajzew
+// new interfaces for drawing classes; junction drawer interface added
+//
 // Revision 1.1  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
@@ -33,7 +36,7 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include "GUIViewTraffic.h"
+#include "GUISUMOAbstractView.h"
 
 
 /* =========================================================================
@@ -48,32 +51,33 @@ class GUILaneWrapper;
 /**
  * Draws lanes as simple, one-colored straights
  */
-class GUISimpleLaneDrawer : public GUIViewTraffic::GUILaneDrawer {
+class GUISimpleLaneDrawer : public GUISUMOAbstractView::GUILaneDrawer {
 public:
     /// constructor
-    GUISimpleLaneDrawer();
+    GUISimpleLaneDrawer(std::vector<GUIEdge*> &edges);
 
     /// destructor
     ~GUISimpleLaneDrawer();
 
+    void drawGLLanes(size_t *which, size_t maxEdges,
+        bool showToolTips, double width,
+        GUISUMOAbstractView::LaneColoringScheme scheme);
+
+private:
     /// initialises the drawing
-    void initStep(const double &width);
+    void initStep(/*const double &width*/);
 
     /// draws a single vehicle; no tool-tip informations (faster)
     void drawLaneNoTooltips(const GUILaneWrapper &lane,
-        GUIViewTraffic::LaneColoringScheme scheme);
+        GUISUMOAbstractView::LaneColoringScheme scheme, double width);
 
     /// draws a single vehicle; tool-tip informations shall be generated
     void drawLaneWithTooltips(const GUILaneWrapper &lane,
-        GUIViewTraffic::LaneColoringScheme scheme);
+        GUISUMOAbstractView::LaneColoringScheme scheme, double width);
 
-    /// ends the drawing
-    void closeStep();
-
-private:
     /// sets the colour of the vehicle to draw
     void setLaneColor(const GUILaneWrapper &lane,
-        GUIViewTraffic::LaneColoringScheme scheme);
+        GUISUMOAbstractView::LaneColoringScheme scheme);
 
 private:
     /// a pointer set in initStep whether lines or quads shal be drawn

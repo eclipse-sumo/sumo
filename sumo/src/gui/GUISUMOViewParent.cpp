@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/07/16 15:18:23  dkrajzew
+// new interfaces for drawing classes; junction drawer interface added
+//
 // Revision 1.2  2003/06/05 06:26:16  dkrajzew
 // first tries to build under linux: warnings removed; Makefiles added
 //
@@ -301,13 +304,7 @@ GUISUMOViewParent::save()
 		      2000 );
         return;
     }
-
-/*    QTextStream t( &f );
-//    t << text;
-    f.close();*/
-
     setCaption( filename );
-
     emit message( QString( "File %1 saved" ).arg( filename ), 2000 );
 }
 

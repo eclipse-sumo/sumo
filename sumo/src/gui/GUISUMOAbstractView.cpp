@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/07/16 15:18:22  dkrajzew
+// new interfaces for drawing classes; junction drawer interface added
+//
 // Revision 1.4  2003/06/18 11:04:53  dkrajzew
 // new error processing adapted
 //
@@ -135,6 +138,44 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
+
+GUISUMOAbstractView::ViewSettings::ViewSettings()
+    : myX(-1), myY(-1), myXOff(-1), myYOff(-1)
+{
+}
+
+
+GUISUMOAbstractView::ViewSettings::ViewSettings(double x, double y,
+                                                double xoff, double yoff)
+    : myX(x), myY(y), myXOff(xoff), myYOff(yoff)
+{
+}
+
+
+GUISUMOAbstractView::ViewSettings::~ViewSettings()
+{
+}
+
+
+bool
+GUISUMOAbstractView::ViewSettings::differ(double x, double y,
+                                          double xoff, double yoff)
+{
+    return myX!=x || myY!=y || myXOff!=xoff || myXOff!=yoff;
+}
+
+
+void
+GUISUMOAbstractView::ViewSettings::set(double x, double y,
+                                       double xoff, double yoff)
+{
+    myX = x;
+    myY = y;
+    myXOff = xoff;
+    myYOff = yoff;
+}
+
+
 GUISUMOAbstractView::GUISUMOAbstractView(GUIApplicationWindow *app,
                                          GUISUMOViewParent *parent, GUINet &net)
     : QGLWidget(parent, ""),
@@ -331,11 +372,6 @@ GUISUMOAbstractView::paintGL()
 unsigned int
 GUISUMOAbstractView::getObjectUnderCursor()
 {
-//    const int SENSITIVITY = 2;
-/*    double scale =
-        _widthInPixels / _net.getBoundery().getWidth() < _heightInPixels / _net.getBoundery().getHeight()
-        ? double(_widthInPixels)/double(SENSITIVITY)
-        : double(_heightInPixels)/double(SENSITIVITY);*/
     const int SENSITIVITY = 4;
     const int NB_HITS_MAX = 1000;
 
@@ -361,7 +397,6 @@ GUISUMOAbstractView::getObjectUnderCursor()
     if(nb_hits==0) {
         return 0;
     }
-//    glFlush();
 
     // Interpret results
     //  Vehicles should have a greater id
@@ -400,19 +435,19 @@ GUISUMOAbstractView::paintGLGrid()
     glColor3f(0.5, 0.5, 0.5);
     double ypos = 0;
     double xpos = 0;
-    double xend = (_net._edgeGrid.getNoXCells())
-        * _net._edgeGrid.getXCellSize();
-    double yend = (_net._edgeGrid.getNoYCells())
-        * _net._edgeGrid.getYCellSize();
-    for(size_t yr=0; yr<_net._edgeGrid.getNoYCells()+1; yr++) {
+    double xend = (_net._grid.getNoXCells())
+        * _net._grid.getXCellSize();
+    double yend = (_net._grid.getNoYCells())
+        * _net._grid.getYCellSize();
+    for(size_t yr=0; yr<_net._grid.getNoYCells()+1; yr++) {
         glVertex2f(0, ypos);
         glVertex2f(xend, ypos);
-        ypos += _net._edgeGrid.getYCellSize();
+        ypos += _net._grid.getYCellSize();
     }
-    for(size_t xr=0; xr<_net._edgeGrid.getNoXCells()+1; xr++) {
+    for(size_t xr=0; xr<_net._grid.getNoXCells()+1; xr++) {
         glVertex2f(xpos, 0);
         glVertex2f(xpos, yend);
-        xpos += _net._edgeGrid.getXCellSize();
+        xpos += _net._grid.getXCellSize();
     }
     glEnd();
 }
@@ -424,7 +459,6 @@ GUISUMOAbstractView::applyChanges(double scale,
 {
     _widthInPixels = width();
     _heightInPixels = height();
-//    _ratio = (double) _widthInPixels / (double) _heightInPixels;
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
     // rotate first;
@@ -617,12 +651,12 @@ GUISUMOAbstractView::setTooltipPosition(size_t x, size_t y,
 void
 GUISUMOAbstractView::paintEvent ( QPaintEvent *e )
 {
-/*    // do not paint anything when the canvas is
+    // do not paint anything when the canvas is
     //  not visible
     if(!isVisible()) {
         return;
     }
-    // mark that drawing is in process
+/*    // mark that drawing is in process
     _noDrawing++;
     // ...and return when drawing is already
     //  being done
@@ -703,6 +737,14 @@ int
 GUISUMOAbstractView::getMaxGLHeight() const
 {
     return _parent->getMaxGLHeight();
+}
+
+
+void
+GUISUMOAbstractView::clearUsetable(size_t *_edges2Show,
+                                   size_t _edges2ShowSize)
+{
+    memset(_edges2Show, 0, sizeof(size_t)*_edges2ShowSize);
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/07/16 15:18:23  dkrajzew
+// new interfaces for drawing classes; junction drawer interface added
+//
 // Revision 1.1  2003/05/20 09:25:13  dkrajzew
 // new view hierarchy; some debugging done
 //
@@ -49,7 +52,7 @@
 #include <utils/geom/Position2D.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/qutils/NewQMutex.h>
-#include <guisim/GUIEdgeGrid.h>
+//#include <guisim/GUIEdgeGrid.h>
 #include "GUIChooser.h"
 #include "GUIGlObjectTypes.h"
 
@@ -70,6 +73,7 @@ class GUIPerspectiveChanger;
 class QTimerEvent;
 class QGLObjectPopupMenu;
 class GUIApplicationWindow;
+class GUIJunctionWrapper;
 
 
 /* =========================================================================
@@ -139,6 +143,7 @@ public slots:
     void toggleToolTips();
 
 public:
+public:
     /**
      * VehicleColoringScheme
      * This enumeration holds the possible vehicle colouring schemes
@@ -176,6 +181,15 @@ public:
         LCS_BY_SPEED = 2
     };
 
+    /**
+     * JunctionColoringScheme
+     * This enumeration holds the possible vehicle colouring schemes
+     */
+    enum JunctionColoringScheme {
+	    /// colouring by vehicle speed
+        VCS_BY_TYPE = 0
+    };
+
 public:
     /**
      * GUIVehicleDrawer
@@ -184,24 +198,18 @@ public:
     class GUIVehicleDrawer {
     public:
 	    /// constructor
-        GUIVehicleDrawer() { }
+        GUIVehicleDrawer(std::vector<GUIEdge*> &edges)
+            : myEdges(edges) { }
 
 	    /// destructor
         virtual ~GUIVehicleDrawer() { }
 
-	    /// called before the first vehicle is drawn
-        virtual void initStep() = 0;
+        virtual void drawGLVehicles(size_t *onWhich, size_t maxEdges,
+            bool showToolTips,
+            VehicleColoringScheme scheme) = 0;
 
-	    /// draws a single vehicle; no tool-tip informations (faster)
-        virtual void drawVehicleNoTooltips(const GUILaneWrapper &lane,
-            const GUIVehicle &veh, VehicleColoringScheme scheme) = 0;
-
-	    /// draws a single vehicle; tool-tip informations shall be generated
-        virtual void drawVehicleWithTooltips(const GUILaneWrapper &lane,
-            const GUIVehicle &veh, VehicleColoringScheme scheme) = 0;
-
-	    /// ends the drawing of vehicles
-        virtual void closeStep() = 0;
+    protected:
+        std::vector<GUIEdge*> &myEdges;
     };
 
     /**
@@ -211,24 +219,52 @@ public:
     class GUILaneDrawer {
     public:
 	    /// constructor
-        GUILaneDrawer() { }
+        GUILaneDrawer(std::vector<GUIEdge*> &edges)
+            : myEdges(edges) { }
 
 	    /// destructor
         virtual ~GUILaneDrawer() { }
 
-	    /// called before the first vehicle is drawn
-        virtual void initStep(const double &width) = 0;
-
-	    /// draws a single vehicle; no tool-tip informations (faster)
-        virtual void drawLaneNoTooltips(const GUILaneWrapper &lane,
+        virtual void drawGLLanes(size_t *which, size_t maxEdges,
+            bool showToolTips, double width,
             LaneColoringScheme scheme) = 0;
 
-	    /// draws a single vehicle; tool-tip informations shall be generated
-        virtual void drawLaneWithTooltips(const GUILaneWrapper &lane,
-            LaneColoringScheme scheme) = 0;
+    protected:
 
-	    /// ends the drawing of vehicles
-        virtual void closeStep() = 0;
+        std::vector<GUIEdge*> &myEdges;
+    };
+
+    /**
+     * GUILaneDrawer
+     * Classes derived from this are meant to be used fro vehicle drawing
+     */
+    class GUIJunctionDrawer {
+    public:
+	    /// constructor
+        GUIJunctionDrawer(std::vector<GUIJunctionWrapper*> &junctions)
+            : myJunctions(junctions) { }
+
+	    /// destructor
+        virtual ~GUIJunctionDrawer() { }
+
+        virtual void drawGLJunctions(size_t *which, size_t maxJunctions,
+            bool showToolTips, JunctionColoringScheme scheme) = 0;
+
+    protected:
+
+        std::vector<GUIJunctionWrapper*> &myJunctions;
+    };
+
+    class ViewSettings {
+    public:
+        ViewSettings();
+        ViewSettings(double x, double y,
+            double xoff, double yoff);
+        ~ViewSettings();
+        bool differ(double x, double y, double xoff, double yoff);
+        void set(double x, double y, double xoff, double yoff);
+    private:
+        double myX, myY, myXOff, myYOff;
     };
 
 protected:
@@ -284,6 +320,8 @@ protected:
     /// invokes the tooltip for the given object
     void showToolTipFor(unsigned int id);
 
+    void clearUsetable(size_t *_edges2Show, size_t _edges2ShowSize);
+
 protected:
     GUIApplicationWindow *_app;
 
@@ -320,7 +358,7 @@ protected:
     /// The current mouse position (if the mouse is over this canvas)
     size_t _mouseX, _mouseY;
 
-    GUIEdgeGrid::GUIEdgeSet _edges;
+//    GUIEdgeGrid::GUIEdgeSet _edges;
 
     /// Offset to the mouse-hotspot from the mouse position
     int _mouseHotspotX, _mouseHotspotY;
@@ -342,6 +380,9 @@ protected:
 
     /// The current popup-menu
     QGLObjectPopupMenu *_popup;
+
+    /// the description of the viewport
+    ViewSettings myViewSettings;
 
 };
 

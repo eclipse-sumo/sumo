@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/07/16 15:18:23  dkrajzew
+// new interfaces for drawing classes; junction drawer interface added
+//
 // Revision 1.9  2003/06/06 10:32:20  dkrajzew
 // got rid of glut
 //
@@ -64,6 +67,7 @@ namespace
 #include <string> // !!!
 #include <microsim/MSEdge.h>
 #include <guisim/GUIVehicle.h>
+#include <guisim/GUIEdge.h>
 #include <guisim/GUILaneWrapper.h>
 #include "GUIViewTraffic.h"
 #include "GUISimpleLaneDrawer.h"
@@ -81,7 +85,8 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUISimpleLaneDrawer::GUISimpleLaneDrawer()
+GUISimpleLaneDrawer::GUISimpleLaneDrawer(std::vector<GUIEdge*> &edges)
+    : GUILaneDrawer(edges)
 {
 }
 
@@ -92,24 +97,73 @@ GUISimpleLaneDrawer::~GUISimpleLaneDrawer()
 
 
 void
-GUISimpleLaneDrawer::initStep(const double & width)
+GUISimpleLaneDrawer::drawGLLanes(size_t *which, size_t maxEdges,
+                                 bool showToolTips, double width,
+                                 GUIViewTraffic::LaneColoringScheme scheme)
+{
+    // initialise drawing
+    initStep(/*width*/);
+    // check whether tool-tip information shall be generated
+    if(showToolTips) {
+        // go through edges
+        for(size_t i=0; i<maxEdges; i++ ) {
+            if(which[i]==0) {
+                continue;
+            }
+            size_t pos = 1;
+            for(size_t j=0; j<32; j++, pos<<=1) {
+                if((which[i]&pos)!=0) {
+                    GUIEdge *edge = static_cast<GUIEdge*>(myEdges[j+(i<<5)]);
+                    size_t noLanes = edge->nLanes();
+                    // go through the current edge's lanes
+                    for(size_t k=0; k<noLanes; k++) {
+                        drawLaneWithTooltips(edge->getLaneGeometry(k),
+                            scheme, width);
+                    }
+                }
+            }
+        }
+    } else {
+        // go through edges
+        for(size_t i=0; i<maxEdges; i++ ) {
+            if(which[i]==0) {
+                continue;
+            }
+            size_t pos = 1;
+            for(size_t j=0; j<32; j++, pos<<=1) {
+                if((which[i]&pos)!=0) {
+                    GUIEdge *edge = static_cast<GUIEdge*>(myEdges[j+(i<<5)]);
+                    size_t noLanes = edge->nLanes();
+                    // go through the current edge's lanes
+                    for(size_t k=0; k<noLanes; k++) {
+                        drawLaneNoTooltips(edge->getLaneGeometry(k),
+                            scheme, width);
+                    }
+                }
+            }
+        }
+    }
+}
+
+void
+GUISimpleLaneDrawer::initStep(/*const double & width*/)
 {
     glLineWidth(1);
-    if(width<1) {
+/*    if(width<1) {
         _drawLines = true;
     } else {
         _drawLines = false;
-    }
+    }*/
     glColor3f(0, 0, 0);
 }
 
 
 void
 GUISimpleLaneDrawer::drawLaneNoTooltips(const GUILaneWrapper &lane,
-            GUIViewTraffic::LaneColoringScheme scheme)
+            GUIViewTraffic::LaneColoringScheme scheme, double width)
 {
     setLaneColor(lane, scheme);
-    if(!_drawLines) {
+    if(width>1.0) {
         glPushMatrix();
         const Position2D &beg = lane.getBegin();
         glTranslated(beg.x(), beg.y(), 0);
@@ -139,11 +193,11 @@ GUISimpleLaneDrawer::drawLaneNoTooltips(const GUILaneWrapper &lane,
 
 void
 GUISimpleLaneDrawer::drawLaneWithTooltips(const GUILaneWrapper &lane,
-            GUIViewTraffic::LaneColoringScheme scheme)
+            GUIViewTraffic::LaneColoringScheme scheme, double width)
 {
     setLaneColor(lane, scheme);
     glPushName(lane.getGlID());
-    if(!_drawLines) {
+    if(width>1.0) {
         glPushMatrix();
         const Position2D &beg = lane.getBegin();
         glTranslated(beg.x(), beg.y(), 0);
@@ -169,12 +223,6 @@ GUISimpleLaneDrawer::drawLaneWithTooltips(const GUILaneWrapper &lane,
         glEnd();
     }
     glPopName();
-}
-
-
-void
-GUISimpleLaneDrawer::closeStep()
-{
 }
 
 

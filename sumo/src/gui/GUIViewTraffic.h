@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/07/16 15:18:24  dkrajzew
+// new interfaces for drawing classes; junction drawer interface added
+//
 // Revision 1.8  2003/06/05 06:26:16  dkrajzew
 // first tries to build under linux: warnings removed; Makefiles added
 //
@@ -54,7 +57,7 @@
 #include <utils/geom/Position2DVector.h>
 #include <utils/qutils/NewQMutex.h>
 #include <utils/glutils/lfontrenderer.h>
-#include <guisim/GUIEdgeGrid.h>
+//#include <guisim/GUIEdgeGrid.h>
 #include "GUISUMOViewParent.h"
 #include "GUISUMOAbstractView.h"
 #include "GUIChooser.h"
@@ -112,99 +115,6 @@ public slots:
         index */
     void changeLaneColoringScheme(int index);
 
-public:
-    /**
-     * VehicleColoringScheme
-     * This enumeration holds the possible vehicle colouring schemes
-     */
-    enum VehicleColoringScheme {
-	    /// colouring by vehicle speed
-        VCS_BY_SPEED = 0,
-	    /// use the colour specified in the input
-        VCS_SPECIFIED = 1,
-	    /// use random scheme 1
-        VCS_RANDOM1 = 2,
-	    /// use random scheme 2
-        VCS_RANDOM2 = 3,
-	    /// use lanechanging scheme 1
-        VCS_LANECHANGE1 = 4,
-	    /// use lanechanging scheme 2
-        VCS_LANECHANGE2 = 5,
-        /// use lanechanging scheme 3
-        VCS_LANECHANGE3 = 6,
-        /// use waiting scheme 1
-        VCS_WAITING1 = 7
-    };
-
-    /**
-     * LaneColoringScheme
-     * This enumeration holds the possible lane colouring schemes
-     */
-    enum LaneColoringScheme {
-        /// all lanes will be black
-        LCS_BLACK = 0,
-	    /** colouring by purpose of the edge the lane lies in
-            (sources:blue, sinks:red, normal:black) */
-        LCS_BY_PURPOSE = 1,
-        /// use the lane's speed
-        LCS_BY_SPEED = 2
-    };
-
-public:
-    /**
-     * GUIVehicleDrawer
-     * Classes derived from this are meant to be used fro vehicle drawing
-     */
-    class GUIVehicleDrawer {
-    public:
-	    /// constructor
-        GUIVehicleDrawer() { }
-
-	    /// destructor
-        virtual ~GUIVehicleDrawer() { }
-
-	    /// called before the first vehicle is drawn
-        virtual void initStep() = 0;
-
-	    /// draws a single vehicle; no tool-tip informations (faster)
-        virtual void drawVehicleNoTooltips(const GUILaneWrapper &lane,
-            const GUIVehicle &veh, VehicleColoringScheme scheme) = 0;
-
-	    /// draws a single vehicle; tool-tip informations shall be generated
-        virtual void drawVehicleWithTooltips(const GUILaneWrapper &lane,
-            const GUIVehicle &veh, VehicleColoringScheme scheme) = 0;
-
-	    /// ends the drawing of vehicles
-        virtual void closeStep() = 0;
-    };
-
-    /**
-     * GUILaneDrawer
-     * Classes derived from this are meant to be used fro vehicle drawing
-     */
-    class GUILaneDrawer {
-    public:
-	    /// constructor
-        GUILaneDrawer() { }
-
-	    /// destructor
-        virtual ~GUILaneDrawer() { }
-
-	    /// called before the first vehicle is drawn
-        virtual void initStep(const double &width) = 0;
-
-	    /// draws a single vehicle; no tool-tip informations (faster)
-        virtual void drawLaneNoTooltips(const GUILaneWrapper &lane,
-            LaneColoringScheme scheme) = 0;
-
-	    /// draws a single vehicle; tool-tip informations shall be generated
-        virtual void drawLaneWithTooltips(const GUILaneWrapper &lane,
-            LaneColoringScheme scheme) = 0;
-
-	    /// ends the drawing of vehicles
-        virtual void closeStep() = 0;
-    };
-
 protected:
 
 void drawPolygon(const Position2DVector &v, double lineWidth, bool close);
@@ -216,17 +126,6 @@ protected:
 
     void doInit();
 
-    /// paints the edges
-    void paintGLEdges(GUIEdgeGrid::GUIEdgeSet &edges,
-        double scale);
-
-    /// paints the vehicles
-    void paintGLVehicles(GUIEdgeGrid::GUIEdgeSet &edges);
-
-    /// draws a single vehicle
-    void drawSingleGLVehicle(MSVehicle *vehicle,
-        std::pair<Position2D, Position2D> &pos, double length);
-
     /// returns the color of the edge
     RGBColor getEdgeColor(GUIEdge *edge) const;
 
@@ -237,17 +136,25 @@ protected:
     /// the lane drawer to use
     GUILaneDrawer *_laneDrawer;
 
+    /// The junction drwaer to use
+    GUIJunctionDrawer *_junctionDrawer;
+
     /// the coloring scheme of vehicles to use
     VehicleColoringScheme _vehicleColScheme;
 
     /// the coloring scheme of lanes to use
     LaneColoringScheme _laneColScheme;
 
+    JunctionColoringScheme _junctionColScheme;
+
     int myTrackedID;
 
     bool myFontsLoaded;
 
     LFontRenderer myFontRenderer;
+
+    size_t *_edges2Show, *_junctions2Show;
+    size_t _edges2ShowSize, _junctions2ShowSize;
 };
 
 
