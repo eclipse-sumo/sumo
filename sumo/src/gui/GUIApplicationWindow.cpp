@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2004/04/23 12:34:54  dkrajzew
+// now, all tracker and tables are updated
+//
 // Revision 1.31  2004/04/02 11:08:35  dkrajzew
 // storing settings in a registry added (window size and last folder used)
 //
@@ -150,6 +153,7 @@ namespace
 #include "GUIMessageWindow.h"
 #include "GUIGlobals.h"
 #include "vartracker/GUIParameterTracker.h"
+#include "partable/GUIParameterTableWindow.h"
 #include "icons/GUIIconSubSys.h"
 #include "textures/GUITexturesHelper.h"
 #include "dialogs/GUIDialog_AboutSUMO.h"
@@ -965,7 +969,7 @@ GUIApplicationWindow::getMaxGLHeight() const
 
 
 void
-GUIApplicationWindow::addChild(FXWindow *child,
+GUIApplicationWindow::addChild(FXMDIChild *child,
                                bool updateOnSimStep)
 {
     mySubWindows.push_back(child);
@@ -973,9 +977,9 @@ GUIApplicationWindow::addChild(FXWindow *child,
 
 
 void
-GUIApplicationWindow::removeChild(FXWindow *child)
+GUIApplicationWindow::removeChild(FXMDIChild *child)
 {
-    std::vector<FXWindow*>::iterator i =
+    std::vector<FXMDIChild*>::iterator i =
         std::find(mySubWindows.begin(), mySubWindows.end(), child);
     if(i!=mySubWindows.end()) {
         mySubWindows.erase(i);
@@ -984,7 +988,7 @@ GUIApplicationWindow::removeChild(FXWindow *child)
 
 
 void
-GUIApplicationWindow::addChild(GUIParameterTracker *child,
+GUIApplicationWindow::addChild(FXMainWindow *child,
                                bool updateOnSimStep)
 {
     myTrackerWindows.push_back(child);
@@ -992,9 +996,9 @@ GUIApplicationWindow::addChild(GUIParameterTracker *child,
 
 
 void
-GUIApplicationWindow::removeChild(GUIParameterTracker *child)
+GUIApplicationWindow::removeChild(FXMainWindow *child)
 {
-    std::vector<GUIParameterTracker*>::iterator i =
+    std::vector<FXMainWindow*>::iterator i =
         std::find(myTrackerWindows.begin(), myTrackerWindows.end(), child);
     myTrackerWindows.erase(i);
 }

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.21  2004/04/23 12:34:54  dkrajzew
+// now, all tracker and tables are updated
+//
 // Revision 1.20  2004/03/19 12:54:07  dkrajzew
 // porting to FOX
 //
@@ -106,6 +109,7 @@ class GUIRunThread;
 class GUIMessageWindow;
 class GUIEvent;
 class GUIParameterTracker;
+class GUIParameterTableWindow;
 
 
 /* =========================================================================
@@ -152,12 +156,12 @@ public:
     int getMaxGLHeight() const;
 
     /// Adds a further child window to the list
-    void addChild(FXWindow *child, bool updateOnSimStep=true);
-    void addChild(GUIParameterTracker *child, bool updateOnSimStep=true);
+    void addChild(FXMDIChild *child, bool updateOnSimStep=true);
+    void addChild(FXMainWindow *child, bool updateOnSimStep=true);
 
     /// removes the given child window from the list
-    void removeChild(FXWindow *child);
-    void removeChild(GUIParameterTracker *child);
+    void removeChild(FXMDIChild *child);
+    void removeChild(FXMainWindow  *child);
 
     FXCursor *getDefaultCursor();
 
@@ -277,8 +281,8 @@ private:
     /// The openGL-maximum screen sizes
     int myGLWidth, myGLHeight;
 
-    std::vector<FXWindow*> mySubWindows;
-    std::vector<GUIParameterTracker*> myTrackerWindows;
+    std::vector<FXMDIChild*> mySubWindows;
+    std::vector<FXMainWindow*> myTrackerWindows;
 
     /// A window to display messages, warnings and error in
     GUIMessageWindow *myMessageWindow;
