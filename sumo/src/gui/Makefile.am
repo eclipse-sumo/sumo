@@ -19,7 +19,8 @@ QGUIImageField.cpp QGUIImageField.h QGUIToggleButton.cpp QGUIToggleButton.h \
 QSUMOEvent.h QSimulationLoadedEvent.h QSimulationStepEvent.h \
 TableTypes.h \
 QSimulationEndedEvent.h QSimulationEndedEvent.cpp \
-GUIViewAggregatedLanes.cpp GUIViewAggregatedLanes.h
+GUIViewAggregatedLanes.cpp GUIViewAggregatedLanes.h \
+GUIMessageWindow.cpp GUIMessageWindow.h
 
 AM_CPPFLAGS = -I$(top_srcdir)/src $(QT_INCLUDES) \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)

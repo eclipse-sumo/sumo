@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2003/11/26 09:39:13  dkrajzew
+// added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
+//
 // Revision 1.18  2003/11/12 14:06:32  dkrajzew
 // visualisation of tl-logics added
 //
@@ -72,8 +75,6 @@
 // files updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -105,19 +106,30 @@ class QSimulationLoadedEvent;
 class QLabel;
 class QWidget;
 class QSimulationEndedEvent;
+class QSplitter;
 class DoubleValueSource;
 class DoubleValueRetriever;
 class GUIGlObject;
+class GUIMessageWindow;
 
 
 /* =========================================================================
  * class definition
  * ======================================================================= */
 /**
+ * @class GUIApplicationWindow
  * The main window of the SUMO-gui. Contains the file opening support and
- * a canvas to display the simulation representations in
+ * a canvas to display the simulation representations in.
+ *
+ * Beside views on the simulation, showed within a MDI-window, the main window
+ * may also have some further views (children) assigned which are stored
+ * within a separate list.
+ *
+ * As the aggregated visualisation is quite memory consuming and needs also
+ * some cpu-time, it may be swichted of on gui-startup. The information
+ * whether aggregated views are allowed is stored within this class, too.
  */
-class GUIApplicationWindow:
+class GUIApplicationWindow :
     public QMainWindow/*,
     public MsgRetriever*/
 {
@@ -139,15 +151,15 @@ public:
     /// Returns the maximum height of gl-windows
     int getMaxGLHeight() const;
 
+    /// Adds a further child window to the list
     void addChild(QWidget *child, bool updateOnSimStep=true);
 
+    /// removes the given child window from the list
     void removeChild(QWidget *child);
 
+    /// Returns the information whether aggregated views are allowed
     bool aggregationAllowed();
-/*
-    void buildSimStepConnectiontemplate<typename _T>(GUIGlObject &o,
-        ValueSource<_T> *source, ValueRetriever<_T> *retriever);
-*/
+
 private slots:
     /** called from the menu, this method allows to choose a simulation
         to load and loads it */
@@ -199,10 +211,13 @@ public:
     /// The opengl-font renderer
     FontStorage myFonts;
 
-
 public slots:
     /** sets the editable simulation delay (in milliseconds) */
     void setSimulationDelay(int value);
+
+    /// Closes the log window
+    void showLog();
+
 
 protected:
     /** called when an event occures */
@@ -299,9 +314,17 @@ private:
     /// (y/n): the gui loads and starts a simulation at the beginning
     bool myStartAtBegin;
 
+    /// Information whether aggregated views are allowed
     bool myAllowAggregated;
 
+    /// Information whether not to display the information about a simulation's end
     bool mySuppressEndInfo;
+
+    /// A window to display messages, warnings and error in
+    GUIMessageWindow *myMessageWindow;
+
+    /// The splitter that divides the main window into vies and the log window
+    QSplitter *myMainSplitter;
 
 };
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/11/26 09:39:13  dkrajzew
+// added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
+//
 // Revision 1.17  2003/10/28 08:32:13  dkrajzew
 // random number specification option added
 //
@@ -91,6 +94,7 @@ namespace
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/MsgHandler.h>
 #include <sumo_only/SUMOFrame.h>
+#include <utils/common/MsgRetrievingFunction.h>
 #include <helpers/SingletonDictionary.h>
 #include "GUIApplicationWindow.h"
 #include "GUILoadThread.h"
@@ -114,7 +118,12 @@ using namespace std;
 GUILoadThread::GUILoadThread(GUIApplicationWindow *mw)
     : _parent(mw)
 {
-    MsgHandler::getErrorInstance()->addRetriever(this);
+    myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this,
+        &GUILoadThread::retrieveError);
+    myMessageRetriever = new MsgRetrievingFunction<GUILoadThread>(this,
+        &GUILoadThread::retrieveMessage);
+    myWarningRetreiver = new MsgRetrievingFunction<GUILoadThread>(this,
+        &GUILoadThread::retrieveWarning);
 }
 
 
@@ -140,21 +149,23 @@ void GUILoadThread::run()
 
     // remove old options
     OptionsSubSys::close();
+
+    // register message callbacks
+    MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
+    MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);
+    MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
+
     // try to load the given configuration
     if(!OptionsSubSys::guiInit(SUMOFrame::fillOptions, _file)) {
         // ok, the options could not be set
-        QThread::postEvent( _parent,
-            new QSimulationLoadedEvent(net, craw, simStartTime, simEndTime,
-            string(_file)) );
+        submitEndAndCleanup(net, craw, simStartTime, simEndTime);
         return;
     }
     // retrieve the options
     OptionsCont &oc = OptionsSubSys::getOptions();
     if(!SUMOFrame::checkOptions(oc)) {
         // the options are not valid
-        QThread::postEvent( _parent,
-            new QSimulationLoadedEvent(net, craw, simStartTime, simEndTime,
-            string(_file)) );
+        submitEndAndCleanup(net, craw, simStartTime, simEndTime);
         return;
     }
     // try to load
@@ -184,17 +195,58 @@ void GUILoadThread::run()
         net = 0;
         craw = 0;
     }
-    QThread::postEvent( _parent,
-        new QSimulationLoadedEvent(net, craw, simStartTime, simEndTime,
-        string(_file)) );
+    submitEndAndCleanup(net, craw, simStartTime, simEndTime);
 }
 
-
+/*
 void
 GUILoadThread::inform(const std::string &msg)
 {
     QThread::postEvent( _parent,
         new QMessageEvent(MsgHandler::MT_ERROR, msg));
+}
+
+*/
+
+
+void
+GUILoadThread::retrieveMessage(const std::string &msg)
+{
+    QThread::postEvent( _parent,
+        new QMessageEvent(MsgHandler::MT_MESSAGE, msg));
+}
+
+
+void
+GUILoadThread::retrieveWarning(const std::string &msg)
+{
+    QThread::postEvent( _parent,
+        new QMessageEvent(MsgHandler::MT_WARNING, msg));
+}
+
+
+void
+GUILoadThread::retrieveError(const std::string &msg)
+{
+    QThread::postEvent( _parent,
+        new QMessageEvent(MsgHandler::MT_ERROR, msg));
+}
+
+
+
+
+void
+GUILoadThread::submitEndAndCleanup(GUINet *net, std::ostream *craw,
+                                   int simStartTime, int simEndTime)
+{
+    // remove message callbacks
+    MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
+    MsgHandler::getWarningInstance()->removeRetriever(myWarningRetreiver);
+    MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
+    // inform parent about the process
+    QThread::postEvent( _parent,
+        new QSimulationLoadedEvent(net, craw, simStartTime, simEndTime,
+        string(_file)) );
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/11/26 09:39:13  dkrajzew
+// added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
+//
 // Revision 1.4  2003/09/22 14:54:22  dkrajzew
 // some refactoring on GUILoadThread-usage
 //
@@ -41,21 +44,20 @@
 
 #include <string>
 #include <qthread.h>
-#include <utils/common/MsgRetriever.h>
 
 
  /* =========================================================================
  * class declarations
  * ======================================================================= */
 class GUIApplicationWindow;
+class MsgRetriever;
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 class GUILoadThread :
-    public QThread,
-    public MsgRetriever
+    public QThread
 {
 public:
     /// constructor
@@ -71,7 +73,23 @@ public:
     	the thread ends after the net has been loaded */
     void run();
 
-    void inform(const std::string &msg);
+    /// Retrieves messages from the loading module
+    void retrieveMessage(const std::string &msg);
+
+    /// Retrieves warnings from the loading module
+    void retrieveWarning(const std::string &msg);
+
+    /// Retrieves error from the loading module
+    void retrieveError(const std::string &msg);
+
+private:
+    /** @brief Closes the loading process
+        This method is called both on success and failure.
+        All message callbacks to this instance are removed and the parent
+        application is informed about the loading */
+    void submitEndAndCleanup(GUINet *net, std::ostream *craw,
+        int simStartTime, int simEndTime);
+
 
 private:
     /// the parent window to inform about the loading
@@ -79,6 +97,10 @@ private:
 
     /// the path to load the simulation from
     std::string _file;
+
+    /** @brief The instances of message retriever encapsulations
+        Needed to be deleted from the handler later on */
+    MsgRetriever *myErrorRetriever, *myMessageRetriever, *myWarningRetreiver;
 };
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2003/11/26 09:39:13  dkrajzew
+// added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
+//
 // Revision 1.27  2003/11/20 13:17:32  dkrajzew
 // further work on aggregated views
 //
@@ -30,10 +33,12 @@ namespace
 // visualisation of tl-logics added
 //
 // Revision 1.25  2003/11/11 08:40:45  dkrajzew
-// consequent position2D instead of two doubles implemented; logging moved from utils to microsim
+// consequent position2D instead of two doubles implemented; logging moved from
+//  utils to microsim
 //
 // Revision 1.24  2003/10/27 10:47:03  dkrajzew
-// added to possibility to close the application after a simulations end without user interaction
+// added to possibility to close the application after a simulations end
+//  without user interaction
 //
 // Revision 1.23  2003/09/22 14:54:22  dkrajzew
 // some refactoring on GUILoadThread-usage
@@ -60,13 +65,15 @@ namespace
 // unneeded uncommented files removed
 //
 // Revision 1.15  2003/07/07 08:08:33  dkrajzew
-// The restart-button was removed and the play-button has now the function to continue the simulation if it has been started before
+// The restart-button was removed and the play-button has now the function to
+//  continue the simulation if it has been started before
 //
 // Revision 1.14  2003/06/24 14:28:53  dkrajzew
 // first steps towards a settings manipulation applied
 //
 // Revision 1.13  2003/06/19 10:56:03  dkrajzew
-// user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
+// user information about simulation ending added; the gui may shutdown on end
+//  and be started with a simulation now;
 //
 // Revision 1.12  2003/06/18 11:04:22  dkrajzew
 // new error processing adapted; new usage of fonts adapted
@@ -87,7 +94,8 @@ namespace
 // fontrendeder removed temporarily
 //
 // Revision 1.6  2003/04/16 09:50:03  dkrajzew
-// centering of the network debugged; additional parameter of maximum display size added
+// centering of the network debugged; additional parameter of maximum display
+//  size added
 //
 // Revision 1.5  2003/03/17 14:03:23  dkrajzew
 // Dialog about simulation restart debugged
@@ -99,8 +107,6 @@ namespace
 // files updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -126,6 +132,7 @@ namespace
 #include <qmenubar.h>
 #include <qapplication.h>
 #include <qvbox.h>
+#include <qsplitter.h>
 #include <qstatusbar.h>
 #include <qworkspace.h>
 #include <qmessagebox.h>
@@ -154,15 +161,16 @@ namespace
 #include "QSimulationEndedEvent.h"
 #include "QMessageEvent.h"
 #include "GUIEvents.h"
+#include "GUIMessageWindow.h"
 #include "qdialogs/QAboutSUMO.h"
 #include "qdialogs/QApplicationSettings.h"
 #include "qdialogs/QSimulationSettings.h"
 #include "qdialogs/QMicroscopicViewSettings.h"
+
 #include "icons/filesave.xpm"
 #include "icons/fileopen.xpm"
 #include "icons/play.xpm"
 #include "icons/stop.xpm"
-//#include "icons/cont.xpm"
 #include "icons/step.xpm"
 #include "icons/new_window.xpm"
 
@@ -189,9 +197,6 @@ const char * startSimText = "Click this button to start the loaded simulation. <
 const char * stopSimText = "Click this button to interupt the running simulation. <br><br>"
 "You can also select the <b>Stop Simulation</b> from the Simulation menu.";
 
-/*const char * resumeSimText = "Click this button to resume a stopped simulation. <br><br>"
-"You can also select the <b>Resume Simulation</b> from the Simulation menu.";
-*/
 const char * singleSimStepText = "Click this button to perform a single simulation step. <br><br>"
 "You can also select the <b>Single Step</b> from the Simulation menu.";
 
@@ -204,7 +209,7 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight,
                                            const std::string &config,
                                            bool allowAggregated,
                                            bool suppressEndInfo)
-    : QMainWindow( 0, "example application main window", WDestructiveClose ),
+    : QMainWindow( 0, "SUMO-gui main window", WDestructiveClose ),
     _loadThread(0), _runThread(0),
     myGLWidth(glWidth), myGLHeight(glHeight),
     myQuitOnEnd(quitOnEnd), myStartAtBegin(false),
@@ -240,11 +245,10 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight,
     buildHelpMenu();
 
     // make the window a mdi-window
-    QVBox* vb = new QVBox( this );
+    myMainSplitter = new QSplitter( Qt::Vertical, this );
+    QVBox *vb = new QVBox(myMainSplitter);
     vb->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
     ws = new QWorkspace( vb );
-    setCentralWidget( vb );
-
     // set the status bar
     statusBar()->message( "Ready", 2000 );
 
@@ -266,6 +270,12 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight,
         myStartAtBegin = true;
     }
     setIcon( QPixmap("document.xpm") );
+
+    //
+    myMessageWindow = new GUIMessageWindow(myMainSplitter);
+    myMessageWindow->hide();
+    //
+    setCentralWidget( myMainSplitter );
 }
 
 
@@ -571,15 +581,22 @@ GUIApplicationWindow::closeAllWindows()
     	m->close();
         m = (GUISUMOViewParent*)ws->activeWindow();
     }
+    // delete the simulation
     _runThread->deleteSim();
+    // set simulation steering items to their initial values
     resetSimulationToolBar();
+    // reset the caption
     string caption = string("SUMO ") + string(version)
         + string(" - no simulation loaded");
     setCaption( caption.c_str());
+    // delete other children
     for(i=0; i<mySubWindows.size(); i++) {
         delete mySubWindows[i];
     }
     mySubWindows.clear();
+    // add a separator to the log
+    myMessageWindow->addSeparator();
+    //
     update();
 }
 
@@ -602,17 +619,26 @@ void GUIApplicationWindow::aboutQt()
 void
 GUIApplicationWindow::windowsMenuAboutToShow()
 {
+    // remove old entries
     windowsMenu->clear();
+    // insert the possibility to switch off the log panel
+    int id = windowsMenu->insertItem("Show &Log Window",
+        this, SLOT(showLog() ) );
+    windowsMenu->setItemChecked( id,
+        myMessageWindow->isVisible() );
+    // insert view windows alignment options
+    windowsMenu->insertSeparator();
     int cascadeId = windowsMenu->insertItem("&Cascade", ws, SLOT(cascade() ) );
-    int tileId = windowsMenu->insertItem("&Tile", ws, SLOT(tile() ) );
+    id = windowsMenu->insertItem("&Tile", ws, SLOT(tile() ) );
     if ( ws->windowList().isEmpty() ) {
     	windowsMenu->setItemEnabled( cascadeId, FALSE );
-    	windowsMenu->setItemEnabled( tileId, FALSE );
+    	windowsMenu->setItemEnabled( id, FALSE );
     }
+    // insert view windows to show up
     windowsMenu->insertSeparator();
     QWidgetList windows = ws->windowList();
     for ( int i = 0; i < int(windows.count()); ++i ) {
-    	int id = windowsMenu->insertItem(windows.at(i)->caption(),
+    	id = windowsMenu->insertItem(windows.at(i)->caption(),
 					 this, SLOT( windowsMenuActivated( int ) ) );
     	windowsMenu->setItemParameter( id, i );
     	windowsMenu->setItemChecked( id, ws->activeWindow() == windows.at(i) );
@@ -620,13 +646,26 @@ GUIApplicationWindow::windowsMenuAboutToShow()
 }
 
 
-void GUIApplicationWindow::windowsMenuActivated( int id )
+void
+GUIApplicationWindow::windowsMenuActivated( int id )
 {
     QWidget* w = ws->windowList().at( id );
     if ( w ) {
 	    w->showNormal();
 	    w->setFocus();
     }
+}
+
+
+void
+GUIApplicationWindow::showLog()
+{
+    if(myMessageWindow->isVisible()) {
+        myMessageWindow->hide();
+    } else {
+        myMessageWindow->show();
+    }
+    myMainSplitter->refresh();
 }
 
 
@@ -663,13 +702,17 @@ GUIApplicationWindow::event(QEvent *e)
         repaint();
         return TRUE;
     case EVENT_ERROR_OCCURED:
+    case EVENT_WARNING_OCCURED:
+    case EVENT_MESSAGE_OCCURED:
         {
-            QMessageBox *myBox = new QMessageBox("An error occured!",
+            myMessageWindow->appendText(ownEvent->getOwnType(),
+                static_cast<QMessageEvent*>(e)->getMsg());
+/*            QMessageBox *myBox = new QMessageBox("An error occured!",
                 static_cast<QMessageEvent*>(e)->getMsg().c_str(),
                 QMessageBox::Warning,
                 QMessageBox::Ok | QMessageBox::Default,
                 QMessageBox::NoButton, QMessageBox::NoButton);
-            myBox->exec();
+            myBox->exec();*/
         }
         return TRUE;
     case EVENT_SIMULATION_ENDED:
@@ -717,13 +760,11 @@ GUIApplicationWindow::processSimulationEndEvent(QSimulationEndedEvent *e)
 }
 
 
-
 void
 GUIApplicationWindow::setSimulationDelay(int value)
 {
     _runThread->setSimulationDelay(value);
 }
-
 
 
 void
@@ -815,20 +856,6 @@ GUIApplicationWindow::aggregationAllowed()
 {
     return myAllowAggregated;
 }
-
-/*
-template<typename _T>
-void
-GUIApplicationWindow::buildSimStepConnection(GUIGlObject &o,
-                                                    ValueSource<T> *source,
-                                             ValueRetriever<T> *retriever)
-{
-    GLObjectValuePassConnector *c =
-        new GLObjectValuePassConnector(o, source, retriever);
-//    _runThread->addSimStepConnector(c);
-}
-*/
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
