@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/05/20 09:26:57  dkrajzew
+// data retrieval for new views added
+//
 // Revision 1.7  2003/04/16 09:50:06  dkrajzew
 // centering of the network debugged; additional parameter of maximum display size added
 //
@@ -50,7 +53,6 @@
 #include <microsim/MSNet.h>
 #include <utils/geom/Boundery.h>
 #include <utils/geom/Position2D.h>
-#include <utils/qutils/NewQMutex.h>
 #include <gui/GUIGlObjectStorage.h>
 #include "GUIEdgeGrid.h"
 
@@ -114,6 +116,7 @@ public:
 
 
     friend class GUIViewTraffic; // !!!
+    friend class GUISUMOAbstractView; // !!!
     friend class GUIEdgeControlBuilder;
     friend class GUILane;
     friend class GUIViewTraffic;
@@ -130,21 +133,6 @@ protected:
     /** @brief A container for numerical ids of objects
         in order to make them grippable by openGL */
     GUIGlObjectStorage _idStorage;
-
-    /// A mutex for single allocation usage
-	static NewQMutex _lock;
-
-public:
-    /// Locks allocations to make allocations threadsafe
-	static void lockAlloc() {
-		_lock.lock();
-	}
-
-    /// Unlocks allocations
-	static void unlockAlloc() {
-		_lock.unlock();
-	}
-
 
 };
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/05/20 09:26:57  dkrajzew
+// data retrieval for new views added
+//
 // Revision 1.6  2003/04/14 08:27:17  dkrajzew
 // new globject concept implemented
 //
@@ -54,7 +57,16 @@ namespace
 #include <microsim/MSVehicle.h>
 #include "GUINet.h"
 #include "GUIVehicle.h"
+#include <qwidget.h>
+#include <gui/GUISUMOAbstractView.h>
+#include <gui/QGLObjectPopupMenu.h>
+#include <gui/TableTypes.h>
+#include <gui/QGLObjectPopupMenuItem.h>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
@@ -63,6 +75,29 @@ using namespace std;
  * ======================================================================= */
 float GUIVehicle::_laneChangeColor1[3];
 float GUIVehicle::_laneChangeColor2[3];
+
+const char * const
+GUIVehicle::myTableItems[] =
+{
+    "speed", "position",
+    "desired depart", "real depart",
+    "last lane change", "waiting time",
+    "emission period", "following vehicles",
+    "type",
+    0
+};
+
+const TableType const
+GUIVehicle::myTableItemTypes[] =
+{
+    TT_DOUBLE, TT_DOUBLE,
+    TT_DOUBLE, TT_DOUBLE,
+    TT_DOUBLE, TT_DOUBLE,
+    TT_DOUBLE, TT_DOUBLE,
+    TT_MENU_END
+};
+
+size_t GUIVehicle::myParamCounterHelp = 0;
 
 
 /* =========================================================================
@@ -97,9 +132,9 @@ GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
     _randomColor1[1] = (double) (256-((prod>>8) & 255)) / (double) 255;
     _randomColor1[2] = (double) (256-((prod>>16) & 255)) / (double) 255;
     // color2
-    _randomColor2[0] = (double)rand() / (double)(RAND_MAX+1);
-    _randomColor2[1] = (double)rand() / (double)(RAND_MAX+1);
-    _randomColor2[2] = (double)rand() / (double)(RAND_MAX+1);
+    _randomColor2[0] = (double)rand() / (double)(RAND_MAX);
+    _randomColor2[1] = (double)rand() / (double)(RAND_MAX);
+    _randomColor2[2] = (double)rand() / (double)(RAND_MAX);
     // lane change color (static!!!)
     _laneChangeColor1[0] = 1;
     _laneChangeColor1[1] = 1;
@@ -194,6 +229,152 @@ GUIVehicle::getNextPeriodical() const
 }
 
 
+QGLObjectPopupMenu *
+GUIVehicle::getPopUpMenu(GUIApplicationWindow *app,
+                         GUISUMOAbstractView *parent)
+{
+    int id;
+    QGLObjectPopupMenu *ret =
+        new QGLObjectPopupMenu(app, parent, this);
+    // insert name
+    id = ret->insertItem(
+        new QGLObjectPopupMenuItem(ret, getFullName().c_str(), true));
+    ret->insertSeparator();
+    // add view options
+    id = ret->insertItem("Center", ret, SLOT(center()));
+    ret->setItemEnabled(id, TRUE);
+    id = ret->insertItem("Track");
+    ret->setItemEnabled(id, FALSE);
+    id = ret->insertItem("Stop");
+    ret->setItemEnabled(id, FALSE);
+    id = ret->insertItem("Delete");
+    ret->setItemEnabled(id, FALSE);
+    ret->insertSeparator();
+    // add views adding options
+    id = ret->insertItem("Show Parameter", ret, SLOT(showPars()));
+    ret->setItemEnabled(id, TRUE);
+    ret->insertSeparator();
+    id = ret->insertItem("Open ValueTracker");
+    ret->setItemEnabled(id, FALSE);
+    ret->insertSeparator();
+    return ret;
+}
+
+
+GUIGlObjectType
+GUIVehicle::getType() const
+{
+    return GLO_VEHICLE;
+}
+
+
+std::string
+GUIVehicle::microsimID() const
+{
+    return id();
+}
+
+
+const char * const
+GUIVehicle::getTableItem(size_t pos) const
+{
+    if(myParamCounterHelp!=0&&pos==getTableParameterNo()-1) {
+        return "type";
+    }
+    if(myParamCounterHelp!=0&&pos>=myParamCounterHelp) {
+        return myType->getTableItem(pos-myParamCounterHelp);
+    }
+    return myTableItems[pos];
+}
+
+
+const TableType
+GUIVehicle::getTableType(size_t pos) const
+{
+    if(myParamCounterHelp!=0&&pos==getTableParameterNo()-1) {
+        return TT_MENU_BEGIN;
+    }
+    if(myParamCounterHelp!=0&&pos>=myParamCounterHelp) {
+        return myType->getTableType(pos-myParamCounterHelp);
+    }
+    return myTableItemTypes[pos];
+}
+
+
+void
+GUIVehicle::fillTableParameter(double *parameter) const
+{
+    parameter[0] = myState.speed();
+    parameter[1] = myState.pos();
+    parameter[2] = myDesiredDepart;
+    parameter[3] = -1;
+    parameter[4] = myLastLaneChangeOffset;
+    parameter[5] = myWaitingTime;
+    parameter[6] = myPeriod;
+    parameter[7] = myRepetitionNumber;
+	myType->fillTableParameter(parameter+9);
+}
+
+double
+GUIVehicle::getTableParameter(size_t pos) const
+{
+    if(myParamCounterHelp!=0&&pos>=myParamCounterHelp) {
+        return myType->getTableParameter(pos-myParamCounterHelp);
+    }
+    switch(pos) {
+    case 0:
+        return myState.speed();
+    case 1:
+        return myState.pos();
+    case 2:
+        return myDesiredDepart;
+    case 3:
+        return -1;
+    case 4:
+        return myLastLaneChangeOffset;
+    case 5:
+        return myWaitingTime;
+    case 6:
+        return myPeriod;
+    case 7:
+        return myRepetitionNumber;
+    default:
+        throw 1;
+    }
+}
+
+
+size_t
+GUIVehicle::getTableParameterNo() const
+{
+    if(myParamCounterHelp==0) {
+        myParamCounterHelp = GUIGlObject::getTableParameterNo();
+    }
+    return myParamCounterHelp
+        + myType->getNoParameter()
+        + 1;
+}
+
+
+const char *
+GUIVehicle::getTableBeginValue(size_t pos) const
+{
+    return myType->id().c_str();
+}
+
+
+bool
+GUIVehicle::active() const
+{
+	return running();
+}
+
+
+void
+GUIVehicle::setRemoved()
+{
+	myLane = 0;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

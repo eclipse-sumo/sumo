@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/05/20 09:26:57  dkrajzew
+// data retrieval for new views added
+//
 // Revision 1.4  2003/04/14 08:27:17  dkrajzew
 // new globject concept implemented
 //
@@ -52,7 +55,18 @@ namespace
 #include <microsim/MSLane.h>
 #include <utils/geom/Position2D.h>
 #include <microsim/MSNet.h>
+#include <gui/GUISUMOAbstractView.h>
 #include "GUILaneWrapper.h"
+#include <gui/QGLObjectPopupMenu.h>
+#include <qwidget.h>
+#include <qpopupmenu.h>
+#include <gui/QGLObjectPopupMenuItem.h>
+
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
 
 
 /* =========================================================================
@@ -60,8 +74,20 @@ namespace
  * ======================================================================= */
 double GUILaneWrapper::myAllMaxSpeed = 0;
 
+const char * const
+GUILaneWrapper::myTableItems[] =
+{
+    "length", "maxspeed", 0
+};
 
-using namespace std;
+const TableType const
+GUILaneWrapper::myTableItemTypes[] =
+{
+    TT_DOUBLE, TT_DOUBLE
+};
+
+
+
 
 /* =========================================================================
  * method definitions
@@ -159,6 +185,87 @@ GUILaneWrapper::forLane(const MSLane &lane) const
 {
     return (&myLane)==(&lane);
 }
+
+
+QGLObjectPopupMenu *
+GUILaneWrapper::getPopUpMenu(GUIApplicationWindow *app,
+                             GUISUMOAbstractView *parent)
+{
+    int id;
+    QGLObjectPopupMenu *ret =
+        new QGLObjectPopupMenu(app, parent, this);
+    // insert name
+    id = ret->insertItem(
+        new QGLObjectPopupMenuItem(ret, getFullName().c_str(), true));
+    ret->insertSeparator();
+    // add view options
+    id = ret->insertItem("Center", ret, SLOT(center()));
+    ret->insertSeparator();
+    id = ret->insertItem("Show Parameter", ret, SLOT(showPars()));
+    ret->setItemEnabled(id, TRUE);
+    // add views adding options
+    ret->insertSeparator();
+    id = ret->insertItem("Open ValueTracker");
+    ret->setItemEnabled(id, FALSE);
+    // add simulation options
+    ret->insertSeparator();
+    id = ret->insertItem("Close");
+    ret->setItemEnabled(id, FALSE);
+    return ret;
+}
+
+
+GUIGlObjectType
+GUILaneWrapper::getType() const
+{
+    return GLO_LANE;
+}
+
+
+std::string
+GUILaneWrapper::microsimID() const
+{
+    return myLane.id();
+}
+
+
+const char * const
+GUILaneWrapper::getTableItem(size_t pos) const
+{
+    return myTableItems[pos];
+}
+
+
+const TableType
+GUILaneWrapper::getTableType(size_t pos) const
+{
+    return myTableItemTypes[pos];
+}
+
+
+void
+GUILaneWrapper::fillTableParameter(double *parameter) const
+{
+    parameter[0] = myLane.length();
+    parameter[1] = myLane.maxSpeed();
+}
+
+
+double
+GUILaneWrapper::getTableParameter(size_t pos) const
+{
+    switch(pos) {
+    case 0:
+        return myLane.length();
+    case 1:
+        return myLane.maxSpeed();
+    default:
+        throw 1;
+    }
+}
+
+
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/05/20 09:26:57  dkrajzew
+// data retrieval for new views added
+//
 // Revision 1.4  2003/04/14 08:27:18  dkrajzew
 // new globject concept implemented
 //
@@ -44,6 +47,9 @@
 #include <microsim/MSVehicle.h>
 
 
+class GUISUMOAbstractView;
+
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
@@ -59,6 +65,16 @@ class GUIVehicle :
 public:
     /// destructor
     ~GUIVehicle();
+
+    /// returns the popup-menu for vehicles
+    QGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow *app,
+        GUISUMOAbstractView *parent);
+
+    /// Returns the type of the object as coded in GUIGlObjectType
+    GUIGlObjectType getType() const;
+
+    /// returns the id of the object as known to microsim
+    std::string microsimID() const;
 
     /// retunrs the names of all available vehicles
     static std::vector<std::string> getNames();
@@ -94,14 +110,31 @@ public:
     virtual MSVehicle *getNextPeriodical() const;
 
 
+    virtual size_t getTableParameterNo() const;
+
     /// GUINet is allowed to build vehicles
     friend class GUINet;
+
+    double getTableParameter(size_t pos) const;
+
+    void fillTableParameter(double *parameter) const;
+
+    const char * const getTableItem(size_t pos) const;
+
+	bool active() const;
+
+	void setRemoved();
+
 protected:
     /// Use this constructor only.
     GUIVehicle( GUIGlObjectStorage &idStorage,
         std::string id, MSRoute* route, MSNet::Time departTime,
         const MSVehicleType* type, size_t noMeanData,
         int repNo, int repOffset, float *defColor);
+
+    const TableType getTableType(size_t pos) const;
+
+    const char *getTableBeginValue(size_t pos) const;
 
 private:
     /// the color read from the XML-description
@@ -118,6 +151,12 @@ private:
 
     /// dark grey
     static float _laneChangeColor2[3];
+
+    static const char * const myTableItems[];
+
+    static const TableType const myTableItemTypes[];
+
+    static size_t myParamCounterHelp;
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/05/20 09:26:57  dkrajzew
+// data retrieval for new views added
+//
 // Revision 1.5  2003/03/06 17:17:32  dkrajzew
 // y-direction flipped
 //
@@ -117,6 +120,9 @@ GUIEdgeGrid::init() {
 	_grid = new GUIEdgeCont[size];
 	// get the boundery
 	_boundery = computeBoundery();
+    if(_boundery.getHeight()==0) {
+        _boundery.add(_boundery.xmin(), _boundery.ymax()+1);
+    }
 	// compute the cell size
 	_xcellsize =
 		(_boundery.xmax()-_boundery.xmin()) / _xsize;

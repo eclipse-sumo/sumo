@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/05/20 09:26:57  dkrajzew
+// data retrieval for new views added
+//
 // Revision 1.4  2003/04/14 08:27:17  dkrajzew
 // new globject concept implemented
 //
@@ -50,6 +53,7 @@
 #include <utils/geom/Position2D.h>
 #include <utils/qutils/NewQMutex.h>
 #include <gui/GUIGlObject.h>
+#include <gui/TableTypes.h>
 
 
 /* =========================================================================
@@ -76,6 +80,13 @@ public:
 
     /// destructor
     virtual ~GUILaneWrapper();
+
+    /// Returns a popup-menu fpr lanes
+    QGLObjectPopupMenu *getPopUpMenu(GUIApplicationWindow *app,
+        GUISUMOAbstractView *parent);
+
+    /// returns the id of the object as known to microsim
+    std::string microsimID() const;
 
     /** returns the length of the lane */
     double getLength() const;
@@ -108,6 +119,23 @@ public:
     /// Returns true if the given lane id the lane this wrapper wraps the geometry of
     bool forLane(const MSLane &lane) const;
 
+    /// Returns the type of the object as coded in GUIGlObjectType
+    GUIGlObjectType getType() const;
+
+    double getTableParameter(size_t pos) const;
+
+    void fillTableParameter(double *parameter) const;
+
+    const char * const getTableItem(size_t pos) const;
+
+protected:
+
+    const TableType getTableType(size_t pos) const;
+
+    const char *getTableBeginValue(size_t pos) const { throw 1; }
+
+	bool active() const { return true; }
+
 protected:
     /// the begin position of the lane
     Position2D _begin;
@@ -131,6 +159,9 @@ protected:
     /// The maximum velocity over all lanes
     static double myAllMaxSpeed;
 
+    static const char * const myTableItems[];
+
+    static const TableType const myTableItemTypes[];
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/05/20 09:26:57  dkrajzew
+// data retrieval for new views added
+//
 // Revision 1.7  2003/04/16 09:50:06  dkrajzew
 // centering of the network debugged; additional parameter of maximum display size added
 //
@@ -59,8 +62,6 @@ namespace
 #include "GUINet.h"
 
 
-NewQMutex GUINet::_lock;
-
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
@@ -90,7 +91,7 @@ GUINet::preInitGUINet( MSNet::Time startTimeStep,
 {
     myInstance = new GUINet();
     myInstance->myStep = startTimeStep;
-    initMeanData(dumpMeanDataIntervalls, baseNameDumpFiles, true);
+    initMeanData(dumpMeanDataIntervalls, baseNameDumpFiles/*, true*/);
 }
 
 
@@ -156,9 +157,10 @@ GUINet::buildNewVehicle( std::string id, MSRoute* route,
                        float *defColor)
 {
     size_t noIntervals = getNDumpIntervalls();
-    if(withGUI()) {
+/*    if(withGUI()) {
         noIntervals++;
-    }
+    }*/
+	myLoadedVehNo++;
     GUIVehicle * veh = new GUIVehicle(_idStorage,
         id, route, departTime,
         type, noIntervals, repNo, repOffset, defColor);

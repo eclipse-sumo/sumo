@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/05/20 09:26:57  dkrajzew
+// data retrieval for new views added
+//
 // Revision 1.3  2003/04/14 08:27:17  dkrajzew
 // new globject concept implemented
 //
@@ -181,8 +184,10 @@ GUILane::push( MSVehicle* veh )
         return false;
     }
     else {
+		static_cast<GUIVehicle*>(veh)->setRemoved();
         static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
             static_cast<GUIVehicle*>(veh)->getGlID());
+		// maybe the vehicle is being tracked; mark as not within the simulation any longer
         _lock.unlock();//Display();
         return true;
         // TODO
