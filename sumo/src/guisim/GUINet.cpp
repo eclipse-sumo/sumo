@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2003/12/09 11:28:23  dkrajzew
+// removed some memory leaks
+//
 // Revision 1.26  2003/12/04 13:36:52  dkrajzew
 // detector name changing applied
 //
@@ -102,7 +105,9 @@ namespace
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <utility>
+#include <set>
 #include <microsim/MSNet.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSInductLoop.h>
@@ -124,6 +129,7 @@ namespace
 #include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
 #include <guisim/GUILaneStateReporter.h>
+#include <guisim/GUIJunctionWrapper.h>
 #include <microsim/MSLaneState.h>
 #include <microsim/MSUpdateEachTimestepContainer.h>
 #include "GUIVehicle.h"
@@ -144,6 +150,26 @@ GUINet::GUINet()
 GUINet::~GUINet()
 {
     _idStorage.clear();
+    // delete allocated wrappers
+        // of junctions
+    for(std::vector<GUIJunctionWrapper*>::iterator i1=myJunctionWrapper.begin(); i1!=myJunctionWrapper.end(); i1++) {
+        delete (*i1);
+    }
+        // of detectors
+    for(std::vector<GUIDetectorWrapper*>::iterator i2=myDetectorWrapper.begin(); i2!=myDetectorWrapper.end(); i2++) {
+        delete (*i2);
+    }
+        // of tl-logics
+    typedef std::map<MSLink*, GUITrafficLightLogicWrapper*> Link2LogicMap;
+    typedef std::set<GUITrafficLightLogicWrapper*> LogicSet;
+    LogicSet known;
+    for(Link2LogicMap::iterator i3=myLinks2Logic.begin(); i3!=myLinks2Logic.end(); i3++) {
+        known.insert((*i3).second);
+    }
+    for(LogicSet::iterator i4=known.begin(); i4!=known.end(); i4++) {
+        delete (*i4);
+    }
+        // of the network itself
     delete myWrapper;
 }
 

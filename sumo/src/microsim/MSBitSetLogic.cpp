@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2003/12/09 11:29:39  dkrajzew
+// removed some memory leaks
+//
 // Revision 1.6  2003/12/05 10:27:59  dkrajzew
 // internal links usage patched (unfinished yet, but working)
 //
@@ -116,6 +119,7 @@ template< size_t N >
 MSBitSetLogic< N >::~MSBitSetLogic< N >()
 {
     delete myLogic;
+    delete myInternalLinksFoes;
 }
 
 //-------------------------------------------------------------------------//
