@@ -48,18 +48,28 @@ struct MSHaltingDetectorContainer :
 
     void update( void )
         {
-            // set isHaltingM
+            // set isHaltingM and haltingDurationM
             typedef typename InnerContainer::iterator ContainerIt;
             for ( ContainerIt haltIt = containerM.begin();
                   haltIt != containerM.end(); ++haltIt ) {
                 if ( haltIt->vehM->speed() >= speedThresholdM ) {
                     haltIt->timeBelowSpeedThresholdM = 0;
                     haltIt->isHaltingM = false;
+                    haltIt->haltingDurationM = 0.0;
                 }
                 else {
                     haltIt->timeBelowSpeedThresholdM++;
                     if ( haltIt->timeBelowSpeedThresholdM > timeThresholdM ) {
-                        haltIt->isHaltingM = true;
+                        if ( ! haltIt->isHaltingM ) {
+                            haltIt->isHaltingM = true;
+                            // time to detect halting contributes to
+                            // halting-duration
+                            haltIt->haltingDurationM =
+                                haltIt->timeBelowSpeedThresholdM++;
+                        }
+                        else {
+                            haltIt->haltingDurationM++;
+                        }
                     }
                 }
             }
@@ -101,12 +111,14 @@ namespace DetectorContainer
             : vehM( veh ),
               timeBelowSpeedThresholdM( 0 ),
               isHaltingM( false ),
-              isInJamM( false )
+              isInJamM( false ),
+              haltingDurationM( 0 )
             {}
         MSVehicle* vehM;
         MSUnit::Steps timeBelowSpeedThresholdM;
         bool isHaltingM;
         bool isInJamM;
+        MSUnit::Steps haltingDurationM;
     };
 
     typedef MSHaltingDetectorContainer< std::list< Halting > > Haltings;
