@@ -19,6 +19,12 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2002/07/31 17:34:51  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.6  2002/07/22 12:44:32  dkrajzew
+// Source loading structures added
+//
 // Revision 1.5  2002/06/11 14:39:25  dkrajzew
 // windows eol removed
 //
@@ -49,8 +55,10 @@ enum LoadFilter {
     LOADFILTER_DETECTORS = 2,
     /** load only vehicles, their routes and theri types */
     LOADFILTER_DYNAMIC = 4,
+    /** load the sources */
+    LOADFILTER_SOURCES = 8,
     /** load static net elements only */
-    LOADFILTER_NET = 3
+    LOADFILTER_NET = 1 | 2 | 8,
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

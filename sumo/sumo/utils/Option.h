@@ -22,20 +22,29 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.3  2002/06/11 14:38:21  dkrajzew
+// Revision 1.4  2002/07/31 17:30:06  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.4  2002/07/11 07:42:59  dkrajzew
+// Usage of relative pathnames within configuration files implemented
+//
+// Revision 1.4  2002/06/11 15:58:24  dkrajzew
 // windows eol removed
 //
-// Revision 1.2  2002/06/11 13:43:36  dkrajzew
+// Revision 1.3  2002/05/14 04:45:49  dkrajzew
+// Bresenham added; some minor changes; windows eol removed
+//
+// Revision 1.2  2002/04/26 10:08:38  dkrajzew
 // Windows eol removed
 //
-// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
-// new project name
+// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
+// new version-free project name (try2)
 //
-// Revision 2.1  2002/02/18 11:05:48  traffic
-// "getValues()" now returns a string
+// Revision 1.1.1.1  2002/04/09 13:22:01  dkrajzew
+// new version-free project name
 //
-// Revision 2.0  2002/02/14 14:43:27  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
+// Revision 1.2  2002/03/20 08:50:37  dkrajzew
+// Revisions patched
 //
 // Revision 1.1  2002/02/13 15:48:18  croessel
 // Merge between SourgeForgeRelease and tesseraCVS.
@@ -99,6 +108,8 @@ class Option {
     virtual bool isBool() const;
     /** returns the information whether the option holds the default value */
     virtual bool isDefault() const;
+    /// returns the information whether this option is a file name
+    virtual bool isFileName() const;
 
     /** OptionsCont is a friend class as it may reinitialise the option to be a default value */
     friend class OptionsCont;
@@ -166,7 +177,7 @@ class Option_Long : public Option {
 
 
 class Option_String : public Option {
- private:
+ protected:
     /** the value, valid only when the base-classes "_set"-member is true */
     std::string      _value;
  public:
@@ -177,7 +188,7 @@ class Option_String : public Option {
     /** copy constructor */
     Option_String(const Option_String &s);
     /** destructor */
-    ~Option_String();
+    virtual ~Option_String();
     /** assignment operator */
     Option_String &operator=(const Option_String &s);
     /** returns the string value */
@@ -237,6 +248,23 @@ class Option_Bool : public Option {
     /** returns always true */
     bool isBool() const;
 };
+
+class Option_FileName : public Option_String {
+ public:
+    /** constructor; the value will be invalid (unset) */
+    Option_FileName();
+    /** constructor; the default value is given */
+    Option_FileName(std::string value);
+    /** copy constructor */
+    Option_FileName(const Option_String &s);
+    /** destructor */
+    virtual ~Option_FileName();
+    /** assignment operator */
+    Option_FileName &operator=(const Option_FileName &s);
+    /// returns the information whether this option is a file name
+    bool isFileName() const;
+};
+
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE

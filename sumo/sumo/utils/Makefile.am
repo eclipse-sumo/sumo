@@ -1,6 +1,6 @@
 noinst_LIBRARIES = libutils.a
 
-EXTRA_DIST = TplConvertSec.cpp TplConvert.cpp 
+EXTRA_DIST = TplConvertSec.cpp TplConvert.cpp
 
 libutils_a_SOURCES = AttributesHandler.cpp AttributesHandler.h		\
 FileHelpers.cpp FileHelpers.h GenericSAX2Handler.cpp			\
@@ -10,8 +10,10 @@ OptionsParser.cpp OptionsParser.h STRConvert.cpp STRConvert.h		\
 UtilExceptions.cpp UtilExceptions.h XMLBuildingExceptions.cpp		\
 XMLBuildingExceptions.h \
 StringTokenizer.cpp StringTokenizer.h HelpPrinter.h \
-TplConvert.h TplConvertSec.h
+TplConvert.h TplConvertSec.h \
+XMLSubSys.cpp XMLSubSys.h \
+XMLCh2Local.cpp  XMLCh2Local.h  XMLCh2Local.icc HelpPrinter.h
 
-AM_CPPFLAGS = -I$(XERCESINCLUDE)
+AM_CPPFLAGS = -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
 
 

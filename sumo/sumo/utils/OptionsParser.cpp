@@ -23,14 +23,17 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.4  2002/06/11 14:38:23  dkrajzew
+// Revision 1.5  2002/07/31 17:30:07  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.7  2002/07/18 07:37:16  dkrajzew
+// long option names may now have parameter separated by a =, too
+//
+// Revision 1.5  2002/07/11 07:42:59  dkrajzew
+// Usage of relative pathnames within configuration files implemented
+//
+// Revision 1.5  2002/06/11 15:58:26  dkrajzew
 // windows eol removed
-//
-// Revision 1.3  2002/06/11 13:43:35  dkrajzew
-// Windows eol removed
-//
-// Revision 1.2  2002/06/10 08:33:23  dkrajzew
-// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
 // Revision 1.4  2002/06/10 06:54:30  dkrajzew
 // Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
@@ -87,13 +90,16 @@ bool OptionsParser::parse(OptionsCont *oc, int argc, char **argv) {
     for(int i=1; i<argc; ) {
         try {
             int add;
-            if(i<argc-1)
+            // try to set the current option
+            if(i<argc-1) {
                 add = check(oc, argv[i], argv[i+1]);
-            else
+            } else {
                 add = check(oc, argv[i]);
-            if(add>0)
+            }
+            // move the pointer forward
+            if(add>0) {
                 i += add;
-            else {
+            } else {
                 i += 1;
                 ok = false;
             }
@@ -115,14 +121,22 @@ int OptionsParser::check(OptionsCont *oc, char *arg1) {
     if(isAbbreviation(arg1)) {
         // set all switches when abbreviated
         for(int i=1; i<arg1[i]!=0; i++) {
-            if(!oc->set(convert(arg1[i]), true)) {
-                error = true;
+            // process boolean switches
+            if(oc->isBool(convert(arg1[i]))) {
+                error = !oc->set(convert(arg1[i]), true);
+            // process non-boolean switches
+            } else {
+                return processNonBooleanSingleSwitch(oc, arg1+i);
             }
         }
     } else {
-	    // set single switch
-        if(!oc->set(convert(arg1+2), true)) {
-            error = true;
+        string tmp(arg1+2);
+        size_t idx1 = tmp.find('=');
+        // check whether a parameter was submitted
+        if(idx1!=string::npos) {
+            error = !oc->set(tmp.substr(0, idx1), tmp.substr(idx1+1));
+        } else {
+            error = !oc->set(convert(arg1+2), true);
         }
     }
     if(error) return -1;
@@ -133,46 +147,77 @@ int OptionsParser::check(OptionsCont *oc, char *arg1, char *arg2) {
     // the first argument should be an option
     // (only the second may be a free string)
     if(!checkParameter(arg1)) return -1;
-    // process not abbreviated parameters
+    // process not abbreviated switches
     if(!isAbbreviation(arg1)) {
-        if(oc->isBool(convert(arg1+2))) {
-            if(!oc->set(convert(arg1+2), true))
-                return -1;
-            return 1;
+        string tmp(arg1+2);
+        size_t idx1 = tmp.find('=');
+        // check whether a parameter was submitted
+        if(idx1!=string::npos) {
+            if(oc->set(tmp.substr(0, idx1), tmp.substr(idx1+1))) {
+                return 1;
+            }
+            return -1;
         } else {
-            if(!oc->set(convert(arg1+2), convert(arg2)))
-                return -1;
-            return 2;
+            if(oc->isBool(convert(arg1+2))) {
+                if(oc->set(convert(arg1+2), true))
+                    return 1;
+            } else {
+                if(oc->set(convert(arg1+2), convert(arg2)))
+                    return 2;
+            }
+            // an error occured
+            return -1;
         }
     }
-    // process abbreviated parameters
+    // process abbreviated switches
     else {
         bool error = false;
-        char file = 0;
+        // go through the abbreviated switches
         for(int i=1; arg1[i]!=0; i++) {
+            // set boolean switches
             if(oc->isBool(convert(arg1[i]))) {
-                if(!oc->set(convert(arg1[i]), true)) {
-                    error = true;
-                }
+                error = !oc->set(convert(arg1[i]), true);
+            // set non-boolean switches
             } else {
-                if(file!=0) {
-                    cout << "Error: The current parameter '" << arg1[i] << "' and the parameter '" << file << "' do both need a value." << endl;
-                    error = true;
+                // check whether the parameter comes directly after the switch
+                //  and process if so
+                if(arg1[i+1]!=0) {
+                    return processNonBooleanSingleSwitch(oc, arg1+i);
+                // process parameter following after a space
+                } else {
+                    error = !oc->set(convert(arg1[i]), convert(arg2));
+                    // option name and attribute were in two arguments
+                    if(!error) {
+                        return 2;
+                    } else {
+                        return -1;
+                    }
                 }
-                file = arg1[i];
             }
         }
-        if(file!=0) {
-            if(!oc->set(convert(file), convert(arg2))) {
-                error = true;
-            } else
-                return 2;
-        }
-        if(error) return -1;
+        // all switches within the current argument were boolean switches
+        if(!error) {
             return 1;
+        } else {
+            return -1;
+        }
     }
 }
 
+int
+OptionsParser::processNonBooleanSingleSwitch(OptionsCont *oc, char *arg) {
+    bool error = false;
+    if(arg[1]=='=') {
+        error = !oc->set(convert(arg[0]), string(arg+2));
+    } else {
+        error = !oc->set(convert(arg[0]), string(arg+1));
+    }
+    if(error) {
+        return -1;
+    } else {
+        return 1;
+    }
+}
 
 bool OptionsParser::checkParameter(char *arg1) {
     if(arg1[0]!='-') {

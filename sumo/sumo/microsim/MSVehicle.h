@@ -18,6 +18,24 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2002/07/31 17:33:01  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.10  2002/07/24 16:32:52  croessel
+// New method speed() for MSVehicle::State.
+// timeHeadWayGap public now.
+// New methods isInsertTimeHeadWayCond() and isInsertBrakeCond() to check
+// the Krauss conditions during emit/laneChange.
+//
+// Revision 1.9  2002/07/23 16:42:34  croessel
+// New friend class MSTriggeredSource.
+//
+// Revision 1.8  2002/07/03 15:58:52  croessel
+// New methods isSafeChange, hasSafeGap, safeEmitGap instead of safeGap.
+// Removed safeLaneChangeGap, not used.
+// New method vNeighEqualPos for "don't overtake on the right".
+// Signature of move() changed.
+//
 // Revision 1.7  2002/06/20 13:44:58  dkrajzew
 // safeGap is now using fabs
 //
@@ -177,6 +195,7 @@ public:
     class State
     {
         friend class MSVehicle;
+        friend class MSTriggeredSource;
 
 #ifdef _DEBUG
         friend class MSLaneChanger;
@@ -198,6 +217,9 @@ public:
         /// Return true if vehicle would prefer preferState.
         static bool advantage( const State& preferState,
                                const State& compareState );
+        /// Speed of this state
+        double speed() const { return mySpeed; };
+        
     private:
         /// Constructor.
         State( double pos, double speed );
@@ -248,16 +270,31 @@ public:
         drives freely. */
     double interactionGap( const MSLane* lane, const MSVehicle& pred ) const;
 
-    /** In "gap2predecessor > safeGap" region vehicle is able to interact
-        collisionfreely with predecessor. So safeGap is a minimum gap between
-        the two vehicles. */
-    double safeGap( const MSVehicle& pred ) const;
+    /** Checks if this vehicle and pred will be in a safe state if one
+     * changes to the others lane. */
+    bool isSafeChange( const MSVehicle& pred, const MSLane* lane ) const;
 
-    /** A gap that includes the assuption a car must not reach his leader
-        Needed only within the lane changer */
-    double safeLaneChangeGap( const MSVehicle& pred ) const;
+    /** Checks if the gap between this vehicle and pred is sufficient
+     * for safe driving. */
+    bool hasSafeGap( const MSVehicle& pred,
+                     const MSLane* lane,
+                     double gap ) const;
+
+    /** Returns the minimum gap between this driving vehicle and a
+     * possibly emitted vehicle with speed 0. */
+    double safeEmitGap( void ) const;
 
 
+    /** Returns the velocity that is neccessary to match the positions
+     * of the two vehicles assuming that the neighbour will keep his
+     * speed. Because overtaking on the right is forbidden, this
+     * vehicle is not allowed to drive faster than vNeighEqualPos. */
+    double vNeighEqualPos( const MSVehicle& neigh );
+
+    /** Returns the gap between pred and this vehicle. Assumes they
+     * are on parallel lanes. Requires a positive gap. */
+    double gap2pred( const MSVehicle& pred ) const;
+    
     /** Returns the vehicels driving distance during one timestep when
         driving with speed. */
     double driveDist( State state ) const;
@@ -277,8 +314,8 @@ public:
     // otherwise gap.
     // Updates drive parameters.
     void move( MSLane* lane,
-               MSVehicle* pred,
-               MSVehicle* neigh, double gap2neigh );
+               const MSVehicle* pred,
+               const MSVehicle* neigh );
 
     // Slow down towards lane end. Updates state. For first vehicles only.
     void moveDecel2laneEnd( MSLane* lane );
@@ -367,11 +404,59 @@ public:
 	vehicle has to slow down towards the lane end.*/
     bool laneChangeBrake2much( const State brakeState );
 
+    /** timeHeadWay < deltaT situations may cause crashes because two
+	vehicles want to leave the same lane in one timestep. These
+	situations are caused by emissions and lanechanges.
+	@param A speed.
+	@return The distance driven with speed in the
+	next timestep.*/
+    double timeHeadWayGap( double speed ) const;
+
+
+    /** Checks if Krauss' timeHeadWay condition "gap >= vPred *
+    deltaT" is true. If you want to insert (emit or lanechenage) a vehicle
+    behind a predecessor, this condition must be true for collision-free
+    driving.
+    @see isInsertBrakeCond
+    @param Predecessors speed.
+    @param Gap to predecessor.
+    @return gap2pred >= vPred * deltaT */
+    bool isInsertTimeHeadWayCond( double aPredSpeed, double aGap2Pred );
+    
+    /** Checks if Krauss' timeHeadWay condition "gap >= vPred *
+    deltaT" is true. If you want to insert (emit or lanechenage) a vehicle
+    behind a predecessor, this condition must be true for collision-free
+    driving.
+    @see isInsertBrakeCond
+    @param The vehicle's predecessor.
+    @return gap2pred >= vPred * deltaT */
+    bool isInsertTimeHeadWayCond( MSVehicle& aPred );
+
+    /** Checks if Krauss' dont't brake too much condition "vsafe >= v
+    - decel * deltaT" is true. If you want to insert (emit or
+    lanechenage) a vehicle behind a predecessor, this condition must
+    be true for collision-free driving.
+    @see isInsertTimeHeadWayCond
+    @param Predecessors speed.
+    @param Gap to predecessor.
+    @return vsafe >= v - decel * deltaT */
+    bool isInsertBrakeCond( double aPredSpeed, double aGap2Pred );
+
+    /** Checks if Krauss' dont't brake too much condition "vsafe >= v
+    - decel * deltaT" is true. If you want to insert (emit or
+    lanechenage) a vehicle behind a predecessor, this condition must
+    be true for collision-free driving.
+    @see isInsertTimeHeadWayCond
+    @param The vehicle's predecessor.
+    @return vsafe >= v - decel * deltaT */
+    bool isInsertBrakeCond( MSVehicle& aPred );
+    
+    
 protected:
 
     /** Returns the SK-vsafe. */
     double vsafe( double currentSpeed, double decelAbility,
-                 double gap2pred, double predSpeed) const;
+                  double gap2pred, double predSpeed ) const;
 
     /** Return the vehicle's maximum possible speed after acceleration. */
     double vaccel( const MSLane* lane ) const;
@@ -381,14 +466,6 @@ protected:
 
     /** Returns the minimum of four doubles. */
     double vMin( double v1, double v2, double v3, double v4 ) const;
-
-    /** timeHeadWay < deltaT situations may cause crashes because two
-	vehicles want to leave the same lane in one timestep. These
-	situations are caused by emissions and lanechanges.
-	@param A speed.
-	@return The distance driven with speed in the
-	next timestep.*/
-    double timeHeadWayGap( double speed ) const;
 
 private:
     /// Reaction time [sec]

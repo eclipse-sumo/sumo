@@ -25,17 +25,20 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.7  2002/06/21 10:50:24  dkrajzew
+// Revision 1.8  2002/07/31 17:30:06  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.8  2002/07/11 07:42:59  dkrajzew
+// Usage of relative pathnames within configuration files implemented
+//
+// Revision 1.7  2002/06/21 10:47:47  dkrajzew
 // inclusion of .cpp-files in .cpp files removed
 //
-// Revision 1.6  2002/06/11 14:38:23  dkrajzew
+// Revision 1.6  2002/06/17 15:16:41  dkrajzew
+// unreferenced variable declarations removed
+//
+// Revision 1.5  2002/06/11 15:58:26  dkrajzew
 // windows eol removed
-//
-// Revision 1.5  2002/06/11 13:43:35  dkrajzew
-// Windows eol removed
-//
-// Revision 1.4  2002/06/10 08:33:23  dkrajzew
-// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
 // Revision 1.4  2002/06/10 06:54:30  dkrajzew
 // Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
@@ -82,6 +85,7 @@ namespace
 #include "OptionsLoader.h"
 #include "OptionsCont.h"
 #include "UtilExceptions.h"
+#include "FileHelpers.h"
 
 /* =========================================================================
  * debugging definitions (MSVC++ only)
@@ -99,16 +103,20 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-OptionsLoader::OptionsLoader(OptionsCont *oc, const char *file, bool warn, bool verbose) : _error(false), _warn(warn), _file(file), _verbose(verbose), _options(oc), _item() {
+OptionsLoader::OptionsLoader(OptionsCont *oc,
+                             const char *file, bool warn, bool verbose)
+    : _error(false), _warn(warn), _file(file), _verbose(verbose),
+    _options(oc), _item()
+{
 }
 
 OptionsLoader::~OptionsLoader() {
 }
 
 void OptionsLoader::startElement(const XMLCh* const name, AttributeList& attributes) {
-  _item = TplConvert<XMLCh>::_2str(name);
-  if(_item=="configuration"||_item=="files"||_item=="defaults"||_item=="reports")
-  _item = "";
+    _item = TplConvert<XMLCh>::_2str(name);
+    if(_item=="configuration"||_item=="files"||_item=="defaults"||_item=="reports")
+    _item = "";
 }
 
 void OptionsLoader::characters(const XMLCh* const chars, const unsigned int length) {
@@ -125,12 +133,19 @@ void OptionsLoader::characters(const XMLCh* const chars, const unsigned int leng
                 else
                     wasDefault = _options->set(_item, true);
             } else {
-                wasDefault = _options->set(_item, value);
+                if(_options->isFileName(_item)) {
+                    if(!FileHelpers::isAbsolute(value)) {
+                        value = FileHelpers::getConfigurationRelative(string(_file), value);
+                    }
+                    wasDefault = _options->set(_item, value);
+                } else {
+                    wasDefault = _options->set(_item, value);
+                }
             }
             if(!wasDefault) {
                 _error = true;
             }
-        } catch (InvalidArgument &e) {
+        } catch (InvalidArgument) {
             _error = true;
         }
     }

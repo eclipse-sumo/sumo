@@ -16,8 +16,17 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:22  traffic
-// Initial revision
+// Revision 1.2  2002/07/31 17:35:55  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.4  2002/07/30 15:11:55  croessel
+// Undid previous commit
+//
+// Revision 1.2  2002/07/23 13:54:00  croessel
+// Removed constructor since Command is pure virtual.
+//
+// Revision 1.1.1.1  2002/04/08 07:21:22  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:13  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -45,16 +54,14 @@
 class Command
 {
 public:
-    /// Destructor.
-    virtual ~Command();
-
+    /// virtual destructor
+    virtual ~Command( void ) {};
+    
     /** Execute the command and return an offset for recurring commands
         or 0 for single-execution commands. */
     virtual MSNet::Time execute() = 0;
 
 protected:
-    /// Default constructor.
-    Command();
     
 private:
 

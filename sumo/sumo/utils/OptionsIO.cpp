@@ -25,17 +25,20 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.8  2002/06/21 10:50:24  dkrajzew
+// Revision 1.9  2002/07/31 17:30:06  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.11  2002/07/11 07:42:59  dkrajzew
+// Usage of relative pathnames within configuration files implemented
+//
+// Revision 1.10  2002/07/02 08:57:41  dkrajzew
+// Initialisation of the XML-Subsystem (Xerces) moved to an independent class
+//
+// Revision 1.9  2002/06/21 10:47:47  dkrajzew
 // inclusion of .cpp-files in .cpp files removed
 //
-// Revision 1.7  2002/06/11 14:38:23  dkrajzew
+// Revision 1.8  2002/06/11 15:58:26  dkrajzew
 // windows eol removed
-//
-// Revision 1.6  2002/06/11 13:43:35  dkrajzew
-// Windows eol removed
-//
-// Revision 1.5  2002/06/10 08:33:23  dkrajzew
-// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
 // Revision 1.7  2002/06/10 06:54:30  dkrajzew
 // Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
@@ -114,12 +117,24 @@ using namespace std;
  * ======================================================================= */
 bool OptionsIO::getOptions(OptionsCont *oc, int argc, char **argv) {
     bool ret = true;
+    // preparse the options
+    //  (maybe another configuration file was chosen)
     ret = OptionsParser::parse(oc, argc, argv);
-    if(ret) oc->resetDefaults();
-    if(ret)
+    // return when the help shall be printed
+    if(oc->exists("help")&&oc->getBool("help")) {
+        return ret;
+    }
+    // read the configuration when everything's ok
+    if(ret) {
+        oc->resetDefaults();
         ret = loadConfiguration(oc);
-    if(ret) oc->resetDefaults();
-    if(ret) ret = OptionsParser::parse(oc, argc, argv);
+    }
+    // reparse the options
+    //  (overwrite the settings from the configuration file)
+    if(ret) {
+        oc->resetDefaults();
+        ret = OptionsParser::parse(oc, argc, argv);
+    }
     return ret;
 }
 
@@ -142,12 +157,6 @@ bool OptionsIO::loadConfiguration(OptionsCont *oc) {
     string path = getConfigurationPath(oc, ok);
     if(path.length()==0||!ok)
         return false;
-    try {
-      XMLPlatformUtils::Initialize();
-    } catch (const XMLException& toCatch) {
-      cerr << "Error during XML-initialization: " << TplConvert<XMLCh>::_2str(toCatch.getMessage()) << endl;
-      return false;
-    }
     // build parser
     SAXParser parser;
     if(oc->getBool("v"))
@@ -167,7 +176,6 @@ bool OptionsIO::loadConfiguration(OptionsCont *oc) {
       cerr << "Error: " << TplConvert<XMLCh>::_2str(toCatch.getMessage()) << endl;
       ok = false;
     }
-    //XMLPlatformUtils::Terminate();
     delete handler;
     return ok;
 }

@@ -21,6 +21,13 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.6  2002/07/31 17:33:00  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.6  2002/07/24 16:28:17  croessel
+// Made function-object VehPosition public, so that in can be used be
+// other classes.
+//
 // Revision 1.5  2002/04/11 16:14:42  croessel
 // Moved ofstream myFile from MSInductLoop to MSDetector. Removed double
 // declaration of OutputStyle.
@@ -81,6 +88,16 @@ public:
     /// Call sample every timestep to update the detector.
     void sample( double currSimSeconds );
 
+    // Function-object in order to find the vehicle, that has just
+    // passed the detector.
+    struct VehPosition : public std::binary_function< const MSVehicle*,
+                         double, bool > 
+    {
+        bool operator() ( const MSVehicle* cmp, double pos ) const {
+            return cmp->pos() > pos;
+        }
+    };
+    
 protected:
     // Add up the local density.
     double localDensity( const MSVehicle& veh, double currSimSeconds );
@@ -106,15 +123,6 @@ protected:
                    double avgLength );
 
 private:
-    // Function-object in order to find the vehicle, that has just
-    // passed the detector.
-    struct VehPosition : public std::binary_function< const MSVehicle*,
-                         double, bool > 
-    {
-        bool operator() ( const MSVehicle* cmp, double pos ) const {
-            return cmp->pos() > pos;
-        }
-    };
 
     /// Lane where detector works on.
     MSLane* myLane;

@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSEventControl.C  -  Coordinates
-                          time-dependant events 
+                          time-dependant events
                              -------------------
     begin                : Mon, 12 Mar 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -17,15 +17,28 @@
  *                                                                         *
  ***************************************************************************/
 
-namespace 
+namespace
 {
-    const char rcsid[] = 
+    const char rcsid[] =
     "$Id$";
-} 
+}
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/07/31 17:33:00  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.4  2002/07/30 15:20:20  croessel
+// Made previous changes compilable.
+//
+// Revision 1.3  2002/07/26 11:44:29  dkrajzew
+// Adaptation of past event execution time implemented
+//
+// Revision 1.2  2002/07/26 11:05:12  dkrajzew
+// sort criterium debugged; addEvent now returns a bool; problems with
+// parallel insertion of items with the execute-method debugged
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:14  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -81,6 +94,7 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include <cassert>
 #include "MSEventControl.h"
 #include "../helpers/Command.h"
 #include "MSNet.h"
@@ -92,14 +106,15 @@ using namespace std;
 MSEventControl::DictType MSEventControl::myDict;
 
 bool
-MSEventControl::EventSortCrit::operator() 
+MSEventControl::EventSortCrit::operator()
     ( const Event& e1, const Event& e2 ) const
-{                                          
-    return e1.second < e2.second;
+{
+    return e1.second > e2.second;
 }
 
 
 MSEventControl::MSEventControl( string id ) :
+//      myTime(0),
     myID( id )
 {
 }
@@ -116,37 +131,57 @@ MSEventControl::~MSEventControl()
 }
 
 
-void
-MSEventControl::addEvent( Command* operation, MSNet::Time execTime )
+bool
+MSEventControl::addEvent( Command* operation, MSNet::Time execTime,
+                          AdaptType type )
 {
+//      if(type==ADAPT_AFTER_EXECUTION&&execTime<=myTime) {
+//          execTime = myTime+1;
+//      }
+    MSNet::Time currTime = MSNet::getInstance()->timestep();
+    if ( execTime <= currTime ) {
+        execTime = currTime + 1;
+        cerr << "MSEventControl::addEvent: execTime <= currTime" << endl;
+    }
+    
     Event newEvent = Event( operation, execTime );
     myEvents.push( newEvent );
+    return true;
 }
 
+
+//  void
+//  MSEventControl::setTime( MSNet::Time time )
+//  {
+//      myTime = time;
+//  }
 
 void
 MSEventControl::execute(MSNet::Time execTime)
 {
     // Don't access empty prio_queues.
     if ( ! myEvents.empty() ) {
-       
+
         // Execute all events that are scheduled for execTime.
         for (;;) {
-        
+
             Event currEvent = myEvents.top();
-            if ( currEvent.second == execTime ) { 
-                
-                MSNet::Time time = currEvent.first->execute();
+
+            if ( currEvent.second == execTime ) {
+
+                Command *command = currEvent.first;
                 myEvents.pop();
-                
+                MSNet::Time time = command->execute( );
+
                 // Delete nonrecurring events, reinsert recurring ones
                 // with new execution time = execTime + returned offset.
                 if ( time == 0 ) {
-                
+
                     delete currEvent.first;
                 }
                 else {
-                
+
+                    assert( time > 0 );
                     currEvent.second = execTime + time;
                     myEvents.push( currEvent );
                 }
@@ -157,7 +192,6 @@ MSEventControl::execute(MSNet::Time execTime)
         }
     }
 }
-
 
 bool
 MSEventControl::dictionary(string id, MSEventControl* ptr)

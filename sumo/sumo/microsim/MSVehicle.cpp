@@ -24,6 +24,26 @@ namespace
 }
 
 // $Log$
+// Revision 1.20  2002/07/31 17:33:01  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.23  2002/07/31 14:42:34  croessel
+// Use of new VehicleType methods.
+//
+// Revision 1.22  2002/07/24 16:33:49  croessel
+// New methods isInsertTimeHeadWayCond() and isInsertBrakeCond() to check
+// the Krauss conditions during emit/laneChange.
+//
+// Revision 1.21  2002/07/16 17:50:36  croessel
+// Removed debug code.
+//
+// Revision 1.20  2002/07/03 15:57:11  croessel
+// Redundant code removal.
+// New methods isSafeChange, hasSafeGap, safeEmitGap instead of safeGap.
+// Removed safeLaneChangeGap, not used.
+// New method vNeighEqualPos for "don't overtake on the right".
+// move() respects now neighbours taht shouldn't be overtaken.
+//
 // Revision 1.19  2002/06/25 10:53:36  croessel
 // Little mistake in destructor.
 //
@@ -408,13 +428,13 @@ MSVehicle::brakeGap( const MSLane* lane ) const
     // Resolve the vsafe equation to gap. Assume predecessor has
     // speed == 0 and that vsafe will be the current speed plus acceleration,
     // i.e that with this gap there will be no interaction.
-    double vAccel = myState.mySpeed + myType->accel();
-    double vNext = min( vAccel, min( myType->maxSpeed(), lane->maxSpeed() ) );
-    double gap = vNext * ( myState.mySpeed / ( 2 * myType->decel() ) + myTau );
+    double vNext = vaccel( lane );
+    double gap = vNext *
+        ( myState.mySpeed * myType->inversTwoDecel() + myTau );
 
     // If we are very slow, the distance driven with an accelerated speed
     // might be longer.
-    double accelDist = ( myState.mySpeed + myType->accel() ) * MSNet::deltaT();
+    double accelDist = myState.mySpeed * MSNet::deltaT() + myType->accelDist();
 
     // Don't allow timeHeadWay < deltaT situations.
     return max( max( gap, timeHeadWayGap( vNext ) ), accelDist );
@@ -430,11 +450,10 @@ MSVehicle::interactionGap( const MSLane* lane, const MSVehicle& pred ) const
     // i.e that with this gap there will be no interaction.
     double vF = myState.mySpeed;
     double vL = pred.myState.mySpeed;
-    double dF = myType->decel();
-    double vAccel = myState.mySpeed + myType->accel();
-    double vNext = min( vAccel, min( myType->maxSpeed(), lane->maxSpeed() ) );
+    double vNext = vaccel( lane );
     double gap = ( vNext - vL  ) *
-                ( ( vF + vL ) / ( 2 * dF ) + myTau ) + vL * myTau;
+        ( ( vF + vL ) * myType->inversTwoDecel() + myTau ) +
+        vL * myTau;
 
     // Don't allow timeHeadWay < deltaT situations.
     return max( gap, timeHeadWayGap( vNext ) );
@@ -442,30 +461,68 @@ MSVehicle::interactionGap( const MSLane* lane, const MSVehicle& pred ) const
 
 /////////////////////////////////////////////////////////////////////////////
 
-double
-MSVehicle::safeGap( const MSVehicle& pred ) const
+bool
+MSVehicle::isSafeChange( const MSVehicle& pred, const MSLane* lane ) const
 {
-    // Resolve the vsafe equation to gap. Assume that this vehicle will brake,
-    // i.e. vsafe = v - d*deltaT.
-    double vF = myState.mySpeed;
-    double vL = pred.myState.mySpeed;
-    double dF = myType->decel();
-    double vDecel = max( static_cast<double>( 0 ),
-                         vF - dF * MSNet::deltaT() );
-    double gap = ( vDecel - vL  ) *
-                ( ( vF + vL ) / ( 2 * dF ) + myTau ) + vL * myTau;
+    double gap   = gap2pred( pred );
+    return hasSafeGap( pred, lane, gap );
+}
 
-    // Don't allow timeHeadWay < deltaT situations.
-    return max( gap, timeHeadWayGap( vDecel ) );
+/////////////////////////////////////////////////////////////////////////////
+
+bool
+MSVehicle::hasSafeGap( const MSVehicle& pred,
+                       const MSLane* lane,
+                       double gap ) const
+{
+    double vSafe = vsafe( this->speed(), myType->decel(),
+                          gap, pred.speed() );
+    double vNext = min( vaccel( lane ), vSafe );
+
+//      return ( vNext >= this->speed() - myType->decelSpeed() &&
+//               gap   >= timeHeadWayGap( vNext ) );
+    
+    return ( vNext >= this->speed() - myType->decelSpeed() &&
+             gap   >= timeHeadWayGap( pred.speed() ) );    
+}
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+double
+MSVehicle::safeEmitGap( void ) const
+{
+    double vNextMin = max( this->speed() - myType->decelSpeed(),
+                           double( 0 ) );
+    double safeGap  = vNextMin *
+        ( this->speed() * myType->inversTwoDecel() + myTau );
+    return max( safeGap, timeHeadWayGap( vNextMin ) );
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
 double
-MSVehicle::safeLaneChangeGap( const MSVehicle& pred ) const
+MSVehicle::vNeighEqualPos( const MSVehicle& neigh )
 {
-    double tmp = (myState.mySpeed - myType->decel() * MSNet::deltaT()) * MSNet::deltaT();
-    return max(safeGap(pred), tmp);
+    double v = ( neigh.pos() - this->pos() +
+                 neigh.speed() * MSNet::deltaT() ) / MSNet::deltaT();
+    assert( v >= 0 );
+    // Don't break too hard.
+    if ( v < speed() - myType->decel() * MSNet::deltaT() ) {
+
+        return speed() - myType->decelSpeed();
+    }
+    
+    // Be able to slow down to neighbours speed in following timesteps.
+    if ( v >= neigh.speed() + myType->decelSpeed() ) {
+
+        return neigh.speed() + myType->decelSpeed();
+    }
+    else {
+
+        return v;
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -481,7 +538,7 @@ MSVehicle::driveDist( State state ) const
 double
 MSVehicle::decelDist() const
 {
-    return myType->decel() * pow( MSNet::deltaT() , 2 );
+    return myType->decelDist();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -496,29 +553,28 @@ MSVehicle::accelState( const MSLane* lane ) const
 
 void
 MSVehicle::move( MSLane* lane,
-                 MSVehicle* pred,
-                 MSVehicle* neigh, double gap2neigh )
+                 const MSVehicle* pred,
+                 const MSVehicle* neigh )
 {
 #ifdef _SPEEDCHECK
     MSNet::noVehicles++;
 #endif
 
-    // Pragmatic solution: ignore neighbours
-    double vAccel   = vaccel( lane );
-    double vMax     = myType->maxSpeed();
-    double vLaneMax = lane->maxSpeed();
+    double vAccel = vaccel( lane );
+    double vSafe  = vsafe( myState.mySpeed, myType->decel(),
+                           gap2pred( *pred ), pred->speed() );
 
-    double gap2pred = pred->myState.myPos - pred->myType->myLength -
-                     myState.myPos;
+    double vNext;
+    if ( neigh != 0 ) {
+        
+        vNext = dawdle( min( vAccel,
+                             min( vSafe, vNeighEqualPos( *neigh ) ) ) );
+    }
+    else {
 
-    assert( gap2pred >= 0 );
-    double vSafe   = vsafe( myState.mySpeed, myType->decel(),
-                            gap2pred, pred->myState.mySpeed );
-
-    // min{ v+a, vmax, lanevmax, vsafe }
-    double vNext = vMin( vAccel, vMax, vLaneMax, vSafe );
-
-    vNext = dawdle( vNext );
+        vNext = dawdle( min( vAccel, vSafe ) );
+    }
+    
 
     // update position and speed
     myState.myPos  += vNext * MSNet::deltaT();
@@ -592,10 +648,8 @@ MSVehicle::nextState( MSLane* lane,
     }
 
     // Pragmatic solution: ignore neighbours
-    double vAccel   = vaccel( lane );
-    double vMax     = myType->maxSpeed();
-    double vLaneMax = lane->maxSpeed();
 
+    double vAccel   = vaccel( lane );
     double vSafe = 0;
     if ( predState != State() ) {
 
@@ -605,11 +659,10 @@ MSVehicle::nextState( MSLane* lane,
     }
     else {
 
-        vSafe = vLaneMax; // Don't confuse vMin() with a not set vSafe.
+        vSafe = lane->maxSpeed(); // Don't confuse vMin() with a not set vSafe.
     }
 
-    // min{ v+a, vmax, lanevmax, vsafe }
-    double vNext   = dawdle( vMin( vAccel, vMax, vLaneMax, vSafe ) );
+    double vNext   = dawdle( min( vAccel, vSafe ) );
     double nextPos = myState.myPos + vNext * MSNet::deltaT(); // Will be
     // overridden if veh leaves lane.
 
@@ -739,9 +792,8 @@ MSVehicle::laneChangeBrake2much( const State brakeState )
 {
     // SK-vnext can reduce speed about decel, dawdle about accel.
     double minAllowedNextSpeed =
-        max( myState.mySpeed -
-	     ( myType->decel() + myType->accel() ) * MSNet::deltaT(),
-	     static_cast< double >( 0 ) );
+        max( myState.mySpeed - myType->accelPlusDecelSpeed(),
+             static_cast< double >( 0 ) );
 
     if ( brakeState.mySpeed < minAllowedNextSpeed ) {
 
@@ -804,8 +856,8 @@ double
 MSVehicle::vaccel( const MSLane* lane ) const
 {
     // Accelerate until vehicle's max speed reached.
-    double vVehicle = min( myState.mySpeed + myType->accel() * MSNet::deltaT(),
-                          myType->myMaxSpeed );
+    double vVehicle = min( myState.mySpeed + myType->accelSpeed(),
+                           myType->myMaxSpeed );
 
     // But don't drive faster than max lane speed.
     return min( vVehicle, lane->maxSpeed() );
@@ -819,6 +871,40 @@ MSVehicle::onAllowed( const MSLane* lane ) const
      MSEdge::LaneCont::const_iterator compare =
         find( myAllowedLanes->begin(), myAllowedLanes->end(), lane );
      return ( compare != myAllowedLanes->end() );
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+bool
+MSVehicle::isInsertTimeHeadWayCond( double predSpeed, double gap2pred )
+{
+    return gap2pred >= timeHeadWayGap( predSpeed );
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+bool
+MSVehicle::isInsertTimeHeadWayCond( MSVehicle& aPred )
+{
+    return gap2pred( aPred ) >= timeHeadWayGap( aPred.speed() );
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+bool
+MSVehicle::isInsertBrakeCond( double predSpeed, double gap2pred )
+{
+    return vsafe( speed(), myType->decel(), gap2pred, predSpeed )
+        >= speed() - myType->decelSpeed();  
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+bool
+MSVehicle::isInsertBrakeCond( MSVehicle& aPred )
+{
+    return vsafe( speed(), myType->decel(), gap2pred( aPred ), aPred.speed() )
+        >= speed() - myType->decelSpeed();  
 }
 
 /////////////////////////////////////////////////////////////////////////////

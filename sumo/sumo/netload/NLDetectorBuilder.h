@@ -19,6 +19,12 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2002/07/31 17:34:50  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.6  2002/07/26 10:49:42  dkrajzew
+// Detector-output destination may now be specified using relative pathnames
+//
 // Revision 1.5  2002/06/11 14:39:24  dkrajzew
 // windows eol removed
 //
@@ -51,7 +57,8 @@ public:
     /// builds an induct loop
     static MSDetector *buildInductLoop(const std::string &id,
         const std::string &lane, float pos, long splInterval,
-        const std::string &style, const std::string &filename);
+        const std::string &style, std::string filename,
+        const std::string &basePath);
 private:
     /// converts the name of an output style into it's enumeration value
     static MSDetector::OutputStyle convertStyle(const std::string &id,

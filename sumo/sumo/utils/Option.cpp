@@ -25,17 +25,17 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.5  2002/06/21 10:50:24  dkrajzew
+// Revision 1.6  2002/07/31 17:30:06  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.6  2002/07/11 07:42:58  dkrajzew
+// Usage of relative pathnames within configuration files implemented
+//
+// Revision 1.6  2002/06/21 10:47:47  dkrajzew
 // inclusion of .cpp-files in .cpp files removed
 //
-// Revision 1.4  2002/06/11 14:38:22  dkrajzew
+// Revision 1.5  2002/06/11 15:58:25  dkrajzew
 // windows eol removed
-//
-// Revision 1.3  2002/06/11 13:43:35  dkrajzew
-// Windows eol removed
-//
-// Revision 1.2  2002/06/10 08:33:23  dkrajzew
-// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
 //
 // Revision 1.4  2002/06/10 06:54:30  dkrajzew
 // Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
@@ -163,6 +163,11 @@ bool Option::isBool() const {
 
 bool Option::isDefault() const {
     return _default;
+}
+
+bool
+Option::isFileName() const {
+    return false;
 }
 
 
@@ -378,6 +383,40 @@ string Option_Bool::getValue() const {
 }
 
 bool Option_Bool::isBool() const {
+    return true;
+}
+
+
+/* -------------------------------------------------------------------------
+ * Option_FileName - methods
+ * ----------------------------------------------------------------------- */
+
+Option_FileName::Option_FileName()
+    : Option_String()
+{
+}
+
+Option_FileName::Option_FileName(std::string value)
+    : Option_String(value)
+{
+}
+
+Option_FileName::Option_FileName(const Option_String &s)
+    : Option_String(s)
+{
+}
+
+Option_FileName::~Option_FileName()
+{
+}
+
+Option_FileName &Option_FileName::operator=(const Option_FileName &s)
+{
+    Option_String::operator=(s);
+    return (*this);
+}
+
+bool Option_FileName::isFileName() const {
     return true;
 }
 

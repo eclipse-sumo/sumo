@@ -52,8 +52,8 @@ inline Counter< T >::~Counter< T >()
 
 //---------------------------------------------------------------------------//
 
-template< typename T > size_t
-inline Counter< T >::howMany()
+template< typename T > 
+inline size_t Counter< T >::howMany()
 {
      return count;
 }
@@ -66,6 +66,12 @@ inline Counter< T >::howMany()
 
 
 // $Log$
+// Revision 1.2  2002/07/31 17:35:56  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.2  2002/07/16 17:49:38  croessel
+// Switched inline and return-type.
+//
 // Revision 1.1  2002/06/18 16:32:31  croessel
 // Initial commit. Made files cfront compliant.
 //

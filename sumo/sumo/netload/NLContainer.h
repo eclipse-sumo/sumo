@@ -21,6 +21,12 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2002/07/31 17:34:50  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.7  2002/07/22 12:44:32  dkrajzew
+// Source loading structures added
+//
 // Revision 1.6  2002/06/11 14:39:24  dkrajzew
 // windows eol removed
 //
@@ -72,6 +78,7 @@ class MSModel;
 class MSVehicleType;
 class MSVehicle;
 class MSJunctionLogic;
+class MSEventControl;
 
 /* =========================================================================
  * class definitions
@@ -119,6 +126,8 @@ private:
     typedef std::map<std::string, int> LogicKeyCont;
     /// the list of junction keys used
     LogicKeyCont            m_LogicKeys;
+    /// the later-used event controller
+    MSEventControl          *m_EventControl;
 
     /// the number of edges inside the net
     int noEdges;
@@ -246,6 +255,8 @@ public:
     /// adds a new detector to the simulation
     void addDetector(MSDetector *detector);
 
+    /// returns the used event control
+    MSEventControl &getEventControl() const;
 
     /// returns the statistics about the build net
     std::string getStatistics() const;

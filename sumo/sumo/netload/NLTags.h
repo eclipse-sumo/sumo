@@ -20,6 +20,12 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2002/07/31 17:34:51  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.6  2002/07/22 12:44:33  dkrajzew
+// Source loading structures added
+//
 // Revision 1.5  2002/06/11 14:39:25  dkrajzew
 // windows eol removed
 //
@@ -102,7 +108,9 @@ typedef enum _NLTag {
     /** a transformation item */
     NLTag_trafoitem,
     /** a detector */
-    NLTag_detector
+    NLTag_detector,
+    /** a source */
+    NLTag_source
 } NLTag;
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

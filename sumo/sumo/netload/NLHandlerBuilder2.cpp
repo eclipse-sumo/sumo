@@ -23,6 +23,15 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.10  2002/07/31 17:34:50  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.12  2002/07/26 10:49:42  dkrajzew
+// Detector-output destination may now be specified using relative pathnames
+//
+// Revision 1.11  2002/07/23 06:37:37  dkrajzew
+// Single Source Definition Files may now be specified using relative pathnames within the Source Files
+//
 // Revision 1.9  2002/06/21 10:53:48  dkrajzew
 // inclusion of .cpp-files in .cpp files removed
 //
@@ -80,6 +89,7 @@ namespace
 #include "../utils/AttributesHandler.h"
 #include "../utils/UtilExceptions.h"
 #include "NLDetectorBuilder.h"
+#include "NLSourceBuilder.h"
 #include "NLSAXHandler.h"
 #include "NLNetBuilder.h"
 #include "NLLoadFilter.h"
@@ -139,6 +149,10 @@ NLHandlerBuilder2::myStartElement(int element, const std::string &name, const At
     if(wanted(LOADFILTER_DETECTORS)&&element==NLTag_detector) {
         addDetector(attrs);
     }
+    // process detectors when wished
+    if(wanted(LOADFILTER_SOURCES)&&element==NLTag_source) {
+        addSource(attrs);
+    }
 }
 
 void
@@ -193,17 +207,47 @@ NLHandlerBuilder2::addDetector(const Attributes &attrs) {
                     _attrHandler.getFloat(attrs, ATTR_POSITION),
                     _attrHandler.getFloat(attrs, ATTR_SPLINTERVAL),
                     _attrHandler.getString(attrs, ATTR_STYLE),
-                    _attrHandler.getString(attrs, ATTR_FILE)));
+                    _attrHandler.getString(attrs, ATTR_FILE),
+                    _file));
         } catch (XMLBuildingException &e) {
             SErrorHandler::add(e.getMessage("detector", id));
         } catch (InvalidArgument &e) {
             SErrorHandler::add(e.msg());
+        } catch (EmptyData &e) {
+            SErrorHandler::add(
+                string("The description of the detector '")
+                + id + string("' does not contain a needed value."), true);
         }
     } catch (EmptyData &e) {
         SErrorHandler::add("Error in description: missing id of a detector-object.");
     }
 }
 
+
+void
+NLHandlerBuilder2::addSource(const Attributes &attrs) {
+    string id;
+    try {
+        id = _attrHandler.getString(attrs, ATTR_ID);
+        try {
+            NLSourceBuilder::buildTriggeredSource(
+                myContainer.getEventControl(), id,
+                _attrHandler.getString(attrs, ATTR_FILE),
+                _file);
+            return;
+        } catch (XMLBuildingException &e) {
+            SErrorHandler::add(e.getMessage("detector", id));
+        } catch (InvalidArgument &e) {
+            SErrorHandler::add(e.msg());
+        } catch (EmptyData &e) {
+            SErrorHandler::add(
+                string("The description of the source '")
+                + id + string("' does not contain a needed value."), true);
+        }
+    } catch (EmptyData &e) {
+        SErrorHandler::add("Error in description: missing id of a detector-object.");
+    }
+}
 
 void
 NLHandlerBuilder2::myEndElement(int element, const std::string &name)

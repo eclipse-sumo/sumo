@@ -23,6 +23,15 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2002/07/31 17:30:05  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.5  2002/07/11 07:42:58  dkrajzew
+// Usage of relative pathnames within configuration files implemented
+//
+// Revision 1.4  2002/07/02 08:28:26  dkrajzew
+// checkFileList - a method which checks whether the given list of files is not empty - added
+//
 // Revision 1.3  2002/06/11 14:38:22  dkrajzew
 // windows eol removed
 //
@@ -49,6 +58,7 @@ namespace
 #include <cstring>
 #include <sys/stat.h>
 #include "FileHelpers.h"
+#include "StringTokenizer.h"
 
 /* =========================================================================
  * used namespaces
@@ -70,13 +80,53 @@ FileHelpers::exists(string path)
     return ret;
 }
 
+
 std::string
-FileHelpers::removeDir(std::string path) {
-    size_t beg = path.find_last_not_of("\\/");
+FileHelpers::removeDir(const std::string &path)
+{
+    size_t beg = path.find_last_of("\\/");
     if(beg==string::npos||beg==0)
         return path;
     return path.substr(beg);
 }
+
+
+bool
+FileHelpers::checkFileList(const std::string &files)
+{
+    StringTokenizer st(files, ';');
+    return st.size()!=0;
+}
+
+
+std::string
+FileHelpers::removeFile(const std::string &path) {
+    size_t beg = path.find_last_of("\\/");
+    if(beg==string::npos||beg==0)
+        return "";
+    return path.substr(0, beg+1);
+}
+
+
+std::string
+FileHelpers::getConfigurationRelative(const std::string &configPath, const std::string &path) {
+    string retPath = removeFile(configPath);
+    return retPath + path;
+}
+
+bool
+FileHelpers::isAbsolute(const std::string &path) {
+    // check UNIX - absolute paths
+    if(path.at(0)=='/') {
+        return true;
+    }
+    // check Windows - absolute paths
+    if(path.length()>1&&path.at(1)==':') {
+        return true;
+    }
+    return false;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

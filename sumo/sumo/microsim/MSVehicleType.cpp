@@ -24,6 +24,12 @@ namespace
 } 
 
 // $Log$
+// Revision 1.5  2002/07/31 17:33:01  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.5  2002/07/31 14:41:05  croessel
+// New methods return often used precomputed values.
+//
 // Revision 1.4  2002/06/06 07:21:10  croessel
 // Changed inclusion from .iC to .icc
 //
@@ -95,7 +101,9 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include "MSVehicleType.h"
+#include "MSNet.h"
 #include <cassert>
+
 
 using namespace std;
 
@@ -113,8 +121,11 @@ MSVehicleType::~MSVehicleType()
 MSVehicleType::MSVehicleType(string id, double length, double maxSpeed,
                              double accel, double decel, double dawdle ) :
     myID(id),
-    myLength(length), myMaxSpeed(maxSpeed), myAccel(accel),
-    myDecel(decel), myDawdle(dawdle)
+    myLength(length),
+    myMaxSpeed(maxSpeed),
+    myAccel(accel),
+    myDecel(decel),
+    myDawdle(dawdle)
 {
     assert( myLength > 0 );
     assert( myMaxSpeed > 0 );
@@ -130,6 +141,13 @@ MSVehicleType::MSVehicleType(string id, double length, double maxSpeed,
     
         myMaxLength = myLength;
     }
+
+    myAccelSpeed          = myAccel * MSNet::deltaT();
+    myDecelSpeed          = myDecel * MSNet::deltaT();
+    myAccelPlusDecelSpeed = ( myAccel + myDecel ) * MSNet::deltaT(); 
+    myInversTwoDecel      = double( 1 ) / ( double( 2 ) * myDecel );
+    myAccelDist           = myAccel * MSNet::deltaT() * MSNet::deltaT();
+    myDecelDist           = myDecel * MSNet::deltaT() * MSNet::deltaT();
 }
 
 

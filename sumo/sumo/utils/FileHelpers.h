@@ -20,6 +20,15 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/07/31 17:30:05  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.5  2002/07/11 07:42:58  dkrajzew
+// Usage of relative pathnames within configuration files implemented
+//
+// Revision 1.4  2002/07/02 08:28:26  dkrajzew
+// checkFileList - a method which checks whether the given list of files is not empty - added
+//
 // Revision 1.3  2002/06/11 14:38:21  dkrajzew
 // windows eol removed
 //
@@ -55,13 +64,22 @@ class FileHelpers {
  public:
     /** checks whether the given file exists */
     static bool exists(std::string path);
-    /** removes the directory informations from the path */
-    static std::string removeDir(std::string path);
+    /** removes the directory information from the path */
+    static std::string removeDir(const std::string &path);
+    /** checks whether the list of files is not empty */
+    static bool checkFileList(const std::string &files);
+    /** removes the file information from the given path */
+    static std::string removeFile(const std::string &path);
+    /** returns the second path as a relative path to the first file */
+    static std::string getConfigurationRelative(const std::string &configPath,
+        const std::string &path);
+    /** returns the information whether the given path is absolute */
+    static bool isAbsolute(const std::string &path);
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 //#ifndef DISABLE_INLINE
-//#include "NBFileHelpers.icc"
+//#include "FileHelpers.icc"
 //#endif
 
 #endif

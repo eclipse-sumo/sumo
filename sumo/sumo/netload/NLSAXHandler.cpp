@@ -24,6 +24,12 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.10  2002/07/31 17:34:51  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.10  2002/07/22 12:44:32  dkrajzew
+// Source loading structures added
+//
 // Revision 1.9  2002/06/21 10:53:49  dkrajzew
 // inclusion of .cpp-files in .cpp files removed
 //
@@ -88,7 +94,7 @@ namespace
 using namespace std;
 
 
-GenericSAX2Handler::Tag NLSAXHandler::_tags[21] =
+GenericSAX2Handler::Tag NLSAXHandler::_tags[22] =
 {
 /* 00 */  { "simulation", NLTag_simulation },
 /* 01 */  { "edge", NLTag_edge },
@@ -111,13 +117,14 @@ GenericSAX2Handler::Tag NLSAXHandler::_tags[21] =
 /* 18 */  { "logicitem", NLTag_logicitem },
 /* 19 */  { "trafoitem", NLTag_trafoitem },
 /* 20 */  { "bitsetlogic", NLTag_bitsetlogic },
+/* 21 */  { "source", NLTag_source },
 };
 
 /* =========================================================================
  * method definitions
  * ======================================================================= */
 NLSAXHandler::NLSAXHandler(NLContainer &container, LoadFilter filter)
-    : GenericSAX2Handler(_tags, 21), myContainer(container), _filter(filter)
+    : GenericSAX2Handler(_tags, 22), myContainer(container), _filter(filter)
 {
 }
 

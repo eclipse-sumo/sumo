@@ -21,6 +21,12 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.10  2002/07/31 17:33:01  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.10  2002/07/30 15:17:47  croessel
+// Made MSNet-class a singleton-class.
+//
 // Revision 1.9  2002/05/29 17:06:03  croessel
 // Inlined some methods. See the .icc files.
 //
@@ -133,6 +139,8 @@ class MSNet
     friend class MSPerson;
 
 public:
+    static MSNet* getInstance( void );
+    
     /// Container for Edges. This are the routes.
     typedef std::vector< const MSEdge* > Route;
 
@@ -148,15 +156,14 @@ public:
     /// Detector-container type.
     typedef vector< MSDetector* > DetectorCont;
 
-    /// Use this constructor only.
-    MSNet( string id,
-           MSEdgeControl* ec,
-           MSJunctionControl* jc,
-           MSEmitControl* emc,
-           MSEventControl* evc,
-           MSPersonControl* wpc,
-           DetectorCont* detectors );
-
+    static void init( string id,
+                      MSEdgeControl* ec,
+                      MSJunctionControl* jc,
+                      MSEmitControl* emc,
+                      MSEventControl* evc,
+                      MSPersonControl* wpc,
+                      DetectorCont* detectors );
+    
     /// Destructor.
     ~MSNet();
 
@@ -192,6 +199,10 @@ public:
         start-time plus runtime. */
     double simSeconds();
 
+    /** Returns the current timestep. */
+    Time timestep( void );
+    
+
 #ifdef _DEBUG
     /** a visible variables for the current time step - for debugging
         purposes only */
@@ -209,6 +220,15 @@ public:
 
 protected:
 
+    /// Use this constructor only.
+    MSNet( string id,
+           MSEdgeControl* ec,
+           MSJunctionControl* jc,
+           MSEmitControl* emc,
+           MSEventControl* evc,
+           MSPersonControl* wpc,
+           DetectorCont* detectors );
+    
 private:
     void processWaitingPersons(unsigned int time);
     friend void MSPerson::MSPersonStage::proceed(MSNet *net, MSPerson *person, MSNet::Time now, MSEdge *previousEdge);
@@ -223,6 +243,9 @@ private:
     /// Assignment operator.
     MSNet& operator=( const MSNet& );
 
+    /// Unique instance of MSNet
+    static MSNet* myInstance;
+    
     /// Unique ID.
     std::string myID;
 

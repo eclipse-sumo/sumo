@@ -20,6 +20,15 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2002/07/31 17:34:51  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.10  2002/07/11 07:31:54  dkrajzew
+// Option_FileName invented to allow relative path names within the configuration files
+//
+// Revision 1.9  2002/07/02 08:19:08  dkrajzew
+// Test for non-empty file option where a list of files is expected moved to FileHelpers
+//
 // Revision 1.8  2002/06/11 14:39:25  dkrajzew
 // windows eol removed
 //
@@ -109,7 +118,8 @@ private:
     /// prepares the parser for processing using the current handler
     void prepareParser(SAX2XMLReader &parser, NLSAXHandler *handler, int step);
     /// parses the files using the given initialised parser
-    bool parse(const std::string &files, NLSAXHandler *handler, SAX2XMLReader &parser);
+    bool parse(const std::string &files,
+        NLSAXHandler *handler, SAX2XMLReader &parser);
     /// returns the data name that accords to the given enum
     std::string getDataName(LoadFilter forWhat);
     /// returns the list of handlers needed to parse the given data type
@@ -118,8 +128,6 @@ private:
     void subreport(const std::string &ok, const std::string &wrong) ;
     /// prints the final report
     void report(const NLContainer &container);
-    /// returns false when only ':' are supplied (no filename)
-    bool checkFilenames(const std::string &files);
 private:
     /** invalid copy operator */
     NLNetBuilder(const NLNetBuilder &s);

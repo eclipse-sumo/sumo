@@ -23,6 +23,15 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.9  2002/07/31 17:34:50  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.10  2002/07/30 15:18:59  croessel
+// Changes because MSNet is singleton now.
+//
+// Revision 1.9  2002/07/22 12:44:32  dkrajzew
+// Source loading structures added
+//
 // Revision 1.8  2002/06/11 14:39:26  dkrajzew
 // windows eol removed
 //
@@ -105,6 +114,7 @@ NLContainer::NLContainer()
     m_pSLB(new NLSucceedingLaneBuilder()),
     m_pVehicles(0),
     m_pDetectors(0),
+    m_EventControl(new MSEventControl("")),
     noEdges(0),
     noLanes(0),
     noJunctions(0),
@@ -438,6 +448,12 @@ NLContainer::addDetector(MSDetector *detector) {
 
 
 
+MSEventControl &
+NLContainer::getEventControl() const
+{
+    return *m_EventControl;
+}
+
 
 
 std::string
@@ -465,8 +481,12 @@ NLContainer::buildNet()
     MSEdgeControl *edges = m_pECB->build();
     MSJunctionControl *junctions = m_pJCB->build();
     MSEmitControl *emitters = new MSEmitControl("", m_pVehicles);
-    MSEventControl *events = new MSEventControl("");
-    return new MSNet(m_Id, edges, junctions, emitters, events, new MSPersonControl(*(new MSPersonControl::WaitingPersons())), m_pDetectors);
+    MSNet::init( m_Id, edges, junctions, emitters,
+                 m_EventControl,
+                 new MSPersonControl(*(new MSPersonControl::WaitingPersons())),
+                 m_pDetectors);
+    
+    return MSNet::getInstance();
 }
 
 

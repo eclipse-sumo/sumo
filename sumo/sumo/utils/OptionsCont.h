@@ -22,35 +22,44 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.5  2002/06/11 14:38:21  dkrajzew
+// Revision 1.6  2002/07/31 17:30:06  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.6  2002/07/11 07:42:59  dkrajzew
+// Usage of relative pathnames within configuration files implemented
+//
+// Revision 1.6  2002/06/11 15:58:24  dkrajzew
 // windows eol removed
 //
-// Revision 1.4  2002/06/11 13:43:37  dkrajzew
+// Revision 1.5  2002/05/14 04:45:49  dkrajzew
+// Bresenham added; some minor changes; windows eol removed
+//
+// Revision 1.4  2002/04/26 10:08:39  dkrajzew
 // Windows eol removed
 //
-// Revision 1.3  2002/04/17 11:19:57  dkrajzew
-// windows-carriage returns removed
+// Revision 1.3  2002/04/17 11:21:52  dkrajzew
+// Windows-carriage returns removed
 //
-// Revision 1.2  2002/04/16 12:22:59  dkrajzew
+// Revision 1.2  2002/04/16 12:28:26  dkrajzew
 // Usage of SUMO_DATA removed
 //
-// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
-// new project name
+// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
+// new version-free project name (try2)
 //
-// Revision 2.2  2002/03/20 08:20:00  dkrajzew
+// Revision 1.1.1.1  2002/04/09 13:22:01  dkrajzew
+// new version-free project name
+//
+// Revision 1.5  2002/03/20 08:50:37  dkrajzew
+// Revisions patched
+//
+// Revision 1.4  2002/03/20 08:39:17  dkrajzew
+// comments updated
+//
+// Revision 1.3  2002/03/20 08:38:14  dkrajzew
 // isDefault - method added
-//
-// Revision 2.1  2002/03/11 10:24:01  traffic
-// superflous collapse option removed.
 //
 // Revision 1.2  2002/03/11 10:07:52  traffic
 // superflous collapse option removed.
-//
-// Revision 1.1.1.1  2002/02/19 15:33:04  traffic
-// Initial import as a separate application.
-//
-// Revision 2.0  2002/02/14 14:43:27  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
 //
 // Revision 1.1  2002/02/13 15:48:19  croessel
 // Merge between SourgeForgeRelease and tesseraCVS.
@@ -99,9 +108,9 @@ class OptionsCont {
     std::string         _path;
  public:
     /** constructor */
-   OptionsCont();
+    OptionsCont();
     /** constructor */
-   OptionsCont(std::string env);
+    OptionsCont(std::string env);
     /** destructor */
     ~OptionsCont();
     /** adds an option under the given name */
@@ -140,6 +149,8 @@ class OptionsCont {
     std::vector<std::string> getSynonymes(std::string name) const;
     /** resets all options to be the default value */
     void resetDefaults();
+    /// returns the information whether the named item is a file name
+    bool isFileName(const std::string &name) const;
     /** output operator */
     friend std::ostream& operator<<( std::ostream& os, const OptionsCont& oc);
     /** returns the path (not the name) */

@@ -18,6 +18,15 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2002/07/31 17:35:56  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.5  2002/07/30 15:10:36  croessel
+// Undid previous commit
+//
+// Revision 1.3  2002/07/23 14:02:53  croessel
+// Switched order of members.
+//
 // Revision 1.2  2002/06/18 16:35:37  croessel
 // Moved deinition to cpp or icc in order to make files cfront compliant.
 //
@@ -87,8 +96,8 @@ protected:
 
 private:
 
-    Operation myOperation;
     T* myReceiver;
+    Operation myOperation;    
 };
 
 

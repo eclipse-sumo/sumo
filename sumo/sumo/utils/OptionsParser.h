@@ -20,20 +20,32 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.3  2002/06/11 14:38:22  dkrajzew
+// Revision 1.4  2002/07/31 17:30:07  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.5  2002/07/18 07:07:06  dkrajzew
+// The options should now be POSIX-compliant
+//
+// Revision 1.4  2002/07/11 07:42:59  dkrajzew
+// Usage of relative pathnames within configuration files implemented
+//
+// Revision 1.4  2002/06/11 15:58:25  dkrajzew
 // windows eol removed
 //
-// Revision 1.2  2002/06/11 13:43:37  dkrajzew
+// Revision 1.3  2002/05/14 04:45:50  dkrajzew
+// Bresenham added; some minor changes; windows eol removed
+//
+// Revision 1.2  2002/04/26 10:08:39  dkrajzew
 // Windows eol removed
 //
-// Revision 1.1.1.1  2002/04/08 07:21:25  traffic
-// new project name
+// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
+// new version-free project name (try2)
 //
-// Revision 2.0  2002/02/14 14:43:28  croessel
-// Bringing all files to revision 2.0. This is just cosmetics.
+// Revision 1.1.1.1  2002/04/09 13:22:01  dkrajzew
+// new version-free project name
 //
-// Revision 1.1  2002/02/13 15:48:20  croessel
-// Merge between SourgeForgeRelease and tesseraCVS.
+// Revision 1.1.1.1  2002/02/19 15:33:04  traffic
+// Initial import as a separate application.
 //
 //
 /* =========================================================================
@@ -72,6 +84,8 @@ class OptionsParser {
     static std::string convert(char *arg);
     /** converts char to string */
     static std::string convert(char abbr);
+    /** extracts the parameter directly attached to an option */
+    static int processNonBooleanSingleSwitch(OptionsCont *oc, char *arg);
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

@@ -21,6 +21,12 @@
 #define MSVehicleType_H
 
 // $Log$
+// Revision 1.4  2002/07/31 17:33:01  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.4  2002/07/31 14:41:05  croessel
+// New methods return often used precomputed values.
+//
 // Revision 1.3  2002/05/29 17:06:04  croessel
 // Inlined some methods. See the .icc files.
 //
@@ -110,6 +116,24 @@ public:
     /// Returns the maximum length of all vehicle-types.
     static double maxLength();
 
+    /// Returns precomputed accel * deltaT
+    double accelSpeed( void ) const;
+
+    /// Returns precomputed decel * deltaT    
+    double decelSpeed( void ) const;
+
+    /// Returns precomputed ( accel + decel ) * deltaT    
+    double accelPlusDecelSpeed( void ) const;
+
+    /// Returns precomputed 1 / ( 2 * decel )
+    double inversTwoDecel( void ) const;
+
+    /// Returns precomputed accel * deltaT^2
+    double accelDist( void ) const;
+
+    /// Returns precomputed decel * deltaT^2
+    double decelDist( void ) const;
+    
     /** Inserts a MSVehicleType into the static dictionary and returns true
         if the key id isn't already in the dictionary. Otherwise returns
         false. */
@@ -138,6 +162,14 @@ private:
 
     /// The vehicle type's dawdle-parameter. 0 for no dawdling, 1 for max.
     double myDawdle;
+
+    
+    double myAccelSpeed;
+    double myDecelSpeed;
+    double myAccelPlusDecelSpeed;
+    double myInversTwoDecel;
+    double myAccelDist;
+    double myDecelDist;
     
     /// Minimum deceleration-ability of all vehicle-types.
     static double myMinDecel;

@@ -19,6 +19,12 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2002/07/31 17:33:01  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.2  2002/07/30 15:17:47  croessel
+// Made MSNet-class a singleton-class.
+//
 // Revision 1.1  2002/05/29 17:09:21  croessel
 // Initial commit.
 //
@@ -47,6 +53,14 @@ double
 MSNet::simSeconds()
 {
     return static_cast< double >( myStep ) * myDeltaT;
+}
+
+
+inline
+MSNet::Time
+MSNet::timestep( void )
+{
+    return myStep;
 }
 
 

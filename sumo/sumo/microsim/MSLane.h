@@ -21,6 +21,15 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2002/07/31 17:33:00  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.8  2002/07/23 16:36:25  croessel
+// Added method isEmissionSuccess( MSVehicle* ).
+//
+// Revision 1.7  2002/07/03 15:45:58  croessel
+// Signature of findNeigh changed.
+//
 // Revision 1.6  2002/05/29 17:06:03  croessel
 // Inlined some methods. See the .icc files.
 //
@@ -244,9 +253,13 @@ public:
     /// Check if vehicles are too close.
     void detectCollisions( MSNet::Time timestep ) const;
 
-    /// Emit vehicle into lane if possible.
+    /// Emit vehicle with speed 0 into lane if possible.
     bool emit( MSVehicle& newVeh );
 
+    /// Try to emit a vehicle with speed > 0, i.e. from a source with
+    /// initial speed values.
+    bool isEmissionSuccess( MSVehicle* aVehicle );
+    
 //--------------- Methods used by Junctions  ---------------------
          
     /** Clear all request-related data members to be ready for a new
@@ -353,9 +366,9 @@ protected:
         than one) which isn't allowed to be overtaken. Position and
         speed are conditional parameters. Returns veh if there is no
         neigh to regard. */
-    VehCont::const_iterator findNeigh(VehCont::const_iterator veh,
-                                      MSEdge::LaneCont::const_iterator first,
-                                      MSEdge::LaneCont::const_iterator last);
+    const MSVehicle* findNeigh( MSVehicle* veh,
+                                MSEdge::LaneCont::const_iterator first,
+                                MSEdge::LaneCont::const_iterator last );
 
     // Set states and fill the LFLaneContainer.
     void setLookForwardState();

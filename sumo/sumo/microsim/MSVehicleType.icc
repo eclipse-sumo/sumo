@@ -18,6 +18,12 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2002/07/31 17:33:01  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.2  2002/07/31 14:41:06  croessel
+// New methods return often used precomputed values.
+//
 // Revision 1.1  2002/05/29 17:09:22  croessel
 // Initial commit.
 //
@@ -87,6 +93,54 @@ double
 MSVehicleType::maxLength() 
 {
     return myMaxLength;
+}
+
+
+inline
+double
+MSVehicleType::accelSpeed( void ) const
+{
+    return myAccelSpeed;
+}
+
+
+inline
+double
+MSVehicleType::decelSpeed( void ) const
+{
+    return myDecelSpeed;
+}
+
+
+inline
+double
+MSVehicleType::accelPlusDecelSpeed( void ) const
+{
+    return myAccelPlusDecelSpeed;
+}
+
+
+inline
+double
+MSVehicleType::inversTwoDecel( void ) const
+{
+    return myInversTwoDecel;
+}
+
+
+inline
+double
+MSVehicleType::accelDist( void ) const
+{
+    return myAccelDist;
+}
+
+
+inline
+double
+MSVehicleType::decelDist( void ) const
+{
+    return myDecelDist;
 }
 
 

@@ -10,9 +10,10 @@ NLJunctionControlBuilder.cpp NLJunctionControlBuilder.h NLLoadFilter.h	\
 NLNetBuilder.cpp NLNetBuilder.h NLRoutesBuilder.cpp NLRoutesBuilder.h	\
 NLSAXHandler.cpp NLSAXHandler.h NLSucceedingLaneBuilder.cpp		\
 NLSucceedingLaneBuilder.h NLTags.h SErrorHandler.cpp SErrorHandler.h	\
-SLogging.cpp SLogging.h
+SLogging.cpp SLogging.h NLSourceBuilder.cpp NLSourceBuilder.h
 
-AM_CPPFLAGS = -I../microsim -I../utils -I$(XERCESINCLUDE)
+AM_CPPFLAGS = -I$(top_srcdir)/sumo/microsim -I$(top_srcdir)/sumo/utils \
+-I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
 
 
 

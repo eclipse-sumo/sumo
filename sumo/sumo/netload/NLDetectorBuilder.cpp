@@ -21,6 +21,15 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.8  2002/07/31 17:34:50  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.9  2002/07/26 10:49:41  dkrajzew
+// Detector-output destination may now be specified using relative pathnames
+//
+// Revision 1.8  2002/07/22 12:44:32  dkrajzew
+// Source loading structures added
+//
 // Revision 1.7  2002/06/11 14:39:26  dkrajzew
 // windows eol removed
 //
@@ -46,6 +55,7 @@ namespace
 #include "../microsim/MSDetector.h"
 #include "../microsim/MSInductLoop.h"
 #include "../utils/UtilExceptions.h"
+#include "../utils/FileHelpers.h"
 #include "NLDetectorBuilder.h"
 
 /* =========================================================================
@@ -58,17 +68,24 @@ using namespace std;
  * ======================================================================= */
 MSDetector *NLDetectorBuilder::buildInductLoop(const std::string &id,
         const std::string &lane, float pos, long splInterval,
-        const std::string &style, const std::string &filename) {
+        const std::string &style, std::string filename,
+        const std::string &basePath) {
     // get the output style
     MSDetector::OutputStyle cstyle = convertStyle(id, style);
+    // check whether the file must be converted into a relative path
+    if(!FileHelpers::isAbsolute(filename)) {
+        filename = FileHelpers::getConfigurationRelative(basePath, filename);
+    }
     // build and check the file
     std::ofstream *file = new std::ofstream(filename.c_str());
-    if(!file->good())
+    if(!file->good()) {
         throw InvalidArgument("Could not open output for detector '" + id + "' for writing (file:" + filename + ").");
+    }
     // get and check the lane
     MSLane *clane = MSLane::dictionary(lane);
-    if(clane==0)
+    if(clane==0) {
         throw InvalidArgument("The lane with the id '" + lane + "' is not known.");
+    }
     return new MSInductLoop(id, clane, pos, splInterval, cstyle, file);
 }
 

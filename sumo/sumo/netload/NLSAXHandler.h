@@ -22,6 +22,12 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2002/07/31 17:34:51  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.7  2002/07/22 12:44:32  dkrajzew
+// Source loading structures added
+//
 // Revision 1.6  2002/06/11 14:39:25  dkrajzew
 // windows eol removed
 //
@@ -88,7 +94,7 @@ protected:
     /// the name of the file that is currently build
     std::string                _file;
 private:
-    static Tag  _tags[21];
+    static Tag  _tags[22];
 public:
     /// standard constructor
     NLSAXHandler(NLContainer &container, LoadFilter filter);

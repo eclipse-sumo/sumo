@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSEventControl.h  -  Coordinates
-                          time-dependant events 
+                          time-dependant events
                              -------------------
     begin                : Mon, 12 Mar 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -21,8 +21,21 @@
 #define MSEventControl_H
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/07/31 17:33:00  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.4  2002/07/30 15:20:20  croessel
+// Made previous changes compilable.
+//
+// Revision 1.3  2002/07/26 11:44:29  dkrajzew
+// Adaptation of past event execution time implemented
+//
+// Revision 1.2  2002/07/26 11:05:12  dkrajzew
+// sort criterium debugged; addEvent now returns a bool; problems with
+// parallel insertion of items with the execute-method debugged
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:15  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -47,7 +60,7 @@
 // CR-line-end commits.
 //
 // Revision 1.2  2001/07/16 12:55:46  croessel
-// Changed id type from unsigned int to string. Added string-pointer 
+// Changed id type from unsigned int to string. Added string-pointer
 // dictionaries and dictionary methods.
 //
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
@@ -71,6 +84,9 @@ public:
     /// Events that should be executed at time.
     typedef std::pair< Command*, MSNet::Time > Event;
 
+    /// what to do on false time
+    enum AdaptType { ADAPT_AFTER_EXECUTION };
+
     /// Sort-criterion for events.
     class EventSortCrit
     {
@@ -83,9 +99,9 @@ public:
 
     /// Destructor.
     ~MSEventControl();
-    
+
     // Add an Event.
-    void addEvent( Command* operation, MSNet::Time execTime );
+    bool addEvent( Command* operation, MSNet::Time execTime, AdaptType type );
 
     /** Executes time-dependant commands, like switching
         traffic-lights, writing output, etc. */
@@ -98,17 +114,23 @@ public:
     /** Returns the MSEdgeControl associated to the key id if exists,
         otherwise returns 0. */
     static MSEventControl* dictionary( std::string id );
-    
+
+//      friend class MSNet;
 protected:
 
 private:
+//      void setTime( MSNet::Time time );
+
+private:
+//      MSNet::Time myTime;
+
     /// Unique ID.
     std::string myID;
-    
+
     /// Container for time-dependant events, e.g. traffic-light-change.
-    typedef std::priority_queue< Event, vector< Event >, 
-                                 EventSortCrit > EventCont;                       
-    
+    typedef std::priority_queue< Event, vector< Event >,
+                                 EventSortCrit > EventCont;
+
     /// Event-container, holds executable events.
     EventCont myEvents;
 
@@ -118,7 +140,7 @@ private:
 
     /// Default constructor.
     MSEventControl();
-     
+
     /// Copy constructor.
     MSEventControl(const MSEventControl&);
 

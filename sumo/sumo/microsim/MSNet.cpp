@@ -25,6 +25,15 @@ namespace
 }
 
 // $Log$
+// Revision 1.14  2002/07/31 17:33:01  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.15  2002/07/30 15:17:47  croessel
+// Made MSNet-class a singleton-class.
+//
+// Revision 1.14  2002/07/26 11:44:29  dkrajzew
+// Adaptation of past event execution time implemented
+//
 // Revision 1.13  2002/06/06 17:54:03  croessel
 // The member myStep was hidden in the simulation-loop "for( Time myStep;
 // ...)", so return of simSeconds() was always 0.
@@ -39,7 +48,8 @@ namespace
 // new _SPEEDCHECK functions: all methods in MSNet, computation of UPS and MUPS
 //
 // Revision 1.9  2002/05/06 06:25:29  dkrajzew
-// The output is now directed directly into the output file, no longer via a buffer
+// The output is now directed directly into the output file, no longer via
+// a buffer
 //
 // Revision 1.8  2002/04/25 13:42:11  croessel
 // Removed unused variable.
@@ -168,6 +178,7 @@ using namespace std;
 
 
 // Init static member.
+MSNet* MSNet::myInstance = 0;
 MSNet::DictType MSNet::myDict;
 MSNet::RouteDict MSNet::myRoutes;
 double MSNet::myDeltaT = 1;
@@ -181,6 +192,33 @@ long MSNet::noVehicles;
 time_t MSNet::begin;
 time_t MSNet::end;
 #endif
+
+MSNet*
+MSNet::getInstance( void )
+{
+    if ( myInstance != 0 ) {
+        return myInstance;
+    }
+    assert( false );
+}
+
+void
+MSNet::init( string id, MSEdgeControl* ec,
+             MSJunctionControl* jc,
+             MSEmitControl* emc,
+             MSEventControl* evc,
+             MSPersonControl* wpc,
+             DetectorCont* detectors )
+{
+    myInstance = new MSNet( id,
+                            ec,
+                            jc,
+                            emc,
+                            evc,
+                            wpc,
+                            detectors );
+}
+
 
 MSNet::MSNet(string id, MSEdgeControl* ec,
              MSJunctionControl* jc,
@@ -235,6 +273,7 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
             cout << ups << "UPS; " << mups << "MUPS" << endl;
         }
 #endif
+//          myEvents->setTime(myStep);
 
         // process the persons which are no longer waiting or walking
         processWaitingPersons(myStep);
@@ -256,7 +295,7 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
         myJunctions->moveFirstVehicles();
         myEdges->detectCollisions( myStep );
 
-	
+
         // Let's detect.
         for( DetectorCont::iterator detec = myDetectors->begin();
              detec != myDetectors->end(); ++detec ) {

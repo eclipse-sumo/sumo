@@ -1,6 +1,6 @@
 /***************************************************************************
                           MSLane.C  -  The place where Vehicles
-                          operate. 
+                          operate.
                              -------------------
     begin                : Mon, 05 Mar 2001
     copyright            : (C) 2001 by ZAIK http://www.zaik.uni-koeln.de/AFS
@@ -17,13 +17,31 @@
  *                                                                         *
  ***************************************************************************/
 
-namespace 
+namespace
 {
-    const char rcsid[] = 
+    const char rcsid[] =
     "$Id$";
-} 
-                       
+}
+
 // $Log$
+// Revision 1.12  2002/07/31 17:33:00  roessel
+// Changes since sourceforge cvs request.
+//
+// Revision 1.15  2002/07/26 11:10:50  dkrajzew
+// unset myAllowedLanes when departing from a source debugged; gap on URGENT_LANECHANGE_WISH added
+//
+// Revision 1.14  2002/07/24 16:29:40  croessel
+// New method isEmissionSuccess(), used by MSTriggeredSource.
+//
+// Revision 1.13  2002/07/08 05:07:49  dkrajzew
+// MSVC++-compilation problems removed
+//
+// Revision 1.12  2002/07/03 15:48:40  croessel
+// Implementation of findNeigh changed.
+// Call to MSVehicle::move adapted to new signature.
+// Emit methods use now MSVehicle::safeEmitGap instead of safeGap.
+// decel2much uses now MSVehicle::hasSafeGap instead of safeGap.
+//
 // Revision 1.11  2002/06/20 11:14:13  dkrajzew
 // False assertion corrected
 //
@@ -163,7 +181,7 @@ namespace
 // CC problems with make_pair repaired
 //
 // Revision 1.2  2001/07/16 12:55:47  croessel
-// Changed id type from unsigned int to string. Added string-pointer 
+// Changed id type from unsigned int to string. Added string-pointer
 // dictionaries and dictionary methods.
 //
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
@@ -180,6 +198,7 @@ namespace
 #include "MSEdge.h"
 #include "MSJunction.h"
 #include "MSLogicJunction.h"
+#include "MSInductLoop.h"
 #include <cmath>
 #include <iostream>
 #include <cassert>
@@ -222,7 +241,7 @@ MSLane::Link::LinkRequest::operator() (first_argument_type link) const
 
 MSLane::PosGreater::result_type
 MSLane::PosGreater::operator() (first_argument_type veh1,
-                                second_argument_type veh2) const 
+                                second_argument_type veh2) const
 {
     return veh1->pos() > veh2->pos();
 }
@@ -261,8 +280,8 @@ MSLane::MSLane( string id, double maxSpeed, double length, MSEdge* edge )  :
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSLane::initialize( MSJunction* backJunction,  
-                    LinkCont* links ) 
+MSLane::initialize( MSJunction* backJunction,
+                    LinkCont* links )
 {
     myBackJunction = backJunction;
     myLinks = *links;
@@ -279,27 +298,27 @@ MSLane::moveExceptFirst()
 
     // Buffer last vehicles state.
     if ( myVehicles.size() == 0 ) {
-        
+
         myLastVehState = MSVehicle::State();
         myLastVeh      = 0;
         return;
     }
     else {
-    
+
         MSVehicle* last = *myVehicles.begin();
         myLastVehState  = last->state();
         myLastVeh       = last;
     }
-    
+
     // Move vehicles except first.
     if ( myVehicles.size() >= 2 ) {
-        
+
         VehCont::iterator lastBeforeFirst = myVehicles.end() - 1;
         for ( VehCont::iterator veh = myVehicles.begin();
               veh != lastBeforeFirst; ++veh ) {
-            
+
             VehCont::iterator pred = veh + 1;
-            ( *veh )->move( this, *pred, 0, 0 );
+            ( *veh )->move( this, *pred, 0 );
 
 	    // Check for timeheadway < deltaT
 	    assert( ( *veh )->pos() < ( *pred )->pos() );
@@ -319,42 +338,42 @@ MSLane::moveExceptFirst( MSEdge::LaneCont::const_iterator firstNeighLane,
 
     // Buffer last vehicles state.
     if ( myVehicles.size() == 0 ) {
-        
+
         myLastVehState = MSVehicle::State();
         myLastVeh      = 0;
         return;
     }
     else {
-    
+
         MSVehicle* last = *myVehicles.begin();
         myLastVehState  = last->state();
         myLastVeh       = last;
     }
-        
+
     if ( myVehicles.size() >= 2 ) {
 
-        VehCont::iterator lastBeforeFirst = myVehicles.end() - 1;
-        for ( VehCont::iterator veh = myVehicles.begin();
+        VehCont::const_iterator lastBeforeFirst = myVehicles.end() - 1;
+        for ( VehCont::const_iterator veh = myVehicles.begin();
               veh != lastBeforeFirst; ++veh ) {
-            
+
             VehCont::const_iterator pred( veh + 1 );
-            VehCont::const_iterator 
-                neigh( findNeigh( veh, firstNeighLane, lastNeighLane ) );
-            
+            const MSVehicle*
+                neigh = findNeigh( *veh, firstNeighLane, lastNeighLane );
+
             // veh has neighbour to regard.
-            if ( neigh != veh ) { 
-                
-                ( *veh )->move( this, *pred, *neigh, 0 );
+            if ( neigh != *veh ) {
+
+                ( *veh )->move( this, *pred, neigh );
             }
 
             // veh has no neighbour to regard.
-            else { 
+            else {
 
-                ( *veh )->move( this, *pred, 0, 0 );
+                ( *veh )->move( this, *pred, 0);
             }
 
-	    // Check for timeheadway < deltaT
-	    assert( ( *veh )->pos() < ( *pred )->pos() );
+            // Check for timeheadway < deltaT
+            assert( ( *veh )->pos() < ( *pred )->pos() );
         }
     }
 }
@@ -367,16 +386,16 @@ MSLane::detectCollisions( MSNet::Time timestep ) const
     if ( myVehicles.size() < 2 ) {
         return;
     }
-    
+
     VehCont::const_iterator lastVeh = myVehicles.end() - 1;
     for ( VehCont::const_iterator veh = myVehicles.begin();
           veh != lastVeh; ++veh ) {
-          
+
         VehCont::const_iterator pred = veh + 1;
         double gap = ( *pred )->pos() - ( *pred )->length() - ( *veh )->pos();
         if ( gap < 0 ) {
-            cerr << "MSLane::detectCollision: Collision of " << ( *veh )->id() 
-                 << " with " << ( *pred )->id() << " on MSLane " << myID  
+            cerr << "MSLane::detectCollision: Collision of " << ( *veh )->id()
+                 << " with " << ( *pred )->id() << " on MSLane " << myID
                  << " during timestep " << timestep << endl;
         }
     }
@@ -388,53 +407,53 @@ bool
 MSLane::emit( MSVehicle& veh )
 {
     // If this lane is empty, set newVeh on position beyond safePos =
-    // brakeGap(laneMaxSpeed) + MaxVehicleLength. (in the hope of that 
+    // brakeGap(laneMaxSpeed) + MaxVehicleLength. (in the hope of that
     // the precening lane hasn't a much higher MaxSpeed)
     // This safePos is ugly, but we will live with it in this revision.
     double safePos = pow( myMaxSpeed, 2 ) / ( 2 * MSVehicleType::minDecel() ) +
                     MSVehicle::tau() + MSVehicleType::maxLength();
-    assert( safePos < myLength ); // Lane has to be longer than safePos, 
+    assert( safePos < myLength ); // Lane has to be longer than safePos,
     // otherwise emission (this kind of emission) makes no sense.
-    
+
     // Here the emission starts
     if ( empty() ) {
-           
+
         return emitTry( veh );
-    }    
-    
-    // Try to emit as last veh. (in driving direction)
-    VehCont::iterator leaderIt = myVehicles.begin();           
-    if ( emitTry( veh, leaderIt ) ) {
-        
-        return true;            
     }
-        
-    // if there is only one veh on this lane, try to 
+
+    // Try to emit as last veh. (in driving direction)
+    VehCont::iterator leaderIt = myVehicles.begin();
+    if ( emitTry( veh, leaderIt ) ) {
+
+        return true;
+    }
+
+    // if there is only one veh on this lane, try to
     // emit in front of this veh. (leader becomes follower)
     if ( leaderIt + 1 ==  myVehicles.end() ) {
-                      
+
         return emitTry( leaderIt, veh );
     }
-    
+
     // At least two vehicles on lane.
-    // iterate over follow/leader -pairs                
+    // iterate over follow/leader -pairs
     VehCont::iterator followIt = leaderIt;
     ++leaderIt;
     for (;;) {
-                        
-        // try to emit between follower and leader 
+
+        // try to emit between follower and leader
         if ( emitTry( followIt, veh, leaderIt ) ) {
- 
+
             return true;
         }
 
         // if leader is the first veh on this lane, try
         // to emit in front of it.
         if ( leaderIt + 1 == myVehicles.end() ) {
-                          
+
             return emitTry( leaderIt, veh );
         }
-                            
+
         // iterate
         ++leaderIt;
         ++followIt;
@@ -443,15 +462,78 @@ MSLane::emit( MSVehicle& veh )
 
 /////////////////////////////////////////////////////////////////////////////
 
-bool 
+bool
+MSLane::isEmissionSuccess( MSVehicle* aVehicle )
+{
+    aVehicle->departLane();
+    MSLane::VehCont::iterator predIt =
+        find_if( myVehicles.begin(), myVehicles.end(),
+                 bind2nd( MSInductLoop::VehPosition(), aVehicle->pos() ) );
+
+    if ( predIt != myVehicles.end() ) {
+
+        MSVehicle* pred = *predIt;
+        if ( ! aVehicle->isInsertTimeHeadWayCond( *pred ) ||
+             ! aVehicle->isInsertBrakeCond( *pred ) ) {
+
+            return false;
+        }
+
+        // emit
+        myVehicles.insert( predIt, aVehicle );
+        return true;
+    }
+
+    // no Predecessor
+    myFirst = aVehicle;
+    setLookForwardState();
+    double predSpeed = 0;
+
+    switch ( myLFState ) {
+        case FREE_ON_CURR:
+        case FREE_ON_SUCC:
+        {
+            myVehicles.push_back( aVehicle );
+            return true;
+        }
+        case YIELD_ON_CURR:
+        case YIELD_ON_SUCC:
+        {
+            break;
+        }
+        case PRED_ON_SUCC:
+        {
+            predSpeed = myPredState.speed();
+            break;
+        }
+        default:
+        {
+            assert( false ); // Never get here.
+        }
+    };
+
+    if ( ! aVehicle->isInsertTimeHeadWayCond( predSpeed, myGap ) ||
+         ! aVehicle->isInsertBrakeCond( predSpeed, myGap ) ) {
+
+        return false;
+    }
+
+    // emit
+    myVehicles.push_back( aVehicle );
+    return true;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+bool
 MSLane::emitTry( MSVehicle& veh )
 {
     // empty lane emission.
-    double safeSpace = pow( myMaxSpeed, 2 ) / 
-                      ( 2 * MSVehicleType::minDecel() ) + 
-                      MSVehicle::tau() + 
+    double safeSpace = pow( myMaxSpeed, 2 ) /
+                      ( 2 * MSVehicleType::minDecel() ) +
+                      MSVehicle::tau() +
                       veh.length();
-    if ( enoughSpace( veh, 0, myLength, safeSpace ) ) {    
+    if ( enoughSpace( veh, 0, myLength, safeSpace ) ) {
         myVehicles.push_front( &veh );
         return true;
     }
@@ -460,19 +542,19 @@ MSLane::emitTry( MSVehicle& veh )
 
 /////////////////////////////////////////////////////////////////////////////
 
-bool 
+bool
 MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
 {
     // emission as last car (in driving direction)
     double leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
-    double safeSpace = pow( myMaxSpeed, 2 ) / 
-                      ( 2 * MSVehicleType::minDecel() ) + 
-                      MSVehicle::tau() + 
+    double safeSpace = pow( myMaxSpeed, 2 ) /
+                      ( 2 * MSVehicleType::minDecel() ) +
+                      MSVehicle::tau() +
                       veh.length();
-    if ( enoughSpace( veh, 0, leaderPos, safeSpace ) ) {   
+    if ( enoughSpace( veh, 0, leaderPos, safeSpace ) ) {
         myVehicles.push_front( &veh );
         return true;
-    }        
+    }
     return false;
 }
 
@@ -482,42 +564,42 @@ bool
 MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh )
 {
     // emission as first car (in driving direction)
-    double followPos = (*followIt)->pos();      
-    double safeSpace = (*followIt)->safeGap( veh ) + veh.length();
-    if ( enoughSpace( veh, followPos, 
-                      myLength - MSVehicleType::maxLength(), safeSpace ) ) {   
+    double followPos = (*followIt)->pos();
+    double safeSpace = (*followIt)->safeEmitGap() + veh.length();
+    if ( enoughSpace( veh, followPos,
+                      myLength - MSVehicleType::maxLength(), safeSpace ) ) {
         myVehicles.push_back( &veh );
         return true;
-    }        
-    return false;     
+    }
+    return false;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-bool 
-MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh, 
+bool
+MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
                  VehCont::iterator leaderIt )
 {
     // emission between follower and leader.
     double followPos = (*followIt)->pos();
     double leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
-    double safeSpace = (*followIt)->safeGap( veh ) + veh.length();
-    if ( enoughSpace( veh, followPos, leaderPos, safeSpace ) ) {   
+    double safeSpace = (*followIt)->safeEmitGap() + veh.length();
+    if ( enoughSpace( veh, followPos, leaderPos, safeSpace ) ) {
         myVehicles.insert( leaderIt, &veh );
         return true;
-    }   
-    return false;         
+    }
+    return false;
 }
 
 /////////////////////////////////////////////////////////////////////////////
-                  
-bool 
+
+bool
 MSLane::enoughSpace( MSVehicle& veh,
                      double followPos, double leaderPos, double safeSpace )
 {
-    double free = leaderPos - followPos - safeSpace;   
+    double free = leaderPos - followPos - safeSpace;
     if ( free >= 0 ) {
-        
+
         // prepare vehicle with it's position
         MSVehicle::State state;
         state.setPos( followPos + safeSpace + free / 2 );
@@ -560,7 +642,7 @@ MSLane::setRequest()
     }
     else {
         myFirst = myVehicles.back( );
-                 
+
         setLookForwardState();
         assert( myLFState != UNDEFINED ) ;
         setDriveRequests();
@@ -590,8 +672,8 @@ MSLane::request() const
         }
     }
 
-    return MSLogicJunction::DriveBrakeRequest( juncReq, driveReq, 
-                                          myBrakeRequest ); 
+    return MSLogicJunction::DriveBrakeRequest( juncReq, driveReq,
+                                          myBrakeRequest );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -605,15 +687,15 @@ MSLane::moveFirst( bool respond )
     if ( respond == true ) {
 
         myFirst->moveSetState( myTargetState );
-        
+
         // change onto targetLane
         if ( myTargetLane != this ) {
-        
-            myTargetLane->push( pop() ); 
+
+            myTargetLane->push( pop() );
         }
 
     }
-    
+
     // Slow down towards lane end.
     else {
 
@@ -637,20 +719,20 @@ MSLane::firstVehSuccLane(const MSLane* srcLane)
 {
     // Find the source lane within the look-forward-lanes.
     LFLinkLanes::const_iterator ll = myLFLinkLanes.begin();
-    
+
     if ( srcLane == this ) {
         return ll->myLink->myLane;
     }
-    
+
     while ( ll->myLane != srcLane ) {
-        
+
         assert( ll != myLFLinkLanes.end() ); // Don't get into
         // infinite loop.
-                
+
         ++ll;
     }
     assert( ll != myLFLinkLanes.end() );
-    
+
     return ll->myLink->myLane;
 }
 
@@ -666,28 +748,26 @@ MSLane::decel2much(const MSLane* compete, const MSLane* target,
     // of the target lane. Then add the competing vehicle's desired position.
     double gap2compete = myLength - myFirst->pos();
     LFLinkLanes::const_iterator ll = myLFLinkLanes.begin();
-    
+
     while ( ll->myLane != target ) {
-    
+
         assert( ll != myLFLinkLanes.end() );
         gap2compete += ll->myLane->myLength;
         ++ll;
     }
     gap2compete += compete->myTargetPos;
-    
-    double safeGap = myFirst->safeGap( *(compete->myFirst) );
-    
+
     // Is there enough space between the two vehicles.
-    if ( gap2compete > safeGap - decelFactor * myFirst->decelDist() ) {
-    
+    if ( myFirst->hasSafeGap( *(compete->myFirst), compete, gap2compete ) ) {
+
         // Prioritized vehicle has now predecessor. Update desired State
-        myTargetState = myFirst->nextStateCompete( this, 
+        myTargetState = myFirst->nextStateCompete( this,
                                                    compete->myTargetState,
                                                    gap2compete );
         return false;
     }
     else {
-    
+
         return true;
     }
 }
@@ -724,7 +804,7 @@ MSLane::dictionary(string id)
 void
 MSLane::push(MSVehicle* veh)
 {
-    // Insert vehicle only if it's destination isn't reached. 
+    // Insert vehicle only if it's destination isn't reached.
     assert( myVehBuffer == 0 );
     if ( ! veh->destReached( myEdge ) ) { // adjusts vehicles routeIterator
         myVehBuffer = veh;
@@ -757,22 +837,22 @@ void MSLane::setLookForwardState()
 
     myGap       = 0;
     myPredState = MSVehicle::State();
-    
+
     // Calculate maxLook. This is the distance the vehicle
     // should check for predecessors or yield-junctions.
     double maxLook = myFirst->brakeGap( this ) + MSVehicleType::maxLength();
-    
+
     double looked = myLength - myFirst->pos(); // The distance already
     // looked at.
-    
+
     // Cannot look past lane end and considers overlapping vehicle.
     if ( looked - MSVehicleType::maxLength() >= maxLook ) {
-	
+
         // State free driving on current lane found
         myLFState = FREE_ON_CURR;
         return;
     }
-    
+
     // Can look beyond lane end. Determine the link that will be used.
     MSLane::LinkCont::iterator link = succLinkSec( *myFirst, 1, *this );
 
@@ -781,80 +861,80 @@ void MSLane::setLookForwardState()
     if ( link == myLinks.end() ) {
 
         myLFState = URGENT_LANECHANGE_WISH;
-        myGap = looked;
+        myGap = looked - MSVehicleType::maxLength();
         return;
     }
 
     // If link is yield-link and veh is still to fast for safe driving.
-    if ( ( (*link)->myPrio == false ) && 
+    if ( ( (*link)->myPrio == false ) &&
          ( accelAfterYielding( *myFirst ) == false ) ) {
 
         // State yield on current lane found
-        myLFState = YIELD_ON_CURR;                        
+        myLFState = YIELD_ON_CURR;
         // Check for overlapping vehicle. If there is one we assume that
         // it has speed = 0. Then all we need is a sufficient gap.
         MSLane* succLane = (*link)->myLane;
-        assert( succLane->length() > MSVehicleType::maxLength() );        
+        assert( succLane->length() > MSVehicleType::maxLength() );
         if ( ! succLane->empty() ) {
-        
+
             MSVehicle::State predState = succLane->myLastVehState;
             MSVehicle*       pred      = succLane->myLastVeh;
             assert ( pred != 0 );
             double rearPos = predState.pos() - pred->length();
-            
+
             // Does pred overlap?
-            if ( rearPos < 0 ) {         
+            if ( rearPos < 0 ) {
                 myGap = looked + rearPos;
                 return;
             }
         }
-        
+
         myGap = looked;
         return;
     }
-    
-    // We are going to look into a succeeding lane. Let this lane remenber 
+
+    // We are going to look into a succeeding lane. Let this lane remenber
     // that it was visited.
-    this->myRequestLane = this;        
+    this->myRequestLane = this;
     this->myBrakeRequest = true;
 
-    // Look into succLanes until maxlook exhausted, a succLane occupied, 
+    // Look into succLanes until maxlook exhausted, a succLane occupied,
     // vehicle looks at destination or succLink is yield-link.
     MSLane* succLane = 0;
     for (;;) {
-        
+
         // Look into succLane, remenber this lane and set let this lane know
         // that a vehicle is going to visit it.
         succLane = (*link)->myLane;
         myLFLinkLanes.push_back( LFLinkLane( *link, succLane ) );
-	
+
         // Is succLane empty?
         if ( succLane->empty() ) {
-            
+
             // Is maxLook exhausted?
             looked += succLane->myLength;
             if ( looked > maxLook ) {
-                
+
                 // State free driving on a succLane found
                 // Check for destReached outside the loop
                 myLFState = FREE_ON_SUCC;
                 break;
             }
             else {
-                
-                // If there is no next link, the vehicle is looking into it's 
+
+                // If there is no next link, the vehicle is looking into it's
                 // destination lane. Determine state outside the loop.
                 if ( ! myFirst->hasSuccEdge( myLFLinkLanes.size() + 1 ) ) {
                     break;
                 }
-                
+
                 // Determine existing next link
-                link = succLink( *myFirst, myLFLinkLanes.size() + 1, 
+                link = succLink( *myFirst, myLFLinkLanes.size() + 1,
                                  *succLane );
-                
-                // If Link to next Lane is a yield-link                 
+
+                // If Link to next Lane is a yield-link
                 if ( (*link)->myPrio == false ) {
-                    
+
                     // State yield on a succLane found
                     myLFState = YIELD_ON_SUCC;
                     myGap     = looked;
@@ -864,41 +944,41 @@ void MSLane::setLookForwardState()
                     // Look into succLane
                     // This is the only branch the forever-loop loops
 
-                    // We are going to look into a succeeding lane. Let the 
+                    // We are going to look into a succeeding lane. Let the
                     // current lane remenber that it was visited.
                     succLane->myRequestLane = this;
                     succLane->myBrakeRequest = true;
                 }
             }
         }
-        
+
         // SuccLane is not empty
         else {
             break;
         }
     } // for (;;)
-    
-    // SuccLane is not empty or state is FREE_ON_SUCC and/or 
+
+    // SuccLane is not empty or state is FREE_ON_SUCC and/or
     // vehicle is looking at destination lane
-    
+
     // If vehicle is looking at destination lane and set destReached flag.
     if ( ! myFirst->hasSuccEdge( myLFLinkLanes.size() + 1 ) ) {
-        
+
         myLFDestReached = true;
     }
-    
+
     // succLane is empty. Set empty-lane-state if not already done.
     if ( succLane->empty() ) {
-        
+
         if ( myLFState == FREE_ON_SUCC ) {
-            
+
             // State already set
         }
         else {
-            
+
             // Vehicle can look beyond it's destination lane.
             myLFState = BEYOND_DEST;
-            
+
             // We need gap here for a simple handling of this state:
             // decelleration towards dest-lane-end.
             myGap     = looked;
@@ -906,7 +986,7 @@ void MSLane::setLookForwardState()
         }
         return;
     }
-    
+
     // succLane not empty. Set state.
     else {
 
@@ -914,10 +994,10 @@ void MSLane::setLookForwardState()
         MSVehicle::State predState = succLane->myLastVehState;
         MSVehicle*            pred = succLane->myLastVeh;
         assert( pred != 0 );
-        
+
         double gap2pred = looked + predState.pos() - pred->length();
         if ( gap2pred < 0 ) {
-            
+
             // Predecessor is overlapping it's lane. Don't leave lane.
             // Reset visited lanes.
             myLFState = YIELD_ON_CURR;
@@ -932,12 +1012,12 @@ void MSLane::setLookForwardState()
         }
 
         if ( gap2pred > maxLook ) {
-            
+
             // State free free driving on a succLane found
             myLFState = FREE_ON_SUCC;
             return;
         }
-            
+
         // State having a predecessor on a succlane found
         myLFState   = PRED_ON_SUCC;
         myGap       = gap2pred;
@@ -951,17 +1031,17 @@ void MSLane::setLookForwardState()
 
 bool
 MSLane::accelAfterYielding( const MSVehicle& first ) const {
-    
+
     // TODO
     // Simple implementation:
     // Will vehicle leave lane due to acceleration?
-    return ( first.pos() + first.driveDist( first.accelState( this ) ) 
-             > myLength ); 
+    return ( first.pos() + first.driveDist( first.accelState( this ) )
+             > myLength );
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-void 
+void
 MSLane::setDriveRequests()
 {
     assert( myFirst );
@@ -969,24 +1049,24 @@ MSLane::setDriveRequests()
     myTargetLane  = 0;
     myTargetState = MSVehicle::State();
     myTargetPos   = 0;
-    // With correspondence to the LFstate, myGap and myPred, calculate the 
+    // With correspondence to the LFstate, myGap and myPred, calculate the
     // (maybe) temporary targetSpeed, targetLane and targetPosition.
     // Set the hopefully used link-requests to true.
     // Move the vehicles that won't interact (even with brake-requests)
     // with the junction.
-    
+
     // TODO: in a later version, take care of the neighbour while calculating
     // the targetSpeed
 
     switch ( myLFState ) {
         case FREE_ON_CURR: {
             // Move vehicle freely.
-            myFirst->moveUpdateState( 
-                myFirst->nextState( this, 
-                                    MSVehicle::State(), 
-                                    static_cast< double >( UINT_MAX ), 
+            myFirst->moveUpdateState(
+                myFirst->nextState( this,
                                     MSVehicle::State(),
-                                    0) );                         
+                                    static_cast< double >( UINT_MAX ),
+                                    MSVehicle::State(),
+                                    0) );
             return;
         }
 
@@ -1001,14 +1081,14 @@ MSLane::setDriveRequests()
         case YIELD_ON_CURR: {
             // Move vehicle slowing down towards the end of this lane.
             myFirst->moveUpdateState( myFirst->nextState( this, myGap ) );
-         
+
             return;
         }
 
         case FREE_ON_SUCC: {
-            myTargetState = 
-                myFirst->nextState( this, 
-                                    MSVehicle::State(), 
+            myTargetState =
+                myFirst->nextState( this,
+                                    MSVehicle::State(),
                                     static_cast< double >( UINT_MAX ),
                                     MSVehicle::State(), 0 );
             break;
@@ -1016,12 +1096,12 @@ MSLane::setDriveRequests()
 
         case YIELD_ON_SUCC: {
             myTargetState = myFirst->nextState( this, myGap );
-          
+
             break;
         }
 
         case PRED_ON_SUCC: {
-            myTargetState = myFirst->nextState( this, myPredState, myGap, 
+            myTargetState = myFirst->nextState( this, myPredState, myGap,
                                                 MSVehicle::State(), 0 );
             break;
         }
@@ -1029,8 +1109,8 @@ MSLane::setDriveRequests()
         case BEYOND_DEST: {
             // Don't know exactely what to do with this case. Where in a lane
             // will the vehicle park/disappear?
-            
-            // To Do something, slow down towards the end of the 
+
+            // To Do something, slow down towards the end of the
             // destination-lane.
             myTargetState = myFirst->nextState( this, myGap );
 
@@ -1042,36 +1122,36 @@ MSLane::setDriveRequests()
             return;
         }
     };
-    
+
     // With myTargetState set, determine Target-Pos and Lane.
 
     // Distance the vehicle can drive in one timestep.
     double driveDist = myFirst->driveDist( myTargetState );
-    
-    double looked = myLength - myFirst->pos(); 
-    LFLinkLanes::iterator ll = myLFLinkLanes.begin(); 
-    
+
+    double looked = myLength - myFirst->pos();
+    LFLinkLanes::iterator ll = myLFLinkLanes.begin();
+
     // Will vehicle reach next lane?
     if ( driveDist < looked ) {
-    
+
         myTargetLane = this;
         return;
     }
-    
+
     // Walk through LFLanes until driveDist is "over". Set all passed
     // link-requests to true.
     while ( driveDist > looked ) {
-        
+
         assert( ll != myLFLinkLanes.end() ); // Loop-exit condition
         // should be reached earlier.
-                
+
         ll->myLink->myDriveRequest = true;
         looked += ll->myLane->myLength;
-        
+
         ++ll;
     }
     --ll;
-    
+
     // Remember the desired position if the respond is true.
     myTargetLane  = ll->myLane;
     myTargetPos   = ll->myLane->myLength - (looked - driveDist);
@@ -1094,7 +1174,7 @@ MSLane::integrateNewVehicle()
 /////////////////////////////////////////////////////////////////////////////
 
 MSLane::LinkCont::iterator
-MSLane::succLink(MSVehicle& veh, unsigned int nRouteSuccs, 
+MSLane::succLink(MSVehicle& veh, unsigned int nRouteSuccs,
                  MSLane& succLinkSource)
 {
     const MSEdge* nRouteEdge = veh.succEdge( nRouteSuccs );
@@ -1103,28 +1183,28 @@ MSLane::succLink(MSVehicle& veh, unsigned int nRouteSuccs,
     // Check which link's lane belongs to the nRouteEdge.
     for ( LinkCont::iterator link = succLinkSource.myLinks.begin();
           link != succLinkSource.myLinks.end() ; ++link ) {
- 
+
         if ( ( *link )->myLane->myEdge == nRouteEdge ) {
             return link;
         }
     }
-    assert( false ); // There must be a matching edge. 
+    assert( false ); // There must be a matching edge.
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
 MSLane::LinkCont::iterator
-MSLane::succLinkSec(MSVehicle& veh, unsigned int nRouteSuccs, 
+MSLane::succLinkSec(MSVehicle& veh, unsigned int nRouteSuccs,
                     MSLane& succLinkSource)
 {
     const MSEdge* nRouteEdge = veh.succEdge( nRouteSuccs );
     assert( nRouteEdge != 0 );
-    
+
     // Check which link's lane belongs to the nRouteEdge.
     LinkCont::iterator link;
     for ( link = succLinkSource.myLinks.begin();
           link != succLinkSource.myLinks.end() ; ++link ) {
-        
+
         if ( ( *link )->myLane->myEdge == nRouteEdge ) {
             return link;
         }
@@ -1134,52 +1214,50 @@ MSLane::succLinkSec(MSVehicle& veh, unsigned int nRouteSuccs,
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSLane::VehCont::const_iterator
-MSLane::findNeigh( VehCont::const_iterator veh,
+const MSVehicle*
+MSLane::findNeigh( MSVehicle* veh,
                    MSEdge::LaneCont::const_iterator first,
                    MSEdge::LaneCont::const_iterator last )
 {
-// TODO: refine the conditions . Look also in succLanes?
-    VehCont::const_iterator neighbour( veh );
-    
-//    for ( MSEdge::LaneCont::const_iterator neighLane = first;
-//          neighLane != last; 
-//          ++neighLane ) {
-//               
-//        VehCont::const_iterator tmpNeighbour =
-//            find_if( ( *neighLane )->myVehicles.begin(),
-//                     ( *neighLane )->myVehicles.end(),
-//                     bind1st( PosGreater(), *( veh ) ) );
-//                      
-//        // Here is the speed condition. If the speed of a
-//        // neighboured vehicle is lesser than the half of a lane's
-//        // speed limit, this vehicle is allowed to be overtaken.
-//        if ( tmpNeighbour == ( *neighLane )->myVehicles.end() ||
-//             ( *tmpNeighbour )->speed() <= myMaxSpeed / 2 ) {
-//             
-//            continue;
-//        }
-//        
-//        // Here is the distance condition. Update neighbour if
-//        // tmpNeighbour is closer to veh.
-//        else if ( ( *tmpNeighbour )->pos() > ( *neighbour )->pos() ) {
-//        
-//            neighbour = tmpNeighbour;
-//        }
-//    }
-    
+    MSVehicle* neighbour = veh;
+    double vNeighEqual( 0 );
+
+    for ( MSEdge::LaneCont::const_iterator neighLane = first;
+          neighLane != last; ++neighLane ) {
+
+        VehCont::const_iterator tmpNeighbour =
+            find_if( ( *neighLane )->myVehicles.begin(),
+                     ( *neighLane )->myVehicles.end(),
+                     bind2nd( PosGreater(), veh ) );
+        if ( tmpNeighbour == ( *neighLane )->myVehicles.end() ) {
+
+            continue;
+        }
+
+        // neighbour found
+        if ( (*tmpNeighbour)-> congested() ) {
+            continue;
+        }
+
+        double tmpVNeighEqual = veh->vNeighEqualPos( **tmpNeighbour );
+        if ( neighbour == veh || tmpVNeighEqual < vNeighEqual ) {
+
+            neighbour   = *tmpNeighbour;
+            vNeighEqual = tmpVNeighEqual;
+        }
+    }
     return neighbour;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-void 
+void
 MSLane::loadPersons(MSEdge::WaitingPersonsCont &cont) {
     for(VehCont::iterator i=myVehicles.begin(); i!=myVehicles.end(); i++) {
         MSEdge::WaitingPersonsCont::iterator j=cont.find((*i)->id());
         if(j!=cont.end()) {
             MSNet::PersonCont *persons = (*j).second;
-            for(MSNet::PersonCont::iterator k=persons->begin(); 
+            for(MSNet::PersonCont::iterator k=persons->begin();
                 k!=persons->end(); k++) {
                 MSPerson *person= *k;
                 (*i)->addPerson(person, person->getCurrentStage().getDestination());
@@ -1192,13 +1270,13 @@ MSLane::loadPersons(MSEdge::WaitingPersonsCont &cont) {
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSLane::unloadPersons(MSNet *net, unsigned int time, 
+MSLane::unloadPersons(MSNet *net, unsigned int time,
                       MSEdge::WaitingPersonsCont &cont) {
     for(VehCont::iterator i=myVehicles.begin(); i!=myVehicles.end(); i++) {
         MSVehicle *vehicle = (*i);
         MSNet::PersonCont *add = vehicle->unloadPersons(myEdge);
         if(add!=0) {
-            for(MSNet::PersonCont::iterator j=add->begin(); 
+            for(MSNet::PersonCont::iterator j=add->begin();
                 j!=add->end(); j++) {
                 (*j)->proceed(net, time);
             }
@@ -1220,7 +1298,7 @@ operator<<( ostream& os, const MSLane& lane )
 MSLane::XMLOut::XMLOut( const MSLane& obj,
                         unsigned indentWidth,
                         bool withChildElemes ) :
-    myObj( obj ),                           
+    myObj( obj ),
     myIndentWidth( indentWidth ),
     myWithChildElemes( withChildElemes )
 {
@@ -1233,47 +1311,47 @@ operator<<( ostream& os, const MSLane::XMLOut& obj )
 {
     string indent( obj.myIndentWidth , ' ' );
 
-    if ( obj.myWithChildElemes ) {        
+    if ( obj.myWithChildElemes ) {
 
-        if ( obj.myObj.myVehicles.empty() == true && 
+        if ( obj.myObj.myVehicles.empty() == true &&
              obj.myObj.myVehBuffer == 0 ) {
 
-            os << indent << "<lane id=\"" << obj.myObj.myID 
+            os << indent << "<lane id=\"" << obj.myObj.myID
                << "\"/>" << endl;
-        }   
+        }
         else { // not empty
-            os << indent << "<lane id=\"" << obj.myObj.myID << "\">" 
+            os << indent << "<lane id=\"" << obj.myObj.myID << "\">"
                << endl;
-            
+
             if ( obj.myObj.myVehBuffer != 0 ) {
 
-                os << MSVehicle::XMLOut( *(obj.myObj.myVehBuffer), 
+                os << MSVehicle::XMLOut( *(obj.myObj.myVehBuffer),
                                          obj.myIndentWidth + 4,
                                          true );
-            }        
+            }
 
-            for ( MSLane::VehCont::const_iterator veh = 
+            for ( MSLane::VehCont::const_iterator veh =
                       obj.myObj.myVehicles.begin();
                   veh != obj.myObj.myVehicles.end(); ++veh ) {
 
-                os << MSVehicle::XMLOut( **veh, obj.myIndentWidth + 4, 
-                                         false );             
+                os << MSVehicle::XMLOut( **veh, obj.myIndentWidth + 4,
+                                         false );
             }
 
-            os << indent << "</lane>" << endl;    
-    
+            os << indent << "</lane>" << endl;
+
         }
     }
 
     else { // no child elemets, just print the number of vehicles
-        
-        unsigned nVeh = obj.myObj.myVehicles.size() + 
+
+        unsigned nVeh = obj.myObj.myVehicles.size() +
                         ( obj.myObj.myVehBuffer != 0 );
-        os << indent << "<lane id=\"" << obj.myObj.myID << "\" nVehicles=\"" 
+        os << indent << "<lane id=\"" << obj.myObj.myID << "\" nVehicles=\""
            << nVeh << "\" />" << endl;
     }
-        
-    return os;   
+
+    return os;
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
