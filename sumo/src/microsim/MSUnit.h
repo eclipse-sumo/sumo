@@ -7,7 +7,7 @@
  * @date   Thu Aug  7 14:53:08 2003
  * @version $Id$
  * @brief  Declaraition and Definition of class MSUnit
- * 
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -26,7 +26,7 @@
 
 #include <cassert>
 #include <cmath>
-#include <SingletonDictionary.h>
+#include <helpers/SingletonDictionary.h>
 
 
 // conversion class from metric units (meters, seconds, etc.)
@@ -61,7 +61,7 @@ public:
             }
             return instanceM;
         }
-    
+
     ~MSUnit( void )
         {
             instanceM = 0;
@@ -91,7 +91,7 @@ public:
         {
             return static_cast<Cells>( floor( meters / metersPerCellM ) );
         }
-    
+
     Cells getCells( Meters meters ) const
         {
             return static_cast<Cells>( meters / metersPerCellM );
@@ -102,7 +102,7 @@ public:
             return static_cast<MetersPerSecond>(
                 cellsPerStep * metersPerCellM / secondsPerStepM );
         }
-    
+
     CellsPerStep getIntegerCellsPerStep(MetersPerSecond metersPerSecond) const
         {
             return static_cast<CellsPerStep>(
@@ -132,17 +132,17 @@ public:
             return static_cast< VehPerHour >(
              vehPerStep * oneHour / secondsPerStepM );
         }
-    
+
     VehPerStep getVehPerStep( VehPerHour vehPerHour )const
         {
             return static_cast< VehPerStep >(
              vehPerHour * secondsPerStepM / oneHour );
         }
-    
+
 
 private:
 
-    MSUnit( MetersPerCell metersPerCell, SecondsPerStep secondsPerStep ) 
+    MSUnit( MetersPerCell metersPerCell, SecondsPerStep secondsPerStep )
         : metersPerCellM( metersPerCell ),
           secondsPerStepM( secondsPerStep )
         {
@@ -153,8 +153,8 @@ private:
     const MetersPerCell metersPerCellM;
     const SecondsPerStep secondsPerStepM;
     static MSUnit* instanceM;
-    static const Meters oneKM = 1000.0;
-    static const Seconds oneHour = 3600.0;
+    static const Meters oneKM;
+    static const Seconds oneHour;
 };
 
 
