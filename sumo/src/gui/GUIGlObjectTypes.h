@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/30 08:52:16  dkrajzew
+// further work on visualisation of all geometrical objects
+//
 // Revision 1.3  2003/07/16 15:20:36  dkrajzew
 // types enumeration is now using powers of two to allow enum combination
 //
@@ -44,6 +47,8 @@
  * By now, one can display edges, junctions and vehicles
  */
 enum GUIGlObjectType {
+    /// The network - empty
+    GLO_NETWORK = 0,
     /// a vehicles
     GLO_VEHICLE = 1,
     /// a detector
@@ -52,9 +57,9 @@ enum GUIGlObjectType {
     GLO_EMITTER = 4,
     /// a lane
     GLO_LANE = 8,
-    /// an edges
+    /// an edge
     GLO_EDGE = 16,
-    /// a junctions
+    /// a junction
     GLO_JUNCTION = 32
 };
 

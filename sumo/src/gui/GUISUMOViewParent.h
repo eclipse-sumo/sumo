@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/07/30 08:52:16  dkrajzew
+// further work on visualisation of all geometrical objects
+//
 // Revision 1.1  2003/05/20 09:25:14  dkrajzew
 // new view hierarchy; some debugging done
 //
@@ -77,8 +80,8 @@ class GUISUMOViewParent : public QMainWindow
     Q_OBJECT
 public:
     /// constructor
-    GUISUMOViewParent( QWidget* parent, const char* name, int wflags, GUINet &net,
-        GUIApplicationWindow *parentWindow);
+    GUISUMOViewParent( QWidget *parent, const char* name, int wflags,
+        GUINet &net, GUIApplicationWindow &parentWindow);
 
     /// destructor
     ~GUISUMOViewParent();
@@ -201,7 +204,7 @@ private:
     GUIChooser *_chooser;
 
     /// The parent window
-    GUIApplicationWindow *myParent;
+    GUIApplicationWindow &myParent;
 
 };
 

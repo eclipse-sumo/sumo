@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/07/30 08:52:16  dkrajzew
+// further work on visualisation of all geometrical objects
+//
 // Revision 1.17  2003/07/22 14:56:46  dkrajzew
 // changes due to new detector handling
 //
@@ -417,7 +420,7 @@ GUIApplicationWindow::openNewWindow()
         return;
     }
     GUISUMOViewParent* w = new GUISUMOViewParent( ws, 0, WDestructiveClose,
-        _runThread->getNet(), this );
+        _runThread->getNet(), *this );
     connect( w, SIGNAL( message(const QString&, int) ), statusBar(), SLOT( message(const QString&, int )) );
     string caption = string("View #") + toString(myViewNumber++);
     w->setCaption( caption.c_str() );
@@ -483,6 +486,13 @@ GUIApplicationWindow::singleStep()
 
 void GUIApplicationWindow::closeAllWindows()
 {
+    // remove trackers and other external windows
+    size_t i;
+    for(i=0; i<mySubWindows.size(); i++) {
+        QApplication::postEvent( mySubWindows[i],
+            new QCloseEvent());
+    }
+    //
     GUISUMOViewParent* m = (GUISUMOViewParent*)ws->activeWindow();
     while(m) {
     	m->close();
@@ -493,6 +503,10 @@ void GUIApplicationWindow::closeAllWindows()
     string caption = string("SUMO ") + string(version)
         + string(" - no simulation loaded");
     setCaption( caption.c_str());
+    for(i=0; i<mySubWindows.size(); i++) {
+        delete mySubWindows[i];
+    }
+    mySubWindows.clear();
     update();
 }
 
@@ -611,6 +625,7 @@ GUIApplicationWindow::processSimulationEndEvent(QSimulationEndedEvent *e)
     }
 
     //
+    stop();
     QMessageBox *myBox = new QMessageBox("Simulation ended",
         text.str().c_str(),
         QMessageBox::Warning,

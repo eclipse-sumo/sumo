@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/07/30 08:52:16  dkrajzew
+// further work on visualisation of all geometrical objects
+//
 // Revision 1.3  2003/07/22 14:56:46  dkrajzew
 // changes due to new detector handling
 //
@@ -95,8 +98,8 @@ class GUISUMOAbstractView : public QGLWidget {
 
 public:
     /// constructor
-    GUISUMOAbstractView(GUIApplicationWindow *app,
-        GUISUMOViewParent *parent, GUINet &net);
+    GUISUMOAbstractView(GUIApplicationWindow &app,
+        GUISUMOViewParent &parent, GUINet &net);
 
     /// destructor
     virtual ~GUISUMOAbstractView();
@@ -330,6 +333,8 @@ protected:
     /// draws the legend
     void displayLegend();
 
+    void displayLegend2();
+
     /// centers the view to the given position and size
     void centerTo(Position2D pos, double radius);
 
@@ -345,10 +350,10 @@ protected:
     void clearUsetable(size_t *_edges2Show, size_t _edges2ShowSize);
 
 protected:
-    GUIApplicationWindow *_app;
+    GUIApplicationWindow &_app;
 
     /// the parent window
-    GUISUMOViewParent *_parent;
+    GUISUMOViewParent &_parent;
 
     /// the network used (stored here for a faster access)
     GUINet &_net;

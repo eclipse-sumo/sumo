@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/30 08:52:16  dkrajzew
+// further work on visualisation of all geometrical objects
+//
 // Revision 1.7  2003/07/22 14:56:46  dkrajzew
 // changes due to new detector handling
 //
@@ -89,7 +92,7 @@ GUIGlObject::setGlID(size_t id)
 }
 
 
-
+/*
 void
 GUIGlObject::insertTableParameter(GUIParameterTableWindow *,
                                   QListView *table,
@@ -173,7 +176,7 @@ GUIGlObject::getTableParameterNo() const
     return 0;
 }
 
-
+*/
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
 //#include "GUIGlObject.icc"

@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        GUISUMOAbstractView.cpp -
-//  A view on the simulation; this views is a microscopic one
+//  A view on the simulation; this view is a microscopic one
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/30 08:52:16  dkrajzew
+// further work on visualisation of all geometrical objects
+//
 // Revision 1.7  2003/07/22 14:56:46  dkrajzew
 // changes due to new detector handling
 //
@@ -92,6 +95,7 @@ namespace
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILane.h>
 #include <guisim/GUIVehicle.h>
+#include <guisim/GUINetWrapper.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
@@ -161,6 +165,9 @@ GUISUMOAbstractView::GUIDetectorDrawer::drawGLDetectors(size_t *which,
                     glPushName(myDetectors[j+(i<<5)]->getGlID());
                 }
                 myDetectors[j+(i<<5)]->drawGL(scale);
+                if(showToolTips) {
+                    glPopName();
+                }
             }
         }
     }
@@ -205,9 +212,10 @@ GUISUMOAbstractView::ViewSettings::set(double x, double y,
 }
 
 
-GUISUMOAbstractView::GUISUMOAbstractView(GUIApplicationWindow *app,
-                                         GUISUMOViewParent *parent, GUINet &net)
-    : QGLWidget(parent, ""),
+GUISUMOAbstractView::GUISUMOAbstractView(GUIApplicationWindow&app,
+                                         GUISUMOViewParent &parent,
+                                         GUINet &net)
+    : QGLWidget(&parent, ""),
     _app(app),
     _parent(parent),
     _net(net),
@@ -221,8 +229,8 @@ GUISUMOAbstractView::GUISUMOAbstractView(GUIApplicationWindow *app,
 {
     // set window sizes
     setMinimumSize(100, 30);
-    setBaseSize(_parent->getMaxGLWidth(), _parent->getMaxGLHeight());
-    setMaximumSize(_parent->getMaxGLWidth(), _parent->getMaxGLHeight());
+    setBaseSize(_parent.getMaxGLWidth(), _parent.getMaxGLHeight());
+    setMaximumSize(_parent.getMaxGLWidth(), _parent.getMaxGLHeight());
     // compute the net scale
     double nw = _net.getBoundery().getWidth();
     double nh = _net.getBoundery().getHeight();
@@ -311,10 +319,10 @@ void
 GUISUMOAbstractView::initializeGL()
 {
     _lock.lock();
-    _widthInPixels = _parent->getMaxGLWidth();
-    _heightInPixels = _parent->getMaxGLHeight();
+    _widthInPixels = _parent.getMaxGLWidth();
+    _heightInPixels = _parent.getMaxGLHeight();
     _ratio = (double) _widthInPixels / (double) _heightInPixels;
-    glViewport( 0, 0, _parent->getMaxGLWidth()-1, _parent->getMaxGLHeight()-1 );
+    glViewport( 0, 0, _parent.getMaxGLWidth()-1, _parent.getMaxGLHeight()-1 );
     glClearColor( 1.0, 1.0, 1.0, 1 );
     _changer->otherChange();
     doInit();
@@ -378,7 +386,13 @@ GUISUMOAbstractView::paintGL()
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
     applyChanges(1.0, 0, 0);
+    if(_showGrid) {
+        paintGLGrid();
+    }
     doPaintGL(GL_RENDER, 1.0);
+    if(_parent.showLegend()) {
+        displayLegend();
+    }
     // check whether the select mode /tooltips)
     //  shall be computed, too
     if(!_useToolTips) {
@@ -388,6 +402,9 @@ GUISUMOAbstractView::paintGL()
         _lock.unlock();
         return;
     }
+
+    glFlush();
+    swapBuffers();
     // get the object under the cursor
     unsigned int id = getObjectUnderCursor();
     showToolTipFor(id);
@@ -460,7 +477,9 @@ GUISUMOAbstractView::showToolTipFor(unsigned int id)
 void
 GUISUMOAbstractView::paintGLGrid()
 {
+    glLineWidth(1);
     glBegin( GL_LINES );
+
     glColor3f(0.5, 0.5, 0.5);
     double ypos = 0;
     double xpos = 0;
@@ -502,9 +521,9 @@ GUISUMOAbstractView::applyChanges(double scale,
     // apply ratio between window width and height
     glScaled(1/_ratio, 1, 0);
     // initially (zoom=100), the net shall be completely visible on the screen
-    double xs = ((double) _widthInPixels / (double) _parent->getMaxGLWidth())
+    double xs = ((double) _widthInPixels / (double) _parent.getMaxGLWidth())
         / (_net.getBoundery().getWidth() / _netScale) * _ratio;
-    double ys = ((double) _heightInPixels / (double) _parent->getMaxGLHeight())
+    double ys = ((double) _heightInPixels / (double) _parent.getMaxGLHeight())
         / (_net.getBoundery().getHeight() / _netScale);
     if(xs<ys) {
         glScaled(xs, xs, 1);
@@ -541,11 +560,11 @@ GUISUMOAbstractView::applyChanges(double scale,
     glLoadIdentity();
     // apply the widow size
     double xf = -1.0 *
-        ((double) _parent->getMaxGLWidth() - (double) _widthInPixels)
-        / (double) _parent->getMaxGLWidth();
+        ((double) _parent.getMaxGLWidth() - (double) _widthInPixels)
+        / (double) _parent.getMaxGLWidth();
     double yf = -1.0 *
-        ((double) _parent->getMaxGLHeight() - (double) _heightInPixels)
-        / (double) _parent->getMaxGLHeight();
+        ((double) _parent.getMaxGLHeight() - (double) _heightInPixels)
+        / (double) _parent.getMaxGLHeight();
     glTranslated(xf, yf, 0);
     _changer->applied();
 }
@@ -555,9 +574,68 @@ void
 GUISUMOAbstractView::displayLegend()
 {
     size_t length = 1;
-    string text = "1";
+    const string text("10000000000");
+    size_t noDigits = 1;
+    size_t pixelSize = 0;
     while(true) {
-        size_t pixelSize = (size_t) m2p((double) length);
+        pixelSize = (size_t) m2p((double) length);
+        if(pixelSize>20) {
+            break;
+        }
+        length *= 10;
+        noDigits++;
+//        text = text + string("0");
+    }
+    glLineWidth(3.0);
+
+    float xpb = (p2m(10) - _changer->getXPos()) / _changer->getZoom();
+    float xpe = (p2m(10 + 100) - _changer->getXPos()) / _changer->getZoom();
+    float ypb = (p2m(10) - _changer->getYPos()) / _changer->getZoom();
+    float ype = (p2m(10) - _changer->getYPos()) / _changer->getZoom();
+
+    int x = 0;
+    int w = width();
+    int y = 0;
+    int h = height();
+//    glOrtho(x, x+w, y+h, y, 1, 10);
+    glColor3f(0, 0, 0);
+    glBegin( GL_LINES );
+    float size = 2.0 / (double) pixelSize / (double) width();
+    size = 10;
+    glVertex2f(xpb, ypb);
+    glVertex2f(xpe, ype);
+    glEnd();
+
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glOrtho(0, width(), 0, height(), 1, 10);
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glOrtho(0, width(), 0, height(), 1, 10);
+
+    glBegin( GL_LINES );
+    glVertex2f(-200, -200);
+    glVertex2f(200, 200);
+    glEnd();
+
+
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+
+
+}
+
+void
+GUISUMOAbstractView::displayLegend2()
+{
+    size_t length = 1;
+    const string text("10000000000");
+    size_t noDigits = 1;
+    size_t pixelSize = 0;
+    while(true) {
+        pixelSize = (size_t) m2p((double) length);
         if(pixelSize>20) {
             QPainter paint( this );
             paint.setPen( QColor(0, 0, 0) );
@@ -566,13 +644,16 @@ GUISUMOAbstractView::displayLegend()
             paint.drawLine( 10, h-10, 10, h-15);
             paint.drawLine( 10+pixelSize, h-10, 10+pixelSize, h-15);
             paint.drawText( 10, h-10, QString("0m"));
-            text = text + string("m");
+            //text = text + string("m");
             paint.drawText( 10+pixelSize, h-10, QString(text.c_str()));
-            return;
+            break;
         }
         length *= 10;
-        text = text + string("0");
+        noDigits++;
+//        text = text + string("0");
     }
+    //
+
 }
 
 
@@ -581,7 +662,7 @@ GUISUMOAbstractView::m2p(double meter)
 {
     return
         (meter/_netScale
-        * (_parent->getMaxGLWidth()/_ratio)
+        * (_parent.getMaxGLWidth()/_ratio)
         * _addScl * _changer->getZoom() / 100.0);
 }
 
@@ -591,7 +672,7 @@ GUISUMOAbstractView::p2m(double pixel)
 {
     return
         pixel * _netScale /
-        ((_parent->getMaxGLWidth()/_ratio) * _addScl *_changer->getZoom() / 100.0);
+        ((_parent.getMaxGLWidth()/_ratio) * _addScl *_changer->getZoom() / 100.0);
 }
 
 
@@ -607,6 +688,11 @@ GUISUMOAbstractView::centerTo(GUIGlObjectType type,
                               const std::string &name)
 {
     switch(type) {
+    case GLO_NETWORK:
+        {
+            centerTo(_net.getBoundery());
+        }
+        break;
     case GLO_JUNCTION:
         {
             Position2D pos = _net.getJunctionPosition(name);
@@ -636,6 +722,18 @@ GUISUMOAbstractView::centerTo(GUIGlObjectType type,
             }
         }
         break;
+    case GLO_DETECTOR:
+        {
+            Position2D pos = _net.getDetectorPosition(name);
+            centerTo(pos, 20); // !!! the radius should be variable
+        }
+        break;
+    case GLO_EMITTER:
+        {
+            Position2D pos = _net.getEmitterPosition(name);
+            centerTo(pos, 20); // !!! the radius should be variable
+        }
+        break;
     default:
         // should not happen
         throw 1;
@@ -662,7 +760,7 @@ GUISUMOAbstractView::centerTo(Boundery bound)
 bool
 GUISUMOAbstractView::allowRotation() const
 {
-    return _parent->allowRotation();
+    return _parent.allowRotation();
 }
 
 
@@ -696,8 +794,8 @@ GUISUMOAbstractView::paintEvent ( QPaintEvent *e )
     makeCurrent();
     glDraw();*/
     QGLWidget::paintEvent(e);
-    if(_parent->showLegend()) {
-        displayLegend();
+    if(_parent.showLegend()) {
+        displayLegend2();
     }
 }
 
@@ -724,16 +822,18 @@ GUISUMOAbstractView::timerEvent ( QTimerEvent *e )
             }
             // initialise the select mode
             unsigned int id = getObjectUnderCursor();
+            GUIGlObject *o = 0;
             if(id!=0) {
-                 GUIGlObject *o = _net._idStorage.getObjectBlocking(id);
-                 if(o!=0) {
-                    _popup = o->getPopUpMenu(_app, this);
-                    _popup->setGeometry(
-                        _mouseX, _mouseY,
-                        _popup->width()+_mouseX, _popup->height()+_mouseY);
-                    _popup->show();
-                    _changer->mouseReleaseEvent(0);
-                 }
+                o = _net._idStorage.getObjectBlocking(id);
+            } else {
+                o = _net.getWrapper();
+            }
+            if(o!=0) {
+                _popup = o->getPopUpMenu(_app, *this);
+                _popup->setGeometry(_mouseX, _mouseY,
+                    _popup->width()+_mouseX, _popup->height()+_mouseY);
+                _popup->show();
+                _changer->mouseReleaseEvent(0);
             }
             _noDrawing--;
             _lock.unlock();
@@ -759,13 +859,13 @@ GUISUMOAbstractView::makeCurrent()
 int
 GUISUMOAbstractView::getMaxGLWidth() const
 {
-    return _parent->getMaxGLWidth();
+    return _parent.getMaxGLWidth();
 }
 
 int
 GUISUMOAbstractView::getMaxGLHeight() const
 {
-    return _parent->getMaxGLHeight();
+    return _parent.getMaxGLHeight();
 }
 
 

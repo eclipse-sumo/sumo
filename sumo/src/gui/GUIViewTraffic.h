@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/07/30 08:52:16  dkrajzew
+// further work on visualisation of all geometrical objects
+//
 // Revision 1.10  2003/07/22 14:56:46  dkrajzew
 // changes due to new detector handling
 //
@@ -98,8 +101,8 @@ class GUIViewTraffic
 
 public:
     /// constructor
-    GUIViewTraffic(GUIApplicationWindow *app,
-        GUISUMOViewParent *parent, GUINet &net);
+    GUIViewTraffic(GUIApplicationWindow &app,
+        GUISUMOViewParent &parent, GUINet &net);
 
     /// destructor
     virtual ~GUIViewTraffic();

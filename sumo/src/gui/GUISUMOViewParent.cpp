@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/07/30 08:52:16  dkrajzew
+// further work on visualisation of all geometrical objects
+//
 // Revision 1.4  2003/07/18 12:29:28  dkrajzew
 // removed some warnings
 //
@@ -112,8 +115,10 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUISUMOViewParent::GUISUMOViewParent( QWidget* parent, const char* name, int wflags,
-                         GUINet &net, GUIApplicationWindow *parentWindow )
+GUISUMOViewParent::GUISUMOViewParent( QWidget *parent, const char* name,
+                                     int wflags,
+                                     GUINet &net,
+                                     GUIApplicationWindow &parentWindow )
     : QMainWindow( parent, name, wflags ), _zoomingFactor(100),
     _view(0), _viewTools(0), _trackingTools(0),
     _showLegendToggle(0), _allowRotationToggle(0),
@@ -128,7 +133,7 @@ GUISUMOViewParent::GUISUMOViewParent( QWidget* parent, const char* name, int wfl
     setMinimumSize(100, 30);
     setBaseSize(300, 300);
     // build the display widget
-    _view = new GUIViewTraffic(myParent, this, net);
+    _view = new GUIViewTraffic(myParent, *this, net);
     setCentralWidget(_view);
     _view->buildViewToolBars(*this);
 }
@@ -399,13 +404,13 @@ GUISUMOViewParent::toggleBehaviour3()
 int
 GUISUMOViewParent::getMaxGLWidth() const
 {
-    return myParent->getMaxGLWidth();
+    return myParent.getMaxGLWidth();
 }
 
 int
 GUISUMOViewParent::getMaxGLHeight() const
 {
-    return myParent->getMaxGLHeight();
+    return myParent.getMaxGLHeight();
 }
 
 

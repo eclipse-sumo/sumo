@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/07/30 08:52:16  dkrajzew
+// further work on visualisation of all geometrical objects
+//
 // Revision 1.10  2003/07/16 15:18:23  dkrajzew
 // new interfaces for drawing classes; junction drawer interface added
 //
@@ -132,6 +135,7 @@ GUITriangleVehicleDrawer::initStep()
 {
     glLineWidth (0.1);
     glMatrixMode( GL_MODELVIEW );
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // !!!
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/07/30 08:52:16  dkrajzew
+// further work on visualisation of all geometrical objects
+//
 // Revision 1.2  2003/07/16 15:18:23  dkrajzew
 // new interfaces for drawing classes; junction drawer interface added
 //
@@ -36,6 +39,9 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include <map>
+#include <utils/gfx/RGBColor.h>
+#include <microsim/MSLink.h>
 #include "GUISUMOAbstractView.h"
 
 
@@ -79,9 +85,19 @@ private:
     void setLaneColor(const GUILaneWrapper &lane,
         GUISUMOAbstractView::LaneColoringScheme scheme);
 
+    void drawLinkRules(const GUILaneWrapper &lane);
+
+
 private:
     /// a pointer set in initStep whether lines or quads shal be drawn
     bool _drawLines;
+
+    /// Definition of a storage for link colors
+    typedef std::map<MSLink::LinkState, RGBColor> LinkColorMap;
+
+    /// The colors to use for certain link types
+    LinkColorMap myLinkColors;
+
 };
 
 

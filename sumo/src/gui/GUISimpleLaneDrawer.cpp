@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/07/30 08:52:16  dkrajzew
+// further work on visualisation of all geometrical objects
+//
 // Revision 1.10  2003/07/16 15:18:23  dkrajzew
 // new interfaces for drawing classes; junction drawer interface added
 //
@@ -88,6 +91,15 @@ using namespace std;
 GUISimpleLaneDrawer::GUISimpleLaneDrawer(std::vector<GUIEdge*> &edges)
     : GUILaneDrawer(edges)
 {
+    myLinkColors[MSLink::LINKSTATE_ABSTRACT_TL] = RGBColor(0, 0, 1);
+    myLinkColors[MSLink::LINKSTATE_TL_GREEN] = RGBColor(0, 1, 0);
+    myLinkColors[MSLink::LINKSTATE_TL_RED] = RGBColor(1, 0, 0);
+    myLinkColors[MSLink::LINKSTATE_TL_YELLOW] = RGBColor(1, 1, 0);
+    myLinkColors[MSLink::LINKSTATE_TL_OFF_BLINKING] = RGBColor(1, 1, 0);
+    myLinkColors[MSLink::LINKSTATE_TL_OFF_NOSIGNAL] = RGBColor(0, 1, 1);
+    myLinkColors[MSLink::LINKSTATE_MAJOR] = RGBColor(1, 0, 1);
+    myLinkColors[MSLink::LINKSTATE_MINOR] = RGBColor(1, 1, 1);
+    myLinkColors[MSLink::LINKSTATE_EQUAL] = RGBColor(0.5, 0.5, .5);
 }
 
 
@@ -117,8 +129,11 @@ GUISimpleLaneDrawer::drawGLLanes(size_t *which, size_t maxEdges,
                     size_t noLanes = edge->nLanes();
                     // go through the current edge's lanes
                     for(size_t k=0; k<noLanes; k++) {
-                        drawLaneWithTooltips(edge->getLaneGeometry(k),
-                            scheme, width);
+                        const GUILaneWrapper &lane = edge->getLaneGeometry(k);
+                        drawLaneWithTooltips(lane, scheme, width);
+                        if(width>1.0) {
+                            drawLinkRules(lane);
+                        }
                     }
                 }
             }
@@ -136,8 +151,11 @@ GUISimpleLaneDrawer::drawGLLanes(size_t *which, size_t maxEdges,
                     size_t noLanes = edge->nLanes();
                     // go through the current edge's lanes
                     for(size_t k=0; k<noLanes; k++) {
-                        drawLaneNoTooltips(edge->getLaneGeometry(k),
-                            scheme, width);
+                        const GUILaneWrapper &lane = edge->getLaneGeometry(k);
+                        drawLaneNoTooltips(lane, scheme, width);
+                        if(width>1.0) {
+                            drawLinkRules(lane);
+                        }
                     }
                 }
             }
@@ -149,6 +167,7 @@ void
 GUISimpleLaneDrawer::initStep(/*const double & width*/)
 {
     glLineWidth(1);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // !!!
 /*    if(width<1) {
         _drawLines = true;
     } else {
@@ -156,6 +175,54 @@ GUISimpleLaneDrawer::initStep(/*const double & width*/)
     }*/
     glColor3f(0, 0, 0);
 }
+
+
+void
+GUISimpleLaneDrawer::drawLinkRules(const GUILaneWrapper &lane)
+{
+    size_t noLinks = lane.getLinkNumber();
+    double visLength = -lane.visLength();
+    if(noLinks==0) {
+        // draw a grey bar if no links are on the street
+        glColor3f(0.5, 0.5, 0.5);
+        glPushMatrix();
+        const Position2D &beg = lane.getBegin();
+        glTranslated(beg.x(), beg.y(), 0);
+        glRotated( lane.getRotation(), 0, 0, 1 );
+        glBegin( GL_QUADS );
+        glVertex2f(-1.5, visLength+4.0);
+        glVertex2f(-1.5, visLength+4.5);
+        glVertex2f(1.5, visLength+4.5);
+        glVertex2f(1.5, visLength+4.0);
+        glEnd();
+        glPopMatrix();
+        return;
+    }
+    // draw all links
+    float w = 3.0 / (float) noLinks;
+    float x1 = 0;
+    glPushMatrix();
+    const Position2D &beg = lane.getBegin();
+    glTranslated(beg.x(), beg.y(), 0);
+    glRotated( lane.getRotation(), 0, 0, 1 );
+    for(size_t i=0; i<noLinks; i++) {
+        float x2 = x1 + w;
+        MSLink::LinkState state = lane.getLinkState(i);
+        const RGBColor &color = myLinkColors.find(state)->second;
+        glColor3f(color.red(), color.green(), color.blue());
+        glBegin( GL_QUADS );
+        glVertex2f(x1-1.5, visLength+4.0);
+        glVertex2f(x1-1.5, visLength+4.5);
+        glVertex2f(x2-1.5, visLength+4.5);
+        glVertex2f(x2-1.5, visLength+4.0);
+        glEnd();
+        x1 = x2;
+        x2 += w;
+    }
+    glPopMatrix();
+}
+
+
 
 
 void
@@ -170,7 +237,7 @@ GUISimpleLaneDrawer::drawLaneNoTooltips(const GUILaneWrapper &lane,
         glRotated( lane.getRotation(), 0, 0, 1 );
         double visLength = -lane.visLength();
         glBegin( GL_QUADS );
-        glVertex2f(0-1.5, 0);
+        glVertex2f(-1.5, 0);
         glVertex2f(-1.5, visLength);
         glVertex2f(1.5, visLength);
         glVertex2f(1.5, 0);
@@ -210,8 +277,10 @@ GUISimpleLaneDrawer::drawLaneWithTooltips(const GUILaneWrapper &lane,
         glVertex2f(1.5, 0);
         glEnd();
         glBegin( GL_LINES);
-        glVertex2f(0, 0);
-        glVertex2f(0, visLength);
+        // without the substracted offsets, lines are partially longer
+        //  than the boxes
+        glVertex2f(0, 0-.1);
+        glVertex2f(0, visLength-.1);
         glEnd();
         glPopMatrix();
     } else {
@@ -232,6 +301,7 @@ GUISimpleLaneDrawer::setLaneColor(const GUILaneWrapper &lane,
 {
     switch(scheme) {
     case GUIViewTraffic::LCS_BLACK:
+        glColor3f(0, 0, 0);
         break;
     case GUIViewTraffic::LCS_BY_PURPOSE:
         switch(lane.getPurpose()) {

@@ -33,8 +33,10 @@ GUISimpleJunctionDrawer::drawGLJunctions(size_t *which, size_t maxJunctions,
             size_t pos = 1;
             for(size_t j=0; j<32; j++, pos<<=1) {
                 if((which[i]&pos)!=0) {
+                    glPushName(myJunctions[j+(i<<5)]->getGlID());
                     GLHelper::drawFilledPoly(
                         myJunctions[j+(i<<5)]->getShape(), true);
+                    glPopName();
                 }
             }
         }

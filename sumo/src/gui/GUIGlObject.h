@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/07/30 08:52:16  dkrajzew
+// further work on visualisation of all geometrical objects
+//
 // Revision 1.5  2003/06/05 11:37:30  dkrajzew
 // class templates applied
 //
@@ -38,7 +41,8 @@
  * ======================================================================= */
 #include <string>
 #include "GUIGlObjectTypes.h"
-#include "TableTypes.h"
+//#include "TableTypes.h"
+#include <utils/logging/DoubleFunctionBinding.h>
 
 
  /* =========================================================================
@@ -73,14 +77,17 @@ public:
 
     /// Returns an own popup-menu
     virtual QGLObjectPopupMenu *getPopUpMenu(
-        GUIApplicationWindow *app, GUISUMOAbstractView *parent) = 0;
+        GUIApplicationWindow &app, GUISUMOAbstractView &parent) = 0;
+
+    virtual GUIParameterTableWindow *getParameterWindow(
+        GUIApplicationWindow &app, GUISUMOAbstractView &parent) = 0;
 
     /// Returns the type of the object as coded in GUIGlObjectType
     virtual GUIGlObjectType getType() const = 0;
 
     /// returns the id of the object as known to microsim
     virtual std::string microsimID() const = 0;
-
+/*
     void insertTableParameter(GUIParameterTableWindow *window,
         QListView *table, double *parameter,
         QListViewItem **vitems);
@@ -88,22 +95,24 @@ public:
     virtual size_t getTableParameterNo() const;
 
     virtual double getTableParameter(size_t pos) const = 0;
-
-    virtual void fillTableParameter(double *parameter) const = 0;
+*/
+//    virtual void fillTableParameter(double *parameter) const = 0;
 
     /// Needed to set the id
     friend class GUIGlObjectStorage;
-
+/*
     virtual const char * const getTableItem(size_t pos) const = 0;
-
+*/
 	virtual bool active() const = 0;
 
-protected:
+//    virtual DoubleValueSource *bind(size_t what) const = 0;
 
+protected:
+/*
     virtual TableType getTableType(size_t pos) const = 0;
 
     virtual const char *getTableBeginValue(size_t pos) const = 0;
-
+*/
 private:
     /// Sets the id of the object
     void setGlID(size_t id);

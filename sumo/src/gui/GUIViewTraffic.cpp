@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/07/30 08:52:16  dkrajzew
+// further work on visualisation of all geometrical objects
+//
 // Revision 1.17  2003/07/22 14:56:46  dkrajzew
 // changes due to new detector handling
 //
@@ -134,8 +137,8 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow *app,
-                               GUISUMOViewParent *parent,
+GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow &app,
+                               GUISUMOViewParent &parent,
                                GUINet &net)
     : GUISUMOAbstractView(app, parent, net),
     _vehicleDrawer(new GUITriangleVehicleDrawer(_net.myEdgeWrapper)),
@@ -271,9 +274,6 @@ GUIViewTraffic::changeLaneColoringScheme(int index)
 void
 GUIViewTraffic::doPaintGL(int mode, double scale)
 {
-    if(_showGrid) {
-        paintGLGrid();
-    }
     glRenderMode(mode);
     glMatrixMode( GL_MODELVIEW );
     glPushMatrix();
@@ -326,11 +326,6 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
         //paintGLVehicles(_edges);
     }
     glPopMatrix();
-
-    glFlush();
-    if(mode==GL_RENDER) {
-        swapBuffers();
-    }
 }
 
 
@@ -418,8 +413,8 @@ void
 GUIViewTraffic::doInit()
 {
     if(!myFontsLoaded) {
-        if(_app->myFonts.has("std")) {
-            myFontRenderer.add(_app->myFonts.get("std"));
+        if(_app.myFonts.has("std")) {
+            myFontRenderer.add(_app.myFonts.get("std"));
         }
         myFontsLoaded = true;
     }
