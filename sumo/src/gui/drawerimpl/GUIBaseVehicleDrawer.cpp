@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/08/02 11:30:54  dkrajzew
+// refactored vehicle and lane coloring scheme usage to allow optional coloring schemes
+//
 // Revision 1.6  2004/07/02 08:12:51  dkrajzew
 // global object selection added
 //
@@ -41,8 +44,6 @@ namespace
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
 //
-//
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -56,12 +57,21 @@ namespace
 #include <guisim/GUILaneWrapper.h>
 #include <guisim/GUIEdge.h>
 #include "GUIBaseVehicleDrawer.h"
+#include <microsim/MSAbstractLaneChangeModel.h>
+#include <microsim/lanechanging/MSLCM_DK2004.h>
 
 #ifdef _WIN32
 #include <windows.h>
 #endif
 
 #include <GL/gl.h>
+
+
+/* =========================================================================
+ * static members definitions
+ * ======================================================================= */
+GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme>
+    GUIBaseVehicleDrawer::myColoringSchemes;
 
 
 /* =========================================================================
@@ -217,6 +227,24 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
             }
             break;
         }
+    case GUISUMOAbstractView::VCS_LANECHANGE4:
+        {
+            const MSLCM_DK2004 &model =
+                static_cast<const MSLCM_DK2004 &>(vehicle.getLaneChangeModel());
+            double prob = model.getProb();
+            if(prob>0) {
+                if(prob>1) {
+                    prob = 1;
+                }
+                glColor3f(prob, 0.3, 1.0-prob);
+            } else {
+                if(prob<-1) {
+                    prob = -1;
+                }
+                glColor3f(0.3, -prob, 1.0+prob);
+            }
+            break;
+        }
     default:
         throw 1;
     }
@@ -226,38 +254,42 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
 void
 GUIBaseVehicleDrawer::setVehicleColor1Of3(const GUIVehicle &vehicle)
 {
-    // the vehicle will be completely blue if no lane change action is needed
-    //  and nothing was performed
-    if(vehicle.getLaneChangeAction()==MSVehicle::LaneChangeState::LCACT_NONE) {
-        glColor3f(0, 0, 1);
+    // vehicles are red if the lane change is urgent
+    if((vehicle.getLaneChangeModel().getState()&LCA_URGENT)!=0) {
+        glColor3f(1, 0.3, 0.3);
         return;
     }
-    // vehicles on false lanes will be red (others green)
-    if((vehicle.getLaneChangeAction()==MSVehicle::LaneChangeState::LCACT_NEEDS_DIRECTION_CHANGE)) {
-        glColor3f(1, 0, 0);
+    // vehicles are purpleif a lane change is wished (but not urgent)
+    if((vehicle.getLaneChangeModel().getState()&LCA_SPEEDGAIN)!=0) {
+        glColor3f(0.3, 0.3, 1);
+        return;
     }
+    // vehicles that want to stay at their lanes and are not interacting
+    //  are blue
+    glColor3f(0.3, 1, 0.3);
 }
 
 
 void
 GUIBaseVehicleDrawer::setVehicleColor2Of3(const GUIVehicle &vehicle)
 {
-    // the vehicle will be completely blue if no lane change action is needed
-    //  and nothing was performed
-    if(vehicle.getLaneChangeAction()==MSVehicle::LaneChangeState::LCACT_NONE) {
-        glColor3f(0, 0, 1);
-        return;
-    }
-    // left side of the vehicles; wants to go/is gone into this direction:
-    //  vehicle side will be yellow, otherwise green/red in dependence
-    // whether a lanechange is needed
-    // vehicles on false lanes will be red (others green)
-    if(vehicle.getLaneChangeAction()==MSVehicle::LaneChangeState::LCACT_NEEDS_DIRECTION_CHANGE) {
-        if(vehicle.getLaneChangeDirection()==MSVehicle::LaneChangeState::LCDIR_RIGHT) {
-            glColor3f(1, 1, 0);
-        } else {
-            glColor3f(1, 0, 0);
+    // vehicle side will be yellow on their right side if changing to right,
+    if((vehicle.getLaneChangeModel().getState()&LCA_RIGHT)!=0) {
+        glColor3f(1, 1, 0);
+    } else {
+        // vehicles are red if the lane change is urgent
+        if((vehicle.getLaneChangeModel().getState()&LCA_AMBLOCKINGLEADER)!=0) {
+            glColor3f(0.3, 0.3, 1);
+            return;
         }
+        // vehicles are purpleif a lane change is wished (but not urgent)
+        if((vehicle.getLaneChangeModel().getState()&(LCA_AMBLOCKINGFOLLOWER|LCA_AMBLOCKINGSECONDFOLLOWER))!=0) {
+            glColor3f(1, 0.3, 0.3);
+            return;
+        }
+        // vehicles that want to stay at their lanes and are not interacting
+        //  are blue
+        glColor3f(0.3, 1, 0.3);
     }
 }
 
@@ -265,23 +297,30 @@ GUIBaseVehicleDrawer::setVehicleColor2Of3(const GUIVehicle &vehicle)
 void
 GUIBaseVehicleDrawer::setVehicleColor3Of3(const GUIVehicle &vehicle)
 {
-    // the vehicle will be completely blue if no lane change action is needed
-    //  and nothing was performed
-    if(vehicle.getLaneChangeAction()==MSVehicle::LaneChangeState::LCACT_NONE) {
-        glColor3f(0, 0, 1);
-        return;
-    }
-    // right side of the vehicles; wants to go/is gone into this direction:
-    //  vehicle side will be yellow, otherwise green/red in dependence
-    // whether a lanechange is needed
-    // vehicles on false lanes will be red (others green)
-    if(vehicle.getLaneChangeAction()==MSVehicle::LaneChangeState::LCACT_NEEDS_DIRECTION_CHANGE) {
-        if(vehicle.getLaneChangeDirection()==MSVehicle::LaneChangeState::LCDIR_LEFT) {
-            glColor3f(1, 1, 0);
-        } else {
-            glColor3f(1, 0, 0);
+    if((vehicle.getLaneChangeModel().getState()&LCA_LEFT)!=0) {
+        glColor3f(1, 1, 0);
+    } else {
+        // vehicles are red if the lane change is urgent
+        if((vehicle.getLaneChangeModel().getState()&LCA_AMBLOCKINGLEADER)!=0) {
+            glColor3f(0.3, 0.3, 1);
+            return;
         }
+        // vehicles are purpleif a lane change is wished (but not urgent)
+        if((vehicle.getLaneChangeModel().getState()&(LCA_AMBLOCKINGFOLLOWER|LCA_AMBLOCKINGSECONDFOLLOWER))!=0) {
+            glColor3f(1, 0.3, 0.3);
+            return;
+        }
+        // vehicles that want to stay at their lanes and are not interacting
+        //  are blue
+        glColor3f(0.3, 1, 0.3);
     }
+}
+
+
+GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme> &
+GUIBaseVehicleDrawer::getSchemesMap()
+{
+    return myColoringSchemes;
 }
 
 

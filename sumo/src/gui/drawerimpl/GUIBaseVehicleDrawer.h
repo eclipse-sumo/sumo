@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/08/02 11:30:54  dkrajzew
+// refactored vehicle and lane coloring scheme usage to allow optional coloring schemes
+//
 // Revision 1.3  2004/03/19 12:34:30  dkrajzew
 // porting to FOX
 //
@@ -38,6 +41,7 @@
 
 #include <vector>
 #include <gui/GUISUMOAbstractView.h>
+#include "GUIColoringSchemesMap.h"
 
 
 /* =========================================================================
@@ -63,6 +67,9 @@ public:
 
     void drawGLVehicles(size_t *onWhich, size_t maxEdges,
         GUISUMOAbstractView::VehicleColoringScheme scheme);
+
+    static GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme> &
+        getSchemesMap();
 
 protected:
     /// initialises the drawing
@@ -92,6 +99,9 @@ protected:
 protected:
     /// The list of edges to consider at drawing
     std::vector<GUIEdge*> &myEdges;
+
+    static GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme>
+        myColoringSchemes;
 
 };
 
