@@ -61,7 +61,7 @@ private:
 namespace 
 {    
     inline double occupancySumUp( double sumSoFar,
-                                const MSOccupancyDegree::Vehicle data )
+                                  const MSOccupancyDegree::Vehicle data )
     {
         return sumSoFar + data->length();
     }
@@ -82,6 +82,7 @@ MSOccupancyDegree::getDetectorAggregate( void )
           - containerM.back()->length() *  getOccupancyLeaveCorrection() ) /
         detectorLengthM;
     assert ( occupanceDegree >= 0 && occupanceDegree <= 1 );
+    resetOccupancyCorrection();
     return occupanceDegree;
 }   
 
