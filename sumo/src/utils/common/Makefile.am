@@ -9,7 +9,8 @@ Named.h NamedObjectCont.h StringTokenizer.cpp StringTokenizer.h \
 StringUtils.cpp StringUtils.h UtilExceptions.cpp UtilExceptions.h \
 MsgHandler.h MsgHandler.cpp MsgRetriever.h \
 RandHelper.h RandHelper.cpp \
-SystemFrame.cpp SystemFrame.h LogFile.cpp LogFile.h \
+SystemFrame.cpp SystemFrame.h SysUtils.h SysUtils.cpp \
+LogFile.cpp LogFile.h \
 MsgRetrievingFunction.h \
 XMLHelpers.cpp XMLHelpers.h \
 NamedObjectContSingleton.h
