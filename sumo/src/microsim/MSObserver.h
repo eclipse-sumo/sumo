@@ -49,19 +49,19 @@ public:
 
 protected:
     
-    MSObserver( void ){}
+    MSObserverPassesObserved( void ){}
 
-    virtual ~MSObserver( void ){}
+    virtual ~MSObserverPassesObserved( void ){}
 
 private:
     
-    MSObserver( const MSObserver& );
-    MSObserver& operator=( const MSObserver& );    
+    MSObserverPassesObserved( const MSObserverPassesObserved& );
+    MSObserverPassesObserved& operator=( const MSObserverPassesObserved& );    
     
 };
 
 
-// specialization for observableIsPassed == false
+
 template<
     class ObservedType
     , class ObservedQuantity

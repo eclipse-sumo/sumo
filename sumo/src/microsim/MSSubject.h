@@ -123,11 +123,11 @@ public:
     
 protected:
     
-    MSSubject( void )
+    MSSubjectPassesObserved( void )
         : observersM()
         {}
 
-    virtual ~MSSubject( void )
+    virtual ~MSSubjectPassesObserved( void )
         {
             observersM.clear();
         }
@@ -144,8 +144,8 @@ protected:
 
 private:
 
-    MSSubject( const MSSubject& );
-    MSSubject& operator=( const MSSubject& );
+    MSSubjectPassesObserved( const MSSubjectPassesObserved& );
+    MSSubjectPassesObserved& operator=( const MSSubjectPassesObserved& );
 };
 
 
