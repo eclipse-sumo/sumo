@@ -23,8 +23,13 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.10  2004/01/26 08:01:10  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// Revision 1.11  2004/03/03 15:33:53  roessel
+// Tried to make postloadInit more readable.
+// Added an assert to avoid division by zero.
+// Revision 1.10 2004/01/26 08:01:10 dkrajzew
+// loaders and route-def types are now renamed in an senseful way;
+// further changes in order to make both new routers work;
+// documentation added
 //
 // Revision 1.9  2003/11/11 08:04:45  dkrajzew
 // avoiding emissions of vehicles on too short edges
@@ -35,8 +40,11 @@ namespace
 // Revision 1.7  2003/06/19 15:22:38  dkrajzew
 // inifinite loop on lane searching patched
 //
-// Revision 1.6  2003/06/18 11:20:54  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// Revision 1.6 2003/06/18 11:20:54 dkrajzew new message and error
+// processing: output to user may be a message, warning or an error
+// now; it is reported to a Singleton (MsgHandler); this handler puts
+// it further to output instances. changes: no verbose-parameter
+// needed; messages are exported to singleton
 //
 // Revision 1.5  2003/04/14 13:54:20  roessel
 // Removed "EdgeType::" in method ROEdge::getNoFollowing().
@@ -90,20 +98,47 @@ ROEdge::postloadInit(size_t idx)
 {
     // !!! only when not lanes but the edge shall be used for routing
     if(_usingTimeLine) {
-        FloatValueTimeLine *tmp = (*(_laneCont.begin())).second;
-        size_t noLanes = _laneCont.size();
-        for(size_t i=0; i<tmp->noDefinitions(); i++) {
-            double currValue = 0;
-            FloatValueTimeLine::TimeRange range(tmp->getRangeAtPosition(i));
-            for(LaneUsageCont::iterator j=_laneCont.begin(); j!=_laneCont.end(); j++) {
-                double tmp = (*j).second->getValue(range.first);
-                if(tmp<0) {
-                    tmp = _dist / _speed;
+//         FloatValueTimeLine *tmp = (*(_laneCont.begin())).second;
+//         for(size_t i=0; i<tmp->noDefinitions(); i++) {
+//             double currValue = 0;
+//             FloatValueTimeLine::TimeRange range(tmp->getRangeAtPosition(i));
+//             for(LaneUsageCont::iterator j=_laneCont.begin();
+//                 j!=_laneCont.end(); j++) {
+//                 double tmp = (*j).second->getValue(range.first);
+//                 if(tmp<0) {
+//                     tmp = _dist / _speed;
+//                 }
+//                 currValue += tmp;
+//             }
+            
+//             currValue = currValue / _laneCont.size();
+//             _ownValueLine.addValue(range, currValue);
+//         }
+        // get the number of the ValuedTimeRanges that are in the
+        // container associated to the first lane. We assume, that all
+        // lanes have the same number of ValuedTimeRanges and that the
+        // ranges are identical.
+        assert( _laneCont.size() > 0 );
+        FloatValueTimeLine* firstLanesValueTimeLines =
+            (*(_laneCont.begin())).second;
+        unsigned nValuedTimeRanges =
+            firstLanesValueTimeLines->noDefinitions();
+        FloatValueTimeLine::TimeRange range;
+
+        // Assign the mean-value of the lane's values of the current
+        // range to the edge's value of the same range.
+        for( unsigned index = 0; index < nValuedTimeRanges; ++index ) {
+            range = firstLanesValueTimeLines->getRangeAtPosition( index );
+            double valueSum = 0;
+            for( LaneUsageCont::iterator lane = _laneCont.begin();
+                 lane != _laneCont.end(); ++lane ) {
+                double value = lane->second->getValue( range.first );
+                if ( value < 0 ) {
+                    value = _dist / _speed; // default traveltime
                 }
-                currValue += tmp;
+                valueSum += value;
             }
-            currValue = currValue / noLanes;
-            _ownValueLine.addValue(range, currValue);
+            _ownValueLine.addValue( range, valueSum / _laneCont.size() );
         }
     }
     // save the id
