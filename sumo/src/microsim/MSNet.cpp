@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.38  2003/10/01 11:31:22  dkrajzew
+// globaltime is now always set
+//
 // Revision 1.37  2003/09/23 14:21:31  dkrajzew
 // removed some dead code
 //
@@ -539,9 +542,9 @@ void
 MSNet::simulationStep( ostream *craw, Time start, Time step )
 {
     myStep = step;
-#ifdef _DEBUG
+//#ifdef _DEBUG
     globaltime = myStep;
-#endif
+//#endif
 #ifdef ABS_DEBUG
     globaltime = myStep;
 #endif
