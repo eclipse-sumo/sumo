@@ -1,7 +1,7 @@
 noinst_LIBRARIES = libmicrosim.a
 
 
-EXTRA_DIST = MSBitSetLogic.cpp 
+EXTRA_DIST = MSBitSetLogic.cpp
 
 libmicrosim_a_SOURCES = \
 MSActuatedTrafficLightLogic.cpp \
@@ -147,7 +147,7 @@ MSTDDetectorInterface.h \
 MSTLLogicControl.h \
 MSTrafficLightLogic.h \
 MSTravelcostDetector.h \
-MSTrigger.h \
+MSTrigger.h MSTrigger.cpp \
 MSTriggeredReader.h \
 MSTriggeredSource.h \
 MSTriggeredSourceXMLHandler.h \
@@ -160,9 +160,10 @@ MSVehicleContainer.h \
 MSVehicleControl.h \
 MSVehicleTransfer.h \
 MSVehicleType.h \
-MS_E2_ZS_CollectorOverLanes.h
+MS_E2_ZS_CollectorOverLanes.h \
+MSInterface_NetRun.h
 
-SUBDIRS = actions logging
+SUBDIRS = actions logging output
 
 AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
 -I$(top_srcdir)/src/helpers \
