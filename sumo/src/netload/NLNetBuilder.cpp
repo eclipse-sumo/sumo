@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/11/24 10:17:03  dkrajzew
+// removed some dead code
+//
 // Revision 1.11  2003/10/22 15:47:44  dkrajzew
 // we have to distinct between two teleporter versions now
 //
@@ -118,7 +121,6 @@ namespace
 #include <microsim/MSEmitControl.h>
 #include <microsim/MSGlobals.h>
 #include <iostream>
-//#include <strstream>
 #include <vector>
 #include <parsers/SAXParser.hpp>
 #include <sax2/SAX2XMLReader.hpp>
@@ -138,10 +140,12 @@ namespace
 #include <utils/convert/TplConvert.h>
 #include <utils/common/FileHelpers.h>
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions
@@ -159,8 +163,6 @@ NLNetBuilder::NLNetBuilder(const OptionsCont &oc, MSVehicleTransfer *tr)
         oc.getString("dump-basename")/*,
         false*/);
 }
-
-
 
 
 NLNetBuilder::~NLNetBuilder()
@@ -184,12 +186,6 @@ NLNetBuilder::buildMSNet()
         new NLNetHandler("", *container);
     bool ok = load(handler, *parser);
     subreport("Loading done.", "Loading failed.");
-/*    // prepare for building of route readers
-    string route_files = "";
-    if(m_pOptions.isSet("r")) {
-        route_files = m_pOptions.getString("r");
-    }
-	*/
     // try to build a net
     if(!MsgHandler::getErrorInstance()->wasInformed()) {
         net = container->buildMSNet(m_pOptions);
