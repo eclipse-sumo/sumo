@@ -1,1 +1,2 @@
-SUBDIRS = dos
+SUBDIRS = dos \
+unix
