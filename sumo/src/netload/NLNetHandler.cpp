@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.43  2004/02/02 16:18:32  dkrajzew
+// a first try to patch the error on loading internal links when theyre not wished
+//
 // Revision 1.42  2004/01/27 10:32:25  dkrajzew
 // patched some linux-warnings
 //
@@ -976,10 +979,9 @@ NLNetHandler::allocateEdges(const std::string &chars)
     while(idx!=string::npos) {
         string edgeid = chars.substr(beg, idx-beg);
         // skip internal edges if not wished
-        if(!MSGlobals::myUsingInternalLanes&&edgeid[0]==':') {
-            continue;
+        if(MSGlobals::myUsingInternalLanes||edgeid[0]!=':') {
+            myContainer.addEdge(edgeid);
         }
-        myContainer.addEdge(edgeid);
         beg = idx + 1;
         idx = chars.find(' ', beg);
     }
