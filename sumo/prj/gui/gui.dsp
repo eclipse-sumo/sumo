@@ -233,6 +233,10 @@ SOURCE=..\..\src\gui\moc_GUIViewTraffic.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\moc_QAboutSUMO.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\moc_QGUIImageField.cpp
 # End Source File
 # Begin Source File
@@ -430,6 +434,10 @@ SOURCE=..\..\src\helpers\PreStartInitialised.cpp
 # Begin Source File
 
 SOURCE=..\..\src\utils\dev\profile.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\QAboutSUMO.cpp
 # End Source File
 # Begin Source File
 
@@ -958,6 +966,33 @@ SOURCE=..\..\src\utils\geom\Position2D.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\dev\profile.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\QAboutSUMO.h
+
+!IF  "$(CFG)" == "gui - Win32 Release"
+
+# Begin Custom Build - Moc'ing QAboutSUMO.h...
+InputPath=..\..\src\gui\QAboutSUMO.h
+
+"..\..\src\gui\moc_QAboutSUMO.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\QAboutSUMO.h -o ..\..\src\gui\moc_QAboutSUMO.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "gui - Win32 Debug"
+
+# Begin Custom Build - Moc'ing QAboutSUMO.h...
+InputPath=..\..\src\gui\QAboutSUMO.h
+
+"..\..\src\gui\moc_QAboutSUMO.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\QAboutSUMO.h -o ..\..\src\gui\moc_QAboutSUMO.cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
