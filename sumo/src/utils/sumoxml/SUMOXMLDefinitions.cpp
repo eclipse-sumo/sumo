@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/07/30 09:28:40  dkrajzew
+// link direction and priority attribute names added
+//
 // Revision 1.12  2003/07/16 15:39:39  dkrajzew
 // color attribute added
 //
@@ -111,9 +114,9 @@ GenericSAX2Handler::Tag sumotags[38] =
       { "shape",            SUMO_TAG_SHAPE }
 };
 
-size_t noSumoAttrs = 60;
+size_t noSumoAttrs = 62;
 
-AttributesHandler::Attr sumoattrs[60] =
+AttributesHandler::Attr sumoattrs[62] =
 {
 	{ "id",             SUMO_ATTR_ID },
     { "name",           SUMO_ATTR_NAME },
@@ -174,7 +177,9 @@ AttributesHandler::Attr sumoattrs[60] =
     { "linkno",         SUMO_ATTR_TLLINKNO },
     { "shape",          SUMO_ATTR_SHAPE },
     { "spread_type",    SUMO_ATTR_SPREADFUNC },
-    { "color",          SUMO_ATTR_COLOR }
+    { "color",          SUMO_ATTR_COLOR },
+    { "dir",            SUMO_ATTR_DIR },
+    { "state",          SUMO_ATTR_STATE }
 };
 
 

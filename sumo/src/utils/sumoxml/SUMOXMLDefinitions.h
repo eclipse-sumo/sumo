@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2003/07/30 09:28:40  dkrajzew
+// link direction and priority attribute names added
+//
 // Revision 1.13  2003/07/16 15:39:39  dkrajzew
 // color attribute added
 //
@@ -238,7 +241,11 @@ enum AttrEnum
     /// The information about how to spread the lanes from the given position
     SUMO_ATTR_SPREADFUNC,
     /// A color information
-    SUMO_ATTR_COLOR
+    SUMO_ATTR_COLOR,
+    /// The abstract direction of a link
+    SUMO_ATTR_DIR,
+    /// The state of a link
+    SUMO_ATTR_STATE
 };
 
 
@@ -253,7 +260,7 @@ extern GenericSAX2Handler::Tag sumotags[38];
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[60];
+extern AttributesHandler::Attr sumoattrs[62];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
