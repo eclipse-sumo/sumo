@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/03/18 13:07:23  dkrajzew
+// usage of node position within xml-edge descriptions allowed
+//
 // Revision 1.5  2003/03/12 16:47:55  dkrajzew
 // extension for artemis-import
 //
@@ -264,6 +267,7 @@ NBOptionsIO::checkNodes(OptionsCont *oc)
 {
     // check the existance of a name for the nodes file
     if( oc->isSet("n") ||
+        oc->isSet("e") ||
         oc->isSet("cell-nodes") ||
         oc->isSet("visum") ||
         oc->isSet("vissim") ||

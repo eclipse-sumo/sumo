@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/18 13:08:30  dkrajzew
+// usage of node position within xml-edge descriptions allowed
+//
 // Revision 1.2  2003/02/13 15:55:15  dkrajzew
 // xml-loaders now use new options
 //
@@ -237,8 +240,19 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
             if(xb!=-1.0 && xe!=-1.0 && ye!=-1.0 && yb!=-1.0 && from=="" && to=="") {
                 fromNode = NBNodeCont::retrieve(xb, yb);
                 toNode = NBNodeCont::retrieve(xe, ye);
-                if(fromNode!=0 && toNode!=0)
-                  coherent = true;
+                if(fromNode!=0 && toNode!=0) {
+                    coherent = true;
+                } else {
+                    if(fromNode==0) {
+                        fromNode = new NBNode(NBNodeCont::getFreeID(), xb, yb);
+                        NBNodeCont::insert(fromNode);
+                    }
+                    if(toNode==0) {
+                        toNode = new NBNode(NBNodeCont::getFreeID(), xe, ye);
+                        NBNodeCont::insert(toNode);
+                    }
+                    coherent = true;
+                }
             } else {
                 fromNode = NBNodeCont::retrieve(from);
                 toNode = NBNodeCont::retrieve(to);

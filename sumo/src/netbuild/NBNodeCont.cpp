@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/03/18 13:07:23  dkrajzew
+// usage of node position within xml-edge descriptions allowed
+//
 // Revision 1.7  2003/03/17 14:22:33  dkrajzew
 // further debug and windows eol removed
 //
@@ -84,6 +87,7 @@ namespace
 #include <algorithm>
 #include <strstream>
 #include <utils/geom/Boundery.h>
+#include <utils/convert/ToString.h>
 #include "NBNodeCont.h"
 #include "NBEdgeCont.h"
 #include "NBJunctionLogicCont.h"
@@ -367,6 +371,12 @@ NBNodeCont::searchEdgeInNode(string nodeid, string edgeid)
         int bla = 0;
     }
 
+}
+
+std::string 
+NBNodeCont::getFreeID()
+{
+    return "SUMOGenerated" + toString<int>(getNo());
 }
 
 

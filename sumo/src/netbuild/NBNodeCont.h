@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2003/03/18 13:07:23  dkrajzew
+// usage of node position within xml-edge descriptions allowed
+//
 // Revision 1.6  2003/03/06 17:18:43  dkrajzew
 // debugging during vissim implementation
 //
@@ -153,6 +156,8 @@ public:
     static bool removeDummyEdges(bool verbose);
 
     static void searchEdgeInNode(std::string nodeid, std::string edgeid);
+
+    static std::string getFreeID();
 
 
 private:
