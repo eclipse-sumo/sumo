@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/12/16 12:26:52  dkrajzew
+// debugging
+//
 // Revision 1.2  2004/07/02 09:40:36  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing (lane index added)
 //
@@ -69,7 +72,7 @@ public:
     void addFollower(ROEdge *s);
 
     /// adds the information about the percentage of using a certain follower
-    void addFollowerPropability(ROJPEdge *follower,
+    void addFollowerProbability(ROJPEdge *follower,
         unsigned int begTime, unsigned int endTime, float percentage);
 
     /// Returns the next edge to use

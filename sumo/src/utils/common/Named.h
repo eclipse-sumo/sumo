@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/12/16 12:18:02  dkrajzew
+// debugging
+//
 // Revision 1.4  2004/11/23 10:27:45  dkrajzew
 // debugging
 //
@@ -55,7 +58,7 @@ public:
     virtual ~Named() { }
 
     /// Returns the name
-    std::string getID() const { return _id; }
+    const std::string &getID() const { return _id; }
 
 protected:
     /// The name of the object

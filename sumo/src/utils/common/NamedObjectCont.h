@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2004/12/16 12:18:02  dkrajzew
+// debugging
+//
 // Revision 1.10  2004/11/23 10:27:45  dkrajzew
 // debugging
 //
@@ -98,7 +101,7 @@ public:
     size_t size() const;
 
     /// Removes the named item from the container
-    void erase(const std::string &id);
+    bool erase(const std::string &id);
 
     /* @brief Returns a vector that contains all objects. */
     const std::vector<T> &getVector() const;

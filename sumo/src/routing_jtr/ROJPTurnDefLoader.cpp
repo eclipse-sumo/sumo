@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/12/16 12:26:52  dkrajzew
+// debugging
+//
 // Revision 1.3  2004/11/23 10:26:59  dkrajzew
 // debugging
 //
@@ -192,7 +195,7 @@ ROJPTurnDefLoader::report(const std::string &line)
                     string("The attribute 'perc' is not numeric."));
                 return false;
             }
-            myEdge->addFollowerPropability(edge,
+            myEdge->addFollowerProbability(edge,
                 myIntervalBegin, myIntervalEnd, perc);
         } catch (InvalidArgument &) {
             return false;
@@ -294,7 +297,7 @@ ROJPTurnDefLoader::addToEdge(const Attributes &attrs)
     }
     try {
         float perc = getFloat(attrs, SUMO_ATTR_PERC);
-        myEdge->addFollowerPropability(edge, myIntervalBegin, myIntervalEnd, perc);
+        myEdge->addFollowerProbability(edge, myIntervalBegin, myIntervalEnd, perc);
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             string("The attribute 'perc' is not numeric ('")

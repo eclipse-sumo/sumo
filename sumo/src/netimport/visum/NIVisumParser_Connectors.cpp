@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2004/12/16 12:24:03  dkrajzew
+// debugging
+//
 // Revision 1.9  2004/11/23 10:23:51  dkrajzew
 // debugging
 //
@@ -148,7 +151,7 @@ NIVisumParser_Connectors::myDependentReport()
                 return;
             }
             NBEdge *edge = new NBEdge(id, id, src, dest, "VisumConnector",
-                100, 3/*nolanes*/, 20000.0, prio, NBEdge::LANESPREAD_RIGHT,
+                100, 3/*nolanes*/, 1000.0, prio, NBEdge::LANESPREAD_RIGHT,
                 NBEdge::EDGEFUNCTION_SOURCE);
             if(!NBEdgeCont::insert(edge)) {
                 addError(
@@ -170,7 +173,7 @@ NIVisumParser_Connectors::myDependentReport()
             }
             id = string("-") + id;
             NBEdge *edge = new NBEdge(id, id, dest, src, "VisumConnector",
-                100, 3/*nolanes*/, 20000.0, prio, NBEdge::LANESPREAD_RIGHT,
+                100, 3/*nolanes*/, 1000.0, prio, NBEdge::LANESPREAD_RIGHT,
                 NBEdge::EDGEFUNCTION_SINK);
             if(!NBEdgeCont::insert(edge)) {
                 addError(

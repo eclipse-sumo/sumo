@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2004/12/16 12:26:52  dkrajzew
+// debugging
+//
 // Revision 1.20  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -435,7 +438,9 @@ void
 RONet::removeRouteSecure(RORouteDef *route)
 {
     // !!! later, a counter should be used to keep computed routes in the memory
-    _routes.erase(route->getID());
+    if(!_routes.erase(route->getID())) {
+        cout << "Could not remove " << route->getID() << endl;
+	}
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/12/16 12:24:45  dkrajzew
+// debugging
+//
 // Revision 1.5  2004/11/23 10:20:10  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -142,7 +145,7 @@ MSRoute::clear()
 
 
 void
-MSRoute::erase(const std::string &id)
+MSRoute::erase(std::string id)
 {
     RouteDict::iterator i=myDict.find(id);
     assert(i!=myDict.end());

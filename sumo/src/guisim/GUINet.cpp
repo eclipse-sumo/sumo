@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.38  2004/12/16 12:20:09  dkrajzew
+// debugging
+//
 // Revision 1.37  2004/11/25 16:26:47  dkrajzew
 // consolidated and debugged some detectors and their usage
 //
@@ -372,6 +375,19 @@ GUINet::getVehiclePosition(const std::string &name, bool useCenter) const
     return edge->getLanePosition(vehicle->getLane(), pos);
 }
 
+bool
+GUINet::hasPosition(GUIVehicle *vehicle) const
+{
+    const GUIEdge * const edge =
+        static_cast<const GUIEdge * const>(vehicle->getEdge());
+    if(edge==0) {
+        return false;
+    }
+	if(&(vehicle->getLane())==0) {
+        return false;
+	}
+    return true;
+}
 
 bool
 GUINet::vehicleExists(const std::string &name) const
@@ -440,6 +456,14 @@ GUINet::closeBuilding(const NLNetBuilder &nb)
     // get the boundary
     _boundary = _grid.getBoundary();
 }
+
+#ifdef NETWORKING_BLA
+
+void
+GUINet::networking(MSNet::Time startTimeStep, MSNet::Time currentStep)
+{
+}
+#endif
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

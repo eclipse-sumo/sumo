@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/12/16 12:24:45  dkrajzew
+// debugging
+//
 // Revision 1.6  2004/11/23 10:20:10  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -110,7 +113,7 @@ public:
     static void clear();
 
     /// Destroys the named route, removing it also from the dictionary
-    static void erase(const std::string &id);
+    static void erase(std::string id);
 
     MSRouteIterator find(MSEdge *e) const;
 

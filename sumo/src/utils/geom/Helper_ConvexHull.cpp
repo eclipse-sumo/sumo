@@ -12,10 +12,18 @@
 //    Position2D with coordinates {float x, y;}
 //===================================================================
 
+#include <utils/common/UtilExceptions.h>
+#include <iostream>
+
+using namespace std;
+
 
 Position2DVector
 simpleHull_2D(const Position2DVector &V)
 {
+    if(V.size()<3) {
+        throw ProcessError();
+    }
     // initialize a deque D[] from bottom to top so that the
     // 1st three vertices of V[] are a counterclockwise triangle
     int n = V.size();
@@ -34,27 +42,52 @@ simpleHull_2D(const Position2DVector &V)
     // compute the hull on the deque D[]
     for (int i=3; i < n; i++) {   // process the rest of vertices
         // test if next vertex is inside the deque hull
+        if(bot>=D.size()||top-1>=D.size()||i>=V.size()) {
+            throw ProcessError();
+        }
         if ((isLeft(D[bot], D[bot+1], V.at(i)) > 0) &&
             (isLeft(D[top-1], D[top], V.at(i)) > 0) )
                 continue;         // skip an interior vertex
 
         // incrementally add an exterior vertex to the deque hull
         // get the rightmost tangent at the deque bot
-        while (isLeft(D[bot], D[bot+1], V.at(i)) <= 0)
+        while (isLeft(D[bot], D[bot+1], V.at(i)) <= 0) {
             ++bot;                // remove bot of deque
+            if(bot>=D.size()) {
+                throw ProcessError();
+            }
+        }
+        if(bot==0) {
+            throw ProcessError();
+        }
         D[--bot] = V.at(i);          // insert V[i] at bot of deque
 
+        if(top==0||top>=D.size()) {
+            throw ProcessError();
+        }
         // get the leftmost tangent at the deque top
-        while (isLeft(D[top-1], D[top], V.at(i)) <= 0)
+        while (isLeft(D[top-1], D[top], V.at(i)) <= 0) {
             --top;                // pop top of deque
+            if(top==0||top>=D.size()) {
+                throw ProcessError();
+            }
+        }
+
+        if(top+1>=D.size()) {
+            throw ProcessError();
+        }
         D[++top] = V.at(i);          // push V[i] onto top of deque
     }
 
     // transcribe deque D[] to the output hull array H[]
     int h;        // hull vertex counter
-    Position2DVector H;
-    for (h=0; h <= (top-bot); h++)
+	Position2DVector H;
+    for (h=0; h <= (top-bot); h++) {
+        if(bot + h>=D.size()) {
+            throw ProcessError();
+        }
         H.push_back(D[bot + h]);
+    }
     return H;
 }
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/12/16 12:21:39  dkrajzew
+// debugging
+//
 // Revision 1.1  2004/11/23 10:38:30  dkrajzew
 // debugging
 //
@@ -60,7 +63,10 @@ public:
         ER_END_STEP_REACHED,
 
         /// The simulation has ended due to an error
-        ER_ERROR_IN_SIM
+        ER_ERROR_IN_SIM,
+
+        /// Someone else has forced the simulation to quit
+        ER_FORCED
 
     };
 

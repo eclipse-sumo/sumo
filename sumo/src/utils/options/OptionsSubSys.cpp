@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/12/16 12:18:39  dkrajzew
+// debugging
+//
 // Revision 1.3  2004/11/23 10:36:02  dkrajzew
 // debugging
 //
@@ -69,7 +72,7 @@ OptionsSubSys::init(bool loadConfig, int argc, char **argv,
             return false;
         }
         // check whether the settings shall be printed
-        if(myOptions.getBool("p")) {
+        if(myOptions.getBool("print-options")) {
             cout << myOptions;
         }
         // check the settings

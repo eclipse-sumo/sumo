@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/12/16 12:17:03  dkrajzew
+// debugging
+//
 // Revision 1.7  2004/12/15 09:20:18  dkrajzew
 // made guisim independent of giant/netedit
 //
@@ -96,7 +99,7 @@ namespace
 #include <gui/dialogs/GUIDialog_AppSettings.h>
 #include <gui/dialogs/GUIDialog_SimSettings.h>
 #include <gui/dialogs/GUIDialog_MicroViewSettings.h>
-#include <gui/dialogs/GUIDialog_GLChosenEditor.h>
+#include <utils/gui/div/GUIDialog_GLChosenEditor.h>
 #include <gui/dialogs/GUIDialog_EditAddWeights.h>
 #include <gui/dialogs/GUIDialog_Breakpoints.h>
 #include <gui/GUIThreadFactory.h>
@@ -105,7 +108,7 @@ namespace
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <guisim/GUINetWrapper.h>
 #include "GNEViewParent.h"
-
+#include <utils/gui/div/GUIGlobalSelection.h>
 
 #include <netbuild/NBEdge.h>
 #include <netbuild/nodes/NBNode.h>
@@ -615,7 +618,7 @@ GNEApplicationWindow::fillToolBar()
     mySimDelayTarget->setFormatString("%.0fms");
     mySimDelayTarget->setIncrements(1,10,10);
     mySimDelayTarget->setRange(0,1000);
-    mySimDelayTarget->setValue(50);
+    mySimDelayTarget->setValue(0);
 
     new FXToolBarGrip(myToolBar,NULL,0,TOOLBARGRIP_SEPARATOR);
 
@@ -1049,7 +1052,7 @@ long
 GNEApplicationWindow::onCmdEditChosen(FXObject*,FXSelector,void*)
 {
     GUIDialog_GLChosenEditor *chooser =
-        new GUIDialog_GLChosenEditor(this);
+        new GUIDialog_GLChosenEditor(this, &gSelected);
     chooser->create();
     chooser->show();
     return 1;

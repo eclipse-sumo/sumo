@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/12/16 12:26:52  dkrajzew
+// debugging
+//
 // Revision 1.4  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -143,24 +146,40 @@ void RORDLoader_SUMOAlt::myStartElement(int element,
 void
 RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
 {
-    if(_currentAlternatives==0) {
-        MsgHandler::getErrorInstance()->inform(
-            "Route declaration without an alternatives container occured.");
-        return;
-    }
-    // try to get the costs
-    _cost = getFloatSecure(attrs, SUMO_ATTR_COST, -1);
-    if(_cost<0) {
+    try {
+        if(_currentAlternatives==0) {
+            MsgHandler::getErrorInstance()->inform(
+                "Route declaration without an alternatives container occured.");
+            return;
+        }
+        // try to get the costs
+        _cost = getFloatSecure(attrs, SUMO_ATTR_COST, -1);
+        if(_cost<0) {
+            MsgHandler::getErrorInstance()->inform(
+                string("Invalid cost in alternative for route '")
+                + _currentAlternatives->getID() + string("'."));
+            return;
+        }
+    } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform(
             string("Invalid cost in alternative for route '")
             + _currentAlternatives->getID() + string("'."));
         return;
     }
-    // try to get the propability
-    _prob = getFloatSecure(attrs, SUMO_ATTR_PROP, -10000);
-    if(_prob<0) {
+    // try to get the probability
+    try {
+        _prob = getFloatSecure(attrs, SUMO_ATTR_PROP, -10000);
+        if(_prob<0) {
+            MsgHandler::getErrorInstance()->inform(
+                string("Invalid probability in alternative for route '")
+                + _currentAlternatives->getID() + string("' (")
+                + toString<double>(_prob)
+                + string(")."));
+            return;
+        }
+    } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform(
-            string("Invalid propability in alternative for route '")
+            string("Invalid probability in alternative for route '")
             + _currentAlternatives->getID() + string("' (")
             + toString<double>(_prob)
             + string(")."));

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/12/16 12:26:52  dkrajzew
+// debugging
+//
 // Revision 1.2  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -204,7 +207,8 @@ RORDLoader_SUMOBase::startVehicle(const Attributes &attrs)
     int repNumber = getIntSecure(attrs, SUMO_ATTR_REPNUMBER, -1);
     if(!MsgHandler::getErrorInstance()->wasInformed()) {
         if(myDepartureTime<myBegin||myDepartureTime>=myEnd) {
-            delete route;
+			_net.removeRouteSecure(route);
+			// !!! was ist mit type?
             return;
         }
         _net.addVehicle(id, myVehicleBuilder.buildVehicle(

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/12/16 12:26:52  dkrajzew
+// debugging
+//
 // Revision 1.3  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -216,12 +219,12 @@ RORouteDef_Alternatives::addAlternative(RORoute *current, long begin)
         }
         if(_newRoute) {
             if((*i)!=current) {
-                alt->setPropability(
-                    alt->getPropability()
+                alt->setProbability(
+                    alt->getProbability()
                     * double(_alternatives.size()-1)
                     / double(_alternatives.size()));
             } else {
-                alt->setPropability(1.0 / double(_alternatives.size()));
+                alt->setProbability(1.0 / double(_alternatives.size()));
             }
         }
     }
@@ -236,21 +239,21 @@ RORouteDef_Alternatives::addAlternative(RORoute *current, long begin)
                 (pS->getCosts() - pR->getCosts()) /
                 (pS->getCosts() + pR->getCosts());
             // see [Gawron, 1998] (4.3a, 4.3b)
-            double newPR = gawronF(pR->getPropability(), pS->getPropability(), delta);
-            double newPS = pR->getPropability() + pS->getPropability() - newPR;
+            double newPR = gawronF(pR->getProbability(), pS->getProbability(), delta);
+            double newPS = pR->getProbability() + pS->getProbability() - newPR;
             if(newPR<0.0001) {
                 newPR = 0.0001;
             }
             if(newPS<0.0001) {
                 newPS = 0.0001;
             }
-            pR->setPropability(newPR);
-            pS->setPropability(newPS);
+            pR->setProbability(newPR);
+            pS->setProbability(newPS);
         }
     }
     // remove with propability of 0 (not mentioned in Gawron)
     for(i=_alternatives.begin(); i!=_alternatives.end(); ) {
-        if((*i)->getPropability()==0) {
+        if((*i)->getProbability()==0) {
             i = _alternatives.erase(i);
         } else {
             i++;
@@ -261,7 +264,7 @@ RORouteDef_Alternatives::addAlternative(RORoute *current, long begin)
         ( static_cast<double>(RAND_MAX) + 1);
     size_t pos = 0;
     for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++, pos++) {
-        chosen = chosen - (*i)->getPropability();
+        chosen = chosen - (*i)->getProbability();
         if(chosen<=0) {
             _lastUsed = pos;
             return;
@@ -302,7 +305,7 @@ RORouteDef_Alternatives::xmlOutAlternatives(std::ostream &os) const
     for(size_t i=0; i!=_alternatives.size(); i++) {
         RORoute *alt = _alternatives[i];
         os << "      <route cost=\"" << alt->getCosts()
-            << "\" propability=\"" << alt->getPropability()
+            << "\" probability=\"" << alt->getProbability()
             << "\">";
         alt->xmlOutEdges(os);
         os << "</route>" << endl;
@@ -363,12 +366,12 @@ RORouteDef_Alternatives::addExplicite(RORoute *current, long begin)
         }
         if(_newRoute) {
             if((*i)!=current) {
-                alt->setPropability(
-                    alt->getPropability()
+                alt->setProbability(
+                    alt->getProbability()
                     * double(_alternatives.size()-1)
                     / double(_alternatives.size()));
             } else {
-                alt->setPropability(1.0 / double(_alternatives.size()));
+                alt->setProbability(1.0 / double(_alternatives.size()));
             }
         }
     }
@@ -383,21 +386,25 @@ RORouteDef_Alternatives::addExplicite(RORoute *current, long begin)
                 (pS->getCosts() - pR->getCosts()) /
                 (pS->getCosts() + pR->getCosts());
             // see [Gawron, 1998] (4.3a, 4.3b)
-            double newPR = gawronF(pR->getPropability(), pS->getPropability(), delta);
-            double newPS = pR->getPropability() + pS->getPropability() - newPR;
+            double newPR = gawronF(pR->getProbability(), pS->getProbability(), delta);
+            if(newPR>1||newPR<0) {
+                cout << "Caught strange PR:" << newPR << endl;
+                newPR = 1.0;
+            }
+            double newPS = pR->getProbability() + pS->getProbability() - newPR;
             if(newPR<0.0001) {
                 newPR = 0.0001;
             }
             if(newPS<0.0001) {
                 newPS = 0.0001;
             }
-            pR->setPropability(newPR);
-            pS->setPropability(newPS);
+            pR->setProbability(newPR);
+            pS->setProbability(newPS);
         }
     }
     // remove with propability of 0 (not mentioned in Gawron)
     for(i=_alternatives.begin(); i!=_alternatives.end(); ) {
-        if((*i)->getPropability()==0) {
+        if((*i)->getProbability()==0) {
             i = _alternatives.erase(i);
         } else {
             i++;

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.29  2004/12/16 12:20:09  dkrajzew
+// debugging
+//
 // Revision 1.28  2004/11/25 16:26:47  dkrajzew
 // consolidated and debugged some detectors and their usage
 //
@@ -135,6 +138,7 @@ class GUITrafficLightLogicWrapper;
 class RGBColor;
 class GUIEdge;
 class OutputDevice;
+class GUIVehicle;
 
 
 /* =========================================================================
@@ -205,6 +209,8 @@ public:
     friend class GUIGridBuilder;
 
     virtual void closeBuilding(const NLNetBuilder &nb);
+	bool hasPosition(GUIVehicle *v) const;
+	void networking(MSNet::Time startTimeStep, MSNet::Time currentStep);
 
 private:
     /// Initialises the detector wrappers

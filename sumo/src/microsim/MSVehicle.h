@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.39  2004/12/16 12:24:45  dkrajzew
+// debugging
+//
 // Revision 1.38  2004/11/23 10:20:11  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -456,6 +459,13 @@ public:
     /** Returns the distance-difference between driving at constant
         speed and maximum braking in one timestep. */
     double decelDist() const;
+
+	// -----------------------------
+
+
+
+	void interactWith(const std::vector<MSVehicle*> &vehicles);
+	// -----------------------------
 
     /// Return the vehicles state after maximum acceleration.
     State accelState( const MSLane* lane ) const;

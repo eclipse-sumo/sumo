@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2004/12/16 12:20:09  dkrajzew
+// debugging
+//
 // Revision 1.17  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -116,8 +119,33 @@ public:
     /// Returns the type of the object as coded in GUIGlObjectType
     GUIGlObjectType getType() const;
 
+#ifdef NETWORKING_BLA
+    struct networking_EdgeTimeInformation {
+        MSEdge *edge;
+        size_t time;
+        float val;
+    };
+	void addEdgeTimeInfo(const GUIVehicle::networking_EdgeTimeInformation &ei);
+
+	void networking_KnowsAbout(GUIVehicle *v2, MSNet::Time t);
+    void networking_Begin();
+    void networking_End();
+    const std::vector<networking_EdgeTimeInformation> &
+        networking_GetKnownEdges();
+    bool networking_hasDevice();
+#endif
+
     /// returns the id of the object as known to microsim
     std::string microsimID() const;
+
+
+#ifdef NETWORKING_BLA
+    virtual void enterLaneAtMove( MSLane* enteredLane, double driven );
+
+    /** Update of members if vehicle enters a new lane in the emit step.
+        @param Pointer to the entered Lane. */
+    virtual void enterLaneAtEmit( MSLane* enteredLane );
+#endif
 
     /** Returns the list of all known junctions as their names */
     static std::vector<std::string> getNames();
@@ -237,6 +265,8 @@ private:
     /// dark grey
     static RGBColor _laneChangeColor2;
 
+#ifdef NETWORKING_BLA
+#endif
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

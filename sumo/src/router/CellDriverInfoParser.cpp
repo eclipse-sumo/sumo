@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/12/16 12:26:52  dkrajzew
+// debugging
+//
 // Revision 1.5  2004/01/26 08:01:10  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -176,7 +179,7 @@ CellDriverInfoParser::getAlternativeCost(size_t pos) const
 
 
 double
-CellDriverInfoParser::getAlternativePropability(size_t pos) const
+CellDriverInfoParser::getAlternativeProbability(size_t pos) const
 {
     return _driver.p[pos];
 }

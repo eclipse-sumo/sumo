@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.58  2004/12/16 12:24:45  dkrajzew
+// debugging
+//
 // Revision 1.57  2004/11/23 10:20:10  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -537,9 +540,6 @@ MSVehicle::State::State( double pos, double speed ) :
  * ----------------------------------------------------------------------- */
 MSVehicle::~MSVehicle()
 {
-    if(myID=="54086") {
-        int bla = 0;
-    }
     for(QuitRemindedVector::iterator i=myQuitReminded.begin(); i!=myQuitReminded.end(); ++i) {
         (*i)->removeOnTripEnd(this);
     }
@@ -1207,7 +1207,6 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
             return;
         }
         vLinkWait = vLinkPass; // the link was passed
-        assert(!myLane->isLinkEnd(link));
         // if the vehicle drives over the end of the lane, inform the link
 
         // get the following lane
@@ -2381,6 +2380,11 @@ MSVehicle::writeXMLRoute(std::ostream &os, int index) const
     // write the route
     route2Write->writeEdgeIDs(os);
     os << "</route>" << endl;
+}
+
+void
+MSVehicle::interactWith(const std::vector<MSVehicle*> &vehicles)
+{
 }
 
 

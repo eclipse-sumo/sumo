@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/12/16 12:21:38  dkrajzew
+// debugging
+//
 // Revision 1.2  2004/11/29 09:22:58  dkrajzew
 // possibility to save the timeline added
 //
@@ -472,8 +475,9 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     // init values
     double xStep = 2.0 / ((double) values.size());
     std::vector<float>::const_iterator i = values.begin();
-    double yp = (*i++);
+    double yp = (*i);
     double xp = 0;
+    i++;
     // draw lines
     glBegin( GL_LINES );
     // set color

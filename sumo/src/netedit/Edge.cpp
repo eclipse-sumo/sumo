@@ -85,7 +85,7 @@ Edge::SetSpeed(int sp)
 double Edge::Setlength()
 {
 	double ergebnis;
-	
+
 	Vertex* ptemp = starting;
 	Vertex* qtemp = ending;
 	int x1 = ptemp->GetX();
@@ -99,17 +99,17 @@ double Edge::Setlength()
 		distanz_x=x2-x1;
 	}
 	else distanz_x=x1-x2;
-	
+
 
 
 	if(y2>y1){
 		distanz_y=y2-y1;
 	}
 	else distanz_y=y1-y2;
-	
-	ergebnis=sqrt((distanz_x * distanz_x) + (distanz_y *distanz_y));
-	
-	
+
+	ergebnis=sqrt((double) ((distanz_x * distanz_x) + (distanz_y *distanz_y)));
+
+
 	return ergebnis;
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2004/12/16 12:20:09  dkrajzew
+// debugging
+//
 // Revision 1.26  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -212,6 +215,13 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdHideCurrentRoute(FXObject*,FXSelector,void
     return 1;
 }
 
+#ifdef NETWORKING_BLA
+ofstream networking_endOut("end.txt");
+ofstream networking_stepOut("step.txt");
+ofstream networking_knownOut("known.txt");
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
+#endif
 
 /* =========================================================================
  * method definitions
@@ -226,6 +236,9 @@ GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
                        const RGBColor &color)
     : MSVehicle(id, route, departTime, type, noMeanData, repNo, repOffset),
     GUIGlObject(idStorage, string("vehicle:")+id), myDefinedColor(color)
+#ifdef NETWROKING_BLA
+    ,networking_globalConns(0)
+#endif
 {
     // compute both random colors
     //  color1
@@ -248,11 +261,31 @@ GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
     // lane change color (static!!!)
     _laneChangeColor1 = RGBColor(1, 1, 1);
     _laneChangeColor2 = RGBColor(0.7, 0.7, 0.7);
+
+#ifdef NETWORKING_BLA
+    float prob = OptionsSubSys::getOptions().getFloat("device");
+    if(prob>(double) rand() / (double) RAND_MAX) {
+        networking_HaveDevice = true;
+    } else {
+        networking_HaveDevice = false;
+    }
+    if(id==OptionsSubSys::getOptions().getString("knownveh")) {
+        networking_HaveDevice = true;
+    }
+#endif
 }
 
 
 GUIVehicle::~GUIVehicle()
 {
+#ifdef NETWORKING_BLA
+    if(networking_HaveDevice) {
+        networking_endOut
+            << id() << ";" << MSNet::globaltime << ";"
+            << networking_myKnownEdges.size() << ";"
+			<< networking_globalConns << endl;
+    }
+#endif
 }
 
 
@@ -469,6 +502,11 @@ GUIVehicle::getCenteringBoundary() const
 {
 	throw 1;
 }
+
+#ifdef NETWORKING_BLA
+
+
+#endif
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

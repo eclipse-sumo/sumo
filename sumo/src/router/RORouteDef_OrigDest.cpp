@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/12/16 12:26:52  dkrajzew
+// debugging
+//
 // Revision 1.3  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -150,7 +153,7 @@ RORouteDef_OrigDest::xmlOutAlternatives(std::ostream &altres) const
     altres << "   <routealt id=\"" << _current->getID()
         << "\" last=\"0\">" << endl;
     altres << "      <route cost=\"" << _current->recomputeCosts(_startTime)
-        << "\" propability=\"1\">";
+        << "\" probability=\"1\">";
     _current->xmlOutEdges(altres);
     altres << "</route>" << endl;
     altres << "   </routealt>" << endl;

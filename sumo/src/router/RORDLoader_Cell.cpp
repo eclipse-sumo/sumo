@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/12/16 12:26:52  dkrajzew
+// debugging
+//
 // Revision 1.5  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -194,7 +197,7 @@ RORoute *
 RORDLoader_Cell::getAlternative(size_t pos)
 {
     double cost = _driverParser.getAlternativeCost(pos);
-    double prop = _driverParser.getAlternativePropability(pos);
+    double prop = _driverParser.getAlternativeProbability(pos);
     int routeNo = _driverParser.getRouteNo(pos);
     // check whether the route was already read
     //  read the route if not

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/12/16 12:26:52  dkrajzew
+// debugging
+//
 // Revision 1.8  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -72,7 +75,7 @@ using namespace std;
 RORoute::RORoute(const std::string &id, double costs, double prop,
                  const ROEdgeVector &route)
     : Named(StringUtils::convertUmlaute(id)), _costs(costs),
-    _propability(prop), _route(route)
+    _probability(prop), _route(route)
 {
 }
 
@@ -145,9 +148,9 @@ RORoute::getLast() const
 
 
 double
-RORoute::getPropability() const
+RORoute::getProbability() const
 {
-    return _propability;
+    return _probability;
 }
 
 
@@ -166,9 +169,9 @@ RORoute::size() const
 
 
 void
-RORoute::setPropability(double prop)
+RORoute::setProbability(double prop)
 {
-    _propability = prop;
+    _probability = prop;
 }
 
 

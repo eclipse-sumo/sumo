@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2004/12/16 12:18:39  dkrajzew
+// debugging
+//
 // Revision 1.26  2004/11/23 10:36:37  dkrajzew
 // debugging
 //
@@ -195,7 +198,7 @@ AttributesHandler::Attr sumoattrs[88] =
     { "sigma",          SUMO_ATTR_SIGMA },
     { "last",           SUMO_ATTR_LAST },
     { "cost",           SUMO_ATTR_COST },
-    { "propability",    SUMO_ATTR_PROP },
+    { "probability",    SUMO_ATTR_PROP },
     { "pos",            SUMO_ATTR_POS },
     { "lane",           SUMO_ATTR_LANE },
     { "from",           SUMO_ATTR_FROM },

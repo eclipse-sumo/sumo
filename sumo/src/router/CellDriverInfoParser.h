@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/12/16 12:26:52  dkrajzew
+// debugging
+//
 // Revision 1.3  2004/01/26 08:01:10  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -106,7 +109,7 @@ public:
     double getAlternativeCost(size_t pos) const;
 
     /// Returns the propability of the route specified by her index
-    double getAlternativePropability(size_t pos) const;
+    double getAlternativeProbability(size_t pos) const;
 
     /// Returns the route index within the routes file of the route specified by her index
     int getRouteNo(size_t pos) const;

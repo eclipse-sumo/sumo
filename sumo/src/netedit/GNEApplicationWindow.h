@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/12/16 12:17:03  dkrajzew
+// debugging
+//
 // Revision 1.2  2004/12/02 13:54:23  agaubatz
 // Netedit update, A. Gaubatz
 //
@@ -105,6 +108,7 @@ public:
     /// Detaches the tool/menu bar
     void detach();
 
+    void loadSelection(const std::string &file) const { throw 1; } // !!! to be implemented
 
 public:
     /// Closes the log window

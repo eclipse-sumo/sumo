@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/12/16 12:21:38  dkrajzew
+// debugging
+//
 // Revision 1.1  2004/11/23 10:38:31  dkrajzew
 // debugging
 //
@@ -77,7 +80,7 @@ TrackerValueDesc::TrackerValueDesc(const std::string &name,
     myAmActive(true),
     myMin(0), myMax(0),
     myAggregationInterval(1), myInvalidValue(-1), myValidNo(0),
-    myRecordingBegin(recordBegin)
+	myRecordingBegin(recordBegin), myTmpLastAggValue(0)
 {
 }
 

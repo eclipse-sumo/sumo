@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.27  2004/12/16 12:20:09  dkrajzew
+// debugging
+//
 // Revision 1.26  2004/11/25 16:26:46  dkrajzew
 // consolidated and debugged some detectors and their usage
 //
@@ -189,7 +192,8 @@ GUIRunThread::run()
     while(!_quit) {
         // if the simulation shall be perfomed, do it
         if(!_halting&&_net!=0&&_ok) {
-            bool haltAfter =  find(gBreakpoints.begin(), gBreakpoints.end(), _step)!=gBreakpoints.end();
+            bool haltAfter =
+                find(gBreakpoints.begin(), gBreakpoints.end(), _step)!=gBreakpoints.end();
             makeStep();
             if(haltAfter) {
                 stop();
@@ -218,6 +222,9 @@ GUIRunThread::makeStep()
         mySimulationLock.lock();
         _net->simulationStep(_simStartTime, _step);
         _net->guiSimulationStep();
+#ifdef NETWORKING_BLA
+		_net->networking(_simStartTime, _step);
+#endif
         mySimulationLock.unlock();
 
         // inform parent that a step has been performed

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/12/16 12:18:39  dkrajzew
+// debugging
+//
 // Revision 1.6  2004/11/23 10:36:02  dkrajzew
 // debugging
 //
@@ -344,6 +347,8 @@ operator<<( ostream& os, const OptionsCont& oc)
                     os << (*j);
                 }
                 os << ")";
+            } else {
+                os << (*i).first;
             }
             if((*i).second->isSet()) {
                 os << ": " << (*i).second->getValue() << endl;

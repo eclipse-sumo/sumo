@@ -1,6 +1,7 @@
 noinst_LIBRARIES = libnetedit.a
 
-libnetedit_a_SOURCES = ConfigDialog.cpp ConfigDialog.h \
+libnetedit_a_SOURCES = ColorSelector.cpp ColorSelector.h \
+ConfigDialog.cpp ConfigDialog.h \
 Edge.cpp Edge.h GNEApplicationWindow.cpp GNEApplicationWindow.h \
 Graph.cpp Graph.h Image.cpp Image.h Point.cpp Point.h \
 Vertex.cpp Vertex.h

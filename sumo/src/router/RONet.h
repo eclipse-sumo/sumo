@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2004/12/16 12:26:52  dkrajzew
+// debugging
+//
 // Revision 1.10  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -192,15 +195,15 @@ public:
 
     ROEdgeCont *getMyEdgeCont();
 
+    /** @brief Removes the route from the net when no further usage is needed */
+    void removeRouteSecure(RORouteDef *route); // !!! was protected before
+
 protected:
     /** Saves the given route together with her alternatives */
     RORouteDef *computeRoute(OptionsCont &options, ROAbstractRouter &router,
         ROVehicle *veh);
 
     bool saveRoute(RORouteDef *route, ROVehicle *veh);
-
-    /** @brief Removes the route from the net when no further usage is needed */
-    void removeRouteSecure(RORouteDef *route);
 
     /// Initialises the lists of source and destination edges
     void checkSourceAndDestinations();

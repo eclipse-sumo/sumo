@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/12/16 12:26:52  dkrajzew
+// debugging
+//
 // Revision 1.6  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -87,14 +90,14 @@ public:
     /// Returns the costs of the route
     double getCosts() const;
 
-    /// Returns the propability the driver will take this route with
-    double getPropability() const;
+    /// Returns the probability the driver will take this route with
+    double getProbability() const;
 
     /// Sets the costs of the route
     void setCosts(double costs);
 
-    /// Sets the propability of the route
-    void setPropability(double prop);
+    /// Sets the probability of the route
+    void setProbability(double prop);
 
     /// Recomputes the costs of the route by summing up the costs for every edge
     double recomputeCosts(long begin) const;
@@ -116,8 +119,8 @@ private:
     /// The costs of the route
     double _costs;
 
-    /// The propability the driver will take this route with
-    double _propability;
+    /// The probability the driver will take this route with
+    double _probability;
 
     /// The edges the route consists of
     ROEdgeVector _route;

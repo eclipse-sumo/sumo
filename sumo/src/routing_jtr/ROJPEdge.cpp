@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/12/16 12:26:52  dkrajzew
+// debugging
+//
 // Revision 1.4  2004/11/23 10:26:59  dkrajzew
 // debugging
 //
@@ -90,7 +93,7 @@ ROJPEdge::addFollower(ROEdge *s)
 
 
 void
-ROJPEdge::addFollowerPropability(ROJPEdge *follower, unsigned int begTime,
+ROJPEdge::addFollowerProbability(ROJPEdge *follower, unsigned int begTime,
                                  unsigned int endTime, float percentage)
 {
     FollowerUsageCont::iterator i = myFollowingDefs.find(follower);

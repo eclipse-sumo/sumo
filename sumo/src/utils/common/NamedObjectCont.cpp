@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/12/16 12:18:02  dkrajzew
+// debugging
+//
 // Revision 1.6  2004/11/23 10:27:45  dkrajzew
 // debugging
 //
@@ -96,9 +99,7 @@ NamedObjectCont<T>::clear()
     for(typename IDMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
         delete (*i).second;
     }
-    while(myMap.size()>0) {
-        myMap.erase(myMap.begin());
-    }
+	myMap.clear();
     myVector.clear();
 }
 
@@ -113,12 +114,12 @@ NamedObjectCont<T>::size() const
 
 
 template<class T>
-void
+bool
 NamedObjectCont<T>::erase(const std::string &id)
 {
     typename IDMap::iterator i=myMap.find(id);
     if(i==myMap.end()) {
-        throw 1; // !!! should not happen
+        return false;
     }
     T o = (*i).second;
     myMap.erase(i);
@@ -126,10 +127,11 @@ NamedObjectCont<T>::erase(const std::string &id)
     typename ObjectVector::iterator i2 =
         find(myVector.begin(), myVector.end(), o);
     if(i2==myVector.end()) {
-        throw 1; // !!! should not happen
+        return false;
     }
     myVector.erase(i2);
     delete o;
+	return true;
 }
 
 
@@ -147,10 +149,8 @@ NamedObjectCont<T>::getMyMap() const
 {
     return myMap;
 }
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NamedObjectCont.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
