@@ -49,13 +49,14 @@ namespace
 #include <microsim/MSTrafficLightLogic.h>
 #include <microsim/MSInductLoop.h>
 #include <microsim/MSLaneState.h>
+#include <microsim/MSAgentbasedTrafficLightLogic.h>
 #include <utils/logging/LoggedValue_TimeFloating.h>
 #include <utils/common/UtilExceptions.h>
+#include <microsim/MSHaltingDetectorContainer.h>
 #include "NLLoadFilter.h"
 
 #ifdef MSVC
-#include <microsim/MSBitSetLogic.cpp>
-#include <microsim/MSSimpleTrafficLightLogic.cpp>
+//#include <microsim/MSBitSetLogic.cpp>
 #endif
 
 
@@ -357,7 +358,7 @@ NLNetHandler::addPhase(const Attributes &attrs)
     size_t min = duration;
     size_t max = duration;
     try {
-        if(m_Type=="actuated") {
+        if(m_Type=="actuated"||m_Type=="agentbased") {
             min = getIntSecure(attrs, SUMO_ATTR_DURATION, duration);
             max = getIntSecure(attrs, SUMO_ATTR_DURATION, duration);
         }
@@ -368,15 +369,15 @@ NLNetHandler::addPhase(const Attributes &attrs)
     // build the brake mask
     std::bitset<64> prios(brakeMask);
     prios.flip();
-    if(m_Type!="actuated") {
-        m_ActivePhases.push_back(
-            new MSPhaseDefinition(
-                duration, std::bitset<64>(phase), prios, std::bitset<64>(yellowMask)));
-    } else {
+    if(m_Type=="actuated"||m_Type=="agentbased") {
         m_ActivePhases.push_back(
             new MSActuatedPhaseDefinition(
             duration, std::bitset<64>(phase), prios, std::bitset<64>(yellowMask),
 			min, max));
+    } else {
+        m_ActivePhases.push_back(
+            new MSPhaseDefinition(
+                duration, std::bitset<64>(phase), prios, std::bitset<64>(yellowMask)));
     }
 }
 
@@ -862,20 +863,30 @@ NLNetHandler::closeTrafficLightLogic()
     if(_tlLogicNo!=0) {
         return;
     }
-    if(m_Type!="actuated") {
-        MSTrafficLightLogic *tlLogic =
-            new MSSimpleTrafficLightLogic(
-                m_Key, m_ActivePhases, 0, m_Offset);
-        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
-        // !!! replacement within the dictionary
-        m_ActivePhases.clear();
-        myContainer.addTLLogic(tlLogic);
-    } else {
+    if(m_Type=="actuated") {
         MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState  >
             *tlLogic =
             new MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState > (
                     m_Key, m_ActivePhases, 0,
                     myContainer.getInLanes(), m_Offset);
+        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
+        // !!! replacement within the dictionary
+        m_ActivePhases.clear();
+        myContainer.addTLLogic(tlLogic);
+    } else if(m_Type=="agentbased") {
+        MSAgentbasedTrafficLightLogic<MSInductLoop, MSLaneState  >
+            *tlLogic =
+            new MSAgentbasedTrafficLightLogic<MSInductLoop, MSLaneState > (
+                    m_Key, m_ActivePhases, 0,
+                    myContainer.getInLanes(), m_Offset);
+        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
+        // !!! replacement within the dictionary
+        m_ActivePhases.clear();
+        myContainer.addTLLogic(tlLogic);
+	} else {
+        MSTrafficLightLogic *tlLogic =
+            new MSSimpleTrafficLightLogic(
+                m_Key, m_ActivePhases, 0, m_Offset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
