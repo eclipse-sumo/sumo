@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/09/05 15:25:35  dkrajzew
+// solved some naming problems
+//
 // Revision 1.7  2003/08/20 11:46:28  dkrajzew
 // some further methods added needed for the computation of node shapes
 //
@@ -56,8 +59,8 @@ public:
     static void div(DoubleVector &dv, double by);
     static void removeDouble(DoubleVector &v);
     static void set(DoubleVector &dv, double to);
-    static double max(const DoubleVector &dv);
-    static double min(const DoubleVector &dv);
+    static double maxValue(const DoubleVector &dv);
+    static double minValue(const DoubleVector &dv);
     static void remove_smaller_than(DoubleVector &v, double swell);
     static void remove_larger_than(DoubleVector &v, double swell);
 };

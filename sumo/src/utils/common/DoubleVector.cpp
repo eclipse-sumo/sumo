@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/09/05 15:25:35  dkrajzew
+// solved some naming problems
+//
 // Revision 1.9  2003/08/20 11:46:27  dkrajzew
 // some further methods added needed for the computation of node shapes
 //
@@ -112,7 +115,7 @@ DoubleVectorHelper::removeDouble(DoubleVector &v)
 
 
 double
-DoubleVectorHelper::max(const DoubleVector &v)
+DoubleVectorHelper::maxValue(const DoubleVector &v)
 {
     double m = *(v.begin());
     for(DoubleVector::const_iterator j=v.begin()+1; j!=v.end(); j++) {
@@ -151,7 +154,7 @@ DoubleVectorHelper::remove_larger_than(DoubleVector &v, double swell)
 
 
 double
-DoubleVectorHelper::min(const DoubleVector &v)
+DoubleVectorHelper::minValue(const DoubleVector &v)
 {
     double m = *(v.begin());
     for(DoubleVector::const_iterator j=v.begin()+1; j!=v.end(); j++) {
