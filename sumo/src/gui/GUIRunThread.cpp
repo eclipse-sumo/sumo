@@ -79,6 +79,7 @@ void
 GUIRunThread::begin()
 {
     _step = _simStartTime;
+    _net->preStartInit();
     _single = false;
     _halting = false;
 }
