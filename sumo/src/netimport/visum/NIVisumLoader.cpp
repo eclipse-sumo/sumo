@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/05/20 09:39:14  dkrajzew
+// Visum traffic light import added (by Markus Hartinger)
+//
 // Revision 1.2  2003/03/26 12:04:04  dkrajzew
 // debugging for Vissim and Visum-imports
 //
@@ -54,6 +57,12 @@ namespace
 #include "NIVisumParser_Edges.h"
 #include "NIVisumParser_Connectors.h"
 #include "NIVisumParser_Turns.h"
+#include "NIVisumParser_TrafficLights.h"
+#include "NIVisumParser_NodesToTrafficLights.h"
+#include "NIVisumParser_SignalGroups.h"
+#include "NIVisumParser_SignalGroupsToPhases.h"
+#include "NIVisumParser_TurnsToSignalGroups.h"
+#include "NIVisumParser_Phases.h"
 
 
 /* =========================================================================
@@ -263,6 +272,19 @@ NIVisumLoader::NIVisumLoader(const std::string &file,
         new NIVisumParser_Connectors(*this, "ANBINDUNG"));
     mySingleDataParsers.push_back(
         new NIVisumParser_Turns(*this, "ABBIEGEBEZIEHUNG", myVSysTypes));
+	// set4
+	mySingleDataParsers.push_back(
+		new NIVisumParser_TrafficLights(*this, "LSA", myNIVisumTLs));
+	mySingleDataParsers.push_back(
+		new NIVisumParser_NodesToTrafficLights(*this, "KNOTENZULSA", myNIVisumTLs));
+	mySingleDataParsers.push_back(
+		new NIVisumParser_SignalGroups(*this, "LSASIGNALGRUPPE", myNIVisumTLs));
+	mySingleDataParsers.push_back(
+		new NIVisumParser_TurnsToSignalGroups(*this, "ABBZULSASIGNALGRUPPE", myNIVisumTLs));
+	mySingleDataParsers.push_back(
+		new NIVisumParser_Phases(*this, "LSAPHASE", myNIVisumTLs));
+	mySingleDataParsers.push_back(
+		new NIVisumParser_SignalGroupsToPhases(*this, "LSASIGNALGRUPPEZULSAPHASE", myNIVisumTLs));
 }
 
 
@@ -271,6 +293,10 @@ NIVisumLoader::~NIVisumLoader()
     for( ParserVector::iterator i=mySingleDataParsers.begin();
          i!=mySingleDataParsers.end(); i++) {
         delete (*i);
+    }
+    for( NIVisumTL_Map::iterator j=myNIVisumTLs.begin();
+         j!=myNIVisumTLs.end(); j++) {
+        delete (j->second);
     }
 }
 
@@ -294,6 +320,11 @@ void NIVisumLoader::load(OptionsCont &options)
          i!=mySingleDataParsers.end(); i++) {
         (*i)->readUsing(myLineReader, verbose);
     }
+    // build traffic lights
+	for(NIVisumTL_Map::iterator j=myNIVisumTLs.begin();
+		j!=myNIVisumTLs.end(); j++) {
+		j->second->build();
+	}
 }
 
 

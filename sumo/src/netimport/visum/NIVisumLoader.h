@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/05/20 09:39:14  dkrajzew
+// Visum traffic light import added (by Markus Hartinger)
+//
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
 //
@@ -35,11 +38,13 @@
  * ======================================================================= */
 #include <string>
 #include <map>
+#include <vector>
 #include <netbuild/NBCapacity2Lanes.h>
 #include <utils/importio/LineHandler.h>
 #include <utils/importio/LineReader.h>
 #include <utils/importio/NamedColumnsParser.h>
 #include <utils/common/FileErrorReporter.h>
+#include "NIVisumTL.h"
 
 /* =========================================================================
  * class declaration
@@ -62,6 +67,7 @@ class NIVisumLoader :
 {
 public:
     typedef std::map<std::string, std::string> VSysTypeNames;
+	typedef std::map<std::string, NIVisumTL*> NIVisumTL_Map;
 public:
     /// constructor
     NIVisumLoader(const std::string &file, NBCapacity2Lanes capacity2Lanes);
@@ -185,6 +191,8 @@ private:
     /// list of known parsers
     ParserVector mySingleDataParsers;
 
+	// list of visum traffic lights
+    NIVisumTL_Map myNIVisumTLs;
 private:
     /**
      * PositionSetter

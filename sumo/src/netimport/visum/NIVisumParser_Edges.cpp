@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/05/20 09:39:14  dkrajzew
+// Visum traffic light import added (by Markus Hartinger)
+//
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
 //
@@ -71,67 +74,35 @@ NIVisumParser_Edges::myDependentReport()
             NBHelpers::normalIDRepresentation(myLineParser.get("VonKnot")));
         NBNode *to = NBNodeCont::retrieve(
             NBHelpers::normalIDRepresentation(myLineParser.get("NachKnot")));
-        if(from==0||to==0) {
-            if(from==0) {
-                addError(
-                    " The from-node was not found within the net");
-            } else {
-                addError(
-                    " The to-node was not found within the net");
-            }
-        }
+		if(!checkNodes(from, to)) {
+			return;
+		}
         // get the type
         string type = myLineParser.get("Typ");
         // get the street length
-        float length =
-            TplConvertSec<char>::_2floatSec(
-                myLineParser.get("Laenge").c_str(), 0);
-        // compute when the street's length is not available
-        if(length==0) {
-            double xb = from->getXCoordinate();
-            double xe = to->getXCoordinate();
-            double yb = from->getYCoordinate();
-            double ye = to->getYCoordinate();
-            length = sqrt((xb-xe)*(xb-xe) + (yb-ye)*(yb-ye));
-        }
+		float length = getLength(from, to);
         // get the speed
-        float speed = TplConvertSec<char>::_2floatSec(myLineParser.get("v0-IV").c_str(), -1);
-        if(speed<=0) {
-            speed = NBTypeCont::getSpeed(type);
-        } else {
-            speed = speed / 3.6;
-        }
+		float speed = getSpeed(type);
         // get the information whether the edge is a one-way
         bool oneway =
             TplConvert<char>::_2bool(myLineParser.get("Einbahn").c_str());
+		// get the number of lanes
+		int nolanes = getNoLanes(type);
         // check whether the id is already used
         //  (should be the opposite direction)
         if(NBEdgeCont::retrieve(id)!=0) {
             id = '-' + id;
         }
         // add the edge
-        if( !NBEdgeCont::insert(new NBEdge(id, id, from, to, type,
-             speed, NBTypeCont::getNoLanes(type), length,
-             NBTypeCont::getPriority(type)))) {
-            addError(
-                string(" Duplicate edge occured ('")
-                + id + string("')."));
-        }
+		int prio = NBTypeCont::getPriority(type);
+		insertEdge(id, from, to, type, speed, nolanes, length, prio);
         // nothing more to do, when the edge is a one-way street
         if(oneway) {
             return;
         }
         // add the opposite edge
         id = '-' + id;
-        NBEdge *edge = new NBEdge(id, id, from, to, type,
-            speed, NBTypeCont::getNoLanes(type), length,
-            NBTypeCont::getPriority(type));
-        if(!NBEdgeCont::insert(edge)) {
-            addError(
-                string(" Duplicate edge occured ('")
-                + id + string("')."));
-            delete edge;
-        }
+		insertEdge(id, to, from, type, speed, nolanes, length, prio);
     } catch (OutOfBoundsException) {
         addError2("STRECKE", id, "OutOfBounds");
     } catch (NumberFormatException) {
@@ -141,6 +112,93 @@ NIVisumParser_Edges::myDependentReport()
     }
 }
 
+
+bool
+NIVisumParser_Edges::checkNodes(NBNode *from, NBNode *to) const
+{
+	if(from==0) {
+		addError(" The from-node was not found within the net");
+	}
+	if(to==0) {
+		addError(" The to-node was not found within the net");
+	}
+	if(from==to) {
+		addError(" Both nodes are the same");
+	}
+	return from!=0&&to!=0&&from!=to;
+}
+
+
+float
+NIVisumParser_Edges::getLength(NBNode *from, NBNode *to) const
+{
+	float length = 0;
+	try {
+		length = TplConvertSec<char>::_2floatSec(
+			myLineParser.get("Laenge").c_str(), 0);
+	} catch (OutOfBoundsException) {
+	}
+	// compute when the street's length is not available
+	if(length==0) {
+		double xb = from->getXCoordinate();
+		double xe = to->getXCoordinate();
+		double yb = from->getYCoordinate();
+		double ye = to->getYCoordinate();
+		length = sqrt((xb-xe)*(xb-xe) + (yb-ye)*(yb-ye));
+	}
+	return length;
+}
+
+
+float
+NIVisumParser_Edges::getSpeed(const std::string &type) const
+{
+	float speed = 0;
+	try {
+		speed =
+			TplConvertSec<char>::_2floatSec(
+				myLineParser.get("v0-IV").c_str(), -1);
+	} catch (OutOfBoundsException) {
+	}
+	if(speed<=0) {
+		speed = NBTypeCont::getSpeed(type);
+	} else {
+		speed = speed / 3.6;
+	}
+	return speed;
+}
+
+
+int
+NIVisumParser_Edges::getNoLanes(const std::string &type) const
+{
+	int nolanes = 0;
+	try {
+		nolanes =
+			TplConvertSec<char>::_2intSec(
+				myLineParser.get("Fahrstreifen").c_str(), 0);
+	} catch (UnknownElement) {
+		nolanes = NBTypeCont::getNoLanes(type);
+	}
+	return nolanes;
+}
+
+
+void
+NIVisumParser_Edges::insertEdge(const std::string &id,
+								NBNode *from, NBNode *to,
+								const std::string &type,
+								float speed, int nolanes, float length,
+								int prio) const
+{
+	NBEdge *e = new NBEdge(id, id, from, to, type, speed, nolanes, length, prio);
+	if( !NBEdgeCont::insert(e)) {
+		delete e;
+		addError(
+			string(" Duplicate edge occured ('")
+			+ id + string("')."));
+	}
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/05/20 09:39:14  dkrajzew
+// Visum traffic light import added (by Markus Hartinger)
+//
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
 //
@@ -28,6 +31,12 @@
  * included modules
  * ======================================================================= */
 #include "NIVisumLoader.h"
+
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class NBNode;
 
 
 /* =========================================================================
@@ -50,6 +59,25 @@ public:
 protected:
     /** @brief Parses a single edge using data from the inherited NamedColumnsParser. */
     void myDependentReport();
+
+private:
+	/// Checks whether the nodes are ok
+	bool checkNodes(NBNode *from, NBNode *to) const;
+
+	/// Returns the length of the edge, either read from the parameter or computed from the geometry
+	float getLength(NBNode *from, NBNode *to) const;
+
+	/// Returns the maximum allowed speed on this edge, either read from the parameter or the one of the type the edge is of
+	float getSpeed(const std::string &type) const;
+
+	/// Returns the number of the lanes the edge has; Either read from the parameter or the number of lanes the edges of this type have
+	int getNoLanes(const std::string &type) const;
+
+	/// Build the edge checking the insertion
+	void insertEdge(const std::string &id,  NBNode *from, NBNode *to,
+		const std::string &type, float speed, int nolanes, float length,
+		int prio) const;
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
