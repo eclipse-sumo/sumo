@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2003/11/24 10:18:32  dkrajzew
+// handling of definitions for minimum and maximum phase duration added; modified the gld-offsets computation
+//
 // Revision 1.14  2003/11/17 07:22:03  dkrajzew
 // e2-detector over lanes merger added
 //
@@ -193,6 +196,9 @@ protected:
     /// Backward lane continuation map
     SSVMap myContinuations;
 
+    /// The absolute duration of a tls-control loop
+    size_t myAbsDuration;
+
 
 private:
     /// sets the number of edges the network contains
@@ -291,6 +297,13 @@ private:
     MSLink::LinkDirection parseLinkDir(char dir);
 
     MSLink::LinkState parseLinkState(char state);
+
+    /// Compute the initial step of a tls-logic from the given offset
+    size_t computeInitTLSStep() const;
+
+    /// Compute the time offset the tls shall for the first time
+    size_t computeInitTLSEventOffset() const;
+
 
 private:
     NLDiscreteEventBuilder myActionBuilder;

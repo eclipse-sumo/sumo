@@ -21,7 +21,11 @@ namespace
 {
      const char rcsid[] = "$Id$";
 }
-
+// $Log$
+// Revision 1.29  2003/11/24 10:18:32  dkrajzew
+// handling of definitions for minimum and maximum phase duration added; modified the gld-offsets computation
+//
+//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -56,10 +60,6 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include "NLLoadFilter.h"
 
-#ifdef MSVC
-//#include <microsim/MSBitSetLogic.cpp>
-#endif
-
 
 /* =========================================================================
  * using namespaces
@@ -77,9 +77,11 @@ NLNetHandler::NLNetHandler(const std::string &file,
 {
 }
 
+
 NLNetHandler::~NLNetHandler()
 {
 }
+
 
 void
 NLNetHandler::myStartElement(int element, const std::string &name,
@@ -304,6 +306,7 @@ NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
 {
     m_Key = "";
     m_ActivePhases.clear();
+    myAbsDuration = 0;
     _requestSize = -1;
     _tlLogicNo = -1;
     myContinuations.clear();
@@ -357,6 +360,12 @@ NLNetHandler::addPhase(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("The phase duration is not numeric.");
         return;
     }
+    if(duration==0) {
+        MsgHandler::getErrorInstance()->inform(
+            string("The duration of a tls-logic must not be zero. Is in '")
+            + m_Key + string("'."));
+        return;
+    }
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
     size_t min = duration;
@@ -373,16 +382,21 @@ NLNetHandler::addPhase(const Attributes &attrs)
     // build the brake mask
     std::bitset<64> prios(brakeMask);
     prios.flip();
+    // build and add the phase definition to the list
     if(m_Type=="actuated"||m_Type=="agentbased") {
+        // for a controlled tls-logic
         m_ActivePhases.push_back(
             new MSActuatedPhaseDefinition(
             duration, std::bitset<64>(phase), prios, std::bitset<64>(yellowMask),
 			min, max));
     } else {
+        // for an controlled tls-logic
         m_ActivePhases.push_back(
             new MSPhaseDefinition(
                 duration, std::bitset<64>(phase), prios, std::bitset<64>(yellowMask)));
     }
+    // add phase duration to the absolute duration
+    myAbsDuration += duration;
 }
 
 
@@ -416,14 +430,13 @@ NLNetHandler::addDetector(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
         try {
-//             myContainer.addDetector(
-                 NLDetectorBuilder::buildInductLoop(id,
-                     getString(attrs, SUMO_ATTR_LANE),
-                     getFloat(attrs, SUMO_ATTR_POSITION),
-                     getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-                     getString(attrs, SUMO_ATTR_STYLE),
-                     getString(attrs, SUMO_ATTR_FILE),
-                     _file);
+            NLDetectorBuilder::buildInductLoop(id,
+                getString(attrs, SUMO_ATTR_LANE),
+                getFloat(attrs, SUMO_ATTR_POSITION),
+                getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+                getString(attrs, SUMO_ATTR_STYLE),
+                getString(attrs, SUMO_ATTR_FILE),
+                _file);
         } catch (XMLBuildingException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
         } catch (InvalidArgument &e) {
@@ -715,6 +728,7 @@ NLNetHandler::setRequestSize(const std::string &chars)
     }
 }
 
+
 void
 NLNetHandler::setLaneNumber(const std::string &chars)
 {
@@ -739,6 +753,7 @@ NLNetHandler::setKey(const std::string &chars)
     m_Key = chars;
 }
 
+
 void
 NLNetHandler::setOffset(const std::string &chars)
 {
@@ -749,6 +764,7 @@ NLNetHandler::setOffset(const std::string &chars)
         return;
     }
 }
+
 
 void
 NLNetHandler::setTLLogicNo(const std::string &chars)
@@ -885,34 +901,75 @@ NLNetHandler::closeTrafficLightLogic()
     if(_tlLogicNo!=0) {
         return;
     }
+    // compute the initial step of the tls-logic
+    size_t step = computeInitTLSStep();
+    size_t firstEventOffset = computeInitTLSEventOffset();
+    // build the tls-logic in dependance to its type
     if(m_Type=="actuated") {
+        // build an actuated logic
         MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState  >
             *tlLogic =
             new MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState > (
-                    m_Key, m_ActivePhases, 0,
-                    myContainer.getInLanes(), m_Offset, myContinuations);
+                    m_Key, m_ActivePhases, step,
+                    myContainer.getInLanes(), firstEventOffset,
+                    myContinuations);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
     } else if(m_Type=="agentbased") {
+        // build an agentbased logic
         MSAgentbasedTrafficLightLogic<MS_E2_ZS_CollectorOverLanes>
             *tlLogic =
             new MSAgentbasedTrafficLightLogic<MS_E2_ZS_CollectorOverLanes> (
-                    m_Key, m_ActivePhases, 0,
-                    myContainer.getInLanes(), m_Offset, myContinuations);
+                    m_Key, m_ActivePhases, step,
+                    myContainer.getInLanes(), firstEventOffset,
+                    myContinuations);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
 	} else {
+        // build an uncontrolled (fix) tls-logic
         MSTrafficLightLogic *tlLogic =
             new MSSimpleTrafficLightLogic(
-                m_Key, m_ActivePhases, 0, m_Offset);
+                m_Key, m_ActivePhases, step, firstEventOffset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
+    }
+}
+
+
+size_t
+NLNetHandler::computeInitTLSStep()  const
+{
+    assert(m_ActivePhases.size()!=0);
+    size_t offset = m_Offset % myAbsDuration;
+    MSSimpleTrafficLightLogic::Phases::iterator i;
+    size_t step = 0;
+    while(true) {
+        if(offset<(*i)->duration) {
+            return step;
+        }
+        step++;
+        offset -= (*i)->duration;
+    }
+}
+
+
+size_t
+NLNetHandler::computeInitTLSEventOffset()  const
+{
+    assert(m_ActivePhases.size()!=0);
+    size_t offset = m_Offset % myAbsDuration;
+    MSSimpleTrafficLightLogic::Phases::iterator i;
+    while(true) {
+        if(offset<(*i)->duration) {
+            return (*i)->duration-offset;
+        }
+        offset -= (*i)->duration;
     }
 }
 
@@ -958,7 +1015,6 @@ NLNetHandler::setError(const string &type,
     MsgHandler::getErrorInstance()->inform(
         buildErrorMessage(_file, type, exception));
 }
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
