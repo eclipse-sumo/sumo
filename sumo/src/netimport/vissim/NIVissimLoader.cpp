@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/08/21 12:56:39  dkrajzew
+// unneeded tag output removed
+//
 // Revision 1.15  2003/08/18 12:39:22  dkrajzew
 // missing handling of some vissim3.7-structures added
 //
@@ -398,7 +401,7 @@ NIVissimLoader::readContents(istream &strm)
         if(tag=="KANTE") {
             int bla = 0;
         }
-        cout << tag << endl;
+//        cout << tag << endl;
         if(i==myKnownElements.end()) {
             continue;
         }
