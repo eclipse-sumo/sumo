@@ -68,7 +68,7 @@ MSTriggeredSource::RouteDistribution::~RouteDistribution( void )
 
 void
 MSTriggeredSource::RouteDistribution::addElement(
-    const MSNet::Route* aRoute,
+    MSRoute* aRoute,
     double aFrequency )
 {
     assert( aFrequency > double( 0 ) );
@@ -87,7 +87,7 @@ MSTriggeredSource::RouteDistribution::addElement(
 
 //---------------------------------------------------------------------------//
 
-const MSNet::Route*
+MSRoute*
 MSTriggeredSource::RouteDistribution::getRndRoute( void )
 {
     // Get random value between 0 and
@@ -285,7 +285,7 @@ MSTriggeredSource::scheduleEmit( std::string aVehicleId,
 
         myVehicle = new MSVehicle(
             aVehicleId,
-            const_cast< MSNet::Route* >( myRouteDist.getRndRoute() ),
+            myRouteDist.getRndRoute(),
             aEmitTime,
             aVehType );
 
@@ -333,6 +333,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.4  2002/10/21 09:55:40  dkrajzew
+// begin of the implementation of multireferenced, dynamically loadable routes
+//
 // Revision 1.3  2002/10/17 10:46:21  dkrajzew
 // unneeded initialisation and false termination of the XML-system removed
 //

@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2002/10/21 09:55:40  dkrajzew
+// begin of the implementation of multireferenced, dynamically loadable routes
+//
 // Revision 1.4  2002/10/18 11:49:32  dkrajzew
 // usage of MeanData rechecked for closing of the generated files and the destruction of allocated ressources
 //
@@ -195,6 +198,7 @@ namespace
 #include "MSJunctionLogic.h"
 #include "MSLane.h"
 #include "MSDetector.h"
+#include "MSRoute.h"
 #include "PreStartInitialised.h"
 #include <helpers/ToString.h>
 
@@ -204,7 +208,6 @@ using namespace std;
 // Init static member.
 MSNet* MSNet::myInstance = 0;
 MSNet::DictType MSNet::myDict;
-MSNet::RouteDict MSNet::myRoutes;
 double MSNet::myDeltaT = 1;
 
 #ifdef _DEBUG
@@ -224,6 +227,7 @@ MSNet::getInstance( void )
         return myInstance;
     }
     assert( false );
+    return 0;
 }
 
 void
@@ -323,7 +327,7 @@ MSNet::~MSNet()
     MSNet::clear();
     MSVehicle::clear();
     MSVehicleType::clear();
-    MSNet::clearRouteDict();
+    MSRoute::clear();
     // close the net statistics
     for(std::vector< MeanData* >::iterator i1=myMeanData.begin(); i1!=myMeanData.end(); i1++) {
         delete (*i1);
@@ -462,40 +466,6 @@ MSNet::clear()
     myDict.clear();
 }
 
-
-bool
-MSNet::routeDict(string id, Route* route)
-{
-    RouteDict::iterator it = myRoutes.find(id);
-    if (it == myRoutes.end()) {
-        // id not in myDict.
-        myRoutes.insert(RouteDict::value_type(id, route));
-        return true;
-    }
-    return false;
-}
-
-
-const MSNet::Route*
-MSNet::routeDict(string id)
-{
-    RouteDict::iterator it = myRoutes.find(id);
-    if (it == myRoutes.end()) {
-        // id not in myDict.
-        return 0;
-    }
-    return it->second;
-}
-
-
-void
-MSNet::clearRouteDict()
-{
-    for(RouteDict::iterator i=myRoutes.begin(); i!=myRoutes.end(); i++) {
-        delete (*i).second;
-    }
-    myRoutes.clear();
-}
 
 unsigned
 MSNet::getNDumpIntervalls( void )

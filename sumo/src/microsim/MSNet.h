@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2002/10/21 09:55:40  dkrajzew
+// begin of the implementation of multireferenced, dynamically loadable routes
+//
 // Revision 1.4  2002/10/18 11:49:32  dkrajzew
 // usage of MeanData rechecked for closing of the generated files and the destruction of allocated ressources
 //
@@ -166,12 +169,6 @@ public:
      */
     static MSNet* getInstance( void );
 
-    /// Container for Edges. This are the routes.
-    typedef std::vector< const MSEdge* > Route;
-
-    /// Const-iterator to Route-elements, i.e. edges.
-    typedef Route::const_iterator RouteIterator;
-
     /// Type for time (seconds).
     typedef unsigned int Time;
 
@@ -225,18 +222,6 @@ public:
 
     /** Clears the dictionary */
     static void clear();
-
-    /** Inserts a MSNet::Route into the static dictionary and returns true
-        if the key id isn't already in the dictionary. Otherwise returns
-        false. */
-    static bool routeDict( std::string id, Route* route );
-
-    /** Returns the MSNet associated to the key id if exists,
-        otherwise returns 0. */
-    static const MSNet::Route* routeDict( std::string id );
-
-    /** Clears the route dictionary */
-    static void clearRouteDict();
 
     /// Returns the timestep-length in seconds.
     static double deltaT();
@@ -319,10 +304,6 @@ private:
     /// Static dictionary to associate string-ids with objects.
     typedef std::map< std::string, MSNet* > DictType;
     static DictType myDict;
-
-    /// Container for routes.
-    typedef std::map< std::string, const Route* > RouteDict;
-    static RouteDict myRoutes;
 
     /// Container for items to initialise before starting
     typedef std::vector<PreStartInitialised*> PreStartVector;

@@ -33,6 +33,7 @@ class MSEventControl;
 class MSVehicleType;
 class SAX2XMLReader;
 class MSVehicle;
+class MSRoute;
 
 /**
    @class MSTriggeredSource
@@ -109,9 +110,9 @@ private:   // private members
 
         /// Destructor.
         ~RouteDistribution( void );
-        void addElement( const MSNet::Route* aRoute,
+        void addElement( MSRoute* aRoute,
                          double aFrequency );
-        const MSNet::Route* getRndRoute( void );
+		MSRoute* getRndRoute( void );
         unsigned getSize( void ) const;
     protected:
     private:
@@ -127,7 +128,7 @@ private:   // private members
         struct RouteDistElement
         {
             /// Pointer to route. Shouldn't be 0.
-            const MSNet::Route* myRoute;
+            MSRoute* myRoute;
 
             /** Route-pointers frequency.
                 Frequency with which the vehicles will get the
@@ -175,6 +176,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.3  2002/10/21 09:55:40  dkrajzew
+// begin of the implementation of multireferenced, dynamically loadable routes
+//
 // Revision 1.2  2002/10/16 16:39:03  dkrajzew
 // complete deletion within destructors implemented; clear-operator added for container; global file include
 //

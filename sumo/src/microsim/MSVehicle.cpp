@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2002/10/21 09:55:40  dkrajzew
+// begin of the implementation of multireferenced, dynamically loadable routes
+//
 // Revision 1.4  2002/10/17 06:11:48  dkrajzew
 // forgot setting of drive request when regarding a critical non-first vehicle added
 //
@@ -227,6 +230,7 @@ namespace
 #include "MSEdge.h"
 #include "MSVehicleType.h"
 #include "MSNet.h"
+#include "MSRoute.h"
 #include <iostream>
 #include <cassert>
 #include <cmath>
@@ -323,12 +327,15 @@ bool departTimeSortCrit( const MSVehicle* x, const MSVehicle* y )
 MSVehicle::~MSVehicle()
 {
     //myWaitingPersons.clear();
+    if(!myRoute->inFurtherUse()) {
+        MSRoute::remove(myRoute->getID());
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
 MSVehicle::MSVehicle( string id,
-                      MSNet::Route* route,
+                      MSRoute* route,
                       MSNet::Time departTime,
                       const MSVehicleType* type ) :
     myID(id),
@@ -406,7 +413,7 @@ MSVehicle::destReached( const MSEdge* targetEdge )
     // search for the target in the vehicle's route. Usually there is
     // only one iteration. Only for very short edges a vehicle can
     // "jump" over one ore more edges in one timestep.
-    MSNet::Route::const_iterator edgeIt = myCurrEdge;
+    MSRouteIterator edgeIt = myCurrEdge;
 
     while ( *edgeIt != targetEdge ) {
 
@@ -418,7 +425,7 @@ MSVehicle::destReached( const MSEdge* targetEdge )
 
     // Check if destination-edge is reached. Update allowedLanes makes
     // only sense if destination isn't reached.
-    MSNet::Route::const_iterator destination = myRoute->end() - 1;
+    MSRouteIterator destination = myRoute->end() - 1;
 
     if ( myCurrEdge == destination ) {
 
@@ -730,7 +737,7 @@ MSVehicle::vsafeCritical( const MSVehicle *pred) const
 bool
 MSVehicle::endsOn(const MSLane &lane) const
 {
-    return lane.inEdge((*myRoute)[myRoute->size()-1]);
+    return lane.inEdge(myRoute->getLastEdge());
 }
 
 ////////////////////////////////////////////////////////////////////////////

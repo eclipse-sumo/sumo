@@ -36,6 +36,7 @@
 #include "MSTriggeredSourceXMLHandler.h"
 #include "MSTriggeredSource.h"
 #include "MSLane.h"
+#include "MSRoute.h"
 #include <vector>
 #include <utility>
 #include <cassert>
@@ -58,7 +59,7 @@ MSTriggeredSourceXMLHandler::MSTriggeredSourceXMLHandler(
       myIsParsedTriggeredSourceToken( false ),
       myIsParsedRouteDistToken( false )
 {
-    myRouteDistAttributes.insert( make_pair( string( "routeid" ),
+    myRouteDistAttributes.insert( make_pair( string( "route" ),
                                              string( "" ) ) );
     myRouteDistAttributes.insert( make_pair( string( "frequency" ),
                                              string( "" ) ) );
@@ -176,15 +177,15 @@ bool
 MSTriggeredSourceXMLHandler::isProperRouteDistValues( void )
 {
     // check if route exists
-    string routeStr = myRouteDistAttributes.find( string( "routeid" ) )->second;
+    string routeStr = myRouteDistAttributes.find( string( "route" ) )->second;
 
-    const MSNet::Route* route = MSNet::routeDict( routeStr );
+    MSRoute* route = MSRoute::dictionary( routeStr );
     if ( route == 0 ) {
 
         cerr << "MSTriggeredSource " << mySource.getId()
-             << ": Route '" << routeStr << "' does not exist. Quitting."
+             << ": Route '" << routeStr << "' does not exist."
              << endl;
-        return false;
+        throw ProcessError();
     }
 
     // check frequency
@@ -310,8 +311,8 @@ MSTriggeredSourceXMLHandler::isParseTriggeredSourceTokenSuccess(
 
         cerr << "MSTriggeredSource " << mySource.getId()
              << ": No parent token \"triggeredsource\" found."
-            " Quitting." << endl;
-        return false;
+             << endl;
+        throw ProcessError();
     }
 
     // Check for the two attributes id, lane and pos
@@ -319,8 +320,8 @@ MSTriggeredSourceXMLHandler::isParseTriggeredSourceTokenSuccess(
 
         cerr << "MSTriggeredSource " << mySource.getId()
              << ": Wrong number of attributes in first token. "
-            "Quitting." << endl;
-        return false;
+             << endl;
+        throw ProcessError();
     }
 
     // Check attributes and assign them to members
@@ -348,8 +349,8 @@ MSTriggeredSourceXMLHandler::isParseTriggeredSourceTokenSuccess(
 
                 cerr << "MSTriggeredSource " << mySource.getId()
                      << ": Lane-id " << attrValue << " does not exist."
-                    " Quitting." << endl;
-                return false;
+                     << endl;
+                throw ProcessError();
             }
         }
         if ( attrName == string( "pos" ) ) {
@@ -365,16 +366,16 @@ MSTriggeredSourceXMLHandler::isParseTriggeredSourceTokenSuccess(
 
                     cerr << "MSTriggeredSource " << mySource.getId()
                          << ": Position of source not within lane."
-                        " Quitting." << endl;
-                    return false;
+                         << endl;
+                    throw ProcessError();
                 }
             }
             else {
 
                 cerr << "MSTriggeredSource " << mySource.getId()
                      << ": No conversion possible on attribute " << attrName
-                     << ". Quitting." << endl;
-                return false;
+                     << endl;
+                throw ProcessError();
             }
         }
     }
@@ -575,6 +576,9 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
+// Revision 1.4  2002/10/21 09:55:40  dkrajzew
+// begin of the implementation of multireferenced, dynamically loadable routes
+//
 // Revision 1.3  2002/10/17 13:36:27  dkrajzew
 // debug informations removed
 //

@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2002/10/21 09:55:40  dkrajzew
+// begin of the implementation of multireferenced, dynamically loadable routes
+//
 // Revision 1.2  2002/10/16 16:45:42  dkrajzew
 // debugged
 //
@@ -160,6 +163,7 @@ extern long myvehicles;
 
 #include "MSNet.h"
 #include "MSEdge.h"
+#include "MSRoute.h"
 #include <helpers/Counter.h>
 #include <map>
 #include <string>
@@ -244,7 +248,7 @@ public:
     ~MSVehicle();
 
     /// Use this constructor only.
-    MSVehicle( std::string id, MSNet::Route* route, MSNet::Time
+    MSVehicle( std::string id, MSRoute* route, MSNet::Time
                departTime, const MSVehicleType* type);
 
     /// Returns the vehicles current state.
@@ -538,10 +542,10 @@ private:
     State myState;
 
     /// Vehicle's route.
-    MSNet::Route* myRoute;
+    MSRoute* myRoute;
 
     /** Iterator to current route-edge.  */
-    MSNet::RouteIterator myCurrEdge;
+    MSRouteIterator myCurrEdge;
 
     /** The vehicle's allowed lanes on it'S current edge to drive
         according to it's route. */
