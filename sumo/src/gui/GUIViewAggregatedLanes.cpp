@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/09/23 14:25:13  dkrajzew
+// possibility to visualise detectors using different geometry complexities added
+//
 // Revision 1.1  2003/09/05 14:45:44  dkrajzew
 // first tries for an implementation of aggregated views
 //
@@ -150,7 +153,7 @@ GUIViewAggregatedLanes::GUIViewAggregatedLanes(GUIApplicationWindow &app,
     : GUISUMOAbstractView(app, parent, net),
     _laneDrawer(new GUIAggregatedLaneDrawer(_net.myEdgeWrapper)),
     _junctionDrawer(new GUIJunctionDrawer_nT(_net.myJunctionWrapper)),
-    _detectorDrawer(new GUIDetectorDrawer(_net.myDetectorWrapper)),
+    _detectorDrawer(0),
     _rowDrawer(new GUIROWDrawer_FG(_net.myEdgeWrapper)),
     _laneColScheme(LCS_BLACK),
     myFontsLoaded(false)

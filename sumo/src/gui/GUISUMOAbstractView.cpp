@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/09/23 14:25:13  dkrajzew
+// possibility to visualise detectors using different geometry complexities added
+//
 // Revision 1.10  2003/09/05 14:54:06  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
 //
@@ -153,15 +156,6 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-void
-GUISUMOAbstractView::GUIDetectorDrawer::drawGLDetectors(size_t *which,
-                                                        size_t maxDetectors,
-                                                        double scale)
-{
-}
-
-
-
 GUISUMOAbstractView::ViewSettings::ViewSettings()
     : myX(-1), myY(-1), myXOff(-1), myYOff(-1)
 {

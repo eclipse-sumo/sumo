@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/09/23 14:25:13  dkrajzew
+// possibility to visualise detectors using different geometry complexities added
+//
 // Revision 1.7  2003/09/05 14:54:06  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
 //
@@ -304,8 +307,8 @@ public:
 	    /// destructor
         virtual ~GUIDetectorDrawer() { }
 
-        void drawGLDetectors(size_t *which, size_t maxDetectors,
-            double scale);
+        virtual void drawGLDetectors(size_t *which, size_t maxDetectors,
+            double scale) = 0;
 
     protected:
 

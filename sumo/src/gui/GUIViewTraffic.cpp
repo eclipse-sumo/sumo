@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2003/09/23 14:25:13  dkrajzew
+// possibility to visualise detectors using different geometry complexities added
+//
 // Revision 1.20  2003/09/05 14:55:11  dkrajzew
 // lighter drawer implementations
 //
@@ -123,8 +126,10 @@ namespace
 #include "drawerimpl/GUIVehicleDrawer_SGnTasTriangle.h"
 #include "drawerimpl/GUIJunctionDrawer_nT.h"
 #include "drawerimpl/GUIJunctionDrawer_wT.h"
-#include "drawerimpl/GUIDetectorDrawer_nT.h"
-#include "drawerimpl/GUIDetectorDrawer_wT.h"
+#include "drawerimpl/GUIDetectorDrawer_SGnT.h"
+#include "drawerimpl/GUIDetectorDrawer_SGwT.h"
+#include "drawerimpl/GUIDetectorDrawer_FGnT.h"
+#include "drawerimpl/GUIDetectorDrawer_FGwT.h"
 #include "drawerimpl/GUIROWDrawer_SG.h"
 #include "drawerimpl/GUIROWDrawer_FG.h"
 #include "drawerimpl/GUILaneDrawer_SGwT.h"
@@ -198,14 +203,14 @@ GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow &app,
     myJunctionDrawer[5] = new GUIJunctionDrawer_wT(_net.myJunctionWrapper);
     myJunctionDrawer[6] = new GUIJunctionDrawer_nT(_net.myJunctionWrapper);
     myJunctionDrawer[7] = new GUIJunctionDrawer_wT(_net.myJunctionWrapper);
-    myDetectorDrawer[0] = new GUIDetectorDrawer_nT(_net.myDetectorWrapper);
-    myDetectorDrawer[1] = new GUIDetectorDrawer_wT(_net.myDetectorWrapper);
-    myDetectorDrawer[2] = new GUIDetectorDrawer_nT(_net.myDetectorWrapper);
-    myDetectorDrawer[3] = new GUIDetectorDrawer_wT(_net.myDetectorWrapper);
-    myDetectorDrawer[4] = new GUIDetectorDrawer_nT(_net.myDetectorWrapper);
-    myDetectorDrawer[5] = new GUIDetectorDrawer_wT(_net.myDetectorWrapper);
-    myDetectorDrawer[6] = new GUIDetectorDrawer_nT(_net.myDetectorWrapper);
-    myDetectorDrawer[7] = new GUIDetectorDrawer_wT(_net.myDetectorWrapper);
+    myDetectorDrawer[0] = new GUIDetectorDrawer_SGnT(_net.myDetectorWrapper);
+    myDetectorDrawer[1] = new GUIDetectorDrawer_SGwT(_net.myDetectorWrapper);
+    myDetectorDrawer[2] = new GUIDetectorDrawer_FGnT(_net.myDetectorWrapper);
+    myDetectorDrawer[3] = new GUIDetectorDrawer_FGwT(_net.myDetectorWrapper);
+    myDetectorDrawer[4] = new GUIDetectorDrawer_SGnT(_net.myDetectorWrapper);
+    myDetectorDrawer[5] = new GUIDetectorDrawer_SGwT(_net.myDetectorWrapper);
+    myDetectorDrawer[6] = new GUIDetectorDrawer_FGnT(_net.myDetectorWrapper);
+    myDetectorDrawer[7] = new GUIDetectorDrawer_FGwT(_net.myDetectorWrapper);
     myROWDrawer[0] = new GUIROWDrawer_SG(_net.myEdgeWrapper);
     myROWDrawer[1] = new GUIROWDrawer_SG(_net.myEdgeWrapper);
     myROWDrawer[2] = new GUIROWDrawer_FG(_net.myEdgeWrapper);
@@ -378,12 +383,12 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
         drawerToUse += 1;
     }
 
-    myJunctionDrawer[drawerToUse]->drawGLJunctions(_junctions2Show, 
+    myJunctionDrawer[drawerToUse]->drawGLJunctions(_junctions2Show,
         _junctions2ShowSize, _junctionColScheme);
     myLaneDrawer[drawerToUse]->drawGLLanes(_edges2Show, _edges2ShowSize,
         width, _laneColScheme);
     myROWDrawer[drawerToUse]->drawGLROWs(_edges2Show, _edges2ShowSize, width);
-    myDetectorDrawer[drawerToUse]->drawGLDetectors(_detectors2Show, 
+    myDetectorDrawer[drawerToUse]->drawGLDetectors(_detectors2Show,
         _detectors2ShowSize, scale);
 
 /*
@@ -400,7 +405,7 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
 */
     // draw vehicles only when they're visible
     if(scale*m2p(3)>1) {
-        myVehicleDrawer[drawerToUse]->drawGLVehicles(_edges2Show, 
+        myVehicleDrawer[drawerToUse]->drawGLVehicles(_edges2Show,
             _edges2ShowSize, _vehicleColScheme);
         //paintGLVehicles(_edges);
     }

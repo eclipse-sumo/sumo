@@ -211,11 +211,19 @@ SOURCE=..\..\src\guinetload\GUIDetectorBuilder.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_nT.cpp
+SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_FGnT.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_wT.cpp
+SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_FGwT.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_SGnT.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_SGwT.cpp
 # End Source File
 # Begin Source File
 
@@ -1017,7 +1025,23 @@ SOURCE=..\..\src\guinetload\GUIDetectorBuilder.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_FGnT.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_FGwT.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_nT.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_SGnT.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\drawerimpl\GUIDetectorDrawer_SGwT.h
 # End Source File
 # Begin Source File
 

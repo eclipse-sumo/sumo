@@ -1,7 +1,7 @@
-#ifndef GUIDetectorDrawer_wT_h
-#define GUIDetectorDrawer_wT_h
+#ifndef GUIDetectorDrawer_SGwT_h
+#define GUIDetectorDrawer_SGwT_h
 //---------------------------------------------------------------------------//
-//                        GUIDetectorDrawer_wT.h -
+//                        GUIDetectorDrawer_SGwT.h -
 //  Class for drawing detectors with tooltips
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2003/09/23 14:28:16  dkrajzew
+// possibility to visualise detectors using different geometry complexities added
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
@@ -31,13 +34,13 @@
 
 #include <gui/GUISUMOAbstractView.h>
 
-class GUIDetectorDrawer_wT
+class GUIDetectorDrawer_SGwT
         : public GUISUMOAbstractView::GUIDetectorDrawer
 {
 public:
-    GUIDetectorDrawer_wT(std::vector<GUIDetectorWrapper*> &detectors)
+    GUIDetectorDrawer_SGwT(std::vector<GUIDetectorWrapper*> &detectors)
         : GUISUMOAbstractView::GUIDetectorDrawer(detectors) { }
-    ~GUIDetectorDrawer_wT() { }
+    ~GUIDetectorDrawer_SGwT() { }
     void drawGLDetectors(size_t *which, size_t maxDetectors,
         double scale);
 

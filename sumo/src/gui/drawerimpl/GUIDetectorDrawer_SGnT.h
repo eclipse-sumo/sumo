@@ -1,6 +1,8 @@
+#ifndef GUIDetectorDrawer_SGnT_h
+#define GUIDetectorDrawer_SGnT_h
 //---------------------------------------------------------------------------//
-//                        GUIDetectorDrawer_nT.cpp -
-//  Class for drawing detectors with no tooltips
+//                        GUIDetectorDrawer_SGnT.h -
+//  Class for drawing detectors with no tooltip information
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 02.09.2003
@@ -17,12 +19,10 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
 // $Log$
+// Revision 1.1  2003/09/23 14:28:16  dkrajzew
+// possibility to visualise detectors using different geometry complexities added
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
@@ -30,24 +30,20 @@ namespace
 // implementations of artefact drawers moved to folder "drawerimpl"
 //
 //
+//
+
 #include <gui/GUISUMOAbstractView.h>
-#include "GUIDetectorDrawer_nT.h"
-#include <guisim/GUIDetectorWrapper.h>
 
-
-void
-GUIDetectorDrawer_nT::drawGLDetectors(size_t *which, size_t maxDetectors,
-                                      double scale)
+class GUIDetectorDrawer_SGnT
+        : public GUISUMOAbstractView::GUIDetectorDrawer
 {
-    for(size_t i=0; i<maxDetectors; i++ ) {
-        if(which[i]==0) {
-            continue;
-        }
-        size_t pos = 1;
-        for(size_t j=0; j<32; j++, pos<<=1) {
-            if((which[i]&pos)!=0) {
-                myDetectors[j+(i<<5)]->drawGL(scale);
-            }
-        }
-    }
-}
+public:
+    GUIDetectorDrawer_SGnT(std::vector<GUIDetectorWrapper*> &detectors)
+        : GUISUMOAbstractView::GUIDetectorDrawer(detectors) { }
+    ~GUIDetectorDrawer_SGnT() { }
+    void drawGLDetectors(size_t *which, size_t maxDetectors,
+        double scale);
+
+};
+
+#endif
