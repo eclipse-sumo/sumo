@@ -20,6 +20,9 @@
 #define MSEdge_H
 
 // $Log$
+// Revision 1.3  2002/10/17 10:41:12  dkrajzew
+// retrival of the id added
+//
 // Revision 1.2  2002/10/16 16:40:35  dkrajzew
 // usage of MSPerson removed; will be reimplemented later
 //
@@ -211,6 +214,8 @@ public:
 
     /** Let the edge's vehicles try to change their lanes. */
     void changeLanes();
+
+    const std::string &id() const;
 
 protected:
     /// Unique ID.

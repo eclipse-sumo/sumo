@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2002/10/17 10:41:12  dkrajzew
+// retrival of the id added
+//
 // Revision 1.2  2002/10/16 16:40:35  dkrajzew
 // usage of MSPerson removed; will be reimplemented later
 //
@@ -324,6 +327,13 @@ operator<<( ostream& os, const MSEdge::MeanData& obj )
     os << "</edge>\n";
     return os;
 }
+
+const std::string &
+MSEdge::id() const
+{
+    return myID;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
