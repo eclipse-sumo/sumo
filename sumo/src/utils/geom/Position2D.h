@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/04/07 12:22:31  dkrajzew
+// first steps towards a junctions geometry
+//
 // Revision 1.4  2003/03/20 16:41:10  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -75,6 +78,12 @@ public:
     void add(const Position2D &pos) {
         _x += pos._x;
         _y += pos._y;
+    }
+
+    /// Adds the given position to this one
+    void add(double dx, double dy) {
+        _x += dx;
+        _y += dy;
     }
 
     /// Prints to the output

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/07 12:22:30  dkrajzew
+// first steps towards a junctions geometry
+//
 // Revision 1.5  2003/03/20 16:41:10  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -344,6 +347,45 @@ GeomHelper::DistancePointLine(const Position2D &Point,
 }
 
 
+
+void
+GeomHelper::transfer_to_side(Position2D &p,
+                             const Position2D &lineBeg,
+                             const Position2D &lineEnd,
+                             double amount)
+{
+    double dx = lineBeg.x() - lineEnd.x();
+    double dy = lineBeg.y() - lineEnd.y();
+    double length = sqrt(
+        (lineBeg.x() - lineEnd.x())*(lineBeg.x() - lineEnd.x())
+        +
+        (lineBeg.y() - lineEnd.y())*(lineBeg.y() - lineEnd.y()) );
+    if(dx<0) { // fromX<toX -> to right
+        if(dy>0) { // to up right -> lanes to down right (+, +)
+            p.add(dy*amount/length, -dx*amount/length);
+        } else if (dy<0) { // to down right -> lanes to down left (-, +)
+            p.add(dy*amount/length, -dx*amount/length);
+        } else { // to right -> lanes to down (0, +)
+            p.add(0, -dx*amount/length);
+        }
+    } else if(dx>0) { // fromX>toX -> to left
+        if(dy>0) { // to up left -> lanes to up right (+, -)
+            p.add(dy*amount/length, -dx*amount/length);
+        } else if (dy<0) { // to down left -> lanes to up left (-, -)
+            p.add(dy*amount/length, -dx*amount/length);
+        } else { // to left -> lanes to up (0, -)
+            p.add(0, -dx*amount/length);
+        }
+    } else { // fromX==toX
+        if(dy>0) { // to up -> lanes to right (+, 0)
+            p.add(dy*amount/length, 0);
+        } else if (dy<0) { // to down -> lanes to left (-, 0)
+            p.add(dy*amount/length, 0);
+        } else { // zero !
+            throw 1;
+        }
+    }
+}
 
 
 

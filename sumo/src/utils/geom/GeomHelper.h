@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/04/07 12:22:30  dkrajzew
+// first steps towards a junctions geometry
+//
 // Revision 1.2  2003/02/07 10:50:20  dkrajzew
 // updated
 //
@@ -89,6 +92,10 @@ public:
     /** by Damian Coventry */
     static double DistancePointLine(const Position2D &Point,
         const Position2D &LineStart, const Position2D &LineEnd);
+
+    static void transfer_to_side(Position2D &p,
+        const Position2D &lineBeg, const Position2D &lineEnd,
+        double amount);
 
 };
 
