@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/05/20 09:49:43  dkrajzew
+// further work and debugging
+//
 // Revision 1.4  2003/03/18 13:16:57  dkrajzew
 // windows eol removed
 //
@@ -28,7 +31,6 @@
 //
 // Revision 1.2  2003/02/07 10:47:17  dkrajzew
 // updated
-//
 //
 /* =========================================================================
  * included modules
@@ -39,6 +41,7 @@
 
 #include <map>
 #include <string>
+
 
 /* =========================================================================
  * class definitions
@@ -78,6 +81,8 @@ public:
 protected:
     /// Definition of the container type
     typedef std::map< std::string, T > myCont;
+
+    /// Definition of the container type iterator
     typedef typename myCont::iterator myContIt;
 
     /// The container
@@ -85,9 +90,10 @@ protected:
 
 };
 
-
+#ifndef MSVC
 #ifndef EXTERNAL_TEMPLATE_DEFINITION
 #include "NamedObjectCont.cpp"
+#endif
 #endif
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

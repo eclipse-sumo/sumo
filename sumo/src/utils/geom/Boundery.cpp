@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/05/20 09:50:19  dkrajzew
+// further work and debugging
+//
 // Revision 1.4  2003/03/18 13:16:57  dkrajzew
 // windows eol removed
 //
@@ -221,6 +224,7 @@ Boundery::flipY()
     _ymin = _ymax;
     _ymax = tmp;
 }
+
 
 
 std::ostream &

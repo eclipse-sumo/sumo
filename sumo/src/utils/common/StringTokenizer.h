@@ -104,7 +104,7 @@ public:
     std::string next();
 
     /** returns the number of existing substrings */
-    size_t size();
+    size_t size() const;
 
     /** returns the first substring without moving the iterator */
     std::string front();

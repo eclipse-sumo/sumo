@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/05/20 09:51:13  dkrajzew
+// further work and debugging
+//
 // Revision 1.3  2003/03/20 17:31:49  dkrajzew
 // StringUtils moved from utils/importio to utils/common
 //
@@ -88,9 +91,9 @@ NamedColumnsParser::parseLine(const std::string &line)
 }
 
 std::string
-NamedColumnsParser::get(const std::string &name, bool prune)
+NamedColumnsParser::get(const std::string &name, bool prune) const
 {
-    PosMap::iterator i=_defMap.find(name);
+    PosMap::const_iterator i=_defMap.find(name);
     if(i==_defMap.end()) {
         throw UnknownElement();
     }

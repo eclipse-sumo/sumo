@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/05/20 09:51:41  dkrajzew
+// further work and debugging
+//
 // Revision 1.2  2003/02/07 10:51:59  dkrajzew
 // updated
 //
@@ -124,7 +127,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-bool OptionsIO::getOptions(OptionsCont *oc, int argc, char **argv) {
+bool
+OptionsIO::getOptions(OptionsCont *oc, int argc, char **argv)
+{
     bool ret = true;
     // preparse the options
     //  (maybe another configuration file was chosen)
@@ -147,7 +152,10 @@ bool OptionsIO::getOptions(OptionsCont *oc, int argc, char **argv) {
     return ret;
 }
 
-string OptionsIO::getConfigurationPath(OptionsCont *oc, bool &ok) {
+
+string
+OptionsIO::getConfigurationPath(OptionsCont *oc, bool &ok)
+{
     string path = oc->getString("c");
     // check the user supplied path
     if(FileHelpers::exists(path))
@@ -158,7 +166,10 @@ string OptionsIO::getConfigurationPath(OptionsCont *oc, bool &ok) {
     return "";
 }
 
-bool OptionsIO::loadConfiguration(OptionsCont *oc) {
+
+bool
+OptionsIO::loadConfiguration(OptionsCont *oc)
+{
     if( oc->exists("no-config") &&
         oc->isSet("no-config") &&
         oc->getBool("no-config")) {

@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/05/20 09:49:43  dkrajzew
+// further work and debugging
+//
 // Revision 1.2  2003/02/07 10:47:17  dkrajzew
 // updated
 //
@@ -145,7 +148,8 @@ std::string StringTokenizer::get(size_t pos) const {
 }
 
 
-size_t StringTokenizer::size() {
+size_t StringTokenizer::size() const
+{
     return _starts.size();
 }
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2003/05/20 09:51:13  dkrajzew
+// further work and debugging
+//
 // Revision 1.2  2003/02/07 10:51:26  dkrajzew
 // updated
 //
@@ -79,7 +82,7 @@ public:
             initialisation
         throws an OutOfBoundsException when the line was too
             short and did not contain the item */
-    std::string get(const std::string &name, bool prune=false);
+    std::string get(const std::string &name, bool prune=false) const;
 
 private:
     /** returns the map of attribute names to their positions in a table */

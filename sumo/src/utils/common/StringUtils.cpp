@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/05/20 09:49:43  dkrajzew
+// further work and debugging
+//
 // Revision 1.2  2003/04/01 15:28:12  dkrajzew
 // some further functions added
 //
@@ -131,6 +134,12 @@ StringUtils::replace(std::string str, const char *what,
 }
 
 
+std::string
+StringUtils::trim(double val, size_t to)
+{
+    string ret = toString<double>(val);
+    return ret.substr(0, ret.find('.') + to);
+}
 
 
 

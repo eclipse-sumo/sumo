@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/05/20 09:50:20  dkrajzew
+// further work and debugging
+//
 // Revision 1.4  2003/03/20 16:41:09  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
@@ -42,6 +45,8 @@
 #include <iostream>
 #include <utility>
 #include "AbstractPoly.h"
+#include "Position2D.h"
+
 
 /* =========================================================================
  * class definitions

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/05/20 09:50:22  dkrajzew
+// further work and debugging
+//
 // Revision 1.3  2003/04/07 12:22:30  dkrajzew
 // first steps towards a junctions geometry
 //
@@ -96,6 +99,10 @@ public:
     static void transfer_to_side(Position2D &p,
         const Position2D &lineBeg, const Position2D &lineEnd,
         double amount);
+
+
+    static Position2D crossPoint(const Boundery &b,
+        const Position2DVector &v);
 
 };
 

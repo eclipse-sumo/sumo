@@ -1,10 +1,13 @@
 #include <queue>
 #include <cmath>
+#include <iostream>
 #include "AbstractPoly.h"
 #include "Position2D.h"
 #include "Position2DVector.h"
 #include "GeomHelper.h"
 
+
+using namespace std;
 
 Position2DVector::Position2DVector()
 {
@@ -34,7 +37,7 @@ bool
 Position2DVector::around(const Position2D &p, double offset) const
 {
     if(offset!=0) {
-        throw 1; // !!! not yet implemented
+        //throw 1; // !!! not yet implemented
     }
     double angle=0;
     for (ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
@@ -53,6 +56,7 @@ Position2DVector::around(const Position2D &p, double offset) const
         (*(myCont.begin())).x() - p.x(),
         (*(myCont.begin())).y() - p.y());
     angle += GeomHelper::Angle2D(p1.x(), p1.y(), p2.x(), p2.y());
+    cout << angle << endl;
     return (!(fabs(angle) < 3.1415926535897932384626433832795));
 }
 

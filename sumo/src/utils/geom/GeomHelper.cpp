@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/05/20 09:50:21  dkrajzew
+// further work and debugging
+//
 // Revision 1.6  2003/04/07 12:22:30  dkrajzew
 // first steps towards a junctions geometry
 //
@@ -385,6 +388,34 @@ GeomHelper::transfer_to_side(Position2D &p,
             throw 1;
         }
     }
+}
+
+
+
+Position2D
+GeomHelper::crossPoint(const Boundery &b, const Position2DVector &v)
+{
+    if(v.intersects(Position2D(b.xmin(), b.ymin()), Position2D(b.xmin(), b.ymax()))) {
+        return v.intersectsAtPoint(
+            Position2D(b.xmin(), b.ymin()),
+            Position2D(b.xmin(), b.ymax()));
+    }
+    if(v.intersects(Position2D(b.xmax(), b.ymin()), Position2D(b.xmax(), b.ymax()))) {
+        return v.intersectsAtPoint(
+            Position2D(b.xmax(), b.ymin()),
+            Position2D(b.xmax(), b.ymax()));
+    }
+    if(v.intersects(Position2D(b.xmin(), b.ymin()), Position2D(b.xmax(), b.ymin()))) {
+        return v.intersectsAtPoint(
+            Position2D(b.xmin(), b.ymin()),
+            Position2D(b.xmax(), b.ymin()));
+    }
+    if(v.intersects(Position2D(b.xmin(), b.ymax()), Position2D(b.xmax(), b.ymax()))) {
+        return v.intersectsAtPoint(
+            Position2D(b.xmin(), b.ymax()),
+            Position2D(b.xmax(), b.ymax()));
+    }
+    throw 1;
 }
 
 

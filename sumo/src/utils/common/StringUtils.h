@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/05/20 09:49:43  dkrajzew
+// further work and debugging
+//
 // Revision 1.2  2003/04/01 15:28:13  dkrajzew
 // some further functions added
 //
@@ -60,6 +63,7 @@ public:
     static std::string replace(std::string str, const char *what,
         const char *by);
 
+    static std::string trim(double val, size_t to);
 };
 
 
