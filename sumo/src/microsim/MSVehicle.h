@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.16  2003/05/25 17:52:29  roessel
+// Added typedefs.
+//
 // Revision 1.15  2003/05/22 12:46:36  roessel
 // New method activateRemindersByEmitOrLaneChange.
 //
@@ -774,7 +777,9 @@ private:
 	double myVLinkPass;
 	double myVLinkWait;
 
-    std::vector< MSMoveReminder* > myMoveReminders;
+    typedef std::vector< MSMoveReminder* > MoveReminderCont;
+    typedef MoveReminderCont::iterator MoveReminderContIt;
+    MoveReminderCont myMoveReminders;
 
     void workOnMoveReminders( double oldPos, double newPos, double newSpeed );
     void activateRemindersByEmitOrLaneChange( void );
