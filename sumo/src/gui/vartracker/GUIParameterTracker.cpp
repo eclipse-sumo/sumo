@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/07/30 12:51:42  dkrajzew
+// bugs on resize and font loading partially patched
+//
 // Revision 1.7  2003/07/30 08:50:42  dkrajzew
 // tracker debugging (not yet completed)
 //
@@ -52,6 +55,8 @@ namespace
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
 #include <qrect.h>
+#include <qmenubar.h>
+#include <qpopupmenu.h>
 #include <utils/convert/ToString.h>
 #include <utils/common/StringUtils.h>
 #include "GUIParameterTracker.h"
@@ -79,6 +84,7 @@ GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app)
         : myApplication(app)
 {
     buildFileTools();
+    buildFileMenu();
     setCaption("Tracker");
     setBaseSize(200, 300);
     setMinimumSize(200, 300);
@@ -98,6 +104,7 @@ GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app,
                                          int xpos, int ypos)
         : myApplication(app)
 {
+    buildFileMenu();
     buildFileTools();
     setCaption("Tracker");
     setBaseSize(300, 200);
@@ -105,6 +112,7 @@ GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app,
     app.addChild(this, true);
     myPanel = new
         GUIParameterTrackerPanel(myApplication, *this);
+    setCentralWidget(myPanel);
     addVariable(&o, name, src);
     myPanel->move(xpos, ypos);
     show();
@@ -168,24 +176,41 @@ GUIParameterTracker::paintEvent ( QPaintEvent *e )
 void
 GUIParameterTracker::resizeEvent ( QResizeEvent *e )
 {
-    myPanel->setGeometry(QRect( 0, 0,
-		e->size().width(), e->size().height()));
+/*    myPanel->setGeometry(QRect( 0, 0,
+		e->size().width(), e->size().height()));*/
 	QMainWindow::resizeEvent(e);
 }
 
 
 
 void
+GUIParameterTracker::buildFileMenu()
+{
+/*
+    QPixmap saveIcon;
+    saveIcon = QPixmap( filesave );
+    // build the file-menu
+    _fileMenu = new QPopupMenu( this );
+    menuBar()->insertItem( "&File", _fileMenu );
+    _fileMenu->insertSeparator();
+    _fileMenu->insertItem( "&Close", this, SLOT(closeAllWindows()), CTRL+Key_W );
+*/
+}
+
+
+void
 GUIParameterTracker::buildFileTools()
 {
+    /*
     QPixmap saveIcon;
 
-    QToolBar *fileTools = new QToolBar( this, "file operations");
+    fileTools = new QToolBar( "file operations", this);
     addToolBar( fileTools, tr( "File Operations" ), Top, TRUE );
 
     saveIcon = QPixmap( filesave );
     QToolButton *fileSave = new QToolButton( saveIcon, "Open File",
         QString::null, this, SLOT(load()), fileTools, "open file" );
+        */
 }
 
 
@@ -227,8 +252,8 @@ GUIParameterTracker::GUIParameterTrackerPanel::initializeGL()
     myFontRenderer.add(myApplication.myFonts.get("std9"));
     myFontRenderer.add(myApplication.myFonts.get("std8"));
     myFontRenderer.add(myApplication.myFonts.get("std7"));
-    myFontRenderer.add(myApplication.myFonts.get("std6"));
-    myFontRenderer.add(myApplication.myFonts.get("std5"));
+//    myFontRenderer.add(myApplication.myFonts.get("std6"));
+//    myFontRenderer.add(myApplication.myFonts.get("std5"));
     _lock.unlock();
 }
 
@@ -277,9 +302,8 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues()
     // compute which font to use
     int fontIdx = (_widthInPixels-300) / 100;
     if(fontIdx<0) fontIdx = 0;
-    if(fontIdx>7) fontIdx = 7;
-//    myFontRenderer.SetActiveFont(5-fontIdx); // !!! 7
-    myFontRenderer.SetActiveFont(4);
+    if(fontIdx>4) fontIdx = 4;
+    myFontRenderer.SetActiveFont(4-fontIdx);
     //
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();

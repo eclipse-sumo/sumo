@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/07/30 12:51:42  dkrajzew
+// bugs on resize and font loading partially patched
+//
 // Revision 1.4  2003/07/30 08:50:42  dkrajzew
 // tracker debugging (not yet completed)
 //
@@ -52,6 +55,8 @@
  * class declarations
  * ======================================================================= */
 class QPaintEvent;
+class QToolBar;
+class QPopupMenu;
 
 
 /* =========================================================================
@@ -161,6 +166,7 @@ public:
 
 private:
     void buildFileTools();
+    void buildFileMenu();
 
 
 protected:
@@ -175,7 +181,8 @@ protected:
 
     /// The panel to display the values in
     GUIParameterTrackerPanel *myPanel;
-
+QToolBar *fileTools ;
+QPopupMenu *_fileMenu;
 };
 
 
