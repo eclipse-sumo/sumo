@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/20 17:31:49  dkrajzew
+// StringUtils moved from utils/importio to utils/common
+//
 // Revision 1.2  2003/02/07 10:51:26  dkrajzew
 // updated
 //
@@ -40,7 +43,7 @@ namespace
 #include <map>
 #include <string>
 #include <utils/common/UtilExceptions.h>
-#include <utils/importio/StringUtils.h>
+#include <utils/common/StringUtils.h>
 #include "NamedColumnsParser.h"
 
 /* =========================================================================

@@ -5,7 +5,7 @@
 #include <utils/convert/TplConvert.h>
 #include <utils/importio/LineHandler.h>
 #include <utils/importio/LineReader.h>
-#include <utils/importio/StringUtils.h>
+#include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeomHelper.h>
 #include <netbuild/NBHelpers.h>

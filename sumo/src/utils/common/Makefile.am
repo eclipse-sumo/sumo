@@ -18,6 +18,8 @@ Named.h \
 NamedObjectCont.h \
 SErrorHandler.h \
 SLogging.h \
+StringUtils.cpp \
+StringUtils.h \
 StringTokenizer.h \
 UtilExceptions.h
 

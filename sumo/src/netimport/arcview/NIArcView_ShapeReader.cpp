@@ -6,7 +6,7 @@
 #include <utils/common/FileErrorReporter.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/importio/LineHandler.h>
-#include <utils/importio/StringUtils.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/Position2DVector.h>
 #include "NIArcView_ShapeReader.h"
 

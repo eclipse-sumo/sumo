@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/03/20 17:31:42  dkrajzew
+// StringUtils moved from utils/importio to utils/common
+//
 // Revision 1.11  2003/03/20 16:21:12  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -251,7 +254,7 @@ namespace
 #include "MSNet.h"
 #include "MSRoute.h"
 #include "MSLinkCont.h"
-#include <utils/importio/StringUtils.h>
+#include <utils/common/StringUtils.h>
 #include <iostream>
 #include <cassert>
 #include <cmath>

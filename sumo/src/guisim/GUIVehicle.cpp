@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/20 17:31:41  dkrajzew
+// StringUtils moved from utils/importio to utils/common
+//
 // Revision 1.3  2003/03/20 16:19:28  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -41,7 +44,7 @@ namespace
 #include <cmath>
 #include <vector>
 #include <string>
-#include <utils/importio/StringUtils.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/MSVehicle.h>
 #include "GUINet.h"
 #include "GUIVehicle.h"
