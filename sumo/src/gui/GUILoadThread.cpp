@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/06/06 10:33:47  dkrajzew
+// changes due to moving the popup-menus into a subfolder
+//
 // Revision 1.6  2003/06/05 06:26:16  dkrajzew
 // first tries to build under linux: warnings removed; Makefiles added
 //
@@ -56,6 +59,7 @@ namespace
 #include <utils/options/Option.h>
 #include <utils/options/OptionsIO.h>
 #include <sumo_only/SUMOFrame.h>
+#include <helpers/SingletonDictionary.h>
 #include "QSimulationLoadedEvent.h"
 #include "GUIApplicationWindow.h"
 #include "GUILoadThread.h"
@@ -112,11 +116,13 @@ void GUILoadThread::run()
         delete craw;
         net = 0;
         craw = 0;
+        SingletonDictionary< std::string, MSLaneState* >::remove();
     } catch (XMLBuildingException &e) {
         delete net;
         delete craw;
         net = 0;
         craw = 0;
+        SingletonDictionary< std::string, MSLaneState* >::remove();
     }
     delete oc;
     QThread::postEvent( _parent,

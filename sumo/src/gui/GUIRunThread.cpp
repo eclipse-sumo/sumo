@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/06/06 10:33:47  dkrajzew
+// changes due to moving the popup-menus into a subfolder
+//
 // Revision 1.7  2003/06/05 06:26:16  dkrajzew
 // first tries to build under linux: warnings removed; Makefiles added
 //
@@ -87,6 +90,12 @@ GUIRunThread::init(GUINet *net, long start, long end, std::ostream *craw)
     _simStartTime = start;
     _simEndTime = end;
     _step = start;
+    try {
+        SingletonDictionary< std::string, MSLaneState* >::getInstance()->setFindMode();
+        SingletonDictionary< std::string, MSLaneState* >::remove();
+
+    } catch (SingletonNotCreated &e) {
+    }
     SingletonDictionary< std::string, MSLaneState* >::create();
     _net->initialiseSimulation(_craw, start, end);
 }
@@ -177,6 +186,9 @@ GUIRunThread::simulationAvailable() const
 void
 GUIRunThread::deleteSim()
 {
+    if(_net!=0) {
+        _net->closeSimulation(_craw, _simStartTime, _step);
+    }
     _halting = true;
     while(_simulationInProgress);
     delete _net;

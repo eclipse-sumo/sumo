@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/06/06 10:33:47  dkrajzew
+// changes due to moving the popup-menus into a subfolder
+//
 // Revision 1.14  2003/06/05 06:26:16  dkrajzew
 // first tries to build under linux: warnings removed; Makefiles added
 //
@@ -107,10 +110,6 @@ namespace
 #include "icons/view_traffic/show_grid.xpm"
 #include "icons/view_traffic/show_tooltips.xpm"
 
-
-#ifdef WIN32
-#include <glut.h>
-#endif
 
 #ifndef WIN32
 #include "GUIViewTraffic.moc"
