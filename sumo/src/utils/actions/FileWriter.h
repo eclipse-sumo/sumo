@@ -2,6 +2,7 @@
 #define FileWriter_h
 
 #include <string>
+#include <fstream>
 
 class FileWriter
 {

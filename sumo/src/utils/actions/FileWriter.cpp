@@ -1,6 +1,8 @@
 #include <string>
+#include <iostream>
 #include "FileWriter.h"
 
+using namespace std;
 
 FileWriter::FileWriter(const std::string &file)
     : myFile(file.c_str())
