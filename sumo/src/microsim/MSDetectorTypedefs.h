@@ -10,6 +10,7 @@
 #include "MSMaxJamLength.h"
 #include "MSJamLengthSum.h"
 #include "MSQueueLengthAheadOfTrafficLights.h"
+#include "MSNVehicles.h"
 
 namespace Detector 
 {
@@ -34,7 +35,8 @@ namespace Detector
     typedef MSMeanDetector< MSE2Detector<
         MSQueueLengthAheadOfTrafficLightsInMeters > >
     E2QueueLengthAheadOfTrafficLightsInMeters;
-    
+
+    typedef MSMeanDetector< MSE2Detector< MSNVehicles > > E2NVehicles;
 }
 
 #endif // MSE2DETECTORTYPEDEFS_H
