@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/20 17:40:58  dkrajzew
+// StringUtils moved from utils/importio to utils/common
+//
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
@@ -88,9 +91,13 @@ ROCompleteRouteDef::addAlternative(RORoute *current, long begin)
 
 
 void
-ROCompleteRouteDef::xmlOutCurrent(std::ostream &res) const
+ROCompleteRouteDef::xmlOutCurrent(std::ostream &res, bool isPeriodical) const
 {
-    res << "   <route id=\"" << _id << "/>" << _edges
+    res << "   <route id=\"" << _id << "\"";
+    if(isPeriodical) {
+        res << " multi_ref=\"x\"";
+    }
+    res << ">" << _edges
         << "</route>" << endl;
 }
 
