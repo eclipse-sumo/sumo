@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2004/03/19 13:02:06  dkrajzew
+// some style adaptions
+//
 // Revision 1.1  2004/01/26 07:22:46  dkrajzew
 // added a class theat allows to use csv-files more easily
 //

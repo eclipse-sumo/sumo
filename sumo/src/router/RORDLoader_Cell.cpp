@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/03/19 13:03:01  dkrajzew
+// some style adaptions
+//
 // Revision 1.2  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
@@ -149,7 +152,7 @@ RORDLoader_Cell::myReadRoutesAtLeastUntil(unsigned int time)
         if(routeNo<0) {
             MsgHandler::getWarningInstance()->inform(
                 string("Skipping Route: ") + toString<int>(routeNo));
-            return true; // !!!!
+            return true; // !!!
         }
         // add the route when it is not yet known
         RORouteDef_Alternatives *altDef =

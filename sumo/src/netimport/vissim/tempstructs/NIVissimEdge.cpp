@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2004/03/19 13:03:29  dkrajzew
+// some style adaptions
+//
 // Revision 1.24  2004/02/10 07:15:25  dkrajzew
 // removed some debug-variables
 //
@@ -687,30 +690,30 @@ NIVissimEdge::buildNBEdge(double offset)
     //
     // build the edge
 //    assert(mySpeed!=-1);
-    double bla = 0;
+    double avgSpeed = 0;
     int i;
     for(i=0; i<myNoLanes; i++) {
         if(myLaneSpeeds.size()<=i||myLaneSpeeds[i]==-1) {
             cout << "Unset speed on edge:" << myID << ", lane:" << i
                 << ". Using default." << endl;
-            bla += OptionsSubSys::getOptions().getFloat("vissim-default-speed");
+            avgSpeed += OptionsSubSys::getOptions().getFloat("vissim-default-speed");
         } else {
-            bla += myLaneSpeeds[i];
+            avgSpeed += myLaneSpeeds[i];
         }
     }
-    bla /= (double) myLaneSpeeds.size();
-    bla *= OptionsSubSys::getOptions().getFloat("vissim-speed-norm");
+    avgSpeed /= (double) myLaneSpeeds.size();
+    avgSpeed *= OptionsSubSys::getOptions().getFloat("vissim-speed-norm");
 
     NBEdge *buildEdge = new NBEdge(
         toString<int>(myID), myName, fromNode, toNode, myType,
-        bla/3.6, myNoLanes, myGeom.length(), 0, myGeom,
+        avgSpeed/3.6, myNoLanes, myGeom.length(), 0, myGeom,
         NBEdge::LANESPREAD_CENTER, NBEdge::EDGEFUNCTION_NORMAL);
     for(i=0; i<myNoLanes; i++) {
         if(myLaneSpeeds.size()<=i||myLaneSpeeds[i]==-1) {
             buildEdge->setLaneSpeed(i,
                 OptionsSubSys::getOptions().getFloat("vissim-default-speed"));
         } else {
-            buildEdge->setLaneSpeed(i, myLaneSpeeds[i]);
+            buildEdge->setLaneSpeed(i, myLaneSpeeds[i]/3.6);
         }
     }
     NBEdgeCont::insert(buildEdge);

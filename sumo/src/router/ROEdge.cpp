@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2004/03/19 13:03:01  dkrajzew
+// some style adaptions
+//
 // Revision 1.11  2004/03/03 15:33:53  roessel
 // Tried to make postloadInit more readable.
 // Added an assert to avoid division by zero.
@@ -110,7 +113,7 @@ ROEdge::postloadInit(size_t idx)
 //                 }
 //                 currValue += tmp;
 //             }
-            
+
 //             currValue = currValue / _laneCont.size();
 //             _ownValueLine.addValue(range, currValue);
 //         }
