@@ -1,14 +1,14 @@
 #ifndef GUILaneStateReporter_h
 #define GUILaneStateReporter_h
 
-#include <microsim/MS_E2_ZS_Collector.h>
+#include <microsim/MSE2Collector.h>
 #include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSUpdateEachTimestep.h>
 
 class GUILaneStateBounderiesStorage;
 
-class GUILaneStateReporter : public MS_E2_ZS_Collector,
+class GUILaneStateReporter : public MSE2Collector,
     public MSUpdateEachTimestep<GUILaneStateReporter>
 {
 public:

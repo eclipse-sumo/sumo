@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/12/04 13:36:10  dkrajzew
+// work on setting of aggregated value bounderies
+//
 // Revision 1.17  2003/11/26 10:58:30  dkrajzew
 // messages from the simulation are now also passed to the message handler
 //
@@ -361,6 +364,10 @@ GUILaneWrapper::getLinkDirection(size_t pos) const
 void
 GUILaneWrapper::buildAggregatedValuesStorage()
 {
+    myAggregatedValues = 0;
+    if(myLane.length()<1) {
+        return;
+    }
     //
     myAggregatedValues = new LoggedValue_TimeFloating<double>*[1];
     for(size_t i=0; i<1; i++) {
@@ -377,6 +384,9 @@ GUILaneWrapper::buildAggregatedValuesStorage()
 double
 GUILaneWrapper::getAggregatedDensity(size_t aggregationPosition) const
 {
+    if(myAggregatedValues==0) {
+        return -1;
+    }
     return myAggregatedValues[aggregationPosition]->getAbs();
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/12/04 13:36:09  dkrajzew
+// work on setting of aggregated value bounderies
+//
 // Revision 1.2  2003/11/24 10:16:08  dkrajzew
 // documentation added; division by zero-error patched
 //
@@ -48,7 +51,7 @@ GUILaneStateBounderiesStorage::~GUILaneStateBounderiesStorage()
 
 
 void
-GUILaneStateBounderiesStorage::addValue(MS_E2_ZS_Collector::DetType type,
+GUILaneStateBounderiesStorage::addValue(E2::DetType type,
                                         double val)
 {
     // for all-the-time values
@@ -88,7 +91,7 @@ GUILaneStateBounderiesStorage::addValue(MS_E2_ZS_Collector::DetType type,
 
 double
 GUILaneStateBounderiesStorage::timeStepNorm(double val,
-                                            MS_E2_ZS_Collector::DetType type)
+                                            E2::DetType type)
 {
     // check whether any values were inserted, yet
     if(!myAmStepInitialised) {
