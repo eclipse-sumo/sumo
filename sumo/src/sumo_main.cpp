@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/10/28 08:35:01  dkrajzew
+// random number specification options added
+//
 // Revision 1.17  2003/08/21 13:02:22  dkrajzew
 // cleaned up
 //
@@ -212,9 +215,6 @@ int
 main(int argc, char **argv)
 {
     size_t rand_init = 10551;
-//    rand_init = time(0);
-//    cout << "Rand:" << rand_init << endl;
-    srand(1040208551);
     int ret = 0;
     try {
         if(!SystemFrame::init(false, argc, argv,
@@ -223,6 +223,7 @@ main(int argc, char **argv)
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
+        srand(oc.getInt("srand"));
         // load the net
         MSNet *net = load(oc);
         SUMOFrame::postbuild(*net);

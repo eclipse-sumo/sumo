@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2003/10/28 08:35:01  dkrajzew
+// random number specification options added
+//
 // Revision 1.11  2003/08/21 13:01:39  dkrajzew
 // some bugs patched
 //
@@ -97,6 +100,10 @@ char *help[] = {
     "                                   on an Intel-machine",
     "   --no-last-cell                 Use best, not the last cell-route",
     "   --continue-on-unbuild          Continue if a route could not be build",
+    "   --srand <INT>                  Initialises the random number generator",
+    "                                   with the given value",
+    "   --abs-rand                     Set this when the current time shall be",
+    "                                   used for random number initialisation",
     " ",
     " Report options:",
     "   -v, --verbose                   SUMO-ROUTER will report what it does",

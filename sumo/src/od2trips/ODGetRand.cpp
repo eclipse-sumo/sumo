@@ -78,7 +78,6 @@ int Get_rand (int number,int maxele, int start, int *input, int *output, bool in
 	}
 	check=0;
 	newele=maxele;
-    if(ini) srand(time(0));
 	while (check < number)
 	{
 		rand_space = 1. * (newele-1) / RAND_MAX;

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/10/28 08:35:01  dkrajzew
+// random number specification options added
+//
 // Revision 1.8  2003/09/05 14:40:42  dkrajzew
 // options for network building are now commoly set within NBNetBuilder
 //
@@ -53,6 +56,7 @@ namespace
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <ctime>
 #include <netbuild/NBNetBuilder.h>
 #include <netgen/NGNet.h>
 #include <netgen/NGRandomNet.h>
@@ -62,6 +66,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/convert/ToString.h>
 #include "netgen_help.h"
 
 
@@ -127,6 +132,9 @@ checkOptions(OptionsCont &oc)
         }
     }
     //
+    if(oc.getBool("abs-rand")&&!oc.isSet("srand")) {
+        oc.set("srand", toString<int>(time(0)));
+    }
     return true;
 }
 
@@ -195,6 +203,9 @@ fillOptions(OptionsCont &oc)
     // register building options
     oc.doRegister("default-junction-type", 'j', new Option_String("priority"));
     oc.addSynonyme("default-junction-type", "junctions");
+    //
+    oc.doRegister("srand", new Option_Integer(23423));
+    oc.doRegister("abs-rand", new Option_Bool(false));
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
 }
@@ -205,6 +216,7 @@ buildNetwork()
 {
 	TNGNet *net = new TNGNet();
     OptionsCont &oc = OptionsSubSys::getOptions();
+    srand(oc.getInt("srand"));
     // spider-net
     if(oc.getBool("s")) {
         net->CreateSpiderWeb(

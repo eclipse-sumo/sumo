@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.27  2003/10/28 08:35:01  dkrajzew
+// random number specification options added
+//
 // Revision 1.26  2003/10/17 07:16:44  dkrajzew
 // errors patched
 //
@@ -106,6 +109,7 @@ namespace
 #include <string>
 #include <fstream>
 #include <limits.h>
+#include <ctime>
 #include <router/ROLoader.h>
 #include <router/RONet.h>
 #include <router/ROVehicleType_Krauss.h>
@@ -164,6 +168,9 @@ checkOptions(OptionsCont &oc)
         return false;
     }
     //
+    if(oc.getBool("abs-rand")&&!oc.isSet("srand")) {
+        oc.set("srand", toString<int>(time(0)));
+    }
     return true;
 }
 
@@ -196,8 +203,8 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("begin", 'b', new Option_Long(0));
     oc.doRegister("end", 'e', new Option_Long(864000));
     // register Gawron's DUE-settings
-    oc.doRegister("gBeta", new Option_Float(float(0.9)));
-    oc.doRegister("gA", new Option_Float(0.5));
+    oc.doRegister("gBeta", new Option_Float(float(0.3)));
+    oc.doRegister("gA", new Option_Float(0.05));
     // register vehicle type defaults
     oc.doRegister("krauss-vmax", 'V', new Option_Float(float(70)));
     oc.doRegister("krauss-a", 'A', new Option_Float(float(2.6)));
@@ -218,6 +225,9 @@ fillOptions(OptionsCont &oc)
 //    oc.doRegister("use-lanes", 'L', new Option_Bool(false));
     oc.doRegister("scheme", 'x', new Option_String("traveltime"));
 //    oc.doRegister("no-sort", 'S', new Option_Bool(false));
+    //
+    oc.doRegister("srand", new Option_Integer(23423));
+    oc.doRegister("abs-rand", new Option_Bool(false));
 }
 
 

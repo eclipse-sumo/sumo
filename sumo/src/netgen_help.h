@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/10/28 08:35:01  dkrajzew
+// random number specification options added
+//
 // Revision 1.1  2003/07/16 15:41:17  dkrajzew
 // network generator added
 //
@@ -44,6 +47,10 @@ char *help[] =
     " ",
     "Options:",
     " General options:",
+    "   --srand <INT>                   Initialises the random number generator",
+    "                                    with the given value",
+    "   --abs-rand                      Set this when the current time shall be",
+    "                                    used for random number initialisation",
     0
 };
 

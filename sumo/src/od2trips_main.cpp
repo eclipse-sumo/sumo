@@ -81,6 +81,9 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("end", 'e', new Option_Long(86400));
     oc.doRegister("scale", 's', new Option_Float(1));
     oc.doRegister("no-color", new Option_Bool(false));
+    //
+    oc.doRegister("srand", new Option_Integer(23423));
+    oc.doRegister("abs-rand", new Option_Bool(false));
 }
 
 
@@ -102,6 +105,10 @@ checkOptions(OptionsCont &oc)
         MsgHandler::getErrorInstance()->inform(
             "No trip table output file (-o) specified.");
         ok = false;
+    }
+    //
+    if(oc.getBool("abs-rand")&&!oc.isSet("srand")) {
+        oc.set("srand", toString<int>(time(0)));
     }
     return ok;
 }
@@ -186,6 +193,7 @@ main(int argc, char **argv)
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
+        srand(oc.getInt("srand"));
         string OD_filename = oc.getString("d");
         //
 		int fmatype = getFMatType(OD_filename);

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/10/28 08:33:44  dkrajzew
+// random number specification options added
+//
 // Revision 1.12  2003/08/20 11:50:54  dkrajzew
 // option for suppressing output of empty edges within the raw-output added
 //
@@ -65,10 +68,12 @@ namespace
 
 #include <iostream>
 #include <fstream>
+#include <ctime>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/convert/ToString.h>
 #include <microsim/MSJunction.h>
 #include "SUMOFrame.h"
 
@@ -114,6 +119,9 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("dump-intervals", new Option_UIntVector(""));
     oc.doRegister("dump-basename", new Option_FileName());
     oc.doRegister("dump-empty-edges", new Option_Bool(false));
+    //
+    oc.doRegister("srand", new Option_Integer(23423));
+    oc.doRegister("abs-rand", new Option_Bool(false));
 
 }
 
@@ -169,6 +177,10 @@ SUMOFrame::checkOptions(OptionsCont &oc)
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
         return false;
+    }
+    //
+    if(oc.getBool("abs-rand")&&!oc.isSet("srand")) {
+        oc.set("srand", toString<int>(time(0)));
     }
     return ok;
 }

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/10/28 08:35:01  dkrajzew
+// random number specification options added
+//
 // Revision 1.6  2003/07/07 08:40:09  dkrajzew
 // included new options into the help-screens
 //
@@ -79,6 +82,10 @@ char *help[] = {
     "                                   forward (default=0: read all routes)",
     " Simulation options:",
     "   --continue-on-accident          Allows continuation after an accident",
+    "   --srand <INT>                   Initialises the random number generator",
+    "                                    with the given value",
+    "   --abs-rand                      Set this when the current time shall be",
+    "                                    used for random number initialisation",
     " ",
     " Report Options:",
     "   -v, --verbose                   SUMO will report what it does",

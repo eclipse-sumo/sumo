@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2003/10/28 08:35:01  dkrajzew
+// random number specification options added
+//
 // Revision 1.10  2003/10/27 10:47:49  dkrajzew
 // added to possibility to close the application after a simulations end without user interaction
 //
@@ -194,7 +197,6 @@ main(int argc, char **argv)
 //    _CrtSetBreakAlloc(712424);
 #endif
 #endif
-    srand(1465461);
     int ret = 0;
     try {
         if(!SystemFrame::init(true, argc, argv,
