@@ -253,11 +253,23 @@ SOURCE=..\..\src\netimport\artemis\NIArtemisLoader.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_HVdests.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Lanes.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Links.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Nodes.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Segments.cpp
 # End Source File
 # Begin Source File
 
@@ -270,6 +282,14 @@ SOURCE=..\..\src\netimport\artemis\NIArtemisParser_SignalPhases.cpp
 # Begin Source File
 
 SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Signals.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisTempEdgeLanes.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisTempSegments.cpp
 # End Source File
 # Begin Source File
 
@@ -869,11 +889,23 @@ SOURCE=..\..\src\netimport\artemis\NIArtemisLoader.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_HVdests.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Lanes.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Links.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Nodes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Segments.h
 # End Source File
 # Begin Source File
 
@@ -886,6 +918,14 @@ SOURCE=..\..\src\netimport\artemis\NIArtemisParser_SignalPhases.h
 # Begin Source File
 
 SOURCE=..\..\src\netimport\artemis\NIArtemisParser_Signals.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisTempEdgeLanes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netimport\artemis\NIArtemisTempSegments.h
 # End Source File
 # Begin Source File
 

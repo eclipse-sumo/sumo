@@ -145,6 +145,10 @@ SOURCE=..\..\src\utils\dev\profile.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\router\ROArtemisRouteDefHandler.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\router\ROCellRouteDefHandler.cpp
 # End Source File
 # Begin Source File
@@ -386,6 +390,10 @@ SOURCE=..\..\src\utils\dev\profile.h
 # Begin Source File
 
 SOURCE=..\..\src\router\ReferencedItem.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\router\ROArtemisRouteDefHandler.h
 # End Source File
 # Begin Source File
 
