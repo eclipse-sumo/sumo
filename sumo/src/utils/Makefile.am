@@ -4,6 +4,7 @@ dev \
 distribution \
 geom \
 gfx \
+glutils \
 importio \
 options \
 qutils \
