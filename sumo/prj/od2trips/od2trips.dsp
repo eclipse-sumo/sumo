@@ -129,7 +129,11 @@ SOURCE=..\..\src\od2trips\ODIndexSort.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\od2trips\ODread.cpp
+SOURCE=..\..\src\od2trips\ODInpread.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\od2trips\ODPtvread.cpp
 # End Source File
 # Begin Source File
 
