@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
-//                        Command_SaveTLCoupledDet.cpp -
-//  Realises the output of a tls values on each switch
+//                        Command_SaveTLCoupledLaneDet.cpp -
+//  Realises the output of a lane's detector values if the lane has green light
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : 15 Feb 2004
@@ -23,7 +23,7 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.2  2004/02/16 14:02:57  dkrajzew
+// Revision 1.1  2004/02/16 14:03:46  dkrajzew
 // e2-link-dependent detectors added
 //
 //
@@ -31,11 +31,12 @@ namespace
  * included modules
  * ======================================================================= */
 #include "Action.h"
-#include "Command_SaveTLCoupledDet.h"
+#include "Command_SaveTLCoupledLaneDet.h"
 #include <microsim/MSNet.h>
 #include <microsim/MSTrafficLightLogic.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSDetectorFileOutput.h>
+#include <microsim/MSLinkCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 
@@ -49,40 +50,36 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-Command_SaveTLCoupledDet::Command_SaveTLCoupledDet(MSTrafficLightLogic *tll,
-                                                   MSDetectorFileOutput *dtf,
-                                                   unsigned int begin,
-                                                   const std::string &file)
-    : myLogic(tll), myDetector(dtf), myFile(file.c_str()),
-    myStartTime(begin)
+Command_SaveTLCoupledLaneDet::Command_SaveTLCoupledLaneDet(
+        MSTrafficLightLogic *tll, MSDetectorFileOutput *dtf,
+        unsigned int begin, const std::string &file
+        , MSLink *link)
+    : Command_SaveTLCoupledDet(tll, dtf, begin, file),
+    myLink(link), myLastState(MSLink::LINKSTATE_TL_RED)
 {
-    if(!myFile.good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The file '") + file
-            + string("'to save the tl-states into could not be opened."));
-        throw ProcessError();
-    }
-    myFile << myDetector->getXMLHeader()
-        << myDetector->getXMLDetectorInfoStart() << endl;
-    tll->addSwitchAction(this);
 }
 
 
-Command_SaveTLCoupledDet::~Command_SaveTLCoupledDet()
+Command_SaveTLCoupledLaneDet::~Command_SaveTLCoupledLaneDet()
 {
-    myFile << myDetector->getXMLDetectorInfoEnd() << endl;
 }
 
 
 bool
-Command_SaveTLCoupledDet::execute()
+Command_SaveTLCoupledLaneDet::execute()
 {
-    unsigned int end =
-        MSNet::getInstance()->getCurrentTimeStep();
-    myFile << "<interval start=\"" << myStartTime << "\" stop=\"" << end
-        << "\" " << myDetector->getXMLOutput( end-myStartTime )
-        << " />" << endl;
-    myStartTime = end;
+    if(myLink->getState()==myLastState) {
+        return true;
+    }
+    if(myLink->getState()==MSLink::LINKSTATE_TL_RED) {
+        unsigned int end =
+            MSNet::getInstance()->getCurrentTimeStep();
+        myFile << "<interval start=\"" << myStartTime << "\" stop=\"" << end
+            << "\" " << myDetector->getXMLOutput( end-myStartTime )
+            << " />" << endl;
+        myStartTime = end;
+    }
+    myLastState = myLink->getState();
     return true;
 }
 
@@ -92,6 +89,3 @@ Command_SaveTLCoupledDet::execute()
 // Local Variables:
 // mode:C++
 // End:
-
-
-

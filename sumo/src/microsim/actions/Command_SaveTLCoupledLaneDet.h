@@ -1,8 +1,8 @@
-#ifndef Command_SaveTLCoupledDet_h
-#define Command_SaveTLCoupledDet_h
+#ifndef Command_SaveTLCoupledLaneDet_h
+#define Command_SaveTLCoupledLaneDet_h
 //---------------------------------------------------------------------------//
-//                        Command_SaveTLCoupledDet.h -
-//  Realises the output of a tls values on each switch
+//                        Command_SaveTLCoupledLaneDet.h -
+//  Realises the output of a lane's detector values if the lane has green light
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : 15 Feb 2004
@@ -20,64 +20,48 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.2  2004/02/16 14:02:57  dkrajzew
+// Revision 1.1  2004/02/16 14:03:46  dkrajzew
 // e2-link-dependent detectors added
 //
 //
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <string>
-#include <fstream>
-#include "Action.h"
-#include <microsim/MSNet.h>
-#include <helpers/DiscreteCommand.h>
-
-
-/* =========================================================================
- * class declarations
- * ======================================================================= */
-class MSNet;
-class FileWriter;
-class MSTrafficLightLogic;
-class MSDetectorFileOutput;
+#include <microsim/MSLink.h>
+#include "Command_SaveTLCoupledDet.h"
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * @class Command_SaveTLCoupledDet
- * Called on every tls-switch, the "execute" writes the current detector
- *  values into a file.
+ * @class Command_SaveTLCoupledLaneDet
+ * Called on every tls-switch, the "execute" checks whether the state of the
+ *  assigned link is green. If so, the detector values of the assigned lane
+ *  detectors are written to a file.
  * This action is build only if the user wants and describes it within the
  *  additional-files.
  */
-class Command_SaveTLCoupledDet : public DiscreteCommand
+class Command_SaveTLCoupledLaneDet : public Command_SaveTLCoupledDet
 {
 public:
     /// Constructor
-    Command_SaveTLCoupledDet(MSTrafficLightLogic *tll, MSDetectorFileOutput *dtf,
-        unsigned int begin, const std::string &file);
+    Command_SaveTLCoupledLaneDet(MSTrafficLightLogic *tll, MSDetectorFileOutput *dtf,
+        unsigned int begin, const std::string &file
+        , MSLink *link);
 
     /// Destructor
-    virtual ~Command_SaveTLCoupledDet();
+    ~Command_SaveTLCoupledLaneDet();
 
     /// Executes the command (see above)
-    virtual bool execute();
+    bool execute();
 
-protected:
-    /// The file to write the output to
-    std::ofstream myFile;
+private:
+    /// The link to check
+    MSLink *myLink;
 
-    /// The logic to use
-    MSTrafficLightLogic *myLogic;
-
-    /// The detector to use
-    MSDetectorFileOutput *myDetector;
-
-    /// The last time the values were written
-    unsigned int myStartTime;
+    /// The state the link had the last time
+    MSLink::LinkState myLastState;
 
 };
 
@@ -89,3 +73,4 @@ protected:
 // Local Variables:
 // mode:C++
 // End:
+

@@ -1,34 +1,59 @@
+//---------------------------------------------------------------------------//
+//                        Command_SaveTLSState.cpp -
+//  Writes the state of the tls to a file
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : 15 Feb 2004
+//  copyright            : (C) 2004 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.2  2004/02/16 14:02:57  dkrajzew
+// e2-link-dependent detectors added
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "Action.h"
 #include "Command_SaveTLSState.h"
 #include <microsim/MSNet.h>
-//#include <microsim/FileWriter.h>
 #include <microsim/MSTrafficLightLogic.h>
 #include <microsim/MSEventControl.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 
-Command_SaveTLSState::Command_SaveTLSState(/*MSNet &net, */
-                                       const std::string &tlsid,
-                                       const std::string &file)
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+Command_SaveTLSState::Command_SaveTLSState(MSTrafficLightLogic *logic,
+                                           const std::string &file)
+    : myLogic(logic)
 {
-/*
-    myFileWriter = net.getActionTarget(file);
-    net.integrateAction(this);
-    */
     myExecTime = MSEventControl::getBeginOfTimestepEvents()->addEvent(this,
         0, MSEventControl::ADAPT_AFTER_EXECUTION);
-    myLogic = MSTrafficLightLogic::dictionary(tlsid);
-    if(myLogic==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The traffic light logic to save (")
-            + tlsid +
-            string( ") is not given."));
-        throw ProcessError();
-    }
     myFile.open(file.c_str());
     if(!myFile.good()) {
         MsgHandler::getErrorInstance()->inform(
@@ -54,3 +79,9 @@ Command_SaveTLSState::execute()
     return 1;
 }
 
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
