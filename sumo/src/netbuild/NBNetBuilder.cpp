@@ -15,7 +15,9 @@
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/convert/ToString.h>
+#include "NBJoinedEdgesMap.h"
 
 using namespace std;
 
@@ -40,6 +42,10 @@ NBNetBuilder::buildLoaded()
     compute(oc);
     // save network when wished
     save(oc.getString("o"), oc);
+    // save the mapping information when wished
+    if(oc.isSet("map-output")) {
+        saveMap(oc.getString("map-output"));
+    }
 }
 
 
@@ -50,6 +56,7 @@ NBNetBuilder::inform(int step, const std::string &about)
         string("Computing step ") + toString<int>(step)
         + string(": ") + about);
 }
+
 
 bool
 NBNetBuilder::removeDummyEdges(int step)
@@ -76,6 +83,20 @@ NBNetBuilder::removeUnwishedNodes(int step, OptionsCont &oc)
     }
     inform(step, "Removing empty nodes and geometry nodes.");
     return NBNodeCont::removeUnwishedNodes();
+}
+
+
+bool
+NBNetBuilder::guessTLs(int step, OptionsCont &oc)
+{
+    inform(step, "Guessing and setting TLs");
+    if(oc.isSet("explicite-junctions")) {
+        StringTokenizer st(oc.getString("explicite-junctions"), ";");
+        while(st.hasNext()) {
+            NBNodeCont::setAsTLControlled(st.next());
+        }
+    }
+    return NBNodeCont::guessTLs(oc);
 }
 
 
@@ -234,8 +255,10 @@ NBNetBuilder::compute(OptionsCont &oc)
 //    if(ok) ok = setInit(step++);
     //
     if(ok) ok = removeDummyEdges(step++);
+    gJoinedEdges.init(NBEdgeCont::getAllNames());
     if(ok) ok = joinEdges(step++);
     if(ok) ok = removeUnwishedNodes(step++, oc);
+    if(ok) ok = guessTLs(step++, oc);
     if(ok) ok = computeTurningDirections(step++);
     if(ok) ok = sortNodesEdges(step++);
     if(ok) ok = normaliseNodePositions(step++);
@@ -320,6 +343,19 @@ NBNetBuilder::save(string path, OptionsCont &oc)
 }
 
 
+bool
+NBNetBuilder::saveMap(string path)
+{
+    // try to build the output file
+    ofstream res(path.c_str());
+    if(!res.good()) {
+        return false;
+    }
+    // write map
+    res << gJoinedEdges;
+}
+
+
 void
 NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
 {
@@ -353,6 +389,25 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("no-node-removal", new Option_Bool(false));
     oc.doRegister("append-turnarounds", new Option_Bool(false));
     oc.doRegister("add-internal-links", 'I', new Option_Bool(false));
+
+    oc.doRegister("map-output", 'M', new Option_FileName());
+
+    // tls-guessing
+    oc.doRegister("guess-tls", new Option_Bool(false));
+    oc.doRegister("tls-guess.no-incoming-min", new Option_Integer(2));
+    oc.doRegister("tls-guess.no-incoming-max", new Option_Integer(5));
+    oc.doRegister("tls-guess.no-outgoing-min", new Option_Integer(1));
+    oc.doRegister("tls-guess.no-outgoing-max", new Option_Integer(5));
+    oc.doRegister("tls-guess.min-incoming-speed", new Option_Float(40/3.6));
+    oc.doRegister("tls-guess.max-incoming-speed", new Option_Float(69/3.6));
+    oc.doRegister("tls-guess.min-outgoing-speed", new Option_Float(40/3.6));
+    oc.doRegister("tls-guess.max-outgoing-speed", new Option_Float(69/3.6));
+
+    oc.doRegister("explicite-junctions", new Option_String());
+    oc.doRegister("explicite-no-junctions", new Option_String());
+    oc.doRegister("edges-min-speed", new Option_Float());
+
 }
+
 
 

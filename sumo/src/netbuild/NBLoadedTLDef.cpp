@@ -137,7 +137,7 @@ NBLoadedTLDef::SignalGroup::getLinkNo() const
 bool
 NBLoadedTLDef::SignalGroup::mayDrive(double time) const
 {
-	assert(myPhases.size()!=0);
+    assert(myPhases.size()!=0);
     for(GroupsPhases::const_reverse_iterator i=myPhases.rbegin(); i!=myPhases.rend(); i++) {
         double nextTime = (*i).myTime;
         if(time>=nextTime) {
@@ -164,7 +164,7 @@ NBLoadedTLDef::SignalGroup::hasYellow(double time) const
 bool
 NBLoadedTLDef::SignalGroup::mustBrake(double time) const
 {
-	assert(myPhases.size()!=0);
+    assert(myPhases.size()!=0);
     for(GroupsPhases::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
         double nextTime = (*i).myTime;
         if(nextTime>time) {
@@ -458,7 +458,7 @@ NBLoadedTLDef::buildPhaseMasks(size_t time) const
             masks.yellowMask[pos] = hasYellow;
             const NBConnection &conn = group->getConnection(j);
             NBConnection assConn(conn);
-			// assert that the connection really exists
+            // assert that the connection really exists
             if(assConn.check()) {
 /*                masks.brakeMask[pos] =
                     mustBrake(conn.getFrom(), conn.getTo()) | !mayDrive;*/
@@ -501,9 +501,6 @@ NBLoadedTLDef::mustBrake(const NBConnection &possProhibited,
     //  priorised foe to the given
     size_t pos = 0;
     for(SignalGroupCont::const_iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
-                if(possProhibited.getFrom()->getID()=="1000017") {
-                    int bla = 0;
-                }
         SignalGroup *group = (*i).second;
         // get otherlinks that have green
         size_t linkNo = group->getLinkNo();

@@ -32,6 +32,8 @@ protected:
 
     bool removeUnwishedNodes(int step, OptionsCont &oc);
 
+    bool guessTLs(int step, OptionsCont &oc);
+
     /** computes the turning direction for each edge */
     bool computeTurningDirections(int step);
 
@@ -56,6 +58,8 @@ protected:
     /** rechecks whether all lanes have a following lane/edge */
     bool recheckLanes(int step);
 
+    void initJoinedEdgesInformation();
+
     bool computeNodeShapes(int step);
     bool computeEdgeShapes(int step);
 
@@ -73,6 +77,9 @@ protected:
     bool reshiftRotateNet(int step, OptionsCont &oc);
 
     void checkPrint(OptionsCont &oc) ;
+
+    bool saveMap(std::string path);
+
 
 };
 

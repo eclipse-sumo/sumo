@@ -1,6 +1,6 @@
 /***************************************************************************
                           NBContHelper.cpp
-			  Some methods for traversing lists of edges
+              Some methods for traversing lists of edges
                              -------------------
     project              : SUMO
     subproject           : netbuilder / netconverter
@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/07/02 09:32:26  dkrajzew
+// mapping of joined edges names added; removal of edges with a too low speed added
+//
 // Revision 1.12  2004/02/16 13:58:22  dkrajzew
 // some further work on edge geometry
 //
@@ -100,7 +103,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+   #define _INC_MALLOC       // exclude standard memory alloc procedures
 #endif
 
 
@@ -320,10 +323,41 @@ NBContHelper::edge_to_lane_sorter::operator() (NBEdge *e1, NBEdge *e2) const {
 }
 
 
+double
+NBContHelper::getMaxSpeed(const EdgeVector &edges)
+{
+    if(edges.size()==0) {
+        return -1;
+    }
+    double ret = (*(edges.begin()))->getSpeed();
+    for(EdgeVector::const_iterator i=edges.begin()+1; i!=edges.end(); i++) {
+        if((*i)->getSpeed()>ret) {
+            ret = (*i)->getSpeed();
+        }
+    }
+    return ret;
+}
+
+
+double
+NBContHelper::getMinSpeed(const EdgeVector &edges)
+{
+    if(edges.size()==0) {
+        return -1;
+    }
+    double ret = (*(edges.begin()))->getSpeed();
+    for(EdgeVector::const_iterator i=edges.begin()+1; i!=edges.end(); i++) {
+        if((*i)->getSpeed()<ret) {
+            ret = (*i)->getSpeed();
+        }
+    }
+    return ret;
+}
+
+
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBContHelper.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

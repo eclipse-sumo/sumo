@@ -20,7 +20,8 @@ NBTrafficLightPhases.cpp NBTrafficLightPhases.h \
 NBType.cpp NBType.h NBTypeCont.cpp NBTypeCont.h NLLoadFilter.h \
 NBOwnTLDef.cpp NBOwnTLDef.h \
 NBLoadedTLDef.cpp NBLoadedTLDef.h \
-NBNetBuilder.cpp NBNetBuilder.h
+NBNetBuilder.cpp NBNetBuilder.h \
+NBJoinedEdgesMap.cpp NBJoinedEdgesMap.h
 
 CFRONT_FILES =
 

@@ -2,7 +2,7 @@
 #define NBContHelper_h
 /***************************************************************************
                           NBContHelper.h
-			  Some methods for traversing lists of edges
+              Some methods for traversing lists of edges
                              -------------------
     project              : SUMO
     begin                : Mon, 17 Dec 2001
@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2004/07/02 09:32:26  dkrajzew
+// mapping of joined edges names added; removal of edges with a too low speed added
+//
 // Revision 1.11  2004/01/13 07:46:04  dkrajzew
 // method for determining the back direction edge in a edge container added
 //
@@ -111,6 +114,10 @@ public:
         of edges sorted clockwise */
     static void nextCCW(const EdgeVector * edges,
         EdgeVector::const_iterator &from);
+
+    static double getMaxSpeed(const EdgeVector &edges);
+
+    static double getMinSpeed(const EdgeVector &edges);
 
     /** writes the vector of bools to the given stream */
     static std::ostream &out(std::ostream &os, const std::vector<bool> &v);
