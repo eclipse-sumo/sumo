@@ -21,32 +21,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2002/10/29 10:34:04  dkrajzew
+// log patched
+//
 // Revision 1.1  2002/10/17 13:28:11  dkrajzew
 // initial commit of classes to import connection definitions
-//
-// Revision 1.1  2002/10/16 15:45:36  dkrajzew
-// initial commit for xml-importing classes
-//
-// Revision 1.4  2002/06/11 16:00:41  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
-//
-// Revision 1.3  2002/05/14 04:42:57  dkrajzew
-// new computation flow
-//
-// Revision 1.2  2002/04/26 10:07:13  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
-//
-// Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
-// new version-free project name (try2)
-//
-// Revision 1.1.1.1  2002/04/09 13:22:00  dkrajzew
-// new version-free project name
-//
-// Revision 1.1.1.1  2002/02/19 15:33:04  traffic
-// Initial import as a separate application.
-//
-// Revision 1.1  2001/12/06 13:37:59  traffic
-// files for the netbuilder
 //
 //
 /* =========================================================================
