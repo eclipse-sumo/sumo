@@ -2,6 +2,7 @@ SUBDIRS = common \
 convert \
 dev \
 distribution \
+fonts \
 geom \
 gfx \
 glutils \
