@@ -11,6 +11,8 @@ public:
     static void normalise(DoubleVector &dv, double sum=1.0);
     static void div(DoubleVector &dv, double by);
     static void removeDouble(DoubleVector &v);
+    static void set(DoubleVector &dv, double to);
+
 };
 
 #endif

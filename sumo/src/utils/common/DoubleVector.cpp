@@ -15,8 +15,16 @@ DoubleVectorHelper::sum(const DoubleVector &dv)
 void
 DoubleVectorHelper::normalise(DoubleVector &dv, double msum)
 {
+    if(msum==0) {
+        // is an error; do nothing
+        return;
+    }
     double rsum = sum(dv);
-    div(dv, msum/rsum);
+    if(rsum==0) {
+        set(dv, 1.0/msum);
+        return;
+    }
+    div(dv, rsum/msum);
 }
 
 
@@ -28,6 +36,13 @@ DoubleVectorHelper::div(DoubleVector &dv, double by)
     }
 }
 
+void
+DoubleVectorHelper::set(DoubleVector &dv, double to)
+{
+    for(DoubleVector::iterator i=dv.begin(); i!=dv.end(); i++) {
+        *i = to;
+    }
+}
 
 
 void
