@@ -23,8 +23,13 @@ namespace
 }
 
 // $Log$
+// Revision 1.7  2002/05/08 09:29:56  croessel
+// Last change, i.e. test if vrh(target)!=0, moved from change2left/right
+// to congested().
+//
 // Revision 1.6  2002/05/02 13:46:57  croessel
-// change2left/right(): Check if veh(target) exists before passing target as argument.
+// change2left/right(): Check if veh(target) exists before passing target as 
+// argument. 
 //
 // Revision 1.5  2002/04/24 13:41:57  croessel
 // Changed the condition-order in change2left(). target-validity-ckeck
@@ -343,7 +348,6 @@ MSLaneChanger::change2right()
     }
     if ( 
 
-        veh( target ) != 0      &&
         ! overlap( target )     &&
         ! congested( target )   &&
           safeChange( target )  &&
@@ -374,7 +378,6 @@ MSLaneChanger::change2left()
     
     if ( 
     
-        veh( target ) != 0      &&
         ! overlap( target )     &&
         ! congested( target )   &&
           safeChange( target )  &&
@@ -495,10 +498,13 @@ MSLaneChanger::congested( ChangerIt target )
         
         return false;
     }
-    if ( veh( myCandi )->congested() &&
-         veh( target  )->congested() ) {
-        
-        return true;
+    if ( veh( target ) != 0 ) {
+
+        if ( veh( myCandi )->congested() &&
+             veh( target  )->congested() ) {
+            
+            return true;
+        }
     }
     return false;
 }
