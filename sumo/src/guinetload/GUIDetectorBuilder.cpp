@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/08/04 11:35:51  dkrajzew
+// only GUIVehicles need a color definition; process of building cars changed
+//
 // Revision 1.1  2003/07/22 14:58:33  dkrajzew
 // changes due to new detector handling
 //
@@ -74,7 +77,8 @@ GUIDetectorBuilder::buildInductLoop(const std::string &id,
     MSLane *clane = MSLane::dictionary(lane);
     if(clane==0) {
         throw InvalidArgument(
-            string("The lane with the id '") + lane
+            string("On detector building:\n")
+            + string("The lane with the id '") + lane
             + string("' is not known."));
     }
 //     // build in dependence to the sample interval
@@ -87,6 +91,9 @@ GUIDetectorBuilder::buildInductLoop(const std::string &id,
 //             new MSInductLoop<LoggedValue_TimeFixed<double> >
 //                 (id, clane, pos, splInterval, cstyle, file, false);
 //     }
+    if(pos<0) {
+        pos = clane->length() + pos;
+    }
     MSInductLoop *loop = new GUIInductLoop(id, clane, pos);
     // add the file output
     MSDetector2File<MSInductLoop>* det2file =

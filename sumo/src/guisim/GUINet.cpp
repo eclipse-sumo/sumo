@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/08/04 11:35:51  dkrajzew
+// only GUIVehicles need a color definition; process of building cars changed
+//
 // Revision 1.14  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
 //
@@ -77,6 +80,7 @@ namespace
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEmitControl.h>
 #include <gui/GUIGlObjectStorage.h>
+#include <utils/gfx/RGBColor.h>
 #include "GUINetWrapper.h"
 #include <guisim/GUIEdge.h>
 #include <guisim/GUIEmitterWrapper.h>
@@ -246,17 +250,25 @@ MSVehicle *
 GUINet::buildNewVehicle( std::string id, MSRoute* route,
                        MSNet::Time departTime,
                        const MSVehicleType* type,
+                       int repNo, int repOffset)
+{
+    return buildNewGUIVehicle(id, route, departTime, type, repNo,
+        repOffset, RGBColor(-1, -1, -1));
+}
+
+
+MSVehicle *
+GUINet::buildNewGUIVehicle( std::string id, MSRoute* route,
+                       MSNet::Time departTime,
+                       const MSVehicleType* type,
                        int repNo, int repOffset,
-                       float *defColor)
+                       const RGBColor &color)
 {
     size_t noIntervals = getNDumpIntervalls();
-/*    if(withGUI()) {
-        noIntervals++;
-    }*/
 	myLoadedVehNo++;
     GUIVehicle * veh = new GUIVehicle(_idStorage,
         id, route, departTime,
-        type, noIntervals, repNo, repOffset, defColor);
+        type, noIntervals, repNo, repOffset, color);
     return veh;
 }
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/08/04 11:35:52  dkrajzew
+// only GUIVehicles need a color definition; process of building cars changed
+//
 // Revision 1.8  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
 //
@@ -53,6 +56,7 @@
 #include <vector>
 #include <string>
 #include <gui/GUIGlObject.h>
+#include <utils/gfx/RGBColor.h>
 #include <microsim/MSVehicle.h>
 
 
@@ -96,15 +100,15 @@ public:
     static std::vector<std::string> getNames();
 
     /// returns the color of the vehicle defined in the xml-description
-    const float *getDefinedColor() const;
+    const RGBColor &getDefinedColor() const;
 
     /** returns a random color based on the vehicle's name
         (should stay the same across simulations */
-    const float *getRandomColor1() const;
+    const RGBColor &getRandomColor1() const;
 
     /** retunrs a random color
         (this second random color is fully randomly computed) */
-    const float *getRandomColor2() const;
+    const RGBColor &getRandomColor2() const;
 
     /** returns a color that describes how long ago the vehicle has
         changed the lane (is white after a lane change and becomes darker
@@ -113,7 +117,7 @@ public:
 
     /** returns white if the vehicle has changed the lane in the current step,
         othewise dark grey */
-    const float *getLaneChangeColor2() const;
+    const RGBColor &getLaneChangeColor2() const;
 
     /** @brief returns the number of steps waited
         A vehicle is meant to be "waiting" when it's speed is less than 0.1
@@ -158,7 +162,7 @@ protected:
     GUIVehicle( GUIGlObjectStorage &idStorage,
         std::string id, MSRoute* route, MSNet::Time departTime,
         const MSVehicleType* type, size_t noMeanData,
-        int repNo, int repOffset, float *defColor);
+        int repNo, int repOffset, const RGBColor &color);
 /*
     TableType getTableType(size_t pos) const;
 
@@ -167,19 +171,19 @@ protected:
 
 private:
     /// the color read from the XML-description
-    float _definedColor[3];
+    RGBColor myDefinedColor;
 
     /// random color #1 (build from name)
-    float _randomColor1[3];
+    RGBColor _randomColor1;
 
     /// random color #2 (completely random)
-    float _randomColor2[3];
+    RGBColor _randomColor2;
 
     /// white
-    static float _laneChangeColor1[3];
+    static RGBColor _laneChangeColor1;
 
     /// dark grey
-    static float _laneChangeColor2[3];
+    static RGBColor _laneChangeColor2;
 
 };
 

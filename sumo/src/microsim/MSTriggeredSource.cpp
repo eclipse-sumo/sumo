@@ -52,7 +52,12 @@ namespace
 #include <algorithm>
 #include <cstdlib>
 #include <functional>
+#include <utils/gfx/RGBColor.h>
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 //---------------------------------------------------------------------------//
@@ -292,7 +297,7 @@ MSTriggeredSource::scheduleEmit( std::string aVehicleId,
             aVehicleId,
             myRouteDist.getRndRoute(),
             aEmitTime,
-            aVehType, 0, 0, 0 );
+            aVehType, 0, 0);
         MSNet::getInstance()->newUnbuildVehicleBuild();
         if ( MSVehicle::dictionary( aVehicleId, myVehicle ) == false ) {
             delete myVehicle;
@@ -338,6 +343,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.11  2003/08/04 11:35:52  dkrajzew
+// only GUIVehicles need a color definition; process of building cars changed
+//
 // Revision 1.10  2003/07/21 11:00:38  dkrajzew
 // informing the network about vehicles still left within the emitters added
 //

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/08/04 11:35:52  dkrajzew
+// only GUIVehicles need a color definition; process of building cars changed
+//
 // Revision 1.13  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
 //
@@ -93,8 +96,8 @@ using namespace std;
 /* =========================================================================
  * static member variables
  * ======================================================================= */
-float GUIVehicle::_laneChangeColor1[3];
-float GUIVehicle::_laneChangeColor2[3];
+RGBColor GUIVehicle::_laneChangeColor1;
+RGBColor GUIVehicle::_laneChangeColor2;
 
 /* =========================================================================
  * method definitions
@@ -106,16 +109,10 @@ GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
                        const MSVehicleType* type,
                        size_t noMeanData,
                        int repNo, int repOffset,
-                       float *defColor)
+                       const RGBColor &color)
     : MSVehicle(id, route, departTime, type, noMeanData, repNo, repOffset),
-    GUIGlObject(idStorage, string("vehicle:")+id)
+    GUIGlObject(idStorage, string("vehicle:")+id), myDefinedColor(color)
 {
-    // copy the defined color
-    if(defColor!=0) {
-        _definedColor[0] = defColor[0];
-        _definedColor[1] = defColor[1];
-        _definedColor[2] = defColor[2];
-    }
     // compute both random colors
     //  color1
     long prod = 1;
@@ -125,20 +122,18 @@ GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
             prod /= 128;
         }
     }
-    _randomColor1[0] = (double) (256-(prod & 255)) / (double) 255;
-    _randomColor1[1] = (double) (256-((prod>>8) & 255)) / (double) 255;
-    _randomColor1[2] = (double) (256-((prod>>16) & 255)) / (double) 255;
+    _randomColor1 = RGBColor(
+        (double) (256-(prod & 255)) / (double) 255,
+        (double) (256-((prod>>8) & 255)) / (double) 255,
+        (double) (256-((prod>>16) & 255)) / (double) 255);
     // color2
-    _randomColor2[0] = (double)rand() / (double)(RAND_MAX);
-    _randomColor2[1] = (double)rand() / (double)(RAND_MAX);
-    _randomColor2[2] = (double)rand() / (double)(RAND_MAX);
+    _randomColor2 = RGBColor(
+        (double)rand() / (double)(RAND_MAX),
+        (double)rand() / (double)(RAND_MAX),
+        (double)rand() / (double)(RAND_MAX));
     // lane change color (static!!!)
-    _laneChangeColor1[0] = 1;
-    _laneChangeColor1[1] = 1;
-    _laneChangeColor1[2] = 1;
-    _laneChangeColor2[0] = float(0.7);
-    _laneChangeColor2[1] = float(0.7);
-    _laneChangeColor2[2] = float(0.7);
+    _laneChangeColor1 = RGBColor(1, 1, 1);
+    _laneChangeColor2 = RGBColor(0.7, 0.7, 0.7);
 }
 
 
@@ -163,21 +158,21 @@ GUIVehicle::getNames()
 }
 
 
-const float *
+const RGBColor &
 GUIVehicle::getDefinedColor() const
 {
-    return _definedColor;
+    return myDefinedColor;
 }
 
 
-const float *
+const RGBColor &
 GUIVehicle::getRandomColor1() const
 {
     return _randomColor1;
 }
 
 
-const float *
+const RGBColor &
 GUIVehicle::getRandomColor2() const
 {
     return _randomColor2;
@@ -195,7 +190,7 @@ GUIVehicle::getPassedColor() const
 }
 
 
-const float *
+const RGBColor &
 GUIVehicle::getLaneChangeColor2() const
 {
     if(myLastLaneChangeOffset==0) {
@@ -220,9 +215,10 @@ GUIVehicle::getNextPeriodical() const
     if(myRepetitionNumber<=0) {
         return 0;
     }
-    return GUINet::getInstance()->buildNewVehicle(StringUtils::version1(myID),
+    return static_cast<GUINet*>(GUINet::getInstance())->buildNewGUIVehicle(
+        StringUtils::version1(myID),
         myRoute, myDesiredDepart+myPeriod, myType, myRepetitionNumber-1,
-        myPeriod, 0);
+        myPeriod, myDefinedColor);
 }
 
 

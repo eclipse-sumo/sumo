@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/08/04 11:35:52  dkrajzew
+// only GUIVehicles need a color definition; process of building cars changed
+//
 // Revision 1.4  2003/07/18 12:35:04  dkrajzew
 // removed some warnings
 //
@@ -54,6 +57,8 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/gfx/RGBColor.h>
+
 
 /* =========================================================================
  * used namespaces
@@ -224,7 +229,7 @@ MSRouteHandler::addParsedVehicle(const string &id, const string &vtypeid,
     }
     MSVehicle *vehicle =
         MSNet::getInstance()->buildNewVehicle(id, route, depart, vtype,
-            repNumber, repOffset, 0);
+            repNumber, repOffset);
     if(!MSVehicle::dictionary(id, vehicle)) {
         throw XMLIdAlreadyUsedException("vehicle", id);
     }

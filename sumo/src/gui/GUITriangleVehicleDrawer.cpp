@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/08/04 11:35:51  dkrajzew
+// only GUIVehicles need a color definition; process of building cars changed
+//
 // Revision 1.11  2003/07/30 08:52:16  dkrajzew
 // further work on visualisation of all geometrical objects
 //
@@ -217,13 +220,22 @@ GUITriangleVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
         }
         break;
     case GUIViewTraffic::VCS_SPECIFIED:
-        glColor3fv(vehicle.getDefinedColor());
+        {
+            const RGBColor &col = vehicle.getDefinedColor();
+            glColor3f(col.red(), col.green(), col.blue());
+        }
         break;
     case GUIViewTraffic::VCS_RANDOM1:
-        glColor3fv(vehicle.getRandomColor1());
+        {
+            const RGBColor &col = vehicle.getRandomColor1();
+            glColor3f(col.red(), col.green(), col.blue());
+        }
         break;
     case GUIViewTraffic::VCS_RANDOM2:
-        glColor3fv(vehicle.getRandomColor2());
+        {
+            const RGBColor &col = vehicle.getRandomColor2();
+            glColor3f(col.red(), col.green(), col.blue());
+        }
         break;
     case GUIViewTraffic::VCS_LANECHANGE1:
         {
@@ -232,7 +244,10 @@ GUITriangleVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
         }
         break;
     case GUIViewTraffic::VCS_LANECHANGE2:
-        glColor3fv(vehicle.getLaneChangeColor2());
+        {
+            const RGBColor &col = vehicle.getLaneChangeColor2();
+            glColor3f(col.red(), col.green(), col.blue());
+        }
         break;
     case GUIViewTraffic::VCS_WAITING1:
         {

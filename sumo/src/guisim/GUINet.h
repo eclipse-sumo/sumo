@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2003/08/04 11:35:52  dkrajzew
+// only GUIVehicles need a color definition; process of building cars changed
+//
 // Revision 1.14  2003/07/30 08:54:14  dkrajzew
 // the network is capable to display the networks state, now
 //
@@ -90,6 +93,7 @@ class GUIJunctionWrapper;
 class GUIDetectorWrapper;
 class GUIEmitterWrapper;
 class GUINetWrapper;
+class RGBColor;
 
 
 /* =========================================================================
@@ -141,7 +145,11 @@ public:
     /// builds a new GUIVehicle
     MSVehicle *buildNewVehicle( std::string id, MSRoute* route,
         MSNet::Time departTime, const MSVehicleType* type,
-        int repNo, int repOffset, float *defColor);
+        int repNo, int repOffset);
+
+    MSVehicle *buildNewGUIVehicle( std::string id, MSRoute* route,
+        MSNet::Time departTime, const MSVehicleType* type,
+        int repNo, int repOffset, const RGBColor &color);
 
     size_t getDetectorWrapperNo() const;
 
