@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.20  2003/06/19 10:57:32  dkrajzew
+// division by zero in meandata computation patched
+//
 // Revision 1.19  2003/06/18 11:30:26  dkrajzew
 // debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
 //
@@ -1289,6 +1292,8 @@ operator<<( ostream& os, const MSLane::MeanData& obj )
 
         double intervallLength = obj.myInterval * MSNet::deltaT();
 
+        assert(meanData.contTimestepSum!=0);
+
         meanSpeed   = meanData.speedSum / meanData.contTimestepSum;
         meanSpeedSquare = meanData.speedSquareSum / meanData.contTimestepSum;
 
@@ -1297,15 +1302,21 @@ operator<<( ostream& os, const MSLane::MeanData& obj )
 
         // only vehicles that used the lane entirely contribute to traveltime
         if ( meanData.nVehEntireLane > 0 ) {
+            assert(meanData.nVehEntireLane!=0);
             traveltime = meanData.traveltimeStepSum * MSNet::deltaT() /
                 meanData.nVehEntireLane;
             assert( traveltime >= lane.myLength / lane.myMaxSpeed );
+
         }
         else {
             // no vehicle left the lane within intervall.
             // Calculate the traveltime using the measured meanSpeed
+            if(meanSpeed==0) {
+                meanSpeed   = lane.myMaxSpeed;
+                meanSpeedSquare = -1;
+                meanDensity = 0;
+            }
             traveltime  = lane.myLength / meanSpeed;
-
         }
     }
     else { // no vehicles visited the lane within intervall
