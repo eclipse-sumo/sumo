@@ -735,6 +735,14 @@ SOURCE=..\..\src\utils\geom\Bresenham.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\logging\DoubleFunctionBinding.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\logging\DoubleValueSource.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\glutils\FontStorage.h
 # End Source File
 # Begin Source File
@@ -1159,6 +1167,14 @@ SOURCE=..\..\src\microsim\MSBitSetLogic.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSDetector2File.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSDetectorFileOutput.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSDetectorSubSys.h
 # End Source File
 # Begin Source File
@@ -1558,6 +1574,10 @@ SOURCE=..\..\src\gui\QSUMOEvent.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\logging\RetrievableValue.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\gfx\RGBColor.h
 # End Source File
 # Begin Source File
@@ -1595,6 +1615,14 @@ SOURCE=..\..\src\utils\convert\TplConvertSec.h
 # Begin Source File
 
 SOURCE=..\..\src\gui\vartracker\TrackerValueDesc.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\logging\UIntFunction2DoubleBinding.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\logging\UIntParametrisedDblFuncBinding.h
 # End Source File
 # Begin Source File
 

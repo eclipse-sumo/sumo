@@ -377,6 +377,14 @@ SOURCE=..\..\src\utils\xml\AttributesReadingGenericSAX2Handler.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\logging\DoubleFunctionBinding.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\logging\DoubleValueSource.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\common\FileErrorReporter.h
 # End Source File
 # Begin Source File
@@ -397,6 +405,22 @@ SOURCE=..\..\src\utils\common\LogFile.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\logging\LoggedValue.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\logging\LoggedValue_Single.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\logging\LoggedValue_TimeFixed.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\logging\LoggedValue_TimeFloating.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\dev\MemDiff.h
 # End Source File
 # Begin Source File
@@ -406,6 +430,18 @@ SOURCE=..\..\src\microsim\MSActuatedTrafficLightLogic.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSBitSetLogic.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSDetector2File.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSDetectorFileOutput.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSDetectorSubSys.h
 # End Source File
 # Begin Source File
 
@@ -422,6 +458,10 @@ SOURCE=..\..\src\microsim\MSEmitControl.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSEventControl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSInductLoop.h
 # End Source File
 # Begin Source File
 
@@ -449,6 +489,14 @@ SOURCE=..\..\src\microsim\MSLaneSpeedTrigger.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSLaneState.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSLaneStateReminder.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSLink.h
 # End Source File
 # Begin Source File
@@ -458,6 +506,10 @@ SOURCE=..\..\src\microsim\MSLinkCont.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSLogicJunction.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSMoveReminder.h
 # End Source File
 # Begin Source File
 
@@ -506,6 +558,10 @@ SOURCE=..\..\src\microsim\MSTLLogicControl.h
 # Begin Source File
 
 SOURCE=..\..\src\microsim\MSTrafficLightLogic.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSTravelcostDetector.h
 # End Source File
 # Begin Source File
 
@@ -617,6 +673,10 @@ SOURCE=..\..\src\helpers\PreStartInitialised.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\logging\RetrievableValue.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\convert\STRConvert.h
 # End Source File
 # Begin Source File
@@ -646,6 +706,14 @@ SOURCE=..\..\src\utils\convert\TplConvert.h
 # Begin Source File
 
 SOURCE=..\..\src\utils\convert\TplConvertSec.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\logging\UIntFunction2DoubleBinding.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\utils\logging\UIntParametrisedDblFuncBinding.h
 # End Source File
 # Begin Source File
 
