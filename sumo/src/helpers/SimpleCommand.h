@@ -10,6 +10,15 @@
     email                : roessel@zpr.uni-koeln.de
  ***************************************************************************/
 
+/**
+ * @file   SimpleCommand.h
+ * @author Christian Roessel
+ * @date   Started Thu, 20 Dec 2001
+ * $Revision$ from $Date$ by $Author$
+ * 
+ * @brief  Contains the implementation of SimpleCommand
+ */
+
 /***************************************************************************
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -20,6 +29,10 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2003/06/06 14:43:35  roessel
+// Moved implementation from .icc to .h
+// Added documentation.
+//
 // Revision 1.3  2003/02/07 10:40:13  dkrajzew
 // updated
 //
@@ -65,9 +78,7 @@
 // Initial commit.
 //
 
-/* =========================================================================
- * included modules
- * ======================================================================= */
+
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
@@ -75,57 +86,59 @@
 #include "Command.h"
 
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
 /**
-   See Design-Patterns, Gamma et al.
-
-   Usage:
-   Create a Command-object, that executes the method "action()" of class T:
-   T* receiver = new T;
-   ...
-   Command* aCommand = new SimpleCommand< T >( receiver, &T::action );
-   ...
-   aCommand->execute();
-
+ * A command that takes no arguments. To be used with MSEventControl.
+ * @see Design Patterns, Gamma et al.
+ * @see Command
+ * @see MSEventControl
  */
 template< class T  >
 class SimpleCommand : public Command
 {
 public:
-    /// definition of the execution function
+    /// Type of the function to execute.
     typedef MSNet::Time ( T::* Operation )();
 
-    /// constructor
-    SimpleCommand( T* receiver, Operation op );
+    /** 
+     * Constructor.
+     * 
+     * @param receiver Pointer to object of type T that will receive a call to
+     * one of it's methods.
+     * @param operation The objects' method that will be called if execute()
+     * is called.
+     * 
+     * @return Pointer to the created SimpleCommand.
+     */
+    SimpleCommand( T* receiver, Operation operation ) :
+        myReceiver( receiver ),
+        myOperation( operation )
+        {}
 
-    /// destructor
-    ~SimpleCommand();
+    /// Destructor.
+    ~SimpleCommand()
+        {}
 
-    /** Execute the command and return an offset for recurring commands
-        or 0 for single-execution commands. */
-    MSNet::Time execute();
+    /** 
+     * Execute the command and return an offset for recurring commands
+     * or 0 for single-execution command.
+     * 
+     * @return The receivers operation should return the next interval for
+     * recurring commands and 0 for single-execution commands.
+     */
+    MSNet::Time execute()
+        {
+            return ( myReceiver->*myOperation )();
+        }
 
 protected:
 
 private:
-    /// the object the action is directed to
+    /// The object the action is directed to.
     T* myReceiver;
 
-    /// the object's performing operation
+    /// The object's operation to perform.
     Operation myOperation;
 };
-
-
-//----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
-#ifndef DISABLE_INLINE
-#include "SimpleCommand.icc"
-#endif // DISABLE_INLINE
-
-#ifndef EXTERNAL_TEMPLATE_DEFINITION
-#include "SimpleCommand.cpp"
-#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 #endif // SimpleCommand_H
 
