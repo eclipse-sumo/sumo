@@ -129,6 +129,10 @@ SOURCE=..\..\src\microsim\MSDetector2File.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSDetectorFileOutput.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSDetectorSubSys.cpp
 # End Source File
 # Begin Source File
