@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/06/24 14:38:46  dkrajzew
+// false instantiation of option "log-file" as Option_Strng patched into Option_FileName patched
+//
 // Revision 1.14  2003/06/24 08:06:36  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
 //
@@ -436,7 +439,6 @@ int main(int argc, char **argv)
         save(oc.getString("o"));
         // remove everything from the memory
     } catch (...) {
-        clearAll();
         MsgHandler::getErrorInstance()->inform("Quitting (conversion failed).");
         ret = 1;
     }

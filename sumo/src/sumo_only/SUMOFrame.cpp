@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/06/24 14:38:46  dkrajzew
+// false instantiation of option "log-file" as Option_Strng patched into Option_FileName patched
+//
 // Revision 1.9  2003/06/24 08:09:29  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
 //
@@ -98,7 +101,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
     oc.doRegister("print-options", 'p', new Option_Bool(false));
     oc.doRegister("help", '?', new Option_Bool(false));
-    oc.doRegister("log-file", 'l', new Option_String());
+    oc.doRegister("log-file", 'l', new Option_FileName());
     // register some research options
     oc.doRegister("initial-density", new Option_Float());
     oc.doRegister("initial-speed", new Option_Float());

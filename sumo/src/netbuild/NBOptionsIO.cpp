@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/06/24 14:38:46  dkrajzew
+// false instantiation of option "log-file" as Option_Strng patched into Option_FileName patched
+//
 // Revision 1.13  2003/06/24 08:09:29  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
 //
@@ -194,7 +197,7 @@ NBOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
     oc.doRegister("print-options", 'p', new Option_Bool(false));
     oc.doRegister("help", new Option_Bool(false));
-    oc.doRegister("log-file", 'l', new Option_String());
+    oc.doRegister("log-file", 'l', new Option_FileName());
     // register the data processing options
     oc.doRegister("no-config", 'C', new Option_Bool(false));
     oc.addSynonyme("no-config", "no-configuration");

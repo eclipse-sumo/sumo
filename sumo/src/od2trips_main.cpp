@@ -75,7 +75,7 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
     oc.doRegister("print-options", 'p', new Option_Bool(false));
     oc.doRegister("help", '?', new Option_Bool(false));
-    oc.doRegister("log-file", 'l', new Option_String());
+    oc.doRegister("log-file", 'l', new Option_FileName());
     // register the data processing options
     oc.doRegister("no-config", 'C', new Option_Bool(false));
     oc.addSynonyme("no-config", "no-configuration");
