@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/04 15:11:10  roessel
+// Commented out #include <glut.h>
+//
 // Revision 1.4  2003/04/04 08:37:51  dkrajzew
 // view centering now applies net size; closing problems debugged; comments added; tootip button added
 //
@@ -50,7 +53,7 @@ namespace
 #include <microsim/MSEdge.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUILaneWrapper.h>
-#include <glut.h>
+//#include <glut.h>
 #include "GUIViewTraffic.h"
 #include "GUISimpleLaneDrawer.h"
 

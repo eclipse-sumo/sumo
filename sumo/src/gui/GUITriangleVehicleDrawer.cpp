@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/04/04 15:12:05  roessel
+// Commented out #include <glut.h>
+//
 // Revision 1.6  2003/04/02 11:50:27  dkrajzew
 // a working tool tip implemented
 //
@@ -43,7 +46,7 @@ namespace
 #endif // HAVE_CONFIG_H
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUILaneWrapper.h>
-#include <glut.h>
+//#include <glut.h>
 #include "GUIViewTraffic.h"
 #include "GUITriangleVehicleDrawer.h"
 
