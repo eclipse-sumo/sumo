@@ -20,6 +20,11 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.27  2003/07/30 17:27:21  roessel
+// Removed superflous casts in getSeconds and getSteps.
+//
+// Changed type argument type of getSeconds from Time to double.
+//
 // Revision 1.26  2003/07/30 09:11:22  dkrajzew
 // a better (correct?) processing of yellow lights added; output corrigued; debugging
 //
@@ -387,15 +392,15 @@ public:
 
     Time getCurrentTimeStep() const;
 
-    static double getSeconds( Time steps )
+    static double getSeconds( double steps )
         {
-            return steps * static_cast< double >( myDeltaT );
+            return steps * myDeltaT;
         }
 
     static Time getSteps( double seconds )
         {
             return static_cast< Time >(
-                floor( seconds / static_cast< double >( myDeltaT ) ) );
+                floor( seconds / myDeltaT ) );
         }
 
 
