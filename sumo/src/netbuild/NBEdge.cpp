@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2003/10/28 09:47:28  dkrajzew
+// lane2lane connections are now kept when edges are joined
+//
 // Revision 1.30  2003/10/17 06:48:06  dkrajzew
 // length of sources and sinks set to 200m
 //
@@ -1550,6 +1553,22 @@ NBEdge::replaceInConnections(NBEdge *which, NBEdge *by, size_t laneOff)
             }
             cout << "---------" << endl;
         }*/
+    }
+}
+
+
+void
+NBEdge::moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff)
+{
+    size_t lanes = e->getNoLanes();
+    for(size_t i=0; i<lanes; i++) {
+        const EdgeLaneVector *elv = e->getEdgeLanesFromLane(i);
+        for(EdgeLaneVector::const_iterator j=elv->begin(); j!=elv->end(); j++) {
+            EdgeLane el = (*j);
+            assert(el.tlID=="");
+            bool ok = addLane2LaneConnection(i+laneOff, el.edge, el.lane);
+            assert(ok);
+        }
     }
 }
 

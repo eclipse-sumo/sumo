@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.23  2003/10/28 09:47:28  dkrajzew
+// lane2lane connections are now kept when edges are joined
+//
 // Revision 1.22  2003/10/15 11:45:38  dkrajzew
 // geometry computation corrigued partially
 //
@@ -412,6 +415,8 @@ public:
     EdgeBuildingStep getStep() const {
         return _step;
     }
+
+    void moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff);
 
 private:
     /**

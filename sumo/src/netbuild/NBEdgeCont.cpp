@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2003/10/28 09:47:28  dkrajzew
+// lane2lane connections are now kept when edges are joined
+//
 // Revision 1.21  2003/10/15 11:45:17  dkrajzew
 // unneeded debug-ifs removed
 //
@@ -551,6 +554,9 @@ NBEdgeCont::joinSameNodeConnectingEdges(EdgeVector edges)
         NBContHelper::same_connection_edge_sorter());
     // retrieve the connected nodes
     NBEdge *tpledge = *(edges.begin());
+    if(tpledge->getID()=="1000057"||tpledge->getID()=="1000055[1]") {
+        int bla = 0;
+    }
     NBNode *from = tpledge->getFromNode();
     NBNode *to = tpledge->getToNode();
     EdgeVector::const_iterator i;
@@ -601,7 +607,21 @@ NBEdgeCont::joinSameNodeConnectingEdges(EdgeVector edges)
     from->replaceOutgoing(edges, newEdge);
     to->replaceIncoming(edges, newEdge);
     // patch connections
+    //  add edge2edge-information
+    for(i=edges.begin(); i!=edges.end(); i++) {
+        EdgeVector ev = (*i)->getConnected();
+        for(EdgeVector::iterator j=ev.begin(); j!=ev.end(); j++) {
+            newEdge->addEdge2EdgeConnection(*j);
+        }
+    }
+    //  move lane2lane-connections
     size_t currLane = 0;
+    for(i=edges.begin(); i!=edges.end(); i++) {
+        newEdge->moveOutgoingConnectionsFrom(*i, currLane);
+        currLane += (*i)->getNoLanes();
+    }
+    // patch tl-information
+    currLane = 0;
     for(i=edges.begin(); i!=edges.end(); i++) {
         size_t noLanes = (*i)->getNoLanes();
         for(size_t j=0; j<noLanes; j++, currLane++) {
