@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2003/08/14 13:50:15  dkrajzew
+// new junction shape computation implemented
+//
 // Revision 1.23  2003/07/30 09:21:11  dkrajzew
 // added the generation about link directions and priority
 //
@@ -157,6 +160,9 @@ namespace
 #include <iostream>
 #include <utils/common/UtilExceptions.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/geom/Line2D.h>
+//#include <utils/geom/chull.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/convert/ToString.h>
 #include <iomanip>
@@ -836,6 +842,12 @@ NBNode::sortNodesEdges()
     }
 #endif
 #endif
+}
+
+
+void
+NBNode::computeNodeShape()
+{
     // compute the shape of the junction
     //  only junction have a shape, otherwise it's somekind
     //  of another connection between streets
@@ -844,33 +856,114 @@ NBNode::sortNodesEdges()
         (_incomingEdges->size()<2&&_outgoingEdges->size()<2) ) {
         return;
     }
-    // compute
-    EdgeVector::iterator i;
-        // compute the radius first
-    double width = 0;
+    std::vector<double> edgeOffsets;
+    EdgeVector::const_iterator i;
     for(i=_allEdges.begin(); i!=_allEdges.end(); i++) {
-        width =
-            width > (*i)->getMaxLaneOffset()
-            ? width
-            : (*i)->getMaxLaneOffset();
+        NBEdge *current = *i;
+        // the clockwise and the counter clockwise border;
+        Line2D cb, ccb;
+        // the left and the right crossing line
+        Line2D rl, ll;
+        // the crossing edges
+        EdgeVector::const_iterator ri = i;
+        EdgeVector::const_iterator li = i;
+//        std::pair<Line2D, Line2D> b = getBorders(current);
+        cb = current->getCWBounderyLine(this, 2.5);
+        ccb = current->getCCWBounderyLine(this, 2.5);
+        if(hasIncoming(current)) {
+            NBContHelper::nextCCW(&_allEdges, ri);
+            NBContHelper::nextCW(&_allEdges, li);
+            if(current->isTurningDirection(*li)/*&&_incomingEdges->size()>2*/) {
+                NBContHelper::nextCW(&_allEdges, li);
+                if(abs(NBHelpers::relAngle(current->getAngle(), (*li)->getAngle()))>150||
+                    abs(NBHelpers::relAngle(current->getAngle(), (*li)->getAngle()))<30) {
+
+                    li = i;
+                }
+            }
+        } else {
+            NBContHelper::nextCCW(&_allEdges, ri);
+            if((*ri)->isTurningDirection(current)/*&&_incomingEdges->size()>2*/) {
+                NBContHelper::nextCCW(&_allEdges, ri);
+                if(abs(NBHelpers::relAngle(current->getAngle(), (*ri)->getAngle()))>150||
+                    abs(NBHelpers::relAngle(current->getAngle(), (*ri)->getAngle()))<30) {
+
+                    ri = i;
+                }
+            }
+            NBContHelper::nextCW(&_allEdges, li);
+        }
+        double offr, offl;
+        if(ri!=i&&!(
+            abs(NBHelpers::relAngle(current->getAngle(), (*ri)->getAngle()))>150||
+            abs(NBHelpers::relAngle(current->getAngle(), (*ri)->getAngle()))<30)) {
+
+            rl = (*ri)->getCWBounderyLine(this, 2.5);
+            offr = getOffset(ccb, rl);
+        } else {
+            offr = 104;
+        }
+        if(li!=i&&!(
+            abs(NBHelpers::relAngle(current->getAngle(), (*li)->getAngle()))>150||
+            abs(NBHelpers::relAngle(current->getAngle(), (*li)->getAngle()))<30)) {
+
+            ll = (*li)->getCCWBounderyLine(this, 2.5);
+            offl = getOffset(cb, ll);
+        } else {
+            offl = 104.0;
+        }
+
+
+        edgeOffsets.push_back(offr>offl?offr:offl);
     }
-        // compute the shape's outer points
-    width *= 1.5;
-    for(i=_allEdges.begin(); i!=_allEdges.end(); i++) {
-        std::string tmpid = (*i)->getID();
-//        if((*i)->getToNode()==this) {
-            Position2D pos =
-                (*i)->getMinLaneOffsetPositionAt(this, width);
-            myPoly.push_back(pos);
-            pos =
-                (*i)->getMaxLaneOffsetPositionAt(this, width);
-            myPoly.push_back(pos);
-//        }
+    std::vector<double>::iterator j;
+    for(i=_allEdges.begin(), j=edgeOffsets.begin(); i!=_allEdges.end(); i++, j++) {
+        double offset = *j;
+        // do not process edges with no crossing
+        if(offset<0) {
+            continue;
+        }
+        // do not process outgoing which have opposite incoming for themselves
+        EdgeVector::const_iterator li = i;
+        NBContHelper::nextCW(&_allEdges, li);
+        NBEdge *current = *i;
+        if(hasIncoming(current)&&current->isTurningDirection(*li)) {
+            std::vector<double>::iterator j2 = j+1;
+            if(j2==edgeOffsets.end()) {
+                j2 = edgeOffsets.begin();
+            }
+            offset = offset<(*j2)?(*j2):offset;
+            // ok, process both directions
+            myPoly.push_back(
+                current->getCCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
+            myPoly.push_back(
+                (*li)->getCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
+            // and skip the next one
+            if(i+1!=_allEdges.end()) {
+                i++;
+                j++;
+            }
+        } else {
+            // process this edge only
+            myPoly.push_back(
+                current->getCCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
+            myPoly.push_back(
+                current->getCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
+        }
     }
-//    if(_allEdges[0]->getToNode()==this) {
-        myPoly.push_back(_allEdges[0]->getMinLaneOffsetPositionAt(this, width));
-        myPoly.push_back(_allEdges[0]->getMaxLaneOffsetPositionAt(this, width));
-//    }
+    myPoly = myPoly.convexHull();
+}
+
+
+double
+NBNode::getOffset(Line2D on, Line2D cross)
+{
+//    on.extrapolateBy(100);
+    if(!GeomHelper::intersects(on.p1(), on.p2(), cross.p1(), cross.p2())) {
+        return -1;
+    }
+    Position2D pos = GeomHelper::intersection_position(on.p1(), on.p2(), cross.p1(), cross.p2());
+    return GeomHelper::distance(on.p1(), pos);
 }
 
 
@@ -960,6 +1053,15 @@ NBNode::resetby(double xoffset, double yoffset)
     _x += xoffset;
     _y += yoffset;
     myPoly.resetBy(xoffset, yoffset);
+}
+
+
+void
+NBNode::reshiftPosition(double xoff, double yoff, double rot)
+{
+    _x = _x * cos(rot) + _y * sin(rot) + xoff;
+    _y = _y * cos(rot) - _x * sin(rot) + yoff;
+    myPoly.reshiftRotate(xoff, yoff, rot);
 }
 
 

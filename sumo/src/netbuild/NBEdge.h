@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.17  2003/08/14 13:50:15  dkrajzew
+// new junction shape computation implemented
+//
 // Revision 1.16  2003/07/16 15:32:02  dkrajzew
 // some work on the geometry of nodes
 //
@@ -112,6 +115,7 @@
 #include <utils/common/BoolVector.h>
 #include <utils/geom/Bresenham.h>
 #include <utils/geom/Position2DVector.h>
+#include <utils/geom/Line2D.h>
 
 
 
@@ -340,6 +344,14 @@ public:
         const std::string &tlID, size_t tlPos);
 
     void normalisePosition();
+
+    void reshiftPosition(double xoff, double yoff, double rot);
+
+    void addCrossingPointsAsIncomingWithGivenOutgoing(NBEdge *o,
+        Position2DVector &into);
+
+    Line2D getCWBounderyLine(NBNode *n, double offset);
+    Line2D getCCWBounderyLine(NBNode *n, double offset);
 
     /** friend class used for the computation of connections to
         following edges */

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2003/08/14 13:50:15  dkrajzew
+// new junction shape computation implemented
+//
 // Revision 1.22  2003/07/30 09:21:11  dkrajzew
 // added the generation about link directions and priority
 //
@@ -1606,6 +1609,54 @@ NBEdge::normalisePosition()
     for(size_t i=0; i<_nolanes; i++) {
         myLaneGeoms[i].resetBy(NBNodeCont::getNetworkOffset());
     }
+}
+
+
+void
+NBEdge::reshiftPosition(double xoff, double yoff, double rot)
+{
+    myGeom.reshiftRotate(xoff, yoff, rot);
+    for(size_t i=0; i<_nolanes; i++) {
+        myLaneGeoms[i].reshiftRotate(xoff, yoff, rot);
+    }
+}
+
+
+Line2D
+NBEdge::getCWBounderyLine(NBNode *n, double offset)
+{
+    Line2D ret;
+    if(_from==n) {
+        // outgoing
+        Position2DVector laneGeom = getLaneShape(0);
+        ret = Line2D(laneGeom.at(0), laneGeom.at(1));
+    } else {
+        // incoming
+        Position2DVector laneGeom = getLaneShape(getNoLanes()-1);
+        ret = Line2D(laneGeom.at(laneGeom.size()-1), laneGeom.at(laneGeom.size()-2));
+    }
+    ret.move2side(-offset);
+    ret.extrapolateBy(100.0);
+    return ret;
+}
+
+
+Line2D
+NBEdge::getCCWBounderyLine(NBNode *n, double offset)
+{
+    Line2D ret;
+    if(_from==n) {
+        // outgoing
+        Position2DVector laneGeom = getLaneShape(getNoLanes()-1);
+        ret = Line2D(laneGeom.at(0), laneGeom.at(1));
+    } else {
+        // incoming
+        Position2DVector laneGeom = getLaneShape(0);
+        ret = Line2D(laneGeom.at(laneGeom.size()-1), laneGeom.at(laneGeom.size()-2));
+    }
+    ret.move2side(offset);
+    ret.extrapolateBy(100.0);
+    return ret;
 }
 
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.18  2003/08/14 13:50:15  dkrajzew
+// new junction shape computation implemented
+//
 // Revision 1.17  2003/07/30 09:21:11  dkrajzew
 // added the generation about link directions and priority
 //
@@ -117,6 +120,7 @@
 #include <utils/common/Named.h>
 #include <utils/common/DoubleVector.h>
 #include <utils/geom/Position2D.h>
+#include <utils/geom/Line2D.h>
 #include <utils/geom/Position2DVector.h>
 #include "NBEdge.h"
 #include "NBJunctionLogicCont.h"
@@ -318,7 +322,12 @@ public:
     char stateCode(NBEdge *incoming, NBEdge *outgoing);
 
 
+    void computeNodeShape();
+
     friend class NBNodeCont;
+
+
+    double getOffset(Line2D on, Line2D cross);
 
 
 private:
@@ -378,6 +387,8 @@ private:
 
     /// resets the position by the given amount
     void resetby(double xoffset, double yoffset);
+
+    void reshiftPosition(double xoff, double yoff, double rot);
 
     /** @brief Replaces occurences of the first edge within the list of incoming by the second
         Connections are remapped, too */
