@@ -1,0 +1,65 @@
+<types>
+   <type id="10" name="Autobahn" priority="90" />
+   <type id="11" name="Autobahn" priority="90" nolanes="2" speed="30.556" Capacity="40.000" ParkingPossible="0" />
+   <type id="12" name="Autobahn" priority="90" nolanes="3" speed="30.556" Capacity="60.000" ParkingPossible="0" />
+   <type id="13" name="Autobahn" priority="90" nolanes="4" speed="30.556" Capacity="80.000" ParkingPossible="0" />
+   <type id="17" name="Einzelbetrachtung" priority="90" speed="30.556" ParkingPossible="0" />
+   <type id="19" name="Ab- und Zufahrten Autobahnkreuz" priority="15" nolanes="1" speed="22.222" Capacity="20.000" ParkingPossible="0" />
+   <type id="20" name="oertl. Hauptverkehrszug (GVK)" priority="85" />
+   <type id="21" name="anbaufrei" priority="84" nolanes="3" speed="19.444" Capacity="45.000" ParkingPossible="0" Remark="ohne (mit) Parken" />
+   <type id="22" name="ohne Parken oder anbaufrei" priority="83" nolanes="2" speed="19.444" Capacity="30.000" ParkingPossible="0" />
+   <type id="23" priority="82" nolanes="2" speed="19.444" Capacity="20.000" ParkingPossible="1" />
+   <type id="24" name="anbaufrei" priority="79" nolanes="1" speed="19.444" Capacity="15.000" ParkingPossible="0" />
+   <type id="25" priority="78" nolanes="1" speed="19.444" Capacity="15.000" ParkingPossible="0" />
+   <type id="26" priority="77" nolanes="1" speed="22.222" Capacity="10.000" ParkingPossible="1" />
+   <type id="27" name="Einzelbetrachtung" priority="80" speed="22.222" />
+   <type id="28" name="Strassenbahn in der Fahrbahn" priority="81" speed="19.444" Capacity="16.000" />
+   <type id="29" name="oertl. Hauptverkehrszug (GVK)" priority="76" speed="19.444" Capacity="8.000" />
+   <type id="30" name="oertl. Haupt- und Umgehungsstrasse (GVK)" priority="75" />
+   <type id="31" name="anbaufrei" priority="74" nolanes="3" speed="13.889" Capacity="25.000" ParkingPossible="0" />
+   <type id="32" priority="73" nolanes="2" speed="13.889" Capacity="20.000" ParkingPossible="0" />
+   <type id="33" priority="72" nolanes="2" speed="13.889" Capacity="15.000" ParkingPossible="1" />
+   <type id="34" name="anbaufrei" priority="71" nolanes="1" speed="13.889" Capacity="12.000" ParkingPossible="0" />
+   <type id="35" priority="70" nolanes="1" speed="13.889" Capacity="12.000" ParkingPossible="0" />
+   <type id="36" priority="68" nolanes="1" speed="13.889" Capacity="5.000" ParkingPossible="1" />
+   <type id="37" name="Einzelbetrachtung" priority="67" speed="16.667" />
+   <type id="38" name="Strassenbahn in der Fahrbahn" priority="69" speed="16.667" Capacity="10.000" />
+   <type id="39" name="oertl. Haupt- und Umgehungsstrasse" priority="66" speed="13.889" Capacity="8.000" />
+   <type id="40" name="Sammelstrasse ausserorts" priority="54" />
+   <type id="41" name="anbaufrei" priority="57" nolanes="1" speed="13.889" Capacity="12.000" ParkingPossible="0" />
+   <type id="42" priority="57" nolanes="1" speed="13.889" Capacity="12.000" ParkingPossible="0" />
+   <type id="43" priority="53" nolanes="1" speed="13.889" Capacity="8.000" ParkingPossible="1" />
+   <type id="47" name="Einzelbetrachtung" priority="52" speed="13.889" />
+   <type id="48" name="Strassenbahn in der Fahrbahn" priority="56" speed="13.889" />
+   <type id="50" name="Sammelstrasse innerorts" priority="44" />
+   <type id="51" priority="46" nolanes="1" speed="11.111" Capacity="10.000" ParkingPossible="0" />
+   <type id="52" priority="43" nolanes="1" speed="11.111" Capacity="7.000" ParkingPossible="1" />
+   <type id="53" priority="47" nolanes="2" speed="11.111" Capacity="15.000" ParkingPossible="1" />
+   <type id="54" priority="49" nolanes="3" speed="11.111" Capacity="20.000" ParkingPossible="0" />
+   <type id="55" priority="48" nolanes="2" speed="11.111" Capacity="16.000" ParkingPossible="0" />
+   <type id="56" name="Tempo 30 zone" priority="10" nolanes="1" speed="8.333" Capacity="7.000" ParkingPossible="1" />
+   <type id="57" name="Einzelbetrachtung" priority="42" speed="11.111" />
+   <type id="58" name="Strassenbahn in der Fahrbahn" priority="45" speed="11.111" Capacity="7.000" />
+   <type id="60" name="weitere Strecken" priority="3" />
+   <type id="65" name="Tiefgaragenzufahrt" priority="1" />
+   <type id="66" name="Parkplatz" priority="1" />
+   <type id="70" name="Strassen Planung" priority="20" />
+   <type id="79" name="Detailierungsplan" priority="10" />
+   <type id="80" name="Strassen fuer Quartiersberechnung" priority="10" />
+   <type id="81" name="Anliegerstrassen (ueber 30km/h, Gewerbe)" priority="10" speed="8.333" Capacity="3.000" />
+   <type id="82" name="Anliegerstrassen Tempo 30 ohne Massnahmen" priority="10" speed="8.333" Capacity="3.000" />
+   <type id="83" name="Anliegerstrassen Tempo 30 mit Massnahmen" priority="10" speed="8.333" Capacity="3.000" />
+   <type id="84" name="Anliegerstrassen unter 30 km/h, Sackgasse" priority="10" speed="8.333" Capacity="3.000" />
+   <type id="85" name="Anliegerstrasse 50 km/h" priority="10" speed="13.889" Capacity="5.000" />
+   <type id="86" name="Spielstrasse Z 314 StVO" priority="2" speed="5.556" Capacity="3.000" />
+   <type id="88" name="Fahrradstrasse" priority="10" speed="5.556" Capacity="1.000" />
+   <type id="89" name="Anliegerstrassen " priority="10" Remark="(zusaetzlich ins Netz aufgenommen und umgelegt) jetzt frei" />
+   <type id="1" name="entfernte Strecken " priority="1" Remark="(werden nicht dargestellt)" />
+   <type id="2" name="Sackgasse" priority="10" />
+   <type id="3" name="Fussweg" priority="1" />
+   <type id="4" name="Fussgaengerzone" priority="1" />
+   <type id="7" name="Busspur" priority="48" />
+   <type id="9" name="Bezirksanbindungen" priority="5" speed="8.333" Capacity="100.000" />
+   <type id="98" name="Strassen uebriges Stadtgebiet" priority="10" speed="8.333" Capacity="3.000" />
+   <type id="99" name="Strassen uebriges Stadtgebiet" priority="10" speed="8.333" Capacity="3.000" />
+</types>
