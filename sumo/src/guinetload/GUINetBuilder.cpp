@@ -35,7 +35,7 @@ GUINetBuilder::buildGUINet()
         false);
     GUINet *net = 0;
     // get the matching handler
-    NLSAXHandler *handler = new GUIHandlerBuilder(*container);
+    NLHandlerBuilder *handler = new GUIHandlerBuilder(*container);
     bool ok = load(handler, *parser);
     subreport("Loading done.", "Loading failed.");
     if(!SErrorHandler::errorOccured()) {
