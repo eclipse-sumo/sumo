@@ -25,8 +25,13 @@ namespace
 } 
 
 // $Log$
-// Revision 1.5  2002/04/15 07:38:52  dkrajzew
-// Addition of routes and detectors removed; a static information about the current time step (globaltime) implemented; output computation is now only invoked when needed
+// Revision 1.6  2002/04/17 10:44:13  croessel
+// (Windows) Carriage returns removed.
+// 
+// Revision 1.5 2002/04/15 07:38:52 dkrajzew
+// Addition of routes and detectors removed; a static information
+// about the current time step (globaltime) implemented; output
+// computation is now only invoked when needed
 //
 // Revision 1.4  2002/04/11 15:25:56  croessel
 // Changed float to double.
