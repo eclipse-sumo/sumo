@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2003/08/20 11:53:18  dkrajzew
+// further work on node geometry
+//
 // Revision 1.24  2003/08/14 13:50:15  dkrajzew
 // new junction shape computation implemented
 //
@@ -164,6 +167,7 @@ namespace
 //#include <utils/geom/chull.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StdDefs.h>
 #include <utils/convert/ToString.h>
 #include <iomanip>
 #include "NBNode.h"
@@ -851,10 +855,13 @@ NBNode::computeNodeShape()
     // compute the shape of the junction
     //  only junction have a shape, otherwise it's somekind
     //  of another connection between streets
-    if( (_incomingEdges->size()<1||_outgoingEdges->size()<1)
+/*    if( (_incomingEdges->size()<1||_outgoingEdges->size()<1)
         ||
         (_incomingEdges->size()<2&&_outgoingEdges->size()<2) ) {
         return;
+    }*/
+    if(_id=="597993220") {
+        int bla = 0;
     }
     std::vector<double> edgeOffsets;
     EdgeVector::const_iterator i;
@@ -863,58 +870,70 @@ NBNode::computeNodeShape()
         // the clockwise and the counter clockwise border;
         Line2D cb, ccb;
         // the left and the right crossing line
-        Line2D rl, ll;
         // the crossing edges
         EdgeVector::const_iterator ri = i;
         EdgeVector::const_iterator li = i;
 //        std::pair<Line2D, Line2D> b = getBorders(current);
         cb = current->getCWBounderyLine(this, 2.5);
         ccb = current->getCCWBounderyLine(this, 2.5);
+        Line2D cl, ccl;
         if(hasIncoming(current)) {
             NBContHelper::nextCCW(&_allEdges, ri);
             NBContHelper::nextCW(&_allEdges, li);
             if(current->isTurningDirection(*li)/*&&_incomingEdges->size()>2*/) {
                 NBContHelper::nextCW(&_allEdges, li);
-                if(abs(NBHelpers::relAngle(current->getAngle(), (*li)->getAngle()))>150||
+/*                if(abs(NBHelpers::relAngle(current->getAngle(), (*li)->getAngle()))>150||
                     abs(NBHelpers::relAngle(current->getAngle(), (*li)->getAngle()))<30) {
 
                     li = i;
-                }
+                }*/
             }
+            ccl = (*ri)->getCWBounderyLine(this, 2.5);
+            cl = (*li)->getCCWBounderyLine(this, 2.5);
         } else {
             NBContHelper::nextCCW(&_allEdges, ri);
             if((*ri)->isTurningDirection(current)/*&&_incomingEdges->size()>2*/) {
                 NBContHelper::nextCCW(&_allEdges, ri);
-                if(abs(NBHelpers::relAngle(current->getAngle(), (*ri)->getAngle()))>150||
+/*                if(abs(NBHelpers::relAngle(current->getAngle(), (*ri)->getAngle()))>150||
                     abs(NBHelpers::relAngle(current->getAngle(), (*ri)->getAngle()))<30) {
 
                     ri = i;
-                }
+                }*/
             }
             NBContHelper::nextCW(&_allEdges, li);
+            ccl = (*ri)->getCWBounderyLine(this, 2.5);
+            cl = (*li)->getCCWBounderyLine(this, 2.5);
         }
         double offr, offl;
-        if(ri!=i&&!(
-            abs(NBHelpers::relAngle(current->getAngle(), (*ri)->getAngle()))>150||
-            abs(NBHelpers::relAngle(current->getAngle(), (*ri)->getAngle()))<30)) {
-
-            rl = (*ri)->getCWBounderyLine(this, 2.5);
-            offr = getOffset(ccb, rl);
-        } else {
+        double rrelAngle = abs(NBHelpers::relAngle(current->getAngle(), (*ri)->getAngle()));
+        if(hasIncoming(current)!=hasIncoming(*ri)) {
+            rrelAngle = abs(rrelAngle - 180);
+        }
+        if(ri==i) {
             offr = 104;
-        }
-        if(li!=i&&!(
-            abs(NBHelpers::relAngle(current->getAngle(), (*li)->getAngle()))>150||
-            abs(NBHelpers::relAngle(current->getAngle(), (*li)->getAngle()))<30)) {
-
-            ll = (*li)->getCCWBounderyLine(this, 2.5);
-            offl = getOffset(cb, ll);
         } else {
-            offl = 104.0;
+            offr = getOffset(ccb, ccl);
+            if(abs(rrelAngle-90)>60&&sin(rrelAngle)*(*ri)->width()<offr-100) {
+                offr = -1;
+            }
         }
-
-
-        edgeOffsets.push_back(offr>offl?offr:offl);
+        double lrelAngle = abs(NBHelpers::relAngle(current->getAngle(), (*li)->getAngle()));
+        if(hasIncoming(current)!=hasIncoming(*li)) {
+            lrelAngle = abs(lrelAngle - 180);
+        }
+        if(li==i) {
+            offl = 104;
+        } else {
+            offl = getOffset(cb, cl);
+            if(abs(lrelAngle-90)>60&&sin(lrelAngle)*(*li)->width()<offl-100) {
+                offl = -1;
+            }
+        }
+        if(offr==-1&&offl==-1) {
+            edgeOffsets.push_back(104);
+        } else {
+            edgeOffsets.push_back(MAX(offr, offl));
+        }
     }
     std::vector<double>::iterator j;
     for(i=_allEdges.begin(), j=edgeOffsets.begin(); i!=_allEdges.end(); i++, j++) {
@@ -932,12 +951,16 @@ NBNode::computeNodeShape()
             if(j2==edgeOffsets.end()) {
                 j2 = edgeOffsets.begin();
             }
-            offset = offset<(*j2)?(*j2):offset;
+            offset = MAX(offset,(*j2));
             // ok, process both directions
             myPoly.push_back(
-                current->getCCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
+                current->getCCWBounderyLine(this, 2.5).getPositionAtDistance(offset));
+/*            myPoly.push_back(
+                current->getCWBounderyLine(this, 2.5).getPositionAtDistance(offset));*/
+/*            myPoly.push_back(
+                (*li)->getCCWBounderyLine(this, 2.5).getPositionAtDistance(offset));*/
             myPoly.push_back(
-                (*li)->getCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
+                (*li)->getCWBounderyLine(this, 2.5).getPositionAtDistance(offset));
             // and skip the next one
             if(i+1!=_allEdges.end()) {
                 i++;
@@ -946,14 +969,46 @@ NBNode::computeNodeShape()
         } else {
             // process this edge only
             myPoly.push_back(
-                current->getCCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
+                current->getCCWBounderyLine(this, 2.5).getPositionAtDistance(offset));
             myPoly.push_back(
-                current->getCWBounderyLine(this, 1.5).getPositionAtDistance(offset));
+                current->getCWBounderyLine(this, 2.5).getPositionAtDistance(offset));
         }
     }
     myPoly = myPoly.convexHull();
 }
 
+
+double
+NBNode::chooseLaneOffset(DoubleVector &chk)
+{
+    return DoubleVectorHelper::min(chk);
+    /*
+    double max = DoubleVectorHelper::max(chk);
+    if(max<100) {
+        return 100-max+100;
+    } else {
+        double min = max;
+        for(DoubleVector::iterator i=chk.begin(); i!=chk.end(); i++) {
+            double bla =
+                (*i)>100 ? (*i) : 100-(*i)+100;
+            if(bla<min) {
+                min = bla;
+            }
+        }
+        return min;*/
+/*        DoubleVectorHelper::remove_smaller_than(chk, 100);
+        return DoubleVectorHelper::min(chk);*/
+//    }
+}
+
+
+double
+NBNode::chooseLaneOffset2(DoubleVector &chk)
+{
+    DoubleVectorHelper::remove_larger_than(chk, 100);
+    double max = DoubleVectorHelper::max(chk);
+    return 100-max+100;
+}
 
 double
 NBNode::getOffset(Line2D on, Line2D cross)

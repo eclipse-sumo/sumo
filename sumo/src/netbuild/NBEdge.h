@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.18  2003/08/20 11:53:17  dkrajzew
+// further work on node geometry
+//
 // Revision 1.17  2003/08/14 13:50:15  dkrajzew
 // new junction shape computation implemented
 //
@@ -349,6 +352,8 @@ public:
 
     void addCrossingPointsAsIncomingWithGivenOutgoing(NBEdge *o,
         Position2DVector &into);
+
+    double width() const;
 
     Line2D getCWBounderyLine(NBNode *n, double offset);
     Line2D getCCWBounderyLine(NBNode *n, double offset);

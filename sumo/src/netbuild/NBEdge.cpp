@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2003/08/20 11:53:17  dkrajzew
+// further work on node geometry
+//
 // Revision 1.23  2003/08/14 13:50:15  dkrajzew
 // new junction shape computation implemented
 //
@@ -1658,6 +1661,14 @@ NBEdge::getCCWBounderyLine(NBNode *n, double offset)
     ret.extrapolateBy(100.0);
     return ret;
 }
+
+
+double
+NBEdge::width() const
+{
+    return (double) _nolanes * 3.0;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

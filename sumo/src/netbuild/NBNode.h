@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.19  2003/08/20 11:53:18  dkrajzew
+// further work on node geometry
+//
 // Revision 1.18  2003/08/14 13:50:15  dkrajzew
 // new junction shape computation implemented
 //
@@ -411,6 +414,9 @@ private:
 
 
     void remapRemoved(NBEdge *removed, const EdgeVector &incoming, const EdgeVector &outgoing);
+
+    double chooseLaneOffset(DoubleVector &chk);
+    double chooseLaneOffset2(DoubleVector &chk);
 
 private:
     /** the name of the node */
