@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/05/20 09:33:48  dkrajzew
+// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+//
 // Revision 1.7  2003/04/07 12:15:46  dkrajzew
 // first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
 //
@@ -220,6 +223,11 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
         // add possible additional left-turn phase when existing
         cei1.resetNonLeftMovers(driveMask, brakeMask);
         if(driveMask.any()) {
+			// let the junction be clear from any vehicles before alowing turn left
+	        std::bitset<64> inv;
+		    inv.flip();
+			ret->addStep(breakingTime, std::bitset<64>(), inv);
+			// let vehicles moving left pass secure
             ret->addStep(10, driveMask, brakeMask);
         }
         // add the dead phase for this junction

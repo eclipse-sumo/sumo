@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2003/05/20 09:33:47  dkrajzew
+// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+//
 // Revision 1.11  2003/04/10 15:45:19  dkrajzew
 // some lost changes reapplied
 //
@@ -149,7 +152,7 @@ public:
     static bool normaliseNodePositions(bool verbose);
 
     /// divides the incoming lanes on outgoing lanes
-    static bool computeEdges2Lanes(bool verbose);
+    static bool computeLanes2Lanes(bool verbose);
 
     /// build the list of outgoing edges and lanes
     static bool computeLogics(OptionsCont &oc);

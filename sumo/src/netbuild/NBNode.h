@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2003/05/20 09:33:47  dkrajzew
+// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+//
 // Revision 1.12  2003/04/16 10:03:48  dkrajzew
 // further work on Vissim-import
 //
@@ -105,6 +108,7 @@
 #include <utils/geom/Position2DVector.h>
 #include "NBEdge.h"
 #include "NBJunctionLogicCont.h"
+#include "NBConnection.h"
 #include "NBConnectionDefs.h"
 #include "NBContHelper.h"
 
@@ -177,7 +181,7 @@ public:
     public:
         SignalGroup(const std::string &id);
         ~SignalGroup();
-        void addConnection(const Connection &c);
+        void addConnection(const NBConnection &c);
         void addPhaseBegin(double time, TLColor color);
         void setYellowTimes(double tRedYellowe, double tYellow);
         DoubleVector getTimes() const;
@@ -210,7 +214,7 @@ public:
             }
         };
 
-        ConnectionVector myConnections;
+        NBConnectionVector myConnections;
         typedef std::vector<PhaseDef> GroupsPhases;
         GroupsPhases myPhases;
         double myTRedYellow, myTYellow;
@@ -309,10 +313,10 @@ public:
     void addOutgoingEdge(NBEdge *edge);
 
     /// returns the list of the ids of the incoming edges
-    EdgeVector *getIncomingEdges();
+    const EdgeVector &getIncomingEdges() const;
 
     /// returns the list of the ids of the outgoing edges
-    EdgeVector *getOutgoingEdges();
+    const EdgeVector &getOutgoingEdges() const;
 
     /// returns the list of all edgs
     const EdgeVector *getEdges();
@@ -321,7 +325,7 @@ public:
     void writeXML(std::ostream &into);
 
     /// computes the connections of lanes to edges
-    void computeEdges2Lanes();
+    void computeLanes2Lanes();
 
     /// computes the node's type, logic and traffic light
     void computeLogic(OptionsCont &oc);
@@ -349,14 +353,13 @@ public:
     void removeDoubleEdges();
 
 
-    void addSortedLinkFoes(
-        const std::pair<NBEdge*, NBEdge*> &mayDrive,
-        const std::pair<NBEdge*, NBEdge*> &mustStop);
+    void addSortedLinkFoes(const NBConnection &mayDrive,
+        const NBConnection &mustStop);
 
     NBEdge *getPossiblySplittedIncoming(const std::string &edgeid);
     NBEdge *getPossiblySplittedOutgoing(const std::string &edgeid);
 
-    void eraseDummies();
+    size_t eraseDummies(bool verbose);
 
     void removeOutgoing(NBEdge *edge);
     void removeIncoming(NBEdge *edge);
@@ -364,9 +367,9 @@ public:
     void setCycleDuration(size_t cycleDur);
     void addSignalGroup(const std::string &id);
     void addToSignalGroup(const std::string &groupid,
-        const Connection &connection);
+        const NBConnection &connection);
     void addToSignalGroup(const std::string &groupid,
-        const ConnectionVector &connections);
+        const NBConnectionVector &connections);
     void addSignalGroupPhaseBegin(const std::string &groupid,
         double time, TLColor color);
     void setSignalYellowTimes(const std::string &groupid,
@@ -376,6 +379,9 @@ public:
     void setType(int type);
 
 
+
+
+	bool mustBrake(NBEdge *from, NBEdge *to) const;
 
     SignalGroup *findGroup(NBEdge *from, NBEdge *to);
 
@@ -415,9 +421,6 @@ private:
 
     /// sets the priorites in case of a priority junction
     void setPriorityJunctionPriorities();
-
-    /// computes the logic
-    void computeLogic(NBRequest *request, OptionsCont &oc);
 
     /** used while fine sorting the incoming and outgoing edges, this method
         performs the swapping of two edges in the _allEdges-list when the
@@ -491,7 +494,7 @@ private:
     int   _type;
 
     /** The container for connection block dependencies */
-    ConnectionProhibits _blockedConnections;
+    NBConnectionProhibits _blockedConnections;
 
     /// The district the node is the centre of
     NBDistrict *myDistrict;
@@ -502,6 +505,8 @@ private:
     SignalGroupCont mySignalGroups;
 
     size_t myCycleDuration;
+
+	NBRequest *_request;
 
 private:
     /** invalid copy constructor */

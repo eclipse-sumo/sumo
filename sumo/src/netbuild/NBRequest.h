@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2003/05/20 09:33:48  dkrajzew
+// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+//
 // Revision 1.8  2003/04/16 10:03:48  dkrajzew
 // further work on Vissim-import
 //
@@ -123,7 +126,7 @@ public:
     NBRequest(NBNode *junction, const EdgeVector * const all,
         const EdgeVector * const incoming,
         const EdgeVector * const outgoing,
-        const ConnectionProhibits &loadedProhibits);
+        const NBConnectionProhibits &loadedProhibits);
 
     /** destructor */
     ~NBRequest();
@@ -140,11 +143,16 @@ public:
         const NBNode::SignalGroupCont &defs, size_t cycleTime,
         size_t breakingTime, bool buildAll) const;
 
+	bool mustBrake(NBEdge *from, NBEdge *to) const;
+
     /// prints the request
     friend std::ostream &operator<<(std::ostream &os, const NBRequest &r);
 
     /// the iterator may access the request
     friend class NBRequestEdgeLinkIterator;
+
+    /// reports warnings if any occured
+    static void reportWarnings();
 
 private:
     /** returns the information whether the connections from1->to1 and
@@ -247,6 +255,9 @@ private:
 
     /** the link X link is done-checks */
     CombinationsCont  _done;
+
+private:
+    static size_t myGoodBuilds, myNotBuild;
 
 };
 

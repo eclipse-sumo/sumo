@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2003/05/20 09:33:47  dkrajzew
+// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+//
 // Revision 1.4  2003/03/20 16:23:08  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -65,11 +68,16 @@ class NBEdge;
  * container definitions
  * ======================================================================= */
 /** structure specifying a certain lane on a certain edge */
-struct EdgeLane {
+class EdgeLane {
+public:
     /// The according edge (semantics may change)
     NBEdge *edge;
     /// The according lane (semantics may change)
     size_t lane;
+
+	friend bool operator==(const EdgeLane &lhs, const EdgeLane &rhs) {
+		return lhs.edge==rhs.edge && lhs.lane==rhs.lane;
+	}
 };
 
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/05/20 09:33:47  dkrajzew
+// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+//
 // Revision 1.15  2003/04/16 10:03:47  dkrajzew
 // further work on Vissim-import
 //
@@ -180,7 +183,7 @@ NBNode::ApproachingDivider::ApproachingDivider(
     std::vector<NBEdge*> *approaching, NBEdge *currentOutgoing)
     : _approaching(approaching), _currentOutgoing(currentOutgoing)
 {
-    // chekc whether origin lanes have been given
+    // check whether origin lanes have been given
     assert(_approaching!=0);
 }
 
@@ -301,7 +304,7 @@ NBNode::SignalGroup::~SignalGroup()
 }
 
 void
-NBNode::SignalGroup::addConnection(const Connection &c)
+NBNode::SignalGroup::addConnection(const NBConnection &c)
 {
     myConnections.push_back(c);
     myNoLinks++;
@@ -353,6 +356,7 @@ NBNode::SignalGroup::getLinkNo() const
 bool
 NBNode::SignalGroup::mayDrive(double time) const
 {
+	assert(myPhases.size()!=0);
     for(GroupsPhases::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
         double nextTime = (*i).myTime;
         if(nextTime>time) {
@@ -370,6 +374,7 @@ NBNode::SignalGroup::mayDrive(double time) const
 bool
 NBNode::SignalGroup::mustBrake(double time) const
 {
+	assert(myPhases.size()!=0);
     for(GroupsPhases::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
         double nextTime = (*i).myTime;
         if(nextTime>time) {
@@ -387,8 +392,8 @@ NBNode::SignalGroup::mustBrake(double time) const
 bool
 NBNode::SignalGroup::containsConnection(NBEdge *from, NBEdge *to) const
 {
-    for(ConnectionVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
-        if((*i).first==from&&(*i).second==to) {
+    for(NBConnectionVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
+        if((*i).getFrom()==from&&(*i).getTo()==to) {
             return true;
         }
     }
@@ -425,16 +430,19 @@ NBNode::Phase::addSignalGroupColor(const std::string &signalgroup, TLColor color
  * NBNode-methods
  * ----------------------------------------------------------------------- */
 NBNode::NBNode(const string &id, double x, double y)
-    : _id(id), _x(x), _y(y), _type(-1), myDistrict(0)
+    : _id(id), _x(x), _y(y), _type(-1), myDistrict(0), _request(0)
 {
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
+    if(x<0||y<0) {
+        int bla = 0;
+    }
 }
 
 
 NBNode::NBNode(const string &id, double x, double y,
                const std::string &type)
-    : _id(id), _x(x), _y(y), _type(-1), myDistrict(0)
+    : _id(id), _x(x), _y(y), _type(-1), myDistrict(0), _request(0)
 {
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
@@ -449,16 +457,22 @@ NBNode::NBNode(const string &id, double x, double y,
     } else {
         throw 1;
     }
+    if(x<0||y<0) {
+        int bla = 0;
+    }
 }
 
 
 
 NBNode::NBNode(const std::string &id, double x, double y, int type,
                const std::string &key)
-    : _id(id), _x(x), _y(y), _key(key), _type(type), myDistrict(0)
+    : _id(id), _x(x), _y(y), _key(key), _type(type), myDistrict(0), _request(0)
 {
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
+    if(x<0||y<0) {
+        int bla = 0;
+    }
 }
 
 
@@ -469,6 +483,9 @@ NBNode::NBNode(const string &id, double x, double y, NBDistrict *district)
 {
     _incomingEdges = new EdgeVector();
     _outgoingEdges = new EdgeVector();
+    if(x<0||y<0) {
+        int bla = 0;
+    }
 }
 
 
@@ -476,6 +493,7 @@ NBNode::~NBNode()
 {
     delete _incomingEdges;
     delete _outgoingEdges;
+    delete _request;
 }
 
 
@@ -531,17 +549,17 @@ NBNode::getID()
 }
 
 
-EdgeVector *
-NBNode::getIncomingEdges()
+const EdgeVector &
+NBNode::getIncomingEdges() const
 {
-    return _incomingEdges;// !!!
+    return *_incomingEdges;
 }
 
 
-EdgeVector *
-NBNode::getOutgoingEdges()
+const EdgeVector &
+NBNode::getOutgoingEdges() const
 {
-    return _outgoingEdges;// !!!
+    return *_outgoingEdges;
 }
 
 
@@ -905,7 +923,7 @@ NBNode::computeLogic(OptionsCont &oc)
         return;
     }
     // build the request
-    NBRequest *request = new NBRequest(this,
+    _request = new NBRequest(this,
         static_cast<const EdgeVector * const>(&_allEdges),
         static_cast<const EdgeVector * const>(_incomingEdges),
         static_cast<const EdgeVector * const>(_outgoingEdges),
@@ -913,14 +931,14 @@ NBNode::computeLogic(OptionsCont &oc)
 
     // compute the logic if necessary or split the junction
     if(_type!=TYPE_NOJUNCTION&&_type!=TYPE_DISTRICT) {
-        computeLogic(request, oc);
+		_request->buildBitfieldLogic(_id);
     }
     // build the lights when needed
     if(_type==TYPE_SIMPLE_TRAFFIC_LIGHT||_type==TYPE_ACTUATED_TRAFFIC_LIGHT) {
         // compute the braking time
         double vmax = NBContHelper::maxSpeed(*_incomingEdges);
         size_t brakingTime = (size_t) (vmax / oc.getFloat("min-decel"));
-        int build = request->buildTrafficLight(_id,
+        int build = _request->buildTrafficLight(_id,
             mySignalGroups, myCycleDuration, brakingTime,
             oc.getBool("all-logics"));
         if(build==0) {
@@ -928,7 +946,6 @@ NBNode::computeLogic(OptionsCont &oc)
         }
     }
     // close node computation
-    delete request;
 }
 
 
@@ -1018,41 +1035,7 @@ NBNode::sortNodesEdges()
 
 
 void
-NBNode::computeLogic(NBRequest *request, OptionsCont &oc)
-{
-/*    if(_id=="318") {
-        EdgeVector::iterator i;
-        for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
-            if(i!=_incomingEdges->begin()) {
-                cout << ", ";
-            }
-            cout << (*i)->getID();
-        }
-        cout << endl;
-        for(i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
-            if(i!=_outgoingEdges->begin()) {
-                cout << ", ";
-            }
-            cout << (*i)->getID();
-        }
-        cout << endl;
-    }
-*/
-/*    string key = NBLogicKeyBuilder::buildKey(this, &_allEdges);
-    int norot = NBJunctionLogicCont::try2convert(key);
-    if(norot>=0) {
-        rotateIncomingEdges(norot);
-        key = NBLogicKeyBuilder::rotateKey(key, norot);
-    } //else {
-    cout << key << endl;*/
-        request->buildBitfieldLogic(_id);
-    //}
-    //setKey(key);
-}
-
-
-void
-NBNode::computeEdges2Lanes()
+NBNode::computeLanes2Lanes()
 {
     // go through this node's outgoing edges
     //  for every outgoing edge, compute the distribution of the node's
@@ -1063,11 +1046,9 @@ NBNode::computeEdges2Lanes()
         // get the information about edges that do approach this edge
         vector<NBEdge*> *approaching = getApproaching(currentOutgoing);
         if(approaching->size()!=0) {
-            ApproachingDivider *divider =
-                new ApproachingDivider(approaching, currentOutgoing);
-            Bresenham::compute(divider, approaching->size(),
+            ApproachingDivider divider(approaching, currentOutgoing);
+            Bresenham::compute(&divider, approaching->size(),
                 currentOutgoing->getNoLanes());
-            delete divider;
         }
         delete approaching;
     }
@@ -1218,17 +1199,15 @@ void
 NBNode::replaceInConnectionProhibitions(NBEdge *which, NBEdge *by)
 {
     // replace in keys
-    ConnectionProhibits::iterator j = _blockedConnections.begin();
+    NBConnectionProhibits::iterator j = _blockedConnections.begin();
     while(j!=_blockedConnections.end()) {
         bool changed = false;
-        Connection c((*j).first);
-        if(c.first==which) {
+        NBConnection c = (*j).first;
+        if(c.replaceFrom(which, by)) {
             changed = true;
-            c.first = by;
         }
-        if(c.second==which) {
+        if(c.replaceTo(which, by)) {
             changed = true;
-            c.second = by;
         }
         if(changed) {
             _blockedConnections[c] = (*j).second;
@@ -1240,16 +1219,12 @@ NBNode::replaceInConnectionProhibitions(NBEdge *which, NBEdge *by)
     }
     // replace in values
     for(j=_blockedConnections.begin(); j!=_blockedConnections.end(); j++) {
-        const Connection &prohibited = (*j).first;
-        ConnectionVector &prohibiting = (*j).second;
-        for(ConnectionVector::iterator k=prohibiting.begin(); k!=prohibiting.end(); k++) {
-            Connection &sprohibiting = *k;
-            if(sprohibiting.first==which) {
-                sprohibiting.first = by;
-            }
-            if(sprohibiting.second==which) {
-                sprohibiting.second = by;
-            }
+        const NBConnection &prohibited = (*j).first;
+        NBConnectionVector &prohibiting = (*j).second;
+        for(NBConnectionVector::iterator k=prohibiting.begin(); k!=prohibiting.end(); k++) {
+            NBConnection &sprohibiting = *k;
+            sprohibiting.replaceFrom(which, by);
+            sprohibiting.replaceTo(which, by);
         }
     }
 }
@@ -1376,21 +1351,20 @@ NBNode::getOppositeOutgoing(NBEdge *e) const
     return edges[0];
 }
 
-
 void
-NBNode::addSortedLinkFoes(const std::pair<NBEdge*, NBEdge*> &mayDrive,
-                          const std::pair<NBEdge*, NBEdge*> &mustStop)
+NBNode::addSortedLinkFoes(const NBConnection &mayDrive,
+                          const NBConnection &mustStop)
 {
-    if(mayDrive.first==0||mayDrive.second==0||mustStop.first==0||mustStop.second==0) {
+    if( mayDrive.getFrom()==0 ||
+        mayDrive.getTo()==0 ||
+        mustStop.getFrom()==0 ||
+        mustStop.getTo()==0) {
+
         cout << "Something went wrong during the building of a connection..." << endl;
         cout << "  Continuing..." << endl;
         return; // !!! mark to recompute connections
     }
-    assert(mayDrive.first!=0);
-    assert(mayDrive.second!=0);
-    assert(mustStop.first!=0);
-    assert(mustStop.second!=0);
-    ConnectionVector conn = _blockedConnections[mustStop];
+    NBConnectionVector conn = _blockedConnections[mustStop];
     conn.push_back(mayDrive);
     _blockedConnections[mustStop] = conn;
 }
@@ -1424,11 +1398,12 @@ NBNode::getPossiblySplittedOutgoing(const std::string &edgeid)
 }
 
 
-void
-NBNode::eraseDummies()
+size_t
+NBNode::eraseDummies(bool verbose)
 {
+	size_t ret = 0;
     if(_outgoingEdges==0||_incomingEdges==0) {
-        return;
+        return ret;
     }
     size_t pos = 0;
     EdgeVector::const_iterator j=_incomingEdges->begin();
@@ -1442,6 +1417,9 @@ NBNode::eraseDummies()
         // an edge with both its origin and destination being the current
         //  node should be removed
         NBEdge *dummy = *j;
+		if(verbose) {
+			cout << " Removing dummy edge '" << dummy->getID() << "'" << endl;
+		}
         // get the list of incoming edges connected to the dummy
         EdgeVector incomingConnected;
         for(EdgeVector::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
@@ -1455,7 +1433,9 @@ NBNode::eraseDummies()
         // delete the dummy
         NBEdgeCont::erase(dummy);
         j = _incomingEdges->begin() + pos;
+		ret++;
     }
+	return ret;
 }
 
 
@@ -1485,7 +1465,7 @@ NBNode::removeIncoming(NBEdge *edge)
 
 void
 NBNode::addToSignalGroup(const std::string &groupid,
-                         const Connection &connection)
+                         const NBConnection &connection)
 {
     assert(mySignalGroups.find(groupid)!=mySignalGroups.end());
     mySignalGroups[groupid]->addConnection(connection);
@@ -1494,9 +1474,9 @@ NBNode::addToSignalGroup(const std::string &groupid,
 
 void
 NBNode::addToSignalGroup(const std::string &groupid,
-                         const ConnectionVector &connections)
+                         const NBConnectionVector &connections)
 {
-    for(ConnectionVector::const_iterator i=connections.begin(); i!=connections.end(); i++) {
+    for(NBConnectionVector::const_iterator i=connections.begin(); i!=connections.end(); i++) {
         addToSignalGroup(groupid, *i);
     }
 }
@@ -1588,6 +1568,14 @@ NBNode::invalidateOutgoingConnections()
     for(EdgeVector::const_iterator i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
         (*i)->invalidateConnections();
     }
+}
+
+
+bool
+NBNode::mustBrake(NBEdge *from, NBEdge *to) const
+{
+	assert(_request!=0);
+	return _request->mustBrake(from, to);
 }
 
 

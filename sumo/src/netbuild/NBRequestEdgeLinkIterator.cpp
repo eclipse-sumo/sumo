@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/05/20 09:33:48  dkrajzew
+// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+//
 // Revision 1.7  2003/04/16 10:03:48  dkrajzew
 // further work on Vissim-import
 //
@@ -122,7 +125,7 @@ NBRequestEdgeLinkIterator::setValidNonLeft(
     // reparse lists and remove unwanted items
     NBEdge *currentEdge = 0;
     int currentLane = -1;
-    for(size_t i1=0; i1<_fromEdges.size(); i1++) {
+    for(size_t i1=0; i1<_fromEdges.size()&&i1<64; i1++) { // !!! hell happens when i1>=64
         assert(i1<_fromEdges.size());
         if( currentEdge!=_fromEdges[i1] ||
 //            currentLane!=_fromLanes[i1] ||
@@ -146,7 +149,7 @@ NBRequestEdgeLinkIterator::joinLaneLinksFunc(
     // the set of links to view from the outside stays the same
     //  when the links of a lane shall not be merged
     if(!joinLaneLinks) {
-        for(size_t i=0; i<_fromEdges.size(); i++) {
+        for(size_t i=0; i<_fromEdges.size()&&i<64; i++) { // !!! hell happens when i>=64
             _valid.set(i, _validNonLeft.test(i));
         }
         return;
@@ -172,7 +175,7 @@ NBRequestEdgeLinkIterator::joinLaneLinksFunc(
 
 void
 NBRequestEdgeLinkIterator::computeValidLinks() {
-    for(size_t i=0; i<_fromEdges.size(); i++) {
+    for(size_t i=0; i<_fromEdges.size()&&i<64; i++) { // !!! hell happens when i>=64
         if(_valid.test(i)==1) {
             _positions.push_back(i);
             _validLinks++;
@@ -267,6 +270,10 @@ NBRequestEdgeLinkIterator::getToEdge() const
 bool
 NBRequestEdgeLinkIterator::pp()
 {
+	if(_position>=63) {
+		// !!! hell happens when _position >= 64
+		return false;
+	}
     _position++;
     while( _position<_fromEdges.size() && !_valid.test(_position) ) {
         _position++;
@@ -432,9 +439,10 @@ NBRequestEdgeLinkIterator::internJoinLaneForbids(NBEdge *fromEdge,
 
 
 bool
-NBRequestEdgeLinkIterator::testBrakeMask(int set, size_t pos) const
+NBRequestEdgeLinkIterator::testBrakeMask(bool hasGreen, size_t pos) const
 {
-    return set==0 || !_validNonLeft.test(pos);
+    return _request->mustBrake(_fromEdges[pos], _toEdges[pos])
+		|| !hasGreen;
 }
 
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/05/20 09:33:48  dkrajzew
+// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+//
 // Revision 1.11  2003/04/16 10:03:48  dkrajzew
 // further work on Vissim-import
 //
@@ -122,13 +125,18 @@ using namespace std;
 #endif
 
 
+
+
+size_t NBRequest::myGoodBuilds = 0;
+size_t NBRequest::myNotBuild = 0;
+
 /* =========================================================================
  * method definitions
  * ======================================================================= */
 NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
                      const EdgeVector * const incoming,
                      const EdgeVector * const outgoing,
-                     const ConnectionProhibits &loadedProhibits) :
+                     const NBConnectionProhibits &loadedProhibits) :
     _junction(junction),
     _all(all), _incoming(incoming), _outgoing(outgoing)
 {
@@ -140,21 +148,49 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
         _done.push_back(LinkInfoCont(variations, false));
     }
     // insert loaded prohibits
-/*
-bla
-  for(ConnectionProhibits::const_iterator j=loadedProhibits.begin(); j!=loadedProhibits.end(); j++) {
-        const Connection &prohibited = (*j).first;
-        size_t idx1 = getIndex(prohibited.first, prohibited.second);
-        const ConnectionVector &prohibiting = (*j).second;
-        for(ConnectionVector::const_iterator k=prohibiting.begin(); k!=prohibiting.end(); k++) {
-            const Connection &sprohibiting = *k;
-            size_t idx2 = getIndex(sprohibiting.first, sprohibiting.second);
-            _forbids[idx2][idx1] = true;
-            _done[idx2][idx1] = true;
-            _done[idx1][idx2] = true;
+    for(NBConnectionProhibits::const_iterator j=loadedProhibits.begin(); j!=loadedProhibits.end(); j++) {
+        NBConnection prohibited = (*j).first;
+        bool ok1 = prohibited.check();
+        if(find(_incoming->begin(), _incoming->end(), prohibited.getFrom())==_incoming->end()) {
+            ok1 = false;
+        }
+        if(find(_outgoing->begin(), _outgoing->end(), prohibited.getTo())==_outgoing->end()) {
+            ok1 = false;
+        }
+        size_t idx1 = 0;
+        if(ok1) {
+            idx1 = getIndex(prohibited.getFrom(), prohibited.getTo());
+        }
+        const NBConnectionVector &prohibiting = (*j).second;
+        for(NBConnectionVector::const_iterator k=prohibiting.begin(); k!=prohibiting.end(); k++) {
+            NBConnection sprohibiting = *k;
+            bool ok2 = sprohibiting.check();
+            if(find(_incoming->begin(), _incoming->end(), sprohibiting.getFrom())==_incoming->end()) {
+                ok2 = false;
+            }
+            if(find(_outgoing->begin(), _outgoing->end(), sprohibiting.getTo())==_outgoing->end()) {
+                ok2 = false;
+            }
+            if(ok1&&ok2) {
+                size_t idx2 = getIndex(sprohibiting.getFrom(), sprohibiting.getTo());
+                _forbids[idx2][idx1] = true;
+                _done[idx2][idx1] = true;
+                _done[idx1][idx2] = true;
+                myGoodBuilds++;
+            } else {
+                string pfID = prohibited.getFrom()!=0 ? prohibited.getFrom()->getID() : "UNKNOWN";
+                string ptID = prohibited.getTo()!=0 ? prohibited.getTo()->getID() : "UNKNOWN";
+                string bfID = sprohibiting.getFrom()!=0 ? sprohibiting.getFrom()->getID() : "UNKNOWN";
+                string btID = sprohibiting.getTo()!=0 ? sprohibiting.getTo()->getID() : "UNKNOWN";
+				cout << " Warning: could not prohibit "
+					<< pfID << "->" << ptID
+					<< " by "
+					<< bfID << "->" << ptID
+					<< endl;
+                myNotBuild++;
+            }
         }
     }
-    */
 }
 
 
@@ -172,6 +208,15 @@ NBRequest::buildBitfieldLogic(const std::string &key)
         for(j=_outgoing->begin(); j!=_outgoing->end(); j++) {
             computeRightOutgoingLinkCrossings(*i, *j);
             computeLeftOutgoingLinkCrossings(*i, *j);
+	EdgeVector::const_iterator i2, j2;
+    for(i2=_incoming->begin(); i2!=_incoming->end(); i2++) {
+        for(j2=_outgoing->begin(); j2!=_outgoing->end(); j2++) {
+			if(*i!=*i2||*j!=*j2) {
+				setBlocking(*i, *j, *i2, *j2);
+			}
+        }
+    }
+
         }
     }
     NBJunctionLogicCont::add(key, bitsetToXML(key));
@@ -343,42 +388,18 @@ NBRequest::bitsetToXML(string key)
     os << "   <row-logic>" << endl;
     os << "      <key>" << key << "</key>" << endl;
     os << "      <requestsize>" << absNoLinks << "</requestsize>" << endl;
-    os << "      <responsesize>" << absNoLinks << "</responsesize>" << endl;
     os << "      <lanenumber>" << absNoLanes << "</lanenumber>" << endl;
     int pos = 0;
     // save the logic
     os << "      <logic>" << endl;
-    EdgeVector::const_iterator i1;
-    for(i1=_incoming->begin(); i1!=_incoming->end(); i1++) {
-        size_t noLanes = (*i1)->getNoLanes();
+    EdgeVector::const_iterator i;
+    for(i=_incoming->begin(); i!=_incoming->end(); i++) {
+        size_t noLanes = (*i)->getNoLanes();
         for(size_t k=0; k<noLanes; k++) {
-            pos = writeLaneResponse(os, *i1, k, pos);
+            pos = writeLaneResponse(os, *i, k, pos);
         }
     }
     os << "      </logic>" << endl;
-    // save the transformation
-    os << "      <transformation>" << endl;
-    string from(absNoLinks, '0');
-    pos = absNoLinks - 1;
-    size_t lane = 0;
-    for( EdgeVector::const_iterator i2=_incoming->begin();
-         i2!=_incoming->end(); i2++) {
-        unsigned int noLanes = (*i2)->getNoLanes();
-        for(unsigned int j=0; j<noLanes; j++) {
-            const EdgeLaneVector *connected = (*i2)->getEdgeLanesFromLane(j);
-            unsigned int size = connected->size();
-            unsigned int k;
-            for(k=0; k<size;k++)
-                from[pos-k] = '1';
-            os << "         <trafoitem from=\"" << from << "\" to=\""
-                << lane << "\"/>" << endl;
-            for(k=0; k<size;k++)
-                from[pos-k] = '0';
-            pos -= size;
-            lane++;
-        }
-    }
-    os << "      </transformation>" << endl;
     os << "   </row-logic>" << endl;
     return string(os.str());
 }
@@ -393,6 +414,7 @@ NBRequest::getSizes() const
          i!=_incoming->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
+			assert((*i)->getEdgeLanesFromLane(j)->size()!=0);
             noLinks += (*i)->getEdgeLanesFromLane(j)->size();
         }
         noLanes += noLanesEdge;
@@ -421,6 +443,9 @@ NBRequest::buildLoadedTrafficLights(const std::string &key,
                                     const NBNode::SignalGroupCont &defs,
                                     size_t cycleTime) const
 {
+	if(_junction->getID()=="334LSA 178") {
+		int bla = 0;
+	}
     // sort the phases
     NBNode::SignalGroupCont::const_iterator i;
 /*    for(i=defs.begin(); i!=defs.end(); i++) {
@@ -441,6 +466,20 @@ NBRequest::buildLoadedTrafficLights(const std::string &key,
         back_inserter(switchTimes));
     sort(switchTimes.begin(), switchTimes.end());
 
+	if(_junction->getID()=="334LSA 178") {
+		int bla = 0;
+	/// !!! debug-out
+	cout << "SwitchTimes:";
+	for(std::vector<double>::iterator p=switchTimes.begin(); p!=switchTimes.end(); p++) {
+		if(p!=switchTimes.begin()) {
+			cout << ", ";
+		}
+		cout << *p;
+	}
+	cout << endl;
+	/// !!! debug-out
+	}
+
     // count the links (!!!)
     size_t noLinks = 0;
     for(i=defs.begin(); i!=defs.end(); i++) {
@@ -458,7 +497,7 @@ NBRequest::buildLoadedTrafficLights(const std::string &key,
             duration = (size_t) ((*(l+1)) - (*l));
         } else {
             // get from the differenc to the first switching time
-            duration = (size_t) (duration - (*l) + *(switchTimes.begin())) ;
+            duration = (size_t) (cycleTime - (*l) + *(switchTimes.begin())) ;
         }
         std::pair<std::bitset<64>, std::bitset<64> > masks =
             buildPhaseMasks(defs, *l);
@@ -487,7 +526,6 @@ NBRequest::buildPhaseMasks(const NBNode::SignalGroupCont &defs,
         NBNode::SignalGroup *group =
             _junction->findGroup(fromEdge, toEdge);
         if(group==0) {
-            int bla = 0;
             driveMask[pos] = false;
             brakeMask[pos] = true;
         } else {
@@ -673,9 +711,8 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to, int lane)
             for(int k=size; k-->0; ) {
                 if(to==0) {
                     os << '1';
-                } else if((*i)==from&&lane==k) {
-                    // do not prohibit aconnection by
-                    //  others from same lane
+                } else if((*i)==from&&lane==j) {
+                    // do not prohibit a connection by others from same lane
                     os << '0';
                 } else {
                     assert(connected!=0&&k<connected->size());
@@ -724,6 +761,37 @@ std::ostream &operator<<(std::ostream &os, const NBRequest &r) {
     }
     cout << endl;
     return os;
+}
+
+
+bool
+NBRequest::mustBrake(NBEdge *from, NBEdge *to) const
+{
+	// vehicles which do not have a following lane must always decelerate to the end
+	if(to==0) {
+		return true;
+	}
+    // get the indices
+    size_t idx2 = getIndex(from, to);
+    assert(idx2<_incoming->size()*_outgoing->size());
+	for(size_t idx1=0; idx1<_incoming->size()*_outgoing->size(); idx1++) {
+		if(_forbids[idx1][idx2]) {
+			return true;
+		}
+	}
+	return false;
+}
+
+
+void
+NBRequest::reportWarnings()
+{
+    // check if any errors occured on build the link prohibitions
+    if(myNotBuild!=0) {
+        cout << "Warning: " << myNotBuild << " of "
+            << (myNotBuild+myGoodBuilds) << " prohibitions were not build."
+            << endl;
+    }
 }
 
 

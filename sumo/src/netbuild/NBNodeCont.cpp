@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/05/20 09:33:47  dkrajzew
+// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+//
 // Revision 1.13  2003/04/14 08:34:59  dkrajzew
 // some further bugs removed
 //
@@ -264,6 +267,9 @@ NBNodeCont::normaliseNodePositions(bool verbose)
     Boundery boundery;
     NodeCont::iterator i;
     for(i=_nodes.begin(); i!=_nodes.end(); i++) {
+        if((*i).second->getXCoordinate()<0||(*i).second->getYCoordinate()<0) {
+            int bla = 0;
+        }
         boundery.add((*i).second->getXCoordinate(),
             (*i).second->getYCoordinate());
     }
@@ -278,10 +284,10 @@ NBNodeCont::normaliseNodePositions(bool verbose)
 
 
 bool
-NBNodeCont::computeEdges2Lanes(bool verbose)
+NBNodeCont::computeLanes2Lanes(bool verbose)
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
-        (*i).second->computeEdges2Lanes();
+        (*i).second->computeLanes2Lanes();
     }
     return true;
 }
@@ -365,8 +371,8 @@ NBNodeCont::recheckEdges(bool verbose)
         // count the edges to other nodes outgoing from the current
         //  node
         std::map<NBNode*, EdgeVector> connectionCount;
-        const EdgeVector *outgoing = (*i).second->getOutgoingEdges();
-        for(EdgeVector::const_iterator j=outgoing->begin(); j!=outgoing->end(); j++) {
+        const EdgeVector &outgoing = (*i).second->getOutgoingEdges();
+        for(EdgeVector::const_iterator j=outgoing.begin(); j!=outgoing.end(); j++) {
             NBEdge *e = (*j);
             NBNode *connected = e->getToNode();
             if(connectionCount.find(connected)==connectionCount.end()) {
@@ -393,9 +399,13 @@ NBNodeCont::recheckEdges(bool verbose)
 bool
 NBNodeCont::removeDummyEdges(bool verbose)
 {
+	size_t no = 0;
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
-        (*i).second->eraseDummies();
+        no += (*i).second->eraseDummies(verbose);
     }
+	if(no!=0) {
+		cout << "Warning: " << no << " dummy edges removed." << endl;
+	}
     return true;
 }
 

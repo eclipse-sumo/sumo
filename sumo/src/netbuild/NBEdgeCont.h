@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2003/05/20 09:33:47  dkrajzew
+// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+//
 // Revision 1.8  2003/03/19 08:03:40  dkrajzew
 // splitting of edges made a little bit more stable
 //
@@ -127,8 +130,11 @@ public:
     static NBEdge *retrievePossiblySplitted(
         const std::string &id, double pos);
 
-    /** computes edges step1: computation of approached edges */
+    /** computes edges, step1: computation of approached edges */
     static bool computeEdge2Edges();
+
+	/// computes edges, step2: computation of which lanes approach the edges)
+	static bool computeLanes2Edges();
 
     /** sorts all lanes of all edges within the container by their direction */
     static bool sortOutgoingLanesConnections(bool verbose);
@@ -141,7 +147,7 @@ public:
     static bool recheckLanes(bool verbose);
 
     /** computes the node-internal priorities of links */
-    static bool computeLinkPriorities(bool verbose);
+//    static bool computeLinkPriorities(bool verbose);
 
     /** appends turnarounds */
     static bool appendTurnarounds(bool verbose);
@@ -206,6 +212,9 @@ private:
 
     /// the instance of the dictionary
     static EdgeCont _edges;
+
+	/// the number of splits of edges during the building
+	static size_t EdgesSplit;
 
 private:
     /** invalid copy constructor */

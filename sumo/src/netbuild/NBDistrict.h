@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/05/20 09:33:47  dkrajzew
+// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+//
 // Revision 1.5  2003/04/01 15:15:49  dkrajzew
 // further work on vissim-import
 //
@@ -133,6 +136,7 @@ private:
 
     /// Information whether the position is given
     bool _posKnown;
+
 };
 
 

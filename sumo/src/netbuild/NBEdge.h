@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2003/05/20 09:33:47  dkrajzew
+// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+//
 // Revision 1.11  2003/04/07 12:15:39  dkrajzew
 // first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
 //
@@ -94,6 +97,7 @@
 #include <string>
 #include "NBCont.h"
 #include <utils/common/IntVector.h>
+#include <utils/common/BoolVector.h>
 #include <utils/geom/Bresenham.h>
 #include <utils/geom/Position2DVector.h>
 
@@ -110,15 +114,11 @@ class NBNode;
 class NBEdge
 {
 public:
-    static const int LINKTYPE_INVALID;
-    static const int LINKTYPE_UNPRIORISED;
-    static const int LINKTYPE_PRIORISED;
-public:
     /** lane (index) -> list of reachable edges */
     typedef std::vector<EdgeLaneVector> ReachableFromLaneVector;
 
     /** lane (index) -> list of link priorities */
-    typedef std::vector<IntVector> ReachablePrioritiesFromLaneVector;
+    typedef std::vector<BoolVector> ReachablePrioritiesFromLaneVector;
 
     /** edge -> list of this edge reaching lanes */
     typedef std::map<NBEdge*, LaneVector> LanesThatSucceedEdgeCont;
@@ -227,6 +227,9 @@ public:
     /// computes the edge (step1: computation of approached edges)
     bool computeEdge2Edges();
 
+	/// computes the edge, step2: computation of which lanes approach the edges)
+	bool computeLanes2Edges();
+
     /// sorts the connections of outgoing lanes (!!! Kaskade beschreiben)
     void sortOutgoingLanesConnections();
 
@@ -242,7 +245,7 @@ public:
     bool recheckLanes(bool verbose);
 
     /// computes the node-internal priorities of links
-    void computeLinkPriorities();
+//    void computeLinkPriorities();
 
     /// appends turnarounds
     void appendTurnaround();
@@ -283,7 +286,7 @@ public:
     const std::vector<NBEdge*> *getConnectedSorted();
 
     /** returns the list of outgoing edges unsorted */
-    EdgeVector getConnected() const;
+    const EdgeVector &getConnected() const;
 
     /** @brief Remaps the connection in a way tha allows the removal of it
         This edges (which is a "dummy" edge, in fact) connections are spread over the incoming non-dummy edges */
@@ -376,9 +379,10 @@ private:
         INIT = 0,
         /// the relationships between edges are computed/loaded
         EDGE2EDGES = 1,
-        /** the relationships between edges and approached lanes are
-            loaded/computed (!!!) */
-        EDGE2LANES = 2
+        /// lanes to edges - relationships are computed/loaded
+        LANES2EDGES = 2,
+        /// lanes to lanes - relationships are computed/loaded
+        LANES2LANES = 3
     };
 
 private:
@@ -414,7 +418,7 @@ private:
     std::string  _name;
 
     /// information about connected edges
-    std::vector<NBEdge*> *_connectedEdges;
+    EdgeVector _connectedEdges;
 
     /// information about which edge is approached by which lanes
     std::map<NBEdge*, std::vector<size_t> > *_ToEdges;
@@ -429,7 +433,7 @@ private:
     /** contains the information which links have which priority
         the priorities are sorted in the same way as edges in
         _reachableedges are */
-    ReachablePrioritiesFromLaneVector *_reachablePriorities;
+//    ReachablePrioritiesFromLaneVector *_linkIsPriorised;
 
     /** contains the information which lanes(value) may be used to reach the
         edge (key) */
@@ -488,7 +492,7 @@ private:
     void writeSucceeding(std::ostream &into, size_t lane);
 
     // !!! describe
-    void writeSingleSucceeding(std::ostream &into, size_t from, size_t dest);
+    void writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destidx);
 
 private:
     /** invalid copy constructor */

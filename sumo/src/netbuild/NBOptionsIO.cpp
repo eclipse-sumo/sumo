@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/05/20 09:33:48  dkrajzew
+// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+//
 // Revision 1.9  2003/04/10 15:45:20  dkrajzew
 // some lost changes reapplied
 //
@@ -199,7 +202,7 @@ NBOptionsIO::init()
     oc->doRegister("type-file", 't', new Option_FileName(/*"types.xml"*/));
     oc->doRegister("output-file", 'o', new Option_FileName("default.net.xml"));
     oc->doRegister("configuration-file", 'c',
-        new Option_FileName("sumo-netconvert.cfg"));
+        new Option_FileName());
     oc->addSynonyme("xml-node-files", "xml-nodes");
     oc->addSynonyme("xml-edge-files", "xml-edges");
     oc->addSynonyme("xml-connection-files", "xml-connections");

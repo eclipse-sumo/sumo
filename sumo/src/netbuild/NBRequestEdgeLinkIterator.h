@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/05/20 09:33:48  dkrajzew
+// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+//
 // Revision 1.5  2003/04/16 10:03:49  dkrajzew
 // further work on Vissim-import
 //
@@ -101,7 +104,7 @@ public:
 
     /** returns the information whether the vehicle that uses the link at
         the defined position must break */
-    bool testBrakeMask(int set, size_t pos) const;
+    bool testBrakeMask(bool hasGreen, size_t pos) const;
 /*
     bool getDriveAllowed(const NBNode::SignalGroupCont &defs,
         double time);

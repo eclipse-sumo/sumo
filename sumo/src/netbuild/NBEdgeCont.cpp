@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/05/20 09:33:47  dkrajzew
+// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+//
 // Revision 1.10  2003/04/14 08:34:57  dkrajzew
 // some further bugs removed
 //
@@ -126,6 +129,7 @@ using namespace std;
  * static members
  * ======================================================================= */
 NBEdgeCont::EdgeCont NBEdgeCont::_edges;
+size_t NBEdgeCont::EdgesSplit = 0;
 
 
 /* =========================================================================
@@ -180,6 +184,18 @@ NBEdgeCont::computeEdge2Edges()
 }
 
 
+
+bool
+NBEdgeCont::computeLanes2Edges()
+{
+    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+        (*i).second->computeLanes2Edges();
+    }
+    return true;
+}
+
+
+
 bool
 NBEdgeCont::recheckLanes(bool verbose) {
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
@@ -189,6 +205,7 @@ NBEdgeCont::recheckLanes(bool verbose) {
 }
 
 
+/*
 bool
 NBEdgeCont::computeLinkPriorities(bool verbose)
 {
@@ -197,7 +214,7 @@ NBEdgeCont::computeLinkPriorities(bool verbose)
     }
     return true;
 }
-
+*/
 
 bool
 NBEdgeCont::appendTurnarounds(bool verbose)
@@ -253,13 +270,15 @@ NBEdgeCont::writeXMLStep3(std::ostream &into)
 }
 
 
-int NBEdgeCont::size() {
+int NBEdgeCont::size()
+{
     return _edges.size();
 }
 
 
 int
-NBEdgeCont::getNo() {
+NBEdgeCont::getNo()
+{
     return _edges.size();
 }
 
@@ -277,6 +296,10 @@ NBEdgeCont::report(bool verbose)
 {
     if(verbose) {
         cout << "   " << getNo() << " edges loaded." << endl;
+		if(EdgesSplit>0) {
+			cout << "Warning: The split of edges was performed "
+				<< EdgesSplit << " times." << endl;
+		}
     }
 }
 
@@ -347,6 +370,7 @@ NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
     }
     insert(one);
     insert(two);
+	EdgesSplit++;
     return true;
 }
 
@@ -391,9 +415,9 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id,
             NBEdge *poss_searched = (*j);
             NBNode *node = incoming
                 ? poss_searched->_to : poss_searched->_from;
-            const EdgeVector *cont = incoming
+            const EdgeVector &cont = incoming
                 ? node->getOutgoingEdges() : node->getIncomingEdges();
-            if(find(cont->begin(), cont->end(), hintedge)!=cont->end()) {
+            if(find(cont.begin(), cont.end(), hintedge)!=cont.end()) {
                 return poss_searched;
             }
         }
@@ -418,7 +442,28 @@ NBEdgeCont::getGeneratedFrom(const std::string &id)
         //  beginning with a '[' must be appended to it
         if(curr.substr(0, len)==id&&curr[len]=='[') {
             ret.push_back((*i).second);
+            continue;
         }
+        // ok, maybe the edge is a compound made during joining of edges
+        size_t pos = curr.find(id);
+            // surely not
+        if(pos==string::npos) {
+            continue;
+        }
+            // check leading char
+        if(pos>0) {
+            if(curr[pos-1]!=']'&&curr[pos-1]!='+') {
+                // actually, this is another id
+                continue;
+            }
+        }
+        if(pos+id.length()<curr.length()) {
+            if(curr[pos+id.length()]!='['&&curr[pos+id.length()]!='+') {
+                // actually, this is another id
+                continue;
+            }
+        }
+        ret.push_back((*i).second);
     }
     return ret;
 }
