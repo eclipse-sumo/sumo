@@ -4,38 +4,60 @@
 /**
  * @file   OneArgumentCommand.h
  * @author Christian Roessel
- * @date   Mon Jun  2 17:15:00 2003
+ * @date   Started on Mon Jun  2 17:15:00 2003
+ * $Revision$ from $Date$ by $Author$
  * 
- * @brief  
+ * @brief Contains the implementation of OneArgumentCommand
  * 
  * 
  */
 
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+
 
 // $Log$
+// Revision 1.2  2003/06/06 14:09:21  roessel
+// Documentation added.
+//
 // Revision 1.1  2003/06/05 11:20:52  roessel
 // Initial commit.
 //
 
 #include "Command.h"
 
+/**
+ * A command that takes one constant argument. To be used with MSEventControl.
+ * E.g. pass a detector-interval as argument.
+ * @see Design Patterns, Gamma et al.
+ * @see MSTravelcostDetector
+ * 
+ */
 template< class T, typename Arg  >
 class OneArgumentCommand : public Command
 {
 public:
-    /// definition of the execution function
+    /// Type of the function to execute.
     typedef MSNet::Time ( T::* Operation )( Arg );
 
-    /// constructor
-    OneArgumentCommand( T* receiver, Operation op, Arg argument ) :
+    /** 
+     * Constructor.
+     * 
+     * @param receiver Pointer to object of type T that will receive a call to
+     * one of it's methods.
+     * @param operation The objects' method that will be called if execute()
+     * is called.
+     * @param argument The argument that will be passed to operation. 
+     * 
+     * @return 
+     */
+    OneArgumentCommand( T* receiver, Operation operation, Arg argument ) :
         myReceiver( receiver ),
         myOperation( op  ),
         myArgument( argument )
@@ -47,8 +69,13 @@ public:
         {
         }
 
-    /** Execute the command and return an offset for recurring commands
-        or 0 for single-execution commands. */
+    /** 
+     * Execute the command and return an offset for recurring commands
+     * or 0 for single-execution command.
+     * 
+     * @return The receivers operation should return the next interval for
+     * recurring commands and 0 for single-execution commands.
+     */
     MSNet::Time execute()
         {
             return ( myReceiver->*myOperation )( myArgument );
@@ -57,13 +84,13 @@ public:
 protected:
 
 private:
-    /// the object the action is directed to
+    /// The object the action is directed to.
     T* myReceiver;
 
-    /// the object's performing operation
+    /// The object's operation to perform.
     Operation myOperation;
 
-    /// the argument that is passed to the receiver-operation
+    /// The argument that is passed to the receiver-operation
     Arg myArgument;
 };
 
