@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/06/06 10:32:20  dkrajzew
+// got rid of glut
+//
 // Revision 1.8  2003/06/05 06:26:16  dkrajzew
 // first tries to build under linux: warnings removed; Makefiles added
 //
@@ -65,9 +68,8 @@ namespace
 #include "GUIViewTraffic.h"
 #include "GUISimpleLaneDrawer.h"
 
-#ifdef WIN32
-#include <glut.h>
-#endif
+#include <qgl.h>
+
 
 
 /* =========================================================================
