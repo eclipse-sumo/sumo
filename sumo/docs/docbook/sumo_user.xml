@@ -133,7 +133,7 @@
       distributions, one with all needed libraries included and a second
       without. The description of the building process is found within a
       separate document located <ulink
-      url="http://sumo.sourceforge.net/docs/dev_build.html">here</ulink>.</para>
+      url="http://sumo.sourceforge.net/docs/dev_chp02.html">here</ulink>.</para>
 
       <para>If you have built the package on a system not included within our
       binary distribution, please let us know and send it to us, so that we
