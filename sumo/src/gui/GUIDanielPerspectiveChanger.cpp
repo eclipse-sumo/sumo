@@ -1,5 +1,33 @@
-#include <iostream> // !!! debug only
+//---------------------------------------------------------------------------//
+//                        GUIDanielPerspectiveChanger.cpp -
+//  A class that allows to steer the visual output in dependence to
+//      user interaction
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
 
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.5  2003/04/04 08:37:49  dkrajzew
+// view centering now applies net size; closing problems debugged; comments added; tootip button added
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <qevent.h>
 #include <qnamespace.h>
 #include <utils/geom/Boundery.h>
@@ -9,8 +37,15 @@
 #include "GUIDanielPerspectiveChanger.h"
 
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(GUIViewTraffic &callBack)
     : GUIPerspectiveChanger(callBack),
     _mouseButtonState(Qt::NoButton), _rotation(0), _xpos(0), _ypos(0), _zoom(100)
@@ -117,7 +152,17 @@ GUIDanielPerspectiveChanger::getYPos() const
 double
 GUIDanielPerspectiveChanger::getZoom() const
 {
-    return _zoom;
+    double scl = myNetWidth > myNetHeight
+        ? myNetWidth
+        : myNetHeight;
+    double xs = (double) myNetWidth / scl
+        * (double) myCanvasWidth / 800.0;
+    double ys = (double) myNetHeight / scl
+        * (double) myCanvasHeight / 800.0;
+//    double ys = (double) myNetHeight / (double) myCanvasHeight;
+    return xs < ys
+        ? _zoom * xs * 0.9
+        : _zoom * ys * 0.9;
 }
 
 
@@ -177,5 +222,17 @@ GUIDanielPerspectiveChanger::getMouseYPosition() const
 {
     return _mouseYPosition;
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "GUIDanielPerspectiveChanger.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+
 
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/04/04 08:37:50  dkrajzew
+// view centering now applies net size; closing problems debugged; comments added; tootip button added
+//
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
@@ -40,6 +43,11 @@ namespace
 #include "GUIViewTraffic.h"
 #include "GUIPerspectiveChanger.h"
 
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 GUIPerspectiveChanger::GUIPerspectiveChanger(GUIViewTraffic &callBack)
     : _callback(callBack), _changed(true)
 {
@@ -68,6 +76,24 @@ void
 GUIPerspectiveChanger::applied()
 {
     _changed = false;
+}
+
+
+void
+GUIPerspectiveChanger::setNetSizes(size_t width, size_t height)
+{
+    myNetWidth = width;
+    myNetHeight = height;
+}
+
+
+
+void
+GUIPerspectiveChanger::applyCanvasSize(size_t width, size_t height)
+{
+    myCanvasWidth = width;
+    myCanvasHeight = height;
+    otherChange();
 }
 
 

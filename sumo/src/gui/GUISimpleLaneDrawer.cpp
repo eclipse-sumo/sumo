@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/04/04 08:37:51  dkrajzew
+// view centering now applies net size; closing problems debugged; comments added; tootip button added
+//
 // Revision 1.3  2003/03/20 16:17:52  dkrajzew
 // windows eol removed
 //
@@ -68,12 +71,11 @@ GUISimpleLaneDrawer::~GUISimpleLaneDrawer()
 void
 GUISimpleLaneDrawer::initStep(const double & width)
 {
+    glLineWidth(1);
     if(width<1) {
         _drawLines = true;
-        glLineWidth(1);
     } else {
         _drawLines = false;
-        glLineWidth (1);
     }
     glColor3f(0, 0, 0);
 }

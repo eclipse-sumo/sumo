@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/04/04 08:37:51  dkrajzew
+// view centering now applies net size; closing problems debugged; comments added; tootip button added
+//
 // Revision 1.7  2003/04/02 11:50:28  dkrajzew
 // a working tool tip implemented
 //
@@ -80,6 +83,7 @@ namespace
 #include "icons/view_traffic/colour_lane.xpm"
 #include "icons/view_traffic/colour_vehicle.xpm"
 #include "icons/view_traffic/show_grid.xpm"
+#include "icons/view_traffic/show_tooltips.xpm"
 
 
 /* =========================================================================
@@ -115,6 +119,7 @@ GUIViewTraffic::GUIViewTraffic(GUISUMOView *parent, GUINet &net)
     std::pair<double, double> center = _net.getBoundery().getCenter();
     // show the middle at the beginning
     _changer = new GUIDanielPerspectiveChanger(*this);
+    _changer->setNetSizes(nw, nh);
     _toolTip = new QGLObjectToolTip(this);
     setMouseTracking(true);
 }
@@ -164,7 +169,7 @@ GUIViewTraffic::buildViewToolBars(GUISUMOView &v)
         QString::null, this, SLOT(toggleShowGrid()), _coloringTools,
         "show grid", _showGrid );
     // add toggle button for tool-tips on/off
-    icon = QPixmap( show_grid_xpm );
+    icon = QPixmap( show_tooltips_xpm );
     toggle = new QGUIToggleButton( icon, "Show Tool Tips",
         QString::null, this, SLOT(toggleToolTips()), _coloringTools,
         "show tool tips", _useToolTips );
@@ -277,18 +282,6 @@ void
 GUIViewTraffic::initializeGL()
 {
     _lock.lock();
-/*    if(!isVisible()) {
-        return;
-    }
-    // mark that drawing is in process
-    _noDrawing++;
-    // ...and return when drawing is already
-    //  being done
-    if(_noDrawing>1) {
-        _noDrawing--;
-//		_lock.unlock();
-        return;
-    }*/
 	GUINet::lockAlloc();
     _widthInPixels = 800;
     _heightInPixels = 800;
@@ -308,18 +301,7 @@ void
 GUIViewTraffic::resizeGL( int width, int height )
 {
     _lock.lock();
-/*    if(!isVisible()) {
-        return;
-    }
-    // mark that drawing is in process
-    _noDrawing++;
-    // ...and return when drawing is already
-    //  being done
-    if(_noDrawing>1) {
-        _noDrawing--;
-        return;
-    }*/
-    _changer->otherChange();
+    _changer->applyCanvasSize(width, height);
     _lock.unlock();
 }
 
@@ -352,13 +334,13 @@ void
 GUIViewTraffic::paintGL()
 {
     _lock.lock();
+    // return if the canvas is not visible
     if(!isVisible()) {
 		_lock.unlock();
         return;
     }
-    // ...and return when drawing is already
     _noDrawing++;
-    //  being done
+    // ...and return when drawing is already being done
     if(_noDrawing>1) {
         _noDrawing--;
         _lock.unlock();
@@ -369,8 +351,8 @@ GUIViewTraffic::paintGL()
     applyChanges(1.0, 0, 0);
     doPaintGL(GL_RENDER, 1.0);
 
-    // check whether the select mode shall be
-    //  done, too
+    // check whether the select mode /tooltips)
+    //  shall be computed, too
     if(!_useToolTips) {
         _noDrawing--;
         glFlush();
@@ -387,8 +369,7 @@ GUIViewTraffic::paintGL()
     applyChanges(scale, _toolTipX+_mouseHotspotX,
         _toolTipY+_mouseHotspotY);
     // paint in select mode
-    doPaintGL(GL_SELECT, scale);//GL_SELECT, scale);
-//    doPaintGL(GL_RENDER, scale);
+    doPaintGL(GL_SELECT, scale);
     _laneColScheme = tmp;
     glFlush();
     swapBuffers();
@@ -605,11 +586,6 @@ GUIViewTraffic::applyChanges(double scale,
     glScaled(2.0/_netScale, 2.0/_netScale, 0);
     // Apply the zoom and the scale
     double zoom = _changer->getZoom() / 100.0 * scale;
-/*    double xs = ((double) _widthInPixels) / 800.0;
-    double ys = ((double) _heightInPixels) / 600.0;
-    zoom = xs<ys
-        ? zoom * xs
-        : zoom * ys;*/
     glScaled(zoom, zoom, 0);
     // Translate to the middle of the net
     glTranslated(
@@ -617,11 +593,9 @@ GUIViewTraffic::applyChanges(double scale,
         -(_net.getBoundery().getCenter().second),
         0);
     // Translate in dependence to the view position applied by the user
-//    glTranslated(_changer->getXPos()/scale, _changer->getYPos()/scale, 0);
     glTranslated(_changer->getXPos(), _changer->getYPos(), 0);
     // Translate to the mouse pointer, when wished
     if(xoff!=0||yoff!=0) {
-        double offScale = 1;///* _netScale / */ scale /*/ 2.0*/;
         double absX = (double(xoff)-(double(_widthInPixels)/2.0));
         double absY = (double(yoff)-(double(_heightInPixels)/2.0));
         glTranslated(
@@ -673,7 +647,6 @@ GUIViewTraffic::m2p(double meter)
 {
     return
         (meter/_netScale * 8.0 * _changer->getZoom());
-        //(length/_netScale * 800.0 * _parent->getZoomingFactor()/100.0);
 }
 
 
@@ -744,88 +717,6 @@ GUIViewTraffic::allowRotation() const
     return _parent->allowRotation();
 }
 
-
-/*
-size_t
-GUIViewTraffic::getObjectAt(size_t xat, size_t yat)
-{
-    LaneColoringScheme tmp = _laneColScheme;
-    _laneColScheme = LCS_BY_SPEED;
-
-    // Make openGL context current
-    makeCurrent();
-
-    const int SENSITIVITY = 4;
-    const int NB_HITS_MAX = 1000;
-
-    // Prepare the selection mode
-    static GLuint hits[NB_HITS_MAX];
-    static GLint nb_hits = 0;
-
-    glSelectBuffer(NB_HITS_MAX, hits);
-    glRenderMode(GL_RENDER);
-    glInitNames();
-
-    glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
-    */
-/*    // scale to check only a part of the viewport
-    double xf = 1.0*(800.0-(double) _widthInPixels)/800.0;
-    double yf = 1.0*(800.0-(double) _heightInPixels)/800.0;
-    glTranslated(-xf, -yf, 0);
-    double scale = double(_widthInPixels)/double(SENSITIVITY);
-    glScaled(scale, scale, 1);
-    glTranslated(xf/scale, yf/scale, 0);*/
-
-/*
-    glMatrixMode( GL_MODELVIEW );
-    glPushMatrix();
-    // recompute position on screen
-    glTranslated(_changer->getXPos(), _changer->getYPos(), 0);
-    double scale = double(_widthInPixels)/double(SENSITIVITY);
-    glScaled(scale, scale, 1);
-//    glTranslated(_changer->getXPos()/scale, _changer->getYPos()/scale, 0);
-    // Render scene with objects ids
-    double x = (_net.getBoundery().getCenter().first - _changer->getXPos()); // center of view
-    double xoff = 50.0 / _changer->getZoom() * _netScale; // offset to right
-    double y = (_net.getBoundery().getCenter().second + _changer->getYPos()); // center of view
-    double yoff = 50.0 / _changer->getZoom() * _netScale; // offset to top
-    GUIEdgeGrid::GUIEdgeSet &edges = _net._edgeGrid.get(x, y, xoff, yoff);
-    paintGLEdges(edges, 1.0);
-    // draw vehicles only when they're visible
-    if(m2p(3)>1) {
-        paintGLVehicles(edges);
-    }
-    glFlush();
-
-    _laneColScheme = tmp;
-
-    // Get the results
-    nb_hits = glRenderMode(GL_RENDER);
-
-    // Interpret results
-    unsigned int zMin = UINT_MAX;
-    size_t selected = 0;
-    for (int i=0; i<nb_hits; ++i)
-        {
-        if (hits[i*4+1] < zMin)
-	    {
-	    zMin = hits[i*4+1];
-	    selected = hits[i*4+3];
-	    }
-    }
-    cout << nb_hits << " object" << ((nb_hits>1)?"s":"") << " under the cursor";
-    if (selected>0)
-        cout << ", selected = " << selected;
-    cout << endl << flush;
-    glPopMatrix();
-
-    glMatrixMode(GL_PROJECTION);
-    glPopMatrix();
-    _toolTip->setObjectTip(selected, xat, yat);
-    return selected;
-}
-*/
 
 void
 GUIViewTraffic::setTooltipPosition(size_t x, size_t y,

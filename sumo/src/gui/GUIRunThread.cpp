@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/04 08:37:50  dkrajzew
+// view centering now applies net size; closing problems debugged; comments added; tootip button added
+//
 // Revision 1.4  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
@@ -59,7 +62,7 @@ GUIRunThread::~GUIRunThread()
 {
     // the thread shall stop, wait for it
     _quit = true;
-    wait();
+    while(_simulationInProgress||_net!=0);
 }
 
 
@@ -83,7 +86,7 @@ GUIRunThread::run()
     // perform an endless loop
     while(!_quit) {
 	    // sleep when no net is available
-        while(_net==0) {
+        if(_net==0) {
             msleep(500);
         }
 	    // if the simulation shall be perfomed, do it
