@@ -66,48 +66,69 @@ MSDetector2File::~MSDetector2File( void )
 void
 MSDetector2File::addDetectorAndInterval( Detector* det,
                                          const string& filename,
-                                         MSUnit::Seconds intervalInSeconds )
+                                         MSUnit::Seconds sampleInterval,
+                                         MSUnit::Seconds write2fileInterval )
 {
-    MSUnit::IntSteps intervalInSteps(
-        MSUnit::getInstance()->getIntegerSteps( intervalInSeconds ) );
-    assert( intervalInSteps >= 1 );
+//     MSUnit::IntSteps intervalInSteps(
+//         MSUnit::getInstance()->getIntegerSteps( intervalInSeconds ) );
+//     assert( intervalInSteps >= 1 );
 
+    MSUnit::IntSteps sampleSteps(
+        MSUnit::getInstance()->getIntegerSteps( sampleInterval ) );
+    assert( sampleSteps >= 1 );
+    MSUnit::IntSteps write2fileSteps(
+        MSUnit::getInstance()->getIntegerSteps( write2fileInterval ) );
+    assert( write2fileSteps >= 1 );
+    
     /*            Detector* det = 
                   DetectorDict::getInstance()->getValue( detectorId );*/
     /*            string filename = det->getNamePrefix() + "_" +
                   toString( intervalInSeconds ) + ".xml";*/
 
-    if ( det->getDataCleanUpSteps() < intervalInSteps ) {
-        intervalInSteps = det->getDataCleanUpSteps();
+//     if ( det->getDataCleanUpSteps() < intervalInSteps ) {
+//         intervalInSteps = det->getDataCleanUpSteps();
+//         cerr << "MSDetector2File::addDetectorAndInterval: "
+//             "intervalInSeconds greater than\ndetectors clean-up "
+//             "interval. Reducing intervalInSeconds to clean-up "
+//             "interval." << endl;
+//     }
+    if ( det->getDataCleanUpSteps() < sampleSteps ) {
+        sampleSteps = det->getDataCleanUpSteps();
         cerr << "MSDetector2File::addDetectorAndInterval: "
-            "intervalInSeconds greater than\ndetectors clean-up "
-            "interval. Reducing intervalInSeconds to clean-up "
+            "Sample interval greater than\ndetectors clean-up "
+            "interval. Reducing sample interval to clean-up "
             "interval." << endl;
     }
+    if ( det->getDataCleanUpSteps() < write2fileSteps ) {
+        write2fileSteps = det->getDataCleanUpSteps();
+        cerr << "MSDetector2File::addDetectorAndInterval: "
+            "Write2File interval greater than\ndetectors clean-up "
+            "interval. Reducing Write2File interval to clean-up "
+            "interval." << endl;
+    }    
+
+    IntervalsKey key = make_pair( sampleSteps, write2fileSteps );
     ofstream* ofs = 0;
-    Intervals::iterator it =
-        intervalsM.find( intervalInSteps );
+    Intervals::iterator it = intervalsM.find( key );
     if ( it == intervalsM.end() ) {
         DetectorFileVec detAndFileVec;
         ofs = new ofstream( filename.c_str() );
         assert( ofs != 0 );
         detAndFileVec.push_back( make_pair( det, ofs ) );
-        intervalsM.insert(
-            make_pair( intervalInSteps, detAndFileVec ) );
+        intervalsM.insert( make_pair( key, detAndFileVec ) );
 
-        // Add command for given interval only once to MSEventControl
+        // Add command for given key only once to MSEventControl
         Command* writeData =
-            new OneArgumentCommand< MSDetector2File, MSUnit::IntSteps >
-            ( this, &MSDetector2File::write2file, intervalInSteps );
+            new OneArgumentCommand< MSDetector2File, IntervalsKey >
+            ( this, &MSDetector2File::write2file, key );
         MSEventControl::getEndOfTimestepEvents()->addEvent(
             writeData,
-            intervalInSteps - 1,
+            write2fileSteps - 1,
             MSEventControl::ADAPT_AFTER_EXECUTION );
     }
     else {
         DetectorFileVec& detAndFileVec = it->second;
-        if ( find_if( detAndFileVec.begin(),
-                      detAndFileVec.end(),
+        if ( find_if( detAndFileVec.begin(), detAndFileVec.end(),
                       bind2nd( detectorEquals(), det ) )
              == detAndFileVec.end() ) {
             ofs = new ofstream( filename.c_str() );
@@ -129,22 +150,26 @@ MSDetector2File::addDetectorAndInterval( Detector* det,
 
 
 MSUnit::IntSteps
-MSDetector2File::write2file( MSNet::Time intervalInSteps )
+MSDetector2File::write2file( IntervalsKey key )
 {
-    Intervals::iterator intervalIt =
-        intervalsM.find( intervalInSteps);
-    assert( intervalIt != intervalsM.end() );
-    DetectorFileVec dfVec = intervalIt->second;
+    Intervals::iterator iIt = intervalsM.find( key );
+    assert( iIt != intervalsM.end() );
+    DetectorFileVec dfVec = iIt->second;
+    MSUnit::IntSteps sampleInterval = key.first;
+    MSUnit::IntSteps write2fileInterval = key.second;
     for ( DetectorFileVec::iterator it = dfVec.begin();
           it != dfVec.end(); ++it ) {
-        double time = MSNet::getInstance()->simSeconds();
-        *(it->second) << "<interval start=\""
-                      << time - MSNet::getSeconds( intervalInSteps) + 1
-                      << "\" stop=\"" << time << "\" "
-                      << it->first->getXMLOutput( intervalInSteps )
-                      << " />" << endl;
+        Detector* det = it->first;
+        ofstream* ofs = it->second;
+        MSUnit::Seconds stopTime = MSNet::getInstance()->simSeconds();
+        MSUnit::Seconds startTime =
+            stopTime - MSUnit::getInstance()->getSeconds( sampleInterval ) + 1;
+        *ofs << "<interval start=\"" << startTime
+             << "\" stop=\"" << stopTime << "\" "
+             << det->getXMLOutput( sampleInterval )
+             << " />" << endl;
     }
-    return intervalInSteps;
+    return write2fileInterval;
 }
 
 

@@ -25,6 +25,8 @@
 
 #include "MSUnit.h"
 #include "MSDetectorFileOutput.h"
+#include <map>
+#include <utility>
 
 /**
  * Singleton class, that controls file-output of instances of class
@@ -49,8 +51,9 @@ public:
     typedef std::pair< Detector*, std::ofstream* > DetectorFilePair;
     /// Container holding DetectorFilePair (with the same interval).
     typedef std::vector< DetectorFilePair > DetectorFileVec;
+    typedef std::pair< MSUnit::IntSteps, MSUnit::IntSteps > IntervalsKey;
     /// Association of intervals to DetectorFilePair containers.
-    typedef std::map< MSUnit::IntSteps, DetectorFileVec > Intervals;
+    typedef std::map< IntervalsKey, DetectorFileVec > Intervals;
 
     /** 
      * Return and/or create the sole instance of this class.
@@ -81,7 +84,8 @@ public:
      */
     void addDetectorAndInterval( Detector* det,
                                  const std::string& filename,
-                                 MSUnit::Seconds intervalInSeconds );
+                                 MSUnit::Seconds sampleInterval,
+                                 MSUnit::Seconds write2fileInterval );
     // statt intervalInSeconds zwei Parameter, einen fuer die messintervalllaenge und einen fuer das outputintervall, z.b. gib alle 60 s die werte fuer die letzten 5 min aus. dazu muss ein TwoArgumentCommand gebaut werden
     
 protected:
@@ -98,7 +102,7 @@ protected:
      * 
      * @return intervalInSteps to reactivate the event.
      */
-    MSUnit::IntSteps write2file( MSUnit::IntSteps interval );
+    MSUnit::IntSteps write2file( IntervalsKey key );
 
 
     /// Default constructor.
