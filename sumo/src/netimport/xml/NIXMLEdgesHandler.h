@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/13 15:55:16  dkrajzew
+// xml-loaders now use new options
+//
 // Revision 1.1  2003/02/07 11:16:30  dkrajzew
 // names changed
 //
@@ -57,6 +60,8 @@
  * ======================================================================= */
 #include <utils/sumoxml/SUMOSAXHandler.h>
 
+class OptionsCont;
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
@@ -67,7 +72,8 @@
 class NIXMLEdgesHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
-    NIXMLEdgesHandler(bool warn, bool verbose);
+    NIXMLEdgesHandler(OptionsCont &options,
+        bool warn, bool verbose);
     /// standard destructor
     ~NIXMLEdgesHandler();
 protected:
@@ -76,6 +82,8 @@ protected:
     void myCharacters(int element, const std::string &name,
         const std::string &chars);
     void myEndElement(int element, const std::string &name);
+private:
+    OptionsCont &_options;
 private:
     /** invalid copy constructor */
     NIXMLEdgesHandler(const NIXMLEdgesHandler &s);

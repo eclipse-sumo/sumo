@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/13 15:55:16  dkrajzew
+// xml-loaders now use new options
+//
 // Revision 1.1  2003/02/07 11:16:30  dkrajzew
 // names changed
 //
@@ -85,6 +88,7 @@ namespace
 #include <netbuild/NBNodeCont.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/convert/TplConvert.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 
 /* =========================================================================
@@ -103,8 +107,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIXMLNodesHandler::NIXMLNodesHandler(bool warn, bool verbose)
-    : SUMOSAXHandler("xml-nodes - file", warn, verbose)
+NIXMLNodesHandler::NIXMLNodesHandler(OptionsCont &options,
+                                     bool warn, bool verbose)
+    : SUMOSAXHandler("xml-nodes - file", warn, verbose),
+    _options(options)
 {
 }
 
@@ -154,6 +160,10 @@ NIXMLNodesHandler::myStartElement(int element, const std::string &tag,
             if(x==-1||y==-1) {
                 _errorOccured = true;
                 return;
+            }
+            // check whether the y-axis shall be flipped
+            if(_options.getBool("flip-y")) {
+                y *= -1.0;
             }
             // insert the node
             string type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");

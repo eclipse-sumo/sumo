@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/02/13 15:54:07  dkrajzew
+// xml-loaders now use new options
+//
 // Revision 1.3  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -215,14 +218,16 @@ NBLoader::loadXML(OptionsCont &oc, bool warn) {
 
     // load nodes
     if(oc.isUsableFileList("n")) {
-        NIXMLNodesHandler *handler = new NIXMLNodesHandler(warn, _verbose);
+        NIXMLNodesHandler *handler =
+            new NIXMLNodesHandler(oc, warn, _verbose);
         loadXMLType(handler, oc.getString("n"), "nodes");
         NBNodeCont::report(_verbose);
     }
 
     // load the edges
     if(oc.isUsableFileList("e")) {
-        NIXMLEdgesHandler *handler = new NIXMLEdgesHandler(warn, _verbose);
+        NIXMLEdgesHandler *handler =
+            new NIXMLEdgesHandler(oc, warn, _verbose);
         loadXMLType(handler, oc.getString("e"), "edges");
         NBEdgeCont::report(_verbose);
     }

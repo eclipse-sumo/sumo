@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/02/13 15:55:15  dkrajzew
+// xml-loaders now use new options
+//
 // Revision 1.1  2003/02/07 11:16:30  dkrajzew
 // names changed
 //
@@ -91,6 +94,7 @@ namespace
 #include <netbuild/NBTypeCont.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/convert/TplConvert.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 
 /* =========================================================================
@@ -109,8 +113,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIXMLEdgesHandler::NIXMLEdgesHandler(bool warn, bool verbose)
-    : SUMOSAXHandler("xml-edges - file", warn, verbose)
+NIXMLEdgesHandler::NIXMLEdgesHandler(OptionsCont &options,
+                                     bool warn, bool verbose)
+    : SUMOSAXHandler("xml-edges - file", warn, verbose),
+    _options(options)
 {
 }
 
@@ -154,23 +160,33 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
             /// try to read the real values from the file
             try {
                 speed = getFloatSecure(attrs, SUMO_ATTR_SPEED, speed);
+                if(_options.getBool("speed-in-km")) {
+                    speed = speed / 3.6;
+                }
             } catch (NumberFormatException) {
                 addError(
                     string("Not numeric value for Speed (at tag ID='")
                     + id + string("')."));
             }
-            try {
-                priority = getIntSecure(attrs, SUMO_ATTR_PRIORITY, priority);
-            } catch (NumberFormatException) {
-                addError(
-                    string("Not numeric value for Priority (at tag ID='")
-                    + id + string("')."));
-            }
+            // try to get the number of lanes
             try {
                 noLanes = getIntSecure(attrs, SUMO_ATTR_NOLANES, noLanes);
             } catch (NumberFormatException) {
                 addError(
                     string("Not numeric value for NoLanes (at tag ID='")
+                    + id + string("')."));
+            }
+            // try to get the priority
+                // check whether the number of lanes shall be used
+            if(_options.getBool("use-laneno-as-priority")) {
+                priority = noLanes;
+            }
+                // try to retrieve given priority
+            try {
+                priority = getIntSecure(attrs, SUMO_ATTR_PRIORITY, priority);
+            } catch (NumberFormatException) {
+                addError(
+                    string("Not numeric value for Priority (at tag ID='")
                     + id + string("')."));
             }
             // the names and the coordinates of
@@ -237,7 +253,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
                 coherent = true;
             }
             // check if the data were coherent
-            if(!coherent) {
+            if(!coherent&&!_options.getBool("omit-corrupt-edges")) {
                 addError(
                     string("The data are not coherent or the nodes are not given..."));
             }
