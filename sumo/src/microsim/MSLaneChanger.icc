@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2002/10/28 12:57:19  dkrajzew
+// more secure check in overlapWithHopped
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -81,9 +84,10 @@ inline
 bool
 MSLaneChanger::overlapWithHopped( ChangerIt target )
 {
-    if ( target->hoppedVeh != 0 ) {
-
-        return MSVehicle::overlap( target->hoppedVeh, veh( myCandi ) );
+	MSVehicle *v1 = target->hoppedVeh;
+	MSVehicle *v2 = veh( myCandi );
+    if ( v1!=0 && v2!=0 ) {
+		return MSVehicle::overlap( v1, v2 );
     }
     return false;
 }
