@@ -24,6 +24,9 @@ namespace
 } 
                        
 // $Log$
+// Revision 1.5  2002/04/17 14:44:32  croessel
+// Forgot to reset visited lanes (see previous revision).
+//
 // Revision 1.4  2002/04/17 14:02:11  croessel
 // Bugfix in setLookForwardState: myGap may be < 0 in the PRED_ON_SUCC
 // state if pred just entered the succ-lane from another source lane. In
@@ -772,7 +775,8 @@ void MSLane::setLookForwardState()
     // should check for predecessors or yield-junctions.
     double maxLook = myFirst->brakeGap( this ) + MSVehicleType::maxLength();
     
-    double looked = myLength - myFirst->pos(); // The distance already looked at.
+    double looked = myLength - myFirst->pos(); // The distance already
+    // looked at.
     
     // Cannot look past lane end and considers overlapping vehicle.
     if ( looked - MSVehicleType::maxLength() >= maxLook ) {
@@ -876,7 +880,7 @@ void MSLane::setLookForwardState()
                     // We are going to look into a succeeding lane. Let the 
                     // current lane remenber that it was visited.
                     succLane->myRequestLane = this;
-////////                    succLane->myBrakeRequest = true;
+                    succLane->myBrakeRequest = true;
                 }
             }
         }
@@ -928,8 +932,15 @@ void MSLane::setLookForwardState()
         if ( gap2pred < 0 ) {
             
             // Predecessor is overlapping it's lane. Don't leave lane.
+            // Reset visited lanes.
             myLFState = YIELD_ON_CURR;
             myGap     = myLength - myFirst->pos();
+            myBrakeRequest = false;
+            for ( LFLinkLanes::iterator it = myLFLinkLanes.begin();
+                  it != myLFLinkLanes.end(); ++it ) {
+                it->myLane->myRequestLane  = 0;
+                it->myLane->myBrakeRequest = false;
+            }
             return;
         }
 
