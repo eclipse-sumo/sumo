@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/04/10 16:13:52  dkrajzew
+// recent changes
+//
 // Revision 1.13  2003/04/09 15:45:30  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
@@ -258,6 +261,8 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
     (*altres) << "</route-alternatives>" << endl;
     res->close();
     altres->close();
+    delete res;
+    delete altres;
 }
 
 
@@ -270,6 +275,9 @@ main(int argc, char **argv)
 #ifdef _DEBUG
 #ifdef WIN32
     CMemDiff state1;
+    // uncomment next line and insert the context of an undeleted
+    //  allocation to break within it (MSVC++ only)
+    // _CrtSetBreakAlloc(434490);
 #endif
 #endif
     bool verbose = false;

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/04/10 16:13:51  dkrajzew
+// recent changes
+//
 // Revision 1.8  2003/04/09 15:53:16  dkrajzew
 // netconvert-changes: further work on Vissim-import, documentation added
 //
@@ -143,6 +146,7 @@ using namespace std;
 
 
 /** removes dummy edges from junctions */
+/*
 bool setInit(int step, bool verbose)
 {
     if(verbose) {
@@ -152,7 +156,7 @@ bool setInit(int step, bool verbose)
     NBEdgeCont::setInit(verbose);
     return true;
 }
-
+*/
 
 /** removes dummy edges from junctions */
 bool removeDummyEdges(int step, bool verbose)
