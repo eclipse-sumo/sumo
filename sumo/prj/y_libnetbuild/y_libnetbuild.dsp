@@ -63,8 +63,8 @@ LIB32=link.exe -lib
 # PROP Output_Dir "Debug"
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ  /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "..\..\src" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ  /c
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "..\..\src" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -141,11 +141,15 @@ SOURCE=..\..\src\netbuild\NBNetBuilder.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\netbuild\NBNode.cpp
+SOURCE=..\..\src\netbuild\nodes\NBNode.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\netbuild\NBNodeCont.cpp
+SOURCE=..\..\src\netbuild\nodes\NBNodeCont.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netbuild\nodes\NBNodeShapeComputer.cpp
 # End Source File
 # Begin Source File
 
@@ -269,11 +273,15 @@ SOURCE=..\..\src\netbuild\NBNetBuilder.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\netbuild\NBNode.h
+SOURCE=..\..\src\netbuild\nodes\NBNode.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\netbuild\NBNodeCont.h
+SOURCE=..\..\src\netbuild\nodes\NBNodeCont.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\netbuild\nodes\NBNodeShapeComputer.h
 # End Source File
 # Begin Source File
 
