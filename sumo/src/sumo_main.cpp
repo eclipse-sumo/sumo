@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/06/06 10:54:20  dkrajzew
+// deletion of the MSLaneState-singleton map added
+//
 // Revision 1.7  2003/06/05 14:45:02  dkrajzew
 // false usage of relative paths changed
 //
@@ -278,6 +281,7 @@ main(int argc, char **argv)
     } catch (ProcessError) {
         ret = 1;
     }
+    delete SingletonDictionary< std::string, MSLaneState* >::getInstance();
     XMLSubSys::close();
     return ret;
 }
