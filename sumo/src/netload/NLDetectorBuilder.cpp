@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/09/22 12:29:36  dkrajzew
+// construction using two sample intervals inserted (using one by now)
+//
 // Revision 1.10  2003/08/14 13:52:34  dkrajzew
 // new building scheme applied
 //
@@ -146,8 +149,9 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
     // add the file output
     MSDetector2File* det2file =
         MSDetector2File::getInstance();
-    det2file->addDetectorAndInterval(loop, filename, splInterval);
+    det2file->addDetectorAndInterval(loop, filename, splInterval, splInterval);
 }
+
 /*
 MSDetector::OutputStyle NLDetectorBuilder::convertStyle(const std::string &id,
         const std::string &style)

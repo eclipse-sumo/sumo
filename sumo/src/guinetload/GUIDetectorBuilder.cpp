@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/09/22 12:28:55  dkrajzew
+// construction using two sample intervals inserted (using one by now)
+//
 // Revision 1.3  2003/08/14 13:45:46  dkrajzew
 // new detector usage applied
 //
@@ -101,7 +104,7 @@ GUIDetectorBuilder::buildInductLoop(const std::string &id,
     // add the file output
     MSDetector2File* det2file =
         MSDetector2File::getInstance();
-    det2file->addDetectorAndInterval(loop, filename, splInterval);
+    det2file->addDetectorAndInterval(loop, filename, splInterval, splInterval);
 }
 /*
 MSDetector::OutputStyle GUIDetectorBuilder::convertStyle(const std::string &id,
