@@ -4,12 +4,12 @@ convert \
 dev \
 distribution \
 fonts \
+foxtools \
 geom \
 gfx \
 glutils \
 importio \
 options \
-qutils \
 router \
 sumoxml \
 xml

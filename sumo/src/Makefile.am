@@ -4,8 +4,7 @@ sumo-netgen \
 sumo-dua-router \
 sumo-jtr-router \
 sumo-od2trips \
-sumo-gui \
-tagreader
+sumo-gui
 
 
 sumo_SOURCES = sumo_main.cpp \
@@ -114,16 +113,19 @@ sumo_gui_SOURCES = gui_main.cpp \
 gui_help.h \
 sumo_version.cpp \
 sumo_version.h
-sumo_gui_LDFLAGS = $(QT_LDFLAGS) -L$(XERCES_LDFLAGS) $(X_LDFLAGS)
+sumo_gui_LDFLAGS = -L$(FOX_LDFLAGS) -L$(XERCES_LDFLAGS) $(X_LDFLAGS)
 sumo_gui_LDADD =  ./gui/libgui.a \
 ./guinetload/libguinetload.a \
 ./guisim/libguisim.a \
 ./gui/drawerimpl/libguidrawerimpl.a \
+./gui/icons/libguiicons.a \
 ./gui/popup/libguipopup.a \
 ./gui/partable/libguipartable.a \
-./gui/qdialogs/libguiqdialogs.a \
+./gui/dialogs/libguidialogs.a \
+./gui/textures/libguitextures.a \
 ./gui/vartracker/libguivartracker.a \
 ./gui/tlstracker/libguitlstracker.a \
+./utils/foxtools/libfoxtools.a \
 ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
 ./microsim/actions/libmsactions.a \
@@ -137,30 +139,21 @@ sumo_gui_LDADD =  ./gui/libgui.a \
 ./utils/xml/libxml.a \
 ./utils/fonts/libfonts.a \
 ./utils/gfx/libgfx.a \
-./utils/qutils/libqutils.a \
 ./utils/glutils/libglutils.a \
 -l$(LIB_XERCES) \
-$(LIB_QT) \
+-l$(LIB_FOX) \
 $(LIB_X11)
-
-tagreader_SOURCES = tagreader.cpp
-tagreader_LDFLAGS = $(QT_LDFLAGS) $(X_LDFLAGS)
-tagreader_LDADD   = ./div/libdiv.a \
-$(LIB_QT) \
-$(LIB_X11)
-
 
 
 AM_CPPFLAGS = -Imicrosim \
 -Ihelpers \
 -I$(XERCESINCLUDE) \
 -I$(XERCESINCLUDE_PRIOR_1_7) \
-$(QT_INCLUDES)
+-I$(FOX_INCLUDES)
 
 
 
-SUBDIRS = div \
-gui \
+SUBDIRS = gui \
 guinetload \
 guisim \
 helpers \

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2004/03/19 13:05:30  dkrajzew
+// porting to fox
+//
 // Revision 1.13  2004/02/06 08:54:28  dkrajzew
 // _INC_MALLOC definition removed (does not work on MSVC7.0)
 //
@@ -30,7 +33,8 @@
 // random number specification options added
 //
 // Revision 1.10  2003/10/27 10:47:49  dkrajzew
-// added to possibility to close the application after a simulations end without user interaction
+// added to possibility to close the application after a simulations end
+//  without user interaction
 //
 // Revision 1.9  2003/09/05 14:41:48  dkrajzew
 // first tries for an implementation of aggregated views
@@ -48,7 +52,10 @@
 // false order of calling XML- and Options-subsystems patched
 //
 // Revision 1.4  2003/06/18 11:26:15  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.3  2003/04/16 09:57:05  dkrajzew
 // additional parameter of maximum display size added
@@ -57,7 +64,8 @@
 // files updated
 //
 // Revision 1.1  2002/10/16 14:51:08  dkrajzew
-// Moved from ROOT/sumo to ROOT/src; added further help and main files for netconvert, router, od2trips and gui version
+// Moved from ROOT/sumo to ROOT/src; added further help and main files for
+//  netconvert, router, od2trips and gui version
 //
 // Revision 1.9  2002/07/31 17:42:10  roessel
 // Changes since sourceforge cvs request.
@@ -66,13 +74,15 @@
 // Source handling added
 //
 // Revision 1.11  2002/07/11 07:30:43  dkrajzew
-// Option_FileName invented to allow relative path names within the configuration files; two not yet implemented parameter introduced
+// Option_FileName invented to allow relative path names within the
+//  configuration files; two not yet implemented parameter introduced
 //
 // Revision 1.10  2002/07/02 12:48:10  dkrajzew
 // --help now does not require -c
 //
 // Revision 1.9  2002/07/02 08:16:19  dkrajzew
-// Program flow changed to allow better options removal; return values corrected
+// Program flow changed to allow better options removal; return values
+//  corrected
 //
 // Revision 1.8  2002/06/17 15:57:43  dkrajzew
 // unreferenced variable declarations removed
@@ -99,7 +109,8 @@
 // help-output added
 //
 // Revision 2.5  2002/03/15 12:45:49  dkrajzew
-// Warning is set to true forever due to bugs in value testing when no warnings are used (will be fixed later)
+// Warning is set to true forever due to bugs in value testing when no
+//  warnings are used (will be fixed later)
 //
 // Revision 2.4  2002/03/14 08:09:13  traffic
 // Option for no raw output added
@@ -119,13 +130,11 @@
 // Revision 1.4  2002/02/13 15:35:33  croessel
 // Merging sourceForge with tesseraCVS.
 //
-//
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
+   #define _CRTDBG_MAP_ALLOC // Microsoft memory leak detection procedures
 //   #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #ifdef WIN32
    #include <utils/dev/MemDiff.h>
@@ -134,8 +143,11 @@
 #endif
 
 #include <ctime>
+#include <signal.h>
 #include <iostream>
 #include <fstream>
+#include <fx.h>
+#include <fx3d.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEmitControl.h>
 #include <utils/options/Option.h>
@@ -147,11 +159,16 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/xml/XMLSubSys.h>
-#include <qstring.h>
-#include <qapplication.h>
-#include <qgl.h>
 #include <gui/GUIApplicationWindow.h>
+#include <gui/GUIAppEnum.h>
+#include <gui/GUIGlobals.h>
 #include "gui_help.h"
+
+#ifdef _WIN32
+#include <windows.h>
+#include <GL/gl.h>
+#endif
+
 
 /* =========================================================================
  * used namespaces
@@ -172,9 +189,11 @@ fillInitOptions(OptionsCont &oc)
     oc.doRegister("help", '?', new Option_Bool(false));
     oc.doRegister("configuration", 'c', new Option_FileName());
     oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.doRegister("allow-floating-aggregated-views", 'A', new Option_Bool(false));
+    oc.doRegister("allow-floating-aggregated-views", 'F', new Option_Bool(false));
+    oc.doRegister("disable-aggregated-views", 'A', new Option_Bool(false));
     oc.doRegister("verbose", 'v', new Option_Bool(false)); // !!!
 }
+
 
 bool
 checkInitOptions(OptionsCont &oc)
@@ -199,7 +218,7 @@ main(int argc, char **argv)
     CMemDiff state1;
     // uncomment next line and insert the context of an undeleted
     //  allocation to break within it (MSVC++ only)
-//    _CrtSetBreakAlloc(351861);
+    //_CrtSetBreakAlloc(376348);
 #endif
 #endif
     int ret = 0;
@@ -208,28 +227,35 @@ main(int argc, char **argv)
             fillInitOptions, checkInitOptions, help)) {
             throw ProcessError();
         }
-        // initialise the q-application
-        QApplication a( argc, argv );
-        if ( !QGLFormat::hasOpenGL() ) {
+        // Make application
+        FXApp application("SUMO 0.8","DLR+ZAIK");
+        // Open display
+        application.init(argc,argv);
+        OptionsCont &oc = OptionsSubSys::getOptions();
+        int minor, major;
+        if(!FXGLVisual::supported(&application, major, minor)) {
             MsgHandler::getErrorInstance()->inform(
                 "This system has no OpenGL support. Exiting." );
 	        throw ProcessError();
         }
-        OptionsCont &oc = OptionsSubSys::getOptions();
+        // initialise global settings
+        gQuitOnEnd = oc.getBool("quit-on-end");
+        gAllowAggregatedFloating = oc.getBool("allow-floating-aggregated-views");
+        gAllowAggregated = !oc.getBool("disable-aggregated-views");
+        gSuppressEndInfo = oc.getBool("surpress-end-info");
         // build the main window
-        GUIApplicationWindow * mw =
-            new GUIApplicationWindow(
+        GUIApplicationWindow * window =
+            new GUIApplicationWindow(&application,
                 oc.getInt("w"),
                 oc.getInt("h"),
-                oc.getBool("Q"),
-                oc.getString("c"),
-                oc.getBool("A"),
-                oc.getBool("surpress-end-info"));
-        // delete statrup-settings
+                oc.getString("c"));
+        // delete startup-options
         OptionsSubSys::close();
-        a.connect( &a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()) );
-        mw->show();
-        ret = a.exec();
+        // Create app
+        application.addSignal(SIGINT,window, MID_QUIT);
+        application.create();
+        // Run
+        ret = application.run();
     } catch(...) {
         MsgHandler::getErrorInstance()->inform("Quitting (on error).");
         ret = 1;
