@@ -497,7 +497,8 @@
             xto=&#34;&#60;FLOAT&#62;&#34; yto=&#34;&#60;FLOAT&#62;&#34;)
             [(type=&#34;&#60;STRING&#62;&#34; |
             nolanes=&#34;&#60;INT&#62;&#34; speed=&#34;&#60;FLOAT&#62;&#34;
-            priority=&#34;&#60;FLOAT&#62;&#34;)]/&#62;</sgmltag>.</para>
+            priority=&#34;&#60;FLOAT&#62;&#34;
+            length=&#34;&#60;FLOAT&#62;&#34;)]/&#62;</sgmltag>.</para>
 
             <para>What does it mean? Every one who knows how XML-files look
             like, should have noticed brackets (&#39;(&#39; and &#39;)&#39;)
@@ -518,18 +519,20 @@
 
             <para>For each edge, some further attributes should be supplied,
             being the number of lanes the edge has, the maximum speed allowed
-            on the edge and a priority value. These values may either be given
-            explicitely for each edge using according attributes or they may
-            reference a &#34;type&#34;. In this case, you should also write a
-            type-file which format will be described within the next chapter
-            and give each edge within your edge file a reference to a type
-            within your type file using the name of the type to use. A type
-            with this name should of course be within the generated type-file,
-            otherwise an error is reported. You may also leave the edge
-            parameter of. In this case, default-values will be used and the
-            edge will have a single lane, a priority of 0 (zero) and the
+            on the edge, the length the edge has (in meters) and a priority
+            value. These values - beside the length in fact - may either be
+            given explicitely for each edge using according attributes or they
+            may reference a &#34;type&#34;. In this case, you should also
+            write a type-file which format will be described within the next
+            chapter and give each edge within your edge file a reference to a
+            type within your type file using the name of the type to use. A
+            type with this name should of course be within the generated
+            type-file, otherwise an error is reported. You may also leave the
+            edge parameter of. In this case, default-values will be used and
+            the edge will have a single lane, a priority of 0 (zero) and the
             maximum allowed speed on this edge will be 13.9m/s being around
-            50km/h.</para>
+            50km/h. The length of this edge will be computed as the distance
+            between the starting and the end point.</para>
 
             <para>Let&#39;s list an edge&#39;s attributes again:</para>
 
@@ -551,7 +554,8 @@
             The number of lanes of the edge; must be an integer value</para></listitem><listitem><para>speed:
             The maximum speed allowed on the edge in m/s; must be a floating
             point number</para></listitem><listitem><para>priority: The
-            priority of the edge; must be an integer value</para></listitem></itemizedlist></listitem></itemizedlist>The
+            priority of the edge; must be an integer value</para></listitem><listitem><para>length:
+            The length of the edge in meter; must be an float value</para></listitem></itemizedlist></listitem></itemizedlist>The
             priority play a role during the computation of the way-giving
             rules of a node. Larger values for the priority of an edge allow
             vehicles using it to pass without waiting - if no traffic light is
