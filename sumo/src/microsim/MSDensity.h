@@ -6,9 +6,9 @@
  * @author Christian Roessel
  * @date   Started Tue Sep  9 22:27:23 2003
  * @version $Id$
- * @brief  
- * 
- * 
+ * @brief
+ *
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -38,26 +38,26 @@ protected:
     typedef double DetectorAggregate;
 //     typedef MSVehicle* ContainerItem;
 //     typedef std::list< ContainerItem > VehicleCont;
-    typedef DetectorContainer::Counter Container;
-    
+    typedef DetectorContainer::Count Container;
+
     MSDensity( double lengthInMeters,
                const Container& counter );
-    
+
     virtual ~MSDensity( void )
-        {}    
+        {}
 
 //     ContainerItem getNewContainerItem( MSVehicle& veh )
 //         {
 //             return &veh;
 //         }
-        
+
     DetectorAggregate getDetectorAggregate( void );
 
 //     void clearVehicleCont( VehicleCont& cont )
 //         {
 //             cont.clear();
-//         }   
-    
+//         }
+
 
     static std::string getDetectorName( void )
         {
@@ -67,7 +67,7 @@ protected:
 private:
     double detectorLengthM; //  [km]
     const Container& counterM;
-    
+
     MSDensity();
     MSDensity( const MSDensity& );
     MSDensity& operator=( const MSDensity& );

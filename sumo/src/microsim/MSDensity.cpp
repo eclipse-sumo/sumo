@@ -3,9 +3,9 @@
  * @author Christian Roessel
  * @date   Started Thu Sep 11 13:35:55 2003
  * @version $Id$
- * @brief  
- * 
- * 
+ * @brief
+ *
+ *
  */
 
 /* Copyright (C) 2003 by German Aerospace Center (http://www.dlr.de) */
@@ -33,7 +33,7 @@
 using namespace std;
 
 MSDensity::MSDensity( double lengthInMeters,
-                      const DetectorContainer::Counter& counter ) :
+                      const DetectorContainer::Count& counter ) :
     MSOccupancyCorrection< DetectorAggregate >(),
     detectorLengthM( lengthInMeters / 1000.0 ),
     counterM( counter )
