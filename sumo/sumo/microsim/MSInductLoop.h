@@ -21,6 +21,10 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.5  2002/04/11 16:14:42  croessel
+// Moved ofstream myFile from MSInductLoop to MSDetector. Removed double
+// declaration of OutputStyle.
+//
 // Revision 1.4  2002/04/11 15:25:55  croessel
 // Changed float to double.
 //
@@ -49,7 +53,6 @@
 #include "MSLane.h"
 #include "MSDetector.h"
 #include <string>
-#include <fstream>
 #include <functional>
 
 /**
@@ -67,9 +70,9 @@ public:
      */ 
     MSInductLoop( std::string    id,
                   MSLane*        lane,
-                  double          position,
+                  double         position,
                   MSNet::Time    sampleIntervall,
-                  MSDetector::OutputStyle    style,
+                  MSDetector::OutputStyle style,
                   std::ofstream* file );
     
     /// Destructor.
@@ -121,9 +124,6 @@ private:
 
     /// Sample-intervall in seconds.
     MSNet::Time mySampleIntervall;
-
-    /// File where output goes to.
-    std::ofstream* myFile;
 
     /// Last vehicle that passed the detector.
     MSVehicle* myPassedVeh;

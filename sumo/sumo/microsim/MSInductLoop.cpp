@@ -24,6 +24,10 @@ namespace
 }
 
 // $Log$
+// Revision 1.6  2002/04/11 16:14:42  croessel
+// Moved ofstream myFile from MSInductLoop to MSDetector. Removed double
+// declaration of OutputStyle.
+//
 // Revision 1.5  2002/04/11 15:25:55  croessel
 // Changed float to double.
 //
@@ -77,11 +81,10 @@ MSInductLoop::MSInductLoop( string         id,
                             MSNet::Time    sampleIntervall,
                             MSDetector::OutputStyle    style,
                             ofstream*      file ) :
-    MSDetector( id, style ),
+    MSDetector( id, style, file ),
     myLane           ( lane ),
     myPos            ( position ),
     mySampleIntervall( sampleIntervall ),
-    myFile           ( file ),
     myPassedVeh      ( 0 ),
     myPassingSpeed   ( 0 ),
     myPassingTime    ( 0 ),

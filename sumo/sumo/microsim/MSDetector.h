@@ -20,12 +20,17 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.5  2002/04/11 16:14:42  croessel
+// Moved ofstream myFile from MSInductLoop to MSDetector. Removed double
+// declaration of OutputStyle.
+//
 // Revision 1.4  2002/04/10 15:51:53  croessel
 // Initial commit. Base class for all specific detectors.
 //
 
 
 #include <string>
+#include <fstream>
 
 /**
  */
@@ -40,11 +45,13 @@ public:
         during samplIntervall seconds data and writes them in style to file.
      */ 
     MSDetector( std::string id,
-                OutputStyle style ) : myID( id ),
-                                      myStyle( style ) {}
+                OutputStyle style,
+                std::ofstream* file ) : myID( id ),
+                                        myStyle( style ),
+                                        myFile( file ) {}
     
     /// Destructor.
-    virtual ~MSDetector();
+    virtual ~MSDetector() {};
 
     /// Call sample every timestep to update the detector.
     void virtual sample( double currSimSeconds ) = 0;
@@ -56,6 +63,9 @@ protected:
 
     /// Ouput-style.
     OutputStyle myStyle;    
+
+    /// File where output goes to.
+    std::ofstream* myFile;
 
 private:
 
