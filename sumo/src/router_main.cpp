@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.18  2003/06/19 11:03:57  dkrajzew
+// debugging
+//
 // Revision 1.17  2003/06/19 07:07:52  dkrajzew
 // false order of calling XML- and Options-subsystems patched
 //
@@ -180,7 +183,7 @@ getSettings(int argc, char **argv)
     oc->doRegister("intel-cell", new Option_Bool(false));
     oc->doRegister("no-last-cell", new Option_Bool(false));
     oc->doRegister("use-lanes", 'l', new Option_Bool(false));
-    oc->doRegister("scheme", 'x', new Option_String("speed"));
+    oc->doRegister("scheme", 'x', new Option_String("traveltime"));
     oc->doRegister("no-sort", 'S', new Option_Bool(false));
     if(OptionsIO::getOptions(oc, argc, argv)) {
         if(oc->getBool("help")) {
@@ -321,7 +324,7 @@ main(int argc, char **argv)
                 startComputation(*net, loader, *oc);
             } catch (SAXParseException e) {
                 MsgHandler::getErrorInstance()->inform(
-                    string("Error:") + toString<int>(e.getLineNumber()));
+                    toString<int>(e.getLineNumber()));
                 ret = 1;
             } catch (SAXException e) {
                 MsgHandler::getErrorInstance()->inform(
@@ -331,7 +334,6 @@ main(int argc, char **argv)
         } else {
             ret = 1;
         }
-        delete oc;
     } catch (...) {
         MsgHandler::getErrorInstance()->inform(
             "Quitting (building failed).");

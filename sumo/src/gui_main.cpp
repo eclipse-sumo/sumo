@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2003/06/19 11:03:57  dkrajzew
+// debugging
+//
 // Revision 1.5  2003/06/19 07:07:52  dkrajzew
 // false order of calling XML- and Options-subsystems patched
 //
@@ -136,8 +139,10 @@ getOptions(int argc, char **argv)
 {
     OptionsCont *oc = new OptionsCont();
     // register screen size options
-    oc->doRegister("max-gl-width", 'w', new Option_Integer(1152));
-    oc->doRegister("max-gl-height", 'h', new Option_Integer(864));
+    oc->doRegister("max-gl-width", 'w', new Option_Integer(1280));
+    oc->doRegister("max-gl-height", 'h', new Option_Integer(1024));
+    oc->doRegister("quit-on-end", 'Q', new Option_Bool(false));
+    oc->doRegister("configuration", 'c', new Option_FileName());
     if(!OptionsParser::parse(oc, argc, argv)) {
         delete oc;
         return 0;
@@ -187,7 +192,9 @@ main(int argc, char **argv)
         GUIApplicationWindow * mw =
             new GUIApplicationWindow(
                 oc->getInt("w"),
-                oc->getInt("h"));
+                oc->getInt("h"),
+                oc->getBool("Q"),
+                oc->getString("c"));
         a.connect( &a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()) );
         mw->show();
         ret = a.exec();

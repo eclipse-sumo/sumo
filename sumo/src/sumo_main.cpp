@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/06/19 11:03:57  dkrajzew
+// debugging
+//
 // Revision 1.10  2003/06/19 07:07:52  dkrajzew
 // false order of calling XML- and Options-subsystems patched
 //
@@ -172,18 +175,18 @@ checkSettings(OptionsCont *oc) {
         // check the existance of a name for simulation file
         if(!oc->isSet("n")) {
             MsgHandler::getErrorInstance()->inform(
-                "Error: No simulation file (-n) specified.");
+                "No simulation file (-n) specified.");
             ok = false;
         }
         // check if the begin and the end of the simulation are supplied
         if(!oc->isSet("b")) {
             MsgHandler::getErrorInstance()->inform(
-                "Error: The begin of the simulation (-b) is not specified.");
+                "The begin of the simulation (-b) is not specified.");
             ok = false;
         }
         if(!oc->isSet("e")) {
             MsgHandler::getErrorInstance()->inform(
-                "Error: The end of the simulation (-e) is not specified.");
+                "The end of the simulation (-e) is not specified.");
             ok = false;
         }
     } catch (InvalidArgument &e) {
@@ -295,6 +298,7 @@ main(int argc, char **argv)
         ret = 1;
     }
     SystemFrame::close(oc);
+    SingletonDictionary< std::string, MSLaneState* >::getInstance()->setFindMode();
     delete SingletonDictionary< std::string, MSLaneState* >::getInstance();
     return ret;
 }

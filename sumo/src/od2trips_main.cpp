@@ -170,18 +170,18 @@ main(int argc, char **argv)
 	    bool ok = true;
 		if(!oc->isSet("n")) {
             MsgHandler::getErrorInstance()->inform(
-                "Error: No net input file (-n) specified.");
+                "No net input file (-n) specified.");
 			ok = false;
 		}
 		if(!oc->isSet("d")) {
 			MsgHandler::getErrorInstance()->inform(
-                "Error: No OD input file (-d) specified.");
+                "No OD input file (-d) specified.");
 			ok = false;
 		}
 		string OD_filename = oc->getString("d");
 		if(!oc->isSet("o")) {
             MsgHandler::getErrorInstance()->inform(
-			    "Error: No trip table output file (-o) specified.");
+			    "No trip table output file (-o) specified.");
 			ok = false;
 		}
 		string bez1=".inp";
