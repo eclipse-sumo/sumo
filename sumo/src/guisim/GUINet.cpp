@@ -23,17 +23,24 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2004/04/02 11:17:07  dkrajzew
+// simulation-wide output files are now handled by MSNet directly
+//
 // Revision 1.32  2004/03/19 12:57:55  dkrajzew
 // porting to FOX
 //
 // Revision 1.31  2004/02/10 07:07:13  dkrajzew
-// debugging of network loading after a network failed to be loaded; memory leaks removal
+// debugging of network loading after a network failed to be loaded;
+//  memory leaks removal
 //
 // Revision 1.30  2004/02/05 16:30:59  dkrajzew
 // multiplicate deletion of E3-detectors on application quit patched
 //
 // Revision 1.29  2004/01/26 06:59:38  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+// work on detectors: e3-detectors loading and visualisation;
+//  variable offsets and lengths for lsa-detectors;
+//  coupling of detectors to tl-logics; different detector
+//  visualistaion in dependence to his controller
 //
 // Revision 1.28  2003/12/11 06:24:55  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
@@ -115,7 +122,6 @@ namespace
 //
 // Revision 1.3  2003/02/07 10:39:17  dkrajzew
 // updated
-//
 //
 /* =========================================================================
  * included modules
@@ -208,25 +214,24 @@ GUINet::getBoundery() const
 
 void
 GUINet::preInitGUINet( MSNet::Time startTimeStep,
+                      MSVehicleControl *vc,
                       TimeVector dumpMeanDataIntervalls,
                       std::string baseNameDumpFiles )
 {
     myInstance = new GUINet();
-    MSVehicleTransfer::setInstance(new MSVehicleTransfer());
-    myInstance->myVehicleControl = new GUIVehicleControl(*myInstance);
-
-    myInstance->myStep = startTimeStep;
-    initMeanData( dumpMeanDataIntervalls, baseNameDumpFiles);
-	myInstance->myEmitter = new MSEmitControl("");
-    MSDetectorSubSys::createDictionaries();
+    MSNet::preInit(startTimeStep, vc,
+        dumpMeanDataIntervalls, baseNameDumpFiles);
 }
 
 
 void
-GUINet::initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
-                   MSRouteLoaderControl *rlc, MSTLLogicControl *tlc)
+GUINet::initGUINet(std::string id, MSEdgeControl* ec,
+                   MSJunctionControl* jc,
+                   MSRouteLoaderControl *rlc,
+                   MSTLLogicControl *tlc,
+                   const std::vector<std::ostream*> &streams)
 {
-    MSNet::init(id, ec, jc, rlc, tlc);
+    MSNet::init(id, ec, jc, rlc, tlc, streams);
     GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
     // initialise edge storage for gui
     GUIEdge::fill(net->myEdgeWrapper);
@@ -450,6 +455,16 @@ GUINet::guiSimulationStep()
     MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<CompletePhaseDef> > >::getInstance()->updateAll();
 }
 
+
+std::vector<size_t>
+GUINet::getJunctionIDs() const
+{
+    std::vector<size_t> ret;
+    for(std::vector<GUIJunctionWrapper*>::const_iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); i++) {
+        ret.push_back((*i)->getGlID());
+    }
+    return ret;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.24  2004/04/02 11:17:07  dkrajzew
+// simulation-wide output files are now handled by MSNet directly
+//
 // Revision 1.23  2004/03/19 12:57:55  dkrajzew
 // porting to FOX
 //
@@ -54,10 +57,12 @@
 // changes due to new detector handling
 //
 // Revision 1.12  2003/07/16 15:24:55  dkrajzew
-// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+// GUIGrid now handles the set of things to draw in another manner than
+//  GUIEdgeGrid did; Further things to draw implemented
 //
 // Revision 1.11  2003/06/05 06:29:50  dkrajzew
-// first tries to build under linux: warnings removed; moc-files included Makefiles added
+// first tries to build under linux: warnings removed;
+//  moc-files included Makefiles added
 //
 // Revision 1.10  2003/05/28 07:52:31  dkrajzew
 // new usage of MSEventControl adapted
@@ -69,7 +74,8 @@
 // data retrieval for new views added
 //
 // Revision 1.7  2003/04/16 09:50:06  dkrajzew
-// centering of the network debugged; additional parameter of maximum display size added
+// centering of the network debugged; additional parameter
+//  of maximum display size added
 //
 // Revision 1.6  2003/04/15 09:09:14  dkrajzew
 // documentation added
@@ -83,9 +89,6 @@
 // Revision 1.3  2003/02/07 10:39:17  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -125,6 +128,7 @@ class RGBColor;
  * class definitions
  * ======================================================================= */
 /**
+ * @class GUINet
  * This gui version of the network allows the retrieval of some more
  * information than the normal network version does. Due to this, not only
  * these retrival, but also some further initialisation methods must have
@@ -147,29 +151,31 @@ public:
 
     /// preinitialises the network (before the network is loaded
     static void preInitGUINet( MSNet::Time startTimeStep,
+        MSVehicleControl *vc,
         TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles);
 
     /// initialises the network (after the loading)
     static void initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
-        /*DetectorCont* detectors,*/ MSRouteLoaderControl *rlc, MSTLLogicControl *tlc);
+        MSRouteLoaderControl *rlc, MSTLLogicControl *tlc,
+        const std::vector<std::ostream*> &streams);
 
-    /// returns the position of a junction (!!! shouldn't it be a const&?)
+    /// returns the position of a junction
     Position2D getJunctionPosition(const std::string &name) const;
 
-    /// returns the position of a vehicle (!!! shouldn't it be a const&?)
+    /// returns the position of a vehicle
     Position2D getVehiclePosition(const std::string &name,
         bool useCenter=true) const;
 
-    /// returns the position of a detector (!!! shouldn't it be a const&?)
+    /// returns the position of a detector
     Position2D getDetectorPosition(const std::string &name) const;
 
-    /// returns the position of a emitter (!!! shouldn't it be a const&?)
+    /// returns the position of a emitter
     Position2D getEmitterPosition(const std::string &name) const;
 
     /// returns the information whether the vehicle still exists
     bool vehicleExists(const std::string &name) const;
 
-    /// returns the boundery of an edge (!!! shouldn't it be a const&?)
+    /// returns the boundery of an edge
     Boundery getEdgeBoundery(const std::string &name) const;
 
     /// Some further steps needed for gui processing
@@ -182,6 +188,8 @@ public:
     GUIGlObjectStorage &getIDStorage();
 
     unsigned int getLinkTLID(MSLink *link) const;
+
+    std::vector<size_t> getJunctionIDs() const; // !!! should not be done herein
 
 
     friend class GUIViewTraffic; // !!!
@@ -241,9 +249,6 @@ protected:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUINet.icc"
-//#endif
 
 #endif
 
