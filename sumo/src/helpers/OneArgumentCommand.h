@@ -23,6 +23,9 @@
 
 
 // $Log$
+// Revision 1.4  2003/07/10 16:20:11  roessel
+// Bug fix: variable name must correspond to prototype.
+//
 // Revision 1.3  2003/06/06 15:36:15  roessel
 // Refined documentation.
 //
@@ -42,6 +45,7 @@
  * @see Commad
  * @see MSEventControl
  * @see MSTravelcostDetector
+ * @see MSDetector2File
  * 
  */
 template< class T, typename Arg  >
@@ -64,7 +68,7 @@ public:
      */
     OneArgumentCommand( T* receiver, Operation operation, Arg argument ) :
         myReceiver( receiver ),
-        myOperation( op  ),
+        myOperation( operation ),
         myArgument( argument )
         {
         }
