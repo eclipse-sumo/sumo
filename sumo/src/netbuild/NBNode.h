@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2003/04/07 12:15:41  dkrajzew
+// first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
+//
 // Revision 1.9  2003/04/04 07:43:04  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -93,6 +96,7 @@
 #include <utils/common/Named.h>
 #include <utils/common/DoubleVector.h>
 #include <utils/geom/Position2D.h>
+#include <utils/geom/Position2DVector.h>
 #include "NBEdge.h"
 #include "NBJunctionLogicCont.h"
 #include "NBConnectionDefs.h"
@@ -482,6 +486,9 @@ private:
 
     /// The district the node is the centre of
     NBDistrict *myDistrict;
+
+    /// the (outer) shape of the junction
+    Position2DVector myPoly;
 
     SignalGroupCont mySignalGroups;
 

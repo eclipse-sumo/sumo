@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/04/07 12:15:38  dkrajzew
+// first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
+//
 // Revision 1.11  2003/04/04 07:43:03  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -1316,6 +1319,30 @@ void
 NBEdge::setGeometry(const Position2DVector &s)
 {
     myGeom = s;
+}
+
+
+double
+NBEdge::getMaxLaneOffset()
+{
+    return 3.5 * _nolanes;
+}
+
+
+Position2D
+NBEdge::getMaxLaneOffsetPositionAt(NBNode *node, double width)
+{
+    Position2D pos = myGeom.positionAtLengthPosition(width);
+    if(node==_from) {
+        GeomHelper::transfer_to_side(pos,
+            myGeom.at(0), myGeom.at(myGeom.size()-1),
+            3.5 * _nolanes);
+    } else {
+        GeomHelper::transfer_to_side(pos,
+            myGeom.at(myGeom.size()-1), myGeom.at(0),
+            -3.5 * _nolanes);
+    }
+    return pos;
 }
 
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2003/04/07 12:15:39  dkrajzew
+// first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
+//
 // Revision 1.10  2003/04/04 07:43:03  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -267,6 +270,10 @@ public:
     double getSpeed() const;
 
     void replaceInConnections(NBEdge *which, NBEdge *by);
+
+    double getMaxLaneOffset();
+
+    Position2D getMaxLaneOffsetPositionAt(NBNode *node, double width);
 
     /// Returns the information whethe a connection to the given edge has been added (or computed)
     bool isConnectedTo(NBEdge *e);

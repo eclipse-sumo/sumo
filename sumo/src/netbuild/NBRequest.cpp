@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/04/07 12:15:43  dkrajzew
+// first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
+//
 // Revision 1.7  2003/04/04 07:43:04  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -444,7 +447,7 @@ NBRequest::buildLoadedTrafficLights(const std::string &key,
 
     // build the phases
     NBTrafficLightLogic *logic =
-        new NBTrafficLightLogic(key, noLinks, 0);//!!!
+        new NBTrafficLightLogic(key, noLinks);
     for(std::vector<double>::iterator l=switchTimes.begin(); l!=switchTimes.end(); l++) {
         NBRequestEdgeLinkIterator cei1(this, false, false, LRT_NO_REMOVAL);
         assert(noLinks==cei1.getLinkNumber());

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/04/07 12:15:40  dkrajzew
+// first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
+//
 // Revision 1.12  2003/04/04 07:43:03  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -867,6 +870,8 @@ NBNode::writeXML(ostream &into)
         }
     }
     into << "</inlanes>" << endl;
+    // write the shape
+    into << "      <shape>" << myPoly << "</shape>" << endl;
     // close writing
     into << "   </junction>" << endl << endl;
 }
@@ -955,8 +960,8 @@ NBNode::reportBuild()
 void
 NBNode::sortNodesEdges()
 {
+    // sort the edges
     buildList();
-    //prepareForBuilding();
     sort(_allEdges.begin(), _allEdges.end(), NBContHelper::edge_by_junction_angle_sorter(this));
     sort(_incomingEdges->begin(), _incomingEdges->end(), NBContHelper::edge_by_junction_angle_sorter(this));
     sort(_outgoingEdges->begin(), _outgoingEdges->end(), NBContHelper::edge_by_junction_angle_sorter(this));
@@ -978,6 +983,21 @@ NBNode::sortNodesEdges()
     }
 #endif
 #endif
+    // compute the shape of the junction
+    EdgeVector::iterator i;
+        // compute the radius first
+    double width = 0;
+    for(i=_allEdges.begin(); i!=_allEdges.end(); i++) {
+        width =
+            width > (*i)->getMaxLaneOffset()
+            ? width
+            : (*i)->getMaxLaneOffset();
+    }
+        // compute the shape's outer points
+    for(i=_allEdges.begin(); i!=_allEdges.end(); i++) {
+        myPoly.push_back(
+            (*i)->getMaxLaneOffsetPositionAt(this, width));
+    }
 }
 
 

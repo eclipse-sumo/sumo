@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/04/07 12:15:45  dkrajzew
+// first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
+//
 // Revision 1.5  2003/04/01 15:15:23  dkrajzew
 // some documentation added
 //
@@ -60,8 +63,7 @@
 class NBTrafficLightLogic {
 public:
     /// Constructor
-    NBTrafficLightLogic(const std::string &key, size_t noLinks,
-        size_t tyellow);
+    NBTrafficLightLogic(const std::string &key, size_t noLinks);
 
     /// Copy constructor
     NBTrafficLightLogic(const NBTrafficLightLogic &s);
@@ -91,9 +93,6 @@ private:
 
     /// The number of participating links
     size_t _noLinks;
-
-    /// The duration of the yellow-phase
-    size_t myTYellow;
 
     /**
      * @class PhaseDefinition

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/07 12:15:44  dkrajzew
+// first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
+//
 // Revision 1.5  2003/04/01 15:15:21  dkrajzew
 // some documentation added
 //
@@ -64,9 +67,8 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 NBTrafficLightLogic::NBTrafficLightLogic(const std::string &key,
-                                         size_t noLinks,
-                                         size_t tyellow)
-    : _key(key), _noLinks(noLinks), myTYellow(tyellow)
+                                         size_t noLinks)
+    : _key(key), _noLinks(noLinks)
 {
 }
 

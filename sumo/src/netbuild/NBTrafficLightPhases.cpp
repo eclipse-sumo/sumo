@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/04/07 12:15:46  dkrajzew
+// first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
+//
 // Revision 1.6  2003/04/04 07:43:04  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -190,7 +193,7 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
                                               size_t breakingTime) const
 {
     NBTrafficLightLogic *ret =
-        new NBTrafficLightLogic(key, noLinks, 0);// !!!
+        new NBTrafficLightLogic(key, noLinks);
     for(size_t i=0; i<phaseList.size(); i++) {
         // build and add the complete phase
         std::bitset<64> driveMask;
