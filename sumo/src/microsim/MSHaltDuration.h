@@ -71,8 +71,10 @@ protected:
                 aObserved.haltingDurationM );
             
             DurationMapIt pair = durationMapM->containerM.find( veh );
-            assert( pair != durationMapM->containerM.end() );
-
+            if ( pair == durationMapM->containerM.end() ) {
+                durationMapM->enterDetectorByMove( veh );
+            }
+            pair = durationMapM->containerM.find( veh );
             pair->second += toAdd;
         }
 
