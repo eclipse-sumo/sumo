@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2003/11/24 10:21:21  dkrajzew
+// some documentation added and dead code removed
+//
 // Revision 1.10  2003/10/01 13:58:26  dkrajzew
 // unneded methods outcommented; new phase mask usage applied
 //
@@ -46,8 +49,6 @@
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -65,18 +66,23 @@
 #include "MSSimpleTrafficLightLogic.h"
 
 
-
+/* =========================================================================
+ * static member variables definitions
+ * ======================================================================= */
 std::bitset<64> MSSimpleTrafficLightLogic::_allClear;
 
 
-MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(
-    const std::string &id, const Phases &phases, size_t step,
-    size_t delay)
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
+MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(const std::string &id,
+                                                     const Phases &phases,
+                                                     size_t step,
+                                                     size_t delay)
     : MSTrafficLightLogic(id, delay), _phases(phases),
     _step(step)
 {
 }
-
 
 
 MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic()

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/11/24 10:21:20  dkrajzew
+// some documentation added and dead code removed
+//
 // Revision 1.6  2003/11/17 07:18:21  dkrajzew
 // e2-detector over lanes merger added
 //
@@ -36,8 +39,6 @@
 // agent-based traffic lights added
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -56,6 +57,10 @@
 #include "MSSimpleTrafficLightLogic.h"
 #include "MS_E2_ZS_CollectorOverLanes.h"
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSLane;
 class MSAgentbasedPhaseDefinition;
 
@@ -76,7 +81,6 @@ class MSAgentbasedTrafficLightLogic :
         public MSSimpleTrafficLightLogic
 {
 public:
-
     /// Definition of a map from lanes to lane state detectors lying on them
     typedef std::map<MSLane*, MS_E2_ZS_CollectorOverLanes*> E2DetectorMap;
 
@@ -144,13 +148,14 @@ protected:
     /// returns the step of the phase with the shortest Queue_Lengt_Ahead_Of_Traffic_Lights
     virtual size_t findStepOfMinValue();
 
+    /// Returns the definition of the current phase
     MSActuatedPhaseDefinition * currentPhaseDef() const;
 
+    /// Returns the value of the detector defined by the given lane and type
 	double currentForLane(MS_E2_ZS_Collector::DetType what,
 		MSLane *lane) const;
 
 protected:
-
 	/// A map from lanes to E2-detectors lying on them
 	E2DetectorMap myE2Detectors;
 
@@ -160,8 +165,8 @@ protected:
     /// A map of the step of the greenphases and theri aggregated detectordata
     MeanDataMap myMeanDetectorData;
 
-    /// the interval in which the trafficlight can make a decision
-    /// the  interval is given in integer numbers of cycles
+    /** @brief the interval in which the trafficlight can make a decision
+        the interval is given in integer numbers of cycles */
     size_t tDecide;
 
     /// the number of cycles, before the last decision was made

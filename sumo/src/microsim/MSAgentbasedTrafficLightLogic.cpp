@@ -17,6 +17,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/11/24 10:21:20  dkrajzew
+// some documentation added and dead code removed
+//
 // Revision 1.8  2003/11/20 13:25:41  dkrajzew
 // unneded debug outputs removed
 //
@@ -38,19 +41,17 @@
 // Revision 1.1  2003/10/01 11:24:35  dkrajzew
 // agent-based traffic lights added
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <utility>
 #include <vector>
 #include <bitset>
 #include "MSEventControl.h"
-//#include "MSDetector.h"
 #include "MSInductLoop.h"
 #include "MSLaneState.h"
 #include "MSNet.h"
@@ -58,17 +59,17 @@
 #include "MSAgentbasedTrafficLightLogic.h"
 
 
-
-
-
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 template< class _TE2_ZS_CollectorOverLanes >
 MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>(
-        const std::string &id, const Phases &phases, size_t step,
-        const std::vector<MSLane*> &lanes, size_t delay,
-        std::map<std::string, std::vector<std::string> > &laneContinuations)
+            const std::string &id, const Phases &phases, size_t step,
+            const std::vector<MSLane*> &lanes, size_t delay,
+            std::map<std::string, std::vector<std::string> > &laneContinuations)
     : MSSimpleTrafficLightLogic(id, phases, step, delay),
-    tSinceLastDecision (0), tDecide(1), tCycle(75), numberOfValues(3), deltaLimit (0.1),
-    stepOfLastDecision (0)
+    tSinceLastDecision (0), tDecide(1), tCycle(75), numberOfValues(3),
+    deltaLimit (0.1), stepOfLastDecision (0)
 {
     sproutDetectors(lanes, laneContinuations);
     initializeDuration();
@@ -93,20 +94,12 @@ MSAgentbasedTrafficLightLogic<_TE2_ZS_CollectorOverLanes>::sproutDetectors(
     // build the E2-detectors
     for(i=lanes.begin(); i!=lanes.end(); i++) {
         MSLane *lane = (*i);
-/*        double length = lane->length() - 0.1; // !!!
-        // check whether the position is o.k. (not longer than the lane)
-        double lslen = laneStateDetectorLength;
-        if(lslen>length) {
-            lslen = length;
-        }
-        double lspos = length - lslen;*/
         // Build the lane state detetcor and set it into the container
         std::string id = "TL_" + _id + "_E2OverLanesDetectorStartingAt_" + lane->id();
 
         if ( myE2Detectors.find(lane)==myE2Detectors.end()){
             _TE2_ZS_CollectorOverLanes* det =
-                new _TE2_ZS_CollectorOverLanes( id, lane, 0//,
-                    /*laneStateDetectorLength, laneContinuations*/);
+                new _TE2_ZS_CollectorOverLanes( id, lane, 0 );
             det->init(lane, laneStateDetectorLength, laneContinuations);
 		    det->addDetector( MS_E2_ZS_Collector::ALL, "detectors" );
             myE2Detectors[lane] = det;

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2003/11/24 10:21:20  dkrajzew
+// some documentation added and dead code removed
+//
 // Revision 1.14  2003/11/17 07:18:21  dkrajzew
 // e2-detector over lanes merger added
 //
@@ -60,8 +63,6 @@
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -135,8 +136,8 @@ protected:
     virtual void sproutDetectors(const std::vector<MSLane*> &lanes,
         std::map<std::string, std::vector<std::string> > &laneContinuations);
 
-    MSActuatedPhaseDefinition * currentPhaseDef() const ;
-
+    /// Returns the definition of the current phase
+    MSActuatedPhaseDefinition * currentPhaseDef() const;
 
 protected:
     /// A map from lanes to induct loops lying on them

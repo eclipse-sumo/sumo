@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.23  2003/11/24 10:21:20  dkrajzew
+// some documentation added and dead code removed
+//
 // Revision 1.22  2003/11/17 07:18:21  dkrajzew
 // e2-detector over lanes merger added
 //
@@ -76,19 +79,17 @@
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <utility>
 #include <vector>
 #include <bitset>
 #include "MSEventControl.h"
-//#include "MSDetector.h"
 #include "MSInductLoop.h"
 #include "MSLaneState.h"
 #include "MSNet.h"
@@ -96,11 +97,15 @@
 #include "MSActuatedTrafficLightLogic.h"
 #include "MSLane.h"
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 template< class _TInductLoop, class _TLaneState >
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>(
-        const std::string &id, const Phases &phases, size_t step,
-        const std::vector<MSLane*> &lanes, size_t delay,
-        std::map<std::string, std::vector<std::string> > &laneContinuations)
+            const std::string &id, const Phases &phases, size_t step,
+            const std::vector<MSLane*> &lanes, size_t delay,
+            std::map<std::string, std::vector<std::string> > &laneContinuations)
     : MSSimpleTrafficLightLogic(id, phases, step, delay),
     _continue(false)
 {

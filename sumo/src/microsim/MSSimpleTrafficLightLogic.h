@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2003/11/24 10:21:21  dkrajzew
+// some documentation added and dead code removed
+//
 // Revision 1.12  2003/10/01 13:58:26  dkrajzew
 // unneded methods outcommented; new phase mask usage applied
 //
@@ -117,10 +120,6 @@ public:
 
 	/// returns the current step
 	size_t step() const { return _step; }
-
-protected:
-    /// Returns the described phase
-//    virtual const MSPhaseDefinition &getPhase(size_t pos) const;
 
 protected:
     /// the list of phases this logic uses

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/11/24 10:21:21  dkrajzew
+// some documentation added and dead code removed
+//
 // Revision 1.10  2003/11/12 13:51:14  dkrajzew
 // visualisation of tl-logics added
 //
@@ -97,7 +100,6 @@ MSTrafficLightLogic::~MSTrafficLightLogic()
 }
 
 
-
 void
 MSTrafficLightLogic::setLinkPriorities()
 {
@@ -144,7 +146,6 @@ MSTrafficLightLogic::clear()
 }
 
 
-
 void
 MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, size_t pos)
 {
@@ -178,7 +179,8 @@ MSTrafficLightLogic::maskRedLinks()
                 (*j)->deleteRequest();
             }
         }
-        //
+        // set the states for assigned links
+        // !!! one should let the links ask for it
         if(!allowedLinks.test(i)) {
             if(yellowLinks.test(i)) {
                 const LinkVector &currGroup = myLinks[i];
@@ -278,10 +280,6 @@ MSTrafficLightLogic::getLinks() const
 {
     return myLinks;
 }
-
-
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
