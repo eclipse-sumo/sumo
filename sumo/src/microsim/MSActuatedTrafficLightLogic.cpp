@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/04/04 15:26:55  roessel
+// Added the keyword "typename" for derived types in for-loops
+//
 // Revision 1.4  2003/04/02 11:44:02  dkrajzew
 // continuation of implementation of actuated traffic lights
 //
@@ -43,6 +46,7 @@
 #include "MSNet.h"
 #include "MSTrafficLightLogic.h"
 #include "MSActuatedTrafficLightLogic.h"
+
 
 template< class _TInductLoop, class _TLaneState >
 std::bitset<64> MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::_allClear;
@@ -80,7 +84,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::duration() const
     // define the duration depending from the number of waiting vehicles of the actual phase
 
     int duration = _phases[_step].minDuration;
-    for(LaneStateMap::const_iterator i=myLaneStates.begin(); i!=myLaneStates.end(); i++)   {
+    for(typename LaneStateMap::const_iterator i=myLaneStates.begin(); i!=myLaneStates.end(); i++)   {
         MSLane *lane = (*i).first;
         const MSLinkCont &cont = lane->getLinkCont();
         for(MSLinkCont::const_iterator j=cont.begin(); j!=cont.end(); j++)  {
@@ -240,7 +244,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::gapControl()
     }
 
     // now the gapcontrol starts
-    for(InductLoopMap::const_iterator i=myInductLoops.begin(); i!=myInductLoops.end(); i++)   {
+    for(typename InductLoopMap::const_iterator i=myInductLoops.begin(); i!=myInductLoops.end(); i++)   {
         MSLane *lane = (*i).first;
         const MSLinkCont &cont = lane->getLinkCont();
         for(MSLinkCont::const_iterator j=cont.begin(); j!=cont.end(); j++)  {
@@ -263,10 +267,10 @@ MSNet::DetectorCont
 MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::getDetectorList() const
 {
     MSNet::DetectorCont ret;
-    for(InductLoopMap::const_iterator i=myInductLoops.begin(); i!=myInductLoops.end(); i++) {
+    for(typename InductLoopMap::const_iterator i=myInductLoops.begin(); i!=myInductLoops.end(); i++) {
         ret.push_back((*i).second);
     }
-    for(LaneStateMap::const_iterator j=myLaneStates.begin(); j!=myLaneStates.end(); j++) {
+    for(typename LaneStateMap::const_iterator j=myLaneStates.begin(); j!=myLaneStates.end(); j++) {
         ret.push_back((*j).second);
     }
     return ret;
