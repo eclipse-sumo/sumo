@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/08/14 14:04:21  dkrajzew
+// extrapolation of a lines point added
+//
 // Revision 1.11  2003/07/18 12:35:06  dkrajzew
 // removed some warnings
 //
@@ -64,6 +67,7 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <cmath>
+#include <algorithm>
 #include "GeomHelper.h"
 
 
@@ -311,6 +315,28 @@ GeomHelper::interpolate(const Position2D &p1,
 }
 
 
+Position2D
+GeomHelper::extrapolate_first(const Position2D &p1,
+                              const Position2D &p2, double length)
+{
+    double oldlen = distance(p1, p2);
+    double x = p1.x() - (p2.x() - p1.x()) * (length) / oldlen;
+    double y = p1.y() - (p2.y() - p1.y()) * (length) / oldlen;
+    return Position2D(x, y);
+}
+
+
+Position2D
+GeomHelper::extrapolate_second(const Position2D &p1,
+                               const Position2D &p2, double length)
+{
+    double oldlen = distance(p1, p2);
+    double x = p2.x() - (p1.x() - p2.x()) * (length) / oldlen;
+    double y = p2.y() - (p1.y() - p2.y()) * (length) / oldlen;
+    return Position2D(x, y);
+}
+
+
 double
 GeomHelper::nearest_position_on_line_to_point(const Position2D &LineStart,
                                               const Position2D &LineEnd,
@@ -449,6 +475,17 @@ GeomHelper::crossPoint(const Boundery &b, const Position2DVector &v)
 std::pair<double, double>
 GeomHelper::getNormal90D_CW(const Position2D &beg,
                             const Position2D &end,
+                            double wanted_offset)
+{
+    double length = sqrt((beg.x()-end.x())*(beg.x()-end.x()) + (beg.y()-end.y())*(beg.y()-end.y()));
+    return getNormal90D_CW(beg.x(), beg.y(), end.x(), end.y(),
+        length, wanted_offset);
+}
+
+
+std::pair<double, double>
+GeomHelper::getNormal90D_CW(const Position2D &beg,
+                            const Position2D &end,
                             double length, double wanted_offset)
 {
     return getNormal90D_CW(beg.x(), beg.y(), end.x(), end.y(),
@@ -497,6 +534,8 @@ GeomHelper::getNormal90D_CW(double x1, double y1,
         }
     }
 }
+
+
 
 
 

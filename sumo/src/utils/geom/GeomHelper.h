@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/08/14 14:04:21  dkrajzew
+// extrapolation of a lines point added
+//
 // Revision 1.6  2003/07/16 15:38:04  dkrajzew
 // some work on computation and handling of geometry information
 //
@@ -91,6 +94,12 @@ public:
     static Position2D interpolate(const Position2D &p1,
         const Position2D &p2, double length);
 
+    static Position2D extrapolate_first(const Position2D &p1,
+        const Position2D &p2, double length);
+
+    static Position2D extrapolate_second(const Position2D &p1,
+        const Position2D &p2, double length);
+
     static double nearest_position_on_line_to_point(
         const Position2D &l1, const Position2D &l2,
         const Position2D &p);
@@ -115,6 +124,28 @@ public:
 
     static std::pair<double, double> getNormal90D_CW(const Position2D &beg,
         const Position2D &end, double length, double wanted_offset);
+
+    static std::pair<double, double> getNormal90D_CW(const Position2D &beg,
+        const Position2D &end, double wanted_offset);
+
+/*
+    static void sortAsPolyCWByAngle(Position2DVector &p);
+
+    class as_poly_cw_sorter {
+    public:
+        /// constructor
+        explicit as_poly_cw_sorter(Position2D center);
+
+    public:
+        /// comparing operation
+        int operator() (const Position2D &p1, const Position2D &p2) const;
+
+    private:
+        /// the edge to compute the relative angle of
+        Position2D _center;
+
+    };
+*/
 
 
 };
