@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2004/01/26 06:47:11  dkrajzew
+// Added the possibility to draw arrows by a detector drawer; documentation added
+//
 // Revision 1.9  2003/11/12 14:07:46  dkrajzew
 // clean up after recent changes
 //
@@ -229,11 +232,14 @@ public:
 	    /// destructor
         virtual ~GUIVehicleDrawer() { }
 
+        /// Draws the vehicles
         virtual void drawGLVehicles(size_t *onWhich, size_t maxEdges,
             VehicleColoringScheme scheme) = 0;
 
     protected:
+        /// The list of edges to consider at drawing
         std::vector<GUIEdge*> &myEdges;
+
     };
 
     /**
@@ -249,11 +255,12 @@ public:
 	    /// destructor
         virtual ~GUILaneDrawer() { }
 
+        /// Draws the lanes
         virtual void drawGLLanes(size_t *which, size_t maxEdges,
             double width, LaneColoringScheme scheme) = 0;
 
     protected:
-
+        /// The list of edges to consider at drawing
         std::vector<GUIEdge*> &myEdges;
     };
 
@@ -276,7 +283,7 @@ public:
             size_t maxEdges, double width) = 0;
 
     protected:
-        /// The edges to go by
+        /// The list of edges to consider at drawing
         std::vector<GUIEdge*> &myEdges;
 
     };
@@ -295,12 +302,14 @@ public:
 	    /// destructor
         virtual ~GUIJunctionDrawer() { }
 
+        /// Draws the junctions
         virtual void drawGLJunctions(size_t *which, size_t maxJunctions,
             JunctionColoringScheme scheme) = 0;
 
     protected:
-
+        /// The list of junctions to consider at drawing
         std::vector<GUIJunctionWrapper*> &myJunctions;
+
     };
 
     class GUIDetectorDrawer {
@@ -312,24 +321,45 @@ public:
 	    /// destructor
         virtual ~GUIDetectorDrawer() { }
 
+        /// Draws the detectors
         virtual void drawGLDetectors(size_t *which, size_t maxDetectors,
             double scale) = 0;
 
-    protected:
+        /// Draws an arrow of the given size at (0, 0)
+        virtual void drawArrow(double size) = 0;
 
+    protected:
+        /// The list of detectors to consider at drawing
         std::vector<GUIDetectorWrapper*> &myDetectors;
+
     };
 
+    /**
+     * @class ViewSettings
+     * This class stores the viewport information for an easier checking whether
+     *  it has changed.
+     */
     class ViewSettings {
     public:
+        /// Constructor
         ViewSettings();
-        ViewSettings(double x, double y,
-            double xoff, double yoff);
+
+        /// Parametrised Constructor
+        ViewSettings(double x, double y, double xoff, double yoff);
+
+        /// Destructor
         ~ViewSettings();
+
+        /// Returns the information whether the stored setting differs from the given
         bool differ(double x, double y, double xoff, double yoff);
+
+        /// Sets the setting information to the given values
         void set(double x, double y, double xoff, double yoff);
+
     private:
+        /// Position and size information to describe the viewport
         double myX, myY, myXOff, myYOff;
+
     };
 
 protected:
@@ -385,9 +415,11 @@ protected:
     /// invokes the tooltip for the given object
     void showToolTipFor(unsigned int id);
 
+    /// Clears the usetable, filling it with false
     void clearUsetable(size_t *_edges2Show, size_t _edges2ShowSize);
 
 protected:
+    /// The application
     GUIApplicationWindow &_app;
 
     /// the parent window
@@ -454,9 +486,6 @@ protected:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUISUMOAbstractView.icc"
-//#endif
 
 #endif
 
