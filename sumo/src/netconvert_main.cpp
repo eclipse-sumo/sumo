@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2004/01/12 15:43:04  dkrajzew
+// node-building classes are now lying in an own folder
+//
 // Revision 1.20  2003/12/11 06:13:32  dkrajzew
 // NBOptionsIO moved to netimport NIOptionsIO where they belong to
 //
@@ -142,7 +145,7 @@ namespace
 #include <netimport/NILoader.h>
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBEdgeCont.h>
-#include <netbuild/NBNodeCont.h>
+#include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBJunctionLogicCont.h>
 #include <netbuild/NBDistrictCont.h>
