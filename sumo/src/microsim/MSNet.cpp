@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2002/10/18 11:49:32  dkrajzew
+// usage of MeanData rechecked for closing of the generated files and the destruction of allocated ressources
+//
 // Revision 1.3  2002/10/17 10:45:17  dkrajzew
 // preinitialisation added; errors due to usage of local myStep instead of instance-global myStep patched
 //
@@ -268,11 +271,11 @@ MSNet::init( string id, MSEdgeControl* ec,
                   dumpMeanDataIntervalls.begin();
               it != dumpMeanDataIntervalls.end(); ++it ) {
 
-            string fileName   = baseNameDumpFiles + "_" + toString( *it );
+            string fileName   = baseNameDumpFiles + "_" + toString( *it ) + string(".xml");
             ofstream* filePtr = new ofstream( fileName.c_str() );
             assert( *filePtr );
             MSNet::myInstance->myMeanData.push_back(
-                MeanData( *it, filePtr ) );
+                new MeanData( *it, filePtr ) );
         }
     }    
 }
@@ -308,6 +311,7 @@ MSNet::init( string id, MSEdgeControl* ec,
 
 MSNet::~MSNet()
 {
+    // clear container
     MSEdge::clear();
     MSEdgeControl::clear();
     MSEmitControl::clear();
@@ -320,6 +324,12 @@ MSNet::~MSNet()
     MSVehicle::clear();
     MSVehicleType::clear();
     MSNet::clearRouteDict();
+    // close the net statistics
+    for(std::vector< MeanData* >::iterator i1=myMeanData.begin(); i1!=myMeanData.end(); i1++) {
+        delete (*i1);
+    }
+    myMeanData.clear();
+    // delete controls
     delete myEdges;
     delete myJunctions;
     delete myEmitter;
@@ -393,10 +403,10 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
     unsigned passedSteps = myStep - start + 1;
     for ( unsigned i = 0; i < myMeanData.size(); ++i ) {
 
-        Time interval = myMeanData[ i ].interval;
+        Time interval = myMeanData[ i ]->interval;
         if ( passedSteps % interval == 0 ) {
 
-            *(myMeanData[ i ].file)
+            *(myMeanData[ i ]->file)
                 << "<interval begin=\""
                 << passedSteps - interval + start
                 << "\" end=\"" << myStep << "\">\n"

@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2002/10/18 11:49:32  dkrajzew
+// usage of MeanData rechecked for closing of the generated files and the destruction of allocated ressources
+//
 // Revision 1.3  2002/10/17 10:45:17  dkrajzew
 // preinitialisation added; errors due to usage of local myStep instead of instance-global myStep patched
 //
@@ -335,13 +338,22 @@ private:
     DetectorCont* myDetectors;
 
     /// The Net's meanData is a pair of an interval-length and a filehandle.
-    struct MeanData 
+    class MeanData 
     {
+    public:
         MeanData( Time t, std::ofstream* of ) 
             : interval( t ),
               file( of )
-            {}
-        
+        { 
+            (*file) << "<netstats>" << std::endl;
+        }
+
+        ~MeanData()
+        {
+            (*file) << "</netstats>" << std::endl;
+            file->close();
+        }
+
         Time interval;
         std::ofstream* file;
     };
@@ -349,7 +361,7 @@ private:
     /** List of intervals and filehandles. At the end of each intervall
         the mean data (flow, density, speed ...) of each lane is calculated
         and written to file. */
-    std::vector< MeanData > myMeanData;
+    std::vector< MeanData* > myMeanData;
 
     /// Indicates if we are using a GUI.
     bool myWithGUI;
