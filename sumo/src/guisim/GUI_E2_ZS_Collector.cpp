@@ -131,7 +131,7 @@ void
 GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale) const
 {
 	double width=2; // !!!!
-    glColor3f(0.5, 0.5, 0.5);
+    glColor3f(0, .8, .8);
     if(width>1.0) {
         glPushMatrix();
         glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
@@ -164,7 +164,7 @@ void
 GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(double scale) const
 {
 	double width=2; // !!!!
-    glColor3f(0.5, 0.5, 0.5);
+    glColor3f(0, .8, .8);
     if(width>1.0) {
         for(size_t i=0; i<myFullGeometry.size()-1; i++) {
 			GLHelper::drawBoxLine(myFullGeometry.at(i), myShapeRotations[i], myShapeLengths[i], 1.0);
