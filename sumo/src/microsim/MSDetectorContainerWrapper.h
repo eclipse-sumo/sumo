@@ -31,6 +31,8 @@
 #include <map>
 #include <utility>
 
+#include <iostream>
+
 template< class WrappedContainer >
 struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
 {
@@ -73,11 +75,22 @@ struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
             leaveDetectorByMove( veh );
         }
 
+    void removeOnTripEnd( MSVehicle* veh )
+        {
+            ContainerIt eraseIt =
+                std::find_if( containerM.begin(), containerM.end(),
+                              std::bind2nd(
+                                  ErasePredicate(), veh ) );
+            if(eraseIt!=containerM.end()) {
+                containerM.erase( eraseIt );
+            }
+        }
+
     MSDetectorContainerWrapper()
         : MSDetectorContainerWrapperBase(),
           containerM()
         {}
-    
+
     MSDetectorContainerWrapper(
         const MSDetectorOccupancyCorrection& occupancyCorrection )
         : MSDetectorContainerWrapperBase( occupancyCorrection ),
@@ -101,21 +114,31 @@ template< class T >
 struct MSDetectorMapWrapper
     : public MSDetectorContainerWrapperBase
 {
-    typedef T WrappedContainer;
+//public:
+    typedef std::map< MSVehicle*, T> WrappedContainer;
     typedef WrappedContainer InnerContainer;
     typedef typename WrappedContainer::iterator ContainerIt;
-    typedef typename WrappedContainer::data_type Data;
+//    typedef typename WrappedContainer::data_type Data;
+
+    void write() const {
+        for(WrappedContainer::const_iterator i=containerM.begin(); i!=containerM.end(); i++) {
+            std::cout << (*i).first << " " << this << std::endl;
+        }
+    }
 
     bool hasVehicle( MSVehicle* veh ) const
         {
             return containerM.find( veh ) != containerM.end();
         }
-    
-    virtual void enterDetectorByMove( MSVehicle* veh )
+
+    virtual void enterDetectorByMove( MSVehicle* veh ) = 0;
+    /*
         {
             assert( ! hasVehicle( veh ) );
-            containerM.insert( std::make_pair( veh, Data() ) );
+            containerM.insert( std::make_pair( veh, T(veh) ) );
         }
+*/
+    virtual void huah() = 0;
 
     void enterDetectorByEmitOrLaneChange( MSVehicle* veh )
         {
@@ -135,6 +158,16 @@ struct MSDetectorMapWrapper
             leaveDetectorByMove( veh );
         }
 
+        void removeOnTripEnd( MSVehicle* veh )
+        {
+            // There may be Vehicles that pass the detector-end but
+            // had not passed the beginning (emit or lanechange).
+            //assert( hasVehicle( veh ) );
+            containerM.erase( veh );
+        }
+
+
+
     MSDetectorMapWrapper()
         : MSDetectorContainerWrapperBase(),
           containerM()
@@ -144,30 +177,100 @@ struct MSDetectorMapWrapper
         const MSDetectorOccupancyCorrection& occupancyCorrection )
         : MSDetectorContainerWrapperBase( occupancyCorrection ),
           containerM()
-        {}
+        {
+    }
 
     virtual ~MSDetectorMapWrapper( void )
         {
             containerM.clear();
         }
 
+//    friend struct MSDetectorHaltingMapWrapper;
+//protected:
     WrappedContainer containerM;
 };
 
 
+template< class T >
+struct MSDetectorDoubleMapWrapper
+    : public MSDetectorMapWrapper<T>
+{
+    MSDetectorDoubleMapWrapper()
+        : MSDetectorMapWrapper<T>()
+        {}
+
+    MSDetectorDoubleMapWrapper(
+        const MSDetectorOccupancyCorrection& occupancyCorrection )
+        : MSDetectorMapWrapper<T>( occupancyCorrection )
+        {}
+
+    virtual void enterDetectorByMove( MSVehicle* veh )
+        {
+            assert( ! hasVehicle( veh ) );
+            containerM.insert( std::make_pair( veh, T(0) ) );
+        }
+
+    void huah() { }
+};
+
+
+template< class T >
+struct MSDetectorVehicleInitMapWrapper
+    : public MSDetectorMapWrapper<T>
+{
+    MSDetectorVehicleInitMapWrapper()
+        : MSDetectorMapWrapper<T>()
+        {}
+
+    MSDetectorVehicleInitMapWrapper(
+        const MSDetectorOccupancyCorrection& occupancyCorrection )
+        : MSDetectorMapWrapper<T>( occupancyCorrection )
+        {}
+
+    virtual void enterDetectorByMove( MSVehicle* veh )
+        {
+            assert( ! hasVehicle( veh ) );
+            containerM.insert( std::make_pair( veh, T(veh) ) );
+        }
+
+    void huah() { }
+
+};
+
+
+template< class T >
+struct MSDetectorNoInitMapWrapper
+    : public MSDetectorMapWrapper<T>
+{
+    MSDetectorNoInitMapWrapper()
+        : MSDetectorMapWrapper<T>()
+        {}
+
+    MSDetectorNoInitMapWrapper(
+        const MSDetectorOccupancyCorrection& occupancyCorrection )
+        : MSDetectorMapWrapper<T>( occupancyCorrection )
+        {}
+
+    virtual void enterDetectorByMove( MSVehicle* veh )
+        {
+            assert( ! hasVehicle( veh ) );
+            containerM.insert( std::make_pair( veh, T() ) );
+        }
+
+    void huah() { }
+
+};
 
 namespace DetectorContainer
 {
     typedef MSDetectorContainerWrapper<
         std::list< MSVehicle* > > VehiclesList;
-    
-    typedef MSDetectorMapWrapper<
-        std::map< MSVehicle*, MSUnit::Seconds > > TimeMap;
-    
+
+    typedef MSDetectorDoubleMapWrapper< MSUnit::Seconds > TimeMap;
+
     class EmptyType{};
-    
-    typedef MSDetectorMapWrapper<
-        std::map< MSVehicle*, EmptyType > > VehicleMap;
+
+    typedef MSDetectorNoInitMapWrapper< EmptyType > VehicleMap;
 
 }
 
