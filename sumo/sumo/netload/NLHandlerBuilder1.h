@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/04/17 16:16:13  dkrajzew
+// False include patched
+//
 // Revision 1.3  2002/04/17 11:17:01  dkrajzew
 // windows-newlines removed
 //
@@ -47,7 +50,7 @@
 #include <sax/HandlerBase.hpp>
 #include "NLSAXHandler.h"
 #include "NLNetBuilder.h"
-#include "../microsim/MSBitsetLogic.h"
+#include "../microsim/MSBitSetLogic.h"
 
 /* =========================================================================
  * class declarations
