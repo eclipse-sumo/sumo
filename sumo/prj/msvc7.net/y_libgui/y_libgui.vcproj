@@ -50,7 +50,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
-				Culture="1031"/>
+				Culture="1031"
+				ResourceOutputFileName=""/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -101,7 +102,8 @@
 			<Tool
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
-				Culture="1031"/>
+				Culture="1031"
+				ResourceOutputFileName=""/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -345,6 +347,12 @@
 				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_AppSettings.cpp">
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_Breakpoints.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_EditAddWeights.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_GLChosenEditor.cpp">
 			</File>
 			<File
@@ -381,6 +389,9 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\GUIGlObject_AbstractAdd.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\popup\GUIGLObjectPopupMenu.cpp">
@@ -550,6 +561,12 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\manipulators\GUIManip_LaneSpeedTrigger.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\manipulators\GUIManipulator.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUIMessageWindow.cpp">
@@ -755,6 +772,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\GUISelectedStorage.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\GUISUMOAbstractView.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -795,7 +815,13 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\GUISupplementaryWeightsHandler.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\textures\GUITexturesHelper.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\GUIThreadFactory.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\tlstracker\GUITLLogicPhasesTrackerWindow.cpp">
@@ -965,6 +991,9 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
+				RelativePath="..\..\..\src\gui\GUIAddWeightsStorage.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\GUIAppEnum.h">
 			</File>
 			<File
@@ -1023,6 +1052,12 @@
 				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_AppSettings.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_Breakpoints.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_EditAddWeights.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_GLChosenEditor.h">
 			</File>
 			<File
@@ -1053,10 +1088,22 @@
 				RelativePath="..\..\..\src\gui\GUIEvents.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\GUIExcp_VehicleIsInvisible.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\GUIGlobals.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\GUIGlobalSelection.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\GUIGlObject.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\GUIGlObject_AAManipulatable.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\GUIGlObject_AbstractAdd.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\popup\GUIGLObjectPopupMenu.h">
@@ -1096,6 +1143,12 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUILoadThread.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\manipulators\GUIManip_LaneSpeedTrigger.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\manipulators\GUIManipulator.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUIMessageWindow.h">
@@ -1179,6 +1232,9 @@
 				RelativePath="..\..\..\src\gui\GUIRunThread.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\GUISelectedStorage.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\GUISUMOAbstractView.h">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -1217,10 +1273,16 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\GUISupplementaryWeightsHandler.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\textures\GUITextures.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\textures\GUITexturesHelper.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\GUIThreadFactory.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\tlstracker\GUITLLogicPhasesTrackerWindow.h">

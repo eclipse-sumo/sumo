@@ -63,8 +63,8 @@ LIB32=link.exe -lib
 # PROP Output_Dir "Debug"
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ  /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ  /c
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -153,6 +153,14 @@ SOURCE=..\..\..\src\netimport\cell\NICellNodesHandler.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\netimport\elmar\NIElmarEdgesHandler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netimport\elmar\NIElmarNodesHandler.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\netimport\NILoader.cpp
 # End Source File
 # Begin Source File
@@ -170,6 +178,10 @@ SOURCE=..\..\..\src\netimport\sumo\NISUMOHandlerEdges.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\netimport\sumo\NISUMOHandlerNodes.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netimport\tiger\NITigerLoader.cpp
 # End Source File
 # Begin Source File
 
@@ -630,6 +642,14 @@ SOURCE=..\..\..\src\netimport\cell\NICellEdgesHandler.h
 # Begin Source File
 
 SOURCE=..\..\..\src\netimport\cell\NICellNodesHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netimport\elmar\NIElmarEdgesHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netimport\elmar\NIElmarNodesHandler.h
 # End Source File
 # Begin Source File
 

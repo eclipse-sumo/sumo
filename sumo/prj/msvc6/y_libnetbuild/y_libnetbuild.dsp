@@ -117,6 +117,10 @@ SOURCE=..\..\..\src\netbuild\NBHelpers.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\netbuild\NBJoinedEdgesMap.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\netbuild\NBJunctionLogicCont.cpp
 # End Source File
 # Begin Source File
@@ -238,6 +242,10 @@ SOURCE=..\..\..\src\netbuild\NBEdgeCont.h
 # Begin Source File
 
 SOURCE=..\..\..\src\netbuild\NBHelpers.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netbuild\NBJoinedEdgesMap.h
 # End Source File
 # Begin Source File
 

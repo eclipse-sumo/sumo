@@ -238,6 +238,9 @@
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath="..\..\..\src\guinetload\GUITriggerBuilder.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -259,6 +262,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guinetload\GUINetHandler.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\guinetload\GUITriggerBuilder.h">
 			</File>
 		</Filter>
 	</Files>

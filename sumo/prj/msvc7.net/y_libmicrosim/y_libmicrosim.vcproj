@@ -1334,6 +1334,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSTrigger.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSTriggeredReader.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">

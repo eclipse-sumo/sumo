@@ -137,6 +137,14 @@ SOURCE=..\..\..\src\gui\dialogs\GUIDialog_AppSettings.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\gui\dialogs\GUIDialog_Breakpoints.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\gui\dialogs\GUIDialog_EditAddWeights.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\gui\dialogs\GUIDialog_GLChosenEditor.cpp
 # End Source File
 # Begin Source File
@@ -162,6 +170,10 @@ SOURCE=..\..\..\src\gui\GUIGlobals.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\GUIGlObject.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\gui\GUIGlObject_AbstractAdd.cpp
 # End Source File
 # Begin Source File
 
@@ -209,6 +221,14 @@ SOURCE=..\..\..\src\gui\GUILoadThread.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\gui\manipulators\GUIManip_LaneSpeedTrigger.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\gui\manipulators\GUIManipulator.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\gui\GUIMessageWindow.cpp
 # End Source File
 # Begin Source File
@@ -253,6 +273,10 @@ SOURCE=..\..\..\src\gui\GUIRunThread.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\gui\GUISelectedStorage.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\gui\GUISUMOAbstractView.cpp
 # End Source File
 # Begin Source File
@@ -261,7 +285,15 @@ SOURCE=..\..\..\src\gui\GUISUMOViewParent.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\gui\GUISupplementaryWeightsHandler.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\gui\textures\GUITexturesHelper.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\gui\GUIThreadFactory.cpp
 # End Source File
 # Begin Source File
 
@@ -299,6 +331,10 @@ SOURCE=..\..\..\src\gui\vartracker\TrackerValueDesc.cpp
 # Begin Group "Header-Dateien"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\..\..\src\gui\GUIAddWeightsStorage.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\GUIAppEnum.h
@@ -357,6 +393,14 @@ SOURCE=..\..\..\src\gui\dialogs\GUIDialog_AppSettings.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\gui\dialogs\GUIDialog_Breakpoints.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\gui\dialogs\GUIDialog_EditAddWeights.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\gui\dialogs\GUIDialog_GLChosenEditor.h
 # End Source File
 # Begin Source File
@@ -402,6 +446,14 @@ SOURCE=..\..\..\src\gui\GUIGlobals.h
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\GUIGlObject.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\gui\GUIGlObject_AAManipulatable.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\gui\GUIGlObject_AbstractAdd.h
 # End Source File
 # Begin Source File
 
@@ -457,6 +509,14 @@ SOURCE=..\..\..\src\gui\GUILoadThread.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\gui\manipulators\GUIManip_LaneSpeedTrigger.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\gui\manipulators\GUIManipulator.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\gui\GUIMessageWindow.h
 # End Source File
 # Begin Source File
@@ -501,6 +561,10 @@ SOURCE=..\..\..\src\gui\GUIRunThread.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\gui\GUISelectedStorage.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\gui\GUISUMOAbstractView.h
 # End Source File
 # Begin Source File
@@ -509,11 +573,19 @@ SOURCE=..\..\..\src\gui\GUISUMOViewParent.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\gui\GUISupplementaryWeightsHandler.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\gui\textures\GUITextures.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\textures\GUITexturesHelper.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\gui\GUIThreadFactory.h
 # End Source File
 # Begin Source File
 

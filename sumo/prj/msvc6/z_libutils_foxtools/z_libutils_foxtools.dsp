@@ -117,11 +117,23 @@ SOURCE=..\..\..\src\utils\foxtools\FXThreadEvent.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\foxtools\MFXAddEditTypedTable.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\foxtools\MFXCheckableButton.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\foxtools\MFXEditableTable.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\foxtools\MFXEventQue.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\foxtools\MFXMenuHeader.cpp
 # End Source File
 # End Group
 # Begin Group "Header-Dateien"
@@ -169,7 +181,15 @@ SOURCE=..\..\..\src\utils\foxtools\FXThreadMessageRetriever.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\foxtools\MFXAddEditTypedTable.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\foxtools\MFXCheckableButton.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\foxtools\MFXEditableTable.h
 # End Source File
 # Begin Source File
 
@@ -178,6 +198,10 @@ SOURCE=..\..\..\src\utils\foxtools\MFXEventQue.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\foxtools\MFXInterThreadEventClient.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\foxtools\MFXMenuHeader.h
 # End Source File
 # Begin Source File
 

@@ -15,6 +15,7 @@ y_libnetgen \
 y_libnetimport \
 y_libnetload \
 y_librouter \
+z_libmicrosim_output \
 z_libutils_common \
 z_libutils_convert \
 z_libutils_dev \
@@ -25,6 +26,7 @@ z_libutils_geom \
 z_libutils_gfx \
 z_libutils_glutils \
 z_libutils_importio \
+z_libutils_iodevices \
 z_libutils_options \
 z_libutils_sumoxml \
 z_libutils_xml

@@ -279,6 +279,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netbuild\NBJoinedEdgesMap.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\netbuild\NBJunctionLogicCont.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
@@ -694,6 +697,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netbuild\NBHelpers.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\netbuild\NBJoinedEdgesMap.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\netbuild\NBJunctionLogicCont.h">

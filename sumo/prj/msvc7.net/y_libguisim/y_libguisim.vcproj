@@ -21,7 +21,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(FOX)\include,..\..\..\src"
+				AdditionalIncludeDirectories="$(FOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
 				PreprocessorDefinitions="_DEBUG;WIN32;_LIB;FOXDLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -72,7 +72,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(FOX)\include,..\..\..\src"
+				AdditionalIncludeDirectories="$(FOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
 				PreprocessorDefinitions="NDEBUG;WIN32;_LIB;FOXDLL"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -200,26 +200,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUIEdge.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\guisim\GUIEmitterWrapper.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -379,6 +359,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\guisim\GUILaneSpeedTrigger.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\guisim\GUILaneStateReporter.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -499,6 +482,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\guisim\GUIRoute.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUIRouteHandler.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\guisim\GUISourceLane.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -537,6 +526,9 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUITriggerWrapper.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUIVehicle.cpp">
@@ -578,6 +570,9 @@
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUIVehicleType.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -601,9 +596,6 @@
 				RelativePath="..\..\..\src\guisim\GUIEdgeCont.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\guisim\GUIEmitterWrapper.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\guisim\GUIGrid.h">
 			</File>
 			<File
@@ -625,6 +617,9 @@
 				RelativePath="..\..\..\src\guisim\GUILaneChanger.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\guisim\GUILaneSpeedTrigger.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\guisim\GUILaneStateReporter.h">
 			</File>
 			<File
@@ -643,16 +638,28 @@
 				RelativePath="..\..\..\src\guisim\GUIRightOfWayJunction.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\guisim\GUIRoute.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUIRouteHandler.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\guisim\GUISourceLane.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUITrafficLightLogicWrapper.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\guisim\GUITriggerWrapper.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\guisim\GUIVehicle.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUIVehicleControl.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUIVehicleType.h">
 			</File>
 		</Filter>
 	</Files>

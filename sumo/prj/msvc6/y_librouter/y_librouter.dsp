@@ -205,6 +205,10 @@ SOURCE=..\..\..\src\router\ROVehicle.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\router\ROVehicleBuilder.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\router\ROVehicleCont.cpp
 # End Source File
 # Begin Source File
@@ -366,6 +370,10 @@ SOURCE=..\..\..\src\router\ROTypedXMLRoutesLoader.h
 # Begin Source File
 
 SOURCE=..\..\..\src\router\ROVehicle.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\router\ROVehicleBuilder.h
 # End Source File
 # Begin Source File
 

@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /w /W0 /GX /O2 /I "$(FOX)\include" /I "..\..\..\src" /D "NDEBUG" /D "FOXDLL" /D "WIN32" /D "_MBCS" /D "_LIB" /YX /FD /c
+# ADD CPP /nologo /MD /w /W0 /GX /O2 /I "$(FOX)\include" /I "..\..\..\src" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /D "NDEBUG" /D "FOXDLL" /D "WIN32" /D "_MBCS" /D "_LIB" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -64,7 +64,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "$(FOX)\include" /I "..\..\..\src" /D "_DEBUG" /D "FOXDLL" /D "WIN32" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "$(FOX)\include" /I "..\..\..\src" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /D "_DEBUG" /D "FOXDLL" /D "WIN32" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -105,10 +105,6 @@ SOURCE=..\..\..\src\guisim\GUIEdge.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\guisim\GUIEmitterWrapper.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\guisim\GUIGrid.cpp
 # End Source File
 # Begin Source File
@@ -137,6 +133,10 @@ SOURCE=..\..\..\src\guisim\GUILaneChanger.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\guisim\GUILaneSpeedTrigger.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\guisim\GUILaneStateReporter.cpp
 # End Source File
 # Begin Source File
@@ -161,6 +161,14 @@ SOURCE=..\..\..\src\guisim\GUIRightOfWayJunction.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\guisim\GUIRoute.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\guisim\GUIRouteHandler.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\guisim\GUISourceLane.cpp
 # End Source File
 # Begin Source File
@@ -174,6 +182,10 @@ SOURCE=..\..\..\src\guisim\GUIVehicle.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\guisim\GUIVehicleControl.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\guisim\GUIVehicleType.cpp
 # End Source File
 # End Group
 # Begin Group "Header-Dateien"
@@ -205,10 +217,6 @@ SOURCE=..\..\..\src\guisim\GUIEdgeCont.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\guisim\GUIEmitterWrapper.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\guisim\GUIGrid.h
 # End Source File
 # Begin Source File
@@ -237,6 +245,10 @@ SOURCE=..\..\..\src\guisim\GUILaneChanger.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\guisim\GUILaneSpeedTrigger.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\guisim\GUILaneStateReporter.h
 # End Source File
 # Begin Source File
@@ -261,6 +273,14 @@ SOURCE=..\..\..\src\guisim\GUIRightOfWayJunction.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\guisim\GUIRoute.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\guisim\GUIRouteHandler.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\guisim\GUISourceLane.h
 # End Source File
 # Begin Source File
@@ -274,6 +294,10 @@ SOURCE=..\..\..\src\guisim\GUIVehicle.h
 # Begin Source File
 
 SOURCE=..\..\..\src\guisim\GUIVehicleControl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\guisim\GUIVehicleType.h
 # End Source File
 # End Group
 # End Target

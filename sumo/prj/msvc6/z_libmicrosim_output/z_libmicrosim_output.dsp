@@ -1,24 +1,24 @@
-# Microsoft Developer Studio Project File - Name="y_libguinetload" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="z_libmicrosim_output" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** NICHT BEARBEITEN **
 
 # TARGTYPE "Win32 (x86) Static Library" 0x0104
 
-CFG=y_libguinetload - Win32 Debug
+CFG=z_libmicrosim_output - Win32 Debug
 !MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
 !MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
 !MESSAGE 
-!MESSAGE NMAKE /f "y_libguinetload.mak".
+!MESSAGE NMAKE /f "z_libmicrosim_output.mak".
 !MESSAGE 
 !MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
 !MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
 !MESSAGE 
-!MESSAGE NMAKE /f "y_libguinetload.mak" CFG="y_libguinetload - Win32 Debug"
+!MESSAGE NMAKE /f "z_libmicrosim_output.mak" CFG="z_libmicrosim_output - Win32 Debug"
 !MESSAGE 
 !MESSAGE Für die Konfiguration stehen zur Auswahl:
 !MESSAGE 
-!MESSAGE "y_libguinetload - Win32 Release" (basierend auf  "Win32 (x86) Static Library")
-!MESSAGE "y_libguinetload - Win32 Debug" (basierend auf  "Win32 (x86) Static Library")
+!MESSAGE "z_libmicrosim_output - Win32 Release" (basierend auf  "Win32 (x86) Static Library")
+!MESSAGE "z_libmicrosim_output - Win32 Debug" (basierend auf  "Win32 (x86) Static Library")
 !MESSAGE 
 
 # Begin Project
@@ -28,7 +28,7 @@ CFG=y_libguinetload - Win32 Debug
 CPP=cl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "y_libguinetload - Win32 Release"
+!IF  "$(CFG)" == "z_libmicrosim_output - Win32 Release"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /w /W0 /GX /O2 /I "$(FOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "NDEBUG" /D "FOXDLL" /D "WIN32" /D "_MBCS" /D "_LIB" /YX /FD /c
+# ADD CPP /nologo /MD /w /W0 /GX /O2 /I "..\..\..\src" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -51,7 +51,7 @@ LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
 
-!ELSEIF  "$(CFG)" == "y_libguinetload - Win32 Debug"
+!ELSEIF  "$(CFG)" == "z_libmicrosim_output - Win32 Debug"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
@@ -64,7 +64,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "$(FOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "_DEBUG" /D "FOXDLL" /D "WIN32" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "..\..\..\src" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -78,38 +78,22 @@ LIB32=link.exe -lib
 
 # Begin Target
 
-# Name "y_libguinetload - Win32 Release"
-# Name "y_libguinetload - Win32 Debug"
+# Name "z_libmicrosim_output - Win32 Release"
+# Name "z_libmicrosim_output - Win32 Debug"
 # Begin Group "Quellcodedateien"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\..\src\guinetload\GUIContainer.cpp
+SOURCE=..\..\..\src\microsim\output\MSLaneMeanDataValues.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\guinetload\GUIDetectorBuilder.cpp
+SOURCE=..\..\..\src\microsim\output\MSMeanData_Net.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\guinetload\GUIEdgeControlBuilder.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\guinetload\GUIJunctionControlBuilder.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\guinetload\GUINetBuilder.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\guinetload\GUINetHandler.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\guinetload\GUITriggerBuilder.cpp
+SOURCE=..\..\..\src\microsim\output\MSMeanData_Net_Utils.cpp
 # End Source File
 # End Group
 # Begin Group "Header-Dateien"
@@ -117,31 +101,19 @@ SOURCE=..\..\..\src\guinetload\GUITriggerBuilder.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\src\guinetload\GUIContainer.h
+SOURCE=..\..\..\src\microsim\output\MSLaneMeanDataValues.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\guinetload\GUIDetectorBuilder.h
+SOURCE=..\..\..\src\microsim\output\MSMeanData_Net.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\guinetload\GUIEdgeControlBuilder.h
+SOURCE=..\..\..\src\microsim\output\MSMeanData_Net_Cont.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\guinetload\GUIJunctionControlBuilder.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\guinetload\GUINetBuilder.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\guinetload\GUINetHandler.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\guinetload\GUITriggerBuilder.h
+SOURCE=..\..\..\src\microsim\output\MSMeanData_Net_Utils.h
 # End Source File
 # End Group
 # End Target

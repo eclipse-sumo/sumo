@@ -124,10 +124,19 @@
 				RelativePath="..\..\..\src\utils\foxtools\FXThreadEvent.cpp">
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\foxtools\MFXAddEditTypedTable.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\foxtools\MFXCheckableButton.cpp">
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\foxtools\MFXEditableTable.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\foxtools\MFXEventQue.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\foxtools\MFXMenuHeader.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -165,13 +174,22 @@
 				RelativePath="..\..\..\src\utils\foxtools\FXThreadMessageRetriever.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\foxtools\MFXAddEditTypedTable.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\foxtools\MFXCheckableButton.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\foxtools\MFXEditableTable.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\foxtools\MFXEventQue.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\foxtools\MFXInterThreadEventClient.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\foxtools\MFXMenuHeader.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\foxtools\MFXThreadDefs.h">

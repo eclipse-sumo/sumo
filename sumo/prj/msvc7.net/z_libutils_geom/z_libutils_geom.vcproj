@@ -239,6 +239,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\geom\Polygon2D.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\geom\Position2DVector.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -285,6 +288,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\geom\Line2D.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\geom\Polygon2D.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\geom\Position2D.h">

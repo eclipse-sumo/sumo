@@ -459,6 +459,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\elmar\NIElmarEdgesHandler.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\elmar\NIElmarNodesHandler.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NILoader.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -557,6 +563,9 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\tiger\NITigerLoader.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\vissim\tempstructs\NIVissimAbstractEdge.cpp">
@@ -2571,6 +2580,12 @@
 				RelativePath="..\..\..\src\netimport\cell\NICellNodesHandler.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\elmar\NIElmarEdgesHandler.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\elmar\NIElmarNodesHandler.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NILoader.h">
 			</File>
 			<File
@@ -2584,6 +2599,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\sumo\NISUMOHandlerNodes.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\tiger\NITigerLoader.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\vissim\tempstructs\NIVissimAbstractEdge.h">

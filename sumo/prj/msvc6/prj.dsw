@@ -98,6 +98,12 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name z_libutils_foxtools
     End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libmicrosim_output
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_iodevices
+    End Project Dependency
 }}}
 
 ###############################################################################
@@ -284,6 +290,15 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name z_libutils_gfx
     End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libmicrosim_output
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_iodevices
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_geom
+    End Project Dependency
 }}}
 
 ###############################################################################
@@ -385,6 +400,18 @@ Package=<4>
 ###############################################################################
 
 Project: "y_librouter"=.\y_librouter\y_librouter.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "z_libmicrosim_output"=.\z_libmicrosim_output\z_libmicrosim_output.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -505,6 +532,18 @@ Package=<4>
 ###############################################################################
 
 Project: "z_libutils_importio"=.\z_libutils_importio\z_libutils_importio.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "z_libutils_iodevices"=.\z_libutils_iodevices\z_libutils_iodevices.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

@@ -345,6 +345,10 @@ SOURCE=..\..\..\src\microsim\MSTrafficLightLogic.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\MSTrigger.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\MSTriggeredReader.cpp
 # End Source File
 # Begin Source File
@@ -578,6 +582,10 @@ SOURCE=..\..\..\src\microsim\MSHaltingDurationSum.h
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\MSInductLoop.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSInterface_NetRun.h
 # End Source File
 # Begin Source File
 
