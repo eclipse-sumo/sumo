@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/12/13 15:32:57  dkrajzew
+// debugging
+//
 // Revision 1.5  2004/12/09 15:10:34  miguelliebe
 // no message
 //
@@ -205,7 +208,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
     // No image loaded, yet.
     m_img=NULL;
 	dialog=new ConfigDialog(this);
-    
+
 
     setTarget(this);
     setSelector(MID_WINDOW);
@@ -342,7 +345,6 @@ GNEApplicationWindow::~GNEApplicationWindow()
     //
     GUIIconSubSys::close();
     GUITexturesHelper::close();
-    delete myGLVisual;
     // delete some non-parented windows
     delete myToolBarDrag;
     //
@@ -643,14 +645,14 @@ GNEApplicationWindow::fillToolBar()
 	new FXButton(myIMGToolBar,"\t\tCreates a street´s skeleton (thin black lines in the middle of the street.",
         GUIIconSubSys::getIcon(ICON_SKELETONIZE), this, MID_SKELETONIZE,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	new FXButton(myIMGToolBar,"\t\tCreates a graph from the skeleton.", 
+	new FXButton(myIMGToolBar,"\t\tCreates a graph from the skeleton.",
 		GUIIconSubSys::getIcon(ICON_CREATE_GRAPH), this, MID_CREATE_GRAPH,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 	new FXToolBarGrip(myIMGToolBar,NULL,0,TOOLBARGRIP_SEPARATOR);
 	new FXButton(myIMGToolBar,"\t\tOpen Bitmap Configuration Dialog.",
         GUIIconSubSys::getIcon(ICON_OPEN_BMP_DIALOG), this, MID_OPEN_BMP_DIALOG,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-	
+
 	paintpop=new FXPopup(this,POPUP_VERTICAL);
 	new FXButton(paintpop,"\t\tPaintbrush, very thin",
 		GUIIconSubSys::getIcon(ICON_PAINTBRUSH1X), this, MID_OPEN_BMP_DIALOG,
@@ -1122,14 +1124,14 @@ long
 GNEApplicationWindow::onCmdSaveImage(FXObject*,FXSelector,void*)
 {
     if(m_img)
-	{  
+	{
 		FXFileDialog savedialog(this,"Save Document");
 		FXString file=imgfilename;
 		savedialog.setSelectMode(SELECTFILE_ANY);
 		savedialog.setPatternList("*.bmp");
 		savedialog.setCurrentPattern(0);
 		savedialog.setFilename(file);
-		if(gCurrentFolder.length()!=0) 
+		if(gCurrentFolder.length()!=0)
 			savedialog.setDirectory(gCurrentFolder.c_str());
 		if(savedialog.execute())
 		{
@@ -1156,7 +1158,7 @@ GNEApplicationWindow::onCmdSaveImage(FXObject*,FXSelector,void*)
 						m_img->GetFXImage()->savePixels(stream);
 						stream.close();
 					}
-		}	
+		}
     }
   return 1;
 }
