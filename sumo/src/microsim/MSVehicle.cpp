@@ -22,8 +22,13 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.55  2004/07/02 09:57:37  dkrajzew
+// handling of routes added
+//
 // Revision 1.54  2004/04/02 11:36:28  dkrajzew
-// "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
+// "compute or not"-structure added;
+//  added two further simulation-wide output
+//  (emission-stats and single vehicle trip-infos)
 //
 // Revision 1.53  2004/04/01 16:39:03  roessel
 // Bug fix: the value of the first parameter in the call to
@@ -652,15 +657,12 @@ bool departTimeSortCrit( const MSVehicle* x, const MSVehicle* y )
  * ----------------------------------------------------------------------- */
 MSVehicle::~MSVehicle()
 {
-    myID = "<deleted>";
-#ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
-        DEBUG_OUT << "delete:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
-    }
-#endif
     //myWaitingPersons.clear();
     if(!myRoute->inFurtherUse()) {
         MSRoute::erase(myRoute->getID());
+    }
+    if(myDoubleCORNMap.find(MSCORN::CORN_VEH_OLDROUTE1)!=myDoubleCORNMap.end()) {
+        delete ((MSRoute*) (int) myDoubleCORNMap[MSCORN::CORN_VEH_OLDROUTE1]);
     }
 }
 
@@ -797,22 +799,22 @@ MSVehicle::destReached( const MSEdge* targetEdge )
 double
 MSVehicle::brakeGap( const MSLane* lane ) const
 {
-	return myState.mySpeed * myState.mySpeed * myType->inversTwoDecel()
-		+ myState.mySpeed * myTau;
+    return myState.mySpeed * myState.mySpeed * myType->inversTwoDecel()
+        + myState.mySpeed * myTau;
 }
 
 
 double
 MSVehicle::brakeGap( double speed ) const
 {
-	return speed * speed * myType->inversTwoDecel()
-		+ speed * myTau;
+    return speed * speed * myType->inversTwoDecel()
+        + speed * myTau;
 }
 
 double
 MSVehicle::rigorousBrakeGap(const double &speed) const
 {
-	throw 1; // !!!
+    throw 1; // !!!
     return speed * speed * myType->inversTwoDecel();
 }
 
@@ -990,19 +992,19 @@ MSVehicle::move( MSLane* lane,
             vNext = dawdle( MIN( vAccel, vSafe ) );
         }
 //    }
-	// check needed for the Krauss-model
-	double accelSpace = accelDist()*MSNet::deltaT();
-	if( gap<accelSpace &&
-		//pred->speed()<accelSpace &&
-		myState.mySpeed<vaccel(myLane) ) {
+    // check needed for the Krauss-model
+    double accelSpace = accelDist()*MSNet::deltaT();
+    if( gap<accelSpace &&
+        //pred->speed()<accelSpace &&
+        myState.mySpeed<vaccel(myLane) ) {
 
-		vNext = gap / MSNet::deltaT();
-	}
-	double predDec = MAX(0, pred->speed()-decelAbility() /* !!! decelAbility of leader! */);
-	if(brakeGap(vNext)+vNext*myTau > brakeGap(predDec) + gap) {
+        vNext = gap / MSNet::deltaT();
+    }
+    double predDec = MAX(0, pred->speed()-decelAbility() /* !!! decelAbility of leader! */);
+    if(brakeGap(vNext)+vNext*myTau > brakeGap(predDec) + gap) {
 
-		vNext = MIN(vNext, gap / MSNet::deltaT());
-	}
+        vNext = MIN(vNext, gap / MSNet::deltaT());
+    }
 
     // check whether the driver wants to let someone in
     //  but only if the vehicle is far enough from the lane's end
@@ -1028,6 +1030,10 @@ MSVehicle::move( MSLane* lane,
         DEBUG_OUT << "movea/2:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
     }
 #endif
+    if(hasCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
+        myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
+            myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
+    }
 }
 
 
@@ -1080,6 +1086,10 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
         // set next links, computing possible speeds
         vsafeCriticalCont(vBeg);
     }
+    if(hasCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
+        myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
+            myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
+    }
 }
 
 
@@ -1091,7 +1101,7 @@ MSVehicle::moveFirstChecked()
     myTarget = 0;
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2) ) {
-	    int textdummy = 0;
+        int textdummy = 0;
     }
 #endif
     // get vsafe
@@ -1102,23 +1112,23 @@ MSVehicle::moveFirstChecked()
     bool cont = true;
     for(i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()&&cont; i++) {
         MSLinkCont::const_iterator &link = (*i).myLink;
-    	bool onLinkEnd = currentLane->isLinkEnd(link);
-	    // the vehicle must change the lane on one of the next lanes
-	    if(!onLinkEnd) {
-		    if((*link)->havePriority()) {
-			    vSafe = (*i).myVLinkPass;
-		    } else {
-			    if((*link)->opened()) {
-				    vSafe = (*i).myVLinkPass;
-			    } else {
-				    if(vSafe<myState.mySpeed-myType->decelSpeed()&&(*link)->amYellow()) {
+        bool onLinkEnd = currentLane->isLinkEnd(link);
+        // the vehicle must change the lane on one of the next lanes
+        if(!onLinkEnd) {
+            if((*link)->havePriority()) {
+                vSafe = (*i).myVLinkPass;
+            } else {
+                if((*link)->opened()) {
+                    vSafe = (*i).myVLinkPass;
+                } else {
+                    if(vSafe<myState.mySpeed-myType->decelSpeed()&&(*link)->amYellow()) {
                         vSafe = (*i).myVLinkPass;
                     } else {
                         vSafe = (*i).myVLinkWait;
                         cont = false;
                     }
-			    }
-		    }
+                }
+            }
         } else {
             vSafe = (*i).myVLinkWait;
             cont = false;
@@ -1126,7 +1136,7 @@ MSVehicle::moveFirstChecked()
         }
         currentLane = (*link)->getLane();
     }
-	// compute vNext in considering dawdling
+    // compute vNext in considering dawdling
     double vNext;
     if(myState.speed()==0&&vSafe<myType->accelSpeed(0)) {
         // do not dawdle too much on short segments
@@ -1135,7 +1145,7 @@ MSVehicle::moveFirstChecked()
         vNext = MAX(double(0), dawdle( MIN(vSafe, vaccel(myLane)) ));
     }
 
-	// visit waiting time
+    // visit waiting time
     if(vNext<=0.1) {
         myWaitingTime++;
     } else {
@@ -1162,7 +1172,7 @@ MSVehicle::moveFirstChecked()
         //  otherwise it is decelareted and we do not need to test for it's
         //  approach on the following lanes when a lane changing is performed
         assert(approachedLane!=0);
-		myState.myPos -= approachedLane->length();
+        myState.myPos -= approachedLane->length();
         assert(myState.myPos>0);
         if(approachedLane!=myLane) {
             enterLaneAtMove(approachedLane, driven);
@@ -1201,10 +1211,10 @@ MSVehicle::moveFirstChecked()
     MSLane *nextLane = myTarget==0 ? myLane : myTarget;
     double distToEnd = nextLane->length() - myState.myPos;
     if(distToEnd<MSVehicleType::maxLength()) {
-    	MSLinkCont::iterator link =
-	    	nextLane->succLinkSec( *this, 1, *nextLane );
+        MSLinkCont::iterator link =
+            nextLane->succLinkSec( *this, 1, *nextLane );
         if(!nextLane->isLinkEnd(link)) {
-        	nextLane = (*link)->getViaLane();
+            nextLane = (*link)->getViaLane();
             if(nextLane==0) {
                 nextLane = (*link)->getLane();
             }
@@ -1255,8 +1265,8 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
     // loop over following lanes
     while(true) {
         // get the next link used
-    	MSLinkCont::iterator link =
-	    	myLane->succLinkSec( *this, view, *nextLane );
+        MSLinkCont::iterator link =
+            myLane->succLinkSec( *this, view, *nextLane );
         // check whether the lane is a dead end
         //  (should be valid only on further loop iterations
         if(nextLane->isLinkEnd(link)) {
@@ -1270,11 +1280,11 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
             return;
         }
         vLinkWait = vLinkPass; // the link was passed
-	    assert(!myLane->isLinkEnd(link));
-	    // if the vehicle drives over the end of the lane, inform the link
+        assert(!myLane->isLinkEnd(link));
+        // if the vehicle drives over the end of the lane, inform the link
 
         // get the following lane
-    	nextLane = (*link)->getViaLane();
+        nextLane = (*link)->getViaLane();
         if(nextLane==0) {
             nextInternal = false;
             nextLane = (*link)->getLane();
@@ -1282,66 +1292,66 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
             nextInternal = true;
         }
 
-    	// compute the velocity to use when the link is not blocked by oter vehicles
-	    	// the vehicle shall be not fastern when reaching the next lane than allowed
-    	double vmaxNextLane =
-	    	vsafe(myState.mySpeed, decelAbility, seen, nextLane->maxSpeed());
+        // compute the velocity to use when the link is not blocked by oter vehicles
+            // the vehicle shall be not fastern when reaching the next lane than allowed
+        double vmaxNextLane =
+            vsafe(myState.mySpeed, decelAbility, seen, nextLane->maxSpeed());
 
-    		// the vehicle shall keep a secure distance to its predecessor
-	    	//  (or approach the lane end if the predeccessor is too near)
-    	const State &nextLanePred = nextLane->myLastState;
-    	double dist2Pred = seen+nextLanePred.pos()-MSVehicleType::maxLength(); // @!!! die echte Länge des fahrzeugs
-    	double vsafePredNextLane;
-    	if(dist2Pred>=0) {
-		    // leading vehicle is not overlapping
-		    vsafePredNextLane =
-			    vsafe(myState.mySpeed, decelAbility, dist2Pred, nextLanePred.speed());
-		    double predDec = MAX(0, nextLanePred.speed()-decelAbility /* !!! decelAbility of leader! */);
-		    if(brakeGap(vsafePredNextLane)+vsafePredNextLane*myTau > brakeGap(predDec) + dist2Pred) {
+            // the vehicle shall keep a secure distance to its predecessor
+            //  (or approach the lane end if the predeccessor is too near)
+        const State &nextLanePred = nextLane->myLastState;
+        double dist2Pred = seen+nextLanePred.pos()-MSVehicleType::maxLength(); // @!!! die echte Länge des fahrzeugs
+        double vsafePredNextLane;
+        if(dist2Pred>=0) {
+            // leading vehicle is not overlapping
+            vsafePredNextLane =
+                vsafe(myState.mySpeed, decelAbility, dist2Pred, nextLanePred.speed());
+            double predDec = MAX(0, nextLanePred.speed()-decelAbility /* !!! decelAbility of leader! */);
+            if(brakeGap(vsafePredNextLane)+vsafePredNextLane*myTau > brakeGap(predDec) + dist2Pred) {
 
-    			vsafePredNextLane =
-	    			MIN(vsafePredNextLane, dist2Pred / MSNet::deltaT());
-		    }
-    	} else {
-	    	// leading vehicle is overlapping (stands within the junction)
-		    vsafePredNextLane =
-    			vsafe(myState.mySpeed, decelAbility, seen, 0);
-	    }
-
-
-    		// the vehicle shall not driver over more than two junctions (by now @!!!)
-//	    double vsafeNextLaneEnd =
-//		    vsafe(myState.mySpeed, decelAbility, seen+nextLane->length(), 0);
-
-    		// compute the velocity to use when the link may be used
-	    vLinkPass =
-		    MIN3(vLinkPass, vmaxNextLane, vsafePredNextLane/*, vsafeNextLaneEnd*/);
+                vsafePredNextLane =
+                    MIN(vsafePredNextLane, dist2Pred / MSNet::deltaT());
+            }
+        } else {
+            // leading vehicle is overlapping (stands within the junction)
+            vsafePredNextLane =
+                vsafe(myState.mySpeed, decelAbility, seen, 0);
+        }
 
 
-	    // if the link may not be used (is blocked by another vehicle) then let the
-	    //  vehicle decelerate until the end of the street
-	    vLinkWait =
-		    MIN(vLinkWait, vsafe(myState.mySpeed, decelAbility, seen, 0));
+            // the vehicle shall not driver over more than two junctions (by now @!!!)
+//      double vsafeNextLaneEnd =
+//          vsafe(myState.mySpeed, decelAbility, seen+nextLane->length(), 0);
 
-    	// valid, when a vehicle is not on a priorised lane
-	    if(!(*link)->havePriority()) {
-		    // if it has already decelerated to let priorised vehicles pass
-    		//  and when the distance to the vehicle on the next lane allows moving
-	    	//  (the check whether other incoming vehicles may stop this one is done later)
-		    // then let it pass
-    		if(seen<decelAbility&&dist2Pred>0) {
-	    		vLinkPass =
-		    		MIN3(vLinkPass, vsafePredNextLane, vaccel(myLane)); // otherwise vsafe may become incredibly large
-    			(*link)->setApproaching(this);
-	    	} else {
-		    	// let it wait in the other cases
-			    vLinkPass = vLinkWait;
-		    }
-	    }
+            // compute the velocity to use when the link may be used
+        vLinkPass =
+            MIN3(vLinkPass, vmaxNextLane, vsafePredNextLane/*, vsafeNextLaneEnd*/);
+
+
+        // if the link may not be used (is blocked by another vehicle) then let the
+        //  vehicle decelerate until the end of the street
+        vLinkWait =
+            MIN(vLinkWait, vsafe(myState.mySpeed, decelAbility, seen, 0));
+
+        // valid, when a vehicle is not on a priorised lane
+        if(!(*link)->havePriority()) {
+            // if it has already decelerated to let priorised vehicles pass
+            //  and when the distance to the vehicle on the next lane allows moving
+            //  (the check whether other incoming vehicles may stop this one is done later)
+            // then let it pass
+            if(seen<decelAbility&&dist2Pred>0) {
+                vLinkPass =
+                    MIN3(vLinkPass, vsafePredNextLane, vaccel(myLane)); // otherwise vsafe may become incredibly large
+                (*link)->setApproaching(this);
+            } else {
+                // let it wait in the other cases
+                vLinkPass = vLinkWait;
+            }
+        }
         myLFLinkLanes.push_back(
             DriveProcessItem(link, vLinkPass, vLinkWait));
         if( vsafePredNextLane>0&&dist-seen>0 ) {
-		    (*link)->setApproaching(this);
+            (*link)->setApproaching(this);
         } else {
             return;
         }
@@ -1736,6 +1746,9 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane, double driven )
         }
         myCurrEdge = edgeIt;
     }
+    if(MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
+        MSNet::getInstance()->getVehicleControl().vehicleMoves(this);
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1815,7 +1828,7 @@ MSVehicle::leaveLaneAtLaneChange( void )
                                 md.enteredLaneWithinIntervall );
     }
     // dismiss the old lane's reminders
-	vector< MSMoveReminder* >::iterator rem;
+    vector< MSMoveReminder* >::iterator rem;
     for ( rem = myMoveReminders.begin();
           rem != myMoveReminders.end(); ++rem ){
         (*rem)->dismissByLaneChange( *this );
@@ -1823,14 +1836,14 @@ MSVehicle::leaveLaneAtLaneChange( void )
     std::vector<double>::iterator off = myOldLaneMoveReminderOffsets.begin();
     for ( rem = myOldLaneMoveReminders.begin();
           rem != myOldLaneMoveReminders.end(); ++rem, ++off  ){
-		myState.myPos += (*off);
+        myState.myPos += (*off);
         (*rem)->dismissByLaneChange( *this );
-		myState.myPos -= (*off);
+        myState.myPos -= (*off);
     }
     myState.myPos = savePos; // have to do this due to double-precision errors
-	myMoveReminders.clear();
-	myOldLaneMoveReminders.clear();
-	myOldLaneMoveReminderOffsets.clear();
+    myMoveReminders.clear();
+    myOldLaneMoveReminders.clear();
+    myOldLaneMoveReminderOffsets.clear();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -2175,6 +2188,76 @@ MSVehicle::getCORNDoubleValue(MSCORN::Function f)
 {
     return myDoubleCORNMap[f];
 }
+
+
+bool
+MSVehicle::hasCORNDoubleValue(MSCORN::Function f)
+{
+    return myDoubleCORNMap.find(f)!=myDoubleCORNMap.end();
+}
+
+
+const MSRoute &
+MSVehicle::getRoute() const
+{
+    return *myRoute;
+}
+
+
+bool
+MSVehicle::replaceRoute(const MSEdgeVector &edges)
+{
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
+        int textdummy = 0;
+        for(MSEdgeVector::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+            cout << (*i)->id() << ", ";
+        }
+        cout << "-------------" << endl;
+        for(MSRouteIterator i2=myRoute->begin(); i2!=myRoute->end(); ++i2) {
+            cout << (*i2)->id() << ", ";
+        }
+        cout << "-------------" << endl;
+    }
+#endif
+    MSRoute *otherr = 0;
+    MSEdge *currentEdge = *myCurrEdge;
+    // check whether the information shall be saved
+    if(MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
+        otherr = new MSRoute(*myRoute);
+    }
+    bool replaced = myRoute->replaceBy(edges, myCurrEdge);
+    if(replaced) {
+        myCurrEdge = myRoute->find(currentEdge);
+        myAllowedLanes =
+            ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );
+        myDoubleCORNMap[MSCORN::CORN_VEH_WASREROUTET] = 1;
+        myDoubleCORNMap[MSCORN::CORN_VEH_OLDROUTE1] =
+            (double) (int) otherr;
+        myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
+        myDoubleCORNMap[MSCORN::CORN_VEH_NUMBREROUTE] =
+            myDoubleCORNMap[MSCORN::CORN_VEH_NUMBREROUTE] + 1;
+    }
+#ifdef ABS_DEBUG
+    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
+        int textdummy = 0;
+        for(MSRouteIterator i=myRoute->begin(); i!=myRoute->end(); ++i) {
+            cout << (*i)->id() << ", ";
+        }
+        cout << "-------------" << endl;
+    }
+#endif
+    return replaced;
+}
+
+
+const MSVehicleType &
+MSVehicle::getVehicleType() const
+{
+    return *myType;
+}
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

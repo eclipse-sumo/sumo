@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.36  2004/07/02 09:57:37  dkrajzew
+// handling of routes added
+//
 // Revision 1.35  2004/04/02 11:36:28  dkrajzew
 // "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
 //
@@ -458,7 +461,7 @@ public:
                      const MSLane* lane,
                      double gap ) const;
 
-	bool hasSafeGap(  double gap, double predSpeed, const MSLane* lane) const;
+    bool hasSafeGap(  double gap, double predSpeed, const MSLane* lane) const;
 
     /** Returns the minimum gap between this driving vehicle and a
      * possibly emitted vehicle with speed 0. */
@@ -501,6 +504,8 @@ public:
 
 
     double getCORNDoubleValue(MSCORN::Function f);
+    bool hasCORNDoubleValue(MSCORN::Function f);
+
 
     /** moves a vehicle if it is not meant to be running out of the lane
         If there is no neigh, pass 0 to neigh.
@@ -588,17 +593,17 @@ public:
     double speed() const;
 
     /** Return true if prioritized first vehicle will brake too much
-	during lane-change calculations. This is a problem because the
-	lane-changer doesn't look beyond the lane but will assume the
-	vehicle has to slow down towards the lane end.*/
+    during lane-change calculations. This is a problem because the
+    lane-changer doesn't look beyond the lane but will assume the
+    vehicle has to slow down towards the lane end.*/
     bool laneChangeBrake2much( const State brakeState );
 
     /** timeHeadWay < deltaT situations may cause crashes because two
-	vehicles want to leave the same lane in one timestep. These
-	situations are caused by emissions and lanechanges.
-	@param A speed.
-	@return The distance driven with speed in the
-	next timestep.*/
+    vehicles want to leave the same lane in one timestep. These
+    situations are caused by emissions and lanechanges.
+    @param A speed.
+    @return The distance driven with speed in the
+    next timestep.*/
     double timeHeadWayGap( double speed ) const;
 
 
@@ -816,6 +821,12 @@ public:
         return myState.mySpeed*MSNet::deltaT();
         }
 
+    const MSRoute &getRoute() const;
+
+    bool replaceRoute(const MSEdgeVector &edges);
+
+    const MSVehicleType &getVehicleType() const;
+
 public:
     void onDepart();
 
@@ -879,7 +890,7 @@ protected:
     /// Vehicles driving state. here: pos and speed
     State myState;
 
-	/// The lane the vehicle is on
+    /// The lane the vehicle is on
     MSLane* myLane;
 
     LaneChangeState myLaneChangeState;
@@ -934,7 +945,7 @@ private:
         // Link that leads to myLane.
         MSLink*   myLink;
         // the speed this item allows
-    	double mySpeed;*/
+        double mySpeed;*/
     };
 
     typedef std::vector< DriveProcessItem > DriveItemVector;
@@ -949,8 +960,8 @@ private:
         { return ((v1 > v2) ? v1 : v2); };*/
 
 
-//	double myVLinkPass;
-//	double myVLinkWait;
+//  double myVLinkPass;
+//  double myVLinkWait;
 
 //    struct
 
