@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2002/06/21 10:53:49  dkrajzew
+// inclusion of .cpp-files in .cpp files removed
+//
 // Revision 1.6  2002/06/11 14:39:26  dkrajzew
 // windows eol removed
 //
@@ -67,10 +70,6 @@ namespace
 #include "NLSAXHandler.h"
 #include "NLTags.h"
 #include "NLLoadFilter.h"
-
-#ifdef EXTERNAL_TEMPLATE_DEFINITION
-#include "../utils/TplConvert.cpp"
-#endif
 
 /* =========================================================================
  * used namespaces

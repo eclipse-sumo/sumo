@@ -1,5 +1,3 @@
-#ifndef TplConvert_cpp
-#define TplConvert_cpp
 /***************************************************************************
                           TplConvert.cpp
                           Some conversion methods (from strings to other)
@@ -21,6 +19,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/06/21 10:50:24  dkrajzew
+// inclusion of .cpp-files in .cpp files removed
+//
 // Revision 1.3  2002/06/11 14:38:23  dkrajzew
 // windows eol removed
 //
@@ -218,6 +219,3 @@ size_t TplConvert<E>::getLength(const E * const data) {
 // Local Variables:
 // mode:C++
 // End:
-
-
-#endif

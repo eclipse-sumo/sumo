@@ -24,6 +24,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2002/06/21 10:50:23  dkrajzew
+// inclusion of .cpp-files in .cpp files removed
+//
 // Revision 1.6  2002/06/11 14:38:22  dkrajzew
 // windows eol removed
 //
@@ -49,11 +52,6 @@ namespace
 #include "TplConvert.h"
 #include "TplConvertSec.h"
 #include "AttributesHandler.h"
-
-#ifdef EXTERNAL_TEMPLATE_DEFINITION
-#include "TplConvert.cpp"
-#include "TplConvertSec.cpp"
-#endif
 
 /* =========================================================================
  * used namespaces

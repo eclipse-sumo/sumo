@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2002/06/21 10:50:24  dkrajzew
+// inclusion of .cpp-files in .cpp files removed
+//
 // Revision 1.7  2002/06/11 14:38:23  dkrajzew
 // windows eol removed
 //
@@ -92,10 +95,6 @@ namespace
 #include "OptionsParser.h"
 #include "FileHelpers.h"
 #include "TplConvert.h"
-
-#ifdef EXTERNAL_TEMPLATE_DEFINITION
-#include "../utils/TplConvert.cpp"
-#endif
 
 /* =========================================================================
  * debugging definitions (MSVC++ only)

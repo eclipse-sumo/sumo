@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.12  2002/06/21 10:53:49  dkrajzew
+// inclusion of .cpp-files in .cpp files removed
+//
 // Revision 1.11  2002/06/11 15:07:08  dkrajzew
 // error checking fixed
 //
@@ -91,10 +94,6 @@ namespace
 #include "../utils/OptionsCont.h"
 #include "../utils/TplConvert.h"
 #include "../utils/FileHelpers.h"
-
-#ifdef EXTERNAL_TEMPLATE_DEFINITION
-#include "../utils/TplConvert.cpp"
-#endif
 
 /* =========================================================================
  * used namespaces

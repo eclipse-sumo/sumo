@@ -1,5 +1,3 @@
-#ifndef TplConvertSec_cpp
-#define TplConvertSec_cpp
 /***************************************************************************
                           TplConvertSec.h
                           Some conversion methods (from strings to other)
@@ -21,6 +19,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2002/06/21 10:50:24  dkrajzew
+// inclusion of .cpp-files in .cpp files removed
+//
 // Revision 1.3  2002/06/11 14:38:23  dkrajzew
 // windows eol removed
 //
@@ -39,8 +40,6 @@
 #include "UtilExceptions.h"
 #include "TplConvertSec.h"
 #include "TplConvert.h"
-
-//#include "TplConvertSec.cpp"
 
 /* =========================================================================
  * used namespaces
@@ -186,6 +185,4 @@ char *TplConvertSec<E>::_2charpSec(const E * const data, int length, char *def) 
 // Local Variables:
 // mode:C++
 // End:
-
-#endif
 
