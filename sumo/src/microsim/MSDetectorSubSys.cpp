@@ -119,7 +119,7 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
 //    deleteDictionaryContents( loopVec.begin(), loopVec.end() );
         delete E3Dict::getInstance();
     }
-    
+
     if(E2ZSOLDict::created()) {
         E2ZSOLDict::ValueVector loopVec(
             E2ZSOLDict::getInstance()->getStdVector() );
@@ -138,8 +138,12 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
         Detector::UpdateE2Detectors >::getInstance();
     delete MSUpdateEachTimestepContainer<
         Detector::UpdateOccupancyCorrections >::getInstance();
-
-
+    delete MSUpdateEachTimestepContainer<
+        MSDetectorHaltingMapWrapper>::getInstance();
+/*    delete MSUpdateEachTimestepContainer<
+        MSDetectorHaltingMapWrapper >::getInstance();*/
+    delete MSUpdateEachTimestepContainer<
+        MSUpdateEachTimestep<MSDetectorHaltingMapWrapper> >::getInstance();
     try {
         delete MSUnit::getInstance();
     } catch (SingletonNotCreated &) {

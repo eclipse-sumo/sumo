@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.48  2004/02/05 16:39:45  dkrajzew
+// removed some memory leaks
+//
 // Revision 1.47  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
@@ -522,6 +525,7 @@ MSNet::~MSNet()
     delete myEmitter;
     delete myLogics;
     delete myRouteLoaders;
+    delete myVehicleControl;
     MSDetectorSubSys::deleteDictionariesAndContents();
 }
 
