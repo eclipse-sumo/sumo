@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/06/05 14:45:02  dkrajzew
+// false usage of relative paths changed
+//
 // Revision 1.6  2003/05/21 16:20:43  dkrajzew
 // further work detectors
 //
@@ -126,8 +129,8 @@ namespace
 #include <utils/xml/XMLSubSys.h>
 #include <sumo_only/SUMOFrame.h>
 #include "sumo_help.h"
-#include "helpers/SingletonDictionary.h"
-#include "microsim/MSLaneState.h"
+#include <helpers/SingletonDictionary.h>
+#include <microsim/MSLaneState.h>
 
 /* =========================================================================
  * used namespaces
@@ -233,7 +236,7 @@ main(int argc, char **argv)
 {
     SingletonDictionary< std::string, MSLaneState* >::create();
 
-    size_t rand_init = 1040208551;
+    size_t rand_init = 10551;
 //    rand_init = time(0);
 //    cout << "Rand:" << rand_init << endl;
     srand(rand_init);
