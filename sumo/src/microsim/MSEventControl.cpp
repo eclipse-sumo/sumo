@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.7  2003/06/24 14:31:01  dkrajzew
+// accessing an empty priority queue-bug removed
+//
 // Revision 1.6  2003/06/04 16:16:23  roessel
 // MSEventControl has now two MSEventControl* (instead of one), myBeginOfTimestepEvents and myEndOfTimestepEvents. Added the static accss-methods getBeginOfTimestepEvents() and getEndOfTimestepEvents().
 //
@@ -193,6 +196,7 @@ MSEventControl::addEvent( Command* operation, MSNet::Time execTime,
     }
     Event newEvent = Event( operation, execTime );
     myEvents.push( newEvent );
+    operation->check();
     return true;
 }
 
@@ -200,36 +204,32 @@ MSEventControl::addEvent( Command* operation, MSNet::Time execTime,
 void
 MSEventControl::execute(MSNet::Time execTime)
 {
-    // Don't access empty prio_queues.
-    if ( ! myEvents.empty() ) {
+    // Execute all events that are scheduled for execTime.
+    for (;!myEvents.empty();) {
 
-        // Execute all events that are scheduled for execTime.
-        for (;;) {
+        Event currEvent = myEvents.top();
 
-            Event currEvent = myEvents.top();
+        if ( currEvent.second == execTime ) {
 
-            if ( currEvent.second == execTime ) {
+            Command *command = currEvent.first;
+            myEvents.pop();
+            MSNet::Time time = command->execute( );
 
-                Command *command = currEvent.first;
-                myEvents.pop();
-                MSNet::Time time = command->execute( );
+            // Delete nonrecurring events, reinsert recurring ones
+            // with new execution time = execTime + returned offset.
+            if ( time == 0 ) {
 
-                // Delete nonrecurring events, reinsert recurring ones
-                // with new execution time = execTime + returned offset.
-                if ( time == 0 ) {
-
-                    delete currEvent.first;
-                }
-                else {
-
-                    assert( time > 0 );
-                    currEvent.second = execTime + time;
-                    myEvents.push( currEvent );
-                }
+                delete currEvent.first;
             }
             else {
-                break;
+
+                assert( time > 0 );
+                currEvent.second = execTime + time;
+                myEvents.push( currEvent );
             }
+        }
+        else {
+            break;
         }
     }
 }
