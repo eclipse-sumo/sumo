@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2004/01/28 12:39:23  dkrajzew
+// work on reading and setting speeds in vissim-networks
+//
 // Revision 1.6  2003/10/27 10:51:55  dkrajzew
 // edges speed setting implemented (only on an edges begin)
 //
@@ -104,6 +107,7 @@ public:
 
 private:
     void checkEdgeEnd();
+    double getRealSpeed(int distNo) const;
 
 private:
     /// The id of the connections

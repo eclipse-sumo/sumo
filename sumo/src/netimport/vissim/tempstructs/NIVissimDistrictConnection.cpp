@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2004/01/28 12:39:23  dkrajzew
+// work on reading and setting speeds in vissim-networks
+//
 // Revision 1.18  2004/01/12 15:32:57  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -66,6 +69,8 @@ namespace
 #include <utils/geom/Position2D.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Position2DVector.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 #include "NIVissimAbstractEdge.h"
 #include "NIVissimEdge.h"
 #include <netbuild/NBEdge.h>
@@ -75,6 +80,8 @@ namespace
 #include <netbuild/NBDistrict.h>
 #include <netbuild/NBDistrictCont.h>
 #include "NIVissimDistrictConnection.h"
+#include <utils/distribution/Distribution.h>
+#include <netbuild/NBDistribution.h>
 
 using namespace std;
 
@@ -267,7 +274,7 @@ NIVissimDistrictConnection::dict_BuildDistricts()
                     + toString<int>(c->myID);
                 NBEdge *source =
                     new NBEdge(id, id, districtNode, parkingPlace,
-                    "Connection", 100/3.6, 3, 100, 0,
+                    "Connection", c->getMeanSpeed()/3.6, 3, 100, 0,
                     NBEdge::LANESPREAD_RIGHT,
                     NBEdge::EDGEFUNCTION_SOURCE);
                 if(!NBEdgeCont::insert(source)) { // !!! in den Konstruktor
@@ -405,17 +412,36 @@ NIVissimDistrictConnection::getMeanSpeed() const
 {
     //assert(myAssignedVehicles.size()!=0);
     if(myAssignedVehicles.size()==0) {
+        cout << "No streams assigned at district'" << myID << "'." << endl;
         return -1;
     }
     double speed = 0;
     std::vector<std::pair<int, int> >::const_iterator i;
     for(i=myAssignedVehicles.begin(); i!=myAssignedVehicles.end(); i++) {
-        speed += (*i).second;
+        speed += getRealSpeed((*i).second);
     }
     return speed / (double) myAssignedVehicles.size();
 }
 
 
+double
+NIVissimDistrictConnection::getRealSpeed(int distNo) const
+{
+    string id = toString<int>(distNo);
+    Distribution *dist = NBDistribution::dictionary("speed", id);
+    if(dist==0) {
+        cout << "The referenced speed distribution '" << id << "' is not known." << endl;
+        cout << ". Using default." << endl;
+        return OptionsSubSys::getOptions().getFloat("vissim-default-speed");;
+    }
+    assert(dist!=0);
+    double speed = dist->getMax();
+    if(speed<0||speed>1000) {
+        cout << " False speed at district '" << id << "'. Using default." << endl;
+        speed = OptionsSubSys::getOptions().getFloat("vissim-default-speed");
+    }
+    return speed;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2004/01/28 12:39:23  dkrajzew
+// work on reading and setting speeds in vissim-networks
+//
 // Revision 1.11  2003/10/30 09:12:59  dkrajzew
 // further work on vissim-import
 //
@@ -113,7 +116,7 @@ public:
 
     void removeFromConnectionCluster(NIVissimConnectionCluster *c);
     void addToConnectionCluster(NIVissimConnectionCluster *c);
-    void replaceSpeed(int lane, double speed);
+    void setSpeed(int lane, int speedDist);
     void addToTreatAsSame(NIVissimEdge *e);
 
     NIVissimConnection* getConnectionTo(NIVissimEdge *e);
@@ -168,12 +171,17 @@ private:
     std::pair<NBNode*, NBNode*> resolveSameNode(double offset,
         NBNode *prevFrom, NBNode *prevTo);
 
-    double recheckSpeedPatches();
+//    double recheckSpeedPatches();
 
-    std::vector<NIVissimEdge*> getOutgoingConnected() const;
+    std::vector<NIVissimConnection*> getOutgoingConnected(int lane) const;
 
-    bool propagateSpeed(double speed);
+    void propagateSpeed(double speed, IntVector forLanes);
 
+
+    void setDistrictSpeed();
+    double getRealSpeed(int distNo);
+    void checkUnconnectedLaneSpeeds();
+    void propagateOwn();
 
 
 
@@ -253,9 +261,11 @@ private:
 
     DoubleVector myDistrictConnections;
 
-    DoubleVector myPatchedSpeeds;
+    IntVector myPatchedSpeeds;
 
-    double mySpeed;
+//    double mySpeed;
+
+    std::vector<double> myLaneSpeeds;
 
     std::vector<NIVissimEdge*> myToTreatAsSame;
 

@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------//
-//                        NIVissimEdge.cpp -  ccc
+//                        NIVissimEdge.cpp -
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2004/01/28 12:39:23  dkrajzew
+// work on reading and setting speeds in vissim-networks
+//
 // Revision 1.22  2004/01/12 15:33:02  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -76,8 +79,12 @@ namespace
 #include <utils/convert/ToString.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/geom/GeomHelper.h>
+#include <utils/distribution/Distribution.h>
+#include <netbuild/NBDistribution.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 #include "NIVissimNodeCluster.h"
 #include "NIVissimDistrictConnection.h"
 #include "NIVissimClosedLanesVector.h"
@@ -155,10 +162,13 @@ NIVissimEdge::NIVissimEdge(int id, const std::string &name,
     : NIVissimAbstractEdge(id, geom),
         myName(name), myType(type), myNoLanes(noLanes),
         myZuschlag1(zuschlag1), myZuschlag2(zuschlag2),
-    myClosedLanes(clv), mySpeed(-1)
+    myClosedLanes(clv)//, mySpeed(-1)
 {
     if(myMaxID<myID) {
         myMaxID = myID;
+    }
+    for(int i=0; i<noLanes; i++) {
+        myLaneSpeeds.push_back(-1);
     }
 }
 
@@ -299,61 +309,191 @@ NIVissimEdge::dict_propagateSpeeds()
     DictType::iterator i;
     for(i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimEdge *edge = (*i).second;
-        edge->propagateSpeed(-1);
+        edge->setDistrictSpeed();
     }
     for(i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimEdge *edge = (*i).second;
-        edge->propagateSpeed(50);
+        edge->propagateSpeed(-1, IntVector());
+    }
+    for(int j=0; j<3; j++) {
+        for(i=myDict.begin(); i!=myDict.end(); i++) {
+            NIVissimEdge *edge = (*i).second;
+            edge->propagateOwn();
+        }
+        for(i=myDict.begin(); i!=myDict.end(); i++) {
+            NIVissimEdge *edge = (*i).second;
+            edge->checkUnconnectedLaneSpeeds();
+        }
+    }
+/*    for(i=myDict.begin(); i!=myDict.end(); i++) {
+        NIVissimEdge *edge = (*i).second;
+        edge->setUnsetSpeed(5000);
+    }*/
+}
+
+
+void
+NIVissimEdge::checkUnconnectedLaneSpeeds()
+{
+    if(myID==10001206) {
+        int bla = 0;
+    }
+    if(myID==10000369) {
+        int bla = 0;
+    }
+    for(int i=0; i<myLaneSpeeds.size(); i++) {
+        if(myLaneSpeeds[i]==-1) {
+            double speed = -1;
+            int j1 = i - 1;
+            int j2 = i;
+            while(j2!=myLaneSpeeds.size()&&myLaneSpeeds[j2]==-1) {
+                j2++;
+            }
+            if(j1<0) {
+                if(j2<myLaneSpeeds.size()) {
+                    speed = myLaneSpeeds[j2];
+                }
+            } else {
+                if(j2>=myLaneSpeeds.size()) {
+                    speed = myLaneSpeeds[j1];
+                } else {
+                    speed = (myLaneSpeeds[j1] + myLaneSpeeds[j2]) / 2.0;
+                }
+            }
+            if(speed==-1) {
+                continue;
+            }
+            myLaneSpeeds[i] = speed;
+            std::vector<NIVissimConnection*> connected = getOutgoingConnected(i);
+            for(std::vector<NIVissimConnection*>::iterator j=connected.begin(); j!=connected.end(); j++) {
+                NIVissimConnection *c = *j;
+                NIVissimEdge *e = NIVissimEdge::dictionary(c->getToEdgeID());
+                // propagate
+                e->propagateSpeed(speed, c->getToLanes());
+            }
+        }
     }
 }
 
 
-bool
-NIVissimEdge::propagateSpeed(double speed)
+void
+NIVissimEdge::propagateOwn()
 {
-    if(mySpeed!=-1) {
-        return false;
+    if(myID==10001206) {
+        int bla = 0;
     }
-    // check whether it was called by another edge (propagates)
-    if(speed==-1) {
-        // if it was called from the container, check whether
-        //  the speed changes
-        speed = recheckSpeedPatches();
+    if(myID==10000369) {
+        int bla = 0;
+    }
+    for(int i=0; i<myLaneSpeeds.size(); i++) {
+        if(myLaneSpeeds[i]==-1) {
+            continue;
+        }
+        std::vector<NIVissimConnection*> connected = getOutgoingConnected(i);
+        for(std::vector<NIVissimConnection*>::iterator j=connected.begin(); j!=connected.end(); j++) {
+            NIVissimConnection *c = *j;
+            NIVissimEdge *e = NIVissimEdge::dictionary(c->getToEdgeID());
+            // propagate
+            e->propagateSpeed(myLaneSpeeds[i], c->getToLanes());
+        }
+    }
+}
+
+
+void
+NIVissimEdge::propagateSpeed(double speed, IntVector forLanes)
+{
+    if(myID==10001206) {
+        int bla = 0;
+    }
+    if(myID==10000369) {
+        int bla = 0;
+    }
+    // if no lane is given, all set be set
+    if(forLanes.size()==0) {
+        for(size_t i=0; i<myNoLanes; i++) {
+            forLanes.push_back(i);
+        }
+    }
+    // for the case of a first call
+    // go through the lanes
+    for(IntVector::const_iterator i=forLanes.begin(); i<forLanes.end(); i++) {
+        // check whether a speed was set before
+        if(myLaneSpeeds[*i]!=-1) {
+            // do not reset it from incoming
+            continue;
+        }
+        // check whether the lane has a new speed to set
+        if(myPatchedSpeeds.size()>*i&&myPatchedSpeeds[*i]!=-1) {
+            // use it
+            speed = getRealSpeed(myPatchedSpeeds[*i]);
+        }
+        // check whether a speed is given
         if(speed==-1) {
-            // if not, this edge's speed should be set by it's
-            //  preceeding edges
-            return false;
+            // do nothing if not
+            continue;
         }
-    } else {
-        // if it was called from another edge, check whether the
-        //  edge has an own speed
-        if(recheckSpeedPatches()!=-1) {
-            // if so, it should be set from the container
-            return false;
+        // set the lane's speed to the given
+        myLaneSpeeds[*i] = speed;
+        // propagate the speed further
+            // get the list of connected edges
+        std::vector<NIVissimConnection*> connected = getOutgoingConnected(*i);
+            // go throught the list
+        for(std::vector<NIVissimConnection*>::iterator j=connected.begin(); j!=connected.end(); j++) {
+            NIVissimConnection *c = *j;
+            NIVissimEdge *e = NIVissimEdge::dictionary(c->getToEdgeID());
+            // propagate
+            e->propagateSpeed(speed, c->getToLanes());
         }
     }
-    // set the speed
-    assert(speed!=-1);
-    mySpeed = speed;
-    // get the list of connected edges
-    std::vector<NIVissimEdge*> connected = getOutgoingConnected();
-    // propagate the speed
-    for(std::vector<NIVissimEdge*>::iterator i=connected.begin(); i!=connected.end(); i++) {
-        (*i)->propagateSpeed(speed);
-    }
-    return false;
 }
 
 
-std::vector<NIVissimEdge*>
-NIVissimEdge::getOutgoingConnected() const
+
+void
+NIVissimEdge::setDistrictSpeed()
 {
-    std::vector<NIVissimEdge*> ret;
+    if(myDistrictConnections.size()>0) {
+        double pos = *(myDistrictConnections.begin());
+        if(pos<getLength()-pos) {
+            NIVissimDistrictConnection *d =
+                NIVissimDistrictConnection::dict_findForEdge(myID);
+            if(d!=0) {
+                double speed = d->getMeanSpeed();
+                if(speed==-1) {
+                    return;
+                }
+                for(size_t i=0; i<myNoLanes; i++) {
+                    myLaneSpeeds[i] = speed;
+                    // propagate the speed further
+                        // get the list of connected edges
+                    std::vector<NIVissimConnection*> connected = getOutgoingConnected(i);
+                        // go throught the list
+                    for(std::vector<NIVissimConnection*>::iterator j=connected.begin(); j!=connected.end(); j++) {
+                        NIVissimConnection *c = *j;
+                        NIVissimEdge *e = NIVissimEdge::dictionary(c->getToEdgeID());
+                        // propagate
+                        e->propagateSpeed(speed, c->getToLanes());
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+std::vector<NIVissimConnection*>
+NIVissimEdge::getOutgoingConnected(int lane) const
+{
+    std::vector<NIVissimConnection*> ret;
     for(IntVector::const_iterator i=myOutgoingConnections.begin(); i!=myOutgoingConnections.end(); i++) {
         NIVissimConnection *c = NIVissimConnection::dictionary(*i);
-        NIVissimEdge *e = NIVissimEdge::dictionary(c->getToEdgeID());
-        if(e!=0) {
-            ret.push_back(e);
+        const IntVector &lanes = c->getFromLanes();
+        if(find(lanes.begin(), lanes.end(), lane)!=lanes.end()) {
+            NIVissimEdge *e = NIVissimEdge::dictionary(c->getToEdgeID());
+            if(e!=0) {
+                ret.push_back(c);
+            }
         }
     }
     return ret;
@@ -561,11 +701,33 @@ NIVissimEdge::buildNBEdge(double offset)
     }*/
     //
     // build the edge
-    assert(mySpeed!=-1);
+//    assert(mySpeed!=-1);
+    double bla = 0;
+    int i;
+    for(i=0; i<myNoLanes; i++) {
+        if(myLaneSpeeds.size()<=i||myLaneSpeeds[i]==-1) {
+            cout << "Unset speed on edge:" << myID << ", lane:" << i
+                << ". Using default." << endl;
+            bla += OptionsSubSys::getOptions().getFloat("vissim-default-speed");
+        } else {
+            bla += myLaneSpeeds[i];
+        }
+    }
+    bla /= (double) myLaneSpeeds.size();
+    bla *= OptionsSubSys::getOptions().getFloat("vissim-speed-norm");
+
     NBEdge *buildEdge = new NBEdge(
         toString<int>(myID), myName, fromNode, toNode, myType,
-        mySpeed/3.6, myNoLanes, myGeom.length(), 0, myGeom,
+        bla/3.6, myNoLanes, myGeom.length(), 0, myGeom,
         NBEdge::LANESPREAD_CENTER, NBEdge::EDGEFUNCTION_NORMAL);
+    for(i=0; i<myNoLanes; i++) {
+        if(myLaneSpeeds.size()<=i||myLaneSpeeds[i]==-1) {
+            buildEdge->setLaneSpeed(i,
+                OptionsSubSys::getOptions().getFloat("vissim-default-speed"));
+        } else {
+            buildEdge->setLaneSpeed(i, myLaneSpeeds[i]);
+        }
+    }
     NBEdgeCont::insert(buildEdge);
     // check whether the edge contains any other clusters
     if(tmpClusters.size()>0) {
@@ -593,9 +755,27 @@ NIVissimEdge::buildNBEdge(double offset)
 
 
 double
+NIVissimEdge::getRealSpeed(int distNo)
+{
+    string id = toString<int>(distNo);
+    Distribution *dist = NBDistribution::dictionary("speed", id);
+    if(dist==0) {
+        cout << "The referenced speed distribution '" << id << "' is not known." << endl;
+        return -1;
+    }
+    assert(dist!=0);
+    double speed = dist->getMax();
+    if(speed<0||speed>1000) {
+        cout << "What about distribution '" << distNo << "' " << endl;
+    }
+    return speed;
+}
+
+/*
+bool
 NIVissimEdge::recheckSpeedPatches()
 {
-    double speed = -1;
+//    size_t speed_idx = -1;
     // check set speeds
     if(myPatchedSpeeds.size()!=0) {
         DoubleVector::iterator i =
@@ -608,23 +788,26 @@ NIVissimEdge::recheckSpeedPatches()
             cout << "Warning! Not all lanes have the same speed!! (edge:" << myID << ")." << endl;
         }
         //
-        // !!! ist natürlich Quatsch - erst recht, wenn Edges zusammengefasst werden
+/*        // !!! ist natürlich Quatsch - erst recht, wenn Edges zusammengefasst werden
         speed = DoubleVectorHelper::sum(myPatchedSpeeds);
-        speed /= (double) myPatchedSpeeds.size();
+        speed /= (double) myPatchedSpeeds.size();*/
+/*        return true;
     }
     if(myDistrictConnections.size()>0) {
         double pos = *(myDistrictConnections.begin());
-        if(pos<10) {
+//        if(pos<10) {
             NIVissimDistrictConnection *d =
                 NIVissimDistrictConnection::dict_findForEdge(myID);
             if(d!=0) {
-                speed = d->getMeanSpeed();
+                return true;
+//                speed = d->getMeanSpeed();
             }
-        }
+//        }
+//        return true;
     }
-    return speed;
+    return false;
 }
-
+*/
 
 std::pair<NIVissimConnectionCluster*, NBNode *>
 NIVissimEdge::getFromNode(ConnectionClusters &clusters)
@@ -934,12 +1117,12 @@ NIVissimEdge::replaceSpeed(int id, int lane, double speed)
 */
 
 void
-NIVissimEdge::replaceSpeed(int lane, double speed)
+NIVissimEdge::setSpeed(int lane, int speedDist)
 {
     while(myPatchedSpeeds.size()<=lane) {
-        myPatchedSpeeds.push_back(50);
+        myPatchedSpeeds.push_back(-1);
     }
-    myPatchedSpeeds[lane] = speed;
+    myPatchedSpeeds[lane] = speedDist;
 }
 
 
