@@ -23,6 +23,9 @@
 
 
 // $Log$
+// Revision 1.7  2003/10/14 11:33:37  roessel
+// Switched from MSNet::Time to MSUnit::IntSteps.
+//
 // Revision 1.6  2003/08/06 16:53:01  roessel
 // Better distinction between steps and seconds added.
 //
@@ -43,6 +46,7 @@
 //
 
 #include "Command.h"
+#include "microsim/MSUnit.h"
 
 /**
  * A command that takes one constant argument. To be used with MSEventControl.
@@ -59,7 +63,7 @@ class OneArgumentCommand : public Command
 {
 public:
     /// Type of the function to execute.
-    typedef MSNet::Time ( T::* Operation )( Arg );
+    typedef MSUnit::IntSteps ( T::* Operation )( Arg );
 
     /**
      * Constructor.
