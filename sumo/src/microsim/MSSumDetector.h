@@ -37,8 +37,9 @@ class MSSumDetector : public DetectorType
     
 public:
     typedef typename DetectorType::DetectorAggregate DetAggregate;
-    typedef typename DetectorType::VehicleCont::iterator VehicleContIter;
+//     typedef typename DetectorType::VehicleCont::iterator VehicleContIter;
     typedef typename DetectorType::AggregatesContIter AggregatesContIter;
+    typedef typename DetectorType::Container DetectorContainer;
     
     DetAggregate getAggregate( MSUnit::Seconds lastNSeconds ) 
         {
@@ -53,9 +54,11 @@ protected:
     // E2 Ctor
     MSSumDetector( std::string id,
                    double lengthInMeters,
-                   MSUnit::Seconds deleteDataAfterSeconds )
+                   MSUnit::Seconds deleteDataAfterSeconds,
+                   const DetectorContainer& container )
         : DetectorType( id, lengthInMeters,
-                        deleteDataAfterSeconds )
+                        deleteDataAfterSeconds,
+                        container )
         {}
 
     // E* ctors follow here

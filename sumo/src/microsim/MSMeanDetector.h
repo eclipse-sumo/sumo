@@ -38,9 +38,10 @@ class MSMeanDetector : public MSSumDetector< DetectorType >
     
 public:
     typedef typename DetectorType::DetectorAggregate DetAggregate;
-    typedef typename DetectorType::VehicleCont::iterator VehicleContIter;
+//     typedef typename DetectorType::VehicleCont::iterator VehicleContIter;
     typedef typename DetectorType::AggregatesContIter AggregatesContIter;
-
+    typedef typename DetectorType::Container DetectorContainer;
+    
     DetAggregate getAggregate( MSUnit::Seconds lastNSeconds ) 
         {
             // returns the mean value of the lastNSeconds
@@ -57,15 +58,21 @@ protected:
     // E2 ctor
     MSMeanDetector( std::string id,
                     double lengthInMeters,
-                    MSUnit::Seconds deleteDataAfterSeconds ) 
+                    MSUnit::Seconds deleteDataAfterSeconds,
+                    const DetectorContainer& container ) 
         : MSSumDetector< DetectorType >( id, lengthInMeters,
-                                         deleteDataAfterSeconds )
+                                         deleteDataAfterSeconds,
+                                         container )
         {}
 
     // E* ctors follow here
 
     ~MSMeanDetector( void )
         {}
+
+private:
+    MSMeanDetector( const MSMeanDetector& );
+    MSMeanDetector& operator=( const MSMeanDetector& );
 };
 
 

@@ -7,11 +7,26 @@
 
 // conrete detectors
 #include "MSDensity.h"
-
+#include "MSMaxJamLength.h"
+#include "MSJamLengthSum.h"
 
 namespace Detector 
 {
     typedef MSMeanDetector< MSE2Detector< MSDensity > > E2Density;
+
+    typedef MSMeanDetector< MSE2Detector< MSMaxJamLengthInVehicles > >
+    E2MaxJamLengthInVehicles;
+    
+    typedef MSMeanDetector< MSE2Detector< MSMaxJamLengthInMeters > >
+    E2MaxJamLengthInMeters;
+    
+    typedef MSMeanDetector< MSE2Detector< MSJamLengthSumInVehicles > >
+    E2JamLengthSumInVehicles;
+    
+    typedef MSMeanDetector< MSE2Detector< MSJamLengthSumInMeters > >
+    E2JamLengthSumInMeters;
+    
+    
 }
 
 #endif // MSE2DETECTORTYPEDEFS_H

@@ -6,6 +6,9 @@
 #include "MSUnit.h"
 #include "MSLane.h"
 #include "MSDetectorFileOutput.h"
+#include "MSDetectorContainer.h"
+#include "MSDetectorContainerBase.h"
+#include "MSHaltingDetectorContainer.h"
 #include "helpers/SingletonDictionary.h"
 #include "utils/convert/ToString.h"
 #include <string>
@@ -19,24 +22,42 @@ MS_E2_ZS_Collector : public MSMoveReminder,
                      public MSDetectorFileOutput
 {
 public:
-    enum DetType { DENSITY = 0, ALL };
-
+    enum DetType { DENSITY = 0,
+                   MAX_JAM_LENGTH_IN_VEHICLES,
+                   MAX_JAM_LENGTH_IN_METERS,
+                   JAM_LENGTH_SUM_IN_VEHICLES,
+                   JAM_LENGTH_SUM_IN_METERS,
+                   ALL };
+    enum Containers { COUNTER = 0, VEHICLES, HALTINGS };    
+    
     typedef MSE2DetectorInterface E2ZSDetector;
     typedef std::vector< E2ZSDetector* > DetectorCont;
     typedef DetectorCont::iterator DetContIter;
+    typedef std::vector< MSDetectorContainerBase* > ContainerCont;
+    typedef ContainerCont::iterator ContainerContIter;
     typedef SingletonDictionary< std::string,
                                  MS_E2_ZS_Collector* > E2ZSDictionary;
     
     MS_E2_ZS_Collector( std::string id, //daraus ergibt sich der Filename
                         MSLane* lane,
-                        const MSUnit::Meters startPos,
-                        const MSUnit::Meters detLength,
+                        MSUnit::Meters startPos,
+                        MSUnit::Meters detLength,
+                        MSUnit::Seconds haltingTimeThreshold,
+                        MSUnit::MetersPerSecond haltingSpeedThreshold,
+                        MSUnit::Meters jamDistThreshold,
                         MSUnit::Seconds deleteDataAfterSeconds = 1800 )
         : MSMoveReminder( lane, id ),
           startPosM( startPos ),
           endPosM( startPos + detLength ),
           deleteDataAfterSecondsM( deleteDataAfterSeconds ),
-          detectorsM(1)
+          haltingTimeThresholdM( MSUnit::getInstance()->getSteps(
+                                     haltingTimeThreshold ) ),
+          haltingSpeedThresholdM( MSUnit::getInstance()->getCellsPerStep(
+                                      haltingSpeedThreshold ) ),
+          jamDistThresholdM( MSUnit::getInstance()->getCells(
+                                 jamDistThreshold ) ),
+          detectorsM(5),
+          containersM(3)
         {
             assert( laneM != 0 );
             MSUnit::Meters laneLength =
@@ -90,18 +111,36 @@ public:
             switch( type ) {
                 case DENSITY:
                 {
-                    detectorsM[DENSITY] =
-                        new E2Density( E2Density::getDetectorName() + detId,
-                                       endPosM - startPosM,
-                                       deleteDataAfterSecondsM );
+                    createDetector( DENSITY, detId );
+                    break;
+                }
+                case MAX_JAM_LENGTH_IN_VEHICLES:
+                {
+                    createDetector( MAX_JAM_LENGTH_IN_VEHICLES, detId );
+                    break;   
+                }
+                case MAX_JAM_LENGTH_IN_METERS:
+                {
+                    createDetector( MAX_JAM_LENGTH_IN_METERS, detId );
+                    break;
+                }
+                case JAM_LENGTH_SUM_IN_VEHICLES:
+                {
+                    createDetector( JAM_LENGTH_SUM_IN_VEHICLES, detId );
+                    break;
+                }
+                case JAM_LENGTH_SUM_IN_METERS:
+                {
+                    createDetector( JAM_LENGTH_SUM_IN_METERS, detId );
                     break;
                 }
                 case ALL:
                 {
-                    detectorsM[DENSITY] =
-                        new E2Density( E2Density::getDetectorName() + detId,
-                                       endPosM - startPosM,
-                                       deleteDataAfterSecondsM );
+                    createDetector( DENSITY, detId );
+                    createDetector( MAX_JAM_LENGTH_IN_VEHICLES, detId );
+                    createDetector( MAX_JAM_LENGTH_IN_METERS, detId );
+                    createDetector( JAM_LENGTH_SUM_IN_VEHICLES, detId );
+                    createDetector( JAM_LENGTH_SUM_IN_METERS, detId );
                     break;
                 }
                 default:
@@ -113,9 +152,18 @@ public:
     
     bool update( void )
         {
+            for ( ContainerContIter it = containersM.begin();
+                  it != containersM.end(); ++it ) {
+                    if ( *it != 0 ) {
+                        (*it)->update();
+                    }
+                }
+            
             for ( DetContIter it = detectorsM.begin();
                   it != detectorsM.end(); ++it ) {
-                (*it)->update();
+                if ( *it != 0 ) {
+                    (*it)->update();
+                }
             }
             return true;
         }
@@ -138,33 +186,41 @@ public:
             }
             if ( oldPos <= startPosM && newPos > startPosM ) {
                 // vehicle will enter detectors
-                for ( DetContIter it = detectorsM.begin();
-                      it != detectorsM.end(); ++it ) {
-                    (*it)->enterDetectorByMove( veh );
+                for ( ContainerContIter it = containersM.begin();
+                      it != containersM.end(); ++it ) {
+                    if ( *it != 0 ) {
+                        (*it)->enterDetectorByMove( veh );
+                    }
                 }
             }
             if ( newPos - veh.length() < startPosM ) {
                 // vehicle entered detector partially
                 for ( DetContIter it = detectorsM.begin();
                       it != detectorsM.end(); ++it ) {
-                    (*it)->setOccupancyEntryCorrection(
-                        veh, ( newPos - startPosM ) / veh.length() );
+                    if ( *it != 0 ) {
+                        (*it)->setOccupancyEntryCorrection(
+                            veh, ( newPos - startPosM ) / veh.length() );
+                    }
                 }
             }
             if ( newPos > endPosM && newPos - veh.length() <= endPosM ) {
                 // vehicle left detector partially
                 for ( DetContIter it = detectorsM.begin();
                       it != detectorsM.end(); ++it ) {
-                    (*it)->setOccupancyLeaveCorrection(
-                        veh, (endPosM - (newPos - veh.length() ) ) /
-                        veh.length() );
+                    if ( *it != 0 ) {
+                        (*it)->setOccupancyLeaveCorrection(
+                            veh, (endPosM - (newPos - veh.length() ) ) /
+                            veh.length() );
+                    }
                 }
             }               
             if ( newPos - veh.length() > endPosM ) {
                 // vehicle will leave detector
-                for ( DetContIter it = detectorsM.begin();
-                      it != detectorsM.end(); ++it ) {
-                    (*it)->leaveDetectorByMove( veh );
+                for ( ContainerContIter it = containersM.begin();
+                      it != containersM.end(); ++it ) {
+                    if ( *it != 0 ) {
+                        (*it)->leaveDetectorByMove();
+                    }
                 }
                 return false;
             }
@@ -175,16 +231,20 @@ public:
         {
             if (veh.pos() >= startPosM && veh.pos() - veh.length() < endPosM) {
                 // vehicle is on detector
-                for ( DetContIter it = detectorsM.begin();
-                      it != detectorsM.end(); ++it ) {
-                    (*it)->leaveDetectorByLaneChange( veh );
+                for ( ContainerContIter it = containersM.begin();
+                      it != containersM.end(); ++it ) {
+                    if ( *it != 0 ) {
+                        (*it)->leaveDetectorByLaneChange( veh );
+                    }
                 }
                 if ( veh.pos() - veh.length() < startPosM ||
                      veh.pos()>endPosM && veh.pos()-veh.length()<=endPosM ) {
                     // vehicle partially on det
                     for ( DetContIter it = detectorsM.begin();
-                          it != detectorsM.end(); ++it ) {
-                        (*it)->dismissOccupancyCorrection( veh );
+                      it != detectorsM.end(); ++it ) {
+                        if ( *it != 0 ) {
+                            (*it)->dismissOccupancyCorrection( veh );
+                        }
                     }
                 }
             }
@@ -194,25 +254,31 @@ public:
         {
             if (veh.pos() >= startPosM && veh.pos() - veh.length() < endPosM) {
                 // vehicle is on detector
-                for ( DetContIter it = detectorsM.begin();
-                      it != detectorsM.end(); ++it ) {
-                    (*it)->enterDetectorByEmitOrLaneChange( veh );
+                for ( ContainerContIter it = containersM.begin();
+                      it != containersM.end(); ++it ) {
+                    if ( *it != 0 ) {
+                        (*it)->enterDetectorByEmitOrLaneChange( veh );
+                    }
                 }
                 if ( veh.pos() - veh.length() < startPosM ) {
                     // vehicle entered detector partially
                     for ( DetContIter it = detectorsM.begin();
-                          it != detectorsM.end(); ++it ) {
-                        (*it)->setOccupancyEntryCorrection(
-                            veh, (veh.pos() - startPosM ) / veh.length() );
+                      it != detectorsM.end(); ++it ) {
+                        if ( *it != 0 ) {
+                            (*it)->setOccupancyEntryCorrection(
+                                veh, (veh.pos() - startPosM ) / veh.length() );
+                        }
                     }
                 }
                 if ( veh.pos()>endPosM && veh.pos()-veh.length()<=endPosM ) {
                     // vehicle left detector partially
                     for ( DetContIter it = detectorsM.begin();
-                          it != detectorsM.end(); ++it ) {
-                        (*it)->setOccupancyLeaveCorrection(
-                            veh, ( endPosM - (veh.pos() - veh.length() ) ) /
-                            veh.length() );
+                      it != detectorsM.end(); ++it ) {
+                        if ( *it != 0 ) {
+                            (*it)->setOccupancyLeaveCorrection(
+                                veh, ( endPosM - (veh.pos() - veh.length() ) )/
+                                veh.length() );
+                        }
                     }
                 }               
                 return true;
@@ -324,15 +390,130 @@ protected:
     
     
 private:
-    const MSUnit::Meters startPosM;
-    const MSUnit::Meters endPosM;
+    MSUnit::Meters startPosM;
+    MSUnit::Meters endPosM;
     
     MSUnit::Seconds deleteDataAfterSecondsM;
+    MSUnit::Steps haltingTimeThresholdM;
+    MSUnit::CellsPerStep haltingSpeedThresholdM;
+    MSUnit::Cells jamDistThresholdM;
     
     DetectorCont detectorsM;
-
-    static std::string xmlHeaderM;
     
+    ContainerCont containersM;
+    
+    static std::string xmlHeaderM;
+
+    void createContainer( Containers type )
+        {
+            switch( type ){
+                case COUNTER:
+                {
+                    if ( containersM[ COUNTER ] == 0 ) {
+                        containersM[ COUNTER ] =
+                            new DetectorContainer::Counter();
+                    }
+                    break;
+                }
+                case VEHICLES:
+                {
+                    if ( containersM[ VEHICLES ] == 0 ) {
+                        containersM[ VEHICLES ] =
+                            new DetectorContainer::Vehicles();
+                    }
+                    break;
+                }
+                case HALTINGS:
+                {
+                    if ( containersM[ HALTINGS ] == 0 ) {
+                        containersM[ HALTINGS ] =
+                            new DetectorContainer::Haltings(
+                                haltingTimeThresholdM,
+                                haltingSpeedThresholdM,
+                                jamDistThresholdM );
+                    }
+                    break;
+                }
+                default:
+                {
+                    assert( 0 );
+                }
+            }
+        }
+
+    void createDetector( DetType type, std::string detId )
+        {
+            using namespace Detector;
+            switch ( type ) {
+                case DENSITY:
+                {
+                    createContainer( COUNTER );
+                    detectorsM[ DENSITY ] =
+                        new E2Density(
+                            E2Density::getDetectorName() + detId,
+                            endPosM - startPosM,
+                            deleteDataAfterSecondsM,
+                            *static_cast< DetectorContainer::Counter* >(
+                                containersM[ COUNTER ] ) );
+                    break;
+                }
+                case MAX_JAM_LENGTH_IN_VEHICLES:
+                {
+                    createContainer( HALTINGS );
+                    detectorsM[ MAX_JAM_LENGTH_IN_VEHICLES ] =
+                        new E2MaxJamLengthInVehicles(
+                            E2MaxJamLengthInVehicles::getDetectorName() +detId,
+                            endPosM - startPosM,
+                            deleteDataAfterSecondsM,
+                            *static_cast< DetectorContainer::Haltings* >(
+                                containersM[ HALTINGS ] ) );
+                    break;
+                }
+                case MAX_JAM_LENGTH_IN_METERS:
+                {
+                    createContainer( HALTINGS );
+                    detectorsM[ MAX_JAM_LENGTH_IN_METERS ] =
+                        new E2MaxJamLengthInMeters(
+                            E2MaxJamLengthInMeters::getDetectorName() + detId,
+                            endPosM - startPosM,
+                            deleteDataAfterSecondsM,
+                            *static_cast< DetectorContainer::Haltings* >(
+                                containersM[ HALTINGS ] ) );
+                    
+                    break;
+                }
+                case JAM_LENGTH_SUM_IN_VEHICLES:
+                {
+                    createContainer( HALTINGS );
+                    detectorsM[ JAM_LENGTH_SUM_IN_VEHICLES ] =
+                        new E2JamLengthSumInVehicles(
+                            E2JamLengthSumInVehicles::getDetectorName()+detId,
+                            endPosM - startPosM,
+                            deleteDataAfterSecondsM,
+                            *static_cast< DetectorContainer::Haltings* >(
+                                containersM[ HALTINGS ] ) );
+                    break;
+                }
+                case JAM_LENGTH_SUM_IN_METERS:
+                {
+                    createContainer( HALTINGS );
+                    detectorsM[ JAM_LENGTH_SUM_IN_METERS ] =
+                        new E2JamLengthSumInMeters(
+                            E2JamLengthSumInMeters::getDetectorName() + detId,
+                            endPosM - startPosM,
+                            deleteDataAfterSecondsM,
+                            *static_cast< DetectorContainer::Haltings* >(
+                                containersM[ HALTINGS ] ) );
+                    
+                    break;
+                }
+                default:
+                {
+                    assert( 0 );
+                }
+            }
+        }
+                
 };
 
 

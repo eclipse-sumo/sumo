@@ -28,6 +28,8 @@
 #include "MSPredicates.h"
 #include "MSE2DetectorInterface.h"
 #include "MSEventControl.h"
+// #include "MSDetectorContainer.h"
+// #include "MSThresholdDetectorContainer.h"
 #include "helpers/SimpleCommand.h"
 #include <deque>
 #include <string>
@@ -43,9 +45,11 @@ class MSE2Detector : public MSE2DetectorInterface,
 {
 public:
     typedef typename ConcreteDetector::DetectorAggregate DetAggregate;
-    typedef typename ConcreteDetector::ContainerItem ContainerItem;
-    typedef typename ConcreteDetector::VehicleCont VehicleCont;
-    typedef typename VehicleCont::iterator VehicleContIter;
+//     typedef typename ConcreteDetector::ContainerItem ContainerItem;
+//     typedef typename ConcreteDetector::VehicleCont VehicleCont;
+    typedef typename ConcreteDetector::Container DetectorContainer;
+//     typedef typename VehicleCont::iterator VehicleContIter;
+    
     
     const std::string& getId( void ) const
         {
@@ -69,12 +73,13 @@ public:
 protected:
     MSE2Detector( std::string id,
                   double lengthInMeters,
-                  MSUnit::Seconds deleteDataAfterSeconds )
-        : ConcreteDetector( lengthInMeters ),
+                  MSUnit::Seconds deleteDataAfterSeconds,
+                  const DetectorContainer& container )
+        : ConcreteDetector( lengthInMeters, container ),
           idM( id ),
           deleteDataAfterStepsM( MSUnit::getInstance()->getIntegerSteps(
-                                     deleteDataAfterSeconds ) ),
-          vehOnDetectorM()
+                                     deleteDataAfterSeconds ) )// ,
+//           vehOnDetectorM()
         {
             // start old-data removal through MSEventControl
             Command* deleteData = new SimpleCommand< MSE2Detector >(
@@ -88,7 +93,7 @@ protected:
     virtual ~MSE2Detector( void )
         {
             aggregatesM.clear();
-            clearVehicleCont( vehOnDetectorM );
+//             clearVehicleCont( vehOnDetectorM );
         }
 
     typedef typename std::deque< DetAggregate > AggregatesCont;
@@ -111,49 +116,51 @@ private:
     const std::string idM;
     MSUnit::IntSteps deleteDataAfterStepsM;
 
-    VehicleCont vehOnDetectorM; // vehicles or vehicle-collector-pairs of
-    // the vehicles that are currently on the
-    // detector.
+//     VehicleCont vehOnDetectorM; // vehicles or vehicle-collector-pairs of
+//     // the vehicles that are currently on the
+//     // detector.
     
-    VehicleContIter getVehContInsertIterator( MSVehicle& veh )
-        {
-            return std::find_if( vehOnDetectorM.begin(),
-                                 vehOnDetectorM.end(),
-                                 std::bind2nd(
-                                     Predicate::PosGreater< ContainerItem >(),
-                                     veh.pos() ) );
-        }
+//     VehicleContIter getVehContInsertIterator( MSVehicle& veh )
+//         {
+//             return std::find_if( vehOnDetectorM.begin(),
+//                                  vehOnDetectorM.end(),
+//                                  std::bind2nd(
+//                                      Predicate::PosGreater< ContainerItem >(),
+//                                      veh.pos() ) );
+//         }
 
-    VehicleContIter getVehContEraseIterator( MSVehicle& veh )
-        {
-            return std::find_if( vehOnDetectorM.begin(),
-                                 vehOnDetectorM.end(),
-                                 std::bind2nd(
-                                     Predicate::VehEquals< ContainerItem >(),
-                                     &veh ) );
-        }   
+//     VehicleContIter getVehContEraseIterator( MSVehicle& veh )
+//         {
+//             typedef typename Predicate::VehEquals< ContainerItem > Pred;
+//             return std::find_if( vehOnDetectorM.begin(),
+//                                  vehOnDetectorM.end(),
+//                                  std::bind2nd(
+//                                      //                                     Predicate::VehEquals< ContainerItem >(),
+//                                      Pred(),
+//                                      &veh ) );
+//         }   
     
-    void enterDetectorByMove( MSVehicle& veh )
-        {
-            vehOnDetectorM.push_front( getNewContainerItem( veh ) );
-        }    
+//     void enterDetectorByMove( MSVehicle& veh )
+//         {
+//             vehOnDetectorM.push_front( getNewContainerItem( veh ) );
+//         }    
 
-    void enterDetectorByEmitOrLaneChange( MSVehicle& veh )
-        {
-            vehOnDetectorM.insert( getVehContInsertIterator( veh ),
-                                   getNewContainerItem( veh ) );
-        }
+//     void enterDetectorByEmitOrLaneChange( MSVehicle& veh )
+//         {
+//             vehOnDetectorM.insert( getVehContInsertIterator( veh ),
+//                                    getNewContainerItem( veh ) );
+//         }
     
-    void leaveDetectorByMove( MSVehicle& veh )
-        {
-            vehOnDetectorM.pop_back();
-        }
+//     void leaveDetectorByMove( MSVehicle& veh )
+//         {
+//             vehOnDetectorM.pop_back();
+//         }
     
     
-    void leaveDetectorByLaneChange( MSVehicle& veh )
-        {
-            vehOnDetectorM.erase( getVehContEraseIterator( veh ) );
-        }
+//     void leaveDetectorByLaneChange( MSVehicle& veh )
+//         {
+//             vehOnDetectorM.erase( getVehContEraseIterator( veh ) );
+//         }
 
     MSUnit::IntSteps freeContainer( void )
         {

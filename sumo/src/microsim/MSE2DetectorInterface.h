@@ -40,13 +40,13 @@ public:
       
     virtual double getAggregate( MSUnit::Seconds lastNSeconds ) = 0;
 
-    virtual void enterDetectorByMove( MSVehicle& ) = 0;
-    
-    virtual void leaveDetectorByMove( MSVehicle& ) = 0;
+//     virtual void enterDetectorByMove( MSVehicle& ) = 0;
+        
+//     virtual void leaveDetectorByMove( MSVehicle& ) = 0;
 
-    virtual void leaveDetectorByLaneChange( MSVehicle& ) = 0;
+//     virtual void leaveDetectorByLaneChange( MSVehicle& ) = 0;
 
-    virtual void enterDetectorByEmitOrLaneChange( MSVehicle& ) = 0;
+//     virtual void enterDetectorByEmitOrLaneChange( MSVehicle& ) = 0;
 
     
 protected:
