@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/04/14 08:24:57  dkrajzew
+// unneeded display switch and zooming option removed; new glo-objct concept implemented; comments added
+//
 // Revision 1.10  2003/04/07 10:15:16  dkrajzew
 // glut reinserted
 //
@@ -446,7 +449,7 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
             GUIGlObject *object = _net._idStorage.getObjectBlocking(idMax);
             _toolTip->setObjectTip(object, _mouseX, _mouseY);
             if(object!=0) {
-                _net._idStorage.unblockObject();
+                _net._idStorage.unblockObject(idMax);
             }
             GUINet::unlockAlloc();
         } else {

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/04/14 08:24:57  dkrajzew
+// unneeded display switch and zooming option removed; new glo-objct concept implemented; comments added
+//
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
@@ -163,8 +166,8 @@ private:
     /// the view used
     GUIViewTraffic *_view;
 
-    /// toolbars (settings, view, tracking)
-    QToolBar *_settingsTools, *_viewTools, *_trackingTools;
+    /// toolbars (view, tracking)
+    QToolBar *_viewTools, *_trackingTools;
 
     /// view-toolbar toggle buttons
     QGUIToggleButton *_showLegendToggle, *_allowRotationToggle;

@@ -1,10 +1,12 @@
 #include <string>
 #include "GUIGlObject.h"
+#include "GUIGlObjectStorage.h"
 
-
-GUIGlObject::GUIGlObject(std::string fullName)
+GUIGlObject::GUIGlObject(GUIGlObjectStorage &idStorage,
+                         std::string fullName)
     : myFullName(fullName)
 {
+    idStorage.registerObject(this);
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/04/14 08:24:56  dkrajzew
+// unneeded display switch and zooming option removed; new glo-objct concept implemented; comments added
+//
 // Revision 1.4  2003/03/20 16:17:52  dkrajzew
 // windows eol removed
 //
@@ -90,13 +93,12 @@ using namespace std;
 GUISUMOView::GUISUMOView( QWidget* parent, const char* name, int wflags,
                          GUINet &net )
     : QMainWindow( parent, name, wflags ), _zoomingFactor(100),
-    _view(0), _settingsTools(0), _viewTools(0), _trackingTools(0),
+    _view(0), _viewTools(0), _trackingTools(0),
     _showLegendToggle(0), _allowRotationToggle(0),
     _behaviourToggle1(0), _behaviourToggle2(0), _behaviourToggle3(0),
     _showLegend(true), _allowRotation(false), _chooser(0)
 {
     // build the tool bar
-    buildSettingTools();
     buildViewTools();
     buildTrackingTools();
     // set the size
@@ -111,22 +113,6 @@ GUISUMOView::GUISUMOView( QWidget* parent, const char* name, int wflags,
 
 GUISUMOView::~GUISUMOView()
 {
-}
-
-
-void
-GUISUMOView::buildSettingTools()
-{
-    // build the tooolbar
-    _settingsTools = new QToolBar( this, "window settings" );
-    addToolBar( _settingsTools, tr( "Window Settings" ), Top, TRUE );
-    // add the type-of-display - combobox
-    QComboBox *combo = new QComboBox(_settingsTools, "view type");
-    combo->insertItem(QString("Traffic view"));
-    // add the zooming spin box
-    QSpinBox *spin = new QSpinBox(1, 100, 1, _settingsTools, "zooming factor");
-    spin->setValue(100);
-    // !!! add "what's this"
 }
 
 
@@ -213,7 +199,9 @@ GUISUMOView::setZoomingFactor(double val)
 void
 GUISUMOView::chooseJunction()
 {
+	GUINet::lockAlloc();
     vector<string> names = MSJunction::getNames();
+	GUINet::unlockAlloc();
     showValues(GUIChooser::CHOOSEABLE_ARTIFACT_JUNCTIONS, names);
 }
 
@@ -221,7 +209,9 @@ GUISUMOView::chooseJunction()
 void
 GUISUMOView::chooseEdge()
 {
+	GUINet::lockAlloc();
     vector<string> names = GUIEdge::getNames();
+	GUINet::unlockAlloc();
     showValues(GUIChooser::CHOOSEABLE_ARTIFACT_EDGES, names);
 }
 
@@ -229,7 +219,9 @@ GUISUMOView::chooseEdge()
 void
 GUISUMOView::chooseVehicle()
 {
+	GUINet::lockAlloc();
     vector<string> names = GUIVehicle::getNames();
+	GUINet::unlockAlloc();
     showValues(GUIChooser::CHOOSEABLE_ARTIFACT_VEHICLES, names);
 }
 
@@ -238,7 +230,9 @@ void
 GUISUMOView::showValues(GUIChooser::ChooseableArtifact type,
                         std::vector<std::string> &names)
 {
+	GUINet::lockAlloc();
     GUIChooser *chooser = new GUIChooser(this, type, names);
+	GUINet::unlockAlloc();
     chooser->show();
 }
 
