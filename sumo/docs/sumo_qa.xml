@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
+<chapter>
+  <title>Questions and Answers</title>
+
+  <sect1>
+    <title>Building</title>
+
+    <sect2>
+      <title>Using Windows and MSVC++</title>
+
+      <sect3>
+        <title>moc-files not found</title>
+
+        <para><emphasis>Question: </emphasis>For the GUI project I didn’t find
+        files such as &#34;moc_GUIApplicationWindow.cpp&#34; (there are seven
+        files beginning with “moc_” ). If I delete them, I have some link
+        errors like : error LNK2001: unresolved external symbol
+        &#34;protected: virtual void __thiscall
+        GUIApplicationWindow::initMetaObject(void)&#34;
+        (?initMetaObject@GUIApplicationWindow@@MAEXXZ)</para>
+
+        <para>Do you have any suggestions to resolve this problem ? </para>
+
+        <para><emphasis>Answer:</emphasis> Yes, those files are used by the
+        Qt-library (www.troll-tech.com) and are build automatically. If you
+        take a look into the project settings (MSVC++:
+        project-&#62;settings-&#62;gui) and open the file browser within this
+        window, some .h-files have another icon. If you click on one of these
+        and choose the &#34;user defined building&#34; (I do not exactly know
+        how it is called in english), you will see some additional program
+        calls.</para>
+
+        <para>To build the gui, you have to install Qt2.3 which includes some
+        additional programs within a bin-folder, automatically installed. Set
+        the environment variable &#34;QTDIR&#34; to the folder you have
+        installed Qt into (not to the bin-folder as you may see from the calls
+        within the project). This should let MSVC++ build the moc*-files
+        first. </para>
+      </sect3>
+    </sect2>
+  </sect1>
+</chapter>
