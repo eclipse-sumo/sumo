@@ -54,14 +54,15 @@ NBNetBuilder::buildLoaded()
 
 
 void
-NBNetBuilder::inform(int step, const std::string &about)
+NBNetBuilder::inform(int &step, const std::string &about)
 {
     WRITE_MESSAGE(string("Computing step ") + toString<int>(step)+ string(": ") + about);
+    step++;
 }
 
 
 bool
-NBNetBuilder::removeDummyEdges(int step)
+NBNetBuilder::removeDummyEdges(int &step)
 {
     // Removes edges that are connecting the same node
     inform(step, "Removing dummy edges ");
@@ -70,7 +71,7 @@ NBNetBuilder::removeDummyEdges(int step)
 
 
 bool
-NBNetBuilder::joinEdges(int step)
+NBNetBuilder::joinEdges(int &step)
 {
     inform(step, "Joining double connections");
     return NBNodeCont::recheckEdges();
@@ -78,7 +79,7 @@ NBNetBuilder::joinEdges(int step)
 
 
 bool
-NBNetBuilder::removeUnwishedNodes(int step, OptionsCont &oc)
+NBNetBuilder::removeUnwishedNodes(int &step, OptionsCont &oc)
 {
     if(oc.getBool("no-node-removal")) {
         return true;
@@ -89,7 +90,18 @@ NBNetBuilder::removeUnwishedNodes(int step, OptionsCont &oc)
 
 
 bool
-NBNetBuilder::guessTLs(int step, OptionsCont &oc)
+NBNetBuilder::removeUnwishedEdges(int &step, OptionsCont &oc)
+{
+    if(!OptionsSubSys::getOptions().isSet("keep-edges")) {
+        return true;
+    }
+    inform(step, "Removing unwished edges.");
+    return NBEdgeCont::removeUnwishedEdges(oc);
+}
+
+
+bool
+NBNetBuilder::guessTLs(int &step, OptionsCont &oc)
 {
     inform(step, "Guessing and setting TLs");
     if(oc.isSet("explicite-tls")) {
@@ -103,7 +115,7 @@ NBNetBuilder::guessTLs(int step, OptionsCont &oc)
 
 
 bool
-NBNetBuilder::computeTurningDirections(int step)
+NBNetBuilder::computeTurningDirections(int &step)
 {
     inform(step, "Computing turning directions");
     return NBEdgeCont::computeTurningDirections();
@@ -111,7 +123,7 @@ NBNetBuilder::computeTurningDirections(int step)
 
 
 bool
-NBNetBuilder::sortNodesEdges(int step)
+NBNetBuilder::sortNodesEdges(int &step)
 {
     inform(step, "Sorting nodes' edges");
     return NBNodeCont::sortNodesEdges();
@@ -119,7 +131,7 @@ NBNetBuilder::sortNodesEdges(int step)
 
 
 bool
-NBNetBuilder::normaliseNodePositions(int step)
+NBNetBuilder::normaliseNodePositions(int &step)
 {
     inform(step, "Normalising node positions");
     bool ok = NBNodeCont::normaliseNodePositions();
@@ -131,7 +143,7 @@ NBNetBuilder::normaliseNodePositions(int step)
 
 
 bool
-NBNetBuilder::computeEdge2Edges(int step)
+NBNetBuilder::computeEdge2Edges(int &step)
 {
     inform(step, "Computing Approached Edges");
     return NBEdgeCont::computeEdge2Edges();
@@ -139,7 +151,7 @@ NBNetBuilder::computeEdge2Edges(int step)
 
 
 bool
-NBNetBuilder::computeLanes2Edges(int step)
+NBNetBuilder::computeLanes2Edges(int &step)
 {
     inform(step, "Computing Approaching Lanes");
     return NBEdgeCont::computeLanes2Edges();
@@ -147,7 +159,7 @@ NBNetBuilder::computeLanes2Edges(int step)
 
 
 bool
-NBNetBuilder::computeLanes2Lanes(int step)
+NBNetBuilder::computeLanes2Lanes(int &step)
 {
     inform(step, "Dividing of Lanes on Approached Lanes");
     bool ok = NBNodeCont::computeLanes2Lanes();
@@ -158,7 +170,7 @@ NBNetBuilder::computeLanes2Lanes(int step)
 }
 
 bool
-NBNetBuilder::recheckLanes(int step)
+NBNetBuilder::recheckLanes(int &step)
 {
     inform(step, "Rechecking of lane endings");
     return NBEdgeCont::recheckLanes();
@@ -166,7 +178,7 @@ NBNetBuilder::recheckLanes(int step)
 
 
 bool
-NBNetBuilder::computeNodeShapes(int step)
+NBNetBuilder::computeNodeShapes(int &step)
 {
     inform(step, "Computing node shapes");
     return NBNodeCont::computeNodeShapes();
@@ -174,7 +186,7 @@ NBNetBuilder::computeNodeShapes(int step)
 
 
 bool
-NBNetBuilder::computeEdgeShapes(int step)
+NBNetBuilder::computeEdgeShapes(int &step)
 {
     inform(step, "Computing edge shapes");
     return NBEdgeCont::computeEdgeShapes();
@@ -194,7 +206,7 @@ computeLinkPriorities(int step, bool verbose)
 */
 
 bool
-NBNetBuilder::appendTurnarounds(int step, OptionsCont &oc)
+NBNetBuilder::appendTurnarounds(int &step, OptionsCont &oc)
 {
     if(!oc.getBool("append-turnarounds")) {
         return true;
@@ -205,7 +217,7 @@ NBNetBuilder::appendTurnarounds(int step, OptionsCont &oc)
 
 
 bool
-NBNetBuilder::setTLControllingInformation(int step)
+NBNetBuilder::setTLControllingInformation(int &step)
 {
     inform(step, "Computing node logics");
     return NBTrafficLightLogicCont::setTLControllingInformation();
@@ -213,7 +225,7 @@ NBNetBuilder::setTLControllingInformation(int step)
 
 
 bool
-NBNetBuilder::computeLogic(int step, OptionsCont &oc)
+NBNetBuilder::computeLogic(int &step, OptionsCont &oc)
 {
     inform(step, "Computing node logics");
     return NBNodeCont::computeLogics(oc);
@@ -221,7 +233,7 @@ NBNetBuilder::computeLogic(int step, OptionsCont &oc)
 
 
 bool
-NBNetBuilder::computeTLLogic(int step, OptionsCont &oc)
+NBNetBuilder::computeTLLogic(int &step, OptionsCont &oc)
 {
     inform(step, "Computing traffic light logics");
     return NBTrafficLightLogicCont::computeLogics(oc);
@@ -229,12 +241,12 @@ NBNetBuilder::computeTLLogic(int step, OptionsCont &oc)
 
 
 bool
-NBNetBuilder::reshiftRotateNet(int step, OptionsCont &oc)
+NBNetBuilder::reshiftRotateNet(int &step, OptionsCont &oc)
 {
     if(oc.isDefault("x-offset-to-apply")) {
         return true;
     }
-    inform(-1, "Transposing network");
+    inform(step, "Transposing network");
     double xoff = oc.getFloat("x-offset-to-apply");
     double yoff = oc.getFloat("y-offset-to-apply");
     double rot = oc.getFloat("rotation-to-apply");
@@ -256,27 +268,31 @@ NBNetBuilder::compute(OptionsCont &oc)
     int step = 1;
 //    if(ok) ok = setInit(step++);
     //
-    if(ok) ok = removeDummyEdges(step++);
+    if(ok) ok = removeDummyEdges(step);
     gJoinedEdges.init(NBEdgeCont::getAllNames());
-    if(ok) ok = joinEdges(step++);
-    if(ok) ok = removeUnwishedNodes(step++, oc);
-    if(ok) ok = guessTLs(step++, oc);
-    if(ok) ok = computeTurningDirections(step++);
-    if(ok) ok = sortNodesEdges(step++);
-    if(ok) ok = normaliseNodePositions(step++);
-    if(ok) ok = computeEdge2Edges(step++);
-    if(ok) ok = computeLanes2Edges(step++);
-    if(ok) ok = computeLanes2Lanes(step++);
-    if(ok) ok = appendTurnarounds(step++, oc);
-    if(ok) ok = recheckLanes(step++);
-    if(ok) ok = computeNodeShapes(step++);
-    if(ok) ok = computeEdgeShapes(step++);
+    if(ok) ok = joinEdges(step);
+    if(ok) ok = removeUnwishedNodes(step, oc);
+    if(ok&&oc.getBool("keep-edges.postload")) {
+        if(ok) ok = removeUnwishedEdges(step, oc);
+        if(ok) ok = removeUnwishedNodes(step, oc);
+    }
+    if(ok) ok = guessTLs(step, oc);
+    if(ok) ok = computeTurningDirections(step);
+    if(ok) ok = sortNodesEdges(step);
+    if(ok) ok = normaliseNodePositions(step);
+    if(ok) ok = computeEdge2Edges(step);
+    if(ok) ok = computeLanes2Edges(step);
+    if(ok) ok = computeLanes2Lanes(step);
+    if(ok) ok = appendTurnarounds(step, oc);
+    if(ok) ok = recheckLanes(step);
+    if(ok) ok = computeNodeShapes(step);
+    if(ok) ok = computeEdgeShapes(step);
 //    if(ok) ok = computeLinkPriorities(step++);
-    if(ok) ok = setTLControllingInformation(step++);
-    if(ok) ok = computeLogic(step++, oc);
-    if(ok) ok = computeTLLogic(step++, oc);
+    if(ok) ok = setTLControllingInformation(step);
+    if(ok) ok = computeLogic(step, oc);
+    if(ok) ok = computeTLLogic(step, oc);
 
-    if(ok) ok = reshiftRotateNet(step++, oc);
+    if(ok) ok = reshiftRotateNet(step, oc);
 
     NBNode::reportBuild();
     NBRequest::reportWarnings();
@@ -420,6 +436,9 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("explicite-tls", new Option_String());
     oc.doRegister("explicite-no-tls", new Option_String());
     oc.doRegister("edges-min-speed", new Option_Float());
+    oc.doRegister("keep-edges", new Option_String());
+    oc.doRegister("keep-edges.input-file", new Option_FileName());
+    oc.doRegister("keep-edges.postload", new Option_Bool());
 
     oc.doRegister("plain-output", new Option_FileName());
 
@@ -427,5 +446,33 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
 
 }
 
+
+
+void
+NBNetBuilder::preCheckOptions(OptionsCont &oc)
+{
+    // we possibly have to load the edges to keep
+    if(oc.isSet("keep-edges.input-file")) {
+        ifstream strm(oc.getString("keep-edges.input-file").c_str());
+        if(!strm.good()) {
+            MsgHandler::getErrorInstance()->inform(
+                "Could not load names of edges too keep from '"
+                + oc.getString("keep-edges.input-file") + "'.");
+            throw ProcessError();
+        }
+        std::ostringstream oss;
+        bool first = true;
+        while(strm.good()) {
+            if(!first) {
+                oss << ';';
+            }
+            string name;
+            strm >> name;
+            oss << name;
+            first = false;
+        }
+        oc.set("keep-edges", oss.str());
+    }
+}
 
 

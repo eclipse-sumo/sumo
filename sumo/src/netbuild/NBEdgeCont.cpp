@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2004/12/16 12:16:30  dkrajzew
+// a further network prune option added
+//
 // Revision 1.29  2004/11/23 10:21:41  dkrajzew
 // debugging
 //
@@ -166,6 +169,7 @@ namespace
 #include <cmath>
 #include "NBTypeCont.h"
 #include <iostream>
+#include <utils/common/StringTokenizer.h>
 //#include <strstream>
 
 
@@ -209,6 +213,25 @@ NBEdgeCont::insert(NBEdge *edge)
     }
     if(OptionsSubSys::getOptions().isSet("edges-min-speed")) {
         if(edge->getSpeed()<OptionsSubSys::getOptions().getFloat("edges-min-speed")) {
+            edge->getFromNode()->removeOutgoing(edge);
+            edge->getToNode()->removeIncoming(edge);
+            delete edge;
+            return true;
+        }
+    }
+    if( !OptionsSubSys::getOptions().isSet("keep-edges.postload")
+        &&
+        OptionsSubSys::getOptions().isSet("keep-edges")) {
+
+        string id = edge->getID();
+        StringTokenizer st(OptionsSubSys::getOptions().getString("keep-edges"), ";");
+        bool found = false;
+        while(st.hasNext()&&!found) {
+            if(st.next()==id) {
+                found = true;
+            }
+        }
+        if(!found) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             delete edge;
@@ -777,6 +800,33 @@ NBEdgeCont::savePlain(const std::string &file)
     }
     res << "</edges>" << endl;
     return res.good();
+}
+
+
+bool
+NBEdgeCont::removeUnwishedEdges(OptionsCont &oc)
+{
+    //
+    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); ) {
+        NBEdge *edge = (*i).second;
+        string id = edge->getID();
+        StringTokenizer st(OptionsSubSys::getOptions().getString("keep-edges"), ";");
+        bool found = false;
+        while(st.hasNext()&&!found) {
+            if(st.next()==id) {
+                found = true;
+            }
+        }
+        if(!found) {
+            edge->getFromNode()->removeOutgoing(edge);
+            edge->getToNode()->removeIncoming(edge);
+            delete edge;
+            i = _edges.erase(i);
+        } else {
+            ++i;
+        }
+    }
+    return true;
 }
 
 

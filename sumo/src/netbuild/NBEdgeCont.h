@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.19  2004/12/16 12:16:30  dkrajzew
+// a further network prune option added
+//
 // Revision 1.18  2004/08/02 13:11:39  dkrajzew
 // made some deprovements or so
 //
@@ -132,6 +135,7 @@ class NBSection;
 class NBNodeCont;
 class NBEdge;
 class NBNode;
+class OptionsCont;
 
 
 /* =========================================================================
@@ -240,6 +244,9 @@ public:
     static std::vector<std::string> getAllNames();
 
     static bool savePlain(const std::string &file);
+
+    static bool removeUnwishedEdges(OptionsCont &oc);
+
 private:
     static std::vector<std::string> buildPossibilities(
         const std::vector<std::string> &s);

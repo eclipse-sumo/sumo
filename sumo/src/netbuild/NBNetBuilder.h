@@ -11,6 +11,8 @@ public:
     ~NBNetBuilder();
     void buildLoaded();
     static void insertNetBuildOptions(OptionsCont &oc);
+    static void preCheckOptions(OptionsCont &oc);
+
 protected:
     /**
      * @brief computes the structures
@@ -21,60 +23,61 @@ protected:
     /** saves the net (not the junction logics) */
     bool save(std::string path, OptionsCont &oc);
 
-    void inform(int step, const std::string &about);
+    void inform(int &step, const std::string &about);
 
 
     /** removes dummy edges from junctions */
-    bool removeDummyEdges(int step);
+    bool removeDummyEdges(int &step);
 
     /** joins edges which connect the same nodes */
-    bool joinEdges(int step);
+    bool joinEdges(int &step);
 
-    bool removeUnwishedNodes(int step, OptionsCont &oc);
+    bool removeUnwishedNodes(int &step, OptionsCont &oc);
+    bool removeUnwishedEdges(int &step, OptionsCont &oc);
 
-    bool guessTLs(int step, OptionsCont &oc);
+    bool guessTLs(int &step, OptionsCont &oc);
 
     /** computes the turning direction for each edge */
-    bool computeTurningDirections(int step);
+    bool computeTurningDirections(int &step);
 
     /** sorts the edges of a node */
-    bool sortNodesEdges(int step);
+    bool sortNodesEdges(int &step);
 
     /** sets the node positions in a way that nodes are lying at zero */
-    bool normaliseNodePositions(int step);
+    bool normaliseNodePositions(int &step);
 
     /** computes edges 2 edges - relationships
         (step1: computation of approached edges) */
-    bool computeEdge2Edges(int step);
+    bool computeEdge2Edges(int &step);
 
     /** computes edges 2 edges - relationships
         (step2: computation of which lanes approach the edges) */
-    bool computeLanes2Edges(int step);
+    bool computeLanes2Edges(int &step);
 
     /** computes edges 2 edges - relationships
         (step3: division of lanes to approached edges) */
-    bool computeLanes2Lanes(int step);
+    bool computeLanes2Lanes(int &step);
 
     /** rechecks whether all lanes have a following lane/edge */
-    bool recheckLanes(int step);
+    bool recheckLanes(int &step);
 
     void initJoinedEdgesInformation();
 
-    bool computeNodeShapes(int step);
-    bool computeEdgeShapes(int step);
+    bool computeNodeShapes(int &step);
+    bool computeEdgeShapes(int &step);
 
-    bool setTLControllingInformation(int step);
+    bool setTLControllingInformation(int &step);
 
     /** appends the turnarounds */
-    bool appendTurnarounds(int step, OptionsCont &oc);
+    bool appendTurnarounds(int &step, OptionsCont &oc);
 
     /** computes nodes' logics */
-    bool computeLogic(int step, OptionsCont &oc);
+    bool computeLogic(int &step, OptionsCont &oc);
 
     /** computes nodes' tl-logics */
-    bool computeTLLogic(int step, OptionsCont &oc);
+    bool computeTLLogic(int &step, OptionsCont &oc);
 
-    bool reshiftRotateNet(int step, OptionsCont &oc);
+    bool reshiftRotateNet(int &step, OptionsCont &oc);
 
     void checkPrint(OptionsCont &oc) ;
 

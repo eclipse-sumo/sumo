@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2004/12/16 12:17:29  dkrajzew
+// a further network prune option added
+//
 // Revision 1.23  2004/11/23 10:43:28  dkrajzew
 // debugging
 //
@@ -227,6 +230,7 @@ main(int argc, char **argv)
             oc.getFloat("S"),
             oc.getInt("P"));
         // load data
+        NBNetBuilder::preCheckOptions(oc);
         NILoader::load(oc);
         // check whether any errors occured
         if(MsgHandler::getErrorInstance()->wasInformed()) {

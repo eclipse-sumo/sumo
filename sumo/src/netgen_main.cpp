@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2004/12/16 12:17:29  dkrajzew
+// a further network prune option added
+//
 // Revision 1.13  2004/11/23 10:43:29  dkrajzew
 // debugging
 //
@@ -303,6 +306,7 @@ main(int argc, char **argv)
         oc.resetWritable();
         oc.set("no-node-removal", true);
         // transfer to the netbuilding structures
+        NBNetBuilder::preCheckOptions(oc);
         net->toNB();
         delete net;
         NBNetBuilder nb;
