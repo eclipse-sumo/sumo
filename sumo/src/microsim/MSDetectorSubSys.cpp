@@ -22,6 +22,7 @@
 #include "MSDetector2File.h"
 #include "MSInductLoop.h"
 #include "MSLaneState.h"
+#include "MSUnit.h"
 
 
 void
@@ -31,7 +32,8 @@ MSDetectorSubSys::createDictionaries( void )
     LaneStateDict::create();
     LoopDict::create();
     E2ZSDict::create();
-    
+    MSUnit::create(1.0, 1.0);
+
 //     MSDetector2File<MSInductLoop>::create( 900 );
 }
 
@@ -98,5 +100,9 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
         delete E2ZSDict::getInstance();
     }
 
+    try {
+        delete MSUnit::getInstance();
+    } catch (SingletonNotCreated &) {
+    }
 }
 
