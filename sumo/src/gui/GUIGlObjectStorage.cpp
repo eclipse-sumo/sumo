@@ -9,6 +9,7 @@ using namespace std; // !!! debug only
 
 
 GUIGlObjectStorage::GUIGlObjectStorage()
+    : myAktID(0)
 {
 }
 
@@ -34,6 +35,12 @@ GUIGlObjectStorage::getObjectBlocking(size_t id)
     _lock.lock();
     ObjectMap::iterator i=myMap.find(id);
     if(i==myMap.end()) {
+        i = myBlocked.find(id);
+        if(i!=myBlocked.end()) {
+            GUIGlObject *o = (*i).second;
+            _lock.unlock();
+            return o;
+        }
         _lock.unlock();
         return 0;
     }

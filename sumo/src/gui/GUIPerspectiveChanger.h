@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/05/20 09:23:54  dkrajzew
+// some statistics added; some debugging done
+//
 // Revision 1.4  2003/04/04 08:37:50  dkrajzew
 // view centering now applies net size; closing problems debugged; comments added; tootip button added
 //
@@ -44,7 +47,7 @@
  * class declarations
  * ======================================================================= */
 class QMouseEvent;
-class GUIViewTraffic;
+class GUISUMOAbstractView;
 class Position2D;
 class Boundery;
 
@@ -64,7 +67,7 @@ class Boundery;
 class GUIPerspectiveChanger {
 public:
     /// Constructor
-    GUIPerspectiveChanger(GUIViewTraffic &callBack);
+    GUIPerspectiveChanger(GUISUMOAbstractView &callBack);
 
     /// Destructor
     virtual ~GUIPerspectiveChanger();
@@ -125,7 +128,7 @@ public:
 
 protected:
     /// The parent window (canvas to scale)
-    GUIViewTraffic &_callback;
+    GUISUMOAbstractView &_callback;
 
     /// Information whether the view has changed
     bool _changed;

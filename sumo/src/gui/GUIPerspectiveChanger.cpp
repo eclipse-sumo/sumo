@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/05/20 09:23:54  dkrajzew
+// some statistics added; some debugging done
+//
 // Revision 1.3  2003/04/04 08:37:50  dkrajzew
 // view centering now applies net size; closing problems debugged; comments added; tootip button added
 //
@@ -40,7 +43,7 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 #include <qevent.h>
-#include "GUIViewTraffic.h"
+#include "GUISUMOAbstractView.h"
 #include "GUIPerspectiveChanger.h"
 
 
@@ -48,7 +51,7 @@ namespace
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIPerspectiveChanger::GUIPerspectiveChanger(GUIViewTraffic &callBack)
+GUIPerspectiveChanger::GUIPerspectiveChanger(GUISUMOAbstractView &callBack)
     : _callback(callBack), _changed(true)
 {
 }

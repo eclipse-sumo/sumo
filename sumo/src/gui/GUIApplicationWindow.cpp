@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/05/20 09:23:53  dkrajzew
+// some statistics added; some debugging done
+//
 // Revision 1.7  2003/04/16 10:12:11  dkrajzew
 // fontrendeder removed temporarily
 //
@@ -50,7 +53,7 @@ namespace
 
 #include <string>
 #include <sstream>
-
+#include <algorithm>
 #include <qpixmap.h>
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
@@ -74,7 +77,7 @@ namespace
 #include <utils/convert/ToString.h>
 #include <version.cpp>
 
-#include "GUISUMOView.h"
+#include "GUISUMOViewParent.h"
 #include "GUILoadThread.h"
 #include "GUIRunThread.h"
 #include "GUIApplicationWindow.h"
@@ -126,10 +129,16 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight)
 {
     // build additional threads
     _loadThread = new GUILoadThread(this);
-    _runThread = new GUIRunThread(this, 5);
+    _runThread = new GUIRunThread(this, 1);
 
     // initialise font drawing
-//    myFonts.LoadFont("std", "d:\\projects\\sumo\\sumo\\data\\fonts\\sumo.fnt");
+    myFonts.add("std", ".\\fonts\\arial11.fnt");
+    myFonts.add("std", ".\\fonts\\arial10.fnt");
+    myFonts.add("std", ".\\fonts\\arial9.fnt");
+    myFonts.add("std", ".\\fonts\\arial8.fnt");
+    myFonts.add("std", ".\\fonts\\arial7.fnt");
+    myFonts.add("std", ".\\fonts\\arial6.fnt");
+    myFonts.add("std", ".\\fonts\\arial5.fnt");
 
     // build tool bars
     buildFileTools();
@@ -321,7 +330,7 @@ GUIApplicationWindow::openNewWindow()
         statusBar()->message( "No simulation loaded!", 2000 );
         return;
     }
-    GUISUMOView* w = new GUISUMOView( ws, 0, WDestructiveClose,
+    GUISUMOViewParent* w = new GUISUMOViewParent( ws, 0, WDestructiveClose,
         _runThread->getNet(), this );
     connect( w, SIGNAL( message(const QString&, int) ), statusBar(), SLOT( message(const QString&, int )) );
     string caption = string("View #") + toString(myViewNumber++);
@@ -404,10 +413,10 @@ GUIApplicationWindow::singleStep()
 
 void GUIApplicationWindow::closeAllWindows()
 {
-    GUISUMOView* m = (GUISUMOView*)ws->activeWindow();
+    GUISUMOViewParent* m = (GUISUMOViewParent*)ws->activeWindow();
     while(m) {
     	m->close();
-        m = (GUISUMOView*)ws->activeWindow();
+        m = (GUISUMOViewParent*)ws->activeWindow();
     }
     _runThread->deleteSim();
     resetSimulationToolBar();
@@ -473,16 +482,21 @@ GUIApplicationWindow::event(QEvent *e)
     switch(ownEvent->getOwnType()) {
     case EVENT_SIMULATION_STEP:
         {
+            // inform views
             QWidgetList windows = ws->windowList();
-			GUINet::lockAlloc();
-            for ( int i = 0; i < int(windows.count()); ++i ) {
+            int i;
+            for ( i = 0; i < int(windows.count()); ++i ) {
                 QApplication::postEvent( windows.at(i),
+                    new QSimulationStepEvent());
+            }
+            // inform other windows
+            for(i=0; i<mySubWindows.size(); i++) {
+                QApplication::postEvent( mySubWindows[i],
                     new QSimulationStepEvent());
             }
             ostringstream str;
             str << _runThread->getCurrentTimeStep();
             _simStepLabel->setText(QString(str.str().c_str()));
-			GUINet::unlockAlloc();
         }
         return TRUE;
     case EVENT_SIMULATION_LOADED:
@@ -525,6 +539,23 @@ int
 GUIApplicationWindow::getMaxGLHeight() const
 {
     return myGLHeight;
+}
+
+
+void
+GUIApplicationWindow::addChild(QWidget *child,
+                               bool updateOnSimStep)
+{
+    mySubWindows.push_back(child);
+}
+
+
+void
+GUIApplicationWindow::removeChild(QWidget *child)
+{
+    std::vector<QWidget*>::iterator i =
+        std::find(mySubWindows.begin(), mySubWindows.end(), child);
+    mySubWindows.erase(i);
 }
 
 

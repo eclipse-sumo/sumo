@@ -5,7 +5,7 @@
 #include <qnamespace.h>
 #include <utils/qutils/NewQMutex.h>
 #include "GUIGlObjectStorage.h"
-#include "GUIViewTraffic.h"
+#include "GUISUMOAbstractView.h"
 #include "GUIGlObject.h"
 #include <guisim/GUINet.h>
 #include <qfontmetrics.h>
@@ -13,7 +13,7 @@
 
 using namespace std;
 
-QGLObjectToolTip::QGLObjectToolTip(GUIViewTraffic *parent)
+QGLObjectToolTip::QGLObjectToolTip(GUISUMOAbstractView *parent)
     : QDialog(parent, 0, FALSE,
     Qt::WType_TopLevel | Qt::WStyle_Customize | Qt::WStyle_NoBorder
     | Qt::WStyle_Tool ),

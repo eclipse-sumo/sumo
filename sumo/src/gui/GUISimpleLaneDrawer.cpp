@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/05/20 09:23:54  dkrajzew
+// some statistics added; some debugging done
+//
 // Revision 1.6  2003/04/07 10:15:11  dkrajzew
 // glut reinserted
 //
@@ -62,6 +65,12 @@ namespace
 #ifdef WIN32
 #include <glut.h>
 #endif
+
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
 
 
 /* =========================================================================

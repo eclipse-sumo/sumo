@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/05/20 09:23:54  dkrajzew
+// some statistics added; some debugging done
+//
 // Revision 1.12  2003/04/16 09:50:04  dkrajzew
 // centering of the network debugged; additional parameter of maximum display size added
 //
@@ -81,17 +84,19 @@ namespace
 #include <qdialog.h>
 #include <qcombobox.h>
 #include <qpixmap.h>
+#include <qcursor.h>
+#include <qpopupmenu.h>
 #include <utils/gfx/RGBColor.h>
 #include "QGUIToggleButton.h"
 #include "QGUIImageField.h"
 #include "QGLObjectToolTip.h"
 #include "GUIChooser.h"
-#include "GUISUMOView.h"
+#include "GUISUMOViewParent.h"
 #include "GUITriangleVehicleDrawer.h"
 #include "GUISimpleLaneDrawer.h"
 #include "GUIDanielPerspectiveChanger.h"
 #include "GUIViewTraffic.h"
-#include <qcursor.h>
+#include "GUIApplicationWindow.h"
 
 #include "icons/view_traffic/colour_lane.xpm"
 #include "icons/view_traffic/colour_vehicle.xpm"
@@ -113,33 +118,15 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIViewTraffic::GUIViewTraffic(GUISUMOView *parent, GUINet &net)
-    : QGLWidget(parent, ""), _parent(parent), _net(net),
+GUIViewTraffic::GUIViewTraffic(GUIApplicationWindow *app,
+                               GUISUMOViewParent *parent,
+                               GUINet &net)
+    : GUISUMOAbstractView(app, parent, net),
     _vehicleDrawer(new GUITriangleVehicleDrawer()),
     _laneDrawer(new GUISimpleLaneDrawer()),
     _vehicleColScheme(VCS_BY_SPEED), _laneColScheme(LCS_BLACK),
-    _showGrid(false),
-    _changer(0),
-    _useToolTips(false),
-    _noDrawing(0),
-    _mouseHotspotX(cursor().hotSpot().x()),
-    _mouseHotspotY(cursor().hotSpot().y())
+    myTrackedID(-1), myFontsLoaded(false)
 {
-    // set window sizes
-    setMinimumSize(100, 30);
-    setBaseSize(_parent->getMaxGLWidth(), _parent->getMaxGLHeight());
-    setMaximumSize(_parent->getMaxGLWidth(), _parent->getMaxGLHeight());
-    // compute the net scale
-    double nw = _net.getBoundery().getWidth();
-    double nh = _net.getBoundery().getHeight();
-    _netScale = (nw < nh ? nh : nw);
-    // compute the center
-    std::pair<double, double> center = _net.getBoundery().getCenter();
-    // show the middle at the beginning
-    _changer = new GUIDanielPerspectiveChanger(*this);
-    _changer->setNetSizes(nw, nh);
-    _toolTip = new QGLObjectToolTip(this);
-    setMouseTracking(true);
 }
 
 
@@ -149,7 +136,7 @@ GUIViewTraffic::~GUIViewTraffic()
 
 
 void
-GUIViewTraffic::buildViewToolBars(GUISUMOView &v)
+GUIViewTraffic::buildViewToolBars(GUISUMOViewParent &v)
 {
     // build coloring tools
     QToolBar *_coloringTools = new QToolBar( &v, "view settings" );
@@ -255,198 +242,26 @@ GUIViewTraffic::changeLaneColoringScheme(int index)
 
 
 void
-GUIViewTraffic::toggleShowGrid()
-{
-    _showGrid = !_showGrid;
-    update();
-}
-
-void
-GUIViewTraffic::toggleToolTips()
-{
-    _useToolTips = !_useToolTips;
-    update();
-}
-
-
-
-void
-GUIViewTraffic::mouseMoveEvent ( QMouseEvent *e )
-{
-    _changer->mouseMoveEvent(e);
-}
-
-
-void
-GUIViewTraffic::mousePressEvent ( QMouseEvent *e )
-{
-    if(_useToolTips) {
-        _toolTip->hide();
-    }
-    _changer->mousePressEvent(e);
-}
-
-
-void
-GUIViewTraffic::mouseReleaseEvent ( QMouseEvent *e )
-{
-    if(_useToolTips) {
-        _toolTip->hide();
-    }
-    _changer->mouseReleaseEvent(e);
-}
-
-void
-GUIViewTraffic::initializeGL()
-{
-    _lock.lock();
-	GUINet::lockAlloc();
-    _widthInPixels = _parent->getMaxGLWidth();
-    _heightInPixels = _parent->getMaxGLHeight();
-    _ratio = (double) _widthInPixels / (double) _heightInPixels;
-/*    int h =  _parent->getMaxGLWidth() > _parent->getMaxGLHeight()
-        ? _parent->getMaxGLWidth()
-        : _parent->getMaxGLHeight();*/
-    glViewport( 0, 0, _parent->getMaxGLWidth()-1, _parent->getMaxGLHeight()-1 );
-    glClearColor( 1.0, 1.0, 1.0, 0.0 );
-    glDisable( GL_DEPTH_TEST );
-    glDisable( GL_LIGHTING );
-    glDisable(GL_LINE_SMOOTH);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    _changer->otherChange();
-	GUINet::unlockAlloc();
-    _lock.unlock();
-}
-
-
-void
-GUIViewTraffic::resizeGL( int width, int height )
-{
-    _lock.lock();
-    _widthInPixels = width;
-    _heightInPixels = height;
-//    _ratio = (double) _widthInPixels / (double) _heightInPixels;
-    _changer->applyCanvasSize(width, height);
-    _lock.unlock();
-}
-
-
-void
-GUIViewTraffic::updateToolTip()
-{
-    if(!_useToolTips) {
-        return;
-    }
-    makeCurrent();
-    _lock.lock();
-    _noDrawing++;
-    // initialise the select mode
-    const int SENSITIVITY = 2;
-    double scale =
-        _widthInPixels / _net.getBoundery().getWidth() < _heightInPixels / _net.getBoundery().getHeight()
-        ? double(_widthInPixels)/double(SENSITIVITY)
-        : double(_heightInPixels)/double(SENSITIVITY);
-
-    applyChanges(scale, _toolTipX+_mouseHotspotX,
-        _toolTipY+_mouseHotspotY);
-    // paint in select mode
-    doPaintGL(GL_SELECT, scale);
-    glFlush();
-    swapBuffers();
-    // mark end-of-drawing
-    _noDrawing--;
-    _lock.unlock();
-}
-
-
-void
-GUIViewTraffic::paintGL()
-{
-    _lock.lock();
-    // return if the canvas is not visible
-    if(!isVisible()) {
-		_lock.unlock();
-        return;
-    }
-    _noDrawing++;
-    // ...and return when drawing is already being done
-    if(_noDrawing>1) {
-        _noDrawing--;
-        _lock.unlock();
-        return;
-    }
-    _widthInPixels = width();
-    _heightInPixels = height();
-//    _ratio = (double) _widthInPixels / (double) _heightInPixels;
-    // draw
-    glClear(GL_COLOR_BUFFER_BIT);
-    applyChanges(1.0, 0, 0);
-    doPaintGL(GL_RENDER, 1.0);
-
-    // check whether the select mode /tooltips)
-    //  shall be computed, too
-    if(!_useToolTips) {
-        _noDrawing--;
-        glFlush();
-        swapBuffers();
-        _lock.unlock();
-        return;
-    }
-
-    // initialise the select mode
-    const int SENSITIVITY = 2;
-    LaneColoringScheme tmp = _laneColScheme;
-    _laneColScheme = LCS_BY_SPEED;
-    double scale = double(getMaxGLWidth())/double(SENSITIVITY);
-/*    double scale =
-        _widthInPixels / _net.getBoundery().getWidth() < _heightInPixels / _net.getBoundery().getHeight()
-        ? double(_heightInPixels)/double(SENSITIVITY)/(double)_parent->getMaxGLHeight()*double(_heightInPixels)
-        : double(_widthInPixels)/double(SENSITIVITY)/(double)_parent->getMaxGLWidth()*double(_widthInPixels);*/
-    applyChanges(scale, _toolTipX+_mouseHotspotX,
-        _toolTipY+_mouseHotspotY);
-    // paint in select mode
-    doPaintGL(GL_SELECT, scale);
-    _laneColScheme = tmp;
-    glFlush();
-    swapBuffers();
-    // mark end-of-drawing
-    _noDrawing--;
-    _lock.unlock();
-}
-
-
-void
 GUIViewTraffic::doPaintGL(int mode, double scale)
 {
-    const int SENSITIVITY = 4;
-    const int NB_HITS_MAX = 1000;
-
-    // Prepare the selection mode
-    static GLuint hits[NB_HITS_MAX];
-    static GLint nb_hits = 0;
-
-    if(mode==GL_SELECT) {
-		GUINet::lockAlloc();
-        glSelectBuffer(NB_HITS_MAX, hits);
-        glInitNames();
-		GUINet::unlockAlloc();
-    }
-
-    glRenderMode(mode);
-    glMatrixMode( GL_MODELVIEW );
-    glPushMatrix();
     if(_showGrid) {
         paintGLGrid();
     }
+    glRenderMode(mode);
+    glMatrixMode( GL_MODELVIEW );
+    glPushMatrix();
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_ALPHA_TEST);
+    glDisable(GL_BLEND);
+    glDisable(GL_DEPTH_TEST);
+
     double x = (_net.getBoundery().getCenter().first - _changer->getXPos()); // center of view
     double xoff = 50.0 / _changer->getZoom() * _netScale
         / _addScl; // offset to right
     double y = (_net.getBoundery().getCenter().second - _changer->getYPos()); // center of view
     double yoff = 50.0 / _changer->getZoom() * _netScale
         / _addScl; // offset to top
-	GUINet::lockAlloc();
     _net._edgeGrid.get(_edges, x, y, xoff, yoff);
-	GUINet::unlockAlloc();
     paintGLEdges(_edges, scale);
 
 
@@ -463,43 +278,12 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     if(scale*m2p(3)>1) {
         paintGLVehicles(_edges);
     }
-    if(mode==GL_SELECT) {
-        // Get the results
-        nb_hits = glRenderMode(GL_RENDER);
-
-        // Interpret results
-        //  Vehicles should have a greater id
-        //  than the previously allocated lanes
-        unsigned int idMax = 0;
-        for (int i=0; i<nb_hits; ++i) {
-            assert (i*4+3<NB_HITS_MAX);
-            if (hits[i*4+3] > idMax) {
-        	    idMax = hits[i*4+3];
-                assert (i*4+3<NB_HITS_MAX);
-    	    }
-        }
-        if(idMax!=0) {
-            GUINet::lockAlloc();
-            GUIGlObject *object = _net._idStorage.getObjectBlocking(idMax);
-            _toolTip->setObjectTip(object, _mouseX, _mouseY);
-            if(object!=0) {
-                _net._idStorage.unblockObject(idMax);
-            }
-            GUINet::unlockAlloc();
-        } else {
-            _toolTip->hide();
-        }
-    }
     glPopMatrix();
-}
 
-
-
-
-size_t
-GUIViewTraffic::select()
-{
-return 0;//!!!
+    glFlush();
+    if(mode==GL_RENDER) {
+        swapBuffers();
+    }
 }
 
 
@@ -535,39 +319,6 @@ GUIViewTraffic::paintGLEdges(GUIEdgeGrid::GUIEdgeSet &edges, double scale)
         }
     }
     _laneDrawer->closeStep();
-
-    glBegin(GL_LINES);
-    glColor3f(1, 0, 0);
-    glVertex2f(0, 0);
-    glVertex2f(500, 0);
-    glVertex2f(0, 0);
-    glVertex2f(0, 500);
-    glEnd();
-}
-
-
-void
-GUIViewTraffic::paintGLGrid()
-{
-    glBegin( GL_LINES );
-    glColor3f(0.5, 0.5, 0.5);
-    double ypos = 0;
-    double xpos = 0;
-    double xend = (_net._edgeGrid.getNoXCells())
-        * _net._edgeGrid.getXCellSize();
-    double yend = (_net._edgeGrid.getNoYCells())
-        * _net._edgeGrid.getYCellSize();
-    for(size_t yr=0; yr<_net._edgeGrid.getNoYCells()+1; yr++) {
-        glVertex2f(0, ypos);
-        glVertex2f(xend, ypos);
-        ypos += _net._edgeGrid.getYCellSize();
-    }
-    for(size_t xr=0; xr<_net._edgeGrid.getNoXCells()+1; xr++) {
-        glVertex2f(xpos, 0);
-        glVertex2f(xpos, yend);
-        xpos += _net._edgeGrid.getXCellSize();
-    }
-    glEnd();
 }
 
 
@@ -628,248 +379,22 @@ GUIViewTraffic::getEdgeColor(GUIEdge *edge) const
 
 
 void
-GUIViewTraffic::applyChanges(double scale,
-                             size_t xoff, size_t yoff)
+GUIViewTraffic::track(int id)
 {
-    _widthInPixels = width();
-    _heightInPixels = height();
-//    _ratio = (double) _widthInPixels / (double) _heightInPixels;
-    glMatrixMode( GL_MODELVIEW );
-    glLoadIdentity();
-    // rotate first;
-    //  This is quite unchecked, so it's meaning and position is quite
-    //  unclear
-    glRotated(_changer->getRotation(), 0, 0, 1);
-    // Fit the view's size to the size of the net
-    glScaled(
-        2.0/_netScale,
-        2.0/_netScale,
-        0);
-    // apply ratio between window width and height
-    glScaled(1/_ratio, 1, 0);
-    // initially (zoom=100), the net shall be completely visible on the screen
-    double xs = ((double) _widthInPixels / (double) _parent->getMaxGLWidth())
-        / (_net.getBoundery().getWidth() / _netScale) * _ratio;
-    double ys = ((double) _heightInPixels / (double) _parent->getMaxGLHeight())
-        / (_net.getBoundery().getHeight() / _netScale);
-    if(xs<ys) {
-        glScaled(xs, xs, 1);
-        _addScl = xs;
-    } else {
-        glScaled(ys, ys, 1);
-        _addScl = ys;
-    }
-    // initially, leave some room for the net
-    glScaled(0.97, 0.97, 1);
-    _addScl *= .97;
-
-    // Apply the zoom and the scale
-    double zoom = _changer->getZoom() / 100.0 * scale;
-    glScaled(zoom, zoom, 0);
-    // Translate to the middle of the net
-    glTranslated(
-        -(_net.getBoundery().getCenter().first),
-        -(_net.getBoundery().getCenter().second),
-        0);
-    // Translate in dependence to the view position applied by the user
-    glTranslated(_changer->getXPos(), _changer->getYPos(), 0);
-    // Translate to the mouse pointer, when wished
-    if(xoff!=0||yoff!=0) {
-        double absX = (double(xoff)-(double(_widthInPixels)/2.0));
-        double absY = (double(yoff)-(double(_heightInPixels)/2.0));
-        glTranslated(
-            -p2m(absX),
-            p2m(absY),
-            0);
-    }
-
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    // apply the widow size
-    double xf = -1.0 *
-        ((double) _parent->getMaxGLWidth() - (double) _widthInPixels)
-        / (double) _parent->getMaxGLWidth();
-    double yf = -1.0 *
-        ((double) _parent->getMaxGLHeight() - (double) _heightInPixels)
-        / (double) _parent->getMaxGLHeight();
-    glTranslated(xf, yf, 0);
-    _changer->applied();
+    myTrackedID = id;
 }
 
 
 void
-GUIViewTraffic::displayLegend()
+GUIViewTraffic::doInit()
 {
-    GUINet::lockAlloc();
-    size_t length = 1;
-    string text = "1";
-    while(true) {
-        size_t pixelSize = m2p(length);
-        if(pixelSize>20) {
-            QPainter paint( this );
-            paint.setPen( QColor(0, 0, 0) );
-            size_t h = height();
-            paint.drawLine( 10, h-10, 10+pixelSize, h-10 );
-            paint.drawLine( 10, h-10, 10, h-15);
-            paint.drawLine( 10+pixelSize, h-10, 10+pixelSize, h-15);
-            paint.drawText( 10, h-10, QString("0m"));
-            text = text + string("m");
-            paint.drawText( 10+pixelSize, h-10, QString(text.c_str()));
-	        GUINet::unlockAlloc();
-            return;
+    if(!myFontsLoaded) {
+        if(_app->myFonts.has("std")) {
+            myFontRenderer.add(_app->myFonts.get("std"));
         }
-        length *= 10;
-        text = text + string("0");
-    }
-	GUINet::unlockAlloc();
-}
-
-
-double
-GUIViewTraffic::m2p(double meter)
-{
-    return
-        (meter/_netScale
-        * (_parent->getMaxGLWidth()/_ratio)
-        * _addScl * _changer->getZoom() / 100.0);
-}
-
-
-double
-GUIViewTraffic::p2m(double pixel)
-{
-    return
-        pixel * _netScale /
-        ((_parent->getMaxGLWidth()/_ratio) * _addScl *_changer->getZoom() / 100.0);
-}
-
-
-void
-GUIViewTraffic::recenterView()
-{
-    _changer->recenterView();
-}
-
-
-void
-GUIViewTraffic::centerTo(GUIChooser::ChooseableArtifact type,
-                     const std::string &name)
-{
-    switch(type) {
-    case GUIChooser::CHOOSEABLE_ARTIFACT_JUNCTIONS:
-        {
-            Position2D pos = _net.getJunctionPosition(name);
-            centerTo(pos, 50); // !!! the radius should be variable
-        }
-        break;
-    case GUIChooser::CHOOSEABLE_ARTIFACT_EDGES:
-        {
-            Boundery bound = _net.getEdgeBoundery(name);
-            bound.grow(20.0);
-            centerTo(bound);
-        }
-        break;
-    case GUIChooser::CHOOSEABLE_ARTIFACT_VEHICLES:
-        {
-            GUINet::lockAlloc();
-            if(_net.vehicleExists(name)) {
-                Position2D pos = _net.getVehiclePosition(name);
-                GUINet::unlockAlloc();
-                centerTo(pos, 20); // !!! another radius?
-            } else {
-                GUINet::unlockAlloc();
-            }
-        }
-        break;
-    default:
-        // should not happen
-        throw 1;
-    }
-    _changer->otherChange();
-}
-
-
-void
-GUIViewTraffic::centerTo(Position2D pos, double radius)
-{
-    _changer->centerTo(_net.getBoundery(), pos, radius);
-}
-
-
-void
-GUIViewTraffic::centerTo(Boundery bound)
-{
-    _changer->centerTo(_net.getBoundery(), bound);
-}
-
-
-bool
-GUIViewTraffic::allowRotation() const
-{
-    return _parent->allowRotation();
-}
-
-
-void
-GUIViewTraffic::setTooltipPosition(size_t x, size_t y,
-                                   size_t mouseX, size_t mouseY)
-{
-    _toolTipX = x;
-    _toolTipY = y;
-    _mouseX = mouseX;
-    _mouseY = mouseY;
-}
-
-
-void
-GUIViewTraffic::paintEvent ( QPaintEvent *e )
-{
-/*    // do not paint anything when the canvas is
-    //  not visible
-    if(!isVisible()) {
-        return;
-    }
-    // mark that drawing is in process
-    _noDrawing++;
-    // ...and return when drawing is already
-    //  being done
-    if(_noDrawing>1) {
-        _noDrawing--;
-        return;
-    }
-    makeCurrent();
-    glDraw();*/
-    QGLWidget::paintEvent(e);
-    if(_parent->showLegend()) {
-        displayLegend();
+        myFontsLoaded = true;
     }
 }
-
-void
-GUIViewTraffic::makeCurrent()
-{
-	GUINet::lockAlloc();
-    _lock.lock();
-    QGLWidget::makeCurrent();
-	_lock.unlock();
-	GUINet::unlockAlloc();
-}
-
-
-
-int
-GUIViewTraffic::getMaxGLWidth() const
-{
-    return _parent->getMaxGLWidth();
-}
-
-int
-GUIViewTraffic::getMaxGLHeight() const
-{
-    return _parent->getMaxGLHeight();
-}
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

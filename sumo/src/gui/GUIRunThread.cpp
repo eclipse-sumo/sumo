@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/05/20 09:23:54  dkrajzew
+// some statistics added; some debugging done
+//
 // Revision 1.5  2003/04/04 08:37:50  dkrajzew
 // view centering now applies net size; closing problems debugged; comments added; tootip button added
 //
@@ -94,11 +97,9 @@ GUIRunThread::run()
 	        // simulation is being perfomed
             _simulationInProgress = true;
 	        // execute a single step
-			GUINet::lockAlloc();
             _net->simulationStep(_craw, _simStartTime, _step);
 	        // inform parent that a step has been performed
             QThread::postEvent( _parent, new QSimulationStepEvent() );
-			GUINet::unlockAlloc();
 	        // increase step counter
             _step++;
 	        // stop the simulation when the last step has been reached

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/05/20 09:23:54  dkrajzew
+// some statistics added; some debugging done
+//
 // Revision 1.7  2003/04/16 10:12:12  dkrajzew
 // fontrendeder removed temporarily
 //
@@ -49,11 +52,12 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
+#include <vector>
 #include <iostream>
 #include <qmainwindow.h>
 #include <qworkspace.h>
 #include <qtoolbutton.h>
-//#include <utils/glutils/lfontrenderer.h>
+#include <utils/glutils/FontStorage.h>
 
 /* =========================================================================
  * class declarations
@@ -65,6 +69,7 @@ class GUILoadThread;
 class GUIRunThread;
 class QSimulationLoadedEvent;
 class QLabel;
+class QWidget;
 
 
 /* =========================================================================
@@ -91,6 +96,10 @@ public:
 
     /// Returns the maximum height of gl-windows
     int getMaxGLHeight() const;
+
+    void addChild(QWidget *child, bool updateOnSimStep=true);
+
+    void removeChild(QWidget *child);
 
 private slots:
     /** called from the menu, this method allows to choose a simulation
@@ -126,6 +135,11 @@ private slots:
 
     /** !!! some methods for windows alignment */
     void windowsMenuActivated( int id );
+
+public:
+    /// The opengl-font renderer
+    FontStorage myFonts;
+
 
 public slots:
     /** sets the editable simulation delay (in milliseconds) */
@@ -195,12 +209,10 @@ private:
     /// the menu holding the file operations
     QPopupMenu * _fileMenu;
 
-    /// The opengl-font renderer
-//    LFontRenderer myFonts;
-
     /// The openGL-maximum screen sizes
     int myGLWidth, myGLHeight;
 
+    std::vector<QWidget*> mySubWindows;
 };
 
 

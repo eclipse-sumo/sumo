@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/05/20 09:23:54  dkrajzew
+// some statistics added; some debugging done
+//
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
@@ -36,12 +39,12 @@
 #include <qmainwindow.h>
 #include <string>
 #include <vector>
-
+#include "GUIGlObjectTypes.h"
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class GUISUMOView;
+class GUISUMOViewParent;
 class QHBoxLayout;
 class QListBox;
 
@@ -58,24 +61,10 @@ class GUIChooser : public QMainWindow
 {
     /// is a q-object
     Q_OBJECT
-public:
-    /**
-     * ChooseableArtifact
-     * Enumeration to differ to show the list of which atrifact
-     * By now, one can display edges, junctions and vehicles
-     */
-    enum ChooseableArtifact {
-        /// display junctions
-        CHOOSEABLE_ARTIFACT_JUNCTIONS,
-        /// display edges
-        CHOOSEABLE_ARTIFACT_EDGES,
-        /// display vehicles
-        CHOOSEABLE_ARTIFACT_VEHICLES
-    };
 
 public:
     /// constructor
-    GUIChooser(GUISUMOView *parent, ChooseableArtifact type,
+    GUIChooser(GUISUMOViewParent *parent, GUIGlObjectType type,
         std::vector<std::string> &names);
 
     /// destructor
@@ -109,10 +98,10 @@ private:
     std::string _id;
 
     /// the artifact to choose
-    ChooseableArtifact _type;
+    GUIGlObjectType _type;
 
     /// the parent window
-    GUISUMOView *_parent;
+    GUISUMOViewParent *_parent;
 };
 
 

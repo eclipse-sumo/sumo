@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/05/20 09:23:54  dkrajzew
+// some statistics added; some debugging done
+//
 // Revision 1.2  2003/04/14 08:24:55  dkrajzew
 // unneeded display switch and zooming option removed; new glo-objct concept implemented; comments added
 //
@@ -28,12 +31,20 @@
  * included modules
  * ======================================================================= */
 #include <string>
+#include "GUIGlObjectTypes.h"
+#include "TableTypes.h"
 
 
  /* =========================================================================
  * class declarations
  * ======================================================================= */
 class GUIGlObjectStorage;
+class QGLObjectPopupMenu;
+class GUISUMOAbstractView;
+class GUIParameterTableWindow;
+class QListView;
+class GUIApplicationWindow;
+class QListViewItem;
 
 
 /* =========================================================================
@@ -54,12 +65,43 @@ public:
     /// Returns the numerical id of the object
     size_t getGlID() const;
 
+    /// Returns an own popup-menu
+    virtual QGLObjectPopupMenu *getPopUpMenu(
+        GUIApplicationWindow *app, GUISUMOAbstractView *parent) = 0;
+
+    /// Returns the type of the object as coded in GUIGlObjectType
+    virtual GUIGlObjectType getType() const = 0;
+
+    /// returns the id of the object as known to microsim
+    virtual std::string microsimID() const = 0;
+
+    void insertTableParameter(GUIParameterTableWindow *window,
+        QListView *table, double *parameter,
+        QListViewItem **vitems);
+
+    virtual size_t getTableParameterNo() const;
+
+    virtual double getTableParameter(size_t pos) const = 0;
+
+    virtual void fillTableParameter(double *parameter) const = 0;
+
     /// Needed to set the id
     friend class GUIGlObjectStorage;
+
+    virtual const char * const getTableItem(size_t pos) const = 0;
+
+	virtual bool active() const = 0;
+
+protected:
+
+    virtual const TableType const getTableType(size_t pos) const = 0;
+
+    virtual const char *getTableBeginValue(size_t pos) const = 0;
 
 private:
     /// Sets the id of the object
     void setGlID(size_t id);
+
 
 private:
     /// The numerical id of the object

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/05/20 09:23:54  dkrajzew
+// some statistics added; some debugging done
+//
 // Revision 1.6  2003/04/16 09:50:04  dkrajzew
 // centering of the network debugged; additional parameter of maximum display size added
 //
@@ -49,7 +52,7 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(GUIViewTraffic &callBack)
+GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(GUISUMOAbstractView &callBack)
     : GUIPerspectiveChanger(callBack),
     _mouseButtonState(Qt::NoButton), _rotation(0), _xpos(0), _ypos(0), _zoom(100)
 {
@@ -74,8 +77,10 @@ GUIDanielPerspectiveChanger::mouseMoveEvent ( QMouseEvent *e )
     case Qt::RightButton:
         zoom(ydiff);
         rotate(xdiff);
+        break;
     default:
         _callback.updateToolTip();
+        break;
     }
     _mouseXPosition = e->x();
     _mouseYPosition = e->y();

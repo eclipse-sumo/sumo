@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/05/20 09:23:55  dkrajzew
+// some statistics added; some debugging done
+//
 // Revision 1.6  2003/04/16 09:50:05  dkrajzew
 // centering of the network debugged; additional parameter of maximum display size added
 //
@@ -46,7 +49,10 @@
 #include <utils/geom/Position2D.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/qutils/NewQMutex.h>
+#include <utils/glutils/lfontrenderer.h>
 #include <guisim/GUIEdgeGrid.h>
+#include "GUISUMOViewParent.h"
+#include "GUISUMOAbstractView.h"
 #include "GUIChooser.h"
 
 
@@ -58,64 +64,40 @@ class MSVehicle;
 class GUINet;
 class QPaintEvent;
 class QResizeEvent;
-class GUISUMOView;
+class GUISUMOViewParent;
 class GUIVehicle;
 class GUILaneWrapper;
 class GUIEdge;
 class GUIPerspectiveChanger;
+class QTimerEvent;
+class QPopupMenu;
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * This class is meant to be pure virtual later;
- * It shall be the main class to inherit views of the simulation (micro-
- * or macroscopic ones) from it.
+ * @class GUIViewTraffic
+ * Microsocopic view at the simulation
  */
-class GUIViewTraffic : public QGLWidget {
+class GUIViewTraffic
+    : public GUISUMOAbstractView {
+
     /// is a q-object
     Q_OBJECT
+
 public:
     /// constructor
-    GUIViewTraffic(GUISUMOView *parent, GUINet &net);
+    GUIViewTraffic(GUIApplicationWindow *app,
+        GUISUMOViewParent *parent, GUINet &net);
 
     /// destructor
     virtual ~GUIViewTraffic();
 
     /// builds the view toolbars
-    void buildViewToolBars(GUISUMOView &);
+    void buildViewToolBars(GUISUMOViewParent &);
 
-    /// recenters the view
-    void recenterView();
-
-    /// centers to the chosen artifact
-    void centerTo(GUIChooser::ChooseableArtifact type,
-        const std::string &name);
-
-    /// meter-to-pixels conversion method
-    double m2p(double meter);
-
-    /// pixels-to-meters conversion method
-    double p2m(double pixel);
-
-    /// Returns the information whether rotation is allowd
-    bool allowRotation() const;
-
-    /// Returns the gl-id of the object under the given coordinates
-    void setTooltipPosition(size_t x, size_t y, size_t mouseX, size_t mouseY);
-
-    /// A reimplementation due to some internal reasons
-    void makeCurrent();
-
-    /// A method that updates the tooltip
-    void updateToolTip();
-
-    /// Returns the maximum width of gl-windows
-    int getMaxGLWidth() const;
-
-    /// Returns the maximum height of gl-windows
-    int getMaxGLHeight() const;
+    void track(int id);
 
 public slots:
     /** changes the vehicle colouring scheme to the on stored under the given
@@ -125,12 +107,6 @@ public slots:
     /** changes the lane colouring scheme to the on stored under the given
         index */
     void changeLaneColoringScheme(int index);
-
-    /** toggles the drwaing of the grid */
-    void toggleShowGrid();
-
-    /// toggles whether tooltips shall be shown or not
-    void toggleToolTips();
 
 public:
     /**
@@ -226,36 +202,14 @@ public:
     };
 
 protected:
-    /// derived from QGLWidget, this method initialises the openGL canvas
-    void initializeGL();
 
-    /// called when the canvas has been resized
-    void resizeGL( int, int );
-
-    /// performs the painting of the simulation
-    void paintGL();
-
-    /// retrieves object under mouse, displays a tooltip with name
-    size_t select();
-
-    virtual void paintEvent ( QPaintEvent * );
 
 public slots:
-    /** called when the mouse has been moved over the window
-        (this causes a change of the display) */
-    virtual void mouseMoveEvent ( QMouseEvent * );
 
-    /** called when a mouse has been pressed */
-    virtual void mousePressEvent ( QMouseEvent * );
-
-    /** called when a mouse has been released */
-    virtual void mouseReleaseEvent ( QMouseEvent * );
-
-private:
+protected:
     void doPaintGL(int mode, double scale);
 
-    /// paints a grid
-    void paintGLGrid();
+    void doInit();
 
     /// paints the edges
     void paintGLEdges(GUIEdgeGrid::GUIEdgeSet &edges,
@@ -268,35 +222,10 @@ private:
     void drawSingleGLVehicle(MSVehicle *vehicle,
         std::pair<Position2D, Position2D> &pos, double length);
 
-    /** applies the changes arised from window resize or movement */
-    void applyChanges(double scale,
-        size_t xoff, size_t yoff);
-
-    /// draws the legend
-    void displayLegend();
-
-    /// centers the view to the given position and size
-    void centerTo(Position2D pos, double radius);
-
-    /// centers the given boundery
-    void centerTo(Boundery bound);
-
     /// returns the color of the edge
     RGBColor getEdgeColor(GUIEdge *edge) const;
 
-private:
-    /// the parent window
-    GUISUMOView *_parent;
-
-    /// the network used (stored here for a faster access)
-    GUINet &_net;
-
-    /// the sizes of the window
-    int _widthInPixels, _heightInPixels;
-
-    /// the scale of the net (the maximum size, either width or height)
-    double _netScale;
-
+protected:
     /// the vehicle drawer to use
     GUIVehicleDrawer *_vehicleDrawer;
 
@@ -309,41 +238,11 @@ private:
     /// the coloring scheme of lanes to use
     LaneColoringScheme _laneColScheme;
 
-    /// information whether the grid shall be displayed
-    bool _showGrid;
+    int myTrackedID;
 
-    /// The perspective changer
-    GUIPerspectiveChanger *_changer;
+    bool myFontsLoaded;
 
-    /// Information whether too-tip informations shall be generated
-    bool _useToolTips;
-
-    /// Information how many times the drawing method was called at once
-    size_t _noDrawing;
-
-    /// The used tooltip-class
-    QGLObjectToolTip *_toolTip;
-
-    /// position to display the tooltip at
-    size_t _toolTipX, _toolTipY;
-
-    /// The current mouse position (if the mouse is over this canvas)
-    size_t _mouseX, _mouseY;
-
-    GUIEdgeGrid::GUIEdgeSet _edges;
-
-    /// Offset to the mouse-hotspot from the mouse position
-    int _mouseHotspotX, _mouseHotspotY;
-
-    /// A lock for drawing operations
-    NewQMutex _lock;
-
-    /// _widthInPixels / _heightInPixels
-    double _ratio;
-
-    /// Additional scaling factor for meters-to-pixels conversion
-    double _addScl;
-
+    LFontRenderer myFontRenderer;
 };
 
 

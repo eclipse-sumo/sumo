@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/05/20 09:23:54  dkrajzew
+// some statistics added; some debugging done
+//
 // Revision 1.3  2003/03/12 16:55:16  dkrajzew
 // centering of objects debugged
 //
@@ -45,7 +48,7 @@ namespace
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qstring.h>
-#include "GUISUMOView.h"
+#include "GUISUMOViewParent.h"
 #include "GUIChooser.h"
 
 
@@ -58,7 +61,7 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIChooser::GUIChooser(GUISUMOView *parent, ChooseableArtifact type,
+GUIChooser::GUIChooser(GUISUMOViewParent *parent, GUIGlObjectType type,
                        std::vector<std::string> &names)
     : QMainWindow(0, (string("Chooser")).c_str(), WType_Modal),
     _type(type), _parent(parent)
@@ -111,7 +114,11 @@ GUIChooser::buildButtons(QHBoxLayout *hbox)
 void
 GUIChooser::pressedOK()
 {
-    _id = string(_list->currentText().ascii());
+    if(_list->currentItem()>=0) {
+        _id = string(_list->currentText().ascii());
+    } else {
+        _id = "";
+    }
     close(TRUE);
 }
 

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/05/20 09:23:54  dkrajzew
+// some statistics added; some debugging done
+//
 // Revision 1.3  2003/04/04 08:37:50  dkrajzew
 // view centering now applies net size; closing problems debugged; comments added; tootip button added
 //
@@ -63,7 +66,7 @@ class GUIDanielPerspectiveChanger :
         public GUIPerspectiveChanger {
 public:
     /// Constructor
-    GUIDanielPerspectiveChanger(GUIViewTraffic &callBack);
+    GUIDanielPerspectiveChanger(GUISUMOAbstractView &callBack);
 
     /// Destructor
     ~GUIDanielPerspectiveChanger();
