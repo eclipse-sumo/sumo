@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.50  2005/01/27 14:23:34  dkrajzew
+// patched undefined state of teleporter if a negative number was given
+//
 // Revision 1.49  2004/12/16 12:25:26  dkrajzew
 // started a better vss handling
 //
@@ -902,7 +905,10 @@ MSLane::setCritical()
         myFirstUnsafe = 0;//myVehicles.size();
     }
     if(myVehicles.size()>0) {
-        if((*(myVehicles.end()-1))->getWaitingTime()>MSGlobals::gTimeToGridlock) {
+        if( MSGlobals::gTimeToGridlock>0
+            &&
+            (*(myVehicles.end()-1))->getWaitingTime()>MSGlobals::gTimeToGridlock) {
+
             MSVehicleTransfer *vt = MSVehicleTransfer::getInstance();
             MSVehicle *veh = removeFirstVehicle();
             veh->removeApproachingInformationOnKill();
