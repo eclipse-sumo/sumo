@@ -22,6 +22,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.53  2004/04/01 16:39:03  roessel
+// Bug fix: the value of the first parameter in the call to
+// updateMeanData in the methods enterLaneAtEmit and
+// enterLaneAtLaneChange could have been unreasonably high
+// (unsigned(0)-1) because of wrong placement of parentheses. The example
+// in data/examples/cross3ltl_meandata/ does perform without assertion
+// now.
+//
 // Revision 1.52  2004/03/19 13:09:40  dkrajzew
 // debugging
 //
@@ -1696,8 +1704,7 @@ MSVehicle::resetMeanData( unsigned index )
     assert(myMeanData.size()>index);
     MeanDataValues& md = myMeanData[ index ];
 
-    MSNet::Time timestep = MSNet::getInstance()->timestep();
-
+    MSNet::Time timestep = MSNet::getInstance()->timestep();    
     md.entryContTimestep     = static_cast< double >( timestep );
     md.entryDiscreteTimestep = timestep;
 //     md.entryPos              = myState.myPos;
@@ -1719,7 +1726,7 @@ MSVehicle::updateMeanData( double entryTimestep,
 
     for ( vector< MeanDataValues >::iterator md = myMeanData.begin();
           md != myMeanData.end(); ++md ) {
-
+        
         md->entryContTimestep  = entryTimestep;
         md->entryDiscreteTimestep = discreteTimestep;
         md->speedSum       = speed;
@@ -1789,9 +1796,10 @@ void
 MSVehicle::enterLaneAtLaneChange( MSLane* enteredLane )
 {
 //    myApproachedLane = 0;
-    myLane = enteredLane;
-    updateMeanData( static_cast< double >( MSNet::getInstance()->timestep() - 1 ),
-                    myState.myPos, 0 );
+    myLane = enteredLane;   
+    updateMeanData(
+        static_cast< double >( MSNet::getInstance()->timestep() ) - 1,
+        myState.myPos, 0 );
     // switch to and activate the new lane's reminders
     // keep OldLaneReminders
     myMoveReminders = enteredLane->getMoveReminders();
@@ -1804,9 +1812,10 @@ void
 MSVehicle::enterLaneAtEmit( MSLane* enteredLane )
 {
     myWaitingTime = 0;
-    myLane = enteredLane;
-    updateMeanData( static_cast< double >( MSNet::getInstance()->timestep() - 1 ),
-                    myState.myPos, myState.mySpeed );
+    myLane = enteredLane;    
+    updateMeanData(
+        static_cast< double >( MSNet::getInstance()->timestep() ) - 1 ,
+        myState.myPos, myState.mySpeed );
     // set and activate the new lane's reminders
     myMoveReminders = enteredLane->getMoveReminders();
     activateRemindersByEmitOrLaneChange();
