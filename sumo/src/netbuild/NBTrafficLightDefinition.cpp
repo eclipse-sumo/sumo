@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/24 14:35:19  dkrajzew
+// unneded debug-prints removed
+//
 // Revision 1.4  2003/06/24 08:21:01  dkrajzew
 // some further work on importing traffic lights
 //
@@ -143,14 +146,6 @@ bool
 NBTrafficLightDefinition::SignalGroup::mayDrive(double time) const
 {
 	assert(myPhases.size()!=0);
-    for(GroupsPhases::const_iterator i2=myPhases.begin(); i2!=myPhases.end(); i2++) {
-        cout
-            << ((*(i2)).myColor==TLCOLOR_GREEN)
-            << endl;
-    }
-    if(time==60) {
-        int bla = 0;
-    }
     for(GroupsPhases::const_reverse_iterator i=myPhases.rbegin(); i!=myPhases.rend(); i++) {
         double nextTime = (*i).myTime;
         if(time>=nextTime) {
@@ -497,7 +492,6 @@ NBTrafficLightDefinition::buildLoadedTrafficLights(size_t breakingTime)
 std::pair<std::bitset<64>, std::bitset<64> >
 NBTrafficLightDefinition::buildPhaseMasks(size_t time) const
 {
-    cout << time << endl;// bla
     // set the masks
     std::bitset<64> driveMask;
     std::bitset<64> brakeMask;
