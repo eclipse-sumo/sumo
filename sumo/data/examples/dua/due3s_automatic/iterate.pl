@@ -6,7 +6,7 @@ sub writeRouteConf($)
     open(OUTDAT, "> due3s.rou.cfg");
     print OUTDAT "<configuration>\n";
     print OUTDAT "  <files>\n";
-    print OUTDAT "      <net-files>due3s.net.xml</net-files>\n";
+    print OUTDAT "      <net-file>due3s.net.xml</net-file>\n";
     print OUTDAT "      <weights></weights>\n";
     if($step==0) {
         print OUTDAT "      <trip-defs>due3s.trips.xml</trip-defs>\n";
@@ -30,7 +30,7 @@ sub writeSumoConf($)
     open(OUTDAT, "> due3s.sumo.cfg");
     print OUTDAT "<configuration>\n";
     print OUTDAT "  <files>\n";
-    print OUTDAT "      <net-files>due3s.net.xml</net-files>\n";
+    print OUTDAT "      <net-file>due3s.net.xml</net-file>\n";
     print OUTDAT "      <route-files>due3s.rou.xml</route-files>\n";
     print OUTDAT "      <dump-intervals>300</dump-intervals>\n";
     print OUTDAT "      <dump-basename>aggregated/due3s</dump-basename>\n";

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/12/20 10:48:35  dkrajzew
+// net-files changed to net-file
+//
 // Revision 1.1  2004/08/02 13:03:19  dkrajzew
 // applied better names
 //
@@ -29,7 +32,6 @@
 //
 // Revision 1.1  2004/01/26 07:12:12  dkrajzew
 // now two routers are available - the dua- and the jp-router
-//
 //
 /* =========================================================================
  * included modules
@@ -58,7 +60,7 @@ char *help[] = {
     "   -c, --configuration FILE       FILE will be used as configuration",
     "                                    1. Default: ./sumo-netcovert.cfg",
     "  Network description:",
-    "   -n, --net-files FILE           FILE containing the SUMO-net",
+    "   -n, --net-file FILE           FILE containing the SUMO-net",
     "   -w, --weights FILE             FILE containing the weights of the net",
     " ",
     "  Route descriptions:",

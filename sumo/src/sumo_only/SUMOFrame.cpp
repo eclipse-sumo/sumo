@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2004/12/20 10:48:36  dkrajzew
+// net-files changed to net-file
+//
 // Revision 1.24  2004/12/16 12:23:30  dkrajzew
 // first steps towards a better parametrisation of traffic lights
 //
@@ -137,11 +140,11 @@ void
 SUMOFrame::fillOptions(OptionsCont &oc)
 {
     // register input options
-    oc.doRegister("net-files", 'n', new Option_FileName());
+    oc.doRegister("net-file", 'n', new Option_FileName());
     oc.doRegister("route-files", 'r', new Option_FileName());
     oc.doRegister("additional-files", 'a', new Option_FileName());
     oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.addSynonyme("net-files", "net");
+    oc.addSynonyme("net-file", "net");
     oc.addSynonyme("route-files", "routes");
     oc.addSynonyme("additional-files", "additional");
     oc.addSynonyme("configuration-file", "configuration");

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/12/20 10:48:35  dkrajzew
+// net-files changed to net-file
+//
 // Revision 1.2  2004/11/23 10:43:29  dkrajzew
 // debugging
 //
@@ -56,8 +59,6 @@
 // Revision 1.5  2003/02/07 10:37:30  dkrajzew
 // files updated
 //
-//
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -84,7 +85,7 @@ char *help[] = {
     "   [-c|--configuration] <FILE>   FILE will be used as configuration",
     " ",
     "  Network description:",
-    "   [-n|--net-files] <FILE>       FILE containing the SUMO-net",
+    "   [-n|--net-file] <FILE>       FILE containing the SUMO-net",
     "   [-w|--weights] <FILE>         FILE containing the weights of the net",
     "   [-S|--supplementary-weights] <FILE>",
     "                                 FILE containing the supplementary-weights",

@@ -80,16 +80,12 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --net-files | --net | -n ] <replaceable class="parameter">&#60;sumo-net-file&#62;</replaceable></term>
+          <term>[ --net-file | --net | -n ] <replaceable class="parameter">&#60;sumo-net-file&#62;</replaceable></term>
 
           <listitem>
             <para>Informs duarouter to use the sumo-network sumo-net-file for
             routing. <remark>Mandatory, type:filename, default: none</remark></para>
 
-            <caution>
-              <para>The name &#34;net-files&#34; is ambiguous: only one
-              network file can be loaded by now.</para>
-            </caution>
           </listitem>
         </varlistentry>
 

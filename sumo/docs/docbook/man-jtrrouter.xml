@@ -68,16 +68,12 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --net-files | --net | -n ] <replaceable class="parameter">sumo-net-file</replaceable></term>
+          <term>[ --net-file | --net | -n ] <replaceable class="parameter">sumo-net-file</replaceable></term>
 
           <listitem>
             <para>Informs jtrrouter to use the sumo-network sumo-net-file for
             routing. <remark>Mandatory, type:filename, default: none</remark></para>
 
-            <caution>
-              <para>The name &#34;net-files&#34; is ambiguous: only one
-              network file can be loaded by now.</para>
-            </caution>
           </listitem>
         </varlistentry>
 

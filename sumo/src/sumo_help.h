@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2004/12/20 10:48:35  dkrajzew
+// net-files changed to net-file
+//
 // Revision 1.10  2004/07/02 09:51:38  dkrajzew
 // emissions and trip-file included in the options list
 //
@@ -68,7 +71,7 @@ char *help[] = {
     " ",
     "Options:",
     " Input files:",
-    "   -n, --net-files FILE[;FILE]*    FILE is a network file",
+    "   -n, --net-file FILE[;FILE]*    FILE is a network file",
     "   -r, --route-files FILE[;FILE]*  FILE is a route file",
     "   -a, --additional-files FILE...  FILE is a detector file",
     "   -c, --configuration FILE        FILE will be used as configuration",

@@ -1827,7 +1827,7 @@
       <listitem>
         <para>The file that contains the network</para>
 
-        <para>Use the <option>--net-files</option> (or <option>-n</option>)
+        <para>Use the <option>--net-file</option> (or <option>-n</option>)
         <option><replaceable>&#60;FILE&#62;</replaceable></option> option to
         pass the simulation the name of the network to use. The network must
         be one build using SUMO-NETCONVERT or SUMO-NETGEN.</para>
