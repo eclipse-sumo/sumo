@@ -6,9 +6,9 @@
 #include <vector>
 #include <string>
 #include <utils/router/IDSupplier.h>
+#include "RORouteDef.h"
 #include <utils/common/NamedObjectCont.h>
 
-class RORouteDef;
 class ROEdge;
 
 class RORouteDefCont : public NamedObjectCont<RORouteDef*> {

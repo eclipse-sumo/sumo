@@ -3,9 +3,8 @@
 
 #include <map>
 #include <string>
+#include "ROEdge.h"
 #include <utils/common/NamedObjectCont.h>
-
-class ROEdge;
 
 class ROEdgeCont : public NamedObjectCont<ROEdge*> {
 public:

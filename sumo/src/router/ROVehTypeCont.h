@@ -3,9 +3,8 @@
 
 #include <string>
 #include <map>
+#include "ROVehicleType.h"
 #include <utils/common/NamedObjectCont.h>
-
-class ROVehicleType;
 
 class ROVehTypeCont : public NamedObjectCont<ROVehicleType*> {
 private:

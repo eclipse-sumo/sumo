@@ -5,10 +5,9 @@
 #include <map>
 #include <queue>
 #include <vector>
+#include "ROVehicle.h"
 #include <utils/common/NamedObjectCont.h>
 #include "ROHelper.h"
-
-class ROVehicle;
 
 class ROVehicleCont : public NamedObjectCont<ROVehicle*> {
 private:

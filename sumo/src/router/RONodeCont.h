@@ -3,9 +3,8 @@
 
 #include <map>
 #include <string>
+#include "RONode.h"
 #include <utils/common/NamedObjectCont.h>
-
-class RONode;
 
 typedef NamedObjectCont<RONode*> RONodeCont;
 
