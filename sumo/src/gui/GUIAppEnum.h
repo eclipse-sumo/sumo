@@ -20,9 +20,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/04/02 11:07:17  dkrajzew
+// item selection menu entry ids added
+//
 // Revision 1.1  2004/03/19 12:56:10  dkrajzew
 // porting to FOX
-//
 //
 /* =========================================================================
  * enumeration
@@ -172,7 +174,25 @@ enum {
     /// Allow aggregated Views - Option
     MID_ALLOWAGGREGATED,
     /// Allow floating aggregated Views - Option
-    MID_ALLOWAFLOATING
+    MID_ALLOWAFLOATING,
+    /// Allow textures - Option
+    MID_ALLOWTEXTURES,
+    //@}
+
+    //@{ GLObjChooser - Dialog IDs
+    /// Center object
+    MID_CHOOSER_CENTER,
+    //@}
+
+    //@{ GLChosenEditor - Dialog IDs
+    /// Load set
+    MID_CHOOSEN_LOAD,
+    /// Save set
+    MID_CHOOSEN_SAVE,
+    /// Clear set
+    MID_CHOOSEN_CLEAR,
+    /// Deselect selected items
+    MID_CHOOSEN_DESELECT
     //@}
 
 };
