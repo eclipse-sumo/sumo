@@ -35,13 +35,6 @@ template< typename DetectorAggregate >
 class MSOccupancyCorrection
 {
 public:
-    MSOccupancyCorrection( void ) 
-        : occupancyEntryCorrectionM(),
-          occupancyLeaveCorrectionM(),
-          entryCorrectionVehM(0),
-          leaveCorrectionVehM(0)
-        {}
-    
     void setOccupancyEntryCorrection( const MSVehicle& veh,
                                       double occupancyFractionOnDet )
         {
@@ -92,6 +85,17 @@ public:
         {
             return occupancyLeaveCorrectionM;
         }
+
+protected:
+    MSOccupancyCorrection( void ) 
+        : occupancyEntryCorrectionM(),
+          occupancyLeaveCorrectionM(),
+          entryCorrectionVehM(0),
+          leaveCorrectionVehM(0)
+        {}    
+
+    virtual ~MSOccupancyCorrection( void )
+        {}
     
 private:
     DetectorAggregate occupancyEntryCorrectionM;
