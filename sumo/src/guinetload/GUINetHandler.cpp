@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/10/08 14:48:56  dkrajzew
+// new usage of MSAgentbased... impemented
+//
 // Revision 1.9  2003/10/02 14:51:20  dkrajzew
 // visualisation of E2-detectors implemented
 //
@@ -216,9 +219,9 @@ GUINetHandler::closeTrafficLightLogic()
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
     } else if (m_Type=="agentbased") {
-        MSAgentbasedTrafficLightLogic<GUIInductLoop, MSLaneState, GUI_E2_ZS_Collector  >
+        MSAgentbasedTrafficLightLogic<GUI_E2_ZS_Collector>
             *tlLogic =
-            new MSAgentbasedTrafficLightLogic<GUIInductLoop, MSLaneState, GUI_E2_ZS_Collector > (
+            new MSAgentbasedTrafficLightLogic<GUI_E2_ZS_Collector> (
                     m_Key, m_ActivePhases, 0,
                     myContainer.getInLanes(), m_Offset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);

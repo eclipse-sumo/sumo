@@ -875,9 +875,9 @@ NLNetHandler::closeTrafficLightLogic()
         m_ActivePhases.clear();
         myContainer.addTLLogic(tlLogic);
     } else if(m_Type=="agentbased") {
-        MSAgentbasedTrafficLightLogic<MSInductLoop, MSLaneState, MS_E2_ZS_Collector  >
+        MSAgentbasedTrafficLightLogic<MS_E2_ZS_Collector>
             *tlLogic =
-            new MSAgentbasedTrafficLightLogic<MSInductLoop, MSLaneState, MS_E2_ZS_Collector > (
+            new MSAgentbasedTrafficLightLogic<MS_E2_ZS_Collector> (
                     m_Key, m_ActivePhases, 0,
                     myContainer.getInLanes(), m_Offset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
