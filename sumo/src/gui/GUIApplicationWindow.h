@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.23  2004/08/02 11:44:31  dkrajzew
+// ported to fox 1.2; patched missing unlock on unwished program termination
+//
 // Revision 1.22  2004/07/02 08:35:30  dkrajzew
 // all 0.8.0.2 update steps
 //
@@ -231,6 +234,7 @@ public:
     virtual long onUpdEditAddWeights(FXObject*,FXSelector,void*);
     virtual long onUpdEditBreakpoints(FXObject*,FXSelector,void*);
     long onUpdSimSettings(FXObject*sender,FXSelector,void*ptr);
+    long onCmdClearMsgWindow(FXObject*,FXSelector,void*);
 
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
     long onRunThreadEvent(FXObject*, FXSelector, void*);
@@ -348,6 +352,9 @@ protected:
 
     /// List of recent files
     FXRecentFiles myRecentFiles;
+
+    /// A lock to make the removal and addition of trackers secure
+    FXEX::FXMutex myTrackerLock;
 
 };
 

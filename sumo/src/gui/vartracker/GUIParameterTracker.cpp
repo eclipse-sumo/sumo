@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2004/08/02 11:43:31  dkrajzew
+// ported to fox 1.2; patched missing unlock on unwished program termination
+//
 // Revision 1.14  2004/07/02 08:26:11  dkrajzew
 // aggregation debugged and saving option added
 //
@@ -110,7 +113,7 @@ FXIMPLEMENT(GUIParameterTracker,FXMainWindow,GUIParameterTrackerMap,ARRAYNUMBER(
  * method definitions
  * ======================================================================= */
 GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app)
-    : FXMainWindow(gFXApp,"Tracker",NULL,NULL,DECOR_ALL,0,0,300,200),
+    : FXMainWindow(gFXApp,"Tracker",NULL,NULL,DECOR_ALL,20,20,300,200),
     myApplication(&app)
 {
     buildToolBar();
@@ -126,7 +129,7 @@ GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app,
                                          const std::string &name,
                                          GUIGlObject &o,
                                          int xpos, int ypos)
-    : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,0,0,300,200),
+    : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,20, 20,300,200),
     myApplication(&app)
 {
     buildToolBar();
@@ -304,6 +307,10 @@ GUIParameterTracker::GUIParameterTrackerPanel::GUIParameterTrackerPanel(
 
 GUIParameterTracker::GUIParameterTrackerPanel::~GUIParameterTrackerPanel()
 {
+    // just to quit cleanly on a failure
+    if(_lock.locked()) {
+        _lock.unlock();
+    }
 }
 
 

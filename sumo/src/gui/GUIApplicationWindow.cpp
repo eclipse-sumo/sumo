@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2004/08/02 11:44:31  dkrajzew
+// ported to fox 1.2; patched missing unlock on unwished program termination
+//
 // Revision 1.33  2004/07/02 08:35:30  dkrajzew
 // all 0.8.0.2 update steps
 //
@@ -194,14 +197,16 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]=
     FXMAPFUNC(SEL_COMMAND,  MID_EDIT_ADD_WEIGHTS,  GUIApplicationWindow::onCmdEditAddWeights),
     FXMAPFUNC(SEL_COMMAND,  MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onCmdEditBreakpoints),
 
-    FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,   GUIApplicationWindow::onCmdAppSettings),
-    FXMAPFUNC(SEL_COMMAND,  MID_SIMSETTINGS,   GUIApplicationWindow::onCmdSimSettings),
-    FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,         GUIApplicationWindow::onCmdAbout),
-    FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW, GUIApplicationWindow::onCmdNewMicro),
-    FXMAPFUNC(SEL_COMMAND,  MID_NEW_LANEAVIEW, GUIApplicationWindow::onCmdNewLaneA),
-    FXMAPFUNC(SEL_COMMAND,  MID_START,         GUIApplicationWindow::onCmdStart),
-    FXMAPFUNC(SEL_COMMAND,  MID_STOP,          GUIApplicationWindow::onCmdStop),
-    FXMAPFUNC(SEL_COMMAND,  MID_STEP,          GUIApplicationWindow::onCmdStep),
+    FXMAPFUNC(SEL_COMMAND,  MID_APPSETTINGS,        GUIApplicationWindow::onCmdAppSettings),
+    FXMAPFUNC(SEL_COMMAND,  MID_SIMSETTINGS,        GUIApplicationWindow::onCmdSimSettings),
+    FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,              GUIApplicationWindow::onCmdAbout),
+    FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW,      GUIApplicationWindow::onCmdNewMicro),
+    FXMAPFUNC(SEL_COMMAND,  MID_NEW_LANEAVIEW,      GUIApplicationWindow::onCmdNewLaneA),
+    FXMAPFUNC(SEL_COMMAND,  MID_START,              GUIApplicationWindow::onCmdStart),
+    FXMAPFUNC(SEL_COMMAND,  MID_STOP,               GUIApplicationWindow::onCmdStop),
+    FXMAPFUNC(SEL_COMMAND,  MID_STEP,               GUIApplicationWindow::onCmdStep),
+    FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW, GUIApplicationWindow::onCmdClearMsgWindow),
+
 
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN,              GUIApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_UPDATE,   MID_RELOAD,            GUIApplicationWindow::onUpdReload),
@@ -231,7 +236,7 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
                                            GUIThreadFactory &threadFactory,
                                            int glWidth, int glHeight,
                                            const std::string &config)
-    : FXMainWindow(a,"SUMO-gui main window",NULL,NULL,DECOR_ALL,0,0,600,400),
+    : FXMainWindow(a,"SUMO-gui main window",NULL,NULL,DECOR_ALL,20,20,600,400),
     myLoadThread(0), myRunThread(0),
     myAmLoading(false),
     myGLWidth(glWidth), myGLHeight(glHeight),
@@ -242,6 +247,8 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
     setSelector(MID_WINDOW);
     GUIIconSubSys::init(a);
     GUITexturesHelper::init(this);
+    gGradients = new GUIGradientStorage(this);
+
     // build menu bar
     myMenuBarDrag=new FXToolBarShell(this,FRAME_NORMAL);
     myMenuBar = new FXMenuBar(this, myMenuBarDrag,
@@ -368,6 +375,8 @@ GUIApplicationWindow::~GUIApplicationWindow()
     delete mySettingsMenu;
     delete myWindowsMenu;
     delete myHelpMenu;
+
+    delete gGradients;
 }
 
 
@@ -480,6 +489,10 @@ GUIApplicationWindow::fillMenuBar()
         myMDIClient,FXMDIClient::ID_MDI_4);
     new FXMenuCommand(myWindowsMenu,"&Others...",NULL,
         myMDIClient,FXMDIClient::ID_MDI_OVER_5);
+    new FXMenuSeparator(myWindowsMenu);
+    new FXMenuCommand(myWindowsMenu,
+        "Clear Message Window\t\tClear the message window.",
+        0, this, MID_CLEARMESSAGEWINDOW);
 
     // build help menu
     myHelpMenu = new FXMenuPane(this);
@@ -710,6 +723,14 @@ GUIApplicationWindow::onCmdStep(FXObject*,FXSelector,void*)
 
 
 long
+GUIApplicationWindow::onCmdClearMsgWindow(FXObject*,FXSelector,void*)
+{
+    myMessageWindow->clear();
+    return 1;
+}
+
+
+long
 GUIApplicationWindow::onUpdAddALane(FXObject*sender,FXSelector,void*ptr)
 {
     sender->handle(this,
@@ -883,6 +904,7 @@ GUIApplicationWindow::eventOccured()
         }
         delete e;
     }
+    myToolBar->forceRefresh();
 }
 
 
@@ -1047,6 +1069,7 @@ GUIApplicationWindow::getBuildGLCanvas() const
 void
 GUIApplicationWindow::closeAllWindows()
 {
+    myTrackerLock.lock();
     myLCDLabel->setText("-----------");
     // remove trackers and other external windows
     size_t i;
@@ -1074,6 +1097,7 @@ GUIApplicationWindow::closeAllWindows()
     mySubWindows.clear();
     // add a separator to the log
     myMessageWindow->addSeparator();
+    myTrackerLock.unlock();
     //
     update();
 }
@@ -1116,16 +1140,20 @@ void
 GUIApplicationWindow::addChild(FXMainWindow *child,
                                bool updateOnSimStep)
 {
+    myTrackerLock.lock();
     myTrackerWindows.push_back(child);
+    myTrackerLock.unlock();
 }
 
 
 void
 GUIApplicationWindow::removeChild(FXMainWindow *child)
 {
+    myTrackerLock.lock();
     std::vector<FXMainWindow*>::iterator i =
         std::find(myTrackerWindows.begin(), myTrackerWindows.end(), child);
     myTrackerWindows.erase(i);
+    myTrackerLock.unlock();
 }
 
 
@@ -1172,9 +1200,11 @@ GUIApplicationWindow::updateChildren()
     myMDIClient->forallWindows(this, FXSEL(SEL_COMMAND, MID_SIMSTEP), 0);
     // inform other windows
     int i = 0;
+    myTrackerLock.lock();
     for(i=0; i<myTrackerWindows.size(); i++) {
         myTrackerWindows[i]->handle(this,FXSEL(SEL_COMMAND,MID_SIMSTEP), 0);
     }
+    myTrackerLock.unlock();
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/08/02 11:43:16  dkrajzew
+// ported to fox 1.2; patched missing unlock on unwished program termination
+//
 // Revision 1.4  2004/03/19 12:42:31  dkrajzew
 // porting to FOX
 //
@@ -86,7 +89,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
         MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
         ValueSource<CompletePhaseDef> *src)
     : FXMainWindow(app.getApp(), "TLS-Tracker",NULL,NULL,DECOR_ALL,
-        0,0,300,200),
+        20,20,300,200),
     myApplication(&app), myTLLogic(&logic)
 {
     myConnector = new GLObjectValuePassConnector<CompletePhaseDef>
@@ -97,7 +100,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     for(size_t i=0; i<myTLLogic->getLinks().size(); i++) {
         myLinkNames.push_back(toString<size_t>(i));
     }
-	FXVerticalFrame *glcanvasFrame =
+    FXVerticalFrame *glcanvasFrame =
         new FXVerticalFrame(this,
             FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
             0,0,0,0,0,0,0,0);
@@ -108,7 +111,12 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
 
 GUITLLogicPhasesTrackerWindow::~GUITLLogicPhasesTrackerWindow()
 {
+    myApplication->removeChild(this);
     delete myConnector;
+    // just to quit cleanly on a failure
+    if(myLock.locked()) {
+        myLock.unlock();
+    }
 }
 
 
@@ -403,6 +411,10 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::GUITLLogicPhasesTra
 
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::~GUITLLogicPhasesTrackerPanel()
 {
+    // just to quit cleanly on a failure
+    if(_lock.locked()) {
+        _lock.unlock();
+    }
 }
 
 

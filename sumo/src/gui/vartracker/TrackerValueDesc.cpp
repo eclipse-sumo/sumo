@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/08/02 11:43:31  dkrajzew
+// ported to fox 1.2; patched missing unlock on unwished program termination
+//
 // Revision 1.7  2004/07/02 08:26:11  dkrajzew
 // aggregation debugged and saving option added
 //
@@ -74,6 +77,10 @@ TrackerValueDesc::TrackerValueDesc(const std::string &name,
 
 TrackerValueDesc::~TrackerValueDesc()
 {
+    // just to quit cleanly on a failure
+    if(myLock.locked()) {
+        myLock.unlock();
+    }
 }
 
 
