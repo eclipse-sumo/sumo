@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /w /W0 /GX /O2 /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\src" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
+# ADD CPP /nologo /MD /w /W0 /GX /O2 /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\src" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -49,7 +49,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib $(XERCES)\lib\xerces-c_2.lib /nologo /subsystem:console /machine:I386
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib $(XERCES)\lib\xerces-c_2.lib ..\..\bin\libs\z_libutils_options.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Cmds=copy Release\router.exe ..\..\bin\router.exe
@@ -76,7 +76,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 $(XERCES)\lib\xerces-c_2D.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 $(XERCES)\lib\xerces-c_2D.lib ..\..\bin\libs\z_libutils_optionsD.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Cmds=copy Debug\router.exe ..\..\bin\routerD.exe
@@ -93,14 +93,6 @@ PostBuild_Cmds=copy Debug\router.exe ..\..\bin\routerD.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\src\utils\xml\AttributesHandler.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\geom\Bresenham.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\router\CellDriverInfoParser.cpp
 # End Source File
 # Begin Source File
@@ -113,59 +105,11 @@ SOURCE=..\..\src\utils\common\FileHelpers.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\xml\GenericSAX2Handler.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\gfx\GfxConvHelper.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\utils\router\IDSupplier.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\importio\LineReader.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\LogFile.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\dev\MemDiff.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\MsgHandler.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\importio\NamedColumnsParser.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\Option.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsCont.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsIO.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsLoader.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsParser.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsSubSys.cpp
 # End Source File
 # Begin Source File
 
@@ -305,47 +249,11 @@ SOURCE=..\..\src\router\ROWeightsHandler.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\convert\STRConvert.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\StringTokenizer.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\StringUtils.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\sumoxml\SUMOSAXHandler.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\sumoxml\SUMOXMLDefinitions.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\SystemFrame.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\router\TextHelpers.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\common\UtilExceptions.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\router\ValueTimeLine.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\xml\XMLBuildingExceptions.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\xml\XMLSubSys.cpp
 # End Source File
 # End Group
 # Begin Group "Header-Dateien"
@@ -353,31 +261,11 @@ SOURCE=..\..\src\utils\xml\XMLSubSys.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\src\utils\xml\AttributesHandler.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\xml\AttributesReadingGenericSAX2Handler.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\geom\Bresenham.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\router\CellDriverInfoParser.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\FileErrorReporter.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\FileHelpers.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\xml\GenericSAX2Handler.h
 # End Source File
 # Begin Source File
 
@@ -397,43 +285,11 @@ SOURCE=..\..\src\utils\router\IDSupplier.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\common\LogFile.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\common\Named.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\importio\NamedColumnsParser.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\common\NamedObjectCont.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\Option.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsCont.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsIO.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsLoader.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsParser.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsSubSys.h
 # End Source File
 # Begin Source File
 
@@ -589,35 +445,11 @@ SOURCE=..\..\src\router\ROWeightsHandler.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\common\StringTokenizer.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\sumoxml\SUMOSAXHandler.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\sumoxml\SUMOXMLDefinitions.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\router\TextHelpers.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\common\UtilExceptions.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\router\ValueTimeLine.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\xml\XMLBuildingExceptions.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\xml\XMLSubSys.h
 # End Source File
 # End Group
 # Begin Group "Ressourcendateien"

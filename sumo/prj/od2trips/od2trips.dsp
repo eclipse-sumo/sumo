@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /w /W0 /GX /O2 /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\src" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
+# ADD CPP /nologo /MD /w /W0 /GX /O2 /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\src" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -50,7 +50,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib $(XERCES)\lib\xerces-c_2.lib /nologo /subsystem:console /machine:I386
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib $(XERCES)\lib\xerces-c_2.lib ..\..\bin\libs\z_libutils_options.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Cmds=copy Release\od2trips.exe ..\..\bin\od2trips.exe
@@ -78,7 +78,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 $(XERCES)\lib\xerces-c_2D.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 $(XERCES)\lib\xerces-c_2D.lib ..\..\bin\libs\z_libutils_optionsD.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Cmds=copy Debug\od2trips.exe ..\..\bin\od2tripsD.exe
@@ -93,34 +93,6 @@ PostBuild_Cmds=copy Debug\od2trips.exe ..\..\bin\od2tripsD.exe
 # Begin Group "Quellcodedateien"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
-# Begin Source File
-
-SOURCE=..\..\src\utils\xml\AttributesHandler.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\FileErrorReporter.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\FileHelpers.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\xml\GenericSAX2Handler.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\LogFile.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\dev\MemDiff.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\MsgHandler.cpp
-# End Source File
 # Begin Source File
 
 SOURCE=..\..\src\od2trips_main.cpp
@@ -161,97 +133,17 @@ SOURCE=..\..\src\od2trips\ODread.cpp
 
 SOURCE=..\..\src\od2trips\ODwrite.cpp
 # End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\Option.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsCont.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsIO.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsLoader.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsParser.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsSubSys.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\convert\STRConvert.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\StringTokenizer.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\sumoxml\SUMOSAXHandler.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\sumoxml\SUMOXMLDefinitions.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\SystemFrame.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\UtilExceptions.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\xml\XMLBuildingExceptions.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\xml\XMLSubSys.cpp
-# End Source File
 # End Group
 # Begin Group "Header-Dateien"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\src\utils\xml\AttributesHandler.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\xml\AttributesReadingGenericSAX2Handler.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\common\FileErrorReporter.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\FileHelpers.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\xml\GenericSAX2Handler.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\common\HelpPrinter.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\LogFile.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\dev\MemDiff.h
 # End Source File
 # Begin Source File
 
@@ -287,63 +179,11 @@ SOURCE=..\..\src\od2trips\ODsubroutines.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\utils\options\Option.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsCont.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsIO.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsLoader.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsParser.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\options\OptionsSubSys.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\convert\STRConvert.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\StringTokenizer.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\sumoxml\SUMOSAXHandler.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\sumoxml\SUMOXMLDefinitions.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\src\utils\convert\TplConvert.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\utils\convert\TplConvertSec.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\common\UtilExceptions.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\xml\XMLBuildingExceptions.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\src\utils\xml\XMLSubSys.h
 # End Source File
 # End Group
 # Begin Group "Ressourcendateien"
