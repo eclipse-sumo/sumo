@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/08/14 13:42:43  dkrajzew
+// definition of the tls/row - drawer added
+//
 // Revision 1.4  2003/07/30 08:52:16  dkrajzew
 // further work on visualisation of all geometrical objects
 //
@@ -242,8 +245,31 @@ public:
     };
 
     /**
-     * GUILaneDrawer
-     * Classes derived from this are meant to be used fro vehicle drawing
+     * GUIROWRulesDrawer
+     * Classes derived from this are meant to be used for drawing
+     * of ROW-rules
+     */
+    class GUIROWRulesDrawer {
+    public:
+	    /// constructor
+        GUIROWRulesDrawer(std::vector<GUIEdge*> &edges)
+            : myEdges(edges) { }
+
+	    /// destructor
+        virtual ~GUIROWRulesDrawer() { }
+
+        virtual void drawGLROWs(size_t *which, size_t maxEdges,
+            bool showToolTips, double width) = 0;
+
+    protected:
+
+        std::vector<GUIEdge*> &myEdges;
+    };
+
+    /**
+     * GUIJunctionDrawer
+     * Classes derived from this are meant to be used for drawing
+     * junctions
      */
     class GUIJunctionDrawer {
     public:
