@@ -1,6 +1,6 @@
 /***************************************************************************
                           main.cpp
-			  The main procedure for the build of person/vehicle routes
+              The main procedure for the build of person/vehicle routes
                              -------------------
     project              : SUMO
     subproject           : router
@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/07/02 09:49:36  dkrajzew
+// generalised for easier online-router implementation; debugging
+//
 // Revision 1.5  2004/04/14 13:53:49  roessel
 // Changes and additions in order to implement supplementary-weights.
 //
@@ -154,7 +157,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-//   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+//   #define _INC_MALLOC         // exclude standard memory alloc procedures
 #ifdef WIN32
    #include <utils/dev/MemDiff.h>
 #endif
@@ -256,6 +259,7 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("srand", new Option_Integer(23423));
     oc.doRegister("abs-rand", new Option_Bool(false));
     oc.doRegister( "supplementary-weights", 'S', new Option_FileName() );
+    oc.addSynonyme("supplementary-weights", "add");
 }
 
 
@@ -278,12 +282,12 @@ loadNet(ROLoader &loader, OptionsCont &oc)
         loader.loadWeights(*net);
     }
     // initialise the network
-    net->postloadInit();
+//    net->postloadInit();
 
     if ( oc.isSet( "S" ) ) {
         loader.loadSupplementaryWeights( *net );
     }
-    
+
     return net;
 }
 
@@ -364,17 +368,18 @@ main(int argc, char **argv)
         OptionsCont &oc = OptionsSubSys::getOptions();
         setDefaults(oc);
         // load data
-        ROLoader loader(oc, false);
+        ROVehicleBuilder vb;
+        ROLoader loader(oc, vb, false);
         net = loadNet(loader, oc);
         if(net!=0) {
             // build routes
             try {
                 startComputation(*net, loader, oc);
-            } catch (SAXParseException e) {
+            } catch (SAXParseException &e) {
                 MsgHandler::getErrorInstance()->inform(
                     toString<int>(e.getLineNumber()));
                 ret = 1;
-            } catch (SAXException e) {
+            } catch (SAXException &e) {
                 MsgHandler::getErrorInstance()->inform(
                     TplConvert<XMLCh>::_2str(e.getMessage()));
                 ret = 1;

@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                          jp_router_main.cpp
-//		The main procedure and some initialisation functions for the jp-router
+//      The main procedure and some initialisation functions for the jp-router
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 20 Jan 2004
 //  subproject           : junction percentage router
@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/07/02 09:50:22  dkrajzew
+// generalised for easier online-router implementation; debugging
+//
 // Revision 1.2  2004/04/02 11:32:45  dkrajzew
 // moving the vehicle forward if it shall start at a too short edge added; output of the number of loaded, build, and discarded
 //
@@ -87,7 +90,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-//   #define _INC_MALLOC	     // exclude standard memory alloc procedures
+//   #define _INC_MALLOC         // exclude standard memory alloc procedures
 #ifdef WIN32
    #include <utils/dev/MemDiff.h>
 #endif
@@ -209,7 +212,7 @@ loadNet(ROLoader &loader, OptionsCont &oc,
         loader.loadWeights(*net);
     }
     // initialise the network
-    net->postloadInit();
+//    net->postloadInit();
     return net;
 }
 
@@ -233,25 +236,25 @@ getTurningDefaults(OptionsCont &oc)
     std::vector<float> ret;
     if(oc.isSet("turn-defaults")) {
         string def = oc.getString("turn-defaults");
-		StringTokenizer st(def, ";");
-		switch(st.size()) {
-		case 3:
-			try {
-				ret.push_back(parseFloat_ReportError(st.next(),
-					"The first number in turn defaults is not numeric."));
-				ret.push_back(parseFloat_ReportError(st.next(),
-					"The second number in turn defaults is not numeric."));
-				ret.push_back(parseFloat_ReportError(st.next(),
-					"The second number in turn defaults is not numeric."));
-			} catch(NumberFormatException&) {
-				throw ProcessError();
-			}
-			break;
-		default:
-			MsgHandler::getErrorInstance()->inform(
-				"The defaults for turnings must be a tuple of two or three numbers divided by ';'");
-			throw ProcessError();
-		}
+        StringTokenizer st(def, ";");
+        switch(st.size()) {
+        case 3:
+            try {
+                ret.push_back(parseFloat_ReportError(st.next(),
+                    "The first number in turn defaults is not numeric."));
+                ret.push_back(parseFloat_ReportError(st.next(),
+                    "The second number in turn defaults is not numeric."));
+                ret.push_back(parseFloat_ReportError(st.next(),
+                    "The second number in turn defaults is not numeric."));
+            } catch(NumberFormatException&) {
+                throw ProcessError();
+            }
+            break;
+        default:
+            MsgHandler::getErrorInstance()->inform(
+                "The defaults for turnings must be a tuple of two or three numbers divided by ';'");
+            throw ProcessError();
+        }
     }
     return ret;
 }
@@ -260,16 +263,16 @@ getTurningDefaults(OptionsCont &oc)
 void
 loadJPDefinitions(RONet &net, OptionsCont &oc)
 {
-	std::set<ROJPEdge*> ret;
-	// load the turning definitions (and possible sink definition)
+    std::set<ROJPEdge*> ret;
+    // load the turning definitions (and possible sink definition)
     if(oc.isSet("turn-definition")) {
-		ROJPTurnDefLoader loader(net);
-		ret = loader.load(oc.getString("turn-definition"));
-	}
-	// add edges specified at the input/within the configuration
-	if(oc.isSet("sinks")) {
-		ROJPHelpers::parseROJPEdges(net, ret, oc.getString("sinks"));
-	}
+        ROJPTurnDefLoader loader(net);
+        ret = loader.load(oc.getString("turn-definition"));
+    }
+    // add edges specified at the input/within the configuration
+    if(oc.isSet("sinks")) {
+        ROJPHelpers::parseROJPEdges(net, ret, oc.getString("sinks"));
+    }
     // set the sink information into the edges
     for(std::set<ROJPEdge*>::iterator i=ret.begin(); i!=ret.end(); i++) {
         (*i)->setType(ROEdge::ET_SINK);
@@ -355,20 +358,21 @@ main(int argc, char **argv)
         setDefaults(oc);
         std::vector<float> defs = getTurningDefaults(oc);
         // load data
-        ROLoader loader(oc, true);
+        ROVehicleBuilder vb;
+        ROLoader loader(oc, vb, true);
         net = loadNet(loader, oc, defs);
         if(net!=0) {
-			// parse and set the turn defaults first
+            // parse and set the turn defaults first
 
             // build routes
             try {
                 loadJPDefinitions(*net, oc);
                 startComputation(*net, loader, oc);
-            } catch (SAXParseException e) {
+            } catch (SAXParseException &e) {
                 MsgHandler::getErrorInstance()->inform(
                     toString<int>(e.getLineNumber()));
                 ret = 1;
-            } catch (SAXException e) {
+            } catch (SAXException &e) {
                 MsgHandler::getErrorInstance()->inform(
                     TplConvert<XMLCh>::_2str(e.getMessage()));
                 ret = 1;
