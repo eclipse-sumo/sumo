@@ -24,6 +24,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.5  2003/04/04 15:29:09  roessel
+// Reduced myLastUpdateTime (7457467564) to myLastUpdateTime (745746756) due to compiler warnings (number too long for unsigned long)
+//
 // Revision 1.4  2003/04/02 11:44:03  dkrajzew
 // continuation of implementation of actuated traffic lights
 //
@@ -93,7 +96,7 @@ MSLaneState<_T>::MSLaneState<_T>(string id, MSLane* lane, double begin,
     myOccup( sampleInterval ),
     myVehLengths( sampleInterval ),
     myNoSlow( sampleInterval ),
-    myLastUpdateTime (7457467564) // just "to make sure", it is updated within the first call
+    myLastUpdateTime (745746756) // just "to make sure", it is updated within the first call
 {
     // Make sure that vehicles will be detected even at lane-end.
 //    assert( myPos < myLane->length() - myLane->maxSpeed() * MSNet::deltaT() );
