@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2002/10/17 13:32:55  dkrajzew
+// handling of connection specification files added
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -95,6 +98,7 @@ namespace
 #include <netimport/xml/NBXMLEdgesHandler.h>
 #include <netimport/xml/NBXMLNodesHandler.h>
 #include <netimport/xml/NBXMLTypesHandler.h>
+#include <netimport/xml/NBXMLConnectionsHandler.h>
 #include <netimport/cell/NBCellNodesHandler.h>
 #include <netimport/cell/NBCellEdgesHandler.h>
 #include <netimport/visum/NBVisumLoader.h>
@@ -207,6 +211,12 @@ NBLoader::loadXML(OptionsCont &oc, bool warn) {
         NBXMLEdgesHandler *handler = new NBXMLEdgesHandler(warn, _verbose);
         loadXMLType(handler, oc.getString("e"), "edges");
         NBEdgeCont::report(_verbose);
+    }
+
+    // load the connections
+    if(oc.isUsableFileList("x")) {
+        NBXMLConnectionsHandler *handler = new NBXMLConnectionsHandler(warn, _verbose);
+        loadXMLType(handler, oc.getString("x"), "connections");
     }
 }
 

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2002/10/17 13:32:55  dkrajzew
+// handling of connection specification files added
+//
 // Revision 1.1  2002/10/16 15:48:13  dkrajzew
 // initial commit for net building classes
 //
@@ -155,6 +158,7 @@ NBOptionsIO::init()
     oc->doRegister("sumo-logics", 'l', new Option_FileName());
     oc->doRegister("xml-node-files", 'n', new Option_FileName());
     oc->doRegister("xml-edge-files", 'e', new Option_FileName());
+    oc->doRegister("xml-connection-files", 'x', new Option_FileName());
     oc->doRegister("cell-node-file", new Option_FileName());
     oc->doRegister("cell-edge-file", new Option_FileName());
     oc->doRegister("visum-file", new Option_FileName());
@@ -163,6 +167,7 @@ NBOptionsIO::init()
     oc->doRegister("configuration-file", 'c', new Option_FileName("sumo-netconvert.cfg"));
     oc->addSynonyme("xml-node-files", "xml-nodes");
     oc->addSynonyme("xml-edge-files", "xml-edges");
+    oc->addSynonyme("xml-connection-files", "xml-connections");
     oc->addSynonyme("cell-node-file", "cell-nodes");
     oc->addSynonyme("cell-edge-file", "cell-edges");
     oc->addSynonyme("visum-file", "visum");
