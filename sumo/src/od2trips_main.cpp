@@ -264,7 +264,7 @@ main(int argc, char **argv)
 			//}
 			total_cars=0;
 			for(it1=od_in.begin(); it1!=od_in.end(); it1++) {
-				rest = fmod ( double((*it1).how_many), scale) / scale;
+				rest = fmod ( double((*it1).how_many), double(scale)) / double(scale);
 				if(rest <= 0.5)
 					(*it1).how_many = int(double((*it1).how_many) / scale);
 				else
