@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/06/24 08:50:00  dkrajzew
+// some more sophisticated default values for Gawrons dua inserted
+//
 // Revision 1.19  2003/06/24 08:06:36  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
 //
@@ -172,8 +175,8 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("begin", 'b', new Option_Long(0));
     oc.doRegister("end", 'e', new Option_Long(864000));
     // register Gawron's DUE-settings
-    oc.doRegister("gBeta", new Option_Float(float(0.05)));
-    oc.doRegister("gA", new Option_Float(1.0));
+    oc.doRegister("gBeta", new Option_Float(float(0.9)));
+    oc.doRegister("gA", new Option_Float(0.5));
     // register the report options
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
