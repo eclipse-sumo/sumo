@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2002/10/16 16:44:23  dkrajzew
+// globa file include; no usage of MSPerson; single step execution implemented
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -130,7 +133,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
-#include "MSPerson.h"
+//#include "MSPerson.h"
 #ifdef _SPEEDCHECK
 #include <ctime>
 #endif
@@ -142,35 +145,34 @@ class MSJunctionControl;
 class MSEmitControl;
 class MSEventControl;
 class Event;
-class MSPersonControl;
 class MSDetector;
 
 /**
  */
 class MSNet
 {
-    friend class MSPerson;
+    friend class GUINet;
 
 public:
     /** Get a pointer to the unique instance of MSNet (singleton).
      * @return Pointer to the unique MSNet-instance.
      */
     static MSNet* getInstance( void );
-    
+
     /// Container for Edges. This are the routes.
     typedef std::vector< const MSEdge* > Route;
 
     /// Const-iterator to Route-elements, i.e. edges.
     typedef Route::const_iterator RouteIterator;
 
-    /// Container for persons
-    typedef std::vector< MSPerson* > PersonCont;
-
     /// Type for time (seconds).
     typedef unsigned int Time;
 
     /// Detector-container type.
-    typedef vector< MSDetector* > DetectorCont;
+    typedef std::vector< MSDetector* > DetectorCont;
+
+    /// List of times (intervals or similar)
+    typedef std::vector< Time > TimeVector;
 
     /** Create unique instance of MSNet and initialize with the
      * beginning timestep. To finish the initialization call &ref
@@ -183,14 +185,13 @@ public:
     /** Initialize the unique MSNet-instance after creation in @ref
      * preInit.
      */
-    static void init( string id,
+    static void init( std::string id,
                       MSEdgeControl* ec,
                       MSJunctionControl* jc,
                       MSEmitControl* emc,
                       MSEventControl* evc,
-                      MSPersonControl* wpc,
                       DetectorCont* detectors,
-                      std::vector< Time > dumpMeanDataIntervalls,
+                      TimeVector dumpMeanDataIntervalls,
                       std::string baseNameDumpFiles,
                       bool withGUI );
     
@@ -204,6 +205,8 @@ public:
         false. */
     bool simulate( std::ostream *craw, Time start, Time stop );
 
+    void simulationStep( std::ostream *craw, Time start, Time step);
+
     /** Inserts a MSNet into the static dictionary and returns true if
         the key id isn't already in the dictionary. Otherwise returns
         false. */
@@ -213,6 +216,9 @@ public:
         otherwise returns 0. */
     static MSNet* dictionary( std::string id );
 
+    /** Clears the dictionary */
+    static void clear();
+
     /** Inserts a MSNet::Route into the static dictionary and returns true
         if the key id isn't already in the dictionary. Otherwise returns
         false. */
@@ -221,6 +227,9 @@ public:
     /** Returns the MSNet associated to the key id if exists,
         otherwise returns 0. */
     static const MSNet::Route* routeDict( std::string id );
+
+    /** Clears the route dictionary */
+    static void clearRouteDict();
 
     /// Returns the timestep-length in seconds.
     static double deltaT();
@@ -265,21 +274,12 @@ protected:
 //             MSJunctionControl* jc,
 //             MSEmitControl* emc,
 //             MSEventControl* evc,
-//             MSPersonControl* wpc,
 //             DetectorCont* detectors,
 //             std::vector< Time > dumpMeanDataIntervalls,
 //             std::string baseNameDumpFiles,
 //             bool withGUI );
 
-    
 private:
-    void processWaitingPersons(unsigned int time);
-    friend void MSPerson::MSPersonStage::proceed(MSNet *net, MSPerson *person, MSNet::Time now, MSEdge *previousEdge);
-    friend void MSPerson::MSPersonStage_Walking::proceed(MSNet *net, MSPerson *person, MSNet::Time now, MSEdge *previousEdge);
-    friend void MSPerson::MSPersonStage_PublicVehicle::proceed(MSNet *net, MSPerson *person, MSNet::Time now, MSEdge *previousEdge);
-    friend void MSPerson::MSPersonStage_PrivateVehicle::proceed(MSNet *net, MSPerson *person, MSNet::Time now, MSEdge *previousEdge);
-    friend void MSPerson::MSPersonStage_Waiting::proceed(MSNet *net, MSPerson *person, MSNet::Time now, MSEdge *previousEdge);
-
     /// Copy constructor.
     MSNet( const MSNet& );
 
@@ -288,7 +288,7 @@ private:
 
     /// Unique instance of MSNet
     static MSNet* myInstance;
-    
+
     /// Unique ID.
     std::string myID;
 
@@ -304,9 +304,6 @@ private:
     /** Time-dependant events like traffic-light-changes, output
         generation etc. */
     MSEventControl* myEvents;
-
-    /// schedules alking persons
-    MSPersonControl *myPersons;
 
     /// Static dictionary to associate string-ids with objects.
     typedef std::map< std::string, MSNet* > DictType;
@@ -328,13 +325,13 @@ private:
     /// The Net's meanData is a pair of an interval-length and a filehandle.
     struct MeanData 
     {
-        MeanData( Time t, ofstream* of ) 
+        MeanData( Time t, std::ofstream* of ) 
             : interval( t ),
               file( of )
             {}
         
         Time interval;
-        ofstream* file;
+        std::ofstream* file;
     };
     
     /** List of intervals and filehandles. At the end of each intervall
@@ -366,5 +363,4 @@ private:
 
 // Local Variables:
 // mode:C++
-
 

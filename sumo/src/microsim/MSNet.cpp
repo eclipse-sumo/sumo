@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2002/10/16 16:44:23  dkrajzew
+// globa file include; no usage of MSPerson; single step execution implemented
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -181,11 +184,12 @@ namespace
 #include "MSJunctionControl.h"
 #include "MSEmitControl.h"
 #include "MSEventControl.h"
-#include "MSPersonControl.h"
-#include "MSPerson.h"
 #include "MSEdge.h"
+#include "MSJunction.h"
+#include "MSJunctionLogic.h"
+#include "MSLane.h"
 #include "MSDetector.h"
-#include <ToString.h>
+#include <helpers/ToString.h>
 
 using namespace std;
 
@@ -220,7 +224,7 @@ MSNet::preInit( MSNet::Time startTimeStep )
 {
     myInstance = new MSNet();
     myInstance->myStep = startTimeStep;
-    
+
 }
 
 void
@@ -228,7 +232,6 @@ MSNet::init( string id, MSEdgeControl* ec,
              MSJunctionControl* jc,
              MSEmitControl* emc,
              MSEventControl* evc,
-             MSPersonControl* wpc,
              DetectorCont* detectors,
              vector< Time > dumpMeanDataIntervalls,
              string baseNameDumpFiles,
@@ -236,12 +239,10 @@ MSNet::init( string id, MSEdgeControl* ec,
 {
     myInstance->myID        = id;
     myInstance->myEdges     = ec;
-    myInstance->myJunctions = jc;
-    myInstance->myEmitter   = emc;
-    myInstance->myEvents    = evc;
-    myInstance->myPersons   = wpc;
-    myInstance->myDetectors = detectors;
-
+    myInstance->myJunctions =  jc;
+    myInstance->myEmitter   =  emc;
+    myInstance->myEvents    =  evc;
+    myInstance->myDetectors =  detectors;
     if ( dumpMeanDataIntervalls.size() > 0 ) {
         
         sort( dumpMeanDataIntervalls.begin(),
@@ -301,9 +302,25 @@ MSNet::init( string id, MSEdgeControl* ec,
 
 
 
-
 MSNet::~MSNet()
 {
+    MSEdge::clear();
+    MSEdgeControl::clear();
+    MSEmitControl::clear();
+    MSEventControl::clear();
+    MSJunction::clear();
+    MSJunctionControl::clear();
+    MSJunctionLogic::clear();
+    MSLane::clear();
+    MSNet::clear();
+    MSVehicle::clear();
+    MSVehicleType::clear();
+    MSNet::clearRouteDict();
+    delete myEdges;
+    delete myJunctions;
+    delete myEmitter;
+    delete myEvents;
+    delete myDetectors;
 }
 
 
@@ -311,108 +328,90 @@ bool
 MSNet::simulate( ostream *craw, Time start, Time stop )
 {
     // prepare the "raw" output and print the first line
-    ostringstream header;
-    header << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
-           << "<sumo-results>" << endl;
     if ( craw ) {
-        (*craw) << header.str();
+        (*craw) << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
+            << "<sumo-results>" << endl;
     }
 
     // the simulation loop
     for ( myStep = start; myStep <= stop; ++myStep ) {
-#ifdef _DEBUG
-        globaltime = myStep;
-#endif
-
-#ifdef _SPEEDCHECK
-        if(myStep==1) {
-            time(&begin);
-            noVehicles = 0;
-        }
-        if(myStep==stop) {
-            time(&end);
-            double ups = ((double) noVehicles / (double) (end-begin));
-            double mups = ups / 1000000.0;
-            cout << noVehicles << " vehicles in " << (end-begin)
-                 << " sec" << endl;
-            cout << ups << "UPS; " << mups << "MUPS" << endl;
-        }
-#endif
-//          myEvents->setTime(myStep);
-
-        // process the persons which are no longer waiting or walking
-        processWaitingPersons(myStep);
-
-        // emit Vehicles
-        myEmitter->emitVehicles(myStep);
-        myEdges->detectCollisions( myStep );
-
-        // execute Events
-        myEvents->execute(myStep);
-
-        // load waiting persons and unload the persons which vehicle
-        // route ends here
-        myEdges->loadPersons();
-        myEdges->unloadPersons(this, myStep);
-
-        // move Vehicles
-        myEdges->moveExceptFirst();
-        myJunctions->moveFirstVehicles();
-        myEdges->detectCollisions( myStep );
-
-
-        // Let's detect induction loops.
-        for( DetectorCont::iterator detec = myDetectors->begin();
-             detec != myDetectors->end(); ++detec ) {
-
-            ( *detec )->sample( simSeconds() );
-        }
-
-        // Check if mean-lane-data is due
-        unsigned passedSteps = myStep - start + 1;
-        for ( unsigned i = 0; i < myMeanData.size(); ++i ) {
-
-            Time interval = myMeanData[ i ].interval;
-            if ( passedSteps % interval == 0 ) {
-
-                *(myMeanData[ i ].file)
-                    << "<interval begin=\""
-                    << passedSteps - interval + start
-                    << "\" end=\"" << myStep << "\">\n"
-                    << MSEdgeControl::MeanData( *myEdges, i , interval )
-                    << "</interval>\n";
-            }
-        }
-        
-        // Vehicles change Lanes (maybe)
-        myEdges->changeLanes();
-        myEdges->detectCollisions( myStep );
-
-        // simple output.
-        if ( craw ) {
-            (*craw) << "    <timestep id=\"" << myStep << "\">\n" 
-                    << MSEdgeControl::XMLOut( *myEdges, 8 )
-                    << "    </timestep>\n";
-        }
+        simulationStep(craw, start, myStep);
     }
 
     // print the last line of the "raw" output
-    ostringstream footer;
-    footer <<  "</sumo-results>" << endl;
     if ( craw ) {
-        (*craw) << footer.str();
+        (*craw) << "</sumo-results>" << endl;
     }
     // exit simulation loop
     return true;
 }
 
+
 void
-MSNet::processWaitingPersons(unsigned int time) {
-    PersonCont *persons = myPersons->getPersons(time);
-    if(persons==0) return;
-    for(PersonCont::iterator i=persons->begin(); i!=persons->end(); i++)
-        (*i)->proceed(this, time);
+MSNet::simulationStep( ostream *craw, Time start, Time myStep )
+{
+#ifdef _DEBUG
+    globaltime = myStep;
+#endif
+#ifdef _SPEEDCHECK
+    if(myStep==1) {
+        time(&begin);
+        noVehicles = 0;
+    }
+    if(myStep==stop) {
+        time(&end);
+        double ups = ((double) noVehicles / (double) (end-begin));
+        double mups = ups / 1000000.0;
+        cout << noVehicles << " vehicles in " << (end-begin) << " sec" << endl;
+        cout << ups << "UPS; " << mups << "MUPS" << endl;
+    }
+#endif
+    // emit Vehicles
+    myEmitter->emitVehicles(myStep);
+    myEdges->detectCollisions( myStep );
+
+    // execute Events
+    myEvents->execute(myStep);
+
+    // move Vehicles
+    myEdges->moveExceptFirst();
+    myJunctions->moveFirstVehicles();
+    myEdges->detectCollisions( myStep );
+
+    // Let's detect.
+    for( DetectorCont::iterator detec = myDetectors->begin();
+        detec != myDetectors->end(); ++detec ) {
+        ( *detec )->sample( simSeconds() );
+    }
+
+    // Check if mean-lane-data is due
+    unsigned passedSteps = myStep - start + 1;
+    for ( unsigned i = 0; i < myMeanData.size(); ++i ) {
+
+        Time interval = myMeanData[ i ].interval;
+        if ( passedSteps % interval == 0 ) {
+
+            *(myMeanData[ i ].file)
+                << "<interval begin=\""
+                << passedSteps - interval + start
+                << "\" end=\"" << myStep << "\">\n"
+                << MSEdgeControl::MeanData( *myEdges, i , interval )
+                << "</interval>\n";
+        }
+    }
+        
+    // Vehicles change Lanes (maybe)
+    myEdges->changeLanes();
+    myEdges->detectCollisions( myStep );
+
+    // raw output.
+    if ( craw ) {
+        (*craw) << "    <timestep id=\"" << myStep << "\">" << endl;
+        (*craw) << MSEdgeControl::XMLOut( *myEdges, 8 );
+        (*craw) << "    </timestep>" << endl;
+    }
 }
+
 
 bool
 MSNet::dictionary(string id, MSNet* ptr)
@@ -436,6 +435,16 @@ MSNet::dictionary(string id)
         return 0;
     }
     return it->second;
+}
+
+
+void
+MSNet::clear()
+{
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        delete (*i).second;
+    }
+    myDict.clear();
 }
 
 
@@ -463,6 +472,15 @@ MSNet::routeDict(string id)
     return it->second;
 }
 
+
+void
+MSNet::clearRouteDict()
+{
+    for(RouteDict::iterator i=myRoutes.begin(); i!=myRoutes.end(); i++) {
+        delete (*i).second;
+    }
+    myRoutes.clear();
+}
 
 unsigned
 MSNet::getNDumpIntervalls( void )
