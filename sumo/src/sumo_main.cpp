@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/07/22 15:16:49  dkrajzew
+// new detector usage applied
+//
 // Revision 1.14  2003/07/21 18:17:28  roessel
 // Creation of SingletonDictionaries for Detectors added. Move to another place?
 //
@@ -160,9 +163,10 @@ namespace
 #include <utils/options/OptionsSubSys.h>
 #include <sumo_only/SUMOFrame.h>
 #include "sumo_help.h"
-#include <helpers/SingletonDictionary.h>
-#include <MSLaneState.h>
-#include <MSInductLoop.h>
+#include <microsim/MSDetectorSubSys.h>
+//#include <helpers/SingletonDictionary.h>
+//#include <microsim/MSLaneState.h>
+//#include <microsim/MSInductLoop.h>
 
 
 /* =========================================================================
@@ -178,11 +182,11 @@ using namespace std;
  * data processing methods
  * ----------------------------------------------------------------------- */
 
-namespace 
+namespace
 {
-    /**
-     * loads the net, additional routes and the detectors
-     */
+  /**
+   * loads the net, additional routes and the detectors
+   */
     MSNet *
     load(OptionsCont &oc) {
         // build the network first
@@ -194,7 +198,7 @@ namespace
         return ret;
     }
 
-
+/*
     typedef SingletonDictionary< std::string, MSLaneState* > LaneStateDict;
     typedef SingletonDictionary< std::string, MSInductLoop* > LoopDict;
 
@@ -231,23 +235,22 @@ namespace
             LaneStateDict::getInstance()->getStdVector() );
         deleteDictionaryContents( lsVec.begin(), lsVec.end() );
         delete LaneStateDict::getInstance();
-    
+
         LoopDict::ValueVector loopVec(
             LoopDict::getInstance()->getStdVector() );
         deleteDictionaryContents( loopVec.begin(), loopVec.end() );
         delete LoopDict::getInstance();
-    } 
+    } */
 }
-
-#include "microsim/MSDetector2File.h"
-
+/*
+#include <microsim/MSDetector2File.h>
+*/
 /* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
 int
 main(int argc, char **argv)
 {
-    createDictionaries();
     size_t rand_init = 10551;
 //    rand_init = time(0);
 //    cout << "Rand:" << rand_init << endl;
@@ -263,21 +266,6 @@ main(int argc, char **argv)
         // load the net
         MSNet *net = load(oc);
         SUMOFrame::postbuild(*net);
-        setDictionariesFindMode();
-        MSDetector2File<MSInductLoop>::create( 900 );
-        MSDetector2File<MSInductLoop>* det2file =
-            MSDetector2File<MSInductLoop>::getInstance();
-        LoopDict::ValueVector loops = LoopDict::getInstance()->getStdVector();
-        for(LoopDict::ValueVector::iterator it = loops.begin();
-            it != loops.end(); ++it ) {
-            cout << "id " << (*it)->getId() << endl;
-               
-            det2file->addDetectorAndInterval( (*it)->getId(), 1 );
-            det2file->addDetectorAndInterval( (*it)->getId(), 60 );
-            det2file->addDetectorAndInterval( (*it)->getId(), 900 );
-        } 
-
-        
         // simulate when everything's ok
         ostream *craw = SUMOFrame::buildRawOutputStream(oc);
         // report the begin when wished
@@ -293,13 +281,11 @@ main(int argc, char **argv)
             + toString<int>(net->getCurrentTimeStep()));
         delete net;
         delete craw;
-    } catch (ProcessError) {
+    } catch (int) {
         MSNet::clearAll();
         MsgHandler::getErrorInstance()->inform("Quitting.");
         ret = 1;
     }
     SystemFrame::close();
-
-    deleteDictionariesAndContents();
     return ret;
 }
