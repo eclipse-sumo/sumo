@@ -137,9 +137,9 @@ namespace DetectorContainer
     };
 
     typedef MSDetectorHaltingContainerWrapper<
-        std::list< Halting > > Haltings;
+        std::list< Halting > > HaltingsList;
 
-    typedef MSUpdateEachTimestep< Haltings > UpdateHaltings;
+    typedef MSUpdateEachTimestep< HaltingsList > UpdateHaltings;
 }
 
 namespace Predicate

@@ -28,26 +28,27 @@
 #include <algorithm>
 #include <functional>
 #include <list>
+#include <map>
 
 template< class WrappedContainer >
 struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
 {
     typedef typename WrappedContainer::const_iterator ContainerConstIt;
     typedef WrappedContainer InnerContainer;
+    typedef typename WrappedContainer::value_type ContainerItem;
+    typedef typename WrappedContainer::iterator ContainerIt;
+    typedef typename Predicate::PosGreaterC< ContainerItem >
+    PosGreaterPredicate;
+    typedef typename Predicate::VehEqualsC< ContainerItem >
+    ErasePredicate;
 
     void enterDetectorByMove( MSVehicle* veh )
         {
-//             typedef typename WrappedContainer::value_type ContainerItem;
-//             containerM.push_front( ContainerItem( veh ) );
-            enterDetectorByEmitOrLaneChange( veh );
+            containerM.push_front( ContainerItem( veh ) );
         }
  
     void enterDetectorByEmitOrLaneChange( MSVehicle* veh )
-        {
-            typedef typename WrappedContainer::value_type ContainerItem;
-            typedef typename WrappedContainer::iterator ContainerIt;
-            typedef typename Predicate::PosGreaterC< ContainerItem >
-                PosGreaterPredicate;
+        {        
             ContainerIt insertIt =
                 std::find_if( containerM.begin(), containerM.end(),
                               std::bind2nd(
@@ -57,10 +58,6 @@ struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
 
     void leaveDetectorByMove( MSVehicle* veh )
         {
-            typedef typename WrappedContainer::value_type ContainerItem;
-            typedef typename WrappedContainer::iterator ContainerIt;
-            typedef typename Predicate::VehEqualsC< ContainerItem >
-                ErasePredicate;
             ContainerIt eraseIt =
                 std::find_if( containerM.begin(), containerM.end(),
                               std::bind2nd(
@@ -72,17 +69,6 @@ struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
 
     void leaveDetectorByLaneChange( MSVehicle* veh )
         {
-//             typedef typename WrappedContainer::value_type ContainerItem;
-//             typedef typename WrappedContainer::iterator ContainerIt;
-//             typedef typename Predicate::VehEqualsC< ContainerItem >
-//                 ErasePredicate;
-//             ContainerIt eraseIt =
-//                 std::find_if( containerM.begin(), containerM.end(),
-//                               std::bind2nd(
-//                                   ErasePredicate(), veh ) );
-//             assert(containerM.size()>0);
-//             assert(eraseIt!=containerM.end());
-//             containerM.erase( eraseIt );
             leaveDetectorByMove( veh );
         }
 
@@ -101,10 +87,61 @@ struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
     WrappedContainer containerM;
 };
 
+
+
+// specialization for WrappedContainer == std::map< Vehicle*, T >
+class MSVehicle;
+template< class T >
+struct MSDetectorContainerWrapper< std::map< MSVehicle*, T > >
+    : public MSDetectorContainerWrapperBase
+{
+    typedef std::map< MSVehicle*, T > WrappedContainer;
+    
+    void enterDetectorByMove( MSVehicle* veh )
+        {
+            assert( containerM.find( veh ) == containerM.end() );
+            containerM.insert( std::make_pair( veh, T() ) );
+        }
+ 
+    void enterDetectorByEmitOrLaneChange( MSVehicle* veh )
+        {
+            enterDetectorByMove( veh );
+        }
+
+    void leaveDetectorByMove( MSVehicle* veh )
+        {
+            assert( containerM.find( veh ) != containerM.end() );
+            containerM.erase( veh );
+        }
+
+    void leaveDetectorByLaneChange( MSVehicle* veh )
+        {
+            leaveDetectorByMove( veh );
+        }
+
+
+    MSDetectorContainerWrapper(
+        const MSDetectorOccupancyCorrection& occupancyCorrection )
+        : MSDetectorContainerWrapperBase( occupancyCorrection ),
+          containerM()
+        {}
+
+    virtual ~MSDetectorContainerWrapper( void )
+        {
+            containerM.clear();
+        }
+
+    WrappedContainer containerM;
+};
+
+
+
 namespace DetectorContainer
 {
     typedef MSDetectorContainerWrapper<
-        std::list< MSVehicle* > > Vehicles;
+        std::list< MSVehicle* > > VehiclesList;
+//     typedef MSDetectorContainerWrapper<
+//         std::map< MSVehicle*, T > > Vehicles...
 }
 
 #endif // MSDETECTORCONTAINERWRAPPER_H

@@ -30,7 +30,7 @@ class MSMaxJamLengthInVehicles
 {
 protected:
     typedef double DetectorAggregate;
-    typedef DetectorContainer::Haltings Container;
+    typedef DetectorContainer::HaltingsList Container;
     typedef Container::HaltingsConstIt HaltingsConstIt;
     typedef Container::InnerContainer Haltings;
     
@@ -74,7 +74,7 @@ class MSMaxJamLengthInMeters
 {
 protected:
     typedef double DetectorAggregate;
-    typedef DetectorContainer::Haltings Container;
+    typedef DetectorContainer::HaltingsList Container;
     typedef Container::HaltingsConstIt HaltingsConstIt;
     typedef Container::InnerContainer Haltings;
     

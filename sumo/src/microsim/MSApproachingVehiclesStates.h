@@ -65,7 +65,7 @@ public:
     typedef std::vector< VehicleState > DetectorAggregate;
     
 protected:
-    typedef DetectorContainer::Vehicles Container;
+    typedef DetectorContainer::VehiclesList Container;
     typedef Container::InnerContainer VehicleCont;
     
     MSApproachingVehiclesStates( MSUnit::Meters detectorEndPos,

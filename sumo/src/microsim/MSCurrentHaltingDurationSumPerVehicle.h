@@ -28,11 +28,11 @@
 class MSCurrentHaltingDurationSumPerVehicle
 {
 public:
-    typedef DetectorContainer::Haltings::InnerContainer::value_type Halting;
+    typedef DetectorContainer::HaltingsList::InnerContainer::value_type Halting;
 
 protected:
     typedef double DetectorAggregate;
-    typedef DetectorContainer::Haltings Container;
+    typedef DetectorContainer::HaltingsList Container;
     typedef Container::InnerContainer HaltingCont;    
 
     MSCurrentHaltingDurationSumPerVehicle( double lengthInMeters,

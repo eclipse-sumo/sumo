@@ -30,11 +30,12 @@
 class MSOccupancyDegree
 {
 public:
-    typedef DetectorContainer::Vehicles::InnerContainer::value_type Vehicle;
+    typedef DetectorContainer::VehiclesList::InnerContainer::value_type
+    Vehicle;
 
 protected:
     typedef double DetectorAggregate;
-    typedef DetectorContainer::Vehicles Container;
+    typedef DetectorContainer::VehiclesList Container;
     typedef Container::InnerContainer VehicleCont;
     
     MSOccupancyDegree( double lengthInMeters, const Container& vehicleCont ) 
