@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/11/12 14:05:18  dkrajzew
+// access to the id storage in MSNet is now secure
+//
 // Revision 1.4  2003/09/05 14:57:12  dkrajzew
 // first steps for reading of internal lanes
 //
@@ -98,7 +101,7 @@ GUIEdgeControlBuilder::addSrcDestInfo(const std::string &id,
         throw XMLIdNotKnownException("edge", id);
     }
     edge->initJunctions(from, to,
-        static_cast<GUINet*>(MSNet::getInstance())->_idStorage,
+        static_cast<GUINet*>(MSNet::getInstance())->getIDStorage(),
             myAllowAggregation);
 }
 
