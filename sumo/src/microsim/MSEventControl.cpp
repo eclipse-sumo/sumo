@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.9  2003/07/31 10:49:57  dkrajzew
+// missing deletion added
+//
 // Revision 1.8  2003/06/24 14:49:27  dkrajzew
 // error made during debugging (accessing an ungiven function) removed
 //
@@ -145,9 +148,10 @@ MSEventControl* MSEventControl::myEndOfTimestepEvents = 0;
 /* =========================================================================
  * member definitions
  * ======================================================================= */
-// /* -------------------------------------------------------------------------
-//  * methods from MSEventControl::EventSortCrit
-//  * ----------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------
+ * methods from MSEventControl
+ * ----------------------------------------------------------------------- */
+
 
 MSEventControl*
 MSEventControl::getBeginOfTimestepEvents( void )
@@ -172,10 +176,6 @@ MSEventControl::MSEventControl( ) :
     myEvents()
 {
 }
-
-/* -------------------------------------------------------------------------
- * methods from MSEventControl
- * ----------------------------------------------------------------------- */
 
 
 MSEventControl::~MSEventControl()
@@ -265,6 +265,10 @@ MSEventControl::dictionary(string id)
 void
 MSEventControl::clear()
 {
+    delete myBeginOfTimestepEvents;
+    delete myEndOfTimestepEvents;
+    myBeginOfTimestepEvents = 0;
+    myEndOfTimestepEvents = 0;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         delete (*i).second;
     }
