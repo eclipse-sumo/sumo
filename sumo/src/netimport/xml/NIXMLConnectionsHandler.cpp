@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2003/03/17 14:23:26  dkrajzew
+// unneeded connection-type parameter usage removed
+//
 // Revision 1.1  2003/02/07 11:16:30  dkrajzew
 // names changed
 //
@@ -108,9 +111,10 @@ NIXMLConnectionsHandler::myStartElement(int element, const std::string &name,
         }
         // parse the id
         string type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
-        if(type=="edgebound") {
+        string laneConn = getStringSecure(attrs, SUMO_ATTR_LANE, "");
+        if(type=="edgebound"||laneConn=="") {
             parseEdgeBound(attrs, fromEdge, toEdge);
-        } else if(type=="lanebound") {
+        } else if(type=="lanebound"||laneConn.size()!=0) {
             parseLaneBound(attrs, fromEdge, toEdge);
         } else {
             addError("Unknown type of connection");
@@ -123,7 +127,8 @@ NIXMLConnectionsHandler::parseEdgeBound(const Attributes &attrs,
                                         NBEdge *from,
                                         NBEdge *to)
 {
-    int noLanes;
+    from->addEdge2EdgeConnection(to);
+/*    int noLanes;
     try {
         noLanes = getIntSecure(attrs, SUMO_ATTR_NOLANES, -1);
     } catch (NumberFormatException e) {
@@ -138,7 +143,7 @@ NIXMLConnectionsHandler::parseEdgeBound(const Attributes &attrs,
         for(size_t i=0; i<noLanes; i++) {
             from->addLane2LaneConnection(i, to, i);
         }
-    }
+    }*/
 }
 
 
