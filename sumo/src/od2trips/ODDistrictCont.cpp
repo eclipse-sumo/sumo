@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/01/12 15:39:02  dkrajzew
+// reproduces changes to NamedObjectsMap
+//
 // Revision 1.4  2003/08/04 11:37:37  dkrajzew
 // added the generation of colors from districts
 //
@@ -85,9 +88,9 @@ void
 ODDistrictCont::colorize()
 {
     size_t pos = 0;
-    for(myContIt i=_cont.begin(); i!=_cont.end(); i++) {
+    for(myContIt i=myMap.begin(); i!=myMap.end(); i++) {
         ODDistrict *district = (*i).second;
-        district->setColor((double) pos / (double) _cont.size());
+        district->setColor((double) pos / (double) myMap.size());
         pos++;
     }
 }

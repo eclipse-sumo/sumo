@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/01/12 15:39:35  dkrajzew
+// reproduces changes to NamedObjectsMap
+//
 // Revision 1.4  2003/04/09 15:39:11  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
@@ -56,8 +59,8 @@ ROEdgeCont::~ROEdgeCont()
 void
 ROEdgeCont::postloadInit()
 {
-    for(myCont::iterator i=_cont.begin(); i!=_cont.end(); i++) {
-        (*i).second->postloadInit();
+    for(IDMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
+        (*i).second->postloadInit(); // !!! for_each
     }
 }
 
@@ -75,7 +78,7 @@ ROEdgeCont::computeWeights()
 void
 ROEdgeCont::init()
 {
-    for(myCont::iterator i=_cont.begin(); i!=_cont.end(); i++) {
+    for(IDMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
         (*i).second->init();
     }
 }
@@ -85,7 +88,7 @@ std::vector<ROEdge*>
 ROEdgeCont::getAllEdges() const
 {
     std::vector<ROEdge*> all;
-    for(myCont::const_iterator i=_cont.begin(); i!=_cont.end(); i++) {
+    for(IDMap::const_iterator i=myMap.begin(); i!=myMap.end(); i++) {
         all.push_back((*i).second);
     }
     return all;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/01/12 15:39:35  dkrajzew
+// reproduces changes to NamedObjectsMap
+//
 // Revision 1.4  2003/03/17 14:25:28  dkrajzew
 // windows eol removed
 //
@@ -69,7 +72,7 @@ ROVehicleCont::sort()
         priority_queue<ROVehicle*,
             std::vector<ROVehicle*>,
             ROHelper::VehicleByDepartureComperator>();
-    for(myCont::iterator i=_cont.begin(); i!=_cont.end(); i++) {
+    for(IDMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
         _sorted.push((*i).second);
     }
     return _sorted;
@@ -80,9 +83,9 @@ void
 ROVehicleCont::eraseVehicle(ROVehicle *v)
 {
     std::string id = v->getID();
-    myCont::iterator i = _cont.find(id);
+    IDMap::iterator i = myMap.find(id);
     delete (*i).second;
-    _cont.erase(i);
+    myMap.erase(i);
 }
 
 
