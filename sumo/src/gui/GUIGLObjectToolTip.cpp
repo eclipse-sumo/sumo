@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/08/02 11:49:45  dkrajzew
+// added a missing lock
+//
 // Revision 1.1  2004/03/19 12:56:11  dkrajzew
 // porting to FOX
 //
@@ -89,6 +92,10 @@ GUIGLObjectToolTip::GUIGLObjectToolTip(GUIApplicationWindow *a,
 
 GUIGLObjectToolTip::~GUIGLObjectToolTip()
 {
+    // just to quit cleanly on a failure
+    if(_lock->locked()) {
+        _lock->unlock();
+    }
     delete _lock;
 }
 
