@@ -25,8 +25,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.2  2002/11/04 08:42:31  dkrajzew
-// in-line documentation updated; unwished includion of non-existing .icc-files removed; help screen updated
+// Revision 1.3  2003/02/07 10:37:30  dkrajzew
+// files updated
 //
 // Revision 1.1  2002/10/16 14:51:08  dkrajzew
 // Moved from ROOT/sumo to ROOT/src; added further help and main files for netconvert, router, od2trips and gui version
@@ -108,7 +108,7 @@ namespace
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #ifdef WIN32
-   #include "utils/common/MemDiff.h"
+   #include <utils/dev/MemDiff.h>
 #endif
 #endif
 
@@ -217,7 +217,7 @@ bool computeLogic(int step, OptionsCont *oc)
         cout << "Computing step " << step
             << ": Computing node logics" << endl;
     }
-    return NBNodeCont::computeLogics(oc->getBool("v"), 0 /*oc->getLong("m")*/);
+    return NBNodeCont::computeLogics(oc->getBool("v"), 0);
 }
 
 /* -------------------------------------------------------------------------

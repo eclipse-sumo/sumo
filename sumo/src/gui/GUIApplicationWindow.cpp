@@ -1,10 +1,47 @@
+//---------------------------------------------------------------------------//
+//                        GUIApplicationWindow.cpp
+//  Class for the main gui window
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.3  2003/02/07 10:34:14  dkrajzew
+// files updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <sstream>
 
 #include <qpixmap.h>
 #include <qtoolbar.h>
 #include <qtoolbutton.h>
-#include <qprinter.h>
 #include <qpopupmenu.h>
 #include <qmenubar.h>
 #include <qapplication.h>
@@ -22,6 +59,9 @@
 
 #include <guisim/GUINet.h>
 
+#include <utils/convert/ToString.h>
+#include <version.cpp>
+
 #include "GUISUMOView.h"
 #include "GUILoadThread.h"
 #include "GUIRunThread.h"
@@ -31,7 +71,6 @@
 #include "GUIEvents.h"
 #include "icons/filesave.xpm"
 #include "icons/fileopen.xpm"
-#include "icons/fileprint.xpm"
 #include "icons/play.xpm"
 #include "icons/stop.xpm"
 #include "icons/cont.xpm"
@@ -39,14 +78,17 @@
 #include "icons/new_window.xpm"
 
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * window hint definitions
+ * ======================================================================= */
 const char * fileOpenText = "Click this button to open a <em>new file</em>. <br><br>"
 "You can also select the <b>Open command</b> from the File menu.";
-
-const char * filePrintText = "Click this button to print the file you "
-"are editing.\n\n"
-"You can also select the Print command from the File menu.";
 
 const char * startSimText = "Click this button to start the loaded simulation. <br><br>"
 "You can also select the <b>Start Simulation</b> from the Simulation menu.";
@@ -61,15 +103,16 @@ const char * singleSimStepText = "Click this button to perform a single simulati
 "You can also select the <b>Single Step</b> from the Simulation menu.";
 
 
-
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 GUIApplicationWindow::GUIApplicationWindow()
     : QMainWindow( 0, "example application main window", WDestructiveClose ),
-    _loadThread(new GUILoadThread(this)),
-    _runThread(new GUIRunThread(this, 5))
+    _loadThread(0), _runThread(0)
 {
-#ifndef QT_NO_PRINTER
-    printer = new QPrinter;
-#endif
+    _loadThread = new GUILoadThread(this);
+    _runThread = new GUIRunThread(this, 5);
+
 
     buildFileTools();
     buildSimulationTools();
@@ -77,11 +120,6 @@ GUIApplicationWindow::GUIApplicationWindow()
     int id;
 
     QPixmap openIcon, saveIcon;
-#ifndef QT_NO_PRINTER
-    QPixmap printIcon;
-    printIcon = QPixmap( fileprint );
-#endif
-
     openIcon = QPixmap( fileopen );
     saveIcon = QPixmap( filesave );
 
@@ -92,12 +130,6 @@ GUIApplicationWindow::GUIApplicationWindow()
 			   this, SLOT(load()), CTRL+Key_O );
     file->setWhatsThis( id, fileOpenText );
 
-#ifndef QT_NO_PRINTER
-    file->insertSeparator();
-    id = file->insertItem( printIcon, "&Print",
-			   this, SLOT(print()), CTRL+Key_P );
-    file->setWhatsThis( id, filePrintText );
-#endif
     file->insertSeparator();
     file->insertItem( "&Close", this, SLOT(closeAllWindows()), CTRL+Key_W );
     file->insertItem( "&Quit", qApp, SLOT( closeAllWindows() ), CTRL+Key_Q );
@@ -124,17 +156,20 @@ GUIApplicationWindow::GUIApplicationWindow()
 
     statusBar()->message( "Ready", 2000 );
     _runThread->start();
+    string caption = string("SUMO ") + string(version)
+        + string(" - no simulation loaded");
+    setCaption( caption.c_str());
 }
+
 
 GUIApplicationWindow::~GUIApplicationWindow()
 {
+    _runThread->prepareDestruction();
+    _runThread->wait();
     delete _loadThread;
     delete _runThread;
-//    delete _runThread;
-#ifndef QT_NO_PRINTER
-    delete printer;
-#endif
 }
+
 
 void
 GUIApplicationWindow::buildFileTools()
@@ -148,16 +183,6 @@ GUIApplicationWindow::buildFileTools()
     QToolButton * fileOpen = new QToolButton( openIcon, "Open File",
         QString::null, this, SLOT(load()), fileTools, "open file" );
     QWhatsThis::add( fileOpen, fileOpenText );
-#ifndef QT_NO_PRINTER
-    QPixmap printIcon;
-
-    printIcon = QPixmap( fileprint );
-    QToolButton * filePrint
-	= new QToolButton( printIcon, "Print File", QString::null,
-			   this, SLOT(print()), fileTools, "print file" );
-    QWhatsThis::add( filePrint, filePrintText );
-#endif
-
     (void)QWhatsThis::whatsThisButton( fileTools );
 }
 
@@ -183,33 +208,32 @@ GUIApplicationWindow::buildSimulationTools()
     _stopSimButton->setEnabled(false);
     // add "resume simulation" - button
     icon = QPixmap( cont_xpm );
-    _resumeSimButton = new QToolButton( icon, "Resume Simulation", 
-        QString::null, this, SLOT(resume()), simTools, 
+    _resumeSimButton = new QToolButton( icon, "Resume Simulation",
+        QString::null, this, SLOT(resume()), simTools,
         "resume simulation" );
     QWhatsThis::add( _resumeSimButton, resumeSimText );
     _resumeSimButton->setEnabled(false);
     // add "single step" - button
     icon = QPixmap( step_xpm );
-    _singleStepButton = new QToolButton( icon, "Single Step", 
-        QString::null, this, SLOT(singleStep()), simTools, 
+    _singleStepButton = new QToolButton( icon, "Single Step",
+        QString::null, this, SLOT(singleStep()), simTools,
         "single step" );
     QWhatsThis::add( _resumeSimButton, singleSimStepText );
     _singleStepButton->setEnabled(false);
     // add the information about the current time step
-    QLabel *label = new QLabel(QString("Current Step:"), 
+    QLabel *label = new QLabel(QString("Current Step:"),
         simTools, "current simulation step");
     label->setAlignment(Qt::AlignCenter|Qt::AlignVCenter);
     _simStepLabel = new QLabel(QString("-"), simTools, "step information");
     _simStepLabel->setAlignment(Qt::AlignRight|Qt::AlignVCenter);
     _simStepLabel->setFixedSize(100, 20);
     // add the simulation delay button
-    QSpinBox *spin = new QSpinBox(1, 10000, 10, 
+    QSpinBox *spin = new QSpinBox(1, 10000, 10,
         simTools, "simulation speed factor");
     spin->setValue(100);
-    connect( spin, SIGNAL(valueChanged(int)), 
+    connect( spin, SIGNAL(valueChanged(int)),
         this, SLOT(setSimulationDelay(int)) );
 }
-
 
 
 void
@@ -221,9 +245,10 @@ GUIApplicationWindow::buildWindowsTools()
 
     // add "start simulation" - button
     icon = QPixmap( new_window_xpm );
-    QToolButton *button = new QToolButton( icon, "Open New Window",
+    _windowAdder = new QToolButton( icon, "Open New Window",
         QString::null, this, SLOT(openNewWindow()), _winTools,
         "open new window" );
+    _windowAdder->setEnabled(false);
 }
 
 
@@ -250,6 +275,7 @@ GUIApplicationWindow::netLoaded(QSimulationLoadedEvent *ec)
             + QString(ec->_file.c_str())
             + QString("' failed!!!"), 2000 );
     } else {
+        myViewNumber = 0;
         statusBar()->message( QString("'")
             + QString(ec->_file.c_str())
             + QString("' loaded."), 2000 );
@@ -257,8 +283,13 @@ GUIApplicationWindow::netLoaded(QSimulationLoadedEvent *ec)
         _wasStarted = false;
         _startSimButton->setEnabled(true);
         openNewWindow();
+        string caption = string("SUMO ") + string(version)
+            + string(" - ") + ec->_file;
+        setCaption( caption.c_str());
+        _windowAdder->setEnabled(true);
     }
 }
+
 
 void
 GUIApplicationWindow::openNewWindow()
@@ -270,7 +301,8 @@ GUIApplicationWindow::openNewWindow()
     GUISUMOView* w = new GUISUMOView( ws, 0, WDestructiveClose,
         _runThread->getNet() );
     connect( w, SIGNAL( message(const QString&, int) ), statusBar(), SLOT( message(const QString&, int )) );
-    w->setCaption(_name.c_str());
+    string caption = string("View #") + toString(myViewNumber++);
+    w->setCaption( caption.c_str() );
     w->setIcon( QPixmap("document.xpm") );
     // show the very first window in maximized mode
     if ( ws->windowList().isEmpty() ) {
@@ -279,6 +311,7 @@ GUIApplicationWindow::openNewWindow()
         w->show();
     }
 }
+
 
 void
 GUIApplicationWindow::start()
@@ -341,17 +374,6 @@ GUIApplicationWindow::singleStep()
 }
 
 
-
-void GUIApplicationWindow::print()
-{
-#ifndef QT_NO_PRINTER
-    GUISUMOView* m = (GUISUMOView*)ws->activeWindow();
-    if ( m )
-	m->print( printer );
-#endif
-}
-
-
 void GUIApplicationWindow::closeAllWindows()
 {
     GUISUMOView* m = (GUISUMOView*)ws->activeWindow();
@@ -360,19 +382,30 @@ void GUIApplicationWindow::closeAllWindows()
         m = (GUISUMOView*)ws->activeWindow();
     }
     _runThread->deleteSim();
+    resetSimulationToolBar();
+    string caption = string("SUMO ") + string(version)
+        + string(" - no simulation loaded");
+    setCaption( caption.c_str());
+    update();
 }
+
 
 void GUIApplicationWindow::about()
 {
-    QMessageBox::about( this, "SUMO GUI v1.0",
-			"Simulation of Urban MObility v1.0\n "
-			"A traffic simulation by IVF/DLR & ZAIK (http://www.ivf.dlr.de).");
+    string caption = string("SUMO GUI ") + string(version);
+    string text = string("Simulation of Urban MObility ")
+        + string(version) + string("\n")
+        + string("A microscopic traffic simulation by IVF/DLR & ZAIK\n")
+        + string("(http://www.ivf.dlr.de).");
+    QMessageBox::about( this, caption.c_str(), text.c_str());
 }
 
 
 void GUIApplicationWindow::aboutQt()
 {
-    QMessageBox::aboutQt( this, "SUMO GUI v1.0" );
+    string versionString =
+        string("SUMO GUI ") + string(version);
+    QMessageBox::aboutQt( this, versionString.c_str() );
 }
 
 
@@ -382,18 +415,19 @@ void GUIApplicationWindow::windowsMenuAboutToShow()
     int cascadeId = windowsMenu->insertItem("&Cascade", ws, SLOT(cascade() ) );
     int tileId = windowsMenu->insertItem("&Tile", ws, SLOT(tile() ) );
     if ( ws->windowList().isEmpty() ) {
-	windowsMenu->setItemEnabled( cascadeId, FALSE );
-	windowsMenu->setItemEnabled( tileId, FALSE );
+    	windowsMenu->setItemEnabled( cascadeId, FALSE );
+    	windowsMenu->setItemEnabled( tileId, FALSE );
     }
     windowsMenu->insertSeparator();
     QWidgetList windows = ws->windowList();
     for ( int i = 0; i < int(windows.count()); ++i ) {
-	int id = windowsMenu->insertItem(windows.at(i)->caption(),
+    	int id = windowsMenu->insertItem(windows.at(i)->caption(),
 					 this, SLOT( windowsMenuActivated( int ) ) );
-	windowsMenu->setItemParameter( id, i );
-	windowsMenu->setItemChecked( id, ws->activeWindow() == windows.at(i) );
+    	windowsMenu->setItemParameter( id, i );
+    	windowsMenu->setItemChecked( id, ws->activeWindow() == windows.at(i) );
     }
 }
+
 
 void GUIApplicationWindow::windowsMenuActivated( int id )
 {
@@ -404,21 +438,9 @@ void GUIApplicationWindow::windowsMenuActivated( int id )
     }
 }
 
-/*
-void 
-GUIApplicationWindow::updateScreens()
-{
-    QWidgetList windows = ws->windowList();
-    for ( int i = 0; i < int(windows.count()); ++i ) {
-        QThread::postEvent( windows.at(i), new QPaintEvent( QRect(0, 0, 800, 600) ) );
-        QObject *o = windows.at(i) ;
-//        cout << windows.at(i) << endl;
-//        windows.at(i)->repaint();
-    }
-}*/
 
 bool
-GUIApplicationWindow::event(QEvent *e) 
+GUIApplicationWindow::event(QEvent *e)
 {
     if(e->type()!=QEvent::User) {
         return QMainWindow::event(e);
@@ -428,13 +450,15 @@ GUIApplicationWindow::event(QEvent *e)
     case EVENT_SIMULATION_STEP:
         {
             QWidgetList windows = ws->windowList();
+			GUINet::lockAlloc();
             for ( int i = 0; i < int(windows.count()); ++i ) {
-                QApplication::postEvent( windows.at(i), 
+                QApplication::postEvent( windows.at(i),
                     new QSimulationStepEvent());
             }
             ostringstream str;
             str << _runThread->getCurrentTimeStep();
             _simStepLabel->setText(QString(str.str().c_str()));
+			GUINet::unlockAlloc();
         }
         return TRUE;
     case EVENT_SIMULATION_LOADED:
@@ -446,8 +470,33 @@ GUIApplicationWindow::event(QEvent *e)
 }
 
 
-void 
+void
 GUIApplicationWindow::setSimulationDelay(int value)
 {
     _runThread->setSimulationDelay(value);
 }
+
+
+
+void
+GUIApplicationWindow::resetSimulationToolBar()
+{
+    _startSimButton->setEnabled(false);
+    _resumeSimButton->setEnabled(false);
+    _stopSimButton->setEnabled(false);
+    _singleStepButton->setEnabled(false);
+    _simStepLabel->setText("-");
+    _windowAdder->setEnabled(false);
+}
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "GUIApplicationWindow.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

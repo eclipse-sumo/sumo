@@ -20,13 +20,19 @@
  *                                                                         *
  ***************************************************************************/
 
+/* =========================================================================
+ * definitions
+ * ======================================================================= */
+/**
+ * The list of help strings for the sumo-od2trips module
+ */
 char *help[] = {
     "Usage: od2trips [OPTION]*",
     "Merges OD matrix and net to trip tables v0.1 - Od2Trip Module",
     "  http://???",
 	" ",
     "Examples: ",
-    " od2trips -n ./MD_Netz.net..xml -d ./Format_O.fm -o ./triptable.txt -v",
+    " od2trips -n ./MD_Netz.net..xml -d ./Format_O.fm -o ./triptable.txt -vC",
     " od2trips -c od2trips.cfg",
     " ",
     "Options:",
@@ -41,11 +47,16 @@ char *help[] = {
 	"                                        to FILE",
     " ",
     " Processing Options:",
+    "   -b, --begin                    Time to begin with (in s)",
+    "   -e, --end                      Time to end with (in s)",
+    "   -s, --scale                    Norming factor",
+    "                                   The number of trips is =",
+    "                                   number of read/factor",
     "   -C, --no-config                No configuration file is used",
     "   -v, --verbose                  od2trips reports what it does",
     "   -p, --print-options            Prints option values before processing",
     "   -h, --help                     This screen",
-    0 
+    0
 };
 
 #endif

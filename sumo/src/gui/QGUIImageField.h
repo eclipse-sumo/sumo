@@ -1,9 +1,8 @@
-#ifndef GUIPerspectiveChanger_h
-#define GUIPerspectiveChanger_h
+#ifndef QGUIImageField_h
+#define QGUIImageField_h
 //---------------------------------------------------------------------------//
-//                        GUIPerspectiveChanger.h -
-//  A class that allows to steer the visual output in dependence to user
-//      interaction
+//                        QGUIImageField.h -
+//  Although originally a toolbutton, this just is a holder of pictures
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -21,7 +20,7 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.2  2003/02/07 10:34:14  dkrajzew
+// Revision 1.1  2003/02/07 10:34:15  dkrajzew
 // files updated
 //
 //
@@ -34,53 +33,35 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-/* =========================================================================
- * class declarations
- * ======================================================================= */
-class QMouseEvent;
-class GUIViewTraffic;
-class Position2D;
-class Boundery;
+#include <qtoolbutton.h>
+
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- *
+ * QGUIImageField
+ * Allows adding pixmaps without a function to a toolbar
  */
-class GUIPerspectiveChanger {
+class QGUIImageField : public QToolButton {
+    // is a q-object
+    Q_OBJECT
 public:
-    GUIPerspectiveChanger(GUIViewTraffic &callBack);
-    virtual ~GUIPerspectiveChanger();
-    virtual void mouseMoveEvent ( QMouseEvent * ) = 0;
-    virtual void mousePressEvent ( QMouseEvent * ) = 0;
-    virtual void mouseReleaseEvent ( QMouseEvent * ) = 0;
-    virtual double getRotation() const = 0;
-    virtual double getXPos() const = 0;
-    virtual double getYPos() const = 0;
-    virtual double getZoom() const = 0;
-    bool changed() const;
-    void otherChange();
-    virtual void recenterView() = 0;
-    void applied();
-    virtual void centerTo(const Boundery &netBoundery,
-        const Position2D &pos, double radius) = 0;
-    virtual void centerTo(const Boundery &netBoundery,
-        const Boundery &bound) = 0;
-    virtual int getMouseXPosition() const = 0; // !!! should not be virtual
-    virtual int getMouseYPosition() const = 0;// !!! should not be virtual
-private:
+    /// constructor
+    QGUIImageField(const QPixmap & pm, const QString & textLabel,
+        const QString & grouptext, QToolBar * parent, const char * name)
+        : QToolButton(pm, textLabel, grouptext, 0, 0, parent, name)
+    {
+        setAutoRaise(true);
+    }
 
-protected:
-    GUIViewTraffic &_callback;
-    bool _changed;
+    /// destructor
+    ~QGUIImageField() { }
 };
-
-
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifndef DISABLE_INLINE
-//#include "GUIPerspectiveChanger.icc"
+//#include "QGUIImageField.icc"
 //#endif
 
 #endif

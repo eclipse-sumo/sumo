@@ -23,8 +23,8 @@ namespace
     const char rcsid[] = "";
 }
 // $Log$
-// Revision 1.5  2002/11/04 08:42:31  dkrajzew
-// in-line documentation updated; unwished includion of non-existing .icc-files removed; help screen updated
+// Revision 1.6  2003/02/07 10:37:30  dkrajzew
+// files updated
 //
 // Revision 1.4  2002/10/22 10:02:47  dkrajzew
 // minor warnings removed
@@ -68,7 +68,7 @@ namespace
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #ifdef WIN32
-   #include "utils/common/MemDiff.h"
+   #include <utils/dev/MemDiff.h>
 #endif
 #endif
 
@@ -122,6 +122,7 @@ getSettings(int argc, char **argv)
     oc->addSynonyme("net-files", "net");
     oc->addSynonyme("output-file", "output");
     oc->addSynonyme("configuration-file", "configuration");
+    oc->addSynonyme("weights", "weight-files");
     // register the simulation settings
     oc->doRegister("begin", 'b', new Option_Long(LONG_MIN));
     oc->doRegister("end", 'e', new Option_Long(LONG_MAX));
@@ -181,7 +182,7 @@ loadNet(ROLoader &loader, OptionsCont *oc) {
 }
 
 std::ofstream *
-buildOutput(const std::string &name) 
+buildOutput(const std::string &name)
 {
     std::ofstream *ret = new std::ofstream(name.c_str());
     if(!ret->good()) {
@@ -250,7 +251,7 @@ int main(int argc, char **argv)
             return 0;
         }
         // load data
-        ROLoader loader(oc);
+        ROLoader loader(*oc);
         net = loadNet(loader, oc);
         net->postloadInit();
         if(net!=0) {

@@ -1,7 +1,7 @@
 #ifndef help_h
 #define help_h
 //---------------------------------------------------------------------------//
-//                        router_help.h -  
+//                        router_help.h -
 //  Help-screen of the router module
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -12,16 +12,16 @@
 //---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
-//          
-//   This program is free software; you can redistribute it and/or modify  
-//   it under the terms of the GNU General Public License as published by  
-//   the Free Software Foundation; either version 2 of the License, or     
-//   (at your option) any later version.                                   
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.4  2002/11/04 08:42:31  dkrajzew
-// in-line documentation updated; unwished includion of non-existing .icc-files removed; help screen updated
+// Revision 1.5  2003/02/07 10:37:30  dkrajzew
+// files updated
 //
 //
 
@@ -32,6 +32,12 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+/* =========================================================================
+ * definitions
+ * ======================================================================= */
+/**
+ * The list of help strings for the sumo-router module
+ */
 char *help[] = {
     "Usage: sumo-router [OPTION]*",
     "Simulation of Urban MObility v0.7 - Routing Module",
@@ -76,7 +82,7 @@ char *help[] = {
     "   -v, --verbose                  SUMO-Netconvert reports what it does",
     "   -p, --print-options            Prints option values before processing",
     "   --help                         This screen",
-    0 
+    0
 };
 
 #endif

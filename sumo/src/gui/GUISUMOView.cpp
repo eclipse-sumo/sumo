@@ -1,3 +1,40 @@
+//---------------------------------------------------------------------------//
+//                        GUISUMOView.cpp -
+//  A window that controls the display(s) of the simulation
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.2  2003/02/07 10:34:14  dkrajzew
+// files updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Boundery.h>
@@ -34,8 +71,16 @@
 #include "QGUIToggleButton.h"
 #include "GUISUMOView.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 GUISUMOView::GUISUMOView( QWidget* parent, const char* name, int wflags,
                          GUINet &net )
     : QMainWindow( parent, name, wflags ), _zoomingFactor(100),
@@ -51,6 +96,7 @@ GUISUMOView::GUISUMOView( QWidget* parent, const char* name, int wflags,
     // build the display widget
     _view = new GUIViewTraffic(this, net);
     setCentralWidget(_view);
+    _view->buildViewToolBars(*this);
 }
 
 
@@ -73,6 +119,7 @@ GUISUMOView::buildSettingTools()
     spin->setValue(100);
     // !!! add "what's this"
 }
+
 
 void
 GUISUMOView::buildViewTools()
@@ -146,6 +193,7 @@ GUISUMOView::getZoomingFactor() const
     return _zoomingFactor;
 }
 
+
 void
 GUISUMOView::setZoomingFactor(double val)
 {
@@ -177,9 +225,8 @@ GUISUMOView::chooseVehicle()
 }
 
 
-
 void
-GUISUMOView::showValues(GUIChooser::ChooseableArtifact type, 
+GUISUMOView::showValues(GUIChooser::ChooseableArtifact type,
                         std::vector<std::string> &names)
 {
     _chooser = new GUIChooser(this, type, names);
@@ -188,7 +235,7 @@ GUISUMOView::showValues(GUIChooser::ChooseableArtifact type,
 
 
 void
-GUISUMOView::setView(GUIChooser::ChooseableArtifact type, 
+GUISUMOView::setView(GUIChooser::ChooseableArtifact type,
                      const std::string &name)
 {
     _view->centerTo(type, name);
@@ -205,7 +252,8 @@ GUISUMOView::recenterView()
 }
 
 
-void GUISUMOView::load( const QString& fn )
+void
+GUISUMOView::load( const QString& fn )
 {
     filename  = fn;
     QFile f( filename );
@@ -227,7 +275,9 @@ void GUISUMOView::load( const QString& fn )
     emit message( QString("Loaded document %1").arg(filename), 2000 );
 }
 
-void GUISUMOView::save()
+
+void
+GUISUMOView::save()
 {
     if ( filename.isEmpty() ) {
         saveAs();
@@ -250,7 +300,9 @@ void GUISUMOView::save()
     emit message( QString( "File %1 saved" ).arg( filename ), 2000 );
 }
 
-void GUISUMOView::saveAs()
+
+void
+GUISUMOView::saveAs()
 {
     QString fn = QFileDialog::getSaveFileName( filename, QString::null, this );
     if ( !fn.isEmpty() ) {
@@ -261,9 +313,12 @@ void GUISUMOView::saveAs()
     }
 }
 
-void GUISUMOView::print( QPrinter* printer)
+
+void
+GUISUMOView::print( QPrinter* printer)
 {
 }
+
 
 void
 GUISUMOView::toggleShowLegend()
@@ -305,26 +360,38 @@ GUISUMOView::event ( QEvent *e )
     return QMainWindow::event(e);
 }
 
-void 
+
+void
 GUISUMOView::toggleBehaviour1()
 {
     _behaviourToggle2->publicSetOn(false);
     _behaviourToggle3->publicSetOn(false);
 }
 
-void 
+
+void
 GUISUMOView::toggleBehaviour2()
 {
     _behaviourToggle1->publicSetOn(false);
     _behaviourToggle3->publicSetOn(false);
 }
 
-void 
+
+void
 GUISUMOView::toggleBehaviour3()
 {
     _behaviourToggle1->publicSetOn(false);
     _behaviourToggle2->publicSetOn(false);
 }
 
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "GUISUMOView.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
 
 

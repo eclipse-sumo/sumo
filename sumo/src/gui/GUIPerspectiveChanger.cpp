@@ -1,9 +1,47 @@
+//---------------------------------------------------------------------------//
+//                        GUIPerspectiveChanger.cpp -
+//  A class that allows to steer the visual output in dependence to user
+//      interaction
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.2  2003/02/07 10:34:14  dkrajzew
+// files updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 #include <qevent.h>
 #include "GUIViewTraffic.h"
 #include "GUIPerspectiveChanger.h"
 
 GUIPerspectiveChanger::GUIPerspectiveChanger(GUIViewTraffic &callBack)
-    : _callback(callBack)
+    : _callback(callBack), _changed(true)
 {
 }
 
@@ -12,24 +50,34 @@ GUIPerspectiveChanger::~GUIPerspectiveChanger()
 }
 
 
-void 
-GUIPerspectiveChanger::setZoomingFactor(double zoom)
+bool
+GUIPerspectiveChanger::changed() const
 {
-    _callback._zoomingFactor += zoom;
+    return _changed;
 }
 
 
-void 
-GUIPerspectiveChanger::setPosition(double xpos, double ypos)
+void
+GUIPerspectiveChanger::otherChange()
 {
-    _callback._xpos += xpos;
-    _callback._ypos += ypos;
+    _changed = true;
 }
 
 
-void 
-GUIPerspectiveChanger::setRotation(double rotation)
+void
+GUIPerspectiveChanger::applied()
 {
-    _callback._rotation += rotation;
+    _changed = false;
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "GUIPerspectiveChanger.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
 

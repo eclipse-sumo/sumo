@@ -1,3 +1,40 @@
+//---------------------------------------------------------------------------//
+//                        GUIChooser.cpp -
+//  Class for the window that allows to choose a street, junction or vehicle
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Sept 2002
+//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.2  2003/02/07 10:34:14  dkrajzew
+// files updated
+//
+//
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
 #include <string>
 #include <vector>
 #include <qmainwindow.h>
@@ -8,8 +45,16 @@
 #include "GUISUMOView.h"
 #include "GUIChooser.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 GUIChooser::GUIChooser(GUISUMOView *parent, ChooseableArtifact type,
                        std::vector<std::string> &names)
     : QMainWindow(0, (string("Chooser")).c_str(), WType_Modal),
@@ -29,6 +74,7 @@ GUIChooser::~GUIChooser()
 {
 }
 
+
 void
 GUIChooser::buildList(QHBoxLayout *hbox, std::vector<std::string> &names)
 {
@@ -39,6 +85,7 @@ GUIChooser::buildList(QHBoxLayout *hbox, std::vector<std::string> &names)
         _list->insertItem(QString((*i).c_str()));
     }
 }
+
 
 void
 GUIChooser::buildButtons(QHBoxLayout *hbox)
@@ -89,3 +136,15 @@ GUIChooser::getID() const
 {
     return _id;
 }
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+//#ifdef DISABLE_INLINE
+//#include "GUIChooser.icc"
+//#endif
+
+// Local Variables:
+// mode:C++
+// End:
+
+

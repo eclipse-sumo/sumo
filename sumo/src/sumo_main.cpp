@@ -19,7 +19,15 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
 // $Log$
+// Revision 1.3  2003/02/07 10:37:30  dkrajzew
+// files updated
+//
 // Revision 1.2  2002/10/17 10:36:30  dkrajzew
 // sources and detectors joined with triggers to additional-files
 //
@@ -91,25 +99,31 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#include <ctime>
+
 #include <iostream>
 #include <fstream>
-#include "microsim/MSNet.h"
-#include "microsim/MSEmitControl.h"
-#include "netload/NLNetBuilder.h"
-#include "utils/options/OptionsCont.h"
-#include "utils/options/OptionsIO.h"
-#include "utils/common/SErrorHandler.h"
-#include "utils/common/UtilExceptions.h"
-#include "utils/common/FileHelpers.h"
-#include "utils/common/HelpPrinter.h"
-#include "utils/xml/XMLSubSys.h"
+#include <microsim/MSNet.h>
+#include <microsim/MSRoute.h>
+#include <microsim/MSEmitControl.h>
+#include <netload/NLNetBuilder.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/options/OptionsIO.h>
+#include <utils/common/SErrorHandler.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/common/HelpPrinter.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/xml/XMLSubSys.h>
 #include <sumo_only/SUMOFrame.h>
 #include "sumo_help.h"
+
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * functions
@@ -154,6 +168,7 @@ checkSettings(OptionsCont *oc) {
     return ok;
 }
 
+
 /**
  * getSettings
  * Builds the container of options and parses the configuration file
@@ -182,11 +197,14 @@ getSettings(int argc, char **argv)
     return oc;
 }
 
+
 /**
  * loads the net, additional routes and the detectors
  */
-MSNet *load(OptionsCont *oc) {
-    NLNetBuilder builder(*oc);
+MSNet *
+load(OptionsCont &oc) {
+    // build the network first
+    NLNetBuilder builder(oc);
     MSNet *ret = builder.buildMSNet();
     if(ret==0) {
         throw ProcessError();
@@ -194,17 +212,8 @@ MSNet *load(OptionsCont *oc) {
     return ret;
 }
 
-/**
- * method for post-load - net initialisation
- */
-void
-postbuild(OptionsCont &oc, MSNet &net) {
-    // set the initial density and vehicle speed when wished
-/*    if(oc.isSet("initial-density")) {
-        double initialSpeed = oc.isSet("initial-speed") ? oc.getFloat("initial-speed") : 5;
-        net.setInitialState(oc.getFloat("initial-density"), initialSpeed);
-    }*/
-}
+
+
 
 /* -------------------------------------------------------------------------
  * main
@@ -212,6 +221,10 @@ postbuild(OptionsCont &oc, MSNet &net) {
 int
 main(int argc, char **argv)
 {
+    size_t rand_init = 1040208551;
+    rand_init = time(0);
+    cout << "Rand:" << rand_init << endl;
+    srand(rand_init);
     int ret = 0;
     try {
         // try to initialise the XML-subsystem
@@ -231,19 +244,19 @@ main(int argc, char **argv)
             return 0;
         }
         // load the net
-        MSNet *net = load(oc);
+        MSNet *net = load(*oc);
         SUMOFrame::postbuild(*net);
         // simulate when everything's ok
         ostream *craw = SUMOFrame::buildRawOutputStream(oc);
         // report the begin when wished
         if(oc->getBool("v"))
-            cout << "Simulation started with time: " << oc->getLong("b") << endl;
+            cout << "Simulation started with time: " << oc->getInt("b") << endl;
         // simulate
         net->preStartInit();
-        net->simulate(craw, oc->getLong("b"), oc->getLong("e"));
+        net->simulate(craw, oc->getInt("b"), oc->getInt("e"));
         // report the end when wished
         if(oc->getBool("v"))
-            cout << "Simulation ended at time: " << oc->getLong("e") << endl;
+            cout << "Simulation ended at time: " << oc->getInt("e") << endl;
         delete oc;
         delete net;
         delete craw;
@@ -253,12 +266,3 @@ main(int argc, char **argv)
     XMLSubSys::close();
     return ret;
 }
-
-
-
-
-
-
-
-
-

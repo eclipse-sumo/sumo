@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2003/02/07 10:37:30  dkrajzew
+// files updated
+//
 // Revision 1.1  2002/10/16 14:51:08  dkrajzew
 // Moved from ROOT/sumo to ROOT/src; added further help and main files for netconvert, router, od2trips and gui version
 //
@@ -88,6 +91,8 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#include <ctime>
+
 #include <iostream>
 #include <fstream>
 #include "microsim/MSNet.h"
@@ -112,46 +117,6 @@
  * ======================================================================= */
 using namespace std;
 
-/* =========================================================================
- * functions
- * ======================================================================= */
-/* -------------------------------------------------------------------------
- * data processing methods
- * ----------------------------------------------------------------------- */
-/**
- * checkSettings
- * Checks the build settings. The following constraints must be valid:
- * - the network-file was specified (otherwise no simulation is existing)
- * - a junction folder must be given
- *   (otherwise no junctions can be loaded)
- * - the begin and the end of the simulation must be given
- * Returns true when all constraints are valid
- */
-bool
-checkSettings(OptionsCont *oc) {
-    bool ok = true;
-    try {
-      if(oc!=0) oc->resetDefaults();
-      // check the existance of a name for simulation file
-      if(!oc->isSet("n")) {
-        cout << "Error: No simulation file (-n) specified." << endl;
-        ok = false;
-      }
-      // check if the begin and the end of the simulation are supplied
-      if(!oc->isSet("b")) {
-        cout << "Error: The begin of the simulation (-b) is not specified." << endl;
-        ok = false;
-      }
-      if(!oc->isSet("e")) {
-        cout << "Error: The end of the simulation (-e) is not specified." << endl;
-        ok = false;
-      }
-    } catch (InvalidArgument &e) {
-      cout << e.msg() << endl;
-      return false;
-    }
-    return ok;
-}
 
 /* -------------------------------------------------------------------------
  * main
@@ -159,6 +124,8 @@ checkSettings(OptionsCont *oc) {
 int
 main(int argc, char **argv)
 {
+//    srand(time(0));
+    srand(1040208551);
     // initialise the xml-subsystem
     if(!XMLSubSys::init()) {
         return 1;
@@ -171,58 +138,11 @@ main(int argc, char **argv)
     }
     // build the main window
     GUIApplicationWindow * mw = new GUIApplicationWindow();
-    mw->setCaption( "SUMO v1.0" );
-    mw->show();
     a.connect( &a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()) );
+    mw->show();
     int res = a.exec();
     XMLSubSys::close();
     return res;
-/*
-    int ret = 0;
-    try {
-        // try to initialise the XML-subsystem
-        if(!XMLSubSys::init()) {
-            return 1;
-        }
-        // parse the settings
-        OptionsCont *oc = getSettings(argc, argv);
-        if(oc==0) {
-            cout << "Quitting." << endl;
-            return 1;
-        }
-        // check whether only the help shall be printed
-        if(oc->getBool("help")) {
-            HelpPrinter::print(help);
-            delete oc;
-            return 0;
-        }
-        // load the net
-        MSNet *net = load(oc);
-        postbuild(*oc, *net);
-        // simulate when everything's ok
-        ostream *craw = buildRawOutputStream(oc);
-        // report the begin when wished
-        if(oc->getBool("v"))
-            cout << "Simulation started with time: " << oc->getLong("b") << endl;
-        // simulate
-        net->simulate(craw, oc->getLong("b"), oc->getLong("e"));
-        // report the end when wished
-        if(oc->getBool("v"))
-            cout << "Simulation ended at time: " << oc->getLong("e") << endl;
-        delete net;
-        delete craw;
-    } catch (ProcessError) {
-        ret = 1;
-    }
-    XMLSubSys::close();
-    return ret;*/
 }
-
-
-
-
-
-
-
 
 
