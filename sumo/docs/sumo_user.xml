@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
+<book>
+  <title>SUMO - &#34;Simulation of Urban MObility&#34;; A microscopic traffic
+  simulation package<author><lineage>Daniel Krajzewicz</lineage></author><author><lineage>Georg
+  Hertkorn</lineage></author><author><lineage>Christian Rössel</lineage></author><author><lineage>Peter
+  Wagner</lineage></author><author><lineage>Julia Zimmer</lineage></author></title>
+
+  <toc>
+    <title>Content</title>
+  </toc>
+
+  <chapter>
+    <title>Introduction</title>
+
+    <sect1>
+      <title>What is SUMO?</title>
+
+      <para>SUMO is a traffic simulation tool. It was primarily designed for
+      urban street networks, but it may also be used for highway traffic
+      simulations. In the near future it will be extended to model transit
+      modes simultaneously with ordinary car traffic.</para>
+    </sect1>
+
+    <sect1>
+      <title>Why open source?</title>
+
+      <para>Two thoughts stood behind the release of the package as open
+      source. At first the fact that every traffic research organisation has
+      to implement an own simulation package for its own. Some people are
+      interested in traffic light optimisation, other try to find mistakes
+      made during the design of a road network. Both do need somekind of a
+      simulation package and have to implement a framework containing input
+      and output functions and other things from scratch. So the first idea
+      was to give them a basic framework - containing all needed methods for a
+      simulation - they can put own ideas into.</para>
+
+      <para>The second idea is to supply a common testbed for models,
+      especially car models, to the community to make them comparable. Due to
+      different architectures of traffic simulations such comparisons on a
+      wide scale are not possible by now.</para>
+    </sect1>
+
+    <sect1>
+      <title>Features</title>
+
+      <para><itemizedlist><listitem><para>high portability (using standard -
+      c++)</para></listitem><listitem><para>collision free vehicle movement</para></listitem><listitem><para>different
+      vehicle types</para></listitem><listitem><para>single-vehicle routing</para></listitem><listitem><para>multi-lane
+      streets with lane changing</para></listitem><listitem><para>junction-based
+      right-of-way rules</para></listitem><listitem><para>hierarchy of
+      junction types</para></listitem><listitem><para>a fast open-gl GUI</para></listitem><listitem><para>dynamic
+      routing</para></listitem><listitem><para>manages networks with several
+      10.000 edges (streets)</para></listitem><listitem><para>fast execution
+      speed (up to 1.000.000 vehicle updates/s on a 1GHz machine)</para></listitem><listitem><para>supports
+      import of many network formats (Visum, Vissim, ArcView,
+      XML-Descriptions)</para></listitem></itemizedlist></para>
+    </sect1>
+
+    <sect1>
+      <title>About this document</title>
+
+      <para>This document is still under development and is meant to grow with
+      the software. Due to this, you may find it together with the sources
+      within out repository at sourceforge (<link
+      linkend="sumo.sourceforge.net">http://sumo.sourceforge.net</link>). In
+      this version, it describes the SUMO-release 0.8. The information about
+      the document state can be found at the end of the document.</para>
+
+      <para>We should remark, that this document only covers the usage of the
+      software and some description of the models used. Information on the
+      programming side - if you want to extend the software what is really
+      appreciated by us - may be found in the programmer manual.</para>
+
+      <para>We should also remark, that the previous division of documents
+      where each document described a single application is now abandonned. We
+      hope to make the process of simulation clearlier understoodable.</para>
+    </sect1>
+
+    <sect1>
+      <title>Call for Help</title>
+
+      <para>Please let us know when either the document remains any point
+      unclear or the simulation does not behave as expected. Every help is
+      appreciated and you will be mentioned on a prominent space. Thank you.</para>
+    </sect1>
+  </chapter>
+
+  <chapter>
+    <title>First Steps: Running the examples</title>
+
+    <sect1>
+      <title>Install</title>
+
+      <para>From version 0.8 on, we want not only supply the sources, but also
+      the compiled binaries at least for MS Windows and a Linux-derivate.</para>
+
+      <para>You have to decide at first whether you primary want to use the
+      software only or also extend it. In the first case, you should download
+      the binaries, appropriate to your operating system. All needed libraries
+      will be included and - if necessary - a script should guide you through
+      the installation process.</para>
+
+      <para>In the latter case, please download the source distribution and
+      compile it for your own. We hope to be able to support two
+      distributions, one with all needed libraries included and a second
+      without. The source distributions include Makefiles which can be build
+      and configured using autoconf or automake and with a MSVC++6.0 - project
+      file. Please read the release notes for further infomration. If you have
+      build the package on a system not included within our binary
+      distribution, please let us know and send it to us, so that we can allow
+      its download from our web page.</para>
+    </sect1>
+
+    <sect1>
+      <title>First Steps</title>
+
+      <para>As SUMO was at first meant to be a command line tool, what means
+      that no window pops up if you start it, you have to open a shell window
+      first.</para>
+
+      <para>Change into the folder you have extracted the package into, build
+      the project if necessary (not needed if you have downloaded the
+      binaries) and go further to the &#34;tests&#34;-folder. You will find
+      two folders in here &#34;dos&#34; and &#34;unix&#34;. Choose the
+      appropriate one (&#34;dos&#34; if your operating system is MSDOS or MS
+      Windows, &#34;unix&#34; if it is Linux or UNIX). You will find a set of
+      scripts in here which allow you a fast generation and removal of the
+      test scenarios. Start &#34;buildExamples&#34; and wait until all
+      networks are build and all route descriptions are computed.</para>
+
+      <para>After everything is build, go back to the packages folder (two
+      folders up) and from there to the folder named &#34;bin&#34;. Here you
+      will find the executable files, among them a file named
+      &#34;sumo-gui(.exe)&#34;. Start it. After some seconds, a window will
+      pop up. Use &#34;Open...&#34; as usual to open an example scenario. You
+      can find the scenarios you have build by running the script in
+      &#34;../data/examples/&#34;. As we are not allowed to give networks
+      build from digital maps at all, only simple examples are supported. You
+      may open !!! to have a nice example. After the network is loaded, the
+      main area of the window shall display it. Now you can start the
+      simulation by pressing one of the control buttons known from other
+      simulations or from any tape media device.</para>
+    </sect1>
+
+    <sect1>
+      <title>What has happened?</title>
+
+      <para>As briefly mentioned before, you have build some example networks
+      and vehicle movements by starting the &#34;makeExamples&#34;-script. The
+      simulation of traffic is quite complicated as each vehicle is an
+      individuum. This requires not only a network which traffic shall be
+      simulated, but also a description of the routes the vehicles make.</para>
+    </sect1>
+  </chapter>
+
+  <chapter>
+    <title>Basic Paradigms</title>
+
+    <sect1>
+      <title>Some Traffic Simulation Theory</title>
+
+      <sect2>
+        <title>Simulation types</title>
+
+        <para>SUMO is a microscopic, space continuous and time discrete
+        traffic simulation.</para>
+
+        <para>In traffic research three or four classes of models are
+        distinguished according to the level of detail of the simulation. In
+        ‘Macroscopic’ models traffic flow is the basic entity. ‘Microscopic’
+        models, simulate the movement of every single vehicle on the street –
+        mostly assuming that the behaviour of the vehicle depends on both, the
+        vehicle‘s physical abilities to move and the driver‘s controlling
+        behaviour (Krauß 1998; Janz 1998). ‘Submicroscopic’ models, also
+        sometimes called ‘nanomodels’, regard single vehicles like microscopic
+        simulations but extends their models by models of their substructures,
+        which describe the engine‘s rotation speed in relation to the
+        vehicle‘s speed or the driver‘s preferred gear switching actions, for
+        instance. This allows more detailed computations of the emissions
+        produced by the vehicle compared to a simple microscopic simulation
+        (Diekamp 1995; Schreckenberg and Wolf 1998; Helbig et al. 2001).
+        However, submicroscopic models require large computation times. This
+        restrains the size of the networks to be simulated.</para>
+
+        <figure>
+          <title>The different simulation granularities; from left to right:
+          macroscopic, microscopic, sub.microscopic (within the circle:
+          mesoscopic)</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="./gfx/3sims.gif" format="GIF" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>Within a space-continuous simulation each vehicle has a certain
+        position described by a floating-point number. In contrast,
+        space-discrete simulations are a special kind of cellular automata.
+        They use cells and vehicles driving on the simulated streets “jump”
+        from one cell to another (Brockfeld et al 2001).</para>
+
+        <figure>
+          <title>The difference between a space-contiuous (top) and a
+          space-discrete (bottom) simulation</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="./gfx/contdisc.gif" format="GIF" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>And there is antother difference between the available
+        simulation packages. Almost every simulation packages uses an own
+        model for vehicle movement. Almost all models are so-called
+        &#34;car-following-models&#34;: the behaviour of the driver is herein
+        meant to be dependent on his distance to the vehicle in front of him
+        and of this vehicle&#39;s speed. Although SUMO is meant to be a
+        testbed for such vehicle models, only one is implemented by now, which
+        was developed by Stefan Krauß. Other obstackles such as traffic lights
+        are of course considered herein, too. Please take a look into
+        &#34;Used models&#34; for a more detailed description of the
+        Krauß-model.</para>
+      </sect2>
+
+      <sect2>
+        <title>Needed Data</title>
+
+        <para>What data is needed to simulate traffic? At first, you do of
+        course need the network the traffic to simulate takes place on. As
+        SUMO is meant to work with large networks, we mainly concentrated our
+        work on importing networks and the computation of further needed
+        values. Beside the roads and descriptions where they meet, information
+        about traffic lights are necessary.</para>
+
+        <para>Further, you do need information of the traffic demand. While
+        most traffic simulation use a statistical distribution laid over the
+        network, each vehicle within SUMO knows its route. Within this
+        aproach, the route is a list of edges to pass. Although this apporach
+        is more realistic, it also induces a large amount of data needed to
+        describe the vehicle movements. By now, routes are not compressed
+        within SUMO and so may be several MB large. We will possibly change
+        this in future.</para>
+
+        <figure>
+          <title>The three parts of a simulation (from leftto right: vehicles,
+          streets, signals)</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata fileref="./gfx/simparts.gif" format="GIF" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>For a somwhat more elaborate description of the needed data,
+        please take a look int !!!; it should be available on the SUMO-pages,
+        too.</para>
+      </sect2>
+
+      <sect2>
+        <title>User Assignment</title>
+
+        <para></para>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>Main Software Paradigms</title>
+
+      <para>Two basic design goals are approached: the software shall be fast
+      and it shall be portable. Due to this, the very first versions were
+      concipated to be run from the command line - no graphical interface was
+      supplied at first and all parameter had to be inserted by hand. Also,
+      due to these goals, the software was split into several parts. Each of
+      them has a certain purpose and must be run individually. This is
+      something that makes SUMO different to other simulation packages where
+      f.e. the dynamical user assignment is made within the simulation itself,
+      not via an external application like here.</para>
+
+      <para>The split allows an easier extension of the application&#39;s part
+      as they small enough and it also allows the usage of faster data
+      structures, each adjusted to the current purpose, instead of using
+      complicated and ballast-loaded ones. Still, this makes the usage of SUMO
+      a little bit uncomfortable in comparison to other simulation packages.
+      As there are still other things to do, we are not thinking of a redesign
+      towards an integrated approach by now.</para>
+    </sect1>
+  </chapter>
+
+  <chapter>
+    <title>Complete Usage Description</title>
+
+    <sect1>
+      <title>Network Generation</title>
+
+      <para></para>
+    </sect1>
+  </chapter>
+
+  <chapter>
+    <title>Used Models</title>
+
+    <sect1>
+      <title>Vehicle Model: Krauß-Model</title>
+
+      <para></para>
+    </sect1>
+
+    <sect1>
+      <title>DUA: Gwaron-Model</title>
+
+      <para></para>
+    </sect1>
+  </chapter>
+
+  <chapter>
+    <title>Example Scenarios</title>
+
+    <sect1>
+      <title>Example1 : How to generate and simulate a virtual city</title>
+
+      <para></para>
+    </sect1>
+  </chapter>
+
+  <chapter>
+    <title>Included Data</title>
+
+    <sect1>
+      <title>Configuration File Templates</title>
+
+      <para>You can find the templates for each of the package&#39;s
+      application&#39;s configuration files within the folder
+      &#34;[SUMO]/data/cfg_templates&#34;.</para>
+    </sect1>
+
+    <sect1>
+      <title>Included Examples</title>
+
+      <sect2>
+        <title>Basic Examples</title>
+
+        <para>Some shorter networks, mainly for testing purposes are included
+        and may be found within the &#34;[SUMO]/data/examples&#34; - folder.
+        In respect to their shape, they are named &#34;eight...&#34;,
+        &#34;cross...&#34; and &#34;box...&#34;. The coarse appearence of
+        these networks is shown below.</para>
+
+        <para>You may have noticed, that different networks are supprorted
+        with the same name begin. They differ in the number of lanes the edges
+        have and whether a possibly existing junction is a simple right-of-way
+        or a traffic light junction. The name pattern is as follows [SHAPE]Xl
+        for networks with right-of-way junctions, where X is the number of
+        lanes and [SHAPE]Xltl for networks with a traffic light. [SHAPE] is
+        the name of the coarse shape of the network as shown above.</para>
+      </sect2>
+
+      <sect2>
+        <title>Example for A Dynamic User Assignment</title>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>I-880 Car Model Validation</title>
+
+        <para>In the middle of 2001 we tried to prove that SUMO is capable to
+        be used for car model validation. You can find the project settings
+        for this approach. We apologize, that our report was not accurate. Due
+        to the lack of a gui, we could only verify statistical results and
+        failed to recognize strong artifacts arising from a buggy
+        lane-changing implementation.</para>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>Main Software Paradigms</title>
+
+      <para>Two basic design goals are approached: the software shall be fast
+      and it shall be portable. Due to this, the very first versions were
+      concipated to be run from the command line - no graphical interface was
+      supplied at first and all parameter had to be inserted by hand. Also,
+      due to these goals, the software was split into several parts. Each of
+      them has a certain purpose and must be run individually. This is
+      something that makes SUMO different to other simulation packages where
+      f.e. the dynamical user assignment is made within the simulation itself,
+      not via an external application like here.</para>
+
+      <para>The split allows an easier extension of the application&#39;s part
+      as they small enough and it also allows the usage of faster data
+      structures, each adjusted to the current purpose, instead of using
+      complicated and ballast-loaded ones. Still, this makes the usage of SUMO
+      a little bit uncomfortable in comparison to other simulation packages.
+      As there are still other things to do, we are not thinking of a redesign
+      towards an integrated approach by now.</para>
+    </sect1>
+  </chapter>
+
+  <appendix>
+    <title>Command Line Arguments</title>
+
+    <formalpara>
+      <title>SUMO Command Line Arguments</title>
+
+      <para></para>
+    </formalpara>
+
+    <formalpara>
+      <title>SUMO-NETCONVERT Command Line Arguments</title>
+
+      <para></para>
+    </formalpara>
+
+    <formalpara>
+      <title>SUMO-ROUTER Command Line Arguments</title>
+
+      <para></para>
+    </formalpara>
+
+    <formalpara>
+      <title>SUMO-OD2TRIPS Command Line Arguments</title>
+
+      <para></para>
+    </formalpara>
+
+    <formalpara>
+      <title>SUMO-GUI Command Line Argume nts</title>
+
+      <para></para>
+    </formalpara>
+  </appendix>
+
+  <appendix>
+    <title>Error Messages</title>
+
+    <para>Here, only errors that should occur to normal users are reported.
+    Some more possible errors exist but should only occur when the network is
+    false what should not happened when it was generated by sumo-netconvert.
+    As said before, we do not expect a normal user to build a network &#34;by
+    hand&#34;. If you are a developer and an error occurs that is not in the
+    list below, see into the developer documentation.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><errorcode>No option with the name &#39;[NAME]&#39; exists.</errorcode><blockquote><para>You
+        are trying to set an option on the command line that is not known to
+        sumo.</para><para>You may have dispelled an option. View Appendix A
+        for a list of known options and their correct spelling.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>The option &#39;[NAME]&#39; is not a boolean
+        attribute and so needs a value.</errorcode><blockquote><para>A
+        non-boolean option has no parameter supplied. An example: you have
+        typed &#34;sumo -n&#34;, but the option &#34;-n&#34; needs a value
+        like &#34;-n ./nodes.xml&#34;.</para><para>Always supply a parameter
+        for parametrized options.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>A value for the option &#39;[NAME]&#39; was already
+        set. Possible synonymes: [SYNONYMES]</errorcode><blockquote><para>You
+        are setting an option twice. An example: you have typed &#34;sumo -n
+        [FILE1] --net [FILE2]&#34;. This is not possible. A list of possible
+        synonymes is supported.</para><para>Set a value only once. When you
+        are sure you have specified the value only once on the command line,
+        your configuration file may contain two definitions for the value. A
+        value may be defined as well in the configuration fine and on he
+        command line but never twice in each of them.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Error: The current parameter &#39;[NAME1]&#39; and
+        the parameter &#39;[NAME2]&#39; do both need a value.</errorcode><blockquote><para>You
+        are trying to use a single value for two parameters. An example:
+        &#34;sumo -nj [FILE1]&#34; or &#34;sumo -nj [FILE1] [FILE2]&#34; is
+        not allowed as the parameter may not be assigned to either the network
+        or the junctions. Only boolean options may be coupled with other
+        options.</para><para>Split the options when using parametrized
+        options.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>The configurations file &#39;[NAME]&#39; could not be
+        found.</errorcode><blockquote><para>The name for the configuration
+        file is not valid.</para><para>Even if you did not specified a
+        configuration file, it is loaded as default. Use the option
+        &#34;-C&#34; when you don&#39;t wish to use any configuration file.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Error: The named junctions folder &#39;[NAME]&#39;
+        does not exist.</errorcode><blockquote><para>You have specified a
+        folder for your junction logics that does not exist.</para><para>You
+        have to use a valid folder for your junctions.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Error: No simulation file (-n) specified.</errorcode><blockquote><para>You
+        forgot to specify a file containing the road network to use.
+        Attention! The file is not exmined to be valid, this error only
+        occures when the file is not given by the user. When it is not
+        existing or invalid, other errors are produced.</para><para>You have
+        to specify a network file using &#34;-n [FILE]&#34; where [FILE] is
+        the name of the network file.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Error: The begin of the simulation (-b) is not
+        specified.</errorcode><blockquote><para>You forgot to specify the
+        begin of the simulation.</para><para>Use &#34;-b [TIME]&#34; to
+        specify the simulation-time the simulation shall begin at where [TIME]
+        is a numerical value.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Error: The end of the simulation (-e) is not
+        specified.</errorcode><blockquote><para>You forgot to specify the end
+        of the simulation.</para><para>Use &#34;-e [TIME]&#34; to specify the
+        simulation-time the simulation shall end at where [TIME] is a
+        numerical value.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Error: The output file &#39;[NAME]&#39; can not be
+        build.</errorcode><blockquote><para>The output file can not be build.
+        This may be due to trying to save the file into a folder that does not
+        exist.</para><para>Use a valid name a file may be created under for
+        your output. Check whether the folder you want to generate the file in
+        exists.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Error during XML-initialization: [MORE TEXT]</errorcode><blockquote><para>An
+        error while the initialisation of the XML-importer occured.</para><para>In
+        fact, this is an error produced by XERCES. The only explanation we
+        have is that you are using an inappropriate version of XERCES.
+        Remember to use a C++ - XERCES version over 1.5 and fits to your
+        system (Windows, Linux, Solaris etc.)</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>An XML-error occured: [MORE TEXT]</errorcode><blockquote><para>Your
+        file is corrupt in a way that our XML-importer XERCES is not able to
+        parse it. This may happen when you forgot to open a tag before closing
+        it or when using non-ascii characters.</para><para>This error always
+        comes with a deeper explanation, so you may find the error quite easy.
+        If you do not see any error, you have to look into a XML-description
+        or try to load the document into A XML-development tool.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>&#34;Empty route ([NAME])&#34; or &#34;The list
+        belonging to the &#39;[TYPE]&#39; with the id &#39;[NAME]&#39; must
+        not but is empty&#34;</errorcode><blockquote><para>You have specified
+        an empty route. This is not valid.</para><para>Remove the route or
+        insert at least one edge into it.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>The id of the object [TYPE] is missing in the
+        description.</errorcode><blockquote><para>An object from your
+        defintion which type is given in [TYPE] does not have an id (name).</para><para>Insert
+        ids for all used objects.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>The description of the object &#39;[TYPE]&#39; with
+        the id &#39;[NAME]&#39; is not complete.</errorcode><blockquote><para>At
+        least one of the needed values for an object is not given. The type of
+        the object is given in [TYPE], it&#39;s name in [NAME]. In the case of
+        an vehicle, this could be the type, the route or the depart time. The
+        missing of the id is reported by another error message.</para><para>Check
+        your file for missing values.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>The object [TYPE] with the id [NAME] is not known</errorcode><blockquote><para>You
+        have references an object of the type [TYPE] with the name [NAME] that
+        you did not define in the file. Such an error may occure when you for
+        instance wish to use a vehicle of the type &#34;VW Beetle&#34; but
+        have not defined a vehicle type named &#34;VW Beetle&#34;.</para><para>Insert
+        a definition for TYPE with the id NAME or use a given id in your file.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>Another [TYPE] with the id [NAME] exists</errorcode><blockquote><para>You
+        are using an id twice for two objects of the same type.</para><para>All
+        objects of a type have to have unique ids.</para></blockquote></para>
+      </listitem>
+
+      <listitem>
+        <para><errorcode>The list belonging to the &#39;[TYPE]&#39; with the
+        id &#39;[NAME]&#39; must not but is empty</errorcode><blockquote><para>The
+        information you have specified needs values which you do not have
+        supplied.</para><para>Supply all needed information.</para></blockquote></para>
+      </listitem>
+    </itemizedlist>
+  </appendix>
+
+  <appendix>
+    <title>Known Bugs</title>
+
+    <para>Nothing known by now.</para>
+  </appendix>
+
+  <appendix>
+    <title>Questions And Answers</title>
+
+    <para>Ask something...</para>
+
+    <para>Contact: <email>Daniel.Krajzewicz@dlr.de</email></para>
+  </appendix>
+
+  <appendix>
+    <title>Bibliography</title>
+
+    <bibliography>
+      <bibliomixed><title>Microscopic Modeling of Traffic Flow: Investigation
+      of Collision Free Vehicle Dynamics<author><lineage>Stefan Krauß</lineage></author></title></bibliomixed>
+    </bibliography>
+
+    <para></para>
+  </appendix>
+
+  <appendix>
+    <title>Document Status</title>
+
+    <para></para>
+  </appendix>
+</book>
