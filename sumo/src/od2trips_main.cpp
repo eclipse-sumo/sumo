@@ -80,6 +80,7 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("begin", 'b', new Option_Long(0));
     oc.doRegister("end", 'e', new Option_Long(86400));
     oc.doRegister("scale", 's', new Option_Float(1));
+    oc.doRegister("no-color", new Option_Bool(false));
 }
 
 
@@ -114,7 +115,7 @@ loadDistricts(OptionsCont &oc)
         delete ret;
         return 0;
     }
-
+    ret->colorize();
     return ret;
 }
 
@@ -280,8 +281,8 @@ main(int argc, char **argv)
 						// find dsource, dsink
 						//string pp=od_in[i].from;
 						//string p2=od_in[i].to;
-						*(source+j+od_next) = districts->getRandomSourceFromDistrict(od_in[i].from);
-						*(sink+j+od_next) = districts->getRandomSinkFromDistrict(od_in[i].to);
+						*(source+j+od_next) = od_in[i].from;//
+						*(sink+j+od_next) = od_in[i].to;//
 						*(when_all+j+od_next) = *(when+j-begin);
 						// determine car type for VISSIM format
 						if (fmatype == 1) {
@@ -319,7 +320,7 @@ main(int argc, char **argv)
 			source_sink[i].type = *(cartype+index);
 		}
 		// writes output to file
-		ODWrite( OD_outfile, source_sink, total_cars );
+		ODWrite( OD_outfile, source_sink, total_cars, *districts );
 		delete [] source; delete [] sink;
 		delete [] when_all; delete [] cartype;
         MsgHandler::getMessageInstance()->inform("Success.");
