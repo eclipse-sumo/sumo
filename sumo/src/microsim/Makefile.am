@@ -24,6 +24,7 @@ MSEdgeControl.cpp \
 MSEmitControl.cpp \
 MSEventControl.cpp \
 MSGlobals.cpp \
+MSHaltDuration.cpp \
 MSHaltingDurationSum.cpp \
 MSInductLoop.cpp \
 MSInternalLane.cpp \
@@ -97,6 +98,7 @@ MSEdgeControl.h \
 MSEmitControl.h \
 MSEventControl.h \
 MSGlobals.h \
+MSHaltDuration.h \
 MSHaltingDurationSum.h \
 MSInductLoop.h \
 MSInternalLane.h \
