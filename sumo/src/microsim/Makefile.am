@@ -4,6 +4,7 @@ noinst_LIBRARIES = libmicrosim.a
 EXTRA_DIST = MSBitSetLogic.cpp \
 MSSimpleTrafficLightLogic.cpp \
 MSActuatedTrafficLightLogic.cpp \
+MSInductLoop.cpp \
 MSTravelcostDetector.h
 
 libmicrosim_a_SOURCES = MSDetector.cpp \
@@ -11,7 +12,6 @@ MSEdgeControl.cpp \
 MSEdge.cpp \
 MSEmitControl.cpp \
 MSEventControl.cpp \
-MSInductLoop.cpp \
 MSJunctionControl.cpp \
 MSJunction.cpp \
 MSJunctionLogic.cpp \
