@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2003/07/07 08:19:53  dkrajzew
+// As by now GUINoLogicJunctions exist, we have to make the destructor virtual
+//
 // Revision 1.3  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -78,7 +81,7 @@ class MSNoLogicJunction  : public MSJunction
 {
 public:
     /// Destructor.
-    ~MSNoLogicJunction();
+    virtual ~MSNoLogicJunction();
 
     /** Container for incoming lanes. */
     typedef std::vector< MSLane* > InLaneCont;
