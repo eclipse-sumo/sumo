@@ -1,7 +1,8 @@
+
 #include "ConfigDialog.h"
 #include <cstdlib>
   
-
+//Test
 // Map
 FXDEFMAP(ConfigDialog) ConfigDialogMap[]={
   FXMAPFUNC(SEL_COMMAND,   ConfigDialog::ID_PANEL,                         ConfigDialog::onCmdPanel),
