@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/07/16 15:16:26  dkrajzew
+// unneeded uncommented files removed
+//
 // Revision 1.15  2003/07/07 08:08:33  dkrajzew
 // The restart-button was removed and the play-button has now the function to continue the simulation if it has been started before
 //
@@ -95,7 +98,6 @@ namespace
 
 #include <guisim/GUINet.h>
 #include <utils/convert/ToString.h>
-#include <utils/common/MsgHandler.h>
 
 #include <utils/fonts/arial11.h>
 #include <utils/fonts/arial10.h>
@@ -269,13 +271,6 @@ GUIApplicationWindow::buildSimulationTools()
         this, SLOT(stop()), simTools, "stop simulation" );
     QWhatsThis::add( _stopSimButton, stopSimText );
     _stopSimButton->setEnabled(false);
-/*    // add "resume simulation" - button
-    icon = QPixmap( cont_xpm );
-    _resumeSimButton = new QToolButton( icon, "Resume Simulation",
-        QString::null, this, SLOT(resume()), simTools,
-        "resume simulation" );
-    QWhatsThis::add( _resumeSimButton, resumeSimText );
-    _resumeSimButton->setEnabled(false);*/
     // add "single step" - button
     icon = QPixmap( step_xpm );
     _singleStepButton = new QToolButton( icon, "Single Step",
@@ -446,18 +441,6 @@ GUIApplicationWindow::start()
     if(_wasStarted) {
         resume();
         return;
-/*        switch( QMessageBox::warning( this, version,
-                    "Do you really want to restart the simulation\n"
-                    "All structures will start from the beginning step!\n\n",
-                    "Yes", "No", 0,
-                    0, 1 ) ) {
-        case 0:
-            break;
-        case 1:
-            return;
-        default:
-            break;
-        }*/
     }
     _wasStarted = true;
     _startSimButton->setEnabled(false);
@@ -473,7 +456,6 @@ GUIApplicationWindow::stop()
 {
     _stopSimButton->setEnabled(false);
     _startSimButton->setEnabled(true);
-//    _resumeSimButton->setEnabled(true);
     _singleStepButton->setEnabled(true);
     _runThread->stop();
 }
@@ -484,7 +466,6 @@ GUIApplicationWindow::resume()
 {
     _stopSimButton->setEnabled(true);
     _startSimButton->setEnabled(false);
-//    _resumeSimButton->setEnabled(false);
     _singleStepButton->setEnabled(false);
     _runThread->resume();
 }
@@ -493,10 +474,6 @@ GUIApplicationWindow::resume()
 void
 GUIApplicationWindow::singleStep()
 {
-/*    _stopSimButton->setEnabled(false);
-    _startSimButton->setEnabled(true);
-    _resumeSimButton->setEnabled(true);
-    _singleStepButton->setEnabled(true);*/
     _runThread->singleStep();
 }
 
@@ -656,7 +633,6 @@ void
 GUIApplicationWindow::resetSimulationToolBar()
 {
     _startSimButton->setEnabled(false);
-//    _resumeSimButton->setEnabled(false);
     _stopSimButton->setEnabled(false);
     _singleStepButton->setEnabled(false);
     _simStepLabel->setText("-");
@@ -693,19 +669,6 @@ GUIApplicationWindow::removeChild(QWidget *child)
         std::find(mySubWindows.begin(), mySubWindows.end(), child);
     mySubWindows.erase(i);
 }
-
-/*
-void
-GUIApplicationWindow::inform(std::string error)
-{
-    QMessageBox *myBox = new QMessageBox(version, error.c_str(),
-                    QMessageBox::Warning,
-                    QMessageBox::Ok | QMessageBox::Default,
-                    QMessageBox::NoButton, QMessageBox::NoButton
-                    );
-    myBox->exec();
-}
-*/
 
 
 void

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2003/07/16 15:16:26  dkrajzew
+// unneeded uncommented files removed
+//
 // Revision 1.12  2003/07/07 08:08:33  dkrajzew
 // The restart-button was removed and the play-button has now the function to continue the simulation if it has been started before
 //
@@ -70,7 +73,6 @@
 #include <qworkspace.h>
 #include <qtoolbutton.h>
 #include <utils/glutils/FontStorage.h>
-#include <utils/common/MsgRetriever.h>
 
 /* =========================================================================
  * class declarations
@@ -117,10 +119,6 @@ public:
     void addChild(QWidget *child, bool updateOnSimStep=true);
 
     void removeChild(QWidget *child);
-/*
-    /// derived from MsgRetriever, it is called on error messages
-    void inform(std::string error);
-*/
 
 private slots:
     /** called from the menu, this method allows to choose a simulation
