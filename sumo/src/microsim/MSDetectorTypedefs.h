@@ -50,6 +50,9 @@
 #include "MSE3NVehicles.h"
 #include "MSE3MeanNHaltings.h"
 
+// concrete E1 detectors, all LD
+#include "MSE1MeanSpeed.h"
+
 namespace Detector
 {
     // E2_TD
@@ -107,6 +110,10 @@ namespace Detector
 
     typedef MSMeanDetector< LD::MSDetector< MSE3MeanNHaltings >, true >
     E3MeanNHaltings;
+
+    // E1 are all LD
+    typedef MSMeanDetector< LD::MSDetector<
+        MSE1MeanSpeed >, true> E1MeanSpeed;
 }
 
 
