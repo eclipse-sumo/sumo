@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2003/10/17 06:48:06  dkrajzew
+// length of sources and sinks set to 200m
+//
 // Revision 1.29  2003/10/15 11:45:38  dkrajzew
 // geometry computation corrigued partially
 //
@@ -325,6 +328,9 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     if(basic==EDGEFUNCTION_SOURCE&&_length<200) {
         _length = 200;
     }
+    if(basic==EDGEFUNCTION_SINK&&_length<200) {
+        _length = 200;
+    }
    assert(_length>0);
     myGeom.push_back(
         Position2D(_from->getXCoordinate(), _from->getYCoordinate()));
@@ -376,6 +382,9 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
             Position2D(_to->getXCoordinate(), _to->getYCoordinate()));
     }
     if(basic==EDGEFUNCTION_SOURCE&&_length<200) {
+        _length = 200;
+    }
+    if(basic==EDGEFUNCTION_SINK&&_length<200) {
         _length = 200;
     }
     assert(_length>0);
@@ -1976,6 +1985,9 @@ NBEdge::computeEdgeShape()
         }
     }
     // recompute edge's length
+    if(_basicType==EDGEFUNCTION_SOURCE||_basicType==EDGEFUNCTION_SINK) {
+        return;
+    }
     double length = 0;
     for(i=0; i<_nolanes; i++) {
         assert(myLaneGeoms[i].length()>0);
