@@ -136,7 +136,7 @@ GUIDanielPerspectiveChanger::centerTo(const Boundery &netBoundery,
                                       const Position2D &pos, double radius)
 {
     _xpos = -(pos.x() - netBoundery.getCenter().first);
-    _ypos = pos.y() - netBoundery.getCenter().second;
+    _ypos = -(pos.y() - netBoundery.getCenter().second);
     _zoom =
         netBoundery.getWidth() < netBoundery.getHeight() ?
         25.0 * netBoundery.getWidth() / radius :
@@ -147,12 +147,13 @@ GUIDanielPerspectiveChanger::centerTo(const Boundery &netBoundery,
 
 void
 GUIDanielPerspectiveChanger::centerTo(const Boundery &netBoundery,
-                                      const Boundery &bound)
+                                      Boundery bound)
 {
+//    bound.flipY();
     _xpos = -(bound.getCenter().first
         - netBoundery.getCenter().first);
-    _ypos = (+(bound.getCenter().second
-        - netBoundery.getCenter().second));
+    _ypos = -(bound.getCenter().second
+        - netBoundery.getCenter().second);
     _zoom =
         bound.getWidth() > bound.getHeight() ?
         100.0 * netBoundery.getWidth() / bound.getWidth() :

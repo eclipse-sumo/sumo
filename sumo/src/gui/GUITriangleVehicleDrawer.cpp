@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.4  2003/03/06 17:17:29  dkrajzew
-// y-direction flipped
+// Revision 1.5  2003/03/12 16:55:19  dkrajzew
+// centering of objects debugged
 //
 // Revision 1.3  2003/02/07 10:34:14  dkrajzew
 // files updated
@@ -76,23 +76,23 @@ GUITriangleVehicleDrawer::drawVehicleNoTooltips(const GUILaneWrapper &lane,
     double posX = laneEnd.x() - laneDir.x() * vehicle.pos();
     double posY = laneEnd.y() - laneDir.y() * vehicle.pos();
     glTranslated(posX, posY, 0);
-    glRotated(-lane.getRotation(), 0, 0, 1);
+    glRotated(lane.getRotation(), 0, 0, 1);
     glBegin( GL_TRIANGLES );
     if(scheme!=GUIViewTraffic::VCS_LANECHANGE3) {
         setVehicleColor(vehicle, scheme);
         glVertex2f(0, 0);
-        glVertex2f(0-1.25, 0-vehicle.length());
-        glVertex2f(0+1.25, 0-vehicle.length());
+        glVertex2f(0-1.25, 0+vehicle.length());
+        glVertex2f(0+1.25, 0+vehicle.length());
     } else {
         setVehicleColor1Of3(vehicle);
         glVertex2f(0, 0);
         setVehicleColor2Of3(vehicle);
-        glVertex2f(0-1.25, 0-vehicle.length());
+        glVertex2f(0-1.25, 0+vehicle.length());
         setVehicleColor3Of3(vehicle);
-        glVertex2f(0+1.25, 0-vehicle.length());
+        glVertex2f(0+1.25, 0+vehicle.length());
     }
     glEnd();
-    glRotated(lane.getRotation(), 0, 0, 1);
+    glRotated(-lane.getRotation(), 0, 0, 1);
     glTranslated(-posX, -posY, 0);
 }
 
@@ -107,25 +107,25 @@ GUITriangleVehicleDrawer::drawVehicleWithTooltips(const GUILaneWrapper &lane,
     double posX = laneEnd.x() - laneDir.x() * vehicle.pos();
     double posY = laneEnd.y() - laneDir.y() * vehicle.pos();
     glTranslated(posX, posY, 0);
-    glRotated(-lane.getRotation(), 0, 0, 1);
+    glRotated(lane.getRotation(), 0, 0, 1);
     glPushName(vehicle.getGlID());
     glBegin( GL_TRIANGLES );
     if(scheme!=GUIViewTraffic::VCS_LANECHANGE3) {
         setVehicleColor(vehicle, scheme);
         glVertex2f(0, 0);
-        glVertex2f(0-1.25, 0-vehicle.length());
-        glVertex2f(0+1.25, 0-vehicle.length());
+        glVertex2f(0-1.25, 0+vehicle.length());
+        glVertex2f(0+1.25, 0+vehicle.length());
     } else {
         setVehicleColor1Of3(vehicle);
         glVertex2f(0, 0);
         setVehicleColor2Of3(vehicle);
-        glVertex2f(0-1.25, 0-vehicle.length());
+        glVertex2f(0-1.25, 0+vehicle.length());
         setVehicleColor3Of3(vehicle);
-        glVertex2f(0+1.25, 0-vehicle.length());
+        glVertex2f(0+1.25, 0+vehicle.length());
     }
     glEnd();
     glPopName();
-    glRotated(lane.getRotation(), 0, 0, 1);
+    glRotated(-lane.getRotation(), 0, 0, 1);
     glTranslated(-posX, -posY, 0);
 }
 

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/03/12 16:55:18  dkrajzew
+// centering of objects debugged
+//
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
@@ -66,7 +69,7 @@ public:
     virtual void centerTo(const Boundery &netBoundery,
         const Position2D &pos, double radius) = 0;
     virtual void centerTo(const Boundery &netBoundery,
-        const Boundery &bound) = 0;
+        Boundery bound) = 0;
     virtual int getMouseXPosition() const = 0; // !!! should not be virtual
     virtual int getMouseYPosition() const = 0;// !!! should not be virtual
 private:

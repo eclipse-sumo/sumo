@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.4  2003/03/06 17:17:30  dkrajzew
-// y-direction flipped
+// Revision 1.5  2003/03/12 16:55:19  dkrajzew
+// centering of objects debugged
 //
 // Revision 1.3  2003/03/03 15:10:20  dkrajzew
 // debugging
@@ -665,6 +665,7 @@ GUIViewTraffic::centerTo(GUIChooser::ChooseableArtifact type,
     case GUIChooser::CHOOSEABLE_ARTIFACT_EDGES:
         {
             Boundery bound = _net.getEdgeBoundery(name);
+            bound.grow(20.0);
             centerTo(bound);
         }
         break;

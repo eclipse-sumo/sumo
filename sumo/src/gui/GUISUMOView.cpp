@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/12 16:55:18  dkrajzew
+// centering of objects debugged
+//
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
@@ -84,7 +87,10 @@ using namespace std;
 GUISUMOView::GUISUMOView( QWidget* parent, const char* name, int wflags,
                          GUINet &net )
     : QMainWindow( parent, name, wflags ), _zoomingFactor(100),
-    _showLegend(true), _allowRotation(false)
+    _view(0), _settingsTools(0), _viewTools(0), _trackingTools(0),
+    _showLegendToggle(0), _allowRotationToggle(0),
+    _behaviourToggle1(0), _behaviourToggle2(0), _behaviourToggle3(0),
+    _showLegend(true), _allowRotation(false), _chooser(0)
 {
     // build the tool bar
     buildSettingTools();
@@ -229,8 +235,8 @@ void
 GUISUMOView::showValues(GUIChooser::ChooseableArtifact type,
                         std::vector<std::string> &names)
 {
-    _chooser = new GUIChooser(this, type, names);
-    _chooser->show();
+    GUIChooser *chooser = new GUIChooser(this, type, names);
+    chooser->show();
 }
 
 
@@ -239,7 +245,6 @@ GUISUMOView::setView(GUIChooser::ChooseableArtifact type,
                      const std::string &name)
 {
     _view->centerTo(type, name);
-    delete _chooser;
 }
 
 

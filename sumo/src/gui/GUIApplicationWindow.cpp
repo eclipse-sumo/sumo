@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/12 16:55:14  dkrajzew
+// centering of objects debugged
+//
 // Revision 1.3  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
@@ -69,6 +72,7 @@ namespace
 #include "QSimulationStepEvent.h"
 #include "QSimulationLoadedEvent.h"
 #include "GUIEvents.h"
+#include "QAboutSUMO.h"
 #include "icons/filesave.xpm"
 #include "icons/fileopen.xpm"
 #include "icons/play.xpm"
@@ -117,33 +121,30 @@ GUIApplicationWindow::GUIApplicationWindow()
     buildFileTools();
     buildSimulationTools();
     buildWindowsTools();
-    int id;
 
     QPixmap openIcon, saveIcon;
     openIcon = QPixmap( fileopen );
     saveIcon = QPixmap( filesave );
 
-    QPopupMenu * file = new QPopupMenu( this );
-    menuBar()->insertItem( "&File", file );
+    // build the file-menu
+    _fileMenu = new QPopupMenu( this );
+    menuBar()->insertItem( "&File", _fileMenu );
+    _loadID = _fileMenu->insertItem( openIcon, "&Open", this, SLOT(load()), CTRL+Key_O );
+    _fileMenu->setWhatsThis( _loadID, fileOpenText );
+    _fileMenu->insertSeparator();
+    _fileMenu->insertItem( "&Close", this, SLOT(closeAllWindows()), CTRL+Key_W );
+    _fileMenu->insertItem( "&Quit", qApp, SLOT( closeAllWindows() ), CTRL+Key_Q );
 
-    id = file->insertItem( openIcon, "&Open",
-			   this, SLOT(load()), CTRL+Key_O );
-    file->setWhatsThis( id, fileOpenText );
-
-    file->insertSeparator();
-    file->insertItem( "&Close", this, SLOT(closeAllWindows()), CTRL+Key_W );
-    file->insertItem( "&Quit", qApp, SLOT( closeAllWindows() ), CTRL+Key_Q );
-
+    // build the windows-menu
     windowsMenu = new QPopupMenu( this );
     windowsMenu->setCheckable( TRUE );
-    connect( windowsMenu, SIGNAL( aboutToShow() ),
-	     this, SLOT( windowsMenuAboutToShow() ) );
+    connect( windowsMenu, SIGNAL( aboutToShow() ), this, SLOT( windowsMenuAboutToShow() ) );
     menuBar()->insertItem( "&Windows", windowsMenu );
-
     menuBar()->insertSeparator();
     QPopupMenu * help = new QPopupMenu( this );
     menuBar()->insertItem( "&Help", help );
 
+    // build the help-menu
     help->insertItem( "&About", this, SLOT(about()), Key_F1);
     help->insertItem( "About&Qt", this, SLOT(aboutQt()));
     help->insertSeparator();
@@ -180,9 +181,9 @@ GUIApplicationWindow::buildFileTools()
     addToolBar( fileTools, tr( "File Operations" ), Top, TRUE );
 
     openIcon = QPixmap( fileopen );
-    QToolButton * fileOpen = new QToolButton( openIcon, "Open File",
+    _fileOpen = new QToolButton( openIcon, "Open File", 
         QString::null, this, SLOT(load()), fileTools, "open file" );
-    QWhatsThis::add( fileOpen, fileOpenText );
+    QWhatsThis::add( _fileOpen, fileOpenText );
     (void)QWhatsThis::whatsThisButton( fileTools );
 }
 
@@ -255,9 +256,11 @@ GUIApplicationWindow::buildWindowsTools()
 
 void GUIApplicationWindow::load()
 {
-    QString fn = QFileDialog::getOpenFileName( QString::null, QString("*.cfg"), this );
+    QString fn = QFileDialog::getOpenFileName( QString::null, QString("*.sumo.cfg"), this );
     if ( !fn.isEmpty() ) {
         closeAllWindows();
+        _fileOpen->setEnabled(FALSE);
+        _fileMenu->setItemEnabled(_loadID, FALSE);
         _loadThread->init(string(fn.ascii()));
         _loadThread->start();
         statusBar()->message( QString("Loading '") + fn + QString("'"));
@@ -288,6 +291,8 @@ GUIApplicationWindow::netLoaded(QSimulationLoadedEvent *ec)
         setCaption( caption.c_str());
         _windowAdder->setEnabled(true);
     }
+    _fileOpen->setEnabled(TRUE);
+    _fileMenu->setItemEnabled(_loadID, TRUE);
 }
 
 
@@ -392,12 +397,8 @@ void GUIApplicationWindow::closeAllWindows()
 
 void GUIApplicationWindow::about()
 {
-    string caption = string("SUMO GUI ") + string(version);
-    string text = string("Simulation of Urban MObility ")
-        + string(version) + string("\n")
-        + string("A microscopic traffic simulation by IVF/DLR & ZAIK\n")
-        + string("(http://www.ivf.dlr.de).");
-    QMessageBox::about( this, caption.c_str(), text.c_str());
+    QAboutSUMO aboutS(0, 0, TRUE);
+    aboutS.show();
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/12 16:55:18  dkrajzew
+// centering of objects debugged
+//
 // Revision 1.3  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
@@ -92,11 +95,10 @@ void GUILoadThread::run()
         net = builder.buildGUINet();
         if(net!=0) {
             SUMOFrame::postbuild(*net);
+            simStartTime = oc->getInt("b");
+            simEndTime = oc->getInt("e");
+            craw = SUMOFrame::buildRawOutputStream(oc);
         }
-        simStartTime = oc->getInt("b");
-        simEndTime = oc->getInt("e");
-        craw = SUMOFrame::buildRawOutputStream(oc);
-//        _parent->netLoaded(net, craw, simStartTime, simEndTime, string(_file));
     } catch (...) {
         delete net;
         delete craw;

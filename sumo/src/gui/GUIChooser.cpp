@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/12 16:55:16  dkrajzew
+// centering of objects debugged
+//
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
@@ -91,8 +94,8 @@ void
 GUIChooser::buildButtons(QHBoxLayout *hbox)
 {
     // build the layout
-    QGridLayout *layout = new QGridLayout( this, 3, 1, 4, 4 );
-    hbox->addItem(layout);
+    QGridLayout *layout = new QGridLayout( hbox, 3, 1, 4 );
+//    hbox->addItem(layout);
     // build the "OK"-button
     QPushButton *button = new QPushButton(QString("OK"), this, "OK");
     connect( button, SIGNAL( clicked() ), this, SLOT( pressedOK() ) );
@@ -109,7 +112,7 @@ void
 GUIChooser::pressedOK()
 {
     _id = string(_list->currentText().ascii());
-    close(FALSE);
+    close(TRUE);
 }
 
 
@@ -117,7 +120,7 @@ void
 GUIChooser::pressedCancel()
 {
     _id = "";
-    close(FALSE);
+    close(TRUE);
 }
 
 

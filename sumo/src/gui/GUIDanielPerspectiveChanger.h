@@ -24,7 +24,7 @@ public:
     void centerTo(const Boundery &netBoundery,
         const Position2D &pos, double radius);
     void centerTo(const Boundery &netBoundery,
-        const Boundery &bound);
+        Boundery bound);
     int getMouseXPosition() const;
     int getMouseYPosition() const;
 private:
