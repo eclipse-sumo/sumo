@@ -22,6 +22,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.4  2003/05/27 17:27:15  dkrajzew
+// unworking default constructor overriding removed
+//
 // Revision 1.3  2003/05/22 13:45:34  roessel
 // Added condition in isActivatedByEmitOrLaneChange.
 //
@@ -107,9 +110,6 @@ private:
     double startPosM;
     double endPosM;
     MSLaneState& laneStateM;
-
-    MSLaneStateReminder( void )
-        {}
 
 };
 
