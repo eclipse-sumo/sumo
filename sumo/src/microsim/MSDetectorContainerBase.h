@@ -28,7 +28,7 @@ struct MSDetectorContainerBase
 {
     virtual void enterDetectorByMove( MSVehicle* veh ) = 0;
     virtual void enterDetectorByEmitOrLaneChange( MSVehicle* veh ) = 0;
-    virtual void leaveDetectorByMove( void ) = 0;
+    virtual void leaveDetectorByMove( MSVehicle* veh ) = 0;
     virtual void leaveDetectorByLaneChange( MSVehicle* veh ) = 0;
     virtual void update( void ) = 0;
     virtual ~MSDetectorContainerBase( void ) { }
