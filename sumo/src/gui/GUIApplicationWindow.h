@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2003/09/05 14:45:44  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.14  2003/08/20 11:55:49  dkrajzew
 // "Settings"-menu added
 //
@@ -77,6 +80,7 @@
 #include <qtoolbutton.h>
 #include <utils/glutils/FontStorage.h>
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
@@ -108,7 +112,7 @@ class GUIApplicationWindow:
 public:
     /** constructor */
     GUIApplicationWindow(int glWidth, int glHeight, bool quitOnEnd,
-        const std::string &config);
+        const std::string &config, bool allowAggregated);
 
     /** destructor */
     ~GUIApplicationWindow();
@@ -122,6 +126,8 @@ public:
     void addChild(QWidget *child, bool updateOnSimStep=true);
 
     void removeChild(QWidget *child);
+
+    bool aggregationAllowed();
 
 private slots:
     /** called from the menu, this method allows to choose a simulation
@@ -140,8 +146,11 @@ private slots:
     /** performs a single simulation step via the RunThread */
     void singleStep();
 
-    /** opens a new simulation display */
-    void openNewWindow();
+    /** opens a new microscopic simulation display */
+    void openNewMicroscopicWindow();
+
+    /** opens a new lane-aggreagated simulation display */
+    void openNewLaneAggregatedWindow();
 
     /** shows the screen about SUMO */
     void about();
@@ -240,7 +249,7 @@ private:
         *_singleStepButton;
 
     /** button for window adding */
-    QToolButton *_windowAdder;
+    QToolButton *_microWindowAdder, *_laneAggregatedWindowAdder;
 
     /** the information whether the simulation was started before */
     bool _wasStarted;
@@ -270,6 +279,8 @@ private:
 
     /// (y/n): the gui loads and starts a simulation at the beginning
     bool myStartAtBegin;
+
+    bool myAllowAggregated;
 
 };
 

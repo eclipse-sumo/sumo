@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/09/05 14:45:44  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.13  2003/07/22 14:56:46  dkrajzew
 // changes due to new detector handling
 //
@@ -150,13 +153,14 @@ void GUILoadThread::run()
 //        MSDetectorSubSys::createDictionaries();
 //        OptionsIO::loadConfiguration(oc);
         GUINetBuilder builder(oc);
-        net = builder.buildGUINet();
+        net = builder.buildGUINet(_parent->aggregationAllowed());
         if(net!=0) {
             SUMOFrame::postbuild(*net);
             simStartTime = oc.getInt("b");
             simEndTime = oc.getInt("e");
             craw = SUMOFrame::buildRawOutputStream(oc);
         }
+        srand(881);
     } catch (UtilException &e) {
         delete net;
         delete craw;

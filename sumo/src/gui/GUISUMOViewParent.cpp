@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/09/05 14:45:44  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.5  2003/07/30 08:52:16  dkrajzew
 // further work on visualisation of all geometrical objects
 //
@@ -90,11 +93,12 @@ namespace
 #include "icons/recenter_view.xpm"
 #include "icons/show_legend.xpm"
 #include "icons/allow_rotation.xpm"
-#include "icons/view1.xpm"
+/*#include "icons/view1.xpm"
 #include "icons/view2.xpm"
-#include "icons/view3.xpm"
+#include "icons/view3.xpm"*/
 #include "GUIChooser.h"
 #include "GUIViewTraffic.h"
+#include "GUIViewAggregatedLanes.h"
 #include "QGUIToggleButton.h"
 #include "GUIApplicationWindow.h"
 #include "GUISUMOViewParent.h"
@@ -116,9 +120,9 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 GUISUMOViewParent::GUISUMOViewParent( QWidget *parent, const char* name,
-                                     int wflags,
-                                     GUINet &net,
-                                     GUIApplicationWindow &parentWindow )
+                                     int wflags, GUINet &net,
+                                     GUIApplicationWindow &parentWindow,
+                                     ViewType view)
     : QMainWindow( parent, name, wflags ), _zoomingFactor(100),
     _view(0), _viewTools(0), _trackingTools(0),
     _showLegendToggle(0), _allowRotationToggle(0),
@@ -133,7 +137,16 @@ GUISUMOViewParent::GUISUMOViewParent( QWidget *parent, const char* name,
     setMinimumSize(100, 30);
     setBaseSize(300, 300);
     // build the display widget
-    _view = new GUIViewTraffic(myParent, *this, net);
+    switch(view) {
+    case MICROSCOPIC_VIEW:
+        _view = new GUIViewTraffic(myParent, *this, net);
+        break;
+    case LANE_AGGREGATED_VIEW:
+        _view = new GUIViewAggregatedLanes(myParent, *this, net);
+        break;
+    default:
+        throw 1;
+    }
     setCentralWidget(_view);
     _view->buildViewToolBars(*this);
 }
@@ -169,7 +182,7 @@ GUISUMOViewParent::buildViewTools()
     // !!! add "what's this"
     // add a separator
     _viewTools->addSeparator();
-    // add the behaviour toggling buttons
+/*    // add the behaviour toggling buttons
     icon = QPixmap( view1_xpm );
     _behaviourToggle1 = new QGUIToggleButton( icon, "Toggle View Behaviour 1",
         QString::null, this, SLOT(toggleBehaviour1()), _viewTools,
@@ -181,7 +194,7 @@ GUISUMOViewParent::buildViewTools()
     icon = QPixmap( view3_xpm );
     _behaviourToggle3 = new QGUIToggleButton( icon, "Toggle View Behaviour 3",
         QString::null, this, SLOT(toggleBehaviour3()), _viewTools,
-        "toggle view behaviour 3", false );
+        "toggle view behaviour 3", false );*/
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/09/05 14:45:44  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.2  2003/07/30 08:52:16  dkrajzew
 // further work on visualisation of all geometrical objects
 //
@@ -60,7 +63,7 @@
  * ======================================================================= */
 class GUINet;
 class QToolBar;
-class GUIViewTraffic;
+class GUISUMOAbstractView;
 class QGUIToggleButton;
 class GUIApplicationWindow;
 
@@ -79,9 +82,14 @@ class GUISUMOViewParent : public QMainWindow
     // is a q-object
     Q_OBJECT
 public:
+    enum ViewType {
+        MICROSCOPIC_VIEW,
+        LANE_AGGREGATED_VIEW
+    };
+
     /// constructor
     GUISUMOViewParent( QWidget *parent, const char* name, int wflags,
-        GUINet &net, GUIApplicationWindow &parentWindow);
+        GUINet &net, GUIApplicationWindow &parentWindow, ViewType view);
 
     /// destructor
     ~GUISUMOViewParent();
@@ -182,7 +190,7 @@ private:
     QString filename;
 
     /// the view used
-    GUIViewTraffic *_view;
+    GUISUMOAbstractView *_view;
 
     /// toolbars (view, tracking)
     QToolBar *_viewTools, *_trackingTools;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2003/09/05 14:45:44  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.21  2003/08/20 11:55:49  dkrajzew
 // "Settings"-menu added
 //
@@ -180,11 +183,13 @@ const char * singleSimStepText = "Click this button to perform a single simulati
  * ======================================================================= */
 GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight,
                                            bool quitOnEnd,
-                                           const std::string &config)
+                                           const std::string &config,
+                                           bool allowAggregated)
     : QMainWindow( 0, "example application main window", WDestructiveClose ),
     _loadThread(0), _runThread(0),
     myGLWidth(glWidth), myGLHeight(glHeight),
-    myQuitOnEnd(quitOnEnd), myStartAtBegin(false)
+    myQuitOnEnd(quitOnEnd), myStartAtBegin(false),
+    myAllowAggregated(allowAggregated)
 {
     // recheck the maximum sizes
     QWidget *d = QApplication::desktop();
@@ -242,6 +247,7 @@ GUIApplicationWindow::GUIApplicationWindow(int glWidth, int glHeight,
             QString("Loading '") + config.c_str() + QString("'"));
         myStartAtBegin = true;
     }
+    setIcon( QPixmap("document.xpm") );
 }
 
 
@@ -251,8 +257,6 @@ GUIApplicationWindow::~GUIApplicationWindow()
     size_t i;
     for(i=0; i<mySubWindows.size(); i++) {
         mySubWindows[i]->close();
-/*        QApplication::postEvent( mySubWindows[i],
-            new QCloseEvent());*/
     }
     delete _loadThread;
     for(i=0; i<mySubWindows.size(); i++) {
@@ -330,12 +334,18 @@ GUIApplicationWindow::buildWindowsTools()
     _winTools = new QToolBar( this, "window operations" );
     addToolBar( _winTools, tr( "Window Operations" ), Top, FALSE );
 
-    // add "start simulation" - button
+    // add "open new microscopic window" - button
     icon = QPixmap( new_window_xpm );
-    _windowAdder = new QToolButton( icon, "Open New Window",
-        QString::null, this, SLOT(openNewWindow()), _winTools,
+    _microWindowAdder = new QToolButton( icon, "Open New Microscopic Window",
+        QString::null, this, SLOT(openNewMicroscopicWindow()), _winTools,
         "open new window" );
-    _windowAdder->setEnabled(false);
+    _microWindowAdder->setEnabled(false);
+    // add "open new lane-aggregated window" - button
+    icon = QPixmap( new_window_xpm );
+    _laneAggregatedWindowAdder = new QToolButton( icon, "Open New Lane-Aggregated Window",
+        QString::null, this, SLOT(openNewLaneAggregatedWindow()), _winTools,
+        "open new window" );
+    _laneAggregatedWindowAdder->setEnabled(false);
 }
 
 
@@ -421,11 +431,12 @@ GUIApplicationWindow::netLoaded(QSimulationLoadedEvent *ec)
         _runThread->init(ec->_net, ec->_begin, ec->_end, ec->_craw);
         _wasStarted = false;
         _startSimButton->setEnabled(true);
-        openNewWindow();
+        openNewMicroscopicWindow();
         string caption = string("SUMO ") + string(version)
             + string(" - ") + ec->_file;
         setCaption( caption.c_str());
-        _windowAdder->setEnabled(true);
+        _microWindowAdder->setEnabled(true);
+        _laneAggregatedWindowAdder->setEnabled(myAllowAggregated);
     }
     _fileOpen->setEnabled(TRUE);
     _fileMenu->setItemEnabled(_loadID, TRUE);
@@ -436,14 +447,36 @@ GUIApplicationWindow::netLoaded(QSimulationLoadedEvent *ec)
 
 
 void
-GUIApplicationWindow::openNewWindow()
+GUIApplicationWindow::openNewMicroscopicWindow()
 {
     if(!_runThread->simulationAvailable()) {
         statusBar()->message( "No simulation loaded!", 2000 );
         return;
     }
     GUISUMOViewParent* w = new GUISUMOViewParent( ws, 0, WDestructiveClose,
-        _runThread->getNet(), *this );
+        _runThread->getNet(), *this, GUISUMOViewParent::MICROSCOPIC_VIEW );
+    connect( w, SIGNAL( message(const QString&, int) ), statusBar(), SLOT( message(const QString&, int )) );
+    string caption = string("View #") + toString(myViewNumber++);
+    w->setCaption( caption.c_str() );
+    w->setIcon( QPixmap("document.xpm") );
+    // show the very first window in maximized mode
+    if ( ws->windowList().isEmpty() ) {
+        w->showMaximized();
+    } else {
+        w->show();
+    }
+}
+
+
+void
+GUIApplicationWindow::openNewLaneAggregatedWindow()
+{
+    if(!_runThread->simulationAvailable()) {
+        statusBar()->message( "No simulation loaded!", 2000 );
+        return;
+    }
+    GUISUMOViewParent* w = new GUISUMOViewParent( ws, 0, WDestructiveClose,
+        _runThread->getNet(), *this, GUISUMOViewParent::LANE_AGGREGATED_VIEW );
     connect( w, SIGNAL( message(const QString&, int) ), statusBar(), SLOT( message(const QString&, int )) );
     string caption = string("View #") + toString(myViewNumber++);
     w->setCaption( caption.c_str() );
@@ -473,7 +506,6 @@ GUIApplicationWindow::start()
     }
     _wasStarted = true;
     _startSimButton->setEnabled(false);
-//    _resumeSimButton->setEnabled(false);
     _stopSimButton->setEnabled(true);
     _singleStepButton->setEnabled(false);
     _runThread->begin();
@@ -680,7 +712,8 @@ GUIApplicationWindow::resetSimulationToolBar()
     _stopSimButton->setEnabled(false);
     _singleStepButton->setEnabled(false);
     _simStepLabel->setText("-");
-    _windowAdder->setEnabled(false);
+    _laneAggregatedWindowAdder->setEnabled(myAllowAggregated);
+    _microWindowAdder->setEnabled(true);
 }
 
 
@@ -736,7 +769,10 @@ GUIApplicationWindow::settingsMenuAboutToShow()
 {
     _settingsMenu->clear();
     _settingsMenu->insertItem( "Application Settings", this, SLOT(appSettings()));
-    _settingsMenu->insertItem( "Simulation Settings", this, SLOT(simSettings()));
+    int id = _settingsMenu->insertItem( "Simulation Settings", this, SLOT(simSettings()));
+    if(!_runThread->simulationAvailable()) {
+        _settingsMenu->setItemEnabled(id, FALSE);
+    }
     _settingsMenu->insertSeparator();
     QWidgetList windows = ws->windowList();
     for ( int i = 0; i < int(windows.count()); ++i ) {
@@ -750,6 +786,13 @@ GUIApplicationWindow::settingsMenuAboutToShow()
 void
 GUIApplicationWindow::windowSetings(int window)
 {
+}
+
+
+bool
+GUIApplicationWindow::aggregationAllowed()
+{
+    return myAllowAggregated;
 }
 
 

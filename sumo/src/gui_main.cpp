@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2003/09/05 14:41:48  dkrajzew
+// first tries for an implementation of aggregated views
+//
 // Revision 1.8  2003/08/14 14:07:55  dkrajzew
 // memory allocation control added
 //
@@ -157,6 +160,8 @@ fillInitOptions(OptionsCont &oc)
     oc.doRegister("help", '?', new Option_Bool(false));
     oc.doRegister("configuration", 'c', new Option_FileName());
     oc.doRegister("print-options", 'p', new Option_Bool(false));
+    oc.doRegister("allow-floating-aggregated-views", 'A', new Option_Bool(false));
+
 }
 
 bool
@@ -206,7 +211,8 @@ main(int argc, char **argv)
                 oc.getInt("w"),
                 oc.getInt("h"),
                 oc.getBool("Q"),
-                oc.getString("c"));
+                oc.getString("c"),
+                oc.getBool("A"));
         // delete statrup-settings
         OptionsSubSys::close();
         a.connect( &a, SIGNAL(lastWindowClosed()), &a, SLOT(quit()) );
