@@ -51,7 +51,7 @@ if(!defined($ARGV[1])) {
 	die;
 }
 $step=0;
-$end = $ARGV[1];
+$end = 10;
 if(defined($ARGV[2])) {
 	$step = $ARGV[1];
 	$end = $ARGV[2];
