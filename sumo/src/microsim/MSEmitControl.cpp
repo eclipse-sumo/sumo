@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.4  2003/03/20 16:21:11  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -135,8 +138,6 @@ MSEmitControl::add( MSVehicle *veh )
     myAllVeh.add(veh);
 }
 
-int countaaa = 0;
-
 void
 MSEmitControl::moveFrom( MSVehicleContainer &cont )
 {
@@ -144,22 +145,26 @@ MSEmitControl::moveFrom( MSVehicleContainer &cont )
 }
 
 
-void
+size_t
 MSEmitControl::emitVehicles(MSNet::Time time)
 {
+    checkPrevious(time);
     // check whether any vehicles shall be emitted within this time step
-    if(!myAllVeh.anyWaitingFor(time)) {
-        return;
+    if(!myAllVeh.anyWaitingFor(time)&&myRefusedEmits1.size()==0&&myRefusedEmits2.size()==0) {
+        return 0;
     }
+	size_t noEmitted = 0;
     // we use double-buffering for the refused emits to save time
+    assert(myRefusedEmits1.size()==0||myRefusedEmits2.size()==0);
     MSVehicleContainer::VehicleVector &refusedEmits =
         myRefusedEmits1.size()==0 ? myRefusedEmits1 : myRefusedEmits2;
     MSVehicleContainer::VehicleVector &previousRefused =
         myRefusedEmits2.size()==0 ? myRefusedEmits1 : myRefusedEmits2;
+    //
     // go through the list of previously refused first
     MSVehicleContainer::VehicleVector::const_iterator veh;
     for( veh=previousRefused.begin(); veh!=previousRefused.end(); veh++) {
-        tryEmit(*veh, refusedEmits);
+        noEmitted += tryEmit(*veh, refusedEmits);
     }
     // clear previously refused vehicle container
     previousRefused.clear();
@@ -167,22 +172,28 @@ MSEmitControl::emitVehicles(MSNet::Time time)
     // Insert vehicles from myTrips into the net until the vehicles
     // departure time is greater than time.
     // retrieve the list of vehicles to emit within this time step
+    if(!myAllVeh.anyWaitingFor(time)) {
+        return 0;
+    }
     const MSVehicleContainer::VehicleVector &next = myAllVeh.top();
     // go through the list and try to emit
     for( veh=next.begin(); veh!=next.end(); veh++) {
-        tryEmit(*veh, refusedEmits);
+        noEmitted += tryEmit(*veh, refusedEmits);
     }
     // let the MSVehicleContainer clear the vehicles
     myAllVeh.pop();
+	return noEmitted;
 }
 
 
-void
+size_t
 MSEmitControl::tryEmit(MSVehicle *veh,
                        MSVehicleContainer::VehicleVector &refusedEmits)
 {
+	size_t noEmitted = 0;
     if (veh->departEdge().emit(*veh)) {
         // Successful emission.
+		noEmitted++;
             // Check whether another vehicle shall be
             //  emitted with the same parameter
         if(veh->periodical()) {
@@ -199,6 +210,7 @@ MSEmitControl::tryEmit(MSVehicle *veh,
         // retry in the next step
         refusedEmits.push_back(veh);
     }
+	return noEmitted;
 }
 
 
@@ -232,6 +244,20 @@ MSEmitControl::clear()
 {
     for(DictType::iterator it = myDict.begin(); it!=myDict.end(); it++) {
         delete (*it).second;
+    }
+}
+
+
+void
+MSEmitControl::checkPrevious(MSNet::Time time)
+{
+    // check to which list append to
+    MSVehicleContainer::VehicleVector &previousRefused =
+        myRefusedEmits2.size()==0 ? myRefusedEmits1 : myRefusedEmits2;
+    while(!myAllVeh.isEmpty()&&myAllVeh.topTime()<time) {
+        const MSVehicleContainer::VehicleVector &top = myAllVeh.top();
+        copy(top.begin(), top.end(), back_inserter(previousRefused));
+        myAllVeh.pop();
     }
 }
 

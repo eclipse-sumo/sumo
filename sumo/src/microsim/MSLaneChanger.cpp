@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.7  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.6  2003/03/20 16:21:12  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -617,21 +620,9 @@ MSLaneChanger::safeChange( ChangerIt target )
     // Check back gap
     if ( neighFollow == 0 ) {
         if(targetLane->myApproaching!=0) {
-            // Check back gap (no following vehicle)
-/*            double safeBackGap = pow( targetLane->maxSpeed(), 2 ) /
-                                ( 2 * MSVehicleType::minDecel() ) +
-                                MSVehicle::tau() + vehicle->length();
-            if ( vehicle->pos() < safeBackGap ) {
-                vehicle->_lcAction |= MSVehicle::LCA_LANEBEGIN;
-                return false;
-            }*/
-            // use the approaching vehicle
-#ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime&&(vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
-        cout << "TargetLane:" << targetLane->myFirstDistance << ", " << targetLane->myApproaching->id() << endl;
-    }
-#endif
-            if(vehicle->pos()<vehicle->length()||!targetLane->myApproaching->isSafeChange_WithDistance(targetLane->myFirstDistance, *vehicle, targetLane)) {
+            // Check back gap to following vehicle
+            if( vehicle->pos()<vehicle->length() ||
+				!targetLane->myApproaching->isSafeChange_WithDistance(targetLane->myFirstDistance, *vehicle, targetLane)) {
                 return false;
             }
         }
@@ -651,9 +642,23 @@ MSLaneChanger::safeChange( ChangerIt target )
 
     // Check front gap
     if( neighLead==0 ) {
+		double dist2LaneEnd = targetLane->length() - vehicle->pos();
+		// check whether there is a vehicle on the following lane
+		MSLinkCont::iterator link =
+			targetLane->succLinkSec( *vehicle, 1, *targetLane );
+		// if the lane to change to is a dead end
+		if(targetLane->isLinkEnd(link)) {
+			// check the headway on the tarhet lane only
+	        return ( dist2LaneEnd > vehicle->brakeGap( targetLane ) );
+		}
+		// check the vehicle on the next lane to the approached lane
+		const MSVehicle::State &nextLanePred = targetLane->myLastState;
         // Check front gap (no leading vehicle)
-        return ( targetLane->length() - vehicle->pos() >
-                vehicle->brakeGap( targetLane ) );
+        return (
+			vehicle->hasSafeGap(
+				dist2LaneEnd+nextLanePred.pos(),
+				nextLanePred.speed(),
+				targetLane ) );
     } else {
         // Check gap to the leading vehicle
         return ( vehicle->isSafeChange( *neighLead, targetLane ) );

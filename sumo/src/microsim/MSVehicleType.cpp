@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2003/05/20 09:31:47  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.3  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -130,6 +133,22 @@ MSVehicleType::DictType MSVehicleType::myDict;
 double MSVehicleType::myMinDecel  = 0;
 double MSVehicleType::myMaxLength = 0;
 
+const char * const
+MSVehicleType::myTableItems[] =
+{
+    "a", "d",
+    "vmax", "eps",
+    "length", 0
+};
+
+const TableType const
+MSVehicleType::myTableItemTypes[] =
+{
+    TT_DOUBLE, TT_DOUBLE,
+    TT_DOUBLE, TT_DOUBLE,
+    TT_DOUBLE
+};
+
 
 /* =========================================================================
  * method definitions
@@ -205,6 +224,65 @@ MSVehicleType::clear()
     }
     myDict.clear();
 }
+
+
+size_t
+MSVehicleType::getNoParameter() const
+{
+	return 5;
+}
+
+
+void
+MSVehicleType::fillTableParameter(double *parameter) const
+{
+	parameter[0] = myAccel;
+	parameter[1] = myDecel;
+	parameter[2] = myMaxSpeed;
+	parameter[3] = myDawdle;
+	parameter[4] = myLength;
+}
+
+double
+MSVehicleType::getTableParameter(size_t pos) const
+{
+    switch(pos) {
+    case 0:
+        return myAccel;
+    case 1:
+        return myDecel;
+    case 2:
+        return myMaxSpeed;
+    case 3:
+        return myDawdle;
+    case 4:
+        return myLength;
+    default:
+        throw 1;
+    }
+}
+
+
+const char * const
+MSVehicleType::getTableItem(size_t pos) const
+{
+    return myTableItems[pos];
+}
+
+
+const TableType
+MSVehicleType::getTableType(size_t pos) const
+{
+    return myTableItemTypes[pos];
+}
+
+
+const std::string &
+MSVehicleType::id() const
+{
+    return myID;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

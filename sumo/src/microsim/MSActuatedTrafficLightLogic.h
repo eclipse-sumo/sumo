@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/05/20 09:31:45  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.3  2003/04/02 11:44:03  dkrajzew
 // continuation of implementation of actuated traffic lights
 //
@@ -153,6 +156,9 @@ public:
 
     /// Returns a vector of build detectors
     MSNet::DetectorCont getDetectorList() const;
+
+	/// returns the current step
+	size_t step() const { return _step; }
 
 protected:
     /// Builds the detectors

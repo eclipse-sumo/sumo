@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -78,10 +81,25 @@ MSTrafficLightJunction::~MSTrafficLightJunction()
 bool
 MSTrafficLightJunction::setAllowed()
 {
+#ifdef ABS_DEBUG
+	if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
+		cout << "Step: " << _tlLogic->step() << endl;
+		cout << "RequestPre:  " << myRequest << endl;
+	}
+#endif
     _tlLogic->applyPhase(myRequest);
+#ifdef ABS_DEBUG
+	if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
+		cout << "RequestPost: " << myRequest << endl;
+	}
+#endif
     // Get myRespond from logic and check for deadlocks.
     myLogic->respond( myRequest, myRespond );
-    deadlockKiller();
+#ifdef ABS_DEBUG
+	if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
+		cout << "Respond:     " << myRespond << endl;
+	}
+#endif
 
     return true;
 }

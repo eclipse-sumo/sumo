@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.9  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.8  2003/04/16 10:05:05  dkrajzew
 // uah, debugging
 //
@@ -387,6 +390,8 @@ public:
     /** Clears the dictionary */
     static void clear();
 
+	static size_t dictSize() { return myDict.size(); }
+
     /// resets the lane's link priorities
     void setLinkPriorities(const std::bitset<64> &prios, size_t &beginPos);
 
@@ -404,11 +409,14 @@ public:
         lanechange (false) or if interval is over (false). */
     void addVehicleData( double contTimesteps,
                          unsigned discreteTimesteps,
-                         double travelDistance,
+//                          double travelDistance,
                          double speedSum,
                          double speedSquareSum,
                          unsigned index,
-                         bool hasFinishedLane );
+                         bool hasFinishedEntireLane,
+                         bool hasLeftLane,
+                         bool hasEnteredLane,
+                         double travelTimesteps = 0 );
 
 
     /// Returns the lane which may be used from succLinkSource to get to nRouteEdge
@@ -513,12 +521,6 @@ protected:
         to insert */
     virtual bool emitTry( MSVehicle& veh, VehCont::iterator leaderIt );
 
-    /** Checks if there is enough space for emission and sets vehicle-state
-        if there is. Common code used by emitTry-methods. Returns true if
-        emission is possible. */
-/*    bool enoughSpace( MSVehicle& veh,
-                      double followPos, double leaderPos, double safeSpace );*/
-
     /** Resets the MeanData container at the beginning of a new interval.*/
     void resetMeanData( unsigned index );
 
@@ -590,20 +592,31 @@ private:
     struct MeanDataValues
     {
         MeanDataValues()
-            : nVehFinishedLane( 0 ),
+            : nVehEntireLane( 0 ),
               nVehContributed( 0 ),
+              nVehLeftLane( 0 ),
+              nVehEnteredLane( 0 ),
               contTimestepSum( 0 ),
               discreteTimestepSum( 0 ),
-              distanceSum( 0 ),
+//               distanceSum( 0 ),
               speedSum( 0 ),
-              speedSquareSum( 0 )
+              speedSquareSum( 0 ),
+              traveltimeStepSum( 0 )
             {}
 
-        /// the number of vehicles that have left the lane
-        unsigned nVehFinishedLane;
+        /// the number of vehicles that passed the entire lane
+        unsigned nVehEntireLane;
 
         /// the number of vehicles that made up the aggregated data
         unsigned nVehContributed;
+
+        /// the number of vehicles that left this lane within the
+        /// sample intervall
+        unsigned nVehLeftLane;
+
+        /// the number of vehicles that entered this lane within the
+        /// sample intervall
+        unsigned nVehEnteredLane;
 
         /// the number of time steps
         double contTimestepSum;
@@ -611,15 +624,18 @@ private:
         /// as contTimestepSum but as an integer
         unsigned discreteTimestepSum;
 
-        /** the sum of the way the participating vehicles drove on the lane
-            during the aggregated time */
-        double distanceSum;
+//         /** the sum of the way the participating vehicles drove on the lane
+//             during the aggregated time */
+//         double distanceSum;
 
         /// the sum of the speeds the vehicles had ont the ...
         double speedSum;
 
         /// the sum of squared speeds the vehicles had ont the ...
         double speedSquareSum;
+
+        /// traveltime sum from vehicles that entirely passed the lane
+        double traveltimeStepSum;
     };
 
     /** Container of MeanDataValues, one element for each intervall. */

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.13  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.12  2003/04/16 10:05:07  dkrajzew
 // uah, debugging
 //
@@ -273,10 +276,6 @@ public:
         /// vehicle sets states directly
         friend class MSVehicle;
 
-#ifdef _DEBUG
-//        friend class MSLaneChanger;
-#endif
-
     public:
         /// Default constructor. Members are initialized to 0.
         State();
@@ -358,6 +357,8 @@ public:
         for collision-free driving. */
     double brakeGap( const MSLane* lane ) const;
 
+    double brakeGap( double speed ) const;
+
     /// minimum brake gap
     double rigorousBrakeGap(const double &state) const;
 
@@ -381,14 +382,13 @@ public:
     double getSecureGap( const MSLane &lane,
         const MSVehicle &pred ) const;
 
-    double getSecureGap( const MSVehicle &pred ) const;
-
-
     /** Checks if the gap between this vehicle and pred is sufficient
      * for safe driving. */
     bool hasSafeGap( const MSVehicle& pred,
                      const MSLane* lane,
                      double gap ) const;
+
+	bool hasSafeGap(  double gap, double predSpeed, const MSLane* lane) const;
 
     /** Returns the minimum gap between this driving vehicle and a
      * possibly emitted vehicle with speed 0. */
@@ -694,13 +694,16 @@ protected:
     /// Vehicle-type.
     const MSVehicleType* myType;
 
+    /// Vehicles driving state. here: pos and speed
+    State myState;
+
+	/// The lane the vehicle is on
+    MSLane* myLane;
+
 private:
 
     /// Reaction time [sec]
     static double myTau;
-
-    /// Vehicles driving state. here: pos and speed
-    State myState;
 
     /** Iterator to current route-edge.  */
     MSRouteIterator myCurrEdge;
@@ -714,19 +717,20 @@ private:
     {
         double entryContTimestep;
         unsigned entryDiscreteTimestep;
-        double entryPos;
+//         double entryPos;
         double speedSum;
         double speedSquareSum;
+        bool enteredAtLaneStart;
+        double entryTravelTimestep;
+        bool enteredLaneWithinIntervall;
     };
 
     /// Container of meanDataValues, one element for each mean-interval.
     std::vector< MeanDataValues > myMeanData;
 
-    MSLane* myLane;
-
     MSLane *myApproachedLane;
 
-    double myVWish;
+//    double myVWish;
 
     /// Default constructor.
     MSVehicle();
@@ -759,6 +763,9 @@ private:
     inline double max(double v1, double v2) const
         { return ((v1 > v2) ? v1 : v2); };
 
+
+	double myVLinkPass;
+	double myVLinkWait;
 };
 
 

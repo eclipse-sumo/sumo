@@ -24,6 +24,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.7  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.6  2003/04/09 15:36:13  dkrajzew
 // debugging of emitters: forgotten release of vehicles (gui) debugged; forgotten initialisation of logger-members debuggt; error managament corrected
 //
@@ -121,7 +124,6 @@ using namespace std;
 template<class _T>
 MSInductLoop<_T>::~MSInductLoop<_T>()
 {
-    delete myFile;
 }
 
 //---------------------------------------------------------------------------//
@@ -137,17 +139,21 @@ MSInductLoop<_T>::MSInductLoop<_T>( string id, MSLane* lane,
     myPos            ( position ),
     mySampleIntervall( sampleInterval ),
     myPassedVeh      ( 0 ),
+//     myPassedVehLeader( 0 ),
     myPassingSpeed   ( 0 ),
+//     myPassedVehLeaderSpeed( 0 ),
     myPassingTime    ( 0 ),
-//    myNSamples       ( 0 ),
-    myNPassedVeh     ( sampleInterval ),
-    myLocalDensity( sampleInterval ),
+//     myPassedVehLeaderTime( 0 ),
+    myNSamples       ( 0 ),
+    myNPassedVeh     ( 0 ),
+//    myLocalDensity( sampleInterval ),
     mySpeed( sampleInterval ),
     myOccup( sampleInterval ),
-    myVehLengths( sampleInterval )
+    myVehLengths( sampleInterval ),
+	myNIntervalls( 0 )
 {
     // Make sure that vehicles will be detected even at lane-end.
-//    assert( myPos < myLane->length() - myLane->maxSpeed() * MSNet::deltaT() );
+    assert( myPos < myLane->length() - myLane->maxSpeed() * MSNet::deltaT() );
     assert( myPos > 0 );
 
     // return when just a part of a logic (no file)
@@ -164,9 +170,9 @@ MSInductLoop<_T>::MSInductLoop<_T>( string id, MSLane* lane,
             header << "#   at position " << myPos << endl;
             header << "#   sampleIntervall = "
                    << mySampleIntervall << " seconds" << endl << endl;
-            header << "# n   endOfInterv nVehicles avgDensity avgFlow "
-                   << "avgSpeed avgOccup avgLength" << endl;
-            header << "#         [s]                [veh/km]  [veh/h] "
+            header << "# n   endOfInterv nVehicles  avgFlow "
+                   << "avgSpeed  Occup   avgLength" << endl;
+            header << "#         [s]                [veh/h] "
                    << " [m/s]     [s]       [m]" << endl;
 
             *myFile << header.str() << endl;
@@ -195,8 +201,11 @@ MSInductLoop<_T>::sample( double simSec )
         if(myFile!=0) {
             writeData();
         }
+		myNSamples = 0;
+		myNPassedVeh = 0;
     }
 
+    // find the vehicle that passed the detector
     const MSLane::VehCont &vehs = myLane->getVehiclesSecure();
     MSLane::VehCont::const_iterator currVeh;
     if ( myLane->empty() ) {
@@ -206,8 +215,12 @@ MSInductLoop<_T>::sample( double simSec )
         // find the vehicle
         currVeh = find_if( vehs.begin(), vehs.end(),
             bind2nd( MSLane::VehPosition(), myPos ) );
-        // do not use a vehicle twice
-        if ( currVeh!=vehs.end() && *currVeh == myPassedVeh ) {
+        // We need to use a vehicle several times if it needs several timesteps
+        // to pass the detector
+        // do not use a vehicle twice that completely passed the detector
+        if ( currVeh != vehs.end() &&
+             *currVeh == myPassedVeh &&
+             (*currVeh)->pos() - (*currVeh)->length() - myPos > 0 ) {
             currVeh = vehs.end();
         }
     }
@@ -215,72 +228,82 @@ MSInductLoop<_T>::sample( double simSec )
     // update values
     if(currVeh==vehs.end()) {
         // no vehicle was found
-        myNPassedVeh.add(0);
-        myLocalDensity.add(0);
+//        myLocalDensity.add(0);
         mySpeed.add(0);
         myOccup.add(0);
         myVehLengths.add(0);
         myLane->releaseVehicles();
         return;
     }
+	MSVehicle *vehicle = (*currVeh);
     // We have now a valid beyond the detector. If its speed is > 0 it
     // had passed the detector and should be sampled, otherwise it
     // might be just emitted and should not be sampled.
-    if ( ( *currVeh )->speed() > 0 ) {
+    double speed = vehicle->speed();
+    double occTime =  occTime = MSNet::deltaT();
+    if (speed != 0) {
+        occTime = vehicle->length() / speed;
+    }
+    if (occTime > MSNet::deltaT() ) {
+        occTime = MSNet::deltaT();
+    }
+//     cout << "occtime = " << occTime << endl;
+    myOccup.add(occTime);
 
-	    myLocalDensity.add(localDensity( **currVeh, simSec ));
-        double speed = ( *currVeh )->speed();
-	    mySpeed.add(speed);
-        if(speed!=0) {
-	        myOccup.add(( *currVeh )->length() / speed);
-        } else {
-            // lets make it great enough
-	        myOccup.add(( *currVeh )->length() / 0.00001);
-        }
-	    myVehLengths.add(( *currVeh )->length());
-
-        // Remember the vehicle.
-	    myPassedVeh = *currVeh;
-	    myNPassedVeh.add(1);
+    // Add length and speed several times if vehicle occupies
+    // detector several timesteps???
+    if ( myPassedVeh == *currVeh ) {
+        mySpeed.add(0);
+//         myVehLengths.add(0);
+    }
+    else {
+        // vehicle occupies detector more than one timestep
+        myVehLengths.add(vehicle->length());
+//        myLocalDensity.add(localDensity( **currVeh, simSec ));
+        mySpeed.add(speed);
+        myPassedVeh = vehicle;
+        myNPassedVeh++;
+	    myPassingSpeed = speed;
+	    myPassingTime  = simSec - ( vehicle->pos() - myPos ) / speed;
     }
     myLane->releaseVehicles();
 }
 
 //---------------------------------------------------------------------------//
 
-template<class _T>
-double
-MSInductLoop<_T>::localDensity( const MSVehicle& veh, double simSec )
-{
-    assert( myPassingTime <= simSec );
+// template<class _T>
+// double
+// MSInductLoop<_T>::localDensity( const MSVehicle& veh, double simSec )
+// {
+//     assert( myPassingTime <= simSec );
 
-    // Local Density is calculated via the timeheadway and the speed
-    // of the leading vehicle. After the first detection there will
-    // always be a myPassedVeh.
-    double localDens    = 0.0;
-    double currPassTime = 0.0;
+//     // Local Density is calculated via the timeheadway and the speed
+//     // of the leading vehicle. After the first detection there will
+//     // always be a myPassedVeh.
+//     double localDens    = 0.0;
+//     double currPassTime = 0.0;
 
-    if ( myPassedVeh != 0 ) {
+//     if ( myPassedVeh != 0 ) {
 
-	    assert( veh.speed() > 0 );
+// 	    assert( veh.speed() > 0 );
 
-        currPassTime = simSec - ( veh.pos() - myPos ) / veh.speed();
-	    double timeHeadWay = currPassTime - myPassingTime;
-	    localDens = 1 / ( myPassingSpeed * timeHeadWay );
+//         currPassTime = simSec - ( veh.pos() - myPos ) / veh.speed();
+// 	    double timeHeadWay = currPassTime - myPassingTime;
+// 	    localDens = 1 / ( myPassingSpeed * timeHeadWay );
 
-	    assert( localDens >= 0 );
-    }
+// 	    assert( localDens >= 0 );
+//     }
 
-    // update members
-    myPassingSpeed = veh.speed();
-    if ( myPassedVeh != 0 ) {
-	    myPassingTime  = currPassTime;
-    }
-    else {
-	    myPassingTime  = simSec - ( veh.pos() - myPos ) / veh.speed();
-    }
-    return localDens;
-}
+//     // update members
+//     myPassingSpeed = veh.speed();
+//     if ( myPassedVeh != 0 ) {
+// 	    myPassingTime  = currPassTime;
+//     }
+//     else {
+// 	    myPassingTime  = simSec - ( veh.pos() - myPos ) / veh.speed();
+//     }
+//     return localDens;
+// }
 
 //---------------------------------------------------------------------------//
 
@@ -288,28 +311,34 @@ template<class _T>
 void
 MSInductLoop<_T>::writeData()
 {
-    double avgDensity = 0;
-    double avgFlow    = 0;
-    double avgSpeed   = 0;
-    double avgLength  = 0;
-    double NPassedVehicles = myNPassedVeh.getAbs();
+    double avgFlow    = 0; // [veh/h]
+    double avgSpeed   = 0; // [m/s]
+    double avgLength  = 0; // [veh/km]
 
-    if ( NPassedVehicles > 0 ) {
+    if ( myNPassedVeh > 0 ) {
 
-        if ( NPassedVehicles > 1 ) {
-
+		double dNPassedVeh =
+			static_cast< double >( myNPassedVeh );
+/*
+        if ( myNIntervalls > 1 ) {
             avgDensity = myLocalDensity.getAbs() /
-                static_cast< double >( NPassedVehicles - 1 ) * 1000.0;
-            avgSpeed  = mySpeed.getAbs() /
-	            static_cast< double >( NPassedVehicles ); // [m/s]
-            avgLength = myVehLengths.getAbs() /
-	            static_cast< double >( NPassedVehicles ); // [m]
-	        // [veh/km], first detected vehicle doesn't
-	        // contribute.
+                dNPassedVeh * 1000.0;
 	        assert( avgDensity > 0 );
         }
+        else if ( myNPassedVeh > 1 ) {
+            // first intervall, first event does not contribute
+            avgDensity = myLocalDensity.getAbs() /
+                (dNPassedVeh - 1.0) * 1000;
+            assert( avgDensity > 0 );
+        }
+        else {
+            avgDensity = -1;
+        }
 
-        avgFlow   = static_cast< double >( NPassedVehicles ) /
+*/
+		avgLength = myVehLengths.getAbs() / dNPassedVeh; // [m]
+		avgSpeed  = mySpeed.getAbs() / dNPassedVeh; // [m/s]
+        avgFlow   = dNPassedVeh /
 	        static_cast< double >( mySampleIntervall ) * 3600.0; // [veh/h]
     }
 
@@ -318,7 +347,6 @@ MSInductLoop<_T>::writeData()
     switch ( myStyle ) {
         case GNUPLOT:
             writeGnuPlot( endOfInterv,
-                          avgDensity,
                           avgFlow,
                           avgSpeed,
                           myOccup.getAbs(),
@@ -326,7 +354,6 @@ MSInductLoop<_T>::writeData()
             break;
         case CSV:
             writeCSV( endOfInterv,
-                      avgDensity,
                       avgFlow,
                       avgSpeed,
                       myOccup.getAbs(),
@@ -342,7 +369,6 @@ MSInductLoop<_T>::writeData()
 template<class _T>
 void
 MSInductLoop<_T>::writeGnuPlot( MSNet::Time endOfInterv,
-                            double avgDensity,
                             double avgFlow,
                             double avgSpeed,
                             double occup,
@@ -351,8 +377,7 @@ MSInductLoop<_T>::writeGnuPlot( MSNet::Time endOfInterv,
     ( *myFile ).setf( ios::fixed, ios::floatfield );
     *myFile << setw( 5 ) << setprecision( 0 ) << myNIntervalls << " "
             << setw(11 ) << setprecision( 0 ) << endOfInterv << " "
-            << setw( 9 ) << setprecision( 0 ) << myNPassedVeh.getAbs() << " "
-	    << setw(10 ) << setprecision( 2 ) << avgDensity << " "
+            << setw( 9 ) << setprecision( 0 ) << myNPassedVeh << " "
             << setw( 7 ) << setprecision( 1 ) << avgFlow << " "
             << setw( 8 ) << setprecision( 3 ) << avgSpeed << " "
             << setw( 8 ) << setprecision( 2 ) << occup << " "
@@ -364,21 +389,19 @@ MSInductLoop<_T>::writeGnuPlot( MSNet::Time endOfInterv,
 template<class _T>
 void
 MSInductLoop<_T>::writeCSV( MSNet::Time endOfInterv,
-                        double avgDensity,
                         double avgFlow,
                         double avgSpeed,
                         double occup,
                         double avgLength )
 {
     ( *myFile ).setf( ios::fixed, ios::floatfield );
-    *myFile << setw( 4 ) << setprecision( 0 ) << myNIntervalls << ";"
-            << setw( 6 ) << setprecision( 0 ) << endOfInterv << ";"
-            << setw( 5 ) << setprecision( 0 ) << myNPassedVeh.getAbs() << ";"
-            << setw( 6 ) << setprecision( 2 ) << avgDensity << ";"
-            << setw( 4 ) << setprecision( 1 ) << avgFlow << ";"
-            << setw( 6 ) << setprecision( 3 ) << avgSpeed << ";"
-            << setw( 7 ) << setprecision( 2 ) << occup << ";"
-            << setw( 6 ) << setprecision( 3 ) << avgLength << endl;
+    *myFile << setprecision( 0 ) << myNIntervalls << ";"
+            << setprecision( 0 ) << endOfInterv << ";"
+            << setprecision( 0 ) << myNPassedVeh << ";"
+            << setprecision( 1 ) << avgFlow << ";"
+            << setprecision( 3 ) << avgSpeed << ";"
+            << setprecision( 2 ) << occup << ";"
+            << setprecision( 3 ) << avgLength << endl;
 }
 
 

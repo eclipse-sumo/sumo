@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.13  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.12  2003/04/16 10:05:06  dkrajzew
 // uah, debugging
 //
@@ -246,10 +249,10 @@ double MSNet::myDeltaT = 1;
 MSNet::Time MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-MSNet::Time MSNet::searchedtime = 4977895;
-std::string MSNet::searched1 = "Rand1752";
-std::string MSNet::searched2 = "xx";
-std::string MSNet::searchedJunction = "3253";
+MSNet::Time MSNet::searchedtime = 2;
+std::string MSNet::searched1 = "Rand174";
+std::string MSNet::searched2 = "Rand10801";
+std::string MSNet::searchedJunction = "37";
 #endif
 
 #ifdef _SPEEDCHECK
@@ -274,19 +277,26 @@ MSNet::getInstance( void )
 
 void
 MSNet::preInit( MSNet::Time startTimeStep, TimeVector dumpMeanDataIntervalls,
-                std::string baseNameDumpFiles, bool withGUI )
+                std::string baseNameDumpFiles/*, bool withGUI*/ )
 {
     myInstance = new MSNet();
+	myInstance->myLanes = 0;
+	myInstance->myVehOnLanes = 0;
+	myInstance->myLoadedVehNo = 0;
+	myInstance->myEmittedVehNo = 0;
+	myInstance->myRunningVehNo = 0;
+	myInstance->myEndedVehNo = 0;
+
     myInstance->myStep = startTimeStep;
-    initMeanData( dumpMeanDataIntervalls, baseNameDumpFiles, withGUI );
+    initMeanData( dumpMeanDataIntervalls, baseNameDumpFiles/*, withGUI*/ );
 }
 
 
 void
 MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
-                    std::string baseNameDumpFiles, bool withGUI)
+                    std::string baseNameDumpFiles/*, bool withGUI*/)
 {
-    myInstance->myWithGUI = withGUI;
+//    myInstance->myWithGUI = withGUI;
     if ( dumpMeanDataIntervalls.size() > 0 ) {
 
         sort( dumpMeanDataIntervalls.begin(),
@@ -316,6 +326,35 @@ MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
                     + fileName);
                 throw ProcessError();
             }
+            // Write xml-comment
+            *filePtr << "<!--\n"
+                "- noVehContrib is the number of vehicles have been on the lane for\n"
+                "  at least on timestep during the current intervall.\n"
+                "  They contribute to speed, speedsquare and density.\n"
+                "  They may not have passed the entire lane.\n"
+                "- noVehEntireLane is the number of vehicles that have passed the\n"
+                "  entire lane and left the lane during the current intervall. They\n"
+                "  may have started their journey on this lane in a previous intervall.\n"
+                "  Only those vehicles contribute to traveltime. \n"
+                "- noVehEntered is the number of vehicles that entered this lane\n"
+                "  during the current intervall either by move or lanechange.\n"
+                "- noVehLeft is the number of vehicles that left this lane during\n"
+                "  the current intervall by move.\n"
+                "- traveltime [s]\n"
+                "  If noVehContrib==0 then traveltime is set to laneLength / laneMaxSpeed. \n"
+                "  If noVehContrib!=0 && noVehEntireLane==0 then traveltime is set to\n"
+                "  laneLength / speed.\n"
+                "  Else traveltime is calculated from the data of the vehicles that\n"
+                "  passed the entire lane.\n"
+                "- speed [m/s]\n"
+                "  If noVehContrib==0 then speed is set to laneMaxSpeed.\n"
+                "- speedsquare [(m/s)^2]\n"
+                "  If noVehContrib==0 then speedsquare is set to -1.\n"
+                "- density [veh/km]\n"
+                "  If noVehContrib==0 then density is set to 0.\n"
+//                 "  flow [veh/h]\n"
+                "-->\n" << endl;
+
             MSNet::myInstance->myMeanData.push_back(
                 new MeanData( *it, filePtr ) );
         }
@@ -337,6 +376,10 @@ MSNet::init( string id, MSEdgeControl* ec,
     myInstance->myEvents       = evc;
     myInstance->myDetectors    = detectors;
     myInstance->myRouteLoaders = rlc;
+
+	myInstance->myLanes = new MSLane*[MSLane::dictSize()];
+	myInstance->myVehOnLanes = new size_t[MSLane::dictSize()];
+
 }
 
 
@@ -368,6 +411,8 @@ MSNet::~MSNet()
     delete myEvents;
     delete myDetectors;
     delete myRouteLoaders;
+	delete[] myLanes;
+	delete[] myVehOnLanes;
 }
 
 
@@ -382,9 +427,10 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
 
     // the simulation loop
     for ( myStep = start; myStep <= stop; ++myStep ) {
+		cout << myStep << (char) 13;
         simulationStep(craw, start, myStep);
     }
-
+	cout << endl;
     // print the last line of the "raw" output
     if ( craw ) {
         (*craw) << "</sumo-results>" << endl;
@@ -417,14 +463,19 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
         cout << ups << "UPS; " << mups << "MUPS" << endl;
     }
 #endif
-
-    cout << myStep << endl;
+#ifdef ABS_DEBUG
+	if(step>MSNet::searchedtime) {
+		cout << step << endl;
+	}
+#endif
 
     // load routes
     myEmitter->moveFrom(myRouteLoaders->loadNext(step));
 
     // emit Vehicles
-    myEmitter->emitVehicles(myStep);
+    size_t emittedVehNo = myEmitter->emitVehicles(myStep);
+	myEmittedVehNo += emittedVehNo;
+	myRunningVehNo += emittedVehNo;
 
     myEdges->detectCollisions( myStep );
 
@@ -520,13 +571,13 @@ MSNet::getNDumpIntervalls( void )
     return myMeanData.size();
 }
 
-
+/*
 bool
 MSNet::withGUI( void )
 {
     return myWithGUI;
 }
-
+*/
 
 void
 MSNet::addPreStartInitialisedItem(PreStartInitialised *preinit)
@@ -552,11 +603,21 @@ MSNet::buildNewVehicle( std::string id, MSRoute* route,
                         int repNo, int repOffset, float *defColor)
 {
     size_t noIntervals = getNDumpIntervalls();
-    if(withGUI()) {
+/*    if(withGUI()) {
         noIntervals++;
-    }
+    }*/
+	myLoadedVehNo++;
     return new MSVehicle(id, route, departTime, type, noIntervals,
         repNo, repOffset);
+}
+
+
+
+void
+MSNet::vehicleHasLeft(const std::string &id)
+{
+	myRunningVehNo++;
+	myEndedVehNo++;
 }
 
 

@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.4  2003/04/14 08:33:00  dkrajzew
 // some further bugs removed
 //
@@ -103,8 +106,24 @@ MSLogicJunction::~MSLogicJunction()
 void
 MSLogicJunction::postloadInit()
 {
+    /*
+	if(myID=="37") {
+		int bla = 0;
     size_t requestPos = 0;
     size_t respondPos = 0;
+    for(InLaneCont::iterator i=myInLanes.begin(); i!=myInLanes.end(); i++) {
+        cout << (*i).myLane->id() << ":" << endl;
+        const MSLinkCont &links = (*i).myLane->getLinkCont();
+        // set information for every link
+        for(MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
+            cout << (*j)->myLane->id() << ":" << requestPos++ << endl;
+
+        }
+        respondPos++;
+    }
+	}
+*/
+    size_t requestPos = 0;
     for(InLaneCont::iterator i=myInLanes.begin(); i!=myInLanes.end(); i++) {
         const MSLinkCont &links = (*i).myLane->getLinkCont();
 /*        std::bitset<64> clearInfo((unsigned long) (0xffffffff));
@@ -115,10 +134,9 @@ MSLogicJunction::postloadInit()
         // set information for every link
         for(MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
             (*j)->setRequestInformation(&myRequest, requestPos,
-                &myRespond, respondPos/*, clearInfo*/);
+                &myRespond, requestPos/*, clearInfo*/);
             requestPos++;
         }
-        respondPos++;
     }
 }
 

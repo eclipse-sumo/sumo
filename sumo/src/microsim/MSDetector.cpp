@@ -16,5 +16,6 @@ MSDetector::MSDetector( std::string id, OutputStyle style,
 
 MSDetector::~MSDetector()
 {
+	delete myFile;
 }
 

@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.6  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.5  2003/04/02 11:44:03  dkrajzew
 // continuation of implementation of actuated traffic lights
 //
@@ -118,14 +121,13 @@ public:
 
 protected:
     /// Increments the local density.
-    double localDensity( const MSVehicle& veh, double currSimSeconds );
+//    double localDensity( const MSVehicle& veh, double currSimSeconds );
 
     /// Write the data according to OutputStyle when the sampleIntervall is over.
     void writeData();
 
     /// Write in gnuplot-style to myFile.
     void writeGnuPlot( MSNet::Time endOfInterv,
-                       double avgDensity,
                        double avgFlow,
                        double avgSpeed,
                        double Occup,
@@ -133,7 +135,6 @@ protected:
 
     /// Write in CSV-style to myFile.
     void writeCSV( MSNet::Time endOfInterv,
-                   double avgDensity,
                    double avgFlow,
                    double avgSpeed,
                    double Occup,
@@ -152,20 +153,31 @@ private:
     /// Last vehicle that passed the detector.
     MSVehicle* myPassedVeh;
 
+
+//     /// The leader of the vehicle that passed the detector. We need this if
+//     /// a vehicle occupies the detector several timesteps.
+//     MSVehicle* myPassedVehLeader;
+
     /// Speed of the last vehicle, that has passed the detector.
     double myPassingSpeed;
 
+//     /// Speed of the Leader of the vehicle that passed the detector
+//     double myPassingVehLeaderSpeed;
+
     /// Time when last vehicle has passed the detector.
     double myPassingTime;
+
+//     /// Time when the leader of the vehicle that passed the detector.
+//     double myPassingVehLeaderTime;
 
     /// Number of finished sampleIntervalls.
     unsigned myNSamples;
 
     /** Number of vehicles which have already passed the detector */
-    _T myNPassedVeh;
+    unsigned myNPassedVeh;
 
     /// local-densities sampled
-    _T myLocalDensity;
+//    _T myLocalDensity;
 
     /// Speeds sampled
     _T mySpeed;

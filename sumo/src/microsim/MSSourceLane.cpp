@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.1  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -126,14 +129,46 @@ MSSourceLane::emitTry( MSVehicle& veh )
     myVehicles.push_front( &veh );
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-	    cout << "Using source::emitTry( MSVehicle& veh )/1" << endl;
+		cout << "Using emitTry( MSVehicle& veh )/2:" << MSNet::globaltime << endl;
 	}
 #endif
+
     return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
+bool
+MSSourceLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
+{
+	// emission as last car (in driving direction)
+	MSVehicle *leader = *leaderIt;
+	// get invoked vehicles' positions
+	double leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
+	// get secure gaps
+	double frontGapNeeded = veh.getSecureGap(*this, *leader);
+	// compute needed room
+	double frontMax = leaderPos - frontGapNeeded;
+	// check whether there is enough room
+	if(frontMax>0) {
+		// emit vehicle if so
+		MSVehicle::State state;
+		state.setPos(frontMax);
+		veh.moveSetState( state );
+		veh.enterLaneAtEmit( this );
+		myVehicles.push_front( &veh );
+
+#ifdef ABS_DEBUG
+	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
+		cout << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << MSNet::globaltime << endl;
+	}
+#endif
+
+		return true;
+	}
+	return false;
+}
+/*
 bool
 MSSourceLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
 {
@@ -171,7 +206,7 @@ MSSourceLane::enoughSpace( MSVehicle& veh,
         return true;
     }
     return false;
-}
+}*/
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

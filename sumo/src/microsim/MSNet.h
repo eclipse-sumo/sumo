@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.11  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.10  2003/04/07 10:29:02  dkrajzew
 // usage of globaltime temporary fixed (is still used in MSActuatedTrafficLightControl)
 //
@@ -180,6 +183,7 @@ class PreStartInitialised;
 class MSVehicle;
 class MSRoute;
 class MSVehicleType;
+class MSLane;
 
 
 /* =========================================================================
@@ -217,8 +221,8 @@ public:
      */
     static void preInit( Time startTimestep,
         TimeVector dumpMeanDataIntervalls,
-        std::string baseNameDumpFiles,
-        bool withGUI );
+        std::string baseNameDumpFiles/*,
+        bool withGUI */);
 
     /** Initialize the unique MSNet-instance after creation in @ref preInit.
      */
@@ -273,7 +277,7 @@ public:
 
     /** @brief Returns wether we are using a GUI or not.
         The use of a GUI increases the elements of a meanData container. */
-    bool withGUI( void );
+//    bool withGUI( void );
 
     /// adds an item that must be initialised every time the simulation starts
     void addPreStartInitialisedItem(PreStartInitialised *preinit);
@@ -286,9 +290,15 @@ public:
         MSNet::Time departTime, const MSVehicleType* type,
         int repNo, int repOffset, float *defColor);
 
+	/// informs the simulation about the destruction of a vehicle
+	void vehicleHasLeft(const std::string &id);
+
+
+
     /// route handler may add routes and vehicles
     friend class MSRouteHandler;
 
+	/// The current simulation time for debugging purposes
     static Time globaltime;
 
     /// ----------------- debug variables -------------
@@ -310,7 +320,7 @@ public:
 protected:
     /** initialises the MeanData-container */
     static void initMeanData( TimeVector dumpMeanDataIntervalls,
-        std::string baseNameDumpFiles, bool withGUI);
+        std::string baseNameDumpFiles/*, bool withGUI*/);
 
     /// Unique instance of MSNet
     static MSNet* myInstance;
@@ -388,11 +398,14 @@ protected:
     std::vector< MeanData* > myMeanData;
 
     /// Indicates if we are using a GUI.
-    bool myWithGUI;
+//    bool myWithGUI;
 
     /** Last timestep when mean-data was send to GUI. We need it to
      * calculate the intervall which may be not const for the GUI. */
-    Time myLastGUIdumpTimestep;
+//    Time myLastGUIdumpTimestep;
+
+	MSLane **myLanes;
+	size_t *myVehOnLanes;
 
 private:
     /// Copy constructor.
@@ -404,6 +417,14 @@ private:
     /** Default constructor. It makes no sense to build a net without
         initialisation. */
     MSNet(){};
+
+	size_t myLoadedVehNo;
+
+	size_t myEmittedVehNo;
+
+	size_t myRunningVehNo;
+
+	size_t myEndedVehNo;
 
 };
 

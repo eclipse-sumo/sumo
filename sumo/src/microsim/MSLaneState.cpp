@@ -24,6 +24,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.6  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.5  2003/04/04 15:29:09  roessel
 // Reduced myLastUpdateTime (7457467564) to myLastUpdateTime (745746756) due to compiler warnings (number too long for unsigned long)
 //
@@ -71,7 +74,6 @@ using namespace std;
 template<class _T>
 MSLaneState<_T>::~MSLaneState<_T>()
 {
-    delete myFile;
 }
 
 //---------------------------------------------------------------------------//
@@ -89,13 +91,14 @@ MSLaneState<_T>::MSLaneState<_T>(string id, MSLane* lane, double begin,
     myPassedVeh      ( 0 ),
     myPassingSpeed   ( 0 ),
     myPassingTime    ( 0 ),
-//    myNSamples       ( 0 ),
+    myNSamples       ( 0 ),
     myVehicleNo     ( sampleInterval ),
     myLocalDensity( sampleInterval ),
     mySpeed( sampleInterval ),
     myOccup( sampleInterval ),
     myVehLengths( sampleInterval ),
     myNoSlow( sampleInterval ),
+	myNIntervalls( 0 ),
     myLastUpdateTime (745746756) // just "to make sure", it is updated within the first call
 {
     // Make sure that vehicles will be detected even at lane-end.
@@ -144,7 +147,7 @@ MSLaneState<_T>::sample( double simSec )
     ++myNSamples;
     if ( static_cast< double >( myNSamples ) * MSNet::deltaT() >=
          mySampleIntervall ) {
-
+		myNSamples = 0;
         ++myNIntervalls;
         if(myFile!=0) {
             writeData();

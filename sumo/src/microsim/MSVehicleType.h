@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/05/20 09:31:47  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.3  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -80,12 +83,12 @@
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <map>
 #include <string>
+#include <gui/TableTypes.h> // !!!
 
 
 /* =========================================================================
@@ -103,6 +106,7 @@ class MSVehicleType
 {
 public:
 
+	// !!!
     friend class MSVehicle;
 
     /// Constructor.
@@ -155,13 +159,31 @@ public:
         if the key id isn't already in the dictionary. Otherwise returns
         false. */
     static bool dictionary( std::string id, MSVehicleType* edge);
+
     /** Returns the MSVehicleType associated to the key id if exists,
         otherwise returns 0. */
     static MSVehicleType* dictionary( std::string id);
+
     /** Clears the dictionary */
     static void clear();
 
-protected:
+	/// Returns the current value for the described parameter
+    double getTableParameter(size_t pos) const;
+
+	/// Filss the given double array with the current values
+	void fillTableParameter(double *parameter) const;
+
+	/// Returns the number of parameter
+	size_t getNoParameter() const;
+
+	/// Returns the name of the described parameter
+    const char * const getTableItem(size_t pos) const;
+
+	/// Returns the type of the described parameter
+    const TableType getTableType(size_t pos) const;
+
+	/// returns the name of the vehicle type
+    const std::string &id() const;
 
 private:
     /// Unique ID.
@@ -196,8 +218,9 @@ private:
     /// Maximum length of all vehicle-types.
     static double myMaxLength;
 
-    /// Static dictionary to associate string-ids with objects.
+    /// Definition of the type of the static dictionary to associate string-ids with objects.
     typedef std::map< std::string, MSVehicleType* > DictType;
+    /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
 
     /// Default constructor.
@@ -208,6 +231,12 @@ private:
 
     /// Assignment operator.
     MSVehicleType& operator=( const MSVehicleType& );
+
+	/// A static list of parameter names
+	static const char * const myTableItems[];
+
+	/// A static list of parameter types
+	static const TableType const myTableItemTypes[];
 
 };
 

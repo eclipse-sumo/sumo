@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.3  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -105,8 +108,9 @@ public:
     ~MSEmitControl();
 
     /** @brief Emits vehicles at time, if which want to depart at this.
-        If emission is not possible, the vehicles remain in the list. */
-    void emitVehicles( MSNet::Time time );
+        If emission is not possible, the vehicles remain in the list.
+		Returns the number of emitted vehicles */
+    size_t emitVehicles( MSNet::Time time );
 
     /** @brief Adds a single vehicle for departure */
     void add( MSVehicle *veh );
@@ -129,9 +133,14 @@ public:
 private:
     /** @brief Tries to emit the vehicle
         If the emission fails, the vehicle is inserted into the given
-        container */
-    void tryEmit(MSVehicle *veh,
+        container.
+		Returns the number of emitted vehicles */
+    size_t tryEmit(MSVehicle *veh,
         MSVehicleContainer::VehicleVector &refusedEmits);
+
+    /** Moves all vehicles which should have been emitted previously to the given time
+        into the container of previously refused vehicles */
+    void checkPrevious(MSNet::Time time);
 
 private:
     /// Unique ID.

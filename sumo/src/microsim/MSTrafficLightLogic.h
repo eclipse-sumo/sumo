@@ -20,12 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -86,6 +86,9 @@ public:
         This must be done as they change when the light changes */
     void setLinkPriorities(MSLogicJunction::InLaneCont &inLanes);
 
+	/// Returns the current step
+	virtual size_t step() const = 0;
+
 protected:
     /// Definition of the dictionary type for traffic light logics
     typedef std::map<std::string, MSTrafficLightLogic*> DictType;
@@ -102,6 +105,7 @@ private:
 
     /// invalidated assignment operator
     MSTrafficLightLogic& operator=(const MSTrafficLightLogic &s);
+
 };
 
 

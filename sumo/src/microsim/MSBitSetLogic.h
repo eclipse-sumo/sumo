@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -95,22 +98,10 @@ public:
         including the link's "own" link-bit. */
     typedef std::vector< std::bitset< N > > Logic;
 
-    /** @brief Container that matches links to lanes.
-        Each inLane has a bitset with
-        bits set to true for all links that belong to this lane. All other
-        bits set to false. */
-    typedef std::vector< std::bitset< N > > Link2LaneTrafo;
-
-    /** @brief Container which holds the information on which lane a link is.
-        The lanes are enumerated from right to left, the index is the bit
-        according to the link */
-    typedef std::vector<size_t> LinkOnLane;
-
     /// Use this constructor only.
     MSBitSetLogic( unsigned int nLinks,
                    unsigned int nInLanes,
-                   Logic* logic,
-                   Link2LaneTrafo* transform );
+                   Logic* logic );
 
     /// Modifies the passed respond according to the request.
     void respond( const MSLogicJunction::Request& request,
@@ -119,12 +110,6 @@ public:
 private:
     /// junctions logic based on std::bitset
     Logic* myLogic;
-
-    /// transformation from link to lane
-    Link2LaneTrafo* myTransform;
-
-    /// information from which lane a link starts
-    LinkOnLane myLinkOnLane;
 
     /// Default constructor.
     MSBitSetLogic();

@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.3  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -96,18 +99,10 @@
 template< size_t N >
 MSBitSetLogic< N >::MSBitSetLogic< N >( unsigned int nLinks,
                                         unsigned int nInLanes,
-                                        Logic* logic,
-                                        Link2LaneTrafo* transform ) :
+                                        Logic* logic ) :
     MSJunctionLogic( nLinks, nInLanes ),
-    myLogic( logic ),
-    myTransform( transform )
+    myLogic( logic )
 {
-    for(size_t i=0; i<nLinks; i++) {
-        size_t j=0;
-        for(; j<nInLanes&&!(*myTransform)[j].test(i); j++);
-        myLinkOnLane.push_back(j);
-    }
-    assert(myLinkOnLane.size()==nLinks);
 }
 
 //-------------------------------------------------------------------------//
@@ -115,10 +110,7 @@ MSBitSetLogic< N >::MSBitSetLogic< N >( unsigned int nLinks,
 template< size_t N >
 MSBitSetLogic< N >::~MSBitSetLogic< N >()
 {
-    ( *myLogic ).clear();
     delete myLogic;
-    ( *myTransform ).clear();
-    delete myTransform;
 }
 
 //-------------------------------------------------------------------------//
@@ -129,23 +121,12 @@ MSBitSetLogic< N >::respond( const MSLogicJunction::Request& request,
 {
     size_t i;
     // calculate respond
-    std::bitset< N > respondBS;
-
     for ( i = 0; i < myNLinks; ++i ) {
 
         bool linkPermit = request.test( i ) &&
             ( request & ( *myLogic )[ i ]).none();
-        respondBS.set( i, linkPermit );
+        respond.set( i, linkPermit );
     }
-
-    // perform the link to lane transformation
-    for ( i = 0; i < myNInLanes; ++i ) {
-
-        bool lanePermit = ( ( *myTransform)[ i ] & respondBS ).any();
-        respond[ i ] = lanePermit;
-    }
-
-    return;
 }
 
 

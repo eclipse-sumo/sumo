@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.15  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.14  2003/04/16 10:05:03  dkrajzew
 // uah, debugging
 //
@@ -550,9 +553,9 @@ MSLane::moveCriticalMulti( MSEdge::LaneCont::const_iterator firstNeighLane,
             assert( ( *veh )->pos() < ( *pred )->pos() );
             assert( ( *veh )->pos() <= myLength );
         }
-	( *veh )->moveRegardingCritical( this, 0, 0 );
-	( *veh )->meanDataMove();
-            assert( ( *veh )->pos() <= myLength );
+        ( *veh )->moveRegardingCritical( this, 0, 0 );
+        ( *veh )->meanDataMove();
+        assert( ( *veh )->pos() <= myLength );
 
 }
 
@@ -577,7 +580,7 @@ MSLane::detectCollisions( MSNet::Time timestep ) const
                  << " during timestep " << timestep << endl;
             cerr << ( *veh )->id() << ":" << ( *veh )->pos() << ", " << ( *veh )->speed() << endl;
             cerr << ( *pred )->id() << ":" << ( *pred )->pos() << ", " << ( *pred )->speed() << endl;
-            throw ProcessError();
+            throw 1;
         }
     }
 }
@@ -676,15 +679,11 @@ MSLane::isEmissionSuccess( MSVehicle* aVehicle )
 bool
 MSLane::emitTry( MSVehicle& veh )
 {
-    // !!! see other emit methods
-    // check needed front gap
-    // check for
-    // empty lane emission.
     double safeSpace =
         myApproaching==0
-        ? 2 * pow( myMaxSpeed, 2 ) /
+        ? 0 /*2 * pow( myMaxSpeed, 2 ) /
             ( 2 * MSVehicleType::minDecel() ) +
-            MSVehicle::tau() + veh.length()
+            MSVehicle::tau() + veh.length()*/
         : myApproaching->getSecureGap(*this, veh);
     if ( safeSpace<length() ) {
         MSVehicle::State state;
@@ -695,7 +694,7 @@ MSLane::emitTry( MSVehicle& veh )
 
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-	    cout << "Using emitTry( MSVehicle& veh )/2" << endl;
+		cout << "Using emitTry( MSVehicle& veh )/2:" << MSNet::globaltime << endl;
 	}
 #endif
 
@@ -726,10 +725,18 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
             veh.moveSetState( state );
             veh.enterLaneAtEmit( this );
             myVehicles.push_front( &veh );
+
+#ifdef ABS_DEBUG
+	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
+		cout << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << MSNet::globaltime << endl;
+	}
+#endif
+
             return true;
         }
         return false;
     } else {
+		// another vehicle is approaching this lane
         MSVehicle *leader = *leaderIt;
         MSVehicle *follow = myApproaching;
         // get invoked vehicles' positions
@@ -737,7 +744,7 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
         double leaderPos = leader->pos() - leader->length();
         // get secure gaps
         double frontGapNeeded = veh.getSecureGap(*this, *leader);
-        double backGapNeeded = follow->getSecureGap(veh);
+        double backGapNeeded = follow->getSecureGap(*this, veh);
         // compute needed room
         double frontMax = leaderPos - frontGapNeeded;
         double backMin = followPos + backGapNeeded + veh.length();
@@ -745,59 +752,20 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
         if(frontMax>0 && backMin<frontMax) {
             // emit vehicle if so
             MSVehicle::State state;
-            state.setPos(frontMax);
+            state.setPos((frontMax+backMin)/2.0);
             veh.moveSetState( state );
             veh.enterLaneAtEmit( this );
             myVehicles.insert( leaderIt, &veh );
+#ifdef ABS_DEBUG
+	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
+		cout << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/2:" << MSNet::globaltime << endl;
+	}
+#endif
+
             return true;
         }
         return false;
     }
-/*
-    MSVehicle *leader = *leaderIt;
-    double leaderPos = leader->pos() - leader->length();
-    if(leaderPos<0) {
-        return false;
-    }
-    double safeSpace1 = pow( myMaxSpeed, 2 ) /
-                      ( veh.decelAbility() ) +
-                      MSVehicle::tau() + leader->accelDist() * 2.0;
-    double safeSpace2 = veh.vaccel(this) * MSNet::deltaT() +
-        veh.rigorousBrakeGap(veh.vaccel(this))
-        + (*leaderIt)->length();
-    double vsafe = veh.vsafe(0, veh.decelAbility(), 0, leader->speed());
-    double safeSpace3 =
-        ( (vsafe - leader->speed())
-        * ((vsafe+leader->speed()) / 2.0 / (2.0 * MSVehicleType::minDecel()) + MSVehicle::tau()) )
-        + leader->speed() * MSVehicle::tau();
-    double safeSpace = safeSpace1 > safeSpace2
-        ? safeSpace1 : safeSpace2;
-    safeSpace = safeSpace > safeSpace3
-        ? safeSpace : safeSpace3;
-    safeSpace = safeSpace > veh.decelAbility()
-        ? safeSpace : veh.decelAbility();
-    safeSpace += leader->length();
-    safeSpace += veh.accelAbility();
-    if( myApproaching!=0 ) {
-        if( !myApproaching->isInsertTimeHeadWayCond( veh ) ||
-            ! myApproaching->isInsertBrakeCond( veh ) ) {
-            return false;
-        }
-    }
-    if ( enoughSpace( veh, 0, leaderPos, safeSpace ) ) {
-        veh.enterLaneAtEmit( this );
-        myVehicles.push_front( &veh );
-
-#ifdef ABS_DEBUG
-	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-	    cout << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/2" << endl;
-	}
-#endif
-
-        return true;
-    }
-    return false;
-    */
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -821,28 +789,15 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh )
         veh.moveSetState( state );
         veh.enterLaneAtEmit( this );
         myVehicles.push_back( &veh );
-        return true;
-    }
-    return false;
-/*    double followPos = (*followIt)->pos();
-    double safeSpace = (*followIt)->vaccel(this) * MSNet::deltaT() +
-        (*followIt)->rigorousBrakeGap((*followIt)->vaccel(this))
-        + veh.length();
-    if ( enoughSpace( veh, followPos,
-                      myLength - MSVehicleType::maxLength(), safeSpace ) ) {
-        veh.enterLaneAtEmit( this );
-        myVehicles.push_back( &veh );
-
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-	    cout << "Using emitTry( VehCont::iterator followIt, MSVehicle& veh )" << endl;
+		cout << "Using emitTry( VehCont::iterator followIt, MSVehicle& veh )/1:" << MSNet::globaltime << endl;
 	}
 #endif
 
         return true;
     }
     return false;
-    */
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -870,73 +825,16 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
         veh.moveSetState( state );
         veh.enterLaneAtEmit( this );
         myVehicles.insert( leaderIt, &veh );
-        return true;
-    }
-    return false;
-/*
-
-
-    // emission between follower and leader.
-    double safeSpace1 = pow( myMaxSpeed, 2 ) /
-                      ( veh.decelAbility() ) +
-                      MSVehicle::tau() + leader->accelDist();
-    double safeSpace2 = veh.vaccel(this) * MSNet::deltaT() +
-        veh.rigorousBrakeGap(veh.vaccel(this))
-        + (*leaderIt)->length();
-    double vsafe = veh.vsafe(0, veh.decelAbility(), 0, leader->speed());
-    double safeSpace3 =
-        ( (vsafe - leader->speed())
-        * ((vsafe+leader->speed()) / 2.0 / (2.0 * MSVehicleType::minDecel()) + MSVehicle::tau()) )
-        + leader->speed() * MSVehicle::tau();
-    double safeSpace = safeSpace1 > safeSpace2
-        ? safeSpace1 : safeSpace2;
-    safeSpace = safeSpace > safeSpace3
-        ? safeSpace : safeSpace3;
-    safeSpace = safeSpace > veh.decelAbility()
-        ? safeSpace : veh.decelAbility();
-    safeSpace += leader->length();
-    safeSpace += veh.accelAbility();
-    if ( enoughSpace( veh, followPos, leaderPos, safeSpace ) ) {
-        veh.enterLaneAtEmit( this );
-        myVehicles.insert( leaderIt, &veh );
-
 #ifdef ABS_DEBUG
 	if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-	    cout << "Using emitTry( VehCont::iterator followIt, MSVehicle& veh,VehCont::iterator leaderIt )" << endl;
+		cout << "Using emitTry( followIt, veh, leaderIt )/1:" << MSNet::globaltime << endl;
 	}
 #endif
 
         return true;
     }
     return false;
-    */
 }
-
-/////////////////////////////////////////////////////////////////////////////
-/*
-bool
-MSLane::enoughSpace( MSVehicle& veh,
-                     double followPos, double leaderPos, double safeSpace )
-{
-    double free = leaderPos - followPos - safeSpace;
-    if ( free >= 0.01 ) {
-
-        // prepare vehicle with it's position
-        MSVehicle::State state;
-        state.setPos( followPos + safeSpace + free / 2 );
-        veh.moveSetState( state );
-        return true;
-    }
-    return false;
-}
-*/
-
-/*
-void
-MSLane::insertVehicle( MSVehicle& veh, double speed, double pos)
-{
-}
-*/
 
 void
 MSLane::setCritical()
@@ -1185,12 +1083,17 @@ MSLane::resetMeanData( unsigned index )
 {
     assert(index<myMeanData.size());
     MeanDataValues& md = myMeanData[ index ];
-    md.nVehFinishedLane = 0;
+    md.nVehEntireLane = 0;
     md.nVehContributed = 0;
+    md.nVehLeftLane = 0;
+    md.nVehEnteredLane = 0;
     md.contTimestepSum = 0;
     md.discreteTimestepSum = 0;
-    md.distanceSum = 0;
+//     md.distanceSum = 0;
     md.speedSum = 0;
+    md.speedSquareSum = 0;
+    md.traveltimeStepSum = 0;
+
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1198,22 +1101,33 @@ MSLane::resetMeanData( unsigned index )
 void
 MSLane::addVehicleData( double contTimesteps,
                         unsigned discreteTimesteps,
-                        double travelDistance,
+//                         double travelDistance,
                         double speedSum,
                         double speedSquareSum,
                         unsigned index,
-                        bool hasFinishedLane )
+                        bool hasFinishedEntireLane,
+                        bool hasLeftLane,
+                        bool hasEnteredLane,
+                        double travelTimesteps)
 {
-    assert(index<myMeanData.size());
+     assert(index<myMeanData.size());
     MeanDataValues& md = myMeanData[ index ];
 
-    md.nVehFinishedLane     += hasFinishedLane;
+    if ( hasFinishedEntireLane ) {
+        md.nVehEntireLane       += hasFinishedEntireLane;
+        md.traveltimeStepSum    += travelTimesteps;
+        assert( hasLeftLane );
+    }
+
     md.nVehContributed      += 1;
+    md.nVehLeftLane         += hasLeftLane;
+    md.nVehEnteredLane      += hasEnteredLane;
     md.contTimestepSum      += contTimesteps;
     md.discreteTimestepSum  += discreteTimesteps;
-    md.distanceSum          += travelDistance;
     md.speedSum             += speedSum;
     md.speedSquareSum       += speedSquareSum;
+
+
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1328,47 +1242,58 @@ operator<<( ostream& os, const MSLane::MeanData& obj )
     const_cast< MSLane& >( lane ).collectVehicleData( obj.myIndex );
 
     // calculate mean data
-    double travelTime;
-    double meanSpeed;
-    double meanDensity;
-    double meanFlow;
+    double traveltime = -42;
+    double meanSpeed = -43;
+    double meanSpeedSquare = -44;
+    double meanDensity = -45;
+//     double meanFlow = -46;
+
+    assert( meanData.nVehEntireLane <= meanData.nVehContributed );
 
     if ( meanData.nVehContributed > 0 ) {
 
-        if(meanData.distanceSum!=0) {
-            travelTime  = ( meanData.contTimestepSum *
-                            static_cast< double >( MSNet::deltaT() ) ) /
-                ( meanData.distanceSum / lane.myLength );
-        } else {
-            travelTime = 0;
+        double intervallLength = obj.myInterval * MSNet::deltaT();
+
+        meanSpeed   = meanData.speedSum / meanData.contTimestepSum;
+        meanSpeedSquare = meanData.speedSquareSum / meanData.contTimestepSum;
+
+        meanDensity = ( meanData.discreteTimestepSum * MSNet::deltaT() ) /
+            intervallLength / lane.myLength * 1000.0;
+
+//         cout << "meanDensity " <<  meanDensity << endl;
+
+        // only vehicles that used the lane entirely contribute to traveltime
+        if ( meanData.nVehEntireLane > 0 ) {
+            traveltime = meanData.traveltimeStepSum * MSNet::deltaT() /
+                meanData.nVehEntireLane;
+            assert( traveltime >= lane.myLength / lane.myMaxSpeed );
         }
+        else {
+            // no vehicle left the lane within intervall.
+            // Calculate the traveltime using the measured meanSpeed
+            traveltime  = lane.myLength / meanSpeed;
 
-        meanSpeed   = meanData.speedSum /
-            static_cast< double >( meanData.discreteTimestepSum );
-
-        meanDensity = static_cast< double >
-            ( meanData.discreteTimestepSum * MSNet::deltaT() ) /
-            ( lane.myLength / meanVehLength *
-              static_cast< double >( obj.myInterval * MSNet::deltaT() ) );
-
-        meanFlow    = static_cast< double >( meanData.nVehFinishedLane ) /
-            static_cast< double >( obj.myInterval );
+        }
     }
-    else {
+    else { // no vehicles visited the lane within intervall
 
-        assert( meanData.nVehContributed == 0 );
-        travelTime  = lane.myLength / lane.myMaxSpeed;
-        meanSpeed   = -1;
+        meanSpeed   = lane.myMaxSpeed;
+        traveltime  = lane.myLength / meanSpeed;
+        meanSpeedSquare = -1;
         meanDensity = 0;
-        meanFlow    = 0;
+
     }
 
     os << "      <lane id=\""      << obj.myObj.myID
-       << "\" traveltime=\"" << travelTime
-       << "\" speed=\""      << meanSpeed
-       << "\" density=\""    << meanDensity
-       << "\" flow=\""       << meanFlow
-       << "\" noVehicles=\"" << meanData.nVehContributed
+       << "\" traveltime=\""  << traveltime
+       << "\" speed=\""       << meanSpeed
+       << "\" speedsquare=\"" << meanSpeedSquare
+       << "\" density=\""     << meanDensity
+//        << "\" flow=\""        << meanFlow
+       << "\" noVehContrib=\""  << meanData.nVehContributed
+       << "\" noVehEntire=\""  << meanData.nVehEntireLane
+       << "\" noVehEntered=\"" << meanData.nVehEnteredLane
+       << "\" noVehLeft=\"" << meanData.nVehLeftLane
        << "\"/>" << endl;
 
     const_cast< MSLane& >( lane ).resetMeanData( obj.myIndex );
@@ -1381,7 +1306,7 @@ operator<<( ostream& os, const MSLane::MeanData& obj )
 void
 MSLane::setLinkPriorities(const std::bitset<64> &prios, size_t &beginPos)
 {
-    for(MSLinkCont::iterator i=myLinks.begin(); i!=myLinks.end(); i++) {
+    for(MSLinkCont::iterator i=myLinks.begin(); i!=myLinks.end()&&beginPos<64; i++) {// !!! hell happens when i>=64
         (*i)->setPriority(prios.test(beginPos++));
     }
 }
@@ -1402,9 +1327,9 @@ MSLane::init(MSNet &net)
     // reset mean data information
     myMeanData.clear();
     size_t noIntervals = net.getNDumpIntervalls();
-    if(net.withGUI()) {
+/*    if(net.withGUI()) {
         noIntervals++;
-    }
+    }*/
     myMeanData.insert( myMeanData.end(), noIntervals, MeanDataValues() );
     // empty vehicle buffers
     myVehicles.clear();

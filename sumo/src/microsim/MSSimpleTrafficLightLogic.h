@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.4  2003/04/04 07:13:20  dkrajzew
 // Yellow phases must be now explicetely given
 //
@@ -29,9 +32,6 @@
 // Revision 1.2  2003/02/07 10:41:51  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -122,6 +122,9 @@ public:
 
     /// Returns the duration of the given step
     virtual MSNet::Time duration() const;
+
+	/// returns the current step
+	size_t step() const { return _step; }
 
 protected:
     /// the list of phases this logic uses

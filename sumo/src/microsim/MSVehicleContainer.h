@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.2  2003/05/20 09:31:46  dkrajzew
+// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+//
 // Revision 1.1  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -75,6 +78,9 @@ public:
     /// Returns the uppermost vehicle vector
     const VehicleVector &top();
 
+    /// Returns the time the uppermost vehicle vector is assigned to
+    MSNet::Time topTime() const;
+
     /// Removes the uppermost vehicle vector
     void pop();
 
@@ -83,6 +89,9 @@ public:
 
     /// Returns the size of the container
     size_t size() const;
+
+    /// Prints the container (the departure times)
+    void showArray() const;
 
     /// Prints the contents of the container
     friend std::ostream &operator << (std::ostream &strm, MSVehicleContainer &cont) {
