@@ -107,14 +107,14 @@ sumo_gui_LDADD =  ./gui/libgui.a \
 ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
 ./microsim/actions/libmsactions.a \
-./utils/common/libcommon.a \
-./utils/xml/libxml.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/convert/libconvert.a \
 ./utils/options/liboptions.a \
 ./sumo_only/libsumoonly.a \
 ./helpers/libhelpers.a \
 ./utils/geom/libgeom.a \
+./utils/common/libcommon.a \
+./utils/xml/libxml.a \
 ./utils/fonts/libfonts.a \
 ./utils/gfx/libgfx.a \
 ./utils/qutils/libqutils.a \
