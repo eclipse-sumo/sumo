@@ -495,6 +495,7 @@ MSTriggeredSourceXMLHandler::isParseEmitTokenSuccess(
     }
 
     mySource.myIsNewEmitFound = true;
+    MSNet::getInstance()->newUnbuildVehicleLoaded();
     return isProperEmitValues();
 }
 
@@ -580,6 +581,9 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
+// Revision 1.8  2003/07/21 11:00:38  dkrajzew
+// informing the network about vehicles still left within the emitters added
+//
 // Revision 1.7  2003/06/18 11:12:51  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.22  2003/07/21 11:00:38  dkrajzew
+// informing the network about vehicles still left within the emitters added
+//
 // Revision 1.21  2003/06/24 14:49:52  dkrajzew
 // unneded members removed (will be replaced, soon)
 //
@@ -365,6 +368,10 @@ public:
     size_t getEndedVehicleNo() const;
 
     Time getCurrentTimeStep() const;
+
+    void newUnbuildVehicleLoaded();
+
+    void newUnbuildVehicleBuild();
 
 protected:
     /** initialises the MeanData-container */

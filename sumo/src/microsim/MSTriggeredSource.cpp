@@ -293,7 +293,7 @@ MSTriggeredSource::scheduleEmit( std::string aVehicleId,
             myRouteDist.getRndRoute(),
             aEmitTime,
             aVehType, 0, 0, 0 );
-
+        MSNet::getInstance()->newUnbuildVehicleBuild();
         if ( MSVehicle::dictionary( aVehicleId, myVehicle ) == false ) {
             delete myVehicle;
             assert( false ); // !!!
@@ -338,6 +338,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.10  2003/07/21 11:00:38  dkrajzew
+// informing the network about vehicles still left within the emitters added
+//
 // Revision 1.9  2003/06/24 14:34:24  dkrajzew
 // errors are now reported to the MsgHandler
 //
