@@ -64,6 +64,7 @@ namespace
     }
 }
 
+inline
 MSCurrentHaltingDurationSumPerVehicle::DetectorAggregate
 MSCurrentHaltingDurationSumPerVehicle::getDetectorAggregate( void )
 {

@@ -57,13 +57,14 @@ private:
 
 namespace 
 {    
-    inline double speedSum( double sumSoFar,
+    inline double speedSumUp( double sumSoFar,
                             const MSSpaceMeanSpeed::Vehicle data )
     {
         return sumSoFar + data->speed();
     }
 }
 
+inline
 MSSpaceMeanSpeed::DetectorAggregate 
 MSSpaceMeanSpeed::getDetectorAggregate( void )
 {
@@ -73,7 +74,7 @@ MSSpaceMeanSpeed::getDetectorAggregate( void )
     }
     double spaceMeanSpeed =
         std::accumulate( containerM.begin(), containerM.end(),
-                         0.0, speedSum ) / size;
+                         0.0, speedSumUp ) / size;
     return MSUnit::getInstance()->getMetersPerSecond( spaceMeanSpeed );
 }   
 
