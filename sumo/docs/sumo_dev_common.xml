@@ -15,84 +15,267 @@
       </affiliation>
     </author>
 
+    <author>
+      <firstname>Daniel</firstname>
+
+      <surname>Krajzewicz</surname>
+
+      <affiliation>
+        <address><email>Daniel.Krajzewicz@dlr.de</email></address>
+      </affiliation>
+    </author>
+
     <releaseinfo>$Revision$</releaseinfo>
   </bookinfo>
 
   <toc></toc>
 
   <chapter>
-    <title>Building Instructions</title>
+    <title>Generics</title>
+
+    <para>Within this first chapter, we will describe some generic information
+    valid for all applications within the SUMO package</para>
 
     <sect1>
-      <title>All Platforms: Obtaining the sources</title>
-
-      <para>There are two possibilities to obtain the sources needed to build
-      SUMO. The first is to download the latest distribution, located within
-      the <ulink url="http://sumo.sourceforge.net/downloads.html">download</ulink>
-      section of our <ulink url="http://sumo.sourceforge.net">internet pages</ulink>
-      internet pages. The other one is to checkout the <ulink
-      url="http://sourceforge.net/cvs/?group_id=45607">current CVS</ulink>
-      tree (Use <literal>sumo</literal> as <literal>modulname</literal>).</para>
-
-      <para>Normally, the CVS tree is stable and of course does contain the
-      latest patches, the latest release may not contain.</para>
-    </sect1>
-
-    <sect1>
-      <title>UNIX/Linux: SUMO and the GNU build process</title>
-
-      <para>Here we descride how to use the <ulink
-      url="http://sources.redhat.com/autobook/">GNU Autotools</ulink>, <ulink
-      url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>,
-      <ulink url="http://www.gnu.org/software/automake"><literal>automake</literal></ulink>
-      and <ulink url="http://www.gnu.org/software/libtool"><literal>libtool</literal></ulink>
-      in conjunction with some scripts provided by the <ulink
-      url="http://www.kde.org/">KDE</ulink>-community to build SUMO from the
-      cvs-sources. Actually, the GNU Auttools are hidden by the KDE-scripts.
-      We use the KDE-scripts because they provide support for the <ulink
-      url="http://www.trolltech.com/">QT</ulink> build specifics (moc-file
-      generation). Many thanks to the KDE-team for this great work!</para>
-
-      <para>We will also discuss how to add new option to <literal>configure</literal>
-      and how to modify <literal>Makefile.am</literal> if new files or
-      libraries are added.</para>
+      <title>Building Instructions</title>
 
       <sect2>
-        <title>Building SUMO from CVS</title>
+        <title>All Platforms: Obtaining the sources</title>
+
+        <para>There are two possibilities to obtain the sources needed to
+        build SUMO. The first is to download the latest distribution, located
+        within the <ulink
+        url="http://sumo.sourceforge.net/downloads.html#sumo-latest">download</ulink>
+        section of our <ulink url="http://sumo.sourceforge.net">internet pages</ulink>
+        internet pages. The other one is to checkout the <ulink
+        url="http://sourceforge.net/cvs/?group_id=45607">current CVS</ulink>
+        tree (Use <literal>sumo</literal> as <literal>modulname</literal>).</para>
+
+        <para>Normally, the CVS tree is stable and of course does contain the
+        latest patches, the latest release may not contain.</para>
+      </sect2>
+
+      <sect2>
+        <title>UNIX/Linux: SUMO and the GNU build process</title>
+
+        <para>Here we descride how to use the <ulink
+        url="http://sources.redhat.com/autobook/">GNU Autotools</ulink>,
+        <ulink url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>,
+        <ulink url="http://www.gnu.org/software/automake"><literal>automake</literal></ulink>
+        and <ulink url="http://www.gnu.org/software/libtool"><literal>libtool</literal></ulink>
+        in conjunction with some scripts provided by the <ulink
+        url="http://www.kde.org/">KDE</ulink>-community to build SUMO from the
+        cvs-sources. Actually, the GNU Auttools are hidden by the KDE-scripts.
+        We use the KDE-scripts because they provide support for the <ulink
+        url="http://www.trolltech.com/">Qt</ulink> build specifics (moc-file
+        generation). Many thanks to the KDE-team for this great work!</para>
+
+        <para>We will also discuss how to add new option to
+        <literal>configure</literal> and how to modify <literal>Makefile.am</literal>
+        if new files or libraries are added.</para>
+
+        <sect3>
+          <title>Building SUMO from CVS</title>
+
+          <orderedlist>
+            <listitem>
+              <para>Download the sources from <ulink
+              url="http://sourceforge.net/cvs/?group_id=45607">sourceforge.net</ulink>.
+              Use <literal>sumo</literal> as <literal>modulname</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para><literal>cd</literal> into the directory
+              <literal>sumo</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para>Execute <literal>make -f admin/Makefile.common cvs</literal>.
+              This will create the <literal>configure</literal>-script from
+              <literal>configure.in.in</literal> and <literal>Makefile.in</literal>
+              for each <literal>Makefile.am</literal> by calling the GNU
+              Autotools. QT-specific staff is added to the <literal>Makefile.in</literal>s
+              too by <literal>admin/am_edit</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para>Call <literal>./configure</literal>. You can get a list of
+              <literal>configure</literal>-option by calling
+              <literal>./configure --help</literal>. <literal>./configure</literal>
+              builds a <literal>Makefile</literal> for each
+              <literal>Makefile.in</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para>Call <literal>make</literal> to build SUMO.</para>
+            </listitem>
+
+            <listitem>
+              <para>Call <literal>make install</literal> to install SUMO.</para>
+            </listitem>
+          </orderedlist>
+
+          <para>Enjoy!</para>
+        </sect3>
+
+        <sect3>
+          <title>Adding options to configure</title>
+
+          <para>You need to modify the file <literal>configure.in.in</literal>.
+          There are some SUMO-specific options. Take them as sample and
+          consult the <ulink url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
+          for further insights. See also <ulink
+          url="http://www.vandenoever.info/software/KDEautomakemanual.html">How
+          to use KDE autotools for a Qt application?</ulink></para>
+        </sect3>
+
+        <sect3>
+          <title>Adding header/library-checks to configure</title>
+
+          <para>You need to modify the file <literal>configure.in.in</literal>.
+          There are some SUMO-specific header/library-checks for the <ulink
+          url="http://xml.apache.org/xerces-c/index.html">Xerces C++ library</ulink>.
+          Take them as sample and consult the <ulink
+          url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
+          for further insights. Take care of <ulink
+          url="http://sources.redhat.com/autobook/autobook/autobook_208.html">non-portable
+          shell-code</ulink>.</para>
+        </sect3>
+
+        <sect3>
+          <title>Modifying Makefile.am</title>
+
+          <para>There is a need of modifying <literal>Makefile.am</literal> if
+          you</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>add or remove new sources or files that should go in the
+              distribution: All source files must be listed behind
+              <literal>*_SOURCES</literal>. All other files that should be
+              included in the distribution must be listed behind
+              <literal>EXTRA_DIST</literal></para>
+            </listitem>
+
+            <listitem>
+              <para>need to include header-files from different directories:
+              Add the header directories to <literal>AM_CPPFLAGS</literal>. If
+              these header-directories have been assigned to a name in
+              <literal>configure</literal>, refer to them like
+              <literal>$(QT_INCLUDES)</literal> or <literal>-I$(XERCESINCLUDE)</literal>.
+              To search for headers within SUMO directories, use
+              <literal>-I$(top_srcdir)/Path_to_dir</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para>need to link against new libraries or create new programs:
+              Modify the file <literal>src/Makefile.am</literal>. Add a new
+              program to <literal>bin_PROGRAMS</literal>. For each program you
+              need to provide <literal>prg_SOURCES</literal>,
+              <literal>prg_LDFLAGS</literal> and <literal>prg_LDADD</literal>.
+              <literal>prg_LDFLAGS</literal> holds the linker flags and
+              library-directories like <literal>-L$(XERCESLIBPATH)</literal>
+              or <literal>$(QT_LDFLAGS)</literal>. <literal>prg_LDADD</literal>
+              lists all libraries that should be linked with the executable
+              (e.g. <literal>./utils/xml/libxml.a -l$(XERCESLIB)</literal>).</para>
+            </listitem>
+
+            <listitem>
+              <para>you create new subdirectories: Add the new subdirectory to
+              <literal>SUBDIRS</literal> and create a new <literal>Makefile.am</literal>
+              there.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>I don&#39;t want to go into detail of <literal>Makefile.am</literal>
+          creation. For SUMO we have one top-level <literal>Makefile.am</literal>
+          in the directory <literal>sumo</literal> This needs to be changed
+          only if you add new subdirectories</para>
+
+          <para>All SUMO-executables are build in <literal>sumo/src</literal>.
+          Add this directory&#39;s <literal>Makefile.am</literal> to add new
+          executables.</para>
+
+          <para>All other <literal>Makefile.am</literal> looks e.g. like this:</para>
+
+          <screen>noinst_LIBRARIES = libxxx.a EXTRA_DIST =
+          distributed_but_not_compiled_file libxxx_a_SOURCES = header.h
+          source.cpp AM_CPPFLAGS = -I$(top_srcdir)/src/helpers $(QT_INCLUDES)
+          \ -I$(XERCESINCLUDE) SUBDIRS = icons METASOURCES = AUTO</screen>
+
+          <sect4>
+            <title>Makefile.am additions for Xerces</title>
+
+            <para>If you need to include Xerces-headers in a specific
+            directory add <literal>-I$(XERCESINCLUDE)
+            -I$(XERCESINCLUDE_PRIOR_1_7)</literal> to <literal>AM_CPPFLAGS</literal>.</para>
+
+            <para>If you need to link against the Xerces-library add
+            <literal>-L$(XERCES_LDFLAGS)</literal> to <literal>prg_LDFLAGS</literal>
+            and <literal>-l$(LIB_XERCES)</literal> to <literal>prg_LDADD</literal>.</para>
+          </sect4>
+
+          <sect4>
+            <title>Makefile.am additions for QT</title>
+
+            <para>If you need to include QT-headers in a specific directory
+            add <literal>$(QT_INCLUDES)</literal> to <literal>AM_CPPFLAGS</literal>
+            and <literal>METASOURCES = AUTO</literal>. This will automagically
+            create and compile the QT-<literal>moc</literal>-files.</para>
+
+            <para>If you need to link against QT add <literal>$(QT_LDFLAGS)
+            $(X_LDFLAGS)</literal> to <literal>prg__LDFLAGS</literal> and
+            <literal>$(LIB_QT) $(LIB_X11)</literal> to <literal>prg_LDADD</literal>.</para>
+
+            <para>See also <ulink
+            url="http://www.vandenoever.info/software/KDEautomakemanual.html">How
+            to use KDE autotools for a Qt application?</ulink></para>
+          </sect4>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>Windows: Using MSVC++ 6.0</title>
+
+        <para>Building under windows is as easy as under Linux. The following
+        steps have to be done:</para>
 
         <orderedlist>
           <listitem>
-            <para>Download the sources from <ulink
-            url="http://sourceforge.net/cvs/?group_id=45607">sourceforge.net</ulink>.
-            Use <literal>sumo</literal> as <literal>modulname</literal>.</para>
+            <para>Obtain the source as described above.</para>
           </listitem>
 
           <listitem>
-            <para><literal>cd</literal> into the directory <literal>sumo</literal>.</para>
+            <para>Download the <ulink
+            url="http://xml.apache.org/xerces-c/index.html">Xerces C++ library</ulink>
+            (version 2.0 or greater) and the <ulink
+            url="http://www.trolltech.com/">Qt</ulink>-library (version 2.3 or
+            greater) for windows .</para>
           </listitem>
 
           <listitem>
-            <para>Execute <literal>make -f admin/Makefile.common cvs</literal>.
-            This will create the <literal>configure</literal>-script from
-            <literal>configure.in.in</literal> and <literal>Makefile.in</literal>
-            for each <literal>Makefile.am</literal> by calling the GNU
-            Autotools. QT-specific staff is added to the <literal>Makefile.in</literal>s
-            too by <literal>admin/am_edit</literal>.</para>
+            <para>Install both libraries into desired folders</para>
           </listitem>
 
           <listitem>
-            <para>Call <literal>./configure</literal>. You can get a list of
-            <literal>configure</literal>-option by calling <literal>./configure
-            --help</literal>. <literal>./configure</literal> builds a
-            <literal>Makefile</literal> for each <literal>Makefile.in</literal>.</para>
+            <para>Set environment variables for the xerces library (the
+            environment variable for Qt is set during Qt&#39;s installation
+            process automatically):</para>
+
+            <para>XERCES=&#60;PATH_TO_XERCES&#62;</para>
+
+            <para>Example: If you have installed xerces to
+            D:\libs\xerces-c_2_3_0-win32, then your environment variables
+            should contain XERCES=D:\libs\xerces-c_2_3_0-win32</para>
           </listitem>
 
           <listitem>
-            <para>Call <literal>make</literal> to build SUMO.</para>
+            <para>Start MSVC++ and open the file prj.dsw located in
+            sumo/prj/msvc6</para>
           </listitem>
 
           <listitem>
-            <para>Call <literal>make install</literal> to install SUMO.</para>
+            <para>Go to Build and Rebuild All</para>
           </listitem>
         </orderedlist>
 
@@ -100,166 +283,538 @@
       </sect2>
 
       <sect2>
-        <title>Adding options to configure</title>
+        <title>Windows: Using MS Studio 7.0 .NET</title>
 
-        <para>You need to modify the file <literal>configure.in.in</literal>.
-        There are some SUMO-specific options. Take them as sample and consult
-        the <ulink url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
-        for further insights. See also <ulink
-        url="http://www.vandenoever.info/software/KDEautomakemanual.html">How
-        to use KDE autotools for a Qt application?</ulink></para>
+        <para>Follow steps 1-4 as described for <application class="software">MSVC++
+        6.0</application>. The continue as follows:</para>
+
+        <orderedlist>
+          <listitem>
+            <para>Download the Qt-Patch from our <ulink
+            url="http://sumo.sourceforge.net/downloads.html#qt-patch">download</ulink>
+            page.</para>
+          </listitem>
+
+          <listitem>
+            <para>Extract the files located within this zip-file into the
+            folder the Qt-include files are located in (this should not cause
+            any problems).</para>
+          </listitem>
+
+          <listitem>
+            <para>Start MSVC++ and open the file prj.sln located in
+            sumo/prj/msvc7.net</para>
+          </listitem>
+
+          <listitem>
+            <para>Go to Build and Rebuild All</para>
+          </listitem>
+        </orderedlist>
+
+        <para>Enjoy!</para>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>Modules and Module Dependencies</title>
+
+      <para>As some parts of the code are used within all applications and
+      some other parts are used within more than a single application, we have
+      divided the code into logical modules. Classes shared by almost all
+      applications and do not have a certain meaning within the simulation
+      context are located within the utils-folder. All other folders hold
+      classes responsible for a certain part of the simulation building and
+      execution process.</para>
+
+      <sect2>
+        <title>Modules</title>
+
+        <sect3 id="gui">
+          <title>gui</title>
+
+          <para>Classes used by the gui application for window handling,
+          visualisation etc.</para>
+        </sect3>
+
+        <sect3 id="guinetload">
+          <title>guinetload</title>
+
+          <para>Classes derived from netload-classes (see []) to load and
+          build guisim-versions (see []) of the microsim (see []) classes.</para>
+        </sect3>
+
+        <sect3 id="guisim">
+          <title>guisim</title>
+
+          <para>Classes derived from microsim-classes (see []) to allow their
+          usage within the simulation&#39;s gui-version.</para>
+        </sect3>
+
+        <sect3 id="microsim">
+          <title>microsim</title>
+
+          <para>The microsimulation kernel - classes.</para>
+        </sect3>
+
+        <sect3 id="netbuild">
+          <title>netbuild</title>
+
+          <para>Classes to parse loaded (foreign or native) or generated
+          network descriptions into SUMO-networks.</para>
+        </sect3>
+
+        <sect3 id="netgen">
+          <title>netgen</title>
+
+          <para>Classes for (grid-, spider, random-) network generation.</para>
+        </sect3>
+
+        <sect3 id="netimport">
+          <title>netimport</title>
+
+          <para>Importers for foreign networks and native network
+          descriptions.</para>
+        </sect3>
+
+        <sect3 id="netload">
+          <title>netload</title>
+
+          <para>Classes used to load networks and to parse additional files.</para>
+        </sect3>
+
+        <sect3 id="router">
+          <title>router</title>
+
+          <para>Herein, you can find some classes use by both the dua-router
+          and the jtr-router.</para>
+        </sect3>
+
+        <sect3 id="utils">
+          <title>utils</title>
+
+          <para>utils is not a module itself. Rather, you can find several
+          modules that are used within most of the applications. These modules
+          are:</para>
+
+          <para><itemizedlist spacing="compact"><listitem><para>common: Some
+          classes used by all applications. The classes define used
+          exceptions, some parts of the sub-systems etc.</para></listitem><listitem><para>convert:
+          Classes converting between different data types (string to int and
+          reverse conversion etc.)</para></listitem><listitem><para>dev: the
+          classes located herein are used by the windows-version only. The
+          class MemDiff allows to track memory leaks.</para></listitem><listitem><para>distribution:
+          Classes that describe a value&#39;s statistical distribution using
+          different methods</para></listitem><listitem><para>fonts: Some
+          fontrenderer fonts used by our openGL-applications</para></listitem><listitem><para>geom:
+          Some helper classes for geometrical operations</para></listitem><listitem><para>gfx:
+          graphic primitives</para></listitem><listitem><para>glutils: some
+          helper classes for visualisation using openGL</para></listitem><listitem><para>importio:
+          some classes that help to import data</para></listitem><listitem><para>options:
+          classes that read an application&#39;s options from the command line
+          and from XML-configuration files</para></listitem><listitem><para>qutils:
+          some classes that ease the work with Qt</para></listitem><listitem><para>sumoxml:
+          definitions of tags used by SUMO</para></listitem><listitem><para>xml:
+          classes that ease the work with SAX-handlers</para></listitem></itemizedlist></para>
+        </sect3>
       </sect2>
 
       <sect2>
-        <title>Adding header/library-checks to configure</title>
-
-        <para>You need to modify the file <literal>configure.in.in</literal>.
-        There are some SUMO-specific header/library-checks for the <ulink
-        url="http://xml.apache.org/xerces-c/index.html">Xerces C++ library</ulink>.
-        Take them as sample and consult the <ulink
-        url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
-        for further insights. Take care of <ulink
-        url="http://sources.redhat.com/autobook/autobook/autobook_208.html">non-portable
-        shell-code</ulink>.</para>
-      </sect2>
-
-      <sect2>
-        <title>Modifying Makefile.am</title>
-
-        <para>There is a need of modifying <literal>Makefile.am</literal> if
-        you</para>
-
-        <itemizedlist>
-          <listitem>
-            <para>add or remove new sources or files that should go in the
-            distribution: All source files must be listed behind
-            <literal>*_SOURCES</literal>. All other files that should be
-            included in the distribution must be listed behind
-            <literal>EXTRA_DIST</literal></para>
-          </listitem>
-
-          <listitem>
-            <para>need to include header-files from different directories: Add
-            the header directories to <literal>AM_CPPFLAGS</literal>. If these
-            header-directories have been assigned to a name in
-            <literal>configure</literal>, refer to them like
-            <literal>$(QT_INCLUDES)</literal> or <literal>-I$(XERCESINCLUDE)</literal>.
-            To search for headers within SUMO directories, use
-            <literal>-I$(top_srcdir)/Path_to_dir</literal>.</para>
-          </listitem>
-
-          <listitem>
-            <para>need to link against new libraries or create new programs:
-            Modify the file <literal>src/Makefile.am</literal>. Add a new
-            program to <literal>bin_PROGRAMS</literal>. For each program you
-            need to provide <literal>prg_SOURCES</literal>,
-            <literal>prg_LDFLAGS</literal> and <literal>prg_LDADD</literal>.
-            <literal>prg_LDFLAGS</literal> holds the linker flags and
-            library-directories like <literal>-L$(XERCESLIBPATH)</literal> or
-            <literal>$(QT_LDFLAGS)</literal>. <literal>prg_LDADD</literal>
-            lists all libraries that should be linked with the executable
-            (e.g. <literal>./utils/xml/libxml.a -l$(XERCESLIB)</literal>).</para>
-          </listitem>
-
-          <listitem>
-            <para>you create new subdirectories: Add the new subdirectory to
-            <literal>SUBDIRS</literal> and create a new <literal>Makefile.am</literal>
-            there.</para>
-          </listitem>
-        </itemizedlist>
-
-        <para>I don&#39;t want to go into detail of <literal>Makefile.am</literal>
-        creation. For SUMO we have one top-level <literal>Makefile.am</literal>
-        in the directory <literal>sumo</literal> This needs to be changed only
-        if you add new subdirectories</para>
-
-        <para>All SUMO-executables are build in <literal>sumo/src</literal>.
-        Add this directory&#39;s <literal>Makefile.am</literal> to add new
-        executables.</para>
-
-        <para>All other <literal>Makefile.am</literal> looks e.g. like this:</para>
-
-        <screen>noinst_LIBRARIES = libxxx.a EXTRA_DIST =
-        distributed_but_not_compiled_file libxxx_a_SOURCES = header.h
-        source.cpp AM_CPPFLAGS = -I$(top_srcdir)/src/helpers $(QT_INCLUDES) \
-        -I$(XERCESINCLUDE) SUBDIRS = icons METASOURCES = AUTO</screen>
+        <title>Module Dependencies</title>
 
         <sect3>
-          <title>Makefile.am additions for Xerces</title>
+          <title>DUA-Router</title>
 
-          <para>If you need to include Xerces-headers in a specific directory
-          add <literal>-I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)</literal>
-          to <literal>AM_CPPFLAGS</literal>.</para>
+          <para>Uses:</para>
 
-          <para>If you need to link against the Xerces-library add
-          <literal>-L$(XERCES_LDFLAGS)</literal> to <literal>prg_LDFLAGS</literal>
-          and <literal>-l$(LIB_XERCES)</literal> to <literal>prg_LDADD</literal>.</para>
+          <para><itemizedlist spacing="compact"><listitem><para>dua_router_main.cpp
+          &#38; dua_router_help.h</para></listitem><listitem><para>routing_dua/*</para></listitem><listitem><para>router/*</para></listitem><listitem><para>utils/router/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/gfx/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>utils/importio/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
-          <title>Makefile.am additions for QT</title>
+          <title>GUI</title>
 
-          <para>If you need to include QT-headers in a specific directory add
-          <literal>$(QT_INCLUDES)</literal> to <literal>AM_CPPFLAGS</literal>
-          and <literal>METASOURCES = AUTO</literal>. This will automagically
-          create and compile the QT-<literal>moc</literal>-files.</para>
+          <para>Uses:</para>
 
-          <para>If you need to link against QT add <literal>$(QT_LDFLAGS)
-          $(X_LDFLAGS)</literal> to <literal>prg__LDFLAGS</literal> and
-          <literal>$(LIB_QT) $(LIB_X11)</literal> to <literal>prg_LDADD</literal>.</para>
+          <para><itemizedlist spacing="compact"><listitem><para>sumo_main.cpp
+          &#38; sumo_help.h</para></listitem><listitem><para>gui/*</para></listitem><listitem><para>guinetload/*</para></listitem><listitem><para>guisim/*</para></listitem><listitem><para>helpers/*</para></listitem><listitem><para>microsim/*</para></listitem><listitem><para>netload/*</para></listitem><listitem><para>sumo_only/*</para></listitem><listitem><para>utils/fonts/*</para></listitem><listitem><para>utils/geom/*</para></listitem><listitem><para>utils/gfx/*</para></listitem><listitem><para>utils/glutils/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/qutils/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></para>
+        </sect3>
 
-          <para>See also <ulink
-          url="http://www.vandenoever.info/software/KDEautomakemanual.html">How
-          to use KDE autotools for a Qt application?</ulink></para>
+        <sect3>
+          <title>JTR-Router</title>
+
+          <para>Uses:</para>
+
+          <para><itemizedlist spacing="compact"><listitem><para>jtr_router_main.cpp
+          &#38; jtr_router_help.h</para></listitem><listitem><para>routing_jtr/*</para></listitem><listitem><para>router/*</para></listitem><listitem><para>utils/router/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/gfx/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>utils/importio/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>NETCONVERT</title>
+
+          <para>Uses:</para>
+
+          <para><itemizedlist spacing="compact"><listitem><para>netconvert_main.cpp
+          &#38; netconvert_help.h</para></listitem><listitem><para>netbuild/*</para></listitem><listitem><para>netimport/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/distribution/*</para></listitem><listitem><para>utils/geom/*</para></listitem><listitem><para>utils/gfx/*</para></listitem><listitem><para>utils/importio/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>NETGEN</title>
+
+          <para>Uses:</para>
+
+          <para><itemizedlist spacing="compact"><listitem><para>netgen_main.cpp
+          &#38; netgen_help.h</para></listitem><listitem><para>netbuild/*</para></listitem><listitem><para>netgen/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/geom/*</para></listitem><listitem><para>utils/importio/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>OD2Trips</title>
+
+          <para>Uses:</para>
+
+          <para><itemizedlist spacing="compact"><listitem><para>od2trips_main.cpp
+          &#38; od2trips_help.h</para></listitem><listitem><para>od2trips/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>SUMO</title>
+
+          <para>Uses:</para>
+
+          <para><itemizedlist spacing="compact"><listitem><para>sumo_main.cpp
+          &#38; sumo_help.h</para></listitem><listitem><para>helpers/*</para></listitem><listitem><para>microsim/*</para></listitem><listitem><para>netload/*</para></listitem><listitem><para>sumo_only/*</para></listitem><listitem><para>utils/gfx/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></para>
         </sect3>
       </sect2>
     </sect1>
 
     <sect1>
-      <title>Windows: Using MSVC++ 6.0</title>
+      <title>The application sub-system</title>
 
-      <para>Building under windows is as easy as under Linux. The following
-      steps have to be done:</para>
+      <para>Beside some tools, all of the applications within the SUMO-package
+      share the same subsystem, only paramterised with two
+      application-specific functions for setting and validating the command
+      line options or the configuration settings. This subsystem initialises
+      handles initialisation of the xml-subsystem, the options-subsystem and
+      the message handling sub-system. All of these and the main application
+      subsystem are described, herein.</para>
 
-      <orderedlist>
-        <listitem>
-          <para>Obtain the source as described above.</para>
-        </listitem>
+      <para>Read this if you want to extend an application&#39;s options.</para>
 
-        <listitem>
-          <para>Download the <ulink
-          url="http://xml.apache.org/xerces-c/index.html">Xerces C++ library</ulink>
-          (version 2.0 or greater) and the <ulink
-          url="http://www.trolltech.com/">Qt</ulink>-library (version 2.3 or
-          greater) for windows .</para>
-        </listitem>
+      <sect2>
+        <title>The subsystems&#39; duties</title>
 
-        <listitem>
-          <para>Install both libraries into desired folders</para>
-        </listitem>
+        <para>The subsystems were invented to avoid doing the same things for
+        each of the package&#39;s application once again. All of them do parse
+        command line options and optional a configuration file, they all have
+        to initialise and close the XML-subsystem and all use the same
+        paradigm of logging messages, either directly to the user via the
+        command line output (cout) or by writing a log-file. By sharing the
+        same methods, it is also assured, that all applications have the same
+        behaviour.</para>
 
-        <listitem>
-          <para>Set environment variables for the xerces library (the
-          environment variable for Qt is set during Qt&#39;s installation
-          process automatically):</para>
+        <sect3>
+          <title>The Main Subsystem</title>
 
-          <para>XERCES=&#60;PATH_TO_XERCES&#62;</para>
+          <para>This is a wrapper around the following three subsystems.</para>
+        </sect3>
 
-          <para>Example: If you have installed xerces to
-          D:\libs\xerces-c_2_3_0-win32, then your environment variables should
-          contain XERCES=D:\libs\xerces-c_2_3_0-win32</para>
-        </listitem>
+        <sect3>
+          <title>The XML-Subsystem</title>
 
-        <listitem>
-          <para>Start MSVC++ and open the file prj.dsw located in sumo/prj</para>
-        </listitem>
+          <para>This simply initialises and closes the xerces-XML-parser (both
+          being two method calls within a try/catch-block). We do not exactly
+          know what xerces is doing here, but it does not work without.</para>
+        </sect3>
 
-        <listitem>
-          <para>Go to Build and Rebuild All</para>
-        </listitem>
-      </orderedlist>
+        <sect3>
+          <title>The Messaging-Subsystem</title>
 
-      <para>Enjoy!</para>
+          <para>From the version 0.8 on, SUMO is able to generate a log-file
+          where all messages, warnings or errors are saved. The messaging
+          subsystem is responsible to build the output files, to set the
+          report options, such as whether the messages shall be verbose on the
+          command line or within the logfile, the same for warnings etc. This
+          is done the same way through all applications.</para>
+        </sect3>
+
+        <sect3>
+          <title>The Options-Subsystem</title>
+
+          <para>A SUMO-application&#39;s options may be set both on the
+          command line and within a configuration file or both. The
+          options-subsystem calls two methods which must be supplied on the
+          main subsystem&#39;s initialisation. The first one fills the
+          options-container with application-dependent options, the second
+          method verifies them after they are set with the user&#39;s values.</para>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>The subsystems&#39; usage</title>
+
+        <para>If you look into the main procedures from the files
+        &#34;*_main.cpp&#34; within the top-level source folder, you realise
+        they all look similar:<programlisting>int main(int argc, char **argv)
+        { int ret = 0; try { if(!SystemFrame::init(true, argc, argv,
+        fillInitOptions, checkInitOptions, help)) { throw ProcessError(); }
+        ... do something application-specific ... } catch(ProcessError) {
+        MsgHandler::getErrorInstance()-&#62;inform(&#34;Quitting (on
+        error).&#34;); ret = 1; } SystemFrame::close(); return ret; }</programlisting></para>
+
+        <para>The return value is initialised (using the static function<function>
+        SystemFrame::init(bool, int, char**, FUNC_fill_options,
+        FUNC_check_options, char**) </function>) first to &#34;no error&#34;
+        (==0), then, within a try/catch-block the subsystem is initialised and
+        the application-specific data processing method calls follow. The
+        try/catch-block is needed as we allow each application to throw a
+        &#34;ProcessError&#34; allowing easy aborting of the program&#39;s
+        execution on any place the input is not proper.</para>
+
+        <para>Either after completing the actions or If the
+        subsystem-initialisation or the data processing fails, the subsystem
+        is closed using <function>SystemFrame::close()</function> (which is a
+        static function).</para>
+
+        <para>These two calls wrap all the initialisations described above:
+        XML-subsystem initialisation and closing, parsing of command line
+        options and/or the configuration file, message subsystem
+        initialisation.</para>
+
+        <para>As you see, the pointers to two functions must be supplied:</para>
+
+        <formalpara>
+          <title>FUNC_fill_options</title>
+
+          <para>Is the function which is called on initialisation of the
+          command-line options storage. It is declared as following within
+          <function>OptionsSubSys.h</function>:</para>
+        </formalpara>
+
+        <para><function>typedef void (fill_options)(OptionsCont &#38;);</function></para>
+
+        <para>It receives a reference of options storage to fill. The next
+        chapter describes how to insert possible command line options into it.</para>
+
+        <formalpara>
+          <title>FUNC_check_options</title>
+
+          <para>Is the function which is called on initialisation of the
+          command-line options storage. It is declared as following within
+          <function>OptionsSubSys.h</function>:</para>
+        </formalpara>
+
+        <para><function>typedef bool (check_options)(OptionsCont &#38;);</function></para>
+
+        <para>Using the methods to retrieve single options from the options
+        storage described within the next chapter, one can check whether the
+        user&#39;s definitions are proper. The method must return true if
+        everything&#39;s ok with the user input, otherwise - when a necessary
+        network file definition is not given, f.e. , false.</para>
+
+        <sect3>
+          <title>The Options Subsystem</title>
+
+          <para>All major SUMO applications use the same classes for parsing
+          of command line options and configuration files. Each application
+          has exactly one instance of the <function>OptionsCont</function>
+          (options container) - class. Before the command line options are
+          parsed, their names, allowed types and their default values must be
+          inserted into this container. This is done within a method given to
+          the main subsystem as described above.</para>
+
+          <para>To insert an application option into the container, use one of
+          the following polymorphs:</para>
+
+          <para><function>void doRegister(const std::string &#38;name1, Option
+          *v);</function></para>
+
+          <para>or</para>
+
+          <para><function>void doRegister(const std::string &#38;name1, char
+          abbr, Option *v);</function></para>
+
+          <para>The parameter &#34;name1&#34; is the name (or one of the
+          possible name, better to say) you&#39;ll be able to retrieve
+          information about the command line option&#39;s state after parsing
+          the command line arguments and/or the configuration file. The
+          character &#34;abbr&#34; within the second call is the possible
+          one-char abbreviation of the name.</para>
+
+          <para><caution><para>The behaviour after adding the same
+          abbreviation for two different options is not defined.</para></caution></para>
+
+          <para>The third parameter is an option that shall be assigned to the
+          name(s). Remark that the <function>OptionsCont</function> takes the
+          responsibility for this option - it will be deleted when the
+          <function>OptionsCont</function> is deleted. The option itself must
+          be an instance of one of the following classes, which all are
+          derived from the class <function>Option</function>:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><function>Option_Integer</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>Option_Long</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>Option_String</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>Option_Float</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>Option_FileName</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>Option_UIntVector</function></para>
+            </listitem>
+          </itemizedlist>
+
+          <para>The names of the classes reflect the types which are awaited
+          for the option. Do also remark, that later acces for reading should
+          be done in dependence to the type - it means that you should not try
+          to get a float from an <function>Option_Float</function>. This yould
+          yield in an exception.</para>
+
+          <para><caution><para>All subclasses of are stored within the file .
+          This is surely not as wished within the coding styleguide, each
+          class should be stored in a separate pair of files. Also, one could
+          imagine to use templates, here.</para></caution></para>
+
+          <para>Also, every of the option subclasses has two constructors: one
+          that is parametrised with the appropriate type and a parameterless
+          one. The parametrised constructor is used to supply default values
+          for options, in the other case, no value is known to the system at
+          first. An example: settings the &#34;verbose&#34;-switch as
+          following, lets the application run quiet as default:</para>
+
+          <programlisting>oc.doRegister(&#34;verbose&#34;, &#39;v&#39;, new
+          Option_Bool(false));</programlisting>
+
+          <para>Examples of how to insert possible options into their
+          container may be found within the files <filename>src\sumo_only\SUMOFrame.cpp</filename>,
+          <filename>src\gui_main.cpp</filename>, <filename>src\router_main.cpp</filename>,
+          <filename>src\od2trips_main.cpp</filename> and <filename>src\netbuild\NBOptionsIO.cpp</filename>.</para>
+
+          <para>Beside this, one can also add synonymes for options. If you
+          for example want to implement the option
+          &#34;name-of-vehicle-that-shall-halt&#34;, but wish to have a
+          shorter name, too, use the following to make the same option
+          accessable using both &#34;name-of-vehicle-that-shall-halt&#34; and
+          &#34;v2h&#34;:</para>
+
+          <programlisting>oc.doRegister(&#34;name-of-vehicle-that-shall-halt&#34;,
+          new Option_String());
+          oc.addSynonyme(&#34;name-of-vehicle-that-shall-halt&#34;,
+          &#34;v2h&#34;);</programlisting>
+
+          <para>If no default value was supplied for an option, you should ask
+          the OptionsCont whether it has been set. Access to values of unset
+          options causes exceptions. This may sound hard, but as it&#39;s only
+          the developer who accesses the options container in fact, it&#39;s
+          the best way to assure security of the code.</para>
+
+          <para>One can check whether a value is available for a certain
+          option calling the OptionsCont-member method bool
+          isSet(&#34;OPTION_NAME&#34;);. If one has to know whether it is the
+          default value given on instantiation of the option (see above) or a
+          value supplied by the user, he/she may call &#34;bool
+          isDefault(&#34;OPRION_NAME&#34;);&#34;, a member method of
+          OptionsCont, too. In dependence to the type of an option, one can
+          retrieve her value using the following methods from OptionsCont:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><function>int getInt(&#34;&#60;OPTION_NAME&#62;&#34;)
+              const;</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>long getLong(&#34;&#60;OPTION_NAME&#62;&#34;)
+              const;</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>std::string
+              getString(&#34;&#60;OPTION_NAME&#62;&#34;) const;</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>float getFloat(&#34;&#60;OPTION_NAME&#62;&#34;)
+              const;</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>const UIntVector
+              &#38;OptionsCont::getUIntVector(&#34;&#60;OPTION_NAME&#62;&#34;)
+              const;</function></para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Using an inproper method yields in an exception.</para>
+
+          <para>You may have noticed, that there is one method to retrieve a
+          certain value less than types available. The type
+          &#34;Option_FileName&#34; returns a string, too. The only difference
+          is their type which allows a different processing of the values to
+          set when parsing.</para>
+        </sect3>
+
+        <sect3>
+          <title>The Messaging Subsystem</title>
+
+          <para>... to be described ...</para>
+        </sect3>
+
+        <sect3>
+          <title>The XML Subsystem</title>
+
+          <para>This subsystem is automatically processed by the main
+          subsystem. There should be no need to change it.</para>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>Assigned Classes</title>
+
+        <sect3>
+          <title>The Main Subsystem</title>
+
+          <para>Made of only one class, located in <filename>utils/common/SystemFrame.h</filename>
+          and <filename>utils/common/SystemFrame.cpp</filename>.</para>
+        </sect3>
+
+        <sect3>
+          <title>The Options Subsystem</title>
+
+          <para>All classes needed to store and process options can be found
+          within <filename>utils/options/</filename></para>
+        </sect3>
+
+        <sect3>
+          <title>The Message Subsystem</title>
+
+          <para>All classes needed to store and process options can be found
+          within <filename>utils/common/</filename>. The files
+          <filename>MsgHandler.h</filename> and <filename>MsgHandler.cpp</filename>
+          include the definition of the messaging system itself, the class
+          <filename>MsgRetriever.h</filename> holds the interface which has to
+          be implemented by classes that wish to retrieve information from the
+          messaging system.</para>
+        </sect3>
+
+        <sect3>
+          <title>The XML Subsystem</title>
+
+          <para>Made of only one class, located in <filename>utils/xml/XMLSubSys.h</filename>
+          and <filename>utils/xml/XMLSubSys.cpp</filename>.</para>
+        </sect3>
+      </sect2>
     </sect1>
   </chapter>
 </book>

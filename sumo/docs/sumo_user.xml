@@ -20,7 +20,7 @@
 
   <toc></toc>
 
-  <chapter id="Introduction">
+  <chapter id="user_chp01">
     <title>Introduction</title>
 
     <sect1>
@@ -100,7 +100,7 @@
     </sect1>
   </chapter>
 
-  <chapter id="FirstSteps">
+  <chapter id="user_chp02">
     <title>First Steps: Running the examples</title>
 
     <sect1>
@@ -176,7 +176,7 @@
     </sect1>
   </chapter>
 
-  <chapter id="TrafficSims">
+  <chapter id="user_chp03">
     <title>Traffic Simulations and SUMO</title>
 
     <sect1>
@@ -212,7 +212,7 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata align="center" fileref="./gfx/3sims.gif" format="GIF" />
+              <imagedata align="center" fileref="./user_gfx/3sims.gif" format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -229,7 +229,7 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata align="center" fileref="./gfx/contdisc.gif"
+              <imagedata align="center" fileref="./user_gfx/contdisc.gif"
               format="GIF" />
             </imageobject>
           </mediaobject>
@@ -299,7 +299,7 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata align="center" fileref="./gfx/simsteps1.gif"
+            <imagedata align="center" fileref="./user_gfx/simsteps1.gif"
             format="GIF" scale="1" />
           </imageobject>
         </mediaobject>
@@ -329,7 +329,7 @@
     </sect1>
   </chapter>
 
-  <chapter id="NetworkGeneration">
+  <chapter id="user_chp04">
     <title>Network Generation</title>
 
     <para>As SUMO uses an own road network description, normally networks must
@@ -377,7 +377,7 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata align="center" fileref="./gfx/simsteps-netconv.gif"
+          <imagedata align="center" fileref="./user_gfx/simsteps-netconv.gif"
           format="GIF" />
         </imageobject>
       </mediaobject>
@@ -468,7 +468,7 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata align="center" fileref="./gfx/basic_coordinates.gif"
+              <imagedata align="center" fileref="./user_gfx/basic_coordinates.gif"
               format="GIF" />
             </imageobject>
           </mediaobject>
@@ -1072,7 +1072,7 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata align="center" fileref="./gfx/netgen_grid1.gif"
+              <imagedata align="center" fileref="./user_gfx/netgen_grid1.gif"
               format="GIF" />
             </imageobject>
           </mediaobject>
@@ -1087,7 +1087,7 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata align="center" fileref="./gfx/netgen_grid2.gif"
+              <imagedata align="center" fileref="./user_gfx/netgen_grid2.gif"
               format="GIF" />
             </imageobject>
           </mediaobject>
@@ -1120,7 +1120,7 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata align="center" fileref="./gfx/netgen_spider1.gif"
+              <imagedata align="center" fileref="./user_gfx/netgen_spider1.gif"
               format="GIF" />
             </imageobject>
           </mediaobject>
@@ -1135,7 +1135,7 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata align="center" fileref="./gfx/netgen_spider2.gif"
+              <imagedata align="center" fileref="./user_gfx/netgen_spider2.gif"
               format="GIF" />
             </imageobject>
           </mediaobject>
@@ -1203,7 +1203,7 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata align="center" fileref="./gfx/netgen_random1.gif"
+              <imagedata align="center" fileref="./user_gfx/netgen_random1.gif"
               format="GIF" />
             </imageobject>
           </mediaobject>
@@ -1514,7 +1514,7 @@
     </sect1>
   </chapter>
 
-  <chapter id="RouteGeneration">
+  <chapter id="user_chp05">
     <title>Route Generation</title>
 
     <para>After having your network converted into the SUMO-format, you could
@@ -1547,7 +1547,7 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata align="center" fileref="./gfx/simsteps-od2trips.gif"
+          <imagedata align="center" fileref="./user_gfx/simsteps-od2trips.gif"
           format="GIF" />
         </imageobject>
       </mediaobject>
@@ -1563,7 +1563,7 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata align="center" fileref="./gfx/simsteps-router.gif"
+          <imagedata align="center" fileref="./user_gfx/simsteps-router.gif"
           format="GIF" />
         </imageobject>
       </mediaobject>
@@ -1639,7 +1639,7 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata align="center" fileref="./gfx/ivf.gif" format="GIF" />
+              <imagedata align="center" fileref="./user_gfx/ivf.gif" format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -1774,7 +1774,7 @@
           &#60;UINT&#62; -e &#60;UINT&#62;</para>
         </blockquote>
 
-        <para><inlinegraphic fileref="./gfx/bulb.gif" format="GIF" /> Remind
+        <para><inlinegraphic fileref="./user_gfx/bulb.gif" format="GIF" /> Remind
         that you can not insert flow descriptions into a trip definitions
         file. The opposite (some trip definitions within a flow descriptions
         file) is possible. You also can give both files at the input file, for
@@ -1901,7 +1901,7 @@
         <para>This is basically done this way:</para>
 
         <blockquote>
-          <para>router(.exe) --artemis=&#60;ARTEMIS_FOLDER&#62;
+          <para>dua-router(.exe) --artemis=&#60;ARTEMIS_FOLDER&#62;
           --net=&#60;SUMO_NET&#62; --output-file=MySUMORoutes.rou.xml -b
           &#60;UINT&#62; -e &#60;UINT&#62;</para>
         </blockquote>
@@ -1933,7 +1933,7 @@
         the SUMO-representation. Do this using the following command:</para>
 
         <blockquote>
-          <para>router(.exe) --cell=&#60;CELL_FILE_NAME(NO_EXTENSION)&#62;
+          <para>dua-router(.exe) --cell=&#60;CELL_FILE_NAME(NO_EXTENSION)&#62;
           --net=&#60;SUMO_NET&#62; --output-file=MySUMORoutes.rou.xml -b
           &#60;UINT&#62; -e &#60;UINT&#62;</para>
         </blockquote>
@@ -2318,7 +2318,7 @@
     </sect1>
   </chapter>
 
-  <chapter id="PerformingSimulation">
+  <chapter id="user_chp06">
     <title>Performing the Simulation</title>
 
     <para>Having the network description and the routes you have everything to
@@ -3266,7 +3266,7 @@
     </sect1>
   </chapter>
 
-  <chapter id="SimulationGUI">
+  <chapter id="user_chp07">
     <title>Simulation-GUI</title>
 
     <para>The simulation-GUI (graphical user interface) is just a wrapper
@@ -3284,7 +3284,7 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata align="center" fileref="./gfx/simcontrols.gif"
+          <imagedata align="center" fileref="./user_gfx/simcontrols.gif"
           format="GIF" />
         </imageobject>
       </mediaobject>
@@ -3347,14 +3347,7 @@
           <title>Help-Menu</title>
 
           <para><itemizedlist spacing="compact"><listitem><para>About</para><para>Shows
-          a small window with some information about SUMO.</para></listitem><listitem><para>About
-          Qt</para><para>Shows a small window with some information about Qt,
-          the GUI-library we use.</para></listitem><listitem><para>What&#39;s
-          This</para><para>Chossing this menu entry will turn your cursor into
-          an arrow with a questionmark. Pressing a button or menu entry with
-          this cursor will not activate the function itself, but output some
-          information about the function.</para><caution><para>Some functions
-          are not described properly.</para></caution></listitem></itemizedlist></para>
+          a small window with some information about SUMO.</para></listitem></itemizedlist></para>
         </sect3>
       </sect2>
 
@@ -3370,28 +3363,23 @@
           this file will be loaded. Remark that you have to describe the
           simulation in full - no further extension is possible.</para><para>You
           can of course load a simulation if another one is already loaded. In
-          this case, the previous simulation will be closed.</para></listitem><listitem><para>What&#39;s
-          This - Button</para><para>Chossing this menu entry will turn your
-          cursor into an arrow with a questionmark. Pressing a button or menu
-          entry with this cursor will not activate the function itself, but
-          output some information about the function.</para><caution><para>Some
-          functions are not described properly.</para></caution></listitem></itemizedlist></para>
+          this case, the previous simulation will be closed.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Simulation Operations</title>
 
           <para><itemizedlist spacing="compact"><listitem><para>Play Button
-          <inlinegraphic fileref="./gfx/play.gif" format="GIF" /></para><para>Starts
+          <inlinegraphic fileref="./user_gfx/play.gif" format="GIF" /></para><para>Starts
           the simulation. If a loaded simulation was not started before, it
           will begin with the step described by the b(egin)-parameter within
           the loaded configuration file. If the simulation was started and
           stopped, it will continue.</para><caution><para>It is not possible
           to restart a simulation.</para></caution></listitem><listitem><para>Stop
-          Button <inlinegraphic fileref="./gfx/stop.gif" format="GIF" /></para><para>Stops
+          Button <inlinegraphic fileref="./user_gfx/stop.gif" format="GIF" /></para><para>Stops
           a running application. A stopped application can be continued using
           the play-button (see above).</para></listitem><listitem><para>Single
-          Step Button <inlinegraphic fileref="./gfx/step.gif" format="GIF" /></para><para>Performs
+          Step Button <inlinegraphic fileref="./user_gfx/step.gif" format="GIF" /></para><para>Performs
           a single simulation step.</para></listitem><listitem><para>Current
           Step Field</para><para>After the loaded simulation has been started,
           the information about the current time step is displayed herein.</para></listitem><listitem><para>Simulation
@@ -3405,14 +3393,14 @@
 
           <para><itemizedlist spacing="compact"><listitem><para>New
           Microscopic View - Button <inlinegraphic
-          fileref="./gfx/new_window.gif" format="GIF" /></para><para>Opens a
+          fileref="./user_gfx/new_window.gif" format="GIF" /></para><para>Opens a
           new window which displays the streets and vehicles moving on them.</para><caution><para>If
           the previous window is maximized (fills the whole application area),
           the new one will be maximized, too. This lets the previous window
           disappear. Choose the menu entry &#34;Windows-&#62;Tile&#34; to view
           both windows.</para></caution></listitem><listitem><para>New
           Lane-Aggregated View - Button <inlinegraphic
-          fileref="./gfx/new_window.gif" format="GIF" /></para><para>Opens a
+          fileref="./user_gfx/new_window.gif" format="GIF" /></para><para>Opens a
           new window which displays the streets and vehicles moving on them.</para><caution><para>If
           the previous window is maximized (fills the whole application area),
           the new one will be maximized, too. This lets the previous window
@@ -3433,17 +3421,17 @@
           <title>View Settings</title>
 
           <para><itemizedlist spacing="compact"><listitem><para>Recenter View
-          - Button <inlinegraphic fileref="./gfx/recenter_view.gif"
+          - Button <inlinegraphic fileref="./user_gfx/recenter_view.gif"
           format="GIF" /></para><para>You can use this button to reset the
           view to show the whole network. After pressing this button, the view
           will be the same as after loading the simulation: The zoom factor
           will be reset to a value that lets the window display the whole
           simulation area and the middle of the loaded network will be place
           into the middle of the view.</para></listitem><listitem><para>Show
-          Legend - Button <inlinegraphic fileref="./gfx/show_legend.gif"
+          Legend - Button <inlinegraphic fileref="./user_gfx/show_legend.gif"
           format="GIF" /></para><para>Switches the legend (only the scale) on
           and off.</para></listitem><listitem><para>Allow Rotation - Button
-          <inlinegraphic fileref="./gfx/allow_rotation.gif" format="GIF" /></para><para>When
+          <inlinegraphic fileref="./user_gfx/allow_rotation.gif" format="GIF" /></para><para>When
           activated, this button disables the possibility to rotate the
           network.</para><caution><para>Actually, this button should be called
           &#34;Disallow Rotation&#34;.</para></caution><caution><para>Rotation
@@ -3457,15 +3445,15 @@
           <title>Tracking Settings</title>
 
           <para><itemizedlist spacing="compact"><listitem><para>Locate
-          Junction - Button <inlinegraphic fileref="./gfx/locate_junction.gif"
+          Junction - Button <inlinegraphic fileref="./user_gfx/locate_junction.gif"
           format="GIF" /></para><para>Opens a window that allows to choose a
           junction name from the set of junctions the network consists of.
           Pressing ok with a chosen junction zooms the view to this junction.</para></listitem><listitem><para>Locate
-          Edge - Button <inlinegraphic fileref="./gfx/locate_edge.gif"
+          Edge - Button <inlinegraphic fileref="./user_gfx/locate_edge.gif"
           format="GIF" /></para><para>Opens a window that allows to choose an
           edge name from the set of junctions the network consists of.
           Pressing ok with a chosen edge zooms the view to this edge.</para></listitem><listitem><para>Locate
-          Vehicle - Button <inlinegraphic fileref="./gfx/locate_vehicle.gif"
+          Vehicle - Button <inlinegraphic fileref="./user_gfx/locate_vehicle.gif"
           format="GIF" /></para><para>Opens a window that allows to choose a
           vehicle name from the set of vehicle currently driving within the
           simulation. Pressing ok with a chosen vehicle zooms the view to this
@@ -3478,7 +3466,7 @@
 
           <para><itemizedlist spacing="compact"><listitem><para>Change Vehicle
           Colouring Scheme - Button <inlinegraphic
-          fileref="./gfx/colour_vehicle.gif" format="GIF" /></para><para>The
+          fileref="./user_gfx/colour_vehicle.gif" format="GIF" /></para><para>The
           combobox allows you to choose how the view shall determine a
           displayed vehicle&#39;s colour. The following coluring schemes are
           avaliable for vehicles:</para><itemizedlist spacing="compact"><listitem><para>by
@@ -3494,7 +3482,7 @@
           ... to be described ...</para></listitem><listitem><para>waiting#1:
           ... to be described ...</para></listitem></itemizedlist></listitem><listitem><para>Change
           Lane Colouring Scheme - Button <inlinegraphic
-          fileref="./gfx/colour_lane.gif" format="GIF" /></para><para>The
+          fileref="./user_gfx/colour_lane.gif" format="GIF" /></para><para>The
           combobox allows you to choose how the view shall determine a
           displayed lane&#39;s colour. The following coluring schemes are
           avaliable for lanes:</para><itemizedlist spacing="compact"><listitem><para>black:
@@ -3503,18 +3491,18 @@
           internal lanes blue</para></listitem><listitem><para>by speed: The
           lanes are coloured by the speed allowed on them, blue for fast
           lanes, red for slow</para></listitem></itemizedlist></listitem><listitem><para>Show
-          Grid - Button <inlinegraphic fileref="./gfx/show_grid.gif"
+          Grid - Button <inlinegraphic fileref="./user_gfx/show_grid.gif"
           format="GIF" /></para><para>Turns the visualisation f the grid the
           network is mapped onto on/off. This is rather a debugging feature.</para></listitem><listitem><para>Show
-          Tool Tips - Button <inlinegraphic fileref="./gfx/show_tooltips.gif"
+          Tool Tips - Button <inlinegraphic fileref="./user_gfx/show_tooltips.gif"
           format="GIF" /></para><para>If this button is activated, the id for
           the object the mouse pointer is over will be displayed.</para></listitem><listitem><para>Show
           Full Geometry - Button <inlinegraphic
-          fileref="./gfx/show_geometry.gif" format="GIF" /></para><para>Switches
+          fileref="./user_gfx/show_geometry.gif" format="GIF" /></para><para>Switches
           between full and simple - geometry. The picture beyond shows the
           difference between full and simple geometry mode.</para><figure><title>The
           difference between simple (left) and full (right) geometry mode</title><mediaobject><imageobject><imagedata
-          align="center" fileref="./gfx/simple_vs_full_geom.gif" format="GIF" /></imageobject></mediaobject></figure></listitem></itemizedlist></para>
+          align="center" fileref="./user_gfx/simple_vs_full_geom.gif" format="GIF" /></imageobject></mediaobject></figure></listitem></itemizedlist></para>
         </sect3>
       </sect2>
     </sect1>
@@ -3562,7 +3550,81 @@
     </sect1>
   </chapter>
 
-  <appendix id="NamingConventions">
+  <chapter id="user_chp08">
+    <title>Tips, Tricks &#38; Tools</title>
+
+    <para>We want to supply some additional information that did not fit into
+    the descriptions within the previous chapters. The next chapters are
+    possibly the most interesting ones of this document as they describe some
+    possibilities to ease the work.</para>
+
+    <para>We will now discuss the different possibilities to use the graphical
+    user interface more deeply.</para>
+
+    <sect1>
+      <title>Using Configuration Files</title>
+
+      <para>Most simulations have to be executed more than only one time.
+      Furthermore, some experiments require the execution of similar, slightly
+      different settings, for example the same network with a different route
+      set. To avoid the retyping of all the parameter at the input line, all
+      of the main applications can be fed with a configuration file. This
+      configuration file contains the values the user normally would give to
+      the program at the command line. For example, instead of typing</para>
+
+      <blockquote>
+        <para>dua-router(.exe) --cell=myCellFile --net=mySUMONet.net.xml
+        --output-file=MySUMORoutes.rou.xml -b 0 -e 3600</para>
+      </blockquote>
+
+      <para>you can start the router with a configuration file only:</para>
+
+      <blockquote>
+        <para>dua-router(.exe) -c=myConfig.rou.cfg</para>
+      </blockquote>
+
+      <para>The &#34;-c &#60;FILE&#62;&#34; - option may be passed to all of
+      the package&#39;s main applications.</para>
+
+      <para>Of course, you have to build the configuration file
+      &#34;myConfig.rou.cfg&#34; first. You can find templates for
+      configuration files within the data/cfg_templates - folder and all
+      examples coming with the release contain configuration files, too.</para>
+
+      <para>A configuration file is a simple XML-file in which each of the
+      command line parameter is represented as a XML-element with the
+      parameter&#39;s value being given as text between the begin and end tag
+      of this parameter. So if you want to set a parameter &#34;foo&#34; to
+      the value &#34;bar&#34; within your configuration file, write
+      <sgmltag>&#60;foo&#62;bar&#60;foo/&#62;</sgmltag> into the configuration
+      file. Do not forget that each XML-file has to have a root element, so
+      that the whole configuration file would look like this:</para>
+
+      <para><sgmltag>&#60;configuration&#62;</sgmltag></para>
+
+      <para><sgmltag> &#60;foo&#62;bar&#60;foo/&#62;</sgmltag></para>
+
+      <para><sgmltag>&#60;/configuration&#62;</sgmltag></para>
+
+      <para>Between the starting at the ending tag, any type of values may be
+      set, use a &#39;x&#39; to mark boolean values as set. If a parameter
+      allows a set of values (normally separated by a &#39;;&#39;), you have
+      to use a single element and embed these value into it as you would on
+      command line. A different approach will maybe be invented in future.</para>
+    </sect1>
+
+    <sect1>
+      <title>Using generated XML-Files</title>
+
+      <para>All but imported files used by SUMO use XML as format. This makes
+      their usage not as straightforward as plain CSV-file, for example, but
+      with some additional tools, these files are far more flexible and
+      powerful. Some tools can be found within the tools/-folder coming with
+      the release. We will discuss these</para>
+    </sect1>
+  </chapter>
+
+  <appendix id="user_apa">
     <title>Naming Conventions</title>
 
     <para>To ease the usage of the supplied files, all of which are within a
@@ -3619,7 +3681,7 @@
     </itemizedlist>
   </appendix>
 
-  <appendix id="IncludedData">
+  <appendix id="user_apb">
     <title>Included Data</title>
 
     <sect1>
@@ -3653,7 +3715,7 @@
     </sect1>
   </appendix>
 
-  <appendix id="ErrorMessages">
+  <appendix id="user_apc">
     <title>Error Messages</title>
 
     <para>Here, only errors that should occur to normal users are reported.

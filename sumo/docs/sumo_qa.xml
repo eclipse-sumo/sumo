@@ -4,6 +4,9 @@
 <chapter>
   <title>Questions and Answers</title>
 
+  <para>We advice you to read also the user documentation - especially the
+  tricks, tips &#38; tools - chapter.</para>
+
   <sect1>
     <title>General</title>
 
@@ -190,6 +193,20 @@
         speed in km/h. If so, use the SUMO-NETCONVERT - switch
         &#34;speed-in-km&#34; to recompute the speed limits. If this does not
         help, contact us.</para>
+      </sect3>
+
+      <sect3>
+        <title>Vehicle jumps backward</title>
+
+        <para><emphasis>Question: </emphasis>When I try to evaluate my vehicle
+        dump, sometimes vehicle seem to jump backward (their position is
+        smaller than in the previous step)</para>
+
+        <para><emphasis>Answer:</emphasis> To avoid jams due to an
+        inappropriate lane changing behaviour, vehicles may swap their lanes.
+        In this case each vehicle obtains the position and speed of the other
+        vehicle. As the position of the vehicles may differ a bit, one of the
+        vehicles may seem to jump backwards.</para>
       </sect3>
     </sect2>
   </sect1>
