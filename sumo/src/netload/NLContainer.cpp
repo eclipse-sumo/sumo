@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2002/10/17 10:34:48  dkrajzew
+// possibility of retrival of the preinitialised net during loading implemented for trigger handling
+//
 // Revision 1.1  2002/10/16 15:36:50  dkrajzew
 // moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
 //
@@ -528,6 +531,12 @@ NLContainer::buildVehicles()
 MSNet::DetectorCont *
 NLContainer::getDetectors() {
     return m_pDetectors;
+}
+
+MSNet &
+NLContainer::getNet()
+{
+    return *(MSNet::getInstance());
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

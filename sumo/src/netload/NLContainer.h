@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2002/10/17 10:34:48  dkrajzew
+// possibility of retrival of the preinitialised net during loading implemented for trigger handling
+//
 // Revision 1.1  2002/10/16 15:36:47  dkrajzew
 // moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
 //
@@ -274,8 +277,11 @@ public:
     /// end of operations; builds the vehicles
     MSEmitControl *buildVehicles();
 
-    // returns the detectors
+    /// returns the detectors
     MSNet::DetectorCont *getDetectors();
+
+    /// returns the preallocated (preinitialised) net
+    MSNet &getNet();
 private:
     /** invalid copy constructor */
     NLContainer(const NLContainer &s);
