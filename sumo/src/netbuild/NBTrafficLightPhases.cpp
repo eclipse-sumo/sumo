@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/07/21 11:04:06  dkrajzew
+// the default duration of green light phases may now be changed on startup
+//
 // Revision 1.12  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -71,14 +74,25 @@ namespace
 #include <algorithm>
 #include <iostream>
 #include <bitset>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/options/Option.h>
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightLogicVector.h"
 #include "NBRequestEdgeLinkIterator.h"
 #include "NBTrafficLightPhases.h"
 #include "NBLinkCliqueContainer.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 NBTrafficLightPhases::NBTrafficLightPhases(
     const NBLinkCliqueContainer &cliques, size_t noCliques)
     : _phasesVectorsByLength(noCliques, PhasesVector()),
@@ -249,6 +263,9 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
         }
         // add phase
         size_t duration = 20;
+        if(OptionsSubSys::getOptions().isSet("traffic-light-green")) {
+            duration = OptionsSubSys::getOptions().getInt("traffic-light-green");
+        }
         ret->addStep(duration, driveMask, brakeMask, std::bitset<64>());
         // add possible additional left-turn phase when existing
 		std::bitset<64> yellow = driveMask;

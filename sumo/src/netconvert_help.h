@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2003/07/21 11:04:06  dkrajzew
+// the default duration of green light phases may now be changed on startup
+//
 // Revision 1.7  2003/07/07 08:40:09  dkrajzew
 // included new options into the help-screens
 //
@@ -100,6 +103,8 @@ char *help[] = {
 	"                                     vissim-import",
     "   --keep-small-tyellow           Given yellow times are kept even if too ",
     "                                     they are small",
+    "   --traffic-light-green INT      Overide the default (20s) of a green phase",
+    "                                     duration "
     " ",
     " Report options:",
     "   -v, --verbose                   SUMO-NETCONVERT will report what it does",

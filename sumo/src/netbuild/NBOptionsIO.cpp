@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/07/21 11:04:06  dkrajzew
+// the default duration of green light phases may now be changed on startup
+//
 // Revision 1.15  2003/07/07 08:22:42  dkrajzew
 // some further refinements due to the new 1:N traffic lights and usage of geometry information
 //
@@ -211,6 +214,7 @@ NBOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("speed-in-km", new Option_Bool(false));
     oc.doRegister("use-laneno-as-priority", new Option_Bool(false));
     oc.doRegister("keep-small-tyellow", new Option_Bool(false));
+    oc.doRegister("traffic-light-green", new Option_Integer());
 }
 
 
