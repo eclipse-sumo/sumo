@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2003/10/15 11:51:28  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.12  2003/09/23 14:16:36  dkrajzew
 // further work on vissim-import
 //
@@ -278,16 +281,15 @@ NIVissimConnection::buildGeom()
     myGeom.push_back(myToDef.getGeomPosition());
 }
 
-
+/*
 void
-NIVissimConnection::dict_buildNBEdgeConnections()
+NIVissimConnection::dict_extendEdgesGeoms()
 {
-	size_t ref = 0;
+    typedef std::vector<NIVissimConnection*> ConnectionVector;
+    typedef std::map<NBEdge*, ConnectionVector> Edge2ConnMap;
+    Edge2ConnMap myOutgoing, myIncoming;
+    // build lists of connections for each outgoing/incoming edge
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-/*        int bla = (*i).first;
-        if(bla==2000284||bla==2000283) {
-            int bla = 0;
-        }*/
         NIVissimConnection *c = (*i).second;
         NBEdge *fromEdge = NBEdgeCont::retrievePossiblySplitted(
             toString<int>(c->getFromEdgeID()),
@@ -297,6 +299,46 @@ NIVissimConnection::dict_buildNBEdgeConnections()
             toString<int>(c->getToEdgeID()),
             toString<int>(c->getFromEdgeID()),
             false);
+        myOutgoing[fromEdge].push_back(c);
+        myIncoming[toEdge].push_back(c);
+    }
+    // add information to edges
+    Edge2ConnMap::iterator j;
+    for(j=myOutgoing.begin(); j!=myOutgoing.end(); j++) {
+        NBEdge *e = (*j).first;
+        sort((*j).second.begin(), k!=(*j).second.end(),
+            connection_most_opposite_to(e));
+        NIVissimConnection *c = *((*j).second.begin());
+        const Position2DVector &geom = c->getGeometry();
+        e->addConnectionGeometryToEnd(geom);
+    }
+
+    for(j=myOutgoing.begin(); j!=myOutgoing.end(); j++) {
+        NBEdge *e = (*j).first;
+        sort((*j).second.begin(), k!=(*j).second.end(),
+            connection_most_opposite_from(e));
+        NIVissimConnection *c = *((*j).second.begin());
+        const Position2DVector &geom = c->getGeometry();
+        e->addConnectionGeometryToBegin(geom);
+    }
+}
+*/
+
+void
+NIVissimConnection::dict_buildNBEdgeConnections()
+{
+	size_t ref = 0;
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+        NIVissimConnection *c = (*i).second;
+        NBEdge *fromEdge = NBEdgeCont::retrievePossiblySplitted(
+            toString<int>(c->getFromEdgeID()),
+            toString<int>(c->getToEdgeID()),
+            true);
+        NBEdge *toEdge = NBEdgeCont::retrievePossiblySplitted(
+            toString<int>(c->getToEdgeID()),
+            toString<int>(c->getFromEdgeID()),
+            false);
+//        assert(fromEdge!=0&&toEdge!=0);
         // check whether it is near to an already build node
 /*
         if( NBEdgeCont::retrieve(toString<int>(c->getFromEdgeID()))==0
@@ -318,6 +360,7 @@ NIVissimConnection::dict_buildNBEdgeConnections()
         }
 */
         if(fromEdge==0||toEdge==0) {
+            // !!! das gleiche wie oben
             fromEdge = NBEdgeCont::retrievePossiblySplitted(
                 toString<int>(c->getFromEdgeID()),
                 toString<int>(c->getToEdgeID()),

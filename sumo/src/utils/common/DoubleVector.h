@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/10/15 11:55:51  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.8  2003/09/05 15:25:35  dkrajzew
 // solved some naming problems
 //
@@ -63,6 +66,8 @@ public:
     static double minValue(const DoubleVector &dv);
     static void remove_smaller_than(DoubleVector &v, double swell);
     static void remove_larger_than(DoubleVector &v, double swell);
+    static void add2All(DoubleVector &v, double what);
+
 };
 
 

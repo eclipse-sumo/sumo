@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/10/15 11:56:30  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.7  2003/09/05 15:27:38  dkrajzew
 // changes from adding internal lanes and further work on node geometry
 //
@@ -93,6 +96,12 @@ public:
         _y += dy;
     }
 
+    /// Adds the given position to this one
+    void sub(double dx, double dy) {
+        _x -= dx;
+        _y -= dy;
+    }
+
     void reshiftRotate(double xoff, double yoff, double rot) {
         _x = _x * cos(rot) + _y * sin(rot) + xoff;
         _y = _y * cos(rot) - _x * sin(rot) + yoff;
@@ -103,6 +112,14 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Position2D &p) {
         os << p.x() << "," << p.y();
         return os;
+    }
+
+    friend bool operator==(const Position2D &p1, const Position2D &p2) {
+        return p1.x()==p2.x() && p1.y()==p2.y();
+    }
+
+    friend bool operator!=(const Position2D &p1, const Position2D &p2) {
+        return p1.x()!=p2.x() || p1.y()!=p2.y();
     }
 
 private:

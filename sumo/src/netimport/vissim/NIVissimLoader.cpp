@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/10/15 11:51:28  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.18  2003/09/23 14:15:33  dkrajzew
 // further work on vissim-import
 //
@@ -462,6 +465,7 @@ NIVissimLoader::postLoadBuild(double offset)
     NIVissimEdge::dict_buildNBEdges(offset);
     NIVissimDistrictConnection::dict_BuildDistricts();
     NIVissimConnection::dict_buildNBEdgeConnections();
+//    NIVissimConnection::dict_extendEdgesGeoms();
     NIVissimNodeCluster::dict_addDisturbances();
 	NIVissimTL::dict_SetSignals();
 

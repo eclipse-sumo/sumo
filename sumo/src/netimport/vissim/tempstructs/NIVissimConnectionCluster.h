@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/10/15 11:51:28  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.9  2003/09/22 12:42:17  dkrajzew
 // further work on vissim-import
 //
@@ -44,13 +47,13 @@
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Boundery.h>
 #include <utils/common/IntVector.h>
+#include "NIVissimConnection.h"
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class NBNode;
-class NIVissimConnection;
 
 
 /* =========================================================================
@@ -93,6 +96,12 @@ public:
 	const IntVector &getConnections() const {
 		return myConnections;
 	}
+
+    Position2DVector getIncomingContinuationGeometry(NIVissimEdge *e) const;
+    Position2DVector getOutgoingContinuationGeometry(NIVissimEdge *e) const;
+    NIVissimConnection *getIncomingContinuation(NIVissimEdge *e) const;
+    NIVissimConnection *getOutgoingContinuation(NIVissimEdge *e) const;
+
 
 public:
     /** @brief Tries to joind clusters participating within a node
@@ -138,6 +147,27 @@ private:
         typedef std::vector<NIVissimConnection*> ConnectionCont;
         ConnectionCont myConnections;
     };
+
+    class same_direction_sorter {
+    private:
+        double _angle;
+
+    public:
+        /// constructor
+        explicit same_direction_sorter(double angle)
+            : _angle(angle) { }
+
+    public:
+        /// comparing operation
+        int operator() (NIVissimConnection *c1, NIVissimConnection *c2) const {
+            return
+                abs(c1->getGeometry().beginEndAngle()-_angle)
+                <
+                abs(c2->getGeometry().beginEndAngle()-_angle);
+        }
+    };
+
+
 
 private:
     /// Adds the second cluster

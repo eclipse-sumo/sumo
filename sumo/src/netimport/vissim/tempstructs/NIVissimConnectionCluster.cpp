@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2003/10/15 11:51:28  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.15  2003/09/22 12:42:17  dkrajzew
 // further work on vissim-import
 //
@@ -386,10 +389,6 @@ NIVissimConnectionCluster::buildNodeClusters()
         int tlsid = -1;
         int nodeid = -1;
 
-        if((*i)->myBlaID==296||(*i)->myBlaID==297) {
-            int bla = 0;
-        }
-
         if((*i)->myConnections.size()>0) {
             (*i)->recomputeBoundery();
 //            assert((*i)->myBoundery.xmax()>(*i)->myBoundery.xmin());
@@ -708,6 +707,101 @@ NIVissimConnectionCluster::clearDict()
     myClusters.clear();
     myFirstFreeID = 100000;
 }
+
+
+Position2DVector
+NIVissimConnectionCluster::getIncomingContinuationGeometry(NIVissimEdge *e) const
+{
+    // collect connection where this edge is the incoming one
+    std::vector<NIVissimConnection*> edgeIsIncoming;
+    for(IntVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
+        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        if(c->getFromEdgeID()==e->getID()) {
+            edgeIsIncoming.push_back(c);
+        }
+    }
+    //
+    if(edgeIsIncoming.size()==0) {
+        return Position2DVector();
+    }
+    // sort connected edges in same direction
+    sort(edgeIsIncoming.begin(), edgeIsIncoming.end(),
+        same_direction_sorter(e->getGeometry().beginEndAngle()));
+    NIVissimConnection *c = *(edgeIsIncoming.begin());
+    return c->getGeometry();
+}
+
+
+
+NIVissimConnection *
+NIVissimConnectionCluster::getIncomingContinuation(NIVissimEdge *e) const
+{
+    // collect connection where this edge is the incoming one
+    std::vector<NIVissimConnection*> edgeIsIncoming;
+    for(IntVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
+        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        if(c->getFromEdgeID()==e->getID()) {
+            edgeIsIncoming.push_back(c);
+        }
+    }
+    //
+    if(edgeIsIncoming.size()==0) {
+        return 0;
+    }
+    // sort connected edges in same direction
+    sort(edgeIsIncoming.begin(), edgeIsIncoming.end(),
+        same_direction_sorter(e->getGeometry().beginEndAngle()));
+    return *(edgeIsIncoming.begin());
+}
+
+
+
+Position2DVector
+NIVissimConnectionCluster::getOutgoingContinuationGeometry(NIVissimEdge *e) const
+{
+    // collect connection where this edge is the outgoing one
+    std::vector<NIVissimConnection*> edgeIsOutgoing;
+    for(IntVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
+        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        if(c->getToEdgeID()==e->getID()) {
+            edgeIsOutgoing.push_back(c);
+        }
+    }
+    //
+    if(edgeIsOutgoing.size()==0) {
+        return Position2DVector();
+    }
+    // sort connected edges in same direction
+    sort(edgeIsOutgoing.begin(), edgeIsOutgoing.end(),
+        same_direction_sorter(e->getGeometry().beginEndAngle()));
+    NIVissimConnection *c = *(edgeIsOutgoing.begin());
+    return c->getGeometry();
+}
+
+
+NIVissimConnection*
+NIVissimConnectionCluster::getOutgoingContinuation(NIVissimEdge *e) const
+{
+    // collect connection where this edge is the outgoing one
+    std::vector<NIVissimConnection*> edgeIsOutgoing;
+    for(IntVector::const_iterator i=myConnections.begin(); i!=myConnections.end(); i++) {
+        NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        if(c->getToEdgeID()==e->getID()) {
+            edgeIsOutgoing.push_back(c);
+        }
+    }
+    //
+    if(edgeIsOutgoing.size()==0) {
+        return 0;
+    }
+    // sort connected edges in same direction
+    sort(edgeIsOutgoing.begin(), edgeIsOutgoing.end(),
+        same_direction_sorter(e->getGeometry().beginEndAngle()));
+    return *(edgeIsOutgoing.begin());
+}
+
+
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

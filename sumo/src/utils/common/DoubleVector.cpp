@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/10/15 11:55:51  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.10  2003/09/05 15:25:35  dkrajzew
 // solved some naming problems
 //
@@ -166,6 +169,13 @@ DoubleVectorHelper::minValue(const DoubleVector &v)
 }
 
 
+void
+DoubleVectorHelper::add2All(DoubleVector &v, double what)
+{
+    for(DoubleVector::iterator j=v.begin(); j!=v.end(); j++) {
+        (*j) += what;
+    }
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

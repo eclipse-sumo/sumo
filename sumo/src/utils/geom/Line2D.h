@@ -21,6 +21,8 @@ public:
     double atan2DegreeAngle() const;
     Position2D intersectsAt(const Line2D &l) const;
     double length() const;
+    void add(double x, double y);
+    void sub(double x, double y);
 
 private:
     Position2D myP1, myP2;

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/10/15 11:51:28  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.6  2003/06/18 11:35:29  dkrajzew
 // message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
 //
@@ -42,6 +45,7 @@ namespace
 #include <map>
 #include <cassert>
 #include <utils/geom/GeomHelper.h>
+#include <utils/geom/Line2D.h>
 #include "NIVissimAbstractEdge.h"
 
 
@@ -87,6 +91,13 @@ NIVissimAbstractEdge::dictionary(int id)
 Position2D
 NIVissimAbstractEdge::getGeomPosition(double pos) const
 {
+    if(myGeom.length()<pos) {
+        double amount = pos - myGeom.length();
+        Line2D l(myGeom.at(myGeom.size()-2),
+            GeomHelper::extrapolate_second(
+                myGeom.at(myGeom.size()-2), myGeom.at(myGeom.size()-1), amount*2));
+        return l.getPositionAtDistance(pos);
+    }
     return myGeom.positionAtLengthPosition(pos);
 }
 

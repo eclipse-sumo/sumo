@@ -70,7 +70,6 @@ Line2D::move2side(double amount)
 DoubleVector
 Line2D::intersectsAtLengths(const Position2DVector &v)
 {
-    assert(v.intersects(myP1, myP2));
     Position2DVector p = v.intersectsAtPoints(myP1, myP2);
     DoubleVector ret;
     for(size_t i=0; i<p.size(); i++) {
@@ -108,4 +107,20 @@ Line2D::length() const
         (myP1.x()-myP2.x())*(myP1.x()-myP2.x())
         +
         (myP1.y()-myP2.y())*(myP1.y()-myP2.y()));
+}
+
+
+void
+Line2D::add(double x, double y)
+{
+    myP1.add(x, y);
+    myP2.add(x, y);
+}
+
+
+void
+Line2D::sub(double x, double y)
+{
+    myP1.sub(x, y);
+    myP2.sub(x, y);
 }

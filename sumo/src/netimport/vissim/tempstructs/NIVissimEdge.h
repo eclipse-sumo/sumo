@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2003/10/15 11:51:28  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.8  2003/09/23 14:16:37  dkrajzew
 // further work on vissim-import
 //
@@ -138,13 +141,15 @@ private:
     void buildNBEdge(double offset);
 
     /// Returns the origin node
-    std::pair<bool, NBNode*> getFromNode(ConnectionClusters &clusters);
+    std::pair<NIVissimConnectionCluster*, NBNode*>
+        getFromNode(ConnectionClusters &clusters);
 
     /// Returns the destination node
-    std::pair<bool, NBNode*> getToNode(ConnectionClusters &clusters);
+    std::pair<NIVissimConnectionCluster*, NBNode*>
+        getToNode(ConnectionClusters &clusters);
 
     /// Tries to resolve the problem that the same node has been returned as origin and destination node
-    std::pair<NBNode*, NBNode*> resolveSameNode(double offset, 
+    std::pair<NBNode*, NBNode*> resolveSameNode(double offset,
         NBNode *prevFrom, NBNode *prevTo);
 
 private:

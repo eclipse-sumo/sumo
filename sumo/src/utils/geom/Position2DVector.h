@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2003/10/15 11:56:30  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.11  2003/10/02 14:55:57  dkrajzew
 // visualisation of E2-detectors implemented
 //
@@ -48,10 +51,13 @@
 
 #include <queue>
 #include <iostream>
+#include <utils/common/DoubleVector.h>
 #include "AbstractPoly.h"
 #include "Boundery.h"
 #include "Position2D.h"
 
+
+class Line2D;
 
 /* =========================================================================
  * class definitions
@@ -98,11 +104,17 @@ public:
     Position2DVector intersectsAtPoints(const Position2D &p1,
         const Position2D &p2) const; // !!!
 
+    DoubleVector intersectsAtLengths(const Position2DVector &s) const; // !!!
+
+    DoubleVector intersectsAtLengths(const Line2D &s) const; // !!!
+
     /** Returns the position of the intersection */
     Position2D intersectsAtPoint(const Position2DVector &v1) const; // !!!
 
     /// Removes all information from this list
     void clear();
+
+    void closePolygon();
 
     /** @brief returns the position at the given index
         !!! exceptions?*/
@@ -168,6 +180,15 @@ public:
 
     void sortByIncreasingXY();
 
+    void extrapolate(double val);
+
+    Position2DVector reverse() const;
+
+    void move2side(double amount);
+
+    Line2D lineAt(size_t pos) const;
+
+
     class as_poly_cw_sorter {
     public:
         /// constructor
@@ -201,6 +222,15 @@ public:
     float isLeft( const Position2D &P0, const Position2D &P1, const Position2D &P2 ) const;
 
     void set(size_t pos, const Position2D &p);
+
+    void pruneFromBeginAt(const Position2D &p);
+    void pruneFromEndAt(const Position2D &p);
+
+    double beginEndAngle() const;
+
+    void eraseAt(size_t i);
+
+    double nearest_position_on_line_to_point(const Position2D &p) const;
 
 private:
 

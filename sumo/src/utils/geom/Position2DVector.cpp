@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/10/15 11:56:30  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.14  2003/10/02 14:55:56  dkrajzew
 // visualisation of E2-detectors implemented
 //
@@ -59,6 +62,7 @@ namespace
 #include <cmath>
 #include <iostream>
 #include <algorithm>
+#include <cassert>
 #include "AbstractPoly.h"
 #include "Position2D.h"
 #include "Position2DVector.h"
@@ -162,7 +166,8 @@ Position2DVector::intersects(const Position2D &p1, const Position2D &p2) const
             return true;
         }
     }
-    return GeomHelper::intersects(*(myCont.end()-1), *(myCont.begin()), p1, p2);
+    //return GeomHelper::intersects(*(myCont.end()-1), *(myCont.begin()), p1, p2);
+    return false;
 }
 
 
@@ -174,7 +179,8 @@ Position2DVector::intersects(const Position2DVector &v1) const
             return true;
         }
     }
-    return v1.intersects(*(myCont.end()-1), *(myCont.begin()));
+    //return v1.intersects(*(myCont.end()-1), *(myCont.begin()));
+    return false;
 }
 
 
@@ -187,10 +193,12 @@ Position2DVector::intersectsAtPoint(const Position2D &p1,
             return GeomHelper::intersection_position(*i, *(i+1), p1, p2);
         }
     }
+    /*
     if(GeomHelper::intersects(*(myCont.end()-1), *(myCont.begin()), p1, p2)) {
         return GeomHelper::intersection_position(
             *(myCont.end()-1), *(myCont.begin()), p1, p2);
     }
+    */
     return Position2D(-1, -1);
 }
 
@@ -203,9 +211,11 @@ Position2DVector::intersectsAtPoint(const Position2DVector &v1) const
             return v1.intersectsAtPoint(*i, *(i+1));
         }
     }
+    /*
     if(v1.intersects(*(myCont.end()-1), *(myCont.begin()))) {
         return v1.intersectsAtPoint(*(myCont.end()-1), *(myCont.begin()));
     }
+    */
     return Position2D(-1, -1);
 }
 
@@ -244,8 +254,10 @@ Position2DVector::positionAtLengthPosition(double pos) const
         }
         seenLength += nextLength;
     } while(++i!=myCont.end()-1);
-    return positionAtLengthPosition(*(myCont.end()-1),
-        *(myCont.begin()), pos-seenLength);
+    return myCont[myCont.size()-1];
+    assert(false);
+//    return positionAtLengthPosition(*(myCont.end()-1),
+//        *(myCont.begin()), pos-seenLength);
 }
 
 
@@ -262,8 +274,9 @@ Position2DVector::rotationDegreeAtLengthPosition(double pos) const
         }
         seenLength += nextLength;
     } while(++i!=myCont.end()-1);
-    Line2D l(*(myCont.end()-1), *(myCont.begin()));
-    return l.atan2DegreeAngle();
+    assert(false);
+//    Line2D l(*(myCont.end()-1), *(myCont.begin()));
+//    return l.atan2DegreeAngle();
 }
 
 
@@ -619,10 +632,12 @@ Position2DVector::intersectsAtPoints(const Position2D &p1,
             ret.push_back(GeomHelper::intersection_position(*i, *(i+1), p1, p2));
         }
     }
+    /*
     if(GeomHelper::intersects(*(myCont.end()-1), *(myCont.begin()), p1, p2)) {
         ret.push_back(GeomHelper::intersection_position(
             *(myCont.end()-1), *(myCont.begin()), p1, p2));
     }
+    */
     return ret;
 }
 
@@ -646,7 +661,10 @@ Position2DVector::getSubpart(double begin, double end) const
 {
 	Position2DVector ret;
 	Position2D begPos = positionAtLengthPosition(begin);
-	Position2D endPos = positionAtLengthPosition(end);
+    Position2D endPos = myCont[myCont.size()-1];
+    if(length()>end) {
+	    endPos = positionAtLengthPosition(end);
+    }
 	ret.push_back(begPos);
 
 	double seen = 0;
@@ -671,6 +689,249 @@ Position2DVector::getSubpart(double begin, double end) const
 	return ret;
 }
 
+
+void
+Position2DVector::pruneFromBeginAt(const Position2D &p)
+{
+/*    ContType::reverse_iterator i=myCont.rbegin();
+    const Position2D &cp = (*i);
+    double dist = GeomHelper::distance(p, cp);
+    double cdist = dist;
+    size_t pos = 0;
+    do {
+        const Position2D &cp2 = *(++i);
+        cdist = GeomHelper::distance(p, cp2);
+        pos++;
+    } while(cdist<dist&&i!=myCont.rend());
+    if(i==myCont.rend()) {
+        return;
+    }
+    while(myCont.size()>pos-1) {
+        myCont.erase(myCont.begin());
+    }
+    assert(myCont.size()>=2);*/
+
+    // find minimum distance (from the begin)
+    size_t pos = 0;
+    double dist = 1000000;
+    size_t currPos = 0;
+    double currDist = GeomHelper::DistancePointLine(p,
+        GeomHelper::extrapolate_first(*(myCont.begin()), *(myCont.begin()+1), 100),
+        *(myCont.begin()+1));
+//    assert(currDist>=0);
+    if(currDist>=0&&currDist<dist) {
+        dist = currDist;
+        pos = currPos;
+    }
+
+    for(ContType::iterator i=myCont.begin(); i!=myCont.end()-1; i++, currPos++) {
+        double currDist = GeomHelper::DistancePointLine(p, *i, *(i+1));
+        if(currDist>=0&&currDist<dist) {
+            dist = currDist;
+            pos = currPos;
+        }
+    }
+    // remove leading items
+    for(size_t j=0; j<pos; j++) {
+        myCont.erase(myCont.begin());
+    }
+    // replace first item by the new position
+    double lpos = GeomHelper::nearest_position_on_line_to_point(
+        myCont[0], myCont[1], p);
+    if(lpos==-1) {
+        return;
+    }
+    Position2D np = positionAtLengthPosition(lpos);
+    if(np!=*(myCont.begin())) {
+        myCont.erase(myCont.begin());
+        if(np!=*(myCont.begin())) {
+            myCont.push_front(np);
+            assert(myCont.size()>1);
+            assert(*(myCont.begin())!=*(myCont.end()-1));
+        }
+    }
+}
+
+
+void
+Position2DVector::pruneFromEndAt(const Position2D &p)
+{
+    // find minimum distance (from the end)
+    size_t pos = 0;
+    double dist = 1000000;
+    size_t currPos = 0;
+    double currDist = GeomHelper::DistancePointLine(p,
+        *(myCont.end()-1),
+        GeomHelper::extrapolate_second(*(myCont.end()-2), *(myCont.end()-1), 100));
+//    assert(currDist>=0);
+    if(currDist>=0&&currDist<dist) {
+        dist = currDist;
+        pos = currPos;
+    }
+
+    for(ContType::reverse_iterator i=myCont.rbegin(); i!=myCont.rend()-1; i++, currPos++) {
+        double currDist = GeomHelper::DistancePointLine(p, *(i), *(i+1));
+        if(currDist>=0&&currDist<dist) {
+            dist = currDist;
+            pos = currPos;
+        }
+    }
+    // remove trailing items
+    for(size_t j=0; j<pos; j++) {
+        myCont.erase(myCont.end()-1);
+    }
+    // replace last item by the new position
+    double lpos =
+        GeomHelper::nearest_position_on_line_to_point(
+            myCont[myCont.size()-1], myCont[myCont.size()-2], p);
+    if(lpos==-1) {
+        return;
+    }
+    Position2D np = positionAtLengthPosition(
+        length() - lpos);
+    if(np!=*(myCont.end()-1)) {
+        myCont.erase(myCont.end()-1);
+        if(np!=*(myCont.end()-1)) {
+            myCont.push_back(np);
+            assert(myCont.size()>1);
+            assert(*(myCont.begin())!=*(myCont.end()-1));
+        }
+    }
+}
+
+
+double
+Position2DVector::beginEndAngle() const
+{
+    Line2D bla(myCont[0], myCont[myCont.size()-1]);
+    return bla.atan2Angle();
+}
+
+
+void
+Position2DVector::eraseAt(size_t i)
+{
+    myCont.erase(myCont.begin()+i);
+}
+
+
+double
+Position2DVector::nearest_position_on_line_to_point(const Position2D &p) const
+{
+    double shortestDist = 10000000;
+    double nearestPos = 10000;
+    double seen = 0;
+    for(ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
+        double pos = seen +
+            GeomHelper::nearest_position_on_line_to_point(*i, *(i+1), p);
+        double dist =
+            GeomHelper::distance(p, positionAtLengthPosition(pos));
+        //
+        if(shortestDist<dist) {
+            nearestPos = pos;
+            shortestDist = dist;
+        }
+        //
+    }
+    return nearestPos;
+}
+
+
+DoubleVector
+Position2DVector::intersectsAtLengths(const Position2DVector &s) const
+{
+    DoubleVector ret;
+    double pos = 0;
+    for(ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
+        Line2D l((*i), *(i+1));
+        DoubleVector atSegment = l.intersectsAtLengths(s);
+        DoubleVectorHelper::add2All(atSegment, pos);
+        copy(atSegment.begin(), atSegment.end(), back_inserter(ret));
+        pos += l.length();
+    }
+    return ret;
+}
+
+DoubleVector
+Position2DVector::intersectsAtLengths(const Line2D &s) const
+{
+    DoubleVector ret;
+    double pos = 0;
+    for(ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
+        Line2D l((*i), *(i+1));
+        if(GeomHelper::intersects(l.p1(), l.p2(), s.p1(), s.p2())) {
+            Position2D &p =
+                GeomHelper::intersection_position(l.p1(), l.p2(), s.p1(), s.p2());
+            double atLength = GeomHelper::distance(l.p1(), p);
+            ret.push_back(atLength+pos);
+        }
+        pos += l.length();
+    }
+    return ret;
+}
+
+
+void
+Position2DVector::extrapolate(double val)
+{
+    assert(myCont.size()>1);
+    Position2D nb =
+        GeomHelper::extrapolate_first(myCont[0], myCont[1], val);
+    Position2D ne =
+        GeomHelper::extrapolate_second(
+            myCont[myCont.size()-2], myCont[myCont.size()-1], val);
+    myCont.erase(myCont.begin());
+    push_front(nb);
+    myCont.erase(myCont.end()-1);
+    push_back(ne);
+}
+
+
+Position2DVector
+Position2DVector::reverse() const
+{
+    Position2DVector ret;
+    for(ContType::const_reverse_iterator i=myCont.rbegin(); i!=myCont.rend(); i++) {
+        ret.push_back(*i);
+    }
+    return ret;
+}
+
+
+void
+Position2DVector::move2side(double amount)
+{
+    if(myCont.size()==0) {
+        return;
+    }
+    ContType newCont;
+    std::pair<double, double> p;
+    for(ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
+        p = GeomHelper::getNormal90D_CW(*i, *(i+1), amount);
+        Position2D newPos(*i);
+        newPos.add(p.first, p.second);
+        newCont.push_back(newPos);
+    }
+    Position2D newPos(*(myCont.end()-1));
+    newPos.add(p.first, p.second);
+    newCont.push_back(newPos);
+    myCont = newCont;
+}
+
+
+Line2D
+Position2DVector::lineAt(size_t pos) const
+{
+    assert(myCont.size()>pos);
+    return Line2D(myCont[pos], myCont[pos+1]);
+}
+
+
+void
+Position2DVector::closePolygon()
+{
+    push_back(myCont[0]);
+}
 
 
 

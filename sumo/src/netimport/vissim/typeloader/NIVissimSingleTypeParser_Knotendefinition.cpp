@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/10/15 11:51:28  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.4  2003/05/20 09:42:37  dkrajzew
 // all data types implemented
 //
@@ -113,6 +116,7 @@ NIVissimSingleTypeParser_Knotendefinition::parse(std::istream &from)
         for(int i=0; i<no; i++) {
             poly.push_back(getPosition2D(from));
         }
+        poly.closePolygon();
         NIVissimNodeDef_Poly::dictionary(id, name, poly);
     }
     return true;
