@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/09/05 14:54:06  dkrajzew
+// implementations of artefact drawers moved to folder "drawerimpl"
+//
 // Revision 1.9  2003/08/15 12:19:16  dkrajzew
 // legend display patched
 //
@@ -119,8 +122,6 @@ namespace
 #include "QGLObjectToolTip.h"
 #include "GUIChooser.h"
 #include "GUISUMOViewParent.h"
-#include "GUITriangleVehicleDrawer.h"
-#include "GUISimpleLaneDrawer.h"
 #include "GUIDanielPerspectiveChanger.h"
 #include <guisim/GUIDetectorWrapper.h>
 #include "GUISUMOAbstractView.h"
@@ -155,26 +156,8 @@ using namespace std;
 void
 GUISUMOAbstractView::GUIDetectorDrawer::drawGLDetectors(size_t *which,
                                                         size_t maxDetectors,
-                                                        bool showToolTips,
                                                         double scale)
 {
-    for(size_t i=0; i<maxDetectors; i++ ) {
-        if(which[i]==0) {
-            continue;
-        }
-        size_t pos = 1;
-        for(size_t j=0; j<32; j++, pos<<=1) {
-            if((which[i]&pos)!=0) {
-                if(showToolTips) {
-                    glPushName(myDetectors[j+(i<<5)]->getGlID());
-                }
-                myDetectors[j+(i<<5)]->drawGL(scale);
-                if(showToolTips) {
-                    glPopName();
-                }
-            }
-        }
-    }
 }
 
 

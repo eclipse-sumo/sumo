@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/09/05 14:54:06  dkrajzew
+// implementations of artefact drawers moved to folder "drawerimpl"
+//
 // Revision 1.6  2003/08/15 12:19:16  dkrajzew
 // legend display patched
 //
@@ -221,7 +224,6 @@ public:
         virtual ~GUIVehicleDrawer() { }
 
         virtual void drawGLVehicles(size_t *onWhich, size_t maxEdges,
-            bool showToolTips,
             VehicleColoringScheme scheme) = 0;
 
     protected:
@@ -242,8 +244,7 @@ public:
         virtual ~GUILaneDrawer() { }
 
         virtual void drawGLLanes(size_t *which, size_t maxEdges,
-            bool showToolTips, double width,
-            LaneColoringScheme scheme) = 0;
+            double width, LaneColoringScheme scheme) = 0;
 
     protected:
 
@@ -265,7 +266,7 @@ public:
         virtual ~GUIROWRulesDrawer() { }
 
         virtual void drawGLROWs(size_t *which, size_t maxEdges,
-            bool showToolTips, double width) = 0;
+            double width) = 0;
 
     protected:
 
@@ -287,7 +288,7 @@ public:
         virtual ~GUIJunctionDrawer() { }
 
         virtual void drawGLJunctions(size_t *which, size_t maxJunctions,
-            bool showToolTips, JunctionColoringScheme scheme) = 0;
+            JunctionColoringScheme scheme) = 0;
 
     protected:
 
@@ -301,11 +302,10 @@ public:
             : myDetectors(detectors) { }
 
 	    /// destructor
-        ~GUIDetectorDrawer() { }
+        virtual ~GUIDetectorDrawer() { }
 
         void drawGLDetectors(size_t *which, size_t maxDetectors,
-            bool showToolTips, double scale
-            /*, JunctionColoringScheme scheme*/);
+            double scale);
 
     protected:
 
