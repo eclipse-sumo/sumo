@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.8  2003/08/20 11:40:57  dkrajzew
+// option for suppressing output of empty edges within the raw-output added
+//
 // Revision 1.7  2003/07/16 15:28:00  dkrajzew
 // MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
 //
@@ -125,6 +128,7 @@ namespace
 #include "MSLane.h"
 #include "MSNet.h"
 #include "MSLaneChanger.h"
+#include "MSGlobals.h"
 #include <algorithm>
 #include <iostream>
 #include <cassert>
@@ -291,17 +295,34 @@ MSEdge::XMLOut::XMLOut( const MSEdge& obj,
 ostream&
 operator<<( ostream& os, const MSEdge::XMLOut& obj )
 {
-    string indent( obj.myIndentWidth , ' ' );
-    os << indent << "<edge id=\"" << obj.myObj.myID << "\">" << endl;
-    if ( obj.myWithChildElemes ) {
-        for ( MSEdge::LaneCont::const_iterator lane =
-              obj.myObj.myLanes->begin();
-              lane != obj.myObj.myLanes->end(); ++lane) {
-
-            os << MSLane::XMLOut( **lane, obj.myIndentWidth + 4, true );
+	//en
+    bool dump = !MSGlobals::myOmitEmptyEdgesOnDump;
+	if ( obj.myWithChildElemes && !dump )
+	{
+		for ( MSEdge::LaneCont::const_iterator lane = obj.myObj.myLanes->begin(); lane != obj.myObj.myLanes->end(); ++lane)
+		{
+			if( ((**lane).getVehicleNumber()!=0) )
+			{
+				dump = true;
+				break;
+			}
         }
     }
-    os << indent << "</edge>" << endl;
+	//en
+	if ( dump )
+	{
+        string indent( obj.myIndentWidth , ' ' );
+        os << indent << "<edge id=\"" << obj.myObj.myID << "\">" << endl;
+        if ( obj.myWithChildElemes ) {
+            for ( MSEdge::LaneCont::const_iterator lane =
+                obj.myObj.myLanes->begin();
+                lane != obj.myObj.myLanes->end(); ++lane) {
+
+                os << MSLane::XMLOut( **lane, obj.myIndentWidth + 4, true );
+            }
+        }
+        os << indent << "</edge>" << endl;
+	}
     return os;
 }
 

@@ -375,7 +375,11 @@ SOURCE=..\..\src\gui\moc_GUIViewTraffic.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\moc_QAboutSUMO.cpp
+SOURCE=..\..\src\gui\qdialogs\moc_QAboutSUMO.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\qdialogs\moc_QApplicationSettings.cpp
 # End Source File
 # Begin Source File
 
@@ -391,7 +395,15 @@ SOURCE=..\..\src\gui\moc_QGUIToggleButton.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\qdialogs\moc_QMicroscopicViewSettings.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\partable\moc_QParamPopupMenu.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\qdialogs\moc_QSimulationSettings.cpp
 # End Source File
 # Begin Source File
 
@@ -420,6 +432,10 @@ SOURCE=..\..\src\microsim\MSEventControl.cpp
 # Begin Source File
 
 SOURCE=..\..\src\utils\common\MsgHandler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\microsim\MSGlobals.cpp
 # End Source File
 # Begin Source File
 
@@ -595,6 +611,10 @@ SOURCE=..\..\src\utils\options\OptionsParser.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\options\OptionsSaveStorage.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\options\OptionsSubSys.cpp
 # End Source File
 # Begin Source File
@@ -607,7 +627,11 @@ SOURCE=..\..\src\helpers\PreStartInitialised.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\QAboutSUMO.cpp
+SOURCE=..\..\src\gui\qdialogs\QAboutSUMO.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\qdialogs\QApplicationSettings.cpp
 # End Source File
 # Begin Source File
 
@@ -631,11 +655,19 @@ SOURCE=..\..\src\gui\QGUIToggleButton.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\qdialogs\QMicroscopicViewSettings.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\partable\QParamPopupMenu.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\src\gui\QSimulationEndedEvent.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\qdialogs\QSimulationSettings.cpp
 # End Source File
 # Begin Source File
 
@@ -1207,6 +1239,10 @@ SOURCE=..\..\src\utils\common\MsgHandler.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSGlobals.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\common\MsgRetriever.h
 # End Source File
 # Begin Source File
@@ -1415,6 +1451,10 @@ SOURCE=..\..\src\utils\options\OptionsParser.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\utils\options\OptionsSaveStorage.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\utils\options\OptionsSubSys.h
 # End Source File
 # Begin Source File
@@ -1423,25 +1463,52 @@ SOURCE=..\..\src\utils\geom\Position2D.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\src\gui\QAboutSUMO.h
+SOURCE=..\..\src\gui\qdialogs\QAboutSUMO.h
 
 !IF  "$(CFG)" == "gui - Win32 Release"
 
-# Begin Custom Build - Moc'ing QAboutSUMO.h...
-InputPath=..\..\src\gui\QAboutSUMO.h
+# Begin Custom Build - Moc'ing QAboutSUMO.h ...
+InputPath=..\..\src\gui\qdialogs\QAboutSUMO.h
 
-"..\..\src\gui\moc_QAboutSUMO.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%QTDIR%\bin\moc.exe ..\..\src\gui\QAboutSUMO.h -o ..\..\src\gui\moc_QAboutSUMO.cpp
+"..\..\src\gui\qdialogs\moc_QAboutSUMO.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\qdialogs\QAboutSUMO.h -o ..\..\src\gui\qdialogs\moc_QAboutSUMO.cpp
 
 # End Custom Build
 
 !ELSEIF  "$(CFG)" == "gui - Win32 Debug"
 
-# Begin Custom Build - Moc'ing QAboutSUMO.h...
-InputPath=..\..\src\gui\QAboutSUMO.h
+# Begin Custom Build - Moc'ing QAboutSUMO.h ...
+InputPath=..\..\src\gui\qdialogs\QAboutSUMO.h
 
-"..\..\src\gui\moc_QAboutSUMO.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%QTDIR%\bin\moc.exe ..\..\src\gui\QAboutSUMO.h -o ..\..\src\gui\moc_QAboutSUMO.cpp
+"..\..\src\gui\qdialogs\moc_QAboutSUMO.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\qdialogs\QAboutSUMO.h -o ..\..\src\gui\qdialogs\moc_QAboutSUMO.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\qdialogs\QApplicationSettings.h
+
+!IF  "$(CFG)" == "gui - Win32 Release"
+
+# Begin Custom Build - Moc'ing QApplicationSettings.h ...
+InputPath=..\..\src\gui\qdialogs\QApplicationSettings.h
+
+"..\..\src\gui\qdialogs\moc_QApplicationSettings.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\qdialogs\QApplicationSettings.h -o ..\..\src\gui\qdialogs\moc_QApplicationSettings.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "gui - Win32 Debug"
+
+# Begin Custom Build - Moc'ing QApplicationSettings.h ...
+InputPath=..\..\src\gui\qdialogs\QApplicationSettings.h
+
+"..\..\src\gui\qdialogs\moc_QApplicationSettings.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\qdialogs\QApplicationSettings.h -o ..\..\src\gui\qdialogs\moc_QApplicationSettings.cpp
 
 # End Custom Build
 
@@ -1539,6 +1606,33 @@ InputPath=..\..\src\gui\QGUIToggleButton.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\gui\qdialogs\QMicroscopicViewSettings.h
+
+!IF  "$(CFG)" == "gui - Win32 Release"
+
+# Begin Custom Build - Moc'ing QMicroscopicViewSettings.h...
+InputPath=..\..\src\gui\qdialogs\QMicroscopicViewSettings.h
+
+"..\..\src\gui\qdialogs\moc_QMicroscopicViewSettings.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\qdialogs\QMicroscopicViewSettings.h -o ..\..\src\gui\qdialogs\moc_QMicroscopicViewSettings.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "gui - Win32 Debug"
+
+# Begin Custom Build - Moc'ing QMicroscopicViewSettings.h...
+InputPath=..\..\src\gui\qdialogs\QMicroscopicViewSettings.h
+
+"..\..\src\gui\qdialogs\moc_QMicroscopicViewSettings.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\qdialogs\QMicroscopicViewSettings.h -o ..\..\src\gui\qdialogs\moc_QMicroscopicViewSettings.cpp
+
+# End Custom Build
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\gui\partable\QParamPopupMenu.h
 
 !IF  "$(CFG)" == "gui - Win32 Release"
@@ -1571,6 +1665,33 @@ SOURCE=..\..\src\gui\QSimulationEndedEvent.h
 # Begin Source File
 
 SOURCE=..\..\src\gui\QSimulationLoadedEvent.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\src\gui\qdialogs\QSimulationSettings.h
+
+!IF  "$(CFG)" == "gui - Win32 Release"
+
+# Begin Custom Build - Moc'ing QSimulationSettings.h ...
+InputPath=..\..\src\gui\qdialogs\QSimulationSettings.h
+
+"..\..\src\gui\qdialogs\moc_QSimulationSettings.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\qdialogs\QSimulationSettings.h -o ..\..\src\gui\qdialogs\moc_QSimulationSettings.cpp
+
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "gui - Win32 Debug"
+
+# Begin Custom Build - Moc'ing QSimulationSettings.h ...
+InputPath=..\..\src\gui\qdialogs\QSimulationSettings.h
+
+"..\..\src\gui\qdialogs\moc_QSimulationSettings.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+	%QTDIR%\bin\moc.exe ..\..\src\gui\qdialogs\QSimulationSettings.h -o ..\..\src\gui\qdialogs\moc_QSimulationSettings.cpp
+
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 

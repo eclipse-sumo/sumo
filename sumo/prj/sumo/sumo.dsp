@@ -145,6 +145,10 @@ SOURCE=..\..\src\utils\common\MsgHandler.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSGlobals.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSInductLoop.cpp
 # End Source File
 # Begin Source File
