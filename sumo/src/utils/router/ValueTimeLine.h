@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2004/03/02 15:55:44  roessel
+// Added an assert to avoid subtle bug.
+//
 // Revision 1.4  2004/02/06 08:47:11  dkrajzew
 // debugged things that came up during the compilation under linux
 //
@@ -103,6 +106,7 @@ public:
     /// Returns the time period description at the given position // !!! should not be public
     const TimeRange &getRangeAtPosition(size_t pos) const
 	{
+        assert( pos < myValues.size() );
 	    return myValues[pos].first;
 	}
 
