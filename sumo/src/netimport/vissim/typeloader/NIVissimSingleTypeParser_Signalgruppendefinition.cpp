@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/16 09:59:53  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.5  2003/04/09 15:53:24  dkrajzew
 // netconvert-changes: further work on Vissim-import, documentation added
 //
@@ -161,7 +164,9 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseFixedTime(
     NIVissimTL::NIVissimTLSignalGroup *group =
         new NIVissimTL::NIVissimTLSignalGroup(
             lsaid, id, name, isGreenBegin, times, tredyellow, tyellow);
-    assert(NIVissimTL::NIVissimTLSignalGroup::dictionary(lsaid, id, group));
+    if(!NIVissimTL::NIVissimTLSignalGroup::dictionary(lsaid, id, group)) {
+        throw 1; // !!!
+    }
     return true;
 }
 

@@ -101,6 +101,7 @@ NIVissimConnection::buildNodeClusters()
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimConnection *e = (*i).second;
         if(!e->clustered()) {
+            assert(e->myBoundery!=0&&e->myBoundery->xmax()>e->myBoundery->xmin());
             IntVector connections =
                 NIVissimConnection::getWithin(*(e->myBoundery));
             int id = NIVissimNodeCluster::dictionary(-1, -1, connections,
@@ -403,6 +404,7 @@ NIVissimConnection::getToLanes() const
 const Boundery &
 NIVissimConnection::getBoundingBox() const
 {
+    assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
     return *myBoundery;
 }
 

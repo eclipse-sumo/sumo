@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2003/04/16 10:03:48  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.7  2003/04/14 08:35:00  dkrajzew
 // some further bugs removed
 //
@@ -209,6 +212,11 @@ private:
         size_t noLinks, const PhaseIndexVector &phaseList,
         NBLinkCliqueContainer &cliquen,
         const NBRequestEdgeLinkIterator &cei1) const;*/
+
+        std::pair<std::bitset<64>, std::bitset<64> >
+            buildPhaseMasks(const NBNode::SignalGroupCont &defs,
+                size_t time) const;
+
 
 private:
     /// the node the request is assigned to

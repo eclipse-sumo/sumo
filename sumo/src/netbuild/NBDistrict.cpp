@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2003/04/16 10:03:47  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.7  2003/04/02 11:48:43  dkrajzew
 // debug statements removed
 //
@@ -124,8 +127,12 @@ NBDistrict::addSink(NBEdge *sink, double weight)
 void
 NBDistrict::writeXML(std::ostream &into)
 {
+    assert(_sourceWeights.size()>0);
+    assert(_sinkWeights.size()>0);
     DoubleVectorHelper::normalise(_sourceWeights, 1.0);
     DoubleVectorHelper::normalise(_sinkWeights, 1.0);
+    assert(DoubleVectorHelper::sum(_sourceWeights)==1);
+    assert(DoubleVectorHelper::sum(_sinkWeights)==1);
     // write the head and the id of the district
     into << "   " << "<district id=\"" << _id << "\">" << endl;
     size_t i;

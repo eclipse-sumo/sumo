@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/04/16 10:03:49  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.4  2003/03/20 16:23:10  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -99,12 +102,12 @@ public:
     /** returns the information whether the vehicle that uses the link at
         the defined position must break */
     bool testBrakeMask(int set, size_t pos) const;
-
+/*
     bool getDriveAllowed(const NBNode::SignalGroupCont &defs,
         double time);
     bool getBrakeNeeded(const NBNode::SignalGroupCont &defs,
         double time);
-
+*/
     friend std::ostream &operator<<(std::ostream os, const NBRequestEdgeLinkIterator &o);
 
 private:

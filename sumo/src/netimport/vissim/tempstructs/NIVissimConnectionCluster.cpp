@@ -80,6 +80,8 @@ NIVissimConnectionCluster::NodeSubCluster::overlapsWith(
         const NIVissimConnectionCluster::NodeSubCluster &c,
         double offset)
 {
+    assert(myBoundery.xmax()>myBoundery.xmin());
+    assert(c.myBoundery.xmax()>c.myBoundery.xmin());
     return myBoundery.overlapsWith(c.myBoundery, offset);
 }
 
@@ -113,6 +115,7 @@ NIVissimConnectionCluster::NIVissimConnectionCluster(
 {
 //    myBoundery.add(c->getFromGeomPosition());
     myClusters.push_back(this);
+    assert(myBoundery.xmax()>myBoundery.xmin());
 }
 
 
@@ -130,8 +133,11 @@ NIVissimConnectionCluster::getNextFreeNodeID()
 
 
 bool
-NIVissimConnectionCluster::overlapsWith(NIVissimConnectionCluster *c, double offset) const
+NIVissimConnectionCluster::overlapsWith(NIVissimConnectionCluster *c,
+                                        double offset) const
 {
+    assert(myBoundery.xmax()>myBoundery.xmin());
+    assert(c->myBoundery.xmax()>c->myBoundery.xmin());
     return c->myBoundery.overlapsWith(myBoundery, offset);
 }
 
@@ -139,6 +145,8 @@ NIVissimConnectionCluster::overlapsWith(NIVissimConnectionCluster *c, double off
 void
 NIVissimConnectionCluster::add(NIVissimConnectionCluster *c)
 {
+    assert(myBoundery.xmax()>myBoundery.xmin());
+    assert(c->myBoundery.xmax()>c->myBoundery.xmin());
     myBoundery.add(c->myBoundery);
     for(IntVector::iterator i=c->myConnections.begin(); i!=c->myConnections.end(); i++) {
         myConnections.push_back(*i);
@@ -240,9 +248,11 @@ NIVissimConnectionCluster::buildNodeClusters()
 
         if((*i)->myConnections.size()>0) {
             (*i)->recomputeBoundery();
+            assert((*i)->myBoundery.xmax()>(*i)->myBoundery.xmin());
             disturbances = NIVissimDisturbance::getWithin((*i)->myBoundery);
             //
     cout << "Cluster " << ":" << (*i)->myBoundery << endl;
+            assert((*i)->myBoundery.xmax()>(*i)->myBoundery.xmin());
             tls = NIVissimTL::getWithin((*i)->myBoundery, 5.0);
             if(tls.size()>1) {
                 cout << "NIVissimConnectionCluster:More than a single signal" << endl;
@@ -339,6 +349,7 @@ NIVissimConnectionCluster::dict_recheckNodes()
             NIVissimConnection *c1 = NIVissimConnection::dictionary(*j);
             bool found = false;
             for(k=nodeClusters.begin(); k!=nodeClusters.end()&&!found; k++) {
+                assert((*k).myBoundery.xmax()>=(*k).myBoundery.xmin());
                 if(c1->getBoundingBox().overlapsWith((*k).myBoundery, 5.0)) {
                     (*k).add(c1);
                     found = true;
@@ -426,6 +437,7 @@ NIVissimConnectionCluster::recomputeBoundery()
             myBoundery.add(c->getToGeomPosition());
         }
     }
+    assert(myBoundery.xmax()>myBoundery.xmin());
 }
 
 
@@ -439,6 +451,7 @@ NIVissimConnectionCluster::getNBNode() const
 bool
 NIVissimConnectionCluster::around(const Position2D &p, double offset) const
 {
+    assert(myBoundery.xmax()>myBoundery.xmin());
     return myBoundery.around(p, offset);
 }
 
@@ -459,9 +472,11 @@ NIVissimConnectionCluster::recheckEdges()
     // recheck which edges do still participate and add edges
     for(i=myConnections.begin(); i!=myConnections.end(); i++) {
         NIVissimConnection *c = NIVissimConnection::dictionary(*i);
+        assert(myBoundery.xmax()>myBoundery.xmin());
         if(myBoundery.around(c->getFromGeomPosition(), 5)) {
             myEdges.push_back(c->getFromEdgeID());
         }
+        assert(myBoundery.xmax()>myBoundery.xmin());
         if(myBoundery.around(c->getToGeomPosition(), 5)) {
             myEdges.push_back(c->getToEdgeID());
         }

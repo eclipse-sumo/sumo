@@ -1,3 +1,4 @@
+#include <cassert>
 #include <utils/geom/Boundery.h>
 #include "NIVissimBoundedClusterObject.h"
 
@@ -21,6 +22,7 @@ bool
 NIVissimBoundedClusterObject::crosses(const AbstractPoly &poly,
                                       double offset) const
 {
+    assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
     return myBoundery->overlapsWith(poly, offset);
 }
 

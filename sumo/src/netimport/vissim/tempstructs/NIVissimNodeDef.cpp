@@ -1,4 +1,5 @@
 #include <iostream> // !!! debug
+#include <cassert>
 #include "NIVissimNodeDef.h"
 #include "NIVissimConnection.h"
 #include "NIVissimDisturbance.h"
@@ -113,6 +114,7 @@ NIVissimNodeDef::buildNodeCluster()
     bool changed = true;
     int id = -1;
     while(changed) {
+        assert(myBoundery!=0&&myBoundery->xmax()>myBoundery->xmin());
         IntVector connectors = NIVissimConnection::getWithin(*myBoundery);
         IntVector disturbances = NIVissimDisturbance::getWithin(*myBoundery);
         IntVector tls = NIVissimTL::getWithin(*myBoundery, 5.0);
@@ -156,6 +158,7 @@ NIVissimNodeDef::getWithin(const AbstractPoly &p)
 bool
 NIVissimNodeDef::partialWithin(const AbstractPoly &p) const
 {
+    assert(myBoundery!=0&&myBoundery->xmax()>myBoundery->xmin());
     return myBoundery->partialWithin(p);
 }
 

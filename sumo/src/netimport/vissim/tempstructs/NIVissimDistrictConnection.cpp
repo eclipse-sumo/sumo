@@ -178,10 +178,14 @@ NIVissimDistrictConnection::dict_BuildDistricts()
                     new NBEdge(id, id, districtNode, parkingPlace,
                     "Connection", 100/3.6, 2, 100, 0,
                     NBEdge::EDGEFUNCTION_SOURCE);
-                assert(NBEdgeCont::insert(source)); // !!! (in den Konstruktor)
+                if(!NBEdgeCont::insert(source)) { // !!! in den Konstruktor
+                    throw 1; // !!!
+                }
                 double percNormed =
                     c->myPercentages[(*k).first];
-                assert(district->addSource(source, percNormed));
+                if(!district->addSource(source, percNormed)) {
+                    throw 1;
+                }
             }
 
             // build the connection to the destination
@@ -193,10 +197,14 @@ NIVissimDistrictConnection::dict_BuildDistricts()
                     new NBEdge(id, id, parkingPlace, districtNode,
                     "Connection", 100/3.6, 2, 100, 0,
                     NBEdge::EDGEFUNCTION_SINK);
-                assert(NBEdgeCont::insert(destination)); // !!! (in den Konstruktor)
+                if(!NBEdgeCont::insert(destination)) { // !!! (in den Konstruktor)
+                    throw 1; // !!!
+                }
                 double percNormed =
                     c->myPercentages[(*k).first];
-                assert(district->addSink(destination, percNormed));
+                if(!district->addSink(destination, percNormed)) {
+                    throw 1; // !!!
+                }
             }
 
                 /*

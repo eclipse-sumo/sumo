@@ -1,5 +1,6 @@
 #include <string>
 #include <map>
+#include <cassert>
 #include <algorithm>
 #include <utils/geom/Position2DVector.h>
 #include "NIVissimEdge.h"
@@ -62,6 +63,7 @@ NIVissimNodeDef_Poly::computeBounding()
     // !!! compute participating edges
     // !!! call this method after loading!
     myBoundery = new Boundery(myPoly.getBoxBoundery());
+    assert(myBoundery!=0&&myBoundery->xmax()>myBoundery->xmin());
 }
 
 

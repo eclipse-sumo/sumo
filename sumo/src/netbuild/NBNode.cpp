@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/04/16 10:03:47  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.14  2003/04/10 15:45:18  dkrajzew
 // some lost changes reapplied
 //
@@ -1532,10 +1535,9 @@ NBNode::setCycleDuration(size_t cycleDur)
 
 
 NBNode::SignalGroup *
-NBNode::findGroup(const NBNode::SignalGroupCont &defs,
-                  NBEdge *from, NBEdge *to)
+NBNode::findGroup(NBEdge *from, NBEdge *to)
 {
-    for(SignalGroupCont::const_iterator i=defs.begin(); i!=defs.end(); i++) {
+    for(SignalGroupCont::const_iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
         if((*i).second->containsConnection(from, to)) {
             return (*i).second;
         }

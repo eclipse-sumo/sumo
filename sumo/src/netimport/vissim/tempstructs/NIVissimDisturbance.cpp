@@ -196,6 +196,7 @@ NIVissimDisturbance::computeBounding()
     bound->add(myEdge.getGeomPosition());
     bound->add(myDisturbance.getGeomPosition());
     myBoundery = bound;
+    assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
 }
 
 

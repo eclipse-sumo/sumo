@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/04/16 10:03:48  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.10  2003/04/14 08:34:59  dkrajzew
 // some further bugs removed
 //
@@ -448,10 +451,6 @@ NBRequest::buildLoadedTrafficLights(const std::string &key,
     NBTrafficLightLogic *logic =
         new NBTrafficLightLogic(key, noLinks);
     for(std::vector<double>::iterator l=switchTimes.begin(); l!=switchTimes.end(); l++) {
-        NBRequestEdgeLinkIterator cei1(this, false, false, LRT_NO_REMOVAL);
-        assert(noLinks==cei1.getLinkNumber());
-        std::bitset<64> driveMask;
-        std::bitset<64> brakeMask;
         // compute the duration of the current phase
         size_t duration;
         if(l!=switchTimes.end()-1) {
@@ -461,19 +460,43 @@ NBRequest::buildLoadedTrafficLights(const std::string &key,
             // get from the differenc to the first switching time
             duration = (size_t) (duration - (*l) + *(switchTimes.begin())) ;
         }
-        // set the masks
-        size_t pos = 0;
-        do {
-            driveMask[pos] = cei1.getDriveAllowed(defs, *l);
-            brakeMask[pos] = cei1.getBrakeNeeded(defs, *l);
-        } while(cei1.pp());
-        logic->addStep(duration, driveMask, brakeMask);
+        std::pair<std::bitset<64>, std::bitset<64> > masks =
+            buildPhaseMasks(defs, *l);
+        logic->addStep(duration, masks.first, masks.second);
     }
     // returns the build logic
     NBTrafficLightLogicVector *ret =
         new NBTrafficLightLogicVector(*_incoming);
     ret->add(logic);
     return ret;
+}
+
+
+std::pair<std::bitset<64>, std::bitset<64> >
+NBRequest::buildPhaseMasks(const NBNode::SignalGroupCont &defs,
+                           size_t time) const
+{
+    NBRequestEdgeLinkIterator cei1(this, false, false, LRT_NO_REMOVAL);
+    // set the masks
+    std::bitset<64> driveMask;
+    std::bitset<64> brakeMask;
+    size_t pos = 0;
+    do {
+        NBEdge *fromEdge = cei1.getFromEdge();
+        NBEdge *toEdge = cei1.getToEdge();
+        NBNode::SignalGroup *group =
+            _junction->findGroup(fromEdge, toEdge);
+        if(group==0) {
+            int bla = 0;
+            driveMask[pos] = false;
+            brakeMask[pos] = true;
+        } else {
+            driveMask[pos] = group->mayDrive(time);
+            brakeMask[pos] = true; // !!! cei1.getBrakeNeeded(defs, *l);
+        }
+        pos++;
+    } while(cei1.pp());
+    return std::pair<std::bitset<64>, std::bitset<64> >(driveMask, brakeMask);
 }
 
 

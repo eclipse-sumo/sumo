@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/16 09:59:52  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.5  2003/04/09 15:53:23  dkrajzew
 // netconvert-changes: further work on Vissim-import, documentation added
 //
@@ -130,7 +133,9 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
     NIVissimTL::NIVissimTLSignal *signal =
         new NIVissimTL::NIVissimTLSignal(lsaid, id, name, groupids, edgeid,
             laneno, position, assignedVehicleTypes);
-    assert(NIVissimTL::NIVissimTLSignal::dictionary(lsaid, id, signal));
+    if(!NIVissimTL::NIVissimTLSignal::dictionary(lsaid, id, signal)) {
+        throw 1; // !!!
+    }
     return true;
 }
 

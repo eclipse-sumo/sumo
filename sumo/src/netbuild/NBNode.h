@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2003/04/16 10:03:48  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.11  2003/04/10 15:45:19  dkrajzew
 // some lost changes reapplied
 //
@@ -374,7 +377,7 @@ public:
 
 
 
-    static SignalGroup *findGroup(const SignalGroupCont &defs, NBEdge *from, NBEdge *to);
+    SignalGroup *findGroup(NBEdge *from, NBEdge *to);
 
     friend class NBNodeCont;
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/04/16 10:03:48  dkrajzew
+// further work on Vissim-import
+//
 // Revision 1.6  2003/04/04 07:43:04  dkrajzew
 // Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
 //
@@ -443,7 +446,7 @@ operator<<(std::ostream os, const NBRequestEdgeLinkIterator &o)
     return os;
 }
 
-
+/*
 bool
 NBRequestEdgeLinkIterator::getDriveAllowed(const NBNode::SignalGroupCont &defs,
                                            double time)
@@ -463,7 +466,7 @@ NBRequestEdgeLinkIterator::getBrakeNeeded(const NBNode::SignalGroupCont &defs,
     NBNode::SignalGroup *group = NBNode::findGroup(defs, from, to);
     return group->mustBrake(time);
 }
-
+*/
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
 //#include "NBRequestEdgeLinkIterator.icc"
