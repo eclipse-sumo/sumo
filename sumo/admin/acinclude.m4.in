@@ -1469,9 +1469,7 @@ Make sure that you have compiled Qt with thread support!"
     fi
   fi
 
-  AC_MSG_ERROR([Qt ($kde_qt_minversion) $ac_qt_notfound not found. Please check your installation!
-For more details about this problem, look at the end of config.log.$missing_qt_mt])
-else
+
   have_qt="yes"
 fi
 ])
