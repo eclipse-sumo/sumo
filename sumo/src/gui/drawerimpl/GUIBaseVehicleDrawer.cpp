@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.4  2003/10/20 08:01:29  dkrajzew
 // vehicles are not drawn on source lanes
 //
@@ -49,14 +52,18 @@ namespace
 #include <guisim/GUIEdge.h>
 #include "GUIBaseVehicleDrawer.h"
 
-#include <qgl.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
 
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
 GUIBaseVehicleDrawer::GUIBaseVehicleDrawer(std::vector<GUIEdge*> &edges)
-    : GUIVehicleDrawer(edges)
+    : myEdges(edges)
 {
 }
 
@@ -87,7 +94,6 @@ GUIBaseVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
                 for(size_t i=0; i<noLanes; i++) {
                     // get the lane
                     GUILaneWrapper &laneGeom = edge->getLaneGeometry(i);
-//                    MSLane &lane = edge->getLane(i);
                     drawLanesVehicles(laneGeom, scheme);
                 }
             }
@@ -99,7 +105,6 @@ GUIBaseVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
 void
 GUIBaseVehicleDrawer::initStep()
 {
-//    glLineWidth (0.1);
     glMatrixMode( GL_MODELVIEW );
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
@@ -107,7 +112,7 @@ GUIBaseVehicleDrawer::initStep()
 
 void
 GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
-                                          GUISUMOAbstractView::VehicleColoringScheme scheme)
+        GUISUMOAbstractView::VehicleColoringScheme scheme)
 {
     switch(scheme) {
     case GUISUMOAbstractView::VCS_BY_SPEED:
@@ -227,10 +232,8 @@ GUIBaseVehicleDrawer::setVehicleColor3Of3(const GUIVehicle &vehicle)
     }
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIBaseVehicleDrawer.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

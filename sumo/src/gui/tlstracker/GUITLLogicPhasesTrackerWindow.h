@@ -20,9 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.2  2003/11/26 09:37:07  dkrajzew
-// moving of the view when reaching the left border implemented; display of a time scale implemented
+// Revision 1.3  2004/03/19 12:42:31  dkrajzew
+// porting to FOX
 //
+// Revision 1.2  2003/11/26 09:37:07  dkrajzew
+// moving of the view when reaching the left border implemented; display of a
+//  time scale implemented
 //
 /* =========================================================================
  * included modules
@@ -35,13 +38,18 @@
 #include <string>
 #include <bitset>
 #include <utility>
-#include <qgl.h>
-#include <qdialog.h>
-#include <qmainwindow.h>
+#include <fx.h>
+#include <fx3d.h>
 #include <microsim/MSNet.h>
 #include <helpers/ValueRetriever.h>
-#include <utils/qutils/NewQMutex.h>
-#include <utils/glutils/lfontrenderer.h>
+#include <guisim/guilogging/GLObjectValuePassConnector.h>
+#include <microsim/logging/FunctionBinding.h>
+#include <utils/foxtools/FXMutex.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#include <GL/gl.h>
+#endif
 
 
 /* =========================================================================
@@ -49,6 +57,7 @@
  * ======================================================================= */
 class GUIApplicationWindow;
 class MSTrafficLightLogic;
+class GUITrafficLightLogicWrapper;
 
 
 /* =========================================================================
@@ -71,15 +80,14 @@ typedef std::pair<MSNet::Time, SimplePhaseDef> CompletePhaseDef;
  * This window displays a phase diagram for a chosen tl-logic.
  */
 class GUITLLogicPhasesTrackerWindow
-        : public QMainWindow,
+        : public FXMainWindow,
           public ValueRetriever<CompletePhaseDef> {
-
-    /// is a q-object
-    Q_OBJECT
+    FXDECLARE(GUITLLogicPhasesTrackerWindow)
 public:
     /// Constructor
     GUITLLogicPhasesTrackerWindow(GUIApplicationWindow &app,
-        MSTrafficLightLogic &logic);
+        MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
+        ValueSource<CompletePhaseDef> *src);
 
     /// Destructor
     ~GUITLLogicPhasesTrackerWindow();
@@ -93,16 +101,11 @@ public:
     /// Adds a further phase definition
     void addValue(CompletePhaseDef def);
 
-protected:
-    /// Callback for events
-    bool event ( QEvent *e );
+    long onConfigure(FXObject *sender, FXSelector sel, void *data);
+    long onPaint(FXObject *sender, FXSelector sel, void *data);
+    long onSimStep(FXObject *sender, FXSelector sel, void *data);
 
-    /// Callback for the resize-event
-    void resizeEvent ( QResizeEvent * );
-
-    /// Callback for the paint-event
-    void paintEvent ( QPaintEvent * );
-
+public:
     /// Definition of a storage for phases
     typedef std::vector<SimplePhaseDef> PhasesVector;
 
@@ -116,11 +119,12 @@ protected:
      * The canvas for the visualisation.
      * The drawing itself id done by the parent.
      */
-    class GUITLLogicPhasesTrackerPanel : public QGLWidget {
+    class GUITLLogicPhasesTrackerPanel : public FXGLCanvas {
+        FXDECLARE(GUITLLogicPhasesTrackerPanel)
     public:
         /// Constructor
-        GUITLLogicPhasesTrackerPanel(GUIApplicationWindow &app,
-            GUITLLogicPhasesTrackerWindow &parent);
+        GUITLLogicPhasesTrackerPanel(FXComposite *c,
+            GUIApplicationWindow &app, GUITLLogicPhasesTrackerWindow &parent);
 
         /// Destructor
         ~GUITLLogicPhasesTrackerPanel();
@@ -134,39 +138,29 @@ protected:
         /// needed to update
         friend class GUITLLogicPhasesTrackerWindow;
 
-    protected:
-        /// derived from QGLWidget, this method initialises the openGL canvas
-        void initializeGL();
-
-        /// called when the canvas has been resized
-        void resizeGL( int, int );
-
-        /// performs the painting of the simulation
-        void paintGL();
+        long onConfigure(FXObject*,FXSelector,void*);
+        long onPaint(FXObject*,FXSelector,void*);
 
     private:
         /// The parent window
-        GUITLLogicPhasesTrackerWindow &myParent;
+        GUITLLogicPhasesTrackerWindow *myParent;
 
         /// A lock for drawing operations
-        NewQMutex _lock; // !!! (same as in abstract view)
-
-        /// Information how many times the drawing method was called at once
-        size_t _noDrawing;
+        FXEX::FXMutex _lock; // !!! (same as in abstract view)
 
         /// the sizes of the window
         int _widthInPixels, _heightInPixels;
 
         /// The main application
-        GUIApplicationWindow &myApplication;
+        GUIApplicationWindow *myApplication;
+
+    protected:
+        GUITLLogicPhasesTrackerPanel() { }
     };
 
 public:
     /// Draws all values
     void drawValues(GUITLLogicPhasesTrackerPanel &caller);
-
-    /// Sets the fonts used
-    void setFontRenderer(GUITLLogicPhasesTrackerPanel &caller);
 
 private:
     /** @brief Computes the offsets that determine te first drawn item
@@ -176,10 +170,10 @@ private:
 
 private:
     /// The main application
-    GUIApplicationWindow &myApplication;
+    GUIApplicationWindow *myApplication;
 
     /// The logic to display
-    MSTrafficLightLogic &myTLLogic;
+    MSTrafficLightLogic *myTLLogic;
 
     /// The list of phases
     PhasesVector myPhases;
@@ -191,15 +185,12 @@ private:
     GUITLLogicPhasesTrackerPanel *myPanel;
 
     /// A lock to avoid addition of new values while drawing
-    NewQMutex myLock;
+    FXEX::FXMutex myLock;
 
     /** @brief The names of links
         This holds an enumeration only - used to avoid time consuming
         string representation of ints */
     std::vector<std::string> myLinkNames;
-
-    /// The openGL-font drawer
-    LFontRenderer myFontRenderer;
 
     /// The index of the first phase that fits into the window
     size_t myFirstPhase2Show;
@@ -216,6 +207,10 @@ private:
     /// The last time a phase was added at
     MSNet::Time myLastTime;
 
+    GLObjectValuePassConnector<CompletePhaseDef> *myConnector;
+
+protected:
+    GUITLLogicPhasesTrackerWindow() { }
 };
 
 

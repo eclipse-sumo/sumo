@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.3  2003/11/26 09:36:01  dkrajzew
 // documentation added
 //
@@ -31,8 +34,6 @@ namespace
 //
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
-//
-//
 //
 /* =========================================================================
  * included modules
@@ -48,7 +49,7 @@ namespace
  * ======================================================================= */
 GUIBaseJunctionDrawer::GUIBaseJunctionDrawer(
         std::vector<GUIJunctionWrapper*> &junctions)
-    : GUIJunctionDrawer(junctions)
+    : myJunctions(junctions)
 {
 }
 

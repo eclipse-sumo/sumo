@@ -1,12 +1,12 @@
-#ifndef QGLObjectPopupMenuItem_h
-#define QGLObjectPopupMenuItem_h
+#ifndef GUIDialog_GLChosenEditor_h
+#define GUIDialog_GLChosenEditor_h
 //---------------------------------------------------------------------------//
-//                        QGLObjectPopupMenuItem.h -
-//  A single entry within the popup-menu
+//                        GUIDialog_GLChosenEditor.h -
+//  Editor for the  list of chosen objects
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
+//  begin                : Thu, 11.03.2004
+//  copyright            : (C) 2004 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
@@ -20,11 +20,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.1  2003/06/06 10:24:36  dkrajzew
-// new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
+// Revision 1.1  2004/03/19 12:33:36  dkrajzew
+// porting to FOX
 //
-// Revision 1.2  2003/06/05 11:37:31  dkrajzew
-// class templates applied
+// Revision 1.1  2004/03/19 12:32:26  dkrajzew
+// porting to FOX
 //
 //
 /* =========================================================================
@@ -35,44 +35,55 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include <qfont.h>
-#include <qmenudata.h>
+#include <vector>
+#include <fx.h>
 
 
 /* =========================================================================
- * class definitions
+ * class declarations
  * ======================================================================= */
-class QGLObjectPopupMenuItem :
-    public QCustomMenuItem
+class GUIApplicationWindow;
+
+
+/* =========================================================================
+ * class definition
+ * ======================================================================= */
+/**
+ * @class GUIDialog_GLChosenEditor
+ * Instances of this class are windows that display the list of instances
+ * from a given artifact like vehicles, edges or junctions and allow
+ * one of their items
+ */
+class GUIDialog_GLChosenEditor : public FXMainWindow
 {
+    // FOX-declarations
+    FXDECLARE(GUIDialog_GLChosenEditor)
 public:
-    /// Constructor
-    QGLObjectPopupMenuItem(QPopupMenu *parent, const std::string &name,
-        bool bold=false);
+    /// constructor
+    GUIDialog_GLChosenEditor(GUIApplicationWindow *parent);
 
     /// destructor
-    ~QGLObjectPopupMenuItem();
+    ~GUIDialog_GLChosenEditor();
 
-    /// draws the menu item
-    void paint ( QPainter * p, const QColorGroup & cg, bool act, bool enabled, int x, int y, int w, int h ) ;
+    FXbool close(FXbool notify=FALSE);
 
-    /// returns the size of the item
-    QSize sizeHint ();
+    long onCmdOK(FXObject*,FXSelector,void*);
+    long onCmdCancel(FXObject*,FXSelector,void*);
 
 private:
-    /// The displayed name
-    std::string myName;
+    /// the list that holds the ids
+    FXList *myList;
 
-    /// Information about the style of the text
-    QFont myFont;
+    /// the parent window
+    GUIApplicationWindow *myParent;
+
+protected:
+    GUIDialog_GLChosenEditor() { }
 
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "QGLObjectPopupMenuItem.icc"
-//#endif
 
 #endif
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/03/19 12:42:59  dkrajzew
+// porting to FOX
+//
 // Revision 1.7  2003/11/12 14:08:24  dkrajzew
 // clean up after recent changes
 //
@@ -38,7 +41,6 @@
 // Revision 1.2  2003/06/05 11:38:47  dkrajzew
 // class templates applied; documentation added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -47,21 +49,17 @@
 #endif // HAVE_CONFIG_H
 
 #include <vector>
-#include <qgl.h>
-#include <qdialog.h>
-#include <qmainwindow.h>
+#include <fx.h>
+#include <fx3d.h>
 #include <gui/GUIGlObject.h>
-#include <utils/qutils/NewQMutex.h>
-#include <utils/glutils/lfontrenderer.h>
+#include <utils/foxtools/FXMutex.h>
 #include "TrackerValueDesc.h"
+#include <guisim/guilogging/GLObjectValuePassConnector.h>
 
-
-/* =========================================================================
- * class declarations
- * ======================================================================= */
-class QPaintEvent;
-class QToolBar;
-class QPopupMenu;
+#ifdef _WIN32
+#include <windows.h>
+#include <GL/gl.h>		/* OpenGL header file */
+#endif // _WIN32
 
 
 /* =========================================================================
@@ -70,16 +68,18 @@ class QPopupMenu;
 /**
  *
  */
-class GUIParameterTracker : public QMainWindow
+class GUIParameterTracker : public FXMainWindow
 {
-    Q_OBJECT
+    FXDECLARE(GUIParameterTracker)
 public:
     /// Constructor (one value is defined)
     GUIParameterTracker( GUIApplicationWindow &app, const std::string &name,
-        GUIGlObject &o, /*DoubleValueSource *src, */int xpos, int ypos );
+        GUIGlObject &o, int xpos, int ypos);
 
     /// Constructor (the tracker is empty)
-    GUIParameterTracker( GUIApplicationWindow &app );
+    GUIParameterTracker(GUIApplicationWindow &app);
+
+//    void create();
 
     /// Destructor
     ~GUIParameterTracker();
@@ -90,33 +90,29 @@ public:
     /// Returns the information about the largest height allowed for openGL-windows
     int getMaxGLHeight() const;
 
-    void addTracked(TrackerValueDesc *newTracked);
+    void addTracked(GUIGlObject &o, ValueSource<double> *src,
+        TrackerValueDesc *newTracked);
+
+    long onConfigure(FXObject*,FXSelector,void*);
+    long onPaint(FXObject*,FXSelector,void*);
+    long onSimStep(FXObject*,FXSelector,void*);
 
 protected:
     /// Adds a further variable to display
-    void addVariable(GUIGlObject *o, const std::string &name/*,
-        DoubleValueSource *src*/);
+    void addVariable(GUIGlObject *o, const std::string &name);
 
-    /// Callback for events
-    bool event ( QEvent *e );
-
-    /// Callback for the resize-event
-    void resizeEvent ( QResizeEvent * );
-
-    /// Callback for the paint-event
-    void paintEvent ( QPaintEvent * );
-
-private:
+public:
     /**
      * @class GUIParameterTrackerPanel
      * This panel lies within the GUIParameterTracker being the main widget.
      * It is the widget responsible for displaying the information while
      * GUIParameterTracker only provides window-facilities.
      */
-    class GUIParameterTrackerPanel : public QGLWidget {
+    class GUIParameterTrackerPanel : public FXGLCanvas {
+        FXDECLARE(GUIParameterTrackerPanel)
     public:
         /// Constructor
-        GUIParameterTrackerPanel(GUIApplicationWindow &app,
+        GUIParameterTrackerPanel(FXComposite *c, GUIApplicationWindow &app,
             GUIParameterTracker &parent);
 
         /// Destructor
@@ -125,15 +121,9 @@ private:
         /// needed to update
         friend class GUIParameterTracker;
 
-    protected:
-        /// derived from QGLWidget, this method initialises the openGL canvas
-        void initializeGL();
-
-        /// called when the canvas has been resized
-        void resizeGL( int, int );
-
-        /// performs the painting of the simulation
-        void paintGL();
+        long onConfigure(FXObject*,FXSelector,void*);
+        long onPaint(FXObject*,FXSelector,void*);
+        long onSimStep(FXObject*sender,FXSelector,void*);
 
     private:
         /// Draws all values
@@ -145,26 +135,21 @@ private:
         /// Applies the max and min of the value(t) to the current size of the panel
         float patchHeightVal(TrackerValueDesc &desc, double d);
 
-
     private:
         /// The parent window
-        GUIParameterTracker &myParent;
+        GUIParameterTracker *myParent;
 
         /// A lock for drawing operations
-        NewQMutex _lock; // !!! (same as in abstract view)
-
-        /// Information how many times the drawing method was called at once
-        size_t _noDrawing;
+        FXEX::FXMutex _lock; // !!! (same as in abstract view)
 
         /// the sizes of the window
         int _widthInPixels, _heightInPixels;
 
-        /// The openGL-font drawer
-        LFontRenderer myFontRenderer;
-
         /// The main application
-        GUIApplicationWindow &myApplication;
+        GUIApplicationWindow *myApplication;
 
+    protected:
+        GUIParameterTrackerPanel() { }
     };
 
 public:
@@ -178,7 +163,7 @@ private:
 
 protected:
     /// The main application
-    GUIApplicationWindow &myApplication;
+    GUIApplicationWindow *myApplication;
 
     /// Definition of the container for logged values
     typedef std::vector<TrackerValueDesc*> TrackedVarsVector;
@@ -188,16 +173,18 @@ protected:
 
     /// The panel to display the values in
     GUIParameterTrackerPanel *myPanel;
-QToolBar *fileTools ;
-QPopupMenu *_fileMenu;
+
+    typedef std::vector<GLObjectValuePassConnector<double>*> ValuePasserVector;
+
+    ValuePasserVector myValuePassers;
+
+protected:
+    GUIParameterTracker() { }
+
 };
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIParameterTracker.icc"
-//#endif
 
 #endif
 

@@ -1,0 +1,160 @@
+//---------------------------------------------------------------------------//
+//                        GUIDialog_AppSettings.cpp -
+//  The application-settings dialog
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Mon, 08.03.2004
+//  copyright            : (C) 2004 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.1  2004/03/19 12:32:26  dkrajzew
+// porting to FOX
+//
+//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#include "GUIDialog_AppSettings.h"
+#include <gui/GUIAppEnum.h>
+#include <gui/GUIGlobals.h>
+
+
+/* =========================================================================
+ * FOX callback mapping
+ * ======================================================================= */
+FXDEFMAP(GUIDialog_AppSettings) GUIDialog_AppSettingsMap[]=
+{
+    FXMAPFUNC(SEL_COMMAND,  MID_QUITONSIMEND,    GUIDialog_AppSettings::onCmdQuitOnEnd),
+    FXMAPFUNC(SEL_COMMAND,  MID_SURPRESSENDINFO, GUIDialog_AppSettings::onCmdSurpressEnd),
+    FXMAPFUNC(SEL_COMMAND,  MID_ALLOWAGGREGATED, GUIDialog_AppSettings::onCmdAllowAggregated),
+    FXMAPFUNC(SEL_COMMAND,  MID_ALLOWAFLOATING,  GUIDialog_AppSettings::onCmdAllowAggregatedFloating),
+    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,     GUIDialog_AppSettings::onCmdOk),
+    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL, GUIDialog_AppSettings::onCmdCancel),
+
+    FXMAPFUNC(SEL_UPDATE,   MID_ALLOWAFLOATING,  GUIDialog_AppSettings::onUpdAllowAggregatedFloating),
+};
+
+FXIMPLEMENT(GUIDialog_AppSettings, FXDialogBox, GUIDialog_AppSettingsMap, ARRAYNUMBER(GUIDialog_AppSettingsMap))
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent)
+    : FXDialogBox( parent, "Application Settings" ),
+    myAppQuitOnEnd(gQuitOnEnd), mySurpressEnd(gSuppressEndInfo),
+    myAllowAggregated(gAllowAggregated),
+    myAllowAggregatedFloating(gAllowAggregatedFloating)
+{
+    FXCheckButton *b = 0;
+    FXVerticalFrame *f1 = new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
+    b = new FXCheckButton(f1, "Quit on Simulation End", this ,MID_QUITONSIMEND);
+    b->setCheck(myAppQuitOnEnd);
+    b = new FXCheckButton(f1, "Surpress End Information", this ,MID_SURPRESSENDINFO);
+    b->setCheck(mySurpressEnd);
+    b = new FXCheckButton(f1, "Allow aggregated Views", this ,MID_ALLOWAGGREGATED);
+    b->setCheck(myAllowAggregated);
+    b = new FXCheckButton(f1, "Allow floating aggregated Views", this ,MID_ALLOWAFLOATING);
+    b->setCheck(myAllowAggregatedFloating);
+    FXHorizontalFrame *f2 = new FXHorizontalFrame(f1, LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X|PACK_UNIFORM_WIDTH,0,0,0,0, 10,10,5,5);
+    FXButton *initial=new FXButton(f2,"&OK",NULL,this,MID_SETTINGS_OK,BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
+    new FXButton(f2,"&Cancel",NULL,this,MID_SETTINGS_CANCEL,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
+    initial->setFocus();
+}
+
+
+GUIDialog_AppSettings::~GUIDialog_AppSettings()
+{
+}
+
+
+long
+GUIDialog_AppSettings::onCmdOk(FXObject*,FXSelector,void*)
+{
+    gQuitOnEnd = myAppQuitOnEnd;
+    gSuppressEndInfo = mySurpressEnd;
+    gAllowAggregated = myAllowAggregated;
+    gAllowAggregatedFloating = myAllowAggregatedFloating;
+    destroy();
+    return 1;
+}
+
+
+long
+GUIDialog_AppSettings::onCmdCancel(FXObject*,FXSelector,void*)
+{
+    destroy();
+    return 1;
+}
+
+
+long
+GUIDialog_AppSettings::onCmdQuitOnEnd(FXObject*,FXSelector,void*)
+{
+    myAppQuitOnEnd = !myAppQuitOnEnd;
+    return 1;
+}
+
+
+long
+GUIDialog_AppSettings::onCmdSurpressEnd(FXObject*,FXSelector,void*)
+{
+    mySurpressEnd = !mySurpressEnd;
+    return 1;
+}
+
+
+long
+GUIDialog_AppSettings::onCmdAllowAggregated(FXObject*,FXSelector,void*)
+{
+    myAllowAggregated = !myAllowAggregated;
+    if(!myAllowAggregated) {
+        myAllowAggregatedFloating = false;
+    }
+    return 1;
+}
+
+
+long
+GUIDialog_AppSettings::onCmdAllowAggregatedFloating(FXObject*,FXSelector,void*)
+{
+    myAllowAggregatedFloating = !myAllowAggregatedFloating;
+    return 1;
+}
+
+
+long
+GUIDialog_AppSettings::onUpdAllowAggregatedFloating(FXObject *sender,
+                                                    FXSelector,
+                                                    void *ptr)
+{
+    sender->handle(this,
+        !myAllowAggregated?FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
+        ptr);
+    return 1;
+}
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
+
+

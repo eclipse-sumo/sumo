@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/03/19 12:40:14  dkrajzew
+// porting to FOX
+//
 // Revision 1.2  2003/11/12 14:09:12  dkrajzew
 // clean up after recent changes; comments added
 //
@@ -28,8 +31,8 @@
  * included modules
  * ======================================================================= */
 #include <string>
+#include <fx.h>
 #include <helpers/ValueSource.h>
-#include <qlistview.h>
 
 
 /* =========================================================================
@@ -41,20 +44,23 @@
  * As some values may change over the simulation, this class holds the
  * information whether they change and how to ask for new values if they do
  */
-class GUIParameterTableItem : public QListViewItem
+class GUIParameterTableItem
 {
 public:
     /// Constructor for changing values (double-typed)
-    GUIParameterTableItem(QListView *table, const std::string &name,
-        bool dynamic, ValueSource<double> *src);
+    GUIParameterTableItem(FXTable *table, size_t pos,
+        const std::string &name, bool dynamic, ValueSource<double> *src);
 
     /// Constructor for double-typed, non-changing values
-    GUIParameterTableItem(QListView *table, const std::string &name,
-        bool dynamic, double value);
+    GUIParameterTableItem(FXTable *table, size_t pos,
+        const std::string &name, bool dynamic, double value);
 
     /// Constructor for string-typed, non-changing values
-    GUIParameterTableItem(QListView *table, const std::string &name,
-        bool dynamic, std::string value);
+    GUIParameterTableItem(FXTable *table, size_t pos,
+        const std::string &name, bool dynamic, std::string value);
+
+    void init(bool dynamic, std::string value);
+
 
     /// Destructor
     ~GUIParameterTableItem();
@@ -91,13 +97,11 @@ private:
     /// A backup of the value to avoid the redrawing when nothing has changed
     double myValue;
 
+    FXTable *myTable;
+
 };
 
 //----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
-
-//#ifndef DISABLE_INLINE
-//#include "GUIParameterTableItem.icc"
-//#endif
 
 #endif
 

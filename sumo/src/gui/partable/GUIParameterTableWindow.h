@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/03/19 12:40:14  dkrajzew
+// porting to FOX
+//
 // Revision 1.5  2003/11/12 14:09:13  dkrajzew
 // clean up after recent changes; comments added
 //
@@ -42,7 +45,7 @@
 
 #include <vector>
 #include <string>
-#include <qdialog.h>
+#include <fx.h>
 #include <helpers/ValueSource.h>
 #include "GUIParameterTableItem.h"
 
@@ -50,32 +53,23 @@
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class QListViewItem;
 class GUIGlObject;
-class QListView;
 class GUIApplicationWindow;
-class QPaintEvent;
-class QListViewItem;
-class QEvent;
-class QResizeEvent;
-class GUIParameterTable;
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-class GUIParameterTableWindow : public QDialog
+class GUIParameterTableWindow : public FXMainWindow
 {
-    // is q-object
-    Q_OBJECT
+    FXDECLARE(GUIParameterTableWindow)
 public:
     /// Constructor
-    GUIParameterTableWindow( GUIApplicationWindow &app, GUIGlObject &o);
+    GUIParameterTableWindow(GUIApplicationWindow &app,
+        GUIGlObject &o, size_t noRows);
 
     /// Destructor
     ~GUIParameterTableWindow();
-
-    virtual void buildParameterPopUp(QMouseEvent * e, GUIParameterTableItem *i);
 
     void closeBuilding();
 
@@ -85,45 +79,36 @@ public:
 
     void mkItem(const char *name, bool dynamic, double value);
 
-protected:
-    /// Callback for events
-    bool event ( QEvent *e );
-
-    /// Callback for resize-events
-    void resizeEvent ( QResizeEvent * );
+    long onSimStep(FXObject*,FXSelector,void*);
+    long onTableSelected(FXObject*,FXSelector,void*);
+    long onTableDeselected(FXObject*,FXSelector,void*);
+    long onRightButtonPress(FXObject*,FXSelector,void*);
 
 protected:
-//    virtual size_t getParameterNo() const = 0;
+
+protected:
 
     void updateTable();
 
     /// The object to get the information from
-    GUIGlObject &myObject;
+    GUIGlObject *myObject;
 
     /// The table to display the information in
-    GUIParameterTable *myTable;
-
-    /// A list of current parameter
-//    double *myParameter;
-
-    /// A backup for current parameter so that only those will be reset which have changed
-//    double *myParameterBuffer;
+    FXTable *myTable;
 
     /// The main application
-    GUIApplicationWindow &myApplication;
-
-    /// The list of parameter names
-//    GUIParameterTableItem **myItems;
+    GUIApplicationWindow *myApplication;
 
     std::vector<GUIParameterTableItem*> myItems;
 
+    size_t myCurrentPos;
+
+protected:
+    GUIParameterTableWindow() { }
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIParameterTableWindow.icc"
-//#endif
 
 #endif
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2004/03/19 12:42:59  dkrajzew
+// porting to FOX
+//
 // Revision 1.12  2003/11/20 13:18:34  dkrajzew
 // further work on aggregated views
 //
@@ -53,7 +56,6 @@ namespace
 // Revision 1.3  2003/06/05 11:38:47  dkrajzew
 // class templates applied; documentation added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -64,25 +66,20 @@ namespace
 #include <string>
 
 #include <guisim/GUINet.h>
-
-#include <qdialog.h>
-#include <qevent.h>
-#include <qtoolbar.h>
-#include <qtoolbutton.h>
-#include <qrect.h>
-#include <qmenubar.h>
-#include <qpopupmenu.h>
 #include <utils/convert/ToString.h>
 #include <utils/common/StringUtils.h>
 #include "GUIParameterTracker.h"
+#include <gui/GUIAppEnum.h>
+#include <gui/GUIGlobals.h>
 #include <gui/GUIGlObject.h>
 #include <gui/GUIApplicationWindow.h>
-#include <gui/icons/filesave.xpm>
+#include <gui/textures/GUITexturesHelper.h>
 
-
-#ifndef WIN32
-#include "GUIParameterTracker.moc"
+#ifdef _WIN32
+#include <windows.h>
 #endif
+
+#include <GL/gl.h>
 
 
 /* =========================================================================
@@ -92,221 +89,164 @@ using namespace std;
 
 
 /* =========================================================================
+ * FOX callback mapping
+ * ======================================================================= */
+FXDEFMAP(GUIParameterTracker) GUIParameterTrackerMap[]={
+    FXMAPFUNC(SEL_CONFIGURE, 0,           GUIParameterTracker::onConfigure),
+    FXMAPFUNC(SEL_PAINT,     0,           GUIParameterTracker::onPaint),
+    FXMAPFUNC(SEL_COMMAND,   MID_SIMSTEP, GUIParameterTracker::onSimStep),
+
+};
+
+  // Macro for the GLTestApp class hierarchy implementation
+FXIMPLEMENT(GUIParameterTracker,FXMainWindow,GUIParameterTrackerMap,ARRAYNUMBER(GUIParameterTrackerMap))
+
+
+/* =========================================================================
  * method definitions
  * ======================================================================= */
 GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app)
-        : myApplication(app)
+    : FXMainWindow(gFXApp,"Tracker",NULL,NULL,DECOR_ALL,0,0,300,200),
+    myApplication(&app)
 {
     buildFileTools();
     buildFileMenu();
-    setCaption("Tracker");
-    setBaseSize(300, 200);
-    setMinimumSize(300, 200);
     app.addChild(this, true);
-    myPanel = new
-        GUIParameterTrackerPanel(myApplication, *this);
-    show();
+	FXVerticalFrame *glcanvasFrame =
+        new FXVerticalFrame(this,FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,0,0,0,0);
+    myPanel = new GUIParameterTrackerPanel(glcanvasFrame,
+        *myApplication, *this);
 }
-
 
 
 GUIParameterTracker::GUIParameterTracker(GUIApplicationWindow &app,
                                          const std::string &name,
-                                         GUIGlObject &o,/*
-                                         DoubleValueSource *src,*/
+                                         GUIGlObject &o,
                                          int xpos, int ypos)
-        : myApplication(app)
+    : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,0,0,300,200),
+    myApplication(&app)
 {
     buildFileMenu();
     buildFileTools();
-    setCaption("Tracker");
-    setBaseSize(300, 200);
-    setMinimumSize(300, 200);
+    setTitle("Tracker");
     app.addChild(this, true);
-    myPanel = new
-        GUIParameterTrackerPanel(myApplication, *this);
-    setCentralWidget(myPanel);
-    myPanel->move(xpos, ypos);
-    show();
+	FXVerticalFrame *glcanvasFrame =
+        new FXVerticalFrame(this,
+        FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
+        0,0,0,0,0,0,0,0);
+    myPanel = new GUIParameterTrackerPanel(glcanvasFrame,
+        *myApplication, *this);
 }
 
 
 GUIParameterTracker::~GUIParameterTracker()
 {
-    myApplication.removeChild(this);
-    for(TrackedVarsVector::iterator i=myTracked.begin(); i!=myTracked.end(); i++) {
-        delete (*i);
+    myApplication->removeChild(this);
+    for(TrackedVarsVector::iterator i1=myTracked.begin(); i1!=myTracked.end(); i1++) {
+        delete (*i1);
+    }
+    for(ValuePasserVector::iterator i2=myValuePassers.begin(); i2!=myValuePassers.end(); i2++) {
+        delete (*i2);
     }
 }
 
 
 void
-GUIParameterTracker::addVariable( GUIGlObject *o, const std::string &name/*,
-                                 DoubleValueSource *src*/)
+GUIParameterTracker::addVariable( GUIGlObject *o, const std::string &name)
 {
     TrackerValueDesc *newTracked =
-        new TrackerValueDesc(
-            name, RGBColor(0, 0, 0), o/*, src*/);
+        new TrackerValueDesc(name, RGBColor(0, 0, 0), o);
     myTracked.push_back(newTracked);
-}
-
-
-bool
-GUIParameterTracker::event ( QEvent *e )
-{
-    if(e->type()!=QEvent::User) {
-        return QMainWindow::event(e);
-    }
-    update();
-    return TRUE;
 }
 
 
 int
 GUIParameterTracker::getMaxGLWidth() const
 {
-    return myApplication.getMaxGLWidth();
+    return myApplication->getMaxGLWidth();
 }
 
 
 int
 GUIParameterTracker::getMaxGLHeight() const
 {
-    return myApplication.getMaxGLHeight();
+    return myApplication->getMaxGLHeight();
 }
-
-
-void
-GUIParameterTracker::paintEvent ( QPaintEvent *e )
-{
-    myPanel->paintEvent(e);
-    QMainWindow::paintEvent(e);
-}
-
-
-void
-GUIParameterTracker::resizeEvent ( QResizeEvent *e )
-{
-	QMainWindow::resizeEvent(e);
-}
-
 
 
 void
 GUIParameterTracker::buildFileMenu()
 {
-/*
-    QPixmap saveIcon;
-    saveIcon = QPixmap( filesave );
-    // build the file-menu
-    _fileMenu = new QPopupMenu( this );
-    menuBar()->insertItem( "&File", _fileMenu );
-    _fileMenu->insertSeparator();
-    _fileMenu->insertItem( "&Close", this, SLOT(closeAllWindows()), CTRL+Key_W );
-*/
 }
 
 
 void
 GUIParameterTracker::buildFileTools()
 {
-    /*
-    QPixmap saveIcon;
-
-    fileTools = new QToolBar( "file operations", this);
-    addToolBar( fileTools, tr( "File Operations" ), Top, TRUE );
-
-    saveIcon = QPixmap( filesave );
-    QToolButton *fileSave = new QToolButton( saveIcon, "Open File",
-        QString::null, this, SLOT(load()), fileTools, "open file" );
-        */
 }
 
 
 void
-GUIParameterTracker::addTracked(TrackerValueDesc *newTracked)
+GUIParameterTracker::addTracked(GUIGlObject &o,
+                                ValueSource<double> *src,
+                                TrackerValueDesc *newTracked)
 {
     myTracked.push_back(newTracked);
+    // build connection (is automatically set into an execution map)
+    myValuePassers.push_back(new GLObjectValuePassConnector<double>(o,
+        src, newTracked));
 }
 
 
+long
+GUIParameterTracker::onConfigure(FXObject *sender, FXSelector sel, void *data)
+{
+    myPanel->onConfigure(sender, sel, data);
+    return FXMainWindow::onConfigure(sender, sel, data);
+}
 
 
+long
+GUIParameterTracker::onPaint(FXObject *sender, FXSelector sel, void *data)
+{
+    myPanel->onPaint(sender, sel, data);
+    return FXMainWindow::onPaint(sender, sel, data);
+}
+
+
+long
+GUIParameterTracker::onSimStep(FXObject*sender,FXSelector,void*)
+{
+    update();
+    return 1;
+}
+
+
+/* -------------------------------------------------------------------------
+ * GUIParameterTracker::GUIParameterTrackerPanel-methods
+ * ----------------------------------------------------------------------- */
+FXDEFMAP(GUIParameterTracker::GUIParameterTrackerPanel) GUIParameterTrackerPanelMap[]={
+    FXMAPFUNC(SEL_CONFIGURE, 0, GUIParameterTracker::GUIParameterTrackerPanel::onConfigure),
+    FXMAPFUNC(SEL_PAINT,     0, GUIParameterTracker::GUIParameterTrackerPanel::onPaint),
+
+};
+
+  // Macro for the GLTestApp class hierarchy implementation
+FXIMPLEMENT(GUIParameterTracker::GUIParameterTrackerPanel,FXGLCanvas,GUIParameterTrackerPanelMap,ARRAYNUMBER(GUIParameterTrackerPanelMap))
 
 
 
 GUIParameterTracker::GUIParameterTrackerPanel::GUIParameterTrackerPanel(
-        GUIApplicationWindow &app, GUIParameterTracker &parent)
-    : QGLWidget(&parent),
-    myParent(parent), _noDrawing(0), myApplication(app)
+        FXComposite *c, GUIApplicationWindow &app,
+        GUIParameterTracker &parent)
+    : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0, 0, 300, 200),
+    myParent(&parent), myApplication(&app)
 {
 }
+
 
 GUIParameterTracker::GUIParameterTrackerPanel::~GUIParameterTrackerPanel()
 {
-}
-
-
-void
-GUIParameterTracker::GUIParameterTrackerPanel::initializeGL()
-{
-    _lock.lock();
-    _widthInPixels = myParent.getMaxGLWidth();
-    _heightInPixels = myParent.getMaxGLHeight();
-    glViewport( 0, 0, myParent.getMaxGLWidth()-1, myParent.getMaxGLHeight()-1 );
-    glClearColor( 1.0, 1.0, 1.0, 1 );
-    glDisable( GL_DEPTH_TEST );
-    glDisable( GL_LIGHTING );
-    glDisable(GL_LINE_SMOOTH);
-    glEnable(GL_BLEND );
-    glEnable(GL_ALPHA_TEST);
-    glDisable(GL_COLOR_MATERIAL);
-    glLineWidth(1);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    myFontRenderer.add(myApplication.myFonts.get("std11"));
-    myFontRenderer.add(myApplication.myFonts.get("std10"));
-    myFontRenderer.add(myApplication.myFonts.get("std9"));
-    myFontRenderer.add(myApplication.myFonts.get("std8"));
-    myFontRenderer.add(myApplication.myFonts.get("std7"));
-    _lock.unlock();
-}
-
-
-void
-GUIParameterTracker::GUIParameterTrackerPanel::resizeGL( int width, int height )
-{
-    _lock.lock();
-    _widthInPixels = width;
-    _heightInPixels = height;
-    glViewport( 0, 0, _widthInPixels, _heightInPixels );
-    _lock.unlock();
-}
-
-void
-GUIParameterTracker::GUIParameterTrackerPanel::paintGL()
-{
-    _lock.lock();
-    // return if the canvas is not visible
-    if(!isVisible()) {
-		_lock.unlock();
-        return;
-    }
-    _noDrawing++;
-    // ...and return when drawing is already being done
-    if(_noDrawing>1) {
-        _noDrawing--;
-        _lock.unlock();
-        return;
-    }
-    _widthInPixels = width();
-    _heightInPixels = height();
-    // draw
-    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-    drawValues();
-    _noDrawing--;
-    glFlush();
-    swapBuffers();
-    _lock.unlock();
 }
 
 
@@ -317,7 +257,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues()
     int fontIdx = (_widthInPixels-300) / 100;
     if(fontIdx<0) fontIdx = 0;
     if(fontIdx>4) fontIdx = 4;
-    myFontRenderer.SetActiveFont(4-fontIdx);
+    GUITexturesHelper::getFontRenderer().SetActiveFont(4-fontIdx);
     //
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -325,13 +265,13 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues()
     glLoadIdentity();
     glDisable(GL_TEXTURE_2D);
     size_t run = 0;
-    for(TrackedVarsVector::iterator i=myParent.myTracked.begin(); i!=myParent.myTracked.end(); i++) {
+    for(TrackedVarsVector::iterator i=myParent->myTracked.begin(); i!=myParent->myTracked.end(); i++) {
         TrackerValueDesc *desc = *i;
         drawValue(*desc,
-            (float) _widthInPixels / (float) myParent.myTracked.size() * (float) run);
+            (float) _widthInPixels / (float) myParent->myTracked.size() * (float) run);
         run++;
     }
-    myFontRenderer.Draw(_widthInPixels, _heightInPixels);//this, width, height);
+    GUITexturesHelper::getFontRenderer().Draw(_widthInPixels, _heightInPixels);//this, width, height);
 }
 
 
@@ -358,17 +298,17 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     glBegin( GL_LINES );
     // draw value bounderies and descriptions
     glColor4f(red, green, blue, 0.5f);
-    myFontRenderer.SetColor(red*0.5f, green*0.5f, blue*0.5f);
+    GUITexturesHelper::getFontRenderer().SetColor(red*0.5f, green*0.5f, blue*0.5f);
         // draw minimum boundery
     glVertex2d(0, desc.getMin());
     glVertex2d(2.0, desc.getMin());
-    myFontRenderer.StringOut(0,
+    GUITexturesHelper::getFontRenderer().StringOut(3,
         patchHeightVal(desc, desc.getMin()),
         StringUtils::trim(desc.getMin(), 2));
         // draw maximum boundery
     glVertex2d(0, desc.getMax());
     glVertex2d(2.0, desc.getMax());
-    myFontRenderer.StringOut(0,
+    GUITexturesHelper::getFontRenderer().StringOut(3,
         patchHeightVal(desc, desc.getMax()),
         StringUtils::trim(desc.getMax(), 2));
         // draw some further lines
@@ -408,11 +348,10 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     desc.unlockValues();
     glPopMatrix();
     // add current value string
-    myFontRenderer.SetColor(red, green, blue);
-    myFontRenderer.StringOut(0,
-        patchHeightVal(desc, yp),
-        StringUtils::trim(yp, 2));
-    myFontRenderer.StringOut(namePos, 0,
+    GUITexturesHelper::getFontRenderer().SetColor(red, green, blue);
+    GUITexturesHelper::getFontRenderer().StringOut(3,
+        patchHeightVal(desc, yp), StringUtils::trim(yp, 2));
+    GUITexturesHelper::getFontRenderer().StringOut(namePos+3, 0,
         desc.getName());
 }
 
@@ -424,16 +363,76 @@ GUIParameterTracker::GUIParameterTrackerPanel::patchHeightVal(TrackerValueDesc &
     float height = (float) _heightInPixels;
     float range = (float) desc.getRange();
     float yoff = (float) desc.getYCenter();
-//    float max = (float) desc.getMax();
     float abs = (height) * (((float)d-yoff)/range) * 0.8f;
     return (height * 0.5f) - abs - 6;
 }
 
 
+long
+GUIParameterTracker::GUIParameterTrackerPanel::onConfigure(FXObject*,
+                                                           FXSelector,void*)
+{
+//    return 1;
+    if(makeCurrent()) {
+//        _lock.lock();
+        _widthInPixels = myParent->getMaxGLWidth();
+        _heightInPixels = myParent->getMaxGLHeight();
+        glViewport( 0, 0, _widthInPixels-1, _heightInPixels-1 );
+        glClearColor( 1.0, 1.0, 1.0, 1 );
+        glDisable( GL_DEPTH_TEST );
+        glDisable( GL_LIGHTING );
+        glDisable(GL_LINE_SMOOTH);
+        glEnable(GL_BLEND );
+        glEnable(GL_ALPHA_TEST);
+        glDisable(GL_COLOR_MATERIAL);
+        glLineWidth(1);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        makeNonCurrent();
+//        _lock.unlock();
+    }
+    return 1;
+}
+
+
+long
+GUIParameterTracker::GUIParameterTrackerPanel::onPaint(FXObject*,
+                                                       FXSelector,void*)
+{
+    if(!isEnabled()) {
+        return 1;
+    }
+    if(_lock.locked()) {
+        return 1;
+    }
+    _lock.lock();
+    if(makeCurrent()) {
+        _widthInPixels = getWidth();
+        _heightInPixels = getHeight();
+        if(_widthInPixels!=0&&_heightInPixels!=0) {
+            glViewport( 0, 0, _widthInPixels-1, _heightInPixels-1 );
+            glClearColor( 1.0, 1.0, 1.0, 1 );
+            glDisable( GL_DEPTH_TEST );
+            glDisable( GL_LIGHTING );
+            glDisable(GL_LINE_SMOOTH);
+            glEnable(GL_BLEND );
+            glEnable(GL_ALPHA_TEST);
+            glDisable(GL_COLOR_MATERIAL);
+            glLineWidth(1);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            // draw
+            glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+            drawValues();
+            glFlush();
+            swapBuffers();
+        }
+        makeNonCurrent();
+    }
+    _lock.unlock();
+    return 1;
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIParameterTracker.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

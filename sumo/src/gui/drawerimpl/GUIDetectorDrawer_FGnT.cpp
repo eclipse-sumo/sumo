@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.3  2004/01/26 06:39:18  dkrajzew
 // visualisation of e3-detectors added; documentation added
 //
@@ -30,7 +33,8 @@ namespace
 // documentation patched
 //
 // Revision 1.1  2003/09/23 14:28:16  dkrajzew
-// possibility to visualise detectors using different geometry complexities added
+// possibility to visualise detectors using different geometry complexities
+//  added
 //
 /* =========================================================================
  * included modules

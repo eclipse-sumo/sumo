@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.3  2003/11/12 13:45:25  dkrajzew
 // visualisation of tl-logics added
 //
@@ -28,7 +31,6 @@
 //
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
-//
 //
 /* =========================================================================
  * included modules
@@ -41,7 +43,6 @@
 #include <utils/gfx/RGBColor.h>
 #include <microsim/MSLink.h>
 #include <gui/GUISUMOAbstractView.h>
-#include <qimage.h>
 
 
 /* =========================================================================
@@ -56,8 +57,7 @@ class GUILaneWrapper;
 /**
  * Draws lanes as simple, one-colored straights
  */
-class GUIBaseROWDrawer :
-        public GUISUMOAbstractView::GUIROWRulesDrawer {
+class GUIBaseROWDrawer {
 public:
     /// constructor
     GUIBaseROWDrawer(std::vector<GUIEdge*> &edges);
@@ -80,7 +80,6 @@ private:
 
     virtual void drawArrows(const GUILaneWrapper &lane) = 0;
 
-
 protected:
     /// Definition of a storage for link colors
     typedef std::map<MSLink::LinkState, RGBColor> LinkColorMap;
@@ -88,19 +87,14 @@ protected:
     /// The colors to use for certain link types
     LinkColorMap myLinkColors;
 
-    bool myAmInitialised;
-
-    size_t myTextureIDs[6];
-
-    QImage myTextures[6];
+protected:
+    /// The list of edges to consider at drawing
+    std::vector<GUIEdge*> &myEdges;
 
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIBaseROWDrawer.icc"
-//#endif
 
 #endif
 

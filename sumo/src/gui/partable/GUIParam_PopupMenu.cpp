@@ -1,5 +1,5 @@
 /***************************************************************************
-                          QParamPopupMenu.cpp
+                          GUIParam_PopupMenu.cpp
 	The popup-menu which appears hen pressing right mouse button over a
 	 parameter table
                              -------------------
@@ -19,11 +19,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2004/03/19 12:40:14  dkrajzew
+// porting to FOX
+//
 // Revision 1.6  2003/11/12 14:09:13  dkrajzew
 // clean up after recent changes; comments added
 //
 // Revision 1.5  2003/11/11 08:44:05  dkrajzew
-// synchronisation problems of parameter tracker updates patched; logging moved from utils to microsim
+// synchronisation problems of parameter tracker updates patched; logging
+//  moved from utils to microsim
 //
 // Revision 1.4  2003/07/30 08:48:28  dkrajzew
 // new parameter table usage paradigm; undocummented yet
@@ -37,25 +41,18 @@
 // Revision 1.1  2003/05/20 09:23:58  dkrajzew
 // some statistics added; some debugging done
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <iostream>
 #include <string>
-#include <qpopupmenu.h>
-#include "GUIParameterTable.h"
 #include "GUIParameterTableWindow.h"
 #include <gui/GUIGlObject.h>
-#include "QParamPopupMenu.h"
+#include "GUIParam_PopupMenu.h"
 #include <gui/vartracker/GUIParameterTracker.h>
 #include <gui/vartracker/TrackerValueDesc.h>
 #include <gui/GUIApplicationWindow.h>
-#include <guisim/guilogging/GLObjectValuePassConnector.h>
-
-#ifndef WIN32
-#include "QParamPopupMenu.moc"
-#endif
+#include <gui/GUIAppEnum.h>
 
 
 /* =========================================================================
@@ -65,46 +62,54 @@ using namespace std;
 
 
 /* =========================================================================
+ * FOX callback mapping
+ * ======================================================================= */
+FXDEFMAP(GUIParam_PopupMenu) GUIParam_PopupMenuMap[]=
+{
+    FXMAPFUNC(SEL_COMMAND,  MID_OPENTRACKER, GUIParam_PopupMenu::onCmdOpenTracker),
+};
+
+// Object implementation
+FXIMPLEMENT(GUIParam_PopupMenu, FXMenuPane, GUIParam_PopupMenuMap, ARRAYNUMBER(GUIParam_PopupMenuMap))
+
+
+/* =========================================================================
  * method definitions
  * ======================================================================= */
-QParamPopupMenu::QParamPopupMenu(GUIApplicationWindow &app,
-                                 GUIParameterTable &parent,
+GUIParam_PopupMenu::GUIParam_PopupMenu(GUIApplicationWindow &app,
+//                                 GUIParameterTable &parent,
                                  GUIParameterTableWindow &parentWindow,
                                  GUIGlObject &o,
                                  const std::string &varName,
                                  ValueSource<double> *src)
-    : QPopupMenu(&parent), myObject(o), myParent(parent),
-    myParentWindow(parentWindow), myApplication(app), myVarName(varName),
+    : FXMenuPane(&parentWindow), myObject(&o), //myParent(&parent),
+    myParentWindow(&parentWindow), myApplication(&app), myVarName(varName),
     mySource(src)
 {
 }
 
 
-QParamPopupMenu::~QParamPopupMenu()
+GUIParam_PopupMenu::~GUIParam_PopupMenu()
 {
     delete mySource;
 }
 
 
-void
-QParamPopupMenu::newTracker()
+long
+GUIParam_PopupMenu::onCmdOpenTracker(FXObject*,FXSelector,void*)
 {
-    GUIParameterTracker *tr = new GUIParameterTracker(
-        myApplication, myVarName, myObject, /*mySource, */0, 0);
+    GUIParameterTracker *tr = new GUIParameterTracker(*myApplication,
+        myVarName, *myObject, 0, 0);
     TrackerValueDesc *newTracked = new TrackerValueDesc(
-            myVarName, RGBColor(0, 0, 0), &myObject);
-    tr->addTracked(newTracked);
-    // build connection (is automatically set into an execution map)
-    new GLObjectValuePassConnector<double>(myObject,
-        mySource->copy(), newTracked);
+            myVarName, RGBColor(0, 0, 0), myObject);
+    tr->addTracked(*myObject, mySource->copy(), newTracked);
+    tr->create();
+    tr->show();
+    return 1;
 }
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "QParamPopupMenu.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.3  2003/11/12 13:45:25  dkrajzew
 // visualisation of tl-logics added
 //
@@ -32,8 +35,6 @@ namespace
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
 //
-//
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -41,25 +42,19 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <iostream> // !!!
-#include <string> // !!!
+#include <iostream>
+#include <string>
 #include <microsim/MSEdge.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILaneWrapper.h>
 #include "GUIBaseROWDrawer.h"
 
-#include <qgl.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
-#include <gui/icons/arrows/p.xpm>
-#include <gui/icons/arrows/pl_1.xpm>
-#include <gui/icons/arrows/pl_2.xpm>
-#include <gui/icons/arrows/pl_3.xpm>
-#include <gui/icons/arrows/pr_1.xpm>
-#include <gui/icons/arrows/pr_2.xpm>
-#include <gui/icons/arrows/pr_3.xpm>
-
-
+#include <GL/gl.h>
 
 
 /* =========================================================================
@@ -72,7 +67,7 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 GUIBaseROWDrawer::GUIBaseROWDrawer(std::vector<GUIEdge*> &edges)
-    : GUIROWRulesDrawer(edges), myAmInitialised(false)
+    : myEdges(edges)
 {
     myLinkColors[MSLink::LINKSTATE_ABSTRACT_TL] = RGBColor(0, 0, 1);
     myLinkColors[MSLink::LINKSTATE_TL_GREEN] = RGBColor(0, 1, 0);
@@ -128,44 +123,12 @@ GUIBaseROWDrawer::drawGLROWs(const GUINet &net, size_t *which,
 void
 GUIBaseROWDrawer::initStep()
 {
-    if(!myAmInitialised) {
-        glGenTextures(6, myTextureIDs);
-        myTextures[MSLink::LINKDIR_STRAIGHT] = QImage(p_xpm);
-        myTextures[MSLink::LINKDIR_TURN] = QImage(pl_3_xpm);
-        myTextures[MSLink::LINKDIR_LEFT] = QImage(pl_2_xpm);
-        myTextures[MSLink::LINKDIR_RIGHT] = QImage(pr_2_xpm);
-        myTextures[MSLink::LINKDIR_PARTLEFT] = QImage(pl_1_xpm);
-        myTextures[MSLink::LINKDIR_PARTRIGHT] = QImage(pr_1_xpm);
-        for(size_t i=0; i<6; i++) {
-            initTexture(i);
-        }
-        myAmInitialised = true;
-    }
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 
-void
-GUIBaseROWDrawer::initTexture(size_t no)
-{
-    QImage use = QGLWidget::convertToGLFormat(myTextures[no]);
-    glBindTexture(GL_TEXTURE_2D, myTextureIDs[no]);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-        use.width(), use.height(), 0,
-        GL_RGBA, GL_UNSIGNED_BYTE, use.bits() );
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-    glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIBaseROWDrawer.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

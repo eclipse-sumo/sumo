@@ -20,13 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
-//
-//
 //
 /* =========================================================================
  * included modules
@@ -35,6 +36,7 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include <vector>
 #include <gui/GUISUMOAbstractView.h>
 
 
@@ -51,8 +53,7 @@ class GUIVehicle;
 /**
  * Draws vehicles as coloured triangles
  */
-class GUIBaseVehicleDrawer :
-    public GUISUMOAbstractView::GUIVehicleDrawer {
+class GUIBaseVehicleDrawer {
 public:
     /// constructor
     GUIBaseVehicleDrawer(std::vector<GUIEdge*> &edges);
@@ -88,13 +89,14 @@ protected:
     /// Sets the left color of the vehicle if the vehicle shall be draw in more than a single color
     void setVehicleColor3Of3(const GUIVehicle &vehicle);
 
+protected:
+    /// The list of edges to consider at drawing
+    std::vector<GUIEdge*> &myEdges;
+
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIBaseVehicleDrawer.icc"
-//#endif
 
 #endif
 

@@ -20,9 +20,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.1  2004/01/26 06:39:41  dkrajzew
 // visualisation of e3-detectors added; documentation added
-//
 //
 /* =========================================================================
  * included modules
@@ -34,23 +36,17 @@
  * class definitions
  * ======================================================================= */
 class GUIBaseDetectorDrawer
-        : public GUISUMOAbstractView::GUIDetectorDrawer
 {
 public:
     /// Constructor
-    GUIBaseDetectorDrawer(std::vector<GUIDetectorWrapper*> &detectors)
-        : GUISUMOAbstractView::GUIDetectorDrawer(detectors),
-        myAmInitialised(false) { }
+    GUIBaseDetectorDrawer(std::vector<GUIDetectorWrapper*> &detectors);
 
     /// Destructor
-    ~GUIBaseDetectorDrawer() { }
+    virtual ~GUIBaseDetectorDrawer();
 
     /// Draws all detectors
     void drawGLDetectors(size_t *which, size_t maxDetectors,
         double scale);
-
-    /// Draws an arrow of the specified size at (0, 0)
-    void drawArrow(double size);
 
 protected:
     /** @brief Virtual function to be implemented taht actually performs the drawing
@@ -65,12 +61,8 @@ protected:
     void initStep();
 
 protected:
-    /** @brief Holds the information whether the view has been initialised
-        (Whether the textures were initialised) */
-    bool myAmInitialised;
-
-    /// The list of texture ids used
-    size_t myTextureIDs[1];
+    /// The list of detectors to consider at drawing
+    std::vector<GUIDetectorWrapper*> &myDetectors;
 
 };
 

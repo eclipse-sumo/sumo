@@ -1,5 +1,5 @@
 /* XPM */
-static const char *filesave[] = {
+static const char *filesave_xpm[] = {
 "    14    14        4            1",
 ". c #040404",
 "# c #808304",

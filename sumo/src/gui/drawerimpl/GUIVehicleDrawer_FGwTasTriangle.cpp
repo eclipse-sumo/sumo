@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
@@ -44,13 +47,18 @@ namespace
 #include <utils/geom/Position2DVector.h>
 #include "GUIVehicleDrawer_FGwTasTriangle.h"
 
-#include <qgl.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
 
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIVehicleDrawer_FGwTasTriangle::GUIVehicleDrawer_FGwTasTriangle(std::vector<GUIEdge*> &edges)
+GUIVehicleDrawer_FGwTasTriangle::GUIVehicleDrawer_FGwTasTriangle(
+        std::vector<GUIEdge*> &edges)
     : GUIBaseVehicleDrawer(edges)
 {
 }
@@ -81,7 +89,10 @@ GUIVehicleDrawer_FGwTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
     for(MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); v++) {
         MSVehicle *veh = *v;
         double vehiclePosition = veh->pos();
-        while(shapePos<rots.size()-1 && vehiclePosition>positionOffset+lengths[shapePos]) {
+        while(  shapePos<rots.size()-1
+                &&
+                vehiclePosition>positionOffset+lengths[shapePos]) {
+
             glPopMatrix();
             positionOffset += lengths[shapePos];
             shapePos++;
@@ -98,6 +109,7 @@ GUIVehicleDrawer_FGwTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
     lane.releaseVehicles();
     glPopMatrix();
 }
+
 
 void
 GUIVehicleDrawer_FGwTasTriangle::drawVehicle(const GUIVehicle &vehicle,
@@ -123,9 +135,6 @@ GUIVehicleDrawer_FGwTasTriangle::drawVehicle(const GUIVehicle &vehicle,
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIVehicleDrawer_FGwTasTriangle.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

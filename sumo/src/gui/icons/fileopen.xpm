@@ -1,5 +1,5 @@
 /* XPM */
-static const char *fileopen[] = {
+static const char *fileopen_xpm[] = {
 "    16    13        5            1",
 ". c #040404",
 "# c #808304",

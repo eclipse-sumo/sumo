@@ -1,7 +1,7 @@
-#ifndef QParamPopupMenu_h
-#define QParamPopupMenu_h
+#ifndef GUIParam_PopupMenu_h
+#define GUIParam_PopupMenu_h
 /***************************************************************************
-                          QParamPopupMenu.cpp
+                          GUIParam_PopupMenu.cpp
 	The popup-menu which appears hen pressing right mouse button over a
 	 parameter table
                              -------------------
@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2004/03/19 12:40:14  dkrajzew
+// porting to FOX
+//
 // Revision 1.3  2003/11/12 14:09:13  dkrajzew
 // clean up after recent changes; comments added
 //
@@ -40,14 +43,14 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
+#include <fx.h>
 #include <helpers/ValueSource.h>
-#include <qpopupmenu.h>
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-class GUIParameterTable;
+//class GUIParameterTable;
 class GUIParameterTableWindow;
 class GUIGlObject;
 class GUIApplicationWindow;
@@ -57,52 +60,47 @@ class GUIApplicationWindow;
  * class declarataions
  * ======================================================================= */
 /**
- * @class QParamPopupMenu
+ * @class GUIParam_PopupMenu
  * A popup menu holding the context of a parameter table entry
  */
-class QParamPopupMenu :
-        public QPopupMenu
+class GUIParam_PopupMenu : public FXMenuPane
 {
-	// is a q-object (moccing is necessary)
-    Q_OBJECT
-
+    FXDECLARE(GUIParam_PopupMenu)
 public:
 	/// Constructor
-    QParamPopupMenu(GUIApplicationWindow &app,
-        GUIParameterTable &parent, GUIParameterTableWindow &parentWindow,
+    GUIParam_PopupMenu(GUIApplicationWindow &app,
+        /*GUIParameterTable &parent, */GUIParameterTableWindow &parentWindow,
         GUIGlObject &o, const std::string &varName, ValueSource<double> *src);
 
 	/// Destructor
-    ~QParamPopupMenu();
+    ~GUIParam_PopupMenu();
 
-public slots:
-	/// Opens a new tracker for the variable the context was build for
-    void newTracker();
+    long onCmdOpenTracker(FXObject*,FXSelector,void*);
 
 private:
 	/// The object the table displays
-    GUIGlObject &myObject;
+    GUIGlObject *myObject;
 
-    GUIParameterTable &myParent;
+//    GUIParameterTable *myParent;
 
-    GUIParameterTableWindow &myParentWindow;
+    GUIParameterTableWindow *myParentWindow;
 
 	/** @brief The main application window
 		holder of some needed values */
-    GUIApplicationWindow &myApplication;
+    GUIApplicationWindow *myApplication;
 
     std::string myVarName;
 
 
     ValueSource<double> *mySource;
 
+protected:
+    GUIParam_PopupMenu() { }
+
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "QParamPopupMenu.icc"
-//#endif
 
 #endif
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.3  2003/09/30 14:43:59  dkrajzew
 // only some make-up made
 //
@@ -31,8 +34,6 @@ namespace
 //
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
-//
-//
 //
 /* =========================================================================
  * included modules
@@ -46,13 +47,18 @@ namespace
 #include <guisim/GUIEdge.h>
 #include "GUIVehicleDrawer_SGnTasTriangle.h"
 
-#include <qgl.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
 
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIVehicleDrawer_SGnTasTriangle::GUIVehicleDrawer_SGnTasTriangle(std::vector<GUIEdge*> &edges)
+GUIVehicleDrawer_SGnTasTriangle::GUIVehicleDrawer_SGnTasTriangle(
+        std::vector<GUIEdge*> &edges)
     : GUIBaseVehicleDrawer(edges)
 {
 }
@@ -112,9 +118,6 @@ GUIVehicleDrawer_SGnTasTriangle::drawVehicle(const GUIVehicle &vehicle,
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIVehicleDrawer_SGnTasTriangle.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

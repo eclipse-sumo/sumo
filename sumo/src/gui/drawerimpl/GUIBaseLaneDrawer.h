@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.3  2003/10/02 14:55:56  dkrajzew
 // visualisation of E2-detectors implemented
 //
@@ -28,8 +31,6 @@
 //
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
-//
-//
 //
 /* =========================================================================
  * included modules
@@ -56,7 +57,7 @@ class Position2D;
 /**
  * Draws lanes as simple, one-colored straights
  */
-class GUIBaseLaneDrawer : public GUISUMOAbstractView::GUILaneDrawer {
+class GUIBaseLaneDrawer {
 public:
     /// constructor
     GUIBaseLaneDrawer(std::vector<GUIEdge*> &edges);
@@ -64,8 +65,10 @@ public:
     /// destructor
     virtual ~GUIBaseLaneDrawer();
 
-    void drawGLLanes(size_t *which, size_t maxEdges,
+    virtual void drawGLLanes(size_t *which, size_t maxEdges,
         double width, GUISUMOAbstractView::LaneColoringScheme scheme);
+
+    void setUseExponential(bool val);
 
 protected:
     /// initialises the drawing
@@ -76,16 +79,20 @@ protected:
         GUISUMOAbstractView::LaneColoringScheme scheme, double width) = 0;
 
     /// sets the colour of the vehicle to draw
-    void setLaneColor(const GUILaneWrapper &lane,
+    virtual void setLaneColor(const GUILaneWrapper &lane,
         GUISUMOAbstractView::LaneColoringScheme scheme);
+
+protected:
+    /// The list of edges to consider at drawing
+    std::vector<GUIEdge*> &myEdges;
+
+private:
+    bool myUseExponential;
 
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIBaseLaneDrawer.icc"
-//#endif
 
 #endif
 

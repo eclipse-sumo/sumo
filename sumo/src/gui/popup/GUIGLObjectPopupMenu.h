@@ -1,5 +1,7 @@
+#ifndef GUIGLObjectPopupMenu_h
+#define GUIGLObjectPopupMenu_h
 //---------------------------------------------------------------------------//
-//                        QGLObjectPopupMenu.cpp -
+//                        GUIGLObjectPopupMenu.h -
 //  The popup menu which is displayed when pressing the right mouse button over
 //  a gl-object
 //                           -------------------
@@ -18,30 +20,23 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
 // $Log$
-// Revision 1.4  2003/11/12 14:09:39  dkrajzew
+// Revision 1.1  2004/03/19 12:41:13  dkrajzew
+// porting to FOX
+//
+// Revision 1.3  2003/11/12 14:09:39  dkrajzew
 // clean up after recent changes; comments added
 //
-// Revision 1.3  2003/07/30 08:49:26  dkrajzew
+// Revision 1.2  2003/07/30 08:49:26  dkrajzew
 // changed the responsibility of a GLObject
 //
-// Revision 1.2  2003/07/18 12:30:14  dkrajzew
-// removed some warnings
-//
 // Revision 1.1  2003/06/06 10:24:36  dkrajzew
-// new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
+// new subfolder holding popup-menus was added due to link-dependencies under
+//  linux; GUIGLObjectPopupMenu*-classes were moved to "popup"
 //
-// Revision 1.3  2003/06/05 11:37:31  dkrajzew
+// Revision 1.2  2003/06/05 11:37:31  dkrajzew
 // class templates applied
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -49,74 +44,63 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <iostream>
-#include <cassert>
-#include <qpopupmenu.h>
-#include <gui/GUISUMOAbstractView.h>
-#include <gui/GUIGlObject.h>
-#include <guisim/GUITrafficLightLogicWrapper.h>
-#include "QGLObjectPopupMenu.h"
-#include <gui/partable/GUIParameterTableWindow.h>
-
-#ifndef WIN32
-#include "QGLObjectPopupMenu.moc"
-#endif
+#include <fx.h>
 
 
 /* =========================================================================
- * used namespaces
+ * class declarations
  * ======================================================================= */
-using namespace std;
+class GUISUMOAbstractView;
+class GUIGlObject;
+class GUIApplicationWindow;
 
 
 /* =========================================================================
- * method definitions
+ * class definitions
  * ======================================================================= */
-QGLObjectPopupMenu::QGLObjectPopupMenu(GUIApplicationWindow &app,
-                                       GUISUMOAbstractView &parent,
-                                       GUIGlObject &o)
-    : QPopupMenu(&parent), myParent(parent), myObject(o),
-    myApplication(app)
+/**
+ * @class GUIGLObjectPopupMenu
+ */
+class GUIGLObjectPopupMenu : public FXMenuPane
 {
-}
+    // FOX-declarations
+    FXDECLARE(GUIGLObjectPopupMenu)
+public:
+    /// Constructor
+    GUIGLObjectPopupMenu(GUIApplicationWindow &app,
+        GUISUMOAbstractView &parent, GUIGlObject &o);
 
+    /// Destructor
+    ~GUIGLObjectPopupMenu();
 
-QGLObjectPopupMenu::~QGLObjectPopupMenu()
-{
-}
+public:
+    long onCmdCenter(FXObject*,FXSelector,void*);
+    long onCmdShowPars(FXObject*,FXSelector,void*);
+    long onCmdShowPhases(FXObject*,FXSelector,void*);
+    long onCmdAddSelected(FXObject*,FXSelector,void*);
+    long onCmdRemoveSelected(FXObject*,FXSelector,void*);
 
+protected:
+    /// The parent window
+    GUISUMOAbstractView *myParent; // !!! needed?
 
-void
-QGLObjectPopupMenu::center()
-{
-    myParent.centerTo(myObject.getType(), myObject.microsimID());
-}
+    /// The object that belongs to this popup-menu
+    GUIGlObject *myObject;
 
+    /// The main application
+    GUIApplicationWindow *myApplication;
 
+protected:
+    GUIGLObjectPopupMenu() { }
 
-void
-QGLObjectPopupMenu::showPars()
-{
-    myObject.getParameterWindow(myApplication, myParent);
-}
-
-
-void
-QGLObjectPopupMenu::showPhases()
-{
-    assert(myObject.getType()==GLO_TLLOGIC);
-    static_cast<GUITrafficLightLogicWrapper&>(myObject).showPhases();
-}
-
+};
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "QGLObjectPopupMenu.icc"
-//#endif
+
+#endif
 
 // Local Variables:
 // mode:C++
 // End:
-
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.4  2004/01/26 06:41:26  dkrajzew
 // code style changes
 //
@@ -42,8 +45,8 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <iostream> // !!!
-#include <string> // !!!
+#include <iostream>
+#include <string>
 #include <microsim/MSEdge.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIEdge.h>
@@ -52,7 +55,11 @@ namespace
 #include <utils/geom/GeomHelper.h>
 #include <utils/glutils/GLHelper.h>
 
-#include <qgl.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
 
 
 /* =========================================================================

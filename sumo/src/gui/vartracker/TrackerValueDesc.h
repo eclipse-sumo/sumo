@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/03/19 12:42:59  dkrajzew
+// porting to FOX
+//
 // Revision 1.5  2003/11/12 14:08:24  dkrajzew
 // clean up after recent changes
 //
@@ -120,7 +123,7 @@ private:
 	double myMin, myMax;
 
     // Mutex to avoid parallel drawing and insertion of new items
-    NewQMutex myLock;
+    FXEX::FXMutex myLock;
 
 };
 

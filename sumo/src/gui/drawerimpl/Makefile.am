@@ -4,7 +4,6 @@ noinst_LIBRARIES = libguidrawerimpl.a
 EXTRA_DIST =
 
 libguidrawerimpl_a_SOURCES = \
-GUIAggregatedLaneDrawer.cpp GUIAggregatedLaneDrawer.h \
 GUIBaseDetectorDrawer.cpp GUIBaseDetectorDrawer.h \
 GUIBaseJunctionDrawer.cpp GUIBaseJunctionDrawer.h \
 GUIBaseLaneDrawer.cpp GUIBaseLaneDrawer.h \
@@ -29,11 +28,9 @@ GUIVehicleDrawer_FGwTasTriangle.cpp GUIVehicleDrawer_FGwTasTriangle.h \
 GUIVehicleDrawer_SGnTasTriangle.cpp GUIVehicleDrawer_SGnTasTriangle.h \
 GUIVehicleDrawer_SGwTasTriangle.cpp GUIVehicleDrawer_SGwTasTriangle.h
 
-AM_CPPFLAGS = -I$(top_srcdir)/src $(QT_INCLUDES)
+AM_CPPFLAGS = -I$(top_srcdir)/src -I$(FOX_INCLUDES)
 
 SUBDIRS =
-
-METASOURCES = AUTO
 
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/03/19 12:42:59  dkrajzew
+// porting to FOX
+//
 // Revision 1.5  2003/11/11 08:43:04  dkrajzew
 // synchronisation problems of parameter tracker updates patched
 //
@@ -34,7 +37,6 @@ namespace
 //
 // Revision 1.2  2003/06/05 11:38:47  dkrajzew
 // class templates applied; documentation added
-//
 //
 /* =========================================================================
  * included modules
@@ -147,11 +149,7 @@ TrackerValueDesc::unlockValues()
 }
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "TrackerValueDesc.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

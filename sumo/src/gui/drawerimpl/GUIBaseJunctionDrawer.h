@@ -20,12 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
-//
 //
 
 #include <vector>
@@ -33,14 +35,18 @@
 
 class GUIJunctionWrapper;
 
-class GUIBaseJunctionDrawer :
-    public GUISUMOAbstractView::GUIJunctionDrawer
+class GUIBaseJunctionDrawer
 {
 public:
     GUIBaseJunctionDrawer(std::vector<GUIJunctionWrapper*> &junctions);
     virtual ~GUIBaseJunctionDrawer();
     virtual void drawGLJunctions(size_t *which, size_t maxJunctions,
         GUISUMOAbstractView::JunctionColoringScheme scheme) = 0;
+
+protected:
+    /// The list of junctions to consider at drawing
+    std::vector<GUIJunctionWrapper*> &myJunctions;
+
 };
 
 #endif

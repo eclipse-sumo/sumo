@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2004/03/19 12:40:14  dkrajzew
+// porting to FOX
+//
 // Revision 1.8  2003/11/20 13:18:10  dkrajzew
 // further work on aggregated views
 //
@@ -50,20 +53,14 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <string>
+#include <fx.h>
 #include <guisim/GUINet.h>
 #include <gui/GUIApplicationWindow.h>
-#include "GUIParameterTable.h"
 #include "GUIParameterTableWindow.h"
 #include <gui/GUIGlObject.h>
 #include <utils/convert/ToString.h>
-#include <gui/partable/QParamPopupMenu.h>
-
-#include <qdialog.h>
-#include <qlistview.h>
-
-#ifndef WIN32
-#include "GUIParameterTableWindow.moc"
-#endif
+#include <gui/partable/GUIParam_PopupMenu.h>
+#include <gui/GUIAppEnum.h>
 
 
 /* =========================================================================
@@ -73,76 +70,115 @@ using namespace std;
 
 
 /* =========================================================================
+ * FOX callback mapping
+ * ======================================================================= */
+FXDEFMAP(GUIParameterTableWindow) GUIParameterTableWindowMap[]=
+{
+    FXMAPFUNC(SEL_COMMAND,          MID_SIMSTEP,    GUIParameterTableWindow::onSimStep),
+    FXMAPFUNC(SEL_SELECTED,         MID_TABLE,      GUIParameterTableWindow::onTableSelected),
+    FXMAPFUNC(SEL_DESELECTED,       MID_TABLE,      GUIParameterTableWindow::onTableDeselected),
+    FXMAPFUNC(SEL_RIGHTBUTTONPRESS, MID_TABLE,      GUIParameterTableWindow::onRightButtonPress),
+};
+
+FXIMPLEMENT(GUIParameterTableWindow, FXMainWindow, GUIParameterTableWindowMap, ARRAYNUMBER(GUIParameterTableWindowMap))
+
+
+/* =========================================================================
  * method definitions
  * ======================================================================= */
 GUIParameterTableWindow::GUIParameterTableWindow(GUIApplicationWindow &app,
-                                                 GUIGlObject &o )
-	: QDialog( 0, 0, FALSE,
-        WStyle_Customize | WStyle_NormalBorder | WStyle_Title | WStyle_SysMenu ),
-    myObject(o),
-    myApplication(app)
+                                                 GUIGlObject &o,
+                                                 size_t noRows )
+	: FXMainWindow(
+        app.getApp() ,string(o.getFullName() + " Parameter").c_str(),
+        NULL,NULL,DECOR_ALL,0,0,300,noRows*20+60),
+    myObject(&o),
+    myApplication(&app), myCurrentPos(0)
 {
-    setCaption(string(o.getFullName() + " Parameter").c_str() );
-    myTable = new GUIParameterTable( app, *this, o, 0 );
-    myTable->addColumn( "Name" );
-    myTable->addColumn( "Value" );
-    myTable->addColumn( "Dynamic" );
-    myTable->setAllColumnsShowFocus( TRUE );
-    myTable->setBaseSize(200, 300);
-    myTable->setMinimumSize(200, 300);
-    setBaseSize(200, 300);
-    setMinimumSize(200, 300);
-    myTable->setSorting(-1);
-//    myParameter = new double[paramNo ];
-//    myParameterBuffer = new double[paramNo ];
-//    myItems = new GUIParameterTableItem*[paramNo ];
+    myTable = new FXTable( this, this, MID_TABLE, TABLE_COL_SIZABLE|TABLE_ROW_SIZABLE|LAYOUT_FILL_X|LAYOUT_FILL_Y );
+    myTable->setVisibleRows(noRows+1);
+    myTable->setVisibleColumns(3);
+    myTable->setTableSize(noRows+1, 3);
+    myTable->setBackColor(FXRGB(255,255,255));
+    myTable->setColumnText(0, "Name");
+    myTable->setColumnText(1, "Value");
+    myTable->setColumnText(2, "Dynamic");
+    FXHeader *header = myTable->getColumnHeader();
+    header->setItemJustify(0, JUSTIFY_CENTER_X);
+    header->setItemJustify(1, JUSTIFY_CENTER_X);
+    header->setItemJustify(2, JUSTIFY_CENTER_X);
 }
 
 
 GUIParameterTableWindow::~GUIParameterTableWindow()
 {
-//    delete[] myParameter;
-//    delete[] myParameterBuffer;
-//    delete[] myItems;
-    myApplication.removeChild(this);
+    myApplication->removeChild(this);
 }
 
 
-bool
-GUIParameterTableWindow::event ( QEvent *e )
+long
+GUIParameterTableWindow::onSimStep(FXObject*,FXSelector,void*)
 {
-    if(e->type()!=QEvent::User) {
-        return QDialog::event(e);
-    }
     updateTable();
-    /*
-    for(size_t i=0; i<getTableParameterNo(); i++) {
-        // update only if changed
-        if(myParameter[i]!=myParameterBuffer[i]) {
-            QListViewItem *item = myItems[i];
-            item->setText(1,
-                toString<double>(myParameterBuffer[i]).c_str());
-            myParameter[i] = myParameterBuffer[i];
-        }
-    }*/
-    repaint();
-    return TRUE;
+    update();
+    return 1;
 }
 
 
-void
-GUIParameterTableWindow::resizeEvent ( QResizeEvent *e )
+long
+GUIParameterTableWindow::onTableSelected(FXObject*,FXSelector,void*)
 {
-    myTable->resize(e->size());
+    return 1;
 }
+
+
+long
+GUIParameterTableWindow::onTableDeselected(FXObject*,FXSelector,void*)
+{
+    return 1;
+}
+
+
+long
+GUIParameterTableWindow::onRightButtonPress(FXObject*sender,
+                                            FXSelector sel,
+                                            void*data)
+{
+    // check which value entry was pressed
+    myTable->onLeftBtnPress(sender, sel, data);
+    int row = myTable->getCurrentRow();
+    if(row==-1) {
+        return 1;
+    }
+    GUIParameterTableItem *i = myItems[row];
+    if(!i->dynamic()) {
+        return 1;
+    }
+
+    GUIParam_PopupMenu *p =
+		new GUIParam_PopupMenu(*myApplication, *this,
+            *myObject, i->getName(), i->getSourceCopy());
+    int id;
+    if(i->dynamic()) {
+        new FXMenuCommand(p, "Open in new Tracker", 0, p, MID_OPENTRACKER);
+    }
+    // set geometry
+    p->setX(static_cast<FXEvent*>(data)->root_x);
+    p->setY(static_cast<FXEvent*>(data)->root_y);
+    p->create();
+    // show
+    p->show();
+    return 1;
+}
+
 
 
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
-        ValueSource<double> *src)
+                                ValueSource<double> *src)
 {
     GUIParameterTableItem *i = new GUIParameterTableItem(
-        myTable, name, dynamic, src);
+        myTable, myCurrentPos++, name, dynamic, src);
     myItems.push_back(i);
 }
 
@@ -152,17 +188,17 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
                                 std::string value)
 {
     GUIParameterTableItem *i = new GUIParameterTableItem(
-        myTable, name, dynamic, value);
+        myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
 
 
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
-        double value)
+                                double value)
 {
     GUIParameterTableItem *i = new GUIParameterTableItem(
-        myTable, name, dynamic, value);
+        myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
 
@@ -179,45 +215,13 @@ GUIParameterTableWindow::updateTable()
 void
 GUIParameterTableWindow::closeBuilding()
 {
+    myApplication->addChild(this, true);
+    create();
     show();
-    myApplication.addChild(this, true);
 }
-
-
-void
-GUIParameterTableWindow::buildParameterPopUp(QMouseEvent * e, GUIParameterTableItem *i)
-{
-    QParamPopupMenu *p =
-		new QParamPopupMenu(myApplication, *(this->myTable), *this,
-            myObject, i->getName(), i->getSourceCopy());
-    int id;
-    if(i->dynamic()) {
-        id = p->insertItem("Open in new Tracker", p, SLOT(newTracker()));
-        p->setItemEnabled(id, TRUE);
-        id = p->insertItem("Open in Tracker...");
-        p->setItemEnabled(id, FALSE);
-        id = p->insertItem("Begin logging...");
-        p->setItemEnabled(id, FALSE);
-    }
-    p->insertSeparator();
-    id = p->insertItem("Show in Distribution over same");
-    p->setItemEnabled(id, FALSE);
-    id = p->insertItem("Set as coloring scheme ...");
-    p->setItemEnabled(id, FALSE);
-    // set geometry
-    p->setGeometry(e->globalX(), e->globalY(),
-        p->width()+e->globalX(), p->height()+e->globalY());
-    // show
-    p->show();
-}
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIParameterTableWindow.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -23,73 +23,72 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/03/19 12:40:14  dkrajzew
+// porting to FOX
+//
 // Revision 1.4  2003/11/12 14:09:12  dkrajzew
 // clean up after recent changes; comments added
-//
-//
 //
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
-#include <qlistview.h>
-#include <qpixmap.h>
 #include "GUIParameterTableItem.h"
 #include <utils/convert/ToString.h>
-#include <gui/icons/yes_no/yes.xpm>
-#include <gui/icons/yes_no/no.xpm>
+#include <gui/icons/GUIIconSubSys.h>
 
 
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIParameterTableItem::GUIParameterTableItem(QListView *table,
+GUIParameterTableItem::GUIParameterTableItem(FXTable *table, size_t pos,
                                              const std::string &name,
                                              bool dynamic,
                                              ValueSource<double> *src)
-    : QListViewItem(table, name.c_str(),
-    toString<double>(src->getValue()).c_str()),
-    myAmDynamic(dynamic), myName(name), mySource(src),
-    myValue(src->getValue())
+    : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(src),
+    myValue(src->getValue()), myTable(table)
 {
-    if(dynamic) {
-        setPixmap(2, QPixmap(yes_xpm));
-    } else {
-        setPixmap(2, QPixmap(no_xpm));
-    }
+    init(dynamic, toString<double>(src->getValue()));
 }
 
 
-GUIParameterTableItem::GUIParameterTableItem(QListView *table,
+GUIParameterTableItem::GUIParameterTableItem(FXTable *table, size_t pos,
                                              const std::string &name,
                                              bool dynamic,
                                              double value)
-    : QListViewItem(table, name.c_str(),
-    toString<double>(value).c_str()),
-    myAmDynamic(dynamic), myName(name), mySource(0),
-    myValue(value)
+    : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(0),
+    myValue(value), myTable(table)
 {
-    if(dynamic) {
-        setPixmap(2, QPixmap(yes_xpm));
-    } else {
-        setPixmap(2, QPixmap(no_xpm));
-    }
+    init(dynamic, toString<double>(value));
 }
 
 
-GUIParameterTableItem::GUIParameterTableItem(QListView *table,
+GUIParameterTableItem::GUIParameterTableItem(FXTable *table, size_t pos,
                                              const std::string &name,
                                              bool dynamic,
                                              std::string value)
-    : QListViewItem(table, name.c_str(), value.c_str()),
-    myAmDynamic(dynamic), myName(name), mySource(0),
-    myValue(0)
+    : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(0),
+    myValue(0), myTable(table)
 {
+    init(dynamic, value);
+}
+
+
+void
+GUIParameterTableItem::init(bool dynamic, std::string value)
+{
+    myTable->setItemText(myTablePosition, 0, myName.c_str());
+    myTable->setItemText(myTablePosition, 1, value.c_str());
     if(dynamic) {
-        setPixmap(2, QPixmap(yes_xpm));
+        myTable->setItemIcon(myTablePosition, 2,
+            GUIIconSubSys::getIcon(ICON_YES));
     } else {
-        setPixmap(2, QPixmap(no_xpm));
+        myTable->setItemIcon(myTablePosition, 2,
+            GUIIconSubSys::getIcon(ICON_NO));
     }
+//    myTable->setItemIconPosition(myTablePosition, 2, FXTableItem::ABOVE);
+    myTable->setItemJustify(myTablePosition, 2,
+        FXTableItem::CENTER_X|FXTableItem::CENTER_Y);
 }
 
 
@@ -121,7 +120,8 @@ GUIParameterTableItem::update()
     double value = mySource->getValue();
     if(value!=myValue) {
         myValue = value;
-        setText(1, toString<double>(value).c_str());
+        myTable->setItemText(myTablePosition, 1,
+            toString<double>(myValue).c_str());
     }
 }
 
@@ -137,9 +137,6 @@ GUIParameterTableItem::getSourceCopy() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIParameterTableItem.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

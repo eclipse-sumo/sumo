@@ -23,13 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
-//
-//
 //
 /* =========================================================================
  * included modules
@@ -43,13 +44,18 @@ namespace
 #include <guisim/GUIEdge.h>
 #include "GUIVehicleDrawer_SGwTasTriangle.h"
 
-#include <qgl.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
 
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIVehicleDrawer_SGwTasTriangle::GUIVehicleDrawer_SGwTasTriangle(std::vector<GUIEdge*> &edges)
+GUIVehicleDrawer_SGwTasTriangle::GUIVehicleDrawer_SGwTasTriangle(
+        std::vector<GUIEdge*> &edges)
     : GUIBaseVehicleDrawer(edges)
 {
 }
@@ -81,8 +87,6 @@ GUIVehicleDrawer_SGwTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
 }
 
 
-
-
 void
 GUIVehicleDrawer_SGwTasTriangle::drawVehicle(const GUIVehicle &vehicle,
             double posX, double posY, double rot,
@@ -111,10 +115,8 @@ GUIVehicleDrawer_SGwTasTriangle::drawVehicle(const GUIVehicle &vehicle,
     glTranslated(-posX, -posY, 0);
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIVehicleDrawer_SGwTasTriangle.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -1,8 +1,8 @@
-#ifndef GUIParameterTable_h
-#define GUIParameterTable_h
+#ifndef GUIDialog_GLObjChooser_h
+#define GUIDialog_GLObjChooser_h
 //---------------------------------------------------------------------------//
-//                        GUIParameterTable.h -
-//  A qt-table holding the parameters of an gl-object
+//                        GUIDialog_GLObjChooser.h -
+//  Class for the window that allows to choose a street, junction or vehicle
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -20,15 +20,18 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.3  2003/07/30 08:48:28  dkrajzew
-// new parameter table usage paradigm; undocummented yet
+// Revision 1.1  2004/03/19 12:33:36  dkrajzew
+// porting to FOX
 //
-// Revision 1.2  2003/06/05 11:38:20  dkrajzew
-// class templates applied; documentation added
+// Revision 1.1  2004/03/19 12:32:26  dkrajzew
+// porting to FOX
 //
+// Revision 1.3  2003/05/20 09:23:54  dkrajzew
+// some statistics added; some debugging done
 //
-
-
+// Revision 1.2  2003/02/07 10:34:14  dkrajzew
+// files updated
+//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -36,66 +39,67 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <qlistview.h>
+#include <string>
+#include <vector>
+#include <fx.h>
+#include <gui/GUIGlObjectTypes.h>
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class GUIApplicationWindow;
-class GUIGlObject;
-class GUIParameterTableWindow;
-class DoubleValueSource;
+class GUISUMOViewParent;
 
 
 /* =========================================================================
- * class definitions
+ * class definition
  * ======================================================================= */
-class GUIParameterTable : public QListView
+/**
+ * @class GUIDialog_GLObjChooser
+ * Instances of this class are windows that display the list of instances
+ * from a given artifact like vehicles, edges or junctions and allow
+ * one of their items
+ */
+class GUIDialog_GLObjChooser : public FXMainWindow
 {
-    // is a q-object
-    Q_OBJECT
+    // FOX-declarations
+    FXDECLARE(GUIDialog_GLObjChooser)
 public:
-    /// Constructor
-    GUIParameterTable( GUIApplicationWindow &app,
-        GUIParameterTableWindow &parent,
-        GUIGlObject &o, const char *name = 0 );
+    /// constructor
+    GUIDialog_GLObjChooser(GUISUMOViewParent *parent, GUIGlObjectType type,
+        std::vector<std::string> &names);
 
-    /// Destructor
-    ~GUIParameterTable();
+    /// destructor
+    ~GUIDialog_GLObjChooser();
 
-//    virtual DoubleValueSource *bind(size_t what)  = 0;
+    /// returns the id of the chosen artifact; 0 if none was chosen
+    std::string getID() const;
 
-protected:
-    /// Callback called whe the user selects an entry
-    void contentsMousePressEvent( QMouseEvent * e );
-//    void contentsMouseReleaseEvent( QMouseEvent * e );
+    FXbool close(FXbool notify=FALSE);
 
-
-signals:
-    void mySelectionChanged();
-    void mySelectionChanged( QListViewItem* );
+    long onCmdOK(FXObject*,FXSelector,void*);
+    long onCmdCancel(FXObject*,FXSelector,void*);
 
 private:
-    /// The object which values are displayed
-	GUIGlObject &myObject;
+    /// the list that holds the ids
+    FXList *myList;
 
-    GUIParameterTableWindow &myParent;
+    /// the chosen id
+    std::string mySelectedID;
 
-    /// The currently selected item
-//    QListViewItem* selected;
+    /// the artifact to choose
+    GUIGlObjectType myObjectType;
 
-    /// The main application
-    GUIApplicationWindow &myApplication;
+    /// the parent window
+    GUISUMOViewParent *myParent;
+
+protected:
+    GUIDialog_GLObjChooser() { }
 
 };
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIParameterTable.icc"
-//#endif
 
 #endif
 

@@ -23,9 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.3  2003/11/26 09:37:07  dkrajzew
-// moving of the view when reaching the left border implemented; display of a time scale implemented
+// Revision 1.4  2004/03/19 12:42:31  dkrajzew
+// porting to FOX
 //
+// Revision 1.3  2003/11/26 09:37:07  dkrajzew
+// moving of the view when reaching the left border implemented; display of a
+//  time scale implemented
 //
 /* =========================================================================
  * included modules
@@ -36,19 +39,21 @@ namespace
 
 #include <cassert>
 #include <vector>
-#include <qgl.h>
-#include <qdialog.h>
-#include <qmainwindow.h>
 #include <iostream>
 #include <gui/GUIApplicationWindow.h>
 #include "GUITLLogicPhasesTrackerWindow.h"
 #include <microsim/MSTrafficLightLogic.h>
 #include <microsim/MSLink.h>
 #include <utils/convert/ToString.h>
+#include <guisim/GUITrafficLightLogicWrapper.h>
+#include <gui/textures/GUITexturesHelper.h>
+#include <gui/GUIAppEnum.h>
 
-#ifndef WIN32
-#include "GUITLLogicPhasesTrackerWindow.moc"
+#ifdef _WIN32
+#include <windows.h>
 #endif
+
+#include <GL/gl.h>
 
 
 /* =========================================================================
@@ -61,69 +66,63 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 /* -------------------------------------------------------------------------
+ * GUITLLogicPhasesTrackerWindow - FOX callback mapping
+ * ----------------------------------------------------------------------- */
+FXDEFMAP(GUITLLogicPhasesTrackerWindow) GUITLLogicPhasesTrackerWindowMap[]={
+    FXMAPFUNC(SEL_CONFIGURE, 0,           GUITLLogicPhasesTrackerWindow::onConfigure),
+    FXMAPFUNC(SEL_PAINT,     0,           GUITLLogicPhasesTrackerWindow::onPaint),
+    FXMAPFUNC(SEL_COMMAND,   MID_SIMSTEP, GUITLLogicPhasesTrackerWindow::onSimStep),
+
+};
+
+FXIMPLEMENT(GUITLLogicPhasesTrackerWindow,FXMainWindow,GUITLLogicPhasesTrackerWindowMap,ARRAYNUMBER(GUITLLogicPhasesTrackerWindowMap))
+
+
+/* -------------------------------------------------------------------------
  * GUITLLogicPhasesTrackerWindow-methods
  * ----------------------------------------------------------------------- */
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
-        GUIApplicationWindow &app, MSTrafficLightLogic &logic)
-        : myApplication(app), myTLLogic(logic)
+        GUIApplicationWindow &app,
+        MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
+        ValueSource<CompletePhaseDef> *src)
+    : FXMainWindow(app.getApp(), "TLS-Tracker",NULL,NULL,DECOR_ALL,
+        0,0,300,200),
+    myApplication(&app), myTLLogic(&logic)
 {
-    size_t height = myTLLogic.getLinks().size() * 20 + 30;
-    setCaption("Tracker");
-    setBaseSize(300, height);
-    setMinimumSize(300, height);
+    myConnector = new GLObjectValuePassConnector<CompletePhaseDef>
+        (wrapper, src, this);
+    size_t height = myTLLogic->getLinks().size() * 20 + 30;
+    setTitle("TLS-Tracker");
     app.addChild(this, true);
-    for(size_t i=0; i<myTLLogic.getLinks().size(); i++) {
+    for(size_t i=0; i<myTLLogic->getLinks().size(); i++) {
         myLinkNames.push_back(toString<size_t>(i));
     }
+	FXVerticalFrame *glcanvasFrame =
+        new FXVerticalFrame(this,
+            FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
+            0,0,0,0,0,0,0,0);
     myPanel = new
-        GUITLLogicPhasesTrackerPanel(myApplication, *this);
-    setCentralWidget(myPanel);
-    show();
+        GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
 }
 
 
 GUITLLogicPhasesTrackerWindow::~GUITLLogicPhasesTrackerWindow()
 {
-}
-
-
-bool
-GUITLLogicPhasesTrackerWindow::event ( QEvent *e )
-{
-    if(e->type()!=QEvent::User) {
-        return QMainWindow::event(e);
-    }
-    update();
-    return TRUE;
+    delete myConnector;
 }
 
 
 int
 GUITLLogicPhasesTrackerWindow::getMaxGLWidth() const
 {
-    return myApplication.getMaxGLWidth();
+    return myApplication->getMaxGLWidth();
 }
 
 
 int
 GUITLLogicPhasesTrackerWindow::getMaxGLHeight() const
 {
-    return myApplication.getMaxGLHeight();
-}
-
-
-void
-GUITLLogicPhasesTrackerWindow::paintEvent ( QPaintEvent *e )
-{
-    myPanel->paintEvent(e);
-    QMainWindow::paintEvent(e);
-}
-
-
-void
-GUITLLogicPhasesTrackerWindow::resizeEvent ( QResizeEvent *e )
-{
-	QMainWindow::resizeEvent(e);
+    return myApplication->getMaxGLHeight();
 }
 
 
@@ -141,7 +140,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
     size_t run = 0;
     // draw the horizontal lines dividing the signal groups
     glColor3d(1, 1, 1);
-    myFontRenderer.SetColor(1, 1, 1);
+    GUITexturesHelper::getFontRenderer().SetColor(1, 1, 1);
     // compute some values needed more than once
     double height = (double) caller.getHeightInPixels();
     double width = (double) caller.getWidthInPixels();
@@ -150,18 +149,19 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
     double h16 = ((double) 16 / height);
     double h20 = ((double) 20 / height);
     // draw the link names and the lines dividing them
-    myFontRenderer.SetActiveFont("std10");
+    GUITexturesHelper::getFontRenderer().SetActiveFont("std10");
     double h = 1.0 - h10;
     double h2 = 12;
     size_t i;
     glBegin(GL_LINES);
-    for(i=0; i<myTLLogic.getLinks().size()+1; i++) {
+    for(i=0; i<myTLLogic->getLinks().size()+1; i++) {
         // draw the bar
         glVertex2f(0, h);
         glVertex2f((double) 30 / width, h);
         // draw the name
-        if(i<myTLLogic.getLinks().size()) {
-            myFontRenderer.StringOut(2, h2 - h10, myLinkNames[i]);
+        if(i<myTLLogic->getLinks().size()) {
+            GUITexturesHelper::getFontRenderer().StringOut(
+                2, h2 - h10, myLinkNames[i]);
             h2 += 20;
         }
         h -= h20;
@@ -197,7 +197,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
         h = 1.0 - h10;
         double x2 = x + (double) duration / width;
         // go through the links
-        for(size_t j=0; j<myTLLogic.getLinks().size(); j++) {
+        for(size_t j=0; j<myTLLogic->getLinks().size(); j++) {
             // determine the current link's color
             MSLink::LinkState state =
                 (*pi).first.test(j)==true
@@ -250,15 +250,16 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
     myLock.unlock();
 
     if(myPhases.size()!=0) {
-        myFontRenderer.SetActiveFont("std8");
+        GUITexturesHelper::getFontRenderer().SetActiveFont("std8");
         int tickDist = 60;
         // draw time information
-        h = myTLLogic.getLinks().size() * 20 + 12;
-        float glh = 1.0 - myTLLogic.getLinks().size() * h20 - h10;
+        h = myTLLogic->getLinks().size() * 20 + 12;
+        float glh = 1.0 - myTLLogic->getLinks().size() * h20 - h10;
             // current begin time
         string timeStr = toString<MSNet::Time>(myFirstTime2Show);
-        myFontRenderer.StringOut(
-            31-myFontRenderer.GetStringWidth(timeStr), h, timeStr);
+        GUITexturesHelper::getFontRenderer().StringOut(
+            31-GUITexturesHelper::getFontRenderer().GetStringWidth(timeStr),
+            h, timeStr);
             // time ticks
         MSNet::Time currTime =
             ((MSNet::Time) (myFirstTime2Show / tickDist) + 1) * tickDist;
@@ -267,8 +268,9 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
         glColor3d(1, 1, 1);
         while(pos<width+50) {
             timeStr = toString<MSNet::Time>(currTime);
-            myFontRenderer.StringOut(
-                pos-myFontRenderer.GetStringWidth(timeStr), h, timeStr);
+            GUITexturesHelper::getFontRenderer().StringOut(
+                pos-GUITexturesHelper::getFontRenderer().GetStringWidth(timeStr),
+                h, timeStr);
             pos += tickDist;
             currTime += tickDist;
             glBegin(GL_LINES);
@@ -280,8 +282,8 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
     }
 
     // set written strings
-    myFontRenderer.Draw(caller.getWidthInPixels(),
-        caller.getHeightInPixels());
+    GUITexturesHelper::getFontRenderer().Draw(
+        caller.getWidthInPixels(), caller.getHeightInPixels());
 }
 
 
@@ -344,85 +346,63 @@ GUITLLogicPhasesTrackerWindow::addValue(CompletePhaseDef def)
     myLock.unlock();
 }
 
-void
-GUITLLogicPhasesTrackerWindow::setFontRenderer(GUITLLogicPhasesTrackerPanel &caller)
+
+
+long
+GUITLLogicPhasesTrackerWindow::onConfigure(FXObject *sender,
+                                           FXSelector sel, void *data)
 {
-    myFontRenderer.add(myApplication.myFonts.get("std8"));
-    myFontRenderer.add(myApplication.myFonts.get("std10"));
+    myPanel->onConfigure(sender, sel, data);
+    return FXMainWindow::onConfigure(sender, sel, data);
 }
+
+
+long
+GUITLLogicPhasesTrackerWindow::onPaint(FXObject *sender,
+                                       FXSelector sel, void *data)
+{
+    myPanel->onPaint(sender, sel, data);
+    return FXMainWindow::onPaint(sender, sel, data);
+}
+
+
+long
+GUITLLogicPhasesTrackerWindow::onSimStep(FXObject*sender,
+                                         FXSelector,void*)
+{
+    update();
+    return 1;
+}
+
+
+
 
 
 /* -------------------------------------------------------------------------
  * GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel-methods
  * ----------------------------------------------------------------------- */
+FXDEFMAP(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel) GUITLLogicPhasesTrackerPanelMap[]={
+    FXMAPFUNC(SEL_CONFIGURE, 0, GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure),
+    FXMAPFUNC(SEL_PAINT,     0, GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint),
+
+};
+
+  // Macro for the GLTestApp class hierarchy implementation
+FXIMPLEMENT(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel,FXGLCanvas,GUITLLogicPhasesTrackerPanelMap,ARRAYNUMBER(GUITLLogicPhasesTrackerPanelMap))
+
+
+
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::GUITLLogicPhasesTrackerPanel(
-        GUIApplicationWindow &app, GUITLLogicPhasesTrackerWindow &parent)
-    : QGLWidget(&parent),
-    myParent(parent), _noDrawing(0), myApplication(app)
+        FXComposite *c, GUIApplicationWindow &app,
+        GUITLLogicPhasesTrackerWindow &parent)
+    : FXGLCanvas(c, app.getGLVisual(), app.getBuildGLCanvas(), (FXObject*) 0, (FXSelector) 0, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y/*, 0, 0, 300, 200*/),
+    myParent(&parent), myApplication(&app)
 {
 }
+
 
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::~GUITLLogicPhasesTrackerPanel()
 {
-}
-
-
-void
-GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::initializeGL()
-{
-    _lock.lock();
-    _widthInPixels = myParent.getMaxGLWidth();
-    _heightInPixels = myParent.getMaxGLHeight();
-    glViewport( 0, 0, myParent.getMaxGLWidth()-1, myParent.getMaxGLHeight()-1 );
-    glClearColor( 0, 0, 0, 1 );
-    glDisable( GL_DEPTH_TEST );
-    glDisable( GL_LIGHTING );
-    glDisable(GL_LINE_SMOOTH);
-    glEnable(GL_BLEND );
-    glEnable(GL_ALPHA_TEST);
-    glDisable(GL_COLOR_MATERIAL);
-    glLineWidth(1);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    myParent.setFontRenderer(*this);
-    _lock.unlock();
-}
-
-
-void
-GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::resizeGL( int width, int height )
-{
-    _lock.lock();
-    _widthInPixels = width;
-    _heightInPixels = height;
-    glViewport( 0, 0, _widthInPixels, _heightInPixels );
-    _lock.unlock();
-}
-
-void
-GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::paintGL()
-{
-    _lock.lock();
-    // return if the canvas is not visible
-    if(!isVisible()) {
-		_lock.unlock();
-        return;
-    }
-    _noDrawing++;
-    // ...and return when drawing is already being done
-    if(_noDrawing>1) {
-        _noDrawing--;
-        _lock.unlock();
-        return;
-    }
-    _widthInPixels = width();
-    _heightInPixels = height();
-    // draw
-    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-    myParent.drawValues(*this);
-    _noDrawing--;
-    glFlush();
-    swapBuffers();
-    _lock.unlock();
 }
 
 
@@ -437,6 +417,68 @@ size_t
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::getWidthInPixels() const
 {
     return _widthInPixels;
+}
+
+
+long
+GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure(
+        FXObject*,FXSelector,void*)
+{
+    _lock.lock();
+    if(makeCurrent()) {
+        _widthInPixels = myParent->getMaxGLWidth();
+        _heightInPixels = myParent->getMaxGLHeight();
+        glViewport( 0, 0, _widthInPixels-1, _heightInPixels-1 );
+        glClearColor( 0, 0, 0, 1 );
+        glDisable( GL_DEPTH_TEST );
+        glDisable( GL_LIGHTING );
+        glDisable(GL_LINE_SMOOTH);
+        glEnable(GL_BLEND );
+        glEnable(GL_ALPHA_TEST);
+        glDisable(GL_COLOR_MATERIAL);
+        glLineWidth(1);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
+    _lock.unlock();
+    return 1;
+}
+
+
+long
+GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint(
+        FXObject*,FXSelector,void*)
+{
+    if(!isEnabled()) {
+        return 1;
+    }
+    if(_lock.locked()) {
+        return 1;
+    }
+    _lock.lock();
+    if(makeCurrent()) {
+        _widthInPixels = getWidth();
+        _heightInPixels = getHeight();
+        if(_widthInPixels!=0&&_heightInPixels!=0) {
+            glViewport( 0, 0, _widthInPixels-1, _heightInPixels-1 );
+            glClearColor( 0, 0, 0, 1 );
+            glDisable( GL_DEPTH_TEST );
+            glDisable( GL_LIGHTING );
+            glDisable(GL_LINE_SMOOTH);
+            glEnable(GL_BLEND );
+            glEnable(GL_ALPHA_TEST);
+            glDisable(GL_COLOR_MATERIAL);
+            glLineWidth(1);
+            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            // draw
+            glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+            myParent->drawValues(*this);
+            glFlush();
+            swapBuffers();
+        }
+        makeNonCurrent();
+    }
+    _lock.unlock();
+    return 1;
 }
 
 

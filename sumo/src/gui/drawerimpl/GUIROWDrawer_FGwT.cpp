@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.5  2004/02/16 13:54:39  dkrajzew
 // tried to patch a sometimes occuring visualisation bug
 //
@@ -60,8 +63,13 @@ namespace
 #include <guisim/GUILaneWrapper.h>
 #include "GUIROWDrawer_FGwT.h"
 #include <utils/geom/Position2DVector.h>
+#include <gui/textures/GUITexturesHelper.h>
 
-#include <qgl.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
 
 
 /* =========================================================================
@@ -188,17 +196,8 @@ GUIROWDrawer_FGwT::drawArrows(const GUILaneWrapper &lane)
         if(state==MSLink::LINKSTATE_TL_OFF_NOSIGNAL) {
             continue;
         }
-        glBindTexture(GL_TEXTURE_2D, myTextureIDs[dir]);
-        glBegin(GL_TRIANGLE_STRIP);
-        glTexCoord2f(0, 0);
-        glVertex2f(1.5, 4.0);
-        glTexCoord2f(0, 1);
-        glVertex2f(1.5, 1);
-        glTexCoord2f(1, 0);
-        glVertex2f(-1.5, 4);
-        glTexCoord2f(1, 1);
-        glVertex2f(-1.5, 1);
-        glEnd();
+        GUITexturesHelper::drawTexturedBox((GUITexture) dir,
+            1.5, 4.0, -1.5, 1);
     }
     glBindTexture(GL_TEXTURE_2D, 0);
     glPopName();

@@ -23,13 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
-//
-//
 //
 /* =========================================================================
  * included modules
@@ -44,13 +45,18 @@ namespace
 #include <utils/geom/Position2DVector.h>
 #include "GUIVehicleDrawer_FGnTasTriangle.h"
 
-#include <qgl.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
 
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIVehicleDrawer_FGnTasTriangle::GUIVehicleDrawer_FGnTasTriangle(std::vector<GUIEdge*> &edges)
+GUIVehicleDrawer_FGnTasTriangle::GUIVehicleDrawer_FGnTasTriangle(
+        std::vector<GUIEdge*> &edges)
     : GUIBaseVehicleDrawer(edges)
 {
 }
@@ -80,7 +86,10 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
     for(MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); v++) {
         MSVehicle *veh = *v;
         double vehiclePosition = veh->pos();
-        while(shapePos<rots.size()-1 && vehiclePosition>positionOffset+lengths[shapePos]) {
+        while( shapePos<rots.size()-1
+               &&
+               vehiclePosition>positionOffset+lengths[shapePos]) {
+
             glPopMatrix();
             positionOffset += lengths[shapePos];
             shapePos++;
@@ -121,9 +130,6 @@ GUIVehicleDrawer_FGnTasTriangle::drawVehicle(const GUIVehicle &vehicle,
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIVehicleDrawer_FGnTasTriangle.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.3  2003/10/02 14:55:56  dkrajzew
 // visualisation of E2-detectors implemented
 //
@@ -32,10 +35,6 @@ namespace
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
 //
-//
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -43,17 +42,21 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <iostream> // !!!
-#include <string> // !!!
+#include <iostream>
+#include <string>
 #include <microsim/MSEdge.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILaneWrapper.h>
+#include <gui/GUIGlobals.h>
 #include "GUIBaseLaneDrawer.h"
 #include <utils/geom/GeomHelper.h>
 
-#include <qgl.h>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
+#include <GL/gl.h>
 
 
 /* =========================================================================
@@ -66,7 +69,7 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 GUIBaseLaneDrawer::GUIBaseLaneDrawer(std::vector<GUIEdge*> &edges)
-    : GUILaneDrawer(edges)
+    : myEdges(edges), myUseExponential(true)
 {
 }
 
@@ -107,6 +110,7 @@ GUIBaseLaneDrawer::drawGLLanes(size_t *which, size_t maxEdges,
     }
 }
 
+
 void
 GUIBaseLaneDrawer::initStep()
 {
@@ -117,8 +121,15 @@ GUIBaseLaneDrawer::initStep()
 
 
 void
+GUIBaseLaneDrawer::setUseExponential(bool val)
+{
+    myUseExponential = val;
+}
+
+
+void
 GUIBaseLaneDrawer::setLaneColor(const GUILaneWrapper &lane,
-                                  GUISUMOAbstractView::LaneColoringScheme scheme)
+                                GUISUMOAbstractView::LaneColoringScheme scheme)
 {
     switch(scheme) {
     case GUISUMOAbstractView::LCS_BLACK:
@@ -151,6 +162,54 @@ GUIBaseLaneDrawer::setLaneColor(const GUILaneWrapper &lane,
             glColor3f(1.0-fact, 0.5, 0.5+fact);
         }
         break;
+    case GUISUMOAbstractView::LCS_BY_SELECTION:
+        {
+            if(gfIsSelected(GLO_LANE, lane.getGlID())) {
+                glColor3f(0, 0.8, 0.8);
+            } else {
+                glColor3f(0, 0, 0);
+            }
+        }
+        break;
+    case GUISUMOAbstractView::LCS_BY_DENSITY:
+        {
+            double density = myUseExponential
+                ? lane.getAggregatedFloat(E2::DENSITY)
+                : lane.getAggregatedNormed(E2::DENSITY, 0);
+            if(density==-1) {
+                glColor3f(0.5, 0.5, 0.5);
+            } else {
+                density /= 2.0;
+                glColor3f(0.5, 1.0-density, 0.5+density);
+            }
+        }
+        break;
+    case GUISUMOAbstractView::LCS_BY_MEAN_SPEED:
+        {
+            double speed = myUseExponential
+                ? lane.getAggregatedFloat(E2::SPACE_MEAN_SPEED)
+                : lane.getAggregatedNormed(E2::SPACE_MEAN_SPEED, 0);
+            if(speed==-1) {
+                glColor3f(0.5, 0.5, 0.5);
+            } else {
+                speed /= 2.0;
+                glColor3f(1.0-speed, 0.5, 0.5+speed);
+            }
+        }
+        break;
+    case GUISUMOAbstractView::LCS_BY_MEAN_HALTS:
+        {
+            double halts = myUseExponential
+                ? lane.getAggregatedFloat(E2::HALTING_DURATION_MEAN)
+                : lane.getAggregatedNormed(E2::HALTING_DURATION_MEAN, 0);
+            if(halts==-1) {
+                glColor3f(0.5, 0.5, 0.5);
+            } else {
+                halts /= 2.0;
+                glColor3f(0.5+halts, 1.0-halts, 0);
+            }
+        }
+        break;
     default:
         throw 1;
     }
@@ -158,9 +217,6 @@ GUIBaseLaneDrawer::setLaneColor(const GUILaneWrapper &lane,
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUIBaseLaneDrawer.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -23,19 +23,33 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.2  2003/09/17 06:45:11  dkrajzew
 // some documentation added/patched
 //
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
 //
-//
-//
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <vector>
 #include <guisim/GUIJunctionWrapper.h>
 #include <utils/glutils/GLHelper.h>
 #include "GUIJunctionDrawer_wT.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 GUIJunctionDrawer_wT::GUIJunctionDrawer_wT(
         std::vector<GUIJunctionWrapper*> &junctions)
     : GUIBaseJunctionDrawer(junctions)
@@ -72,3 +86,9 @@ GUIJunctionDrawer_wT::drawGLJunctions(size_t *which,
     }
 }
 
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:

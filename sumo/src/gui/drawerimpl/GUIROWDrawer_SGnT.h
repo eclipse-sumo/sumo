@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2004/03/19 12:34:30  dkrajzew
+// porting to FOX
+//
 // Revision 1.2  2003/11/12 13:45:25  dkrajzew
 // visualisation of tl-logics added
 //
@@ -44,7 +47,6 @@
 #include <utils/gfx/RGBColor.h>
 #include <microsim/MSLink.h>
 #include "GUIBaseROWDrawer.h"
-#include <qimage.h>
 
 
 /* =========================================================================
