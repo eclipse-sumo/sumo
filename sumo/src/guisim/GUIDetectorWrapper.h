@@ -3,7 +3,8 @@
 
 #include <utils/geom/HaveBoundery.h>
 #include <gui/GUIGlObject.h>
-#include <gui/popup/QGLObjectPopupMenu.h>
+
+class QGLObjectPopupMenu;
 
 class GUIDetectorWrapper
     : public HaveBoundery, public GUIGlObject {
