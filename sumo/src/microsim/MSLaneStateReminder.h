@@ -22,6 +22,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.2  2003/05/22 12:44:10  roessel
+// Changed void activateByEmit... to bool isActivatedByEmit. Not activated reminders will be erased from the vehicles reminder-list.
+//
 // Revision 1.1  2003/05/21 16:21:45  dkrajzew
 // further work detectors
 //
@@ -49,6 +52,8 @@ public:
                         double newPos,
                         double newSpeed )
         {
+            // if vehicle has passed the detector completely we shouldn't
+            // be here.
             double timestepFraction = MSNet::deltaT();
             if ( newPos <= startPosM ) {
                 return true;
@@ -60,9 +65,10 @@ public:
             }
             if ( newPos > endPosM ) {
                 timestepFraction = ( endPosM-oldPos ) / newSpeed;
+                assert( timestepFraction <= MSNet::deltaT() );
                 double timestepFractionReduce = 0;
                 if ( oldPos <= startPosM ) {
-                    // vehicle enterd and left dtector in one step
+                    // vehicle entered and left detector in one step
                     timestepFractionReduce = ( startPosM-oldPos ) / newSpeed;
                     assert( timestepFraction - timestepFractionReduce >= 0 );
                 }
@@ -82,11 +88,13 @@ public:
             }
         }
 
-    void activateByEmitOrLaneChange( MSVehicle& veh )
+    bool isActivatedByEmitOrLaneChange( MSVehicle& veh )
         {
             if ( veh.pos() >= startPosM && veh.pos() < endPosM ) {
                 laneStateM.enterDetectorByEmitOrLaneChange( veh );
+                return true;
             }
+            return false;
         }
 
 private:
