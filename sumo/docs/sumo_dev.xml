@@ -1,0 +1,1629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
+<book>
+  <bookinfo>
+    <title>SUMO developer documentation</title>
+
+    <author>
+      <firstname>Christian</firstname>
+
+      <surname>Rössel</surname>
+
+      <affiliation>
+        <address><email>christian.roessel@dlr.de</email></address>
+      </affiliation>
+    </author>
+
+    <author>
+      <firstname>Daniel</firstname>
+
+      <surname>Krajzewicz</surname>
+
+      <affiliation>
+        <address><email>Daniel.Krajzewicz@dlr.de</email></address>
+      </affiliation>
+    </author>
+
+    <releaseinfo>$Revision$</releaseinfo>
+  </bookinfo>
+
+  <toc></toc>
+
+  <chapter id="dev_chp01">
+    <title>Introduction</title>
+
+    <sect1>
+      <title>What is SUMO?</title>
+
+      <para>SUMO is a traffic simulation tool. It was primarily designed for
+      urban street networks, but it may also be used for highway traffic
+      simulations. In the near future it will be extended to model other
+      transit modes simultaneously with ordinary car traffic.</para>
+    </sect1>
+
+    <sect1>
+      <title>Why open source?</title>
+
+      <para>Two thoughts stood behind the release of the package as open
+      source. At first the fact that every traffic research organisation has
+      to implement an own simulation package for its own. Some people are
+      interested in traffic light optimisation, other try to find mistakes
+      made during the design of a road network. Both need some kind of a
+      simulation package and have to implement a framework containing input
+      and output functions and other things from scratch. So the first idea
+      was to give them a basic framework - containing all needed methods for a
+      simulation - they can put own ideas into.</para>
+
+      <para>The second idea is to supply a common test bed for models,
+      especially car models, to the community to make them comparable. Due to
+      different architectures of traffic simulations such comparisons on a
+      wide scale are not possible by now.</para>
+    </sect1>
+
+    <sect1>
+      <title>Features</title>
+
+      <para><itemizedlist spacing="compact"><listitem><para>High portability
+      (using standard - c++ and portable libraries only)</para></listitem><listitem><para>Collision
+      free vehicle movement</para></listitem><listitem><para>Different vehicle
+      types</para></listitem><listitem><para>Single-vehicle routing</para></listitem><listitem><para>Multi-lane
+      streets with lane changing</para></listitem><listitem><para>Junction-based
+      right-of-way rules</para></listitem><listitem><para>Hierarchy of
+      junction types</para></listitem><listitem><para>A fast openGL graphical
+      user interface</para></listitem><listitem><para>Dynamic routing</para></listitem><listitem><para>Manages
+      networks with several 10.000 edges (streets)</para></listitem><listitem><para>Fast
+      execution speed (up to 1.000.000 vehicle updates/s on a 1GHz machine)</para></listitem><listitem><para>Supports
+      import of many network formats (Visum, Vissim, ArcView,
+      XML-Descriptions)</para></listitem></itemizedlist></para>
+    </sect1>
+
+    <sect1>
+      <title>About this document</title>
+
+      <para>This document is still under development and is meant to grow with
+      the software. Due to this, you may find it together with the sources
+      within out repository at sourceforge (<ulink
+      url="http://sumo.sourceforge.net">http://sumo.sourceforge.net/</ulink>).
+      It should always describe the current version.</para>
+
+      <para>We should remark, that this document only covers the usage of the
+      software and some description of the models used. Information about the
+      programming side - if you want to extend the software what is really
+      appreciated by us - may be found in the programmer manual.</para>
+
+      <para>We should also remark, that the previous division of documents
+      where each document described a single application is now abandoned. We
+      hope to make the process of simulation easier to understand.</para>
+    </sect1>
+
+    <sect1>
+      <title>Call for Help</title>
+
+      <para>Please let us know when either the document remains any point
+      unclear or the simulation does not behave as expected. We also seek for
+      some participants and further users, not only to share the development
+      tasks, but also to gain some feedback and critics or some usage
+      examples.</para>
+
+      <para>Every help is appreciated. Thank you.</para>
+    </sect1>
+  </chapter>
+
+  <chapter id="dev_chp02">
+    <title>Generics</title>
+
+    <para>Within this first chapter, we will describe some generic information
+    valid for all applications within the SUMO package</para>
+
+    <sect1>
+      <title>Building Instructions</title>
+
+      <sect2>
+        <title>All Platforms: Obtaining the sources</title>
+
+        <para>There are two possibilities to obtain the sources needed to
+        build SUMO. The first is to download the latest distribution, located
+        within the <ulink
+        url="http://sumo.sourceforge.net/downloads.html#sumo-latest">download</ulink>
+        section of our <ulink url="http://sumo.sourceforge.net">internet pages</ulink>
+        internet pages. The other one is to checkout the <ulink
+        url="http://sourceforge.net/cvs/?group_id=45607">current CVS</ulink>
+        tree (Use <literal>sumo</literal> as <literal>modulname</literal>).</para>
+
+        <para>Normally, the CVS tree is stable and of course does contain the
+        latest patches, the latest release may not contain.</para>
+      </sect2>
+
+      <sect2>
+        <title>UNIX/Linux: SUMO and the GNU build process</title>
+
+        <para>Here we descride how to use the <ulink
+        url="http://sources.redhat.com/autobook/">GNU Autotools</ulink>,
+        <ulink url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>,
+        <ulink url="http://www.gnu.org/software/automake"><literal>automake</literal></ulink>
+        and <ulink url="http://www.gnu.org/software/libtool"><literal>libtool</literal></ulink>
+        to build SUMO from the cvs-sources.</para>
+
+        <para>We will also discuss how to add new option to
+        <literal>configure</literal> and how to modify <literal>Makefile.am</literal>
+        if new files or libraries are added.</para>
+
+        <sect3>
+          <title>Building SUMO from CVS</title>
+
+          <orderedlist>
+            <listitem>
+              <para>Download the sources from <ulink
+              url="http://sourceforge.net/cvs/?group_id=45607">sourceforge.net</ulink>.
+              Use <literal>sumo</literal> as <literal>modulname</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para><literal>cd</literal> into the directory
+              <literal>sumo</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para>Execute <literal>make -f admin/Makefile.common cvs</literal>.
+              This will create the <literal>configure</literal>-script from
+              <literal>configure.in.in</literal> and <literal>Makefile.in</literal>
+              for each <literal>Makefile.am</literal> by calling the GNU
+              Autotools.</para>
+            </listitem>
+
+            <listitem>
+              <para>Call <literal>./configure</literal>. You can get a list of
+              <literal>configure</literal>-option by calling
+              <literal>./configure --help</literal>. <literal>./configure</literal>
+              builds a <literal>Makefile</literal> for each
+              <literal>Makefile.in</literal>.</para>
+
+              <para>Normally, you have to supply the places the includes and
+              the libraries are located at, both for Xerces and FOX. This is
+              done using:</para>
+
+              <para>--with-xerces-libraries=&#60;PATH_TO_XERCES_LIBS&#62;</para>
+
+              <para>--with-xerces-inludes=&#60;PATH_TO_XERCES_INCLUDES&#62;</para>
+
+              <para>--with-fox-libraries=&#60;PATH_TO_FOX_LIBS&#62;</para>
+
+              <para>--with-fox-includes=&#60;PATH_TO_FOX_INCLUDES&#62;</para>
+            </listitem>
+
+            <listitem>
+              <para>Call <literal>make</literal> to build SUMO.</para>
+            </listitem>
+
+            <listitem>
+              <para>Call <literal>make install</literal> to install SUMO.</para>
+            </listitem>
+          </orderedlist>
+
+          <para>Enjoy!</para>
+        </sect3>
+
+        <sect3>
+          <title>Adding options to configure</title>
+
+          <para>You need to modify the file <literal>configure.in.in</literal>.
+          There are some SUMO-specific options. Take them as sample and
+          consult the <ulink url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
+          for further insights.</para>
+        </sect3>
+
+        <sect3>
+          <title>Adding header/library-checks to configure</title>
+
+          <para>You need to modify the file <literal>configure.in.in</literal>.
+          There are some SUMO-specific header/library-checks for both the
+          <ulink url="http://xml.apache.org/xerces-c/index.html">Xerces C++
+          library</ulink> and the <ulink url="http://www.fox-toolkit.org">FOX
+          library</ulink>. Take them as sample and consult the <ulink
+          url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
+          for further insights. Take care of <ulink
+          url="http://sources.redhat.com/autobook/autobook/autobook_208.html">non-portable
+          shell-code</ulink>.</para>
+        </sect3>
+
+        <sect3>
+          <title>Modifying Makefile.am</title>
+
+          <para>There is a need of modifying <literal>Makefile.am</literal> if
+          you</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>add or remove new sources or files that should go in the
+              distribution: All source files must be listed behind
+              <literal>*_SOURCES</literal>. All other files that should be
+              included in the distribution must be listed behind
+              <literal>EXTRA_DIST</literal></para>
+            </listitem>
+
+            <listitem>
+              <para>need to include header-files from different directories:
+              Add the header directories to <literal>AM_CPPFLAGS</literal>. If
+              these header-directories have been assigned to a name in
+              <literal>configure</literal>, refer to them like
+              <literal>-I$(FOX_INCLUDES)</literal> or <literal>-I$(XERCESINCLUDE)</literal>.
+              To search for headers within SUMO directories, use
+              <literal>-I$(top_srcdir)/Path_to_dir</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para>need to link against new libraries or create new programs:
+              Modify the file <literal>src/Makefile.am</literal>. Add a new
+              program to <literal>bin_PROGRAMS</literal>. For each program you
+              need to provide <literal>prg_SOURCES</literal>,
+              <literal>prg_LDFLAGS</literal> and <literal>prg_LDADD</literal>.
+              <literal>prg_LDFLAGS</literal> holds the linker flags and
+              library-directories like <literal>-L$(XERCESLIBPATH)</literal>
+              or <literal>$(QT_LDFLAGS)</literal>. <literal>prg_LDADD</literal>
+              lists all libraries that should be linked with the executable
+              (e.g. <literal>./utils/xml/libxml.a -l$(XERCESLIB) -l$(FOXLIB)</literal>).</para>
+            </listitem>
+
+            <listitem>
+              <para>you create new subdirectories: Add the new subdirectory to
+              <literal>SUBDIRS</literal> and create a new <literal>Makefile.am</literal>
+              there.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>I don&#39;t want to go into detail of <literal>Makefile.am</literal>
+          creation. For SUMO we have one top-level <literal>Makefile.am</literal>
+          in the directory <literal>sumo</literal> This needs to be changed
+          only if you add new subdirectories</para>
+
+          <para>All SUMO-executables are build in <literal>sumo/src</literal>.
+          Add this directory&#39;s <literal>Makefile.am</literal> to add new
+          executables.</para>
+
+          <para>All other <literal>Makefile.am</literal> looks e.g. like this:</para>
+
+          <screen>noinst_LIBRARIES = libxxx.a EXTRA_DIST =
+          distributed_but_not_compiled_file libxxx_a_SOURCES = header.h
+          source.cpp AM_CPPFLAGS = -I$(top_srcdir)/src/helpers
+          -I$(FOX_INCLUDES) \ -I$(XERCESINCLUDE) SUBDIRS = icons METASOURCES =
+          AUTO</screen>
+
+          <sect4>
+            <title>Makefile.am additions for Xerces</title>
+
+            <para>If you need to include Xerces-headers in a specific
+            directory add <literal>-I$(XERCESINCLUDE)
+            -I$(XERCESINCLUDE_PRIOR_1_7)</literal> to <literal>AM_CPPFLAGS</literal>.</para>
+
+            <para>If you need to link against the Xerces-library add
+            <literal>-L$(XERCES_LDFLAGS)</literal> to <literal>prg_LDFLAGS</literal>
+            and <literal>-l$(XERCESLIB)</literal> to <literal>prg_LDADD</literal>.</para>
+          </sect4>
+
+          <sect4>
+            <title>Makefile.am additions for FOX</title>
+
+            <para>If you need to include FOX-headers in a specific directory
+            add -I<literal>$(FOX_INCLUDES)</literal> to <literal>AM_CPPFLAGS</literal>.</para>
+
+            <para>If you need to link against FOX-library add
+            <literal>-L$(FOX_LDFLAGS)</literal> to <literal>prg_LDFLAGS</literal>
+            and <literal>-l$(FOXLIBS)</literal> to <literal>prg_LDADD</literal>.</para>
+
+            <para>See also <ulink
+            url="http://www.vandenoever.info/software/KDEautomakemanual.html">How
+            to use KDE autotools for a Qt application?</ulink></para>
+          </sect4>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>Windows: Using MSVC++ 6.0</title>
+
+        <para>Building under windows is as easy as under Linux. The following
+        steps have to be done:</para>
+
+        <orderedlist>
+          <listitem>
+            <para>Obtain the source as described above.</para>
+          </listitem>
+
+          <listitem>
+            <para>Download the <ulink
+            url="http://xml.apache.org/xerces-c/index.html">Xerces C++ library</ulink>
+            (version 2.4 or greater) and the <ulink
+            url="http://www.fox-toolkit.org">FOX</ulink>-library (version
+            1.1.46) for windows .</para>
+          </listitem>
+
+          <listitem>
+            <para>Install both libraries into desired folders</para>
+          </listitem>
+
+          <listitem>
+            <para>Set environment variables for the xerces library:</para>
+
+            <para>XERCES=&#60;PATH_TO_XERCES&#62;</para>
+
+            <para>Example: If you have installed xerces to
+            D:\libs\xerces-c_2_3_0-win32, then your environment variables
+            should contain XERCES=D:\libs\xerces-c_2_3_0-win32</para>
+          </listitem>
+
+          <listitem>
+            <para>Set environment variables for the fox library:</para>
+
+            <para>FOX=&#60;PATH_TO_FOX&#62;</para>
+
+            <para>Example: If you have installed fox to D:\libs\fox-1.1.46,
+            then your environment variables should contain
+            FOX=D:\libs\fox-1.1.46</para>
+          </listitem>
+
+          <listitem>
+            <para>Compile the fox-library (Xerces comes mostly with
+            precompiled binaries, so a rebuild is not necessary) and copy
+            FOXDLL-1.1.dll and FOXDLLD-1.1.dll into your windows-system
+            folder.</para>
+          </listitem>
+
+          <listitem>
+            <para>Start MSVC++ and open the file prj.dsw located in
+            sumo/prj/msvc6</para>
+          </listitem>
+
+          <listitem>
+            <para>Go to Build and Rebuild All</para>
+          </listitem>
+        </orderedlist>
+
+        <para>Enjoy!</para>
+      </sect2>
+
+      <sect2>
+        <title>Windows: Using MS Studio 7.0 .NET</title>
+
+        <para>Follow steps 1-6 as described for <application class="software">MSVC++
+        6.0</application>. The continue as follows:</para>
+
+        <orderedlist>
+          <listitem>
+            <para>Start MSVC++ and open the file prj.sln located in
+            sumo/prj/msvc7.net</para>
+          </listitem>
+
+          <listitem>
+            <para>Go to Build and Rebuild All</para>
+          </listitem>
+        </orderedlist>
+
+        <para>Enjoy!</para>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>Modules and Module Dependencies</title>
+
+      <para>As some parts of the code are used within all applications and
+      some other parts are used within more than a single application, we have
+      divided the code into logical modules. Classes shared by almost all
+      applications and do not have a certain meaning within the simulation
+      context are located within the utils-folder. All other folders hold
+      classes responsible for a certain part of the simulation building and
+      execution process.</para>
+
+      <sect2>
+        <title>Modules</title>
+
+        <table>
+          <title>Module purposes</title>
+
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>gui</entry>
+
+                <entry>Classes used by the gui application for window
+                handling, visualisation etc.</entry>
+              </row>
+
+              <row>
+                <entry>guinetload</entry>
+
+                <entry>Classes derived from netload-classes to load and build
+                guisim-versions of the microsim classes.</entry>
+              </row>
+
+              <row>
+                <entry>guisim</entry>
+
+                <entry>Classes derived from microsim-classes to allow their
+                usage within the simulation&#39;s gui-version.</entry>
+              </row>
+
+              <row>
+                <entry>microsim</entry>
+
+                <entry>The microsimulation kernel - classes.</entry>
+              </row>
+
+              <row>
+                <entry>netbuild</entry>
+
+                <entry>Classes to parse loaded (foreign or native) or
+                generated network descriptions into SUMO-networks.</entry>
+              </row>
+
+              <row>
+                <entry>netgen</entry>
+
+                <entry>Classes for (grid-, spider, random-) network
+                generation.</entry>
+              </row>
+
+              <row>
+                <entry>netimport</entry>
+
+                <entry>Importers for foreign networks and native network
+                descriptions.</entry>
+              </row>
+
+              <row>
+                <entry>netload</entry>
+
+                <entry>Classes used to load networks and to parse additional
+                files.</entry>
+              </row>
+
+              <row>
+                <entry>router</entry>
+
+                <entry>Herein, you can find some classes use by both the
+                dua-router and the jtr-router.</entry>
+              </row>
+
+              <row>
+                <entry>utils</entry>
+
+                <entry>utils is not a module itself. Rather, you can find
+                several modules that are used within most of the applications.</entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+
+        <sect3 id="utils">
+          <title>utils</title>
+
+          <table>
+            <title>Utils submodules</title>
+
+            <tgroup cols="2">
+              <tbody>
+                <row>
+                  <entry>common</entry>
+
+                  <entry>Some classes used by all applications. The classes
+                  define used exceptions, some parts of the sub-systems etc.</entry>
+                </row>
+
+                <row>
+                  <entry>convert</entry>
+
+                  <entry>Classes converting between different data types
+                  (string to int and reverse conversion etc.)</entry>
+                </row>
+
+                <row>
+                  <entry>dev</entry>
+
+                  <entry>the classes located herein are used by the
+                  windows-version only. The class MemDiff allows to track
+                  memory leaks.</entry>
+                </row>
+
+                <row>
+                  <entry>distribution</entry>
+
+                  <entry>Classes that describe a value&#39;s statistical
+                  distribution using different methods</entry>
+                </row>
+
+                <row>
+                  <entry>fonts</entry>
+
+                  <entry>Some fontrenderer fonts used by our
+                  openGL-applications</entry>
+                </row>
+
+                <row>
+                  <entry>foxtools</entry>
+
+                  <entry>Some additional FOX-classes</entry>
+                </row>
+
+                <row>
+                  <entry>geom</entry>
+
+                  <entry>Some helper classes for geometrical operations</entry>
+                </row>
+
+                <row>
+                  <entry>gfx</entry>
+
+                  <entry>graphic primitives</entry>
+                </row>
+
+                <row>
+                  <entry>glutils</entry>
+
+                  <entry>some helper classes for visualisation using openGL</entry>
+                </row>
+
+                <row>
+                  <entry>importio</entry>
+
+                  <entry>some classes that help to import data</entry>
+                </row>
+
+                <row>
+                  <entry>options</entry>
+
+                  <entry>classes that read an application&#39;s options from
+                  the command line and from XML-configuration files</entry>
+                </row>
+
+                <row>
+                  <entry>sumoxml</entry>
+
+                  <entry>definitions of tags used by SUMO</entry>
+                </row>
+
+                <row>
+                  <entry>xml</entry>
+
+                  <entry>classes that ease the work with SAX-handlers</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>Application Dependencies</title>
+
+        <table>
+          <title>Application dependencies</title>
+
+          <tgroup cols="2">
+            <tbody>
+              <row>
+                <entry>DUA-Router</entry>
+
+                <entry>Uses<itemizedlist spacing="compact"><listitem><para>dua_router_main.cpp
+                &#38; dua_router_help.h</para></listitem><listitem><para>routing_dua/*</para></listitem><listitem><para>router/*</para></listitem><listitem><para>utils/router/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/gfx/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>utils/importio/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></entry>
+              </row>
+
+              <row>
+                <entry>GUI</entry>
+
+                <entry>Uses<itemizedlist spacing="compact"><listitem><para>sumo_main.cpp
+                &#38; sumo_help.h</para></listitem><listitem><para>gui/*</para></listitem><listitem><para>guinetload/*</para></listitem><listitem><para>guisim/*</para></listitem><listitem><para>helpers/*</para></listitem><listitem><para>microsim/*</para></listitem><listitem><para>netload/*</para></listitem><listitem><para>sumo_only/*</para></listitem><listitem><para>utils/fonts/*</para></listitem><listitem><para>utils/geom/*</para></listitem><listitem><para>utils/gfx/*</para></listitem><listitem><para>utils/glutils/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/qutils/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></entry>
+              </row>
+
+              <row>
+                <entry>JTR-Router</entry>
+
+                <entry>Uses<itemizedlist spacing="compact"><listitem><para>jtr_router_main.cpp
+                &#38; jtr_router_help.h</para></listitem><listitem><para>routing_jtr/*</para></listitem><listitem><para>router/*</para></listitem><listitem><para>utils/router/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/gfx/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>utils/importio/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></entry>
+              </row>
+
+              <row>
+                <entry>NETCONVERT</entry>
+
+                <entry>Uses<itemizedlist spacing="compact"><listitem><para>netconvert_main.cpp
+                &#38; netconvert_help.h</para></listitem><listitem><para>netbuild/*</para></listitem><listitem><para>netimport/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/distribution/*</para></listitem><listitem><para>utils/geom/*</para></listitem><listitem><para>utils/gfx/*</para></listitem><listitem><para>utils/importio/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></entry>
+              </row>
+
+              <row>
+                <entry>NETGEN</entry>
+
+                <entry>Uses<itemizedlist spacing="compact"><listitem><para>netgen_main.cpp
+                &#38; netgen_help.h</para></listitem><listitem><para>netbuild/*</para></listitem><listitem><para>netgen/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/geom/*</para></listitem><listitem><para>utils/importio/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></entry>
+              </row>
+
+              <row>
+                <entry>OD2Trips</entry>
+
+                <entry>Uses<itemizedlist spacing="compact"><listitem><para>od2trips_main.cpp
+                &#38; od2trips_help.h</para></listitem><listitem><para>od2trips/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></entry>
+              </row>
+
+              <row>
+                <entry>SUMO</entry>
+
+                <entry>Uses<itemizedlist spacing="compact"><listitem><para>sumo_main.cpp
+                &#38; sumo_help.h</para></listitem><listitem><para>helpers/*</para></listitem><listitem><para>microsim/*</para></listitem><listitem><para>netload/*</para></listitem><listitem><para>sumo_only/*</para></listitem><listitem><para>utils/gfx/*</para></listitem><listitem><para>utils/options/*</para></listitem><listitem><para>utils/convert/*</para></listitem><listitem><para>utils/common/*</para></listitem><listitem><para>utils/sumoxml/*</para></listitem><listitem><para>utils/xml/*</para></listitem><listitem><para>LIB_XERCES</para></listitem></itemizedlist></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>The application sub-system</title>
+
+      <para>Beside some tools, all of the applications within the SUMO-package
+      share the same subsystem, only paramterised with two
+      application-specific functions for setting and validating the command
+      line options or the configuration settings. This subsystem initialises
+      handles initialisation of the xml-subsystem, the options-subsystem and
+      the message handling sub-system. All of these and the main application
+      subsystem are described, herein.</para>
+
+      <para>Read this if you want to extend an application&#39;s options.</para>
+
+      <sect2>
+        <title>The subsystems&#39; duties</title>
+
+        <para>The subsystems were invented to avoid doing the same things for
+        each of the package&#39;s application once again. All of them do parse
+        command line options and optional a configuration file, they all have
+        to initialise and close the XML-subsystem and all use the same
+        paradigm of logging messages, either directly to the user via the
+        command line output (cout) or by writing a log-file. By sharing the
+        same methods, it is also assured, that all applications have the same
+        behaviour.</para>
+
+        <sect3>
+          <title>The Main Subsystem</title>
+
+          <para>This is a wrapper around the following three subsystems.</para>
+        </sect3>
+
+        <sect3>
+          <title>The XML-Subsystem</title>
+
+          <para>This simply initialises and closes the xerces-XML-parser (both
+          being two method calls within a try/catch-block). We do not exactly
+          know what xerces is doing here, but it does not work without.</para>
+        </sect3>
+
+        <sect3>
+          <title>The Messaging-Subsystem</title>
+
+          <para>From the version 0.8 on, SUMO is able to generate a log-file
+          where all messages, warnings or errors are saved. The messaging
+          subsystem is responsible to build the output files, to set the
+          report options, such as whether the messages shall be verbose on the
+          command line or within the logfile, the same for warnings etc. This
+          is done the same way through all applications.</para>
+        </sect3>
+
+        <sect3>
+          <title>The Options-Subsystem</title>
+
+          <para>A SUMO-application&#39;s options may be set both on the
+          command line and within a configuration file or both. The
+          options-subsystem calls two methods which must be supplied on the
+          main subsystem&#39;s initialisation. The first one fills the
+          options-container with application-dependent options, the second
+          method verifies them after they are set with the user&#39;s values.</para>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>The subsystems&#39; usage</title>
+
+        <para>If you look into the main procedures from the files
+        &#34;*_main.cpp&#34; within the top-level source folder, you realise
+        they all look similar:<programlisting>int main(int argc, char **argv)
+        { int ret = 0; try { if(!SystemFrame::init(true, argc, argv,
+        fillInitOptions, checkInitOptions, help)) { throw ProcessError(); }
+        ... do something application-specific ... } catch(ProcessError) {
+        MsgHandler::getErrorInstance()-&#62;inform(&#34;Quitting (on
+        error).&#34;); ret = 1; } SystemFrame::close(); return ret; }</programlisting></para>
+
+        <para>The return value is initialised (using the static function<function>
+        SystemFrame::init(bool, int, char**, FUNC_fill_options,
+        FUNC_check_options, char**) </function>) first to &#34;no error&#34;
+        (==0), then, within a try/catch-block the subsystem is initialised and
+        the application-specific data processing method calls follow. The
+        try/catch-block is needed as we allow each application to throw a
+        &#34;ProcessError&#34; allowing easy aborting of the program&#39;s
+        execution on any place the input is not proper.</para>
+
+        <para>Either after completing the actions or If the
+        subsystem-initialisation or the data processing fails, the subsystem
+        is closed using <function>SystemFrame::close()</function> (which is a
+        static function).</para>
+
+        <para>These two calls wrap all the initialisations described above:
+        XML-subsystem initialisation and closing, parsing of command line
+        options and/or the configuration file, message subsystem
+        initialisation.</para>
+
+        <para>As you see, the pointers to two functions must be supplied:</para>
+
+        <formalpara>
+          <title>FUNC_fill_options</title>
+
+          <para>Is the function which is called on initialisation of the
+          command-line options storage. It is declared as following within
+          <function>OptionsSubSys.h</function>:</para>
+        </formalpara>
+
+        <para><function>typedef void (fill_options)(OptionsCont &#38;);</function></para>
+
+        <para>It receives a reference of options storage to fill. The next
+        chapter describes how to insert possible command line options into it.</para>
+
+        <formalpara>
+          <title>FUNC_check_options</title>
+
+          <para>Is the function which is called on initialisation of the
+          command-line options storage. It is declared as following within
+          <function>OptionsSubSys.h</function>:</para>
+        </formalpara>
+
+        <para><function>typedef bool (check_options)(OptionsCont &#38;);</function></para>
+
+        <para>Using the methods to retrieve single options from the options
+        storage described within the next chapter, one can check whether the
+        user&#39;s definitions are proper. The method must return true if
+        everything&#39;s ok with the user input, otherwise - when a necessary
+        network file definition is not given, f.e. , false.</para>
+
+        <sect3>
+          <title>The Options Subsystem</title>
+
+          <para>All major SUMO applications use the same classes for parsing
+          of command line options and configuration files. Each application
+          has exactly one instance of the <function>OptionsCont</function>
+          (options container) - class. Before the command line options are
+          parsed, their names, allowed types and their default values must be
+          inserted into this container. This is done within a method given to
+          the main subsystem as described above.</para>
+
+          <para>To insert an application option into the container, use one of
+          the following polymorphs:</para>
+
+          <para><function>void doRegister(const std::string &#38;name1, Option
+          *v);</function></para>
+
+          <para>or</para>
+
+          <para><function>void doRegister(const std::string &#38;name1, char
+          abbr, Option *v);</function></para>
+
+          <para>The parameter &#34;name1&#34; is the name (or one of the
+          possible name, better to say) you&#39;ll be able to retrieve
+          information about the command line option&#39;s state after parsing
+          the command line arguments and/or the configuration file. The
+          character &#34;abbr&#34; within the second call is the possible
+          one-char abbreviation of the name.</para>
+
+          <para><caution><para>The behaviour after adding the same
+          abbreviation for two different options is not defined.</para></caution></para>
+
+          <para>The third parameter is an option that shall be assigned to the
+          name(s). Remark that the <function>OptionsCont</function> takes the
+          responsibility for this option - it will be deleted when the
+          <function>OptionsCont</function> is deleted. The option itself must
+          be an instance of one of the following classes, which all are
+          derived from the class <function>Option</function>:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><function>Option_Integer</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>Option_Long</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>Option_String</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>Option_Float</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>Option_FileName</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>Option_UIntVector</function></para>
+            </listitem>
+          </itemizedlist>
+
+          <para>The names of the classes reflect the types which are awaited
+          for the option. Do also remark, that later acces for reading should
+          be done in dependence to the type - it means that you should not try
+          to get a float from an <function>Option_Float</function>. This yould
+          yield in an exception.</para>
+
+          <para><caution><para>All subclasses of are stored within the file .
+          This is surely not as wished within the coding styleguide, each
+          class should be stored in a separate pair of files. Also, one could
+          imagine to use templates, here.</para></caution></para>
+
+          <para>Also, every of the option subclasses has two constructors: one
+          that is parametrised with the appropriate type and a parameterless
+          one. The parametrised constructor is used to supply default values
+          for options, in the other case, no value is known to the system at
+          first. An example: settings the &#34;verbose&#34;-switch as
+          following, lets the application run quiet as default:</para>
+
+          <programlisting>oc.doRegister(&#34;verbose&#34;, &#39;v&#39;, new
+          Option_Bool(false));</programlisting>
+
+          <para>Examples of how to insert possible options into their
+          container may be found within the files <filename>src\sumo_only\SUMOFrame.cpp</filename>,
+          <filename>src\gui_main.cpp</filename>, <filename>src\router_main.cpp</filename>,
+          <filename>src\od2trips_main.cpp</filename> and <filename>src\netbuild\NBOptionsIO.cpp</filename>.</para>
+
+          <para>Beside this, one can also add synonymes for options. If you
+          for example want to implement the option
+          &#34;name-of-vehicle-that-shall-halt&#34;, but wish to have a
+          shorter name, too, use the following to make the same option
+          accessable using both &#34;name-of-vehicle-that-shall-halt&#34; and
+          &#34;v2h&#34;:</para>
+
+          <programlisting>oc.doRegister(&#34;name-of-vehicle-that-shall-halt&#34;,
+          new Option_String());
+          oc.addSynonyme(&#34;name-of-vehicle-that-shall-halt&#34;,
+          &#34;v2h&#34;);</programlisting>
+
+          <para>If no default value was supplied for an option, you should ask
+          the OptionsCont whether it has been set. Access to values of unset
+          options causes exceptions. This may sound hard, but as it&#39;s only
+          the developer who accesses the options container in fact, it&#39;s
+          the best way to assure security of the code.</para>
+
+          <para>One can check whether a value is available for a certain
+          option calling the OptionsCont-member method bool
+          isSet(&#34;OPTION_NAME&#34;);. If one has to know whether it is the
+          default value given on instantiation of the option (see above) or a
+          value supplied by the user, he/she may call &#34;bool
+          isDefault(&#34;OPRION_NAME&#34;);&#34;, a member method of
+          OptionsCont, too. In dependence to the type of an option, one can
+          retrieve her value using the following methods from OptionsCont:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><function>int getInt(&#34;&#60;OPTION_NAME&#62;&#34;)
+              const;</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>long getLong(&#34;&#60;OPTION_NAME&#62;&#34;)
+              const;</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>std::string
+              getString(&#34;&#60;OPTION_NAME&#62;&#34;) const;</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>float getFloat(&#34;&#60;OPTION_NAME&#62;&#34;)
+              const;</function></para>
+            </listitem>
+
+            <listitem>
+              <para><function>const UIntVector
+              &#38;OptionsCont::getUIntVector(&#34;&#60;OPTION_NAME&#62;&#34;)
+              const;</function></para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Using an inproper method yields in an exception.</para>
+
+          <para>You may have noticed, that there is one method to retrieve a
+          certain value less than types available. The type
+          &#34;Option_FileName&#34; returns a string, too. The only difference
+          is their type which allows a different processing of the values to
+          set when parsing.</para>
+        </sect3>
+
+        <sect3>
+          <title>The Messaging Subsystem</title>
+
+          <para>... to be described ...</para>
+        </sect3>
+
+        <sect3>
+          <title>The XML Subsystem</title>
+
+          <para>This subsystem is automatically processed by the main
+          subsystem. There should be no need to change it.</para>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>Assigned Classes</title>
+
+        <sect3>
+          <title>The Main Subsystem</title>
+
+          <para>Made of only one class, located in <filename>utils/common/SystemFrame.h</filename>
+          and <filename>utils/common/SystemFrame.cpp</filename>.</para>
+        </sect3>
+
+        <sect3>
+          <title>The Options Subsystem</title>
+
+          <para>All classes needed to store and process options can be found
+          within <filename>utils/options/</filename></para>
+        </sect3>
+
+        <sect3>
+          <title>The Message Subsystem</title>
+
+          <para>All classes needed to store and process options can be found
+          within <filename>utils/common/</filename>. The files
+          <filename>MsgHandler.h</filename> and <filename>MsgHandler.cpp</filename>
+          include the definition of the messaging system itself, the class
+          <filename>MsgRetriever.h</filename> holds the interface which has to
+          be implemented by classes that wish to retrieve information from the
+          messaging system.</para>
+        </sect3>
+
+        <sect3>
+          <title>The XML Subsystem</title>
+
+          <para>Made of only one class, located in <filename>utils/xml/XMLSubSys.h</filename>
+          and <filename>utils/xml/XMLSubSys.cpp</filename>.</para>
+        </sect3>
+      </sect2>
+    </sect1>
+  </chapter>
+
+  <chapter id="dev_chp03">
+    <title>SUMO</title>
+
+    <sect1>
+      <title>Detectors</title>
+
+      <para>In the following sections we will describe SUMOs way to
+      communicate with it&#39;s two kinds of detectors, the <link
+      linkend="ExtendedDetectors"><emphasis>extended</emphasis></link> ones,
+      that work on an area of a lane and the <link
+      linkend="UnextendedDetectors"><emphasis>unextended</emphasis></link>
+      ones, that measure at a fixed position on a lane.</para>
+
+      <sect2 id="DetectorCommunication">
+        <title>Communication between detectors and SUMO</title>
+
+        <para>Detectors are nearly independant from the rest of the
+        simulation. In the simulation loop there is just on call to a static
+        method before the emission and the move of the vehicles, and one call
+        afterwards. The moving vehicles inform the detectors that they have
+        entered or left the detector through <emphasis>move-reminder</emphasis>-objects.
+        These move-reminders have to be provided for each detector. They are
+        instances of small classes, that just check for some condition, e.g.
+        the position of the vehicle (you can check for whatever a vehicle
+        provides). All move-reminders inherit from <literal>MSMoveReminder</literal>.
+        If a condition is met, the reminder informs the detector. All data is
+        collected in the detector-object. And all processing is done there,
+        too. So if you want a special purpose detector, you have to write the
+        detector-class and a corresponding reminder-class.</para>
+
+        <para>But how do the vehicles know about the move-reminders? On
+        creation of a detector object, a reminder-object is created too. It is
+        passed to the lane the detector works on. The lane has a container of
+        move-reminder objects. If a vehicle enters a lane it gets a copy of
+        this container. At every move, the vehicle calls the method
+        <literal>workOnMoveReminders()</literal>. In this call all reminders
+        are asked if they are <literal>isStillActive()</literal>. If not, they
+        are removed from the vehicles move-reminder container, otherwise the
+        detector may be called. The move-reminders have just two additional
+        methods for entering and leaving the lane. Their names are quite
+        self-explanatory: <literal>isActivatedByEmitOrLaneChange()</literal>
+        and <literal>dismissByLaneChange()</literal>.</para>
+
+        <para>Note that the interfaces of detector classes may differ
+        completely. The detector methods that collect data are called by their
+        associated reminders only. There is no need to inherit from a base
+        detector.</para>
+
+        <para>The following <link linkend="DetectorCollaboration">UML-diagram</link>
+        shows the classes and methods that are relevant for the proper
+        operation of the <literal>MSLaneState</literal> detector.</para>
+
+        <mediaobject id="DetectorCollaboration">
+          <imageobject>
+            <imagedata fileref="images/DetectorCollaboration.eps" format="EPS" />
+          </imageobject>
+
+          <imageobject>
+            <imagedata fileref="images/DetectorCollaboration.png" format="PNG" />
+          </imageobject>
+
+          <caption>
+            <para>Classes and methods used for collabaration between
+            <literal>MSLaneState</literal> detector and the rest of the
+            simulation.</para>
+          </caption>
+        </mediaobject>
+      </sect2>
+
+      <sect2 id="ExtendedDetectors">
+        <title>Extended detectors</title>
+
+        <para>In real life the <emphasis>extended</emphasis> detectors are
+        realized by headover detectors, like video-cameras on helicopters,
+        bridges, zeppelins. They collect data from an area of a lane. They are
+        ideal to measure <emphasis>densities</emphasis>, because densities are
+        area-measured quantities. They are also the first choice to measure
+        <emphasis>travelcosts</emphasis>. In this case the extended detector
+        covers the lane completely. Sophisticated <emphasis>traffic-signal
+        sequencing</emphasis> depends also on extended detectors.</para>
+
+        <sect3>
+          <title>The <literal>MSLaneState</literal> detector</title>
+
+          <para>Currently there is only one extended detector:
+          <literal>MSLaneState</literal>. This detector covers a part of a
+          lane and collects basic vehicle data, like speed, entry- and
+          leavetime. It provides following methods to get information about
+          the current state of the detector:</para>
+
+          <itemizedlist>
+            <listitem>
+              <literallayout><literal>int getCurrentNumberOfWaiting( void )</literal></literallayout>
+            </listitem>
+
+            <listitem>
+              <literallayout><literal>double getCurrentMeanSpeed( void );</literal></literallayout>
+            </listitem>
+
+            <listitem>
+              <literallayout><literal>double getCurrentMeanSpeedSquare( void
+              );</literal></literallayout>
+            </listitem>
+
+            <listitem>
+              <literallayout><literal>double getCurrentDensity( void );</literal></literallayout>
+            </listitem>
+          </itemizedlist>
+
+          <para>To get averaged detector data (averaged over
+          <literal>lastNTimesteps</literal>) you can call the following
+          methods:</para>
+
+          <itemizedlist>
+            <listitem>
+              <literallayout><literal>double getNumberOfWaiting( MSNet::Time
+              lastNTimesteps );</literal></literallayout>
+            </listitem>
+
+            <listitem>
+              <literallayout><literal>double getMeanSpeed( MSNet::Time
+              lastNTimesteps );</literal></literallayout>
+            </listitem>
+
+            <listitem>
+              <literallayout><literal>double getMeanSpeedSquare( MSNet::Time
+              lastNTimesteps );</literal></literallayout>
+            </listitem>
+
+            <listitem>
+              <literallayout><literal>double getMeanDensity( MSNet::Time
+              lastNTimesteps );</literal></literallayout>
+            </listitem>
+
+            <listitem>
+              <literallayout><literal>double getMeanTraveltime( MSNet::Time
+              lastNTimesteps );</literal></literallayout>
+            </listitem>
+
+            <listitem>
+              <literallayout><literal>int getNVehContributed( MSNet::Time
+              lastNTimesteps );</literal></literallayout>
+            </listitem>
+
+            <listitem>
+              <literallayout><literal>int getNVehEnteredDetector( MSNet::Time
+              lastNTimesteps );</literal></literallayout>
+            </listitem>
+
+            <listitem>
+              <literallayout><literal>int getNVehLeftDetectorByMove(
+              MSNet::Time lastNTimesteps );</literal></literallayout>
+            </listitem>
+
+            <listitem>
+              <literallayout><literal>int getNVehPassedEntireDetector(
+              MSNet::Time lastNTimesteps );</literal></literallayout>
+            </listitem>
+
+            <listitem>
+              <literallayout><literal>std::string getXMLOutput( MSNet::Time
+              lastNTimesteps );</literal></literallayout>
+            </listitem>
+          </itemizedlist>
+
+          <note>
+            <para>Note that there is a upper limit for <literal>lastNTimesteps</literal>.
+            In order to save memory, the collected data is stored for a
+            bounded interval only. You can adjust this bound through the
+            <literal>MSLaneState</literal> constructor-parameter
+            <literal>deleteDataAfterSeconds</literal>. The default is 15
+            minutes. The deletion is triggerd by <literal>MSEventControl</literal>.</para>
+          </note>
+
+          <para>For more details on this class see the files
+          <literal>MSLaneState.h</literal> and <literal>MSLaneState.cpp</literal>.</para>
+        </sect3>
+
+        <sect3 id="TravelcostDetectors">
+          <title>Extended detectors as travelcost detectors</title>
+
+          <para>If you want to measure travelcosts, you usually put an
+          extended detector on every lane, aggregate the collected data over a
+          fixed interval and write this data to a file. This is, what
+          <literal>MSTravelcostDetector</literal> provides.
+          <literal>MSTravelcostDetector</literal> is a template singleton
+          class. The template parameter is the extended detector to use. So if
+          you call <literal>MSTravelcostDetector&#60; MSLaneState
+          &#62;::create( maxIntervalLength )</literal>. <literal>MSTravelcostDetector</literal>
+          creates <literal>MSLaneState</literal> detectors on every lane,
+          covering the lanes completety. Then you can add sample intervals
+          from 1 to maxIntervalLength seconds (call e.g. <literal>MSTravelcostDetector&#60;
+          MSLaneState &#62;::getInstance()-&#62;addSampleInterval( 60 )</literal>,
+          which adds a 60 seconds interval. The collected data will be written
+          in a file called <literal>MSLaneState_60.xml</literal>).</para>
+
+          <para>The sampling for a specific interval is triggered by
+          <literal>MSEventControl</literal>.</para>
+
+          <para>An extended detector class must provide following methods to
+          be a proper template parameter to <literal>MSTravelcostDetector</literal>:</para>
+
+          <itemizedlist>
+            <listitem>
+              <literallayout><literal>static std::string getNamePrefix( void
+              );</literal></literallayout>
+            </listitem>
+
+            <listitem>
+              <literallayout><literal>static std::string&#38; getXMLHeader(
+              void );</literal></literallayout>
+            </listitem>
+
+            <listitem>
+              <literallayout><literal>std::string getXMLOutput( MSNet::Time
+              lastNTimesteps );</literal></literallayout>
+            </listitem>
+          </itemizedlist>
+
+          <para>For an example see <literal>MSLaneState</literal>.</para>
+        </sect3>
+      </sect2>
+
+      <sect2 id="UnextendedDetectors">
+        <title>Unextended detectors</title>
+
+        <para>The real life counterpart of <emphasis>unextended detectors</emphasis>
+        are induction loops. They collect data from a fixed position on a lane
+        when a vehicle passes by. They are predestined for
+        <emphasis>flow measurments</emphasis>.</para>
+
+        <note>
+          <para>The MSinductionLoop class has to be modified to use the
+          move-reminder concept. The documentation will be added if this task
+          is completed.</para>
+        </note>
+      </sect2>
+    </sect1>
+  </chapter>
+
+  <chapter id="dev_chp04">
+    <title>Netconvert</title>
+
+    <sect1>
+      <title>Introduction</title>
+
+      <sect2>
+        <title>Why netconversion?</title>
+
+        <para>There are two reasons why we decided to build SUMO-networks by
+        converting ones existing in other formats. The first is that our
+        interest mainly lies on simulation of large urban areas and the
+        networks size speaks against inserting and editing them by hand. The
+        second is the high complexity of the SUMO-network format allowing
+        minimum effort on post-processing the data after loading it within the
+        simulation. Using this approach, the amount of memory used within the
+        simulation is reduced.</para>
+      </sect2>
+
+      <sect2>
+        <title>Features of SUMO-NETCONVERT</title>
+
+        <para><itemizedlist><listitem><para>Computation of lane to lane
+        connections</para></listitem><listitem><para>Computation of traffic
+        lights</para></listitem></itemizedlist></para>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>Netconversion-Process description</title>
+
+      <para>The process of building networks from loaded data max be splitted
+      into steps as shown within the next picture. We will not describe how
+      options are parsed within this document; a further one should be
+      available about this topic as this process is common to all modules. The
+      further steps are described within the next subsect1s.</para>
+
+      <figure>
+        <title>Process of network building</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata align="center" fileref="./gfx_netcdev/mainflow.gif"
+            format="GIF" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <sect2>
+        <title>Data Loading</title>
+
+        <para>... to be described...</para>
+      </sect2>
+
+      <sect2>
+        <title>Data Processing</title>
+
+        <para>After each loader has finished, the data should be stored within
+        the container classes &#34;NB*Cont&#34; the same way. Now, the process
+        of conversion into the SUMO-format, possibly including some
+        computation of further needed values, takes place. You may ask why we
+        do need eleven steps (version 0.8) to post process the data. Here is
+        the list of actions done and their explanation, too.</para>
+
+        <orderedlist>
+          <listitem>
+            <para>Removing dummy edges</para>
+
+            <para>Is only needed within Vissim; Here, sometimes edges fall
+            completely into a junction. We do not consider them and they are
+            removed from the container within this step.</para>
+          </listitem>
+
+          <listitem>
+            <para>Joining double connections</para>
+
+            <para>Within Vissim, two edges may join the same nodes into the
+            same direction. Being practically different lanes and not
+            different streets, these node connections are joined into a single
+            edge.</para>
+          </listitem>
+
+          <listitem>
+            <para>Computing turning directions</para>
+
+            <para>For each edge known within NBEdgeCont, the opposite edge is
+            computed. They are left unseen for the next steps and later
+            assigned as the turning direction. An edge is regarded as being
+            the turning direction if it yields in the same node the current
+            edge springs off.</para>
+          </listitem>
+
+          <listitem>
+            <para>Sorting nodes&#39; edges</para>
+
+            <para>For each node known by NBNodeCont, the 3 lists, being
+            unsorted so far are sorted: _incoming, _outgoing and _allEdges. By
+            doing this, we later know the abstract geometrical relationships
+            between edges (which edge is right to which etc.). The lists are
+            sorted clockwise beginning at the edge coming from the most
+            northern direction.</para>
+          </listitem>
+
+          <listitem>
+            <para>Node position normalisation</para>
+          </listitem>
+
+          <listitem>
+            <para>Edge to Edge - relationship computation</para>
+
+            <para>For each edge, the list of edges that may be approached from
+            it is being computed and which of this edge&#39;s lanes are used
+            to do this. It is not yet computed, which of this edge&#39;s lanes
+            approaches which lanes.</para>
+
+            <para>We describe this process more detailed in one of the next
+            subsections.</para>
+          </listitem>
+        </orderedlist>
+
+        <para>Before the loaded data may be processed, their container must be
+        informed about the end of the loading. By now, this is only true for
+        the nodes as the edges do not need any pre-processing. The method
+        <methodname>NBNodeCont::close()</methodname> is called from
+        <methodname>NBLoader::load()</methodname> to precompute the nodes. A
+        further description will be given in the next subsection.</para>
+
+        <para>The computation of data itself is consists of two steps. In the
+        first step (<methodname>computeEdges()</methodname>) the connections
+        between edges are computed. The second step (<methodname>computeNodes()</methodname>)
+        is generating the junction logics for the connecting nodes
+        (junctions). During this part of the process, the program will
+        terminate when errors are encountered. This is done by propagating a
+        thrown ProcessError instance. ProcessError is indirectly derived from
+        exception and may be found in <filename>utils/UtilExceptions.h</filename>.</para>
+
+        <sect3>
+          <title>Sorting nodes&#39; edges</title>
+
+          <para>An edges angle is compute on construction as the origin and
+          the destination nodes are known, here. <caution><para><inlinegraphic
+          fileref="./gfx/attention_small.gif" format="GIF" />What about the
+          edge&#39;s geometry?</para></caution>Still, the angle of course
+          depends on whether it is an incoming or an outgoing edge. The
+          NBContHelper::edge_by_junction_angle_sorter()-method does consider
+          this by checking which type of an edge (incoming or outgoing) the
+          current edge is and converts the angles of incoming edges by turning
+          them around 180 degree.</para>
+
+          <para>Keep in mind, that our coordinates are as described within the
+          user-documentation, the higher a point shall be, the greater his
+          y-value, the more to left, the higher his x-value.</para>
+
+          <figure>
+            <title>Coordinate system used in SUMO</title>
+
+            <mediaobject>
+              <imageobject>
+                <imagedata fileref="./gfx/basic_coordinates.gif" format="GIF" />
+              </imageobject>
+            </mediaobject>
+          </figure>
+
+          <para>It is not assured, that the incoming and outgoing directions
+          of a northern street are lying beside each other within the list of
+          sorted edges. It may rather be, that the outgoing is lying at the
+          begin and the incoming at the end.</para>
+        </sect3>
+
+        <sect3>
+          <title>Computation of edge to edge - relationships</title>
+
+          <para>For each edge, the following is being done: At first, the list
+          of edges outgoing from the junction this edge yields in is
+          retrieved. Then, the importance of each connected edge is being
+          computed using the priority of the approached edge. This means that
+          more important roads are being approached by a higher number of
+          lanes.</para>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>NBNodeCont::close()</title>
+
+        <para>Like most of the container methods, this method only invokes a
+        method with the same name (here: <methodname>close()</methodname>) on
+        all of the classes stored inside it. The so invoked method
+        NBNode::close() computes the node&#39;s lists of edges. Each node has
+        three lists:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><type>std::vector&#60;NBEdge*&#62;</type>
+            <varname>_allEdges</varname> holds both the incoming and the
+            outgoing edges sorted clockwise beginning with the edge(s) at the
+            node&#39;s north side (0 degree). Please remark, that this of
+            course may be more than one edge as for instance both the incoming
+            and the outgoing edge may be found here. Additionally, the edges
+            are sorted in the continental way - that means the traffic is
+            assumed to be on the right side. The next figure shows a very
+            simple junction and the used sort order.</para>
+          </listitem>
+
+          <listitem>
+            <para><type>std::vector&#60;NBEdge*&#62;*</type>
+            <varname>_incomingEdges</varname> which the edges that yield into
+            the junction sorted as described above.</para>
+          </listitem>
+
+          <listitem>
+            <para><type>std::vector&#60;NBEdge*&#62;*</type>
+            <varname>_outgoingEdges</varname> which the edges that originate
+            at the current junction.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Additionally, this method also computes the type of the
+        junction, as all needed nodes are already known. As this also involves
+        the setting of the junction priorities the participating edges have
+        and we will discuss these computations more briefly now.</para>
+      </sect2>
+
+      <sect2>
+        <title>Computation of Edge Connections</title>
+
+        <para>In SUMO each edge may be connected to some following edges. The
+        simulation does not need the names of the connected edges only, but
+        also two other information: a) for each of an edge&#39;s lanes, the
+        &#34;succeeding&#34; (reachable) lanes must be given b) the edge must
+        know, which of her lanes may be used to reach a special following
+        edge.</para>
+
+        <para>In fact, the data are quite similar, only the key/value -
+        relationship paradigm changes. Still, there is another problem that is
+        more interesting. It is the computation of a lane&#39;s following
+        lanes.</para>
+
+        <para>As input, we have a net made up from junctions and edges where
+        each edge consists of at least one lane. Let&#39;s take a look at a
+        single junction where the edge we want to compute is marked by
+        shading:</para>
+
+        <para>The easiest way in this case would be to let vehicles on the
+        left lane drive to the left; the vehicles on the right lane drive to
+        the right and the vehicles on the middle lane drive ahead. Still, some
+        junctions may occur where the number of lanes does not match the
+        number of possible directions.</para>
+
+        <para>By now, we are using the simple approach to distribute the
+        incoming lanes uniformly on the outgoing lanes. Additionally, before
+        this computation, we remove the opposite direction from the list of
+        approachable lanes and add this connection afterwards:</para>
+
+        <para>This makes the job quite good, but still has a problem. As one
+        can see in the next picture, the situation in real life is, that
+        vehicles driving on the right lane may turn right or drive ahead.
+        Still, our approach allows the turning only:</para>
+      </sect2>
+
+      <sect2>
+        <title>computeNodes() : Computation of a Junction Logic</title>
+
+        <para>A junction should always consist of more than two streets where
+        a street is a directed connection between two points. Streets may have
+        different priorities and vehicles driving on roads that have a lower
+        priority should wait for those driving on roads with a higher
+        priority. Even when the streets that build up a junction have the same
+        priority, the further movement of the cars is determined by the
+        right-of-way - rule &#34;left before right&#34; - at least in
+        countries where driving on the right side of the road is used. All
+        these circumstances make a logic for a junction necessary that decides
+        which vehicles may move and which not. Within SUMO, such a logic gets
+        an input vector of booleans which represents all possible movements
+        (connections between an incoming lane and an outgoing lane) where a
+        set value represents a vehicle that wishes to use this connection. The
+        connections themselves were previously computed by the
+        &#34;computeEdges()&#34; - method. The output of a logic is a vector
+        of booleans, too, but the booleans do not longer represent possible
+        connections but the lanes that are allowed to drive.</para>
+
+        <para>NETCONVERT is responsible for the building of these logics and
+        the computeNodes() - method performs this action.</para>
+
+        <para>Inside SUMO you will find two ways of representation for
+        junction logics. The first idea was to use a map and store all
+        possible combinations together with responses into it. This yielded in
+        MSMapLogic. Still, some junctions are too big for this representation,
+        so we invented the MSBitfieldLogic. You will find better documentation
+        about these classes in [3, 4].</para>
+
+        <para>Both representations are supported by the NETCONVERT. As the
+        following diagram shows, during the computation of a single logic, a
+        key is computed at first. This key is a unique identifier for the
+        junction logic that is currently built. A closer description of the
+        key will be given later.</para>
+      </sect2>
+
+      <sect2>
+        <title>Computation of Logics</title>
+
+        <para>After the key&#39;s computation, the program looks into the
+        &#34;junction-path&#34; (-j) - folder to determine whether the logic
+        according the key was already computed. As the logic&#39;s
+        functionality stays the same, even when the key is rotated as long as
+        the incoming/outgoing edges are rotated in the same way, this method
+        (NBJunctionIO::try2convert) returns the number of rotations to be done
+        to fit the junction&#39;s incoming/outgoing edges information to an
+        existing logic. Then, this fitting is done by rotating the key and the
+        incoming/outgoing edges and the computation is finished for this
+        junction as the logic was already computed. Still, when try2convert
+        returns a value below 0, no logic for a junction of this type exists
+        yet and must be computed. To avoid the computation of too complex
+        MSMapLogics, we determine the number of possible variations of the
+        driving wishes that may occur first and compare it to the value
+        &#34;map-maxsize&#34; (-m) that may be changed by the user. The map
+        logic is computed only when this value is larger than the computed
+        number of the logics permutations. Otherwise, the key is converted
+        into a key that already indicates the usage of a bitfield logic. This
+        is simply done by replacing the key type (the first char of the key)
+        from &#34;a&#34; to &#34;b&#34; as no other logic representations are
+        known yet.</para>
+
+        <para>Independent to whether a MSMapLogic was computed or not, the
+        MSBitfieldLogic is then computed, so it may be loaded when the other
+        logic could not be found or the user wishes the usage of
+        MSBitfieldLogics only. Every logic is saved directly after it&#39;s
+        computation using the NBJunctionIO - class. The resulting key (which
+        may be changed from a MapLogic- to a BitfieldLogic-key) is the
+        assigned to the junction.</para>
+      </sect2>
+
+      <sect2>
+        <title>Data Saving</title>
+
+        <para>As the data is all computed by now, it may be saved
+        straightforward into a file. As mentioned before, the junction logics
+        are already saved, only the net containing the edge/lane-definitions
+        and the junction definitions is saved.</para>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>Further Notes</title>
+
+      <sect2 id="ErrorHandling">
+        <title>Error Handling</title>
+
+        <para>All errors we know about that may happen during the
+        program&#39;s execution are reported to the user when they occur -
+        despite a memory overflow. When an error occurs, the program does not
+        try to solve it as we did not encounter errors yet that have any other
+        character than false data supplied by the user. Instead, the error is
+        reported and the program terminates.</para>
+
+        <para>A developer should respect this paradigm and try to catch every
+        false input or situation and report the error to the user providing
+        him as many information as available. The further processing may be
+        aborted using a &#34;ProcessError&#34; - exception instance, which is
+        caught by the main method.</para>
+
+        <para>Warnings may be reported to the user and we in fact have
+        prepared an option that should help you determine whether such reports
+        are wished or not. Unfortunately, this option is not yet implemented.</para>
+      </sect2>
+
+      <sect2 id="DebugMacros">
+        <title>Debug Macros</title>
+
+        <para>We have defined some debug macro definitions that let some parts
+        of the computation be very verbose or check some values for certain
+        examples. We will present them now, briefly.</para>
+
+        <sect3>
+          <title>-D TL_DEBUG</title>
+
+          <para>This definition lets the computation of traffic lights be very
+          verbose.</para>
+        </sect3>
+
+        <sect3>
+          <title>-D CROSS_TEST</title>
+
+          <para>For the cross3ltl-example, this definition checks some values
+          that should be true. If not, unfulfilled assertion exceptions are
+          thrown:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>Correct turning destinations after
+              &#34;computeTurningDirections&#34;</para>
+            </listitem>
+
+            <listitem>
+              <para>Correct order of edges in node &#34;0&#34; after
+              &#34;sortNodesEdges&#34;</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+      </sect2>
+    </sect1>
+  </chapter>
+</book>
