@@ -107,7 +107,7 @@ MSLaneState::MSLaneState( string id,
  {
     assert( startPosM >= 0 );
     assert( startPosM + MSNet::getCells( lengthInMeters ) <= laneM->length() );
-    endPosM = startPosM + MSNet::getCells( length );
+    endPosM = startPosM + MSNet::getCells( lengthInMeters );
     
     // insert object into dictionary
     if ( ! SingletonDictionary<

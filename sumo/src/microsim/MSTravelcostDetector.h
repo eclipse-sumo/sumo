@@ -229,7 +229,7 @@ protected:
                     std::string id = Cost::getNamePrefix() + "_" + lane->id();
                     Cost* cost = new Cost( id,
                                            lane,
-                                           0, lane->length(),
+                                           0, MSNet::getMeters(lane->length()),
                                            maxIntervalInSeconds );
                     lc.push_back( std::make_pair( lane, cost ) );
                 }

@@ -83,7 +83,7 @@ public:
      */
     MSInductLoop( const std::string& id, 
                   MSLane* lane,
-                  double position, 
+                  double positionInMeters, 
                   MSNet::Time deleteDataAfterSeconds = 900 );
     
     
@@ -418,7 +418,7 @@ protected:
         MSNet::Time lastNTimesteps ) const;
     
 
-    const double posM;          /**< Detector's position on lane. */
+    const double posM;          /**< Detector's position on lane [cells]. */
 
     MSNet::Time deleteDataAfterStepsM; /**< Deletion interval. */
 

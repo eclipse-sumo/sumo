@@ -57,10 +57,10 @@ string MSInductLoop::xmlDetectorInfoEndM( "</detector>\n" );
 
 MSInductLoop::MSInductLoop( const string& id, 
                             MSLane* lane,
-                            double position, 
+                            double positionInMeters, 
                             MSNet::Time deleteDataAfterSeconds ) 
     : MSMoveReminder( lane, id ),
-      posM( position ),
+      posM( MSNet::getCells( positionInMeters ) ),
       deleteDataAfterStepsM( MSNet::getSteps( deleteDataAfterSeconds ) ),
       lastLeaveTimestepM( 0 ),
       vehiclesOnDetM(),
@@ -159,26 +159,27 @@ MSInductLoop::isActivatedByEmitOrLaneChange( MSVehicle& veh )
 double
 MSInductLoop::getFlow( MSNet::Time lastNTimesteps ) const
 {
-    // unit is [veh/h]
+    // return unit is [veh/h]
     assert( lastNTimesteps > 0 );
-    return getNVehContributed( lastNTimesteps ) * 3600.0 /
-        ( lastNTimesteps * MSNet::deltaT() );
+    return MSNet::getVehPerHour(
+        getNVehContributed( lastNTimesteps ) / lastNTimesteps );
 }
 
 
 double
 MSInductLoop::getMeanSpeed( MSNet::Time lastNTimesteps ) const
 {
-    // unit is [m/s]
+    // return unit is [m/s]
     assert( lastNTimesteps > 0 );
     int nVeh = getNVehContributed( lastNTimesteps );
     if ( nVeh == 0 ) {
         return -1;
     }
-    return accumulate( getStartIterator( lastNTimesteps ),
-                       vehicleDataContM.end(),
-                       0.0,
-                       speedSum ) / nVeh;
+    double speedS = accumulate( getStartIterator( lastNTimesteps ),
+                                vehicleDataContM.end(),
+                                0.0,
+                                speedSum );
+    return MSNet::getMeterPerSecond( speedS / nVeh );
 }
 
 
@@ -191,10 +192,12 @@ MSInductLoop::getMeanSpeedSquare( MSNet::Time lastNTimesteps ) const
     if ( nVeh == 0 ) {
         return -1;
     }
-    return accumulate( getStartIterator( lastNTimesteps ),
-                       vehicleDataContM.end(),
-                       0.0,
-                       speedSquareSum ) / nVeh;
+    double speedSquareS = accumulate( getStartIterator( lastNTimesteps ),
+                                      vehicleDataContM.end(),
+                                      0.0,
+                                      speedSquareSum );
+    return MSNet::getMeterPerSecond( MSNet::getMeterPerSecond(
+                                         speedSquareS / nVeh ) );
 }
 
 
@@ -223,10 +226,11 @@ MSInductLoop::getMeanVehicleLength( MSNet::Time lastNTimesteps ) const
     if ( nVeh == 0 ) {
         return -1;
     }
-    return accumulate( getStartIterator( lastNTimesteps ),
-                       vehicleDataContM.end(),
-                       0.0,
-                       lengthSum ) / nVeh;
+    double lengthS = accumulate( getStartIterator( lastNTimesteps ),
+                                 vehicleDataContM.end(),
+                                 0.0,
+                                 lengthSum );
+    return MSNet::getMeters( lengthS / nVeh );
 }
     
 
@@ -269,7 +273,7 @@ MSInductLoop::getXMLDetectorInfoStart( void ) const
 {
     string detectorInfo("<detector type=\"inductionloop\" id=\"" + idM +
                         "\" lane=\"" + laneM->id() + "\" pos=\"" +
-                        toString(posM) + "\" >");
+                        toString( MSNet::getMeters( posM ) ) + "\" >");
     return detectorInfo;
 }
 
@@ -357,8 +361,7 @@ MSInductLoop::deleteOldData( void )
                          deleteBeforeTimestep,
                          leaveTimeLesser() ) );
     }
-    return static_cast< MSNet::Time >
-        ( deleteDataAfterStepsM );
+    return deleteDataAfterStepsM;
 }   
 
 
