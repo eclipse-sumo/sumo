@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/01/27 14:35:22  dkrajzew
+// added the netedit-window
+//
 // Revision 1.4  2004/12/16 12:21:39  dkrajzew
 // debugging
 //
@@ -190,6 +193,7 @@ enum {
     ///Export Edges XML - Menu Entry
     MID_EXPORT_EDGES_XML,
     //@}
+
     //@{ Common View Settings - IDs
     /// Recenter View - Button
     MID_RECENTERVIEW,
@@ -209,8 +213,8 @@ enum {
     MID_SHOWGRID,
     /// Show Tool Tips - Button
     MID_SHOWTOOLTIPS,
-	/// Graph Edit Button
-	MID_EDIT_GRAPH,
+    /// Graph Edit Button
+    MID_EDIT_GRAPH,
     /// Show Full Geom - Button
     MID_SHOWFULLGEOM,
     /// Make Snapshot - Button
@@ -243,6 +247,8 @@ enum {
     MID_SHOWPARS,
     /// Show TLS phases - Menu Entry
     MID_SHOWPHASES,
+    /// Begin to track phases - Menu Entry
+    MID_TRACKPHASES,
     /// Add to selected Items - Menu Etry
     MID_ADDSELECT,
     /// Remove from selected Items - Menu Etry
@@ -311,6 +317,9 @@ enum {
     MID_LEVEL,
     MID_PERIOD,
     MID_TIME_SLIDER,
+
+    MID_MAP_IMAGEVIEWER,
+
 
     MID_LAST
 };

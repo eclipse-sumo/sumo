@@ -14,7 +14,7 @@ public:
 
     virtual ~GUIGlChildWindow();
 
-    FXGLCanvas *getBuildGLCanvas() const;
+    virtual FXGLCanvas *getBuildGLCanvas() const;
 
     virtual bool showLegend() const = 0;
     virtual bool allowRotation() const = 0;
