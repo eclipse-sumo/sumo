@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2004/08/02 13:03:19  dkrajzew
+// applied better names
+//
 // Revision 1.7  2003/10/27 10:47:49  dkrajzew
 // added to possibility to close the application after a simulations end without user interaction
 //

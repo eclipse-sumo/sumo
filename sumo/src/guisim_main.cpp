@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.1  2004/08/02 13:03:19  dkrajzew
+// applied better names
+//
 // Revision 1.16  2004/07/02 09:49:59  dkrajzew
 // generalised for easier online-server implementation
 //
@@ -169,7 +172,10 @@
 #include <gui/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
 #include <gui/GUIThreadFactory.h>
-#include "gui_help.h"
+#include <gui/GUISUMOAbstractView.h>
+#include <gui/drawerimpl/GUIColoringSchemesMap.h>
+#include <gui/drawerimpl/GUIBaseVehicleDrawer.h>
+#include "guisim_help.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -215,6 +221,28 @@ checkInitOptions(OptionsCont &oc)
     return true;
 }
 
+
+void
+initColoringSchemes()
+{
+    GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme> &sm =
+        GUIBaseVehicleDrawer::getSchemesMap();
+    sm.add("by speed", GUISUMOAbstractView::VCS_BY_SPEED);
+    sm.add("specified", GUISUMOAbstractView::VCS_SPECIFIED);
+    sm.add("type", GUISUMOAbstractView::VCS_TYPE);
+    sm.add("route", GUISUMOAbstractView::VCS_ROUTE);
+    sm.add("random#1", GUISUMOAbstractView::VCS_RANDOM1);
+    sm.add("random#2", GUISUMOAbstractView::VCS_RANDOM2);
+    sm.add("lanechange#1", GUISUMOAbstractView::VCS_LANECHANGE1);
+    sm.add("lanechange#2", GUISUMOAbstractView::VCS_LANECHANGE2);
+    sm.add("lanechange#3", GUISUMOAbstractView::VCS_LANECHANGE3);
+    sm.add("waiting#1", GUISUMOAbstractView::VCS_WAITING1);
+//    sm.add("reroute off", GUISUMOAbstractView::VCS_ROUTECHANGEOFFSET);
+//    sm.add("reroute #", GUISUMOAbstractView::VCS_ROUTECHANGENUMBER);
+    sm.add("lanechange#4", GUISUMOAbstractView::VCS_LANECHANGE4);
+}
+
+
 /* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
@@ -238,6 +266,7 @@ main(int argc, char **argv)
         // Make application
         FXApp application("SUMO 0.8","DLR+ZAIK");
         gFXApp = &application;
+        initColoringSchemes();
         // Open display
         application.init(argc,argv);
         OptionsCont &oc = OptionsSubSys::getOptions();
@@ -267,7 +296,7 @@ main(int argc, char **argv)
         application.create();
         // Run
         ret = application.run();
-    } catch(...) {
+    } catch(GUIThreadFactory) {
         MsgHandler::getErrorInstance()->inform("Quitting (on error).");
         ret = 1;
     }

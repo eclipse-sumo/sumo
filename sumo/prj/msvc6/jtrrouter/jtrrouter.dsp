@@ -7,19 +7,19 @@
 CFG=jtrrouter - Win32 Debug
 !MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
 !MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "jtrrouter.mak".
-!MESSAGE 
+!MESSAGE
 !MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
 !MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "jtrrouter.mak" CFG="jtrrouter - Win32 Debug"
-!MESSAGE 
+!MESSAGE
 !MESSAGE Für die Konfiguration stehen zur Auswahl:
-!MESSAGE 
+!MESSAGE
 !MESSAGE "jtrrouter - Win32 Release" (basierend auf  "Win32 (x86) Console Application")
 !MESSAGE "jtrrouter - Win32 Debug" (basierend auf  "Win32 (x86) Console Application")
-!MESSAGE 
+!MESSAGE
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -53,7 +53,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib $(XERCES)\lib\xerces-c_2.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\jtrrouter.exe ..\..\..\bin\jtrrouter.exe
+PostBuild_Cmds=mkdir ..\..\..\bin   copy Release\jtrrouter.exe ..\..\..\bin\jtrrouter.exe
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "jtrrouter - Win32 Debug"
@@ -81,10 +81,10 @@ LINK32=link.exe
 # ADD LINK32 $(XERCES)\lib\xerces-c_2D.lib /nologo /subsystem:console /debug /machine:I386 /nodefaultlib:"nafxcwd.lib" /pdbtype:sept
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir ..\..\..\bin	copy Debug\jtrrouter.exe ..\..\..\bin\jtrrouterD.exe
+PostBuild_Cmds=mkdir ..\..\..\bin   copy Debug\jtrrouter.exe ..\..\..\bin\jtrrouterD.exe
 # End Special Build Tool
 
-!ENDIF 
+!ENDIF
 
 # Begin Target
 
@@ -103,7 +103,7 @@ SOURCE=..\..\..\src\utils\router\IDSupplier.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\jtr_router_main.cpp
+SOURCE=..\..\..\src\jtrrouter_main.cpp
 # End Source File
 # Begin Source File
 
@@ -143,7 +143,7 @@ SOURCE=..\..\..\src\utils\router\IDSupplier.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\jtr_router_help.h
+SOURCE=..\..\..\src\jtrrouter_help.h
 # End Source File
 # Begin Source File
 

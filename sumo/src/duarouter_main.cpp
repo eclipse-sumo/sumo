@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.1  2004/08/02 13:03:19  dkrajzew
+// applied better names
+//
 // Revision 1.6  2004/07/02 09:49:36  dkrajzew
 // generalised for easier online-router implementation; debugging
 //
@@ -149,7 +152,7 @@ namespace
 #include <utils/common/HelpPrinter.h>
 #include <utils/convert/ToString.h>
 #include <utils/xml/XMLSubSys.h>
-#include "dua_router_help.h"
+#include "duarouter_help.h"
 
 
 /* =========================================================================

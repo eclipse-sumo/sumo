@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.1  2004/08/02 13:03:19  dkrajzew
+// applied better names
+//
 // Revision 1.3  2004/07/02 09:50:22  dkrajzew
 // generalised for easier online-router implementation; debugging
 //
@@ -82,7 +85,7 @@ namespace
 #include <routing_jtr/ROJPEdge.h>
 #include <routing_jtr/ROJPTurnDefLoader.h>
 #include <routing_jtr/ROJPHelpers.h>
-#include "jtr_router_help.h"
+#include "jtrrouter_help.h"
 
 
 /* =========================================================================

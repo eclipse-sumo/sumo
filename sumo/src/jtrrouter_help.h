@@ -2,7 +2,7 @@
 #define help_h
 //---------------------------------------------------------------------------//
 //                        jp_router_help.h -
-//		Help-screen of the junction percentage router module
+//      Help-screen of the junction percentage router module
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 20 Jan 2004
@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2004/08/02 13:03:19  dkrajzew
+// applied better names
+//
 // Revision 1.1  2004/02/06 08:56:44  dkrajzew
 // _INC_MALLOC definition removed (does not work on MSVC7.0)
 //

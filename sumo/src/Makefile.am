@@ -1,10 +1,10 @@
 bin_PROGRAMS = sumo \
 sumo-netconvert \
 sumo-netgen \
-sumo-dua-router \
-sumo-jtr-router \
+sumo-duarouter \
+sumo-jtrrouter \
 sumo-od2trips \
-sumo-gui
+sumo-guisim
 
 
 sumo_SOURCES = sumo_main.cpp \
@@ -72,9 +72,9 @@ sumo_netgen_LDADD   = ./netgen/libnetgen.a \
 -l$(LIB_XERCES)
 
 
-sumo_dua_router_SOURCES = dua_router_main.cpp dua_router_help.h
-sumo_dua_router_LDFLAGS = -L$(XERCES_LDFLAGS)
-sumo_dua_router_LDADD   = ./routing_dua/libduarouting.a \
+sumo_duarouter_SOURCES = duarouter_main.cpp duarouter_help.h
+sumo_duarouter_LDFLAGS = -L$(XERCES_LDFLAGS)
+sumo_duarouter_LDADD   = ./routing_dua/libduarouting.a \
 ./router/librouter.a \
 ./utils/router/librouter.a \
 ./utils/options/liboptions.a \
@@ -87,9 +87,9 @@ sumo_dua_router_LDADD   = ./routing_dua/libduarouting.a \
 -l$(LIB_XERCES)
 
 
-sumo_jtr_router_SOURCES = jtr_router_main.cpp jtr_router_help.h
-sumo_jtr_router_LDFLAGS = -L$(XERCES_LDFLAGS)
-sumo_jtr_router_LDADD   = ./routing_jtr/libjtrrouting.a \
+sumo_jtrrouter_SOURCES = jtrrouter_main.cpp jtrrouter_help.h
+sumo_jtrrouter_LDFLAGS = -L$(XERCES_LDFLAGS)
+sumo_jtrrouter_LDADD   = ./routing_jtr/libjtrrouting.a \
 ./router/librouter.a \
 ./utils/router/librouter.a \
 ./utils/options/liboptions.a \
@@ -114,8 +114,8 @@ sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 -l$(LIB_XERCES)
 
 
-sumo_gui_SOURCES = gui_main.cpp \
-gui_help.h \
+sumo_guisim_SOURCES = guisim_main.cpp \
+guisim_help.h \
 sumo_version.cpp \
 sumo_version.h
 sumo_gui_LDFLAGS = -L$(FOX_LDFLAGS) -L$(XERCES_LDFLAGS) $(X_LDFLAGS)
