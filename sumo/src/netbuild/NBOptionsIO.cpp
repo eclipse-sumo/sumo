@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/02/13 15:53:15  dkrajzew
+// some further processing options added
+//
 // Revision 1.3  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -206,6 +209,10 @@ NBOptionsIO::init()
     oc->doRegister("no-config", 'C', new Option_Bool(false));
     oc->addSynonyme("no-config", "no-configuration");
     oc->doRegister("recompute-junction-logics", new Option_Bool(false));
+    oc->doRegister("omit-corrupt-edges", new Option_Bool(false));
+    oc->doRegister("flip-y", new Option_Bool(false));
+    oc->doRegister("speed-in-km", new Option_Bool(false));
+    oc->doRegister("use-laneno-as-priority", new Option_Bool(false));
     return oc;
 }
 
