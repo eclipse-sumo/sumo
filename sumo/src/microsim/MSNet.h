@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.16  2003/06/05 16:06:47  dkrajzew
+// the initialisation and the ending of a simulation must be available to the gui - simulation mathod was split therefore
+//
 // Revision 1.15  2003/06/05 10:29:54  roessel
 // Modified the event-handling in the simulation loop. Added the new MSTravelcostDetector< MSLaneState > which will replace the old MeanDataDetectors as an example. Needs to be shifted to the proper place (where?).
 //
@@ -204,6 +207,7 @@ class MSRoute;
 class MSVehicleType;
 class MSLane;
 class MSLaneState;
+class MSTLLogicControl;
 
 
 /* =========================================================================
@@ -258,10 +262,13 @@ public:
                       MSEdgeControl* ec,
                       MSJunctionControl* jc,
                       DetectorCont* detectors,
-                      MSRouteLoaderControl *rlc);
+                      MSRouteLoaderControl *rlc,
+                      MSTLLogicControl *tlc);
 
     /// Destructor.
     virtual ~MSNet();
+
+
 
     /** @brief Simulates from timestep start to stop.
         start and stop in timesteps.
@@ -270,6 +277,11 @@ public:
         simulation could be finished without errors, otherwise
         false. */
     bool simulate( std::ostream *craw, Time start, Time stop );
+
+    void initialiseSimulation(std::ostream *craw, Time start, Time stop);
+
+    void closeSimulation(std::ostream *craw, Time start, Time stop);
+
 
     /// performs a single simulation step
     void simulationStep( std::ostream *craw, Time start, Time step);
@@ -359,6 +371,9 @@ protected:
 
     /// Sets the right-of-way rules and moves first cars.
     MSJunctionControl* myJunctions;
+
+    /// Masks requests from cars having red
+    MSTLLogicControl *myLogics;
 
     /// Emits cars into the lanes.
     MSEmitControl* myEmitter;

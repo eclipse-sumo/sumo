@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.20  2003/06/05 16:06:47  dkrajzew
+// the initialisation and the ending of a simulation must be available to the gui - simulation mathod was split therefore
+//
 // Revision 1.19  2003/06/05 10:29:54  roessel
 // Modified the event-handling in the simulation loop. Added the new MSTravelcostDetector< MSLaneState > which will replace the old MeanDataDetectors as an example. Needs to be shifted to the proper place (where?).
 //
@@ -253,6 +256,7 @@ namespace
 #include "MSDetector.h"
 #include "MSRoute.h"
 #include "MSRouteLoaderControl.h"
+#include "MSTLLogicControl.h"
 #include <helpers/PreStartInitialised.h>
 #include <utils/convert/ToString.h>
 #include "helpers/SingletonDictionary.h"
@@ -396,7 +400,8 @@ void
 MSNet::init( string id, MSEdgeControl* ec,
              MSJunctionControl* jc,
              DetectorCont* detectors,
-             MSRouteLoaderControl *rlc )
+             MSRouteLoaderControl *rlc,
+             MSTLLogicControl *tlc)
 {
     myInstance->myID           = id;
     myInstance->myEdges        = ec;
@@ -404,6 +409,7 @@ MSNet::init( string id, MSEdgeControl* ec,
 //     myInstance->myEvents       = MSEventControl::getInstance();
     myInstance->myDetectors    = detectors;
     myInstance->myRouteLoaders = rlc;
+    myInstance->myLogics       = tlc;
 
 	myInstance->myLanes = new MSLane*[MSLane::dictSize()];
 	myInstance->myVehOnLanes = new size_t[MSLane::dictSize()];
@@ -447,35 +453,49 @@ MSNet::~MSNet()
 bool
 MSNet::simulate( ostream *craw, Time start, Time stop )
 {
-    // prepare the "raw" output and print the first line
-    if ( craw ) {
-        (*craw) << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
-            << "<sumo-results>" << endl;
-    }
-    
-//     SingletonDictionary<
-//         std::string, MSLaneState* >::getInstance()->setFindMode();
-//     laneStateDetectorsM = SingletonDictionary<
-//         std::string, MSLaneState* >::getInstance()->getStdVector();
-
-    typedef MSTravelcostDetector< MSLaneState > Traveltime;
-    Traveltime::create( 900 );
-    Traveltime::getInstance()->addSampleInterval( 60 );
-    Traveltime::getInstance()->addSampleInterval( 300 );
-    
+    initialiseSimulation(craw, start, stop);
     // the simulation loop
     for ( myStep = start; myStep <= stop; ++myStep ) {
 		cout << myStep << (char) 13;
         simulationStep(craw, start, myStep);
     }
+    // exit simulation loop
+    closeSimulation(craw, start, stop);
+    return true;
+}
+
+
+
+void
+MSNet::initialiseSimulation(std::ostream *craw, Time start, Time stop)
+{
+    // prepare the "raw" output and print the first line
+    if ( craw ) {
+        (*craw) << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
+            << "<sumo-results>" << endl;
+    }
+
+//     SingletonDictionary<
+//         std::string, MSLaneState* >::getInstance()->setFindMode();
+//     laneStateDetectorsM = SingletonDictionary<
+//         std::string, MSLaneState* >::getInstance()->getStdVector();
+    typedef MSTravelcostDetector< MSLaneState > Traveltime;
+    Traveltime::create( 900 );
+    Traveltime::getInstance()->addSampleInterval( 60 );
+    Traveltime::getInstance()->addSampleInterval( 300 );
+}
+
+void
+MSNet::closeSimulation(std::ostream *craw, Time start, Time stop)
+{
 	cout << endl;
     // print the last line of the "raw" output
     if ( craw ) {
         (*craw) << "</sumo-results>" << endl;
     }
-    // exit simulation loop
-    return true;
 }
+
+
 
 
 void
@@ -506,12 +526,12 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
 		cout << step << endl;
 	}
 #endif
-    
+
     // execute beginOfTimestepEvents
     MSEventControl::getBeginOfTimestepEvents()->execute(myStep);
 
     MSLaneState::actionsBeforeMoveAndEmit();
-    
+
     // load routes
     myEmitter->moveFrom(myRouteLoaders->loadNext(step));
 
@@ -524,21 +544,28 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
 
 //     // execute Events
 //     myEvents->execute(myStep);
-    
 
-    
-    // move Vehicles
+
+
     myJunctions->resetRequests();
 
+    // move Vehicles
+        // move vehicles which do not interact with the lane end
     myEdges->moveNonCritical();
+        // precompute possible positions for vehicles that do interact with their lane's end
     myEdges->moveCritical();
 
+    // set information about which vehicles may drive at all
+    myLogics->maskRedLinks();
+    // check the right-of-way for all junctions
     myJunctions->setAllowed();
 
+    // move vehicles which do interact with theri lane's end
+    //  (it is now known whether they may drive
     myEdges->moveFirst();
 
     MSLaneState::actionsAfterMoveAndEmit();
-    
+
     myEdges->detectCollisions( myStep );
 
     // Let's detect.
@@ -570,7 +597,7 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
                 << "</interval>\n";
         }
     }
-    
+
     // raw output.
     if ( craw ) {
         (*craw) << "    <timestep id=\"" << myStep << "\">" << endl;
