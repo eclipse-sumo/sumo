@@ -89,7 +89,19 @@ MSOccupancyDegree::getDetectorAggregate( void )
           - containerM.front()->length() * entryCorr
           - containerM.back()->length() *  leaveCorr ) /
         detectorLengthM;
-    assert ( occupancyDegree >= 0 && occupancyDegree <= 1 );
+    // Note: in reality a occupancyDegree value should be in
+    // [0,1]. Due to size-less intersections and some inability of
+    // vehicles to see a leading vehicle that partially left a lane,
+    // it is possible that the value is > 1. The vehicle that
+    // partially left the lane overlaps with a vehicle that changed to
+    // the lane the leaving vehicle has been before. If the lane is
+    // already jammed, the occupancyDegree may be > 1. We will return
+    // 1 then until this look-forward at lane change works correct.
+//     assert ( occupancyDegree >= 0 && occupancyDegree <= 1 );
+    assert ( occupancyDegree >= 0 );
+    if ( occupancyDegree > 1 ) {
+        occupancyDegree = 1;
+    }
     resetOccupancyCorrection();
     return occupancyDegree;
 }   
