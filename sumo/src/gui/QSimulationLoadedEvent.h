@@ -22,7 +22,8 @@ public:
         MSNet::Time startTime, MSNet::Time endTime, 
         const std::string &file) 
         : QSUMOEvent(EVENT_SIMULATION_LOADED),
-        _net(net), _craw(craw), _begin(startTime), _file(file) { }
+        _net(net), _craw(craw), _begin(startTime), _end(endTime),
+        _file(file) { }
     ~QSimulationLoadedEvent() { }
 };
 
