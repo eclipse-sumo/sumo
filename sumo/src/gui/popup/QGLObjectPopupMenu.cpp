@@ -1,6 +1,7 @@
 //---------------------------------------------------------------------------//
-//                        QGLObjectPopupMenuItem.cpp -
-//  A single entry within the popup-menu
+//                        QGLObjectPopupMenu.cpp -
+//  The popup menu which is displayed when pressing the right mouse button over
+//  a gl-object
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -23,7 +24,10 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.2  2003/06/05 11:37:31  dkrajzew
+// Revision 1.1  2003/06/06 10:24:36  dkrajzew
+// new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
+//
+// Revision 1.3  2003/06/05 11:37:31  dkrajzew
 // class templates applied
 //
 //
@@ -36,53 +40,61 @@ namespace
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-
-#include <qmenudata.h>
-#include <qpainter.h>
+#include <iostream>
 #include <qpopupmenu.h>
-#include <qfont.h>
-#include "QGLObjectPopupMenuItem.h"
+#include <gui/GUISUMOAbstractView.h>
+#include <gui/GUIGlObject.h>
+#include "QGLObjectPopupMenu.h"
+#include <gui/partable/GUIParameterTableWindow.h>
+
+#ifndef WIN32
+#include "QGLObjectPopupMenu.moc"
+#endif
+
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
 
 
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-QGLObjectPopupMenuItem::QGLObjectPopupMenuItem(QPopupMenu *parent,
-                                               const std::string &name,
-                                               bool bold)
-    : myName(name), myFont(parent->font())
+QGLObjectPopupMenu::QGLObjectPopupMenu(GUIApplicationWindow *app,
+                                       GUISUMOAbstractView *parent,
+                                       GUIGlObject *o)
+    : QPopupMenu(parent), myParent(parent), myObject(o),
+    myApplication(app)
 {
-    if(bold) {
-        myFont.setBold(TRUE);
-    }
 }
 
 
-QGLObjectPopupMenuItem::~QGLObjectPopupMenuItem()
+QGLObjectPopupMenu::~QGLObjectPopupMenu()
 {
 }
 
 
 void
-QGLObjectPopupMenuItem::paint ( QPainter * p, const QColorGroup & cg,
-                               bool act, bool enabled,
-                               int x, int y, int w, int h )
+QGLObjectPopupMenu::center()
 {
-    p->setFont(myFont);
-    p->drawText( x, y, w, h, AlignLeft | AlignVCenter | ShowPrefix | DontClip, myName.c_str() );
+    myParent->centerTo(myObject->getType(), myObject->microsimID());
 }
 
 
-QSize
-QGLObjectPopupMenuItem::sizeHint ()
+void
+QGLObjectPopupMenu::showPars()
 {
-    return QFontMetrics( myFont ).size( AlignLeft | AlignVCenter | ShowPrefix | DontClip,  myName.c_str() );
+    GUIParameterTableWindow *win =
+        new GUIParameterTableWindow(
+            myApplication,
+            myParent, myObject);
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
-//#include "QGLObjectPopupMenuItem.icc"
+//#include "QGLObjectPopupMenu.icc"
 //#endif
 
 // Local Variables:

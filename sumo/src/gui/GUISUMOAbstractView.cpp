@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/06/06 10:28:45  dkrajzew
+// new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
+//
 // Revision 1.2  2003/06/05 06:26:16  dkrajzew
 // first tries to build under linux: warnings removed; Makefiles added
 //
@@ -89,6 +92,7 @@ namespace
 #include <qpixmap.h>
 #include <qcursor.h>
 #include <qpopupmenu.h>
+#include <qgl.h>
 #include <utils/gfx/RGBColor.h>
 #include "QGUIToggleButton.h"
 #include "QGUIImageField.h"
@@ -99,7 +103,7 @@ namespace
 #include "GUISimpleLaneDrawer.h"
 #include "GUIDanielPerspectiveChanger.h"
 #include "GUISUMOAbstractView.h"
-#include "QGLObjectPopupMenu.h"
+#include "popup/QGLObjectPopupMenu.h"
 #include "GUIApplicationWindow.h"
 
 #include "icons/view_traffic/colour_lane.xpm"
@@ -107,10 +111,6 @@ namespace
 #include "icons/view_traffic/show_grid.xpm"
 #include "icons/view_traffic/show_tooltips.xpm"
 
-
-#ifdef WIN32
-#include <glut.h>
-#endif
 
 #ifndef WIN32
 #include "GUISUMOAbstractView.moc"

@@ -1,9 +1,8 @@
-#ifndef QGLObjectPopupMenu_h
-#define QGLObjectPopupMenu_h
+#ifndef QGLObjectPopupMenuItem_h
+#define QGLObjectPopupMenuItem_h
 //---------------------------------------------------------------------------//
-//                        QGLObjectPopupMenu.h -
-//  The popup menu which is displayed when pressing the right mouse button over
-//  a gl-object
+//                        QGLObjectPopupMenuItem.h -
+//  A single entry within the popup-menu
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -21,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2003/06/06 10:24:36  dkrajzew
+// new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
+//
 // Revision 1.2  2003/06/05 11:37:31  dkrajzew
 // class templates applied
 //
@@ -32,60 +34,44 @@
 #include "config.h"
 #endif // HAVE_CONFIG_H
 
-#include <qpopupmenu.h>
-
-
-/* =========================================================================
- * class declarations
- * ======================================================================= */
-class GUISUMOAbstractView;
-class GUIGlObject;
-class GUIApplicationWindow;
+#include <string>
+#include <qfont.h>
+#include <qmenudata.h>
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-/**
- * @class QGLObjectPopupMenu
- */
-class QGLObjectPopupMenu :
-        public QPopupMenu
+class QGLObjectPopupMenuItem :
+    public QCustomMenuItem
 {
-    // is a q-object
-    Q_OBJECT
-
 public:
     /// Constructor
-    QGLObjectPopupMenu(GUIApplicationWindow *app,
-        GUISUMOAbstractView *parent, GUIGlObject *o);
+    QGLObjectPopupMenuItem(QPopupMenu *parent, const std::string &name,
+        bool bold=false);
 
-    /// Destructor
-    ~QGLObjectPopupMenu();
+    /// destructor
+    ~QGLObjectPopupMenuItem();
 
-public slots:
-    /// Callback called from the "center"-menu option
-    void center();
+    /// draws the menu item
+    void paint ( QPainter * p, const QColorGroup & cg, bool act, bool enabled, int x, int y, int w, int h ) ;
 
-    /// Callback called from the "show parameter"-menu option
-    void showPars();
+    /// returns the size of the item
+    QSize sizeHint ();
 
 private:
-    /// The parent window
-    GUISUMOAbstractView *myParent; // !!! needed?
+    /// The displayed name
+    std::string myName;
 
-    /// The object that belongs to this popup-menu
-    GUIGlObject *myObject;
-
-    /// The main application
-    GUIApplicationWindow *myApplication;
+    /// Information about the style of the text
+    QFont myFont;
 
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifndef DISABLE_INLINE
-//#include "QGLObjectPopupMenu.icc"
+//#include "QGLObjectPopupMenuItem.icc"
 //#endif
 
 #endif

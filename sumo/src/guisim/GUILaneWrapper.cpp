@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2003/06/06 10:29:24  dkrajzew
+// new subfolder holding popup-menus was added due to link-dependencies under linux; QGLObjectPopupMenu*-classes were moved to "popup"
+//
 // Revision 1.6  2003/06/05 06:29:50  dkrajzew
 // first tries to build under linux: warnings removed; moc-files included Makefiles added
 //
@@ -60,10 +63,10 @@ namespace
 #include <microsim/MSNet.h>
 #include <gui/GUISUMOAbstractView.h>
 #include "GUILaneWrapper.h"
-#include <gui/QGLObjectPopupMenu.h>
+#include <gui/popup/QGLObjectPopupMenu.h>
 #include <qwidget.h>
 #include <qpopupmenu.h>
-#include <gui/QGLObjectPopupMenuItem.h>
+#include <gui/popup/QGLObjectPopupMenuItem.h>
 
 
 /* =========================================================================
