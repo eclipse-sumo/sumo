@@ -58,7 +58,7 @@ OptionsCont *
 getSettings(int argc, char **argv)
 {
     OptionsCont *oc = new OptionsCont();
-	oc->doRegister("configuration-file", 'c', new Option_FileName("sumo-od2trips.cfg"));
+	oc->doRegister("configuration-file", 'c', new Option_FileName());
     // register the file i/o options
     oc->doRegister("net-file", 'n', new Option_FileName());
 	oc->addSynonyme("net-file", "net");
@@ -192,13 +192,13 @@ main(int argc, char **argv)
 		string OD_outfile = oc->getString("o");
 		string OD_path = oc->getString("i");
 		bool verbose = oc->getBool("v");
-		content content[MAX_INFILES]; // helds car types
+		struct content content[MAX_INFILES]; // helds car types
 		string *infiles = 	new string [MAX_INFILES];
 		int maxfiles=1; //number of OD-Files
 		// reads out some metadata from *.inp
 		if( fmatype == 1) {
 			if(verbose) {
-					std::cout << "**** VISSUM input data format **** "<< endl;
+					std::cout << "**** VISSIM input data format **** "<< endl;
 				}
 			ODInpread (OD_filename, infiles, content,&maxfiles);
 		} else {
@@ -301,6 +301,8 @@ main(int argc, char **argv)
 					{
 						*(old_index+j+od_next)=j+od_next; // initial order for index
 						// find dsource, dsink
+						//string pp=od_in[i].from;
+						//string p2=od_in[i].to;
 						*(source+j+od_next) = districts->getRandomSourceFromDistrict(od_in[i].from);
 						*(sink+j+od_next) = districts->getRandomSinkFromDistrict(od_in[i].to);
 						*(when_all+j+od_next) = *(when+j-begin);

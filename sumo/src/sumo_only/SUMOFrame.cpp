@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/05/20 09:54:45  dkrajzew
+// configuration files are no longer set as default
+//
 // Revision 1.5  2003/03/31 06:13:28  dkrajzew
 // junction-options removed; questionmark added (same as --help)
 //
@@ -70,7 +73,7 @@ SUMOFrame::getOptions()
 //    oc->doRegister("junction-files", 'j', new Option_FileName());
     oc->doRegister("additional-files", 'a', new Option_FileName());
     oc->doRegister("output-file", 'o', new Option_FileName());
-    oc->doRegister("configuration-file", 'c', new Option_FileName("sumo.cfg"));
+    oc->doRegister("configuration-file", 'c', new Option_FileName());
     oc->addSynonyme("net-files", "net");
     oc->addSynonyme("route-files", "routes");
 //    oc->addSynonyme("junction-files", "junctions");

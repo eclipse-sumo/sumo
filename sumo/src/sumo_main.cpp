@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/05/20 09:54:45  dkrajzew
+// configuration files are no longer set as default
+//
 // Revision 1.4  2003/03/03 15:09:30  dkrajzew
 // unnecessary debug output removed
 //
@@ -225,7 +228,7 @@ int
 main(int argc, char **argv)
 {
     size_t rand_init = 1040208551;
-    rand_init = time(0);
+//    rand_init = time(0);
 //    cout << "Rand:" << rand_init << endl;
     srand(rand_init);
     int ret = 0;

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/05/20 09:54:45  dkrajzew
+// configuration files are no longer set as default
+//
 // Revision 1.9  2003/04/10 16:13:51  dkrajzew
 // recent changes
 //
@@ -113,6 +116,7 @@ namespace
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBOptionsIO.h>
 #include <netbuild/NBLoader.h>
+#include <netbuild/NBRequest.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/HelpPrinter.h>
@@ -159,7 +163,8 @@ bool setInit(int step, bool verbose)
 */
 
 /** removes dummy edges from junctions */
-bool removeDummyEdges(int step, bool verbose)
+bool
+removeDummyEdges(int step, bool verbose)
 {
     if(verbose) {
         cout << "Computing step " << step
@@ -170,7 +175,8 @@ bool removeDummyEdges(int step, bool verbose)
 
 
 /** joins edges which connect the same nodes */
-bool joinEdges(int step, bool verbose)
+bool
+joinEdges(int step, bool verbose)
 {
     if(verbose) {
         cout << "Computing step " << step
@@ -181,7 +187,8 @@ bool joinEdges(int step, bool verbose)
 
 
 /** computes the turning edge for each edge */
-bool computeTurningDirections(int step, bool verbose)
+bool
+computeTurningDirections(int step, bool verbose)
 {
     if(verbose) {
         cout << "Computing step " << step
@@ -192,7 +199,8 @@ bool computeTurningDirections(int step, bool verbose)
 
 
 /** sorts the edges of a node */
-bool sortNodesEdges(int step, bool verbose)
+bool
+sortNodesEdges(int step, bool verbose)
 {
     if(verbose) {
         cout << "Computing step " << step
@@ -201,8 +209,10 @@ bool sortNodesEdges(int step, bool verbose)
     return NBNodeCont::sortNodesEdges(verbose);
 }
 
+
 /** sets the node positions in a way that nodes are lying at zero */
-bool normaliseNodePositions(int step, bool verbose)
+bool
+normaliseNodePositions(int step, bool verbose)
 {
     if(verbose) {
         cout << "Computing step " << step
@@ -211,9 +221,11 @@ bool normaliseNodePositions(int step, bool verbose)
     return NBNodeCont::normaliseNodePositions(verbose);
 }
 
- /** computes edges 2 edges - relationships
+
+/** computes edges 2 edges - relationships
     (step1: computation of approached edges) */
-bool computeEdge2Edges(int step, bool verbose)
+bool
+computeEdge2Edges(int step, bool verbose)
 {
     if(verbose) {
         cout << "Computing step " << step
@@ -222,15 +234,30 @@ bool computeEdge2Edges(int step, bool verbose)
     return NBEdgeCont::computeEdge2Edges();
 }
 
+
 /** computes edges 2 edges - relationships
-    (step2: division of lanes to approached edges) */
-bool computeEdges2Lanes(int step, bool verbose)
+    (step2: computation of which lanes approach the edges) */
+bool
+computeLanes2Edges(int step, bool verbose)
 {
     if(verbose) {
         cout << "Computing step " << step
-            << ": Dividing of Lanes on Approached Edges" << endl;
+            << ": Computing Approaching Lanes" << endl;
     }
-    bool ok = NBNodeCont::computeEdges2Lanes(verbose);
+    return NBEdgeCont::computeLanes2Edges();
+}
+
+
+/** computes edges 2 edges - relationships
+    (step3: division of lanes to approached edges) */
+bool
+computeLanes2Lanes(int step, bool verbose)
+{
+    if(verbose) {
+        cout << "Computing step " << step
+            << ": Dividing of Lanes on Approached Lanes" << endl;
+    }
+    bool ok = NBNodeCont::computeLanes2Lanes(verbose);
     if(ok) {
         return NBEdgeCont::sortOutgoingLanesConnections(verbose);
     }
@@ -238,7 +265,9 @@ bool computeEdges2Lanes(int step, bool verbose)
 }
 
 /** rechecks whether all lanes have a following lane/edge */
-bool recheckLanes(int step, bool verbose) {
+bool
+recheckLanes(int step, bool verbose)
+{
     if(verbose) {
         cout << "Computing step " << step
             << ": Rechecking of lane endings." << endl;
@@ -246,8 +275,10 @@ bool recheckLanes(int step, bool verbose) {
     return NBEdgeCont::recheckLanes(verbose);
 }
 
+
 /** computes the node-internal priorities of links */
-bool computeLinkPriorities(int step, bool verbose)
+/*bool
+computeLinkPriorities(int step, bool verbose)
 {
     if(verbose) {
         cout << "Computing step " << step
@@ -255,9 +286,11 @@ bool computeLinkPriorities(int step, bool verbose)
     }
     return NBEdgeCont::computeLinkPriorities(verbose);
 }
+*/
 
 /** appends the turnarounds */
-bool appendTurnarounds(int step, bool verbose)
+bool
+appendTurnarounds(int step, bool verbose)
 {
     if(verbose) {
         cout << "Computing step " << step
@@ -266,8 +299,10 @@ bool appendTurnarounds(int step, bool verbose)
     return NBEdgeCont::appendTurnarounds(verbose);
 }
 
+
 /** computes nodes' logics */
-bool computeLogic(int step, OptionsCont *oc)
+bool
+computeLogic(int step, OptionsCont *oc)
 {
     if(oc->getBool("v")) {
         cout << "Computing step " << step
@@ -301,19 +336,21 @@ compute(OptionsCont *oc)
     int step = 1;
 //    if(ok) ok = setInit(step++, verbose);
     if(ok) ok = removeDummyEdges(step++, verbose);
-    if(ok) ok = joinEdges(step++, verbose);
+//    if(ok) ok = joinEdges(step++, verbose);
     if(ok) ok = computeTurningDirections(step++, verbose);
     if(ok) ok = sortNodesEdges(step++, verbose);
     if(ok) ok = normaliseNodePositions(step++, verbose);
     if(ok) ok = computeEdge2Edges(step++, verbose);
-    if(ok) ok = computeEdges2Lanes(step++, verbose);
+    if(ok) ok = computeLanes2Edges(step++, verbose);
+    if(ok) ok = computeLanes2Lanes(step++, verbose);
     if(ok) ok = appendTurnarounds(step++, verbose);
     if(ok) ok = recheckLanes(step++, verbose);
-    if(ok) ok = computeLinkPriorities(step++, verbose);
+//    if(ok) ok = computeLinkPriorities(step++, verbose);
     if(ok) ok = computeLogic(step++, oc);
     if(ok && oc->getBool("v")) {
         NBNode::reportBuild();
     }
+    NBRequest::reportWarnings();
     if(!ok) throw ProcessError();
 }
 

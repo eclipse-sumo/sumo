@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/05/20 09:54:45  dkrajzew
+// configuration files are no longer set as default
+//
 // Revision 1.7  2003/04/09 15:45:29  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
@@ -76,7 +79,7 @@ char *help[] = {
     " Process Options:",
     "   -b, --begin LONG               The begin time of routing",
     "   -e, --end LONG                 The end time of routing",
-    "   -R, --random_per_second FLOAT  Builds (additional) random routes",
+    "   -R, --random-per-second FLOAT  Builds (additional) random routes",
     "   --gBeta FLOAT                  Gawron-Beta for DUE",
     "   --gA FLOAT                     Gawron-A for DUE",
     "   --unsorted                     The routes are assumed to be unsorted",

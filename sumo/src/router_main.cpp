@@ -23,6 +23,9 @@ namespace
     const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/05/20 09:54:45  dkrajzew
+// configuration files are no longer set as default
+//
 // Revision 1.14  2003/04/10 16:13:52  dkrajzew
 // recent changes
 //
@@ -138,7 +141,7 @@ getSettings(int argc, char **argv)
     oc->doRegister("sumo-input", 's', new Option_FileName());
     oc->doRegister("trip-defs", 't', new Option_FileName());
     oc->doRegister("alternatives", 'a', new Option_FileName());
-    oc->doRegister("configuration-file", 'c', new Option_FileName("sumo-router.cfg"));
+    oc->doRegister("configuration-file", 'c', new Option_FileName());
     oc->addSynonyme("net-files", "net");
     oc->addSynonyme("output-file", "output");
     oc->addSynonyme("configuration-file", "configuration");
@@ -148,8 +151,8 @@ getSettings(int argc, char **argv)
     oc->addSynonyme("sumo", "sumo-input");
     oc->addSynonyme("trips", "trip-defs");
     // register the simulation settings
-    oc->doRegister("begin", 'b', new Option_Long(LONG_MIN));
-    oc->doRegister("end", 'e', new Option_Long(LONG_MAX));
+    oc->doRegister("begin", 'b', new Option_Long(0));
+    oc->doRegister("end", 'e', new Option_Long(864000));
     // register Gawron's DUE-settings
     oc->doRegister("gBeta", new Option_Float(float(0.05)));
     oc->doRegister("gA", new Option_Float(1.0));
@@ -161,7 +164,7 @@ getSettings(int argc, char **argv)
     oc->doRegister("no-config", 'C', new Option_Bool(false));
     oc->addSynonyme("no-config", "no-configuration");
     // register the data processing options
-    oc->doRegister("random_per_second", 'R', new Option_Float());
+    oc->doRegister("random-per-second", 'R', new Option_Float());
     oc->doRegister("unsorted", new Option_Bool(false));
     oc->doRegister("save-cell-rindex", new Option_Bool(false));
     oc->doRegister("intel-cell", new Option_Bool(false));
