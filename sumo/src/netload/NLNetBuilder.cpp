@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.18  2004/04/02 11:23:52  dkrajzew
+// extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
+//
 // Revision 1.17  2004/01/26 07:07:36  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
@@ -157,6 +160,7 @@ namespace
 #include "NLEdgeControlBuilder.h"
 #include "NLJunctionControlBuilder.h"
 #include "NLDetectorBuilder.h"
+#include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleTransfer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
@@ -201,16 +205,19 @@ NLNetBuilder::buildNet()
      // preinit network
     MSNet::preInitMSNet(
         m_pOptions.getInt("b"),
+        new MSVehicleControl(),
         m_pOptions.getUIntVector("dump-intervals"),
         m_pOptions.getString("dump-basename"));
 
+    // we need a specialised detector builder
+    NLDetectorBuilder db;
     // initialise loading buffer ...
     NLContainer *container = new NLContainer(
         new NLEdgeControlBuilder(),
         new NLJunctionControlBuilder());
     // ... and the parser
     // get the matching handler
-    NLNetHandler handler("", *container, new NLDetectorBuilder(),
+    NLNetHandler handler("", *container, db,
         m_pOptions.getFloat("actuating-detector-pos"),
         m_pOptions.getFloat("agent-detector-len"));
     SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
@@ -219,7 +226,7 @@ NLNetBuilder::buildNet()
     subreport("Loading done.", "Loading failed.");
     // try to build a net
     if(!MsgHandler::getErrorInstance()->wasInformed()) {
-        net = container->buildMSNet(m_pOptions);
+        net = container->buildMSNet(db, m_pOptions);
     }
     delete parser;
     delete container;

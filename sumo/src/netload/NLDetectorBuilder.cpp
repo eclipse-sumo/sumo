@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.21  2004/04/02 11:23:51  dkrajzew
+// extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
+//
 // Revision 1.20  2004/02/18 05:32:51  dkrajzew
 // missing pass of lane continuation to detector builder added
 //
@@ -34,7 +37,10 @@ namespace
 // position setting reapplied
 //
 // Revision 1.16  2004/01/26 07:07:36  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+// work on detectors: e3-detectors loading and visualisation;
+//  variable offsets and lengths for lsa-detectors;
+//  coupling of detectors to tl-logics;
+//  different detector visualistaion in dependence to his controller
 //
 // Revision 1.15  2004/01/13 14:28:46  dkrajzew
 // added alternative detector description; debugging
@@ -79,7 +85,8 @@ namespace
 // updated
 //
 // Revision 1.1  2002/10/16 15:36:50  dkrajzew
-// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
+// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition
+//  parseable in one step
 //
 // Revision 1.8  2002/07/31 17:34:50  roessel
 // Changes since sourceforge cvs request.
@@ -105,7 +112,6 @@ namespace
 //
 // Revision 1.3  2002/04/16 06:50:20  dkrajzew
 // documentation added; coding standard attachements added
-//
 //
 /* =========================================================================
  * included modules
@@ -217,14 +223,14 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
     if(!cont) {
         convUncontE2PosLength(id, clane, pos, length);
         det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
-            clane, pos, length, splInterval,
+            clane, pos, length,
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
             measures);
     } else {
         convContE2PosLength(id, clane, pos, length);
         det = buildMultiLaneE2Det(laneConts, id, DU_USER_DEFINED,
-            clane, pos, length, splInterval,
+            clane, pos, length,
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
             measures);
@@ -255,14 +261,14 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
     if(!cont) {
         convUncontE2PosLength(id, clane, pos, length);
         det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
-            clane, pos, length, 100000,// !!!
+            clane, pos, length,
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
             measures);
     } else {
         convContE2PosLength(id, clane, pos, length);
         det = buildMultiLaneE2Det(laneConts, id, DU_USER_DEFINED,
-            clane, pos, length, 100000, // !!!
+            clane, pos, length,
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
             measures);
@@ -299,14 +305,14 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
     if(!cont) {
         convUncontE2PosLength(id, clane, pos, length);
         det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
-            clane, pos, length, 100000,// !!!
+            clane, pos, length,
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
             measures);
     } else {
         convContE2PosLength(id, clane, pos, length);
         det = buildMultiLaneE2Det(laneConts, id, DU_USER_DEFINED,
-            clane, pos, length, 100000, // !!!
+            clane, pos, length,
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
             measures);
@@ -431,11 +437,10 @@ NLDetectorBuilder::endE3Detector()
 }
 
 
-MSDetectorFileOutput *
+MSE2Collector *
 NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
                                         DetectorUsage usage,
                                         MSLane *lane, float pos, float length,
-                                        int splInterval,
                                         MSUnit::Seconds haltingTimeThreshold,
                                         MSUnit::MetersPerSecond haltingSpeedThreshold,
                                         MSUnit::Meters jamDistThreshold,
@@ -453,12 +458,11 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
 }
 
 
-MSDetectorFileOutput *
+MS_E2_ZS_CollectorOverLanes *
 NLDetectorBuilder::buildMultiLaneE2Det(const SSVMap &laneConts,
                                        const std::string &id,
                                        DetectorUsage usage,
                                        MSLane *lane, float pos, float length,
-                                       int splInterval,
                                        MSUnit::Seconds haltingTimeThreshold,
                                        MSUnit::MetersPerSecond haltingSpeedThreshold,
                                        MSUnit::Meters jamDistThreshold ,

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.23  2004/04/02 11:23:51  dkrajzew
+// extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
+//
 // Revision 1.22  2004/02/18 05:32:51  dkrajzew
 // missing pass of lane continuation to detector builder added
 //
@@ -128,11 +131,13 @@
 #include <microsim/MSEmitControl.h>
 #include <microsim/MSLink.h>
 
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class NLEdgeControlBuilder;
 class NLJunctionControlBuilder;
+class NLDetectorBuilder;
 class NLSucceedingLaneBuilder;
 class MSEdge;
 class MSNet;
@@ -307,7 +312,8 @@ public:
 		const std::vector<MSLane*> &lv, double det_offset);
 
     /// end of operations; builds the net
-    MSNet *buildMSNet(const OptionsCont &options);
+    MSNet *buildMSNet(NLDetectorBuilder &db,
+        const OptionsCont &options);
 
     /// returns the preallocated (preinitialised) net
     MSNet &getNet();
@@ -316,7 +322,7 @@ protected:
     /// builds the route loader control
     MSRouteLoaderControl *buildRouteLoaderControl(const OptionsCont &oc);
 
-	void closeJunctions();
+	void closeJunctions(NLDetectorBuilder &db);
 
     std::vector<MSTrafficLightLogic*> getTLLogicVector() const;
 
@@ -339,13 +345,6 @@ protected:
     /** pointer to the NLSucceedingLaneBuilder
          (storage for building succeeding lanes) */
     NLSucceedingLaneBuilder   *m_pSLB;
-
-//     /** pointer to the NLDetectorBuilder
-//         (storage for building detectors) */
-//     MSNet::DetectorCont       *m_pDetectors;
-
-    /// the id of the build net (not yet used!!!)
-//    std::string                    m_Id; // !!! not yet set
 
     /** definition of a container for junction logic keys
         the value is not really needed, we use a map to avoid double

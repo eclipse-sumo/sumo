@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2004/04/02 11:23:52  dkrajzew
+// extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
+//
 // Revision 1.10  2004/02/18 05:32:51  dkrajzew
 // missing pass of lane continuation to detector builder added
 //
@@ -111,7 +114,7 @@ public:
     /// builds an induct loop
     void buildInductLoop(const std::string &id,
         const std::string &lane, float pos, int splInterval,
-        const std::string &style, std::string filename);
+        const std::string &style="", std::string filename="");
 
     /// builds a lane-based areal (E2-) detector with a fixed interval
     void buildE2Detector(const SSVMap &laneConts,
@@ -164,7 +167,6 @@ public:
     /// Builds of an e3-detector using collected values
     void endE3Detector();
 
-protected:
     /// Makes some data conversion and calls the propriate building function
     MSDetectorFileOutput* buildE2(const std::string &id,
         const std::string &lane, float pos, float length, bool cont,
@@ -177,9 +179,8 @@ protected:
 
 
     /// Builds an e2-detector that lies on only one lane
-    MSDetectorFileOutput *buildSingleLaneE2Det(const std::string &id,
+    MSE2Collector *buildSingleLaneE2Det(const std::string &id,
         DetectorUsage usage, MSLane *lane, float pos, float length,
-        int splInterval,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
@@ -187,15 +188,14 @@ protected:
         const std::string &measures);
 
     /// Builds an e2-detector that continues on preceeding lanes
-    MSDetectorFileOutput *buildMultiLaneE2Det(const SSVMap &laneConts,
+    MS_E2_ZS_CollectorOverLanes *buildMultiLaneE2Det(const SSVMap &laneConts,
         const std::string &id,
         DetectorUsage usage, MSLane *lane, float pos, float length,
-        int splInterval,
-        MSUnit::Seconds haltingTimeThreshold,
-        MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds,
-        const std::string &measures);
+        MSUnit::Seconds haltingTimeThreshold = 1,
+        MSUnit::MetersPerSecond haltingSpeedThreshold = 5.0/3.6,
+        MSUnit::Meters jamDistThreshold = 10,
+        MSUnit::Seconds deleteDataAfterSeconds = 1800,
+        const std::string &measures="all");
 
     /// Definition of an E2-measures vector
     typedef std::vector<E2::DetType> E2MeasuresVector;

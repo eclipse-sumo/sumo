@@ -20,8 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.22  2004/04/02 11:23:52  dkrajzew
+// extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
+//
 // Revision 1.21  2004/01/26 07:07:36  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+// work on detectors: e3-detectors loading and visualisation;
+//  variable offsets and lengths for lsa-detectors;
+//  coupling of detectors to tl-logics;
+//  different detector visualistaion in dependence to his controller
 //
 // Revision 1.20  2004/01/13 14:28:46  dkrajzew
 // added alternative detector description; debugging
@@ -39,7 +45,8 @@
 // handling of internal links added
 //
 // Revision 1.15  2003/11/24 10:18:32  dkrajzew
-// handling of definitions for minimum and maximum phase duration added; modified the gld-offsets computation
+// handling of definitions for minimum and maximum phase duration added;
+//  modified the gld-offsets computation
 //
 // Revision 1.14  2003/11/17 07:22:03  dkrajzew
 // e2-detector over lanes merger added
@@ -51,7 +58,8 @@
 // actuated traffic lights are now derived from simple traffic lights
 //
 // Revision 1.11  2003/09/17 06:53:23  dkrajzew
-// phase definitions extracted from traffic lights; MSActuatedPhaseDefinition is now derived from MSPhaseDefinition
+// phase definitions extracted from traffic lights; MSActuatedPhaseDefinition
+//  is now derived from MSPhaseDefinition
 //
 // Revision 1.10  2003/09/05 15:20:19  dkrajzew
 // loading of internal links added
@@ -66,10 +74,14 @@
 // new usage of detectors applied
 //
 // Revision 1.6  2003/07/07 08:35:10  dkrajzew
-// changes due to loading of geometry applied from the gui-version (no major drawbacks in loading speed)
+// changes due to loading of geometry applied from the gui-version
+//  (no major drawbacks in loading speed)
 //
 // Revision 1.5  2003/06/18 11:18:05  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message, warning
+//  or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.4  2003/05/20 09:45:35  dkrajzew
 // some make-up done (splitting large methods; patching comments)
@@ -82,7 +94,6 @@
 //
 // Revision 1.1  2003/02/07 11:18:56  dkrajzew
 // updated
-//
 //
 /* =========================================================================
  * included modules
@@ -131,7 +142,7 @@ class NLNetHandler : public MSRouteHandler {
 public:
     /// standard constructor
     NLNetHandler(const std::string &file, NLContainer &container,
-        NLDetectorBuilder *detBuilder,
+        NLDetectorBuilder &detBuilder,
         double stdDetectorPositions, double stdDetectorlength);
 
     /// Destructor
@@ -355,7 +366,7 @@ private:
     bool myCurrentIsInternalToSkip;
 
     /// The detector builder to use
-    NLDetectorBuilder *myDetectorBuilder;
+    NLDetectorBuilder &myDetectorBuilder;
 
     /// The type of the last detector
     std::string myDetectorType;

@@ -24,11 +24,17 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.23  2004/04/02 11:23:51  dkrajzew
+// extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
+//
 // Revision 1.22  2004/02/18 05:32:51  dkrajzew
 // missing pass of lane continuation to detector builder added
 //
 // Revision 1.21  2004/01/26 07:07:36  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+// work on detectors: e3-detectors loading and visualisation;
+//  variable offsets and lengths for lsa-detectors;
+//  coupling of detectors to tl-logics; different
+//  detector visualistaion in dependence to his controller
 //
 // Revision 1.20  2004/01/12 15:12:05  dkrajzew
 // more wise definition of lane predeccessors implemented
@@ -114,7 +120,8 @@ namespace
 // Conversion of strings generalized
 //
 // Revision 1.5  2002/06/07 14:39:57  dkrajzew
-// errors occured while building larger nets and adaption of new netconverting methods debugged
+// errors occured while building larger nets and adaption of new netconverting
+//  methods debugged
 //
 // Revision 1.4  2002/04/17 11:17:01  dkrajzew
 // windows-newlines removed
@@ -168,6 +175,7 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
+#include <sumo_only/SUMOFrame.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsCont.h>
 
@@ -474,24 +482,25 @@ NLContainer::closeJunction()
 
 // end of operations
 MSNet *
-NLContainer::buildMSNet(const OptionsCont &options)
+NLContainer::buildMSNet(NLDetectorBuilder &db, const OptionsCont &options)
 {
-	closeJunctions();
+	closeJunctions(db);
     MSEdgeControl *edges = m_pECB->build();
     MSJunctionControl *junctions = m_pJCB->build();
     MSRouteLoaderControl *routeLoaders = buildRouteLoaderControl(options);
     MSTLLogicControl *tlc = new MSTLLogicControl(getTLLogicVector());
-//     MSNet::init( m_Id, edges, junctions, m_pDetectors, routeLoaders, tlc);
-    MSNet::init( "", edges, junctions, routeLoaders, tlc);
+    std::vector<std::ostream*> streams = SUMOFrame::buildStreams(options);
+    MSNet::init( "", edges, junctions, routeLoaders, tlc, streams);
     return MSNet::getInstance();
 }
 
 
 void
-NLContainer::closeJunctions()
+NLContainer::closeJunctions(NLDetectorBuilder &db)
 {
 	for(TLLogicInitInfoMap::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
-		(*i).first->init((*i).second.first, myContinuations, (*i).second.second);
+		(*i).first->init(
+            db, (*i).second.first, myContinuations, (*i).second.second);
 	}
 }
 

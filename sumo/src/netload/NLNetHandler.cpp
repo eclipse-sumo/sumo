@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.46  2004/04/02 11:23:52  dkrajzew
+// extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
+//
 // Revision 1.45  2004/02/18 05:32:51  dkrajzew
 // missing pass of lane continuation to detector builder added
 //
@@ -29,7 +32,8 @@ namespace
 // loading of e2-link-dependent detectors added
 //
 // Revision 1.43  2004/02/02 16:18:32  dkrajzew
-// a first try to patch the error on loading internal links when theyre not wished
+// a first try to patch the error on loading internal links when
+//  they are not wished
 //
 // Revision 1.42  2004/01/27 10:32:25  dkrajzew
 // patched some linux-warnings
@@ -38,7 +42,10 @@ namespace
 // error checking added
 //
 // Revision 1.40  2004/01/26 07:07:36  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+// work on detectors: e3-detectors loading and visualisation;
+//  variable offsets and lengths for lsa-detectors;
+//  coupling of detectors to tl-logics;
+//  different detector visualistaion in dependence to his controller
 //
 // Revision 1.39  2004/01/13 14:28:46  dkrajzew
 // added alternative detector description; debugging
@@ -74,7 +81,6 @@ namespace
 // Revision 1.29  2003/11/24 10:18:32  dkrajzew
 // handling of definitions for minimum and maximum phase duration added;
 //  modified the gld-offsets computation
-//
 //
 /* =========================================================================
  * included modules
@@ -124,7 +130,7 @@ using namespace std;
  * ======================================================================= */
 NLNetHandler::NLNetHandler(const std::string &file,
                            NLContainer &container,
-                           NLDetectorBuilder *detBuilder,
+                           NLDetectorBuilder &detBuilder,
                            double stdDetectorPositions,
                            double stdDetectorLengths)
     : MSRouteHandler(file, true),
@@ -139,7 +145,6 @@ NLNetHandler::NLNetHandler(const std::string &file,
 
 NLNetHandler::~NLNetHandler()
 {
-    delete myDetectorBuilder;
 }
 
 
@@ -593,7 +598,7 @@ NLNetHandler::addE1Detector(const Attributes &attrs)
         return;
     }
     try {
-        myDetectorBuilder->buildInductLoop(id,
+        myDetectorBuilder.buildInductLoop(id,
             getString(attrs, SUMO_ATTR_LANE),
             getFloat(attrs, SUMO_ATTR_POSITION),
             getInt(attrs, SUMO_ATTR_SPLINTERVAL),
@@ -645,7 +650,7 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
     try {
         if(tll!=0) {
             if(toLane.length()==0) {
-                myDetectorBuilder->buildE2Detector(myContainer.getLaneConts(),
+                myDetectorBuilder.buildE2Detector(myContainer.getLaneConts(),
                     id,
                     getString(attrs, SUMO_ATTR_LANE),
                     getFloat(attrs, SUMO_ATTR_POSITION),
@@ -663,7 +668,7 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
                     getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
                     );
             } else {
-                myDetectorBuilder->buildE2Detector(myContainer.getLaneConts(),
+                myDetectorBuilder.buildE2Detector(myContainer.getLaneConts(),
                     id,
                     getString(attrs, SUMO_ATTR_LANE),
                     getFloat(attrs, SUMO_ATTR_POSITION),
@@ -682,7 +687,7 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
                     );
             }
         } else {
-            myDetectorBuilder->buildE2Detector(myContainer.getLaneConts(),
+            myDetectorBuilder.buildE2Detector(myContainer.getLaneConts(),
                 id,
                 getString(attrs, SUMO_ATTR_LANE),
                 getFloat(attrs, SUMO_ATTR_POSITION),
@@ -726,7 +731,7 @@ NLNetHandler::beginE3Detector(const Attributes &attrs)
         return;
     }
     try {
-        myDetectorBuilder->beginE3Detector(id,
+        myDetectorBuilder.beginE3Detector(id,
             FileHelpers::checkForRelativity(
                 getString(attrs, SUMO_ATTR_FILE),
                 _file),
@@ -752,7 +757,7 @@ void
 NLNetHandler::addE3Entry(const Attributes &attrs)
 {
     try {
-        myDetectorBuilder->addE3Entry(
+        myDetectorBuilder.addE3Entry(
             getString(attrs, SUMO_ATTR_LANE),
             getFloat(attrs, SUMO_ATTR_POSITION));
     } catch (InvalidArgument &e) {
@@ -769,7 +774,7 @@ void
 NLNetHandler::addE3Exit(const Attributes &attrs)
 {
     try {
-        myDetectorBuilder->addE3Exit(
+        myDetectorBuilder.addE3Exit(
             getString(attrs, SUMO_ATTR_LANE),
             getFloat(attrs, SUMO_ATTR_POSITION));
     } catch (InvalidArgument &e) {
@@ -1270,10 +1275,9 @@ NLNetHandler::closeTrafficLightLogic()
     // build the tls-logic in dependance to its type
     if(m_Type=="actuated") {
         // build an actuated logic
-        MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState  >
-            *tlLogic =
-            new MSActuatedTrafficLightLogic<MSInductLoop, MSLaneState > (
-                    m_Key, m_ActivePhases, step, firstEventOffset);
+        MSActuatedTrafficLightLogic *tlLogic =
+            new MSActuatedTrafficLightLogic(m_Key, m_ActivePhases,
+                step, firstEventOffset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
@@ -1282,10 +1286,9 @@ NLNetHandler::closeTrafficLightLogic()
             myContainer.getIncomingLanes(), m_DetectorOffset);
     } else if(m_Type=="agentbased") {
         // build an agentbased logic
-        MSAgentbasedTrafficLightLogic<MS_E2_ZS_CollectorOverLanes>
-            *tlLogic =
-            new MSAgentbasedTrafficLightLogic<MS_E2_ZS_CollectorOverLanes> (
-                    m_Key, m_ActivePhases, step, firstEventOffset);
+        MSAgentbasedTrafficLightLogic *tlLogic =
+            new MSAgentbasedTrafficLightLogic(m_Key, m_ActivePhases,
+                step, firstEventOffset);
         MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
         m_ActivePhases.clear();
@@ -1363,7 +1366,7 @@ NLNetHandler::endDetector()
 void
 NLNetHandler::endE3Detector()
 {
-    myDetectorBuilder->endE3Detector();
+    myDetectorBuilder.endE3Detector();
 }
 
 
