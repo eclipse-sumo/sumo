@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.11  2003/09/05 15:09:16  dkrajzew
+// changed the return value of the event adding method for a better handling of the events by the setters
+//
 // Revision 1.10  2003/08/06 16:49:40  roessel
 // Better distinction between steps and seconds added.
 //
@@ -192,7 +195,7 @@ MSEventControl::~MSEventControl()
 }
 
 
-bool
+MSNet::Time
 MSEventControl::addEvent( Command* operation,
                           MSNet::Time execTimeStep,
                           AdaptType type )
@@ -203,7 +206,7 @@ MSEventControl::addEvent( Command* operation,
     }
     Event newEvent = Event( operation, execTimeStep );
     myEvents.push( newEvent );
-    return true;
+    return execTimeStep;
 }
 
 

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2003/09/05 15:09:16  dkrajzew
+// changed the return value of the event adding method for a better handling of the events by the setters
+//
 // Revision 1.7  2003/08/06 16:49:57  roessel
 // Better distinction between steps and seconds added.
 //
@@ -140,10 +143,10 @@ public:
     /// Destructor.
     ~MSEventControl();
 
-    /// Adds an Event.
-    bool addEvent( Command* operation,
-                   MSNet::Time execTimeStep,
-                   AdaptType type );
+    /** @brief Adds an Event.
+        Returns the time the event will be executed, really */
+    MSNet::Time addEvent( Command* operation, MSNet::Time execTimeStep,
+        AdaptType type );
 
     /** @brief Executes time-dependant commands
         Events are things such as switching traffic-lights, writing output,
