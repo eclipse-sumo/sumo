@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2003/10/15 11:55:11  dkrajzew
+// false usage of rand() patched
+//
 // Revision 1.11  2003/07/18 12:35:06  dkrajzew
 // removed some warnings
 //
@@ -361,7 +364,7 @@ RONet::getRandomSource()
         return 0;
     }
     // choose an edge by random
-    double random = double( rand() ) / double( RAND_MAX );
+    double random = double( rand() ) / double( (RAND_MAX+1) );
     return mySourceEdges[(size_t) (random*(mySourceEdges.size()-1))];
 }
 
@@ -376,7 +379,7 @@ RONet::getRandomDestination()
     }
     // choose an edge by random
     // choose an edge by random
-    double random = double( rand() ) / double( RAND_MAX );
+    double random = double( rand() ) / double( (RAND_MAX+1) );
     return myDestinationEdges[(size_t) (random*(myDestinationEdges.size()-1))];
 }
 

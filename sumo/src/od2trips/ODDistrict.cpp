@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/10/15 11:53:14  dkrajzew
+// false usage of rand() patched
+//
 // Revision 1.5  2003/08/04 11:37:37  dkrajzew
 // added the generation of colors from districts
 //
@@ -111,7 +114,7 @@ ODDistrict::getRandom(const WeightedEdgeIDCont &cont) const
         throw 1;//ProcessError();
     }
     // compute which item to retrieve
-    double val = rand() / RAND_MAX;
+    double val = rand() / (RAND_MAX+1);
     // go through the list to retrieve the item
     for(WeightedEdgeIDCont::const_iterator i=cont.begin(); i!=cont.end(); i++) {
         val -= (*i).second;

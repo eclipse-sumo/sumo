@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/10/15 11:55:11  dkrajzew
+// false usage of rand() patched
+//
 // Revision 1.8  2003/07/30 09:26:33  dkrajzew
 // all vehicles, routes and vehicle types may now have specific colors
 //
@@ -128,7 +131,7 @@ ROArtemisRouteDefHandler::readNextRoute(long start)
         string orig = (*i).first;
         // check whether a vehicle shall be emitted at this time
         if(start%period==0) {
-            double prob = (double)rand() / (double)(RAND_MAX) * 100.0;
+            double prob = (double)rand() / (double)((RAND_MAX+1)) * 100.0;
             // check which destination to use
             DestProbVector poss = myNodeConnections[orig];
             for(DestProbVector::iterator j=poss.begin(); j!=poss.end(); j++) {
