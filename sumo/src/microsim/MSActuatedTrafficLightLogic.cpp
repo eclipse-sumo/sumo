@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/06/04 16:10:39  roessel
+// Adapted ctor call to MSLaneState to new ctor prototype.
+//
 // Revision 1.9  2003/05/27 18:47:35  roessel
 // Changed call to MSLaneState ctor.
 //
@@ -180,8 +183,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::sproutDetectors(const st
         double lspos = length - lslen;
         // Build the lane state detetcor and set it into the container
         MSLaneState* loop =
-            new MSLaneState( _id, lane, lspos, lslen,
-                             laneStateDetectorInterval, 0);
+            new MSLaneState( _id, lane, lspos, lslen );
         myLaneStates[lane] = loop;
     }
 }
