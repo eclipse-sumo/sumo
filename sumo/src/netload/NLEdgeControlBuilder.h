@@ -2,7 +2,7 @@
 #define NLEdgeControlBuilder_h
 /***************************************************************************
                           NLEdgeControlBuilder.h
-			  Holds the edges while they are build
+              Holds the edges while they are build
                              -------------------
     project              : SUMO
     begin                : Mon, 9 Jul 2001
@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2004/07/02 09:37:53  dkrajzew
+// lanes now get a numerical id (for online-routing)
+//
 // Revision 1.3  2003/06/16 14:43:34  dkrajzew
 // documentation added
 //
@@ -179,6 +182,9 @@ protected:
 
     /// the function of the current edge
     MSEdge::EdgeBasicFunction m_Function;
+
+    /// A running numer for lane numbering
+    size_t myCurrentNumericalLaneID;
 
 private:
     /** invalid copy constructor */

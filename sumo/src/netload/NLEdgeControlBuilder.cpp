@@ -1,6 +1,6 @@
 /***************************************************************************
                           NLEdgeControlBuilder.cpp
-			  Holds the edges while they are build
+              Holds the edges while they are build
                              -------------------
     project              : SUMO
     begin                : Mon, 9 Jul 2001
@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/07/02 09:37:53  dkrajzew
+// lanes now get a numerical id (for online-routing)
+//
 // Revision 1.7  2003/11/18 14:23:57  dkrajzew
 // debugged and completed lane merging detectors
 //
@@ -100,6 +103,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NLEdgeControlBuilder::NLEdgeControlBuilder(unsigned int storageSize)
+    : myCurrentNumericalLaneID(0)
 {
     m_pActiveEdge = (MSEdge*) 0;
     m_pLaneStorage = new MSEdge::LaneCont();
@@ -161,14 +165,17 @@ NLEdgeControlBuilder::addLane(MSNet &net, const std::string &id,
     MSLane *lane = 0;
     switch(m_Function) {
     case MSEdge::EDGEFUNCTION_SOURCE:
-        lane = new MSSourceLane(net, id, maxSpeed, length, m_pActiveEdge);
+        lane = new MSSourceLane(net, id, maxSpeed, length, m_pActiveEdge,
+            myCurrentNumericalLaneID++);
         break;
     case MSEdge::EDGEFUNCTION_INTERNAL:
-        lane = new MSInternalLane(net, id, maxSpeed, length, m_pActiveEdge);
+        lane = new MSInternalLane(net, id, maxSpeed, length, m_pActiveEdge,
+            myCurrentNumericalLaneID++);
         break;
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_SINK:
-        lane = new MSLane(net, id, maxSpeed, length, m_pActiveEdge);
+        lane = new MSLane(net, id, maxSpeed, length, m_pActiveEdge,
+            myCurrentNumericalLaneID++);
         break;
     default:
         throw 1;
