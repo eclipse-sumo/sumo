@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2004/01/12 15:53:00  dkrajzew
+// work on code style
+//
 // Revision 1.9  2004/01/12 15:28:39  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -82,10 +85,8 @@ NIArcView_Loader::NIArcView_Loader(const std::string &dbf_name,
                                    const std::string &shp_name)
     : FileErrorReporter("Navtech Edge description", dbf_name),
     myShapeReader(shp_name), myIsFirstLine(true),
-    myLineReader(dbf_name)
+    myLineReader(dbf_name), myDBFName(dbf_name), mySHPName(shp_name)
 {
-    dbfname = dbf_name;
-    shpname = shp_name;
 }
 
 
@@ -97,22 +98,19 @@ NIArcView_Loader::~NIArcView_Loader()
 void
 NIArcView_Loader::load(OptionsCont &)
 {
-    int i = s.openFiles(shpname.c_str(), dbfname.c_str() );
-    if( i == 0 )
-    {
-        bin_modus = true;
+    int i = myBinShapeReader.openFiles(mySHPName.c_str(), myDBFName.c_str() );
+    if( i == 0 ) {
+        myWorkInBinModus = true;
         parseBin();
-    }
-    else
-    {
-    bin_modus = false;
-    // read names from first line
-    myIsFirstLine = true;
-    myLineReader.readLine(*this);
-    // read data
-    myCurrentLink = 0;
-    myIsFirstLine = false;
-    myLineReader.readAll(*this);
+    } else {
+        myWorkInBinModus = false;
+        // read names from first line
+        myIsFirstLine = true;
+        myLineReader.readLine(*this);
+        // read data
+        myCurrentLink = 0;
+        myIsFirstLine = false;
+        myLineReader.readAll(*this);
     }
 }
 
@@ -133,14 +131,12 @@ NIArcView_Loader::report(const std::string &line)
 bool
 NIArcView_Loader::parseBin()
 {
-    char * ret;
-    ret = "falsch";
-    for ( int i =0 ; i < s.getShapeCount(); i++){
-        string id = s.getAttribute( "LINK_ID" );
-        string name = s.getAttribute("ST_NAME");
-        string from_node = s.getAttribute("REF_IN_ID");
-        string to_node = s.getAttribute("NREF_IN_ID");
-        string type = s.getAttribute("ST_TYP_AFT");
+    for ( int i =0 ; i < myBinShapeReader.getShapeCount(); i++) {
+        string id = myBinShapeReader.getAttribute( "LINK_ID" );
+        string name = myBinShapeReader.getAttribute("ST_NAME");
+        string from_node = myBinShapeReader.getAttribute("REF_IN_ID");
+        string to_node = myBinShapeReader.getAttribute("NREF_IN_ID");
+        string type = myBinShapeReader.getAttribute("ST_TYP_AFT");
         double speed = 0;
         size_t nolanes = 0;
         int priority = 0;
@@ -156,7 +152,7 @@ NIArcView_Loader::parseBin()
         NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_NORMAL;
         NBNode *from = 0;
         NBNode *to = 0;
-        Position2D from_pos = s.getFromNodePosition();
+        Position2D from_pos = myBinShapeReader.getFromNodePosition();
         if(!NBNodeCont::insert(from_node, from_pos.x(), from_pos.y())) {
             addError(
                 string("A false from-node occured (id='") + from_node
@@ -166,7 +162,7 @@ NIArcView_Loader::parseBin()
         } else {
             from = NBNodeCont::retrieve(from_pos.x(), from_pos.y());
         }
-        Position2D to_pos = s.getToNodePosition();
+        Position2D to_pos = myBinShapeReader.getToNodePosition();
         if(!NBNodeCont::insert(to_node, to_pos.x(), to_pos.y())) {
             addError(
                 string("A false to-node occured (id='") + from_node
@@ -177,10 +173,10 @@ NIArcView_Loader::parseBin()
             to = NBNodeCont::retrieve(to_pos.x(), to_pos.y());
         }
             // retrieve length
-        double length = s.getLength();
+        double length = myBinShapeReader.getLength();
 
         // retrieve the information whether the street is bi-directional
-        string dir = s.getAttribute("DIR_TRAVEL");
+        string dir = myBinShapeReader.getAttribute("DIR_TRAVEL");
             // add positive direction if wanted
         if(dir=="B"||dir=="F") {
             if(NBEdgeCont::retrieve(id)==0) {
@@ -188,7 +184,7 @@ NIArcView_Loader::parseBin()
                     ? NBEdge::LANESPREAD_RIGHT
                     : NBEdge::LANESPREAD_CENTER;
                 NBEdge *edge = new NBEdge(id, name, from, to, type, speed, nolanes,
-                    length, priority, s.getShape(), spread, function);
+                    length, priority, myBinShapeReader.getShape(), spread, function);
                 NBEdgeCont::insert(edge);
             }
         }
@@ -200,11 +196,11 @@ NIArcView_Loader::parseBin()
                     ? NBEdge::LANESPREAD_RIGHT
                     : NBEdge::LANESPREAD_CENTER;
                 NBEdge *edge = new NBEdge(id, name, to, from, type, speed, nolanes,
-                    length, priority, s.getReverseShape(), spread, function);
+                    length, priority, myBinShapeReader.getReverseShape(), spread, function);
                 NBEdgeCont::insert(edge);
             }
         }
-        s.forwardShape();
+        myBinShapeReader.forwardShape();
     }
     return !MsgHandler::getErrorInstance()->wasInformed();
 
@@ -226,6 +222,7 @@ NIArcView_Loader::parseLine(const std::string &line)
     string from_node = getStringSecure("REF_IN_ID");
     string to_node = getStringSecure("NREF_IN_ID");
     string type = getStringSecure("ST_TYP_AFT");
+
     double speed = 0;
     size_t nolanes = 0;
     int priority = 0;
@@ -238,6 +235,7 @@ NIArcView_Loader::parseLine(const std::string &line)
             string("An attribute is not given within the file!"));
         return false;
     }
+
     NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_NORMAL;
         // extract shape
     myShapeReader.readShape(myCurrentLink++);
@@ -257,6 +255,7 @@ NIArcView_Loader::parseLine(const std::string &line)
     } else {
         from = NBNodeCont::retrieve(from_pos.x(), from_pos.y());
     }
+
     Position2D to_pos = myShapeReader.getToNodePosition();
     if(!NBNodeCont::insert(to_node, to_pos.x(), to_pos.y())) {
         addError(
@@ -269,7 +268,6 @@ NIArcView_Loader::parseLine(const std::string &line)
     }
         // retrieve length
     double length = getLength(/*id, */from_pos, to_pos);
-
     // retrieve the information whether the street is bi-directional
     string dir = myColumnsParser.get("DIR_TRAVEL", true);
         // add positive direction if wanted
@@ -320,9 +318,10 @@ double
 NIArcView_Loader::getSpeed(const std::string &edgeid)
 {
     try{
-    if ( bin_modus )
+    if ( myWorkInBinModus )
     {
-        int speedcat = TplConvert<char>::_2int(s.getAttribute("SPEED_CAT").c_str());
+        int speedcat =
+            TplConvert<char>::_2int(myBinShapeReader.getAttribute("SPEED_CAT").c_str());
         switch(speedcat) {
             case 1:
                 return 300 / 3.6;
@@ -390,15 +389,17 @@ NIArcView_Loader::getLaneNo(const std::string &edgeid)
 {
 
     try {
-    if ( bin_modus )
+    if ( myWorkInBinModus )
     {
         try{
-	        size_t lanecat = TplConvert<char>::_2int(s.getAttribute("rnol").c_str());
+	        size_t lanecat =
+                TplConvert<char>::_2int(myBinShapeReader.getAttribute("rnol").c_str());
 			return lanecat;
 		}
 		catch(...)
 		{
-	        size_t lanecat = TplConvert<char>::_2int(s.getAttribute("LANE_CAT").c_str());
+	        size_t lanecat =
+                TplConvert<char>::_2int(myBinShapeReader.getAttribute("LANE_CAT").c_str());
 		    switch(lanecat) {
 	        case 1:
 		        return 1;
@@ -414,12 +415,14 @@ NIArcView_Loader::getLaneNo(const std::string &edgeid)
     {
 		try
 		{
-	        size_t lanecat = TplConvert<char>::_2int(myColumnsParser.get("rnol", true).c_str());
+	        size_t lanecat =
+                TplConvert<char>::_2int(myColumnsParser.get("rnol", true).c_str());
 			return lanecat;
 		}
 		catch(...)
 		{
-	        size_t lanecat = TplConvert<char>::_2int(myColumnsParser.get("LANE_CAT", true).c_str());
+	        size_t lanecat =
+                TplConvert<char>::_2int(myColumnsParser.get("LANE_CAT", true).c_str());
 		    switch(lanecat) {
 	        case 1:
 		        return 1;
@@ -458,14 +461,16 @@ int
 NIArcView_Loader::getPriority(const std::string &edgeid)
 {
     try {
-        if ( bin_modus )
+        if ( myWorkInBinModus )
         {
-            int prio = TplConvert<char>::_2int(s.getAttribute("FUNC_CLASS").c_str());
+            int prio =
+                TplConvert<char>::_2int(myBinShapeReader.getAttribute("FUNC_CLASS").c_str());
             return 5 - prio;
         }
         else
         {
-            int prio = TplConvert<char>::_2int(myColumnsParser.get("FUNC_CLASS", true).c_str());
+            int prio =
+                TplConvert<char>::_2int(myColumnsParser.get("FUNC_CLASS", true).c_str());
             return 5 - prio;
         }
     } catch (...) {

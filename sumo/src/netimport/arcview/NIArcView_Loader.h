@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2004/01/12 15:53:00  dkrajzew
+// work on code style
+//
 // Revision 1.5  2003/12/04 16:53:53  dkrajzew
 // native ArcView-importer by ericnicolay added
 //
@@ -114,10 +117,10 @@ private:
     /// parser of the dbf-file columns
     NamedColumnsParser myColumnsParser;
 
-    std::string dbfname;
-    std::string shpname;
-    shapereader s;
-    bool bin_modus;
+    std::string myDBFName;
+    std::string mySHPName;
+    shapereader myBinShapeReader;
+    bool myWorkInBinModus;
 };
 
 

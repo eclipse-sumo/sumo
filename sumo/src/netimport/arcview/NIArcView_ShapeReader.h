@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/01/12 15:53:00  dkrajzew
+// work on code style
+//
 // Revision 1.3  2003/12/04 16:53:54  dkrajzew
 // native ArcView-importer by ericnicolay added
 //
@@ -64,7 +67,7 @@ public:
 
     /// Returns the points the edge goes trough
     const Position2DVector &getShape() const;
-    const Position2DVector &getReverseShape() const;
+    Position2DVector getReverseShape() const;
     /// Returns the position of the from-node
     const Position2D &getFromNodePosition() const;
 
