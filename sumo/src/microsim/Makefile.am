@@ -3,15 +3,13 @@ noinst_LIBRARIES = libmicrosim.a
 
 EXTRA_DIST = MSBitSetLogic.cpp \
 MSSimpleTrafficLightLogic.cpp \
-MSActuatedTrafficLightLogic.cpp \
-MSInductLoop.cpp \
-MSTravelcostDetector.h
+MSActuatedTrafficLightLogic.cpp 
 
-libmicrosim_a_SOURCES = MSDetector.cpp \
-MSEdgeControl.cpp \
+libmicrosim_a_SOURCES = MSEdgeControl.cpp \
 MSEdge.cpp \
 MSEmitControl.cpp \
 MSEventControl.cpp \
+MSInductLoop.cpp \
 MSJunctionControl.cpp \
 MSJunction.cpp \
 MSJunctionLogic.cpp \
@@ -41,7 +39,6 @@ MSVehicleType.cpp \
 MSLaneStateReminder.cpp \
 MSActuatedTrafficLightLogic.h \
 MSBitSetLogic.h \
-MSDetector.h \
 MSEdgeControl.h \
 MSEdge.h \
 MSEmitControl.h \
@@ -79,7 +76,10 @@ MSVehicleType.h \
 MSLaneStateReminder.h \
 MSMoveReminder.h \
 MSTLLogicControl.cpp \
-MSTLLogicControl.h
+MSTLLogicControl.h \
+MSTravelcostDetector.h \
+MSDetector2File.h
+
 
 AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
 -I$(top_srcdir)/src/helpers \

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/07/21 18:13:05  roessel
+// Changes due to new MSInductLoop.
+//
 // Revision 1.8  2003/06/06 10:39:16  dkrajzew
 // new usage of MSEventControl applied
 //
@@ -170,8 +173,8 @@ public:
     /// Desides, whether a phase should be continued by checking the gaps of vehicles having green
     virtual bool gapControl();
 
-    /// Returns a vector of build detectors
-    MSNet::DetectorCont getDetectorList() const;
+//     /// Returns a vector of build detectors
+//     MSNet::DetectorCont getDetectorList() const;
 
 	/// returns the current step
 	size_t step() const { return _step; }
