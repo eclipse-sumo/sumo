@@ -23,12 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2004/04/02 10:56:20  dkrajzew
+// first try to implement an option for switching off textures
+//
 // Revision 1.1  2004/03/19 12:33:36  dkrajzew
 // porting to FOX
 //
 // Revision 1.1  2004/03/19 12:32:26  dkrajzew
 // porting to FOX
-//
 //
 /* =========================================================================
  * included modules
@@ -47,6 +49,7 @@ FXDEFMAP(GUIDialog_AppSettings) GUIDialog_AppSettingsMap[]=
     FXMAPFUNC(SEL_COMMAND,  MID_SURPRESSENDINFO, GUIDialog_AppSettings::onCmdSurpressEnd),
     FXMAPFUNC(SEL_COMMAND,  MID_ALLOWAGGREGATED, GUIDialog_AppSettings::onCmdAllowAggregated),
     FXMAPFUNC(SEL_COMMAND,  MID_ALLOWAFLOATING,  GUIDialog_AppSettings::onCmdAllowAggregatedFloating),
+    FXMAPFUNC(SEL_COMMAND,  MID_ALLOWTEXTURES,   GUIDialog_AppSettings::onCmdAllowTextures),
     FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,     GUIDialog_AppSettings::onCmdOk),
     FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL, GUIDialog_AppSettings::onCmdCancel),
 
@@ -63,7 +66,8 @@ GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent)
     : FXDialogBox( parent, "Application Settings" ),
     myAppQuitOnEnd(gQuitOnEnd), mySurpressEnd(gSuppressEndInfo),
     myAllowAggregated(gAllowAggregated),
-    myAllowAggregatedFloating(gAllowAggregatedFloating)
+    myAllowAggregatedFloating(gAllowAggregatedFloating),
+    myAllowTextures(gAllowTextures)
 {
     FXCheckButton *b = 0;
     FXVerticalFrame *f1 = new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
@@ -71,10 +75,13 @@ GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent)
     b->setCheck(myAppQuitOnEnd);
     b = new FXCheckButton(f1, "Surpress End Information", this ,MID_SURPRESSENDINFO);
     b->setCheck(mySurpressEnd);
+    new FXHorizontalSeparator(f1,SEPARATOR_GROOVE|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X);
     b = new FXCheckButton(f1, "Allow aggregated Views", this ,MID_ALLOWAGGREGATED);
     b->setCheck(myAllowAggregated);
     b = new FXCheckButton(f1, "Allow floating aggregated Views", this ,MID_ALLOWAFLOATING);
     b->setCheck(myAllowAggregatedFloating);
+    b = new FXCheckButton(f1, "Allow Textures", this ,MID_ALLOWTEXTURES);
+    b->setCheck(myAllowTextures);
     FXHorizontalFrame *f2 = new FXHorizontalFrame(f1, LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X|PACK_UNIFORM_WIDTH,0,0,0,0, 10,10,5,5);
     FXButton *initial=new FXButton(f2,"&OK",NULL,this,MID_SETTINGS_OK,BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
     new FXButton(f2,"&Cancel",NULL,this,MID_SETTINGS_CANCEL,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
@@ -94,6 +101,7 @@ GUIDialog_AppSettings::onCmdOk(FXObject*,FXSelector,void*)
     gSuppressEndInfo = mySurpressEnd;
     gAllowAggregated = myAllowAggregated;
     gAllowAggregatedFloating = myAllowAggregatedFloating;
+    gAllowTextures = myAllowTextures;
     destroy();
     return 1;
 }
@@ -152,6 +160,15 @@ GUIDialog_AppSettings::onUpdAllowAggregatedFloating(FXObject *sender,
         ptr);
     return 1;
 }
+
+
+long
+GUIDialog_AppSettings::onCmdAllowTextures(FXObject*,FXSelector,void*)
+{
+    myAllowTextures = !myAllowTextures;
+    return 1;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
