@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2002/10/28 12:56:52  dkrajzew
+// forgot reinitialisation of hopped vehicle added
+//
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
 //
@@ -186,6 +189,7 @@ MSLaneChanger::initChanger()
             continue;
         }
         ce->lead = *( vehicles.begin() + 1 );
+        ce->hoppedVeh = 0;
     }
 }
 
@@ -205,9 +209,7 @@ MSLaneChanger::change()
     MSVehicle* vehicle = veh( myCandi );
 
     if ( candiOnAllowed( myCandi ) ) {
-
         if ( change2right() ) {
-
             ( myCandi - 1 )->hoppedVeh = veh( myCandi );
             ( myCandi - 1 )->lane->myTmpVehicles.push_back( veh ( myCandi ) );
             vehicle->leaveLaneAtLaneChange();
@@ -215,7 +217,6 @@ MSLaneChanger::change()
             return;
         }
         if ( change2left() ) {
-
             ( myCandi + 1 )->hoppedVeh = veh( myCandi );
             ( myCandi + 1 )->lane->myTmpVehicles.push_back( veh ( myCandi ) );
             vehicle->leaveLaneAtLaneChange();
@@ -224,7 +225,6 @@ MSLaneChanger::change()
         }
     }
     else { // not on allowed
-
         ChangerIt target = findTarget();
         if ( change2target( target ) ) {
 
@@ -235,7 +235,6 @@ MSLaneChanger::change()
             return;
         }
     }
-
     // Candidate didn't change lane.
     myCandi->lane->myTmpVehicles.push_back( veh ( myCandi ) );
     return;
