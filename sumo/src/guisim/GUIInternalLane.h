@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2004/07/02 08:52:49  dkrajzew
+// numerical id added (for online-routing)
+//
 // Revision 1.3  2004/03/19 12:57:54  dkrajzew
 // porting to FOX
 //
@@ -28,8 +31,6 @@
 //
 // Revision 1.1  2003/09/05 15:02:47  dkrajzew
 // first steps for reading of internal lanes
-//
-//
 //
 /* =========================================================================
  * included modules
@@ -58,7 +59,8 @@ class MSNet;
  * class definitions
  * ======================================================================= */
 /**
- * An extended MSLane. A mechanism to avoid concurrent
+ * @class GUIInternalLane
+ * An extended MSInternalLane. A mechanism to avoid concurrent
  * visualisation and simulation what may cause problems when vehicles
  * disappear is implemented using a mutex
  */
@@ -67,7 +69,8 @@ class GUIInternalLane :
 public:
     /// constructor
     GUIInternalLane( MSNet &net, std::string id, double maxSpeed,
-        double length, MSEdge* egde, const Position2DVector &shape );
+        double length, MSEdge* edge, size_t numericalID,
+        const Position2DVector &shape );
 
     /// destructor
     ~GUIInternalLane();

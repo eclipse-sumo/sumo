@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/07/02 08:52:49  dkrajzew
+// numerical id added (for online-routing)
+//
 // Revision 1.7  2004/03/19 12:57:55  dkrajzew
 // porting to FOX
 //
@@ -67,8 +70,10 @@ namespace
  * ======================================================================= */
 GUISourceLane::GUISourceLane(MSNet &net, std::string id,
                              double maxSpeed, double length,
-                             MSEdge* edge, const Position2DVector &shape )
-    : MSSourceLane(net, id, maxSpeed, length, edge), myShape(shape)
+                             MSEdge* edge, size_t numericalID,
+                             const Position2DVector &shape )
+    : MSSourceLane(net, id, maxSpeed, length, edge, numericalID),
+    myShape(shape)
 {
 }
 

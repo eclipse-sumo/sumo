@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2004/07/02 08:52:49  dkrajzew
+// numerical id added (for online-routing)
+//
 // Revision 1.6  2004/03/19 12:57:55  dkrajzew
 // porting to FOX
 //
@@ -38,9 +41,6 @@
 // Revision 1.1  2003/02/07 10:39:17  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -68,7 +68,8 @@ class MSNet;
  * class definitions
  * ======================================================================= */
 /**
- * An extended MSLane. A mechanism to avoid concurrent
+ * @class GUISourceLane
+ * An extended MSSourceLane. A mechanism to avoid concurrent
  * visualisation and simulation what may cause problems when vehicles
  * disappear is implemented using a mutex
  */
@@ -77,7 +78,8 @@ class GUISourceLane :
 public:
     /// constructor
     GUISourceLane( MSNet &net, std::string id, double maxSpeed,
-        double length, MSEdge* egde, const Position2DVector &shape );
+        double length, MSEdge* egde, size_t numericalID,
+        const Position2DVector &shape );
 
     /// destructor
     ~GUISourceLane();

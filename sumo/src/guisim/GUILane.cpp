@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2004/07/02 08:52:49  dkrajzew
+// numerical id added (for online-routing)
+//
 // Revision 1.25  2004/03/19 12:57:54  dkrajzew
 // porting to FOX
 //
@@ -95,7 +98,6 @@ namespace
 // Revision 1.2  2003/02/07 10:39:17  dkrajzew
 // updated
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -135,8 +137,10 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 GUILane::GUILane(MSNet &net, std::string id, double maxSpeed, double length,
-                 MSEdge* edge, const Position2DVector &shape )
-    : MSLane(net, id, maxSpeed, length, edge), myShape(shape)
+                 MSEdge* edge, size_t numericalID,
+                 const Position2DVector &shape )
+    : MSLane(net, id, maxSpeed, length, edge, numericalID),
+    myShape(shape)
 {
 }
 
@@ -201,8 +205,8 @@ GUILane::push( MSVehicle* veh )
 #ifdef ABS_DEBUG
     if(myVehBuffer!=0) {
         DEBUG_OUT << MSNet::globaltime << ":Push Failed on Lane:" << myID << endl;
-	    DEBUG_OUT << myVehBuffer->id() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
-	    DEBUG_OUT << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
+        DEBUG_OUT << myVehBuffer->id() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
+        DEBUG_OUT << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
     }
 #endif
     MSVehicle *last = myVehicles.size()!=0
@@ -290,12 +294,7 @@ GUILane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
 }
 
 
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUILane.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2004/07/02 08:52:49  dkrajzew
+// numerical id added (for online-routing)
+//
 // Revision 1.8  2004/03/19 12:57:54  dkrajzew
 // porting to FOX
 //
@@ -42,7 +45,6 @@
 //
 // Revision 1.2  2003/02/07 10:39:17  dkrajzew
 // updated
-//
 //
 /* =========================================================================
  * included modules
@@ -72,6 +74,7 @@ class MSNet;
  * class definitions
  * ======================================================================= */
 /**
+ * @class GUILane
  * An extended MSLane. A mechanism to avoid concurrent
  * visualisation and simulation what may cause problems when vehicles
  * disappear is implemented using a mutex.
@@ -81,7 +84,8 @@ class GUILane :
 public:
     /// constructor
     GUILane( MSNet &net, std::string id, double maxSpeed,
-        double length, MSEdge* egde, const Position2DVector &shape );
+        double length, MSEdge* egde, size_t numericalID,
+        const Position2DVector &shape );
 
     /// destructor
     ~GUILane();
