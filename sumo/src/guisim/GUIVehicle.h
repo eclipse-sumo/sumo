@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/04/14 08:27:18  dkrajzew
+// new globject concept implemented
+//
 // Revision 1.3  2003/03/20 16:19:28  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -95,7 +98,8 @@ public:
     friend class GUINet;
 protected:
     /// Use this constructor only.
-    GUIVehicle( std::string id, MSRoute* route, MSNet::Time departTime,
+    GUIVehicle( GUIGlObjectStorage &idStorage,
+        std::string id, MSRoute* route, MSNet::Time departTime,
         const MSVehicleType* type, size_t noMeanData,
         int repNo, int repOffset, float *defColor);
 

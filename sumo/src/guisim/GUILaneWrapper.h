@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/04/14 08:27:17  dkrajzew
+// new globject concept implemented
+//
 // Revision 1.3  2003/03/20 16:19:28  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -69,7 +72,7 @@ class GUILaneWrapper :
             public GUIGlObject {
 public:
     /// constructor
-    GUILaneWrapper( MSLane &lane, double x1, double y1, double x2, double y2);
+    GUILaneWrapper( GUIGlObjectStorage &idStorage, MSLane &lane, double x1, double y1, double x2, double y2);
 
     /// destructor
     virtual ~GUILaneWrapper();

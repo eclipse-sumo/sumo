@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/04/14 08:27:17  dkrajzew
+// new globject concept implemented
+//
 // Revision 1.2  2003/02/07 10:39:17  dkrajzew
 // updated
 //
@@ -48,6 +51,11 @@ namespace
 #include "GUILane.h"
 #include "GUINet.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
 
 
 /* =========================================================================
@@ -155,13 +163,33 @@ bool
 GUILane::push( MSVehicle* veh )
 {
     _lock.lock();//Display();
-    if(veh->destReached( myEdge )) {
+#ifdef ABS_DEBUG
+    if(myVehBuffer!=0) {
+	    cout << "Push Failed on Lane:" << myID << endl;
+	    cout << myVehBuffer->id() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
+	    cout << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
+    }
+#endif
+
+    // Insert vehicle only if it's destination isn't reached.
+    assert( myVehBuffer == 0 );
+    if ( ! veh->destReached( myEdge ) ) { // adjusts vehicles routeIterator
+        myVehBuffer = veh;
+        veh->enterLaneAtMove( this );
+        veh->_assertPos();
+        _lock.unlock();//Display();
+        return false;
+    }
+    else {
         static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
             static_cast<GUIVehicle*>(veh)->getGlID());
+        _lock.unlock();//Display();
+        return true;
+        // TODO
+        // This part has to be discussed, quick an dirty solution:
+        // Destination reached. Vehicle vanishes.
+        // maybe introduce a vehicle state ...
     }
-    bool ret = MSLane::push(veh);
-    _lock.unlock();//Display();
-    return ret;
 }
 
 

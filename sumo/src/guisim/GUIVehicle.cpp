@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/14 08:27:17  dkrajzew
+// new globject concept implemented
+//
 // Revision 1.5  2003/04/09 15:32:28  dkrajzew
 // periodical vehicles must have a period over zero now to be reasserted
 //
@@ -65,14 +68,15 @@ float GUIVehicle::_laneChangeColor2[3];
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIVehicle::GUIVehicle( std::string id, MSRoute* route,
+GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
+                       std::string id, MSRoute* route,
                        MSNet::Time departTime,
                        const MSVehicleType* type,
                        size_t noMeanData,
                        int repNo, int repOffset,
                        float *defColor)
     : MSVehicle(id, route, departTime, type, noMeanData, repNo, repOffset),
-    GUIGlObject(string("vehicle:")+id)
+    GUIGlObject(idStorage, string("vehicle:")+id)
 {
     // copy the defined color
     if(defColor!=0) {
@@ -118,7 +122,10 @@ GUIVehicle::getNames()
     ret.reserve(MSVehicle::myDict.size());
     for(MSVehicle::DictType::iterator i=MSVehicle::myDict.begin();
         i!=MSVehicle::myDict.end(); i++) {
-        ret.push_back((*i).first);
+        MSVehicle *veh = (*i).second;
+        if(veh->running()) {
+            ret.push_back((*i).first);
+        }
     }
     return ret;
 }

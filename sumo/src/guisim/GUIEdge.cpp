@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/14 08:27:16  dkrajzew
+// new globject concept implemented
+//
 // Revision 1.5  2003/03/17 14:09:10  dkrajzew
 // Windows eol removed
 //
@@ -99,8 +102,7 @@ GUIEdge::initJunctions(MSJunction *from, MSJunction *to,
     LaneWrapperVector tmp;
     for(LaneCont::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); i++) {
         GUILaneWrapper *wrapper =
-            new GUILaneWrapper(*(*i), x1-xoff, y1-yoff, x2-xoff, y2-yoff);
-        idStorage.registerObject(wrapper);
+            new GUILaneWrapper(idStorage, *(*i), x1-xoff, y1-yoff, x2-xoff, y2-yoff);
         tmp.push_back(wrapper);
         xoff += offsets.first;
         yoff += offsets.second;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/04/14 08:27:17  dkrajzew
+// new globject concept implemented
+//
 // Revision 1.5  2003/03/20 16:19:28  dkrajzew
 // windows eol removed; multiple vehicle emission added
 //
@@ -146,9 +149,9 @@ GUINet::buildNewVehicle( std::string id, MSRoute* route,
     if(withGUI()) {
         noIntervals++;
     }
-    GUIVehicle * veh = new GUIVehicle(id, route, departTime,
+    GUIVehicle * veh = new GUIVehicle(_idStorage,
+        id, route, departTime,
         type, noIntervals, repNo, repOffset, defColor);
-    _idStorage.registerObject(veh);
     return veh;
 }
 
