@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/06/05 14:29:12  dkrajzew
+// building problems under Linux patched
+//
 // Revision 1.3  2003/05/20 09:51:13  dkrajzew
 // further work and debugging
 //
@@ -88,6 +91,8 @@ private:
     /** returns the map of attribute names to their positions in a table */
     void reinitMap(const std::string &s, const std::string &delim=";",
         bool chomp=false);
+
+    void checkPrune(std::string &str, bool prune) const;
 
 private:
     /** the map's definition of column item names to their positions

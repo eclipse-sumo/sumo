@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/05 14:29:12  dkrajzew
+// building problems under Linux patched
+//
 // Revision 1.4  2003/05/20 09:51:13  dkrajzew
 // further work and debugging
 //
@@ -101,26 +104,40 @@ NamedColumnsParser::get(const std::string &name, bool prune) const
     if(_line.size()<=pos) {
         throw OutOfBoundsException();
     }
-    string ret = _line.get(pos);
-    if(prune) {
-        ret = StringUtils::prune(ret);
-    }
+    std::string ret = _line.get(pos);
+    checkPrune(ret, prune);
     return ret;
 }
 
 
 void
-NamedColumnsParser::reinitMap(const std::string &s, const std::string &delim, bool prune)
+NamedColumnsParser::reinitMap(const std::string &s,
+			      const std::string &delim, bool prune)
 {
     _defMap.clear();
     int pos = 0;
     StringTokenizer st(s, delim);
     while(st.hasNext()) {
-        string next = st.next();
-        if(prune) {
-            next = StringUtils::prune(next);
-        }
+	std::string next = st.next();
+	checkPrune(next, prune);
         _defMap.insert(map<string, int>::value_type(next, pos++));
+    }
+}
+
+
+void
+NamedColumnsParser::checkPrune(std::string &str, bool prune) const
+{
+    if(!prune) {
+	return;
+    }
+    size_t idx = str.find_first_not_of(" ");
+    if(idx!=string::npos) {
+        str = str.substr(idx);
+    }
+    idx = str.find_last_not_of(" ");
+    if(idx!=string::npos&&idx!=str.length()-1) {
+        str = str.substr(0, idx+1);
     }
 }
 
