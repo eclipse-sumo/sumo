@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.18  2003/06/19 10:58:34  dkrajzew
+// too conservative computation of the braking gap patched
+//
 // Revision 1.17  2003/06/05 10:19:45  roessel
 // Added previous lane reminder-container and workOnMoveReminders().
 //
@@ -198,10 +201,6 @@
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
-
-#ifdef _SPEEDCHECK
-extern long myvehicles;
-#endif
 
 /* =========================================================================
  * included modules

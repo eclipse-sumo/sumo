@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2003/06/19 10:58:34  dkrajzew
+// too conservative computation of the braking gap patched
+//
 // Revision 1.24  2003/06/18 11:30:26  dkrajzew
 // debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
 //
@@ -1661,22 +1664,22 @@ MSVehicle::running() const
 
 double
 MSVehicle::getSecureGap( const MSLane &lane, const MSVehicle &pred ) const
-{
+{/*
     double safeSpace1 = pow( lane.maxSpeed(), 2 ) /
                       ( decelAbility() ) +
-                      MSVehicle::tau() + pred.accelDist() * 2.0;
-    double safeSpace2 = vaccel(&lane) * MSNet::deltaT() +
-        brakeGap(myLane)
-        + pred.length();
+                      MSVehicle::tau() + pred.accelDist() * 2.0;*/
+    double safeSpace2 =// vaccel(&lane) * MSNet::deltaT() +
+        brakeGap(myLane);
+        //+ pred.length();
     double vSafe = vsafe(0, decelAbility(), 0, pred.speed());
     double safeSpace3 =
         ( (vSafe - pred.speed())
         * ((vSafe+pred.speed()) / 2.0 / (2.0 * MSVehicleType::minDecel()) + MSVehicle::tau()) )
         + pred.speed() * MSVehicle::tau();
-    double safeSpace = safeSpace1 > safeSpace2
-        ? safeSpace1 : safeSpace2;
-    safeSpace = safeSpace > safeSpace3
-        ? safeSpace : safeSpace3;
+    double safeSpace = safeSpace2 > safeSpace3
+        ? safeSpace2 : safeSpace3;
+/*    safeSpace = safeSpace > safeSpace3
+        ? safeSpace : safeSpace3;*/
     safeSpace = safeSpace > decelAbility()
         ? safeSpace : decelAbility();
     safeSpace += pred.length();
