@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/06/19 11:00:26  dkrajzew
+// usage of false tag-enums patched
+//
 // Revision 1.3  2003/02/07 10:45:07  dkrajzew
 // updated
 //
@@ -98,12 +101,6 @@ private:
 
     /// the edge the is currently being processed
     ROEdge *_currentEdge;
-
-    /// enumeration over the used elements
-    enum TagEnum { RO_Tag_interval, RO_Tag_edge, RO_Tag_lane };
-
-    /// enumeration over used attributes
-    enum AttrEnum { RO_ATTR_value, RO_ATTR_id, RO_ATTR_beg, RO_ATTR_end };
 
     /** table of relationships between the attributes in their written
         representation and their enumeration */

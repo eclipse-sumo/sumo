@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/06/19 11:02:48  dkrajzew
+// usage of false tag-enums patched
+//
 // Revision 1.9  2003/06/05 14:30:53  dkrajzew
 // new attributes needed for loading new traffic lights added
 //
@@ -58,9 +61,9 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-size_t noSumoTags = 36;
+size_t noSumoTags = 37;
 
-GenericSAX2Handler::Tag sumotags[36] =
+GenericSAX2Handler::Tag sumotags[37] =
 {
       { "simulation",       SUMO_TAG_SIMULATION },
       { "edge",             SUMO_TAG_EDGE },
@@ -97,7 +100,8 @@ GenericSAX2Handler::Tag sumotags[36] =
       { "tripdef",          SUMO_TAG_TRIPDEF },
       { "logicno",          SUMO_TAG_LOGICNO },
       { "trigger",          SUMO_TAG_TRIGGER },
-      { "step",             SUMO_TAG_STEP }
+      { "step",             SUMO_TAG_STEP },
+      { "interval",         SUMO_TAG_INTERVAL }
 };
 
 size_t noSumoAttrs = 57;

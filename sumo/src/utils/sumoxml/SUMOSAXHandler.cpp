@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/19 11:02:48  dkrajzew
+// usage of false tag-enums patched
+//
 // Revision 1.4  2003/06/18 11:25:12  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -43,6 +46,7 @@ namespace
 #include <string>
 #include <iostream>
 #include <utils/xml/AttributesReadingGenericSAX2Handler.h>
+#include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/convert/ToString.h>
@@ -86,7 +90,7 @@ SUMOSAXHandler::warning(const SAXParseException& exception)
         + string("/")
         + toString<int>(exception.getColumnNumber())
         + string(")."));
-    _errorOccured = true;
+    throw XMLBuildingException();
 }
 
 
@@ -94,15 +98,14 @@ void
 SUMOSAXHandler::error(const SAXParseException& exception)
 {
     MsgHandler::getErrorInstance()->inform(
-        string("Error: ")
-        + TplConvert<XMLCh>::_2str(exception.getMessage()));
+        TplConvert<XMLCh>::_2str(exception.getMessage()));
     MsgHandler::getErrorInstance()->inform(
         string(" (At line/column ")
         + toString<int>(exception.getLineNumber()+1)
         + string("/")
         + toString<int>(exception.getColumnNumber())
         + string(")."));
-    _errorOccured = true;
+    throw XMLBuildingException();
 }
 
 
@@ -110,15 +113,14 @@ void
 SUMOSAXHandler::fatalError(const SAXParseException& exception)
 {
     MsgHandler::getErrorInstance()->inform(
-        string("Error: ")
-        + TplConvert<XMLCh>::_2str(exception.getMessage()));
+        TplConvert<XMLCh>::_2str(exception.getMessage()));
     MsgHandler::getErrorInstance()->inform(
         string(" (At line/column ")
         + toString<int>(exception.getLineNumber()+1)
         + string("/")
         + toString<int>(exception.getColumnNumber())
         + string(")."));
-    _errorOccured = true;
+    throw XMLBuildingException();
 }
 
 

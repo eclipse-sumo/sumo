@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/19 11:00:26  dkrajzew
+// usage of false tag-enums patched
+//
 // Revision 1.4  2003/06/18 11:20:54  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -44,6 +47,7 @@ namespace
 #include <utils/xml/AttributesHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/convert/ToString.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include "ROEdge.h"
@@ -70,13 +74,13 @@ void ROWeightsHandler::myStartElement(int element, const std::string &name,
                                       const Attributes &attrs)
 {
     switch(element) {
-    case RO_Tag_interval:
+    case SUMO_TAG_INTERVAL:
         parseTimeStep(attrs);
         break;
-    case RO_Tag_edge:
+    case SUMO_TAG_EDGE:
         parseEdge(attrs);
         break;
-    case RO_Tag_lane:
+    case SUMO_TAG_LANE:
         parseLane(attrs);
         break;
     default:
@@ -124,14 +128,17 @@ ROWeightsHandler::parseLane(const Attributes &attrs) {
     try {
         value = getFloat(attrs, SUMO_ATTR_VALUE);
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(string("Missing value '") + _scheme + string("' in lane."));
+        MsgHandler::getErrorInstance()->inform(string("Missing value '")
+            + _scheme + string("' in lane '") + id + string("'."));
         MsgHandler::getErrorInstance()->inform("Contact your weight data supplier.");
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform(string("The value should be numeric, but is not ('") +
             getString(attrs, SUMO_ATTR_VALUE) +
             string("'"));
         if(id.length()!=0)
-            MsgHandler::getErrorInstance()->inform(string(" In lane '") + id + string("'"));
+            MsgHandler::getErrorInstance()->inform(string(" In lane '") + id
+            + string("' at time step ") + toString<long>(_currentTimeBeg)
+            + string("."));
     }
     // set the values when retrieved (no errors)
     if(id.length()!=0&&value>0&&_currentEdge!=0) {
@@ -149,7 +156,7 @@ void ROWeightsHandler::myCharacters(int element, const std::string &name,
 
 void ROWeightsHandler::myEndElement(int element, const std::string &name)
 {
-    if(element==RO_Tag_edge) {
+    if(element==SUMO_TAG_EDGE) {
         _currentEdge = 0;
     }
 }

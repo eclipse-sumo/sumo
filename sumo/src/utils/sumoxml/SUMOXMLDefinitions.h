@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2003/06/19 11:02:48  dkrajzew
+// usage of false tag-enums patched
+//
 // Revision 1.9  2003/06/05 14:30:53  dkrajzew
 // new attributes needed for loading new traffic lights added
 //
@@ -131,7 +134,9 @@ enum TagEnum
     /** a trigger definition */
     SUMO_TAG_TRIGGER,
     /** trigger: a step description */
-    SUMO_TAG_STEP
+    SUMO_TAG_STEP,
+    /** an aggreagated-output interval */
+    SUMO_TAG_INTERVAL
 };
 
 
@@ -226,7 +231,7 @@ enum AttrEnum
 /// The number of SUMO-XML element names
 extern size_t noSumoTags;
 /// The names of SUMO-XML elements
-extern GenericSAX2Handler::Tag sumotags[36];
+extern GenericSAX2Handler::Tag sumotags[37];
 
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
