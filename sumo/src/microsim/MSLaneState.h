@@ -60,14 +60,14 @@ public:
      * 
      * @param id Unique id.
      * @param lane Lane where detector woks on.
-     * @param begin Startposition of detector.
-     * @param length Detectorlength.
-     * @param deleteDataAfterSeconds Dismiss-time for collected data. 
+     * @param beginInMeters Startposition of detector [m].
+     * @param lengthInMeters Detectorlength [m].
+     * @param deleteDataAfterSeconds Dismiss-time for collected data [s].  
      */
     MSLaneState( std::string    id,
                  MSLane*        lane,
-                 double         begin,
-                 double         length,
+                 double         beginInMeters,
+                 double         lengthInMeters,
                  MSNet::Time    deleteDataAfterSeconds = 900 );
 
     /** 
@@ -710,9 +710,10 @@ private:
                                             * vehicles that already left
                                             * the detector. */
 
-    double startPosM;                /**< Start-position of the detector. */
+    double startPosM;                /**< Start-position of the
+                                      * detector [cells]. */
 
-    double endPosM;             /**< End-position of the detector. */
+    double endPosM;             /**< End-position of the detector [cells]. */
 
     const MSNet::Time deleteDataAfterStepsM; /**< Keep at least data from
                                               * the last

@@ -91,23 +91,23 @@ MSLaneState::~MSLaneState()
 
 MSLaneState::MSLaneState( string id,
                           MSLane* lane,
-                          double begin,
-                          double length,
+                          double beginInMeters,
+                          double lengthInMeters,
                           MSNet::Time deleteDataAfterSeconds ) :
     MSMoveReminder( lane, id ),
     timestepDataM     ( ),
     vehOnDetectorM    ( ),
     waitingQueueElemsM( ),
     vehLeftDetectorM  ( ),
-    startPosM   ( begin ),
+    startPosM   ( MSNet::getCells( beginInMeters ) ),
     deleteDataAfterStepsM( MSNet::getSteps( deleteDataAfterSeconds ) ),
     modifiedSinceLastLookupM( true ),
     lookedUpLastNTimestepsM( 0 ),
     nVehContributedM( 0 )
  {
     assert( startPosM >= 0 );
-    assert( startPosM + length <= laneM->length() );
-    endPosM = startPosM + length;
+    assert( startPosM + MSNet::getCells( lengthInMeters ) <= laneM->length() );
+    endPosM = startPosM + MSNet::getCells( length );
     
     // insert object into dictionary
     if ( ! SingletonDictionary<
