@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.11  2003/04/01 15:13:22  dkrajzew
+// bug in emission of vehicles from MSTriggeredSource removed
+//
 // Revision 1.10  2003/03/17 14:15:55  dkrajzew
 // first steps of network reinitialisation implemented
 //
@@ -656,6 +659,9 @@ MSLane::isEmissionSuccess( MSVehicle* aVehicle )
         myVehicles.insert( predIt, aVehicle );
         return true;
     }
+    // emit
+    aVehicle->enterLaneAtEmit( this );
+    myVehicles.push_back( aVehicle );
     return true;
 }
 
