@@ -237,6 +237,10 @@ SOURCE=..\..\src\microsim\MSNoLogicJunction.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\src\microsim\MSNVehicles.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\src\microsim\MSQueueLengthAheadOfTrafficLights.cpp
 # End Source File
 # Begin Source File
