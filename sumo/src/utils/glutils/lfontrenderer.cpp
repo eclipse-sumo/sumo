@@ -432,9 +432,6 @@ LFontRenderer::myDraw(int x, int y, int w, int h)
 
                     next_x += m_strings[i].height*m_strings[i].widthScale*m_fonts[cur_font].chars[c].widthFactor;
                 glEnd();
-cout << (m_strings[i].x + next_x + italic)
-    << ", " << m_strings[i].y
-    << endl;
             }
             glPopMatrix();
         }
