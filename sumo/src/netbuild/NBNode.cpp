@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2002/10/18 11:47:55  dkrajzew
+// edges must only be sorted, when at least 2 are there...
+//
 // Revision 1.2  2002/10/17 13:40:10  dkrajzew
 // typing of nodes during loading allwoed
 //
@@ -493,7 +496,7 @@ NBNode::setPriorityJunctionPriorities() {
     NBEdge *bestBack1, *bestBack2;
     bestBack1 = bestBack2 = 0;
     // for both edges, try to find the edges in the other direction
-    if(outgoing.size()>0) {
+    if(outgoing.size()>1) {
         sort(outgoing.begin(), outgoing.end(),
             NBContHelper::edge_opposite_direction_sorter(best1));
         bestBack1 = extractAndMarkFirst(outgoing);
