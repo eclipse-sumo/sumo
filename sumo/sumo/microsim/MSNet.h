@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2002/04/11 10:33:25  dkrajzew
+// Addition of detectors added
+//
 // Revision 1.2  2002/04/10 16:19:34  croessel
 // Modifications due to detector-implementation.
 //
@@ -133,6 +136,9 @@ public:
     /// Use this to add separetly loaded vehicles
     void addVehicles( MSEmitControl* cont );
 
+    /// Use this to add seperatly loaded detectors
+    void addDetectors( DetectorCont *cont);
+
     /// Destructor.
     ~MSNet();
 
@@ -236,4 +242,4 @@ private:
 
 // Local Variables:
 // mode:C++
-// End:
+

@@ -25,6 +25,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.3  2002/04/11 10:33:25  dkrajzew
+// Addition of detectors added
+//
 // Revision 1.2  2002/04/10 16:19:34  croessel
 // Modifications due to detector-implementation.
 //
@@ -166,8 +169,17 @@ MSNet::~MSNet()
 
 void 
 MSNet::addVehicles(MSEmitControl *cont) {
-    if(cont==0) return;
+    if(cont==0) 
+        return;
     myEmitter->add(cont);
+}
+
+void 
+MSNet::addDetectors( MSNet::DetectorCont *cont) {
+    if(cont==0)
+        return;
+    copy(cont->begin(), cont->end(), back_inserter(*myDetectors));
+    cont->clear();
 }
 
 
