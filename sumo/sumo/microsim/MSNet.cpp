@@ -25,6 +25,9 @@ namespace
 } 
 
 // $Log$
+// Revision 1.4  2002/04/11 15:25:56  croessel
+// Changed float to double.
+//
 // Revision 1.3  2002/04/11 10:33:25  dkrajzew
 // Addition of detectors added
 //
@@ -59,7 +62,7 @@ namespace
 // In *.cpp files also config.h included.
 //
 // Revision 1.8  2002/01/16 10:03:35  croessel
-// New method "static float deltaT()" and member "static float myDeltaT"
+// New method "static double deltaT()" and member "static double myDeltaT"
 // added. DeltaT is the length of a timestep in seconds.
 //
 // Revision 1.7  2001/12/19 16:34:07  croessel
@@ -142,7 +145,7 @@ using namespace std;
 // Init static member.
 MSNet::DictType MSNet::myDict;
 MSNet::RouteDict MSNet::myRoutes;
-float MSNet::myDeltaT = 1;
+double MSNet::myDeltaT = 1;
 
 MSNet::MSNet(string id, MSEdgeControl* ec,
              MSJunctionControl* jc,  
@@ -317,16 +320,16 @@ MSNet::routeDict(string id)
     return it->second;
 }
 
-float
+double
 MSNet::deltaT()
 {
     return myDeltaT;
 }
 
-float 
+double 
 MSNet::simSeconds()
 {
-    return static_cast< float >( myStep ) * myDeltaT;
+    return static_cast< double >( myStep ) * myDeltaT;
 }
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

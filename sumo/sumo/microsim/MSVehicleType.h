@@ -21,8 +21,11 @@
 #define MSVehicleType_H
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/11 15:25:56  croessel
+// Changed float to double.
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:20  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -77,32 +80,32 @@ public:
     friend class MSVehicle;
 
     /// Constructor.
-    MSVehicleType( std::string id, float length, float maxSpeed,
-                   float accel = 0.8, float decel = 4.5, float dawdle = 0.5 );
+    MSVehicleType( std::string id, double length, double maxSpeed,
+                   double accel = 0.8, double decel = 4.5, double dawdle = 0.5 );
 
     /// Destructor.
     ~MSVehicleType();
      
     /// Get vehicle type's length [m].
-    float length() const;
+    double length() const;
 
     /// Get vehicle type's maximum speed [m/s].
-    float maxSpeed() const;
+    double maxSpeed() const;
      
     /// Get the vehicle type's maximum acceleration [m/s^2]
-    float accel() const;
+    double accel() const;
 
     /// Get the vehicle type's maximum deceleration [m/s^2]
-    float decel() const;
+    double decel() const;
 
     /// Get the vehicle type's dawdle-probability. Out of [0,1]
-    float dawdle() const;
+    double dawdle() const;
     
     /// Returns the minimum deceleration-ability of all vehicle-types.
-    static float minDecel();
+    static double minDecel();
     
     /// Returns the maximum length of all vehicle-types.
-    static float maxLength();
+    static double maxLength();
 
     /** Inserts a MSVehicleType into the static dictionary and returns true
         if the key id isn't already in the dictionary. Otherwise returns
@@ -119,25 +122,25 @@ private:
     std::string myID;
      
     /// Vehicle type's length [m].
-    float myLength;
+    double myLength;
      
     /// Vehicle type's maximum speed [m/s].
-    float myMaxSpeed;
+    double myMaxSpeed;
 
     /// The vehicle type's maximum acceleration [m/s^2]
-    float myAccel;
+    double myAccel;
      
     /// The vehicle type's maximum deceleration [m/s^2]
-    float myDecel;
+    double myDecel;
 
     /// The vehicle type's dawdle-parameter. 0 for no dawdling, 1 for max.
-    float myDawdle;
+    double myDawdle;
     
     /// Minimum deceleration-ability of all vehicle-types.
-    static float myMinDecel;
+    static double myMinDecel;
     
     /// Maximum length of all vehicle-types.   
-    static float myMaxLength;
+    static double myMaxLength;
 
     /// Static dictionary to associate string-ids with objects.
     typedef std::map< std::string, MSVehicleType* > DictType;

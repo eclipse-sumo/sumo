@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2002/04/11 15:25:56  croessel
+// Changed float to double.
+//
 // Revision 1.3  2002/04/11 10:33:25  dkrajzew
 // Addition of detectors added
 //
@@ -47,7 +50,7 @@
 // In *.cpp files also config.h included.
 //
 // Revision 1.12  2002/01/16 10:03:34  croessel
-// New method "static float deltaT()" and member "static float myDeltaT"
+// New method "static double deltaT()" and member "static double myDeltaT"
 // added. DeltaT is the length of a timestep in seconds.
 //
 // Revision 1.11  2001/12/20 14:35:54  croessel
@@ -168,11 +171,11 @@ public:
     static const MSNet::Route* routeDict( std::string id );
 
     /// Returns the timestep-length in seconds.
-    static float deltaT();
+    static double deltaT();
 
     /** Returns the current simulation time in seconds. Current means
         start-time plus runtime. */
-    float simSeconds();
+    double simSeconds();
 
 protected:
 
@@ -218,7 +221,7 @@ private:
     static RouteDict myRoutes;
 
     /// Timestep [sec]
-    static float myDeltaT;
+    static double myDeltaT;
 
     /// Current time step.
     Time myStep;

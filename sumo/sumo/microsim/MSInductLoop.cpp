@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2002/04/11 15:25:55  croessel
+// Changed float to double.
+//
 // Revision 1.4  2002/04/11 10:07:22  croessel
 // #include <cassert> added.
 //
@@ -70,7 +73,7 @@ MSInductLoop::~MSInductLoop()
 
 MSInductLoop::MSInductLoop( string         id,
                             MSLane*        lane,
-                            float          position,
+                            double          position,
                             MSNet::Time    sampleIntervall,
                             MSDetector::OutputStyle    style,
                             ofstream*      file ) :
@@ -126,7 +129,7 @@ MSInductLoop::sample( double simSec )
     // If sampleIntervall is over, write the data to file and reset the 
     // detector.
     ++myNSamples;
-    if ( static_cast< float >( myNSamples ) * MSNet::deltaT() >= 
+    if ( static_cast< double >( myNSamples ) * MSNet::deltaT() >= 
          mySampleIntervall ) {
 
         writeData();

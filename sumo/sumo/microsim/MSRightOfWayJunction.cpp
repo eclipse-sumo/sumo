@@ -23,8 +23,11 @@ namespace
 }
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/11 15:25:56  croessel
+// Changed float to double.
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.3  2002/03/06 10:56:36  croessel
 // Bugfix: myRespond will have always the correct size before being passed to myLogic.
@@ -325,7 +328,7 @@ MSRightOfWayJunction::drivePermit( const MSLane* prio, const MSLane* out,
 
     // 0 <= decFactor <= 1
     // Adjust this to your purposes. Maybe random?
-    float decFactor( 0 ); // No deceleration allowed, first try value.
+    double decFactor( 0 ); // No deceleration allowed, first try value.
 
     
     // ask the prio's lane request lane about allowed deceleration.

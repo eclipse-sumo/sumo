@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.4  2002/04/11 15:25:55  croessel
+// Changed float to double.
+//
 // Revision 1.3  2002/04/11 10:04:12  croessel
 // Changed myFile-type from reference to pointer.
 //
@@ -64,7 +67,7 @@ public:
      */ 
     MSInductLoop( std::string    id,
                   MSLane*        lane,
-                  float          position,
+                  double          position,
                   MSNet::Time    sampleIntervall,
                   MSDetector::OutputStyle    style,
                   std::ofstream* file );
@@ -103,9 +106,9 @@ private:
     // Function-object in order to find the vehicle, that has just
     // passed the detector.
     struct VehPosition : public std::binary_function< const MSVehicle*,
-                         float, bool > 
+                         double, bool > 
     {
-        bool operator() ( const MSVehicle* cmp, float pos ) const {
+        bool operator() ( const MSVehicle* cmp, double pos ) const {
             return cmp->pos() > pos;
         }
     };
@@ -114,7 +117,7 @@ private:
     MSLane* myLane;
 
     /// InductLoops position on myLane.
-    float myPos;
+    double myPos;
 
     /// Sample-intervall in seconds.
     MSNet::Time mySampleIntervall;

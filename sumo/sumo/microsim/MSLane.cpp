@@ -24,6 +24,9 @@ namespace
 } 
                        
 // $Log$
+// Revision 1.3  2002/04/11 15:25:55  croessel
+// Changed float to double.
+//
 // Revision 1.2  2002/04/11 12:32:07  croessel
 // Added new lookForwardState "URGENT_LANECHANGE_WISH" for vehicles that
 // may drive beyond the lane but are not on a lane that is linked to
@@ -204,7 +207,7 @@ MSLane::~MSLane()
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSLane::MSLane( string id, float maxSpeed, float length, MSEdge* edge )  :
+MSLane::MSLane( string id, double maxSpeed, double length, MSEdge* edge )  :
     myID( id ),
     myVehicles(),
     myLastVehState(),
@@ -335,7 +338,7 @@ MSLane::detectCollisions() const
           veh != lastVeh; ++veh ) {
           
         VehCont::const_iterator pred = veh + 1;
-        float gap = ( *pred )->pos() - ( *pred )->length() - ( *veh )->pos();
+        double gap = ( *pred )->pos() - ( *pred )->length() - ( *veh )->pos();
         if ( gap < 0 ) {
             cerr << "MSLane::detectCollision: Collision of " << *veh 
                  << " with " << *pred << " on MSLane " << this << endl;
@@ -352,7 +355,7 @@ MSLane::emit( MSVehicle& veh )
     // brakeGap(laneMaxSpeed) + MaxVehicleLength. (in the hope of that 
     // the precening lane hasn't a much higher MaxSpeed)
     // This safePos is ugly, but we will live with it in this revision.
-    float safePos = pow( myMaxSpeed, 2 ) / ( 2 * MSVehicleType::minDecel() ) +
+    double safePos = pow( myMaxSpeed, 2 ) / ( 2 * MSVehicleType::minDecel() ) +
                     MSVehicle::tau() + MSVehicleType::maxLength();
     assert( safePos < myLength ); // Lane has to be longer than safePos, 
     // otherwise emission (this kind of emission) makes no sense.
@@ -408,7 +411,7 @@ bool
 MSLane::emitTry( MSVehicle& veh )
 {
     // empty lane emission.
-    float safeSpace = pow( myMaxSpeed, 2 ) / 
+    double safeSpace = pow( myMaxSpeed, 2 ) / 
                       ( 2 * MSVehicleType::minDecel() ) + 
                       MSVehicle::tau() + 
                       veh.length();
@@ -425,8 +428,8 @@ bool
 MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
 {
     // emission as last car (in driving direction)
-    float leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
-    float safeSpace = pow( myMaxSpeed, 2 ) / 
+    double leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
+    double safeSpace = pow( myMaxSpeed, 2 ) / 
                       ( 2 * MSVehicleType::minDecel() ) + 
                       MSVehicle::tau() + 
                       veh.length();
@@ -443,8 +446,8 @@ bool
 MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh )
 {
     // emission as first car (in driving direction)
-    float followPos = (*followIt)->pos();      
-    float safeSpace = (*followIt)->safeGap( veh ) + veh.length();
+    double followPos = (*followIt)->pos();      
+    double safeSpace = (*followIt)->safeGap( veh ) + veh.length();
     if ( enoughSpace( veh, followPos, 
                       myLength - MSVehicleType::maxLength(), safeSpace ) ) {   
         myVehicles.push_back( &veh );
@@ -460,9 +463,9 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
                  VehCont::iterator leaderIt )
 {
     // emission between follower and leader.
-    float followPos = (*followIt)->pos();
-    float leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
-    float safeSpace = (*followIt)->safeGap( veh ) + veh.length();
+    double followPos = (*followIt)->pos();
+    double leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
+    double safeSpace = (*followIt)->safeGap( veh ) + veh.length();
     if ( enoughSpace( veh, followPos, leaderPos, safeSpace ) ) {   
         myVehicles.insert( leaderIt, &veh );
         return true;
@@ -474,9 +477,9 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
                   
 bool 
 MSLane::enoughSpace( MSVehicle& veh,
-                     float followPos, float leaderPos, float safeSpace )
+                     double followPos, double leaderPos, double safeSpace )
 {
-    float free = leaderPos - followPos - safeSpace;   
+    double free = leaderPos - followPos - safeSpace;   
     if ( free >= 0 ) {
         
         // prepare vehicle with it's position
@@ -636,13 +639,13 @@ MSLane::requestLane() const
 
 bool
 MSLane::decel2much(const MSLane* compete, const MSLane* target,
-                   float decelFactor)
+                   double decelFactor)
 {
     assert( decelFactor >= 0 && decelFactor <= 1 );
 
     // calculate the gap from this lane's first vehicle to the beginning
     // of the target lane. Then add the competing vehicle's desired position.
-    float gap2compete = myLength - myFirst->pos();
+    double gap2compete = myLength - myFirst->pos();
     LFLinkLanes::const_iterator ll = myLFLinkLanes.begin();
     
     while ( ll->myLane != target ) {
@@ -653,7 +656,7 @@ MSLane::decel2much(const MSLane* compete, const MSLane* target,
     }
     gap2compete += compete->myTargetPos;
     
-    float safeGap = myFirst->safeGap( *(compete->myFirst) );
+    double safeGap = myFirst->safeGap( *(compete->myFirst) );
     
     // Is there enough space between the two vehicles.
     if ( gap2compete > safeGap - decelFactor * myFirst->decelDist() ) {
@@ -672,7 +675,7 @@ MSLane::decel2much(const MSLane* compete, const MSLane* target,
 
 /////////////////////////////////////////////////////////////////////////////
 
-float
+double
 MSLane::maxSpeed() const
 {
     return myMaxSpeed;
@@ -680,7 +683,7 @@ MSLane::maxSpeed() const
 
 /////////////////////////////////////////////////////////////////////////////
 
-float
+double
 MSLane::length() const
 {
     return myLength;
@@ -762,9 +765,9 @@ void MSLane::setLookForwardState()
     
     // Calculate maxLook. This is the distance the vehicle
     // should check for predecessors or yield-junctions.
-    float maxLook = myFirst->brakeGap( this );
+    double maxLook = myFirst->brakeGap( this );
     
-    float looked = myLength - myFirst->pos(); // The distance already looked at.
+    double looked = myLength - myFirst->pos(); // The distance already looked at.
     
     // Cannot look past lane end and considers overlapping vehicle.
     if ( looked - MSVehicleType::maxLength() >= maxLook ) {
@@ -801,7 +804,7 @@ void MSLane::setLookForwardState()
             MSVehicle::State predState = succLane->myLastVehState;
             MSVehicle*       pred      = succLane->myLastVeh;
             assert ( pred != 0 );
-            float rearPos = predState.pos() - pred->length();
+            double rearPos = predState.pos() - pred->length();
             
             // Does pred overlap?
             if ( rearPos < 0 ) {         
@@ -1029,9 +1032,9 @@ MSLane::setDriveRequests()
     // With myTargetState set, determine Target-Pos and Lane.
 
     // Distance the vehicle can drive in one timestep.
-    float driveDist = myFirst->driveDist( myTargetState );
+    double driveDist = myFirst->driveDist( myTargetState );
     
-    float looked = myLength - myFirst->pos(); 
+    double looked = myLength - myFirst->pos(); 
     LFLinkLanes::iterator ll = myLFLinkLanes.begin(); 
     
     // Will vehicle reach next lane?

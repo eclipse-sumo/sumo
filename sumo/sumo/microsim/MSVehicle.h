@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2002/04/11 15:25:56  croessel
+// Changed float to double.
+//
 // Revision 1.2  2002/04/10 16:29:08  croessel
 // Made speed() public.
 //
@@ -167,17 +170,17 @@ public:
         /// Operator !=
         bool operator!=( const State& state );
         /// Position of this state.
-        float pos() const;
+        double pos() const;
         /// Set position of this state.
-        void setPos( float pos );
+        void setPos( double pos );
         /// Return true if vehicle would prefer preferState.
         static bool advantage( const State& preferState, 
                                const State& compareState );
     private:
         /// Constructor.
-        State( float pos, float speed );
-        float myPos;
-        float mySpeed;
+        State( double pos, double speed );
+        double myPos;
+        double mySpeed;
     };
     
     /// Sort criterion for vehiles is the departure time.
@@ -216,25 +219,25 @@ public:
         vehicle and predecessor with speed == 0 takes place. If 
         vehicle has no predecessor, it has to search within brakeGap
         for collision-free driving. */
-    float brakeGap( const MSLane* lane ) const;
+    double brakeGap( const MSLane* lane ) const;
 
     /** In "gap2predecessor < interactionGap" region interaction between 
         vehicle and predecessor with speed != 0 takes place. Else vehicle
         drives freely. */
-    float interactionGap( const MSLane* lane, const MSVehicle& pred ) const;
+    double interactionGap( const MSLane* lane, const MSVehicle& pred ) const;
         
     /** In "gap2predecessor > safeGap" region vehicle is able to interact
         collisionfreely with predecessor. So safeGap is a minimum gap between
         the two vehicles. */
-    float safeGap( const MSVehicle& pred ) const;
+    double safeGap( const MSVehicle& pred ) const;
     
     /** Returns the vehicels driving distance during one timestep when  
         driving with speed. */
-    float driveDist( State state ) const;
+    double driveDist( State state ) const;
     
     /** Returns the distance-difference between driving at constant 
         speed and maximum braking in one timestep. */
-    float decelDist() const;
+    double decelDist() const;
     
     // Return the vehicles state after maximum acceleration.
     State accelState( const MSLane* lane ) const; 
@@ -248,7 +251,7 @@ public:
     // Updates drive parameters.
     void move( MSLane* lane,
                MSVehicle* pred,
-               MSVehicle* neigh, float gap2neigh );
+               MSVehicle* neigh, double gap2neigh );
      
     // Slow down towards lane end. Updates state. For first vehicles only.         
     void moveDecel2laneEnd( MSLane* lane );
@@ -270,30 +273,30 @@ public:
     // If pred/neigh is on curr lane pass 0 to gap2pred/gap2neigh,
     // otherwise the gap.
     State nextState( MSLane* lane,
-                     State predState,  float gap2pred,
-                     State neighState, float gap2neigh ) const;
+                     State predState,  double gap2pred,
+                     State neighState, double gap2neigh ) const;
 
     // Slow down to one's lane end, don't respect neighbours. Lane-end
     // need not to be the lane-end of the current lane.
-    State nextState( MSLane* lane, float gap ) const;
+    State nextState( MSLane* lane, double gap ) const;
     
     // Use this form if pred would give the wrong position, e.g. if you
     // want to know what might will happen if this vehicle would have 
     // a new pred.
     State nextStateCompete( MSLane* lane, 
                             State predState, 
-                            float gap2pred ) const;
+                            double gap2pred ) const;
 
 
 ///////////////////////////////////////////////////////////////////////////
 
-    static float tau(); // returns timeconstant
+    static double tau(); // returns timeconstant
 
     /// Get the vehicle's position.
-    float pos() const;
+    double pos() const;
 
     /// Get the vehicle's length.
-    float length() const;
+    double length() const;
 
     /// adds a person with a destination (used in public vehicles to mark 
     /// the edge the person is stopping at) 
@@ -329,26 +332,26 @@ public:
     bool congested();
     
     /// Returns current speed
-    float speed() const;
+    double speed() const;
 
 protected:
 
     /** Returns the SK-vsafe. */
-    float vsafe( float currentSpeed, float decelAbility,
-                 float gap2pred, float predSpeed) const;
+    double vsafe( double currentSpeed, double decelAbility,
+                 double gap2pred, double predSpeed) const;
 
     /** Return the vehicle's maximum possible speed after acceleration. */        
-    float vaccel( const MSLane* lane ) const;
+    double vaccel( const MSLane* lane ) const;
     
     /** Dawdle according the vehicles dawdle parameter. Return value >= 0 */
-    float dawdle( float speed ) const;
+    double dawdle( double speed ) const;
     
-    /** Returns the minimum of four floats. */
-    float vMin( float v1, float v2, float v3, float v4 ) const;   
+    /** Returns the minimum of four doubles. */
+    double vMin( double v1, double v2, double v3, double v4 ) const;   
         
 private:
     /// Reaction time [sec]
-    static float myTau;
+    static double myTau;
 
     /// Unique ID.
     std::string myID;
@@ -391,9 +394,9 @@ private:
     MSVehicle& operator=(const MSVehicle&);
 
     /// We need our own min/max methods because MSVC++ can't use the STL-ones.    
-    inline float min(float v1, float v2) const 
+    inline double min(double v1, double v2) const 
         { return ((v1 < v2) ? v1 : v2); };
-    inline float max(float v1, float v2) const 
+    inline double max(double v1, double v2) const 
         { return ((v1 > v2) ? v1 : v2); };
 
 };

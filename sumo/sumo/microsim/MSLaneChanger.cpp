@@ -23,8 +23,11 @@ namespace
 }
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:23  traffic
-// Initial revision
+// Revision 1.2  2002/04/11 15:25:56  croessel
+// Changed float to double.
+//
+// Revision 1.1.1.1  2002/04/08 07:21:23  traffic
+// new project name
 //
 // Revision 2.2  2002/03/21 14:00:06  croessel
 // Bug-fix in change(): Vehicles that keep to their lane must also be
@@ -488,7 +491,7 @@ MSLaneChanger::safeChange( ChangerIt target )
     if ( neighFollow == 0 ) { // Empty target, no neighLead, no neighFollow.
 
         // Check back gap.
-        float safeBackGap = pow( targetLane->maxSpeed(), 2 ) / 
+        double safeBackGap = pow( targetLane->maxSpeed(), 2 ) / 
                             ( 2 * MSVehicleType::minDecel() ) + 
                             MSVehicle::tau() + vehicle->length();
         if ( vehicle->pos() > safeBackGap ) {
@@ -502,7 +505,7 @@ MSLaneChanger::safeChange( ChangerIt target )
     if ( neighLead == 0 ) { // there is a neighFollow, but no neighLead.
         
         // Check back gap.
-        float gap2follow = vehicle->pos() - vehicle->length() -
+        double gap2follow = vehicle->pos() - vehicle->length() -
                            neighFollow->pos();
         if ( gap2follow > neighFollow->safeGap( *vehicle ) ) {
 
@@ -516,12 +519,12 @@ MSLaneChanger::safeChange( ChangerIt target )
     }
     // NeighLead and neighFollow on target lane.
     // Check back gap.
-    float gap2follow = vehicle->pos() - vehicle->length() - 
+    double gap2follow = vehicle->pos() - vehicle->length() - 
                        neighFollow->pos();
     if ( gap2follow > neighFollow->safeGap( *vehicle ) ) {
 
         // Check front gap.
-        float gap2lead = neighLead->pos() - neighLead->length() -
+        double gap2lead = neighLead->pos() - neighLead->length() -
                          vehicle->pos();
         return ( gap2lead > vehicle->safeGap( *neighLead ) );
     }
@@ -541,7 +544,7 @@ MSLaneChanger::predInteraction()
     MSLane*    lane    = myCandi->lane;  
 
     // Is there interaction with a predecessor?
-    float gap = 0;
+    double gap = 0;
     if ( pred != 0 ) {
 
         gap = pred->pos() - pred->length() - vehicle->pos();
@@ -584,7 +587,7 @@ MSLaneChanger::advan2right()
     }
     else { // There is a neigh-leader.
 
-        float gap2lead = neighLead->pos() - neighLead->length() - 
+        double gap2lead = neighLead->pos() - neighLead->length() - 
                          vehicle->pos();
         changeState = vehicle->nextStateCompete( neighLane,
                                                  neighLead->state(),
@@ -627,7 +630,7 @@ MSLaneChanger::advan2left()
     }
     else {
 
-        float gap2pred = pred->pos() - pred->length() - vehicle->pos();
+        double gap2pred = pred->pos() - pred->length() - vehicle->pos();
         stayState = vehicle->nextStateCompete( stayLane,
                                                pred->state(),
                                                gap2pred );
@@ -643,7 +646,7 @@ MSLaneChanger::advan2left()
     }
     else {
         
-        float gap2lead = neighLead->pos() - neighLead->length() -
+        double gap2lead = neighLead->pos() - neighLead->length() -
                          vehicle->pos();
         changeState = vehicle->nextStateCompete( changeLane,
                                                  neighLead->state(),

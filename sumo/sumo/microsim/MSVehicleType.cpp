@@ -24,8 +24,11 @@ namespace
 } 
 
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/11 15:25:56  croessel
+// Changed float to double.
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:20  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -92,8 +95,8 @@ using namespace std;
 
 // Init static member.
 MSVehicleType::DictType MSVehicleType::myDict;
-float MSVehicleType::myMinDecel  = 0;
-float MSVehicleType::myMaxLength = 0;
+double MSVehicleType::myMinDecel  = 0;
+double MSVehicleType::myMaxLength = 0;
 
 
 MSVehicleType::~MSVehicleType()
@@ -101,8 +104,8 @@ MSVehicleType::~MSVehicleType()
 }
 
 
-MSVehicleType::MSVehicleType(string id, float length, float maxSpeed,
-                             float accel, float decel, float dawdle ) :
+MSVehicleType::MSVehicleType(string id, double length, double maxSpeed,
+                             double accel, double decel, double dawdle ) :
     myID(id),
     myLength(length), myMaxSpeed(maxSpeed), myAccel(accel),
     myDecel(decel), myDawdle(dawdle)
@@ -124,47 +127,47 @@ MSVehicleType::MSVehicleType(string id, float length, float maxSpeed,
 }
 
 
-float
+double
 MSVehicleType::length() const
 {
     return myLength;
 }
 
 
-float
+double
 MSVehicleType::maxSpeed() const
 {
     return myMaxSpeed;
 }
 
 
-float
+double
 MSVehicleType::accel() const
 {
     return myAccel;
 }
 
 
-float
+double
 MSVehicleType::decel() const
 {
     return myDecel;
 }
 
 
-float
+double
 MSVehicleType::dawdle() const
 {
     return myDawdle;
 }
 
-float
+double
 MSVehicleType::minDecel()
 {
     return myMinDecel;
 }
 
-float
+double
 MSVehicleType::maxLength() 
 {
     return myMaxLength;

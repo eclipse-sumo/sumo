@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2002/04/11 15:25:56  croessel
+// Changed float to double.
+//
 // Revision 1.3  2002/04/11 12:32:07  croessel
 // Added new lookForwardState "URGENT_LANECHANGE_WISH" for vehicles that
 // may drive beyond the lane but are not on a lane that is linked to
@@ -214,7 +217,7 @@ public:
 
     /** Use this constructor only. Later use initialize to complete
         lane initialization. */
-    MSLane( std::string id, float maxSpeed, float length, MSEdge* egde ); 
+    MSLane( std::string id, double maxSpeed, double length, MSEdge* egde ); 
      
     /** Not all lane-members are known at the time the lane is born,
         above all the pointers to other lanes, so we have to
@@ -273,7 +276,7 @@ public:
         previously calculated next speed of the first vehicle
         according to it's new predecessor. */
     bool decel2much( const MSLane* compete, const MSLane* target,
-                     float decelFactor );
+                     double decelFactor );
      
     /** Returns the first vehicle's succeeding lane. */
     MSLane* firstVehSuccLane();
@@ -289,10 +292,10 @@ public:
     bool empty() const;
      
     /// Returns the lane's maximum speed.
-    float maxSpeed() const;
+    double maxSpeed() const;
     
     /// Returns the lane's length.
-    float length() const;
+    double length() const;
 
     /// Returns the lane's Edge.
     const MSEdge& edge() const;
@@ -401,7 +404,7 @@ protected:
         if there is. Common code used by emitTry-methods. Returns true if
         emission is possible. */   
     bool enoughSpace( MSVehicle& veh,
-                      float followPos, float leaderPos, float safeSpace );
+                      double followPos, double leaderPos, double safeSpace );
     
 private:
     /// Unique ID.
@@ -428,10 +431,10 @@ private:
     MSVehicle* myLastVeh;
 
     /// Lane-wide speedlimit [m/s]
-    float myMaxSpeed;
+    double myMaxSpeed;
 
     /// Lane length [m]
-    float myLength;
+    double myLength;
 
     /// The lane's edge, for routing only.
     MSEdge* myEdge;
@@ -483,7 +486,7 @@ private:
 
     // Gap to lane-end or predecessor of first vehicle. 0 for free driving 
     // states. 
-    float myGap;
+    double myGap;
      
     // First vehicle's predecessor's state. Default, i.e. State(), if there 
     // is none.     
@@ -512,7 +515,7 @@ private:
     // Desired parameters for first vehicles. Set in setDriveRequests.
     MSLane*          myTargetLane;
     MSVehicle::State myTargetState;
-    float            myTargetPos;
+    double            myTargetPos;
 //----------------------------------------------------------
 
    
