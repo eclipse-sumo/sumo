@@ -1626,6 +1626,15 @@
             turning defaults. Given --turn-defaults=20;70;10 a vehicle using
             an edge that has two followers would use the follower to the right
             with 55% propability, the one to the left with 45%.</para>
+
+            <para>As theoretically a route may get infinitely long when a
+            vehicle is forced to take always the same direction, it is
+            possible to limit the route&#39;s size using
+            &#34;max-edges-factor&#34;. This factor, multiplied with the
+            number of the used network&#39;s edges is the maximum number of
+            edges a route may have. With the default of 2.0, a route may
+            contain twice as many edges as the network has. We assume, that
+            for each network this number has to be rechosen.</para>
           </sect4>
         </sect3>
 
@@ -2840,7 +2849,10 @@
 
           <para><itemizedlist><listitem><para>OPTIONAL: --continue-on-unbuild</para><para>Continues
           when a described connection could not be build. The default
-          behaviour is to stop with an error.</para></listitem></itemizedlist></para>
+          behaviour is to stop with an error.</para></listitem><listitem><para>OPTIONAL:
+          --unsorted</para><para>When set to true, all routes are read into
+          the memory before being cmputed. This is necessary if the routes are
+          in a random order within the files that describe them.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
@@ -2877,6 +2889,10 @@
           <para><itemizedlist><listitem><para>MANDATORY: [ --net-file | --net
           | -n ] &#60;FILE&#62;</para><para>Informs SUMO-JTR-ROUTER to use the
           sumo-network &#60;FILE&#62; for routing.</para></listitem><listitem><para>OPTIONAL:
+          [ --sinks ] &#60;EDGEID&#62;[;&#60;EDGEID&#62;]*</para><para>Specifies
+          which edges shall (additionally to edges of the network that are
+          already sinks) be treated as sinks. The list must contain ids of
+          edges the network has, divided by a &#39;;&#39;.</para></listitem><listitem><para>OPTIONAL:
           [ --turn-definition | --turns | -t ] &#60;FILE&#62;</para><para>Informs
           SUMO-JTR-ROUTER to read turn definitions from &#60;FILE&#62;. The
           format (xml or cvs) is determined automatically.</para></listitem><listitem><para>OPTIONAL:
@@ -2937,14 +2953,7 @@
         <sect3>
           <title>Computation variables settings</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: --gBeta
-          &#60;DOUBLE&#62;</para><para>Gawron&#39;s beta; See also the
-          documentation on Christian Gawron&#39;s Dynamic User Assignment.</para><para>Only
-          for processing of alternatives.</para></listitem><listitem><para>OPTIONAL:
-          --gA &#60;DOUBLE&#62;</para><para>Gawron&#39;s A; See also the
-          documentation on Christian Gawron&#39;s Dynamic User Assignment</para><para>Only
-          for processing of alternatives.</para><para>A default value is
-          supplied.</para></listitem><listitem><para>OPTIONAL: --intel-cell</para><para>Switches
+          <para><itemizedlist><listitem><para>OPTIONAL: --intel-cell</para><para>Switches
           the byte order within the FastLane-.driver-files</para><para>Only
           for processing of FastLane-routes.</para></listitem><listitem><para>OPTIONAL:
           --no-last-cell</para><para>Use best, not the last cell-route.</para><para>Only
@@ -2956,7 +2965,14 @@
 
           <para><itemizedlist><listitem><para>OPTIONAL: --continue-on-unbuild</para><para>Continues
           when a described connection could not be build. The default
-          behaviour is to stop with an error.</para></listitem></itemizedlist></para>
+          behaviour is to stop with an error.</para></listitem><listitem><para>OPTIONAL:
+          --unsorted</para><para>When set to true, all routes are read into
+          the memory before being cmputed. This is necessary if the routes are
+          in a random order within the files that describe them.</para></listitem><listitem><para>OPTIONAL:
+          --max-edges-factor &#60;FLOAT&#62;</para><para>This value describes
+          with which factor the number of edges within the net shall be
+          multipled to get the maximum number of edges a route may have.
+          Deafult=2</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
