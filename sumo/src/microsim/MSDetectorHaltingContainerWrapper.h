@@ -213,10 +213,9 @@ template< class T >
 struct MSDetectorHaltingMapWrapper
     :
     public MSDetectorMapWrapper< T >
-    , public MSUpdateEachTimestep<
-          MSDetectorHaltingMapWrapper< T > >
+    , public MSUpdateEachTimestep< MSDetectorHaltingMapWrapper< T > >
 {
-    typedef std::map< MSVehicle*, T > WrappedContainer;
+    typedef T WrappedContainer;
     typedef typename WrappedContainer::iterator HaltingsIt;
     typedef typename WrappedContainer::const_iterator HaltingsConstIt;
     typedef WrappedContainer InnerContainer;
@@ -228,7 +227,7 @@ struct MSDetectorHaltingMapWrapper
         :
         MSDetectorMapWrapper< WrappedContainer >(),
         MSUpdateEachTimestep<
-        MSDetectorHaltingMapWrapper< WrappedContainer > >(),
+            MSDetectorHaltingMapWrapper< WrappedContainer > >(),
         timeThresholdM( timeThreshold ),
         speedThresholdM( speedThreshold )
         {}
@@ -241,7 +240,7 @@ struct MSDetectorHaltingMapWrapper
         :
         MSDetectorMapWrapper< WrappedContainer >( occupancyCorrection),
         MSUpdateEachTimestep<
-        MSDetectorHaltingMapWrapper< WrappedContainer > >(),
+            MSDetectorHaltingMapWrapper< WrappedContainer > >(),
         timeThresholdM( timeThreshold ),
         speedThresholdM( speedThreshold )
         {}
@@ -294,7 +293,8 @@ namespace DetectorContainer
 
     typedef MSUpdateEachTimestep< HaltingsList > UpdateHaltings;
 
-    typedef MSDetectorHaltingMapWrapper< E3Halting > HaltingsMap;
+    typedef MSDetectorHaltingMapWrapper<
+        std::map< MSVehicle*, E3Halting > > HaltingsMap;
 
     typedef MSUpdateEachTimestep< HaltingsMap > UpdateE3Haltings;   
 }

@@ -29,6 +29,7 @@
 #include <functional>
 #include <list>
 #include <map>
+#include <utility>
 
 template< class WrappedContainer >
 struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
@@ -100,7 +101,7 @@ template< class T >
 struct MSDetectorMapWrapper
     : public MSDetectorContainerWrapperBase
 {
-    typedef std::map< MSVehicle*, T > WrappedContainer;
+    typedef T WrappedContainer;
     typedef WrappedContainer InnerContainer;
     typedef typename WrappedContainer::iterator ContainerIt;
 
@@ -112,7 +113,8 @@ struct MSDetectorMapWrapper
     void enterDetectorByMove( MSVehicle* veh )
         {
             assert( ! hasVehicle( veh ) );
-            containerM.insert( std::make_pair( veh, T() ) );
+            containerM.insert( std::make_pair(
+                                   veh, typename T::data_type() ) );
         }
 
     void enterDetectorByEmitOrLaneChange( MSVehicle* veh )
@@ -159,11 +161,13 @@ namespace DetectorContainer
     typedef MSDetectorContainerWrapper<
         std::list< MSVehicle* > > VehiclesList;
     
-    typedef MSDetectorMapWrapper< MSUnit::Seconds > TimeMap;
+    typedef MSDetectorMapWrapper<
+        std::map< MSVehicle*, MSUnit::Seconds > > TimeMap;
     
     class EmptyType{};
     
-    typedef MSDetectorMapWrapper< EmptyType > VehicleMap;
+    typedef MSDetectorMapWrapper<
+        std::map< MSVehicle*, EmptyType > > VehicleMap;
 
 }
 
