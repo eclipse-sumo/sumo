@@ -20,8 +20,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.2  2003/10/02 14:58:26  dkrajzew
-// methods needed for visualisation added
+// Revision 1.3  2003/10/06 07:40:55  dkrajzew
+// lanes are saved for further purposes, now
 //
 // Revision 1.1  2003/10/01 11:24:35  dkrajzew
 // agent-based traffic lights added
@@ -124,6 +124,8 @@ protected:
 
     /// information whether the current phase should be lenghtend
     bool _continue;
+
+    std::vector<MSLane*> _lanes;
 
 };
 

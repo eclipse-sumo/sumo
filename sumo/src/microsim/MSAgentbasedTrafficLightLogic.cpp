@@ -17,8 +17,8 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.2  2003/10/02 14:58:26  dkrajzew
-// methods needed for visualisation added
+// Revision 1.3  2003/10/06 07:40:55  dkrajzew
+// lanes are saved for further purposes, now
 //
 // Revision 1.1  2003/10/01 11:24:35  dkrajzew
 // agent-based traffic lights added
@@ -49,7 +49,7 @@ MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::MSA
         const std::string &id, const Phases &phases, size_t step,
         const std::vector<MSLane*> &lanes, size_t delay)
     : MSSimpleTrafficLightLogic(id, phases, step, delay),
-    _continue(false)
+    _continue(false), _lanes(lanes)
 {
     sproutDetectors(lanes);
 }
@@ -244,7 +244,16 @@ MSAgentbasedTrafficLightLogic<_TInductLoop, _TLaneState, _TE2_ZS_Collector>::gap
                     (*i).second->getTimestepsSinceLastDetection();
                 double maxGap = 3.1;
                 if (actualGap < maxGap) {
-                return _continue = true;
+                    return _continue = true;
+                }
+                for (LaneVector::const_iterator j=_lanes.begin(); j!=_lanes.end();j++) {
+                    double bla1 = currentForLane(MS_E2_ZS_Collector::MAX_JAM_LENGTH_IN_VEHICLES, *j);
+                    double bla2 = currentForLane(MS_E2_ZS_Collector::MAX_JAM_LENGTH_IN_METERS, *j);
+                    double bla3 = currentForLane(MS_E2_ZS_Collector::JAM_LENGTH_SUM_IN_VEHICLES, *j);
+                    double bla4 = currentForLane(MS_E2_ZS_Collector::JAM_LENGTH_SUM_IN_METERS, *j);
+                    double bla5 = currentForLane(MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES, *j);
+                    double bla6 = currentForLane(MS_E2_ZS_Collector::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS, *j);
+                    cout << bla1 <<"   " << bla2 <<"   " << bla3 <<"   " << bla4 <<"   " << bla5 <<"   " << bla6 << endl;
                 }
             }
         }
