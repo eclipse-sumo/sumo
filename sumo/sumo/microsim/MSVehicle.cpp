@@ -24,6 +24,10 @@ namespace
 } 
 
 // $Log$
+// Revision 1.3  2002/04/17 10:58:24  croessel
+// Introduced dontMoveGap to handle floating-point-inaccuracy. Vehicles
+// will keep their state if gap2pred is smaller.
+//
 // Revision 1.2  2002/04/11 15:25:56  croessel
 // Changed float to double.
 //
@@ -142,6 +146,11 @@ using namespace std;
 // Init static member.
 MSVehicle::DictType MSVehicle::myDict;
 double MSVehicle::myTau = 1;
+
+// It is possible to get collisions because of arithmetic-inaccuracy
+// at small gaps. Therefore we introduce "dontMoveGap"; if gap2pred is
+// smaller, than vehicle will keep it's state.
+const double dontMoveGap = 0.01; 
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -493,6 +502,12 @@ MSVehicle::nextState( MSLane* lane,
                       State predState,  double gap2pred,
                       State neighState, double gap2neigh ) const
 {
+    // Don't move if gap2pred < dontMoveGap to handle arithmetic inaccuracy.
+    if ( gap2pred < dontMoveGap ) {
+
+        return myState;
+    }
+
     // Pragmatic solution: ignore neighbours
     double vAccel   = vaccel( lane );
     double vMax     = myType->maxSpeed();
@@ -523,6 +538,12 @@ MSVehicle::nextState( MSLane* lane,
 MSVehicle::State 
 MSVehicle::nextState( MSLane* lane, double gap ) const
 {
+    // Don't move if gap < dontMoveGap to handle arithmetic inaccuracy.
+    if ( gap < dontMoveGap ) {
+
+        return myState;
+    }
+
     // TODO
     // If we know that we will slow down, is there still the need to dawdle?
     
