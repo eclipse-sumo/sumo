@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/11/11 08:29:48  dkrajzew
+// consequent geometry usage
+//
 // Revision 1.4  2003/07/07 08:25:33  dkrajzew
 // adapted the importer to the lane geometry description
 //
@@ -92,7 +95,7 @@ NIArtemisParser_HVdests::myDependentReport()
     Position2D dir2 = node2->getEmptyDir();
     if(NBEdgeCont::retrieve(origid + "SOURCE")==0) {
         dir1.mul(10.0);
-        dir1.add(Position2D(node1->getXCoordinate(), node1->getYCoordinate()));
+        dir1.add(node1->getPosition());
         NBNode *tmp = new NBNode(origid + "SOURCENode", dir1.x(), dir1.y());
         NBNodeCont::insert(tmp); // !!! check
         NBEdge *edge = new NBEdge(origid + "SOURCE", origid + "SOURCE",
@@ -103,7 +106,7 @@ NIArtemisParser_HVdests::myDependentReport()
     // try to build a sink from node2
     if(NBEdgeCont::retrieve(destid + "SINK")==0) {
         dir2.mul(10.0);
-        dir2.add(Position2D(node2->getXCoordinate(), node2->getYCoordinate()));
+        dir2.add(node2->getPosition());
         NBNode *tmp = new NBNode(destid + "SINKNode", dir2.x(), dir2.y());
         NBNodeCont::insert(tmp); // !!! check
         NBEdge *edge = new NBEdge(destid + "SINK", destid + "SINK",
