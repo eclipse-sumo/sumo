@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2004/07/02 09:36:03  dkrajzew
+// setting of a default speed for unset districts added
+//
 // Revision 1.19  2004/01/28 12:39:23  dkrajzew
 // work on reading and setting speeds in vissim-networks
 //
@@ -413,7 +416,8 @@ NIVissimDistrictConnection::getMeanSpeed() const
     //assert(myAssignedVehicles.size()!=0);
     if(myAssignedVehicles.size()==0) {
         cout << "No streams assigned at district'" << myID << "'." << endl;
-        return -1;
+        cout << " Using default speed 200km/h" << endl;
+        return 200/3.6;
     }
     double speed = 0;
     std::vector<std::pair<int, int> >::const_iterator i;
