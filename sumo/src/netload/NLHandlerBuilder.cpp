@@ -263,16 +263,26 @@ NLHandlerBuilder::addVehicleType(const Attributes &attrs) {
 
 void
 NLHandlerBuilder::openRoute(const Attributes &attrs) {
+    // get the id
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-        myContainer.openRoute(id);
     } catch (EmptyData &e) {
         SErrorHandler::add(
             "Error in description: missing id of a route-object.");
+        return;
     } catch (XMLIdNotKnownException &e) {
         SErrorHandler::add(e.getMessage("route", "(ID_UNKNOWN!)"));
+        return;
     }
+    // get the information whether the route shall be deleted after
+    // being passed 
+    bool multiReferenced = false;
+    try {
+        multiReferenced = getBool(attrs, SUMO_ATTR_MULTIR);
+    } catch (...) {
+    }
+    myContainer.openRoute(id, multiReferenced);
 }
 
 

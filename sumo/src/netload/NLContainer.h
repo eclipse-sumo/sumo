@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2002/10/21 09:52:57  dkrajzew
+// support for route multireferencing added
+//
 // Revision 1.2  2002/10/17 10:34:48  dkrajzew
 // possibility of retrival of the preinitialised net during loading implemented for trigger handling
 //
@@ -250,7 +253,7 @@ public:
 
     /// handling of routes
     /// begins the building of the route with the given id
-    void openRoute(const std::string &id);
+    void openRoute(const std::string &id, bool multiReferenced);
     /// adds the next route to the currently active route;
     void addRoutesEdge(const std::string &id);
     /// closes the building of the route

@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2002/10/21 09:52:58  dkrajzew
+// support for route multireferencing added
+//
 // Revision 1.1  2002/10/16 15:36:50  dkrajzew
 // moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
 //
@@ -57,7 +60,7 @@ namespace
 #include <string>
 #include <map>
 #include <vector>
-#include <microsim/MSNet.h>
+#include <microsim/MSRoute.h>
 #include <microsim/MSEdge.h>
 #include "NLRoutesBuilder.h"
 #include <utils/xml/XMLBuildingExceptions.h>
@@ -73,40 +76,38 @@ using namespace std;
  * ======================================================================= */
 NLRoutesBuilder::NLRoutesBuilder()
 {
-  m_pActiveRoute = new MSNet::Route();
-  m_pActiveRoute->reserve(100);
+	m_pActiveRoute = new MSEdgeVector(); // !!! why a pointer
+	m_pActiveRoute->reserve(100);
 }
 
 NLRoutesBuilder::~NLRoutesBuilder()
 {
-  delete m_pActiveRoute;
+	delete m_pActiveRoute;
 }
 
 void
-NLRoutesBuilder::openRoute(const string &id)
+NLRoutesBuilder::openRoute(const string &id, bool multiReferenced)
 {
-  m_ActiveId = id;
+	m_ActiveId = id;
+    m_IsMultiReferenced = multiReferenced;
 }
 
 void
 NLRoutesBuilder::addEdge(MSEdge *edge)
 {
-  m_pActiveRoute->push_back(edge);
+	m_pActiveRoute->push_back(edge);
 }
 
 void
 NLRoutesBuilder::closeRoute()
 {
     int size = m_pActiveRoute->size();
-    if(/* NLNetBuilder::check&& */ size==0) throw XMLListEmptyException();
-    MSNet::Route *route = new MSNet::Route();
-    route->reserve(size);
-    for(MSNet::Route::iterator i1=m_pActiveRoute->begin();
-            i1!=m_pActiveRoute->end(); i1++) {
-	    route->push_back(*i1);
+    if(/* NLNetBuilder::check&& */ size==0) {
+		throw XMLListEmptyException();
     }
+	MSRoute *route = new MSRoute(m_ActiveId, *m_pActiveRoute, m_IsMultiReferenced);
     m_pActiveRoute->clear();
-    if(!MSNet::routeDict(m_ActiveId, route)) {
+    if(!MSRoute::dictionary(m_ActiveId, route)) {
 	    delete route;
 	    //if(NLNetBuilder::check)
 	        throw XMLIdAlreadyUsedException("route", m_ActiveId);

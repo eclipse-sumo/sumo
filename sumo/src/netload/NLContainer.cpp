@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2002/10/21 09:52:57  dkrajzew
+// support for route multireferencing added
+//
 // Revision 1.2  2002/10/17 10:34:48  dkrajzew
 // possibility of retrival of the preinitialised net during loading implemented for trigger handling
 //
@@ -93,6 +96,7 @@ namespace
 #include <microsim/MSEventControl.h>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSJunctionControl.h>
+#include <microsim/MSRoute.h>
 #include "NLEdgeControlBuilder.h"
 #include "NLJunctionControlBuilder.h"
 #include "NLRoutesBuilder.h"
@@ -415,9 +419,9 @@ NLContainer::addVehicleType(const string &id, const float length,
 
 // handling of routes
 void
-NLContainer::openRoute(const string &id)
+NLContainer::openRoute(const string &id, bool multiReferenced)
 {
-    m_pRCB->openRoute(id);
+    m_pRCB->openRoute(id, multiReferenced);
 }
 
 
@@ -456,12 +460,12 @@ NLContainer::addVehicle(const string &id, const string &vtypeid,
     if(/* NLNetBuilder::check && */ vtype==0) {
         throw XMLIdNotKnownException("vtype", vtypeid);
     }
-    const MSNet::Route *route = MSNet::routeDict(routeid);
+    MSRoute *route = MSRoute::dictionary(routeid);
     if(/* NLNetBuilder::check && */ route==0) {
         throw XMLIdNotKnownException("route", routeid);
     }
     MSVehicle *vehicle =
-        new MSVehicle(id, (MSNet::Route*) route, depart, vtype);
+        new MSVehicle(id, route, depart, vtype);
     if(!MSVehicle::dictionary(id, vehicle)) {
         throw XMLIdAlreadyUsedException("vehicle", id);
     }

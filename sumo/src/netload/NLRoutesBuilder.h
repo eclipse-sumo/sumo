@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2002/10/21 09:52:58  dkrajzew
+// support for route multireferencing added
+//
 // Revision 1.1  2002/10/16 15:36:49  dkrajzew
 // moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
 //
@@ -52,6 +55,7 @@
  * included modules
  * ======================================================================= */
 #include <string>
+#include <microsim/MSRoute.h>
 #include <microsim/MSNet.h>
 
 /* =========================================================================
@@ -71,16 +75,19 @@ class MSEdge;
 class NLRoutesBuilder {
 private:
     /// the current route
-    MSNet::Route *m_pActiveRoute;
+    MSEdgeVector *m_pActiveRoute;
     /// the id of the current route
     std::string        m_ActiveId;
+    /** information wheter the route shall be kept after being passed
+        (otherwise it will be deleted) */
+    bool m_IsMultiReferenced;
 public:
     /// standard constructor
     NLRoutesBuilder();
     /// standard destructor
     ~NLRoutesBuilder();
     /// opens a route for the addition of edges
-    void openRoute(const std::string &id);
+    void openRoute(const std::string &id, bool multiReferenced);
     /// adds an edge to the route
     void addEdge(MSEdge *edge);
     /** closes (ends) the building of a route.
