@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.15  2003/05/21 16:20:44  dkrajzew
+// further work detectors
+//
 // Revision 1.14  2003/05/21 15:15:42  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -234,6 +237,8 @@ namespace
 #include "MSRouteLoaderControl.h"
 #include <helpers/PreStartInitialised.h>
 #include <utils/convert/ToString.h>
+#include "helpers/SingletonDictionary.h"
+#include "MSLaneState.h"
 
 
 /* =========================================================================
@@ -427,6 +432,9 @@ MSNet::simulate( ostream *craw, Time start, Time stop )
             << "<sumo-results>" << endl;
     }
 
+    laneStateDetectorsM = SingletonDictionary<
+        std::string, MSLaneState* >::getInstance()->getStdVector();
+
     // the simulation loop
     for ( myStep = start; myStep <= stop; ++myStep ) {
 		cout << myStep << (char) 13;
@@ -501,6 +509,12 @@ MSNet::simulationStep( ostream *craw, Time start, Time step )
         detec != myDetectors->end(); ++detec ) {
         ( *detec )->sample( simSeconds() );
     }
+    for( vector<MSLaneState*>::iterator it=laneStateDetectorsM.begin();
+         it != laneStateDetectorsM.end(); ++it ) {
+        ( *it )->calcWaitingQueueLength();
+    }
+
+
 
     // Check if mean-lane-data is due
     unsigned passedSteps = myStep - start + 1;

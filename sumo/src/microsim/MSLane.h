@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.11  2003/05/21 16:20:44  dkrajzew
+// further work detectors
+//
 // Revision 1.10  2003/05/21 15:15:41  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -193,6 +196,7 @@ class MSModel;
 class MSLaneChanger;
 class MSEmitter;
 class MSLink;
+class MSMoveReminder;
 
 
 /* =========================================================================
@@ -472,6 +476,10 @@ public:
         const VehCont::const_iterator &beginAt,
         double pos) const;
 
+    typedef std::vector< MSMoveReminder* > MoveReminderCont;
+    /// Add a move-reminder to move-reminder container
+    void addMoveReminder( MSMoveReminder* rem );
+    MoveReminderCont getMoveReminders( void );
 
 protected:
     /** @brief Function Object for use with Function Adapter on vehicle containers.
@@ -663,6 +671,7 @@ private:
     /// Assignment operator.
     MSLane& operator=( const MSLane& );
 
+    MoveReminderCont moveRemindersM;
 };
 
 

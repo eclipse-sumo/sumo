@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2003/05/21 16:20:44  dkrajzew
+// further work detectors
+//
 // Revision 1.6  2003/05/21 15:15:41  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -170,8 +173,8 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::sproutDetectors(const st
         }
         double lspos = length - lslen;
         // Build the lane state detetcor and set it into the container
-        _TLaneState *loop = new _TLaneState( "", lane, lspos,
-            lslen, laneStateDetectorInterval, MSDetector::CSV, 0);
+        MSLaneState* loop = new MSLaneState( "", lane, lspos,
+            lslen, laneStateDetectorInterval, MSLaneState::CSV, 0);
         myLaneStates[lane] = loop;
     }
 }
@@ -289,9 +292,9 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::getDetectorList() const
     for(typename InductLoopMap::const_iterator i=myInductLoops.begin(); i!=myInductLoops.end(); i++) {
         ret.push_back((*i).second);
     }
-    for(typename LaneStateMap::const_iterator j=myLaneStates.begin(); j!=myLaneStates.end(); j++) {
-        ret.push_back((*j).second);
-    }
+//     for(typename LaneStateMap::const_iterator j=myLaneStates.begin(); j!=myLaneStates.end(); j++) {
+//         ret.push_back((*j).second);
+//     }
     return ret;
 }
 

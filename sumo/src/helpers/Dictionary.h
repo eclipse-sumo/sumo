@@ -1,0 +1,292 @@
+#ifndef Dictionary_H
+#define Dictionary_H
+
+/**
+ * @file   Dictionary.h
+ * @author Christian Roessel
+ * @date   Wed May  7 12:46:55 2003
+ * @version Revision $Revision$ from $Date$ by $Author$
+ *
+ * @brief
+ *
+ *
+ */
+
+// $Log$
+// Revision 1.1  2003/05/21 16:21:45  dkrajzew
+// further work detectors
+//
+
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif // HAVE_CONFIG_H
+
+#include <map>
+//#include <utility>
+#include <vector>
+
+/**
+ * @class Dictionary for storing key-value pairs.
+ * The difference to a std::map is that this class has an INSERT and a FIND
+ * operation mode which cannot be mixed. On construction the mode is set
+ * to insert until setFindMode() is called. During INSERT you can call
+ * only the methods isInsertSuccess() and
+ * setFindMode(). During FIND the methods getStdVector(), getValue()
+ * and the dtor are allowed.
+ * @note If you store pointers as Value, the object they are pointing to
+ * is not deleted during the dtor call.
+ *
+ */
+template< typename Key, typename Value >
+class Dictionary
+{
+public:    // public methods
+
+    /// Destructor. If you are storing pointers you should delete them
+    /**
+     * Destructor.
+     * @note If you are storing pointers you need to delete them seperately.
+     * E.g. get the pointers with getStdVector() and delete them in a loop.
+     * @see getStdVector()
+     *
+     */
+    ~Dictionary( void )
+        {
+            assert( operationModeM == FIND );
+            mapM.clear();
+        }
+    /// Constructor
+    Dictionary()
+        {
+            operationModeM = INSERT;
+        }
+
+    bool isInsertSuccess( Key aKey, Value aValue )
+        {
+            assert( operationModeM == INSERT );
+            return mapM.insert( std::make_pair( aKey, aValue ) ).second;
+        }
+
+    void setFindMode( void )
+        {
+            assert( operationModeM == INSERT );
+            operationModeM = FIND;
+        }
+
+    std::vector< Value > getStdVector()
+        {
+            assert( operationModeM == FIND );
+            std::vector< Value > vec;
+            vec.reserve( mapM.size() );
+            for ( MapIt it = mapM.begin(); it != mapM.end(); ++it ) {
+                vec.push_back( it->second );
+            }
+            return vec;
+        }
+
+    Value getValue( Key aKey )
+        {
+            assert( operationModeM == FIND );
+            MapIt it = mapM.find( aKey );
+            if ( it != mapM.end() ) {
+                return it->second;
+            }
+            else {
+                return 0;
+            }
+        }
+
+
+private:   // private methods
+
+    /// Not implemented copy-constructor
+    Dictionary( const Dictionary& );
+    /// Not implemented assignment-operator
+    Dictionary& operator=( const Dictionary& );
+
+protected: // protected members
+    std::map< Key, Value > mapM; /**< Map to store the key-value pairs. */
+
+    /// The type of an interator to the key-value pair map (for brevity)
+    typedef typename std::map< Key, Value >::iterator MapIt;
+
+    /// Modes of operation are defined here.
+    enum Mode {
+        INSERT = 0,             /**< Insert-mode for inserting key-value pairs
+                                 * until mode is switched by setFindMode()  */
+        FIND                    /**< Find-mode is used after finishing insertion. */
+    };
+
+    /**
+     * Current mode of operation. Is set to INSERT by ctor and once switched to
+     * FIND when insertion is finished.
+     *
+     * @see Mode
+     * @see setFindMode()
+     */
+    Mode operationModeM;
+
+};
+
+
+// Here I tried to do a specialization for all pointer types, but I failed
+// on the casts in getStdVector and the dtor (deleting of void* is undefined).
+// Why was there a need for specialization?
+// 1. Avoiding code-bloat
+// 2. I wanted the pointers in the map to be deleted on deletion of the
+//    Dictionary.
+// It worked except of the deletion and the getStdVector, which indeed is a
+// useful method.
+
+// template< typename Key >
+// class Dictionary< Key, void* >
+// {
+// public:
+//     /// Destructor.
+//     ~Dictionary( void )
+//         {
+//             cout << "dtor class Dictionary< Key, void* >" << endl;
+
+// //             assert( operationModeM == FIND );
+// //             for ( MapIt it = mapM.begin(); it != mapM.end(); ++it ) {
+// //                 delete it->second;
+// //             }
+//             mapM.clear();
+//         }
+//     /// Constructor
+//     Dictionary( void )
+//         {
+//             operationModeM = INSERT;
+//         }
+
+//     bool isInsertSuccess( Key aKey, void* aValue )
+//         {
+//             assert( operationModeM == INSERT );
+//             return mapM.insert( std::make_pair( aKey, aValue ) ).second;
+//         }
+
+//     void setFindMode( void )
+//         {
+//             assert( operationModeM == INSERT );
+//             operationModeM = FIND;
+//         }
+
+//     std::vector< void* > getStdVector()
+//         {
+//             assert( operationModeM == FIND );
+//             std::vector< void* > vec;
+//             vec.reserve( mapM.size() );
+//             for ( MapIt it = mapM.begin(); it != mapM.end(); ++it ) {
+//                 vec.push_back( it->second );
+//             }
+//             return vec;
+//         }
+
+//     void* getValue( Key aKey )
+//         {
+//             assert( operationModeM == FIND );
+//             MapIt it = mapM.find( aKey );
+//             if ( it != mapM.end() ) {
+//                 return it->second;
+//             }
+//             else {
+//                 return 0;
+//             }
+//         }
+
+// private:   // private methods
+
+//     /// Not implemented copy-constructor
+//     Dictionary( const Dictionary& );
+//     /// Not implemented assignment-operator
+//     Dictionary& operator=( const Dictionary& );
+
+// protected: // protected members
+//     std::map< Key, void* > mapM; /**< Map to store the key-value pairs. */
+
+//     /// The type of an interator to the key-value pair map (for brevity)
+//     typedef typename std::map< Key, void* >::iterator MapIt;
+
+//     /// Modes of operation are defined here.
+//     enum Mode {
+//         INSERT = 0,             /**< Insert-mode for inserting key-value pairs
+//                                  * until mode is switched by setFindMode()  */
+//         FIND                    /**< Find-mode is used after finishing insertion. */
+//     };
+
+//     /**
+//      * Current mode of operation. Is set to INSERT by ctor and once switched to
+//      * FIND when insertion is finished.
+//      *
+//      * @see Mode
+//      * @see setFindMode()
+//      */
+//     Mode operationModeM;
+// };
+
+
+
+// template< typename Key, typename Value >
+// class Dictionary< Key, Value* > : private Dictionary< Key, void* >
+// {
+// public:
+//     typedef Dictionary< Key, void* > Base;
+
+//     ~Dictionary( void )
+//         {
+//             //std::vector< Value*, std::allocator< Value* > > values = getStdVector();
+
+
+
+//         }
+//     Dictionary( void ) : Base()
+//         {
+//         }
+//     bool isInsertSuccess( Key aKey, Value* aValue )
+//         {
+//             return Base::isInsertSuccess( aKey, static_cast<void*>( aValue ) );
+//         }
+//     void setFindMode( void )
+//         {
+//             Base::setFindMode();
+//         }
+//     std::vector< Value* > getStdVector()
+//         {
+//  //            typedef Value* _Tp;
+// //             typedef std::allocator< Value* > _Alloc;
+// //             return static_cast< std::vector(
+// //                 //std::_Vector_base<_Tp, _Alloc>::allocator_type& =
+// //                 std::_Vector_base<_Tp, _Alloc>::allocator_type() ) >
+// //                 ( Base::getStdVector() ) ;
+//         }
+//     Value* getValue( Key aKey )
+//         {
+//             return static_cast< Value* >( Base::getValue( aKey ) );
+//         }
+
+// };
+
+
+
+// Local Variables:
+// mode:C++
+// End:
+
+#endif // Dictionary_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -756,9 +756,9 @@ NLNetHandler::closeTrafficLightLogic() {
         // !!! replacement within the dictionary
         m_ActiveSimplePhases.clear();
     } else {
-        MSActuatedTrafficLightLogic<MSInductLoop<LoggedValue_TimeFloating<double> >, MSLaneState<LoggedValue_TimeFloating<double> > >
+        MSActuatedTrafficLightLogic<MSInductLoop<LoggedValue_TimeFloating<double> >, MSLaneState  >
             *tlLogic =
-            new MSActuatedTrafficLightLogic<MSInductLoop<LoggedValue_TimeFloating<double> >, MSLaneState<LoggedValue_TimeFloating<double> > > (
+            new MSActuatedTrafficLightLogic<MSInductLoop<LoggedValue_TimeFloating<double> >, MSLaneState > (
                     m_Key, m_ActiveActuatedPhases, 0,
                     myContainer.getInLanes());
         myContainer.addDetectors(tlLogic->getDetectorList());

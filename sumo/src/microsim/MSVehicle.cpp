@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2003/05/21 16:20:45  dkrajzew
+// further work detectors
+//
 // Revision 1.19  2003/05/21 15:15:42  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -281,6 +284,7 @@ namespace
 #include <cmath>
 #include <cstdlib>
 #include <algorithm>
+#include "MSMoveReminder.h"
 
 
 /* =========================================================================
@@ -414,7 +418,8 @@ MSVehicle::MSVehicle( string id,
     myType(type),
 //      myMeanData( 3 ),
     myMeanData( noMeanData ),
-    myLane( 0 )
+    myLane( 0 ),
+    myMoveReminders( 0 )
 {
     myCurrEdge = myRoute->begin();
     myAllowedLanes = ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );
@@ -749,6 +754,9 @@ MSVehicle::move( MSLane* lane,
     }
 
 
+    // call reminders after vNext is set
+    workOnMoveReminders( myState.myPos,
+                         myState.myPos + vNext * MSNet::deltaT(), vNext );
     // update position and speed
     myState.myPos  += vNext * MSNet::deltaT();
     assert( myState.myPos < lane->length() );
@@ -869,6 +877,10 @@ MSVehicle::moveFirstChecked()
     //  approach on the following lanes when a lane changing is performed
     bool approachAllowed = false;
     bool approachInformationReached = false;
+
+    // call reminders after vNext is set
+    workOnMoveReminders( myState.myPos,
+                         myState.myPos + vNext * MSNet::deltaT(), vNext );
     // update position
     myState.myPos += vNext * MSNet::deltaT();
     myTarget = myLane;
@@ -1410,6 +1422,9 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane )
         static_cast< double >( MSNet::getInstance()->timestep() ) -
         myState.myPos / myState.mySpeed;
     updateMeanData( entryTimestep, 0, myState.mySpeed );
+    // switch the reminders and work on them
+    myMoveReminders = enteredLane->getMoveReminders();
+    workOnMoveReminders( 0.0, myState.pos(), myState.speed() );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1421,6 +1436,12 @@ MSVehicle::enterLaneAtLaneChange( MSLane* enteredLane )
     myLane = enteredLane;
     updateMeanData( static_cast< double >( MSNet::getInstance()->timestep() ),
                     myState.myPos, 0 );
+    // switch to and activate the new lane's reminders
+    myMoveReminders = enteredLane->getMoveReminders();
+    for ( vector< MSMoveReminder* >::iterator rem = myMoveReminders.begin();
+          rem != myMoveReminders.end(); ++rem ){
+        (*rem)->activateByEmitOrLaneChange( *this );
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1432,6 +1453,12 @@ MSVehicle::enterLaneAtEmit( MSLane* enteredLane )
     myLane = enteredLane;
     updateMeanData( static_cast< double >( MSNet::getInstance()->timestep() ),
                     myState.myPos, myState.mySpeed );
+    // switch to and activate the new lane's reminders
+    myMoveReminders = enteredLane->getMoveReminders();
+    for ( vector< MSMoveReminder* >::iterator rem = myMoveReminders.begin();
+          rem != myMoveReminders.end(); ++rem ){
+        (*rem)->activateByEmitOrLaneChange( *this );
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1520,6 +1547,11 @@ MSVehicle::leaveLaneAtLaneChange( void )
                                 false,
                                 false,
                                 md.enteredLaneWithinIntervall );
+    }
+    // dismiss the old lane's reminders
+    for ( vector< MSMoveReminder* >::iterator rem = myMoveReminders.begin();
+          rem != myMoveReminders.end(); ++rem ){
+        (*rem)->dismissByLaneChange( *this );
     }
 }
 
@@ -1640,6 +1672,21 @@ MSVehicle::getSecureGap( const MSLane &lane, const MSVehicle &pred ) const
     safeSpace += accelAbility();
     return safeSpace;
 
+}
+
+void
+MSVehicle::workOnMoveReminders( double oldPos, double newPos, double newSpeed )
+{
+    vector< int > removeIndices;
+    for ( int i = 0; i < myMoveReminders.size(); ++i ) {
+        if ( ! myMoveReminders[i]->isStillActive(
+                 *this, oldPos, newPos, newSpeed ) ) {
+            removeIndices.push_back( i );
+        }
+    }
+    for ( int j = removeIndices.size() - 1; j >= 0; --j ) {
+        myMoveReminders.erase( myMoveReminders.begin() + removeIndices[j] );
+    }
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

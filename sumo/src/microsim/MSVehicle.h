@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.14  2003/05/21 16:20:45  dkrajzew
+// further work detectors
+//
 // Revision 1.13  2003/05/20 09:31:46  dkrajzew
 // emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
 //
@@ -206,6 +209,7 @@ extern long myvehicles;
  * ======================================================================= */
 class MSLane;
 class MSVehicleType;
+class MSMoveReminder;
 
 
 /* =========================================================================
@@ -766,6 +770,10 @@ private:
 
 	double myVLinkPass;
 	double myVLinkWait;
+
+    std::vector< MSMoveReminder* > myMoveReminders;
+
+    void workOnMoveReminders( double oldPos, double newPos, double newSpeed );
 };
 
 

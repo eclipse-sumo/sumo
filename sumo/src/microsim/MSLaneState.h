@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.5  2003/05/21 16:20:44  dkrajzew
+// further work detectors
+//
 // Revision 1.4  2003/04/02 11:44:03  dkrajzew
 // continuation of implementation of actuated traffic lights
 //
@@ -41,10 +44,11 @@
 #include "MSNet.h"
 #include "MSVehicle.h"
 #include "MSLane.h"
-#include "MSDetector.h"
 #include <string>
+#include <fstream>
 #include <functional>
-
+#include <deque>
+#include <map>
 
 /* =========================================================================
  * class declarations
@@ -52,30 +56,68 @@
 /**
  * @class MSLaneState
  */
-template<class _T>
-class MSLaneState : public MSDetector
+
+class MSMoveReminder;
+
+
+class MSLaneState
 {
 public:
+    /** We support two output-styles, gnuplot and "Comma Separated Variable"
+        (CSV). */
+    enum OutputStyle { GNUPLOT, CSV };
 
     /** Constructor: InductLoop detects on lane at position pos. He collects
         during samplIntervall seconds data and writes them in style to file.
      */
-    MSLaneState( std::string    id,
+    MSLaneState( std::string     id,
                   MSLane*        lane,
                   double         begin,
                   double         length,
                   MSNet::Time    sampleIntervall,
-                  MSDetector::OutputStyle style,
+                  OutputStyle    style,
                   std::ofstream* file );
 
     /// Destructor.
     ~MSLaneState();
 
-    /// Call sample every timestep to update the detector.
-    void sample( double currSimSeconds );
+    /**
+     * Calculates the meanValue of the waiting-queue length during the
+     * lastNTimesteps. Vehicles in a waiting-queue have a gap <= vehLength.
+     *
+     * @param lastNTimesteps consider data out of the intervall
+     * [now-lastNTimesteps, now]
+     *
+     * @return mean waiting-queue length
+     */
+    int getNumberOfWaiting( MSNet::Time lastNTimesteps );
 
-    /// Returns the number of waiting vehicles on the LaneStateDetector starting from the end of the Detector
-    int numberOfWaiting();
+    int getCurrentNumberOfWaiting( void );
+
+    double getMeanSpeed( MSNet::Time lastNTimesteps );
+
+    double getCurrentMeanSpeed( void );
+
+    double getMeanSpeedSquare( MSNet::Time lastNTimesteps );
+
+    double getCurrentMeanSpeedSquare( void );
+
+    double getMeanDensity( MSNet::Time lastNTimesteps );
+
+    double getMeanTraveltime( MSNet::Time lastNTimesteps );
+
+
+    void addMoveData( MSVehicle& veh, double timestepFraction );
+
+    void enterDetectorByMove( MSVehicle& veh, double enterTimestepFraction );
+
+    void enterDetectorByEmitOrLaneChange( MSVehicle& veh );
+
+    void leaveDetectorByMove( MSVehicle& veh, double leaveTimestepFraction );
+
+    void leaveDetectorByLaneChange( MSVehicle& veh );
+
+    void calcWaitingQueueLength( void );
 
     /** Function-object in order to find the vehicle, that has just
         passed the detector. */
@@ -89,76 +131,148 @@ public:
     };
 
 protected:
-    /// Write the data according to OutputStyle when the sampleIntervall is over.
-    void writeData();
+    /// Write the data according to OutputStyle when the sampleIntervall
+    /// is over.
+    MSNet::Time writeData();
 
     /// Write in gnuplot-style to myFile.
     void writeGnuPlot( MSNet::Time endOfInterv,
                        double avgDensity,
-                       double avgFlow,
                        double avgSpeed,
-                       double Occup,
-                       double avgLength );
+                       double avgSpeedSquare,
+                       double avgTraveltime,
+                       int avgNumberOfWaiting );
 
     /// Write in CSV-style to myFile.
     void writeCSV( MSNet::Time endOfInterv,
                    double avgDensity,
-                   double avgFlow,
                    double avgSpeed,
-                   double Occup,
-                   double avgLength );
+                   double avgSpeedSquare,
+                   double avgTraveltime,
+                   int avgNumberOfWaiting );
+
+
+    struct TimestepData
+    {
+        TimestepData() :
+            speedSumM(0),
+            speedSquareSumM(0),
+            contTimestepSumM(0),
+            timestepSumM(0),
+            queueLengthM(0)
+            {}
+
+        MSNet::Time timestepM;
+        double speedSumM;
+        double speedSquareSumM;
+        double contTimestepSumM;
+        int timestepSumM;
+        int queueLengthM;
+    };
+
+    struct VehicleData
+    {
+        VehicleData( double entryContTimestep,
+                     bool enteredDetectorByMove ) :
+            entryContTimestepM ( entryContTimestep ),
+            leaveContTimestepM ( -1 ),
+            entireDetectorM ( enteredDetectorByMove )
+            {}
+
+        double entryContTimestepM;
+        double leaveContTimestepM;
+        bool entireDetectorM;
+    };
+
+    struct WaitingQueueElem
+    {
+        WaitingQueueElem( double pos, double vehLength ) :
+            posM( pos ), vehLengthM( vehLength )
+            {}
+
+        double posM;
+        double vehLengthM;
+    };
 
 private:
+    std::string idM;
+
+    OutputStyle styleM;
+
+    /// File where output goes to.
+    std::ofstream* fileM;
+
+    std::deque< TimestepData > timestepDataM;
+    std::map< std::string, VehicleData > vehicleDataM;
+    std::vector< WaitingQueueElem > waitingQueueElemsM;
+    std::deque< VehicleData > vehLeftLaneM;
+
+    struct WaitingQueuePos : public std::binary_function<
+        const WaitingQueueElem, const WaitingQueueElem, bool >
+    {
+        // Sort criterion for std::vector< WaitingQueueElem >
+        // We sort in descending order
+        bool operator() ( const WaitingQueueElem p1,
+                          const WaitingQueueElem p2 ) const {
+            return p1.posM > p2.posM;
+        }
+    };
+
     /// Lane where detector works on.
-    MSLane* myLane;
+    MSLane* laneM;
 
     /// The begin on the lane
-    double myPos;
+    double posM;
 
     /// The length on the lane
-    double myLength;
-
-    /// Sample-intervall in seconds.
-    MSNet::Time mySampleIntervall;
-
-    /// Last vehicle that passed the detector.
-    MSVehicle* myPassedVeh;
-
-    /// Speed of the last vehicle, that has passed the detector.
-    double myPassingSpeed;
-
-    /// Time when last vehicle has passed the detector.
-    double myPassingTime;
-
-    /// Number of finished sampleIntervalls.
-    unsigned myNSamples;
-
-    /** Number of vehicles which have already passed the detector */
-    _T myVehicleNo;
-
-    /// local-densities sampled
-    _T myLocalDensity;
-
-    /// Speeds sampled
-    _T mySpeed;
-
-    /// Occupancy-times sampled
-    _T myOccup;
-
-    /// Veh-lengths
-    _T myVehLengths;
-
-    /// The number of vehicles which are slower than 0.1 m/s
-    _T myNoSlow;
+    double lengthM;
 
     /// Number of already processed sampleIntervalls
-    unsigned myNIntervalls;
+    unsigned nIntervallsM;
 
-    /** @brief The information in which time step the detector was asked the last time
-        Needed to reduce the update frequency of the iterators */
-    MSNet::Time myLastUpdateTime;
+    MSNet::Time sampleIntervalM;
 
-private:
+    bool createdCurrentTimestepDataM;
+
+    MSMoveReminder* reminderM;
+
+//     /// Number of finished sampleIntervalls.
+//     unsigned myNSamples;
+
+//     /// Sample-intervall in seconds.
+//     MSNet::Time mySampleIntervall;
+
+//     /// Last vehicle that passed the detector.
+//     MSVehicle* myPassedVeh;
+
+//     /// Speed of the last vehicle, that has passed the detector.
+//     double myPassingSpeed;
+
+//     /// Time when last vehicle has passed the detector.
+//     double myPassingTime;
+
+//     /** Number of vehicles which have already passed the detector */
+//     _T myVehicleNo;
+
+//     /// local-densities sampled
+//     _T myLocalDensity;
+
+//     /// Speeds sampled
+//     _T mySpeed;
+
+//     /// Occupancy-times sampled
+//     _T myOccup;
+
+//     /// Veh-lengths
+//     _T myVehLengths;
+
+//     /// The number of vehicles which are slower than 0.1 m/s
+//     _T myNoSlow;
+
+//     /** @brief The information in which time step the detector was asked the last time
+//         Needed to reduce the update frequency of the iterators */
+//     MSNet::Time myLastUpdateTime;
+
     /// Default constructor.
     MSLaneState();
 
@@ -169,18 +283,6 @@ private:
     MSLaneState& operator=( const MSLaneState& );
 };
 
-
-#ifndef EXTERNAL_TEMPLATE_DEFINITION
-#ifndef MSVC
-#include "MSLaneState.cpp"
-#endif
-#endif // EXTERNAL_TEMPLATE_DEFINITION
-
-//----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
-
-//#ifndef DISABLE_INLINE
-//#include "MSLaneState.icc"
-//#endif
 
 #endif
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/05/21 16:20:44  dkrajzew
+// further work detectors
+//
 // Revision 1.5  2003/05/21 15:15:41  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -128,8 +131,8 @@ public:
     typedef std::map<MSLane*, _TInductLoop*> InductLoopMap;
 
     /// Definition of a map from lanes to lane state detectors lying on them
-    typedef std::map<MSLane*, _TLaneState*> LaneStateMap;
-
+//     typedef std::map<MSLane*, _TLaneState*> LaneStateMap;
+    typedef std::map<MSLane*, MSLaneState*> LaneStateMap;
 public:
     /// constructor
     MSActuatedTrafficLightLogic(const std::string &id, const ActuatedPhases &phases,

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.13  2003/05/21 16:20:44  dkrajzew
+// further work detectors
+//
 // Revision 1.12  2003/05/21 15:15:42  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -187,6 +190,7 @@ class MSVehicle;
 class MSRoute;
 class MSVehicleType;
 class MSLane;
+class MSLaneState;
 
 
 /* =========================================================================
@@ -203,6 +207,12 @@ class MSNet
     friend class GUINet;
 
 public:
+    MSEventControl* getEventControl()
+        {
+            return myEvents;
+        }
+
+
     /** Get a pointer to the unique instance of MSNet (singleton).
      * @return Pointer to the unique MSNet-instance.
      */
@@ -428,6 +438,7 @@ private:
 
 	size_t myEndedVehNo;
 
+    std::vector< MSLaneState* > laneStateDetectorsM;
 };
 
 

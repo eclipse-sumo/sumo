@@ -24,8 +24,8 @@ namespace
 }
 */
 // $Log$
-// Revision 1.6  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+// Revision 1.7  2003/05/21 16:20:44  dkrajzew
+// further work detectors
 //
 // Revision 1.5  2003/04/04 15:29:09  roessel
 // Reduced myLastUpdateTime (7457467564) to myLastUpdateTime (745746756) due to compiler warnings (number too long for unsigned long)
@@ -55,6 +55,10 @@ namespace
 #include "MSLane.h"
 #include "MSEdge.h"
 #include "MSNet.h"
+#include "MSEventControl.h"
+#include "MSLaneStateReminder.h"
+#include "../helpers/SimpleCommand.h"
+#include "../helpers/SingletonDictionary.h"
 #include <sstream>
 #include <algorithm>
 #include <iomanip>
@@ -71,60 +75,83 @@ using namespace std;
 /* =========================================================================
  * member definitions
  * ======================================================================= */
-template<class _T>
-MSLaneState<_T>::~MSLaneState<_T>()
+
+MSLaneState::~MSLaneState()
 {
+    timestepDataM.clear();
+    vehicleDataM.clear();
+    waitingQueueElemsM.clear();
+    vehLeftLaneM.clear();
+    delete reminderM;
 }
 
 //---------------------------------------------------------------------------//
 
-template<class _T>
-MSLaneState<_T>::MSLaneState<_T>(string id, MSLane* lane, double begin,
-                         double length, MSNet::Time sampleInterval,
-                         MSDetector::OutputStyle style,
-                         ofstream *file )
-    : MSDetector( id, style, file ),
-    myLane           ( lane ),
-    myPos            ( begin ),
-    myLength(length),
-    mySampleIntervall( sampleInterval ),
-    myPassedVeh      ( 0 ),
-    myPassingSpeed   ( 0 ),
-    myPassingTime    ( 0 ),
-    myNSamples       ( 0 ),
-    myVehicleNo     ( sampleInterval ),
-    myLocalDensity( sampleInterval ),
-    mySpeed( sampleInterval ),
-    myOccup( sampleInterval ),
-    myVehLengths( sampleInterval ),
-    myNoSlow( sampleInterval ),
-	myNIntervalls( 0 ),
-    myLastUpdateTime (745746756) // just "to make sure", it is updated within the first call
+MSLaneState::MSLaneState( string id,
+                          MSLane* lane,
+                          double begin,
+                          double length,
+                          MSNet::Time sampleInterval,
+                          OutputStyle style,
+                          ofstream *file ) :
+    idM             ( id ),
+    styleM          ( style ),
+    fileM           ( file ),
+    timestepDataM   ( 0 ),
+    vehicleDataM    ( ),
+    waitingQueueElemsM( ),
+    laneM           ( lane ),
+    posM            ( begin ),
+    lengthM         ( length ),
+    nIntervallsM    ( 0 ),
+    sampleIntervalM ( sampleInterval ),
+    createdCurrentTimestepDataM( false )
 {
-    // Make sure that vehicles will be detected even at lane-end.
-//    assert( myPos < myLane->length() - myLane->maxSpeed() * MSNet::deltaT() );
-    assert( myPos >= 0 );
+    assert( posM >= 0 );
+    assert( posM <= laneM->length() );
+    assert( posM + lengthM <= laneM->length() );
 
-    // return when just a part of a logic (no file)
+    // insert object into dictionary
+    if ( ! SingletonDictionary<
+         std::string, MSLaneState* >::getInstance()->isInsertSuccess(
+             idM, this ) ) {
+        assert( false );
+    }
+
+    // add reminder to lane
+    MSMoveReminder* reminderM =
+        new MSLaneStateReminder( posM, posM + lengthM, *this );
+    laneM->addMoveReminder( reminderM );
+
+    // return when just a part of a junction-logic (no file)
     if(file==0) {
         return;
     }
+
+    // start file-output through MSEventControl
+    Command* writeData = new SimpleCommand< MSLaneState >(
+        this, &MSLaneState::writeData );
+    MSNet::getInstance()->getEventControl()->addEvent(
+        writeData,
+        sampleIntervalM,
+        MSEventControl::ADAPT_AFTER_EXECUTION );
+
     // Write header.
-    switch ( myStyle ) {
+    switch ( styleM ) {
         case GNUPLOT:
         {
             ostringstream header;
-            header << "# Lane-state-detector ID = " << myID << endl;
-            header << "#   on Lane     " << myLane->id() << endl;
-            header << "#   at position " << myPos << endl;
+            header << "# Lane-state-detector ID = " << idM << endl;
+            header << "#   on Lane     " << laneM->id() << endl;
+            header << "#   at position " << posM << endl;
             header << "#   sampleIntervall = "
-                   << mySampleIntervall << " seconds" << endl << endl;
+                   << sampleIntervalM << " seconds" << endl << endl;
             header << "# n   endOfInterv nVehicles avgDensity avgFlow "
                    << "avgSpeed avgOccup avgLength" << endl;
             header << "#         [s]                [veh/km]  [veh/h] "
                    << " [m/s]     [s]       [m]" << endl;
 
-            *myFile << header.str() << endl;
+            *fileM << header.str() << endl;
             break;
         }
         case CSV:
@@ -137,217 +164,354 @@ MSLaneState<_T>::MSLaneState<_T>(string id, MSLane* lane, double begin,
 
 //---------------------------------------------------------------------------//
 
-template<class _T>
-void
-MSLaneState<_T>::sample( double simSec )
-{
 
-    // If sampleIntervall is over, write the data to file and reset the
-    // detector.
-    ++myNSamples;
-    if ( static_cast< double >( myNSamples ) * MSNet::deltaT() >=
-         mySampleIntervall ) {
-		myNSamples = 0;
-        ++myNIntervalls;
-        if(myFile!=0) {
-            writeData();
-        }
-    }
-
-    const MSLane::VehCont &vehs = myLane->getVehiclesSecure();
-    MSLane::VehCont::const_iterator firstVehicle;
-    if ( myLane->empty() ) {
-        // no vehicles on lane
-        firstVehicle = vehs.end();
-    } else {
-        // find the vehicle
-        firstVehicle = find_if( vehs.begin(), vehs.end(),
-            bind2nd( MSLane::VehPosition(), myPos ) );
-    }
-    // update interval with zero if no vehicle is on the loop
-    if(firstVehicle==vehs.end()) {
-        // no vehicle was found
-        myVehicleNo.add(0);
-        myLocalDensity.add(0);
-        mySpeed.add(0);
-        myOccup.add(0);
-        myVehLengths.add(0);
-        myNoSlow.add(0);
-        return;
-    }
-    // We have now a valid beyond the detector.
-    MSLane::VehCont::const_iterator lastVehicle =
-        find_if( firstVehicle, vehs.end(),
-            bind2nd( MSLane::VehPosition(), myPos+myLength ) );
-    // go through the vehicles and compute the values
-    size_t noVehicles = distance(firstVehicle, lastVehicle);
-    double speeds = 0;
-    double lengths = 0;
-    size_t noSlow = 0;
-    for(MSLane::VehCont::const_iterator i=firstVehicle; i!=lastVehicle; i++) {
-        MSVehicle *veh = *i;
-        double speed = veh->speed();
-        speeds += speed;
-        if(speed<0.1) {
-            noSlow++;
-        }
-        lengths += veh->length();
-    }
-    // update values
-    myNoSlow.add(noSlow);
-    myVehicleNo.add(noVehicles);
-    mySpeed.add(speeds / (double) noVehicles);
-    myVehLengths.add(lengths / (double) noVehicles);
-    if(speeds!=0) {
-        myOccup.add( lengths / speeds );
-    } else {
-        myOccup.add( lengths / 0.000001 );
-    }
-    // this is just an approximation; The first and te last vehicles
-    //  should compete only for the amount of time they are within the
-    //  field
-    myLocalDensity.add( 1.0 - ((myLength - lengths) / myLength) );
-}
 
 //---------------------------------------------------------------------------//
 
-template<class _T>
 int
-MSLaneState<_T>::numberOfWaiting()
+MSLaneState::getNumberOfWaiting( MSNet::Time lastNTimesteps )
 {
-    const MSLane::VehCont &vehs = myLane->getVehiclesSecure();
-    if (vehs.size()==0)  {
-        return 0;
-    }
+//     const MSLane::VehCont &vehs = myLane->getVehiclesSecure();
+//     if (vehs.size()==0)  {
+//         return 0;
+//     }
 
-    int waiting = 0;
-    double lastpos = myPos+myLength;
-    for (MSLane::VehCont::const_iterator currVeh=vehs.end()-1; currVeh!=vehs.begin();currVeh--)   {
-        double aktpos = (*currVeh)->pos();
-        double delta = lastpos - aktpos;
-        // define the maximum rear-to-front-distance
-        double rtfd = 10;
-        double deltamax = (*currVeh)->length() + rtfd;
-        if (delta > deltamax) {
-            return waiting;
-        }
-        if (myPos > aktpos) {
-            return waiting;
-        }
-        waiting ++;
-        lastpos = aktpos;
-    }
-    return waiting;
+//     int waiting = 0;
+//     double lastpos = myPos+myLength;
+//     for (MSLane::VehCont::const_iterator currVeh=vehs.end()-1; currVeh!=vehs.begin();currVeh--)   {
+//         double aktpos = (*currVeh)->pos();
+//         double delta = lastpos - aktpos;
+//         // define the maximum rear-to-front-distance
+//         double rtfd = 10;
+//         double deltamax = (*currVeh)->length() + rtfd;
+//         if (delta > deltamax) {
+//             return waiting;
+//         }
+//         if (myPos > aktpos) {
+//             return waiting;
+//         }
+//         waiting ++;
+//         lastpos = aktpos;
+//     }
+//     return waiting;
 }
 
 
+int
+MSLaneState::getCurrentNumberOfWaiting( void )
+{}
 
-template<class _T>
+double
+MSLaneState::getMeanSpeed( MSNet::Time lastNTimesteps )
+{}
+
+double
+MSLaneState::getCurrentMeanSpeed( void )
+{}
+
+double
+MSLaneState::getMeanSpeedSquare( MSNet::Time lastNTimesteps )
+{}
+
+double
+MSLaneState::getCurrentMeanSpeedSquare( void )
+{}
+
+double
+MSLaneState::getMeanDensity( MSNet::Time lastNTimesteps )
+{}
+
+double
+MSLaneState::getMeanTraveltime( MSNet::Time lastNTimesteps )
+{}
+
 void
-MSLaneState<_T>::writeData()
+MSLaneState::addMoveData( MSVehicle& veh,
+                          double timestepFraction )
 {
-    double avgDensity = 0;
-    double avgFlow    = 0;
-    double avgSpeed   = 0;
-    double avgLength  = 0;
+    cout << "MSLaneState::addMoveData" << endl;
+    assert (timestepFraction >= 0);
+    assert (timestepFraction <= MSNet::deltaT() );
+    if ( ! createdCurrentTimestepDataM ) {
+        timestepDataM.push_back( TimestepData() );
+    }
+    // update timestepDataM
+    TimestepData data = timestepDataM.back();
+    data.speedSumM += veh.speed();
+    data.speedSquareSumM += veh.speed() * veh.speed();
+    data.contTimestepSumM += timestepFraction;
+    ++data.timestepSumM;
 
-    double NPassedVehicles = myVehicleNo.getAbs();
-    if ( NPassedVehicles > 0 ) {
+    // update waitingQueueElemsM
+    waitingQueueElemsM.push_back( WaitingQueueElem (veh.pos() , veh.length()));
+}
 
-        if ( NPassedVehicles > 1 ) {
+void
+MSLaneState::enterDetectorByMove( MSVehicle& veh,
+                                  double enterTimestepFraction )
+{
+    cout << "MSLaneState::enterDetectorByMove" << endl;
+    // update vehicleDataM
+    assert ( vehicleDataM.find( veh.id() ) == vehicleDataM.end() ) ;
+    vehicleDataM.insert(
+        make_pair( veh.id(), VehicleData(
+                       enterTimestepFraction +
+                       MSNet::getInstance()->timestep(),
+                       true )));
+}
 
-            avgDensity = myLocalDensity.getAbs() /
-                static_cast< double >( NPassedVehicles - 1 ) * 1000.0;
-            avgSpeed  = mySpeed.getAbs() /
-	            static_cast< double >( NPassedVehicles ); // [m/s]
-            avgLength = myVehLengths.getAbs() /
-	            static_cast< double >( NPassedVehicles ); // [m]
-	        // [veh/km], first detected vehicle doesn't
-	        // contribute.
-	        assert( avgDensity > 0 );
+
+void
+MSLaneState::enterDetectorByEmitOrLaneChange( MSVehicle& veh )
+{
+    assert ( vehicleDataM.find( veh.id() ) == vehicleDataM.end() ) ;
+    vehicleDataM.insert(
+        make_pair( veh.id(), VehicleData(
+                       MSNet::getInstance()->timestep(),
+                       false )));
+}
+
+
+void
+MSLaneState::leaveDetectorByMove( MSVehicle& veh,
+                                  double leaveTimestepFraction )
+{
+    cout << "MSLaneState::leaveDetectorByMove" << endl;
+    // finalize vehicleDataM
+    std::map< std::string, VehicleData >::iterator dataIt =
+        vehicleDataM.find( veh.id() );
+    assert ( dataIt != vehicleDataM.end() );
+    dataIt->second.leaveContTimestepM =
+        leaveTimestepFraction + MSNet::getInstance()->timestep();
+    if ( ! dataIt->second.entireDetectorM ) {
+        dataIt->second.entireDetectorM = false;
+    }
+    vehLeftLaneM.push_back( dataIt->second );
+    vehicleDataM.erase( dataIt );
+}
+
+void
+MSLaneState::leaveDetectorByLaneChange( MSVehicle& veh )
+{
+    cout << "MSLaneState::leaveDetectorByLaneChange" << endl;
+    // finalize vehicleData
+    std::map< std::string, VehicleData >::iterator dataIt =
+        vehicleDataM.find( veh.id() );
+    assert( dataIt != vehicleDataM.end() );
+    dataIt->second.leaveContTimestepM = MSNet::getInstance()->timestep();
+    dataIt->second.entireDetectorM = false;
+    vehLeftLaneM.push_back( dataIt->second );
+    vehicleDataM.erase( dataIt );
+}
+
+
+void
+MSLaneState::calcWaitingQueueLength( void )
+{
+    // sort entries
+    sort( waitingQueueElemsM.begin(), waitingQueueElemsM.end(),
+          WaitingQueuePos() );
+    int nVehQueuing = 0;
+    if (waitingQueueElemsM.size() > 0 ) {
+        std::vector<WaitingQueueElem>::iterator it =
+            waitingQueueElemsM.begin();
+        for (;;) {
+            if ( it+1 == waitingQueueElemsM.end() ) {
+                break;
+            }
+            if ( it->posM - it->vehLengthM - (it+1)->posM <
+                 (it+1)->vehLengthM ) {
+                ++nVehQueuing;
+                ++it;
+            }
+            else {
+                break;
+            }
         }
-
-        avgFlow   = static_cast< double >( NPassedVehicles ) /
-	        static_cast< double >( mySampleIntervall ) * 3600.0; // [veh/h]
+        // add nVehQueuing-value to current timestepDataM
+        timestepDataM.begin()->queueLengthM = nVehQueuing;
     }
+    cout << "MSLaneState::calcWaitingQueueLength only one veh on detector. Is it queueing???" << endl;
+    createdCurrentTimestepDataM = false;
+}
 
-    MSNet::Time endOfInterv = myNIntervalls * mySampleIntervall; // [s]
+MSNet::Time
+MSLaneState::writeData()
+{
+//     double avgDensity = 0;
+//     double avgFlow    = 0;
+//     double avgSpeed   = 0;
+//     double avgLength  = 0;
 
-    switch ( myStyle ) {
-        case GNUPLOT:
-            writeGnuPlot( endOfInterv,
-                          avgDensity,
-                          avgFlow,
-                          avgSpeed,
-                          myOccup.getAbs(),
-                          avgLength );
-            break;
-        case CSV:
-            writeCSV( endOfInterv,
-                      avgDensity,
-                      avgFlow,
-                      avgSpeed,
-                      myOccup.getAbs(),
-                      avgLength );
-            break;
-        default:
-            assert( true );
-    }
+//     double NPassedVehicles = myVehicleNo.getAbs();
+//     if ( NPassedVehicles > 0 ) {
+
+//         if ( NPassedVehicles > 1 ) {
+
+//             avgDensity = myLocalDensity.getAbs() /
+//                 static_cast< double >( NPassedVehicles - 1 ) * 1000.0;
+//             avgSpeed  = mySpeed.getAbs() /
+// 	            static_cast< double >( NPassedVehicles ); // [m/s]
+//             avgLength = myVehLengths.getAbs() /
+// 	            static_cast< double >( NPassedVehicles ); // [m]
+// 	        // [veh/km], first detected vehicle doesn't
+// 	        // contribute.
+// 	        assert( avgDensity > 0 );
+//         }
+
+//         avgFlow   = static_cast< double >( NPassedVehicles ) /
+// 	        static_cast< double >( mySampleIntervall ) * 3600.0; // [veh/h]
+//     }
+
+//     MSNet::Time endOfInterv = myNIntervalls * mySampleIntervall; // [s]
+
+//     switch ( myStyle ) {
+//         case GNUPLOT:
+//             writeGnuPlot( endOfInterv,
+//                           avgDensity,
+//                           avgFlow,
+//                           avgSpeed,
+//                           myOccup.getAbs(),
+//                           avgLength );
+//             break;
+//         case CSV:
+//             writeCSV( endOfInterv,
+//                       avgDensity,
+//                       avgFlow,
+//                       avgSpeed,
+//                       myOccup.getAbs(),
+//                       avgLength );
+//             break;
+//         default:
+//             assert( true );
+//     }
+
+
+    // loesche Daten die aelter sind als vorhalteintervall
+
+    return sampleIntervalM;
 }
 
 //---------------------------------------------------------------------------//
 
-template<class _T>
-void
-MSLaneState<_T>::writeGnuPlot( MSNet::Time endOfInterv,
-                            double avgDensity,
-                            double avgFlow,
-                            double avgSpeed,
-                            double occup,
-                            double avgLength )
-{
-    ( *myFile ).setf( ios::fixed, ios::floatfield );
-    *myFile << setw( 5 ) << setprecision( 0 ) << myNIntervalls << " "
-            << setw(11 ) << setprecision( 0 ) << endOfInterv << " "
-            << setw( 9 ) << setprecision( 0 ) << myVehicleNo.getAbs() << " "
-	    << setw(10 ) << setprecision( 2 ) << avgDensity << " "
-            << setw( 7 ) << setprecision( 1 ) << avgFlow << " "
-            << setw( 8 ) << setprecision( 3 ) << avgSpeed << " "
-            << setw( 8 ) << setprecision( 2 ) << occup << " "
-            << setw( 9 ) << setprecision( 3 ) << avgLength << endl;
-}
 
-//---------------------------------------------------------------------------//
-
-template<class _T>
 void
-MSLaneState<_T>::writeCSV( MSNet::Time endOfInterv,
-                        double avgDensity,
-                        double avgFlow,
-                        double avgSpeed,
-                        double occup,
-                        double avgLength )
+MSLaneState::writeGnuPlot( MSNet::Time endOfInterv,
+                           double avgDensity,
+                           double avgSpeed,
+                           double avgSpeedSquare,
+                           double avgTraveltime,
+                           int avgNumberOfWaiting )
 {
-    ( *myFile ).setf( ios::fixed, ios::floatfield );
-    *myFile << setw( 4 ) << setprecision( 0 ) << myNIntervalls << ";"
-            << setw( 6 ) << setprecision( 0 ) << endOfInterv << ";"
-            << setw( 5 ) << setprecision( 0 ) << myVehicleNo.getAbs() << ";"
-            << setw( 6 ) << setprecision( 2 ) << avgDensity << ";"
-            << setw( 4 ) << setprecision( 1 ) << avgFlow << ";"
-            << setw( 6 ) << setprecision( 3 ) << avgSpeed << ";"
-            << setw( 7 ) << setprecision( 2 ) << occup << ";"
-            << setw( 6 ) << setprecision( 3 ) << avgLength << endl;
+//     ( *myFile ).setf( ios::fixed, ios::floatfield );
+//     *myFile << setw( 5 ) << setprecision( 0 ) << myNIntervalls << " "
+//             << setw(11 ) << setprecision( 0 ) << endOfInterv << " "
+//             << setw( 9 ) << setprecision( 0 ) << myVehicleNo.getAbs() << " "
+// 	    << setw(10 ) << setprecision( 2 ) << avgDensity << " "
+//             << setw( 7 ) << setprecision( 1 ) << avgFlow << " "
+//             << setw( 8 ) << setprecision( 3 ) << avgSpeed << " "
+//             << setw( 8 ) << setprecision( 2 ) << occup << " "
+//             << setw( 9 ) << setprecision( 3 ) << avgLength << endl;
 }
 
 //---------------------------------------------------------------------------//
 
 
-//--------------- DO NOT DEFINE ANYTHING AFTER THIS POINT -------------------//
+void
+MSLaneState::writeCSV( MSNet::Time endOfInterv,
+                       double avgDensity,
+                       double avgSpeed,
+                       double avgSpeedSquare,
+                       double avgTraveltime,
+                       int avgNumberOfWaiting )
+{
+//     ( *myFile ).setf( ios::fixed, ios::floatfield );
+//     *myFile << setw( 4 ) << setprecision( 0 ) << myNIntervalls << ";"
+//             << setw( 6 ) << setprecision( 0 ) << endOfInterv << ";"
+//             << setw( 5 ) << setprecision( 0 ) << myVehicleNo.getAbs() << ";"
+//             << setw( 6 ) << setprecision( 2 ) << avgDensity << ";"
+//             << setw( 4 ) << setprecision( 1 ) << avgFlow << ";"
+//             << setw( 6 ) << setprecision( 3 ) << avgSpeed << ";"
+//             << setw( 7 ) << setprecision( 2 ) << occup << ";"
+//             << setw( 6 ) << setprecision( 3 ) << avgLength << endl;
+}
 
-//#ifdef DISABLE_INLINE
-//#include "MSLaneState.icc"
-//#endif
+//---------------------------------------------------------------------------//
+
+
 
 // Local Variables:
 // mode:C++
 // End:
+
+
+// void
+// MSLaneState::sample( double simSec )
+// {
+
+//     // If sampleIntervall is over, write the data to file and reset the
+//     // detector.
+//     ++myNSamples;
+//     if ( static_cast< double >( myNSamples ) * MSNet::deltaT() >=
+//          mySampleIntervall ) {
+// 		myNSamples = 0;
+//         ++myNIntervalls;
+//         if(myFile!=0) {
+//             writeData();
+//         }
+//     }
+
+//     const MSLane::VehCont &vehs = myLane->getVehiclesSecure();
+//     MSLane::VehCont::const_iterator firstVehicle;
+//     if ( myLane->empty() ) {
+//         // no vehicles on lane
+//         firstVehicle = vehs.end();
+//     } else {
+//         // find the vehicle
+//         firstVehicle = find_if( vehs.begin(), vehs.end(),
+//             bind2nd( MSLane::VehPosition(), myPos ) );
+//     }
+//     // update interval with zero if no vehicle is on the loop
+//     if(firstVehicle==vehs.end()) {
+//         // no vehicle was found
+//         myVehicleNo.add(0);
+//         myLocalDensity.add(0);
+//         mySpeed.add(0);
+//         myOccup.add(0);
+//         myVehLengths.add(0);
+//         myNoSlow.add(0);
+//         return;
+//     }
+//     // We have now a valid beyond the detector.
+//     MSLane::VehCont::const_iterator lastVehicle =
+//         find_if( firstVehicle, vehs.end(),
+//             bind2nd( MSLane::VehPosition(), myPos+myLength ) );
+//     // go through the vehicles and compute the values
+//     size_t noVehicles = distance(firstVehicle, lastVehicle);
+//     double speeds = 0;
+//     double lengths = 0;
+//     size_t noSlow = 0;
+//     for(MSLane::VehCont::const_iterator i=firstVehicle; i!=lastVehicle; i++) {
+//         MSVehicle *veh = *i;
+//         double speed = veh->speed();
+//         speeds += speed;
+//         if(speed<0.1) {
+//             noSlow++;
+//         }
+//         lengths += veh->length();
+//     }
+//     // update values
+//     myNoSlow.add(noSlow);
+//     myVehicleNo.add(noVehicles);
+//     mySpeed.add(speeds / (double) noVehicles);
+//     myVehLengths.add(lengths / (double) noVehicles);
+//     if(speeds!=0) {
+//         myOccup.add( lengths / speeds );
+//     } else {
+//         myOccup.add( lengths / 0.000001 );
+//     }
+//     // this is just an approximation; The first and te last vehicles
+//     //  should compete only for the amount of time they are within the
+//     //  field
+//     myLocalDensity.add( 1.0 - ((myLength - lengths) / myLength) );
+// }

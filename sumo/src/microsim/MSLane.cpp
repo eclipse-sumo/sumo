@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.17  2003/05/21 16:20:44  dkrajzew
+// further work detectors
+//
 // Revision 1.16  2003/05/21 15:15:41  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -1440,6 +1443,18 @@ MSLane::findPrevVehicleByPosition(const VehCont::const_iterator &beginAt,
     }
 }
 
+
+void
+MSLane::addMoveReminder( MSMoveReminder* rem )
+{
+    moveRemindersM.push_back( rem );
+}
+
+MSLane::MoveReminderCont
+MSLane::getMoveReminders( void )
+{
+    return moveRemindersM;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

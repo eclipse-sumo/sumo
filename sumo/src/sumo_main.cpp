@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/05/21 16:20:43  dkrajzew
+// further work detectors
+//
 // Revision 1.5  2003/05/20 09:54:45  dkrajzew
 // configuration files are no longer set as default
 //
@@ -106,7 +109,7 @@ namespace
  * included modules
  * ======================================================================= */
 #include <ctime>
-
+#include <string>
 #include <iostream>
 #include <fstream>
 #include <microsim/MSNet.h>
@@ -123,7 +126,8 @@ namespace
 #include <utils/xml/XMLSubSys.h>
 #include <sumo_only/SUMOFrame.h>
 #include "sumo_help.h"
-
+#include "helpers/SingletonDictionary.h"
+#include "microsim/MSLaneState.h"
 
 /* =========================================================================
  * used namespaces
@@ -227,6 +231,8 @@ load(OptionsCont &oc) {
 int
 main(int argc, char **argv)
 {
+    SingletonDictionary< std::string, MSLaneState* >::create();
+
     size_t rand_init = 1040208551;
 //    rand_init = time(0);
 //    cout << "Rand:" << rand_init << endl;
