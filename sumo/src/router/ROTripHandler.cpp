@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2003/11/20 13:11:17  dkrajzew
+// some work on the code style
+//
 // Revision 1.8  2003/07/30 09:26:33  dkrajzew
 // all vehicles, routes and vehicle types may now have specific colors
 //
@@ -48,14 +51,13 @@ namespace
 // updated
 //
 //
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <utils/xml/AttributesHandler.h>
 #include <utils/xml/GenericSAX2Handler.h>
@@ -75,8 +77,16 @@ namespace
 #include "ROCompleteRouteDef.h"
 #include "ROTypedRoutesLoader.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ROTripHandler::ROTripHandler(RONet &net,
                                      const std::string &fileName)
     : ROTypedXMLRoutesLoader(net, fileName)
@@ -89,8 +99,9 @@ ROTripHandler::~ROTripHandler()
 }
 
 
-void ROTripHandler::myStartElement(int element, const std::string &name,
-                                      const Attributes &attrs)
+void
+ROTripHandler::myStartElement(int element, const std::string &name,
+                              const Attributes &attrs)
 {
     if(element==SUMO_TAG_TRIPDEF) {
         // get the vehicle id, the edges, the speed and position and
@@ -139,7 +150,7 @@ ROTripHandler::getVehicleID(const Attributes &attrs)
 
 ROEdge *
 ROTripHandler::getEdge(const Attributes &attrs, const std::string &purpose,
-                           AttrEnum which, const string &vid)
+                       AttrEnum which, const string &vid)
 {
     ROEdge *e = 0;
     string id;
@@ -173,10 +184,11 @@ ROTripHandler::getVehicleType(const Attributes &attrs)
     }
 }
 
+
 float
 ROTripHandler::getOptionalFloat(const Attributes &attrs,
-                                    const std::string &name,
-                                    AttrEnum which,
+                                const std::string &name,
+                                AttrEnum which,
                                     const std::string &place)
 {
     try {
@@ -194,7 +206,7 @@ ROTripHandler::getOptionalFloat(const Attributes &attrs,
 
 long
 ROTripHandler::getDepartureTime(const Attributes &attrs,
-                                    const std::string &id)
+                                const std::string &id)
 {
     // get the departure time
     try {
@@ -317,9 +329,6 @@ ROTripHandler::myEndElement(int element, const std::string &name)
 }
 
 
-
-
-
 ROTypedRoutesLoader *
 ROTripHandler::getAssignedDuplicate(const std::string &file) const
 {
@@ -347,9 +356,6 @@ ROTripHandler::getRGBColorReporting(const Attributes &attrs,
     }
     return RGBColor(-1, -1, -1);
 }
-
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
