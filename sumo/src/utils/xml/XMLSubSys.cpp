@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/01/26 07:15:08  dkrajzew
+// some style changes only
+//
 // Revision 1.3  2003/08/18 12:49:31  dkrajzew
 // xerces 2.2 and later compatibility patched
 //
@@ -36,7 +39,6 @@ namespace
 //
 // Revision 1.1  2002/07/02 08:29:47  dkrajzew
 // A class to encapsulate the XML-Subsystem initialisation added
-//
 //
 /* =========================================================================
  * included modules
@@ -64,7 +66,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-bool XMLSubSys::init() {
+bool
+XMLSubSys::init()
+{
     try {
         XMLPlatformUtils::Initialize();
         return true;
@@ -76,14 +80,14 @@ bool XMLSubSys::init() {
 }
 
 
-void XMLSubSys::close() {
+void
+XMLSubSys::close()
+{
     XMLPlatformUtils::Terminate();
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "XMLSubSys.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

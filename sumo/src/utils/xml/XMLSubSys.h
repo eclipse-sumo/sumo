@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2004/01/26 07:15:08  dkrajzew
+// some style changes only
+//
 // Revision 1.2  2003/02/07 10:53:52  dkrajzew
 // updated
 //
@@ -32,12 +35,11 @@
 // Revision 1.1  2002/07/02 08:29:48  dkrajzew
 // A class to encapsulate the XML-Subsystem initialisation added
 //
-//
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * XMLSubSys
+ * @class XMLSubSys
  * some static methods for initialisation and closing of the xml-subsystem.
  * The Xerces-Parses needs such an initialisation and should also be closed.
  * As we use this system for both the input files and the configuration we
@@ -50,18 +52,12 @@ public:
     /// initialises the xml-subsystem
     static bool init();
 
-    /// cloases the xml-subsystem
+    /// closes the xml-subsystem
     static void close();
 
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-/* =========================================================================
- * included modules
- * ======================================================================= */
-//#include "XMLSubSys.icc"
-//#endif
 
 #endif
 
