@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/11/12 14:01:08  dkrajzew
+// MSLink-members are now secured from the outer world
+//
 // Revision 1.16  2003/10/27 10:48:52  dkrajzew
 // keeping the pointer to a deleted vehicle - bug patched
 //
@@ -222,13 +225,13 @@ GUILane::push( MSVehicle* veh )
             cout << "vehicle '" << myVehBuffer->id() << "' removed!";
             myVehBuffer->leaveLaneAtLaneChange();
     		static_cast<GUIVehicle*>(myVehBuffer)->setRemoved();
-            static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
+            static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
                 static_cast<GUIVehicle*>(myVehBuffer)->getGlID());
         } else {
             cout << "vehicle '" << veh->id() << "' removed!";
             myVehBuffer->leaveLaneAtLaneChange();
     		static_cast<GUIVehicle*>(veh)->setRemoved();
-            static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
+            static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
                 static_cast<GUIVehicle*>(veh)->getGlID());
     		// maybe the vehicle is being tracked; mark as not within the simulation any longer
             _lock.unlock();//Display();
@@ -256,7 +259,7 @@ GUILane::push( MSVehicle* veh )
                                   speed );
 
 		static_cast<GUIVehicle*>(veh)->setRemoved();
-        static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
+        static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
             static_cast<GUIVehicle*>(veh)->getGlID());
 		// maybe the vehicle is being tracked; mark as not within the simulation any longer
         _lock.unlock();//Display();

@@ -20,6 +20,6 @@ GUIVehicleTransfer::removeVehicle(const std::string &id)
 {
     MSVehicle *veh = MSVehicle::dictionary(id);
     static_cast<GUIVehicle*>(veh)->setRemoved();
-    static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
+    static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
         static_cast<GUIVehicle*>(veh)->getGlID());
 }

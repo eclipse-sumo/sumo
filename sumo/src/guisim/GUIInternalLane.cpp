@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2003/11/12 14:01:08  dkrajzew
+// MSLink-members are now secured from the outer world
+//
 // Revision 1.5  2003/10/22 15:43:49  dkrajzew
 // further work on a correct deletion of vehicles articipating in an accident
 //
@@ -194,13 +197,13 @@ GUIInternalLane::push( MSVehicle* veh )
             cout << "vehicle '" << myVehBuffer->id() << "' removed!";
             myVehBuffer->leaveLaneAtLaneChange();
     		static_cast<GUIVehicle*>(myVehBuffer)->setRemoved();
-            static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
+            static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
                 static_cast<GUIVehicle*>(myVehBuffer)->getGlID());
         } else {
             cout << "vehicle '" << veh->id() << "' removed!";
             veh->leaveLaneAtLaneChange();
     		static_cast<GUIVehicle*>(veh)->setRemoved();
-            static_cast<GUINet*>(MSNet::getInstance())->_idStorage.remove(
+            static_cast<GUINet*>(MSNet::getInstance())->getIDStorage().remove(
                 static_cast<GUIVehicle*>(veh)->getGlID());
     		// maybe the vehicle is being tracked; mark as not within the simulation any longer
             _lock.unlock();//Display();
