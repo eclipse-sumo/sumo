@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2003/08/14 14:05:50  dkrajzew
+// functions to process a nodes geometry added
+//
 // Revision 1.5  2003/04/07 12:22:31  dkrajzew
 // first steps towards a junctions geometry
 //
@@ -39,6 +42,7 @@
  * included modules
  * ======================================================================= */
 #include <iostream>
+#include <cmath>
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -85,6 +89,12 @@ public:
         _x += dx;
         _y += dy;
     }
+
+    void reshiftRotate(double xoff, double yoff, double rot) {
+        _x = _x * cos(rot) + _y * sin(rot) + xoff;
+        _y = _y * cos(rot) - _x * sin(rot) + yoff;
+    }
+
 
     /// Prints to the output
     friend std::ostream &operator<<(std::ostream &os, const Position2D &p) {

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/08/14 14:05:51  dkrajzew
+// functions to process a nodes geometry added
+//
 // Revision 1.7  2003/07/16 15:38:04  dkrajzew
 // some work on computation and handling of geometry information
 //
@@ -53,6 +56,7 @@ public:
 public:
     /// Constructor
     Position2DVector();
+    Position2DVector(size_t fieldSize);
 
     /// Destructor
     ~Position2DVector();
@@ -127,8 +131,11 @@ public:
     friend std::ostream &operator<<(std::ostream &os,
         const Position2DVector &geom);
 
-    bool crosses(const Position2D &p1,
-        const Position2D &p2) const;
+    bool crosses(const Position2D &p1, const Position2D &p2) const;
+
+    void reshiftRotate(double xoff, double yoff, double rot);
+
+    Position2DVector convexHull() const;
 
 	const ContType &getCont() const {
 		return myCont;
@@ -136,8 +143,43 @@ public:
 
     Position2DVector resettedBy(double x, double y) const;
 
+    void sortAsPolyCWByAngle();
+
+    void sortByIncreasingXY();
+
+    class as_poly_cw_sorter {
+    public:
+        /// constructor
+        explicit as_poly_cw_sorter(Position2D center);
+
+    public:
+        /// comparing operation
+        int operator() (const Position2D &p1, const Position2D &p2) const;
+
+    private:
+        /// the edge to compute the relative angle of
+        Position2D _center;
+
+    };
+
+    class increasing_x_y_sorter {
+    public:
+        /// constructor
+        explicit increasing_x_y_sorter();
+
+    public:
+        /// comparing operation
+        int operator() (const Position2D &p1, const Position2D &p2) const;
+
+    };
+
     void resetBy(double x, double y);
     void resetBy(const Position2D &by);
+
+
+    float isLeft( const Position2D &P0, const Position2D &P1, const Position2D &P2 ) const;
+
+    void set(size_t pos, const Position2D &p);
 
 private:
 
