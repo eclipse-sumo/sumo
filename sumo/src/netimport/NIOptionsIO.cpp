@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/07/05 09:32:53  dkrajzew
+// false check patched (must be reworked)
+//
 // Revision 1.3  2004/07/02 09:34:37  dkrajzew
 // elmar and tiger import added
 //
@@ -260,6 +263,8 @@ NIOptionsIO::checkNodes(OptionsCont &oc)
         oc.isSet("visum") ||
         oc.isSet("vissim") ||
         oc.isSet("artemis") ||
+        oc.isSet("tiger") ||
+        oc.isSet("elmar") ||
         oc.isSet("arcview") ||
         oc.isSet("arcview-shp") ||
         oc.isSet("arcview-dbf") ||
