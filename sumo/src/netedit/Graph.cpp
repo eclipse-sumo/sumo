@@ -438,104 +438,64 @@ void
 Graph::Export_Vertexes_XML()
 {
     string append;
-    string append1;
     string append2;
-    string help="";
-
     append="<nodes>\n";
     append2="</nodes>\n";
-
     const char* app=append.c_str();
     const char* app2=append2.c_str();
-    const char* app1;
-    const char* mychar;
-
-    Vertex* temp;
-    FILE* vfile= fopen("export.nod.xml","w");
-    int Vertices= vArray.size();
-    fputs(app,vfile);
-    int i=0;
-
-    for(i ; i<Vertices; i++)
+    char buffer [60];
+	int Vertices= vArray.size();
+	Vertex* temp;
+    
+	FILE* vfile= fopen("export.nod.xml","w");
+    
+	fputs(app,vfile);
+    for(int i=0 ; i<Vertices; i++)
     {
-        append1=help;
         temp=vArray[i];
-        int x=temp->GetX();
+		int x=temp->GetX();
         int y=temp->GetY();
-        append1="<node id=\"";
-        app1=append1.c_str();
-        fputs(app1,vfile);
-        mychar=inttostr(i);
-        fputs(mychar,vfile);
-        append1="\" x=\"";
-        app1=append1.c_str();
-        fputs(app1,vfile);
-        mychar=inttostr(x);
-        fputs(mychar,vfile);
-        append1=".0\" y=\"";
-        app1=append1.c_str();
-        fputs(app1,vfile);
-        mychar=inttostr(y);
-        fputs(mychar,vfile);
-        append1=".0\" type=\"priority\"/>\n";
-        app1=append1.c_str();
-        fputs(app1,vfile);
-    }
-    fputs(app2, vfile);
-    fclose(vfile);
+		sprintf (buffer, "<node id=\"%d\" x=\"%d.0\" y=\"%d.0\" type=\"priority\"/>\n",i,x,y);
+		fputs(buffer, vfile);
+	}
+   	fputs(app2,vfile);
+	fclose(vfile);
 }
 
 void
 Graph::Export_Edges_XML()
 {
     string append;
-    string append1;
     string append2;
-    string help="";
     append="<edges>\n";
     append2="</edges>\n";
     const char* app=append.c_str();
-    const char* app1;
     const char* app2=append2.c_str();
-    const char* mychar;
     Edge* temp;
     Vertex* start;
     Vertex* end;
     int index_start=0;
     int index_end=0;
+	int Edges= eArray.size();
+    char buffer [60];
 
-    FILE* efile= fopen("export.edg.xml","w");
-    int Edges= eArray.size();
+	FILE* efile= fopen("export.edg.xml","w");
+    
     fputs(app,efile);
 
     for(int i=0; i<Edges; i++)
     {
-        append1=help;
         temp=eArray[i];
-        start=temp->GetStartingVertex();
-        end=temp->GetEndingVertex();
-        index_start=GetIndex(start);
-        index_end=GetIndex(end);
-        append1="<edge id=\"";
-        app1=append1.c_str();
-        fputs(app1,efile);
-        mychar=inttostr(i);
-        fputs(mychar,efile);
-        append1="\" fromnode=\"";
-        app1=append1.c_str();
-        fputs(app1,efile);
-        mychar=inttostr(index_start);
-        fputs(mychar,efile);
-        append1="\" tonode=\"";
-        app1=append1.c_str();
-        fputs(app1,efile);
-        mychar=inttostr(index_end);
-        fputs(mychar,efile);
-        append1="\" priority=\"78\" nolanes=\"1\" speed=\"50.000\"/>\n";
-        app1=append1.c_str();
-        fputs(app1,efile);
-
-    }
+        if ((temp->GetStartingVertex()!=NULL)&&(temp->GetEndingVertex()!=NULL))
+		{
+			start=temp->GetStartingVertex();
+			end=temp->GetEndingVertex();
+			index_start=GetIndex(start);
+			index_end=GetIndex(end);
+			sprintf (buffer, "<edge id=\"%d\" fromnode=\"%d\" tonode=\"%d\" priority=\"78\" nolanes=\"1\" speed=\"15.000\"/>\n",i,index_start,index_end);
+			fputs(buffer, efile);
+		}
+	}
     fputs(app2, efile);
     fclose(efile);
 }
@@ -559,7 +519,7 @@ char* Graph::doubletostr(double i,int count)
 int Graph::GetIndex(Vertex* v)
 {
     Vertex* temp;
-    int index=-1;
+    int index=0;
     for (int i=0; i<vArray.size(); i++)
     {
         temp=vArray[i];
@@ -858,7 +818,7 @@ Graph::MergeVertex()
 Graph::DelVertex4Merge(Vertex* v)
 {
 	int i= GetIndex(v);
-	if(i!=1000)
+	if(i!=-1)
 	{
 		vArray.erase(vArray.begin()+i);
 		DelNachfolger4Merge(v);
