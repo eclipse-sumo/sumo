@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2004/04/02 11:18:37  dkrajzew
+// recenter view - icon added to the popup menu
+//
 // Revision 1.7  2004/03/19 12:57:54  dkrajzew
 // porting to FOX
 //
@@ -42,7 +45,6 @@
 // Revision 1.1  2003/07/07 08:14:48  dkrajzew
 // first steps towards the usage of a real lane and junction geometry
 //  implemented
-//
 //
 /* =========================================================================
  * included modules
@@ -126,9 +128,6 @@ protected:
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIJunctionWrapper.icc"
-//#endif
 
 #endif
 

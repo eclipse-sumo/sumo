@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2004/04/02 11:18:37  dkrajzew
+// recenter view - icon added to the popup menu
+//
 // Revision 1.6  2004/03/19 12:57:55  dkrajzew
 // porting to FOX
 //
@@ -59,6 +62,7 @@ namespace
 #include <gui/popup/GUIGLObjectPopupMenu.h>
 #include <gui/partable/GUIParameterTableWindow.h>
 #include <gui/GUIAppEnum.h>
+#include <gui/icons/GUIIconSubSys.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <utils/options/OptionsSubSys.h>
@@ -93,7 +97,8 @@ GUINetWrapper::getPopUpMenu(GUIApplicationWindow &app,
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     new FXMenuCommand(ret, getFullName().c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
-    new FXMenuCommand(ret, "Center", 0, ret, MID_CENTER);
+    new FXMenuCommand(ret, "Center",
+        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
     new FXMenuSeparator(ret);
     new FXMenuCommand(ret, "Show Parameter", 0, ret, MID_SHOWPARS);
     return ret;

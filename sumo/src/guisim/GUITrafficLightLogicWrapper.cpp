@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/04/02 11:18:37  dkrajzew
+// recenter view - icon added to the popup menu
+//
 // Revision 1.3  2004/03/19 12:57:55  dkrajzew
 // porting to FOX
 //
@@ -40,6 +43,7 @@ namespace
 #include <gui/popup/GUIGLObjectPopupMenu.h>
 #include <gui/GUIGlobals.h>
 #include <gui/GUIAppEnum.h>
+#include <gui/icons/GUIIconSubSys.h>
 #include <guisim/guilogging/GLObjectValuePassConnector.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <gui/tlstracker/GUITLLogicPhasesTrackerWindow.h>
@@ -76,7 +80,8 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIApplicationWindow &app,
     new FXMenuCommand(ret, getFullName().c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     //
-    new FXMenuCommand(ret, "Center", 0, ret, MID_CENTER);
+    new FXMenuCommand(ret, "Center",
+        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
     new FXMenuSeparator(ret);
     //
     if(gfIsSelected(GLO_LANE, getGlID())) {

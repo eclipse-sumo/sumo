@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2004/04/02 11:18:37  dkrajzew
+// recenter view - icon added to the popup menu
+//
 // Revision 1.7  2004/03/19 12:57:54  dkrajzew
 // porting to FOX
 //
@@ -44,6 +47,7 @@ namespace
 #include <gui/GUIGlobals.h>
 #include <gui/popup/GUIGLObjectPopupMenu.h>
 #include <gui/GUISUMOAbstractView.h>
+#include <gui/icons/GUIIconSubSys.h>
 #include <gui/partable/GUIParameterTableWindow.h>
 
 
@@ -78,7 +82,8 @@ GUIDetectorWrapper::getPopUpMenu(GUIApplicationWindow &app,
     new FXMenuCommand(ret, getFullName().c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     //
-    new FXMenuCommand(ret, "Center", 0, ret, MID_CENTER);
+    new FXMenuCommand(ret, "Center",
+        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
     new FXMenuSeparator(ret);
     //
     if(gfIsSelected(GLO_LANE, getGlID())) {
