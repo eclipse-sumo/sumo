@@ -23,6 +23,10 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2002/04/18 10:53:20  croessel
+// In findCompetitor we now ignore lanes, that don't have a vehicle that
+// is able to leave the lane.
+//
 // Revision 1.2  2002/04/11 15:25:56  croessel
 // Changed float to double.
 //
@@ -89,9 +93,17 @@ findCompetitor::operator()
     ( first_argument_type  competeLane,
       second_argument_type inOut ) const
 {
-    // ignore the prioritised vehicle's lane and empty competeLanes
-    if (inOut.first == competeLane->myLane ||
-        competeLane->myLane->empty()) {
+    // if competitor's lane is empty or if first vehicle didn't set a
+    // request, ignore this competitor.
+    MSLogicJunction::DriveBrakeRequest competeRequest = 
+        competeLane->myLane->request();   
+    if ( competeRequest.driveRequest() == false ) {
+
+        return false;
+    }
+
+    // ignore the prioritised vehicle's lane.
+    if ( inOut.first == competeLane->myLane ) {
 
         return false;
     }
