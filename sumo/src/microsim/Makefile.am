@@ -18,7 +18,12 @@ MSTrafficLightLogic.cpp MSTrafficLightLogic.h \
 MSTriggeredSource.cpp MSTriggeredSource.h \
 MSTriggeredSourceXMLHandler.cpp MSTriggeredSourceXMLHandler.h \
 MSVehicle.cpp MSVehicle.h MSVehicleType.cpp MSVehicleType.h \
-MSLink.cpp MSLink.h
+MSLink.cpp MSLink.h MSRoute.cpp MSRoute.h \
+MSTrigger.h MSTriggeredReader.cpp MSTriggeredReader.h \
+MSTriggeredXMLReader.cpp MSTriggeredXMLReader.h \
+MSLaneSpeedTrigger.cpp MSLaneSpeedTrigger.h \
+PreStartInitialised.cpp PreStartInitialised.h 
+
 
 AM_CPPFLAGS = -I$(top_srcdir)  -I$(top_srcdir)/src  \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)

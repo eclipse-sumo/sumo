@@ -8,7 +8,7 @@ sumo_LDFLAGS = -L$(XERCESLIBPATH)
 sumo_LDADD   = ./netload/libnetload.a ./microsim/libmicrosim.a \
 ./utils/common/libcommon.a ./utils/convert/libconvert.a \
 ./utils/options/liboptions.a ./utils/xml/libxml.a \
-./sumo_only/libsumoonly.a -l$(XERCESLIB)
+./utils/sumoxml/libsumoxml.a ./sumo_only/libsumoonly.a -l$(XERCESLIB)
 
 sumo_netconvert_LDFLAGS = -L$(XERCESLIBPATH)
 sumo_netconvert_LDADD   = ./netbuild/libnetbuild.a \
