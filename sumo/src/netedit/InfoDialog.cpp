@@ -25,7 +25,7 @@ InfoDialog::InfoDialog(FXWindow* owner):FXDialogBox(owner,"Info Window",DECOR_TI
 
 	
  boxframe1=new FXVerticalFrame(contents,FRAME_THICK|FRAME_SUNKEN|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT, 0,0,275,200, 0,0,0,0);
- new FXLabel(boxframe1,"Note : \n The chosen algorism cannot be used \n on the actuall bitmap\n ",NULL,JUSTIFY_CENTER_X|LAYOUT_FILL_X);
+ new FXLabel(boxframe1,"Note : \n The chosen algorithm cannot be used \n on the actuall bitmap\n ",NULL,JUSTIFY_CENTER_X|LAYOUT_FILL_X);
  new FXHorizontalSeparator(boxframe1,SEPARATOR_GROOVE|LAYOUT_FILL_X);
  new FXLabel(boxframe1,"Info:\n You cannot use the extractStreets-algorithm \n on a scelettonized bitmap",NULL,JUSTIFY_CENTER_X|LAYOUT_FILL_X);
 
