@@ -6,7 +6,7 @@
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Wed, 01. Oct 2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
+//  copyright            : (C) 2003 by DLR e.V.
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
@@ -20,8 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/11/04 08:55:28  jringel
+// implemetation of the agentbased trafficlightlogic
+//
+//
+// Revision 1.5 2003/10/28 jringel
+// implemetation of the agent-based logic
+//
 // Revision 1.4  2003/10/08 14:50:28  dkrajzew
-// new usage of MSAgentbased... impemented (Julia Ringel)
 //
 // Revision 1.1  2003/10/01 11:24:35  dkrajzew
 // agent-based traffic lights added
@@ -71,6 +77,15 @@ public:
     /// Definition of a map from lanes to lane state detectors lying on them
     typedef std::map<MSLane*, MS_E2_ZS_Collector*> E2DetectorMap;
 
+    ///stores the detector values of one single phase
+    typedef std::deque<double> ValueType;
+    
+    ///stores the step of the greenphases and their detector values 
+    typedef std::map<size_t, ValueType> PhaseValueMap;
+
+    /// stores the mean data of several (numberOfValues) cycles
+    typedef std::map<size_t, double> MeanDataMap;
+
 public:
     /// constructor
     MSAgentbasedTrafficLightLogic(const std::string &id,
@@ -92,8 +107,11 @@ public:
     /// or stores the activation-time in _lastphase of the phase next
     virtual size_t nextStep();
 
-    /// Collects the trafficdata for each real phase (no intergrennphases)
-    virtual void collectData()const;
+    /// Collects the trafficdata 
+    virtual void collectData();
+
+    /// Aggregates the data of one phase, collected during different cycles 
+    virtual void aggregateRawData();
 
     /// Calculates the duration for all real phases except intergreen phases
     virtual void calculateDuration();
@@ -114,30 +132,51 @@ protected:
 
     /// cuts the actual cycle by an given value
     virtual void cutCycleTime(size_t toCut);
-
+    
+    /// returns the step of the phase with the longest Queue_Lengt_Ahead_Of_Traffic_Lights
+    virtual size_t findStepOfMaxValue();
+    
+    /// returns the step of the phase with the shortest Queue_Lengt_Ahead_Of_Traffic_Lights
+    virtual size_t findStepOfMinValue();
 
     MSActuatedPhaseDefinition * currentPhaseDef() const;
 
 	double currentForLane(MS_E2_ZS_Collector::DetType what,
 		MSLane *lane) const;
 
-	double aggregatedForLane(MS_E2_ZS_Collector::DetType what,
-		MSUnit::Seconds lanstNSeconds, MSLane *lane) const;
-
 protected:
 
 	/// A map from lanes to E2-detectors lying on them
 	E2DetectorMap myE2Detectors;
 
+    /// A map of the step of the greenphases and their detectorvalues for several (mumberofValues) cycles
+    PhaseValueMap myRawDetectorData;
+
+    /// A map of the step of the greenphases and theri aggregated detectordata
+    MeanDataMap myMeanDetectorData;
+
     /// the interval in which the trafficlight can make a decision
-    /// the  interval is given in intereger numbers of cycles
+    /// the  interval is given in integer numbers of cycles
     size_t tDecide;
 
     /// the number of cycles, before the last decision was made
     size_t tSinceLastDecision;
 
-    /// the cycletime of the trafficlight
+    /// stores the step of the phase, when the last decision was made
+    size_t stepOfLastDecision;
+
+    /// the number of detector values whivh is considered to make a decision
+    /// it's only possible to get one value per cycle per greenphase
+    size_t numberOfValues;
+
+    /// the cycletime of the trafficlight 
     size_t tCycle;
+
+    /* the minimum difference between the shortest and the longest
+    Queue_Lengt_Ahead_Of_Traffic_Lights of a phase before greentime is given 
+    from the phase with the shortest Queue_Lengt_Ahead_Of_Traffic_Lights to the phase with 
+    the longest Queue_Lengt_Ahead_Of_Traffic_Lights*/
+    double deltaLimit;
 
 };
 
