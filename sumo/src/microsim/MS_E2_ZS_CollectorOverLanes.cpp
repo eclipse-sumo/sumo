@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2004/01/13 14:25:02  dkrajzew
+// corrected the output description
+//
 // Revision 1.9  2004/01/12 15:04:16  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
@@ -54,19 +57,19 @@ std::string
 MS_E2_ZS_CollectorOverLanes::xmlHeaderM(
 "<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
 "<!--\n"
-"- density [veh/km]\n"
-"- maxJamLengthInVehicles [veh]\n"
-"- maxJamLengthInMeters [m]\n"
-"- jamLengthSumInVehicles [veh]\n"
-"- jamLengthSumInMeters [m]\n"
-"- queueLengthAheadOfTrafficLightsInVehicles [veh]\n"
-"- queueLengthAheadOfTrafficLightsInMeters [m]\n"
-"- nE2Vehicles [veh]\n"
-"- occupancyDegree out of [0,1]\n"
-"- spaceMeanSpeed [m/s]\n"
-"- currentHaltingDurationSumPerVehicle [s]\n"
+"- densityMean [veh/km]\n"
+"- maxJamLengthInVehiclesMean [veh]\n"
+"- maxJamLengthInMetersMean [m]\n"
+"- jamLengthSumInVehiclesMean [veh]\n"
+"- jamLengthSumInMetersMean [m]\n"
+"- queueLengthAheadOfTrafficLightsInVehiclesMean [veh]\n"
+"- queueLengthAheadOfTrafficLightsInMetersMean [m]\n"
+"- nE2VehiclesMean [veh]\n"
+"- occupancyDegreeMean [0,1]\n"
+"- spaceMeanSpeedMean [m/s]\n"
+"- currentHaltingDurationSumPerVehicleMean [s]\n"
 "- nStartedHalts [n]\n"
-"- haltingDurationSum [s]\n"
+//"- haltingDurationSum [s]\n"
 "- haltingDurationMean [s]\n"
 "-->\n\n");
 
