@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2003/06/05 16:05:40  dkrajzew
+// removal of links request added; needed by new traffic lights
+//
 // Revision 1.4  2003/05/21 15:15:41  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -90,6 +93,13 @@ bool
 MSLink::opened() const
 {
     return myRespond->test(myRespondIdx);
+}
+
+
+void
+MSLink::deleteRequest()
+{
+    myRequest->reset(myRequestIdx);
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

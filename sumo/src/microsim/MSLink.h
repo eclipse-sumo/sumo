@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2003/06/05 16:05:41  dkrajzew
+// removal of links request added; needed by new traffic lights
+//
 // Revision 1.4  2003/05/21 15:15:42  dkrajzew
 // yellow lights implemented (vehicle movements debugged
 //
@@ -73,6 +76,9 @@ public:
     /** @brief Returns the information whether the link may be passed
         A valid after the junctions have set their reponds */
     bool opened() const;
+
+
+    void deleteRequest();
 
     /// MSLink's destination lane.
     MSLane* myLane;
