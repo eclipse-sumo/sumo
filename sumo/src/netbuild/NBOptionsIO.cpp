@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2003/07/22 15:22:05  dkrajzew
+// duration of traffic lines may now be changed on command line
+//
 // Revision 1.16  2003/07/21 11:04:06  dkrajzew
 // the default duration of green light phases may now be changed on startup
 //
@@ -215,6 +218,7 @@ NBOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("use-laneno-as-priority", new Option_Bool(false));
     oc.doRegister("keep-small-tyellow", new Option_Bool(false));
     oc.doRegister("traffic-light-green", new Option_Integer());
+    oc.doRegister("traffic-light-yellow", new Option_Integer());
 }
 
 
