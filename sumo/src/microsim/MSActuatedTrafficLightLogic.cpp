@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2003/05/22 09:20:49  roessel
+// Renamed method call numberOfWaiting to getCurrentNumberOfWaiting.
+//
 // Revision 1.7  2003/05/21 16:20:44  dkrajzew
 // further work detectors
 //
@@ -95,7 +98,7 @@ MSActuatedTrafficLightLogic<_TInductLoop, _TLaneState>::duration() const
         const MSLinkCont &cont = lane->getLinkCont();
         for(MSLinkCont::const_iterator j=cont.begin(); j!=cont.end(); j++)  {
             if((*j)->myPrio)    {
-                double waiting = (*i).second->numberOfWaiting();
+                double waiting = (*i).second->getCurrentNumberOfWaiting();
                 double passingTime = 1.9;
                 double tmpdur =  passingTime * waiting;
                 if (tmpdur > duration) {
