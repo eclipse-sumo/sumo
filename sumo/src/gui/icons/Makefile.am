@@ -7,6 +7,7 @@ libguiicons_a_SOURCES = GUIIcons.h GUIIconSubSys.cpp GUIIconSubSys.h \
 allow_rotation.xpm colour_lane.xpm colour_vehicle.xpm cont.xpm \
 document.xpm \
 fileopen.xpm fileprint.xpm filesave.xpm \
+flag.xpm flag_minus.xpm flag_plus.xpm \
 halt.xpm \
 locate_edge.xpm locate_junction.xpm locate_vehicle.xpm \
 new_window.xpm no.xpm \
