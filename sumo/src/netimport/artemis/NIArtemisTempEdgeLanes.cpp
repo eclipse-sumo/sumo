@@ -14,17 +14,17 @@
 
 using namespace std;
 
-NIArtemisTempEdgeLanes::Link2LaneDesc 
+NIArtemisTempEdgeLanes::Link2LaneDesc
         NIArtemisTempEdgeLanes::myLinkLaneDescs;
 
-NIArtemisTempEdgeLanes::Link2Positions 
+NIArtemisTempEdgeLanes::Link2Positions
         NIArtemisTempEdgeLanes::myLinkLanePositions;
 
 
 
 
-NIArtemisTempEdgeLanes::LinkLaneDesc::LinkLaneDesc(int lane, int section, 
-                                                   double start, double end, 
+NIArtemisTempEdgeLanes::LinkLaneDesc::LinkLaneDesc(int lane, int section,
+                                                   double start, double end,
                                                    const std::string &mvmt)
     : myLane(lane), mySection(section), myStart(start), myEnd(end)
 {
@@ -35,21 +35,21 @@ NIArtemisTempEdgeLanes::LinkLaneDesc::~LinkLaneDesc()
 }
 
 
-double 
+double
 NIArtemisTempEdgeLanes::LinkLaneDesc::getStart() const
 {
     return myStart;
 }
 
 
-double 
+double
 NIArtemisTempEdgeLanes::LinkLaneDesc::getEnd() const
 {
     return myEnd;
 }
 
 
-int 
+int
 NIArtemisTempEdgeLanes::LinkLaneDesc::getLane() const
 {
     return myLane;
@@ -57,7 +57,7 @@ NIArtemisTempEdgeLanes::LinkLaneDesc::getLane() const
 
 
 void
-NIArtemisTempEdgeLanes::LinkLaneDesc::patchPosition(double length) 
+NIArtemisTempEdgeLanes::LinkLaneDesc::patchPosition(double length)
 {
     if(myStart!=-1) {
         myStart = length - myStart;
@@ -73,9 +73,9 @@ NIArtemisTempEdgeLanes::LinkLaneDesc::patchPosition(double length)
 
 
 
-void 
-NIArtemisTempEdgeLanes::add(const std::string &link, int lane, 
-                            int section, double start, double end, 
+void
+NIArtemisTempEdgeLanes::add(const std::string &link, int lane,
+                            int section, double start, double end,
                             const std::string &mvmt)
 {
     myLinkLaneDescs[link].push_back(
@@ -85,11 +85,11 @@ NIArtemisTempEdgeLanes::add(const std::string &link, int lane,
 }
 
 
-void 
+void
 NIArtemisTempEdgeLanes::close()
 {
     Link2LaneDesc::iterator i;
-    // go through the list of edges to which infomration about lanes have 
+    // go through the list of edges to which infomration about lanes have
     //  been added and patch the position information
     for(i=myLinkLaneDescs.begin(); i!=myLinkLaneDescs.end(); i++) {
         string name = (*i).first;
@@ -108,7 +108,7 @@ NIArtemisTempEdgeLanes::close()
             }
         }
     }
-    // go through the list of edges to which infomration about lanes have 
+    // go through the list of edges to which infomration about lanes have
     //  been added and compute the lane changings using the patched values
     for(i=myLinkLaneDescs.begin(); i!=myLinkLaneDescs.end(); i++) {
         // get the name of the link
@@ -153,13 +153,8 @@ NIArtemisTempEdgeLanes::close()
         for(size_t k=1; k<setLanes.size()-1; k++) {
             // get the position of the lane changing
             string nodename = name + toString<int>(k-1) + string("x") + name + toString<int>(k);
-            if(nodename=="73-373x73-374") {
-                int bla = 0;
-            }
-            double bla1 = edge->getLength();
-            double bla2 = (poses[k]-lengthRemoved);
             assert(edge->getLength()>(poses[k]-lengthRemoved));
-            Position2D pos = 
+            Position2D pos =
                 edge->getGeometry().positionAtLengthPosition(poses[k]-lengthRemoved);
             assert(pos.x()>0&&pos.y()>0);
             // build the node and try to insert it into the net description
@@ -174,9 +169,9 @@ NIArtemisTempEdgeLanes::close()
                 }
             }
             // split the edge
-            string name1 = 
+            string name1 =
                 name + string("[") + toString<int>(k-1) + string("]");
-            string name2 = 
+            string name2 =
                 name + string("[") + toString<int>(k) + string("]");
             size_t laneNo1 = count(setLanes[k-1]);
             size_t laneNo2 = count(setLanes[k]);
@@ -186,7 +181,7 @@ NIArtemisTempEdgeLanes::close()
             // get the build edges
             NBEdge *edge1 = NBEdgeCont::retrieve(name1);
             NBEdge *edge2 = NBEdgeCont::retrieve(name2);
-            // assign the lane directions 
+            // assign the lane directions
             //  given only for lanes which end at this point
             //  other are simply connected to each other
             size_t runLaneNo1 = 0;
@@ -246,7 +241,7 @@ NIArtemisTempEdgeLanes::getEndIndex(double end, const DoubleVector &poses)
     return distance(poses.begin(), i);
 }
 
-size_t 
+size_t
 NIArtemisTempEdgeLanes::count(const std::bitset<64> &lanes)
 {
     size_t no = 0;
