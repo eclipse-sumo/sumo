@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2004/08/02 12:14:54  dkrajzew
+// added some security checks for buggy nets (aehhh)
+//
 // Revision 1.10  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes
 //
@@ -50,9 +53,6 @@ namespace
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -61,6 +61,7 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include "MSLink.h"
+#include <iostream>
 #include <cassert>
 
 
@@ -72,7 +73,7 @@ MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
     : myLane(succLane), myJunctionInlane(via),
     myPrio(!yield), myApproaching(0),
     myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
-	myState(state), myAmYellow(false), myDirection(dir),
+    myState(state), myAmYellow(false), myDirection(dir),
     myIsInternalEnd(internalEnd)
 {
 //    assert(internalEnd==false);
@@ -114,7 +115,7 @@ void
 MSLink::setPriority( bool prio, bool yellow )
 {
     myPrio = prio;
-	myAmYellow = yellow;
+    myAmYellow = yellow;
 }
 
 
@@ -124,6 +125,10 @@ MSLink::opened() const
     if(myIsInternalEnd) {
         return true;
     }
+    if(myRespond==0) {
+        std::cout << "Buggy" << std::endl;
+        return false; // !!! should never happen, was sometimes the case in possibly buggy networks
+    }
     return myRespond->test(myRespondIdx);
 }
 
@@ -131,7 +136,15 @@ MSLink::opened() const
 void
 MSLink::deleteRequest()
 {
+    if(myRequest==0) {
+        std::cout << "Buggy" << std::endl;
+        return ; // !!! should never happen, was sometimes the case in possibly buggy networks
+    }
     myRequest->reset(myRequestIdx);
+    if(myRespond==0) {
+        std::cout << "Buggy" << std::endl;
+        return ; // !!! should never happen, was sometimes the case in possibly buggy networks
+    }
     myRespond->reset(myRespondIdx);
 }
 
