@@ -1,537 +1,266 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
 <book>
-  <title>SUMO; Developer documentation for netconversion<author><lineage>Daniel
-  Krajzewicz</lineage></author></title>
+  <bookinfo>
+    <title>SUMO developer documentation</title>
+    <author> 
+      <firstname>Christian</firstname>
+      <surname>R&ouml;ssel</surname>
+      <affiliation>
+        <address><email>christian.roessel@dlr.de</email></address>
+      </affiliation>
+    </author>
+    <author>
+      <firstname>Daniel</firstname>
+      <surname>Krajzewicz</surname>
+      <affiliation>
+        <address><email>daniel.krajzewicz@dlr.de</email></address>
+      </affiliation>
+    </author>
+
+    <releaseinfo>$Revision$</releaseinfo>
+
+  </bookinfo> 
 
   <toc>
-    <title>Content</title>
   </toc>
 
+
   <chapter>
-    <title>Introduction</title>
+    <title>Detectors</title> 
 
-    <sect1>
-      <title>Why a Simulation module?</title>
+    <para>In the following sections we will describe SUMOs way to
+    communicate with it's two kinds of detectors, the <link
+    linkend="ExtendedDetectors"><emphasis>extended</emphasis></link>
+    ones, that work on an area of a lane and the <link
+    linkend="UnextendedDetectors"><emphasis>unextended</emphasis></link>
+    ones, that measure at a fixed position on a lane.</para>
 
-      <para>There are to reasons why we decided to build networks by
-      converting exiting ones. The first is that or interest mainly lies on
-      simulation of large urban areas and the networks size speaks against
-      inserting and editing them by hand. The second is the high complexity of
-      the SUMO-network format which allows minimum effort on post-processing
-      the read data after loading it. Due to this, the amount of memroy used
-      within the simulation is reduced.</para>
+    <sect1 id="DetectorCommunication">
+      <title>Communication between detectors and SUMO</title>
+     
+      <para>Detectors are nearly independant from the rest of the
+      simulation. In the simulation loop there is just on call to a
+      static method before the emission and the move of the vehicles,
+      and one call afterwards. The moving vehicles inform the
+      detectors that they have entered or left the detector through
+      <emphasis>move-reminder</emphasis>-objects. These move-reminders
+      have to be provided for each detector. They are instances of
+      small classes, that just check for some condition, e.g. the
+      position of the vehicle (you can check for whatever a vehicle
+      provides). All move-reminders inherit from
+      <literal>MSMoveReminder</literal>. If a condition is met, the
+      reminder informs the detector. All data is collected in the
+      detector-object. And all processing is done there, too. So if
+      you want a special purpose detector, you have to write the
+      detector-class and a corresponding reminder-class.</para>
+
+      <para>But how do the vehicles know about the move-reminders? On
+      creation of a detector object, a reminder-object is created
+      too. It is passed to the lane the detector works on. The lane
+      has a container of move-reminder objects. If a vehicle enters a
+      lane it gets a copy of this container. At every move, the
+      vehicle calls the method
+      <literal>workOnMoveReminders()</literal>. In this call all
+      reminders are asked if they are
+      <literal>isStillActive()</literal>. If not, they are removed from
+      the vehicles move-reminder container, otherwise the detector may
+      be called. The move-reminders have just two additional methods
+      for entering and leaving the lane. Their names are quite
+      self-explanatory:
+      <literal>isActivatedByEmitOrLaneChange()</literal> and
+      <literal>dismissByLaneChange()</literal>.</para>
+
+      <para>Note that the interfaces of detector classes may differ
+      completely. The detector methods that collect data are called by
+      their associated reminders only. There is no need to inherit
+      from a base detector.</para>
+
+      <para>The following <link
+      linkend="DetectorCollaboration">UML-diagram</link> shows the
+      classes and methods that are relevant for the proper operation
+      of the <literal>MSLaneState</literal> detector. </para>
+
+
+      <mediaobject id="DetectorCollaboration" >
+	<imageobject>
+	  <imagedata fileref="images/DetectorCollaboration.eps" format="EPS"/>
+	</imageobject>
+	<imageobject>
+	  <imagedata fileref="images/DetectorCollaboration.png" format="PNG"/>
+	</imageobject>
+	<caption>
+	  <para>Classes and methods used for collabaration between
+	  <literal>MSLaneState</literal> detector and the rest of the
+	  simulation.</para>
+	</caption>
+      </mediaobject>
+
+      
+
     </sect1>
 
-    <sect1>
-      <title>Features of SUMO-NETCONVERT</title>
-
-      <para><itemizedlist><listitem><para>computation of lane to lane
-      connections</para></listitem><listitem><para>computation of traffic
-      lights</para></listitem></itemizedlist></para>
-    </sect1>
-
-    <sect1>
-      <title>About this document</title>
-
-      <para>This document is still under development and is meant to grow with
-      the software. Due to this, you may find it together with the sources
-      within out repository at sourceforge (<link
-      linkend="sumo.sourceforge.net">http://sumo.sourceforge.net</link>). In
-      this version, it describes the SUMO-NETCVONERT within the SUMO-release
-      0.8. The information about the document state can be found at the end of
-      the document.</para>
-
-      <para>This document is meant for developers only. It describes how the
-      process of network importing and converting into the SUMO-format is
-      organised.</para>
+    <sect1 id="ExtendedDetectors">
+      <title>Extended detectors</title>
+      
+      <para>In real life the <emphasis>extended</emphasis> detectors
+      are realized by headover detectors, like video-cameras on
+      helicopters, bridges, zeppelins. They collect data from an area
+      of a lane. They are ideal to measure
+      <emphasis>densities</emphasis>, because densities are
+      area-measured quantities. They are also the first choice to
+      measure <link linkend="TravelcostDetectors">
+      <emphasis>travelcosts</emphasis> </link>. In this case the
+      extended detector covers the lane completely. Sophisticated
+      <emphasis>traffic-signal sequencing</emphasis> depends also on
+      extended detectors.</para>
 
       <sect2>
-        <title>ToDo</title>
+	<title>The <literal>MSLaneState</literal> detector</title>
 
-        <para>- describe constraints of data after they are loaded</para>
+	<para>Currently there is only one extended detector:
+        <literal>MSLaneState</literal>. This detector covers a part of
+        a lane and collects basic vehicle data, like speed, entry- and
+        leavetime. It provides following methods to get information
+        about the current state of the detector:</para>
+
+	<itemizedlist>
+	  <listitem>
+	    <literallayout><literal>int getCurrentNumberOfWaiting( void )</literal></literallayout>
+	  </listitem>
+	  <listitem>
+	    <literallayout><literal>double getCurrentMeanSpeed( void );</literal></literallayout>
+	  </listitem>
+	  <listitem>
+	    <literallayout><literal>double getCurrentMeanSpeedSquare( void );</literal></literallayout>
+	  </listitem>
+	  <listitem>
+	    <literallayout><literal>double getCurrentDensity( void );</literal></literallayout>
+	  </listitem>
+	</itemizedlist>
+	
+	<para>To get averaged detector data (averaged over
+      <literal>lastNTimesteps</literal>) you can call the following
+      methods:</para>
+	
+	<itemizedlist>
+	  <listitem>
+	    <literallayout><literal>double getNumberOfWaiting( MSNet::Time lastNTimesteps );</literal></literallayout>
+	  </listitem>
+	  <listitem>
+	    <literallayout><literal>double getMeanSpeed( MSNet::Time lastNTimesteps );</literal></literallayout>
+	  </listitem>
+	  <listitem>
+	    <literallayout><literal>double getMeanSpeedSquare( MSNet::Time lastNTimesteps );</literal></literallayout>
+	  </listitem>
+	  <listitem>
+	    <literallayout><literal>double getMeanDensity( MSNet::Time lastNTimesteps );</literal></literallayout>
+	  </listitem>
+	  <listitem>
+	    <literallayout><literal>double getMeanTraveltime( MSNet::Time lastNTimesteps );</literal></literallayout>
+	  </listitem>
+	  <listitem>
+	    <literallayout><literal>int getNVehContributed( MSNet::Time lastNTimesteps );</literal></literallayout>
+	  </listitem>
+	  <listitem>
+	    <literallayout><literal>int getNVehEnteredDetector( MSNet::Time lastNTimesteps );</literal></literallayout>
+	  </listitem>
+	  <listitem>
+	    <literallayout><literal>int getNVehLeftDetectorByMove( MSNet::Time lastNTimesteps );</literal></literallayout>
+	  </listitem>
+	  <listitem>
+	    <literallayout><literal>int getNVehPassedEntireDetector( MSNet::Time lastNTimesteps );</literal></literallayout>
+	  </listitem>
+	  <listitem>
+	    <literallayout><literal>std::string getXMLOutput( MSNet::Time lastNTimesteps );</literal></literallayout>
+	  </listitem>
+	</itemizedlist>
+	
+	<note>
+	  <para>Note that there is a upper limit for
+	  <literal>lastNTimesteps</literal>. In order to save memory,
+	  the collected data is stored for a bounded interval
+	  only. You can adjust this bound through the
+	  <literal>MSLaneState</literal> constructor-parameter
+	  <literal>deleteDataAfterSeconds</literal>. The default is 15
+	  minutes. The deletion is triggerd by
+	  <literal>MSEventControl</literal>.</para>
+	</note>
+	
+	<para>For more details on this class see the files
+        <literal>MSLaneState.h</literal> and
+        <literal>MSLaneState.cpp</literal>.</para>
+
       </sect2>
+
+      <sect2 id="TravelcostDetectors">
+	<title>Extended detectors as travelcost detectors</title>
+
+	<para>If you want to measure travelcosts, you usually put an
+	extended detector on every lane, aggregate the collected data
+	over a fixed interval and write this data to a file. This is,
+	what <literal>MSTravelcostDetector</literal>
+	provides. <literal>MSTravelcostDetector</literal> is a
+	template singleton class. The template parameter is the
+	extended detector to use. So if you call
+	<literal>MSTravelcostDetector&lt; MSLaneState &gt;::create(
+	maxIntervalLength )</literal>
+	<literal>MSTravelcostDetector</literal> creates
+	<literal>MSLaneState</literal> detectors on every lane,
+	covering the lanes completety. Then you can add sample
+	intervals from 1 to maxIntervalLength seconds (call
+	e.g. <literal>MSTravelcostDetector&lt; MSLaneState
+	&gt;::getInstance()->addSampleInterval( 60 )</literal>, which
+	adds a 60 seconds interval. The collected data will be written
+	in a file called <literal>MSLaneState_60.xml</literal>).
+	</para>
+
+	<para>The sampling for a specific interval is triggered by
+	<literal>MSEventControl</literal>.</para>
+
+	<para>An extended detector class must provide following
+	methods to be a proper template parameter to
+	<literal>MSTravelcostDetector</literal>:</para>
+
+	<itemizedlist>
+	  <listitem>
+	    <literallayout><literal>static std::string getNamePrefix( void );</literal></literallayout>
+	  </listitem>
+	  <listitem>
+	    <literallayout><literal>static std::string&amp; getXMLHeader( void );</literal></literallayout>
+	  </listitem>
+	  <listitem>
+	    <literallayout><literal>std::string getXMLOutput( MSNet::Time lastNTimesteps );</literal></literallayout>
+	  </listitem>
+	</itemizedlist>
+
+	<para>For an example see <literal>MSLaneState</literal>.</para>
+
+      </sect2>
+      
     </sect1>
 
-    <sect1>
-      <title>Call for Help</title>
 
-      <para>Please let us know when either the document remains any point
-      unclear or the simulation does not behave as expected. Every help is
-      appreciated and you will be mentioned on a prominent space. Thank you.</para>
-    </sect1>
-  </chapter>
+    <sect1 id="UnextendedDetectors">
+      <title>Unextended detectors</title>
 
-  <chapter>
-    <title>Building the executable</title>
+      <para>The real life counterpart of <emphasis>unextended
+      detectors</emphasis> are induction loops. They collect data from
+      a fixed position on a lane when a vehicle passes by. They are
+      predestined for <emphasis>flow measurments</emphasis>. </para>
 
-    <sect1>
-      <title>Prerequisites</title>
+      <note>
+	<para>The MSinductionLoop class has to be modified to use the
+	move-reminder concept. The documentation will be added if this
+	task is completed.</para>
+      </note>
 
-      <para>Beside the sources, you also need:</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>XERCES-XML parser for C++ Version 2.1 or higher</para>
-
-          <para>Originally located at <link linkend="???">http://xml.apache.org/dist/xerces-c/stable/</link>
-          you can also download it from our pages at <link linkend="???">http://ivf.dlr.de/berlin/projekte/sumo/index.html</link>
-          or <link linkend="???">http://sumo.sourceforge.net/</link>.</para>
-
-          <para>Remind that you have to download a version that fits to your
-          operating system (Linux and Windows version do differ)</para>
-        </listitem>
-      </itemizedlist>
-    </sect1>
-
-    <sect1>
-      <title>Involved Sources</title>
-
-      <para>If you have taken a look into the &#34;sumo/src&#34;-folder of the
-      source code distribution, you surely have seen that it is organised in
-      subfolders. The contents of the following subfolders are used for
-      SUMO-NETCOVERT:</para>
-
-      <itemizedlist>
-        <listitem>
-          <para>sumo/src/netbuild/*</para>
-        </listitem>
-
-        <listitem>
-          <para>sumo/src/netimport/*</para>
-        </listitem>
-
-        <listitem>
-          <para>sumo/src/utils/common/*</para>
-        </listitem>
-
-        <listitem>
-          <para>sumo/src/utils/convert/*</para>
-        </listitem>
-
-        <listitem>
-          <para>sumo/src/utils/distribution/*</para>
-        </listitem>
-
-        <listitem>
-          <para>sumo/src/utils/geom/*</para>
-        </listitem>
-
-        <listitem>
-          <para>sumo/src/utils/gfx/*</para>
-        </listitem>
-
-        <listitem>
-          <para>sumo/src/utils/importio/*</para>
-        </listitem>
-
-        <listitem>
-          <para>sumo/src/utils/sumoxml/*</para>
-        </listitem>
-
-        <listitem>
-          <para>sumo/src/utils/options/*</para>
-        </listitem>
-
-        <listitem>
-          <para>sumo/src/utils/xml/*</para>
-        </listitem>
-      </itemizedlist>
-
-      <para>And also the files netconvert_main.cpp and netconvert_help.h from
-      &#34;sumo/src&#34;.</para>
-
-      <para></para>
     </sect1>
   </chapter>
 
-  <chapter>
-    <title>Process description</title>
-
-    <sect1><title>Data Loading</title> <para>The next figure shows the order
-    of data loading.</para> <figure> <title>The Loading of Data</title>
-    <mediaobject> <imageobject> <imagedata fileref="" format="GIF"></imagedata>
-    </imageobject> </mediaobject> </figure> <para>Similar to the process
-    described above, the program stops when an error occurs by throwing a
-    ProcessError - exception. The error is reported before.
-    &#34;ErrorMessages&#34; gives a list of possible errors.</para> <sect2
-    id="LoadingTypes"> <title>Loading of Types</title> <para>When no types are
-    given, the defaults are used. This is not an error. Defaults for types may
-    be given as parameter on the command line, may be read from a file but are
-    also given in the source code, so no error should occur at this place at
-    all as long as the read file (when given) is not malicious.</para>
-    </sect2> <sect2 id="LoadingNodes"> <title>Loading of Nodes</title>
-    <para>Again, an error should only occur on a broken file.</para> </sect2>
-    <sect2 id="LoadingEdges"> <title>Loading of Edges</title> <para>Edges are
-    read in the same way as nodes. An error may occur on a broken file or when
-    the node-information of a node is invalid. Invalid in this case means,
-    that the information about the node&#39;s position is missing and can not
-    be retrieved from the node descriptions loaded before, too.</para>
-    </sect2></sect1>
-
-    <sect1 id="LoaderClasses"><title>Loader Classes</title> <sect2>
-    <title>XML Input</title> <para>The loader classes are named by the
-    instance classes&#39; plural name with the appendix &#34;Handler&#34;:
-    NBXMLTypesHandler, NBXMLNodesHandler, NBXMLEdgesHandler. The &#34;XML&#34;
-    indicates the type of data being loaded by the class.</para> <para>By now,
-    as only the reading of XML-files is implemented, the handler classes are
-    derivations of the NBXMLHandlerPrototype what itself is a derivation of a
-    SAX-parser HandlerBase which is a Xerces([11])-implementation of both the
-    DocumentHandler and the ErrorHandler. NBXMLHandlerPrototype extends the
-    HandlerBase by an error report mechanism and internal variables that
-    indicate the verbose an the warn mode.</para> <para>The three handlers
-    retrieve information from the parsed XML-file instance by instance, build
-    the instances where default values may be supplied when not inside the
-    file and add the build instances into the appropriate container. Missing
-    attributes, where default values are used, are reported to stdout when the
-    &#34;warn&#34;-flag is set. Other errors are reported, too and lead to a
-    forced ending of the conversion process.</para> </sect2></sect1>
-
-    <sect1><title>Data Processing</title><para>After each loader has finished,
-    the data should be stored within the container classes &#34;NB*Cont&#34;
-    the same way. Now, the process of conversion into the SUMO-format,
-    possibly including some computation of further needed values, takes place.
-    You may ask why we do need eleven steps (version 0.8) to postprocess the
-    data. Here is the list of actions done and their explanation, too.</para><calloutlist><callout
-    arearefs="???"><para>Removing dummy edges</para><para>Is only needed
-    within Vissim; Here, sometimes edges fall completely into a junction. We
-    do not consider them and they are removed from the container within this
-    step.</para></callout><callout arearefs="???"><para>Joining double
-    connections</para><para>Within Vissim, two edges may join the same nodes
-    into the same direction. Being practically different lanes and not
-    different streets, these node connections are joined into a single edge.</para></callout><callout
-    arearefs="???"><para>Computing turning directions</para><para>For each
-    edge known within NBEdgeCont, the edge which outgoes from the node the
-    current edge goes into, is computed. They are left unseen for the next
-    steps and later assigned as the turning direction. An edge is regarded as
-    being the turning direction if it yields in the same node the current edge
-    offsprings.</para></callout><callout arearefs="???"><para>Sorting
-    nodes&#39; edges</para><para>For each node known by NBNodeCont, the 3
-    lists, being unsorted so far are sorted: _incoming, _outgoing and
-    _allEdges. By doing this, we later know the abstract geometrical
-    relationships betwen edges (which edge is right to which etc.).</para><para>We
-    describe this process more detailed in one of the next subchapters.</para></callout></calloutlist><para>Before
-    the loaded data may be processed, their container must be informed about
-    the end of the loading. By now, this is only true for the nodes as the
-    edges do not need any preprocessing. The method <methodname>NBNodeCont::close()</methodname>
-    is called from <methodname>NBLoader::load()</methodname> to precompute the
-    nodes. A further description will be given in the next subchapter.</para>
-    <para>The computation of data itself is consists of two steps. In the
-    first step (<methodname>computeEdges()</methodname>) the connections
-    between edges are computed. The second step (<methodname>computeNodes()</methodname>)
-    is generating the junction logics for the connecting nodes (junctions).
-    During this part of the process, the program will terminate when errors
-    are encountered. This is done by propagating a thrown ProcessError
-    instance. ProcessError is indirectly derived from exception and may be
-    found in <filename>utils/UtilExceptions.h</filename>.</para><sect2><title>Sorting
-    nodes&#39; edges</title><para>An edges angle is compute on construction as
-    the origin and the destination nodes are known, here. <caution><para><inlinegraphic
-    fileref="./gfx/attention_small.gif" format="GIF"></inlinegraphic>What
-    about the edge&#39;s geometry?</para></caution>Still, the angle of course
-    depends on whether it is an incoming or an outgoing edge. The
-    NBContHelper::edge_by_junction_angle_sorter()-method does consider this by
-    checking which type of an edge (incoming or outgoing) the current edge is
-    and converts the angles of incoming edges by turning them around 180°.</para></sect2></sect1>
-
-    <sect1><title>NBNodeCont::close()</title> <para>Like most of the container
-    methods, this method only invokes a method with the same name (here:
-    <methodname>close()</methodname>) on all of the classes stored inside
-    itself.</para> <para>The so invoked method NBNode::close() computes the
-    node&#39;s lists of edges. Each node has three lists which are shown in
-    the next picture.</para> <itemizedlist> <listitem> <para><type>std::vector&#60;NBEdge*&#62;</type>
-    <varname>_allEdges</varname> which holds both the incoming and the
-    outgoing edges sorted clockwise beginning with the edge(s) at the
-    node&#39;s north side (0 degree). Please remark, that this of course may
-    be more than one edge as for instance both the incoming and the outgoing
-    edge may be found here. Additionally, the edges are sorted in the
-    continental way - that means the traffic is assumed to be on the right
-    side. The next figure shows a very simple junction and the used sort
-    order.</para> </listitem> <listitem> <para><type>std::vector&#60;NBEdge*&#62;*</type>
-    <varname>_incomingEdges</varname> which holds the edges that yield into
-    the junction sorted as described above.</para> </listitem>
-    <listitem> <para><type>std::vector&#60;NBEdge*&#62;*</type>
-    <varname>_outgoingEdges</varname> which holds the edges that originate at
-    the current junction.</para> </listitem> </itemizedlist> <figure>
-    <title>The lists of edges participating within a node.</title>
-    <mediaobject> <imageobject> <imagedata fileref="" format="GIF"></imagedata>
-    </imageobject> </mediaobject> <mediaobject> <imageobject> <imagedata
-    fileref="" format="GIF"></imagedata> </imageobject> </mediaobject>
-    <mediaobject> <imageobject> <imagedata fileref="" format="GIF"></imagedata>
-    </imageobject> </mediaobject> </figure> <para>Additionally, this method
-    also computes the type of the junction as all needed nodes are already
-    known. As this also involves the setting of the junction priorities the
-    participating edges have and we will discuss these computations more
-    briefly now.</para> <sect2> <title>Computation of a Junction&#39;s Type</title>
-    <para>By now, we divide between four types of junctions:</para>
-    <variablelist> <varlistentry> <term>No Junction</term>
-    <listitem> <para>Junctions of this type have no function at all. There are
-    no relationships between approaching vehicles modeled. You may find such
-    junction on places where two lanes of a road merge or a road splits.
-    Crossings with different elevation levels may also be counted to this type
-    of junctions. We have not seen junction of this type in our nets, yet.</para>
-    </listitem> </varlistentry> <varlistentry> <term>Traffic Light Junction</term>
-    <listitem> <para>At junctions of this type the right-of-way rules are
-    steered by a traffic light. This type will be implemented in the version
-    1.0 of the program. By now, junctions of this type are converted into
-    &#34;Priority Junctions&#34;.</para> </listitem> </varlistentry>
-    <varlistentry> <term>Priority Junction</term> <listitem> <para>Here, we
-    have at least two streets with a high priority while the rest (when given)
-    have a lower priority. The computation of the priorities which are
-    junction-local will be described in the next subchapter.</para>
-    <para></para> </listitem> </varlistentry> <varlistentry> <term>Right-Before-Left
-    Junction</term> <listitem> <para>Such junctions may occur when more than
-    two streets with a low priority merge at a junction. In this case, a
-    vehicle must wait until vehicles incoming from a street right of it have
-    passed the junction.</para> </listitem> </varlistentry> </variablelist>
-    <para>The list above does also already describe the order of junction
-    types. Except of the case where the junction has only one incoming and
-    only one outgoing edge yielding in a &#34;high priority&#34; of all edges
-    and the junction becomes a Priority Junction, the type of the junction is
-    determined by combinating all of the junction&#39;s edges&#39; priorities,
-    determining the type of junction for every pair and choosing the least
-    valued type (following the upper order where No Junction has the smallest
-    and Right-Before-Left Junction the highest value). The types of
-    connections between single edges, resulting from those edges&#39;
-    priorities (or types) are stored in the type container and retrieved using
-    <type>NBTypeCont</type>::<methodname>getJunctionType()</methodname>.</para>
-    <para><methodname>getJunctionType()</methodname> uses an internal table to
-    look up the junction type resulting from the combination of the given edge
-    priorities (types). This table is embedded into the code and can not be
-    changed when the developer wants to stay portable over the program
-    versions. We will implement a method for loading own tables in the future.</para>
-    <para>Beside the Right-Before-Left Junction where all incoming edges have
-    the same priority, the junction-internal priorities of the incoming edges
-    must be computed.</para> </sect2> <sect2
-    id="ComputationPriorisedJunctionEdgePriority"> <title>Computation of a
-    Priorised Junction&#39;s Edge Priority</title> <para>For the later
-    computation of the priorities of connections between edges, we have to
-    pinpoint which of a junction&#39;s edges are the priorised ones when the
-    junction is a Priorised Junction. In the case that a junction connects
-    more than two streets, which should be the usual case, we assume two of
-    those streets to have a higher &#34;junction priority&#34; than the other.
-    Still, an - at the beginning unknown - subset of those edges may have
-    different edge priorities or the same priority, and their priorities may
-    differ for the incoming and outgoing direction. The next figure shows this
-    problem. That&#39;s why we compute the junction-internal priorities of
-    edges.</para> <figure> <title>An Example teh Change of an Edges&#39;
-    Priority over more than one Junction</title> <mediaobject>
-    <imageobject> <imagedata fileref="" format="GIF"></imagedata>
-    </imageobject> </mediaobject> </figure> <para>We must admit, that the
-    method we are using is a set of heuristics and has not yet been validated
-    by traffic scientists.</para> <para>To compute the priority of an edges
-    within a single junction, we count the distinct priorities of the incoming
-    edges of a junction at first. When the number is equal to one, being the
-    case when all incoming edges have the same priority, we extract a random
-    edge at the beginning and mark it as the first edge with a right-of-way.
-    The incoming edge with the next higher priority - when further edges exist
-    - is the edge that has the most opposite direction to the first edge
-    found. When the number of distinct priorities of the incoming edges is
-    greater than one, we sort the edges first and take the first edge then. If
-    the number of yet unused higher priorised edges is still greater than one,
-    we take the opposite edge to the edge found at first from the list of
-    edges left that have the highest priorities. Otherwise, we simply try to
-    get the opposite edge without taking the priorities into account - they
-    are the same anyway.</para> <para>Both found incoming edges are marked as
-    higher priorised in the junction.</para> <para>After the most priorised
-    incoming edges are known, we use them to find the corresponding outgoing
-    edges and mark the as higher priorised, too.</para> <figure>
-    <title>Program flow to while computing a junction&#39;s edges&#39;
-    priorities</title> <mediaobject> <imageobject> <imagedata fileref=""
-    format="GIF"></imagedata> </imageobject> </mediaobject> </figure>
-    <para>Remarks/Extensions:</para> </sect2></sect1>
-
-    <sect1><title>Computation of Edge Connections</title> <para>In SUMO each
-    edge may be connected to some following edges. The simulation does not
-    need the names of the connected edges only, but also two other
-    information: a) for each of an edge&#39;s lanes, the &#34;succeeding&#34;
-    (reachable) lanes must be given b) the edge must know, which of her lanes
-    may be used to reach a special following edge</para> <para>In fact, the
-    data are quite similar, only the key/value - relationship paradigm
-    changes. Still, there is another problem that is more interesting. It is
-    the computation of a lane&#39;s following lanes.</para> <para>As input, we
-    have a net made up from junctions and edges where each edge consists of at
-    least one lane. Let&#39;s take a look at a single junction where the edge
-    we want to compute is marked by shading:</para> <para>The easiest way in
-    this case would be to let vehicles on the left lane drive to the left, the
-    vehicles on the right lane drive to the right and the vehicles on the
-    middle lane drive ahead. Still, some junctions may occur where the number
-    of lanes does not match the number of possible directions.</para>
-    <para>By now, we are using the simple approach to distribute the incoming
-    lanes uniformly on the outgoing lanes. Additionally, before this
-    computation, we remove the opposite direction from the list of
-    approachable lanes and add this connection afterwards:</para>
-    <para>This makes the job quite good, but still has a problem. As one can
-    see in the next picture, the situation in real life is, that vehicles
-    driving on the right lane may turn right or drive ahead. Still, our
-    approach allows the turning only:</para></sect1>
-
-    <sect1 id="ComputationJunctionLogic"><title>computeNodes() : Computation
-    of a Junction Logic</title> <para>A junction should always consists of
-    more than two streets where a street is a directed connection between two
-    points. Streets may have different priorities and vehicles driving on
-    roads that have a lower priority should wait for those driving on roads
-    with a higher priority. Even when the streets that build up a junction
-    have the same priority, the further movement of the cars is determined by
-    the right-of-way - rule &#34;left before right&#34; - at least in
-    countries where driving on the right side of the road is used. All these
-    circumstances make a logic for a junction necessary that decides which
-    vehicles may move and which not. Within SUMO, such a logic gets an input
-    vector of bools which represents all possible movements (connections
-    between an incoming lane and an outgoing lane) where a set value
-    represents a vehicle that wishes to use this connection. The connections
-    themselves were previously computed by the &#34;computeEdges()&#34; -
-    method. The output of a logic is a vector of bools, too, but the bools do
-    not longer represent possible connections but the lanes that are allowed
-    to drive.</para> <para>The netconvert is responsible for the building of
-    these logics and the computeNodes() - method performs this action.</para>
-    <para>Inside SUMO you will find two ways of representation for junction
-    logics. The first idea was to use a map and store all possible
-    combinations together with responses into it. This yielded in MSMapLogic.
-    Still, some junctions are too big for this representation, so we invented
-    the MSBitfieldLogic. You will find better documentation about these
-    classes in [3, 4].</para> <para>Both representations are supported by the
-    &#34;Netconvert&#34;. As the following diagram shows, during the
-    computation of a single logic, a key is computed at first. This key is a
-    unique identifier for the junction logic that is currently build. A closer
-    description of the key will be given later.</para></sect1>
-
-    <sect1 id="ComputationLogics"><title>Computation of Logics</title>
-    <para>After the key&#39;s computation, the program looks into the
-    &#34;junction-path&#34; (-j) - folder to determine whether the logic
-    according the key was already computed. As the logic&#39;s functionality
-    stays the same, even when the key is rotated as long as the
-    incoming/outgoing edges are rotated in the same way, this method
-    (NBJunctionIO::try2convert) returns the number of rotations to be done to
-    fit the junctions incoming/outgoing edges information to an existing
-    logic. Then, this fitting is done by rotating the key and the
-    incoming/outgoing edges and the computation is finished for this junction
-    as the logic was already computed. Still, when try2convert returns a value
-    below 0, no logic for a junction of this type exists yet and must be
-    computed. To avoid the computation of too complex MSMapLogics, we
-    determine the number of possible variations of the driving wishes that may
-    occur first and compare it to the value &#34;map-maxsize&#34; (-m) that
-    may be changed by the user. The map logic is computed only when this value
-    is larger than the computed number of the logics permutations. Otherwise,
-    the key is converted into a key that already indicates the usage of a
-    bitfield logic. This is simply done by replacing the key type (the first
-    char of the key) from &#34;a&#34; to &#34;b&#34; as no other logic
-    representations are known yet.</para> <para>Independent to whether a
-    MSMapLogic was computed or not, the MSBitfieldLogic is then computed, so
-    it may be loaded when the other logic could not be found or the user
-    wishes the usage of MSBitfieldLogics only. Each logic is saved directly
-    after it&#39;s computation using the NBJunctionIO - class. The resulting
-    key (which may be changed from a MapLogic- to a BitfieldLogic-key) is the
-    assigned to the junction.</para></sect1>
-
-    <title>Data Saving</title>
-
-    <sect1><title>General</title> <para>As the data is all computed by now, it
-    may be saved straightforward into a file. As mentioned before, the
-    junction logics are already saved, only the net containing the
-    edge/lane-definitions and the junction definitions is saved.</para></sect1>
-  </chapter>
-
-  <chapter>
-    <title>Further Notes</title>
-
-    <sect1 id="ErrorHandling">
-      <title>Error Handling</title>
-
-      <para>All errors we know about that may happen during the program&#39;s
-      execution are reported to the user when they occur - despite a memory
-      overflow. When an error occurs, the program does not try to solve it as
-      we did not encounter errors yet that have any other character than false
-      data supplied by the user. Instead, the error is reported and the
-      program terminates.</para>
-
-      <para>A developer should respect this paradigm and try to catch every
-      false input or situation and report the error to the user providing him
-      as many information as available. The further processing may be aborted
-      using a &#34;ProcessError&#34; - exception instance which is caught by
-      the main method.</para>
-
-      <para>Warnings may be reported to the user and we in fact have prepared
-      an option that should help you determine whether such reports are wished
-      or not. Unfortunately, this option is not yet implemented.</para>
-    </sect1>
-  </chapter>
-
-  <chapter>
-    <title>Possible Extensions</title>
-
-    <sect1>
-      <title>Import</title>
-
-      <para>Not imported by now, but surely interesting in future are:</para>
-    </sect1>
-  </chapter>
-
-  <chapter>
-    <title>Used Models</title>
-
-    <sect1>
-      <title>aaa</title>
-
-      <para></para>
-    </sect1>
-  </chapter>
-
-  <appendix>
-    <title>Data Type Descriptions</title>
-
-    <formalpara>
-      <title></title>
-
-      <para></para>
-    </formalpara>
-  </appendix>
-
-  <appendix>
-    <title>Error Messages</title>
-
-    <para>When developing the software, you may get some further errors then
-    if you use it only, due to some buildin check routines. Here, only errors
-    only visible for developers are listed.</para>
-
-    <itemizedlist>
-      <listitem>
-        <para><errorcode>No</errorcode><blockquote><para>You are trying to set
-        an option on the command line that is not known to sumo.</para><para>You
-        may have dispelled an option. View Appendix A for a list of known
-        options and their correct spelling.</para></blockquote></para>
-      </listitem>
-    </itemizedlist>
-  </appendix>
-
-  <appendix>
-    <title>Known Bugs</title>
-
-    <para>Nothing known by now.</para>
-  </appendix>
-
-  <appendix>
-    <title>Questions And Answers</title>
-
-    <para>Ask something...</para>
-
-    <para>Contact: <email>Daniel.Krajzewicz@dlr.de</email></para>
-  </appendix>
-
-  <appendix>
-    <title>Bibliography</title>
-
-    <bibliography>
-      <bibliomixed><title>Microscopic Modeling of Traffic Flow: Investigation
-      of Collision Free Vehicle Dynamics<author><lineage>Stefan Krauß</lineage></author></title></bibliomixed>
-    </bibliography>
-
-    <para></para>
-  </appendix>
-
-  <appendix>
-    <title>Document Status</title>
-
-    <para></para>
-  </appendix>
 </book>
+
+
+
+
