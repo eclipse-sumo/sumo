@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.3  2003/03/19 08:09:16  dkrajzew
+// addition of const char*-typed errors added
+//
 // Revision 1.2  2003/02/07 10:47:17  dkrajzew
 // updated
 //
@@ -102,6 +105,14 @@ SErrorHandler::add(const string &error, bool report)
 
 void
 SErrorHandler::add(char *error, bool report)
+{
+    string str = error;
+    add(str, report);
+}
+
+
+void
+SErrorHandler::add(const char *error, bool report)
 {
     string str = error;
     add(str, report);

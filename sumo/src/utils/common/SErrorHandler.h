@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2003/03/19 08:09:16  dkrajzew
+// addition of const char*-typed errors added
+//
 // Revision 1.2  2003/02/07 10:47:17  dkrajzew
 // updated
 //
@@ -91,6 +94,9 @@ public:
 
     /// adds a new error to the list
     static void add(char *error, bool report=true);
+
+    /// adds a new error to the list
+    static void add(const char *error, bool report=true);
 
     /// lists all errors
     static void print();
