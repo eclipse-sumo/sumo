@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.21  2004/01/12 14:40:16  dkrajzew
+// added detector attributes
+//
 // Revision 1.20  2003/12/04 13:15:43  dkrajzew
 // handling of internal links added
 //
@@ -290,8 +293,16 @@ enum AttrEnum
     SUMO_ATTR_MAXDURATION,
     // Attributes for junction-internal lanes
         // Information within the junction logic which internal lanes block external
-    SUMO_ATTR_FOES
-
+    SUMO_ATTR_FOES,
+    // Attributes for detectors
+        // Measures to retrieve
+    SUMO_ATTR_MEASURES,
+        // Information whether the detector shall be continued on the folowing lanes
+    SUMO_ATTR_CONT,
+    SUMO_ATTR_HALTING_TIME_THRESHHOLD,
+    SUMO_ATTR_HALTING_SPEED_THRESHHOLD,
+    SUMO_ATTR_JAM_DIST_THRESHHOLD,
+    SUMO_ATTR_DELETE_DATA_AFTER_SECONDS
 };
 
 
@@ -306,13 +317,10 @@ extern GenericSAX2Handler::Tag sumotags[41];
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[69];
+extern AttributesHandler::Attr sumoattrs[75];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "SUMOXMLDefinitions.icc"
-//#endif
 
 #endif
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2004/01/12 14:40:16  dkrajzew
+// added detector attributes
+//
 // Revision 1.18  2003/12/04 13:15:43  dkrajzew
 // handling of internal links added
 //
@@ -132,9 +135,9 @@ GenericSAX2Handler::Tag sumotags[41] =
       { "intlanes",         SUMO_TAG_INTERNAL_LANES }
 };
 
-size_t noSumoAttrs = 69;
+size_t noSumoAttrs = 75;
 
-AttributesHandler::Attr sumoattrs[69] =
+AttributesHandler::Attr sumoattrs[75] =
 {
 	{ "id",             SUMO_ATTR_ID },
     { "name",           SUMO_ATTR_NAME },
@@ -204,7 +207,13 @@ AttributesHandler::Attr sumoattrs[69] =
     { "int_end",        SUMO_ATTR_INTERNALEND },
     { "min_dur",        SUMO_ATTR_MINDURATION },
     { "max_dur",        SUMO_ATTR_MAXDURATION },
-    { "foes",           SUMO_ATTR_FOES }
+    { "foes",           SUMO_ATTR_FOES },
+    { "measures",       SUMO_ATTR_MEASURES },
+    { "cont",           SUMO_ATTR_CONT },
+    { "time_treshhold", SUMO_ATTR_HALTING_TIME_THRESHHOLD },
+    { "speed_treshhold",SUMO_ATTR_HALTING_SPEED_THRESHHOLD },
+    { "jam_treshold",   SUMO_ATTR_JAM_DIST_THRESHHOLD },
+    { "keep_for",       SUMO_ATTR_DELETE_DATA_AFTER_SECONDS }
 };
 
 
@@ -216,5 +225,6 @@ AttributesHandler::Attr sumoattrs[69] =
 // Local Variables:
 // mode:C++
 // End:
+
 
 
