@@ -8,6 +8,8 @@ MSActuatedTrafficLightLogic.cpp
 libmicrosim_a_SOURCES = MSDensity.cpp \
 MSDetector2File.cpp \
 MSDetectorSubSys.cpp \
+MSE2DetectorInterface.cpp \
+MS_E2_ZS_Collector.cpp \
 MSEdgeControl.cpp \
 MSEdge.cpp \
 MSEmitControl.cpp \
@@ -46,9 +48,10 @@ MSBitSetLogic.h \
 MSDensity.h \
 MSDetector2File.h \
 MSDetectorFileOutput.h \
-MSDetectorPredicates.h \
 MSDetectorSubSys.h \
 MSE2Detector.h \
+MSE2DetectorInterface.h \
+MS_E2_ZS_Collector.h \
 MSEdgeControl.h \
 MSEdge.h \
 MSEmitControl.h \
@@ -65,9 +68,11 @@ MSLaneState.h \
 MSLinkCont.h \
 MSLink.h \
 MSLogicJunction.h \
+MSMeanDetector.h \
 MSNet.h \
 MSNoLogicJunction.h \
 MSOccupancyCorrection.h \
+MSPredicates.h \
 MSRightOfWayJunction.h \
 MSRoute.h \
 MSRouteHandler.h \
@@ -76,6 +81,7 @@ MSRouteLoader.h \
 MSSimpleTrafficLightLogic.h \
 MSSource.h \
 MSSourceLane.h \
+MSSumDetector.h \
 MSTrafficLightLogic.h \
 MSTriggeredReader.h \
 MSTriggeredSource.h \
