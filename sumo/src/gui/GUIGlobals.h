@@ -2,6 +2,7 @@
 #define GUIGlobals_h
 
 #include <vector>
+#include <string>
 #include <fx.h>
 
 class GUINet;
@@ -24,11 +25,18 @@ extern bool gAllowAggregated;
 /// Information whether time-floating views are allowed
 extern bool gAllowAggregatedFloating;
 
+
+extern bool gAllowTextures;
+
+
 /// Information whether not to display the information about a simulation's end
 extern bool gSuppressEndInfo;
 
 /// Structure holding the used network
 extern GUISimInfo *gSimInfo;
+
+
+extern std::string gCurrentFolder;
 
 /// list of chosen items
 extern std::vector<size_t> gChosenObjects;

@@ -7,12 +7,15 @@ bool gQuitOnEnd;
 bool gStartAtBegin;
 bool gAllowAggregated;
 bool gAllowAggregatedFloating;
+bool gAllowTextures;
 bool gSuppressEndInfo;
 float gAggregationRememberingFactor;
 
 GUISimInfo *gSimInfo = 0;
 
 FXApp *gFXApp = 0;
+
+std::string gCurrentFolder;
 
 std::vector<size_t> gChosenObjects;
 
