@@ -54,6 +54,7 @@ MSTriggeredXMLReader.cpp \
 MSUnit.cpp \
 MSVehicle.cpp \
 MSVehicleContainer.cpp \
+MSVehicleTransfer.cpp \
 MSVehicleType.cpp \
 MS_E2_ZS_Collector.cpp \
 MSActuatedTrafficLightLogic.h \
@@ -120,6 +121,7 @@ MSTriggeredXMLReader.h \
 MSUnit.h \
 MSVehicle.h \
 MSVehicleContainer.h \
+MSVehicleTransfer.h \
 MSVehicleType.h \
 MS_E2_ZS_Collector.h
 
