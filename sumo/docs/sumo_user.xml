@@ -1001,28 +1001,196 @@
         <sect3>
           <title>Automatic network generation</title>
 
-          <para>SUMO-NETCONVERT allows building of easy networks. In
-          dependence to what is wished, three types of networks can be built.
-          All of them are very sophisticated, but may be used as examples. You
-          are also greatly invited to extend the concepts. Available types
-          are: grid-networks, spider-networks and random-networks.</para>
+          <para>NETGEN allows building of easy networks. In dependence to what
+          is wished, three types of networks can be built. All of them are
+          very sophisticated, but may be used as examples. You are also
+          greatly invited to extend the concepts. Available types are:
+          grid-networks, spider-networks and random-networks.</para>
+
+          <para>Beside the parameter describing the thing to build more
+          precise, you always have to supply the name of the network to
+          generate using &#34;--output &#60;FILENAME&#62;&#34; or &#34;-o
+          &#60;FILENAME&#62;&#34; for short and also the type of network you
+          want to create. So, exactly one of the following switches must be
+          supported: &#34;--grid-net&#34;, &#34;--spider-net&#34; or
+          &#34;--random-net&#34;.</para>
+
+          <para>While the type-dependent parameter are described within the
+          next chapters, all types share some command line options. As all
+          networks posess junctions and some investigations on traffic light
+          switching stretagies have been made, here, you are able to set the
+          default type of junctions to build using the
+          &#34;--default-junction-type&#34;-option (or &#34;-j&#34; for
+          short). The following junction types are allowed in accordance to
+          the junction types currently known by the simulation:
+          &#34;priority&#34;, &#34;traffic-light&#34;, &#34;actuated&#34;,
+          &#34;agentbased&#34;.</para>
+
+          <para><caution><para><inlinegraphic
+          fileref="./gfx/attention_small.gif" format="GIF" />&#34;Traffic-light&#34;
+          will be mapped to &#34;static&#34; within the generated network.</para></caution></para>
+
+          <para>Further, you can specify the default street type by using the
+          same options as in the netconvert-application.</para>
 
           <sect4>
             <title>Grid-like networks</title>
 
-            <para>To be described...</para>
+            <para>You are able to describe how many junctions in x- and in
+            y-direction you want to be build and how far from each other they
+            should be. The parameter for the number of junctions are
+            &#34;--grid-x-number&#34; and &#34;--grid-y-number&#34;, the ones
+            for the distance between the junctions &#34;--grid-x-length&#34;
+            and &#34;--grid-y-length&#34;. If you want to build networks which
+            have the same values for both axes, use &#34;--grid-number&#34;
+            and &#34;--grid-length&#34;. The lengths are given in meters.</para>
+
+            <para>An example usage for building could be:</para>
+
+            <figure>
+              <title>netgen(.exe) --grid-net --grid-number=10
+              --grid-length=400 --output-file=MySUMOFile.net.xml</title>
+
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="./gfx/netgen_grid1.gif" format="GIF" />
+                </imageobject>
+              </mediaobject>
+            </figure>
+
+            <para>Another one:</para>
+
+            <figure>
+              <title>netgen(.exe) --grid-net --grid-x-number=20
+              --grid-y-number=5 --grid-y-length=40 --grid-x-length=200
+              --output-file=MySUMOFile.net.xml</title>
+
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="./gfx/netgen_grid2.gif" format="GIF" />
+                </imageobject>
+              </mediaobject>
+            </figure>
+
+            <para>These examples generate the following networks:</para>
           </sect4>
 
           <sect4>
             <title>Spider-net-like networks</title>
 
-            <para>To be described...</para>
+            <para>Spider-net networks are defined by the number of axes
+            dividing them (parameter &#34;--spider-arm-number&#34; or
+            &#34;--arms&#34;), the number of the circles they are made of
+            (&#34;--spider-circle-number&#34; or &#34;--circles&#34;) and the
+            distance between the circles (&#34;--spider-space-rad&#34; or
+            &#34;--radius&#34;).</para>
+
+            <para><caution><para><inlinegraphic
+            fileref="./gfx/attention_small.gif" format="GIF" />As the number
+            of edges within the middle of the spider net may be quite large,
+            it is often not possible to build a traffic light junction here.
+            Due to this, this junction is always a right-of-way-junction.</para></caution></para>
+
+            <para>Two examples of usage:</para>
+
+            <figure>
+              <title>netgen(.exe) --spider-net --spider-arm-number=10
+              --spider-circle-number=10 --spider-space-rad=100
+              --output-file=MySUMOFile.net.xml</title>
+
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="./gfx/netgen_spider1.gif" format="GIF" />
+                </imageobject>
+              </mediaobject>
+            </figure>
+
+            <para>and:</para>
+
+            <figure>
+              <title>netgen(.exe) --spider-net --spider-arm-number=4
+              --spider-circle-number=3 --spider-space-rad=100
+              --output-file=MySUMOFile.net.xml</title>
+
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="./gfx/netgen_spider2.gif" format="GIF" />
+                </imageobject>
+              </mediaobject>
+            </figure>
           </sect4>
 
           <sect4>
             <title>Random networks</title>
 
-            <para>To be described...</para>
+            <para>The random network generator does just what his name says.
+            Several settings may be changed:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>--rand-max-distance &#60;FLOAT&#62;: the maximum edge
+                length</para>
+              </listitem>
+
+              <listitem>
+                <para>--rand-min-distance &#60;FLOAT&#62;: the minimum edge
+                length</para>
+              </listitem>
+
+              <listitem>
+                <para>--rand-min-angle &#60;FLOAT&#62;: the minimum angle
+                between two edges</para>
+              </listitem>
+
+              <listitem>
+                <para>--rand-num-tries &#60;FLOAT&#62;:</para>
+              </listitem>
+
+              <listitem>
+                <para>--rand-connectivity &#60;FLOAT&#62;:</para>
+              </listitem>
+
+              <listitem>
+                <para>--rand-neighbor-dist1 &#60;FLOAT&#62;:</para>
+              </listitem>
+
+              <listitem>
+                <para>--rand-neighbor-dist2 &#60;FLOAT&#62;:</para>
+              </listitem>
+
+              <listitem>
+                <para>--rand-neighbor-dist3 &#60;FLOAT&#62;:</para>
+              </listitem>
+
+              <listitem>
+                <para>--rand-neighbor-dist4 &#60;FLOAT&#62;:</para>
+              </listitem>
+
+              <listitem>
+                <para>--rand-neighbor-dist5 &#60;FLOAT&#62;:</para>
+              </listitem>
+
+              <listitem>
+                <para>--rand-neighbor-dist6 &#60;FLOAT&#62;:</para>
+              </listitem>
+            </itemizedlist>
+
+            <para>An example:</para>
+
+            <figure>
+              <title>netgen(.exe) --random-net -o MySUMOFile.net.xml
+              --rand-ite rations=200 --abs-rand</title>
+
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="./gfx/netgen_random1.gif" format="GIF" />
+                </imageobject>
+              </mediaobject>
+            </figure>
+
+            <para><caution><para><inlinegraphic
+            fileref="./gfx/attention_small.gif" format="GIF" />This generator
+            is not yet fully developed.</para></caution></para>
           </sect4>
         </sect3>
 
@@ -1474,6 +1642,115 @@
           --artemis-input | --artemis ] &#60;PATH&#62;</para><para>Parses all
           network information from files within the given path, assuming they
           belong to an ARTMIS-network.</para></listitem><listitem><para>OPTIONAL:
+          [ --arcview-input | --arcview ] &#60;FILE_NAME(NO_EXTENSION)&#62;</para><para>Parses
+          the edge attributes from &#60;FILE_NAME(NO_EXTENSION)&#62;_dbf.txt
+          assuming it is an export from ArcView done by shapelib. Parses the
+          edge geometries from &#60;FILE_NAME(NO_EXTENSION)&#62;_shp.txt
+          assuming it is an export from ArcView done by shapelib.</para></listitem><listitem><para>OPTIONAL:
+          --arcview-shp &#60;FILE&#62;</para><para>Parses the edge geometries
+          from &#60;FILE_NAME(NO_EXTENSION)&#62;_shp.txt assuming it is an
+          export from ArcView done by shapelib.</para></listitem><listitem><para>OPTIONAL:
+          --arcview-dbf &#60;FILE&#62;</para><para>Parses the edge attributes
+          from &#60;FILE_NAME(NO_EXTENSION)&#62;_dbf.txt assuming it is an
+          export from ArcView done by shapelib.</para></listitem><listitem><para>OPTIONAL:
+          [ --configuration-file | --configuration | -c ] &#60;FILE&#62;</para><para>Specifies
+          whether a configuration file shall be loaded</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Output options</title>
+
+          <para><itemizedlist><listitem><para>MANDATORY: [ --output-file |
+          --output | -o ] &#60;FILE&#62;</para><para>Defines the file to write
+          the computed network into.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Import defaults</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --type | -T ]
+          &#60;STRING&#62;</para><para>The name of the default type of edges.
+          Default: &#34;Unknown&#34;</para></listitem><listitem><para>OPTIONAL:
+          [ --lanenumber | -L ] &#60;INT&#62;</para><para>The number of lanes
+          an edge has to use as default. Default: 1</para></listitem><listitem><para>OPTIONAL:
+          [ --speed | -S ] &#60;DOUBLE&#62;</para><para>The maximum speed
+          allowed on an edge in m/s to use as default. Default: 13.9</para></listitem><listitem><para>OPTIONAL:
+          [ --priority | -P ] &#60;INT&#62;</para><para>The default priority
+          of an edge. Default: 1</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Computation variables settings</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --capacity-norm | -C
+          ] &#60;DOUBLE&#62;</para><para>The value to divide a given capacity
+          by to gain the number of lanes. Default: 2000</para></listitem><listitem><para>OPTIONAL:
+          [ --min-decel | -D ] &#60;DOUBLE&#62;</para><para>The minimum
+          deceleration value for vehicles. Default: 3.0</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Processing options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: --omit-corrupt-edges</para><para>Continues
+          with parsing although a corrupt edge occured. This edge is not
+          inserted and a warning is printed.</para></listitem><listitem><para>OPTIONAL:
+          --flip-y</para><para>Flips the y-position of nodes (and edges) along
+          the y=zero-line.</para></listitem><listitem><para>OPTIONAL:
+          --speed-in-km</para><para>Parses speed information stored in
+          XML-edge definition files as being given in km/h (not m/s as usual)</para></listitem><listitem><para>OPTIONAL:
+          --use-laneno-as-priority</para><para>Interprets the number of lanes
+          as an edges priority.</para></listitem><listitem><para>OPTIONAL:
+          --all-logics</para><para>Computes and saves all possible cliques and
+          phases for a traffic light instead of the fastest one only.</para><caution><para><inlinegraphic
+          fileref="./gfx/attention_small.gif" format="GIF" /> This process may
+          be very time consuming.</para></caution></listitem><listitem><para>OPTIONAL:
+          --keep-small-tyellow</para><para>If a given yellow-time is smaller
+          than the computed, it is normally replaced by the computed one and a
+          warning is printed. Setting this option, you force NETCONVERT to
+          keep the given time yellow light shall be shown (for a certain
+          signal).</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Report options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --verbose | -v ]</para><para>Prints
+          some information about the process during execution.</para></listitem><listitem><para>OPTIONAL:
+          [ --suppress-warnings | -W ]</para><para>No warnings will be
+          prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
+          [ --print-options | -p ]</para><para>Prints the current option
+          settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
+          [ --log-file | -L ] &#60;FILENAME&#62;</para><para>All outputs
+          (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
+          [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>SUMO-NETGEN Command Line Arguments</title>
+
+        <sect3>
+          <title>Build description options</title>
+
+          <para><itemizedlist><listitem><para>OPTIONAL: [ --grid-net | -g ]</para><para>Forces
+          NETGEN to build a grid-like network.</para></listitem><listitem><para>OPTIONAL:
+          [ --spider-net | -s ]</para><para>Forces NETGEN to build a
+          spider-net-like network.</para></listitem><listitem><para>OPTIONAL:
+          [ --random-net | -r ]</para><para>Forces NETGEN to build a random
+          network.</para><para></para></listitem><listitem><para>OPTIONAL: [
+          --grid-x-number | --x-no ] &#60;INT&#62;</para><para>Describes how
+          many junctions in the x-directions shall be build.</para></listitem><listitem><para>OPTIONAL:
+          [ --grid-y-number | --y-no ] &#60;INT&#62;</para><para>Describes how
+          many junctions in the y-directions shall be build.</para></listitem><listitem><para>OPTIONAL:
+          [ --grid-number | --number ] &#60;INT&#62;</para><para>Describes how
+          many junctions in both the x- and the y-direction shall be build.</para></listitem><listitem><para>OPTIONAL:
+          [ --grid-x-length | --x-length ] &#60;FLOAT&#62;</para><para>Describes
+          how long each horizontal street shall be in meters.</para></listitem><listitem><para>OPTIONAL:
+          [ --grid-y-length | --y-length ] &#60;FLOAT&#62;</para><para>Describes
+          how long each vertical street shall be in meters.</para></listitem><listitem><para>OPTIONAL:
+          [ --grid-length | --length ] &#60;FLOAT&#62;</para><para>Describes
+          how long both horizontal and vertical streets shall be (in meters).</para><para></para></listitem><listitem><para>OPTIONAL:
           [ --arcview-input | --arcview ] &#60;FILE_NAME(NO_EXTENSION)&#62;</para><para>Parses
           the edge attributes from &#60;FILE_NAME(NO_EXTENSION)&#62;_dbf.txt
           assuming it is an export from ArcView done by shapelib. Parses the
