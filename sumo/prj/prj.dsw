@@ -3,6 +3,45 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
+Project: "duarouter"=.\duarouter\duarouter.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_options
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_common
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_sumoxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_xml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_convert
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_dev
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_gfx
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_importio
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name y_librouter
+    End Project Dependency
+}}}
+
+###############################################################################
+
 Project: "gui"=.\gui\gui.dsp - Package Owner=<4>
 
 Package=<5>
@@ -58,6 +97,45 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name y_libnetload
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "jprouter"=.\jprouter\jprouter.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name y_librouter
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_common
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_gfx
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_importio
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_options
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_sumoxml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_xml
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_convert
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_dev
     End Project Dependency
 }}}
 
@@ -174,42 +252,6 @@ Package=<4>
 
 ###############################################################################
 
-Project: "router"=.\router\router.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_options
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_common
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_xml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_convert
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_dev
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gfx
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_importio
-    End Project Dependency
-}}}
-
-###############################################################################
-
 Project: "sumo"=.\sumo\sumo.dsp - Package Owner=<4>
 
 Package=<5>
@@ -247,6 +289,18 @@ Package=<4>
 ###############################################################################
 
 Project: "tagreader"=.\tagreader\tagreader.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "y_libforeign_boostthreads"=.\y_libforeign_boostthreads\y_libforeign_boostthreads.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -343,6 +397,18 @@ Package=<4>
 ###############################################################################
 
 Project: "y_libnetload"=.\y_libnetload\y_libnetload.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "y_librouter"=.\y_librouter\y_librouter.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
