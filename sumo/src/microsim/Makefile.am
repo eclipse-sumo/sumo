@@ -39,6 +39,7 @@ MSVehicleContainer.cpp \
 MSVehicle.cpp \
 MSVehicleType.cpp \
 MSDetector2File.cpp \
+MSUnit.cpp \
 MSActuatedTrafficLightLogic.h \
 MSBitSetLogic.h \
 MSDetectorSubSys.h \
@@ -82,7 +83,8 @@ MSTLLogicControl.cpp \
 MSTLLogicControl.h \
 MSTravelcostDetector.h \
 MSDetector2File.h \
-MSDetectorFileOutput.h
+MSDetectorFileOutput.h \
+MSUnit.h
 
 SUBDIRS = actions
 
