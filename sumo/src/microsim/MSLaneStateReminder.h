@@ -23,6 +23,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.8  2003/07/21 15:01:46  roessel
+// Ctor requires id that is passed to base class.
+//
 // Revision 1.7  2003/06/10 13:24:07  roessel
 // Added documentation.
 //
@@ -67,11 +70,12 @@ public:
      * @param ls Corresponding MSLaneState object.
      * @param l MSLane the reminder works on
      */
-    MSLaneStateReminder( double startPos,
+    MSLaneStateReminder( std::string id,
+                         double startPos,
                          double endPos,
                          MSLaneState* ls,
                          MSLane* l ) :
-        MSMoveReminder( l ),
+        MSMoveReminder( l, id ),
         startPosM( startPos ),
         endPosM( endPos ),
         laneStateM( ls )
