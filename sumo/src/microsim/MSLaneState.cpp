@@ -24,6 +24,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.11  2003/05/26 13:19:20  roessel
+// Completed all get* methods.
+//
 // Revision 1.10  2003/05/25 17:50:12  roessel
 // Implemented getCurrentNumberOfWaiting.
 // Added methods actionBeforeMove and actionAfterMove. actionBeforeMove creates
@@ -75,6 +78,7 @@ namespace
 #include "../helpers/SingletonDictionary.h"
 #include <sstream>
 #include <algorithm>
+#include <numeric>
 #include <iomanip>
 #include <iostream>
 #include <cassert>
@@ -186,7 +190,21 @@ MSLaneState::MSLaneState( string id,
 int
 MSLaneState::getNumberOfWaiting( MSNet::Time lastNTimesteps )
 {
-
+    assert( lastNTimesteps > 0 );
+    if ( timestepDataM.empty() ) {
+        return 0;
+    }
+    TimestepDataCont::iterator start = timestepDataM.begin();
+    TimestepDataCont::iterator end   = timestepDataM.end();
+    if ( (end-1)->queueLengthM == -1 ) {
+        // actionAfterMove has not bee called yet. Ignore last element
+        --end;
+    }
+    if ( timestepDataM.size() - 1 > lastNTimesteps ) {
+        start = end - lastNTimesteps;
+    }   
+    return accumulate( start, end, 0.0, waitingQueueSum ) /
+        static_cast< double >( lastNTimesteps );
 }
 
 
@@ -218,31 +236,103 @@ MSLaneState::getCurrentNumberOfWaiting( void )
 
 double
 MSLaneState::getMeanSpeed( MSNet::Time lastNTimesteps )
-{}
+{
+    assert( lastNTimesteps > 0 );
+    if ( timestepDataM.empty() ) {
+        return 0;
+    }
+    double denominator = 
+        accumulate( getStartIterator( lastNTimesteps ),
+                    timestepDataM.end(), 0.0, contTimestepSum );
+    if ( denominator == 0 ) {
+        return 0;
+    }
+    return accumulate( getStartIterator( lastNTimesteps ),
+                       timestepDataM.end(), 0.0, speedSum ) /
+        denominator;
+}
 
 double
 MSLaneState::getCurrentMeanSpeed( void )
-{}
+{
+    if ( timestepDataM.empty() ) {
+        return 0;
+    }
+    TimestepData& data = timestepDataM.back();
+    if ( data.contTimestepSumM == 0 ) {
+        return 0;
+    }
+    return data.speedSumM / data.contTimestepSumM;  
+}
 
 double
 MSLaneState::getMeanSpeedSquare( MSNet::Time lastNTimesteps )
-{}
+{
+    assert( lastNTimesteps > 0 );
+    if ( timestepDataM.empty() ) {
+        return 0;
+    }
+    double denominator = 
+        accumulate( getStartIterator( lastNTimesteps ),
+                    timestepDataM.end(), 0.0, contTimestepSum );
+    if ( denominator == 0 ) {
+        return 0;
+    }
+    return accumulate( getStartIterator( lastNTimesteps ),
+                       timestepDataM.end(), 0.0, speedSquareSum ) /
+        denominator;   
+}
 
 double
 MSLaneState::getCurrentMeanSpeedSquare( void )
-{}
+{
+    if ( timestepDataM.empty() ) {
+        return 0;
+    }
+    TimestepData& data = timestepDataM.back();
+    if ( data.contTimestepSumM == 0 ) {
+        return 0;
+    }
+    return data.speedSquareSumM / data.contTimestepSumM;
+}
 
 double
 MSLaneState::getMeanDensity( MSNet::Time lastNTimesteps )
-{}
+{
+    assert( lastNTimesteps > 0 );
+    if ( timestepDataM.empty() ) {
+        return 0;
+    }
+    // unit is veh/km
+    return accumulate( getStartIterator( lastNTimesteps ),
+                       timestepDataM.end(), 0.0, contTimestepSum ) /
+        ( lastNTimesteps * laneM->length() ) * 1000.0;
+}
 
 double
 MSLaneState::getCurrentDensity( void )
-{}
+{
+    if ( timestepDataM.empty() ) {
+        return 0;
+    }
+    // unit is veh/km
+    return timestepDataM.back().contTimestepSumM / laneM->length() * 1000.0;
+}
 
 double
 MSLaneState::getMeanTraveltime( MSNet::Time lastNTimesteps )
-{}
+{
+    if ( vehLeftLaneM.empty() ) {
+        return -1;
+    }
+    double startTimestep = MSNet::getInstance()->timestep() - lastNTimesteps;
+    return accumulate(
+        lower_bound( vehLeftLaneM.begin(), vehLeftLaneM.end(), startTimestep,
+                     VehicleData::leaveTimestepLesser() ),
+        vehLeftLaneM.end(),
+        0.0,
+        traveltimeSum );
+}
 
 void
 MSLaneState::addMoveData( MSVehicle& veh,
@@ -296,13 +386,13 @@ MSLaneState::leaveDetectorByMove( MSVehicle& veh,
 {
     cout << "MSLaneState::leaveDetectorByMove" << endl;
     // finalize vehicleDataM
-    std::map< std::string, VehicleData >::iterator dataIt =
+    VehicleDataMap::iterator dataIt =
         vehicleDataM.find( veh.id() );
     assert ( dataIt != vehicleDataM.end() );
     dataIt->second.leaveContTimestepM =
         leaveTimestepFraction + MSNet::getInstance()->timestep();
-    if ( ! dataIt->second.entireDetectorM ) {
-        dataIt->second.entireDetectorM = false;
+    if ( ! dataIt->second.passedEntireDetectorM ) {
+        dataIt->second.passedEntireDetectorM = false;
     }
     vehLeftLaneM.push_back( dataIt->second );
     vehicleDataM.erase( dataIt );
@@ -313,11 +403,11 @@ MSLaneState::leaveDetectorByLaneChange( MSVehicle& veh )
 {
     cout << "MSLaneState::leaveDetectorByLaneChange" << endl;
     // finalize vehicleData
-    std::map< std::string, VehicleData >::iterator dataIt =
+    VehicleDataMap::iterator dataIt =
         vehicleDataM.find( veh.id() );
     assert( dataIt != vehicleDataM.end() );
     dataIt->second.leaveContTimestepM = MSNet::getInstance()->timestep();
-    dataIt->second.entireDetectorM = false;
+    dataIt->second.passedEntireDetectorM = false;
     vehLeftLaneM.push_back( dataIt->second );
     vehicleDataM.erase( dataIt );
 }
@@ -348,9 +438,9 @@ MSLaneState::calcWaitingQueueLength( void )
     if ( ! waitingQueueElemsM.empty() ) {
         // veh in waitingQueueElemsM are not sorted
         sort( waitingQueueElemsM.begin(), waitingQueueElemsM.end(),
-              WaitingQueuePos() );
+              WaitingQueueElem::PosGreater() );
     
-        std::vector<WaitingQueueElem>::iterator it =
+        WaitingQueueElemCont::iterator it =
             waitingQueueElemsM.begin();
         for (;;) {
             if ( it+1 == waitingQueueElemsM.end() ) {
@@ -367,10 +457,21 @@ MSLaneState::calcWaitingQueueLength( void )
         }
         waitingQueueElemsM.clear();
     }
-    
     // add nVehQueuing-value to current timestepDataM
     timestepDataM.begin()->queueLengthM = nVehQueuing;
 }
+
+
+MSLaneState::TimestepDataCont::iterator
+MSLaneState::getStartIterator( MSNet::Time lastNTimesteps )
+{
+    TimestepDataCont::iterator start = timestepDataM.begin();
+    if ( timestepDataM.size() > lastNTimesteps ) {
+        start =  timestepDataM.end() - lastNTimesteps;
+    }
+    return start;
+}
+
 
 MSNet::Time
 MSLaneState::writeData()

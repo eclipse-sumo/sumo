@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.8  2003/05/26 13:19:20  roessel
+// Completed all get* methods.
+//
 // Revision 1.7  2003/05/25 17:50:31  roessel
 // Implemented getCurrentNumberOfWaiting.
 // Added methods actionBeforeMove and actionAfterMove. actionBeforeMove creates
@@ -145,6 +148,8 @@ public:
 
     void actionAfterMove( void );
 
+    MSNet::Time deleteOldData( void );
+
     /** Function-object in order to find the vehicle, that has just
         passed the detector. */
     struct VehPosition : public std::binary_function< const MSVehicle*,
@@ -157,7 +162,17 @@ public:
     };
 
 protected:
+    struct TimestepData;
+    struct WaitingQueueElem;
+    struct VehicleData;
+    typedef std::deque< TimestepData >           TimestepDataCont;
+    typedef std::vector< WaitingQueueElem >      WaitingQueueElemCont;
+    typedef std::map< std::string, VehicleData > VehicleDataMap;
+    typedef std::deque< VehicleData >            VehicleDataCont;
+
     void calcWaitingQueueLength( void );
+    
+    TimestepDataCont::iterator getStartIterator( MSNet::Time lastNTimesteps );
     
     /// Write the data according to OutputStyle when the sampleIntervall
     /// is over.
@@ -195,26 +210,47 @@ protected:
         double speedSumM;
         double speedSquareSumM;
         double contTimestepSumM;
-        int timestepSumM;
+        double timestepSumM;
         int queueLengthM;
     };
 
     struct VehicleData
     {
+        struct leaveTimestepLesser
+            : public binary_function<VehicleData, double, bool>
+        {
+            bool operator()( const VehicleData& data,
+                             double leaveTimestep ) const
+                {
+                    return data.leaveContTimestepM < leaveTimestep;
+                }
+        };
+        
         VehicleData( double entryContTimestep,
                      bool enteredDetectorByMove ) :
             entryContTimestepM ( entryContTimestep ),
             leaveContTimestepM ( -1 ),
-            entireDetectorM ( enteredDetectorByMove )
+            passedEntireDetectorM ( enteredDetectorByMove )
             {}
 
         double entryContTimestepM;
         double leaveContTimestepM;
-        bool entireDetectorM;
+        bool passedEntireDetectorM;
     };
 
-    struct WaitingQueueElem
+    struct WaitingQueueElem 
     {
+        struct PosGreater : public std::binary_function<
+            const WaitingQueueElem, const WaitingQueueElem, bool >
+        {
+            // Sort criterion for std::vector< WaitingQueueElem >
+            // We sort in descending order
+            bool operator() ( const WaitingQueueElem p1,
+                              const WaitingQueueElem p2 ) const {
+                return p1.posM > p2.posM;
+            }
+        };
+        
         WaitingQueueElem( double pos, double vehLength ) :
             posM( pos ), vehLengthM( vehLength )
             {}
@@ -230,23 +266,11 @@ private:
 
     /// File where output goes to.
     std::ofstream* fileM;
-
-    typedef std::deque< TimestepData > TimestepDataCont;
-    TimestepDataCont timestepDataM;
-    std::map< std::string, VehicleData > vehicleDataM;
-    std::vector< WaitingQueueElem > waitingQueueElemsM;
-    std::deque< VehicleData > vehLeftLaneM;
-
-    struct WaitingQueuePos : public std::binary_function<
-        const WaitingQueueElem, const WaitingQueueElem, bool >
-    {
-        // Sort criterion for std::vector< WaitingQueueElem >
-        // We sort in descending order
-        bool operator() ( const WaitingQueueElem p1,
-                          const WaitingQueueElem p2 ) const {
-            return p1.posM > p2.posM;
-        }
-    };
+    
+    TimestepDataCont     timestepDataM;
+    VehicleDataMap       vehicleDataM;
+    WaitingQueueElemCont waitingQueueElemsM;
+    VehicleDataCont      vehLeftLaneM;
 
     /// Lane where detector works on.
     MSLane* laneM;
@@ -264,6 +288,8 @@ private:
 
     MSMoveReminder* reminderM;
 
+    const MSNet::Time deleteDataAfterSeconds = 900;
+
     /// Default constructor.
     MSLaneState();
 
@@ -274,7 +300,45 @@ private:
     MSLaneState& operator=( const MSLaneState& );
 };
 
+inline double speedSum( double sumSoFar,
+                 const MSLaneState::TimestepData& data ) 
+{
+    return sumSoFar + data.speedSumM;
+}
 
+inline double speedSquareSum( double sumSoFar,
+                       const MSLaneState::TimestepData& data ) 
+{
+    return sumSoFar + data.speedSquareSumM;
+}
+
+inline double contTimestepSum( double sumSoFar,
+                        const MSLaneState::TimestepData& data ) 
+{
+    return sumSoFar + data.contTimestepSumM;
+}
+
+inline double timestepSum( double sumSoFar,
+                    const MSLaneState::TimestepData& data ) 
+{
+    return sumSoFar + data.timestepSumM;
+}
+
+inline double waitingQueueSum( double sumSoFar,
+                        const MSLaneState::TimestepData& data ) 
+{
+    return sumSoFar + data.queueLengthM;
+}
+    
+inline double traveltimeSum( double sumSoFar,
+                      const MSLaneState::VehicleData& data )
+{
+    if ( data.passedEntireDetectorM ) {
+        return sumSoFar + data.leaveContTimestepM - data.entryContTimestepM;
+    }
+    return sumSoFar;
+}
+         
 #endif
 
 // Local Variables:
