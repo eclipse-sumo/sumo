@@ -15,7 +15,7 @@ LoggedValue_Single<_T>::~LoggedValue_Single<_T>()
 
 
 template<typename _T>
-void 
+void
 LoggedValue_Single<_T>::add(_T value)
 {
     myCurrentValue = value;
@@ -23,7 +23,7 @@ LoggedValue_Single<_T>::add(_T value)
 
 
 template<typename _T>
-_T 
+_T
 LoggedValue_Single<_T>::getAvg() const
 {
     return myCurrentValue;
@@ -31,7 +31,7 @@ LoggedValue_Single<_T>::getAvg() const
 
 
 template<typename _T>
-_T 
+_T
 LoggedValue_Single<_T>::getAbs() const
 {
     return myCurrentValue;

@@ -24,7 +24,7 @@ LoggedValue_TimeFloating<_T>::~LoggedValue_TimeFloating()
 
 
 template<typename _T>
-void 
+void
 LoggedValue_TimeFloating<_T>::add(_T value)
 {
     // remove the value lying some steps ahead
@@ -43,7 +43,7 @@ LoggedValue_TimeFloating<_T>::add(_T value)
 
 
 template<typename _T>
-_T 
+_T
 LoggedValue_TimeFloating<_T>::getAvg() const
 {
     // the list is complete
@@ -60,7 +60,7 @@ LoggedValue_TimeFloating<_T>::getAvg() const
 
 
 template<typename _T>
-_T 
+_T
 LoggedValue_TimeFloating<_T>::getAbs() const
 {
     return myCurrentValue;

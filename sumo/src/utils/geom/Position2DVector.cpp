@@ -249,7 +249,7 @@ Position2DVector::getEnd() const
 }
 
 
-std::pair<Position2DVector, Position2DVector> 
+std::pair<Position2DVector, Position2DVector>
 Position2DVector::splitAt(double where) const
 {
     Position2DVector one;

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2003/03/18 13:16:57  dkrajzew
+// windows eol removed
+//
 // Revision 1.3  2003/02/10 17:42:36  roessel
 // Added necessary keyword typename.
 //
@@ -76,7 +79,7 @@ protected:
     /// Definition of the container type
     typedef std::map< std::string, T > myCont;
     typedef typename myCont::iterator myContIt;
-    
+
     /// The container
     myCont   _cont;
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/03/18 13:16:57  dkrajzew
+// windows eol removed
+//
 // Revision 1.1  2003/03/06 17:22:15  dkrajzew
 // initial commit for value logging cleasses
 //
@@ -48,17 +51,17 @@ public:
     /// Destructor
     ~LoggedValue_Single();
 
-    /** @brief Adds a new value 
+    /** @brief Adds a new value
         Simply sets the current value */
     void add(_T value);
 
-    /** returns the average of previously set values 
+    /** returns the average of previously set values
         (for and over the given sample interval) */
-    _T getAvg() const; 
+    _T getAvg() const;
 
-    /** returns the sum of previously set values 
+    /** returns the sum of previously set values
         (for the given sample interval) */
-    _T getAbs() const; 
+    _T getAbs() const;
 
 private:
     /// The current value

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2003/03/18 13:16:57  dkrajzew
+// windows eol removed
+//
 // Revision 1.3  2003/03/12 16:35:41  dkrajzew
 // some further functionality added needed by the artemis-import
 //
@@ -199,7 +202,7 @@ Boundery::partialWithin(const AbstractPoly &poly, double offset) const
 }
 
 
-void 
+void
 Boundery::grow(double by)
 {
     _xmax += by;
@@ -209,7 +212,7 @@ Boundery::grow(double by)
 }
 
 
-void 
+void
 Boundery::flipY()
 {
     _ymin *= -1.0;

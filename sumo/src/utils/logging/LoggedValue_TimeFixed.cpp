@@ -17,7 +17,7 @@ LoggedValue_TimeFixed<_T>::~LoggedValue_TimeFixed<_T>()
 
 
 template<typename _T>
-void 
+void
 LoggedValue_TimeFixed<_T>::add(_T value)
 {
     mySampledUnits++;
@@ -32,7 +32,7 @@ LoggedValue_TimeFixed<_T>::add(_T value)
 
 
 template<typename _T>
-_T 
+_T
 LoggedValue_TimeFixed<_T>::getAvg() const
 {
     // Security check for false interval usage
@@ -45,7 +45,7 @@ LoggedValue_TimeFixed<_T>::getAvg() const
 
 
 template<typename _T>
-_T 
+_T
 LoggedValue_TimeFixed<_T>::getAbs() const
 {
     return myCurrentValue;

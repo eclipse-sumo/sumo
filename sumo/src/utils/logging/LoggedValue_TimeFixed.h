@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/03/18 13:16:57  dkrajzew
+// windows eol removed
+//
 // Revision 1.1  2003/03/06 17:22:15  dkrajzew
 // initial commit for value logging cleasses
 //
@@ -52,18 +55,18 @@ public:
     /// Destructor
     ~LoggedValue_TimeFixed();
 
-    /** @brief Adds a new value 
+    /** @brief Adds a new value
         Adds the value to the sum; increases the number of read units.
         Possibly resets the buffer to zero if the fixed length has been exceeded */
     void add(_T value);
 
-    /** returns the average of previously set values 
+    /** returns the average of previously set values
         (for and over the given sample interval or the number of sampled units, if smaller) */
-    _T getAvg() const; 
+    _T getAvg() const;
 
-    /** returns the sum of previously set values 
+    /** returns the sum of previously set values
         (for the given sample interval) */
-    _T getAbs() const; 
+    _T getAbs() const;
 
 private:
     /// The sample interval to sum the values over
@@ -72,7 +75,7 @@ private:
     /// The current sum
     _T      myCurrentValue;
 
-    /** @brief the number of values sampled 
+    /** @brief the number of values sampled
         (set together with myCurrentValue to  zero if larger than mySampleInterval) */
     size_t  mySampledUnits;
 };

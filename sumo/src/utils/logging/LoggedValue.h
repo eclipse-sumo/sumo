@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2003/03/18 13:16:57  dkrajzew
+// windows eol removed
+//
 // Revision 1.1  2003/03/06 17:22:14  dkrajzew
 // initial commit for value logging cleasses
 //
@@ -38,21 +41,21 @@ template<typename _T>
 class LoggedValue {
 public:
     /** @brief Constructor
-        The dummy value is used to ensure, the derived class must 
+        The dummy value is used to ensure, the derived class must
         remind the sample interval */
     LoggedValue(size_t dummy) { }
 
     /// Destructor
     virtual ~LoggedValue() { }
 
-    /// Adds a new value 
+    /// Adds a new value
     virtual void add(_T value) = 0;
 
-    /** returns the average of previously set values 
+    /** returns the average of previously set values
         (for and over the given sample interval) */
     virtual _T getAvg() const = 0;
 
-    /** returns the sum of previously set values 
+    /** returns the sum of previously set values
         (for the given sample interval) */
     virtual _T getAbs() const = 0;
 

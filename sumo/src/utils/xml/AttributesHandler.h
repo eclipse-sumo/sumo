@@ -22,6 +22,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/03/18 13:16:58  dkrajzew
+// windows eol removed
+//
 // Revision 1.3  2003/03/03 15:26:22  dkrajzew
 // documentation added
 //
@@ -67,11 +70,11 @@ class AttributesHandler {
 public:
     /** the structure that describes the relationship between an attribute
         name and its numerical representation */
-    struct Attr { 
+    struct Attr {
         /// The xml-attribute-name (latin1)
-        const char *name; 
+        const char *name;
         /// The numerical representation of the attribute
-        int key; 
+        int key;
     };
 
 public:

@@ -63,7 +63,7 @@ public:
     /// Returns a boundery enclosing this list of lines
     Boundery getBoxBoundery() const;
 
-    /** @brief Returns the center 
+    /** @brief Returns the center
         !! Only for closed??? */
     Position2D center() const;
 
@@ -83,7 +83,7 @@ public:
     std::pair<Position2DVector, Position2DVector> splitAt(double where) const;
 
     /// Output operator
-    friend std::ostream &operator<<(std::ostream &os, 
+    friend std::ostream &operator<<(std::ostream &os,
         const Position2DVector &geom);
 
     bool crosses(const Position2D &p1,

@@ -1,7 +1,7 @@
 
 #include "DoubleVector.h"
 
-double 
+double
 DoubleVectorHelper::sum(const DoubleVector &dv)
 {
     double sum = 0;
@@ -12,7 +12,7 @@ DoubleVectorHelper::sum(const DoubleVector &dv)
 }
 
 
-void 
+void
 DoubleVectorHelper::normalise(DoubleVector &dv, double msum)
 {
     double rsum = sum(dv);
@@ -20,7 +20,7 @@ DoubleVectorHelper::normalise(DoubleVector &dv, double msum)
 }
 
 
-void 
+void
 DoubleVectorHelper::div(DoubleVector &dv, double by)
 {
     for(DoubleVector::iterator i=dv.begin(); i!=dv.end(); i++) {

@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2003/03/18 13:16:58  dkrajzew
+// windows eol removed
+//
 // Revision 1.3  2003/03/03 15:26:23  dkrajzew
 // documentation added
 //
@@ -70,11 +73,11 @@ class GenericSAX2Handler : public DefaultHandler
 {
 public:
     /** a tag name with its numerical representation */
-    struct Tag { 
+    struct Tag {
         /// The xml-element-name (latin1)
-        const char *name; 
+        const char *name;
         /// The numerical representation of the attribute
-        int value; 
+        int value;
     };
 
 public:
