@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.6  2003/05/23 16:42:22  roessel
+// Added method getCurrentDensity().
+//
 // Revision 1.5  2003/05/21 16:20:44  dkrajzew
 // further work detectors
 //
@@ -103,6 +106,8 @@ public:
     double getCurrentMeanSpeedSquare( void );
 
     double getMeanDensity( MSNet::Time lastNTimesteps );
+
+    double getCurrentDensity( void );
 
     double getMeanTraveltime( MSNet::Time lastNTimesteps );
 

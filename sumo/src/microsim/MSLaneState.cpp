@@ -24,6 +24,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.9  2003/05/23 16:42:22  roessel
+// Added method getCurrentDensity().
+//
 // Revision 1.8  2003/05/22 12:41:00  roessel
 // Two fixes (& and clear()) and many cout
 //
@@ -224,6 +227,10 @@ MSLaneState::getCurrentMeanSpeedSquare( void )
 
 double
 MSLaneState::getMeanDensity( MSNet::Time lastNTimesteps )
+{}
+
+double
+MSLaneState::getCurrentDensity( void )
 {}
 
 double
