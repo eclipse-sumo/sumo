@@ -74,8 +74,7 @@ protected:
 
     MSJamLengthSumInMeters( double lengthInMeters,
                             const Container& container )
-        : containerM( container.containerM ),
-        laneLengthM(lengthInMeters)
+        : containerM( container.containerM )
         {}
 
     virtual ~MSJamLengthSumInMeters( void )
@@ -120,7 +119,6 @@ protected:
         }
 private:
     const Haltings& containerM;
-    const MSUnit::Cells laneLengthM;
 };
 
 
