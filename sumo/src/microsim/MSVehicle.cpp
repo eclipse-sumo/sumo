@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.41  2003/11/20 14:59:17  dkrajzew
+// detector usage patched
+//
 // Revision 1.40  2003/11/12 13:50:30  dkrajzew
 // MSLink-members are now secured from the outer world
 //
@@ -344,6 +347,7 @@ namespace
 #include "MSLinkCont.h"
 #include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
+#include <utils/gfx/RGBColor.h>
 #include <iostream>
 #include <cassert>
 #include <cmath>
@@ -1084,8 +1088,7 @@ MSVehicle::moveFirstChecked()
         myWaitingTime = 0;
     }
     // call reminders after vNext is set
-    workOnMoveReminders( myState.myPos,
-                         myState.myPos + vNext * MSNet::deltaT(), vNext );
+    double pos = myState.myPos;
 
     // update position
     myState.myPos += vNext * MSNet::deltaT();
@@ -1123,6 +1126,9 @@ MSVehicle::moveFirstChecked()
 		approachedLane = (*link)->getLane();
         approachedLane->setApproaching(myState.pos(), this);
         no++;
+    }
+    if(no==0) {
+        workOnMoveReminders( pos, pos + vNext * MSNet::deltaT(), vNext );
     }
     assert(no<=1);
     myTarget = approachedLane;
@@ -1661,9 +1667,11 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane )
         myState.myPos / myState.mySpeed;
     updateMeanData( entryTimestep, 0, myState.mySpeed );
     // switch the reminders and work on them
-    myOldLaneMoveReminders = myMoveReminders;
+//    myOldLaneMoveReminders = myMoveReminders;
+    copy(myMoveReminders.begin(), myMoveReminders.end(),
+        back_inserter(myOldLaneMoveReminders));
     myMoveReminders = enteredLane->getMoveReminders();
-    workOnMoveReminders( 0.0, myState.pos(), myState.speed(), CURRENT );
+//    workOnMoveReminders( 0.0, myState.pos(), myState.speed(), CURRENT );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1883,7 +1891,7 @@ MSVehicle::getNextPeriodical() const
     }
     return MSNet::getInstance()->buildNewVehicle(StringUtils::version1(myID),
         myRoute, myDesiredDepart+myPeriod, myType, myRepetitionNumber-1,
-        myPeriod);
+        myPeriod, RGBColor(1, 1, 1));
 }
 
 
@@ -2010,14 +2018,42 @@ MSVehicle::proceedVirtualReturnIfEnded(MSVehicleTransfer &securityCheck,
     return false;
 }
 
-
 void
-MSVehicle::patchState(/*const MSVehicleTransfer &rightsCheck*/)
+MSVehicle::onTripEnd(MSLane &caller, bool wasAlreadySet)
 {
-    double newPos = myLane->length() + myType->length() + 1;
-    double speed = (newPos - myState.myPos) / MSNet::deltaT();
-    myState.myPos = newPos;
-    myState.mySpeed = speed;
+    double pspeed = myState.mySpeed;
+    double pos = myState.myPos;
+    double oldPos = pos - pspeed * MSNet::deltaT();
+    if ( pos - myType->length() < 0 ) {
+        double pdist = (myType->length() + 0.01) - oldPos;
+        pspeed = pdist / MSNet::deltaT();
+        pos = myType->length() + 0.1;
+    }
+    pos += myLane->length();
+    oldPos += myLane->length();
+
+    vector< MSMoveReminder* >::iterator rem;
+    for ( rem = myMoveReminders.begin();
+          rem != myMoveReminders.end(); ++rem ) {
+        // the vehicle may only be at the entry occupancy correction
+        if( (*rem)->isStillActive( *this, oldPos, pos, pspeed) ) {
+            assert(false);
+        }
+//        (*rem)->dismissCorrectionsOnTripEnd(*this);
+    }
+    //
+    rem = myOldLaneMoveReminders.begin();
+/*    double oldLaneLength = (*rem)->getLane()->length();
+    oldPos += oldLaneLength;
+    pos += oldLaneLength;*/
+    for (; rem != myOldLaneMoveReminders.end(); ++rem ) {
+        double oldLaneLength = (*rem)->getLane()->length();
+        if( (*rem)->isStillActive( *this,
+                oldPos+oldLaneLength, pos+oldLaneLength, pspeed) ) {
+            assert(false);
+        }
+  //      (*rem)->dismissCorrectionsOnTripEnd(*this);
+    }
 }
 
 

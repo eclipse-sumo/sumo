@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.26  2003/11/20 14:59:17  dkrajzew
+// detector usage patched
+//
 // Revision 1.25  2003/10/24 16:48:37  roessel
 // Added new method getMovedDistance and corresponding member.
 //
@@ -682,7 +685,7 @@ public:
 
     size_t getWaitingTime() const;
 
-    void patchState(/*const MSVehicleTransfer &rightsCheck*/); // !!! false name!
+//    void patchState(/*const MSVehicleTransfer &rightsCheck*/); // !!! false name!
 
 
     friend class MSLane; // !!!
@@ -778,7 +781,7 @@ public:
         {
             return movedDistanceDuringStepM;
         }
-    
+
 
 protected:
     /// Use this constructor only.
@@ -802,6 +805,8 @@ protected:
                          double pos,
                          double speed );
 
+
+    void onTripEnd(MSLane &caller, bool wasAlreadySet=false);
 
     /// information how long ago the vehicle has performed a lane-change
     MSNet::Time myLastLaneChangeOffset;
@@ -925,7 +930,7 @@ private:
     void activateRemindersByEmitOrLaneChange( void );
 
     MSUnit::Cells movedDistanceDuringStepM;
-    
+
 };
 
 
