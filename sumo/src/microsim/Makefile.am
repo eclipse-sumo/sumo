@@ -1,22 +1,23 @@
 noinst_LIBRARIES = libmicrosim.a
 
 
-EXTRA_DIST = MSBitSetLogic.cpp MSSimpleTrafficLightLogic.cpp
+EXTRA_DIST = MSBitSetLogic.cpp \
+MSSimpleTrafficLightLogic.cpp \
+MSActuatedTrafficLightLogic.cpp \
+MSInductLoop.cpp \
+MSLaneState.cpp 
 
-libmicrosim_a_SOURCES = MSActuatedTrafficLightLogic.cpp \
-MSDetector.cpp \
+libmicrosim_a_SOURCES = MSDetector.cpp \
 MSEdgeControl.cpp \
 MSEdge.cpp \
 MSEmitControl.cpp \
 MSEventControl.cpp \
-MSInductLoop.cpp \
 MSJunctionControl.cpp \
 MSJunction.cpp \
 MSJunctionLogic.cpp \
 MSLaneChanger.cpp \
 MSLane.cpp \
 MSLaneSpeedTrigger.cpp \
-MSLaneState.cpp \
 MSLink.cpp \
 MSLogicJunction.cpp \
 MSNet.cpp \
