@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.20  2003/09/22 12:40:11  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.19  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
 //
@@ -181,6 +184,25 @@ public:
         LANESPREAD_CENTER
     };
 
+    /**
+     * As the network is build in a cascaded way, considering loaded
+     * information, a counter holding the current step is needed. This is done
+     * by using this enumeration
+     */
+    enum EdgeBuildingStep {
+        /// the edge has been loaded and connections shall not be added
+        INIT_REJECT_CONNECTIONS = -1,
+        /// the edge has been loaded, nothing is computed yet
+        INIT = 0,
+        /// the relationships between edges are computed/loaded
+        EDGE2EDGES = 1,
+        /// lanes to edges - relationships are computed/loaded
+        LANES2EDGES = 2,
+        /// lanes to lanes - relationships are computed/loaded
+        LANES2LANES = 3
+    };
+
+
 public:
     /// constructor
     NBEdge(std::string id, std::string name,
@@ -316,7 +338,7 @@ public:
 
     double getSpeed() const;
 
-    void replaceInConnections(NBEdge *which, NBEdge *by);
+    void replaceInConnections(NBEdge *which, NBEdge *by, size_t laneOff);
 
     double getMaxLaneOffset();
 
@@ -377,6 +399,10 @@ public:
 
     friend class NBEdgeCont;
 
+    EdgeBuildingStep getStep() const {
+        return _step;
+    }
+
 private:
     /**
      * ToEdgeConnectionsAdder
@@ -436,24 +462,6 @@ private:
         /** returns the information whether the street in the given direction
             has a higher priority */
         bool includes(Direction d) const;
-    };
-
-    /**
-     * As the network is build in a cascaded way, considering loaded
-     * information, a counter holding the current step is needed. This is done
-     * by using this enumeration
-     */
-    enum EdgeBuildingStep {
-        /// the edge has been loaded and connections shall not be added
-        INIT_REJECT_CONNECTIONS = -1,
-        /// the edge has been loaded, nothing is computed yet
-        INIT = 0,
-        /// the relationships between edges are computed/loaded
-        EDGE2EDGES = 1,
-        /// lanes to edges - relationships are computed/loaded
-        LANES2EDGES = 2,
-        /// lanes to lanes - relationships are computed/loaded
-        LANES2LANES = 3
     };
 
     /// Computes the shape for the given lane

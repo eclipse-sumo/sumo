@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2003/09/22 12:42:17  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.10  2003/07/07 08:28:48  dkrajzew
 // adapted the importer to the new node type description; some further work
 //
@@ -274,6 +277,10 @@ NIVissimConnection::dict_buildNBEdgeConnections()
 {
 	size_t ref = 0;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+/*        int bla = (*i).first;
+        if(bla==2000284||bla==2000283) {
+            int bla = 0;
+        }*/
         NIVissimConnection *c = (*i).second;
         NBEdge *fromEdge = NBEdgeCont::retrievePossiblySplitted(
             toString<int>(c->getFromEdgeID()),

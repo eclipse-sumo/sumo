@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2003/09/22 12:40:11  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.9  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
 //
@@ -83,6 +86,7 @@ namespace
 #include <map>
 #include <cassert>
 #include "NBContHelper.h"
+#include <utils/geom/GeomHelper.h>
 
 
 /* =========================================================================
@@ -299,6 +303,27 @@ operator<<(std::ostream &os, const EdgeVector &ev)
         os << (*i)->getID();
     }
     return os;
+}
+
+
+NBContHelper::edge_to_lane_sorter::edge_to_lane_sorter(NBNode *from, NBNode *to)
+{
+    flip = atan2(
+        from->getXCoordinate()-to->getXCoordinate(),
+        from->getYCoordinate()-to->getYCoordinate())<0;
+}
+
+
+int
+NBContHelper::edge_to_lane_sorter::operator() (NBEdge *e1, NBEdge *e2) const {
+    Position2D p = e1->getGeometry().center();
+    if(flip) {
+        return 0<GeomHelper::DistancePointLine(p,
+            e2->getGeometry().getBegin(), e2->getGeometry().getEnd());
+    } else {
+        return 0>GeomHelper::DistancePointLine(p,
+            e2->getGeometry().getBegin(), e2->getGeometry().getEnd());
+    }
 }
 
 

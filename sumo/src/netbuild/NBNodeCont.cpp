@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2003/09/22 12:40:12  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.20  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
 //
@@ -582,7 +585,7 @@ NBNodeCont::removeUnwishedNodes()
             NBEdge *begin = (*j).first;
             NBEdge *continuation = (*j).second;
             begin->append(continuation);
-            continuation->getToNode()->replaceIncoming(continuation, begin);
+            continuation->getToNode()->replaceIncoming(continuation, begin, 0);
             NBEdgeCont::erase(continuation);
         }
         toRemove.push_back(current);

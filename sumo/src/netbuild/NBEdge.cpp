@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2003/09/22 12:40:11  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.26  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
 //
@@ -934,6 +937,15 @@ NBEdge::computeLanes2Edges()
 bool
 NBEdge::recheckLanes()
 {
+/*    if(_id=="131") {
+        int bla;
+        for(ReachableFromLaneVector::iterator k=_reachable->begin(); k!=_reachable->end(); k++) {
+            for(EdgeLaneVector::iterator l=(*k).begin(); l!=(*k).end(); l++) {
+                cout << "_reachable:" << (*l).edge->getID() << ":" << (*l).lane << endl;
+            }
+        }
+        cout << "----------" << endl;
+    }*/
     size_t i;
     // check:
     //  if there is a lane with no connections and any neighbour lane has
@@ -957,6 +969,15 @@ NBEdge::recheckLanes()
             setConnection(i, 0, 0);
         }
     }
+/*    if(_id=="131") {
+        int bla;
+        for(ReachableFromLaneVector::iterator k=_reachable->begin(); k!=_reachable->end(); k++) {
+            for(EdgeLaneVector::iterator l=(*k).begin(); l!=(*k).end(); l++) {
+                cout << "_reachable:" << (*l).edge->getID() << ":" << (*l).lane << endl;
+            }
+        }
+        cout << "----------" << endl;
+    }*/
     return true;
 }
 
@@ -1365,12 +1386,27 @@ NBEdge::getSpeed() const
 
 
 void
-NBEdge::replaceInConnections(NBEdge *which, NBEdge *by)
+NBEdge::replaceInConnections(NBEdge *which, NBEdge *by, size_t laneOff)
 {
+/*    if(_id=="131") {
+        int bla = 0;
+    }*/
     // replace in "_connectedEdges"
-	for(size_t i=0; i<_connectedEdges.size(); i++) {
-		if(_connectedEdges[i]==which) {
-			_connectedEdges[i] = by;
+    EdgeVector::iterator k = find(
+        _connectedEdges.begin(), _connectedEdges.end(), by);
+    if(k!=_connectedEdges.end()) {
+    	for(k=_connectedEdges.begin(); k!=_connectedEdges.end();) {
+	    	if((*k)==which) {
+		    	k = _connectedEdges.erase(k);
+            } else {
+                k++;
+            }
+        }
+    } else {
+    	for(size_t i=0; i<_connectedEdges.size(); i++) {
+	    	if(_connectedEdges[i]==which) {
+		    	_connectedEdges[i] = by;
+            }
         }
     }
     // check whether it was the turn destination
@@ -1380,35 +1416,90 @@ NBEdge::replaceInConnections(NBEdge *which, NBEdge *by)
     // replace in _ToEdges
     if(_ToEdges!=0) {
         bool found = true;
+        // check if the edge to replace by was already connected
         bool have = _ToEdges->find(by)!=_ToEdges->end();
+        // find the edge to replace
         std::map<NBEdge*, std::vector<size_t> >::iterator j = _ToEdges->find(which);
         if(j!=_ToEdges->end()) {
+            // if the edge to replace by already had a connection
             if(have) {
-                copy((*_ToEdges)[which].begin(), (*_ToEdges)[which].end(),
-                    back_inserter((*j).second));
+                // add further connections
+                for(std::vector<size_t>::iterator k=(*_ToEdges)[which].begin(); k!=(*_ToEdges)[which].end(); k++) {
+                    if(find((*_ToEdges)[which].begin(), (*_ToEdges)[which].end(), (*k)+laneOff)!=(*_ToEdges)[which].end()) {
+                        (*_ToEdges)[by].push_back((*k)+laneOff);
+                    }
+                }
             } else {
+                // set connections
                 have = true;
                 (*_ToEdges)[by] = (*j).second;
             }
         }
     }
     // replace in _reachable
+/*    if(_id=="131") {
+        int bla;
+        for(ReachableFromLaneVector::iterator k=_reachable->begin(); k!=_reachable->end(); k++) {
+            for(EdgeLaneVector::iterator l=(*k).begin(); l!=(*k).end(); l++) {
+                cout << "_reachable:" << (*l).edge->getID() << ":" << (*l).lane << endl;
+            }
+        }
+        cout << "----------" << endl;
+    }*/
     if(_reachable!=0) {
         for(ReachableFromLaneVector::iterator k=_reachable->begin(); k!=_reachable->end(); k++) {
             for(EdgeLaneVector::iterator l=(*k).begin(); l!=(*k).end(); l++) {
                 if((*l).edge==which) {
                     (*l).edge = by;
+                    (*l).lane = (*l).lane + laneOff;
                 }
             }
         }
     }
+/*    if(_id=="131") {
+        int bla;
+        for(ReachableFromLaneVector::iterator k=_reachable->begin(); k!=_reachable->end(); k++) {
+            for(EdgeLaneVector::iterator l=(*k).begin(); l!=(*k).end(); l++) {
+                cout << "_reachable:" << (*l).edge->getID() << ":" << (*l).lane << endl;
+            }
+        }
+        cout << "----------" << endl;
+    }*/
     // replace in _succeedinglanes
     if(_succeedinglanes!=0) {
+/*        if(_id=="131") {
+            for(LanesThatSucceedEdgeCont::iterator l2=_succeedinglanes->begin(); l2!=_succeedinglanes->end(); l2++) {
+                int bla;
+                cout << "_succeedinglanes:" << (*l2).first->getID() << ":";
+                for(LaneVector::iterator l3=(*l2).second.begin(); l3!=(*l2).second.end(); l3++) {
+                    cout << (*l3) << ", ";
+                }
+                cout << endl;
+            }
+            cout << "---------" << endl;
+        }*/
         LanesThatSucceedEdgeCont::iterator l=_succeedinglanes->find(which);
         if(l!=_succeedinglanes->end()) {
-            (*_succeedinglanes)[by] = (*l).second;
+            LanesThatSucceedEdgeCont::iterator l2=_succeedinglanes->find(by);
+            if(l2!=_succeedinglanes->end()) {
+                copy((*_succeedinglanes)[which].begin(), (*_succeedinglanes)[which].end(),
+                    back_inserter((*_succeedinglanes)[by]));
+            } else {
+                (*_succeedinglanes)[by] = (*l).second;
+            }
             _succeedinglanes->erase(l);
         }
+/*        if(_id=="131") {
+            for(LanesThatSucceedEdgeCont::iterator l2=_succeedinglanes->begin(); l2!=_succeedinglanes->end(); l2++) {
+                int bla;
+                cout << "_succeedinglanes:" << (*l2).first->getID() << ":";
+                for(LaneVector::iterator l3=(*l2).second.begin(); l3!=(*l2).second.end(); l3++) {
+                    cout << (*l3) << ", ";
+                }
+                cout << endl;
+            }
+            cout << "---------" << endl;
+        }*/
     }
 }
 
@@ -1765,9 +1856,9 @@ NBEdge::isJoinable() const
 void
 NBEdge::computeEdgeShape()
 {
-    if(_id=="246091") {
+/*    if(_id=="246091") {
         int bla = 0;
-    }
+    }*/
     size_t i;
     for(i=0; i<_nolanes; i++) {
         // get lane begin and end

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2003/09/22 12:42:17  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.14  2003/07/07 08:28:48  dkrajzew
 // adapted the importer to the new node type description; some further work
 //
@@ -142,10 +145,12 @@ NIVissimConnectionCluster::NodeSubCluster::overlapsWith(
 NIVissimConnectionCluster::ContType NIVissimConnectionCluster::myClusters;
 
 int NIVissimConnectionCluster::myFirstFreeID = 100000;
+int NIVissimConnectionCluster::myStaticBlaID = 0;
 
 NIVissimConnectionCluster::NIVissimConnectionCluster(
         const IntVector &connections, int nodeCluster, int edgeid)
-    : myConnections(connections), myNodeCluster(nodeCluster)
+    : myConnections(connections), myNodeCluster(nodeCluster),
+    myBlaID(myStaticBlaID++)
 {
     recomputeBoundery();
     myClusters.push_back(this);
@@ -380,6 +385,10 @@ NIVissimConnectionCluster::buildNodeClusters()
         IntVector nodes;
         int tlsid = -1;
         int nodeid = -1;
+
+        if((*i)->myBlaID==296||(*i)->myBlaID==297) {
+            int bla = 0;
+        }
 
         if((*i)->myConnections.size()>0) {
             (*i)->recomputeBoundery();

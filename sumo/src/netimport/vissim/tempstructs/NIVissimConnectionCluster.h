@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2003/09/22 12:42:17  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.8  2003/06/18 11:35:29  dkrajzew
 // message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
 //
@@ -175,6 +178,8 @@ private:
     typedef std::vector<NIVissimConnectionCluster*> ContType;
     static ContType myClusters;
     static int myFirstFreeID;
+    static int myStaticBlaID;
+    int myBlaID;
 };
 
 

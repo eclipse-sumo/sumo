@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2003/09/22 12:42:18  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.13  2003/07/07 08:28:48  dkrajzew
 // adapted the importer to the new node type description; some further work
 //
@@ -193,6 +196,9 @@ NIVissimEdge::buildConnectionClusters()
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         int edgeid = (*i).first;
         NIVissimEdge *edge = (*i).second;
+        if(edgeid==249) {
+            int bla = 0;
+        }
         // get all connectors using this edge
         IntVector connectors = edge->myIncomingConnections;
         copy(edge->myOutgoingConnections.begin(),
@@ -268,6 +274,9 @@ NIVissimEdge::dict_buildNBEdges(double offset)
 void
 NIVissimEdge::buildNBEdge(double offset)
 {
+    if(myID==249) {
+        int bla = 0;
+    }
     std::pair<bool, NBNode *> fromInf, toInf;
     NBNode *fromNode, *toNode;
     fromNode = toNode = 0;
@@ -366,13 +375,15 @@ NIVissimEdge::getFromNode()
     if(c->around(beg, 5.0)) {
         return std::pair<bool, NBNode *>(false, c->getNBNode());
     }
-    // build a new node for the edge's begin otherwise
+/*    // build a new node for the edge's begin otherwise
     NBNode *node = new NBNode(toString<int>(myID) + "-begin",
         beg.x(), beg.y(), NBNode::NODETYPE_NOJUNCTION);
     if(!NBNodeCont::insert(node)) {
         throw 1;
     }
-    return std::pair<bool, NBNode *>(true, node);
+    return std::pair<bool, NBNode *>(true, node);*/
+    cout << "BLA!!!!!!" << endl;
+    return std::pair<bool, NBNode *>(true, c->getNBNode());
 }
 
 
@@ -386,13 +397,15 @@ NIVissimEdge::getToNode()
     if(c->around(end, 5.0)) {
         return std::pair<bool, NBNode *>(false, c->getNBNode());
     }
-    // build a new node for the edge's end otherwise
+/*    // build a new node for the edge's end otherwise
     NBNode *node = new NBNode(toString<int>(myID) + "-end",
         end.x(), end.y(), NBNode::NODETYPE_NOJUNCTION);
     if(!NBNodeCont::insert(node)) {
         throw 1;
     }
-    return std::pair<bool, NBNode *>(true, node);
+    return std::pair<bool, NBNode *>(true, node);*/
+    cout << "BLA!!!!!!" << endl;
+    return std::pair<bool, NBNode *>(true, c->getNBNode());
 }
 
 

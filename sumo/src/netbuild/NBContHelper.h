@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2003/09/22 12:40:11  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.8  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
 //
@@ -373,7 +376,7 @@ public:
                 (mm1.first<=mm2.first&&mm1.second<=mm2.second)
                 ||
                 (mm1.first>=mm2.first&&mm1.second>=mm2.second) );
-            return (mm1.first<=mm2.first&&mm1.second<=mm2.second);
+            return (mm1.first>=mm2.first&&mm1.second>=mm2.second);
         }
 
         /**
@@ -395,6 +398,15 @@ public:
             }
             return std::pair<double, double>(min, max);
         }
+    };
+
+    class edge_to_lane_sorter {
+    private:
+        bool flip;
+
+    public:
+        explicit edge_to_lane_sorter(NBNode *from, NBNode *to);
+        int operator() (NBEdge *e1, NBEdge *e2) const;
     };
 
     friend std::ostream &operator<<(std::ostream &os, const EdgeVector &ev);

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2003/09/22 12:40:11  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.18  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
 //
@@ -397,8 +400,8 @@ NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
         edge->_length-pos, edge->getPriority(), geoms.second,
         edge->myLaneSpreadFunction, edge->_basicType);
     // replace information about this edge within the nodes
-    edge->_from->replaceOutgoing(edge, one);
-    edge->_to->replaceIncoming(edge, two);
+    edge->_from->replaceOutgoing(edge, one, 0);
+    edge->_to->replaceIncoming(edge, two, 0);
     // the edge is now occuring twice in both nodes...
     //  clean up
     edge->_from->removeDoubleEdges();
@@ -538,9 +541,16 @@ NBEdgeCont::joinSameNodeConnectingEdges(EdgeVector edges)
     string id;
     NBEdge::EdgeBasicFunction function =
         NBEdge::EDGEFUNCTION_UNKNOWN;
-    sort(edges.begin(), edges.end(), NBContHelper::same_connection_edge_sorter());
+    if((*(edges.begin()))->getID().substr(0, 10)=="1000006[0]"||(*(edges.begin()))->getID()=="1000112"||(*(edges.begin()))->getID()=="1000111") {
+        int bla = 0;
+    }
+    sort(edges.begin(), edges.end(),
+        NBContHelper::same_connection_edge_sorter());
     // retrieve the connected nodes
     NBEdge *tpledge = *(edges.begin());
+    if(tpledge->getID().substr(0, 10)=="1000006[0]"||tpledge->getID()=="1000112"||tpledge->getID()=="1000111") {
+        int bla = 0;
+    }
     NBNode *from = tpledge->getFromNode();
     NBNode *to = tpledge->getToNode();
     EdgeVector::const_iterator i;
@@ -583,6 +593,9 @@ NBEdgeCont::joinSameNodeConnectingEdges(EdgeVector edges)
     NBEdge *newEdge = new NBEdge(id, id, from, to, "", speed,
         nolanes, -1, priority, tpledge->myLaneSpreadFunction, function);
     insert(newEdge);
+/*    // sort edges as lanes
+    sort(edges.begin(), edges.end(),
+        NBContHelper::edge_to_lane_sorter(from, to));*/
     // replace old edge by current within the nodes
     //  and delete the old
     from->replaceOutgoing(edges, newEdge);

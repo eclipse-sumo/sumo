@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2003/09/22 12:40:12  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.27  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
 //
@@ -233,6 +236,9 @@ NBNode::ApproachingDivider::execute(double src, double dest)
     assert(_approaching->size()>src);
     // get the origin edge
     NBEdge *incomingEdge = (*_approaching)[(int) src];
+    if(incomingEdge->getStep()==NBEdge::LANES2LANES) {
+        return;
+    }
     vector<size_t> approachingLanes =
         incomingEdge->getConnectionLanes(_currentOutgoing);
     assert(approachingLanes.size()!=0);
@@ -478,9 +484,9 @@ NBNode::swapWhenReversed(const vector<NBEdge*>::iterator &i1,
 void
 NBNode::setPriorities()
 {
-    if(_id=="618975401") {
+/*    if(_id=="618975401") {
         int bla = 0;
-    }
+    }*/
     // reset all priorities
     vector<NBEdge*>::iterator i;
     // check if the junction is not a real junction
@@ -1412,7 +1418,7 @@ NBNode::reshiftPosition(double xoff, double yoff, double rot)
 
 
 void
-NBNode::replaceOutgoing(NBEdge *which, NBEdge *by)
+NBNode::replaceOutgoing(NBEdge *which, NBEdge *by, size_t laneOff)
 {
     size_t i;
     // replace the edge in the list of outgoing nodes
@@ -1423,10 +1429,10 @@ NBNode::replaceOutgoing(NBEdge *which, NBEdge *by)
     }
     // replace the edge in connections of incoming edges
     for(i=0; i<_incomingEdges->size(); i++) {
-        (*_incomingEdges)[i]->replaceInConnections(which, by);
+        (*_incomingEdges)[i]->replaceInConnections(which, by, laneOff);
     }
     // replace within the connetion prohibition dependencies
-    replaceInConnectionProhibitions(which, by);
+    replaceInConnectionProhibitions(which, by, 0, laneOff);
 }
 
 
@@ -1434,8 +1440,10 @@ void
 NBNode::replaceOutgoing(const EdgeVector &which, NBEdge *by)
 {
     // replace edges
+    size_t laneOff = 0;
     for(EdgeVector::const_iterator i=which.begin(); i!=which.end(); i++) {
-        replaceOutgoing(*i, by);
+        replaceOutgoing(*i, by, laneOff);
+        laneOff += (*i)->getNoLanes();
     }
     // removed double occurences
     removeDoubleEdges();
@@ -1448,7 +1456,7 @@ NBNode::replaceOutgoing(const EdgeVector &which, NBEdge *by)
 
 
 void
-NBNode::replaceIncoming(NBEdge *which, NBEdge *by)
+NBNode::replaceIncoming(NBEdge *which, NBEdge *by, size_t laneOff)
 {
     // replace the edge in the list of incoming nodes
     for(size_t i=0; i<_incomingEdges->size(); i++) {
@@ -1462,7 +1470,7 @@ NBNode::replaceIncoming(NBEdge *which, NBEdge *by)
         by->addEdge2EdgeConnection(*j);
     }
     // replace within the connetion prohibition dependencies
-    replaceInConnectionProhibitions(which, by);
+    replaceInConnectionProhibitions(which, by, laneOff, 0);
 }
 
 
@@ -1470,8 +1478,10 @@ void
 NBNode::replaceIncoming(const EdgeVector &which, NBEdge *by)
 {
     // replace edges
+    size_t laneOff = 0;
     for(EdgeVector::const_iterator i=which.begin(); i!=which.end(); i++) {
-        replaceIncoming(*i, by);
+        replaceIncoming(*i, by, laneOff);
+        laneOff += (*i)->getNoLanes();
     }
     // removed double occurences
     removeDoubleEdges();
@@ -1485,17 +1495,18 @@ NBNode::replaceIncoming(const EdgeVector &which, NBEdge *by)
 
 
 void
-NBNode::replaceInConnectionProhibitions(NBEdge *which, NBEdge *by)
+NBNode::replaceInConnectionProhibitions(NBEdge *which, NBEdge *by,
+                                        size_t whichLaneOff, size_t byLaneOff)
 {
     // replace in keys
     NBConnectionProhibits::iterator j = _blockedConnections.begin();
     while(j!=_blockedConnections.end()) {
         bool changed = false;
         NBConnection c = (*j).first;
-        if(c.replaceFrom(which, by)) {
+        if(c.replaceFrom(which, whichLaneOff, by, byLaneOff)) {
             changed = true;
         }
-        if(c.replaceTo(which, by)) {
+        if(c.replaceTo(which, whichLaneOff, by, byLaneOff)) {
             changed = true;
         }
         if(changed) {
@@ -1512,8 +1523,8 @@ NBNode::replaceInConnectionProhibitions(NBEdge *which, NBEdge *by)
         NBConnectionVector &prohibiting = (*j).second;
         for(NBConnectionVector::iterator k=prohibiting.begin(); k!=prohibiting.end(); k++) {
             NBConnection &sprohibiting = *k;
-            sprohibiting.replaceFrom(which, by);
-            sprohibiting.replaceTo(which, by);
+            sprohibiting.replaceFrom(which, whichLaneOff, by, byLaneOff);
+            sprohibiting.replaceTo(which, whichLaneOff, by, byLaneOff);
         }
     }
 }

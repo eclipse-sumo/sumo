@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.21  2003/09/22 12:40:12  dkrajzew
+// further work on vissim-import
+//
 // Revision 1.20  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
 //
@@ -415,7 +418,7 @@ private:
 
     /** @brief Replaces occurences of the first edge within the list of incoming by the second
         Connections are remapped, too */
-    void replaceIncoming(NBEdge *which, NBEdge *by);
+    void replaceIncoming(NBEdge *which, NBEdge *by, size_t laneOff);
 
     /** @brief Replaces occurences of every edge from the given list within the list of incoming by the second
         Connections are remapped, too */
@@ -423,14 +426,15 @@ private:
 
     /** @brief Replaces occurences of the first edge within the list of outgoing by the second
         Connections are remapped, too */
-    void replaceOutgoing(NBEdge *which, NBEdge *by);
+    void replaceOutgoing(NBEdge *which, NBEdge *by, size_t laneOff);
 
     /** @brief Replaces occurences of every edge from the given list within the list of outgoing by the second
         Connections are remapped, too */
     void replaceOutgoing(const EdgeVector &which, NBEdge *by);
 
 
-    void replaceInConnectionProhibitions(NBEdge *which, NBEdge *by);
+    void replaceInConnectionProhibitions(NBEdge *which, NBEdge *by,
+        size_t whichLaneOff, size_t byLaneOff);
 
 
     void remapRemoved(NBEdge *removed, const EdgeVector &incoming, const EdgeVector &outgoing);
