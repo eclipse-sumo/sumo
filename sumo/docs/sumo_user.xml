@@ -1726,6 +1726,10 @@
             &#34;measures&#34; describes which values the detector shall
             compute.</para>
 
+            <para><caution><para><inlinegraphic
+            fileref="./gfx/attention_small.gif" format="GIF" />The folder the
+            output file shall be generated in must exist.</para></caution></para>
+
             <para>E2-detectors may compute many different measures and the
             user has the possibility to describe which measures he actually
             wants to be generated. The &#34;measures&#34;-attribute must
@@ -1812,8 +1816,8 @@
               </listitem>
 
               <listitem>
-                <para>type: Always &#34;areal&#34;, &#34;lane_based&#34; or
-                &#34;E2&#34; for this type of detectors</para>
+                <para>type: Always &#34;lane_based&#34; or &#34;E2&#34; for
+                this type of detectors</para>
               </listitem>
 
               <listitem>
@@ -1837,18 +1841,8 @@
               </listitem>
 
               <listitem>
-                <para>cont: Holds the information whether detectors longer
-                than a lane shall be cut off or continued (set it to true for
-                the second case).</para>
-              </listitem>
-
-              <listitem>
                 <para>freq: The aggregation period the values the detector
                 collects shall be summed up.</para>
-              </listitem>
-
-              <listitem>
-                <para>style: Obsolete/deprecated; Always xml by now</para>
               </listitem>
 
               <listitem>
@@ -1859,6 +1853,44 @@
               <listitem>
                 <para>measures: Should contain the list of measures to compute
                 (see above) or &#34;ALL&#34; to compute all measures.</para>
+              </listitem>
+            </itemizedlist>
+
+            <para>And the optional ones:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para>style: Obsolete/deprecated; Always xml by now</para>
+              </listitem>
+
+              <listitem>
+                <para>cont: Holds the information whether detectors longer
+                than a lane shall be cut off or continued (set it to true for
+                the second case) deafult: false (detector lies on one lane
+                only).</para>
+              </listitem>
+
+              <listitem>
+                <para>time_treshhold: The time-based threshhold that describes
+                how much time has to pass until a vehicle is recognized as
+                halting (in s, default: 1s).</para>
+              </listitem>
+
+              <listitem>
+                <para>speed_treshhold: The speed-based threshhold that
+                describes how slow a vehicle has to be to be recognized as
+                halting (in m/s, default: 5/3.6m/s).</para>
+              </listitem>
+
+              <listitem>
+                <para>jam_treshhold: The length-based period that describes
+                how long a jam has to be to be recognized as one (in m,
+                default: 10m).</para>
+              </listitem>
+
+              <listitem>
+                <para>keep_for: Information for how long the memory of the
+                detector has to be (in s, default: 1800s).</para>
               </listitem>
             </itemizedlist>
           </sect4>
