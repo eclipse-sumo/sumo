@@ -22,6 +22,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.3  2003/05/22 13:45:34  roessel
+// Added condition in isActivatedByEmitOrLaneChange.
+//
 // Revision 1.2  2003/05/22 12:44:10  roessel
 // Changed void activateByEmit... to bool isActivatedByEmit. Not activated reminders will be erased from the vehicles reminder-list.
 //
@@ -94,7 +97,10 @@ public:
                 laneStateM.enterDetectorByEmitOrLaneChange( veh );
                 return true;
             }
-            return false;
+            if ( veh.pos() > endPosM ){
+                return false;
+            }
+            return true;
         }
 
 private:
