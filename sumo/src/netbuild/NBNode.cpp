@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2003/10/17 11:21:10  dkrajzew
+// error on trying to build a geometry for a emoty node removed
+//
 // Revision 1.32  2003/10/15 11:48:13  dkrajzew
 // geometry computation corrigued partially
 //
@@ -1079,6 +1082,9 @@ NBNode::sortNodesEdges()
 void
 NBNode::computeNodeShape()
 {
+    if(_incomingEdges->size()==0&&_outgoingEdges->size()==0) {
+        return;
+    }
     // compute the shape of the junction
     //  only junction have a shape, otherwise it's somekind
     //  of another connection between streets
