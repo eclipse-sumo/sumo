@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2004/04/23 12:41:02  dkrajzew
+// some further work on vissim-import
+//
 // Revision 1.4  2004/03/19 13:06:09  dkrajzew
 // some further work on vissim-import and geometry computation
 //
@@ -517,6 +520,7 @@ NBNodeCont::recheckEdges()
                     geometryCombinations.push_back(tmp);
                 }
             }
+            /*
             // recheck combinations
             //  (hate this)
             bool hasChanged = true;
@@ -542,15 +546,14 @@ NBNodeCont::recheckEdges()
                     NBEdgeCont::joinSameNodeConnectingEdges(*m);
                 }
             }
+            */
         }
-        /*
         for(k=connectionCount.begin(); k!=connectionCount.end(); k++) {
             // join edges
             if((*k).second.size()>1) {
                 NBEdgeCont::joinSameNodeConnectingEdges((*k).second);
             }
         }
-        */
     }
     return true;
 }
@@ -688,13 +691,7 @@ NBNodeCont::removeUnwishedNodes()
 }
 
 
-
-
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBNodeCont.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

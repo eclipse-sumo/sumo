@@ -234,7 +234,7 @@ NBNetBuilder::compute(OptionsCont &oc)
 //    if(ok) ok = setInit(step++);
     //
     if(ok) ok = removeDummyEdges(step++);
-//    if(ok) ok = joinEdges(step++);
+    if(ok) ok = joinEdges(step++);
     if(ok) ok = removeUnwishedNodes(step++, oc);
     if(ok) ok = computeTurningDirections(step++);
     if(ok) ok = sortNodesEdges(step++);

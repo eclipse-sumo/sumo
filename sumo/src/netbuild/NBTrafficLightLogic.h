@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2004/04/23 12:41:02  dkrajzew
+// some further work on vissim-import
+//
 // Revision 1.11  2003/12/04 13:03:58  dkrajzew
 // possibility to pass the tl-type from the netgenerator added
 //
@@ -50,9 +53,6 @@
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -104,6 +104,9 @@ public:
 
     /// Information whether the given logic is equal to this
     bool equals(const NBTrafficLightLogic &logic) const;
+
+    /// closes the building process (joins equal steps)
+    void closeBuilding();
 
 private:
     /// The key (id) of the logic
@@ -158,8 +161,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NBTrafficLightLogic.icc"
 //#endif
 
 #endif

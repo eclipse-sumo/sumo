@@ -402,7 +402,7 @@ NBLoadedTLDef::myCompute(size_t breakingTime, std::string type, bool buildAll)
             string("During computation of traffic light '")
             + getID() + string("'."));
     }
-
+    logic->closeBuilding();
     // returns the build logic
     NBTrafficLightLogicVector *ret =
         new NBTrafficLightLogicVector(_links, type);
@@ -445,6 +445,9 @@ NBLoadedTLDef::buildPhaseMasks(size_t time) const
     Masks masks;
     size_t pos = 0;
     SignalGroupCont::const_iterator i;
+    // set the green and yellow information first;
+    //  the information whether other have to break needs those masks
+    //  completely filled
     for(i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
         SignalGroup *group = (*i).second;
         size_t linkNo = group->getLinkNo();
@@ -464,6 +467,7 @@ NBLoadedTLDef::buildPhaseMasks(size_t time) const
             }
         }
     }
+    // set the breaking mask
     pos = 0;
     for(i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
         SignalGroup *group = (*i).second;
@@ -497,11 +501,17 @@ NBLoadedTLDef::mustBrake(const NBConnection &possProhibited,
     //  priorised foe to the given
     size_t pos = 0;
     for(SignalGroupCont::const_iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
+                if(possProhibited.getFrom()->getID()=="1000017") {
+                    int bla = 0;
+                }
         SignalGroup *group = (*i).second;
+        // get otherlinks that have green
         size_t linkNo = group->getLinkNo();
         for(size_t j=0; j<linkNo; j++) {
+            // get the current connection (possible foe)
             const NBConnection &other = group->getConnection(j);
             NBConnection possProhibitor(other);
+            // if the connction ist still valid ...
             if(possProhibitor.check()) {
 /*                assert(possProhibited.getToLane()>=0);
                 assert(possProhibitor.getToLane()>=0);
@@ -510,11 +520,21 @@ NBLoadedTLDef::mustBrake(const NBConnection &possProhibited,
                 if(possProhibited.getToLane()!=possProhibitor.getToLane()) {
                     continue;
                 }*/
-                if( (green.test(pos)||yellow.test(pos))&&possProhibited.getFrom()!=possProhibitor.getFrom()) {
+                // ... do nothing if it starts at the same edge
+                if(possProhibited.getFrom()==possProhibitor.getFrom()) {
+                    pos++;
+                    continue;
+                }
+                if( green.test(pos) ) {
                     if(NBTrafficLightDefinition::mustBrake(possProhibited, possProhibitor, true)) {
                         return true;
                     }
                 }
+/*                if( yellow.test(pos) ) {
+                    if(NBTrafficLightDefinition::mustBrake(possProhibited, possProhibitor, true)) {
+                        return true;
+                    }
+                }*/
                 pos++;
             }
         }

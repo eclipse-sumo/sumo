@@ -163,9 +163,6 @@ NBNodeShapeComputer::computeContinuationNodeShape()
 Position2DVector
 NBNodeShapeComputer::computeRealNodeShape()
 {
-    if(myNode.getID()=="618975401") {
-        int bla = 0;
-    }
     Position2DVector ret;
 //    std::vector<double> edgeOffsets;
     EdgeCrossDefVector edgeOffsets;

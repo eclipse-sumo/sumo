@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2004/04/23 12:41:02  dkrajzew
+// some further work on vissim-import
+//
 // Revision 1.15  2004/01/12 15:10:27  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
@@ -64,7 +67,6 @@ namespace
 //
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
-//
 //
 /* =========================================================================
  * included modules
@@ -203,12 +205,27 @@ NBTrafficLightLogic::equals(const NBTrafficLightLogic &logic) const
 }
 
 
+void
+NBTrafficLightLogic::closeBuilding()
+{
+    for(size_t i=0; i<_phases.size()-1; ) {
+        if( _phases[i].driveMask!=_phases[i+1].driveMask
+            ||
+            _phases[i].brakeMask!=_phases[i+1].brakeMask
+            ||
+            _phases[i].yellowMask!=_phases[i+1].yellowMask ) {
+
+            i++;
+            continue;
+        }
+
+        _phases[i].duration += _phases[i+1].duration;
+        _phases.erase(_phases.begin()+i+1);
+    }
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBTrafficLightLogic.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
