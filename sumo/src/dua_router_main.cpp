@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.4  2004/04/02 11:30:35  dkrajzew
+// moving the vehicle forward if it shall start at a too short edge added; output of the number of loaded, build, and discarded
+//
 // Revision 1.3  2004/02/06 08:54:28  dkrajzew
 // _INC_MALLOC definition removed (does not work on MSVC7.0)
 //
@@ -239,6 +242,8 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("log-file", 'l', new Option_FileName());
     // register the data processing options
     oc.doRegister("unsorted", new Option_Bool(false));
+    oc.doRegister("move-on-short", new Option_Bool(false));
+    oc.doRegister("stats-period", new Option_Integer(-1));
     oc.doRegister("intel-cell", new Option_Bool(false));
     oc.doRegister("no-last-cell", new Option_Bool(false));
 //    oc.doRegister("use-lanes", 'L', new Option_Bool(false));
@@ -368,7 +373,7 @@ main(int argc, char **argv)
         } else {
             ret = 1;
         }
-    } catch (std::string) {
+    } catch (...) {
         MsgHandler::getErrorInstance()->inform(
             "Quitting (building failed).");
         ret = 1;
