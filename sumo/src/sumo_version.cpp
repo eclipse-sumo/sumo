@@ -25,15 +25,15 @@ namespace
 }
 */
 // $Log$
+// Revision 1.2  2004/07/02 09:52:38  dkrajzew
+// all 0.8.0.2 changes
+//
 // Revision 1.1  2003/06/18 10:57:09  dkrajzew
 // quite unsane specification within a cpp file only is now split on a cpp and a h file
 //
 // Revision 1.2  2003/06/05 14:45:28  dkrajzew
 // class templates applied; documentation added
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -45,13 +45,10 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-const char *version = "0.8";
+const char *version = "0.8.0.2";
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "version.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

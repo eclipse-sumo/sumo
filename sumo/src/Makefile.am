@@ -12,7 +12,9 @@ sumo_help.h
 sumo_LDFLAGS = -L$(XERCES_LDFLAGS)
 sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
+./microsim/output/libmicrosimoutput.a \
 ./microsim/actions/libmsactions.a \
+./utils/geom/libgeom.a \
 ./utils/common/libcommon.a \
 ./utils/convert/libconvert.a \
 ./utils/options/liboptions.a \
@@ -21,6 +23,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./sumo_only/libsumoonly.a \
 ./helpers/libhelpers.a \
 ./utils/gfx/libgfx.a \
+./utils/iodevices/libiodevices.a \
 -l$(LIB_XERCES)
 
 
@@ -35,6 +38,8 @@ sumo_netconvert_LDADD   = ./netbuild/nodes/libnodesnetbuild.a \
 ./netimport/xml/libxmlimport.a \
 ./netimport/arcview/libarcviewimport.a \
 ./netimport/artemis/libartemisimport.a \
+./netimport/elmar/libelmarimport.a \
+./netimport/tiger/libtigerimport.a \
 ./netimport/vissim/libvissimimport.a \
 ./netimport/vissim/typeloader/libvissimtypeload.a \
 ./netimport/vissim/tempstructs/libvissimtmpstr.a \
@@ -119,15 +124,18 @@ sumo_gui_LDADD =  ./gui/libgui.a \
 ./guisim/libguisim.a \
 ./gui/drawerimpl/libguidrawerimpl.a \
 ./gui/icons/libguiicons.a \
+./gui/manipulators/libguimanipulators.a \
 ./gui/popup/libguipopup.a \
 ./gui/partable/libguipartable.a \
 ./gui/dialogs/libguidialogs.a \
+./gui/GUISupplementaryWeightsHandler.o \
 ./gui/textures/libguitextures.a \
 ./gui/vartracker/libguivartracker.a \
 ./gui/tlstracker/libguitlstracker.a \
 ./utils/foxtools/libfoxtools.a \
 ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
+./microsim/output/libmicrosimoutput.a \
 ./microsim/actions/libmsactions.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/convert/libconvert.a \
@@ -140,6 +148,7 @@ sumo_gui_LDADD =  ./gui/libgui.a \
 ./utils/fonts/libfonts.a \
 ./utils/gfx/libgfx.a \
 ./utils/glutils/libglutils.a \
+./utils/iodevices/libiodevices.a \
 -l$(LIB_XERCES) \
 -l$(LIB_FOX) \
 $(LIB_X11)
