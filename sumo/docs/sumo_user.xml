@@ -20,7 +20,7 @@
 
   <toc></toc>
 
-  <chapter>
+  <chapter id="Introduction">
     <title>Introduction</title>
 
     <sect1>
@@ -39,7 +39,7 @@
       source. At first the fact that every traffic research organisation has
       to implement an own simulation package for its own. Some people are
       interested in traffic light optimisation, other try to find mistakes
-      made during the design of a road network. Both do need some kind of a
+      made during the design of a road network. Both need some kind of a
       simulation package and have to implement a framework containing input
       and output functions and other things from scratch. So the first idea
       was to give them a basic framework - containing all needed methods for a
@@ -54,8 +54,8 @@
     <sect1>
       <title>Features</title>
 
-      <para><itemizedlist><listitem><para>High portability (using standard -
-      c++ and portable libraries only)</para></listitem><listitem><para>Collision
+      <para><itemizedlist spacing="compact"><listitem><para>High portability
+      (using standard - c++ and portable libraries only)</para></listitem><listitem><para>Collision
       free vehicle movement</para></listitem><listitem><para>Different vehicle
       types</para></listitem><listitem><para>Single-vehicle routing</para></listitem><listitem><para>Multi-lane
       streets with lane changing</para></listitem><listitem><para>Junction-based
@@ -75,7 +75,7 @@
       the software. Due to this, you may find it together with the sources
       within out repository at sourceforge (<ulink
       url="http://sumo.sourceforge.net">http://sumo.sourceforge.net/</ulink>).
-      In this version, it describes the SUMO-release 0.8.</para>
+      It should always describe the current version.</para>
 
       <para>We should remark, that this document only covers the usage of the
       software and some description of the models used. Information about the
@@ -84,13 +84,7 @@
 
       <para>We should also remark, that the previous division of documents
       where each document described a single application is now abandoned. We
-      hope to make the process of simulation more easy to understand.</para>
-
-      <sect2>
-        <title>To do</title>
-
-        <para></para>
-      </sect2>
+      hope to make the process of simulation easier to understand.</para>
     </sect1>
 
     <sect1>
@@ -106,7 +100,7 @@
     </sect1>
   </chapter>
 
-  <chapter>
+  <chapter id="FirstSteps">
     <title>First Steps: Running the examples</title>
 
     <sect1>
@@ -137,7 +131,7 @@
       <title>First Steps</title>
 
       <para>As SUMO was at first meant to be a command line tool, what means
-      that no window pops up if you start it, you have to open a shell window
+      that no window pops up if you start it., You have to open a shell window
       first.</para>
 
       <para>Change into the folder you have extracted the package into, build
@@ -182,7 +176,7 @@
     </sect1>
   </chapter>
 
-  <chapter>
+  <chapter id="TrafficSims">
     <title>Traffic Simulations and SUMO</title>
 
     <sect1>
@@ -200,25 +194,25 @@
         models simulate the movement of every single vehicle on the street,
         mostly assuming that the behaviour of the vehicle depends on both, the
         vehicle&#39;s physical abilities to move and the driver&#39;s
-        controlling behaviour (Krauss 1998; Janz 1998). Submicroscopic models
+        controlling behaviour (Krauss 1998; Janz 1998). Sub-microscopic models
         regard single vehicles like microscopic but extend them by modelling
         their substructures, which describe the engine&#39;s rotation speed in
         relation to the vehicle&#39;s speed or the driver&#39;s preferred gear
         switching actions, for instance. This allows more detailed
         computations of the emissions produced by the vehicle compared to a
         simple microscopic simulation (Diekamp 1995; Schreckenberg and Wolf
-        1998; Helbig et al. 2001). However, submicroscopic models require
+        1998; Helbig et al. 2001). However, sub-microscopic models require
         large computation times. This restrains the size of the networks to be
         simulated.</para>
 
         <figure>
           <title>The different simulation granularities; from left to right:
-          macroscopic, microscopic, submicroscopic (within the circle:
+          macroscopic, microscopic, sub-microscopic (within the circle:
           mesoscopic)</title>
 
           <mediaobject>
             <imageobject>
-              <imagedata fileref="./gfx/3sims.gif" format="GIF" />
+              <imagedata align="center" fileref="./gfx/3sims.gif" format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -235,7 +229,8 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata fileref="./gfx/contdisc.gif" format="GIF" />
+              <imagedata align="center" fileref="./gfx/contdisc.gif"
+              format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -255,32 +250,21 @@
       <sect2>
         <title>Needed Data</title>
 
-        <para>What data is needed to simulate traffic? At first, you do of
-        course need the network the traffic to simulate takes place on. As
-        SUMO is meant to work with large networks, we mainly concentrated our
-        work on importing networks and the computation of further needed
-        values. Beside the roads and descriptions where they meet, information
-        about traffic lights is necessary.</para>
+        <para>What data is needed to simulate traffic? At first, you need the
+        network the traffic to simulate takes place on. As SUMO is meant to
+        work with large networks, we mainly concentrated our work on importing
+        networks and the computation of further needed values. Beside
+        information about a network&#39;s roads, information about traffic
+        lights is needed.</para>
 
-        <para>Further, you do need information of the traffic demand. While
-        most traffic simulation use a statistical distribution laid over the
-        network, each vehicle within SUMO knows its route. Within this
+        <para>Further, you need information of the traffic demand. While most
+        traffic simulation use a statistical distribution which is laid over
+        the network, each vehicle within SUMO knows its route. Within this
         approach, the route is a list of edges to pass. Although this approach
         is more realistic, it also induces a large amount of data needed to
         describe the vehicle movements. By now, routes are not compressed
         within SUMO and so may be several MB large. We will possibly change
         this in future.</para>
-
-        <figure>
-          <title>Three parts of a simulation (from left to right: vehicles,
-          streets, signals)</title>
-
-          <mediaobject>
-            <imageobject>
-              <imagedata fileref="./gfx/simparts.gif" format="GIF" />
-            </imageobject>
-          </mediaobject>
-        </figure>
       </sect2>
 
       <sect2>
@@ -315,7 +299,8 @@
 
         <mediaobject>
           <imageobject>
-            <imagedata fileref="./gfx/simsteps1.gif" format="GIF" scale="1" />
+            <imagedata align="center" fileref="./gfx/simsteps1.gif"
+            format="GIF" scale="1" />
           </imageobject>
         </mediaobject>
       </figure>
@@ -344,7 +329,7 @@
     </sect1>
   </chapter>
 
-  <chapter>
+  <chapter id="NetworkGeneration">
     <title>Network Generation</title>
 
     <para>As SUMO uses an own road network description, normally networks must
@@ -360,14 +345,14 @@
     network description readable by SUMO using the SUMO-NETCONVERT tool. By
     now, SUMO-NETCONVERT is capable to parse the following formats:</para>
 
-    <para><itemizedlist><listitem><para>ptv VISUM (a macroscopic traffic
-    simulation package)</para></listitem><listitem><para>ptv VISSIM (a
-    microscopic traffic simulation package)</para></listitem><listitem><para>ARTEMIS
+    <para><itemizedlist spacing="compact"><listitem><para>ptv VISUM (a
+    macroscopic traffic simulation package)</para></listitem><listitem><para>ptv
+    VISSIM (a microscopic traffic simulation package)</para></listitem><listitem><para>ARTEMIS
     by Prof. Peter Hidas (a microscopic traffic simulation package)</para></listitem><listitem><para>CELL
     by Christian Gawron (a mesoscopic traffic simulation package)</para></listitem><listitem><para>ARCVIEW-data
     base files</para></listitem><listitem><para>XML-descriptions</para></listitem></itemizedlist></para>
 
-    <para>In most of these cases, SUMO-NETCOVERT only needs two parameter: the
+    <para>In most of these cases, SUMO-NETCOVERT needs only two parameter: the
     name of the input format followed by the name of the file and the name of
     the output format. If you want to import a file generated by the VISUM
     simulation package, simply write the following:</para>
@@ -392,7 +377,8 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="./gfx/simsteps-netconv.gif" format="GIF" />
+          <imagedata align="center" fileref="./gfx/simsteps-netconv.gif"
+          format="GIF" />
         </imageobject>
       </mediaobject>
     </figure>
@@ -400,14 +386,12 @@
     <sect1>
       <title>Building Networks from own XML-descriptions</title>
 
-      <para>All of the small theoretical examples, but also the model of a
-      part of the I-880 included within the distribution were made by hand.
-      For doing this, you need at least two files: one file for nodes and
-      another one for the streets between them. Please notice, that we use
-      both names &#34;node&#34; and &#34;junction&#34; the same way.
-      <caution><para><inlinegraphic fileref="./gfx/attention_small.gif"
-      format="GIF" />Please do also read the chapter &#34;General comments on
-      import of networks without traffic light logics&#34;</para></caution></para>
+      <para>All of examples within the distribution were made by hand. For
+      doing this, you need at least two files: one file for nodes and another
+      one for the streets between them. Please notice that we use both names
+      &#34;node&#34; and &#34;junction&#34; the same way. <caution><para>Please
+      read also the chapter &#34;General comments on import of networks
+      without traffic light logics&#34;</para></caution></para>
 
       <sect2>
         <title>Nodes description</title>
@@ -469,9 +453,9 @@
         <para>As you may notice, only the first node named &#34;0&#34;, which
         is the node in the middle of the network, is a traffic light
         controlled junction. All other nodes are uncontrolled. You may also
-        notice, that each of both ends of a street does need an according
-        node. This is not really necessary as you may see soon, but it eases
-        the understanding of the concept: every edge (road) is a connection
+        notice, that each of both ends of a street needs an according node.
+        This is not really necessary as you may see soon, but it eases the
+        understanding of the concept: every edge (road) is a connection
         between two nodes.</para>
 
         <para>You should also know something about the coordinate system: the
@@ -484,7 +468,8 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata fileref="./gfx/basic_coordinates.gif" format="GIF" />
+              <imagedata align="center" fileref="./gfx/basic_coordinates.gif"
+              format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -493,7 +478,7 @@
       <sect2>
         <title>Edges description</title>
 
-        <para>Edges are described quite the same way as nodes, but do possess
+        <para>Edges are described quite the same way as nodes, but possesses
         other parameter. Within the edges file, each description of a single
         edge looks like this: <sgmltag>&#60;edge id=&#34;&#60;STRING&#62;&#34;
         (fromnode=&#34;&#60;NODE_ID&#62;&#34;
@@ -505,10 +490,10 @@
         [shape=&#34;&#60;2D_POINT&#62;[ &#60;2D_POINT&#62;]*
         &#60;2D_POINT&#62;&#34;] [spread_type=&#34;center&#34;]/&#62;</sgmltag>.</para>
 
-        <para>What does it mean? Every one who knows how XML-files look like,
+        <para>What does it mean? Every one who knows how XML-files look like
         should have noticed brackets (&#39;(&#39; and &#39;)&#39;) and pipes
         (&#39;|&#39;) within the definition and these characters are not
-        allowed within XML... What we wanted to show which parameter are
+        allowed within XML... What we wanted to show which parameter is
         optional. So for the definition of the origin and the destination
         node, you can either give their names using <sgmltag>fromnode=&#34;&#60;NODE_ID&#62;&#34;
         tonode=&#34;&#60;NODE_ID&#62;&#34; </sgmltag>or you give their
@@ -548,9 +533,9 @@
 
         <para>Let&#39;s list an edge&#39;s attributes again:</para>
 
-        <para><itemizedlist><listitem><para>id: The name of the edge; may be
-        any character string</para></listitem><listitem><para>Origin and
-        destination node descriptions</para><para>Either:</para><itemizedlist><listitem><para>fromnode:
+        <para><itemizedlist spacing="compact"><listitem><para>id: The name of
+        the edge; may be any character string</para></listitem><listitem><para>Origin
+        and destination node descriptions</para><para>Either:</para><itemizedlist><listitem><para>fromnode:
         The name of a node within the nodes-file the edge shall start at</para></listitem><listitem><para>tonode:
         The name of a node within the nodes-file the edge shall end at</para></listitem></itemizedlist><para>or:</para><itemizedlist><listitem><para>xfrom:
         The x-position of the node the edge shall start at in m; must be a
@@ -627,13 +612,12 @@
         junctions, here.</para>
 
         <caution>
-          <para><inlinegraphic fileref="./gfx/attention_small.gif"
-          format="GIF" />There are some constraints about the streets&#39;
-          ids. They must not contain any of the following characters:
-          &#39;_&#39; (underline - used for lane ids), &#39;[&#39; and
-          &#39;]&#39; (used for enumerations), &#39; &#39; (space - used as
-          list divider), &#39;*&#39; (star, used as wildcard), &#39;:&#39;
-          (used as marker for internal lanes).</para>
+          <para>There are some constraints about the streets&#39; ids. They
+          must not contain any of the following characters: &#39;_&#39;
+          (underline - used for lane ids), &#39;[&#39; and &#39;]&#39; (used
+          for enumerations), &#39; &#39; (space - used as list divider),
+          &#39;*&#39; (star, used as wildcard), &#39;:&#39; (used as marker
+          for internal lanes).</para>
         </caution>
       </sect2>
 
@@ -644,16 +628,16 @@
         As described above, the description of an edge should include
         information about the number of lanes, the maximum speed allowed on
         this edge and the edge&#39;s priority. To avoid the explicit
-        definition of eachparameter for every edge, one can use road types,
-        which do encapsulate these parameter under a given name, the road
-        type, which instead may be used on describing the edge.</para>
+        definition of each parameter for every edge, one can use road types,
+        which encapsulate parameter under a given name, the road type, which
+        instead may be used on describing the edge.</para>
 
         <para>Due to the usage, the attributes are of course exactly the same
         as for edges themselves:</para>
 
-        <para><itemizedlist><listitem><para>id: The name of the road type; may
-        be any character string</para></listitem><listitem><para>nolanes: The
-        number of lanes of the referencing must be an integer value</para></listitem><listitem><para>speed:
+        <para><itemizedlist spacing="compact"><listitem><para>id: The name of
+        the road type; may be any character string</para></listitem><listitem><para>nolanes:
+        The number of lanes of the referencing must be an integer value</para></listitem><listitem><para>speed:
         The maximum speed allowed on the referencing edge in m/s; must be a
         floating point number</para></listitem><listitem><para>priority: The
         priority of the referencing edge; must be an integer value</para></listitem></itemizedlist>The
@@ -683,12 +667,12 @@
 
         <para><sgmltag>&#60;/types&#62;</sgmltag></para>
 
-        <para>What does it mean? Every incoming street which is every street
-        that ends at node &#34;0&#34;, is of the type named &#34;25&#34;. This
-        type sets the edge&#39;s maximum speed to 19.444m/s being around
-        70km/h and the edge&#39;s priority to 78. All edges of this type will
-        have one lane - unless not overwritten within the edge definition what
-        is not done, here.</para>
+        <para>This snippet has the following meaning: every incoming street
+        which is every street that ends at node &#34;0&#34;, is of the type
+        named &#34;25&#34;. This type sets the edge&#39;s maximum speed to
+        19.444m/s being around 70km/h and the edge&#39;s priority to 78. All
+        edges of this type will have one lane - unless not overwritten within
+        the edge definition what is not done, here.</para>
 
         <para>All outgoing edges (those starting at node &#34;0&#34;) or of
         the type &#34;51&#34;, so being roads where 11.111m/s (~40km/h) is the
@@ -716,7 +700,7 @@
         from &#60;FROM_EDGE_ID&#62;, unless they are specified within this
         file. Let&#39;s repeat the parameters:</para>
 
-        <itemizedlist>
+        <itemizedlist spacing="compact">
           <listitem>
             <para>from: The name of the edge the vehicles leave</para>
           </listitem>
@@ -742,11 +726,12 @@
         right (outer) to the left (inner) side of the road beginning with 0.
         Again the parameter:</para>
 
-        <para><itemizedlist><listitem><para>from: The name of the edge the
-        vehicles leave</para></listitem><listitem><para>to: The name of the
-        edge the vehicles may reach when leaving &#34;from&#34;</para></listitem><listitem><para>lane:
-        the numbers of the connected lanes, separated with &#39;:&#39;; lanes
-        are counter from right to left beginning with 0</para></listitem></itemizedlist>Warning:
+        <para><itemizedlist spacing="compact"><listitem><para>from: The name
+        of the edge the vehicles leave</para></listitem><listitem><para>to:
+        The name of the edge the vehicles may reach when leaving
+        &#34;from&#34;</para></listitem><listitem><para>lane: the numbers of
+        the connected lanes, separated with &#39;:&#39;; lanes are counter
+        from right to left beginning with 0</para></listitem></itemizedlist>Warning:
         Please do not use both connection declarations for the same from-edge!
         The behaviour is not verified and tested for these settings.</para>
       </sect2>
@@ -770,7 +755,7 @@
         <para>The first attempt to import ArcView-databases was to convert
         them into a textual representation first using shapelib and then to
         convert them into SUMO-networks using SUMO-NETCONVERT equipped with a
-        matching importer for shapelib-generated files. This has changed in
+        matching importer for files generated by shapelib. This has changed in
         the late 2003 and now the binary &#34;.dbf&#34;- and
         &#34;.shp&#34;-files can be imported directly. The user may either
         give the names for both files separately using the
@@ -793,10 +778,10 @@
           --output-file=MySUMOFile.net.xml</para>
         </blockquote>
 
-        <para>The possibility to import shapelib-parsed ArcView-databases
-        still exists but is hidden behind the parameter described above. So if
-        you want to use your textual representations you may operate as
-        before. The importer determines whether a textual or binary
+        <para>The possibility to import ArcView-databases parsed using
+        shapelib still exists but is hidden behind the parameter described
+        above. So if you want to use your textual representations you may
+        operate as before. The importer determines whether a textual or binary
         representation is meant by himself.</para>
 
         <para>Some remarks:</para>
@@ -806,7 +791,7 @@
         federal state. This is much too large for our purposes, as we are
         mainly interested in urban traffic. In fact, we have not tried out
         which resources are needed to perform the simulation of a single
-        german federal state with SUMO, although this should be possible at
+        German federal state with SUMO, although this should be possible at
         all.</para>
 
         <para>Due to this, one has at first to extract an area of interest.
@@ -815,14 +800,11 @@
         cities, above all major highways do not belong to the postal code area
         of the regarded city (Magdeburg and Munich within this test).</para>
 
-        <para><caution><para><inlinegraphic
-        fileref="./gfx/attention_small.gif" format="GIF" />Due to their size,
-        import of ArcView data dures quite long!</para></caution></para>
+        <para><caution><para>Due to their size, import of ArcView data may
+        need a long time.</para></caution></para>
 
-        <para><caution><para><inlinegraphic
-        fileref="./gfx/attention_small.gif" format="GIF" />Please do also read
-        the chapter &#34;General comments on import of networks without
-        traffic light logics&#34;</para></caution></para>
+        <para><caution><para>Please read also the chapter &#34;General
+        comments on import of networks without traffic light logics&#34;</para></caution></para>
 
         <para>Known problems:</para>
 
@@ -851,7 +833,7 @@
 
         <para>Imported information:</para>
 
-        <itemizedlist>
+        <itemizedlist spacing="compact">
           <listitem>
             <para>Nodes (id, position, type)</para>
           </listitem>
@@ -892,7 +874,7 @@
 
         <para>Known problems:</para>
 
-        <itemizedlist>
+        <itemizedlist spacing="compact">
           <listitem>
             <para>The connections between lanes may be not the same as in the
             input</para>
@@ -939,7 +921,7 @@
 
         <para>Known problems:</para>
 
-        <itemizedlist>
+        <itemizedlist spacing="compact">
           <listitem>
             <para>All junctions are interpreted as priority-junctions</para>
           </listitem>
@@ -963,9 +945,9 @@
 
         <para>Known problems:</para>
 
-        <itemizedlist>
+        <itemizedlist spacing="compact">
           <listitem>
-            <para>Works with german networks only</para>
+            <para>Works with German networks only</para>
           </listitem>
 
           <listitem>
@@ -985,7 +967,7 @@
           --output-file=MySUMOFile.net.xml</para>
         </blockquote>
 
-        <para>As Vissim-networks do not hold explicite definitions of a
+        <para>As Vissim-networks do not hold explicit definitions of an
         edge&#39;s speed, we have to use the vehicle flow definitions. Two
         parameter control this process. &#34;vissim-default-speed&#34; is the
         definition of the speed limit to use when no information is available
@@ -1005,10 +987,10 @@
         <para>Visum is a macroscopic simulation developed by ptv. As the
         network description does not possess any information about the number
         of lanes, we have to generate it from the street&#39;s flow. The
-        computation is done by diving the flow through a fix value, 2000 by
+        computation is done by dividing the flow through a fix value, 2000 by
         default. This yields in a realistic network but fails on &#39;feeder
-        roads&#39; where vehicles are emitted. Some further parameter allows
-        to fix the problem.</para>
+        roads&#39; where vehicles are emitted. Some further parameter allow
+        fixing the problem.</para>
 
         <para>An usage example could be this one:</para>
 
@@ -1023,16 +1005,16 @@
         logics</title>
 
         <para>Some of the supported network formats - Visum, Vissim and
-        Artemis, do supply information about the logic of the traffic lights.
-        The others do not. Due to this, we have to compute the traffic lights
-        by our own. This is working, but one has to remind one thing: dead
-        times are necessary to avoid collisions of vehicles which do not
-        manage to break as they are too near to the traffic light when it
-        switches to red. This time may be computed, and is, but is highly
-        dependend to the maximum deceleration possibility of the vehicles
-        used. As this parameter is not known to the network builder at all -
-        the vehicle types are supported to the simulation only - we added a
-        parameter that does allow specifying it:</para>
+        Artemis, supply information about the logic of the traffic lights. The
+        others do not. Due to this, we have to compute the traffic lights by
+        our own. This is working, but one has to remind one thing: dead times
+        are necessary to avoid collisions of vehicles which do not manage to
+        break as they are too near to the traffic light when it switches to
+        red. This time may be computed, and is, but depends on the maximum
+        deceleration possibility of the vehicles used. As this parameter is
+        not known to the network builder at all - the vehicle types are
+        supported to the simulation only - we added a parameter that allows
+        specifying it:</para>
 
         <para>--min-decel (-D) DOUBLE</para>
       </sect2>
@@ -1054,18 +1036,17 @@
       one of the following switches must be supported: &#34;--grid-net&#34;,
       &#34;--spider-net&#34; or &#34;--random-net&#34;.</para>
 
-      <para>While the type-dependent parameter are described within the next
+      <para>While the type-dependent options are described within the next
       chapters, all types share some command line options. As all networks
-      posess junctions and some investigations on traffic light switching
-      stretagies have been made, here, you are able to set the default type of
+      possess junctions and some investigations on traffic light switching
+      strategies have been made, here, you are able to set the default type of
       junctions to build using the &#34;--default-junction-type&#34;-option
       (or &#34;-j&#34; for short). The following junction types are allowed in
       accordance to the junction types currently known by the simulation:
       &#34;priority&#34;, &#34;traffic-light&#34;, &#34;actuated&#34;,
       &#34;agentbased&#34;.</para>
 
-      <para><caution><para><inlinegraphic fileref="./gfx/attention_small.gif"
-      format="GIF" />&#34;Traffic-light&#34; will be mapped to
+      <para><caution><para>&#34;Traffic-light&#34; will be mapped to
       &#34;static&#34; within the generated network.</para></caution></para>
 
       <para>Further, you can specify the default street type by using the same
@@ -1091,7 +1072,8 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata fileref="./gfx/netgen_grid1.gif" format="GIF" />
+              <imagedata align="center" fileref="./gfx/netgen_grid1.gif"
+              format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -1105,7 +1087,8 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata fileref="./gfx/netgen_grid2.gif" format="GIF" />
+              <imagedata align="center" fileref="./gfx/netgen_grid2.gif"
+              format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -1123,11 +1106,10 @@
         distance between the circles (&#34;--spider-space-rad&#34; or
         &#34;--radius&#34;).</para>
 
-        <para><caution><para><inlinegraphic
-        fileref="./gfx/attention_small.gif" format="GIF" />As the number of
-        edges within the middle of the spider net may be quite large, it is
-        often not possible to build a traffic light junction here. Due to
-        this, this junction is always a right-of-way-junction.</para></caution></para>
+        <para><caution><para>As the number of edges within the middle of the
+        spider net may be quite large, it is often not possible to build a
+        traffic light junction here. Due to this, this junction is always a
+        right-of-way-junction.</para></caution></para>
 
         <para>Two examples of usage:</para>
 
@@ -1138,7 +1120,8 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata fileref="./gfx/netgen_spider1.gif" format="GIF" />
+              <imagedata align="center" fileref="./gfx/netgen_spider1.gif"
+              format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -1152,7 +1135,8 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata fileref="./gfx/netgen_spider2.gif" format="GIF" />
+              <imagedata align="center" fileref="./gfx/netgen_spider2.gif"
+              format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
@@ -1164,7 +1148,7 @@
         <para>The random network generator does just what his name says.
         Several settings may be changed:</para>
 
-        <itemizedlist>
+        <itemizedlist spacing="compact">
           <listitem>
             <para>--rand-max-distance &#60;FLOAT&#62;: the maximum edge length</para>
           </listitem>
@@ -1219,14 +1203,13 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata fileref="./gfx/netgen_random1.gif" format="GIF" />
+              <imagedata align="center" fileref="./gfx/netgen_random1.gif"
+              format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
 
-        <para><caution><para><inlinegraphic
-        fileref="./gfx/attention_small.gif" format="GIF" />This generator is
-        not yet fully developed.</para></caution></para>
+        <para><caution><para>This generator is not yet fully developed.</para></caution></para>
       </sect2>
     </sect1>
 
@@ -1239,13 +1222,13 @@
         <sect3>
           <title>Input options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --xml-node-files |
-          --xml-nodes | -n ] &#60;FILE&#62;</para><para>Uses the given file as
-          the source of specification node positions and types.</para></listitem><listitem><para>OPTIONAL:
-          [ --xml-edge-files | --xml-edges | -e] &#60;FILE&#62;</para><para>Uses
-          the given file as the source of specification of roads connecting
-          nodes.</para></listitem><listitem><para>OPTIONAL: [
-          --xml-connection-files | --xml-connections | -c ] &#60;FILE&#62;</para><para>Uses
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --xml-node-files | --xml-nodes | -n ] &#60;FILE&#62;</para><para>Uses
+          the given file as the source of specification node positions and
+          types.</para></listitem><listitem><para>OPTIONAL: [ --xml-edge-files
+          | --xml-edges | -e] &#60;FILE&#62;</para><para>Uses the given file
+          as the source of specification of roads connecting nodes.</para></listitem><listitem><para>OPTIONAL:
+          [ --xml-connection-files | --xml-connections | -c ] &#60;FILE&#62;</para><para>Uses
           the given file as the source of specification how roads are
           connected (which lanes may be reached from which lanes).</para></listitem><listitem><para>OPTIONAL:
           [ --type-file | --types | -t ] &#60;FILE&#62;</para><para>Uses the
@@ -1284,17 +1267,17 @@
         <sect3>
           <title>Output options</title>
 
-          <para><itemizedlist><listitem><para>MANDATORY: [ --output-file |
-          --output | -o ] &#60;FILE&#62;</para><para>Defines the file to write
-          the computed network into.</para></listitem></itemizedlist></para>
+          <para><itemizedlist spacing="compact"><listitem><para>MANDATORY: [
+          --output-file | --output | -o ] &#60;FILE&#62;</para><para>Defines
+          the file to write the computed network into.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Import defaults</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --type | -T ]
-          &#60;STRING&#62;</para><para>The name of the default type of edges.
-          Default: &#34;Unknown&#34;</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --type | -T ] &#60;STRING&#62;</para><para>The name of the default
+          type of edges. Default: &#34;Unknown&#34;</para></listitem><listitem><para>OPTIONAL:
           [ --lanenumber | -L ] &#60;INT&#62;</para><para>The number of lanes
           an edge has to use as default. Default: 1</para></listitem><listitem><para>OPTIONAL:
           [ --speed | -S ] &#60;DOUBLE&#62;</para><para>The maximum speed
@@ -1309,7 +1292,7 @@
           <sect4>
             <title>For Vissim-Imports</title>
 
-            <itemizedlist>
+            <itemizedlist spacing="compact">
               <listitem>
                 <para>OPTIONAL: [ --vissim-speed-norm ] &#60;DOUBLE&#62;</para>
 
@@ -1331,29 +1314,29 @@
         <sect3>
           <title>Computation variables settings</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --capacity-norm | -C
-          ] &#60;DOUBLE&#62;</para><para>The value to divide a given capacity
-          by to gain the number of lanes. Default: 2000</para></listitem><listitem><para>OPTIONAL:
-          [ --min-decel | -D ] &#60;DOUBLE&#62;</para><para>The minimum
-          deceleration value for vehicles. Default: 3.0</para></listitem></itemizedlist></para>
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --capacity-norm | -C ] &#60;DOUBLE&#62;</para><para>The value to
+          divide a given capacity by to gain the number of lanes. Default:
+          2000</para></listitem><listitem><para>OPTIONAL: [ --min-decel | -D ]
+          &#60;DOUBLE&#62;</para><para>The minimum deceleration value for
+          vehicles. Default: 3.0</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Processing options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: --omit-corrupt-edges</para><para>Continues
-          with parsing although a corrupt edge occured. This edge is not
-          inserted and a warning is printed.</para></listitem><listitem><para>OPTIONAL:
-          --flip-y</para><para>Flips the y-position of nodes (and edges) along
-          the y=zero-line.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          --omit-corrupt-edges</para><para>Continues with parsing although a
+          corrupt edge occurred. This edge is not inserted and a warning is
+          printed.</para></listitem><listitem><para>OPTIONAL: --flip-y</para><para>Flips
+          the y-position of nodes (and edges) along the y=zero-line.</para></listitem><listitem><para>OPTIONAL:
           --speed-in-km</para><para>Parses speed information stored in
           XML-edge definition files as being given in km/h (not m/s as usual)</para></listitem><listitem><para>OPTIONAL:
           --use-laneno-as-priority</para><para>Interprets the number of lanes
           as an edges priority.</para></listitem><listitem><para>OPTIONAL:
           --all-logics</para><para>Computes and saves all possible cliques and
-          phases for a traffic light instead of the fastest one only.</para><caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" /> This process may
-          be very time consuming.</para></caution></listitem><listitem><para>OPTIONAL:
+          phases for a traffic light instead of the fastest one only.</para><caution><para>This
+          process may be very time consuming.</para></caution></listitem><listitem><para>OPTIONAL:
           --keep-small-tyellow</para><para>If a given yellow-time is smaller
           than the computed, it is normally replaced by the computed one and a
           warning is printed. Setting this option, you force NETCONVERT to
@@ -1364,23 +1347,25 @@
         <sect3>
           <title>Report options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --verbose | -v ]</para><para>Prints
-          some information about the process during execution.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --verbose | -v ]</para><para>Prints some information about the
+          process during execution.</para></listitem><listitem><para>OPTIONAL:
           [ --suppress-warnings | -W ]</para><para>No warnings will be
           prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
           [ --print-options | -p ]</para><para>Prints the current option
           settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
           [ --log-file | -L ] &#60;FILE&#62;</para><para>All outputs
-          (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
+          (messages, warnings, and errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Random number options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --abs-rand ]</para><para>Initialises
-          the random number generator with the current time (in ms) in the
-          hope to make him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --abs-rand ]</para><para>Initialises the random number generator
+          with the current time (in ms) in the hope to make him generate
+          really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
           [ --srand ] &#60;INT&#62;</para><para>Initialises the random number
           generator with the given value.</para></listitem></itemizedlist></para>
         </sect3>
@@ -1393,25 +1378,23 @@
           <title>Build description options</title>
 
           <caution>
-            <para><inlinegraphic fileref="./gfx/attention_small.gif"
-            format="GIF" /> At least one of the next three switches must be
-            supplied.</para>
+            <para>At least one of the next three switches must be supplied.</para>
           </caution>
 
-          <para><itemizedlist><listitem><para>OPTIONAL (see warning above): [
-          --grid-net | -g ]</para><para>Forces NETGEN to build a grid-like
-          network.</para></listitem><listitem><para>OPTIONAL (see warning
-          above): [ --spider-net | -s ]</para><para>Forces NETGEN to build a
-          spider-net-like network.</para></listitem><listitem><para>OPTIONAL
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL (see
+          warning above): [ --grid-net | -g ]</para><para>Forces NETGEN to
+          build a grid-like network.</para></listitem><listitem><para>OPTIONAL
+          (see warning above): [ --spider-net | -s ]</para><para>Forces NETGEN
+          to build a spider-net-like network.</para></listitem><listitem><para>OPTIONAL
           (see warning above): [ --random-net | -r ]</para><para>Forces NETGEN
           to build a random network.</para></listitem></itemizedlist></para>
 
           <para>The next options are valid if the &#34;--grid-net&#34; -
           switch was set.</para>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --grid-x-number |
-          --x-no ] &#60;INT&#62;</para><para>Describes how many junctions in
-          the x-directions shall be build. Default: 5</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --grid-x-number | --x-no ] &#60;INT&#62;</para><para>Describes how
+          many junctions in the x-directions shall be build. Default: 5</para></listitem><listitem><para>OPTIONAL:
           [ --grid-y-number | --y-no ] &#60;INT&#62;</para><para>Describes how
           many junctions in the y-directions shall be build. Default: 5</para></listitem><listitem><para>OPTIONAL:
           [ --grid-number | --number ] &#60;INT&#62;</para><para>Describes how
@@ -1428,9 +1411,9 @@
           <para>The next options are valid if the &#34;--spider-net&#34; -
           switch was set.</para>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --spider-arm-number
-          | --arms ] &#60;INT&#62;</para><para>Specifies how many arms (axes)
-          the net shall have. Default: 13</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --spider-arm-number | --arms ] &#60;INT&#62;</para><para>Specifies
+          how many arms (axes) the net shall have. Default: 13</para></listitem><listitem><para>OPTIONAL:
           [ --spider-circle-number | --circles ] &#60;INT&#62;</para><para>Specifies
           how many circles shall be build. Default: 20</para></listitem><listitem><para>OPTIONAL:
           [ --spider-space-rad | --radius ] &#60;FLOAT&#62;</para><para>Specifies
@@ -1439,14 +1422,14 @@
           <para>The next options are valid if the &#34;--random-net&#34; -
           switch was set.</para>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --rand-iterations |
-          --iterations ] &#60;FLOAT&#62;</para><para>Describes how many times
-          an edge shall be added to the net. Default: 2000</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --rand-iterations | --iterations ] &#60;FLOAT&#62;</para><para>Describes
+          how many times an edge shall be added to the net. Default: 2000</para></listitem><listitem><para>OPTIONAL:
           [ --rand-max-distance | --max-dist ] &#60;FLOAT&#62;</para><para>Default:
           250</para></listitem><listitem><para>OPTIONAL: [ --rand-min-distance
           | --min-dist ] &#60;FLOAT&#62;</para><para>Default: 100</para></listitem><listitem><para>OPTIONAL:
           [ --rand-min-angle | --min-angle ] &#60;FLOAT&#62;</para><para>Default:
-          45.0/180.0*PI (aeehh)</para></listitem><listitem><para>OPTIONAL: [
+          45.0/180.0*PI</para></listitem><listitem><para>OPTIONAL: [
           --rand-num-tries | --num-tries ] &#60;FLOAT&#62;</para><para>Default:
           50</para></listitem><listitem><para>OPTIONAL: [ --rand-connectivity
           | --connectivity ] &#60;FLOAT&#62;</para><para>Default: 0.95</para></listitem><listitem><para>OPTIONAL:
@@ -1465,17 +1448,17 @@
         <sect3>
           <title>Output options</title>
 
-          <para><itemizedlist><listitem><para>MANDATORY: [ --output-file |
-          --output | -o ] &#60;FILE&#62;</para><para>Defines the file to write
-          the computed network into.</para></listitem></itemizedlist></para>
+          <para><itemizedlist spacing="compact"><listitem><para>MANDATORY: [
+          --output-file | --output | -o ] &#60;FILE&#62;</para><para>Defines
+          the file to write the computed network into.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Building defaults</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --speed | -S ]
-          &#60;DOUBLE&#62;</para><para>The maximum speed allowed on an edge in
-          m/s to use as default. Default: 13.9</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --speed | -S ] &#60;DOUBLE&#62;</para><para>The maximum speed
+          allowed on an edge in m/s to use as default. Default: 13.9</para></listitem><listitem><para>OPTIONAL:
           [ --type | -T ] &#60;STRING&#62;</para><para>The name of the default
           type of edges. Default: &#34;Unknown&#34;</para></listitem><listitem><para>OPTIONAL:
           [ --lanenumber | -L ] &#60;INT&#62;</para><para>The number of lanes
@@ -1492,36 +1475,38 @@
         <sect3>
           <title>Processing options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: --flip-y</para><para>Flips
-          the y-position of nodes (and edges) along the y=zero-line.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          --flip-y</para><para>Flips the y-position of nodes (and edges) along
+          the y=zero-line.</para></listitem><listitem><para>OPTIONAL:
           --use-laneno-as-priority</para><para>Interprets the number of lanes
           as an edges priority.</para></listitem><listitem><para>OPTIONAL:
           --all-logics</para><para>Computes and saves all possible cliques and
-          phases for a traffic light instead of the fastest one only.</para><caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" /> This process may
-          be very time consuming.</para></caution></listitem></itemizedlist></para>
+          phases for a traffic light instead of the fastest one only.</para><caution><para>This
+          process may be very time consuming.</para></caution></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Report options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --verbose | -v ]</para><para>Prints
-          some information about the process during execution.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --verbose | -v ]</para><para>Prints some information about the
+          process during execution.</para></listitem><listitem><para>OPTIONAL:
           [ --suppress-warnings | -W ]</para><para>No warnings will be
           prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
           [ --print-options | -p ]</para><para>Prints the current option
           settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
           [ --log-file | -L ] &#60;FILE&#62;</para><para>All outputs
-          (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
+          (messages, warnings, and errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Random number options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --abs-rand ]</para><para>Initialises
-          the random number generator with the current time (in ms) in the
-          hope to make him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --abs-rand ]</para><para>Initialises the random number generator
+          with the current time (in ms) in the hope to make him generate
+          really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
           [ --srand ] &#60;INT&#62;</para><para>Initialises the random number
           generator with the given value.</para></listitem></itemizedlist></para>
         </sect3>
@@ -1529,11 +1514,11 @@
     </sect1>
   </chapter>
 
-  <chapter>
-    <title>Routes Generation</title>
+  <chapter id="RouteGeneration">
+    <title>Route Generation</title>
 
     <para>After having your network converted into the SUMO-format, you could
-    take a look at it using the gui-version of the simulation , but no cars
+    take a look at it using the gui-version of the simulation, but no cars
     would be driving around. You still need some kind of description about the
     vehicles. A vehicle consists of three parts: the vehicle itself, its type
     and the route. We will describe this in detail later as most of the step
@@ -1562,7 +1547,8 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="./gfx/simsteps-od2trips.gif" format="GIF" />
+          <imagedata align="center" fileref="./gfx/simsteps-od2trips.gif"
+          format="GIF" />
         </imageobject>
       </mediaobject>
     </figure>
@@ -1577,7 +1563,8 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="./gfx/simsteps-router.gif" format="GIF" />
+          <imagedata align="center" fileref="./gfx/simsteps-router.gif"
+          format="GIF" />
         </imageobject>
       </mediaobject>
     </figure>
@@ -1607,9 +1594,8 @@
       <sect2>
         <title>Generating random routes</title>
 
-        <para>Random routes are the most easiest, but also the most inaccurate
-        way to feed your network with vehicle movements. Using the following
-        call:</para>
+        <para>Random routes are the easiest, but also the most inaccurate way
+        to feed your network with vehicle movements. Using the following call:</para>
 
         <blockquote>
           <para>duarouter(.exe) --net=&#60;SUMO_NET&#62; -R &#60;FLOAT&#62;
@@ -1637,16 +1623,15 @@
         other route definitions, for example supplying some fix routes and
         additionally generate random routes.</para>
 
-        <para><inlinegraphic fileref="./gfx/attention_small.gif" format="GIF" />
-        Random routes are not the best way to generate routes. Take a look at
-        the network displayed below. This network has two rural and many minor
-        roads. Random routes are by now spread all over the network and each
-        road is chosen to be the starting or the ending without respecting his
-        function. Due to this, the network is filled over with cars, coming
-        from and approaching directions, the normal traffic is not taking -
-        the normal traffic would concentrate on rural roads. This can be
-        solved using definitions of routes. We will discuss this in the second
-        subchapter.</para>
+        <para>Random routes are not the best way to generate routes. Take a
+        look at the network displayed below. This network has two rural and
+        many minor roads. Random routes are by now spread all over the network
+        and each road is chosen to be the starting or the ending without
+        respecting his function. Due to this, the network is filled over with
+        cars, coming from and approaching directions, the normal traffic is
+        not taking - the normal traffic would concentrate on rural roads. This
+        can be solved using definitions of routes. We will discuss this in the
+        second subchapter.</para>
 
         <figure>
           <title>A network where the usage of random routes causes an improper
@@ -1654,14 +1639,13 @@
 
           <mediaobject>
             <imageobject>
-              <imagedata fileref="./gfx/ivf.gif" format="GIF" />
+              <imagedata align="center" fileref="./gfx/ivf.gif" format="GIF" />
             </imageobject>
           </mediaobject>
         </figure>
 
-        <para><inlinegraphic fileref="./gfx/attention_small.gif" format="GIF" />
-        There is also another problem with random routes: By definition, in
-        50% of the cases, the route starts in the opposite direction of the
+        <para>There is also another problem with random routes: By definition,
+        in 50% of the cases, the route starts in the opposite direction of the
         destination - on the wrong side of the road. This yields in a large
         amount of vehicles that want to turn back using the first possibility.
         This is of course also not common in the real world, especially not in
@@ -1670,12 +1654,12 @@
       </sect2>
 
       <sect2>
-        <title>Generation of own, explicite routes using Trip Definitions</title>
+        <title>Generation of own, explicit routes using Trip Definitions</title>
 
         <para>There are two possibilities to describe own routes. The first
         one id the usage of trip definitions, the second one the usage of flow
         descriptions. Trip definitions describe the movement of a single
-        vehicle giving the departure time, and bot the origin and the
+        vehicle giving the departure time, and both the origin and the
         destination via their edge-id. Flow descriptions use these values to,
         but instead of describing only one vehicle, the description is used
         for a defined number of vehicles to be emitted within a described
@@ -1705,7 +1689,7 @@
 
         <para>Let&#39;s review a trip&#39;s parameter:</para>
 
-        <itemizedlist>
+        <itemizedlist spacing="compact">
           <listitem>
             <para>id: A string holding the id of the route</para>
           </listitem>
@@ -1757,7 +1741,7 @@
         no=&#34;&#60;VEHICLES_TO_EMIT&#62;&#34;
         [type=&#34;&#60;VEHICLE_TYPE&#62;&#34;]/&#62;</sgmltag>. Notice the
         following differences: the vehicle does not take a certain departure
-        time as not only one vehicle is described by this paremeter, but a set
+        time as not only one vehicle is described by this parameter, but a set
         of, given within the attribute &#34;no&#34; (short for number). The
         departure times are spread uniformly within the time interval
         described by &#60;INTERVAL_BEGIN&#62; and &#60;INTERVAL_END&#62;. All
@@ -1765,7 +1749,7 @@
         &#34;period&#34; and &#34;repno&#34; are not used herein. Flow
         definitions can also be embedded into an interval tag. In this case
         one can (but does not have to) leave the tags &#34;begin&#34; and
-        &#34;end&#34; out. So the folowing two snipplets mean the same:</para>
+        &#34;end&#34; out. So the following two snipples mean the same:</para>
 
         <para>a) <sgmltag>&#60;flow id=&#34;0&#34; from=&#34;edge0&#34;
         to=&#34;edge1&#34; begin=&#34;0&#34; end=&#34;3600&#34;
@@ -1780,8 +1764,8 @@
         <para><sgmltag> &#60;/interval&#62;</sgmltag></para>
 
         <para>As we have to read in the flow definitions completely into the
-        memory - something we do not necesseraly must with trips, an extra
-        parameter (-f or --flow-defs) is used to make them known by the
+        memory - something we do not have to do necessarily with trips, an
+        extra parameter (-f or --flow-defs) is used to make them known by the
         router:</para>
 
         <blockquote>
@@ -1823,14 +1807,14 @@
         the network as the route it uses is randomly computed, the destination
         parameter has no meaning for jtr-routing and so may be left off. A
         vehicle leaves the network as soon as it comes to a sink edge. As not
-        all networks have sink edges set explicitely, one can support a list
-        of edges to be declared as sinks using --sinks &#60;EDGE_IDS&#62;.
+        all networks have sink edges set explicitly, one can support a list of
+        edges to be declared as sinks using --sinks &#60;EDGE_IDS&#62;.
         &#60;EDGE_IDS&#62; is in this case a list of edge ids separated using
         a &#39;;&#39;.</para>
 
         <para>To describe the turn definitions, one has to build a further
         file. Within this file, for each interval and each edge the list of
-        percetages to use a certain follower is to be given. An example:</para>
+        percentages to use a certain follower is to be given. An example:</para>
 
         <para><sgmltag>&#60;turn-defs&#62;</sgmltag></para>
 
@@ -1858,21 +1842,25 @@
 
         <para><sgmltag>&#60;/turn-defs&#62;</sgmltag></para>
 
-        <para>The snipplet defines that vehicles coming at the end of edge
+        <para>The snippet defines that vehicles coming at the end of edge
         &#34;myEdge0&#34; within the time interval between 0s and 3600s will
-        choose the edge &#34;myEdge1&#34; with a propability of 20%,
-        &#34;myEdge2&#34; with a propability of 70% and &#34;myEdge3&#34; with
-        a propability of 10%. The specification of such information is of
+        choose the edge &#34;myEdge1&#34; with a probability of 20%,
+        &#34;myEdge2&#34; with a probability of 70% and &#34;myEdge3&#34; with
+        a probability of 10%. The specification of such information is of
         course quite extensive and so the jtr-router is also able to read the
         turning ratios from a cvs file. The same information as above may be
         coded the following way:</para>
 
-        <para>interval;begin;end;from;to;split; ;0;3600;myEdge0;myEdge1;0.2;
-        ;0;3600;myEdge0;myEdge2;0.7; ;0;3600;myEdge0;myEdge3;0.1;</para>
+        <para>interval;begin;end;from;to;split;</para>
 
-        <para><caution><para><inlinegraphic
-        fileref="./gfx/attention_small.gif" format="GIF" /> Do not forget to
-        give the orer of the attributes in the first line of the file.</para></caution></para>
+        <para>;0;3600;myEdge0;myEdge1;0.2;</para>
+
+        <para>;0;3600;myEdge0;myEdge2;0.7;</para>
+
+        <para>;0;3600;myEdge0;myEdge3;0.1;</para>
+
+        <para><caution><para>Do not forget to give the order of the attributes
+        in the first line of the file.</para></caution></para>
 
         <para>Another possibility to save time on preparing the description is
         to use default values. The parameter --turn-defaults (-T)
@@ -1880,15 +1868,14 @@
         that will be used for all junctions for all time steps.
         &#60;TURN_DEFAULTS&#62; is a list of doubles, separated by a
         &#39;;&#39;. To achieve the same behaviour as in the example above,
-        use --turn-defaults=20;70;10. <inlinegraphic
-        fileref="./gfx/attention_small.gif" format="GIF" /> The values will be
-        applied to an edge&#39;s following edges beginning at the right edge
-        (20%) and ending at the leftmost edge (10%). As the number of possible
-        followers changes for different edges, the values are resampled to
-        directional ratios for edges which number of following edges differs
-        from the list of edges given within the turning defaults. Given
+        use --turn-defaults=20;70;10. The values will be applied to an
+        edge&#39;s following edges beginning at the right edge (20%) and
+        ending at the leftmost edge (10%). As the number of possible followers
+        changes for different edges, the values are resampled to directional
+        ratios for edges which number of following edges differs from the list
+        of edges given within the turning defaults. Given
         --turn-defaults=20;70;10 a vehicle using an edge that has two
-        followers would use the follower to the right with 55% propability,
+        followers would use the follower to the right with 55% probability,
         the one to the left with 45%.</para>
 
         <para>As theoretically a route may get infinitely long when a vehicle
@@ -1896,8 +1883,8 @@
         the route&#39;s size using &#34;max-edges-factor&#34;. This factor,
         multiplied with the number of the used network&#39;s edges is the
         maximum number of edges a route may have. With the default of 2.0, a
-        route may contain twice as many edges as the network has. We assume,
-        that for each network this number has to be rechosen.</para>
+        route may contain twice as many edges as the network has. We assume
+        that for each network this number has to be chosen again.</para>
       </sect2>
     </sect1>
 
@@ -1919,14 +1906,13 @@
           &#60;UINT&#62; -e &#60;UINT&#62;</para>
         </blockquote>
 
-        <para><inlinegraphic fileref="./gfx/attention_small.gif" format="GIF" />
-        Remind that you have to specify the begin and the end of the
+        <para>Remind that you have to specify the begin and the end of the
         simulation. This is quite inconsequent, as our mechanisms would allow
         import of repeatable routes, too. This is just not yet implemented.</para>
 
         <para>Known problems:</para>
 
-        <itemizedlist>
+        <itemizedlist spacing="compact">
           <listitem>
             <para>Only the a0-Flow is being imported</para>
           </listitem>
@@ -1955,10 +1941,10 @@
         <para>If you are familiar with FastLane, you may have noticed that you
         have only to supply one file name while FastLane uses two files to
         describe the routes: one &#34;*.driver&#34; and one &#34;*.rinfo&#34;
-        file. As both files do have the same name and only the extension
-        differs, you have to give the name without the extension. So if your
-        files have the names &#34;foo.driver&#34; and &#34;foo.rinfo&#34;,
-        write &#34;--cell=foo&#34;.</para>
+        file. As both files have the same name and only the extension differs,
+        you have to give the name without the extension. So if your files have
+        the names &#34;foo.driver&#34; and &#34;foo.rinfo&#34;, write
+        &#34;--cell=foo&#34;.</para>
 
         <para>FastLanes stores routes within a very large file what makes the
         process quite slow. If you want to speed it up for the future, you can
@@ -1982,25 +1968,25 @@
         <title>Importing VISSIM und VISUM-routes</title>
 
         <para>While VISSIM holds the possibility to describe vehicle-based
-        routes, too, our package does only contain the second of VISSIM&#39;s
-        route specification abilities, it shares with VISUM. This
-        representation of vehicle movements is stored as origin-destination
-        matrices which have to be translated into single vehicle movements
-        first. This is done using the OD2TRIPS module. One has to pass the
-        SUMO-netweork to use using the --net-file (-n) - option and the name
-        of the output file using --output-file (-o). The generated output
-        contains the single vehicle trips build from the OD-matrix. Also, one
-        has to supply the file the origin/destination-matrix is described in.
-        This is either a file with a &#34;.fma&#34; extension (other table
-        types supported by VISSIM/VISUM are not supported) which holds a
-        single OD-matrix or the VISSIM-simulation file itself (*.inp) which
-        holds the names of the OD-files to use. The option that lets OD2TRIPS
-        know about the file is --od-file. In the second case, the path to the
-        matrices has to be supplied using the --od-path - option, too.</para>
+        routes, too, our package contain only the second of VISSIM&#39;s route
+        specification abilities, it shares with VISUM. This representation of
+        vehicle movements is stored as origin-destination matrices which have
+        to be translated into single vehicle movements first. This is done
+        using the OD2TRIPS module. One has to pass the SUMO-network to use
+        using the --net-file (-n) - option and the name of the output file
+        using --output-file (-o). The generated output contains the single
+        vehicle trips build from the OD-matrix. Also, one has to supply the
+        file the origin/destination-matrix is described in. This is either a
+        file with an &#34;.fma&#34; extension (other table types supported by
+        VISSIM/VISUM are not supported) which holds a single OD-matrix or the
+        VISSIM-simulation file itself (*.inp) which holds the names of the
+        OD-files to use. The option that lets OD2TRIPS know about the file is
+        --od-file. In the second case, the path to the matrices has to be
+        supplied using the --od-path - option, too.</para>
 
         <para>Additionally, the first and the last time step to process may be
         given. If not given, the values stored within the parsed descriptions
-        will be used. A futher scaling factor may be used, too, which will be
+        will be used. A further scaling factor may be used, too, which will be
         applied on the read streams. An example for parsing an OD-description
         that uses multiple matrices may be:</para>
 
@@ -2011,7 +1997,7 @@
 
         <para>After obtaining single vehicle trips using this approach they
         should be parsed into full route descriptions using router as
-        described within the chapter &#34;Generation of own, explicite
+        described within the chapter &#34;Generation of own, explicit
         routes&#34;.</para>
       </sect2>
     </sect1>
@@ -2025,17 +2011,15 @@
         <sect3>
           <title>Input options</title>
 
-          <para><itemizedlist><listitem><para>MANDATORY: [ --net-files | --net
-          | -n ] &#60;FILE&#62;</para><para>Informs SUMO-DUA-ROUTER to use the
-          sumo-network &#60;FILE&#62; for routing.</para><caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" /> The name
-          &#34;net-files&#34; is ambiguous: only one network file can be
+          <para><itemizedlist spacing="compact"><listitem><para>MANDATORY: [
+          --net-files | --net | -n ] &#60;FILE&#62;</para><para>Informs
+          SUMO-DUA-ROUTER to use the sumo-network &#60;FILE&#62; for routing.</para><caution><para>The
+          name &#34;net-files&#34; is ambiguous: only one network file can be
           loaded by now.</para></caution></listitem><listitem><para>OPTIONAL:
           [ --weights | -weight-files | -w ] &#60;FILE&#62;</para><para>Forces
-          SUMO-DUA-ROUTER to read the network weights from &#60;FILENAME&#62;.</para><caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" /> the name
-          &#34;weight-files&#34; is ambigous: only one weight file can be
-          loaded by now.</para></caution></listitem><listitem><para>OPTIONAL:
+          SUMO-DUA-ROUTER to read the network weights from &#60;FILENAME&#62;.</para><caution><para>the
+          name &#34;weight-files&#34; is ambiguous: only one weight file can
+          be loaded by now.</para></caution></listitem><listitem><para>OPTIONAL:
           [ --flow-definition | --flows | -f ] &#60;FILE&#62;</para><para>Informs
           SUMO-DUA-ROUTER to process the file &#60;FILE&#62; as a flow
           definition file</para></listitem><listitem><para>OPTIONAL: [
@@ -2064,11 +2048,11 @@
         <sect3>
           <title>Output options</title>
 
-          <para><itemizedlist><listitem><para>MANDATORY: [ --output-file |
-          --output | -o ] &#60;FILE&#62;</para><para>Defines the file to write
-          the computed routes into.</para><para>Additionally, a second file
-          containing the route alternatives named &#60;FILE&#62;.alt will be
-          generated.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>MANDATORY: [
+          --output-file | --output | -o ] &#60;FILE&#62;</para><para>Defines
+          the file to write the computed routes into.</para><para>Additionally,
+          a second file containing the route alternatives named
+          &#60;FILE&#62;.alt will be generated.</para></listitem><listitem><para>OPTIONAL:
           --save-cell-rindex</para><para>The index to each route within the
           FastLane-rinfo file is saved under
           &#60;FILE_NAME(NO_EXTENSION)&#62;.rindex. (Only for
@@ -2078,9 +2062,9 @@
         <sect3>
           <title>Simulation times settings</title>
 
-          <para><itemizedlist><listitem><para>MANDATORY: [ --begin | -b ]
-          &#60;UINT&#62;</para><para>A virtual time to specify the begin of
-          route computation. Previous routes are skipped.</para></listitem><listitem><para>MANDATORY:
+          <para><itemizedlist spacing="compact"><listitem><para>MANDATORY: [
+          --begin | -b ] &#60;UINT&#62;</para><para>A virtual time to specify
+          the begin of route computation. Previous routes are skipped.</para></listitem><listitem><para>MANDATORY:
           [ --end | -e ] &#60;UINT&#62;</para><para>A virtual time to specify
           the end of route computation. Later routes are skipped.</para></listitem></itemizedlist></para>
         </sect3>
@@ -2088,8 +2072,8 @@
         <sect3>
           <title>Computation variables settings</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: --gBeta
-          &#60;DOUBLE&#62;</para><para>Gawron&#39;s beta; See also the
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          --gBeta &#60;DOUBLE&#62;</para><para>Gawron&#39;s beta; See also the
           documentation on Christian Gawron&#39;s Dynamic User Assignment.</para><para>Only
           for processing of alternatives.</para></listitem><listitem><para>OPTIONAL:
           --gA &#60;DOUBLE&#62;</para><para>Gawron&#39;s A; See also the
@@ -2105,34 +2089,37 @@
         <sect3>
           <title>Processing options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: --continue-on-unbuild</para><para>Continues
-          when a described connection could not be build. The default
-          behaviour is to stop with an error.</para></listitem><listitem><para>OPTIONAL:
-          --unsorted</para><para>When set to true, all routes are read into
-          the memory before being cmputed. This is necessary if the routes are
-          in a random order within the files that describe them.</para></listitem></itemizedlist></para>
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          --continue-on-unbuild</para><para>Continues when a described
+          connection could not be build. The default behaviour is to stop with
+          an error.</para></listitem><listitem><para>OPTIONAL: --unsorted</para><para>When
+          set to true, all routes are read into the memory before being
+          computed. This is necessary if the routes are in a random order
+          within the files that describe them.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Report options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --verbose | -v ]</para><para>Prints
-          some information about the process during execution.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --verbose | -v ]</para><para>Prints some information about the
+          process during execution.</para></listitem><listitem><para>OPTIONAL:
           [ --suppress-warnings | -W ]</para><para>No warnings will be
           prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
           [ --print-options | -p ]</para><para>Prints the current option
           settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
           [ --log-file | -L ] &#60;FILE&#62;</para><para>All outputs
-          (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
+          (messages, warnings, and errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Random number options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --abs-rand ]</para><para>Initialises
-          the random number generator with the current time (in ms) in the
-          hope to make him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --abs-rand ]</para><para>Initialises the random number generator
+          with the current time (in ms) in the hope to make him generate
+          really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
           [ --srand ] &#60;INT&#62;</para><para>Initialises the random number
           generator with the given value.</para></listitem></itemizedlist></para>
         </sect3>
@@ -2144,9 +2131,9 @@
         <sect3>
           <title>Input options</title>
 
-          <para><itemizedlist><listitem><para>MANDATORY: [ --net-file | --net
-          | -n ] &#60;FILE&#62;</para><para>Informs SUMO-JTR-ROUTER to use the
-          sumo-network &#60;FILE&#62; for routing.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>MANDATORY: [
+          --net-file | --net | -n ] &#60;FILE&#62;</para><para>Informs
+          SUMO-JTR-ROUTER to use the sumo-network &#60;FILE&#62; for routing.</para></listitem><listitem><para>OPTIONAL:
           [ --sinks ] &#60;EDGEID&#62;[;&#60;EDGEID&#62;]*</para><para>Specifies
           which edges shall (additionally to edges of the network that are
           already sinks) be treated as sinks. The list must contain ids of
@@ -2155,10 +2142,9 @@
           SUMO-JTR-ROUTER to read turn definitions from &#60;FILE&#62;. The
           format (xml or cvs) is determined automatically.</para></listitem><listitem><para>OPTIONAL:
           [ --weights | -weight-files | -w ] &#60;FILE&#62;</para><para>Forces
-          SUMO-JTR-ROUTER to read the network weights from &#60;FILE&#62;.</para><caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" /> the name
-          &#34;weight-files&#34; is ambigous: only one weight file can be
-          loaded by now.</para></caution></listitem><listitem><para>OPTIONAL:
+          SUMO-JTR-ROUTER to read the network weights from &#60;FILE&#62;.</para><caution><para>the
+          name &#34;weight-files&#34; is ambiguous: only one weight file can
+          be loaded by now.</para></caution></listitem><listitem><para>OPTIONAL:
           [ --flow-definition | --flows | -f ] &#60;FILE_&#62;</para><para>Informs
           SUMO-JTR-ROUTER to process the file &#60;FILE&#62; as a flow
           definition file</para></listitem><listitem><para>OPTIONAL: [
@@ -2187,11 +2173,11 @@
         <sect3>
           <title>Output options</title>
 
-          <para><itemizedlist><listitem><para>MANDATORY: [ --output-file |
-          --output | -o ] &#60;FILE&#62;</para><para>Defines the file to write
-          the computed routes into.</para><para>Additionally, a second file
-          containing the route alternatives named &#60;FILE&#62;.alt will be
-          generated.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>MANDATORY: [
+          --output-file | --output | -o ] &#60;FILE&#62;</para><para>Defines
+          the file to write the computed routes into.</para><para>Additionally,
+          a second file containing the route alternatives named
+          &#60;FILE&#62;.alt will be generated.</para></listitem><listitem><para>OPTIONAL:
           --save-cell-rindex</para><para>The index to each route within the
           FastLane-rinfo file is saved under
           &#60;FILE_NAME(NO_EXTENSION)&#62;.rindex. (Only for
@@ -2201,9 +2187,9 @@
         <sect3>
           <title>Simulation times settings</title>
 
-          <para><itemizedlist><listitem><para>MANDATORY: [ --begin | -b ]
-          &#60;UINT&#62;</para><para>A virtual time to specify the begin of
-          route computation. Previous routes are skipped.</para></listitem><listitem><para>MANDATORY:
+          <para><itemizedlist spacing="compact"><listitem><para>MANDATORY: [
+          --begin | -b ] &#60;UINT&#62;</para><para>A virtual time to specify
+          the begin of route computation. Previous routes are skipped.</para></listitem><listitem><para>MANDATORY:
           [ --end | -e ] &#60;UINT&#62;</para><para>A virtual time to specify
           the end of route computation. Later routes are skipped.</para></listitem></itemizedlist></para>
         </sect3>
@@ -2211,9 +2197,10 @@
         <sect3>
           <title>Computation variables settings</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: --intel-cell</para><para>Switches
-          the byte order within the FastLane-.driver-files</para><para>Only
-          for processing of FastLane-routes.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          --intel-cell</para><para>Switches the byte order within the
+          FastLane-.driver-files</para><para>Only for processing of
+          FastLane-routes.</para></listitem><listitem><para>OPTIONAL:
           --no-last-cell</para><para>Use best, not the last cell-route.</para><para>Only
           for processing of FastLane-routes.</para></listitem></itemizedlist></para>
         </sect3>
@@ -2221,38 +2208,41 @@
         <sect3>
           <title>Processing options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: --continue-on-unbuild</para><para>Continues
-          when a described connection could not be build. The default
-          behaviour is to stop with an error.</para></listitem><listitem><para>OPTIONAL:
-          --unsorted</para><para>When set to true, all routes are read into
-          the memory before being cmputed. This is necessary if the routes are
-          in a random order within the files that describe them.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          --continue-on-unbuild</para><para>Continues when a described
+          connection could not be build. The default behaviour is to stop with
+          an error.</para></listitem><listitem><para>OPTIONAL: --unsorted</para><para>When
+          set to true, all routes are read into the memory before being
+          computed. This is necessary if the routes are in a random order
+          within the files that describe them.</para></listitem><listitem><para>OPTIONAL:
           --max-edges-factor &#60;FLOAT&#62;</para><para>This value describes
           with which factor the number of edges within the net shall be
-          multipled to get the maximum number of edges a route may have.
+          multiplied to get the maximum number of edges a route may have.
           Deafult=2</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Report options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --verbose | -v ]</para><para>Prints
-          some information about the process during execution.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --verbose | -v ]</para><para>Prints some information about the
+          process during execution.</para></listitem><listitem><para>OPTIONAL:
           [ --suppress-warnings | -W ]</para><para>No warnings will be
           prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
           [ --print-options | -p ]</para><para>Prints the current option
           settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
           [ --log-file | -L ] &#60;FILE&#62;</para><para>All outputs
-          (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
+          (messages, warnings, and errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Random number options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --abs-rand ]</para><para>Initialises
-          the random number generator with the current time (in ms) in the
-          hope to make him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --abs-rand ]</para><para>Initialises the random number generator
+          with the current time (in ms) in the hope to make him generate
+          really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
           [ --srand ] &#60;INT&#62;</para><para>Initialises the random number
           generator with the given value.</para></listitem></itemizedlist></para>
         </sect3>
@@ -2264,28 +2254,28 @@
         <sect3>
           <title>Input options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --net-file | -n ]
-          &#60;FILE&#62;</para><para>The SUMO-network file to use (converted
-          from origin)</para></listitem><listitem><para>OPTIONAL: [
-          --route-file | -d ] &#60;FILE&#62;</para><para>The file containing a
-          single O/D-matrix. VISSIM</para></listitem><listitem><para>To be
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --net-file | -n ] &#60;FILE&#62;</para><para>The SUMO-network file
+          to use (converted from origin)</para></listitem><listitem><para>OPTIONAL:
+          [ --route-file | -d ] &#60;FILE&#62;</para><para>The file containing
+          a single O/D-matrix. VISSIM</para></listitem><listitem><para>To be
           completed...</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Output options</title>
 
-          <para><itemizedlist><listitem><para>MANDATORY: [ --output-file |
-          --output | -o ] &#60;FILE&#62;</para><para>Defines the file to write
-          the computed trips into.</para></listitem></itemizedlist></para>
+          <para><itemizedlist spacing="compact"><listitem><para>MANDATORY: [
+          --output-file | --output | -o ] &#60;FILE&#62;</para><para>Defines
+          the file to write the computed trips into.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Time information</title>
 
-          <para><itemizedlist><listitem><para>MANDATORY: [ --begin | -b ]
-          &#60;UINT&#62;</para><para>A virtual time for which the computation
-          is started. Previous trips are omitted.</para></listitem><listitem><para>MANDATORY:
+          <para><itemizedlist spacing="compact"><listitem><para>MANDATORY: [
+          --begin | -b ] &#60;UINT&#62;</para><para>A virtual time for which
+          the computation is started. Previous trips are omitted.</para></listitem><listitem><para>MANDATORY:
           [ --end | -e ] &#60;UINT&#62;</para><para>A virtual time for which
           the computation is ended. Further trips are omitted.</para></listitem></itemizedlist></para>
         </sect3>
@@ -2293,32 +2283,34 @@
         <sect3>
           <title>Computation variables settings</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --scale | -s ]
-          &#60;DOUBLE&#62;</para><para>A scaling value the O/D-matrix is
-          scaled with. This value is not depending on values stored within the
-          matrix.</para></listitem></itemizedlist></para>
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --scale | -s ] &#60;DOUBLE&#62;</para><para>A scaling value the
+          O/D-matrix is scaled with. This value is not depending on values
+          stored within the matrix.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Report options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --verbose | -v ]</para><para>Prints
-          some information about the process during execution.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --verbose | -v ]</para><para>Prints some information about the
+          process during execution.</para></listitem><listitem><para>OPTIONAL:
           [ --suppress-warnings | -W ]</para><para>No warnings will be
           prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
           [ --print-options | -p ]</para><para>Prints the current option
           settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
           [ --log-file | -L ] &#60;FILE&#62;</para><para>All outputs
-          (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
+          (messages, warnings, and errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Random number options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --abs-rand ]</para><para>Initialises
-          the random number generator with the current time (in ms) in the
-          hope to make him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --abs-rand ]</para><para>Initialises the random number generator
+          with the current time (in ms) in the hope to make him generate
+          really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
           [ --srand ] &#60;INT&#62;</para><para>Initialises the random number
           generator with the given value.</para></listitem></itemizedlist></para>
         </sect3>
@@ -2326,7 +2318,7 @@
     </sect1>
   </chapter>
 
-  <chapter>
+  <chapter id="PerformingSimulation">
     <title>Performing the Simulation</title>
 
     <para>Having the network description and the routes you have everything to
@@ -2338,7 +2330,7 @@
 
     <para>To start a simulation, you have to supply the following information:</para>
 
-    <itemizedlist>
+    <itemizedlist spacing="normal">
       <listitem>
         <para>The file that contains the network</para>
 
@@ -2379,13 +2371,13 @@
     <sect1>
       <title>Output Generation</title>
 
-      <para>Due to it&#39;s scientific purpose, SUMO tasks lie beyond simple
-      visualisation of traffic. The results of a simulation must be made
-      available and processable and also possibilities to influence the
-      simulation are necessary to make it more variable in use. Detectors,
-      artifacts used to gain more or less processed results from the
-      simulation and some further structures used are described in the next
-      subchapters.</para>
+      <para>Due to its scientific purpose, SUMO tasks lie beyond simple
+      visualisation of traffic. The results of a simulation must be available
+      and one must be able to process them and furthermore possibilities to
+      influence the simulation are necessary to make it more variable in use.
+      Detectors, artifacts used to gain more or less processed results from
+      the simulation and some further structures used are described in the
+      next subchapters.</para>
 
       <para>To supply the definitions of these structures to the simulation,
       we use an additional file normally and pass it to &#34;SUMO&#34; using
@@ -2398,14 +2390,14 @@
 
         <para>The results are obtained from the simulation using simulated
         detectors. You will find detectors one knows from the real world such
-        as induct loops, but also some virtual ones that do allow to gain
-        values one can work with more easily.</para>
+        as induct loops, but also some virtual ones that allow gaining values
+        one can work with more easily.</para>
 
-        <para>Basically, the main distinction between detectors SUMO offers
-        are their dimensions. The next list shows all available detector
-        types, some of which are still under development. The type names
-        &#34;E*&#34; have their origin in the german word
-        &#34;Erfassungsbereich&#34; meaning &#34;detection area&#34;.</para>
+        <para>Basically, the main distinction between detectors SUMO offers is
+        their dimension. The next list shows all available detector types,
+        some of which are still under development. The type names &#34;E*&#34;
+        have their origin in the German word &#34;Erfassungsbereich&#34;
+        meaning &#34;detection area&#34;.</para>
 
         <itemizedlist>
           <listitem>
@@ -2419,11 +2411,11 @@
           <listitem>
             <para>E2: Areal, lane-based detectors</para>
 
-            <para>These detectors do describe a part of a lane or
-            alternatively a part of the network made up of consecutive lanes
-            (a begin lane and his predecessors). The measured values are
-            derived from the movements over the whole part of the network the
-            detector is lying at.</para>
+            <para>These detectors describe a part of a lane or alternatively a
+            part of the network made up of consecutive lanes (a begin lane and
+            his predecessors). The measured values are derived from the
+            movements over the whole part of the network the detector is lying
+            at.</para>
           </listitem>
 
           <listitem>
@@ -2435,11 +2427,11 @@
           <listitem>
             <para>E3: Multi-Origin/Multi-Destination detectors</para>
 
-            <para>E3-detectors do measure vehicles passing a set of entry and
-            an according set of exit points. Each of these points is a
-            position on a lane. Measured are values that may be derived from
-            the movements of vehicles between any of the entry and any of the
-            exit points.</para>
+            <para>E3-detectors measure vehicles passing a set of entry and an
+            according set of exit points. Each of these points is a position
+            on a lane. Measured are values that may be derived from the
+            movements of vehicles between any of the entry and any of the exit
+            points.</para>
           </listitem>
 
           <listitem>
@@ -2462,12 +2454,12 @@
         part. The next subchapters hold the information about how to set
         detectors onto a network only.</para>
 
-        <para>To ease the usage and for backward compatiility, all detectors
+        <para>To ease the usage and for backward compatibility, all detectors
         may be defined in two ways. The first one is by using the following
         notation: <sgmltag>&#60;detector id=&#34;&#60;ID&#62;&#34;
         type=&#34;&#60;TYPE&#62;&#34; ...further attributes.../&#62;</sgmltag>.
         Herein, the detector type is determined by the type-attribute which is
-        induct_loop as default. The second possibility is: :
+        &#34;induct_loop&#34; as default. The second possibility is: :
         <sgmltag>&#60;XX-detector id=&#34;&#60;ID&#62;&#34; ...further
         attributes.../&#62;</sgmltag> where the tag name already defines the
         detector to build. Possible values for XX within the tag name and
@@ -2496,23 +2488,22 @@
           <para>The id is any string that let&#39;s you know which detector is
           meant. The type indicates that a induct loop shall be build, here.
           The attributes &#34;lane&#34; and &#34;pos&#34; describe on which
-          lane and at which position on him the detector shall lie. As induct
+          lane and at which position on him the detector shall lay. As induct
           loop detectors may aggregate the values they collect, the
           freq-attribute describes this period. The style-parameter is
           obsolete by now as the earlier possibility to use either
           &#34;xml&#34; or &#34;cvs&#34;-output is now not supported, the
           values are stored in xml-files only. The file attribute tells the
-          simulation the to which file the detector shall write his results
-          into. The file will be generated, does not have to exist earlier and
-          will be overwritten if existing without any warning.</para>
+          simulation to which file the detector shall write his results into.
+          The file will be generated, does not have to exist earlier and will
+          be overwritten if existing without any warning.</para>
 
-          <para><caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" />The folder the
-          output file shall be generated in must exist.</para></caution></para>
+          <para><caution><para>The folder the output file shall be generated
+          in must exist.</para></caution></para>
 
           <para>Let&#39;s review the attributes:</para>
 
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para>id: A string holding the id of the detector</para>
             </listitem>
@@ -2592,18 +2583,16 @@
           &#34;lane_based&#34; or &#34;E2&#34; to let the simulation know
           what&#39;s desired to build. The optional parameter &#34;cont&#34;
           let&#39;s the detector continue over the current lane onto this
-          lane&#39;s predeccessors when the detector&#39;s length plus his
+          lane&#39;s predecessors when the detector&#39;s length plus his
           position is larger than the place available on the lane. The
           attribute &#34;measures&#34; describes which values the detector
           shall compute. The optional values are described below.</para>
 
-          <para><caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" />The folder the
-          output file shall be generated in must exist.</para></caution></para>
+          <para><caution><para>The folder the output file shall be generated
+          in must exist.</para></caution></para>
 
-          <para><caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" />For detectors
-          that span over more than a single edge, only the attribute
+          <para><caution><para>For detectors that span over more than a single
+          edge, only the attribute
           QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES is defined all
           other may return strange values.</para></caution></para>
 
@@ -2614,7 +2603,7 @@
           generated every time the traffic light switches. To use this
           feature, simply replace the freq-attribute within the description of
           your detector by the id of the traffic light that should steer it
-          (use the attribute &#34;tl&#34; to specifiy the id) :</para>
+          (use the attribute &#34;tl&#34; to specify the id) :</para>
 
           <para>a) <sgmltag>&#60;detector id=&#34;&#60;ID&#62;&#34;
           type=&#34;[areal|lane_based|E2]&#34;
@@ -2643,46 +2632,58 @@
           [jam_treshhold=&#34;&#60;FLOAT&#62;&#34;]
           [keep_for=&#34;&#60;FLOAT&#62;&#34;]/&#62;</sgmltag></para>
 
+          <para>A further feature allows you to output values not for all
+          switches of the traffic light the detector is attached to, but only
+          when the light turns red for the assigned link (connection between
+          the incoming and the outgoing lane). This should allow you to
+          measure the maximum jam length in front of a red traffic light for
+          this link. To switch on this feature, you have to add the name of
+          the following lane:<sgmltag> to=&#34;&#60;LANE_ID&#62;&#34;</sgmltag>.
+          The incoming lane is already described by the
+          &#34;lane&#34;-attribute.</para>
+
           <para>E2-detectors may compute many different measures and the user
           has the possibility to describe which measures he actually wants to
           be generated. The &#34;measures&#34;-attribute must contain the
-          meaures divided by a &#39; &#39; (blank) in the case he does not
+          measures divided by a &#39; &#39; (blank) in the case he does not
           want to compute all parameters. Computing all parameters is the
-          default case but may also be explicitely set using
+          default case but may also be explicitly set using
           &#39;measures=&#34;ALL&#34;&#39; . The available measures are:</para>
 
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para>DENSITY: The density on the detector in vehicles/hour</para>
             </listitem>
 
             <listitem>
               <para>MAX_JAM_LENGTH_IN_VEHICLES: The maximum length of a jam
-              occured at this detector during the regarded interval in
+              occurred at this detector during the regarded interval in
               vehicles</para>
             </listitem>
 
             <listitem>
               <para>MAX_JAM_LENGTH_IN_METERS: The maximum length of a jam
-              occured at this detector during the regarded interval in meters</para>
+              occurred at this detector during the regarded interval in meters</para>
             </listitem>
 
             <listitem>
-              <para>JAM_LENGTH_SUM_IN_VEHICLES: The sum of all jams occured
+              <para>JAM_LENGTH_SUM_IN_VEHICLES: The sum of all jams occurred
               within the regarded interval in vehicles.</para>
             </listitem>
 
             <listitem>
-              <para>JAM_LENGTH_SUM_IN_METERS: The sum of all jams occured
+              <para>JAM_LENGTH_SUM_IN_METERS: The sum of all jams occurred
               within the regarded interval in meters.</para>
             </listitem>
 
             <listitem>
-              <para>QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES:</para>
+              <para>QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES: ... to
+              be described ...</para>
             </listitem>
 
             <listitem>
-              <para>QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS:</para>
+              <para>QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS: ... to be
+              described ...</para>
             </listitem>
 
             <listitem>
@@ -2691,37 +2692,38 @@
             </listitem>
 
             <listitem>
-              <para>OCCUPANCY_DEGREE:</para>
+              <para>OCCUPANCY_DEGREE: ... to be described ...</para>
             </listitem>
 
             <listitem>
-              <para>SPACE_MEAN_SPEED:</para>
+              <para>SPACE_MEAN_SPEED: ... to be described ...</para>
             </listitem>
 
             <listitem>
-              <para>CURRENT_HALTING_DURATION_SUM_PER_VEHICLE:</para>
+              <para>CURRENT_HALTING_DURATION_SUM_PER_VEHICLE: ... to be
+              described ...</para>
             </listitem>
 
             <listitem>
-              <para>N_STARTED_HALTS:</para>
+              <para>N_STARTED_HALTS: ... to be described ...</para>
             </listitem>
 
             <listitem>
-              <para>HALTING_DURATION_SUM:</para>
+              <para>HALTING_DURATION_SUM: ... to be described ...</para>
             </listitem>
 
             <listitem>
-              <para>HALTING_DURATION_MEAN:</para>
+              <para>HALTING_DURATION_MEAN: ... to be described ...</para>
             </listitem>
 
             <listitem>
-              <para>APPROACHING_VEHICLES_STATES:</para>
+              <para>APPROACHING_VEHICLES_STATES: ... to be described ...</para>
             </listitem>
           </itemizedlist>
 
-          <para>Again, the explicite list of available attributes:</para>
+          <para>Again, the explicit list of available attributes:</para>
 
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para>id: A string holding the id of the detector</para>
             </listitem>
@@ -2747,7 +2749,7 @@
               detector grows over the lane&#39;s end (begin in fact), it is
               either cut off at the lane&#39;s length if the
               &#34;cont&#34;-attribute is false or not given or is continued
-              on the predecessing lanes in the case the
+              on the predeceding lanes in the case the
               &#34;cont&#34;-attribute is set to true.</para>
             </listitem>
 
@@ -2769,7 +2771,7 @@
 
           <para>And the optional ones:</para>
 
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
               <para>style: Obsolete/deprecated; Always xml by now</para>
             </listitem>
@@ -2777,25 +2779,25 @@
             <listitem>
               <para>cont: Holds the information whether detectors longer than
               a lane shall be cut off or continued (set it to true for the
-              second case) deafult: false (detector lies on one lane only).</para>
+              second case) default: false (detector lies on one lane only).</para>
             </listitem>
 
             <listitem>
-              <para>time_treshhold: The time-based threshhold that describes
+              <para>time_treshhold: The time-based threshold that describes
               how much time has to pass until a vehicle is recognized as
               halting (in s, default: 1s).</para>
             </listitem>
 
             <listitem>
-              <para>speed_treshhold: The speed-based threshhold that describes
+              <para>speed_treshhold: The speed-based threshold that describes
               how slow a vehicle has to be to be recognized as halting (in
               m/s, default: 5/3.6m/s).</para>
             </listitem>
 
             <listitem>
-              <para>jam_treshhold: The length-based period that describes how
-              long a jam has to be to be recognized as one (in m, default:
-              10m).</para>
+              <para>jam_treshhold: The minimum distance to the next standing
+              vehicle in order to make this vehicle count as a participant to
+              the jam (in m, default: 10m).</para>
             </listitem>
 
             <listitem>
@@ -2851,7 +2853,7 @@
               [keep_for=&#34;&#60;FLOAT&#62;&#34;]&#62;</sgmltag></para>
 
               <para>As one can see, no information about the detector&#39;s
-              position are stored herein. They are stored in embedded tags
+              position is stored herein. They are stored in embedded tags
               instead (2. and 3.)</para>
             </listitem>
 
@@ -2913,9 +2915,9 @@
           subchapters. The only thing that differs from e1/e2-detectors are
           the measures e3-detectors are able to compute. Possible values are:</para>
 
-          <itemizedlist>
+          <itemizedlist spacing="compact">
             <listitem>
-              <para>MEAN_TRAVELTIME: The mean traveltime of vehicles between
+              <para>MEAN_TRAVELTIME: The mean travel time of vehicles between
               any entry and any exit point</para>
             </listitem>
 
@@ -2952,8 +2954,8 @@
         <title>Network State Dump</title>
 
         <para>In the hope that every user wants to know different things and
-        is able to write a tool that parses this information from an
-        unaggregated output, the network dump was the first output capability
+        is able to write a tool that parses this information from a not
+        aggregated output, the network dump was the first output capability
         we&#39;ve implemented. In fact, no one uses it so far. We will
         describe how to generate this output and his format before we discuss
         his disadvantages.</para>
@@ -2964,7 +2966,7 @@
         output will be written to. Any other file with this name will be
         overwritten, the destination folder must exist.</para>
 
-        <para>The network dump is a xml-file containing for each timestep
+        <para>The network dump is a xml-file containing for each time step
         every edge of the network with every lane of this edge with all
         vehicles on this lane. For each vehicle, his name, speed and position
         on his lane are written. A network dump-file looks like this:</para>
@@ -2998,8 +3000,8 @@
         are several GB large within some minutes. This implicates the next
         problem with this output: no one can handle it. It would be of course
         possible to write some nice tools that parse the file (using a
-        SAX-parser) and generate some meaningful information, but we don not
-        know anyone ho has made this. As a third problem one could state that
+        SAX-parser) and generate some meaningful information, but we do not
+        know anyone who has made this. As a third problem one could state that
         the simulation&#39;s execution speed of course breaks down when such
         an amount of data must be written.</para>
       </sect2>
@@ -3008,7 +3010,7 @@
         <title>Aggregated Lane States</title>
 
         <para>This information is far more feasible than the network dump. For
-        each lane, his attributes, aggregated over a freely speficiable time
+        each lane, his attributes, aggregated over a freely specifiable time
         interval are generated and written. To force SUMO to generate lane
         state dumps, you have to use two command line options: a)
         --dump-basename &#60;PATH_AND_FILE_PREFIX&#62; describes where to
@@ -3058,7 +3060,7 @@
         &#60;INTERVAL_BEGIN&#62; plus the interval length. The values written
         for each lane are:</para>
 
-        <itemizedlist>
+        <itemizedlist spacing="compact">
           <listitem>
             <para>traveltime:</para>
 
@@ -3141,7 +3143,7 @@
       </sect2>
 
       <sect2>
-        <title>Lanestate changer</title>
+        <title>Lane State Changer</title>
 
         <para>... to be described ...</para>
       </sect2>
@@ -3156,13 +3158,12 @@
         <sect3>
           <title>Input options</title>
 
-          <para><itemizedlist><listitem><para>MANDATORY: [ --net-files | --net
-          | -n ] &#60;FILE&#62;</para><para>The network file to use.</para><caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" /> the name
-          &#34;net-files&#34; is ambigous: only one network file can be loaded
-          by now.</para></caution></listitem><listitem><para>OPTIONAL: [
-          --route-files | --routes | -r ] &#60;FILE&#62;</para><para>The file
-          with routes that shall be used</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>MANDATORY: [
+          --net-files | --net | -n ] &#60;FILE&#62;</para><para>The network
+          file to use.</para><caution><para>the name &#34;net-files&#34; is
+          ambiguous: only one network file can be loaded by now.</para></caution></listitem><listitem><para>OPTIONAL:
+          [ --route-files | --routes | -r ] &#60;FILE&#62;</para><para>The
+          file with routes that shall be used</para></listitem><listitem><para>OPTIONAL:
           [ --additional-files | --additional | -a ] &#60;FILE&#62;</para><para>Additional
           files to load. You may specify detectors or emitters within these
           files to avoid manipulation of the network files themselves.</para></listitem><listitem><para>OPTIONAL:
@@ -3173,16 +3174,15 @@
         <sect3>
           <title>Output options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --output-file |
-          --output | -o ] &#60;FILE&#62;</para><para>Defines the file to write
-          the &#34;raw&#34; output into; No raw output is generated if the
-          file is not given.</para><caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" /> The
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --output-file | --output | -o ] &#60;FILE&#62;</para><para>Defines
+          the file to write the &#34;raw&#34; output into; No raw output is
+          generated if the file is not given.</para><caution><para>The
           &#34;raw&#34; output is becoming very large very fast.</para></caution></listitem><listitem><para>OPTIONAL:
           --dump-basename &#60;PATH&#62;</para><para>Specifies the base name
           to save aggregated network load information under. As you may
           specify more than a single aggregation time, the complete name for
-          the file is build by appending the aggregatation interval and the
+          the file is build by appending the aggregation interval and the
           &#34;.xml&#34;-extension to the given name.</para><para>Example:
           given &#34;--dump-basename=./aggregated/run1_&#34; and
           &#34;--dump-intervals=5;15;30&#34;, the files
@@ -3198,11 +3198,12 @@
         <sect3>
           <title>Simulation timing</title>
 
-          <para><itemizedlist><listitem><para>MANDATORY: [ --begin | -b ]
-          &#60;UINT&#62;</para><para>A virtual time the simulation starts at.
-          All routes, which begin before this time, are skipped.</para></listitem><listitem><para>MANDATORY:
-          [ --end | -e ] &#60;UINT&#62;</para><para>A virtual time the
-          simulation ends at. All further routes are not processed.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>MANDATORY: [
+          --begin | -b ] &#60;UINT&#62;</para><para>A virtual time the
+          simulation starts at. All routes, which begin before this time, are
+          skipped.</para></listitem><listitem><para>MANDATORY: [ --end | -e ]
+          &#60;UINT&#62;</para><para>A virtual time the simulation ends at.
+          All further routes are not processed.</para></listitem><listitem><para>OPTIONAL:
           [ --route-steps | -s ] &#60;UNIT&#62;</para><para>Within large
           areas, loading of all routes easily could yield in problems with a
           full computer memory. Due to this, you may optionally specify a time
@@ -3214,12 +3215,12 @@
         <sect3>
           <title>Error Control</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: --quit-on-accident</para><para>Normally,
-          when an accident occurs, the simulationshould continue and manage
-          it. As this is not implemented, yet, the bhaviour on accidents is
-          undefined. In fact, no accidents may occure if the network used is
-          ok (no two foe streams may drive at the same time).</para><caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" /> By now, the
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
+          --quit-on-accident</para><para>Normally, when an accident occurs,
+          the simulation should continue and manage it. As this is not
+          implemented, yet, the behaviour on accidents is undefined. In fact,
+          no accidents may occur if the network used is ok (no two foe streams
+          may drive at the same time).</para><caution><para>By now, the
           behaviour after an accident is not defined; this option should not
           be used, yet. (Still, no accidents occur at normal circumstances)</para></caution></listitem></itemizedlist></para>
         </sect3>
@@ -3227,10 +3228,10 @@
         <sect3>
           <title>Artifact Defaults</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL:
           --actuating-detector-pos &#60;FLOAT&#62;</para><para>The distance
-          from the actuated traffic light logic to the induct loops that do
-          actuate it in m. default: 100m</para></listitem><listitem><para>OPTIONAL:
+          from the actuated traffic light logic to the induct loops that
+          control (actuate) him in m. default: 100m</para></listitem><listitem><para>OPTIONAL:
           --agent-detector-len &#60;FLOAT&#62;</para><para>The length of the
           e2-detectors that compute the jam used by a agent based traffic
           light logic in m. default: 75m</para></listitem></itemizedlist></para>
@@ -3239,23 +3240,25 @@
         <sect3>
           <title>Report options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --verbose | -v ]</para><para>Prints
-          some information about the process during execution.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --verbose | -v ]</para><para>Prints some information about the
+          process during execution.</para></listitem><listitem><para>OPTIONAL:
           [ --suppress-warnings | -W ]</para><para>No warnings will be
           prompted if this option is set.</para></listitem><listitem><para>OPTIONAL:
           [ --print-options | -p ]</para><para>Prints the current option
           settings before the execution starts.</para></listitem><listitem><para>OPTIONAL:
           [ --log-file | -L ] &#60;FILE&#62;</para><para>All outputs
-          (messages, warnings, errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
+          (messages, warnings, and errors) will be written to the named file.</para></listitem><listitem><para>OPTIONAL:
           [ --help | -? ]</para><para>Prints possible options.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Random number options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --abs-rand ]</para><para>Initialises
-          the random number generator with the current time (in ms) in the
-          hope to make him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --abs-rand ]</para><para>Initialises the random number generator
+          with the current time (in ms) in the hope to make him generate
+          really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
           [ --srand ] &#60;INT&#62;</para><para>Initialises the random number
           generator with the given value.</para></listitem></itemizedlist></para>
         </sect3>
@@ -3263,7 +3266,7 @@
     </sect1>
   </chapter>
 
-  <chapter>
+  <chapter id="SimulationGUI">
     <title>Simulation-GUI</title>
 
     <para>The simulation-GUI (graphical user interface) is just a wrapper
@@ -3281,13 +3284,14 @@
 
       <mediaobject>
         <imageobject>
-          <imagedata fileref="./gfx/simcontrols.gif" format="GIF" />
+          <imagedata align="center" fileref="./gfx/simcontrols.gif"
+          format="GIF" />
         </imageobject>
       </mediaobject>
     </figure>
 
     <para>You can now start your simulation using the &#34;play&#34;-button
-    and/or manoeuver within the network pressing one of the mouse buttons and
+    and/or manoeuvre within the network pressing one of the mouse buttons and
     moving the mouse. When moving the mouse within the window with the left
     button pressed, you&#39;ll move the network to the direction you move the
     mouse. When the mouse is moved with the right button pressed, you change
@@ -3306,13 +3310,13 @@
         <sect3>
           <title>File-Menu</title>
 
-          <para><itemizedlist><listitem><para>Open</para><para>Opens a file
-          dialog that lets you choose a SUMO-configuration file that describes
-          a complete simulation. The simulation described within this file
-          will be loaded. Remark that you have to describe the simulation in
-          full - no further extension is possible.</para><para>You can of
-          course load a simulation if another one is already loaded. In this
-          case, the previous simulation will be closed.</para></listitem><listitem><para>Close</para><para>Closes
+          <para><itemizedlist spacing="compact"><listitem><para>Open</para><para>Opens
+          a file dialog that lets you choose a SUMO-configuration file that
+          describes a complete simulation. The simulation described within
+          this file will be loaded. Remark that you have to describe the
+          simulation in full - no further extension is possible.</para><para>You
+          can of course load a simulation if another one is already loaded. In
+          this case, the previous simulation will be closed.</para></listitem><listitem><para>Close</para><para>Closes
           the loaded simulation.</para></listitem><listitem><para>Quit</para><para>Quits
           the application.</para></listitem></itemizedlist></para>
         </sect3>
@@ -3320,38 +3324,197 @@
         <sect3>
           <title>Settings-Menu</title>
 
-          <para><itemizedlist><listitem><para>Application Settings</para><para>By
-          now, one can only set whether the application shall be closed
-          automatically when the loaded simulation ends.</para></listitem><listitem><para>Simulation
-          Settings</para><para>Displays the settings as read from the
-          configuration file. This item is only accessable if a simulation has
-          been loaded.</para><caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" /> Under current
-          development. (Better do not use it)</para></caution></listitem></itemizedlist></para>
+          <para><itemizedlist spacing="compact"><listitem><para>Application
+          Settings</para><para>By now, one can only set whether the
+          application shall be closed automatically when the loaded simulation
+          ends.</para></listitem><listitem><para>Simulation Settings</para><para>Displays
+          the settings as read from the configuration file. This item is only
+          accessible if a simulation has been loaded.</para><caution><para>Under
+          current development. (Better do not use it)</para></caution></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
           <title>Windows-Menu</title>
 
-          <para><itemizedlist><listitem><para>Show Log Window</para><para>By
-          pressing this menu item, you can switch the log window off and on.</para></listitem><listitem><para>Cascade</para><para>Reorders
-          the position of windows. The in windows !!!</para><caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" /> Under current
-          development. (Better do not use it)</para></caution></listitem><listitem><para>Tile</para><para>Displays
-          the settings as read from the configuration file. This item is only
-          accessable if a simulation has been loaded.</para><caution><para><inlinegraphic
-          fileref="./gfx/attention_small.gif" format="GIF" /> Under current
-          development. (Better do not use it)</para></caution></listitem></itemizedlist></para>
+          <para><itemizedlist spacing="compact"><listitem><para>Show Log
+          Window</para><para>By pressing this menu item, you can switch the
+          log window off and on.</para></listitem><listitem><para>Cascade</para><para>Reorders
+          the position of windows.</para></listitem><listitem><para>Tile</para><para>Reorders
+          the position of windows.</para></listitem></itemizedlist></para>
         </sect3>
 
         <sect3>
-          <title>Random number options</title>
+          <title>Help-Menu</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --abs-rand ]</para><para>Initialises
-          the random number generator with the current time (in ms) in the
-          hope to make him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
-          [ --srand ] &#60;INT&#62;</para><para>Initialises the random number
-          generator with the given value.</para></listitem></itemizedlist></para>
+          <para><itemizedlist spacing="compact"><listitem><para>About</para><para>Shows
+          a small window with some information about SUMO.</para></listitem><listitem><para>About
+          Qt</para><para>Shows a small window with some information about Qt,
+          the GUI-library we use.</para></listitem><listitem><para>What&#39;s
+          This</para><para>Chossing this menu entry will turn your cursor into
+          an arrow with a questionmark. Pressing a button or menu entry with
+          this cursor will not activate the function itself, but output some
+          information about the function.</para><caution><para>Some functions
+          are not described properly.</para></caution></listitem></itemizedlist></para>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>Tool Bar</title>
+
+        <sect3>
+          <title>File Operations</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Open Button</para><para>Opens
+          a file dialog that lets you choose a SUMO-configuration file that
+          describes a complete simulation. The simulation described within
+          this file will be loaded. Remark that you have to describe the
+          simulation in full - no further extension is possible.</para><para>You
+          can of course load a simulation if another one is already loaded. In
+          this case, the previous simulation will be closed.</para></listitem><listitem><para>What&#39;s
+          This - Button</para><para>Chossing this menu entry will turn your
+          cursor into an arrow with a questionmark. Pressing a button or menu
+          entry with this cursor will not activate the function itself, but
+          output some information about the function.</para><caution><para>Some
+          functions are not described properly.</para></caution></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Simulation Operations</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Play Button
+          <inlinegraphic fileref="./gfx/play.gif" format="GIF" /></para><para>Starts
+          the simulation. If a loaded simulation was not started before, it
+          will begin with the step described by the b(egin)-parameter within
+          the loaded configuration file. If the simulation was started and
+          stopped, it will continue.</para><caution><para>It is not possible
+          to restart a simulation.</para></caution></listitem><listitem><para>Stop
+          Button <inlinegraphic fileref="./gfx/stop.gif" format="GIF" /></para><para>Stops
+          a running application. A stopped application can be continued using
+          the play-button (see above).</para></listitem><listitem><para>Single
+          Step Button <inlinegraphic fileref="./gfx/step.gif" format="GIF" /></para><para>Performs
+          a single simulation step.</para></listitem><listitem><para>Current
+          Step Field</para><para>After the loaded simulation has been started,
+          the information about the current time step is displayed herein.</para></listitem><listitem><para>Simulation
+          Speed Control</para><para>The value you can change using this
+          control is the time the application waits between two simulation
+          steps. The higher the value, the slower the simulation will run.</para></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Window Operations</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>New
+          Microscopic View - Button <inlinegraphic
+          fileref="./gfx/new_window.gif" format="GIF" /></para><para>Opens a
+          new window which displays the streets and vehicles moving on them.</para><caution><para>If
+          the previous window is maximized (fills the whole application area),
+          the new one will be maximized, too. This lets the previous window
+          disappear. Choose the menu entry &#34;Windows-&#62;Tile&#34; to view
+          both windows.</para></caution></listitem><listitem><para>New
+          Lane-Aggregated View - Button <inlinegraphic
+          fileref="./gfx/new_window.gif" format="GIF" /></para><para>Opens a
+          new window which displays the streets and vehicles moving on them.</para><caution><para>If
+          the previous window is maximized (fills the whole application area),
+          the new one will be maximized, too. This lets the previous window
+          disappear. Choose the menu entry &#34;Windows-&#62;Tile&#34; to view
+          both windows.</para></caution><caution><para>Under current
+          development. (Better do not use it)</para></caution></listitem></itemizedlist></para>
+        </sect3>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>Simulation Window Interfaces</title>
+
+      <sect2>
+        <title>Microscopic View Tool Bar</title>
+
+        <sect3>
+          <title>View Settings</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Recenter View
+          - Button <inlinegraphic fileref="./gfx/recenter_view.gif"
+          format="GIF" /></para><para>You can use this button to reset the
+          view to show the whole network. After pressing this button, the view
+          will be the same as after loading the simulation: The zoom factor
+          will be reset to a value that lets the window display the whole
+          simulation area and the middle of the loaded network will be place
+          into the middle of the view.</para></listitem><listitem><para>Show
+          Legend - Button <inlinegraphic fileref="./gfx/show_legend.gif"
+          format="GIF" /></para><para>Switches the legend (only the scale) on
+          and off.</para></listitem><listitem><para>Allow Rotation - Button
+          <inlinegraphic fileref="./gfx/allow_rotation.gif" format="GIF" /></para><para>When
+          activated, this button disables the possibility to rotate the
+          network.</para><caution><para>Actually, this button should be called
+          &#34;Disallow Rotation&#34;.</para></caution><caution><para>Rotation
+          of the view is disable per default as the view becomes distorted
+          when being rotated. By now, it rather looks like it would be
+          &#34;shared&#34;, not rotated.</para></caution><caution><para>Under
+          current development. (Better do not use it)</para></caution></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>Tracking Settings</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Locate
+          Junction - Button <inlinegraphic fileref="./gfx/locate_junction.gif"
+          format="GIF" /></para><para>Opens a window that allows to choose a
+          junction name from the set of junctions the network consists of.
+          Pressing ok with a chosen junction zooms the view to this junction.</para></listitem><listitem><para>Locate
+          Edge - Button <inlinegraphic fileref="./gfx/locate_edge.gif"
+          format="GIF" /></para><para>Opens a window that allows to choose an
+          edge name from the set of junctions the network consists of.
+          Pressing ok with a chosen edge zooms the view to this edge.</para></listitem><listitem><para>Locate
+          Vehicle - Button <inlinegraphic fileref="./gfx/locate_vehicle.gif"
+          format="GIF" /></para><para>Opens a window that allows to choose a
+          vehicle name from the set of vehicle currently driving within the
+          simulation. Pressing ok with a chosen vehicle zooms the view to this
+          vehicle.</para><caution><para>Under current development. (Better do
+          not use it, may terminate the application with an error)</para></caution></listitem></itemizedlist></para>
+        </sect3>
+
+        <sect3>
+          <title>View Settings</title>
+
+          <para><itemizedlist spacing="compact"><listitem><para>Change Vehicle
+          Colouring Scheme - Button <inlinegraphic
+          fileref="./gfx/colour_vehicle.gif" format="GIF" /></para><para>The
+          combobox allows you to choose how the view shall determine a
+          displayed vehicle&#39;s colour. The following coluring schemes are
+          avaliable for vehicles:</para><itemizedlist spacing="compact"><listitem><para>by
+          speed: The vehicle colour change continuously from blue to red with
+          decreasing speed</para></listitem><listitem><para>specified: The
+          loaded vehicle colours are used</para></listitem><listitem><para>random#1:
+          Vehicles are coloured randomly (each vehicle has a certain colour)</para></listitem><listitem><para>random#2:
+          Vehicles are coloured randomly (each vehicle has a certain colour);
+          Quite the same as &#34;random#1&#34;, but a different method is used
+          to compute the random colour</para></listitem><listitem><para>lanechange#1:
+          ... to be described ...</para></listitem><listitem><para>lanechange#2:
+          ... to be described ...</para></listitem><listitem><para>lanechange#3:
+          ... to be described ...</para></listitem><listitem><para>waiting#1:
+          ... to be described ...</para></listitem></itemizedlist></listitem><listitem><para>Change
+          Lane Colouring Scheme - Button <inlinegraphic
+          fileref="./gfx/colour_lane.gif" format="GIF" /></para><para>The
+          combobox allows you to choose how the view shall determine a
+          displayed lane&#39;s colour. The following coluring schemes are
+          avaliable for lanes:</para><itemizedlist spacing="compact"><listitem><para>black:
+          All lanes are black</para></listitem><listitem><para>by purpose:
+          normal lanes are coloured black, sources green, sinks red and
+          internal lanes blue</para></listitem><listitem><para>by speed: The
+          lanes are coloured by the speed allowed on them, blue for fast
+          lanes, red for slow</para></listitem></itemizedlist></listitem><listitem><para>Show
+          Grid - Button <inlinegraphic fileref="./gfx/show_grid.gif"
+          format="GIF" /></para><para>Turns the visualisation f the grid the
+          network is mapped onto on/off. This is rather a debugging feature.</para></listitem><listitem><para>Show
+          Tool Tips - Button <inlinegraphic fileref="./gfx/show_tooltips.gif"
+          format="GIF" /></para><para>If this button is activated, the id for
+          the object the mouse pointer is over will be displayed.</para></listitem><listitem><para>Show
+          Full Geometry - Button <inlinegraphic
+          fileref="./gfx/show_geometry.gif" format="GIF" /></para><para>Switches
+          between full and simple - geometry. The picture beyond shows the
+          difference between full and simple geometry mode.</para><figure><title>The
+          difference between simple (left) and full (right) geometry mode</title><mediaobject><imageobject><imagedata
+          align="center" fileref="./gfx/simple_vs_full_geom.gif" format="GIF" /></imageobject></mediaobject></figure></listitem></itemizedlist></para>
         </sect3>
       </sect2>
     </sect1>
@@ -3365,11 +3528,12 @@
         <sect3>
           <title>Report options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --max-gl-width | -w
-          ] &#60;UINT&#62;</para><para>Specifies the maximum width of an
-          openGL window to use. This was implemented to avoid the allocation
-          of too large window memory on smaller computers.</para></listitem><listitem><para>OPTIONAL:
-          [ --max-gl-height | -h ] &#60;UINT&#62;</para><para>Specifies the
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --max-gl-width | -w ] &#60;UINT&#62;</para><para>Specifies the
+          maximum width of an openGL window to use. This was implemented to
+          avoid the allocation of too large window memory on smaller
+          computers.</para></listitem><listitem><para>OPTIONAL: [
+          --max-gl-height | -h ] &#60;UINT&#62;</para><para>Specifies the
           maximum height of an openGL window to use. This was implemented to
           avoid the allocation of too large window memory on smaller
           computers.</para></listitem><listitem><para>OPTIONAL: [
@@ -3387,9 +3551,10 @@
         <sect3>
           <title>Random number options</title>
 
-          <para><itemizedlist><listitem><para>OPTIONAL: [ --abs-rand ]</para><para>Initialises
-          the random number generator with the current time (in ms) in the
-          hope to make him generate really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
+          <para><itemizedlist spacing="compact"><listitem><para>OPTIONAL: [
+          --abs-rand ]</para><para>Initialises the random number generator
+          with the current time (in ms) in the hope to make him generate
+          really random numbers of an unknown order.</para></listitem><listitem><para>OPTIONAL:
           [ --srand ] &#60;INT&#62;</para><para>Initialises the random number
           generator with the given value.</para></listitem></itemizedlist></para>
         </sect3>
@@ -3397,7 +3562,7 @@
     </sect1>
   </chapter>
 
-  <appendix>
+  <appendix id="NamingConventions">
     <title>Naming Conventions</title>
 
     <para>To ease the usage of the supplied files, all of which are within a
@@ -3408,7 +3573,7 @@
 
     <itemizedlist>
       <listitem>
-        <para>Configuration files:<itemizedlist><listitem><para>*.sumo.cfg</para><para>Configuration
+        <para>Configuration files:<itemizedlist spacing="compact"><listitem><para>*.sumo.cfg</para><para>Configuration
         file for SUMO (both command line and GUI-version)</para></listitem><listitem><para>*.netc.cfg</para><para>Configuration
         file for the netconverter/-builder</para></listitem><listitem><para>*.dua.cfg</para><para>Configuration
         file for the dua-router</para></listitem><listitem><para>*.jtr.cfg</para><para>Configuration
@@ -3417,7 +3582,7 @@
       </listitem>
 
       <listitem>
-        <para>Data files:<itemizedlist><listitem><para>*.net.xml</para><para>sumo
+        <para>Data files:<itemizedlist spacing="compact"><listitem><para>*.net.xml</para><para>sumo
         - network file</para><para>Contents:</para><para>Standard: edges with
         lanes and other attributes; junction definitions;</para><para>Optional:
         all other simulation information</para></listitem><listitem><para>*.log.xml</para><para>sumo
@@ -3438,7 +3603,7 @@
       </listitem>
 
       <listitem>
-        <para>Other used file types<itemizedlist><listitem><para>*.inp</para><para>VISSIM
+        <para>Other used file types<itemizedlist spacing="compact"><listitem><para>*.inp</para><para>VISSIM
         network files</para></listitem><listitem><para>*.net</para><para>VISUM
         network files</para></listitem><listitem><para>Destinations.txt,
         Detectors.txt, Flows.txt, Generators.txt, HVdests.txt, Incidents.txt,
@@ -3454,7 +3619,7 @@
     </itemizedlist>
   </appendix>
 
-  <appendix>
+  <appendix id="IncludedData">
     <title>Included Data</title>
 
     <sect1>
@@ -3477,18 +3642,18 @@
         &#34;cross...&#34; and &#34;box...&#34;. The coarse appearance of
         these networks is shown below.</para>
 
-        <para>You may have noticed, that different networks are supprorted
-        with the same name begin. They differ in the number of lanes the edges
-        have and whether a possibly existing junction is a simple right-of-way
-        or a traffic light junction. The name pattern is as follows [SHAPE]Xl
-        for networks with right-of-way junctions, where X is the number of
-        lanes and [SHAPE]Xltl for networks with a traffic light. [SHAPE] is
-        the name of the coarse shape of the network as shown above.</para>
+        <para>You may have noticed, that different networks are supported with
+        the same name begin. They differ in the number of lanes the edges have
+        and whether a possibly existing junction is a simple right-of-way or a
+        traffic light junction. The name pattern is as follows [SHAPE]Xl for
+        networks with right-of-way junctions, where X is the number of lanes
+        and [SHAPE]Xltl for networks with a traffic light. [SHAPE] is the name
+        of the coarse shape of the network as shown above.</para>
       </sect2>
     </sect1>
   </appendix>
 
-  <appendix>
+  <appendix id="ErrorMessages">
     <title>Error Messages</title>
 
     <para>Here, only errors that should occur to normal users are reported.
@@ -3498,7 +3663,12 @@
     hand&#34;. If you are a developer and an error occurs that is not in the
     list below, see into the developer documentation.</para>
 
-    <itemizedlist>
+    <caution>
+      <para>This list is not up-to-date. We have to rework it. Please contact
+      us if an unlisted error occures.</para>
+    </caution>
+
+    <itemizedlist spacing="compact">
       <listitem>
         <para><errorcode>No option with the name &#39;[NAME]&#39; exists.</errorcode><blockquote><para>You
         are trying to set an option on the command line that is not known to
@@ -3512,7 +3682,7 @@
         non-boolean option has no parameter supplied. An example: you have
         typed &#34;sumo -n&#34;, but the option &#34;-n&#34; needs a value
         like &#34;-n ./nodes.xml&#34;.</para><para>Always supply a parameter
-        for parametrised options.</para></blockquote></para>
+        for parameterised options.</para></blockquote></para>
       </listitem>
 
       <listitem>
@@ -3523,7 +3693,7 @@
         synonyms is supported.</para><para>Set a value only once. When you are
         sure you have specified the value only once on the command line, your
         configuration file may contain two definitions for the value. A value
-        may be defined as well in the configuration fine and on he command
+        may be defined as well in the configuration file as on the command
         line but never twice in each of them.</para></blockquote></para>
       </listitem>
 
@@ -3534,7 +3704,7 @@
         &#34;sumo -nj [FILE1]&#34; or &#34;sumo -nj [FILE1] [FILE2]&#34; is
         not allowed as the parameter may not be assigned to either the network
         or the junctions. Only boolean options may be coupled with other
-        options.</para><para>Split the options when using parametrised
+        options.</para><para>Split the options when using parameterised
         options.</para></blockquote></para>
       </listitem>
 
@@ -3557,10 +3727,10 @@
         <para><errorcode>Error: No simulation file (-n) specified.</errorcode><blockquote><para>You
         forgot to specify a file containing the road network to use.
         Attention! The file is not examined to be valid, this error only
-        occurs when the user did not give the name of the file. When it is not
-        existing or invalid, other errors are produced.</para><para>You have
-        to specify a network file using &#34;-n [FILE]&#34; where [FILE] is
-        the name of the network file.</para></blockquote></para>
+        occurs when the user did not give the name of the file. When it does
+        not exist or is invalid, other errors are produced.</para><para>You
+        have to specify a network file using &#34;-n [FILE]&#34; where [FILE]
+        is the name of the network file.</para></blockquote></para>
       </listitem>
 
       <listitem>
@@ -3664,8 +3834,8 @@
       <listitem>
         <para><errorcode>The list belonging to the &#39;[TYPE]&#39; with the
         id &#39;[NAME]&#39; must not but is empty</errorcode><blockquote><para>The
-        information you have specified needs values, you do not havedid not
-        supply.</para><para>Supply all needed information.</para></blockquote></para>
+        information you have specified needs values, you did not supply.</para><para>Supply
+        all needed information.</para></blockquote></para>
       </listitem>
     </itemizedlist>
   </appendix>
