@@ -25,6 +25,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.44  2003/11/20 14:45:08  dkrajzew
+// dead code removed
+//
 // Revision 1.43  2003/11/20 13:27:42  dkrajzew
 // loading and using of a predefined vehicle color added
 //
@@ -333,7 +336,6 @@ namespace
 #include "MSJunctionLogic.h"
 #include "MSLane.h"
 #include "MSVehicleTransfer.h"
-//#include "MSDetector.h"
 #include "MSRoute.h"
 #include "MSRouteLoaderControl.h"
 #include "MSTLLogicControl.h"
@@ -346,10 +348,10 @@ namespace
 #include <microsim/MSDetectorSubSys.h>
 #include <microsim/MSVehicleTransfer.h>
 #include "MSTrafficLightLogic.h"
-//#include "MS_E2_ZS_Collector.h"
 #include "MSDetectorHaltingContainerWrapper.h"
 #include "MSE2DetectorInterface.h"
 #include "MSDetectorOccupancyCorrection.h"
+
 
 /* =========================================================================
  * used namespaces
@@ -397,8 +399,9 @@ MSNet::getInstance( void )
 void
 MSNet::preInit( MSVehicleTransfer *vt,
                 MSNet::Time startTimeStep, TimeVector dumpMeanDataIntervalls,
-                std::string baseNameDumpFiles/*, bool withGUI*/ )
+                std::string baseNameDumpFiles)
 {
+    assert(vt!=0);
     myInstance = new MSNet();
     MSVehicleTransfer::setInstance(vt);
 	myInstance->myLoadedVehNo = 0;
@@ -417,7 +420,6 @@ void
 MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
                     std::string baseNameDumpFiles/*, bool withGUI*/)
 {
-//    myInstance->myWithGUI = withGUI;
     if ( dumpMeanDataIntervalls.size() > 0 ) {
 
         sort( dumpMeanDataIntervalls.begin(),
@@ -476,7 +478,6 @@ MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
                 "  If noVehContrib==0 then speedsquare is set to -1.\n"
                 "- density [veh/km]\n"
                 "  If noVehContrib==0 then density is set to 0.\n"
-//                 "  flow [veh/h]\n"
                 "-->\n" << endl;
 
             MSNet::myInstance->myMeanData.push_back(
@@ -488,7 +489,6 @@ MSNet::initMeanData( TimeVector dumpMeanDataIntervalls,
 void
 MSNet::init( string id, MSEdgeControl* ec,
              MSJunctionControl* jc,
-//              DetectorCont* detectors,
              MSRouteLoaderControl *rlc,
              MSTLLogicControl *tlc)
 {
@@ -515,7 +515,6 @@ MSNet::~MSNet()
     delete myJunctions;
     delete myEmitter;
     delete myLogics;
-//     delete myDetectors;
     delete myRouteLoaders;
     MSDetectorSubSys::deleteDictionariesAndContents();
 }
@@ -566,9 +565,7 @@ void
 MSNet::simulationStep( ostream *craw, Time start, Time step )
 {
     myStep = step;
-//#ifdef _DEBUG
     globaltime = myStep;
-//#endif
 #ifdef ABS_DEBUG
     globaltime = myStep;
 #endif
@@ -718,13 +715,6 @@ MSNet::getNDumpIntervalls( void )
     return myMeanData.size();
 }
 
-/*
-bool
-MSNet::withGUI( void )
-{
-    return myWithGUI;
-}
-*/
 
 void
 MSNet::addPreStartInitialisedItem(PreStartInitialised *preinit)
@@ -742,20 +732,7 @@ MSNet::preStartInit()
     }
 }
 
-/*
-MSVehicle *
-MSNet::buildNewMSVehicle( std::string id, MSRoute* route,
-                         MSNet::Time departTime, const MSVehicleType* type,
-                         int repNo, int repOffset, const RGBColor &col)
-{
-    size_t noIntervals = getNDumpIntervalls();
-	myLoadedVehNo++;
-    return new MSVehicle(id, route, departTime, type, noIntervals,
-        repNo, repOffset);
-}
 
-
-*/
 MSVehicle *
 MSNet::buildNewVehicle( std::string id, MSRoute* route,
                          MSNet::Time departTime, const MSVehicleType* type,
@@ -765,9 +742,7 @@ MSNet::buildNewVehicle( std::string id, MSRoute* route,
 	myLoadedVehNo++;
     return new MSVehicle(id, route, departTime, type, noIntervals,
         repNo, repOffset);
-//    return buildNewMSVehicle(id, route, departTime, type, repNo, repOffset);
 }
-
 
 
 void
@@ -807,9 +782,6 @@ MSNet::getEmittedVehicleNo() const
 }
 
 
-
-
-
 MSNet::Time
 MSNet::getCurrentTimeStep() const
 {
@@ -829,9 +801,6 @@ MSNet::newUnbuildVehicleBuild()
 {
     myLoadedVehNo--;
 }
-
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
