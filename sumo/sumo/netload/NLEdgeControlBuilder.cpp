@@ -22,8 +22,11 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:05:35  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:21  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -94,7 +97,7 @@ void
 NLEdgeControlBuilder::chooseEdge(const string &id) 
 {
   m_pActiveEdge = MSEdge::dictionary(id);
-  if(NLNetBuilder::check&&m_pActiveEdge==0) throw XMLIdNotKnownException("edge", id);
+  if(/* NLNetBuilder::check && */m_pActiveEdge==0) throw XMLIdNotKnownException("edge", id);
   m_pDepartLane = (MSLane*) 0;
   m_pAllowedLanes = new MSEdge::AllowedLanesCont();
 }
@@ -108,11 +111,11 @@ NLEdgeControlBuilder::getActiveReference()
 void 
 NLEdgeControlBuilder::addLane(MSLane *lane, bool isDepart) 
 {
-  if(NLNetBuilder::check) {
+/*  if(NLNetBuilder::check) {*/
     // checks if the depart lane was set before
     if(isDepart&&m_pDepartLane!=0)
       throw XMLDepartLaneDuplicationException();
-  }
+/*  }*/
   m_pLaneStorage->push_back(lane);
   if(isDepart)
     m_pDepartLane = lane;
@@ -141,12 +144,12 @@ NLEdgeControlBuilder::openAllowedEdge(MSEdge *edge)
 void 
 NLEdgeControlBuilder::addAllowed(MSLane *lane) 
 {
-  if(NLNetBuilder::check) {
+/*  if(NLNetBuilder::check) {*/
     // checks if the lane is inside the edge
     MSEdge::LaneCont::iterator i1 = find(m_pLanes->begin(), m_pLanes->end(), lane);
     if(i1==m_pLanes->end())
       throw XMLInvalidChildException();
-  }
+/*  }*/
   m_pLaneStorage->push_back(lane);
 }
 

@@ -22,8 +22,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:07:56  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:25  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -40,7 +43,9 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <sax/HandlerBase.hpp>
+#include "../utils/AttributesHandler.h"
+#include "../utils/GenericSAX2Handler.h"
+#include "NLNetBuilder.h"
 #include "NLTags.h"
 #include <map>
 #include <string>
@@ -56,46 +61,34 @@ class NLContainer;
  * ======================================================================= */
 /**
  * NLSAXHandler
- * NLSAXHandler is an extended XML-SAX-Handler which provides a faster access 
- * to a enumeration of tags through a map and error handling.
+ * NLSAXHandler is an extended GenericSAX2Hendler which provides error handling.
  * This handler has no parsing functionality which is only implemented in the 
  * derived classes, where each class solves a single step of the parsing
  */
-class NLSAXHandler : public HandlerBase {
-private:
-    /// definition of a map for XML-tag-names to their enumerations
-    std::map<std::string, NLTag> m_Tags;
+class NLSAXHandler : public GenericSAX2Handler {
 protected:
     /// the container (storage) for build data 
-    NLContainer                *myContainer;
-    /// the last XML-item for errorhandling
-    std::string                     m_LastItem;
-    /// the tag-name of the last XML-item for errorhandling and data assignment
-    std::string                     m_LastName;
+    NLContainer                &myContainer;
+    /// the handler for the SAX2-attributes
+    AttributesHandler          _attrHandler;
+    /// the definition of what to load
+    LoadFilter                  _filter;
+private:
+    static Tag  _tags[21];
 public:
     /// standard constructor
-    NLSAXHandler(NLContainer *container);
+    NLSAXHandler(NLContainer &container, LoadFilter filter);
     /// standard destructor
     ~NLSAXHandler();
-    /// tag to enum conversion methods
-    virtual NLTag convert(const XMLCh* const name);
-    virtual NLTag convert(const std::string name);
-    // -----------------------------------------------------------------------
-    //  Handlers for the SAX DocumentHandler interface
-    // -----------------------------------------------------------------------
-    /** called on the occurence of the beginning of a tag; 
-        sets the name of the last item and the last item string */
-    virtual void startElement(const XMLCh* const name, AttributeList& attributes);
-    /// called on the occurence of character data; nothing is done
-    virtual void characters(const XMLCh* const chars, const unsigned int length);
-    /// called on resetting the document parsing; nothing is done
-    virtual void resetDocument();
-    /// called whe the document parsing ends; nothing is done
-    virtual void endDocument();
-    /// called on the end of an element; nothing is done
-    virtual void endElement(const XMLCh* const name);
-    /// called on metainstructions; nothing is done
-    virtual void processingInstruction(const   XMLCh* const    target, const XMLCh* const    data);
+    /// returns the begin of processing message
+    virtual std::string getMessage() const = 0;
+    // does nothing; just for allowing of instantiations of derived classed
+    virtual void myStartElement(int element, const std::string &name, const Attributes &attrs);
+    // does nothing; just for allowing of instantiations of derived classed
+    virtual void myEndElement(int element, const std::string &name);
+    // does nothing; just for allowing of instantiations of derived classed
+    virtual void myCharacters(int element, const std::string &name, const std::string &chars);
+    
     // -----------------------------------------------------------------------
     //  Handlers for the SAX ErrorHandler interface
     // -----------------------------------------------------------------------
@@ -105,6 +98,10 @@ public:
     virtual void error(const SAXParseException& exception);
     /// called on a XML-fatal error; the error is reported to the SErrorHandler
     virtual void fatalError(const SAXParseException& exception);
+protected:
+    /** returns the information whether instances belonging to the 
+        given class of data shall be extracted during this parsing */
+    bool wanted(LoadFilter filter) const;
 private:
     /** invalid copy constructor */
     NLSAXHandler(const NLSAXHandler &s);

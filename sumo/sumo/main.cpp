@@ -20,8 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:21  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 06:55:47  dkrajzew
+// new loading paradigm implemented
 //
 // Revision 2.6  2002/03/20 08:13:54  dkrajzew
 // help-output added
@@ -103,7 +103,7 @@ checkSettings(OptionsCont *oc) {
     try {
       if(oc!=0) oc->resetDefaults();
       // check the folder to load the junction logics from
-      if(!oc->isSet("j")||!FileHelpers::exists(oc->getString("j"))) {
+/*      if(!oc->isSet("j")||!FileHelpers::exists(oc->getString("j"))) {
         cout << "Error: The named junctions folder '" << oc->getString("j") << "' does not exist." << endl;
         ok = false;
       }
@@ -113,7 +113,7 @@ checkSettings(OptionsCont *oc) {
           dir = dir + '/';
           oc->set("j", dir);
         }
-      }
+      }*/
       // check the existance of a name for simulation file
       if(!oc->isSet("n")) {
         cout << "Error: No simulation file (-n) specified." << endl;
@@ -129,10 +129,10 @@ checkSettings(OptionsCont *oc) {
         ok = false;
       }
       // check if the output file is given
-      if(!oc->isSet("o")) {
+/*      if(!oc->isSet("o")) {
         cout << "Error: No output file (-o) specified." << endl;
         ok = false;
-      }
+      }*/
     } catch (InvalidArgument &e) {
       cout << e.msg() << endl;
       return false;
@@ -160,8 +160,10 @@ getSettings(int argc, char **argv)
     }
     // register the file i/o options
     oc->doRegister("net-file", 'n', new Option_String());
-    oc->doRegisterSystemPath("junction-folder", 'j', "junctions");
+//    oc->doRegisterSystemPath("junction-folder", 'j', "junctions");
     oc->doRegister("route-file", 'r', new Option_String());
+    oc->doRegister("junction-file", 'j', new Option_String());
+    oc->doRegister("detector-file", 'd', new Option_String());
     oc->doRegister("output-file", 'o', new Option_String(""));
     oc->doRegisterSystemPath("configuration-file", 'c', "config/sumo.cfg");
     oc->addSynonyme("net-file", "net");
@@ -169,6 +171,8 @@ getSettings(int argc, char **argv)
     oc->addSynonyme("simulation", "net");
     oc->addSynonyme("s", "net");
     oc->addSynonyme("route-file", "routes");
+    oc->addSynonyme("junction-file", "junctions");
+    oc->addSynonyme("detector-file", "detectors");
     oc->addSynonyme("output-file", "output");
     oc->addSynonyme("configuration-file", "configuration");
     // register the simulation settings
@@ -179,6 +183,7 @@ getSettings(int argc, char **argv)
     oc->doRegister("warn", 'w', new Option_Bool(true));
     oc->doRegister("print-options", 'p', new Option_Bool(false));
     oc->doRegister("help", new Option_Bool(false));
+    oc->doRegister("validate-nodes", new Option_Bool(false));
     // register the data processing options
     oc->doRegister("no-config", 'C', new Option_Bool(false));
     oc->addSynonyme("no-config", "no-configuration");
@@ -210,22 +215,28 @@ ostream *buildRawOutputStream(OptionsCont *oc) {
     
     filebuf *fb = new filebuf;
     ostream *craw = new ostream( (oc->getString("o")=="") ?
-	cout.rdbuf() :
-	fb->open(oc->getString("o").c_str(), ios::out|ios::trunc));
+	    cout.rdbuf() :
+	    fb->open(oc->getString("o").c_str(), ios::out|ios::trunc));
     if(craw->rdbuf()!=fb)
 	delete fb;
     return craw;
-/*
-    if(oc->getString("o")=="") {
-	ofstream *craw = new ofstream();
-	craw->copyfmt(cout);
-	craw->clear(cout.rdstate());
-	craw->rdbuf(cout.rdbuf());
-	return craw;
-    }
-    else 
-	return new ofstream(oc->getString("o").c_str());
-*/}
+}
+
+/**
+ * loads the net, additional routes and the detectors
+ */
+MSNet *load(OptionsCont *oc) {
+    NLNetBuilder builder(*oc);
+    return builder.build();
+}
+
+/**
+ * some method calls for debugging
+ */
+void test(MSNet *net, OptionsCont *oc) {
+    // !!!
+    //net->testJunctions();
+}
 
 /* -------------------------------------------------------------------------
  * main
@@ -233,62 +244,53 @@ ostream *buildRawOutputStream(OptionsCont *oc) {
 int
 main(int argc, char **argv)
 {
-  int ret = 1;
-  try {
+    int ret = 1;
     // parse the settings
     OptionsCont *oc = getSettings(argc, argv);
     if(oc==0) {
-      cout << "Quitting." << endl;
-      return 1;
+        cout << "Quitting." << endl;
+        return 1;
     }
     // check whether only the help shall be printed
     if(oc->getBool("help")) {
         HelpPrinter::print(help);
         return 0;
     }
+    
     // load the net
-    MSNet *net = 0;
-    NLNetBuilder builder(true, oc->getBool("v"));
-    net = builder.loadNet(oc->getString("n").c_str(), oc->getString("j").c_str());
-    // load additional routes when wished
-    if(oc->isSet("r")&&net!=0) {
-       MSEmitControl *routes = builder.loadVehicles(oc->getString("r").c_str());
-       if(routes!=0) {
-          net->addVehicles(routes);
-          delete routes;
-       } else {
-          cout << "Quittinig." << endl;
-          return -1;
-       }
-    }
+    MSNet *net = load(oc);
 
     // simulate when everything's ok
     ostream *craw = 0;
     if(net!=0) {
+        // possibly test the net before simulation
+        if(oc->getBool("validate-nodes"))
+            test(net, oc);
+
+        // build the raw output
+        craw = buildRawOutputStream(oc);
+        // report the begin when wished
+        if(oc->getBool("v"))
+            cout << "Simulation started with time: " << oc->getLong("b") << endl;
 
 #ifdef _SPEEDCHECK
   time(&begin);
   novehicles = 0;
 #endif
-       craw = buildRawOutputStream(oc);
-       if(oc->getBool("v"))
-	   cout << "Simulation started with time: " << oc->getLong("b") << endl;
-       if(!net->simulate(craw, oc->getLong("b"), oc->getLong("e")))
-	   ret = 0;
-
+        // simulate
+        if(!net->simulate(craw, oc->getLong("b"), oc->getLong("e")))
+            ret = 0;
 #ifdef _SPEEDCHECK
   time(&end);
 #endif
-       if(oc->getBool("v"))
-	   cout << "Simulation ended at time: " << oc->getLong("e") << endl;
+
+        // report the end when wished
+        if(oc->getBool("v"))
+            cout << "Simulation ended at time: " << oc->getLong("e") << endl;
     }
     delete net;
     delete craw;
-  } catch (UnsupportedFeature &e) {
-    cout << e.message() << endl;
-    return -1;
-  }
-  return ret;
+    return ret;
 }
 
 

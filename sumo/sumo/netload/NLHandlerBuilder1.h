@@ -20,8 +20,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:05:36  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:21  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -40,6 +43,8 @@
  * ======================================================================= */
 #include <sax/HandlerBase.hpp>
 #include "NLSAXHandler.h"
+#include "NLNetBuilder.h"
+#include "../microsim/MSBitsetLogic.h"
 
 /* =========================================================================
  * class declarations
@@ -61,14 +66,32 @@ class NLContainer;
  */
 class NLHandlerBuilder1 : public NLSAXHandler {
 private:
-    /** the information whether only dynamic parts 
-        (not the network shall be parsed) */
-    bool    m_bDynamicOnly;
+    /// numerical ids for the attributes
+    enum AttributeEnum { ATTR_ID, ATTR_DEPART, ATTR_MAXSPEED, ATTR_LENGTH, 
+        ATTR_CHANGEURGE, ATTR_BMAX, ATTR_DMAX, ATTR_SIGMA, ATTR_KEY,
+        ATTR_REQUEST, ATTR_RESPONSE, ATTR_TO, ATTR_FROM };
+    /// the right-of-way-logic of the currently chosen bitset-logic
+    MSBitsetLogic::Logic   *m_pActiveLogic;
+    /// the transformation matrix of the bitset-logic currently chosen
+    MSBitsetLogic::Link2LaneTrafo   *m_pActiveTrafo;
+    /// the size of the request
+    int     _requestSize;
+    /// the size of the response
+    int     _responseSize;
+    /// the number of lanes
+    int     _laneNo;
+    /// inserted items
+    size_t _trafoItems, _requestItems;
+    /// the current key
+    std::string    m_Key;
 public:
     /// standard constructor
-    NLHandlerBuilder1(NLContainer *container, bool dynamicOnly);
+    NLHandlerBuilder1(NLContainer &container, LoadFilter filter);
     /// standard destructor
     ~NLHandlerBuilder1();
+    /// returns a message about the processing
+    std::string getMessage() const;
+
     // -----------------------------------------------------------------------
     //  Handlers for the SAX DocumentHandler interface
     // -----------------------------------------------------------------------
@@ -79,7 +102,7 @@ public:
         c) opens descriptions of connections between edges 
         d) adds vehicle-types or 
         e) adds routes in dependence of the occured tag */
-    void startElement(const XMLCh* const name, AttributeList& attributes);
+    void myStartElement(int element, const std::string &name, const Attributes &attrs);
     /** called on the end of an element; 
         this method 
         a) builds single edges by closing their description 
@@ -87,12 +110,50 @@ public:
         c) closes the addition of connections to a previously chosen following
            edge or 
         d) closes the generation of a route in dependence of the occured tag*/
-    void endElement(const XMLCh* const name);
+    void myEndElement(int element, const std::string &name);
     /** called when simple characters occure; this method 
         a) adds lanes connecting the previously chosen current edge with 
            the previously chosen following edge 
         b) adds edges to a route in dependence of the occured tag */
-    void characters(const XMLCh* const chars, const unsigned int length);
+    void myCharacters(int element, const std::string &name, const std::string &chars);
+private:
+    /// begins the processing of an edge
+    void chooseEdge(const Attributes &attrs);
+    /// adds a lane to the previously opened edge
+    void addLane(const Attributes &attrs);
+    /// opens the list of next edges for processing
+    void openAllowedEdge(const Attributes &attrs);
+    /// adds a vehicle type
+    void addVehicleType(const Attributes &attrs);
+    // opens a route
+    void openRoute(const Attributes &attrs);
+    /// adds a junction key
+    void addJunctionKey(const Attributes &attrs);
+    /// initialises a junction logic
+    void initLogic();
+    /// adds a logic item to the current logic
+    void addLogicItem(const Attributes &attrs);
+    /// adds a transformation item to the current logic
+    void addTrafoItem(const Attributes &attrs);
+    /// adds the list of allowed following edges
+    void addAllowedEdges(const std::string &chars);
+    /// adds the route elements
+    void addRouteElements(const std::string &name, const std::string &chars);
+    /// sets the request size of the current junction logic
+    void setRequestSize(const std::string &chars);
+    /// sets the response size of the current junction logic
+    void setResponseSize(const std::string &chars);
+    /// sets the lane number of the current junction logic
+    void setLaneNumber(const std::string &chars);
+    /// sets the key of the current junction logic
+    void setKey(const std::string &chars);
+    /// adds a logic item
+    void addLogicItem(int request, std::string response);
+    /// adds a trafo item
+    void addTrafoItem(std::string links, int lane);
+    /** returns the build logic */
+    void closeLogic();
+
 private:
     /** invalid copy constructor */
     NLHandlerBuilder1(const NLHandlerBuilder1 &s);

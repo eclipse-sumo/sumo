@@ -21,8 +21,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:05:36  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:22  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -41,6 +44,7 @@
  * ======================================================================= */
 #include <sax/HandlerBase.hpp>
 #include "NLSAXHandler.h"
+#include "NLLoadFilter.h"
 
 /* =========================================================================
  * class declarations
@@ -60,12 +64,19 @@ class NLContainer;
  */
 class NLHandlerBuilder2 : public NLSAXHandler {
 private:
-    bool    m_bDynamicOnly; 
+    /// numerical ids for the attributes
+    enum AttributeEnum { ATTR_ID, ATTR_KEY, ATTR_TYPE, ATTR_ROUTE, 
+        ATTR_DEPART,
+        ATTR_LANE, ATTR_POSITION, ATTR_SPLINTERVAL, ATTR_STYLE, ATTR_FILE };
+
 public:
     /// standard constructor
-    NLHandlerBuilder2(NLContainer *container, bool dynamicOnly);
+    NLHandlerBuilder2(NLContainer &container, LoadFilter filter);
     /// standard destructor
     ~NLHandlerBuilder2();
+    /// returns a message about the processing
+    std::string getMessage() const;
+
     // -----------------------------------------------------------------------
     //  Handlers for the SAX DocumentHandler interface
     // -----------------------------------------------------------------------
@@ -74,13 +85,25 @@ public:
            describing it 
         b) adds right-of-way-logic items to it or 
         c) allocates new vehicles in dependence of the occured tag */
-    void startElement(const XMLCh* const name, AttributeList& attributes);
+    void myStartElement(int element, const std::string &name, const Attributes &attrs);
     /** called on the end of an element; 
         this method closes the processing of a previously chosen junction */
-    void endElement(const XMLCh* const name);
+    void myEndElement(int element, const std::string &name);
     /** called when simple characters occure; 
         this method adds incoming lanes to the previously selected junction */
-    void characters(const XMLCh* const chars, const unsigned int length);
+    void myCharacters(int element, const std::string &name, const std::string &chars);
+private:
+    /// opens a junction for processing
+    void openJunction(const Attributes &attrs);
+    /// adds a vehicle
+    void addVehicle(const Attributes &attrs);
+    /// adds a detector
+    void addDetector(const Attributes &attrs);
+    /// ends the processing of a junction
+    void closeJunction();
+    /// adds the incoming lanes
+    void addInLanes(const std::string &chars);
+
 private:
     /** invalid copy constructor */
     NLHandlerBuilder2(const NLHandlerBuilder2 &s);

@@ -23,8 +23,11 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:05:35  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.1  2002/03/15 09:32:23  traffic
 // Handling of map logics removed; Catching of invalid logics implemented
@@ -42,11 +45,11 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <parsers/SAXParser.hpp>
 #include <util/PlatformUtils.hpp>
 #include <util/TransService.hpp>
-#include <sax/HandlerBase.hpp>
-#include <strstream>
+#include <sax2/SAX2XMLReader.hpp>
+#include <sax2/XMLReaderFactory.hpp>
+#include <sstream>
 #include "NLContainer.h"
 #include "../microsim/MSLane.h"
 #include "../microsim/MSEdge.h"
@@ -65,7 +68,6 @@ namespace
 #include "NLSucceedingLaneBuilder.h"
 #include "SLogging.h"
 #include "SErrorHandler.h"
-#include "NLHandlerJunctionBitsets.h"
 #include "../utils/XMLBuildingExceptions.h"
 #include "../utils/XMLConvert.h"
 
@@ -79,18 +81,21 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NLContainer::NLContainer() 
+    : 
+    m_pECB(new NLEdgeControlBuilder()), 
+    m_pJCB(new NLJunctionControlBuilder(this)),
+    m_pRCB(new NLRoutesBuilder()), 
+    m_pSLB(new NLSucceedingLaneBuilder()),
+    m_pVehicles(0), 
+    m_pDetectors(0),
+    noEdges(0), 
+    noLanes(0), 
+    noJunctions(0), 
+    noVehicles(0),
+    noVehicleTypes(0),
+    noRoutes(0),
+    noDetectors(0)
 {
-  m_pECB = new NLEdgeControlBuilder();
-  m_pJCB = new NLJunctionControlBuilder(this);
-  m_pRCB = new NLRoutesBuilder();
-  m_pSLB = new NLSucceedingLaneBuilder();
-  noEdges = 0;
-  noLanes = 0;
-  noJunctions = 0;
-  noVehicles = 0;
-  noVehicleTypes = 0;
-  noRoutes = 0;
-  m_pVehicles = 0;
 }
 
 
@@ -147,6 +152,12 @@ NLContainer::incRoutes()
   noRoutes++;
 }
 
+void 
+NLContainer::incDetectors() 
+{
+  noRoutes++;
+}
+
 void
 NLContainer::addKey(string key) {
    m_LogicKeys.insert(LogicKeyCont::value_type(key, 0));
@@ -155,11 +166,16 @@ NLContainer::addKey(string key) {
 void 
 NLContainer::preallocate() 
 {
-  m_pECB->prepare(noEdges);
-  preallocateVehicles();
-  m_pJCB->prepare(noJunctions);
+    // preallocate the storage for the edges
+    m_pECB->prepare(noEdges);
+    // ... the storage for the vehicles
+    preallocateVehicles();
+    // ... the storage for the detectors
+    m_pDetectors = new MSNet::DetectorCont();
+    m_pDetectors->reserve(noDetectors);
+    // ... the storage for junctions
+    m_pJCB->prepare(noJunctions);
 }
-
 
 void 
 NLContainer::preallocateVehicles() 
@@ -167,6 +183,7 @@ NLContainer::preallocateVehicles()
   m_pVehicles = new MSEmitControl::VehCont();
   m_pVehicles->reserve(noVehicles);
 }
+
 
 
 
@@ -198,20 +215,20 @@ NLContainer::chooseEdge(const string &id)
 void 
 NLContainer::addLane(const string &id, const bool isDepartLane, const float maxSpeed, const float length, const float changeUrge) 
 {
-  MSEdge *edge = m_pECB->getActiveReference();
-  if(NLNetBuilder::check && edge==0) {
-    throw XMLInvalidParentException();
-  }
-  MSLane *lane = new MSLane(id, maxSpeed, length, edge);
-  if(NLNetBuilder::check && !MSLane::dictionary(id, lane))
-    throw XMLIdAlreadyUsedException("Lanes", id);
-  else {
-    try {
-      m_pECB->addLane(lane, isDepartLane);
-    } catch (XMLDepartLaneDuplicationException &e) {
-      throw e;
+    MSEdge *edge = m_pECB->getActiveReference();
+    if(/* NLNetBuilder::check && */ edge==0) {
+        throw XMLInvalidParentException();
     }
-  }
+    MSLane *lane = new MSLane(id, maxSpeed, length, edge);
+    if(/* NLNetBuilder::check && */ !MSLane::dictionary(id, lane))
+        throw XMLIdAlreadyUsedException("Lanes", id);
+    else {
+        try {
+            m_pECB->addLane(lane, isDepartLane);
+        } catch (XMLDepartLaneDuplicationException &e) {
+            throw e;
+        }
+    }
 }
 
 
@@ -226,7 +243,7 @@ void
 NLContainer::openAllowedEdge(const string &id) 
 {
   MSEdge *edge = MSEdge::dictionary(id);
-  if(NLNetBuilder::check && edge==0) throw XMLIdNotKnownException("edge", id);
+  if(/* NLNetBuilder::check && */ edge==0) throw XMLIdNotKnownException("edge", id);
   m_pECB->openAllowedEdge(edge);
 }
 
@@ -235,7 +252,7 @@ void
 NLContainer::addAllowed(const string &id) 
 {
   MSLane *lane = MSLane::dictionary(id);
-  if(NLNetBuilder::check && lane==0) throw XMLIdNotKnownException("lane", id);
+  if(/* NLNetBuilder::check && */ lane==0) throw XMLIdNotKnownException("lane", id);
   try {
     m_pECB->addAllowed(lane);
   } catch (XMLInvalidChildException &e) {
@@ -304,7 +321,7 @@ void
 NLContainer::addInLane(const string &id) 
 {
   MSLane *lane = MSLane::dictionary(id);
-  if(NLNetBuilder::check && lane==0) throw XMLIdNotKnownException("lane", id);
+  if(/* NLNetBuilder::check && */ lane==0) throw XMLIdNotKnownException("lane", id);
   m_pJCB->addInLane(lane);
 }
 
@@ -335,10 +352,10 @@ NLContainer::closeJunction()
 void 
 NLContainer::addVehicleType(const string &id, const float length, const float maxspeed, const float bmax, const float dmax, const float sigma) 
 {
-  MSVehicleType *vtype = new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma);
-  if(!MSVehicleType::dictionary(id, vtype))
-    if(NLNetBuilder::check)
-      throw XMLIdAlreadyUsedException("VehicleType", id);
+    MSVehicleType *vtype = new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma);
+    if(!MSVehicleType::dictionary(id, vtype))
+        /*if(NLNetBuilder::check)*/
+            throw XMLIdAlreadyUsedException("VehicleType", id);
 }
 
 
@@ -356,7 +373,7 @@ void
 NLContainer::addRoutesEdge(const string &id) 
 {
   MSEdge *edge = MSEdge::dictionary(id);
-  if(NLNetBuilder::check && edge==0) throw XMLIdNotKnownException("routes edge", id);
+  if(/* NLNetBuilder::check && */ edge==0) throw XMLIdNotKnownException("routes edge", id);
   m_pRCB->addEdge(edge);
 }
 
@@ -376,26 +393,34 @@ NLContainer::closeRoute()
 
 
 
-// handling of vehicles
+// ----- handling of vehicles
 void 
-NLContainer::addVehicle(const string &id, const string vtypeid, const string routeid, const long depart) 
+NLContainer::addVehicle(const string &id, const string &vtypeid, const string routeid, const long depart) 
 {
   MSVehicleType *vtype = MSVehicleType::dictionary(vtypeid);
-  if(NLNetBuilder::check && vtype==0) throw XMLIdNotKnownException("vtype", vtypeid);
+  if(/* NLNetBuilder::check && */ vtype==0) throw XMLIdNotKnownException("vtype", vtypeid);
   const MSNet::Route *route = MSNet::routeDict(routeid);
-  if(NLNetBuilder::check && route==0) throw XMLIdNotKnownException("route", routeid);
+  if(/* NLNetBuilder::check && */ route==0) throw XMLIdNotKnownException("route", routeid);
   MSVehicle *vehicle = new MSVehicle(id, (MSNet::Route*) route, depart, vtype);
   if(!MSVehicle::dictionary(id, vehicle)) throw XMLIdAlreadyUsedException("vehicle", id);
   m_pVehicles->push_back(vehicle);
 }
 
 
+// ----- handling of detectors
+void 
+NLContainer::addDetector(MSDetector *detector) {
+    m_pDetectors->push_back(detector);
+}
 
 
-const char * const
-NLContainer::getStatistics() 
+
+
+
+std::string
+NLContainer::getStatistics() const
 {
-  ostrstream buf;
+  ostringstream buf;
   buf << "Edges build:" << noEdges << endl;
   buf << "Lanes build:" << noLanes << endl;
   buf << "Junctions build:" << noJunctions << endl;
@@ -416,7 +441,7 @@ NLContainer::buildNet()
   MSJunctionControl *junctions = m_pJCB->build();
   MSEmitControl *emitters = new MSEmitControl("", m_pVehicles);
   MSEventControl *events = new MSEventControl("");
-  return new MSNet(m_Id, edges, junctions, emitters, events, new MSPersonControl(*(new MSPersonControl::WaitingPersons())));
+  return new MSNet(m_Id, edges, junctions, emitters, events, new MSPersonControl(*(new MSPersonControl::WaitingPersons())), m_pDetectors);
 }
 
 
@@ -427,41 +452,10 @@ NLContainer::buildVehicles()
   return new MSEmitControl("", m_pVehicles);
 }
 
-void 
-NLContainer::loadJunctions(const char *path) {
-  SLogging::add("Parsing junction types...");
-  // build parser
-  SAXParser parser;
-  SLogging::add("Starting parsing...");
-  parser.setValidationScheme(SAXParser::Val_Auto);
-  parser.setDoNamespaces(false);
-  parser.setDoSchema(false);
-  // build handlers
-//  NLHandlerJunctionMaps *mapHandler = new NLHandlerJunctionMaps(0);
-  NLHandlerJunctionBitsets *bitsetHandler = new NLHandlerJunctionBitsets(0);
-//  NLHandlerJunctionBitsets *bitsetHandler = new NLHandlerJunctionBitsets(0);
-  // start the parsing
-  for(LogicKeyCont::iterator i=m_LogicKeys.begin(); i!=m_LogicKeys.end(); i++) {
-    string key = (*i).first;
-    try {
-      // !!! insert handling of different types of junctions in here !!!
-      string fullpath = path + string("b.") + key + string(".xml");
-      NLHandlerJunctionLogics *handler; 
-      handler = bitsetHandler;
-      // !!! end of junction-type dependend code
-      handler->init(key, fullpath);
-      parser.setDocumentHandler(handler);
-      parser.setErrorHandler(handler);
-      parser.parse(fullpath.c_str());
-      MSJunctionLogic *logic = handler->build();
-      if(logic!=0)
-	  MSJunctionLogic::dictionary(key, logic);
-    } catch (const XMLException& toCatch) {
-      SErrorHandler::add("An XML-error occured: " + XMLConvert::_2str(toCatch.getMessage()));
-    }
-  }
-//  delete mapHandler;
-  delete bitsetHandler;
+
+MSNet::DetectorCont *
+NLContainer::getDetectors() {
+    return m_pDetectors;
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

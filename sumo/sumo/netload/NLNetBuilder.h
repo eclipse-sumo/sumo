@@ -20,8 +20,8 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:07:56  dkrajzew
+// new loading paradigm implemented
 //
 // Revision 2.0  2002/02/14 14:43:24  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -40,9 +40,12 @@
  * ======================================================================= */
 #include <string>
 #include <map>
+#include <vector>
 #include <parsers/SAXParser.hpp>
 #include <framework/XMLFormatter.hpp>
-#include <sax/HandlerBase.hpp>
+#include <sax2/DefaultHandler.hpp>
+#include "../microsim/MSNet.h"
+#include "NLLoadFilter.h"
 
 /* =========================================================================
  * class declarations
@@ -51,6 +54,10 @@ class MSNet;
 class NLContainer;
 class MSEmitControl;
 class MSJunctionLogic;
+class MSDetectorControl;
+class OptionsCont;
+class SAX2XMLReader;
+class NLSAXHandler;
 
 /* =========================================================================
  * class definitions
@@ -58,43 +65,43 @@ class MSJunctionLogic;
 /**
  * NLNetBuilder
  * The class is the main interface to load simulations.
- * It is a black-box where only the filename of the simulation to load must be
- * supplied and the net is returned.
+ * It is a black-box where only the options must be supplied on the 
+ * constructor call
  * It is assumed that the simulation is stored in a XML-file.
  */
 class NLNetBuilder {
-public:
-    /// information if the parser should check the file
-    static bool                     check;
-    /// information if the parser should perform a more verbose parsing
-    static bool                     verbose;
 private:
-    /// information about the text type
-    static const char*              encodingName;
+    /// the options to get the names from
+    const OptionsCont &m_pOptions;
+    /// the different data types
 public:
     /// standard constructor
-    NLNetBuilder(bool doCheck, bool printAll);
+    NLNetBuilder(const OptionsCont &oc);
     /// standard destructor
     ~NLNetBuilder();
-    /// loads a complete simulation specified by its name
-    MSNet *loadNet(const char *path, const char *junctionsfolder);
-    /// loads the routes of a simulation
-    MSEmitControl *loadVehicles(const char *path);
-    /// reports whether the current subpart was decoded properly
-    void subreport(char *ok, char *wrong);
-    /// reports statistics and errors
-    void report(NLContainer *container);
+    /// the net loading method
+    MSNet *build();
 private:
-    /// performs the parsing of a XML-file using the specified handlers
-    int parse(const char *path, const char *msg1, HandlerBase **handlerlist, int step);
-    /** returns the matching net-parsing handler for the current step for 
-        all steps to do before the junctions can be parsed */
-    HandlerBase **getNetHandlerPreJunctions(NLContainer *container);
-    /** returns the matching net-parsing handler for the current step for 
-        all steps to do adter the junctions were parsed */
-    HandlerBase **getNetHandlerPostJunctions(NLContainer *container);
-    /// returns the matching route-parsing handler for the current step
-    HandlerBase **getVehiclesHandler(NLContainer *container);
+    /// counts the structures and preallocates them
+    void count(NLContainer &container, SAX2XMLReader &parser);
+    /// counts the structures and preallocates them
+    void load(NLContainer &container, SAX2XMLReader &parser);
+    /// loads a described subpart form the given list of files
+    void load(LoadFilter what, std::string files, NLContainer &cont, SAX2XMLReader &parser);
+    /// prepares the parser for processing using the current handler
+    void prepareParser(SAX2XMLReader &parser, NLSAXHandler *handler, int step);
+    /// parses the files using the given initialised parser
+    void parse(const std::string &files, SAX2XMLReader &parser);
+    /// returns the data name that accords to the given enum
+    std::string getDataName(LoadFilter forWhat);
+    /// returns the list of handlers needed to parse the given data type
+    std::vector<NLSAXHandler*> getHandler(LoadFilter forWhat, NLContainer &container);
+    /// reports the process (done or failure)
+    void subreport(const std::string &ok, const std::string &wrong) ;
+    /// prints the final report
+    void report(const NLContainer &container);
+    /// returns false when only ':' are supplied (no filename) 
+    bool checkFilenames(const std::string &files);
 private:
     /** invalid copy operator */
     NLNetBuilder(const NLNetBuilder &s);

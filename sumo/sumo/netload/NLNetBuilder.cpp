@@ -22,8 +22,8 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:07:56  dkrajzew
+// new loading paradigm implemented
 //
 // Revision 2.0  2002/02/14 14:43:24  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -40,12 +40,16 @@ namespace
  * ======================================================================= */
 #include "NLNetBuilder.h"
 #include "../microsim/MSNet.h"
+#include "../microsim/MSEmitControl.h"
 #include <iostream>
 #include <strstream>
+#include <vector>
 #include <parsers/SAXParser.hpp>
 #include <util/PlatformUtils.hpp>
 #include <util/TransService.hpp>
-#include <sax/HandlerBase.hpp>
+#include <sax2/SAX2XMLReader.hpp>
+#include <sax2/XMLReaderFactory.hpp>
+#include <sax2/DefaultHandler.hpp>
 #include <string>
 #include <map>
 #include "SErrorHandler.h"
@@ -56,6 +60,8 @@ namespace
 #include "NLHandlerBuilder1.h"
 #include "NLHandlerBuilder2.h"
 #include "NLHandlerBuilder3.h"
+#include "../utils/StringTokenizer.h"
+#include "../utils/OptionsCont.h"
 #include "../utils/XMLConvert.h"
 
 /* =========================================================================
@@ -64,26 +70,18 @@ namespace
 using namespace std;
 
 /* =========================================================================
- * static member definitions
- * ======================================================================= */
-const char*              NLNetBuilder::encodingName    = "LATIN1";
-bool                     NLNetBuilder::check;
-bool                     NLNetBuilder::verbose;
-
-/* =========================================================================
  * method definitions
  * ======================================================================= */
-NLNetBuilder::NLNetBuilder(bool doCheck, bool printAll) 
+NLNetBuilder::NLNetBuilder(const OptionsCont &oc) 
+    : m_pOptions(oc)
 {
-  check = doCheck;
-  verbose = printAll;
-  // during the net parsing
-  // initialisation of the xml-helper and the sax-parser
-  try {
-    XMLPlatformUtils::Initialize();
-  } catch (const XMLException& toCatch) {
-    SErrorHandler::add("Error during XML-initialization: " + XMLConvert::_2str(toCatch.getMessage()));
-  }
+    // during the net parsing
+    // initialisation of the xml-helper and the sax-parser
+    try {
+        XMLPlatformUtils::Initialize();
+    } catch (const XMLException& toCatch) {
+        SErrorHandler::add("Error during XML-initialization: " + XMLConvert::_2str(toCatch.getMessage()));
+    }
 }
 
 
@@ -95,149 +93,172 @@ NLNetBuilder::~NLNetBuilder()
 }
 
 
-
-HandlerBase **
-NLNetBuilder::getNetHandlerPreJunctions(NLContainer *container) 
-{
-  HandlerBase **ret = new HandlerBase*[4];
-  ret[0] = new NLHandlerCounter(container, false);
-  ret[1] = new NLHandlerEdgeAllocator(container);
-  ret[2] = new NLHandlerBuilder1(container, false);
-  ret[3] = 0;
-  return ret;
-}
-
-HandlerBase **
-NLNetBuilder::getNetHandlerPostJunctions(NLContainer *container) 
-{
-  HandlerBase **ret = new HandlerBase*[3];
-  ret[0] = new NLHandlerBuilder2(container, false);
-  ret[1] = new NLHandlerBuilder3(container, false);
-  ret[2] = 0;
-  return ret;
-}
-
-HandlerBase **
-NLNetBuilder::getVehiclesHandler(NLContainer *container) 
-{
-  HandlerBase **ret = new HandlerBase*[5];
-  ret[0] = new NLHandlerCounter(container, true);
-  ret[1] = new NLHandlerBuilder1(container, true);
-  ret[2] = new NLHandlerBuilder2(container, true);
-  ret[3] = new NLHandlerBuilder3(container, true);
-  ret[4] = 0;
-  return ret;
-}
-
-
-
 MSNet *
-NLNetBuilder::loadNet(const char *path, const char *junctionsfolder) 
-{
-  MSNet *net = 0;
-  // initialise the container holding the parsed structures
-  NLContainer *container = new NLContainer();
-  // parse
-  HandlerBase **handlerlist = getNetHandlerPreJunctions(container);
-  int step = parse(path, "Parsing the network...", handlerlist, 0);
-  if(step>0) {
-    container->loadJunctions(junctionsfolder);
-    handlerlist = getNetHandlerPostJunctions(container);
-    parse(path, "Parsing the network...", handlerlist, step);
-    // the file was parsed now, let's concate all memers into a 
-    // single net and return this
+NLNetBuilder::build() {
+    NLContainer *container = new NLContainer();
+    SAX2XMLReader* parser = XMLReaderFactory::createXMLReader();
+    parser->setFeature(XMLString::transcode("http://xml.org/sax/features/validation"), false);
+    count(*container, *parser);
+    load(*container, *parser);
+    subreport("Loading done.", "Loading failed.");
+    MSNet *net = 0;
     if(!SErrorHandler::errorOccured()) 
-      net = container->buildNet();
-    subreport("Parsing ended... Net build.", "Parsing ended... Net building failed.");
-  }
-  delete container;
-  return net;
+        net = container->buildNet();
+    delete parser;
+    delete container;
+    return net;
 }
 
-
-
-MSEmitControl *
-NLNetBuilder::loadVehicles(const char *path) 
-{
-  // initialise the container holding the parsed structures
-  NLContainer *container = new NLContainer();
-  // parse
-  HandlerBase **handlerlist = getVehiclesHandler(container);
-  parse(path, "Parsing the routes...", handlerlist, 0);
-  // the file was parsed now, let's concate all memers into a 
-  // single net and return this
-  MSEmitControl *ret = 0;
-  if(!SErrorHandler::errorOccured()) 
-    ret = container->buildVehicles();
-  subreport("Parsing ended... Routes build.", "Parsing ended... Route building failed.");
-  delete container;
-  return ret;
-}
-
-
-int
-NLNetBuilder::parse(const char *path, const char *msg1, HandlerBase **handlerlist, int step) 
-{
-  // check if the path is correct
-  if(path==0) { 
-    SErrorHandler::add("No input path given!!!");
-    return -1;
-  }
-  // build parser
-  SAXParser parser;
-  SLogging::add("Starting parsing...");
-  parser.setValidationScheme(SAXParser::Val_Auto);
-  parser.setDoNamespaces(false);
-  parser.setDoSchema(false);
-  SLogging::add(msg1);
-  // start the parsing
-  try {
-    bool abort = false;
-    for(int i=0; !abort&&!SErrorHandler::wasFatal(); i++) {
-      HandlerBase *handler = handlerlist[i];
-      if(handler==0) 
-      	abort = true;
-      else {
-        ostrstream buf;
-        buf << "Step " << step++ << "... " << ends;
-	      SLogging::add(buf.str(), true, false);
-	      parser.setDocumentHandler(handler);
-	      parser.setErrorHandler(handler);
-	      parser.parse(path);
-	      delete handler;
-	      SLogging::add("done");
-      }
+void 
+NLNetBuilder::count(NLContainer &container, SAX2XMLReader &parser) {
+//    if(m_pOptions.getBool("v"))
+//        cout << "Loading " << getDataName(what) << "..." << endl;
+    NLSAXHandler *handler = new NLHandlerCounter(container, LOADFILTER_ALL);
+    prepareParser(parser, handler, 0);
+    parse(m_pOptions.getString("n"), parser);
+    if(m_pOptions.isSet("j")) {
+        (static_cast<NLHandlerCounter*>(handler))->changeLoadFilter(LOADFILTER_LOGICS);
+        parse(m_pOptions.getString("j"), parser);
     }
-  } catch (const XMLException& toCatch) {
-    SErrorHandler::add("An XML-error occured: " + XMLConvert::_2str(toCatch.getMessage()));
-  }
-  return step;
+    if(m_pOptions.isSet("d")) {
+        (static_cast<NLHandlerCounter*>(handler))->changeLoadFilter(LOADFILTER_DETECTORS);
+        parse(m_pOptions.getString("d"), parser);
+    }
+    if(m_pOptions.isSet("r")) {
+        (static_cast<NLHandlerCounter*>(handler))->changeLoadFilter(LOADFILTER_DYNAMIC);
+        parse(m_pOptions.getString("r"), parser);
+    }
+    delete handler;
+    container.preallocate();
+}
+
+void 
+NLNetBuilder::load(NLContainer &container, SAX2XMLReader &parser) {
+    load(LOADFILTER_ALL, m_pOptions.getString("n"), container, parser);
+    if(m_pOptions.isSet("j")) 
+        load(LOADFILTER_LOGICS, m_pOptions.getString("j"), container, parser);
+    if(m_pOptions.isSet("d")) 
+        load(LOADFILTER_DETECTORS, m_pOptions.getString("d"), container, parser);
+    if(m_pOptions.isSet("r")) 
+        load(LOADFILTER_DYNAMIC, m_pOptions.getString("r"), container, parser);
+}
+
+void
+NLNetBuilder::load(LoadFilter what, string files, NLContainer &cont, SAX2XMLReader &parser) {
+    if(!checkFilenames(files)) {
+        SErrorHandler::add("No " + getDataName(what) + " found!");
+        SErrorHandler::add("Check your program parameter.");
+        return;
+    }
+    std::vector<NLSAXHandler*> steps = getHandler(what, cont);
+    if(m_pOptions.getBool("v"))
+        cout << "Loading " << getDataName(what) << "..." << endl;
+    int step = 0;
+    for(std::vector<NLSAXHandler*>::iterator i=steps.begin(); i!=steps.end(); i++) {
+        prepareParser(parser, *i, step);
+        parse(files, parser);
+        delete *i;
+        step++;
+    }
+    subreport("Loading of " + getDataName(what) + " done.", "Loading of " + getDataName(what) + " failed.");
+    report(cont);
+}
+
+void
+NLNetBuilder::prepareParser(SAX2XMLReader &parser, NLSAXHandler *handler, int step) {
+    parser.setContentHandler(handler);
+    parser.setErrorHandler(handler);
+    if(m_pOptions.getBool("v"))
+        cout << "Step " << step << ": " << handler->getMessage() << endl;
+}
+
+void
+NLNetBuilder::parse(const string &files, SAX2XMLReader &parser) 
+{
+    StringTokenizer st(files, ';');
+    while(st.hasNext()) {
+        string tmp = st.next();
+        parser.parse(tmp.c_str());
+    }
+}
+
+string 
+NLNetBuilder::getDataName(LoadFilter forWhat) {
+    switch(forWhat) {
+    case LOADFILTER_ALL: 
+        return "net";
+        break;
+    case LOADFILTER_LOGICS:
+        return "junction logics";
+        break;
+    case LOADFILTER_DETECTORS:
+        return "detectors";
+        break;
+    case LOADFILTER_DYNAMIC:
+        return "vehicles and routes";
+        break;
+    default:
+        break;
+    }
+    throw exception();
+}
+
+std::vector<NLSAXHandler*>
+NLNetBuilder::getHandler(LoadFilter forWhat, NLContainer &container)  {
+    std::vector<NLSAXHandler*> ret;
+    switch(forWhat) {
+    case LOADFILTER_ALL: 
+        ret.push_back(new NLHandlerEdgeAllocator(container, forWhat));
+        ret.push_back(new NLHandlerBuilder1(container, forWhat));
+        ret.push_back(new NLHandlerBuilder2(container, forWhat));
+        ret.push_back(new NLHandlerBuilder3(container, forWhat));
+        break;
+    case LOADFILTER_LOGICS:
+        ret.push_back(new NLHandlerBuilder1(container, forWhat));
+        break;
+    case LOADFILTER_DETECTORS:
+        ret.push_back(new NLHandlerBuilder2(container, forWhat));
+        break;
+    case LOADFILTER_DYNAMIC:
+        ret.push_back(new NLHandlerBuilder1(container, forWhat));
+        ret.push_back(new NLHandlerBuilder2(container, forWhat));
+        break;
+    default:
+        break;
+    }
+    return ret;
+}
+
+
+void
+NLNetBuilder::subreport(const std::string &ok, const std::string &wrong) 
+{
+    if(!SErrorHandler::errorOccured()) 
+        SLogging::add(ok.c_str());
+    else {
+        SErrorHandler::print();
+        SLogging::add(wrong.c_str());
+    }
 }
 
 
 
 void
-NLNetBuilder::subreport(char *ok, char *wrong) 
+NLNetBuilder::report(const NLContainer &container) 
 {
-  if(!SErrorHandler::errorOccured()) 
-    SLogging::add(ok);
-  else {
-    SErrorHandler::print();
-    SLogging::add(wrong);
-  }
+    if(SErrorHandler::errorOccured()) 
+        SErrorHandler::print();
+    else {
+        if(m_pOptions.getBool("v"))
+            SLogging::add(container.getStatistics());
+    }
 }
 
 
-
-void
-NLNetBuilder::report(NLContainer *container) 
-{
-  if(SErrorHandler::errorOccured()) 
-    SErrorHandler::print();
-  if(!SErrorHandler::errorOccured()) {
-    const char * const tmp = container->getStatistics();
-    SLogging::add(tmp);
-  }
+bool
+NLNetBuilder::checkFilenames(const std::string &files) {
+    StringTokenizer st(files, ';');
+    return st.size()!=0;
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -23,8 +23,11 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:07:56  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:22  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -48,6 +51,7 @@ namespace
 #include "NLHandlerCounter.h"
 #include "NLSAXHandler.h"
 #include "NLTags.h"
+#include "NLLoadFilter.h"
 
 /* =========================================================================
  * used namespaces
@@ -57,7 +61,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLHandlerCounter::NLHandlerCounter(NLContainer *container, bool dynamicOnly) : NLSAXHandler(container), m_bDynamicOnly(dynamicOnly) {
+NLHandlerCounter::NLHandlerCounter(NLContainer &container, LoadFilter filter) 
+    : NLSAXHandler(container, filter)
+{
 }
 
 /// standard destructor
@@ -66,40 +72,53 @@ NLHandlerCounter::~NLHandlerCounter()
 }
 
 void 
-NLHandlerCounter::startElement(const XMLCh* const name, AttributeList& attributes) 
+NLHandlerCounter::myStartElement(int element, const std::string &name, const Attributes &attrs)
 {
-  NLSAXHandler::startElement(name, attributes);
-  switch(convert(name)) {
-  case NLTag_edge:
-    myContainer->incEdges();
-    break;
-  case NLTag_lane:
-    myContainer->incLanes();
-    break;
-  case NLTag_vtype:
-    myContainer->incVehicleTypes();
-    break;
-  case NLTag_junction:
-    myContainer->incJunctions();
-    break;
-  case NLTag_vehicle:
-    myContainer->incVehicles();
-    break;
-  case NLTag_route:
-    myContainer->incRoutes();
-    break;
-  default:
-    break;
-  }
+    // process static net parts when wished
+    if(wanted(LOADFILTER_NET)) {
+        switch(element) {
+        case NLTag_edge:
+            myContainer.incEdges();
+            break;
+        case NLTag_lane:
+            myContainer.incLanes();
+            break;
+        case NLTag_junction:
+            myContainer.incJunctions();
+            break;
+        case NLTag_detector:
+            myContainer.incDetectors();
+            break;
+        default:
+            break;
+        }
+    }
+    // process dynamic net parts when wished
+    if(wanted(LOADFILTER_DYNAMIC)) {
+        switch(element) {
+        case NLTag_vtype:
+            myContainer.incVehicleTypes();
+            break;
+        case NLTag_vehicle:
+            myContainer.incVehicles();
+            break;
+        case NLTag_route:
+            myContainer.incRoutes();
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+std::string
+NLHandlerCounter::getMessage() const {
+    return "Counting structures...";
 }
 
 void 
-NLHandlerCounter::endDocument() 
-{
-  if(!m_bDynamicOnly)
-    myContainer->preallocate();
-  else
-    myContainer->preallocateVehicles();
+NLHandlerCounter::changeLoadFilter(LoadFilter filter) {
+    _filter = filter;
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -21,8 +21,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:05:35  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:21  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -51,7 +54,6 @@ class NLJunctionControlBuilder;
 class NLRoutesBuilder;
 class NLSucceedingLaneBuilder;
 class MSEdge;
-class MSLane;
 class MSNet;
 class MSRouteCont;
 class MSModel;
@@ -95,6 +97,9 @@ private:
     /** pointer to a list of vehicles 
          (used during building, later stored inside the net) */
     MSEmitControl::VehCont    *m_pVehicles;
+    /** pointer to the NLDetectorBuilder
+        (storage for building detectors) */
+    MSNet::DetectorCont       *m_pDetectors;
     /// the id of the build net (not yet used!!!)
     std::string                    m_Id; // !!! not yet set
     /** definition of a container for junction logic keys
@@ -115,6 +120,8 @@ private:
     int noVehicleTypes;
     /// the number of routes inside the net
     int noRoutes;
+    /// the number of routes inside the net
+    int noDetectors;
 private:
   
   typedef std::map<std::string, MSJunctionLogic*> LogicCont;
@@ -139,13 +146,15 @@ public:
     void incVehicleTypes();
     /// increments the number of found routes
     void incRoutes();
+    /// increments the number of found detectors
+    void incDetectors();
+
     /// preallocates the needed space (vectors)
     void preallocate();
     /// preallocates the space for the vehicles
     void preallocateVehicles();
     /// inserts a new junction type key
     void addKey(std::string key);
-    
     
     // interface to use the edge control builder
     /** adds an edge (allocates it); this method may throw an exception if 
@@ -213,21 +222,26 @@ public:
     /// closes the building of the route
     void closeRoute();
     
-    /// interface to the generation of vehicles
+    // ----- interfaces for the generation of vehicles
     /// adds a new vehicle to the simulation
-    void addVehicle(const std::string &id, const std::string vtypeid, 
+    void addVehicle(const std::string &id, const std::string &vtypeid, 
 		    const std::string routeid, const long depart);
     
-    /// returns the statistics about the build net
-    const char * const getStatistics();
-    
-    /// loads the junction logics
-    void loadJunctions(const char *path);
+    // ----- interfaces for the generation of detectors
+    /// adds a new detector to the simulation
+    void addDetector(MSDetector *detector);
 
+
+    /// returns the statistics about the build net
+    std::string getStatistics() const;
+    
     /// end of operations; builds the net
     MSNet *buildNet();
     /// end of operations; builds the vehicles
     MSEmitControl *buildVehicles();
+
+    // returns the detectors
+    MSNet::DetectorCont *getDetectors();
 private:
     /** invalid copy constructor */
     NLContainer(const NLContainer &s);

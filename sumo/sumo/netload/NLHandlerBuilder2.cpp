@@ -23,8 +23,11 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:05:36  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.1  2002/03/20 08:16:54  dkrajzew
 // strtok replaced by a StringTokenizer; NumericFormatException handling added
@@ -53,8 +56,11 @@ namespace
 #include "../utils/XMLConvert.h"
 #include "../utils/XMLBuildingExceptions.h"
 #include "../utils/StringTokenizer.h"
+#include "../utils/AttributesHandler.h"
+#include "NLDetectorBuilder.h"
 #include "NLSAXHandler.h"
 #include "NLNetBuilder.h"
+#include "NLLoadFilter.h"
 #include "NLTags.h"
 
 /* =========================================================================
@@ -65,7 +71,19 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLHandlerBuilder2::NLHandlerBuilder2(NLContainer *container, bool vehiclesOnly) : NLSAXHandler(container), m_bDynamicOnly(vehiclesOnly) {
+NLHandlerBuilder2::NLHandlerBuilder2(NLContainer &container, LoadFilter filter) 
+    : NLSAXHandler(container, filter)
+{
+    _attrHandler.add(ATTR_ID, "id");
+    _attrHandler.add(ATTR_KEY, "key");
+    _attrHandler.add(ATTR_TYPE, "type");
+    _attrHandler.add(ATTR_ROUTE, "route");
+    _attrHandler.add(ATTR_DEPART, "depart");
+    _attrHandler.add(ATTR_LANE, "lane");
+    _attrHandler.add(ATTR_POSITION, "pos");
+    _attrHandler.add(ATTR_SPLINTERVAL, "freq");
+    _attrHandler.add(ATTR_STYLE, "style");
+    _attrHandler.add(ATTR_FILE, "file");
 }
 
 NLHandlerBuilder2::~NLHandlerBuilder2() 
@@ -73,108 +91,155 @@ NLHandlerBuilder2::~NLHandlerBuilder2()
 }
 
 void 
-NLHandlerBuilder2::startElement(const XMLCh* const name, AttributeList& attributes) 
+NLHandlerBuilder2::myStartElement(int element, const std::string &name, const Attributes &attrs) 
 {
-  NLSAXHandler::startElement(name, attributes);
-  string id = "";
-  switch(convert(name)) {
-  case NLTag_junction:
-    if(!m_bDynamicOnly) {
-      try {
-        id = XMLConvert::_2str(attributes.getValue("id"));
-	      try {
-	        string key = XMLConvert::_2str(attributes.getValue("key"));
-          string type = XMLConvert::_2str(attributes.getValue("type"));
-    	    myContainer->openJunction(id, key, type);
+    // process the net elements when wished
+    if(wanted(LOADFILTER_NET)) {
+        switch(element) {
+        case NLTag_junction:
+            openJunction(attrs);
+            break;
+        default:
+            break;
+        }
+    }
+    // process the dynamic components when wished
+    if(wanted(LOADFILTER_DYNAMIC)) {
+        switch(element) {
+        case NLTag_vehicle:
+            addVehicle(attrs);
+            break;
+        default:
+            break;
+        }
+    }
+    // process detectors when wished
+    if(wanted(LOADFILTER_DETECTORS)&&element==NLTag_detector) {
+        addDetector(attrs);
+    }
+}
+
+void
+NLHandlerBuilder2::openJunction(const Attributes &attrs) {
+    string id;
+    try {
+        id = _attrHandler.getString(attrs, ATTR_ID);
+        try {
+            myContainer.openJunction(id, 
+                _attrHandler.getString(attrs, ATTR_KEY),
+                _attrHandler.getString(attrs, ATTR_TYPE));
         } catch (XMLUngivenParameterException &e) {
-          SErrorHandler::add(e.getMessage("junction", id));
+            SErrorHandler::add(e.getMessage("junction", id));
         }
-      } catch (XMLUngivenParameterException &e) {
+    } catch (XMLUngivenParameterException &e) {
         SErrorHandler::add(e.getMessage("junction", "(ID_UNKNOWN!)"));
-      }
     }
-    break;
-/*  case NLTag_logic:
-    if(!m_bDynamicOnly) {
-      try {
-	      char *request = XMLConvert::_2char(attributes.getValue("request"));
-	      char *respond = XMLConvert::_2char(attributes.getValue("respond"));
-	      myContainer->addLogic(request, respond);
-      } catch (XMLKeyDuplicateException &e) {
-	      SErrorHandler::add(e.getMessage("logic", ""));
-      } catch (XMLUngivenParameterException &e) {
-		    SErrorHandler::add(e.getMessage("edge", id));
-	    }
-    }
-    break;*/
-  case NLTag_vehicle:
-    {
-      try {
-         id = XMLConvert::_2str(attributes.getValue("id"));
-         try {
-            myContainer->addVehicle(id, 
-               XMLConvert::_2str(attributes.getValue("type")),
-               XMLConvert::_2str(attributes.getValue("route")),
-               XMLConvert::_2long(attributes.getValue("depart")));		
-         } catch (XMLUngivenParameterException &e) {
+}
+
+
+void
+NLHandlerBuilder2::addVehicle(const Attributes &attrs) {
+    string id;
+    try {
+        id = _attrHandler.getString(attrs, ATTR_ID);
+        try {
+            myContainer.addVehicle(id, 
+                _attrHandler.getString(attrs, ATTR_TYPE),
+                _attrHandler.getString(attrs, ATTR_ROUTE),
+                _attrHandler.getLong(attrs, ATTR_DEPART));
+        } catch (XMLUngivenParameterException &e) {
             SErrorHandler::add(e.getMessage("vehicle", id));
-         } catch(XMLIdNotKnownException &e) {
+        } catch(XMLIdNotKnownException &e) {
             SErrorHandler::add(e.getMessage("", ""));
-         } catch(XMLIdAlreadyUsedException &e) {
+        } catch(XMLIdAlreadyUsedException &e) {
             SErrorHandler::add(e.getMessage("vehicle", id));
-         }  
-      } catch(XMLIdAlreadyUsedException &e) {
-         SErrorHandler::add(e.getMessage("vehicle", "(ID_UNKNOWN!)"));
-      }  
-    }
-    break;
-  default:
-    break;
-  }
+        }  
+    } catch (XMLUngivenParameterException &e) {
+        SErrorHandler::add(e.getMessage("vehicle", "(ID_UNKNOWN!)"));
+    }  
 }
 
-void 
-NLHandlerBuilder2::endElement(const XMLCh* const name) 
-{
-  switch(convert(name)) {
-  case NLTag_junction:
-    if(!m_bDynamicOnly) {
-      try {
-	myContainer->closeJunction();
-      } catch (XMLIdAlreadyUsedException &e) {
-	SErrorHandler::add(e.getMessage("junction", ""));
-      } catch (XMLIdNotKnownException &e) {
-        SErrorHandler::add(e.getMessage("junction", ""));
-      }
-    }
-    break;
-  default:
-    break;
-  }
-  NLSAXHandler::endElement(name);
-}
-
-void 
-NLHandlerBuilder2::characters(const XMLCh* const chars, const unsigned int length) 
-{
-    switch(convert(m_LastName)) {
-    case NLTag_inlane:
-        if(!m_bDynamicOnly) {
-            StringTokenizer st(XMLConvert::_2str(chars, length));
-            while(st.hasNext()) {
-                string set = st.next();
-                try {
-	                myContainer->addInLane(set);
-	            } catch (XMLIdNotKnownException &e) {
-	                SErrorHandler::add(e.getMessage("lane", set));
-	            }
-            }
+void
+NLHandlerBuilder2::addDetector(const Attributes &attrs) {
+    string id;
+    try {
+        id = _attrHandler.getString(attrs, ATTR_ID);
+        try {
+            myContainer.addDetector(
+                NLDetectorBuilder::buildInductLoop(id,
+                    _attrHandler.getString(attrs, ATTR_LANE),
+                    _attrHandler.getFloat(attrs, ATTR_POSITION),
+                    _attrHandler.getFloat(attrs, ATTR_SPLINTERVAL),
+                    _attrHandler.getString(attrs, ATTR_STYLE),
+                    _attrHandler.getString(attrs, ATTR_FILE)));
+        } catch (XMLBuildingException &e) {
+            SErrorHandler::add(e.getMessage("vehicle", id));
         }
-        break;
-    default:
-        break;
+    } catch (XMLUngivenParameterException &e) {
+        SErrorHandler::add(e.getMessage("vehicle", "(ID_UNKNOWN!)"));
+    }  
+}
+
+
+void 
+NLHandlerBuilder2::myEndElement(int element, const std::string &name)
+{
+    if(wanted(LOADFILTER_NET)) {
+        switch(element) {
+        case NLTag_junction:
+            closeJunction();
+            break;
+        default:
+            break;
+        }
     }
 }
+
+void 
+NLHandlerBuilder2::myCharacters(int element, const std::string &name, const std::string &chars) 
+{
+    if(wanted(LOADFILTER_NET)) {
+        switch(element) {
+        case NLTag_inlane:
+            addInLanes(chars);
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+
+void
+NLHandlerBuilder2::closeJunction() {
+    try {
+        myContainer.closeJunction();
+    } catch (XMLIdAlreadyUsedException &e) {
+        SErrorHandler::add(e.getMessage("junction", ""));
+    } catch (XMLIdNotKnownException &e) {
+        SErrorHandler::add(e.getMessage("junction", ""));
+    }
+}
+
+
+void
+NLHandlerBuilder2::addInLanes(const std::string &chars) {
+    StringTokenizer st(chars);
+    while(st.hasNext()) {
+        string set = st.next();
+        try {
+            myContainer.addInLane(set);
+        } catch (XMLIdNotKnownException &e) {
+            SErrorHandler::add(e.getMessage("lane", set));
+        }
+    }
+}
+
+std::string
+NLHandlerBuilder2::getMessage() const {
+    return "Loading junctions, detectors and vehicles...";
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

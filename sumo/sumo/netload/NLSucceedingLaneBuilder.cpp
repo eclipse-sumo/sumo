@@ -22,8 +22,11 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:07:56  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:25  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -84,7 +87,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, string laneId)
       m_SuccLanes->push_back(new MSLane::Link(0, 0));
    } else {
       MSLane *lane = MSLane::dictionary(laneId);
-      if(NLNetBuilder::check && lane==0) throw XMLIdNotKnownException("lane", laneId);
+      if(/* NLNetBuilder::check&& */ lane==0) throw XMLIdNotKnownException("lane", laneId);
       m_SuccLanes->push_back(new MSLane::Link(lane, yield));
    }
 }
@@ -94,11 +97,11 @@ NLSucceedingLaneBuilder::closeSuccLane()
 {
   MSLane *current = MSLane::dictionary(m_CurrentLane);
   MSJunction *junction = MSJunction::dictionary(m_JunctionId);
-  if(NLNetBuilder::check)  {
+/*  if(NLNetBuilder::check)  {*/
     if(current==0) throw XMLIdNotKnownException("lane", m_CurrentLane);
     if(junction==0) 
        throw XMLIdNotKnownException("junction", m_JunctionId);
-  }
+/*  }*/
   MSLane::LinkCont *cont = new MSLane::LinkCont();
   cont->reserve(m_SuccLanes->size());
   copy(m_SuccLanes->begin(), m_SuccLanes->end(), back_inserter(*cont));

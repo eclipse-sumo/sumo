@@ -23,8 +23,11 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:07:56  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:23  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -51,6 +54,7 @@ namespace
 #include "../utils/XMLBuildingExceptions.h"
 #include "NLSAXHandler.h"
 #include "NLTags.h"
+#include "NLLoadFilter.h"
 
 /* =========================================================================
  * used namespaces
@@ -60,8 +64,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLHandlerEdgeAllocator::NLHandlerEdgeAllocator(NLContainer *container) : NLSAXHandler(container) 
+NLHandlerEdgeAllocator::NLHandlerEdgeAllocator(NLContainer &container, LoadFilter filter) 
+    : NLSAXHandler(container, filter) 
 {
+    _attrHandler.add(ATTR_ID, "id");
 }
 
 NLHandlerEdgeAllocator::~NLHandlerEdgeAllocator() 
@@ -69,26 +75,35 @@ NLHandlerEdgeAllocator::~NLHandlerEdgeAllocator()
 }
 
 void 
-NLHandlerEdgeAllocator::startElement(const XMLCh* const name, AttributeList& attributes) 
+NLHandlerEdgeAllocator::myStartElement(int element, const std::string &name, const Attributes &attrs) 
 {
-  NLSAXHandler::startElement(name, attributes);
-  string id;
-  switch(convert(name)) {
-  case NLTag_edge:
-    {
-      try {
-      	id = XMLConvert::_2str(attributes.getValue("id"));
-	      myContainer->addEdge(id);
-      } catch (XMLIdAlreadyUsedException &e) {
-      	SErrorHandler::add(e.getMessage("edge", id));
-      } catch (XMLUngivenParameterException &e) {
-  		  SErrorHandler::add(e.getMessage("edge", "(ID_UNKNOWN!)"));
-	    }
+    if(wanted(LOADFILTER_NET)) {
+        switch(element) {
+        case NLTag_edge:
+            addEdge(attrs);
+            break;
+        default:
+            break;
+        }
     }
-    break;
-  default:
-    break;
-  }
+}
+
+void
+NLHandlerEdgeAllocator::addEdge(const Attributes &attrs) {
+    string id;
+    try {
+        id = _attrHandler.getString(attrs, ATTR_ID);
+        myContainer.addEdge(id);
+    } catch (XMLIdAlreadyUsedException &e) {
+        SErrorHandler::add(e.getMessage("edge", id));
+    } catch (XMLUngivenParameterException &e) {
+        SErrorHandler::add(e.getMessage("edge", "(ID_UNKNOWN!)"));
+    }
+}
+
+std::string
+NLHandlerEdgeAllocator::getMessage() const{
+    return "Loading edges...";
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

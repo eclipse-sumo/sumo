@@ -23,8 +23,11 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:01:15  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:24  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -83,66 +86,66 @@ NLJunctionControlBuilder::~NLJunctionControlBuilder()
 void 
 NLJunctionControlBuilder::prepare(unsigned int no) 
 {
-  m_pJunctions = new MSJunctionControl::JunctionCont();
-  m_pJunctions->reserve(no);
+    m_pJunctions = new MSJunctionControl::JunctionCont();
+    m_pJunctions->reserve(no);
 }
 
 void 
 NLJunctionControlBuilder::openJunction(const std::string id, const std::string key, std::string type) 
 {
-  m_pActiveInLanes.clear();
-  m_CurrentId = id;
-  m_Key = key;
-  m_Type = -1;
-  if(type=="none")
-    m_Type = TYPE_NOJUNCTION;
-  else if(type=="traffic_light")
-    m_Type = TYPE_TRAFFIC_LIGHT;
-  else if(type=="right_before_left")
-    m_Type = TYPE_RIGHT_BEFORE_LEFT;
-  else if(type=="priority")
-    m_Type = TYPE_PRIORITY_JUNCTION;
-  if(m_Type<0)
-    throw exception();
+    m_pActiveInLanes.clear();
+    m_CurrentId = id;
+    m_Key = key;
+    m_Type = -1;
+    if(type=="none")
+        m_Type = TYPE_NOJUNCTION;
+    else if(type=="traffic_light")
+        m_Type = TYPE_TRAFFIC_LIGHT;
+    else if(type=="right_before_left")
+        m_Type = TYPE_RIGHT_BEFORE_LEFT;
+    else if(type=="priority")
+        m_Type = TYPE_PRIORITY_JUNCTION;
+    if(m_Type<0)
+        throw exception();
 }
 
 void 
 NLJunctionControlBuilder::addInLane(MSLane *lane) 
 {
-  m_pActiveInLanes.push_back(lane);
+    m_pActiveInLanes.push_back(lane);
 }
 
 void 
 NLJunctionControlBuilder::closeJunction() 
 {
-  MSJunction *junction;
-  switch(m_Type) {
-  case TYPE_NOJUNCTION:
-    cout << "NoJunctions are not yet known. Using PriorityJunction";
-    junction = buildLogicJunction();
-    break;
-  case TYPE_TRAFFIC_LIGHT:
-    cout << "TrafficLightJunctions are not yet known. Using PriorityJunction";
-    junction = buildLogicJunction();
-    break;
-  case TYPE_RIGHT_BEFORE_LEFT:
-  case TYPE_PRIORITY_JUNCTION:
-    junction = buildLogicJunction();
-    break;
-  default:
-    cout << "False junction type." << endl;
-    throw exception();
-  }
-  m_pJunctions->push_back(junction);
-  if(!MSJunction::dictionary(m_CurrentId, junction))
-	  if(NLNetBuilder::check)
-      throw XMLIdAlreadyUsedException("junction", m_CurrentId);
+    MSJunction *junction;
+    switch(m_Type) {
+    case TYPE_NOJUNCTION:
+        cout << "NoJunctions are not yet known. Using PriorityJunction";
+        junction = buildLogicJunction();
+        break;
+    case TYPE_TRAFFIC_LIGHT:
+        cout << "TrafficLightJunctions are not yet known. Using PriorityJunction";
+        junction = buildLogicJunction();
+        break;
+    case TYPE_RIGHT_BEFORE_LEFT:
+    case TYPE_PRIORITY_JUNCTION:
+        junction = buildLogicJunction();
+        break;
+    default:
+        cout << "False junction type." << endl;
+        throw exception();
+    }
+    m_pJunctions->push_back(junction);
+    if(!MSJunction::dictionary(m_CurrentId, junction))
+//	  if(NLNetBuilder::check)
+        throw XMLIdAlreadyUsedException("junction", m_CurrentId);
 }
 
 MSJunctionControl *
 NLJunctionControlBuilder::build() 
 {
-  return new MSJunctionControl("", m_pJunctions);
+    return new MSJunctionControl("", m_pJunctions);
 }
 
 MSJunction *
@@ -162,17 +165,19 @@ NLJunctionControlBuilder::buildNoLogicJunction()
 MSJunction *
 NLJunctionControlBuilder::buildLogicJunction() 
 {
-   MSJunctionLogic *jtype = MSJunctionLogic::dictionary(m_Key);
-  if(jtype==0)
-    throw XMLIdNotKnownException("junctiontype (key)", m_Key);
-  MSRightOfWayJunction::InLaneCont *cont = new MSRightOfWayJunction::InLaneCont();
-  cont->reserve(m_pActiveInLanes.size());
-  for(LaneCont::iterator i=m_pActiveInLanes.begin(); i!=m_pActiveInLanes.end(); i++) {
-    MSRightOfWayJunction::InLane *lane = new MSRightOfWayJunction::InLane(*i);
-    cont->push_back(lane);
-  }
-  return new MSRightOfWayJunction(m_CurrentId, cont, jtype);
+    MSJunctionLogic *jtype = MSJunctionLogic::dictionary(m_Key);
+    if(jtype==0)
+        throw XMLIdNotKnownException("junctiontype (key)", m_Key);
+    MSRightOfWayJunction::InLaneCont *cont = new MSRightOfWayJunction::InLaneCont();
+    cont->reserve(m_pActiveInLanes.size());
+    for(LaneCont::iterator i=m_pActiveInLanes.begin(); i!=m_pActiveInLanes.end(); i++) {
+        MSRightOfWayJunction::InLane *lane = new MSRightOfWayJunction::InLane(*i);
+        cont->push_back(lane);
+    }
+    return new MSRightOfWayJunction(m_CurrentId, cont, jtype);
 }
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE
 //#include "NLJunctionControlBuilder.icc"

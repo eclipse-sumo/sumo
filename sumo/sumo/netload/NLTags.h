@@ -20,8 +20,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:07:57  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.1  2002/03/15 09:38:32  traffic
 // New known tags (number of incoming lanes) included
@@ -63,8 +66,6 @@ typedef enum _NLTag {
     NLTag_junction,
     /** begin/end of the list of incoming lanes (into a junction) */
     NLTag_inlane,
-    /** !!! no longer used */
-    NLTag_logic,
     /** description of a vehicle */
     NLTag_vehicle,
     /** description of a vehicle type */
@@ -79,6 +80,8 @@ typedef enum _NLTag {
     NLTag_key,
     /** begin/end of the list of junction logic parts */
     NLTag_junctionlogic,
+    /** begin of a bitsetlogic */
+    NLTag_bitsetlogic,
     /** the request size (of a junction logic) */
     NLTag_requestsize,
     /** the response size (of a junction logic) */
@@ -88,7 +91,9 @@ typedef enum _NLTag {
     /** description of a single junction logic part */
     NLTag_logicitem,
     /** a transformation item */
-    NLTag_trafoitem
+    NLTag_trafoitem,
+    /** a detector */
+    NLTag_detector
 } NLTag;
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

@@ -23,8 +23,11 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:07:56  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:24  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -83,16 +86,16 @@ void
 NLRoutesBuilder::closeRoute() 
 {
     int size = m_pActiveRoute->size();
-    if(NLNetBuilder::check && size==0) throw XMLListEmptyException();
+    if(/* NLNetBuilder::check&& */ size==0) throw XMLListEmptyException();
     MSNet::Route *route = new MSNet::Route();
     route->reserve(size);
     for(MSNet::Route::iterator i1=m_pActiveRoute->begin(); i1!=m_pActiveRoute->end(); i1++)
 	route->push_back(*i1);
     m_pActiveRoute->clear();
     if(!MSNet::routeDict(m_ActiveId, route)) {
-	delete route;
-	if(NLNetBuilder::check)
-	    throw XMLIdAlreadyUsedException("route", m_ActiveId);
+	    delete route;
+	    //if(NLNetBuilder::check)
+	        throw XMLIdAlreadyUsedException("route", m_ActiveId);
     }
 }
 

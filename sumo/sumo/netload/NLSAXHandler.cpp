@@ -24,8 +24,11 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:07:56  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.1  2002/03/15 09:38:01  traffic
 // New known tags (number of incoming lanes) included
@@ -56,120 +59,48 @@ namespace
 #include "SErrorHandler.h"
 #include "../utils/XMLConvert.h"
 #include "NLTags.h"
+#include "NLLoadFilter.h"
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
+GenericSAX2Handler::Tag NLSAXHandler::_tags[21] = 
+{
+/* 00 */  { "simulation", NLTag_simulation },
+/* 01 */  { "edge", NLTag_edge },
+/* 02 */  { "lane", NLTag_lane },
+/* 03 */  { "lanes", NLTag_lanes },
+/* 04 */  { "cedge", NLTag_cedge },
+/* 05 */  { "junction", NLTag_junction },
+/* 06 */  { "inlanes", NLTag_inlane },
+/* 07 */  { "detector", NLTag_detector },
+/* 08 */  { "vehicle", NLTag_vehicle },
+/* 09 */  { "vtype", NLTag_vtype },
+/* 10 */  { "route", NLTag_route },
+/* 11 */  { "succ", NLTag_succ },
+/* 12 */  { "succlane", NLTag_succlane },
+/* 13 */  { "key", NLTag_key },
+/* 14 */  { "junctionlogic", NLTag_junctionlogic },
+/* 15 */  { "requestsize", NLTag_requestsize },
+/* 16 */  { "responsesize", NLTag_responsesize },
+/* 17 */  { "lanenumber", NLTag_lanenumber },
+/* 18 */  { "logicitem", NLTag_logicitem },
+/* 19 */  { "trafoitem", NLTag_trafoitem },
+/* 20 */  { "bitsetlogic", NLTag_bitsetlogic },
+};
+
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLSAXHandler::NLSAXHandler(NLContainer *container) : myContainer(container)
+NLSAXHandler::NLSAXHandler(NLContainer &container, LoadFilter filter) 
+    : GenericSAX2Handler(_tags, 21), myContainer(container), _filter(filter)
 {
-  m_Tags["simulation"] = NLTag_simulation;
-  m_Tags["SIMULATION"] = NLTag_simulation;
-  m_Tags["edge"] = NLTag_edge;
-  m_Tags["EDGE"] = NLTag_edge;
-  m_Tags["lane"] = NLTag_lane;
-  m_Tags["LANE"] = NLTag_lane;
-  m_Tags["lanes"] = NLTag_lanes;
-  m_Tags["LANES"] = NLTag_lanes;
-  m_Tags["CEDGE"] = NLTag_cedge;
-  m_Tags["cedge"] = NLTag_cedge;
-  m_Tags["junction"] = NLTag_junction;
-  m_Tags["JUNCTION"] = NLTag_junction;
-  m_Tags["inlanes"] = NLTag_inlane;
-  m_Tags["INLANES"] = NLTag_inlane;
-  m_Tags["logicitem"] = NLTag_logic;
-  m_Tags["LOGICITEM"] = NLTag_logic;
-  m_Tags["vehicle"] = NLTag_vehicle;
-  m_Tags["VEHICLE"] = NLTag_vehicle;
-  m_Tags["vtype"] = NLTag_vtype;
-  m_Tags["VTYPE"] = NLTag_vtype;
-  m_Tags["route"] = NLTag_route;
-  m_Tags["ROUTE"] = NLTag_route;
-  m_Tags["succ"] = NLTag_succ;
-  m_Tags["SUCC"] = NLTag_succ;
-  m_Tags["succlane"] = NLTag_succlane;
-  m_Tags["SUCCLANE"] = NLTag_succlane;
-  m_Tags["key"] = NLTag_key;
-  m_Tags["KEY"] = NLTag_key;
-  m_Tags["junctionlogic"] = NLTag_junctionlogic;
-  m_Tags["JUNCTIONLOGIC"] = NLTag_junctionlogic;
-  m_Tags["requestsize"] = NLTag_requestsize;
-  m_Tags["REQUESTSIZE"] = NLTag_requestsize;
-  m_Tags["responsesize"] = NLTag_responsesize;
-  m_Tags["RESPONSESIZE"] = NLTag_responsesize;
-  m_Tags["lanenumber"] = NLTag_lanenumber;
-  m_Tags["LANENUMBER"] = NLTag_lanenumber;
-  m_Tags["logicitem"] = NLTag_logicitem;
-  m_Tags["LOGICTITEM"] = NLTag_logicitem;
-  m_Tags["trafoitem"] = NLTag_trafoitem;
-  m_Tags["TRAFOITEM"] = NLTag_trafoitem;
 }
 
 NLSAXHandler::~NLSAXHandler() 
-{
-}
-
-NLTag 
-NLSAXHandler::convert(const XMLCh* const name) 
-{
-  string str = XMLConvert::_2str(name);
-  NLTag ret = m_Tags[str];
-  return ret;
-}
-
-NLTag 
-NLSAXHandler::convert(const string name) 
-{
-  NLTag ret = m_Tags[name];
-  return ret;
-}
-
-void 
-NLSAXHandler::startElement(const XMLCh* const name, AttributeList& attributes) 
-{
-  if(NLNetBuilder::check) {
-    m_LastItem = XMLConvert::_2str(name);
-    m_LastName = m_LastItem;
-    int size=attributes.getLength();
-    for(int i=0; i<size; i++) {
-      string name, value;
-      try {
-      	name = XMLConvert::_2str(attributes.getName(i));
-      	value = XMLConvert::_2str(attributes.getValue(i));
-      } catch (XMLUngivenParameterException &e) {
-      }
-      m_LastItem = m_LastItem + name + "='" + value + "' ";
-    }
-  }
-}
-
-void 
-NLSAXHandler::characters(const XMLCh* const chars, const unsigned int length) 
-{
-}
-
-void 
-NLSAXHandler::resetDocument() 
-{
-}
-
-void 
-NLSAXHandler::endDocument() 
-{
-}
-
-void 
-NLSAXHandler::endElement(const XMLCh* const name) 
-{
-  m_LastName = "";
-}
-
-void 
-NLSAXHandler::processingInstruction(const   XMLCh* const    target, const XMLCh* const    data) 
 {
 }
 
@@ -178,11 +109,12 @@ NLSAXHandler::warning(const SAXParseException& exception)
 {
     ostrstream buf;
     buf << "XML-Warning:" + XMLConvert::_2str(exception.getMessage()) << endl; 
-    if(NLNetBuilder::check) {
-      buf << " (At line/column " << exception.getLineNumber()+1 << '_' << exception.getColumnNumber();
-      buf << ", near: " << m_LastItem << ')';
-    }  
+/*    if(NLNetBuilder::check) {*/
+      buf << " (At line/column " << exception.getLineNumber()+1 << '_' 
+          << exception.getColumnNumber() << ')';
+/*    }  */
     SErrorHandler::add(buf.str());
+    GenericSAX2Handler::warning(exception);
 }
 
 void 
@@ -190,11 +122,12 @@ NLSAXHandler::error(const SAXParseException& exception)
 {
     ostrstream buf;
     buf << "XML-Error:" << XMLConvert::_2str(exception.getMessage()) << endl;
-    if(NLNetBuilder::check) {
-      buf << " (At line/column " << exception.getLineNumber()+1 << '_' << exception.getColumnNumber();
-      buf << ", near: " << m_LastItem << ')';    
-    }  
+/*    if(NLNetBuilder::check) {*/
+      buf << " (At line/column " << exception.getLineNumber()+1 << '_' 
+          << exception.getColumnNumber() << ')';
+/*    }  */
     SErrorHandler::add(buf.str());
+    GenericSAX2Handler::error(exception);
 }
 
 void 
@@ -202,12 +135,30 @@ NLSAXHandler::fatalError(const SAXParseException& exception)
 {
     ostrstream buf;
     buf << "XML-Fatal Error:" << XMLConvert::_2str(exception.getMessage()) << endl;
-    if(NLNetBuilder::check) {
-      buf << " (At line/column " <<  exception.getLineNumber()+1 << '/' << exception.getColumnNumber();
-      buf << ", near: " << m_LastItem << ')' << ends;
-    }  
+/*    if(NLNetBuilder::check) {*/
+      buf << " (At line/column " <<  exception.getLineNumber()+1 << '/' << 
+          exception.getColumnNumber() << ')';
+/*    }  */
     SErrorHandler::add(buf.str());
     SErrorHandler::setFatal();
+    GenericSAX2Handler::fatalError(exception);
+}
+
+void 
+NLSAXHandler::myStartElement(int element, const std::string &name, const Attributes &attrs) {
+}
+
+void 
+NLSAXHandler::myEndElement(int element, const std::string &name) {
+}
+
+void 
+NLSAXHandler::myCharacters(int element, const std::string &name, const std::string &chars) {
+}
+
+bool 
+NLSAXHandler::wanted(LoadFilter filter) const {
+    return (_filter&filter)!=0;
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

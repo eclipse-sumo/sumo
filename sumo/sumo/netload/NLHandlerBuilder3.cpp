@@ -22,8 +22,11 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:05:36  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:22  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -48,7 +51,8 @@ namespace
 #include "SErrorHandler.h"
 #include "../utils/XMLConvert.h"
 #include "../utils/XMLBuildingExceptions.h"
-#include "NLSAXHandler.h"
+#include "../utils/AttributesHandler.h"
+#include "NLLoadFilter.h"
 #include "NLNetBuilder.h"
 #include "NLTags.h"
 
@@ -60,7 +64,13 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLHandlerBuilder3::NLHandlerBuilder3(NLContainer *container, bool dynamicOnly) : NLSAXHandler(container), m_bDynamicOnly(dynamicOnly) {
+NLHandlerBuilder3::NLHandlerBuilder3(NLContainer &container, LoadFilter filter) 
+    : NLSAXHandler(container, filter)
+{
+    _attrHandler.add(ATTR_ID, "id");
+    _attrHandler.add(ATTR_JUNCTION, "junction");
+    _attrHandler.add(ATTR_YIELD, "yield");
+    _attrHandler.add(ATTR_LANE, "lane");
 }
 
 NLHandlerBuilder3::~NLHandlerBuilder3() 
@@ -68,57 +78,89 @@ NLHandlerBuilder3::~NLHandlerBuilder3()
 }
 
 void 
-NLHandlerBuilder3::startElement(const XMLCh* const name, AttributeList& attributes) 
+NLHandlerBuilder3::myStartElement(int element, const std::string &name, const Attributes &attrs) 
 {
-  NLSAXHandler::startElement(name, attributes);
-  switch(convert(name)) {
-  case NLTag_lane:
-    try {
-      string id = XMLConvert::_2str(attributes.getValue("id")); 
-      myContainer->openSuccLane(id);
-      m_LaneId = id;
-    } catch (XMLUngivenParameterException &e) {
-      SErrorHandler::add(e.getMessage("succ", "(ID_UNKNOWN!)"));
+    if(wanted(LOADFILTER_NET)) {
+        switch(element) {
+        case NLTag_lane:
+            openSuccLane(attrs);
+            break;
+        case NLTag_succ:
+            setSuccJunction(attrs);
+            break;
+        case NLTag_succlane:
+            addSuccLane(attrs);
+            break;
+        default:
+            break;
+        }
     }
-    break;
-  case NLTag_succ:
+}
+
+
+void 
+NLHandlerBuilder3::openSuccLane(const Attributes &attrs) {
     try {
-      myContainer->setSuccJunction(
-				   XMLConvert::_2str(attributes.getValue("junction")));
+        string id = _attrHandler.getString(attrs, ATTR_ID);
+        myContainer.openSuccLane(id);
+        m_LaneId = id;
     } catch (XMLUngivenParameterException &e) {
-      SErrorHandler::add(e.getMessage("edge", m_LaneId));
+        SErrorHandler::add(e.getMessage("succ", "(ID_UNKNOWN!)"));
     }
-    break;
-  case NLTag_succlane:
+}
+
+
+void 
+NLHandlerBuilder3::setSuccJunction(const Attributes &attrs) {
     try {
-      myContainer->addSuccLane(
-			       XMLConvert::_2bool(attributes.getValue("yield")),
-			       XMLConvert::_2str(attributes.getValue("lane")));
+        myContainer.setSuccJunction(_attrHandler.getString(attrs, ATTR_JUNCTION));
     } catch (XMLUngivenParameterException &e) {
-      SErrorHandler::add(e.getMessage("edge", m_LaneId));
-    } catch (XMLIdNotKnownException &e) {
-      SErrorHandler::add(e.getMessage("", ""));
+        SErrorHandler::add(e.getMessage("edge", m_LaneId));
     }
-  default:
-    break;
-  }
 }
 
 void 
-NLHandlerBuilder3::endElement(const XMLCh* const name) 
-{
-  switch(convert(name)) {
-  case NLTag_succ:
+NLHandlerBuilder3::addSuccLane(const Attributes &attrs) {
     try {
-      myContainer->closeSuccLane();
+        myContainer.addSuccLane(
+            _attrHandler.getBool(attrs, ATTR_YIELD),
+            _attrHandler.getString(attrs, ATTR_LANE));
+    } catch (XMLUngivenParameterException &e) {
+        SErrorHandler::add(e.getMessage("edge", m_LaneId));
     } catch (XMLIdNotKnownException &e) {
-      SErrorHandler::add(e.getMessage("", ""));
+        SErrorHandler::add(e.getMessage("", ""));
     }
-  default:
-    break;
-  }
-  NLSAXHandler::endElement(name);
 }
+
+
+void 
+NLHandlerBuilder3::myEndElement(int element, const std::string &name)
+{
+    if(wanted(LOADFILTER_NET)) {
+        switch(element) {
+        case NLTag_succ:
+            closeSuccLane();
+            break;
+        default:
+            break;
+        }
+    }
+}
+
+void 
+NLHandlerBuilder3::closeSuccLane() {
+    try {
+        myContainer.closeSuccLane();
+    } catch (XMLIdNotKnownException &e) {
+        SErrorHandler::add(e.getMessage("", ""));
+    }
+}
+
+std::string
+NLHandlerBuilder3::getMessage() const {
+    return "Loading street connections...";
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 //#ifdef DISABLE_INLINE

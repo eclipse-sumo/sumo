@@ -21,8 +21,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:07:56  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:22  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -41,6 +44,7 @@
  * ======================================================================= */
 #include <sax/HandlerBase.hpp>
 #include "NLSAXHandler.h"
+#include "NLLoadFilter.h"
 
 /* =========================================================================
  * class declarations
@@ -58,13 +62,9 @@ class NLContainer;
  * types and routes
  */
 class NLHandlerCounter : public NLSAXHandler {
-private:
-    /** the information whether only dynamic parts 
-        (not the network shall be parsed) */
-    bool   m_bDynamicOnly;
 public:
     /// standard constructor
-    NLHandlerCounter(NLContainer *container, bool dynamicOnly);
+    NLHandlerCounter(NLContainer &container, LoadFilter filter);
     /// standard destructor
     ~NLHandlerCounter();
     // -----------------------------------------------------------------------
@@ -73,11 +73,11 @@ public:
     /** called on the occurence of the beginning of a tag; 
         this method counts edges, junctions, lanes, vehicle types, 
         vehicles and routes */
-    void startElement(const XMLCh* const name, AttributeList& attributes);
-    /** called when the document parsing ends; 
-        this method calls the NLContainers preallocation - method to 
-        preallocate the counted number of structures */
-    virtual void endDocument();
+    void myStartElement(int element, const std::string &name, const Attributes &attrs);
+    /// returns a message about the processing
+    std::string getMessage() const;
+    /// changes the type of data to count
+    void changeLoadFilter(LoadFilter filter);
 private:
     /** invalid copy constructor */
     NLHandlerCounter(const NLHandlerCounter &s);

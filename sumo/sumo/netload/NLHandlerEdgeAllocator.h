@@ -21,8 +21,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.1  2002/04/08 07:21:24  traffic
-// Initial revision
+// Revision 1.2  2002/04/15 07:07:56  dkrajzew
+// new loading paradigm implemented
+//
+// Revision 1.1.1.1  2002/04/08 07:21:24  traffic
+// new project name
 //
 // Revision 2.0  2002/02/14 14:43:23  croessel
 // Bringing all files to revision 2.0. This is just cosmetics.
@@ -41,6 +44,7 @@
  * ======================================================================= */
 #include <sax/HandlerBase.hpp>
 #include "NLSAXHandler.h"
+#include "NLLoadFilter.h"
 
 /* =========================================================================
  * class declarations
@@ -57,9 +61,12 @@ class NLContainer;
  * Only allocation of MSEdge-instances is done.
  */
 class NLHandlerEdgeAllocator : public NLSAXHandler {
+private:
+    /// numerical ids for the attributes
+    enum AttributeEnum { ATTR_ID };
 public:
     /// standard constructor
-    NLHandlerEdgeAllocator(NLContainer *container);
+    NLHandlerEdgeAllocator(NLContainer &container, LoadFilter filter);
     /// standard destructor
     ~NLHandlerEdgeAllocator();
     // -----------------------------------------------------------------------
@@ -68,7 +75,12 @@ public:
     /** called on the occurence of the beginning of a tag; 
         this method allocates undescribed MSEdges which were counted by 
         "NLHandlerCounter" previously */
-    void startElement(const XMLCh* const name, AttributeList& attributes);
+    void myStartElement(int element, const std::string &name, const Attributes &attrs);
+    /// returns a message about the processing
+    std::string getMessage() const;
+private:
+    /// adds an edges to the container
+    void addEdge(const Attributes &attrs);
 private:
     /** invalid copy constructor */
     NLHandlerEdgeAllocator(const NLHandlerEdgeAllocator &s);
