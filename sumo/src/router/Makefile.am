@@ -3,27 +3,72 @@ noinst_LIBRARIES = librouter.a
 
 EXTRA_DIST =
 
-librouter_a_SOURCES = CellDriverInfoParser.cpp CellDriverInfoParser.h \
-ROCellRouteDefHandler.cpp ROCellRouteDefHandler.h ROEdge.cpp ROEdge.h \
-ROEdgeCont.cpp ROEdgeCont.h ROEdgeList.h ROHelper.h ROLane.cpp ROLane.h \
-ROLoader.cpp ROLoader.h RONet.cpp RONet.h RONetHandler.cpp RONetHandler.h \
-RONode.h RONode.cpp RONodeCont.h \
-ROOrigDestRouteDef.cpp ROOrigDestRouteDef.h RORoute.cpp RORoute.h \
-RORouteDef.cpp RORouteDef.h RORouteDefCont.cpp RORouteDefCont.h \
-ROTripHandler.cpp ROTripHandler.h RORouteDefList.h \
-RORouteSnippletCont.cpp RORouteSnippletCont.h RORouter.cpp RORouter.h \
-RORunningVehicle.cpp RORunningVehicle.h \
-ROSUMORoutesHandler.cpp ROSUMORoutesHandler.h \
-ROSUMOAltRoutesHandler.cpp ROSUMOAltRoutesHandler.h \
-ROTypedRoutesLoader.cpp ROTypedRoutesLoader.h \
-ROTypedXMLRoutesLoader.cpp ROTypedXMLRoutesLoader.h \
-ROVehTypeCont.cpp ROVehTypeCont.h ROVehicle.cpp ROVehicle.h \
-ROVehicleCont.cpp ROVehicleCont.h ROVehicleType.cpp ROVehicleType.h \
-ROVehicleType_Krauss.cpp ROVehicleType_Krauss.h \
-ROWeightsHandler.cpp ROWeightsHandler.h ReferencedItem.h \
-ROEdgeVector.cpp ROEdgeVector.h \
-RORouteAlternativesDef.cpp RORouteAlternativesDef.h \
-ROCompleteRouteDef.cpp ROCompleteRouteDef.h
+librouter_a_SOURCES = CellDriverInfoParser.cpp \
+ROArtemisRouteDefHandler.cpp \
+ROCellRouteDefHandler.cpp \
+ROCompleteRouteDef.cpp \
+ROEdgeCont.cpp \
+ROEdge.cpp \
+ROEdgeVector.cpp \
+ROLane.cpp \
+ROLoader.cpp \
+RONet.cpp \
+RONetHandler.cpp \
+RONode.cpp \
+ROOrigDestRouteDef.cpp \
+RORouteAlternativesDef.cpp \
+RORoute.cpp \
+RORouteDefCont.cpp \
+RORouteDef.cpp \
+RORouter.cpp \
+RORouteSnippletCont.cpp \
+RORunningVehicle.cpp \
+ROSUMOAltRoutesHandler.cpp \
+ROSUMORoutesHandler.cpp \
+ROTripHandler.cpp \
+ROTypedRoutesLoader.cpp \
+ROTypedXMLRoutesLoader.cpp \
+ROVehicleCont.cpp \
+ROVehicle.cpp \
+ROVehicleType.cpp \
+ROVehicleType_Krauss.cpp \
+ROVehTypeCont.cpp \
+ROWeightsHandler.cpp \
+CellDriverInfoParser.h \
+ReferencedItem.h \
+ROArtemisRouteDefHandler.h \
+ROCellRouteDefHandler.h \
+ROCompleteRouteDef.h \
+ROEdgeCont.h \
+ROEdge.h \
+ROEdgeVector.h \
+ROHelper.h \
+ROLane.h \
+ROLoader.h \
+RONet.h \
+RONetHandler.h \
+RONodeCont.h \
+RONode.h \
+ROOrigDestRouteDef.h \
+RORouteAlternativesDef.h \
+RORouteDefCont.h \
+RORouteDef.h \
+RORouteDefList.h \
+RORoute.h \
+RORouter.h \
+RORouteSnippletCont.h \
+RORunningVehicle.h \
+ROSUMOAltRoutesHandler.h \
+ROSUMORoutesHandler.h \
+ROTripHandler.h \
+ROTypedRoutesLoader.h \
+ROTypedXMLRoutesLoader.h \
+ROVehicleCont.h \
+ROVehicle.h \
+ROVehicleType.h \
+ROVehicleType_Krauss.h \
+ROVehTypeCont.h \
+ROWeightsHandler.h
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src \
 -I$(XERCESINCLUDE) -I$(XERCESINCLUDE_PRIOR_1_7)
