@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.9  2004/01/12 15:09:28  dkrajzew
 // some work on the documentation
 //
@@ -71,7 +74,11 @@
 // Revision 1.1  2002/04/09 12:22:52  dkrajzew
 // extracted the definitions of basic container types
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * class declarations
@@ -121,9 +128,6 @@ typedef std::vector<size_t> LaneVector;
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NBCont.icc"
-//#endif
 
 #endif
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/04/27 11:48:26  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.9  2003/12/04 13:03:58  dkrajzew
 // possibility to pass the tl-type from the netgenerator added
 //
@@ -47,7 +50,12 @@ namespace
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -124,9 +132,10 @@ NBTrafficLightLogicVector::writeXML(std::ostream &os) const
         inLanes.insert(id);
     }
     size_t pos = 0;
-    for(LogicVector::const_iterator i=_cont.begin(); i!=_cont.end(); i++) {
-        (*i)->writeXML(os, pos++, distance, myType, inLanes);
-    }
+    (*(_cont.begin()))->writeXML(os, pos++, distance, myType, inLanes);
+//    for(LogicVector::const_iterator i=_cont.begin(); i!=_cont.end(); i++) {
+//        (*i)->writeXML(os, pos++, distance, myType, inLanes);
+//    }
 }
 
 bool
@@ -157,9 +166,6 @@ NBTrafficLightLogicVector::getType() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBTrafficLightLogicVector.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

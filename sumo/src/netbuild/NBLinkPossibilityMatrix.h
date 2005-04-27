@@ -20,13 +20,21 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.3  2004/01/12 15:09:28  dkrajzew
 // some work on the documentation
 //
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -50,9 +58,6 @@ typedef std::vector<std::bitset<64> > NBLinkPossibilityMatrix;
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NBLinkPossibilityMatrix.icc"
-//#endif
 
 #endif
 

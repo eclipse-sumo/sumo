@@ -1,11 +1,18 @@
 #ifndef NBLoadedTLDef_h
 #define NBLoadedTLDef_h
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <vector>
 #include <string>
 #include <set>
 #include "NBTrafficLightDefinition.h"
 #include "nodes/NBNode.h"
+#include <utils/common/SUMOTime.h>
 
 class NBLoadedTLDef : public NBTrafficLightDefinition {
 public:
@@ -65,11 +72,11 @@ public:
     class Phase
         : public Named {
     public:
-        Phase(const std::string &id, size_t begin, size_t end);
+        Phase(const std::string &id, SUMOTime begin, SUMOTime end);
         ~Phase();
     private:
         std::string mySignalGroup;
-        int myBegin, myEnd;
+        SUMOTime myBegin, myEnd;
         typedef std::map<std::string, TLColor> SignalGroupColorMap;
         SignalGroupColorMap _groupColors;
     };
@@ -119,7 +126,7 @@ public:
     void setSignalYellowTimes(const std::string &groupid,
         double tRedYellowe, double tYellow);
 
-    void setTLControllingInformation() const;
+    void setTLControllingInformation(const NBEdgeCont &ec) const;
 
 public:
     void remapRemoved(NBEdge *removed,
@@ -127,15 +134,16 @@ public:
 
 protected:
     /// Computes the traffic light logic
-    NBTrafficLightLogicVector *myCompute(size_t breakingTime,
-        std::string type, bool buildAll);
+    NBTrafficLightLogicVector *myCompute(const NBEdgeCont &ec,
+        size_t breakingTime, std::string type, bool buildAll);
 
     /// Collects the nodes participating in this traffic light
     void collectNodes();
 
     void collectLinks();
 
-    bool mustBrake(const NBConnection &possProhibited,
+    bool mustBrake(const NBEdgeCont &ec,
+        const NBConnection &possProhibited,
         const std::bitset<64> &green, const std::bitset<64> &yellow,
         size_t strmpos) const;
 
@@ -151,7 +159,7 @@ private:
 
 private:
 
-    Masks buildPhaseMasks(size_t time) const;
+    Masks buildPhaseMasks(const NBEdgeCont &ec, size_t time) const;
 
 private:
     SignalGroupCont mySignalGroups;

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/04/27 11:48:26  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.2  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
 //
@@ -54,7 +57,12 @@ namespace
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -94,9 +102,6 @@ NBType::~NBType()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBType.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

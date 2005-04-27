@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/04/27 11:48:26  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.6  2003/12/04 13:03:58  dkrajzew
 // possibility to pass the tl-type from the netgenerator added
 //
@@ -35,7 +38,10 @@
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -107,9 +113,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NBTrafficLightLogicVector.icc"
-//#endif
 
 #endif
 

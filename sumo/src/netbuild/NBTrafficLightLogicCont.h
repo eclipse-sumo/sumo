@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/04/27 11:48:26  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.6  2003/12/04 13:03:58  dkrajzew
 // possibility to pass the tl-type from the netgenerator added
 //
@@ -35,7 +38,10 @@
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -55,6 +61,7 @@
  * class declarations
  * ======================================================================= */
 class OptionsCont;
+class NBEdgeCont;
 
 
 /* =========================================================================
@@ -70,33 +77,36 @@ class OptionsCont;
  */
 class NBTrafficLightLogicCont {
 public:
+    NBTrafficLightLogicCont();
+    ~NBTrafficLightLogicCont();
+
     /// inserts a named logic definition into the container
-    static bool insert(const std::string &id,
+    bool insert(const std::string &id,
         NBTrafficLightDefinition *logics);
 
     /// computes the traffic light logics using the definitions and stores the results
-    static bool computeLogics(OptionsCont &oc);
+    bool computeLogics(NBEdgeCont &ec, OptionsCont &oc);
 
     /// saves all known logics
-    static void writeXML(std::ostream &into);
+    void writeXML(std::ostream &into);
 
     /// destroys all stored logics
-    static void clear();
+    void clear();
 
-    static void remapRemoved(NBEdge *removed,
+    void remapRemoved(NBEdge *removed,
         const EdgeVector &incoming, const EdgeVector &outgoing);
 
-    static void replaceRemoved(NBEdge *removed, int removedLane,
+    void replaceRemoved(NBEdge *removed, int removedLane,
         NBEdge *by, int byLane);
 
-    static NBTrafficLightDefinition *getDefinition(const std::string &id);
+    NBTrafficLightDefinition *getDefinition(const std::string &id);
 
-    static bool setTLControllingInformation();
+    bool setTLControllingInformation(const NBEdgeCont &ec);
 
 
 private:
     /// inserts a named logic into the container
-    static bool insert(const std::string &id,
+    bool insert(const std::string &id,
         NBTrafficLightLogicVector *logics);
 
 
@@ -105,21 +115,18 @@ private:
     typedef std::map<std::string, NBTrafficLightLogicVector*> ComputedContType;
 
     /// The container for previously computed tl-logics
-    static ComputedContType _computed;
+    ComputedContType _computed;
 
     /// Definition of the container type for tl-ids to their definitions
     typedef std::map<std::string, NBTrafficLightDefinition*> DefinitionContType;
 
     /// The container for tl-ids to their definitions
-    static DefinitionContType _definitions;
+    DefinitionContType _definitions;
 
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NBTrafficLightLogicCont.icc"
-//#endif
 
 #endif
 

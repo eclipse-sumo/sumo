@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.5  2004/01/12 15:25:09  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -72,7 +75,12 @@ namespace
 // Revision 1.1  2001/12/06 13:38:00  traffic
 // files for the netbuilder
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -146,7 +154,8 @@ NBHelpers::normRelAngle(double angle1, double angle2) {
 
 
 long
-NBHelpers::computeLogicSize(string key) {
+NBHelpers::computeLogicSize(string key)
+{
     long size = 1;
     size_t index = key.find('_');
     while(index<key.size()-1) {
@@ -185,9 +194,6 @@ NBHelpers::distance(NBNode *node1, NBNode *node2)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBHelpers.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

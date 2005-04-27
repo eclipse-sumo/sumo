@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.6  2003/12/04 13:05:42  dkrajzew
 // some work for joining vissim-edges
 //
@@ -38,7 +41,12 @@ namespace
 // Revision 1.2  2003/06/05 11:43:34  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -181,37 +189,37 @@ operator<(const NBConnection &c1, const NBConnection &c2)
 
 
 bool
-NBConnection::check()
+NBConnection::check(const NBEdgeCont &ec)
 {
-    myFrom = checkFrom();
-    myTo = checkTo();
+    myFrom = checkFrom(ec);
+    myTo = checkTo(ec);
     return myFrom!=0 && myTo!=0;
 }
 
 
 NBEdge *
-NBConnection::checkFrom()
+NBConnection::checkFrom(const NBEdgeCont &ec)
 {
-    NBEdge *e = NBEdgeCont::retrieve(myFromID);
+    NBEdge *e = ec.retrieve(myFromID);
     // ok, the edge was not changed
     if(e==myFrom) {
         return myFrom;
     }
     // try to get the edge
-    return NBEdgeCont::retrievePossiblySplitted(myFromID, myToID, true);
+    return ec.retrievePossiblySplitted(myFromID, myToID, true);
 }
 
 
 NBEdge *
-NBConnection::checkTo()
+NBConnection::checkTo(const NBEdgeCont &ec)
 {
-    NBEdge *e = NBEdgeCont::retrieve(myToID);
+    NBEdge *e = ec.retrieve(myToID);
     // ok, the edge was not changed
     if(e==myTo) {
         return myTo;
     }
     // try to get the edge
-    return NBEdgeCont::retrievePossiblySplitted(myToID, myFromID, false);
+    return ec.retrievePossiblySplitted(myToID, myFromID, false);
 }
 
 
@@ -239,9 +247,6 @@ NBConnection::getToLane() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBConnection.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

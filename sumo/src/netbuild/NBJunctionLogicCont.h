@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
@@ -55,7 +58,12 @@
 // Revision 1.1  2001/12/06 13:38:01  traffic
 // files for the netbuilder
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -78,31 +86,34 @@
 class NBJunctionLogicCont
 {
 public:
+    NBJunctionLogicCont();
+    ~NBJunctionLogicCont();
+
     /** returns the number of rotations that must be performed to map the key
         onto an existing logic.
         returns a negative number when the key could not be fitted to any of
         the previously saved keys */
-    static int try2convert(const std::string &key);
+    //int try2convert(const std::string &key);
 
     /// saves the given junction logic bitfield
-    static void add(const std::string &key, const std::string &xmlDescription);
+    void add(const std::string &key, const std::string &xmlDescription);
 
     /// saves all known logics
-    static void writeXML(std::ostream &into);
+    void writeXML(std::ostream &into);
 
     /// destroys all stored logics
-    static void clear();
+    void clear();
 
 private:
     /// tries to load a logic with the given key (and all of his permutations)
-    static bool exists(const std::string &key);
+    bool exists(const std::string &key);
 
 private:
     /// definition o the logic-storage: a map from request to respond
     typedef std::map<std::string, std::string> LogicMap;
 
     /// the storage for the computed logic
-    static LogicMap _map;
+    LogicMap _map;
 
 private:
     /** invalid copy constructor */
@@ -113,9 +124,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NBJunctionLogicCont.icc"
-//#endif
 
 #endif
 

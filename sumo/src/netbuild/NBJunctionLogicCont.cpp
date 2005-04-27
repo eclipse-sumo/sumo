@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.4  2003/06/18 11:27:54  dkrajzew
 // some functions commented out removed
 //
@@ -64,7 +67,12 @@ namespace
 // Revision 1.1  2001/12/06 13:38:01  traffic
 // files for the netbuilder
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -96,21 +104,25 @@ using namespace std;
 
 
 /* =========================================================================
- * static member definitions
- * ======================================================================= */
-NBJunctionLogicCont::LogicMap NBJunctionLogicCont::_map;
-
-
-/* =========================================================================
  * method definitions
  * ======================================================================= */
+NBJunctionLogicCont::NBJunctionLogicCont()
+{
+}
+
+
+NBJunctionLogicCont::~NBJunctionLogicCont()
+{
+}
+
+
 bool
 NBJunctionLogicCont::exists(const string &key)
 {
     return _map.find(key)!=_map.end();
 }
 
-
+/*
 int
 NBJunctionLogicCont::try2convert(const string &key)
 {
@@ -125,7 +137,7 @@ NBJunctionLogicCont::try2convert(const string &key)
     }
     return -1;
 }
-
+*/
 
 void
 NBJunctionLogicCont::add(const std::string &key,
@@ -157,9 +169,6 @@ NBJunctionLogicCont::clear() {
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBJunctionLogicCont.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

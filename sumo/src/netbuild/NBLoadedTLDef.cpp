@@ -1,3 +1,9 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <vector>
 #include <set>
 #include <cassert>
@@ -133,7 +139,7 @@ NBLoadedTLDef::SignalGroup::getLinkNo() const
 bool
 NBLoadedTLDef::SignalGroup::mayDrive(double time) const
 {
-    assert(myPhases.size()!=0);
+	assert(myPhases.size()!=0);
     for(GroupsPhases::const_reverse_iterator i=myPhases.rbegin(); i!=myPhases.rend(); i++) {
         double nextTime = (*i).myTime;
         if(time>=nextTime) {
@@ -160,7 +166,7 @@ NBLoadedTLDef::SignalGroup::hasYellow(double time) const
 bool
 NBLoadedTLDef::SignalGroup::mustBrake(double time) const
 {
-    assert(myPhases.size()!=0);
+	assert(myPhases.size()!=0);
     for(GroupsPhases::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
         double nextTime = (*i).myTime;
         if(nextTime>time) {
@@ -301,7 +307,7 @@ NBLoadedTLDef::SignalGroup::remap(NBEdge *removed, int removedLane,
 /* -------------------------------------------------------------------------
  * NBLoadedTLDef::Phase-methods
  * ----------------------------------------------------------------------- */
-NBLoadedTLDef::Phase::Phase(const std::string &id, size_t begin, size_t end)
+NBLoadedTLDef::Phase::Phase(const std::string &id, SUMOTime begin, SUMOTime end)
     : Named(id), myBegin(begin), myEnd(end)
 {
 }
@@ -340,7 +346,7 @@ NBLoadedTLDef::~NBLoadedTLDef()
 
 
 NBTrafficLightLogicVector *
-NBLoadedTLDef::myCompute(size_t breakingTime, std::string type, bool buildAll)
+NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string type, bool buildAll)
 {
     MsgHandler::getWarningInstance()->clear(); // !!!
     NBLoadedTLDef::SignalGroupCont::const_iterator i;
@@ -388,8 +394,8 @@ NBLoadedTLDef::myCompute(size_t breakingTime, std::string type, bool buildAll)
             duration = (size_t) (myCycleDuration - (*l) + *(switchTimes.begin())) ;
         }
         // no information about yellow times will be generated
-        assert((*l)>=0);
-        Masks masks = buildPhaseMasks((size_t) (*l));
+		assert((*l)>=0);
+        Masks masks = buildPhaseMasks(ec, (size_t) (*l));
         logic->addStep(duration,
             masks.driveMask, masks.brakeMask, masks.yellowMask);
     }
@@ -409,7 +415,7 @@ NBLoadedTLDef::myCompute(size_t breakingTime, std::string type, bool buildAll)
 
 
 void
-NBLoadedTLDef::setTLControllingInformation() const
+NBLoadedTLDef::setTLControllingInformation(const NBEdgeCont &ec) const
 {
     // assign the links to the connections
     size_t pos = 0;
@@ -420,7 +426,7 @@ NBLoadedTLDef::setTLControllingInformation() const
             const NBConnection &conn = group->getConnection(j);
             assert(conn.getFromLane()<0||(int) conn.getFrom()->getNoLanes()>conn.getFromLane());
             NBConnection tst(conn);
-            if(tst.check()) {
+            if(tst.check(ec)) {
                 NBEdge *edge = conn.getFrom();
                 edge->setControllingTLInformation(
                     conn.getFromLane(), conn.getTo(), conn.getToLane(),
@@ -433,7 +439,7 @@ NBLoadedTLDef::setTLControllingInformation() const
 }
 
 NBLoadedTLDef::Masks
-NBLoadedTLDef::buildPhaseMasks(size_t time) const
+NBLoadedTLDef::buildPhaseMasks(const NBEdgeCont &ec, size_t time) const
 {
     // set the masks
     Masks masks;
@@ -452,8 +458,8 @@ NBLoadedTLDef::buildPhaseMasks(size_t time) const
             masks.yellowMask[pos] = hasYellow;
             const NBConnection &conn = group->getConnection(j);
             NBConnection assConn(conn);
-            // assert that the connection really exists
-            if(assConn.check()) {
+			// assert that the connection really exists
+            if(assConn.check(ec)) {
 /*                masks.brakeMask[pos] =
                     mustBrake(conn.getFrom(), conn.getTo()) | !mayDrive;*/
 //                masks.brakeMask = mustBrake(
@@ -469,9 +475,10 @@ NBLoadedTLDef::buildPhaseMasks(size_t time) const
         for(size_t j=0; j<linkNo; j++) {
             const NBConnection &conn = group->getConnection(j);
             NBConnection assConn(conn);
-            if(assConn.check()) {
-                masks.brakeMask[pos] = mustBrake(assConn,
-                    masks.driveMask, masks.yellowMask, pos);
+            if(assConn.check(ec)) {
+                masks.brakeMask[pos] =
+                    mustBrake(ec, assConn,
+                        masks.driveMask, masks.yellowMask, pos);
                 pos++;
             }
         }
@@ -481,7 +488,8 @@ NBLoadedTLDef::buildPhaseMasks(size_t time) const
 
 
 bool
-NBLoadedTLDef::mustBrake(const NBConnection &possProhibited,
+NBLoadedTLDef::mustBrake(const NBEdgeCont &ec,
+                         const NBConnection &possProhibited,
                          const std::bitset<64> &green,
                          const std::bitset<64> &yellow,
                          size_t strmpos) const
@@ -503,7 +511,7 @@ NBLoadedTLDef::mustBrake(const NBConnection &possProhibited,
             const NBConnection &other = group->getConnection(j);
             NBConnection possProhibitor(other);
             // if the connction ist still valid ...
-            if(possProhibitor.check()) {
+            if(possProhibitor.check(ec)) {
 /*                assert(possProhibited.getToLane()>=0);
                 assert(possProhibitor.getToLane()>=0);
                 // does not have to break du to this connection as

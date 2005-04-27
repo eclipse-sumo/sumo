@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.5  2004/11/23 10:21:41  dkrajzew
 // debugging
 //
@@ -35,7 +38,10 @@ namespace
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -255,11 +261,11 @@ NBLinkCliqueContainer::buildCliques(NBLinkPossibilityMatrix *v,
         }
     }
 #ifdef TL_DEBUG
-    DEBUG_OUT << "Cliquen:" << endl;
-    for(LinkCliqueContainer::iterator a=_cliques.begin(); a!=_cliques.end(); a++) {
-        DEBUG_OUT << (*a) << endl;
-    }
-    DEBUG_OUT << "--------------------------------" << endl;
+	DEBUG_OUT << "Cliquen:" << endl;
+	for(LinkCliqueContainer::iterator a=_cliques.begin(); a!=_cliques.end(); a++) {
+		DEBUG_OUT << (*a) << endl;
+	}
+	DEBUG_OUT << "--------------------------------" << endl;
 #endif
 }
 
@@ -282,21 +288,18 @@ NBLinkCliqueContainer::buildFurther()
         }
         _further[i] = current;
     }
-    //
+	//
 #ifdef TL_DEBUG
-    DEBUG_OUT << "------------" << endl << "Cliquen: " << endl;
-    for(i=0; i<_cliques.size(); i++) {
-        DEBUG_OUT << _cliques[i] << endl;
-    }
+	DEBUG_OUT << "------------" << endl << "Cliquen: " << endl;
+	for(i=0; i<_cliques.size(); i++) {
+		DEBUG_OUT << _cliques[i] << endl;
+	}
 #endif
 }
 
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBLinkCliqueContainer.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

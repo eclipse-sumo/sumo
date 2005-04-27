@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/04/27 11:48:26  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.12  2004/11/23 10:21:41  dkrajzew
 // debugging
 //
@@ -56,7 +59,10 @@ namespace
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -82,15 +88,18 @@ using namespace std;
 
 
 /* =========================================================================
- * static member variables
- * ======================================================================= */
-NBTrafficLightLogicCont::ComputedContType NBTrafficLightLogicCont::_computed;
-NBTrafficLightLogicCont::DefinitionContType NBTrafficLightLogicCont::_definitions;
-
-
-/* =========================================================================
  * method definitions
  * ======================================================================= */
+NBTrafficLightLogicCont::NBTrafficLightLogicCont()
+{
+}
+
+
+NBTrafficLightLogicCont::~NBTrafficLightLogicCont()
+{
+}
+
+
 bool
 NBTrafficLightLogicCont::insert(const std::string &id,
                                 NBTrafficLightLogicVector *logics)
@@ -141,14 +150,14 @@ NBTrafficLightLogicCont::clear()
 
 
 bool
-NBTrafficLightLogicCont::computeLogics(OptionsCont &oc)
+NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc)
 {
     size_t no = 0;
     for(DefinitionContType::iterator i=_definitions.begin(); i!=_definitions.end(); i++) {
         // get the definition
         NBTrafficLightDefinition *def = (*i).second;
         // and insert the result after coputation
-        if(!insert((*i).first, def->compute(oc))) {
+        if(!insert((*i).first, def->compute(ec, oc))) {
             // should not happen
             WRITE_WARNING(string("Could not build traffic lights '") + def->getID()+ string("'"));
         } else {
@@ -198,7 +207,7 @@ NBTrafficLightLogicCont::getDefinition(const std::string &id)
 
 
 bool
-NBTrafficLightLogicCont::setTLControllingInformation()
+NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont &ec)
 {
     DefinitionContType::iterator i;
     // set the information about all participants, first
@@ -207,16 +216,13 @@ NBTrafficLightLogicCont::setTLControllingInformation()
     }
     // insert the information about the tl-controlling
     for(i=_definitions.begin(); i!=_definitions.end(); i++) {
-        (*i).second->setTLControllingInformation();
+        (*i).second->setTLControllingInformation(ec);
     }
     return true;
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBTrafficLightLogicCont.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.13  2005/01/27 14:26:08  dkrajzew
 // patched several problems on determination of the turning direction; code beautifying
 //
@@ -61,6 +64,12 @@ namespace
 // Revision 1.3  2003/02/07 10:43:44  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

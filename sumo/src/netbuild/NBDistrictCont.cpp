@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.6  2004/11/23 10:21:40  dkrajzew
 // debugging
 //
@@ -39,7 +42,10 @@ namespace
 // Revision 1.2  2003/02/07 10:43:43  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -69,14 +75,18 @@ using namespace std;
 
 
 /* =========================================================================
- * static members
- * ======================================================================= */
-NBDistrictCont::DistrictCont NBDistrictCont::_districts;
-
-
-/* =========================================================================
  * method definitions
  * ======================================================================= */
+NBDistrictCont::NBDistrictCont()
+{
+}
+
+
+NBDistrictCont::~NBDistrictCont()
+{
+}
+
+
 bool
 NBDistrictCont::insert(NBDistrict *district)
 {
@@ -153,11 +163,16 @@ NBDistrictCont::addSink(const std::string &dist, NBEdge *destination,
 }
 
 
+void
+NBDistrictCont::removeFromSinksAndSources(NBEdge *e)
+{
+    for(DistrictCont::iterator i=_districts.begin(); i!=_districts.end(); i++) {
+        (*i).second->removeFromSinksAndSources(e);
+    }
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBDistrictCont.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

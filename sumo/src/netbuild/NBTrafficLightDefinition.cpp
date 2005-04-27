@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.14  2005/01/27 14:28:03  dkrajzew
 // improved variable naming in "forbids"
 //
@@ -70,6 +73,12 @@ namespace
 // Revision 1.1  2003/06/05 11:43:20  dkrajzew
 // definition class for traffic lights added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -155,7 +164,7 @@ NBTrafficLightDefinition::~NBTrafficLightDefinition()
 
 
 NBTrafficLightLogicVector *
-NBTrafficLightDefinition::compute(OptionsCont &oc)
+NBTrafficLightDefinition::compute(const NBEdgeCont &ec, OptionsCont &oc)
 {
     // it is not really a traffic light if no incoming edge exists
     if(_incoming.size()==0) {
@@ -169,7 +178,7 @@ NBTrafficLightDefinition::compute(OptionsCont &oc)
     if(OptionsSubSys::getOptions().isSet("traffic-light-green")) {
         breakingTime = OptionsSubSys::getOptions().getInt("traffic-light-yellow");
     }
-    return myCompute(breakingTime, myType, oc.getBool("all-logics"));
+    return myCompute(ec, breakingTime, myType, oc.getBool("all-logics"));
 }
 
 
@@ -258,7 +267,7 @@ NBTrafficLightDefinition::getSizes() const
     for(EdgeVector::const_iterator i=_incoming.begin(); i!=_incoming.end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
-            assert((*i)->getEdgeLanesFromLane(j)->size()!=0);
+			assert((*i)->getEdgeLanesFromLane(j)->size()!=0);
             noLinks += (*i)->getEdgeLanesFromLane(j)->size();
         }
         noLanes += noLanesEdge;
@@ -318,16 +327,16 @@ NBTrafficLightDefinition::mustBrake(const NBConnection &possProhibited,
                                     bool regardNonSignalisedLowerPriority) const
 {
     return forbids(possProhibitor.getFrom(), possProhibitor.getTo(),
-        possProhibited.getFrom(), possProhibited.getTo(),
+		possProhibited.getFrom(), possProhibited.getTo(),
         regardNonSignalisedLowerPriority);
 }
 
 
 bool
 NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
-                                  NBEdge *possProhibitorTo,
-                                  NBEdge *possProhibitedFrom,
-                                  NBEdge *possProhibitedTo,
+								  NBEdge *possProhibitorTo,
+								  NBEdge *possProhibitedFrom,
+								  NBEdge *possProhibitedTo,
                                   bool regardNonSignalisedLowerPriority) const
 {
     // retrieve both nodes (it is possible that a connection
@@ -344,14 +353,14 @@ NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
         return false;
     }
     return incnode->forbids(possProhibitorFrom, possProhibitorTo,
-        possProhibitedFrom, possProhibitedTo,
+		possProhibitedFrom, possProhibitedTo,
         regardNonSignalisedLowerPriority);
 }
 
 
 bool
 NBTrafficLightDefinition::foes(NBEdge *from1, NBEdge *to1,
-                                    NBEdge *from2, NBEdge *to2) const
+                               NBEdge *from2, NBEdge *to2) const
 {
     // retrieve both nodes (it is possible that a connection
     NodeCont::const_iterator incoming =

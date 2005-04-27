@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.15  2003/12/04 13:06:45  dkrajzew
 // work on internal lanes
 //
@@ -84,7 +87,12 @@
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -108,6 +116,8 @@ class NBTrafficLightLogic;
 class NBTrafficLightPhases;
 class OptionsCont;
 class NBTrafficLightDefinition;
+class NBEdgeCont;
+class NBJunctionLogicCont;
 
 
 /* =========================================================================
@@ -126,7 +136,8 @@ public:
         outgoing only edges). By now no further informations are needed to
         describe the junctions. These parameter must not be changed during the
         logic's building */
-    NBRequest(NBNode *junction, const EdgeVector * const all,
+    NBRequest(const NBEdgeCont &ec,
+        NBNode *junction, const EdgeVector * const all,
         const EdgeVector * const incoming,
         const EdgeVector * const outgoing,
         const NBConnectionProhibits &loadedProhibits);
@@ -135,7 +146,8 @@ public:
     ~NBRequest();
 
     /** builds the bitset-representation of the logic */
-    void buildBitfieldLogic(const std::string &key);
+    void buildBitfieldLogic(NBJunctionLogicCont &jc,
+        const std::string &key);
 
     /** returns the number of the junction's lanes and the number
         of the junction's links in respect */
@@ -237,9 +249,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NBRequest.icc"
-//#endif
 
 #endif
 

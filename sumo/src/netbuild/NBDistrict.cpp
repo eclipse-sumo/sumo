@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.11  2003/11/11 08:33:54  dkrajzew
 // consequent position2D instead of two doubles added
 //
@@ -53,7 +56,10 @@ namespace
 // Revision 1.2  2003/02/07 10:43:43  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -261,10 +267,27 @@ NBDistrict::getPosition() const
 }
 
 
+void
+NBDistrict::removeFromSinksAndSources(NBEdge *e)
+{
+    size_t i;
+    for(i=0; i<_sinks.size(); ++i) {
+        if(_sinks[i]==e) {
+            _sinks.erase(_sinks.begin()+i);
+            _sinkWeights.erase(_sinkWeights.begin()+i);
+        }
+    }
+    for(i=0; i<_sources.size(); ++i) {
+        if(_sources[i]==e) {
+            _sources.erase(_sources.begin()+i);
+            _sourceWeights.erase(_sourceWeights.begin()+i);
+        }
+    }
+}
+
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBDistrict.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

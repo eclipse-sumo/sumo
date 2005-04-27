@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2005/04/27 11:48:26  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.12  2004/04/23 12:41:02  dkrajzew
 // some further work on vissim-import
 //
@@ -53,6 +56,12 @@
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -107,6 +116,14 @@ public:
 
     /// closes the building process (joins equal steps)
     void closeBuilding();
+
+private:
+    size_t getOffset() const;
+
+    bool checkOffsetFor(const std::string &optionName) const;
+
+    size_t computeOffsetFor(double offsetMult) const;
+
 
 private:
     /// The key (id) of the logic

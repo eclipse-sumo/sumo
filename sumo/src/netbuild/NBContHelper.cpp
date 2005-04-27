@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.15  2004/11/23 10:21:40  dkrajzew
 // debugging
 //
@@ -93,7 +96,12 @@ namespace
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

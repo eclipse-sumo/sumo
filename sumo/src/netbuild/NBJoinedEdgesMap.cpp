@@ -1,3 +1,9 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <cassert>
 #include <iostream>
 #include "NBJoinedEdgesMap.h"

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/04/27 11:48:27  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.8  2004/11/23 10:21:42  dkrajzew
 // debugging
 //
@@ -154,6 +157,12 @@ namespace
 // files for the netbuilder
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
@@ -192,16 +201,19 @@ using namespace std;
 
 
 /* =========================================================================
- * static members
- * ======================================================================= */
-NBNodeCont::NodeCont    NBNodeCont::_nodes;
-int                     NBNodeCont::_internalID = 1;
-Position2D              NBNodeCont::myNetworkOffset;
-
-
-/* =========================================================================
  * method definitions
  * ======================================================================= */
+NBNodeCont::NBNodeCont()
+    : _internalID(1)
+{
+}
+
+
+NBNodeCont::~NBNodeCont()
+{
+}
+
+
 bool
 NBNodeCont::insert(const std::string &id, const Position2D &position,
                    NBDistrict *district)
@@ -370,20 +382,21 @@ NBNodeCont::computeLanes2Lanes()
 
 // computes the "wheel" of incoming and outgoing edges for every node
 bool
-NBNodeCont::computeLogics(OptionsCont &oc)
+NBNodeCont::computeLogics(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
+                          OptionsCont &oc)
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
-        (*i).second->computeLogic(oc);
+        (*i).second->computeLogic(ec, jc, oc);
     }
     return true;
 }
 
 
 bool
-NBNodeCont::sortNodesEdges()
+NBNodeCont::sortNodesEdges(const NBTypeCont &tc)
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
-        (*i).second->sortNodesEdges();
+        (*i).second->sortNodesEdges(tc);
     }
     return true;
 }
@@ -483,7 +496,8 @@ NBNodeCont::report()
 
 
 bool
-NBNodeCont::recheckEdges()
+NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
+                         NBEdgeCont &ec)
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         // count the edges to other nodes outgoing from the current
@@ -568,7 +582,7 @@ NBNodeCont::recheckEdges()
         for(k=connectionCount.begin(); k!=connectionCount.end(); k++) {
             // join edges
             if((*k).second.size()>1) {
-                NBEdgeCont::joinSameNodeConnectingEdges((*k).second);
+                ec.joinSameNodeConnectingEdges(dc, tlc, (*k).second);
             }
         }
     }
@@ -578,11 +592,12 @@ NBNodeCont::recheckEdges()
 
 
 bool
-NBNodeCont::removeDummyEdges()
+NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
+                             NBTrafficLightLogicCont &tc)
 {
     size_t no = 0;
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
-        no += (*i).second->eraseDummies();
+        no += (*i).second->eraseDummies(dc, ec, tc);
     }
     if(no!=0) {
         WRITE_WARNING(toString<int>(no) + string(" dummy edges removed."));
@@ -592,10 +607,11 @@ NBNodeCont::removeDummyEdges()
 
 
 void
-NBNodeCont::searchEdgeInNode(string nodeid, string edgeid)
+NBNodeCont::searchEdgeInNode(const NBEdgeCont &ec,
+                             string nodeid, string edgeid)
 {
     NBNode *n = retrieve(nodeid);
-    NBEdge *e = NBEdgeCont::retrieve(edgeid);
+    NBEdge *e = ec.retrieve(edgeid);
     if(n==0||e==0) {
         return;
     }
@@ -620,7 +636,7 @@ NBNodeCont::getFreeID()
 
 
 Position2D
-NBNodeCont::getNetworkOffset()
+NBNodeCont::getNetworkOffset() const
 {
     return myNetworkOffset;
 }
@@ -650,7 +666,8 @@ NBNodeCont::printNodePositions()
 
 
 bool
-NBNodeCont::removeUnwishedNodes()
+NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
+                                NBTrafficLightLogicCont &tlc)
 {
     size_t no = 0;
     std::vector<NBNode*> toRemove;
@@ -691,9 +708,9 @@ NBNodeCont::removeUnwishedNodes()
             NBEdge *continuation = (*j).second;
             begin->append(continuation);
             continuation->getToNode()->replaceIncoming(continuation, begin, 0);
-            NBTrafficLightLogicCont::replaceRemoved(continuation, -1, begin, -1);
+            tlc.replaceRemoved(continuation, -1, begin, -1);
             gJoinedEdges.appended(begin->getID(), continuation->getID());
-            NBEdgeCont::erase(continuation);
+            ec.erase(dc, continuation);
         }
         toRemove.push_back(current);
         no++;
@@ -708,8 +725,51 @@ NBNodeCont::removeUnwishedNodes()
 
 
 bool
-NBNodeCont::guessTLs(OptionsCont &oc)
+NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
 {
+    // loop#1 checking whether the node shall tls controlled,
+    //  because it is assigned to a district
+    if(oc.getBool("tls-guess.district-nodes")) {
+        for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+            NBNode *cur = (*i).second;
+            // !!!!const EdgeVector &edges = cur->getEdges();
+            EdgeVector edges;
+            copy(cur->getIncomingEdges().begin(), cur->getIncomingEdges().end(),
+                back_inserter(edges));
+            copy(cur->getOutgoingEdges().begin(), cur->getOutgoingEdges().end(),
+                back_inserter(edges));
+            bool districtFound = false;
+            if(cur->getID()=="15032093") {
+                int bla = 0;
+            }
+            if(edges.size()>8) {
+                continue;
+            }
+            for(EdgeVector::const_iterator j=edges.begin(); j!=edges.end()&&!districtFound; ++j) {
+                NBEdge *t = *j;
+                NBNode *other = 0;
+                if(t->getToNode()==cur) {
+                    other = t->getFromNode();
+                } else {
+                    other = t->getToNode();
+                }
+                EdgeVector edges2;
+                copy(other->getIncomingEdges().begin(), other->getIncomingEdges().end(),
+                    back_inserter(edges2));
+                copy(other->getOutgoingEdges().begin(), other->getOutgoingEdges().end(),
+                    back_inserter(edges2));
+                //const EdgeVector &edges2 = other->getEdges();
+                for(EdgeVector::const_iterator k=edges2.begin(); k!=edges2.end()&&!districtFound; ++k) {
+                    if((*k)->getBasicType()==NBEdge::EDGEFUNCTION_SOURCE||(*k)->getBasicType()==NBEdge::EDGEFUNCTION_SINK) {
+                        districtFound = true;
+                    }
+                }
+            }
+            if(districtFound) {
+                setAsTLControlled((*i).first, tlc);
+            }
+        }
+    }
     // maybe no tls shall be guessed
     if(!oc.getBool("guess-tls")) {
         return true;
@@ -730,6 +790,8 @@ NBNodeCont::guessTLs(OptionsCont &oc)
         }
     }
 
+    // loop#2: checking whether the node shall be controlled by a tls due
+    //  to the number of lane & their speeds
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         NBNode *cur = (*i).second;
         //  do nothing if already is tl-controlled
@@ -776,7 +838,7 @@ NBNodeCont::guessTLs(OptionsCont &oc)
         }
 
         // hmmm, should be tls-controlled (probably)
-        setAsTLControlled((*i).first);
+        setAsTLControlled((*i).first, tlc);
 
     }
     return true;
@@ -784,26 +846,27 @@ NBNodeCont::guessTLs(OptionsCont &oc)
 
 
 void
-NBNodeCont::setAsTLControlled(const std::string &name)
+NBNodeCont::setAsTLControlled(const std::string &name,
+                              NBTrafficLightLogicCont &tlc)
 {
     NBNode *node = retrieve(name);
     if(node==0) {
-        MsgHandler::getErrorInstance()->inform(
+        MsgHandler::getWarningInstance()->inform(
             string("Building a tl-logic for node '") + name
             + string("' is not possible."));
-        MsgHandler::getErrorInstance()->inform(
+        MsgHandler::getWarningInstance()->inform(
             string(" The node '") + name + string("' is not known."));
-        throw ProcessError();
+        return;
     }
     NBTrafficLightDefinition *tlDef =
         new NBOwnTLDef(name, node);
-    if(!NBTrafficLightLogicCont::insert(name, tlDef)) {
+    if(!tlc.insert(name, tlDef)) {
         // actually, nothing should fail here
-        MsgHandler::getErrorInstance()->inform(
+        MsgHandler::getWarningInstance()->inform(
             string("Building a tl-logic for node '") + name
-            + string("' is not possible."));
+            + string("' twice is not possible."));
         delete tlDef;
-        throw ProcessError();
+        return;
     }
 }
 

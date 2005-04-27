@@ -20,10 +20,18 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.4  2003/06/05 11:43:34  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -49,9 +57,6 @@ typedef std::map<NBConnection, NBConnectionVector> NBConnectionProhibits;
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NBConnectionDefs.icc"
-//#endif
 
 #endif
 

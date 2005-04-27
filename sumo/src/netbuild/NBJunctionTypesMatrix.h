@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.4  2004/01/12 15:25:09  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -52,7 +55,12 @@
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -81,12 +89,12 @@ public:
 
     /** returns the type of the junction on the crossing of edges of the
         given types */
-    NBNode::BasicNodeType getType(int prio1, int prio2);
+    NBNode::BasicNodeType getType(int prio1, int prio2) const;
 
 private:
     /** returns the one-char name of the junction type between the two
         given ranges */
-    char getNameAt(int pos1, int pos2);
+    char getNameAt(int pos1, int pos2) const;
 
     /**
      * priority_finder
@@ -135,9 +143,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NBJunctionTypesMatrix.icc"
-//#endif
 
 #endif
 

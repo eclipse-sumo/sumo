@@ -20,10 +20,16 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -54,35 +60,32 @@ class NBNode;
  */
 class NBLogicKeyBuilder {
 private:
-    static void appendEdgeDescription(std::ostringstream &to,
+    void appendEdgeDescription(std::ostringstream &to,
         NBNode *junction, const EdgeVector * const edges,
         EdgeVector::const_iterator &pos);
-    static void appendEdgesLaneDescriptions(std::ostringstream &to,
+    void appendEdgesLaneDescriptions(std::ostringstream &to,
         const EdgeVector * const edges, NBEdge *edge,
         EdgeVector::const_iterator &pos);
-    static void appendLaneConnectionDescriptions(std::ostringstream &to,
+    void appendLaneConnectionDescriptions(std::ostringstream &to,
         const EdgeVector * const edges, const EdgeLaneVector *connected,
         EdgeVector::const_iterator &pos);
-    static void appendDetailedConnectionDescription(std::ostringstream &to,
+    void appendDetailedConnectionDescription(std::ostringstream &to,
         const EdgeVector * const edges, const EdgeLane &edgelane,
         EdgeVector::const_iterator &pos);
 public:
     /** chars from 'a' to 'z' to get alphanumerical values instead of
         numerical only */
     static char convert[];
-    static std::string buildKey(NBNode *junction,
+    std::string buildKey(NBNode *junction,
         const EdgeVector * const edges);
     /// rotates the key by the given amount
-    static std::string rotateKey(std::string key, int norot);
+    std::string rotateKey(std::string key, int norot);
     /// permutates the key
-    static std::string rotateKey(const std::string &run);
+    std::string rotateKey(const std::string &run);
 };
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NBLogicKeyBuilder.icc"
-//#endif
 
 #endif
 

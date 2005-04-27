@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/04/27 11:48:27  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.6  2004/11/23 10:21:41  dkrajzew
 // debugging
 //
@@ -72,7 +75,12 @@ namespace
 // Revision 1.1  2001/12/06 13:37:59  traffic
 // files for the netbuilder
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -91,7 +99,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC       // exclude standard memory alloc procedures
+   #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
 
@@ -102,19 +110,18 @@ using namespace std;
 
 
 /* =========================================================================
- * static members definitions
- * ======================================================================= */
-string                    NBTypeCont::_formatName;
-int                       NBTypeCont::_defaultNoLanes;
-double                    NBTypeCont::_defaultSpeed;
-int                       NBTypeCont::_defaultPriority;
-NBTypeCont::TypesCont     NBTypeCont::_types;
-NBJunctionTypesMatrix     NBTypeCont::_junctionTypes;
-
-
-/* =========================================================================
  * method definitions
  * ======================================================================= */
+NBTypeCont::NBTypeCont()
+{
+}
+
+
+NBTypeCont::~NBTypeCont()
+{
+}
+
+
 void
 NBTypeCont::setDefaults(const string &formatName, int defaultNoLanes,
                         double defaultSpeed, int defaultPriority)
@@ -210,7 +217,7 @@ NBTypeCont::getNo()
 
 
 NBNode::BasicNodeType
-NBTypeCont::getJunctionType(int edgetype1, int edgetype2)
+NBTypeCont::getJunctionType(int edgetype1, int edgetype2) const
 {
     return _junctionTypes.getType(edgetype1, edgetype2);
 }
@@ -234,9 +241,6 @@ NBTypeCont::report()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBTypeCont.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

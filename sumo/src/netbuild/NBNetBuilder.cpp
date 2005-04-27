@@ -1,3 +1,38 @@
+/***************************************************************************
+                          NBNetBuilder.cpp
+			  The instance responsible for building networks
+                             -------------------
+    project              : SUMO
+    subproject           : netbuilder / netconverter
+    begin                : 20 Nov 2001
+    copyright            : (C) 2001 by DLR http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -19,10 +54,18 @@
 #include <utils/convert/ToString.h>
 #include "NBJoinedEdgesMap.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 NBNetBuilder::NBNetBuilder()
-    : myHaveBuildNet(false)
+    : myHaveBuildNet(false), myTypeCont()
 {
 }
 
@@ -35,9 +78,9 @@ NBNetBuilder::~NBNetBuilder()
 void
 NBNetBuilder::buildLoaded()
 {
-    NBTypeCont::report();
-    NBEdgeCont::report();
-    NBNodeCont::report();
+    myTypeCont.report();
+    myEdgeCont.report();
+    myNodeCont.report();
     // perform the computation
     OptionsCont &oc = OptionsSubSys::getOptions();
     compute(oc);
@@ -67,7 +110,7 @@ NBNetBuilder::removeDummyEdges(int &step)
 {
     // Removes edges that are connecting the same node
     inform(step, "Removing dummy edges ");
-    return NBNodeCont::removeDummyEdges();
+    return myNodeCont.removeDummyEdges(myDistrictCont, myEdgeCont, myTLLCont);
 }
 
 
@@ -75,7 +118,7 @@ bool
 NBNetBuilder::joinEdges(int &step)
 {
     inform(step, "Joining double connections");
-    return NBNodeCont::recheckEdges();
+    return myNodeCont.recheckEdges(myDistrictCont, myTLLCont, myEdgeCont);
 }
 
 
@@ -86,7 +129,7 @@ NBNetBuilder::removeUnwishedNodes(int &step, OptionsCont &oc)
         return true;
     }
     inform(step, "Removing empty nodes and geometry nodes.");
-    return NBNodeCont::removeUnwishedNodes();
+    return myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont);
 }
 
 
@@ -97,7 +140,7 @@ NBNetBuilder::removeUnwishedEdges(int &step, OptionsCont &oc)
         return true;
     }
     inform(step, "Removing unwished edges.");
-    return NBEdgeCont::removeUnwishedEdges(oc);
+    return myEdgeCont.removeUnwishedEdges(myDistrictCont, oc);
 }
 
 
@@ -108,10 +151,10 @@ NBNetBuilder::guessTLs(int &step, OptionsCont &oc)
     if(oc.isSet("explicite-tls")) {
         StringTokenizer st(oc.getString("explicite-tls"), ";");
         while(st.hasNext()) {
-            NBNodeCont::setAsTLControlled(st.next());
+            myNodeCont.setAsTLControlled(st.next(), myTLLCont);
         }
     }
-    return NBNodeCont::guessTLs(oc);
+    return myNodeCont.guessTLs(oc, myTLLCont);
 }
 
 
@@ -119,7 +162,7 @@ bool
 NBNetBuilder::computeTurningDirections(int &step)
 {
     inform(step, "Computing turning directions");
-    return NBEdgeCont::computeTurningDirections();
+    return myEdgeCont.computeTurningDirections();
 }
 
 
@@ -127,7 +170,7 @@ bool
 NBNetBuilder::sortNodesEdges(int &step)
 {
     inform(step, "Sorting nodes' edges");
-    return NBNodeCont::sortNodesEdges();
+    return myNodeCont.sortNodesEdges(myTypeCont);
 }
 
 
@@ -135,9 +178,9 @@ bool
 NBNetBuilder::normaliseNodePositions(int &step)
 {
     inform(step, "Normalising node positions");
-    bool ok = NBNodeCont::normaliseNodePositions();
+    bool ok = myNodeCont.normaliseNodePositions();
     if(ok) {
-        ok = NBEdgeCont::normaliseEdgePositions();
+        ok = myEdgeCont.normaliseEdgePositions(myNodeCont);
     }
     return ok;
 }
@@ -147,7 +190,7 @@ bool
 NBNetBuilder::computeEdge2Edges(int &step)
 {
     inform(step, "Computing Approached Edges");
-    return NBEdgeCont::computeEdge2Edges();
+    return myEdgeCont.computeEdge2Edges();
 }
 
 
@@ -155,7 +198,7 @@ bool
 NBNetBuilder::computeLanes2Edges(int &step)
 {
     inform(step, "Computing Approaching Lanes");
-    return NBEdgeCont::computeLanes2Edges();
+    return myEdgeCont.computeLanes2Edges();
 }
 
 
@@ -163,9 +206,9 @@ bool
 NBNetBuilder::computeLanes2Lanes(int &step)
 {
     inform(step, "Dividing of Lanes on Approached Lanes");
-    bool ok = NBNodeCont::computeLanes2Lanes();
+    bool ok = myNodeCont.computeLanes2Lanes();
     if(ok) {
-        return NBEdgeCont::sortOutgoingLanesConnections();
+        return myEdgeCont.sortOutgoingLanesConnections();
     }
     return ok;
 }
@@ -174,7 +217,7 @@ bool
 NBNetBuilder::recheckLanes(int &step)
 {
     inform(step, "Rechecking of lane endings");
-    return NBEdgeCont::recheckLanes();
+    return myEdgeCont.recheckLanes();
 }
 
 
@@ -182,7 +225,7 @@ bool
 NBNetBuilder::computeNodeShapes(int &step)
 {
     inform(step, "Computing node shapes");
-    return NBNodeCont::computeNodeShapes();
+    return myNodeCont.computeNodeShapes();
 }
 
 
@@ -190,7 +233,7 @@ bool
 NBNetBuilder::computeEdgeShapes(int &step)
 {
     inform(step, "Computing edge shapes");
-    return NBEdgeCont::computeEdgeShapes();
+    return myEdgeCont.computeEdgeShapes();
 }
 
 
@@ -202,7 +245,7 @@ computeLinkPriorities(int &step, bool verbose)
         cout << "Computing step " << step
             << ": Computing Link Priorities" << endl;
     }
-    return NBEdgeCont::computeLinkPriorities(verbose);
+    return myEdgeCont.computeLinkPriorities(verbose);
 }
 */
 
@@ -213,7 +256,7 @@ NBNetBuilder::appendTurnarounds(int &step, OptionsCont &oc)
         return true;
     }
     inform(step, "Appending Turnarounds");
-    return NBEdgeCont::appendTurnarounds();
+    return myEdgeCont.appendTurnarounds();
 }
 
 
@@ -221,7 +264,7 @@ bool
 NBNetBuilder::setTLControllingInformation(int &step)
 {
     inform(step, "Computing node logics");
-    return NBTrafficLightLogicCont::setTLControllingInformation();
+    return myTLLCont.setTLControllingInformation(myEdgeCont);
 }
 
 
@@ -229,7 +272,7 @@ bool
 NBNetBuilder::computeLogic(int &step, OptionsCont &oc)
 {
     inform(step, "Computing node logics");
-    return NBNodeCont::computeLogics(oc);
+    return myNodeCont.computeLogics(myEdgeCont, myJunctionLogicCont, oc);
 }
 
 
@@ -237,7 +280,7 @@ bool
 NBNetBuilder::computeTLLogic(int &step, OptionsCont &oc)
 {
     inform(step, "Computing traffic light logics");
-    return NBTrafficLightLogicCont::computeLogics(oc);
+    return myTLLCont.computeLogics(myEdgeCont, oc);
 }
 
 
@@ -252,9 +295,9 @@ NBNetBuilder::reshiftRotateNet(int &step, OptionsCont &oc)
     double yoff = oc.getFloat("y-offset-to-apply");
     double rot = oc.getFloat("rotation-to-apply");
     inform(step, "Normalising node positions");
-    bool ok = NBNodeCont::reshiftNodePositions(xoff, yoff, rot);
+    bool ok = myNodeCont.reshiftNodePositions(xoff, yoff, rot);
     if(ok) {
-        ok = NBEdgeCont::reshiftEdgePositions(xoff, yoff, rot);
+        ok = myEdgeCont.reshiftEdgePositions(xoff, yoff, rot);
     }
     return ok;
 }
@@ -273,7 +316,7 @@ NBNetBuilder::compute(OptionsCont &oc)
 //    if(ok) ok = setInit(step);
     //
     if(ok) ok = removeDummyEdges(step);
-    gJoinedEdges.init(NBEdgeCont::getAllNames());
+    gJoinedEdges.init(myEdgeCont.getAllNames());
     if(ok) ok = joinEdges(step);
     if(ok) ok = removeUnwishedNodes(step, oc);
     if(ok&&oc.getBool("keep-edges.postload")) {
@@ -312,7 +355,7 @@ void
 NBNetBuilder::checkPrint(OptionsCont &oc)
 {
     if(oc.getBool("print-node-positions")) {
-        NBNodeCont::printNodePositions();
+        myNodeCont.printNodePositions();
     }
 }
 
@@ -327,34 +370,34 @@ NBNetBuilder::save(ostream &res, OptionsCont &oc)
     // write the numbers of some elements
     std::vector<std::string> ids;
     if(oc.getBool("add-internal-links")) {
-        ids = NBNodeCont::getInternalNamesList();
+        ids = myNodeCont.getInternalNamesList();
     }
-    NBEdgeCont::writeXMLEdgeList(res, ids);
+    myEdgeCont.writeXMLEdgeList(res, ids);
     if(oc.getBool("add-internal-links")) {
-        NBNodeCont::writeXMLInternalLinks(res);
+        myNodeCont.writeXMLInternalLinks(res);
     }
 
         // write the number of nodes
-    NBNodeCont::writeXMLNumber(res);
+    myNodeCont.writeXMLNumber(res);
     res << endl;
     // write the districts
-    NBDistrictCont::writeXML(res);
+    myDistrictCont.writeXML(res);
     // write edges with lanes and connected edges
-    NBEdgeCont::writeXMLStep1(res);
+    myEdgeCont.writeXMLStep1(res);
     // write the logics
-    NBJunctionLogicCont::writeXML(res);
-    NBTrafficLightLogicCont::writeXML(res);
+    myJunctionLogicCont.writeXML(res);
+    myTLLCont.writeXML(res);
     // write the nodes
-    NBNodeCont::writeXML(res);
+    myNodeCont.writeXML(res);
     // write the successors of lanes
-    NBEdgeCont::writeXMLStep2(res);
+    myEdgeCont.writeXMLStep2(res);
     if(oc.getBool("add-internal-links")) {
-        NBNodeCont::writeXMLInternalSuccInfos(res);
+        myNodeCont.writeXMLInternalSuccInfos(res);
     }
     // write the positions of edges
-    NBEdgeCont::writeXMLStep3(res);
+    myEdgeCont.writeXMLStep3(res);
     if(oc.getBool("add-internal-links")) {
-        NBNodeCont::writeXMLInternalEdgePos(res);
+        myNodeCont.writeXMLInternalEdgePos(res);
     }
     res << "</net>" << endl;
     return true;
@@ -377,8 +420,8 @@ void
 NBNetBuilder::savePlain(const std::string &filename)
 {
     // try to build the output file
-    NBNodeCont::savePlain(filename + string(".nod.xml"));
-    NBEdgeCont::savePlain(filename + string(".edg.xml"));
+    myNodeCont.savePlain(filename + string(".nod.xml"));
+    myEdgeCont.savePlain(filename + string(".edg.xml"));
 //    NBConnectionCont::svaePlain(filename);
 }
 
@@ -393,7 +436,7 @@ NBNetBuilder::saveMap(string path)
     }
     // write map
     res << gJoinedEdges;
-    return true;
+	return true;
 }
 
 
@@ -444,6 +487,10 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("tls-guess.max-incoming-speed", new Option_Float((float)(69/3.6)));
     oc.doRegister("tls-guess.min-outgoing-speed", new Option_Float((float)(40/3.6)));
     oc.doRegister("tls-guess.max-outgoing-speed", new Option_Float((float)(69/3.6)));
+    oc.doRegister("tls-guess.district-nodes", new Option_Bool(false));
+    // tls-shifts
+    oc.doRegister("tl-logics.half-offset", new Option_String());
+    oc.doRegister("tl-logics.quarter-offset", new Option_String());
 
     oc.doRegister("explicite-tls", new Option_String());
     oc.doRegister("explicite-no-tls", new Option_String());
@@ -494,6 +541,55 @@ NBNetBuilder::netBuild() const
     return myHaveBuildNet;
 }
 
+
+NBEdgeCont &
+NBNetBuilder::getEdgeCont()
+{
+    return myEdgeCont;
+}
+
+
+NBNodeCont &
+NBNetBuilder::getNodeCont()
+{
+    return myNodeCont;
+}
+
+
+NBTypeCont &
+NBNetBuilder::getTypeCont()
+{
+    return myTypeCont;
+}
+
+
+NBTrafficLightLogicCont &
+NBNetBuilder::getTLLogicCont()
+{
+    return myTLLCont;
+}
+
+
+NBJunctionLogicCont &
+NBNetBuilder::getJunctionLogicCont()
+{
+    return myJunctionLogicCont;
+}
+
+
+NBDistrictCont &
+NBNetBuilder::getDistrictCont()
+{
+    return myDistrictCont;
+}
+
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
 
 
 

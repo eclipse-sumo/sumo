@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2005/04/27 11:48:26  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.9  2005/01/27 14:28:03  dkrajzew
 // improved variable naming in "forbids"
 //
@@ -46,6 +49,12 @@
 // Revision 1.1  2003/06/05 11:43:20  dkrajzew
 // definition class for traffic lights added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -113,12 +122,13 @@ public:
 
     /** @brief Computes the traffic light logic
         Does some initialisation at first, then calls myCompute to finally build the tl-logic */
-    NBTrafficLightLogicVector *compute(OptionsCont &oc);
+    NBTrafficLightLogicVector *compute(const NBEdgeCont &ec,
+        OptionsCont &oc);
 
     /// Adds a node to the traffic light logic
     void addNode(NBNode *node);
 
-    bool mustBrake(NBEdge *from, NBEdge *to) const;
+	bool mustBrake(NBEdge *from, NBEdge *to) const;
 
     bool mustBrake(const NBConnection &possProhibited,
         const NBConnection &possProhibitor,
@@ -135,7 +145,7 @@ public:
     bool foes(NBEdge *from1, NBEdge *to1,
         NBEdge *from2, NBEdge *to2) const;
 
-    virtual void setTLControllingInformation() const = 0;
+    virtual void setTLControllingInformation(const NBEdgeCont &ec) const = 0;
 
     virtual void setParticipantsInformation();
 
@@ -148,7 +158,8 @@ public:
 
 protected:
     /// Computes the traffic light logic finally in dependence to the type
-    virtual NBTrafficLightLogicVector *myCompute(size_t breakingTime,
+    virtual NBTrafficLightLogicVector *myCompute(const NBEdgeCont &ec,
+        size_t breakingTime,
         std::string type, bool buildAll) = 0;
 
     std::pair<size_t, size_t> getSizes() const;

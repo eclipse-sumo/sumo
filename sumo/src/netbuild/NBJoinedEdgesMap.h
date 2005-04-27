@@ -1,6 +1,12 @@
 #ifndef NBJoinedEdgesMap_h
 #define NBJoinedEdgesMap_h
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <iostream>
 #include <vector>
 #include <map>

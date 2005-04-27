@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.5  2003/12/04 13:05:42  dkrajzew
 // some work for joining vissim-edges
 //
@@ -32,7 +35,12 @@
 // Revision 1.2  2003/06/05 11:43:34  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -93,7 +101,7 @@ public:
     bool replaceTo(NBEdge *which, int whichLane, NBEdge *by, int byLane);
 
     /// checks whether the edges are still valid
-    bool check();
+    bool check(const NBEdgeCont &ec);
 
     /// returns the from-lane
     int getFromLane() const;
@@ -109,10 +117,10 @@ public:
 
 private:
     /// Checks whether the from-edge is still valid
-    NBEdge *checkFrom();
+    NBEdge *checkFrom(const NBEdgeCont &ec);
 
     /// Checks whether the to-edge is still valid
-    NBEdge *checkTo();
+    NBEdge *checkTo(const NBEdgeCont &ec);
 
 private:
     /// The from- and the to-edges
@@ -129,9 +137,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NBConnection.icc"
-//#endif
 
 #endif
 

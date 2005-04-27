@@ -19,18 +19,28 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/04/27 11:48:51  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.2  2003/07/21 11:05:31  dkrajzew
 // patched some bugs found in first real-life execution
 //
 // Revision 1.1  2003/07/16 15:33:08  dkrajzew
 // files needed to generate networks added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include "NGNetElements.h"
 
+
+class NBNetBuilder;
 
 /* =========================================================================
  * class definitions
@@ -42,7 +52,7 @@ class TNGNet
 {
 public:
     /// Constructor
-	TNGNet();
+	TNGNet(NBNetBuilder &nb);
 
     /// Destructor
 	~TNGNet();
@@ -85,13 +95,12 @@ private:
     /// last ID given to node or link
 	int myLastID;
 
+    NBNetBuilder &myNetBuilder;
+
 };
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NGNet.icc"
-//#endif
 
 #endif
 

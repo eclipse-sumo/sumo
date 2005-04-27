@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2005/04/27 11:48:27  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.4  2004/12/16 12:16:05  dkrajzew
 // code beautifying
 //
@@ -125,6 +128,12 @@
 // files for the netbuilder
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
@@ -153,109 +162,118 @@ public:
     typedef std::map<std::string, NBNode*> NodeCont;
 
 public:
+    NBNodeCont();
+
+    ~NBNodeCont();
 
     /** inserts a node into the map */
-    static bool insert(const std::string &id, const Position2D &position,
+    bool insert(const std::string &id, const Position2D &position,
         NBDistrict *district);
 
     /** inserts a node into the map */
-    static bool insert(const std::string &id, const Position2D &position);
+    bool insert(const std::string &id, const Position2D &position);
 
     /** inserts a node into the map */
-/*    static bool insert(const std::string &id, double x, double y,
+/*    bool insert(const std::string &id, double x, double y,
         const std::string &type);*/
 
     /** inserts a node into the map */
-    static Position2D insert(const std::string &id);
+    Position2D insert(const std::string &id);
 
     /** inserts a node into the map */
-    static bool insert(NBNode *node);
+    bool insert(NBNode *node);
 
     /// Removes the given node, deleting it
-    static bool erase(NBNode *node);
+    bool erase(NBNode *node);
 
     /** returns the node with the given name */
-    static NBNode *retrieve(const std::string &id);
+    NBNode *retrieve(const std::string &id);
 
     /** returns the node with the given coordinates */
-    static NBNode *retrieve(const Position2D &position);
+    NBNode *retrieve(const Position2D &position);
 
     /// returns the begin of the dictionary
-    static NodeCont::iterator begin();
+    NodeCont::iterator begin();
 
     /// returns the end of the dictionary
-    static NodeCont::iterator end();
+    NodeCont::iterator end();
 
     /// resets the node positions in a way that they begin from (0, 0)
-    static bool normaliseNodePositions();
-    static bool reshiftNodePositions(double xoff, double yoff, double rot);
+    bool normaliseNodePositions();
+    bool reshiftNodePositions(double xoff, double yoff, double rot);
 
     /// divides the incoming lanes on outgoing lanes
-    static bool computeLanes2Lanes();
+    bool computeLanes2Lanes();
 
     /// build the list of outgoing edges and lanes
-    static bool computeLogics(OptionsCont &oc);
+    bool computeLogics(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
+        OptionsCont &oc);
 
     /// sorts the nodes' edges
-    static bool sortNodesEdges();
+    bool sortNodesEdges(const NBTypeCont &tc);
 
-    static std::vector<std::string> getInternalNamesList();
+    std::vector<std::string> getInternalNamesList();
     /// writes the number nodes into the given ostream
-    static void writeXMLNumber(std::ostream &into);
+    void writeXMLNumber(std::ostream &into);
 
-    static void writeXMLInternalLinks(std::ostream &into);
-    static void writeXMLInternalEdgePos(std::ostream &into);
-    static void writeXMLInternalSuccInfos(std::ostream &into);
+    void writeXMLInternalLinks(std::ostream &into);
+    void writeXMLInternalEdgePos(std::ostream &into);
+    void writeXMLInternalSuccInfos(std::ostream &into);
 
 
     /// writes the nodes into the given ostream
-    static void writeXML(std::ostream &into);
+    void writeXML(std::ostream &into);
 
     /// returns the number of known nodes
-    static int size();
+    int size();
 
     /** returns the number of known nodes */
-    static int getNo();
+    int getNo();
 
     /** deletes all nodes */
-    static void clear();
+    void clear();
 
     /// reports how many nodes were loaded
-    static void report();
+    void report();
 
     /// Joins edges connecting the same nodes
-    static bool recheckEdges();
+    bool recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
+        NBEdgeCont &ec);
 
     /// Removes dummy edges (edges lying completely within a node)
-    static bool removeDummyEdges();
+    bool removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
+        NBTrafficLightLogicCont &tc);
 
-    static void searchEdgeInNode(std::string nodeid, std::string edgeid);
+    void searchEdgeInNode(const NBEdgeCont &ec,
+        std::string nodeid, std::string edgeid);
 
-    static std::string getFreeID();
+    std::string getFreeID();
 
     /// Returns the minimum position
-    static Position2D getNetworkOffset();
+    Position2D getNetworkOffset() const;
 
-    static bool computeNodeShapes();
+    bool computeNodeShapes();
 
-    static void printNodePositions();
+    void printNodePositions();
 
-    static bool removeUnwishedNodes();
+    bool removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
+        NBTrafficLightLogicCont &tlc);
 
-    static bool guessTLs(OptionsCont &oc);
+    bool guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc);
 
-    static void setAsTLControlled(const std::string &name);
+    void setAsTLControlled(const std::string &name,
+        NBTrafficLightLogicCont &tlc);
 
-    static bool savePlain(const std::string &file);
+    bool savePlain(const std::string &file);
 private:
     /** the running internal id */
-    static int     _internalID;
+    int     _internalID;
 
     /** the map of names to nodes */
-    static NodeCont   _nodes;
+    NodeCont   _nodes;
 
     /// The minimum network position
-    static Position2D myNetworkOffset;
+    Position2D myNetworkOffset;
 
 private:
     /** invalid copy constructor */

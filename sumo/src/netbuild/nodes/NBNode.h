@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/04/27 11:48:27  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.3  2004/11/23 10:21:42  dkrajzew
 // debugging
 //
@@ -152,6 +155,12 @@
 // files for the netbuilder
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <vector>
@@ -171,6 +180,7 @@
 #include <netbuild/NBConnectionDefs.h>
 #include <netbuild/NBContHelper.h>
 #include <netbuild/NBMMLDirections.h>
+#include <utils/geom/Bresenham.h>
 
 
 /* =========================================================================
@@ -180,6 +190,9 @@ class NBRequest;
 class NBDistrict;
 class OptionsCont;
 class NBTrafficLightDefinition;
+class NBTypeCont;
+class NBTrafficLightLogicCont;
+class NBDistrictCont;
 
 
 /* =========================================================================
@@ -303,10 +316,11 @@ public:
     void computeLanes2Lanes();
 
     /// computes the node's type, logic and traffic light
-    void computeLogic(OptionsCont &oc);
+    void computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
+        OptionsCont &oc);
 
     /** initialises the list of all edges and sorts all edges */
-    void sortNodesEdges();
+    void sortNodesEdges(const NBTypeCont &tc);
 
     /** reports about the build junctions */
     static void reportBuild();
@@ -335,7 +349,8 @@ public:
     NBEdge *getPossiblySplittedIncoming(const std::string &edgeid);
     NBEdge *getPossiblySplittedOutgoing(const std::string &edgeid);
 
-    size_t eraseDummies();
+    size_t eraseDummies(NBDistrictCont &dc, NBEdgeCont &ec,
+        NBTrafficLightLogicCont &tc);
 
     void removeOutgoing(NBEdge *edge);
     void removeIncoming(NBEdge *edge);
@@ -409,7 +424,7 @@ private:
     void sortSmall();
 
     // computes the junction type
-    BasicNodeType computeType() const;
+    BasicNodeType computeType(const NBTypeCont &tc) const;
 
     /** returns the information whether this node is the center of a district
         for this, all incoming edges must be sinks while all outgoing
@@ -469,7 +484,8 @@ private:
         size_t whichLaneOff, size_t byLaneOff);
 
 
-    void remapRemoved(NBEdge *removed, const EdgeVector &incoming, const EdgeVector &outgoing);
+    void remapRemoved(NBTrafficLightLogicCont &tc,
+        NBEdge *removed, const EdgeVector &incoming, const EdgeVector &outgoing);
 
     double chooseLaneOffset(DoubleVector &chk);
     double chooseLaneOffset2(DoubleVector &chk);
@@ -529,9 +545,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NBNode.icc"
-//#endif
 
 #endif
 

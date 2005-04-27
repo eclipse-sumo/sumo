@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.28  2005/01/27 14:26:08  dkrajzew
 // patched several problems on determination of the turning direction; code beautifying
 //
@@ -144,6 +147,12 @@ namespace
 // Initial import as a separate application.
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
@@ -179,7 +188,7 @@ using namespace std;
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
-   #define _INC_MALLOC       // exclude standard memory alloc procedures
+   #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
 
@@ -193,11 +202,12 @@ size_t NBRequest::myNotBuild = 0;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
+NBRequest::NBRequest(const NBEdgeCont &ec,
+                     NBNode *junction, const EdgeVector * const all,
                      const EdgeVector * const incoming,
                      const EdgeVector * const outgoing,
                      const NBConnectionProhibits &loadedProhibits)
-    : _junction(junction),
+	: _junction(junction),
     _all(all), _incoming(incoming), _outgoing(outgoing)
 {
     size_t variations = _incoming->size() * _outgoing->size();
@@ -219,7 +229,7 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
     // insert loaded prohibits
     for(NBConnectionProhibits::const_iterator j=loadedProhibits.begin(); j!=loadedProhibits.end(); j++) {
         NBConnection prohibited = (*j).first;
-        bool ok1 = prohibited.check();
+        bool ok1 = prohibited.check(ec);
         if(find(_incoming->begin(), _incoming->end(), prohibited.getFrom())==_incoming->end()) {
             ok1 = false;
         }
@@ -236,7 +246,7 @@ NBRequest::NBRequest(NBNode *junction, const EdgeVector * const all,
         const NBConnectionVector &prohibiting = (*j).second;
         for(NBConnectionVector::const_iterator k=prohibiting.begin(); k!=prohibiting.end(); k++) {
             NBConnection sprohibiting = *k;
-            bool ok2 = sprohibiting.check();
+            bool ok2 = sprohibiting.check(ec);
             if(find(_incoming->begin(), _incoming->end(), sprohibiting.getFrom())==_incoming->end()) {
                 ok2 = false;
             }
@@ -289,7 +299,8 @@ NBRequest::~NBRequest()
 
 
 void
-NBRequest::buildBitfieldLogic(const std::string &key)
+NBRequest::buildBitfieldLogic(NBJunctionLogicCont &jc,
+                              const std::string &key)
 {
     EdgeVector::const_iterator i, j;
     for(i=_incoming->begin(); i!=_incoming->end(); i++) {
@@ -298,7 +309,7 @@ NBRequest::buildBitfieldLogic(const std::string &key)
             computeLeftOutgoingLinkCrossings(*i, *j);
         }
     }
-    NBJunctionLogicCont::add(key, bitsetToXML(key));
+    jc.add(key, bitsetToXML(key));
 }
 
 
@@ -614,7 +625,7 @@ NBRequest::foes(NBEdge *from1, NBEdge *to1,
 
 bool
 NBRequest::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
-                   NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
+				   NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
                    bool regardNonSignalisedLowerPriority) const
 {
     // unconnected edges do not forbid other edges
@@ -693,12 +704,12 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
                     assert(connected!=0&&k<(int) connected->size());
                     assert((size_t) idx<_incoming->size()*_outgoing->size());
                     assert((*connected)[k].edge==0 || (size_t) getIndex(*i, (*connected)[k].edge)<_incoming->size()*_outgoing->size());
-                    // check whether the connection is prohibited by another one
+					// check whether the connection is prohibited by another one
                     if( (*connected)[k].edge!=0 &&
                         _forbids[getIndex(*i, (*connected)[k].edge)][idx] &&
                         toLane == (*connected)[k].lane ) {
                         os << '1';
-                        continue;
+						continue;
                     }
                     os << '0';
                 }
@@ -780,22 +791,22 @@ operator<<(std::ostream &os, const NBRequest &r)
 bool
 NBRequest::mustBrake(NBEdge *from, NBEdge *to) const
 {
-    // vehicles which do not have a following lane must always decelerate to the end
-    if(to==0) {
-        return true;
-    }
+	// vehicles which do not have a following lane must always decelerate to the end
+	if(to==0) {
+		return true;
+	}
     // get the indices
     int idx2 = getIndex(from, to);
     if(idx2==-1) {
         return false;
     }
     assert((size_t) idx2<_incoming->size()*_outgoing->size());
-    for(size_t idx1=0; idx1<_incoming->size()*_outgoing->size(); idx1++) {
-        if(_forbids[idx1][idx2]) {
-            return true;
-        }
-    }
-    return false;
+	for(size_t idx1=0; idx1<_incoming->size()*_outgoing->size(); idx1++) {
+		if(_forbids[idx1][idx2]) {
+			return true;
+		}
+	}
+	return false;
 }
 
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/04/27 11:48:27  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.11  2005/02/17 10:33:39  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -225,6 +228,12 @@ namespace
 // Revision 1.1  2001/12/06 13:37:59  traffic
 // files for the netbuilder
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
@@ -561,7 +570,7 @@ NBNode::setPriorities()
 
 
 NBNode::BasicNodeType
-NBNode::computeType() const
+NBNode::computeType(const NBTypeCont &tc) const
 {
     // the type may already be set from the data
     if(_type!=NODETYPE_UNKNOWN) {
@@ -582,16 +591,12 @@ NBNode::computeType() const
     for( vector<NBEdge*>::const_iterator i=_allEdges.begin();
          i!=_allEdges.end(); i++) {
         for(vector<NBEdge*>::const_iterator j=i+1; j!=_allEdges.end(); j++) {
-            // !!!
             // This usage of defaults is not very well, still we do not have any
             //  methods for the conversion of foreign, sometimes not supplied
             //  road types ino an own format
-            // As default, TYPE_TRAFFIC_LIGHT is used, this should be valid for
-            //  most coarse networks
-            // !!!
             BasicNodeType tmptype = NODETYPE_PRIORITY_JUNCTION;
             try {
-                tmptype = NBTypeCont::getJunctionType(
+                tmptype = tc.getJunctionType(
                     (*i)->getPriority(),
                     (*j)->getPriority());
             } catch (OutOfBoundsException) {
@@ -1148,13 +1153,14 @@ NBNode::setKey(string key)
 
 
 void
-NBNode::computeLogic(OptionsCont &oc)
+NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
+                     OptionsCont &oc)
 {
     if(_incomingEdges->size()==0||_outgoingEdges->size()==0) {
         return;
     }
     // build the request
-    _request = new NBRequest(this,
+    _request = new NBRequest(ec, this,
         static_cast<const EdgeVector * const>(&_allEdges),
         static_cast<const EdgeVector * const>(_incomingEdges),
         static_cast<const EdgeVector * const>(_outgoingEdges),
@@ -1162,7 +1168,7 @@ NBNode::computeLogic(OptionsCont &oc)
 
     // compute the logic if necessary or split the junction
     if(_type!=NODETYPE_NOJUNCTION&&_type!=NODETYPE_DISTRICT) {
-        _request->buildBitfieldLogic(_id);
+        _request->buildBitfieldLogic(jc, _id);
     }
 }
 
@@ -1173,7 +1179,6 @@ NBNode::setType(BasicNodeType type)
     switch(type) {
     case NODETYPE_NOJUNCTION:
         _noNoJunctions++;
-        break;
         break;
     case NODETYPE_PRIORITY_JUNCTION:
         _noPriorityJunctions++;
@@ -1201,7 +1206,7 @@ NBNode::reportBuild()
 
 
 void
-NBNode::sortNodesEdges()
+NBNode::sortNodesEdges(const NBTypeCont &tc)
 {
     // sort the edges
     buildList();
@@ -1232,7 +1237,12 @@ NBNode::sortNodesEdges()
         cout << endl;
     }
 #endif
-    setType(computeType());
+    NBNode::BasicNodeType type = computeType(tc);
+    if(type!=NODETYPE_NOJUNCTION&&type!=NODETYPE_PRIORITY_JUNCTION&&type!=NODETYPE_RIGHT_BEFORE_LEFT&&type!=NODETYPE_DISTRICT) {
+        int bla = 0;
+        type = computeType(tc);
+    }
+    setType(type);
     setPriorities();
 }
 
@@ -1694,7 +1704,7 @@ NBNode::getPossiblySplittedOutgoing(const std::string &edgeid)
 
 
 size_t
-NBNode::eraseDummies()
+NBNode::eraseDummies(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc)
 {
     size_t ret = 0;
     if(_outgoingEdges==0||_incomingEdges==0) {
@@ -1730,10 +1740,10 @@ NBNode::eraseDummies()
         }
         // let the dummy remap its connections
         dummy->remapConnections(incomingConnected);
-        remapRemoved(dummy, incomingConnected, outgoingConnected);
+        remapRemoved(tc, dummy, incomingConnected, outgoingConnected);
 //        dummy->removeFromProceeding();
         // delete the dummy
-        NBEdgeCont::erase(dummy);
+        ec.erase(dc, dummy);
         j = _incomingEdges->begin() + pos;
         ret++;
     }
@@ -1906,7 +1916,8 @@ NBNode::foes(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const
 
 
 void
-NBNode::remapRemoved(NBEdge *removed, const EdgeVector &incoming,
+NBNode::remapRemoved(NBTrafficLightLogicCont &tc,
+                     NBEdge *removed, const EdgeVector &incoming,
                      const EdgeVector &outgoing)
 {
     assert(find(incoming.begin(), incoming.end(), removed)==incoming.end());
@@ -1982,7 +1993,7 @@ NBNode::remapRemoved(NBEdge *removed, const EdgeVector &incoming,
         _blockedConnections = blockedConnectionsNew;
     }
     // remap in traffic lights
-    NBTrafficLightLogicCont::remapRemoved(removed, incoming, outgoing);
+    tc.remapRemoved(removed, incoming, outgoing);
 }
 
 

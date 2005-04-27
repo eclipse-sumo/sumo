@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.6  2004/01/12 15:09:28  dkrajzew
 // some work on the documentation
 //
@@ -35,7 +38,12 @@
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -64,39 +72,44 @@ class NBEdge;
  */
 class NBDistrictCont {
 public:
+    NBDistrictCont();
+    ~NBDistrictCont();
+
     /** adds a district to the dictionary;
         returns false if the districts already was in the dictionary */
-    static bool insert(NBDistrict *district);
+    bool insert(NBDistrict *district);
 
     /// returns the districts that has the given id
-    static NBDistrict *retrieve(const std::string &id);
+    NBDistrict *retrieve(const std::string &id);
 
     /** prints all edges */
-    static void writeXML(std::ostream &into);
+    void writeXML(std::ostream &into);
 
     /** returns the number of districts inside the container */
-    static int size();
+    int size();
 
     /** deletes all districts */
-    static void clear();
+    void clear();
 
     /// reports how many districts were loaded
-    static void report();
+    void report();
 
     /// adds a source to the named district
-    static bool addSource(const std::string &dist, NBEdge *source,
+    bool addSource(const std::string &dist, NBEdge *source,
         double weight);
 
     /// adds a destination to the named district
-    static bool addSink(const std::string &dist, NBEdge *destination,
+    bool addSink(const std::string &dist, NBEdge *destination,
         double weight);
+
+    void removeFromSinksAndSources(NBEdge *e);
 
 private:
     /// the type of the dictionary where a node may be found by her id
     typedef std::map<std::string, NBDistrict*> DistrictCont;
 
     /// the instance of the dictionary
-    static DistrictCont _districts;
+    DistrictCont _districts;
 
 private:
     /** invalid copy constructor */
@@ -108,9 +121,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NBDistrictCont.icc"
-//#endif
 
 #endif
 

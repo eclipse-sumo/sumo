@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.32  2005/01/27 14:26:08  dkrajzew
 // patched several problems on determination of the turning direction; code beautifying
 //
@@ -154,6 +157,12 @@ namespace
 // files for the netbuilder
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <vector>
@@ -172,6 +181,7 @@ namespace
 #include "NBHelpers.h"
 #include "NBCont.h"
 #include "NBTrafficLightLogicCont.h"
+#include "NBDistrictCont.h"
 #include <cmath>
 #include "NBTypeCont.h"
 #include <iostream>
@@ -201,15 +211,13 @@ using namespace std;
 
 
 /* =========================================================================
- * static members
- * ======================================================================= */
-NBEdgeCont::EdgeCont NBEdgeCont::_edges;
-size_t NBEdgeCont::EdgesSplit = 0;
-
-
-/* =========================================================================
  * method definitions
  * ======================================================================= */
+NBEdgeCont::NBEdgeCont()
+    : EdgesSplit(0)
+{
+}
+
 bool
 NBEdgeCont::insert(NBEdge *edge)
 {
@@ -250,9 +258,9 @@ NBEdgeCont::insert(NBEdge *edge)
 
 
 NBEdge *
-NBEdgeCont::retrieve(const string &id)
+NBEdgeCont::retrieve(const string &id) const
 {
-    EdgeCont::iterator i = _edges.find(id);
+    EdgeCont::const_iterator i = _edges.find(id);
     if(i==_edges.end()) return 0;
     return (*i).second;
 }
@@ -417,16 +425,16 @@ NBEdgeCont::report()
 
 
 bool
-NBEdgeCont::splitAt(NBEdge *edge, NBNode *node)
+NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node)
 {
-    return splitAt(edge, node,
+    return splitAt(dc, edge, node,
         edge->getID() + string("[0]"), edge->getID() + string("[1]"),
         edge->_nolanes, edge->_nolanes);
 }
 
 
 bool
-NBEdgeCont::splitAt(NBEdge *edge, NBNode *node,
+NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
                     const std::string &firstEdgeName,
                     const std::string &secondEdgeName,
                     size_t noLanesFirstEdge, size_t noLanesSecondEdge)
@@ -437,13 +445,14 @@ NBEdgeCont::splitAt(NBEdge *edge, NBNode *node,
     if(pos<=0) {
         return false;
     }
-    return splitAt(edge, pos, node, firstEdgeName, secondEdgeName,
+    return splitAt(dc, edge, pos, node, firstEdgeName, secondEdgeName,
         noLanesFirstEdge, noLanesSecondEdge);
         //!!! does not regard the real edge geometry
 }
 
 bool
-NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
+NBEdgeCont::splitAt(NBDistrictCont &dc,
+                    NBEdge *edge, double pos, NBNode *node,
                     const std::string &firstEdgeName,
                     const std::string &secondEdgeName,
                     size_t noLanesFirstEdge, size_t noLanesSecondEdge)
@@ -479,7 +488,7 @@ NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
     edge->_from->removeDoubleEdges();
     edge->_to->removeDoubleEdges();
     // erase the splitted edge
-    erase(edge);
+    erase(dc, edge);
     // add connections from the first to the second edge
     size_t noLanes = one->getNoLanes();
     for(i=0; i<noLanes; i++) {
@@ -497,11 +506,18 @@ NBEdgeCont::splitAt(NBEdge *edge, double pos, NBNode *node,
 
 
 void
-NBEdgeCont::erase(NBEdge *edge)
+NBEdgeCont::erase(NBDistrictCont &dc, NBEdge *edge)
 {
+    if(edge->getID()=="15032778") {
+        int bla = 0;
+    }
+    if(edge->getID()=="15032940") {
+        int bla = 0;
+    }
     _edges.erase(edge->getID());
     edge->_from->removeOutgoing(edge);
     edge->_to->removeIncoming(edge);
+    dc.removeFromSinksAndSources(edge);
     delete edge;
 }
 
@@ -509,7 +525,7 @@ NBEdgeCont::erase(NBEdge *edge)
 NBEdge *
 NBEdgeCont::retrievePossiblySplitted(const std::string &id,
                                      const std::string &hint,
-                                     bool incoming)
+                                     bool incoming) const
 {
     // try to retrieve using the given name (iterative)
     NBEdge *edge = retrieve(id);
@@ -544,11 +560,11 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id,
 
 
 EdgeVector
-NBEdgeCont::getGeneratedFrom(const std::string &id)
+NBEdgeCont::getGeneratedFrom(const std::string &id) const
 {
     size_t len = id.length();
     EdgeVector ret;
-    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for(EdgeCont::const_iterator i=_edges.begin(); i!=_edges.end(); i++) {
         string curr = (*i).first;
         // the next check makes it possibly faster - we don not have
         //  to compare the names
@@ -599,7 +615,9 @@ NBEdgeCont::buildPossibilities(const std::vector<std::string> &s)
 
 
 void
-NBEdgeCont::joinSameNodeConnectingEdges(EdgeVector edges)
+NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
+                                        NBTrafficLightLogicCont &tlc,
+                                        EdgeVector edges)
 {
     // !!! Attention!
     //  No merging of the geometry to come is being done
@@ -686,19 +704,18 @@ NBEdgeCont::joinSameNodeConnectingEdges(EdgeVector edges)
         size_t noLanes = (*i)->getNoLanes();
         for(size_t j=0; j<noLanes; j++, currLane++) {
             // replace in traffic lights
-            NBTrafficLightLogicCont::replaceRemoved(*i, j,
-                newEdge, currLane);
+            tlc.replaceRemoved(*i, j, newEdge, currLane);
         }
     }
     // delete joined edges
     for(i=edges.begin(); i!=edges.end(); i++) {
-        erase(*i);
+        erase(dc, *i);
     }
 }
 
 
 NBEdge *
-NBEdgeCont::retrievePossiblySplitted(const std::string &id, double pos)
+NBEdgeCont::retrievePossiblySplitted(const std::string &id, double pos) const
 {
     // check whether the edge was not split, yet
     NBEdge *edge = retrieve(id);
@@ -730,6 +747,7 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, double pos)
             }
         }
     }
+    return 0; //!!!
 }
 
 
@@ -748,10 +766,10 @@ NBEdgeCont::search(NBEdge *e)
 
 
 bool
-NBEdgeCont::normaliseEdgePositions()
+NBEdgeCont::normaliseEdgePositions(const NBNodeCont &nc)
 {
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
-        (*i).second->normalisePosition();
+        (*i).second->normalisePosition(nc);
     }
     return true;
 }
@@ -810,7 +828,7 @@ NBEdgeCont::savePlain(const std::string &file)
 
 
 bool
-NBEdgeCont::removeUnwishedEdges(OptionsCont &oc)
+NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &oc)
 {
     //
     std::vector<NBEdge*> toRemove;
@@ -827,12 +845,12 @@ NBEdgeCont::removeUnwishedEdges(OptionsCont &oc)
         if(!found) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
-        toRemove.push_back(edge);
+	    toRemove.push_back(edge);
         }
         ++i;
     }
     for(std::vector<NBEdge*>::iterator j=toRemove.begin(); j!=toRemove.end(); ++j) {
-      erase(*j);
+      erase(dc, *j);
     }
     return true;
 }

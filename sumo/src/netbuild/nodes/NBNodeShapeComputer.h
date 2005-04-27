@@ -1,6 +1,12 @@
 #ifndef NBNodeShapeComputer_h
 #define NBNodeShapeComputer_h
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <utils/geom/Position2DVector.h>
 
 class NBNode;

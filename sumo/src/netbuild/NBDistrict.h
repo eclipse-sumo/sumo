@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.7  2003/11/11 08:33:54  dkrajzew
 // consequent position2D instead of two doubles added
 //
@@ -38,7 +41,10 @@
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -113,6 +119,8 @@ public:
     /// replaces outgoing edges from the vector (sources) by the given edge
     void replaceOutgoing(const EdgeVector &which, NBEdge *by);
 
+    void removeFromSinksAndSources(NBEdge *e);
+
 private:
     /// a secondary name
     std::string _name;
@@ -143,9 +151,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NBDistrict.icc"
-//#endif
 
 #endif
 

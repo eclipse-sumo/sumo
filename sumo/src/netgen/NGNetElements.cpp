@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/04/27 11:48:51  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.8  2004/08/02 12:41:40  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -47,6 +50,12 @@ namespace
 // files needed to generate networks added
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <algorithm>
@@ -56,6 +65,7 @@ namespace
 #include <netbuild/NBOwnTLDef.h>
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
+#include <netbuild/NBNetBuilder.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/convert/ToString.h>
 #include <utils/options/OptionsSubSys.h>
@@ -128,7 +138,7 @@ TNode::RemoveLink(TLink *Link)
 
 
 NBNode *
-TNode::buildNBNode() const
+TNode::buildNBNode(NBNetBuilder &nb) const
 {
     // the center will have no logic!
     if( myAmCenter ) {
@@ -148,7 +158,7 @@ TNode::buildNBNode() const
     // this traffic light is visited the first time
     NBTrafficLightDefinition *tlDef =
         new NBOwnTLDef(myID, nodeType, node);
-    if(!NBTrafficLightLogicCont::insert(myID, tlDef)) {
+    if(!nb.getTLLogicCont().insert(myID, tlDef)) {
         // actually, nothing should fail here
         delete tlDef;
         throw ProcessError();
@@ -214,27 +224,23 @@ TLink::~TLink()
 
 
 NBEdge *
-TLink::buildNBEdge() const
+TLink::buildNBEdge(NBNetBuilder &nb) const
 {
     return new NBEdge(
         myID, // id
         myID, // name
-        NBNodeCont::retrieve(myStartNode->GetID()), // from
-        NBNodeCont::retrieve(myEndNode->GetID()), // to
+        nb.getNodeCont().retrieve(myStartNode->GetID()), // from
+        nb.getNodeCont().retrieve(myEndNode->GetID()), // to
         "netgen-default", // type
-        NBTypeCont::getDefaultSpeed(),
-        NBTypeCont::getDefaultNoLanes(),
+        nb.getTypeCont().getDefaultSpeed(),
+        nb.getTypeCont().getDefaultNoLanes(),
         -1,
-        NBTypeCont::getDefaultPriority()
+        nb.getTypeCont().getDefaultPriority()
         );
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-//#ifdef DISABLE_INLINE
-//#include "NGNetElements.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/04/27 11:48:51  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.7  2004/11/23 10:22:03  dkrajzew
 // debugging
 //
@@ -43,7 +46,12 @@ namespace
 // Revision 1.1  2003/07/16 15:33:08  dkrajzew
 // files needed to generate networks added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -362,12 +370,8 @@ TNGRandomNet::CreateNet(int NumNodes)
 }
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-//#ifdef DISABLE_INLINE
-//#include "NGRandomNet.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

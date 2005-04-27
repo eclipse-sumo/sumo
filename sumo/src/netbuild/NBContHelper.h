@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.13  2005/01/27 14:26:08  dkrajzew
 // patched several problems on determination of the turning direction; code beautifying
 //
@@ -83,7 +86,12 @@
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

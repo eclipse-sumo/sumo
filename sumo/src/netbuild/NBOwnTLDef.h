@@ -1,6 +1,12 @@
 #ifndef NBOwnTLDef_h
 #define NBOwnTLDef_h
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <vector>
 #include <set>
 #include "NBTrafficLightDefinition.h"
@@ -46,7 +52,8 @@ public:
 
 protected:
     /// Computes the traffic light logic
-    NBTrafficLightLogicVector *myCompute(size_t breakingTime,
+    NBTrafficLightLogicVector *myCompute(const NBEdgeCont &ec,
+        size_t breakingTime,
         std::string type, bool buildAll);
 
     /// Collects the nodes participating in this traffic light
@@ -57,7 +64,7 @@ protected:
     void replaceRemoved(NBEdge *removed, int removedLane,
         NBEdge *by, int byLane);
 
-    void setTLControllingInformation() const;
+    void setTLControllingInformation(const NBEdgeCont &ec) const;
 
 
 private:

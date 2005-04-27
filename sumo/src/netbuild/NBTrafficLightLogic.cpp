@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2005/04/27 11:48:26  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.16  2004/04/23 12:41:02  dkrajzew
 // some further work on vissim-import
 //
@@ -69,6 +72,12 @@ namespace
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -85,6 +94,10 @@ namespace
 #include "NBEdge.h"
 #include "NBEdgeCont.h"
 #include "NBTrafficLightLogic.h"
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
+#include <utils/options/Option.h>
+#include <utils/common/StringTokenizer.h>
 
 
 /* =========================================================================
@@ -139,7 +152,8 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no, double distance,
     into << "      <key>" << _key << "</key>" << endl;
     into << "      <logicno>" << no << "</logicno>" << endl;
     into << "      <phaseno>" << _phases.size() << "</phaseno>" << endl;
-    into << "      <offset>0</offset>" << endl;
+    int offset = getOffset();
+    into << "      <offset>" << offset << "</offset>" << endl;
     // write the inlanes
     std::set<string>::const_iterator j;
     into << "      <inclanes>";
@@ -223,6 +237,57 @@ NBTrafficLightLogic::closeBuilding()
         _phases.erase(_phases.begin()+i+1);
     }
 }
+
+
+size_t
+NBTrafficLightLogic::getOffset() const
+{
+    // check whether any offsets shall be manipulated by setting
+    //  them to half of the duration
+    if(OptionsSubSys::getOptions().isSet("tl-logics.half-offset")) {
+        if(checkOffsetFor("tl-logics.half-offset")) {
+            return computeOffsetFor(0.5);
+        }
+    }
+    // check whether any offsets shall be manipulated by setting
+    //  them to half of the duration
+    if(OptionsSubSys::getOptions().isSet("tl-logics.quarter-offset")) {
+        if(checkOffsetFor("tl-logics.quarter-offset")) {
+            return computeOffsetFor(0.25);
+        }
+    }
+    // The key was not found within the offsets to change
+    //  or nothing shall be changed
+    return 0;
+}
+
+
+bool
+NBTrafficLightLogic::checkOffsetFor(const std::string &optionName) const
+{
+    string offsets =
+        OptionsSubSys::getOptions().getString(optionName);
+    StringTokenizer st(offsets, ";");
+    while(st.hasNext()) {
+        string key = st.next();
+        if(key==_key) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+size_t
+NBTrafficLightLogic::computeOffsetFor(double offsetMult) const
+{
+    size_t dur = 0;
+    for(size_t i=0; i<_phases.size(); ++i) {
+        dur += _phases[i].duration;
+    }
+    return (size_t) ((double) dur * offsetMult);
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

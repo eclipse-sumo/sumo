@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.5  2004/01/12 15:25:09  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -67,7 +70,12 @@ namespace
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -100,7 +108,7 @@ using namespace std;
  * ======================================================================= */
 NBJunctionTypesMatrix::NBJunctionTypesMatrix()
 {
-//    _map['t'] = NBNode::NODETYPE_SIMPLE_TRAFFIC_LIGHT;
+    _map['t'] = NBNode::NODETYPE_PRIORITY_JUNCTION; // !!! was: NODETYPE_SIMPLE_TRAFFIC_LIGHT;
     _map['x'] = NBNode::NODETYPE_NOJUNCTION;
     _map['p'] = NBNode::NODETYPE_PRIORITY_JUNCTION;
     _map['r'] = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
@@ -127,22 +135,23 @@ NBJunctionTypesMatrix::~NBJunctionTypesMatrix()
 
 
 NBNode::BasicNodeType
-NBJunctionTypesMatrix::getType(int prio1, int prio2)
+NBJunctionTypesMatrix::getType(int prio1, int prio2) const
 {
-    RangeCont::iterator p1 = find_if(_ranges.begin(), _ranges.end(),
+    RangeCont::const_iterator p1 = find_if(_ranges.begin(), _ranges.end(),
         priority_finder(prio1));
-    RangeCont::iterator p2 = find_if(_ranges.begin(), _ranges.end(),
+    RangeCont::const_iterator p2 = find_if(_ranges.begin(), _ranges.end(),
         priority_finder(prio2));
     if(p1==_ranges.end()||p2==_ranges.end()) {
         throw OutOfBoundsException();
     }
-    return _map[getNameAt(distance(_ranges.begin(), p1),
-        distance(_ranges.begin(), p2))];
+    char name = getNameAt(distance(_ranges.begin(), p1),
+        distance(_ranges.begin(), p2));
+    return _map.find(name)->second;
 }
 
 
 char
-NBJunctionTypesMatrix::getNameAt(int pos1, int pos2)
+NBJunctionTypesMatrix::getNameAt(int pos1, int pos2) const
 {
     string str = _values[pos1];
     if(str[pos2]==' ') {
@@ -152,9 +161,6 @@ NBJunctionTypesMatrix::getNameAt(int pos1, int pos2)
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBJunctionTypesMatrix.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

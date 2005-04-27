@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.4  2004/01/12 15:25:09  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -32,7 +35,10 @@ namespace
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -41,6 +47,7 @@ namespace
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 //#include <strstream>
 #include "nodes/NBNode.h"
@@ -212,9 +219,6 @@ NBLogicKeyBuilder::rotateKey(const string &run)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NBLogicKeyBuilder.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

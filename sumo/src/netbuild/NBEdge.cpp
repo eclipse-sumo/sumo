@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.50  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.49  2005/01/27 14:26:08  dkrajzew
 // patched several problems on determination of the turning direction; code beautifying
 //
@@ -231,6 +234,12 @@ namespace
 // Revision 1.1  2001/12/06 13:37:59  traffic
 // files for the netbuilder
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -474,6 +483,9 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 
 NBEdge::~NBEdge()
 {
+    if(_id=="15032778") {
+        int bla = 0;
+    }
     delete _reachable;
     delete _succeedinglanes;
     delete _ToEdges;
@@ -1035,6 +1047,9 @@ NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest, size_t toLane)
 bool
 NBEdge::computeEdge2Edges()
 {
+    if(_id=="15032940") {
+        int bla = 0;
+    }
     // return if this relationship has been build in previous steps or
     //  during the import
     if(_step>=EDGE2EDGES) {
@@ -1271,6 +1286,10 @@ NBEdge::preparePriorities(const vector<NBEdge*> *outgoing)
     vector<NBEdge*>::const_iterator i;
     for(i=outgoing->begin(); i!=outgoing->end(); i++) {
         int prio = (*i)->getJunctionPriority(_to);
+        if(((*i)->getJunctionPriority(_to)+1)*2<=0) {
+            int bla = 0;
+            prio = (*i)->getJunctionPriority(_to);
+        }
         assert(((*i)->getJunctionPriority(_to)+1)*2>0);
         prio = (prio+1) * 2;
         priorities->push_back(prio);
@@ -1853,11 +1872,11 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
 
 
 void
-NBEdge::normalisePosition()
+NBEdge::normalisePosition(const NBNodeCont &nc)
 {
-    myGeom.resetBy(NBNodeCont::getNetworkOffset());
+    myGeom.resetBy(nc.getNetworkOffset());
     for(size_t i=0; i<_nolanes; i++) {
-        myLaneGeoms[i].resetBy(NBNodeCont::getNetworkOffset());
+        myLaneGeoms[i].resetBy(nc.getNetworkOffset());
     }
 }
 
@@ -2032,6 +2051,9 @@ NBEdge::expandableBy(NBEdge *possContinuation) const
 void
 NBEdge::append(NBEdge *e)
 {
+    if(_id=="15032778") {
+        int bla = 0;
+    }
     // append geometry
     myGeom.appendWithCrossingPoint(e->myGeom);
     for(size_t i=0; i<_nolanes; i++) {

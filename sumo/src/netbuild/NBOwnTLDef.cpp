@@ -1,3 +1,9 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 
 #include <vector>
 #include <cassert>
@@ -42,7 +48,8 @@ NBOwnTLDef::~NBOwnTLDef()
 
 
 NBTrafficLightLogicVector *
-NBOwnTLDef::myCompute(size_t breakingTime, std::string type, bool buildAll)
+NBOwnTLDef::myCompute(const NBEdgeCont &ec,
+                      size_t breakingTime, std::string type, bool buildAll)
 {
     bool appendSmallestOnly = true;
     bool skipLarger = true;
@@ -196,7 +203,7 @@ NBOwnTLDef::setParticipantsInformation()
 }
 
 void
-NBOwnTLDef::setTLControllingInformation() const
+NBOwnTLDef::setTLControllingInformation(const NBEdgeCont &ec) const
 {
     // set the information about the link's positions within the tl into the
     //  edges the links are starting at, respectively

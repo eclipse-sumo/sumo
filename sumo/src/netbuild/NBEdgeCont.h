@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.20  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.19  2004/12/16 12:16:30  dkrajzew
 // a further network prune option added
 //
@@ -119,6 +122,12 @@
 // files for the netbuilder
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <map>
@@ -136,6 +145,8 @@ class NBNodeCont;
 class NBEdge;
 class NBNode;
 class OptionsCont;
+class NBDistrictCont;
+class NBTrafficLightLogicCont;
 
 
 /* =========================================================================
@@ -147,122 +158,124 @@ class OptionsCont;
  */
 class NBEdgeCont {
 public:
+    NBEdgeCont();
 
     /** adds an edge to the dictionary;
         returns false if the edge already was in the dictionary */
-    static bool insert(NBEdge *edge);
+    bool insert(NBEdge *edge);
 
     /// returns the edge that has the given id
-    static NBEdge *retrieve(const std::string &id);
+    NBEdge *retrieve(const std::string &id) const;
 
     /** @brief Tries to retrieve an edge, even if it is splitted
         To describe which part of the edge shall be returned, the
         id of a second edge, participating at the node and the information
         whether to return the outgoing or the incoming is needed */
-    static NBEdge *retrievePossiblySplitted(
-        const std::string &id, const std::string &hint, bool incoming);
+    NBEdge *retrievePossiblySplitted(
+        const std::string &id, const std::string &hint, bool incoming) const;
 
     /** @brief Tries to retrieve an edge, even if it is splitted
         To describe which part of the edge shall be returned, a
         position hint is supplied */
-    static NBEdge *retrievePossiblySplitted(
-        const std::string &id, double pos);
+    NBEdge *retrievePossiblySplitted(
+        const std::string &id, double pos) const;
 
     /** computes edges, step1: computation of approached edges */
-    static bool computeEdge2Edges();
+    bool computeEdge2Edges();
 
     /// computes edges, step2: computation of which lanes approach the edges)
-    static bool computeLanes2Edges();
+    bool computeLanes2Edges();
 
     /** sorts all lanes of all edges within the container by their direction */
-    static bool sortOutgoingLanesConnections();
+    bool sortOutgoingLanesConnections();
 
     /** computes the turn-around directions of all edges within the
         container */
-    static bool computeTurningDirections();
+    bool computeTurningDirections();
 
     /** rechecks whether all lanes have a successor */
-    static bool recheckLanes();
+    bool recheckLanes();
 
     /** appends turnarounds */
-    static bool appendTurnarounds();
+    bool appendTurnarounds();
 
     /** @brief Splits the edge at the position nearest to the given node */
-    static bool splitAt(NBEdge *edge, NBNode *node);
+    bool splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node);
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications */
-    static bool splitAt(NBEdge *edge, NBNode *node,
+    bool splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
         const std::string &firstEdgeName, const std::string &secondEdgeName,
         size_t noLanesFirstEdge, size_t noLanesSecondEdge);
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications */
-    static bool splitAt(NBEdge *edge, double edgepos, NBNode *node,
+    bool splitAt(NBDistrictCont &dc, NBEdge *edge, double edgepos, NBNode *node,
         const std::string &firstEdgeName, const std::string &secondEdgeName,
         size_t noLanesFirstEdge, size_t noLanesSecondEdge);
 
     /** Removes the given edge from the container (deleting it) */
-    static void erase(NBEdge *edge);
+    void erase(NBDistrictCont &dc, NBEdge *edge);
 
     /** writes the list of edge names into the given stream */
-    static void writeXMLEdgeList(std::ostream &into,
+    void writeXMLEdgeList(std::ostream &into,
         std::vector<std::string> toAdd);
 
     /** writes the edge definitions with lanes and connected edges
         into the given stream */
-    static void writeXMLStep1(std::ostream &into);
+    void writeXMLStep1(std::ostream &into);
 
     /** writes the successor definitions of edges */
-    static void writeXMLStep2(std::ostream &into);
+    void writeXMLStep2(std::ostream &into);
 
     /** writes the positions of edges */
-    static void writeXMLStep3(std::ostream &into);
+    void writeXMLStep3(std::ostream &into);
 
     /** returns the size of the edges */
-    static int size();
+    int size();
 
     /** returns the number of known edges */
-    static int getNo();
+    int getNo();
 
     /** deletes all edges */
-    static void clear();
+    void clear();
 
     /// reports how many edges were loaded
-    static void report();
+    void report();
 
     /// joins the given edges as they connect the same nodes
-    static void joinSameNodeConnectingEdges(EdgeVector edges);
+    void joinSameNodeConnectingEdges(NBDistrictCont &dc,
+        NBTrafficLightLogicCont &tlc, EdgeVector edges);
 
     /// !!! debug only
-    static void search(NBEdge *e);
+    void search(NBEdge *e);
 
     /// moves the geometry of the edges by the network offset
-    static bool normaliseEdgePositions();
-    static bool reshiftEdgePositions(double xoff, double yoff, double rot);
+    bool normaliseEdgePositions(const NBNodeCont &nc);
+    bool reshiftEdgePositions(double xoff, double yoff, double rot);
 
-    static bool computeEdgeShapes();
+    bool computeEdgeShapes();
 
-    static std::vector<std::string> getAllNames();
+    std::vector<std::string> getAllNames();
 
-    static bool savePlain(const std::string &file);
+    bool savePlain(const std::string &file);
 
-    static bool removeUnwishedEdges(OptionsCont &oc);
+    bool removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &oc);
 
 private:
-    static std::vector<std::string> buildPossibilities(
+    std::vector<std::string> buildPossibilities(
         const std::vector<std::string> &s);
 
 
-    static EdgeVector getGeneratedFrom(const std::string &id);
+    EdgeVector getGeneratedFrom(const std::string &id) const;
 
 private:
     /// the type of the dictionary where a node may be found by her id
     typedef std::map<std::string, NBEdge*> EdgeCont;
 
     /// the instance of the dictionary
-    static EdgeCont _edges;
+    EdgeCont _edges;
 
     /// the number of splits of edges during the building
-    static size_t EdgesSplit;
+    size_t EdgesSplit;
 
 private:
     /** invalid copy constructor */

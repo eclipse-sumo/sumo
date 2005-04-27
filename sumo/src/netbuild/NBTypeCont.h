@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/04/27 11:48:27  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.6  2004/01/12 15:25:09  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -69,7 +72,12 @@
 // Revision 1.1  2001/12/06 13:37:59  traffic
 // files for the netbuilder
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -85,48 +93,52 @@
  * ======================================================================= */
 class NBTypeCont {
 public:
+    NBTypeCont();
+
+    ~NBTypeCont();
+
     /** sets the default values */
-    static void setDefaults(const std::string &formatName, int defaultNoLanes,
+    void setDefaults(const std::string &formatName, int defaultNoLanes,
         double defaultSpeed, int defaultPriority);
 
     /** adds a possible type into the list */
-    static bool insert(NBType *type);
+    bool insert(NBType *type);
 
     /** returns the number of lanes
         (the default value if type does not exist) */
-    static int getNoLanes(const std::string &type);
+    int getNoLanes(const std::string &type);
 
     /** returns the maximal velocity on a section/edge in m/s
         (the default value if the type does not exist) */
-    static double getSpeed(const std::string &type);
+    double getSpeed(const std::string &type);
 
     /** returns the priority of the section/edge with the given type
         (the default value if the type does not exist) */
-    static int getPriority(const std::string &type);
+    int getPriority(const std::string &type);
 
     /** returns the name of the used format */
-    static std::string getFormatName();
+    std::string getFormatName();
 
     /** returns the default number of lanes */
-    static int getDefaultNoLanes();
+    int getDefaultNoLanes();
 
     /** returns the default speed */
-    static double getDefaultSpeed();
+    double getDefaultSpeed();
 
     /** returns the default priority */
-    static int getDefaultPriority();
+    int getDefaultPriority();
 
     /** returns the number of known types */
-    static size_t getNo();
+    size_t getNo();
 
     /** returns the type of the junction between two edges of the given types */
-    static NBNode::BasicNodeType getJunctionType(int edgetype1, int edgetype2);
+    NBNode::BasicNodeType getJunctionType(int edgetype1, int edgetype2) const;
 
     /** deletes all types */
-    static void clear();
+    void clear();
 
     /// reports how many nodes were loaded
-    static void report();
+    void report();
 
 private:
     /** a container of types, accessed by the string key */
@@ -134,22 +146,22 @@ private:
 
 private:
     /** the name of the used format */
-    static std::string              _formatName;
+    std::string              _formatName;
 
     /** the default number of lanes of a section/edge */
-    static int                      _defaultNoLanes;
+    int                      _defaultNoLanes;
 
     /** the default maximal velocity on a section/edge in m/s */
-    static double                   _defaultSpeed;
+    double                   _defaultSpeed;
 
     /** the default priority of a section/edge */
-    static int                      _defaultPriority;
+    int                      _defaultPriority;
 
     /** the container of types */
-    static TypesCont                _types;
+    TypesCont                _types;
 
     /** the matrix of roads to junction type mappings */
-    static NBJunctionTypesMatrix    _junctionTypes;
+    NBJunctionTypesMatrix    _junctionTypes;
 
 private:
     /** invalid copy constructor */
@@ -159,9 +171,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NBTypeCont.icc"
-//#endif
 
 #endif
 

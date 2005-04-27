@@ -1,8 +1,20 @@
 #ifndef NBNetBuilder_h
 #define NBNetBuilder_h
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <string>
 #include <iostream>
+#include "NBEdgeCont.h"
+#include "NBTypeCont.h"
+#include "nodes/NBNodeCont.h"
+#include "NBTrafficLightLogicCont.h"
+#include "NBJunctionLogicCont.h"
+#include "NBDistrictCont.h"
 
 class OptionsCont;
 
@@ -25,6 +37,14 @@ public:
     bool save(std::ostream &os, OptionsCont &oc);
 
     bool netBuild() const;
+
+    NBEdgeCont &getEdgeCont();
+    NBNodeCont &getNodeCont();
+    NBTypeCont &getTypeCont();
+    NBTrafficLightLogicCont &getTLLogicCont();
+    NBJunctionLogicCont &getJunctionLogicCont();
+    NBDistrictCont &getDistrictCont();
+
 
 protected:
 
@@ -92,6 +112,14 @@ protected:
 
 protected:
     bool myHaveBuildNet;
+
+    NBEdgeCont myEdgeCont;
+    NBNodeCont myNodeCont;
+    NBTypeCont myTypeCont;
+    NBTrafficLightLogicCont myTLLCont;
+    NBJunctionLogicCont myJunctionLogicCont;
+    NBDistrictCont myDistrictCont;
+
 };
 
 

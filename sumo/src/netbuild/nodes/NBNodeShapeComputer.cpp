@@ -1,3 +1,9 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <algorithm>
 #include <utils/geom/Position2DVector.h>
 #include <utils/options/OptionsSubSys.h>

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.36  2005/04/27 11:48:25  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.35  2005/01/27 14:26:08  dkrajzew
 // patched several problems on determination of the turning direction; code beautifying
 //
@@ -160,6 +163,12 @@
 // files for the netbuilder
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <map>
@@ -175,11 +184,11 @@
 #include <utils/geom/Line2D.h>
 
 
-
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class NBNode;
+class NBNodeCont;
 
 
 /* =========================================================================
@@ -403,7 +412,7 @@ public:
     void setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
         const std::string &tlID, size_t tlPos);
 
-    void normalisePosition();
+    void normalisePosition(const NBNodeCont &nc);
 
     void reshiftPosition(double xoff, double yoff, double rot);
 

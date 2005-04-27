@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/04/27 11:48:51  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.6  2004/11/23 10:22:03  dkrajzew
 // debugging
 //
@@ -40,7 +43,12 @@ namespace
 // Revision 1.1  2003/07/16 15:33:08  dkrajzew
 // files needed to generate networks added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -53,6 +61,7 @@ namespace
 #include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBNetBuilder.h>
 #include <utils/convert/ToString.h>
 #include "NGNet.h"
 
@@ -72,9 +81,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-TNGNet::TNGNet()
+TNGNet::TNGNet(NBNetBuilder &nb)
+    : myNetBuilder(nb)
 {
-    myLastID = 0;
+	myLastID = 0;
 }
 
 
@@ -86,147 +96,147 @@ TNGNet::~TNGNet()
 std::string
 TNGNet::GetID()
 {
-    return toString<int>(++myLastID);
+	return toString<int>(++myLastID);
 }
 
 
 void
 TNGNet::SaveNet(char* FileName)
 {/*
-    FILE* File;
-    // --------- nodes ---------------------------------------------------------
-    char NodeName[LENGTH];
-    strcpy(NodeName, FileName);
-    strcat(NodeName, "_nodes.txt");
-    File = fopen(NodeName, "w");
-    // header
-    fprintf(File,"<nodes>\n");
-    // node
-    TNodeList::iterator ni;
+	FILE* File;
+	// --------- nodes ---------------------------------------------------------
+	char NodeName[LENGTH];
+	strcpy(NodeName, FileName);
+	strcat(NodeName, "_nodes.txt");
+	File = fopen(NodeName, "w");
+	// header
+	fprintf(File,"<nodes>\n");
+	// node
+	TNodeList::iterator ni;
     for (ni = NodeList.begin(); ni != NodeList.end(); ++ni) {
-        fprintf(File, "%s%d%s", "   <node id=\"", (*ni)->GetID().c_str(), "\" ");
-        fprintf(File, "%s%f%s%f%s%", (const char*) "x=\"", (*ni)->x(), (const char *)"\" y=\"", (*ni)->y(), "\" ");
-        fprintf(File, "%s\n", "type=\"priority\"/>");
-    }
-    // end
-    fprintf(File, "</nodes>\n\n");
+		fprintf(File, "%s%d%s", "   <node id=\"", (*ni)->GetID().c_str(), "\" ");
+		fprintf(File, "%s%f%s%f%s%", (const char*) "x=\"", (*ni)->x(), (const char *)"\" y=\"", (*ni)->y(), "\" ");
+		fprintf(File, "%s\n", "type=\"priority\"/>");
+	}
+	// end
+	fprintf(File, "</nodes>\n\n");
     fclose(File);
 
-    // ---------- links -------------------------------------------------------
-    char LinkName[LENGTH];
-    strcpy(LinkName, FileName);
-    strcat(LinkName, "_links.txt");
-    File = fopen(LinkName, "w");
-    fprintf(File,"<edges>\n");
-    // node
-    TLinkList::iterator li;
+	// ---------- links -------------------------------------------------------
+	char LinkName[LENGTH];
+	strcpy(LinkName, FileName);
+	strcat(LinkName, "_links.txt");
+	File = fopen(LinkName, "w");
+	fprintf(File,"<edges>\n");
+	// node
+	TLinkList::iterator li;
     for (li = LinkList.begin(); li != LinkList.end(); ++li) {
 //   <edge id="1i" fromnode="1" tonode="0" type="25"/>
-        fprintf(File, "%s%d%s", "   <edge id=\"", (*li)->GetID(), "\" ");
-        fprintf(File, "%s%d%s%d%s", "fromnode=\"", (*li)->StartNode()->GetID(), "\" tonode=\"", (*li)->EndNode()->GetID(), "\" ");
-        fprintf(File, "%s\n", "type=\"25\"/>");
-    }
-    // end
-    fprintf(File, "</edges>\n\n");
-    fclose(File);*/
+   		fprintf(File, "%s%d%s", "   <edge id=\"", (*li)->GetID(), "\" ");
+		fprintf(File, "%s%d%s%d%s", "fromnode=\"", (*li)->StartNode()->GetID(), "\" tonode=\"", (*li)->EndNode()->GetID(), "\" ");
+		fprintf(File, "%s\n", "type=\"25\"/>");
+	}
+	// end
+	fprintf(File, "</edges>\n\n");
+	fclose(File);*/
 }
 
 
 TNode*
 TNGNet::FindNode(int xID, int yID)
 {
-    TNodeList::iterator ni;
+	TNodeList::iterator ni;
     ni = NodeList.begin();
-    while ((((*ni)->xID != xID) || ((*ni)->yID != yID)) && (ni != NodeList.end())) {
-        ni++;
-    }
-    if (((*ni)->xID == xID) && ((*ni)->yID == yID))
-        return *ni;
-    else
-        return 0;
+	while ((((*ni)->xID != xID) || ((*ni)->yID != yID)) && (ni != NodeList.end())) {
+		ni++;
+	}
+	if (((*ni)->xID == xID) && ((*ni)->yID == yID))
+		return *ni;
+	else
+		return 0;
 }
 
 
 void
 TNGNet::CreateChequerBoard(int NumX, int NumY, float SpaceX, float SpaceY)
 {
-    int ix, iy;
-    TNode *Node;
-    for (ix=0; ix<NumX; ix++) {
-        for (iy=0; iy<NumY; iy++) {
-            // create Node
+	int ix, iy;
+	TNode *Node;
+	for (ix=0; ix<NumX; ix++) {
+		for (iy=0; iy<NumY; iy++) {
+			// create Node
             string nodeID = toString<int>(ix) + "/" + toString<int>(iy);
-            Node = new TNode(nodeID, ix, iy);
-            Node->SetX(ix * SpaceX);
-            Node->SetY(iy * SpaceY);
-            NodeList.push_back(Node);
-            // create Links
-            if (ix > 0) {
+			Node = new TNode(nodeID, ix, iy);
+			Node->SetX(ix * SpaceX);
+			Node->SetY(iy * SpaceY);
+			NodeList.push_back(Node);
+			// create Links
+			if (ix > 0) {
                 connect(Node, FindNode(ix-1, iy));
-/*              Link = new TLink(GetID(), Node, FindNode(ix-1, iy));
-                LinkList.push_back(Link);*/
-            }
-            if (iy > 0) {
+/*				Link = new TLink(GetID(), Node, FindNode(ix-1, iy));
+				LinkList.push_back(Link);*/
+			}
+			if (iy > 0) {
                 connect(Node, FindNode(ix, iy-1));
-/*              Link = new TLink(GetID(), Node, FindNode(ix, iy-1));
-                LinkList.push_back(Link);*/
-            }
-        }
-    }
+/*				Link = new TLink(GetID(), Node, FindNode(ix, iy-1));
+				LinkList.push_back(Link);*/
+			}
+		}
+	}
 }
 
 
 float
 TNGNet::RadialToX(float radius, float phi) {
-    return cos(phi) * radius;
+	return cos(phi) * radius;
 }
 
 
 float
 TNGNet::RadialToY(float radius, float phi) {
-    return sin(phi) * radius;
+	return sin(phi) * radius;
 }
 
 
 void
 TNGNet::CreateSpiderWeb(int NumRadDiv, int NumCircles, float SpaceRad)
 {
-    if (NumRadDiv < 3) NumRadDiv = 3;
-    if (NumCircles < 1) NumCircles = 1;
+	if (NumRadDiv < 3) NumRadDiv = 3;
+	if (NumCircles < 1) NumCircles = 1;
 
-    int ir, ic;
-    float angle = (float) (2*PI/NumRadDiv);  // angle between radial divisions
-    TNode *Node;
-    for (ir=1; ir<NumRadDiv+1; ir++) {
-        for (ic=1; ic<NumCircles+1; ic++) {
-            // create Node
-            Node = new TNode(
+	int ir, ic;
+	float angle = (float) (2*PI/NumRadDiv);  // angle between radial divisions
+	TNode *Node;
+	for (ir=1; ir<NumRadDiv+1; ir++) {
+		for (ic=1; ic<NumCircles+1; ic++) {
+			// create Node
+			Node = new TNode(
                 toString<int>(ir) + "/" + toString<int>(ic), ir, ic);
-            Node->SetX(RadialToX((ic) * SpaceRad, (ir-1) * angle));
-            Node->SetY(RadialToY((ic) * SpaceRad, (ir-1) * angle));
-            NodeList.push_back(Node);
-            // create Links
-            if (ir > 1) {
+			Node->SetX(RadialToX((ic) * SpaceRad, (ir-1) * angle));
+			Node->SetY(RadialToY((ic) * SpaceRad, (ir-1) * angle));
+			NodeList.push_back(Node);
+			// create Links
+			if (ir > 1) {
                 connect(Node, FindNode(ir-1, ic));
-            }
-            if (ic > 1) {
+			}
+			if (ic > 1) {
                 connect(Node, FindNode(ir, ic-1));
-            }
-            if (ir == NumRadDiv) {
+			}
+			if (ir == NumRadDiv) {
                 connect(Node, FindNode(1, ic));
-            }
-        }
-    }
-    // create center
-    // node
-    Node = new TNode(GetID(), 0, 0, true);
-    Node->SetX(0);
-    Node->SetY(0);
-    NodeList.push_back(Node);
-    // links
-    for (ir=1; ir<NumRadDiv+1; ir++) {
+			}
+		}
+	}
+	// create center
+	// node
+	Node = new TNode(GetID(), 0, 0, true);
+	Node->SetX(0);
+	Node->SetY(0);
+	NodeList.push_back(Node);
+	// links
+	for (ir=1; ir<NumRadDiv+1; ir++) {
         connect(Node, FindNode(ir, 1));
-    }
+	}
 }
 
 
@@ -245,20 +255,16 @@ void
 TNGNet::toNB() const
 {
     for(TNodeList::const_iterator i1=NodeList.begin(); i1!=NodeList.end(); i1++) {
-        NBNode *node = (*i1)->buildNBNode();
-        NBNodeCont::insert(node);
+        NBNode *node = (*i1)->buildNBNode(myNetBuilder);
+        myNetBuilder.getNodeCont().insert(node);
     }
     for(TLinkList::const_iterator i2=LinkList.begin(); i2!=LinkList.end(); i2++) {
-        NBEdge *edge = (*i2)->buildNBEdge();
-        NBEdgeCont::insert(edge);
+        NBEdge *edge = (*i2)->buildNBEdge(myNetBuilder);
+        myNetBuilder.getEdgeCont().insert(edge);
     }
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-//#ifdef DISABLE_INLINE
-//#include "NGNet.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

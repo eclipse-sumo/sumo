@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/04/27 11:48:51  dkrajzew
+// level3 warnings removed; made containers non-static
+//
 // Revision 1.5  2004/11/23 10:22:03  dkrajzew
 // debugging
 //
@@ -34,6 +37,12 @@
 // Revision 1.1  2003/07/16 15:33:08  dkrajzew
 // files needed to generate networks added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -54,6 +63,7 @@ class TLink;
 class TNode;
 class NBNode;
 class NBEdge;
+class NBNetBuilder;
 
 
 /* =========================================================================
@@ -85,7 +95,7 @@ public:
     void RemoveLink(TLink *Link);
 
     /// Build the according netbuilder-node
-    NBNode *buildNBNode() const;
+    NBNode *buildNBNode(NBNetBuilder &nb) const;
 
     /// adds a link to the list of used
     void addLink(TLink *link);
@@ -134,7 +144,7 @@ public:
     TNode* EndNode() {return myEndNode;};
 
     /// Build the according netbuilder-edge
-    NBEdge *buildNBEdge() const;
+    NBEdge *buildNBEdge(NBNetBuilder &nb) const;
 
 private:
     /// The id of the edge
@@ -150,7 +160,6 @@ private:
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#endif
 
 #endif
 
