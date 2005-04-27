@@ -3,4 +3,4 @@ man-duarouter.xml man-jtrrouter.xml man-netconvert.xml man-netgen.xml \
 man-sumo.xml \
 i880.xml
 
-SUBDIRS = gfx xslt
+SUBDIRS = gfx xslt tools
