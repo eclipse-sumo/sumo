@@ -12,7 +12,7 @@ sub getFiles() {
 		$list = $list.$dir.$temp."\n";
 	} # foreach (generate a path description for each file)
 	return($list);
-} 
+}
 
 $no = 0;
 $tag = "\<".$ARGV[0];

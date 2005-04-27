@@ -1,4 +1,4 @@
-<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" /> 
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
 <META NAME="DC.Title" CONTENT="__TITLE__">
 <META NAME="DC.Creator.PersonalName" CONTENT="Krajzewicz, Daniel">
 <META NAME="DC.Subject" CONTENT="road traffic simulation package SUMO (Simulation of Urban MObility)">
