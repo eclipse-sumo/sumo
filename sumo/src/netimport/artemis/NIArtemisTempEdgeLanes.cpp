@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/04/27 12:24:25  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.8  2004/08/02 12:44:11  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -38,7 +41,12 @@ namespace
 // Revision 1.4  2003/06/05 11:44:51  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -140,14 +148,15 @@ NIArtemisTempEdgeLanes::add(const std::string &link, int lane,
 
 
 void
-NIArtemisTempEdgeLanes::close()
+NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
+                              NBEdgeCont &ec, NBNodeCont &nc)
 {
     Link2LaneDesc::iterator i;
     // go through the list of edges to which infomration about lanes have
     //  been added and patch the position information
     for(i=myLinkLaneDescs.begin(); i!=myLinkLaneDescs.end(); i++) {
         string name = (*i).first;
-        NBEdge *edge = NBEdgeCont::retrieve(name);
+        NBEdge *edge = ec.retrieve(name);
         double length = edge->getLength();
         // patch the information within the lane descriptions
         LaneDescVector defs = (*i).second;
@@ -168,7 +177,7 @@ NIArtemisTempEdgeLanes::close()
         // get the name of the link
         string name = (*i).first;
         // get the edge and check it
-        NBEdge *edge = NBEdgeCont::retrieve(name);
+        NBEdge *edge = ec.retrieve(name);
         if(edge==0) {
             MsgHandler::getErrorInstance()->inform(
                 string("Trying to assign lanes to the unknown edge '")
@@ -206,11 +215,11 @@ NIArtemisTempEdgeLanes::close()
                 edge->getGeometry().positionAtLengthPosition(poses[k]-lengthRemoved);
             assert(pos.x()>0&&pos.y()>0);
             // build the node and try to insert it into the net description
-            NBNode *node = NBNodeCont::retrieve(pos);
+            NBNode *node = nc.retrieve(pos);
             if(node==0) {
                 node = new NBNode(nodename, pos,
                     NBNode::NODETYPE_PRIORITY_JUNCTION);
-                if(!NBNodeCont::insert(node)) {
+                if(!nc.insert(node)) {
                     MsgHandler::getErrorInstance()->inform(
                         string("Problems on adding a lane-splitting node for edge '")
                         + name + string("'."));
@@ -225,12 +234,13 @@ NIArtemisTempEdgeLanes::close()
                 name + string("[") + toString<int>(k) + string("]");
             size_t laneNo1 = count(setLanes[k-1]);
             size_t laneNo2 = count(setLanes[k]);
-            NBEdgeCont::splitAt(edge, poses[k]-lengthRemoved, node, name1, name2,
+            ec.splitAt(dc,
+                edge, poses[k]-lengthRemoved, node, name1, name2,
                 laneNo1, laneNo2);
             lengthRemoved = poses[k];
             // get the build edges
-            NBEdge *edge1 = NBEdgeCont::retrieve(name1);
-            NBEdge *edge2 = NBEdgeCont::retrieve(name2);
+            NBEdge *edge1 = ec.retrieve(name1);
+            NBEdge *edge2 = ec.retrieve(name2);
             // assign the lane directions
             //  given only for lanes which end at this point
             //  other are simply connected to each other
@@ -261,7 +271,7 @@ NIArtemisTempEdgeLanes::close()
                     runLaneNo2++;
                 }
             }
-            // the next egde to split will be the one build last
+            // the next edge to split will be the one build last
             edge = edge2;
         }
     }
@@ -305,9 +315,6 @@ NIArtemisTempEdgeLanes::count(const std::bitset<64> &lanes)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIArtemisTempEdgeLanes.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

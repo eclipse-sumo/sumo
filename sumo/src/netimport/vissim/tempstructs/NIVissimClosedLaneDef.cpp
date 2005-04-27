@@ -22,10 +22,16 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.2  2003/06/05 11:46:55  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -55,9 +61,6 @@ NIVissimClosedLaneDef::~NIVissimClosedLaneDef()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVissimClosedLaneDef.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

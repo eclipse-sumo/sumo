@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/04/27 12:24:25  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.3  2003/03/17 14:18:58  dkrajzew
 // Windows eol removed
 //
@@ -28,7 +31,12 @@
 // Revision 1.1  2003/03/03 15:00:36  dkrajzew
 // initial commit for artemis-import files
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -45,7 +53,7 @@ class NIArtemisParser_SignalGroups :
         public NIArtemisLoader::NIArtemisSingleDataTypeParser {
 public:
     /// Constructor
-    NIArtemisParser_SignalGroups(NIArtemisLoader &parent,
+    NIArtemisParser_SignalGroups(NBNodeCont &nc, NIArtemisLoader &parent,
         const std::string &dataName);
 
     /// Destructor
@@ -59,12 +67,13 @@ protected:
         needs data from "Signals" and "Signal Phases", too */
     void myClose();
 
+protected:
+    NBNodeCont &myNodeCont;
+
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NIArtemisParser_SignalGroups.icc"
-//#endif
 
 #endif
 

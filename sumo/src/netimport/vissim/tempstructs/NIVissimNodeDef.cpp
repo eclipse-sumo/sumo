@@ -22,13 +22,19 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.9  2003/06/18 11:35:29  dkrajzew
 // message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
 //
 // Revision 1.8  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -117,8 +123,8 @@ NIVissimNodeDef::getWithin(const AbstractPoly &p, double off)
 bool
 NIVissimNodeDef::partialWithin(const AbstractPoly &p, double off) const
 {
-    assert(myBoundery!=0&&myBoundery->xmax()>=myBoundery->xmin());
-    return myBoundery->partialWithin(p, off);
+    assert(myBoundary!=0&&myBoundary->xmax()>=myBoundary->xmin());
+    return myBoundary->partialWithin(p, off);
 }
 */
 
@@ -157,9 +163,6 @@ NIVissimNodeDef::getMaxID()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVissimNodeDef.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

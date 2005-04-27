@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/04/27 12:24:35  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.3  2004/11/23 10:23:52  dkrajzew
 // debugging
 //
@@ -32,7 +35,12 @@ namespace
 // Revision 1.1  2004/07/02 09:34:38  dkrajzew
 // elmar and tiger import added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -56,18 +64,22 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIElmarNodesHandler::NIElmarNodesHandler(const std::string &file,
+NIElmarNodesHandler::NIElmarNodesHandler(NBNodeCont &nc,
+                                         const std::string &file,
                                          double centerX, double centerY)
     : FileErrorReporter("elmar-nodes", file),
-    myCurrentLine(0), myInitX(centerX), myInitY(centerY)
+    myCurrentLine(0), myInitX(centerX), myInitY(centerY),
+    myNodeCont(nc)
 {
     myInitX /= 100000.0;
     myInitY /= 100000.0;
 }
 
+
 NIElmarNodesHandler::~NIElmarNodesHandler()
 {
 }
+
 
 bool
 NIElmarNodesHandler::report(const std::string &result)
@@ -121,7 +133,7 @@ NIElmarNodesHandler::report(const std::string &result)
 //    y1 *= 4.0/2.0;
 
     NBNode *n = new NBNode(id, Position2D(x1, y1));
-    if(!NBNodeCont::insert(n)) {
+    if(!myNodeCont.insert(n)) {
         delete n;
         MsgHandler::getErrorInstance()->inform(
             string("Could not add node '") + id + string("'."));
@@ -129,6 +141,7 @@ NIElmarNodesHandler::report(const std::string &result)
     }
     return true;
 }
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

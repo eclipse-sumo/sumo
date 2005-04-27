@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2005/04/27 12:24:36  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.21  2003/10/30 09:12:59  dkrajzew
 // further work on vissim-import
 //
@@ -52,7 +55,10 @@ namespace
 // Revision 1.12  2003/06/05 11:46:54  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -69,6 +75,7 @@ namespace
 #include <utils/convert/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
+#include <netbuild/NBNetBuilder.h>
 #include "NIVissimLoader.h"
 #include "typeloader/NIVissimSingleTypeParser_Simdauer.h"
 #include "typeloader/NIVissimSingleTypeParser_Startuhrzeit.h"
@@ -338,8 +345,8 @@ NIVissimLoader::VissimSingleTypeParser::skipOverreading(std::istream &from,
 /* -------------------------------------------------------------------------
  * NIVissimLoader-methods
  * ----------------------------------------------------------------------- */
-NIVissimLoader::NIVissimLoader(const std::string &file)
-    : FileErrorReporter(file)
+NIVissimLoader::NIVissimLoader(NBNetBuilder &nb, const std::string &file)
+    : FileErrorReporter(file), myNetBuilder(nb)
 {
     insertKnownElements();
     buildParsers();
@@ -467,15 +474,20 @@ NIVissimLoader::postLoadBuild(double offset)
 
 //    NIVissimNodeCluster::dict_recheckEdgeChanges();
 
-    NIVissimNodeCluster::buildNBNodes();
-    NIVissimDistrictConnection::dict_BuildDistrictNodes();
+    NIVissimNodeCluster::buildNBNodes(myNetBuilder.getNodeCont());
+    NIVissimDistrictConnection::dict_BuildDistrictNodes(
+        myNetBuilder.getDistrictCont(), myNetBuilder.getNodeCont());
     NIVissimEdge::dict_propagateSpeeds();
-    NIVissimEdge::dict_buildNBEdges(offset);
-    NIVissimDistrictConnection::dict_BuildDistricts();
-    NIVissimConnection::dict_buildNBEdgeConnections();
+    NIVissimEdge::dict_buildNBEdges(myNetBuilder.getDistrictCont(),
+        myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(), offset);
+    NIVissimDistrictConnection::dict_BuildDistricts(myNetBuilder.getDistrictCont(),
+        myNetBuilder.getEdgeCont(), myNetBuilder.getNodeCont());
+    NIVissimConnection::dict_buildNBEdgeConnections(myNetBuilder.getEdgeCont());
 //    NIVissimConnection::dict_extendEdgesGeoms();
-    NIVissimNodeCluster::dict_addDisturbances();
-	NIVissimTL::dict_SetSignals();
+    NIVissimNodeCluster::dict_addDisturbances(myNetBuilder.getDistrictCont(),
+        myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont());
+	NIVissimTL::dict_SetSignals(myNetBuilder.getTLLogicCont(),
+        myNetBuilder.getEdgeCont());
 
     NIVissimAbstractEdge::clearDict();
     NIVissimClosures::clearDict();
@@ -709,9 +721,6 @@ NIVissimLoader::buildParsers()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVissimLoader.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

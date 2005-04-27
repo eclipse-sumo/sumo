@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/04/27 12:24:41  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.3  2003/04/01 15:26:15  dkrajzew
 // insertion of nodes is now checked, but still unsafe; districts are always weighted
 //
@@ -32,7 +35,12 @@ namespace
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -54,8 +62,9 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVisumParser_Districts::NIVisumParser_Districts(NIVisumLoader &parent,
-        const std::string &dataName)
-    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName)
+        NBDistrictCont &dc, const std::string &dataName)
+    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
+	myDistrictCont(dc)
 {
 }
 
@@ -85,7 +94,7 @@ NIVisumParser_Districts::myDependentReport()
             TplConvert<char>::_2float(myLineParser.get("YKoord").c_str());
         // build the district
         NBDistrict *district = new NBDistrict(id, name, x, y);
-        if(!NBDistrictCont::insert(district)) {
+        if(!myDistrictCont.insert(district)) {
             addError(
                 string(" Duplicate district occured ('")
                 + id + string("')."));
@@ -110,9 +119,6 @@ NIVisumParser_Districts::myDependentReport()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVisumParser_Districts.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -19,10 +19,16 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/04/27 12:24:25  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.5  2003/06/05 11:44:51  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -86,9 +92,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NIArtemisTempSignal.icc"
-//#endif
 
 #endif
 

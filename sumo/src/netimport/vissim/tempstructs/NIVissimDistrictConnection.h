@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.7  2004/01/28 12:39:23  dkrajzew
 // work on reading and setting speeds in vissim-networks
 //
@@ -34,7 +37,12 @@
 // Revision 1.4  2003/03/31 06:15:49  dkrajzew
 // further work on vissim-import
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -43,6 +51,11 @@
 #include <utils/geom/Position2D.h>
 #include <utils/common/IntVector.h>
 #include <utils/common/DoubleVector.h>
+
+
+class NBDistrictCont;
+class NBEdgeCont;
+
 
 /* =========================================================================
  * class definitions
@@ -72,7 +85,7 @@ public:
         return myPosition;
     }
 
-    double getMeanSpeed() const;
+    double getMeanSpeed(/*NBDistribution &dc*/) const;
 
 public:
     /// Inserts the connection into the dictionary after building it
@@ -88,10 +101,12 @@ public:
     static NIVissimDistrictConnection *dictionary(int id);
 
     /// Builds the nodes that belong to a district
-    static void dict_BuildDistrictNodes();
+    static void dict_BuildDistrictNodes(NBDistrictCont &dc,
+        NBNodeCont &nc);
 
     /// Builds the districts
-    static void dict_BuildDistricts();
+    static void dict_BuildDistricts(NBDistrictCont &dc,
+        NBEdgeCont &ec, NBNodeCont &nc/*, NBDistribution &distc*/);
 
     /** @brief Returns the connection to a district placed at the given node
         Yep, there onyl should be one, there is no need to build a single edge as connection between two parking places */
@@ -107,7 +122,7 @@ public:
 
 private:
     void checkEdgeEnd();
-    double getRealSpeed(int distNo) const;
+    double getRealSpeed(/*NBDistribution &dc, */int distNo) const;
 
 private:
     /// The id of the connections
@@ -147,9 +162,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVissimDistrictConnection.icc"
-//#endif
 
 #endif
 

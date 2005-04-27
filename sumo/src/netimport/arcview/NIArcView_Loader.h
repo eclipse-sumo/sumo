@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/04/27 12:24:24  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.7  2004/08/02 12:43:07  dkrajzew
 // got rid of the shapelib-interface; conversion of geocoordinates added
 //
@@ -38,7 +41,10 @@
 // Revision 1.2  2003/06/05 11:44:14  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -53,8 +59,8 @@
 #include <utils/importio/LineHandler.h>
 #include <utils/importio/LineReader.h>
 #include <utils/importio/NamedColumnsParser.h>
-//#include "NIArcView_ShapeReader.h"
 #include "shapereader.h"
+
 
 /* =========================================================================
  * class declarations
@@ -71,8 +77,8 @@ class NIArcView_Loader :
 {
 public:
     /// Contructor
-    NIArcView_Loader(const std::string &dbf_name,
-        const std::string &shp_name);
+    NIArcView_Loader(NBNodeCont &nc, NBEdgeCont &ec,
+        const std::string &dbf_name, const std::string &shp_name);
 
     /// Destructor
     ~NIArcView_Loader();
@@ -109,6 +115,8 @@ private:
     std::string mySHPName;
     shapereader myBinShapeReader;
     int myNameAddition;
+    NBNodeCont &myNodeCont;
+    NBEdgeCont &myEdgeCont;
 
 };
 

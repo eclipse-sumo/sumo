@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/04/27 12:24:41  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.4  2004/08/02 12:44:28  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -35,7 +38,12 @@ namespace
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -56,8 +64,9 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVisumParser_Nodes::NIVisumParser_Nodes(NIVisumLoader &parent,
-        const std::string &dataName)
-    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName)
+        NBNodeCont &nc, const std::string &dataName)
+    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
+	myNodeCont(nc)
 {
 }
 
@@ -78,7 +87,7 @@ NIVisumParser_Nodes::myDependentReport()
         double x = TplConvert<char>::_2float(myLineParser.get("XKoord").c_str());
         double y = TplConvert<char>::_2float(myLineParser.get("YKoord").c_str());
         // add to the list
-        if(!NBNodeCont::insert(id, Position2D(x, y))) {
+        if(!myNodeCont.insert(id, Position2D(x, y))) {
             addError(
                 string(" Duplicate node occured ('")
                 + id + string("')."));
@@ -94,9 +103,6 @@ NIVisumParser_Nodes::myDependentReport()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVisumParser_Nodes.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

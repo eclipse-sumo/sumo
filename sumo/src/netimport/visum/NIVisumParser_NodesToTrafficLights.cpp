@@ -23,13 +23,21 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/04/27 12:24:41  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.2  2004/01/12 15:36:08  dkrajzew
 // node-building classes are now lying in an own folder
 //
 // Revision 1.1  2003/05/20 09:39:14  dkrajzew
 // Visum traffic light import added (by Markus Hartinger)
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -50,10 +58,11 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIVisumParser_NodesToTrafficLights::NIVisumParser_NodesToTrafficLights(NIVisumLoader &parent,
+NIVisumParser_NodesToTrafficLights::NIVisumParser_NodesToTrafficLights(
+    NIVisumLoader &parent, NBNodeCont &nc,
 	const std::string &dataName, NIVisumLoader::NIVisumTL_Map &NIVisumTLs)
     : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-	myNIVisumTLs(NIVisumTLs)
+	myNIVisumTLs(NIVisumTLs), myNodeCont(nc)
 {
 }
 
@@ -72,7 +81,7 @@ NIVisumParser_NodesToTrafficLights::myDependentReport()
 		Node = myLineParser.get("KnotNr").c_str();
 		TrafficLight = myLineParser.get("LsaNr").c_str();
         // add to the list
-		myNIVisumTLs[TrafficLight]->GetNodes()->push_back(NBNodeCont::retrieve(Node));
+		myNIVisumTLs[TrafficLight]->GetNodes()->push_back(myNodeCont.retrieve(Node));
     } catch (OutOfBoundsException) {
         addError2("KNOTENZULSA", "TrafficLight:" + TrafficLight + " Node:" + Node , "OutOfBounds");
     } catch (NumberFormatException) {
@@ -84,9 +93,6 @@ NIVisumParser_NodesToTrafficLights::myDependentReport()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVisumParser_NodesToTrafficLights.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

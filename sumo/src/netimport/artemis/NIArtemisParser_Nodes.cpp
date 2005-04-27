@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/04/27 12:24:25  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.8  2004/08/02 12:44:11  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -46,7 +49,12 @@ namespace
 // Revision 1.1  2003/03/03 15:00:31  dkrajzew
 // initial commit for artemis-import files
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -71,9 +79,12 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIArtemisParser_Nodes::NIArtemisParser_Nodes(NIArtemisLoader &parent,
+NIArtemisParser_Nodes::NIArtemisParser_Nodes(
+        NBNodeCont &nc, NBTrafficLightLogicCont &tlc,
+        NIArtemisLoader &parent,
         const std::string &dataName)
-    : NIArtemisLoader::NIArtemisSingleDataTypeParser(parent, dataName)
+    : NIArtemisLoader::NIArtemisSingleDataTypeParser(parent, dataName),
+    myNodeCont(nc), myTLLogicCont(tlc)
 {
 }
 
@@ -124,7 +135,7 @@ NIArtemisParser_Nodes::myDependentReport()
     }
     // build if ok
     NBNode *node = new NBNode(id, Position2D(x, y), myType);
-    if(!NBNodeCont::insert(node)) {
+    if(!myNodeCont.insert(node)) {
         // should never happen
         delete node;
         return;
@@ -133,7 +144,7 @@ NIArtemisParser_Nodes::myDependentReport()
     if(type==5||type==10) {
         NBTrafficLightDefinition *tlDef =
             new NBOwnTLDef(id, node);
-        if(!NBTrafficLightLogicCont::insert(id, tlDef)) {
+        if(!myTLLogicCont.insert(id, tlDef)) {
             // actually, nothing should fail here
             delete tlDef;
             throw ProcessError();
@@ -143,9 +154,6 @@ NIArtemisParser_Nodes::myDependentReport()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIArtemisParser_Nodes.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

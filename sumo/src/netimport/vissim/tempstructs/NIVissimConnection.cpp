@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.17  2004/11/23 10:23:53  dkrajzew
 // debugging
 //
@@ -52,6 +55,12 @@ namespace
 // Revision 1.8  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -300,11 +309,11 @@ NIVissimConnection::dict_extendEdgesGeoms()
     // build lists of connections for each outgoing/incoming edge
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimConnection *c = (*i).second;
-        NBEdge *fromEdge = NBEdgeCont::retrievePossiblySplitted(
+        NBEdge *fromEdge = myEdgeCont.retrievePossiblySplitted(
             toString<int>(c->getFromEdgeID()),
             toString<int>(c->getToEdgeID()),
             true);
-        NBEdge *toEdge = NBEdgeCont::retrievePossiblySplitted(
+        NBEdge *toEdge = myEdgeCont.retrievePossiblySplitted(
             toString<int>(c->getToEdgeID()),
             toString<int>(c->getFromEdgeID()),
             false);
@@ -334,25 +343,25 @@ NIVissimConnection::dict_extendEdgesGeoms()
 */
 
 void
-NIVissimConnection::dict_buildNBEdgeConnections()
+NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont &ec)
 {
-    size_t ref = 0;
+	size_t ref = 0;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimConnection *c = (*i).second;
-        NBEdge *fromEdge = NBEdgeCont::retrievePossiblySplitted(
+        NBEdge *fromEdge = ec.retrievePossiblySplitted(
             toString<int>(c->getFromEdgeID()),
             toString<int>(c->getToEdgeID()),
             true);
-        NBEdge *toEdge = NBEdgeCont::retrievePossiblySplitted(
+        NBEdge *toEdge = ec.retrievePossiblySplitted(
             toString<int>(c->getToEdgeID()),
             toString<int>(c->getFromEdgeID()),
             false);
 //        assert(fromEdge!=0&&toEdge!=0);
         // check whether it is near to an already build node
 /*
-        if( NBEdgeCont::retrieve(toString<int>(c->getFromEdgeID()))==0
+        if( myEdgeCont.retrieve(toString<int>(c->getFromEdgeID()))==0
             ||
-            NBEdgeCont::retrieve(toString<int>(c->getToEdgeID()))==0 ) {
+            myEdgeCont.retrieve(toString<int>(c->getToEdgeID()))==0 ) {
             NBEdge *tmpToEdge = toEdge;
             NBEdge *tmpFromEdge =
                 fromEdge != 0
@@ -370,22 +379,22 @@ NIVissimConnection::dict_buildNBEdgeConnections()
 */
         if(fromEdge==0||toEdge==0) {
             // !!! das gleiche wie oben
-            fromEdge = NBEdgeCont::retrievePossiblySplitted(
+            fromEdge = ec.retrievePossiblySplitted(
                 toString<int>(c->getFromEdgeID()),
                 toString<int>(c->getToEdgeID()),
                 true);
-            toEdge = NBEdgeCont::retrievePossiblySplitted(
+            toEdge = ec.retrievePossiblySplitted(
                 toString<int>(c->getToEdgeID()),
                 toString<int>(c->getFromEdgeID()),
                 false);
             if(fromEdge==0||toEdge==0) {
-                fromEdge = NBEdgeCont::retrievePossiblySplitted(
+                fromEdge = ec.retrievePossiblySplitted(
                     toString<int>(c->getFromEdgeID()),
                     toString<int>(c->getToEdgeID()),
                     true);
 
                 WRITE_WARNING(string("Could not build connection between '")+ toString<int>(c->getFromEdgeID())+ string("' and '")+ toString<int>(c->getToEdgeID())+ string("'."));
-                ref++;
+			    ref++;
                 continue;
             }
         }
@@ -422,9 +431,9 @@ NIVissimConnection::dict_buildNBEdgeConnections()
             }
         }
     }
-    if(ref!=0) {
+	if(ref!=0) {
         WRITE_WARNING(toString<size_t>(ref) + string(" of ")+ toString<size_t>(myDict.size())+ string(" connections could not be assigned."));
-    }
+	}
 }
 
 

@@ -1,3 +1,9 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include "shapereader.h"
 #include <cassert>
 #include <utils/geom/GeomHelper.h>

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.13  2004/08/02 12:44:27  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -37,7 +40,10 @@ namespace
 // Revision 1.9  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -150,7 +156,7 @@ NIVissimNodeCluster::getNodeName() const
 
 
 void
-NIVissimNodeCluster::buildNBNode()
+NIVissimNodeCluster::buildNBNode(NBNodeCont &nc)
 {
     if(myConnectors.size()==0) {
         return; // !!! Check, whether this can happen
@@ -203,7 +209,7 @@ NIVissimNodeCluster::buildNBNode()
     }*/
     NBNode *node = new NBNode(getNodeName(), pos,
         NBNode::NODETYPE_PRIORITY_JUNCTION);
-    if(!NBNodeCont::insert(node)) {
+    if(!nc.insert(node)) {
         delete node;
         throw 1;
     }
@@ -212,10 +218,10 @@ NIVissimNodeCluster::buildNBNode()
 
 
 void
-NIVissimNodeCluster::buildNBNodes()
+NIVissimNodeCluster::buildNBNodes(NBNodeCont &nc)
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        (*i).second->buildNBNode();
+        (*i).second->buildNBNode(nc);
     }
 }
 
@@ -310,14 +316,15 @@ NIVissimNodeCluster::getPos() const
 
 
 void
-NIVissimNodeCluster::dict_addDisturbances()
+NIVissimNodeCluster::dict_addDisturbances(NBDistrictCont &dc,
+                                          NBNodeCont &nc, NBEdgeCont &ec)
 {
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         const IntVector &disturbances = (*i).second->myDisturbances;
-        NBNode *node = NBNodeCont::retrieve((*i).second->getNodeName());
+        NBNode *node = nc.retrieve((*i).second->getNodeName());
         for(IntVector::const_iterator j=disturbances.begin(); j!=disturbances.end(); j++) {
             NIVissimDisturbance *disturbance = NIVissimDisturbance::dictionary(*j);
-            disturbance->addToNode(node);
+            disturbance->addToNode(node, dc, nc, ec);
         }
     }
     NIVissimDisturbance::reportRefused();
@@ -343,9 +350,6 @@ NIVissimNodeCluster::setCurrentVirtID(int id)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVissimNodeCluster.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

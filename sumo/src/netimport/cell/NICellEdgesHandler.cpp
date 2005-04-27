@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/04/27 12:24:25  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.6  2004/11/23 10:23:52  dkrajzew
 // debugging
 //
@@ -47,7 +50,12 @@ namespace
 // Revision 1.1  2002/07/25 08:41:45  dkrajzew
 // Visum7.5 and Cell import added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -65,23 +73,31 @@ namespace
 #include <netbuild/NBCapacity2Lanes.h>
 #include "NICellEdgesHandler.h"
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NICellEdgesHandler::NICellEdgesHandler(const std::string &file,
+NICellEdgesHandler::NICellEdgesHandler(NBNodeCont &nc,
+                                       NBEdgeCont &ec,
+                                       NBTypeCont &tc,
+                                       const std::string &file,
                                        NBCapacity2Lanes capacity2Lanes)
-    : FileErrorReporter("cell-edges", file), _capacity2Lanes(capacity2Lanes)
+    : FileErrorReporter("cell-edges", file), _capacity2Lanes(capacity2Lanes),
+    myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc)
 {
 }
+
 
 NICellEdgesHandler::~NICellEdgesHandler()
 {
 }
+
 
 bool
 NICellEdgesHandler::report(const std::string &result)
@@ -105,9 +121,9 @@ NICellEdgesHandler::report(const std::string &result)
     }
     string id = NBHelpers::normalIDRepresentation(st.next());
     NBNode *from =
-        NBNodeCont::retrieve(NBHelpers::normalIDRepresentation(st.next()));
+        myNodeCont.retrieve(NBHelpers::normalIDRepresentation(st.next()));
     NBNode *to =
-        NBNodeCont::retrieve(NBHelpers::normalIDRepresentation(st.next()));
+        myNodeCont.retrieve(NBHelpers::normalIDRepresentation(st.next()));
     // check whether the nodes are known
     if(from==0||to==0) {
         if(from==0) {
@@ -123,9 +139,9 @@ NICellEdgesHandler::report(const std::string &result)
     }
     // other values
     float length = -1;
-    double speed = NBTypeCont::getDefaultSpeed();
-    int priority = NBTypeCont::getDefaultPriority();
-    size_t nolanes = NBTypeCont::getDefaultNoLanes();
+    double speed = myTypeCont.getDefaultSpeed();
+    int priority = myTypeCont.getDefaultPriority();
+    size_t nolanes = myTypeCont.getDefaultNoLanes();
     // get the length
     try {
         length = TplConvert<char>::_2float(st.next().c_str());
@@ -173,15 +189,13 @@ NICellEdgesHandler::report(const std::string &result)
             }
         }
     }
-    NBEdgeCont::insert(new NBEdge(id, id, from, to, "DEFAULT",
+    myEdgeCont.insert(new NBEdge(id, id, from, to, "DEFAULT",
         speed, nolanes, length, priority));
     return true;
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NICellEdgesHandler.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

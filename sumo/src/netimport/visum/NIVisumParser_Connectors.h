@@ -20,11 +20,17 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2005/04/27 12:24:41  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
-//
-//
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -45,6 +51,7 @@ class NIVisumParser_Connectors :
 public:
     /// Constructor
     NIVisumParser_Connectors(NIVisumLoader &parent,
+        NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc, NBDistrictCont &dc,
         const std::string &dataName);
 
     /// Destructor
@@ -60,12 +67,15 @@ private:
     NBNode *buildDistrictNode(const std::string &id, NBNode *dest,
         NBEdge::EdgeBasicFunction dir);
 
+private:
+    NBNodeCont &myNodeCont;
+    NBEdgeCont &myEdgeCont;
+	NBTypeCont &myTypeCont;
+	NBDistrictCont &myDistrictCont;
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVisumParser_Connectors.icc"
-//#endif
 
 #endif
 

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/04/27 12:24:35  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.2  2003/06/18 11:14:48  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -32,7 +35,12 @@
 // Revision 1.1  2002/07/25 08:41:45  dkrajzew
 // Visum7.5 and Cell import added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -63,8 +71,8 @@ private:
     NBCapacity2Lanes _capacity2Lanes;
 public:
     /// constructor
-    NICellEdgesHandler(const std::string &file,
-        NBCapacity2Lanes capacity2Lanes);
+    NICellEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
+        const std::string &file, NBCapacity2Lanes capacity2Lanes);
 
     /// destructor
     ~NICellEdgesHandler();
@@ -74,12 +82,15 @@ public:
         NBEdgeCont */
     bool report(const std::string &result);
 
+protected:
+    NBNodeCont &myNodeCont;
+    NBEdgeCont &myEdgeCont;
+    NBTypeCont &myTypeCont;
+
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NICellEdgesHandler.icc"
-//#endif
 
 #endif
 

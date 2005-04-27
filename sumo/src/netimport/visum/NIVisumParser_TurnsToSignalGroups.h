@@ -20,10 +20,18 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.1  2003/05/20 09:39:14  dkrajzew
 // Visum traffic light import added (by Markus Hartinger)
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -42,6 +50,7 @@ class NIVisumParser_TurnsToSignalGroups :
 public:
     /// Constructor
     NIVisumParser_TurnsToSignalGroups(NIVisumLoader &parent,
+        NBNodeCont &nc,
         const std::string &dataName, NIVisumLoader::NIVisumTL_Map &NIVisumTLs);
 
     /// Destructor
@@ -54,12 +63,13 @@ private:
 	NIVisumLoader::NIVisumTL_Map &myNIVisumTLs;
 	// return edge between FromNode and ToNode if connected
 	NBEdge *getEdge(NBNode *FromNode, NBNode *ToNode);
+
+protected:
+    NBNodeCont &myNodeCont;
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVisumParser_TurnsToSignalGroups.icc"
-//#endif
 
 #endif
 

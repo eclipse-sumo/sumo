@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.14  2004/11/23 10:23:51  dkrajzew
 // debugging
 //
@@ -112,7 +115,12 @@ namespace
 // Revision 1.1  2001/12/06 13:37:59  traffic
 // files for the netbuilder
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -155,9 +163,13 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIXMLEdgesHandler::NIXMLEdgesHandler(OptionsCont &options)
+NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
+									 NBEdgeCont &ec,
+									 NBTypeCont &tc,
+									 OptionsCont &options)
     : SUMOSAXHandler("xml-edges - file"),
-    _options(options)
+    _options(options),
+    myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc)
 {
 }
 
@@ -177,9 +189,9 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
         // retrieve the name of the edge
         setName(attrs);
         // use default values, first
-        myCurrentSpeed = NBTypeCont::getDefaultSpeed();
-        myCurrentPriority = NBTypeCont::getDefaultPriority();
-        myCurrentLaneNo = NBTypeCont::getDefaultNoLanes();
+        myCurrentSpeed = myTypeCont.getDefaultSpeed();
+        myCurrentPriority = myTypeCont.getDefaultPriority();
+        myCurrentLaneNo = myTypeCont.getDefaultNoLanes();
         // check whether a type's values shall be used
         checkType(attrs);
         // speed, priority and the number of lanes have now default values;
@@ -218,7 +230,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
                     myShape, myLanesSpread);
             }
             // insert the edge
-            if(!NBEdgeCont::insert(edge)) {
+            if(!myEdgeCont.insert(edge)) {
                 addError(
                     string("Duplicate edge occured. ID='") + myCurrentID
                     + string("'"));
@@ -263,9 +275,9 @@ NIXMLEdgesHandler::checkType(const Attributes &attrs)
     myCurrentType = "";
     try {
         myCurrentType = getString(attrs, SUMO_ATTR_TYPE);
-        myCurrentSpeed = NBTypeCont::getSpeed(myCurrentType);
-        myCurrentPriority = NBTypeCont::getPriority(myCurrentType);
-        myCurrentLaneNo = NBTypeCont::getNoLanes(myCurrentType);
+        myCurrentSpeed = myTypeCont.getSpeed(myCurrentType);
+        myCurrentPriority = myTypeCont.getPriority(myCurrentType);
+        myCurrentLaneNo = myTypeCont.getNoLanes(myCurrentType);
     } catch (EmptyData) {
         myCurrentType = "";
     }
@@ -346,8 +358,8 @@ NIXMLEdgesHandler::setNodes(const Attributes &attrs)
     // check the obtained values for nodes
     if(!insertNodesCheckingCoherence()) {
         if(!_options.getBool("omit-corrupt-edges")) {
-            addError(
-                string("On parsing edge '") + myCurrentID + string("':"));
+			addError(
+				string("On parsing edge '") + myCurrentID + string("':"));
             addError(
                 string(" The data are not coherent or the nodes are not given..."));
         }
@@ -388,8 +400,8 @@ NIXMLEdgesHandler::insertNodesCheckingCoherence()
 
         Position2D begPos(myBegNodeXPos, myBegNodeYPos);
         Position2D endPos(myEndNodeXPos, myEndNodeYPos);
-        if(NBNodeCont::insert(myCurrentBegNodeID, begPos)) {
-            if(NBNodeCont::insert(myCurrentEndNodeID, endPos)) {
+        if(myNodeCont.insert(myCurrentBegNodeID, begPos)) {
+            if(myNodeCont.insert(myCurrentEndNodeID, endPos)) {
                 coherent = true;
             }
         }
@@ -407,30 +419,30 @@ NIXMLEdgesHandler::insertNodesCheckingCoherence()
 
         Position2D begPos(myBegNodeXPos, myBegNodeYPos);
         Position2D endPos(myEndNodeXPos, myEndNodeYPos);
-        myFromNode = NBNodeCont::retrieve(begPos);
-        myToNode = NBNodeCont::retrieve(endPos);
+        myFromNode = myNodeCont.retrieve(begPos);
+        myToNode = myNodeCont.retrieve(endPos);
         if(myFromNode!=0 && myToNode!=0) {
             coherent = true;
         } else {
             if(myFromNode==0) {
                 myFromNode =
-                    new NBNode(NBNodeCont::getFreeID(), begPos);
-                if(!NBNodeCont::insert(myFromNode)) {
+                    new NBNode(myNodeCont.getFreeID(), begPos);
+                if(!myNodeCont.insert(myFromNode)) {
                     throw 1;
                 }
             }
             if(myToNode==0) {
                 myToNode =
-                    new NBNode(NBNodeCont::getFreeID(), endPos);
-                if(!NBNodeCont::insert(myToNode)) {
+                    new NBNode(myNodeCont.getFreeID(), endPos);
+                if(!myNodeCont.insert(myToNode)) {
                     throw 1;
                 }
             }
             coherent = true;
         }
     } else {
-        myFromNode = NBNodeCont::retrieve(myCurrentBegNodeID);
-        myToNode = NBNodeCont::retrieve(myCurrentEndNodeID);
+        myFromNode = myNodeCont.retrieve(myCurrentBegNodeID);
+        myToNode = myNodeCont.retrieve(myCurrentEndNodeID);
     }
     // if only the names of the nodes are known, get the coordinates
     if(myFromNode!=0 && myToNode!=0 &&
@@ -532,9 +544,6 @@ NIXMLEdgesHandler::myEndElement(int element, const std::string &name)
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIXMLEdgesHandler.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

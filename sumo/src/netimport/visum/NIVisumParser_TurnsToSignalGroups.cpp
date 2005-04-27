@@ -23,13 +23,21 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.2  2004/01/12 15:36:08  dkrajzew
 // node-building classes are now lying in an own folder
 //
 // Revision 1.1  2003/05/20 09:39:14  dkrajzew
 // Visum traffic light import added (by Markus Hartinger)
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -50,10 +58,11 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIVisumParser_TurnsToSignalGroups::NIVisumParser_TurnsToSignalGroups(NIVisumLoader &parent,
+NIVisumParser_TurnsToSignalGroups::NIVisumParser_TurnsToSignalGroups(
+    NIVisumLoader &parent, NBNodeCont &nc,
 	const std::string &dataName, NIVisumLoader::NIVisumTL_Map &NIVisumTLs)
     : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-	myNIVisumTLs(NIVisumTLs)
+	myNIVisumTLs(NIVisumTLs), myNodeCont(nc)
 {
 }
 
@@ -83,9 +92,9 @@ NIVisumParser_TurnsToSignalGroups::myDependentReport()
         SGid = NBHelpers::normalIDRepresentation(myLineParser.get("SGNR"));
         LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
         // nodes
-        NBNode *FromNode = NBNodeCont::retrieve(myLineParser.get("VonKnot").c_str());
-        NBNode *OverNode = NBNodeCont::retrieve(myLineParser.get("UeberKnot").c_str());
-        NBNode *ToNode = NBNodeCont::retrieve(myLineParser.get("NachKnot").c_str());
+        NBNode *FromNode = myNodeCont.retrieve(myLineParser.get("VonKnot").c_str());
+        NBNode *OverNode = myNodeCont.retrieve(myLineParser.get("UeberKnot").c_str());
+        NBNode *ToNode = myNodeCont.retrieve(myLineParser.get("NachKnot").c_str());
 		// add to the list
 		NIVisumTL::SignalGroup *SG;
 		SG = (*myNIVisumTLs.find(LSAid)).second->GetSignalGroup(SGid);
@@ -105,9 +114,6 @@ NIVisumParser_TurnsToSignalGroups::myDependentReport()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVisumParser_TurnsToSignalGroups.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/04/27 12:24:41  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.6  2004/11/23 10:23:51  dkrajzew
 // debugging
 //
@@ -41,7 +44,12 @@ namespace
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -64,8 +72,10 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVisumParser_Edges::NIVisumParser_Edges(NIVisumLoader &parent,
-        const std::string &dataName)
-    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName)
+        NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
+		const std::string &dataName)
+    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
+    myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc)
 {
 }
 
@@ -83,9 +93,9 @@ NIVisumParser_Edges::myDependentReport()
         // get the id
         id = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
         // get the from- & to-node and validate them
-        NBNode *from = NBNodeCont::retrieve(
+        NBNode *from = myNodeCont.retrieve(
             NBHelpers::normalIDRepresentation(myLineParser.get("VonKnot")));
-        NBNode *to = NBNodeCont::retrieve(
+        NBNode *to = myNodeCont.retrieve(
             NBHelpers::normalIDRepresentation(myLineParser.get("NachKnot")));
         if(!checkNodes(from, to)) {
             return;
@@ -106,11 +116,11 @@ NIVisumParser_Edges::myDependentReport()
         }
         // check whether the id is already used
         //  (should be the opposite direction)
-        if(NBEdgeCont::retrieve(id)!=0) {
+        if(myEdgeCont.retrieve(id)!=0) {
             id = '-' + id;
         }
         // add the edge
-        int prio = NBTypeCont::getPriority(type);
+        int prio = myTypeCont.getPriority(type);
         insertEdge(id, from, to, type, speed, nolanes, length, prio);
         // nothing more to do, when the edge is a one-way street
         if(oneway) {
@@ -173,7 +183,7 @@ NIVisumParser_Edges::getSpeed(const std::string &type) const
     } catch (OutOfBoundsException) {
     }
     if(speed<=0) {
-        speed = NBTypeCont::getSpeed(type);
+        speed = myTypeCont.getSpeed(type);
     } else {
         speed = speed / 3.6;
     }
@@ -190,7 +200,7 @@ NIVisumParser_Edges::getNoLanes(const std::string &type) const
             TplConvertSec<char>::_2intSec(
                 myLineParser.get("Fahrstreifen").c_str(), 0);
     } catch (UnknownElement) {
-        nolanes = NBTypeCont::getNoLanes(type);
+        nolanes = myTypeCont.getNoLanes(type);
     }
     return nolanes;
 }
@@ -204,7 +214,7 @@ NIVisumParser_Edges::insertEdge(const std::string &id,
                                 int prio) const
 {
     NBEdge *e = new NBEdge(id, id, from, to, type, speed, nolanes, length, prio);
-    if( !NBEdgeCont::insert(e)) {
+    if( !myEdgeCont.insert(e)) {
         delete e;
         addError(
             string(" Duplicate edge occured ('")
@@ -214,9 +224,6 @@ NIVisumParser_Edges::insertEdge(const std::string &id,
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVisumParser_Edges.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

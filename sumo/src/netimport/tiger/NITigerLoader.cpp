@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/04/27 12:24:36  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.4  2004/11/23 10:23:52  dkrajzew
 // debugging
 //
@@ -35,7 +38,12 @@ namespace
 // Revision 1.1  2004/07/02 09:34:38  dkrajzew
 // elmar and tiger import added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -64,9 +72,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NITigerLoader::NITigerLoader(const std::string &file)
+NITigerLoader::NITigerLoader(NBEdgeCont &ec, NBNodeCont &nc,
+                             const std::string &file)
     : FileErrorReporter("tiger-network", file),
-    myWasSet(false), myInitX(-1), myInitY(-1)
+    myWasSet(false), myInitX(-1), myInitY(-1), myEdgeCont(ec), myNodeCont(nc)
 {
 }
 
@@ -141,7 +150,7 @@ NITigerLoader::load(OptionsCont &options)
             NBEdge *e =
                 new NBEdge(eid, eid, from, to, type, speed, nolanes,
                     cposes.length(), priority, cposes);
-            if(!NBEdgeCont::insert(e)) {
+            if(!myEdgeCont.insert(e)) {
                 delete e;
                 MsgHandler::getErrorInstance()->inform(
                     string("Could not insert edge '")
@@ -152,7 +161,7 @@ NITigerLoader::load(OptionsCont &options)
             e =
                 new NBEdge(eid, eid, to, from, type, speed, nolanes,
                     cposes.length(), priority, cposes.reverse());
-            if(!NBEdgeCont::insert(e)) {
+            if(!myEdgeCont.insert(e)) {
                 delete e;
                 MsgHandler::getErrorInstance()->inform(
                     string("Could not insert edge '")
@@ -216,10 +225,10 @@ int bla = 0;
 NBNode *
 NITigerLoader::getNode(const Position2D &p)
 {
-    NBNode *n = NBNodeCont::retrieve(p);
+    NBNode *n = myNodeCont.retrieve(p);
     if(n==0) {
         n = new NBNode(toString<int>(bla++), p);
-        if(!NBNodeCont::insert(n)) {
+        if(!myNodeCont.insert(n)) {
             MsgHandler::getErrorInstance()->inform(
                 string("Could not insert node at position ")
                 + toString(p.x()) + string("/") + toString(p.y())

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/04/27 12:24:24  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.6  2004/11/23 10:23:34  dkrajzew
 // debugging
 //
@@ -107,6 +110,12 @@ namespace
 // Initial import as a separate application.
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * debugging definitions (MSVC++ only)
  * ======================================================================= */
 #ifdef _DEBUG
@@ -132,6 +141,7 @@ namespace
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBNetBuilder.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <netimport/xml/NIXMLEdgesHandler.h>
 #include <netimport/xml/NIXMLNodesHandler.h>
@@ -164,7 +174,20 @@ using namespace std;
 /* =========================================================================
  * method defintions
  * ======================================================================= */
-void NILoader::load(OptionsCont &oc) {
+NILoader::NILoader(NBNetBuilder &nb)
+    : myNetBuilder(nb)
+{
+}
+
+
+NILoader::~NILoader()
+{
+}
+
+
+void
+NILoader::load(OptionsCont &oc)
+{
     // get the report options
     // get the format to use
     //string type = oc.getString("used-file-format");
@@ -179,11 +202,11 @@ void NILoader::load(OptionsCont &oc) {
     loadTiger(oc);
     loadXML(oc);
     // check the loaded structures
-    if(NBNodeCont::size()==0) {
+    if(myNetBuilder.getNodeCont().size()==0) {
         MsgHandler::getErrorInstance()->inform("No nodes loaded.");
         throw ProcessError();
     }
-    if(NBEdgeCont::size()==0) {
+    if(myNetBuilder.getEdgeCont().size()==0) {
         MsgHandler::getErrorInstance()->inform("No edges loaded.");
         throw ProcessError();
     }
@@ -215,9 +238,13 @@ NILoader::loadSUMOFiles(OptionsCont &oc, LoadFilter what, const string &files,
     // build the handlers to load the data
     std::vector<SUMOSAXHandler*> handlers;
     if(what==LOADFILTER_ALL) {
-        handlers.push_back(new NISUMOHandlerNodes(what));
-        handlers.push_back(new NISUMOHandlerEdges(what));
-        handlers.push_back(new NISUMOHandlerDepth(what));
+        handlers.push_back(
+            new NISUMOHandlerNodes(myNetBuilder.getNodeCont(), what));
+        handlers.push_back(
+            new NISUMOHandlerEdges(myNetBuilder.getEdgeCont(),
+                myNetBuilder.getNodeCont(),what));
+        handlers.push_back(
+            new NISUMOHandlerDepth(what));
     } else {
         handlers.push_back(new NISUMOHandlerDepth(what));
     }
@@ -230,9 +257,10 @@ NILoader::loadXML(OptionsCont &oc) {
     // load types
     try {
         if(oc.isUsableFileList("t")) {
-            NIXMLTypesHandler *handler = new NIXMLTypesHandler();
+			NIXMLTypesHandler *handler =
+				new NIXMLTypesHandler(myNetBuilder.getTypeCont());
             loadXMLType(handler, oc.getString("t"), "types");
-            NBTypeCont::report();
+            myNetBuilder.getTypeCont().report();
         } else {
             if(oc.isSet("e")&&oc.isSet("n")) {
                 WRITE_WARNING("No types defined, using defaults...");
@@ -246,9 +274,10 @@ NILoader::loadXML(OptionsCont &oc) {
     try {
         if(oc.isUsableFileList("n")) {
             NIXMLNodesHandler *handler =
-                new NIXMLNodesHandler(oc);
+                new NIXMLNodesHandler(myNetBuilder.getNodeCont(),
+                    myNetBuilder.getTLLogicCont(), oc);
             loadXMLType(handler, oc.getString("n"), "nodes");
-            NBNodeCont::report();
+            myNetBuilder.getNodeCont().report();
         }
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
@@ -258,9 +287,11 @@ NILoader::loadXML(OptionsCont &oc) {
     try {
         if(oc.isUsableFileList("e")) {
             NIXMLEdgesHandler *handler =
-                new NIXMLEdgesHandler(oc);
+                new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
+					myNetBuilder.getEdgeCont(),
+					myNetBuilder.getTypeCont(), oc);
             loadXMLType(handler, oc.getString("e"), "edges");
-            NBEdgeCont::report();
+            myNetBuilder.getEdgeCont().report();
         }
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
@@ -270,7 +301,7 @@ NILoader::loadXML(OptionsCont &oc) {
     try {
         if(oc.isUsableFileList("x")) {
             NIXMLConnectionsHandler *handler =
-                new NIXMLConnectionsHandler();
+                new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont());
             loadXMLType(handler, oc.getString("x"), "connections");
         }
     } catch (InvalidArgument &e) {
@@ -324,25 +355,27 @@ NILoader::loadCell(OptionsCont &oc) {
     if(oc.isSet("cell-node-file")) {
         WRITE_MESSAGE("Loading nodes... ");
         string file = oc.getString("cell-node-file");
-        NICellNodesHandler handler(file);
+        NICellNodesHandler handler(myNetBuilder.getNodeCont(), file);
         if(!useLineReader(lr, file, handler)) {
             throw ProcessError();
         }
         WRITE_MESSAGE("done.");
-        NBNodeCont::report();
+        myNetBuilder.getNodeCont().report();
     }
     // load edges
     if(oc.isSet("cell-edge-file")) {
         WRITE_MESSAGE("Loading edges... ");
         string file = oc.getString("cell-edge-file");
         // parse the file
-        NICellEdgesHandler handler(file,
-            NBCapacity2Lanes(oc.getFloat("N")));
+        NICellEdgesHandler handler(myNetBuilder.getNodeCont(),
+            myNetBuilder.getEdgeCont(),
+            myNetBuilder.getTypeCont(),
+            file, NBCapacity2Lanes(oc.getFloat("N")));
         if(!useLineReader(lr, file, handler)) {
             throw ProcessError();
         }
         WRITE_MESSAGE("done.");
-        NBEdgeCont::report();
+        myNetBuilder.getEdgeCont().report();
     }
 }
 
@@ -367,7 +400,7 @@ NILoader::loadVisum(OptionsCont &oc) {
         return;
     }
     // load the visum network
-    NIVisumLoader loader(oc.getString("visum"),
+    NIVisumLoader loader(myNetBuilder, oc.getString("visum"),
         NBCapacity2Lanes(oc.getFloat("N")));
     loader.load(oc);
 }
@@ -420,7 +453,9 @@ NILoader::loadArcView(OptionsCont &oc) {
         return;
     }
     // load the arcview files
-    NIArcView_Loader loader(dbf_file, shp_file);
+    NIArcView_Loader loader(myNetBuilder.getNodeCont(),
+        myNetBuilder.getEdgeCont(),
+        dbf_file, shp_file);
     loader.load(oc);
 }
 
@@ -431,7 +466,7 @@ NILoader::loadVissim(OptionsCont &oc) {
         return;
     }
     // load the visum network
-    NIVissimLoader loader(oc.getString("vissim"));
+    NIVissimLoader loader(myNetBuilder, oc.getString("vissim"));
     loader.load(oc);
 }
 
@@ -442,7 +477,10 @@ NILoader::loadArtemis(OptionsCont &oc) {
         return;
     }
     // load the visum network
-    NIArtemisLoader loader(oc.getString("artemis"));
+    NIArtemisLoader loader(oc.getString("artemis"),
+        myNetBuilder.getDistrictCont(),
+        myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
+        myNetBuilder.getTLLogicCont());
     loader.load(oc);
 }
 
@@ -479,23 +517,24 @@ NILoader::loadElmar(OptionsCont &oc)
         // load nodes
         WRITE_MESSAGE("Loading nodes... ");
         string file = oc.getString("elmar") + string("_knotlist.txt");
-        NIElmarNodesHandler handler1(file,
+        NIElmarNodesHandler handler1(myNetBuilder.getNodeCont(), file,
             (xmin+xmax)/2.0, (ymin+ymax)/2.0);
         if(!useLineReader(lr, file, handler1)) {
             throw ProcessError();
         }
         WRITE_MESSAGE("done.");
-        NBNodeCont::report();
+        myNetBuilder.getNodeCont().report();
         // load edges
         WRITE_MESSAGE("Loading edges... ");
         file = oc.getString("elmar") + string("_streetlengths.txt");
         // parse the file
-        NIElmarEdgesHandler handler2(file);
+        NIElmarEdgesHandler handler2(myNetBuilder.getNodeCont(),
+            myNetBuilder.getEdgeCont(), file);
         if(!useLineReader(lr, file, handler2)) {
             throw ProcessError();
         }
         WRITE_MESSAGE("done.");
-        NBEdgeCont::report();
+        myNetBuilder.getEdgeCont().report();
     }
 }
 
@@ -506,7 +545,8 @@ NILoader::loadTiger(OptionsCont &oc)
     if(!oc.isSet("tiger")) {
         return;
     }
-    NITigerLoader l(oc.getString("tiger"));
+    NITigerLoader l(myNetBuilder.getEdgeCont(),
+        myNetBuilder.getNodeCont(), oc.getString("tiger"));
     l.load(oc);
 }
 

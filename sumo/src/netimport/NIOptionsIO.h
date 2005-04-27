@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2005/04/27 12:24:24  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.1  2003/12/11 06:16:37  dkrajzew
 // NBOptionsIO moved to netimport NIOptionsIO where they belong to
 //
@@ -55,7 +58,12 @@
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
@@ -99,12 +107,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-/* =========================================================================
- * included modules
- * ======================================================================= */
-//#include "NIOptionsIO.icc"
-//#endif
 
 #endif
 

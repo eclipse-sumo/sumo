@@ -19,17 +19,32 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/04/27 12:24:25  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.2  2003/03/20 16:25:12  dkrajzew
 // windows eol removed
 //
 // Revision 1.1  2003/03/03 15:00:34  dkrajzew
 // initial commit for artemis-import files
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include "NIArtemisLoader.h"
+
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class NBNodeCont;
+class NBTrafficLightLogicCont;
 
 
 /* =========================================================================
@@ -42,8 +57,8 @@ class NIArtemisParser_Nodes :
         public NIArtemisLoader::NIArtemisSingleDataTypeParser {
 public:
     /// Constructor
-    NIArtemisParser_Nodes(NIArtemisLoader &parent,
-        const std::string &dataName);
+    NIArtemisParser_Nodes(NBNodeCont &nc, NBTrafficLightLogicCont &tlc,
+        NIArtemisLoader &parent, const std::string &dataName);
 
     /// Destructor
     ~NIArtemisParser_Nodes();
@@ -52,12 +67,14 @@ protected:
     /** @brief Parses a single modality type name using data from the inherited NamedColumnsParser. */
     void myDependentReport();
 
+protected:
+    NBNodeCont &myNodeCont;
+    NBTrafficLightLogicCont &myTLLogicCont;
+
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NIArtemisParser_Nodes.icc"
-//#endif
 
 #endif
 

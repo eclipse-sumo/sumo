@@ -20,13 +20,21 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/04/27 12:24:36  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.2  2004/11/23 10:23:53  dkrajzew
 // debugging
 //
 // Revision 1.1  2004/07/02 09:34:38  dkrajzew
 // elmar and tiger import added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -58,7 +66,8 @@ class NITigerLoader :
 {
 public:
     /// constructor
-    NITigerLoader(const std::string &file);
+    NITigerLoader(NBEdgeCont &ec, NBNodeCont &nc,
+        const std::string &file);
 
     /// destructor
     ~NITigerLoader();
@@ -80,6 +89,8 @@ protected:
 protected:
     bool myWasSet;
     double myInitX, myInitY;
+    NBEdgeCont &myEdgeCont;
+    NBNodeCont &myNodeCont;
 
 };
 

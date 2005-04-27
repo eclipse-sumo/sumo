@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.13  2004/11/23 10:23:53  dkrajzew
 // debugging
 //
@@ -52,7 +55,12 @@
 // Revision 1.4  2003/03/31 06:15:49  dkrajzew
 // further work on vissim-import
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -72,6 +80,8 @@
  * ======================================================================= */
 class NBNode;
 class NIVissimDistrictConnection;
+class NBDistribution;
+class NBDistrictCont;
 
 
 /* =========================================================================
@@ -146,9 +156,10 @@ public:
     static void buildConnectionClusters();
 
     /// Builds NBEdges from the VissimEdges within the dictionary
-    static void dict_buildNBEdges(double offset);
+    static void dict_buildNBEdges(NBDistrictCont &dc, NBNodeCont &nc,
+        NBEdgeCont &ec, double offset);
 
-    static void dict_propagateSpeeds();
+    static void dict_propagateSpeeds(/* NBDistribution &dc */);
 
     static void dict_checkEdges2Join();
 
@@ -160,31 +171,32 @@ private:
 
 private:
     /// Builds the NBEdge from this VissimEdge
-    void buildNBEdge(double offset);
+    void buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc,
+        NBEdgeCont &ec, double offset);
 
     /// Returns the origin node
     std::pair<NIVissimConnectionCluster*, NBNode*>
-        getFromNode(ConnectionClusters &clusters);
+        getFromNode(NBNodeCont &nc, ConnectionClusters &clusters);
 
     /// Returns the destination node
     std::pair<NIVissimConnectionCluster*, NBNode*>
-        getToNode(ConnectionClusters &clusters);
+        getToNode(NBNodeCont &nc, ConnectionClusters &clusters);
 
     /// Tries to resolve the problem that the same node has been returned as origin and destination node
-    std::pair<NBNode*, NBNode*> resolveSameNode(double offset,
-        NBNode *prevFrom, NBNode *prevTo);
+    std::pair<NBNode*, NBNode*> resolveSameNode(NBNodeCont &nc,
+        double offset, NBNode *prevFrom, NBNode *prevTo);
 
 //    double recheckSpeedPatches();
 
     std::vector<NIVissimConnection*> getOutgoingConnected(int lane) const;
 
-    void propagateSpeed(double speed, IntVector forLanes);
+    void propagateSpeed(/* NBDistribution &dc */double speed, IntVector forLanes);
 
 
-    void setDistrictSpeed();
-    double getRealSpeed(int distNo);
-    void checkUnconnectedLaneSpeeds();
-    void propagateOwn();
+    void setDistrictSpeed(/* NBDistribution &dc */);
+    double getRealSpeed(/* NBDistribution &dc */int distNo);
+    void checkUnconnectedLaneSpeeds(/* NBDistribution &dc */);
+    void propagateOwn(/* NBDistribution &dc */);
 
 
 
@@ -192,8 +204,10 @@ private:
     static NBNode *getNodeSecure(int nodeid, const Position2D &pos,
         const std::string &possibleName);
 
-std::pair<NBNode*, NBNode*> remapOneOfNodes(NIVissimDistrictConnection *d,
-                              NBNode *fromNode, NBNode *toNode);
+    std::pair<NBNode*, NBNode*>
+        remapOneOfNodes(NBNodeCont &nc,
+            NIVissimDistrictConnection *d,
+            NBNode *fromNode, NBNode *toNode);
 
 private:
     /**
@@ -286,9 +300,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVissimEdge.icc"
-//#endif
 
 #endif
 

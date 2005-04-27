@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.8  2004/11/23 10:23:51  dkrajzew
 // debugging
 //
@@ -92,6 +95,12 @@ namespace
 // files for the netbuilder
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
@@ -131,9 +140,12 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIXMLNodesHandler::NIXMLNodesHandler(OptionsCont &options)
+NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont &nc,
+									 NBTrafficLightLogicCont &tlc,
+									 OptionsCont &options)
     : SUMOSAXHandler("xml-nodes - file"),
-    _options(options)
+    _options(options),
+    myNodeCont(nc), myTLLogicCont(tlc)
 {
 }
 
@@ -170,8 +182,8 @@ NIXMLNodesHandler::myStartElement(int element, const std::string &tag,
     // build the node
     NBNode *node = new NBNode(myID, myPosition);
     // insert the node
-    if(!NBNodeCont::insert(node)) {
-        if(NBNodeCont::retrieve(myPosition)!=0) {
+    if(!myNodeCont.insert(node)) {
+        if(myNodeCont.retrieve(myPosition)!=0) {
             addError(string("Duplicate node occured. ID='") + myID
                 + string("'"));
         }
@@ -217,12 +229,12 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
     try {
         string tlID = getString(attrs, SUMO_ATTR_TLID);
         // ok, the traffic light has a name
-        tlDef = NBTrafficLightLogicCont::getDefinition(tlID);
+        tlDef = myTLLogicCont.getDefinition(tlID);
         if(tlDef==0) {
             // this traffic light is visited the first time
             NBTrafficLightDefinition *tlDef =
                 new NBOwnTLDef(tlID, currentNode);
-            if(!NBTrafficLightLogicCont::insert(tlID, tlDef)) {
+            if(!myTLLogicCont.insert(tlID, tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;
                 throw ProcessError();
@@ -235,7 +247,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
         //  participate
         NBTrafficLightDefinition *tlDef =
             new NBOwnTLDef(myID, currentNode);
-        if(!NBTrafficLightLogicCont::insert(myID, tlDef)) {
+        if(!myTLLogicCont.insert(myID, tlDef)) {
             // actually, nothing should fail here
             delete tlDef;
             throw ProcessError();

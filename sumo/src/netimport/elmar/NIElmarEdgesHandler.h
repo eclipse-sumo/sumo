@@ -20,10 +20,18 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2005/04/27 12:24:35  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.1  2004/07/02 09:34:38  dkrajzew
 // elmar and tiger import added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -31,6 +39,7 @@
 #include <utils/importio/LineHandler.h>
 #include <netbuild/NBCapacity2Lanes.h>
 #include <utils/common/FileErrorReporter.h>
+
 
 /* =========================================================================
  * class declarations
@@ -51,7 +60,8 @@ class NIElmarEdgesHandler : public LineHandler,
                            public FileErrorReporter {
 public:
     /// constructor
-    NIElmarEdgesHandler(const std::string &file);
+    NIElmarEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
+        const std::string &file);
 
     /// destructor
     ~NIElmarEdgesHandler();
@@ -61,7 +71,12 @@ public:
         NBEdgeCont */
     bool report(const std::string &result);
 
+protected:
+    NBNodeCont &myNodeCont;
+    NBEdgeCont &myEdgeCont;
+
 };
+
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 

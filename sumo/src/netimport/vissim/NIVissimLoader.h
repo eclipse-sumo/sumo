@@ -19,13 +19,19 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/04/27 12:24:36  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.3  2003/08/18 12:39:22  dkrajzew
 // missing handling of some vissim3.7-structures added
 //
 // Revision 1.2  2003/06/05 11:46:54  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -45,6 +51,10 @@
 #include "tempstructs/NIVissimExtendedEdgePoint.h"
 #include "NIVissimElements.h"
 
+
+class NBNetBuilder;
+
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
@@ -54,7 +64,7 @@ class NIVissimLoader :
         public FileErrorReporter {
 public:
     /// constructor
-    NIVissimLoader(const std::string &file);
+    NIVissimLoader(NBNetBuilder &nb, const std::string &file);
 
     /// destructor
     ~NIVissimLoader();
@@ -153,15 +163,15 @@ private:
     ColorMap myColorMap;
 
     std::string myLastSecure;
+
+    NBNetBuilder &myNetBuilder;
+
 };
 
 
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVissimLoader.icc"
-//#endif
 
 #endif
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.6  2003/07/22 15:11:25  dkrajzew
 // removed warnings
 //
@@ -41,7 +44,12 @@ namespace
 // Revision 1.1  2003/05/20 09:55:56  dkrajzew
 // visum-traffic light import added (by Markus Hartinger)
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -240,13 +248,14 @@ NIVisumTL::SignalGroup* NIVisumTL::GetSignalGroup(const std::string Name)
 	return (*mySignalGroups.find(Name)).second;
 }
 
-void NIVisumTL::build()
+void
+NIVisumTL::build(NBTrafficLightLogicCont &tlc)
 {
 	for(NodeVector::iterator ni = myNodes.begin(); ni != myNodes.end(); ni++)
 	{
 		NBNode *Node = (*ni);
         NBLoadedTLDef *def = new NBLoadedTLDef(Node->getID(), Node);
-        NBTrafficLightLogicCont::insert(Node->getID(), def);
+        tlc.insert(Node->getID(), def);
 		def->setCycleDuration((size_t) myCycleTime);
 		// signalgroups
 		for(SignalGroupMap::iterator gi = mySignalGroups.begin(); gi != mySignalGroups.end(); gi++ )
@@ -272,9 +281,6 @@ void NIVisumTL::build()
 	}
 }
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVisumTL.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

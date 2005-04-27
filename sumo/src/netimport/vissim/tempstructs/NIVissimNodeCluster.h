@@ -19,10 +19,16 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.6  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -41,6 +47,10 @@
  * class declarations
  * ======================================================================= */
 class NBNode;
+class NBNodeCont;
+class NBEdgeCont;
+class NBDistrictCont;
+
 
 /* =========================================================================
  * class definitions
@@ -56,7 +66,7 @@ public:
 		bool amEdgeSplitOnly);
     ~NIVissimNodeCluster();
     int getID() const { return myID; }
-    void buildNBNode();
+    void buildNBNode(NBNodeCont &nc);
     bool recheckEdgeChanges();
     NBNode *getNBNode() const;
     Position2D getPos() const;
@@ -70,12 +80,13 @@ public:
     static NIVissimNodeCluster *dictionary(int id);
     static size_t contSize();
     static void assignToEdges();
-    static void buildNBNodes();
+    static void buildNBNodes(NBNodeCont &nc);
     static void dict_recheckEdgeChanges();
     static int getFromNode(int edgeid);
     static int getToNode(int edgeid);
     static void _debugOut(std::ostream &into);
-    static void dict_addDisturbances();
+    static void dict_addDisturbances(NBDistrictCont &dc,
+        NBNodeCont &nc, NBEdgeCont &ec);
     static void clearDict();
     static void setCurrentVirtID(int id);
 
@@ -93,14 +104,12 @@ private:
     static int myCurrentID;
     NBNode *myNBNode;
 	bool myAmEdgeSplit;
+
 };
 
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVissimNodeCluster.icc"
-//#endif
 
 #endif
 

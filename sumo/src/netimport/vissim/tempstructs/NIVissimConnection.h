@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.6  2004/11/23 10:23:53  dkrajzew
 // debugging
 //
@@ -28,6 +31,12 @@
 // Revision 1.4  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -45,6 +54,10 @@
 #include "NIVissimAbstractEdge.h"
 #include "NIVissimClosedLanesVector.h"
 #include "NIVissimBoundedClusterObject.h"
+
+
+class NBEdgeCont;
+
 
 class NIVissimConnection
         : public NIVissimBoundedClusterObject,
@@ -92,7 +105,7 @@ public:
     static IntVector getWithin(const AbstractPoly &poly);
     static void buildNodeClusters();
     static IntVector getForEdge(int edgeid, bool omitNodeAssigned=true);
-    static void dict_buildNBEdgeConnections();
+    static void dict_buildNBEdgeConnections(NBEdgeCont &ec);
     static void dict_assignToEdges();
     static int getMaxID();
     const IntVector &getFromLanes() const;

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.4  2004/01/12 15:36:08  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -32,7 +35,12 @@
 // Revision 1.1  2003/05/20 09:55:56  dkrajzew
 // visum-traffic light import added (by Markus Hartinger)
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -41,6 +49,9 @@
 #include <string>
 #include <netbuild/NBConnectionDefs.h>
 #include <netbuild/nodes/NBNodeCont.h>
+
+
+class NBTrafficLightLogicCont;
 
 
 /* =========================================================================
@@ -129,7 +140,7 @@ public:
 	void AddSignalGroup(const std::string Name, double StartTime, double EndTime);
 	void AddPhase(const std::string Name, double StartTime, double EndTime);
 	// build the trafficlight
-	void build();
+	void build(NBTrafficLightLogicCont &tlc);
 private:
 	// name of traffic light
 	std::string myName;
@@ -155,9 +166,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVisumTL.icc"
-//#endif
 
 #endif
 

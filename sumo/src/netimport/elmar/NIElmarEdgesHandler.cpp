@@ -23,13 +23,21 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/04/27 12:24:35  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.2  2004/11/23 10:23:52  dkrajzew
 // debugging
 //
 // Revision 1.1  2004/07/02 09:34:38  dkrajzew
 // elmar and tiger import added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -47,6 +55,7 @@ namespace
 #include <netbuild/NBCapacity2Lanes.h>
 #include "NIElmarEdgesHandler.h"
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
@@ -56,8 +65,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIElmarEdgesHandler::NIElmarEdgesHandler(const std::string &file)
-    : FileErrorReporter("elmar-edges", file)
+NIElmarEdgesHandler::NIElmarEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
+                                         const std::string &file)
+    : FileErrorReporter("elmar-edges", file),
+    myNodeCont(nc), myEdgeCont(ec)
 {
 }
 
@@ -168,8 +179,8 @@ NIElmarEdgesHandler::report(const std::string &result)
     }
 
     // try to get the nodes
-    NBNode *from = NBNodeCont::retrieve(fromID);
-    NBNode *to = NBNodeCont::retrieve(toID);
+    NBNode *from = myNodeCont.retrieve(fromID);
+    NBNode *to = myNodeCont.retrieve(toID);
     if(from==0) {
         MsgHandler::getErrorInstance()->inform(
             string("The from-node '") + fromID + string("' of edge '")
@@ -187,7 +198,7 @@ NIElmarEdgesHandler::report(const std::string &result)
         new NBEdge(id, id, from, to, "DEFAULT",
             speed, nolanes, length, priority);
 
-    if(!NBEdgeCont::insert(e)) {
+    if(!myEdgeCont.insert(e)) {
         delete e;
         MsgHandler::getErrorInstance()->inform(
             string("Could not add edge '") + id + string("'."));

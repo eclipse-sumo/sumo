@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/04/27 12:24:24  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.6  2004/11/23 10:23:51  dkrajzew
 // debugging
 //
@@ -41,7 +44,12 @@ namespace
 // Revision 1.1  2003/03/03 15:00:26  dkrajzew
 // initial commit for artemis-import files
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -194,31 +202,34 @@ NIArtemisLoader::NIArtemisSingleDataTypeParser::addError2(
  /* -------------------------------------------------------------------------
  * methods from NIArtemisLoader
  * ----------------------------------------------------------------------- */
-NIArtemisLoader::NIArtemisLoader(const std::string &file)
+NIArtemisLoader::NIArtemisLoader(const std::string &file,
+                                 NBDistrictCont &dc,
+                                 NBNodeCont &nc, NBEdgeCont &ec,
+                                 NBTrafficLightLogicCont &tlc)
     : FileErrorReporter("artemis-network", file)
 {
     // the order of process is important!
     // set1
     mySingleDataParsers.push_back(
-        new NIArtemisParser_Nodes(*this, "Nodes.txt"));
+        new NIArtemisParser_Nodes(nc, tlc, *this, "Nodes.txt"));
     mySingleDataParsers.push_back(
-        new NIArtemisParser_Links(*this, "Links.txt"));
+        new NIArtemisParser_Links(nc, ec, *this, "Links.txt"));
     // signals must be loaded before the edges are splitted
     mySingleDataParsers.push_back(
         new NIArtemisParser_Signals(*this, "Signals.txt"));
     mySingleDataParsers.push_back(
         new NIArtemisParser_SignalPhases(*this, "Signal Phases.txt"));
     mySingleDataParsers.push_back(
-        new NIArtemisParser_SignalGroups(*this, "Signal Groups.txt"));
+        new NIArtemisParser_SignalGroups(nc, *this, "Signal Groups.txt"));
     // segments must be loaded before the edges are splitted
     mySingleDataParsers.push_back(
-        new NIArtemisParser_Segments(*this, "Segments.txt"));
+        new NIArtemisParser_Segments(ec, *this, "Segments.txt"));
     // edges are splitted when adding lane infomration
     mySingleDataParsers.push_back(
-        new NIArtemisParser_Lanes(*this, "Lanes.txt"));
+        new NIArtemisParser_Lanes(dc, nc, ec, *this, "Lanes.txt"));
     // needed for insertion of source and destination edges
     mySingleDataParsers.push_back(
-        new NIArtemisParser_HVdests(*this, "HVdests.txt"));
+        new NIArtemisParser_HVdests(nc, ec, *this, "HVdests.txt"));
 }
 
 
@@ -243,9 +254,6 @@ void NIArtemisLoader::load(OptionsCont &options)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIArtemisLoader.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

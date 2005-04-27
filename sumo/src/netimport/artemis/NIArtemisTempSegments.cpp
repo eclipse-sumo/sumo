@@ -22,13 +22,21 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/04/27 12:24:25  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.4  2003/06/18 11:14:13  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.3  2003/06/05 11:44:51  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -92,7 +100,7 @@ NIArtemisTempSegments::add(const std::string &linkname, int segment,
 
 
 void
-NIArtemisTempSegments::close()
+NIArtemisTempSegments::close(NBEdgeCont &ec)
 {
     // go through the read values
     for(Link2PosInfos::iterator i=myLinkPosInfos.begin(); i!=myLinkPosInfos.end(); i++) {
@@ -107,7 +115,7 @@ NIArtemisTempSegments::close()
         }
         // add to the edge
         string name = (*i).first;
-        NBEdge *edge = NBEdgeCont::retrieve(name);
+        NBEdge *edge = ec.retrieve(name);
         if(edge==0) {
             MsgHandler::getErrorInstance()->inform(
                 string("Trying to parse the geometry for the unknown edge '")
@@ -120,9 +128,6 @@ NIArtemisTempSegments::close()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIArtemisTempSegments.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

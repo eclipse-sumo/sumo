@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.9  2003/07/07 08:28:48  dkrajzew
 // adapted the importer to the new node type description; some further work
 //
@@ -31,7 +34,10 @@
 // Revision 1.6  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -51,10 +57,16 @@
 #include <utils/common/DoubleVector.h>
 //#include "NIVissimBoundedClusterObject.h"
 
+
+class NBTrafficLightLogicCont;
+
+
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class NBLoadedTLDef;
+class NBEdgeCont;
 
 class NIVissimTL
       /*  : public NIVissimBoundedClusterObject */{
@@ -73,7 +85,8 @@ public:
     static NIVissimTL *dictionary(int id);
 //    static IntVector getWithin(const AbstractPoly &poly, double offset);
     static void clearDict();
-    static bool dict_SetSignals();
+    static bool dict_SetSignals(NBTrafficLightLogicCont &tlc,
+        NBEdgeCont &ec);
 
 public:
     class NIVissimTLSignal;
@@ -94,7 +107,7 @@ public:
         ~NIVissimTLSignal();
         bool isWithin(const Position2DVector &poly) const;
         Position2D getPosition() const;
-        bool addTo(NBLoadedTLDef *node) const;
+        bool addTo(NBEdgeCont &ec, NBLoadedTLDef *node) const;
 
     public:
         static bool dictionary(int lsaid, int id, NIVissimTLSignal *o);
@@ -152,9 +165,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVissimTL.icc"
-//#endif
 
 #endif
 

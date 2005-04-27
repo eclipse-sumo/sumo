@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.22  2004/11/23 10:23:53  dkrajzew
 // debugging
 //
@@ -58,6 +61,12 @@ namespace
 // Revision 1.11  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -270,10 +279,10 @@ NIVissimConnectionCluster::add(NIVissimConnectionCluster *c)
 void
 NIVissimConnectionCluster::joinBySameEdges(double offset)
 {
-    // !!! ...
-    // Further, we try to omit joining of overlaping nodes. This is done by holding
-    //  the lists of incoming and outgoing edges and incrementally building the nodes
-    //  regarding this information
+	// !!! ...
+	// Further, we try to omit joining of overlaping nodes. This is done by holding
+	//  the lists of incoming and outgoing edges and incrementally building the nodes
+	//  regarding this information
     std::vector<NIVissimConnectionCluster*> joinAble;
     size_t pos = 0;
     ContType::iterator i = myClusters.begin();
@@ -285,8 +294,8 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
 
         // check whether every combination has been processed
         while(j!=myClusters.end()) {
-            // check whether the current clusters overlap
-            if((*i)->joinable(*j, offset)) {
+			// check whether the current clusters overlap
+			if((*i)->joinable(*j, offset)) {
                 joinAble.push_back(*j);
             }
             j++;
@@ -302,7 +311,7 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
         //
         if(joinAble.size()>0) {
             i = myClusters.begin() + pos;
-            // clear temporary storages
+			// clear temporary storages
             joinAble.clear();
         } else {
             i++;
@@ -318,7 +327,7 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
         // check whether every combination has been processed
         while(j!=myClusters.end()) {
             // check whether the current clusters overlap
-            if((*i)->joinable(*j, offset)) {
+			if((*i)->joinable(*j, offset)) {
                 joinAble.push_back(*j);
             }
             j++;
@@ -334,7 +343,7 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
         //
         if(joinAble.size()>0) {
             i = myClusters.begin();
-            // clear temporary storages
+			// clear temporary storages
             joinAble.clear();
         } else {
             i++;
@@ -352,7 +361,7 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
         // check whether every combination has been processed
         while(j!=myClusters.end()) {
             // check whether the current clusters overlap
-            if((*i)->isWeakDistrictConnRealisation(*j)) {
+			if((*i)->isWeakDistrictConnRealisation(*j)) {
                 joinAble.push_back(*j);
             }
             j++;
@@ -368,7 +377,7 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
         //
         if(joinAble.size()>0) {
             i = myClusters.begin();
-            // clear temporary storages
+			// clear temporary storages
             joinAble.clear();
         } else {
             i++;
@@ -384,7 +393,7 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
         // check whether every combination has been processed
         while(j!=myClusters.end()) {
             // check whether the current clusters overlap
-            if((*i)->liesOnSameEdgesEnd(*j)) {
+			if((*i)->liesOnSameEdgesEnd(*j)) {
                 joinAble.push_back(*j);
             }
             j++;
@@ -400,7 +409,7 @@ NIVissimConnectionCluster::joinBySameEdges(double offset)
         //
         if(joinAble.size()>0) {
             i = myClusters.begin();
-            // clear temporary storages
+			// clear temporary storages
             joinAble.clear();
         } else {
             i++;
@@ -414,9 +423,9 @@ bool
 NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, double offset)
 {
     // join clusters which have at least one connection in common
-    if(IntVectorHelper::subSetExists(myConnections, c2->myConnections)) {
-        return true;
-    }
+	if(IntVectorHelper::subSetExists(myConnections, c2->myConnections)) {
+		return true;
+	}
 
     // connections shall overlap otherwise
     if(!overlapsWith(c2, offset)) {
@@ -429,12 +438,12 @@ NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, double offset
     }
 
     // join clusters which where connections do disturb each other
-    if( IntVectorHelper::subSetExists(c2->getDisturbanceParticipators(), myConnections)
+	if( IntVectorHelper::subSetExists(c2->getDisturbanceParticipators(), myConnections)
         ||
         IntVectorHelper::subSetExists(getDisturbanceParticipators(), c2->myConnections)) {
 
-        return true;
-    }
+		return true;
+	}
 
 
     // join clusters which do share the same incoming or outgoing edges (not mutually)
@@ -459,12 +468,12 @@ NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, double offset
     }
 
     if( IntVectorHelper::subSetExists(extendedOutgoing1, extendedOutgoing2)
-            ||
-         IntVectorHelper::subSetExists(extendedIncoming1, extendedIncoming2)
+			||
+	     IntVectorHelper::subSetExists(extendedIncoming1, extendedIncoming2)
          ) {
-        return true;
-    }
-    return false;
+		return true;
+	}
+	return false;
 }
 
 

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.15  2005/02/17 10:33:39  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -49,6 +52,12 @@
 // Revision 1.7  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -108,9 +117,9 @@ public:
 
     friend class NIVissimEdge; // !!! debug
 
-    const IntVector &getConnections() const {
-        return myConnections;
-    }
+	const IntVector &getConnections() const {
+		return myConnections;
+	}
 
     Position2DVector getIncomingContinuationGeometry(NIVissimEdge *e) const;
     Position2DVector getOutgoingContinuationGeometry(NIVissimEdge *e) const;
@@ -225,7 +234,7 @@ private:
 
     IntVector myTLs;
 
-    IntVector myOutgoingEdges, myIncomingEdges;
+	IntVector myOutgoingEdges, myIncomingEdges;
 
 private:
     typedef std::vector<NIVissimConnectionCluster*> ContType;

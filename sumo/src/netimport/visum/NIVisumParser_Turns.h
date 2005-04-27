@@ -20,10 +20,18 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -43,7 +51,7 @@ class NIVisumParser_Turns :
         public NIVisumLoader::NIVisumSingleDataTypeParser {
 public:
     /// Constructor
-    NIVisumParser_Turns(NIVisumLoader &parent,
+    NIVisumParser_Turns(NIVisumLoader &parent, NBNodeCont &nc,
         const std::string &dataName,
         NIVisumLoader::VSysTypeNames &vsystypes);
 
@@ -67,12 +75,11 @@ private:
     /// a map of VSysTypes to the traffic type they represent
     NIVisumLoader::VSysTypeNames &usedVSysTypes;
 
+    NBNodeCont &myNodeCont;
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVisumParser_Turns.icc"
-//#endif
 
 #endif
 

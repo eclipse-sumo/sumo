@@ -20,13 +20,20 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2005/04/27 12:24:41  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.1  2004/11/23 10:24:54  dkrajzew
 // added the possibility to read Visum geometries
 //
 // Revision 1.1  2004/11/22 12:47:11  dksumo
 // added the possibility to parse visum-geometries
-//
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -50,7 +57,7 @@ class NIVisumParser_EdgePolys :
         public NIVisumLoader::NIVisumSingleDataTypeParser {
 public:
     /// Constructor
-    NIVisumParser_EdgePolys(NIVisumLoader &parent,
+    NIVisumParser_EdgePolys(NIVisumLoader &parent, NBNodeCont &nc,
         const std::string &dataName);
 
     /// Destructor
@@ -61,10 +68,14 @@ protected:
     void myDependentReport();
 
 private:
-    /// Checks whether the nodes are ok
-    bool checkNodes(NBNode *from, NBNode *to) const;
+	/// Checks whether the nodes are ok
+	bool checkNodes(NBNode *from, NBNode *to) const;
+
+private:
+    NBNodeCont &myNodeCont;
 
 };
+
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 

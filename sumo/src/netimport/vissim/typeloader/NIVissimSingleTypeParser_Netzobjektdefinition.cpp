@@ -22,10 +22,17 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/04/27 12:24:38  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.1  2003/05/20 09:42:37  dkrajzew
 // all data types implemented
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * included modules

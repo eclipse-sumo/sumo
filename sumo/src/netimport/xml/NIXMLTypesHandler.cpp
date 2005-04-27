@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.4  2004/11/23 10:23:51  dkrajzew
 // debugging
 //
@@ -75,7 +78,12 @@ namespace
 // Revision 1.1  2001/12/06 13:37:59  traffic
 // files for the netbuilder
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -99,7 +107,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC       // exclude standard memory alloc procedures
+   #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
 
@@ -112,8 +120,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIXMLTypesHandler::NIXMLTypesHandler()
-    : SUMOSAXHandler("xml-types - file")
+NIXMLTypesHandler::NIXMLTypesHandler(NBTypeCont &tc)
+    : SUMOSAXHandler("xml-types - file"),
+    myTypeCont(tc)
 {
 }
 
@@ -137,7 +146,7 @@ NIXMLTypesHandler::myStartElement(int element, const std::string &name,
             // get the priority
             try {
                 priority = getIntSecure(attrs, SUMO_ATTR_PRIORITY,
-                    NBTypeCont::getDefaultPriority());
+                    myTypeCont.getDefaultPriority());
             } catch (NumberFormatException) {
                 addError(
                     string("Not numeric value for Priority (at tag ID='")
@@ -146,7 +155,7 @@ NIXMLTypesHandler::myStartElement(int element, const std::string &name,
             // get the number of lanes
             try {
                 noLanes = getIntSecure(attrs, SUMO_ATTR_NOLANES,
-                    NBTypeCont::getDefaultNoLanes());
+                    myTypeCont.getDefaultNoLanes());
             } catch (NumberFormatException) {
                 addError(
                     string("Not numeric value for NoLanes (at tag ID='")
@@ -155,7 +164,7 @@ NIXMLTypesHandler::myStartElement(int element, const std::string &name,
             // get the speed
             try {
                 speed = getFloatSecure(attrs, SUMO_ATTR_SPEED,
-                    (float) NBTypeCont::getDefaultSpeed());
+                    (float) myTypeCont.getDefaultSpeed());
             } catch (NumberFormatException) {
                 addError(
                     string("Not numeric value for Speed (at tag ID='")
@@ -164,7 +173,7 @@ NIXMLTypesHandler::myStartElement(int element, const std::string &name,
             // build the type
             if(!MsgHandler::getErrorInstance()->wasInformed()) {
                 NBType *type = new NBType(id, noLanes, speed, priority);
-                if(!NBTypeCont::insert(type)) {
+                if(!myTypeCont.insert(type)) {
                     addError(
                         string("Duplicate type occured. ID='")
                         + id + string("'"));
@@ -192,9 +201,6 @@ NIXMLTypesHandler::myEndElement(int element, const std::string &name)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIXMLTypesHandler.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

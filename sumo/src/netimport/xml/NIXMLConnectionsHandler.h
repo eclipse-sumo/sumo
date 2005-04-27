@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.2  2003/06/18 11:17:29  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -33,7 +36,12 @@
 // Revision 1.1  2002/10/17 13:28:11  dkrajzew
 // initial commit of classes to import connection definitions
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -43,6 +51,8 @@
  * class declarations
  * ======================================================================= */
 class NBEdge;
+class NBEdgeCont;
+
 
 /* =========================================================================
  * class definitions
@@ -50,7 +60,7 @@ class NBEdge;
 class NIXMLConnectionsHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
-    NIXMLConnectionsHandler();
+    NIXMLConnectionsHandler(NBEdgeCont &ec);
 
     /// destructor
     ~NIXMLConnectionsHandler();
@@ -77,6 +87,9 @@ private:
         NBEdge *to);
 
 private:
+    NBEdgeCont &myEdgeCont;
+
+private:
     /** invalid copy constructor */
     NIXMLConnectionsHandler(const NIXMLConnectionsHandler &s);
 
@@ -86,9 +99,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NIXMLConnectionsHandler.icc"
-//#endif
 
 #endif
 

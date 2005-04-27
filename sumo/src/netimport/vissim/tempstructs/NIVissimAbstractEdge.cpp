@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.7  2003/10/15 11:51:28  dkrajzew
 // further work on vissim-import
 //
@@ -31,7 +34,10 @@ namespace
 // Revision 1.5  2003/06/05 11:46:55  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -239,9 +245,6 @@ NIVissimAbstractEdge::getDisturbances() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVissimAbstractEdge.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

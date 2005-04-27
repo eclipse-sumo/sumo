@@ -19,13 +19,19 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.3  2003/10/27 10:51:55  dkrajzew
 // edges speed setting implemented (only on an edges begin)
 //
 // Revision 1.2  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -56,9 +62,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVissimVehicleClass.icc"
-//#endif
 
 #endif
 

@@ -20,10 +20,18 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/04/27 12:24:25  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.3  2003/06/05 11:44:51  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -38,6 +46,14 @@
 
 
 /* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class NBNodeCont;
+class NBEdgeCont;
+class NBDistrictCont;
+
+
+/* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
@@ -47,7 +63,8 @@ class NIArtemisTempEdgeLanes {
 public:
     static void add(const std::string &link, int lane, int section,
         double start, double end, const std::string &mvmt);
-    static void close();
+    static void close(NBDistrictCont &dc,
+        NBEdgeCont &ec, NBNodeCont &nc);
 private:
 
     class LinkLaneDesc {
@@ -79,14 +96,13 @@ private:
     typedef std::map<std::string, DoubleVector> Link2Positions;
     static Link2Positions myLinkLanePositions;
 
+protected:
+    NBNodeCont &myNodeCont;
+
 };
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NIArtemisTempEdgeLanes.icc"
-//#endif
 
 #endif
 

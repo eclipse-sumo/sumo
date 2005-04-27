@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/04/27 12:24:25  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.3  2004/01/12 15:30:47  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -31,7 +34,12 @@ namespace
 // Revision 1.1  2003/03/03 15:00:33  dkrajzew
 // initial commit for artemis-import files
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -81,9 +89,6 @@ NIArtemisParser_SignalPhases::myDependentReport()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIArtemisParser_SignalPhases.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.13  2004/11/23 10:23:53  dkrajzew
 // debugging
 //
@@ -40,6 +43,12 @@ namespace
 // Revision 1.8  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -161,13 +170,13 @@ NIVissimTL::NIVissimTLSignal::getSignalsFor(int tlid)
 
 
 bool
-NIVissimTL::NIVissimTLSignal::addTo(NBLoadedTLDef *tl) const
+NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont &ec, NBLoadedTLDef *tl) const
 {
     NIVissimConnection *c = NIVissimConnection::dictionary(myEdgeID);
     NBConnectionVector assignedConnections;
     if(c==0) {
         // What to do if on an edge? -> close all outgoing connections
-        NBEdge *edge = NBEdgeCont::retrievePossiblySplitted(
+        NBEdge *edge = ec.retrievePossiblySplitted(
             toString<int>(myEdgeID), myPosition);
         assert(edge!=0);
         // Check whether it is already known, which edges are approached
@@ -194,22 +203,22 @@ NIVissimTL::NIVissimTLSignal::addTo(NBLoadedTLDef *tl) const
         }
     } else {
         // get the edges
-        NBEdge *tmpFrom = NBEdgeCont::retrievePossiblySplitted(
+		NBEdge *tmpFrom = ec.retrievePossiblySplitted(
             toString<int>(c->getFromEdgeID()),
             toString<int>(c->getToEdgeID()),
             true);
-        NBEdge *tmpTo = NBEdgeCont::retrievePossiblySplitted(
+		NBEdge *tmpTo = ec.retrievePossiblySplitted(
             toString<int>(c->getToEdgeID()),
             toString<int>(c->getFromEdgeID()),
             false);
         // check whether the edges are known
-        if(tmpFrom!=0&&tmpTo!=0) {
+		if(tmpFrom!=0&&tmpTo!=0) {
             // add connections this signal is responsible for
             assignedConnections.push_back(NBConnection(tmpFrom, -1, tmpTo, -1));
-        } else {
-            return false;
-            // !!! one of the edges could not be build
-        }
+		} else {
+			return false;
+			// !!! one of the edges could not be build
+		}
     }
     // add to the group
     assert(myGroupIDs.size()!=0);
@@ -221,7 +230,7 @@ NIVissimTL::NIVissimTLSignal::addTo(NBLoadedTLDef *tl) const
         return tl->addToSignalGroup(toString<int>(*(myGroupIDs.begin())),
             assignedConnections);
     }
-    return true;
+	return true;
 }
 
 
@@ -326,15 +335,15 @@ NIVissimTL::NIVissimTLSignalGroup::addTo(NBLoadedTLDef *tl) const
         color = color==NBTrafficLightDefinition::TLCOLOR_RED
             ? NBTrafficLightDefinition::TLCOLOR_GREEN : NBTrafficLightDefinition::TLCOLOR_RED;
     }
-    if(myTimes.size()==0) {
-        if(myFirstIsRed) {
-            tl->addSignalGroupPhaseBegin(id, 0, NBTrafficLightDefinition::TLCOLOR_RED);
-        } else {
-            tl->addSignalGroupPhaseBegin(id, 0, NBTrafficLightDefinition::TLCOLOR_GREEN);
-        }
-    }
+	if(myTimes.size()==0) {
+		if(myFirstIsRed) {
+			tl->addSignalGroupPhaseBegin(id, 0, NBTrafficLightDefinition::TLCOLOR_RED);
+		} else {
+			tl->addSignalGroupPhaseBegin(id, 0, NBTrafficLightDefinition::TLCOLOR_GREEN);
+		}
+	}
     tl->setSignalYellowTimes(id, myTRedYellow, myTYellow);
-    return true;
+	return true;
 }
 
 
@@ -440,58 +449,59 @@ NIVissimTL::clearDict()
 
 
 bool
-NIVissimTL::dict_SetSignals()
+NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont &tlc,
+                            NBEdgeCont &ec)
 {
-    size_t ref = 0;
-    size_t ref_groups = 0;
-    size_t ref_signals = 0;
-    size_t no_signals = 0;
-    size_t no_groups = 0;
+	size_t ref = 0;
+	size_t ref_groups = 0;
+	size_t ref_signals = 0;
+	size_t no_signals = 0;
+	size_t no_groups = 0;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimTL *tl = (*i).second;
-/*      if(tl->myType!="festzeit") {
-            cout << " Warning: The traffic light '" << tl->myID
-                << "' could not be assigned to a node." << endl;
-            ref++;
-            continue;
-        }*/
+/*		if(tl->myType!="festzeit") {
+			cout << " Warning: The traffic light '" << tl->myID
+				<< "' could not be assigned to a node." << endl;
+			ref++;
+			continue;
+		}*/
         string id = toString<int>(tl->myID);
         NBLoadedTLDef *def = new NBLoadedTLDef(id);
-        if(!NBTrafficLightLogicCont::insert(id, def)) {
+        if(!tlc.insert(id, def)) {
             MsgHandler::getErrorInstance()->inform("Error on adding a traffic light");
             MsgHandler::getErrorInstance()->inform(string(" Must be a multiple id ('") + id + string("')"));
             continue;
         }
-        def->setCycleDuration((size_t) tl->myAbsDuration);
+		def->setCycleDuration((size_t) tl->myAbsDuration);
 //        node->setType(NBTrafficLightDefinition::TYPE_SIMPLE_TRAFFIC_LIGHT);
         // add each group to the node's container
         SGroupDictType sgs = NIVissimTLSignalGroup::getGroupsFor(tl->getID());
         for(SGroupDictType::const_iterator j=sgs.begin(); j!=sgs.end(); j++) {
             if(!(*j).second->addTo(def)) {
                 WRITE_WARNING(string("The signal group '") + toString<int>((*j).first)+ string("' could not be assigned to tl '")+ toString<int>(tl->myID) + string("'."));
-                ref_groups++;
-            }
-            no_groups++;
+				ref_groups++;
+			}
+			no_groups++;
         }
         // add the signal group signals to the node
         SSignalDictType signals = NIVissimTLSignal::getSignalsFor(tl->getID());
         for(SSignalDictType::const_iterator k=signals.begin(); k!=signals.end(); k++) {
-            if(!(*k).second->addTo(def)) {
+            if(!(*k).second->addTo(ec, def)) {
                 WRITE_WARNING(string("The signal '") + toString<int>((*k).first)+ string("' could not be assigned to tl '")+ toString<int>(tl->myID) + string("'."));
-                ref_signals++;
-            }
-            no_signals++;
+				ref_signals++;
+			}
+			no_signals++;
         }
     }
-    if(ref!=0) {
+	if(ref!=0) {
         WRITE_WARNING(string("Could not set ") + toString<size_t>(ref)+ string(" of ") + toString<size_t>(myDict.size())+ string(" traffic lights."));
-    }
-    if(ref_groups!=0) {
+	}
+	if(ref_groups!=0) {
         WRITE_WARNING(string("Could not set ") + toString<size_t>(ref_groups)+ string(" of ") + toString<size_t>(no_groups)+ string(" groups."));
-    }
-    if(ref_signals!=0) {
+	}
+	if(ref_signals!=0) {
         WRITE_WARNING(string("Could not set ") + toString<size_t>(ref_signals)+ string(" of ") + toString<size_t>(no_signals)+ string(" signals."));
-    }
+	}
     return true;
 
 }

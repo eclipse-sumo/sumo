@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/04/27 12:24:25  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.6  2004/01/12 15:30:31  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -40,7 +43,12 @@ namespace
 // Revision 1.1  2003/03/03 15:00:31  dkrajzew
 // initial commit for artemis-import files
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -68,9 +76,12 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIArtemisParser_SignalGroups::NIArtemisParser_SignalGroups(NIArtemisLoader &parent,
+NIArtemisParser_SignalGroups::NIArtemisParser_SignalGroups(
+        NBNodeCont &nc,
+        NIArtemisLoader &parent,
         const std::string &dataName)
-    : NIArtemisLoader::NIArtemisSingleDataTypeParser(parent, dataName)
+    : NIArtemisLoader::NIArtemisSingleDataTypeParser(parent, dataName),
+    myNodeCont(nc)
 {
 }
 
@@ -92,9 +103,9 @@ NIArtemisParser_SignalGroups::myDependentReport()
     char endPhase = myLineParser.get("EndPhase").at(0); // !!! insecure when string empty
     // "satflow" omitted
     // get the according structures
-    NBNode *node = NBNodeCont::retrieve(nodeid);
-    NBNode *fromNode = NBNodeCont::retrieve(from);
-    NBNode *toNode = NBNodeCont::retrieve(to);
+    NBNode *node = myNodeCont.retrieve(nodeid);
+    NBNode *fromNode = myNodeCont.retrieve(from);
+    NBNode *toNode = myNodeCont.retrieve(to);
         // check whether the node is valid
     if(node==0) {
         MsgHandler::getErrorInstance()->inform(
@@ -148,9 +159,6 @@ NIArtemisParser_SignalGroups::myClose()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIArtemisParser_SignalGroups.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/04/27 12:24:41  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.10  2004/12/16 12:24:03  dkrajzew
 // debugging
 //
@@ -53,7 +56,12 @@ namespace
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -79,8 +87,10 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVisumParser_Connectors::NIVisumParser_Connectors(NIVisumLoader &parent,
-        const std::string &dataName)
-    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName)
+        NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc, NBDistrictCont &dc,
+		const std::string &dataName)
+    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
+    myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc)
 {
 }
 
@@ -100,7 +110,7 @@ NIVisumParser_Connectors::myDependentReport()
         // get the destination node
         string node =
             NBHelpers::normalIDRepresentation(myLineParser.get("KnotNr"));
-        NBNode *dest = NBNodeCont::retrieve(node);
+        NBNode *dest = myNodeCont.retrieve(node);
         if(dest==0) {
             addError(
                 string("The node '") + bez + string("' is not known."));
@@ -129,9 +139,9 @@ NIVisumParser_Connectors::myDependentReport()
             nolanes = 1;
             prio = 0;
         } else {
-            speed = NBTypeCont::getSpeed(type);
-            nolanes = NBTypeCont::getNoLanes(type);
-            prio = NBTypeCont::getPriority(type);
+            speed = myTypeCont.getSpeed(type);
+            nolanes = myTypeCont.getNoLanes(type);
+            prio = myTypeCont.getPriority(type);
         }
         // add the connectors as an edge
         string id = bez + string("-") + node;
@@ -153,12 +163,12 @@ NIVisumParser_Connectors::myDependentReport()
             NBEdge *edge = new NBEdge(id, id, src, dest, "VisumConnector",
                 100, 3/*nolanes*/, 1000.0, prio, NBEdge::LANESPREAD_RIGHT,
                 NBEdge::EDGEFUNCTION_SOURCE);
-            if(!NBEdgeCont::insert(edge)) {
+            if(!myEdgeCont.insert(edge)) {
                 addError(
                     string("A duplicate edge id occured (ID='") + id
                     + string("')."));
             } else {
-                NBDistrictCont::addSource(bez, edge, proz);
+                myDistrictCont.addSource(bez, edge, proz);
             }
         }
         // build the sink when needed
@@ -175,12 +185,12 @@ NIVisumParser_Connectors::myDependentReport()
             NBEdge *edge = new NBEdge(id, id, dest, src, "VisumConnector",
                 100, 3/*nolanes*/, 1000.0, prio, NBEdge::LANESPREAD_RIGHT,
                 NBEdge::EDGEFUNCTION_SINK);
-            if(!NBEdgeCont::insert(edge)) {
+            if(!myEdgeCont.insert(edge)) {
                 addError(
                     string("A duplicate edge id occured (ID='") + id
                     + string("')."));
             } else {
-                NBDistrictCont::addSink(bez, edge, proz);
+                myDistrictCont.addSink(bez, edge, proz);
             }
         }
     } catch (OutOfBoundsException) {
@@ -199,7 +209,7 @@ NIVisumParser_Connectors::buildDistrictNode(const std::string &id,
                                             NBEdge::EdgeBasicFunction dir)
 {
     // get the district
-    NBDistrict *dist = NBDistrictCont::retrieve(id);
+    NBDistrict *dist = myDistrictCont.retrieve(id);
     if(dist==0) {
         return 0;
     }
@@ -223,17 +233,17 @@ NIVisumParser_Connectors::buildDistrictNode(const std::string &id,
         nid = "-" + nid;
     }
     // insert the node
-    if(!NBNodeCont::insert(nid, Position2D(x, y))) {
+    if(!myNodeCont.insert(nid, Position2D(x, y))) {
         x += 0.1;
         y -= 0.1;
-        if(!NBNodeCont::insert(nid, Position2D(x, y), dist)) {
+        if(!myNodeCont.insert(nid, Position2D(x, y), dist)) {
             addError(
                 "Ups, this should not happen: A district lies on a node.");
             return 0;
         }
     }
     // return the node
-    return NBNodeCont::retrieve(nid);
+    return myNodeCont.retrieve(nid);
 }
 
 

@@ -19,13 +19,21 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/04/27 12:24:25  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.2  2003/03/20 16:25:11  dkrajzew
 // windows eol removed
 //
 // Revision 1.1  2003/03/12 16:44:45  dkrajzew
 // further work on artemis-import
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -42,8 +50,8 @@ class NIArtemisParser_HVdests :
         public NIArtemisLoader::NIArtemisSingleDataTypeParser {
 public:
     /// Constructor
-    NIArtemisParser_HVdests(NIArtemisLoader &parent,
-        const std::string &dataName);
+    NIArtemisParser_HVdests(NBNodeCont &nc, NBEdgeCont &ec,
+        NIArtemisLoader &parent, const std::string &dataName);
 
     /// Destructor
     ~NIArtemisParser_HVdests();
@@ -55,12 +63,13 @@ protected:
     /** @brief Parses a single modality type name using data from the inherited NamedColumnsParser. */
     void myDependentReport();
 
+protected:
+    NBNodeCont &myNodeCont;
+    NBEdgeCont &myEdgeCont;
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NIArtemisParser_HVdests.icc"
-//#endif
 
 #endif
 

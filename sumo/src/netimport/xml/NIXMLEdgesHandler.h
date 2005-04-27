@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.7  2003/07/07 08:32:19  dkrajzew
 // adapted the importer to the new lane geometry description
 //
@@ -66,7 +69,12 @@
 // Revision 1.1  2001/12/06 13:37:59  traffic
 // files for the netbuilder
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -80,6 +88,9 @@
  * ======================================================================= */
 class OptionsCont;
 class NBNode;
+class NBNodeCont;
+class NBEdgeCont;
+class NBTypeCont;
 
 
 /* =========================================================================
@@ -92,7 +103,8 @@ class NBNode;
 class NIXMLEdgesHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
-    NIXMLEdgesHandler(OptionsCont &options);
+    NIXMLEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
+		NBTypeCont &tc,OptionsCont &options);
 
     /// Destructor
     ~NIXMLEdgesHandler();
@@ -190,6 +202,12 @@ private:
     /// Information about how to spread the lanes
     NBEdge::LaneSpreadFunction myLanesSpread;
 
+    NBNodeCont &myNodeCont;
+
+	NBEdgeCont &myEdgeCont;
+
+	NBTypeCont &myTypeCont;
+
 private:
     /** invalid copy constructor */
     NIXMLEdgesHandler(const NIXMLEdgesHandler &s);
@@ -200,9 +218,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NIXMLEdgesHandler.icc"
-//#endif
 
 #endif
 

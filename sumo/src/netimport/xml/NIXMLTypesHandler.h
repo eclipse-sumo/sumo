@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.2  2003/06/18 11:17:29  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -51,11 +54,20 @@
 // Revision 1.1  2001/12/06 13:37:59  traffic
 // files for the netbuilder
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <utils/sumoxml/SUMOSAXHandler.h>
+
+
+class NBTypeCont;
+
 
 /* =========================================================================
  * class definitions
@@ -63,7 +75,7 @@
 class NIXMLTypesHandler : public SUMOSAXHandler {
 public:
     /// standard constructor
-    NIXMLTypesHandler();
+    NIXMLTypesHandler(NBTypeCont &tc);
 
     /// destructor
     ~NIXMLTypesHandler();
@@ -81,6 +93,9 @@ protected:
     void myEndElement(int element, const std::string &name);
 
 private:
+	NBTypeCont &myTypeCont;
+
+private:
     /** invalid copy constructor */
     NIXMLTypesHandler(const NIXMLTypesHandler &s);
 
@@ -90,9 +105,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NIXMLTypesHandler.icc"
-//#endif
 
 #endif
 

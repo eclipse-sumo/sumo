@@ -20,10 +20,18 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2005/04/27 12:24:35  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.1  2004/07/02 09:34:38  dkrajzew
 // elmar and tiger import added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -44,7 +52,7 @@ class NIElmarNodesHandler : public LineHandler,
                            public FileErrorReporter {
 public:
     /// constructor
-    NIElmarNodesHandler(const std::string &file,
+    NIElmarNodesHandler(NBNodeCont &nc, const std::string &file,
         double xmin, double ymin);
 
     /// destructor
@@ -60,6 +68,8 @@ protected:
     size_t myCurrentLine;
 
     double myInitX, myInitY;
+
+    NBNodeCont &myNodeCont;
 
 };
 

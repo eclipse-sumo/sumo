@@ -20,10 +20,17 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2005/04/27 12:24:41  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
-//
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -43,7 +50,7 @@ class NIVisumParser_Districts :
 public:
     /// Constructor
     NIVisumParser_Districts(NIVisumLoader &parent,
-        const std::string &dataName);
+        NBDistrictCont &dc, const std::string &dataName);
 
     /// Destructor
     ~NIVisumParser_Districts();
@@ -52,12 +59,12 @@ protected:
     /** @brief Parses a single district using data from the inherited NamedColumnsParser. */
     void myDependentReport();
 
+protected:
+	NBDistrictCont &myDistrictCont;
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVisumParser_Districts.icc"
-//#endif
 
 #endif
 

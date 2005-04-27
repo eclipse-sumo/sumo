@@ -1,5 +1,11 @@
 #ifndef Bin_ShapeReader_h
 #define Bin_ShapeReader_h
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 
 
 #include <string>

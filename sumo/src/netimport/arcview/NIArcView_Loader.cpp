@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/04/27 12:24:24  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.12  2004/08/02 12:43:07  dkrajzew
 // got rid of the shapelib-interface; conversion of geocoordinates added
 //
@@ -51,6 +54,12 @@ namespace
 // class templates applied; documentation added
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -72,9 +81,7 @@ namespace
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
-//#include "NIArcView_ShapeReader.h"
 #include "NIArcView_Loader.h"
-
 
 
 /* =========================================================================
@@ -86,12 +93,15 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIArcView_Loader::NIArcView_Loader(const std::string &dbf_name,
+NIArcView_Loader::NIArcView_Loader(NBNodeCont &nc,
+                                   NBEdgeCont &ec,
+                                   const std::string &dbf_name,
                                    const std::string &shp_name)
     : FileErrorReporter("Navtech Edge description", dbf_name),
 //    myShapeReader(shp_name), myIsFirstLine(true),
     /*myLineReader(dbf_name),*/ myDBFName(dbf_name), mySHPName(shp_name),
-    myNameAddition(0)
+    myNameAddition(0),
+    myNodeCont(nc), myEdgeCont(ec)
 {
 }
 
@@ -141,21 +151,21 @@ NIArcView_Loader::parseBin()
         NBNode *to = 0;
         // build from-node
         Position2D from_pos = myBinShapeReader.getFromNodePosition();
-        if(!NBNodeCont::insert(from_node, from_pos)) {
+        if(!myNodeCont.insert(from_node, from_pos)) {
             from = new NBNode(from_node + string("___") + toString<int>(myNameAddition++),
                 from_pos);
-            NBNodeCont::insert(from);
+            myNodeCont.insert(from);
         } else {
-            from = NBNodeCont::retrieve(from_pos);
+            from = myNodeCont.retrieve(from_pos);
         }
         // build to-node
         Position2D to_pos = myBinShapeReader.getToNodePosition();
-        if(!NBNodeCont::insert(to_node, to_pos)) {
+        if(!myNodeCont.insert(to_node, to_pos)) {
             to = new NBNode(to_node + string("___") + toString<int>(myNameAddition++),
                 to_pos);
-            NBNodeCont::insert(to);
+            myNodeCont.insert(to);
         } else {
-            to = NBNodeCont::retrieve(to_pos);
+            to = myNodeCont.retrieve(to_pos);
         }
             // retrieve length
         double length = myBinShapeReader.getLength();
@@ -164,25 +174,25 @@ NIArcView_Loader::parseBin()
         string dir = myBinShapeReader.getAttribute("DIR_TRAVEL");
             // add positive direction if wanted
         if(dir=="B"||dir=="F") {
-            if(NBEdgeCont::retrieve(id)==0) {
+            if(myEdgeCont.retrieve(id)==0) {
                 NBEdge::LaneSpreadFunction spread = dir=="B"
                     ? NBEdge::LANESPREAD_RIGHT
                     : NBEdge::LANESPREAD_CENTER;
                 NBEdge *edge = new NBEdge(id, name, from, to, type, speed, nolanes,
                     length, priority, myBinShapeReader.getShape(), spread, function);
-                NBEdgeCont::insert(edge);
+                myEdgeCont.insert(edge);
             }
         }
             // add negative direction if wanted
         if(dir=="B"||dir=="T") {
             id = "-" + id;
-            if(NBEdgeCont::retrieve(id)==0) {
+            if(myEdgeCont.retrieve(id)==0) {
                 NBEdge::LaneSpreadFunction spread = dir=="B"
                     ? NBEdge::LANESPREAD_RIGHT
                     : NBEdge::LANESPREAD_CENTER;
                 NBEdge *edge = new NBEdge(id, name, to, from, type, speed, nolanes,
                     length, priority, myBinShapeReader.getReverseShape(), spread, function);
-                NBEdgeCont::insert(edge);
+                myEdgeCont.insert(edge);
             }
         }
         myBinShapeReader.forwardShape();

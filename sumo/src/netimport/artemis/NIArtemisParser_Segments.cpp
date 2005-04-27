@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/04/27 12:24:25  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.3  2004/01/12 15:30:31  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -31,7 +34,12 @@ namespace
 // Revision 1.1  2003/03/12 16:44:45  dkrajzew
 // further work on artemis-import
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -53,9 +61,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIArtemisParser_Segments::NIArtemisParser_Segments(NIArtemisLoader &parent,
-        const std::string &dataName)
-    : NIArtemisLoader::NIArtemisSingleDataTypeParser(parent, dataName)
+NIArtemisParser_Segments::NIArtemisParser_Segments(NBEdgeCont &ec,
+        NIArtemisLoader &parent, const std::string &dataName)
+    : NIArtemisLoader::NIArtemisSingleDataTypeParser(parent, dataName),
+    myEdgeCont(ec)
 {
 }
 
@@ -84,14 +93,11 @@ NIArtemisParser_Segments::myDependentReport()
 void
 NIArtemisParser_Segments::myClose()
 {
-    NIArtemisTempSegments::close();
+    NIArtemisTempSegments::close(myEdgeCont);
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIArtemisParser_Segments.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

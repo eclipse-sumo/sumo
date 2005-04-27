@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/04/27 12:24:41  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.2  2004/12/16 12:23:51  dkrajzew
 // a further network prune option added
 //
@@ -32,7 +35,12 @@ namespace
 // Revision 1.1  2004/11/22 12:47:11  dksumo
 // added the possibility to parse visum-geometries
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -58,8 +66,9 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVisumParser_EdgePolys::NIVisumParser_EdgePolys(NIVisumLoader &parent,
-        const std::string &dataName)
-    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName)
+        NBNodeCont &nc, const std::string &dataName)
+    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
+    myNodeCont(nc)
 {
 }
 
@@ -75,9 +84,9 @@ NIVisumParser_EdgePolys::myDependentReport()
     string id;
     try {
         // get the from- & to-node and validate them
-        NBNode *from = NBNodeCont::retrieve(
+        NBNode *from = myNodeCont.retrieve(
             NBHelpers::normalIDRepresentation(myLineParser.get("VonKnot")));
-        NBNode *to = NBNodeCont::retrieve(
+        NBNode *to = myNodeCont.retrieve(
             NBHelpers::normalIDRepresentation(myLineParser.get("NachKnot")));
         if(!checkNodes(from, to)) {
             return;

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/04/27 12:24:35  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.3  2004/07/02 09:35:23  dkrajzew
 // adaptation of current FastLane import
 //
@@ -35,13 +38,19 @@
 // Revision 1.1  2002/07/25 08:41:45  dkrajzew
 // Visum7.5 and Cell import added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
 #include <utils/importio/LineHandler.h>
 #include <utils/common/FileErrorReporter.h>
+
 
 /* =========================================================================
  * class definitions
@@ -57,7 +66,7 @@ class NICellNodesHandler : public LineHandler,
 private:
 public:
     /// constructor
-    NICellNodesHandler(const std::string &file);
+    NICellNodesHandler(NBNodeCont &nc, const std::string &file);
 
     /// destructor
     ~NICellNodesHandler();
@@ -67,7 +76,11 @@ public:
         NBNodeCont */
     bool report(const std::string &result);
 
+protected:
+    NBNodeCont &myNodeCont;
+
 };
+
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 

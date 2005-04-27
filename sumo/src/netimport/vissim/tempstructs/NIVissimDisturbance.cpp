@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.14  2004/11/23 10:23:53  dkrajzew
 // debugging
 //
@@ -40,6 +43,12 @@ namespace
 // Revision 1.9  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -167,7 +176,8 @@ NIVissimDisturbance::computeBounding()
 
 
 bool
-NIVissimDisturbance::addToNode(NBNode *node)
+NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
+                               NBNodeCont &nc, NBEdgeCont &ec)
 {
     myNode = 0;
     NIVissimConnection *pc =
@@ -191,48 +201,48 @@ NIVissimDisturbance::addToNode(NBNode *node)
         string id2 =
             toString<int>(e2->getID()) + string("x")
             + toString<int>(e1->getID());
-        NBNode *node1 = NBNodeCont::retrieve(id1);
-        NBNode *node2 = NBNodeCont::retrieve(id2);
+        NBNode *node1 = nc.retrieve(id1);
+        NBNode *node2 = nc.retrieve(id2);
         NBNode *node = 0;
         assert(node1==0||node2==0);
         if(node1==0&&node2==0) {
             refusedProhibits++;
-            return false;
+			return false;
 /*            node = new NBNode(id1, pos.x(), pos.y(), "priority");
-            if(!NBNodeCont::insert(node)) {
+            if(!myNodeCont.insert(node)) {
                  "nope, NIVissimDisturbance" << endl;
                 throw 1;
             }*/
         } else {
             node = node1==0 ? node2 : node1;
         }
-            NBEdgeCont::splitAt(
-                NBEdgeCont::retrievePossiblySplitted(
+            ec.splitAt(dc,
+                ec.retrievePossiblySplitted(
                     toString<int>(e1->getID()), myEdge.getPosition()),
                     node);
-            NBEdgeCont::splitAt(
-                NBEdgeCont::retrievePossiblySplitted(
+            ec.splitAt(dc,
+                ec.retrievePossiblySplitted(
                     toString<int>(e2->getID()), myDisturbance.getPosition()),
                     node);
-            // !!! in some cases, one of the edges is not being build because it's too short
-            // !!! what to do in these cases?
-            NBEdge *mayDriveFrom = NBEdgeCont::retrieve(
-                toString<int>(e1->getID()) + string("[0]"));
-            NBEdge *mayDriveTo = NBEdgeCont::retrieve(
-                toString<int>(e1->getID()) + string("[1]"));
-            NBEdge *mustStopFrom = NBEdgeCont::retrieve(
-                toString<int>(e2->getID()) + string("[0]"));
-            NBEdge *mustStopTo = NBEdgeCont::retrieve(
-                toString<int>(e2->getID()) + string("[1]"));
-            if(mayDriveFrom!=0&&mayDriveTo!=0&&mustStopFrom!=0&&mustStopTo!=0) {
-                node->addSortedLinkFoes(
-                    NBConnection(mayDriveFrom, mayDriveTo),
-                    NBConnection(mayDriveFrom, mayDriveTo));
-            } else {
-                refusedProhibits++;
-                return false;
-                // !!! warning
-            }
+			// !!! in some cases, one of the edges is not being build because it's too short
+			// !!! what to do in these cases?
+			NBEdge *mayDriveFrom = ec.retrieve(
+				toString<int>(e1->getID()) + string("[0]"));
+			NBEdge *mayDriveTo = ec.retrieve(
+				toString<int>(e1->getID()) + string("[1]"));
+			NBEdge *mustStopFrom = ec.retrieve(
+				toString<int>(e2->getID()) + string("[0]"));
+			NBEdge *mustStopTo = ec.retrieve(
+				toString<int>(e2->getID()) + string("[1]"));
+			if(mayDriveFrom!=0&&mayDriveTo!=0&&mustStopFrom!=0&&mustStopTo!=0) {
+	            node->addSortedLinkFoes(
+					NBConnection(mayDriveFrom, mayDriveTo),
+					NBConnection(mayDriveFrom, mayDriveTo));
+			} else {
+	            refusedProhibits++;
+				return false;
+				// !!! warning
+			}
 //        }
     } else if(pc!=0 && bc==0) {
         // The prohibited abstract edge is a connection, the other
@@ -240,7 +250,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
         // The connection will be prohibitesd by all connections
         //  outgoing from the "real" edge
 
-        NBEdge *e = NBEdgeCont::retrievePossiblySplitted(
+        NBEdge *e = ec.retrievePossiblySplitted(
             toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
         if(e->getFromNode()==e->getToNode()) {
             WRITE_WARNING(string("Could not prohibit '")+ toString<int>(myEdge.getEdgeID()) + string("' by '")+ toString<int>(myDisturbance.getEdgeID())+ string("'."));
@@ -251,8 +261,8 @@ NIVissimDisturbance::addToNode(NBNode *node)
             // get the begin of the prohibited connection
         string id_pcoe = toString<int>(pc->getFromEdgeID());
         string id_pcie = toString<int>(pc->getToEdgeID());
-        NBEdge *pcoe = NBEdgeCont::retrievePossiblySplitted(id_pcoe, id_pcie, true);
-        NBEdge *pcie = NBEdgeCont::retrievePossiblySplitted(id_pcie, id_pcoe, false);
+        NBEdge *pcoe = ec.retrievePossiblySplitted(id_pcoe, id_pcie, true);
+        NBEdge *pcie = ec.retrievePossiblySplitted(id_pcie, id_pcoe, false);
             // check whether it's ending node is the node the prohibited
             //  edge end at
         if(pcoe!=0&&pcie!=0&&pcoe->getToNode()==e->getToNode()) {
@@ -274,11 +284,11 @@ NIVissimDisturbance::addToNode(NBNode *node)
             string nid1 = e->getID() + "[0]";
             string nid2 = e->getID() + "[1]";
 
-            if(NBEdgeCont::splitAt(e, node)) {
+            if(ec.splitAt(e, node)) {
                 node->addSortedLinkFoes(
                         NBConnection(
-                            NBEdgeCont::retrieve(nid1),
-                            NBEdgeCont::retrieve(nid2)
+                            ec.retrieve(nid1),
+                            ec.retrieve(nid2)
                         ),
                         getConnection(node, myEdge.getEdgeID())
                     );
@@ -291,7 +301,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
         // We have to split the other one and add the prohibition
         //  description
 
-        NBEdge *e = NBEdgeCont::retrievePossiblySplitted(
+        NBEdge *e = ec.retrievePossiblySplitted(
             toString<int>(myEdge.getEdgeID()), myEdge.getPosition());
         string nid1 = e->getID() + "[0]";
         string nid2 = e->getID() + "[1]";
@@ -304,8 +314,8 @@ NIVissimDisturbance::addToNode(NBNode *node)
             // get the begin of the prohibiting connection
         string id_bcoe = toString<int>(bc->getFromEdgeID());
         string id_bcie = toString<int>(bc->getToEdgeID());
-        NBEdge *bcoe = NBEdgeCont::retrievePossiblySplitted(id_bcoe, id_bcie, true);
-        NBEdge *bcie = NBEdgeCont::retrievePossiblySplitted(id_bcie, id_bcoe, false);
+        NBEdge *bcoe = ec.retrievePossiblySplitted(id_bcoe, id_bcie, true);
+        NBEdge *bcie = ec.retrievePossiblySplitted(id_bcie, id_bcoe, false);
             // check whether it's ending node is the node the prohibited
             //  edge end at
         if(bcoe!=0&&bcie!=0&&bcoe->getToNode()==e->getToNode()) {
@@ -324,12 +334,12 @@ NIVissimDisturbance::addToNode(NBNode *node)
             return false;
             /*
             // quite ugly - why was it not build?
-            if(NBEdgeCont::splitAt(e, node)) {
+            if(ec.splitAt(e, node)) {
                 node->addSortedLinkFoes(
                         getConnection(node, myDisturbance.getEdgeID()),
                         NBConnection(
-                            NBEdgeCont::retrieve(nid1),
-                            NBEdgeCont::retrieve(nid2)
+                            ec.retrieve(nid1),
+                            ec.retrieve(nid2)
                         )
                     );
             }
@@ -341,7 +351,7 @@ NIVissimDisturbance::addToNode(NBNode *node)
         // We can retrieve the conected edges and add the desription
         NBConnection conn1 = getConnection(node, myDisturbance.getEdgeID());
         NBConnection conn2 = getConnection(node, myEdge.getEdgeID());
-        if(!conn1.check()||!conn2.check()) {
+        if(!conn1.check(ec)||!conn2.check(ec)) {
             refusedProhibits++;
             return false;
         }

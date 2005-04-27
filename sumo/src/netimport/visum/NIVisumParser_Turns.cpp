@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.3  2004/11/23 10:23:51  dkrajzew
 // debugging
 //
@@ -32,7 +35,12 @@ namespace
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -53,9 +61,10 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVisumParser_Turns::NIVisumParser_Turns(NIVisumLoader &parent,
+        NBNodeCont &nc,
         const std::string &dataName, NIVisumLoader::VSysTypeNames &vsystypes)
     : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-    usedVSysTypes(vsystypes)
+    usedVSysTypes(vsystypes), myNodeCont(nc)
 {
 }
 
@@ -71,15 +80,15 @@ NIVisumParser_Turns::myDependentReport()
     try {
         // retrieve the nodes
         NBNode *from =
-            NBNodeCont::retrieve(
+            myNodeCont.retrieve(
                 NBHelpers::normalIDRepresentation(
                     myLineParser.get("VonKnot")));
         NBNode *via =
-            NBNodeCont::retrieve(
+            myNodeCont.retrieve(
                 NBHelpers::normalIDRepresentation(
                     myLineParser.get("UeberKnot")));
         NBNode *to =
-            NBNodeCont::retrieve(
+            myNodeCont.retrieve(
                 NBHelpers::normalIDRepresentation(
                     myLineParser.get("NachKnot")));
         // check the nodes
@@ -129,9 +138,6 @@ NIVisumParser_Turns::isVehicleTurning() {
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVisumParser_Turns.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

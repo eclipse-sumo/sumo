@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/04/27 12:24:35  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.3  2004/01/12 15:31:53  dkrajzew
 // node-building classes are now lying in an own folder
 //
@@ -32,7 +35,10 @@ namespace
 // Revision 1.1  2003/02/07 11:13:27  dkrajzew
 // names changed
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -54,9 +60,10 @@ namespace
 
 using namespace std;
 
-NISUMOHandlerEdges::NISUMOHandlerEdges(LoadFilter what)
+NISUMOHandlerEdges::NISUMOHandlerEdges(NBEdgeCont &ec, NBNodeCont &nc,
+                                       LoadFilter what)
     : SUMOSAXHandler("sumo-network"),
-    _loading(what)
+    _loading(what), myEdgeCont(ec), myNodeCont(nc)
 {
 }
 
@@ -110,7 +117,7 @@ NISUMOHandlerEdges::addEdge(const Attributes &attrs)
         int priority = getIntReporting(attrs, SUMO_ATTR_PRIORITY,
             "priority", id);
         if(speed>0&&length>0&&nolanes>0&&priority>0) {
-            NBEdgeCont::insert(new NBEdge(id, name, from, to, type, speed,
+            myEdgeCont.insert(new NBEdge(id, name, from, to, type, speed,
                 nolanes, length, priority));
         }
     } catch (EmptyData) {
@@ -124,7 +131,7 @@ NISUMOHandlerEdges::getNode(const Attributes &attrs, unsigned int id,
 {
     try {
         string nodename = getString(attrs, id);
-        NBNode *node = NBNodeCont::retrieve(nodename);
+        NBNode *node = myNodeCont.retrieve(nodename);
         if(node==0) {
             addError(
                 string("The ") + dir + string("-node '") + nodename +
@@ -192,9 +199,6 @@ void NISUMOHandlerEdges::myEndElement(int element, const std::string &name)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NISUMOHandlerEdges.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

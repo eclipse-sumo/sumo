@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/04/27 12:24:24  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.3  2004/07/02 09:34:37  dkrajzew
 // elmar and tiger import added
 //
@@ -70,7 +73,12 @@
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -94,6 +102,7 @@ class OptionsCont;
 class SUMOSAXHandler;
 class LineReader;
 class LineHandler;
+class NBNetBuilder;
 
 
 /* =========================================================================
@@ -108,58 +117,61 @@ class LineHandler;
  */
 class NILoader {
 public:
+    NILoader(NBNetBuilder &nb);
+    ~NILoader();
+
     /** loads data from the files specified in the given option container */
-    static void load(OptionsCont &oc);
+    void load(OptionsCont &oc);
 
 private:
     /** loads data from sumo-files */
-    static void loadSUMO(OptionsCont &oc);
+    void loadSUMO(OptionsCont &oc);
 
     /** loads net or logics */
-    static void loadSUMOFiles(OptionsCont &oc, LoadFilter what,
+    void loadSUMOFiles(OptionsCont &oc, LoadFilter what,
         const std::string &files, const std::string &type);
 
     /** loads data from XML-files */
-    static void loadXML(OptionsCont &oc);
+    void loadXML(OptionsCont &oc);
 
     /** loads data from the list of xml-files of certain type */
-    static void loadXMLType(SUMOSAXHandler *handler,
+    void loadXMLType(SUMOSAXHandler *handler,
         const std::string &files, const std::string &type);
 
     /** loads data from a single xml-file */
-    static void loadXMLFile(SAX2XMLReader &parser, const std::string &file,
+    void loadXMLFile(SAX2XMLReader &parser, const std::string &file,
         const std::string &type);
 
     /** loads data from cell-input-files */
-    static void loadCell(OptionsCont &oc);
+    void loadCell(OptionsCont &oc);
 
     /** loads data from artemis-input-files */
-    static void loadArtemis(OptionsCont &oc);
+    void loadArtemis(OptionsCont &oc);
 
     /** reads using a file reader */
-    static bool useLineReader(LineReader &lr, const std::string &file,
+    bool useLineReader(LineReader &lr, const std::string &file,
         LineHandler &lh);
 
     /** loads data from visum-input-file */
-    static void loadVisum(OptionsCont &oc);
+    void loadVisum(OptionsCont &oc);
 
     /** loads data from arcview-files */
-    static void loadArcView(OptionsCont &oc);
+    void loadArcView(OptionsCont &oc);
 
     /** loads data from vissim-input-file */
-    static void loadVissim(OptionsCont &oc);
+    void loadVissim(OptionsCont &oc);
 
     /// loads Elmar's data parsed from GDF
-    static void loadElmar(OptionsCont &oc);
+    void loadElmar(OptionsCont &oc);
 
-    static void loadTiger(OptionsCont &oc);
+    void loadTiger(OptionsCont &oc);
+
+private:
+    NBNetBuilder &myNetBuilder;
 
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NILoader.icc"
-//#endif
 
 #endif
 

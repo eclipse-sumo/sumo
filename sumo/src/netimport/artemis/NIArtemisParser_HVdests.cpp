@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/04/27 12:24:25  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.7  2004/08/02 12:44:11  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -43,7 +46,12 @@ namespace
 // Revision 1.1  2003/03/12 16:44:45  dkrajzew
 // further work on artemis-import
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -65,9 +73,12 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIArtemisParser_HVdests::NIArtemisParser_HVdests(NIArtemisLoader &parent,
-        const std::string &dataName)
-    : NIArtemisLoader::NIArtemisSingleDataTypeParser(parent, dataName)
+NIArtemisParser_HVdests::NIArtemisParser_HVdests(NBNodeCont &nc,
+                                                 NBEdgeCont &ec,
+                                                 NIArtemisLoader &parent,
+                                                 const std::string &dataName)
+    : NIArtemisLoader::NIArtemisSingleDataTypeParser(parent, dataName),
+    myNodeCont(nc), myEdgeCont(ec)
 {
 }
 
@@ -83,8 +94,8 @@ NIArtemisParser_HVdests::myDependentReport()
     string origid = myLineParser.get("NodeID");
     string destid = myLineParser.get("DestID");
     // retrieve nodes
-    NBNode *node1 = NBNodeCont::retrieve(origid);
-    NBNode *node2 = NBNodeCont::retrieve(destid);
+    NBNode *node1 = myNodeCont.retrieve(origid);
+    NBNode *node2 = myNodeCont.retrieve(destid);
     // check
     if(node1==0) {
         MsgHandler::getErrorInstance()->inform(
@@ -99,34 +110,31 @@ NIArtemisParser_HVdests::myDependentReport()
     // try to build a source into node1
     Position2D dir1 = node1->getEmptyDir();
     Position2D dir2 = node2->getEmptyDir();
-    if(NBEdgeCont::retrieve(origid + "SOURCE")==0) {
+    if(myEdgeCont.retrieve(origid + "SOURCE")==0) {
         dir1.mul(10.0);
         dir1.add(node1->getPosition());
         NBNode *tmp = new NBNode(origid + "SOURCENode", dir1);
-        NBNodeCont::insert(tmp); // !!! check
+        myNodeCont.insert(tmp); // !!! check
         NBEdge *edge = new NBEdge(origid + "SOURCE", origid + "SOURCE",
             tmp, node1, "", 20.0, 2, -1, 0, NBEdge::LANESPREAD_RIGHT,
             NBEdge::EDGEFUNCTION_SOURCE);
-        NBEdgeCont::insert(edge); // !!! check
+        myEdgeCont.insert(edge); // !!! check
     }
     // try to build a sink from node2
-    if(NBEdgeCont::retrieve(destid + "SINK")==0) {
+    if(myEdgeCont.retrieve(destid + "SINK")==0) {
         dir2.mul(10.0);
         dir2.add(node2->getPosition());
         NBNode *tmp = new NBNode(destid + "SINKNode", dir2);
-        NBNodeCont::insert(tmp); // !!! check
+        myNodeCont.insert(tmp); // !!! check
         NBEdge *edge = new NBEdge(destid + "SINK", destid + "SINK",
             node2, tmp, "", 20.0, 2, -1, 0, NBEdge::LANESPREAD_RIGHT,
             NBEdge::EDGEFUNCTION_SINK);
-        NBEdgeCont::insert(edge); // !!! check
+        myEdgeCont.insert(edge); // !!! check
     }
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIArtemisParser_HVdests.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

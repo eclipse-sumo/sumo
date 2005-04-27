@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/04/27 12:24:35  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.6  2004/08/02 12:44:12  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -47,7 +50,12 @@ namespace
 // Revision 1.1  2002/07/25 08:41:45  dkrajzew
 // Visum7.5 and Cell import added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -70,8 +78,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NICellNodesHandler::NICellNodesHandler(const std::string &file)
-    : FileErrorReporter("cell-nodes", file)
+NICellNodesHandler::NICellNodesHandler(NBNodeCont &nc,
+                                       const std::string &file)
+    : FileErrorReporter("cell-nodes", file), myNodeCont(nc)
 {
 }
 
@@ -94,7 +103,7 @@ NICellNodesHandler::report(const std::string &result)
             try {
                 x = TplConvert<char>::_2float(st.next().c_str());
                 y = TplConvert<char>::_2float(st.next().c_str());
-                if(!NBNodeCont::insert(id, Position2D(x, y))) {
+                if(!myNodeCont.insert(id, Position2D(x, y))) {
                     MsgHandler::getErrorInstance()->inform(
                         string("Could not build node '") + id + string("'."));
                 }
@@ -110,9 +119,6 @@ NICellNodesHandler::report(const std::string &result)
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NICellNodesHandler.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

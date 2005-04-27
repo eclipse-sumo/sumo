@@ -19,10 +19,16 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.5  2003/06/05 11:46:56  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -47,6 +53,7 @@
  * ======================================================================= */
 class NBNode;
 class NBEdge;
+class NBDistrictCont;
 
 class NIVissimDisturbance
         : public NIVissimBoundedClusterObject {
@@ -57,7 +64,8 @@ public:
         double timegap, double waygap, double vmax);
     virtual ~NIVissimDisturbance();
     void computeBounding();
-    bool addToNode(NBNode *node);
+    bool addToNode(NBNode *node, NBDistrictCont &dc,
+        NBNodeCont &nc, NBEdgeCont &ec);
     int getEdgeID() const { return myEdge.getEdgeID(); }
     int getDisturbanceID() const { return myDisturbance.getEdgeID(); }
     NBConnection getConnection(NBNode *node, int aedgeid);
@@ -81,7 +89,7 @@ private:
     NIVissimExtendedEdgePoint myEdge;
     NIVissimExtendedEdgePoint myDisturbance;
     double myTimeGap, myWayGap, myVMax;
-private:
+
     typedef std::map<int, NIVissimDisturbance*> DictType;
     static DictType myDict;
     static int myRunningID;
@@ -92,9 +100,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVissimDisturbance.icc"
-//#endif
 
 #endif
 

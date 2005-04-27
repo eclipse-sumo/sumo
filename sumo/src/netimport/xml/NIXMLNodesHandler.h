@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.6  2004/08/02 12:44:28  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -65,6 +68,12 @@
 // files for the netbuilder
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <utils/sumoxml/SUMOSAXHandler.h>
@@ -76,6 +85,8 @@
  * ======================================================================= */
 class OptionsCont;
 class NBNode;
+class NBNodeCont;
+class NBTrafficLightLogicCont;
 
 
 /* =========================================================================
@@ -90,7 +101,8 @@ class NIXMLNodesHandler
 
 public:
     /// standard constructor
-    NIXMLNodesHandler(OptionsCont &options);
+    NIXMLNodesHandler(NBNodeCont &nc, NBTrafficLightLogicCont &tlc,
+		OptionsCont &options);
 
     /// Destructor
     ~NIXMLNodesHandler();
@@ -128,6 +140,10 @@ private:
 
     /// The (optional) type of the node currently parsed
     std::string myType;
+
+    NBNodeCont &myNodeCont;
+
+	NBTrafficLightLogicCont &myTLLogicCont;
 
 private:
     /** invalid copy constructor */

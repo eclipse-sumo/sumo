@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/04/27 12:24:41  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.6  2004/11/23 10:23:51  dkrajzew
 // debugging
 //
@@ -50,7 +53,12 @@ namespace
 // Revision 1.1  2002/07/25 08:41:45  dkrajzew
 // Visum7.5 and Cell import added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -59,6 +67,7 @@ namespace
 #include <utils/convert/TplConvert.h>
 #include <utils/convert/ToString.h>
 #include <utils/options/OptionsCont.h>
+#include <netbuild/NBNetBuilder.h>
 #include "NIVisumLoader.h"
 #include "NIVisumParser_VSysTypes.h"
 #include "NIVisumParser_Types.h"
@@ -254,44 +263,57 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getWeightedBool(
  /* -------------------------------------------------------------------------
  * methods from NIVisumLoader
  * ----------------------------------------------------------------------- */
-NIVisumLoader::NIVisumLoader(const std::string &file,
+NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
+                             const std::string &file,
                              NBCapacity2Lanes capacity2Lanes)
     : FileErrorReporter("visum-network", file),
-    _capacity2Lanes(capacity2Lanes)
+    _capacity2Lanes(capacity2Lanes),
+    myTLLogicCont(nb.getTLLogicCont())
+
 {
     // the order of process is important!
     // set1
     mySingleDataParsers.push_back(
         new NIVisumParser_VSysTypes(*this, "VSYS", myVSysTypes));
     mySingleDataParsers.push_back(
-        new NIVisumParser_Types(*this, "STRECKENTYP", _capacity2Lanes));
+		new NIVisumParser_Types(*this, nb.getTypeCont(),
+			"STRECKENTYP", _capacity2Lanes));
     mySingleDataParsers.push_back(
-        new NIVisumParser_Nodes(*this, "KNOTEN"));
+		new NIVisumParser_Nodes(*this, nb.getNodeCont(), "KNOTEN"));
     mySingleDataParsers.push_back(
-        new NIVisumParser_Districts(*this, "BEZIRK"));
+		new NIVisumParser_Districts(*this, nb.getDistrictCont(),
+			"BEZIRK"));
     // set2
     mySingleDataParsers.push_back(
-        new NIVisumParser_Edges(*this, "STRECKEN"));
+        new NIVisumParser_Edges(*this,
+			nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), "STRECKEN"));
     // set3
     mySingleDataParsers.push_back(
-        new NIVisumParser_Connectors(*this, "ANBINDUNG"));
+        new NIVisumParser_Connectors(*this,
+			nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), nb.getDistrictCont(),
+			"ANBINDUNG"));
     mySingleDataParsers.push_back(
-        new NIVisumParser_Turns(*this, "ABBIEGEBEZIEHUNG", myVSysTypes));
+        new NIVisumParser_Turns(*this, nb.getNodeCont(),
+            "ABBIEGEBEZIEHUNG", myVSysTypes));
     mySingleDataParsers.push_back(
-        new NIVisumParser_EdgePolys(*this, "STRECKENPOLY"));
-    // set4
-    mySingleDataParsers.push_back(
-        new NIVisumParser_TrafficLights(*this, "LSA", myNIVisumTLs));
-    mySingleDataParsers.push_back(
-        new NIVisumParser_NodesToTrafficLights(*this, "KNOTENZULSA", myNIVisumTLs));
-    mySingleDataParsers.push_back(
-        new NIVisumParser_SignalGroups(*this, "LSASIGNALGRUPPE", myNIVisumTLs));
-    mySingleDataParsers.push_back(
-        new NIVisumParser_TurnsToSignalGroups(*this, "ABBZULSASIGNALGRUPPE", myNIVisumTLs));
-    mySingleDataParsers.push_back(
-        new NIVisumParser_Phases(*this, "LSAPHASE", myNIVisumTLs));
-    mySingleDataParsers.push_back(
-        new NIVisumParser_SignalGroupsToPhases(*this, "LSASIGNALGRUPPEZULSAPHASE", myNIVisumTLs));
+        new NIVisumParser_EdgePolys(*this, nb.getNodeCont(),
+            "STRECKENPOLY"));
+	// set4
+	mySingleDataParsers.push_back(
+		new NIVisumParser_TrafficLights(*this, "LSA", myNIVisumTLs));
+	mySingleDataParsers.push_back(
+		new NIVisumParser_NodesToTrafficLights(*this,
+            nb.getNodeCont(), "KNOTENZULSA", myNIVisumTLs));
+	mySingleDataParsers.push_back(
+		new NIVisumParser_SignalGroups(*this, "LSASIGNALGRUPPE", myNIVisumTLs));
+	mySingleDataParsers.push_back(
+		new NIVisumParser_TurnsToSignalGroups(*this,
+            nb.getNodeCont(), "ABBZULSASIGNALGRUPPE", myNIVisumTLs));
+	mySingleDataParsers.push_back(
+		new NIVisumParser_Phases(*this, "LSAPHASE", myNIVisumTLs));
+	mySingleDataParsers.push_back(
+		new NIVisumParser_SignalGroupsToPhases(*this, "LSASIGNALGRUPPEZULSAPHASE", myNIVisumTLs));
+
 }
 
 
@@ -327,10 +349,10 @@ void NIVisumLoader::load(OptionsCont &options)
         (*i)->readUsing(myLineReader);
     }
     // build traffic lights
-    for(NIVisumTL_Map::iterator j=myNIVisumTLs.begin();
-        j!=myNIVisumTLs.end(); j++) {
-        j->second->build();
-    }
+	for(NIVisumTL_Map::iterator j=myNIVisumTLs.begin();
+		j!=myNIVisumTLs.end(); j++) {
+		j->second->build(myTLLogicCont);
+	}
 }
 
 

@@ -23,10 +23,18 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -48,10 +56,11 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVisumParser_Types::NIVisumParser_Types(NIVisumLoader &parent,
-        const std::string &dataName,
-        NBCapacity2Lanes &cap2lanes)
+										 NBTypeCont &tc,
+                                         const std::string &dataName,
+                                         NBCapacity2Lanes &cap2lanes)
     : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-    myCap2Lanes(cap2lanes)
+    myCap2Lanes(cap2lanes), myTypeCont(tc)
 {
 }
 
@@ -77,7 +86,7 @@ NIVisumParser_Types::myDependentReport()
             TplConvert<char>::_2float(myLineParser.get("Kap-IV").c_str()));
         // insert the type
         NBType *type = new NBType(id, nolanes, speed/3.6, 100-priority);
-        if(!NBTypeCont::insert(type)) {
+        if(!myTypeCont.insert(type)) {
             addError(
                 string(" Duplicate type occured ('") + id + string("')."));
             delete type;
@@ -93,9 +102,6 @@ NIVisumParser_Types::myDependentReport()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIVisumParser_Types.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

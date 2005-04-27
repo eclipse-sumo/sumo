@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.3  2003/06/18 11:17:29  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -38,7 +41,12 @@ namespace
 // Revision 1.1  2002/10/17 13:28:11  dkrajzew
 // initial commit of classes to import connection definitions
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -74,8 +82,8 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIXMLConnectionsHandler::NIXMLConnectionsHandler()
-    : SUMOSAXHandler("xml-connection-description")
+NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont &ec)
+    : SUMOSAXHandler("xml-connection-description"), myEdgeCont(ec)
 {
 }
 
@@ -98,8 +106,8 @@ NIXMLConnectionsHandler::myStartElement(int element, const std::string &name,
             return;
         }
         // extract edges
-        NBEdge *fromEdge = NBEdgeCont::retrieve(from);
-        NBEdge *toEdge = NBEdgeCont::retrieve(to);
+        NBEdge *fromEdge = myEdgeCont.retrieve(from);
+        NBEdge *toEdge = myEdgeCont.retrieve(to);
         // check whether they are valid
         if(fromEdge==0) {
             addError(
@@ -196,9 +204,6 @@ NIXMLConnectionsHandler::myEndElement(int element, const std::string &name)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NIXMLConnectionsHandler.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

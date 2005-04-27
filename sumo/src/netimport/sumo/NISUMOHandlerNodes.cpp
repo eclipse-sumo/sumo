@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/04/27 12:24:36  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.6  2004/08/02 12:44:12  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -41,7 +44,10 @@ namespace
 // Revision 1.1  2003/02/07 11:13:27  dkrajzew
 // names changed
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -61,9 +67,10 @@ namespace
 
 using namespace std;
 
-NISUMOHandlerNodes::NISUMOHandlerNodes(LoadFilter what)
+NISUMOHandlerNodes::NISUMOHandlerNodes(NBNodeCont &nc, LoadFilter what)
     : SUMOSAXHandler("sumo-network"),
-    _loading(what)
+    _loading(what),
+    myNodeCont(nc)
 {
 }
 
@@ -158,7 +165,7 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
         }
         // build the node
         throw 1; // !!! deprecated
-        NBNodeCont::insert(new NBNode(id, Position2D(x, y), type));
+        myNodeCont.insert(new NBNode(id, Position2D(x, y), type));
     } catch (EmptyData) {
         addError("A junction without an id occured.");
     }
@@ -180,9 +187,6 @@ NISUMOHandlerNodes::myEndElement(int element, const std::string &name)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NISUMOHandlerNodes.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

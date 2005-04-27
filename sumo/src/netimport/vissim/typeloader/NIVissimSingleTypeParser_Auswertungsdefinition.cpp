@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/04/27 12:24:37  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.4  2003/08/18 12:39:23  dkrajzew
 // missing handling of some vissim3.7-structures added
 //
@@ -34,8 +37,11 @@ namespace
 // Revision 1.1  2003/03/26 12:17:14  dkrajzew
 // further debugging/improvements of Vissim-import
 //
-//
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * included modules

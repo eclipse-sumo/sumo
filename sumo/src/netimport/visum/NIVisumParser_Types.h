@@ -20,10 +20,18 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2005/04/27 12:24:42  dkrajzew
+// level3 warnings removed; made netbuild-containers non-static
+//
 // Revision 1.1  2003/02/07 11:14:54  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -48,7 +56,7 @@ class NIVisumParser_Types :
 public:
     /// Constructor
     NIVisumParser_Types(
-        NIVisumLoader &parent,
+        NIVisumLoader &parent, NBTypeCont &tc,
         const std::string &dataName,
         NBCapacity2Lanes &cap2lanes);
 
@@ -63,12 +71,12 @@ private:
     /// Transfer function from the edge's capacity to his lane number
     NBCapacity2Lanes &myCap2Lanes;
 
+	NBTypeCont &myTypeCont;
+
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NIVisumParser_Types.icc"
-//#endif
 
 #endif
 
