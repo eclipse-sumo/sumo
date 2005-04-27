@@ -138,6 +138,10 @@
       <para>If you have built the package on a system not included within our
       binary distribution, please let us know and send it to us, so that we
       can include it into the pages.</para>
+
+      <para>There are some scripts available to, located within the
+      tools-folder. To execute them you&#39;ll need to have python and/or perl
+      installed.</para>
     </sect1>
 
     <sect1>
@@ -149,13 +153,10 @@
 
       <para>Change into the folder you have extracted the package into, build
       the project if necessary (not needed if you have downloaded the
-      binaries) and go further to the &#34;tests&#34;-folder. You will find
-      two folders in here &#34;dos&#34; and &#34;unix&#34;. Choose the
-      appropriate one (&#34;dos&#34; if your operating system is MSDOS or MS
-      Windows, &#34;unix&#34; if it is Linux or UNIX). You will find a set of
-      scripts in here that allow you a fast generation and removal of the test
-      scenarios. Start &#34;buildExamples&#34; and wait until all networks
-      have been built and all route descriptions are computed.</para>
+      binaries) and go further to the &#34;tests&#34;-folder. You will find a
+      set of scripts in here that allow you a fast generation and removal of
+      the test scenarios. Start &#34;buildExamples.py&#34; and wait until all
+      networks have been built and all route descriptions are computed.</para>
 
       <para>After everything is build, go back to the packages folder (two
       folders up) and from there to the folder named &#34;bin&#34;. Here you

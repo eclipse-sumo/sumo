@@ -158,6 +158,29 @@
   </sect1>
 
   <sect1>
+    <title>Routing</title>
+
+    <sect2>
+      <title>Random Routes</title>
+
+      <sect3>
+        <title>No random routes are generated</title>
+
+        <para><emphasis>Question: </emphasis>I have tried to insert vehicles
+        using the -R option, but the route file is empty.</para>
+
+        <para><emphasis>Answer:</emphasis> On the one hand, SUMO-routers quit
+        processing if a route could not be build. On the other hand, the
+        generation of a random route may fail quite easily, simply because
+        it&#39;s too short or no connection could have been found. If you have
+        made everything right, but your route file is empty, try to use the
+        --continue-on-unbuild switch on your command line / within your
+        configuration file.</para>
+      </sect3>
+    </sect2>
+  </sect1>
+
+  <sect1>
     <title>Simulation</title>
 
     <sect2>
@@ -207,6 +230,9 @@
         In this case each vehicle obtains the position and speed of the other
         vehicle. As the position of the vehicles may differ a bit, one of the
         vehicles may seem to jump backwards.</para>
+
+        <para><emphasis>Remark:</emphasis> This should not happen from
+        Version0.8 on.</para>
       </sect3>
     </sect2>
   </sect1>

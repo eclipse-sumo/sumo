@@ -1,0 +1,804 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
+<book>
+  <bookinfo>
+    <title>SUMO developer documentation - Traffic Lights</title>
+
+    <author>
+      <firstname>Daniel</firstname>
+
+      <surname>Krajzewicz</surname>
+
+      <affiliation>
+        <address><email>Daniel.Krajzewicz@dlr.de</email></address>
+      </affiliation>
+    </author>
+
+    <releaseinfo>$Revision$</releaseinfo>
+  </bookinfo>
+
+  <toc></toc>
+
+  <chapter id="dev_chp01">
+    <title>Introduction</title>
+
+    <sect1>
+      <title>What is SUMO?</title>
+
+      <para>SUMO is a traffic simulation tool. It was primarily designed for
+      urban street networks, but it may also be used for highway traffic
+      simulations. In the near future it will be extended to model other
+      transit modes simultaneously with ordinary car traffic.</para>
+
+      <para>You can obtain more information at <ulink
+      url="http://sumo.sourceforge.net">http://sumo.sourceforge.net/</ulink>.</para>
+    </sect1>
+
+    <sect1>
+      <title>About this document</title>
+
+      <para>This document describes how traffic lights are implemented within
+      SUMO.</para>
+
+      <para>This document is still under development and is meant to grow with
+      the software. Due to this, you may find it together with the sources
+      within out repository at sourceforge (<ulink
+      url="http://sumo.sourceforge.net">http://sumo.sourceforge.net/</ulink>).
+      It should always describe the current version.</para>
+    </sect1>
+
+    <sect1>
+      <title>Call for Help</title>
+
+      <para>Please let us know when either the document remains at any point
+      unclear or any of the applications does not behave as expected. We also
+      seek for some participants and further users, not only to share the
+      development tasks, but also to gain some feedback and critics or some
+      usage examples.</para>
+
+      <para>Every help is appreciated. Thank you.</para>
+    </sect1>
+  </chapter>
+
+  <chapter id="dev_chp02">
+    <title>Simulation of Traffic Lights</title>
+
+    <para>Within this first chapter, we will describe how traffic lights are
+    implemented and used within SUMO. As basically, traffic lights affect the
+    right-of-way rules at a junction, we will first describe how right-of-way
+    rules are implemented within SUMO. Afterwards, the additional concept of
+    traffic lights is given.</para>
+
+    <sect1>
+      <title>Right-Of-Way Rules in SUMO</title>
+
+      <sect2>
+        <title>Links: A Connection between Lanes</title>
+
+        <para>Each lane (MSLane) beside dead ends has a list of at least one
+        predecessor lane. A link (MSLink) connects this predeccessor and the
+        lane. Basically, we consider two types of connections between lanes.
+        In the first case, vehicles are able to pass the connection every
+        time, without regarding other, possibly crossing traffic. Such
+        connections may be found at highways or if the connection is a primary
+        road and it is assured that the vehicle is able to pass this link
+        without a collision. Such connections are called &#34;priorised&#34;
+        connections. The other connections are called &#34;unpriorised&#34;.
+        They are found on minor roads and a vehicle passing them must
+        decelerate in front of them, because it may have to stop to let other
+        vehicles pass the junction first. Please regard, that a junction may
+        consist of several connections (links) of different type.</para>
+      </sect2>
+
+      <sect2>
+        <title>Usage of Links within the Simulation</title>
+
+        <para>If a vehicle approaches a link, it lets the link know about it.
+        This is done as soon as a vehicle will have to decelerate to stop in
+        front of the link and even if the vehicle is too near or too fast to
+        decelerate in front of the link, the link will still be informed until
+        the vehicle will finally pass it. By doing this, each link knows
+        whether a vehicle is approaching or not. In addition, the information
+        about approaching a link is stored by the link into the
+        MSLogicJunction::Request structure of the junction (MSLogicJunction)
+        it belongs to. After all vehicles have stored this information,
+        MSLogicJunction is able to compute which of the approaching vehicles
+        will have to wait and which not.</para>
+
+        <para>In the next pass (but within the same simulation step), each of
+        the vehicles is touched again, but by now it is known whether the
+        vehicle is allowed to pass the junction using his link or not. If not,
+        the vehicle will decelerate and stop in front of the link (or a
+        vehicle in front of it, that is also waiting). If the link is
+        &#34;unpriorised&#34;, the vehicle will decelerate in front of it,
+        even if it may pass it. If the link is &#34;priorised&#34; and the
+        vehicle may pass, the vehicle will continue his drive without being
+        hindered.</para>
+      </sect2>
+
+      <sect2>
+        <title>Setting Information by MSLogicJunctions</title>
+
+        <para>As we have seen, a MSLogicJunction gives way to the vehicles
+        after the knowledge about all incoming vehicles have been set. We have
+        seen that this information was stored in a structure named
+        &#34;MSLogicJunction::Request&#34;. This is simply a list of bits, a
+        std::bitset where each bit represents the information whether a
+        certain link is approached by a vehicle currently (it&#39;s then set
+        to true otherwise its false).</para>
+
+        <para></para>
+      </sect2>
+
+      <sect2>
+        <title>Other Junction Types</title>
+
+        <para>If a vehicle approaches a link, it lets the link know about it.
+        This is done as soon as a vehicle will have to decelerate to stop in
+        front of the link and even if the vehicle is too near or too fast to
+        decelerate in front of the link, the link will still be informed until
+        the vehicle will finally pass it. By doing this, each link knows
+        whether a vehicle is approaching or not. In addition, the information
+        about approaching a link is stored by the link into the
+        MSLogicJunction::Request structure of the junction (MSLogicJunction)
+        it belongs to. After all vehicles have stored this information,
+        MSLogicJunction is able to compute which of the approaching vehicles
+        will have to wait and which not.</para>
+
+        <para>In the next pass (but within the same simulation step), each of
+        the vehicles is touched again, but by now it is known whether the
+        vehicle is allowed to pass the junction using his link or not. If not,
+        the vehicle will decelerate and stop in front of the link (or a
+        vehicle in front of it, that is also waiting). If the link is
+        &#34;unpriorised&#34;, the vehicle will decelerate in front of it,
+        even if it may pass it. If the link is &#34;priorised&#34; and the
+        vehicle may pass, the vehicle will continue his drive without being
+        hindered.</para>
+
+        <sect3>
+          <title>Building SUMO from CVS</title>
+
+          <orderedlist>
+            <listitem>
+              <para>Download the sources from <ulink
+              url="http://sourceforge.net/cvs/?group_id=45607">sourceforge.net</ulink>.</para>
+            </listitem>
+
+            <listitem>
+              <para>Download the <ulink
+              url="http://xml.apache.org/xerces-c/index.html">Xerces C++
+              library</ulink> (version 2.5 or greater) and the <ulink
+              url="http://www.fox-toolkit.org">FOX</ulink>-library (version
+              1.2.x) for windows (both available at our <ulink
+              url="http://sumo.sourceforge.net/downloads.html">download</ulink>-pages).
+              Make sure to download the Linux-version of Xerces and sources
+              for FOX in the version 1.2.x.</para>
+            </listitem>
+
+            <listitem>
+              <para>Install both libraries into desired folder (FOX must be
+              build, first. Xerces possibly not)</para>
+            </listitem>
+
+            <listitem>
+              <para><literal>cd</literal> into the directory
+              <literal>sumo</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para>Execute <literal>make -f admin/Makefile.common cvs</literal>.
+              This will create the <literal>configure</literal>-script from
+              <literal>configure.in.in</literal> and <literal>Makefile.in</literal>
+              for each <literal>Makefile.am</literal> by calling the GNU
+              Autotools.</para>
+            </listitem>
+
+            <listitem>
+              <para>Call <literal>./configure</literal>. You can get a list of
+              <literal>configure</literal>-option by calling
+              <literal>./configure --help</literal>. <literal>./configure</literal>
+              builds a <literal>Makefile</literal> for each
+              <literal>Makefile.in</literal>.</para>
+
+              <para>Normally, you have to supply the places the includes and
+              the libraries are located at, both for Xerces and FOX. This is
+              done using:</para>
+
+              <para>--with-xerces-libraries=&#60;PATH_TO_XERCES_LIBS&#62;</para>
+
+              <para>--with-xerces-inludes=&#60;PATH_TO_XERCES_INCLUDES&#62;</para>
+
+              <para>--with-fox-libraries=&#60;PATH_TO_FOX_LIBS&#62;</para>
+
+              <para>--with-fox-includes=&#60;PATH_TO_FOX_INCLUDES&#62;</para>
+            </listitem>
+
+            <listitem>
+              <para>Call <literal>make</literal> to build SUMO.</para>
+            </listitem>
+
+            <listitem>
+              <para>Call <literal>make install</literal> to install SUMO.</para>
+            </listitem>
+          </orderedlist>
+
+          <para>Enjoy!</para>
+        </sect3>
+
+        <sect3>
+          <title>Adding header/library-checks to configure</title>
+
+          <para>You need to modify the file <literal>configure.in.in</literal>.
+          There are some SUMO-specific header/library-checks for both the
+          <ulink url="http://xml.apache.org/xerces-c/index.html">Xerces C++
+          library</ulink> and the <ulink url="http://www.fox-toolkit.org">FOX
+          library</ulink>. Take them as sample and consult the <ulink
+          url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
+          for further insights. Take care of <ulink
+          url="http://sources.redhat.com/autobook/autobook/autobook_208.html">non-portable
+          shell-code</ulink>.</para>
+        </sect3>
+
+        <sect3>
+          <title>Modifying Makefile.am</title>
+
+          <para>There is a need of modifying <literal>Makefile.am</literal> if
+          you</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>add or remove new sources or files that should go in the
+              distribution: All source files must be listed behind
+              <literal>*_SOURCES</literal>. All other files that should be
+              included in the distribution must be listed behind
+              <literal>EXTRA_DIST</literal></para>
+            </listitem>
+
+            <listitem>
+              <para>need to include header-files from different directories:
+              Add the header directories to <literal>AM_CPPFLAGS</literal>. If
+              these header-directories have been assigned to a name in
+              <literal>configure</literal>, refer to them like
+              <literal>-I$(FOX_INCLUDES)</literal> or <literal>-I$(XERCESINCLUDE)</literal>.
+              To search for headers within SUMO directories, use
+              <literal>-I$(top_srcdir)/Path_to_dir</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para>need to link against new libraries or create new programs:
+              Modify the file <literal>src/Makefile.am</literal>. Add a new
+              program to <literal>bin_PROGRAMS</literal>. For each program you
+              need to provide <literal>prg_SOURCES</literal>,
+              <literal>prg_LDFLAGS</literal> and <literal>prg_LDADD</literal>.
+              <literal>prg_LDFLAGS</literal> holds the linker flags and
+              library-directories like <literal>-L$(XERCESLIBPATH)</literal>
+              or <literal>$(QT_LDFLAGS)</literal>. <literal>prg_LDADD</literal>
+              lists all libraries that should be linked with the executable
+              (e.g. <literal>./utils/xml/libxml.a -l$(XERCESLIB) -l$(FOXLIB)</literal>).</para>
+            </listitem>
+
+            <listitem>
+              <para>you create new subdirectories: Add the new subdirectory to
+              <literal>SUBDIRS</literal> and create a new <literal>Makefile.am</literal>
+              there.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>I don&#39;t want to go into detail of <literal>Makefile.am</literal>
+          creation. For SUMO we have one top-level <literal>Makefile.am</literal>
+          in the directory <literal>sumo</literal> This needs to be changed
+          only if you add new subdirectories</para>
+
+          <para>All SUMO-executables are build in <literal>sumo/src</literal>.
+          Add this directory&#39;s <literal>Makefile.am</literal> to add new
+          executables.</para>
+
+          <para>All other <literal>Makefile.am</literal> looks e.g. like this:</para>
+
+          <screen>noinst_LIBRARIES = libxxx.a EXTRA_DIST =
+          distributed_but_not_compiled_file libxxx_a_SOURCES = header.h
+          source.cpp AM_CPPFLAGS = -I$(top_srcdir)/src/helpers
+          -I$(FOX_INCLUDES) \ -I$(XERCESINCLUDE) SUBDIRS = icons METASOURCES =
+          AUTO</screen>
+
+          <sect4>
+            <title>Makefile.am additions for Xerces</title>
+
+            <para>If you need to include Xerces-headers in a specific
+            directory add <literal>-I$(XERCESINCLUDE)
+            -I$(XERCESINCLUDE_PRIOR_1_7)</literal> to <literal>AM_CPPFLAGS</literal>.</para>
+
+            <para>If you need to link against the Xerces-library add
+            <literal>-L$(XERCES_LDFLAGS)</literal> to <literal>prg_LDFLAGS</literal>
+            and <literal>-l$(XERCESLIB)</literal> to <literal>prg_LDADD</literal>.</para>
+          </sect4>
+
+          <sect4>
+            <title>Makefile.am additions for FOX</title>
+
+            <para>If you need to include FOX-headers in a specific directory
+            add -I<literal>$(FOX_INCLUDES)</literal> to <literal>AM_CPPFLAGS</literal>.</para>
+
+            <para>If you need to link against FOX-library add
+            <literal>-L$(FOX_LDFLAGS)</literal> to <literal>prg_LDFLAGS</literal>
+            and <literal>-l$(FOXLIBS)</literal> to <literal>prg_LDADD</literal>.</para>
+
+            <para>See also <ulink
+            url="http://www.vandenoever.info/software/KDEautomakemanual.html">How
+            to use KDE autotools for a Qt application?</ulink></para>
+          </sect4>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>Windows: Using MSVC++ 6.0</title>
+
+        <para>Building under Windows is as easy as under Linux. The following
+        steps have to be done:</para>
+
+        <orderedlist>
+          <listitem>
+            <para>Install the Service Pack 5 for MSVC++.</para>
+          </listitem>
+
+          <listitem>
+            <para>Obtain the source as described above.</para>
+          </listitem>
+
+          <listitem>
+            <para>Download the <ulink
+            url="http://xml.apache.org/xerces-c/index.html">Xerces C++ library</ulink>
+            (version 2.5 or greater) and the <ulink
+            url="http://www.fox-toolkit.org">FOX</ulink>-library (version
+            1.2.x) for windows (both available at our <ulink
+            url="http://sumo.sourceforge.net/downloads.html">download</ulink>-pages).
+            Make sure to download the Xerces-version that fits to your system
+            (MS Windows / Linux) and sources for FOX in the version 1.2.x.</para>
+          </listitem>
+
+          <listitem>
+            <para>Install both libraries into desired folders</para>
+          </listitem>
+
+          <listitem>
+            <para>Set environment variables for the xerces library:</para>
+
+            <para>XERCES=&#60;PATH_TO_XERCES&#62;</para>
+
+            <para>Example: If you have installed xerces to
+            D:\libs\xerces-c_2_X_0-win32, then your environment variables
+            should contain XERCES=D:\libs\xerces-c_2_X_0-win32</para>
+          </listitem>
+
+          <listitem>
+            <para>Copy xerces-c_2_X_0.dll and xerces-c_2_X_0D.dll into your
+            windows-system folder.</para>
+          </listitem>
+
+          <listitem>
+            <para>Set environment variables for the fox library:</para>
+
+            <para>FOX=&#60;PATH_TO_FOX&#62;</para>
+
+            <para>Example: If you have installed fox to D:\libs\fox-1.2.x,
+            then your environment variables should contain
+            FOX=D:\libs\fox-1.2.x</para>
+          </listitem>
+
+          <listitem>
+            <para>Compile the fox-library (Xerces comes mostly with
+            precompiled binaries, so a rebuild is not necessary) and copy
+            FOXDLL-1.2.dll and FOXDLLD-1.2.dll into your windows-system
+            folder.</para>
+          </listitem>
+
+          <listitem>
+            <para>Start MSVC++ and open the file prj.dsw located in
+            sumo/prj/msvc6</para>
+          </listitem>
+
+          <listitem>
+            <para>Go to Build and Rebuild All</para>
+          </listitem>
+        </orderedlist>
+
+        <para>Enjoy!</para>
+      </sect2>
+
+      <sect2>
+        <title>Windows: Using MS Studio 7.0 .NET</title>
+
+        <para>Follow steps 2-8 as described for <application class="software">MSVC++
+        6.0</application>. The continue as follows:</para>
+
+        <orderedlist>
+          <listitem>
+            <para>Start MSVC++ and open the file prj.sln located in
+            sumo/prj/msvc7.net</para>
+          </listitem>
+
+          <listitem>
+            <para>Go to Build and Rebuild All</para>
+          </listitem>
+        </orderedlist>
+
+        <para>Enjoy!</para>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>Traffic Lights</title>
+
+      <sect2>
+        <title>All Platforms: Obtaining the sources</title>
+
+        <para>There are two possibilities to obtain the sources needed to
+        build SUMO. The first is to download the latest distribution, located
+        within the <ulink
+        url="http://sumo.sourceforge.net/downloads.html#sumo-latest">download</ulink>
+        section of our <ulink url="http://sumo.sourceforge.net">internet pages</ulink>
+        internet pages. The other one is to checkout the <ulink
+        url="http://sourceforge.net/cvs/?group_id=45607">current CVS</ulink>
+        tree (Use <literal>sumo</literal> as <literal>modulname</literal>).</para>
+
+        <para>Normally, the CVS tree is stable and of course does contain the
+        latest patches, the latest release may not contain.</para>
+      </sect2>
+
+      <sect2>
+        <title>UNIX/Linux: SUMO and the GNU build process</title>
+
+        <para>Here we descride how to use the <ulink
+        url="http://sources.redhat.com/autobook/">GNU Autotools</ulink>,
+        <ulink url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>,
+        <ulink url="http://www.gnu.org/software/automake"><literal>automake</literal></ulink>
+        and <ulink url="http://www.gnu.org/software/libtool"><literal>libtool</literal></ulink>
+        to build SUMO from the cvs-sources.</para>
+
+        <para>We will also discuss how to add new option to
+        <literal>configure</literal> and how to modify <literal>Makefile.am</literal>
+        if new files or libraries are added.</para>
+
+        <sect3>
+          <title>Building SUMO from CVS</title>
+
+          <orderedlist>
+            <listitem>
+              <para>Download the sources from <ulink
+              url="http://sourceforge.net/cvs/?group_id=45607">sourceforge.net</ulink>.</para>
+            </listitem>
+
+            <listitem>
+              <para>Download the <ulink
+              url="http://xml.apache.org/xerces-c/index.html">Xerces C++
+              library</ulink> (version 2.5 or greater) and the <ulink
+              url="http://www.fox-toolkit.org">FOX</ulink>-library (version
+              1.2.x) for windows (both available at our <ulink
+              url="http://sumo.sourceforge.net/downloads.html">download</ulink>-pages).
+              Make sure to download the Linux-version of Xerces and sources
+              for FOX in the version 1.2.x.</para>
+            </listitem>
+
+            <listitem>
+              <para>Install both libraries into desired folder (FOX must be
+              build, first. Xerces possibly not)</para>
+            </listitem>
+
+            <listitem>
+              <para><literal>cd</literal> into the directory
+              <literal>sumo</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para>Execute <literal>make -f admin/Makefile.common cvs</literal>.
+              This will create the <literal>configure</literal>-script from
+              <literal>configure.in.in</literal> and <literal>Makefile.in</literal>
+              for each <literal>Makefile.am</literal> by calling the GNU
+              Autotools.</para>
+            </listitem>
+
+            <listitem>
+              <para>Call <literal>./configure</literal>. You can get a list of
+              <literal>configure</literal>-option by calling
+              <literal>./configure --help</literal>. <literal>./configure</literal>
+              builds a <literal>Makefile</literal> for each
+              <literal>Makefile.in</literal>.</para>
+
+              <para>Normally, you have to supply the places the includes and
+              the libraries are located at, both for Xerces and FOX. This is
+              done using:</para>
+
+              <para>--with-xerces-libraries=&#60;PATH_TO_XERCES_LIBS&#62;</para>
+
+              <para>--with-xerces-inludes=&#60;PATH_TO_XERCES_INCLUDES&#62;</para>
+
+              <para>--with-fox-libraries=&#60;PATH_TO_FOX_LIBS&#62;</para>
+
+              <para>--with-fox-includes=&#60;PATH_TO_FOX_INCLUDES&#62;</para>
+            </listitem>
+
+            <listitem>
+              <para>Call <literal>make</literal> to build SUMO.</para>
+            </listitem>
+
+            <listitem>
+              <para>Call <literal>make install</literal> to install SUMO.</para>
+            </listitem>
+          </orderedlist>
+
+          <para>Enjoy!</para>
+        </sect3>
+
+        <sect3>
+          <title>Adding options to configure</title>
+
+          <para>You need to modify the file <literal>configure.in.in</literal>.
+          There are some SUMO-specific options. Take them as sample and
+          consult the <ulink url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
+          for further insights.</para>
+        </sect3>
+
+        <sect3>
+          <title>Adding header/library-checks to configure</title>
+
+          <para>You need to modify the file <literal>configure.in.in</literal>.
+          There are some SUMO-specific header/library-checks for both the
+          <ulink url="http://xml.apache.org/xerces-c/index.html">Xerces C++
+          library</ulink> and the <ulink url="http://www.fox-toolkit.org">FOX
+          library</ulink>. Take them as sample and consult the <ulink
+          url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
+          for further insights. Take care of <ulink
+          url="http://sources.redhat.com/autobook/autobook/autobook_208.html">non-portable
+          shell-code</ulink>.</para>
+        </sect3>
+
+        <sect3>
+          <title>Modifying Makefile.am</title>
+
+          <para>There is a need of modifying <literal>Makefile.am</literal> if
+          you</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>add or remove new sources or files that should go in the
+              distribution: All source files must be listed behind
+              <literal>*_SOURCES</literal>. All other files that should be
+              included in the distribution must be listed behind
+              <literal>EXTRA_DIST</literal></para>
+            </listitem>
+
+            <listitem>
+              <para>need to include header-files from different directories:
+              Add the header directories to <literal>AM_CPPFLAGS</literal>. If
+              these header-directories have been assigned to a name in
+              <literal>configure</literal>, refer to them like
+              <literal>-I$(FOX_INCLUDES)</literal> or <literal>-I$(XERCESINCLUDE)</literal>.
+              To search for headers within SUMO directories, use
+              <literal>-I$(top_srcdir)/Path_to_dir</literal>.</para>
+            </listitem>
+
+            <listitem>
+              <para>need to link against new libraries or create new programs:
+              Modify the file <literal>src/Makefile.am</literal>. Add a new
+              program to <literal>bin_PROGRAMS</literal>. For each program you
+              need to provide <literal>prg_SOURCES</literal>,
+              <literal>prg_LDFLAGS</literal> and <literal>prg_LDADD</literal>.
+              <literal>prg_LDFLAGS</literal> holds the linker flags and
+              library-directories like <literal>-L$(XERCESLIBPATH)</literal>
+              or <literal>$(QT_LDFLAGS)</literal>. <literal>prg_LDADD</literal>
+              lists all libraries that should be linked with the executable
+              (e.g. <literal>./utils/xml/libxml.a -l$(XERCESLIB) -l$(FOXLIB)</literal>).</para>
+            </listitem>
+
+            <listitem>
+              <para>you create new subdirectories: Add the new subdirectory to
+              <literal>SUBDIRS</literal> and create a new <literal>Makefile.am</literal>
+              there.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>I don&#39;t want to go into detail of <literal>Makefile.am</literal>
+          creation. For SUMO we have one top-level <literal>Makefile.am</literal>
+          in the directory <literal>sumo</literal> This needs to be changed
+          only if you add new subdirectories</para>
+
+          <para>All SUMO-executables are build in <literal>sumo/src</literal>.
+          Add this directory&#39;s <literal>Makefile.am</literal> to add new
+          executables.</para>
+
+          <para>All other <literal>Makefile.am</literal> looks e.g. like this:</para>
+
+          <screen>noinst_LIBRARIES = libxxx.a EXTRA_DIST =
+          distributed_but_not_compiled_file libxxx_a_SOURCES = header.h
+          source.cpp AM_CPPFLAGS = -I$(top_srcdir)/src/helpers
+          -I$(FOX_INCLUDES) \ -I$(XERCESINCLUDE) SUBDIRS = icons METASOURCES =
+          AUTO</screen>
+
+          <sect4>
+            <title>Makefile.am additions for Xerces</title>
+
+            <para>If you need to include Xerces-headers in a specific
+            directory add <literal>-I$(XERCESINCLUDE)
+            -I$(XERCESINCLUDE_PRIOR_1_7)</literal> to <literal>AM_CPPFLAGS</literal>.</para>
+
+            <para>If you need to link against the Xerces-library add
+            <literal>-L$(XERCES_LDFLAGS)</literal> to <literal>prg_LDFLAGS</literal>
+            and <literal>-l$(XERCESLIB)</literal> to <literal>prg_LDADD</literal>.</para>
+          </sect4>
+
+          <sect4>
+            <title>Makefile.am additions for FOX</title>
+
+            <para>If you need to include FOX-headers in a specific directory
+            add -I<literal>$(FOX_INCLUDES)</literal> to <literal>AM_CPPFLAGS</literal>.</para>
+
+            <para>If you need to link against FOX-library add
+            <literal>-L$(FOX_LDFLAGS)</literal> to <literal>prg_LDFLAGS</literal>
+            and <literal>-l$(FOXLIBS)</literal> to <literal>prg_LDADD</literal>.</para>
+
+            <para>See also <ulink
+            url="http://www.vandenoever.info/software/KDEautomakemanual.html">How
+            to use KDE autotools for a Qt application?</ulink></para>
+          </sect4>
+        </sect3>
+      </sect2>
+
+      <sect2>
+        <title>Windows: Using MSVC++ 6.0</title>
+
+        <para>Building under Windows is as easy as under Linux. The following
+        steps have to be done:</para>
+
+        <orderedlist>
+          <listitem>
+            <para>Install the Service Pack 5 for MSVC++.</para>
+          </listitem>
+
+          <listitem>
+            <para>Obtain the source as described above.</para>
+          </listitem>
+
+          <listitem>
+            <para>Download the <ulink
+            url="http://xml.apache.org/xerces-c/index.html">Xerces C++ library</ulink>
+            (version 2.5 or greater) and the <ulink
+            url="http://www.fox-toolkit.org">FOX</ulink>-library (version
+            1.2.x) for windows (both available at our <ulink
+            url="http://sumo.sourceforge.net/downloads.html">download</ulink>-pages).
+            Make sure to download the Xerces-version that fits to your system
+            (MS Windows / Linux) and sources for FOX in the version 1.2.x.</para>
+          </listitem>
+
+          <listitem>
+            <para>Install both libraries into desired folders</para>
+          </listitem>
+
+          <listitem>
+            <para>Set environment variables for the xerces library:</para>
+
+            <para>XERCES=&#60;PATH_TO_XERCES&#62;</para>
+
+            <para>Example: If you have installed xerces to
+            D:\libs\xerces-c_2_X_0-win32, then your environment variables
+            should contain XERCES=D:\libs\xerces-c_2_X_0-win32</para>
+          </listitem>
+
+          <listitem>
+            <para>Copy xerces-c_2_X_0.dll and xerces-c_2_X_0D.dll into your
+            windows-system folder.</para>
+          </listitem>
+
+          <listitem>
+            <para>Set environment variables for the fox library:</para>
+
+            <para>FOX=&#60;PATH_TO_FOX&#62;</para>
+
+            <para>Example: If you have installed fox to D:\libs\fox-1.2.x,
+            then your environment variables should contain
+            FOX=D:\libs\fox-1.2.x</para>
+          </listitem>
+
+          <listitem>
+            <para>Compile the fox-library (Xerces comes mostly with
+            precompiled binaries, so a rebuild is not necessary) and copy
+            FOXDLL-1.2.dll and FOXDLLD-1.2.dll into your windows-system
+            folder.</para>
+          </listitem>
+
+          <listitem>
+            <para>Start MSVC++ and open the file prj.dsw located in
+            sumo/prj/msvc6</para>
+          </listitem>
+
+          <listitem>
+            <para>Go to Build and Rebuild All</para>
+          </listitem>
+        </orderedlist>
+
+        <para>Enjoy!</para>
+      </sect2>
+
+      <sect2>
+        <title>Windows: Using MS Studio 7.0 .NET</title>
+
+        <para>Follow steps 2-8 as described for <application class="software">MSVC++
+        6.0</application>. The continue as follows:</para>
+
+        <orderedlist>
+          <listitem>
+            <para>Start MSVC++ and open the file prj.sln located in
+            sumo/prj/msvc7.net</para>
+          </listitem>
+
+          <listitem>
+            <para>Go to Build and Rebuild All</para>
+          </listitem>
+        </orderedlist>
+
+        <para>Enjoy!</para>
+      </sect2>
+    </sect1>
+
+    <sect1>
+      <title>Extensions</title>
+
+      <para>As some parts of the code are used within all applications and
+      some other parts are used within more than a single application, we have
+      divided the code into logical modules. Classes shared by almost all
+      applications and do not have a certain meaning within the simulation
+      context are located within the utils-folder. All other folders hold
+      classes responsible for a certain part of the simulation building and
+      execution process.</para>
+
+      <para>Within the MSVC-environments you will find three types of projects
+      within the workspace: a) executables, named as the executable that is
+      build; b) uncommon libraries, named y_lib*, which are used by a small
+      subset of applications each; c) common libraries used by most of the
+      applications.</para>
+    </sect1>
+  </chapter>
+
+  <chapter id="dev_chp03">
+    <title>Generation of Traffic Lights within the net...-applications</title>
+
+    <sect1>
+      <title>Basics</title>
+
+      <para>SUMO is a command line application and its workflow is the same as
+      for others (see <link linkend="ProgramFlowWithinCommandLineApplications">&#34;ProgramFlowWithinCommandLineApplications&#34;</link>).
+      The next two chapter describe some relevant things about data loading
+      and about the simulation itself. The next picture shows the packages
+      used by SUMO.</para>
+
+      <figure>
+        <title>Packages needed by SUMO</title>
+
+        <mediaobject>
+          <imageobject>
+            <imagedata align="center"
+            fileref="./gfx/dev/SUMOpackagehierarchy.gif" format="GIF" />
+          </imageobject>
+        </mediaobject>
+      </figure>
+
+      <sect2>
+        <title>Basic Philosophy</title>
+
+        <para>We have tried to make the simulation as fast and as lean as
+        possible. Due to this, the networks are computed in prior, no further
+        network things are computed after the network has bben loaded. We try
+        to use fast structures and fast algorithms. Still, you may find some
+        things within the code that blow it up. Some functions are assumed to
+        be unneeded but are still within the code as they were not removed
+        after new methods have been implemented. Furthermore, some of the
+        values, mainly within the vehicle and/or the lane classes are just
+        some kind of visualisation stuff that should be removed and used
+        optionally. This is also the case for color values and some parts of
+        the geometrical information as both are not needed within the command
+        line version of the simulation. We will try to get rid of these things
+        within the future.</para>
+      </sect2>
+    </sect1>
+  </chapter>
+</book>
