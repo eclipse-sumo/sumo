@@ -13,7 +13,7 @@ ACLOCAL="aclocal"
 # our includer.  The repeated type calls are not that expensive.
 checkAutoconf()
 {
-  if test -x "`$WHICH autoconf-2.5x`" ; then	
+  if test -x "`$WHICH autoconf-2.5x`" ; then
     AUTOCONF="`$WHICH autoconf-2.5x`"
   elif test -x "`$WHICH autoconf-2.54`" ; then
     AUTOCONF="`$WHICH autoconf-2.54`"

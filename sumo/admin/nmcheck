@@ -66,7 +66,7 @@ while( defined( $ARGV[ 0 ] ))
 
 if( ! $weak_specified )
 {
-    $allowed_weak = "*"; 
+    $allowed_weak = "*";
     # allow all weak symbols by default
     # instances of templates and similar stuff - unfortunately includes also things from other libraries,
     # so it cannot be on by default
@@ -164,7 +164,7 @@ while( $line = <FILEIN> )
     {
 	die "Invalid line: " . $line . "\n";
     }
-    
+
     print STDERR "Type: " . $type . " , symbol: " . $symbol . "\n" if $debug;
     if( $type eq "A" )
     { # these should be system symbols, so ignore them
@@ -219,7 +219,7 @@ while( $line = <FILEIN> )
     }
 
     # print STDERR "Processed symbol: " . $symbol . "\n" if $debug;
-    
+
     my $found = 0;
     if( $exacts{ $symbol } )
     {
@@ -296,7 +296,7 @@ sub process_symbols($\@\%\@)
     my $wildcards_ref = $_[ 1 ];
     my $exacts_ref = $_[ 2 ];
     my $regwildcards_ref = $_[ 3 ];
-    
+
     $allowed_symbols =~ s/^ *//o;  # strip whitespace
     $allowed_symbols =~ s/ *$//o;
 

@@ -41,7 +41,7 @@ case $AUTOCONF_VERSION in
     exit 1
     ;;
 esac
- 
+
 AUTOHEADER_VERSION=`$AUTOHEADER --version | head -n 1`
 case $AUTOHEADER_VERSION in
   Autoconf*2.5* | autoheader*2.5* ) : ;;
@@ -85,12 +85,12 @@ esac
 cvs()
 {
 check_autotool_versions
- 
+
 ### Produce acinclude.m4
 if grep '\$(top_srcdir)/acinclude.m4:' $makefile_am >/dev/null; then
   echo "*** Creating acinclude.m4"
   rm -f acinclude.m4 configure.files
-  
+
   strip_makefile
   $MAKE -f $makefile_wo top_srcdir=. ./acinclude.m4
 fi
@@ -105,7 +105,7 @@ if test -r configure.in.in; then
 
     if test -r Makefile.am.in; then
         echo "*** Creating Makefile.am"
-        if grep '\$(top_srcdir)/Makefile.am:' $makefile_am >/dev/null; then 
+        if grep '\$(top_srcdir)/Makefile.am:' $makefile_am >/dev/null; then
             strip_makefile
             $MAKE -f $makefile_wo top_srcdir=. ./Makefile.am || exit 1
         else
@@ -235,7 +235,7 @@ else
     done
 fi
 
-for topleveldir in $topleveldirs; do 
+for topleveldir in $topleveldirs; do
   if test -f $topleveldir/configure.in; then
 	continue
   fi
@@ -256,7 +256,7 @@ done
 
 files=`cat configure.files`
 list=`egrep '^dnl AC_OUTPUT\(.*\)' $files | sed -e "s#^.*dnl AC_OUTPUT(\(.*\))#\1#"`
-for file in $list; do 
+for file in $list; do
     echo "AC_CONFIG_FILES([ $file ])" >>  configure.in.new
 done
 
@@ -287,10 +287,10 @@ if test -z "$VERSION" || test "$VERSION" = "@VERSION@"; then
      VERSION="\"3.1.0\""
 fi
 if test -z "$modulename" || test "$modulename" = "@MODULENAME@"; then
-   modulename=`pwd`; 
+   modulename=`pwd`;
    modulename=`basename $modulename`
    esc_VERSION=`echo $VERSION | sed -e "s#[^.0-9a-zA-Z]##g"`
-   modulename=`echo $modulename | sed -e "s#-$esc_VERSION##"`   
+   modulename=`echo $modulename | sed -e "s#-$esc_VERSION##"`
 
 fi
 if test -n "$kde_use_qt_param"; then
@@ -338,7 +338,7 @@ test -f configure.in.bot && echo configure.in.bot >> configure.files
 
 create_subdirs()
 {
-if grep '\$(top_srcdir)/subdirs:' $makefile_am >/dev/null; then 
+if grep '\$(top_srcdir)/subdirs:' $makefile_am >/dev/null; then
     # as many modules contain rules to create subdirs without any
     # dependencies make won't create it unless there is no file.
     # so we check if that's a dummy rule or one that works
@@ -350,7 +350,7 @@ if grep '\$(top_srcdir)/subdirs:' $makefile_am >/dev/null; then
     $MAKE -f $makefile_wo top_srcdir=. ./subdirs || exit 1
     if test -f subdirs.cvs.sh.$$; then
 	if test -s subdirs; then
-	    rm subdirs.cvs.sh.$$ 
+	    rm subdirs.cvs.sh.$$
 	else
 	    mv subdirs.cvs.sh.$$ subdirs
 	fi
@@ -387,7 +387,7 @@ for d in $compilefirst; do
    echo $d >> ./_SUBDIRS
 done
 
-(for d in $dirs; do 
+(for d in $dirs; do
    list=`sed -ne "s#^COMPILE_BEFORE_$d""[ ]*=[ ]*##p" $makefile_am | head -n 1`
    for s in $list; do
       echo $s $d
@@ -518,7 +518,7 @@ for subdir in $dirs; do
 
    $MAKE -s -f _transMakefile podir=$podir EXTRACTRC="$EXTRACTRC" PREPARETIPS="$PREPARETIPS" \
 	XGETTEXT="${XGETTEXT:-xgettext} -C -ki18n -ktr2i18n -kI18N_NOOP -ktranslate -kaliasLocale -x ${includedir:-${KDEDIR:-/usr/local/kde}/include}/kde.pot" \
-	messages 
+	messages
    exit_code=$?
    if test "$exit_code" != 0; then
        echo "make exit code: $exit_code"

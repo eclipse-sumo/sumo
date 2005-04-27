@@ -52,7 +52,7 @@ while (<>) {
         if (/^\s*ac_max_sed_([a-z]+).*=\s*([0-9]+)/ ) {
 	    $flag = 1;
 	    if ($1 eq 'lines') {
-                # lets hope its different with 2141, 
+                # lets hope its different with 2141,
                 # wasn't able to verify that
               if ($2 eq '48') {
                 $ac_version = 250;
@@ -79,7 +79,7 @@ while (<>) {
 #    end with: "rm -f conftest.s\*"
 # on autoconf 250, it ends with '# CONFIG_HEADER section'
 #
-# gg: if a post-processing commands section is found first, 
+# gg: if a post-processing commands section is found first,
 #    stop there and insert a new loop to honour the case/esac.
 # (pattern: /^\s+#\sRun the commands associated with the file./)
 

@@ -1,16 +1,16 @@
 dnl    This file is part of the KDE libraries/packages
 dnl    Copyright (C) 2001 Stephan Kulow (coolo@kde.org)
- 
+
 dnl    This file is free software; you can redistribute it and/or
 dnl    modify it under the terms of the GNU Library General Public
 dnl    License as published by the Free Software Foundation; either
 dnl    version 2 of the License, or (at your option) any later version.
- 
+
 dnl    This library is distributed in the hope that it will be useful,
 dnl    but WITHOUT ANY WARRANTY; without even the implied warranty of
 dnl    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 dnl    Library General Public License for more details.
- 
+
 dnl    You should have received a copy of the GNU Library General Public License
 dnl    along with this library; see the file COPYING.LIB.  If not, write to
 dnl    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
@@ -31,7 +31,7 @@ dnl This ksh/zsh feature conflicts with `cd blah ; pwd`
 unset CDPATH
 
 dnl Checking host/target/build systems, for make, install etc.
-AC_CANONICAL_SYSTEM 
+AC_CANONICAL_SYSTEM
 dnl Perform program name transformation
 AC_ARG_PROGRAM
 

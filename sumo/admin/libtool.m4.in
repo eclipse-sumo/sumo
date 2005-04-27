@@ -468,7 +468,7 @@ ia64-*-hpux*)
   fi
   rm -rf conftest*
   ;;
-  
+
 *-*-sco3.2v5*)
   # On SCO OpenServer 5, we need -belf to get full-featured binaries.
   SAVE_CFLAGS="$CFLAGS"
