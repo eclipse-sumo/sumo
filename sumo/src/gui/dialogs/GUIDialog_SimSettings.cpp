@@ -1,3 +1,9 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include "GUIDialog_SimSettings.h"
 
 #include <utils/gui/windows/GUIAppEnum.h>

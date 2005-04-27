@@ -1,6 +1,12 @@
 #ifndef GUIDialog_AboutSUMO_H
 #define GUIDialog_AboutSUMO_H
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <fx.h>
 
 class GUIDialog_AboutSUMO : public FXDialogBox

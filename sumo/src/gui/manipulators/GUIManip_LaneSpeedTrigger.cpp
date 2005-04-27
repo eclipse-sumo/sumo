@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/04/27 09:44:27  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.3  2004/11/23 10:06:50  dkrajzew
 // adapted the new class hierarchy
 //
@@ -32,6 +35,12 @@ namespace
 // Revision 1.1  2004/07/02 08:24:33  dkrajzew
 // possibility to manipulate vss in the gui added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

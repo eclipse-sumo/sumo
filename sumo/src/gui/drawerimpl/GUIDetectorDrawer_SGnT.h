@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/04/27 09:44:26  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.4  2004/07/02 08:12:12  dkrajzew
 // detector drawers now also draw other additional items
 //
@@ -32,6 +35,12 @@
 // Revision 1.1  2003/09/23 14:28:16  dkrajzew
 // possibility to visualise detectors using different geometry complexities added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

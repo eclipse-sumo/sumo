@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/04/27 09:44:26  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.3  2004/11/23 10:00:08  dkrajzew
 // new class hierarchy for windows applied
 //
@@ -32,7 +35,12 @@ namespace
 // Revision 1.1  2004/07/02 08:10:56  dkrajzew
 // edition of breakpoints and additional weights added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/04/27 09:44:26  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.3  2004/03/19 12:34:30  dkrajzew
 // porting to FOX
 //
@@ -32,6 +35,12 @@ namespace
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

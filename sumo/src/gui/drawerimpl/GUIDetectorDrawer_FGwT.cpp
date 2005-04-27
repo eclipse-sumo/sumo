@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/04/27 09:44:26  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.6  2004/11/23 10:05:21  dkrajzew
 // removed some warnings and adapted the new class hierarchy
 //
@@ -42,6 +45,12 @@ namespace
 // possibility to visualise detectors using different geometry complexities
 //  added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

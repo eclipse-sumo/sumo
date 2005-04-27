@@ -1,6 +1,12 @@
 #ifndef GUIDialog_SimSettings_h
 #define GUIDialog_SimSettings_h
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <fx.h>
 
 class GUIDialog_SimSettings : public FXDialogBox

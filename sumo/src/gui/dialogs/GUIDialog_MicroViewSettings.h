@@ -9,6 +9,12 @@
 #ifndef GUIDialog_MicroViewSettings_H
 #define GUIDialog_MicroViewSettings_H
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <fx.h>
 
 class GUIDialog_MicroViewSettings : public FXDialogBox
