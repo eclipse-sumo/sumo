@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/04/28 09:02:49  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.3  2004/07/02 09:48:08  dkrajzew
 // some style changes
 //
@@ -30,25 +33,42 @@ namespace
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <sstream>
 #include "IDSupplier.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 IDSupplier::IDSupplier(const std::string &prefix, long begin)
     : _current(begin), _prefix(prefix)
 {
 }
 
+
 IDSupplier::~IDSupplier()
 {
 }
+
 
 std::string
 IDSupplier::getNext()

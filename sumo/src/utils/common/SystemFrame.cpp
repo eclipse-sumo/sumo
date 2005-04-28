@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/04/28 09:02:47  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.6  2004/11/23 10:27:45  dkrajzew
 // debugging
 //
@@ -30,6 +33,12 @@
 // Revision 1.3  2003/06/24 08:09:29  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -136,9 +145,6 @@ SystemFrame::close()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "SystemFrame.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

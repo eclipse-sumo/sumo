@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/04/28 09:02:46  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.11  2003/10/15 11:55:51  dkrajzew
 // further work on vissim-import
 //
@@ -41,7 +44,12 @@ namespace
 // Revision 1.6  2003/06/05 11:54:48  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -179,9 +187,6 @@ DoubleVectorHelper::add2All(DoubleVector &v, double what)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "DoubleVector.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

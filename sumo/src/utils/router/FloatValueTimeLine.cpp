@@ -23,10 +23,18 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/04/28 09:02:49  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.1  2004/01/26 10:01:44  dkrajzew
 // derived class implemented for the computation of interpolated values when a value is not given (not yet implemented)
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

@@ -42,7 +42,7 @@ simpleHull_2D(const Position2DVector &V)
     // compute the hull on the deque D[]
     for (int i=3; i < n; i++) {   // process the rest of vertices
         // test if next vertex is inside the deque hull
-        if(bot>=D.size()||top-1>=D.size()||i>=V.size()) {
+        if(bot>=(int) D.size()||top-1>=(int) D.size()||i>=(int) V.size()) {
             throw ProcessError();
         }
         if ((isLeft(D[bot], D[bot+1], V.at(i)) > 0) &&
@@ -53,7 +53,7 @@ simpleHull_2D(const Position2DVector &V)
         // get the rightmost tangent at the deque bot
         while (isLeft(D[bot], D[bot+1], V.at(i)) <= 0) {
             ++bot;                // remove bot of deque
-            if(bot>=D.size()) {
+            if(bot>=(int) D.size()) {
                 throw ProcessError();
             }
         }
@@ -62,18 +62,18 @@ simpleHull_2D(const Position2DVector &V)
         }
         D[--bot] = V.at(i);          // insert V[i] at bot of deque
 
-        if(top==0||top>=D.size()) {
+        if(top==0||top>=(int) D.size()) {
             throw ProcessError();
         }
         // get the leftmost tangent at the deque top
         while (isLeft(D[top-1], D[top], V.at(i)) <= 0) {
             --top;                // pop top of deque
-            if(top==0||top>=D.size()) {
+            if(top==0||top>=(int) D.size()) {
                 throw ProcessError();
             }
         }
 
-        if(top+1>=D.size()) {
+        if(top+1>=(int) D.size()) {
             throw ProcessError();
         }
         D[++top] = V.at(i);          // push V[i] onto top of deque
@@ -83,7 +83,7 @@ simpleHull_2D(const Position2DVector &V)
     int h;        // hull vertex counter
 	Position2DVector H;
     for (h=0; h <= (top-bot); h++) {
-        if(bot + h>=D.size()) {
+        if(bot + h>=(int) D.size()) {
             throw ProcessError();
         }
         H.push_back(D[bot + h]);

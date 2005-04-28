@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2005/04/28 09:02:46  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.7  2004/11/23 10:27:45  dkrajzew
 // debugging
 //
@@ -41,7 +44,12 @@
 // Revision 1.2  2003/03/20 16:41:10  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -166,9 +174,6 @@ StringUtils::upper(std::string &str)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "StringUtils.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

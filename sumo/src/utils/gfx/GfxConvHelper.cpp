@@ -23,10 +23,18 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/04/28 09:02:48  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.2  2003/12/09 11:35:00  dkrajzew
 // documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -55,9 +63,6 @@ GfxConvHelper::parseColor(const std::string &coldef)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GfxConvHelper.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

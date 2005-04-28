@@ -17,6 +17,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2005/04/28 09:02:47  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.1  2003/02/07 10:48:55  dkrajzew
 // some debugging and profiling classes added
 //
@@ -28,7 +31,6 @@
 //
 // Revision 1.4  2002/06/07 14:58:46  dkrajzew
 // Bugs on dead ends and junctions with too few outgoing roads fixed; Comments improved
-//
 //
 /* =========================================================================
  * included modules
@@ -102,9 +104,6 @@ CMemDiff::~CMemDiff()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MemDiff.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

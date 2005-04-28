@@ -1,3 +1,9 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <utils/options/OptionsCont.h>
 #include "RandHelper.h"
 #include <ctime>

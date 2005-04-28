@@ -1,6 +1,15 @@
 #ifndef XMLDevice_h
 #define XMLDevice_h
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+
+#include <string>
+
 class XMLDevice {
 public:
     XMLDevice() { }

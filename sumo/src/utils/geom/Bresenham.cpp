@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/04/28 09:02:48  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.2  2003/02/07 10:50:20  dkrajzew
 // updated
 //
@@ -42,7 +45,12 @@ namespace
 // Revision 1.2  2002/06/07 14:58:45  dkrajzew
 // Bugs on dead ends and junctions with too few outgoing roads fixed; Comments improved
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -102,10 +110,6 @@ Bresenham::compute(BresenhamCallBack *callBack, double val1, double val2)
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-//#ifdef DISABLE_INLINE
-//#include "Bresenham.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

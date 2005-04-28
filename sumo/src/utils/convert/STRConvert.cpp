@@ -22,6 +22,12 @@ namespace
      const char rcsid[] = "$Id$";
 }
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
@@ -64,9 +70,6 @@ STRConvert::_2int(const string &inp)
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "STRConvert.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

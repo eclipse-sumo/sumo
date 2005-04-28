@@ -22,6 +22,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/04/28 09:02:50  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.7  2004/11/23 10:36:50  dkrajzew
 // debugging
 //
@@ -58,7 +61,12 @@
 // Revision 1.2  2002/04/16 06:52:01  dkrajzew
 // documentation added; coding standard attachements added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

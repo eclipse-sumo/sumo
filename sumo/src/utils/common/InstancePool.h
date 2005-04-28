@@ -1,6 +1,12 @@
 #ifndef InstancePool_h
 #define InstancePool_h
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <vector>
 #include <algorithm>
 #include <cassert>

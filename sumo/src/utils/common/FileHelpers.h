@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/04/28 09:02:46  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.3  2004/01/26 07:24:19  dkrajzew
 // added the possibility to check the format (xml/csv) of a file; added the possibility to compute the absoulte path from a base path and a relative path
 //
@@ -59,7 +62,12 @@
 // Revision 1.1  2002/02/13 15:48:18  croessel
 // Merge between SourgeForgeRelease and tesseraCVS.
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

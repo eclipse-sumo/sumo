@@ -18,13 +18,21 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/04/28 09:02:46  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.2  2003/06/24 14:40:22  dkrajzew
 // Error/Warning-prefix added to all messages; endlines are now prompted correctly within log-files
 //
 // Revision 1.1  2003/06/24 08:16:21  dkrajzew
 // LogFile - a MsgRetriever that writes into a files (logs an applications output) added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -70,9 +78,6 @@ LogFile::good()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "LogFile.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

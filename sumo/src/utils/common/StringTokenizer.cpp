@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/04/28 09:02:46  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.4  2004/07/02 09:42:36  dkrajzew
 // changes for 0.8.0.2
 //
@@ -38,7 +41,12 @@ namespace
 // Revision 1.2  2002/07/25 08:52:28  dkrajzew
 // get-method for retrival of a numbered item added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

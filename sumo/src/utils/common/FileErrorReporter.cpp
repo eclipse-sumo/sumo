@@ -23,13 +23,19 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/04/28 09:02:46  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.3  2003/06/18 11:23:29  dkrajzew
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.2  2003/02/07 10:47:17  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -130,9 +136,6 @@ FileErrorReporter::getDataType() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "FileErrorReporter.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

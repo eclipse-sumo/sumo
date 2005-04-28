@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/04/28 09:02:49  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.8  2004/07/02 09:47:01  dkrajzew
 // a simpler API added (should be reworked, subject to change)
 //
@@ -53,7 +56,12 @@ namespace
 // Revision 1.1  2002/07/25 08:55:42  dkrajzew
 // support for Visum7.5 & Cell import added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

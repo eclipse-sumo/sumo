@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/04/28 09:02:48  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.4  2004/01/28 12:35:37  dkrajzew
 // documentation added
 //
@@ -32,6 +35,12 @@ namespace
 // Revision 1.2  2003/06/05 14:33:44  dkrajzew
 // class templates applied; documentation added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

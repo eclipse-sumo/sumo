@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/04/28 09:02:46  dkrajzew
+// level3 warnings removed
+//
 // Revision 1.7  2003/10/30 13:43:09  dkrajzew
 // debug output added
 //
@@ -35,7 +38,12 @@ namespace
 // Revision 1.4  2003/06/05 11:54:48  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -103,9 +111,6 @@ operator<<(std::ostream &os, const IntVector &iv)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "IntVector.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
