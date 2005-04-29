@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/04/29 10:59:42  dkrajzew
+// debugging
+//
 // Revision 1.9  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
@@ -262,8 +265,9 @@ GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
             break;
         }
     default:
-        throw 1;
+        break;
     }
+    return RGBColor(1, 1, 1);
 }
 
 
