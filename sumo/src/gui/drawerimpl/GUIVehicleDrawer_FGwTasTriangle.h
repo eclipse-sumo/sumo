@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/04/29 11:10:58  dkrajzew
+// codestyle adapted
+//
 // Revision 1.3  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
@@ -78,9 +81,6 @@ private:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIVehicleDrawer_FGwTasTriangle.icc"
-//#endif
 
 #endif
 
