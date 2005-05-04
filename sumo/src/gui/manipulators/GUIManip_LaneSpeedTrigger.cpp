@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/05/04 07:45:17  dkrajzew
+// level 3 warnings removed
+//
 // Revision 1.4  2005/04/27 09:44:27  dkrajzew
 // level3 warnings removed
 //
@@ -207,37 +210,37 @@ GUIManip_LaneSpeedTrigger::onCmdChangeOption(FXObject*,FXSelector,void*)
         mySpeed = static_cast<GUILaneSpeedTrigger*>(myObject)->getDefaultSpeed();
         break;
     case 1:
-        mySpeed = 20 / 3.6;
+        mySpeed = (float) (20 / 3.6);
         break;
     case 2:
-        mySpeed = 40 / 3.6;
+        mySpeed = (float) (40 / 3.6);
         break;
     case 3:
-        mySpeed = 60 / 3.6;
+        mySpeed = (float) (60 / 3.6);
         break;
     case 4:
-        mySpeed = 80 / 3.6;
+        mySpeed = (float) (80 / 3.6);
         break;
     case 5:
-        mySpeed = 100 / 3.6;
+        mySpeed = (float) (100 / 3.6);
         break;
     case 6:
-        mySpeed = 120 / 3.6;
+        mySpeed = (float) (120 / 3.6);
         break;
     case 7:
-        mySpeed = 140 / 3.6;
+        mySpeed = (float) (140 / 3.6);
         break;
     case 8:
-        mySpeed = 160 / 3.6;
+        mySpeed = (float) (160 / 3.6);
         break;
     case 9:
-        mySpeed = 180 / 3.6;
+        mySpeed = (float) (180 / 3.6);
         break;
     case 10:
-        mySpeed = 200 / 3.6;
+        mySpeed = (float) (200 / 3.6);
         break;
     case 11:
-        mySpeed = myUserDefinedSpeed->getValue() / 3.6;
+        mySpeed = (float) (myUserDefinedSpeed->getValue() / 3.6);
         break;
     case 12:
         mySpeed = static_cast<GUILaneSpeedTrigger*>(myObject)->getLoadedSpeed();

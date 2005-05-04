@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2005/05/04 07:47:23  dkrajzew
+// level 3 warnings removed
+//
 // Revision 1.28  2004/11/25 16:26:46  dkrajzew
 // consolidated and debugged some detectors and their usage
 //
@@ -105,6 +108,12 @@ namespace
 // Revision 1.3  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

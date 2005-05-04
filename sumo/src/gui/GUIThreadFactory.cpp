@@ -1,3 +1,9 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <utils/foxtools/MFXEventQue.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include "GUIThreadFactory.h"

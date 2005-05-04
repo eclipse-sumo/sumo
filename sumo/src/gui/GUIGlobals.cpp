@@ -23,13 +23,21 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/05/04 07:47:23  dkrajzew
+// level 3 warnings removed
+//
 // Revision 1.5  2004/11/23 10:11:33  dkrajzew
 // adapted the new class hierarchy
 //
 // Revision 1.4  2004/08/02 11:49:11  dkrajzew
 // gradients added; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

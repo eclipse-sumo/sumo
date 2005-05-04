@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 07:45:16  dkrajzew
+// level 3 warnings removed
+//
 // Revision 1.3  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
@@ -36,10 +39,18 @@
 
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <vector>
 #include "GUIBaseJunctionDrawer.h"
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class GUIJunctionWrapper;
+
 
 class GUIJunctionDrawer_nT :
     public GUIBaseJunctionDrawer

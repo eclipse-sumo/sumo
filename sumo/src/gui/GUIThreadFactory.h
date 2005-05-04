@@ -1,6 +1,12 @@
 #ifndef GUIThreadFactory_h
 #define GUIThreadFactory_h
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 class GUIApplicationWindow;
 class MFXInterThreadEventClient;
 class GUILoadThread;

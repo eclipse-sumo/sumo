@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/05/04 07:45:16  dkrajzew
+// level 3 warnings removed
+//
 // Revision 1.4  2005/04/29 11:10:58  dkrajzew
 // codestyle adapted
 //
@@ -31,6 +34,7 @@
 //
 // Revision 1.1  2003/09/05 14:50:39  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
