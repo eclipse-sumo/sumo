@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2005/05/04 09:34:35  dkrajzew
+// netbuilding containers are now non-static
+//
 // Revision 1.24  2004/12/16 12:17:29  dkrajzew
 // a further network prune option added
 //
@@ -50,10 +53,12 @@ namespace
 // NBLoader moved to netimport; NBNetBuilder performs now all the building steps
 //
 // Revision 1.16  2003/07/07 08:41:12  dkrajzew
-// the edges positions are now normalised, too; the edges are joined if connecting the same node
+// the edges positions are now normalised, too; the edges are joined if
+//  connecting the same node
 //
 // Revision 1.15  2003/06/24 14:38:46  dkrajzew
-// false instantiation of option "log-file" as Option_Strng patched into Option_FileName patched
+// false instantiation of option "log-file" as Option_Strng patched into
+//  Option_FileName patched
 //
 // Revision 1.14  2003/06/24 08:06:36  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
@@ -62,7 +67,10 @@ namespace
 // false order of calling XML- and Options-subsystems patched
 //
 // Revision 1.12  2003/06/18 11:26:15  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.11  2003/06/05 14:41:53  dkrajzew
 // further parameter contraining the area of connectors to join (VIssim) added
@@ -92,7 +100,8 @@ namespace
 // files updated
 //
 // Revision 1.1  2002/10/16 14:51:08  dkrajzew
-// Moved from ROOT/sumo to ROOT/src; added further help and main files for netconvert, router, od2trips and gui version
+// Moved from ROOT/sumo to ROOT/src; added further help and main files for
+//  netconvert, router, od2trips and gui version
 //
 // Revision 1.9  2002/07/25 08:24:10  dkrajzew
 // Visum and Cell import added
@@ -101,7 +110,8 @@ namespace
 // removal of options on help printing added
 //
 // Revision 1.7  2002/07/02 08:54:50  dkrajzew
-// XMLSubSys implemented; return values fixed; better flow and a better documentation
+// XMLSubSys implemented; return values fixed; better flow and a better
+//  documentation
 //
 // Revision 1.6  2002/06/17 15:15:28  dkrajzew
 // unreferenced variable declarations removed
@@ -110,7 +120,8 @@ namespace
 // windows eol removed
 //
 // Revision 1.4  2002/06/07 14:58:45  dkrajzew
-// Bugs on dead ends and junctions with too few outgoing roads fixed; Comments improved
+// Bugs on dead ends and junctions with too few outgoing roads fixed;
+//  Comments improved
 //
 // Revision 1.3  2002/05/14 04:39:47  dkrajzew
 // new computation steps
@@ -141,7 +152,6 @@ namespace
 // -------------------------------------------
 // Revision 1.1  2001/12/06 13:03:15  traffic
 // added
-//
 //
 /* =========================================================================
  * included modules
@@ -190,19 +200,6 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
-void
-clearAll()
-{
-    NBEdgeCont::clear();
-    NBNodeCont::clear();
-    NBTypeCont::clear();
-    NBJunctionLogicCont::clear();
-    NBDistrictCont::clear();
-    NBTrafficLightLogicCont::clear();
-    NBDistribution::clear();
-}
-
-
 int
 main(int argc, char **argv)
 {
@@ -223,26 +220,24 @@ main(int argc, char **argv)
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
+        NBNetBuilder nb;
         // initialise the (default) types
-        NBTypeCont::setDefaults(
-            oc.getString("T"),
-            oc.getInt("L"),
-            oc.getFloat("S"),
+        nb.getTypeCont().setDefaults(
+            oc.getString("T"), oc.getInt("L"), oc.getFloat("S"),
             oc.getInt("P"));
         // load data
-        NBNetBuilder::preCheckOptions(oc);
-        NILoader::load(oc);
+        nb.preCheckOptions(oc);
+        NILoader nl(nb);
+        nl.load(oc);
         // check whether any errors occured
         if(MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();
         }
-        NBNetBuilder nb;
         nb.buildLoaded();
-    } catch (...) {
+    } catch (NILoader&) {
         MsgHandler::getErrorInstance()->inform("Quitting (conversion failed).");
         ret = 1;
     }
-    clearAll();
     SystemFrame::close();
     // report about ending
     if(ret==0) {
