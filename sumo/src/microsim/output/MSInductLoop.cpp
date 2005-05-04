@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/05/04 08:18:20  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added, simulation speed-up by avoiding multiplication with 1
+//
 // Revision 1.5  2005/02/01 10:10:43  dkrajzew
 // got rid of MSNet::Time
 //
@@ -32,6 +35,12 @@ namespace
 // Revision 1.5  2004/12/10 11:42:53  dksumo
 // detectors usage reworked
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -133,7 +142,7 @@ MSInductLoop::isStillActive( MSVehicle& veh,
         // detector not reached yet
         return true;
     }
-    double speed = newSpeed * MSNet::deltaT();
+    double speed = SPEED2DIST(newSpeed);
     if ( vehiclesOnDetM.find( &veh ) == vehiclesOnDetM.end() ) {
         // entered the detector by move
         entryTimestep -= 1 - ( posM - oldPos ) / speed;
