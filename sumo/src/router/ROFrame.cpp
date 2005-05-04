@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/05/04 08:47:14  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; usage of the -R option within the jtr-router debugged
+//
 // Revision 1.2  2004/12/20 10:48:36  dkrajzew
 // net-files changed to net-file
 //
@@ -101,6 +104,8 @@ ROFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("move-on-short", new Option_Bool(false));
     oc.doRegister("stats-period", new Option_Integer(-1));
     oc.doRegister("max-alternatives", new Option_Integer(5));
+    // add possibility to insert random vehicles
+    oc.doRegister("random-per-second", 'R', new Option_Float());
 }
 
 
