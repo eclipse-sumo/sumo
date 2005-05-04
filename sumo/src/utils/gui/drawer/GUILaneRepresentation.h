@@ -36,6 +36,8 @@ public:
     virtual const DoubleVector &getShapeRotations() const = 0;
     virtual const DoubleVector &getShapeLengths() const = 0;
 
+    virtual void selectSucessors() { }
+
 };
 
 #endif

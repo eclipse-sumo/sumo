@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/05/04 09:17:24  dkrajzew
+// recent changes
+//
 // Revision 1.1  2004/11/23 10:38:30  dkrajzew
 // debugging
 //
@@ -37,7 +40,6 @@
 
 #include <fx.h>
 #include "GUIEvent_Message.h"
-#include "GUIEvents.h"
 #include "GUIEvent_SimulationEnded.h"
 
 
