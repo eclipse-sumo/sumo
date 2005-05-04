@@ -39,6 +39,10 @@ public:
         }
     }
 
+	void setGlColor(double val) const {
+        glColor3d(val, val, val);
+    }
+
 };
 
 
