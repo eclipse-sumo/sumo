@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.40  2005/05/04 08:03:51  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; vehicle position retrieval debugging
+//
 // Revision 1.39  2005/02/01 10:08:23  dkrajzew
 // performance computation added; got rid of MSNet::Time
 //
@@ -142,6 +145,12 @@ namespace
 // Revision 1.3  2003/02/07 10:39:17  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -373,7 +382,7 @@ GUINet::getVehiclePosition(const std::string &name, bool useCenter) const
         throw GUIExcp_VehicleIsInvisible();
     }
     const GUIEdge * const edge =
-        static_cast<const GUIEdge * const>(vehicle->getEdge());
+        static_cast<const GUIEdge * const>(&(vehicle->getLane().edge()));
     if(edge==0) {
         throw GUIExcp_VehicleIsInvisible();
     }
