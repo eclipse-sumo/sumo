@@ -21,9 +21,11 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/05/04 07:56:53  dkrajzew
+// level 3 warnings removed
+//
 // Revision 1.1  2004/07/02 08:39:56  dkrajzew
 // visualisation of vss' added
-//
 //
 /* =========================================================================
  * included modules

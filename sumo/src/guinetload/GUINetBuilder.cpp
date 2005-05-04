@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2005/05/04 07:56:43  dkrajzew
+// level 3 warnings removed
+//
 // Revision 1.24  2005/02/17 10:33:29  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -54,7 +57,9 @@ namespace
 // porting to FOX
 //
 // Revision 1.15  2004/01/26 06:49:06  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics
+// work on detectors: e3-detectors loading and visualisation;
+//  variable offsets and lengths for lsa-detectors;
+//  coupling of detectors to tl-logics
 //
 // Revision 1.14  2004/01/12 14:44:30  dkrajzew
 // handling of e2-detectors within the gui added
@@ -97,6 +102,12 @@ namespace
 // Revision 1.3  2003/02/07 10:38:19  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

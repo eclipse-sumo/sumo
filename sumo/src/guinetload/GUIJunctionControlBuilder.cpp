@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/05/04 07:56:43  dkrajzew
+// level 3 warnings removed
+//
 // Revision 1.4  2004/12/16 12:23:37  dkrajzew
 // first steps towards a better parametrisation of traffic lights
 //
@@ -32,7 +35,12 @@ namespace
 // Revision 1.2  2003/12/04 13:25:52  dkrajzew
 // handling of internal links added; documentation added; some dead code removed
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -68,22 +76,6 @@ GUIJunctionControlBuilder::addJunctionShape(const Position2DVector &shape)
 MSJunction *
 GUIJunctionControlBuilder::buildNoLogicJunction()
 {
-/*    MSNoLogicJunction::InLaneCont *cont =
-        new MSNoLogicJunction::InLaneCont();
-    cont->reserve(m_pActiveInLanes.size());
-    for(LaneCont::iterator i=m_pActiveInLanes.begin();
-            i!=m_pActiveInLanes.end(); i++) {
-        cont->push_back(*i);
-    }*/
-/*    MSNoLogicJunction::LaneCont *cont =
-        new MSNoLogicJunction::LaneCont();
-    std::copy(m_pActiveIncomingLanes.begin(), m_pActiveIncomingLanes.end(),
-        std::back_inserter(*cont));*/
-/*    cont->reserve(m_pActiveInLanes.size());
-    for(LaneCont::iterator i=m_pActiveInLanes.begin();
-            i!=m_pActiveInLanes.end(); i++) {
-        cont->push_back(*i);
-    }*/
     return new GUINoLogicJunction(m_CurrentId, myPosition,
         m_pActiveIncomingLanes, m_pActiveInternalLanes, myShape);
 }
@@ -93,21 +85,11 @@ MSJunction *
 GUIJunctionControlBuilder::buildLogicJunction()
 {
     MSJunctionLogic *jtype = getJunctionLogicSecure();
-/*    MSRightOfWayJunction::LaneCont internal = getInternalLaneContSecure();
-    MSRightOfWayJunction::LaneCont incoming = getIncomingLaneContSecure();*/
     // build the junction
     return new GUIRightOfWayJunction(m_CurrentId, myPosition,
         m_pActiveIncomingLanes, m_pActiveInternalLanes, jtype, myShape);
     myShape.clear();
 }
-
-/*
-MSJunction *
-GUIJunctionControlBuilder::buildTrafficLightJunction()
-{
-    throw 1;
-}
-*/
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

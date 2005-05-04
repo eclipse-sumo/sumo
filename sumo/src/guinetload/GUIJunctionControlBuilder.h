@@ -20,13 +20,21 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 07:56:43  dkrajzew
+// level 3 warnings removed
+//
 // Revision 1.3  2004/12/16 12:23:37  dkrajzew
 // first steps towards a better parametrisation of traffic lights
 //
 // Revision 1.2  2003/12/04 13:25:52  dkrajzew
 // handling of internal links added; documentation added; some dead code removed
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -65,9 +73,6 @@ protected:
 
     /** builds a junction with a logic */
     virtual MSJunction *buildLogicJunction();
-
-    /** builds a traffic light junction */
-//    virtual MSJunction *buildTrafficLightJunction();
 
 private:
     /// The shape of the current junction
