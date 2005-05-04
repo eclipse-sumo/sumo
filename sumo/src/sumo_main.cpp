@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2005/05/04 09:33:43  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.25  2005/02/17 10:33:29  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -170,6 +173,12 @@ namespace
 // Merging sourceForge with tesseraCVS.
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -178,7 +187,7 @@ namespace
 
 #ifdef DEBUB_ALLOC
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC       // exclude standard memory alloc procedures
+   #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #ifdef WIN32
    #include <utils/dev/MemDiff.h>
    #include <crtdbg.h>
@@ -188,6 +197,7 @@ namespace
 #define new debug_new
 */
 #endif
+
 #include <ctime>
 #include <string>
 #include <iostream>

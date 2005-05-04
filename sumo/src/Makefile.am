@@ -1,6 +1,14 @@
-bin_PROGRAMS = sumo sumo-netconvert sumo-netgen sumo-duarouter sumo-jtrrouter \
-sumo-od2trips sumo-guisim
+if WITH_GUI
+GUI_APPS = sumo-guisim
+GUI_DIRS = gui guinetload guisim
+GUI_INCS = -I$(FOX_INCLUDES)
+endif
 
+
+bin_PROGRAMS = sumo sumo-netconvert sumo-netgen sumo-duarouter sumo-jtrrouter \
+sumo-od2trips $(GUI_APPS)
+
+EXTRA_PROGRAMS =
 
 sumo_SOURCES = sumo_main.cpp sumo_help.h
 sumo_LDFLAGS = -L$(XERCES_LDFLAGS)
@@ -29,8 +37,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 
 sumo_netconvert_SOURCES = netconvert_main.cpp netconvert_help.h
 sumo_netconvert_LDFLAGS = -L$(XERCES_LDFLAGS)
-sumo_netconvert_LDADD   = ./netbuild/nodes/libnodesnetbuild.a \
-./netimport/libnetimport.a \
+sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netimport/cell/libcellimport.a \
 ./netimport/sumo/libsumoimport.a \
 ./netimport/visum/libvisumimport.a \
@@ -43,6 +50,7 @@ sumo_netconvert_LDADD   = ./netbuild/nodes/libnodesnetbuild.a \
 ./netimport/vissim/typeloader/libvissimtypeload.a \
 ./netimport/vissim/tempstructs/libvissimtmpstr.a \
 ./netbuild/libnetbuild.a \
+./netbuild/nodes/libnodesnetbuild.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/distribution/libdistribution.a \
 ./utils/geom/libgeom.a \
@@ -112,6 +120,7 @@ sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 -l$(LIB_XERCES)
 
 
+if WITH_GUI
 sumo_guisim_SOURCES = guisim_main.cpp guisim_help.h \
 sumo_version.cpp sumo_version.h
 sumo_guisim_LDFLAGS = -L$(FOX_LDFLAGS) -L$(XERCES_LDFLAGS) $(X_LDFLAGS)
@@ -155,22 +164,18 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 -l$(LIB_XERCES) \
 -l$(LIB_FOX) \
 $(LIB_X11)
+endif
 
 
 
 AM_CPPFLAGS = -I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7) \
--I$(FOX_INCLUDES) -I$(ACE_INCLUDES)
+$(GUI_INCS)
 
 
-
-
-SUBDIRS = \
-gui guinetload guisim \
-helpers microsim netload sumo_only \
-netbuild netedit netgen netimport \
-od2trips \
-router routing_dua routing_jtr \
-utils
+SUBDIRS = helpers microsim netload sumo_only \
+netbuild netgen netimport \
+od2trips router routing_dua routing_jtr \
+utils $(GUI_DIRS)
 
 EXTRA_DIST = sumo_version.cpp sumo_version.h \
 giant_help.h giant_main.cpp netedit_help.h netedit_main.cpp \

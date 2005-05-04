@@ -20,12 +20,14 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2005/05/04 09:33:43  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.1  2004/11/23 10:45:07  dkrajzew
 // netedit by A. Gaubatz added
 //
 // Revision 1.1  2004/11/22 13:02:17  dksumo
 // 'netedit' and 'giant' added
-//
 //
 /* =========================================================================
  * included modules

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/05/04 09:33:43  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2005/02/17 10:33:28  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -300,8 +303,8 @@ main(int argc, char **argv)
         GUIThreadFactory tf;
         GUIApplicationWindow * window =
             new GUIApplicationWindow(&application, tf,
-                oc.getInt("w"), oc.getInt("h"));
-        gGradients = new GUIGradientStorage(window);
+                oc.getInt("w"), oc.getInt("h"), "*.sumo.cfg");
+		gGradients = new GUIGradientStorage(window);
         initColoringSchemes();
         // delete startup-options
         OptionsSubSys::close();

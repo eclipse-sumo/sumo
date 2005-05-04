@@ -47,6 +47,7 @@
 #include "od2trips_help.h"
 #include <od2trips/ODmatrix.h>
 #include <od2trips/ODsubroutines.h>
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -139,12 +140,12 @@ loadDistricts(OptionsCont &oc)
 
 
 int
-cmpfun(long int a, long int b)
+cmpfun(int a, int b)
 {
-    if (a > b)
-        return 1;
-    else if (a < b)
-        return -1;
+	if (a > b)
+		return 1;
+	else if (a < b)
+		return -1;
     else
         return 0;
 }
@@ -194,34 +195,34 @@ main(int argc, char **argv)
         } else {
             infiles.push_back(OD_filename);
             WRITE_MESSAGE("**** Original input data format **** ");
-        }
-        long maxele=50000; // initial number of ODs, finally derived from OD-inputfile
-        long int total_cars=0;  // total number of cars, finally derived from OD-inputfile
-        long int i, j;
-        float factor;
-        long int  start, finish;
-        bool ok_begin = oc.isDefault("begin");
-        bool ok_end = oc.isDefault("end");
-        // load districts
-        ODDistrictCont *districts = loadDistricts(oc);
+		}
+		long maxele=50000; // initial number of ODs, finally derived from OD-inputfile
+		long int total_cars=0;  // total number of cars, finally derived from OD-inputfile
+		long int i, j;
+		float factor;
+		SUMOTime  start, finish;
+		bool ok_begin = oc.isDefault("begin");
+		bool ok_end = oc.isDefault("end");
+		// load districts
+		ODDistrictCont *districts = loadDistricts(oc);
         if(districts==0) {
             MsgHandler::getErrorInstance()->inform("No districts loaded...");
             throw ProcessError();
         }
         int od_next=0;
-        // define dimensions
-        long int max_cars=3000000; // maximum number of cars
-        // temporary storage space
-        long int *when_all = new long int [max_cars];
-        string *source = new string [max_cars];
-        string *sink =  new string [max_cars];
-        int *cartype =  new int [max_cars];
-        long int *old_index= new long int [max_cars]; // holds the old index after sorting
-        int index, tmpk, k;
-        long int begin, end, period;
-        bool ini;
-        double tmprand, maxrand;
-        float scale, rest;
+		// define dimensions
+		long int max_cars=3000000; // maximum number of cars
+		// temporary storage space
+		SUMOTime *when_all = new SUMOTime[max_cars];
+		string *source = new string [max_cars];
+		string *sink = 	new string [max_cars];
+		int *cartype = 	new int [max_cars];
+		SUMOTime *old_index= new SUMOTime[max_cars]; // holds the old index after sorting
+		int index, tmpk, k;
+		SUMOTime begin, end, period;
+		bool ini;
+		double tmprand, maxrand;
+		float scale, rest;
         ini=true; // initialize random numbers with time, only first call
         for (size_t ifile=0;ifile<infiles.size();ifile++) { // proceed for all *.fma files
             // OD list

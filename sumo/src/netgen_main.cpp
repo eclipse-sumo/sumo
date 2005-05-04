@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2005/05/04 09:33:43  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.16  2005/02/17 10:33:29  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -73,6 +76,12 @@ namespace
 // Revision 1.1  2003/07/16 15:41:17  dkrajzew
 // network generator added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -231,9 +240,9 @@ fillOptions(OptionsCont &oc)
 
 
 TNGNet *
-buildNetwork()
+buildNetwork(NBNetBuilder &nb)
 {
-    TNGNet *net = new TNGNet();
+    TNGNet *net = new TNGNet(nb);
     OptionsCont &oc = OptionsSubSys::getOptions();
     // spider-net
     if(oc.getBool("s")) {
@@ -303,13 +312,12 @@ main(int argc, char **argv)
         }
         // initialise the (default) types
         OptionsCont &oc = OptionsSubSys::getOptions();
-        NBTypeCont::setDefaults(
-            oc.getString("T"),
-            oc.getInt("L"),
-            oc.getFloat("S"),
+        NBNetBuilder nb;
+        nb.getTypeCont().setDefaults(
+            oc.getString("T"), oc.getInt("L"), oc.getFloat("S"),
             oc.getInt("P"));
         // build the netgen-network description
-        TNGNet *net = buildNetwork();
+        TNGNet *net = buildNetwork(nb);
         // ... and we have to do this...
         oc.resetWritable();
         oc.set("no-node-removal", true);
@@ -317,7 +325,6 @@ main(int argc, char **argv)
         NBNetBuilder::preCheckOptions(oc);
         net->toNB();
         delete net;
-        NBNetBuilder nb;
         nb.buildLoaded();
     } catch (...) {
         MsgHandler::getMessageInstance()->inform(
