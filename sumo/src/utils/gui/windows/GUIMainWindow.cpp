@@ -13,6 +13,11 @@ GUIMainWindow::GUIMainWindow(FXApp* a, int glWidth, int glHeight)
     getApp()->getNormalFont()->getFontDesc(fdesc);
     fdesc.weight = FONTWEIGHT_BOLD;
     myBoldFont = new FXFont(getApp(), fdesc);
+
+    myTopDock=new FXDockSite(this,LAYOUT_SIDE_TOP|LAYOUT_FILL_X);
+    myBottomDock=new FXDockSite(this,LAYOUT_SIDE_BOTTOM|LAYOUT_FILL_X);
+    myLeftDock=new FXDockSite(this,LAYOUT_SIDE_LEFT|LAYOUT_FILL_Y);
+    myRightDock=new FXDockSite(this,LAYOUT_SIDE_RIGHT|LAYOUT_FILL_Y);
 }
 
 

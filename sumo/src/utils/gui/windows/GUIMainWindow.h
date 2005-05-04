@@ -54,9 +54,10 @@ protected:
     /// The gl-visual used
     FXGLVisual *myGLVisual;
 
+    FXDockSite *myTopDock, *myBottomDock, *myLeftDock, *myRightDock;
 
 protected:
-    GUIMainWindow() { }
+	GUIMainWindow() { }
 
 };
 
