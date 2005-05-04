@@ -1,4 +1,9 @@
-SUBDIRS = actions common convert dev distribution fonts foxtools \
-geom gfx glutils gui importio iodevices options router sumoxml xml
+if WITH_GUI
+GUI_DIRS = fonts foxtools gui glutils
+endif
+
+SUBDIRS = actions common convert dev distribution  \
+geom gfx importio iodevices options router sumoxml \
+xml $(GUI_DIRS)
 
 
