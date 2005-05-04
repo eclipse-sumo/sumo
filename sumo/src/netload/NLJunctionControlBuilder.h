@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2005/05/04 08:41:33  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.9  2004/12/16 12:23:37  dkrajzew
 // first steps towards a better parametrisation of traffic lights
 //
@@ -46,7 +49,8 @@
 // updated
 //
 // Revision 1.1  2002/10/16 15:36:48  dkrajzew
-// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
+// moved from ROOT/sumo/netload to ROOT/src/netload;
+//  new format definition parseable in one step
 //
 // Revision 1.4  2002/06/11 14:39:25  dkrajzew
 // windows eol removed
@@ -55,7 +59,8 @@
 // Windows eol removed
 //
 // Revision 1.2  2002/06/07 14:39:59  dkrajzew
-// errors occured while building larger nets and adaption of new netconverting methods debugged
+// errors occured while building larger nets and adaption of new
+//  netconverting methods debugged
 //
 // Revision 1.1.1.1  2002/04/08 07:21:24  traffic
 // new project name
@@ -72,6 +77,12 @@
 // Revision 1.4  2001/08/16 12:53:59  traffic
 // further exception handling (now validated) and new comments
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -155,9 +166,6 @@ protected:
     /** builds a junction with a logic */
     virtual MSJunction *buildLogicJunction();
 
-    /** builds a traffic light junction */
-//    virtual MSJunction *buildTrafficLightJunction();
-
     /** builds the junction logic catching occuring errors */
     MSJunctionLogic *getJunctionLogicSecure();
 
@@ -202,9 +210,6 @@ protected:
     /// numerical representation for a junction with no purpose
     static const int TYPE_NOJUNCTION;
 
-    /// numerical representation for a traffic light-steered junction
-    static const int TYPE_TRAFFIC_LIGHT;
-
     /** numerical representation for a junction where vehicles cominng
         from the right side may drive as first */
     static const int TYPE_RIGHT_BEFORE_LEFT;
@@ -225,10 +230,8 @@ private:
 
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NLJunctionControlBuilder.icc"
-//#endif
 
 #endif
 

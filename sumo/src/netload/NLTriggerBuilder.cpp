@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/05/04 08:43:09  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.6  2005/02/17 10:33:40  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -31,7 +34,10 @@ namespace
 // work on class derivation (for online-routing mainly)
 //
 // Revision 1.4  2003/06/18 11:18:05  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.3  2003/02/07 11:18:56  dkrajzew
 // updated
@@ -42,6 +48,12 @@ namespace
 // Revision 1.1  2002/10/17 10:50:18  dkrajzew
 // building of triggers added (initial)
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/05/04 08:46:09  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -79,8 +82,8 @@ using namespace std;
  * ======================================================================= */
 ROAbstractRouteDefLoader::ROAbstractRouteDefLoader(ROVehicleBuilder &vb,
                                                    RONet &net,
-                                                   unsigned int begin,
-                                                   unsigned int end,
+                                                   SUMOTime begin,
+                                                   SUMOTime end,
                                                    const std::string &file)
     : _net(net), myBegin(begin), myEnd(end), myVehicleBuilder(vb)
 {
@@ -100,7 +103,7 @@ ROAbstractRouteDefLoader::skipUntilBegin()
 
 
 void
-ROAbstractRouteDefLoader::readRoutesAtLeastUntil(unsigned int time)
+ROAbstractRouteDefLoader::readRoutesAtLeastUntil(SUMOTime time)
 {
     if(!myReadRoutesAtLeastUntil(time)) {
         MsgHandler::getErrorInstance()->inform(

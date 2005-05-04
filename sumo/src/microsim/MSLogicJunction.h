@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2005/05/04 08:28:15  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.7  2004/08/02 12:09:39  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -62,6 +65,12 @@
 // Revision 1.1  2001/12/12 17:46:02  croessel
 // Initial commit. Part of a new junction hierarchy.
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

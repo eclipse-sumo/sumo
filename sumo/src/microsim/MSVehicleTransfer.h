@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/05/04 08:35:40  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.7  2005/02/01 10:10:42  dkrajzew
 // got rid of MSNet::Time
 //
@@ -26,7 +29,8 @@
 // debugging while implementing the vss visualisation
 //
 // Revision 1.5  2003/12/12 12:37:42  dkrajzew
-// proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
+// proper usage of lane states applied; scheduling of vehicles into the
+//  beamer on push failures added
 //
 // Revision 1.4  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
@@ -34,7 +38,12 @@
 // Revision 1.3  2003/11/20 14:58:21  dkrajzew
 // comments added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

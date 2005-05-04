@@ -23,10 +23,18 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/05/04 08:28:15  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.1  2004/02/16 14:24:48  dkrajzew
 // some helper methods added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

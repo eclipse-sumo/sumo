@@ -16,6 +16,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.10  2005/05/04 08:22:45  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.9  2004/11/23 10:20:09  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -163,10 +166,6 @@ MSBitSetLogic< N >::respond(const MSLogicJunction::Request& request,
 //-------------------------------------------------------------------------//
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSLogicJunction.icc"
-//#endif
-
 
 // Local Variables:
 // mode:C++

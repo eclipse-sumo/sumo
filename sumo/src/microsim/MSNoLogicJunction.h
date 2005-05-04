@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2005/05/04 08:32:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.6  2004/08/02 12:09:39  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -32,7 +35,9 @@
 // updated
 //
 // Revision 1.2  2002/10/16 16:42:29  dkrajzew
-// complete deletion within destructors implemented; clear-operator added for container; global file include; junction extended by position information (should be revalidated later)
+// complete deletion within destructors implemented; clear-operator added for
+//  container; global file include; junction extended by position information
+//  (should be revalidated later)
 //
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
@@ -60,6 +65,12 @@
 // Revision 1.1  2001/12/12 17:46:02  croessel
 // Initial commit. Part of a new junction hierarchy.
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

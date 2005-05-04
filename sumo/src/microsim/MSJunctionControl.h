@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/05/04 08:26:19  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2003/02/07 10:41:51  dkrajzew
 // updated
 //
@@ -66,6 +69,11 @@
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * included modules
@@ -142,9 +150,6 @@ private:
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 
-//#ifndef DISABLE_INLINE
-//#include "MSJunctionControl.icc"
-//#endif
 
 #endif
 

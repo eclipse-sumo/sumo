@@ -25,7 +25,7 @@ ROVehicleBuilder::buildVehicle(const std::string &id, RORouteDef *route,
 
 RORunningVehicle *
 ROVehicleBuilder::buildRunningVehicle(const std::string &id,
-                                      RORouteDef *route, long time,
+                                      RORouteDef *route, SUMOTime time,
                                       ROVehicleType *type,
                                       const std::string &lane,
                                       float pos, float speed,

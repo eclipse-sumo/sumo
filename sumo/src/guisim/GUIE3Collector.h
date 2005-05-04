@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/05/04 07:59:59  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.7  2004/12/16 12:14:59  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -42,7 +45,12 @@
 // Revision 1.1  2004/01/26 06:59:37  dkrajzew
 // work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -70,7 +78,7 @@ public:
         Detector::CrossSections exits,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds);
+        SUMOTime deleteDataAfterSeconds);
 
     /// Destructor
     ~GUIE3Collector();

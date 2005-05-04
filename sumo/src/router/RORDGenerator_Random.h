@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 08:50:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -73,7 +76,7 @@ class RORDGenerator_Random :
 public:
     /// Constructor
     RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
-        unsigned int begin, unsigned int end, const std::string &file="");
+        SUMOTime begin, SUMOTime end, const std::string &file="");
 
     /// Destructor
     ~RORDGenerator_Random();
@@ -88,7 +91,7 @@ public:
     bool ended() const;
 
     /// Returns the time the current (last read) route starts at
-    unsigned int getCurrentTimeStep() const;
+    SUMOTime getCurrentTimeStep() const;
 
     /// reader dependent initialisation
     virtual bool init(OptionsCont &options);
@@ -97,7 +100,7 @@ protected:
     /** @brief Reads the until the specified time is reached
         Do read the comments on ROAbstractRouteDefLoader::myReadRoutesAtLeastUntil
         for the modalities! */
-    bool myReadRoutesAtLeastUntil(unsigned int time);
+    bool myReadRoutesAtLeastUntil(SUMOTime time);
 
 private:
     /** @brief The number of cars to emit per second
@@ -114,7 +117,7 @@ private:
     RGBColor myColor;
 
     /// The (pseudo) information about the current time
-    unsigned int myCurrentTime;
+    SUMOTime myCurrentTime;
 
     /// The information whether a new route was read
     bool myReadNewRoute;

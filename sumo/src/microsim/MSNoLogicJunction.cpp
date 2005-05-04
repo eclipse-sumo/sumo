@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.7  2005/05/04 08:32:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.6  2004/08/02 12:09:39  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -51,6 +54,12 @@ namespace
 // Added MSNoLogicJunction ,,pro forma,,. The code may compile but the
 // class has no real functionality...
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

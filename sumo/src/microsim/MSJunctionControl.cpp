@@ -24,11 +24,15 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2005/05/04 08:26:17  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2003/02/07 10:41:50  dkrajzew
 // updated
 //
 // Revision 1.2  2002/10/16 16:39:02  dkrajzew
-// complete deletion within destructors implemented; clear-operator added for container; global file include
+// complete deletion within destructors implemented; clear-operator
+//  added for container; global file include
 //
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
@@ -86,6 +90,11 @@ namespace
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * included modules
@@ -179,9 +188,6 @@ MSJunctionControl::setAllowed()
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-//#ifdef DISABLE_INLINE
-//#include "MSJunctionControl.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

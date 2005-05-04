@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/05/04 08:43:09  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.8  2004/11/23 10:12:46  dkrajzew
 // new detectors usage applied
 //
@@ -53,7 +56,8 @@ namespace
 // Windows eol removed
 //
 // Revision 1.3  2002/06/07 14:39:59  dkrajzew
-// errors occured while building larger nets and adaption of new netconverting methods debugged
+// errors occured while building larger nets and adaption of new
+//  netconverting methods debugged
 //
 // Revision 1.2  2002/04/15 07:07:56  dkrajzew
 // new loading paradigm implemented
@@ -70,7 +74,12 @@ namespace
 // Revision 1.1  2001/12/06 13:36:11  traffic
 // moved from netbuild
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -104,16 +113,19 @@ NLSucceedingLaneBuilder::NLSucceedingLaneBuilder()
     m_SuccLanes->reserve(10);
 }
 
+
 NLSucceedingLaneBuilder::~NLSucceedingLaneBuilder()
 {
     delete m_SuccLanes;
 }
+
 
 void
 NLSucceedingLaneBuilder::openSuccLane(const string &laneId)
 {
     m_CurrentLane = laneId;
 }
+
 
 void
 NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
@@ -170,6 +182,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     m_SuccLanes->push_back(link);
 }
 
+
 void
 NLSucceedingLaneBuilder::closeSuccLane()
 {
@@ -185,16 +198,15 @@ NLSucceedingLaneBuilder::closeSuccLane()
 //    m_Junction = 0;
 }
 
+
 std::string
 NLSucceedingLaneBuilder::getSuccingLaneName() const
 {
     return m_CurrentLane;
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NLSucceedingLaneBuilder.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

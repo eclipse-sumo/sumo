@@ -1,13 +1,14 @@
 #ifndef MSMSPhaseDefinition_h
 #define MSMSPhaseDefinition_h
 
+#include <utils/common/SUMOTime.h>
 
 /**
  * The definition of a single phase */
 class MSPhaseDefinition {
 public:
     /// the duration of the phase
-    size_t          duration;
+    SUMOTime          duration;
 
     /// constructor
     MSPhaseDefinition(size_t durationArg, const std::bitset<64> &driveMaskArg,

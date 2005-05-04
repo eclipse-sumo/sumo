@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/05/04 08:44:57  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.7  2004/07/02 09:38:21  dkrajzew
 // coding style adaptations
 //
@@ -39,11 +42,18 @@ namespace
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H
+
 #include <string>
 #include <utils/common/UtilExceptions.h>
 #include "ODDistrict.h"

@@ -2,6 +2,7 @@
 #define ROVehicleBuilder_h
 
 #include <string>
+#include <utils/common/SUMOTime.h>
 
 class RORouteDef;
 class ROVehicle;
@@ -20,7 +21,7 @@ public:
         const RGBColor &color, int period, int repNo);
 
     virtual RORunningVehicle *buildRunningVehicle(const std::string &id,
-        RORouteDef *route, long time, ROVehicleType *type,
+        RORouteDef *route, SUMOTime time, ROVehicleType *type,
         const std::string &lane, float pos, float speed,
         const RGBColor &col, int period, int repNo);
 

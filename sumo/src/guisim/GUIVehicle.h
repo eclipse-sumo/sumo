@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2005/05/04 08:05:24  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.19  2005/02/01 10:10:39  dkrajzew
 // got rid of MSNet::Time
 //
@@ -75,6 +78,12 @@
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -82,6 +91,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <vector>
+#include <set>
 #include <string>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gfx/RGBColor.h>
@@ -122,16 +132,17 @@ public:
     /// Returns the type of the object as coded in GUIGlObjectType
     GUIGlObjectType getType() const;
 
+// !!! 4 UniDortmund
+    void networking_Begin();
 #ifdef NETWORKING_BLA
     struct networking_EdgeTimeInformation {
         MSEdge *edge;
         size_t time;
         float val;
     };
-    void addEdgeTimeInfo(const GUIVehicle::networking_EdgeTimeInformation &ei);
+	void addEdgeTimeInfo(const GUIVehicle::networking_EdgeTimeInformation &ei);
 
-    void networking_KnowsAbout(GUIVehicle *v2, SUMOTime t);
-    void networking_Begin();
+	void networking_KnowsAbout(GUIVehicle *v2, SUMOTime t);
     void networking_End();
     const std::vector<networking_EdgeTimeInformation> &
         networking_GetKnownEdges();
@@ -189,17 +200,17 @@ public:
         the same settings */
     virtual MSVehicle *getNextPeriodical() const;
 
-    //{
-    Boundary getCenteringBoundary() const;
-    //}
+	//{
+	Boundary getCenteringBoundary() const;
+	//}
 
 //    virtual size_t getTableParameterNo() const;
 
 // GUINet is allowed to build vehicles
     friend class GUIVehicleControl;
-    bool active() const;
+	bool active() const;
 
-    void setRemoved();
+	void setRemoved();
 
     int getRepetitionNo() const;
     int getPeriod() const;
@@ -269,6 +280,14 @@ private:
     static RGBColor _laneChangeColor2;
 
 #ifdef NETWORKING_BLA
+    std::vector<networking_EdgeTimeInformation> networking_myKnownEdges;
+    std::vector<GUIVehicle*> networking_mySeenThisTime;
+    std::vector<int> networking_myLaneEmitTime;
+    std::vector<int> networking_myLaneEntryTime;
+    std::set<GUIVehicle*> networking_mySeenGlobal;
+    bool networking_HaveDevice;
+	size_t networking_globalConns;
+	int networking_EntryTime;
 #endif
 };
 

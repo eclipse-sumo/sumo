@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/05/04 08:51:41  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -70,6 +73,12 @@ namespace
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -107,7 +116,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 RORDLoader_TripDefs::RORDLoader_TripDefs(ROVehicleBuilder &vb, RONet &net,
-                                         unsigned int begin, unsigned int end,
+                                         SUMOTime begin, SUMOTime end,
                                          bool emptyDestinationsAllowed,
                                          const std::string &fileName)
     : ROTypedXMLRoutesLoader(vb, net, begin, end, fileName),
@@ -234,7 +243,7 @@ RORDLoader_TripDefs::getOptionalFloat(const Attributes &attrs,
 }
 
 
-long
+SUMOTime
 RORDLoader_TripDefs::getTime(const Attributes &attrs, AttrEnum which,
                              const std::string &id)
 {
@@ -402,7 +411,7 @@ RORDLoader_TripDefs::beginNextRoute()
 }
 
 
-unsigned int
+SUMOTime
 RORDLoader_TripDefs::getCurrentTimeStep() const
 {
     return myDepartureTime;

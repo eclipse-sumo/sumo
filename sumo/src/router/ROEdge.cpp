@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2005/05/04 08:46:09  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.16  2004/11/23 10:25:51  dkrajzew
 // debugging
 //
@@ -204,7 +207,7 @@ ROEdge::setLane(long timeBegin, long timeEnd,
 
 
 void
-ROEdge::addWeight(float value, long timeBegin, long timeEnd)
+ROEdge::addWeight(float value, SUMOTime timeBegin, SUMOTime timeEnd)
 {
     _ownValueLine.add(timeBegin, timeEnd, value);
     _usingTimeLine = true;
@@ -219,7 +222,7 @@ ROEdge::addFollower(ROEdge *s)
 
 
 float
-ROEdge::getEffort(int time) const
+ROEdge::getEffort(SUMOTime time) const
 {
     FloatValueTimeLine::SearchResult searchResult;
     FloatValueTimeLine::SearchResult supplementarySearchResult;
@@ -241,7 +244,7 @@ ROEdge::getEffort(int time) const
         if ( searchResult.first == false ) {
             if(!myHaveWarned) {
                 WRITE_WARNING(string("ROEdge::getMyEffort(id ") + _id+ string(" ):"));
-                WRITE_WARNING(string(" No interval matches passed time ")+ toString<long>(time)  + string("."));
+                WRITE_WARNING(string(" No interval matches passed time ")+ toString<SUMOTime>(time)  + string("."));
                 WRITE_WARNING("Using edge's length / edge's speed.");
                 myHaveWarned = true;
             }
@@ -295,14 +298,14 @@ ROEdge::isConnectedTo(ROEdge *e)
 
 
 double
-ROEdge::getCost(long time)
+ROEdge::getCost(SUMOTime time)
 {
     return getEffort(time);
 }
 
 
 double
-ROEdge::getDuration(long time)
+ROEdge::getDuration(SUMOTime time)
 {
     return getEffort(time);
 }
@@ -395,7 +398,7 @@ ROEdge::getLane(std::string name)
     //(assert(laneNo<myLanes->size()); ??? was ist assert
     //return *((*myLanes)[laneNo]);
     std::map<std::string, ROLane*>::const_iterator i=
-        ROEdge::myDictLane.find(name);
+		ROEdge::myDictLane.find(name);
     //assert(i!=myEmitterDict.end());
     return (*i).second;
 }
@@ -404,7 +407,7 @@ ROEdge::getLane(std::string name)
 ROLane*
 ROEdge::getLane(size_t index)
 {
-    return myLanes[index];
+	return myLanes[index];
 }
 
 

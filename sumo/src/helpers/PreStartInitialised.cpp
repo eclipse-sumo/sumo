@@ -24,13 +24,19 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/05/04 08:06:19  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2004/12/20 23:10:41  der_maik81
 // no message
 //
 // Revision 1.1  2003/02/07 10:40:13  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -58,9 +64,6 @@ PreStartInitialised::~PreStartInitialised()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "PreStartInitialised.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

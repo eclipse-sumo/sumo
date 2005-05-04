@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/05/04 07:59:59  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.10  2004/11/24 08:46:42  dkrajzew
 // recent changes applied
 //
@@ -34,7 +37,10 @@ namespace
 // porting to FOX
 //
 // Revision 1.7  2004/01/26 06:59:38  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+// work on detectors: e3-detectors loading and visualisation;
+//  variable offsets and lengths for lsa-detectors; coupling of detectors to
+//  tl-logics;
+//  different detector visualistaion in dependence to his controller
 //
 // Revision 1.6  2003/12/04 13:31:28  dkrajzew
 // detector name changes applied
@@ -45,6 +51,12 @@ namespace
 // Revision 1.4  2003/11/12 14:00:19  dkrajzew
 // commets added; added parameter windows to all detectors
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -86,7 +98,7 @@ GUI_E2_ZS_Collector::GUI_E2_ZS_Collector( std::string id, DetectorUsage usage,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds)
+        SUMOTime deleteDataAfterSeconds)
     : MSE2Collector(id, usage, lane, startPos, detLength, haltingTimeThreshold,
             haltingSpeedThreshold, jamDistThreshold, deleteDataAfterSeconds)
 {

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/05/04 08:11:51  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.5  2005/02/01 10:10:44  dkrajzew
 // got rid of MSNet::Time
 //
@@ -65,6 +68,12 @@ namespace
 // Revision 1.8  2004/01/12 14:35:10  dkrajzew
 // documentation added; allowed the writing to files
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -117,7 +126,7 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds)
+        SUMOTime deleteDataAfterSeconds)
         : startPosM(startPos),
         deleteDataAfterSecondsM(deleteDataAfterSeconds),
         haltingTimeThresholdM(haltingTimeThreshold),

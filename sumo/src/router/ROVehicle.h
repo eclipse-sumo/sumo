@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/05/04 08:55:13  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.8  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -92,7 +95,7 @@ public:
     std::string getID() const;
 
     /// Returns the time the vehicle starts his route
-    long getDepartureTime() const;
+    SUMOTime getDepartureTime() const;
 
     /** Returns the information whether more than a single vehicle with these
         settings shall be emitted. */

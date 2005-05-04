@@ -24,6 +24,12 @@
 
 // $Id$
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <microsim/MSVehicle.h>
 //#include "MSHaltingDetectorContainer.h"
 #include <functional>

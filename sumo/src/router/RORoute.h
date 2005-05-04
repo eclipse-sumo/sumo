@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/05/04 08:51:41  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.7  2004/12/16 12:26:52  dkrajzew
 // debugging
 //
@@ -38,6 +41,12 @@
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -100,7 +109,7 @@ public:
     void setProbability(double prop);
 
     /// Recomputes the costs of the route by summing up the costs for every edge
-    double recomputeCosts(long begin) const;
+    double recomputeCosts(SUMOTime begin) const;
 
     /// Returns the information whether the given route matches to this one
     bool equals(RORoute *ro) const;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/05/04 08:57:11  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2004/11/23 10:26:27  dkrajzew
 // debugging
 //
@@ -54,6 +57,12 @@ namespace
 // Revision 1.3  2003/02/07 10:45:06  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -156,9 +165,9 @@ RODijkstraRouter::~RODijkstraRouter()
 
 
 ROEdgeVector
-RODijkstraRouter::compute(ROEdge *from, ROEdge *to, long time,
-                          bool continueOnUnbuild,
-                          ROAbstractEdgeEffortRetriever * const retriever)
+RODijkstraRouter::compute(ROEdge *from, ROEdge *to, SUMOTime time,
+						  bool continueOnUnbuild,
+						  ROAbstractEdgeEffortRetriever * const retriever)
 {
     std::vector<bool> *visited = myReusableEdgeLists.getFreeInstance();
     if(visited==0) {

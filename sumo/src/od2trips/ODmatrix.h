@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/05/04 08:44:57  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.8  2004/07/02 09:38:21  dkrajzew
 // coding style adaptations
 //
@@ -52,8 +55,9 @@
 # include <cstdlib>
 # include <ctime>
 # include <string>
+#include <utils/common/SUMOTime.h>
 
-typedef int (*CMPFUN)(long int, long int);
+typedef int (*CMPFUN)(SUMOTime, SUMOTime);
 
 
 /* =========================================================================
@@ -80,8 +84,8 @@ public:
     std::string from;
     /// destination district name
     std::string to;
-    unsigned int type;
-    unsigned int time;
+    SUMOTime type;
+    SUMOTime time;
 };
 
 /// Meta data input
@@ -101,9 +105,6 @@ typedef struct content {
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ODmatrix.icc"
-//#endif
 
 #endif
 

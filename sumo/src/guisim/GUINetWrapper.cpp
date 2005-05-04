@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/05/04 08:02:54  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.10  2005/02/01 10:07:24  dkrajzew
 // performance computation added
 //
@@ -75,7 +78,7 @@ namespace
 #include <microsim/MSVehicleControl.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
-#include <microsim/logging/FuncBinding_UIntParam.h>
+#include <microsim/logging/FuncBinding_IntParam.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/foxtools/MFXMenuHeader.h>
@@ -150,7 +153,7 @@ GUINetWrapper::getParameterWindow(GUIMainWindow &app,
     ret->mkItem("begin time [s]", false,
         OptionsSubSys::getOptions().getInt("b"));
     ret->mkItem("time step [s]", true,
-        new CastingFunctionBinding<GUINet, double, size_t>(
+        new CastingFunctionBinding<GUINet, double, int>(
             &(getNet()), &GUINet::getCurrentTimeStep));
     if(getNet().logSimulationDuration()) {
         ret->mkItem("step duration [ms]", true,

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/05/04 07:59:59  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.11  2004/12/20 14:00:23  dkrajzew
 // debugging
 //
@@ -59,6 +62,12 @@ namespace
 // first steps towards the usage of a real lane and junction geometry
 //  implemented
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -131,53 +140,35 @@ GUIJunctionWrapper::getPopUpMenu(GUIMainWindow &app,
 }
 
 
-/*
-
-GUIParameterTableWindow *
-GUILaneWrapper::getParameterWindow(GUIMainWindow &app,
-                                   GUISUMOAbstractView &parent)
-{
-    GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this, 2);
-    // add items
-    ret->mkItem("maxspeed [m/s]", false, myLane.maxSpeed());
-    ret->mkItem("length [m]", false, myLane.length());
-    // close building
-    ret->closeBuilding();
-    return ret;
-}
-*/
-
 GUIParameterTableWindow *
 GUIJunctionWrapper::getParameterWindow(GUIMainWindow &app,
                                        GUISUMOAbstractView &parent)
 {
-    std::vector<std::string> s=myJunction.getNames();
-    int NumberOfRows =s.size();
-    GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this, 2+NumberOfRows);
+	std::vector<std::string> s=myJunction.getNames();
+	int NumberOfRows =s.size();
+	GUIParameterTableWindow *ret =
+		new GUIParameterTableWindow(app, *this, 2+NumberOfRows);
     // add items
-    //ret->mkItem("length [m]", false, myJunction.length());
+	//ret->mkItem("length [m]", false, myJunction.length());
     ret->mkItem("x-Position", false, myJunction.getPosition().x());
-    ret->mkItem("y-Position", false, myJunction.getPosition().y());
+	ret->mkItem("y-Position", false, myJunction.getPosition().y());
 
-    //std::vector<string>::iterator p=s.begin();
-    /*
-    while(p !=s.end())
-    {
-        ret->mkItem("name", false, s[]);
-        p++;
-    }
-    */
+	//std::vector<string>::iterator p=s.begin();
+	/*
+	while(p !=s.end())
+	{
+		ret->mkItem("name", false, s[]);
+		p++;
+	}
+	*/
     for(unsigned int i=0 ; i<s.size(); i++)
-    {
-        ret->mkItem("name", false, s[i]);
-    }
+	{
+		ret->mkItem("name", false, s[i]);
+	}
 
     // close building
     ret->closeBuilding();
     return ret;
-    //throw 1;
 }
 
 
@@ -219,9 +210,9 @@ GUIJunctionWrapper::getShape() const
 Boundary
 GUIJunctionWrapper::getCenteringBoundary() const
 {
-    Boundary b = getBoundary();
-    b.grow(20);
-    return b;
+	Boundary b = getBoundary();
+	b.grow(20);
+	return b;
 }
 
 

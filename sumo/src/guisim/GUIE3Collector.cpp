@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/05/04 07:59:59  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.6  2004/11/24 08:46:42  dkrajzew
 // recent changes applied
 //
@@ -45,6 +48,12 @@ namespace
 //  and lengths for lsa-detectors; coupling of detectors to tl-logics;
 //  different detector visualistaion in dependence to his controller
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -262,7 +271,7 @@ GUIE3Collector::GUIE3Collector(std::string id,
         Detector::CrossSections entries,  Detector::CrossSections exits,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds)
+        SUMOTime deleteDataAfterSeconds)
         : MSE3Collector(id, entries,  exits,
         haltingTimeThreshold, haltingSpeedThreshold,
         deleteDataAfterSeconds)

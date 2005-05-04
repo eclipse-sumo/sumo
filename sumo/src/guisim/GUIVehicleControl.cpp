@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/05/04 08:05:25  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.5  2005/02/01 10:10:40  dkrajzew
 // got rid of MSNet::Time
 //
@@ -37,6 +40,12 @@ namespace
 // Revision 1.1  2003/12/11 06:26:27  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

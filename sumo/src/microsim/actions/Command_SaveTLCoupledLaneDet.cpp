@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/05/04 08:07:10  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2004/11/23 10:18:24  dkrajzew
 // new detectors usage applied
 //
@@ -74,13 +77,9 @@ Command_SaveTLCoupledLaneDet::execute()
         return true;
     }
     if(myLink->getState()==MSLink::LINKSTATE_TL_RED) {
-        unsigned int end =
+        SUMOTime end =
             MSNet::getInstance()->getCurrentTimeStep();
-/*        myDevice->getOStream()
-            << "<interval start=\"" << myStartTime << "\" stop=\"" << end
-            << "\" ";*/
         myDetector->writeXMLOutput( *myDevice, myStartTime, end );
-//        myDevice->getOStream() << " />" << endl;
         myStartTime = end;
     }
     myLastState = myLink->getState();

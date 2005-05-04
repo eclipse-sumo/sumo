@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2005/05/04 08:32:04  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2005/02/01 10:08:24  dkrajzew
 // performance computation added; got rid of MSNet::Time
 //
@@ -45,7 +48,6 @@
 #endif
 
 /**************** DEFINE INLINE FUNCTIONS HERE *****************************/
-
 inline
 double
 MSNet::deltaT()
@@ -53,12 +55,11 @@ MSNet::deltaT()
     return myDeltaT;
 }
 
-
 inline
-double
+SUMOTime
 MSNet::simSeconds()
 {
-    return static_cast< double >( myStep ) * myDeltaT;
+    return (SUMOTime) (myStep * myDeltaT);
 }
 
 

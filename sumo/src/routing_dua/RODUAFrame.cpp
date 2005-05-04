@@ -23,13 +23,25 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/05/04 08:57:12  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.1  2004/11/23 10:26:27  dkrajzew
 // debugging
+// Revision 1.2  2005/02/17 09:27:35  dksumo
+// code beautifying;
+// some warnings removed;
+// compileable under linux
 //
 // Revision 1.1  2004/10/22 12:50:28  dksumo
 // initial checkin into an internal, standalone SUMO CVS
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -61,17 +73,17 @@ using namespace std;
 void
 RODUAFrame::fillOptions_basicImport(OptionsCont &oc)
 {
-    ROFrame::fillOptions(oc);
-    addDUAOptions(oc);
+	ROFrame::fillOptions(oc);
+	addDUAOptions(oc);
 }
 
 
 void
 RODUAFrame::fillOptions_fullImport(OptionsCont &oc)
 {
-    ROFrame::fillOptions(oc);
-    addImportOptions(oc);
-    addDUAOptions(oc);
+	ROFrame::fillOptions(oc);
+	addImportOptions(oc);
+	addDUAOptions(oc);
 }
 
 
@@ -83,7 +95,6 @@ RODUAFrame::addImportOptions(OptionsCont &oc)
     oc.doRegister("flow-definition", 'f', new Option_FileName());
     oc.doRegister("sumo-input", 's', new Option_FileName());
     oc.doRegister("trip-defs", 't', new Option_FileName());
-    oc.doRegister("random-per-second", 'R', new Option_Float());
     oc.addSynonyme("flow-definition", "flows");
     oc.addSynonyme("artemis", "artemis-input");
     oc.addSynonyme("cell", "cell-input");
@@ -110,7 +121,7 @@ RODUAFrame::addDUAOptions(OptionsCont &oc)
 bool
 RODUAFrame::checkOptions(OptionsCont &oc)
 {
-    return ROFrame::checkOptions(oc);
+	return ROFrame::checkOptions(oc);
 }
 
 

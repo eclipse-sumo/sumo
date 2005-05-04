@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2005/05/04 08:44:57  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.9  2004/11/23 10:25:07  dkrajzew
 // debugging
 //
@@ -38,6 +41,12 @@
 // Revision 1.2  2003/02/07 10:44:19  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -59,18 +68,18 @@ class ODDistrictCont;
 /* =========================================================================
  * method declarations
  * ======================================================================= */
-extern int ODread (std::string, std::vector<OD_IN>&, long*, long*,
-                   long*, long*, float* );
+extern int ODread (std::string, std::vector<OD_IN>&, SUMOTime*, long*,
+                   SUMOTime*, SUMOTime*, float* );
 
-extern void ODPtvread (std::string, std::vector<OD_IN>&, long*, long*, long*,
-                      long*, float* );
+extern void ODPtvread (std::string, std::vector<OD_IN>&, long*, long*, SUMOTime*,
+                      SUMOTime*, float* );
 
 extern int ODWrite (std::string , std::vector<OD_OUT>& , long int,
                     ODDistrictCont &districts);
 
 extern int Get_rand (int, int, int, int*, int*, bool);
 
-extern void IndexSort (long int*, long int*, CMPFUN, long int);
+extern void IndexSort (SUMOTime*, SUMOTime*, CMPFUN, long);
 
 extern void ODInpread (std::string,
                        std::vector<std::string> &infiles/*string infiles[MAX_INFILES]*/,
@@ -78,9 +87,6 @@ extern void ODInpread (std::string,
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ODsubroutines.icc"
-//#endif
 
 #endif
 

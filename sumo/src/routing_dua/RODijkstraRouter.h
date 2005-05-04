@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/05/04 08:57:12  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2004/11/23 10:26:27  dkrajzew
 // debugging
 //
@@ -34,6 +37,12 @@
 // Revision 1.3  2003/02/07 10:45:07  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -76,8 +85,8 @@ public:
     /** @brief Builds the route between the given edges using the minimum afford at the given time
         The definition of the afford depends on the wished routing scheme */
     virtual ROEdgeVector compute(ROEdge *from, ROEdge *to,
-        long time, bool continueOnUnbuild,
-        ROAbstractEdgeEffortRetriever * const retriever=0);
+        SUMOTime time, bool continueOnUnbuild,
+		ROAbstractEdgeEffortRetriever * const retriever=0);
 
 public:
     /**

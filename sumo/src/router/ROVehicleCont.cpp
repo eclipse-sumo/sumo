@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/05/04 08:55:13  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.6  2004/01/26 08:01:21  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -38,6 +41,12 @@ namespace
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

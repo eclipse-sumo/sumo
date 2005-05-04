@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.40  2005/05/04 08:28:15  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.39  2005/02/01 10:10:41  dkrajzew
 // got rid of MSNet::Time
 //
@@ -239,7 +242,7 @@ MSLaneState::getNumberOfWaiting( SUMOTime lastNTimesteps )
         // actionAfterMove has not bee called yet. Ignore last element
         --end;
     }
-    if ( timestepDataM.size() - 1 > lastNTimesteps ) {
+    if ( (SUMOTime) (timestepDataM.size() - 1) > lastNTimesteps ) {
         start = end - lastNTimesteps;
     }
     return accumulate( start, end, 0.0, waitingQueueSum ) /
@@ -657,7 +660,7 @@ MSLaneState::deleteOldData( void )
 {
     // delete timestepDataM partly
     TimestepDataCont::iterator end = timestepDataM.end();
-    if ( timestepDataM.size() > deleteDataAfterStepsM ) {
+    if ( (SUMOTime) timestepDataM.size() > deleteDataAfterStepsM ) {
         end -= deleteDataAfterStepsM;
         timestepDataM.erase( timestepDataM.begin(), end );
     }

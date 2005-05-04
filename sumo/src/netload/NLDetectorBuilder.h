@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2005/05/04 08:39:46  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.13  2004/12/16 12:23:03  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -77,7 +80,12 @@
 // Revision 1.2  2002/04/16 06:50:20  dkrajzew
 // documentation added; coding standard attachements added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -133,7 +141,7 @@ public:
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds);
+        SUMOTime deleteDataAfterSeconds);
 
     /// builds a lane-based areal (E2-) detector connected to a lsa
     void buildE2Detector(const SSVMap &laneConts,
@@ -145,7 +153,7 @@ public:
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds);
+        SUMOTime deleteDataAfterSeconds);
 
     /// builds a lane-based areal (E2-) detector connected to a link's state
     void buildE2Detector(const SSVMap &laneConts,
@@ -158,7 +166,7 @@ public:
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds );
+        SUMOTime deleteDataAfterSeconds );
 
     /// builds a multi-od (E3-) detector
     void beginE3Detector(const std::string &id,
@@ -166,7 +174,7 @@ public:
         const std::string &measures,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds);
+        SUMOTime deleteDataAfterSeconds);
 
     void addE3Entry(const std::string &lane, double pos);
     void addE3Exit(const std::string &lane, double pos);
@@ -182,7 +190,7 @@ public:
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds );
+        SUMOTime deleteDataAfterSeconds );
 
 
     /// Builds an e2-detector that lies on only one lane
@@ -191,7 +199,7 @@ public:
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds,
+        SUMOTime deleteDataAfterSeconds,
         const std::string &measures);
 
     /// Builds an e2-detector that continues on preceeding lanes
@@ -201,7 +209,7 @@ public:
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds,
+        SUMOTime deleteDataAfterSeconds,
         const std::string &measures="all");
 
     /// Definition of an E2-measures vector
@@ -226,7 +234,7 @@ public:
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds);
+        SUMOTime deleteDataAfterSeconds);
 
     /// Creates the instance of a multi-lane-e2-detector (overwritten by gui version)
     virtual MS_E2_ZS_CollectorOverLanes *createMultiLaneE2Detector(
@@ -234,7 +242,7 @@ public:
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds);
+        SUMOTime deleteDataAfterSeconds);
 
     /// Creates the instance of an e3-detector (overwritten by gui version)
     virtual MSE3Collector *createE3Detector(const std::string &id,
@@ -242,7 +250,7 @@ public:
         const Detector::CrossSections &exits,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds);
+        SUMOTime deleteDataAfterSeconds);
 
     // converts the name of an output style into it's enumeration value
 /*     static MSDetector::OutputStyle convertStyle(const std::string &id,
@@ -254,7 +262,7 @@ public:
             OutputDevice *device,
             MSUnit::Seconds haltingTimeThreshold,
             MSUnit::MetersPerSecond haltingSpeedThreshold,
-            MSUnit::Seconds deleteDataAfterSeconds,
+            SUMOTime deleteDataAfterSeconds,
             const E3MeasuresVector &measures,
             int splInterval);
 
@@ -264,7 +272,7 @@ public:
         OutputDevice *myDevice;
         MSUnit::Seconds myHaltingTimeThreshold;
         MSUnit::MetersPerSecond myHaltingSpeedThreshold;
-        MSUnit::Seconds myDeleteDataAfterSeconds;
+        SUMOTime myDeleteDataAfterSeconds;
         E3MeasuresVector myMeasures;
         Detector::CrossSections myEntries;
         Detector::CrossSections myExits;
@@ -288,6 +296,7 @@ private:
     E3DetectorDefinition *myE3Definition;
 
 };
+
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 

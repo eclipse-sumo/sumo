@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2005/05/04 08:58:32  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.29  2005/02/17 10:33:40  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -189,7 +192,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 //    oc.doRegister("initial-density", new Option_Float());
 //    oc.doRegister("initial-speed", new Option_Float());
     // register the data processing options
-    oc.doRegister("dump-intervals", new Option_UIntVector(""));
+    oc.doRegister("dump-intervals", new Option_IntVector(""));
     oc.doRegister("dump-basename", new Option_FileName());
     oc.doRegister("dump-empty-edges", new Option_Bool(false));
     //

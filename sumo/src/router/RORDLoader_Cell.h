@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/05/04 08:50:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -45,6 +48,12 @@
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -91,7 +100,7 @@ class RORDLoader_Cell :
 public:
     /// Constructor
     RORDLoader_Cell(ROVehicleBuilder &vb, RONet &net,
-        unsigned int begin, unsigned int end,
+        SUMOTime begin, SUMOTime end,
         double gawronBeta, double gawronA, int maxRoutes,
         std::string file="");
 
@@ -116,7 +125,7 @@ public:
     bool ended() const;
 
     /// Returns the time the current (last read) route starts at
-    unsigned int getCurrentTimeStep() const;
+    SUMOTime getCurrentTimeStep() const;
 
     /// Initialises the handler for reading
     virtual bool init(OptionsCont &_options);
@@ -126,7 +135,7 @@ protected:
         The next entry of the driver file is read and the index of the route
         to use is extracted. Afterwards, the route itself is read from the
         route file */
-    bool myReadRoutesAtLeastUntil(unsigned int time);
+    bool myReadRoutesAtLeastUntil(SUMOTime time);
 
 private:
     /// Initialises the driver file for reading
@@ -176,7 +185,7 @@ private:
     double _gawronBeta, _gawronA;
 
     /// The time step read as the last one
-    unsigned int myCurrentTime;
+    SUMOTime myCurrentTime;
 
     /// The information whether no further routes exist
     bool myHaveEnded;

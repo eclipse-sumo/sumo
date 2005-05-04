@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/05/04 08:50:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.7  2005/02/17 10:33:40  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -44,6 +47,12 @@
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -77,7 +86,7 @@ class RORDGenerator_ODAmounts : public RORDLoader_TripDefs {
 public:
     /// Constructor
     RORDGenerator_ODAmounts(ROVehicleBuilder &vb, RONet &net,
-        unsigned int begin, unsigned int end, bool emptyDestinationsAllowed,
+        SUMOTime begin, SUMOTime end, bool emptyDestinationsAllowed,
         const std::string &file="");
 
     /// Destructor
@@ -103,7 +112,7 @@ protected:
     /** @brief Reads the until the specified time is reached
         Do read the comments on ROAbstractRouteDefLoader::myReadRoutesAtLeastUntil
         for the modalities! */
-    bool myReadRoutesAtLeastUntil(unsigned int until);
+    bool myReadRoutesAtLeastUntil(SUMOTime until);
 
     /** the user-impemlented handler method for an opening tag */
     void myStartElement(int element, const std::string &name,
@@ -137,24 +146,24 @@ protected:
     public:
         /// Constructor
         FlowDef(ROVehicle *vehicle, ROVehicleType *type, RORouteDef *route,
-            unsigned int intBegin, unsigned int intEnd,
+            SUMOTime intBegin, SUMOTime intEnd,
             unsigned int vehicles2Emit);
 
         /// Destructor
         ~FlowDef();
 
         /// Returns the information whether this flow includes the given time
-        bool applicableForTime(unsigned int time) const;
+        bool applicableForTime(SUMOTime time) const;
 
         /// Adds routes to start within the given time into the given net
-        void addRoutes(ROVehicleBuilder &vb, RONet &net, unsigned int time);
+        void addRoutes(ROVehicleBuilder &vb, RONet &net, SUMOTime time);
 
         /// Adds a single route to start within the given time into the given net
         void addSingleRoute(ROVehicleBuilder &vb,
-            RONet &net, unsigned int time);
+            RONet &net, SUMOTime time);
 
         /// Returns the end of the period this FlowDef describes
-        unsigned int getIntervalEnd() const;
+        SUMOTime getIntervalEnd() const;
 
     private:
         /// (description of) the vehicle to emit
@@ -182,10 +191,10 @@ protected:
 
 private:
     /// Builds the routes between the current time step and the one given
-    void buildRoutes(unsigned int until);
+    void buildRoutes(SUMOTime until);
 
     /// Builds the routes for the given time step
-    void buildForTimeStep(unsigned int time);
+    void buildForTimeStep(SUMOTime time);
 
 private:
     /// The begin of the interval current read

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/05/04 08:35:40  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.5  2005/02/01 10:10:42  dkrajzew
 // got rid of MSNet::Time
 //
@@ -29,11 +32,18 @@
 // debugging while implementing the vss visualisation
 //
 // Revision 1.2  2004/04/02 11:36:28  dkrajzew
-// "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
+// "compute or not"-structure added; added two further simulation-wide output
+//  (emission-stats and single vehicle trip-infos)
 //
 // Revision 1.1  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

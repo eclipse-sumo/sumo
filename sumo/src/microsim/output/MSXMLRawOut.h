@@ -20,10 +20,24 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/05/04 08:20:51  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.1  2004/08/02 12:05:54  dkrajzew
 // raw-output added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#include <utils/common/SUMOTime.h>
+
+
 /* =========================================================================
  * class declarations
  * ======================================================================= */
@@ -50,7 +64,7 @@ public:
     virtual ~MSXMLRawOut();
 
     static void write(OutputDevice* of, const MSEdgeControl &ec,
-        unsigned int timestep, unsigned int intend);
+        SUMOTime timestep, unsigned int intend);
 
     static void writeEdge(OutputDevice* of, const MSEdge &edge,
         unsigned int intend);

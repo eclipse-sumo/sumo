@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/05/04 08:47:53  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.8  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -42,6 +45,12 @@
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -51,6 +60,7 @@
 #include <string>
 #include "RORouteDefList.h"
 #include <sax2/SAX2XMLReader.hpp>
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -114,21 +124,21 @@ public:
 
     /** @brief Loads routes stepwise
         This is done for all previously build route loaders */
-    virtual void processRoutesStepWise(long start, long end,
+    virtual void processRoutesStepWise(SUMOTime start, SUMOTime end,
         RONet &net, ROAbstractRouter &router);
 
     /** @brief Loads all routes at once
         This is done for all previously build route loaders */
-    virtual void processAllRoutes(unsigned int start, unsigned int end,
+    virtual void processAllRoutes(SUMOTime start, SUMOTime end,
         RONet &net, ROAbstractRouter &router);
 
     /** @brief Ends route reading
         This is done for all previously build route loaders */
     void closeReading();
 
-    bool makeSingleStep(long end, RONet &net, ROAbstractRouter &router);
+	bool makeSingleStep(SUMOTime end, RONet &net, ROAbstractRouter &router);
 
-    friend class GUIRouterRunThread;
+	friend class GUIRouterRunThread;
 
 protected:
     /** @brief Loads the net
@@ -148,7 +158,7 @@ protected:
     void skipUntilBegin();
 
     /// Returns the first known time step
-    unsigned int getMinTimeStep() const;
+    SUMOTime getMinTimeStep() const;
 
 protected:
     ROAbstractRouteDefLoader* buildNamedHandler(
@@ -158,7 +168,7 @@ protected:
     void checkFile(const std::string &optionName
         , const std::string &file);
 
-    void writeStats(int time, int start, int absNo);
+    void writeStats(SUMOTime time, SUMOTime start, int absNo);
 
 
 protected:

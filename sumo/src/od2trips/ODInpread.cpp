@@ -92,43 +92,40 @@ void ODInpread (string OD_filename, std::vector<std::string> &infiles,
         // read ZUSAMMENSETZUNG
         if (((a=strstr(datin, bez6)) != NULL) && (strstr(datin, bez5)) != NULL)  {
             pos1=a-datin+12;
-            int typ=atoi(datin+pos1);
-            b=strtok(datin,delim2);
-            b=strtok(NULL,delim3);
-            float anteil;
-            anteil=atof(b);
-            while(content_tmp.size()<=count3) {
+			int typ=atoi(datin+pos1);
+			b=strtok(datin,delim2);
+			b=strtok(NULL,delim3);
+			float anteil;
+			anteil = (float) atof(b);
+            while((int) content_tmp.size()<=count3) {
                 content_tmp.push_back(ODContent());
             }
-            content_tmp[count3].id=index;
-            content_tmp[count3].cartype[count2]=typ;
-            content_tmp[count3].fraction[count2]=anteil;
-            count2=count2+1;
-            content_tmp[count3].max=count2;
-        }
-    }
-     // rearrange ZUSAMMENSETZUNG
-    for (i=0;i<infiles.size();i++) {
-        for (j=0;j<count3+1;j++) {
-            if (content[i].id==content_tmp[j].id) {
-                content[i]=content_tmp[j];
-                //content[i].max=content_tmp[j].max;
-                //for (k=0;k<content_tmp[j].max;k++) {
-                //  content[i].cartype[k]=content_tmp[j].cartype[k];
-                //  content[i].fraction[k]=content_tmp[j].fraction[k];
-                //}
-            }
-        }
-    }
-    fsSrc.close ();
-    //return (ferror);
+			content_tmp[count3].id=index;
+			content_tmp[count3].cartype[count2]=typ;
+			content_tmp[count3].fraction[count2]=anteil;
+			count2=count2+1;
+			content_tmp[count3].max=count2;
+		}
+	}
+	 // rearrange ZUSAMMENSETZUNG
+	for (i=0;i<(int) infiles.size();i++) {
+		for (j=0;j<count3+1;j++) {
+			if (content[i].id==content_tmp[j].id) {
+				content[i]=content_tmp[j];
+				//content[i].max=content_tmp[j].max;
+				//for (k=0;k<content_tmp[j].max;k++) {
+				//	content[i].cartype[k]=content_tmp[j].cartype[k];
+				//	content[i].fraction[k]=content_tmp[j].fraction[k];
+				//}
+			}
+		}
+	}
+	fsSrc.close ();
+	//return (ferror);
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ODread.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

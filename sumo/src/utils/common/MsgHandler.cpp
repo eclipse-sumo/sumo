@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2005/05/04 08:58:33  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2004/11/23 10:27:45  dkrajzew
 // debugging
 //
@@ -33,6 +36,12 @@
 // new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
@@ -44,6 +53,7 @@
 #include "MsgRetriever.h"
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
+#include "AbstractMutex.h"
 
 
 /* =========================================================================
@@ -103,6 +113,9 @@ MsgHandler::getErrorInstance()
 void
 MsgHandler::inform(std::string error)
 {
+    if(myLock!=0) {
+        myLock->lock();
+    }
     switch(myType) {
     case MT_MESSAGE:
         break;
@@ -125,6 +138,9 @@ MsgHandler::inform(std::string error)
     }
     // set the information that something occured
     myWasInformed = true;
+    if(myLock!=0) {
+        myLock->unlock();
+    }
 }
 
 
@@ -203,13 +219,15 @@ MsgHandler::cleanupOnEnd()
 
 
 MsgHandler::MsgHandler(MsgType type)
-    : myType(type), myWasInformed(false), myReport2COUT(true)
+    : myType(type), myWasInformed(false), myReport2COUT(true),
+    myLock(0)
 {
 }
 
 
 MsgHandler::~MsgHandler()
 {
+//    delete myLock;
 }
 
 
@@ -220,3 +238,9 @@ MsgHandler::wasInformed() const
 }
 
 
+void
+MsgHandler::assignLock(AbstractMutex *lock)
+{
+    assert(myLock==0);
+    myLock = lock;
+}

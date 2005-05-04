@@ -1,3 +1,9 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <vector>
 #include <microsim/MSJunction.h>
 #include "GUIHelpingJunction.h"

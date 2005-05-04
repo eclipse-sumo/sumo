@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/05/04 07:59:59  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.13  2005/02/01 10:10:39  dkrajzew
 // got rid of MSNet::Time
 //
@@ -48,6 +51,12 @@ namespace
 // commets added; added parameter windows to all detectors
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -62,7 +71,7 @@ namespace
 #include <utils/glutils/GLHelper.h>
 #include <utils/geom/Line2D.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
-#include <microsim/logging/FuncBinding_UIntParam.h>
+#include <microsim/logging/FuncBinding_IntParam.h>
 #include <microsim/logging/FunctionBinding.h>
 
 #ifdef _WIN32
@@ -149,16 +158,16 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
         new GUIParameterTableWindow(app, *this, 7);
     // add items
     ret->mkItem("flow [veh/h]", true,
-        new FuncBinding_UIntParam<GUIInductLoop, double>(
+        new FuncBinding_IntParam<GUIInductLoop, double>(
             &(getLoop()), &GUIInductLoop::getFlow, 1));
     ret->mkItem("mean speed [m/s]", true,
-        new FuncBinding_UIntParam<GUIInductLoop, double>(
+        new FuncBinding_IntParam<GUIInductLoop, double>(
             &(getLoop()), &GUIInductLoop::getMeanSpeed, 1));
     ret->mkItem("occupancy [%]", true,
-        new FuncBinding_UIntParam<GUIInductLoop, double>(
+        new FuncBinding_IntParam<GUIInductLoop, double>(
             &(getLoop()), &GUIInductLoop::getOccupancy, 1));
     ret->mkItem("mean vehicle length [m]", true,
-        new FuncBinding_UIntParam<GUIInductLoop, double>(
+        new FuncBinding_IntParam<GUIInductLoop, double>(
             &(getLoop()), &GUIInductLoop::getMeanVehicleLength, 1));
     ret->mkItem("empty time [s]", true,
         new FunctionBinding<GUIInductLoop, double>(

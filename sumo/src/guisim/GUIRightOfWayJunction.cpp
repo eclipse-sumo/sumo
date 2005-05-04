@@ -23,12 +23,21 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/05/04 08:02:54  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2004/08/02 11:58:14  dkrajzew
 // using Position2D instead of two doubles
 //
 // Revision 1.3  2003/12/04 13:38:16  dkrajzew
 // usage of internal links added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

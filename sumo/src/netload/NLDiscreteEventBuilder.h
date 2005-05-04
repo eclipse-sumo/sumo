@@ -19,10 +19,18 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/05/04 08:39:46  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2004/01/12 14:36:21  dkrajzew
 // removed some dead code; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -84,6 +92,7 @@ protected:
     KnownActions myActions;
 
 };
+
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 

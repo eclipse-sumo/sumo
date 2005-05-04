@@ -32,6 +32,12 @@
 // $Revision$
 
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <xercesc/sax2/DefaultHandler.hpp>
@@ -155,6 +161,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.6  2005/05/04 08:32:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.5  2005/02/01 10:10:42  dkrajzew
 // got rid of MSNet::Time
 //

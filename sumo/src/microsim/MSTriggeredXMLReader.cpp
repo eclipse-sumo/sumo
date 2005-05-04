@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/05/04 08:32:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.7  2004/07/02 09:56:40  dkrajzew
 // debugging while implementing the vss visualisation
 //
@@ -36,7 +39,10 @@ namespace
 // base debugging
 //
 // Revision 1.3  2003/06/18 11:12:51  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.2  2003/02/07 10:41:50  dkrajzew
 // updated

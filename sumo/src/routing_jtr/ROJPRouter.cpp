@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/05/04 08:57:12  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2004/11/23 10:26:59  dkrajzew
 // debugging
 //
@@ -41,6 +44,12 @@ namespace
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -80,9 +89,9 @@ ROJPRouter::~ROJPRouter()
 
 
 ROEdgeVector
-ROJPRouter::compute(ROEdge *from, ROEdge *to, long time,
+ROJPRouter::compute(ROEdge *from, ROEdge *to, SUMOTime time,
                     bool continueOnUnbuild,
-                    ROAbstractEdgeEffortRetriever * const retriever)
+					ROAbstractEdgeEffortRetriever * const retriever)
 {
     ROEdgeVector ret;
     ROJPEdge *current = static_cast<ROJPEdge*>(from);
@@ -91,13 +100,13 @@ ROJPRouter::compute(ROEdge *from, ROEdge *to, long time,
             &&
             current->getType()!=ROEdge::ET_SINK
             &&
-            ret.size()<myMaxEdges) {
+            (int) ret.size()<myMaxEdges) {
         ret.add(current);
-        time += (long) current->getDuration(time);
+        time += (SUMOTime) current->getDuration(time);
         current = current->chooseNext(time);
     }
     // check whether no valid ending edge was found
-    if(ret.size()>=myMaxEdges) {
+    if((int) ret.size()>=myMaxEdges) {
         MsgHandler *mh = 0;
         if(continueOnUnbuild) {
             mh = MsgHandler::getWarningInstance();

@@ -20,11 +20,17 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/05/04 08:55:13  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.6  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+// debugging while working on INVENT; preparation of classes to be derived
+//  for an online-routing
 //
 // Revision 1.5  2004/01/26 08:01:21  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work;
+//  documentation added
 //
 // Revision 1.4  2003/06/19 11:00:26  dkrajzew
 // usage of false tag-enums patched
@@ -32,6 +38,12 @@
 // Revision 1.3  2003/02/07 10:45:07  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -100,9 +112,9 @@ private:
     std::string _scheme;
 
     /// the begin of the time period that is currently being processed
-    long _currentTimeBeg;
+    SUMOTime _currentTimeBeg;
     /// the end of the time period that is currently being processed
-    long _currentTimeEnd;
+    SUMOTime _currentTimeEnd;
 
     /// the edge the is currently being processed
     ROEdge *_currentEdge;

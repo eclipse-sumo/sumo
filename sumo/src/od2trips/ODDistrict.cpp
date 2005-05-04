@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/05/04 08:44:57  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.7  2003/10/31 08:01:13  dkrajzew
 // hope to have patched false usage of RAND_MAX when using gcc
 //
@@ -146,11 +149,7 @@ ODDistrict::getColor()  const
 }
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ODDistrict.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

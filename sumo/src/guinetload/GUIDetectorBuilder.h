@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/05/04 07:56:00  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.7  2004/12/16 12:14:52  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -40,6 +43,12 @@
 // Revision 1.1  2003/07/22 14:58:33  dkrajzew
 // changes due to new detector handling
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -74,7 +83,7 @@ protected:
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds);
+        SUMOTime deleteDataAfterSeconds);
 
     /// Creates the instance of a multi-lane-e2-detector (gui-version)
     virtual MS_E2_ZS_CollectorOverLanes *createMultiLaneE2Detector(
@@ -82,7 +91,7 @@ protected:
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds);
+        SUMOTime deleteDataAfterSeconds);
 
     /// Creates the instance of an e3-detector (gui version)
     virtual MSE3Collector *createE3Detector(const std::string &id,
@@ -90,7 +99,7 @@ protected:
         const Detector::CrossSections &exits,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds);
+        SUMOTime deleteDataAfterSeconds);
 
 
 };

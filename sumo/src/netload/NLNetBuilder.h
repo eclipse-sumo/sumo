@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2005/05/04 08:41:33  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.10  2004/11/23 10:12:46  dkrajzew
 // new detectors usage applied
 //
@@ -45,19 +48,24 @@
 // updated
 //
 // Revision 1.2  2002/10/17 10:32:41  dkrajzew
-// sources and detectors joined with triggers to additional-files; usage of standard SUMOSAXHandler instead of NLSAXHandler; loading of triggers implemented
+// sources and detectors joined with triggers to additional-files;
+//  usage of standard SUMOSAXHandler instead of NLSAXHandler;
+//  loading of triggers implemented
 //
 // Revision 1.1  2002/10/16 15:36:48  dkrajzew
-// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
+// moved from ROOT/sumo/netload to ROOT/src/netload;
+//  new format definition parseable in one step
 //
 // Revision 1.9  2002/07/31 17:34:51  roessel
 // Changes since sourceforge cvs request.
 //
 // Revision 1.10  2002/07/11 07:31:54  dkrajzew
-// Option_FileName invented to allow relative path names within the configuration files
+// Option_FileName invented to allow relative path names within the
+//  configuration files
 //
 // Revision 1.9  2002/07/02 08:19:08  dkrajzew
-// Test for non-empty file option where a list of files is expected moved to FileHelpers
+// Test for non-empty file option where a list of files is expected
+//  moved to FileHelpers
 //
 // Revision 1.8  2002/06/11 14:39:25  dkrajzew
 // windows eol removed
@@ -66,10 +74,12 @@
 // Windows eol removed
 //
 // Revision 1.6  2002/06/07 14:39:59  dkrajzew
-// errors occured while building larger nets and adaption of new netconverting methods debugged
+// errors occured while building larger nets and adaption of new
+//  netconverting methods debugged
 //
 // Revision 1.5  2002/05/14 04:54:25  dkrajzew
-// Unexisting files are now catched independent to the Xerces-error mechanism; error report generation moved to XMLConvert
+// Unexisting files are now catched independent to the Xerces-error
+//  mechanism; error report generation moved to XMLConvert
 //
 // Revision 1.4  2002/04/24 10:32:05  dkrajzew
 // Unfound files are now only reported once
@@ -92,6 +102,12 @@
 // Revision 1.5  2001/08/16 12:53:59  traffic
 // further exception handling (now validated) and new comments
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -186,6 +202,7 @@ private:
     NLNetBuilder &operator=(const NLNetBuilder &s);
 
 };
+
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 

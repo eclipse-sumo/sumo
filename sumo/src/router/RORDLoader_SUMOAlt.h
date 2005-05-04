@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/05/04 08:50:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -77,7 +80,7 @@ class RORDLoader_SUMOAlt : public RORDLoader_SUMOBase {
 public:
     /// Constructor
     RORDLoader_SUMOAlt(ROVehicleBuilder &vb, RONet &net,
-        unsigned int begin, unsigned int end,
+        SUMOTime begin, SUMOTime end,
         double gawronBeta, double gawronA, int maxRouteNumber,
         const std::string &file="");
 

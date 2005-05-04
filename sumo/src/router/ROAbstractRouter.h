@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/05/04 08:46:09  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2004/11/23 10:25:51  dkrajzew
 // debugging
 //
@@ -77,18 +80,19 @@ public:
         ROAbstractEdgeEffortRetriever() { }
 
         /// Destructor
-        virtual ~ROAbstractEdgeEffortRetriever() { }
+		virtual ~ROAbstractEdgeEffortRetriever() { }
 
-        /// This function should return the effort to use
-        virtual float getEffort(int time, const ROEdge * const edge, double dist) = 0;
+		/// This function should return the effort to use
+		virtual float getEffort(SUMOTime time, const ROEdge * const edge,
+            double dist) = 0;
 
-        /// This function should return true if the vehicle must not use the given edge
-        virtual bool explicetlyOmit(ROEdge *e) const = 0;
+		/// This function should return true if the vehicle must not use the given edge
+		virtual bool explicetlyOmit(ROEdge *e) const = 0;
 
-        /// Returns the name of this retriever
-        virtual const std::string &getID() const = 0;
+		/// Returns the name of this retriever
+		virtual const std::string &getID() const = 0;
 
-    };
+	};
 
 public:
     /// Constructor
@@ -100,8 +104,8 @@ public:
     /** @brief Builds the route between the given edges using the minimum afford at the given time
         The definition of the afford depends on the wished routing scheme */
     virtual ROEdgeVector compute(ROEdge *from, ROEdge *to,
-        long time, bool continueOnUnbuild,
-        ROAbstractEdgeEffortRetriever * const retriever=0) = 0;
+        SUMOTime time, bool continueOnUnbuild,
+		ROAbstractEdgeEffortRetriever * const retriever=0) = 0;
 
 };
 

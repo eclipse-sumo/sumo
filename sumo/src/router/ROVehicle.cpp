@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/05/04 08:55:13  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.9  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -128,7 +131,7 @@ ROVehicle::getID() const
     return _id;
 }
 
-long
+SUMOTime
 ROVehicle::getDepartureTime() const
 {
     return _depart;

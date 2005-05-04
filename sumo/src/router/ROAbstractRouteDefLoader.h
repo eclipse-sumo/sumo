@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/05/04 08:46:09  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2004/11/23 10:25:51  dkrajzew
 // debugging
 //
@@ -53,6 +56,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -77,7 +81,7 @@ class ROAbstractRouteDefLoader {
 public:
     /// Constructor
     ROAbstractRouteDefLoader(ROVehicleBuilder &vb, RONet &net,
-        unsigned int begin, unsigned int end, const std::string &file="");
+        SUMOTime begin, SUMOTime end, const std::string &file="");
 
     /// Destructor
     virtual ~ROAbstractRouteDefLoader();
@@ -90,7 +94,7 @@ public:
     void skipUntilBegin();
 
     /// Adds routes from the file until the given time is reached
-    void readRoutesAtLeastUntil(unsigned int time);
+    void readRoutesAtLeastUntil(SUMOTime time);
 
     /// Closes the reading of the routes
     virtual void closeReading() = 0;
@@ -102,29 +106,29 @@ public:
     virtual bool init(OptionsCont &options) = 0;
 
     /// Returns the time the current (last read) route starts at
-    virtual unsigned int getCurrentTimeStep() const = 0;
+    virtual SUMOTime getCurrentTimeStep() const = 0;
 
     /// Returns the information whether no routes are available from this loader anymore
     virtual bool ended() const = 0;
 
-    friend class ROLoader;
+	friend class ROLoader;
 
 protected:
     /** @brief Builds routes
         All routes between the loader's current time step and the one given shall
         be processed. If the route's departure time is lower than the value of
         "myBegin", the route should not be added into the container. */ // !!! not very good
-    virtual bool myReadRoutesAtLeastUntil(unsigned int time) = 0;
+    virtual bool myReadRoutesAtLeastUntil(SUMOTime time) = 0;
 
 protected:
     /// The network to add routes to
     RONet &_net;
 
     /// The time for which the first route shall be compute
-    unsigned int myBegin;
+    SUMOTime myBegin;
 
     /// The time for which the first route shall be compute
-    unsigned int myEnd;
+    SUMOTime myEnd;
 
     /// The vehicle builder to use
     ROVehicleBuilder &myVehicleBuilder;

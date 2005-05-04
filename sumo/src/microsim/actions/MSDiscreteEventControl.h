@@ -1,6 +1,12 @@
 #ifndef MSDiscreteEventControl_h
 #define MSDiscreteEventControl_h
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <vector>
 #include <string>
 #include <map>

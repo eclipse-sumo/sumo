@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/05/04 08:50:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.6  2004/12/16 12:26:52  dkrajzew
 // debugging
 //
@@ -64,6 +67,12 @@ namespace
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -101,7 +110,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 RORDLoader_Cell::RORDLoader_Cell(ROVehicleBuilder &vb, RONet &net,
-                                 unsigned int begin, unsigned int end,
+                                 SUMOTime begin, SUMOTime end,
                                  double gawronBeta, double gawronA,
                                  int maxRoutes,
                                  string file)
@@ -143,7 +152,7 @@ RORDLoader_Cell::getDataName() const
 
 
 bool
-RORDLoader_Cell::myReadRoutesAtLeastUntil(unsigned int time)
+RORDLoader_Cell::myReadRoutesAtLeastUntil(SUMOTime time)
 {
     if(ended()) {
         return true;
@@ -202,7 +211,7 @@ RORDLoader_Cell::getAlternative(size_t pos)
     // check whether the route was already read
     //  read the route if not
     ROEdgeVector *route = 0;
-    assert(routeNo>=0);
+	assert(routeNo>=0);
     if(_routes.size()>(size_t) routeNo) {
         // get the route from the file
         route = getRouteInfoFrom(_routes[routeNo]);
@@ -290,7 +299,8 @@ RORDLoader_Cell::init(OptionsCont &options)
 }
 
 
-bool RORDLoader_Cell::report(const std::string &result)
+bool
+RORDLoader_Cell::report(const std::string &result)
 {
     if(_hasIndexFile) {
         try {
@@ -330,7 +340,7 @@ RORDLoader_Cell::initDriverFile()
 }
 
 
-unsigned int
+SUMOTime
 RORDLoader_Cell::getCurrentTimeStep() const
 {
     return _driverParser.getRouteStart();

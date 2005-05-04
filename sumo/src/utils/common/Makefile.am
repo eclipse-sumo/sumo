@@ -2,7 +2,8 @@ noinst_LIBRARIES = libcommon.a
 
 EXTRA_DIST = NamedObjectCont.cpp DoubleVector.h StdDefs.h SUMOTime.h
 
-libcommon_a_SOURCES = BoolVector.h DoubleVector.cpp DoubleVector.h \
+libcommon_a_SOURCES = AbstractMutex.h \
+BoolVector.h DoubleVector.cpp DoubleVector.h \
 FileErrorReporter.cpp FileErrorReporter.h FileHelpers.cpp FileHelpers.h \
 HelpPrinter.h IntVector.cpp IntVector.h InstancePool.h \
 Named.h NamedObjectCont.h StringTokenizer.cpp StringTokenizer.h \

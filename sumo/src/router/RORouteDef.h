@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2005/05/04 08:51:41  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.10  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -105,13 +108,13 @@ public:
 
     /** @brief Builds the complete route
         (or chooses her from the list of alternatives, when existing) */
-    virtual RORoute *buildCurrentRoute(ROAbstractRouter &router, long begin,
+    virtual RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
         bool continueOnUnbuild, ROVehicle &veh,
-        ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) = 0;
+		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) = 0;
 
     /** @brief Adds an alternative to the list of routes
         (This may be the new route) */
-    virtual void addAlternative(RORoute *current, long begin) = 0;
+    virtual void addAlternative(RORoute *current, SUMOTime begin) = 0;
 
     /** @brief Writes the current route */
     virtual void xmlOutCurrent(std::ostream &res,

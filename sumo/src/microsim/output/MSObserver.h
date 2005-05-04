@@ -32,6 +32,11 @@
 //
 // A concrete subject defines the Observer type by it's base MSSubject
 // (see MSSubject.h).
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 #ifdef WIN32
 #include "helpers/msvc6_TypeTraits.h"

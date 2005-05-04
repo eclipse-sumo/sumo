@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 08:53:07  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -46,6 +49,12 @@
 // Revision 1.3  2003/02/07 10:45:07  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -91,14 +100,14 @@ public:
     ROEdge *getTo() const;
 
     /// Builds the route
-    RORoute *buildCurrentRoute(ROAbstractRouter &router, long begin,
+    RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
         bool continueOnUnbuild, ROVehicle &veh,
-        ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever);
+		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever);
 
     /** @brief Adds an route alternative (see further comments)
         Here, as in most cases, the alternative is the route that was build
         as last and will stay the only route known */
-    void addAlternative(RORoute *current, long begin);
+    void addAlternative(RORoute *current, SUMOTime begin);
 
     /// Outputs the new (current) route
     void xmlOutCurrent(std::ostream &res, bool isPeriodical) const;
@@ -117,7 +126,7 @@ protected:
     ROEdgeVector _edges;
 
     /// The begin of the route
-    long _startTime;
+    SUMOTime _startTime;
 
 };
 

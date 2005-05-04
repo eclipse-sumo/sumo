@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2005/05/04 08:05:24  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.29  2005/02/01 10:10:39  dkrajzew
 // got rid of MSNet::Time
 //
@@ -111,6 +114,12 @@ namespace
 // Revision 1.2  2003/02/07 10:39:17  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -225,6 +234,8 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdHideCurrentRoute(FXObject*,FXSelector,void
     return 1;
 }
 
+//ofstream stepOut("step.txt");
+
 #ifdef NETWORKING_BLA
 ofstream networking_endOut("end.txt");
 ofstream networking_stepOut("step.txt");
@@ -245,7 +256,7 @@ GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
                        const RGBColor &color)
     : MSVehicle(id, route, departTime, type, noMeanData, repNo, repOffset),
     GUIGlObject(idStorage, string("vehicle:")+id), myDefinedColor(color)
-#ifdef NETWROKING_BLA
+#ifdef NETWORKING_BLA
     ,networking_globalConns(0)
 #endif
 {
@@ -281,18 +292,93 @@ GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
     if(id==OptionsSubSys::getOptions().getString("knownveh")) {
         networking_HaveDevice = true;
     }
+
+	networking_myLaneEmitTime = std::vector<int>(route->size(), -1);
+	networking_EntryTime = -1;
 #endif
 }
 
 
+#ifdef NETWORKING_BLA
+
+    class networking_ByEdgeFinder {
+    private:
+        /// The wished index vector size
+        MSEdge *edge;
+
+    public:
+        /** constructor */
+        explicit networking_ByEdgeFinder(MSEdge *e)
+            : edge(e) { }
+
+        /** the comparing function */
+        bool operator() (const GUIVehicle::networking_EdgeTimeInformation &p) {
+            return p.edge==edge;
+        }
+
+    };
+
+#endif
 GUIVehicle::~GUIVehicle()
 {
 #ifdef NETWORKING_BLA
     if(networking_HaveDevice) {
+		int known = 0;
+		float mmax = 0;
+		float mmin = 0;
+		float meanTimeDist = 0;
+		float mmax2 = 0;
+		float mmin2 = 0;
+		float meanTimeDist2 = 0;
+		int i = 0;
+
+        for(i=0; i<myRoute->size()-1; i++) {
+            SUMOTime time = -1;
+/*            std::vector<networking_EdgeTimeInformation>::iterator j;
+            j = find_if(networking_myKnownEdges.begin(), networking_myKnownEdges.end(),
+                networking_ByEdgeFinder((*myRoute)[i]));
+            if(j!=networking_myKnownEdges.end()) {*/
+                time = networking_myLaneEmitTime[i] ;
+				if(time!=-1) {
+					float tmp = networking_myLaneEntryTime[i] - (float) time;
+					float tmp2 = (float) time;
+					if(known==0) {
+						mmin = tmp;
+						mmax = tmp;
+						mmin2 = tmp2;
+						mmax2 = tmp2;
+					} else {
+						mmin = mmin < tmp ? mmin : tmp;
+						mmax = mmax > tmp ? mmax : tmp;
+						mmin2 = mmin2 < tmp2 ? mmin2 : tmp2;
+						mmax2 = mmax2 > tmp2 ? mmax2 : tmp2;
+					}
+	                known++;
+					meanTimeDist += networking_myLaneEntryTime[i] - (float) time;
+					meanTimeDist2 += tmp2;
+				}
+//            }
+        }
+
+
+		if(known!=0) {
+			meanTimeDist /= (float) known;
+			meanTimeDist2 /= (float) known;
+		} else {
+			meanTimeDist = 0;
+			meanTimeDist2 = 0;
+		}
+
         networking_endOut
             << id() << ";" << MSNet::globaltime << ";"
             << networking_myKnownEdges.size() << ";"
-            << networking_globalConns << endl;
+			<< networking_globalConns << ";"
+			<< networking_mySeenGlobal.size() << ";"
+			<< known << ";" << meanTimeDist << ";" << mmin << ";" << mmax
+			<< ";" << networking_EntryTime << ";"
+			<< meanTimeDist2 << ";" << mmin2 << ";" << mmax2
+			<< endl;
+
     }
 #endif
 }
@@ -509,11 +595,239 @@ GUIVehicle::getDesiredDepart() const
 Boundary
 GUIVehicle::getCenteringBoundary() const
 {
-    throw 1;
+	throw 1;
 }
 
-#ifdef NETWORKING_BLA
+// !!! 4 UniDortmund #ifdef NETWORKING_BLA
+#include "time.h"
 
+void
+px2gps(double x, double y, int scale, int gkr, int gkh, double &lat, double &lon)
+{
+    //Berechnet zu x,y-Koordinaten die GK-Koordinaten
+    //bei zwei gegebenen GPS-Eckpunkten(der betrachteten Karte)
+    double rm, e2, c, bI, bII, bf, co, g2, g1, t, fa, dl, gb, gl;
+    int mKen;
+	double gkx=gkr+x*scale;//2601000.25+x*2;
+    double gky=gkh+x*scale;//5711999.75-y*2;
+    const double rho = 180/3.1415926535897932384626433832795;
+    e2 = 0.0067192188;
+    c = 6398786.849;
+    mKen = (int) (gkx / 1000000);
+    rm = gkx - mKen * 1000000 - 500000;
+    bI = gky / 10000855.7646;
+    bII = bI * bI;
+    bf = 325632.08677 * bI *((((((0.00000562025 * bII - 0.00004363980) * bII + 0.00022976983) * bII - 0.00113566119) * bII + 0.00424914906) * bII - 0.00831729565) * bII + 1);
+    bf = bf / 3600 / rho;
+    co = cos(bf);
+    g2 = e2 * (co * co);
+    g1 = c / sqrt(1 + g2);
+    t = sin(bf) / cos(bf); // tan(bf)
+    fa = rm / g1;
+    gb = bf - fa * fa * t * (1 + g2) / 2 + fa * fa * fa * fa * t * (5 + 3 * t * t + 6 * g2 - 6 * g2 * t * t) / 24;
+    gb = gb * rho;
+    dl = fa - fa * fa * fa * (1 + 2 * t * t + g2) / 6 + fa * fa * fa * fa * fa * (1 + 28 * t * t + 24 * t * t * t * t) / 120;
+    gl = dl * rho / co + mKen * 3;
+    lat = gb;
+    lon = gl;
+}
+
+void
+GUIVehicle::networking_Begin()
+{
+	char buffer2 [100];
+	char buffer3 [100];
+	time_t rawtime;
+	tm* ptm;
+    double mylat, mylon;
+
+    int scale = 1;
+	int gkr=1000;
+	int gkh=1000;
+
+
+    time(&rawtime);
+	ptm=gmtime(&rawtime);
+    //ptemp=pfad[m];
+    Position2D pos =
+        static_cast<GUINet*>(MSNet::getInstance())->getVehiclePosition(id());
+	px2gps(pos.x(), pos.y(), scale, gkr, gkh, mylat, mylon);
+//	mylat=ptemp->GetGPSLat()*100;
+//	mylon=ptemp->GetGPSLon()*100;
+	int mylat1=(int)mylat;
+	int mylon1=(int)mylon;
+	long mylat2=(long)((mylat-(int)mylat)*1000000);
+	long mylon2=(long)((mylon-(int)mylon)*1000000);
+
+//    stepOut << id() << "," << MSNet::getInstance()->getCurrentTimeStep() << ",";
+    sprintf(buffer2,"$GPRMC,%02d%02d%02d,A,%04d.%06d,N,%05d.%06d,E,,,%02d%02d%d,,\n",
+        ptm->tm_hour+1,ptm->tm_min,ptm->tm_sec,
+        mylat1,mylat2,mylon1,mylon2,
+        ptm->tm_mday,ptm->tm_mon+1,ptm->tm_year+1900);
+//    stepOut << buffer2;
+
+//    stepOut << id() << "," << MSNet::getInstance()->getCurrentTimeStep() << ",";
+	sprintf(buffer3,"$GPGGA,%02d%02d%02d,%04d.%06d,N,%05d.%06d,E,,,,0.0,,,,,\n",
+        ptm->tm_hour+1,ptm->tm_min,ptm->tm_sec,
+        mylat1,mylat2,mylon1,mylon2);
+//	stepOut << buffer3;
+        /*
+	//Miguel!!!
+	FXSlider* my1=myDialog->getMapscaleSlider();
+	FXTextField* my2=myDialog->getGKRTextField();
+	FXTextField* my3=myDialog->getGKHTextField();
+	int scale=my1->getValue();
+	FXint myFXint1=FXIntVal(my2->getText(),10);
+	FXint myFXint2=FXIntVal(my3->getText(),10);
+	int gkr=myFXint1;
+	int gkh=myFXint2;
+	///Miguel!!!
+	char buffer1 [100];
+	char buffer2 [100];
+	char buffer3 [100];
+	double mylat;
+	double mylon;
+	int mylat1;
+	int mylon1;
+	long mylat2;
+	long mylon2;
+	time_t rawtime;
+	tm* ptm;
+	Vertex* ptemp;
+
+	for (int l=1; l<=cars; l++)
+	{
+		sprintf(buffer1,"Trace%2d.txt",l);
+		FILE* Traces = fopen(buffer1,"w");
+		Drive(fuel);
+		pfad = GetPfadArray();
+		for (int m=0; m<(int) pfad.size(); m++)
+		{
+			ptemp=pfad[m];
+			time(&rawtime);
+			ptm=gmtime(&rawtime);
+			ptemp->px2gps(scale,gkr,gkh);
+			mylat=ptemp->GetGPSLat()*100;
+			mylon=ptemp->GetGPSLon()*100;
+			mylat1=(int)mylat;
+			mylon1=(int)mylon;
+			mylat2=(long)((mylat-(int)mylat)*1000000);
+			mylon2=(long)((mylon-(int)mylon)*1000000);
+			//So soll es aussehen
+			//$GPRMC,163156,A,5152.681389,N,00745.598541,E,,,26102004,,
+			//$GPGGA,163156,5152.681389,N,00745.598541,E,,,,0.0,,,,,
+
+			sprintf(buffer2,"$GPRMC,%02d%02d%02d,A,%04d.%06d,N,%05d.%06d,E,,,%02d%02d%d,,\n",ptm->tm_hour+1,ptm->tm_min,ptm->tm_sec,mylat1,mylat2,mylon1,mylon2,ptm->tm_mday,ptm->tm_mon+1,ptm->tm_year+1900);
+			fputs(buffer2,Traces);
+			sprintf(buffer3,"$GPGGA,%02d%02d%02d,%04d.%06d,N,%05d.%06d,E,,,,0.0,,,,,\n",ptm->tm_hour+1,ptm->tm_min,ptm->tm_sec,mylat1,mylat2,mylon1,mylon2);
+			fputs(buffer3,Traces);
+		}
+		fclose(Traces);
+
+	}
+*/
+    /* !!! 4 UniDortmund
+    if(id()==OptionsSubSys::getOptions().getString("knownveh")) {
+		networking_EdgeTimeInformation ei;
+		ei.edge = (MSEdge*) &(myLane->edge());
+		ei.time = MSNet::globaltime;
+		ei.val = -1;
+		addEdgeTimeInfo(ei);
+	}
+    networking_mySeenThisTime.clear();
+    !!! 4 UniDortmund */
+
+}
+
+#ifdef NETWORKING_BLA// !!! 4 UniDortmund
+
+void
+GUIVehicle::addEdgeTimeInfo(const GUIVehicle::networking_EdgeTimeInformation &ei)
+{
+        std::vector<networking_EdgeTimeInformation>::iterator j;
+        j = find_if(networking_myKnownEdges.begin(), networking_myKnownEdges.end(),
+            networking_ByEdgeFinder(ei.edge));
+        if(j==networking_myKnownEdges.end()) {
+            networking_myKnownEdges.push_back(ei);
+        } else {
+            if((*j).time>ei.time) {
+                (*j).time = ei.time;
+            }
+        }
+
+
+}
+
+
+void
+GUIVehicle::networking_KnowsAbout(GUIVehicle *v2, MSNet::Time t)
+{
+
+	if(id()=="158_0") {
+		int bla = 0;
+	}
+	networking_globalConns++;
+    networking_mySeenThisTime.push_back(v2);
+    const std::vector<networking_EdgeTimeInformation> &info
+        = v2->networking_GetKnownEdges();
+
+					networking_myLaneEmitTime[i2] = ei.time;
+				}
+				*/
+			}
+			if(&(myLane->edge())==(*myRoute)[i2]) {
+				over = true;
+			}
+		}
+    }
+
+		networking_mySeenGlobal.insert(v2);
+}
+
+
+const std::vector<GUIVehicle::networking_EdgeTimeInformation> &
+GUIVehicle::networking_GetKnownEdges()
+{
+    return networking_myKnownEdges;
+}
+
+
+void
+GUIVehicle::networking_End()
+{
+    networking_stepOut
+                << time << ";";
+        }
+        networking_knownOut << endl;
+    }
+}
+
+
+
+bool
+GUIVehicle::networking_hasDevice()
+{
+    return networking_HaveDevice;
+}
+
+
+void GUIVehicle::enterLaneAtMove( MSLane* enteredLane, double driven )
+{
+	networking_EdgeTimeInformation ei;
+	if(networking_EntryTime==-1) {
+		networking_EntryTime = MSNet::globaltime;
+	}
+}
+
+void GUIVehicle::enterLaneAtEmit( MSLane* enteredLane )
+{
+	networking_EdgeTimeInformation ei;
+	ei.edge = (MSEdge*) &(enteredLane->edge());
+	if(networking_EntryTime==-1) {
+		networking_EntryTime = MSNet::globaltime;
+	}
+
+}
 
 #endif
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/05/04 08:09:23  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2004/03/19 13:06:44  dkrajzew
 // some work on the style
 //
@@ -38,8 +41,6 @@
 // Revision 1.1  2003/03/06 17:22:15  dkrajzew
 // initial commit for value logging cleasses
 //
-//
-
 /* =========================================================================
  * included modules
  * ======================================================================= */

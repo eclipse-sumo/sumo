@@ -20,9 +20,21 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/05/04 08:22:19  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2005/01/27 14:22:45  dkrajzew
 // ability to open the complete phase definition added; code style adapted
 //
+// Revision 1.2  2005/01/06 10:48:07  dksumo
+// 0.8.2.1 patches
+//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

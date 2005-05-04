@@ -19,13 +19,20 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/05/04 08:32:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2005/02/01 10:10:42  dkrajzew
 // got rid of MSNet::Time
 //
 // Revision 1.1  2003/02/07 10:41:51  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * included modules
@@ -76,7 +83,7 @@ public:
 
 public:
     /// the last time step new routes were loaded
-    int myLastLoadTime;
+    SUMOTime myLastLoadTime;
 
     /// the number of routes to read in forward
     size_t myInAdvanceStepNo;

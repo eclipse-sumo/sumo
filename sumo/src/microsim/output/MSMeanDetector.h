@@ -25,6 +25,12 @@
 
 // $Id$
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <iterator>
 #include <string>
 #include <microsim/MSUnit.h>

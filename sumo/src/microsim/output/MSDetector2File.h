@@ -22,6 +22,9 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.5  2005/05/04 08:17:15  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2004/12/16 12:14:59  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -31,7 +34,12 @@
 // Revision 1.2  2004/11/25 11:53:49  dkrajzew
 // patched the bug on false intervals stamps if begin!=0
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -104,15 +112,15 @@ public:
      *
      * @param det Existing detector that shall report it's data.
      * @param filename File where the output shall go.
-     * @param write2fileInterval Interval at which output is written.
+     * @param interval Interval at which output is written.
      */
     void addDetectorAndInterval( MSDetectorFileOutput* det,
                                  OutputDevice *device,
-                                 MSUnit::Seconds interval,
+                                 SUMOTime interval,
                                  bool reinsert=false);
 
     void resetInterval(MSDetectorFileOutput* det,
-        MSUnit::Seconds newinterval);
+        SUMOTime newinterval);
 
 protected:
     /**
@@ -162,7 +170,7 @@ private:
                                         * class. */
 
     /// A map from sample intervals to the times the interval was called the last time
-    typedef std::map<int, int> LastCallsMap;
+    typedef std::map<SUMOTime, SUMOTime> LastCallsMap;
 
     /// The map that holds the last call for each sample interval
     LastCallsMap myLastCalls; // !!! ok, we don not have an offset by now, if one is introduced, both the sample interval and the offset must be used as key

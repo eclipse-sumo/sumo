@@ -687,7 +687,7 @@ protected:
                                            T& container )
         {
             typename T::iterator start = container.begin();
-            if ( container.size() > lastNTimesteps ) {
+            if ( (SUMOTime) container.size() > lastNTimesteps ) {
                 start =  container.end() - lastNTimesteps;
             }
             return start;

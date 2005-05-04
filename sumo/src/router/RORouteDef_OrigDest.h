@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 08:53:07  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -93,13 +96,13 @@ public:
     ROEdge *getTo() const;
 
     /// Builds the current route from the given information (perform routing, here)
-    RORoute *buildCurrentRoute(ROAbstractRouter &router, long begin,
+    RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
         bool continueOnUnbuild, ROVehicle &veh,
-        ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever);
+		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever);
 
     /** @brief Adds the build route to the container
         Here, the currently new route is added */
-    void addAlternative(RORoute *current, long begin);
+    void addAlternative(RORoute *current, SUMOTime begin);
 
     /// Saves the current route
     void xmlOutCurrent(std::ostream &res, bool isPeriodical) const;
@@ -120,7 +123,7 @@ protected:
     RORoute *_current;
 
     /// The begin of the trip
-    long _startTime;
+    SUMOTime _startTime;
 
     /** @brief Information whether the first edge shall be removed
         */

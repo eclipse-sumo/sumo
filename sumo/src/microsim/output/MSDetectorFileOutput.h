@@ -23,10 +23,18 @@
 
 // $Id$
 // $Log$
+// Revision 1.3  2005/05/04 08:17:15  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2005/02/01 10:10:43  dkrajzew
 // got rid of MSNet::Time
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -82,7 +90,7 @@ public:
     /**
      * Get the data-clean up interval in timesteps.
      */
-    virtual MSUnit::IntSteps getDataCleanUpSteps( void ) const = 0;
+    virtual SUMOTime getDataCleanUpSteps( void ) const = 0;
 
 };
 

@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.25  2005/05/04 08:41:33  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.24  2005/02/17 10:33:39  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -167,6 +170,12 @@ namespace
 // Revision 1.1  2001/12/06 13:36:09  traffic
 // moved from netbuild
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/05/04 07:56:00  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.10  2004/12/16 12:14:52  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -51,6 +54,12 @@ namespace
 // Revision 1.1  2003/07/22 14:58:33  dkrajzew
 // changes due to new detector handling
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -104,7 +113,7 @@ GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds)
+        SUMOTime deleteDataAfterSeconds)
 {
     return new GUI_E2_ZS_Collector(id, usage, lane, pos, length,
         haltingTimeThreshold, haltingSpeedThreshold,
@@ -119,7 +128,7 @@ GUIDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds)
+        SUMOTime deleteDataAfterSeconds)
 {
     return new GUI_E2_ZS_CollectorOverLanes( id, usage, lane, pos,
             haltingTimeThreshold, haltingSpeedThreshold,
@@ -133,13 +142,11 @@ GUIDetectorBuilder::createE3Detector(const std::string &id,
         const Detector::CrossSections &exits,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds)
+        SUMOTime deleteDataAfterSeconds)
 {
     return new GUIE3Collector( id, entries, exits,
         haltingTimeThreshold, haltingSpeedThreshold, deleteDataAfterSeconds);
 }
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

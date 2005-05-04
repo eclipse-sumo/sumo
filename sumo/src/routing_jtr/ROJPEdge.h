@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 08:57:12  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2004/12/16 12:26:52  dkrajzew
 // debugging
 //
@@ -32,6 +35,12 @@
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -57,8 +66,8 @@ class ROLane;
  * ======================================================================= */
 /**
  * @class ROJPEdge
- * A router's edge extended by the definition about the propability a
- *  vehicle's propabilities to choose a certain following edge over time.
+ * A router's edge extended by the definition about the probability a
+ *  vehicle's probabilities to choose a certain following edge over time.
  */
 class ROJPEdge : public ROEdge {
 public:
@@ -73,19 +82,19 @@ public:
 
     /// adds the information about the percentage of using a certain follower
     void addFollowerProbability(ROJPEdge *follower,
-        unsigned int begTime, unsigned int endTime, float percentage);
+        SUMOTime begTime, SUMOTime endTime, float percentage);
 
     /// Returns the next edge to use
-    ROJPEdge *chooseNext(unsigned int time) const;
+    ROJPEdge *chooseNext(SUMOTime time) const;
 
     /// Sets the turning definition defaults
     void setTurnDefaults(const std::vector<float> &defs);
 
 private:
-    /// Definition of a map that stores the propabilities of using a certain follower over time
+    /// Definition of a map that stores the probabilities of using a certain follower over time
     typedef std::map<ROJPEdge*, FloatValueTimeLine*> FollowerUsageCont;
 
-    /// Storage for the propabilities of using a certain follower over time
+    /// Storage for the probabilities of using a certain follower over time
     FollowerUsageCont myFollowingDefs;
 
     /// The defaults for turnings

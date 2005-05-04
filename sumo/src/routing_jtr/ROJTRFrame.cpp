@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/05/04 08:57:12  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.1  2004/11/23 10:26:59  dkrajzew
 // debugging
 //
@@ -32,7 +35,12 @@ namespace
 // Revision 1.1  2004/10/22 12:50:29  dksumo
 // initial checkin into an internal, standalone SUMO CVS
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

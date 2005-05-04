@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/05/04 08:51:41  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -52,6 +55,12 @@
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -82,7 +91,7 @@ class RORDLoader_TripDefs : public ROTypedXMLRoutesLoader {
 public:
     /// Constructor
     RORDLoader_TripDefs(ROVehicleBuilder &vb,
-        RONet &net, unsigned int begin, unsigned int end,
+        RONet &net, SUMOTime begin, SUMOTime end,
         bool emptyDestinationsAllowed, const std::string &file="");
 
     /// Destructor
@@ -93,7 +102,7 @@ public:
     std::string getDataName() const;
 
     /// Returns the time the current (last read) route starts at
-    unsigned int getCurrentTimeStep() const;
+    SUMOTime getCurrentTimeStep() const;
 
 protected:
     /** the user-impemlented handler method for an opening tag */
@@ -131,11 +140,11 @@ protected:
         const std::string &name, AttrEnum which, const std::string &place);
 
     /// Parses and returns the time the vehicle should start at
-    long getTime(const Attributes &attrs, AttrEnum which,
+    SUMOTime getTime(const Attributes &attrs, AttrEnum which,
         const std::string &id);
 
     /// Parses and returns the period the trip shall be repeated with
-    int getPeriod(const Attributes &attrs, const std::string &id);
+    SUMOTime getPeriod(const Attributes &attrs, const std::string &id);
 
     /// Parses and returns the number of cars that shall use the same parameter
     int getRepetitionNumber(const Attributes &attrs, const std::string &id);
@@ -170,10 +179,10 @@ protected:
     double mySpeed;
 
     /// The time the vehicle shall start at
-    size_t myDepartureTime;
+    SUMOTime myDepartureTime;
 
     /// The period the next vehicle with the same route shall be emitted at
-    int myPeriodTime;
+    SUMOTime myPeriodTime;
 
     /// The number of times cars with the current parameter shall be reemitted
     int myNumberOfRepetitions;

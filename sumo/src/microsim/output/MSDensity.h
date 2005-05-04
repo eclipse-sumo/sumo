@@ -24,6 +24,12 @@
 
 // $Id$
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <string>
 #include "MSDetectorCounterContainerWrapper.h"
 

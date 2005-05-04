@@ -20,6 +20,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.10  2005/05/04 08:06:19  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.9  2004/02/10 07:08:49  dkrajzew
 // resetting to find mode now does not generate duplicate lists; write method added
 //
@@ -48,12 +51,23 @@
 // Revision 1.1  2003/05/21 16:21:45  dkrajzew
 // further work detectors
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <map>
 #include <vector>
 #include <iostream>
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
  * Class that holds key-value pairs and has distinct insert- and find modes.
  *

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/05/04 08:51:41  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -88,8 +91,8 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 RORDLoader_SUMORoutes::RORDLoader_SUMORoutes(ROVehicleBuilder &vb, RONet &net,
-                                             unsigned int begin,
-                                             unsigned int end,
+                                             SUMOTime begin,
+                                             SUMOTime end,
                                              const std::string &file)
     : RORDLoader_SUMOBase(vb, net, begin, end, "precomputed sumo routes", file)
 {
@@ -124,11 +127,12 @@ void
 RORDLoader_SUMORoutes::startRoute(const Attributes &attrs)
 {
     try {
+        mySkipCurrent = false;
         _currentRoute = getString(attrs, SUMO_ATTR_ID);
         myCurrentColor = parseColor(attrs, "route", _currentRoute);
     } catch (EmptyData) {
         _currentRoute = "";
-        MsgHandler::getErrorInstance()->inform("Missing id in route.");
+        getErrorHandlerMarkInvalid()->inform("Missing id in route.");
     }
 }
 
@@ -148,7 +152,7 @@ RORDLoader_SUMORoutes::myCharacters(int element, const std::string &name,
             if(edge!=0) {
                 list.add(edge);
             } else {
-                MsgHandler::getErrorInstance()->inform(
+                getErrorHandlerMarkInvalid()->inform(
                     string("The route '") + _currentRoute +
                     string("' contains the unknown edge '") + id +
                     string("'."));
@@ -161,11 +165,11 @@ RORDLoader_SUMORoutes::myCharacters(int element, const std::string &name,
             _net.addRouteDef(route);
         } else {
             if(_currentRoute.length()>0) {
-                MsgHandler::getErrorInstance()->inform(
+                getErrorHandlerMarkInvalid()->inform(
                     string("Something is wrong with route '")
                     + _currentRoute + string("'."));
             } else {
-                MsgHandler::getErrorInstance()->inform(
+                getErrorHandlerMarkInvalid()->inform(
                     string("Invalid route occured."));
             }
         }

@@ -24,6 +24,12 @@ namespace
     "$Id$";
 }
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include "SimpleCommand.h"
@@ -42,6 +48,9 @@ namespace
 
 
 // $Log$
+// Revision 1.4  2005/05/04 08:06:19  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2003/02/07 10:40:13  dkrajzew
 // updated
 //

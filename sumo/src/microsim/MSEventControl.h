@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2005/05/04 08:25:29  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.9  2005/02/01 10:10:40  dkrajzew
 // got rid of MSNet::Time
 //
@@ -29,10 +32,14 @@
 // Better distinction between steps and seconds added.
 //
 // Revision 1.6  2003/07/16 15:28:00  dkrajzew
-// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+// MSEmitControl now only simulates lanes which do have vehicles;
+//  the edges do not go through the lanes, the EdgeControl does
 //
 // Revision 1.5  2003/06/04 16:16:23  roessel
-// MSEventControl has now two MSEventControl* (instead of one), myBeginOfTimestepEvents and myEndOfTimestepEvents. Added the static accss-methods getBeginOfTimestepEvents() and getEndOfTimestepEvents().
+// MSEventControl has now two MSEventControl* (instead of one),
+//  myBeginOfTimestepEvents and myEndOfTimestepEvents.
+//  Added the static accss-methods getBeginOfTimestepEvents() and
+//  getEndOfTimestepEvents().
 //
 // Revision 1.4  2003/05/27 18:51:46  roessel
 // Made MSEventControl a singleton class.
@@ -93,6 +100,12 @@
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

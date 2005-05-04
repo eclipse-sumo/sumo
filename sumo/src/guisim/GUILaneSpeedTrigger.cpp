@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/05/04 07:59:59  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.5  2005/02/17 10:33:29  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -41,6 +44,12 @@ namespace
 // Revision 1.1  2004/07/02 08:55:10  dkrajzew
 // visualisation of vss added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -312,7 +321,7 @@ GUILaneSpeedTrigger::doPaint(const PosCont &poss, const RotCont rots,
             value *= 3.6f;
             // !!!
             if(((int) value+1)%10==0) {
-                value = ((int) value+1) / 10 * 10;
+                value = (float) (((int) value+1) / 10 * 10);
             }
         }
         if(value!=myLastValue) {

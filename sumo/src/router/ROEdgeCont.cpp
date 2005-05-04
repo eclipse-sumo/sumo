@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/05/04 08:46:09  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.7  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -38,6 +41,12 @@ namespace
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

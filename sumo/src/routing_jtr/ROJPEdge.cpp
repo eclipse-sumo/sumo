@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/05/04 08:57:12  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.5  2004/12/16 12:26:52  dkrajzew
 // debugging
 //
@@ -47,6 +50,12 @@ namespace
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -93,8 +102,8 @@ ROJPEdge::addFollower(ROEdge *s)
 
 
 void
-ROJPEdge::addFollowerProbability(ROJPEdge *follower, unsigned int begTime,
-                                 unsigned int endTime, float percentage)
+ROJPEdge::addFollowerProbability(ROJPEdge *follower, SUMOTime begTime,
+                                 SUMOTime endTime, float percentage)
 {
     FollowerUsageCont::iterator i = myFollowingDefs.find(follower);
     if(i==myFollowingDefs.end()) {
@@ -103,12 +112,12 @@ ROJPEdge::addFollowerProbability(ROJPEdge *follower, unsigned int begTime,
             + follower->getID() + string("' are not connected."));
         return;
     }
-    (*i).second->add(begTime, endTime, percentage);
+	(*i).second->add(begTime, endTime, percentage);
 }
 
 
 ROJPEdge *
-ROJPEdge::chooseNext(unsigned int time) const
+ROJPEdge::chooseNext(SUMOTime time) const
 {
     if(myFollowingEdges.size()==0) {
         return 0;
@@ -140,7 +149,7 @@ ROJPEdge::chooseNext(unsigned int time) const
         }
         return static_cast<ROJPEdge*>(myFollowingEdges[0]);
     }
-    // if the propabilities are given for all following edges
+    // if the probabilities are given for all following edges
     if(noDescs==myFollowingEdges.size()) {
         // use the loaded definition
             // choose the appropriate one from the list
@@ -183,7 +192,7 @@ ROJPEdge::setTurnDefaults(const std::vector<float> &defs)
     for(i=0; i<defs.size(); i++) {
         for(size_t j=0; j<myFollowingEdges.size(); j++) {
             tmp[i*myFollowingEdges.size()+j] = (float)
-                (defs[i] / 100.0 / (myFollowingEdges.size()));
+				(defs[i] / 100.0 / (myFollowingEdges.size()));
         }
     }
         // parse from less common multiple

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/05/04 08:55:13  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.7  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -76,8 +79,8 @@ using namespace std;
  * ======================================================================= */
 ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(ROVehicleBuilder &vb,
                                                RONet &net,
-                                               unsigned int begin,
-                                               unsigned int end,
+                                               SUMOTime begin,
+                                               SUMOTime end,
                                                const std::string &file)
     : ROAbstractRouteDefLoader(vb, net, begin, end),
     SUMOSAXHandler("xml-route definitions", file),
@@ -100,7 +103,7 @@ ROTypedXMLRoutesLoader::closeReading()
 
 
 bool
-ROTypedXMLRoutesLoader::myReadRoutesAtLeastUntil(unsigned int time)
+ROTypedXMLRoutesLoader::myReadRoutesAtLeastUntil(SUMOTime time)
 {
     while(getCurrentTimeStep()<time&&!ended()) {
         beginNextRoute();

@@ -22,6 +22,12 @@
 //
 //---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include "MSDetectorHaltingContainerWrapper.h"
 #include <microsim/MSUnit.h>
 #include <microsim/MSLane.h>

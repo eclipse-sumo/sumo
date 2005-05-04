@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 08:11:51  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2005/02/01 10:10:44  dkrajzew
 // got rid of MSNet::Time
 //
@@ -41,6 +44,9 @@
 // Revision 1.5  2004/01/12 14:35:10  dkrajzew
 // documentation added; allowed the writing to files
 // $Log$
+// Revision 1.4  2005/05/04 08:11:51  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2005/02/01 10:10:44  dkrajzew
 // got rid of MSNet::Time
 //
@@ -59,6 +65,12 @@
 // Revision 1.6  2004/01/12 15:04:16  dkrajzew
 // more wise definition of lane predeccessors implemented
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -100,7 +112,7 @@ public:
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds);
+        SUMOTime deleteDataAfterSeconds);
 
     /** @brief Builds the consecutive E2-detectors
         This is not done within the constructor to allow overriding of
@@ -179,10 +191,9 @@ public:
     /**
      * Get the data-clean up interval in timesteps.
      */
-    MSUnit::IntSteps getDataCleanUpSteps( void ) const
+    SUMOTime getDataCleanUpSteps( void ) const
         {
-            return MSUnit::getInstance()->getIntegerSteps(
-                deleteDataAfterSecondsM );
+            return deleteDataAfterSecondsM; // !!! Konvertierung
         }
     //@}
 
@@ -211,16 +222,16 @@ protected:
         const LaneContinuations &laneContinuations);
 
 protected:
-    /// The position the collector starts at
+	/// The position the collector starts at
     MSUnit::Meters startPosM;
 
-    /// The length of the collector
+	/// The length of the collector
     MSUnit::Meters myLength;
 
-    /// The information for how many seconds data shall be saved
-    MSUnit::Seconds deleteDataAfterSecondsM;
+	/// The information for how many seconds data shall be saved
+    SUMOTime deleteDataAfterSecondsM;
 
-    /// Describes how long a vehicle shall stay before being assigned to a jam
+	/// Describes how long a vehicle shall stay before being assigned to a jam
     MSUnit::Steps haltingTimeThresholdM;
 
     /// Describes how slow a vehicle must be before being assigned to a jam

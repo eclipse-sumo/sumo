@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/05/04 08:32:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.5  2004/07/02 09:56:40  dkrajzew
 // debugging while implementing the vss visualisation
 //
@@ -95,15 +98,10 @@ private:
     /// invalidated assignment operator
     const MSTriggeredXMLReader &operator=(const MSTriggeredXMLReader &s);
 
-
 };
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "MSTriggeredXMLReader.icc"
-//#endif
 
 #endif
 

@@ -1,6 +1,12 @@
 #ifndef GUISelectionLoader_h
 #define GUISelectionLoader_h
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <string>
 
 class GUISelectionLoader {

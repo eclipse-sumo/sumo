@@ -1,6 +1,12 @@
 #ifndef GUILaneStateReporter_h
 #define GUILaneStateReporter_h
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <microsim/MSUpdateEachTimestep.h>

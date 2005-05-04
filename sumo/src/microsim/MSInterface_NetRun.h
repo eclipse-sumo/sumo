@@ -1,18 +1,22 @@
 #ifndef MSInterface_NetRun_h
 #define MSInterface_NetRun_h
 
-class MSInterface_NetRun {
+#include <utils/common/SUMOTime.h>
+#include <multimodal/MMLayer.h>
+
+class MSInterface_NetRun : public MMLayer {
 public:
     MSInterface_NetRun() { }
     virtual ~MSInterface_NetRun() {}
-    virtual bool simulate( size_t start, size_t stop ) = 0;
+    virtual bool simulate( SUMOTime start, SUMOTime stop ) = 0;
     virtual void initialiseSimulation() = 0;
-    virtual void closeSimulation(size_t start, size_t stop) = 0;
-    virtual void simulationStep( size_t start, size_t step ) = 0;
+    virtual void closeSimulation(SUMOTime start, SUMOTime stop) = 0;
+    virtual void simulationStep( SUMOTime start, SUMOTime step ) = 0;
     virtual bool haveAllVehiclesQuit() = 0;
-    virtual size_t getCurrentTimeStep() const = 0;
+    virtual SUMOTime getCurrentTimeStep() const = 0;
     virtual void preSimStepOutput() const = 0;
     virtual void postSimStepOutput() const = 0;
+    virtual long getSimStepDurationInMillis() const = 0;
 
 };
 

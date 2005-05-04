@@ -1,3 +1,9 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <guisim/GUIEdge.h>
 #include <microsim/MSLane.h>
 #include <utils/gui/div/GUIGlobalSelection.h>

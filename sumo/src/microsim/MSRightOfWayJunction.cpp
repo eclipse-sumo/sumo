@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/05/04 08:32:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.10  2004/08/02 12:09:39  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -98,6 +101,12 @@ namespace
 // Revision 1.1  2001/12/13 15:54:49  croessel
 // Initial commit. Has been MSJunction.cpp before.
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

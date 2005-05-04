@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/05/04 08:50:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.5  2004/12/16 12:26:52  dkrajzew
 // debugging
 //
@@ -103,7 +106,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 RORDLoader_SUMOAlt::RORDLoader_SUMOAlt(ROVehicleBuilder &vb, RONet &net,
-                                       unsigned int begin, unsigned int end,
+                                       SUMOTime begin, SUMOTime end,
                                        double gawronBeta, double gawronA,
                                        int maxRouteNumber,
                                        const std::string &file)
@@ -146,43 +149,65 @@ void RORDLoader_SUMOAlt::myStartElement(int element,
 void
 RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
 {
+    mySkipCurrent = false;
+    if(_currentAlternatives==0) {
+        getErrorHandlerMarkInvalid()->inform(
+            "Route declaration without an alternatives container occured.");
+        mySkipCurrent = true;
+        return;
+    }
+    // try to get the costs
     try {
-        if(_currentAlternatives==0) {
-            MsgHandler::getErrorInstance()->inform(
-                "Route declaration without an alternatives container occured.");
-            return;
-        }
-        // try to get the costs
-        _cost = getFloatSecure(attrs, SUMO_ATTR_COST, -1);
-        if(_cost<0) {
-            MsgHandler::getErrorInstance()->inform(
-                string("Invalid cost in alternative for route '")
-                + _currentAlternatives->getID() + string("'."));
-            return;
-        }
+        _cost = getFloat(attrs, SUMO_ATTR_COST);
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(
+        getErrorHandlerMarkInvalid()->inform(
             string("Invalid cost in alternative for route '")
+            + _currentAlternatives->getID() + string("' (")
+            + getString(attrs, SUMO_ATTR_COST)//toString<double>(_cost)
+            + string(")."));
+        mySkipCurrent = true;
+        return;
+    } catch (EmptyData) {
+        getErrorHandlerMarkInvalid()->inform(
+            string("Missing cost in alternative for route '")
             + _currentAlternatives->getID() + string("'."));
+        mySkipCurrent = true;
+        return;
+    }
+    if(_cost<0) {
+        getErrorHandlerMarkInvalid()->inform(
+            string("Invalid cost in alternative for route '")
+            + _currentAlternatives->getID() + string("' (")
+            + toString<double>(_cost)
+            + string(")."));
+        mySkipCurrent = true;
         return;
     }
     // try to get the probability
     try {
         _prob = getFloatSecure(attrs, SUMO_ATTR_PROP, -10000);
-        if(_prob<0) {
-            MsgHandler::getErrorInstance()->inform(
-                string("Invalid probability in alternative for route '")
-                + _currentAlternatives->getID() + string("' (")
-                + toString<double>(_prob)
-                + string(")."));
-            return;
-        }
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(
+        getErrorHandlerMarkInvalid()->inform(
             string("Invalid probability in alternative for route '")
             + _currentAlternatives->getID() + string("' (")
             + toString<double>(_prob)
             + string(")."));
+        mySkipCurrent = true;
+        return;
+    } catch (EmptyData) {
+        getErrorHandlerMarkInvalid()->inform(
+            string("Missing probability in alternative for route '")
+            + _currentAlternatives->getID() + string("'."));
+        mySkipCurrent = true;
+        return;
+    }
+    if(_prob<0) {
+        getErrorHandlerMarkInvalid()->inform(
+            string("Invalid probability in alternative for route '")
+            + _currentAlternatives->getID() + string("' (")
+            + toString<double>(_prob)
+            + string(")."));
+        mySkipCurrent = true;
         return;
     }
 }
@@ -197,9 +222,9 @@ RORDLoader_SUMOAlt::myCharacters(int element, const std::string &name,
     if(element!=SUMO_TAG_ROUTE) {
         return;
     }
-    // check whether the costs and the propability are valid
-    if(_cost<0||_prob<0) {
-        return; // !!! should not happen (no costs and no propability)
+    // check whether the costs and the probability are valid
+    if(_cost<0||_prob<0||mySkipCurrent) {
+        return;
     }
     // build the list of edges
     ROEdgeVector *list = new ROEdgeVector();
@@ -211,7 +236,7 @@ RORDLoader_SUMOAlt::myCharacters(int element, const std::string &name,
         if(edge!=0) {
             list->add(edge);
         } else {
-            MsgHandler::getErrorInstance()->inform(
+            getErrorHandlerMarkInvalid()->inform(
                 string("The route '") + _currentAlternatives->getID() +
                 string("' contains the unknown edge '") + id +
                 string("'."));
@@ -230,6 +255,9 @@ void
 RORDLoader_SUMOAlt::myEndElement(int element, const std::string &name)
 {
     if(element==SUMO_TAG_ROUTEALT) {
+        if(mySkipCurrent) {
+            return;
+        }
         endAlternative();
         _nextRouteRead = true;
     }
@@ -244,14 +272,14 @@ RORDLoader_SUMOAlt::startAlternative(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
+        getErrorHandlerMarkInvalid()->inform(
             "Missing route alternative name.");
         return;
     }
     // try to get the index of the last element
     int index = getIntSecure(attrs, SUMO_ATTR_LAST, -1);
     if(index<0) {
-        MsgHandler::getErrorInstance()->inform(
+        getErrorHandlerMarkInvalid()->inform(
             string("Missing or non-numeric index of a route alternative (id='")
             + id + string("'."));
         return;
@@ -259,9 +287,9 @@ RORDLoader_SUMOAlt::startAlternative(const Attributes &attrs)
     // try to get the color
     myCurrentColor = parseColor(attrs, "route", id);
     // try to get the start time
-/*    int time = getLongSecure(attrs, SUMO_ATTR_DEPART, -1);
+/*    SUMOTime time = getLongSecure(attrs, SUMO_ATTR_DEPART, -1);
     if(time<0) {
-        MsgHandler::getErrorInstance()->inform(
+        getErrorHandlerMarkInvalid()->inform(
             string("Missing or non-numeric departure time of a route alternative (id='")
             + id + string("'."));
         return;

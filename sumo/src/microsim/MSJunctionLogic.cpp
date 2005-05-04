@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.4  2005/05/04 08:26:19  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2003/02/07 10:41:50  dkrajzew
 // updated
 //
@@ -141,9 +144,6 @@ MSJunctionLogic::clear()
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "MSJunctionLogic.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

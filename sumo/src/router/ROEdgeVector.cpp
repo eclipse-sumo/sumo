@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/05/04 08:46:09  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.9  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -47,6 +50,12 @@ namespace
 // Revision 1.2  2003/02/07 10:45:04  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -73,6 +82,12 @@ using namespace std;
  * ======================================================================= */
 ROEdgeVector::ROEdgeVector()
 {
+}
+
+
+ROEdgeVector::ROEdgeVector(size_t toReserve)
+{
+    _edges.reserve(toReserve);
 }
 
 
@@ -139,12 +154,12 @@ ROEdgeVector::getIDs() const
 
 
 double
-ROEdgeVector::recomputeCosts(long time) const
+ROEdgeVector::recomputeCosts(SUMOTime time) const
 {
     double costs = 0;
     for(EdgeVector::const_iterator i=_edges.begin(); i!=_edges.end(); i++) {
         costs += (*i)->getCost(time);
-        time += ((long) (*i)->getDuration(time));
+        time += ((SUMOTime) (*i)->getDuration(time));
     }
     return costs;
 }
@@ -182,7 +197,7 @@ ROEdgeVector::clear()
 ROEdgeVector
 ROEdgeVector::getReverse() const
 {
-    ROEdgeVector ret;
+    ROEdgeVector ret(_edges.size());
     for(EdgeVector::const_reverse_iterator i=_edges.rbegin(); i!=_edges.rend(); i++) {
         ret.add(*i);
     }

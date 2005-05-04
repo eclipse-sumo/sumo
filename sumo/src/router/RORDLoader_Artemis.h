@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 08:50:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -35,6 +38,12 @@
 // Revision 1.1  2003/03/12 16:39:19  dkrajzew
 // artemis route support added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -74,7 +83,7 @@ class RORDLoader_Artemis :
 public:
     /// Constructor
     RORDLoader_Artemis(ROVehicleBuilder &vb, RONet &net,
-        unsigned int begin, unsigned int end, std::string file="");
+        SUMOTime begin, SUMOTime end, std::string file="");
 
     /// Destructor
     ~RORDLoader_Artemis();
@@ -97,7 +106,7 @@ public:
     bool ended() const;
 
     /// Returns the time the current (last read) route starts at
-    unsigned int getCurrentTimeStep() const;
+    SUMOTime getCurrentTimeStep() const;
 
     /// Initialises the handler for reading
     virtual bool init(OptionsCont &_options);
@@ -107,7 +116,7 @@ protected:
         The next entry of the driver file is read and the index of the route
         to use is extracted. Afterwards, the route itself is read from the
         route file */
-    bool myReadRoutesAtLeastUntil(unsigned int time);
+    bool myReadRoutesAtLeastUntil(SUMOTime time);
 
 private:
     /// Information whether the O/D-Matrix (true) or the flows (false) are being read
@@ -122,16 +131,16 @@ private:
     /// The value extractor
     NamedColumnsParser myLineHandler;
 
-    /// Definition of a container for propability of a destination
+    /// Definition of a container for probability of a destination
     typedef std::pair<std::string, double> DestPercentage;
 
-    /// Definition of a list of destination propabilities
+    /// Definition of a list of destination probabilities
     typedef std::vector<DestPercentage> DestProbVector;
 
-    /// Definition of the container for propabilities for each node
+    /// Definition of the container for probabilities for each node
     typedef std::map<std::string, DestProbVector> NodeDestProbs;
 
-    /// Node destination propabilities
+    /// Node destination probabilities
     NodeDestProbs myNodeConnections;
 
     /// Definition of a container for flowas (given a node)
@@ -150,7 +159,7 @@ private:
     std::string myPath;
 
     /// the current time step
-    unsigned int myCurrentTime;
+    SUMOTime myCurrentTime;
 
 };
 

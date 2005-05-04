@@ -20,13 +20,19 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 08:44:57  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2003/08/04 11:37:37  dkrajzew
 // added the generation of colors from districts
 //
 // Revision 1.2  2003/02/07 10:44:19  dkrajzew
 // updated
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
 
 /* =========================================================================
@@ -40,6 +46,7 @@
 #include <string>
 #include <utility>
 #include <utils/common/Named.h>
+
 
 /* =========================================================================
  * class definitions
@@ -102,11 +109,7 @@ private:
 };
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "ODDistrict.icc"
-//#endif
 
 #endif
 

@@ -1,6 +1,12 @@
 #ifndef StdDefs_h
 #define StdDefs_h
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 inline double
 MIN2(double a, double b)
 {
@@ -41,6 +47,9 @@ MAX4(double a, double b, double c, double d)
     return MAX2(MAX2(a,b),MAX2(c,d));
 }
 
+
+/// !!! ins config.h
+#define SUMOReal float
 
 #endif
 

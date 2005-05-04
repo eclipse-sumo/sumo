@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/05/04 08:50:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -91,8 +94,8 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
-                                           unsigned int begin,
-                                           unsigned int end,
+                                           SUMOTime begin,
+                                           SUMOTime end,
                                            const std::string &file)
     : ROAbstractRouteDefLoader(vb, net, begin, end), myIDSupplier("Rand"),
     myCurrentTime(0)
@@ -136,7 +139,7 @@ RORDGenerator_Random::getDataName() const
 
 
 bool
-RORDGenerator_Random::myReadRoutesAtLeastUntil(unsigned int time)
+RORDGenerator_Random::myReadRoutesAtLeastUntil(SUMOTime time)
 {
     // check whether the first route have to be skipped
     if(time==myBegin) {
@@ -209,7 +212,7 @@ RORDGenerator_Random::init(OptionsCont &options)
 }
 
 
-unsigned int
+SUMOTime
 RORDGenerator_Random::getCurrentTimeStep() const
 {
     return myCurrentTime;

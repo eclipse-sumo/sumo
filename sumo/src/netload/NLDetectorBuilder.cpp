@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.24  2005/05/04 08:39:45  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.23  2004/12/16 12:23:03  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -120,6 +123,12 @@ namespace
 // documentation added; coding standard attachements added
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
@@ -155,7 +164,7 @@ NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(
         OutputDevice *device,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds,
+        SUMOTime deleteDataAfterSeconds,
         const E3MeasuresVector &measures,
         int splInterval) :
     myID(id), myDevice(device),
@@ -176,6 +185,7 @@ NLDetectorBuilder::E3DetectorDefinition::~E3DetectorDefinition()
  * NLDetectorBuilder-methods
  * ----------------------------------------------------------------------- */
 NLDetectorBuilder::NLDetectorBuilder()
+    : myE3Definition(0)
 {
 }
 
@@ -223,7 +233,7 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds )
+        SUMOTime deleteDataAfterSeconds )
 {
     MSLane *clane = getLaneChecking(lane);
     // check whether the detector may lie over more than one lane
@@ -261,7 +271,7 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds )
+        SUMOTime deleteDataAfterSeconds )
 {
     MSLane *clane = getLaneChecking(lane);
     // check whether the detector may lie over more than one lane
@@ -298,7 +308,7 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds )
+        SUMOTime deleteDataAfterSeconds )
 {
     MSLane *clane = getLaneChecking(lane);
     MSLane *ctoLane = getLaneChecking(tolane);
@@ -378,7 +388,7 @@ NLDetectorBuilder::beginE3Detector(const std::string &id,
         const std::string &measures,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds)
+        SUMOTime deleteDataAfterSeconds)
 {
     E3MeasuresVector toAdd = parseE3Measures(measures);
     myE3Definition = new E3DetectorDefinition(id, device,
@@ -451,7 +461,7 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
                                         MSUnit::Seconds haltingTimeThreshold,
                                         MSUnit::MetersPerSecond haltingSpeedThreshold,
                                         MSUnit::Meters jamDistThreshold,
-                                        MSUnit::Seconds deleteDataAfterSeconds,
+                                        SUMOTime deleteDataAfterSeconds,
                                         const std::string &measures)
 {
     MSE2Collector *ret = createSingleLaneE2Detector(id, usage, lane, pos,
@@ -473,7 +483,7 @@ NLDetectorBuilder::buildMultiLaneE2Det(const SSVMap &laneConts,
                                        MSUnit::Seconds haltingTimeThreshold,
                                        MSUnit::MetersPerSecond haltingSpeedThreshold,
                                        MSUnit::Meters jamDistThreshold ,
-                                       MSUnit::Seconds deleteDataAfterSeconds,
+                                       SUMOTime deleteDataAfterSeconds,
                                        const std::string &measures)
 {
     MS_E2_ZS_CollectorOverLanes *ret = createMultiLaneE2Detector(id, usage,
@@ -586,7 +596,7 @@ NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds)
+        SUMOTime deleteDataAfterSeconds)
 {
     return new MSE2Collector(id, usage, lane, pos, length,
         haltingTimeThreshold, haltingSpeedThreshold,
@@ -601,7 +611,7 @@ NLDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds)
+        SUMOTime deleteDataAfterSeconds)
 {
     return new MS_E2_ZS_CollectorOverLanes( id, usage, lane, pos,
             haltingTimeThreshold, haltingSpeedThreshold,
@@ -615,7 +625,7 @@ NLDetectorBuilder::createE3Detector(const std::string &id,
         const Detector::CrossSections &exits,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds)
+        SUMOTime deleteDataAfterSeconds)
 {
     return new MSE3Collector( id, entries, exits,
         haltingTimeThreshold, haltingSpeedThreshold, deleteDataAfterSeconds);

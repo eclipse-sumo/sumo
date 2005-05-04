@@ -22,6 +22,12 @@
 //
 //---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <string>
@@ -137,7 +143,7 @@ public:
         , Detector::CrossSections exits
         , MSUnit::Seconds haltingTimeThreshold
         , MSUnit::MetersPerSecond haltingSpeedThreshold
-        , MSUnit::Seconds deleteDataAfterSeconds
+        , SUMOTime deleteDataAfterSeconds
         )
         :
         idM( id )
@@ -391,10 +397,9 @@ public:
     ///
     /// @return Interval-length in steps.
     ///
-    MSUnit::IntSteps getDataCleanUpSteps( void ) const
+    SUMOTime getDataCleanUpSteps( void ) const
         {
-            return MSUnit::getInstance()->getIntegerSteps(
-                deleteDataAfterSecondsM );
+            return deleteDataAfterSecondsM; // !!! Konvertierung
         }
 
     /// @}
@@ -429,7 +434,7 @@ protected:
                                                  ///to determine if a
                                                  ///vehicle is
                                                  ///halting.
-    MSUnit::Seconds deleteDataAfterSecondsM; ///< Data removal interval.
+    SUMOTime deleteDataAfterSecondsM; ///< Data removal interval.
 
     DetectorCont detectorsM;    ///< Container of E3-detectors.
 

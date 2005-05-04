@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.9  2005/05/04 08:35:40  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.8  2005/02/01 10:10:42  dkrajzew
 // got rid of MSNet::Time
 //
@@ -47,6 +50,12 @@ namespace
 // Revision 1.1  2003/02/07 10:41:50  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

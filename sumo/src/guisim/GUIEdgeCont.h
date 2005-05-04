@@ -20,12 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/05/04 07:59:59  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2003/02/07 10:39:17  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -53,9 +53,6 @@ typedef std::vector<GUIEdge*> GUIEdgeCont;
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIEdgeCont.icc"
-//#endif
 
 #endif
 

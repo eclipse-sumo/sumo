@@ -29,6 +29,12 @@
  ***************************************************************************/
 
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 # include <cstdlib>
@@ -50,60 +56,57 @@
 using namespace std;
 
 int Get_rand (int number,int maxele, int start, int *input, int *output, bool ini)
-    {
-    int i, check, newele, index, initial, k;
-    double rand_space;
+	{
+	int i, check, newele, index, initial, k;
+	double rand_space;
 
-    initial=number;
+	initial=number;
 
-    if(number==0)
-    {
+	if(number==0)
+	{
         MsgHandler::getErrorInstance()->inform(
             "No elements requiered, nothing to do");
-        throw ProcessError();
-    }
+		throw ProcessError();
+	}
     for(k=0;k<maxele;k++) {
         *(input+k)=k;
     }
-    //int number2=number;
-    if(number>=maxele)
-    {
+	//int number2=number;
+	if(number>=maxele)
+	{
         number = maxele-1;
         WRITE_WARNING(string("More random numbers requiered as elements!")+ string("\n")+ toString<int>(initial-number) + string(" cars get lost"));
-        for(k=0;k<maxele;k++) *(output+k)=k+start;
-        return (number);
-    }
-    check=0;
-    newele=maxele;
-    while (check < number)
-    {
-        rand_space = static_cast<double>(newele-1) /
+	    for(k=0;k<maxele;k++) *(output+k)=k+start;
+		return (number);
+	}
+	check=0;
+	newele=maxele;
+	while (check < number)
+	{
+		rand_space = static_cast<double>(newele-1) /
             ( static_cast<double>(RAND_MAX) + 1);
-        index = (int) (rand() * rand_space);
-        if(index==maxele) index--;
-        *(output+check) = *(input+index)+start;
-        ++check;
-        for (i=index;i<newele-1;i++)
-            {
-                *(input+i)=*(input+i+1);
-                if( *(input+i)<0) {
+		index = (int) (rand() * rand_space);
+		if(index==maxele) index--;
+		*(output+check) = *(input+index)+start;
+		++check;
+		for (i=index;i<newele-1;i++)
+			{
+				*(input+i)=*(input+i+1);
+				if(	*(input+i)<0) {
                     MsgHandler::getErrorInstance()->inform(
                         string("was faul at ") + toString<int>(i));
-                    throw ProcessError();
-                }
-            }
-        --newele;
+					throw ProcessError();
+				}
+			}
+		--newele;
 
-    }
-    return (number);
+	}
+	return (number);
 }
 
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ODGetRand.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

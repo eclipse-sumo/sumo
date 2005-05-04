@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2005/05/04 08:47:53  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.18  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -76,6 +79,12 @@ namespace
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -208,22 +217,22 @@ ROLoader::skipUntilBegin()
         (*i)->skipUntilBegin();
     }
     MsgHandler::getMessageInstance()->inform(
-        string("Skipped until: ") + toString<long>(getMinTimeStep()));
+        string("Skipped until: ") + toString<SUMOTime>(getMinTimeStep()));
 }
 
 
 void
-ROLoader::processRoutesStepWise(long start, long end,
+ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
                                 RONet &net, ROAbstractRouter &router)
 {
-    long absNo = end - start;
+    SUMOTime absNo = end - start;
     // skip routes that begin before the simulation's begin
     // loop till the end
     bool endReached = false;
     bool errorOccured = false;
-    long time = getMinTimeStep();
-    long firstStep = time;
-    long lastStep = time;
+    SUMOTime time = getMinTimeStep();
+    SUMOTime firstStep = time;
+    SUMOTime lastStep = time;
     for(; time<end&&!errorOccured&&!endReached; time++) {
         writeStats(time, start, absNo);
         RouteLoaderCont::iterator i;
@@ -242,7 +251,10 @@ ROLoader::processRoutesStepWise(long start, long end,
                 endReached = false;
             }
         }
-        errorOccured = MsgHandler::getErrorInstance()->wasInformed();
+        errorOccured =
+            MsgHandler::getErrorInstance()->wasInformed()
+            &&
+            !_options.getBool("continue-on-unbuild");
     }
     time = end;
     writeStats(time, start, absNo);
@@ -251,33 +263,34 @@ ROLoader::processRoutesStepWise(long start, long end,
         + string(" and ") + toString<int>(lastStep) + string("."));
 }
 
+
 bool
-ROLoader::makeSingleStep(long end, RONet &net, ROAbstractRouter &router)
+ROLoader::makeSingleStep(SUMOTime end, RONet &net, ROAbstractRouter &router)
 {
-        RouteLoaderCont::iterator i;
-        // go through all handlers
-        if(_handler.size()!= 0){
+    RouteLoaderCont::iterator i;
+    // go through all handlers
+	if(_handler.size()!= 0){
+        for(i=_handler.begin(); i!=_handler.end(); i++) {
+		    // load routes until the time point is reached
+			(*i)->readRoutesAtLeastUntil(end);
+			// save the routes
+			net.saveAndRemoveRoutesUntil(_options, router, end);
+    	}
 
-                for(i=_handler.begin(); i!=_handler.end(); i++) {
-                    // load routes until the time point is reached
-                    (*i)->readRoutesAtLeastUntil(end);
-                    // save the routes
-                    net.saveAndRemoveRoutesUntil(_options, router, end);
-                }
-
-                return MsgHandler::getErrorInstance()->wasInformed();
-        }else{
-            cout<<"ROLoader::makeSingleStep: _handler ist leer \n";
-            return false;
-        }
+        return MsgHandler::getErrorInstance()->wasInformed();
+    } else {
+        cout<<"ROLoader::makeSingleStep: _handler ist leer \n"; // !!!
+        return false;
+    }
 }
 
-unsigned int
+
+SUMOTime
 ROLoader::getMinTimeStep() const
 {
-    unsigned int ret = LONG_MAX;
+    SUMOTime ret = LONG_MAX;
     for(RouteLoaderCont::const_iterator i=_handler.begin(); i!=_handler.end(); i++) {
-        unsigned int akt = (*i)->getCurrentTimeStep();
+        SUMOTime akt = (*i)->getCurrentTimeStep();
         if(akt<ret) {
             ret = akt;
         }
@@ -287,7 +300,7 @@ ROLoader::getMinTimeStep() const
 
 
 void
-ROLoader::processAllRoutes(unsigned int start, unsigned int end,
+ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
                            RONet &net,
                            ROAbstractRouter &router)
 {
@@ -297,7 +310,7 @@ ROLoader::processAllRoutes(unsigned int start, unsigned int end,
         (*i)->readRoutesAtLeastUntil(INT_MAX);
     }
     // save the routes
-    size_t time = start;
+    SUMOTime time = start;
     for(; time<end; time++) {
         writeStats(time, start, absNo);
         net.saveAndRemoveRoutesUntil(_options, router, time);
@@ -496,13 +509,13 @@ ROLoader::loadSupplementaryWeights( RONet& net )
         MsgHandler::getMessageInstance()->inform( "done." );
     } else {
         MsgHandler::getMessageInstance()->inform( "failed." );
-        throw ProcessError();
+		throw ProcessError();
     }
 }
 
 
 void
-ROLoader::writeStats(int time, int start, int absNo)
+ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo)
 {
     if(_options.getBool("v")) {
         double perc =

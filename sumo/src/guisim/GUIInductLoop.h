@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2005/05/04 07:59:59  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.13  2005/02/01 10:10:39  dkrajzew
 // got rid of MSNet::Time
 //
@@ -45,6 +48,12 @@
 // Revision 1.7  2003/11/12 14:00:19  dkrajzew
 // commets added; added parameter windows to all detectors
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -154,6 +163,7 @@ public:
 
 
 //----------- DO NOT DECLARE OR DEFINE ANYTHING AFTER THIS POINT ------------//
+
 
 #endif
 

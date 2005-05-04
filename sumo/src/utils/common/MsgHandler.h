@@ -22,6 +22,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2005/05/04 08:58:33  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.5  2004/11/23 10:27:45  dkrajzew
 // debugging
 //
@@ -29,15 +32,24 @@
 // interface changed to allow message building on the fly
 //
 // Revision 1.3  2003/11/26 09:51:10  dkrajzew
-// changes to allow more than a single function of an object to retrieve messages
+// changes to allow more than a single function of an object to
+//  retrieve messages
 //
 // Revision 1.2  2003/07/07 08:44:43  dkrajzew
 // a new interface for a joined output of messages added
 //
 // Revision 1.1  2003/06/18 11:22:56  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -49,6 +61,7 @@
  * class declarations
  * ======================================================================= */
 class MsgRetriever;
+class AbstractMutex;
 
 
 /* =========================================================================
@@ -115,6 +128,10 @@ public:
     /// Returns the information whether any messages were added
     bool wasInformed() const;
 
+    /** @brief Sets the lock to use
+        The lock will not be deleted */
+    void assignLock(AbstractMutex *lock);
+
 private:
     /// standard constructor
     MsgHandler(MsgType type);
@@ -147,6 +164,10 @@ private:
 
     /// The list of retrievers that shall be informed about new messages or errors
     RetrieverVector myRetrievers;
+
+    /** @brief The lock if any has to be used
+        The lock will not be deleted */
+    AbstractMutex *myLock;
 
 private:
     /** invalid copy constructor */

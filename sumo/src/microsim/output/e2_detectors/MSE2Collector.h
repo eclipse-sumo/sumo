@@ -22,6 +22,12 @@
 //
 //---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorTypedefs.h>
 #include <microsim/MSUnit.h>
@@ -164,7 +170,7 @@ public:
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
-        MSUnit::Seconds deleteDataAfterSeconds)
+        SUMOTime deleteDataAfterSeconds)
         : MSMoveReminder( lane, id ),
           startPosM( startPos ),
           endPosM( startPos + detLength ),
@@ -562,10 +568,9 @@ public:
     ///
     /// @return Interval-length in steps.
     ///
-    MSUnit::IntSteps getDataCleanUpSteps( void ) const
+    SUMOTime getDataCleanUpSteps( void ) const
         {
-            return MSUnit::getInstance()->getIntegerSteps(
-                deleteDataAfterSecondsM );
+            return deleteDataAfterSecondsM; // !!! Konvertierung
         }
 
     /// @}
@@ -638,7 +643,7 @@ private:
     MSUnit::Meters startPosM;   ///< Start position.
     MSUnit::Meters endPosM;     ///< End position.
 
-    MSUnit::Seconds deleteDataAfterSecondsM; ///< Data removal interval.
+    SUMOTime deleteDataAfterSecondsM; ///< Data removal interval.
     MSUnit::Steps haltingTimeThresholdM; ///< Time-theshold to
                                          ///determine if a vehicle is
                                          ///halting.

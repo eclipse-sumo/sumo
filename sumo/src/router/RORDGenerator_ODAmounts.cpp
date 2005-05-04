@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/05/04 08:50:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.9  2005/02/17 10:33:40  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -53,6 +56,12 @@ namespace
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -97,8 +106,8 @@ using namespace std;
 RORDGenerator_ODAmounts::FlowDef::FlowDef(ROVehicle *vehicle,
                                           ROVehicleType *type,
                                           RORouteDef *route,
-                                          unsigned int intBegin,
-                                          unsigned int intEnd,
+                                          SUMOTime intBegin,
+                                          SUMOTime intEnd,
                                           unsigned int vehicles2Emit)
     : myVehicle(vehicle), myVehicleType(type), myRoute(route),
     myIntervalBegin(intBegin), myIntervalEnd(intEnd),
@@ -114,7 +123,7 @@ RORDGenerator_ODAmounts::FlowDef::~FlowDef()
 
 
 bool
-RORDGenerator_ODAmounts::FlowDef::applicableForTime(unsigned int t) const
+RORDGenerator_ODAmounts::FlowDef::applicableForTime(SUMOTime t) const
 {
     return myIntervalBegin<=t&&myIntervalEnd>=t;
 }
@@ -123,7 +132,7 @@ RORDGenerator_ODAmounts::FlowDef::applicableForTime(unsigned int t) const
 void
 RORDGenerator_ODAmounts::FlowDef::addRoutes(ROVehicleBuilder &vb,
                                             RONet &net,
-                                            unsigned int t)
+                                            SUMOTime t)
 {
     assert(myIntervalBegin<=t&&myIntervalEnd>=t);
     //
@@ -146,7 +155,7 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(ROVehicleBuilder &vb,
 void
 RORDGenerator_ODAmounts::FlowDef::addSingleRoute(ROVehicleBuilder &vb,
                                                  RONet &net,
-                                                 unsigned int t)
+                                                 SUMOTime t)
 {
     string id = myVehicle->getID()
         + string("_") + toString<unsigned int>(myEmitted);
@@ -158,7 +167,7 @@ RORDGenerator_ODAmounts::FlowDef::addSingleRoute(ROVehicleBuilder &vb,
 }
 
 
-unsigned int
+SUMOTime
 RORDGenerator_ODAmounts::FlowDef::getIntervalEnd() const
 {
     return myIntervalEnd;
@@ -170,8 +179,8 @@ RORDGenerator_ODAmounts::FlowDef::getIntervalEnd() const
  * ----------------------------------------------------------------------- */
 RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(ROVehicleBuilder &vb,
                                                  RONet &net,
-                                                 unsigned int begin,
-                                                 unsigned int end,
+                                                 SUMOTime begin,
+                                                 SUMOTime end,
                                                  bool emptyDestinationsAllowed,
                                                  const std::string &fileName)
     : RORDLoader_TripDefs(vb, net, begin, end, emptyDestinationsAllowed, fileName),
@@ -186,7 +195,7 @@ RORDGenerator_ODAmounts::~RORDGenerator_ODAmounts()
 
 
 bool
-RORDGenerator_ODAmounts::myReadRoutesAtLeastUntil(unsigned int until)
+RORDGenerator_ODAmounts::myReadRoutesAtLeastUntil(SUMOTime until)
 {
     // skip routes before begin
     if(until<=myBegin) {
@@ -200,9 +209,9 @@ RORDGenerator_ODAmounts::myReadRoutesAtLeastUntil(unsigned int until)
 
 
 void
-RORDGenerator_ODAmounts::buildRoutes(unsigned int until)
+RORDGenerator_ODAmounts::buildRoutes(SUMOTime until)
 {
-    unsigned int t;
+    SUMOTime t;
     for(t=myDepartureTime; t<until+1; t++) {
         buildForTimeStep(t);
     }
@@ -211,7 +220,7 @@ RORDGenerator_ODAmounts::buildRoutes(unsigned int until)
 
 
 void
-RORDGenerator_ODAmounts::buildForTimeStep(unsigned int time)
+RORDGenerator_ODAmounts::buildForTimeStep(SUMOTime time)
 {
     if(time<myBegin||time>=myEnd) {
         return;

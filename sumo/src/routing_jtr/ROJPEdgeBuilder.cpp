@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/05/04 08:57:12  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2004/07/02 09:40:36  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing (lane index added)
 //
@@ -32,7 +35,12 @@ namespace
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

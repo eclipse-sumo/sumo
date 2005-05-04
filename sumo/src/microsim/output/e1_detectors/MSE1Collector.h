@@ -22,13 +22,21 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.6  2005/05/04 08:10:12  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.5  2005/02/01 10:10:43  dkrajzew
 // got rid of MSNet::Time
 //
 // Revision 1.4  2004/12/16 12:14:59  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -72,7 +80,7 @@ public:
     MSE1Collector(
         std::string id
         , MSCrossSection crossSection
-        , MSUnit::Seconds deleteDataAfterSeconds = 1800
+        , SUMOTime deleteDataAfterSeconds = 1800
         )
         :
         idM( id )
@@ -295,10 +303,9 @@ public:
     ///
     /// @return Interval-length in steps.
     ///
-    MSUnit::IntSteps getDataCleanUpSteps( void ) const
+    SUMOTime getDataCleanUpSteps( void ) const
         {
-            return MSUnit::getInstance()->getIntegerSteps(
-                deleteDataAfterSecondsM );
+            return deleteDataAfterSecondsM; /// !!! Konvertierung
         }
 
     /// @}
@@ -313,7 +320,7 @@ protected:
     Detector::E1EntryReminder* entryReminderM;
     Detector::E1LeaveReminder* leaveReminderM;
 
-    MSUnit::Seconds deleteDataAfterSecondsM; ///< Data removal interval.
+    SUMOTime deleteDataAfterSecondsM; ///< Data removal interval.
 
     DetectorCont detectorsM;    ///< Container of E1-detectors.
 

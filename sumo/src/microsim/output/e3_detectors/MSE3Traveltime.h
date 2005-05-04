@@ -22,6 +22,12 @@
 //
 //---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <microsim/output/MSDetectorContainerWrapper.h>
 #include <string>
 #include <microsim/MSUnit.h>

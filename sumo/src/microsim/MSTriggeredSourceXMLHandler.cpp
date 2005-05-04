@@ -30,6 +30,12 @@
 // $Revision$
 
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -575,6 +581,9 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
+// Revision 1.15  2005/05/04 08:32:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.14  2005/02/01 10:10:42  dkrajzew
 // got rid of MSNet::Time
 //

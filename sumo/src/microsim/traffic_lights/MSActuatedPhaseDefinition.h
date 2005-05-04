@@ -20,12 +20,21 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 08:22:18  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2005/02/01 10:10:46  dkrajzew
 // got rid of MSNet::Time
 //
 // Revision 1.2  2005/01/27 14:22:44  dkrajzew
 // ability to open the complete phase definition added; code style adapted
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -50,10 +59,10 @@
 class MSActuatedPhaseDefinition : public MSPhaseDefinition{
 public:
     /// The minimum duration of the phase
-    size_t minDuration;
+    SUMOTime minDuration;
 
     /// The maximum duration of the phase
-    size_t maxDuration;
+    SUMOTime maxDuration;
 
     /// stores the timestep of the last on-switched of the phase
     SUMOTime _lastSwitch;
@@ -62,7 +71,7 @@ public:
     MSActuatedPhaseDefinition(size_t durationArg,
         const std::bitset<64> &driveMaskArg, const std::bitset<64> &breakMaskArg,
         const std::bitset<64> &yellowMaskArg,
-        size_t minDurationArg, size_t maxDurationArg)
+        int minDurationArg, int maxDurationArg)
         : MSPhaseDefinition(durationArg, driveMaskArg,
             breakMaskArg, yellowMaskArg),
         minDuration(minDurationArg), maxDuration(maxDurationArg),

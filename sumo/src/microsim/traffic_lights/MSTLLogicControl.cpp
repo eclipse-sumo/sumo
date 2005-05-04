@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/05/04 08:22:19  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2005/01/27 14:22:45  dkrajzew
 // ability to open the complete phase definition added; code style adapted
 //
@@ -38,6 +41,12 @@ namespace
 // Revision 1.1  2003/06/05 16:08:36  dkrajzew
 // traffic lights are no longer junction-bound; a separate control is necessary
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

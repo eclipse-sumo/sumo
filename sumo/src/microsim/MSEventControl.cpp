@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.13  2005/05/04 08:25:29  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.12  2005/02/01 10:10:40  dkrajzew
 // got rid of MSNet::Time
 //
@@ -43,7 +46,10 @@ namespace
 // accessing an empty priority queue-bug removed
 //
 // Revision 1.6  2003/06/04 16:16:23  roessel
-// MSEventControl has now two MSEventControl* (instead of one), myBeginOfTimestepEvents and myEndOfTimestepEvents. Added the static accss-methods getBeginOfTimestepEvents() and getEndOfTimestepEvents().
+// MSEventControl has now two MSEventControl* (instead of one),
+//  myBeginOfTimestepEvents and myEndOfTimestepEvents.
+//  Added the static accss-methods getBeginOfTimestepEvents() and
+//  getEndOfTimestepEvents().
 //
 // Revision 1.5  2003/05/27 18:50:00  roessel
 // Made MSEventControl a singleton class.
@@ -127,6 +133,11 @@ namespace
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * included modules

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 07:59:59  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2004/12/16 12:14:59  dkrajzew
 // got rid of an unnecessary detector parameter/debugging
 //
@@ -29,6 +32,12 @@
 // Revision 1.1  2004/07/02 08:55:10  dkrajzew
 // visualisation of vss added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

@@ -22,6 +22,12 @@
 //
 //---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <microsim/MSUnit.h>
 #include "MSPredicates.h"
 #include "MSTDDetectorInterface.h"
@@ -189,7 +195,7 @@ namespace TD // timestep data
         /// @return deleteDataAfterStepsM to restart this removal via
         /// the MSEventControl mechanism.
         ///
-        MSUnit::IntSteps freeContainer( void )
+        SUMOTime freeContainer( void )
             {
                 AggregatesContIter end = aggregatesM.end();
                 if ( aggregatesM.size() > deleteDataAfterStepsM ) {

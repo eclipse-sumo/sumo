@@ -21,6 +21,12 @@
 //
 //---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <string>
 #include <helpers/SingletonDictionary.h>
 #include <microsim/output/e2_detectors/MSE2Collector.h>

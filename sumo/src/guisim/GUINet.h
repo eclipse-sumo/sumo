@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.31  2005/05/04 08:02:54  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.30  2005/02/01 10:08:23  dkrajzew
 // performance computation added; got rid of MSNet::Time
 //
@@ -107,6 +110,12 @@
 // Revision 1.3  2003/02/07 10:39:17  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -249,8 +258,10 @@ public:
     friend class GUIGridBuilder;
 
     virtual void closeBuilding(const NLNetBuilder &nb);
-    bool hasPosition(GUIVehicle *v) const;
-    void networking(SUMOTime startTimeStep, SUMOTime currentStep);
+	bool hasPosition(GUIVehicle *v) const;
+// !!! 4 UniDortmund #ifdef NETWORKING_BLA
+	void networking(SUMOTime startTimeStep, SUMOTime currentStep);
+// !!! 4 UniDortmund #endif
 
 private:
     /// Initialises the detector wrappers

@@ -22,6 +22,12 @@
 //
 //---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <microsim/MSMoveReminder.h>
 #include <microsim/MSUnit.h>
 #include <microsim/output/MSCrossSection.h>

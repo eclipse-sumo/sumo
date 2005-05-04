@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2005/05/04 08:46:09  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.12  2004/11/23 10:25:51  dkrajzew
 // debugging
 //
@@ -117,7 +120,7 @@ public:
 /*    void setLane(long timeBegin, long timeEnd,
         const std::string &id, float value);*/
 
-    void addWeight(float value, long timeBegin, long timeEnd);
+    void addWeight(float value, SUMOTime timeBegin, SUMOTime timeEnd);
 
     /// Adds information about a connected edge
     virtual void addFollower(ROEdge *s);
@@ -133,10 +136,10 @@ public:
     ROEdge *getFollower(size_t pos);
 
     /// retrieves the cost of this edge at the given time
-    double getCost(long time);
+    double getCost(SUMOTime time);
 
     /// Retrieves the time a vehicle needs to pass this edge starting at the given time
-    double getDuration(long time);
+    double getDuration(SUMOTime time);
 
     /// Adds a connection, marking the effort to pas the connection (!!!)
     bool addConnection(ROEdge *to, float effort);
@@ -157,7 +160,7 @@ public:
     size_t getIndex() const;
 
     /// returns the effort for this edge only
-    virtual float getEffort(int time) const;
+    virtual float getEffort(SUMOTime time) const;
 
     /// Takes pointers to FloatValueTimeLines and assigns them to the
     /// classes supplementary weights. You must provide all three

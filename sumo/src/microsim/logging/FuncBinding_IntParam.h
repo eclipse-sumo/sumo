@@ -1,8 +1,8 @@
 
-#ifndef FuncBinding_UIntParam_H
-#define FuncBinding_UIntParam_H
+#ifndef FuncBinding_IntParam_H
+#define FuncBinding_IntParam_H
 /***************************************************************************
-                          FuncBinding_UIntParam.h
+                          FuncBinding_IntParam.h
                              -------------------
     begin                :
     copyright            : (C) 2001 by
@@ -26,13 +26,13 @@
 
 
 template< class _T, typename _R  >
-class FuncBinding_UIntParam : public ValueSource<_R>
+class FuncBinding_IntParam : public ValueSource<_R>
 {
 public:
     /// Type of the function to execute.
-    typedef _R ( _T::* Operation )(size_t) const;
+    typedef _R ( _T::* Operation )(int) const;
 
-    FuncBinding_UIntParam( _T* source, Operation operation,
+    FuncBinding_IntParam( _T* source, Operation operation,
                 size_t param )
                 :
         mySource( source ),
@@ -41,7 +41,7 @@ public:
         {}
 
     /// Destructor.
-    ~FuncBinding_UIntParam()
+    ~FuncBinding_IntParam()
         {}
 
     double getValue() const
@@ -50,7 +50,7 @@ public:
         }
 
     ValueSource<_R> *copy() const {
-        return new FuncBinding_UIntParam<_T, _R>(
+        return new FuncBinding_IntParam<_T, _R>(
             mySource, myOperation, myParam);
     }
 
@@ -64,11 +64,11 @@ private:
     /// The object's operation to perform.
     Operation myOperation;
 
-    size_t myParam;
+    int myParam;
 
 };
 
-#endif // FuncBinding_UIntParam_H
+#endif // FuncBinding_IntParam_H
 
 // Local Variables:
 // mode:C++

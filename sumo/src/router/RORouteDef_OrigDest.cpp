@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/05/04 08:53:07  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2004/12/16 12:26:52  dkrajzew
 // debugging
 //
@@ -119,9 +122,9 @@ RORouteDef_OrigDest::getTo() const
 
 
 RORoute *
-RORouteDef_OrigDest::buildCurrentRoute(ROAbstractRouter &router, long begin,
-        bool continueOnUnbuild, ROVehicle &veh,
-        ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever)
+RORouteDef_OrigDest::buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
+		bool continueOnUnbuild, ROVehicle &veh,
+		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever)
 {
     ROEdgeVector rv = router.compute(_from, _to, begin, continueOnUnbuild, retriever);
     if(myRemoveFirst&&rv.size()>1) {
@@ -132,7 +135,7 @@ RORouteDef_OrigDest::buildCurrentRoute(ROAbstractRouter &router, long begin,
 
 
 void
-RORouteDef_OrigDest::addAlternative(RORoute *current, long begin)
+RORouteDef_OrigDest::addAlternative(RORoute *current, SUMOTime begin)
 {
     _current = current;
     _startTime = begin;

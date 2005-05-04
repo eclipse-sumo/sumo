@@ -20,17 +20,23 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/05/04 08:46:09  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.7  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+// debugging while working on INVENT; preparation of classes to be derived for
+//  an online-routing
 //
 // Revision 1.6  2004/04/02 11:25:34  dkrajzew
 // moving the vehicle forward if it shall start at a too short edge added
 //
 // Revision 1.5  2004/01/26 08:01:10  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way; further
+//  changes in order to make both new routers work; documentation added
 //
 // Revision 1.4  2003/04/10 15:47:01  dkrajzew
-// random routes are now being prunned to avoid some stress with turning vehicles
+// random routes are now being prunned to avoid some stress with turning
+//  vehicles
 //
 // Revision 1.3  2003/03/20 16:39:16  dkrajzew
 // periodical car emission implemented; windows eol removed
@@ -38,6 +44,12 @@
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -48,11 +60,14 @@
 #include <vector>
 #include <string>
 #include <deque>
+#include <utils/common/SUMOTime.h>
+
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class ROEdge;
+
 
 /* =========================================================================
  * class definitions
@@ -68,6 +83,9 @@ public:
 
     /// Constructor
     ROEdgeVector();
+
+    /// Constructor
+    ROEdgeVector(size_t toReserve);
 
     /// Constructor
     ROEdgeVector(EdgeVector &edges);
@@ -88,7 +106,7 @@ public:
     std::deque<std::string> getIDs() const;
 
     /// Computes the costs to pass the edges beginning at the given time
-    double recomputeCosts(long time) const;
+    double recomputeCosts(SUMOTime time) const;
 
     /** @brief Returns the infomration whether both lists are equal
         @deprecated (Should be a comparison operator */

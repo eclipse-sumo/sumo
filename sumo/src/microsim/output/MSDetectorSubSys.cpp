@@ -18,6 +18,12 @@
 //
 //---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <iostream>
 #include "MSDetectorSubSys.h"
 #include "MSDetector2File.h"
@@ -26,7 +32,6 @@
 #include <microsim/MSUnit.h>
 #include <microsim/MSUpdateEachTimestepContainer.h>
 #include "MSDetectorHaltingContainerWrapper.h"
-//#include "MSTDDetectorInterface.h"
 #include "MSDetectorOccupancyCorrection.h"
 #include "e2_detectors/MS_E2_ZS_CollectorOverLanes.h"
 
@@ -144,6 +149,7 @@ MSDetectorSubSys::deleteDictionariesAndContents( void )
     } catch (SingletonNotCreated &) {
     }
 }
+
 
 MSInductLoop *
 MSDetectorSubSys::findInductLoop(const std::string &id)

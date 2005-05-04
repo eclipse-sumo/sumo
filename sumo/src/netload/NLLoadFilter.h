@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/05/04 08:41:33  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.5  2003/05/20 09:45:35  dkrajzew
 // some make-up done (splitting large methods; patching comments)
 //
@@ -77,10 +80,8 @@ enum LoadFilter {
     LOADFILTER_NET = 1 | 2 | 8
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "LoadFilter.icc"
-//#endif
 
 #endif
 

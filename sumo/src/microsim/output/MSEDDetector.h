@@ -22,6 +22,12 @@
 //
 //---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include "MSEDDetectorInterface.h"
 #include <functional>
 
@@ -188,7 +194,7 @@ namespace ED
         /// @return deleteDataAfterStepsM to restart this removal via
         /// the MSEventControl mechanism.
         ///
-        MSUnit::IntSteps freeContainer( void )
+        SUMOTime freeContainer( void )
             {
                 AggregatesContIter end =
                     getAggrContStartIterator( deleteDataAfterStepsM );

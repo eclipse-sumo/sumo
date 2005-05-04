@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/05/04 08:32:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.14  2005/02/01 10:10:42  dkrajzew
 // got rid of MSNet::Time
 //
@@ -64,6 +67,12 @@ namespace
 // Revision 1.1  2003/02/07 10:41:50  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

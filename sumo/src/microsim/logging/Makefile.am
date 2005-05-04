@@ -3,7 +3,7 @@ LoggedValue_Single.cpp \
 LoggedValue_TimeFixed.cpp \
 LoggedValue_TimeFloating.cpp \
 CastingFunctionBinding.h \
-FuncBinding_UIntParam.h \
+FuncBinding_IntParam.h \
 FunctionBinding.h \
 LoggedValue.h \
 LoggedValue_Single.h \

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/05/04 08:17:15  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.5  2005/02/01 10:10:43  dkrajzew
 // got rid of MSNet::Time
 //
@@ -32,10 +35,15 @@ namespace
 // Revision 1.3  2004/11/25 16:26:47  dkrajzew
 // consolidated and debugged some detectors and their usage
 //
-// Revision 1.2  2004/11/25 11:53:49  dkrajzew
-// patched the bug on false intervals stamps if begin!=0
+// Revision 1.4  2004/11/25 11:50:10  dksumo
+// patched false time stamp on begin!=0 bug
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -113,7 +121,7 @@ MSDetector2File::~MSDetector2File( void )
 void
 MSDetector2File::addDetectorAndInterval( MSDetectorFileOutput* det,
                                          OutputDevice *device,
-                                         MSUnit::Seconds interval,
+                                         SUMOTime interval,
                                          bool reinsert)
 {
     if ( det->getDataCleanUpSteps() < interval ) {
@@ -167,8 +175,8 @@ MSDetector2File::write2file( IntervalsKey key )
     assert( iIt != intervalsM.end() );
     DetectorFileVec dfVec = iIt->second;
     MSUnit::IntSteps interval = key;
-    MSUnit::Seconds stopTime = MSNet::getInstance()->simSeconds();
-    MSUnit::Seconds startTime = myLastCalls[interval];
+    SUMOTime stopTime = MSNet::getInstance()->simSeconds();
+    SUMOTime startTime = myLastCalls[interval];
     // check whether at the end the output was already generated
     if(stopTime==startTime) {
         return 0; // a dummy value only; this should only be the case
@@ -191,7 +199,7 @@ MSDetector2File::MSDetector2File( void )
 
 void
 MSDetector2File::resetInterval(MSDetectorFileOutput* det,
-                               MSUnit::Seconds newinterval)
+                               SUMOTime newinterval)
 {
     for(Intervals::iterator i=intervalsM.begin(); i!=intervalsM.end(); ++i) {
         DetectorFileVec &dets = (*i).second;

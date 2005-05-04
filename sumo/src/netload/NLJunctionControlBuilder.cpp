@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/05/04 08:41:33  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.13  2004/12/16 12:23:37  dkrajzew
 // first steps towards a better parametrisation of traffic lights
 //
@@ -60,7 +63,8 @@ namespace
 // updated
 //
 // Revision 1.1  2002/10/16 15:36:50  dkrajzew
-// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
+// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition
+//  parseable in one step
 //
 // Revision 1.6  2002/06/11 14:39:27  dkrajzew
 // windows eol removed
@@ -69,7 +73,8 @@ namespace
 // Windows eol removed
 //
 // Revision 1.4  2002/06/07 14:39:58  dkrajzew
-// errors occured while building larger nets and adaption of new netconverting methods debugged
+// errors occured while building larger nets and adaption of new
+//  netconverting methods debugged
 //
 // Revision 1.3  2002/04/17 11:18:47  dkrajzew
 // windows-newlines removed
@@ -89,7 +94,12 @@ namespace
 // Revision 1.1  2001/12/06 13:36:09  traffic
 // moved from netbuild
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -102,7 +112,6 @@ namespace
 #include <microsim/MSNoLogicJunction.h>
 #include <microsim/MSRightOfWayJunction.h>
 #include <microsim/MSJunctionControl.h>
-//#include <microsim/MSTrafficLightJunction.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/MSEventControl.h>
@@ -124,10 +133,9 @@ using namespace std;
  * static variables
  * ======================================================================= */
 const int NLJunctionControlBuilder::TYPE_NOJUNCTION = 0;
-const int NLJunctionControlBuilder::TYPE_TRAFFIC_LIGHT = 1;
-const int NLJunctionControlBuilder::TYPE_RIGHT_BEFORE_LEFT = 2;
-const int NLJunctionControlBuilder::TYPE_PRIORITY_JUNCTION = 3;
-const int NLJunctionControlBuilder::TYPE_DEAD_END = 4;
+const int NLJunctionControlBuilder::TYPE_RIGHT_BEFORE_LEFT = 1;
+const int NLJunctionControlBuilder::TYPE_PRIORITY_JUNCTION = 2;
+const int NLJunctionControlBuilder::TYPE_DEAD_END = 3;
 
 
 /* =========================================================================
@@ -165,8 +173,6 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
     m_InitStep = 0;
     if(type=="none") {
         m_Type = TYPE_NOJUNCTION;
-    } else if(type=="traffic_light") {
-        m_Type = TYPE_TRAFFIC_LIGHT;
     } else if(type=="right_before_left") {
         m_Type = TYPE_RIGHT_BEFORE_LEFT;
     } else if(type=="priority") {
@@ -205,10 +211,6 @@ NLJunctionControlBuilder::closeJunction()
     switch(m_Type) {
     case TYPE_NOJUNCTION:
         junction = buildNoLogicJunction();
-        break;
-    case TYPE_TRAFFIC_LIGHT:
-//        junction = buildTrafficLightJunction();
-        throw 1;
         break;
     case TYPE_RIGHT_BEFORE_LEFT:
     case TYPE_PRIORITY_JUNCTION:

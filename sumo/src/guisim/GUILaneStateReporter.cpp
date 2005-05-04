@@ -1,3 +1,9 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include "GUILaneStateReporter.h"
 #include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <gui/GUIGlobals.h>

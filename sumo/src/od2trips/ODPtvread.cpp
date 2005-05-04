@@ -60,24 +60,25 @@ operator<< (std::ostream& os, const OD_IN& od)
     return (os);
 }
 
+
 void
 ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
-           long *total_cars, long *start, long *finish, float *factor)
-    {
-    std::string cLine;
-    string help;
-    int ferror = 0;
-    int maximum=0;
+           long *total_cars, SUMOTime *start, SUMOTime *finish, float *factor)
+{
+	std::string cLine;
+	string help;
+	int ferror = 0;
+	int maximum=0;
     int i;
     LineReader lr(OD_filename);
-    if (!lr.good()) {
+	if (!lr.good()) {
         MsgHandler::getErrorInstance()->inform(
             string("Could not open ") + OD_filename + string("."));
-        throw ProcessError();
-    }
-    *maxele=0;
-    *total_cars=0;
-    int maxdist,j;
+		throw ProcessError();
+	}
+	*maxele=0;
+	*total_cars=0;
+	int maxdist,j;
     string type = lr.readLine();
     string line;
     // read Verkehrsmittelkennung
@@ -98,13 +99,13 @@ ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
     }
     istringstream t1(line);
     float start_ini, finish_ini;
-    t1 >> start_ini >> finish_ini;
-    *start = long(start_ini);
-    *finish = long(finish_ini);
-    float rest = 6000 * (start_ini - *start);
-    *start = 3600 * *start + rest;
-    rest = 6000 * (finish_ini - *finish);
-    *finish = 3600 * *finish + rest;
+	t1 >> start_ini >> finish_ini;
+	*start = SUMOTime(start_ini);
+	*finish = SUMOTime(finish_ini);
+	float rest = 6000 * (start_ini - *start);
+	*start = (SUMOTime) (3600. * *start + rest);
+	rest = 6000 * (finish_ini - *finish);
+	*finish = (SUMOTime) (3600. * *finish + rest);
     // read Faktor
     found = false;
     while(!found) {
@@ -114,7 +115,7 @@ ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
         }
     }
     istringstream t2(line);
-    t2 >> *factor;
+	t2 >> *factor;
     // read Anzahl Bezirke
     found = false;
     while(!found) {
@@ -124,7 +125,7 @@ ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
         }
     }
     istringstream t3(line);
-    t3 >> maxdist;
+	t3 >> maxdist;
     // read BezirksNummern
     found = false;
     while(!found) {
@@ -133,7 +134,7 @@ ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
             found = true;
         }
     }
-    string *index= new string [maxdist];
+	string *index= new string [maxdist];
     i = 0;
     while(found) {
         line = StringUtils::prune(line);
@@ -156,18 +157,18 @@ ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
                 found = true;
             }
         }
-        OD_IN tmp;
-        tmp.from=*(index+i);
+		OD_IN tmp;
+		tmp.from=*(index+i);
         j=0;
         while(found) {
             line = StringUtils::prune(line);
             StringTokenizer st(line, StringTokenizer::WHITECHARS);
             while(st.hasNext()) {
                 tmp.to=*(index+j);
-                tmp.how_many = TplConvert<char>::_2float(st.next().c_str());
-                od_inp.push_back(tmp);
-                *total_cars=*total_cars+tmp.how_many;
-                *maxele=*maxele+1;
+                tmp.how_many = TplConvert<char>::_2int(st.next().c_str()); // !!! 2SUMOTime
+				od_inp.push_back(tmp);
+				*total_cars=*total_cars+tmp.how_many;
+				*maxele=*maxele+1;
                 j++;
             }
             line = lr.readLine();
@@ -175,7 +176,7 @@ ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
                 found = false;
             }
         }
-    }
+	}
 }
 
 

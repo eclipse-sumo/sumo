@@ -32,8 +32,9 @@
 
 #define uint32 long int
 //#define uint32 unsigned int
+#include <utils/common/SUMOTime.h>
 
-typedef int (*CMPFUN)(long int, long int);
+typedef int (*CMPFUN)(SUMOTime, SUMOTime);
 
 
 
@@ -43,12 +44,12 @@ typedef int (*CMPFUN)(long int, long int);
  *
  * Return Value: none
  */
-void Qsort(long int *This, long int *iax, CMPFUN fun_ptr, uint32 first, uint32 last)
+void Qsort(SUMOTime *This, SUMOTime *iax, CMPFUN fun_ptr, uint32 first, uint32 last)
 {
   uint32 stack_pointer = 0;
-  long int first_stack[64];
-  long int last_stack[64];
-  long int cur_i,temp_i;
+  SUMOTime first_stack[64];
+  SUMOTime last_stack[64];
+  SUMOTime cur_i,temp_i;
 
   for (;;)
   {
@@ -56,9 +57,9 @@ void Qsort(long int *This, long int *iax, CMPFUN fun_ptr, uint32 first, uint32 l
     {
       /* for small sort, use insertion sort */
       uint32 indx;
-      long int prev_val = *(This+first);
-      long int prev_i   = *(iax+first);
-      long int cur_val,hilf;
+      SUMOTime prev_val = *(This+first);
+      SUMOTime prev_i   = *(iax+first);
+      SUMOTime cur_val,hilf;
 
       for (indx = first + 1; indx <= last; ++indx)
       {
@@ -74,7 +75,7 @@ void Qsort(long int *This, long int *iax, CMPFUN fun_ptr, uint32 first, uint32 l
           /* find the insertion point for the smaller item */
           for (indx2 = indx - 1; indx2 > first; )
           {
-            long int temp_val = *(This+indx2 - 1);
+            SUMOTime temp_val = *(This+indx2 - 1);
             temp_i = *(iax+indx2-1);
             if ((*fun_ptr)(temp_val, cur_val) > 0)
             {
@@ -98,11 +99,11 @@ void Qsort(long int *This, long int *iax, CMPFUN fun_ptr, uint32 first, uint32 l
     }
     else
     {
-      long int pivot;
+      SUMOTime pivot;
 
       /* try quick sort */
       {
-        long int temp;
+        SUMOTime temp;
         uint32 med = (first + last) >> 1;
         /* Choose pivot from first, last, and median position. */
         /* Sort the three elements. */
@@ -151,7 +152,7 @@ void Qsort(long int *This, long int *iax, CMPFUN fun_ptr, uint32 first, uint32 l
 
 	    if (up > down)
 	    {
-	      long int temp;
+	      SUMOTime temp;
 	      /* interchange L[down] and L[up] */
 	      temp = *(This+down);
 		  *(This+down)= *(This+up);
@@ -206,16 +207,13 @@ void Qsort(long int *This, long int *iax, CMPFUN fun_ptr, uint32 first, uint32 l
 
 
 
-void IndexSort(long int *This, long int *iax, CMPFUN fun_ptr, uint32 the_len)
+void IndexSort(SUMOTime *This, SUMOTime *iax, CMPFUN fun_ptr, long the_len)
 {
 	Qsort(This, iax, fun_ptr, 0, the_len - 1);
 }
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "ODIndexSort.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

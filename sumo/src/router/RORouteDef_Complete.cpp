@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/05/04 08:53:07  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2004/12/16 12:26:52  dkrajzew
 // debugging
 //
@@ -52,6 +55,12 @@ namespace
 // Revision 1.3  2003/02/07 10:45:04  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -107,15 +116,15 @@ RORouteDef_Complete::getTo() const
 
 RORoute *
 RORouteDef_Complete::buildCurrentRoute(ROAbstractRouter &router,
-        long begin, bool continueOnUnbuild, ROVehicle &veh,
-        ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever)
+		SUMOTime begin, bool continueOnUnbuild, ROVehicle &veh,
+		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever)
 {
     return new RORoute(_id, 0, 1, _edges);
 }
 
 
 void
-RORouteDef_Complete::addAlternative(RORoute *current, long begin)
+RORouteDef_Complete::addAlternative(RORoute *current, SUMOTime begin)
 {
     _startTime = begin;
     delete current;

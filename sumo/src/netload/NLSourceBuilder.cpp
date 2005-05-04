@@ -21,19 +21,29 @@ namespace
      const char rcsid[] = "$Id: ";
 }
 // $Log$
+// Revision 1.3  2005/05/04 08:43:09  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2003/06/06 10:40:18  dkrajzew
 // new usage of MSEventControl applied
 //
 // Revision 1.1  2002/10/16 15:36:50  dkrajzew
-// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
+// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition
+//  parseable in one step
 //
 // Revision 1.1  2002/07/31 17:34:41  roessel
 // Initial sourceforge commit.
 //
 // Revision 1.2  2002/07/23 06:37:37  dkrajzew
-// Single Source Definition Files may now be specified using relative pathnames within the Source Files
+// Single Source Definition Files may now be specified using relative
+//  pathnames within the Source Files
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -62,10 +72,8 @@ NLSourceBuilder::buildTriggeredSource(const std::string &id,
     }
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NLSourceBuilder.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

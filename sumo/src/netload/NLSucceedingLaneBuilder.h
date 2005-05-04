@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/05/04 08:43:09  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.5  2003/09/05 15:20:20  dkrajzew
 // loading of internal links added
 //
@@ -33,7 +36,8 @@
 // updated
 //
 // Revision 1.1  2002/10/16 15:36:49  dkrajzew
-// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
+// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition
+//  parseable in one step
 //
 // Revision 1.4  2002/06/11 14:39:25  dkrajzew
 // windows eol removed
@@ -42,7 +46,8 @@
 // Windows eol removed
 //
 // Revision 1.2  2002/06/07 14:39:59  dkrajzew
-// errors occured while building larger nets and adaption of new netconverting methods debugged
+// errors occured while building larger nets and adaption of new
+//  netconverting methods debugged
 //
 // Revision 1.1.1.1  2002/04/08 07:21:24  traffic
 // new project name
@@ -56,7 +61,12 @@
 // Revision 1.1  2001/12/06 13:36:11  traffic
 // moved from netbuild
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -117,10 +127,8 @@ private:
     NLSucceedingLaneBuilder &operator=(const NLSucceedingLaneBuilder &s);
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NLSucceedingLaneBuilder.icc"
-//#endif
 
 #endif
 

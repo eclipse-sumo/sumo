@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/05/04 08:53:07  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.7  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -39,6 +42,12 @@
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -48,6 +57,7 @@
 #include <string>
 #include <iostream>
 #include "ROVehicle.h"
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -70,7 +80,7 @@ public:
     /// Constructor
     RORunningVehicle(ROVehicleBuilder &vb,
         const std::string &id, RORouteDef *route,
-        long time, ROVehicleType *type, const std::string &lane,
+        SUMOTime time, ROVehicleType *type, const std::string &lane,
         float pos, float speed,
         const RGBColor &col, int period, int repNo);
 

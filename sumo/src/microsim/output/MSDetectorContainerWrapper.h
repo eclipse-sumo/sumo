@@ -22,6 +22,15 @@
 //
 //---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "MSDetectorContainerWrapperBase.h"
 #include <microsim/MSVehicle.h>
 #include "MSPredicates.h"
@@ -33,6 +42,10 @@
 
 #include <iostream>
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 template< class WrappedContainer >
 struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
 {

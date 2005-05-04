@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/05/04 08:07:09  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2004/11/23 10:18:24  dkrajzew
 // new detectors usage applied
 //
@@ -71,13 +74,9 @@ Command_SaveTLCoupledDet::~Command_SaveTLCoupledDet()
 bool
 Command_SaveTLCoupledDet::execute()
 {
-    unsigned int end =
+    SUMOTime end =
         MSNet::getInstance()->getCurrentTimeStep();
-/*    myDevice->getOStream()
-        << "<interval start=\"" << myStartTime << "\" stop=\"" << end
-        << "\" ";*/
     myDetector->writeXMLOutput( *myDevice, myStartTime, end );
-//    myDevice->getOStream() << " />" << endl;
     myStartTime = end;
     return true;
 }

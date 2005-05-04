@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/05/04 08:51:41  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.9  2004/12/16 12:26:52  dkrajzew
 // debugging
 //
@@ -47,6 +50,12 @@ namespace
 // Revision 1.2  2003/02/07 10:45:05  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -126,7 +135,7 @@ RORoute::setCosts(double costs)
 
 
 double
-RORoute::recomputeCosts(long begin) const
+RORoute::recomputeCosts(SUMOTime begin) const
 {
     return _route.recomputeCosts(begin);
 }

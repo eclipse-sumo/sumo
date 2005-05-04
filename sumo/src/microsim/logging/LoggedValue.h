@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 08:09:23  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2004/03/01 10:49:51  roessel
 // Reintroduced formerly removed files.
 //
@@ -80,12 +83,6 @@ protected:
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-/* =========================================================================
- * included modules
- * ======================================================================= */
-//#include "LoggedValue.icc"
-//#endif
 
 #endif
 

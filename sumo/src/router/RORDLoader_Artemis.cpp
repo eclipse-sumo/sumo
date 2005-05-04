@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/05/04 08:50:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2004/07/02 09:39:41  dkrajzew
 // debugging while working on INVENT; preparation of classes to be derived for an online-routing
 //
@@ -64,6 +67,12 @@ namespace
 // artemis route support added
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -101,7 +110,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 RORDLoader_Artemis::RORDLoader_Artemis(ROVehicleBuilder &vb, RONet &net,
-                                       unsigned int begin, unsigned int end,
+                                       SUMOTime begin, SUMOTime end,
                                        string file)
     : ROAbstractRouteDefLoader(vb, net, begin, end),
     myRouteIDSupplier(string("ARTEMIS_"), 0),
@@ -130,13 +139,13 @@ RORDLoader_Artemis::getDataName() const
 
 
 bool
-RORDLoader_Artemis::myReadRoutesAtLeastUntil(unsigned int time)
+RORDLoader_Artemis::myReadRoutesAtLeastUntil(SUMOTime time)
 {
     // go through the emitter nodes
     for(NodeFlows::iterator i=myNodeFlows.begin(); i!=myNodeFlows.end(); i++) {
         double flow = (*i).second; // (in veh/hour)
         // compute the time of the next vehicle emission
-        long period = (long) (3600.0/flow);
+        SUMOTime period = (SUMOTime) (3600.0/flow);
         // get the name of the origin node
         string orig = (*i).first;
         // check whether a vehicle shall be emitted at this time
@@ -147,7 +156,7 @@ RORDLoader_Artemis::myReadRoutesAtLeastUntil(unsigned int time)
             DestProbVector poss = myNodeConnections[orig];
             for(DestProbVector::iterator j=poss.begin(); j!=poss.end(); j++) {
                 prob -= (*j).second;
-                // use the current node if the propability indicates it
+                // use the current node if the probability indicates it
                 if(prob<0) {
                     // retrieve the edges
                     string fromname = orig + string("SOURCE");
@@ -244,7 +253,7 @@ RORDLoader_Artemis::ended() const
 }
 
 
-unsigned int
+SUMOTime
 RORDLoader_Artemis::getCurrentTimeStep() const
 {
     return myCurrentTime;

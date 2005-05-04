@@ -23,13 +23,21 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/05/04 08:20:51  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2004/11/23 10:14:26  dkrajzew
 // all detectors moved to microscim/output; new detectors usage applied
 //
 // Revision 1.1  2004/08/02 12:05:54  dkrajzew
 // raw-output added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -63,7 +71,7 @@ MSXMLRawOut::~MSXMLRawOut()
 
 void
 MSXMLRawOut::write(OutputDevice* of, const MSEdgeControl &ec,
-                   unsigned int timestep,
+                   SUMOTime timestep,
                    unsigned int intend)
 {
     of->getOStream() << "   <timestep id=\"" << timestep << "\">" << endl;
