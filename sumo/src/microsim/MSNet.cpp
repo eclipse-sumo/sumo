@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.58  2005/05/04 08:29:28  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; output of simulation speed added
+//
 // Revision 1.57  2005/02/01 10:08:24  dkrajzew
 // performance computation added; got rid of MSNet::Time
 //
@@ -348,6 +351,12 @@ namespace
 // new start
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -420,8 +429,8 @@ double MSNet::myCellLength = 1;
 SUMOTime MSNet::globaltime;
 
 #ifdef ABS_DEBUG
-SUMOTime MSNet::searchedtime = 21880;
-std::string MSNet::searched1 = "2635";
+SUMOTime MSNet::searchedtime = 18193;
+std::string MSNet::searched1 = "107";
 std::string MSNet::searched2 = "2858";
 std::string MSNet::searchedJunction = "536";
 #endif
@@ -431,7 +440,7 @@ std::string MSNet::searchedJunction = "536";
  * member method definitions
  * ======================================================================= */
 MSNet::MSNet()
-    : myEdges(0), mySimDuration(0), myVehiclesMoved(0)
+    : myEdges(0), mySimDuration(0), myVehiclesMoved(0), mySimStepDuration(-1)
 {
 }
 
@@ -490,7 +499,7 @@ MSNet::init( string id, MSEdgeControl* ec,
         MSMeanData_Net_Utils::buildList( *(myInstance->myEdges),
             dumpMeanDataIntervalls, baseNameDumpFiles);
     MSCORN::setTripDurationsOutput(streams[OS_TRIPDURATIONS]);
-    MSCORN::setVehicleRouteOutput(streams[OS_VEHROUTE]);
+	MSCORN::setVehicleRouteOutput(streams[OS_VEHROUTE]);
     myInstance->myLogExecutionTime = logExecutionTime;
 }
 
@@ -512,16 +521,6 @@ MSNet::closeBuilding(const NLNetBuilder &nb)
 
 MSNet::~MSNet()
 {
-    // close the net statistics
-    /*
-    for( std::vector< MSMeanData_Net* >::iterator i1=myMeanData.begin(); i1!=myMeanData.end(); i1++) {
-        /*
-        unsigned passedSteps = myStep - start + 1;
-        (*i1)->write();
-        MSMeanData_Net_Utils::checkOutput(myMeanData, myStep, *myEdges);
-        */
-      /*  delete (*i1);
-    }*/
     // delete controls
     MSDetectorSubSys::deleteDictionariesAndContents();
     clearAll();
@@ -531,6 +530,10 @@ MSNet::~MSNet()
     delete myLogics;
     delete myRouteLoaders;
     delete myVehicleControl;
+    // delete mean data
+    for(MSMeanData_Net_Cont::iterator i1=myMeanData.begin(); i1!=myMeanData.end(); ++i1) {
+        delete *i1;
+    }
     // close outputs
     for(size_t i2=0; i2<OS_MAX; i2++) {
         delete myOutputStreams[i2];
@@ -696,18 +699,6 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
     myEdges->detectCollisions( myStep );
 
     // Check if mean-lane-data is due
-    /*
-    if(myMeanData.size()>0) {
-        unsigned passedSteps = myStep - start + 1;
-        MSMeanData_Net_Utils::checkOutput(myMeanData, passedSteps,
-            start, myStep, *myEdges);
-    }
-    */
-    // write the output
-    /*
-    long etime = time(0);
-    cout << (etime-btime) << endl;
-    */
     long ve = SysUtils::getCurrentMillis();
     writeOutput();
     // execute endOfTimestepEvents
@@ -860,6 +851,13 @@ MSNet::getTrigger(const std::string &id)
         }
     }
     return 0;
+}
+
+
+long
+MSNet::getSimStepDurationInMillis() const
+{
+    return mySimStepDuration;
 }
 
 

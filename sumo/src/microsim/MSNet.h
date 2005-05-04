@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.48  2005/05/04 08:29:28  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; output of simulation speed added
+//
 // Revision 1.47  2005/02/17 10:33:38  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -303,6 +306,7 @@
 #include <iostream>
 #include <cmath>
 #include <utils/geom/Polygon2D.h>
+#include <iomanip>
 
 #include "MSInterface_NetRun.h"
 #include "output/meandata/MSMeanData_Net_Cont.h"
@@ -456,7 +460,7 @@ public:
 
     /** @brief Returns the current simulation time in seconds.
         Current means start-time plus runtime. */
-    double simSeconds();
+    SUMOTime simSeconds();
 
     /** Returns the current timestep. */
     SUMOTime timestep( void );
@@ -473,6 +477,8 @@ public:
     void addTrigger(MSTrigger *t);
 
     MSTrigger *getTrigger(const std::string &id);
+
+    long getSimStepDurationInMillis() const;
 
     /// route handler may add routes and vehicles
     friend class MSRouteHandler;
@@ -556,6 +562,9 @@ public:
     void postSimStepOutput() const {
         if(myLogExecutionTime) {
             if(mySimStepDuration!=0) {
+                std::cout.setf ( std::ios::fixed , std::ios::floatfield ) ; // use decimal format
+                std::cout.setf ( std::ios::showpoint ) ; // print decimal point
+                std::cout << std::setprecision( 2 ) ;
                 std::cout << " (" << mySimStepDuration << "ms ~= "
                     << (1000./ (float) mySimStepDuration) << "*RT, ~"
                     << ((float) myVehicleControl->getRunningVehicleNo()/(float) mySimStepDuration*1000.)
