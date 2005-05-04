@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/05/04 08:37:25  dkrajzew
+// ported to fox1.4
+//
 // Revision 1.14  2005/01/31 09:27:34  dkrajzew
 // added the possibility to save nodes and edges or the build network to netedit
 //
@@ -104,7 +107,6 @@ namespace
 #include <gui/GUIEvent_SimulationLoaded.h>
 #include <utils/gui/events/GUIEvent_SimulationEnded.h>
 #include <utils/gui/events/GUIEvent_Message.h>
-#include <utils/gui/events/GUIEvents.h>
 #include <utils/gui/div/GUIMessageWindow.h>
 #include <gui/GUIGlobals.h>
 #include <utils/gui/tracker/GUIParameterTracker.h>
@@ -237,11 +239,8 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
     new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP,
         TOOLBARGRIP_DOUBLE);
     // build tool bars
-    myToolBarDrag=new FXToolBarShell(this,FRAME_NORMAL);
-    myToolBar = new FXToolBar(this,myToolBarDrag,
-        LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
-    new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP,
-        TOOLBARGRIP_DOUBLE);
+    buildToolBars();
+
     // build the thread - io
     myLoadThreadEvent.setTarget(this),
     myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
@@ -271,7 +270,6 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
     myMessageWindow = new GUIMessageWindow(myMainSplitter);
     // fill menu and tool bar
     fillMenuBar();
-    fillToolBar();
     // build additional threads
     myLoadThread = threadFactory.buildLoadThread(this, myEvents, myLoadThreadEvent);
     myRunThread = threadFactory.buildRunThread(this, *mySimDelayTarget, myEvents,
@@ -311,7 +309,11 @@ GNEApplicationWindow::create()
     gCurrentFolder = getApp()->reg().readStringEntry("SETTINGS","basedir", "");
     FXMainWindow::create();
     myMenuBarDrag->create();
-    myToolBarDrag->create();
+    myToolBarDrag1->create();
+    myToolBarDrag2->create();
+    myToolBarDrag3->create();
+    myToolBarDrag4->create();
+    myToolBarDrag5->create();
     myFileMenu->create();
     myEditMenu->create();
     mySettingsMenu->create();
@@ -337,7 +339,11 @@ GNEApplicationWindow::~GNEApplicationWindow()
     GUIIconSubSys::close();
     GUITexturesHelper::close();
     // delete some non-parented windows
-    delete myToolBarDrag;
+    delete myToolBarDrag1;
+    delete myToolBarDrag2;
+    delete myToolBarDrag3;
+    delete myToolBarDrag4;
+    delete myToolBarDrag5;
     //
     delete myRunThread;
     delete myFileMenu;
@@ -357,7 +363,11 @@ GNEApplicationWindow::detach()
 {
     FXMainWindow::detach();
     myMenuBarDrag->detach();
-    myToolBarDrag->detach();
+    myToolBarDrag1->detach();
+    myToolBarDrag2->detach();
+    myToolBarDrag3->detach();
+    myToolBarDrag4->detach();
+    myToolBarDrag5->detach();
 }
 
 
@@ -515,9 +525,15 @@ GNEApplicationWindow::fillMenuBar()
     new FXMenuCheck(myWindowsMenu,
         "Show Message Window\t\tToggle the Message Window on/off.",
         myMessageWindow,FXWindow::ID_TOGGLESHOWN);
-    new FXMenuCheck(myWindowsMenu,
+/*    new FXMenuCheck(myWindowsMenu,
         "Show Simulation Toolbar\t\tToggle the Toolbar on/off.",
-        myToolBar, FXWindow::ID_TOGGLESHOWN);
+        myToolBar, FXWindow::ID_TOGGLESHOWN);*/
+    new FXMenuCheck(myWindowsMenu,
+        "Show Simulation Time\t\tToggle the Simulation Time on/off.",
+        myToolBar3, FXWindow::ID_TOGGLESHOWN);
+    new FXMenuCheck(myWindowsMenu,
+        "Show Simulation Delay\t\tToggle the Simulation Delay Entry on/off.",
+        myToolBar4, FXWindow::ID_TOGGLESHOWN);
     new FXMenuSeparator(myWindowsMenu);
     new FXMenuCommand(myWindowsMenu,"Tile &Horizontally",
         GUIIconSubSys::getIcon(ICON_WINDOWS_TILE_HORI),
@@ -557,60 +573,89 @@ GNEApplicationWindow::fillMenuBar()
 
 
 void
-GNEApplicationWindow::fillToolBar()
+GNEApplicationWindow::buildToolBars()
 {
-    //The Simulation Toolbar
-
-    // build file tools
-    new FXButton(myToolBar,"\t\tOpen a Simulation (Configuration File).",
-        GUIIconSubSys::getIcon(ICON_OPEN), this, MID_OPEN,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myToolBar,"\t\tReload the Simulation (Configuration File).",
-        GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXToolBarGrip(myToolBar,NULL,0,TOOLBARGRIP_SEPARATOR);
-
-    // build simulation tools
-    new FXButton(myToolBar,"\t\tStart the loaded Simulation.",
-        GUIIconSubSys::getIcon(ICON_START), this, MID_START,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myToolBar,"\t\tStop the running Simulation.",
-        GUIIconSubSys::getIcon(ICON_STOP), this, MID_STOP,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myToolBar,"\t\tPerform a single Simulation Step..",
-        GUIIconSubSys::getIcon(ICON_STEP), this, MID_STEP,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXLabel(myToolBar, "Current Step:");
-
-    myLCDLabel = new FXLCDLabel(myToolBar, 10, 0, 0,
-        LCDLABEL_LEADING_ZEROS);
-    myLCDLabel->setHorizontal(2);
-    myLCDLabel->setVertical(2);
-    myLCDLabel->setThickness(2);
-    myLCDLabel->setGroove(2);
-    myLCDLabel->setText("-----------");
-
-    new FXToolBarGrip(myToolBar,NULL,0,TOOLBARGRIP_SEPARATOR);
-
-    new FXLabel(myToolBar, "Delay:");
-    mySimDelayTarget =
-        new FXRealSpinDial(myToolBar, 10, 0, MID_SIMDELAY,
-        LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
-    mySimDelayTarget->setFormatString("%.0fms");
-    mySimDelayTarget->setIncrements(1,10,10);
-    mySimDelayTarget->setRange(0,1000);
-    mySimDelayTarget->setValue(0);
-
-    new FXToolBarGrip(myToolBar,NULL,0,TOOLBARGRIP_SEPARATOR);
-
-    // build view tools
-    new FXButton(myToolBar,"\t\tOpen a new microscopic View.",
-        GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myToolBar,
-        "\t\tOpen a new Lane aggregated View.",
-        GUIIconSubSys::getIcon(ICON_LAGGRVIEW), this, MID_NEW_LANEAVIEW,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    // build tool bars
+    {
+        // file and simulation tool bar
+        myToolBarDrag1=new FXToolBarShell(this,FRAME_NORMAL);
+        myToolBar1 = new FXToolBar(myTopDock,myToolBarDrag1,
+            LAYOUT_DOCK_NEXT|LAYOUT_SIDE_TOP|FRAME_RAISED);
+        new FXToolBarGrip(myToolBar1, myToolBar1, FXToolBar::ID_TOOLBARGRIP,
+            TOOLBARGRIP_DOUBLE);
+        // build file tools
+        new FXButton(myToolBar1,"\t\tOpen a Simulation (Configuration File).",
+            GUIIconSubSys::getIcon(ICON_OPEN), this, MID_OPEN,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        new FXButton(myToolBar1,"\t\tReload the Simulation (Configuration File).",
+            GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    }
+    {
+        // build simulation tools
+        myToolBarDrag2=new FXToolBarShell(this,FRAME_NORMAL);
+        myToolBar2 = new FXToolBar(myTopDock,myToolBarDrag2,
+            LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
+        new FXToolBarGrip(myToolBar2, myToolBar2, FXToolBar::ID_TOOLBARGRIP,
+            TOOLBARGRIP_DOUBLE);
+        new FXButton(myToolBar2,"\t\tStart the loaded Simulation.",
+            GUIIconSubSys::getIcon(ICON_START), this, MID_START,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        new FXButton(myToolBar2,"\t\tStop the running Simulation.",
+            GUIIconSubSys::getIcon(ICON_STOP), this, MID_STOP,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        new FXButton(myToolBar2,"\t\tPerform a single Simulation Step..",
+            GUIIconSubSys::getIcon(ICON_STEP), this, MID_STEP,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    }
+    {
+        // Simulation Step Display
+        myToolBarDrag3=new FXToolBarShell(this,FRAME_NORMAL);
+        myToolBar3 = new FXToolBar(myTopDock,myToolBarDrag3,
+            LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
+        new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP,
+            TOOLBARGRIP_DOUBLE);
+        new FXLabel(myToolBar3, "Current Step:");
+        myLCDLabel = new FXLCDLabel(myToolBar3, 6, 0, 0,
+            LCDLABEL_LEADING_ZEROS);
+        myLCDLabel->setHorizontal(2);
+        myLCDLabel->setVertical(2);
+        myLCDLabel->setThickness(2);
+        myLCDLabel->setGroove(2);
+        myLCDLabel->setText("-----------");
+    }
+    {
+        // Simulation Delay
+        myToolBarDrag4=new FXToolBarShell(this,FRAME_NORMAL);
+        myToolBar4 = new FXToolBar(myTopDock,myToolBarDrag4,
+            LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
+        new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP,
+            TOOLBARGRIP_DOUBLE);
+        new FXLabel(myToolBar4, "Delay:");
+        mySimDelayTarget =
+            new FXRealSpinDial(myToolBar4, 10, 0, MID_SIMDELAY,
+            LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        mySimDelayTarget->setFormatString("%.0fms");
+        mySimDelayTarget->setIncrements(1,10,10);
+        mySimDelayTarget->setRange(0,1000);
+        mySimDelayTarget->setValue(0);
+    }
+    {
+        // Views
+        myToolBarDrag5=new FXToolBarShell(this,FRAME_NORMAL);
+        myToolBar5 = new FXToolBar(myTopDock,myToolBarDrag5,
+            LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
+        new FXToolBarGrip(myToolBar5, myToolBar5, FXToolBar::ID_TOOLBARGRIP,
+            TOOLBARGRIP_DOUBLE);
+        // build view tools
+        new FXButton(myToolBar5,"\t\tOpen a new microscopic View.",
+            GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        new FXButton(myToolBar5,
+            "\t\tOpen a new Lane aggregated View.",
+            GUIIconSubSys::getIcon(ICON_LAGGRVIEW), this, MID_NEW_LANEAVIEW,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    }
 }
 
 // Handle the clear message
@@ -754,8 +799,8 @@ GNEApplicationWindow::onCmdClose(FXObject*,FXSelector,void*)
 long
 GNEApplicationWindow::onCmdLoadImage(FXObject*,FXSelector,void*)
 {
-    // get the new file name
-    FXFileDialog opendialog(this,"Öffne BitMap");
+	// get the new file name
+	FXFileDialog opendialog(this,"Öffne BitMap");
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("*.bmp");
     if(gCurrentFolder.length()!=0) {
@@ -777,30 +822,30 @@ GNEApplicationWindow::onCmdLoadImage(FXObject*,FXSelector,void*)
         Image *img = new Image(fximg,getApp());
         bool extrFlag = true;
 
-        //Sets the Flag for Extract Streets if a sceletton is loaded
-        FXint wid = img->GetFXImage()->getWidth();
-        FXint hei = img->GetFXImage()->getHeight();
+		//Sets the Flag for Extract Streets if a sceletton is loaded
+		FXint wid = img->GetFXImage()->getWidth();
+		FXint hei = img->GetFXImage()->getHeight();
 
-        for (FXint i=0 ; i<wid ; ++i)
-        {
-            for (FXint j=0; j<hei ; ++j)
-            {
+		for (FXint i=0 ; i<wid ; ++i)
+		{
+			for (FXint j=0; j<hei ; ++j)
+			{
 
-                FXColor col=img->GetFXImage()->getPixel(i,j);
+				FXColor col=img->GetFXImage()->getPixel(i,j);
 
-                // prooves if a pixel is coloured
-                if(
-                    //not white
-                    (col!=FXRGB(255,255,255))&&
-                    //not black
-                    (col!=FXRGB(0,0,0))
+				// prooves if a pixel is coloured
+				if(
+					//not white
+					(col!=FXRGB(255,255,255))&&
+					//not black
+					(col!=FXRGB(0,0,0))
 
                     ) {
 
-                    extrFlag=false;
+					extrFlag=false;
                 }
-            }
-        }
+			}
+		}
         GNEImageProcWindow *nWindow =
             new GNEImageProcWindow(this, &myNetBuilder, myMDIClient, myMDIMenu,
                 img, extrFlag, FXString("Hallo!!!"));
@@ -811,7 +856,7 @@ GNEApplicationWindow::onCmdLoadImage(FXObject*,FXSelector,void*)
             myMDIClient->vertical(true);
         }
         myMDIClient->setActiveChild(nWindow);
-    }
+	}
     return 1;
 
 }
@@ -829,41 +874,41 @@ GNEApplicationWindow::onCmdSaveImage(FXObject*,FXSelector,void*)
 {
     /*
     if(m_img)
-    {
-        FXFileDialog savedialog(this,"Save Document");
-        FXString file=imgfilename;
-        savedialog.setSelectMode(SELECTFILE_ANY);
-        savedialog.setPatternList("*.bmp");
-        savedialog.setCurrentPattern(0);
-        savedialog.setFilename(file);
-        if(gCurrentFolder.length()!=0)
-            savedialog.setDirectory(gCurrentFolder.c_str());
-        if(savedialog.execute())
-        {
-            //setCurrentPattern(savedialog.getCurrentPattern());
-            file=savedialog.getFilename();
-            if(FXFile::exists(file))
-            {
-                if(MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Document","Overwrite existing document: %s?",file.text())) return 1;
-            }
-            FXFileStream stream;
-            FXString s=".bmp";
-            FXString a=savedialog.getFilename().text();
-            if(a.right(4)==".bmp")
-            {
-                if(stream.open(savedialog.getFilename().text(),FXStreamSave))
-                    {
-                        m_img->GetFXImage()->savePixels(stream);
-                        stream.close();
-                    }
-            }
-            else
-                if(stream.open(savedialog.getFilename().text()+s,FXStreamSave))
-                    {
-                        m_img->GetFXImage()->savePixels(stream);
-                        stream.close();
-                    }
-        }
+	{
+		FXFileDialog savedialog(this,"Save Document");
+		FXString file=imgfilename;
+		savedialog.setSelectMode(SELECTFILE_ANY);
+		savedialog.setPatternList("*.bmp");
+		savedialog.setCurrentPattern(0);
+		savedialog.setFilename(file);
+		if(gCurrentFolder.length()!=0)
+			savedialog.setDirectory(gCurrentFolder.c_str());
+		if(savedialog.execute())
+		{
+			//setCurrentPattern(savedialog.getCurrentPattern());
+			file=savedialog.getFilename();
+			if(FXFile::exists(file))
+			{
+				if(MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Document","Overwrite existing document: %s?",file.text())) return 1;
+			}
+			FXFileStream stream;
+			FXString s=".bmp";
+			FXString a=savedialog.getFilename().text();
+			if(a.right(4)==".bmp")
+			{
+				if(stream.open(savedialog.getFilename().text(),FXStreamSave))
+					{
+						m_img->GetFXImage()->savePixels(stream);
+						stream.close();
+					}
+			}
+			else
+				if(stream.open(savedialog.getFilename().text()+s,FXStreamSave))
+					{
+						m_img->GetFXImage()->savePixels(stream);
+						stream.close();
+					}
+		}
     }
   return 1;
   */
@@ -875,14 +920,14 @@ long
 GNEApplicationWindow::onCmdSaveEdgesNodes(FXObject*,FXSelector,void*)
 {
     FXFileDialog savedialog(this,"Save Nodes and Edges...");
-    savedialog.setSelectMode(SELECTFILE_ANY);
-    savedialog.setPatternList("*");
-    savedialog.setCurrentPattern(0);
-    if(gCurrentFolder.length()!=0)
-        savedialog.setDirectory(gCurrentFolder.c_str());
+	savedialog.setSelectMode(SELECTFILE_ANY);
+	savedialog.setPatternList("*");
+	savedialog.setCurrentPattern(0);
+	if(gCurrentFolder.length()!=0)
+	    savedialog.setDirectory(gCurrentFolder.c_str());
     if(savedialog.execute()) {
         //setCurrentPattern(savedialog.getCurrentPattern());
-        FXString file = savedialog.getFilename();
+		FXString file = savedialog.getFilename();
         string filestr = file.text();
 
         size_t bla1 = filestr.rfind(".nod.xml");
@@ -897,23 +942,23 @@ GNEApplicationWindow::onCmdSaveEdgesNodes(FXObject*,FXSelector,void*)
         }
         bool saveNodes = true;
         bool saveEdges = true;
-        if(FXFile::exists(file+".nod.xml")) {
+		if(FXFile::exists(file+".nod.xml")) {
             if(MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Document","Overwrite existing document: %s?",
                 (file+".nod.xml").text())) {
                 saveNodes = false;
             }
         }
-        if(FXFile::exists(file+".edg.xml")) {
+		if(FXFile::exists(file+".edg.xml")) {
             if(MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Document","Overwrite existing document: %s?",
                 (file+".edg.xml").text())) {
                 saveEdges = false;
             }
         }
         if(saveNodes) {
-            NBNodeCont::savePlain(filestr + string(".nod.xml"));
+            myNetBuilder.getNodeCont().savePlain(filestr + string(".nod.xml"));
         }
         if(saveEdges) {
-            NBEdgeCont::savePlain(filestr + string(".edg.xml"));
+            myNetBuilder.getEdgeCont().savePlain(filestr + string(".edg.xml"));
         }
     }
     return 1;
@@ -924,14 +969,14 @@ long
 GNEApplicationWindow::onCmdSaveNet(FXObject*,FXSelector,void*)
 {
     FXFileDialog savedialog(this,"Save Build Net...");
-    savedialog.setSelectMode(SELECTFILE_ANY);
-    savedialog.setPatternList("SUMO Networks (*.net.xml)");
-    savedialog.setCurrentPattern(0);
-    if(gCurrentFolder.length()!=0)
-        savedialog.setDirectory(gCurrentFolder.c_str());
+	savedialog.setSelectMode(SELECTFILE_ANY);
+	savedialog.setPatternList("SUMO Networks (*.net.xml)");
+	savedialog.setCurrentPattern(0);
+	if(gCurrentFolder.length()!=0)
+	    savedialog.setDirectory(gCurrentFolder.c_str());
     if(savedialog.execute()) {
         //setCurrentPattern(savedialog.getCurrentPattern());
-        FXString file = savedialog.getFilename();
+		FXString file = savedialog.getFilename();
         string filestr = file.text();
 
         // prune the postfix
@@ -939,7 +984,7 @@ GNEApplicationWindow::onCmdSaveNet(FXObject*,FXSelector,void*)
             filestr = filestr.substr(0, filestr.length()-8);
             file = filestr.c_str();
         }
-        if(FXFile::exists(file+".net.xml")) {
+		if(FXFile::exists(file+".net.xml")) {
             if(MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Document","Overwrite existing document: %s?",
                 (file+".net.xml").text())) {
                 return 1;
@@ -968,7 +1013,7 @@ GNEApplicationWindow::onUpdSaveEdgesNodes(FXObject *sender,FXSelector,void*ptr)
             allow & static_cast<GNEImageProcWindow*>(child)->haveBuild
     }
     */
-    bool allow = NBNodeCont::size()!=0;
+    bool allow = myNetBuilder.getNodeCont().size()!=0;
     sender->handle(this,
         allow?FXSEL(SEL_COMMAND,ID_ENABLE):FXSEL(SEL_COMMAND,ID_DISABLE),
         ptr);
@@ -989,7 +1034,7 @@ GNEApplicationWindow::onUpdSaveNet(FXObject *sender,FXSelector,void*ptr)
             allow & static_cast<GNEImageProcWindow*>(child)->haveBuild
     }
     */
-    bool allow = NBNodeCont::size()!=0 && myNetBuilder.netBuild();
+    bool allow = myNetBuilder.getNodeCont().size()!=0 && myNetBuilder.netBuild();
     sender->handle(this,
         allow?FXSEL(SEL_COMMAND,ID_ENABLE):FXSEL(SEL_COMMAND,ID_DISABLE),
         ptr);
@@ -1247,7 +1292,7 @@ GNEApplicationWindow::eventOccured()
         }
         delete e;
     }
-    myToolBar->forceRefresh();
+    myToolBar3->forceRefresh();
 }
 
 
@@ -1462,18 +1507,18 @@ GNEApplicationWindow::getDefaultCursor()
 }
 
 
-FXTimer *
+void
 GNEApplicationWindow::addTimeout(FXObject *tgt, FXSelector sel,
                                  FXuint ms, void *ptr)
 {
-    return getApp()->addTimeout(tgt, sel, ms, ptr);
+    getApp()->addTimeout(tgt, sel, ms, ptr);
 }
 
 
-FXTimer *
+void
 GNEApplicationWindow::removeTimeout(FXObject *tgt, FXSelector sel)
 {
-    return getApp()->removeTimeout(tgt, sel);
+    getApp()->removeTimeout(tgt, sel);
 }
 
 

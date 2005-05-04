@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/05/04 08:37:26  dkrajzew
+// ported to fox1.4
+//
 // Revision 1.3  2005/01/31 09:27:35  dkrajzew
 // added the possibility to save nodes and edges or the build network to netedit
 //
@@ -162,9 +165,9 @@ GNEViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
 
     FXToolBar &toolbar = v.getToolBar(*this);
 
-    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
+	new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
 
-    new MFXCheckableButton(false,
+	new MFXCheckableButton(false,
         &toolbar,
         "\tToggle Editor Tool\tToggle Editor Tool Selection.",
         GUIIconSubSys::getIcon(ICON_EDITGRAPH), this, MID_EDIT_GRAPH,

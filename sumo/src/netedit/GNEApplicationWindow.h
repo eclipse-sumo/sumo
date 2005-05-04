@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/05/04 08:37:26  dkrajzew
+// ported to fox1.4
+//
 // Revision 1.7  2005/01/31 09:27:35  dkrajzew
 // added the possibility to save nodes and edges or the build network to netedit
 //
@@ -208,9 +211,9 @@ public:
     long onUpdGraphMenu(FXObject*,FXSelector,void*);
     long onCmdGraphMenu(FXObject*,FXSelector,void*);
 
-    FXTimer *addTimeout(FXObject *tgt, FXSelector sel,
+    void addTimeout(FXObject *tgt, FXSelector sel,
         FXuint ms=1000, void *ptr=NULL);
-    FXTimer *removeTimeout(FXObject *tgt, FXSelector sel);
+    void removeTimeout(FXObject *tgt, FXSelector sel);
 
     FXGLCanvas *getBuildGLCanvas() const;
     size_t getCurrentSimTime() const;
@@ -239,7 +242,7 @@ private:
     void fillMenuBar();
 
     /// Builds the tool bar
-    void fillToolBar();
+    void buildToolBars();
 
 protected:
     /** the name of the simulation */
@@ -274,7 +277,9 @@ protected:
     FXStatusBar *myStatusbar;
 
     /// for some menu detaching fun
-    FXToolBarShell *myToolBarDrag, *myMenuBarDrag/*, *myIMGToolBarDrag*/;
+    FXToolBarShell *myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,
+        *myToolBarDrag4, *myToolBarDrag5,
+        *myMenuBarDrag/*, *myIMGToolBarDrag*/;
 
     ///
     FXRealSpinDial *mySimDelayTarget;
@@ -292,7 +297,7 @@ protected:
     FXMenuBar *myMenuBar;
 
     /// The application tool bar
-    FXToolBar *myToolBar;
+    FXToolBar *myToolBar1, *myToolBar2, *myToolBar3, *myToolBar4, *myToolBar5;
 
     // The Image Toolbar
 //    FXToolBar *myIMGToolBar;
@@ -331,19 +336,19 @@ protected:
 
     // Image Configuration Dialog
     ConfigDialog *dialog;
-    InfoDialog *dialog2;
+	InfoDialog *dialog2;
 
-    // default filename for the imagefiledialog
-    FXString imgfilename;
+	// default filename for the imagefiledialog
+	FXString imgfilename;
 
-    //Popupbutton for painttool
-//  FXPopup* paintpop;
+	//Popupbutton for painttool
+//	FXPopup* paintpop;
 
-    //Popupbutton for painttool
-//  FXPopup* rubberpop;
+	//Popupbutton for painttool
+//	FXPopup* rubberpop;
 
-    //flag for Streetextraction..Algorithm may only be used once
-//  bool extrFlag;
+	//flag for Streetextraction..Algorithm may only be used once
+//	bool extrFlag;
 
     NBNetBuilder myNetBuilder;
 

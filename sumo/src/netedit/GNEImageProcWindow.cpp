@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/05/04 08:37:26  dkrajzew
+// ported to fox1.4
+//
 // Revision 1.3  2005/03/31 14:18:45  miguelliebe
 // ConfigDialog upgrade(Bitmap scale)
 //
@@ -152,81 +155,81 @@ GNEImageProcWindow::GNEImageProcWindow(GNEApplicationWindow *parent,
 
     // build the tool bar
     myIMGToolBar = new FXToolBar(contentFrame,LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
-    new FXButton(myIMGToolBar,"\t\tOpen Bitmap Configuration Dialog.",
+	new FXButton(myIMGToolBar,"\t\tOpen Bitmap Configuration Dialog.",
         GUIIconSubSys::getIcon(ICON_OPEN_BMP_DIALOG), this, MID_OPEN_BMP_DIALOG,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXToolBarGrip(myIMGToolBar,NULL,0,TOOLBARGRIP_SEPARATOR);
-    new FXButton(myIMGToolBar,
+	new FXToolBarGrip(myIMGToolBar,NULL,0,TOOLBARGRIP_SINGLE);
+	new FXButton(myIMGToolBar,
         "\t\tExtracts streets (areas with one of the chosen colours).",
         GUIIconSubSys::getIcon(ICON_EXTRACT), this, MID_EXTRACT_STREETS,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myIMGToolBar,"\t\tPerforms a dilatation on the image.",
+	new FXButton(myIMGToolBar,"\t\tPerforms a dilatation on the image.",
         GUIIconSubSys::getIcon(ICON_DILATE), this, MID_DILATION,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myIMGToolBar,"\t\tPerforms an erosion on the image.",
+	new FXButton(myIMGToolBar,"\t\tPerforms an erosion on the image.",
         GUIIconSubSys::getIcon(ICON_ERODE), this, MID_EROSION,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myIMGToolBar,"\t\tOpens morphologically (erode first, then dilate).",
+	new FXButton(myIMGToolBar,"\t\tOpens morphologically (erode first, then dilate).",
         GUIIconSubSys::getIcon(ICON_OPENING), this, MID_OPENING,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myIMGToolBar,"\t\tCloses morphologically (dilate first, then close).",
+	new FXButton(myIMGToolBar,"\t\tCloses morphologically (dilate first, then close).",
         GUIIconSubSys::getIcon(ICON_CLOSING), this, MID_CLOSING,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myIMGToolBar,"\t\tMinimizes small white spots in black areas.",
+	new FXButton(myIMGToolBar,"\t\tMinimizes small white spots in black areas.",
         GUIIconSubSys::getIcon(ICON_CLOSE_GAPS), this, MID_CLOSE_GAPS,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myIMGToolBar,"\t\tErases black ´noise´.",
+	new FXButton(myIMGToolBar,"\t\tErases black ´noise´.",
         GUIIconSubSys::getIcon(ICON_ERASE_STAINS), this, MID_ERASE_STAINS,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myIMGToolBar,"\t\tCreates a street´s skeleton (thin black lines in the middle of the street.",
+	new FXButton(myIMGToolBar,"\t\tCreates a street´s skeleton (thin black lines in the middle of the street.",
         GUIIconSubSys::getIcon(ICON_SKELETONIZE), this, MID_SKELETONIZE,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXToolBarGrip(myIMGToolBar,NULL,0,TOOLBARGRIP_SEPARATOR);
-    new FXButton(myIMGToolBar,"\t\tCreates a graph from the skeleton.",
-        GUIIconSubSys::getIcon(ICON_CREATE_GRAPH), this, MID_CREATE_GRAPH,
+	new FXToolBarGrip(myIMGToolBar,NULL,0,TOOLBARGRIP_SINGLE);
+	new FXButton(myIMGToolBar,"\t\tCreates a graph from the skeleton.",
+		GUIIconSubSys::getIcon(ICON_CREATE_GRAPH), this, MID_CREATE_GRAPH,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXToolBarGrip(myIMGToolBar,NULL,0,TOOLBARGRIP_SEPARATOR);
-    myPaintPop=new FXPopup(this,POPUP_VERTICAL);
-    new FXButton(myPaintPop,"\t\tPaintbrush, very thin",
-        GUIIconSubSys::getIcon(ICON_PAINTBRUSH1X), this, MID_OPEN_BMP_DIALOG,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myPaintPop,"\t\tPaintbrush,  thin",
-        GUIIconSubSys::getIcon(ICON_PAINTBRUSH2X), this, MID_OPEN_BMP_DIALOG,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myPaintPop,"\t\tPaintbrush, normal",
-        GUIIconSubSys::getIcon(ICON_PAINTBRUSH3X), this, MID_OPEN_BMP_DIALOG,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myPaintPop,"\t\tPaintbrush, thick",
-        GUIIconSubSys::getIcon(ICON_PAINTBRUSH4X), this, MID_OPEN_BMP_DIALOG,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myPaintPop,"\t\tPaintbrush, very thick",
-        GUIIconSubSys::getIcon(ICON_PAINTBRUSH5X), this, MID_OPEN_BMP_DIALOG,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXMenuButton(myIMGToolBar,"&\t\tChoose brush size",
-        GUIIconSubSys::getIcon(ICON_PAINTBRUSH1X),myPaintPop,
-        MENUBUTTON_ATTACH_BOTH|MENUBUTTON_DOWN|MENUBUTTON_NOARROWS|LAYOUT_LEFT|
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+	new FXToolBarGrip(myIMGToolBar,NULL,0,TOOLBARGRIP_SINGLE);
+	myPaintPop=new FXPopup(this,POPUP_VERTICAL);
+	new FXButton(myPaintPop,"\t\tPaintbrush, very thin",
+		GUIIconSubSys::getIcon(ICON_PAINTBRUSH1X), this, MID_OPEN_BMP_DIALOG,
+		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+	new FXButton(myPaintPop,"\t\tPaintbrush,  thin",
+		GUIIconSubSys::getIcon(ICON_PAINTBRUSH2X), this, MID_OPEN_BMP_DIALOG,
+		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+	new FXButton(myPaintPop,"\t\tPaintbrush, normal",
+		GUIIconSubSys::getIcon(ICON_PAINTBRUSH3X), this, MID_OPEN_BMP_DIALOG,
+		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+	new FXButton(myPaintPop,"\t\tPaintbrush, thick",
+		GUIIconSubSys::getIcon(ICON_PAINTBRUSH4X), this, MID_OPEN_BMP_DIALOG,
+		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+	new FXButton(myPaintPop,"\t\tPaintbrush, very thick",
+		GUIIconSubSys::getIcon(ICON_PAINTBRUSH5X), this, MID_OPEN_BMP_DIALOG,
+		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+	new FXMenuButton(myIMGToolBar,"&\t\tChoose brush size",
+		GUIIconSubSys::getIcon(ICON_PAINTBRUSH1X),myPaintPop,
+		MENUBUTTON_ATTACH_BOTH|MENUBUTTON_DOWN|MENUBUTTON_NOARROWS|LAYOUT_LEFT|
+		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 
-    myRubberPop=new FXPopup(this,POPUP_VERTICAL);
-    new FXButton(myRubberPop,"\t\tRubber, very thin",
-        GUIIconSubSys::getIcon(ICON_RUBBER1X), this, MID_OPEN_BMP_DIALOG,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myRubberPop,"\t\tRubber,  thin",
-        GUIIconSubSys::getIcon(ICON_RUBBER2X), this, MID_OPEN_BMP_DIALOG,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myRubberPop,"\t\tRubber, normal",
-        GUIIconSubSys::getIcon(ICON_RUBBER3X), this, MID_OPEN_BMP_DIALOG,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myRubberPop,"\t\tRubber, thick",
-        GUIIconSubSys::getIcon(ICON_RUBBER4X), this, MID_OPEN_BMP_DIALOG,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myRubberPop,"\t\tRubber, very thick",
-        GUIIconSubSys::getIcon(ICON_RUBBER5X), this, MID_OPEN_BMP_DIALOG,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXMenuButton(myIMGToolBar,"&\t\tChoose rubber size",
-        GUIIconSubSys::getIcon(ICON_RUBBER1X),myRubberPop,
-        MENUBUTTON_ATTACH_BOTH|MENUBUTTON_DOWN|MENUBUTTON_NOARROWS|LAYOUT_LEFT|
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+	myRubberPop=new FXPopup(this,POPUP_VERTICAL);
+	new FXButton(myRubberPop,"\t\tRubber, very thin",
+		GUIIconSubSys::getIcon(ICON_RUBBER1X), this, MID_OPEN_BMP_DIALOG,
+		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+	new FXButton(myRubberPop,"\t\tRubber,  thin",
+		GUIIconSubSys::getIcon(ICON_RUBBER2X), this, MID_OPEN_BMP_DIALOG,
+		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+	new FXButton(myRubberPop,"\t\tRubber, normal",
+		GUIIconSubSys::getIcon(ICON_RUBBER3X), this, MID_OPEN_BMP_DIALOG,
+		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+	new FXButton(myRubberPop,"\t\tRubber, thick",
+		GUIIconSubSys::getIcon(ICON_RUBBER4X), this, MID_OPEN_BMP_DIALOG,
+		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+	new FXButton(myRubberPop,"\t\tRubber, very thick",
+		GUIIconSubSys::getIcon(ICON_RUBBER5X), this, MID_OPEN_BMP_DIALOG,
+		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+	new FXMenuButton(myIMGToolBar,"&\t\tChoose rubber size",
+		GUIIconSubSys::getIcon(ICON_RUBBER1X),myRubberPop,
+		MENUBUTTON_ATTACH_BOTH|MENUBUTTON_DOWN|MENUBUTTON_NOARROWS|LAYOUT_LEFT|
+		ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 
     // build the image canvas
     myImageViewer = new FXImageView(contentFrame, 0, this, MID_MAP_IMAGEVIEWER,
@@ -265,15 +268,15 @@ GNEImageProcWindow::create()
 long
 GNEImageProcWindow::onCmdExtractStreets(FXObject*,FXSelector,void*)
 {
-    if(myExtrFlag==false)
-    {
-        myExtrFlag=true;
+	if(myExtrFlag==false)
+	{
+		myExtrFlag=true;
         m_img->ExtractStreets();
-        m_img->GetFXImage()->render();
+		m_img->GetFXImage()->render();
         myImageViewer->update();
-    }
+	}
     else {
-        myInfoDialog->show();
+		myInfoDialog->show();
     }
     return 1;
 }
@@ -328,17 +331,17 @@ bool mySkelFlag=false;
 long
 GNEImageProcWindow::onCmdSkeletonize(FXObject*,FXSelector,void*)
 {
-    if(mySkelFlag==false)
-    {
-        mySkelFlag=true;
+	if(mySkelFlag==false)
+	{
+		mySkelFlag=true;
         m_img->CreateSkeleton();
-        m_img->GetFXImage()->render();
+		m_img->GetFXImage()->render();
         myImageViewer->update();
-    }
+	}
     else {
-        myInfoDialog->show();
+		myInfoDialog->show();
     }
-    return 1;
+	return 1;
 }
 
 long
@@ -381,14 +384,14 @@ long
 GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
 {
     if(myGraphFlag==false)
-    {
-        myGraphFlag=true;
-        Graph leergraph;
+	{
+		myGraphFlag=true;
+		Graph leergraph;
         myGraph = leergraph;
-        Graph* gr =new Graph();
-        gr=&myGraph;
-        if(m_img)
-        {
+		Graph* gr =new Graph();
+		gr=&myGraph;
+		if(m_img)
+		{
             //
             OptionsCont &oc = OptionsSubSys::getOptions();
             oc.clear();
@@ -397,38 +400,38 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
             oc.set("verbose", true);
             oc.set("no-node-removal", true);
             //
-            gr=m_img->Tracking(gr,myConfigDialog);
-            gr->MergeVertex();
-            gr->Reduce_plus(myConfigDialog);
-            m_img->GetFXImage()->render();
+			gr=m_img->Tracking(gr,myConfigDialog);
+			gr->MergeVertex();
+			gr->Reduce_plus(myConfigDialog);
+			m_img->GetFXImage()->render();
             myImageViewer->update();
-            vector<Edge*> edges = gr->GetEArray();
-            for(vector<Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
-                Edge*e = *i;
-                string name = "e" + toString<int>(idbla++);
-                Position2D fromPos(e->GetStartingVertex()->GetX(), -e->GetStartingVertex()->GetY());
-                NBNode *fromNode = NBNodeCont::retrieve(fromPos);
-                if(fromNode==0) {
+			vector<Edge*> edges = gr->GetEArray();
+			for(vector<Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
+				Edge*e = *i;
+				string name = "e" + toString<int>(idbla++);
+				Position2D fromPos(e->GetStartingVertex()->GetX(), -e->GetStartingVertex()->GetY());
+				NBNode *fromNode = myNetBuilder->getNodeCont().retrieve(fromPos);
+				if(fromNode==0) {
                     string fname = "n" + toString<int>(idbla++);
-                    fromNode = new NBNode(fname, fromPos);
-                    NBNodeCont::insert(fromNode);
-                }
-                Position2D toPos(e->GetEndingVertex()->GetX(), -e->GetEndingVertex()->GetY());
-                NBNode *toNode = NBNodeCont::retrieve(toPos);
-                if(toNode==0) {
+					fromNode = new NBNode(fname, fromPos);
+                    myNetBuilder->getNodeCont().insert(fromNode);
+				}
+				Position2D toPos(e->GetEndingVertex()->GetX(), -e->GetEndingVertex()->GetY());
+				NBNode *toNode = myNetBuilder->getNodeCont().retrieve(toPos);
+				if(toNode==0) {
                     string tname = "n" + toString<int>(idbla++);
-                    toNode = new NBNode(tname, toPos);
-                    NBNodeCont::insert(toNode);
-                }
-                if(fromNode!=toNode) {
-                    int lanes = 1;
-                    double speed = 13.8;
-                    double length = -1;
-                    NBEdge *edge = new NBEdge(name, name, fromNode, toNode,
-                        "stdtype", speed, lanes, length, -1);
-                    NBEdgeCont::insert(edge);
-                }
-            }
+					toNode = new NBNode(tname, toPos);
+                    myNetBuilder->getNodeCont().insert(toNode);
+				}
+				if(fromNode!=toNode) {
+					int lanes = 1;
+					double speed = 13.8;
+					double length = -1;
+					NBEdge *edge = new NBEdge(name, name, fromNode, toNode,
+						"stdtype", speed, lanes, length, -1);
+                    myNetBuilder->getEdgeCont().insert(edge);
+				}
+			}
             //
             myNetBuilder->compute(oc);
             std::ostringstream strm;
@@ -468,9 +471,9 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
                 MSNet::clearAll();
                 net = 0;
             }*/
-        }
+		}
     } else {
-        myInfoDialog->show();
+		myInfoDialog->show();
     }
     return 1;
 }
@@ -546,7 +549,7 @@ GNEImageProcWindow::onCmdExportEdgesXML(FXObject*,FXSelector,void*)
 {
     myGraph.Export_Edges_XML();
     myGraph.GetTraces(1,1000,myConfigDialog);
-    return 1;
+	return 1;
 }
 
 /////////////////////////new Miguel (Ende)
