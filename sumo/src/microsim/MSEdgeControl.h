@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/05/04 08:24:24  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; speed-ups by checked emission and avoiding looping over all edges
+//
 // Revision 1.7  2005/02/01 10:10:40  dkrajzew
 // got rid of MSNet::Time
 //
@@ -97,6 +100,12 @@
 // new start
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <vector>
@@ -155,11 +164,11 @@ public:
 
     /** Clears the dictionary */
     static void clear();
-
-    /// simple output operator
+/*
+    // simple output operator
     friend std::ostream& operator<<( std::ostream& os,
                                      const MSEdgeControl& ec );
-
+*/
     void addToLanes(MSMeanData_Net *newMeanData);
 
     const EdgeCont &getSingleLaneEdges() const;

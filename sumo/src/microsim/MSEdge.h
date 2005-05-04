@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2005/05/04 08:23:52  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; speed-ups by checked emission and avoiding looping over all edges
+//
 // Revision 1.14  2005/02/01 10:10:40  dkrajzew
 // got rid of MSNet::Time
 //
@@ -210,9 +213,9 @@ public:
         AllowedLanesCont* allowed, MSLane* departLane, LaneCont* lanes,
         EdgeBasicFunction function);
 
-    /** @brief Ask edge's lanes about collisions.
+    /* @brief Ask edge's lanes about collisions.
         Shouldn't be neccessary if model is implemented correctly. */
-    void detectCollisions( SUMOTime timestep );
+//    void detectCollisions( SUMOTime timestep );
 
     /** @brief Get the allowed lanes to reach the destination-edge.
         If there is no such edge, get 0. Then you are on the wrong edge. */
@@ -264,6 +267,16 @@ public:
 
     const MSEdge *getInternalFollowingEdge(MSEdge *followerAfterInternal) const;
 
+    SUMOTime getLastFailedEmissionTime() const;
+
+    void setLastFailedEmissionTime(SUMOTime time);
+
+    std::vector<MSEdge*> getFollowingEdges() const;
+
+    std::vector<MSEdge*> getIncomingEdges() const;
+
+
+
 protected:
     /// Unique ID.
     std::string myID;
@@ -295,6 +308,8 @@ protected:
 
     /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
+
+    SUMOTime myLastFailedEmissionTime;
 
 private:
     /// Default constructor.

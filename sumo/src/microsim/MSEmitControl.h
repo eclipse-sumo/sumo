@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/05/04 08:24:42  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; speed-ups by checked emission and avoiding looping over all edges
+//
 // Revision 1.7  2005/02/01 10:10:40  dkrajzew
 // got rid of MSNet::Time
 //
@@ -79,6 +82,12 @@
 // new start
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include "MSVehicleContainer.h"
@@ -116,7 +125,7 @@ public:
 
     /** @brief Emits vehicles at time, if which want to depart at this.
         If emission is not possible, the vehicles remain in the list.
-        Returns the number of emitted vehicles */
+		Returns the number of emitted vehicles */
     size_t emitVehicles( SUMOTime time );
 
     /** @brief Adds a single vehicle for departure */
@@ -144,8 +153,8 @@ private:
     /** @brief Tries to emit the vehicle
         If the emission fails, the vehicle is inserted into the given
         container.
-        Returns the number of emitted vehicles */
-    size_t tryEmit(MSVehicle *veh,
+		Returns the number of emitted vehicles */
+    size_t tryEmit(SUMOTime time, MSVehicle *veh,
         MSVehicleContainer::VehicleVector &refusedEmits);
 
     /** Moves all vehicles which should have been emitted previously to the given time

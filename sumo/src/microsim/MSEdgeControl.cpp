@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/05/04 08:24:24  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; speed-ups by checked emission and avoiding looping over all edges
+//
 // Revision 1.8  2005/02/01 10:10:40  dkrajzew
 // got rid of MSNet::Time
 //
@@ -110,6 +113,12 @@ namespace
 // new start
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -162,6 +171,7 @@ MSEdgeControl::MSEdgeControl(string id, EdgeCont* singleLane,
         myLanes[pos].lastNeigh = lanes->end();
         pos++;
     }
+//    myFirstMultiPos = pos;
         // for lanes with neighbors
     for(i=multiLane->begin(); i!=multiLane->end(); i++) {
         MSEdge::LaneCont *lanes = (*i)->getLanes();
@@ -235,7 +245,7 @@ MSEdgeControl::changeLanes()
     for ( EdgeCont::iterator edge = myMultiLaneEdges->begin();
           edge != myMultiLaneEdges->end(); ++edge ) {
         assert((*edge)->getLanes()->size()>1);
-          ( *edge )->changeLanes();
+        ( *edge )->changeLanes();
     }
 }
 
@@ -243,16 +253,22 @@ MSEdgeControl::changeLanes()
 void
 MSEdgeControl::detectCollisions( SUMOTime timestep )
 {
-    EdgeCont::iterator edge;
+    LaneUsageVector::iterator i;
+//    EdgeCont::iterator edge;
     // Detections is made by the edge's lanes, therefore hand over.
-    for (edge = mySingleLaneEdges->begin();
-         edge != mySingleLaneEdges->end(); ++edge) {
-        (*edge)->detectCollisions( timestep );
+    for (i = myLanes.begin(); i != myLanes.end(); ++i) {
+        if((*i).noVehicles>1) {
+            (*i).lane->detectCollisions( timestep );
+        }
     }
-    for (edge = myMultiLaneEdges->begin();
-         edge != myMultiLaneEdges->end(); ++edge) {
-        (*edge)->detectCollisions( timestep );
+    /*
+    for (i = myMultiLaneEdges->begin();
+         i != myMultiLaneEdges->end(); ++i) {
+        if((*i).noVehicles>1) {
+            (*i)->detectCollisions( timestep );
+        }
     }
+    */
 }
 
 
@@ -290,14 +306,14 @@ MSEdgeControl::clear()
     myDict.clear();
 }
 
-
+/*
 ostream&
 operator<<( ostream& os, const MSEdgeControl& ec )
 {
     os << "MSEdgeControll: ID = " << ec.myID << endl;
     return os;
 }
-
+*/
 
 void
 MSEdgeControl::addToLanes(MSMeanData_Net *newMeanData)

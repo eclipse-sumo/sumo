@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.17  2005/05/04 08:23:52  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; speed-ups by checked emission and avoiding looping over all edges
+//
 // Revision 1.16  2005/02/01 10:10:40  dkrajzew
 // got rid of MSNet::Time
 //
@@ -173,7 +176,8 @@ MSEdge::DictType MSEdge::myDict;
  * member method definitions
  * ======================================================================= */
 MSEdge::MSEdge(string id)
-    : myID(id), myLanes(0), myAllowed(0), myLaneChanger(0)
+    : myID(id), myLanes(0), myAllowed(0), myLaneChanger(0),
+    myLastFailedEmissionTime(-1)
 {
 }
 
@@ -206,15 +210,15 @@ MSEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
     _function = function;
 
     if ( myLanes->size() > 1 && function!=EDGEFUNCTION_INTERNAL ) {
-//      if((*(getLanes()))[0]->maxSpeed()>70/3.6) {
-            myLaneChanger = new MSLaneChanger( myLanes );
-/*      } else {
-            myLaneChanger = new MSSlowLaneChanger( myLanes );
-        }*/
+//		if((*(getLanes()))[0]->maxSpeed()>70/3.6) {
+			myLaneChanger = new MSLaneChanger( myLanes );
+/*		} else {
+			myLaneChanger = new MSSlowLaneChanger( myLanes );
+		}*/
     }
 }
 
-
+/*
 void
 MSEdge::detectCollisions( SUMOTime timestep )
 {
@@ -224,7 +228,7 @@ MSEdge::detectCollisions( SUMOTime timestep )
         (*lane)->detectCollisions( timestep );
     }
 }
-
+*/
 
 const MSEdge::LaneCont*
 MSEdge::allowedLanes(const MSEdge& destination) const
@@ -451,6 +455,48 @@ MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const
     }
     return 0;
 }
+
+
+SUMOTime
+MSEdge::getLastFailedEmissionTime() const
+{
+    return myLastFailedEmissionTime;
+}
+
+
+void
+MSEdge::setLastFailedEmissionTime(SUMOTime time)
+{
+    myLastFailedEmissionTime = time;
+}
+
+
+std::vector<MSEdge *>
+MSEdge::getFollowingEdges() const
+{
+    std::vector<MSEdge*> ret;
+    for(AllowedLanesCont::iterator i=myAllowed->begin(); i!=myAllowed->end(); ++i) {
+        ret.push_back((MSEdge*) (*i).first);
+    }
+    return ret;
+}
+
+
+std::vector<MSEdge*>
+MSEdge::getIncomingEdges() const
+{
+    std::vector<MSEdge*> ret;
+    for ( DictType::iterator edge = myDict.begin(); edge != myDict.end();
+          ++edge ) {
+
+        const MSEdge::LaneCont *allowed = (*edge).second->allowedLanes(*this);
+        if(allowed!=0) {
+            ret.push_back( edge->second );
+        }
+    }
+    return ret;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

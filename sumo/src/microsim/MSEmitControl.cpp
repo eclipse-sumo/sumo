@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.11  2005/05/04 08:24:42  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; speed-ups by checked emission and avoiding looping over all edges
+//
 // Revision 1.10  2005/02/01 10:10:40  dkrajzew
 // got rid of MSNet::Time
 //
@@ -103,6 +106,11 @@ namespace
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * included modules
@@ -166,7 +174,7 @@ MSEmitControl::emitVehicles(SUMOTime time)
     if(!myAllVeh.anyWaitingFor(time)&&myRefusedEmits1.size()==0&&myRefusedEmits2.size()==0) {
         return 0;
     }
-    size_t noEmitted = 0;
+	size_t noEmitted = 0;
     // we use double-buffering for the refused emits to save time
     assert(myRefusedEmits1.size()==0||myRefusedEmits2.size()==0);
     MSVehicleContainer::VehicleVector &refusedEmits =
@@ -177,7 +185,7 @@ MSEmitControl::emitVehicles(SUMOTime time)
     // go through the list of previously refused first
     MSVehicleContainer::VehicleVector::const_iterator veh;
     for( veh=previousRefused.begin(); veh!=previousRefused.end(); veh++) {
-        noEmitted += tryEmit(*veh, refusedEmits);
+        noEmitted += tryEmit(time, *veh, refusedEmits);
     }
     // clear previously refused vehicle container
     previousRefused.clear();
@@ -189,7 +197,7 @@ MSEmitControl::emitVehicles(SUMOTime time)
         const MSVehicleContainer::VehicleVector &next = myAllVeh.top();
         // go through the list and try to emit
         for( veh=next.begin(); veh!=next.end(); veh++) {
-            noEmitted += tryEmit(*veh, refusedEmits);
+            noEmitted += tryEmit(time, *veh, refusedEmits);
         }
         // let the MSVehicleContainer clear the vehicles
         myAllVeh.pop();
@@ -198,18 +206,26 @@ MSEmitControl::emitVehicles(SUMOTime time)
         add(*i);
     }
     myNewPeriodicalAdds.clear();
-    return noEmitted;
+	return noEmitted;
 }
 
 
 size_t
-MSEmitControl::tryEmit(MSVehicle *veh,
+MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
                        MSVehicleContainer::VehicleVector &refusedEmits)
 {
-    size_t noEmitted = 0;
+	size_t noEmitted = 0;
+    // check whether the edge was used already and failed
+    //  (speedup function only)
+    MSEdge &edge = veh->departEdge();
+    if(edge.getLastFailedEmissionTime()==time) {
+        refusedEmits.push_back(veh);
+        return noEmitted;
+    }
+    // try to emit the vehicle
     if (veh->departEdge().emit(*veh)) {
         // Successful emission.
-        noEmitted++;
+		noEmitted++;
         veh->onDepart();
             // Check whether another vehicle shall be
             //  emitted with the same parameter
@@ -226,8 +242,9 @@ MSEmitControl::tryEmit(MSVehicle *veh,
         // Emission not successful. Store for next-timestep
         // retry in the next step
         refusedEmits.push_back(veh);
+        edge.setLastFailedEmissionTime(time);
     }
-    return noEmitted;
+	return noEmitted;
 }
 
 
