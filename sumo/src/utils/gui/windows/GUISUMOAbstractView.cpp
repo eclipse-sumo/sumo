@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/05/04 09:24:43  dkrajzew
+// entries for viewport definition added; popups now popup faster
+//
 // Revision 1.3  2004/12/15 09:20:19  dkrajzew
 // made guisim independent of giant/netedit
 //
@@ -138,6 +141,12 @@ namespace
 // files updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -148,27 +157,13 @@ namespace
 #include <utility>
 #include <cmath>
 #include <cassert>
-/*
-#include <guisim/GUINet.h>
-#include <guisim/GUIEdge.h>
-#include <guisim/GUILane.h>
-#include <guisim/GUIVehicle.h>
-#include <guisim/GUINetWrapper.h>
-#include <microsim/MSEdge.h>
-#include <microsim/MSLane.h>
-#include <microsim/MSVehicle.h>
-*/
 #include <utils/gfx/RGBColor.h>
 #include <utils/convert/ToString.h>
 #include <utils/gui/globjects/GUIGLObjectToolTip.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-//#include "GUIGlobals.h"
-//#include "GUIGlChildWindow.h"
 #include "GUIDanielPerspectiveChanger.h"
-//#include <guisim/GUIDetectorWrapper.h>
 #include "GUISUMOAbstractView.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-//#include "GUIMainWindow.h"
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -178,6 +173,7 @@ namespace
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include "GUIDialog_EditViewport.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -252,10 +248,12 @@ FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[]={
     FXMAPFUNC(SEL_RIGHTBUTTONPRESS,    0,                 GUISUMOAbstractView::onRightBtnPress),
     FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,  0,                 GUISUMOAbstractView::onRightBtnRelease),
     FXMAPFUNC(SEL_MOTION,              0,                 GUISUMOAbstractView::onMouseMove),
-    FXMAPFUNC(SEL_TIMEOUT,             ID_RMOUSETIMEOUT,  GUISUMOAbstractView::onRightMouseTimeOut),
+//    FXMAPFUNC(SEL_TIMEOUT,             ID_RMOUSETIMEOUT,  GUISUMOAbstractView::onRightMouseTimeOut),
     FXMAPFUNC(SEL_COMMAND,             MID_SIMSTEP,       GUISUMOAbstractView::onSimStep),
     FXMAPFUNC(SEL_KEYPRESS,            0,                 GUISUMOAbstractView::onKeyPress),
     FXMAPFUNC(SEL_KEYRELEASE,          0,                 GUISUMOAbstractView::onKeyRelease),
+    FXMAPFUNC(SEL_COMMAND,             MID_EDITVIEWPORT,  GUISUMOAbstractView::onCmdEditViewport),
+
 };
 
   // Macro for the GLTestApp class hierarchy implementation
@@ -268,7 +266,7 @@ FXIMPLEMENT(GUISUMOAbstractView,FXGLCanvas,GUISUMOAbstractViewMap,ARRAYNUMBER(GU
 GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
                                          GUIMainWindow &app,
                                          GUIGlChildWindow *parent,
-                                         const GUIGrid &grid,
+										 const GUIGrid &grid,
                                          FXGLVisual *glVis)
     : FXGLCanvas(p, glVis, p,
         MID_GLCANVAS, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
@@ -330,7 +328,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
 
 GUISUMOAbstractView::~GUISUMOAbstractView()
 {
-    getApp()->removeTimeout(this, ID_RMOUSETIMEOUT);
+//    getApp()->removeTimeout(this, ID_RMOUSETIMEOUT);
     delete _changer;
     delete _toolTip;
     // just to quit cleanly on a failure
@@ -385,6 +383,8 @@ GUISUMOAbstractView::paintGL()
         paintGLGrid();
     }
     //
+
+
     doPaintGL(GL_RENDER, 1.0);
     if(_parent->showLegend()) {
         displayLegend();
@@ -769,7 +769,7 @@ GUISUMOAbstractView::onPaint(FXObject*,FXSelector,void*)
 
 
 long
-GUISUMOAbstractView::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
+GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector sel,void *data)
 {
     delete _popup;
     _popup = 0;
@@ -792,8 +792,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
         }
         _lock.unlock();
     }
-
-    _changer->onLeftBtnPress(o, sel, data);
+    _changer->onLeftBtnPress(data);
     grab();
     return 1;
 }
@@ -804,7 +803,7 @@ GUISUMOAbstractView::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
 {
     delete _popup;
     _popup = 0;
-    _changer->onLeftBtnRelease(o, sel, data);
+    _changer->onLeftBtnRelease(data);
     ungrab();
     return 1;
 }
@@ -815,8 +814,8 @@ GUISUMOAbstractView::onRightBtnPress(FXObject *o,FXSelector sel,void *data)
 {
     delete _popup;
     _popup = 0;
-    _changer->onRightBtnPress(o, sel, data);
-    getApp()->addTimeout(this, ID_RMOUSETIMEOUT, 500);
+    _changer->onRightBtnPress(data);
+//    getApp()->addTimeout(this, ID_RMOUSETIMEOUT, 500);
     grab();
     return 1;
 }
@@ -827,8 +826,10 @@ GUISUMOAbstractView::onRightBtnRelease(FXObject *o,FXSelector sel,void *data)
 {
     delete _popup;
     _popup = 0;
-    _changer->onRightBtnRelease(o, sel, data);
-    getApp()->removeTimeout(this, ID_RMOUSETIMEOUT);
+    if(_changer->onRightBtnRelease(data)) {
+        openObjectDialog();
+    }
+//    getApp()->removeTimeout(this, ID_RMOUSETIMEOUT);
     ungrab();
     return 1;
 }
@@ -837,19 +838,19 @@ GUISUMOAbstractView::onRightBtnRelease(FXObject *o,FXSelector sel,void *data)
 long
 GUISUMOAbstractView::onMouseMove(FXObject *o,FXSelector sel,void *data)
 {
-    getApp()->removeTimeout(this, ID_RMOUSETIMEOUT);
-    _changer->onMouseMove(o, sel, data);
+//    getApp()->removeTimeout(this, ID_RMOUSETIMEOUT);
+    _changer->onMouseMove(data);
     return 1;
 }
 
 
-long
-GUISUMOAbstractView::onRightMouseTimeOut(FXObject *o,FXSelector sel,void *data)
+void
+GUISUMOAbstractView::openObjectDialog()
 {
     ungrab();
-    getApp()->removeTimeout(this, ID_RMOUSETIMEOUT);
+//    getApp()->removeTimeout(this, ID_RMOUSETIMEOUT);
     if(!isEnabled()||!myAmInitialised) {
-        return 1;
+        return;
     }
     _lock.lock();
     if(makeCurrent()) {
@@ -867,12 +868,11 @@ GUISUMOAbstractView::onRightMouseTimeOut(FXObject *o,FXSelector sel,void *data)
             _popup->setY(_mouseY);
             _popup->create();
             _popup->show();
-            _changer->onRightBtnRelease(0, 0, 0);
+            _changer->onRightBtnRelease(0);
         }
         makeNonCurrent();
     }
     _lock.unlock();
-    return 1;
 }
 
 
@@ -898,17 +898,8 @@ GUISUMOAbstractView::onKeyRelease(FXObject *o,FXSelector sel,void *data)
     }
     return FXGLCanvas::onKeyRelease(o, sel, data);
 }
-/*
-long
-GUISUMOAbstractView::onCmdEditGraph(FXObject*sender,FXSelector,void*)
-{
-    MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
-    button->setChecked(!button->amChecked());
-    _inEditMode = button->amChecked();
-    update();
-    return 1;
-}
-*/
+
+
 
 long
 GUISUMOAbstractView::onCmdShowToolTips(FXObject*sender,FXSelector,void*)
@@ -997,6 +988,28 @@ FXPopup *
 GUISUMOAbstractView::getLocatorPopup(GUIGlChildWindow &p)
 {
     return myLocatorPopup;
+}
+
+
+long
+GUISUMOAbstractView::onCmdEditViewport(FXObject*,FXSelector,void*)
+{
+    GUIDialog_EditViewport *chooser =
+        new GUIDialog_EditViewport(this, "Edit Viewport...",
+        _changer->getZoom(), _changer->getXPos(), _changer->getYPos(),
+        0, 0);
+    chooser->create();
+    chooser->show();
+    return 1;
+}
+
+
+void
+GUISUMOAbstractView::setViewport(double zoom, double xPos, double yPos)
+{
+    _changer->setViewport(zoom, xPos, yPos);
+    _changer->otherChange();
+    update();
 }
 
 

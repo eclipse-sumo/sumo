@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 09:24:43  dkrajzew
+// entries for viewport definition added; popups now popup faster
+//
 // Revision 1.3  2004/12/15 09:20:19  dkrajzew
 // made guisim independent of giant/netedit
 //
@@ -54,13 +57,15 @@
 // porting to FOX
 //
 // Revision 1.10  2004/01/26 06:47:11  dkrajzew
-// Added the possibility to draw arrows by a detector drawer; documentation added
+// Added the possibility to draw arrows by a detector drawer;
+//  documentation added
 //
 // Revision 1.9  2003/11/12 14:07:46  dkrajzew
 // clean up after recent changes
 //
 // Revision 1.8  2003/09/23 14:25:13  dkrajzew
-// possibility to visualise detectors using different geometry complexities added
+// possibility to visualise detectors using different geometry complexities
+//  added
 //
 // Revision 1.7  2003/09/05 14:54:06  dkrajzew
 // implementations of artefact drawers moved to folder "drawerimpl"
@@ -84,7 +89,8 @@
 // new view hierarchy; some debugging done
 //
 // Revision 1.6  2003/04/16 09:50:05  dkrajzew
-// centering of the network debugged; additional parameter of maximum display size added
+// centering of the network debugged; additional parameter of maximum display
+//  size added
 //
 // Revision 1.4  2003/04/02 11:50:28  dkrajzew
 // a working tool tip implemented
@@ -92,6 +98,12 @@
 // Revision 1.3  2003/02/07 10:34:15  dkrajzew
 // files updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -169,6 +181,9 @@ public:
     /// centers to the chosen artifact
     virtual void centerTo(GUIGlObject *o);
 
+    /// applies the given viewport settings
+    virtual void setViewport(double zoom, double xPos, double yPos);
+
     /// meter-to-pixels conversion method
     double m2p(double meter);
 
@@ -199,9 +214,8 @@ public:
     virtual long onRightBtnPress(FXObject*,FXSelector,void*);
     virtual long onRightBtnRelease(FXObject*,FXSelector,void*);
     virtual long onMouseMove(FXObject*,FXSelector,void*);
-    virtual long onRightMouseTimeOut(FXObject*,FXSelector,void*);
     virtual long onCmdShowToolTips(FXObject*,FXSelector,void*);
-
+    virtual long onCmdEditViewport(FXObject*,FXSelector,void*);
     long onCmdShowGrid(FXObject*,FXSelector,void*);
     long onSimStep(FXObject*sender,FXSelector,void*);
 
@@ -209,6 +223,7 @@ public:
     long onKeyRelease(FXObject *o,FXSelector sel,void *data);
 
 
+    virtual void openObjectDialog();
 
     /// A method that updates the tooltip
     void updateToolTip();
@@ -384,9 +399,8 @@ protected:
     /// The perspective changer
     GUIPerspectiveChanger *_changer;
 
-    /// Information whether tool-tip informations shall be generated
+    /// Information whether too-tip informations shall be generated
     bool _useToolTips;
-
 	bool _inEditMode;
 
     /// The used tooltip-class

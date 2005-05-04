@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/05/04 09:24:43  dkrajzew
+// entries for viewport definition added; popups now popup faster
+//
 // Revision 1.1  2004/11/23 10:38:32  dkrajzew
 // debugging
 //
@@ -95,11 +98,11 @@ public:
     /// Destructor
     virtual ~GUIPerspectiveChanger();
 
-    virtual long onLeftBtnPress(FXObject *o,FXSelector sel,void *data);
-    virtual long onLeftBtnRelease(FXObject *o,FXSelector sel,void *data);
-    virtual long onRightBtnPress(FXObject *o,FXSelector sel,void *data);
-    virtual long onRightBtnRelease(FXObject *o,FXSelector sel,void *data);
-    virtual long onMouseMove(FXObject *o,FXSelector sel,void *data);
+    virtual void onLeftBtnPress(void *data);
+    virtual void onLeftBtnRelease(void *data);
+    virtual void onRightBtnPress(void *data);
+    virtual bool onRightBtnRelease(void *data);
+    virtual void onMouseMove(void *data);
 
     /// Returns the rotation of the canvas stored in this changer
     virtual double getRotation() const = 0;
@@ -136,6 +139,10 @@ public:
         Used for: Centering of lanes */
     virtual void centerTo(const Boundary &netBoundary,
         Boundary bound) = 0;
+
+    /** @brief Sets the viewport
+        Used for: Adapting a new viewport */
+    virtual void setViewport(double zoom, double xPos, double yPos) = 0;
 
     /// Returns the last mouse x-position an event occured at
     virtual int getMouseXPosition() const = 0; // !!! should not be virtual

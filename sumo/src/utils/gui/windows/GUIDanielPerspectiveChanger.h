@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/05/04 09:23:41  dkrajzew
+// entries for viewport definition added; popups now popup faster
+//
 // Revision 1.1  2004/11/23 10:38:32  dkrajzew
 // debugging
 //
@@ -46,7 +49,8 @@
 // some statistics added; some debugging done
 //
 // Revision 1.3  2003/04/04 08:37:50  dkrajzew
-// view centering now applies net size; closing problems debugged; comments added; tootip button added
+// view centering now applies net size; closing problems debugged;
+//  comments added; tootip button added
 //
 /* =========================================================================
  * included modules
@@ -87,11 +91,11 @@ public:
     /// Destructor
     ~GUIDanielPerspectiveChanger();
 
-    long onLeftBtnPress(FXObject *o,FXSelector sel,void *data);
-    long onLeftBtnRelease(FXObject *o,FXSelector sel,void *data);
-    long onRightBtnPress(FXObject *o,FXSelector sel,void *data);
-    long onRightBtnRelease(FXObject *o,FXSelector sel,void *data);
-    long onMouseMove(FXObject *o,FXSelector sel,void *data);
+    void onLeftBtnPress(void *data);
+    void onLeftBtnRelease(void *data);
+    void onRightBtnPress(void *data);
+    bool onRightBtnRelease(void *data);
+    void onMouseMove(void *data);
 
     /// Returns the rotation of the canvas stored in this changer
     virtual double getRotation() const;
@@ -115,6 +119,9 @@ public:
     /// Centers the view to show the given boundary
     void centerTo(const Boundary &netBoundary,
         Boundary bound);
+
+    /** @brief Sets the viewport */
+    void setViewport(double zoom, double xPos, double yPos);
 
     /// Returns the last mouse x-position an event occured at
     int getMouseXPosition() const;
@@ -153,6 +160,9 @@ private:
 
     /// the current mouse state
     MouseState _mouseButtonState;
+
+    /// Information whether the user has moved the cursor while pressing the right button
+    bool myMoveOnRightClick;
 
 };
 

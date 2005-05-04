@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/05/04 09:23:41  dkrajzew
+// entries for viewport definition added; popups now popup faster
+//
 // Revision 1.1  2004/11/23 10:38:32  dkrajzew
 // debugging
 //
@@ -77,7 +80,7 @@ GUIDanielPerspectiveChanger::GUIDanielPerspectiveChanger(
             GUISUMOAbstractView &callBack)
     : GUIPerspectiveChanger(callBack),
     myViewCenter(0, 0), _rotation(0), _zoom(100),
-    _mouseButtonState(MOUSEBTN_NONE)
+    _mouseButtonState(MOUSEBTN_NONE), myMoveOnRightClick(false)
 {
 }
 
@@ -204,44 +207,42 @@ GUIDanielPerspectiveChanger::getMouseYPosition() const
 }
 
 
-long
-GUIDanielPerspectiveChanger::onLeftBtnPress(FXObject*,FXSelector,void*data)
+void
+GUIDanielPerspectiveChanger::onLeftBtnPress(void*data)
 {
     FXEvent* e = (FXEvent*) data;
     _mouseButtonState =
         (MouseState) ((int) _mouseButtonState | (int) MOUSEBTN_LEFT);
     _mouseXPosition = e->win_x;
     _mouseYPosition = e->win_y;
-    return 1;
 }
 
 
-long
-GUIDanielPerspectiveChanger::onLeftBtnRelease(FXObject*,FXSelector,void*data)
+void
+GUIDanielPerspectiveChanger::onLeftBtnRelease(void*data)
 {
     FXEvent* e = (FXEvent*) data;
     _mouseButtonState =
         (MouseState) ((int) _mouseButtonState & (255-(int) MOUSEBTN_LEFT));
     _mouseXPosition = e->win_x;
     _mouseYPosition = e->win_y;
-    return 1;
 }
 
 
-long
-GUIDanielPerspectiveChanger::onRightBtnPress(FXObject*,FXSelector,void*data)
+void
+GUIDanielPerspectiveChanger::onRightBtnPress(void*data)
 {
     FXEvent* e = (FXEvent*) data;
     _mouseButtonState =
         (MouseState) ((int) _mouseButtonState | (int) MOUSEBTN_RIGHT);
     _mouseXPosition = e->win_x;
     _mouseYPosition = e->win_y;
-    return 1;
+    myMoveOnRightClick = true;
 }
 
 
-long
-GUIDanielPerspectiveChanger::onRightBtnRelease(FXObject*,FXSelector,void*data)
+bool
+GUIDanielPerspectiveChanger::onRightBtnRelease(void*data)
 {
     _mouseButtonState =
         (MouseState) ((int) _mouseButtonState & (255-(int) MOUSEBTN_RIGHT));
@@ -250,12 +251,16 @@ GUIDanielPerspectiveChanger::onRightBtnRelease(FXObject*,FXSelector,void*data)
         _mouseXPosition = e->win_x;
         _mouseYPosition = e->win_y;
     }
-    return 1;
+    if(myMoveOnRightClick) {
+        myMoveOnRightClick = false;
+        return true;
+    }
+    return false;
 }
 
 
-long
-GUIDanielPerspectiveChanger::onMouseMove(FXObject*,FXSelector,void*data)
+void
+GUIDanielPerspectiveChanger::onMouseMove(void*data)
 {
     FXEvent* e = (FXEvent*) data;
     _callback.setTooltipPosition(e->win_x, e->win_y, e->root_x, e->root_y);
@@ -268,6 +273,9 @@ GUIDanielPerspectiveChanger::onMouseMove(FXObject*,FXSelector,void*data)
     case MOUSEBTN_RIGHT:
         zoom(ydiff);
         rotate(xdiff);
+        if(abs(xdiff)>0||abs(ydiff)>0) {
+            myMoveOnRightClick = false;
+        }
         break;
     default:
         _callback.updateToolTip();
@@ -275,7 +283,15 @@ GUIDanielPerspectiveChanger::onMouseMove(FXObject*,FXSelector,void*data)
     }
     _mouseXPosition = e->win_x;
     _mouseYPosition = e->win_y;
-    return 1;
+}
+
+
+void
+GUIDanielPerspectiveChanger::setViewport(double zoom,
+                                         double xPos, double yPos)
+{
+    _zoom = zoom;
+    myViewCenter.set(xPos, yPos);
 }
 
 

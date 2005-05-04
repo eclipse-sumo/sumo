@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/05/04 09:24:43  dkrajzew
+// entries for viewport definition added; popups now popup faster
+//
 // Revision 1.1  2004/11/23 10:38:32  dkrajzew
 // debugging
 //
@@ -106,38 +109,34 @@ GUIPerspectiveChanger::applyCanvasSize(size_t width, size_t height)
 }
 
 
-long
-GUIPerspectiveChanger::onLeftBtnPress(FXObject*,FXSelector,void*)
+void
+GUIPerspectiveChanger::onLeftBtnPress(void*)
 {
-    return 1;
 }
 
 
-long
-GUIPerspectiveChanger::onLeftBtnRelease(FXObject*,FXSelector,void*)
+void
+GUIPerspectiveChanger::onLeftBtnRelease(void*)
 {
-    return 1;
 }
 
 
-long
-GUIPerspectiveChanger::onRightBtnPress(FXObject*,FXSelector,void*)
+void
+GUIPerspectiveChanger::onRightBtnPress(void*)
 {
-    return 1;
 }
 
 
-long
-GUIPerspectiveChanger::onRightBtnRelease(FXObject*,FXSelector,void*)
+bool
+GUIPerspectiveChanger::onRightBtnRelease(void*)
 {
-    return 1;
+    return false;
 }
 
 
-long
-GUIPerspectiveChanger::onMouseMove(FXObject *o,FXSelector sel,void *data)
+void
+GUIPerspectiveChanger::onMouseMove(void *data)
 {
-    return 1;
 }
 
 
