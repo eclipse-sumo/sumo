@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2005/05/04 08:48:35  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; handling of vehicles debugged
+//
 // Revision 1.11  2004/12/16 12:26:52  dkrajzew
 // debugging
 //
@@ -107,7 +110,7 @@ public:
         The weight-timelines must be computed for the edges */
 //    void postloadInit();
 
-//  static void preInitRONet();
+//	static void preInitRONet();
     /** @brief opens the output for computed routes
         if the second parameter is true, a second file for route alternatives
         will be opened.
@@ -133,14 +136,14 @@ public:
     bool isKnownVehicleID(const std::string &id) const;
 
     /// Returns the named route definition
-    RORouteDef *getRouteDef(const std::string &name) const;
+    virtual RORouteDef *getRouteDef(const std::string &name) const;
 
     /// Adds a read route definition to the network
-    void addRouteDef(RORouteDef *def);
+    virtual void addRouteDef(RORouteDef *def);
 
 
     /// Adds a complete, read vehicle type to the network
-    void addVehicleType(ROVehicleType *type);
+    virtual void addVehicleType(ROVehicleType *type);
 
     /// Retrieves the default vehicle type
     ROVehicleType *getDefaultVehicleType() const;
@@ -173,10 +176,10 @@ public:
 
     /** @brief Computes routes described by their definitions and saves them */
     void saveAndRemoveRoutesUntil(OptionsCont &options,
-        ROAbstractRouter &router, long time);
+        ROAbstractRouter &router, SUMOTime time);
 
     /// Returns the information whether further vehicles are stored
-    bool furtherStored();
+    virtual bool furtherStored();
 
     /// Returns a random edge which may be used as a starting point
     ROEdge *getRandomSource();
@@ -189,14 +192,14 @@ public:
 
 
 
-    static RONet* getNetInstance();
+	static RONet* getNetInstance();
 
-    static void setNetInstance(RONet *net);
+	static void setNetInstance(RONet *net);
 
     ROEdgeCont *getMyEdgeCont();
 
     /** @brief Removes the route from the net when no further usage is needed */
-    void removeRouteSecure(RORouteDef *route); // !!! was protected before
+    virtual void removeRouteSecure(RORouteDef *route); // !!! was protected before
 
 protected:
     /** Saves the given route together with her alternatives */
@@ -215,10 +218,10 @@ protected:
 
 protected:
     /// a Unique Instance of a RONet#
-    static RONet* myInstance;
+	static RONet* myInstance;
 
     /// Container for known vehicle ids
-    typedef std::set<std::string> VehIDCont;
+    typedef std::vector<std::string> VehIDCont; // should be something else
 
     /// Known vehicle ids
     VehIDCont _vehIDs;

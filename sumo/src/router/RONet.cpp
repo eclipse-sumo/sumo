@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2005/05/04 08:48:35  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; handling of vehicles debugged
+//
 // Revision 1.21  2004/12/16 12:26:52  dkrajzew
 // debugging
 //
@@ -84,6 +87,12 @@ namespace
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -115,10 +124,14 @@ namespace
 #include <utils/convert/ToString.h>
 
 
+
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
+//ofstream blaa("bla.txt");
 
 RONet *RONet::myInstance;
 /* =========================================================================
@@ -152,7 +165,7 @@ RONet::postloadInit()
 void
 RONet::preInitRONet()
 {
-    myInstance = new RONet(false);
+	myInstance = new RONet(false);
 }
 */
 void
@@ -183,9 +196,11 @@ RONet::addNode(const std::string &name, RONode *node)
 bool
 RONet::isKnownVehicleID(const std::string &id) const
 {
-    VehIDCont::const_iterator i=_vehIDs.find(id);
-    if(i==_vehIDs.end())
+    VehIDCont::const_iterator i =
+        find(_vehIDs.begin(), _vehIDs.end(), id);
+    if(i==_vehIDs.end()) {
         return false;
+    }
     return true;
 }
 
@@ -193,7 +208,7 @@ RONet::isKnownVehicleID(const std::string &id) const
 void
 RONet::addVehicleID(const std::string &id)
 {
-    _vehIDs.insert(id);
+    _vehIDs.push_back(id);
 }
 
 
@@ -234,11 +249,11 @@ void
 RONet::closeOutput()
 {
     // end writing
-    if(myRoutesOutput!= 0) {
-        (*myRoutesOutput) << "</routes>" << endl;
-        myRoutesOutput->close();
-        delete myRoutesOutput;
-    }
+	if(myRoutesOutput!= 0) {
+		(*myRoutesOutput) << "</routes>" << endl;
+		myRoutesOutput->close();
+		delete myRoutesOutput;
+	}
     // only if opened
     if(myRouteAlternativesOutput!=0) {
         (*myRouteAlternativesOutput) << "</route-alternatives>" << endl;
@@ -285,17 +300,17 @@ RONet::addVehicle(const std::string &id, ROVehicle *veh)
 void
 RONet::setNetInstance(RONet *net)
 {
-    myInstance = net;
+	myInstance = net;
 
 }
 
 RONet *
 RONet::getNetInstance()
 {
-    if(myInstance == 0){
-        return 0;
-    }
-    return myInstance;
+	if(myInstance == 0){
+		return 0;
+	}
+	return myInstance;
 }
 
 RORouteDef *
@@ -368,7 +383,6 @@ RONet::saveRoute(RORouteDef *route, ROVehicle *veh)
     }
     // save route
     route->xmlOutCurrent(*myRoutesOutput, veh->periodical());
-//        options.getBool("continue-on-unbuild"));
     if(myRouteAlternativesOutput!=0) {
         route->xmlOutAlternatives(*myRouteAlternativesOutput);
     }
@@ -377,19 +391,19 @@ RONet::saveRoute(RORouteDef *route, ROVehicle *veh)
 
 void
 RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
-                                long time)
+                                SUMOTime time)
 {
     // sort the list of route definitions
     priority_queue<ROVehicle*,
         std::vector<ROVehicle*>,
         ROHelper::VehicleByDepartureComperator>
         &sortedVehicles = _vehicles.sort();
-    long lastTime = -1;
+    SUMOTime lastTime = -1;
     // write all vehicles (and additional structures)
     while(!sortedVehicles.empty()) {
         // get the next vehicle
         ROVehicle *veh = sortedVehicles.top();
-        long currentTime = veh->getDepartureTime();
+        SUMOTime currentTime = veh->getDepartureTime();
         // check whether it shall not yet be computed
         if(currentTime>time) {
             break;
@@ -428,7 +442,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
             myDiscardedRouteNo++;
         }
         // remove the route if it is not longer used
-        removeRouteSecure(veh->getRoute());
+		removeRouteSecure(veh->getRoute());
         _vehicles.erase(veh->getID());
     }
 }
@@ -546,7 +560,7 @@ RONet::buildOutput(const std::string &name)
 ROEdgeCont *
 RONet::getMyEdgeCont()
 {
-    return &_edges;
+	return &_edges;
 }
 
 
