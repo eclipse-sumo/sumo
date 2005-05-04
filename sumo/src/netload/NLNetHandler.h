@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.27  2005/05/04 08:42:32  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; debugging the setting of tls-offsets
+//
 // Revision 1.26  2004/12/16 12:23:36  dkrajzew
 // first steps towards a better parametrisation of traffic lights
 //
@@ -108,6 +111,12 @@
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -124,6 +133,7 @@
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/MSBitSetLogic.h>
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -256,7 +266,7 @@ protected:
     std::string     m_Type;
 
     /// The offset within the junction
-    size_t          m_Offset;
+    SUMOTime          m_Offset;
 
     /// the current polygon
     std::string     poly_name;
@@ -279,6 +289,9 @@ protected:
 
 
 private:
+    /// add the shape to the Lane
+	void addLaneShape(const std::string &chars);
+
     /// sets the number of edges the network contains
     void setEdgeNumber(const Attributes &attrs);
 
@@ -390,10 +403,10 @@ private:
     MSLink::LinkState parseLinkState(char state);
 
     /// Compute the initial step of a tls-logic from the given offset
-    size_t computeInitTLSStep() const;
+    SUMOTime computeInitTLSStep() const;
 
     /// Compute the time offset the tls shall for the first time
-    size_t computeInitTLSEventOffset() const;
+    SUMOTime computeInitTLSEventOffset() const;
 
 
 private:
@@ -421,10 +434,8 @@ private:
 
 };
 
+
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NLNetHandler.icc"
-//#endif
 
 #endif
 

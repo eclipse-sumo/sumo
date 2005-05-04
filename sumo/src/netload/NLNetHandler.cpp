@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.52  2005/05/04 08:41:54  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; debugging the setting of tls-offsets
+//
 // Revision 1.51  2005/02/17 10:33:39  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -100,6 +103,12 @@ namespace
 // handling of definitions for minimum and maximum phase duration added;
 //  modified the gld-offsets computation
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -326,6 +335,15 @@ NLNetHandler::chooseEdge(const Attributes &attrs)
     }
     myContainer.chooseEdge(id, func);
 }
+
+
+void
+NLNetHandler::addLaneShape(const std::string &chars)
+{
+    Position2DVector shape = GeomConvHelper::parseShape(chars);
+    myContainer.addLaneShape(shape);
+}
+
 
 
 void
@@ -556,8 +574,8 @@ NLNetHandler::addPhase(const Attributes &attrs)
     }
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
-    size_t min = duration;
-    size_t max = duration;
+    int min = duration;
+    int max = duration;
     try {
         if(m_Type=="actuated"||m_Type=="agentbased") {
             min = getIntSecure(attrs, SUMO_ATTR_MINDURATION, -1);
@@ -679,6 +697,8 @@ NLNetHandler::addE1Detector(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform(
             string("The description of the detector '")
             + id + string("' does not contain a needed value."));
+    } catch (FileBuildError &e) {
+        MsgHandler::getErrorInstance()->inform(e.msg());
     }
 }
 
@@ -730,7 +750,7 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
                     getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                     getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
                     getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
-                    getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800.0f)
+                    getIntSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800) // !!! getSUMOTime
                     );
             } else {
                 myDetectorBuilder.buildE2Detector(myContainer.getLaneConts(),
@@ -747,7 +767,7 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
                     getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                     getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
                     getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
-                    getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800.0f)
+                    getIntSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800) // !!! getSUMOTime
                     );
             }
         } else {
@@ -765,7 +785,7 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
                 getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                 getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
                 getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
-                getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800.0f)
+                getIntSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800) // !!! getSUMOTime
                 );
         }
     } catch (XMLBuildingException &e) {
@@ -776,6 +796,8 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform(
             string("The description of the detector '")
             + id + string("' does not contain a needed value."));
+    } catch (FileBuildError &e) {
+        MsgHandler::getErrorInstance()->inform(e.msg());
     }
 }
 
@@ -801,7 +823,7 @@ NLNetHandler::beginE3Detector(const Attributes &attrs)
             getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
             getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
             getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
-            getFloatSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800.0f)
+            getIntSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800) // !!! getSUMOTime
             );
     } catch (XMLBuildingException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
@@ -811,6 +833,8 @@ NLNetHandler::beginE3Detector(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform(
             string("The description of the detector '")
             + id + string("' does not contain a needed value."));
+    } catch (FileBuildError &e) {
+        MsgHandler::getErrorInstance()->inform(e.msg());
     }
 }
 
@@ -845,6 +869,8 @@ NLNetHandler::addE3Exit(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform(
             string("The description of the detector '")
             + m_Key + string("' does not contain a needed value."));
+    } catch (FileBuildError &e) {
+        MsgHandler::getErrorInstance()->inform(e.msg());
     }
 }
 
@@ -874,6 +900,8 @@ NLNetHandler::addSource(const Attributes &attrs)
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
             "Error in description: missing id of a detector-object.");
+    } catch (FileBuildError &e) {
+        MsgHandler::getErrorInstance()->inform(e.msg());
     }
 }
 
@@ -901,7 +929,9 @@ NLNetHandler::addTrigger(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform(
                 string("The description of the trigger '")
                 + id + string("' does not contain a needed value."));
-        }
+        } catch (FileBuildError &e) {
+            MsgHandler::getErrorInstance()->inform(e.msg());
+        } // !!! not an ouput file
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
             "Error in description: missing id of a trigger-object.");
@@ -1034,6 +1064,9 @@ NLNetHandler::myCharacters(int element, const std::string &name,
             break;
         case SUMO_TAG_INTERNAL_LANES:
             addInternalLanes(chars);
+            break;
+		case SUMO_TAG_LANE:
+            addLaneShape(chars);
             break;
         default:
             break;
@@ -1394,36 +1427,41 @@ NLNetHandler::closeTrafficLightLogic()
 }
 
 
-size_t
+SUMOTime
 NLNetHandler::computeInitTLSStep()  const
 {
     assert(m_ActivePhases.size()!=0);
-    size_t offset = m_Offset % myAbsDuration;
+    if(m_Offset!=0) {
+        int bla = 0;
+    }
+    SUMOTime offset = m_Offset % myAbsDuration;
     MSSimpleTrafficLightLogic::Phases::const_iterator i
         = m_ActivePhases.begin();
-    size_t step = 0;
+    SUMOTime step = 0;
     while(true) {
         if(offset<(*i)->duration) {
             return step;
         }
         step++;
         offset -= (*i)->duration;
+        ++i;
     }
 }
 
 
-size_t
+SUMOTime
 NLNetHandler::computeInitTLSEventOffset()  const
 {
     assert(m_ActivePhases.size()!=0);
-    size_t offset = m_Offset % myAbsDuration;
+    SUMOTime offset = m_Offset % myAbsDuration;
     MSSimpleTrafficLightLogic::Phases::const_iterator i
         = m_ActivePhases.begin();
     while(true) {
         if(offset<(*i)->duration) {
-            return (*i)->duration-offset;
+            return offset;
         }
         offset -= (*i)->duration;
+        ++i;
     }
 }
 
@@ -1452,7 +1490,12 @@ NLNetHandler::endDetector()
 void
 NLNetHandler::endE3Detector()
 {
-    myDetectorBuilder.endE3Detector();
+    try {
+        myDetectorBuilder.endE3Detector();
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.msg());
+    } catch (ProcessError) {
+    }
 }
 
 
