@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.42  2005/05/04 08:34:20  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; new mead data functionality; lane-changing offset computation debugged; simulation speed-up by avoiding multiplication with 1
+//
 // Revision 1.41  2005/02/17 10:33:38  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -48,16 +51,21 @@
 // debugging
 //
 // Revision 1.33  2004/02/16 15:21:58  dkrajzew
-// movedDistance-retrival reworked; forgetting predecessors when driving over more than one lane patched
+// movedDistance-retrival reworked; forgetting predecessors when driving over
+//  more than one lane patched
 //
 // Revision 1.32  2004/02/05 16:37:51  dkrajzew
-// e3-debugging: only e3-detectors have to remove killed vehicles; storage for detectors to be informed added
+// e3-debugging: only e3-detectors have to remove killed vehicles; storage
+//  for detectors to be informed added
 //
 // Revision 1.31  2004/01/26 15:55:55  dkrajzew
-// the vehicle is now informed about being emitted (as we want to display the information about the real departure time witin the gui - within microsim, this information may be used for some other stuff)
+// the vehicle is now informed about being emitted (as we want to display the
+//  information about the real departure time witin the gui - within microsim,
+//  this information may be used for some other stuff)
 //
 // Revision 1.30  2003/12/12 12:37:42  dkrajzew
-// proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
+// proper usage of lane states applied; scheduling of vehicles into the beamer
+//  on push failures added
 //
 // Revision 1.29  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
@@ -66,7 +74,8 @@
 // work on internal lanes
 //
 // Revision 1.27  2003/11/24 10:22:57  dkrajzew
-// patched the false usage of oldLaneMoveReminders when more than one street is within
+// patched the false usage of oldLaneMoveReminders when more than one street
+//  is within
 //
 // Revision 1.26  2003/11/20 14:59:17  dkrajzew
 // detector usage patched
@@ -81,7 +90,8 @@
 // grid lock dissolving by vehicle teleportation added
 //
 // Revision 1.22  2003/10/15 11:43:50  dkrajzew
-// false lane-changing rules removed; an (far too large information interface between vehicle and lane-changer implemented
+// false lane-changing rules removed; an (far too large information interface
+//  between vehicle and lane-changer implemented
 //
 // Revision 1.21  2003/09/05 15:14:52  dkrajzew
 // first steps for reading of internal lanes
@@ -581,6 +591,11 @@ public:
     /// Returns current speed
     double speed() const;
 
+
+	/// Return current Position
+	Position2D position() const;
+
+
     /** Return true if prioritized first vehicle will brake too much
     during lane-change calculations. This is a problem because the
     lane-changer doesn't look beyond the lane but will assume the
@@ -637,7 +652,7 @@ public:
     const MSEdge * const getEdge() const;
     /** Dumps the collected meanData of the indexed interval to myLane.
         @param The index of the intervall to dump. */
-    void dumpData( unsigned index );
+//    void dumpData( unsigned index );
 
     /** Update of members if vehicle enters a new lane in the move step.
         @param Pointer to the entered Lane. */
@@ -658,8 +673,8 @@ public:
         laneChange step. */
     void leaveLaneAtLaneChange( void );
 
-    /** Update of MeanData members at every move a vehicle performs. */
-    void meanDataMove( void );
+    /* Update of MeanData members at every move a vehicle performs. */
+//    void meanDataMove( void );
 
     bool reachingCritical(double laneLength) const;
 
@@ -728,7 +743,7 @@ public:
 
     MSUnit::Cells getMovedDistance( void ) const
         {
-        return myState.mySpeed*MSNet::deltaT();
+        return SPEED2DIST(myState.mySpeed);
         }
 
     const MSRoute &getRoute() const;
@@ -756,16 +771,17 @@ protected:
 
     /** Reset meanData of indexed intervall after a dump.
         @param The index of the intervall to clear. */
-    void resetMeanData( unsigned index );
+//    void resetMeanData( unsigned index );
 
-    /** Helper for enterLaneAt* methods.
+    /* Helper for enterLaneAt* methods.
         @param Timestep when vehicle entered the lane.
         @param Position where vehicle entered the lane.
         @param Speed at which vehicle entered the lane. */
+    /*
     void updateMeanData( double entryTimestep,
                          double pos,
                          double speed );
-
+*/
 
     /// information how long ago the vehicle has performed a lane-change
     SUMOTime myLastLaneChangeOffset;
@@ -818,7 +834,8 @@ private:
         according to it's route. */
     NextAllowedLanes myAllowedLanes;
 
-    /// Collection of meanDataValues
+    // Collection of meanDataValues
+    /*
     struct MeanDataValues
     {
         double entryContTimestep;
@@ -832,7 +849,7 @@ private:
 
     /// Container of meanDataValues, one element for each mean-interval.
     std::vector< MeanDataValues > myMeanData;
-
+*/
     /// Default constructor.
     MSVehicle();
 

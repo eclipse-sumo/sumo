@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.11  2005/05/04 08:34:41  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; new mead data functionality; lane-changing offset computation debugged; simulation speed-up by avoiding multiplication with 1
+//
 // Revision 1.10  2005/02/17 10:33:38  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -229,7 +232,7 @@ inline double
 MSVehicle::timeHeadWayGap( double speed ) const
 {
     assert( speed >= 0 );
-    return speed * MSNet::deltaT();
+    return SPEED2DIST(speed);
 }
 
 /////////////////////////////////////////////////////////////////////////////

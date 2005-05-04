@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.61  2005/05/04 08:34:20  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; new mead data functionality; lane-changing offset computation debugged; simulation speed-up by avoiding multiplication with 1
+//
 // Revision 1.60  2005/02/17 10:33:38  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -592,7 +595,7 @@ MSVehicle::MSVehicle( string id,
     myLane( 0 ),
     myCurrEdge(0),
     myAllowedLanes(0),
-    myMeanData( noMeanData ),
+//    myMeanData( noMeanData ),
     myMoveReminders( 0 ),
     myOldLaneMoveReminders( 0 ),
     myOldLaneMoveReminderOffsets( 0 )
@@ -816,11 +819,11 @@ MSVehicle::accelDist() const
 double
 MSVehicle::vNeighEqualPos( const MSVehicle& neigh )
 {
-    double v = ( neigh.pos() - this->pos() +
-                 neigh.speed() * MSNet::deltaT() ) / MSNet::deltaT();
+    double v = DIST2SPEED( neigh.pos() - this->pos() +
+                 SPEED2DIST(neigh.speed()) );
     assert( v >= 0 );
     // Don't break too hard.
-    if ( v < speed() - myType->decel() * MSNet::deltaT() ) {
+    if ( v < speed() - SPEED2DIST(myType->decel()) ) {
         return speed() - myType->decelSpeed();
     }
 
@@ -838,7 +841,7 @@ MSVehicle::vNeighEqualPos( const MSVehicle& neigh )
 double
 MSVehicle::driveDist( State state ) const
 {
-    return state.mySpeed * MSNet::deltaT();
+    return SPEED2DIST(state.mySpeed);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -899,7 +902,7 @@ MSVehicle::move( MSLane* lane,
         }
     vNext =
         myLaneChangeModel->patchSpeed(
-            MAX2(0, myState.mySpeed-myType->decel()*MSNet::deltaT()),
+            MAX2(0, ACCEL2SPEED(myState.mySpeed-myType->decel())),
             vNext,
             MIN2(vSafe, vaccel(myLane)),
             vSafe);
@@ -918,7 +921,7 @@ MSVehicle::move( MSLane* lane,
     double predDec = MAX2(0, pred->speed()-decelAbility() /* !!! decelAbility of leader! */);
     if(brakeGap(vNext)+vNext*myTau > brakeGap(predDec) + gap) {
 
-        vNext = MIN2(vNext, gap / MSNet::deltaT());
+        vNext = MIN2(vNext, DIST2SPEED(gap));
     }
 
     // check whether the driver wants to let someone in
@@ -935,9 +938,9 @@ MSVehicle::move( MSLane* lane,
 
     // call reminders after vNext is set
     workOnMoveReminders( myState.myPos,
-                         myState.myPos + vNext * MSNet::deltaT(), vNext );
+                         myState.myPos + SPEED2DIST(vNext), vNext );
     // update position and speed
-    myState.myPos  += vNext * MSNet::deltaT();
+    myState.myPos  += SPEED2DIST(vNext);
     assert( myState.myPos < lane->length() );
     myState.mySpeed = vNext;
 #ifdef ABS_DEBUG
@@ -949,6 +952,7 @@ MSVehicle::move( MSLane* lane,
         myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
             myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
     }
+    myLane->addMean2(vNext);
 }
 
 
@@ -968,12 +972,12 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
         // decelerate to lane end when yes
         double vWish =
             vsafe(myState.mySpeed,
-                myType->decel() * MSNet::deltaT(),
+                ACCEL2SPEED(myType->decel()),
                 myLane->length()-myState.myPos/*-MSVehicleType::maxLength()*/,
                 0);
         if(pred!=0) {
             vWish = MIN2(vWish,
-                vsafe(myState.mySpeed, myType->decel() * MSNet::deltaT(),
+                vsafe(myState.mySpeed, ACCEL2SPEED(myType->decel()),
                     gap2pred(*pred), pred->speed()) );
         }
         vWish = MAX2(0, vWish);
@@ -1063,7 +1067,7 @@ MSVehicle::moveFirstChecked()
         vNext = MAX2(double(0), dawdle( MIN2(vSafe, vaccel(myLane)) ));
     vNext =
         myLaneChangeModel->patchSpeed(
-            MAX2(0, myState.mySpeed-myType->decel()*MSNet::deltaT()),
+            MAX2(0, ACCEL2SPEED(myState.mySpeed-myType->decel())),
             vNext,
             MIN2(vSafe, vaccel(myLane)),
             vSafe);
@@ -1080,10 +1084,12 @@ MSVehicle::moveFirstChecked()
     double pos = myState.myPos;
 
     // update position
-    myState.myPos += vNext * MSNet::deltaT();
+    myState.myPos += SPEED2DIST(vNext);
     // update speed
     myState.mySpeed = vNext;
     MSLane *approachedLane = myLane;
+    approachedLane->addMean2(vNext);
+
 
     // move the vehicle forward
     size_t no = 0;
@@ -1116,6 +1122,7 @@ MSVehicle::moveFirstChecked()
         }
         // set information about approaching
         approachedLane->setApproaching(myState.pos(), this);
+        approachedLane->addMean2(vNext);
         no++;
     }
     // set approaching information for consecutive lanes the vehicle may reach in the
@@ -1158,7 +1165,7 @@ MSVehicle::moveFirstChecked()
     */
     // enter lane herein if no push occures (otherwise, do it there)
     if(no==0) {
-        workOnMoveReminders( pos, pos + vNext * MSNet::deltaT(), vNext );
+        workOnMoveReminders( pos, pos + SPEED2DIST(vNext), vNext );
     }
     myTarget = approachedLane;
     assert(myTarget!=0);
@@ -1245,7 +1252,7 @@ MSVehicle::vsafeCriticalCont( double boundVSafe )
             if(brakeGap(vsafePredNextLane)+vsafePredNextLane*myTau > brakeGap(predDec) + dist2Pred) {
 
                 vsafePredNextLane =
-                    MIN2(vsafePredNextLane, dist2Pred / MSNet::deltaT());
+                    MIN2(vsafePredNextLane, DIST2SPEED(dist2Pred));
             }
         } else {
             // leading vehicle is overlapping (stands within the junction)
@@ -1449,6 +1456,14 @@ MSVehicle::speed() const
 }
 
 /////////////////////////////////////////////////////////////////////////////
+Position2D MSVehicle::position() const
+{
+	return (myLane->myShape).positionAtLengthPosition(myState.pos());
+}
+
+
+
+
 /*
 bool
 MSVehicle::laneChangeBrake2much( const State brakeState )
@@ -1577,7 +1592,7 @@ MSVehicle::isInsertBrakeCond( MSVehicle& aPred )
 }
 
 /////////////////////////////////////////////////////////////////////////////
-
+/*
 void
 MSVehicle::dumpData( unsigned index )
 {
@@ -1596,9 +1611,9 @@ MSVehicle::dumpData( unsigned index )
                             md.enteredLaneWithinIntervall );
     resetMeanData( index );
 }
-
+*/
 /////////////////////////////////////////////////////////////////////////////
-
+/*
 void
 MSVehicle::resetMeanData( unsigned index )
 {
@@ -1611,14 +1626,15 @@ MSVehicle::resetMeanData( unsigned index )
     md.speedSquareSum        = 0;
     md.enteredLaneWithinIntervall = 0;
 }
-
+*/
 /////////////////////////////////////////////////////////////////////////////
-
+/*
 void
 MSVehicle::updateMeanData( double entryTimestep,
                            double pos,
                            double speed )
 {
+    /*
     double speedSquare = speed * speed;
     unsigned discreteTimestep = MSNet::getInstance()->timestep();
     for ( vector< MeanDataValues >::iterator md = myMeanData.begin();
@@ -1637,7 +1653,8 @@ MSVehicle::updateMeanData( double entryTimestep,
         }
         md->enteredLaneWithinIntervall = true;
     }
-}
+    */
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -1670,7 +1687,7 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane, double driven )
         static_cast< double >( MSNet::getInstance()->timestep() ) - 1 +
         driven / myState.mySpeed;
     assert(entryTimestep<MSNet::globaltime);
-    updateMeanData( entryTimestep, 0, myState.mySpeed );
+//    updateMeanData( entryTimestep, 0, myState.mySpeed );
     // get new move reminder
     myMoveReminders = enteredLane->getMoveReminders();
     // proceed in route
@@ -1694,9 +1711,10 @@ void
 MSVehicle::enterLaneAtLaneChange( MSLane* enteredLane )
 {
     myLane = enteredLane;
-    updateMeanData(
+/*    updateMeanData(
         static_cast< double >( MSNet::getInstance()->timestep() ) - 1,
         myState.myPos, 0 );
+        */
     // switch to and activate the new lane's reminders
     // keep OldLaneReminders
     myMoveReminders = enteredLane->getMoveReminders();
@@ -1712,9 +1730,9 @@ MSVehicle::enterLaneAtEmit( MSLane* enteredLane )
 {
     myWaitingTime = 0;
     myLane = enteredLane;
-    updateMeanData(
+/*    updateMeanData(
         static_cast< double >( MSNet::getInstance()->timestep() ) - 1 ,
-        myState.myPos, myState.mySpeed );
+        myState.myPos, myState.mySpeed );*/
     // set and activate the new lane's reminders
     myMoveReminders = enteredLane->getMoveReminders();
     activateRemindersByEmitOrLaneChange();
@@ -1725,6 +1743,7 @@ MSVehicle::enterLaneAtEmit( MSLane* enteredLane )
 void
 MSVehicle::leaveLaneAtMove( double driven )
 {
+    /*
     double leaveTimestep =
         static_cast< double >( MSNet::getInstance()->timestep() ) - 1 +
         ( driven / myState.mySpeed );
@@ -1742,6 +1761,7 @@ MSVehicle::leaveLaneAtMove( double driven )
                                 md.enteredLaneWithinIntervall,
                                 leaveTimestep - md.entryTravelTimestep );
     }
+    */
     if(!myAllowedLanes.empty()) {
         myAllowedLanes.pop_front();
 //        myLanesWishes.pop_front();
@@ -1753,10 +1773,10 @@ MSVehicle::leaveLaneAtMove( double driven )
 void
 MSVehicle::leaveLaneAtLaneChange( void )
 {
+    /*
     double leaveTimestep =
         static_cast< double >( MSNet::getInstance()->timestep() );
 
-    double savePos = myState.myPos; // have to do this due to double-precision errors
     for ( unsigned index = 0; index < myMeanData.size(); ++index ) {
         assert(myMeanData.size()>index);
         MeanDataValues& md = myMeanData[ index ];
@@ -1770,7 +1790,9 @@ MSVehicle::leaveLaneAtLaneChange( void )
                                 false,
                                 md.enteredLaneWithinIntervall );
     }
+    */
     // dismiss the old lane's reminders
+    double savePos = myState.myPos; // have to do this due to double-precision errors
     vector< MSMoveReminder* >::iterator rem;
     for ( rem = myMoveReminders.begin();
           rem != myMoveReminders.end(); ++rem ){
@@ -1790,10 +1812,11 @@ MSVehicle::leaveLaneAtLaneChange( void )
 }
 
 /////////////////////////////////////////////////////////////////////////////
-
+/*
 void
 MSVehicle::meanDataMove( void )
 {
+    /*
     double speed = myState.mySpeed;
     double speedSquare = speed * speed;
     for ( vector< MeanDataValues >::iterator md = myMeanData.begin();
@@ -1802,7 +1825,8 @@ MSVehicle::meanDataMove( void )
         md->speedSum       += speed;
         md->speedSquareSum += speedSquare;
     }
-}
+    */
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -1826,14 +1850,14 @@ MSVehicle::reachingCritical(double laneLength) const
 double
 MSVehicle::decelAbility() const
 {
-    return myType->decel() * MSNet::deltaT();
+    return ACCEL2SPEED(myType->decel()); // !!! really the speed?
 }
 
 
 double
 MSVehicle::accelAbility() const
 {
-    return myType->accel(myState.mySpeed) * MSNet::deltaT();
+    return ACCEL2SPEED(myType->accel(myState.mySpeed)); // !!! really the speed?
 }
 
 
@@ -2004,10 +2028,10 @@ MSVehicle::onTripEnd(/*MSLane &caller, */bool wasAlreadySet)
 {
     double pspeed = myState.mySpeed;
     double pos = myState.myPos;
-    double oldPos = pos - pspeed * MSNet::deltaT();
+    double oldPos = pos - SPEED2DIST(pspeed);
     if ( pos - myType->length() < 0 ) {
         double pdist = (myType->length() + 0.01) - oldPos;
-        pspeed = pdist / MSNet::deltaT();
+        pspeed = DIST2SPEED(pdist);
         pos = myType->length() + 0.1;
     }
     pos += myLane->length();
@@ -2231,13 +2255,13 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
             // ... maybe the route information shall be saved for output?
         if( MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
             int routeOffset = (int) MSCORN::CORN_P_VEH_OLDROUTE +
-                (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
-            myPointerCORNMap[(MSCORN::Pointer) routeOffset] = (void*) otherr;
-            int begEdgeOffset = (int) MSCORN::CORN_P_VEH_ROUTE_BEGIN_EDGE +
-                (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+	    		(int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+    		myPointerCORNMap[(MSCORN::Pointer) routeOffset] = (void*) otherr;
+		    int begEdgeOffset = (int) MSCORN::CORN_P_VEH_ROUTE_BEGIN_EDGE +
+			    (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
             myPointerCORNMap[(MSCORN::Pointer) begEdgeOffset] = (void*) *myCurrEdge;
-            int timeOffset = (int) MSCORN::CORN_VEH_REROUTE_TIME +
-                (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+		    SUMOTime timeOffset = (SUMOTime) MSCORN::CORN_VEH_REROUTE_TIME +
+			    (SUMOTime) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
             myDoubleCORNMap[(MSCORN::Function) timeOffset] = (double) simTime;
         }
         myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
@@ -2318,7 +2342,11 @@ MSVehicle::countAllowedContinuations(const MSLane *lane) const
     double MIN_DIST = 3000;
     MSRouteIterator ce = myCurrEdge;
     double dist = -myState.pos();
-    while(dist<MIN_DIST&&ce!=myRoute->end()-2/**ce!=myRoute->getLastEdge()*/) {
+    do {
+        if(ce==myRoute->end()-1) {
+            ret += 1;
+            return ret;
+        }
         const MSEdge::LaneCont *al = ( *ce )->allowedLanes( **( ce + 1 ) );
         if(al==0) {
             return ret;
@@ -2333,7 +2361,20 @@ MSVehicle::countAllowedContinuations(const MSLane *lane) const
         assert(al!=0);
         ++ce;
         dist += ((*al)[0])->length();
-    }
+    } while(dist<MIN_DIST&&ce!=myRoute->end()-1);
+
+    /*
+    double dist = -myState.pos();
+    while(dist<MIN_DIST&&ce!=myRoute->end()-2/!*ce!=myRoute->getLastEdge()*!/) {
+        const MSEdge::LaneCont *al = ( *ce )->allowedLanes( **( ce + 1 ) );
+        if(al==0) {
+            return ret;
+        }
+        MSEdge::LaneCont::const_iterator i =
+            find(al->begin(), al->end(), lane);
+        if(i==al->end()) {
+            return ret;
+        }
     return ret;
 }
 
@@ -2341,9 +2382,14 @@ MSVehicle::countAllowedContinuations(const MSLane *lane) const
 double
 MSVehicle::allowedContinuationsLength(const MSLane *lane) const
 {
-    double dist = lane->length()-myState.pos();
+    double MIN_DIST = 3000;
     MSRouteIterator ce = myCurrEdge;
-    while(ce!=myRoute->end()-2/**ce!=myRoute->getLastEdge()*/) {
+    double dist = -myState.pos();
+    do {
+        if(ce==myRoute->end()-1) {
+            dist += lane->length();
+            return dist;
+        }
         const MSEdge::LaneCont *al = ( *ce )->allowedLanes( **( ce + 1 ) );
         if(al==0) {
             return dist;
@@ -2353,14 +2399,21 @@ MSVehicle::allowedContinuationsLength(const MSLane *lane) const
         if(i==al->end()) {
             return dist;
         }
-        if(ce!=myCurrEdge) {
-            dist += ((*al)[0])->length();
+        lane = (*(lane->succLinkOneLane(*( ce + 1 ), *lane)))->getLane();
+        assert(al!=0);
+        ++ce;
+        dist += ((*al)[0])->length();
+    } while(dist<MIN_DIST&&ce!=myRoute->end()-1);
+    /*
+    double dist = lane->length()-myState.pos();
+    MSRouteIterator ce = myCurrEdge;
         }
         lane = (*(lane->succLinkOneLane(*( ce + 1 ), *lane)))->getLane();
         assert(al!=0);
         ++ce;
 //        dist += ((*al)[0])->length();
     }
+    */
     return dist;
 }
 

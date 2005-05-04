@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.5  2005/05/04 08:35:54  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; new mead data functionality; lane-changing offset computation debugged; simulation speed-up by avoiding multiplication with 1
+//
 // Revision 1.4  2004/12/16 12:24:45  dkrajzew
 // debugging
 //
@@ -112,7 +115,7 @@ inline
 double
 MSVehicleType::accelSpeed( double v ) const
 {
-    return myAccel * (1.0 - (v/(myMaxSpeed*2.0))) * MSNet::deltaT();
+    return ACCEL2SPEED(myAccel * (1.0 - (v/(myMaxSpeed*2.0))));
 }
 
 
@@ -128,7 +131,7 @@ inline
 double
 MSVehicleType::accelPlusDecelSpeed( double v ) const
 {
-	return ( accel(v) + myDecel ) * MSNet::deltaT();
+	return ACCEL2SPEED( accel(v) + myDecel );
 //    return myAccelPlusDecelSpeed;
 }
 
@@ -145,7 +148,7 @@ inline
 double
 MSVehicleType::accelDist( double v ) const
 {
-    return accel(v) * MSNet::deltaT() * MSNet::deltaT();
+    return ACCEL2DIST(accel(v));
 }
 
 

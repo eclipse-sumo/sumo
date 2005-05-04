@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.8  2005/05/04 08:35:54  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; new mead data functionality; lane-changing offset computation debugged; simulation speed-up by avoiding multiplication with 1
+//
 // Revision 1.7  2003/10/17 06:52:01  dkrajzew
 // acceleration is now time-dependent
 //
@@ -34,13 +37,15 @@ namespace
 // removed some warnings
 //
 // Revision 1.4  2003/05/20 09:31:47  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+// emission debugged; movement model reimplemented (seems ok);
+//  detector output debugged; setting and retrieval of some parameter added
 //
 // Revision 1.3  2003/02/07 10:41:50  dkrajzew
 // updated
 //
 // Revision 1.2  2002/10/16 16:39:03  dkrajzew
-// complete deletion within destructors implemented; clear-operator added for container; global file include
+// complete deletion within destructors implemented; clear-operator added
+//  for container; global file include
 //
 // Revision 1.1  2002/10/16 14:48:26  dkrajzew
 // ROOT/sumo moved to ROOT/src
@@ -116,6 +121,11 @@ namespace
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * included modules
