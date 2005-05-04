@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/05/04 07:49:52  dkrajzew
+// ported to fox1.4
+//
 // Revision 1.14  2004/11/23 10:11:33  dkrajzew
 // adapted the new class hierarchy
 //
@@ -123,6 +126,12 @@ namespace
 // files updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -209,8 +218,8 @@ GUIViewAggregatedLanes::GUIViewAggregatedLanes(FXComposite *p,
                                GUIMainWindow &app,
                                GUISUMOViewParent *parent,
                                GUINet &net, FXGLVisual *glVis)
-    : GUISUMOAbstractView(p, app, parent, net._grid, glVis),
-    myUseFullGeom(true), _net(&net)
+	: GUISUMOAbstractView(p, app, parent, net._grid, glVis),
+	myUseFullGeom(true), _net(&net)
 {
     init(net);
 }
@@ -221,8 +230,8 @@ GUIViewAggregatedLanes::GUIViewAggregatedLanes(FXComposite *p,
                                GUISUMOViewParent *parent,
                                GUINet &net, FXGLVisual *glVis,
                                FXGLCanvas *share)
-    : GUISUMOAbstractView(p, app, parent, net._grid, glVis, share),
-    myUseFullGeom(true), _net(&net)
+	: GUISUMOAbstractView(p, app, parent, net._grid, glVis, share),
+	myUseFullGeom(true), _net(&net)
 {
     init(net);
 }
@@ -265,43 +274,43 @@ GUIViewAggregatedLanes::init(GUINet &net)
     myROWDrawer[6] = new GUIROWDrawer_FGnT(_net->myEdgeWrapper);
     myROWDrawer[7] = new GUIROWDrawer_FGwT(_net->myEdgeWrapper);
     // lane coloring
-    GUIBaseColorer<GUILaneWrapper> *defLaneColorer =
-        new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0));
-    myLaneColorer = defLaneColorer;
-    myLaneColoringSchemes.add("black",
-        GUISUMOAbstractView::LCS_BLACK, defLaneColorer);
-    myLaneColoringSchemes.add("by density",
-        GUISUMOAbstractView::LCS_BY_DENSITY,
+	GUIBaseColorer<GUILaneWrapper> *defLaneColorer =
+		new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0));
+	myLaneColorer = defLaneColorer;
+	myLaneColoringSchemes.add("black",
+		GUISUMOAbstractView::LCS_BLACK, defLaneColorer);
+	myLaneColoringSchemes.add("by density",
+		GUISUMOAbstractView::LCS_BY_DENSITY,
         new GUIColorer_GradientByFunctionValue<GUILaneWrapper, E2::DetType, E2::DetType>(
             (double) 0, (double) 1,
             gGradients->getRGBColors(GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 100),
             (double (GUILaneWrapper::*)(E2::DetType) const) &GUILaneWrapper::getAggregatedFloat,
             E2::DENSITY));
     /*
-    myLaneColoringSchemes.add("by mean speed",
-        GUISUMOAbstractView::LCS_BY_MEAN_SPEED,
-        new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor()));
-    myLaneColoringSchemes.add("by mean halts",
-        GUISUMOAbstractView::LCS_BY_MEAN_HALTS,
-        new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor()));
+	myLaneColoringSchemes.add("by mean speed",
+		GUISUMOAbstractView::LCS_BY_MEAN_SPEED,
+		new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor()));
+	myLaneColoringSchemes.add("by mean halts",
+		GUISUMOAbstractView::LCS_BY_MEAN_HALTS,
+		new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor()));
         */
-    myLaneColoringSchemes.add("by purpose",
-        GUISUMOAbstractView::LCS_BY_PURPOSE,
-        new GUIColorer_LaneByPurpose<GUILaneWrapper>());
+	myLaneColoringSchemes.add("by purpose",
+		GUISUMOAbstractView::LCS_BY_PURPOSE,
+		new GUIColorer_LaneByPurpose<GUILaneWrapper>());
 
-//      (double (GUILaneWrapper::*)() const) = GUILaneWrapper::maxSpeed;
-    myLaneColoringSchemes.add("by allowed speed",
-        GUISUMOAbstractView::LCS_BY_SPEED,
-        new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+//	    (double (GUILaneWrapper::*)() const) = GUILaneWrapper::maxSpeed;
+	myLaneColoringSchemes.add("by allowed speed",
+		GUISUMOAbstractView::LCS_BY_SPEED,
+		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
             (double) 0, GUILaneWrapper::getOverallMaxSpeed(),
             RGBColor(1, 0, 0), RGBColor(0, 0, 1),
             (double (GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
 
-    myLaneColoringSchemes.add("by selection",
-        GUISUMOAbstractView::LCS_BY_SELECTION,
-        new GUIColorer_LaneBySelection<GUILaneWrapper>());
-    myLaneColoringSchemes.add("white",
-        GUISUMOAbstractView::LCS_WHITE,
+	myLaneColoringSchemes.add("by selection",
+		GUISUMOAbstractView::LCS_BY_SELECTION,
+		new GUIColorer_LaneBySelection<GUILaneWrapper>());
+	myLaneColoringSchemes.add("white",
+		GUISUMOAbstractView::LCS_WHITE,
         new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(1, 1, 1)));
 }
 
@@ -334,7 +343,7 @@ void
 GUIViewAggregatedLanes::buildViewToolBars(GUIGlChildWindow &v)
 {
     FXToolBar &toolbar = v.getToolBar(*this);
-    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
+    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
     // build coloring tools
         // lane colors
     myLaneColoring=new FXPopup(&toolbar, POPUP_VERTICAL);
@@ -366,7 +375,7 @@ GUIViewAggregatedLanes::buildViewToolBars(GUIGlChildWindow &v)
     myRememberingFactor->setValue(0.5);
     gAggregationRememberingFactor = 0.5;
 
-    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
+    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
 
     // build the locator buttons
     myLocatorPopup = new FXPopup(&toolbar, POPUP_VERTICAL);
@@ -383,8 +392,13 @@ GUIViewAggregatedLanes::buildViewToolBars(GUIGlChildWindow &v)
     new FXMenuButton(&toolbar,"\tLocate structures",
         GUIIconSubSys::getIcon(ICON_LOCATE), myLocatorPopup,
         MENUBUTTON_RIGHT|LAYOUT_TOP|BUTTON_TOOLBAR|FRAME_RAISED|FRAME_THICK);
+    // add viewport button
+    new FXButton(&toolbar,
+        "\tEdit Viewport...\tOpens a menu which lets you edit the viewport.",
+        GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEWPORT,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 
-    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
+    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
 
     // add toggle button for grid on/off
     new MFXCheckableButton(false,
@@ -410,7 +424,7 @@ long
 GUIViewAggregatedLanes::onCmdColourLanes(FXObject*,FXSelector sel,void*)
 {
     int index = FXSELID(sel) - MID_COLOURLANES;
-    myLaneColorer =
+	myLaneColorer =
         myLaneColoringSchemes.getColorer(index);
     update();
     return 1;

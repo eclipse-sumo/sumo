@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.27  2005/05/04 07:46:08  dkrajzew
+// ported to fox1.4
+//
 // Revision 1.26  2005/02/17 10:33:29  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -46,15 +49,18 @@
 //
 // Revision 1.19  2003/11/26 09:39:13  dkrajzew
 // added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
+//  lane to come makes it necessary)
 //
 // Revision 1.18  2003/11/12 14:06:32  dkrajzew
 // visualisation of tl-logics added
 //
 // Revision 1.17  2003/11/11 08:40:45  dkrajzew
-// consequent position2D instead of two doubles implemented; logging moved from utils to microsim
+// consequent position2D instead of two doubles implemented; logging moved
+//  from utils to microsim
 //
 // Revision 1.16  2003/10/27 10:47:03  dkrajzew
-// added to possibility to close the application after a simulations end without user interaction
+// added to possibility to close the application after a simulations end
+//  without user interaction
 //
 // Revision 1.15  2003/09/05 14:45:44  dkrajzew
 // first tries for an implementation of aggregated views
@@ -98,6 +104,12 @@
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -157,7 +169,7 @@ public:
 
     /** constructor */
     GUIApplicationWindow(FXApp* a, GUIThreadFactory &threadFactory,
-        int glWidth, int glHeight);
+        int glWidth, int glHeight, const std::string &configPattern);
 
     /** destructor */
     virtual ~GUIApplicationWindow();
@@ -234,20 +246,22 @@ public:
 
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
     long onRunThreadEvent(FXObject*, FXSelector, void*);
+
+    long onCmdCutSwell(FXObject*, FXSelector, void*);
 /*
     long onLeftBtnRelease(FXObject*sender,FXSelector,void*ptr);
     long onRightBtnRelease(FXObject*sender,FXSelector,void*ptr);
     long onMouseMove(FXObject*sender,FXSelector,void*ptr);
 */
 
-    FXTimer *addTimeout(FXObject *tgt, FXSelector sel,
+    void addTimeout(FXObject *tgt, FXSelector sel,
         FXuint ms=1000, void *ptr=NULL);
-    FXTimer *removeTimeout(FXObject *tgt, FXSelector sel);
+    void removeTimeout(FXObject *tgt, FXSelector sel);
 
-    FXGLCanvas *getBuildGLCanvas() const;
+	FXGLCanvas *getBuildGLCanvas() const;
     size_t getCurrentSimTime() const;
 
-    FXCursor *getDefaultCursor();
+	FXCursor *getDefaultCursor();
 
 
 private:
@@ -271,7 +285,7 @@ protected:
     virtual void fillMenuBar();
 
     /// Builds the tool bar
-    virtual void fillToolBar();
+    virtual void buildToolBars();
 
 protected:
     /** the name of the simulation */
@@ -306,7 +320,9 @@ protected:
     FXStatusBar *myStatusbar;
 
     /// for some menu detaching fun
-    FXToolBarShell *myToolBarDrag, *myMenuBarDrag;
+    FXToolBarShell *myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,
+        *myToolBarDrag4, *myToolBarDrag5,
+        *myMenuBarDrag;
 
     ///
     FXRealSpinDial *mySimDelayTarget;
@@ -324,7 +340,7 @@ protected:
     FXMenuBar *myMenuBar;
 
     /// The application tool bar
-    FXToolBar *myToolBar;
+    FXToolBar *myToolBar1, *myToolBar2, *myToolBar3, *myToolBar4, *myToolBar5;
 
     /// the simulation step display
     FXEX::FXLCDLabel *myLCDLabel;
@@ -337,6 +353,11 @@ protected:
 
     /// List of recent files
     FXRecentFiles myRecentFiles;
+
+    /// Input file pattern
+    std::string myConfigPattern;
+
+    FXProgressBar *myProgressBar;
 
 };
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2005/05/04 07:50:15  dkrajzew
+// ported to fox1.4
+//
 // Revision 1.36  2004/12/15 09:20:17  dkrajzew
 // made guisim independent of giant/netedit
 //
@@ -132,6 +135,12 @@ namespace
 // files updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -220,11 +229,11 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
                                GUIMainWindow &app,
                                GUISUMOViewParent *parent,
                                GUINet &net, FXGLVisual *glVis)
-    : GUISUMOAbstractView(p, app, parent, net._grid, glVis),
+	: GUISUMOAbstractView(p, app, parent, net._grid, glVis),
     _vehicleColScheme(VCS_BY_SPEED),
     myTrackedID(-1), myUseFullGeom(true),
     _edges2Show(0), _junctions2Show(0), _additional2Show(0),
-    _net(&net)
+	_net(&net)
 {
     init(net);
 }
@@ -239,7 +248,7 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
     _vehicleColScheme(VCS_BY_SPEED),
     myTrackedID(-1), myUseFullGeom(true),
     _edges2Show(0), _junctions2Show(0), _additional2Show(0),
-    _net(&net)
+	_net(&net)
 {
     init(net);
 }
@@ -308,25 +317,25 @@ GUIViewTraffic::init(GUINet &net)
     myROWDrawer[6] = new GUIROWDrawer_FGnT(_net->myEdgeWrapper);
     myROWDrawer[7] = new GUIROWDrawer_FGwT(_net->myEdgeWrapper);
     // lane coloring
-    GUIBaseColorer<GUILaneWrapper> *defLaneColorer =
-        new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0));
-    myLaneColorer = defLaneColorer;
-    myLaneColoringSchemes.add("black",
-        GUISUMOAbstractView::LCS_BLACK, defLaneColorer);
-    myLaneColoringSchemes.add("by purpose",
-        GUISUMOAbstractView::LCS_BY_PURPOSE,
-        new GUIColorer_LaneByPurpose<GUILaneWrapper>());
-    myLaneColoringSchemes.add("by allowed speed",
-        GUISUMOAbstractView::LCS_BY_SPEED,
-        new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+	GUIBaseColorer<GUILaneWrapper> *defLaneColorer =
+		new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0));
+	myLaneColorer = defLaneColorer;
+	myLaneColoringSchemes.add("black",
+		GUISUMOAbstractView::LCS_BLACK, defLaneColorer);
+	myLaneColoringSchemes.add("by purpose",
+		GUISUMOAbstractView::LCS_BY_PURPOSE,
+		new GUIColorer_LaneByPurpose<GUILaneWrapper>());
+	myLaneColoringSchemes.add("by allowed speed",
+		GUISUMOAbstractView::LCS_BY_SPEED,
+		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
             0, 150.0/3.6,
             RGBColor(1, 0, 0), RGBColor(0, 0, 1),
             (double (GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
-    myLaneColoringSchemes.add("by selection",
-        GUISUMOAbstractView::LCS_BY_SELECTION,
-        new GUIColorer_LaneBySelection<GUILaneWrapper>());
-    myLaneColoringSchemes.add("white",
-        GUISUMOAbstractView::LCS_WHITE,
+	myLaneColoringSchemes.add("by selection",
+		GUISUMOAbstractView::LCS_BY_SELECTION,
+		new GUIColorer_LaneBySelection<GUILaneWrapper>());
+	myLaneColoringSchemes.add("white",
+		GUISUMOAbstractView::LCS_WHITE,
         new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(1, 1, 1)));
 }
 
@@ -363,7 +372,7 @@ void
 GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
 {
     FXToolBar &toolbar = v.getToolBar(*this);
-    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
+    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
     // build coloring tools
         // vehicle colors
     myVehColoring=new FXPopup(&toolbar, POPUP_VERTICAL);
@@ -379,7 +388,7 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
         GUIIconSubSys::getIcon(ICON_COLOURLANES), myLaneColoring,
         MENUBUTTON_RIGHT|LAYOUT_TOP|BUTTON_TOOLBAR|FRAME_RAISED|FRAME_THICK);
 
-    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
+    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
 
     // build the locator buttons
     myLocatorPopup = new FXPopup(&toolbar, POPUP_VERTICAL);
@@ -406,8 +415,13 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
     new FXMenuButton(&toolbar,"\tLocate structures",
         GUIIconSubSys::getIcon(ICON_LOCATE), myLocatorPopup,
         MENUBUTTON_RIGHT|LAYOUT_TOP|BUTTON_TOOLBAR|FRAME_RAISED|FRAME_THICK);
+    // add viewport button
+    new FXButton(&toolbar,
+        "\tEdit Viewport...\tOpens a menu which lets you edit the viewport.",
+        GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEWPORT,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 
-    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SEPARATOR);
+    new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
 
     // add toggle button for grid on/off
     new MFXCheckableButton(false,
@@ -484,6 +498,23 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
         / _addScl; // offset to top
     // reset the tables of things to show if the viewport has changed
     if(myViewSettings.differ(x, y, xoff, yoff)) {
+
+double width = nb.getWidth();
+double height = nb.getHeight();
+double mzoom = _changer->getZoom();
+double cy = _changer->getYPos();//cursorY;
+double cx = _changer->getXPos();//cursorY;
+double mratio = (double) _widthInPixels / (double) _heightInPixels;
+double sxmin = nb.getCenter().x() - mratio * width / (mzoom) * 100 / 2. / .97;
+sxmin -= cx;
+double sxmax = nb.getCenter().x() + mratio * width / (mzoom) * 100 / 2. / .97;
+sxmax -= cx;
+
+double symin = nb.getCenter().y() - height / mzoom * 100 / 2. / .97;
+symin += cy;
+double symax = nb.getCenter().y() + height / mzoom * 100 / 2. / .97;
+symax += cy;
+
         clearUsetable(_edges2Show, _edges2ShowSize);
         clearUsetable(_junctions2Show, _junctions2ShowSize);
         _net->_grid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR, x, y, xoff, yoff,
@@ -600,7 +631,7 @@ GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, double darken)
 void
 GUIViewTraffic::centerTo(GUIGlObject *o)
 {
-    if(o->getType()!=GLO_VEHICLE) {
+	if(o->getType()!=GLO_VEHICLE) {
         GUISUMOAbstractView::centerTo(o);
     } else {
         try {
@@ -629,7 +660,7 @@ GUIViewTraffic::draw(const MSRoute &r)
         const DoubleVector &lengths = lane.getShapeLengths();
         const Position2DVector &geom = lane.getShape();
         for(size_t i=0; i<geom.size()-1; i++) {
-            GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], 1.0);
+			GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], 1.0);
         }
     }
 }
@@ -655,7 +686,7 @@ GUIViewTraffic::hideRoute(GUIVehicle *v, int index)
     while(i!=myVehicleOps.end()) {
         if((*i).type==VO_SHOW_ROUTE&&(*i).routeNo==index) {
             i = myVehicleOps.erase(i);
-            update();
+		    update();
             return;
         }
         i = find_if(i+1, myVehicleOps.end(), vehicle_in_ops_finder(v));

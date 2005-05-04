@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/05/04 07:48:52  dkrajzew
+// ported to fox1.4
+//
 // Revision 1.13  2004/12/15 09:20:17  dkrajzew
 // made guisim independent of giant/netedit
 //
@@ -80,6 +83,12 @@ namespace
 // files updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -110,6 +119,7 @@ namespace
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <utils/gui/div/GUIIOGlobals.h>
+#include <utils/foxtools/MFXImageHelper.h>
 
 
 /* =========================================================================
@@ -117,6 +127,28 @@ namespace
  * ======================================================================= */
 using namespace std;
 
+
+const FXchar patterns[]=
+  "\nGIF Image (*.gif)"
+  "\nBMP Image (*.bmp)"
+  "\nXPM Image (*.xpm)"
+  "\nPCX Image (*.pcx)"
+  "\nICO Image (*.ico)"
+  "\nRGB Image  (*.rgb)"
+  "\nXBM Image  (*.xbm)"
+  "\nTARGA Image  (*.tga)"
+#ifdef HAVE_PNG_H
+  "\nPNG Image  (*.png)"
+#endif
+#ifdef HAVE_JPEG_H
+  "\nJPEG Image (*.jpg)"
+#endif
+#ifdef HAVE_TIFF_H
+  "\nTIFF Image (*.tif)"
+#endif
+  "All Image Files (*.gif, *.bmp, *.xpm, *.pcx, *.ico, *.rgb, *.xbm, *.tga, *.png, *.jpg, *.tif)"
+  "All Files (*)"
+  ;
 
 /* =========================================================================
  * FOX callback mapping
@@ -203,6 +235,7 @@ GUISUMOViewParent::~GUISUMOViewParent()
 {
     myParent->removeChild(this);
     delete myToolBar;
+//    delete myToolBarDrag;
 }
 
 
@@ -271,7 +304,7 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*sender,FXSelector,void*)
     // get the new file name
     FXFileDialog opendialog(this, "Save Snapshot");
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("*.bmp");
+    opendialog.setPatternList(patterns);
     if(gCurrentFolder.length()!=0) {
         opendialog.setDirectory(gCurrentFolder.c_str());
     }
@@ -281,11 +314,22 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*sender,FXSelector,void*)
     gCurrentFolder = opendialog.getDirectory().text();
     string file = string(opendialog.getFilename().text());
     FXColor *buf = _view->getSnapshot();
+    try {
+        MFXImageHelper::saveimage(getApp(), file,
+            _view->getWidth(), _view->getHeight(), buf);
+    } catch (...) {
+        string msg = string("Could not save '") + file + ("'.\nMaybe the extension is unknown.");
+        FXMessageBox::error(this, MBOX_OK, "Saving failed.",
+            msg.c_str());
+    }
+    /*
     // Save the image.
     FXFileStream stream;
     stream.open(file.c_str(), FXStreamSave);
     fxsaveBMP(stream, buf, _view->getWidth(), _view->getHeight());
+    */
     FXFREE(&buf);
+
     return 1;
 }
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2005/05/04 07:48:52  dkrajzew
+// ported to fox1.4
+//
 // Revision 1.11  2004/12/15 09:20:17  dkrajzew
 // made guisim independent of giant/netedit
 //
@@ -64,6 +67,12 @@
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -181,7 +190,6 @@ private:
     /// information whether the canvas may be rotated
     bool _allowRotation;
 
-	//Editor Frame Widgets
 	FXGroupBox  *groupBox;
 	FXTextField *JunctionNameTextField;
 	FXTextField *xPosTextField;
@@ -191,8 +199,6 @@ private:
 	FXTextField *LaneEndTextField;
 	FXTextField *MaxSpeedTextField;
 	FXTextField *LengthTextField;
-
-
     /// the artifact chooser
     GUIDialog_GLObjChooser *_chooser;
 

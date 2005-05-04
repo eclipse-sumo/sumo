@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.40  2005/05/04 07:46:08  dkrajzew
+// ported to fox1.4
+//
 // Revision 1.39  2005/02/17 10:33:29  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -143,6 +146,12 @@ namespace
 // files updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -173,7 +182,6 @@ namespace
 #include "GUIEvent_SimulationLoaded.h"
 #include <utils/gui/events/GUIEvent_SimulationEnded.h>
 #include <utils/gui/events/GUIEvent_Message.h>
-#include <utils/gui/events/GUIEvents.h>
 #include <utils/gui/div/GUIMessageWindow.h>
 #include <utils/gui/div/GUIDialog_GLChosenEditor.h>
 #include "GUIGlobals.h"
@@ -248,6 +256,9 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]=
     FXMAPFUNC(SEL_THREAD_EVENT, ID_RUNTHREAD_EVENT,  GUIApplicationWindow::onRunThreadEvent),
     FXMAPFUNC(SEL_THREAD, ID_LOADTHREAD_EVENT,       GUIApplicationWindow::onLoadThreadEvent),
     FXMAPFUNC(SEL_THREAD, ID_RUNTHREAD_EVENT,        GUIApplicationWindow::onRunThreadEvent),
+
+    FXMAPFUNC(SEL_COMMAND,  MID_CUTSWELL,               GUIApplicationWindow::onCmdCutSwell),
+
 };
 
 // Object implementation
@@ -258,11 +269,12 @@ FXIMPLEMENT(GUIApplicationWindow, FXMainWindow, GUIApplicationWindowMap, ARRAYNU
  * ======================================================================= */
 GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
                                            GUIThreadFactory &threadFactory,
-                                           int glWidth, int glHeight)
+                                           int glWidth, int glHeight,
+                                           const std::string &configPattern)
     : GUIMainWindow(a, glWidth, glHeight),
     myLoadThread(0), myRunThread(0),
     myAmLoading(false),
-    mySimDelay(50)
+    mySimDelay(50), myConfigPattern(configPattern)
 {
     setTarget(this);
     setSelector(MID_WINDOW);
@@ -271,17 +283,11 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
 
     // build menu bar
     myMenuBarDrag=new FXToolBarShell(this,FRAME_NORMAL);
-    myMenuBar = new FXMenuBar(this, myMenuBarDrag,
+    myMenuBar = new FXMenuBar(myTopDock, myMenuBarDrag,
         LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
     new FXToolBarGrip(myMenuBar, myMenuBar, FXMenuBar::ID_TOOLBARGRIP,
         TOOLBARGRIP_DOUBLE);
-    // build tool bars
-    myToolBarDrag=new FXToolBarShell(this,FRAME_NORMAL);
-    myToolBar = new FXToolBar(this,myToolBarDrag,
-        LAYOUT_SIDE_TOP|LAYOUT_FILL_X|FRAME_RAISED);
-    new FXToolBarGrip(myToolBar, myToolBar, FXToolBar::ID_TOOLBARGRIP,
-        TOOLBARGRIP_DOUBLE);
-
+    buildToolBars();
     // build the thread - io
     myLoadThreadEvent.setTarget(this),
     myLoadThreadEvent.setSelector(ID_LOADTHREAD_EVENT);
@@ -311,13 +317,14 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
     myMessageWindow = new GUIMessageWindow(myMainSplitter);
     // fill menu and tool bar
     fillMenuBar();
-    fillToolBar();
     // build additional threads
     myLoadThread = threadFactory.buildLoadThread(this, myEvents, myLoadThreadEvent);
     myRunThread = threadFactory.buildRunThread(this, *mySimDelayTarget, myEvents,
         myRunThreadEvent);
     // set the status bar
     myStatusbar->getStatusLine()->setText("Ready.");
+    myProgressBar =
+        new FXProgressBar(myStatusbar, 0, 0, PROGRESSBAR_NORMAL|LAYOUT_FILL_X, 200);
 
     // set the caption
     string caption = string("SUMO ") + string(version)
@@ -347,7 +354,8 @@ GUIApplicationWindow::create()
     gCurrentFolder = getApp()->reg().readStringEntry("SETTINGS","basedir", "");
     FXMainWindow::create();
     myMenuBarDrag->create();
-    myToolBarDrag->create();
+    myToolBarDrag1->create();
+    myToolBarDrag2->create();
     myFileMenu->create();
     myEditMenu->create();
     mySettingsMenu->create();
@@ -377,7 +385,7 @@ GUIApplicationWindow::~GUIApplicationWindow()
     GUITexturesHelper::close();
     delete myGLVisual;
     // delete some non-parented windows
-    delete myToolBarDrag;
+    delete myToolBarDrag1;
     //
 //!!!!    myRunThread->yield();
     delete myRunThread;
@@ -396,7 +404,7 @@ GUIApplicationWindow::detach()
 {
     FXMainWindow::detach();
     myMenuBarDrag->detach();
-    myToolBarDrag->detach();
+    myToolBarDrag1->detach();
 }
 
 
@@ -472,9 +480,17 @@ GUIApplicationWindow::fillMenuBar()
     new FXMenuCheck(myWindowsMenu,
         "Show Message Window\t\tToggle the Message Window on/off.",
         myMessageWindow,FXWindow::ID_TOGGLESHOWN);
+    /*
     new FXMenuCheck(myWindowsMenu,
         "Show Toolbar\t\tToggle the Toolbar on/off.",
-        myToolBar, FXWindow::ID_TOGGLESHOWN);
+        myToolBar1, FXWindow::ID_TOGGLESHOWN);
+        */
+    new FXMenuCheck(myWindowsMenu,
+        "Show Simulation Time\t\tToggle the Simulation Time on/off.",
+        myToolBar3, FXWindow::ID_TOGGLESHOWN);
+    new FXMenuCheck(myWindowsMenu,
+        "Show Simulation Delay\t\tToggle the Simulation Delay Entry on/off.",
+        myToolBar4, FXWindow::ID_TOGGLESHOWN);
     new FXMenuSeparator(myWindowsMenu);
     new FXMenuCommand(myWindowsMenu,"Tile &Horizontally",
         GUIIconSubSys::getIcon(ICON_WINDOWS_TILE_HORI),
@@ -514,58 +530,94 @@ GUIApplicationWindow::fillMenuBar()
 
 
 void
-GUIApplicationWindow::fillToolBar()
+GUIApplicationWindow::buildToolBars()
 {
-    // build file tools
-    new FXButton(myToolBar,"\t\tOpen a Simulation (Configuration File).",
-        GUIIconSubSys::getIcon(ICON_OPEN), this, MID_OPEN,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myToolBar,"\t\tReload the Simulation (Configuration File).",
-        GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXToolBarGrip(myToolBar,NULL,0,TOOLBARGRIP_SEPARATOR);
+    // build tool bars
+    {
+        // file and simulation tool bar
+        myToolBarDrag1=new FXToolBarShell(this,FRAME_NORMAL);
+        myToolBar1 = new FXToolBar(myTopDock,myToolBarDrag1,
+            LAYOUT_DOCK_NEXT|LAYOUT_SIDE_TOP|FRAME_RAISED);
+        new FXToolBarGrip(myToolBar1, myToolBar1, FXToolBar::ID_TOOLBARGRIP,
+            TOOLBARGRIP_DOUBLE);
+        // build file tools
+        new FXButton(myToolBar1,"\t\tOpen a Simulation (Configuration File).",
+            GUIIconSubSys::getIcon(ICON_OPEN), this, MID_OPEN,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        new FXButton(myToolBar1,"\t\tReload the Simulation (Configuration File).",
+            GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_RELOAD,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    }
+    {
+        // build simulation tools
+        myToolBarDrag2=new FXToolBarShell(this,FRAME_NORMAL);
+        myToolBar2 = new FXToolBar(myTopDock,myToolBarDrag2,
+            LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
+        new FXToolBarGrip(myToolBar2, myToolBar2, FXToolBar::ID_TOOLBARGRIP,
+            TOOLBARGRIP_DOUBLE);
+        new FXButton(myToolBar2,"\t\tStart the loaded Simulation.",
+            GUIIconSubSys::getIcon(ICON_START), this, MID_START,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        new FXButton(myToolBar2,"\t\tStop the running Simulation.",
+            GUIIconSubSys::getIcon(ICON_STOP), this, MID_STOP,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        new FXButton(myToolBar2,"\t\tPerform a single Simulation Step.",
+            GUIIconSubSys::getIcon(ICON_STEP), this, MID_STEP,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 
-    // build simulation tools
-    new FXButton(myToolBar,"\t\tStart the loaded Simulation.",
-        GUIIconSubSys::getIcon(ICON_START), this, MID_START,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myToolBar,"\t\tStop the running Simulation.",
-        GUIIconSubSys::getIcon(ICON_STOP), this, MID_STOP,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myToolBar,"\t\tPerform a single Simulation Step..",
-        GUIIconSubSys::getIcon(ICON_STEP), this, MID_STEP,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXLabel(myToolBar, "Current Step:");
+        new FXButton(myToolBar2,"\t\tCompute strategies.",
+            GUIIconSubSys::getIcon(ICON_CUT_SWELL), this, MID_CUTSWELL,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 
-    myLCDLabel = new FXLCDLabel(myToolBar, 10, 0, 0,
-        LCDLABEL_LEADING_ZEROS);
-    myLCDLabel->setHorizontal(2);
-    myLCDLabel->setVertical(2);
-    myLCDLabel->setThickness(2);
-    myLCDLabel->setGroove(2);
-    myLCDLabel->setText("-----------");
-
-    new FXToolBarGrip(myToolBar,NULL,0,TOOLBARGRIP_SEPARATOR);
-
-    new FXLabel(myToolBar, "Delay:");
-    mySimDelayTarget =
-        new FXRealSpinDial(myToolBar, 10, 0, MID_SIMDELAY,
-        LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
-    mySimDelayTarget->setFormatString("%.0fms");
-    mySimDelayTarget->setIncrements(1,10,10);
-    mySimDelayTarget->setRange(0,1000);
-    mySimDelayTarget->setValue(0);
-
-    new FXToolBarGrip(myToolBar,NULL,0,TOOLBARGRIP_SEPARATOR);
-
-    // build view tools
-    new FXButton(myToolBar,"\t\tOpen a new microscopic View.",
-        GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    new FXButton(myToolBar,
-        "\t\tOpen a new Lane aggregated View.",
-        GUIIconSubSys::getIcon(ICON_LAGGRVIEW), this, MID_NEW_LANEAVIEW,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    }
+    {
+        // Simulation Step Display
+        myToolBarDrag3=new FXToolBarShell(this,FRAME_NORMAL);
+        myToolBar3 = new FXToolBar(myTopDock,myToolBarDrag3,
+            LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
+        new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP,
+            TOOLBARGRIP_DOUBLE);
+        new FXLabel(myToolBar3, "Current Step:");
+        myLCDLabel = new FXLCDLabel(myToolBar3, 6, 0, 0,
+            LCDLABEL_LEADING_ZEROS);
+        myLCDLabel->setHorizontal(2);
+        myLCDLabel->setVertical(2);
+        myLCDLabel->setThickness(2);
+        myLCDLabel->setGroove(2);
+        myLCDLabel->setText("-----------");
+    }
+    {
+        // Simulation Delay
+        myToolBarDrag4=new FXToolBarShell(this,FRAME_NORMAL);
+        myToolBar4 = new FXToolBar(myTopDock,myToolBarDrag4,
+            LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
+        new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP,
+            TOOLBARGRIP_DOUBLE);
+        new FXLabel(myToolBar4, "Delay:");
+        mySimDelayTarget =
+            new FXRealSpinDial(myToolBar4, 10, 0, MID_SIMDELAY,
+            LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        mySimDelayTarget->setFormatString("%.0fms");
+        mySimDelayTarget->setIncrements(1,10,10);
+        mySimDelayTarget->setRange(0,1000);
+        mySimDelayTarget->setValue(0);
+    }
+    {
+        // Views
+        myToolBarDrag5=new FXToolBarShell(this,FRAME_NORMAL);
+        myToolBar5 = new FXToolBar(myTopDock,myToolBarDrag5,
+            LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
+        new FXToolBarGrip(myToolBar5, myToolBar5, FXToolBar::ID_TOOLBARGRIP,
+            TOOLBARGRIP_DOUBLE);
+        // build view tools
+        new FXButton(myToolBar5,"\t\tOpen a new microscopic View.",
+            GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+        new FXButton(myToolBar5,
+            "\t\tOpen a new Lane aggregated View.",
+            GUIIconSubSys::getIcon(ICON_LAGGRVIEW), this, MID_NEW_LANEAVIEW,
+            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    }
 }
 
 
@@ -626,7 +678,7 @@ GUIApplicationWindow::onCmdOpen(FXObject*,FXSelector,void*)
     // get the new file name
     FXFileDialog opendialog(this,"Open Simulation Configuration");
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("*.sumo.cfg");
+    opendialog.setPatternList(myConfigPattern.c_str());
     if(gCurrentFolder.length()!=0) {
         opendialog.setDirectory(gCurrentFolder.c_str());
     }
@@ -915,7 +967,7 @@ GUIApplicationWindow::eventOccured()
         }
         delete e;
     }
-    myToolBar->forceRefresh();
+    myToolBar3->forceRefresh();
 }
 
 
@@ -1130,18 +1182,18 @@ GUIApplicationWindow::getDefaultCursor()
 }
 
 
-FXTimer *
+void
 GUIApplicationWindow::addTimeout(FXObject *tgt, FXSelector sel,
                                  FXuint ms, void *ptr)
 {
-    return getApp()->addTimeout(tgt, sel, ms, ptr);
+    getApp()->addTimeout(tgt, sel, ms, ptr);
 }
 
 
-FXTimer *
+void
 GUIApplicationWindow::removeTimeout(FXObject *tgt, FXSelector sel)
 {
-    return getApp()->removeTimeout(tgt, sel);
+    getApp()->removeTimeout(tgt, sel);
 }
 
 
@@ -1166,6 +1218,29 @@ GUIApplicationWindow::loadOnStartup(const std::string &config)
     load(config);
 }
 
+long
+GUIApplicationWindow::onCmdCutSwell(FXObject*, FXSelector, void*)
+{
+    /*
+    GUIDialog_CutSwell *about =
+        new GUIDialog_CutSwell(this, "Simulating...", 0, 0);
+    about->create();
+    about->show(PLACEMENT_OWNER);
+    */
+    string prev = myStatusbar->getStatusLine()->getText().text();
+    string text = string("Computing strategies.");
+    myStatusbar->getStatusLine()->setText(text.c_str());
+    myStatusbar->getStatusLine()->setNormalText(text.c_str());
+    for(int i=0; i<100; i++) {
+        fxsleep(3000);
+        myProgressBar->setProgress(i);
+    }
+//    delete about;
+    myProgressBar->setProgress(0);
+    myStatusbar->getStatusLine()->setText(prev.c_str());
+    myStatusbar->getStatusLine()->setNormalText(prev.c_str());
+    return 1;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
