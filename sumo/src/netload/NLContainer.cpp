@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.29  2005/05/04 07:55:29  dkrajzew
+// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
+//
 // Revision 1.28  2005/02/01 10:07:26  dkrajzew
 // performance computation added
 //
@@ -159,6 +162,12 @@ namespace
 // Revision 1.1  2001/12/06 13:36:04  traffic
 // moved from netbuild
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -343,16 +352,49 @@ NLContainer::chooseEdge(const string &id, const std::string &func)
 
 
 void
+NLContainer::addLaneShape(const Position2DVector &shape)
+{
+    myShape = shape;
+}
+
+
+void
+NLContainer::addLane(const string &id, const bool isDepartLane,
+                      const float maxSpeed, const float length,
+                      const float changeUrge)
+{
+    myID = id;
+    myLaneIsDepart = isDepartLane;
+    myCurrentMaxSpeed = maxSpeed;
+    myCurrentLength = length;
+    myCurrentChangeUrge = changeUrge;
+}
+
+/*
+void
 NLContainer::addLane(const string &id, const bool isDepartLane,
                      const float maxSpeed, const float length,
                      const float changeUrge)
 {
     MSLane *lane =
-        myEdgeControlBuilder.addLane(getNet(), id, maxSpeed, length, isDepartLane);
+        myEdgeControlBuilder.addLane(getNet(), id, maxSpeed, length, isDepartLane, myShape);
     if(!MSLane::dictionary(id, lane))
         throw XMLIdAlreadyUsedException("Lanes", id);
 }
+*/
 
+void
+NLContainer::closeLane()
+{
+    MSLane *lane =
+        myEdgeControlBuilder.addLane(
+            getNet(), myID, myCurrentMaxSpeed, myCurrentLength,
+            myLaneIsDepart, myShape);
+    // insert the lane into the lane-dictionary, checking
+    if(!MSLane::dictionary(myID, lane)) {
+        throw XMLIdAlreadyUsedException("Lanes", myID);
+    }
+}
 
 void
 NLContainer::closeLanes()
@@ -530,7 +572,7 @@ NLContainer::buildMSNet(NLDetectorBuilder &db, const OptionsCont &options)
     MSNet::init( "", edges, junctions, routeLoaders, tlc,
         !options.getBool("no-duration-log"),
         streams,
-        options.getUIntVector("dump-intervals"),
+        options.getIntVector("dump-intervals"),
         options.getString("dump-basename"));
     return MSNet::getInstance();
 }
@@ -544,7 +586,6 @@ NLContainer::closeJunctions(NLDetectorBuilder &db)
             db, (*i).second.first, myContinuations, (*i).second.second);
     }
 }
-
 
 
 void
@@ -654,12 +695,6 @@ NLContainer::getTLLogicVector() const
         ret.push_back((*i).second);
     }
     return ret;
-}
-
-
-void
-NLContainer::closeLane()
-{
 }
 
 

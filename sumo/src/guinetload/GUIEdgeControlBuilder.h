@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/05/04 07:55:28  dkrajzew
+// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
+//
 // Revision 1.7  2004/07/02 08:39:12  dkrajzew
 // using global selection storage
 //
@@ -39,6 +42,12 @@
 // Revision 1.2  2003/02/07 10:38:19  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/05/04 07:55:28  dkrajzew
+// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
+//
 // Revision 1.4  2004/07/02 08:52:49  dkrajzew
 // numerical id added (for online-routing)
 //
@@ -32,6 +35,12 @@
 // Revision 1.1  2003/09/05 15:02:47  dkrajzew
 // first steps for reading of internal lanes
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -123,15 +132,9 @@ private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     FXEX::FXMutex _lock;
 
-    /// The shape of the lane
-    Position2DVector myShape;
-
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIInternalLane.icc"
-//#endif
 
 #endif
 

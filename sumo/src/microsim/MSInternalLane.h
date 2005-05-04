@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 07:55:28  dkrajzew
+// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
+//
 // Revision 1.3  2004/07/02 09:58:08  dkrajzew
 // MeanData refactored (moved to microsim/output); numerical id for online routing added
 //
@@ -75,7 +78,7 @@ class MSInternalLane
 public:
     /// Constructor
     MSInternalLane( MSNet &net, std::string id, double maxSpeed,
-        double length, MSEdge *e, size_t numericalID);
+        double length, MSEdge *e, size_t numericalID, const Position2DVector &shape);
 
     /// Destructor
     ~MSInternalLane();

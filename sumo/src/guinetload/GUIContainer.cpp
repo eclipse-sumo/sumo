@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2005/05/04 07:55:27  dkrajzew
+// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
+//
 // Revision 1.18  2005/02/01 10:07:24  dkrajzew
 // performance computation added
 //
@@ -144,7 +147,7 @@ GUIContainer::buildGUINet(NLDetectorBuilder &db, const OptionsCont &options)
         GUINet::initGUINet( "", edges, junctions, routeLoaders, tlc,
             !options.getBool("no-duration-log"),
             streams,
-            options.getUIntVector("dump-intervals"),
+            options.getIntVector("dump-intervals"),
             options.getString("dump-basename"));
         return static_cast<GUINet*>(GUINet::getInstance());
     } catch (ProcessError &) {
@@ -196,7 +199,14 @@ GUIContainer::buildRouteLoader(const std::string &file)
 }
 
 
+void
+GUIContainer::addJunctionShape(const Position2DVector &shape)
+{
+    static_cast<GUIJunctionControlBuilder&>(myJunctionControlBuilder).addJunctionShape(shape);
+}
 
+
+/**
 void
 GUIContainer::addLane(const string &id, const bool isDepartLane,
                       const float maxSpeed, const float length,
@@ -209,19 +219,6 @@ GUIContainer::addLane(const string &id, const bool isDepartLane,
     myCurrentChangeUrge = changeUrge;
 }
 
-
-void
-GUIContainer::addJunctionShape(const Position2DVector &shape)
-{
-    static_cast<GUIJunctionControlBuilder&>(myJunctionControlBuilder).addJunctionShape(shape);
-}
-
-
-void
-GUIContainer::addLaneShape(const Position2DVector &shape)
-{
-    myShape = shape;
-}
 
 
 void
@@ -237,6 +234,7 @@ GUIContainer::closeLane()
     }
 }
 
+**/
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/05/04 07:55:28  dkrajzew
+// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
+//
 // Revision 1.8  2004/07/02 08:38:51  dkrajzew
 // changes needed to implement the online-router (class derivation)
 //
@@ -89,40 +92,19 @@ public:
     void addSrcDestInfo(const std::string &id, const std::string &from,
         const std::string &to);
 
-    /// adds a lane
-    void addLane(const std::string &id, const bool isDepartLane,
-        const float maxSpeed, const float length, const float changeUrge);
-
-    /// sets the shape of the current junction
+	    /// sets the shape of the current junction
     void addJunctionShape(const Position2DVector &shape);
 
-    /// sets the shape of the current lane
-    void addLaneShape(const Position2DVector &shape);
+    /// adds a lane
+    //void addLane(const std::string &id, const bool isDepartLane,
+      //  const float maxSpeed, const float length, const float changeUrge);
 
-    void closeLane();
+
+    //void closeLane();
 
 protected:
     virtual MSRouteLoader *buildRouteLoader(const std::string &file);
 
-
-private:
-    /// The id of the current lane
-    std::string myID;
-
-    /// The information whether the current lane is a depart lane
-    bool myLaneIsDepart;
-
-    /// The maximum speed allowed on the current lane
-    float myCurrentMaxSpeed;
-
-    /// The length of the current lane
-    float myCurrentLength;
-
-    /// The changeUrge.Information of the current lane
-    float myCurrentChangeUrge;
-
-    /// The shape of the current lane
-    Position2DVector myShape;
 
 };
 

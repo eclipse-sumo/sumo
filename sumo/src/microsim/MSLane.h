@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.28  2005/05/04 07:55:28  dkrajzew
+// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
+//
 // Revision 1.27  2005/02/17 10:33:37  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -319,7 +322,8 @@ public:
             double maxSpeed,
             double length,
             MSEdge* edge,
-            size_t numericalID
+            size_t numericalID,
+			const Position2DVector &shape
             );
 
     /** Not all lane-members are known at the time the lane is born,
@@ -402,14 +406,14 @@ public:
     /// Returns the objects id.
     const std::string &id() const;
 
-    /** Adds Data for MeanValue calculation. Use this if vehicle
+    /* Adds Data for MeanValue calculation. Use this if vehicle
         leaves a lane during move ( hasFinishedLane=true) or during
         lanechange (false) or if interval is over (false). */
-    virtual void addVehicleData( double contTimesteps,
+/*    virtual void addVehicleData( double contTimesteps,
         unsigned discreteTimesteps, double speedSum, double speedSquareSum,
         unsigned index, bool hasFinishedEntireLane, bool hasLeftLane,
         bool hasEnteredLane, double travelTimesteps = 0 );
-
+*/
 
     /// Returns the lane which may be used from succLinkSource to get to nRouteEdge
     MSLinkCont::const_iterator succLinkOneLane(const MSEdge* nRouteEdge,
@@ -486,6 +490,11 @@ public:
 
     const std::string &getID() const;
 
+    void addMean2(double v);
+
+	/// The shape of the lane
+    Position2DVector myShape;
+
 
 protected:
     /** @brief Function Object for use with Function Adapter on vehicle containers.
@@ -543,7 +552,7 @@ protected:
     virtual void resetMeanData( unsigned index );
 
     /** Retrieves Data from all vehicles on the lane at the end of an interval. */
-    virtual void collectVehicleData( unsigned index );
+//    virtual void collectVehicleData( unsigned index );
 
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     virtual void swapAfterLaneChange();

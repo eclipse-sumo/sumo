@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2005/05/04 07:55:28  dkrajzew
+// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
+//
 // Revision 1.10  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -49,6 +52,12 @@
 // Revision 1.2  2003/02/07 10:39:17  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -144,15 +153,10 @@ private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     FXEX::FXMutex _lock;
 
-    /// The shape of the lane
-    Position2DVector myShape;
 
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUILane.icc"
-//#endif
 
 #endif
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/05/04 07:55:28  dkrajzew
+// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
+//
 // Revision 1.5  2004/11/23 10:20:09  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -84,9 +87,9 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 MSInternalLane::MSInternalLane( MSNet &net, string id, double maxSpeed,
-                               double length, MSEdge *e, size_t numericalID)
+                               double length, MSEdge *e, size_t numericalID, const Position2DVector &shape)
     :
-    MSLane(net, id, maxSpeed, length, e, numericalID)
+    MSLane(net, id, maxSpeed, length, e, numericalID, shape)
 {
 }
 

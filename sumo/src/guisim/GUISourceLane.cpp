@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/05/04 07:55:28  dkrajzew
+// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
+//
 // Revision 1.9  2004/08/02 11:57:34  dkrajzew
 // debugging
 //
@@ -51,6 +54,12 @@ namespace
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -75,8 +84,7 @@ GUISourceLane::GUISourceLane(MSNet &net, std::string id,
                              double maxSpeed, double length,
                              MSEdge* edge, size_t numericalID,
                              const Position2DVector &shape )
-    : MSSourceLane(net, id, maxSpeed, length, edge, numericalID),
-    myShape(shape)
+    : MSSourceLane(net, id, maxSpeed, length, edge, numericalID, shape)
 {
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/05/04 07:55:29  dkrajzew
+// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
+//
 // Revision 1.7  2004/11/23 10:20:10  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -96,8 +99,8 @@ MSSourceLane::~MSSourceLane()
 /////////////////////////////////////////////////////////////////////////////
 
 MSSourceLane::MSSourceLane( MSNet &net, string id, double maxSpeed,
-                           double length, MSEdge* edge, size_t numericalID)
-    : MSLane(net, id, maxSpeed, length, edge, numericalID)
+                           double length, MSEdge* edge, size_t numericalID, const Position2DVector &shape)
+    : MSLane(net, id, maxSpeed, length, edge, numericalID, shape)
 {
 }
 

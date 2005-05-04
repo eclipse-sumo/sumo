@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2005/05/04 07:55:28  dkrajzew
+// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
+//
 // Revision 1.20  2004/12/16 12:23:37  dkrajzew
 // first steps towards a better parametrisation of traffic lights
 //
@@ -92,6 +95,12 @@ namespace
 // Revision 1.1  2003/02/07 10:38:19  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -180,9 +189,6 @@ GUINetHandler::myCharacters(int element, const std::string &name,
         case SUMO_TAG_SHAPE:
             addJunctionShape(chars);
             break;
-        case SUMO_TAG_LANE:
-            addLaneShape(chars);
-            break;
         default:
             break;
         }
@@ -209,14 +215,6 @@ GUINetHandler::addJunctionShape(const std::string &chars)
 {
     Position2DVector shape = GeomConvHelper::parseShape(chars);
     static_cast<GUIContainer&>(myContainer).addJunctionShape(shape);
-}
-
-
-void
-GUINetHandler::addLaneShape(const std::string &chars)
-{
-    Position2DVector shape = GeomConvHelper::parseShape(chars);
-    static_cast<GUIContainer&>(myContainer).addLaneShape(shape);
 }
 
 

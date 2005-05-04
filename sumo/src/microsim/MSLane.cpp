@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.53  2005/05/04 07:55:28  dkrajzew
+// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
+//
 // Revision 1.52  2005/02/17 10:33:34  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -368,6 +371,12 @@ namespace
 // new start
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -453,7 +462,8 @@ MSLane::MSLane( MSNet &net,
                 double maxSpeed,
                 double length,
                 MSEdge* edge,
-                size_t numericalID
+                size_t numericalID,
+				const Position2DVector &shape
                 )  :
     PreStartInitialised(net),
     myApproaching(0),
@@ -464,7 +474,8 @@ MSLane::MSLane( MSNet &net,
     myEdge( edge ),
     myMaxSpeed( maxSpeed ),
     myVehBuffer( 0 ),
-    myMeanData()
+    myMeanData(),
+	myShape(shape)
 {
     myLastState = MSVehicle::State(10000, 10000);
     myFirstUnsafe = 0;
@@ -517,7 +528,7 @@ MSLane::moveNonCritical()
             ++veh,++myFirstUnsafe ) {
         VehCont::const_iterator pred( veh + 1 );
         ( *veh )->move( this, *pred, 0);
-        ( *veh )->meanDataMove();
+//        ( *veh )->meanDataMove();
         // Check for timeheadway < deltaT
         MSVehicle *vehicle = (*veh);
         MSVehicle *predec = (*pred);
@@ -543,7 +554,7 @@ MSLane::moveCritical()
     for ( veh=myVehicles.begin()+myFirstUnsafe;veh != lastBeforeEnd; ++veh ) {
         VehCont::const_iterator pred( veh + 1 );
         ( *veh )->moveRegardingCritical( this, *pred, 0);
-        ( *veh )->meanDataMove();
+//        ( *veh )->meanDataMove();
         // Check for timeheadway < deltaT
         // Check for timeheadway < deltaT
         MSVehicle *vehicle = (*veh);
@@ -554,7 +565,7 @@ MSLane::moveCritical()
         assert( ( *veh )->pos() <= myLength );
     }
     ( *veh )->moveRegardingCritical( this, 0, 0 );
-    ( *veh )->meanDataMove();
+//    ( *veh )->meanDataMove();
     assert( ( *veh )->pos() <= myLength );
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     assert(&( *veh )->getLane()==this);
@@ -996,9 +1007,9 @@ MSLane::push(MSVehicle* veh)
     // check whether the vehicle has ended his route
     if ( ! veh->destReached( myEdge ) ) { // adjusts vehicles routeIterator
         myVehBuffer = veh;
-        veh->enterLaneAtMove( this, veh->speed() * MSNet::deltaT() - veh->pos() );
+        veh->enterLaneAtMove( this, SPEED2DIST(veh->speed()) - veh->pos() );
         double pspeed = veh->speed();
-        double oldPos = veh->pos() - veh->speed() * MSNet::deltaT();
+        double oldPos = veh->pos() - SPEED2DIST(veh->speed());
         veh->workOnMoveReminders( oldPos, veh->pos(), pspeed );
         veh->_assertPos();
 //        setApproaching(veh->pos(), veh);
@@ -1020,7 +1031,7 @@ MSLane::pop()
     assert( ! myVehicles.empty() );
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     MSVehicle* first = myVehicles.back( );
-    first->leaveLaneAtMove( first->speed() * MSNet::deltaT()/* - first->pos()*/ );
+    first->leaveLaneAtMove( SPEED2DIST(first->speed())/* - first->pos()*/ );
     myVehicles.pop_back();
     myUseDefinition->noVehicles--;
     assert(myVehicles.size()==myUseDefinition->noVehicles);
@@ -1187,11 +1198,12 @@ MSLane::resetMeanData( unsigned index )
     md.speedSum = 0;
     md.speedSquareSum = 0;
     md.traveltimeStepSum = 0;
+    md.haltSum = 0;
 
 }
 
 /////////////////////////////////////////////////////////////////////////////
-
+/*
 void
 MSLane::addVehicleData( double contTimesteps,
                         unsigned discreteTimesteps,
@@ -1203,23 +1215,41 @@ MSLane::addVehicleData( double contTimesteps,
                         bool hasEnteredLane,
                         double travelTimesteps)
 {
+    /*
     assert(index<myMeanData.size());
     myMeanData[index].addVehicleData(contTimesteps, discreteTimesteps,
         speedSum, speedSquareSum, hasFinishedEntireLane,
         hasLeftLane, hasEnteredLane, travelTimesteps);
+        */
+//}
+
+
+void
+MSLane::addMean2(double v)
+{
+    for(size_t i=0; i<myMeanData.size(); i++) {
+        myMeanData[i].nVehContributed++;
+        myMeanData[i].speedSum += v;
+        if(v<0.1) { // !!! swell
+            myMeanData[i].haltSum++;
+        }
+    }
 }
 
-/////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////
+/*
 void
 MSLane::collectVehicleData( unsigned index )
 {
+    /*
     for ( VehCont::iterator it = myVehicles.begin();
           it != myVehicles.end(); ++it ) {
 
         (*it)->dumpData( index );
     }
-}
+    */
+//}
 
 
 /////////////////////////////////////////////////////////////////////////////

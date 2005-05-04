@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.26  2005/05/04 07:55:29  dkrajzew
+// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
+//
 // Revision 1.25  2004/07/02 09:37:31  dkrajzew
 // work on class derivation (for online-routing mainly)
 //
@@ -126,6 +129,12 @@
 // Revision 1.4  2001/08/16 12:53:59  traffic
 // further exception handling (now validated) and new comments
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -269,6 +278,9 @@ public:
         lane */
     void openSuccLane(const std::string &laneId);
 
+	/// sets the shape of the current lane
+    void addLaneShape(const Position2DVector &shape);
+
     /// sets the succeeding junction
     //void setSuccJunction(const std::string &junctionId);
 
@@ -324,8 +336,6 @@ public:
 
     /// returns the preallocated (preinitialised) net
     MSNet &getNet();
-
-
 
 protected:
     /// builds the route loader control
@@ -391,11 +401,31 @@ protected:
 
     std::string myCurrentID;
 
+    /// The shape of the current lane
+    Position2DVector myShape;
+
 
     typedef std::vector<MSLane*> LaneVector;
     typedef std::pair<LaneVector, double> TLInitInfo;
     typedef std::map<MSExtendedTrafficLightLogic*, TLInitInfo> TLLogicInitInfoMap;
     TLLogicInitInfoMap myJunctions2PostLoadInit;
+
+    // { Information about a lane
+    /// The id of the current lane
+    std::string myID;
+
+    /// The information whether the current lane is a depart lane
+    bool myLaneIsDepart;
+
+    /// The maximum speed allowed on the current lane
+    float myCurrentMaxSpeed;
+
+    /// The length of the current lane
+    float myCurrentLength;
+
+    /// The changeUrge.Information of the current lane
+    float myCurrentChangeUrge;
+    // }
 
 private:
     /// definition of a map to store junction logics into
@@ -405,6 +435,7 @@ private:
     static LogicCont _logics;
 
 };
+
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 

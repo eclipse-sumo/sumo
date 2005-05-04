@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2005/05/04 07:55:28  dkrajzew
+// added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
+//
 // Revision 1.29  2005/02/01 10:10:39  dkrajzew
 // got rid of MSNet::Time
 //
@@ -108,6 +111,12 @@ namespace
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -148,8 +157,7 @@ using namespace std;
 GUILane::GUILane(MSNet &net, std::string id, double maxSpeed, double length,
                  MSEdge* edge, size_t numericalID,
                  const Position2DVector &shape )
-    : MSLane(net, id, maxSpeed, length, edge, numericalID),
-    myShape(shape)
+    : MSLane(net, id, maxSpeed, length, edge, numericalID, shape)
 {
 }
 
@@ -244,9 +252,9 @@ GUILane::push( MSVehicle* veh )
     // check whether the vehicle has ended his route
     if ( ! veh->destReached( myEdge ) ) { // adjusts vehicles routeIterator
         myVehBuffer = veh;
-        veh->enterLaneAtMove( this, veh->speed() * MSNet::deltaT() - veh->pos() );
+        veh->enterLaneAtMove( this, SPEED2DIST(veh->speed()) - veh->pos() );
         double pspeed = veh->speed();
-        double oldPos = veh->pos() - veh->speed() * MSNet::deltaT();
+        double oldPos = veh->pos() - SPEED2DIST(veh->speed());
         veh->workOnMoveReminders( oldPos, veh->pos(), pspeed );
         veh->_assertPos();
         _lock.unlock();//Display();
