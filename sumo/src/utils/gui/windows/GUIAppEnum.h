@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/05/04 09:22:51  dkrajzew
+// adding of surrounding lanes to selection added; entries for viewport definition added
+//
 // Revision 1.6  2005/02/01 10:13:17  dkrajzew
 // added missing enums for netedit
 //
@@ -208,6 +211,8 @@ enum {
     MID_LOCATEVEHICLE,
     /// Locate addtional Structure - Button
     MID_LOCATEADD,
+    /// Open Viewport Editor - Button
+    MID_EDITVIEWPORT,
     /// Show Grid - Button
     MID_SHOWGRID,
     /// Show Tool Tips - Button
@@ -223,8 +228,8 @@ enum {
     //@{ Common View IDs
     /// GLCanvas - ID
     MID_GLCANVAS,
-    /// Right Mouse Button Timeout
-    ID_RMOUSETIMEOUT,
+    // Right Mouse Button Timeout
+//    ID_RMOUSETIMEOUT,
     //@}
 
     //@{ View Settings - IDs
@@ -248,8 +253,10 @@ enum {
     MID_SHOWPHASES,
     /// Begin to track phases - Menu Entry
     MID_TRACKPHASES,
-    /// Add to selected Items - Menu Etry
+    /// Add to selected Items - Menu Entry
     MID_ADDSELECT,
+    /// Add successors to selected Items - Menu Entry
+    MID_ADDSELECT_SUCC,
     /// Remove from selected Items - Menu Etry
     MID_REMOVESELECT,
     /// Open the object's manipulator
@@ -333,7 +340,9 @@ enum {
     //@}
 
 
-    MID_LAST
+    MID_CUTSWELL,
+
+	MID_LAST
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

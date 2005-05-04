@@ -1,2 +1,3 @@
 
 bool gAllowTextures;
+

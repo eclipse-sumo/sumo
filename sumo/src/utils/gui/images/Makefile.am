@@ -2,9 +2,10 @@ noinst_LIBRARIES = libguiutilsimages.a
 
 EXTRA_DIST = allow_rotation.xpm camera.xpm \
 close_gaps.xpm closing.xpm \
-colour_lane.xpm colour_vehicle.xpm cont.xpm \
-create_graph.xpm dilate.xpm document.xpm \
-edit_graph.xpm erode.xpm erase_stains.xpm extract_streets.xpm eyedrop.xpm \
+colour_lane.xpm colour_vehicle.xpm cont.xpm create_graph.xpm cut.xpm \
+dilate.xpm document.xpm \
+edit_graph.xpm erode.xpm erase_stains.xpm ext.xpm \
+extract_streets.xpm eyedrop.xpm \
 fileopen.xpm fileprint.xpm filesave.xpm \
 flag.cpp flag_minus.cpp flag_plus.cpp halt.xpm locate.xpm \
 locate_add.xpm locate_edge.xpm locate_junction.xpm locate_vehicle.xpm \

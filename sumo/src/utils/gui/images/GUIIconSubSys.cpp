@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/05/04 09:21:10  dkrajzew
+// adding of surrounding lanes to selection added; entries for viewport definition added
+//
 // Revision 1.4  2005/01/27 14:33:26  dkrajzew
 // code beautifying
 //
@@ -86,6 +89,7 @@ namespace
 #include "show_grid.xpm"
 #include "show_tooltips.xpm"
 #include "show_geometry.xpm"
+#include "magnify.xpm"
 #include "yes.xpm"
 #include "no.xpm"
 
@@ -123,6 +127,10 @@ namespace
 #include "reload.cpp"
 #include "manip.cpp"
 #include "camera.xpm"
+
+#include "cut.xpm"
+#include "ext.xpm"
+
 /*
 #include "vlimit_20.cpp"
 #include "vlimit_40.cpp"
@@ -162,6 +170,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     myIcons[ICON_RECENTERVIEW] = new FXXPMIcon(a, recenter_view_xpm);
     myIcons[ICON_SHOWLEGEND] = new FXXPMIcon(a, show_legend_xpm);
     myIcons[ICON_ALLOWROTATION] = new FXXPMIcon(a, allow_rotation_xpm);
+    myIcons[ICON_EDITVIEWPORT] = new FXXPMIcon(a, magnify_xpm);
 
     myIcons[ICON_LOCATE] = new FXXPMIcon(a, locate_xpm);
     myIcons[ICON_LOCATEJUNCTION] = new FXXPMIcon(a, locate_junction_xpm);
@@ -203,12 +212,16 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     myIcons[ICON_PAINTBRUSH3X] = new FXXPMIcon(a, paintbrush3x_xpm);
     myIcons[ICON_PAINTBRUSH4X] = new FXXPMIcon(a, paintbrush4x_xpm);
     myIcons[ICON_PAINTBRUSH5X] = new FXXPMIcon(a, paintbrush5x_xpm);
-    myIcons[ICON_RUBBER1X]     = new FXXPMIcon(a, rubber1x_xpm);
-    myIcons[ICON_RUBBER2X]     = new FXXPMIcon(a, rubber2x_xpm);
-    myIcons[ICON_RUBBER3X]     = new FXXPMIcon(a, rubber3x_xpm);
-    myIcons[ICON_RUBBER4X]     = new FXXPMIcon(a, rubber4x_xpm);
-    myIcons[ICON_RUBBER5X]     = new FXXPMIcon(a, rubber5x_xpm);
-    myIcons[ICON_EDITGRAPH]    = new FXXPMIcon(a, edit_graph_xpm);
+	myIcons[ICON_RUBBER1X] = new FXXPMIcon(a, rubber1x_xpm);
+	myIcons[ICON_RUBBER2X] = new FXXPMIcon(a, rubber2x_xpm);
+	myIcons[ICON_RUBBER3X] = new FXXPMIcon(a, rubber3x_xpm);
+	myIcons[ICON_RUBBER4X] = new FXXPMIcon(a, rubber4x_xpm);
+	myIcons[ICON_RUBBER5X] = new FXXPMIcon(a, rubber5x_xpm);
+	myIcons[ICON_EDITGRAPH]    = new FXXPMIcon(a, edit_graph_xpm);
+
+    myIcons[ICON_EXT]    = new FXXPMIcon(a, ext_xpm);
+	myIcons[ICON_CUT_SWELL]    = new FXXPMIcon(a, cut_xpm);
+
 
     // vss
     myIcons[ICON_SPEEDLIMIT_020KMH] = 0;//new FXGIFIcon(a, vlimit_20);
