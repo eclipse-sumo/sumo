@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2005/05/04 08:00:34  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; possibility to select lanes around a lane added
+//
 // Revision 1.16  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -68,6 +71,12 @@
 // Revision 1.1  2003/02/07 10:39:17  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -194,6 +203,8 @@ public:
 	//{
 	Boundary getCenteringBoundary() const;
 	//}
+
+    void selectSucessors();
 
 protected:
     bool active() const { return true; }

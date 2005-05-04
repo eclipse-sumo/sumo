@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2005/05/04 08:00:34  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; possibility to select lanes around a lane added
+//
 // Revision 1.22  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
@@ -90,6 +93,12 @@ namespace
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -133,7 +142,6 @@ double GUILaneWrapper::myAllMaxSpeed = 0;
 size_t GUILaneWrapper::myAggregationSizes[] = {
     60, 300, 900
 };
-
 
 
 /* =========================================================================
@@ -275,6 +283,8 @@ GUILaneWrapper::getPopUpMenu(GUIMainWindow &app,
         new FXMenuCommand(ret, "Add To Selected",
             GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
     }
+    new FXMenuCommand(ret, "Add Successors To Selected",
+        GUIIconSubSys::getIcon(ICON_EXT), ret, MID_ADDSELECT_SUCC);
     new FXMenuSeparator(ret);
     //
     new FXMenuCommand(ret, "Show Parameter", 0, ret, MID_SHOWPARS);
@@ -474,6 +484,70 @@ GUILaneWrapper::getCenteringBoundary() const
 	b.add(_end);
 	b.grow(20);
 	return b;
+}
+
+
+
+#include <guisim/GUILaneWrapper.h>
+#include <guisim/GUIEdge.h>
+
+void
+GUILaneWrapper::selectSucessors()
+{
+    double maxDist = 2000;
+    double minDist = 1000;
+    double maxSpeed = 55.0;
+
+    std::vector<GUILaneWrapper*> selected;
+    selected.push_back(this);
+    std::vector<std::pair<GUILaneWrapper*, double> > toProc;
+    toProc.push_back(std::pair<GUILaneWrapper*, double>(this, 0));
+
+    while(!toProc.empty()) {
+        std::pair<GUILaneWrapper*, double> laneAndDist =
+            toProc.back();
+        toProc.pop_back();
+        if(laneAndDist.second<minDist||
+                (laneAndDist.second<maxDist&&laneAndDist.first->maxSpeed()<maxSpeed) ) {
+            selected.push_back(laneAndDist.first);
+
+            const MSEdge &e = laneAndDist.first->getMSEdge();
+            std::vector<MSEdge*> followingEdges = e.getFollowingEdges();
+            std::vector<MSEdge*> incomingEdges = e.getIncomingEdges();
+            copy(incomingEdges.begin(), incomingEdges.end(),
+                back_inserter(followingEdges));
+            for(std::vector<MSEdge*>::iterator i=followingEdges.begin(); i!=followingEdges.end(); ++i) {
+                std::vector<MSLane*> *lanes = (*i)->getLanes();
+                for(std::vector<MSLane*>::iterator j=lanes->begin(); j!=lanes->end(); ++j) {
+                    if(find(selected.begin(), selected.end(), &static_cast<GUIEdge*>(*i)->getLaneGeometry(*j))==selected.end()) {
+                        toProc.push_back(std::pair<GUILaneWrapper*, double>(
+                            &static_cast<GUIEdge*>(*i)->getLaneGeometry(*j),
+                            laneAndDist.second+laneAndDist.first->getLength()));
+                    }
+                }
+            }
+        }
+    }
+
+    for(std::vector<GUILaneWrapper*>::iterator k=selected.begin(); k!=selected.end(); ++k) {
+        gSelected.select((*k)->getType(), (*k)->getGlID());
+    }
+
+    const Position2DVector &shape = getShape();
+    Position2D initPos = shape.positionAtLengthPosition(getLength()/2.0);
+    Position2DVector poly;
+    for(float i=0; i<360; i += 40) {
+        double random1 = double( rand() ) /
+            ( static_cast<double>(RAND_MAX) + 1);
+        double random2 = double( rand() ) /
+            ( static_cast<double>(RAND_MAX) + 1);
+        Position2D p = initPos;
+        p.add(sin(i)*30+random1*20, cos(i)*30+random1*20);
+        poly.push_back(p);
+    }
+    GUINet::getInstance()->addPoly("bla", "bla", RGBColor(1, 0.7, 0));
+    Polygon2D *ptr = MSNet::getInstance()->poly_dic["bla"];
+    ptr->addPolyPosition(poly);
 }
 
 
