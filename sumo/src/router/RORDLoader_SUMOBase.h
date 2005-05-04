@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 08:50:40  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; trying to debug invalid vehicles handling
+//
 // Revision 1.3  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -53,6 +56,7 @@ using namespace XERCES_CPP_NAMESPACE;
  * ======================================================================= */
 class ROVehicleType;
 class RORouteDef;
+class MsgHandler;
 
 
 /* =========================================================================
@@ -69,7 +73,7 @@ class RORDLoader_SUMOBase :
 public:
     /// Constructor
     RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
-        unsigned int begin, unsigned int end,
+        SUMOTime begin, SUMOTime end,
         const std::string &dataName, const std::string &file="");
 
     /// Destructor
@@ -80,7 +84,7 @@ public:
     std::string getDataName() const;
 
     /// Returns the time the current (last read) route starts at
-    unsigned int getCurrentTimeStep() const;
+    SUMOTime getCurrentTimeStep() const;
 
 protected:
     /// Retrieves a float from the attributes and reports errors, if any occure
@@ -109,6 +113,8 @@ protected:
     /// Parses a vehicle type
     void startVehType(const Attributes &attrs);
 
+    MsgHandler *getErrorHandlerMarkInvalid();
+
 protected:
     /// The type of the parsed file to allow a distinction
     std::string myDataName;
@@ -117,7 +123,11 @@ protected:
     RGBColor myCurrentColor;
 
     /// The time step read as last
-    size_t myDepartureTime;
+    SUMOTime myDepartureTime;
+
+    /** @brief Information whether the current route shall not be processed
+        This may occure on errors */
+    bool mySkipCurrent;
 
 };
 

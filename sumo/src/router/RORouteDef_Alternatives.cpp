@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/05/04 08:52:12  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; trying to debug invalid vehicles handling
+//
 // Revision 1.4  2004/12/16 12:26:52  dkrajzew
 // debugging
 //
@@ -39,10 +42,13 @@ namespace
 // initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.2  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+// debugging while working on INVENT; preparation of classes to be derived
+//  for an online-routing
 //
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work;
+//  documentation added
 //
 // ------------------------------------------------
 // Revision 1.13  2003/11/11 08:04:46  dkrajzew
@@ -77,6 +83,12 @@ namespace
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -87,14 +99,24 @@ namespace
 #include <string>
 #include <vector>
 #include <cmath>
+#include <math.h>
 #include <cassert>
+#include <limits>
 #include <iostream>
 #include "ROEdge.h"
 #include "RORouteDef.h"
 #include "RORoute.h"
 #include "ROAbstractRouter.h"
 #include "RORouteDef_Alternatives.h"
+#include <utils/common/StdDefs.h>
 
+
+#ifndef WIN32
+#define ISNAN isnan
+#endif
+#ifdef WIN32
+#define ISNAN _isnan
+#endif
 
 /* =========================================================================
  * used namespaces
@@ -157,8 +179,8 @@ RORouteDef_Alternatives::getTo() const
 
 RORoute *
 RORouteDef_Alternatives::buildCurrentRoute(ROAbstractRouter &router,
-        long begin, bool continueOnUnbuild, ROVehicle &veh,
-        ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever)
+		SUMOTime begin, bool continueOnUnbuild, ROVehicle &veh,
+		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever)
 {
     // recompute duration of the last route used
     // build a new route to test whether it is better
@@ -197,15 +219,17 @@ RORouteDef_Alternatives::findRoute(RORoute *opt) const
 }
 
 
+double mquiet_NaN = numeric_limits<double>::quiet_NaN();
+
 void
-RORouteDef_Alternatives::addAlternative(RORoute *current, long begin)
+RORouteDef_Alternatives::addAlternative(RORoute *current, SUMOTime begin)
 {
     // add the route when it's new
     if(_lastUsed<0) {
         _alternatives.push_back(current);
         _lastUsed = _alternatives.size()-1;
     }
-    // recompute the costs and (when a new route was added) the propabilities
+    // recompute the costs and (when a new route was added) the probabilities
     AlternativesVector::iterator i;
     for(i=_alternatives.begin(); i!=_alternatives.end(); i++) {
         RORoute *alt = *i;
@@ -217,6 +241,7 @@ RORouteDef_Alternatives::addAlternative(RORoute *current, long begin)
             double newCosts = alt->recomputeCosts(begin);
             alt->setCosts(_gawronBeta * newCosts + (1.0-_gawronBeta) * oldCosts);
         }
+        assert(_alternatives.size()!=0);
         if(_newRoute) {
             if((*i)!=current) {
                 alt->setProbability(
@@ -229,7 +254,7 @@ RORouteDef_Alternatives::addAlternative(RORoute *current, long begin)
         }
     }
     assert(_alternatives.size()!=0);
-    // compute the propabilities
+    // compute the probabilities
     for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++) {
         RORoute *pR = *i;
         for(AlternativesVector::iterator j=i+1; j!=_alternatives.end(); j++) {
@@ -241,17 +266,19 @@ RORouteDef_Alternatives::addAlternative(RORoute *current, long begin)
             // see [Gawron, 1998] (4.3a, 4.3b)
             double newPR = gawronF(pR->getProbability(), pS->getProbability(), delta);
             double newPS = pR->getProbability() + pS->getProbability() - newPR;
-            if(newPR<0.0001) {
-                newPR = 0.0001;
+            if(ISNAN(newPR)||ISNAN(newPS)) {
+                newPR = pS->getCosts() > pR->getCosts()
+                    ? 1 : 0;
+                newPS = pS->getCosts() > pR->getCosts()
+                    ? 0 : 1;
             }
-            if(newPS<0.0001) {
-                newPS = 0.0001;
-            }
+            newPR = MIN2(MAX2(newPR, 0), 1);
+            newPS = MIN2(MAX2(newPS, 0), 1);
             pR->setProbability(newPR);
             pS->setProbability(newPS);
         }
     }
-    // remove with propability of 0 (not mentioned in Gawron)
+    // remove with probability of 0 (not mentioned in Gawron)
     for(i=_alternatives.begin(); i!=_alternatives.end(); ) {
         if((*i)->getProbability()==0) {
             i = _alternatives.erase(i);
@@ -277,6 +304,9 @@ RORouteDef_Alternatives::addAlternative(RORoute *current, long begin)
 double
 RORouteDef_Alternatives::gawronF(double pdr, double pds, double x)
 {
+    if(((pdr*gawronG(_gawronA, x)+pds)==0)) {
+        return std::numeric_limits<double>::max();
+    }
     return (pdr*(pdr+pds)*gawronG(_gawronA, x)) /
         (pdr*gawronG(_gawronA, x)+pds);
 }
@@ -285,6 +315,9 @@ RORouteDef_Alternatives::gawronF(double pdr, double pds, double x)
 double
 RORouteDef_Alternatives::gawronG(double a, double x)
 {
+    if(((1.0-(x*x))==0)) {
+        return std::numeric_limits<double>::max();
+    }
     return exp((a*x)/(1.0-(x*x))); // !!! ??
 }
 
@@ -342,17 +375,17 @@ RORouteDef_Alternatives::invalidateLast()
 
 
 void
-RORouteDef_Alternatives::addExplicite(RORoute *current, long begin)
+RORouteDef_Alternatives::addExplicite(RORoute *current, SUMOTime begin)
 {
-    _alternatives.push_back(current);
+	_alternatives.push_back(current);
     if(myMaxRouteNumber>=0) {
         while(_alternatives.size()>(size_t) myMaxRouteNumber) {
             delete *(_alternatives.begin());
             _alternatives.erase(_alternatives.begin());
         }
     }
-    _lastUsed = _alternatives.size()-1;
-    // recompute the costs and (when a new route was added) the propabilities
+	_lastUsed = _alternatives.size()-1;
+    // recompute the costs and (when a new route was added) the probabilities
     AlternativesVector::iterator i;
     for(i=_alternatives.begin(); i!=_alternatives.end(); i++) {
         RORoute *alt = *i;
@@ -376,7 +409,7 @@ RORouteDef_Alternatives::addExplicite(RORoute *current, long begin)
         }
     }
     assert(_alternatives.size()!=0);
-    // compute the propabilities
+    // compute the probabilities
     for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++) {
         RORoute *pR = *i;
         for(AlternativesVector::iterator j=i+1; j!=_alternatives.end(); j++) {
@@ -402,7 +435,7 @@ RORouteDef_Alternatives::addExplicite(RORoute *current, long begin)
             pS->setProbability(newPS);
         }
     }
-    // remove with propability of 0 (not mentioned in Gawron)
+    // remove with probability of 0 (not mentioned in Gawron)
     for(i=_alternatives.begin(); i!=_alternatives.end(); ) {
         if((*i)->getProbability()==0) {
             i = _alternatives.erase(i);
@@ -416,10 +449,10 @@ RORouteDef_Alternatives::addExplicite(RORoute *current, long begin)
 void
 RORouteDef_Alternatives::removeLast()
 {
-    assert(_alternatives.size()>=2);
-    _alternatives.erase(_alternatives.end()-1);
-    _lastUsed = _alternatives.size()-1;
-    // !!! recompute propabilities
+	assert(_alternatives.size()>=2);
+	_alternatives.erase(_alternatives.end()-1);
+	_lastUsed = _alternatives.size()-1;
+	// !!! recompute probabilities
 }
 
 

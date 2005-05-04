@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 08:52:12  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; trying to debug invalid vehicles handling
+//
 // Revision 1.3  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
@@ -30,10 +33,13 @@
 // initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.2  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+// debugging while working on INVENT; preparation of classes to be derived
+//  for an online-routing
 //
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work;
+//  documentation added
 //
 // ------------------------------------------------
 // Revision 1.6  2003/11/11 08:04:46  dkrajzew
@@ -52,6 +58,12 @@
 // Revision 1.2  2003/02/07 10:45:07  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -99,12 +111,12 @@ public:
     ROEdge *getTo() const;
 
     /// Build the next route
-    RORoute *buildCurrentRoute(ROAbstractRouter &router, long begin,
+    RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
         bool continueOnUnbuild, ROVehicle &veh,
-        ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever);
+		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever);
 
     /// Adds a build alternative
-    void addAlternative(RORoute *current, long begin);
+    void addAlternative(RORoute *current, SUMOTime begin);
 
     /// Writes the currently chosen route to the stream
     void xmlOutCurrent(std::ostream &res, bool isPeriodical) const;
@@ -119,9 +131,9 @@ public:
 
     void invalidateLast();
 
-    void addExplicite(RORoute *current, long begin);
+	void addExplicite(RORoute *current, SUMOTime begin);
 
-    void removeLast();
+	void removeLast();
 
 private:
     /// Searches for the route within the list of alternatives
