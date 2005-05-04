@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/05/04 09:19:27  dkrajzew
+// adding of surrounding lanes to selection
+//
 // Revision 1.1  2004/11/23 10:38:31  dkrajzew
 // debugging
 //
@@ -46,6 +49,12 @@
 // Revision 1.2  2003/06/05 11:37:31  dkrajzew
 // class templates applied
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -95,6 +104,9 @@ public:
 
     /// Called if the object shall be removed from the list of selected objects
     long onCmdRemoveSelected(FXObject*,FXSelector,void*);
+
+    // Called if the object's consecutives shall be added to the list of selected objects
+    long onCmdAddSuccessorsSelected(FXObject*,FXSelector,void*);
 
 protected:
     /// The parent window

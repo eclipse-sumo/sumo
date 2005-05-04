@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/05/04 09:19:27  dkrajzew
+// adding of surrounding lanes to selection
+//
 // Revision 1.1  2004/11/23 10:38:31  dkrajzew
 // debugging
 //
@@ -56,6 +59,12 @@ namespace
 // class templates applied
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -71,6 +80,7 @@ namespace
 #include "GUIGLObjectPopupMenu.h"
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/gui/drawer/GUILaneRepresentation.h>
 
 
 /* =========================================================================
@@ -84,10 +94,11 @@ using namespace std;
  * ======================================================================= */
 FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[]=
 {
-    FXMAPFUNC(SEL_COMMAND,  MID_CENTER,        GUIGLObjectPopupMenu::onCmdCenter),
-    FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,      GUIGLObjectPopupMenu::onCmdShowPars),
-    FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,     GUIGLObjectPopupMenu::onCmdAddSelected),
-    FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,  GUIGLObjectPopupMenu::onCmdRemoveSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_CENTER,         GUIGLObjectPopupMenu::onCmdCenter),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,       GUIGLObjectPopupMenu::onCmdShowPars),
+    FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,      GUIGLObjectPopupMenu::onCmdAddSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT_SUCC, GUIGLObjectPopupMenu::onCmdAddSuccessorsSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,   GUIGLObjectPopupMenu::onCmdRemoveSelected),
 };
 
 // Object implementation
@@ -132,6 +143,16 @@ long
 GUIGLObjectPopupMenu::onCmdAddSelected(FXObject*,FXSelector,void*)
 {
     gSelected.select(myObject->getType(), myObject->getGlID());
+    myParent->update();
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdAddSuccessorsSelected(FXObject*,FXSelector,void*)
+{
+    GUILaneRepresentation *lane = static_cast<GUILaneRepresentation*>(myObject);
+    lane->selectSucessors();
     myParent->update();
     return 1;
 }
