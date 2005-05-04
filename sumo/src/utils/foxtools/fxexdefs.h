@@ -100,6 +100,7 @@ namespace FXEX {
 // make a short from two chars
 #define MKUSHORT(l,h)  ((((FX::FXuchar)(l))&0xff) | (((FX::FXuchar)(h))<<8))
 
+    /* !!!!
 // Make a long from two ints - provided longs are twice the size of an int
 #ifdef FX_LONG
 #  define MKULONG(l,h) ((((FX::FXuint)(l))&0xffffffff) | (((FX::FXuint)(h))<<32))
@@ -108,7 +109,7 @@ namespace FXEX {
 #    error "You wanted 64bit file sizes (actually 63), but I couldn't make it so..."
 #  endif
 #endif
-
+!!!! */
 
 /**
  * Quite a while ago (18/08/2000), these macros (or something similar) were

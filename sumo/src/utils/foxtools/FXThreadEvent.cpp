@@ -29,6 +29,8 @@
 //#include <config.h>
 #include <fxver.h>
 #include <xincs.h>
+#include <fx.h>
+/*
 #include <fxdefs.h>
 #include <FXString.h>
 #include <FXStream.h>
@@ -38,7 +40,7 @@
 #include <FXRegistry.h>
 #include <FXHash.h>
 #include <FXApp.h>
-
+*/
 #ifndef WIN32
 #include <unistd.h>
 #endif

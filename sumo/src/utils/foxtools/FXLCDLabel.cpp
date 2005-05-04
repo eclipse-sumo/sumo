@@ -23,6 +23,8 @@
 #include <fxver.h>
 #include <xincs.h>
 #include <fxdefs.h>
+#include <fx.h>
+/*
 #include <FXStream.h>
 #include <FXString.h>
 #include <FXSize.h>
@@ -34,6 +36,7 @@
 #include <FXDCWindow.h>
 #include <FXLabel.h>
 #include <FXFrame.h>
+*/
 using namespace FX;
 #include "FXSevenSegment.h"
 #include "FXLCDLabel.h"
@@ -50,8 +53,8 @@ FXDEFMAP (FXLCDLabel) FXLCDLabelMap[]={
   FXMAPFUNC(SEL_COMMAND,FXWindow::ID_GETINTVALUE,FXLCDLabel::onCmdGetIntValue),
   FXMAPFUNC(SEL_COMMAND,FXWindow::ID_GETREALVALUE,FXLCDLabel::onCmdGetRealValue),
   FXMAPFUNC(SEL_COMMAND,FXWindow::ID_GETSTRINGVALUE,FXLCDLabel::onCmdGetStringValue),
-  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_TIP,FXLCDLabel::onQueryTip),
-  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_HELP,FXLCDLabel::onQueryHelp),
+//  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_TIP,FXLCDLabel::onQueryTip),
+//  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_HELP,FXLCDLabel::onQueryHelp),
   FXMAPKEY(FXLCDLabel::ID_SEVENSEGMENT,FXLCDLabel::onRedirectEvent),
   };
 FXIMPLEMENT(FXLCDLabel,FXHorizontalFrame,FXLCDLabelMap,ARRAYNUMBER(FXLCDLabelMap))

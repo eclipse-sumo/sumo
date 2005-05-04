@@ -22,6 +22,8 @@
 #ifndef FXBASEOBJECT_H
 #define FXBASEOBJECT_H
 
+#include <FXHash.h>
+using namespace FX;
 #ifndef FXOBJECT_H
 #include <FXObject.h>
 using namespace FX;

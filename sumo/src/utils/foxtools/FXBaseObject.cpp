@@ -20,18 +20,23 @@
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.    *
 *********************************************************************************/
 //#include <config.h>
+
 #include <fxver.h>
 #include <xincs.h>
 #include <fxdefs.h>
+#include <fx.h>
+/*
 #include <FXString.h>
+#include <FXHash.h>
 #include <FXStream.h>
 #include <FXSize.h>
 #include <FXPoint.h>
 #include <FXRectangle.h>
 #include <FXRegistry.h>
-#include <FXHash.h>
+#include <FXMutex.h>
 #include <FXApp.h>
 #include <FXWindow.h>
+*/
 using namespace FX;
 #include "FXBaseObject.h"
 using namespace FXEX;

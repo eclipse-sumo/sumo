@@ -1,3 +1,9 @@
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <fx.h>
 #include <fxkeys.h>
 #include "MFXEditableTable.h"

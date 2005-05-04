@@ -23,6 +23,8 @@
 #include <fxver.h>
 #include <xincs.h>
 #include <fxdefs.h>
+#include <fx.h>
+/*
 #include <FXStream.h>
 #include <FXString.h>
 #include <FXSize.h>
@@ -32,6 +34,7 @@
 #include <FXHash.h>
 #include <FXApp.h>
 #include <FXDCWindow.h>
+*/
 using namespace FX;
 #include "FXSevenSegment.h"
 using namespace FXEX;
@@ -48,8 +51,8 @@ FXDEFMAP (FXSevenSegment) FXSevenSegmentMap[]={
   FXMAPFUNC(SEL_COMMAND,FXWindow::ID_GETINTVALUE,FXSevenSegment::onCmdGetIntValue),
   FXMAPFUNC(SEL_COMMAND,FXWindow::ID_SETSTRINGVALUE,FXSevenSegment::onCmdSetStringValue),
   FXMAPFUNC(SEL_COMMAND,FXWindow::ID_GETSTRINGVALUE,FXSevenSegment::onCmdGetStringValue),
-  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_TIP,FXSevenSegment::onQueryTip),
-  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_HELP,FXSevenSegment::onQueryHelp),
+//  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_TIP,FXSevenSegment::onQueryTip),
+//  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_HELP,FXSevenSegment::onQueryHelp),
   };
 FXIMPLEMENT(FXSevenSegment,FXFrame,FXSevenSegmentMap,ARRAYNUMBER(FXSevenSegmentMap))
 

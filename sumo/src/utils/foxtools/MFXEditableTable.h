@@ -1,6 +1,12 @@
 #ifndef MFXEditableTable_h
 #define MFXEditableTable_h
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include <fx.h>
 #include <set>
 
