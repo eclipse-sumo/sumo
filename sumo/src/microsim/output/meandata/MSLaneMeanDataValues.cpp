@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <cassert>
@@ -32,6 +38,7 @@ namespace
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+/*
 void
 MSLaneMeanDataValues::addVehicleData(double contTimesteps,
                                      unsigned discreteTimesteps,
@@ -42,6 +49,7 @@ MSLaneMeanDataValues::addVehicleData(double contTimesteps,
                                      bool hasEnteredLane,
                                      double travelTimesteps)
 {
+    /*
     if ( hasFinishedEntireLane ) {
         nVehEntireLane       += 1;
         traveltimeStepSum    += travelTimesteps;
@@ -50,13 +58,14 @@ MSLaneMeanDataValues::addVehicleData(double contTimesteps,
 
     assert(contTimesteps>=0);
     nVehContributed      += 1;
-    nVehLeftLane         += hasLeftLane ? 1 : 0;
-    nVehEnteredLane      += hasEnteredLane ? 1 : 0;
+	nVehLeftLane         += hasLeftLane ? 1 : 0;
+	nVehEnteredLane      += hasEnteredLane ? 1 : 0;
     contTimestepSum      += contTimesteps;
     discreteTimestepSum  += discreteTimesteps;
     speedSum             += speed;
     speedSquareSum       += speedSquare;
-}
+    */
+//}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

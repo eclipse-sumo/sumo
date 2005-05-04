@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 08:13:59  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added, new mean data functionality
+//
 // Revision 1.3  2005/02/01 10:10:46  dkrajzew
 // got rid of MSNet::Time
 //
@@ -32,6 +35,12 @@
 // Revision 1.1  2004/07/02 09:01:44  dkrajzew
 // microsim output refactoring (moved to a subfolder)
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * imported modules
  * ======================================================================= */
@@ -82,7 +91,7 @@ public:
         SUMOTime startTime, SUMOTime stopTime );
     void writeXMLDetectorInfoStart( XMLDevice &dev ) const;
     void writeXMLDetectorInfoEnd( XMLDevice &dev ) const;
-    MSUnit::IntSteps getDataCleanUpSteps( void ) const;
+    SUMOTime getDataCleanUpSteps( void ) const;
 
 protected:
     /// the time interval the data shall be aggregated over (in s)

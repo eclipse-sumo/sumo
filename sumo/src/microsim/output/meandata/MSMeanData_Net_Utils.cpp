@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include "MSMeanData_Net.h"
@@ -38,8 +44,6 @@ namespace
 #include <utils/iodevices/SharedOutputDevices.h>
 #include <microsim/output/MSDetector2File.h>
 
-//#include "MSMeanData_EdgeControl.h"
-
 
 /* =========================================================================
  * used namespaces
@@ -52,7 +56,7 @@ using namespace std;
  * ======================================================================= */
 MSMeanData_Net_Cont
 MSMeanData_Net_Utils::buildList(MSEdgeControl &ec,
-                                std::vector<size_t> dumpMeanDataIntervalls,
+                                std::vector<int> dumpMeanDataIntervalls,
                                 std::string baseNameDumpFiles)
 {
     MSMeanData_Net_Cont ret;
@@ -62,7 +66,7 @@ MSMeanData_Net_Utils::buildList(MSEdgeControl &ec,
               dumpMeanDataIntervalls.end() );
 
         // Prepare MeanData container, e.g. assign intervals and open files.
-        for ( std::vector< size_t >::iterator it =
+        for ( std::vector<int>::iterator it =
                   dumpMeanDataIntervalls.begin();
               it != dumpMeanDataIntervalls.end(); ++it ) {
 
@@ -106,7 +110,7 @@ MSMeanData_Net_Utils::buildList(MSEdgeControl &ec,
                 "  If noVehContrib==0 then density is set to 0.\n"
                 "-->\n" ;
 
-            MSMeanData_Net *det = new MSMeanData_Net( *it, ret.size(), ec, dev );
+            MSMeanData_Net *det = new MSMeanData_Net( *it, ret.size(), ec, true);
             ret.push_back( det );
             MSDetector2File::getInstance()->addDetectorAndInterval(
                 det, dev, *it);
@@ -116,12 +120,12 @@ MSMeanData_Net_Utils::buildList(MSEdgeControl &ec,
 }
 
 
-std::vector<size_t>
+std::vector<int>
 MSMeanData_Net_Utils::buildUniqueList(
-            std::vector<size_t> dumpMeanDataIntervalls)
+            std::vector<int> dumpMeanDataIntervalls)
 {
-    vector<size_t> ret;
-    set<size_t> u;
+    vector<int> ret;
+    set<int> u;
     copy(dumpMeanDataIntervalls.begin(), dumpMeanDataIntervalls.end(),
         inserter(u, u.begin()));
     if(dumpMeanDataIntervalls.size()!=u.size()) {

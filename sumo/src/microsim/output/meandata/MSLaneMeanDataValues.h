@@ -20,13 +20,21 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/05/04 08:13:59  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added, new mean data functionality
+//
 // Revision 1.1  2004/08/02 12:05:34  dkrajzew
 // moved meandata to an own folder
 //
 // Revision 1.1  2004/07/02 09:01:44  dkrajzew
 // microsim output refactoring (moved to a subfolder)
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
@@ -46,7 +54,8 @@ struct MSLaneMeanDataValues
         discreteTimestepSum( 0 ),
         speedSum( 0 ),
         speedSquareSum( 0 ),
-        traveltimeStepSum( 0 )
+        traveltimeStepSum( 0 ),
+        haltSum(0)
         {}
 
     /// the number of vehicles that passed the entire lane
@@ -78,10 +87,14 @@ struct MSLaneMeanDataValues
     /// traveltime sum from vehicles that entirely passed the lane
     double traveltimeStepSum;
 
-    void  addVehicleData(
+/*    void  addVehicleData(
         double contTimesteps, unsigned discreteTimesteps, double speedSum,
         double speedSquareSum, bool hasFinishedEntireLane,
         bool hasLeftLane, bool hasEnteredLane, double travelTimesteps);
+        */
+
+    unsigned haltSum;
+
 };
 
 

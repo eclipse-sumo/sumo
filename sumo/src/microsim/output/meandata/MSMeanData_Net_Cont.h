@@ -20,13 +20,21 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/05/04 08:13:59  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added, new mean data functionality
+//
 // Revision 1.1  2004/08/02 12:05:34  dkrajzew
 // moved meandata to an own folder
 //
 // Revision 1.1  2004/07/02 09:01:44  dkrajzew
 // microsim output refactoring (moved to a subfolder)
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

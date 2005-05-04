@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 08:13:59  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added, new mean data functionality
+//
 // Revision 1.3  2005/02/17 10:33:38  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -36,10 +39,17 @@
 // microsim output refactoring (moved to a subfolder)
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <vector>
 #include "MSMeanData_Net_Cont.h"
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -59,12 +69,12 @@ class MSMeanData_Net_Utils {
 public:
     /// Builds the list of mean data outputs (files) as described by the parameter
     static MSMeanData_Net_Cont buildList(MSEdgeControl &ec,
-        std::vector<size_t> dumpMeanDataIntervalls,
+        std::vector<SUMOTime> dumpMeanDataIntervalls,
         std::string baseNameDumpFiles);
 
     /// Builds a list with unique aggregation times
-    static std::vector<size_t> buildUniqueList(
-        std::vector<size_t> dumpMeanDataIntervalls);
+    static std::vector<SUMOTime> buildUniqueList(
+        std::vector<SUMOTime> dumpMeanDataIntervalls);
 
 };
 

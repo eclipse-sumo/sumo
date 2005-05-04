@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <cassert>
@@ -32,6 +38,7 @@ namespace
 #include <utils/convert/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSMeanData_Net.h"
+#include <limits>
 
 
 /* =========================================================================
@@ -105,14 +112,14 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
     assert(lane.myMeanData.size()>myIndex);
     const MSLaneMeanDataValues& meanData = lane.myMeanData[ myIndex ];
 
-    const_cast< MSLane& >( lane ).collectVehicleData( myIndex );
+//    const_cast< MSLane& >( lane ).collectVehicleData( myIndex );
 
     // calculate mean data
     double traveltime = -42;
     double meanSpeed = -43;
     double meanSpeedSquare = -44;
     double meanDensity = -45;
-
+/*
     assert( meanData.nVehEntireLane <= meanData.nVehContributed );
 
     if ( meanData.nVehContributed > 0 ) {
@@ -158,15 +165,37 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
         meanDensity = 0;
 
     }
+    */
+
+    if(meanData.nVehContributed==0) {
+        traveltime = lane.myLength / lane.myMaxSpeed;
+        meanSpeed = lane.myMaxSpeed;
+        meanDensity = 0;
+    } else {
+        meanSpeed = meanData.speedSum / (double) meanData.nVehContributed;
+        if(meanSpeed==0) {
+            traveltime = std::numeric_limits<double>::max();
+        } else {
+            traveltime = lane.myLength / meanSpeed;
+        }
+        meanDensity = (double) meanData.nVehContributed /
+            (double) (stopTime-startTime+1) / lane.myLength * 1000.0;
+    }
+
     dev.writeString("      <lane id=\"").writeString(lane.id()).writeString(
         "\" traveltime=\"").writeString(toString(traveltime)).writeString(
-        "\" speed=\"").writeString(toString(meanSpeed)).writeString(
+        "\" noVehContrib=\"").writeString(toString(meanData.nVehContributed)).writeString(
+        "\" density=\"").writeString(toString(meanDensity)).writeString(
+        "\" noStops=\"").writeString(toString(meanDensity)).writeString(
+        "\" speed=\"").writeString(toString(meanData.haltSum)).writeString(
+        /*
         "\" speedsquare=\"").writeString(toString(meanSpeedSquare)).writeString(
         "\" density=\"").writeString(toString(meanDensity)).writeString(
         "\" noVehContrib=\"").writeString(toString(meanData.nVehContributed)).writeString(
         "\" noVehEntire=\"").writeString(toString(meanData.nVehEntireLane)).writeString(
         "\" noVehEntered=\"").writeString(toString(meanData.nVehEnteredLane)).writeString(
         "\" noVehLeft=\"").writeString(toString(meanData.nVehLeftLane)).writeString(
+        */
         "\"/>\n");
     const_cast< MSLane& >( lane ).resetMeanData( myIndex );
 }
@@ -215,7 +244,7 @@ MSMeanData_Net::writeXMLDetectorInfoEnd( XMLDevice &dev ) const
 }
 
 
-MSUnit::IntSteps
+SUMOTime
 MSMeanData_Net::getDataCleanUpSteps( void ) const
 {
     return myInterval;
