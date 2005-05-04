@@ -96,7 +96,7 @@ void Image::Erode(ConfigDialog* myDialog)
 {
     FXSlider* my = myDialog->getEroSlider();
 	int ende=my->getValue();
-	
+
 	for(int lauf=0; lauf<=ende;lauf++)
 	{
 		//Hole Höhe und Breite des Image
@@ -155,7 +155,7 @@ void Image::Dilate(ConfigDialog* myDialog)
 
 	for(int go =0; go <= value; go++)
 	{
-	
+
 		//Siehe Methode Erode
 		int wid = m_img->getWidth();
 		int hei = m_img->getHeight();
@@ -198,7 +198,7 @@ Führt erst eine Erosion, dann eine Dilatation durch
 */
 void Image::Opening(ConfigDialog* myDialog)
 {
-    
+
 	Erode(myDialog);
     Dilate(myDialog);
 }
@@ -496,9 +496,9 @@ void Image::RarifySkeleton()
                     if(black_neighbours==5)
                     {
 						//Setze ein weißes Pixel in die Mitte, wenn die Anordnung ein "Plus" ist
-						if ((CountTransitions(i,j)==4)&&(m_img->getPixel(i-1,j)==FXRGB(0,0,0))) 
+						if ((CountTransitions(i,j)==4)&&(m_img->getPixel(i-1,j)==FXRGB(0,0,0)))
 						m_img->setPixel(i,j,FXRGB(255,255,255));
-						
+
                         if
                         (
 						(
@@ -627,7 +627,7 @@ Graph* Image::Tracking(Graph* gr,ConfigDialog* myDialog)
         m_img->setPixel(0,h,FXRGB(255,255,255));
         m_img->setPixel(wid-1,h,FXRGB(255,255,255));
     }
-    
+
 	//Durchlaufe das Bild außer dem Rand
     for (int i=1 ; i<wid-1 ; i++)
         for (int j=1; j<hei-1 ; j++)
@@ -642,24 +642,24 @@ Graph* Image::Tracking(Graph* gr,ConfigDialog* myDialog)
 			}
 			if (((blacks==4)&&(CountTransitions(i,j)==3))||((blacks==2)||(blacks==6)))
 			{
-				
+
 				gr->AddVertexByXY(i,j);
 				blacks=0;
 			}
 		}
-	
+
 	//Setze Pixel auf rot, auf denen ein Knoten erzeugt wurde
 	vector <Vertex*> myarray=gr->GetVArray();
 	Graph* helpgraph=new Graph();
 	helpgraph->SetVArray(myarray);
 	int tmpx,tmpy;
-	for (int v=0; v<myarray.size(); v++)
+	for (int v=0; v<(int) myarray.size(); v++)
 	{
 		tmpx=myarray[v]->GetX();
 		tmpy=myarray[v]->GetY();
 		m_img->setPixel(tmpx,tmpy,FXRGB(255,0,0));
 	}
-	
+
 	//Jetzt die Kanten erzeugen
 	int arrayanz=myarray.size();
 	for (int x=0; x<arrayanz; x++)
@@ -699,7 +699,7 @@ Graph* Image::edgerun(Vertex* start, Graph* gr,Graph* helpgraph,int value)
 		last=start;
 		int counter = value;
 		lauf=black_neighbour(start);
-		altlauf=last;		
+		altlauf=last;
 		while (black_neighbour(lauf,altlauf)!=NULL)
 		{
 			if (counter==0)
@@ -744,7 +744,7 @@ Vertex* Image::black_neighbour(Vertex* start)
 				if (m_img->getPixel(i,j)==FXRGB(0,0,0))
 				{
 					Vertex* neighbour= new Vertex(i,j);
-					return neighbour; 
+					return neighbour;
 				}
 	return NULL;
 }
@@ -755,25 +755,25 @@ Vertex* Image::black_neighbour(Vertex* lauf, Vertex* altlauf)
 	int b=lauf->GetY();
 	int delta_x=a-altlauf->GetX();
 	int delta_y=b-altlauf->GetY();
-	
+
 	if ((delta_x!=0)&&(delta_y!=0))
 	{
 		if (((m_img->getPixel(a+delta_x,b+delta_y)==FXRGB(255,0,0))||(m_img->getPixel(a+delta_x,b)==FXRGB(255,0,0)))||(m_img->getPixel(a,b+delta_y)==FXRGB(255,0,0))) return NULL;
 		if (m_img->getPixel(a+delta_x,b+delta_y)==FXRGB(0,0,0))
 		{
-			
+
 			Vertex* neighbour= new Vertex(a+delta_x,b+delta_y);
-			return neighbour; 
+			return neighbour;
 		}
 		if (m_img->getPixel(a+delta_x,b)==FXRGB(0,0,0))
 		{
 			Vertex* neighbour= new Vertex(a+delta_x,b);
-			return neighbour; 
+			return neighbour;
 		}
 		if (m_img->getPixel(a,b+delta_y)==FXRGB(0,0,0))
 		{
 			Vertex* neighbour= new Vertex(a,b+delta_y);
-			return neighbour; 
+			return neighbour;
 		}
 	}
 	else
@@ -783,13 +783,13 @@ Vertex* Image::black_neighbour(Vertex* lauf, Vertex* altlauf)
 			for (int j=b-1; j<=b+1; j++)
 				if (m_img->getPixel(a+delta_x,j)==FXRGB(255,0,0))
 				{
-					return NULL; 
+					return NULL;
 				}
 			for (j=b-1; j<=b+1; j++)
 				if (m_img->getPixel(a+delta_x,j)==FXRGB(0,0,0))
 				{
 					Vertex* neighbour= new Vertex(a+delta_x,j);
-					return neighbour; 
+					return neighbour;
 				}
 		}
 		if (delta_y!=0)
@@ -803,7 +803,7 @@ Vertex* Image::black_neighbour(Vertex* lauf, Vertex* altlauf)
 				if (m_img->getPixel(i,b+delta_y)==FXRGB(0,0,0))
 				{
 					Vertex* neighbour= new Vertex(i,b+delta_y);
-					return neighbour; 
+					return neighbour;
 				}
 		}
 	}
@@ -814,7 +814,7 @@ Vertex* Image::black_neighbour(Vertex* lauf, Vertex* altlauf)
 {
 	FXSlider* mySlider=myDialog->getNodeSlider();
 	int value= mySlider->getValue();
-	
+
 	Vertex* temp=NULL;
 
     //Hole die Breite und Höhe des Image
@@ -863,17 +863,17 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
     list<Point> n_List;
     list<Point>::iterator iter;
     n_List.clear();
-    
+
 	//Solange der aktuelle Pixel genau einen Nachbarn hat(ohne Vorgänger), wird die
 	//Schleife ausgeführt
-    
+
 	do
     {
         n_List.clear();
         neighbour_counter=0;
         //Zähle die schwarzen Nachbarpixel des aktuellen Pixels
         //Zähle dabei aber nicht den Vorgängerpixel mit...(k!=i_pre)&&(l!=j_pre)
-        
+
 		for (int k=i-1 ; k<=i+1 ; ++k)
             for (int l=j-1 ; l<=j+1 ; ++l)
                 if      (
@@ -886,7 +886,7 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
                         Point *pt=new Point(k,l);
                         n_List.push_back(*pt);
                     }
-        
+
 		////////////////// 0 Sekunden ///////////////////////////
 		//Der Pixel ist ein Endpunkt.. erzeuge Knoten
         if(neighbour_counter==0)
@@ -921,7 +921,7 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
                     }
         }
 		////////////////////// 0 Sekunden Ende ////////////////////////////
-		
+
         //Der Pixel liegt auf einer ´Linie´..
         if(neighbour_counter==1)
         {
@@ -947,7 +947,7 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
                 temp=gr.SearchVertex(i,j);
             }
         }
-        
+
 		if(n_List.size()==1)
         {
             i_pre=i;
@@ -967,7 +967,7 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
         changed=true;
 	}
     while(neighbour_counter==1);
-	
+
     if(!(n_List.empty()))
     {
         //gelb
@@ -988,7 +988,7 @@ Graph Image::Pixel_Counter(int i,int j,int i_pre, int j_pre,int count,Graph gr, 
         }
     }
     n_List.clear();
-	
+
     return gr;
 }
 */
@@ -997,7 +997,7 @@ void Image::EraseStains(ConfigDialog* myDialog)
 {
     FXSlider* mySlider= myDialog->getEraSlider();
 	int deep=mySlider->getValue();
-	
+
 	//Hole Breite und Höhe des Image
     int wid = m_img->getWidth();
     int hei = m_img->getHeight();
@@ -1165,7 +1165,7 @@ Image::DrawVArray(Graph gr)
     //Hole Breite und Höhe des Image
 	int wid = m_img->getWidth();
 	int hei = m_img->getHeight();
-	
+
 	unsigned int l=0;
     //Hole das Knotenarray
     vector<Vertex*> testarray=gr.GetVArray();

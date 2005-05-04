@@ -2,6 +2,12 @@
 //
 //////////////////////////////////////////////////////////////////////
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include "Graph.h"
 #include "time.h"
 #include "stdlib.h"
@@ -72,7 +78,7 @@ Graph::DelVertex(int x, int y)
                 AddEdgeByVertex(neuV, neuW);
                 AddEdgeByVertex(neuW, neuV);
 
-                for (int z=0;z<neuV->GetNachfolger();z++)
+                for (int z=0;z<(int) neuV->GetNachfolger();z++)
                 {
                     if (neuV->GetNachfolgeVertex(z)==ptemp)
                     {
@@ -80,7 +86,7 @@ Graph::DelVertex(int x, int y)
                     }
                 }
 
-                for (int m=0;m<neuW->GetNachfolger();m++)
+                for (int m=0;m<(int) neuW->GetNachfolger();m++)
                 {
                     if (neuW->GetNachfolgeVertex(m)==ptemp)
                     {
@@ -326,15 +332,15 @@ Graph::Reduce_plus(ConfigDialog* my)
             if(distanz_a<distanz_b)
             {
                 quotient=(distanz_b/distanz_a);
-                delta_x1=delta_x1*quotient;
-                delta_y1=delta_y1*quotient;
+                delta_x1=(int) (delta_x1*quotient);
+                delta_y1=(int) (delta_y1*quotient);
             }
 
             else
             {
                 quotient=(distanz_a/distanz_b);
-                delta_x2=delta_x2*quotient;
-                delta_y2=delta_y2*quotient;
+                delta_x2=(int) (delta_x2*quotient);
+                delta_y2=(int) (delta_y2*quotient);
             }
 
             delta_x=delta_x1-delta_x2;
@@ -363,7 +369,7 @@ Graph::DelEdge(Vertex* v,Vertex* w)
         ptemp=eArray[i];
         if((ptemp->GetStartingVertex()==v)&&(ptemp->GetEndingVertex()==w))
         {
-            for(int k=0; k<v->GetNachfolger();k++)
+            for(int k=0; k<(int) v->GetNachfolger();k++)
             {
                 Vertex* vtemp=v->GetNachfolgeVertex(k);
                 if(vtemp==w)
@@ -372,7 +378,7 @@ Graph::DelEdge(Vertex* v,Vertex* w)
                 }
             }
 
-            for(int l=0; l<w->GetVorgaenger();l++)
+            for(int l=0; l<(int) w->GetVorgaenger();l++)
             {
                 Vertex* vtemp1=w->GetVorgaengerVertex(l);
                 if(vtemp1==v)
@@ -411,7 +417,7 @@ void
 Graph::Reduce_Edges()
 {
     Edge* etemp;
-    for(long i=0; i<eArray.size();i++)
+    for(long i=0; i<(int) eArray.size();i++)
     {
         etemp=eArray[i];
         if(etemp->GetLength()==0)
@@ -472,15 +478,15 @@ Graph::Export_Edges_XML()
     int index_end=0;
     char buffer [100];
 
- 
+
 
 	FILE* efile= fopen("c:/export.edg.xml","w");
-    
+
 
 
     fputs(app,efile);
 
-    for(long i=0; i<eArray.size(); i++)
+    for(long i=0; i<(int) eArray.size(); i++)
     {
         temp=eArray[i];
         start=temp->GetStartingVertex();
@@ -517,7 +523,7 @@ int Graph::GetIndex(Vertex* v)
 {
     Vertex* temp;
     int index=-1;
-    for (int i=0; i<vArray.size(); i++)
+    for (int i=0; i<(int) vArray.size(); i++)
     {
         temp=vArray[i];
         if (v==temp) index=i;
@@ -536,7 +542,7 @@ void Graph::GetTraces(int cars, int fuel, ConfigDialog* myDialog)
 	FXint myFXint2=FXIntVal(my3->getText(),10);
 	int gkr=myFXint1;
 	int gkh=myFXint2;
-	///Miguel!!!	
+	///Miguel!!!
 	char buffer1 [100];
 	char buffer2 [100];
 	char buffer3 [100];
@@ -556,7 +562,7 @@ void Graph::GetTraces(int cars, int fuel, ConfigDialog* myDialog)
 		FILE* Traces = fopen(buffer1,"w");
 		Drive(fuel);
 		pfad = GetPfadArray();
-		for (int m=0; m<pfad.size(); m++)
+		for (int m=0; m<(int) pfad.size(); m++)
 		{
 			ptemp=pfad[m];
 			time(&rawtime);
@@ -578,15 +584,15 @@ void Graph::GetTraces(int cars, int fuel, ConfigDialog* myDialog)
 			fputs(buffer3,Traces);
 		}
 		fclose(Traces);
-		
+
 	}
 }
 
 void Graph::MergeVertex()
 {
-	
+
 	int tolerance=5;
-	
+
 	/*Toleranzwert für den Abstand zweier zu verschmelzender Knoten*/
 	/*Für die Länge einer Kante*/
 	int length;
@@ -598,23 +604,23 @@ void Graph::MergeVertex()
 	Vertex* end;
 	Vertex* start2;
 	Vertex* end2;
-		
+
 	/*Nacheinander holen jeder Kante*/
 	for(unsigned i=0; i<eArray.size(); i++)
 	{
 		aktuell=eArray[i];
-		length=aktuell->GetLength();
+		length=(int) aktuell->GetLength();
 		/*Überprüfung ob Start- und Endknoten zu Nahe beieinander liegen*/
 		if(length<tolerance)
 		{
 			start=aktuell->GetStartingVertex();
 			end=aktuell->GetEndingVertex();
-			
+
 			//Koordinaten der aktuellen Start- und Endknoten
 		    //werden gemittelt zu den Koordinaten des neuen Knotens
 			int(xneu)=(start->GetX()+end->GetX())/2;
 			int(yneu)=(start->GetY()+end->GetY())/2;
-		
+
 			/*Löschen der zu kurzen Kanten*/
 			DelEdge(start,end);
 			DelEdge(end,start);
@@ -622,7 +628,7 @@ void Graph::MergeVertex()
 			/*Hinzufügen des neuen Kotens*/
 			/*Zeiger auf den neu hinzugefügten Knoten*/
 			Vertex* neu = AddVertexByXY(xneu,yneu);
-			
+
 			//Neu
 			int startnachfolger=start->GetNachfolger();
 			while (startnachfolger>0)
@@ -633,8 +639,8 @@ void Graph::MergeVertex()
 				DelEdge(start2,start);
 				startnachfolger--;
 			}
-			
-			int endnachfolger=end->GetNachfolger();	
+
+			int endnachfolger=end->GetNachfolger();
 			while (endnachfolger>0)
 			{
 				end2=end->GetNachfolgeVertex(endnachfolger-1);
@@ -643,7 +649,7 @@ void Graph::MergeVertex()
 				DelEdge(end2,end);
 				endnachfolger--;
 			}
-			
+
 			/*Löschen der Start- und Endknoten der zu kurzen Kante*/
 			DelVertex4Merge(start);
 			DelVertex4Merge(end);
@@ -654,12 +660,12 @@ void Graph::MergeVertex()
 				AddEdgeByVertex(mArray[m_Node],neu);
 				AddEdgeByVertex(neu,mArray[m_Node]);
 			}
-			
+
 			//Da vorne im EdgeArray Kanten gelöscht werden, muß die Laufvariable zurückgesetzt werden
 			i-=2+mArray.size()*2;
 			mArray.clear();
 			if (i<-1) i=-1;
-		
+
 		}
 	}
 }
@@ -678,7 +684,7 @@ void Graph::DelVertex4Merge(Vertex* v)
 /*Löscht alle Nachfolgenden Kanten eines Knotens*/
 void Graph::DelNachfolger4Merge(Vertex* v)
 {
-    for(int i=0; i<v->GetNachfolger(); i++)
+    for(int i=0; i<(int) v->GetNachfolger(); i++)
     {
         DelEdge(v,v->GetNachfolgeVertex(i));
         DelEdge(v->GetNachfolgeVertex(i),v);
