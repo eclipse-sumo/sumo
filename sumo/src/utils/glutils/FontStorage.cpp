@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/05/04 09:14:54  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2003/07/30 12:55:10  dkrajzew
 // bug on handling of compiled fonts (partially?) patched
 //
@@ -32,7 +35,12 @@ namespace
 // Revision 1.2  2003/06/05 14:28:05  dkrajzew
 // class templates applied; documentation added
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -203,9 +211,6 @@ FontStorage::has(const std::string &name) const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "FontStorage.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/05/04 09:25:27  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.9  2005/04/28 09:02:49  dkrajzew
 // level3 warnings removed
 //
@@ -282,10 +285,8 @@ LineReader::good() const
     return _strm.good();
 }
 
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "LineReader.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

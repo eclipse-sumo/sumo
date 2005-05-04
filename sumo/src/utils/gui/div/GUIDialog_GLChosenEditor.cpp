@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/05/04 09:14:54  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.1  2004/12/16 12:12:59  dkrajzew
 // first steps towards loading of selections between different applications
 //
@@ -53,6 +56,12 @@ namespace
 // Revision 1.1  2004/03/19 12:32:26  dkrajzew
 // porting to FOX
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/05/04 09:22:32  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2005/02/01 10:10:47  dkrajzew
 // got rid of MSNet::Time
 //
@@ -45,6 +48,12 @@ namespace
 // moving of the view when reaching the left border implemented; display of a
 //  time scale implemented
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -325,7 +334,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
             // time ticks
         SUMOTime currTime = myFirstTime2Show;
         size_t pos = 31 + /*!!!currTime*/ - myFirstTime2Show;
-        float glpos = (float) (pos / width);
+        double glpos = (double) pos / (double) width;
         glColor3d(1, 1, 1);
         while(pos<width+50) {
             double a = (double) tickDist / width;
@@ -337,7 +346,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
             if(!myAmInTrackingMode) {
                 a2 *= ((width-31.0) / ((double) (myLastTime - myBeginTime)) / 1.0);
             }
-            pos += a2;
+            pos += (size_t) a2;
             currTime += tickDist;
             timeStr = toString<SUMOTime>(currTime);
             GUITexturesHelper::getFontRenderer().StringOut(

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 09:22:32  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.3  2005/02/01 10:10:47  dkrajzew
 // got rid of MSNet::Time
 //
@@ -39,6 +42,12 @@
 // moving of the view when reaching the left border implemented; display of a
 //  time scale implemented
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

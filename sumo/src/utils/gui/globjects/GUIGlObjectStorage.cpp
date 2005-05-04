@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/05/04 09:19:51  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.1  2004/11/23 10:38:31  dkrajzew
 // debugging
 //
@@ -44,6 +47,12 @@ namespace
 // Revision 1.4  2003/06/05 11:37:30  dkrajzew
 // class templates applied
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

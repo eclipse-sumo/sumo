@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/05/04 09:28:01  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2004/12/16 12:18:39  dkrajzew
 // debugging
 //
@@ -31,6 +34,12 @@
 // Revision 1.1  2003/06/24 08:12:59  dkrajzew
 // a subsystem for option handling common to most of the applications added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

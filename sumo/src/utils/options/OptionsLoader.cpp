@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/05/04 09:28:01  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2004/11/23 10:36:02  dkrajzew
 // debugging
 //
@@ -82,6 +85,12 @@ namespace
 // Revision 1.1  2002/02/13 15:48:19  croessel
 // Merge between SourgeForgeRelease and tesseraCVS.
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/05/04 09:22:32  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.2  2004/11/29 09:22:58  dkrajzew
 // possibility to save the timeline added
 //
@@ -53,6 +56,12 @@
 // Revision 1.2  2003/06/05 11:38:47  dkrajzew
 // class templates applied; documentation added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

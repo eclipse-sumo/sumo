@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/05/04 09:28:00  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.5  2004/11/23 10:36:02  dkrajzew
 // debugging
 //
@@ -79,6 +82,12 @@ namespace
 // Revision 1.1  2002/02/13 15:48:18  croessel
 // Merge between SourgeForgeRelease and tesseraCVS.
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -184,8 +193,8 @@ Option::getBool() const
 }
 
 
-const UIntVector &
-Option::getUIntVector() const
+const IntVector &
+Option::getIntVector() const
 {
     throw InvalidArgument("This is not a bool-option");
 }
@@ -630,38 +639,38 @@ bool Option_FileName::isFileName() const {
 /* -------------------------------------------------------------------------
  * Option_UIntVector - methods
  * ----------------------------------------------------------------------- */
-Option_UIntVector::Option_UIntVector()
+Option_IntVector::Option_IntVector()
     : Option()
 {
 }
 
 
-Option_UIntVector::Option_UIntVector(const UIntVector &value)
+Option_IntVector::Option_IntVector(const IntVector &value)
     : Option(true), _value(value)
 {
 }
 
 
-Option_UIntVector::Option_UIntVector(const string &value)
+Option_IntVector::Option_IntVector(const string &value)
     : Option(true), _value()
 {
     set(value, true);
 }
 
 
-Option_UIntVector::Option_UIntVector(const Option_UIntVector &s)
+Option_IntVector::Option_IntVector(const Option_IntVector &s)
     : Option(s), _value(s._value)
 {
 }
 
 
-Option_UIntVector::~Option_UIntVector()
+Option_IntVector::~Option_IntVector()
 {
 }
 
 
-Option_UIntVector &
-Option_UIntVector::operator=(const Option_UIntVector &s)
+Option_IntVector &
+Option_IntVector::operator=(const Option_IntVector &s)
 {
     Option::operator=(s);
     _value = s._value;
@@ -669,15 +678,15 @@ Option_UIntVector::operator=(const Option_UIntVector &s)
 }
 
 
-const UIntVector &
-Option_UIntVector::getUIntVector() const
+const IntVector &
+Option_IntVector::getIntVector() const
 {
     return _value;
 }
 
 
 bool
-Option_UIntVector::set(std::string v, bool isDefault)
+Option_IntVector::set(std::string v, bool isDefault)
 {
     _value.clear();
     try {
@@ -694,10 +703,10 @@ Option_UIntVector::set(std::string v, bool isDefault)
 
 
 std::string
-Option_UIntVector::getValue() const
+Option_IntVector::getValue() const
 {
     ostringstream s;
-    for(UIntVector::const_iterator i=_value.begin(); i!=_value.end(); i++) {
+    for(IntVector::const_iterator i=_value.begin(); i!=_value.end(); i++) {
         if(i!=_value.begin()) {
             s << ' ';
         }
@@ -708,7 +717,7 @@ Option_UIntVector::getValue() const
 
 
 std::string
-Option_UIntVector::getString() const
+Option_IntVector::getString() const
 {
     return getValue();
 }

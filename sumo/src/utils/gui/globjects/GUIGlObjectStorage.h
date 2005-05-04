@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/05/04 09:19:51  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.1  2004/11/23 10:38:31  dkrajzew
 // debugging
 //
@@ -134,9 +137,6 @@ private:
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifndef DISABLE_INLINE
-//#include "GUIGlObjectStorage.icc"
-//#endif
 
 #endif
 

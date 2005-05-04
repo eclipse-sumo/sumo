@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/05/04 09:25:27  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.6  2005/04/28 09:02:49  dkrajzew
 // level3 warnings removed
 //
@@ -41,7 +44,6 @@
 //
 // Revision 1.1  2002/07/25 08:55:43  dkrajzew
 // support for Visum7.5 & Cell import added
-//
 //
 /* =========================================================================
  * compiler pragmas

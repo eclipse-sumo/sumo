@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/05/04 09:18:58  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.1  2004/11/23 10:38:31  dkrajzew
 // debugging
 //
@@ -29,21 +32,22 @@
 // Revision 1.4  2004/08/02 11:49:11  dkrajzew
 // gradients added; documentation added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 
 
-
-
-    /** @brief A container for numerical ids of objects
-        in order to make them grippable by openGL */
+/* =========================================================================
+ * variable definitions
+ * ======================================================================= */
+/** @brief A container for numerical ids of objects
+    in order to make them grippable by openGL */
 extern GUIGlObjectStorage gIDStorage;
 
 
 extern GUIGlObject *gNetWrapper;
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

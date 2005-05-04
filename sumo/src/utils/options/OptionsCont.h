@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/05/04 09:28:01  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.6  2004/11/23 10:36:02  dkrajzew
 // debugging
 //
@@ -41,7 +44,8 @@
 // initial release for utilities that handle program options
 //
 // Revision 1.7  2002/07/11 05:52:11  dkrajzew
-// Option_FileName introduced and used to allow the usage of relative path names within the configuration files
+// Option_FileName introduced and used to allow the usage of relative
+//  path names within the configuration files
 //
 // Revision 1.6  2002/06/11 15:58:24  dkrajzew
 // windows eol removed
@@ -157,7 +161,7 @@ public:
 
     /** returns the list of longs-value of the name option
         (only for Option_LongList) */
-    const UIntVector &getUIntVector(const std::string &name) const;
+    const IntVector &getIntVector(const std::string &name) const;
 
     /** returns the information whether the option is a boolean option */
     bool isBool(const std::string &name) const;

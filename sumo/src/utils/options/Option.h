@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/05/04 09:28:01  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.5  2004/11/23 10:36:02  dkrajzew
 // debugging
 //
@@ -65,6 +68,12 @@
 // Merge between SourgeForgeRelease and tesseraCVS.
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
@@ -79,7 +88,8 @@
  * Definition of a vector of unsigned ints for later parsing of values
  * such as frequency lists
  */
-typedef std::vector<unsigned int> UIntVector;
+typedef std::vector<int> IntVector;
+
 
 /**
  * @class Option
@@ -123,7 +133,7 @@ public:
     virtual bool getBool() const;
 
     /** returns the bool value */
-    virtual const UIntVector &getUIntVector() const;
+    virtual const IntVector &getIntVector() const;
 
     /** sets the value (used for non-bool options) */
     virtual bool set(std::string v, bool isDefault=false);
@@ -318,26 +328,26 @@ public:
 };
 
 
-class Option_UIntVector : public Option {
+class Option_IntVector : public Option {
 protected:
-    UIntVector _value;
+    IntVector _value;
 public:
     /** constructor; the value will be invalid (unset) */
-    Option_UIntVector();
+    Option_IntVector();
     /** constructor; the default value is given */
-    Option_UIntVector(const UIntVector &value);
+    Option_IntVector(const IntVector &value);
     /** constructor;
         the default value will be parsed from the string
         use ';' as delimiters */
-    Option_UIntVector(const std::string &value);
+    Option_IntVector(const std::string &value);
     /** copy constructor */
-    Option_UIntVector(const Option_UIntVector &s);
+    Option_IntVector(const Option_IntVector &s);
     /** destructor */
-    virtual ~Option_UIntVector();
+    virtual ~Option_IntVector();
     /** assignment operator */
-    Option_UIntVector &operator=(const Option_UIntVector &s);
+    Option_IntVector &operator=(const Option_IntVector &s);
 
-    const UIntVector &getUIntVector() const;
+    const IntVector &getIntVector() const;
     /** sets the given value (converts it to int) */
     bool set(std::string v, bool isDefault=false);
     /** returns the values string-representation */

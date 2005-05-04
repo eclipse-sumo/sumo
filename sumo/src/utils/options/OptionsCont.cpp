@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/05/04 09:28:01  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.7  2004/12/16 12:18:39  dkrajzew
 // debugging
 //
@@ -47,7 +50,8 @@ namespace
 // initial release for utilities that handle program options
 //
 // Revision 1.7  2002/07/11 05:52:11  dkrajzew
-// Option_FileName introduced and used to allow the usage of relative path names within the configuration files
+// Option_FileName introduced and used to allow the usage of relative path
+//  names within the configuration files
 //
 // Revision 1.6  2002/06/11 15:58:25  dkrajzew
 // windows eol removed
@@ -279,11 +283,11 @@ OptionsCont::getBool(const string &name) const
     return o->getBool();
 }
 
-const UIntVector &
-OptionsCont::getUIntVector(const std::string &name) const
+const IntVector &
+OptionsCont::getIntVector(const std::string &name) const
 {
     Option *o = getSecure(name);
-    return o->getUIntVector();
+    return o->getIntVector();
 }
 
 

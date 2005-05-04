@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/05/04 09:22:26  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.4  2004/12/20 14:00:25  dkrajzew
 // debugging
 //
@@ -81,6 +84,12 @@ namespace
 // class templates applied; documentation added
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -99,6 +108,7 @@ namespace
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/common/SUMOTime.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -473,7 +483,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
         return;
     }
 
-    size_t beginStep = desc.getRecordingBegin();
+    SUMOTime beginStep = desc.getRecordingBegin();
 
     // init values
     double xStep = 2.0 / ((double) values.size());
