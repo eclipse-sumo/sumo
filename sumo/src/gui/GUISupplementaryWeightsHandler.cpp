@@ -19,6 +19,12 @@
 //
 //---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #include "GUISupplementaryWeightsHandler.h"
 
 #include <string>
@@ -84,7 +90,6 @@ GUISupplementaryWeightsHandler::myStartElement( int
         startParseWeight( attrs );
     }
 /*    else {
-        MsgHandler::getErrorInstance()->inform(
             "GUISupplementaryWeightsHandler::myStartElement wrong ");
         MsgHandler::getWarningInstance()->inform(
 

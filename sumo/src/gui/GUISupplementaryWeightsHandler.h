@@ -22,6 +22,12 @@
 //
 //---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif // HAVE_CONFIG_H
@@ -30,6 +36,7 @@
 #include <map>
 #include <set>
 #include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/common/SUMOTime.h>
 
 
 class RONet;
@@ -131,9 +138,9 @@ private:
                                 ///the attribute "add" within tag
                                 ///"weights".
 
-    unsigned long intervalStartM; ///< Value of the attribute "begin"
+    SUMOTime intervalStartM; ///< Value of the attribute "begin"
                                   ///within tag "interval".
-    unsigned long intervalEndM; ///< Value of the attribute "end"
+    SUMOTime intervalEndM; ///< Value of the attribute "end"
                                 ///within tag "interval".
 
     std::string edgeIdM;        ///< Value of the attribute "edge-id"

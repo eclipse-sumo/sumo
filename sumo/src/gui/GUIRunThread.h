@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/05/04 07:48:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.8  2005/02/01 10:10:38  dkrajzew
 // got rid of MSNet::Time
 //
@@ -41,6 +44,12 @@
 // Revision 1.2  2003/02/07 10:34:14  dkrajzew
 // files updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -89,7 +98,7 @@ public:
     virtual ~GUIRunThread();
 
     /// initialises the thread with the new simulation
-    virtual void init(GUINet *net, long start, long end);
+    virtual void init(GUINet *net, SUMOTime start, SUMOTime end);
 
     /// starts the execution
     virtual FXint run();

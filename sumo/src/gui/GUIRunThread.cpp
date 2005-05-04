@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.29  2005/05/04 07:48:05  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added
+//
 // Revision 1.28  2005/02/01 10:07:24  dkrajzew
 // performance computation added
 //
@@ -101,6 +104,12 @@ namespace
 // files updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -171,7 +180,7 @@ GUIRunThread::~GUIRunThread()
 
 
 void
-GUIRunThread::init(GUINet *net, long start, long end)
+GUIRunThread::init(GUINet *net, SUMOTime start, SUMOTime end)
 {
     // delete a maybe existing simulation
 //    deleteSim();
@@ -192,8 +201,8 @@ GUIRunThread::init(GUINet *net, long start, long end)
 FXint
 GUIRunThread::run()
 {
-    long beg, end;
-    long end2 = -1;
+    SUMOTime beg, end;
+    SUMOTime end2 = -1;
     // perform an endless loop
     while(!_quit) {
         // if the simulation shall be perfomed, do it
@@ -242,7 +251,7 @@ GUIRunThread::makeStep()
         _net->simulationStep(_simStartTime, _step);
         _net->guiSimulationStep();
 #ifdef NETWORKING_BLA
-        _net->networking(_simStartTime, _step);
+//		_net->networking(_simStartTime, _step);
 #endif
         mySimulationLock.unlock();
 
