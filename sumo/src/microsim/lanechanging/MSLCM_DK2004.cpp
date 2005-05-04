@@ -19,9 +19,18 @@ size_t searchedtime = 21900;
 //#define GUI_DEBUG
 
 #ifdef GUI_DEBUG
-#include <gui/GUIGlobalSelection.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <guisim/GUIVehicle.h>
 #endif
+
+// 80km/h will be the swell for dividing between long/short foresight
+#define LOOK_FORWARD_SPEED_DIVIDER 22.22
+
+#define LOOK_FORWARD_FAR 15
+
+
+
+#define LONG_FORESIGHT
 
 
 MSLCM_DK2004::MSLCM_DK2004(MSVehicle &v)
@@ -80,14 +89,14 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         double gap = (*lastBlocked)->pos()-(*lastBlocked)->length()-myVehicle.pos();
 /*        if(gap>=1.0) {
             double decelGap = gap
-                + myVehicle.speed() * MSNet::deltaT() * 2.0
-                - MAX((*lastBlocked)->speed() - (*lastBlocked)->decelAbility() * 2.0, 0);
+                + SPEED2DIST(myVehicle.speed()) * 2.0
+                - MAX2((*lastBlocked)->speed() - (*lastBlocked)->decelAbility() * 2.0, 0);
             if(decelGap>0&&(*lastBlocked)->isSafeChange_WithDistance(decelGap, myVehicle, &(*lastBlocked)->getLane())) {
                 ret |= LCA_AMBACKBLOCKER;
                 double vSafe = myVehicle.vsafe(myVehicle.speed(),
                     myVehicle.decelAbility(), gap-1.0, (*lastBlocked)->speed());
                 if(myVSafe>=0) {
-                    myVSafe = MIN(myVSafe, vSafe);
+                    myVSafe = MIN2(myVSafe, vSafe);
                 } else {
                     myVSafe = vSafe;
                 }
@@ -114,7 +123,12 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     // -------- forced changing
     double rv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
         ? neighLead.first->speed()+20.0
-        :*/ myVehicle.getLane().maxSpeed() * 5;
+        :*/
+        //myVehicle.getLane().maxSpeed() * 5;
+        myVehicle.getLane().maxSpeed() > LOOK_FORWARD_SPEED_DIVIDER
+        ? myVehicle.getLane().maxSpeed() * LOOK_FORWARD_FAR
+        : myVehicle.getLane().maxSpeed() * 5;
+
     if( bestLaneOffset<0&&currentDistDisallows(currentDist, bestLaneOffset, rv)) {
         informBlocker(msgPass, blocked, LCA_MRIGHT, neighLead, neighFollow);
         if(neighLead.second>0&&neighLead.second>leader.second) {
@@ -247,17 +261,17 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         /*
         if(gap>=1.0) {
             double decelGap = gap
-                + myVehicle.speed() * MSNet::deltaT() * 2.0
-                - MAX((*lastBlocked)->speed() - (*lastBlocked)->decelAbility() * 2.0, 0);
+                + SPEED2DIST(myVehicle.speed()) * 2.0
+                - MAX2((*lastBlocked)->speed() - (*lastBlocked)->decelAbility() * 2.0, 0);
             if(decelGap>0&&(*lastBlocked)->isSafeChange_WithDistance(decelGap, myVehicle, &(*lastBlocked)->getLane())) {
                 ret |= LCA_AMBACKBLOCKER;
                 double vSafe = myVehicle.vsafe(myVehicle.speed(),
                     myVehicle.decelAbility(),
                    gap-1.0, (*lastBlocked)->speed());
-                myVSafe = MIN(myVSafe, vSafe);
+                myVSafe = MIN2(myVSafe, vSafe);
                 (*lastBlocked) = 0;
                 if(myVSafe>=0) {
-                    myVSafe = MIN(myVSafe, vSafe);
+                    myVSafe = MIN2(myVSafe, vSafe);
                 } else {
                     myVSafe = vSafe;
                 }
@@ -287,7 +301,11 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     // -------- forced changing
     double lv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
         ? neighLead.first->speed()+20.0
-        : */myVehicle.getLane().maxSpeed() * 5;
+        : */
+        //myVehicle.getLane().maxSpeed() * 5;
+        myVehicle.getLane().maxSpeed() > LOOK_FORWARD_SPEED_DIVIDER
+        ? myVehicle.getLane().maxSpeed() * LOOK_FORWARD_FAR
+        : myVehicle.getLane().maxSpeed() * 5;
     if( bestLaneOffset>0
         &&
         currentDistDisallows(currentDist, bestLaneOffset, lv)) {
@@ -444,10 +462,10 @@ MSLCM_DK2004::patchSpeed(double min, double wanted, double max, double vsafe)
     /*
     if((state&LCA_AMBACKBLOCKER)!=0) {
         if(max<=myVehicle.accelAbility()&&min==0) {
-            return MAX(min, MIN(vSafe, wanted));
+            return MAX2(min, MIN2(vSafe, wanted));
         }
         if(myVSafe>(min+wanted)/2.0) {
-            return MIN(vSafe, wanted);
+            return MIN2(vSafe, wanted);
         }
         return (min+wanted)/2.0;
     }
@@ -508,7 +526,7 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
         MSVehicle *nv = neighFollow.first;
         double decelGap =
             neighFollow.second
-            + myVehicle.speed() * MSNet::deltaT() * 2.0
+            + SPEED2DIST(myVehicle.speed()) * 2.0
             - MAX2(nv->speed() - nv->decelAbility() * 2.0, 0);
         if(neighFollow.second>0&&decelGap>0&&nv->isSafeChange_WithDistance(decelGap, myVehicle, &nv->getLane())) {
             double vsafe = myVehicle.vsafe(myVehicle.speed(), myVehicle.decelAbility(),
