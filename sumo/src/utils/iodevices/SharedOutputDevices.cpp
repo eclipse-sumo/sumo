@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/05/04 09:26:19  dkrajzew
+// reports about being unable to build a file added
+//
 // Revision 1.3  2004/11/23 10:35:47  dkrajzew
 // debugging
 //
@@ -30,6 +33,12 @@
 // Revision 1.2  2004/08/02 13:01:16  dkrajzew
 // documentation added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -102,7 +111,8 @@ SharedOutputDevices::getOutputDevice(const std::string &name)
     std::ofstream *strm = new std::ofstream(name.c_str());
     if(!strm->good()) {
         delete strm;
-        throw ProcessError();
+        throw FileBuildError(
+            string("Could not build output file '") + name + string("'.") );
     }
     OutputDevice *dev = new OutputDevice_File(strm);
     myOutputDevices[name] = dev;
