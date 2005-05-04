@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2005/05/04 08:40:16  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; added the possibility to load lane shapes into the non-gui simulation
+//
 // Revision 1.4  2004/07/02 09:37:53  dkrajzew
 // lanes now get a numerical id (for online-routing)
 //
@@ -56,6 +59,11 @@
 // Revision 1.4  2001/08/16 12:53:59  traffic
 // further exception handling (now validated) and new comments
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * included modules
@@ -63,6 +71,7 @@
 #include <string>
 #include <vector>
 #include <microsim/MSEdge.h>
+#include <utils/geom/Position2DVector.h>
 
 
 /* =========================================================================
@@ -122,7 +131,7 @@ public:
         lane is marked to be the depart lane and another so marked lane
         was added before */
     virtual MSLane *addLane(MSNet &net, const std::string &id,
-        double maxSpeed, double length, bool isDepart);
+        double maxSpeed, double length, bool isDepart, const Position2DVector &shape);
 
 //    void addLane(MSLane *lane, bool isDepartLane);
 
@@ -196,9 +205,6 @@ private:
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-//#ifndef DISABLE_INLINE
-//#include "NLEdgeControlBuilder.icc"
-//#endif
 
 #endif
 

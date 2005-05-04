@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/05/04 08:40:16  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; added the possibility to load lane shapes into the non-gui simulation
+//
 // Revision 1.8  2004/07/02 09:37:53  dkrajzew
 // lanes now get a numerical id (for online-routing)
 //
@@ -32,7 +35,10 @@ namespace
 // loading of internal links added
 //
 // Revision 1.5  2003/06/18 11:18:05  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.4  2003/06/16 14:43:34  dkrajzew
 // documentation added
@@ -44,7 +50,8 @@ namespace
 // error-handling instead of pure assertions added
 //
 // Revision 1.1  2002/10/16 15:36:50  dkrajzew
-// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
+// moved from ROOT/sumo/netload to ROOT/src/netload;
+//  new format definition parseable in one step
 //
 // Revision 1.6  2002/06/11 14:39:26  dkrajzew
 // windows eol removed
@@ -53,7 +60,8 @@ namespace
 // Windows eol removed
 //
 // Revision 1.4  2002/06/07 14:39:58  dkrajzew
-// errors occured while building larger nets and adaption of new netconverting methods debugged
+// errors occured while building larger nets and adaption of new
+//  netconverting methods debugged
 //
 // Revision 1.3  2002/04/17 11:17:01  dkrajzew
 // windows-newlines removed
@@ -73,7 +81,11 @@ namespace
 // Revision 1.1  2001/12/06 13:36:05  traffic
 // moved from netbuild
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
 
 /* =========================================================================
  * included modules
@@ -156,7 +168,8 @@ NLEdgeControlBuilder::chooseEdge(const string &id,
 
 MSLane *
 NLEdgeControlBuilder::addLane(MSNet &net, const std::string &id,
-                              double maxSpeed, double length, bool isDepart)
+                              double maxSpeed, double length, bool isDepart,
+							  const Position2DVector &shape)
 {
     // checks if the depart lane was set before
     if(isDepart&&m_pDepartLane!=0) {
@@ -166,16 +179,16 @@ NLEdgeControlBuilder::addLane(MSNet &net, const std::string &id,
     switch(m_Function) {
     case MSEdge::EDGEFUNCTION_SOURCE:
         lane = new MSSourceLane(net, id, maxSpeed, length, m_pActiveEdge,
-            myCurrentNumericalLaneID++);
+            myCurrentNumericalLaneID++, shape);
         break;
     case MSEdge::EDGEFUNCTION_INTERNAL:
         lane = new MSInternalLane(net, id, maxSpeed, length, m_pActiveEdge,
-            myCurrentNumericalLaneID++);
+            myCurrentNumericalLaneID++, shape);
         break;
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_SINK:
         lane = new MSLane(net, id, maxSpeed, length, m_pActiveEdge,
-            myCurrentNumericalLaneID++);
+            myCurrentNumericalLaneID++, shape);
         break;
     default:
         throw 1;
@@ -269,11 +282,7 @@ NLEdgeControlBuilder::build()
 }
 
 
-
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "NLEdgeControlBuilder.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
