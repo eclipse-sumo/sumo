@@ -7,7 +7,7 @@
 /// @date    Started Thu Apr 08 2004 15:31 CEST
 /// @version $Id$
 ///
-/// @brief   
+/// @brief
 ///
 ///
 
@@ -22,6 +22,15 @@
 //
 //---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif // HAVE_CONFIG_H
@@ -30,13 +39,21 @@
 #include <map>
 #include <set>
 #include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/common/SUMOTime.h>
 
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class OptionsCont;
 class RONet;
 class ROEdge;
 class FloatValueTimeLine;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 class ROSupplementaryWeightsHandler : public SUMOSAXHandler
 {
 public:
@@ -52,7 +69,7 @@ public:
 
     /// Destructor
     ~ROSupplementaryWeightsHandler();
-    
+
 protected:
     /// Processing of start-tags. Calls one of the startParse* methods.
     ///
@@ -71,7 +88,7 @@ protected:
     ///
     void myEndElement( int element
                        , const std::string& name );
-    
+
     /// Processing of characters. We do nothing here.
     ///
     void myCharacters(int, const std::string&, const std::string& )
@@ -147,7 +164,7 @@ protected:
     ///
     FloatValueTimeLine* getFloatValueTimeLine( WeightsMap& aMap
                                                , std::string aEdgeId );
-    
+
 private:
     /// The "global" command-line options
     OptionsCont& optionsM;
@@ -172,10 +189,10 @@ private:
     bool isAddValueSetM;        ///< Flag indicating the occurence of
                                 ///the attribute "add" within tag
                                 ///"weights".
-    
-    unsigned long intervalStartM; ///< Value of the attribute "begin"
+
+    SUMOTime intervalStartM; ///< Value of the attribute "begin"
                                   ///within tag "interval".
-    unsigned long intervalEndM; ///< Value of the attribute "end"
+    SUMOTime intervalEndM; ///< Value of the attribute "end"
                                 ///within tag "interval".
 
     std::string edgeIdM;        ///< Value of the attribute "edge-id"
@@ -189,7 +206,7 @@ private:
 
     /// Iterator to WeightsMap.
     typedef WeightsMap::iterator WeightsMapIt;
-    
+
     WeightsMap absolutMapM;     ///< Container holding "absolut"
                                 ///weights-container
                                 ///(=FloatValueTimeLine) by "edge-id".
@@ -204,10 +221,10 @@ private:
     typedef std::set< std::string > EdgeSet;
     /// Iterator to EdgeSet.
     typedef EdgeSet::iterator EdgeSetIt;
-    
+
     EdgeSet weightedEdgesM;     ///< Container holding "edge-id"s to
                                 ///all processed edges.
-    
+
     /// copy ctor
     ROSupplementaryWeightsHandler( const ROSupplementaryWeightsHandler& );
 
@@ -218,8 +235,8 @@ private:
 };
 
 /*
-Example supplementary-weights-file: 
------------------------------------  
+Example supplementary-weights-file:
+-----------------------------------
 <?xml version="1.0" standalone="yes"?>
 <supplementary-weights>
   <interval begin="60" end="119">
@@ -229,7 +246,7 @@ Example supplementary-weights-file:
   <interval begin="120" end="179">
     <weight edge-id="1fi" absolut="48" mult="2.5"/>
     <weight edge-id="2o" add="7"/>
-  </interval>  
+  </interval>
 </supplementary-weights>
 */
 

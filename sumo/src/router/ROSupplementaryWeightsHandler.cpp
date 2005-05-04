@@ -19,6 +19,15 @@
 //
 //---------------------------------------------------------------------------//
 
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "ROSupplementaryWeightsHandler.h"
 
 #include <string>
@@ -37,8 +46,16 @@
 #include "ROEdge.h"
 #include "RONet.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ROSupplementaryWeightsHandler::ROSupplementaryWeightsHandler(
     OptionsCont& optionCont
     , RONet& net
@@ -89,9 +106,8 @@ ROSupplementaryWeightsHandler::myStartElement( int
         startParseWeight( attrs );
     }
 /*    else {
-        MsgHandler::getErrorInstance()->inform(
-            "ROSupplementaryWeightsHandler::myStartElement wrong ");
-        MsgHandler::getWarningInstance()->inform(
+        WRITE_WARNING("ROSupplementaryWeightsHandler::myStartElement wrong ");
+        WRITE_WARNING(
 
              << "attribute " << name << endl;
         assert( false );
@@ -232,7 +248,14 @@ ROSupplementaryWeightsHandler::stopParseSupplementaryWeights( void )
         FloatValueTimeLine* mult = getFloatValueTimeLine( multMapM, edgeId );
         FloatValueTimeLine* add = getFloatValueTimeLine( addMapM, edgeId );
 
-        netM.getEdge( edgeId )->setSupplementaryWeights( absolut, add, mult );
+        ROEdge *e = netM.getEdge( edgeId );
+        if(e!=0) {
+            e->setSupplementaryWeights( absolut, add, mult );
+        } else {
+            MsgHandler::getErrorInstance()->inform(
+                "Could not add weight to the unknown edge '" + edgeId + "'.");
+
+        }
     }
 }
 
@@ -248,11 +271,11 @@ ROSupplementaryWeightsHandler::getFloatValueTimeLine( WeightsMap& aMap,
     else {
         retVal = it->second;
     }
-    /*
+	/*
     if(retVal!=0) {
         retVal->sort();
     }
-    */
+	*/
     return retVal;
 }
 
