@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2005/05/04 08:26:48  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; debugging
+//
 // Revision 1.20  2005/02/17 10:33:37  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -268,6 +271,13 @@ MSLaneChanger::initChanger()
 }
 
 //-------------------------------------------------------------------------//
+//#define GUI_DEBUG
+
+#ifdef GUI_DEBUG
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <guisim/GUIVehicle.h>
+#endif
+
 
 bool
 MSLaneChanger::change()
@@ -281,6 +291,11 @@ MSLaneChanger::change()
     // priority.
     myCandi = findCandidate();
     MSVehicle* vehicle = veh( myCandi );
+#ifdef GUI_DEBUG
+    if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle*>(vehicle)->getGlID())) {
+        int blb = 0;
+    }
+#endif
 
 #ifdef ABS_DEBUG
     if(MSNet::globaltime>=MSNet::searchedtime && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
@@ -290,6 +305,9 @@ MSLaneChanger::change()
     pair<int, double> changePreference = getChangePreference();
     double currentLaneDist =
         vehicle->allowedContinuationsLength((*myCandi).lane);
+    if(changePreference.second==currentLaneDist) {
+        changePreference.first = 0;
+    }
     vehicle->getLaneChangeModel().prepareStep();
     // check whether the vehicle wants and is able to change to right lane
     std::pair<MSVehicle*, double> rLead = getRealRightLeader();
@@ -432,15 +450,15 @@ MSLaneChanger::change()
 
                 // ok, may be swapped
                     // remove vehicle to swap with
-                MSLane::VehCont::iterator i =
-                    find(
-                        target->lane->myTmpVehicles.begin(),
-                        target->lane->myTmpVehicles.end(),
-                        prohibitor);
-                if(i!=target->lane->myTmpVehicles.end()) {
-                    MSVehicle *bla = *i;
-                    assert(bla==prohibitor);
-                    target->lane->myTmpVehicles.erase(i);
+				MSLane::VehCont::iterator i =
+					find(
+						target->lane->myTmpVehicles.begin(),
+						target->lane->myTmpVehicles.end(),
+						prohibitor);
+				if(i!=target->lane->myTmpVehicles.end()) {
+	                MSVehicle *bla = *i;
+		            assert(bla==prohibitor);
+	                target->lane->myTmpVehicles.erase(i);
                     // set this vehicle
                 target->hoppedVeh = vehicle;
                 target->lane->myTmpVehicles.push_front( vehicle );
@@ -475,7 +493,7 @@ MSLaneChanger::change()
     }
 #endif
                 return true;
-                }
+				}
             }
         }
     }
