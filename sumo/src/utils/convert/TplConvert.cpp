@@ -19,6 +19,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/05/04 09:10:57  dkrajzew
+// speeded up the reading of xml-files
+//
 // Revision 1.5  2004/11/23 10:28:36  dkrajzew
 // debugging
 //
@@ -49,6 +52,7 @@
 #include <string>
 #include <iostream>
 #include <climits>
+#include <sstream>
 #include <cmath>
 #include <utils/common/UtilExceptions.h>
 #include "TplConvert.h"
@@ -72,12 +76,29 @@ TplConvert<E>::_2str(const E * const data, int length)
     if(data==0||length==0) {
         throw EmptyData();
     }
+    char *buf = new char[length+1];
+    int i = 0;
+    for(i=0; i<length; i++) {
+        buf[i] = (char) data[i];
+    }
+    buf[i] = 0;
+    std::string ret = buf;
+    delete[] buf;
+    return ret;
+    /*
+    std::ostringstream oss;
+//    oss.reserve(length+1);
+    for(int i=0; i<length; i++) {
+        oss << (char) data[i];
+    }
+    return oss.str();
+    /*
     std::string str;
-    str.reserve(length);
+    str.reserve(length+1);
     for(int i=0; i<length; i++) {
         str = str + (char) data[i];
     }
-    return str;
+    return str;*/
 }
 
 
@@ -186,7 +207,7 @@ TplConvert<E>::_2float(const E * const data, int length)
         i++;
         sgn = -1;
     }
-    for(; i<length&&data[i]!=0&&data[i]!='.'&&data[i]!='e'&&data[i]!='E'; i++) {
+    for(; i<length&&data[i]!=0&&data[i]!='.'&&data[i]!=','&&data[i]!='e'&&data[i]!='E'; i++) {
         ret = ret * 10;
         char akt = (char) data[i];
         if(akt<'0'||akt>'9') {

@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/05/04 09:11:17  dkrajzew
+// speeded up the reading of xml-files
+//
 // Revision 1.3  2004/11/23 10:36:50  dkrajzew
 // debugging
 //
@@ -124,13 +127,15 @@ GenericSAX2Handler::startElement(const XMLCh* const uri,
                                  const XMLCh* const qname,
                                  const Attributes& attrs)
 {
-   string name = TplConvert<XMLCh>::_2str(qname);
-   int element = convertTag(name);
-   _tagTree.push(element);
-   _characters = "";
-   if(element<0)
-      _unknownOccured = true;
-   myStartElement(element, name, attrs);
+    string name = TplConvert<XMLCh>::_2str(qname);
+    int element = convertTag(name);
+    _tagTree.push(element);
+   //_characters = "";
+    myCharactersVector.clear();
+    if(element<0) {
+        _unknownOccured = true;
+    }
+    myStartElement(element, name, attrs);
 }
 
 
@@ -139,18 +144,43 @@ GenericSAX2Handler::endElement(const XMLCh* const uri,
                                const XMLCh* const localname,
                                const XMLCh* const qname)
 {
-   string name = TplConvert<XMLCh>::_2str(qname);
-   int element = convertTag(name);
-   if(element<0)
-      _unknownOccured = true;
-   // call user handler
-   myCharacters(element, name, _characters);
-   myEndElement(element, name);
-   // update the tag tree
-   if(_tagTree.size()==0)
-      _errorOccured = true;
-   else
-      _tagTree.pop();
+    string name = TplConvert<XMLCh>::_2str(qname);
+    int element = convertTag(name);
+    if(element<0) {
+        _unknownOccured = true;
+    }
+    // call user handler
+        // collect characters
+    /*
+    std::ostringstream oss;
+    for(int i=0; i<myCharactersVector.size(); i++) {
+        oss << myCharactersVector[i];
+    }
+    return oss.str();
+    */
+    size_t len = 0;
+    size_t i;
+    for(i=0; i<myCharactersVector.size(); ++i) {
+        len += myCharactersVector[i].length();
+    }
+    char *buf = new char[len+1];
+    int pos = 0;
+    for(i=0; i<myCharactersVector.size(); ++i) {
+        memcpy((unsigned char*) buf+pos, (unsigned char*) myCharactersVector[i].c_str(),
+            sizeof(char)*myCharactersVector[i].length());
+        pos += myCharactersVector[i].length();
+    }
+    buf[pos] = 0;
+
+    myCharacters(element, name, buf);
+    delete[] buf;
+    myEndElement(element, name);
+    // update the tag tree
+    if(_tagTree.size()==0) {
+        _errorOccured = true;
+    } else {
+        _tagTree.pop();
+    }
 }
 
 
@@ -158,7 +188,8 @@ void
 GenericSAX2Handler::characters(const XMLCh* const chars,
                                const unsigned int length)
 {
-   _characters += TplConvert<XMLCh>::_2str(chars, length);
+    myCharactersVector.push_back(TplConvert<XMLCh>::_2str(chars, length));
+//   _characters += TplConvert<XMLCh>::_2str(chars, length);
 }
 
 

@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/05/04 09:11:17  dkrajzew
+// speeded up the reading of xml-files
+//
 // Revision 1.6  2004/11/23 10:36:50  dkrajzew
 // debugging
 //
@@ -46,7 +49,8 @@
 // Windows eol removed
 //
 // Revision 1.4  2002/06/10 08:33:22  dkrajzew
-// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
+// Parsing of strings into other data formats generelized;
+//  Options now recognize false numeric values; documentation added
 //
 // Revision 1.3  2002/04/17 11:19:57  dkrajzew
 // windows-carriage returns removed
@@ -67,6 +71,7 @@
 #include <stack>
 #include <map>
 #include <sstream>
+#include <vector>
 #include <sax2/Attributes.hpp>
 #include <sax2/DefaultHandler.hpp>
 
@@ -199,7 +204,9 @@ protected:
     std::stack<int> _tagTree;
 
     /** the current characters */
-    std::string _characters;
+//    std::string _characters;
+
+    std::vector<std::string> myCharactersVector;
 
 private:
     /** converts a tag from its string into its numerical representation */
