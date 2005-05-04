@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2005/05/04 09:10:16  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; added the information about failure on file opening
+//
 // Revision 1.8  2004/11/23 10:27:45  dkrajzew
 // debugging
 //
@@ -69,12 +72,18 @@
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #include <string>
 #include <exception>
+
 
 /* =========================================================================
  * class definitions
@@ -232,6 +241,27 @@ public:
     ~UnknownElement() throw() { }
 
 };
+
+
+
+class FileBuildError : public UtilException {
+public:
+    /** constructor */
+    FileBuildError(const std::string &message);
+
+    /** destructor */
+    ~FileBuildError() throw();
+
+    /** returns the message */
+    const std::string &msg();
+
+private:
+    /** the message of the exception */
+    std::string myMessage;
+
+};
+
+
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

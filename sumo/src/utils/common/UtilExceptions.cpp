@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/05/04 09:10:16  dkrajzew
+// level 3 warnings removed; a certain SUMOTime time description added; added the information about failure on file opening
+//
 // Revision 1.7  2004/02/06 08:45:40  dkrajzew
 // debugged some bugs showing up when compiling under linux
 //
@@ -69,7 +72,12 @@ namespace
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
 //
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -157,11 +165,28 @@ UnsupportedFeature::msg()
 }
 
 
+/* -------------------------------------------------------------------------
+ * FileBuildError - methods
+ * ----------------------------------------------------------------------- */
+FileBuildError::FileBuildError(const string &message)
+    : myMessage(message)
+{
+}
+
+
+FileBuildError::~FileBuildError() throw()
+{
+}
+
+
+const string &
+FileBuildError::msg()
+{
+    return myMessage;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "UtilExceptions.icc"
-//#endif
 
 // Local Variables:
 // mode:C++
