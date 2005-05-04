@@ -40,11 +40,25 @@ public:
             }
             val = val * myScale;
             int idx = (int) (val * (double) (myGradient.size()-1));
-            assert(idx<myGradient.size());
+            assert(idx<(int) myGradient.size());
             const RGBColor &c = myGradient[idx];
-            glColor3f(c.red(), c.green(), c.blue());
+            glColor3d(c.red(), c.green(), c.blue());
         }
+	}
+
+	void setGlColor(double val) const {
+        if(val<myMin) {
+            val = myMin; // !!! Aua!!!
+        } else if(val>myMax) {
+            val = myMax; // !!! Aua!!!
+        }
+        val = val * myScale;
+        int idx = (int) (val * (double) (myGradient.size()-1));
+        assert(idx<(int) myGradient.size());
+        const RGBColor &c = myGradient[idx];
+        glColor3d(c.red(), c.green(), c.blue());
     }
+
 
 protected:
     double myMin, myMax, myScale;

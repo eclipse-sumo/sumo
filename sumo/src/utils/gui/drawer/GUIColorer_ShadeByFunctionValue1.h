@@ -41,8 +41,20 @@ public:
             val = val * myScale;
             RGBColor c =
                 (myMinColor * (1.0 - val)) + (myMaxColor * val);
-            glColor3f(c.red(), c.green(), c.blue());
+            glColor3d(c.red(), c.green(), c.blue());
         }
+	}
+
+	void setGlColor(double val) const {
+        if(val<myMin) {
+            val = myMin; // !!! Aua!!!
+        } else if(val>myMax) {
+            val = myMax; // !!! Aua!!!
+        }
+        val = val * myScale;
+        RGBColor c =
+            (myMinColor * (1.0 - val)) + (myMaxColor * val);
+        glColor3d(c.red(), c.green(), c.blue());
     }
 
 protected:

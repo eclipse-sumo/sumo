@@ -18,7 +18,7 @@ public:
     typedef double ( _T::* Operation )() const;
 
     GUIColorer_GradientByTimedFV(double min, double max,
-        const std::vector<RGBColor> &gradient, unsigned int timeGiver,
+        const std::vector<RGBColor> &gradient, SUMOTime timeGiver,
         Operation operation)
         : myMin(min), myMax(max), myGradient(gradient),
             myTimeGiver(timeGiver), myOperation(operation)
@@ -26,9 +26,9 @@ public:
         myScale = 1.0 / (myMax-myMin);
     }
 
-    virtual ~GUIColorer_GradientByTimedFV() { }
+	virtual ~GUIColorer_GradientByTimedFV() { }
 
-    void setGlColor(const _T& i) const {
+	void setGlColor(const _T& i) const {
         double val = (i.*myOperation)() - myMin;
         val = val * myScale;
         if(val==-1) {
@@ -39,10 +39,22 @@ public:
             } else if(val>1) {
                 val = 1; // !!! Aua!!!
             }
-            int idx = (int) (val * (double) myGradient.size());
+            int idx = (int) (val * (double) (myGradient.size()-1));
             assert(idx<myGradient.size());
             const RGBColor &c = myGradient[idx];
             glColor3f(c.red(), c.green(), c.blue());
+	}
+
+	void setGlColor(double val) const {
+        if(val<0) {
+            val = 0; // !!! Aua!!!
+        } else if(val>1) {
+            val = 1; // !!! Aua!!!
+        }
+        int idx = (int) (val * (double) (myGradient.size()-1));
+        assert(idx<(int) myGradient.size());
+        const RGBColor &c = myGradient[idx];
+        glColor3d(c.red(), c.green(), c.blue());
     }
 
 protected:

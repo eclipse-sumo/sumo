@@ -14,11 +14,16 @@
 template<class _T>
 class GUIColorer_SingleColor : public GUIBaseColorer<_T> {
 public:
-    GUIColorer_SingleColor(const RGBColor &c) : myColor(c) { }
-    virtual ~GUIColorer_SingleColor() { }
-    void setGlColor(const _T& i) const {
-        glColor3d(myColor.red(), myColor.green(), myColor.blue());
-    }
+	GUIColorer_SingleColor(const RGBColor &c) : myColor(c) { }
+	virtual ~GUIColorer_SingleColor() { }
+	void setGlColor(const _T& i) const {
+		glColor3d(myColor.red(), myColor.green(), myColor.blue());
+	}
+
+	void setGlColor(double val) const {
+		glColor3d(myColor.red(), myColor.green(), myColor.blue());
+	}
+
 private:
     RGBColor myColor;
 
