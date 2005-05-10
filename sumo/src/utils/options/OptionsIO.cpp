@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/05/10 11:20:03  dkrajzew
+// verbosity output patched
+//
 // Revision 1.8  2005/05/04 09:28:01  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -191,7 +194,9 @@ OptionsIO::loadConfiguration(OptionsCont *oc)
             "Could not find configuration '" + oc->getString("c") + "'.");
         return false;
     }
-    WRITE_MESSAGE("Loading configuration...");
+    if(oc->getBool("verbose")) {
+        WRITE_MESSAGE("Loading configuration...");
+    }
     // build parser
     SAXParser parser;
     parser.setValidationScheme(SAXParser::Val_Auto);
