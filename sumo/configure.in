@@ -168,27 +168,30 @@ AC_ARG_WITH(fox-libraries,
 
 AC_MSG_CHECKING([for fox-libraries])
 if test x"$ac_fox_libraries" = x; then
-   if test -e /usr/lib/libFOX-1.2.so; then
+   if test -e /usr/lib/libFOX-1.4.so; then
       AC_MSG_RESULT([yes])
       ac_fox_lib_path=/usr/lib
-      ac_foxlib=FOX-1.2
-   elif test -e /usr/local/lib/libFOX-1.2.so; then
+      ac_foxlib=FOX-1.4
+   elif test -e /usr/local/lib/libFOX-1.4.so; then
       AC_MSG_RESULT([yes])
       ac_fox_lib_path=/usr/local/lib
-      ac_foxlib=FOX-1.2
-   elif test -e /usr/local/fox/lib/libFOX-1.2.so; then
+      ac_foxlib=FOX-1.4
+   elif test -e /usr/local/fox/lib/libFOX-1.4.so; then
       AC_MSG_RESULT([yes])
       ac_fox_lib_path=/usr/local/fox/lib/
-      ac_foxlib=FOX-1.2
+      ac_foxlib=FOX-1.4
    else
       AC_MSG_RESULT([no])
-      AC_MSG_ERROR([fox-lib not found. Specify path with option --with-fox-libraries=DIR.])
+      AC_MSG_RESULT([---------------------------])
+      AC_MSG_RESULT([fox-lib not found.])
+      AC_MSG_RESULT([Specify path with option --with-fox-libraries=DIR for gui-eneabled applications.])
+      AC_MSG_RESULT([---------------------------])
    fi
 else
-   if test -e "$ac_fox_libraries/libFOX-1.2.so"; then
+   if test -e "$ac_fox_libraries/libFOX-1.4.so"; then
       AC_MSG_RESULT([yes])
       ac_fox_lib_path="$ac_fox_libraries"
-      ac_foxlib=FOX-1.2
+      ac_foxlib=FOX-1.4
    else
       AC_MSG_RESULT([no])
       AC_MSG_ERROR([fox-lib not found in "$ac_fox_libraries".])
@@ -207,15 +210,18 @@ AC_ARG_WITH(fox-includes,
     ])
 AC_MSG_CHECKING([for fox-includes])
 if test x"$ac_fox_includes" = x; then
-   if test -e /usr/include/fox-1.2; then
+   if test -e /usr/include/fox-1.4; then
       AC_MSG_RESULT([yes])
-      ac_fox_includes=/usr/include/fox-1.2
-   elif test -e /usr/local/include/fox-1.2; then
+      ac_fox_includes=/usr/include/fox-1.4
+   elif test -e /usr/local/include/fox-1.4; then
       AC_MSG_RESULT([yes])
-      ac_fox_includes=/usr/local/include/fox-1.2
+      ac_fox_includes=/usr/local/include/fox-1.4
    else
       AC_MSG_RESULT([no])
-      AC_MSG_ERROR([fox-includes not found. Specify path with option --with-fox-includes=DIR.])
+      AC_MSG_RESULT([---------------------------])
+      AC_MSG_RESULT([fox-lib not found.])
+      AC_MSG_RESULT([Specify path with option --with-fox-includes=DIR for gui-eneabled applications.])
+      AC_MSG_RESULT([---------------------------])
    fi
 else
    if test -e "$ac_fox_includes/fx.h"; then
@@ -227,6 +233,8 @@ else
 fi
 FOX_INCLUDES="$ac_fox_includes"
 AC_SUBST(FOX_INCLUDES)
+AM_CONDITIONAL([WITH_GUI], [test x"$ac_fox_includes" != x && test x"$ac_fox_lib_path" != x])
+
 
 dnl ---------------------------------------------
 
@@ -371,17 +379,23 @@ docs/docbook/gfx/Makefile
 docs/docbook/gfx/dev/Makefile
 docs/docbook/gfx/in_progress/Makefile
 docs/docbook/gfx/user/Makefile
+docs/docbook/tools/Makefile
+docs/docbook/tools/db2man/Makefile
 docs/docbook/xslt/Makefile
 docs/docbook/xslt/sumo_html/Makefile
 docs/internet/Makefile
 docs/internet/css/Makefile
 docs/internet/docs/Makefile
 docs/internet/docs/gen/Makefile
+docs/internet/docs/gen/gfx/Makefile
+docs/internet/docs/gen/gfx/dev/Makefile
+docs/internet/docs/gen/gfx/user/Makefile
 docs/internet/docs/gen/images/Makefile
 docs/internet/downloads/Makefile
 docs/internet/images/Makefile
 docs/internet/links/Makefile
 docs/internet/screens/Makefile
+docs/man/Makefile
 src/Makefile
 src/gui/Makefile
 src/gui/dialogs/Makefile
