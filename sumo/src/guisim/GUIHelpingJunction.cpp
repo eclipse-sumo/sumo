@@ -23,9 +23,11 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/07/12 12:16:57  dkrajzew
+// code style adapted; inclusion of config patched
+//
 // Revision 1.3  2005/07/12 12:00:09  dkrajzew
 // level 3 warnings removed; code style adapted
-//
 //
 /* =========================================================================
  * compiler pragmas

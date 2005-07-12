@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2005/07/12 12:16:57  dkrajzew
+// code style adapted; inclusion of config patched
+//
 // Revision 1.14  2005/05/04 07:59:59  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -78,7 +81,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <vector>
