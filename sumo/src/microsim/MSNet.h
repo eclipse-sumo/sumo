@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.49  2005/07/12 12:25:39  dkrajzew
+// made checking for accidents optional; further work on mean data usage
+//
 // Revision 1.48  2005/05/04 08:29:28  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; output of simulation speed added
 //
@@ -407,7 +410,8 @@ public:
         MSJunctionControl* jc, MSRouteLoaderControl *rlc,
         MSTLLogicControl *tlc, bool logExecutionTime,
         const std::vector<OutputDevice*> &streams,
-        TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles);
+        TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles,
+        TimeVector laneDumpMeanDataIntervalls, std::string baseNameLaneDumpFiles);
 
     /// Destructor.
     virtual ~MSNet();
@@ -489,7 +493,7 @@ public:
     /// ----------------- debug variables -------------
 #ifdef ABS_DEBUG
     static SUMOTime searchedtime;
-    static std::string searched1, searched2, searchedJunction;
+    static std::string searched1, searched2, searchedJunction, searchedLane;
 #endif
 
     /// ----------------- speedcheck variables -------------

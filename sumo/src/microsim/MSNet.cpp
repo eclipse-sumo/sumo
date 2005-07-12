@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.59  2005/07/12 12:25:39  dkrajzew
+// made checking for accidents optional; further work on mean data usage
+//
 // Revision 1.58  2005/05/04 08:29:28  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; output of simulation speed added
 //
@@ -360,7 +363,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #ifdef _SPEEDCHECK
@@ -408,6 +411,7 @@ namespace
 #include "output/MSXMLRawOut.h"
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/SysUtils.h>
+#include "MSGlobals.h"
 
 #include <ctime>
 
@@ -433,6 +437,7 @@ SUMOTime MSNet::searchedtime = 18193;
 std::string MSNet::searched1 = "107";
 std::string MSNet::searched2 = "2858";
 std::string MSNet::searchedJunction = "536";
+std::string MSNet::searchedLane = "15620450_0";
 #endif
 
 
@@ -487,7 +492,9 @@ MSNet::init( string id, MSEdgeControl* ec,
              bool logExecutionTime,
              const std::vector<OutputDevice*> &streams,
                TimeVector dumpMeanDataIntervalls,
-               std::string baseNameDumpFiles)
+               std::string baseNameDumpFiles,
+               TimeVector laneDumpMeanDataIntervalls,
+               std::string baseNameLaneDumpFiles)
 {
     myInstance->myOutputStreams = streams;
     myInstance->myID           = id;
@@ -497,7 +504,8 @@ MSNet::init( string id, MSEdgeControl* ec,
     myInstance->myLogics       = tlc;
     myInstance->myMeanData =
         MSMeanData_Net_Utils::buildList( *(myInstance->myEdges),
-            dumpMeanDataIntervalls, baseNameDumpFiles);
+            dumpMeanDataIntervalls, baseNameDumpFiles,
+            laneDumpMeanDataIntervalls, baseNameLaneDumpFiles);
     MSCORN::setTripDurationsOutput(streams[OS_TRIPDURATIONS]);
 	MSCORN::setVehicleRouteOutput(streams[OS_VEHROUTE]);
     myInstance->myLogExecutionTime = logExecutionTime;
@@ -655,10 +663,14 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
     // emit Vehicles
     size_t emittedVehNo = myEmitter->emitVehicles(myStep);
     myVehicleControl->vehiclesEmitted(emittedVehNo);
-    myEdges->detectCollisions( myStep );
+    if(MSGlobals::gCheck4Accidents) {
+        myEdges->detectCollisions( step );
+    }
     MSVehicleTransfer::getInstance()->checkEmissions(myStep);
 
-    myEdges->detectCollisions( myStep );
+    if(MSGlobals::gCheck4Accidents) {
+        myEdges->detectCollisions( step );
+    }
     myJunctions->resetRequests();
 
     // move Vehicles
@@ -678,8 +690,9 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
     // move vehicles which do interact with their lane's end
     //  (it is now known whether they may drive
     myEdges->moveFirst();
-    myEdges->detectCollisions( myStep );
-
+    if(MSGlobals::gCheck4Accidents) {
+        myEdges->detectCollisions( step );
+    }
 
     // detect
     MSLaneState::actionsAfterMoveAndEmit();
@@ -696,8 +709,9 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
     // Vehicles change Lanes (maybe)
     myEdges->changeLanes();
 
-    myEdges->detectCollisions( myStep );
-
+    if(MSGlobals::gCheck4Accidents) {
+        myEdges->detectCollisions( step );
+    }
     // Check if mean-lane-data is due
     long ve = SysUtils::getCurrentMillis();
     writeOutput();
