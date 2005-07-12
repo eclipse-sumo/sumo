@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/07/12 12:35:21  dkrajzew
+// elmar2 importer included; debugging
+//
 // Revision 1.6  2005/04/27 12:24:24  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -38,7 +41,8 @@ namespace
 // elmar and tiger import added
 //
 // Revision 1.2  2004/01/28 12:37:41  dkrajzew
-// added the possibility to define vissims speed factor and a default speed for vissim-networks
+// added the possibility to define vissims speed factor and a default speed
+//  for vissim-networks
 //
 // Revision 1.1  2003/12/11 06:16:37  dkrajzew
 // NBOptionsIO moved to netimport NIOptionsIO where they belong to
@@ -59,28 +63,35 @@ namespace
 // the default duration of green light phases may now be changed on startup
 //
 // Revision 1.15  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of geometry information
+// some further refinements due to the new 1:N traffic lights and usage of
+//  geometry information
 //
 // Revision 1.14  2003/06/24 14:38:46  dkrajzew
-// false instantiation of option "log-file" as Option_Strng patched into Option_FileName patched
+// false instantiation of option "log-file" as Option_Strng patched into
+//  Option_FileName patched
 //
 // Revision 1.13  2003/06/24 08:09:29  dkrajzew
 // implemented SystemFrame and applied the changes to all applications
 //
 // Revision 1.12  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message, warning
+//  or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.11  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
 //
 // Revision 1.10  2003/05/20 09:33:48  dkrajzew
-// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+// false computation of yielding on lane ends debugged; some debugging
+//  on tl-import; further work on vissim-import
 //
 // Revision 1.9  2003/04/10 15:45:20  dkrajzew
 // some lost changes reapplied
 //
 // Revision 1.8  2003/04/04 07:43:04  dkrajzew
-// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+// Yellow phases must be now explicetely given; comments added; order of edge
+//  sorting (false lane connections) debugged
 //
 // Revision 1.7  2003/03/20 16:23:09  dkrajzew
 // windows eol removed; multiple vehicle emission added
@@ -110,13 +121,15 @@ namespace
 // Default usage of types removed
 //
 // Revision 1.8  2002/07/11 05:47:35  dkrajzew
-// Options describing files transfered to Option_FileName to enable relative path setting within the configuration files
+// Options describing files transfered to Option_FileName to enable relative
+//  path setting within the configuration files
 //
 // Revision 1.7  2002/06/17 15:19:29  dkrajzew
 // unreferenced variable declarations removed
 //
 // Revision 1.6  2002/06/11 16:00:42  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+// windows eol removed; template class definition inclusion depends now on
+//  the EXTERNAL_TEMPLATE_DEFINITION-definition
 //
 // Revision 1.5  2002/05/14 04:42:56  dkrajzew
 // new computation flow
@@ -175,6 +188,7 @@ namespace
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/DevHelper.h>
 #include <netbuild/NBNetBuilder.h>
 
 
@@ -204,6 +218,7 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("xml-edge-files", 'e', new Option_FileName());
     oc.doRegister("xml-connection-files", 'x', new Option_FileName());
     oc.doRegister("elmar", new Option_FileName());
+    oc.doRegister("elmar2", new Option_FileName());
     oc.doRegister("tiger", new Option_FileName());
     oc.doRegister("cell-node-file", new Option_FileName());
     oc.doRegister("cell-edge-file", new Option_FileName());
@@ -238,6 +253,8 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("speed-in-km", new Option_Bool(false));
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
+    // add rand and dev options
+    DevHelper::insertDevOptions(oc);
     RandHelper::insertRandOptions(oc);
 }
 

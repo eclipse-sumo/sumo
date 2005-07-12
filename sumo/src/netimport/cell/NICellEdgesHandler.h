@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/07/12 12:35:22  dkrajzew
+// elmar2 importer included; debugging
+//
 // Revision 1.3  2005/04/27 12:24:35  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -66,9 +69,6 @@
  */
 class NICellEdgesHandler : public LineHandler,
                            public FileErrorReporter {
-private:
-    /// the converter for converting capacities to laneno
-    NBCapacity2Lanes _capacity2Lanes;
 public:
     /// constructor
     NICellEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
@@ -86,6 +86,10 @@ protected:
     NBNodeCont &myNodeCont;
     NBEdgeCont &myEdgeCont;
     NBTypeCont &myTypeCont;
+
+private:
+    /// the converter for converting capacities to laneno
+    NBCapacity2Lanes _capacity2Lanes;
 
 };
 

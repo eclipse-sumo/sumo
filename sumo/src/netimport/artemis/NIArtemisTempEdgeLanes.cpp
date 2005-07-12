@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/07/12 12:35:21  dkrajzew
+// elmar2 importer included; debugging
+//
 // Revision 1.9  2005/04/27 12:24:25  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -67,6 +70,7 @@ namespace
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NIArtemisTempEdgeLanes.h"
+#include <utils/common/UtilExceptions.h>
 
 
 /* =========================================================================
@@ -249,17 +253,26 @@ NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
             for(size_t l=0; l<maxLaneNo; l++) {
                 // if both lanes exist, connect
                 if(setLanes[k-1].test(l)&&setLanes[k].test(l)) {
-                    edge1->addLane2LaneConnection(runLaneNo1, edge2, runLaneNo2);
+                    if(!edge1->addLane2LaneConnection(runLaneNo1, edge2, runLaneNo2)) {
+                        MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                        throw ProcessError();
+                    }
                 }
                 // if a new lane starts, connect checking the direction
                 if(!setLanes[k-1].test(l)&&setLanes[k].test(l)) {
                     // lane is a new rightmost lane
                     if(l>0&&setLanes[k-1].test(l-1)) {
-                        edge1->addLane2LaneConnection(0, edge2, runLaneNo2);
+                        if(!edge1->addLane2LaneConnection(0, edge2, runLaneNo2)) {
+                            MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                            throw ProcessError();
+                        }
                     }
                     // lane is a new leftmost lane
                     if(setLanes[k-1].test(l+1)) {
-                        edge1->addLane2LaneConnection(edge1->getNoLanes()-1, edge2, runLaneNo2);
+                        if(!edge1->addLane2LaneConnection(edge1->getNoLanes()-1, edge2, runLaneNo2)) {
+                            MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                            throw ProcessError();
+                        }
                     }
                 }
                 // if a lane ends, or no lanes are given do nothing

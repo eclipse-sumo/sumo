@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/07/12 12:35:23  dkrajzew
+// elmar2 importer included; debugging
+//
 // Revision 1.4  2005/04/27 12:24:42  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -62,9 +65,13 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/convert/ToString.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/convert/TplConvertSec.h>
 #include <utils/xml/XMLBuildingExceptions.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/common/MsgHandler.h>
+
 
 /* =========================================================================
  * debugging definitions (MSVC++ only)
@@ -74,10 +81,12 @@ namespace
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * method definitions
@@ -181,7 +190,14 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
         try {
             fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
             toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-            from->addLane2LaneConnection(fromLane, to, toLane);
+            if(!from->addLane2LaneConnection(fromLane, to, toLane)) {
+                MsgHandler::getWarningInstance()->inform(
+                    "Could not set loaded connection from '"
+                    + from->getID() + "_" + toString<int>(fromLane)
+                    + "' to '"
+                    + to->getID() + "_" + toString<int>(toLane)
+                    + "'.");
+            }
         } catch (NumberFormatException) {
             addError(
                 string("At least one of the defined lanes was not numeric"));

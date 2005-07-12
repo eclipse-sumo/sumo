@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/07/12 12:35:23  dkrajzew
+// elmar2 importer included; debugging
+//
 // Revision 1.11  2005/04/27 12:24:41  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -161,7 +164,7 @@ NIVisumParser_Connectors::myDependentReport()
                 return;
             }
             NBEdge *edge = new NBEdge(id, id, src, dest, "VisumConnector",
-                100, 3/*nolanes*/, 1000.0, prio, NBEdge::LANESPREAD_RIGHT,
+                100, 3/*nolanes*/, 20000.0, prio, NBEdge::LANESPREAD_RIGHT,
                 NBEdge::EDGEFUNCTION_SOURCE);
             if(!myEdgeCont.insert(edge)) {
                 addError(
@@ -183,7 +186,7 @@ NIVisumParser_Connectors::myDependentReport()
             }
             id = string("-") + id;
             NBEdge *edge = new NBEdge(id, id, dest, src, "VisumConnector",
-                100, 3/*nolanes*/, 1000.0, prio, NBEdge::LANESPREAD_RIGHT,
+                100, 3/*nolanes*/, 20000.0, prio, NBEdge::LANESPREAD_RIGHT,
                 NBEdge::EDGEFUNCTION_SINK);
             if(!myEdgeCont.insert(edge)) {
                 addError(

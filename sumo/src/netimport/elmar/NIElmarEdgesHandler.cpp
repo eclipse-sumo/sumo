@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/07/12 12:35:22  dkrajzew
+// elmar2 importer included; debugging
+//
 // Revision 1.3  2005/04/27 12:24:35  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -149,27 +152,30 @@ NIElmarEdgesHandler::report(const std::string &result)
     }
     try {
         nolanes = TplConvert<char>::_2int(st.next().c_str());
-        switch(nolanes) {
-        case -1:
+        if(nolanes<0) {
             nolanes = 1;
-            break;
-        case 1:
-            nolanes = 1;
-            break;
-        case 2:
-            nolanes = 2;
-            if(speed>78.0/3.6) {
-                nolanes = 3;
+        } else if(nolanes/10>0) {
+                nolanes = nolanes / 10;
+        } else {
+            switch(nolanes%10) {
+            case 1:
+                nolanes = 1;
+                break;
+            case 2:
+                nolanes = 2;
+                if(speed>78.0/3.6) {
+                    nolanes = 3;
+                }
+                break;
+            case 3:
+                nolanes = 4;
+                break;
+            default:
+                MsgHandler::getErrorInstance()->inform(
+                    string("Invalid lane number (edge '") + id
+                    + string("')."));
+                throw ProcessError();
             }
-            break;
-        case 3:
-            nolanes = 4;
-            break;
-        default:
-            MsgHandler::getErrorInstance()->inform(
-                string("Invalid lane number (edge '") + id
-                + string("')."));
-            throw ProcessError();
         }
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2005/07/12 12:35:23  dkrajzew
+// elmar2 importer included; debugging
+//
 // Revision 1.18  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -87,6 +90,7 @@ namespace
 #include "NIVissimClosedLanesVector.h"
 #include "NIVissimNodeDef.h"
 #include "NIVissimConnection.h"
+#include <utils/common/UtilExceptions.h>
 
 using namespace std;
 
@@ -427,7 +431,10 @@ NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont &ec)
         const IntVector &toLanes = c->getToLanes();
         for(IntVector::const_iterator j=fromLanes.begin(); j!=fromLanes.end(); j++) {
             for(IntVector::const_iterator k=toLanes.begin(); k!=toLanes.end(); k++) {
-                fromEdge->addLane2LaneConnection((*j), toEdge, (*k));
+                if(!fromEdge->addLane2LaneConnection((*j), toEdge, (*k))) {
+                    MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                    throw ProcessError();
+                }
             }
         }
     }
