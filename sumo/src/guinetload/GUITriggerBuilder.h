@@ -19,9 +19,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2005/07/12 12:00:09  dkrajzew
+// level 3 warnings removed; code style adapted
+//
 // Revision 1.1  2004/07/02 08:39:56  dkrajzew
 // visualisation of vss' added
-//
 //
 /* =========================================================================
  * included modules

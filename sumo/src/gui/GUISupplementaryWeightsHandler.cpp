@@ -1,14 +1,13 @@
-///
-/// @file    GUISupplementaryWeightsHandler.cpp
-/// @author  Christian Roessel <christian.roessel@dlr.de>
-/// @date    Started Thu Apr 08 2004 15:31 CEST
-/// @version $Id$
-///
-/// @brief
-///
-///
-
-/* Copyright (C) 2004 by German Aerospace Center (http://www.dlr.de) */
+//---------------------------------------------------------------------------//
+//                        GUISupplementaryWeightsHandler.cpp -
+//
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Thu Apr 08 2004
+//  copyright            : (C) 2005 by Christian Roessel
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : christian.roessel@dlr.de
+//---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
 //
@@ -18,12 +17,24 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.4  2005/07/12 11:59:01  dkrajzew
+// level 3 warnings removed; code style adapted
+//
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 
 #include "GUISupplementaryWeightsHandler.h"
 
@@ -90,8 +101,8 @@ GUISupplementaryWeightsHandler::myStartElement( int
         startParseWeight( attrs );
     }
 /*    else {
-            "GUISupplementaryWeightsHandler::myStartElement wrong ");
-        MsgHandler::getWarningInstance()->inform(
+        WRITE_WARNING("GUISupplementaryWeightsHandler::myStartElement wrong ");
+        WRITE_WARNING(
 
              << "attribute " << name << endl;
         assert( false );
@@ -233,3 +244,8 @@ GUISupplementaryWeightsHandler::stopParseWeight( void )
     isMultValueSetM    = false;
     isAddValueSetM     = false;
 }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
