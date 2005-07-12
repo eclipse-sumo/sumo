@@ -5,6 +5,7 @@ EXTRA_DIST =
 libguiutilsWindows_a_SOURCES = \
 GUIAppEnum.h GUIAppGlobals.cpp GUIAppGlobals.h \
 GUIDanielPerspectiveChanger.cpp GUIDanielPerspectiveChanger.h \
+GUIDialog_EditViewport.cpp GUIDialog_EditViewport.h \
 GUIGlChildWindow.cpp GUIGlChildWindow.h \
 GUIGrid.cpp GUIGrid.h GUIInterface_GridSpeedUp.h \
 GUIMainWindow.cpp GUIMainWindow.h \

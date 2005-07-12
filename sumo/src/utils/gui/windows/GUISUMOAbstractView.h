@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/07/12 12:52:07  dkrajzew
+// code style adapted
+//
 // Revision 1.4  2005/05/04 09:24:43  dkrajzew
 // entries for viewport definition added; popups now popup faster
 //
@@ -273,6 +276,9 @@ public:
 
         VCS_LANECHANGE4 = 12,
 
+        VCS_DEVICENO = 13,
+        VCS_DEVICE_STATE = 14
+
     };
 
     /**
@@ -298,6 +304,8 @@ public:
         /// all views: white (for better visualisation of other things)
         LCS_WHITE = 7,
         LCS_BY_LOADED_WEIGHTS = 8,
+        LCS_WAITING_FIRST = 9,
+        LCS_WAITING_DENSITYX = 9,
 
     };
 

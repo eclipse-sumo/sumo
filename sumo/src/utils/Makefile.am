@@ -1,5 +1,5 @@
 if WITH_GUI
-GUI_DIRS = fonts foxtools gui glutils
+GUI_DIRS = foxtools gui glutils
 endif
 
 SUBDIRS = actions common convert dev distribution  \

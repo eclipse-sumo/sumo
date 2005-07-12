@@ -12,9 +12,11 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.9  2005/07/12 12:43:49  dkrajzew
+// Revision 1.10  2005/07/12 12:49:07  dkrajzew
 // code style adapted
 //
+// Revision 1.9  2005/07/12 12:43:49  dkrajzew
+// code style adapted
 //
 /* =========================================================================
  * compiler pragmas

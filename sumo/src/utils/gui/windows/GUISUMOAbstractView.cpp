@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/07/12 12:52:07  dkrajzew
+// code style adapted
+//
 // Revision 1.4  2005/05/04 09:24:43  dkrajzew
 // entries for viewport definition added; popups now popup faster
 //
@@ -174,6 +177,7 @@ namespace
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include "GUIDialog_EditViewport.h"
+#include <utils/glutils/polyfonts.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -590,8 +594,10 @@ GUISUMOAbstractView::displayLegend(bool flip)
     glDisable(GL_BLEND);
     glDisable(GL_DEPTH_TEST);
 
+    /*
     GUITexturesHelper::getFontRenderer().SetActiveFont("std8");
     GUITexturesHelper::getFontRenderer().SetColor(0, 0, 0);
+    */
     double len = (double) pixelSize / (double) (myApp->getMaxGLWidth()-1) * 2.0;
     glColor3f(0, 0, 0);
     glBegin( GL_LINES );
@@ -601,24 +607,21 @@ GUISUMOAbstractView::displayLegend(bool flip)
     // tick at begin
     glVertex2d(-.98, -.98);
     glVertex2d(-.98, -.97);
-    GUITexturesHelper::getFontRenderer().StringOut(
-        (float) 10, (float) (myApp->getMaxGLHeight()-30), "0m");
     // tick at end
     glVertex2d(-.98+len, -.98);
     glVertex2d(-.98+len, -.97);
-    GUITexturesHelper::getFontRenderer().StringOut(
-        (float) 10+pixelSize, (float) (myApp->getMaxGLHeight()-30),
-        text.substr(0, noDigits) + "m");
     glEnd();
-    GUITexturesHelper::getFontRenderer().Draw(flip);
 
-    // draw the current position
-/*
-    std::pair<double, double> c = canvas2World(_mouseX, _mouseY);
-    string out = toString<double>(c.first) + ", " + toString<double>(c.second);
-    StringOut(getWidth()-100, (double) (myApp->getMaxGLHeight()-20),
-        out);
-*/
+    pfSetPosition(-0.99f, 0.96f);
+    pfSetScale(0.03f);
+    glRotated(180, 1, 0, 0);
+    pfDrawString("0m");
+    glRotated(-180, 1, 0, 0);
+
+    pfSetPosition((float) (-.99+len), .96f);
+    glRotated(180, 1, 0, 0);
+    pfDrawString((text.substr(0, noDigits) + "m").c_str());
+    glRotated(-180, 1, 0, 0);
 
     // restore matrices
     glMatrixMode(GL_PROJECTION);

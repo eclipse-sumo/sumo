@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/07/12 12:52:07  dkrajzew
+// code style adapted
+//
 // Revision 1.7  2005/05/04 09:22:51  dkrajzew
 // adding of surrounding lanes to selection added; entries for viewport definition added
 //
@@ -65,6 +68,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <fx.h>
 
 
@@ -303,6 +310,8 @@ enum {
     //@{ GLObjChooser - Dialog IDs
     /// Center object
     MID_CHOOSER_CENTER,
+    /// Text entry
+    MID_CHOOSER_TEXT,
     //@}
 
     //@{ GLChosenEditor - Dialog IDs

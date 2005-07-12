@@ -1,10 +1,59 @@
+//---------------------------------------------------------------------------//
+//                        GUIMainWindow.cpp -
+//
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Tue, 29.05.2005
+//  copyright            : (C) 2005 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.3  2005/07/12 12:52:07  dkrajzew
+// code style adapted
+//
+// Revision 1.3  2005/06/14 11:29:51  dksumo
+// documentation added
+//
+
+
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+
+
 #include "GUIMainWindow.h"
 #include <algorithm>
 #include "GUIAppEnum.h"
 #include <fx3d.h>
 
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
+
 GUIMainWindow::GUIMainWindow(FXApp* a, int glWidth, int glHeight)
-    : FXMainWindow(a,"SUMO-gui main window",NULL,NULL,DECOR_ALL,20,20,600,400),
+	: FXMainWindow(a,"SUMO-gui main window",NULL,NULL,DECOR_ALL,20,20,600,400),
     myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER|VISUAL_STEREO)),
     myGLWidth(glWidth), myGLHeight(glHeight)
 {
@@ -103,5 +152,9 @@ GUIMainWindow::getGLVisual() const
 {
     return myGLVisual;
 }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+// Local Variables:
+// mode:C++
+// End:
 
