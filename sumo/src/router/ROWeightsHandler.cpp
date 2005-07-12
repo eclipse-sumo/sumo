@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/07/12 12:39:02  dkrajzew
+// edge-based mean data implemented; previous lane-based is now optional
+//
 // Revision 1.9  2005/05/04 08:55:13  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -87,9 +90,11 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 ROWeightsHandler::ROWeightsHandler(OptionsCont &oc, RONet &net,
-                                   const std::string &file)
+                                   const std::string &file,
+                                   bool useLanes)
     : SUMOSAXHandler("sumo-netweights", file), _options(oc), _net(net),
-    _currentTimeBeg(-1), _currentTimeEnd(-1), _currentEdge(0)
+    _currentTimeBeg(-1), _currentTimeEnd(-1), _currentEdge(0),
+    myUseLanes(useLanes)
 {
     _scheme = _options.getString("scheme");
 }
@@ -135,14 +140,37 @@ void
 ROWeightsHandler::parseEdge(const Attributes &attrs)
 {
     _currentEdge = 0;
+    string id;
     try {
-        string id = getString(attrs, SUMO_ATTR_ID);
+        id = getString(attrs, SUMO_ATTR_ID);
         _currentEdge = _net.getEdge(id);
         myAggValue = 0;
         myNoLanes = 0;
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("An edge without an id occured.");
         MsgHandler::getErrorInstance()->inform(" Contact your weight data supplier.");
+        return;
+    }
+    // return if the lanes shall be used
+    if(myUseLanes) {
+        return;
+    }
+    // parse the edge information if wished
+    try {
+        myAggValue = getFloat(attrs, SUMO_ATTR_VALUE);
+        myNoLanes = 1;
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform(string("Missing value '")
+            + _scheme + string("' in edge '") + id + string("'."));
+        MsgHandler::getErrorInstance()->inform("Contact your weight data supplier.");
+    } catch (NumberFormatException) {
+        MsgHandler::getErrorInstance()->inform(string("The value should be numeric, but is not ('") +
+            getString(attrs, SUMO_ATTR_VALUE) +
+            string("'"));
+        if(id.length()!=0)
+            MsgHandler::getErrorInstance()->inform(string(" In edge '") + id
+                + string("' at time step ") + toString<long>(_currentTimeBeg)
+                + string("."));
     }
 }
 
@@ -150,6 +178,9 @@ ROWeightsHandler::parseEdge(const Attributes &attrs)
 void
 ROWeightsHandler::parseLane(const Attributes &attrs)
 {
+    if(!myUseLanes) {
+        return;
+    }
     string id;
     float value = -1;
     // try to get the lane id

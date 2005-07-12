@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2005/07/12 12:39:02  dkrajzew
+// edge-based mean data implemented; previous lane-based is now optional
+//
 // Revision 1.9  2005/05/04 08:47:53  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -107,7 +110,8 @@ public:
     virtual RONet *loadNet(ROAbstractEdgeBuilder &eb);
 
     /// Loads the net weights
-    bool loadWeights(RONet &net);
+    bool loadWeights(RONet &net, const std::string &file,
+        bool useLanes);
 
     /// Parse the supplementary-weights-file. This will add
     /// supplementary weights to the RONet's ROEdges.

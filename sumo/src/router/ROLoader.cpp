@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2005/07/12 12:39:01  dkrajzew
+// edge-based mean data implemented; previous lane-based is now optional
+//
 // Revision 1.19  2005/05/04 08:47:53  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -463,22 +466,21 @@ ROLoader::checkFile(const std::string &optionName,
 
 
 bool
-ROLoader::loadWeights(RONet &net)
+ROLoader::loadWeights(RONet &net, const std::string &file,
+                      bool useLanes)
 {
-    string weightsFileName = _options.getString("w");
     // check whether the file exists
-    if(!FileHelpers::exists(weightsFileName)) {
+    if(!FileHelpers::exists(file)) {
         MsgHandler::getErrorInstance()->inform(
-            string("The weights file '") + weightsFileName
+            string("The weights file '") + file
             + string("' does not exist!"));
         return false;
     }
     // build and prepare the weights handler
-    ROWeightsHandler handler(_options, net, weightsFileName);
-    MsgHandler::getMessageInstance()->inform(
-        "Loading precomputed net weights.");
+    ROWeightsHandler handler(_options, net, file, useLanes);
+    MsgHandler::getMessageInstance()->inform("Loading precomputed net weights.");
     // build and prepare the parser
-    XMLHelpers::runParser(handler, weightsFileName);
+    XMLHelpers::runParser(handler, file);
     bool ok = !MsgHandler::getErrorInstance()->wasInformed();
     // report whe wished
     if(ok) {
@@ -488,6 +490,7 @@ ROLoader::loadWeights(RONet &net)
     }
     return ok;
 }
+
 
 void
 ROLoader::loadSupplementaryWeights( RONet& net )

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/07/12 12:39:01  dkrajzew
+// edge-based mean data implemented; previous lane-based is now optional
+//
 // Revision 1.3  2005/05/04 08:47:14  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; usage of the -R option within the jtr-router debugged
 //
@@ -54,6 +57,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/DevHelper.h>
 #include <utils/convert/ToString.h>
 #include <router/ROVehicleType_Krauss.h>
 #include "ROFrame.h"
@@ -71,12 +75,14 @@ using namespace std;
 void
 ROFrame::fillOptions(OptionsCont &oc)
 {
-    // add rand options
+    // add rand and dev options
+    DevHelper::insertDevOptions(oc);
     RandHelper::insertRandOptions(oc);
     // register the file i/o options
     oc.doRegister("output", 'o', new Option_FileName());
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.doRegister("weights", 'w', new Option_FileName());
+    oc.doRegister("lane-weights", 'l', new Option_FileName());
     oc.doRegister("alternatives", 'a', new Option_FileName());
     oc.doRegister("configuration-file", 'c', new Option_FileName());
     oc.addSynonyme("net-file", "net");

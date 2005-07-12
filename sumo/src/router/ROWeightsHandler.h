@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/07/12 12:39:02  dkrajzew
+// edge-based mean data implemented; previous lane-based is now optional
+//
 // Revision 1.7  2005/05/04 08:55:13  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -74,7 +77,8 @@ class ROEdge;
 class ROWeightsHandler : public SUMOSAXHandler {
 public:
     /// Constructor
-    ROWeightsHandler(OptionsCont &oc, RONet &net, const std::string &file);
+    ROWeightsHandler(OptionsCont &oc, RONet &net,
+        const std::string &file, bool useLanes);
 
     /// Destructor
     ~ROWeightsHandler();
@@ -128,6 +132,9 @@ private:
 
     /// The number of lanes read for the current edge
     size_t myNoLanes;
+
+    /// Whether the values shall be read from lanes
+    bool myUseLanes;
 
 
 private:

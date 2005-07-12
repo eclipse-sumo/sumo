@@ -18,7 +18,16 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.6  2005/07/12 12:39:02  dkrajzew
+// edge-based mean data implemented; previous lane-based is now optional
+//
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -301,3 +310,8 @@ ROSupplementaryWeightsHandler::stopParseWeight( void )
     isMultValueSetM    = false;
     isAddValueSetM     = false;
 }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
