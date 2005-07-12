@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.38  2005/07/12 12:10:14  dkrajzew
+// further visualisation options added
+//
 // Revision 1.37  2005/05/04 07:50:15  dkrajzew
 // ported to fox1.4
 //
@@ -193,6 +196,7 @@ namespace
 #include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
 #include "GUIColorer_LaneByPurpose.h"
 #include <utils/gui/div/GUIExcp_VehicleIsInvisible.h>
+#include <utils/glutils/polyfonts.h>
 
 
 #ifdef _WIN32
@@ -337,6 +341,18 @@ GUIViewTraffic::init(GUINet &net)
 	myLaneColoringSchemes.add("white",
 		GUISUMOAbstractView::LCS_WHITE,
         new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(1, 1, 1)));
+	myLaneColoringSchemes.add("by first vehicle waiting time",
+		GUISUMOAbstractView::LCS_WAITING_FIRST,
+		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+            0, 200,
+            RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+            (double (GUILaneWrapper::*)() const) &GUILaneWrapper::firstWaitingTime));
+	myLaneColoringSchemes.add("by current density",
+		GUISUMOAbstractView::LCS_WAITING_DENSITYX,
+		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+            0, .8,
+            RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+            (double (GUILaneWrapper::*)() const) &GUILaneWrapper::myMagic));
 }
 
 
