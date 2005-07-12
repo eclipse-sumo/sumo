@@ -20,16 +20,32 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/07/12 12:19:31  dkrajzew
+// code style adapted
+//
 // Revision 1.2  2004/11/24 08:46:43  dkrajzew
 // recent changes applied
 //
 // Revision 1.1  2004/07/02 08:59:58  dkrajzew
 // detector handling (handling of additional elements) revisited
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <utils/geom/HaveBoundary.h>
 #include <utils/geom/Position2D.h>
-
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class GUITriggerWrapper
     : public HaveBoundary {
 public:
@@ -40,3 +56,6 @@ public:
 };
 
 #endif
+// Local Variables:
+// mode:C++
+// End:

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/07/12 12:22:18  dkrajzew
+// code style adapted
+//
 // Revision 1.4  2004/11/23 10:20:09  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -63,6 +66,7 @@ public:
         CORN_VEH_SAVEREROUTING,
         CORN_VEH_LASTREROUTEOFFSET,
         CORN_VEH_NUMBERROUTE,
+        CORN_VEH_DEV_NO_CPHONE,
         CORN_VEH_REROUTE_TIME,
 
         CORN_BLA = CORN_VEH_REROUTE_TIME + 1000,
@@ -71,10 +75,11 @@ public:
     };
 
     enum Pointer {
-        CORN_P_VEH_OLDROUTE = 0,
+		CORN_P_VEH_OLDROUTE = 0,
         CORN_P_VEH_ROUTE_BEGIN_EDGE = CORN_P_VEH_OLDROUTE + 1000,
-        CORN_P_MAX = CORN_P_VEH_ROUTE_BEGIN_EDGE + 1000
-    };
+        CORN_P_VEH_DEV_CPHONE = CORN_P_VEH_ROUTE_BEGIN_EDGE + 1000,
+		CORN_P_MAX = CORN_P_VEH_DEV_CPHONE + 40
+	};
 
     static void init();
     static void clear();

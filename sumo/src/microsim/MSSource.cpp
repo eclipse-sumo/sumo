@@ -22,23 +22,65 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
-
-
+// $Log$
+// Revision 1.3  2005/07/12 12:26:44  dkrajzew
+// code style adapted
+//
+// Revision 1.2  2005/07/04 12:04:54  dksumo
+// code beautifying
+//
+// Revision 1.1  2004/10/22 12:49:26  dksumo
+// initial checkin into an internal, standalone SUMO CVS
+//
+// Revision 1.2  2003/02/07 10:41:50  dkrajzew
+// updated
+//
+// Revision 1.1  2002/10/16 14:48:26  dkrajzew
+// ROOT/sumo moved to ROOT/src
+//
+// Revision 1.3  2002/07/31 17:32:47  roessel
+// Initial sourceforge commit.
+//
+// Revision 1.8  2002/07/23 15:26:06  croessel
+// Added member pos and method setPos.
+//
+// Revision 1.7  2002/07/16 13:09:53  croessel
+// Added using namespace std;
+//
+// Revision 1.6  2002/07/11 09:10:21  croessel
+// Readding file to repository.
+//
+// Revision 1.4  2002/07/09 18:27:37  croessel
+// Constructor parameter changes and new set-methods.
+//
+// Revision 1.3  2002/07/05 14:49:29  croessel
+// Changed member MSLane* to MSLane&.
+//
+// Revision 1.2  2002/06/18 10:14:44  croessel
+// Not needed for release 0.7
+//
+// Revision 1.1  2002/06/12 19:15:11  croessel
+// Initial commit.
+//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
-
 
 #include "MSSource.h"
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
-//---------------------------------------------------------------------------//
 
-
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 MSSource::MSSource( void )
     : myID( "uninitialized" ),
       myLane( 0 )
@@ -98,40 +140,6 @@ MSSource::setPos( double aPos )
 #ifdef DISABLE_INLINE
 #include "MSSource.icc"
 #endif
-
-
-// $Log$
-// Revision 1.2  2003/02/07 10:41:50  dkrajzew
-// updated
-//
-// Revision 1.1  2002/10/16 14:48:26  dkrajzew
-// ROOT/sumo moved to ROOT/src
-//
-// Revision 1.3  2002/07/31 17:32:47  roessel
-// Initial sourceforge commit.
-//
-// Revision 1.8  2002/07/23 15:26:06  croessel
-// Added member pos and method setPos.
-//
-// Revision 1.7  2002/07/16 13:09:53  croessel
-// Added using namespace std;
-//
-// Revision 1.6  2002/07/11 09:10:21  croessel
-// Readding file to repository.
-//
-// Revision 1.4  2002/07/09 18:27:37  croessel
-// Constructor parameter changes and new set-methods.
-//
-// Revision 1.3  2002/07/05 14:49:29  croessel
-// Changed member MSLane* to MSLane&.
-//
-// Revision 1.2  2002/06/18 10:14:44  croessel
-// Not needed for release 0.7
-//
-// Revision 1.1  2002/06/12 19:15:11  croessel
-// Initial commit.
-//
-
 
 // Local Variables:
 // mode:C++
