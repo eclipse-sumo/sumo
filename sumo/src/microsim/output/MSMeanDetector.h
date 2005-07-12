@@ -5,7 +5,7 @@
  * @file   MSMeanDetector.h
  * @author Christian Roessel
  * @date   Started Thu Sep 18 13:51:35 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -23,13 +23,16 @@
 //
 //---------------------------------------------------------------------------//
 
-// $Id$
+//
 
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 
 #include <iterator>
 #include <string>
@@ -42,6 +45,12 @@
 #include "helpers/gcc_TypeManip.h"
 #endif
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 template < class DetectorType
            , bool hasTimeValueCont = false >
 class MSMeanDetector : public MSSumDetector< DetectorType, hasTimeValueCont >

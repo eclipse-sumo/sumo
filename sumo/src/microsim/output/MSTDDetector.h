@@ -5,7 +5,7 @@
 /// @file    MSTDDetector.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Tue Dec 02 2003 20:04 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -27,7 +27,9 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <microsim/MSUnit.h>
 #include "MSPredicates.h"
 #include "MSTDDetectorInterface.h"
@@ -39,6 +41,10 @@
 #include <functional>
 #include <helpers/SingletonDictionary.h>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSVehicle;
 
 namespace TD // timestep data

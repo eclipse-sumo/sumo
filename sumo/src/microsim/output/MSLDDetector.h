@@ -5,7 +5,7 @@
 /// @file    MSLDDetector.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Tue Dec 02 2003 20:05 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -28,6 +28,9 @@
 #pragma warning(disable: 4786)
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <deque>
 #include <microsim/MSUnit.h>
 #include "MSLDDetectorInterface.h"

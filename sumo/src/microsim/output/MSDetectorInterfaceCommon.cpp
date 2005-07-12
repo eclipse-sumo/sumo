@@ -2,7 +2,7 @@
 /// @file    MSDetectorInterfaceCommon.cpp
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Mon Dec 01 2003 16:20 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -18,6 +18,12 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
 
 /* =========================================================================
  * compiler pragmas
@@ -30,3 +36,9 @@
 #endif // HAVE_CONFIG_H
 
 #include "MSDetectorInterfaceCommon.h"
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:

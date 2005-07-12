@@ -5,7 +5,7 @@
  * @file   MSDensity.h
  * @author Christian Roessel
  * @date   Started Tue Sep  9 22:27:23 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -21,21 +21,36 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+//
 
-// $Id$
+
+//
 
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 
 #include <string>
 #include "MSDetectorCounterContainerWrapper.h"
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSVehicle;
 class MSLane;
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSDensity
 {
 protected:
@@ -63,6 +78,7 @@ private:
     MSDensity( const MSDensity& );
     MSDensity& operator=( const MSDensity& );
 };
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 
 #endif

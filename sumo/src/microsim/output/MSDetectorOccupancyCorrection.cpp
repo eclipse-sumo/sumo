@@ -2,7 +2,7 @@
  * @file   MSDetectorOccupancyCorrection.cpp
  * @author Christian Roessel
  * @date   Started Mon Oct  6 17:53:50 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -18,6 +18,12 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
 
 /* =========================================================================
  * compiler pragmas
@@ -25,9 +31,14 @@
 #pragma warning(disable: 4786)
 
 
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif // HAVE_CONFIG_H
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #include "MSDetectorOccupancyCorrection.h"
 

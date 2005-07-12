@@ -5,7 +5,7 @@
  * @file   MSDetectorSubSys.h
  * @author Daniel Krajzewicz
  * @date   Tue Jul 29 10:41:01 2003
- * @version $Id$
+ * @version
  * @brief  Declaration of class MSDetectorSubSys
  *
  */
@@ -26,16 +26,27 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <string>
 #include <helpers/SingletonDictionary.h>
 #include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/output/e3_detectors/MSE3Collector.h>
 
+/* =========================================================================
+ * classe declarations
+ * ======================================================================= */
 class MSLaneState;
 class MSInductLoop;
 class MS_E2_ZS_CollectorOverLanes;
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSDetectorSubSys {
 public:
     typedef SingletonDictionary< std::string, MSLaneState* > LaneStateDict;
@@ -57,5 +68,8 @@ public:
     static MSInductLoop *findInductLoop(const std::string &id);
 
 };
+#endif // MSDETECTORTYPEDEFS_H
 
-#endif
+// Local Variables:
+// mode:C++
+// End:

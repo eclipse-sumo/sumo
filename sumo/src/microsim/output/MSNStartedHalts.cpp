@@ -2,7 +2,7 @@
 /// @file    MSNStartedHalts.cpp
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Fri Nov 28 2003 17:27 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -18,13 +18,21 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
 
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif // HAVE_CONFIG_H

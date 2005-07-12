@@ -5,7 +5,7 @@
  * @file   MSDetectorContainerWrapper.h
  * @author Christian Roessel
  * @date   Started Fri Sep 26 19:11:26 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -80,9 +80,9 @@ struct MSDetectorContainerWrapper : public MSDetectorContainerWrapperBase
                                   ErasePredicate(), veh ) );
 //            assert(containerM.size()>0);
 //            assert(eraseIt!=containerM.end());
-            if(eraseIt!=containerM.end()) {
-                containerM.erase( eraseIt );
-            }
+			if(eraseIt!=containerM.end()) {
+				containerM.erase( eraseIt );
+			}
         }
 
     void leaveDetectorByLaneChange( MSVehicle* veh )

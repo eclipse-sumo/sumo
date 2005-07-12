@@ -2,7 +2,7 @@
  * @file   MSInductLoop.cpp
  * @author Christian Roessel
  * @date   Mon Jul 21 16:12:01 2003
- * @version $Id$
+ * @version
  * @brief  Definition of class MSInductLoop.
  *
  */
@@ -20,20 +20,8 @@
 namespace
 {
     const char rcsid[] =
-    "$Id$";
+    "";
 }
-// $Log$
-// Revision 1.6  2005/05/04 08:18:20  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added, simulation speed-up by avoiding multiplication with 1
-//
-// Revision 1.5  2005/02/01 10:10:43  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.4  2004/12/16 12:14:59  dkrajzew
-// got rid of an unnecessary detector parameter/debugging
-//
-// Revision 1.5  2004/12/10 11:42:53  dksumo
-// detectors usage reworked
 //
 /* =========================================================================
  * compiler pragmas
@@ -121,6 +109,7 @@ MSInductLoop::MSInductLoop( const string& id,
         deleteDataAfterStepsM,
         MSEventControl::ADAPT_AFTER_EXECUTION );
 }
+
 
 MSInductLoop::~MSInductLoop()
 {

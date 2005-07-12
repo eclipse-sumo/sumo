@@ -5,7 +5,7 @@
 /// @file    MSE3Collector.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Tue Dec 02 2003 22:17 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -27,7 +27,9 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <string>
@@ -94,6 +96,9 @@ namespace E3
     Containers& operator++( Containers& cont );
 }
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 
 /// Collection of E3-detectors. E3-detectors are defined by a set of
 /// in-cross-sections and out-cross-sections. Vehicles, that pass an
@@ -584,6 +589,8 @@ protected:
 private:
 
 };
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 
 
 // Local Variables:

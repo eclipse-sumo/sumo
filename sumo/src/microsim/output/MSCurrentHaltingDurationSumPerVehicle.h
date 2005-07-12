@@ -5,7 +5,7 @@
  * @file   MSCurrentHaltingDurationSumPerVehicle.h
  * @author Christian Roessel
  * @date   Started Thu Oct 16 11:44:47 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -28,9 +28,18 @@
 #pragma warning(disable: 4786)
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+
 #include "MSDetectorHaltingContainerWrapper.h"
 #include <numeric>
-
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSCurrentHaltingDurationSumPerVehicle
 {
 public:

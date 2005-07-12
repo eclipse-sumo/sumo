@@ -2,7 +2,7 @@
 /// @file    MSE1Collector.cpp
 /// @author  Christian Roessel <christian.roessel@gmx.de>
 /// @date    Started Wed Jun 9 16:40:56 CEST 2004
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -17,6 +17,12 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
 
 /* =========================================================================
  * compiler pragmas
@@ -24,11 +30,18 @@
 #pragma warning(disable: 4786)
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSE1Collector.h"
+
+/* =========================================================================
+ * variable declarations
+ * ======================================================================= */
 
 std::string MSE1Collector::xmlHeaderM(
 "<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
@@ -62,3 +75,8 @@ namespace E1
 //     MSE1Collector("test",
 //                   crossSec );
 // }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:

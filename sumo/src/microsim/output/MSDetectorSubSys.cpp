@@ -2,7 +2,7 @@
  * @file   MSDetectorSubSys.cpp
  * @author Daniel Krajzewicz
  * @date   Tue Jul 29 10:43:35 2003
- * @version $Id$
+ * @version
  * @brief  Implementation of class MSDetectorSubSys
  *
  */
@@ -17,13 +17,21 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
 
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <iostream>
 #include "MSDetectorSubSys.h"
 #include "MSDetector2File.h"
@@ -35,7 +43,15 @@
 #include "MSDetectorOccupancyCorrection.h"
 #include "e2_detectors/MS_E2_ZS_CollectorOverLanes.h"
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+
 using namespace std;
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 
 void
 MSDetectorSubSys::createDictionaries( void )
@@ -160,4 +176,9 @@ MSDetectorSubSys::findInductLoop(const std::string &id)
     return 0;
 }
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
 

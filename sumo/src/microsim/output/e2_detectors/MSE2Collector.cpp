@@ -2,7 +2,7 @@
 /// @file    MSE2Collector.cpp
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Tue Dec 02 2003 22:13 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -18,18 +18,30 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSE2Collector.h"
+
+/* =========================================================================
+ * variable declarations
+ * ======================================================================= */
 
 std::string MSE2Collector::xmlHeaderM(
 "<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
@@ -66,3 +78,8 @@ namespace E2
             ( HALTINGS == cont ) ? COUNTER : Containers( cont + 1 );
     }
 }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:

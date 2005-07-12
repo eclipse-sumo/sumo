@@ -5,7 +5,7 @@
 /// @file    MSE1MeanSpeed.h
 /// @author  Christian Roessel <christian.roessel@gmx.de>
 /// @date    Started Fri Jul 09 2004 21:31 CEST
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -28,6 +28,9 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -36,6 +39,12 @@
 #include "MSE1.h"
 #include <string>
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSE1MeanSpeed
 {
 public:
@@ -77,6 +86,8 @@ private:
     MSE1MeanSpeed( const MSE1MeanSpeed& );
     MSE1MeanSpeed& operator=( const MSE1MeanSpeed& );
 };
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 
 
 // Local Variables:

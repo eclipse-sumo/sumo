@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/07/12 11:37:41  dkrajzew
+// level 3 warnings removed; code style adapted
+//
 // Revision 1.4  2005/05/04 07:45:16  dkrajzew
 // level 3 warnings removed
 //
@@ -52,6 +55,9 @@
 class GUIJunctionWrapper;
 
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 class GUIJunctionDrawer_nT :
     public GUIBaseJunctionDrawer
 {
@@ -62,4 +68,12 @@ public:
         GUISUMOAbstractView::JunctionColoringScheme scheme);
 };
 
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
+

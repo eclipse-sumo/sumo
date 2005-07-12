@@ -19,51 +19,6 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-// $Log$
-// Revision 1.4  2005/05/04 08:11:51  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.3  2005/02/01 10:10:44  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.2  2004/12/16 12:15:00  dkrajzew
-// got rid of an unnecessary detector parameter/debugging
-//
-// Revision 1.1  2004/11/23 10:14:28  dkrajzew
-// all detectors moved to microscim/output; new detectors usage applied
-//
-// Revision 1.8  2004/02/05 16:34:25  dkrajzew
-// made the usage of the detector output end more usable
-//
-// Revision 1.7  2004/01/26 07:31:22  dkrajzew
-// differnt detector usage types added
-//
-// Revision 1.6  2004/01/12 15:04:16  dkrajzew
-// more wise definition of lane predeccessors implemented
-//
-// Revision 1.5  2004/01/12 14:35:10  dkrajzew
-// documentation added; allowed the writing to files
-// $Log$
-// Revision 1.4  2005/05/04 08:11:51  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.3  2005/02/01 10:10:44  dkrajzew
-// got rid of MSNet::Time
-//
-// Revision 1.2  2004/12/16 12:15:00  dkrajzew
-// got rid of an unnecessary detector parameter/debugging
-//
-// Revision 1.1  2004/11/23 10:14:28  dkrajzew
-// all detectors moved to microscim/output; new detectors usage applied
-//
-// Revision 1.8  2004/02/05 16:34:25  dkrajzew
-// made the usage of the detector output end more usable
-//
-// Revision 1.7  2004/01/26 07:31:22  dkrajzew
-// differnt detector usage types added
-//
-// Revision 1.6  2004/01/12 15:04:16  dkrajzew
-// more wise definition of lane predeccessors implemented
 //
 /* =========================================================================
  * compiler pragmas
@@ -100,13 +55,13 @@ class MS_E2_ZS_CollectorOverLanes :
     public MSDetectorFileOutput
 {
 public:
-    /// Definition of a E2-collector storage
+	/// Definition of a E2-collector storage
     typedef std::vector< MSE2Collector* > CollectorCont;
 
-    /// !!!
+	/// !!!
     typedef std::map<std::string, std::vector<std::string> > LaneContinuations;
 
-    /// Constructor
+	/// Constructor
     MS_E2_ZS_CollectorOverLanes( std::string id,
         DetectorUsage usage, MSLane* lane, MSUnit::Meters startPos,
         MSUnit::Seconds haltingTimeThreshold,
@@ -114,35 +69,35 @@ public:
         MSUnit::Meters jamDistThreshold,
         SUMOTime deleteDataAfterSeconds);
 
-    /** @brief Builds the consecutive E2-detectors
-        This is not done within the constructor to allow overriding of
-        most functions but the building of detectors itself which in fact
-        is depending on whether the normal or the gui-version is used */
+	/** @brief Builds the consecutive E2-detectors
+		This is not done within the constructor to allow overriding of
+		most functions but the building of detectors itself which in fact
+		is depending on whether the normal or the gui-version is used */
     void init(MSLane *lane, MSUnit::Meters detLength,
         const LaneContinuations &laneContinuations);
 
-    /// Destructor
+	/// Destructor
     virtual ~MS_E2_ZS_CollectorOverLanes( void );
 
-    /// Returns this detector's current value for the measure of the given type
+	/// Returns this detector's current value for the measure of the given type
     double getCurrent( E2::DetType type );
 
-    /// Returns this detector's aggregated value for the given measure
+	/// Returns this detector's aggregated value for the given measure
     double getAggregate( E2::DetType type, MSUnit::Seconds lastNSeconds );
 
-    /// Returns the information whether the given type is computed
+	/// Returns the information whether the given type is computed
     bool hasDetector( E2::DetType type );
 
-    /// Adds the measure of the given type
+	/// Adds the measure of the given type
     void addDetector( E2::DetType type, std::string detId = "" );
 
-    /// Returns this detector's id
+	/// Returns this detector's id
     const std::string &getId() const;
 
-    /// Returns the id of the lane this detector starts at
+	/// Returns the id of the lane this detector starts at
     const std::string &getStartLaneID() const;
 
-    /// ... have to override this method
+	/// ... have to override this method
     void resetQueueLengthAheadOfTrafficLights( void );
 
 
@@ -197,29 +152,29 @@ public:
         }
     //@}
 
-    /// Returns this detector's length
+	/// Returns this detector's length
     MSUnit::Meters getLength() const {
         return myLength;
     }
 
 protected:
-    /** @brief This method extends the current length up to the given
-        This method is called consecutively until all paths have the
-        desired length */
+	/** @brief This method extends the current length up to the given
+		This method is called consecutively until all paths have the
+		desired length */
     void extendTo(double length,
-        const LaneContinuations &laneContinuations);
+		const LaneContinuations &laneContinuations);
 
-    /// Builds an id for one of the E2-collectors this detector uses
+	/// Builds an id for one of the E2-collectors this detector uses
     std::string  makeID( const std::string &baseID,
         size_t c, size_t r ) const;
 
-    /// Builds a single E2-collector
+	/// Builds a single E2-collector
     virtual MSE2Collector *buildCollector(size_t c, size_t r,
         MSLane *l, double start, double end);
 
 
-    std::vector<MSLane*> getLanePredeccessorLanes(MSLane *l,
-        const LaneContinuations &laneContinuations);
+	std::vector<MSLane*> getLanePredeccessorLanes(MSLane *l,
+		const LaneContinuations &laneContinuations);
 
 protected:
 	/// The position the collector starts at
@@ -234,54 +189,54 @@ protected:
 	/// Describes how long a vehicle shall stay before being assigned to a jam
     MSUnit::Steps haltingTimeThresholdM;
 
-    /// Describes how slow a vehicle must be before being assigned to a jam
+	/// Describes how slow a vehicle must be before being assigned to a jam
     MSUnit::CellsPerStep haltingSpeedThresholdM;
 
-    /// Describes how long a jam must be before being recognized
+	/// Describes how long a jam must be before being recognized
     MSUnit::Cells jamDistThresholdM;
 
-    /// Definition of a lane storage
+	/// Definition of a lane storage
     typedef std::vector<MSLane*> LaneVector;
 
-    /// Definition of a storage for lane vectors
+	/// Definition of a storage for lane vectors
     typedef std::vector<LaneVector> LaneVectorVector;
 
-    /// Definition of a detector storage
+	/// Definition of a detector storage
     typedef std::vector<MSE2Collector*> DetectorVector;
 
-    /// Definition of astorage for detector vectors
+	/// Definition of astorage for detector vectors
     typedef std::vector<DetectorVector> DetectorVectorVector;
 
-    /// Definition of a double storage
+	/// Definition of a double storage
     typedef std::vector<double> DoubleVector;
 
-    /// Definition of a storage for double vectors
+	/// Definition of a storage for double vectors
     typedef DoubleVector LengthVector;
 
-    /** @brief Storage for lane combinations
-        Each lane combination is a vector of consecutive lanes (backwards) */
+	/** @brief Storage for lane combinations
+		Each lane combination is a vector of consecutive lanes (backwards) */
     LaneVectorVector myLaneCombinations;
 
-    /** @brief Storage for detector combinations
-        Each detector combination is a vector of consecutive lanes (backwards) */
+	/** @brief Storage for detector combinations
+		Each detector combination is a vector of consecutive lanes (backwards) */
     DetectorVectorVector myDetectorCombinations;
-    /** @brief Storage for length combinations
-        Each length combination is a vector of consecutive lanes (backwards) */
+	/** @brief Storage for length combinations
+		Each length combination is a vector of consecutive lanes (backwards) */
     LengthVector myLengths;
 
-    /// The string that is printed in front of the output file
+	/// The string that is printed in front of the output file
     static std::string xmlHeaderM;
 
-    /// The id of this detector
+	/// The id of this detector
     std::string myID;
 
-    /// The id of the lane this detector starts at
+	/// The id of the lane this detector starts at
     std::string myStartLaneID;
 
-    /// Definition of a map from a lane to the detector lying on it
+	/// Definition of a map from a lane to the detector lying on it
     typedef std::map<MSLane*, MSE2Collector*> LaneDetMap;
 
-    /// Storage for detectors which already have been build for a single lane
+	/// Storage for detectors which already have been build for a single lane
     LaneDetMap myAlreadyBuild;
 
     DetectorUsage myUsage;

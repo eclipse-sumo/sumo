@@ -2,7 +2,7 @@
  * @file   MSSpaceMeanSpeed.cpp
  * @author Christian Roessel
  * @date   Started Wed Oct 15 17:00:52 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -18,16 +18,29 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSSpaceMeanSpeed.h"
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
 

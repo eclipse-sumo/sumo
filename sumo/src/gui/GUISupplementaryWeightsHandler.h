@@ -1,17 +1,15 @@
 #ifndef GUISupplementaryWeightsHandler_H
 #define GUISupplementaryWeightsHandler_H
-
-///
-/// @file    GUISupplementaryWeightsHandler.h
-/// @author  Christian Roessel <christian.roessel@dlr.de>
-/// @date    Started Thu Apr 08 2004 15:31 CEST
-/// @version $Id$
-///
-/// @brief
-///
-///
-
-/* Copyright (C) 2004 by German Aerospace Center (http://www.dlr.de) */
+//---------------------------------------------------------------------------//
+//                        GUISupplementaryWeightsHandler.h -
+//
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Thu Apr 08 2004 15:31
+//  copyright            : (C) 2004 by Christian Roessel
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : christian.roessel@dlr.de
+//---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
 //
@@ -21,13 +19,16 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+//
 
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif // HAVE_CONFIG_H
@@ -38,11 +39,19 @@
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/common/SUMOTime.h>
 
-
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class RONet;
 class ROEdge;
 class FloatValueTimeLine;
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class GUISupplementaryWeightsHandler : public SUMOSAXHandler
 {
 public:

@@ -1,14 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        GUIDetectorDrawer_FGnT.cpp -
+//
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Tue, 29.05.2005
+//  copyright            : (C) 2005 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+
+//
+
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "GUILaneStateReporter.h"
 #include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <gui/GUIGlobals.h>
 
 
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 GUILaneStateReporter::GUILaneStateReporter(
         LoggedValue_TimeFloating<double> *densityRetriever,
         LoggedValue_TimeFloating<double> *speedRetriever,
@@ -66,3 +93,9 @@ GUILaneStateReporter::updateEachTimestep( void )
         + val * (1.0f - gAggregationRememberingFactor);
     return true;
 }
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:

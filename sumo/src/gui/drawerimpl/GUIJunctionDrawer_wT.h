@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/07/12 11:37:41  dkrajzew
+// level 3 warnings removed; code style adapted
+//
 // Revision 1.3  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
@@ -34,12 +37,17 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <vector>
 #include "GUIBaseJunctionDrawer.h"
 
 class GUIJunctionWrapper;
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 class GUIJunctionDrawer_wT :
     public GUIBaseJunctionDrawer
 {
@@ -50,4 +58,10 @@ public:
         GUISUMOAbstractView::JunctionColoringScheme scheme);
 };
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:

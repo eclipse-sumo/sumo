@@ -5,7 +5,7 @@
 /// @file    MSEDDetectorInterface.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Tue Dec 02 2003 20:04 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -21,13 +21,15 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "MSDetectorInterfaceCommon.h"
 #include <string>
 

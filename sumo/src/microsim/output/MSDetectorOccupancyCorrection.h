@@ -5,7 +5,7 @@
  * @file   MSDetectorOccupancyCorrection.h
  * @author Christian Roessel
  * @date   Started Thu Sep 11 16:17:08 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -27,12 +27,26 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <cassert>
 #include <microsim/MSUpdateEachTimestep.h>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+
 class MSVehicle;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSDetectorOccupancyCorrection :
     public MSUpdateEachTimestep< MSDetectorOccupancyCorrection >
 {

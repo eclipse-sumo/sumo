@@ -5,7 +5,7 @@
  * @file   MSPredicates.h
  * @author Christian Roessel
  * @date   Started Thu Sep 11 16:15:30 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -22,19 +22,24 @@
 //
 //---------------------------------------------------------------------------//
 
-// $Id$
+//
 
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 
 #include <microsim/MSVehicle.h>
 //#include "MSHaltingDetectorContainer.h"
 #include <functional>
 
-
+/* =========================================================================
+ * namespace
+ * ======================================================================= */
 namespace Predicate
 {
     template< typename ContainerItem >
@@ -73,6 +78,8 @@ namespace Predicate
         }
     };
 }
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 
 #endif

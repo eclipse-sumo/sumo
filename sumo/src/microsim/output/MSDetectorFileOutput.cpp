@@ -2,7 +2,7 @@
  * @file   MSDetectorFileOutput.cpp
  * @author Christian Roessel
  * @date   Started Mon Sep 22 13:36:13 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -18,6 +18,12 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
 
 /* =========================================================================
  * compiler pragmas
@@ -25,6 +31,9 @@
 #pragma warning(disable: 4786)
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif // HAVE_CONFIG_H

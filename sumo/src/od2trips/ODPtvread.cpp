@@ -1,13 +1,13 @@
 /***************************************************************************
                          ODPtvread.cpp
 
-     reads OD input data (*.fma) from file in ptv format
+	 reads OD input data (*.fma) from file in ptv format
 
-             usage       : ODPtvread(filename, &data, &size, &total_cars,
-                                                &start, &finish, &factor)
+			 usage		 : ODPtvread(filename, &data, &size, &total_cars,
+												&start, &finish, &factor)
                              -------------------
-    project              : SUMO      :
-    subproject           : OD2TRIPS
+    project              : SUMO		 :
+	subproject           : OD2TRIPS
     begin                : Tue, 25 March 2003
     copyright            : (C) 2003 by DLR/IVF http://ivf.dlr.de/
     author               : Peter Mieth
@@ -22,6 +22,12 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
 /* =========================================================================
  * included modules
  * ======================================================================= */

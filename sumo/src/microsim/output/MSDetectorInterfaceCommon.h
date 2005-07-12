@@ -5,7 +5,7 @@
 /// @file    MSDetectorInterfaceCommon.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Mon Dec 01 2003 16:20 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -27,6 +27,9 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 
 #include <string>
 #include <microsim/MSUnit.h>
@@ -38,6 +41,12 @@
 /// @see MSEDDetector.h
 /// @see MSLDDetector.h
 ///
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSDetectorInterfaceCommon
 {
 public:

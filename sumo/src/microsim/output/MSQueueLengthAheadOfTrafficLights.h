@@ -5,7 +5,7 @@
  * @file   MSQueueLengthAheadOfTrafficLights.h
  * @author Christian Roessel
  * @date   Started Mon Sep 29 09:45:17 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -27,12 +27,22 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 
 #include "MSDetectorHaltingContainerWrapper.h"
 #include <microsim/MSUnit.h>
 #include "MSTDDetectorInterface.h"
 #include <string>
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSQueueLengthAheadOfTrafficLightsInVehicles
 {
     friend class MSE2Collector;
@@ -120,6 +130,8 @@ private:
     const TD::MSDetectorInterface& helperDetectorM;
     MSUnit::Cells maxJamLengthM;
 };
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 
 
 #endif // MSQUEUELENGTHAHEADOFTRAFFICLIGHTS_H

@@ -1,6 +1,44 @@
+//---------------------------------------------------------------------------//
+//                        MSLCM_DK2004.cpp -
+//
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Tue, 29.05.2005
+//  copyright            : (C) 2005 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
+
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "MSLCM_DK2004.h"
 #include <iostream>
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
 /* =========================================================================
@@ -9,7 +47,9 @@ using namespace std;
 #define DEBUG_OUT cout
 
 
-
+/* =========================================================================
+ * variable definitions
+ * ======================================================================= */
 std::string id_leader("367719");
 std::string id_vehicle("366338");
 std::string id_follower("4536");
@@ -33,6 +73,9 @@ size_t searchedtime = 21900;
 #define LONG_FORESIGHT
 
 
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 MSLCM_DK2004::MSLCM_DK2004(MSVehicle &v)
     : MSAbstractLaneChangeModel(v),
     myChangeProbability(0),
@@ -562,5 +605,9 @@ MSLCM_DK2004::getProb() const
 {
     return myChangeProbability;
 }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+// Local Variables:
+// mode:C++
+// End:
 

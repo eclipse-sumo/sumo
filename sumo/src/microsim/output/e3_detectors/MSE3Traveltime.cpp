@@ -2,7 +2,7 @@
 /// @file    MSE3Traveltime.cpp
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Thu Nov 27 2003 15:25 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -18,7 +18,12 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -30,3 +35,9 @@
 #endif // HAVE_CONFIG_H
 
 #include "MSE3Traveltime.h"
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:

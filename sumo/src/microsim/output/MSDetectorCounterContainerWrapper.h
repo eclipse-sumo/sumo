@@ -5,7 +5,7 @@
  * @file   MSDetectorCounterContainerWrapper.h
  * @author Christian Roessel
  * @date   Started Mon Oct 6 17:52:18 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -27,10 +27,20 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 
 #include "MSDetectorContainerWrapperBase.h"
 #include "MSDetectorOccupancyCorrection.h"
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSVehicle;
 
 struct MSDetectorCounterContainerWrapper

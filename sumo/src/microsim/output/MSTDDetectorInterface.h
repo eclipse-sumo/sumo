@@ -5,7 +5,7 @@
 /// @file    MSTDDetectorInterface.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Tue Dec 02 2003 20:03 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -27,6 +27,9 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 
 #include "MSDetectorInterfaceCommon.h"
 #include <microsim/MSUpdateEachTimestep.h>

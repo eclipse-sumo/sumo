@@ -27,11 +27,27 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
 
+
+/* =========================================================================
+ * some defines
+ * ======================================================================= */
 #define INSERTION_SORT_BOUND 16 /* boundary point to use insertion sort */
 
 #define uint32 long int
 //#define uint32 unsigned int
+
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <utils/common/SUMOTime.h>
 
 typedef int (*CMPFUN)(SUMOTime, SUMOTime);

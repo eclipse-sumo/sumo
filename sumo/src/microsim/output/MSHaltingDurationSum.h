@@ -5,7 +5,7 @@
 /// @file    MSHaltingDurationSum.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Fri Nov 28 2003 19:21 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -27,11 +27,19 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "MSDetectorHaltingContainerWrapper.h"
 #include <microsim/MSUnit.h>
 #include <string>
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSHaltingDurationSum
     :
     public halt::HaltEndObserver

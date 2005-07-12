@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/07/12 11:37:41  dkrajzew
+// level 3 warnings removed; code style adapted
+//
 // Revision 1.2  2003/06/05 11:40:28  dkrajzew
 // class templates applied; documentation added
 //
@@ -71,9 +74,6 @@ GUILaneChanger::updateLanes()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "GUILaneChanger.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

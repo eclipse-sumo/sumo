@@ -2,7 +2,7 @@
 /// @file    MSE1MeanSpeed.cpp
 /// @author  Christian Roessel <christian.roessel@gmx.de>
 /// @date    Started Fri Jul 09 2004 21:31 CEST
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -18,12 +18,25 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
+
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "MSE1MeanSpeed.h"
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+// Local Variables:
+// mode:C++
+// End:

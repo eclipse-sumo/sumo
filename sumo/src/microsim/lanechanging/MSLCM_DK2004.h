@@ -1,10 +1,42 @@
 #ifndef MSLCM_DK2004_h
 #define MSLCM_DK2004_h
+//---------------------------------------------------------------------------//
+//                        MSLCM_DK2004.h -
+//
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Fri, 29.04.2005
+//  copyright            : (C) 2005 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
 
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+//
+
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <microsim/MSVehicleQuitReminded.h>
 #include <vector>
 
+/* =========================================================================
+ * enumeration definition
+ * ======================================================================= */
 enum MyLCAEnum {
     LCA_AMBLOCKINGLEADER = 256, // 0
     LCA_AMBLOCKINGFOLLOWER = 512,// 1
@@ -20,6 +52,12 @@ enum MyLCAEnum {
 
 };
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSLCM_DK2004 : public MSAbstractLaneChangeModel {
 public:
     MSLCM_DK2004(MSVehicle &v);
@@ -96,6 +134,10 @@ protected:
     float myChangeProbability;
     double myVSafe;
 };
-
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
+
+// Local Variables:
+// mode:C++
+// End:

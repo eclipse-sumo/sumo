@@ -5,7 +5,7 @@
 /// @file    MSE3MeanNHaltings.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Fri Nov 28 2003 12:27 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -27,11 +27,23 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <microsim/output/MSDetectorHaltingContainerWrapper.h>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSVehicle;
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSE3MeanNHaltings
 {
 public:
@@ -74,6 +86,8 @@ private:
     MSE3MeanNHaltings( const MSE3MeanNHaltings& );
     MSE3MeanNHaltings& operator=( const MSE3MeanNHaltings& );
 };
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 
 
 // Local Variables:

@@ -5,7 +5,7 @@
 /// @file    MSE3Traveltime.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Thu Nov 27 2003 15:25 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -28,13 +28,25 @@
 #pragma warning(disable: 4786)
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <microsim/output/MSDetectorContainerWrapper.h>
 #include <string>
 #include <microsim/MSUnit.h>
 #include <microsim/MSNet.h>
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSVehicle;
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSE3Traveltime
 {
 private:
@@ -82,6 +94,7 @@ private:
     MSE3Traveltime& operator=( const MSE3Traveltime& );
 
 };
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 // Local Variables:
 // mode:C++

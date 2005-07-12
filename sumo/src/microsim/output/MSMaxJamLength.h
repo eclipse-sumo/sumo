@@ -5,7 +5,7 @@
  * @file   MSMaxJamLength.h
  * @author Christian Roessel
  * @date   Started Mon Sep 29 09:39:10 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -27,11 +27,19 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 
 #include "MSDetectorHaltingContainerWrapper.h"
 #include <microsim/MSUnit.h>
 #include <string>
-
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSMaxJamLengthInVehicles
 {
 protected:

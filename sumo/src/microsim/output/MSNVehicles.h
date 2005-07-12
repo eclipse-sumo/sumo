@@ -5,7 +5,7 @@
  * @file   MSNVehicles.h
  * @author Christian Roessel
  * @date   Started Wed Oct 15 13:29:34 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -28,10 +28,19 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <string>
 #include "MSDetectorCounterContainerWrapper.h"
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSNVehicles
 {
 protected:

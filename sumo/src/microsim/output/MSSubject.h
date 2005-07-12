@@ -6,7 +6,7 @@
  * @file    MSSubject.h
  * @author  Christian Roessel <christian.roessel@dlr.de>
  * @date    Started Fri Nov 21 12:44:14 2003
- * @version $Id$
+ * @version
  *
  * @brief
  *
@@ -28,6 +28,9 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 
 #include "MSObserver.h"
 #include <algorithm>
@@ -98,6 +101,12 @@
 // or just notify(maybe with parameter) if you have only one
 // observable quantity.
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class EmptyType{};
 
 template<

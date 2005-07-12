@@ -29,6 +29,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2005/07/12 11:37:41  dkrajzew
+// level 3 warnings removed; code style adapted
+//
 // Revision 1.7  2005/02/01 10:10:40  dkrajzew
 // got rid of MSNet::Time
 //
@@ -149,6 +152,8 @@ private:
     /// The object's operation to perform.
     Operation myOperation;
 };
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif // SimpleCommand_H
 

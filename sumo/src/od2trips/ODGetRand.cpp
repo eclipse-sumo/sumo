@@ -1,18 +1,18 @@
 /***************************************************************************
                          Get_rand.cpp
 
-     This subroutine returns <number> of random elements from
-     input vector input
+	 This subroutine returns <number> of random elements from
+	 input vector input
 
-             usage       : Get_rand(outputnumber, size, input, output, ini)
-             outputnumber: number of randoms to return from input (int)
-             size        : total number of input numbers to chose from (int)
-             input       : input numbers to chose from (int)
-             output      : random output numbers (int)
-             init        : initialize random generator with time (true/false)
+			 usage		 : Get_rand(outputnumber, size, input, output, ini)
+			 outputnumber: number of randoms to return from input (int)
+			 size		 : total number of input numbers to chose from (int)
+			 input		 : input numbers to chose from (int)
+			 output		 : random output numbers (int)
+			 init		 : initialize random generator with time (true/false)
                              -------------------
-    project              : SUMO      :
-    subproject           : OD2TRIPS
+    project              : SUMO		 :
+	subproject           : OD2TRIPS
     begin                : Thu, 12 September 2002
     copyright            : (C) 2002 by DLR/IVF http://ivf.dlr.de/
     author               : Peter Mieth
@@ -28,6 +28,12 @@
  *                                                                         *
  ***************************************************************************/
 
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -53,8 +59,15 @@
 # include <utils/convert/ToString.h>
 # include "ODmatrix.h"
 
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 int Get_rand (int number,int maxele, int start, int *input, int *output, bool ini)
 	{
 	int i, check, newele, index, initial, k;

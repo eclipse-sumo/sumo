@@ -5,7 +5,7 @@
 /// @file    MSE3NVehicles.h
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Thu Nov 27 2003 20:24 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -28,9 +28,19 @@
 #pragma warning(disable: 4786)
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <microsim/output/MSDetectorContainerWrapper.h>
 #include <string>
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSE3NVehicles
 {
 public:
@@ -71,6 +81,8 @@ private:
     MSE3NVehicles& operator=( const MSE3NVehicles& );
 
 };
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 
 
 // Local Variables:

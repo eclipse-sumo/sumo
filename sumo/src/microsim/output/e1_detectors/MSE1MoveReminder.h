@@ -5,7 +5,7 @@
  * @file    MSE1MoveReminder.h
  * @author  Christian Roessel <christian.roessel@dlr.de>
  * @date    Started Wed Jun 9 16:40:56 CEST 2004
- * @version $Id$
+ * @version
  *
  * @brief
  *
@@ -28,6 +28,9 @@
 #pragma warning(disable: 4786)
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <microsim/MSMoveReminder.h>
 #include <microsim/MSUnit.h>
 #include <microsim/output/MSCrossSection.h>
@@ -39,10 +42,20 @@
 #include "helpers/gcc_TypeManip.h"
 #endif
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSE1Collector;
 class MSLane;
 class MSVehicle;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 template< bool isEntryReminder >
 class MSE1MoveReminder : public MSMoveReminder
 {
@@ -160,6 +173,7 @@ namespace Detector
     typedef MSE1MoveReminder< false > E1LeaveReminder;
 }
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 
 // Local Variables:

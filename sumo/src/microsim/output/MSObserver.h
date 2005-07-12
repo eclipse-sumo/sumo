@@ -6,7 +6,7 @@
  * @file    MSObserver.h
  * @author  Christian Roessel <christian.roessel@dlr.de>
  * @date    Started Fri Nov 21 12:44:14 2003
- * @version $Id$
+ * @version
  *
  * @brief
  *
@@ -32,11 +32,17 @@
 //
 // A concrete subject defines the Observer type by it's base MSSubject
 // (see MSSubject.h).
+
+//
+
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 
 #ifdef WIN32
 #include "helpers/msvc6_TypeTraits.h"
@@ -45,6 +51,13 @@
 #include "helpers/gcc_TypeTraits.h"
 #endif
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 template<
     class ObservedType
     , class ObservedQuantity

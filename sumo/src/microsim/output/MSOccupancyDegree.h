@@ -5,7 +5,7 @@
  * @file   MSOccupancyDegree.h
  * @author Christian Roessel
  * @date   Started Wed Oct 15 17:35:12 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -27,12 +27,21 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 
 #include "MSDetectorContainerWrapper.h"
 #include <microsim/MSUnit.h>
 #include <numeric>
 #include <cassert>
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSOccupancyDegree
 {
 public:

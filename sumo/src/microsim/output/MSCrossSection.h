@@ -5,7 +5,7 @@
  * @file   MSCrossSection.h
  * @author Christian Roessel
  * @date   Started Tue Nov 25 15:23:28 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -28,10 +28,24 @@
 #pragma warning(disable: 4786)
 
 
-class MSLane;
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <microsim/MSUnit.h>
 #include <vector>
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+
+class MSLane;
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSCrossSection
 {
 public:
@@ -67,6 +81,10 @@ namespace Detector
     typedef CrossSections::iterator CrossSectionsIt;
 }
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+#endif
 
-#endif // MSCROSSSECTION_H
+// Local Variables:
+// mode:C++
+// End:

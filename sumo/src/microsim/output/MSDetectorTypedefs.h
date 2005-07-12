@@ -5,7 +5,7 @@
  * @file   MSDetectorTypedefs.h
  * @author Christian Roessel
  * @date   Started Thu Oct 16 13:28:50 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -21,13 +21,16 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+//
 
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "MSMeanDetector.h"
 #include "MSSumDetector.h"
 #include "MSTDDetector.h"
@@ -59,6 +62,9 @@
 // concrete E1 detectors, all LD
 #include <microsim/output/e1_detectors/MSE1MeanSpeed.h>
 
+/* =========================================================================
+ * namespace
+ * ======================================================================= */
 namespace Detector
 {
     // E2_TD

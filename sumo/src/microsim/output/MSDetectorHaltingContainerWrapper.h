@@ -5,7 +5,7 @@
  * @file   MSDetectorHaltingContainerWrapper.h
  * @author Christian Roessel
  * @date   Started Fri Sep 26 19:11:26 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -364,7 +364,7 @@ namespace DetectorContainer
 
 namespace Predicate
 {
-    // specialization
+	// specialization
     template<>
     struct PosGreaterC< DetectorContainer::Halting > :
         public std::binary_function< DetectorContainer::Halting,

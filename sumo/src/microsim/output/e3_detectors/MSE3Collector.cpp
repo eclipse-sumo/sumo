@@ -2,7 +2,7 @@
 /// @file    MSE3Collector.cpp
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Tue Dec 02 2003 22:17 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -18,19 +18,30 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSE3Collector.h"
 
+
+/* =========================================================================
+ * variable declarations
+ * ======================================================================= */
 std::string MSE3Collector::xmlHeaderM(
 "<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
 "<!--\n"
@@ -53,3 +64,8 @@ namespace E3
             ( TRAVELTIME == cont ) ? VEHICLES : Containers( cont + 1 );
     }
 }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:

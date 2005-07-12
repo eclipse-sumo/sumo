@@ -2,7 +2,7 @@
 /// @file    MSHaltDuration.cpp
 /// @author  Christian Roessel <christian.roessel@dlr.de>
 /// @date    Started Mon Dec 01 2003 12:58 CET
-/// @version $Id$
+/// @version
 ///
 /// @brief
 ///
@@ -18,13 +18,20 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-
+namespace
+{
+    const char rcsid[] =
+    "";
+}
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif // HAVE_CONFIG_H

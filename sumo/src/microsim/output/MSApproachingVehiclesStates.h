@@ -5,7 +5,7 @@
  * @file   MSApproachingVehiclesStates.h
  * @author Christian Roessel
  * @date   Started Thu Oct 16 14:45:00 2003
- * @version $Id$
+ * @version
  * @brief
  *
  *
@@ -21,12 +21,23 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+//
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 
 #include "MSDetectorContainerWrapper.h"
 #include <microsim/MSUnit.h>
 #include <string>
 #include <vector>
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class MSApproachingVehiclesStates
 {
     friend class MSE2Collector;
@@ -113,6 +124,8 @@ private:
     const VehicleCont& containerM;
     DetectorAggregate statesM;
 };
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 
 #endif // MSAPPROACHINGVEHICLESSTATES_H
 
