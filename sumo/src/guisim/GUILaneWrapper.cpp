@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2005/07/12 12:18:09  dkrajzew
+// further visualisation options added
+//
 // Revision 1.23  2005/05/04 08:00:34  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; possibility to select lanes around a lane added
 //
@@ -548,6 +551,22 @@ GUILaneWrapper::selectSucessors()
     GUINet::getInstance()->addPoly("bla", "bla", RGBColor(1, 0.7, 0));
     Polygon2D *ptr = MSNet::getInstance()->poly_dic["bla"];
     ptr->addPolyPosition(poly);
+}
+
+
+double
+GUILaneWrapper::firstWaitingTime() const
+{
+    return myLane.myVehicles.size()==0
+        ? 0
+        : (double) (*(myLane.myVehicles.end()-1))->getWaitingTime();
+}
+
+
+double
+GUILaneWrapper::myMagic() const
+{
+    return (float) myLane.myVehicles.size() * 5. / myLane.length();
 }
 
 

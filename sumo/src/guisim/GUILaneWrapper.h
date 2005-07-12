@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2005/07/12 12:18:09  dkrajzew
+// further visualisation options added
+//
 // Revision 1.17  2005/05/04 08:00:34  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; possibility to select lanes around a lane added
 //
@@ -168,6 +171,9 @@ public:
 
     /** returns the lane's maximum speed */
     double maxSpeed() const;
+
+    double firstWaitingTime() const;
+    double myMagic() const;
 
     /// Returns the fastest known lane speed
     static double getOverallMaxSpeed();
