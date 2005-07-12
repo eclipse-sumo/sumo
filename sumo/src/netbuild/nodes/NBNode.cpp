@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/07/12 12:32:48  dkrajzew
+// code style adapted; guessing of ramps and unregulated near districts implemented; debugging
+//
 // Revision 1.12  2005/04/27 11:48:27  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -1239,7 +1242,6 @@ NBNode::sortNodesEdges(const NBTypeCont &tc)
 #endif
     NBNode::BasicNodeType type = computeType(tc);
     if(type!=NODETYPE_NOJUNCTION&&type!=NODETYPE_PRIORITY_JUNCTION&&type!=NODETYPE_RIGHT_BEFORE_LEFT&&type!=NODETYPE_DISTRICT) {
-        int bla = 0;
         type = computeType(tc);
     }
     setType(type);
@@ -2242,6 +2244,70 @@ NBNode::getConnectionTo(NBNode *n) const
     return 0;
 }
 
+
+bool
+NBNode::isNearDistrict() const
+{
+    EdgeVector edges;
+    copy(getIncomingEdges().begin(), getIncomingEdges().end(),
+        back_inserter(edges));
+    copy(getOutgoingEdges().begin(), getOutgoingEdges().end(),
+        back_inserter(edges));
+    bool districtFound = false;
+    if(edges.size()>8) {
+        return false;
+    }
+    bool amSelfDistrict = false;
+    for(EdgeVector::const_iterator j=edges.begin(); !amSelfDistrict&&j!=edges.end()&&!districtFound; ++j) {
+        NBEdge *t = *j;
+        if(t->getBasicType()==NBEdge::EDGEFUNCTION_SOURCE||t->getBasicType()==NBEdge::EDGEFUNCTION_SINK) {
+            // is self a district
+            return false;
+            continue;
+        }
+        NBNode *other = 0;
+        if(t->getToNode()==this) {
+            other = t->getFromNode();
+        } else {
+            other = t->getToNode();
+        }
+        EdgeVector edges2;
+        copy(other->getIncomingEdges().begin(), other->getIncomingEdges().end(),
+            back_inserter(edges2));
+        copy(other->getOutgoingEdges().begin(), other->getOutgoingEdges().end(),
+            back_inserter(edges2));
+        for(EdgeVector::const_iterator k=edges2.begin(); k!=edges2.end()&&!districtFound; ++k) {
+            if((*k)->getBasicType()==NBEdge::EDGEFUNCTION_SOURCE||(*k)->getBasicType()==NBEdge::EDGEFUNCTION_SINK) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+bool
+NBNode::isDistrict() const
+{
+    if(_type==NODETYPE_DISTRICT) {
+        return true;
+    }
+    EdgeVector edges;
+    copy(getIncomingEdges().begin(), getIncomingEdges().end(),
+        back_inserter(edges));
+    copy(getOutgoingEdges().begin(), getOutgoingEdges().end(),
+        back_inserter(edges));
+    bool districtFound = false;
+    bool amSelfDistrict = false;
+    for(EdgeVector::const_iterator j=edges.begin(); !amSelfDistrict&&j!=edges.end()&&!districtFound; ++j) {
+        NBEdge *t = *j;
+        if(t->getBasicType()==NBEdge::EDGEFUNCTION_SOURCE||t->getBasicType()==NBEdge::EDGEFUNCTION_SINK) {
+            // is self a district
+            return true;
+        }
+    }
+    return false;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

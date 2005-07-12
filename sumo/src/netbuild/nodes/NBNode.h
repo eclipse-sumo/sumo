@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2005/07/12 12:32:49  dkrajzew
+// code style adapted; guessing of ramps and unregulated near districts implemented; debugging
+//
 // Revision 1.4  2005/04/27 11:48:27  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -393,14 +396,15 @@ public:
     bool checkIsRemovable() const;
 
     bool isTLControlled() const;
-/*
-    bool connectionIsTLControlled(NBEdge *from, NBEdge *to) const;
-*/
+
     std::vector<std::pair<NBEdge*, NBEdge*> > getEdgesToJoin() const;
 
     double getMaxEdgeWidth() const;
 
     friend class NBNodeShapeComputer;
+
+    bool isNearDistrict() const;
+    bool isDistrict() const;
 
 private:
 

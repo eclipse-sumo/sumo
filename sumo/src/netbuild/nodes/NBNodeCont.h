@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/07/12 12:32:49  dkrajzew
+// code style adapted; guessing of ramps and unregulated near districts implemented; debugging
+//
 // Revision 1.5  2005/04/27 11:48:27  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -259,6 +262,7 @@ public:
     bool removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
         NBTrafficLightLogicCont &tlc);
 
+    bool guessRamps(OptionsCont &oc, NBEdgeCont &ec, NBDistrictCont &dc);
     bool guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc);
 
     void setAsTLControlled(const std::string &name,

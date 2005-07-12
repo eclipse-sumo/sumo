@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2005/07/12 12:32:47  dkrajzew
+// code style adapted; guessing of ramps and unregulated near districts implemented; debugging
+//
 // Revision 1.33  2005/04/27 11:48:25  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -186,6 +189,7 @@ namespace
 #include "NBTypeCont.h"
 #include <iostream>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/UtilExceptions.h>
 //#include <strstream>
 
 
@@ -237,15 +241,7 @@ NBEdgeCont::insert(NBEdge *edge)
         &&
         OptionsSubSys::getOptions().isSet("keep-edges")) {
 
-        string id = edge->getID();
-        StringTokenizer st(OptionsSubSys::getOptions().getString("keep-edges"), ";");
-        bool found = false;
-        while(st.hasNext()&&!found) {
-            if(st.next()==id) {
-                found = true;
-            }
-        }
-        if(!found) {
+        if(!OptionsSubSys::helper_CSVOptionMatches("keep-edges", edge->getID())) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             delete edge;
@@ -480,6 +476,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     for(i=0; i<noLanesSecondEdge&&i<edge->getNoLanes(); i++) {
         two->setLaneSpeed(i, edge->getLaneSpeed(i));
     }
+    two->copyConnectionsFrom(edge);
     // replace information about this edge within the nodes
     edge->_from->replaceOutgoing(edge, one, 0);
     edge->_to->replaceIncoming(edge, two, 0);
@@ -487,13 +484,19 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     //  clean up
     edge->_from->removeDoubleEdges();
     edge->_to->removeDoubleEdges();
-    // erase the splitted edge
-    erase(dc, edge);
     // add connections from the first to the second edge
     size_t noLanes = one->getNoLanes();
-    for(i=0; i<noLanes; i++) {
-        one->addLane2LaneConnection(i, two, i); // !!! Bresenham, here!!!
+    for(i=0; i<one->getNoLanes()&&i<two->getNoLanes(); i++) {
+        if(one->getID()=="153122087"&&two->getID()=="153122087-AddedOffRampEdge") {
+            int bla = 0;
+        }
+        if(!one->addLane2LaneConnection(i, two, i)) {// !!! Bresenham, here!!!
+            MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+            throw ProcessError();
+        }
     }
+    // erase the splitted edge
+    erase(dc, edge);
     insert(one);
     insert(two);
     EdgesSplit++;
@@ -508,12 +511,6 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
 void
 NBEdgeCont::erase(NBDistrictCont &dc, NBEdge *edge)
 {
-    if(edge->getID()=="15032778") {
-        int bla = 0;
-    }
-    if(edge->getID()=="15032940") {
-        int bla = 0;
-    }
     _edges.erase(edge->getID());
     edge->_from->removeOutgoing(edge);
     edge->_to->removeIncoming(edge);
@@ -834,23 +831,15 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &oc)
     std::vector<NBEdge*> toRemove;
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); ) {
         NBEdge *edge = (*i).second;
-        string id = edge->getID();
-        StringTokenizer st(OptionsSubSys::getOptions().getString("keep-edges"), ";");
-        bool found = false;
-        while(st.hasNext()&&!found) {
-            if(st.next()==id) {
-                found = true;
-            }
-        }
-        if(!found) {
+        if(!OptionsSubSys::helper_CSVOptionMatches("keep-edges", edge->getID())) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
-	    toRemove.push_back(edge);
+	        toRemove.push_back(edge);
         }
         ++i;
     }
     for(std::vector<NBEdge*>::iterator j=toRemove.begin(); j!=toRemove.end(); ++j) {
-      erase(dc, *j);
+        erase(dc, *j);
     }
     return true;
 }

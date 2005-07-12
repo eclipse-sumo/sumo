@@ -145,6 +145,14 @@ NBNetBuilder::removeUnwishedEdges(int &step, OptionsCont &oc)
 
 
 bool
+NBNetBuilder::guessRamps(int &step, OptionsCont &oc)
+{
+    inform(step, "Guessing and setting on-/off-ramps");
+    return myNodeCont.guessRamps(oc, myEdgeCont, myDistrictCont);
+}
+
+
+bool
 NBNetBuilder::guessTLs(int &step, OptionsCont &oc)
 {
     inform(step, "Guessing and setting TLs");
@@ -316,13 +324,14 @@ NBNetBuilder::compute(OptionsCont &oc)
 //    if(ok) ok = setInit(step);
     //
     if(ok) ok = removeDummyEdges(step);
-    gJoinedEdges.init(myEdgeCont.getAllNames());
+    gJoinedEdges.init(myEdgeCont);
     if(ok) ok = joinEdges(step);
     if(ok) ok = removeUnwishedNodes(step, oc);
     if(ok&&oc.getBool("keep-edges.postload")) {
         if(ok) ok = removeUnwishedEdges(step, oc);
         if(ok) ok = removeUnwishedNodes(step, oc);
     }
+    if(ok) ok = guessRamps(step, oc);
     if(ok) ok = guessTLs(step, oc);
     if(ok) ok = computeTurningDirections(step);
     if(ok) ok = sortNodesEdges(step);
@@ -473,11 +482,11 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("no-node-removal", new Option_Bool(false));
     oc.doRegister("append-turnarounds", new Option_Bool(false));
     oc.doRegister("add-internal-links", 'I', new Option_Bool(false));
-    oc.doRegister("keep-unregulated", new Option_Bool(false));
 
     oc.doRegister("map-output", 'M', new Option_FileName());
 
-    // tls-guessing
+    // tls setting options
+        // tls-guessing
     oc.doRegister("guess-tls", new Option_Bool(false));
     oc.doRegister("tls-guess.no-incoming-min", new Option_Integer(2));
     oc.doRegister("tls-guess.no-incoming-max", new Option_Integer(5));
@@ -498,6 +507,17 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("keep-edges", new Option_String());
     oc.doRegister("keep-edges.input-file", new Option_FileName());
     oc.doRegister("keep-edges.postload", new Option_Bool(false));
+
+    // unregulated nodes options
+    oc.doRegister("keep-unregulated", new Option_Bool(false));
+    oc.doRegister("keep-unregulated.nodes", new Option_String());
+    oc.doRegister("keep-unregulated.district-nodes", new Option_Bool(false));
+
+    // ramp guessing options
+    oc.doRegister("guess-ramps", new Option_Bool(false));
+    oc.doRegister("ramp-guess.max-ramp-speed", new Option_Float(-1));
+    oc.doRegister("ramp-guess.min-highway-speed", new Option_Float((float) (100/3.6)));
+    oc.doRegister("ramp-guess.ramp-length", new Option_Float(100));
 
     oc.doRegister("plain-output", new Option_FileName());
 

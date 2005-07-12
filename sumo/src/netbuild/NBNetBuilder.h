@@ -1,12 +1,38 @@
 #ifndef NBNetBuilder_h
 #define NBNetBuilder_h
+//---------------------------------------------------------------------------//
+//                        NBNetBuilder.h -
+//
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Fri, 29.04.2005
+//  copyright            : (C) 2005 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
 
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.14  2005/07/12 12:32:48  dkrajzew
+// code style adapted; guessing of ramps and unregulated near districts implemented; debugging
+//
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <string>
 #include <iostream>
 #include "NBEdgeCont.h"
@@ -18,12 +44,22 @@
 
 class OptionsCont;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 class NBNetBuilder {
 public:
+	/// Constructor
     NBNetBuilder();
+
+	/// Destructor
     ~NBNetBuilder();
+
     void buildLoaded();
+
     static void insertNetBuildOptions(OptionsCont &oc);
+
     static void preCheckOptions(OptionsCont &oc);
 
     /**
@@ -60,6 +96,7 @@ protected:
     bool removeUnwishedNodes(int &step, OptionsCont &oc);
     bool removeUnwishedEdges(int &step, OptionsCont &oc);
 
+    bool guessRamps(int &step, OptionsCont &oc);
     bool guessTLs(int &step, OptionsCont &oc);
 
     /** computes the turning direction for each edge */
@@ -122,5 +159,10 @@ protected:
 
 };
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
+
+// Local Variables:
+// mode:C++
+// End:

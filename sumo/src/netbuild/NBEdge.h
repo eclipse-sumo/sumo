@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.37  2005/07/12 12:32:47  dkrajzew
+// code style adapted; guessing of ramps and unregulated near districts implemented; debugging
+//
 // Revision 1.36  2005/04/27 11:48:25  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -404,7 +407,7 @@ public:
 
     void removeFromConnections(NBEdge *which);
 
-    void invalidateConnections();
+    void invalidateConnections(bool reallowSetting=false);
 
     bool lanesWereAssigned() const;
 
@@ -463,6 +466,11 @@ public:
     double getNormedAngle(const NBNode &atNode) const;
 
     void addGeometryPoint(int index, const Position2D &p);
+
+    void incLaneNo();
+
+    void copyConnectionsFrom(NBEdge *src);
+
 
 private:
     /**
@@ -577,30 +585,24 @@ private:
     EdgeVector _connectedEdges;
 
     /// information about which edge is approached by which lanes
-    std::map<NBEdge*, std::vector<size_t> > *_ToEdges;
+    std::map<NBEdge*, std::vector<size_t> > _ToEdges;
 
     /// the edge to turn into
     NBEdge *_turnDestination;
 
     /** contains the information which lanes of which edges may follow a
         lane (index) */
-    ReachableFromLaneVector *_reachable;
+    ReachableFromLaneVector _reachable;
 
     /** contains the information which lanes(value) may be used to reach the
         edge (key) */
-    LanesThatSucceedEdgeCont *_succeedinglanes;
+    LanesThatSucceedEdgeCont _succeedinglanes;
 
     /// the priority normalised for the node the edge is outgoing of
     int     _fromJunctionPriority;
 
     /// the priority normalised for the node the edge is incoming in
     int     _toJunctionPriority;
-
-    /// the angle of the edge in the node it is outgoing from
-//    double _fromJunctionAngle;
-
-    /// the angle of the edge in the node it is incoming into
-//    double _toJunctionAngle;
 
     /// the information what purpose the edge has within a simulation
     EdgeBasicFunction _basicType;

@@ -1,10 +1,41 @@
+//---------------------------------------------------------------------------//
+//                        NBOwnTLDef.cpp -
+//
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Tue, 29.05.2005
+//  copyright            : (C) 2005 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.8  2005/07/12 12:32:48  dkrajzew
+// code style adapted; guessing of ramps and unregulated near districts implemented; debugging
+//
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
 
-
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include <vector>
 #include <cassert>
 #include "NBTrafficLightDefinition.h"
@@ -15,6 +46,9 @@
 #include "NBOwnTLDef.h"
 
 
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 NBOwnTLDef::NBOwnTLDef(const std::string &id,
                        const std::set<NBNode*> &junctions)
     : NBTrafficLightDefinition(id, junctions)
@@ -231,4 +265,8 @@ NBOwnTLDef::replaceRemoved(NBEdge *removed, int removedLane,
 {
 }
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+// Local Variables:
+// mode:C++
+// End:

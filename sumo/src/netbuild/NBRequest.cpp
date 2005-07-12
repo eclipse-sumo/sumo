@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2005/07/12 12:32:48  dkrajzew
+// code style adapted; guessing of ramps and unregulated near districts implemented; debugging
+//
 // Revision 1.29  2005/04/27 11:48:25  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -210,12 +213,20 @@ NBRequest::NBRequest(const NBEdgeCont &ec,
 	: _junction(junction),
     _all(all), _incoming(incoming), _outgoing(outgoing)
 {
+    if(junction->getID()=="15031778") {
+        int bla = 0;
+    }
     size_t variations = _incoming->size() * _outgoing->size();
     // we maybe want to keep the junction unregulated
     //  this is mostly the case if Vissim-networks are imported and someone
     //  did not concern prohibitions when inserting streams
     bool keepUnregulated = false;
-    if(OptionsSubSys::getOptions().getBool("keep-unregulated")) {
+    if(OptionsSubSys::getOptions().getBool("keep-unregulated")
+        ||
+        OptionsSubSys::helper_CSVOptionMatches("keep-unregulated.nodes", junction->getID())
+        ||
+        (OptionsSubSys::getOptions().getBool("keep-unregulated.district-nodes")&&(junction->isNearDistrict()||junction->isDistrict()))) {
+
         keepUnregulated = true;
     }
     // build maps with information which forbidding connection were
@@ -395,6 +406,11 @@ NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
     // mark the crossings as done
     _done[idx1][idx2] = true;
     _done[idx2][idx1] = true;
+    // 30.05.2005: do not wait on connections to sinks
+    if(to1->getBasicType()==NBEdge::EDGEFUNCTION_SINK||to2->getBasicType()==NBEdge::EDGEFUNCTION_SINK) {
+        return;
+    }
+    // 30.05.2005
     // check if one of the links is a turn; this link is always not priorised
     if(from1->isTurningDirectionAt(_junction, to1)) {
         _forbids[idx2][idx1] = true;
