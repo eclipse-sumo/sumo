@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.43  2005/07/12 12:06:12  dkrajzew
+// first devices (mobile phones) added
+//
 // Revision 1.42  2005/05/04 08:34:20  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; new mead data functionality; lane-changing offset computation debugged; simulation speed-up by avoiding multiplication with 1
 //
@@ -499,8 +502,9 @@ public:
     double accelDist() const;
 
 
-    double getCORNDoubleValue(MSCORN::Function f);
-    bool hasCORNDoubleValue(MSCORN::Function f);
+    double getCORNDoubleValue(MSCORN::Function f) const;
+    void *getCORNPointerValue(MSCORN::Pointer p) const;
+    bool hasCORNDoubleValue(MSCORN::Function f) const;
 
 
     /** moves a vehicle if it is not meant to be running out of the lane
@@ -713,8 +717,7 @@ public:
         the same settings */
     virtual MSVehicle *getNextPeriodical() const;
 
-    bool proceedVirtualReturnWhetherEnded(MSVehicleTransfer &securityCheck,
-        MSEdge *to);
+    bool proceedVirtualReturnWhetherEnded(const MSEdge *const to);
 
     size_t getWaitingTime() const;
     void removeApproachingInformationOnKill();
@@ -768,6 +771,8 @@ protected:
 
     /** Returns the minimum of four doubles. */
     double vMin( double v1, double v2, double v3, double v4 ) const;
+
+    void initDevices();
 
     /** Reset meanData of indexed intervall after a dump.
         @param The index of the intervall to clear. */

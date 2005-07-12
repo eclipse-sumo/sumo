@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.62  2005/07/12 12:06:11  dkrajzew
+// first devices (mobile phones) added
+//
 // Revision 1.61  2005/05/04 08:34:20  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; new mead data functionality; lane-changing offset computation debugged; simulation speed-up by avoiding multiplication with 1
 //
@@ -441,6 +444,8 @@ namespace
 #include "lanechanging/MSLCM_DK2004.h"
 #include <utils/convert/ToString.h>
 
+#include "devices/MSDevice_CPhone.h"
+
 
 /* =========================================================================
  * used namespaces
@@ -606,6 +611,30 @@ MSVehicle::MSVehicle( string id,
 //    myAllowedLanes = ( *myCurrEdge )->allowedLanes( **( myCurrEdge + 1 ) );
 //    assert(myAllowedLanes!=0);
     myLaneChangeModel = new MSLCM_DK2004(*this);
+
+    // init cell phones
+    initDevices();
+}
+
+
+void
+MSVehicle::initDevices()
+{
+    // cell phones
+    OptionsCont &oc = OptionsSubSys::getOptions();
+    if(oc.getFloat("device.cell-phone.probability")!=0) {
+        if((((double) rand()/(double) RAND_MAX))<=oc.getFloat("device.cell-phone.probability")) {
+            int noCellPhones = (int) (((double) rand()/(double) RAND_MAX)
+                * (oc.getFloat("device.cell-phone.amount.max") - oc.getFloat("device.cell-phone.amount.min"))
+                + oc.getFloat("device.cell-phone.amount.min"));
+            myDoubleCORNMap[(MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE] =
+                (double) noCellPhones;
+            for(int np=0; np<noCellPhones; np++) {
+    		    myPointerCORNMap[(MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np)] =
+                    (void*) new MSDevice_CPhone();
+            }
+        }
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -2004,8 +2033,7 @@ MSVehicle::getWaitingTime() const
 
 
 bool
-MSVehicle::proceedVirtualReturnWhetherEnded(MSVehicleTransfer &securityCheck,
-                                            MSEdge *newEdge)
+MSVehicle::proceedVirtualReturnWhetherEnded(const MSEdge *const newEdge)
 {
     bool _destReached = destReached(newEdge);
     myAllowedLanes.clear(); // !!! not really necessary!?
@@ -2187,14 +2215,21 @@ MSVehicle::quitRemindedLeft(MSVehicleQuitReminded *r)
 
 
 double
-MSVehicle::getCORNDoubleValue(MSCORN::Function f)
+MSVehicle::getCORNDoubleValue(MSCORN::Function f) const
 {
-    return myDoubleCORNMap[f];
+    return myDoubleCORNMap.find(f)->second;
+}
+
+
+void *
+MSVehicle::getCORNPointerValue(MSCORN::Pointer f) const
+{
+    return myPointerCORNMap.find(f)->second;
 }
 
 
 bool
-MSVehicle::hasCORNDoubleValue(MSCORN::Function f)
+MSVehicle::hasCORNDoubleValue(MSCORN::Function f) const
 {
     return myDoubleCORNMap.find(f)!=myDoubleCORNMap.end();
 }
@@ -2363,18 +2398,6 @@ MSVehicle::countAllowedContinuations(const MSLane *lane) const
         dist += ((*al)[0])->length();
     } while(dist<MIN_DIST&&ce!=myRoute->end()-1);
 
-    /*
-    double dist = -myState.pos();
-    while(dist<MIN_DIST&&ce!=myRoute->end()-2/!*ce!=myRoute->getLastEdge()*!/) {
-        const MSEdge::LaneCont *al = ( *ce )->allowedLanes( **( ce + 1 ) );
-        if(al==0) {
-            return ret;
-        }
-        MSEdge::LaneCont::const_iterator i =
-            find(al->begin(), al->end(), lane);
-        if(i==al->end()) {
-            return ret;
-        }
     return ret;
 }
 
@@ -2404,16 +2427,6 @@ MSVehicle::allowedContinuationsLength(const MSLane *lane) const
         ++ce;
         dist += ((*al)[0])->length();
     } while(dist<MIN_DIST&&ce!=myRoute->end()-1);
-    /*
-    double dist = lane->length()-myState.pos();
-    MSRouteIterator ce = myCurrEdge;
-        }
-        lane = (*(lane->succLinkOneLane(*( ce + 1 ), *lane)))->getLane();
-        assert(al!=0);
-        ++ce;
-//        dist += ((*al)[0])->length();
-    }
-    */
     return dist;
 }
 
@@ -2421,24 +2434,24 @@ MSVehicle::allowedContinuationsLength(const MSLane *lane) const
 void
 MSVehicle::writeXMLRoute(std::ostream &os, int index) const
 {
-    MSRoute *route2Write = myRoute;
+	MSRoute *route2Write = myRoute;
     // check if a previous route shall be written
     os << "      <route";
-    if(index>=0) {
+	if(index>=0) {
         // write edge on which the vehicle was when the route was valid
-        std::map<MSCORN::Pointer, void*>::const_iterator j =
-            myPointerCORNMap.find(
+		std::map<MSCORN::Pointer, void*>::const_iterator j =
+			myPointerCORNMap.find(
                 (MSCORN::Pointer) (MSCORN::CORN_P_VEH_ROUTE_BEGIN_EDGE+index));
         os << " replacedOnEdge=\"" << ((MSEdge*) (*j).second)->id() << "\" ";
         // write the time at which the route was replaced
         std::map<MSCORN::Function, double>::const_iterator j2 =
-            myDoubleCORNMap.find(
+			myDoubleCORNMap.find(
                 (MSCORN::Function) (MSCORN::CORN_VEH_REROUTE_TIME+index));
         os << " replacedAtTime=\"" << toString<size_t>((size_t) (*j2).second) << "\"";
         // get the route
         j = myPointerCORNMap.find((MSCORN::Pointer) (MSCORN::CORN_P_VEH_OLDROUTE+index));
-        assert(j!=myPointerCORNMap.end());
-        route2Write = (MSRoute*) j->second;
+		assert(j!=myPointerCORNMap.end());
+		route2Write = (MSRoute*) j->second;
     }
     os << ">";
     // write the route

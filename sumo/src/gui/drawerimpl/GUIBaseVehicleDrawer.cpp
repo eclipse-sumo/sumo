@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/07/12 12:06:11  dkrajzew
+// first devices (mobile phones) added
+//
 // Revision 1.10  2005/04/29 10:59:42  dkrajzew
 // debugging
 //
@@ -74,6 +77,8 @@ namespace
 #include "GUIBaseVehicleDrawer.h"
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <microsim/lanechanging/MSLCM_DK2004.h>
+
+#include <microsim/devices/MSDevice_CPhone.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -210,6 +215,34 @@ GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
             } else {
                 color = 1.0f - color;
                 return RGBColor(color, color, color);
+            }
+        }
+        break;
+    case GUISUMOAbstractView::VCS_DEVICENO:
+        {
+            if(vehicle.hasCORNDoubleValue(MSCORN::CORN_VEH_DEV_NO_CPHONE)) {
+                return RGBColor(0, 1, 0);
+            }
+            return RGBColor(1, 0, 0);
+        }
+        break;
+    case GUISUMOAbstractView::VCS_DEVICE_STATE:
+        {
+            if(!vehicle.hasCORNDoubleValue(MSCORN::CORN_VEH_DEV_NO_CPHONE)) {
+                return RGBColor(1, 0, 0);
+            }
+            const MSDevice_CPhone * const phone =
+                (const MSDevice_CPhone * const)
+                vehicle.getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
+            switch(phone->GetState()) {
+            case MSDevice_CPhone::STATE_OFF:
+                return RGBColor(1, 0, 1);
+            case MSDevice_CPhone::STATE_IDLE:
+                return RGBColor(0, 0, 1);
+            case MSDevice_CPhone::STATE_CONNECTED:
+                return RGBColor(0, 1, 0);
+            default:
+                throw 1;
             }
         }
         break;
@@ -398,6 +431,39 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
             }
             break;
         }
+    case GUISUMOAbstractView::VCS_DEVICENO:
+        {
+            if(vehicle.hasCORNDoubleValue(MSCORN::CORN_VEH_DEV_NO_CPHONE)) {
+                glColor3d(0, 1, 0);
+                return;
+            }
+            glColor3d(1, 0, 0);
+        }
+        break;
+    case GUISUMOAbstractView::VCS_DEVICE_STATE:
+        {
+            if(!vehicle.hasCORNDoubleValue(MSCORN::CORN_VEH_DEV_NO_CPHONE)) {
+                glColor3d(1, 0, 0);
+                return;
+            }
+            const MSDevice_CPhone * const phone =
+                (const MSDevice_CPhone * const)
+                vehicle.getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
+            switch(phone->GetState()) {
+            case MSDevice_CPhone::STATE_OFF:
+                glColor3d(1, 0, 1);
+                return;
+            case MSDevice_CPhone::STATE_IDLE:
+                glColor3d(0, 0, 1);
+                return;
+            case MSDevice_CPhone::STATE_CONNECTED:
+                glColor3d(0, 1, 0);
+                return;
+            default:
+                throw 1;
+            }
+        }
+        break;
     default:
         throw 1;
     }

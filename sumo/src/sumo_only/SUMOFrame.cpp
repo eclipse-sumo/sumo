@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2005/07/12 12:06:12  dkrajzew
+// first devices (mobile phones) added
+//
 // Revision 1.30  2005/05/04 08:58:32  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -126,7 +129,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <iostream>
@@ -142,6 +145,7 @@ namespace
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/DevHelper.h>
 #include "SUMOFrame.h"
 
 
@@ -181,6 +185,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("end", 'e', new Option_Integer(86400));
     oc.doRegister("route-steps", 's', new Option_Integer(0));
     oc.doRegister("quit-on-accident", new Option_Bool(false));
+    oc.doRegister("check-accidents", new Option_Bool(false));
     // register the report options
     oc.doRegister("no-duration-log", new Option_Bool(false));
     oc.doRegister("verbose", 'v', new Option_Bool(false));
@@ -194,6 +199,8 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     // register the data processing options
     oc.doRegister("dump-intervals", new Option_IntVector(""));
     oc.doRegister("dump-basename", new Option_FileName());
+    oc.doRegister("lanedump-intervals", new Option_IntVector(""));
+    oc.doRegister("lanedump-basename", new Option_FileName());
     oc.doRegister("dump-empty-edges", new Option_Bool(false));
     //
     oc.doRegister("time-to-teleport", new Option_Integer(300));
@@ -221,7 +228,20 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("device", new Option_Float(0.5));
     oc.doRegister("knownveh", new Option_String("444_4"));
 
+    oc.doRegister("device.cell-phone.probability", new Option_Float(0.));
+    oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));
+    oc.doRegister("device.cell-phone.amount.max", new Option_Float(1.));
+
+
+    //
+#ifdef HAVE_MESOSIM
+    oc.doRegister("mesosim", new Option_Bool(false));
+    oc.doRegister("mesosim-edgelength", new Option_Float(98.0f));
+#endif
+
+    // add rand and dev options
     RandHelper::insertRandOptions(oc);
+    DevHelper::insertDevOptions(oc);
 }
 
 
@@ -321,6 +341,10 @@ SUMOFrame::setMSGlobals(OptionsCont &oc)
         oc.getFloat("lc-teleport.veh-maxv");
     MSGlobals::gMinVehDist4FalseLaneTeleport =
         oc.getFloat("lc-teleport.min-dist");
+    //
+    MSGlobals::gCheck4Accidents =
+        oc.getBool("check-accidents");
+    //
 }
 
 
