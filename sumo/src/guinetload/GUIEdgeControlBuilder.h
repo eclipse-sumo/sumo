@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/07/12 12:15:41  dkrajzew
+// new loading of edges implemented
+//
 // Revision 1.8  2005/05/04 07:55:28  dkrajzew
 // added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
 //
@@ -87,7 +90,7 @@ public:
     /** adds an edge with the given id to the list of edges; this method
         throws an XMLIdAlreadyUsedException when the id was already used for
         another edge */
-    void addEdge(const std::string &id);
+    MSEdge *addEdge(const std::string &id);
 
     /** adds information about the source and the destination edge
         (gui-version only) */

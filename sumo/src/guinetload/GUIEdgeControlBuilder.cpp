@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/07/12 12:15:41  dkrajzew
+// new loading of edges implemented
+//
 // Revision 1.10  2005/05/04 07:55:28  dkrajzew
 // added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
 //
@@ -102,7 +105,7 @@ GUIEdgeControlBuilder::~GUIEdgeControlBuilder()
 }
 
 
-void
+MSEdge *
 GUIEdgeControlBuilder::addEdge(const string &id)
 {
     MSEdge *edge = new GUIEdge(id, myGlObjectIDStorage);
@@ -110,6 +113,7 @@ GUIEdgeControlBuilder::addEdge(const string &id)
         throw XMLIdAlreadyUsedException("Edge", id);
     }
     m_pEdges->push_back(edge);
+    return edge;
 }
 
 
