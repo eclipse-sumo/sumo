@@ -100,7 +100,8 @@ protected: // protected methods
     void scheduleEmit( std::string aVehicleId,
                        SUMOTime aEmitTime,
                        double      aEmitSpeed,
-                       const MSVehicleType* aVehType );
+                       const MSVehicleType* aVehType,
+                       MSRoute* route);
 
     /// Uses the parser to read the next emit element
     void readNextEmitElement( void );
@@ -192,6 +193,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.9  2005/07/12 12:27:40  dkrajzew
+// first steps towards refactoring trigger
+//
 // Revision 1.8  2005/02/01 10:10:42  dkrajzew
 // got rid of MSNet::Time
 //

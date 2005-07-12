@@ -60,6 +60,7 @@ using namespace XERCES_CPP_NAMESPACE;
  * ======================================================================= */
 class MSTriggeredSource;
 class MSVehicleType;
+class MSRoute;
 
 /**
    @class MSTriggeredSourceXMLHandler
@@ -147,6 +148,8 @@ private:   // private members
 
     MSVehicleType* myEmitVehType;
 
+    MSRoute * myEmitRoute;
+
     bool myIsParsedTriggeredSourceToken;
 
     bool myIsParsedRouteDistToken;
@@ -161,6 +164,9 @@ private:   // private members
 
 
 // $Log$
+// Revision 1.7  2005/07/12 12:28:24  dkrajzew
+// first steps towards refactoring trigger
+//
 // Revision 1.6  2005/05/04 08:32:05  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //

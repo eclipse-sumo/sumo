@@ -20,6 +20,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.21  2005/07/12 12:27:40  dkrajzew
+// first steps towards refactoring trigger
+//
 // Revision 1.20  2005/02/01 10:10:42  dkrajzew
 // got rid of MSNet::Time
 //
@@ -40,7 +43,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSTriggeredSource.h"
@@ -49,6 +52,7 @@ namespace
 #include "MSVehicle.h"
 #include "MSEventControl.h"
 #include "MSVehicleControl.h"
+#include "MSGlobals.h"
 #include <utils/common/MsgHandler.h>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/common/XMLHelpers.h>
@@ -60,6 +64,8 @@ namespace
 #include <cstdlib>
 #include <functional>
 #include <utils/gfx/RGBColor.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 
 
 /* =========================================================================
@@ -85,9 +91,8 @@ MSTriggeredSource::RouteDistribution::~RouteDistribution( void )
 //---------------------------------------------------------------------------//
 
 void
-MSTriggeredSource::RouteDistribution::addElement(
-    MSRoute* aRoute,
-    double aFrequency )
+MSTriggeredSource::RouteDistribution::addElement(MSRoute* aRoute,
+                                                 double aFrequency )
 {
     assert( aFrequency > double( 0 ) );
     RouteDistElement elem;
@@ -251,6 +256,8 @@ MSTriggeredSource::emit( void )
         myIsNewEmitFound = false;
         readNextEmitElement();
         return 0;
+    } else {
+        return 1;
     }
     else {
         // reschedule one timestep.
@@ -266,12 +273,19 @@ void
 MSTriggeredSource::scheduleEmit( std::string aVehicleId,
                                  SUMOTime aEmitTime,
                                  double      aEmitSpeed,
-                                 const MSVehicleType* aVehType )
+                                 const MSVehicleType* aVehType,
+                                 MSRoute* route )
 {
     if ( ! myIsWorking ) {
         MsgHandler::getErrorInstance()->inform("can't happen");
         assert( false );
     }
+
+    if(aEmitTime<OptionsSubSys::getOptions().getInt("begin")) {
+        myIsNewEmitFound = false;
+        return;
+    }
+
 
     // Schedule the emission, build a new car, insert it into the dictionary
     // and save the emitspeed.
@@ -329,6 +343,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.21  2005/07/12 12:27:40  dkrajzew
+// first steps towards refactoring trigger
+//
 // Revision 1.20  2005/02/01 10:10:42  dkrajzew
 // got rid of MSNet::Time
 //

@@ -122,7 +122,7 @@ MSTriggeredSourceXMLHandler::startElement( const XMLCh* const ,
         if ( isParseEmitTokenSuccess( aLocalname, aAttributes ) ) {
 
             mySource.scheduleEmit( myEmitId, myEmitTime, myEmitSpeed,
-                                   myEmitVehType );
+                                   myEmitVehType, myEmitRoute );
         }
         else {
 
@@ -262,6 +262,13 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
         myEmitVehType = type;
     }
 
+    // check and assign vehicle type
+    myEmitRoute = 0;
+    if(myEmitAttributes.find("route")!=myEmitAttributes.end()) {
+        string emitRoute = myEmitAttributes.find("route")->second;
+        myEmitRoute = MSRoute::dictionary( emitRoute );
+    }
+
     // check and assign emission time
     string timeStr = myEmitAttributes.find( string( "time" ) )->second;
     double time;
@@ -295,16 +302,23 @@ MSTriggeredSourceXMLHandler::isProperEmitValues( void )
         return false;
 //        throw ProcessError();
     }
-    if ( speed < 0 || speed > mySource.myLane->maxSpeed() ) {
+    if ( speed < 0 ) {
+        speed = 0;
+    }
+    if( speed > mySource.myLane->maxSpeed() ) {
+        speed = mySource.myLane->maxSpeed();
+    }
+        /*
         WRITE_WARNING(string("MSTriggeredSource ") +  mySource.getId()+ string(": Speed < 0 or > lane's max-speed. "));
         WRITE_WARNING("Continuing with next element.");
         return false;
+        */
 //        throw ProcessError();
-    }
-    else {
+//    }
+//    else {
 
         myEmitSpeed = speed;
-    }
+  //  }
 
     return true;
 }
@@ -480,12 +494,14 @@ MSTriggeredSourceXMLHandler::isParseEmitTokenSuccess(
         return false;
 //        throw ProcessError();
     }
+    /*
     if ( aAttributes.getLength() != myEmitAttributes.size() ) {
 
         WRITE_WARNING(string("MSTriggeredSource ") + mySource.getId()+ string(": Wrong number of attributes. "));
         return false;
 //        throw ProcessError();
     }
+    */
 
     if ( ! isAttributes2mapSuccess( myEmitAttributes, aAttributes ) ) {
 
@@ -512,16 +528,14 @@ MSTriggeredSourceXMLHandler::isAttributes2mapSuccess(
         string key( TplConvert<XMLCh>::_2str( aAttributes.getLocalName( i ) ) );
         AttributesMap::iterator attrIt =
             aMap.find( key );
+        if ( attrIt != myEmitAttributes.end() ) {
 
-        if ( attrIt == myEmitAttributes.end() ) {
-
-            throw ProcessError();
+            aMap[ key ] = TplConvert<XMLCh>::_2str( aAttributes.getValue( i ) );
         }
-
         // We now have a valid attribute.
         // attrIt->second = ... gives a segfault :-(
 
-        aMap[ key ] = TplConvert<XMLCh>::_2str( aAttributes.getValue( i ) );
+
     }
     return true;
 }
@@ -581,6 +595,9 @@ MSTriggeredSourceXMLHandler::roundToNearestInt( double aValue ) const
 #endif
 
 // $Log$
+// Revision 1.16  2005/07/12 12:28:24  dkrajzew
+// first steps towards refactoring trigger
+//
 // Revision 1.15  2005/05/04 08:32:05  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
