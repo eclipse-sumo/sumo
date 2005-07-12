@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.54  2005/07/12 12:24:17  dkrajzew
+// further work on mean data usage
+//
 // Revision 1.53  2005/05/04 07:55:28  dkrajzew
 // added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
 //
@@ -1188,18 +1191,7 @@ void
 MSLane::resetMeanData( unsigned index )
 {
     assert(index<myMeanData.size());
-    MSLaneMeanDataValues& md = myMeanData[ index ];
-    md.nVehEntireLane = 0;
-    md.nVehContributed = 0;
-    md.nVehLeftLane = 0;
-    md.nVehEnteredLane = 0;
-    md.contTimestepSum = 0;
-    md.discreteTimestepSum = 0;
-    md.speedSum = 0;
-    md.speedSquareSum = 0;
-    md.traveltimeStepSum = 0;
-    md.haltSum = 0;
-
+    myMeanData[ index ].reset();
 }
 
 /////////////////////////////////////////////////////////////////////////////

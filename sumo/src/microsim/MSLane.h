@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.29  2005/07/12 12:24:17  dkrajzew
+// further work on mean data usage
+//
 // Revision 1.28  2005/05/04 07:55:28  dkrajzew
 // added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
 //
@@ -495,6 +498,10 @@ public:
 	/// The shape of the lane
     Position2DVector myShape;
 
+    inline MSLaneMeanDataValues &getMeanData(int index) const {
+        assert((int) myMeanData.size()>index);
+        return myMeanData[index];
+    }
 
 protected:
     /** @brief Function Object for use with Function Adapter on vehicle containers.
@@ -617,7 +624,7 @@ private:
 
 
     /** Container of MeanDataValues, one element for each intervall. */
-    std::vector< MSLaneMeanDataValues > myMeanData;
+    mutable std::vector< MSLaneMeanDataValues > myMeanData;
 
     //----------- End of declarations for mean-data calculation
 
