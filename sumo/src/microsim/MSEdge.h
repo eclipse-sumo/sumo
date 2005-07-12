@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2005/07/12 12:23:07  dkrajzew
+// debugging vehicle emission on source edges
+//
 // Revision 1.15  2005/05/04 08:23:52  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; speed-ups by checked emission and avoiding looping over all edges
 //
@@ -259,7 +262,7 @@ public:
     virtual bool isSource() const;
 
     /// emits a vehicle on an appropriate lane
-    virtual bool emit(MSVehicle &v);
+    virtual bool emit(MSVehicle &v, SUMOTime time);
 
     static std::vector< MSEdge* > getEdgeVector( void );
 

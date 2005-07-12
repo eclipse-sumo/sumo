@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.12  2005/07/12 12:23:07  dkrajzew
+// debugging vehicle emission on source edges
+//
 // Revision 1.11  2005/05/04 08:24:42  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; speed-ups by checked emission and avoiding looping over all edges
 //
@@ -223,7 +226,7 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
         return noEmitted;
     }
     // try to emit the vehicle
-    if (veh->departEdge().emit(*veh)) {
+    if (veh->departEdge().emit(*veh, time)) {
         // Successful emission.
 		noEmitted++;
         veh->onDepart();
