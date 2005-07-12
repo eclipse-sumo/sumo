@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/07/12 12:28:53  dkrajzew
+// debugging
+//
 // Revision 1.14  2005/05/04 08:35:40  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -97,7 +100,7 @@ MSVehicleTransfer::addVeh(MSVehicle *veh)
     veh->onTripEnd(/*lane*/);
 //    resetApproacherDistance(); // !!! correct? is it (both lines) really necessary during this simulation part?
 //!!!    veh->removeApproachingInformationOnKill(MSLane::dictionary(lane.id()));
-    if(veh->proceedVirtualReturnWhetherEnded(*this, MSEdge::dictionary(veh->succEdge(1)->id()))) {
+    if(veh->proceedVirtualReturnWhetherEnded(MSEdge::dictionary(veh->succEdge(1)->id()))) {
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return;
     }
@@ -120,7 +123,7 @@ MSVehicleTransfer::checkEmissions(SUMOTime time)
         VehicleInformation &desc = *i;
         MSEdge *e = (MSEdge*) desc.myVeh->getEdge();
         // check whether the vehicle may be emitted onto a following edge
-        if(e->emit(*(desc.myVeh))) {
+        if(e->emit(*(desc.myVeh), time)) {
             // remove from this if so
             WRITE_WARNING(string("Vehicle '") + desc.myVeh->id()+ string("' ends teleporting on edge '") + e->id()+ string("'."));
             i = myVehicles.erase(i);
@@ -133,7 +136,7 @@ MSVehicleTransfer::checkEmissions(SUMOTime time)
                 // get the one beyond the one the vehicle moved to
                 MSEdge *nextEdge = MSEdge::dictionary(desc.myVeh->succEdge(1)->id());
                 // let the vehicle move to the next edge
-                if(desc.myVeh->proceedVirtualReturnWhetherEnded(*this, nextEdge)) {
+                if(desc.myVeh->proceedVirtualReturnWhetherEnded(nextEdge)) {
                     WRITE_WARNING(string("Vehicle '") + desc.myVeh->id()+ string("' ends teleporting on end edge '") + e->id()+ string("'."));
                     MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
                     i = myVehicles.erase(i);
