@@ -3,7 +3,7 @@ AC_INIT(src/sumo_main.cpp)
 AC_CANONICAL_SYSTEM
 
 dnl create an config-header
-AM_CONFIG_HEADER(config.h)
+AM_CONFIG_HEADER(src/config.h)
 
 dnl enabel automake-support
 AM_INIT_AUTOMAKE(sumo,0.8.2)
@@ -17,12 +17,6 @@ fi
 dnl Checks for programs.
 AC_PROG_CXX
 AC_PROG_INSTALL
-
-dnl don't create shared libtool-libraries
-dnl AC_DISABLE_SHARED
-
-dnl create static libtool-libraries instead
-dnl AC_ENABLE_STATIC(yes)
 
 dnl enable libtool-support
 AM_PROG_LIBTOOL
@@ -443,7 +437,6 @@ src/utils/common/Makefile
 src/utils/convert/Makefile
 src/utils/dev/Makefile
 src/utils/distribution/Makefile
-src/utils/fonts/Makefile
 src/utils/foxtools/Makefile
 src/utils/geom/Makefile
 src/utils/gfx/Makefile
