@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/07/12 12:52:56  dkrajzew
+// build number output added
+//
 // Revision 1.9  2005/05/10 11:20:03  dkrajzew
 // verbosity output patched
 //
@@ -194,9 +197,7 @@ OptionsIO::loadConfiguration(OptionsCont *oc)
             "Could not find configuration '" + oc->getString("c") + "'.");
         return false;
     }
-    if(oc->getBool("verbose")) {
-        WRITE_MESSAGE("Loading configuration...");
-    }
+    WRITE_MESSAGE("Loading configuration...");
     // build parser
     SAXParser parser;
     parser.setValidationScheme(SAXParser::Val_Auto);

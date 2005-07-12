@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/07/12 12:55:27  dkrajzew
+// build number output added
+//
 // Revision 1.4  2005/05/04 09:33:43  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -106,6 +109,8 @@ namespace
 #include <routing_jtr/ROJPHelpers.h>
 #include <routing_jtr/ROJTRFrame.h>
 #include "jtrrouter_help.h"
+#include "jtrrouter_build.h"
+#include "sumo_version.h"
 
 
 /* =========================================================================
@@ -152,7 +157,10 @@ loadNet(ROLoader &loader, OptionsCont &oc,
     builder.setTurningDefinitions(*net, turnDefs);
     // load the weights when wished/available
     if(oc.isSet("w")) {
-        loader.loadWeights(*net);
+        loader.loadWeights(*net, oc.getString("w"), false);
+    }
+    if(oc.isSet("lane-weights")) {
+        loader.loadWeights(*net, oc.getString("lane-weights"), true);
     }
     // initialise the network
 //    net->postloadInit();
@@ -272,8 +280,15 @@ main(int argc, char **argv)
     RONet *net = 0;
     try {
         // initialise the application system (messaging, xml, options)
-        if(!SystemFrame::init(false, argc, argv,
-            ROJTRFrame::fillOptions, ROJTRFrame::checkOptions, help)) {
+        int init_ret = SystemFrame::init(false, argc, argv,
+			ROJTRFrame::fillOptions, ROJTRFrame::checkOptions, help);
+        if(init_ret==-1) {
+            cout << "SUMO jtrrouter" << endl;
+            cout << " Version " << version << endl;
+            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            SystemFrame::close();
+            return 0;
+        } else if(init_ret!=0) {
             throw ProcessError();
         }
         // retrieve the options

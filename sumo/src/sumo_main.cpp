@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2005/07/12 12:55:28  dkrajzew
+// build number output added
+//
 // Revision 1.26  2005/05/04 09:33:43  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -222,6 +225,8 @@ namespace
 #include <utils/options/OptionsSubSys.h>
 #include <sumo_only/SUMOFrame.h>
 #include "sumo_help.h"
+#include "sumo_build.h"
+#include "sumo_version.h"
 #include <microsim/output/MSDetectorSubSys.h>
 #include <utils/iodevices/SharedOutputDevices.h>
 
@@ -263,20 +268,27 @@ load(OptionsCont &oc)
 int
 main(int argc, char **argv)
 {
-#ifdef _DEBUG
+#ifdef DEBUB_ALLOC
 #ifdef WIN32
     CMemDiff state1;
     // uncomment next line and insert the context of an undeleted
     //  allocation to break within it (MSVC++ only)
-    // _CrtSetBreakAlloc(814107);
+//    _CrtSetBreakAlloc(14358);
 #endif
 #endif
 
     size_t rand_init = 10551;
     int ret = 0;
     try {
-        if(!SystemFrame::init(false, argc, argv,
-            SUMOFrame::fillOptions, SUMOFrame::checkOptions, help)) {
+        int init_ret = SystemFrame::init(false, argc, argv,
+            SUMOFrame::fillOptions, SUMOFrame::checkOptions, help);
+        if(init_ret==-1) {
+            cout << "SUMO sumo" << endl;
+            cout << " Version " << version << endl;
+            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            SystemFrame::close();
+            return 0;
+        } else if(init_ret!=0) {
             throw ProcessError();
         }
         // retrieve the options

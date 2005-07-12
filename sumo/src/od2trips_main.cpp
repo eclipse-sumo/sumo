@@ -40,11 +40,14 @@
 #include <utils/common/HelpPrinter.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/DevHelper.h>
 #include <utils/convert/ToString.h>
 #include <utils/common/XMLHelpers.h>
 #include <od2trips/ODDistrictCont.h>
 #include <od2trips/ODDistrictHandler.h>
 #include "od2trips_help.h"
+#include "od2trips_build.h"
+#include "sumo_version.h"
 #include <od2trips/ODmatrix.h>
 #include <od2trips/ODsubroutines.h>
 #include <utils/common/SUMOTime.h>
@@ -84,6 +87,8 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("end", 'e', new Option_Long(86400));
     oc.doRegister("scale", 's', new Option_Float(1));
     oc.doRegister("no-color", new Option_Bool(false));
+    // add rand and dev options
+    DevHelper::insertDevOptions(oc);
     RandHelper::insertRandOptions(oc);
 }
 
@@ -175,8 +180,15 @@ main(int argc, char **argv)
     int ret = 0;
     try {
         // initialise subsystems
-        if(!SystemFrame::init(false, argc, argv,
-            fillOptions, checkOptions, help)) {
+        int init_ret = SystemFrame::init(false, argc, argv,
+            fillOptions, checkOptions, help);
+        if(init_ret==-1) {
+            cout << "SUMO od2trips" << endl;
+            cout << " Version " << version << endl;
+            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            SystemFrame::close();
+            return 0;
+        } else if(init_ret!=0) {
             throw ProcessError();
         }
         // retrieve the options

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2005/07/12 12:55:28  dkrajzew
+// build number output added
+//
 // Revision 1.17  2005/05/04 09:33:43  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -100,8 +103,11 @@ namespace
 #include <utils/common/SystemFrame.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/DevHelper.h>
 #include <utils/convert/ToString.h>
 #include "netgen_help.h"
+#include "netgen_build.h"
+#include "sumo_version.h"
 
 
 /* =========================================================================
@@ -235,6 +241,8 @@ fillOptions(OptionsCont &oc)
     oc.addSynonyme("default-junction-type", "junctions");
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
+    // add rand and dev options
+    DevHelper::insertDevOptions(oc);
     RandHelper::insertRandOptions(oc);
 }
 
@@ -306,8 +314,15 @@ main(int argc, char **argv)
     int ret = 0;
     try {
         // initialise the application system (messaging, xml, options)
-        if(!SystemFrame::init(false, argc, argv,
-            fillOptions, checkOptions, help)) {
+        int init_ret = SystemFrame::init(false, argc, argv,
+            fillOptions, checkOptions, help);
+        if(init_ret==-1) {
+            cout << "SUMO netgen" << endl;
+            cout << " Version " << version << endl;
+            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            SystemFrame::close();
+            return 0;
+        } else if(init_ret!=0) {
             throw ProcessError();
         }
         // initialise the (default) types

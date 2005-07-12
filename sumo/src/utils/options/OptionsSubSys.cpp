@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/07/12 12:52:56  dkrajzew
+// build number output added
+//
 // Revision 1.5  2005/05/04 09:28:01  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -47,6 +50,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/common/HelpPrinter.h>
+#include <utils/common/StringTokenizer.h>
 #include "OptionsSubSys.h"
 
 
@@ -84,6 +88,11 @@ OptionsSubSys::init(bool loadConfig, int argc, char **argv,
         if(myOptions.getBool("print-options")) {
             cout << myOptions;
         }
+		// 01.06.2005: version retrieval patched
+		if(myOptions.exists("version")&&myOptions.getBool("version")) {
+			return true;
+		}
+		// 01.06.2005: version retrieval patched
         // check the settings
         if(check_f!=0&&!check_f(myOptions)) {
             return false;
@@ -123,6 +132,22 @@ void
 OptionsSubSys::close()
 {
     myOptions.clear();
+}
+
+
+bool
+OptionsSubSys::helper_CSVOptionMatches(const std::string &optionName,
+                                       const std::string &itemName)
+{
+    if(myOptions.isSet(optionName)) {
+        StringTokenizer st(myOptions.getString(optionName), ";");
+        while(st.hasNext()) {
+            if(st.next()==itemName) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 

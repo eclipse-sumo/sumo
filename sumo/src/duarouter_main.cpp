@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/07/12 12:52:55  dkrajzew
+// build number output added
+//
 // Revision 1.2  2004/11/23 10:43:28  dkrajzew
 // debugging
 //
@@ -158,6 +161,8 @@ namespace
 #include <utils/xml/XMLSubSys.h>
 #include <routing_dua/RODUAFrame.h>
 #include "duarouter_help.h"
+#include "duarouter_build.h"
+#include "sumo_version.h"
 
 
 /* =========================================================================
@@ -201,7 +206,10 @@ loadNet(ROLoader &loader, OptionsCont &oc)
     }
     // load the weights when wished/available
     if(oc.isSet("w")) {
-        loader.loadWeights(*net);
+        loader.loadWeights(*net, oc.getString("w"), false);
+    }
+    if(oc.isSet("lane-weights")) {
+        loader.loadWeights(*net, oc.getString("lane-weights"), true);
     }
     // initialise the network
 //    net->postloadInit();
@@ -262,13 +270,20 @@ main(int argc, char **argv)
     RONet *net = 0;
     try {
         // initialise the application system (messaging, xml, options)
-        if(!SystemFrame::init(false, argc, argv,
-            RODUAFrame::fillOptions_fullImport, RODUAFrame::checkOptions, help)) {
+        int init_ret = SystemFrame::init(false, argc, argv,
+			RODUAFrame::fillOptions_fullImport, RODUAFrame::checkOptions, help);
+        if(init_ret==-1) {
+            cout << "SUMO duarouter" << endl;
+            cout << " Version " << version << endl;
+            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            SystemFrame::close();
+            return 0;
+        } else if(init_ret!=0) {
             throw ProcessError();
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
-        ROFrame::setDefaults(oc);
+		ROFrame::setDefaults(oc);
         // load data
         ROVehicleBuilder vb;
         ROLoader loader(oc, vb, false);

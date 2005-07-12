@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2005/07/12 12:55:27  dkrajzew
+// build number output added
+//
 // Revision 1.25  2005/05/04 09:34:35  dkrajzew
 // netbuilding containers are now non-static
 //
@@ -176,6 +179,8 @@ namespace
 #include <utils/common/SystemFrame.h>
 #include <utils/common/MsgHandler.h>
 #include "netconvert_help.h"
+#include "netconvert_build.h"
+#include "sumo_version.h"
 
 
 /* =========================================================================
@@ -183,7 +188,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-//   #define _INC_MALLOC         // exclude standard memory alloc procedures
+//   #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #ifdef WIN32
 //   #include <utils/dev/MemDiff.h>
 //   #include <crtdbg.h>
@@ -214,8 +219,15 @@ main(int argc, char **argv)
 
     int ret = 0;
     try {
-        if(!SystemFrame::init(false, argc, argv,
-            NIOptionsIO::fillOptions, 0, help)) {
+        int init_ret = SystemFrame::init(false, argc, argv,
+            NIOptionsIO::fillOptions, 0, help);
+        if(init_ret==-1) {
+            cout << "SUMO netconvert" << endl;
+            cout << " Version " << version << endl;
+            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            SystemFrame::close();
+            return 0;
+        } else if(init_ret!=0) {
             throw ProcessError();
         }
         // retrieve the options

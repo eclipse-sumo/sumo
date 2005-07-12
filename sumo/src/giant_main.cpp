@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2005/07/12 12:55:27  dkrajzew
+// build number output added
+//
 // Revision 1.1  2004/11/23 10:45:07  dkrajzew
 // netedit by A. Gaubatz added
 //
@@ -64,6 +67,8 @@
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <gui/drawerimpl/GUIBaseVehicleDrawer.h>
 #include "giant_help.h"
+#include "giant_build.h"
+#include "sumo_version.h"
 #include <utils/gui/div/GUIFrame.h>
 #include <utils/gui/drawer/GUIGradients.h>
 #include <utils/gui/drawer/GUIColorer_SingleColor.h>
@@ -100,9 +105,15 @@ main(int argc, char **argv)
 */
     int ret = 0;
     try {
-        if(!SystemFrame::init(true, argc, argv,
-            GUIFrame::fillInitOptions, GUIFrame::checkInitOptions, help)) {
-
+        int init_ret = SystemFrame::init(true, argc, argv,
+			GUIFrame::fillInitOptions, GUIFrame::checkInitOptions, help);
+        if(init_ret==-1) {
+            cout << "SUMO giant" << endl;
+            cout << " Version " << version << endl;
+            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            SystemFrame::close();
+            return 0;
+        } else if(init_ret!=0) {
             throw ProcessError();
         }
         // Make application
@@ -130,7 +141,7 @@ main(int argc, char **argv)
             new GNEApplicationWindow(&application, tf,
                 oc.getInt("w"), oc.getInt("h"),
                 oc.getString("c"));
-        gGradients = new GUIGradientStorage(window);
+		gGradients = new GUIGradientStorage(window);
         // delete startup-options
         OptionsSubSys::close();
         // Create app

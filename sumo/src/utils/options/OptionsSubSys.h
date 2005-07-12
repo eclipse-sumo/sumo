@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/07/12 12:52:56  dkrajzew
+// build number output added
+//
 // Revision 1.4  2005/05/04 09:28:01  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -93,6 +96,10 @@ public:
 
     /// Clears all previously set options
     static void close();
+
+    /// Returns the information whether the given option is set for the given id
+    static bool helper_CSVOptionMatches(const std::string &optionName,
+        const std::string &itemName);
 
 protected:
     /// The static options container used
