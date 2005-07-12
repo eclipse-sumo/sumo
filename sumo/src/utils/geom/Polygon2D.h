@@ -19,6 +19,15 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.2  2005/07/12 12:43:49  dkrajzew
+// code style adapted
+//
+//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -33,9 +42,9 @@
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-class Polygon2D  
+class Polygon2D
 {
-  
+
 
 public:
     /// Constructor
@@ -49,7 +58,7 @@ public:
 
     /// Destructor
     ~Polygon2D();
-   
+
     /// add the incoming Position to the Polygon2D
     void addPolyPosition(Position2DVector &myNewPos);
 
@@ -64,7 +73,7 @@ public:
 
     // return the Positions Vector of the Polygon
     Position2DVector getPosition2DVector(void);
-    
+
 
 private:
     /// the Name of the Polygon
@@ -77,8 +86,8 @@ private:
     RGBColor myColor;
 
     /// the Positions of the Polygon
-    Position2DVector myPos;  
-  
+    Position2DVector myPos;
+
 };
 
 

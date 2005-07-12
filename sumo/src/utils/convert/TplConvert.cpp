@@ -19,6 +19,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/07/12 12:43:49  dkrajzew
+// code style adapted
+//
 // Revision 1.6  2005/05/04 09:10:57  dkrajzew
 // speeded up the reading of xml-files
 //
@@ -50,9 +53,9 @@
  * included modules
  * ======================================================================= */
 #include <string>
-#include <iostream>
+//#include <iostream>
 #include <climits>
-#include <sstream>
+//#include <sstream>
 #include <cmath>
 #include <utils/common/UtilExceptions.h>
 #include "TplConvert.h"

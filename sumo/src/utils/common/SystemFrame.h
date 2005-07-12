@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/07/12 12:43:49  dkrajzew
+// code style adapted
+//
 // Revision 1.5  2005/04/28 09:02:47  dkrajzew
 // level3 warnings removed
 //
@@ -65,8 +68,10 @@ class LogFile;
 class SystemFrame {
 public:
     /** @brief Initialises the application's subsystems
-        Initialises the xml-subsystem, the options subsystem and the messaging */
-    static bool init(bool gui, int argc, char **argv,
+        Initialises the xml-subsystem, the options subsystem and the messaging.
+        Returns 0 (zero) if everything's ok, -1 if the application shall be quit
+        normally and 1 if an error occured */
+    static int init(bool gui, int argc, char **argv,
         fill_options *fill_f, check_options *check_f,
         char *help[]);
 

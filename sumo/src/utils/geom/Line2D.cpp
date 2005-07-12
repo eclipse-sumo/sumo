@@ -1,7 +1,40 @@
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.9  2005/07/12 12:43:49  dkrajzew
+// code style adapted
+//
+//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+
 #include "Position2D.h"
 #include "Line2D.h"
 #include "GeomHelper.h"
 #include <cassert>
+
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 
 Line2D::Line2D()
 {
@@ -219,4 +252,8 @@ Line2D::intersectsAtLength(const Line2D &v)
         GeomHelper::intersection_position(myP1, myP2, v.myP1, v.myP2);
     return nearestPositionTo(pos);
 }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+// Local Variables:
+// mode:C++
+// End:

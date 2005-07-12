@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/07/12 12:43:49  dkrajzew
+// code style adapted
+//
 // Revision 1.7  2005/04/28 09:02:47  dkrajzew
 // level3 warnings removed
 //
@@ -66,7 +69,7 @@ LogFile *SystemFrame::myLogFile = 0;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-bool
+int
 SystemFrame::init(bool gui, int argc, char **argv,
                     fill_options *fill_f,
                     check_options *check_f,
@@ -83,6 +86,10 @@ SystemFrame::init(bool gui, int argc, char **argv,
     // initialise the options-subsystem
     if(!OptionsSubSys::init(!gui, argc, argv, fill_f, check_f, help)) {
         return false;
+    }
+    // check whether only the version shall be printed
+    if(OptionsSubSys::getOptions().getBool("version")) {
+        return -1;
     }
     // initialise the output
         // check whether it is a gui-version or not, first
@@ -116,7 +123,7 @@ SystemFrame::init(bool gui, int argc, char **argv,
                 string("Could not build logging file '")
                 + OptionsSubSys::getOptions().getString("log-file")
                 + string("'"));
-            return false;
+            return 1;
         } else {
             MsgHandler::getErrorInstance()->addRetriever(myLogFile);
             MsgHandler::getWarningInstance()->addRetriever(myLogFile);
@@ -127,7 +134,7 @@ SystemFrame::init(bool gui, int argc, char **argv,
     if(!gui) {
         RandHelper::initRandGlobal(OptionsSubSys::getOptions());
     }
-    return true;
+    return 0;
 }
 
 
