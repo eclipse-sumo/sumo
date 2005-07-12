@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2005/07/12 12:44:17  dkrajzew
+// access function improved
+//
 // Revision 1.18  2005/04/28 09:02:48  dkrajzew
 // level3 warnings removed
 //
@@ -158,7 +161,7 @@ public:
 
     /** @brief returns the position at the given index
         !!! exceptions?*/
-    const Position2D &at(size_t i) const;
+    const Position2D &at(int i) const;
 
     /// returns the number of points making up the line vector
     size_t size() const;
@@ -181,6 +184,7 @@ public:
     Position2D center() const;
 
     Position2D pop_back();
+    Position2D pop_front();
 
     /// Returns the length
     double length() const;

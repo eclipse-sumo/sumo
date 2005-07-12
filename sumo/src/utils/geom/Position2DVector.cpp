@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2005/07/12 12:44:17  dkrajzew
+// access function improved
+//
 // Revision 1.27  2005/04/28 09:02:48  dkrajzew
 // level3 warnings removed
 //
@@ -279,9 +282,13 @@ Position2DVector::clear()
 
 
 const Position2D &
-Position2DVector::at(size_t i) const
+Position2DVector::at(int i) const
 {
-    return myCont[i];
+    if(i>=0) {
+        return myCont[i];
+    } else {
+        return myCont[myCont.size()+i];
+    }
 }
 
 
@@ -1123,6 +1130,15 @@ Position2DVector::pop_back()
     Position2D last = myCont.back();
     myCont.erase(myCont.end()-1);
     return last;
+}
+
+
+Position2D
+Position2DVector::pop_front()
+{
+    Position2D first = myCont.front();
+    myCont.erase(myCont.begin());
+    return first;
 }
 
 
