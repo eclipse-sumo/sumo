@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/07/12 12:14:39  dkrajzew
+// edge-based mean data implemented; previous lane-based is now optional
+//
 // Revision 1.2  2005/05/04 08:13:59  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added, new mean data functionality
 //
@@ -58,11 +61,24 @@ struct MSLaneMeanDataValues
         haltSum(0)
         {}
 
+    void reset() {
+        nVehEntireLane = 0;
+        nVehContributed = 0;
+        nVehLeftLane = 0;
+        nVehEnteredLane = 0;
+        contTimestepSum = 0;
+        discreteTimestepSum = 0;
+        speedSum = 0;
+        speedSquareSum = 0;
+        traveltimeStepSum = 0;
+        haltSum = 0;
+    }
+
     /// the number of vehicles that passed the entire lane
     unsigned nVehEntireLane;
 
     /// the number of vehicles that made up the aggregated data
-    unsigned nVehContributed;
+    float nVehContributed;
 
     /// the number of vehicles that left this lane within the
     /// sample intervall

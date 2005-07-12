@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2005/07/12 12:14:38  dkrajzew
+// edge-based mean data implemented; previous lane-based is now optional
+//
 // Revision 1.19  2005/05/04 07:55:27  dkrajzew
 // added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
 //
@@ -148,7 +151,9 @@ GUIContainer::buildGUINet(NLDetectorBuilder &db, const OptionsCont &options)
             !options.getBool("no-duration-log"),
             streams,
             options.getIntVector("dump-intervals"),
-            options.getString("dump-basename"));
+            options.getString("dump-basename"),
+            options.getIntVector("lanedump-intervals"),
+            options.getString("lanedump-basename"));
         return static_cast<GUINet*>(GUINet::getInstance());
     } catch (ProcessError &) {
         delete edges;

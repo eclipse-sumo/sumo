@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/07/12 12:14:39  dkrajzew
+// edge-based mean data implemented; previous lane-based is now optional
+//
 // Revision 1.4  2005/05/04 08:13:59  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added, new mean data functionality
 //
@@ -67,7 +70,8 @@ class MSMeanData_Net : public MSDetectorFileOutput
 public:
     /// constructor
     MSMeanData_Net( unsigned int t, unsigned int index,
-        MSEdgeControl &edges,bool addHeaderTail = true );
+        MSEdgeControl &edges, bool useLanes,
+        bool addHeaderTail = true );
 
     /// destructor
     virtual ~MSMeanData_Net();
@@ -105,6 +109,9 @@ protected:
 
     /// The edgecontrol to use
     MSEdgeControl &myEdges;
+
+    /// Information whether the output shall be edge-based (not lane-based)
+    bool myAmEdgeBased;
 
 };
 

@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.30  2005/07/12 12:14:39  dkrajzew
+// edge-based mean data implemented; previous lane-based is now optional
+//
 // Revision 1.29  2005/05/04 07:55:29  dkrajzew
 // added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
 //
@@ -171,6 +174,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <sstream>
 #include "NLContainer.h"
 #include <microsim/MSLane.h>
@@ -201,6 +208,9 @@ namespace
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/gfx/GfxConvHelper.h>
+#include <microsim/MSGlobals.h>
+#include <utils/options/OptionsSubSys.h>
+
 
 /* =========================================================================
  * used namespaces
@@ -573,7 +583,9 @@ NLContainer::buildMSNet(NLDetectorBuilder &db, const OptionsCont &options)
         !options.getBool("no-duration-log"),
         streams,
         options.getIntVector("dump-intervals"),
-        options.getString("dump-basename"));
+        options.getString("dump-basename"),
+        options.getIntVector("lanedump-intervals"),
+        options.getString("lanedump-basename"));
     return MSNet::getInstance();
 }
 

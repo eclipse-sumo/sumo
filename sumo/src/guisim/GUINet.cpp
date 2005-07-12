@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.41  2005/07/12 12:18:47  dkrajzew
+// edge-based mean data implemented; previous lane-based is now optional
+//
 // Revision 1.40  2005/05/04 08:03:51  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; vehicle position retrieval debugging
 //
@@ -155,7 +158,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <utility>
@@ -259,10 +262,13 @@ GUINet::initGUINet(std::string id, MSEdgeControl* ec,
                    bool logExecutionTime,
                    const std::vector<OutputDevice*> &streams,
                       TimeVector dumpMeanDataIntervalls,
-                      std::string baseNameDumpFiles )
+                      std::string baseNameDumpFiles,
+                      TimeVector laneDumpMeanDataIntervalls,
+                      std::string baseNameLaneDumpFiles)
 {
     MSNet::init(id, ec, jc, rlc, tlc, logExecutionTime, streams,
-        dumpMeanDataIntervalls, baseNameDumpFiles);
+        dumpMeanDataIntervalls, baseNameDumpFiles,
+        laneDumpMeanDataIntervalls, baseNameLaneDumpFiles);
     GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
     // initialise edge storage for gui
     GUIEdge::fill(net->myEdgeWrapper);

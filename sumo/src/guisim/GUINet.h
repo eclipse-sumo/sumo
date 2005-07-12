@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.32  2005/07/12 12:18:47  dkrajzew
+// edge-based mean data implemented; previous lane-based is now optional
+//
 // Revision 1.31  2005/05/04 08:02:54  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -187,7 +190,8 @@ public:
         MSRouteLoaderControl *rlc, MSTLLogicControl *tlc,
         bool logExecutionTime,
         const std::vector<OutputDevice*> &streams,
-        TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles);
+        TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles,
+        TimeVector laneDumpMeanDataIntervalls, std::string baseNameLaneDumpFiles);
 
     /// returns the position of a junction
     Position2D getJunctionPosition(const std::string &name) const;

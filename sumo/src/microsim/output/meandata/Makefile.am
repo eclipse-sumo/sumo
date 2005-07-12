@@ -3,8 +3,7 @@ noinst_LIBRARIES = libmicrosimoutputmeanoutput.a
 
 EXTRA_DIST =
 
-libmicrosimoutputmeanoutput_a_SOURCES = \
-MSLaneMeanDataValues.cpp MSLaneMeanDataValues.h \
+libmicrosimoutputmeanoutput_a_SOURCES = MSLaneMeanDataValues.h \
 MSMeanData_Net.cpp MSMeanData_Net.h \
 MSMeanData_Net_Cont.h \
 MSMeanData_Net_Utils.cpp MSMeanData_Net_Utils.h

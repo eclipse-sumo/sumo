@@ -57,7 +57,30 @@ using namespace std;
 MSMeanData_Net_Cont
 MSMeanData_Net_Utils::buildList(MSEdgeControl &ec,
                                 std::vector<int> dumpMeanDataIntervalls,
-                                std::string baseNameDumpFiles)
+                                std::string baseNameDumpFiles,
+                                std::vector<int> laneDumpMeanDataIntervalls,
+                                std::string baseNameLaneDumpFiles)
+{
+    MSMeanData_Net_Cont ret;
+    if ( dumpMeanDataIntervalls.size() > 0 ) {
+        MSMeanData_Net_Cont tmp =
+            buildList(ec, dumpMeanDataIntervalls, baseNameDumpFiles, false);
+        copy(tmp.begin(), tmp.end(), back_inserter(ret));
+    }
+    if ( laneDumpMeanDataIntervalls.size() > 0 ) {
+        MSMeanData_Net_Cont tmp =
+            buildList(ec, laneDumpMeanDataIntervalls, baseNameLaneDumpFiles, true);
+        copy(tmp.begin(), tmp.end(), back_inserter(ret));
+    }
+    return ret;
+}
+
+
+MSMeanData_Net_Cont
+MSMeanData_Net_Utils::buildList(MSEdgeControl &ec,
+                                std::vector<int> dumpMeanDataIntervalls,
+                                std::string baseNameDumpFiles,
+                                bool useLanes)
 {
     MSMeanData_Net_Cont ret;
     if ( dumpMeanDataIntervalls.size() > 0 ) {
@@ -110,7 +133,7 @@ MSMeanData_Net_Utils::buildList(MSEdgeControl &ec,
                 "  If noVehContrib==0 then density is set to 0.\n"
                 "-->\n" ;
 
-            MSMeanData_Net *det = new MSMeanData_Net( *it, ret.size(), ec, true);
+            MSMeanData_Net *det = new MSMeanData_Net( *it, ret.size(), ec, useLanes, true);
             ret.push_back( det );
             MSDetector2File::getInstance()->addDetectorAndInterval(
                 det, dev, *it);

@@ -22,6 +22,11 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
+// $Log$
+// Revision 1.7  2005/07/12 12:14:39  dkrajzew
+// edge-based mean data implemented; previous lane-based is now optional
+//
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -31,6 +36,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <cassert>
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
@@ -51,10 +60,10 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 MSMeanData_Net::MSMeanData_Net(unsigned int t, unsigned int index,
-                               MSEdgeControl &edges,
+                               MSEdgeControl &edges, bool useLanes,
                                bool addHeaderTail )
     : myInterval( t ), myUseHeader(addHeaderTail), myIndex(index),
-    myEdges(edges)
+    myEdges(edges), myAmEdgeBased(!useLanes)
 {
 }
 
@@ -94,13 +103,59 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
                           const MSEdge &edge,
                           SUMOTime startTime, SUMOTime stopTime)
 {
-    dev.writeString("   <edge id=\"").writeString(edge.id()).writeString("\">\n");
     MSEdge::LaneCont *lanes = edge.getLanes();
     MSEdge::LaneCont::const_iterator lane;
-    for ( lane = lanes->begin(); lane != lanes->end(); ++lane) {
-        writeLane(dev, *(*lane), startTime, stopTime);
+    if(!myAmEdgeBased) {
+        dev.writeString("   <edge id=\"").writeString(edge.id()).writeString("\">\n");
+        for ( lane = lanes->begin(); lane != lanes->end(); ++lane) {
+            writeLane(dev, *(*lane), startTime, stopTime);
+        }
+        dev.writeString("   </edge>\n");
+    } else {
+        double traveltimeS = 0;
+        double meanSpeedS = 0;
+        double meanDensityS = 0;
+        float noStopsS = 0;
+        float nVehS = 0;
+        for ( lane = lanes->begin(); lane != lanes->end(); ++lane) {
+            MSLaneMeanDataValues& meanData = (*lane)->getMeanData(myIndex);
+            // calculate mean data
+            double traveltime = -42;
+            double meanSpeed = -43;
+            double meanDensity = -45;
+            if(meanData.nVehContributed==0) {
+                assert((*lane)->myMaxSpeed!=0);
+                traveltime = (*lane)->myLength / (*lane)->myMaxSpeed;
+                meanSpeed = (*lane)->myMaxSpeed;
+                meanDensity = 0;
+            } else {
+                meanSpeed = meanData.speedSum / (double) meanData.nVehContributed;
+                if(meanSpeed==0) {
+                    traveltime = std::numeric_limits<float>::max() / 100.;
+                } else {
+                    traveltime = (*lane)->myLength / meanSpeed;
+                }
+                assert((double) (stopTime-startTime+1)!=0);
+                assert((*lane)->myLength!=0);
+                meanDensity = (double) meanData.nVehContributed /
+                    (double) (stopTime-startTime+1) / (*lane)->myLength * 1000.0;
+            }
+            traveltimeS += traveltime;
+            meanSpeedS += meanSpeed;
+            meanDensityS += meanDensity;
+            noStopsS += meanData.haltSum;
+            nVehS += meanData.nVehContributed;
+            meanData.reset();
+        }
+        assert(lanes->size()!=0);
+        dev.writeString("      <edge id=\"").writeString(edge.id()).writeString(
+            "\" traveltime=\"").writeString(toString(traveltimeS/(float) lanes->size())).writeString(
+            "\" noVehContrib=\"").writeString(toString(nVehS)).writeString(
+            "\" density=\"").writeString(toString(meanDensityS/(float) lanes->size())).writeString(
+            "\" noStops=\"").writeString(toString(noStopsS)).writeString(
+            "\" speed=\"").writeString(toString(meanSpeedS/(float) lanes->size())).writeString(
+            "\"/>\n");
     }
-    dev.writeString("   </edge>\n");
 }
 
 
@@ -119,53 +174,6 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
     double meanSpeed = -43;
     double meanSpeedSquare = -44;
     double meanDensity = -45;
-/*
-    assert( meanData.nVehEntireLane <= meanData.nVehContributed );
-
-    if ( meanData.nVehContributed > 0 ) {
-
-        double intervallLength = myInterval * MSNet::deltaT();
-
-        if(meanData.contTimestepSum!=0) {
-            meanSpeed   = meanData.speedSum / meanData.contTimestepSum;
-            meanSpeedSquare = meanData.speedSquareSum / meanData.contTimestepSum;
-        } else {
-            meanSpeed   = lane.myMaxSpeed;
-            meanSpeedSquare = -1;
-        }
-
-        meanDensity = ( meanData.discreteTimestepSum * MSNet::deltaT() ) /
-            intervallLength / lane.myLength * 1000.0;
-
-        // only vehicles that used the lane entirely contribute to traveltime
-        if ( meanData.nVehEntireLane > 0 ) {
-            assert(meanData.nVehEntireLane!=0);
-            traveltime = meanData.traveltimeStepSum * MSNet::deltaT() /
-                meanData.nVehEntireLane;
-            assert( traveltime >= lane.myLength / lane.myMaxSpeed );
-
-        }
-        else {
-            // no vehicle left the lane within intervall.
-            // Calculate the traveltime using the measured meanSpeed
-            if(meanSpeed==0) {
-                meanSpeed   = lane.myMaxSpeed;
-                meanSpeedSquare = -1;
-                meanDensity = 0;
-            }
-            assert(meanSpeed!=0);
-            traveltime  = lane.myLength / meanSpeed;
-        }
-    }
-    else { // no vehicles visited the lane within intervall
-
-        meanSpeed   = lane.myMaxSpeed;
-        traveltime  = lane.myLength / meanSpeed;
-        meanSpeedSquare = -1;
-        meanDensity = 0;
-
-    }
-    */
 
     if(meanData.nVehContributed==0) {
         traveltime = lane.myLength / lane.myMaxSpeed;
@@ -174,7 +182,7 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
     } else {
         meanSpeed = meanData.speedSum / (double) meanData.nVehContributed;
         if(meanSpeed==0) {
-            traveltime = std::numeric_limits<double>::max();
+            traveltime = std::numeric_limits<float>::max() / 100.;
         } else {
             traveltime = lane.myLength / meanSpeed;
         }
@@ -186,18 +194,10 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
         "\" traveltime=\"").writeString(toString(traveltime)).writeString(
         "\" noVehContrib=\"").writeString(toString(meanData.nVehContributed)).writeString(
         "\" density=\"").writeString(toString(meanDensity)).writeString(
-        "\" noStops=\"").writeString(toString(meanDensity)).writeString(
-        "\" speed=\"").writeString(toString(meanData.haltSum)).writeString(
-        /*
-        "\" speedsquare=\"").writeString(toString(meanSpeedSquare)).writeString(
-        "\" density=\"").writeString(toString(meanDensity)).writeString(
-        "\" noVehContrib=\"").writeString(toString(meanData.nVehContributed)).writeString(
-        "\" noVehEntire=\"").writeString(toString(meanData.nVehEntireLane)).writeString(
-        "\" noVehEntered=\"").writeString(toString(meanData.nVehEnteredLane)).writeString(
-        "\" noVehLeft=\"").writeString(toString(meanData.nVehLeftLane)).writeString(
-        */
+        "\" noStops=\"").writeString(toString(meanData.haltSum)).writeString(
+        "\" speed=\"").writeString(toString(meanSpeed)).writeString(
         "\"/>\n");
-    const_cast< MSLane& >( lane ).resetMeanData( myIndex );
+    meanData.reset();
 }
 
 
