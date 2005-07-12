@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/07/12 12:09:36  dkrajzew
+// false config inclusion patched; code style adapted
+//
 // Revision 1.14  2005/05/04 07:48:52  dkrajzew
 // ported to fox1.4
 //
@@ -92,7 +95,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <utils/geom/Position2D.h>
