@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2005/07/12 12:36:12  dkrajzew
+// made errors on detector building more readable
+//
 // Revision 1.14  2005/05/04 08:39:46  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -29,7 +32,8 @@
 // new detectors usage applied
 //
 // Revision 1.11  2004/04/02 11:23:52  dkrajzew
-// extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
+// extended traffic lights are now no longer templates; MSNet now handles
+//  all simulation-wide output
 //
 // Revision 1.10  2004/02/18 05:32:51  dkrajzew
 // missing pass of lane continuation to detector builder added
@@ -38,7 +42,9 @@
 // loading of e2-link-dependent detectors added
 //
 // Revision 1.8  2004/01/26 07:07:36  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+// work on detectors: e3-detectors loading and visualisation; variable offsets
+//  and lengths for lsa-detectors; coupling of detectors to tl-logics;
+//  different detector visualistaion in dependence to his controller
 //
 // Revision 1.7  2004/01/12 14:46:21  dkrajzew
 // handling of e2-detectors within the gui added
@@ -282,7 +288,8 @@ public:
 
 protected:
     /// @brief Returns the named lane; throws an exception if the lane does not exist
-    MSLane *getLaneChecking(const std::string &id);
+    MSLane *getLaneChecking(const std::string &id,
+        const std::string &detid);
 
     /// Converts the length and the position information for an uncontiuating detector
     void convUncontE2PosLength(const std::string &id, MSLane *clane,

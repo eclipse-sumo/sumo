@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.25  2005/07/12 12:36:11  dkrajzew
+// made errors on detector building more readable
+//
 // Revision 1.24  2005/05/04 08:39:45  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -197,20 +200,21 @@ NLDetectorBuilder::~NLDetectorBuilder()
 
 void
 NLDetectorBuilder::buildInductLoop(const std::string &id,
-        const std::string &lane, double pos, int splInterval,
-        OutputDevice *device, const std::string &/*style*/)
+                const std::string &lane, double pos, int splInterval,
+                OutputDevice *device, const std::string &/*style*/)
 {
      // get the output style
 //   MSDetector::OutputStyle cstyle = convertStyle(id, style);
      // check whether the file must be converted into a relative path
     // get and check the lane
-    MSLane *clane = getLaneChecking(lane);
+    MSLane *clane = getLaneChecking(lane, id);
     // compute position
     if(pos<0) {
         pos = clane->length() + pos;
     }
     if(pos>clane->length()) {
-        throw InvalidArgument("The position lies beyond the lane's length.");
+        throw InvalidArgument("The position of detector '" + id
+            + "' lies beyond the lane's '" + lane + "' length.");
     }
     // build the loop
     MSInductLoop *loop = createInductLoop(id, clane, pos, splInterval);
@@ -224,18 +228,18 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
 
 void
 NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
-        const std::string &id,
-        const std::string &lane, double pos, double length,
-        bool cont, int splInterval,
-        const std::string &style,
-        OutputDevice *device,
-        const std::string &measures,
-        MSUnit::Seconds haltingTimeThreshold,
-        MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Meters jamDistThreshold,
-        SUMOTime deleteDataAfterSeconds )
+                const std::string &id,
+                const std::string &lane, double pos, double length,
+                bool cont, int splInterval,
+                const std::string &style,
+                OutputDevice *device,
+                const std::string &measures,
+                MSUnit::Seconds haltingTimeThreshold,
+                MSUnit::MetersPerSecond haltingSpeedThreshold,
+                MSUnit::Meters jamDistThreshold,
+                SUMOTime deleteDataAfterSeconds )
 {
-    MSLane *clane = getLaneChecking(lane);
+    MSLane *clane = getLaneChecking(lane, id);
     // check whether the detector may lie over more than one lane
     MSDetectorFileOutput *det = 0;
     if(!cont) {
@@ -263,17 +267,17 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
 
 void
 NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
-        const std::string &id,
-        const std::string &lane, double pos, double length,
-        bool cont, MSTrafficLightLogic *tll,
-        const std::string &style, OutputDevice *device,
-        const std::string &measures,
-        MSUnit::Seconds haltingTimeThreshold,
-        MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Meters jamDistThreshold,
-        SUMOTime deleteDataAfterSeconds )
+                const std::string &id,
+                const std::string &lane, double pos, double length,
+                bool cont, MSTrafficLightLogic *tll,
+                const std::string &style, OutputDevice *device,
+                const std::string &measures,
+                MSUnit::Seconds haltingTimeThreshold,
+                MSUnit::MetersPerSecond haltingSpeedThreshold,
+                MSUnit::Meters jamDistThreshold,
+                SUMOTime deleteDataAfterSeconds )
 {
-    MSLane *clane = getLaneChecking(lane);
+    MSLane *clane = getLaneChecking(lane, id);
     // check whether the detector may lie over more than one lane
     MSDetectorFileOutput *det = 0;
     if(!cont) {
@@ -299,19 +303,19 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
 
 void
 NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
-        const std::string &id,
-        const std::string &lane, double pos, double length,
-        bool cont, MSTrafficLightLogic *tll,
-        const std::string &tolane,
-        const std::string &style, OutputDevice *device,
-        const std::string &measures,
-        MSUnit::Seconds haltingTimeThreshold,
-        MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Meters jamDistThreshold,
-        SUMOTime deleteDataAfterSeconds )
+                const std::string &id,
+                const std::string &lane, double pos, double length,
+                bool cont, MSTrafficLightLogic *tll,
+                const std::string &tolane,
+                const std::string &style, OutputDevice *device,
+                const std::string &measures,
+                MSUnit::Seconds haltingTimeThreshold,
+                MSUnit::MetersPerSecond haltingSpeedThreshold,
+                MSUnit::Meters jamDistThreshold,
+                SUMOTime deleteDataAfterSeconds )
 {
-    MSLane *clane = getLaneChecking(lane);
-    MSLane *ctoLane = getLaneChecking(tolane);
+    MSLane *clane = getLaneChecking(lane, id);
+    MSLane *ctoLane = getLaneChecking(tolane, id);
     MSLink *link = MSLinkContHelper::getConnectingLink(*clane, *ctoLane);
     if(link==0) {
         throw InvalidArgument(
@@ -384,11 +388,11 @@ NLDetectorBuilder::convContE2PosLength(const std::string &id, MSLane *clane,
 
 void
 NLDetectorBuilder::beginE3Detector(const std::string &id,
-        OutputDevice *device, int splInterval,
-        const std::string &measures,
-        MSUnit::Seconds haltingTimeThreshold,
-        MSUnit::MetersPerSecond haltingSpeedThreshold,
-        SUMOTime deleteDataAfterSeconds)
+                OutputDevice *device, int splInterval,
+                const std::string &measures,
+                MSUnit::Seconds haltingTimeThreshold,
+                MSUnit::MetersPerSecond haltingSpeedThreshold,
+                SUMOTime deleteDataAfterSeconds)
 {
     E3MeasuresVector toAdd = parseE3Measures(measures);
     myE3Definition = new E3DetectorDefinition(id, device,
@@ -398,9 +402,10 @@ NLDetectorBuilder::beginE3Detector(const std::string &id,
 
 
 void
-NLDetectorBuilder::addE3Entry(const std::string &lane, double pos)
+NLDetectorBuilder::addE3Entry(const std::string &lane,
+                              double pos)
 {
-    MSLane *clane = getLaneChecking(lane);
+    MSLane *clane = getLaneChecking(lane, myE3Definition->myID);
     if(myE3Definition==0) {
         throw InvalidArgument("Something is wrong with a detector description.");
     }
@@ -412,9 +417,10 @@ NLDetectorBuilder::addE3Entry(const std::string &lane, double pos)
 
 
 void
-NLDetectorBuilder::addE3Exit(const std::string &lane, double pos)
+NLDetectorBuilder::addE3Exit(const std::string &lane,
+                             double pos)
 {
-    MSLane *clane = getLaneChecking(lane);
+    MSLane *clane = getLaneChecking(lane, myE3Definition->myID);
     if(myE3Definition==0) {
         throw InvalidArgument("Something is wrong with a detector description.");
     }
@@ -423,7 +429,6 @@ NLDetectorBuilder::addE3Exit(const std::string &lane, double pos)
     }
     myE3Definition->myExits.push_back(MSCrossSection(clane, pos));
 }
-
 
 
 void
@@ -456,13 +461,13 @@ NLDetectorBuilder::endE3Detector()
 
 MSE2Collector *
 NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
-                                        DetectorUsage usage,
-                                        MSLane *lane, double pos, double length,
-                                        MSUnit::Seconds haltingTimeThreshold,
-                                        MSUnit::MetersPerSecond haltingSpeedThreshold,
-                                        MSUnit::Meters jamDistThreshold,
-                                        SUMOTime deleteDataAfterSeconds,
-                                        const std::string &measures)
+                    DetectorUsage usage,
+                    MSLane *lane, double pos, double length,
+                    MSUnit::Seconds haltingTimeThreshold,
+                    MSUnit::MetersPerSecond haltingSpeedThreshold,
+                    MSUnit::Meters jamDistThreshold,
+                    SUMOTime deleteDataAfterSeconds,
+                    const std::string &measures)
 {
     MSE2Collector *ret = createSingleLaneE2Detector(id, usage, lane, pos,
         length, haltingTimeThreshold, haltingSpeedThreshold,
@@ -477,14 +482,14 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
 
 MS_E2_ZS_CollectorOverLanes *
 NLDetectorBuilder::buildMultiLaneE2Det(const SSVMap &laneConts,
-                                       const std::string &id,
-                                       DetectorUsage usage,
-                                       MSLane *lane, double pos, double length,
-                                       MSUnit::Seconds haltingTimeThreshold,
-                                       MSUnit::MetersPerSecond haltingSpeedThreshold,
-                                       MSUnit::Meters jamDistThreshold ,
-                                       SUMOTime deleteDataAfterSeconds,
-                                       const std::string &measures)
+                    const std::string &id,
+                    DetectorUsage usage,
+                    MSLane *lane, double pos, double length,
+                    MSUnit::Seconds haltingTimeThreshold,
+                    MSUnit::MetersPerSecond haltingSpeedThreshold,
+                    MSUnit::Meters jamDistThreshold ,
+                    SUMOTime deleteDataAfterSeconds,
+                    const std::string &measures)
 {
     MS_E2_ZS_CollectorOverLanes *ret = createMultiLaneE2Detector(id, usage,
         lane, pos, haltingTimeThreshold, haltingSpeedThreshold,
@@ -647,13 +652,14 @@ MSDetector::OutputStyle NLDetectorBuilder::convertStyle(const std::string &id,
 
 
 MSLane *
-NLDetectorBuilder::getLaneChecking(const std::string &id)
+NLDetectorBuilder::getLaneChecking(const std::string &id,
+                                   const std::string &detid)
 {
     // get and check the lane
     MSLane *clane = MSLane::dictionary(id);
     if(clane==0) {
         throw InvalidArgument(
-            string("On detector building:\n")
+            string("While building detector '") + detid + ("':\n")
             + string("The lane with the id '") + id
             + string("' is not known."));
     }
