@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.18  2005/07/12 12:21:57  dkrajzew
+// debugging vehicle emission
+//
 // Revision 1.17  2005/05/04 08:23:52  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; speed-ups by checked emission and avoiding looping over all edges
 //
@@ -147,7 +150,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSEdge.h"
@@ -158,6 +161,7 @@ namespace
 #include <algorithm>
 #include <iostream>
 #include <cassert>
+#include "MSVehicle.h"
 
 
 /* =========================================================================
@@ -409,11 +413,28 @@ MSEdge::emit(MSVehicle &v)
         return myDepartLane->emit(v);
     } else {
         const LaneCont &lanes =  v.departLanes();
-        for(LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); i++) {
-            if(myDepartLane->emit(v)) {
-                return true;
+        int minI = 0;
+        int ir = 0;
+        int noCars = (*getLanes())[0]->length();
+        {
+            for(LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); i++, ir++) {
+                if((*i)->getVehicleNumber()<noCars) {
+                    minI = ir;
+                    noCars = (*i)->getVehicleNumber();
+                }
             }
         }
+        if(lanes[minI]->emit(v)) {
+            return true;
+        } else {
+            ir = 0;
+            for(LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); i++, ir++) {
+                if(ir!=minI&&(*i)->emit(v)) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 }

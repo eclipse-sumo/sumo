@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/07/12 12:26:29  dkrajzew
+// debugging vehicle emission
+//
 // Revision 1.8  2005/05/04 07:55:29  dkrajzew
 // added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
 //
@@ -147,6 +150,9 @@ MSSourceLane::emitTry( MSVehicle& veh )
     veh.enterLaneAtEmit( this );
     myVehicles.push_front( &veh );
     myUseDefinition->noVehicles++;
+    MSVehicle::State state;
+    state.setPos( myLength>1 ? myLength - 1. : 0 );
+    veh.moveSetState( state );
     assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
     if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {

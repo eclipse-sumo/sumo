@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/07/12 12:21:56  dkrajzew
+// debugging vehicle emission
+//
 // Revision 1.7  2005/07/12 12:14:39  dkrajzew
 // edge-based mean data implemented; previous lane-based is now optional
 //
@@ -165,8 +168,7 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
                           SUMOTime startTime, SUMOTime stopTime)
 {
     assert(lane.myMeanData.size()>myIndex);
-    const MSLaneMeanDataValues& meanData = lane.myMeanData[ myIndex ];
-
+    MSLaneMeanDataValues& meanData = lane.getMeanData(myIndex);
 //    const_cast< MSLane& >( lane ).collectVehicleData( myIndex );
 
     // calculate mean data
