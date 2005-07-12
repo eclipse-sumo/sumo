@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/07/12 11:55:37  dkrajzew
+// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
+//
 // Revision 1.2  2005/05/04 09:14:54  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -83,6 +86,7 @@ namespace
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
@@ -156,6 +160,7 @@ GUIDialog_GLChosenEditor::GUIDialog_GLChosenEditor(GUIMainWindow *parent,
     new FXButton(layout, "Close\t\t", 0, this, MID_CANCEL,
         ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
         0, 0, 0, 0, 4, 4, 3, 3);
+    setIcon( GUIIconSubSys::getIcon(ICON_APP_SELECTOR) );
 }
 
 

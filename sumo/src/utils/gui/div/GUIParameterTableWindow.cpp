@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/07/12 11:55:37  dkrajzew
+// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
+//
 // Revision 1.1  2004/11/23 10:38:29  dkrajzew
 // debugging
 //
@@ -81,6 +84,7 @@ namespace
 #include <utils/gui/div/GUIParam_PopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 
 
 /* =========================================================================
@@ -131,6 +135,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow &app,
     header->setItemSize(1, 80);
     header->setItemJustify(2, JUSTIFY_CENTER_X);
     header->setItemSize(2, 60);
+    setIcon( GUIIconSubSys::getIcon(ICON_APP_TABLE) );
 }
 
 

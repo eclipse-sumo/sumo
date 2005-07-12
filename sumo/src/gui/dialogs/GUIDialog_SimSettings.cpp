@@ -1,15 +1,49 @@
+//---------------------------------------------------------------------------//
+//                        GUIDialog_SimSettings.cpp -
+//
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Tue, 29.05.2005
+//  copyright            : (C) 2005 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
+
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.4  2005/07/12 11:55:37  dkrajzew
+// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
+//
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #include "GUIDialog_SimSettings.h"
 
 #include <utils/gui/windows/GUIAppEnum.h>
 
 
-
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 FXDEFMAP(GUIDialog_SimSettings) GUIDialog_SimSettingsMap[]=
 {
     //________Message_Type____________ID________________________Message_Handler________
@@ -98,3 +132,8 @@ GUIDialog_SimSettings::onCmdAllowAggregated(FXObject*,FXSelector,void*)
     return 1;
 }
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/07/12 11:55:37  dkrajzew
+// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
+//
 // Revision 1.4  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
@@ -93,11 +96,14 @@ public:
     /// Returns the chosen (selected) object
     GUIGlObject *getObject() const;
 
-    /// Closes the window
-    FXbool close(FXbool notify=FALSE);
-
+    /// The selected item shall be centered within the calling view
     long onCmdCenter(FXObject*,FXSelector,void*);
-    long onCmdCancel(FXObject*,FXSelector,void*);
+
+    /// The dialog shall be closed
+    long onCmdClose(FXObject*,FXSelector,void*);
+
+    /// Somthing has been typed into the tet field
+    long onCmdTextChanged(FXObject*,FXSelector,void*);
 
 private:
     /// the list that holds the ids
@@ -112,7 +118,11 @@ private:
     /// the parent window
     GUISUMOViewParent *myParent;
 
+    /// The text field
+    FXTextField *myTextEntry;
+
 protected:
+    /// FOX needs this
     GUIDialog_GLObjChooser() { }
 
 };

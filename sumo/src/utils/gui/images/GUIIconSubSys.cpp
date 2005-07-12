@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/07/12 11:55:37  dkrajzew
+// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
+//
 // Revision 1.5  2005/05/04 09:21:10  dkrajzew
 // adding of surrounding lanes to selection added; entries for viewport definition added
 //
@@ -75,6 +78,13 @@ namespace
 #include "new_window.xpm"
 #include "document.xpm"
 
+#include "app_tracker.xpm"
+#include "app_finder.xpm"
+#include "app_breakpoints.xpm"
+#include "app_tlstracker.xpm"
+#include "app_table.xpm"
+#include "app_selector.xpm"
+
 #include "locate.xpm"
 #include "locate_junction.xpm"
 #include "locate_edge.xpm"
@@ -124,7 +134,7 @@ namespace
 #include "windows_cascade.xpm"
 #include "windows_tile_vertically.xpm"
 #include "windows_tile_horizontally.xpm"
-#include "reload.cpp"
+#include "reload.xpm"
 #include "manip.cpp"
 #include "camera.xpm"
 
@@ -159,7 +169,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     // build icons
     myIcons[ICON_APP] = new FXXPMIcon(a, document_xpm);
     myIcons[ICON_OPEN] = new FXXPMIcon(a, fileopen_xpm);
-    myIcons[ICON_RELOAD] = new FXGIFIcon(a, reload);
+    myIcons[ICON_RELOAD] = new FXXPMIcon(a, reload_xpm);
     myIcons[ICON_SAVE] = new FXXPMIcon(a, filesave_xpm);
     myIcons[ICON_CLOSE] = 0;//new FXXPMIcon(a, close);
     myIcons[ICON_START] = new FXXPMIcon(a, play_xpm);
@@ -171,6 +181,13 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     myIcons[ICON_SHOWLEGEND] = new FXXPMIcon(a, show_legend_xpm);
     myIcons[ICON_ALLOWROTATION] = new FXXPMIcon(a, allow_rotation_xpm);
     myIcons[ICON_EDITVIEWPORT] = new FXXPMIcon(a, magnify_xpm);
+
+    myIcons[ICON_APP_TRACKER] = new FXXPMIcon(a, app_tracker_xpm);
+    myIcons[ICON_APP_FINDER] = new FXXPMIcon(a, app_finder_xpm);
+    myIcons[ICON_APP_BREAKPOINTS] = new FXXPMIcon(a, app_breakpoints_xpm);
+    myIcons[ICON_APP_TLSTRACKER] = new FXXPMIcon(a, app_tlstracker_xpm);
+    myIcons[ICON_APP_TABLE] = new FXXPMIcon(a, app_table_xpm);
+    myIcons[ICON_APP_SELECTOR] = new FXXPMIcon(a, app_selector_xpm);
 
     myIcons[ICON_LOCATE] = new FXXPMIcon(a, locate_xpm);
     myIcons[ICON_LOCATEJUNCTION] = new FXXPMIcon(a, locate_junction_xpm);
@@ -195,23 +212,23 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     // manipulate
     myIcons[ICON_MANIP] = new FXGIFIcon(a, manip);
     myIcons[ICON_CAMERA] = new FXXPMIcon(a, camera_xpm);
-    myIcons[ICON_EXTRACT] = new FXXPMIcon(a, extract_streets_xpm);
-    myIcons[ICON_DILATE] = new FXXPMIcon(a, dilate_xpm);
-    myIcons[ICON_ERODE] = new FXXPMIcon(a, erode_xpm);
-    myIcons[ICON_OPENING] = new FXXPMIcon(a, opening_xpm);
-    myIcons[ICON_CLOSING] = new FXXPMIcon(a, closing_xpm);
+	myIcons[ICON_EXTRACT] = new FXXPMIcon(a, extract_streets_xpm);
+	myIcons[ICON_DILATE] = new FXXPMIcon(a, dilate_xpm);
+	myIcons[ICON_ERODE] = new FXXPMIcon(a, erode_xpm);
+	myIcons[ICON_OPENING] = new FXXPMIcon(a, opening_xpm);
+	myIcons[ICON_CLOSING] = new FXXPMIcon(a, closing_xpm);
     myIcons[ICON_ERASE_STAINS] = new FXXPMIcon(a, erase_stains_xpm);
-    myIcons[ICON_CLOSE_GAPS] = new FXXPMIcon(a, close_gaps_xpm);
-    myIcons[ICON_SKELETONIZE] = new FXXPMIcon(a, skeletonize_xpm);
-    myIcons[ICON_RARIFY] = new FXXPMIcon(a, rarify_xpm);
-    myIcons[ICON_CREATE_GRAPH] = new FXXPMIcon(a, create_graph_xpm);
-    myIcons[ICON_OPEN_BMP_DIALOG] = new FXXPMIcon(a, open_bmp_dialog_xpm);
-    myIcons[ICON_EYEDROP] = new FXXPMIcon(a, eyedrop_xpm);
-    myIcons[ICON_PAINTBRUSH1X] = new FXXPMIcon(a, paintbrush1x_xpm);
-    myIcons[ICON_PAINTBRUSH2X] = new FXXPMIcon(a, paintbrush2x_xpm);
-    myIcons[ICON_PAINTBRUSH3X] = new FXXPMIcon(a, paintbrush3x_xpm);
-    myIcons[ICON_PAINTBRUSH4X] = new FXXPMIcon(a, paintbrush4x_xpm);
-    myIcons[ICON_PAINTBRUSH5X] = new FXXPMIcon(a, paintbrush5x_xpm);
+	myIcons[ICON_CLOSE_GAPS] = new FXXPMIcon(a, close_gaps_xpm);
+	myIcons[ICON_SKELETONIZE] = new FXXPMIcon(a, skeletonize_xpm);
+	myIcons[ICON_RARIFY] = new FXXPMIcon(a, rarify_xpm);
+	myIcons[ICON_CREATE_GRAPH] = new FXXPMIcon(a, create_graph_xpm);
+	myIcons[ICON_OPEN_BMP_DIALOG] = new FXXPMIcon(a, open_bmp_dialog_xpm);
+	myIcons[ICON_EYEDROP] = new FXXPMIcon(a, eyedrop_xpm);
+	myIcons[ICON_PAINTBRUSH1X] = new FXXPMIcon(a, paintbrush1x_xpm);
+	myIcons[ICON_PAINTBRUSH2X] = new FXXPMIcon(a, paintbrush2x_xpm);
+	myIcons[ICON_PAINTBRUSH3X] = new FXXPMIcon(a, paintbrush3x_xpm);
+	myIcons[ICON_PAINTBRUSH4X] = new FXXPMIcon(a, paintbrush4x_xpm);
+	myIcons[ICON_PAINTBRUSH5X] = new FXXPMIcon(a, paintbrush5x_xpm);
 	myIcons[ICON_RUBBER1X] = new FXXPMIcon(a, rubber1x_xpm);
 	myIcons[ICON_RUBBER2X] = new FXXPMIcon(a, rubber2x_xpm);
 	myIcons[ICON_RUBBER3X] = new FXXPMIcon(a, rubber3x_xpm);

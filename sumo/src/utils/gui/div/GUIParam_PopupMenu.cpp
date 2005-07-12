@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/07/12 11:55:37  dkrajzew
+// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
+//
 // Revision 1.1  2004/11/23 10:38:29  dkrajzew
 // debugging
 //
@@ -114,8 +117,9 @@ GUIParam_PopupMenu::~GUIParam_PopupMenu()
 long
 GUIParam_PopupMenu::onCmdOpenTracker(FXObject*,FXSelector,void*)
 {
+    string trackerName = myVarName + " from " + myObject->getFullName();
     GUIParameterTracker *tr = new GUIParameterTracker(*myApplication,
-        myVarName, *myObject, 0, 0);
+        trackerName, *myObject, 0, 0);
     TrackerValueDesc *newTracked = new TrackerValueDesc(
         myVarName, RGBColor(0, 0, 0), myObject, myApplication->getCurrentSimTime());
     tr->addTracked(*myObject, mySource->copy(), newTracked);

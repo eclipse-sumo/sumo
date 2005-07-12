@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/07/12 11:55:37  dkrajzew
+// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
+//
 // Revision 1.1  2004/11/23 10:38:31  dkrajzew
 // debugging
 //
@@ -53,14 +56,6 @@ namespace
 #include "pr_1.xpm"
 #include "pr_2.xpm"
 #include "pr_3.xpm"
-#include <utils/fonts/arial11.h>
-#include <utils/fonts/arial10.h>
-#include <utils/fonts/arial9.h>
-#include <utils/fonts/arial8.h>
-#include <utils/fonts/arial7.h>
-#include <utils/fonts/arial6.h>
-#include <utils/fonts/arial5.h>
-
 #include "GUIImageGlobals.h"
 
 #ifdef _WIN32
@@ -79,8 +74,6 @@ bool GUITexturesHelper::myWasInitialised = false;
 FXApp* GUITexturesHelper::myApp = 0;
 size_t GUITexturesHelper::myTextureIDs[TEXTURE_MAX];
 FXImage *GUITexturesHelper::myTextures[TEXTURE_MAX];
-FontStorage GUITexturesHelper::myFonts;
-LFontRenderer GUITexturesHelper::myFontRenderer;
 
 
 /* =========================================================================
@@ -100,24 +93,8 @@ GUITexturesHelper::assignTextures()
     if(myWasInitialised) {
         return;
     }
-    // initialise font drawing
-    myFonts.add("std11", arial11);
-    myFonts.add("std10", arial10);
-    myFonts.add("std9", arial9);
-    myFonts.add("std8", arial8);
-    myFonts.add("std7", arial7);
-    myFonts.add("std6", arial6);
-    myFonts.add("std5", arial5);
-    myFontRenderer.add(myFonts.get("std11"));
-    myFontRenderer.add(myFonts.get("std10"));
-    myFontRenderer.add(myFonts.get("std9"));
-    myFontRenderer.add(myFonts.get("std8"));
-    myFontRenderer.add(myFonts.get("std7"));
-    myFontRenderer.add(myFonts.get("std6"));
-    myFontRenderer.add(myFonts.get("std5"));
-
     // check whether other textures shall be used
-    myWasInitialised = true;
+	myWasInitialised = true;
     if(!gAllowTextures) {
         return;
     }
@@ -191,16 +168,6 @@ GUITexturesHelper::drawTexturedBox(GUITexture which,
     glVertex2d(sizeX2, sizeY2);
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-
-LFontRenderer &
-GUITexturesHelper::getFontRenderer()
-{
-    if(!myWasInitialised) {
-        assignTextures();
-    }
-    return myFontRenderer;
 }
 
 

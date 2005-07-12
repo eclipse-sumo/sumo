@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/07/12 11:55:38  dkrajzew
+// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
+//
 // Revision 1.4  2005/05/04 09:22:32  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -72,6 +75,8 @@ namespace
 #include <guisim/GUITrafficLightLogicWrapper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/glutils/polyfonts.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -116,7 +121,6 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     myConnector = new GLObjectValuePassConnector<CompletePhaseDef>
         (wrapper, src, this);
     size_t height = myTLLogic->getLinks().size() * 20 + 30;
-    setTitle("TLS-Tracker");
     app.addChild(this, true);
     for(size_t i=0; i<myTLLogic->getLinks().size(); i++) {
         myLinkNames.push_back(toString<size_t>(i));
@@ -127,6 +131,8 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
             0,0,0,0,0,0,0,0);
     myPanel = new
         GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
+    setTitle((logic.id()+"-tracker").c_str());
+    setIcon( GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER) );
 }
 
 
@@ -163,6 +169,8 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
         myDurations.push_back((*j)->duration);
         myLastTime += (*j)->duration;
     }
+    setTitle((logic.id()+"-tracker").c_str());
+    setIcon( GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER) );
 }
 
 
@@ -205,32 +213,38 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
     size_t run = 0;
     // draw the horizontal lines dividing the signal groups
     glColor3d(1, 1, 1);
-    GUITexturesHelper::getFontRenderer().SetColor(1, 1, 1);
     // compute some values needed more than once
     double height = (double) caller.getHeightInPixels();
     double width = (double) caller.getWidthInPixels();
+    pfSetScaleXY(.08*300./width, .08*300./height);
     double h4 = ((double) 4 / height);
     double h10 = ((double) 10 / height);
     double h16 = ((double) 16 / height);
     double h20 = ((double) 20 / height);
     // draw the link names and the lines dividing them
-    GUITexturesHelper::getFontRenderer().SetActiveFont("std10");
     double h = 1.0 - h10;
     double h2 = 12;
     size_t i;
-    glBegin(GL_LINES);
+
     for(i=0; i<myTLLogic->getLinks().size()+1; i++) {
         // draw the bar
+        glBegin(GL_LINES);
         glVertex2d(0, h);
         glVertex2d((double) 30 / width, h);
+        glEnd();
         // draw the name
         if(i<myTLLogic->getLinks().size()) {
-            GUITexturesHelper::getFontRenderer().StringOut(
-                (float) 2, (float) (h2 - h10), myLinkNames[i]);
+            glRotated(180, 1, 0, 0);
+                pfSetPosition(0, 0);
+                glTranslated(0.0, -h+h20-h4, 0);
+                pfDrawString(myLinkNames[i].c_str());
+                glTranslated(-0.0, h-h20+h4, 0);
+            glRotated(-180, 1, 0, 0);
             h2 += 20;
         }
         h -= h20;
     }
+    glBegin(GL_LINES);
     glVertex2d(0, h+h20);
     glVertex2d(1.0, h+h20);
     glEnd();
@@ -320,22 +334,26 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
     // allow value addition
     myLock.unlock();
 
+    glColor3d(1, 1, 1);
     if(myPhases.size()!=0) {
-        GUITexturesHelper::getFontRenderer().SetActiveFont("std8");
         int tickDist = 20;
         // draw time information
         h = myTLLogic->getLinks().size() * 20 + 12;
         float glh = (float) (1.0 - myTLLogic->getLinks().size() * h20 - h10);
             // current begin time
         string timeStr = toString<SUMOTime>(myFirstTime2Show);
-        GUITexturesHelper::getFontRenderer().StringOut(
-            (float) (31-GUITexturesHelper::getFontRenderer().GetStringWidth(timeStr)),
-            (float) h, timeStr);
+        float w = pfdkGetStringWidth(timeStr.c_str());
+        pfSetScaleXY(.05*300./width, .05*300./height);
+        glRotated(180, 1, 0, 0);
+            pfSetPosition(0, 0);
+            glTranslated(30./width-w/2., -glh+h20-h4, 0);
+            pfDrawString(timeStr.c_str());
+            glTranslated(-30./width+w/2., glh-h20+h4, 0);
+        glRotated(-180, 1, 0, 0);
             // time ticks
         SUMOTime currTime = myFirstTime2Show;
         size_t pos = 31 + /*!!!currTime*/ - myFirstTime2Show;
         double glpos = (double) pos / (double) width;
-        glColor3d(1, 1, 1);
         while(pos<width+50) {
             double a = (double) tickDist / width;
             if(!myAmInTrackingMode) {
@@ -349,19 +367,20 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
             pos += (size_t) a2;
             currTime += tickDist;
             timeStr = toString<SUMOTime>(currTime);
-            GUITexturesHelper::getFontRenderer().StringOut(
-                (float) (pos-GUITexturesHelper::getFontRenderer().GetStringWidth(timeStr)),
-                (float) h, timeStr);
+            w = pfdkGetStringWidth(timeStr.c_str());
+            glRotated(180, 1, 0, 0);
+                pfSetPosition(0, 0);
+                glTranslated(glpos-w/2., -glh+h20-h4, 0);
+                pfDrawString(timeStr.c_str());
+                glTranslated(-glpos+w/2., glh-h20+h4, 0);
+            glRotated(-180, 1, 0, 0);
+
             glBegin(GL_LINES);
             glVertex2d(glpos, glh);
             glVertex2d(glpos, glh-h4);
             glEnd();
         }
     }
-
-    // set written strings
-    GUITexturesHelper::getFontRenderer().Draw(
-        caller.getWidthInPixels(), caller.getHeightInPixels());
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/07/12 11:55:38  dkrajzew
+// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
+//
 // Revision 1.5  2005/05/04 09:22:26  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -109,6 +112,7 @@ namespace
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/glutils/polyfonts.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -142,7 +146,8 @@ FXIMPLEMENT(GUIParameterTracker,FXMainWindow,GUIParameterTrackerMap,ARRAYNUMBER(
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app)
+GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
+                                         const std::string &name)
     : FXMainWindow(app.getApp(),"Tracker",NULL,NULL,DECOR_ALL,20,20,300,200),
     myApplication(&app)
 {
@@ -152,6 +157,8 @@ GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app)
         new FXVerticalFrame(this,FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,0,0,0,0);
     myPanel = new GUIParameterTrackerPanel(glcanvasFrame,
         *myApplication, *this);
+    setTitle(name.c_str());
+    setIcon( GUIIconSubSys::getIcon(ICON_APP_TRACKER) );
 }
 
 
@@ -163,7 +170,6 @@ GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
     myApplication(&app)
 {
     buildToolBar();
-    setTitle("Tracker");
     app.addChild(this, true);
     FXVerticalFrame *glcanvasFrame =
         new FXVerticalFrame(this,
@@ -171,6 +177,8 @@ GUIParameterTracker::GUIParameterTracker(GUIMainWindow &app,
         0,0,0,0,0,0,0,0);
     myPanel = new GUIParameterTrackerPanel(glcanvasFrame,
         *myApplication, *this);
+    setTitle(name.c_str());
+    setIcon( GUIIconSubSys::getIcon(ICON_APP_TRACKER) );
 }
 
 
@@ -197,7 +205,7 @@ GUIParameterTracker::create()
 
 void
 GUIParameterTracker::addVariable(GUIGlObject *o, const std::string &name,
-                                 size_t recordBegin)
+								 size_t recordBegin)
 {
     TrackerValueDesc *newTracked =
         new TrackerValueDesc(name, RGBColor(0, 0, 0), o, recordBegin);
@@ -410,10 +418,15 @@ void
 GUIParameterTracker::GUIParameterTrackerPanel::drawValues()
 {
     // compute which font to use
-    int fontIdx = (_widthInPixels-300) / 100;
-    if(fontIdx<0) fontIdx = 0;
+    /*
+    float fontIdx = ((float) _widthInPixels-300.) / 10.;
+    if(fontIdx<=0) fontIdx = 1;
     if(fontIdx>4) fontIdx = 4;
-    GUITexturesHelper::getFontRenderer().SetActiveFont(4-fontIdx);
+    */
+    pfSetScale(0.1);
+    pfSetScaleXY(.1*300./(float) _widthInPixels, .1*300./(float) _heightInPixels);
+
+//    GUITexturesHelper::getFontRenderer().SetActiveFont(4-fontIdx);
     //
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -427,7 +440,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues()
             (float) _widthInPixels / (float) myParent->myTracked.size() * (float) run);
         run++;
     }
-    GUITexturesHelper::getFontRenderer().Draw(_widthInPixels, _heightInPixels);//this, width, height);
+//    GUITexturesHelper::getFontRenderer().Draw(_widthInPixels, _heightInPixels);//this, width, height);
 }
 
 
@@ -451,19 +464,114 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     float green = (float) col.green();
     float blue = (float) col.blue();
     // draw value bounderies
-    glBegin( GL_LINES );
-    // draw value bounderies and descriptions
-    glColor4f(red, green, blue, 0.5f);
-    GUITexturesHelper::getFontRenderer().SetColor(red*0.5f, green*0.5f, blue*0.5f);
         // draw minimum boundary
+    glBegin( GL_LINES );
     glVertex2d(0, desc.getMin());
     glVertex2d(2.0, desc.getMin());
+    glEnd();
+    glBegin( GL_LINES );
+    glVertex2d(0, desc.getMax());
+    glVertex2d(2.0, desc.getMax());
+    glEnd();
+    glColor4f(red, green, blue, 0.3f);
+    for(int a=1; a<6; a++) {
+        double ypos = (desc.getRange()) / 6.0 * (double) a + desc.getMin();
+        glBegin( GL_LINES );
+        glVertex2d(0, ypos);
+        glVertex2d(2.0, ypos);
+        glEnd();
+    }
+    const std::vector<float> &values = desc.getAggregatedValues();
+    float latest = 0;
+    if(values.size()<2) {
+        glPopMatrix();
+        desc.unlockValues();
+        return;
+    } else {
+        latest = values[values.size()-1];
+        // init values
+        double xStep = 2.0 / ((double) values.size());
+        std::vector<float>::const_iterator i = values.begin();
+        double yp = (*i);
+        double xp = 0;
+        i++;
+        glColor4f(red, green, blue, 1.0f);
+        for(; i!=values.end(); i++) {
+            double yn = (*i);
+            double xn = xp + xStep;
+            glBegin( GL_LINES );
+            glVertex2d(xp, yp);
+            glVertex2d(xn, yn);
+            glEnd();
+            yp = yn;
+            xp = xn;
+        }
+        desc.unlockValues();
+        glPopMatrix();
+    }
+
+    // draw value bounderies and descriptions
+    glColor3f(red, green, blue);
+//    GUITexturesHelper::getFontRenderer().SetColor(red*0.5f, green*0.5f, blue*0.5f);
+
+    // draw min time
+    SUMOTime beginStep = desc.getRecordingBegin();
+    string begStr = StringUtils::trim(beginStep, 2);
+    float w = pfdkGetStringWidth(begStr.c_str());
+    glRotated(180, 1, 0, 0);
+        pfSetPosition(0, 0);
+        glTranslated(-0.8-w/2., 0.88, 0);
+        pfDrawString(begStr.c_str());
+        glTranslated(0.8+w/2., -0.88, 0);
+    glRotated(-180, 1, 0, 0);
+
+    // draw max time
+    glRotated(180, 1, 0, 0);
+        pfSetPosition(0, 0);
+        glTranslated(0.75, 0.88, 0);
+        pfDrawString(StringUtils::trim(beginStep + values.size()*desc.getAggregationSpan(), 2).c_str());
+        glTranslated(-0.75, -0.88, 0);
+    glRotated(-180, 1, 0, 0);
+
+    // draw min value
+    glRotated(180, 1, 0, 0);
+        pfSetPosition(0, 0);
+        glTranslated(-0.98, 0.82, 0);
+        pfDrawString(StringUtils::trim(desc.getMin(), 2).c_str());
+        glTranslated(0.98, -0.82, 0);
+    glRotated(-180, 1, 0, 0);
+
+    // draw max value
+    glRotated(180, 1, 0, 0);
+        pfSetPosition(0, 0);
+        glTranslated(-0.98, -0.78, 0);
+        pfDrawString(StringUtils::trim(desc.getMax(), 2).c_str());
+        glTranslated(0.98, 0.78, 0);
+    glRotated(-180, 1, 0, 0);
+
+    // draw current value
+    glRotated(180, 1, 0, 0);
+        pfSetPosition(0, 0);
+        double p = -0.8 + (1.6 / (desc.getMax()-desc.getMin()) * latest);
+        glTranslated(-0.98, -p+.02, 0);
+        pfDrawString(StringUtils::trim(latest, 2).c_str());
+        glTranslated(0.98, p-.02, 0);
+    glRotated(-180, 1, 0, 0);
+
+    // draw name
+    glRotated(180, 1, 0, 0);
+        pfSetPosition(0, 0);
+        glTranslated(-0.98, -.92, 0);
+        pfDrawString(desc.getName().c_str());
+        glTranslated(0.98, .92, 0);
+    glRotated(-180, 1, 0, 0);
+
+    /*
+
     GUITexturesHelper::getFontRenderer().StringOut(3,
         patchHeightVal(desc, desc.getMin()),
         StringUtils::trim(desc.getMin(), 2));
         // draw maximum boundary
-    glVertex2d(0, desc.getMax());
-    glVertex2d(2.0, desc.getMax());
     GUITexturesHelper::getFontRenderer().StringOut(3,
         patchHeightVal(desc, desc.getMax()),
         StringUtils::trim(desc.getMax(), 2));
@@ -471,10 +579,11 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     glColor4f(red, green, blue, 0.3f);
     for(int a=1; a<6; a++) {
         double ypos = (desc.getRange()) / 6.0 * (double) a + desc.getMin();
+        glBegin( GL_LINES );
         glVertex2d(0, ypos);
         glVertex2d(2.0, ypos);
+        glEnd();
     }
-    glEnd();
 
     const std::vector<float> &values = desc.getAggregatedValues();
     if(values.size()<2) {
@@ -491,19 +600,18 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     double yp = (*i);
     double xp = 0;
     i++;
-    // draw lines
-    glBegin( GL_LINES );
     // set color
     glColor4f(red, green, blue, 1.0f);
     for(; i!=values.end(); i++) {
         double yn = (*i);
         double xn = xp + xStep;
+        glBegin( GL_LINES );
         glVertex2d(xp, yp);
         glVertex2d(xn, yn);
+        glEnd();
         yp = yn;
         xp = xn;
     }
-    glEnd();
     desc.unlockValues();
     glPopMatrix();
     // set the begin and the end time step
@@ -528,6 +636,7 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
         patchHeightVal(desc, yp), StringUtils::trim(yp, 2));
     GUITexturesHelper::getFontRenderer().StringOut(namePos+3, 0,
         desc.getName());
+        */
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/07/12 11:55:37  dkrajzew
+// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
+//
 // Revision 1.4  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
@@ -72,6 +75,8 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
+#include <utils/gui/windows/GUIAppGlobals.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 
 
 /* =========================================================================
@@ -161,6 +166,8 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow *parent)
     new FXButton(layout, "Close\t\t", 0, this, MID_CANCEL,
         ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
         0, 0, 0, 0, 4, 4, 3, 3);
+
+    setIcon( GUIIconSubSys::getIcon(ICON_APP_BREAKPOINTS) );
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/07/12 11:55:38  dkrajzew
+// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
+//
 // Revision 1.3  2005/05/04 09:22:32  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -103,7 +106,7 @@ public:
         GUIGlObject &o, int xpos, int ypos);
 
     /// Constructor (the tracker is empty)
-    GUIParameterTracker(GUIMainWindow &app);
+    GUIParameterTracker(GUIMainWindow &app, const std::string &name);
 
     /// Destructor
     ~GUIParameterTracker();

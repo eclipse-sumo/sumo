@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/07/12 11:55:37  dkrajzew
+// fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
+//
 // Revision 1.6  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
@@ -66,7 +69,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -99,7 +102,9 @@ using namespace std;
 FXDEFMAP(GUIDialog_GLObjChooser) GUIDialog_GLObjChooserMap[]=
 {
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_CENTER, GUIDialog_GLObjChooser::onCmdCenter),
-    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,         GUIDialog_GLObjChooser::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,         GUIDialog_GLObjChooser::onCmdClose),
+    FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onCmdTextChanged),
+
 };
 
 FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARRAYNUMBER(GUIDialog_GLObjChooserMap))
@@ -118,8 +123,18 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
         new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,
         0,0,0,0);
     // build the list
-    myList = new FXList(hbox, 0, 0,
-        LAYOUT_FILL_X|LAYOUT_FILL_Y|LIST_SINGLESELECT);
+    FXVerticalFrame *layout1 = new FXVerticalFrame( hbox,
+        LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP,0,0,0,0,  4,4,4,4);
+    myTextEntry =
+        new FXTextField(layout1, 0, this, MID_CHOOSER_TEXT,
+            LAYOUT_FILL_X|FRAME_THICK|FRAME_SUNKEN);
+    FXVerticalFrame *style1 =
+        new FXVerticalFrame( layout1,
+            LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP|FRAME_THICK|FRAME_SUNKEN,
+            0,0,0,0,  0, 0, 0, 0);
+    myList =
+        new FXList(style1, 0, 0,
+            LAYOUT_FILL_X|LAYOUT_FILL_Y|LIST_SINGLESELECT|FRAME_SUNKEN|FRAME_THICK);
     std::vector<size_t> ids;
         // get the ids
     switch(type) {
@@ -173,11 +188,13 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
         0, 0, 0, 0, 4, 4, 4, 4);
 
     new FXHorizontalSeparator(layout,SEPARATOR_GROOVE|LAYOUT_FILL_X);
-    new FXButton(layout, "Cancel\t\t",
+    new FXButton(layout, "Close\t\t",
         GUIIconSubSys::getIcon(ICON_NO),
         this, MID_CANCEL,
         ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
         0, 0, 0, 0, 4, 4, 4, 4);
+
+    setIcon( GUIIconSubSys::getIcon(ICON_APP_FINDER) );
 }
 
 
@@ -195,27 +212,31 @@ GUIDialog_GLObjChooser::onCmdCenter(FXObject*,FXSelector,void*)
     } else {
         mySelected = 0;
     }
+    myParent->setView(mySelected);
+    return 1;
+}
+
+
+long
+GUIDialog_GLObjChooser::onCmdClose(FXObject*,FXSelector,void*)
+{
     close(true);
     return 1;
 }
 
 
 long
-GUIDialog_GLObjChooser::onCmdCancel(FXObject*,FXSelector,void*)
+GUIDialog_GLObjChooser::onCmdTextChanged(FXObject*,FXSelector,void*)
 {
-    mySelected = 0;
-    close(true);
-    return 1;
-}
-
-
-FXbool
-GUIDialog_GLObjChooser::close(FXbool notify)
-{
-    if(mySelected!=0) {
-        myParent->setView(mySelected);
+    int id = myList->findItem(myTextEntry->getText(), -1, SEARCH_PREFIX);
+    if(id<0) {
+        return 1;
     }
-    return FXMainWindow::close(notify);
+    myList->deselectItem(myList->getCurrentItem());
+    myList->makeItemVisible(id);
+    myList->selectItem(id);
+    myList->setCurrentItem(id, true);
+    return 1;
 }
 
 
