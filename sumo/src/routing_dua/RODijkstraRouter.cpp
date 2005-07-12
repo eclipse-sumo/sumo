@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/07/12 12:39:24  dkrajzew
+// forgetting to take time with patched
+//
 // Revision 1.3  2005/05/04 08:57:11  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -194,34 +197,35 @@ RODijkstraRouter::compute(ROEdge *from, ROEdge *to, SUMOTime time,
     if(from != 0) {
         EdgeInfo *ei = storage->add(actualKnot, 0, 0);
         frontierList.push(ei);
-    }
+	}
     // loop
-    while(!frontierList.empty()) {
+	while(!frontierList.empty()) {
         // use the node with the minimal length
         EdgeInfo *minimumKnot = frontierList.top();
+        ROEdge *minEdge = minimumKnot->edge;
         frontierList.pop();
             // check whether the destination node was already reached
-        if(minimumKnot->edge == to) {
-            ROEdgeVector ret = buildPathFrom(minimumKnot);
+        if(minEdge == to) {
+			ROEdgeVector ret = buildPathFrom(minimumKnot);
             clearTemporaryStorages(visited, storage);
             return ret;
         }
-        (*visited)[minimumKnot->edge->getIndex()] = true; //minimumKnot->setExplored(true);
+        (*visited)[minEdge->getIndex()] = true; //minimumKnot->setExplored(true);
         float effort = (float) (minimumKnot->effort
-            + minimumKnot->edge->getEffort(time));
-        // check all ways from the node with the minimal length
+			+ minEdge->getEffort(time + minimumKnot->effort));
+		// check all ways from the node with the minimal length
         size_t i = 0;
-        size_t length_size = minimumKnot->edge->getNoFollowing();
+        size_t length_size = minEdge->getNoFollowing();
         for(i=0; i<length_size; i++) {
-            ROEdge *help = minimumKnot->edge->getFollower(i);
+            ROEdge *help = minEdge->getFollower(i);
             if( !(*visited)[help->getIndex()] //&&//!help->isExplored() &&
                 && effort < storage->getEffort(help) ) {
                 if(help!=from) {
                     frontierList.push(storage->add(help, effort, minimumKnot));
                 }
             }
-        }
-    }
+		}
+	}
     cout << endl;
     if(!continueOnUnbuild) {
         MsgHandler::getErrorInstance()->inform(
