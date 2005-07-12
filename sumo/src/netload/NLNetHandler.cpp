@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.53  2005/07/12 12:37:15  dkrajzew
+// code style adapted
+//
 // Revision 1.52  2005/05/04 08:41:54  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; debugging the setting of tls-offsets
 //
@@ -1431,9 +1434,6 @@ SUMOTime
 NLNetHandler::computeInitTLSStep()  const
 {
     assert(m_ActivePhases.size()!=0);
-    if(m_Offset!=0) {
-        int bla = 0;
-    }
     SUMOTime offset = m_Offset % myAbsDuration;
     MSSimpleTrafficLightLogic::Phases::const_iterator i
         = m_ActivePhases.begin();

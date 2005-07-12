@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/07/12 12:37:15  dkrajzew
+// code style adapted
+//
 // Revision 1.5  2005/05/04 08:40:16  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; added the possibility to load lane shapes into the non-gui simulation
 //
@@ -79,6 +82,7 @@
  * ======================================================================= */
 class MSEdgeControl;
 class MSLane;
+class MSNet;
 
 
 /* =========================================================================
@@ -120,7 +124,7 @@ public:
     /** @brief Adds an edge with the given id to the list of edges;
         This method throws an XMLIdAlreadyUsedException when the id was
         already used for another edge */
-    virtual void addEdge(const std::string &id);
+    virtual MSEdge *addEdge(const std::string &id);
 
     /// chooses the previously added edge as the current edge
     void chooseEdge(const std::string &id,
@@ -153,7 +157,7 @@ public:
     /** @brief Closes the building of an edge;
         The edge is completely described by now and may not be opened again
         what is not tested!!! */
-    void closeEdge();
+    MSEdge *closeEdge();
 
     /// builds the MSEdgeControl-class which holds all edges
     MSEdgeControl *build();

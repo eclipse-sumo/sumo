@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/07/12 12:37:15  dkrajzew
+// code style adapted
+//
 // Revision 1.9  2005/05/04 08:40:16  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; added the possibility to load lane shapes into the non-gui simulation
 //
@@ -141,7 +144,7 @@ NLEdgeControlBuilder::prepare(unsigned int no)
 }
 
 
-void
+MSEdge *
 NLEdgeControlBuilder::addEdge(const string &id)
 {
     MSEdge *edge = new MSEdge(id);
@@ -149,6 +152,7 @@ NLEdgeControlBuilder::addEdge(const string &id)
         throw XMLIdAlreadyUsedException("Edge", id);
     }
     m_pEdges->push_back(edge);
+    return edge;
 }
 
 
@@ -249,17 +253,18 @@ NLEdgeControlBuilder::closeAllowedEdge()
 }
 
 
-void
+MSEdge *
 NLEdgeControlBuilder::closeEdge()
 {
     if(m_pAllowedLanes==0 || /*m_pDepartLane==0 ||*/ m_pLanes==0) {
         MsgHandler::getErrorInstance()->inform(
             string("Something is corrupt within the definition of lanes for the edge '")
             + m_pActiveEdge->id() + string("'."));
-        return;
+        return 0;
     }
     m_pActiveEdge->initialize(m_pAllowedLanes, m_pDepartLane,
         m_pLanes, m_Function);
+    return m_pActiveEdge;
 }
 
 
