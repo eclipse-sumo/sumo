@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /w /W0 /GX /O2 /I "$(FOX)\include" /I "..\..\..\src" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /D "FOXDLL" /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "$(NEWFOX)\include" /I "..\..\..\src" /D "NDEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "FOXDLL" /D "HAVE_MESOSIM" /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
@@ -65,7 +65,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "$(FOX)\include" /I "..\..\..\src" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /D "FOXDLL" /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I "$(NEWFOX)\include" /I "..\..\..\src" /D "_DEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "FOXDLL" /D "HAVE_MESOSIM" /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
@@ -92,6 +92,10 @@ SOURCE=..\..\..\src\utils\gui\windows\GUIAppGlobals.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\windows\GUIDialog_EditViewport.cpp
 # End Source File
 # Begin Source File
 
@@ -264,6 +268,10 @@ SOURCE=..\..\..\src\utils\gui\drawer\GUIColoringSchemesMap.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\windows\GUIDialog_EditViewport.h
 # End Source File
 # Begin Source File
 

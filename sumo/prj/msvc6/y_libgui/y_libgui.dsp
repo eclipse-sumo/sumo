@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /w /W0 /GX /O2 /I "$(FOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /I "..\..\..\src\foreign" /D "NDEBUG" /D "FOXDLL" /D "WIN32" /D "_MBCS" /D "_LIB" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /I "..\..\..\src\foreign" /D "NDEBUG" /D "FOXDLL" /D "_LIB" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -64,7 +64,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "$(FOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /I "..\..\..\src\foreign" /D "_DEBUG" /D "FOXDLL" /D "WIN32" /D "_MBCS" /D "_LIB" /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /I "..\..\..\src\foreign" /D "_DEBUG" /D "FOXDLL" /D "_LIB" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
@@ -226,6 +226,10 @@ SOURCE=..\..\..\src\gui\GUIViewAggregatedLanes.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\gui\GUIViewMesoEdges.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\gui\GUIViewTraffic.cpp
 # End Source File
 # End Group
@@ -235,10 +239,6 @@ SOURCE=..\..\..\src\gui\GUIViewTraffic.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\GUIAddWeightsStorage.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\GUIAppEnum.h
 # End Source File
 # Begin Source File
 
@@ -259,10 +259,6 @@ SOURCE=..\..\..\src\gui\drawerimpl\GUIBaseROWDrawer.h
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\drawerimpl\GUIBaseVehicleDrawer.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\drawerimpl\GUIColoringSchemesMap.h
 # End Source File
 # Begin Source File
 
@@ -298,7 +294,7 @@ SOURCE=..\..\..\src\gui\dialogs\GUIDialog_EditAddWeights.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\dialogs\GUIDialog_GLChosenEditor.h
+SOURCE=..\..\..\src\gui\dialogs\GUIDialog_GLObjChooser.h
 # End Source File
 # Begin Source File
 
@@ -310,19 +306,7 @@ SOURCE=..\..\..\src\gui\dialogs\GUIDialog_SimSettings.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\GUIExcp_VehicleIsInvisible.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\gui\GUIGlobals.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\GUIGlobalSelection.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\GUIGlObjectTypes.h
 # End Source File
 # Begin Source File
 
@@ -395,6 +379,10 @@ SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.h
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\GUIViewAggregatedLanes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\gui\GUIViewMesoEdges.h
 # End Source File
 # Begin Source File
 

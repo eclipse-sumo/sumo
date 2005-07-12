@@ -149,6 +149,14 @@ SOURCE=..\..\..\src\netimport\cell\NICellNodesHandler.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\netimport\elmar2\NIElmar2EdgesHandler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netimport\elmar2\NIElmar2NodesHandler.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\netimport\elmar\NIElmarEdgesHandler.cpp
 # End Source File
 # Begin Source File
@@ -638,6 +646,14 @@ SOURCE=..\..\..\src\netimport\cell\NICellEdgesHandler.h
 # Begin Source File
 
 SOURCE=..\..\..\src\netimport\cell\NICellNodesHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netimport\elmar2\NIElmar2EdgesHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netimport\elmar2\NIElmar2NodesHandler.h
 # End Source File
 # Begin Source File
 

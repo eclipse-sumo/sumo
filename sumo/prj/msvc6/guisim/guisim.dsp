@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /w /W0 /GR /GX /O2 /I "$(FOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "NDEBUG" /D "FOXDLL" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "NDEBUG" /D "FOXDLL" /D "_CONSOLE" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -50,10 +50,10 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 opengl32.lib $(XERCES)\lib\xerces-c_2.lib $(FOX)\lib\FOXDLL-1.2.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /machine:I386
+# ADD LINK32 opengl32.lib $(XERCES)\lib\xerces-c_2.lib $(NEWFOX)\lib\FOXDLL-1.4.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\guisim.exe ..\..\..\bin\guisim.exe
+PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\guisim.exe ..\..\..\bin\guisim.exe	..\..\add-ins\incBuildNumber.pl guisim
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "guisim - Win32 Debug"
@@ -70,7 +70,7 @@ PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\guisim.exe ..\..\..\bin\guisim.ex
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GR /GX /ZI /Od /I "$(FOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "_DEBUG" /D "ABS_DEBUG" /D "FOXDLL" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "_DEBUG" /D "ABS_DEBUG" /D "FOXDLL" /D "_CONSOLE" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /FR /YX /FD /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -78,7 +78,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 opengl32.lib $(XERCES)\lib\xerces-c_2D.lib $(FOX)\lib\FOXDLLD-1.2.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /nodefaultlib:"nafxcwd.lib" /pdbtype:sept
+# ADD LINK32 opengl32.lib $(XERCES)\lib\xerces-c_2D.lib $(NEWFOX)\lib\FOXDLLD-1.4.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /nodefaultlib:"nafxcwd.lib" /pdbtype:sept
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
 PostBuild_Cmds=mkdir ..\..\..\bin	copy Debug\guisim.exe ..\..\..\bin\guisimD.exe
@@ -93,6 +93,10 @@ PostBuild_Cmds=mkdir ..\..\..\bin	copy Debug\guisim.exe ..\..\..\bin\guisimD.exe
 # Begin Group "Quellcodedateien"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+# Begin Source File
+
+SOURCE=..\..\..\src\guisim.rc
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\guisim_main.cpp
@@ -144,6 +148,10 @@ SOURCE=..\..\..\src\helpers\gcc_TypeManip.h
 # Begin Source File
 
 SOURCE=..\..\..\src\helpers\gcc_TypeTraits.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\guisim_build.h
 # End Source File
 # Begin Source File
 

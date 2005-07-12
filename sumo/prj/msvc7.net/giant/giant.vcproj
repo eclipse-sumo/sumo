@@ -23,7 +23,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(FOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
+				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
 				PreprocessorDefinitions="NDEBUG;FOXDLL;WIN32;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -41,7 +41,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="opengl32.lib $(XERCES)\lib\xerces-c_2.lib $(FOX)\lib\FOXDLL-1.2.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="opengl32.lib $(XERCES)\lib\xerces-c_2.lib $(NEWFOX)\lib\FOXDLL-1.4.lib odbc32.lib odbccp32.lib"
 				OutputFile=".\Release/giant.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -53,7 +53,12 @@
 				TypeLibraryName=".\Release/giant.tlb"
 				HeaderFileName=""/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				CommandLine="mkdir ..\..\..\bin
+copy Release\giant.exe ..\..\..\bin\giant.exe
+..\..\add-ins\incBuildNumber.pl giant
+
+"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -84,7 +89,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(FOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
+				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
 				PreprocessorDefinitions="_DEBUG;ABS_DEBUG;FOXDLL;WIN32;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -102,7 +107,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="opengl32.lib $(XERCES)\lib\xerces-c_2D.lib $(FOX)\lib\FOXDLLD-1.2.lib odbc32.lib odbccp32.lib"
+				AdditionalDependencies="opengl32.lib $(XERCES)\lib\xerces-c_2D.lib $(NEWFOX)\lib\FOXDLLD-1.4.lib odbc32.lib odbccp32.lib"
 				OutputFile=".\Debug/giant.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -115,7 +120,9 @@
 				TypeLibraryName=".\Debug/giant.tlb"
 				HeaderFileName=""/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				CommandLine="mkdir ..\..\..\bin
+copy Debug\giant.exe ..\..\..\bin\giantD.exe"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -143,136 +150,7 @@
 			Name="Quellcodedateien"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\..\..\src\netedit\ColorSelector.cpp">
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\ConfigDialog.cpp">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\Edge.cpp">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\giant_main.cpp">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\GNEApplicationWindow.cpp">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\GNEViewParent.cpp">
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\GNEViewTraffic.cpp">
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\Graph.cpp">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\Image.cpp">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\Point.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
@@ -351,68 +229,18 @@
 						BasicRuntimeChecks="3"/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\Vertex.cpp">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\..\..\src\netedit\ColorSelector.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\ConfigDialog.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\Edge.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\giant_help.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\GNEApplicationWindow.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\GNEViewParent.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\GNEViewTraffic.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\Graph.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\Image.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\Point.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\sumo_version.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\sumo_only\SUMOFrame.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\netedit\Vertex.h">
 			</File>
 		</Filter>
 		<Filter

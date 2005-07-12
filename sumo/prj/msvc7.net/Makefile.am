@@ -29,7 +29,7 @@ z_libutils_foxtools \
 z_libutils_geom \
 z_libutils_gfx \
 z_libutils_glutils \
-z_libutils_guidiv \
+z_libutils_gui \
 z_libutils_importio \
 z_libutils_iodevices \
 z_libutils_options \

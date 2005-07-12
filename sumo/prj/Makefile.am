@@ -1,1 +1,2 @@
-SUBDIRS = msvc6 msvc7.net
+SUBDIRS = add-ins msvc6 msvc7.net
+

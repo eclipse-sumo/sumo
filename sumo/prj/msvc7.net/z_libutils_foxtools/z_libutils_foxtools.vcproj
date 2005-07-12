@@ -21,7 +21,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(FOX)\include,..\..\..\src,..\..\..\src\foreign"
+				AdditionalIncludeDirectories="$(NEWFOX)\include,..\..\..\src,..\..\..\src\foreign"
 				PreprocessorDefinitions="_DEBUG;FOXDLL;WIN32;_LIB;BOOST_HAS_THREADS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -73,7 +73,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(FOX)\include,..\..\..\src,..\..\..\src\foreign"
+				AdditionalIncludeDirectories="$(NEWFOX)\include,..\..\..\src,..\..\..\src\foreign"
 				PreprocessorDefinitions="NDEBUG;FOXDLL;WIN32;_LIB;BOOST_HAS_THREADS"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -361,6 +361,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\foxtools\MFXImageHelper.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\foxtools\MFXMenuHeader.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -425,6 +428,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\foxtools\MFXEventQue.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\foxtools\MFXImageHelper.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\foxtools\MFXInterThreadEventClient.h">

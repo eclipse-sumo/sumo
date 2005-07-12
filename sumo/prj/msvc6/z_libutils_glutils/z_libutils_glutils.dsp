@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /w /W0 /GX /O2 /I "..\..\..\src" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "..\..\..\src" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -64,7 +64,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "..\..\..\src" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\..\..\src" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -85,15 +85,15 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\glutils\FontStorage.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\glutils\GLHelper.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\glutils\lfontrenderer.cpp
+SOURCE=..\..\..\src\utils\glutils\pfPSansBold16.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\glutils\polyfonts.c
 # End Source File
 # End Group
 # Begin Group "Header-Dateien"
@@ -101,15 +101,19 @@ SOURCE=..\..\..\src\utils\glutils\lfontrenderer.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\glutils\FontStorage.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\glutils\GLHelper.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\glutils\lfontrenderer.h
+SOURCE=..\..\..\src\utils\glutils\pfPSansBold16.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\glutils\polyfonts.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\glutils\polyfonttypes.h
 # End Source File
 # End Group
 # End Target

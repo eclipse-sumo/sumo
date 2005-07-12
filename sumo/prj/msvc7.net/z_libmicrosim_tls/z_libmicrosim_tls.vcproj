@@ -237,6 +237,9 @@
 				RelativePath="..\..\..\src\microsim\traffic_lights\MSExtendedTrafficLightLogic.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\traffic_lights\MSPhaseDefinition.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\traffic_lights\MSSimpleTrafficLightLogic.h">
 			</File>
 			<File

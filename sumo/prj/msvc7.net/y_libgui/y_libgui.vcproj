@@ -21,7 +21,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(FOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src,..\..\..\src\foreign"
+				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src,..\..\..\src\foreign"
 				PreprocessorDefinitions="_DEBUG;FOXDLL;WIN32;_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -75,7 +75,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(FOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src,..\..\..\src\foreign"
+				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src,..\..\..\src\foreign"
 				PreprocessorDefinitions="NDEBUG;FOXDLL;WIN32;_LIB"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -808,7 +808,7 @@
 				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_EditAddWeights.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_GLChosenEditor.h">
+				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_GLObjChooser.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_MicroViewSettings.h">

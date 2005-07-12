@@ -22,7 +22,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(FOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
+				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
 				PreprocessorDefinitions="_DEBUG;ABS_DEBUG;FOXDLL;WIN32;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -41,7 +41,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="opengl32.lib $(XERCES)\lib\xerces-c_2D.lib $(FOX)\lib\FOXDLLD-1.2.lib"
+				AdditionalDependencies="opengl32.lib $(XERCES)\lib\xerces-c_2D.lib $(NEWFOX)\lib\FOXDLLD-1.4.lib"
 				OutputFile=".\Debug/guisim.exe"
 				LinkIncremental="0"
 				SuppressStartupBanner="TRUE"
@@ -90,7 +90,7 @@ copy Debug\guisim.exe ..\..\..\bin\guisimD.exe
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(FOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
+				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
 				PreprocessorDefinitions="NDEBUG;FOXDLL;WIN32;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -108,7 +108,7 @@ copy Debug\guisim.exe ..\..\..\bin\guisimD.exe
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="opengl32.lib odbc32.lib odbccp32.lib $(XERCES)\lib\xerces-c_2.lib $(FOX)\lib\FOXDLL-1.2.lib"
+				AdditionalDependencies="opengl32.lib odbc32.lib odbccp32.lib $(XERCES)\lib\xerces-c_2.lib $(NEWFOX)\lib\FOXDLL-1.4.lib"
 				OutputFile=".\Release/guisim.exe"
 				LinkIncremental="0"
 				SuppressStartupBanner="TRUE"
@@ -123,6 +123,7 @@ copy Debug\guisim.exe ..\..\..\bin\guisimD.exe
 				Name="VCPostBuildEventTool"
 				CommandLine="mkdir ..\..\..\bin
 copy Release\guisim.exe ..\..\..\bin\guisim.exe
+..\..\add-ins\incBuildNumber.pl guisim
 "/>
 			<Tool
 				Name="VCPreBuildEventTool"/>

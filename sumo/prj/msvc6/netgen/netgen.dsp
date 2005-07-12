@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /w /W0 /GX /O2 /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -53,7 +53,7 @@ LINK32=link.exe
 # ADD LINK32 $(XERCES)\lib\xerces-c_2.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\netgen.exe ..\..\..\bin\netgen.exe
+PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\netgen.exe ..\..\..\bin\netgen.exe	..\..\add-ins\incBuildNumber.pl netgen
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "netgen - Win32 Debug"
@@ -70,7 +70,7 @@ PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\netgen.exe ..\..\..\bin\netgen.ex
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -97,10 +97,18 @@ PostBuild_Cmds=mkdir ..\..\..\bin	copy Debug\netgen.exe ..\..\..\bin\netgenD.exe
 
 SOURCE=..\..\..\src\netgen_main.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\sumo_version.cpp
+# End Source File
 # End Group
 # Begin Group "Header-Dateien"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\..\..\src\netgen_build.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\netgen_help.h
