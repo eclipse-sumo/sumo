@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/07/12 11:58:17  dkrajzew
+// visualisation of large vehicles added
+//
 // Revision 1.6  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
@@ -110,18 +113,47 @@ GUIVehicleDrawer_SGnTasTriangle::drawVehicle(const GUIVehicle &vehicle,
     glTranslated(posX, posY, 0);
     glRotated(rot, 0, 0, 1);
     glBegin( GL_TRIANGLES );
-    if(scheme!=GUISUMOAbstractView::VCS_LANECHANGE3) {
-        setVehicleColor(vehicle, scheme);
-        glVertex2d(0, 0);
-        glVertex2d(0-1.25, 0+vehicle.length());
-        glVertex2d(0+1.25, 0+vehicle.length());
+    float length = vehicle.length();
+    if(length<8) {
+        if(scheme!=GUISUMOAbstractView::VCS_LANECHANGE3) {
+            setVehicleColor(vehicle, scheme);
+            glVertex2d(0, 0);
+            glVertex2d(0-1.25, 0+vehicle.length());
+            glVertex2d(0+1.25, 0+vehicle.length());
+        } else {
+            setVehicleColor1Of3(vehicle);
+            glVertex2d(0, 0);
+            setVehicleColor2Of3(vehicle);
+            glVertex2d(0-1.25, 0+vehicle.length());
+            setVehicleColor3Of3(vehicle);
+            glVertex2d(0+1.25, 0+vehicle.length());
+        }
     } else {
-        setVehicleColor1Of3(vehicle);
-        glVertex2d(0, 0);
-        setVehicleColor2Of3(vehicle);
-        glVertex2d(0-1.25, 0+vehicle.length());
-        setVehicleColor3Of3(vehicle);
-        glVertex2d(0+1.25, 0+vehicle.length());
+        if(scheme!=GUISUMOAbstractView::VCS_LANECHANGE3) {
+            setVehicleColor(vehicle, scheme);
+            glVertex2d(0, 0);
+            glVertex2d(0-1.25, 0+2);
+            glVertex2d(0+1.25, 0+2);
+            glVertex2d(0-1.25, 2);
+            glVertex2d(0-1.25, length-2);
+            glVertex2d(0+1.25, length-2);
+            glVertex2d(0+1.25, 2);
+            glVertex2d(0-1.25, 2);
+            glVertex2d(0+1.25, length-2);
+        } else {
+            setVehicleColor1Of3(vehicle);
+            glVertex2d(0, 0);
+            glVertex2d(0-1.25, 0+2);
+            glVertex2d(0+1.25, 0+2);
+            setVehicleColor2Of3(vehicle);
+            glVertex2d(0-1.25, 2);
+            glVertex2d(0-1.25, length-2);
+            glVertex2d(0+1.25, length-2);
+            setVehicleColor3Of3(vehicle);
+            glVertex2d(0+1.25, 2);
+            glVertex2d(0-1.25, 2);
+            glVertex2d(0+1.25, length-2);
+        }
     }
     glEnd();
     glRotated(-rot, 0, 0, 1);

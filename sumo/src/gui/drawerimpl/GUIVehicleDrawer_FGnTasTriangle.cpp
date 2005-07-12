@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/07/12 11:58:17  dkrajzew
+// visualisation of large vehicles added
+//
 // Revision 1.5  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
@@ -78,6 +81,7 @@ GUIVehicleDrawer_FGnTasTriangle::~GUIVehicleDrawer_FGnTasTriangle()
 {
 }
 
+
 void
 GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
         GUISUMOAbstractView::VehicleColoringScheme scheme)
@@ -125,27 +129,51 @@ GUIVehicleDrawer_FGnTasTriangle::drawVehicle(const GUIVehicle &vehicle,
             GUISUMOAbstractView::VehicleColoringScheme scheme)
 {
     glBegin( GL_TRIANGLES );
-    if(scheme!=GUISUMOAbstractView::VCS_LANECHANGE3) {
-        setVehicleColor(vehicle, scheme);
-        glVertex2d(0, 0);
-        glVertex2d(0-1.25, vehicle.length());
-        glVertex2d(0+1.25, vehicle.length());
-/*
-        glEnd();
-        glBegin( GL_LINES );
-        glVertex2f(0, 0);
-        glVertex2f(0, -vehicle.brakeGap(vehicle.speed()));*/
-        glEnd();
+    float length = vehicle.length();
+    if(length<8) {
+        if(scheme!=GUISUMOAbstractView::VCS_LANECHANGE3) {
+            setVehicleColor(vehicle, scheme);
+            glVertex2d(0, 0);
+            glVertex2d(0-1.25, length);
+            glVertex2d(0+1.25, length);
+        } else {
+            setVehicleColor1Of3(vehicle);
+            glVertex2d(0, 0);
+            setVehicleColor2Of3(vehicle);
+            glVertex2d(0-1.25, length);
+            setVehicleColor3Of3(vehicle);
+            glVertex2d(0+1.25, length);
+        }
     } else {
-        setVehicleColor1Of3(vehicle);
-        glVertex2d(0, 0);
-        setVehicleColor2Of3(vehicle);
-        glVertex2d(0-1.25, vehicle.length());
-        setVehicleColor3Of3(vehicle);
-        glVertex2d(0+1.25, vehicle.length());
+        if(scheme!=GUISUMOAbstractView::VCS_LANECHANGE3) {
+            setVehicleColor(vehicle, scheme);
+            glVertex2d(0, 0);
+            glVertex2d(0-1.25, 0+2);
+            glVertex2d(0+1.25, 0+2);
+            glVertex2d(0-1.25, 2);
+            glVertex2d(0-1.25, length-2);
+            glVertex2d(0+1.25, length-2);
+            glVertex2d(0+1.25, 2);
+            glVertex2d(0-1.25, 2);
+            glVertex2d(0+1.25, length-2);
+        } else {
+            setVehicleColor1Of3(vehicle);
+            glVertex2d(0, 0);
+            glVertex2d(0-1.25, 0+2);
+            glVertex2d(0+1.25, 0+2);
+            setVehicleColor2Of3(vehicle);
+            glVertex2d(0-1.25, 2);
+            glVertex2d(0-1.25, length-2);
+            glVertex2d(0+1.25, length-2);
+            setVehicleColor3Of3(vehicle);
+            glVertex2d(0+1.25, 2);
+            glVertex2d(0-1.25, 2);
+            glVertex2d(0+1.25, length-2);
+        }
     }
     glEnd();
 }
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
