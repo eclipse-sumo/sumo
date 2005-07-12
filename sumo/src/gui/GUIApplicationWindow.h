@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.28  2005/07/12 12:08:23  dkrajzew
+// patches only (unused features removed)
+//
 // Revision 1.27  2005/05/04 07:46:08  dkrajzew
 // ported to fox1.4
 //
@@ -114,7 +117,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -247,7 +250,7 @@ public:
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
     long onRunThreadEvent(FXObject*, FXSelector, void*);
 
-    long onCmdCutSwell(FXObject*, FXSelector, void*);
+//    long onCmdCutSwell(FXObject*, FXSelector, void*);
 /*
     long onLeftBtnRelease(FXObject*sender,FXSelector,void*ptr);
     long onRightBtnRelease(FXObject*sender,FXSelector,void*ptr);
@@ -357,7 +360,7 @@ protected:
     /// Input file pattern
     std::string myConfigPattern;
 
-    FXProgressBar *myProgressBar;
+//    FXProgressBar *myProgressBar;
 
 };
 

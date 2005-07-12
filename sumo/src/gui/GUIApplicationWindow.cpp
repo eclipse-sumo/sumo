@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.41  2005/07/12 12:08:23  dkrajzew
+// patches only (unused features removed)
+//
 // Revision 1.40  2005/05/04 07:46:08  dkrajzew
 // ported to fox1.4
 //
@@ -155,7 +158,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <fx.h>
@@ -257,7 +260,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]=
     FXMAPFUNC(SEL_THREAD, ID_LOADTHREAD_EVENT,       GUIApplicationWindow::onLoadThreadEvent),
     FXMAPFUNC(SEL_THREAD, ID_RUNTHREAD_EVENT,        GUIApplicationWindow::onRunThreadEvent),
 
-    FXMAPFUNC(SEL_COMMAND,  MID_CUTSWELL,               GUIApplicationWindow::onCmdCutSwell),
+//    FXMAPFUNC(SEL_COMMAND,  MID_CUTSWELL,               GUIApplicationWindow::onCmdCutSwell),
 
 };
 
@@ -323,9 +326,10 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
         myRunThreadEvent);
     // set the status bar
     myStatusbar->getStatusLine()->setText("Ready.");
+    /*
     myProgressBar =
         new FXProgressBar(myStatusbar, 0, 0, PROGRESSBAR_NORMAL|LAYOUT_FILL_X, 200);
-
+*/
     // set the caption
     string caption = string("SUMO ") + string(version)
         + string(" - no simulation loaded");
@@ -564,10 +568,11 @@ GUIApplicationWindow::buildToolBars()
         new FXButton(myToolBar2,"\t\tPerform a single Simulation Step.",
             GUIIconSubSys::getIcon(ICON_STEP), this, MID_STEP,
             ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-
+/*
         new FXButton(myToolBar2,"\t\tCompute strategies.",
             GUIIconSubSys::getIcon(ICON_CUT_SWELL), this, MID_CUTSWELL,
             ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+*/
 
     }
     {
@@ -577,7 +582,7 @@ GUIApplicationWindow::buildToolBars()
             LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
         new FXToolBarGrip(myToolBar3, myToolBar3, FXToolBar::ID_TOOLBARGRIP,
             TOOLBARGRIP_DOUBLE);
-        new FXLabel(myToolBar3, "Current Step:");
+        new FXLabel(myToolBar3, "Current Step:", 0, LAYOUT_CENTER_X);
         myLCDLabel = new FXLCDLabel(myToolBar3, 6, 0, 0,
             LCDLABEL_LEADING_ZEROS);
         myLCDLabel->setHorizontal(2);
@@ -593,7 +598,7 @@ GUIApplicationWindow::buildToolBars()
             LAYOUT_DOCK_SAME|LAYOUT_SIDE_TOP|FRAME_RAISED);
         new FXToolBarGrip(myToolBar4, myToolBar4, FXToolBar::ID_TOOLBARGRIP,
             TOOLBARGRIP_DOUBLE);
-        new FXLabel(myToolBar4, "Delay:");
+        new FXLabel(myToolBar4, "Delay:", 0, LAYOUT_CENTER_X);
         mySimDelayTarget =
             new FXRealSpinDial(myToolBar4, 10, 0, MID_SIMDELAY,
             LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
@@ -614,7 +619,7 @@ GUIApplicationWindow::buildToolBars()
             GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW,
             ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
         new FXButton(myToolBar5,
-            "\t\tOpen a new Lane aggregated View.",
+            "\t\tOpen a new lane aggregated View.",
             GUIIconSubSys::getIcon(ICON_LAGGRVIEW), this, MID_NEW_LANEAVIEW,
             ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     }
@@ -1217,7 +1222,7 @@ GUIApplicationWindow::loadOnStartup(const std::string &config)
     gStartAtBegin = true;
     load(config);
 }
-
+/*
 long
 GUIApplicationWindow::onCmdCutSwell(FXObject*, FXSelector, void*)
 {
@@ -1226,7 +1231,7 @@ GUIApplicationWindow::onCmdCutSwell(FXObject*, FXSelector, void*)
         new GUIDialog_CutSwell(this, "Simulating...", 0, 0);
     about->create();
     about->show(PLACEMENT_OWNER);
-    */
+    /
     string prev = myStatusbar->getStatusLine()->getText().text();
     string text = string("Computing strategies.");
     myStatusbar->getStatusLine()->setText(text.c_str());
@@ -1241,7 +1246,7 @@ GUIApplicationWindow::onCmdCutSwell(FXObject*, FXSelector, void*)
     myStatusbar->getStatusLine()->setNormalText(prev.c_str());
     return 1;
 }
-
+*/
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 // Local Variables:
