@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/07/12 12:17:39  dkrajzew
+// we're using polyfonts, now
+//
 // Revision 1.6  2005/05/04 07:59:59  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -89,6 +92,7 @@ namespace
 #include <gui/manipulators/GUIManip_LaneSpeedTrigger.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/glutils/polyfonts.h>
 
 
 /* =========================================================================
@@ -337,13 +341,16 @@ GUILaneSpeedTrigger::doPaint(const PosCont &poss, const RotCont rots,
         }
             //draw
         glColor3f(1, 1, 0);
-        GUITexturesHelper::getFontRenderer().SetActiveFont("std8");
-        glTranslated(.8,
-            -((float) GUITexturesHelper::getFontRenderer().GetHeight())/2.0*.1,
-            0);
-        glScaled(.1, .1, .1);
-        GUITexturesHelper::getFontRenderer().directDraw(myLastValueString);
 
+        float w = pfdkGetStringWidth(myLastValueString.c_str());
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        pfSetPosition(0, 0);
+        pfSetScale(1.2f);
+        glRotated(180, 0, 1, 0);
+        glTranslated(-w/2., 0.3, 0);
+        pfDrawString(myLastValueString.c_str());
+        glTranslated(w/2., -0.3, 0);
+        glColor3f(0, 1, 0);
         glPopMatrix();
     }
 }
