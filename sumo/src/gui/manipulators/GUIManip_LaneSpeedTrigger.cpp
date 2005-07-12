@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/07/12 12:06:49  dkrajzew
+// level 3 warnings removed; code style adapted
+//
 // Revision 1.5  2005/05/04 07:45:17  dkrajzew
 // level 3 warnings removed
 //
@@ -183,7 +186,7 @@ GUIManip_LaneSpeedTrigger::onCmdClose(FXObject*,FXSelector,void*)
 long
 GUIManip_LaneSpeedTrigger::onCmdUserDef(FXObject*,FXSelector,void*)
 {
-    mySpeed = myUserDefinedSpeed->getValue() / 3.6;
+    mySpeed = (float) (myUserDefinedSpeed->getValue() / 3.6);
     static_cast<GUILaneSpeedTrigger*>(myObject)->setOverridingValue(mySpeed);
     myParent->updateChildren();
     return 1;
@@ -207,7 +210,7 @@ GUIManip_LaneSpeedTrigger::onCmdChangeOption(FXObject*,FXSelector,void*)
     static_cast<GUILaneSpeedTrigger*>(myObject)->setOverriding(true);
     switch(myChosenValue) {
     case 0:
-        mySpeed = static_cast<GUILaneSpeedTrigger*>(myObject)->getDefaultSpeed();
+        mySpeed = (float) static_cast<GUILaneSpeedTrigger*>(myObject)->getDefaultSpeed();
         break;
     case 1:
         mySpeed = (float) (20 / 3.6);
@@ -243,7 +246,7 @@ GUIManip_LaneSpeedTrigger::onCmdChangeOption(FXObject*,FXSelector,void*)
         mySpeed = (float) (myUserDefinedSpeed->getValue() / 3.6);
         break;
     case 12:
-        mySpeed = static_cast<GUILaneSpeedTrigger*>(myObject)->getLoadedSpeed();
+        mySpeed = (float) static_cast<GUILaneSpeedTrigger*>(myObject)->getLoadedSpeed();
         break;
     default:
         throw 1;
