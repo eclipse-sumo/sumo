@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/07/12 12:22:50  dkrajzew
+// made checking for accidents optional
+//
 // Revision 1.5  2005/05/04 08:25:29  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -41,6 +44,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MSGlobals.h"
 
 
@@ -59,6 +66,7 @@ float MSGlobals::gMaxVehV4FalseLaneTeleport;
 
 float MSGlobals::gMinVehDist4FalseLaneTeleport;
 
+bool MSGlobals::gCheck4Accidents;
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

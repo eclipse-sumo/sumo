@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/07/12 12:24:01  dkrajzew
+// made checking for accidents optional
+//
 // Revision 1.7  2005/05/04 08:25:29  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -38,7 +41,13 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <cstddef>
+
+
 
 
 /* =========================================================================
@@ -75,6 +84,9 @@ public:
     /** maximum distance a vehicle must have to the false lane's en in order
         to be teleported if being on a false lane */
     static float gMinVehDist4FalseLaneTeleport;
+
+    /** information whether the network shall check for collisions */
+    static bool gCheck4Accidents;
 
 };
 
