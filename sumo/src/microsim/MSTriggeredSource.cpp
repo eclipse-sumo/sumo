@@ -20,6 +20,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.22  2005/07/13 10:22:46  dkrajzew
+// debugging
+//
 // Revision 1.21  2005/07/12 12:27:40  dkrajzew
 // first steps towards refactoring trigger
 //
@@ -259,12 +262,6 @@ MSTriggeredSource::emit( void )
     } else {
         return 1;
     }
-    else {
-        // reschedule one timestep.
-//        cout << MSNet::globaltime << "<->" << myVehicle->desiredDepart()
-//            << "\t" << (MSNet::globaltime - myVehicle->desiredDepart()) << endl;
-        return 1;
-    }
 }
 
 //---------------------------------------------------------------------------//
@@ -343,6 +340,9 @@ MSTriggeredSource::readNextEmitElement( void )
 
 
 // $Log$
+// Revision 1.22  2005/07/13 10:22:46  dkrajzew
+// debugging
+//
 // Revision 1.21  2005/07/12 12:27:40  dkrajzew
 // first steps towards refactoring trigger
 //

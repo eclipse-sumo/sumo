@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2005/07/13 10:22:47  dkrajzew
+// debugging
+//
 // Revision 1.15  2005/05/04 08:37:25  dkrajzew
 // ported to fox1.4
 //
@@ -81,7 +84,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <fx.h>

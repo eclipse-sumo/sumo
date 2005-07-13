@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.17  2005/07/13 10:22:46  dkrajzew
+// debugging
+//
 // Revision 1.16  2005/07/12 12:23:07  dkrajzew
 // debugging vehicle emission on source edges
 //
@@ -46,7 +49,8 @@
 // tried to improve the building/deletion usage
 //
 // Revision 1.7  2003/07/16 15:28:00  dkrajzew
-// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+// MSEmitControl now only simulates lanes which do have vehicles; the edges
+//  do not go through the lanes, the EdgeControl does
 //
 // Revision 1.6  2003/06/04 16:12:05  roessel
 // Added methods getEdgeVector and getLanes needed by MSTravelcostDetector.
@@ -123,7 +127,8 @@
 // Added public method nLanes() that returns the edge's number of lanes.
 //
 // Revision 1.3  2001/07/16 12:55:46  croessel
-// Changed id type from unsigned int to string. Added string-pointer dictionaries and dictionary methods.
+// Changed id type from unsigned int to string. Added string-pointer
+//  dictionaries and dictionary methods.
 //
 // Revision 1.2  2001/07/13 16:09:17  traffic
 // Just a test, changed id-type from unsigned int to string.

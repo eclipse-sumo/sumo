@@ -3,123 +3,6 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
-Project: "clientgui"=.\clientgui\clientgui.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-    Begin Project Dependency
-    Project_Dep_Name y_libgui
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libguinetload
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libguisim
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libmicrosim
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libnetload
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_common
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_convert
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_dev
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_foxtools
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_geom
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gfx
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_glutils
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_options
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_xml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libmicrosim_output
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_iodevices
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libmicrosim_tls
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gui
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libmesosim
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libmultimodal
-    End Project Dependency
-}}}
-
-###############################################################################
-
-Project: "clientrouter"=.\clientrouter\clientrouter.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-    Begin Project Dependency
-    Project_Dep_Name y_librouter
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_common
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_convert
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gfx
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_importio
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_options
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_xml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_ipc
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libclientrouter
-    End Project Dependency
-}}}
-
-###############################################################################
-
 Project: "duarouter"=.\duarouter\duarouter.dsp - Package Owner=<4>
 
 Package=<5>
@@ -243,114 +126,6 @@ Package=<4>
 
 ###############################################################################
 
-Project: "guiclientrouter"=.\guiclientrouter\guiclientrouter.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_importio
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_options
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_xml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_foxtools
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_geom
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gfx
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_glutils
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gui
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_common
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_convert
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_librouter
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libclientrouter
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libguirouter
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_ipc
-    End Project Dependency
-}}}
-
-###############################################################################
-
-Project: "guirouter"=.\guirouter\guirouter.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-    Begin Project Dependency
-    Project_Dep_Name y_librouter
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_common
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_convert
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_foxtools
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_geom
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gfx
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_glutils
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gui
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_importio
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_options
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_xml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libguirouter
-    End Project Dependency
-}}}
-
-###############################################################################
-
 Project: "guisim"=.\guisim\guisim.dsp - Package Owner=<4>
 
 Package=<5>
@@ -423,84 +198,6 @@ Package=<4>
 
 ###############################################################################
 
-Project: "guisimserver"=.\guisimserver\guisimserver.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-    Begin Project Dependency
-    Project_Dep_Name y_libgui
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libguinetload
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libguisim
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libmicrosim
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libnetload
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libmicrosim_output
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_common
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_convert
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_foxtools
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_geom
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gfx
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_glutils
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_iodevices
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_options
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_xml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_ipc
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libmicrosim_tls
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gui
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libsimserver
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libmesosim
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libmultimodal
-    End Project Dependency
-}}}
-
-###############################################################################
-
 Project: "jtrrouter"=.\jtrrouter\jtrrouter.dsp - Package Owner=<4>
 
 Package=<5>
@@ -532,33 +229,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_convert
-    End Project Dependency
-}}}
-
-###############################################################################
-
-Project: "masterclient"=.\masterclient\masterclient.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gui
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_ipc
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_common
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_options
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_xml
     End Project Dependency
 }}}
 
@@ -756,66 +426,6 @@ Package=<4>
 
 ###############################################################################
 
-Project: "simserver"=.\simserver\simserver.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-    Begin Project Dependency
-    Project_Dep_Name y_libmicrosim
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libnetload
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_common
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_convert
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gfx
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_options
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_xml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libmicrosim_output
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_iodevices
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_ipc
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_geom
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libmicrosim_tls
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libsimserver
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libmesosim
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name y_libmultimodal
-    End Project Dependency
-}}}
-
-###############################################################################
-
 Project: "sumo"=.\sumo\sumo.dsp - Package Owner=<4>
 
 Package=<5>
@@ -870,60 +480,6 @@ Package=<4>
 
 ###############################################################################
 
-Project: "visualizer"=.\visualizer\visualizer.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_common
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_convert
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_foxtools
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_geom
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gfx
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_glutils
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_gui
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_options
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_sumoxml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_xml
-    End Project Dependency
-}}}
-
-###############################################################################
-
-Project: "y_libclientrouter"=.\y_libclientrouter\y_libclientrouter.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
 Project: "y_libgui"=.\y_libgui\y_libgui.dsp - Package Owner=<4>
 
 Package=<5>
@@ -948,31 +504,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "y_libguirouter"=.\y_libguirouter\y_libguirouter.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
 Project: "y_libguisim"=.\y_libguisim\y_libguisim.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "y_libmesosim"=.\y_libmesosim\y_libmesosim.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -1069,18 +601,6 @@ Package=<4>
 ###############################################################################
 
 Project: "y_librouter"=.\y_librouter\y_librouter.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "y_libsimserver"=.\y_libsimserver\y_libsimserver.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -1237,18 +757,6 @@ Package=<4>
 ###############################################################################
 
 Project: "z_libutils_iodevices"=.\z_libutils_iodevices\z_libutils_iodevices.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "z_libutils_ipc"=.\z_libutils_ipc\z_libutils_ipc.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

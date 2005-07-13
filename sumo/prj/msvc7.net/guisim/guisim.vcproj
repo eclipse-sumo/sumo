@@ -152,6 +152,9 @@ copy Release\guisim.exe ..\..\..\bin\guisim.exe
 			Name="Quellcodedateien"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
+				RelativePath="..\..\..\src\guisim.rc">
+			</File>
+			<File
 				RelativePath="..\..\..\src\guisim_main.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">

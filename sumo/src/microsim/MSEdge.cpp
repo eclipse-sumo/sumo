@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.19  2005/07/13 10:22:46  dkrajzew
+// debugging
+//
 // Revision 1.18  2005/07/12 12:21:57  dkrajzew
 // debugging vehicle emission
 //
@@ -407,7 +410,7 @@ MSEdge::isSource() const
 
 
 bool
-MSEdge::emit(MSVehicle &v)
+MSEdge::emit(MSVehicle &v, SUMOTime time)
 {
     if(_function!=EDGEFUNCTION_SOURCE) {
         return myDepartLane->emit(v);
@@ -415,7 +418,7 @@ MSEdge::emit(MSVehicle &v)
         const LaneCont &lanes =  v.departLanes();
         int minI = 0;
         int ir = 0;
-        int noCars = (*getLanes())[0]->length();
+        size_t noCars = (size_t) (*getLanes())[0]->length();
         {
             for(LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); i++, ir++) {
                 if((*i)->getVehicleNumber()<noCars) {

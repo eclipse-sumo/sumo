@@ -202,6 +202,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_CPhone.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\actions\MSDiscreteEventControl.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -1049,6 +1052,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSCORN.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_CPhone.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\actions\MSDiscreteEventControl.h">

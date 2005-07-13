@@ -226,10 +226,6 @@ SOURCE=..\..\..\src\gui\GUIViewAggregatedLanes.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\GUIViewMesoEdges.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\gui\GUIViewTraffic.cpp
 # End Source File
 # End Group
@@ -379,10 +375,6 @@ SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.h
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\GUIViewAggregatedLanes.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\GUIViewMesoEdges.h
 # End Source File
 # Begin Source File
 

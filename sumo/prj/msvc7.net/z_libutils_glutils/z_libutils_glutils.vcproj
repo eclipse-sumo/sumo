@@ -121,26 +121,6 @@
 			Name="Quellcodedateien"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\..\..\src\utils\glutils\FontStorage.cpp">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\glutils\GLHelper.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
@@ -161,37 +141,26 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\glutils\lfontrenderer.cpp">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\utils\glutils\pfPSansBold16.c">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\glutils\polyfonts.c">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\..\..\src\utils\glutils\FontStorage.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\glutils\GLHelper.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\glutils\lfontrenderer.h">
+				RelativePath="..\..\..\src\utils\glutils\pfPSansBold16.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\glutils\polyfonts.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\glutils\polyfonttypes.h">
 			</File>
 		</Filter>
 	</Files>

@@ -441,6 +441,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\elmar2\NIElmar2EdgesHandler.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\elmar2\NIElmar2NodesHandler.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\elmar\NIElmarEdgesHandler.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -2611,6 +2617,12 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\cell\NICellNodesHandler.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\elmar2\NIElmar2EdgesHandler.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\elmar2\NIElmar2NodesHandler.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\elmar\NIElmarEdgesHandler.h">
