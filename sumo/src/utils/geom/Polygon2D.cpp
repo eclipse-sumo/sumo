@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/07/14 12:53:57  dkrajzew
+// debugging
+//
 // Revision 1.1  2004/06/17 13:08:36  dkrajzew
 // Polygon visualisation added
 //
@@ -48,13 +51,13 @@ using namespace std;
 //////////////////////////////////////////////////////////////////////
 
 
-Polygon2D::Polygon2D(const std::string name, const std::string type, 
+Polygon2D::Polygon2D(const std::string name, const std::string type,
                      const RGBColor color, const Position2DVector &Pos)
         : myName(name),  myType(type), myColor(color), myPos(Pos)
 {
 }
 
-Polygon2D::Polygon2D(const std::string name, const std::string type, 
+Polygon2D::Polygon2D(const std::string name, const std::string type,
                      const RGBColor color)
         : myName(name), myType(type), myColor(color)
 {
@@ -64,7 +67,7 @@ Polygon2D::Polygon2D(const std::string name, const std::string type,
 Polygon2D::~Polygon2D()
 {
     myPos.clear();
-     
+
 }
 
 
@@ -80,28 +83,28 @@ Polygon2D::getName(void)
 }
 
 /// return the typ of the Polygon
-std::string 
+std::string
 Polygon2D::getType(void)
 {
     return myType;
 }
 
 /// return the Color of the polygon
-RGBColor 
+RGBColor
 Polygon2D::getColor(void)
 {
     return myColor;
 }
 
 /// return the Positions Vector of the Polygon
-Position2DVector 
+Position2DVector
 Polygon2D::getPosition2DVector(void)
 {
     return myPos;
 }
 
 /// add the Position2DVector to the polygon
-void 
+void
 Polygon2D::addPolyPosition(Position2DVector &myNewPos)
 {
      myPos = myNewPos;

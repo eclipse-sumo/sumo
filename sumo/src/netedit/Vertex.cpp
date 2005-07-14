@@ -15,7 +15,7 @@ Vertex::Vertex(int i, int j)
     y=j;
     inDegree=0;
     outDegree=0;
-    
+
 }
 
 //Füge einen Pointer auf einen Knoten in das Nachfolgerarray ein
@@ -191,7 +191,7 @@ Vertex::px2gps(int scale, int gkr, int gkh)
     double rm, e2, c, bI, bII, bf, co, g2, g1, t, fa, dl, gb, gl;
     int mKen;
     ///Miguel!!! Hier muß noch der Wert der linken unteren Ecke aus dem ConfigDialog geholt werden und der Faktor gk/pixel
-	
+
 	double gkx=gkr+x*scale;//2601000.25+x*2;
     double gky=gkh+x*scale;//5711999.75-y*2;
     const double rho = 180/3.1415926535897932384626433832795;

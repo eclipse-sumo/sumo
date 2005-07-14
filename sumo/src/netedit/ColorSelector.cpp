@@ -37,7 +37,7 @@ ColorSelector::ColorSelector(FXComposite *p,FXObject* tgt,FXSelector sel,FXuint 
 //  FXLabel *label;
   target=tgt;
   message=sel;
- 
+
   //Icon
  // eyedropicon=new FXXPMIcon(getApp(),eyedrop_xpm);
 
@@ -53,7 +53,7 @@ new FXButton(myIMGToolBar,"\t\tOpen Bitmap Configuration Dialog.",
   // Color sucker
   new FXPicker(wellframe,"\tPick color",NULL,this,ID_COLORPICK,FRAME_RAISED|FRAME_THICK|LAYOUT_CENTER_Y|LAYOUT_CENTER_X|LAYOUT_FILL_X|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT|LAYOUT_TOP,0,0,120,35,0,0,0,0);
   //new FXPicker(wellframe,"\tPick color",GUIIconSubSys::getIcon(ICON_EYEDROP),this,ID_COLORPICK,FRAME_RAISED|FRAME_THICK|LAYOUT_CENTER_Y|LAYOUT_CENTER_X|LAYOUT_FILL_X|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT|LAYOUT_TOP,0,0,120,35,0,0,0,0);
-  
+
   // Main color well
   well=new FXColorWell(wellframe,FXRGBA(255,255,255,255),this,ID_WELL_CHANGED,COLORWELL_SOURCEONLY|LAYOUT_FILL_X|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT, 0,0,130,90,0,0,0,0);
   }
@@ -127,10 +127,10 @@ void ColorSelector::save(FXStream& store) const {
   store << well;
   store << accept;
   store << cancel;
-  
+
   store.save(rgba,4);
   store.save(hsva,4);
-  
+
   }
 
 // Load data
@@ -139,11 +139,11 @@ void ColorSelector::load(FXStream& store){
   store >> well;
   store >> accept;
   store >> cancel;
-  
+
   store.load(rgba,4);
   store.load(hsva,4);
-  
-  }  
+
+  }
 */
 
 // Cleanup; icons must be explicitly deleted

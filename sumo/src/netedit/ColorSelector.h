@@ -28,7 +28,7 @@ private:
 public:
   long onCmdColor(FXObject*,FXSelector,void*);
   long onChgColor(FXObject*,FXSelector,void*);
-  long onCmdSetValue(FXObject*,FXSelector,void*); 
+  long onCmdSetValue(FXObject*,FXSelector,void*);
   long onCmdColorPick(FXObject*,FXSelector,void*);
   long onCmdWell(FXObject*,FXSelector,void*);
   long onChgWell(FXObject*,FXSelector,void*);

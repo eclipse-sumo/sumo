@@ -23,7 +23,7 @@ private:
     vector <Vertex*> nachfolger;
     // Dynamisches Array, welches alle Pointer auf Vorgaengerknoten enthält
     vector <Vertex*> vorgaenger;
-    
+
 public:
 
     //Konstruktoren (Koordinaten)
@@ -33,7 +33,7 @@ public:
     void AddNachfolger(Vertex* v);
     //Füge einen Pointer auf einen Knoten in das Vorgaengerarray ein
     void AddVorgaenger(Vertex* v);
-        
+
     //Lösche den Pointer an Stelle k aus dem Nachfolgerarray
     void DelNachfolger(int k);
     //Lösche den Pointer an Stelle k aus dem Vorgaengerarray
@@ -43,15 +43,15 @@ public:
     Vertex* GetNachfolgeVertex(int i);
     //Hole den Pointer an Stelle i in dem Vorgaengerarray
     Vertex* GetVorgaengerVertex(int i);
-    
+
     //Lösche die Arrays(1.Nachfolgerarray / 2.Vorgaengerarray / 3.Array der Inzidenten Kanten)
     void DelNachfolgeArray();
     void DelVorgaengerArray();
-    
+
     //Liefert die Anzahl der Elemente im Array zurück
     size_t GetNachfolger();
     size_t GetVorgaenger();
-    
+
     //Liefert die Koordinaten des Knoten
     int GetX();
     int GetY();

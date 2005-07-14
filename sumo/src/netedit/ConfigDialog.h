@@ -41,7 +41,7 @@ protected:
   FXList*            colorlist;
   ColorSelector*     colorbox;
   FXColor            currentcolor;
-  FXfloat            rgba[3];   
+  FXfloat            rgba[3];
   FXTextField*       dilatationTextField;
   FXTextField*       erosionTextField;
   FXTextField*       eraseStainsTextField;
@@ -67,7 +67,7 @@ public:
 
 // Messages
   enum{
-	ID_PANEL=FXMainWindow::ID_LAST,	
+	ID_PANEL=FXMainWindow::ID_LAST,
 	ID_MERGE_SLIDER,
 	ID_MERGE_TEXT,
 	ID_DIL_SLIDER,
@@ -87,7 +87,7 @@ public:
 	ID_GKH_TEXT,
 	///Miguel!!!
 	ID_DEL_ALL_COL,
-	ID_ACCEPT_COLOR,	
+	ID_ACCEPT_COLOR,
 	ID_DELETE_COLOR,
 	ID_CANCEL,
 	ID_OK,
@@ -95,7 +95,7 @@ public:
 
 private:
   ConfigDialog(){}
-  
+
 public:
   ConfigDialog(FXWindow* owner);
   virtual ~ConfigDialog();
@@ -110,7 +110,7 @@ public:
   long onCmdEroSlider(FXObject*,FXSelector sel,void*);
   long onCmdEraSlider(FXObject*,FXSelector sel,void*);
   long onCmdNodeSlider(FXObject*,FXSelector sel,void*);
-  
+
   long onCmdEpsiSlider(FXObject*,FXSelector sel,void*);
   ///Miguel!!!
   long onCmdMapscaleSlider(FXObject*,FXSelector sel,void*);
@@ -119,7 +119,7 @@ public:
   long onCmdOK(FXObject*,FXSelector,void* ptr);
 
   long onUpdDilSlider(FXObject*,FXSelector sel,void*);
- 
+
   int getMergeTolerance();
 
   FXSlider* getEroSlider();

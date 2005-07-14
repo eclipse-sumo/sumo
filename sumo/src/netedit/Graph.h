@@ -99,10 +99,10 @@ public:
 
 	//Wandelt einen Double-Wert in einen String um
 	char* doubletostr(double i,int count);
-	
+
 	//Exportiert Traces
 	void GetTraces(int cars,int fuel, ConfigDialog* myDialog);
-	
+
 	//Vereinigt zwei nahe Knoten zu einem
 	void MergeVertex();
 

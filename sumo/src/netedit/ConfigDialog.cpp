@@ -23,7 +23,7 @@ FXDEFMAP(ConfigDialog) ConfigDialogMap[]={
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_MAPSCALE_SLIDER,                    ConfigDialog::onCmdMapscaleSlider),
   ///Miguel!!!
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_OK,                             ConfigDialog::onCmdOK),
-  
+
   FXMAPFUNC(SEL_COMMAND,  ConfigDialog::ID_CANCEL,                         ConfigDialog::onCmdCancel),
   };
 
@@ -122,12 +122,12 @@ ConfigDialog::ConfigDialog(FXWindow* owner)
                 epsilonTextField->setEditable(false);
                 epsilonTextField->setText(FXStringVal(epsilonSlider->getValue()));
 
-				
+
   //Third Tab
 
   tab3=new FXTabItem(tabbook,"&Bitmap Properties",NULL);
   ///Miguel!!!
-  
+
   tab_frame3=new FXHorizontalFrame(tabbook,FRAME_THICK|FRAME_RAISED);
         boxframe1=new FXVerticalFrame(tab_frame3,FRAME_THICK|FRAME_SUNKEN|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT , 0,0,300,300, 0,0,0,0);
 
@@ -136,7 +136,7 @@ ConfigDialog::ConfigDialog(FXWindow* owner)
             FXMatrix *myMatrix2=new FXMatrix(boxframe1,3,FRAME_THICK|FRAME_RAISED|LAYOUT_FILL_Y|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,0,0,0,0,10,10,10,10, 5,8);
 			FXMatrix *myMatrix3=new FXMatrix(boxframe1,3,FRAME_THICK|FRAME_RAISED|LAYOUT_FILL_Y|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,0,0,0,0,10,10,10,10, 5,8);
 			FXMatrix *myMatrix4=new FXMatrix(boxframe1,3,FRAME_THICK|FRAME_RAISED|LAYOUT_FILL_Y|LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,0,0,0,0,10,10,10,10, 5,8);
-  
+
 			///Miguel!!!
   new FXLabel(myMatrix2,"&Map Scale(gk/100/pixel):",NULL,LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|LAYOUT_LEFT);
   mapscaleTextField =new FXTextField(myMatrix2,4,this,ID_MAPSCALE_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
@@ -155,10 +155,10 @@ ConfigDialog::ConfigDialog(FXWindow* owner)
   gkhTextField =new FXTextField(myMatrix4,10,this,ID_GKH_TEXT,JUSTIFY_RIGHT|LAYOUT_FILL_ROW|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK,0,0,0,0, DEFAULT_PAD,DEFAULT_PAD,0,0);
   gkhTextField->setEditable(true);
 
-  
+
   ///Miguel!!!
 
-  
+
   buttonframe=new FXHorizontalFrame(contents,LAYOUT_FILL_X|LAYOUT_FILL_Y);
     new FXButton(buttonframe,"&OK \tOK.",
         NULL,this,ID_OK,
@@ -166,8 +166,8 @@ ConfigDialog::ConfigDialog(FXWindow* owner)
     new FXButton(buttonframe,"&Cancel \tCancel.",
         NULL,this,ID_CANCEL,
         BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH|LAYOUT_FIX_HEIGHT|LAYOUT_RIGHT,0,0,70,30,0,0,0,0);
- 
-	
+
+
 }
 
 // Must delete the menus

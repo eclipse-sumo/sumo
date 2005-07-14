@@ -308,7 +308,7 @@ prj/msvc7.net/z_libutils_foxtools/Makefile
 prj/msvc7.net/z_libutils_geom/Makefile
 prj/msvc7.net/z_libutils_gfx/Makefile
 prj/msvc7.net/z_libutils_glutils/Makefile
-prj/msvc7.net/z_libutils_guidiv/Makefile
+prj/msvc7.net/z_libutils_gui/Makefile
 prj/msvc7.net/z_libutils_importio/Makefile
 prj/msvc7.net/z_libutils_iodevices/Makefile
 prj/msvc7.net/z_libutils_options/Makefile
@@ -400,6 +400,7 @@ src/guisim/guilogging/Makefile
 src/helpers/Makefile
 src/microsim/Makefile
 src/microsim/actions/Makefile
+src/microsim/devices/Makefile
 src/microsim/lanechanging/Makefile
 src/microsim/logging/Makefile
 src/microsim/output/Makefile
