@@ -21,6 +21,9 @@
 
 
 // $Log$
+// Revision 1.9  2005/07/14 13:10:27  dkrajzew
+// debugging building under linux
+//
 // Revision 1.8  2003/07/22 15:01:12  dkrajzew
 // changed-method added for safe initialisation and destruction
 //
