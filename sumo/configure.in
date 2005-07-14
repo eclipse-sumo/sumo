@@ -380,6 +380,9 @@ docs/internet/Makefile
 docs/internet/css/Makefile
 docs/internet/docs/Makefile
 docs/internet/docs/gen/Makefile
+docs/internet/docs/gen/gfx/Makefile
+docs/internet/docs/gen/gfx/dev/Makefile
+docs/internet/docs/gen/gfx/user/Makefile
 docs/internet/docs/gen/images/Makefile
 docs/internet/downloads/Makefile
 docs/internet/images/Makefile
