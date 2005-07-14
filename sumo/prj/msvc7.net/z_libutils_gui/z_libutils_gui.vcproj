@@ -20,7 +20,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				InlineFunctionExpansion="0"
-				AdditionalIncludeDirectories="$(FOX)\include,..\..\..\src"
+				AdditionalIncludeDirectories="$(NEWFOX)\include,..\..\..\src"
 				PreprocessorDefinitions="_DEBUG;WIN32;_LIB;FOXDLL"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="3"
@@ -37,7 +37,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\y_libutils_guidiv.lib"
+				OutputFile=".\Debug\y_libutils_gui.lib"
 				IgnoreAllDefaultLibraries="TRUE"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -67,7 +67,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(FOX)\include,..\..\..\src"
+				AdditionalIncludeDirectories="$(NEWFOX)\include,..\..\..\src"
 				PreprocessorDefinitions="NDEBUG;WIN32;_LIB;FOXDLL"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -112,6 +112,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\windows\GUIDialog_EditViewport.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUIDialog_GLChosenEditor.cpp">
@@ -212,10 +215,28 @@
 				RelativePath="..\..\..\src\utils\gui\drawer\GUIBaseLaneDrawer.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_GradientByFunctionValue.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_GradientByTimedFV.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_LaneBySelection.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_ShadeByFunctionValue.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUIColorer_ShadeByFunctionValue1.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\gui\drawer\GUIColoringSchemesMap.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\windows\GUIDialog_EditViewport.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUIDialog_GLChosenEditor.h">

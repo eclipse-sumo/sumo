@@ -267,7 +267,6 @@ prj/msvc6/z_libutils_common/Makefile
 prj/msvc6/z_libutils_convert/Makefile
 prj/msvc6/z_libutils_dev/Makefile
 prj/msvc6/z_libutils_distribution/Makefile
-prj/msvc6/z_libutils_fonts/Makefile
 prj/msvc6/z_libutils_foxtools/Makefile
 prj/msvc6/z_libutils_geom/Makefile
 prj/msvc6/z_libutils_gfx/Makefile
@@ -304,7 +303,6 @@ prj/msvc7.net/z_libutils_common/Makefile
 prj/msvc7.net/z_libutils_convert/Makefile
 prj/msvc7.net/z_libutils_dev/Makefile
 prj/msvc7.net/z_libutils_distribution/Makefile
-prj/msvc7.net/z_libutils_fonts/Makefile
 prj/msvc7.net/z_libutils_foxtools/Makefile
 prj/msvc7.net/z_libutils_geom/Makefile
 prj/msvc7.net/z_libutils_gfx/Makefile
@@ -414,6 +412,7 @@ src/netimport/arcview/Makefile
 src/netimport/artemis/Makefile
 src/netimport/cell/Makefile
 src/netimport/elmar/Makefile
+src/netimport/elmar2/Makefile
 src/netimport/sumo/Makefile
 src/netimport/tiger/Makefile
 src/netimport/vissim/Makefile

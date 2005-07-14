@@ -24,7 +24,6 @@ z_libutils_common \
 z_libutils_convert \
 z_libutils_dev \
 z_libutils_distribution \
-z_libutils_fonts \
 z_libutils_foxtools \
 z_libutils_geom \
 z_libutils_gfx \
