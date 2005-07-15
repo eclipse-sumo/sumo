@@ -20,8 +20,12 @@
 namespace
 {
     const char rcsid[] =
-    "";
+    "$Id$";
 }
+// $Log$
+// Revision 1.8  2005/07/15 07:18:59  dkrajzew
+// code style applied
+//
 //
 /* =========================================================================
  * compiler pragmas

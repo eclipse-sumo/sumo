@@ -23,12 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/07/15 07:18:40  dkrajzew
+// code style applied
+//
 // Revision 1.8  2005/07/12 12:21:56  dkrajzew
 // debugging vehicle emission
 //
 // Revision 1.7  2005/07/12 12:14:39  dkrajzew
 // edge-based mean data implemented; previous lane-based is now optional
-//
 //
 /* =========================================================================
  * compiler pragmas
