@@ -1,0 +1,119 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNUNG: DIESE ARBEITSBEREICHSDATEI DARF NICHT BEARBEITET ODER GELÖSCHT WERDEN!
+
+###############################################################################
+
+Project: "net_compare"=.\zz_net_compare\net_compare.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_geom
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_common
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "net_poly_intersections"=.\zz_net_poly_intersections\net_poly_intersections.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_common
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_geom
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "routesFromDets"=.\zz_routesFromDets\routesFromDets.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_importio
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_common
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "z_libutils_common"=.\z_libutils_common\z_libutils_common.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "z_libutils_convert"=.\z_libutils_convert\z_libutils_convert.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "z_libutils_geom"=.\z_libutils_geom\z_libutils_geom.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "z_libutils_importio"=.\z_libutils_importio\z_libutils_importio.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+
