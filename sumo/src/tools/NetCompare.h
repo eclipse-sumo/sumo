@@ -78,7 +78,7 @@ public:
     void convertA(void);
     void convertB(void);
 
-	void result(void);
+	void result(const char *output);
 
 	// return the min or max values
 	double minValue(double a, double b, double c);

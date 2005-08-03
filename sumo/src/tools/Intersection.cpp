@@ -35,7 +35,7 @@ namespace
 #include <map>
 #include <stdlib.h>
 #include <direct.h>
-#include <utils/geom/Position2DVector.h>
+#include "../geom/Position2DVector.h"
 
 /* =========================================================================
  * used namespaces
@@ -115,7 +115,7 @@ Intersection::loadPolygon(void)
 	char buffer[_MAX_PATH];
 	getcwd(buffer,_MAX_PATH);
 
-	ifstream out(polygons);
+	ifstream out(net);
 	
     if (!out) { 
       cerr << "cannot open file: " << net <<endl; 
@@ -143,8 +143,6 @@ Intersection::loadPolygon(void)
             poly->posi.push_back(*pos);
 			cout <<"       Position: x = "<<pos1<<" y = "<<pos2<<endl;
 			}
-        // !!! patch due to false implementation of intersectsAtLengths!!!
-        poly->posi.push_back(poly->posi.at(0));
         myPolyDict[id] = poly;
 		}
 
@@ -155,25 +153,19 @@ Intersection::loadPolygon(void)
 /// compare all value to find the intersection point
 /// write results in a file 
 void
-Intersection::compare(void)
-{
+Intersection::compare(const char *output)
+{  
    cout<<endl<<"======================results========================================="<<endl;
+   ofstream out(output);
    for(DictTypePolygon::iterator i=myPolyDict.begin(); i!=myPolyDict.end(); i++) {
 	    for(DictTypeLane::iterator j=myLaneDict.begin(); j!=myLaneDict.end(); j++) {
-			if(((*j).second->posi).intersects((*i).second->posi)){
+			if(((*i).second->posi).intersects((*j).second->posi)){
+				out<<(*i).second->id << ":" << (*j).second->id<<endl;
 				cout<<"  Schnittpunkt zwischen Polygon "<<(*i).second->id<<" und Lane "<<(*j).second->id <<endl;
-                DoubleVector intersectionPositions = 
-                    (*j).second->posi.intersectsAtLengths((*i).second->posi);
-                for(DoubleVector::iterator k=intersectionPositions.begin(); k!=intersectionPositions.end(); ++k) {
-                    Position2D pos = (*j).second->posi.positionAtLengthPosition(*k);
-                    cout << "     At lane pos " << (*k) << " (" << pos.x() << ", " << pos.y() << ")" << endl;
-                }
 			}
 		}
     }
-
-
-
+   out.close();
 }
 // gibt wie oft ein char in einr string vorkommt
 int 
@@ -193,19 +185,18 @@ Intersection::getNumberOf(std::string str){
  * ----------------------------------------------------------------------- */
 int main(int argc, char** argv) 
 { 
-	/*
-	if (argc<3) { 
-    cerr << "Bitte einen Dateinamen als" 
-         << " Argument angeben!" << endl; 
+	if (argc!=4) { 
+    cerr << " syntax error please use:"   
+		 << " Intersection <net-file> <polygon-file> <output-file> "<< endl; 
       return -1; 
     }
-	*/
+	
 
-	Intersection *app = new Intersection("due2s.net.xml","poly.xml");//argv[1],argv[2]);
+	Intersection *app = new Intersection(argv[1],argv[2]);
 	app->loadNet();
 	app->loadPolygon();
-	app->compare();
-	return 0;
+	app->compare(argv[3]);
+	return 1;
 }
 
 

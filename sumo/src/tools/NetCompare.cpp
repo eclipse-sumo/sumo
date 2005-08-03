@@ -177,7 +177,7 @@ NetCompare::convertA(void)
 	double yw   = ymax - ymin ;
     cout <<" yminValue "<<ymin<<endl;
 	cout <<" ymaxValue "<<ymax<<endl;
-    cout <<" xwidth "<<xw<<endl;
+    cout <<" ywidth "<<yw<<endl;
 
 	for(DictTypeJunction::iterator j=myJunctionDictA.begin(); j!=myJunctionDictA.end(); j++) {
 		cout<<"----------------------------------------------"<<endl;
@@ -248,8 +248,8 @@ NetCompare::convertB(void)
 }
 
 void 
-NetCompare::result(void){
-	ofstream out("result.txt");
+NetCompare::result(const char *output){
+	ofstream out(output);
 	for(DictTypeJunction::iterator i=myJunctionDictA.begin(); i!=myJunctionDictA.end(); i++) {
 		 double minAbstand = 77777;
 		 std::string id = "";
@@ -262,7 +262,7 @@ NetCompare::result(void){
 				 id = (*j).second->id;			
 			 }     
 		 }
-		 out<<(*i).second->id << ";" << id <<endl;
+		 out<<(*i).second->id << ":" << id <<endl;
 		 cout <<(*i).second->id <<"    Aequivalent zu    "<< id <<endl;
 	}
 	out.close();
@@ -310,23 +310,30 @@ NetCompare::minValue(double a, double b, double c)
  * ----------------------------------------------------------------------- */
 int main(int argc, char** argv) 
 { 
-	/*
-	if (argc<8) { 
-    cerr << " syntax error please use:   
-	     <<   NetCompare <netA> <netB> <junctionA1> <junctionA2> <junctionA3> " 
-         << "            <junctionB1> <junctionB2> <junctionB3> " << endl; 
+	
+	if (argc!=7) { 
+    cerr << " syntax error please use:"   
+		 << " NetCompare <netA> <netB> <junctionA1>:<junctionB1> " 
+         << "            <junctionA2>:<junctionB2> <junctionA3>:<junctionB3> <output-file>" << endl; 
       return -1; 
     }
-	*/
 
-	NetCompare *app = new NetCompare("koeln_sim.net.xml", "wjt2005.net.xml");//argv[1],argv[2]);
-//	app->setJunctionA("53127760", "568052308", "53073921"); //argv[2],argv[3] argv[4]);
-	app->setJunctionA("3523", "3457", "2668"); //argv[5],argv[6] argv[7]);
-	app->setJunctionB("53127769", "568052308", "53073921"); //argv[2],argv[3] argv[4]);
+	std::string arg3 = argv[3];
+	std::string arg4 = argv[4];
+	std::string arg5 = argv[5];
+
+	NetCompare *app = new NetCompare(argv[1],argv[2]);
+
+	app->setJunctionA(arg3.substr(0,arg3.find(":")), 
+		              arg4.substr(0,arg4.find(":")), 
+		              arg5.substr(0,arg5.find(":")));
+	app->setJunctionB(arg3.substr(arg3.find(":")+1, arg3.length() - arg3.find(":")-1),
+		              arg4.substr(arg4.find(":")+1, arg4.length() - arg4.find(":")-1),
+					  arg5.substr(arg5.find(":")+1, arg5.length() - arg5.find(":")-1));
 	app->load();
 	app->convertA();
 	app->convertB();
-	app->result();
+	app->result(argv[6]);
 	return 0;
 }
 

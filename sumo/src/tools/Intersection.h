@@ -34,7 +34,7 @@
 #include <string> 
 #include <vector>
 #include <map>
-#include <utils/geom/Position2DVector.h>
+#include "../geom/Position2DVector.h"
 
 
 /* =========================================================================
@@ -83,7 +83,7 @@ public:
 
     // compare all value to find the intersection point
 	// write results into a file 
-    void compare(void);
+    void compare(const char *output);
 
 	// gibt wie oft ein char in ein string vorkommt
     int getNumberOf(std::string str);
