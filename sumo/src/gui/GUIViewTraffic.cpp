@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.39  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.38  2005/07/12 12:10:14  dkrajzew
 // further visualisation options added
 //
@@ -45,7 +48,9 @@ namespace
 // using coloring schemes stored in a container
 //
 // Revision 1.31  2004/07/02 08:31:35  dkrajzew
-// detector drawer now also draw other additional items; removed some memory leaks; some further drawing options (mainly for the online-router added)
+// detector drawer now also draw other additional items; removed some memory
+//  leaks;
+//  some further drawing options (mainly for the online-router added)
 //
 // Revision 1.30  2004/06/17 13:06:55  dkrajzew
 // Polygon visualisation added
@@ -147,7 +152,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <iostream>
@@ -163,7 +168,7 @@ namespace
 #include <microsim/MSCORN.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
-#include <utils/geom/Polygon2D.h>
+#include <utils/shapes/Polygon2D.h>
 #include "GUISUMOViewParent.h"
 #include "drawerimpl/GUIVehicleDrawer_FGwTasTriangle.h"
 #include "drawerimpl/GUIVehicleDrawer_FGnTasTriangle.h"
@@ -204,6 +209,10 @@ namespace
 #endif
 
 #include <GL/gl.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -365,9 +374,9 @@ GUIViewTraffic::~GUIViewTraffic()
         delete myDetectorDrawer[i];
         delete myROWDrawer[i];
     }
-    delete _edges2Show;
-    delete _junctions2Show;
-    delete _additional2Show;
+    delete[] _edges2Show;
+    delete[] _junctions2Show;
+    delete[] _additional2Show;
     delete myVehColoring;
     delete myLaneColoring;
     delete myLocatorPopup;
@@ -582,11 +591,7 @@ symax += cy;
         }
     }
     // draw the Polygons
-    std::map<std::string, Polygon2D*>::iterator ppoly =
-        MSNet::getInstance()->poly_dic.begin();
-    for(; ppoly != MSNet::getInstance()->poly_dic.end(); ppoly++) {
-         drawPolygon2D(*(ppoly->second));
-    }
+    drawShapes(_net->getShapeContainer());
     // draw vehicles only when they're visible
     if(scale*m2p(3)>1) {
         myVehicleDrawer[drawerToUse]->drawGLVehicles(_edges2Show,
@@ -669,8 +674,8 @@ GUIViewTraffic::draw(const MSRoute &r)
 {
     MSRouteIterator i = r.begin();
     for(; i!=r.end(); ++i) {
-        MSEdge *e = *i;
-        GUIEdge *ge = static_cast<GUIEdge*>(e);
+        const MSEdge *e = *i;
+        const GUIEdge *ge = static_cast<const GUIEdge*>(e);
         const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
         const DoubleVector &rots = lane.getShapeRotations();
         const DoubleVector &lengths = lane.getShapeLengths();

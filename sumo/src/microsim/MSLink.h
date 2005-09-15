@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.12  2004/02/16 14:23:02  dkrajzew
 // copy constructor and assignment operator invalidated
 //
@@ -57,7 +60,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSLogicJunction.h"

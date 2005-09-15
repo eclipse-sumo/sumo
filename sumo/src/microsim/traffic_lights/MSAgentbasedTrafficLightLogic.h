@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/15 11:09:53  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/05/04 08:22:19  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -78,7 +81,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <utility>
@@ -136,9 +139,9 @@ public:
         double minDiff, int tcycle);
 
     /// Initialises the tls with information about incoming lanes
-    void init(NLDetectorBuilder &nb,
-        const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &edgeContinuations,
+	void init(NLDetectorBuilder &nb,
+		const std::vector<MSLane*> &lanes,
+        const std::map<std::string, std::vector<std::string> > &edgeContinuations,
         double det_offset);
 
     /// destructor
@@ -172,7 +175,7 @@ protected:
     /// Builds the detectors
     virtual void sproutDetectors(NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &laneContinuations,
+        const std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset);
 
     /// initializes the duration of the phases (except the intergeentimes)

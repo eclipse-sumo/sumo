@@ -30,6 +30,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MSEDDetectorInterface.h"
 #include <functional>
 
@@ -172,7 +176,7 @@ namespace ED
         MSUnit::Seconds getStartTime( MSUnit::Steps lastNTimesteps )
             {
                 MSUnit::Steps timestep =
-                    MSNet::getInstance()->timestep() - lastNTimesteps;
+                    MSNet::getInstance()->getCurrentTimeStep() - lastNTimesteps;
                 if ( timestep < 0 ) {
                     return MSUnit::Seconds(0);
                 }

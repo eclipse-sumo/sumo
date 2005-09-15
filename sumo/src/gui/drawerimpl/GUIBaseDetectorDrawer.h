@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
@@ -41,7 +44,11 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-//#include <gui/GUISUMOAbstractView.h>
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
+#include <utils/gui/windows/GUISUMOAbstractView.h>
 
 
 

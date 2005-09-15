@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.21  2005/05/04 08:26:48  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; debugging
 //
@@ -170,7 +173,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSLaneChanger.h"
@@ -184,6 +187,14 @@ namespace
 #include <cmath>
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <utils/common/MsgHandler.h>
+
+#ifdef ABS_DEBUG
+#include "MSDebugHelper.h"
+#endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -255,6 +266,7 @@ MSLaneChanger::initChanger()
         ce->lead = 0;
         ce->hoppedVeh = 0;
         ce->lastBlocked = 0;
+
         MSLane::VehCont& vehicles = ce->lane->myVehicles;
         if ( vehicles.empty() ) {
             ce->veh  = vehicles.rend();
@@ -271,8 +283,6 @@ MSLaneChanger::initChanger()
 }
 
 //-------------------------------------------------------------------------//
-//#define GUI_DEBUG
-
 #ifdef GUI_DEBUG
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <guisim/GUIVehicle.h>
@@ -291,20 +301,20 @@ MSLaneChanger::change()
     // priority.
     myCandi = findCandidate();
     MSVehicle* vehicle = veh( myCandi );
-#ifdef GUI_DEBUG
+    /*
     if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle*>(vehicle)->getGlID())) {
         int blb = 0;
     }
-#endif
+    */
 
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>=MSNet::searchedtime && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+    if(debug_globaltime>=debug_searchedtime && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
         DEBUG_OUT << "change:" << vehicle->id() << ": " << vehicle->pos() << ", " << vehicle->speed() << endl;
     }
 #endif
     pair<int, double> changePreference = getChangePreference();
     double currentLaneDist =
-        vehicle->allowedContinuationsLength((*myCandi).lane);
+        vehicle->allowedContinuationsLength((*myCandi).lane, 0);
     if(changePreference.second==currentLaneDist) {
         changePreference.first = 0;
     }
@@ -333,7 +343,7 @@ MSLaneChanger::change()
         vehicle->enterLaneAtLaneChange( ( myCandi - 1 )->lane );
         vehicle->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+    if(debug_globaltime>debug_searchedtime && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
         DEBUG_OUT << "changed2right" << endl;
     }
 #endif
@@ -378,7 +388,7 @@ MSLaneChanger::change()
         vehicle->enterLaneAtLaneChange( ( myCandi + 1 )->lane );
         vehicle->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+    if(debug_globaltime>debug_searchedtime-5 && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
         DEBUG_OUT << "changed2left" << endl;
     }
 #endif
@@ -484,7 +494,7 @@ MSLaneChanger::change()
                 prohibitor->getLaneChangeModel().changed();
                 prohibitor->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+    if(debug_globaltime>debug_searchedtime-5 && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
         DEBUG_OUT << "swapped:"
             << vehicle->id() << ": at" << vehicle->getLane().id() << ", " << vehicle->pos() << ", " << vehicle->speed()
             << " with:"
@@ -501,7 +511,7 @@ MSLaneChanger::change()
     myCandi->lane->myTmpVehicles.push_front( veh ( myCandi ) );
     vehicle->myLastLaneChangeOffset++;
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+    if(debug_globaltime>debug_searchedtime-5 && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
         DEBUG_OUT << "kept" << endl;
     }
 #endif
@@ -918,7 +928,7 @@ MSLaneChanger::advan2right(const std::pair<MSVehicle*, double> &leader,
         msg, blocked,
         leader, neighLead, neighFollow, *(myCandi-1)->lane,
         bestLaneOffset, bestDist,
-        veh(myCandi)->allowedContinuationsLength((myCandi-1)->lane),
+        veh(myCandi)->allowedContinuationsLength((myCandi-1)->lane, 0),
         currentDist,
         &(myCandi->lastBlocked));
 }
@@ -939,7 +949,7 @@ MSLaneChanger::advan2left(const std::pair<MSVehicle*, double> &leader,
         msg, blocked,
         leader, neighLead, neighFollow, *(myCandi+1)->lane,
         bestLaneOffset, bestDist,
-        veh(myCandi)->allowedContinuationsLength((myCandi+1)->lane),
+        veh(myCandi)->allowedContinuationsLength((myCandi+1)->lane, 0),
         currentDist,
         &(myCandi->lastBlocked));
 }
@@ -955,7 +965,7 @@ MSLaneChanger::getChangePreference()
     int midx = distance(myChanger.begin(), myCandi);
     for(int i=0; i<(int) myChanger.size(); ++i) {
         MSLane *lane = (*(myChanger.begin()+i)).lane;
-        int mmax = vehicle->countAllowedContinuations(lane);
+        int mmax = vehicle->countAllowedContinuations(lane, -(midx-i));
         if(maxNo==-1||mmax>maxNo) {
             maxNo = mmax;
             maxIdx = i;
@@ -964,7 +974,7 @@ MSLaneChanger::getChangePreference()
     assert(maxIdx!=-1);
     return pair<int, double>(
         maxIdx-distance(myChanger.begin(), myCandi),
-        vehicle->allowedContinuationsLength((*(myChanger.begin()+maxIdx)).lane)
+        vehicle->allowedContinuationsLength((*(myChanger.begin()+maxIdx)).lane, -(midx-maxIdx))
         );
 }
 

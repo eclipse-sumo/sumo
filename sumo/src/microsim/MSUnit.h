@@ -24,9 +24,12 @@
 // $Id$
 
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <cassert>
 #include <cmath>
-#include <helpers/SingletonDictionary.h>
 
 
 // conversion class from metric units (meters, seconds, etc.)
@@ -57,9 +60,6 @@ public:
 
     static MSUnit* getInstance( void )
         {
-            if ( instanceM == 0 ) {
-                throw SingletonNotCreated();
-            }
             return instanceM;
         }
 

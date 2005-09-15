@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/05/04 07:47:23  dkrajzew
 // level 3 warnings removed
 //
@@ -41,10 +44,18 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "GUIGlobals.h"
 #include <utils/gui/div/GUIGlobalSelection.h>
 
 #include <algorithm>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -56,7 +67,6 @@ using namespace std;
  * global variables definitions
  * ======================================================================= */
 bool gQuitOnEnd;
-bool gStartAtBegin;
 bool gAllowAggregated;
 bool gAllowAggregatedFloating;
 bool gSuppressEndInfo;

@@ -19,6 +19,10 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.6  2005/09/15 11:08:20  dkrajzew
+// LARGE CODE RECHECK
+//
 //
 /* =========================================================================
  * compiler pragmas
@@ -30,7 +34,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSE2Collector.h"

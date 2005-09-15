@@ -23,9 +23,11 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/15 11:07:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/07/15 07:18:39  dkrajzew
 // code style applied
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -36,13 +38,23 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MSLCM_DK2004.h"
 #include <iostream>
+
+#ifdef ABS_DEBUG
+#include "../MSDebugHelper.h"
+#endif
+
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * some definitions (debugging only)
@@ -59,15 +71,17 @@ std::string id_follower("4536");
 std::string id_pfollower("1131");
 size_t searchedtime = 21900;
 
-//#define GUI_DEBUG
-
 #ifdef GUI_DEBUG
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <guisim/GUIVehicle.h>
 #endif
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 // 80km/h will be the swell for dividing between long/short foresight
-#define LOOK_FORWARD_SPEED_DIVIDER 22.22
+#define LOOK_FORWARD_SPEED_DIVIDER 12.22
 
 #define LOOK_FORWARD_FAR 15
 
@@ -103,13 +117,13 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
                                  double currentDist,
                                  MSVehicle **lastBlocked)
 {
-#ifdef GUI_DEBUG
+    /*
     if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
         int blb = 0;
     }
-#endif
+    */
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>=MSNet::searchedtime && (myVehicle.id()==MSNet::searched1||myVehicle.id()==MSNet::searched2)) {
+    if(debug_globaltime>=debug_searchedtime && (myVehicle.id()==debug_searched1||myVehicle.id()==debug_searched2)) {
         DEBUG_OUT << "bla" << endl;
     }
 #endif
@@ -254,7 +268,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         myChangeProbability -= (float)
             ((neighLaneVSafe-thisLaneVSafe) / (myVehicle.getLane().maxSpeed()));
     }
-    if(myChangeProbability<-1.0) {
+    if(myChangeProbability<-.2) {
         return ret | LCA_RIGHT|LCA_SPEEDGAIN;
     }
     // --------
@@ -274,13 +288,13 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
                                 double currentDist,
                                 MSVehicle **lastBlocked)
 {
-#ifdef GUI_DEBUG
+    /*
     if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
         int blb = 0;
     }
-#endif
+    */
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>=MSNet::searchedtime && (myVehicle.id()==MSNet::searched1||myVehicle.id()==MSNet::searched2)) {
+    if(debug_globaltime>=debug_searchedtime && (myVehicle.id()==debug_searched1||myVehicle.id()==debug_searched2)) {
         DEBUG_OUT << "bla" << endl;
     }
 #endif
@@ -431,8 +445,8 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         myChangeProbability += (float)
             ((neighLaneVSafe-thisLaneVSafe) / (myVehicle.getLane().maxSpeed()));
     }
-    if(myChangeProbability>1.0) {
-        return ret | LCA_LEFT|LCA_SPEEDGAIN;
+    if(myChangeProbability>.2) {
+        return ret | LCA_LEFT|LCA_SPEEDGAIN|LCA_URGENT;
     }
     // --------
     return ret;
@@ -442,11 +456,11 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
 double
 MSLCM_DK2004::patchSpeed(double min, double wanted, double max, double vsafe)
 {
-#ifdef GUI_DEBUG
+    /*
     if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
         int blb= 0;
     }
-#endif
+    */
     double vSafe = myVSafe;
     int state = myState;
     myState = 0;
@@ -468,7 +482,7 @@ MSLCM_DK2004::patchSpeed(double min, double wanted, double max, double vsafe)
             &&
             (state&LCA_BLOCKEDBY_FOLLOWER)!=0) {
 
-            return wanted;
+            return (min+wanted)/2.0;//wanted;
         } else {
             if((state&LCA_BLOCKEDBY_LEADER)!=0) {
                 // if interacting with leader and not too slow
@@ -490,7 +504,7 @@ MSLCM_DK2004::patchSpeed(double min, double wanted, double max, double vsafe)
         if(myVSafe<=0) {
             return (min+wanted)/2.0;
         }
-        return MAX2(min, MIN2(vSafe, wanted));
+        return min;//MAX2(min, MIN2(vSafe, wanted));
     }
     if((state&LCA_AMBACKBLOCKER)!=0) {
         if(max<=myVehicle.accelAbility()&&min==0) {
@@ -562,11 +576,11 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
                             const std::pair<MSVehicle*, double> &neighLead,
                             const std::pair<MSVehicle*, double> &neighFollow)
 {
-#ifdef GUI_DEBUG
+    /*
     if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
         int blb = 0;
     }
-#endif
+    */
     if((blocked&LCA_BLOCKEDBY_FOLLOWER)!=0) {
         assert(neighFollow.first!=0);
         MSVehicle *nv = neighFollow.first;

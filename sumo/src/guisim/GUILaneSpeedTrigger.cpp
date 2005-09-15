@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/07/12 12:17:39  dkrajzew
 // we're using polyfonts, now
 //
@@ -57,7 +60,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #ifdef _WIN32
@@ -73,7 +76,7 @@ namespace
 #include <utils/geom/Boundary.h>
 #include <utils/glutils/GLHelper.h>
 #include <utils/convert/ToString.h>
-#include <helpers/Command.h>
+#include <utils/helpers/Command.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
@@ -89,10 +92,16 @@ namespace
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/foxtools/MFXMenuHeader.h>
-#include <gui/manipulators/GUIManip_LaneSpeedTrigger.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <utils/glutils/polyfonts.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <gui/GUIApplicationWindow.h>
+#include <guisim/GUILaneSpeedTrigger.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -104,6 +113,9 @@ using namespace std;
 /* =========================================================================
  * FOX callback mapping
  * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu - mapping
+ * ----------------------------------------------------------------------- */
 FXDEFMAP(GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu)
     GUILaneSpeedTriggerPopupMenuMap[]=
 {
@@ -115,9 +127,190 @@ FXDEFMAP(GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu)
 FXIMPLEMENT(GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu, GUIGLObjectPopupMenu, GUILaneSpeedTriggerPopupMenuMap, ARRAYNUMBER(GUILaneSpeedTriggerPopupMenuMap))
 
 
+/* -------------------------------------------------------------------------
+ * GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger - mapping
+ * ----------------------------------------------------------------------- */
+FXDEFMAP(GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger) GUIManip_LaneSpeedTriggerMap[]=
+{
+    FXMAPFUNC(SEL_COMMAND,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_USER_DEF, GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdUserDef),
+    FXMAPFUNC(SEL_UPDATE,   GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_USER_DEF, GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdUserDef),
+    FXMAPFUNC(SEL_COMMAND,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_PRE_DEF,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdPreDef),
+    FXMAPFUNC(SEL_UPDATE,   GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_PRE_DEF,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdPreDef),
+    FXMAPFUNC(SEL_COMMAND,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_OPTION,   GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdChangeOption),
+    FXMAPFUNC(SEL_COMMAND,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_CLOSE,    GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdClose),
+};
+
+FXIMPLEMENT(GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger, GUIManipulator, GUIManip_LaneSpeedTriggerMap, ARRAYNUMBER(GUIManip_LaneSpeedTriggerMap))
+
+
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger - methods
+ * ----------------------------------------------------------------------- */
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
+        GUIMainWindow &app,
+        const std::string &name, GUILaneSpeedTrigger &o,
+        int xpos, int ypos)
+    : GUIManipulator(app, name, 0, 0), myChosenValue(0),
+    myParent(&app),
+    myChosenTarget(myChosenValue, this, MID_OPTION), mySpeedTarget(mySpeed),
+    mySpeed(o.getDefaultSpeed()),
+    myObject(&o)
+{
+    FXVerticalFrame *f1 =
+        new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
+
+    FXGroupBox *gp = new FXGroupBox(f1, "Change Speed",
+        GROUPBOX_TITLE_LEFT|FRAME_RIDGE,
+        0, 0, 0, 0,  4, 4, 1, 1, 2, 0);
+    {
+        // default
+        FXHorizontalFrame *gf1 =
+            new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
+        new FXRadioButton(gf1, "Default", &myChosenTarget, FXDataTarget::ID_OPTION+0,
+            ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP,
+            0, 0, 0, 0,   2, 2, 0, 0);
+    }
+    {
+        // loaded
+        FXHorizontalFrame *gf0 =
+            new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
+        new FXRadioButton(gf0, "Loaded", &myChosenTarget, FXDataTarget::ID_OPTION+1,
+            ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP,
+            0, 0, 0, 0,   2, 2, 0, 0);
+    }
+    {
+        // predefined
+        FXHorizontalFrame *gf2 =
+            new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
+        new FXRadioButton(gf2, "Predefined: ", &myChosenTarget, FXDataTarget::ID_OPTION+2,
+            ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP|LAYOUT_CENTER_Y,
+            0, 0, 0, 0,   2, 2, 0, 0);
+        myPredefinedValues =
+            new FXComboBox(gf2, 10, this, MID_PRE_DEF,
+                ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP|LAYOUT_CENTER_Y);
+        myPredefinedValues->appendItem("20 km/h");
+        myPredefinedValues->appendItem("40 km/h");
+        myPredefinedValues->appendItem("60 km/h");
+        myPredefinedValues->appendItem("80 km/h");
+        myPredefinedValues->appendItem("100 km/h");
+        myPredefinedValues->appendItem("120 km/h");
+        myPredefinedValues->appendItem("140 km/h");
+        myPredefinedValues->appendItem("160 km/h");
+        myPredefinedValues->appendItem("180 km/h");
+        myPredefinedValues->appendItem("200 km/h");
+        myPredefinedValues->setNumVisible(5);
+    }
+    {
+        // free
+        FXHorizontalFrame *gf12 =
+            new FXHorizontalFrame(gp, LAYOUT_TOP|LAYOUT_LEFT,0,0,0,0, 10,10,5,5);
+        new FXRadioButton(gf12, "Free Entry: ", &myChosenTarget, FXDataTarget::ID_OPTION+3,
+            ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP|LAYOUT_CENTER_Y,
+            0, 0, 0, 0,   2, 2, 0, 0);
+        myUserDefinedSpeed =
+            new FXRealSpinDial(gf12, 10, this, MID_USER_DEF,
+                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        myUserDefinedSpeed->setFormatString("%.0f km/h");
+        myUserDefinedSpeed->setIncrements(1,10,10);
+        myUserDefinedSpeed->setRange(0,300);
+        myUserDefinedSpeed->setValue(
+            static_cast<GUILaneSpeedTrigger*>(myObject)->getDefaultSpeed()*3.6);
+    }
+    new FXButton(f1,"Close",NULL,this,MID_CLOSE,
+        BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
+    static_cast<GUILaneSpeedTrigger*>(myObject)->setOverriding(true);
+}
+
+
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::~GUIManip_LaneSpeedTrigger()
+{
+}
+
+
+long
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdClose(FXObject*,FXSelector,void*)
+{
+    destroy();
+    return 1;
+}
+
+
+long
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdUserDef(FXObject*,FXSelector,void*)
+{
+    mySpeed = (float) (myUserDefinedSpeed->getValue() / 3.6);
+    static_cast<GUILaneSpeedTrigger*>(myObject)->setOverridingValue(mySpeed);
+    myParent->updateChildren();
+    return 1;
+}
+
+
+long
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdUserDef(FXObject *sender,FXSelector,void*ptr)
+{
+    sender->handle(this,
+        myChosenValue!=3 ? FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
+        ptr);
+    myParent->updateChildren();
+    return 1;
+}
+
+
+long
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdPreDef(FXObject*,FXSelector,void*)
+{
+    mySpeed = (float) (float) ((myPredefinedValues->getCurrentItem() * 20 + 20)/3.6);
+    static_cast<GUILaneSpeedTrigger*>(myObject)->setOverridingValue(mySpeed);
+    myParent->updateChildren();
+    return 1;
+}
+
+
+long
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdPreDef(FXObject *sender,FXSelector,void*ptr)
+{
+    sender->handle(this,
+        myChosenValue!=2 ? FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
+        ptr);
+    myParent->updateChildren();
+    return 1;
+}
+
+
+long
+GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdChangeOption(FXObject*,FXSelector,void*)
+{
+    static_cast<GUILaneSpeedTrigger*>(myObject)->setOverriding(true);
+    switch(myChosenValue) {
+    case 0:
+        mySpeed = (float) static_cast<GUILaneSpeedTrigger*>(myObject)->getDefaultSpeed();
+        break;
+    case 1:
+        mySpeed = (float) static_cast<GUILaneSpeedTrigger*>(myObject)->getLoadedSpeed();
+        break;
+    case 2:
+        mySpeed = (float) ((myPredefinedValues->getCurrentItem() * 20 + 20)/3.6);
+        break;
+    case 3:
+        mySpeed = (float) (myUserDefinedSpeed->getValue() / 3.6);
+        break;
+    default:
+        throw 1;
+    }
+    static_cast<GUILaneSpeedTrigger*>(myObject)->setOverridingValue(mySpeed);
+    myParent->updateChildren();
+    if(myChosenValue==12) {
+        // !!! lock in between
+        static_cast<GUILaneSpeedTrigger*>(myObject)->setOverriding(false);
+    }
+    return 1;
+}
+
+
+
 /* -------------------------------------------------------------------------
  * GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu - methods
  * ----------------------------------------------------------------------- */
@@ -153,7 +346,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
             const std::string &aXMLFilename)
     : MSLaneSpeedTrigger(id, net, destLanes, aXMLFilename),
     GUIGlObject_AbstractAdd(gIDStorage,
-        string("speedtrigger:") + id, GLO_LANESPEEDTRIGGER),
+        string("speedtrigger:") + id, GLO_TRIGGER),
     myShowAsKMH(true), myLastValue(-1)
 {
     mySGPositions.reserve(destLanes.size());
@@ -198,31 +391,8 @@ GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow &app,
     //
     new FXMenuCommand(ret, "Open Manipulator...",
         GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_MANIP);
-/*    FXMenuPane *manualSpeed = new FXMenuPane(ret);
-    new FXMenuTitle(ret,"&Arrange",NULL,manualSpeed);
-    new FXMenuCommand(manualSpeed,"20 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);// MID_020KMH);
-    new FXMenuCommand(manualSpeed,"40 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_040KMH);
-    new FXMenuCommand(manualSpeed,"60 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_060KMH);
-    new FXMenuCommand(manualSpeed,"80 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_080KMH);
-    new FXMenuCommand(manualSpeed,"100 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_100KMH);
-    new FXMenuCommand(manualSpeed,"120 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_120KMH);
-    new FXMenuCommand(manualSpeed,"140 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_140KMH);
-    new FXMenuCommand(manualSpeed,"160 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_160KMH);
-    new FXMenuCommand(manualSpeed,"180 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_180KMH);
-    new FXMenuCommand(manualSpeed,"200 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_200KMH);
-        */
     //
-    if(gSelected.isSelected(GLO_LANESPEEDTRIGGER, getGlID())) {
+    if(gSelected.isSelected(GLO_TRIGGER, getGlID())) {
         new FXMenuCommand(ret, "Remove From Selected",
             GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
     } else {
@@ -231,7 +401,8 @@ GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow &app,
     }
     new FXMenuSeparator(ret);
     //
-    new FXMenuCommand(ret, "Show Parameter", 0, ret, MID_SHOWPARS);
+    new FXMenuCommand(ret, "Show Parameter",
+        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
     return ret;
 }
 
@@ -309,7 +480,7 @@ GUILaneSpeedTrigger::doPaint(const PosCont &poss, const RotCont rots,
         GLHelper::drawFilledCircle(1.3, noPoints);
         if(scale<10) {
             glPopMatrix();
-            return;
+            continue;
         }
         glColor3f(0, 0, 0);
         GLHelper::drawFilledCircle(1.1, noPoints);
@@ -317,7 +488,7 @@ GUILaneSpeedTrigger::doPaint(const PosCont &poss, const RotCont rots,
             // not if scale to low
         if(scale<4.5) {
             glPopMatrix();
-            return;
+            continue;
         }
             // compute
         float value = (float) getCurrentSpeed();
@@ -342,22 +513,22 @@ GUILaneSpeedTrigger::doPaint(const PosCont &poss, const RotCont rots,
             //draw
         glColor3f(1, 1, 0);
 
-        float w = pfdkGetStringWidth(myLastValueString.c_str());
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         pfSetPosition(0, 0);
         pfSetScale(1.2f);
+        float w = pfdkGetStringWidth(myLastValueString.c_str());
         glRotated(180, 0, 1, 0);
         glTranslated(-w/2., 0.3, 0);
         pfDrawString(myLastValueString.c_str());
-        glTranslated(w/2., -0.3, 0);
-        glColor3f(0, 1, 0);
         glPopMatrix();
     }
 }
 
+
 Boundary
 GUILaneSpeedTrigger::getBoundary() const
 {
+    /* !!! */
     Position2D pos = getPosition();
     Boundary ret(pos.x(), pos.y(), pos.x(), pos.y());
     ret.grow(2.0);

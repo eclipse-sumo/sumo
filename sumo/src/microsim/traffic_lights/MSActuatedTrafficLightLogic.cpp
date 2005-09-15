@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/15 11:09:53  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/05/04 08:22:18  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -121,7 +124,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <utility>
@@ -135,6 +138,10 @@ namespace
 #include "MSActuatedTrafficLightLogic.h"
 #include <microsim/MSLane.h>
 #include <netload/NLDetectorBuilder.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -155,7 +162,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(
 void
 MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &laneContinuations,
+        const std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset)
 {
     sproutDetectors(nb, lanes, laneContinuations, det_offset);
@@ -226,7 +233,7 @@ MSActuatedTrafficLightLogic::nextPhase()
 void
 MSActuatedTrafficLightLogic::sproutDetectors(
         NLDetectorBuilder &nb, const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &laneContinuations,
+        const std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset)
 {
     // change values for setting the loops and lanestate-detectors, here
@@ -305,20 +312,22 @@ MSActuatedTrafficLightLogic::isGreenPhase() const
 }
 
 
-bool
+void
 MSActuatedTrafficLightLogic::gapControl()
 {
     //intergreen times should not be lenghtend
     assert(myPhases.size()>myStep);
     if(!isGreenPhase()) {
-        return _continue = false;
+        _continue = false;
+        return;
     }
 
     // Checks, if the maxDuration is kept. No phase should longer send than maxDuration.
     SUMOTime actDuration =
         MSNet::getInstance()->getCurrentTimeStep() - static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->_lastSwitch;
     if (actDuration >= currentPhaseDef()->maxDuration) {
-        return _continue = false;
+        _continue = false;
+        return;
     }
 
     // now the gapcontrol starts
@@ -336,12 +345,13 @@ MSActuatedTrafficLightLogic::gapControl()
                 double actualGap =
                     myInductLoops.find(*j)->second->getTimestepsSinceLastDetection();
                 if (actualGap < myMaxGap) {
-                    return _continue = true;
+                    _continue = true;
+                    return;
                 }
             }
         }
     }
-    return _continue = false;
+    _continue = false;
 }
 
 

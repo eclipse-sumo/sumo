@@ -22,6 +22,9 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.7  2005/09/15 11:08:09  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/05/04 08:10:12  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -41,7 +44,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <microsim/MSMoveReminder.h>
@@ -49,7 +52,6 @@
 #include <string>
 #include <cassert>
 #include <vector>
-#include <helpers/SingletonDictionary.h>
 #include <microsim/output/MSCrossSection.h>
 #include "MSE1MoveReminder.h"
 #include <microsim/MSVehicleQuitReminded.h>
@@ -74,8 +76,6 @@ public:
     typedef LD::MSDetectorInterface LDDetector;
     typedef std::vector< LDDetector* > DetectorCont;
     typedef DetectorCont::iterator DetContIter;
-    typedef SingletonDictionary<
-        std::string, MSE1Collector* > E1Dictionary;
 
     MSE1Collector(
         std::string id
@@ -93,14 +93,14 @@ public:
                 new Detector::E1EntryReminder( id, crossSectionM, *this );
             leaveReminderM =
                 new Detector::E1LeaveReminder( id, crossSectionM, *this );
-
+/*
             // insert object into dictionary
             if ( ! E1Dictionary::getInstance()->isInsertSuccess( idM, this ) ){
                 MsgHandler::getErrorInstance()->inform(
                     "e1-detector '" + idM + "' could not be build;");
                 MsgHandler::getErrorInstance()->inform(
                     " (declared twice?)");
-                throw ProcessError();            }
+                throw ProcessError();            }*/
         }
 
     /// Dtor. Deletes the created detectors.

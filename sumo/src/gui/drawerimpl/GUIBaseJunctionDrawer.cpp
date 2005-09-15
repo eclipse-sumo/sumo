@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
@@ -47,10 +50,18 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <guisim/GUIJunctionWrapper.h>
 #include <utils/glutils/GLHelper.h>
 #include "GUIBaseJunctionDrawer.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

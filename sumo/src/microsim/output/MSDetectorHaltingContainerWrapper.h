@@ -36,6 +36,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MSDetectorContainerWrapper.h"
 #include "MSDetectorOccupancyCorrection.h"
 #include <microsim/MSUnit.h>

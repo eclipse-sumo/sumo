@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
@@ -54,6 +57,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include "GUIDetectorDrawer_SGwT.h"
 #include <guisim/GUIDetectorWrapper.h>
@@ -63,6 +70,10 @@ namespace
 #endif
 
 #include <GL/gl.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

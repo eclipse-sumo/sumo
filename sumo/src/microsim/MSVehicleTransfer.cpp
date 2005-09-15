@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.15  2005/07/12 12:28:53  dkrajzew
 // debugging
 //
@@ -64,6 +67,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
 #include <cassert>
 #include <utils/common/MsgHandler.h>
@@ -71,6 +78,10 @@ namespace
 #include "MSVehicle.h"
 #include "MSVehicleControl.h"
 #include "MSVehicleTransfer.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.13  2004/11/24 08:46:42  dkrajzew
 // recent changes applied
 //
@@ -30,7 +33,10 @@
 // porting to FOX
 //
 // Revision 1.10  2004/01/26 06:59:37  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+// work on detectors: e3-detectors loading and visualisation;
+//  variable offsets and lengths for lsa-detectors;
+//  coupling of detectors to tl-logics;
+//  different detector visualistaion in dependence to his controller
 //
 // Revision 1.9  2003/11/18 14:27:39  dkrajzew
 // debugged and completed lane merging detectors
@@ -41,6 +47,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <utils/geom/HaveBoundary.h>
 #include <utils/geom/Position2D.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>

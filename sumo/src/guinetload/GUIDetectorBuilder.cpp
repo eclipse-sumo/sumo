@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/09/15 11:06:03  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.11  2005/05/04 07:56:00  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -34,7 +37,9 @@ namespace
 // porting to FOX
 //
 // Revision 1.7  2004/01/26 06:49:06  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics
+// work on detectors: e3-detectors loading and visualisation;
+//  variable offsets and lengths for lsa-detectors;
+//  coupling of detectors to tl-logics
 //
 // Revision 1.6  2004/01/12 14:44:30  dkrajzew
 // handling of e2-detectors within the gui added
@@ -63,6 +68,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <iostream>
 #include <microsim/MSNet.h>
@@ -78,6 +87,10 @@ namespace
 #include <microsim/logging/LoggedValue_TimeFixed.h>
 #include "GUIDetectorBuilder.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 
 /* =========================================================================
  * used namespaces
@@ -88,7 +101,8 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIDetectorBuilder::GUIDetectorBuilder()
+GUIDetectorBuilder::GUIDetectorBuilder(MSNet &net)
+    : NLDetectorBuilder(net)
 {
 }
 

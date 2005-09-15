@@ -3,8 +3,12 @@
 #ifndef MSDevice_CPhoneH
 #define MSDevice_CPhoneH
 //---------------------------------------------------------------------------
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
-#include <helpers/Command.h>
+#include <utils/helpers/Command.h>
 
 
 // class in order to expand the MSVehicle-class concerning the availability and the usage state

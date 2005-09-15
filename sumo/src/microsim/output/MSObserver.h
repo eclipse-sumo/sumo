@@ -40,15 +40,19 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
-
 #ifdef WIN32
-#include "helpers/msvc6_TypeTraits.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
+#include <utils/helpers/msvc6_TypeTraits.h>
 #endif
 #ifndef WIN32
-#include "helpers/gcc_TypeTraits.h"
+#include <utils/helpers/gcc_TypeTraits.h>
 #endif
 
 

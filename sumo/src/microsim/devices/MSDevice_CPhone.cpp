@@ -3,8 +3,16 @@
 
 #pragma hdrstop
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MSDevice_CPhone.h"
 #include "../MSEventControl.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 using namespace std;
 
@@ -175,4 +183,4 @@ MSDevice_CPhone::changeState()
     return next;
 }
 
-#pragma package(smart_init)
+//#pragma package(smart_init)

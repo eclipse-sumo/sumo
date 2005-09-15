@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2005/05/04 08:35:40  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -47,6 +50,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <vector>
 #include "MSNet.h"

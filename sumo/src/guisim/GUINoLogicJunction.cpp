@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2004/08/02 11:58:14  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -32,6 +35,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <vector>
 #include <bitset>
@@ -39,6 +46,9 @@ namespace
 #include "GUIJunctionWrapper.h"
 #include "GUINoLogicJunction.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

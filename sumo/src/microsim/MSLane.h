@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.30  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.29  2005/07/12 12:24:17  dkrajzew
 // further work on mean data usage
 //
@@ -244,7 +247,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <helpers/PreStartInitialised.h>
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MSLogicJunction.h"
 #include "MSEdge.h"
 #include "MSVehicle.h"
@@ -258,6 +264,7 @@
 #include <iostream>
 #include "MSNet.h"
 #include "output/meandata/MSLaneMeanDataValues.h"
+#include <utils/geom/Position2DVector.h>
 #include <utils/common/SUMOTime.h>
 
 
@@ -283,7 +290,7 @@ class SSLaneMeanData;
  * Class which represents a single lane. Somekind of the main class of the
  * simulation. Allows moving vehicles.
  */
-class MSLane : public PreStartInitialised
+class MSLane
 {
 public:
     /// needs access to myTmpVehicles (this maybe should be done via double-buffering!!!)
@@ -310,7 +317,7 @@ public:
     {
         /// compares vehicle position to the detector position
         bool operator() ( const MSVehicle* cmp, double pos ) const {
-            return cmp->pos() > pos;
+            return cmp->pos() >= pos;
         }
     };
 
@@ -320,7 +327,7 @@ public:
 
     /** Use this constructor only. Later use initialize to complete
         lane initialization. */
-    MSLane( MSNet &net,
+    MSLane( //MSNet &net,
             std::string id,
             double maxSpeed,
             double length,
@@ -452,12 +459,6 @@ public:
 
     void init(MSEdgeControl &ctrl, MSEdgeControl::LaneUsage *useDefinition);
 
-    /** @brief initialises the lane before simulation begin;
-        Implementation of PreStartInitialised;
-        Needed to clear the MeanData-array before restarting a simulation */
-    virtual void init(MSNet &net);
-
-
 
     /** does nothing; needed for GUI-versions where vehicles are locked
         when being displayed */
@@ -489,11 +490,11 @@ public:
 
     size_t getNumericalID() const;
 
-    void add(MSMeanData_Net *newMeanData);
+    void insertMeanData(unsigned int number);
 
     const std::string &getID() const;
 
-    void addMean2(double v);
+    void addMean2(double v, double l);
 
 	/// The shape of the lane
     Position2DVector myShape;

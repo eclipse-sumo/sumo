@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/02/01 10:10:42  dkrajzew
 // got rid of MSNet::Time
 //
@@ -41,6 +44,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <string>
 #include <utils/common/FileErrorReporter.h>

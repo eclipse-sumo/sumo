@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2005/05/04 08:24:24  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; speed-ups by checked emission and avoiding looping over all edges
 //
@@ -108,6 +111,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <map>
 #include <string>
@@ -120,6 +127,7 @@
  * class declarations
  * ======================================================================= */
 class OutputDevice;
+class BinaryInputDevice;
 
 
 /* =========================================================================
@@ -134,7 +142,7 @@ public:
     typedef std::vector< MSEdge* > EdgeCont;
 
     /// Use thic constructor only.
-    MSEdgeControl( std::string id, EdgeCont *singleLane, EdgeCont *multiLane);
+    MSEdgeControl( /*std::string id, */EdgeCont *singleLane, EdgeCont *multiLane);
 
     /// Destructor.
     ~MSEdgeControl();
@@ -156,24 +164,27 @@ public:
     /** Inserts edgecontrol into the static dictionary and returns true
         if the key id isn't already in the dictionary. Otherwise returns
         false. */
-    static bool dictionary( std::string id, MSEdgeControl* edgeControl );
+    //static bool dictionary( std::string id, MSEdgeControl* edgeControl );
 
     /** Returns the MSEdgeControl associated to the key id if exists,
         otherwise returns 0. */
-    static MSEdgeControl* dictionary( std::string id );
+    //static MSEdgeControl* dictionary( std::string id );
 
     /** Clears the dictionary */
-    static void clear();
+    //static void clear();
 /*
     // simple output operator
     friend std::ostream& operator<<( std::ostream& os,
                                      const MSEdgeControl& ec );
 */
-    void addToLanes(MSMeanData_Net *newMeanData);
+    void insertMeanData(unsigned int number);
 
     const EdgeCont &getSingleLaneEdges() const;
 
     const EdgeCont &getMultiLaneEdges() const;
+
+    void saveState(std::ostream &os, long what);
+    void loadState(BinaryInputDevice &bis, long what);
 
 public:
     /**
@@ -193,7 +204,7 @@ public:
 
 private:
     /// Unique ID.
-    std::string myID;
+    //std::string myID;
 
     /// Single lane edges.
     EdgeCont* mySingleLaneEdges;
@@ -201,10 +212,12 @@ private:
     /// Multi lane edges.
     EdgeCont* myMultiLaneEdges;
 
+    /*
     /// definitions of the static dictionary type
     typedef std::map< std::string, MSEdgeControl* > DictType;
     /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
+    */
 
     /// Default constructor.
     MSEdgeControl();

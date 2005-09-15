@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/15 11:07:14  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/05/04 08:07:10  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -35,6 +38,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "Action.h"
 #include "Command_SaveTLCoupledLaneDet.h"
 #include <microsim/MSNet.h>
@@ -45,6 +52,10 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/iodevices/OutputDevice.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -57,8 +68,8 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 Command_SaveTLCoupledLaneDet::Command_SaveTLCoupledLaneDet(
-        MSTrafficLightLogic *tll, MSDetectorFileOutput *dtf,
-        unsigned int begin, OutputDevice *device, MSLink *link)
+            MSTrafficLightLogic * const tll, MSDetectorFileOutput *dtf,
+            unsigned int begin, OutputDevice *device, MSLink *link)
     : Command_SaveTLCoupledDet(tll, dtf, begin, device),
     myLink(link), myLastState(MSLink::LINKSTATE_TL_RED)
 {

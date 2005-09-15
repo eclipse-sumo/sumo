@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/05/04 07:47:23  dkrajzew
 // level 3 warnings removed
 //
@@ -38,6 +41,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <fx.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
@@ -64,9 +71,6 @@ struct GUISimInfo {
  * ======================================================================= */
 /// the window shall be closed when the simulation has ended
 extern bool gQuitOnEnd;
-
-/// the gui loads and starts a simulation at the beginning
-extern bool gStartAtBegin;
 
 /// Information whether aggregated views are allowed
 extern bool gAllowAggregated;

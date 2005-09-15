@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.9  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2005/05/04 08:35:54  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; new mead data functionality; lane-changing offset computation debugged; simulation speed-up by avoiding multiplication with 1
 //
@@ -131,12 +134,16 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSVehicleType.h"
 #include "MSNet.h"
 #include <cassert>
+
+#ifdef DISABLE_INLINE
+#include "MSVehicleType.icc"
+#endif
 
 
 /* =========================================================================
@@ -228,6 +235,23 @@ MSVehicleType::clear()
 }
 
 
+MSVehicleType*
+MSVehicleType::dict_Random()
+{
+    assert(myDict.size()!=0);
+    size_t r = (double) rand() / RAND_MAX * myDict.size();
+    if(r>=myDict.size()) {
+        r = myDict.size() - 1;
+    }
+    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++, r-=1) {
+        if(r==0) {
+            return (*i).second;
+        }
+    }
+    return myDict.begin()->second;
+}
+
+
 const std::string &
 MSVehicleType::id() const
 {
@@ -237,9 +261,10 @@ MSVehicleType::id() const
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-#ifdef DISABLE_INLINE
-#include "MSVehicleType.icc"
-#endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 // Local Variables:
 // mode:C++

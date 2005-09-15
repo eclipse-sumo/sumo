@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2004/03/19 13:09:40  dkrajzew
 // debugging
 //
@@ -74,7 +77,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <bitset>
@@ -93,9 +96,6 @@ template< size_t N >
 class MSBitSetLogic : public MSJunctionLogic
 {
 public:
-    /// Destructor.
-    ~MSBitSetLogic();
-
     /** @brief Container that holds the right of way bitsets.
         Each link has it's own
         bitset. The bits in the bitsets correspond to the links. To create
@@ -109,16 +109,46 @@ public:
     typedef std::vector< std::bitset< N > > Foes;
 
 
+public:
     /// Use this constructor only.
     MSBitSetLogic( unsigned int nLinks,
                    unsigned int nInLanes,
                    Logic* logic,
-                   Foes *foes);
+                   Foes *foes)
+    : MSJunctionLogic( nLinks, nInLanes ), myLogic( logic ),
+        myInternalLinksFoes(foes)
+    {
+    }
+
+
+    /// Destructor.
+    ~MSBitSetLogic()
+    {
+        delete myLogic;
+        delete myInternalLinksFoes;
+    }
+
 
     /// Modifies the passed respond according to the request.
     void respond( const MSLogicJunction::Request& request,
         const MSLogicJunction::InnerState& innerState,
-        MSLogicJunction::Respond& respond ) const;
+        MSLogicJunction::Respond& respond ) const
+    {
+        size_t i;
+        // calculate respond
+        for ( i = 0; i < myNLinks; ++i ) {
+            bool linkPermit = request.test( i ) && ( request & ( *myLogic )[ i ]).none();
+            respond.set( i, linkPermit );
+        }
+        // check whether internal lanes disallow any movement
+        //  the number of internal lanes is equal to the number of links
+        for ( i = 0; i < myNLinks; ++i ) {
+            bool linkPermit = request.test( i ) && respond.test( i ) &&
+                ( innerState & ( *myInternalLinksFoes )[ i ]).none();
+            respond.set( i, linkPermit );
+        }
+}
+
 
 private:
     /// junctions logic based on std::bitset
@@ -136,9 +166,6 @@ private:
 
 };
 
-#ifndef EXTERNAL_TEMPLATE_DEFINITION
-#include "MSBitSetLogic.cpp"
-#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 /** To make things easier we use a fixed size. 64 will be sufficient even for
     pathological junctions. If it will consume to much space, reduce it to 32.

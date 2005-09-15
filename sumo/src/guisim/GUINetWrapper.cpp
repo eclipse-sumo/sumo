@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.11  2005/05/04 08:02:54  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -62,7 +65,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -83,6 +86,10 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <gui/GUIApplicationWindow.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -116,7 +123,8 @@ GUINetWrapper::getPopUpMenu(GUIMainWindow &app,
     new FXMenuCommand(ret, "Center",
         GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
     new FXMenuSeparator(ret);
-    new FXMenuCommand(ret, "Show Parameter", 0, ret, MID_SHOWPARS);
+    new FXMenuCommand(ret, "Show Parameter",
+        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
     return ret;
 }
 
@@ -175,7 +183,7 @@ GUINetWrapper::getParameterWindow(GUIMainWindow &app,
                 &(getNet()), &GUINet::getRTFactor));
         /*
         ret->mkItem("mean duration factor []", true,
-            new FuncBinding_UIntParam<GUINet, double>(
+            new FuncBinding_IntParam<GUINet, double>(
                 &(getNet()), &GUINet::getMeanRTFactor), 1);
                 */
         ret->mkItem("ups [#]", true,
@@ -222,7 +230,7 @@ GUINetWrapper::getNet() const
 Boundary
 GUINetWrapper::getCenteringBoundary() const
 {
-    return getBoundary();
+	return getBoundary();
 }
 
 

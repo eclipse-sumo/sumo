@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/15 11:07:14  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/02/01 10:10:43  dkrajzew
 // got rid of MSNet::Time
 //
@@ -29,10 +32,14 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <fstream>
 #include "Action.h"
-#include <helpers/Command.h>
+#include <utils/helpers/Command.h>
 
 
 /* =========================================================================
@@ -53,7 +60,8 @@ class Command_SaveTLSState : public Command
 {
 public:
     /// Constructor
-    Command_SaveTLSState(MSTrafficLightLogic *logic, const std::string &file);
+    Command_SaveTLSState(MSTrafficLightLogic * const logic,
+        const std::string &file);
 
     /// Destructor
     ~Command_SaveTLSState();

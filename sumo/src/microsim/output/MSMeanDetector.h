@@ -30,20 +30,25 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
 
 #include <iterator>
 #include <string>
 #include <microsim/MSUnit.h>
 #include "MSSumDetector.h"
 #ifdef WIN32
-#include "helpers/msvc6_TypeManip.h"
+#include <utils/helpers/msvc6_TypeManip.h>
 #endif
 #ifndef WIN32
-#include "helpers/gcc_TypeManip.h"
+#include <utils/helpers/gcc_TypeManip.h>
 #endif
+
 
 /* =========================================================================
  * class definitions

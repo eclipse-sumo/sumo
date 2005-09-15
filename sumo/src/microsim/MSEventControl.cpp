@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.14  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.13  2005/05/04 08:25:29  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -143,13 +146,17 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <cassert>
 #include "MSEventControl.h"
-#include <helpers/Command.h>
+#include <utils/helpers/Command.h>
 #include "MSNet.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -164,6 +171,7 @@ using namespace std;
 MSEventControl::DictType MSEventControl::myDict;
 MSEventControl* MSEventControl::myBeginOfTimestepEvents = 0;
 MSEventControl* MSEventControl::myEndOfTimestepEvents = 0;
+
 
 /* =========================================================================
  * member definitions
@@ -214,7 +222,7 @@ MSEventControl::addEvent( Command* operation,
                           SUMOTime execTimeStep,
                           AdaptType type )
 {
-    SUMOTime currTimeStep = MSNet::getInstance()->timestep();
+    SUMOTime currTimeStep = MSNet::getInstance()->getCurrentTimeStep();
     if ( type == ADAPT_AFTER_EXECUTION && execTimeStep <= currTimeStep ) {
         execTimeStep = currTimeStep + 1;
     }

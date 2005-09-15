@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2005/09/15 11:06:03  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.21  2005/05/04 07:55:28  dkrajzew
 // added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
 //
@@ -105,7 +108,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -115,7 +118,7 @@ namespace
 #include <sax/SAXParseException.hpp>
 #include <sax/SAXException.hpp>
 #include <netload/NLNetHandler.h>
-#include <netload/NLContainer.h>
+//#include <netload/NLContainer.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/gfx/GfxConvHelper.h>
@@ -128,11 +131,17 @@ namespace
 #include <guisim/GUIInductLoop.h>
 #include <guisim/GUI_E2_ZS_Collector.h>
 #include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
-#include "GUIContainer.h"
+//#include "GUIContainer.h"
+#include "GUIEdgeControlBuilder.h"
+#include "GUIJunctionControlBuilder.h"
 #include "GUIDetectorBuilder.h"
 #include "GUINetHandler.h"
 #include <guisim/GUIVehicleType.h>
 #include <guisim/GUIRoute.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -145,20 +154,14 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 GUINetHandler::GUINetHandler(const std::string &file,
-                             NLContainer &container,
+                             MSNet &net,
                              NLDetectorBuilder &detBuilder,
                              NLTriggerBuilder &triggerBuilder,
-                             double stdDetectorPositions,
-                             double stdDetectorLengths,
-                             int stdLearnHorizon, int stdDecisionHorizon,
-                             double stdDeltaLimit, int stdTCycle,
-                             double stdActuatedMaxGap,
-                             double stdActuatedPassingTime,
-                             double stdActuatedDetectorGap)
-    : NLNetHandler(file, container, detBuilder, triggerBuilder,
-        stdDetectorPositions, stdDetectorLengths, stdLearnHorizon,
-        stdDecisionHorizon, stdDeltaLimit, stdTCycle,
-        stdActuatedMaxGap, stdActuatedPassingTime, stdActuatedDetectorGap)
+                             NLEdgeControlBuilder &edgeBuilder,
+                             NLJunctionControlBuilder &junctionBuilder,
+                             NLGeomShapeBuilder &shapeBuilder)
+    : NLNetHandler(file, net, detBuilder, triggerBuilder,
+        edgeBuilder, junctionBuilder, shapeBuilder)
 {
 }
 
@@ -173,9 +176,6 @@ GUINetHandler::myStartElement(int element, const std::string &name,
                                   const Attributes &attrs)
 {
     NLNetHandler::myStartElement(element, name, attrs);
-    if(wanted(LOADFILTER_NET) && element==SUMO_TAG_EDGEPOS) {
-        addSourceDestinationInformation(attrs);
-    }
 }
 
 
@@ -197,24 +197,10 @@ GUINetHandler::myCharacters(int element, const std::string &name,
 
 
 void
-GUINetHandler::addSourceDestinationInformation(const Attributes &attrs) {
-    try {
-        string id = getString(attrs, SUMO_ATTR_ID);
-        string from = getString(attrs, SUMO_ATTR_FROM);
-        string to = getString(attrs, SUMO_ATTR_TO);
-        static_cast<GUIContainer&>(myContainer).addSrcDestInfo(id, from, to);
-    } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: An edge has no information about the from/to-node");
-    }
-}
-
-
-void
 GUINetHandler::addJunctionShape(const std::string &chars)
 {
     Position2DVector shape = GeomConvHelper::parseShape(chars);
-    static_cast<GUIContainer&>(myContainer).addJunctionShape(shape);
+    static_cast<GUIJunctionControlBuilder&>(myJunctionControlBuilder).addJunctionShape(shape);
 }
 
 

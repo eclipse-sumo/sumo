@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/07/12 12:22:18  dkrajzew
 // code style adapted
 //
@@ -29,10 +32,13 @@
 // Revision 1.3  2004/08/02 12:13:33  dkrajzew
 // output device handling rechecked; tiny documentation added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
 
 
@@ -55,7 +61,7 @@ public:
     enum Function {
         CORN_OUT_TRIPDURATIONS,
         CORN_OUT_EMISSIONS,
-        CORN_OUT_VEHROUTES,
+		CORN_OUT_VEHROUTES,
 
         CORN_VEH_REALDEPART,
         CORN_MEAN_VEH_TRAVELTIME,
@@ -88,9 +94,9 @@ public:
 
 public:
     static void setTripDurationsOutput(OutputDevice *s);
-    static void setVehicleRouteOutput(OutputDevice *s);
+	static void setVehicleRouteOutput(OutputDevice *s);
     static void compute_TripDurationsOutput(MSVehicle *v);
-    static void compute_VehicleRouteOutput(MSVehicle *v);
+	static void compute_VehicleRouteOutput(MSVehicle *v);
 
 
 private:
@@ -112,3 +118,4 @@ private:
 // Local Variables:
 // mode:C++
 // End:
+

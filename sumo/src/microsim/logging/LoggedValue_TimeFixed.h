@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/15 11:07:54  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/05/04 08:09:23  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -44,6 +47,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "LoggedValue.h"
 
 
@@ -63,23 +70,52 @@ class LoggedValue_TimeFixed
     : public LoggedValue<_T> {
 public:
     /// Constructor
-    LoggedValue_TimeFixed(size_t sampleInterval);
+    LoggedValue_TimeFixed(size_t sampleInterval)
+    : LoggedValue<_T>(sampleInterval), mySampleInterval(sampleInterval),
+        mySampledUnits(0)
+    {
+    }
 
     /// Destructor
-    ~LoggedValue_TimeFixed();
+    ~LoggedValue_TimeFixed() { }
+
 
     /** @brief Adds a new value
         Adds the value to the sum; increases the number of read units.
         Possibly resets the buffer to zero if the fixed length has been exceeded */
-    void add(_T value);
+    void add(_T value)
+    {
+        mySampledUnits++;
+        // clear on a new interval
+        if(mySampledUnits>mySampleInterval) {
+            mySampledUnits = 1;
+            myCurrentValue = 0;
+        }
+        // add new value
+        myCurrentValue += value;
+    }
+
 
     /** returns the average of previously set values
         (for and over the given sample interval or the number of sampled units, if smaller) */
-    _T getAvg() const;
+    _T getAvg() const
+    {
+        // Security check for false interval usage
+        if(mySampledUnits==0) {
+            return 0; // !!! You could also throw an exception here;
+            // This is not meant to be done
+        }
+        return myCurrentValue / (double) mySampledUnits;
+    }
+
 
     /** returns the sum of previously set values
         (for the given sample interval) */
-    _T getAbs() const;
+    _T getAbs() const
+    {
+        return myCurrentValue;
+    }
+
 
 private:
     /// The sample interval to sum the values over
@@ -89,10 +125,6 @@ private:
         (set together with myCurrentValue to  zero if larger than mySampleInterval) */
     size_t  mySampledUnits;
 };
-
-#ifndef EXTERNAL_TEMPLATE_DEFINITION
-#include "LoggedValue_TimeFixed.cpp"
-#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

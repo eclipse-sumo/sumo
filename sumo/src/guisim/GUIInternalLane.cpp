@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.19  2005/05/04 07:55:28  dkrajzew
 // added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
 //
@@ -90,7 +93,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -108,6 +111,10 @@ namespace
 #include "GUILaneWrapper.h"
 #include "GUIInternalLane.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 
 /* =========================================================================
  * used namespaces
@@ -124,11 +131,11 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIInternalLane::GUIInternalLane(MSNet &net, std::string id,
+GUIInternalLane::GUIInternalLane(/*MSNet &net, */std::string id,
                              double maxSpeed, double length,
                              MSEdge* edge, size_t numericalID,
                              const Position2DVector &shape )
-    : MSInternalLane(net, id, maxSpeed, length, edge, numericalID, shape)
+    : MSInternalLane(/*net, */id, maxSpeed, length, edge, numericalID, shape)
 {
 }
 

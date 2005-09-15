@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.30  2005/05/04 07:55:28  dkrajzew
 // added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
 //
@@ -42,7 +45,8 @@ namespace
 // porting to FOX
 //
 // Revision 1.24  2003/12/12 12:36:00  dkrajzew
-// proper usage of lane states applied; scheduling of vehicles into the beamer on push failures added
+// proper usage of lane states applied; scheduling of vehicles into the beamer
+//  on push failures added
 //
 // Revision 1.23  2003/12/11 06:24:55  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
@@ -78,7 +82,8 @@ namespace
 // false order of deletion and reading from an object patched
 //
 // Revision 1.12  2003/10/06 07:39:44  dkrajzew
-// MSLane::push changed due to some inproper Vissim-behaviour; now removes a vehicle and reports an error if push fails
+// MSLane::push changed due to some inproper Vissim-behaviour; now removes a
+//  vehicle and reports an error if push fails
 //
 // Revision 1.11  2003/09/22 12:38:24  dkrajzew
 // more verbose output to non-empty-vehBuffer - exception added
@@ -93,13 +98,16 @@ namespace
 // removed some warnings
 //
 // Revision 1.7  2003/07/16 15:24:55  dkrajzew
-// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+// GUIGrid now handles the set of things to draw in another manner
+//  than GUIEdgeGrid did; Further things to draw implemented
 //
 // Revision 1.6  2003/07/07 08:14:48  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
 //
 // Revision 1.5  2003/06/18 11:30:26  dkrajzew
-// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease
+//  the search for further couts which must be redirected to the messaging
+//  subsystem
 //
 // Revision 1.4  2003/05/20 09:26:57  dkrajzew
 // data retrieval for new views added
@@ -120,7 +128,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -138,6 +146,10 @@ namespace
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include "GUINet.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 
 /* =========================================================================
  * used namespaces
@@ -154,10 +166,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUILane::GUILane(MSNet &net, std::string id, double maxSpeed, double length,
+GUILane::GUILane(/*MSNet &net, */std::string id, double maxSpeed, double length,
                  MSEdge* edge, size_t numericalID,
                  const Position2DVector &shape )
-    : MSLane(net, id, maxSpeed, length, edge, numericalID, shape)
+    : MSLane(/*net, */id, maxSpeed, length, edge, numericalID, shape)
 {
 }
 

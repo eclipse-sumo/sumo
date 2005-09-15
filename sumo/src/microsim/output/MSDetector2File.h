@@ -22,6 +22,9 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.6  2005/09/15 11:09:33  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/05/04 08:17:15  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -44,12 +47,13 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <microsim/MSUnit.h>
 #include "MSDetectorFileOutput.h"
 #include <map>
+#include <vector>
 #include <utility>
 
 
@@ -92,7 +96,10 @@ public:
      *
      * @return Sole instance pointer of class MSDetector2File.
      */
-    static MSDetector2File* getInstance( void );
+    //static MSDetector2File* getInstance( void );
+    /// Default constructor.
+    MSDetector2File( void );
+
 
 
     /**
@@ -101,6 +108,8 @@ public:
      *
      */
     ~MSDetector2File( void );
+
+    void close();
 
 
     /**
@@ -139,9 +148,6 @@ protected:
     MSUnit::IntSteps write2file( IntervalsKey key );
 
 
-    /// Default constructor.
-    MSDetector2File( void );
-
 
     /**
      * Binary predicate that compares the passed DetectorFilePair's
@@ -166,8 +172,8 @@ private:
     Intervals intervalsM;       /**< Map that hold DetectorFileVec for
                                  * given intervals. */
 
-    static MSDetector2File* instanceM; /**< The sole instance of this
-                                        * class. */
+    //static MSDetector2File* instanceM; /**< The sole instance of this
+      //                                  * class. */
 
     /// A map from sample intervals to the times the interval was called the last time
     typedef std::map<SUMOTime, SUMOTime> LastCallsMap;

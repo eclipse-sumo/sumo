@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/15 11:09:53  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/05/04 08:22:18  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -102,7 +105,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <utility>
@@ -152,9 +155,9 @@ public:
         double maxGap, double passingTime, double detectorGap);
 
     /// Initialises the tls with information about incoming lanes
-    void init(NLDetectorBuilder &nb,
-        const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &edgeContinuations,
+	void init(NLDetectorBuilder &nb,
+		const std::vector<MSLane*> &lanes,
+        const std::map<std::string, std::vector<std::string> > &edgeContinuations,
         double det_offset);
 
     /// destructor
@@ -173,7 +176,7 @@ public:
     virtual size_t nextStep();
 
     /// Desides, whether a phase should be continued by checking the gaps of vehicles having green
-    virtual bool gapControl();
+    virtual void gapControl();
 
     // Checkes wheter the tested phase is a neither a yellow nor a allred phase
     virtual bool isGreenPhase() const ;
@@ -182,7 +185,7 @@ protected:
     /// Builds the detectors
     virtual void sproutDetectors(NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &laneContinuations,
+        const std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset);
 
     /// Returns the definition of the current phase

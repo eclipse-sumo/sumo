@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.44  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.43  2005/07/12 12:06:12  dkrajzew
 // first devices (mobile phones) added
 //
@@ -48,7 +51,8 @@
 // handling of routes added
 //
 // Revision 1.35  2004/04/02 11:36:28  dkrajzew
-// "compute or not"-structure added; added two further simulation-wide output (emission-stats and single vehicle trip-infos)
+// "compute or not"-structure added; added two further simulation-wide output
+//  (emission-stats and single vehicle trip-infos)
 //
 // Revision 1.34  2004/03/19 13:09:40  dkrajzew
 // debugging
@@ -295,14 +299,23 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MSEdge.h"
 #include "MSNet.h"
 #include "MSRoute.h"
 #include "MSUnit.h"
 #include "MSCORN.h"
-#include <helpers/Counter.h>
+//#include <utils/helpers/Counter.h>
+#include <deque>
 #include <map>
 #include <string>
+
+#ifdef HAVE_MESOSIM
+#include <mesosim/MEVehicle.h>
+#endif
 
 
 /* =========================================================================
@@ -326,12 +339,15 @@ class MSAbstractLaneChangeModel;
  * standard physical values such as the gap needed to stop.
  */
 class MSVehicle
+#ifdef HAVE_MESOSIM
+  : public MEVehicle
+#endif
 {
 public:
 
     /// the lane changer sets myLastLaneChangeOffset
     friend class MSLaneChanger;
-    friend class MSSlowLaneChanger;
+	friend class MSSlowLaneChanger;
 
     /** container that holds the vehicles driving state. May vary from
         model to model. here: SK, holds position and speed. */
@@ -340,7 +356,7 @@ public:
         /// vehicle sets states directly
         friend class MSVehicle;
         friend class MSLaneChanger;
-        friend class MSSlowLaneChanger;
+		friend class MSSlowLaneChanger;
 
     public:
         /// Default constructor. Members are initialized to 0.
@@ -395,7 +411,7 @@ public:
     const MSEdge::LaneCont& departLanes();
 
     /// returns the edge the vehicle starts from
-    MSEdge &departEdge();
+    const MSEdge &departEdge();
 
     /// moves the vehicles after their responds (right-of-way rules) are known
     void moveFirstChecked();
@@ -482,12 +498,12 @@ public:
         speed and maximum braking in one timestep. */
     double decelDist() const;
 
-    // -----------------------------
+	// -----------------------------
 
 
 
-    void interactWith(const std::vector<MSVehicle*> &vehicles);
-    // -----------------------------
+	void interactWith(const std::vector<MSVehicle*> &vehicles);
+	// -----------------------------
 
     /// Return the vehicles state after maximum acceleration.
     State accelState( const MSLane* lane ) const;
@@ -567,6 +583,9 @@ public:
     /// Removes the named vehicle from the dictionary and deletes it
     static void remove(const std::string &id);
 
+    /// Removes the named vehicle from the dictionary; it will not be deleted
+    static MSVehicle *detach(const std::string &id);
+
     /** Clears the dictionary */
     static void clear();
 
@@ -599,6 +618,10 @@ public:
 	/// Return current Position
 	Position2D position() const;
 
+
+    static void dict_saveState(std::ostream &os, long what);
+    void saveState(std::ostream &os, long what);
+    static void dict_loadState(BinaryInputDevice &bis, long what);
 
     /** Return true if prioritized first vehicle will brake too much
     during lane-change calculations. This is a problem because the
@@ -741,8 +764,8 @@ public:
     const MSAbstractLaneChangeModel &getLaneChangeModel() const;
     typedef std::deque<const MSEdge::LaneCont*> NextAllowedLanes;
     const NextAllowedLanes &getAllowedLanes(MSLaneChanger &lc);
-    int countAllowedContinuations(const MSLane *lane) const;
-    double allowedContinuationsLength(const MSLane *lane) const;
+    int countAllowedContinuations(const MSLane *lane, int dir) const;
+    double allowedContinuationsLength(const MSLane *lane, int dir) const;
 
     MSUnit::Cells getMovedDistance( void ) const
         {
@@ -754,6 +777,7 @@ public:
     const MSRoute &getRoute(int index) const;
 
     bool replaceRoute(const MSEdgeVector &edges, size_t simTime);
+    bool replaceRoute(MSRoute *r, size_t simTime);
 
     const MSVehicleType &getVehicleType() const;
 
@@ -761,7 +785,7 @@ public:
     void onDepart();
 
     void onTripEnd(/*MSLane &caller, */bool wasAlreadySet=false);
-    void writeXMLRoute(std::ostream &os, int index=-1) const;
+	void writeXMLRoute(std::ostream &os, int index=-1) const;
 protected:
     /// Use this constructor only.
     MSVehicle( std::string id, MSRoute* route, SUMOTime departTime,
@@ -908,7 +932,7 @@ private:
     QuitRemindedVector myQuitReminded;
 
     std::map<MSCORN::Function, double> myDoubleCORNMap;
-    std::map<MSCORN::Pointer, void*> myPointerCORNMap;
+	std::map<MSCORN::Pointer, void*> myPointerCORNMap;
 
 };
 

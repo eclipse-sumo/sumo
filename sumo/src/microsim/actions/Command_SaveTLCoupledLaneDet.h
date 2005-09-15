@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/15 11:07:14  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2004/11/23 10:18:24  dkrajzew
 // new detectors usage applied
 //
@@ -29,6 +32,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <microsim/MSLink.h>
 #include "Command_SaveTLCoupledDet.h"
 
@@ -48,7 +55,8 @@ class Command_SaveTLCoupledLaneDet : public Command_SaveTLCoupledDet
 {
 public:
     /// Constructor
-    Command_SaveTLCoupledLaneDet(MSTrafficLightLogic *tll, MSDetectorFileOutput *dtf,
+    Command_SaveTLCoupledLaneDet(MSTrafficLightLogic * const tll,
+        MSDetectorFileOutput *dtf,
         unsigned int begin, OutputDevice *device, MSLink *link);
 
     /// Destructor

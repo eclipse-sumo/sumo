@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.16  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.15  2005/05/04 08:32:05  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -76,6 +79,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <map>
 #include <vector>
@@ -99,6 +106,10 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include "MSNet.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 
 /* =========================================================================
  * used namespaces
@@ -109,6 +120,8 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+int beginTime_3;
+
 MSRouteHandler::MSRouteHandler(const std::string &file,
                                bool addVehiclesDirectly)
     : SUMOSAXHandler("sumo-network/routes", file),
@@ -207,7 +220,11 @@ MSRouteHandler::addParsedVehicleType(const string &id, const float length,
     MSVehicleType *vtype =
         new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma);
     if(!MSVehicleType::dictionary(id, vtype)) {
-        throw XMLIdAlreadyUsedException("VehicleType", id);
+        if(false) { //!!!
+            throw XMLIdAlreadyUsedException("VehicleType", id);
+        } else {
+            delete vtype;
+        }
     }
 }
 
@@ -280,7 +297,9 @@ MSRouteHandler::addVehicle(const Attributes &attrs)
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer
     if(myAddVehiclesDirectly) {
-        MSNet::getInstance()->myEmitter->add(vehicle);
+        if(vehicle!=0) {
+            MSNet::getInstance()->myEmitter->add(vehicle);
+        }
     } else {
         myLastReadVehicle = vehicle;
     }
@@ -292,6 +311,24 @@ MSRouteHandler::addParsedVehicle(const string &id, const string &vtypeid,
                                  const string &routeid, const long &depart,
                                  int repNumber, int repOffset, RGBColor &c)
 {
+    if(MSVehicle::dictionary(id)==0&&depart<beginTime_3) { //!!! only if multiple vehicles allowed
+        MSRoute *r = MSRoute::dictionary(routeid);
+        if(r!=0&&!r->inFurtherUse()) {
+            MSRoute::erase(routeid);
+        }
+    }
+
+    if(MSVehicle::dictionary(id)!=0||depart<beginTime_3) { //!!! only if multiple vehicles allowed
+        /*
+        MSRoute *r = MSRoute::dictionary(routeid);
+        if(r!=0&&lastUnadded!=) {
+            if(!r->inFurtherUse()) {
+                MSRoute::erase(routeid);
+            }
+        }
+        */
+        return 0;
+    }
     MSVehicleType *vtype = MSVehicleType::dictionary(vtypeid);
     if(vtype==0) {
         throw XMLIdNotKnownException("vtype", vtypeid);
@@ -304,7 +341,13 @@ MSRouteHandler::addParsedVehicle(const string &id, const string &vtypeid,
         MSNet::getInstance()->getVehicleControl().buildVehicle(id,
             route, depart, vtype, repNumber, repOffset, c);
     if(!MSVehicle::dictionary(id, vehicle)) {
-        throw XMLIdAlreadyUsedException("vehicle", id);
+        if(false) { // !!!
+            throw XMLIdAlreadyUsedException("vehicle", id);
+        } else {
+            delete vehicle;
+            vehicle = 0;
+            return vehicle;
+        }
     }
     myLastDepart = depart;
     return vehicle;
@@ -387,8 +430,12 @@ MSRouteHandler::closeRoute()
     MSRoute *route = new MSRoute(m_ActiveId, *m_pActiveRoute, m_IsMultiReferenced);
     m_pActiveRoute->clear();
     if(!MSRoute::dictionary(m_ActiveId, route)) {
-        delete route;
-        throw XMLIdAlreadyUsedException("route", m_ActiveId);
+        if(false) {//!!!
+            delete route;
+            throw XMLIdAlreadyUsedException("route", m_ActiveId);
+        } else {
+            delete route;
+        }
     }
 }
 

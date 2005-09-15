@@ -22,6 +22,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.9  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2004/08/02 12:09:39  dkrajzew
 // using Position2D instead of two doubles
 //
@@ -62,10 +65,14 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSJunction.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

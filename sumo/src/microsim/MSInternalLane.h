@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/05/04 07:55:28  dkrajzew
 // added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
 //
@@ -32,7 +35,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <helpers/PreStartInitialised.h>
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MSLogicJunction.h"
 #include "MSEdge.h"
 #include "MSLane.h"
@@ -77,7 +83,7 @@ class MSInternalLane
 {
 public:
     /// Constructor
-    MSInternalLane( MSNet &net, std::string id, double maxSpeed,
+    MSInternalLane( /*MSNet &net, */std::string id, double maxSpeed,
         double length, MSEdge *e, size_t numericalID, const Position2DVector &shape);
 
     /// Destructor

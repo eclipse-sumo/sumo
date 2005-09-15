@@ -39,6 +39,10 @@
 #include <microsim/MSLane.h>
 #include <cassert>
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */

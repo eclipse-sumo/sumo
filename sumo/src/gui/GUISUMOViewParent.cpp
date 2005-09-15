@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.15  2005/07/12 12:09:36  dkrajzew
 // false config inclusion patched; code style adapted
 //
@@ -123,6 +126,10 @@ namespace
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/foxtools/MFXImageHelper.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -277,6 +284,7 @@ GUISUMOViewParent::create()
 {
     FXMDIChild::create();
     _view->create();
+    myToolBar->create();
 }
 
 

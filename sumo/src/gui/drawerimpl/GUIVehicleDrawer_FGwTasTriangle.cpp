@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 11:05:29  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/07/12 11:58:17  dkrajzew
 // visualisation of large vehicles added
 //
@@ -51,7 +54,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <guisim/GUIVehicle.h>
@@ -65,6 +68,10 @@ namespace
 #endif
 
 #include <GL/gl.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

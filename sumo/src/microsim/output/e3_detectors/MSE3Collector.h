@@ -30,13 +30,16 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <string>
 #include <cassert>
 #include <vector>
 #include <limits>
-#include <helpers/SingletonDictionary.h>
 #include <microsim/output/MSDetectorContainerWrapperBase.h>
 #include <microsim/output/MSDetectorContainerWrapper.h>
 #include <microsim/output/MSDetectorCounterContainerWrapper.h>
@@ -122,8 +125,6 @@ public:
 
     typedef std::vector< MSDetectorContainerWrapperBase* > ContainerCont;
     typedef ContainerCont::iterator ContainerContIter;
-    typedef SingletonDictionary<
-        std::string, MSE3Collector* > E3Dictionary;
     typedef std::vector< Detector::E3EntryReminder* > EntryReminders;
     typedef std::vector< Detector::E3LeaveReminder* > LeaveReminders;
 
@@ -174,7 +175,7 @@ public:
                 leaveRemindersM.push_back(
                     new Detector::E3LeaveReminder( id, *crossSec2, *this ) );
             }
-
+/*
             // insert object into dictionary
             if ( ! E3Dictionary::getInstance()->isInsertSuccess( idM, this ) ){
                 MsgHandler::getErrorInstance()->inform(
@@ -183,6 +184,7 @@ public:
                     " (declared twice?)");
                 throw ProcessError();
             }
+            */
         }
 
     /// Dtor. Deletes the created detectors.

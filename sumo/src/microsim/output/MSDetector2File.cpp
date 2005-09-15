@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 11:09:33  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/05/04 08:17:15  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -48,7 +51,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSDetector2File.h"
@@ -63,8 +66,12 @@ namespace
 #include <cassert>
 #include <utility>
 #include <iostream>
-#include <helpers/OneArgumentCommand.h>
+#include <utils/helpers/OneArgumentCommand.h>
 #include <sstream>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -74,43 +81,35 @@ using namespace std;
 
 
 /* =========================================================================
- * static member variables
- * ======================================================================= */
-// initialize static member
-MSDetector2File*
-MSDetector2File::instanceM = 0;
-
-
-/* =========================================================================
  * method definitions
  * ======================================================================= */
-MSDetector2File*
-MSDetector2File::getInstance( void )
+MSDetector2File::MSDetector2File()
 {
-    if ( instanceM == 0 ) {
-        instanceM = new MSDetector2File();
-    }
-    return instanceM;
 }
 
 
 MSDetector2File::~MSDetector2File( void )
+{
+}
+
+
+void
+MSDetector2File::close()
 {
     // flush the last values
     Intervals::iterator it;
     for ( it = intervalsM.begin(); it != intervalsM.end(); ++it ) {
         write2file( (*it).first );
     }
-    // clear the instance
-    instanceM = 0;
     // close files and delete the detectors
     for ( it = intervalsM.begin(); it != intervalsM.end(); ++it ) {
         for( DetectorFileVec::iterator df =
                  it->second.begin(); df != it->second.end(); ++df ) {
             MSDetectorFileOutput *det = df->first;
-            if(df->second->needsHeader()) {
+            if(df->second->needsTail()) {
                 det->writeXMLDetectorInfoEnd(*(df->second));
                 df->second->closeInfo();
+                df->second->setNeedsTail(false);
             }
         }
     }
@@ -164,6 +163,7 @@ MSDetector2File::addDetectorAndInterval( MSDetectorFileOutput* det,
         det->writeXMLHeader(*device);
         det->writeXMLDetectorInfoStart(*device);
         device->closeInfo();
+        device->setNeedsHeader(false);
     }
 }
 
@@ -192,9 +192,6 @@ MSDetector2File::write2file( IntervalsKey key )
     return interval;
 }
 
-
-MSDetector2File::MSDetector2File( void )
-{}
 
 
 void

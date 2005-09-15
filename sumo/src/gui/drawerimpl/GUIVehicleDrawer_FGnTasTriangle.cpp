@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 11:05:29  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/07/12 11:58:17  dkrajzew
 // visualisation of large vehicles added
 //
@@ -51,7 +54,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <guisim/GUIVehicle.h>
@@ -60,11 +63,18 @@ namespace
 #include <utils/geom/Position2DVector.h>
 #include "GUIVehicleDrawer_FGnTasTriangle.h"
 
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <guisim/GUIVehicle.h>
+
 #ifdef _WIN32
 #include <windows.h>
 #endif
 
 #include <GL/gl.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

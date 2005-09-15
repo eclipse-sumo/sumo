@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.24  2005/07/12 12:18:09  dkrajzew
 // further visualisation options added
 //
@@ -105,7 +108,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "GUILaneStateReporter.h"
@@ -290,7 +293,8 @@ GUILaneWrapper::getPopUpMenu(GUIMainWindow &app,
         GUIIconSubSys::getIcon(ICON_EXT), ret, MID_ADDSELECT_SUCC);
     new FXMenuSeparator(ret);
     //
-    new FXMenuCommand(ret, "Show Parameter", 0, ret, MID_SHOWPARS);
+    new FXMenuCommand(ret, "Show Parameter",
+        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
     return ret;
 }
 
@@ -355,6 +359,7 @@ GUILaneWrapper::getLinkDirection(size_t pos) const
 void
 GUILaneWrapper::buildAggregatedValuesStorage()
 {
+    /*
     myAggregatedValues = 0;
     if(myLane.length()<1) {
         return;
@@ -384,6 +389,8 @@ GUILaneWrapper::buildAggregatedValuesStorage()
             id, &myLane, 60);
     }
     //
+    // !!!!!
+    */
 }
 
 
@@ -494,6 +501,10 @@ GUILaneWrapper::getCenteringBoundary() const
 #include <guisim/GUILaneWrapper.h>
 #include <guisim/GUIEdge.h>
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 void
 GUILaneWrapper::selectSucessors()
 {
@@ -548,9 +559,11 @@ GUILaneWrapper::selectSucessors()
         p.add(sin(i)*30+random1*20, cos(i)*30+random1*20);
         poly.push_back(p);
     }
+    /*
     GUINet::getInstance()->addPoly("bla", "bla", RGBColor(1, 0.7, 0));
     Polygon2D *ptr = MSNet::getInstance()->poly_dic["bla"];
     ptr->addPolyPosition(poly);
+    */
 }
 
 
@@ -568,6 +581,7 @@ GUILaneWrapper::myMagic() const
 {
     return (float) myLane.myVehicles.size() * 5. / myLane.length();
 }
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

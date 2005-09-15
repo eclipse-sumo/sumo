@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/05/04 07:55:28  dkrajzew
 // added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
 //
@@ -42,10 +45,9 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include <helpers/PreStartInitialised.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StdDefs.h>
 #include "MSVehicle.h"
@@ -70,6 +72,10 @@ namespace
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 
 /* =========================================================================
  * used namespaces
@@ -86,10 +92,10 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-MSInternalLane::MSInternalLane( MSNet &net, string id, double maxSpeed,
+MSInternalLane::MSInternalLane( /*MSNet &net, */string id, double maxSpeed,
                                double length, MSEdge *e, size_t numericalID, const Position2DVector &shape)
     :
-    MSLane(net, id, maxSpeed, length, e, numericalID, shape)
+    MSLane(/*net, */id, maxSpeed, length, e, numericalID, shape)
 {
 }
 

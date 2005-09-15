@@ -28,9 +28,13 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
 
 #include "MSObserver.h"
 #include <algorithm>
@@ -38,11 +42,12 @@
 #include <vector>
 #include <cassert>
 #ifdef WIN32
-#include "helpers/msvc6_TypeTraits.h"
+#include <utils/helpers/msvc6_TypeTraits.h>
 #endif
 #ifndef WIN32
-#include "helpers/gcc_TypeTraits.h"
+#include <utils/helpers/gcc_TypeTraits.h>
 #endif
+
 
 // See Gamma et al. "Design Patterns" for information about the
 // Observer pattern.

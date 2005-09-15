@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.9  2005/05/04 08:24:24  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; speed-ups by checked emission and avoiding looping over all edges
 //
@@ -38,7 +41,8 @@ namespace
 // work on internal lanes
 //
 // Revision 1.4  2003/07/16 15:28:00  dkrajzew
-// MSEmitControl now only simulates lanes which do have vehicles; the edges do not go through the lanes, the EdgeControl does
+// MSEmitControl now only simulates lanes which do have vehicles; the edges
+//  do not go through the lanes, the EdgeControl does
 //
 // Revision 1.3  2003/02/07 10:41:50  dkrajzew
 // updated
@@ -122,7 +126,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSEdgeControl.h"
@@ -130,6 +134,10 @@ namespace
 #include "MSLane.h"
 #include <iostream>
 #include <vector>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -141,7 +149,7 @@ using namespace std;
 /* =========================================================================
  * static member definitions
  * ======================================================================= */
-MSEdgeControl::DictType MSEdgeControl::myDict;
+//MSEdgeControl::DictType MSEdgeControl::myDict;
 
 
 /* =========================================================================
@@ -152,9 +160,9 @@ MSEdgeControl::MSEdgeControl()
 }
 
 
-MSEdgeControl::MSEdgeControl(string id, EdgeCont* singleLane,
+MSEdgeControl::MSEdgeControl(/*string id, */EdgeCont* singleLane,
                              EdgeCont *multiLane)
-    : myID(id),
+    : //myID(id),
     mySingleLaneEdges(singleLane),
     myMultiLaneEdges(multiLane),
     myLanes(MSLane::dictSize())
@@ -271,7 +279,7 @@ MSEdgeControl::detectCollisions( SUMOTime timestep )
     */
 }
 
-
+/*
 bool
 MSEdgeControl::dictionary(string id, MSEdgeControl* ptr)
 {
@@ -295,8 +303,8 @@ MSEdgeControl::dictionary(string id)
     }
     return it->second;
 }
-
-
+*/
+/*
 void
 MSEdgeControl::clear()
 {
@@ -305,7 +313,7 @@ MSEdgeControl::clear()
     }
     myDict.clear();
 }
-
+*/
 /*
 ostream&
 operator<<( ostream& os, const MSEdgeControl& ec )
@@ -316,11 +324,11 @@ operator<<( ostream& os, const MSEdgeControl& ec )
 */
 
 void
-MSEdgeControl::addToLanes(MSMeanData_Net *newMeanData)
+MSEdgeControl::insertMeanData(unsigned int number)
 {
     LaneUsageVector::iterator i;
     for(i=myLanes.begin(); i!=myLanes.end(); i++) {
-        (*i).lane->add(newMeanData);
+        (*i).lane->insertMeanData(number);
     }
 }
 
@@ -336,6 +344,18 @@ const MSEdgeControl::EdgeCont &
 MSEdgeControl::getMultiLaneEdges() const
 {
     return *myMultiLaneEdges;
+}
+
+
+void
+MSEdgeControl::saveState(std::ostream &os, long what)
+{
+}
+
+
+void
+MSEdgeControl::loadState(BinaryInputDevice &bis, long what)
+{
 }
 
 

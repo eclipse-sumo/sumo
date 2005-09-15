@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.10  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.9  2005/05/04 08:35:40  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -42,7 +45,8 @@ namespace
 // some functions commented out or unneeded debug outputs removed
 //
 // Revision 1.3  2003/05/20 09:31:46  dkrajzew
-// emission debugged; movement model reimplemented (seems ok); detector output debugged; setting and retrieval of some parameter added
+// emission debugged; movement model reimplemented (seems ok);
+//  detector output debugged; setting and retrieval of some parameter added
 //
 // Revision 1.2  2003/03/20 16:21:13  dkrajzew
 // windows eol removed; multiple vehicle emission added
@@ -59,10 +63,18 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <algorithm>
 #include <cassert>
 #include "MSVehicle.h"
 #include "MSVehicleContainer.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

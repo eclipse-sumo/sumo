@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/05/04 08:35:40  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -50,9 +53,20 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MSCORN.h"
 #include "MSVehicleControl.h"
 #include "MSVehicle.h"
+#include "MSSaveState.h"
+#include <utils/common/FileHelpers.h>
+#include <utils/bindevice/BinaryInputDevice.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -77,6 +91,7 @@ MSVehicleControl::buildVehicle(std::string id, MSRoute* route,
                                int repNo, int repOffset)
 {
     myLoadedVehNo++;
+    route->incReferenceCnt();
     return new MSVehicle(id, route, departTime, type,
         MSNet::getInstance()->getNDumpIntervalls(), repNo, repOffset);
 }
@@ -89,6 +104,7 @@ MSVehicleControl::buildVehicle(std::string id, MSRoute* route,
                                int repNo, int repOffset, const RGBColor &col)
 {
     myLoadedVehNo++;
+    route->incReferenceCnt();
     return new MSVehicle(id, route, departTime, type,
         MSNet::getInstance()->getNDumpIntervalls(), repNo, repOffset);
 }
@@ -114,8 +130,16 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
     }
     myRunningVehNo--;
     myEndedVehNo++;
+    removeVehicle(v);
+}
+
+
+void
+MSVehicleControl::removeVehicle(MSVehicle *v)
+{
     MSVehicle::remove(v->id());
 }
+
 
 
 
@@ -220,6 +244,41 @@ void
 MSVehicleControl::vehicleMoves(MSVehicle *v)
 {
 }
+
+
+void
+MSVehicleControl::saveState(std::ostream &os, long what)
+{
+    FileHelpers::writeUInt(os, myLoadedVehNo);
+    FileHelpers::writeUInt(os, myEmittedVehNo);
+    FileHelpers::writeUInt(os, myRunningVehNo);
+    FileHelpers::writeUInt(os, myEndedVehNo);
+
+    FileHelpers::writeInt(os, myAbsVehWaitingTime);
+    FileHelpers::writeInt(os, myAbsVehTravelTime);
+//    MSVehicleType::saveState(os, what);
+    MSRoute::dict_saveState(os, what);
+    MSVehicle::dict_saveState(os, what);
+}
+
+void
+MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
+{
+    bis >> myLoadedVehNo;
+    bis >> myEmittedVehNo;
+    bis >> myRunningVehNo;
+    bis >> myEndedVehNo;
+
+    bis >> myAbsVehWaitingTime;
+    bis >> myAbsVehTravelTime;
+
+//    long t;
+    //os >> t;
+    MSRoute::dict_loadState(bis, what);
+    MSVehicle::dict_loadState(bis, what);
+    MSRoute::clearLoadedState();
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

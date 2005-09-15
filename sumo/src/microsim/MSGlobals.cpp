@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/07/12 12:22:50  dkrajzew
 // made checking for accidents optional
 //
@@ -49,6 +52,10 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include "MSGlobals.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

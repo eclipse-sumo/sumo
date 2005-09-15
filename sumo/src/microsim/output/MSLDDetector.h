@@ -31,11 +31,15 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <deque>
 #include <microsim/MSUnit.h>
 #include "MSLDDetectorInterface.h"
 #include <microsim/MSEventControl.h>
-#include <helpers/SimpleCommand.h>
+#include <utils/helpers/SimpleCommand.h>
 #include <string>
 #include <algorithm>
 
@@ -192,7 +196,7 @@ namespace LD
         MSUnit::Seconds getStartTime( MSUnit::Steps lastNTimesteps )
             {
                 MSUnit::Steps timestep =
-                    MSNet::getInstance()->timestep() - lastNTimesteps;
+                    MSNet::getInstance()->getCurrentTimeStep() - lastNTimesteps;
                 if ( timestep < 0 ) {
                     return MSUnit::Seconds(0);
                 }

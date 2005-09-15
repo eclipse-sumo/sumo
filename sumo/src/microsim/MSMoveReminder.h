@@ -23,6 +23,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.15  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.14  2004/02/05 16:36:56  dkrajzew
 // e3-debugging: only e3-detectors have to remove killed vehicles
 //
@@ -68,6 +71,10 @@
 // Revision 1.1  2003/05/21 16:21:45  dkrajzew
 // further work detectors
 //
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
 
 #include <string>
 #include <cassert>

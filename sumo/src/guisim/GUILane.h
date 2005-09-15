@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.11  2005/05/04 07:55:28  dkrajzew
 // added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
 //
@@ -62,7 +65,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -95,7 +98,7 @@ class GUILane :
     public MSLane {
 public:
     /// constructor
-    GUILane( MSNet &net, std::string id, double maxSpeed,
+    GUILane( /*MSNet &net, */std::string id, double maxSpeed,
         double length, MSEdge* edge, size_t numericalID,
         const Position2DVector &shape );
 

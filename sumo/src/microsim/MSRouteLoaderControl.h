@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/05/04 08:32:05  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -37,8 +40,11 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
-#include <helpers/PreStartInitialised.h>
 #include "MSVehicleContainer.h"
 #include "MSNet.h"
 
@@ -59,7 +65,7 @@ class MSRouteLoader;
  * The parameter myInAdvanceStepNo holds the number of time steps to read the
  * routes in forward. If it is 0 (default), all routes will be read at once.
  */
-class MSRouteLoaderControl : public PreStartInitialised {
+class MSRouteLoaderControl {
 public:
     /// definition of the loader vector
     typedef std::vector<MSRouteLoader*> LoaderVector;
@@ -74,12 +80,6 @@ public:
 
     /// loads the next routes
     MSVehicleContainer &loadNext(SUMOTime step);
-
-    /** reinitialises the loader for reading
-        (implemented from PreStartInitialised:
-            at every simulation-reentrance, the first,
-            possibly destroyed, vehicles must be read) */
-    void init(MSNet &net);
 
 public:
     /// the last time step new routes were loaded

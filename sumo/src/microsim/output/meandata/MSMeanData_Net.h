@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/15 11:08:51  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/07/12 12:14:39  dkrajzew
 // edge-based mean data implemented; previous lane-based is now optional
 //
@@ -47,6 +50,11 @@
 /* =========================================================================
  * imported modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
+#include <vector>
 #include <microsim/output/MSDetectorFileOutput.h>
 
 
@@ -70,7 +78,8 @@ class MSMeanData_Net : public MSDetectorFileOutput
 public:
     /// constructor
     MSMeanData_Net( unsigned int t, unsigned int index,
-        MSEdgeControl &edges, bool useLanes,
+        MSEdgeControl &edges, const std::vector<int> &dumpBegins,
+        const std::vector<int> &dumpEnds, bool useLanes,
         bool addHeaderTail = true );
 
     /// destructor
@@ -98,6 +107,10 @@ public:
     SUMOTime getDataCleanUpSteps( void ) const;
 
 protected:
+    void resetOnly(SUMOTime stopTime);
+    void resetOnly(const MSEdge &edge, SUMOTime stopTime);
+
+protected:
     /// the time interval the data shall be aggregated over (in s)
     unsigned int myInterval;
 
@@ -112,6 +125,9 @@ protected:
 
     /// Information whether the output shall be edge-based (not lane-based)
     bool myAmEdgeBased;
+
+    /// first and last time step to write information (-1 indicates always)
+    std::vector<int> myDumpBegins, myDumpEnds;
 
 };
 

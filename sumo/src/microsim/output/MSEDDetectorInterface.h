@@ -21,6 +21,11 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.4  2005/09/15 11:09:33  dkrajzew
+// LARGE CODE RECHECK
+//
+//
 //
 /* =========================================================================
  * compiler pragmas
@@ -30,6 +35,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MSDetectorInterfaceCommon.h"
 #include <string>
 

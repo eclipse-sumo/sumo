@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.55  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.54  2005/07/12 12:24:17  dkrajzew
 // further work on mean data usage
 //
@@ -383,10 +386,9 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include <helpers/PreStartInitialised.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StdDefs.h>
 #include "MSVehicle.h"
@@ -413,6 +415,14 @@ namespace
 #include <utils/convert/ToString.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
+
+#ifdef ABS_DEBUG
+#include "MSDebugHelper.h"
+#endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -460,7 +470,7 @@ MSLane::~MSLane()
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSLane::MSLane( MSNet &net,
+MSLane::MSLane( //MSNet &net,
                 string id,
                 double maxSpeed,
                 double length,
@@ -468,7 +478,6 @@ MSLane::MSLane( MSNet &net,
                 size_t numericalID,
 				const Position2DVector &shape
                 )  :
-    PreStartInitialised(net),
     myApproaching(0),
     myID( id ),
     myNumericalID(numericalID),
@@ -478,10 +487,19 @@ MSLane::MSLane( MSNet &net,
     myMaxSpeed( maxSpeed ),
     myVehBuffer( 0 ),
     myMeanData(),
-	myShape(shape)
+	myShape(shape),
+    myLastState(10000, 10000),
+    myFirstUnsafe(0)
 {
-    myLastState = MSVehicle::State(10000, 10000);
-    myFirstUnsafe = 0;
+        if(id=="15032778_0") {
+            int bla = 0;
+        }
+
+        assert(myMaxSpeed>0);
+        /*
+    myMeanData.insert(
+        myMeanData.end(), net.getNDumpIntervalls(), MSLaneMeanDataValues() );
+        */
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -591,13 +609,13 @@ MSLane::detectCollisions( SUMOTime timestep )
         VehCont::iterator pred = veh + 1;
         double gap = ( *pred )->pos() - ( *pred )->length() - ( *veh )->pos();
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>=21868 && ((*veh)->id()==MSNet::searched1||(*veh)->id()==MSNet::searched2)) {
+    if(debug_globaltime>=21868 && ((*veh)->id()==debug_searched1||(*veh)->id()==debug_searched2)) {
         DEBUG_OUT << gap << endl;
     }
 #endif
         if ( gap < 0 ) {
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime-5 && ((*veh)->id()==MSNet::searched1||(*veh)->id()==MSNet::searched2)) {
+    if(debug_globaltime>debug_searchedtime-5 && ((*veh)->id()==debug_searched1||(*veh)->id()==debug_searched2)) {
         int blb = 0;
     }
 #endif
@@ -741,8 +759,8 @@ MSLane::emitTry( MSVehicle& veh )
         assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
-    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-        DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << MSNet::globaltime << endl;
+    if(debug_searched1==veh.id()||debug_searched2==veh.id()) {
+        DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << debug_globaltime << endl;
     }
 #endif
 
@@ -777,8 +795,8 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
             assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
-    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-        DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << MSNet::globaltime << endl;
+    if(debug_searched1==veh.id()||debug_searched2==veh.id()) {
+        DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << debug_globaltime << endl;
     }
 #endif
 
@@ -809,8 +827,8 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
             myUseDefinition->noVehicles++;
             assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
-    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-        DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/2:" << MSNet::globaltime << endl;
+    if(debug_searched1==veh.id()||debug_searched2==veh.id()) {
+        DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/2:" << debug_globaltime << endl;
     }
 #endif
 
@@ -844,8 +862,8 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh )
         myUseDefinition->noVehicles++;
         assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
-    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-        DEBUG_OUT << "Using emitTry( VehCont::iterator followIt, MSVehicle& veh )/1:" << MSNet::globaltime << endl;
+    if(debug_searched1==veh.id()||debug_searched2==veh.id()) {
+        DEBUG_OUT << "Using emitTry( VehCont::iterator followIt, MSVehicle& veh )/1:" << debug_globaltime << endl;
     }
 #endif
 
@@ -882,8 +900,8 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
         myUseDefinition->noVehicles++;
         assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
-    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-        DEBUG_OUT << "Using emitTry( followIt, veh, leaderIt )/1:" << MSNet::globaltime << endl;
+    if(debug_searched1==veh.id()||debug_searched2==veh.id()) {
+        DEBUG_OUT << "Using emitTry( followIt, veh, leaderIt )/1:" << debug_globaltime << endl;
     }
 #endif
 
@@ -1217,11 +1235,12 @@ MSLane::addVehicleData( double contTimesteps,
 
 
 void
-MSLane::addMean2(double v)
+MSLane::addMean2(double v, double l)
 {
     for(size_t i=0; i<myMeanData.size(); i++) {
         myMeanData[i].nVehContributed++;
         myMeanData[i].speedSum += v;
+        myMeanData[i].vehLengthSum += l;
         if(v<0.1) { // !!! swell
             myMeanData[i].haltSum++;
         }
@@ -1276,13 +1295,13 @@ MSLane::getLinkCont() const
 }
 
 /////////////////////////////////////////////////////////////////////////////
-
+/*
 void
-MSLane::init(MSNet &net)
+MSLane::init()
 {
     // reset mean data information
     myMeanData.clear();
-    size_t noIntervals = net.getNDumpIntervalls();
+    size_t noIntervals = myNet.getNDumpIntervalls();
     myMeanData.insert( myMeanData.end(), noIntervals, MSLaneMeanDataValues() );
     // empty vehicle buffers
     myVehicles.clear();
@@ -1290,7 +1309,7 @@ MSLane::init(MSNet &net)
     // remove information about the approaching vehicle
     myApproaching = 0;
 }
-
+*/
 
 const std::string &
 MSLane::id() const
@@ -1446,9 +1465,11 @@ MSLane::getNumericalID() const
 
 
 void
-MSLane::add(MSMeanData_Net *newMeanData)
+MSLane::insertMeanData(unsigned int number)
 {
-    myMeanData.push_back(MSLaneMeanDataValues());
+    myMeanData.reserve(myMeanData.size() + number);
+    myMeanData.insert(
+        myMeanData.end(), number, MSLaneMeanDataValues() );
 }
 
 

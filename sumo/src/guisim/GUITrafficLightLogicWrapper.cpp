@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/01/27 14:20:26  dkrajzew
 // ability to open the complete phase definition added
 //
@@ -44,6 +47,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <cassert>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
@@ -59,6 +66,10 @@ namespace
 #include "GUITrafficLightLogicWrapper.h"
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

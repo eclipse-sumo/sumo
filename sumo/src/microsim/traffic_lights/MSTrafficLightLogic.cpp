@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/15 11:09:53  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/05/04 08:22:19  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -75,7 +78,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -86,7 +89,11 @@ namespace
 #include <microsim/MSLane.h>
 #include "MSTrafficLightLogic.h"
 #include <microsim/MSEventControl.h>
-#include <helpers/DiscreteCommand.h>
+#include <utils/helpers/DiscreteCommand.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

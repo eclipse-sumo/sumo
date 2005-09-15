@@ -18,8 +18,12 @@
 //
 //---------------------------------------------------------------------------//
 
+// $Log$
+// Revision 1.4  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
 //
-
+//
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -29,11 +33,19 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <guisim/GUIEdge.h>
 #include <microsim/MSLane.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include "GUISelectionLoader.h"
 #include <fstream>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 using namespace std;
 
@@ -48,7 +60,7 @@ GUISelectionLoader::loadSelection(const std::string &file)
     typeMap["edge"] = GLO_EDGE;
     typeMap["induct loop"] = GLO_DETECTOR;
     typeMap["junction"] = GLO_JUNCTION;
-    typeMap["speedtrigger"] = GLO_LANESPEEDTRIGGER;
+    typeMap["speedtrigger"] = GLO_TRIGGER;
     typeMap["lane"] = GLO_LANE;
     typeMap["tl-logic"] = GLO_TLLOGIC;
     typeMap["vehicle"] = GLO_VEHICLE;
@@ -102,7 +114,7 @@ GUISelectionLoader::loadSelection(const std::string &file)
                 {
                 }
                 break;
-            case GLO_LANESPEEDTRIGGER:
+            case GLO_TRIGGER:
                 {
                 }
                 break;

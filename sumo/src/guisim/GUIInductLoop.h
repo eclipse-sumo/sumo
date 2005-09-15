@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.14  2005/05/04 07:59:59  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -57,6 +60,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <microsim/output/MSInductLoop.h>
 #include <utils/geom/Position2D.h>
 #include "GUIDetectorWrapper.h"

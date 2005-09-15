@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/07/12 11:59:01  dkrajzew
 // level 3 warnings removed; code style adapted
 //
@@ -32,9 +35,14 @@ namespace
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
 
 #include "GUISupplementaryWeightsHandler.h"
 
@@ -52,6 +60,10 @@ namespace
 #include <utils/convert/TplConvert.h>
 #include "GUIGlobals.h"
 #include "GUIAddWeightsStorage.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 using namespace std;
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.11  2005/05/04 08:32:05  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -111,7 +114,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSRightOfWayJunction.h"
@@ -120,6 +123,14 @@ namespace
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+
+#ifdef ABS_DEBUG
+#include "MSDebugHelper.h"
+#endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -168,7 +179,7 @@ bool
 MSRightOfWayJunction::setAllowed()
 {
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
+    if(debug_globaltime>debug_searchedtime&&myID==debug_searchedJunction) {
         DEBUG_OUT << "Request: " << myRequest << endl;
         DEBUG_OUT << "InnerSt: " << myInnerState<< endl;
     }
@@ -177,7 +188,7 @@ MSRightOfWayJunction::setAllowed()
     myLogic->respond( myRequest, myInnerState, myRespond );
     deadlockKiller();
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
+    if(debug_globaltime>debug_searchedtime&&myID==debug_searchedJunction) {
         DEBUG_OUT << "Respond: " << myRespond << endl;
     }
 #endif
@@ -198,7 +209,7 @@ MSRightOfWayJunction::deadlockKiller()
     //  junctions
     if ( myRespond.none() && myInnerState.none() ) {
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime&&myID==MSNet::searchedJunction) {
+    if(debug_globaltime>debug_searchedtime&&myID==debug_searchedJunction) {
         DEBUG_OUT << "Killing deadlock" << endl;
     }
 #endif

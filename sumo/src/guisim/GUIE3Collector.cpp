@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/05/04 07:59:59  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -57,6 +60,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "GUIE3Collector.h"
 #include "GUIEdge.h"
 #include <utils/geom/Line2D.h>
@@ -68,6 +75,10 @@ namespace
 #endif
 
 #include <GL/gl.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -276,7 +287,6 @@ GUIE3Collector::GUIE3Collector(std::string id,
         haltingTimeThreshold, haltingSpeedThreshold,
         deleteDataAfterSeconds)
 {
-    addBuild(this);
 }
 
 
@@ -300,33 +310,11 @@ GUIE3Collector::getExits() const
 
 
 
-void
-GUIE3Collector::addBuild(GUIE3Collector *det)
-{
-    myInstances.push_back(det);
-}
-
-
-const GUIE3Collector::InstanceVector &
-GUIE3Collector::getInstances()
-{
-    return myInstances;
-}
-
-
 GUIDetectorWrapper *
 GUIE3Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage)
 {
     return new MyWrapper(*this, idStorage);
 }
-
-
-void
-GUIE3Collector::clearInstances()
-{
-    myInstances.clear();
-}
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

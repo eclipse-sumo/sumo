@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2004/11/23 10:20:10  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -56,10 +59,13 @@
 // Revision 1.1  2002/02/05 11:53:02  croessel
 // Initial commit.
 //
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MSLane.h"
 #include "MSEdge.h"
 #include <vector>

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.41  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.40  2005/05/04 08:28:15  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -43,12 +46,11 @@ namespace
 // Revision 1.35  2004/07/02 09:59:56  dkrajzew
 // code stye applied
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSLaneState.h"
@@ -56,12 +58,15 @@ namespace
 #include "MSNet.h"
 #include "MSEventControl.h"
 #include <utils/convert/ToString.h>
-#include <helpers/SimpleCommand.h>
-#include <helpers/SingletonDictionary.h>
+#include <utils/helpers/SimpleCommand.h>
 #include <algorithm>
 #include <numeric>
 #include <iostream>
 #include <cassert>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -140,14 +145,14 @@ MSLaneState::MSLaneState( string id,
     assert( startPosM >= 0 );
     assert( startPosM + MSNet::getCells( lengthInMeters ) <= laneM->length() );
     endPosM = startPosM + MSNet::getCells( lengthInMeters );
-
+/*
     // insert object into dictionary
     if ( ! SingletonDictionary<
          std::string, MSLaneState* >::getInstance()->isInsertSuccess(
              idM, this ) ) {
         assert( false );
     }
-
+*/
     // insert object in static container
     laneStateDetectorsM.push_back( this );
 
@@ -554,7 +559,7 @@ MSLaneState::enterDetectorByMove( MSVehicle& veh,
     vehOnDetectorM.insert(
         make_pair( veh.id(), VehicleData(
                        enterTimestepFraction +
-                       MSNet::getInstance()->timestep(),
+                       MSNet::getInstance()->getCurrentTimeStep(),
                        true )));
     waitingQueueElemsM.push_back( WaitingQueueElem (veh.pos(), veh.length()));
 }
@@ -568,7 +573,7 @@ MSLaneState::enterDetectorByEmitOrLaneChange( MSVehicle& veh )
     assert ( vehOnDetectorM.find( veh.id() ) == vehOnDetectorM.end() );
     vehOnDetectorM.insert(
         make_pair( veh.id(), VehicleData(
-                       MSNet::getInstance()->timestep(),
+                       MSNet::getInstance()->getCurrentTimeStep(),
                        false )));
     waitingQueueElemsM.push_back( WaitingQueueElem (veh.pos(), veh.length()));
 }
@@ -584,7 +589,7 @@ MSLaneState::leaveDetectorByMove( MSVehicle& veh,
         vehOnDetectorM.find( veh.id() );
     assert ( dataIt != vehOnDetectorM.end() );
     dataIt->second.leaveContTimestepM =
-        leaveTimestepFraction + MSNet::getInstance()->timestep();
+        leaveTimestepFraction + MSNet::getInstance()->getCurrentTimeStep();
     if ( ! dataIt->second.passedEntireDetectorM ) {
         dataIt->second.passedEntireDetectorM = false;
     }
@@ -606,8 +611,12 @@ MSLaneState::leaveDetectorByLaneChange( MSVehicle& veh )
     // finalize vehicleData
     VehicleDataMap::iterator dataIt =
         vehOnDetectorM.find( veh.id() );
-    assert( dataIt != vehOnDetectorM.end() );
-    dataIt->second.leaveContTimestepM = MSNet::getInstance()->timestep();
+    if( dataIt == vehOnDetectorM.end() ) {
+        // !!! ok, we has some problems, here, should not be but abviously happens
+        //  why? maybe due to collisions within the used scenario (MD)
+        return;
+    }
+    dataIt->second.leaveContTimestepM = MSNet::getInstance()->getCurrentTimeStep();
     dataIt->second.passedEntireDetectorM = false;
     dataIt->second.leftDetectorByMoveM = false;
     // insert so that container keeps being sorted
@@ -642,7 +651,7 @@ MSLaneState::actionBeforeMoveAndEmit( void )
     // create a TimestepData entry for every timestep. Not essential, but
     // makes live easier.
     timestepDataM.push_back(
-        TimestepData( MSNet::getInstance()->timestep() ) );
+        TimestepData( MSNet::getInstance()->getCurrentTimeStep() ) );
     return true;
 }
 
@@ -666,7 +675,7 @@ MSLaneState::deleteOldData( void )
     }
     // delete vehLeftDetectorM partly
     SUMOTime deleteBeforeStep =
-        MSNet::getInstance()->timestep() - deleteDataAfterStepsM;
+        MSNet::getInstance()->getCurrentTimeStep() - deleteDataAfterStepsM;
     if ( deleteBeforeStep > 0 ) {
         vehLeftDetectorM.erase(
             vehLeftDetectorM.begin(),
@@ -715,7 +724,7 @@ double
 MSLaneState::getStartTimestep( SUMOTime lastNTimesteps )
 {
     double timestep =
-        static_cast< double >( MSNet::getInstance()->timestep() ) -
+        static_cast< double >( MSNet::getInstance()->getCurrentTimeStep() ) -
         static_cast< double >( lastNTimesteps );
     if ( timestep < 0 ) {
         return 0;

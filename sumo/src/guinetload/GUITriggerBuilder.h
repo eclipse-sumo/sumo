@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/09/15 11:06:03  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/07/12 12:00:09  dkrajzew
 // level 3 warnings removed; code style adapted
 //
@@ -28,6 +31,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <netload/NLTriggerBuilder.h>
 
@@ -38,6 +45,7 @@
 class MSTrigger;
 class MSNet;
 class MSLaneSpeedTrigger;
+class MSTriggerControl;
 
 
 /* =========================================================================
@@ -60,6 +68,16 @@ protected:
     virtual MSLaneSpeedTrigger *buildLaneSpeedTrigger(MSNet &net,
         const std::string &id, const std::vector<MSLane*> &destLanes,
         const std::string &file);
+
+    /// builds an emitter
+    virtual MSTriggeredEmitter *buildLaneEmitTrigger(MSNet &net,
+        const std::string &id, MSLane *destLane, double pos,
+        const std::string &file);
+
+    /// builds an emitter
+    virtual MSTriggeredRerouter *buildRerouter(MSNet &net,
+        const std::string &id, std::vector<MSEdge*> &edges,
+        float prob, const std::string &file);
 
 };
 

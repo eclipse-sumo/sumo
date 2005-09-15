@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/15 11:09:53  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/07/14 13:10:27  dkrajzew
 // debugging building under linux
 //
@@ -42,7 +45,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSSimpleTrafficLightLogic.h"
@@ -79,7 +82,7 @@ public:
     /// Initialises the tls with information about incoming lanes
     virtual void init(NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &edgeContinuations,
+        const std::map<std::string, std::vector<std::string> > &edgeContinuations,
         double det_offset) = 0;
 
 };

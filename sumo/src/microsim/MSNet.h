@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.50  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.49  2005/07/12 12:25:39  dkrajzew
 // made checking for accidents optional; further work on mean data usage
 //
@@ -298,6 +301,10 @@
  * included modules
  * ======================================================================= */
 #ifdef _SPEEDCHECK
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <ctime>
 #endif
 
@@ -308,7 +315,6 @@
 #include <fstream>
 #include <iostream>
 #include <cmath>
-#include <utils/geom/Polygon2D.h>
 #include <iomanip>
 
 #include "MSInterface_NetRun.h"
@@ -328,7 +334,7 @@ class MSEventControl;
 class MSRouteLoaderControl;
 class Event;
 class RGBColor;
-class PreStartInitialised;
+//class PreStartInitialised;
 class MSVehicle;
 class MSRoute;
 class MSVehicleType;
@@ -337,8 +343,13 @@ class MSLaneState;
 class MSTLLogicControl;
 class MSVehicleTransfer;
 class OutputDevice;
-class NLNetBuilder;
+class NLBuilder;
 class MSTrigger;
+class MSDetectorControl;
+class MSTriggerControl;
+class ShapeContainer;
+class BinaryInputDevice;
+class MSRouteLoader;
 
 
 /* =========================================================================
@@ -365,8 +376,8 @@ public:
         OS_EMISSIONS = 1,
         /// trip information output
         OS_TRIPDURATIONS = 2,
-        /// route information output
-        OS_VEHROUTE = 3,
+		/// route information output
+		OS_VEHROUTE = 3,
         /// maximum value
         OS_MAX = 4
     };
@@ -380,38 +391,19 @@ public:
     /// List of times (intervals or similar)
     typedef std::vector< SUMOTime > TimeVector;
 
-    /// Definition of the static Container to associate string-ids with
-    /// objects.
-    typedef std::map<std::string, Polygon2D* > PolyDic;
-
-    /// Static Container to associate string-ids with objects.
-    PolyDic poly_dic;
-
-    /// add the Polygon to the Net
-    bool addPoly(const std::string &name, const std::string &type,
-        const RGBColor &color);
-
-
-    /**
+    /*
      * @brief Create unique instance of MSNet and initialize with the
      * beginning timestep.
      * To finish the initialization call &ref init.
      * @param startTimestep Timestep the simulation will start with.
      */
+    /*
     static void preInitMSNet( SUMOTime startTimestep,
         MSVehicleControl *vc);
+*/
+    MSNet(SUMOTime startTimestep, SUMOTime stopTimestep);
+    MSNet(SUMOTime startTimestep, SUMOTime stopTimestep, MSVehicleControl *vc);
 
-    static void preInit( SUMOTime startTimestep,
-        MSVehicleControl *vc);
-
-    /** Initialize the unique MSNet-instance after creation in @ref preInit.
-     */
-    static void init( std::string id, MSEdgeControl* ec,
-        MSJunctionControl* jc, MSRouteLoaderControl *rlc,
-        MSTLLogicControl *tlc, bool logExecutionTime,
-        const std::vector<OutputDevice*> &streams,
-        TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles,
-        TimeVector laneDumpMeanDataIntervalls, std::string baseNameLaneDumpFiles);
 
     /// Destructor.
     virtual ~MSNet();
@@ -466,21 +458,13 @@ public:
         Current means start-time plus runtime. */
     SUMOTime simSeconds();
 
-    /** Returns the current timestep. */
-    SUMOTime timestep( void );
-
     /** @brief Returns the number of unique mean-data-dump-intervalls.
         In vehicles and lanes you will need one element more for the
         GUI-dump. */
     unsigned getNDumpIntervalls( void );
 
-    /// adds an item that must be initialised every time the simulation starts
-    void addPreStartInitialisedItem(PreStartInitialised *preinit);
-
-    /// adds a trigger
-    void addTrigger(MSTrigger *t);
-
-    MSTrigger *getTrigger(const std::string &id);
+    // adds an item that must be initialised every time the simulation starts
+//    void addPreStartInitialisedItem(PreStartInitialised *preinit);
 
     long getSimStepDurationInMillis() const;
 
@@ -488,14 +472,15 @@ public:
     friend class MSRouteHandler;
 
     /// The current simulation time for debugging purposes
-    static SUMOTime globaltime;
+//    static SUMOTime globaltime;
 
     /// ----------------- debug variables -------------
+    /*
 #ifdef ABS_DEBUG
     static SUMOTime searchedtime;
-    static std::string searched1, searched2, searchedJunction, searchedLane;
+    static std::string searched1, searched2, searchedJunction;
 #endif
-
+    */
     /// ----------------- speedcheck variables -------------
 
 
@@ -546,10 +531,17 @@ public:
     bool haveAllVehiclesQuit();
 
     size_t getMeanDataSize() const;
-    MSEdgeControl &getEdgeControl(NLNetBuilder &);
+    MSEdgeControl &getEdgeControl();
+    MSDetectorControl &getDetectorControl();
+    MSTriggerControl &getTriggerControl();
     void addMeanData(MSMeanData_Net *newMeanData);
 
-    virtual void closeBuilding(const NLNetBuilder &nb);
+    virtual void closeBuilding(MSEdgeControl *edges,
+        MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
+        MSTLLogicControl *tlc, ShapeContainer *sc,
+        std::vector<OutputDevice*> streams,
+        const MSMeanData_Net_Cont &meanData,
+        TimeVector stateDumpTimes, std::string stateDumpFiles);
 
     bool logSimulationDuration() const { return myLogExecutionTime; }
 
@@ -584,7 +576,15 @@ public:
     }
     //}
 
+    void saveState(std::ostream &os, long what);
+    void loadState(BinaryInputDevice &bis, long what);
+
+    const ShapeContainer &getShapeContainer() const { return *myShapeContainer; }
+
+    virtual MSRouteLoader *buildRouteLoader(const std::string &file);
+
 protected:
+
     /** initialises the MeanData-container */
     static void initMeanData( TimeVector dumpMeanDataIntervalls,
         std::string baseNameDumpFiles);
@@ -610,17 +610,11 @@ protected:
     /** route loader for dynamic loading of routes */
     MSRouteLoaderControl *myRouteLoaders;
 
-    /// Definition of the container for items to initialise before starting
-    typedef std::vector<PreStartInitialised*> PreStartVector;
+    // Definition of the container for items to initialise before starting
+//    typedef std::vector<PreStartInitialised*> PreStartVector;
 
-    /// Container for items to initialise before starting
-    PreStartVector myPreStartInitialiseItems;
-
-    /// Definition of the container for items to initialise before starting
-    typedef std::vector<MSTrigger*> TriggerVector;
-
-    /// Container for items to initialise before starting
-    TriggerVector myTrigger;
+    // Container for items to initialise before starting
+    //PreStartVector myPreStartInitialiseItems;
 
     /// Timestep [sec]
     static double myDeltaT;
@@ -640,7 +634,9 @@ protected:
 
     /** @brief An instance responsible for vehicle */
     MSVehicleControl *myVehicleControl;
-
+    MSDetectorControl *myDetectorControl;
+    MSTriggerControl *myTriggerControl;
+    ShapeContainer *myShapeContainer; // could be a direct member
     /// List of output (files)
     std::vector<OutputDevice*> myOutputStreams;
 
@@ -658,16 +654,16 @@ protected:
     long myVehiclesMoved;
     //}
 
-protected:
+    TimeVector myStateDumpTimes;
+    std::string myStateDumpFiles;
+
+
+private:
     /// Copy constructor.
     MSNet( const MSNet& );
 
     /// Assignment operator.
     MSNet& operator=( const MSNet& );
-
-    /** Default constructor. It makes no sense to build a net without
-        initialisation. */
-    MSNet();
 
 };
 

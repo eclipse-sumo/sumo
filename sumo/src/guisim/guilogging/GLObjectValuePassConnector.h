@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/15 11:06:13  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/07/12 12:16:10  dkrajzew
 // level 3 warnings removed; code style adapted
 //
@@ -33,10 +36,15 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <microsim/MSUpdateEachTimestep.h>
-#include <helpers/ValueSource.h>
-#include <helpers/ValueRetriever.h>
+#include <utils/helpers/ValueSource.h>
+#include <utils/helpers/ValueRetriever.h>
+
 
 /* =========================================================================
  * class declarations

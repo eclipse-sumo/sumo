@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.2  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.1  2004/11/23 10:20:54  dkrajzew
 // debugging
 //
@@ -160,7 +163,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSSlowLaneChanger.h"
@@ -170,6 +173,14 @@ namespace
 #include <iterator>
 #include <cstdlib>
 #include <cmath>
+
+#ifdef ABS_DEBUG
+#include "MSDebugHelper.h"
+#endif
+
+#ifdef DISABLE_INLINE
+#include "MSSlowLaneChanger.icc"
+#endif
 
 
 /* =========================================================================
@@ -195,7 +206,7 @@ MSSlowLaneChanger::~MSSlowLaneChanger()
 //-------------------------------------------------------------------------//
 
 MSSlowLaneChanger::MSSlowLaneChanger( MSEdge::LaneCont* lanes )
-    : MSLaneChanger(lanes)
+	: MSLaneChanger(lanes)
 {
 }
 
@@ -219,7 +230,7 @@ MSSlowLaneChanger::change()
     // priority.
     myCandi = findCandidate();
     MSVehicle* vehicle = veh( myCandi );
-    vehicle->getLaneChangeModel().setState(0);
+	vehicle->getLaneChangeModel().setState(0);
 /*    vehicle->getLaneChangeState(*this).setState(
         MSVehicle::LaneChangeState::LCACT_NONE);*/
 //    vehicle->getLaneChangeState(*this).setIsOverlaping(false);
@@ -262,7 +273,7 @@ MSSlowLaneChanger::change()
 
 //    vehicle->_lcAction = MSVehicle::LCA_STRAIGHT;
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>=MSNet::searchedtime && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+    if(debug_globaltime>=debug_searchedtime && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
         DEBUG_OUT << "change:" << vehicle->id() << ": " << vehicle->pos() << ", " << vehicle->speed() << endl;
     }
 #endif
@@ -275,7 +286,7 @@ MSSlowLaneChanger::change()
             vehicle->enterLaneAtLaneChange( ( myCandi - 1 )->lane );
 //            vehicle->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+    if(debug_globaltime>debug_searchedtime-5 && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
         DEBUG_OUT << "changed2right" << endl;
     }
 #endif
@@ -289,7 +300,7 @@ MSSlowLaneChanger::change()
             vehicle->enterLaneAtLaneChange( ( myCandi + 1 )->lane );
 //            vehicle->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+    if(debug_globaltime>debug_searchedtime-5 && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
         DEBUG_OUT << "changed2left" << endl;
     }
 #endif
@@ -298,7 +309,7 @@ MSSlowLaneChanger::change()
     }
     else { // not on allowed
         vehicle->getLaneChangeModel().setState(
-            vehicle->getLaneChangeModel().getState()|LCA_URGENT);
+			vehicle->getLaneChangeModel().getState()|LCA_URGENT);
 //            MSVehicle::LaneChangeState::LCACT_NEEDS_DIRECTION_CHANGE);
         ChangerIt target = findTarget();
         if ( change2target( target ) ) {
@@ -309,7 +320,7 @@ MSSlowLaneChanger::change()
             vehicle->enterLaneAtLaneChange( target->lane );
 //            vehicle->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+    if(debug_globaltime>debug_searchedtime && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
         DEBUG_OUT << "changed:" << vehicle->id() << ": at" << vehicle->getLane().id() << ", " << vehicle->pos() << ", " << vehicle->speed() << endl;
     }
 #endif
@@ -324,10 +335,10 @@ MSSlowLaneChanger::change()
             MSVehicle *prohibitor = veh(target);
             if( prohibitor!=0
                 &&
-                (vehicle->getLaneChangeModel().getState()&LCA_URGENT)!=0
+		        (vehicle->getLaneChangeModel().getState()&LCA_URGENT)!=0
                 &&
                 (vehicle->getLaneChangeModel().getState()&(LCA_LEFT|LCA_RIGHT))!=(prohibitor->getLaneChangeModel().getState()&(LCA_LEFT|LCA_RIGHT))
-                ) {
+				) {
 /*
                 MSVehicle::LaneChangeState &lcs_veh =
                     vehicle->getLaneChangeState(*this);
@@ -373,7 +384,7 @@ MSSlowLaneChanger::change()
 //                    vehicle->myLastLaneChangeOffset = 0;
 //                    prohibitor->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+    if(debug_globaltime>debug_searchedtime-5 && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
         DEBUG_OUT << "swapped:" << vehicle->id() << ": at" << vehicle->getLane().id() << ", " << vehicle->pos() << ", " << vehicle->speed() << endl;
     }
 #endif
@@ -386,7 +397,7 @@ MSSlowLaneChanger::change()
     myCandi->lane->myTmpVehicles.push_back( veh ( myCandi ) );
 //    vehicle->myLastLaneChangeOffset++;
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime-5 && (vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+    if(debug_globaltime>debug_searchedtime-5 && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
         DEBUG_OUT << "kept" << endl;
     }
 #endif
@@ -579,15 +590,15 @@ MSSlowLaneChanger::overlap( ChangerIt target )
 //                vehicle->_lcAction |= MSVehicle::LCA_LANEBEGIN;
             }*/
             vehicle->getLaneChangeModel().setState(
-                vehicle->getLaneChangeModel().getState()|LCA_OVERLAPPING);//.setIsOverlaping(true);
+				vehicle->getLaneChangeModel().getState()|LCA_OVERLAPPING);//.setIsOverlaping(true);
             return true;
         }
     }
     if ( neighLead != 0 ) {
 
         if ( MSVehicle::overlap( vehicle, neighLead ) ) {
-            vehicle->getLaneChangeModel().setState(
-                vehicle->getLaneChangeModel().getState()|LCA_OVERLAPPING);//
+			vehicle->getLaneChangeModel().setState(
+				vehicle->getLaneChangeModel().getState()|LCA_OVERLAPPING);//
 //            vehicle->getLaneChangeState(*this).setIsOverlaping(true);
             return true;
         }
@@ -662,7 +673,7 @@ MSSlowLaneChanger::safeChange( ChangerIt target )
     }
 
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime&&(vehicle->id()==MSNet::searched1||vehicle->id()==MSNet::searched2)) {
+    if(debug_globaltime>debug_searchedtime&&(vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
         if(neighFollow!=0) {
             DEBUG_OUT << "NeighFollow:" << neighFollow->id() << endl;
         } else {
@@ -685,7 +696,7 @@ MSSlowLaneChanger::safeChange( ChangerIt target )
                 return false; // !!! isn't this caught anywhere else?
             }
             if( vehicle->pos()<vehicle->length() ||
-                !targetLane->myApproaching->isSafeChange_WithDistance(backDist, *vehicle, targetLane)) {
+				!targetLane->myApproaching->isSafeChange_WithDistance(backDist, *vehicle, targetLane)) {
                 return false;
             }
         }
@@ -714,10 +725,10 @@ MSSlowLaneChanger::safeChange( ChangerIt target )
         }
         // Check front gap (no leading vehicle)
         return (
-            vehicle->hasSafeGap(
-                myCandi->lane->length()-veh(myCandi)->pos()+neighLead->pos(),
-                neighLead->speed(),
-                targetLane ) );
+			vehicle->hasSafeGap(
+				myCandi->lane->length()-veh(myCandi)->pos()+neighLead->pos(),
+				neighLead->speed(),
+				targetLane ) );
     } else {
         // Check gap to the leading vehicle
         return ( vehicle->isSafeChange( *neighLead, targetLane ) );
@@ -970,9 +981,10 @@ MSSlowLaneChanger::change2LeftPossible()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-#ifdef DISABLE_INLINE
-#include "MSSlowLaneChanger.icc"
-#endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 // Local Variables:
 // mode:C++

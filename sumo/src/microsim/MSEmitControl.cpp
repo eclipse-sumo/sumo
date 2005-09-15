@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.13  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.12  2005/07/12 12:23:07  dkrajzew
 // debugging vehicle emission on source edges
 //
@@ -119,7 +122,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <iostream>
@@ -128,6 +131,10 @@ namespace
 #include "MSEmitControl.h"
 #include "MSVehicle.h"
 #include "MSLane.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -220,7 +227,7 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
 	size_t noEmitted = 0;
     // check whether the edge was used already and failed
     //  (speedup function only)
-    MSEdge &edge = veh->departEdge();
+    const MSEdge &edge = veh->departEdge();
     if(edge.getLastFailedEmissionTime()==time) {
         refusedEmits.push_back(veh);
         return noEmitted;

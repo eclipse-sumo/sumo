@@ -30,16 +30,19 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <microsim/MSUnit.h>
 #include "MSPredicates.h"
 #include "MSTDDetectorInterface.h"
 #include <microsim/MSEventControl.h>
-#include <helpers/SimpleCommand.h>
+#include <utils/helpers/SimpleCommand.h>
 #include <deque>
 #include <string>
 #include <algorithm>
 #include <functional>
-#include <helpers/SingletonDictionary.h>
 
 
 /* =========================================================================

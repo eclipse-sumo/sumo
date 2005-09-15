@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/05/04 08:05:25  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -49,12 +52,20 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <microsim/MSCORN.h>
 #include "GUIVehicleControl.h"
 #include "GUIVehicle.h"
 #include "GUINet.h"
 #include <gui/GUIGlobals.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -96,20 +107,11 @@ GUIVehicleControl::buildVehicle(std::string id, MSRoute* route,
 
 
 void
-GUIVehicleControl::scheduleVehicleRemoval(MSVehicle *veh)
+GUIVehicleControl::removeVehicle(MSVehicle *veh)
 {
-    assert(myRunningVehNo>0);
-    if(MSCORN::wished(MSCORN::CORN_OUT_TRIPDURATIONS)) {
-        MSCORN::compute_TripDurationsOutput(veh);
-    }
-    if(MSCORN::wished(MSCORN::CORN_OUT_VEHROUTES)) {
-        MSCORN::compute_VehicleRouteOutput(veh);
-    }
-    myRunningVehNo--;
-    myEndedVehNo++;
     static_cast<GUIVehicle*>(veh)->setRemoved();
-    if(gIDStorage.remove(static_cast<GUIVehicle*>(veh)->getGlID())) {
-        MSVehicle::remove(veh->id());
+	if(gIDStorage.remove(static_cast<GUIVehicle*>(veh)->getGlID())) {
+		MSVehicle::remove(veh->id());
     }
 }
 

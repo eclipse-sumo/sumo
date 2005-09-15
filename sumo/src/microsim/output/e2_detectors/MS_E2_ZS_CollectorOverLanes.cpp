@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 11:08:20  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/05/04 08:11:51  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -78,11 +81,15 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MS_E2_ZS_CollectorOverLanes.h"
-#include <microsim/output/MSDetectorSubSys.h>
+#include <microsim/output/MSDetectorControl.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -135,14 +142,6 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
         myID(id), myStartLaneID(lane->id()),
         myUsage(usage)
 {
-    // insert object into dictionary
-    if ( ! MSDetectorSubSys::E2ZSOLDict::getInstance()->isInsertSuccess(myID, this ) ) {
-        MsgHandler::getErrorInstance()->inform(
-            "e2-overlanes-detector '" + myID + "' could not be build;");
-        MsgHandler::getErrorInstance()->inform(
-            " (declared twice?)");
-        throw ProcessError();
-    }
 }
 
 

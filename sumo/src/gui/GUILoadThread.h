@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.10  2005/05/04 07:47:23  dkrajzew
 // level 3 warnings removed
 //
@@ -57,7 +60,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -81,6 +84,10 @@ class GUINetBuilder;
 class OptionsCont;
 class GUIVehicleControl;
 class GUINet;
+class NLDetectorBuilder;
+class NLTriggerBuilder;
+class NLGeomShapeBuilder;
+class MSNet;
 
 
 /* =========================================================================
@@ -117,12 +124,10 @@ public:
 
 protected:
     virtual GUIEdgeControlBuilder *buildEdgeBuilder();
-    virtual GUINetBuilder *buildNetBuilder(const OptionsCont &oc,
-        NLEdgeControlBuilder &eb, NLJunctionControlBuilder &jb,
-        bool allowAggregatedViews);
     virtual GUIVehicleControl *buildVehicleControl();
     virtual bool initOptions();
     virtual void initDevices();
+    virtual void closeNetLoadingDependent(OptionsCont &oc, GUINet &net) { }
 
 
     /** @brief Closes the loading process

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.23  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.22  2005/05/04 07:50:16  dkrajzew
 // ported to fox1.4
 //
@@ -90,7 +93,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -98,7 +101,7 @@
 #include <utils/geom/Position2D.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
-#include <utils/geom/Polygon2D.h>
+#include <utils/shapes/Polygon2D.h>
 #include <utils/foxtools/FXMutex.h>
 #include "GUISUMOViewParent.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>

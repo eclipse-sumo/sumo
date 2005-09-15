@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/15 11:06:03  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/05/04 07:56:43  dkrajzew
 // level 3 warnings removed
 //
@@ -27,7 +30,8 @@
 // first steps towards a better parametrisation of traffic lights
 //
 // Revision 1.2  2003/12/04 13:25:52  dkrajzew
-// handling of internal links added; documentation added; some dead code removed
+// handling of internal links added; documentation added; some dead code
+//  removed
 //
 /* =========================================================================
  * compiler pragmas
@@ -38,6 +42,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <netload/NLJunctionControlBuilder.h>
 #include <utils/geom/Position2DVector.h>
 
@@ -59,7 +67,7 @@ class GUIJunctionControlBuilder
     : public NLJunctionControlBuilder {
 public:
     /// Constructor
-    GUIJunctionControlBuilder();
+    GUIJunctionControlBuilder(OptionsCont &oc);
 
     /// Destructor
     ~GUIJunctionControlBuilder();

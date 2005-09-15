@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/05/04 08:35:40  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -47,6 +50,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <utils/common/SUMOTime.h>
 #include <utils/gfx/RGBColor.h>
@@ -58,6 +65,7 @@
 class MSVehicle;
 class MSRoute;
 class MSVehicleType;
+class BinaryInputDevice;
 
 
 /* =========================================================================
@@ -89,7 +97,7 @@ public:
         int repNo, int repOffset, const RGBColor &col);
 
     /// Removes the vehicle
-    virtual void scheduleVehicleRemoval(MSVehicle *v);
+    void scheduleVehicleRemoval(MSVehicle *v);
 
     /// Informs this instance about the existance of a new, not yet build vehicle
     void newUnbuildVehicleLoaded();
@@ -132,18 +140,25 @@ public:
     virtual void vehicleEmitted(MSVehicle *v);
     virtual void vehicleMoves(MSVehicle *v);
 
+    void saveState(std::ostream &os, long what);
+    void loadState(BinaryInputDevice &bis, long what);
+
+
+protected:
+    virtual void removeVehicle(MSVehicle *v);
+
 protected:
     /// The number of build vehicles
-    size_t myLoadedVehNo;
+    unsigned int myLoadedVehNo;
 
     /// The number of emitted vehicles
-    size_t myEmittedVehNo;
+    unsigned int myEmittedVehNo;
 
     /// The number of vehicles within the network (build and emitted but not removed)
-    size_t myRunningVehNo;
+    unsigned int myRunningVehNo;
 
     /// The number of removed vehicles
-    size_t myEndedVehNo;
+    unsigned int myEndedVehNo;
 
     /// The aggregated time vehicles had to wait for departure
     long myAbsVehWaitingTime;

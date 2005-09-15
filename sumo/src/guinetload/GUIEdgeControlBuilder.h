@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2005/09/15 11:06:03  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.9  2005/07/12 12:15:41  dkrajzew
 // new loading of edges implemented
 //
@@ -55,7 +58,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -92,15 +95,13 @@ public:
         another edge */
     MSEdge *addEdge(const std::string &id);
 
-    /** adds information about the source and the destination edge
-        (gui-version only) */
-    void addSrcDestInfo(const std::string &id, MSJunction *from,
-        MSJunction *to);
-
     /// Builds the lane to add
-    virtual MSLane *addLane(MSNet &net, const std::string &id,
+    virtual MSLane *addLane(/*MSNet &net, */const std::string &id,
         double maxSpeed, double length, bool isDepart,
         const Position2DVector &shape);
+
+    MSEdge *closeEdge();
+
 
 private:
     /// The gl-object id giver

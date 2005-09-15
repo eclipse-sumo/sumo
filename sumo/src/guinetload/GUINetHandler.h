@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2005/09/15 11:06:03  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.12  2005/05/04 07:55:28  dkrajzew
 // added the possibility to load lane geometries into the non-gui simulation; simulation speedup due to avoiding multiplication with 1;
 //
@@ -51,11 +54,12 @@
 // changes due to new detector handling
 //
 // Revision 1.3  2003/07/07 08:13:15  dkrajzew
-// first steps towards the usage of a real lane and junction geometry implemented
+// first steps towards the usage of a real lane and junction geometry
+//  implemented
 //
 // Revision 1.2  2003/06/18 11:08:05  dkrajzew
-// new message and error processing: output to user may be a message, warning or
-//  an error now; it is reported to a Singleton (MsgHandler);
+// new message and error processing: output to user may be a message, warning
+//  or an error now; it is reported to a Singleton (MsgHandler);
 //  this handler puts it further to output instances.
 //  changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -72,7 +76,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <netload/NLNetHandler.h>
@@ -98,13 +102,11 @@ class GUINetHandler : public NLNetHandler {
 public:
     /// standard constructor
     GUINetHandler(const std::string &file,
-        NLContainer &container,
+        MSNet &net,
         NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
-        double stdDetectorPositions, double stdDetectorlength,
-        int stdLearnHorizon, int stdDecisionHorizon,
-        double stdDeltaLimit, int stdTCycle,
-        double stdActuatedMaxGap, double stdActuatedPassingTime,
-        double stdActuatedDetectorGap);
+        NLEdgeControlBuilder &edgeBuilder,
+        NLJunctionControlBuilder &junctionBuilder,
+        NLGeomShapeBuilder &shapeBuilder);
 
     /// standard destructor
     ~GUINetHandler();
@@ -131,9 +133,6 @@ protected:
     void openRoute(const Attributes &attrs);
 
 private:
-    /// adds information about the source and the destination junctions
-    void addSourceDestinationInformation(const Attributes &attrs);
-
     void addJunctionShape(const std::string &chars);
 
 

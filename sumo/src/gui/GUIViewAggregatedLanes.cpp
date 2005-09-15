@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.15  2005/05/04 07:49:52  dkrajzew
 // ported to fox1.4
 //
@@ -135,7 +138,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <iostream>
@@ -188,6 +191,10 @@ namespace
 #endif
 
 #include <GL/gl.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -322,9 +329,9 @@ GUIViewAggregatedLanes::~GUIViewAggregatedLanes()
         delete myJunctionDrawer[i];
         delete myROWDrawer[i];
     }
-    delete _edges2Show;
-    delete _junctions2Show;
-    delete _additional2Show;
+    delete[] _edges2Show;
+    delete[] _junctions2Show;
+    delete[] _additional2Show;
     delete myLaneColoring;
     delete myLocatorPopup;
 }
@@ -502,11 +509,7 @@ GUIViewAggregatedLanes::doPaintGL(int mode, double scale)
         width, *myLaneColorer);
 
     // draw the Polygons
-    std::map<std::string, Polygon2D*>::iterator ppoly =
-        MSNet::getInstance()->poly_dic.begin();
-    for(; ppoly != MSNet::getInstance()->poly_dic.end(); ppoly++) {
-         drawPolygon2D(*(ppoly->second));
-    }
+    drawShapes(_net->getShapeContainer());
     glPopMatrix();
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.9  2005/07/12 12:26:29  dkrajzew
 // debugging vehicle emission
 //
@@ -54,7 +57,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <utils/common/UtilExceptions.h>
@@ -75,6 +78,14 @@ namespace
 #include <iterator>
 #include <exception>
 #include <climits>
+
+#ifdef ABS_DEBUG
+#include "MSDebugHelper.h"
+#endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -101,9 +112,9 @@ MSSourceLane::~MSSourceLane()
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSSourceLane::MSSourceLane( MSNet &net, string id, double maxSpeed,
+MSSourceLane::MSSourceLane( /*MSNet &net, */string id, double maxSpeed,
                            double length, MSEdge* edge, size_t numericalID, const Position2DVector &shape)
-    : MSLane(net, id, maxSpeed, length, edge, numericalID, shape)
+    : MSLane(/*net, */id, maxSpeed, length, edge, numericalID, shape)
 {
 }
 
@@ -155,8 +166,8 @@ MSSourceLane::emitTry( MSVehicle& veh )
     veh.moveSetState( state );
     assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
-    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-        DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << MSNet::globaltime << endl;
+    if(debug_searched2==veh.id()||debug_searched2==veh.id()) {
+        DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << debug_globaltime << endl;
     }
 #endif
 
@@ -188,8 +199,8 @@ MSSourceLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
         assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
-    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
-        DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << MSNet::globaltime << endl;
+    if(debug_searched1==veh.id()||debug_searched2==veh.id()) {
+        DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << debug_globaltime << endl;
     }
 #endif
 
@@ -209,7 +220,7 @@ MSSourceLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
         myVehicles.push_front( &veh );
 
 #ifdef ABS_DEBUG
-    if(MSNet::searched1==veh.id()||MSNet::searched2==veh.id()) {
+    if(debug_searched1==veh.id()||debug_searched2==veh.id()) {
         cout << "Using source::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1" << veh.pos() << ", " <<veh.speed() <<  endl;
     }
 #endif
@@ -243,6 +254,7 @@ MSSourceLane::enoughSpace( MSVehicle& veh,
 #ifdef DISABLE_INLINE
 #include "MSSourceLane.icc"
 #endif
+
 
 // Local Variables:
 // mode:C++

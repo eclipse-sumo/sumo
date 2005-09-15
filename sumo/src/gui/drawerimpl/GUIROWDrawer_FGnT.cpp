@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/15 11:05:29  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
@@ -64,7 +67,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <iostream>
@@ -82,6 +85,10 @@ namespace
 #endif
 
 #include <GL/gl.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

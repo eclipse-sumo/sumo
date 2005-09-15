@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/15 11:07:54  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2004/03/19 13:06:44  dkrajzew
 // some work on the style
 //
@@ -41,6 +44,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "LoggedValue.h"
 
 
@@ -57,22 +64,68 @@ class LoggedValue_TimeFloating
     : public LoggedValue<_T> {
 public:
     /// Constructor
-    LoggedValue_TimeFloating(size_t sampleInterval);
+    LoggedValue_TimeFloating(size_t sampleInterval)
+    : LoggedValue<_T>(sampleInterval),
+        myFloatingArray(new _T[sampleInterval]), mySampleInterval(sampleInterval),
+        mySampledUnits(0), myBufferWasFull(false)
+    {
+        for(size_t i=0; i<sampleInterval; i++) {
+            myFloatingArray[i] = 0;
+        }
+    }
+
 
     /// Destructor
-    ~LoggedValue_TimeFloating();
+    ~LoggedValue_TimeFloating()
+    {
+        delete[] myFloatingArray;
+    }
+
 
     /** @brief Adds a new value
         See source code */
-    void add(_T value);
+    void add(_T value)
+    {
+        // remove the value lying some steps ahead
+        myCurrentValue -= myFloatingArray[mySampledUnits];
+        // add the current value
+        myCurrentValue += value;
+        // store the current value
+        myFloatingArray[mySampledUnits] = value;
+        // check whether the number of sampled units exceeds the array
+        mySampledUnits++;
+        if(mySampledUnits>=mySampleInterval) {
+            mySampledUnits = 0;
+            // set the information that the buffer was full
+            myBufferWasFull = true;
+        }
+    }
+
 
     /** returns the average of previously set values
         (for and over the given sample interval) */
-    _T getAvg() const;
+    _T getAvg() const
+    {
+        // the list is complete
+        if(myBufferWasFull) {
+            return myCurrentValue / (double) mySampleInterval;
+        }
+        // return only the acquired values
+        if(mySampledUnits!=0) {
+            return myCurrentValue / (double) mySampledUnits;
+        }
+        // return 0 (or throw an exception when not initialised
+        return 0;
+    }
+
 
     /** returns the sum of previously set values
         (for the given sample interval) */
-    _T getAbs() const;
+    _T getAbs() const
+    {
+        return myCurrentValue;
+    }
+
 
 private:
     /// The array of number within the moving window
@@ -90,10 +143,6 @@ private:
     bool    myBufferWasFull;
 
 };
-
-#ifndef EXTERNAL_TEMPLATE_DEFINITION
-#include "LoggedValue_TimeFloating.cpp"
-#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

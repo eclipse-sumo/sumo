@@ -19,19 +19,28 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.11  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
 //
-
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <microsim/MSUpdateEachTimestep.h>
+
 
 /* =========================================================================
  * class definitions

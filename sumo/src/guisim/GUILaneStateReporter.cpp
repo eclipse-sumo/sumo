@@ -18,8 +18,11 @@
 //
 //---------------------------------------------------------------------------//
 
+// $Log$
+// Revision 1.14  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
 //
-
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -28,9 +31,17 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "GUILaneStateReporter.h"
 #include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <gui/GUIGlobals.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

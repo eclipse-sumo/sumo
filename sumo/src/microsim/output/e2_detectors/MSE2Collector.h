@@ -28,6 +28,10 @@
 #pragma warning(disable: 4786)
 
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorTypedefs.h>
 #include <microsim/MSUnit.h>
@@ -38,7 +42,6 @@
 #include <microsim/output/MSDetectorHaltingContainerWrapper.h>
 #include <microsim/output/MSDetectorCounterContainerWrapper.h>
 #include <microsim/output/MSDetectorOccupancyCorrection.h>
-#include <helpers/SingletonDictionary.h>
 #include <utils/convert/ToString.h>
 #include <string>
 #include <cassert>
@@ -141,8 +144,6 @@ public:
 
     typedef std::vector< MSDetectorContainerWrapperBase* > ContainerCont;
     typedef ContainerCont::iterator ContainerContIter;
-    typedef SingletonDictionary< std::string,
-                                 MSE2Collector* > E2Dictionary;
 
     /// Ctor. Checks position-params and inserts itself to an E2Dictionary for
     /// global access to all MSE2Collector objects.
@@ -195,7 +196,7 @@ public:
             assert( startPosM >= 0 &&
                     startPosM < laneLength );
             assert( endPosM - startPosM > 0 && endPosM < laneLength );
-
+/*
             // insert object into dictionary
             if ( ! E2Dictionary::getInstance()->isInsertSuccess(
                      idM, this ) ) {
@@ -203,7 +204,7 @@ public:
                     "e2-detector '" + idM + "' could not be build;");
                 MsgHandler::getErrorInstance()->inform(
                     " (declared twice?)");
-                throw ProcessError();            }
+                throw ProcessError();            }*/
         }
 
     /// Dtor. Deletes the created detectors.

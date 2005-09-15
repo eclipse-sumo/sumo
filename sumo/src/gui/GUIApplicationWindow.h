@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.29  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.28  2005/07/12 12:08:23  dkrajzew
 // patches only (unused features removed)
 //
@@ -130,8 +133,8 @@
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/FXLCDLabel.h>
 #include <utils/gui/windows/GUIMainWindow.h>
-#include <helpers/ValueRetriever.h>
-#include <helpers/ValueSource.h>
+#include <utils/helpers/ValueRetriever.h>
+#include <utils/helpers/ValueSource.h>
 #include "GUISUMOViewParent.h"
 
 
@@ -171,7 +174,7 @@ class GUIApplicationWindow :
 public:
 
     /** constructor */
-    GUIApplicationWindow(FXApp* a, GUIThreadFactory &threadFactory,
+    GUIApplicationWindow(FXApp* a,
         int glWidth, int glHeight, const std::string &configPattern);
 
     /** destructor */
@@ -186,7 +189,10 @@ public:
 
     void loadSelection(const std::string &file) const;
 
-    void loadOnStartup(const std::string &config);
+    void loadOnStartup(const std::string &config, bool run);
+
+
+    void dependentBuild(GUIThreadFactory &threadFactory);
 
 
 public:
@@ -194,7 +200,7 @@ public:
     void showLog();
 
 public:
-    void eventOccured();
+    virtual void eventOccured();
     void handleEvent_SimulationLoaded(GUIEvent *e);
     void handleEvent_SimulationStep(GUIEvent *e);
     void handleEvent_Message(GUIEvent *e);
@@ -238,7 +244,7 @@ public:
     long onUpdReload(FXObject*,FXSelector,void*);
     long onUpdAddMicro(FXObject*,FXSelector,void*);
     long onUpdAddALane(FXObject*,FXSelector,void*);
-    long onUpdStart(FXObject*,FXSelector,void*);
+    virtual long onUpdStart(FXObject*,FXSelector,void*);
     long onUpdStop(FXObject*,FXSelector,void*);
     long onUpdStep(FXObject*,FXSelector,void*);
     long onUpdEditChosen(FXObject*sender,FXSelector,void*ptr);
@@ -266,6 +272,8 @@ public:
 
 	FXCursor *getDefaultCursor();
 
+protected:
+    virtual void addToWindowsMenu(FXMenuPane *p) { }
 
 private:
     /** starts to load a simulation */
@@ -359,6 +367,8 @@ protected:
 
     /// Input file pattern
     std::string myConfigPattern;
+
+    bool hadDependentBuild;
 
 //    FXProgressBar *myProgressBar;
 

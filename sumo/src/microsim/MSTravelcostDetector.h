@@ -24,6 +24,10 @@
 
 // $Id$
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <utility>
 #include <vector>
 #include <string>
@@ -34,7 +38,7 @@
 #include "MSEdge.h"
 #include "MSLane.h"
 #include <utils/convert/ToString.h>
-#include <helpers/OneArgumentCommand.h>
+#include <utils/helpers/OneArgumentCommand.h>
 #include <utils/iodevices/XMLDevice.h>
 #include <utils/common/SUMOTime.h>
 

@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/02/01 10:10:42  dkrajzew
 // got rid of MSNet::Time
 //
@@ -36,19 +39,25 @@
 // Revision 1.1  2003/02/07 10:41:50  dkrajzew
 // updated
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <utils/common/FileErrorReporter.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/XMLHelpers.h>
-#include <helpers/PreStartInitialised.h>
 #include "MSNet.h"
 #include "MSRouteHandler.h"
 #include "MSRouteLoader.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

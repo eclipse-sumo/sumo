@@ -18,8 +18,12 @@
 //
 //---------------------------------------------------------------------------//
 
+// $Log$
+// Revision 1.5  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
 //
-
+//
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -29,12 +33,20 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <utils/foxtools/MFXEventQue.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include "GUIThreadFactory.h"
 //#include "GUIApplicationWindow.h"
 #include "GUILoadThread.h"
 #include "GUIRunThread.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

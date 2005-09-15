@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.29  2005/05/04 07:47:23  dkrajzew
 // level 3 warnings removed
 //
@@ -118,17 +121,20 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <sumo_version.h>
 #include <iostream>
 #include <guisim/GUINet.h>
-#include <guinetload/GUINetBuilder.h>
+#include <netload/NLBuilder.h>
 #include <guinetload/GUIEdgeControlBuilder.h>
 #include <guinetload/GUIJunctionControlBuilder.h>
+#include <guinetload/GUIDetectorBuilder.h>
+#include <guinetload/GUITriggerBuilder.h>
+#include <guinetload/GUIGeomShapeBuilder.h>
 #include <guisim/GUIVehicleControl.h>
-#include <microsim/output/MSDetectorSubSys.h>
+#include <microsim/output/MSDetectorControl.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsCont.h>
@@ -139,7 +145,6 @@ namespace
 #include <utils/foxtools/MFXEventQue.h>
 #include <sumo_only/SUMOFrame.h>
 #include <utils/common/MsgRetrievingFunction.h>
-#include <helpers/SingletonDictionary.h>
 #include "GUIApplicationWindow.h"
 #include "GUILoadThread.h"
 #include "GUIGlobals.h"
@@ -152,6 +157,10 @@ namespace
 #include <utils/common/RandHelper.h>
 #include <ctime>
 #include <utils/iodevices/SharedOutputDevices.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -216,20 +225,30 @@ GUILoadThread::run()
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);
 
     // try to load
+    net =
+        new GUINet(oc.getInt("begin"), oc.getInt("end"), buildVehicleControl());
+    SUMOFrame::setMSGlobals(oc);
     GUIEdgeControlBuilder *eb = buildEdgeBuilder();
-    GUIJunctionControlBuilder jb;
-    GUINetBuilder *builder = buildNetBuilder(oc, *eb, jb, gAllowAggregated);
+    GUIJunctionControlBuilder jb(oc);
+    GUIDetectorBuilder db(*net);
+    GUIGeomShapeBuilder sb(gIDStorage);
+    GUITriggerBuilder tb;
+    NLBuilder builder(oc, *net, *eb, jb, db, tb, sb);
+//    NLNetBuilder builder(oc, *net, eb, jb, db, tb);
     try {
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
         MsgHandler::getMessageInstance()->clear();
         initDevices();
-        SUMOFrame::setMSGlobals(oc);
-        net = static_cast<GUINet*>(builder->buildNet(buildVehicleControl()));
-        if(net!=0) {
-            simStartTime = oc.getInt("b");
-            simEndTime = oc.getInt("e");
+        if(!builder.build()) {
+            delete net;
+            net = 0;
+        } else {
+            net->initGUIStructures();
+            simStartTime = oc.getInt("begin");
+            simEndTime = oc.getInt("end");
         }
+        closeNetLoadingDependent(oc, *net);
         RandHelper::initRandGlobal(oc);
     } catch (UtilException &e) {
         string error = e.msg();
@@ -248,7 +267,6 @@ GUILoadThread::run()
         MSNet::clearAll();
     }
     delete eb;
-    delete builder;
     submitEndAndCleanup(net, simStartTime, simEndTime);
     return 0;
 }
@@ -262,14 +280,6 @@ GUILoadThread::buildEdgeBuilder()
 }
 
 
-GUINetBuilder *
-GUILoadThread::buildNetBuilder(const OptionsCont &oc,
-                               NLEdgeControlBuilder &eb,
-                               NLJunctionControlBuilder &jb,
-                               bool allowAggregatedViews)
-{
-    return new GUINetBuilder(oc, eb, jb, gAllowAggregated);
-}
 
 
 GUIVehicleControl*

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.30  2005/05/04 08:05:24  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -69,7 +72,8 @@ namespace
 // patching of lane states on force vehicle removal added
 //
 // Revision 1.15  2003/08/14 13:47:44  dkrajzew
-// false usage of function-pointers patched; false inclusion of .moc-files removed
+// false usage of function-pointers patched; false inclusion of
+//  .moc-files removed
 //
 // Revision 1.14  2003/08/04 11:35:52  dkrajzew
 // only GUIVehicles need a color definition; process of building cars changed
@@ -124,7 +128,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <cmath>
@@ -491,9 +495,6 @@ GUIVehicle::getPopUpMenu(GUIMainWindow &app,
         new FXMenuCommand(ret, "Add To Selected",
             GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
     }
-    new FXMenuSeparator(ret);
-    //
-    new FXMenuCommand(ret, "Show Parameter", 0, ret, MID_SHOWPARS);
     if(static_cast<GUIViewTraffic&>(parent).amShowingRouteFor(this, 0)) {
         new FXMenuCommand(ret, "Hide Current Route", 0, ret, MID_HIDE_CURRENTROUTE);
     } else {
@@ -504,6 +505,10 @@ GUIVehicle::getPopUpMenu(GUIMainWindow &app,
     } else {
         new FXMenuCommand(ret, "Show All Routes", 0, ret, MID_SHOW_ALLROUTES);
     }
+    new FXMenuSeparator(ret);
+    //
+    new FXMenuCommand(ret, "Show Parameter",
+        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
     return ret;
 }
 
@@ -814,6 +819,12 @@ GUIVehicle::networking_hasDevice()
 void GUIVehicle::enterLaneAtMove( MSLane* enteredLane, double driven )
 {
 	networking_EdgeTimeInformation ei;
+	ei.edge = (MSEdge*) &(enteredLane->edge());
+	ei.time = MSNet::globaltime;
+	ei.val = -1;
+	addEdgeTimeInfo(ei);
+networking_myLaneEntryTime.push_back(MSNet::globaltime);
+	MSVehicle::enterLaneAtMove( enteredLane, driven );
 	if(networking_EntryTime==-1) {
 		networking_EntryTime = MSNet::globaltime;
 	}
@@ -823,6 +834,11 @@ void GUIVehicle::enterLaneAtEmit( MSLane* enteredLane )
 {
 	networking_EdgeTimeInformation ei;
 	ei.edge = (MSEdge*) &(enteredLane->edge());
+	ei.time = MSNet::globaltime;
+	ei.val = -1;
+	addEdgeTimeInfo(ei);
+	networking_myLaneEntryTime.push_back(MSNet::globaltime);
+	MSVehicle::enterLaneAtEmit(enteredLane);
 	if(networking_EntryTime==-1) {
 		networking_EntryTime = MSNet::globaltime;
 	}

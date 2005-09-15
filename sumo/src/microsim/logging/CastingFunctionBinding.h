@@ -21,16 +21,20 @@
  *                                                                         *
  ***************************************************************************/
 
+// $Log$
+// Revision 1.5  2005/09/15 11:07:54  dkrajzew
+// LARGE CODE RECHECK
+//
 //
 
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include <helpers/ValueSource.h>
+#include <utils/helpers/ValueSource.h>
 
 
 /* =========================================================================

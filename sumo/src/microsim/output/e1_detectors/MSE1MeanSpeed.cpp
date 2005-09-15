@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 11:08:09  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/07/15 07:18:39  dkrajzew
 // code style applied
 //
@@ -36,7 +39,15 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MSE1MeanSpeed.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

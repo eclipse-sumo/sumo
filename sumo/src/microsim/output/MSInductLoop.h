@@ -23,6 +23,9 @@
 
 // $Id$
 // $Log$
+// Revision 1.5  2005/09/15 11:09:33  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/05/04 08:18:20  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added, simulation speed-up by avoiding multiplication with 1
 //
@@ -45,14 +48,13 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
 #include <deque>
 #include <map>
 #include <functional>
-#include <helpers/SingletonDictionary.h>
 #include <microsim/MSMoveReminder.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSNet.h>
@@ -103,7 +105,6 @@ class MSInductLoop
 {
 public:
     /// Type of the dictionary where all MSInductLoop are registered.
-    typedef SingletonDictionary< std::string, MSInductLoop* > InductLoopDict;
 
     /**
      * Constructor. Adds object into a SingletonDictionary. Sets old-data
@@ -204,17 +205,6 @@ public:
      * passed during the lastNTimesteps.
      */
     double getMeanSpeed( SUMOTime lastNTimesteps ) const;
-
-    /*
-     * Calculates the mean-speed-square in [m/(s^2)] over the given interval.
-     *
-     * @param lastNTimesteps take data out of the interval
-     * (now-lastNTimesteps, now].
-     *
-     * @return Mean-speed-square in [m/(s^2)] averaged over the
-     * vehicles that passed during the lastNTimesteps.
-     */
-//    double getMeanSpeedSquare( SUMOTime lastNTimesteps ) const;
 
     /**
      * Calculates the occupancy in [%], where 100% means lastNTimesteps.
@@ -330,16 +320,6 @@ public:
      */
     SUMOTime getDataCleanUpSteps( void ) const;
     //@}
-
-    /**
-     *
-     *
-     *
-     * @return
-     */
-    virtual GUIDetectorWrapper* buildDetectorWrapper(
-        GUIGlObjectStorage& idStorage,
-        GUILaneWrapper& wrapper);
 
     /**
      * Struct to store the data of the counted vehicle
@@ -533,7 +513,8 @@ namespace
         return sumSoFar + data.lengthM;
     }
     //@}
-}
+};
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.60  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.59  2005/07/12 12:25:39  dkrajzew
 // made checking for accidents optional; further work on mean data usage
 //
@@ -375,6 +378,7 @@ namespace
 #include <typeinfo>
 #include <algorithm>
 #include <cassert>
+#include <vector>
 #include <utils/common/UtilExceptions.h>
 #include "MSNet.h"
 #include "MSEdgeControl.h"
@@ -390,30 +394,34 @@ namespace
 #include "MSRouteLoaderControl.h"
 #include "traffic_lights/MSTLLogicControl.h"
 #include "MSVehicleControl.h"
-#include "MSTrigger.h"
+#include "trigger/MSTrigger.h"
 #include "MSCORN.h"
 #include <utils/common/MsgHandler.h>
-#include <utils/common/NamedObjectContSingleton.h>
-#include <helpers/PreStartInitialised.h>
 #include <utils/convert/ToString.h>
-#include "helpers/SingletonDictionary.h"
-#include "MSLaneState.h"
-#include "MSTravelcostDetector.h"
-#include <microsim/output/MSDetectorSubSys.h>
+#include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSVehicleTransfer.h>
 #include "traffic_lights/MSTrafficLightLogic.h"
 #include <microsim/output/MSDetectorHaltingContainerWrapper.h>
 #include <microsim/output/MSTDDetectorInterface.h>
 #include <microsim/output/MSDetectorOccupancyCorrection.h>
-#include <utils/geom/Polygon2D.h>
+#include <utils/shapes/Polygon2D.h>
+#include <utils/shapes/ShapeContainer.h>
 #include "output/meandata/MSMeanData_Net.h"
-#include "output/meandata/MSMeanData_Net_Utils.h"
 #include "output/MSXMLRawOut.h"
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/SysUtils.h>
+#include "trigger/MSTriggerControl.h"
 #include "MSGlobals.h"
+#include "MSSaveState.h"
+#include "MSDebugHelper.h" // !!!
+#include "MSRouteHandler.h"
+#include "MSRouteLoader.h"
 
 #include <ctime>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -429,7 +437,7 @@ MSNet* MSNet::myInstance = 0;
 //MSNet::DictType MSNet::myDict;
 double MSNet::myDeltaT = 1;
 double MSNet::myCellLength = 1;
-
+/*
 SUMOTime MSNet::globaltime;
 
 #ifdef ABS_DEBUG
@@ -437,19 +445,12 @@ SUMOTime MSNet::searchedtime = 18193;
 std::string MSNet::searched1 = "107";
 std::string MSNet::searched2 = "2858";
 std::string MSNet::searchedJunction = "536";
-std::string MSNet::searchedLane = "15620450_0";
 #endif
-
+*/
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-MSNet::MSNet()
-    : myEdges(0), mySimDuration(0), myVehiclesMoved(0), mySimStepDuration(-1)
-{
-}
-
-
 MSNet*
 MSNet::getInstance( void )
 {
@@ -460,7 +461,7 @@ MSNet::getInstance( void )
     return 0;
 }
 
-
+/*
 void
 MSNet::preInitMSNet(SUMOTime startTimeStep,
                     MSVehicleControl *vc)
@@ -468,76 +469,105 @@ MSNet::preInitMSNet(SUMOTime startTimeStep,
     myInstance = new MSNet();
     preInit(startTimeStep, vc);
 }
+*/
 
 
-void
-MSNet::preInit(SUMOTime startTimeStep,
-               MSVehicleControl *vc)
+MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep)
 {
     MSCORN::init();
-    MSDetectorSubSys::createDictionaries();
+//    MSDetectorControl::createDictionaries();
     MSVehicleTransfer::setInstance(new MSVehicleTransfer());
-    myInstance->myStep = startTimeStep;
-    myInstance->myEmitter = new MSEmitControl("");
-    myInstance->myVehicleControl = vc;
+    myStep = startTimeStep;
+    myEmitter = new MSEmitControl("");
+    myVehicleControl = new MSVehicleControl();
+    myDetectorControl = new MSDetectorControl();
+    myEdges = 0;//new MSEdgeControl();
+    myJunctions = 0;//new MSJunctionControl();
+    myRouteLoaders = 0;//new MSRouteLoaderControl();
+    myLogics = 0;//new MSTLLogicControl();
+    myTriggerControl = new MSTriggerControl();
+    myShapeContainer = 0;//new ShapeContainer();
+
+#ifdef HAVE_MESOSIM
+    if(MSGlobals::gUseMesoSim) {
+        MSGlobals::gMesoNet = new MELoop();
+    }
+#endif
+    myInstance = this;
 }
 
 
 
-void
-MSNet::init( string id, MSEdgeControl* ec,
-             MSJunctionControl* jc,
-             MSRouteLoaderControl *rlc,
-             MSTLLogicControl *tlc,
-             bool logExecutionTime,
-             const std::vector<OutputDevice*> &streams,
-               TimeVector dumpMeanDataIntervalls,
-               std::string baseNameDumpFiles,
-               TimeVector laneDumpMeanDataIntervalls,
-               std::string baseNameLaneDumpFiles)
+MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
+             MSVehicleControl *vc)
 {
-    myInstance->myOutputStreams = streams;
-    myInstance->myID           = id;
-    myInstance->myEdges        = ec;
-    myInstance->myJunctions    = jc;
-    myInstance->myRouteLoaders = rlc;
-    myInstance->myLogics       = tlc;
-    myInstance->myMeanData =
-        MSMeanData_Net_Utils::buildList( *(myInstance->myEdges),
-            dumpMeanDataIntervalls, baseNameDumpFiles,
-            laneDumpMeanDataIntervalls, baseNameLaneDumpFiles);
+    MSCORN::init();
+//    MSDetectorControl::createDictionaries();
+    MSVehicleTransfer::setInstance(new MSVehicleTransfer());
+    myStep = startTimeStep;
+    myEmitter = new MSEmitControl("");
+    myVehicleControl = vc;
+    myDetectorControl = new MSDetectorControl();
+    myEdges = 0;//new MSEdgeControl();
+    myJunctions = 0;//new MSJunctionControl();
+    myRouteLoaders = 0;//new MSRouteLoaderControl();
+    myLogics = 0;//new MSTLLogicControl();
+    myTriggerControl = new MSTriggerControl();
+    myShapeContainer = new ShapeContainer();
+
+    myInstance = this;
+}
+
+
+
+
+void
+MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
+                     MSRouteLoaderControl *routeLoaders,
+                     MSTLLogicControl *tlc, ShapeContainer *sc,
+                     std::vector<OutputDevice*> streams,
+                     const MSMeanData_Net_Cont &meanData,
+                     TimeVector stateDumpTimes,
+                     std::string stateDumpFiles)
+{
+    myEdges = edges;//new MSEdgeControl();
+    myJunctions = junctions;//new MSJunctionControl();
+    myRouteLoaders = routeLoaders;//new MSRouteLoaderControl();
+    myLogics = tlc;//new MSTLLogicControl();
     MSCORN::setTripDurationsOutput(streams[OS_TRIPDURATIONS]);
 	MSCORN::setVehicleRouteOutput(streams[OS_VEHROUTE]);
-    myInstance->myLogExecutionTime = logExecutionTime;
-}
+    myOutputStreams = streams;
+    myMeanData = meanData;
+    myShapeContainer = sc;
+    // we may add it before the network is loaded
+    if(myEdges!=0) {
+        myEdges->insertMeanData(myMeanData.size());
+    }
 
+    myStateDumpTimes = stateDumpTimes;
+    myStateDumpFiles = stateDumpFiles;
 
-void
-MSNet::closeBuilding(const NLNetBuilder &nb)
-{
     // set requests/responses
     MSJunction::postloadInitContainer();
     // make detectors accessable
-    MSDetectorSubSys::setDictionariesFindMode();
+    //myDetectorControl->setDictionariesFindMode();
+    /*
     // initialise lane mean data and readers
+
     for(PreStartVector::iterator i=myPreStartInitialiseItems.begin();
         i!=myPreStartInitialiseItems.end(); i++) {
         (*i)->init(*this);
     }
+    */
 }
 
 
 MSNet::~MSNet()
 {
     // delete controls
-    MSDetectorSubSys::deleteDictionariesAndContents();
-    clearAll();
-    delete myEdges;
+//?    MSDetectorControl::deleteDictionariesAndContents();
     delete myJunctions;
-    delete myEmitter;
-    delete myLogics;
-    delete myRouteLoaders;
-    delete myVehicleControl;
+    delete myDetectorControl;
     // delete mean data
     for(MSMeanData_Net_Cont::iterator i1=myMeanData.begin(); i1!=myMeanData.end(); ++i1) {
         delete *i1;
@@ -546,11 +576,21 @@ MSNet::~MSNet()
     for(size_t i2=0; i2<OS_MAX; i2++) {
         delete myOutputStreams[i2];
     }
+    myMeanData.clear();
+    delete myEdges;
+    delete myEmitter;
+    delete myLogics;
+    delete myRouteLoaders;
+    delete myVehicleControl;
+    delete myShapeContainer;
+    /*
     for(PolyDic::iterator j=poly_dic.begin(); j != poly_dic.end(); j++){
        delete (*j).second;
     }
-    myMeanData.clear();
     poly_dic.clear();
+    */
+    delete myTriggerControl;
+    clearAll();
 }
 
 
@@ -646,10 +686,7 @@ void
 MSNet::simulationStep( SUMOTime start, SUMOTime step )
 {
     myStep = step;
-    globaltime = myStep;
-#ifdef ABS_DEBUG
-    globaltime = myStep;
-#endif
+    debug_globaltime = step;
     // execute beginOfTimestepEvents
     if(myLogExecutionTime) {
         mySimStepBegin = SysUtils::getCurrentMillis();
@@ -693,8 +730,8 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
     if(MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions( step );
     }
-
     // detect
+
     MSLaneState::actionsAfterMoveAndEmit();
 
     MSUpdateEachTimestepContainer<
@@ -718,6 +755,13 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
     // execute endOfTimestepEvents
     MSEventControl::getEndOfTimestepEvents()->execute(myStep);
 
+    // check state dumps
+    if(find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep)!=myStateDumpTimes.end()) {
+        string name = myStateDumpFiles + '_' + toString(myStep) + ".bin";
+        ofstream strm(name.c_str(), fstream::out|fstream::binary);
+        saveState(strm, (long) 0xffffffffff);
+    }
+
     if(myLogExecutionTime) {
         mySimStepEnd = SysUtils::getCurrentMillis();
         mySimStepDuration = mySimStepEnd - mySimStepBegin;
@@ -732,7 +776,7 @@ MSNet::clearAll()
 {
     // clear container
     MSEdge::clear();
-    MSEdgeControl::clear();
+//    MSEdgeControl::clear();
     MSEmitControl::clear();
     MSEventControl::clear();
     MSJunction::clear();
@@ -743,7 +787,7 @@ MSNet::clearAll()
     MSVehicleType::clear();
     MSRoute::clear();
     MSTrafficLightLogic::clear();
-    NamedObjectContSingleton<MSTrigger*>::getInstance().clear();
+//    NamedObjectContSingleton<MSTrigger*>::getInstance().clear();
 //    clear();
     delete MSVehicleTransfer::getInstance();
 }
@@ -755,12 +799,13 @@ MSNet::getNDumpIntervalls( void )
     return myMeanData.size();
 }
 
-
+/*
 void
 MSNet::addPreStartInitialisedItem(PreStartInitialised *preinit)
 {
     myPreStartInitialiseItems.push_back(preinit);
 }
+*/
 
 
 SUMOTime
@@ -804,7 +849,7 @@ MSNet::writeOutput()
     }
 }
 
-
+/*
 bool
 MSNet::addPoly(const std::string &name, const std::string &type,
                const RGBColor &color)
@@ -816,7 +861,7 @@ MSNet::addPoly(const std::string &name, const std::string &type,
     MSNet::poly_dic[name] = poly;
     return true;
 }
-
+*/
 bool
 MSNet::haveAllVehiclesQuit()
 {
@@ -830,7 +875,7 @@ MSNet::addMeanData(MSMeanData_Net *newMeanData)
     myMeanData.push_back(newMeanData);
     // we may add it before the network is loaded
     if(myEdges!=0) {
-        myEdges->addToLanes(newMeanData);
+        myEdges->insertMeanData(1);
     }
 }
 
@@ -843,12 +888,28 @@ MSNet::getMeanDataSize() const
 
 
 MSEdgeControl &
-MSNet::getEdgeControl(NLNetBuilder &)
+MSNet::getEdgeControl()
 {
     return *myEdges;
 }
 
 
+MSDetectorControl &
+MSNet::getDetectorControl()
+{
+    return *myDetectorControl;
+}
+
+
+MSTriggerControl &
+MSNet::getTriggerControl()
+{
+    return *myTriggerControl;
+}
+
+
+
+/*
 void
 MSNet::addTrigger(MSTrigger *t)
 {
@@ -866,12 +927,49 @@ MSNet::getTrigger(const std::string &id)
     }
     return 0;
 }
-
+*/
 
 long
 MSNet::getSimStepDurationInMillis() const
 {
     return mySimStepDuration;
+}
+
+
+void
+MSNet::saveState(std::ostream &os, long what)
+{
+    myVehicleControl->saveState(os, what);
+    myEdges->saveState(os, what);
+        /*
+    if((what&(long) SAVESTATE_EDGES)!=0) myEdges->saveState(os);
+    if((what&(long) SAVESTATE_EMITTER)!=0) myEmitter->saveState(os);
+    if((what&(long) SAVESTATE_LOGICS)!=0) myLogics->saveState(os);
+    if((what&(long) SAVESTATE_ROUTES)!=0) myRouteLoaders->saveState(os);
+    if((what&(long) SAVESTATE_VEHICLES)!=0) myVehicleControl->saveState(os);
+    */
+}
+
+
+void
+MSNet::loadState(BinaryInputDevice &bis, long what)
+{
+    myVehicleControl->loadState(bis, what);
+    myEdges->loadState(bis, what);
+        /*
+    if((what&(long) SAVESTATE_EDGES)!=0) myEdges->saveState(os);
+    if((what&(long) SAVESTATE_EMITTER)!=0) myEmitter->saveState(os);
+    if((what&(long) SAVESTATE_LOGICS)!=0) myLogics->saveState(os);
+    if((what&(long) SAVESTATE_ROUTES)!=0) myRouteLoaders->saveState(os);
+    if((what&(long) SAVESTATE_VEHICLES)!=0) myVehicleControl->saveState(os);
+    */
+}
+
+
+MSRouteLoader *
+MSNet::buildRouteLoader(const std::string &file)
+{
+    return new MSRouteLoader(*this, new MSRouteHandler(file, false));
 }
 
 

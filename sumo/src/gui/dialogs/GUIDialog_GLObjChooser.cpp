@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/07/12 11:55:37  dkrajzew
 // fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
 //
@@ -88,6 +91,10 @@ namespace
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

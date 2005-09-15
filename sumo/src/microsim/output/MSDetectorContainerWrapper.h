@@ -31,6 +31,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MSDetectorContainerWrapperBase.h"
 #include <microsim/MSVehicle.h>
 #include "MSPredicates.h"
@@ -245,7 +249,7 @@ struct TimeMapCont
 //            assert( ! hasVehicle( veh ) );
             MSUnit::Seconds entryTime =
                 MSUnit::getInstance()->getSeconds(
-                    MSNet::getInstance()->timestep() );
+                    MSNet::getInstance()->getCurrentTimeStep() );
             containerM.insert( std::make_pair( veh, entryTime ) );
         }
 

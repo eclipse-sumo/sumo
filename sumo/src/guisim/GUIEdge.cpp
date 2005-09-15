@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.19  2005/07/12 12:16:57  dkrajzew
 // code style adapted; inclusion of config patched
 //
@@ -48,7 +51,10 @@ namespace
 // porting to FOX
 //
 // Revision 1.14  2004/01/26 06:59:37  dkrajzew
-// work on detectors: e3-detectors loading and visualisation; variable offsets and lengths for lsa-detectors; coupling of detectors to tl-logics; different detector visualistaion in dependence to his controller
+// work on detectors: e3-detectors loading and visualisation;
+//  variable offsets and lengths for lsa-detectors; coupling of detectors to
+//  tl-logics;
+//  different detector visualistaion in dependence to his controller
 //
 // Revision 1.13  2003/11/11 08:13:23  dkrajzew
 // consequent usage of Position2D instead of two doubles
@@ -66,7 +72,9 @@ namespace
 // changes due to new detector handling
 //
 // Revision 1.8  2003/07/16 15:24:55  dkrajzew
-// GUIGrid now handles the set of things to draw in another manner than GUIEdgeGrid did; Further things to draw implemented
+// GUIGrid now handles the set of things to draw in another manner
+//  than GUIEdgeGrid did;
+//  Further things to draw implemented
 //
 // Revision 1.7  2003/07/07 08:14:48  dkrajzew
 // first steps towards the usage of a real lane and junction geometry implemented
@@ -120,9 +128,10 @@ using namespace std;
 /* =========================================================================
  * included modules
  * ======================================================================= */
-GUIEdge::GUIEdge(std::string id, GUIGlObjectStorage &idStorage)
-    : MSEdge(id), GUIGlObject(idStorage, string("edge:") + id),
-    _from(0), _to(0)
+GUIEdge::GUIEdge(const std::string &id, size_t numericalID,
+                 GUIGlObjectStorage &idStorage)
+    : MSEdge(id, numericalID),
+    GUIGlObject(idStorage, string("edge:") + id)
 {
 }
 
@@ -135,17 +144,12 @@ GUIEdge::~GUIEdge()
 }
 
 void
-GUIEdge::initJunctions(MSJunction *from, MSJunction *to,
-                       GUIGlObjectStorage &idStorage)
+GUIEdge::initGeometry(GUIGlObjectStorage &idStorage)
 {
-    if(_from!=0&&_to!=0) {
-        assert(from==_from&&to==_to);
+    // do not this twice
+    if(_laneGeoms.size()>0) {
         return;
     }
-    // set the information about the nodes
-    //  !!! not longer needed
-    _from = from;
-    _to = to;
     // build the lane wrapper
     LaneWrapperVector tmp;
     for(LaneCont::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); i++) {
@@ -213,8 +217,13 @@ Boundary
 GUIEdge::getBoundary() const
 {
     Boundary ret;
-    ret.add(_to->getPosition());
-    ret.add(_from->getPosition());
+    for(LaneWrapperVector::const_iterator i=_laneGeoms.begin(); i!=_laneGeoms.end(); ++i) {
+        const Position2DVector &g = (*i)->getShape();
+        for(int j=0; j<g.size(); j++) {
+            ret.add(g.at(j));
+        }
+    }
+    ret.grow(10);
     return ret;
 }
 

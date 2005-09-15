@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 11:07:14  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/02/01 10:10:42  dkrajzew
 // got rid of MSNet::Time
 //
@@ -35,12 +38,20 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "Action.h"
 #include "Command_SaveTLSState.h"
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/MSEventControl.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -52,7 +63,7 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-Command_SaveTLSState::Command_SaveTLSState(MSTrafficLightLogic *logic,
+Command_SaveTLSState::Command_SaveTLSState(MSTrafficLightLogic * const logic,
                                            const std::string &file)
     : myLogic(logic)
 {

@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.20  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.19  2005/07/13 10:22:46  dkrajzew
 // debugging
 //
@@ -166,6 +169,10 @@ namespace
 #include <cassert>
 #include "MSVehicle.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 
 /* =========================================================================
  * used namespaces
@@ -177,14 +184,15 @@ using namespace std;
  * static member definitions
  * ======================================================================= */
 MSEdge::DictType MSEdge::myDict;
+std::vector<MSEdge*> MSEdge::myEdges;
 
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-MSEdge::MSEdge(string id)
+MSEdge::MSEdge(const std::string &id, size_t numericalID)
     : myID(id), myLanes(0), myAllowed(0), myLaneChanger(0),
-    myLastFailedEmissionTime(-1)
+    myLastFailedEmissionTime(-1), myNumericalID(numericalID)
 {
 }
 
@@ -267,6 +275,10 @@ MSEdge::dictionary(string id, MSEdge* ptr)
     if (it == myDict.end()) {
         // id not in myDict.
         myDict.insert(DictType::value_type(id, ptr));
+        while(myEdges.size()<ptr->getNumericalID()+1) {
+            myEdges.push_back(0);
+        }
+        myEdges[ptr->getNumericalID()] = ptr;
         return true;
     }
     return false;
@@ -282,6 +294,14 @@ MSEdge::dictionary(string id)
         return 0;
     }
     return it->second;
+}
+
+
+MSEdge*
+MSEdge::dictionary(size_t id)
+{
+    assert(myEdges.size()>id);
+    return myEdges[id];
 }
 
 
@@ -410,7 +430,7 @@ MSEdge::isSource() const
 
 
 bool
-MSEdge::emit(MSVehicle &v, SUMOTime time)
+MSEdge::emit(MSVehicle &v, SUMOTime time) const
 {
     if(_function!=EDGEFUNCTION_SOURCE) {
         return myDepartLane->emit(v);
@@ -418,7 +438,7 @@ MSEdge::emit(MSVehicle &v, SUMOTime time)
         const LaneCont &lanes =  v.departLanes();
         int minI = 0;
         int ir = 0;
-        size_t noCars = (size_t) (*getLanes())[0]->length();
+        int noCars = (*getLanes())[0]->length();
         {
             for(LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); i++, ir++) {
                 if((*i)->getVehicleNumber()<noCars) {
@@ -489,7 +509,7 @@ MSEdge::getLastFailedEmissionTime() const
 
 
 void
-MSEdge::setLastFailedEmissionTime(SUMOTime time)
+MSEdge::setLastFailedEmissionTime(SUMOTime time) const
 {
     myLastFailedEmissionTime = time;
 }
@@ -521,6 +541,12 @@ MSEdge::getIncomingEdges() const
     return ret;
 }
 
+
+double
+MSEdge::getEffort(SUMOTime time) const
+{
+    return (*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed();
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/15 11:09:33  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2005/07/15 07:18:59  dkrajzew
 // code style applied
 //
@@ -44,12 +47,16 @@ namespace
 #include <cassert>
 #include <numeric>
 #include <utility>
-#include <helpers/SimpleCommand.h>
+#include <utils/helpers/SimpleCommand.h>
 #include <utils/convert/ToString.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSLane.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -94,17 +101,6 @@ MSInductLoop::MSInductLoop( const string& id,
       vehicleDataContM()
 {
     assert( posM >= 0 && posM <= laneM->length() );
-
-    // insert object into dictionary
-    if ( ! InductLoopDict::getInstance()->isInsertSuccess( idM,
-                                                           this ) ) {
-        MsgHandler::getErrorInstance()->inform(
-            "induct loop '" + idM + "' could not be build;");
-        MsgHandler::getErrorInstance()->inform(
-            " (declared twice?)");
-        throw ProcessError();
-    }
-
     // start old-data removal through MSEventControl
     Command* deleteOldData = new SimpleCommand< MSInductLoop >(
         this, &MSInductLoop::deleteOldData );
@@ -128,7 +124,7 @@ MSInductLoop::isStillActive( MSVehicle& veh,
                              double newPos,
                              double newSpeed )
 {
-    double entryTimestep = MSNet::getInstance()->timestep();
+    double entryTimestep = MSNet::getInstance()->getCurrentTimeStep();
     double leaveTimestep = entryTimestep;
 
     if ( newPos < posM ) {
@@ -214,24 +210,6 @@ MSInductLoop::getMeanSpeed( SUMOTime lastNTimesteps ) const
     return MSNet::getMeterPerSecond( speedS / nVeh );
 }
 
-/*
-double
-MSInductLoop::getMeanSpeedSquare( SUMOTime lastNTimesteps ) const
-{
-    // unit is [(m/s)^2]
-    assert( lastNTimesteps > 0 );
-    double nVeh = getNVehContributed( lastNTimesteps );
-    if ( nVeh == 0 ) {
-        return -1;
-    }
-    double speedSquareS = accumulate( getStartIterator( lastNTimesteps ),
-                                      vehicleDataContM.end(),
-                                      0.0,
-                                      speedSquareSum );
-    return MSNet::getMeterPerSecond( MSNet::getMeterPerSecond(
-                                         speedSquareS / nVeh ) );
-}
-*/
 
 double
 MSInductLoop::getOccupancy( SUMOTime lastNTimesteps ) const
@@ -274,7 +252,7 @@ MSInductLoop::getTimestepsSinceLastDetection() const
         // detetctor is occupied
         return 0;
     }
-    return MSNet::getInstance()->timestep() - lastLeaveTimestepM;
+    return MSNet::getInstance()->getCurrentTimeStep() - lastLeaveTimestepM;
 }
 
 
@@ -348,14 +326,6 @@ MSInductLoop::getDataCleanUpSteps( void ) const
 }
 
 
-GUIDetectorWrapper*
-MSInductLoop::buildDetectorWrapper(GUIGlObjectStorage &,
-                                   GUILaneWrapper &)
-{
-    throw "Only within the gui-version";
-}
-
-
 void
 MSInductLoop::enterDetectorByMove( MSVehicle& veh,
                                    double entryTimestep )
@@ -385,8 +355,6 @@ MSInductLoop::leaveDetectorByLaneChange( MSVehicle& veh )
     // Discard entry data
     vehiclesOnDetM.erase( &veh );
     dismissedContM.push_back(MSNet::getInstance()->getCurrentTimeStep());
-/*    double leaveTimestep = ( newPos - veh.length() - posM ) / speed;
-    myDismissedByLaneChange++;*/
 }
 
 
@@ -394,7 +362,7 @@ SUMOTime
 MSInductLoop::deleteOldData( void )
 {
     double deleteBeforeTimestep =
-        MSNet::getInstance()->timestep() - deleteDataAfterStepsM;
+        MSNet::getInstance()->getCurrentTimeStep() - deleteDataAfterStepsM;
     if ( deleteBeforeTimestep > 0 ) {
         vehicleDataContM.erase(
             vehicleDataContM.begin(),
@@ -416,9 +384,9 @@ MSInductLoop::VehicleDataCont::const_iterator
 MSInductLoop::getStartIterator( SUMOTime lastNTimesteps ) const
 {
     double startTime = 0;
-    if ( lastNTimesteps < MSNet::getInstance()->timestep() ) {
+    if ( lastNTimesteps < MSNet::getInstance()->getCurrentTimeStep() ) {
         startTime = static_cast< double >(
-            MSNet::getInstance()->timestep() - lastNTimesteps ) *
+            MSNet::getInstance()->getCurrentTimeStep() - lastNTimesteps ) *
             MSNet::deltaT();
     }
     return lower_bound( vehicleDataContM.begin(),
@@ -427,13 +395,14 @@ MSInductLoop::getStartIterator( SUMOTime lastNTimesteps ) const
                         leaveTimeLesser() );
 }
 
+
 MSInductLoop::DismissedCont::const_iterator
 MSInductLoop::getDismissedStartIterator( SUMOTime lastNTimesteps ) const
 {
     double startTime = 0;
-    if ( lastNTimesteps < MSNet::getInstance()->timestep() ) {
+    if ( lastNTimesteps < MSNet::getInstance()->getCurrentTimeStep() ) {
         startTime = static_cast< double >(
-            MSNet::getInstance()->timestep() - lastNTimesteps ) *
+            MSNet::getInstance()->getCurrentTimeStep() - lastNTimesteps ) *
             MSNet::deltaT();
     }
     return lower_bound( dismissedContM.begin(),

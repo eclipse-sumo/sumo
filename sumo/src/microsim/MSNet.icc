@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/05/04 08:32:04  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -60,14 +63,6 @@ SUMOTime
 MSNet::simSeconds()
 {
     return (SUMOTime) (myStep * myDeltaT);
-}
-
-
-inline
-SUMOTime
-MSNet::timestep( void )
-{
-    return myStep;
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/15 11:08:51  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/07/12 12:14:39  dkrajzew
 // edge-based mean data implemented; previous lane-based is now optional
 //
@@ -50,6 +53,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include "MSMeanData_Net_Cont.h"
 #include <utils/common/SUMOTime.h>
@@ -59,6 +66,7 @@
  * class declarations
  * ======================================================================= */
 class MSEdgeControl;
+class MSDetector2File;
 
 
 /* =========================================================================
@@ -71,17 +79,24 @@ class MSEdgeControl;
 class MSMeanData_Net_Utils {
 public:
     /// Builds the list of mean data outputs (files) as described by the parameter
-    static MSMeanData_Net_Cont buildList(MSEdgeControl &ec,
+    static MSMeanData_Net_Cont buildList(MSDetector2File &det2file,
+        MSEdgeControl &ec,
         std::vector<SUMOTime> dumpMeanDataIntervalls,
         std::string baseNameDumpFiles,
         std::vector<SUMOTime> laneDumpMeanDataIntervalls,
-        std::string baseNameLaneDumpFiles);
+        std::string baseNameLaneDumpFiles,
+        const std::vector<int> &dumpBegins,
+        const std::vector<int> &dumpEnds);
 
 protected:
     /// Builds the list of mean data outputs (files) as described by the parameter
-    static MSMeanData_Net_Cont buildList(MSEdgeControl &ec,
+    static MSMeanData_Net_Cont buildList(MSDetector2File &det2file,
+        MSEdgeControl &ec,
         std::vector<SUMOTime> dumpMeanDataIntervalls,
-        std::string baseNameDumpFiles, bool useLanes);
+        std::string baseNameDumpFiles,
+        const std::vector<int> &dumpBegins,
+        const std::vector<int> &dumpEnds,
+        bool useLanes);
 
     /// Builds a list with unique aggregation times
     static std::vector<SUMOTime> buildUniqueList(

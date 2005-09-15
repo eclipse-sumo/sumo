@@ -19,8 +19,12 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.4  2005/09/15 11:07:36  dkrajzew
+// LARGE CODE RECHECK
 //
-
+//
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -30,6 +34,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <microsim/MSVehicleQuitReminded.h>
 #include <vector>

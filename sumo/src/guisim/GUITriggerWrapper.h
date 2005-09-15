@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/07/12 12:19:31  dkrajzew
 // code style adapted
 //
@@ -38,6 +41,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <utils/geom/HaveBoundary.h>
 #include <utils/geom/Position2D.h>
 /* =========================================================================

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.9  2004/11/23 10:20:11  dkrajzew
 // new detectors and tls usage applied; debugging
 //
@@ -109,6 +112,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <map>
 #include <string>
 
@@ -185,6 +192,8 @@ public:
     /** Returns the MSVehicleType associated to the key id if exists,
         otherwise returns 0. */
     static MSVehicleType* dictionary( std::string id);
+
+    static MSVehicleType* dict_Random();
 
     /** Clears the dictionary */
     static void clear();

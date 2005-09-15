@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/05/04 08:02:54  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -41,12 +44,20 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <microsim/MSRightOfWayJunction.h>
 #include <bitset>
 #include <vector>
 #include <string>
 #include "GUIJunctionWrapper.h"
 #include "GUIRightOfWayJunction.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

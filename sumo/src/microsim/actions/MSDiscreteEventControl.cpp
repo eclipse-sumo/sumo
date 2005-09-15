@@ -28,8 +28,17 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MSDiscreteEventControl.h"
 #include "Action.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 
 /* =========================================================================
  * member method definitions
@@ -47,9 +56,7 @@ MSDiscreteEventControl::~MSDiscreteEventControl()
 bool
 MSDiscreteEventControl::hasAnyFor(EventType et)
 {
-    return myEventsForAll.find(et)!=myEventsForAll.end()/*
-        &&
-        myEventsForSet.find(et)!=myEventsForSet.end()*/;
+    return myEventsForAll.find(et)!=myEventsForAll.end();
 }
 
 
@@ -75,25 +82,6 @@ MSDiscreteEventControl::add(EventType et, Action *a)
     }
     myEventsForAll[et].push_back(a);
 }
-
-/*
-void
-MSDiscreteEventControl::add(EventType et, const std::string &id, Action &act)
-{
-    if(myEventsForSet.find(et)==myEventsForAll.end()) {
-        myEventsForSet[et] = TypedDiscreteEventCont(id, a);
-    } else {
-        TypedEvents::iterator i = myEventsForSet.find(et);
-        while(i!=myEventsForSet.end()) {
-            if(!(*i).second.matches(id)) {
-                i =
-                continue;
-            }
-            myEventsForSet[et].add(a);
-        }
-    }
-}
-*/
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

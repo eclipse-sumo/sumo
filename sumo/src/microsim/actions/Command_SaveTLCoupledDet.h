@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/15 11:07:14  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2004/11/23 10:18:24  dkrajzew
 // new detectors usage applied
 //
@@ -29,11 +32,15 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <fstream>
 #include "Action.h"
 #include <microsim/MSNet.h>
-#include <helpers/DiscreteCommand.h>
+#include <utils/helpers/DiscreteCommand.h>
 
 
 /* =========================================================================
@@ -60,9 +67,8 @@ class Command_SaveTLCoupledDet : public DiscreteCommand
 {
 public:
     /// Constructor
-    Command_SaveTLCoupledDet(MSTrafficLightLogic *tll,
-        MSDetectorFileOutput *dtf,
-        unsigned int begin, OutputDevice *device);
+    Command_SaveTLCoupledDet(MSTrafficLightLogic * const tll,
+        MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice *device);
 
     /// Destructor
     virtual ~Command_SaveTLCoupledDet();
@@ -75,7 +81,7 @@ protected:
     OutputDevice *myDevice;
 
     /// The logic to use
-    MSTrafficLightLogic *myLogic;
+    MSTrafficLightLogic * const myLogic;
 
     /// The detector to use
     MSDetectorFileOutput *myDetector;

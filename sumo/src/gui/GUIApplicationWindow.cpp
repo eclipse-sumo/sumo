@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.42  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.41  2005/07/12 12:08:23  dkrajzew
 // patches only (unused features removed)
 //
@@ -207,6 +210,11 @@ namespace
 #include <utils/gui/div/GUIGlobalSelection.h>
 
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif
+
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
@@ -271,17 +279,28 @@ FXIMPLEMENT(GUIApplicationWindow, FXMainWindow, GUIApplicationWindowMap, ARRAYNU
  * member method definitions
  * ======================================================================= */
 GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
-                                           GUIThreadFactory &threadFactory,
                                            int glWidth, int glHeight,
                                            const std::string &configPattern)
     : GUIMainWindow(a, glWidth, glHeight),
     myLoadThread(0), myRunThread(0),
     myAmLoading(false),
-    mySimDelay(50), myConfigPattern(configPattern)
+    mySimDelay(50), myConfigPattern(configPattern), hadDependentBuild(false)
 {
+    GUIIconSubSys::init(a);
+}
+
+
+void
+GUIApplicationWindow::dependentBuild(GUIThreadFactory &threadFactory)
+{
+    // do this not twice
+    if(hadDependentBuild) {
+        return;
+    }
+    hadDependentBuild = true;
+
     setTarget(this);
     setSelector(MID_WINDOW);
-    GUIIconSubSys::init(a);
     GUITexturesHelper::init(getApp());
 
     // build menu bar
@@ -339,8 +358,6 @@ GUIApplicationWindow::GUIApplicationWindow(FXApp* a,
     //  (it will loop until the application ends deciding by itself whether
     //        to perform a step or not)
     myRunThread->start();
-    // check whether a simulation shall be started on begin
-    gStartAtBegin = false;
     //}
     setIcon( GUIIconSubSys::getIcon(ICON_APP) );
 }
@@ -398,6 +415,8 @@ GUIApplicationWindow::~GUIApplicationWindow()
     delete mySettingsMenu;
     delete myWindowsMenu;
     delete myHelpMenu;
+
+    delete myLoadThread;
 
     delete gGradients;
 }
@@ -495,6 +514,7 @@ GUIApplicationWindow::fillMenuBar()
     new FXMenuCheck(myWindowsMenu,
         "Show Simulation Delay\t\tToggle the Simulation Delay Entry on/off.",
         myToolBar4, FXWindow::ID_TOGGLESHOWN);
+    addToWindowsMenu(myWindowsMenu);
     new FXMenuSeparator(myWindowsMenu);
     new FXMenuCommand(myWindowsMenu,"Tile &Horizontally",
         GUIIconSubSys::getIcon(ICON_WINDOWS_TILE_HORI),
@@ -969,9 +989,12 @@ GUIApplicationWindow::eventOccured()
         case EVENT_SIMULATION_ENDED:
             handleEvent_SimulationEnded(e);
             break;
+        default:
+            break;
         }
         delete e;
     }
+    myToolBar2->forceRefresh();
     myToolBar3->forceRefresh();
 }
 
@@ -1014,7 +1037,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
     }
     getApp()->endWaitCursor();
     // start if wished
-    if(gStartAtBegin&&ec->_net!=0) {
+    if(myRunAtBegin&&ec->_net!=0&&myRunThread->simulationIsStartable()) {
         onCmdStart(0, 0, 0);
     }
     update();
@@ -1217,9 +1240,9 @@ GUIApplicationWindow::loadSelection(const std::string &file) const
 
 
 void
-GUIApplicationWindow::loadOnStartup(const std::string &config)
+GUIApplicationWindow::loadOnStartup(const std::string &config, bool run)
 {
-    gStartAtBegin = true;
+    myRunAtBegin = run;
     load(config);
 }
 /*

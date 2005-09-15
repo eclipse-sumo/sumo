@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/05/04 08:32:05  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -49,9 +52,17 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include "MSRouteLoader.h"
 #include "MSRouteLoaderControl.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -60,13 +71,20 @@ namespace
 MSRouteLoaderControl::MSRouteLoaderControl(MSNet &net,
                                            int inAdvanceStepNo,
                                            LoaderVector loader)
-    : PreStartInitialised(net), myLastLoadTime(-inAdvanceStepNo),
+    : myLastLoadTime(-inAdvanceStepNo),
     myInAdvanceStepNo(inAdvanceStepNo),
     myRouteLoaders(loader),
     myVehCont(inAdvanceStepNo>0 ? inAdvanceStepNo : 10), // !!! einen schalueren Wert!
     myAllLoaded(false)
 {
     myLoadAll = myInAdvanceStepNo<=0;
+    myAllLoaded = false;
+    myLastLoadTime = -1 * (int) myInAdvanceStepNo;
+    // initialize all used loaders
+    for( LoaderVector::iterator i=myRouteLoaders.begin();
+         i!=myRouteLoaders.end(); i++) {
+        (*i)->init();
+    }
 }
 
 
@@ -111,19 +129,6 @@ MSRouteLoaderControl::loadNext(SUMOTime step)
     myLastLoadTime = run - 1;
     // return the container with new vehicles
     return myVehCont;
-}
-
-
-void
-MSRouteLoaderControl::init(MSNet &net)
-{
-    myAllLoaded = false;
-    myLastLoadTime = -1 * (int) myInAdvanceStepNo;
-    // initialize all used loaders
-    for( LoaderVector::iterator i=myRouteLoaders.begin();
-         i!=myRouteLoaders.end(); i++) {
-        (*i)->init();
-    }
 }
 
 

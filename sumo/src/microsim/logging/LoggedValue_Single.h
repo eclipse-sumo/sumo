@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/15 11:07:54  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/05/04 08:09:23  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -44,6 +47,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "LoggedValue.h"
 
 
@@ -59,28 +66,40 @@ class LoggedValue_Single
     : public LoggedValue<_T> {
 public:
     /// Constructor
-    LoggedValue_Single(size_t dummy);
+    LoggedValue_Single(size_t dummy)
+        : LoggedValue<_T>(dummy)
+    {
+    }
 
     /// Destructor
-    ~LoggedValue_Single();
+    ~LoggedValue_Single() { }
+
 
     /** @brief Adds a new value
         Simply sets the current value */
-    void add(_T value);
+    void add(_T value)
+    {
+        myCurrentValue = value;
+    }
+
 
     /** returns the average of previously set values
         (for and over the given sample interval) */
-    _T getAvg() const;
+    _T getAvg() const
+    {
+        return myCurrentValue;
+    }
+
 
     /** returns the sum of previously set values
         (for the given sample interval) */
-    _T getAbs() const;
+    _T getAbs() const
+    {
+        return myCurrentValue;
+    }
+
 
 };
-
-#ifndef EXTERNAL_TEMPLATE_DEFINITION
-#include "LoggedValue_Single.cpp"
-#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/09/15 11:06:03  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.11  2005/07/12 12:15:41  dkrajzew
 // new loading of edges implemented
 //
@@ -64,7 +67,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <vector>
@@ -78,10 +81,14 @@ namespace
 #include <guisim/GUIInternalLane.h>
 #include <microsim/MSJunction.h>
 #include <utils/xml/XMLBuildingExceptions.h>
-#include <netload/NLNetBuilder.h>
+#include <netload/NLBuilder.h>
 #include "GUIEdgeControlBuilder.h"
 #include <gui/GUIGlobals.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -108,7 +115,7 @@ GUIEdgeControlBuilder::~GUIEdgeControlBuilder()
 MSEdge *
 GUIEdgeControlBuilder::addEdge(const string &id)
 {
-    MSEdge *edge = new GUIEdge(id, myGlObjectIDStorage);
+    MSEdge *edge = new GUIEdge(id, myCurrentNumericalEdgeID++, myGlObjectIDStorage);
     if(!MSEdge::dictionary(id, edge)) {
         throw XMLIdAlreadyUsedException("Edge", id);
     }
@@ -117,20 +124,17 @@ GUIEdgeControlBuilder::addEdge(const string &id)
 }
 
 
-void
-GUIEdgeControlBuilder::addSrcDestInfo(const std::string &id,
-                                      MSJunction *from, MSJunction *to)
+MSEdge *
+GUIEdgeControlBuilder::closeEdge()
 {
-    GUIEdge *edge = static_cast<GUIEdge*>(MSEdge::dictionary(id));
-    if(edge==0) {
-        throw XMLIdNotKnownException("edge", id);
-    }
-    edge->initJunctions(from, to, gIDStorage);
+    MSEdge *ret = NLEdgeControlBuilder::closeEdge();
+    static_cast<GUIEdge*>(ret)->initGeometry(gIDStorage);
+    return ret;
 }
 
 
 MSLane *
-GUIEdgeControlBuilder::addLane(MSNet &net, const std::string &id,
+GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
                                double maxSpeed, double length, bool isDepart,
                                const Position2DVector &shape)
 {
@@ -141,16 +145,16 @@ GUIEdgeControlBuilder::addLane(MSNet &net, const std::string &id,
     MSLane *lane = 0;
     switch(m_Function) {
     case MSEdge::EDGEFUNCTION_SOURCE:
-        lane = new GUISourceLane(net, id, maxSpeed, length, m_pActiveEdge,
+        lane = new GUISourceLane(/*net, */id, maxSpeed, length, m_pActiveEdge,
             myCurrentNumericalLaneID++, shape);
         break;
     case MSEdge::EDGEFUNCTION_INTERNAL:
-        lane = new GUIInternalLane(net, id, maxSpeed, length, m_pActiveEdge,
+        lane = new GUIInternalLane(/*net, */id, maxSpeed, length, m_pActiveEdge,
             myCurrentNumericalLaneID++, shape);
         break;
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_SINK:
-        lane = new GUILane(net, id, maxSpeed, length, m_pActiveEdge,
+        lane = new GUILane(/*net, */id, maxSpeed, length, m_pActiveEdge,
             myCurrentNumericalLaneID++, shape);
         break;
     default:

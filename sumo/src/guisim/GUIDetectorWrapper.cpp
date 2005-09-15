@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.10  2004/11/24 08:46:42  dkrajzew
 // recent changes applied
 //
@@ -45,7 +48,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "GUIDetectorWrapper.h"
@@ -58,6 +61,10 @@ namespace
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/foxtools/MFXMenuHeader.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -104,7 +111,8 @@ GUIDetectorWrapper::getPopUpMenu(GUIMainWindow &app,
     }
     new FXMenuSeparator(ret);
     //
-    new FXMenuCommand(ret, "Show Parameter", 0, ret, MID_SHOWPARS);
+    new FXMenuCommand(ret, "Show Parameter",
+        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
     return ret;
 }
 

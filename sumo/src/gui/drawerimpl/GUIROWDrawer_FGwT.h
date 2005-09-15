@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/15 11:05:29  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/04/29 11:10:58  dkrajzew
 // codestyle adapted
 //
@@ -51,7 +54,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <map>

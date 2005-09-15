@@ -31,16 +31,21 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <microsim/MSMoveReminder.h>
 #include <microsim/MSUnit.h>
 #include <microsim/output/MSCrossSection.h>
 #include <string>
 #ifdef WIN32
-#include "helpers/msvc6_TypeManip.h"
+#include <utils/helpers/msvc6_TypeManip.h>
 #endif
 #ifndef WIN32
-#include "helpers/gcc_TypeManip.h"
+#include <utils/helpers/gcc_TypeManip.h>
 #endif
+
 
 /* =========================================================================
  * class declarations
@@ -113,7 +118,7 @@ private:
         {
             // crossSection partially or completely entered
             MSUnit::Seconds entryTime = MSUnit::getInstance()->getSeconds(
-                MSNet::getInstance()->timestep() -
+                MSNet::getInstance()->getCurrentTimeStep() -
                 ( newPos - posM ) / ( newPos - oldPos ) );
             collectorM.enter( veh, entryTime );
             return false;
@@ -140,8 +145,8 @@ private:
             if ( newPos - veh.length() > posM ) {
                 // crossSection completely left
                 MSUnit::Seconds leaveTime = MSUnit::getInstance()->getSeconds(
-                MSNet::getInstance()->timestep() -
-                ( newPos - veh.length() - posM ) / ( newPos - oldPos ) );
+                    MSNet::getInstance()->getCurrentTimeStep() -
+                    ( newPos - veh.length() - posM ) / ( newPos - oldPos ) );
                 collectorM.leave( veh, leaveTime );
                 return false;
             }

@@ -19,12 +19,23 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.5  2005/09/15 11:07:14  dkrajzew
+// LARGE CODE RECHECK
+//
 //
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <string>
@@ -57,32 +68,13 @@ public:
     MSDiscreteEventControl();
     ~MSDiscreteEventControl();
     bool hasAnyFor(EventType et);
-    void execute(EventType et/*, const std::string &id*/);
+    void execute(EventType et);
     friend class NLDiscreteEventBuilder;
 private:
     void add(EventType et, Action *a);
-//    void add(EventType et, const std::string &id, Action *a);
-
-/*    class TypedDiscreteEventCont {
-    public:
-//        TypedDiscreteEventCont();
-        TypedDiscreteEventCont(Action *a);
-        TypedDiscreteEventCont(const std::string &id, Action *a);
-        ~TypedDiscreteEventCont();
-        void execute();
-        void add(Action *a);
-    private:
-        bool myAllowAll;
-        typedef std::set<std::string> AllowedDefinition;
-        AllowedDefinition myAllowed;
-        typedef std::vector<Action*> ActionVector;
-        ActionVector myActions;
-    };
-*/
     typedef std::vector<Action*> ActionVector;
     typedef std::map<EventType, ActionVector> TypedEvents;
     TypedEvents myEventsForAll;
-//    TypedEvents myEventsForSet;
 
 };
 

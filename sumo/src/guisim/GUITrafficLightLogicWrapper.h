@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/01/27 14:20:26  dkrajzew
 // ability to open the complete phase definition added
 //
@@ -35,6 +38,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/tracker/GUITLLogicPhasesTrackerWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>

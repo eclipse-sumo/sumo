@@ -22,6 +22,11 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
+// $Log$
+// Revision 1.7  2005/09/15 11:08:51  dkrajzew
+// LARGE CODE RECHECK
+//
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -31,6 +36,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MSMeanData_Net.h"
 #include "MSMeanData_Net_Utils.h"
 #include <cassert>
@@ -44,6 +53,10 @@ namespace
 #include <utils/iodevices/SharedOutputDevices.h>
 #include <microsim/output/MSDetector2File.h>
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 
 /* =========================================================================
  * used namespaces
@@ -55,21 +68,28 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 MSMeanData_Net_Cont
-MSMeanData_Net_Utils::buildList(MSEdgeControl &ec,
+MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
+                                MSEdgeControl &ec,
                                 std::vector<int> dumpMeanDataIntervalls,
                                 std::string baseNameDumpFiles,
                                 std::vector<int> laneDumpMeanDataIntervalls,
-                                std::string baseNameLaneDumpFiles)
+                                std::string baseNameLaneDumpFiles,
+                                const std::vector<int> &dumpBegins,
+                                const std::vector<int> &dumpEnds)
 {
     MSMeanData_Net_Cont ret;
     if ( dumpMeanDataIntervalls.size() > 0 ) {
         MSMeanData_Net_Cont tmp =
-            buildList(ec, dumpMeanDataIntervalls, baseNameDumpFiles, false);
+            buildList(det2file, ec,
+                dumpMeanDataIntervalls, baseNameDumpFiles,
+                dumpBegins, dumpEnds, false);
         copy(tmp.begin(), tmp.end(), back_inserter(ret));
     }
     if ( laneDumpMeanDataIntervalls.size() > 0 ) {
         MSMeanData_Net_Cont tmp =
-            buildList(ec, laneDumpMeanDataIntervalls, baseNameLaneDumpFiles, true);
+            buildList(det2file, ec,
+                laneDumpMeanDataIntervalls, baseNameLaneDumpFiles,
+                dumpBegins, dumpEnds, true);
         copy(tmp.begin(), tmp.end(), back_inserter(ret));
     }
     return ret;
@@ -77,9 +97,12 @@ MSMeanData_Net_Utils::buildList(MSEdgeControl &ec,
 
 
 MSMeanData_Net_Cont
-MSMeanData_Net_Utils::buildList(MSEdgeControl &ec,
+MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
+                                MSEdgeControl &ec,
                                 std::vector<int> dumpMeanDataIntervalls,
                                 std::string baseNameDumpFiles,
+                                const std::vector<int> &dumpBegins,
+                                const std::vector<int> &dumpEnds,
                                 bool useLanes)
 {
     MSMeanData_Net_Cont ret;
@@ -133,10 +156,11 @@ MSMeanData_Net_Utils::buildList(MSEdgeControl &ec,
                 "  If noVehContrib==0 then density is set to 0.\n"
                 "-->\n" ;
 
-            MSMeanData_Net *det = new MSMeanData_Net( *it, ret.size(), ec, useLanes, true);
+            MSMeanData_Net *det =
+                new MSMeanData_Net( *it, ret.size(), ec,
+                    dumpBegins, dumpEnds, useLanes, true);
             ret.push_back( det );
-            MSDetector2File::getInstance()->addDetectorAndInterval(
-                det, dev, *it);
+            det2file.addDetectorAndInterval(det, dev, *it);
         }
     }
     return ret;

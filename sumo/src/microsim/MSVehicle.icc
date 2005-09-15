@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.12  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.11  2005/05/04 08:34:41  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; new mead data functionality; lane-changing offset computation debugged; simulation speed-up by avoiding multiplication with 1
 //
@@ -72,6 +75,10 @@
 
 /**************** INCLUDE HEADER FILES HERE ********************************/
 
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
 
 #include "MSLane.h"
 #include "MSEdge.h"

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.63  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.62  2005/07/12 12:06:11  dkrajzew
 // first devices (mobile phones) added
 //
@@ -417,7 +420,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "MSLane.h"
@@ -428,6 +431,7 @@ namespace
 #include "MSRoute.h"
 #include "MSLinkCont.h"
 #include "MSVehicleQuitReminded.h"
+#include "MSDebugHelper.h"
 #include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
 #include <utils/gfx/RGBColor.h>
@@ -443,8 +447,19 @@ namespace
 #include "lanechanging/MSLCM_Krauss.h"
 #include "lanechanging/MSLCM_DK2004.h"
 #include <utils/convert/ToString.h>
+#include <utils/common/FileHelpers.h>
+#include <utils/bindevice/BinaryInputDevice.h>
+
 
 #include "devices/MSDevice_CPhone.h"
+
+#ifdef ABS_DEBUG
+#include "MSDebugHelper.h"
+#endif
+
+#ifdef DISABLE_INLINE
+#include "MSVehicle.icc"
+#endif
 
 
 /* =========================================================================
@@ -568,12 +583,12 @@ MSVehicle::~MSVehicle()
     if(myDoubleCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myDoubleCORNMap.end()) {
         int noReroutes = (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
         for(int i=0; i<noReroutes; ++i) {
-      delete (MSRoute*) myPointerCORNMap[(MSCORN::Pointer) (i+noReroutes)];
+	  delete (MSRoute*) myPointerCORNMap[(MSCORN::Pointer) (i+noReroutes)];
         }
     }
     /*
-    for(std::map<MSCORN::Pointer, void*>::iterator j=myPointerCORNMap.begin(); j!=myPointerCORNMap.end(); ++j) {
-        delete (*j).second;
+	for(std::map<MSCORN::Pointer, void*>::iterator j=myPointerCORNMap.begin(); j!=myPointerCORNMap.end(); ++j) {
+		delete (*j).second;
     } !!!
     */
     delete myLaneChangeModel;
@@ -587,6 +602,9 @@ MSVehicle::MSVehicle( string id,
                       const MSVehicleType* type,
                       size_t noMeanData,
                       int repNo, int repOffset) :
+#ifdef HAVE_MESOSIM
+    MEVehicle(this, 0, 0),
+#endif
     myLastLaneChangeOffset(0),
     myTarget(0),
     myWaitingTime( 0 ),
@@ -647,7 +665,7 @@ MSVehicle::state() const
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSEdge &
+const MSEdge &
 MSVehicle::departEdge()
 {
     return **myCurrEdge;
@@ -898,8 +916,8 @@ MSVehicle::move( MSLane* lane,
 {
     myTarget = 0;
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
-        DEBUG_OUT << "movea/1:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
+    if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
+        DEBUG_OUT << "movea/1:" << debug_globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
     }
 #endif
     double gap = gap2pred(*pred);
@@ -915,7 +933,7 @@ MSVehicle::move( MSLane* lane,
     // !!! non - Krauß brake when urgent lane changing failed
 /*    if( !myLane->appropriate(this) &&
         (_lcAction&LCA_LANEBEGIN)==0 ) {
-        vNext = MIN(vSafe, myState.mySpeed-myType->decelSpeed()/2.0); // !!! full deceleration causes floating point problems
+        vNext = MIN2(vSafe, myState.mySpeed-myType->decelSpeed()/2.0); // !!! full deceleration causes floating point problems
     }*/
     // !!! non - Krauß brake when urgent lane changing failed
 //    else {
@@ -944,7 +962,7 @@ MSVehicle::move( MSLane* lane,
         //pred->speed()<accelSpace &&
         myState.mySpeed<vaccel(myLane) ) {
 
-        vNext = gap / MSNet::deltaT();
+        vNext = DIST2SPEED(gap);
     }
 */
     double predDec = MAX2(0, pred->speed()-decelAbility() /* !!! decelAbility of leader! */);
@@ -973,15 +991,15 @@ MSVehicle::move( MSLane* lane,
     assert( myState.myPos < lane->length() );
     myState.mySpeed = vNext;
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
-        DEBUG_OUT << "movea/2:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
+    if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
+        DEBUG_OUT << "movea/2:" << debug_globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
     }
 #endif
     if(hasCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
         myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
             myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
     }
-    myLane->addMean2(vNext);
+    myLane->addMean2(vNext, length());
 }
 
 
@@ -991,8 +1009,8 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
                                  const MSVehicle* neigh )
 {
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
-        DEBUG_OUT << "moveb/1:" << MSNet::globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
+    if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
+        DEBUG_OUT << "moveb/1:" << debug_globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
     }
 #endif
     myLFLinkLanes.clear();
@@ -1048,7 +1066,7 @@ MSVehicle::moveFirstChecked()
 {
     myTarget = 0;
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2) ) {
+    if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2) ) {
         int textdummy = 0;
     }
 #endif
@@ -1117,7 +1135,7 @@ MSVehicle::moveFirstChecked()
     // update speed
     myState.mySpeed = vNext;
     MSLane *approachedLane = myLane;
-    approachedLane->addMean2(vNext);
+    approachedLane->addMean2(vNext, length());
 
 
     // move the vehicle forward
@@ -1151,7 +1169,7 @@ MSVehicle::moveFirstChecked()
         }
         // set information about approaching
         approachedLane->setApproaching(myState.pos(), this);
-        approachedLane->addMean2(vNext);
+        approachedLane->addMean2(vNext, length());
         no++;
     }
     // set approaching information for consecutive lanes the vehicle may reach in the
@@ -1199,8 +1217,8 @@ MSVehicle::moveFirstChecked()
     myTarget = approachedLane;
     assert(myTarget!=0);
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
-        DEBUG_OUT << "moveb/1:" << MSNet::globaltime << ": " << id() << " at " << getLane().id() << ": " << myState.myPos << ", " << myState.mySpeed << endl;
+    if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
+        DEBUG_OUT << "moveb/1:" << debug_globaltime << ": " << id() << " at " << getLane().id() << ": " << myState.myPos << ", " << myState.mySpeed << endl;
     }
 #endif
     assert(myTarget->length()>=myState.myPos);
@@ -1218,8 +1236,8 @@ void
 MSVehicle::vsafeCriticalCont( double boundVSafe )
 {
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
-        DEBUG_OUT << "vsafeCriticalCont/" << MSNet::globaltime << ":" << myID << endl;
+    if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
+        DEBUG_OUT << "vsafeCriticalCont/" << debug_globaltime << ":" << myID << endl;
     }
 #endif
     double decelAbility = myType->decel();
@@ -1353,12 +1371,12 @@ MSVehicle::moveDecel2laneEnd( MSLane* lane )
     // Slow down and dawdle.
     double vAccel = vaccel(myLane);
     double vSafe  = vsafe( myState.mySpeed, myType->decel(), gap, 0 );
-    double vNext  = dawdle( MIN(vSafe, vAccel) );
+    double vNext  = dawdle( MIN2(vSafe, vAccel) );
     if(vNext<myState.mySpeed-myType->decelSpeed()) {
         vNext = myState.mySpeed-myType->decelSpeed();
     }
     // update position and speed
-    myState.myPos  += vNext * MSNet::deltaT();
+    myState.myPos  += SPEED2DIST(vNext);
     myState.mySpeed = vNext;
 }
 */
@@ -1368,7 +1386,7 @@ MSVehicle::moveDecel2laneEnd( MSLane* lane )
 void
 MSVehicle::moveUpdateState( const State newState )
 {
-    myState.myPos  += newState.mySpeed * MSNet::deltaT();
+    myState.myPos  += SPEED2DIST(newState.mySpeed);
     assert( myState.myPos >= 0 );
     myState.mySpeed = newState.mySpeed;
     assert( myState.mySpeed >= 0 );
@@ -1398,11 +1416,11 @@ MSVehicle::nextState( MSLane* lane, double gap ) const
     // If we know that we will slow down, is there still the need to dawdle?
     double vAccel  = vaccel( lane );
     double vSafe   = vsafe( myState.mySpeed, myType->decel(), gap, 0 );
-    double vNext   = dawdle( MIN( vSafe, vAccel ) );
+    double vNext   = dawdle( MIN2( vSafe, vAccel ) );
     if(vNext<myState.mySpeed-myType->decelSpeed()) {
         vNext = myState.mySpeed-myType->decelSpeed();
     }
-    double nextPos = myState.myPos + vNext * MSNet::deltaT(); // Will be
+    double nextPos = myState.myPos + SPEED2DIST(vNext); // Will be
     // overridden if veh leaves lane.
     return State( nextPos, vNext );
 }
@@ -1417,11 +1435,11 @@ MSVehicle::nextStateCompete( MSLane* lane,
     double vAccel   = vaccel( lane );
     double vSafe    = vsafe( myState.mySpeed, myType->decel(),
                              gap2pred, predState.mySpeed );
-    double vNext    = dawdle( MIN( vAccel, vSafe ) );
+    double vNext    = dawdle( MIN2( vAccel, vSafe ) );
     if(vNext<myState.mySpeed-myType->decelSpeed()) {
         vNext = myState.mySpeed-myType->decelSpeed();
     }
-    double nextPos  = myState.myPos + vNext * MSNet::deltaT();
+    double nextPos  = myState.myPos + SPEED2DIST(vNext);
     return State( nextPos, vNext );
 }
 */
@@ -1478,6 +1496,21 @@ MSVehicle::remove(const std::string &id)
 
 /////////////////////////////////////////////////////////////////////////////
 
+MSVehicle*
+MSVehicle::detach(const std::string &id)
+{
+    DictType::iterator i = myDict.find(id);
+    if(i==myDict.end()) {
+        return 0;
+    }
+    MSVehicle *ret = (*i).second;
+    myDict.erase(id);
+    return ret;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+
 double
 MSVehicle::speed() const
 {
@@ -1499,7 +1532,7 @@ MSVehicle::laneChangeBrake2much( const State brakeState )
 {
     // SK-vnext can reduce speed about decel, dawdle about accel.
     double minAllowedNextSpeed =
-        MAX( myState.mySpeed - myType->accelPlusDecelSpeed(myState.mySpeed), double( 0 ) );
+        MAX2( myState.mySpeed - myType->accelPlusDecelSpeed(myState.mySpeed), double( 0 ) );
     if ( brakeState.mySpeed < minAllowedNextSpeed ) {
         return true;
     }
@@ -1691,7 +1724,7 @@ void
 MSVehicle::enterLaneAtMove( MSLane* enteredLane, double driven )
 {
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
+    if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         int textdummy = 0;
     }
 #endif
@@ -1713,9 +1746,9 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane, double driven )
     myTarget = enteredLane;
     // and update the mean data
     double entryTimestep =
-        static_cast< double >( MSNet::getInstance()->timestep() ) - 1 +
+        static_cast< double >( MSNet::getInstance()->getCurrentTimeStep() ) - 1 +
         driven / myState.mySpeed;
-    assert(entryTimestep<MSNet::globaltime);
+    assert(entryTimestep<debug_globaltime);
 //    updateMeanData( entryTimestep, 0, myState.mySpeed );
     // get new move reminder
     myMoveReminders = enteredLane->getMoveReminders();
@@ -1956,7 +1989,7 @@ MSVehicle::workOnMoveReminders( double oldPos, double newPos, double newSpeed,
                                 MoveOnReminderMode mode )
 {
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
+    if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         int textdummy = 0;
     }
 #endif
@@ -2128,8 +2161,8 @@ void
 MSVehicle::removeApproachingInformationOnKill(MSLane *begin)
 {
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>=MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
-        DEBUG_OUT << "rmApp:" << MSNet::globaltime << ": " << id() << " at " << getLane().id() << ": " << myState.myPos << ", " << myState.mySpeed << endl;
+    if(debug_globaltime>=debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
+        DEBUG_OUT << "rmApp:" << debug_globaltime << ": " << id() << " at " << getLane().id() << ": " << myState.myPos << ", " << myState.mySpeed << endl;
     }
 #endif
     if(begin==myLane&&myLFLinkLanes.size()>0&&myLFLinkLanes[0].myLink!=0) {
@@ -2184,10 +2217,10 @@ void
 MSVehicle::onDepart()
 {
     // check whether the vehicle's departure time shall be saved
-    if( MSCORN::wished(MSCORN::CORN_VEH_REALDEPART) ) {
+//    if( MSCORN::wished(MSCORN::CORN_VEH_REALDEPART) ) { // !!! wjt needs this
         myDoubleCORNMap[MSCORN::CORN_VEH_REALDEPART] =
             MSNet::getInstance()->getCurrentTimeStep();
-    }
+//    }
     // check whether the vehicle control shall be informed
     if(MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
         MSNet::getInstance()->getVehicleControl().vehicleEmitted(this);
@@ -2260,7 +2293,7 @@ bool
 MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
 {
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
+    if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         int textdummy = 0;
         for(MSEdgeVector::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
             cout << (*i)->id() << ", ";
@@ -2273,7 +2306,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
     }
 #endif
     MSRoute *otherr = 0;
-    MSEdge *currentEdge = *myCurrEdge;
+    const MSEdge *currentEdge = *myCurrEdge;
     // check whether the information shall be saved
     if(MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
         otherr = new MSRoute(*myRoute);
@@ -2289,7 +2322,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
         myDoubleCORNMap[MSCORN::CORN_VEH_WASREROUTET] = 1;
             // ... maybe the route information shall be saved for output?
         if( MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
-            int routeOffset = (int) MSCORN::CORN_P_VEH_OLDROUTE +
+    		int routeOffset = (int) MSCORN::CORN_P_VEH_OLDROUTE +
 	    		(int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
     		myPointerCORNMap[(MSCORN::Pointer) routeOffset] = (void*) otherr;
 		    int begEdgeOffset = (int) MSCORN::CORN_P_VEH_ROUTE_BEGIN_EDGE +
@@ -2304,7 +2337,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
             myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
     }
 #ifdef ABS_DEBUG
-    if(MSNet::globaltime>MSNet::searchedtime && (myID==MSNet::searched1||myID==MSNet::searched2)) {
+    if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         int textdummy = 0;
         for(MSRouteIterator i=myRoute->begin(); i!=myRoute->end(); ++i) {
             cout << (*i)->id() << ", ";
@@ -2313,6 +2346,64 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
     }
 #endif
     return replaced;
+}
+
+
+bool
+MSVehicle::replaceRoute(MSRoute *newRoute, size_t simTime)
+{
+#ifdef ABS_DEBUG
+    if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
+        int textdummy = 0;
+        for(MSEdgeVector::const_iterator i=newRoute->begin(); i!=newRoute->end(); ++i) {
+            cout << (*i)->id() << ", ";
+        }
+        cout << "-------------" << endl;
+        for(MSRouteIterator i2=myRoute->begin(); i2!=myRoute->end(); ++i2) {
+            cout << (*i2)->id() << ", ";
+        }
+        cout << "-------------" << endl;
+    }
+#endif
+    MSRoute *otherr = 0;
+    const MSEdge *currentEdge = *myCurrEdge;
+    // check whether the information shall be saved
+    if(MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
+        otherr = new MSRoute(*myRoute);
+    }
+    // try to replace the current route
+    myRoute = newRoute;
+    // rebuild in-vehicle route information
+    myCurrEdge = myRoute->find(currentEdge);
+    myAllowedLanes.clear();
+    rebuildAllowedLanes();
+    // save information that the vehicle was rerouted
+    myDoubleCORNMap[MSCORN::CORN_VEH_WASREROUTET] = 1;
+    // ... maybe the route information shall be saved for output?
+    if( MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
+        int routeOffset = (int) MSCORN::CORN_P_VEH_OLDROUTE +
+	        (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+        myPointerCORNMap[(MSCORN::Pointer) routeOffset] = (void*) otherr;
+		int begEdgeOffset = (int) MSCORN::CORN_P_VEH_ROUTE_BEGIN_EDGE +
+		    (int) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+        myPointerCORNMap[(MSCORN::Pointer) begEdgeOffset] = (void*) *myCurrEdge;
+		SUMOTime timeOffset = (SUMOTime) MSCORN::CORN_VEH_REROUTE_TIME +
+		    (SUMOTime) myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
+        myDoubleCORNMap[(MSCORN::Function) timeOffset] = (double) simTime;
+    }
+    myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
+    myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] =
+        myDoubleCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
+#ifdef ABS_DEBUG
+    if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
+        int textdummy = 0;
+        for(MSRouteIterator i=myRoute->begin(); i!=myRoute->end(); ++i) {
+            cout << (*i)->id() << ", ";
+        }
+        cout << "-------------" << endl;
+    }
+#endif
+    return true;
 }
 
 
@@ -2371,7 +2462,7 @@ MSVehicle::rebuildAllowedLanes()
 
 
 int
-MSVehicle::countAllowedContinuations(const MSLane *lane) const
+MSVehicle::countAllowedContinuations(const MSLane *lane, int dir) const
 {
     int ret = 0;
     double MIN_DIST = 3000;
@@ -2389,7 +2480,34 @@ MSVehicle::countAllowedContinuations(const MSLane *lane) const
         MSEdge::LaneCont::const_iterator i =
             find(al->begin(), al->end(), lane);
         if(i==al->end()) {
-            return ret;
+            if(dir==0) {
+                return ret;
+            }
+            // !!!! may be a lane that must be used to leave...
+            const std::vector<MSLane*> *pl = lane->edge().getLanes();
+            std::vector<MSLane*>::const_iterator pli = find(pl->begin(), pl->end(), lane);
+            if(dir<0) {
+                // to right
+                if(pli==pl->begin()) {
+                    return ret;
+                }
+                lane = *(pli-1);
+                i = find(al->begin(), al->end(), lane);
+                if(i==al->end()) {
+                    return ret;
+                }
+            }
+            if(dir>0) {
+                // to left
+                if(pli==pl->end()-1) {
+                    return ret;
+                }
+                lane = *(pli+1);
+                i = find(al->begin(), al->end(), lane);
+                if(i==al->end()) {
+                    return ret;
+                }
+            }
         }
         ret++;
         lane = (*(lane->succLinkOneLane(*( ce + 1 ), *lane)))->getLane();
@@ -2398,12 +2516,31 @@ MSVehicle::countAllowedContinuations(const MSLane *lane) const
         dist += ((*al)[0])->length();
     } while(dist<MIN_DIST&&ce!=myRoute->end()-1);
 
+    /*
+    double dist = -myState.pos();
+    while(dist<MIN_DIST&&ce!=myRoute->end()-2/!*ce!=myRoute->getLastEdge()*!/) {
+        const MSEdge::LaneCont *al = ( *ce )->allowedLanes( **( ce + 1 ) );
+        if(al==0) {
+            return ret;
+        }
+        MSEdge::LaneCont::const_iterator i =
+            find(al->begin(), al->end(), lane);
+        if(i==al->end()) {
+            return ret;
+        }
+        ret++;
+        lane = (*(lane->succLinkOneLane(*( ce + 1 ), *lane)))->getLane();
+        assert(al!=0);
+        ++ce;
+        dist += ((*al)[0])->length();
+    }
+    */
     return ret;
 }
 
 
 double
-MSVehicle::allowedContinuationsLength(const MSLane *lane) const
+MSVehicle::allowedContinuationsLength(const MSLane *lane, int dir) const
 {
     double MIN_DIST = 3000;
     MSRouteIterator ce = myCurrEdge;
@@ -2420,13 +2557,62 @@ MSVehicle::allowedContinuationsLength(const MSLane *lane) const
         MSEdge::LaneCont::const_iterator i =
             find(al->begin(), al->end(), lane);
         if(i==al->end()) {
-            return dist;
+            if(dir==0) {
+                return dist;
+            }
+            // !!!! may be a lane that must be used to leave...
+            const std::vector<MSLane*> *pl = lane->edge().getLanes();
+            std::vector<MSLane*>::const_iterator pli = find(pl->begin(), pl->end(), lane);
+            if(dir<0) {
+                // to right
+                if(pli==pl->begin()) {
+                    return dist;
+                }
+                lane = *(pli-1);
+                i = find(al->begin(), al->end(), lane);
+                if(i==al->end()) {
+                    return dist;
+                }
+            }
+            if(dir>0) {
+                // to left
+                if(pli==pl->end()-1) {
+                    return dist;
+                }
+                lane = *(pli+1);
+                i = find(al->begin(), al->end(), lane);
+                if(i==al->end()) {
+                    return dist;
+                }
+            }
         }
         lane = (*(lane->succLinkOneLane(*( ce + 1 ), *lane)))->getLane();
         assert(al!=0);
         ++ce;
         dist += ((*al)[0])->length();
     } while(dist<MIN_DIST&&ce!=myRoute->end()-1);
+    /*
+    double dist = lane->length()-myState.pos();
+    MSRouteIterator ce = myCurrEdge;
+    while(ce!=myRoute->end()-2/!*ce!=myRoute->getLastEdge()*!/) {
+        const MSEdge::LaneCont *al = ( *ce )->allowedLanes( **( ce + 1 ) );
+        if(al==0) {
+            return dist;
+        }
+        MSEdge::LaneCont::const_iterator i =
+            find(al->begin(), al->end(), lane);
+        if(i==al->end()) {
+            return dist;
+        }
+        if(ce!=myCurrEdge) {
+            dist += ((*al)[0])->length();
+        }
+        lane = (*(lane->succLinkOneLane(*( ce + 1 ), *lane)))->getLane();
+        assert(al!=0);
+        ++ce;
+//        dist += ((*al)[0])->length();
+    }
+    */
     return dist;
 }
 
@@ -2465,11 +2651,115 @@ MSVehicle::interactWith(const std::vector<MSVehicle*> &vehicles)
 }
 
 
+void
+MSVehicle::dict_saveState(std::ostream &os, long what)
+{
+    FileHelpers::writeUInt(os, myDict.size());
+    for(DictType::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
+        if((*it).second->hasCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART)) {
+            (*it).second->saveState(os, what);
+        }
+    }
+    FileHelpers::writeString(os, "-----------------end---------------");
+}
+
+
+#include <mesosim/MESegment.h>
+#include <mesosim/MELoop.h>
+#include "MSGlobals.h"
+
+void
+MSVehicle::saveState(std::ostream &os, long what)
+{
+    FileHelpers::writeString(os, id());
+    FileHelpers::writeInt(os, myLastLaneChangeOffset);
+    FileHelpers::writeUInt(os, myWaitingTime);
+    FileHelpers::writeInt(os, myRepetitionNumber);
+    FileHelpers::writeInt(os, myPeriod);
+    FileHelpers::writeString(os, myRoute->getID());
+    FileHelpers::writeFloat(os, myDesiredDepart);
+    FileHelpers::writeString(os, myType->id());
+    FileHelpers::writeUInt(os, myRoute->posInRoute(myCurrEdge));
+    FileHelpers::writeUInt(os, getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART));
+}
+
+
+void
+MSVehicle::dict_loadState(BinaryInputDevice &bis, long what)
+{
+    unsigned int size;
+    bis >> size;
+    string id;
+    do {
+        bis >> id;
+        if(id!="-----------------end---------------") {
+            SUMOTime lastLaneChangeOffset;
+            bis >> lastLaneChangeOffset; // !!! check type= FileHelpers::readInt(os);
+            unsigned int waitingTime;
+            bis >> waitingTime;
+            int repetitionNumber;
+            bis >> repetitionNumber;
+            int period;
+            bis >> period;
+            string routeID;
+            bis >> routeID;
+            MSRoute* route;
+            SUMOTime desiredDepart;
+            bis >> desiredDepart;
+            string typeID;
+            bis >> typeID;
+            const MSVehicleType* type;
+//!!!        State state;
+//!!!        string laneID = FileHelpers::readString(os);
+            unsigned int routeOffset;
+            bis >> routeOffset;
+            unsigned int wasEmitted;
+            bis >> wasEmitted;
+
+            // !!! several things may be missing
+            unsigned int segIndex;
+            bis >> segIndex;
+            SUMOReal tEvent;
+            bis >> tEvent;
+            SUMOReal tLastEntry;
+            bis >> tLastEntry;
+
+            //
+            route = MSRoute::dictionary(routeID);
+            route->incReferenceCnt();
+            assert(route!=0);
+            type = MSVehicleType::dictionary(typeID);
+            assert(type!=0);
+            type = MSVehicleType::dictionary(typeID);
+        //if(wasEmitted!=0) {
+            if(dictionary(id)!=0) {
+                cout << "Error: vehicle was already added" << endl;
+                continue;
+            }
+
+            MSVehicle *v = MSNet::getInstance()->getVehicleControl().buildVehicle(id,
+                route, desiredDepart, type, repetitionNumber, period, RGBColor(0, 0, 0));
+            v->myDoubleCORNMap[MSCORN::CORN_VEH_REALDEPART] = (double) wasEmitted;
+            while(routeOffset>0) {
+                v->myCurrEdge++;
+                routeOffset--;
+            }
+            dictionary(id, v);
+            //
+        //}
+            size--;
+        }
+    } while(id!="-----------------end---------------");
+    cout << myDict.size() << " vehicles loaded."; // !!! verbose
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-#ifdef DISABLE_INLINE
-#include "MSVehicle.icc"
-#endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 // Local Variables:
 // mode:C++

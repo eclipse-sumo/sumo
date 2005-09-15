@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/05/04 07:59:59  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -42,18 +45,20 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <vector>
 #include <string>
-#include <helpers/Command.h>
-#include <microsim/MSLaneSpeedTrigger.h>
+#include <utils/helpers/Command.h>
+#include <microsim/trigger/MSLaneSpeedTrigger.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/geom/HaveBoundary.h>
 #include <utils/geom/Position2D.h>
+#include <gui/GUIManipulator.h>
+#include <utils/foxtools/FXRealSpinDial.h>
 
 
 /* =========================================================================
@@ -68,7 +73,7 @@ class GUIManipulator;
  * class definitions
  * ======================================================================= */
 /**
- * GUILaneSpeedTrigger
+ * @class GUILaneSpeedTrigger
  * This is the gui-version of the MSLaneSpeedTrigger-object
  */
 class GUILaneSpeedTrigger
@@ -130,6 +135,54 @@ public:
 
     protected:
         GUILaneSpeedTriggerPopupMenu() { }
+
+    };
+
+    class GUIManip_LaneSpeedTrigger : public GUIManipulator {
+        FXDECLARE(GUIManip_LaneSpeedTrigger)
+    public:
+        enum {
+            MID_USER_DEF = FXDialogBox::ID_LAST,
+            MID_PRE_DEF,
+            MID_OPTION,
+            MID_CLOSE,
+            ID_LAST
+        };
+        /// Constructor
+        GUIManip_LaneSpeedTrigger(GUIMainWindow &app,
+            const std::string &name, GUILaneSpeedTrigger &o,
+            int xpos, int ypos);
+
+        /// Destructor
+        virtual ~GUIManip_LaneSpeedTrigger();
+
+        long onCmdOverride(FXObject*,FXSelector,void*);
+        long onCmdClose(FXObject*,FXSelector,void*);
+        long onCmdUserDef(FXObject*,FXSelector,void*);
+        long onUpdUserDef(FXObject*,FXSelector,void*);
+        long onCmdPreDef(FXObject*,FXSelector,void*);
+        long onUpdPreDef(FXObject*,FXSelector,void*);
+        long onCmdChangeOption(FXObject*,FXSelector,void*);
+
+    private:
+        GUIMainWindow *myParent;
+
+        FXRealSpinDial *myUserDefinedSpeed;
+
+        FXComboBox *myPredefinedValues;
+
+        FXint myChosenValue;
+
+        FXDataTarget myChosenTarget;
+
+        FXDataTarget mySpeedTarget;
+
+        float mySpeed;
+
+        GUILaneSpeedTrigger *myObject;
+
+    protected:
+        GUIManip_LaneSpeedTrigger() { }
 
     };
 

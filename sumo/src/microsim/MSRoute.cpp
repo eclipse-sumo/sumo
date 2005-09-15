@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/05/04 08:32:05  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -51,17 +54,23 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <cassert>
 #include <algorithm>
 #include "MSRoute.h"
 #include "MSEdge.h"
+#include <utils/common/FileHelpers.h>
+#include <utils/bindevice/BinaryInputDevice.h>
 
 #ifdef ABS_DEBUG
 #include "MSNet.h"
 #endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -83,7 +92,8 @@ MSRoute::MSRoute(const std::string &id,
                  const MSEdgeVector &edges,
                  bool multipleReferenced)
     : Named(id), _edges(edges),
-    _multipleReferenced(multipleReferenced)
+    _multipleReferenced(multipleReferenced),
+    myReferenceNo(0)
 {
 }
 
@@ -111,7 +121,7 @@ MSRoute::size() const
 }
 
 
-MSEdge *
+const MSEdge *
 MSRoute::getLastEdge() const
 {
     assert(_edges.size()>0);
@@ -189,7 +199,7 @@ MSRoute::replaceBy(const MSEdgeVector &edges, MSRouteIterator &currentEdge)
 
 
 MSRouteIterator
-MSRoute::find(MSEdge *e) const
+MSRoute::find(const MSEdge *e) const
 {
     return std::find(_edges.begin(), _edges.end(), e);
 }
@@ -198,20 +208,120 @@ MSRoute::find(MSEdge *e) const
 void
 MSRoute::writeEdgeIDs(std::ostream &os) const
 {
-    MSEdgeVector::const_iterator i = _edges.begin();
-    for(;i!=_edges.end(); ++i) {
-        if(i!=_edges.begin()) {
-            os << ' ';
+	MSEdgeVector::const_iterator i = _edges.begin();
+	for(;i!=_edges.end(); ++i) {
+		if(i!=_edges.begin()) {
+			os << ' ';
+		}
+		os << (*i)->id();
+	}
+}
+
+
+bool
+MSRoute::contains(MSEdge *edge) const
+{
+    return find(edge)!=_edges.end();
+}
+
+
+bool
+MSRoute::containsAnyOf(const std::vector<MSEdge*> &edgelist) const
+{
+    std::vector<MSEdge*>::const_iterator i = edgelist.begin();
+    for(; i!=edgelist.end(); ++i) {
+        if(contains(*i)) {
+            return true;
         }
-        os << (*i)->id();
+    }
+    return false;
+}
+
+
+const MSEdge *
+MSRoute::operator[](size_t index)
+{
+    return _edges[index];
+}
+
+
+void
+MSRoute::dict_saveState(std::ostream &os, long what)
+{
+    FileHelpers::writeUInt(os, myDict.size());
+    for(RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
+        (*it).second->saveState(os, what);
     }
 }
 
 
-MSEdge *
-MSRoute::operator[](size_t index)
+void
+MSRoute::saveState(std::ostream &os, long what)
 {
-    return _edges[index];
+    FileHelpers::writeString(os, getID());
+    FileHelpers::writeUInt(os, _edges.size());
+    FileHelpers::writeByte(os, _multipleReferenced);
+    for(MSEdgeVector::const_iterator i = _edges.begin(); i!=_edges.end(); ++i) {
+        FileHelpers::writeUInt(os, (*i)->getNumericalID());
+    }
+}
+
+
+void
+MSRoute::dict_loadState(BinaryInputDevice &bis, long what)
+{
+    unsigned int noRoutes;
+    bis >> noRoutes;
+    while(noRoutes>0) {
+        string id;
+        bis >> id;
+        unsigned int no;
+        bis >> no;
+        bool multipleReferenced;
+        bis >> multipleReferenced;
+        bool had = dictionary(id)!=0;
+        MSEdgeVector edges;
+        if(!had) {
+            edges.reserve(no);
+        }
+        while(no>0) {
+            unsigned int edgeID;
+            bis >> edgeID;
+            if(!had) {
+                MSEdge *e = MSEdge::dictionary(edgeID);
+                assert(e!=0);
+                edges.push_back(e);
+            }
+            no--;
+        }
+        if(!had) {
+            MSRoute *r = new MSRoute(id, edges, multipleReferenced);
+            dictionary(id, r);
+        }
+        noRoutes--;
+    }
+}
+
+
+size_t
+MSRoute::posInRoute(const MSRouteIterator &currentEdge) const
+{
+    return distance(_edges.begin(), currentEdge);
+}
+
+
+void
+MSRoute::clearLoadedState()
+{
+    std::vector<MSRoute*> toDel;
+    for(RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
+        if((*it).second->noReferences()==0&&!(*it).second->inFurtherUse()) {
+            toDel.push_back((*it).second);
+        }
+    }
+    for(std::vector<MSRoute*>::iterator i=toDel.begin(); i!=toDel.end(); ++i) {
+        erase((*i)->getID());
+    }
 }
 
 

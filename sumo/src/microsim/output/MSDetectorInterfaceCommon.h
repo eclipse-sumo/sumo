@@ -31,6 +31,10 @@
  * included modules
  * ======================================================================= */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <microsim/MSUnit.h>
 

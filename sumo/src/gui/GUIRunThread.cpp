@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.30  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.29  2005/05/04 07:48:05  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -113,7 +116,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <cassert>
@@ -126,7 +129,6 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <guisim/GUINet.h>
 #include <microsim/MSVehicleControl.h>
-#include <helpers/SingletonDictionary.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/events/GUIEvent_SimulationStep.h>
 #include <utils/gui/events/GUIEvent_SimulationEnded.h>
@@ -138,6 +140,10 @@ namespace
 #include <utils/iodevices/SharedOutputDevices.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/common/SysUtils.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

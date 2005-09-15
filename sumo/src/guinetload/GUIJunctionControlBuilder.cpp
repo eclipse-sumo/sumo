@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/15 11:06:03  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/05/04 07:56:43  dkrajzew
 // level 3 warnings removed
 //
@@ -44,6 +47,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <algorithm>
 #include <netload/NLJunctionControlBuilder.h>
 #include <utils/geom/Position2DVector.h>
@@ -51,12 +58,16 @@ namespace
 #include <guisim/GUINoLogicJunction.h>
 #include <guisim/GUIRightOfWayJunction.h>
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIJunctionControlBuilder::GUIJunctionControlBuilder()
-    : NLJunctionControlBuilder()
+GUIJunctionControlBuilder::GUIJunctionControlBuilder(OptionsCont &oc)
+    : NLJunctionControlBuilder(oc)
 {
 }
 

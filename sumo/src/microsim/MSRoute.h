@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2005/05/04 08:32:05  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -51,7 +54,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -64,8 +67,10 @@
  * class declarations
  * ======================================================================= */
 class MSEdge;
+class BinaryInputDevice;
 
-typedef std::vector<MSEdge*> MSEdgeVector;
+
+typedef std::vector<const MSEdge*> MSEdgeVector;
 typedef MSEdgeVector::const_iterator MSRouteIterator;
 
 
@@ -94,7 +99,7 @@ public:
     size_t size() const;
 
     /// returns the destination edge
-    MSEdge *getLastEdge() const;
+    const MSEdge *getLastEdge() const;
 
     /** @brief Returns the information whether the route is needed in the future
         This may be the case, when more than a single vehicle use the same route */
@@ -102,9 +107,27 @@ public:
 
     bool replaceBy(const MSEdgeVector &edges, MSRouteIterator &currentEdge);
 
-    void writeEdgeIDs(std::ostream &os) const;
+	void writeEdgeIDs(std::ostream &os) const;
 
-    MSEdge *operator[](size_t index);
+    bool contains(MSEdge *edge) const;
+    bool containsAnyOf(const std::vector<MSEdge*> &edgelist) const;
+
+    const MSEdge *operator[](size_t index);
+
+    static void dict_saveState(std::ostream &os, long what);
+    void saveState(std::ostream &os, long what);
+    static void dict_loadState(BinaryInputDevice &bis, long what);
+
+    size_t posInRoute(const MSRouteIterator &currentEdge) const;
+
+    size_t noReferences() const { // !!!
+        return myReferenceNo;
+    }
+
+    void incReferenceCnt() {
+        myReferenceNo++;
+    }
+
 
 public:
     /** @brief Adds a route to the dictionary
@@ -124,7 +147,10 @@ public:
     /// Destroys the named route, removing it also from the dictionary
     static void erase(std::string id);
 
-    MSRouteIterator find(MSEdge *e) const;
+    MSRouteIterator find(const MSEdge *e) const;
+
+    static void clearLoadedState();
+
 
 
 private:
@@ -133,6 +159,8 @@ private:
 
     /// Information whether the route is used by more than a single vehicle
     bool _multipleReferenced;
+
+    size_t myReferenceNo;
 
 private:
     /// Definition of the dictionary container

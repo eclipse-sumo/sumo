@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/04/27 09:44:26  dkrajzew
 // level3 warnings removed
 //
@@ -47,10 +50,18 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "GUIDialog_AppSettings.h"
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
 #include <utils/gui/images/GUIImageGlobals.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

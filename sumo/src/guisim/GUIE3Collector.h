@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2005/05/04 07:59:59  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -54,12 +57,16 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <vector>
 #include <microsim/output/e3_detectors/MSE3Collector.h>
 #include "GUIDetectorWrapper.h"
 #include <utils/geom/Position2DVector.h>
-#include <helpers/ValueSource.h>
+#include <utils/helpers/ValueSource.h>
 
 
 /* =========================================================================
@@ -93,19 +100,6 @@ public:
     GUIDetectorWrapper *buildDetectorWrapper(GUIGlObjectStorage &idStorage);
 
 public:
-    /// Adds a build detector to an internal list
-    static void addBuild(GUIE3Collector *det);
-
-    /// Clears the list of instances
-    static void clearInstances();
-
-    /// The list of build detectors
-    typedef std::vector<GUIE3Collector*> InstanceVector;
-
-    /// Returns a list of known e3-instances
-    static const InstanceVector &getInstances();
-
-
     /**
      * @class GUIE3Collector::MyWrapper
      * A GUIE3Collector-visualiser
@@ -225,10 +219,6 @@ public:
         };
 
     };
-
-private:
-    /// The list of e3-detectors known within the loaded simulation
-    static InstanceVector myInstances;
 
 };
 

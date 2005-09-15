@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.33  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.32  2005/07/12 12:18:47  dkrajzew
 // edge-based mean data implemented; previous lane-based is now optional
 //
@@ -123,7 +126,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -154,6 +157,7 @@ class RGBColor;
 class GUIEdge;
 class OutputDevice;
 class GUIVehicle;
+class MSVehicleControl;
 
 
 /* =========================================================================
@@ -175,12 +179,14 @@ class GUINet
     : public MSNet
 {
 public:
+    GUINet(SUMOTime startTimestep, SUMOTime stopTimestep, MSVehicleControl *vc);
+
     /// destructor
     ~GUINet();
 
     /// returns the bounder of the network
     const Boundary &getBoundary() const;
-
+/*
     /// preinitialises the network (before the network is loaded
     static void preInitGUINet( SUMOTime startTimeStep,
         MSVehicleControl *vc);
@@ -188,11 +194,14 @@ public:
     /// initialises the network (after the loading)
     static void initGUINet( std::string id, MSEdgeControl* ec, MSJunctionControl* jc,
         MSRouteLoaderControl *rlc, MSTLLogicControl *tlc,
+        MSDetectorControl *dc, MSTriggerControl *tc,
         bool logExecutionTime,
         const std::vector<OutputDevice*> &streams,
+        TimeVector stateDumpTimes, std::string stateDumpFiles,
         TimeVector dumpMeanDataIntervalls, std::string baseNameDumpFiles,
-        TimeVector laneDumpMeanDataIntervalls, std::string baseNameLaneDumpFiles);
-
+        TimeVector laneDumpMeanDataIntervalls, std::string baseNameLaneDumpFiles,
+        const std::vector<int> &dumpBegins, const std::vector<int> &dumpEnds);
+*/
     /// returns the position of a junction
     Position2D getJunctionPosition(const std::string &name) const;
 
@@ -259,13 +268,26 @@ public:
     friend class GUIViewTraffic; // !!!
     friend class GUIViewAggregatedLanes; // !!!
     friend class GUISUMOAbstractView; // !!!
+    friend class GUIViewMesoEdges; // !!!
     friend class GUIGridBuilder;
 
-    virtual void closeBuilding(const NLNetBuilder &nb);
+    /*
+    virtual void closeBuilding(MSEdgeControl *edges,
+        MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
+        MSTLLogicControl *tlc, std::vector<OutputDevice*> streams,
+        const MSMeanData_Net_Cont &meanData, TimeVector stateDumpTimes,
+        std::string stateDumpFiles);
+        */
+
+    void initGUIStructures();
+
 	bool hasPosition(GUIVehicle *v) const;
 // !!! 4 UniDortmund #ifdef NETWORKING_BLA
 	void networking(SUMOTime startTimeStep, SUMOTime currentStep);
 // !!! 4 UniDortmund #endif
+
+    MSRouteLoader *buildRouteLoader(const std::string &file);
+
 
 private:
     /// Initialises the detector wrappers
@@ -275,9 +297,6 @@ private:
     void initTLMap();
 
 protected:
-    /// default constructor
-    GUINet();
-
     /** A grid laid over the network to allow the drawing of visible items only */
     GUIGrid _grid;
 

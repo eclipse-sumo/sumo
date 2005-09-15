@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.18  2005/09/15 11:10:46  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.17  2005/07/13 10:22:46  dkrajzew
 // debugging
 //
@@ -145,6 +148,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <map>
 #include <string>
@@ -166,8 +173,8 @@ class OutputDevice;
  * ======================================================================= */
 /**
  * @class MSEdge
- * A single connection between two junctions. As there is no certain relationship
- * over junctions, the word "street" or "road" may be ambigous.
+ * A single connection between two junctions. As there is no certain
+ * relationship over junctions, the word "street" or "road" may be ambigous.
  * Holds lanes which are reponsible for vehicle movements.
  */
 class MSEdge
@@ -204,7 +211,7 @@ public:
 
 
     /// Constructor.
-    MSEdge( std::string id );
+    MSEdge( const std::string &id, size_t numericalID );
 
     /// Container for lanes.
     typedef std::vector< MSLane* > LaneCont;
@@ -241,6 +248,10 @@ public:
      * returns 0. */
     static MSEdge* dictionary( std::string id );
 
+    /** Returns the MSEdge associated to the key id if exists, otherwise
+     * returns 0. */
+    static MSEdge* dictionary( size_t index );
+
     static size_t dictSize();
 
     /** Clears the dictionary */
@@ -267,7 +278,7 @@ public:
     virtual bool isSource() const;
 
     /// emits a vehicle on an appropriate lane
-    virtual bool emit(MSVehicle &v, SUMOTime time);
+    virtual bool emit(MSVehicle &v, SUMOTime time) const;
 
     static std::vector< MSEdge* > getEdgeVector( void );
 
@@ -277,12 +288,28 @@ public:
 
     SUMOTime getLastFailedEmissionTime() const;
 
-    void setLastFailedEmissionTime(SUMOTime time);
+    void setLastFailedEmissionTime(SUMOTime time) const;
 
     std::vector<MSEdge*> getFollowingEdges() const;
 
     std::vector<MSEdge*> getIncomingEdges() const;
 
+    std::string getID() { return myID; }
+
+    double getEffort(SUMOTime time) const;
+
+    size_t getNumericalID() const { return myNumericalID; }
+
+    size_t getNoFollowing() const { return myAllowed->size(); }
+
+    const MSEdge *getFollower(size_t num) const {
+        AllowedLanesCont::const_iterator i = myAllowed->begin();
+        while(num!=0) {
+            i++;
+            num--;
+        }
+        return (*i).first;
+    }
 
 
 protected:
@@ -316,8 +343,11 @@ protected:
 
     /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
+    static std::vector<MSEdge*> myEdges;
 
-    SUMOTime myLastFailedEmissionTime;
+    mutable SUMOTime myLastFailedEmissionTime;
+
+    size_t myNumericalID;
 
 private:
     /// Default constructor.

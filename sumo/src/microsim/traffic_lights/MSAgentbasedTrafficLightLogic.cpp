@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/15 11:09:53  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/05/04 08:22:18  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -92,7 +95,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <utility>
@@ -105,6 +108,10 @@ namespace
 #include "MSTrafficLightLogic.h"
 #include "MSAgentbasedTrafficLightLogic.h"
 #include <netload/NLDetectorBuilder.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -131,7 +138,7 @@ void
 MSAgentbasedTrafficLightLogic::init(
         NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &laneContinuations,
+        const std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset)
 {
     sproutDetectors(nb, lanes, laneContinuations, det_offset);
@@ -148,7 +155,7 @@ void
 MSAgentbasedTrafficLightLogic::sproutDetectors(
         NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
-        std::map<std::string, std::vector<std::string> > &laneContinuations,
+        const std::map<std::string, std::vector<std::string> > &laneContinuations,
         double det_offset)
 {
     // change values for setting the detectors, here

@@ -9,6 +9,7 @@ MSCrossSection.cpp MSCrossSection.h \
 MSCurrentHaltingDurationSumPerVehicle.cpp \
 MSCurrentHaltingDurationSumPerVehicle.h \
 MSDensity.cpp MSDensity.h MSDetector2File.cpp MSDetector2File.h \
+MSDetectorControl.cpp MSDetectorControl.h \
 MSDetectorContainerWrapper.h MSDetectorContainerWrapperBase.h \
 MSDetectorCounterContainerWrapper.cpp \
 MSDetectorCounterContainerWrapper.h \
@@ -17,7 +18,7 @@ MSDetectorHaltingContainerWrapper.h \
 MSDetectorInterfaceCommon.cpp MSDetectorInterfaceCommon.h \
 MSDetectorOccupancyCorrection.cpp \
 MSDetectorOccupancyCorrection.h \
-MSDetectorSubSys.cpp MSDetectorSubSys.h MSDetectorTypedefs.h \
+MSDetectorTypedefs.h \
 MSEDDetector.h MSEDDetectorInterface.cpp MSEDDetectorInterface.h \
 MSHaltDuration.cpp MSHaltDuration.h \
 MSHaltingDurationSum.cpp MSHaltingDurationSum.h \

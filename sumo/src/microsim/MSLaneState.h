@@ -27,6 +27,12 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
 
 #include <microsim/output/MSDetectorFileOutput.h>
 #include "MSMoveReminder.h"
@@ -36,9 +42,16 @@
 #include <utils/iodevices/XMLDevice.h>
 #include <utils/common/SUMOTime.h>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class MSLane;
 
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
  * Overhead-detector that works on a part of a MSLane. It provides current and
  * aggregated data for waitingQueueLength, MeanSpeed, MeanSpeedSquare,
@@ -830,6 +843,7 @@ namespace
     }
     //@}
 }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/15 11:05:28  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/07/12 12:09:36  dkrajzew
 // false config inclusion patched; code style adapted
 //
@@ -29,9 +32,14 @@
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/MFXEventQue.h>
 #include <utils/foxtools/FXThreadEvent.h>

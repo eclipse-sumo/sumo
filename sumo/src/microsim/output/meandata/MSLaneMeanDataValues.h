@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/15 11:08:51  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/07/12 12:14:39  dkrajzew
 // edge-based mean data implemented; previous lane-based is now optional
 //
@@ -58,6 +61,7 @@ struct MSLaneMeanDataValues
         speedSum( 0 ),
         speedSquareSum( 0 ),
         traveltimeStepSum( 0 ),
+        vehLengthSum( 0 ),
         haltSum(0)
         {}
 
@@ -71,6 +75,7 @@ struct MSLaneMeanDataValues
         speedSum = 0;
         speedSquareSum = 0;
         traveltimeStepSum = 0;
+        vehLengthSum = 0;
         haltSum = 0;
     }
 
@@ -110,6 +115,8 @@ struct MSLaneMeanDataValues
         */
 
     unsigned haltSum;
+
+    double vehLengthSum;
 
 };
 

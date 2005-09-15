@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/15 11:08:51  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.9  2005/07/15 07:18:40  dkrajzew
 // code style applied
 //
@@ -54,6 +57,16 @@ namespace
 #include "MSMeanData_Net.h"
 #include <limits>
 
+#ifdef HAVE_MESOSIM
+#include <microsim/MSGlobals.h>
+#include <mesosim/MELoop.h>
+#include <mesosim/MESegment.h>
+#endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 
 /* =========================================================================
  * used namespaces
@@ -65,16 +78,64 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 MSMeanData_Net::MSMeanData_Net(unsigned int t, unsigned int index,
-                               MSEdgeControl &edges, bool useLanes,
+                               MSEdgeControl &edges,
+                               const std::vector<int> &dumpBegins,
+                               const std::vector<int> &dumpEnds,
+                               bool useLanes,
                                bool addHeaderTail )
     : myInterval( t ), myUseHeader(addHeaderTail), myIndex(index),
-    myEdges(edges), myAmEdgeBased(!useLanes)
+    myEdges(edges), myAmEdgeBased(!useLanes),
+    myDumpBegins(dumpBegins), myDumpEnds(dumpEnds)
 {
 }
 
 
 MSMeanData_Net::~MSMeanData_Net()
 {
+}
+
+
+void
+MSMeanData_Net::resetOnly(const MSEdge &edge, SUMOTime stopTime)
+{
+#ifdef HAVE_MESOSIM
+    if(MSGlobals::gUseMesoSim) {
+        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
+        s->updateMeanData((SUMOReal) stopTime);
+        while(s!=0) {
+            MSLaneMeanDataValues& meanData = s->getMeanData(myIndex);
+            s = s->getNextSegment();
+            meanData.reset();
+        }
+    } else {
+#endif
+    MSEdge::LaneCont *lanes = edge.getLanes();
+    MSEdge::LaneCont::const_iterator lane;
+    for ( lane = lanes->begin(); lane != lanes->end(); ++lane) {
+        MSLaneMeanDataValues& meanData = (*lane)->getMeanData(myIndex);
+        meanData.reset();
+    }
+#ifdef HAVE_MESOSIM
+    }
+#endif
+}
+
+
+void
+MSMeanData_Net::resetOnly(SUMOTime stopTime)
+{
+    // reset data
+    MSEdgeControl::EdgeCont::const_iterator edg;
+    // single lane edges
+    const MSEdgeControl::EdgeCont &ec1 = myEdges.getSingleLaneEdges();
+    for ( edg = ec1.begin(); edg != ec1.end(); ++edg ) {
+        resetOnly(*(*edg), stopTime);
+    }
+    // multi lane edges
+    const MSEdgeControl::EdgeCont &ec2 = myEdges.getMultiLaneEdges();
+    for ( edg = ec2.begin(); edg != ec2.end(); ++edg ) {
+        resetOnly(*(*edg), stopTime);
+    }
 }
 
 
@@ -86,6 +147,22 @@ MSMeanData_Net::write(XMLDevice &dev,
     if(stopTime==startTime) {
         return;
     }
+    bool found = myDumpBegins.size()==0;
+    for(int i=0; i<myDumpBegins.size()&&!found; ++i) {
+        if(!((myDumpBegins[i]>=0&&myDumpBegins[i]>stopTime)||(myDumpEnds[i]>=0&&myDumpEnds[i]<startTime))) {
+            found = true;
+        }
+    }
+    if(!found) {
+        resetOnly(stopTime);
+        return;
+    }
+    /*
+    if((myDumpBegin>=0&&myDumpBegin>stopTime)||(myDumpEnd>=0&&myDumpEnd<startTime)) {
+        resetOnly(stopTime);
+        return;
+    }
+    */
     // interval begin
     // edges
     MSEdgeControl::EdgeCont::const_iterator edg;
@@ -108,6 +185,59 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
                           const MSEdge &edge,
                           SUMOTime startTime, SUMOTime stopTime)
 {
+#ifdef HAVE_MESOSIM
+    if(MSGlobals::gUseMesoSim) {
+        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
+        double flowS = 0;
+        s->updateMeanData((SUMOReal) stopTime);
+        double meanDensityS = 0;
+        double meanSpeedS = 0;
+        double traveltimeS = 0;
+        double noStopsS = 0;
+        double nVehS = 0;
+        int noSegments = 0;
+        while(s!=0) {
+            double traveltime = -42;
+            double meanSpeed = -43;
+            double meanDensity = -45;
+            MSLaneMeanDataValues& meanData = s->getMeanData(myIndex);
+            if(meanData.nVehContributed==0) {
+                traveltime = s->getLength() / s->getMaxSpeed();
+                meanSpeed = s->getMaxSpeed();
+                meanDensity = 0;
+            } else {
+                meanSpeed = meanData.speedSum / (double) meanData.nVehContributed;
+                if(meanSpeed==0) {
+                    traveltime = std::numeric_limits<float>::max() / 100.;
+                } else {
+                    traveltime = s->getLength() / meanSpeed;
+                }
+                meanDensity = (double) meanData.vehLengthSum / //.nVehContributed /
+                    (double) (stopTime-startTime+1) / s->getLength();
+            }
+            meanDensityS += meanDensity;
+            meanSpeedS += meanSpeed;
+            traveltimeS += traveltime;
+            noStopsS += meanData.haltSum;
+            nVehS += meanData.nVehContributed;
+            flowS += s->getMeanData(myIndex).nVehEntireLane;
+            s = s->getNextSegment();
+            meanData.reset();
+            noSegments++;
+        }
+        meanDensityS = meanDensityS / (float) noSegments / (float) edge.nLanes();
+        meanSpeedS = meanSpeedS / (float) noSegments;
+        flowS = flowS / (float) noSegments;
+        dev.writeString("      <edge id=\"").writeString(edge.id()).writeString(
+            "\" traveltime=\"").writeString(toString(traveltimeS)).writeString(
+            "\" noVehContrib=\"").writeString(toString(nVehS)).writeString(
+            "\" density=\"").writeString(toString(meanDensityS)).writeString(
+            "\" noStops=\"").writeString(toString(noStopsS)).writeString(
+            "\" speed=\"").writeString(toString(meanSpeedS)).writeString(
+            "\" flow=\"").writeString(toString(flowS*3600./((float) (stopTime-startTime+1)))).writeString( //!!!
+            "\"/>\n");
+    } else {
+#endif
     MSEdge::LaneCont *lanes = edge.getLanes();
     MSEdge::LaneCont::const_iterator lane;
     if(!myAmEdgeBased) {
@@ -129,7 +259,7 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
             double meanSpeed = -43;
             double meanDensity = -45;
             if(meanData.nVehContributed==0) {
-                assert((*lane)->myMaxSpeed!=0);
+                assert((*lane)->myMaxSpeed>=0);
                 traveltime = (*lane)->myLength / (*lane)->myMaxSpeed;
                 meanSpeed = (*lane)->myMaxSpeed;
                 meanDensity = 0;
@@ -142,8 +272,8 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
                 }
                 assert((double) (stopTime-startTime+1)!=0);
                 assert((*lane)->myLength!=0);
-                meanDensity = (double) meanData.nVehContributed /
-                    (double) (stopTime-startTime+1) / (*lane)->myLength * 1000.0;
+                meanDensity = (double) meanData.vehLengthSum / //.nVehContributed /
+                    (double) (stopTime-startTime+1) / (*lane)->myLength;
             }
             traveltimeS += traveltime;
             meanSpeedS += meanSpeed;
@@ -161,6 +291,9 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
             "\" speed=\"").writeString(toString(meanSpeedS/(float) lanes->size())).writeString(
             "\"/>\n");
     }
+#ifdef HAVE_MESOSIM
+    }
+#endif
 }
 
 
@@ -171,8 +304,6 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
 {
     assert(lane.myMeanData.size()>myIndex);
     MSLaneMeanDataValues& meanData = lane.getMeanData(myIndex);
-//    const_cast< MSLane& >( lane ).collectVehicleData( myIndex );
-
     // calculate mean data
     double traveltime = -42;
     double meanSpeed = -43;
@@ -190,8 +321,8 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
         } else {
             traveltime = lane.myLength / meanSpeed;
         }
-        meanDensity = (double) meanData.nVehContributed /
-            (double) (stopTime-startTime+1) / lane.myLength * 1000.0;
+        meanDensity = (double) meanData.vehLengthSum / //.nVehContributed /
+            (double) (stopTime-startTime+1) / lane.myLength;
     }
 
     dev.writeString("      <lane id=\"").writeString(lane.id()).writeString(

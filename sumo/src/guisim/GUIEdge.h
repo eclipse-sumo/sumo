@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2005/09/15 11:06:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.15  2005/07/12 12:16:57  dkrajzew
 // code style adapted; inclusion of config patched
 //
@@ -113,14 +116,14 @@ class GUIEdge : public MSEdge, public GUIGlObject
 {
 public:
     /// constructor
-    GUIEdge(std::string id, GUIGlObjectStorage &idStorage);
+    GUIEdge(const std::string &id, size_t numericalID,
+        GUIGlObjectStorage &idStorage);
 
     /// destructor
     ~GUIEdge();
 
     /// sets the junctions allowing the retrieval of the edge position (!!! why not private with a friend?)
-    void initJunctions(MSJunction *from, MSJunction *to,
-        GUIGlObjectStorage &idStorage);
+    void initGeometry(GUIGlObjectStorage &idStorage);
 
     /** Returns the list of all known junctions as their names */
     static std::vector<std::string> getNames();
