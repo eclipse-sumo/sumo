@@ -1,3 +1,4 @@
+#ifdef _DEBUG
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
@@ -48,3 +49,5 @@ template <>     struct __nvwa_compile_time_error<true> {};
     }
 
 #endif // static_assert
+
+#endif // _DEBUG

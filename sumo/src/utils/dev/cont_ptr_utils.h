@@ -1,3 +1,4 @@
+#ifdef _DEBUG
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
@@ -131,3 +132,6 @@ private:
 };
 
 #endif // _CONT_PTR_UTILS_H
+
+#endif // _DEBUG
+

@@ -1,3 +1,5 @@
+#ifdef _DEBUG
+
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
@@ -209,3 +211,5 @@ void bool_array::flip()
     int __valid_bits_in_last_byte = (_M_length - 1) % 8 + 1;
     _M_byte_ptr[__byte_cnt - 1] &= ~(~0 << __valid_bits_in_last_byte);
 }
+
+#endif // _DEBUG

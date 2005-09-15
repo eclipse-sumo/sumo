@@ -1,8 +1,9 @@
+#ifdef _DEBUG
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
 /*
- * Copyright (C) 2004 Wu Yongwei <adah at users dot sourceforge dot net>
+ * Copyright (C) 2004-2005 Wu Yongwei <adah at users dot sourceforge dot net>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any
@@ -31,7 +32,7 @@
  *
  * Implementation of debug versions of new and delete to check leakage.
  *
- * @version 3.6, 2005/01/16
+ * @version 3.12, 2005/07/13
  * @author  Wu Yongwei
  *
  */
@@ -110,7 +111,7 @@
  * new_ptr_list_t 64 (it is 32 by default) on 32-bit platforms.
  */
 #ifndef _DEBUG_NEW_FILENAME_LEN
-#define _DEBUG_NEW_FILENAME_LEN  20
+#define _DEBUG_NEW_FILENAME_LEN  200
 #endif
 
 /**
@@ -142,8 +143,8 @@
  * (at run time) than to use this (compile-time) macro, but this macro
  * serves well as a quick hack.  Note also that double quotation marks
  * need to be used around the program name, i.e., one should specify a
- * command-line option like <code>-D_DEBUG_NEW_PROGNAME='"a.out"'</code>
- * in bash, or <code>-D_DEBUG_NEW_PROGNAME="""a.exe"""</code> in the
+ * command-line option like <code>-D_DEBUG_NEW_PROGNAME=\"a.out\"</code>
+ * in \e bash, or <code>-D_DEBUG_NEW_PROGNAME=\"a.exe\"</code> in the
  * Windows command prompt.
  */
 #ifndef _DEBUG_NEW_PROGNAME
@@ -181,8 +182,6 @@
 #include "debug_new.h"
 
 /**
- * @def align
- *
  * Gets the aligned value of memory block size.
  */
 #define align(s) \
@@ -249,14 +248,14 @@ bool new_verbose_flag = false;
  * one may change it to a user stream if needed (say, #new_verbose_flag
  * is \c true and there are a lot of (de)allocations).
  */
-FILE* new_output_fp = stderr;
+FILE* new_output_fp = stdout;
 
 /**
  * Pointer to the program name.  Its initial value is the macro
  * #_DEBUG_NEW_PROGNAME.  You should try to assign the program path to
  * it early in your application.  Assigning <code>argv[0]</code> to it
- * in \e main is one way.  If you use bash or ksh (or similar), the
- * following statement is probably what you want:
+ * in \e main is one way.  If you use \e bash or \e ksh (or similar),
+ * the following statement is probably what you want:
  * `<code>new_progname = getenv("_");</code>'.
  */
 const char* new_progname = _DEBUG_NEW_PROGNAME;
@@ -273,6 +272,13 @@ const char* new_progname = _DEBUG_NEW_PROGNAME;
  */
 static bool print_position_from_addr(const void* addr)
 {
+    static const void* last_addr = NULL;
+    static char last_info[256] = "";
+    if (addr == last_addr)
+    {
+        fprintf(new_output_fp, "%s", last_info);
+        return true;
+    }
     if (new_progname)
     {
         const char addr2line_cmd[] = "addr2line -e ";
@@ -311,7 +317,7 @@ static bool print_position_from_addr(const void* addr)
         FILE* fp = popen(cmd, "r");
         if (fp)
         {
-            char buffer[256] = "";
+            char buffer[sizeof last_info] = "";
             len = 0;
             if (fgets(buffer, sizeof buffer, fp))
             {
@@ -327,6 +333,8 @@ static bool print_position_from_addr(const void* addr)
                     (buffer[len - 1] == '0' && buffer[len - 2] == ':'))
             {
                 fprintf(new_output_fp, "%s", buffer);
+                last_addr = addr;
+                strcpy(last_info, buffer);
                 return true;
             }
         }
@@ -513,10 +521,11 @@ void* operator new(size_t size, const char* file, int line)
 #endif
     ptr->line = line;
     ptr->size = size;
-    new_ptr_lock[hash_index].lock();
-    ptr->next = new_ptr_list[hash_index];
-    new_ptr_list[hash_index] = ptr;
-    new_ptr_lock[hash_index].unlock();
+    {
+        fast_mutex_autolock lock(new_ptr_lock[hash_index]);
+        ptr->next = new_ptr_list[hash_index];
+        new_ptr_list[hash_index] = ptr;
+    }
     if (new_verbose_flag)
     {
         fast_mutex_autolock lock(new_output_lock);
@@ -556,12 +565,12 @@ void* operator new[](size_t size) throw(std::bad_alloc)
 #if !defined(__BORLANDC__) || __BORLANDC__ > 0x551
 void* operator new(size_t size, const std::nothrow_t&) throw()
 {
-    return operator new(size);
+    return operator new(size, (char*)_DEBUG_NEW_CALLER_ADDRESS, 0);
 }
 
 void* operator new[](size_t size, const std::nothrow_t&) throw()
 {
-    return operator new[](size);
+    return operator new[](size, (char*)_DEBUG_NEW_CALLER_ADDRESS, 0);
 }
 #endif
 
@@ -679,3 +688,5 @@ __debug_new_counter::~__debug_new_counter()
 #endif
         }
 }
+
+#endif // _DEBUG

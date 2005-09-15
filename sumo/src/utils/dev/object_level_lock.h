@@ -1,3 +1,4 @@
+#ifdef _DEBUG
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
@@ -41,6 +42,10 @@
 
 #ifndef _OBJECT_LEVEL_LOCK_H
 #define _OBJECT_LEVEL_LOCK_H
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
 
 #include "fast_mutex.h"
 
@@ -129,3 +134,5 @@
 # endif // _NOTHREADS
 
 #endif // _OBJECT_LEVEL_LOCK_H
+
+#endif // _DEBUG

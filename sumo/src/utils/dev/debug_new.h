@@ -1,8 +1,9 @@
+#ifdef _DEBUG
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
 /*
- * Copyright (C) 2004 Wu Yongwei <adah at users dot sourceforge dot net>
+ * Copyright (C) 2004-2005 Wu Yongwei <adah at users dot sourceforge dot net>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any
@@ -31,13 +32,17 @@
  *
  * Header file for checking leaks caused by unmatched new/delete.
  *
- * @version 3.1, 2004/12/24
+ * @version 3.2, 2005/05/06
  * @author  Wu Yongwei
  *
  */
 
 #ifndef _DEBUG_NEW_H
 #define _DEBUG_NEW_H
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
 
 #include <new>
 #include <stdio.h>
@@ -98,3 +103,5 @@ static __debug_new_counter __debug_new_count;
  */
 
 #endif // _DEBUG_NEW_H
+
+#endif // _DEBUG

@@ -1,8 +1,10 @@
+#ifdef _DEBUG
+
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
 /*
- * Copyright (C) 2004 Wu Yongwei <adah at users dot sourceforge dot net>
+ * Copyright (C) 2004-2005 Wu Yongwei <adah at users dot sourceforge dot net>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any
@@ -31,14 +33,22 @@
  *
  * Non-template and non-inline code for the `static' memory pool.
  *
- * @version 1.3, 2004/07/26
+ * @version 1.6, 2005/08/02
  * @author  Wu Yongwei
  *
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <algorithm>
-#include "static_mem_pool.h"
 #include "cont_ptr_utils.h"
+#include "static_mem_pool.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 static_mem_pool_set::static_mem_pool_set()
 {
@@ -47,9 +57,8 @@ static_mem_pool_set::static_mem_pool_set()
 
 static_mem_pool_set::~static_mem_pool_set()
 {
-    lock __guard;
-    std::for_each(_M_memory_pool_set.begin(),
-                  _M_memory_pool_set.end(),
+    std::for_each(_M_memory_pool_set.rbegin(),
+                  _M_memory_pool_set.rend(),
                   delete_object());
     _STATIC_MEM_POOL_TRACE(false, "The static_mem_pool_set is destroyed");
 }
@@ -65,8 +74,8 @@ void static_mem_pool_set::recycle()
 {
     lock __guard;
     _STATIC_MEM_POOL_TRACE(false, "Memory pools are being recycled");
-    std::set<mem_pool_base*>::iterator __end = _M_memory_pool_set.end();
-    for (std::set<mem_pool_base*>::iterator
+    container_type::iterator __end = _M_memory_pool_set.end();
+    for (container_type::iterator
             __i  = _M_memory_pool_set.begin();
             __i != __end; ++__i)
     {
@@ -77,5 +86,7 @@ void static_mem_pool_set::recycle()
 void static_mem_pool_set::add(mem_pool_base* __memory_pool_p)
 {
     lock __guard;
-    _M_memory_pool_set.insert(__memory_pool_p);
+    _M_memory_pool_set.push_back(__memory_pool_p);
 }
+
+#endif // _DEBUG

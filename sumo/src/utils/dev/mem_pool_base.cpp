@@ -1,3 +1,4 @@
+#ifdef _DEBUG
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
@@ -37,12 +38,20 @@
  */
 
 #if defined(_MEM_POOL_USE_MALLOC)
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <stdlib.h>
 #else
 #include <new>
 #endif
 
 #include "mem_pool_base.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 /* Defines macros to abstract system memory routines */
 # ifdef _MEM_POOL_USE_MALLOC
@@ -66,3 +75,5 @@ void mem_pool_base::dealloc_sys(void* __ptr)
 {
     _MEM_POOL_DEALLOCATE(__ptr);
 }
+
+#endif // _DEBUG

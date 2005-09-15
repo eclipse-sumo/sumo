@@ -1,8 +1,10 @@
+#ifdef _DEBUG
+
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
 /*
- * Copyright (C) 2004 Wu Yongwei <adah at users dot sourceforge dot net>
+ * Copyright (C) 2004-2005 Wu Yongwei <adah at users dot sourceforge dot net>
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any
@@ -31,7 +33,7 @@
  *
  * Header file for the `static' memory pool.
  *
- * @version 1.6, 2004/09/23
+ * @version 1.16, 2005/08/03
  * @author  Wu Yongwei
  *
  */
@@ -39,14 +41,18 @@
 #ifndef _STATIC_MEM_POOL_H
 #define _STATIC_MEM_POOL_H
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <new>
-#include <set>
 #include <stdexcept>
 #include <string>
-#include <stddef.h>
+#include <vector>
 #include <assert.h>
-#include "mem_pool_base.h"
+#include <stddef.h>
 #include "class_level_lock.h"
+#include "mem_pool_base.h"
 
 /* Defines Work-around for Microsoft Visual C++ 6.0 and Borland C++ 5.5.1 */
 # if (defined(_MSC_VER) && _MSC_VER < 1300) \
@@ -77,9 +83,10 @@
  * Singleton class to maintain a set of existing instantiations of
  * static_mem_pool.
  */
-class static_mem_pool_set : public class_level_lock<static_mem_pool_set>
+class static_mem_pool_set
 {
 public:
+    typedef class_level_lock<static_mem_pool_set>::lock lock;
     static static_mem_pool_set& instance();
     void recycle();
     void add(mem_pool_base* __memory_pool_p);
@@ -88,7 +95,9 @@ __PRIVATE:
     ~static_mem_pool_set();
 private:
     static_mem_pool_set();
-    std::set<mem_pool_base*> _M_memory_pool_set;
+
+    typedef std::vector<mem_pool_base*> container_type;
+    container_type _M_memory_pool_set;
 
     /* Forbid their use */
     static_mem_pool_set(const static_mem_pool_set&);
@@ -100,9 +109,10 @@ private:
  * memory blocks of one specific size.
  *
  * @param _Sz   size of elements in the static_mem_pool
- * @param _Gid  group id of a static_mem_pool: if it is negative, access
- *              to this static_mem_pool will be protected from
- *              simultaneous access; otherwise no protection is given
+ * @param _Gid  group id of a static_mem_pool: if it is negative,
+ *              simultaneous accesses to this static_mem_pool will be
+ *              protected from each other; otherwise no protection is
+ *              given
  */
 template <size_t _Sz, int _Gid = -1>
 class static_mem_pool : public mem_pool_base
@@ -116,7 +126,9 @@ public:
         //   thus unsafe on some modern multiprocessor systems (e.g.
         //   Alpha 21264, SPARC (in Relaxed Memory Order mode), and
         //   IA-64).  Patches are welcome.
-        if (!_S_instance_p)
+        static_mem_pool* __inst_p = _S_instance_p;
+        // AcquireBarrier();
+        if (!__inst_p)
         {
             _S_create_instance();
         }
@@ -165,9 +177,9 @@ private:
         _Block_list* __block = _S_memory_block_p;
         while (__block)
         {
-            _Block_list* pBlockNext = __block->_M_next;
+            _Block_list* __next = __block->_M_next;
             dealloc_sys(__block);
-            __block = pBlockNext;
+            __block = __next;
         }
         _S_memory_block_p = NULL;
 #   endif
@@ -263,6 +275,7 @@ void static_mem_pool<_Sz, _Gid>::_S_create_instance()
                 delete __inst_p;
                 throw;
             }
+            // ReleaseBarrier();
             _S_instance_p = __inst_p;
         }
     }
@@ -276,10 +289,9 @@ public: \
         void* __ptr; \
         __ptr = static_mem_pool<sizeof(_Cls)>:: \
                                instance().allocate(); \
-        if (__ptr) \
-            return __ptr; \
-        else \
+        if (__ptr == NULL) \
             throw std::bad_alloc(); \
+        return __ptr; \
     } \
     static void operator delete(void* __ptr) \
     { \
@@ -311,10 +323,9 @@ public: \
         void* __ptr; \
         __ptr = static_mem_pool<sizeof(_Cls), (_Gid)>:: \
                                instance().allocate(); \
-        if (__ptr) \
-            return __ptr; \
-        else \
+        if (__ptr == NULL) \
             throw std::bad_alloc(); \
+        return __ptr; \
     } \
     static void operator delete(void* __ptr) \
     { \
@@ -338,12 +349,14 @@ public: \
                            instance_known().deallocate(__ptr); \
     }
 
-#define PREPARE_MEMORY_POOL(_Cls) \
+#define PREPARE_STATIC_MEM_POOL(_Cls) \
     static_mem_pool<sizeof(_Cls)>::instance()
 
-#define PREPARE_MEMORY_POOL_GROUPED(_Cls, _Gid) \
+#define PREPARE_STATIC_MEM_POOL_GROUPED(_Cls, _Gid) \
     static_mem_pool<sizeof(_Cls), (_Gid)>::instance()
 
 #undef __PRIVATE
 
 #endif // _STATIC_MEM_POOL_H
+
+#endif // _DEBUG

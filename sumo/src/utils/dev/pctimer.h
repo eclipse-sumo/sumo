@@ -1,3 +1,5 @@
+#ifdef _DEBUG
+
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
@@ -49,6 +51,10 @@ typedef double pctimer_t;
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif /* WIN32_LEAN_AND_MEAN */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <windows.h>
 
 #ifdef _PCTIMER_NO_WIN32
@@ -85,3 +91,5 @@ __inline pctimer_t pctimer(void)
 #endif /* Win32/Cygwin */
 
 #endif /* _PCTIMER_H */
+
+#endif // _DEBUG

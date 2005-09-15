@@ -1,3 +1,4 @@
+#ifdef _DEBUG
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
@@ -38,6 +39,10 @@
 
 #ifndef _SET_ASSIGN_H
 #define _SET_ASSIGN_H
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
 
 #include <algorithm>
 
@@ -142,3 +147,5 @@ _Container& set_assign_difference(_Container& __dest,
 }
 
 #endif // _SET_ASSIGN_H
+
+#endif // _DEBUG

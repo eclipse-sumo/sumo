@@ -1,3 +1,4 @@
+#ifdef _DEBUG
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
@@ -39,6 +40,10 @@
 #ifndef _MEM_POOL_BASE_H
 #define _MEM_POOL_BASE_H
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <stddef.h>
 
 /**
@@ -57,3 +62,5 @@ public:
 };
 
 #endif // _MEM_POOL_BASE_H
+
+#endif // _DEBUG
