@@ -30,21 +30,21 @@
 		<table border="0">
 		<tr><td valign="top" width="120">
 		<div class="navbar">
-			<a href="../index.html" class="SUMOMainLink">Home</a><br>
-			<a href="../overview.html" class="SUMOMainLink">Overview</a><br>
-			<a href="../documentation.html" class="SUMOMainLink">Documentation</a><br>
-			<a href="../screenshots.html" class="SUMOMainLink">Screenshots</a><br>
-			<a href="../downloads.html" class="SUMOMainLink">Downloads</a><br>
+			<a href="../index.shtml" class="SUMOMainLink">Home</a><br>
+			<a href="../overview.shtml" class="SUMOMainLink">Overview</a><br>
+			<a href="../documentation.shtml" class="SUMOMainLink">Documentation</a><br>
+			<a href="../screenshots.shtml" class="SUMOMainLink">Screenshots</a><br>
+			<a href="../downloads.shtml" class="SUMOMainLink">Downloads</a><br>
 
-			<a href="changes.html" class="SUMOSubLink">Changes</a><br>
-			<a href="rel_policy.html" class="SUMOSubLink">Release Policy</a><br>
+			<a href="changes.shtml" class="SUMOSubLink">Changes</a><br>
+			<a href="rel_policy.shtml" class="SUMOSubLink">Release Policy</a><br>
 			<a href="http://www.gnu.org/licenses/gpl.html" target="new" class="SUMOSubLink">License</a><br>
 
-			<a href="../participants.html" class="SUMOMainLink">Participants</a><br>
-			<a href="../projects.html" class="SUMOMainLink">Projects</a><br>
-			<a href="../links.html" class="SUMOMainLink">Links</a><br>
-			<a href="../disclaimer.html" class="SUMOMainLink">Disclaimer</a><br>
-			<a href="../contact.html" class="SUMOMainLink">Contact</a><br>
+			<a href="../participants.shtml" class="SUMOMainLink">Participants</a><br>
+			<a href="../projects.shtml" class="SUMOMainLink">Projects</a><br>
+			<a href="../links.shtml" class="SUMOMainLink">Links</a><br>
+			<a href="../disclaimer.shtml" class="SUMOMainLink">Disclaimer</a><br>
+			<a href="../contact.shtml" class="SUMOMainLink">Contact</a><br>
 			<a href="../../cgi-bin/moin.cgi" class="SUMOMainLink">Wiki</a><br>
 
 			<center><br>
@@ -65,8 +65,77 @@
 <!-- Text area here -->
 
 <center>
-	<h2>Recent Changes</h2>
+	<h2>Changes</h2>
 </center>
+<!--
+<b>Changes from 0.8.2.1 to 0.8.3.0</b>
+<p>
+User-relevant changes:
+<ul>
+    <li>GUI
+    <ul>
+		<li><b>ported to FOX1.4</b>
+		<li>You may now open a view that track phases (as before) or show phases (new) of a tls
+		<li>You may now save snapshots in different formats (bmp, gif, ...)
+		<li>The view port may be defined (using a dialog behind the magnify-glass)
+		<li>The right-button popup now shows up as soon as the button is released, as long as the mouse was not moved while the button was pressed
+		<li>fonts are now drawn using polyfonts
+		<li>dialogs have icons
+		<li>searching for structures improved
+	</ul>
+	<li>Simulation
+	<ul>
+		<li>XML-Trigger bug on using speed triggers removed
+		<li>simulation speed-up by avoiiding multiplication with 1
+		<li>setting tls-offsets debugged
+		<li>edge-based mean data implemented; previous lane-based is now optional
+		<li>made checking for accidents optional
+		<li>emission of vehicles on multi-lane source edges debugged (now all lanes are used)
+		<li>Debugged the problem of vehicles stopping before the route is over (reported by Jonathan Davies)
+    </ul>
+	<li>Netconvert
+	<ul>
+		<li>Computation of left-movers debugged
+		<li>Guessing of on- and off-ramps added
+		<li>Guessing of near-district-center nodes added
+    </ul>
+    <li>Router
+	<ul>
+		<li>usage of the -R option witin the jtr-router debugged
+		<li>handling of invalid vehicles (besser beschreiben)
+		<li>forgetting to take time with patched
+    </ul>
+</ul>
+</p>
+<p>
+Developer-relevant changes:
+<ul>
+	<li>Level 3 warnings removed
+	<li>Build number output added
+</ul>
+</p>
+
+<hr/>
+<hr/>
+-->
+<b>Changes from 0.8.2.1 to 0.8.2.2</b>
+<p>
+User-relevant changes:
+<ul>
+    <li>Simulation
+    <ul>
+		<li>XML-Trigger bug on using speed triggers removed
+		<li>emission of vehicles on multi-lane source edges debugged (now all lanes are used)
+		<li>Debugged the problem of vehicles stopping before the route is over (reported by Jonathan Davies)
+		<li>setting tls-offsets debugged
+	</ul>
+	<li>Netconvert
+	<ul>
+		<li>Computation of left-movers debugged
+    </ul>
+</ul>
+
+<hr/>
 
 <b>Changes from 0.8.0.2 to 0.8.2.1</b>
 <p>
@@ -323,6 +392,8 @@ As the network generator is not working yet, but still is included within the pa
 		</div>
 		</td></tr></table>
 		<p></p><hr>
+
+<p><div align="right" class="SUMOPageInfo">last change: <!--#flastmod file="./changes.shtml"--><!--#exec cgi="/cgi-bin/saveenv.pl"--></div></p>
 
 	</body>
 </html>

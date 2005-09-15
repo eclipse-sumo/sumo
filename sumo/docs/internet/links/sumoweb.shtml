@@ -2,9 +2,9 @@
 <html>
 	<link rel="stylesheet" type="text/css" href="../css/sumo.css">
 	<head>
-		<title>SUMO - Simulation of Urban MObility  -  Links - Development</title>
+		<title>SUMO - Simulation of Urban MObility  -  Links - SUMO on the Web</title>
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
-<META NAME="DC.Title" CONTENT="SUMO - Simulation of Urban MObility  -  Links - Development">
+<META NAME="DC.Title" CONTENT="SUMO - Simulation of Urban MObility  -  Links - SUMO on the Web">
 <META NAME="DC.Creator.PersonalName" CONTENT="Krajzewicz, Daniel">
 <META NAME="DC.Subject" CONTENT="road traffic simulation package SUMO (Simulation of Urban MObility)">
 <META NAME="DC.Description" CONTENT="">
@@ -30,22 +30,22 @@
 		<table border="0">
 		<tr><td valign="top" width="120">
 		<div class="navbar">
-			<a href="../index.html" class="SUMOMainLink">Home</a><br>
-			<a href="../overview.html" class="SUMOMainLink">Overview</a><br>
-			<a href="../documentation.html" class="SUMOMainLink">Documentation</a><br>
-			<a href="../screenshots.html" class="SUMOMainLink">Screenshots</a><br>
-			<a href="../downloads.html" class="SUMOMainLink">Downloads</a><br>
-			<a href="../participants.html" class="SUMOMainLink">Participants</a><br>
-			<a href="../projects.html" class="SUMOMainLink">Projects</a><br>
-			<a href="../links.html" class="SUMOMainLink">Links</a><br>
+			<a href="../index.shtml" class="SUMOMainLink">Home</a><br>
+			<a href="../overview.shtml" class="SUMOMainLink">Overview</a><br>
+			<a href="../documentation.shtml" class="SUMOMainLink">Documentation</a><br>
+			<a href="../screenshots.shtml" class="SUMOMainLink">Screenshots</a><br>
+			<a href="../downloads.shtml" class="SUMOMainLink">Downloads</a><br>
+			<a href="../participants.shtml" class="SUMOMainLink">Participants</a><br>
+			<a href="../projects.shtml" class="SUMOMainLink">Projects</a><br>
+			<a href="../links.shtml" class="SUMOMainLink">Links</a><br>
 
-			<!-- a href="sumoweb.html" class="SUMOSubLink">SUMO on the Web</a><br -->
-			<a href="development.html" class="SUMOSubLink">Development</a><br>
-			<a href="links.html" class="SUMOSubLink">Link Lists</a><br>
-			<a href="simulations.html" class="SUMOSubLink">Simulations</a><br>
+			<a href="sumoweb.shtml" class="SUMOSubLink">SUMO on the Web</a><br>
+			<a href="development.shtml" class="SUMOSubLink">Development</a><br>
+			<a href="links.shtml" class="SUMOSubLink">Link Lists</a><br>
+			<a href="simulations.shtml" class="SUMOSubLink">Simulations</a><br>
 
-			<a href="../disclaimer.html" class="SUMOMainLink">Disclaimer</a><br>
-			<a href="../contact.html" class="SUMOMainLink">Contact</a><br>
+			<a href="../disclaimer.shtml" class="SUMOMainLink">Disclaimer</a><br>
+			<a href="../contact.shtml" class="SUMOMainLink">Contact</a><br>
 			<a href="../../cgi-bin/moin.cgi" class="SUMOMainLink">Wiki</a><br>
 
 			<center><br>
@@ -66,14 +66,19 @@
 <!-- Text area here -->
 
 <center>
-	<h2>Links - Traffic Research Link Lists List</h2>
+	<h2>Links - SUMO on the Web</h2>
 </center>
 
 
-<b>Road traffic in general</b>
+<b>Presentations</b>
 <p><ul>
-    <li><a class="SUMOInLineLink" href="http://www.mip.sdu.dk/~mortenm/trafficLinks.html">Morten Monrad Pedersen's Links</a><br>
-    A large bunch of links related to traffic science<br>
+    <li><a class="SUMOInLineLink" href="http://www.crg.ulaval.ca/Seminaire-presentation/Moulin-Nov2003/MAGSPres%2021Nov03.pdf">MAGS presentation</a><br>
+    Presentation of the MAGS-project at the university of laval<br>
+</ul><br>
+
+<b>Wikis</b>
+<p><ul>
+    <li><a class="SUMOInLineLink" href="http://prtnews.com/wiki/SimulationLinks">Simulation Links at prtnews.com</a><br>
 </ul><br>
 
 </p>
@@ -84,6 +89,8 @@
 		</div>
 		</td></tr></table>
 		<p></p><hr>
+
+<p><div align="right" class="SUMOPageInfo">last change: <!--#flastmod file="./sumoweb.shtml"--><!--#exec cgi="/cgi-bin/saveenv.pl"--></div></p>
 
 	</body>
 </html>

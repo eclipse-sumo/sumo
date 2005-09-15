@@ -2,9 +2,9 @@
 <html>
 	<link rel="stylesheet" type="text/css" href="./css/sumo.css">
 	<head>
-		<title>SUMO - Simulation of Urban MObility  -  Links</title>
+		<title>SUMO - Simulation of Urban MObility  -  Participants</title>
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
-<META NAME="DC.Title" CONTENT="SUMO - Simulation of Urban MObility  -  Links">
+<META NAME="DC.Title" CONTENT="SUMO - Simulation of Urban MObility  -  Participants">
 <META NAME="DC.Creator.PersonalName" CONTENT="Krajzewicz, Daniel">
 <META NAME="DC.Subject" CONTENT="road traffic simulation package SUMO (Simulation of Urban MObility)">
 <META NAME="DC.Description" CONTENT="">
@@ -14,8 +14,8 @@
 <META NAME="DC.Format" SCHEME="IMT" CONTENT="text/html">
 <META NAME="DC.Identifier" CONTENT="http://sumo.sourceforge.net">
 <META NAME="DC.Language" SCHEME="ISO639-1" CONTENT="en">
-<META NAME="DC.Relation" SCHEME="URL" CONTENT="http://sumo.sourceforge.net/links.html">
-<META NAME="DC.Coverage" CONTENT="(Introduction to) link lists, Navigation">
+<META NAME="DC.Relation" SCHEME="URL" CONTENT="http://sumo.sourceforge.net/participants.html">
+<META NAME="DC.Coverage" CONTENT="List of participants, Navigation">
 <META NAME="DC.Rights" CONTENT="(c) IVF/DLR">
 <META NAME="DC.Date.X-MetadataLastModified" SCHEME="ISO8601" CONTENT="2003-07-10">
 
@@ -30,22 +30,16 @@
 		<table border="0">
 		<tr><td valign="top" width="120">
 		<div class="navbar">
-			<a href="index.html" class="SUMOMainLink">Home</a><br>
-			<a href="overview.html" class="SUMOMainLink">Overview</a><br>
-			<a href="documentation.html" class="SUMOMainLink">Documentation</a><br>
-			<a href="screenshots.html" class="SUMOMainLink">Screenshots</a><br>
-			<a href="downloads.html" class="SUMOMainLink">Downloads</a><br>
-			<a href="participants.html" class="SUMOMainLink">Participants</a><br>
-			<a href="projects.html" class="SUMOMainLink">Projects</a><br>
-			<a href="links.html" class="SUMOMainLink">Links</a><br>
-
-			<!-- a href="links/sumoweb.html" class="SUMOSubLink">SUMO on the Web</a><br -->
-			<a href="links/development.html" class="SUMOSubLink">Development</a><br>
-			<a href="links/links.html" class="SUMOSubLink">Link Lists</a><br>
-			<a href="links/simulations.html" class="SUMOSubLink">Simulations</a><br>
-
-			<a href="disclaimer.html" class="SUMOMainLink">Disclaimer</a><br>
-			<a href="contact.html" class="SUMOMainLink">Contact</a><br>
+			<a href="index.shtml" class="SUMOMainLink">Home</a><br>
+			<a href="overview.shtml" class="SUMOMainLink">Overview</a><br>
+			<a href="documentation.shtml" class="SUMOMainLink">Documentation</a><br>
+			<a href="screenshots.shtml" class="SUMOMainLink">Screenshots</a><br>
+			<a href="downloads.shtml" class="SUMOMainLink">Downloads</a><br>
+			<a href="participants.shtml" class="SUMOMainLink">Participants</a><br>
+			<a href="projects.shtml" class="SUMOMainLink">Projects</a><br>
+			<a href="links.shtml" class="SUMOMainLink">Links</a><br>
+			<a href="disclaimer.shtml" class="SUMOMainLink">Disclaimer</a><br>
+			<a href="contact.shtml" class="SUMOMainLink">Contact</a><br>
 			<a href="../cgi-bin/moin.cgi" class="SUMOMainLink">Wiki</a><br>
 
 			<center><br>
@@ -65,31 +59,32 @@
 		<div class="SUMOMainText">
 <!-- Text area here -->
 
+
 <center>
-	<h2>Links</h2>
+	<h2>Participants</h2>
 </center>
 
-<ul>
-	<!-- li><a class="SUMOInLineLink" href="links/sumoweb.html">SUMO on the Web</a><br>
-		Some links to people who mention SUMO.<br -->
 
-	<li><a class="SUMOInLineLink" href="links/development.html">Development</a><br>
-		Some links to sources for information on development, tools and libraries.<br>
-
-	<li><a class="SUMOInLineLink" href="links/simulations.html">Simulations</a><br>
-		Some links to other (traffic related) simulation ressources<br>
-
-	<li><a class="SUMOInLineLink" href="links/links.html">Links to Link Lists related to Traffic research</a><br>
-		Some links to some links...<br>
-
-</ul>
-
+SUMO is developed by:</br>
+<table>
+<tr>
+	<td><a href="http://ivf.dlr.de" target="new"><img src="images/logo_dlr.gif" width="40" height="42" alt="logo_dlr.gif 40x42" border="0"></a></td>
+	<td><a class="SUMOBoldInLineLink" href="http://ivf.dlr.de" target="new"><b>Institute of Transport Research at the German Aerospace Centre</b></a></td>
+</tr>
+<tr>
+	<td><a href="http://www.zaik.uni-koeln.de/" target="new"><img src="images/logo_zaik.gif" width="40" height="42" alt="logo_zaik.gif 40x42" border="0"></a></td>
+	<td><a class="SUMOBoldInLineLink" href="http://www.zaik.uni-koeln.de/" target="new"><b>Centre for Applied Informatics, Cologne</b></a></td>
+</tr>
+</table>
 
 
 <!-- End of Text area -->
 		</div>
 		</td></tr></table>
 		<p></p><hr>
+
+<p><div align="right" class="SUMOPageInfo">last change: <!--#flastmod file="./participants.shtml"--><!--#exec cgi="/cgi-bin/saveenv.pl"--></div></p>
+
 
 	</body>
 </html>

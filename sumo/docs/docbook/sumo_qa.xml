@@ -111,6 +111,32 @@
   </sect1>
 
   <sect1>
+    <title>Features</title>
+
+    <sect2>
+      <title>Traffic within junctions</title>
+
+      <para><emphasis>Question: </emphasis>Does SUMO support traffic within
+      the junctions?</para>
+
+      <para>No, not yet. There is an approach towards this, but it is not yet
+      in such a stable state that it would be useable.</para>
+    </sect2>
+
+    <sect2>
+      <title>Connection with an external application</title>
+
+      <para><emphasis>Question: </emphasis>Is it possible to connect SUMO to
+      an external application (f.e. ns-2)?</para>
+
+      <para>No, not yet. We have build an internal version which handles
+      connections to other applications, but it&#39;s not yet available as
+      open source. So in principle, it is possible, but there is nothing that
+      does it within the current code.</para>
+    </sect2>
+  </sect1>
+
+  <sect1>
     <title>Usage</title>
 
     <sect2>

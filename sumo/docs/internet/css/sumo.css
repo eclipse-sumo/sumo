@@ -36,6 +36,14 @@ h2 {
 	background-color:#ffffff;
 	}
 
+.SUMOPageInfo {
+	font-family:Helvetica,Arial,Palatino;
+	font-size:8pt;
+	font-weight:normal;
+	color:#954835;
+	background-color:#ffffff;
+	}
+
 a.SUMOInLineLink:link {
 	font-family:Helvetica,Arial,Palatino;
 	text-decoration:underline;

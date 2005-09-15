@@ -365,7 +365,9 @@
     VISSIM (a microscopic traffic simulation package)</para></listitem><listitem><para>ARTEMIS
     by Prof. Peter Hidas (a microscopic traffic simulation package)</para></listitem><listitem><para>CELL
     by Christian Gawron (a mesoscopic traffic simulation package)</para></listitem><listitem><para>ARCVIEW-data
-    base files</para></listitem><listitem><para>XML-descriptions</para></listitem></itemizedlist></para>
+    base files</para></listitem><listitem><para>XML-descriptions</para></listitem><listitem><para>Elmar
+    Brockfelds splitted NavTeq-data</para></listitem><listitem><para>Elmar
+    Brockfelds unsplitted NavTeq-data</para></listitem></itemizedlist></para>
 
     <para>In most of these cases, SUMO-NETCOVERT needs only two parameter: the
     name of the input format followed by the name of the file and the name of
