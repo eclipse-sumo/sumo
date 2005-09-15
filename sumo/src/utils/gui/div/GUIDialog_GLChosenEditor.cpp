@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/15 12:18:59  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/07/12 11:55:37  dkrajzew
 // fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
 //
@@ -69,7 +72,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -92,6 +95,10 @@ namespace
 #include <microsim/MSEdge.h>
 #include <microsim/MSVehicle.h>
 #include <guisim/GUIEdge.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

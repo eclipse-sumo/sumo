@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/09/15 12:03:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/04/27 12:24:42  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -76,6 +79,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/geom/Position2D.h>
 

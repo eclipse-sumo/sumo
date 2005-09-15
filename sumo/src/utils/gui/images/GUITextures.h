@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/15 12:19:55  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/07/12 11:55:37  dkrajzew
 // fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
 //
@@ -36,6 +39,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <microsim/MSLink.h>
 
 

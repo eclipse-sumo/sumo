@@ -4,9 +4,9 @@
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Jun 2004
-//  copyright            : (C) 2004 by Danilo Boyom
+//  copyright            : (C) 2004 by DLR/IVF http://ivf.dlr.de/
 //  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : ---
+//  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
 
 //---------------------------------------------------------------------------//
@@ -23,18 +23,34 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.2  2005/07/14 12:53:57  dkrajzew
-// debugging
+// Revision 1.1  2005/09/15 12:22:04  dkrajzew
+// LARGE CODE RECHECK
+//
+// Revision 1.1  2005/09/09 12:56:51  dksumo
+// shape handling added
+//
+// Revision 1.2  2005/06/14 11:29:50  dksumo
+// documentation added
+//
+// Revision 1.1  2004/10/22 12:50:44  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.1  2004/06/17 13:08:36  dkrajzew
 // Polygon visualisation added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "Polygon2D.h"
 #include <utils/gfx/RGBColor.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -52,22 +68,14 @@ using namespace std;
 
 
 Polygon2D::Polygon2D(const std::string name, const std::string type,
-                     const RGBColor color, const Position2DVector &Pos)
+                     const RGBColor &color, const Position2DVector &Pos)
         : myName(name),  myType(type), myColor(color), myPos(Pos)
-{
-}
-
-Polygon2D::Polygon2D(const std::string name, const std::string type,
-                     const RGBColor color)
-        : myName(name), myType(type), myColor(color)
 {
 }
 
 
 Polygon2D::~Polygon2D()
 {
-    myPos.clear();
-
 }
 
 
@@ -76,29 +84,29 @@ Polygon2D::~Polygon2D()
 //////////////////////////////////////////////////////////////////////
 
 /// return the name of the Polygon
-std::string
-Polygon2D::getName(void)
+const std::string &
+Polygon2D::getName(void) const
 {
     return myName;
 }
 
 /// return the typ of the Polygon
-std::string
-Polygon2D::getType(void)
+const std::string &
+Polygon2D::getType(void) const
 {
     return myType;
 }
 
 /// return the Color of the polygon
-RGBColor
-Polygon2D::getColor(void)
+const RGBColor &
+Polygon2D::getColor(void) const
 {
     return myColor;
 }
 
 /// return the Positions Vector of the Polygon
-Position2DVector
-Polygon2D::getPosition2DVector(void)
+const Position2DVector &
+Polygon2D::getPosition2DVector(void) const
 {
     return myPos;
 }

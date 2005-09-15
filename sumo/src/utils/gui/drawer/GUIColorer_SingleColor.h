@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/15 12:19:10  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/07/12 12:49:08  dkrajzew
 // code style adapted
 //
@@ -37,6 +40,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "GUIBaseColorer.h"
 #include <utils/gfx/RGBColor.h>
 

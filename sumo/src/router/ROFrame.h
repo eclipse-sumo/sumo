@@ -20,18 +20,20 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/09/15 12:05:11  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.1  2004/11/23 10:25:52  dkrajzew
 // debugging
 //
 // Revision 1.1  2004/10/22 12:50:26  dksumo
 // initial checkin into an internal, standalone SUMO CVS
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 

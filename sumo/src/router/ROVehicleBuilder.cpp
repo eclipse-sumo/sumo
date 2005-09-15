@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/15 12:05:11  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/07/12 12:39:02  dkrajzew
 // edge-based mean data implemented; previous lane-based is now optional
 //
@@ -36,10 +39,18 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include "ROVehicle.h"
 #include "RORunningVehicle.h"
 #include "ROVehicleBuilder.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/09/15 12:04:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/07/12 12:37:15  dkrajzew
 // code style adapted
 //
@@ -45,7 +48,8 @@
 // Windows eol removed
 //
 // Revision 1.2  2002/06/07 14:39:58  dkrajzew
-// errors occured while building larger nets and adaption of new netconverting methods debugged
+// errors occured while building larger nets and adaption of new
+//  netconverting methods debugged
 //
 // Revision 1.1.1.1  2002/04/08 07:21:24  traffic
 // new project name
@@ -71,6 +75,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <vector>
 #include <microsim/MSEdge.h>
@@ -89,20 +97,18 @@ class MSNet;
  * class definitions
  * ======================================================================= */
 /**
+ * @class NLEdgeControlBuilder
  * This class is the container for MSEdge-instances while they are build.
  * As instances of the MSEdge-class contain references to other instances of
  * this class which may not yet be known at their generation, they are
  * prebuild first and initialised with their correct values in a second step.
  *
  * While building an intialisation of the MSEdge, the value are stored in a
- * preallocated list to avoid memory farction. For the same reason, the list
+ * preallocated list to avoid memory fraction. For the same reason, the list
  * of edges, later splitted into two lists, one containing single-lane-edges
  * and one containing multi-lane-edges, is preallocated to the size that was
  * previously computed by counting the edges in the first parser step.
  * As a result, the build MSEdgeControlBuilder is returned.
- * ToDo/Remarks:
- * The MSEdgeControlBuilder posesses an id. This is not set by the XML-file
- * and no interface for setting it is implemented yet.
  */
 class NLEdgeControlBuilder {
 public:
@@ -134,10 +140,8 @@ public:
         This method throws an XMLDepartLaneDuplicationException when the
         lane is marked to be the depart lane and another so marked lane
         was added before */
-    virtual MSLane *addLane(MSNet &net, const std::string &id,
+    virtual MSLane *addLane(/*MSNet &net, */const std::string &id,
         double maxSpeed, double length, bool isDepart, const Position2DVector &shape);
-
-//    void addLane(MSLane *lane, bool isDepartLane);
 
     /// closes (ends) the addition of lanes to the current edge
     void closeLanes();
@@ -155,9 +159,8 @@ public:
     void closeAllowedEdge();
 
     /** @brief Closes the building of an edge;
-        The edge is completely described by now and may not be opened again
-        what is not tested!!! */
-    MSEdge *closeEdge();
+        The edge is completely described by now and may not be opened again */
+    virtual MSEdge *closeEdge();
 
     /// builds the MSEdgeControl-class which holds all edges
     MSEdgeControl *build();
@@ -199,12 +202,16 @@ protected:
     /// A running numer for lane numbering
     size_t myCurrentNumericalLaneID;
 
+    /// A running numer for edge numbering
+    size_t myCurrentNumericalEdgeID;
+
 private:
-    /** invalid copy constructor */
+    /** invalidated copy constructor */
     NLEdgeControlBuilder(const NLEdgeControlBuilder &s);
 
-    /** invalid assignment operator */
+    /** invalidated assignment operator */
     NLEdgeControlBuilder &operator=(const NLEdgeControlBuilder &s);
+
 };
 
 

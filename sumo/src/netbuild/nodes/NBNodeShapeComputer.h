@@ -7,6 +7,11 @@
 #pragma warning(disable: 4786)
 
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
+#include <fstream>
 #include <utils/geom/Position2DVector.h>
 
 class NBNode;
@@ -14,7 +19,7 @@ class NBEdge;
 
 class NBNodeShapeComputer {
 public:
-    NBNodeShapeComputer(const NBNode &node);
+    NBNodeShapeComputer(const NBNode &node, std::ofstream * const out);
     ~NBNodeShapeComputer();
     Position2DVector compute();
 
@@ -23,6 +28,7 @@ private:
     Position2DVector computeRealNodeShape();
     Position2DVector computeJoinSplitNodeShape();
     Position2DVector computeContinuationNodeShape();
+    Position2DVector computeNodeShapeByCrosses();
 
     void addCCWPoint(Position2DVector &poly, NBEdge *e, double offset,
         double width);
@@ -54,6 +60,7 @@ private:
 
 private:
     const NBNode &myNode;
+    std::ofstream * const myOut;
 
 };
 

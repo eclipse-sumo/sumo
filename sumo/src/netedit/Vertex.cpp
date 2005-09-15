@@ -1,10 +1,61 @@
-// Vertex.cpp: Implementierung der Klasse Vertex.
+//---------------------------------------------------------------------------//
+//                        Vertex.cpp -
 //
-//////////////////////////////////////////////////////////////////////
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Tue, 29.05.2005
+//  copyright            : (C) 2005 by
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                :
+//---------------------------------------------------------------------------//
 
-//Diese Klasse stellt einen Knoten eines Graphen dar
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.5  2005/09/15 12:03:02  dkrajzew
+// LARGE CODE RECHECK
+//
+// Revision 1.6  2005/09/09 12:51:48  dksumo
+// complete code rework: debug_new and config added
+//
+// Revision 1.5  2005/05/30 08:18:26  dksumo
+// comments added
+//
+
+//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
 
 #include "Vertex.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
+/* =========================================================================
+ * member method definitions
+ * ======================================================================= */
 
 //Konstruktor (Koordinaten)
 
@@ -190,8 +241,6 @@ Vertex::px2gps(int scale, int gkr, int gkh)
     //bei zwei gegebenen GPS-Eckpunkten(der betrachteten Karte)
     double rm, e2, c, bI, bII, bf, co, g2, g1, t, fa, dl, gb, gl;
     int mKen;
-    ///Miguel!!! Hier muﬂ noch der Wert der linken unteren Ecke aus dem ConfigDialog geholt werden und der Faktor gk/pixel
-
 	double gkx=gkr+x*scale;//2601000.25+x*2;
     double gky=gkh+x*scale;//5711999.75-y*2;
     const double rho = 180/3.1415926535897932384626433832795;

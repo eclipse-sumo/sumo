@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2005/09/15 12:02:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.16  2005/04/27 11:48:26  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -36,10 +39,13 @@ namespace
 // the default duration of green light phases may now be changed on startup
 //
 // Revision 1.12  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of geometry information
+// some further refinements due to the new 1:N traffic lights and usage of
+//  geometry information
 //
 // Revision 1.11  2003/06/18 11:30:26  dkrajzew
-// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+// debug outputs now use a DEBUG_OUT macro instead of cout;
+//  this shall ease the search for further couts which must be redirected
+//  to the messaaging subsystem
 //
 // Revision 1.10  2003/06/05 11:43:36  dkrajzew
 // class templates applied; documentation added
@@ -48,13 +54,16 @@ namespace
 // yellow traffic lights implemented
 //
 // Revision 1.8  2003/05/20 09:33:48  dkrajzew
-// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+// false computation of yielding on lane ends debugged;
+//  some debugging on tl-import; further work on vissim-import
 //
 // Revision 1.7  2003/04/07 12:15:46  dkrajzew
-// first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
+// first steps towards a junctions geometry; tyellow removed again,
+//  traffic lights have yellow times given explicitely, now
 //
 // Revision 1.6  2003/04/04 07:43:04  dkrajzew
-// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+// Yellow phases must be now explicetely given; comments added;
+//  order of edge sorting (false lane connections) debugged
 //
 // Revision 1.5  2003/04/01 15:15:24  dkrajzew
 // some documentation added
@@ -78,7 +87,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <cassert>
@@ -94,6 +103,10 @@ namespace
 #include "NBRequestEdgeLinkIterator.h"
 #include "NBTrafficLightPhases.h"
 #include "NBLinkCliqueContainer.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2005/09/15 12:02:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.17  2005/04/27 11:48:26  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -48,7 +51,9 @@ namespace
 // added the generation about link directions and priority
 //
 // Revision 1.9  2003/06/18 11:30:26  dkrajzew
-// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease
+//  the search for further couts which must be redirected to the messaging
+//  subsystem
 //
 // Revision 1.8  2003/06/05 11:43:36  dkrajzew
 // class templates applied; documentation added
@@ -57,7 +62,8 @@ namespace
 // yellow traffic lights implemented
 //
 // Revision 1.6  2003/04/07 12:15:44  dkrajzew
-// first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
+// first steps towards a junctions geometry; tyellow removed again,
+//  traffic lights have yellow times given explicitely, now
 //
 // Revision 1.5  2003/04/01 15:15:21  dkrajzew
 // some documentation added
@@ -81,7 +87,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <vector>
@@ -98,6 +104,10 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/common/StringTokenizer.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

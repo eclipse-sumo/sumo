@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/15 12:02:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/04/27 11:48:27  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -84,6 +87,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <map>
 #include <iostream>
@@ -92,6 +99,10 @@ namespace
 #include "NBType.h"
 #include "NBTypeCont.h"
 #include "NBJunctionTypesMatrix.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

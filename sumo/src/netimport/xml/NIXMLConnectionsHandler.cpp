@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/15 12:03:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/07/12 12:35:23  dkrajzew
 // elmar2 importer included; debugging
 //
@@ -53,6 +56,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <iostream>
 #include <sax/HandlerBase.hpp>
@@ -71,6 +78,10 @@ namespace
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

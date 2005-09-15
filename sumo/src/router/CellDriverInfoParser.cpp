@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 12:05:11  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2004/12/16 12:26:52  dkrajzew
 // debugging
 //
@@ -39,7 +42,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <fstream>
@@ -50,6 +53,10 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include "RORouteDef.h"
 #include "CellDriverInfoParser.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

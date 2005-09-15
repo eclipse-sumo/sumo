@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/15 12:03:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.10  2005/07/12 12:35:21  dkrajzew
 // elmar2 importer included; debugging
 //
@@ -54,7 +57,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -71,6 +74,10 @@ namespace
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NIArtemisTempEdgeLanes.h"
 #include <utils/common/UtilExceptions.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

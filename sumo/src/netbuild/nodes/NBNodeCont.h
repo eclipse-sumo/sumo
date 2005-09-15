@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/09/15 12:02:26  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/07/12 12:32:49  dkrajzew
 // code style adapted; guessing of ramps and unregulated near districts implemented; debugging
 //
@@ -56,8 +59,8 @@
 //  geometry information
 //
 // Revision 1.13  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a message,
-//  warning or an error now; it is reported to a Singleton (MsgHandler);
+// new message and error processing: output to user may be a message, warning
+//  or an error now; it is reported to a Singleton (MsgHandler);
 //  this handler puts it further to output instances.
 //  changes: no verbose-parameter needed; messages are exported to singleton
 //
@@ -69,8 +72,8 @@
 // some lost changes reapplied
 //
 // Revision 1.10  2003/04/04 07:43:04  dkrajzew
-// Yellow phases must be now explicetely given; comments added;
-//  order of edge sorting (false lane connections) debugged
+// Yellow phases must be now explicetely given; comments added; order of
+//  edge sorting (false lane connections) debugged
 //
 // Revision 1.9  2003/04/01 15:15:54  dkrajzew
 // further work on vissim-import
@@ -122,7 +125,7 @@
 // Windows-Memoryleak detection changed
 //
 // Revision 1.2  2002/03/22 10:51:26  dkrajzew
-// Clearing of static members added
+// Clearing of members added
 //
 // Revision 1.1.1.1  2002/02/19 15:33:04  traffic
 // Initial import as a separate application.
@@ -139,6 +142,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <map>
 #include <iostream>
@@ -255,7 +262,7 @@ public:
     /// Returns the minimum position
     Position2D getNetworkOffset() const;
 
-    bool computeNodeShapes();
+    bool computeNodeShapes(OptionsCont &oc);
 
     void printNodePositions();
 
@@ -269,6 +276,18 @@ public:
         NBTrafficLightLogicCont &tlc);
 
     bool savePlain(const std::string &file);
+
+private:
+    bool mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const;
+    bool mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const;
+    void buildOnRamp(OptionsCont &oc, NBNode *cur,
+        NBEdgeCont &ec, NBDistrictCont &dc, std::vector<NBEdge*> &incremented);
+    void buildOffRamp(OptionsCont &oc, NBNode *cur,
+        NBEdgeCont &ec, NBDistrictCont &dc, std::vector<NBEdge*> &incremented);
+
+    void checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp);
+
+
 private:
     /** the running internal id */
     int     _internalID;

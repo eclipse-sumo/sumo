@@ -19,9 +19,13 @@
  ***************************************************************************/
 namespace
 {
-     const char rcsid[] = "$Id$";
+     const char rcsid[] =
+         "$Id$";
 }
 // $Log$
+// Revision 1.54  2005/09/15 12:04:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.53  2005/07/12 12:37:15  dkrajzew
 // code style adapted
 //
@@ -47,7 +51,8 @@ namespace
 // Polygon visualisation added
 //
 // Revision 1.46  2004/04/02 11:23:52  dkrajzew
-// extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
+// extended traffic lights are now no longer templates; MSNet now handles all
+//  simulation-wide output
 //
 // Revision 1.45  2004/02/18 05:32:51  dkrajzew
 // missing pass of lane continuation to detector builder added
@@ -115,22 +120,26 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <sax/HandlerBase.hpp>
 #include <sax/AttributeList.hpp>
 #include <sax/SAXParseException.hpp>
 #include <sax/SAXException.hpp>
-#include "NLContainer.h"
 #include "NLNetHandler.h"
+#include "NLEdgeControlBuilder.h"
+#include "NLJunctionControlBuilder.h"
 #include "NLDetectorBuilder.h"
-#include "NLSourceBuilder.h"
 #include "NLTriggerBuilder.h"
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/SUMOTime.h>
 #include <utils/convert/TplConvert.h>
 #include <utils/convert/TplConvertSec.h>
-#include <utils/convert/STRConvert.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/xml/AttributesHandler.h>
@@ -150,6 +159,15 @@ namespace
 #include <utils/iodevices/SharedOutputDevices.h>
 #include <utils/common/UtilExceptions.h>
 #include "NLLoadFilter.h"
+#include "NLGeomShapeBuilder.h"
+
+#ifdef HAVE_MESOSIM
+#include <mesosim/MELoop.h>
+#endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -162,32 +180,19 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NLNetHandler::NLNetHandler(const std::string &file,
-                           NLContainer &container,
+                           MSNet &net,
                            NLDetectorBuilder &detBuilder,
                            NLTriggerBuilder &triggerBuilder,
-                           double stdDetectorPositions,
-                           double stdDetectorLengths,
-                           int stdLearnHorizon, int stdDecisionHorizon,
-                           double stdDeltaLimit, int stdTCycle,
-
-                           double stdActuatedMaxGap,
-                           double stdActuatedPassingTime,
-                           double stdActuatedDetectorGap)
+                           NLEdgeControlBuilder &edgeBuilder,
+                           NLJunctionControlBuilder &junctionBuilder,
+                           NLGeomShapeBuilder &shapeBuilder)
 
     : MSRouteHandler(file, true),
-    myContainer(container), _tlLogicNo(-1), m_Offset(0),
+    myNet(net),
     myCurrentIsInternalToSkip(false),
-    myStdDetectorPositions(stdDetectorPositions),
-    myStdDetectorLengths(stdDetectorLengths),
     myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
-    myStdLearnHorizon(stdLearnHorizon), myStdDecisionHorizon(stdDecisionHorizon),
-    myStdDeltaLimit(stdDeltaLimit), myStdTCycle(stdTCycle),
-
-    myStdActuatedMaxGap(stdActuatedMaxGap),
-    myStdActuatedPassingTime(stdActuatedPassingTime),
-    myStdActuatedDetectorGap(stdActuatedDetectorGap)
-
-
+    myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
+    myShapeBuilder(shapeBuilder)
 {
 }
 
@@ -216,12 +221,14 @@ NLNetHandler::myStartElement(int element, const std::string &name,
         case SUMO_TAG_POLY:
             addPoly(attrs);
             break;
+        case SUMO_TAG_POI:
+            addPOI(attrs);
+            break;
         case SUMO_TAG_CEDGE:
             openAllowedEdge(attrs);
             break;
         case SUMO_TAG_JUNCTION:
             openJunction(attrs);
-            addJunctionKey(attrs);
             break;
         case SUMO_TAG_PHASE:
             addPhase(attrs);
@@ -240,7 +247,7 @@ NLNetHandler::myStartElement(int element, const std::string &name,
     if(wanted(LOADFILTER_LOGICS)) {
         switch(element) {
         case SUMO_TAG_ROWLOGIC:
-            initJunctionLogic();
+            myJunctionControlBuilder.initJunctionLogic();
             break;
         case SUMO_TAG_TLLOGIC:
             initTrafficLightLogic(attrs);
@@ -294,7 +301,7 @@ void
 NLNetHandler::setEdgeNumber(const Attributes &attrs)
 {
     try {
-        myContainer.setEdgeNumber(getInt(attrs, SUMO_ATTR_NO));
+        myEdgeControlBuilder.prepare(getInt(attrs, SUMO_ATTR_NO));
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
             string("Error in description: missing number of edges."));
@@ -336,17 +343,37 @@ NLNetHandler::chooseEdge(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform(
             e.getMessage("edge", id));
     }
-    myContainer.chooseEdge(id, func);
+
+    // get the type
+    MSEdge::EdgeBasicFunction funcEnum = MSEdge::EDGEFUNCTION_UNKNOWN;
+    if(func=="normal") {
+        funcEnum = MSEdge::EDGEFUNCTION_NORMAL;
+    }
+    if(func=="source") {
+        funcEnum = MSEdge::EDGEFUNCTION_SOURCE;
+    }
+    if(func=="sink") {
+        funcEnum = MSEdge::EDGEFUNCTION_SINK;
+    }
+    if(func=="internal") {
+        funcEnum = MSEdge::EDGEFUNCTION_INTERNAL;
+    }
+    if(funcEnum<0) {
+        throw XMLIdNotKnownException("purpose", func);
+    }
+    //
+    myEdgeControlBuilder.chooseEdge(id, funcEnum);
+    // continuation
+    myCurrentID = id;
 }
+
 
 
 void
 NLNetHandler::addLaneShape(const std::string &chars)
 {
-    Position2DVector shape = GeomConvHelper::parseShape(chars);
-    myContainer.addLaneShape(shape);
+    myShape = GeomConvHelper::parseShape(chars);
 }
-
 
 
 void
@@ -359,11 +386,11 @@ NLNetHandler::addLane(const Attributes &attrs)
     try {
         string id = getString(attrs, SUMO_ATTR_ID);
         try {
-            myContainer.addLane(id,
-                getBool(attrs, SUMO_ATTR_DEPART),
-                getFloat(attrs, SUMO_ATTR_MAXSPEED),
-                getFloat(attrs, SUMO_ATTR_LENGTH),
-                getFloat(attrs, SUMO_ATTR_CHANGEURGE));
+            myID = id;
+            myLaneIsDepart = getBool(attrs, SUMO_ATTR_DEPART);
+            myCurrentMaxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
+            myCurrentLength = getFloat(attrs, SUMO_ATTR_LENGTH);
+            myCurrentChangeUrge = getFloat(attrs, SUMO_ATTR_CHANGEURGE);
         } catch (XMLInvalidParentException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("lane", id));
         } catch (XMLIdAlreadyUsedException &e) {
@@ -383,26 +410,52 @@ NLNetHandler::addLane(const Attributes &attrs)
     }
 }
 
-/// fügt den Polygon hinzu
+
+void
+NLNetHandler::addPOI(const Attributes &attrs)
+{
+    try {
+        std::string name = getString(attrs, SUMO_ATTR_ID);
+        try {
+            myShapeBuilder.addPoint(name,
+                getString(attrs, SUMO_ATTR_TYPE),
+                GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
+                getFloat(attrs, SUMO_ATTR_X),
+                getFloat(attrs, SUMO_ATTR_Y));
+        } catch (XMLIdAlreadyUsedException &e) {
+            MsgHandler::getErrorInstance()->inform(e.getMessage("poi", name));
+        } catch (NumberFormatException &) {
+            MsgHandler::getErrorInstance()->inform("The color of POI '" + name + "' could not be parsed.");
+        } catch (EmptyData &) {
+            MsgHandler::getErrorInstance()->inform("POI '" + name + "' misses an attribute.");
+        }
+    } catch (EmptyData&) {
+        MsgHandler::getErrorInstance()->inform(
+            "Error in description: missing name of an poly-object.");
+    }
+}
+
+
 void
 NLNetHandler::addPoly(const Attributes &attrs)
 {
     try {
-        std::string name = getString(attrs, SUMO_ATTR_NAME);
-        actuell_poly_name = name;
+        std::string name = getString(attrs, SUMO_ATTR_ID);
         try {
-            myContainer.addPoly(name,
+            myShapeBuilder.polygonBegin(name,
                 getString(attrs, SUMO_ATTR_TYPE),
-                getString(attrs, SUMO_ATTR_COLOR));
-
+                GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)));
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("polygon", name));
+        } catch (NumberFormatException &) {
+            MsgHandler::getErrorInstance()->inform("The color of polygon '" + name + "' could not be parsed.");
+        } catch (EmptyData &) {
+            MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' misses an attribute.");
         }
-    } catch (EmptyData) {
+    } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform(
             "Error in description: missing name of an poly-object.");
     }
-
 }
 
 
@@ -416,7 +469,18 @@ NLNetHandler::openAllowedEdge(const Attributes &attrs)
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-        myContainer.openAllowedEdge(id);
+        MSEdge *edge = MSEdge::dictionary(id);
+        if(edge==0) {
+            throw XMLIdNotKnownException("edge", id);
+        }
+        myEdgeControlBuilder.openAllowedEdge(edge);
+        // continuation
+        StringVector pred;
+        if(myContinuations.find(id)!=myContinuations.end()) {
+            pred = myContinuations[id];
+        }
+        pred.push_back(myCurrentID);
+        myContinuations[id] = pred;
     } catch (XMLIdNotKnownException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("cedge", id));
     } catch (EmptyData) {
@@ -427,65 +491,37 @@ NLNetHandler::openAllowedEdge(const Attributes &attrs)
 
 
 void
-NLNetHandler::addJunctionKey(const Attributes &attrs)
-{
-    try {
-        string key = getString(attrs, SUMO_ATTR_KEY);
-        myContainer.addKey(key); // !!! wozu?
-    } catch (EmptyData) {
-    }
-}
-
-
-void
-NLNetHandler::initJunctionLogic()
-{
-    m_Key = "";
-    m_pActiveLogic = new MSBitsetLogic::Logic();
-    m_pActiveFoes = new MSBitsetLogic::Foes();
-    _requestSize = -1;
-    _laneNo = -1;
-    _requestItems = 0;
-}
-
-
-void
 NLNetHandler::addLogicItem(const Attributes &attrs)
 {
-    if(_requestSize>0) {
-        // parse the request
-        int request = -1;
-        try {
-            request = getInt(attrs, SUMO_ATTR_REQUEST);
-        } catch (EmptyData) {
-            MsgHandler::getErrorInstance()->inform("Missing request key...");
-        } catch (NumberFormatException) {
-            MsgHandler::getErrorInstance()->inform(
-                "Error in description: one of the request keys is not numeric.");
-        }
-        // parse the response
-        string response;
-        try {
-            response = getString(attrs, SUMO_ATTR_RESPONSE);
-        } catch (EmptyData) {
-            MsgHandler::getErrorInstance()->inform("Missing respond for a request");
-        }
-        // parse the internal links information (when wished)
-        string foes;
-        if(MSGlobals::gUsingInternalLanes) {
-            try {
-                foes = getString(attrs, SUMO_ATTR_FOES);
-            } catch (EmptyData) {
-                MsgHandler::getErrorInstance()->inform("Missing foes for a request");
-            }
-        }
-        // store received information
-        if(request>=0 && response.length()>0) {
-            addLogicItem(request, response, foes);
-        }
-    } else {
+    // parse the request
+    int request = -1;
+    try {
+        request = getInt(attrs, SUMO_ATTR_REQUEST);
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform("Missing request key...");
+    } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform(
-            "The request size,  the response size or the number of lanes is not given! Contact your net supplier");
+            "Error in description: one of the request keys is not numeric.");
+    }
+    // parse the response
+    string response;
+    try {
+        response = getString(attrs, SUMO_ATTR_RESPONSE);
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform("Missing respond for a request");
+    }
+    // parse the internal links information (when wished)
+    string foes;
+    if(MSGlobals::gUsingInternalLanes) {
+        try {
+            foes = getString(attrs, SUMO_ATTR_FOES);
+        } catch (EmptyData) {
+            MsgHandler::getErrorInstance()->inform("Missing foes for a request");
+        }
+    }
+    // store received information
+    if(request>=0 && response.length()>0) {
+        myJunctionControlBuilder.addLogicItem(request, response, foes);
     }
 }
 
@@ -493,34 +529,24 @@ NLNetHandler::addLogicItem(const Attributes &attrs)
 void
 NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
 {
-    m_Key = "";
-    m_ActivePhases.clear();
-    myAbsDuration = 0;
-    _requestSize = -1;
-    _tlLogicNo = -1;
-    myContainer.initIncomingLanes();
+    size_t absDuration = 0;
+    int requestSize = -1;
+    int tlLogicNo = -1;
+    int detectorOffset = -1;
+    myJunctionControlBuilder.initIncomingLanes();
     try {
-        m_Type = getString(attrs, SUMO_ATTR_TYPE);
+        string type = getString(attrs, SUMO_ATTR_TYPE);
         // get the detector offset
         {
             try {
-                m_DetectorOffset = getFloatSecure(attrs, SUMO_ATTR_DET_OFFSET, -1);
+                detectorOffset = getFloatSecure(attrs, SUMO_ATTR_DET_OFFSET, -1);
             } catch (NumberFormatException&) {
                 MsgHandler::getErrorInstance()->inform(
                     "A detector offset of a traffic light logic is not numeric!");
             }
-            // recheck the offset in dependence to the type if not given
-            if(m_DetectorOffset==-1) {
-                // agentbased
-                if(m_Type=="agentbased") {
-                    m_DetectorOffset = myStdDetectorLengths;
-                }
-                // actuated
-                if(m_Type=="actuated") {
-                    m_DetectorOffset = myStdDetectorPositions;
-                }
-            }
         }
+        myJunctionControlBuilder.initTrafficLightLogic(type,
+            absDuration, requestSize, tlLogicNo, detectorOffset);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing traffic light type.");
     }
@@ -530,9 +556,6 @@ NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
 void
 NLNetHandler::addPhase(const Attributes &attrs)
 {
-    if(_tlLogicNo!=0) {
-        return;
-    }
     // try to get the phase definition
     string phase;
     try {
@@ -580,35 +603,24 @@ NLNetHandler::addPhase(const Attributes &attrs)
     int min = duration;
     int max = duration;
     try {
-        if(m_Type=="actuated"||m_Type=="agentbased") {
-            min = getIntSecure(attrs, SUMO_ATTR_MINDURATION, -1);
-            max = getIntSecure(attrs, SUMO_ATTR_MAXDURATION, -1);
-        }
+        min = getIntSecure(attrs, SUMO_ATTR_MINDURATION, -1);
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform(
-            "The phase minimum or masimum duration is not numeric.");
+            "The phase minimum duration is not numeric.");
+        return;
+    }
+    try {
+        max = getIntSecure(attrs, SUMO_ATTR_MAXDURATION, -1);
+    } catch (NumberFormatException) {
+        MsgHandler::getErrorInstance()->inform(
+            "The phase maximum duration is not numeric.");
         return;
     }
     // build the brake mask
     std::bitset<64> prios(brakeMask);
     prios.flip();
-    // build and add the phase definition to the list
-    if(m_Type=="actuated"||m_Type=="agentbased") {
-        // for a controlled tls-logic
-        m_ActivePhases.push_back(
-            new MSActuatedPhaseDefinition(
-                duration, std::bitset<64>(phase),
-                prios, std::bitset<64>(yellowMask),
-                min, max));
-    } else {
-        // for an controlled tls-logic
-        m_ActivePhases.push_back(
-            new MSPhaseDefinition(
-                duration, std::bitset<64>(phase),
-                prios, std::bitset<64>(yellowMask)));
-    }
-    // add phase duration to the absolute duration
-    myAbsDuration += duration;
+    myJunctionControlBuilder.addPhase(duration, std::bitset<64>(phase),
+        prios, std::bitset<64>(yellowMask), min, max);
 }
 
 
@@ -619,7 +631,7 @@ NLNetHandler::openJunction(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
         try {
-            myContainer.openJunction(id,
+            myJunctionControlBuilder.openJunction(id,
                 getStringSecure(attrs, SUMO_ATTR_KEY, ""),
                 getString(attrs, SUMO_ATTR_TYPE),
                 getFloat(attrs, SUMO_ATTR_X),
@@ -633,6 +645,7 @@ NLNetHandler::openJunction(const Attributes &attrs)
             "Error in description: missing id of a junction-object.");
     }
 }
+
 
 
 void
@@ -720,10 +733,10 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
     }
     // check whether this is a lsa-based detector or one that uses a sample
     //  interval
-    MSTrafficLightLogic *tll = 0;
+    MSTrafficLightLogic * tll = 0;
     try {
         string lsaid = getString(attrs, SUMO_ATTR_TLID);
-        tll = myContainer.getTLLogic(lsaid);
+        tll = myJunctionControlBuilder.getTLLogic(lsaid);
         if(tll==0) {
             MsgHandler::getErrorInstance()->inform(
                 string("The detector '") + id
@@ -739,7 +752,7 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
     try {
         if(tll!=0) {
             if(toLane.length()==0) {
-                myDetectorBuilder.buildE2Detector(myContainer.getLaneConts(),
+                myDetectorBuilder.buildE2Detector(myContinuations,
                     id,
                     getString(attrs, SUMO_ATTR_LANE),
                     getFloat(attrs, SUMO_ATTR_POSITION),
@@ -753,10 +766,10 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
                     getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                     getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
                     getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
-                    getIntSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800) // !!! getSUMOTime
+                    GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
                     );
             } else {
-                myDetectorBuilder.buildE2Detector(myContainer.getLaneConts(),
+                myDetectorBuilder.buildE2Detector(myContinuations,
                     id,
                     getString(attrs, SUMO_ATTR_LANE),
                     getFloat(attrs, SUMO_ATTR_POSITION),
@@ -770,11 +783,11 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
                     getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                     getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
                     getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
-                    getIntSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800) // !!! getSUMOTime
+                    GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
                     );
             }
         } else {
-            myDetectorBuilder.buildE2Detector(myContainer.getLaneConts(),
+            myDetectorBuilder.buildE2Detector(myContinuations,
                 id,
                 getString(attrs, SUMO_ATTR_LANE),
                 getFloat(attrs, SUMO_ATTR_POSITION),
@@ -788,7 +801,7 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
                 getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                 getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
                 getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
-                getIntSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800) // !!! getSUMOTime
+                GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
                 );
         }
     } catch (XMLBuildingException &e) {
@@ -826,7 +839,7 @@ NLNetHandler::beginE3Detector(const Attributes &attrs)
             getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
             getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
             getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
-            getIntSecure(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800) // !!! getSUMOTime
+            GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
             );
     } catch (XMLBuildingException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
@@ -888,8 +901,8 @@ NLNetHandler::addSource(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
         try {
-            NLSourceBuilder::buildTriggeredSource(id,
-                getString(attrs, SUMO_ATTR_FILE), _file);
+            myTriggerBuilder.buildTrigger(
+                myNet, attrs, _file, *this);
             return;
         } catch (XMLBuildingException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
@@ -897,7 +910,7 @@ NLNetHandler::addSource(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform(e.msg());
         } catch (EmptyData) {
             MsgHandler::getErrorInstance()->inform(
-                string("The description of the source '")
+                string("The description of trigger '")
                 + id + string("' does not contain a needed value."));
         }
     } catch (EmptyData) {
@@ -916,13 +929,7 @@ NLNetHandler::addTrigger(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
         try {
-            myTriggerBuilder.buildTrigger(
-                myContainer.getNet(), id,
-                getString(attrs, SUMO_ATTR_OBJECTTYPE),
-                getString(attrs, SUMO_ATTR_OBJECTID),
-                getString(attrs, SUMO_ATTR_ATTR),
-                getString(attrs, SUMO_ATTR_FILE),
-                _file);
+            myTriggerBuilder.buildTrigger(myNet, attrs, _file, *this);
             return;
         } catch (XMLBuildingException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("trigger", id));
@@ -934,7 +941,7 @@ NLNetHandler::addTrigger(const Attributes &attrs)
                 + id + string("' does not contain a needed value."));
         } catch (FileBuildError &e) {
             MsgHandler::getErrorInstance()->inform(e.msg());
-        } // !!! not an ouput file
+        }
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
             "Error in description: missing id of a trigger-object.");
@@ -947,8 +954,7 @@ NLNetHandler::openSucc(const Attributes &attrs)
 {
     try {
         string id = getString(attrs, SUMO_ATTR_LANE);
-        myContainer.openSuccLane(id);
-        m_LaneId = id;
+        m_pSLB.openSuccLane(id);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
             "Error in description: missing id of a succ-object.");
@@ -961,7 +967,7 @@ NLNetHandler::addSuccLane(const Attributes &attrs)
     try {
         string tlID = getStringSecure(attrs, SUMO_ATTR_TLID, "");
         if(tlID!="") {
-            myContainer.addSuccLane(
+            m_pSLB.addSuccLane(
                 getBool(attrs, SUMO_ATTR_YIELD),
                 getString(attrs, SUMO_ATTR_LANE),
                 getStringSecure(attrs, SUMO_ATTR_VIA, ""),
@@ -970,7 +976,7 @@ NLNetHandler::addSuccLane(const Attributes &attrs)
                 getBoolSecure(attrs, SUMO_ATTR_INTERNALEND, false),
                 tlID, getInt(attrs, SUMO_ATTR_TLLINKNO));
         } else {
-            myContainer.addSuccLane(
+            m_pSLB.addSuccLane(
                 getBool(attrs, SUMO_ATTR_YIELD),
                 getString(attrs, SUMO_ATTR_LANE),
                 getStringSecure(attrs, SUMO_ATTR_VIA, ""),
@@ -985,7 +991,7 @@ NLNetHandler::addSuccLane(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform(e.getMessage("", ""));
         MsgHandler::getErrorInstance()->inform(
             string(" While building lane '")
-            + myContainer.getSuccingLaneName()
+            + m_pSLB.getSuccingLaneName()
             + string("'"));
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform(
@@ -1116,7 +1122,7 @@ NLNetHandler::allocateEdges(const std::string &chars)
         string edgeid = chars.substr(beg, idx-beg);
         // skip internal edges if not wished
         if(MSGlobals::gUsingInternalLanes||edgeid[0]!=':') {
-            myContainer.addEdge(edgeid);
+            MSEdge *edge = myEdgeControlBuilder.addEdge(edgeid);
         }
         beg = idx + 1;
         idx = chars.find(' ', beg);
@@ -1127,7 +1133,7 @@ NLNetHandler::allocateEdges(const std::string &chars)
     if(!MSGlobals::gUsingInternalLanes&&edgeid[0]==':') {
         return;
     }
-    myContainer.addEdge(edgeid);
+    MSEdge *edge = myEdgeControlBuilder.addEdge(edgeid);
 }
 
 
@@ -1135,7 +1141,7 @@ void
 NLNetHandler::setNodeNumber(const std::string &chars)
 {
     try {
-        myContainer.setNodeNumber(TplConvert<char>::_2int(chars.c_str()));
+        myJunctionControlBuilder.prepare(TplConvert<char>::_2int(chars.c_str()));
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
             "Error in description: missing number of nodes.");
@@ -1153,7 +1159,11 @@ NLNetHandler::addAllowedEdges(const std::string &chars)
     while(st.hasNext()) {
         string set = st.next();
         try {
-            myContainer.addAllowed(set);
+            MSLane *lane = MSLane::dictionary(set);
+            if(lane==0) {
+                throw XMLIdNotKnownException("lane", set);
+            }
+            myEdgeControlBuilder.addAllowed(lane);
         } catch (XMLIdNotKnownException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("clane", set));
         } catch (XMLInvalidChildException &e) {
@@ -1167,9 +1177,7 @@ void
 NLNetHandler::setRequestSize(const std::string &chars)
 {
     try {
-        _requestSize = STRConvert::_2int(chars);
-        m_pActiveLogic->resize(_requestSize);
-        m_pActiveFoes->resize(_requestSize);
+        myJunctionControlBuilder.setRequestSize(TplConvert<char>::_2int(chars.c_str()));
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing request size.");
     } catch (NumberFormatException) {
@@ -1183,7 +1191,7 @@ void
 NLNetHandler::setLaneNumber(const std::string &chars)
 {
     try {
-        _laneNo = STRConvert::_2int(chars);
+        myJunctionControlBuilder.setLaneNumber(TplConvert<char>::_2int(chars.c_str()));
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing lane number.");
     } catch (NumberFormatException) {
@@ -1201,6 +1209,7 @@ NLNetHandler::setKey(const std::string &chars)
         return;
     }
     m_Key = chars;
+    myJunctionControlBuilder.setKey(m_Key);
 }
 
 
@@ -1208,7 +1217,7 @@ void
 NLNetHandler::setOffset(const std::string &chars)
 {
     try {
-        m_Offset = TplConvertSec<char>::_2intSec(chars.c_str(), 0);
+        myJunctionControlBuilder.setOffset(TplConvertSec<char>::_2intSec(chars.c_str(), 0));
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("Invalid offset for a junction.");
         return;
@@ -1219,33 +1228,9 @@ NLNetHandler::setOffset(const std::string &chars)
 void
 NLNetHandler::setTLLogicNo(const std::string &chars)
 {
-    _tlLogicNo = TplConvertSec<char>::_2intSec(chars.c_str(), -1);
-    if(_tlLogicNo<0) {
-        MsgHandler::getErrorInstance()->inform("Somenthing is wrong with a traffic light logic number.");
-        MsgHandler::getErrorInstance()->inform(
-            string(" In logic '") + m_Key + string("'."));
-    }
+    myJunctionControlBuilder.setTLLogicNo(TplConvertSec<char>::_2intSec(chars.c_str(), -1));
 }
 
-
-void
-NLNetHandler::addLogicItem(int request, const string &response,
-                           const std::string &foes)
-{
-    // add the read response for the given request index
-    bitset<64> use(response);
-    assert(m_pActiveLogic->size()>(size_t) request);
-    (*m_pActiveLogic)[request] = use;
-    // add the read junction-internal foes for the given request index
-    //  ...but only if junction-internal lanes shall be loaded
-    if(MSGlobals::gUsingInternalLanes) {
-        bitset<64> use2(foes);
-        assert(m_pActiveFoes->size()>(size_t) request);
-        (*m_pActiveFoes)[request] = use2;
-    }
-    // increse number of set information
-    _requestItems++;
-}
 
 
 void
@@ -1255,7 +1240,11 @@ NLNetHandler::addIncomingLanes(const std::string &chars)
     while(st.hasNext()) {
         string set = st.next();
         try {
-            myContainer.addIncomingLane(set);
+            MSLane *lane = MSLane::dictionary(set);
+            if(lane==0) {
+                throw XMLIdNotKnownException("lane", set);
+            }
+            myJunctionControlBuilder.addIncomingLane(lane);
         } catch (XMLIdNotKnownException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("lane", set));
         }
@@ -1268,14 +1257,7 @@ NLNetHandler::addIncomingLanes(const std::string &chars)
 void
 NLNetHandler::addPolyPosition(const std::string &chars)
 {
-    Polygon2D *ptr;
-    Position2DVector shape;
-    ptr = MSNet::getInstance()->poly_dic[actuell_poly_name];
-    if(ptr==0) {
-        return;
-    }
-    shape = GeomConvHelper::parseShape(chars);
-    ptr->addPolyPosition(shape);
+    myShapeBuilder.polygonEnd(GeomConvHelper::parseShape(chars));
 }
 
 
@@ -1286,7 +1268,11 @@ NLNetHandler::addInternalLanes(const std::string &chars)
     while(st.hasNext()) {
         string set = st.next();
         try {
-            myContainer.addInternalLane(set);
+            MSLane *lane = MSLane::dictionary(set);
+            if(lane==0) {
+                throw XMLIdNotKnownException("lane", set);
+            }
+            myJunctionControlBuilder.addInternalLane(lane);
         } catch (XMLIdNotKnownException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("lane", set));
         }
@@ -1302,16 +1288,16 @@ NLNetHandler::myEndElement(int element, const std::string &name)
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
         case SUMO_TAG_EDGE:
-            myContainer.closeEdge();
+            closeEdge();
             break;
         case SUMO_TAG_LANES:
-            myContainer.closeLanes();
+            closeLanes();
             break;
         case SUMO_TAG_LANE:
-            myContainer.closeLane();
+            closeLane();
             break;
         case SUMO_TAG_CEDGE:
-            myContainer.closeAllowedEdge();
+            closeAllowedEdge();
             break;
         case SUMO_TAG_JUNCTION:
             closeJunction();
@@ -1324,10 +1310,10 @@ NLNetHandler::myEndElement(int element, const std::string &name)
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
         case SUMO_TAG_ROWLOGIC:
-            closeJunctionLogic();
+            myJunctionControlBuilder.closeJunctionLogic();
             break;
         case SUMO_TAG_TLLOGIC:
-            closeTrafficLightLogic();
+            myJunctionControlBuilder.closeTrafficLightLogic();
             break;
         default:
             break;
@@ -1352,10 +1338,51 @@ NLNetHandler::myEndElement(int element, const std::string &name)
 
 
 void
+NLNetHandler::closeEdge()
+{
+    MSEdge *edge = myEdgeControlBuilder.closeEdge();
+#ifdef HAVE_MESOSIM
+    if(MSGlobals::gUseMesoSim) {
+        MSGlobals::gMesoNet->buildSegmentsFor(edge, *(MSNet::getInstance()),
+            OptionsSubSys::getOptions());
+    }
+#endif
+}
+
+
+void
+NLNetHandler::closeLane()
+{
+    MSLane *lane =
+        myEdgeControlBuilder.addLane(
+            /*getNet(), */myID, myCurrentMaxSpeed, myCurrentLength,
+            myLaneIsDepart, myShape);
+    // insert the lane into the lane-dictionary, checking
+    if(!MSLane::dictionary(myID, lane)) {
+        throw XMLIdAlreadyUsedException("Lanes", myID);
+    }
+}
+
+void
+NLNetHandler::closeLanes()
+{
+    myEdgeControlBuilder.closeLanes();
+}
+
+
+void
+NLNetHandler::closeAllowedEdge()
+{
+    myEdgeControlBuilder.closeAllowedEdge();
+}
+
+
+
+void
 NLNetHandler::closeJunction()
 {
     try {
-        myContainer.closeJunction();
+        myJunctionControlBuilder.closeJunction();
     } catch (XMLIdAlreadyUsedException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("junction", ""));
     } catch (XMLIdNotKnownException &e) {
@@ -1364,113 +1391,12 @@ NLNetHandler::closeJunction()
 }
 
 
-void
-NLNetHandler::closeJunctionLogic()
-{
-    if(_requestItems!=_requestSize) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The description for the junction logic '") +
-            m_Key +
-            string("' is malicious."));
-    }
-    MSJunctionLogic *logic =
-        new MSBitsetLogic(_requestSize, _laneNo,
-            m_pActiveLogic, m_pActiveFoes);
-    MSJunctionLogic::dictionary(m_Key, logic); // !!! replacement within the dictionary
-}
-
-
-void
-NLNetHandler::closeTrafficLightLogic()
-{
-    if(_tlLogicNo!=0) {
-        return;
-    }
-    // compute the initial step of the tls-logic
-    size_t step = computeInitTLSStep();
-    size_t firstEventOffset = computeInitTLSEventOffset();
-    // build the tls-logic in dependance to its type
-    if(m_Type=="actuated") {
-        // build an actuated logic
-        MSActuatedTrafficLightLogic *tlLogic =
-            new MSActuatedTrafficLightLogic(m_Key, m_ActivePhases,
-                step, firstEventOffset,
-                myStdActuatedMaxGap,
-                myStdActuatedPassingTime,
-                myStdActuatedDetectorGap);
-        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
-        // !!! replacement within the dictionary
-        m_ActivePhases.clear();
-        myContainer.addTLLogic(tlLogic);
-        myContainer.addJunctionInitInfo(tlLogic,
-            myContainer.getIncomingLanes(), m_DetectorOffset);
-    } else if(m_Type=="agentbased") {
-        // build an agentbased logic
-        MSAgentbasedTrafficLightLogic *tlLogic =
-            new MSAgentbasedTrafficLightLogic(m_Key, m_ActivePhases,
-                step, firstEventOffset,
-                myStdLearnHorizon, myStdDecisionHorizon,
-                myStdDeltaLimit, myStdTCycle);
-        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
-        // !!! replacement within the dictionary
-        m_ActivePhases.clear();
-        myContainer.addTLLogic(tlLogic);
-        myContainer.addJunctionInitInfo(tlLogic,
-            myContainer.getIncomingLanes(), m_DetectorOffset);
-    } else {
-        // build an uncontrolled (fix) tls-logic
-        MSTrafficLightLogic *tlLogic =
-            new MSSimpleTrafficLightLogic(
-                m_Key, m_ActivePhases, step, firstEventOffset);
-        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
-        // !!! replacement within the dictionary
-        m_ActivePhases.clear();
-        myContainer.addTLLogic(tlLogic);
-    }
-}
-
-
-SUMOTime
-NLNetHandler::computeInitTLSStep()  const
-{
-    assert(m_ActivePhases.size()!=0);
-    SUMOTime offset = m_Offset % myAbsDuration;
-    MSSimpleTrafficLightLogic::Phases::const_iterator i
-        = m_ActivePhases.begin();
-    SUMOTime step = 0;
-    while(true) {
-        if(offset<(*i)->duration) {
-            return step;
-        }
-        step++;
-        offset -= (*i)->duration;
-        ++i;
-    }
-}
-
-
-SUMOTime
-NLNetHandler::computeInitTLSEventOffset()  const
-{
-    assert(m_ActivePhases.size()!=0);
-    SUMOTime offset = m_Offset % myAbsDuration;
-    MSSimpleTrafficLightLogic::Phases::const_iterator i
-        = m_ActivePhases.begin();
-    while(true) {
-        if(offset<(*i)->duration) {
-            return offset;
-        }
-        offset -= (*i)->duration;
-        ++i;
-    }
-}
-
 
 void
 NLNetHandler::closeSuccLane()
 {
     try {
-        myContainer.closeSuccLane();
+        m_pSLB.closeSuccLane();
     } catch (XMLIdNotKnownException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("", ""));
     }
@@ -1511,14 +1437,14 @@ NLNetHandler::getMessage() const
 
 
 bool
-NLNetHandler::wanted(LoadFilter filter) const
+NLNetHandler::wanted(NLLoadFilter filter) const
 {
     return (_filter&filter)!=0;
 }
 
 
 void
-NLNetHandler::setWanted(LoadFilter filter)
+NLNetHandler::setWanted(NLLoadFilter filter)
 {
     _filter = filter;
 }
@@ -1530,6 +1456,13 @@ NLNetHandler::setError(const string &type,
 {
     MsgHandler::getErrorInstance()->inform(
         buildErrorMessage(_file, type, exception));
+}
+
+
+const NLNetHandler::SSVMap &
+NLNetHandler::getContinuations() const
+{
+    return myContinuations;
 }
 
 

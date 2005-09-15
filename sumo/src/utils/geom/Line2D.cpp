@@ -12,6 +12,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/15 12:18:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.10  2005/07/12 12:49:07  dkrajzew
 // code style adapted
 //
@@ -28,10 +31,18 @@ namespace
  * included modules
  * ======================================================================= */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "Position2D.h"
 #include "Line2D.h"
 #include "GeomHelper.h"
 #include <cassert>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/15 12:05:11  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/05/04 08:50:40  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; trying to debug invalid vehicles handling
 //
@@ -35,17 +38,25 @@ namespace
 // Revision 1.3  2004/12/16 12:26:52  dkrajzew
 // debugging
 //
+//
 // Revision 1.2  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+// debugging while working on INVENT; preparation of classes to be derived
+//  for an online-routing
 //
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work;
+//  documentation added
 //
 // ------------------------------------------------
 //
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "RORDLoader_SUMOBase.h"
 #include "ROVehicleType.h"
 #include "RORouteDef.h"
@@ -57,6 +68,10 @@ namespace
 #include "ROVehicleBuilder.h"
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -204,10 +219,14 @@ RORDLoader_SUMOBase::startVehicle(const Attributes &attrs)
         getErrorHandlerMarkInvalid()->inform("Missing id in vehicle.");
         return;
     }
-    // get vehicle type
-    ROVehicleType *type = getVehicleType(attrs, id);
     // get the departure time
     getVehicleDepartureTime(attrs, id);
+    if(myDepartureTime<myBegin||myDepartureTime>=myEnd) {
+        mySkipCurrent = true;
+        return;
+    }
+    // get vehicle type
+    ROVehicleType *type = getVehicleType(attrs, id);
     // get the route id
     RORouteDef *route = getVehicleRoute(attrs, id);
     if(route==0) {

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2005/09/15 12:18:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.11  2004/11/23 10:34:46  dkrajzew
 // debugging
 //
@@ -60,7 +63,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "Position2D.h"

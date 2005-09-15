@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/15 12:18:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/07/12 12:43:49  dkrajzew
 // code style adapted
 //
@@ -34,6 +37,10 @@
  * included modules
  * ======================================================================= */
 
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
 
 #include "Position2D.h"
 #include "Position2DVector.h"

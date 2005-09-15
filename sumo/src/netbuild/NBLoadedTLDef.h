@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/09/15 12:02:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/07/12 12:32:47  dkrajzew
 // code style adapted; guessing of ramps and unregulated near districts implemented; debugging
 //
@@ -33,6 +36,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <string>
 #include <set>

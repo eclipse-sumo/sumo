@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 12:13:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/04/28 09:02:46  dkrajzew
 // level3 warnings removed
 //
@@ -73,6 +76,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <cstring>
 #include <fstream>
@@ -80,11 +87,28 @@ namespace
 #include "FileHelpers.h"
 #include "StringTokenizer.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
+
+
+/* =========================================================================
+ * constants definitions
+ * ======================================================================= */
+#define BUF_MAX 1000
+
+
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
+char gBuf[BUF_MAX];
 
 
 /* =========================================================================
@@ -144,11 +168,11 @@ bool
 FileHelpers::isAbsolute(const std::string &path)
 {
     // check UNIX - absolute paths
-    if(path.at(0)=='/') {
+    if(path.length()>0&&path[0]=='/') {
         return true;
     }
     // check Windows - absolute paths
-    if(path.length()>1&&path.at(1)==':') {
+    if(path.length()>1&&path[1]==':') {
         return true;
     }
     return false;
@@ -156,18 +180,18 @@ FileHelpers::isAbsolute(const std::string &path)
 
 
 int
-FileHelpers::readInt(std::ifstream &strm, bool intelFile)
+FileHelpers::readInt(std::istream &strm, bool intelFile)
 {
     unsigned char buf[4];
     strm.read((char*) &buf, sizeof(char)*4);
 #ifdef SUN
-    if(intelFile) {
+    if(!intelFile) {
         return (buf[3]<<24)|(buf[2]<<16)|(buf[1]<<8)|(buf[0]);
     } else {
         return (buf[0]<<24)|(buf[1]<<16)|(buf[2]<<8)|(buf[3]);
     }
 #else
-    if(intelFile) {
+    if(!intelFile) {
         return (buf[0]<<24)|(buf[1]<<16)|(buf[2]<<8)|(buf[3]);
     } else {
         return (buf[3]<<24)|(buf[2]<<16)|(buf[1]<<8)|(buf[0]);
@@ -177,18 +201,18 @@ FileHelpers::readInt(std::ifstream &strm, bool intelFile)
 
 
 unsigned int
-FileHelpers::readUInt(std::ifstream &strm, bool intelFile)
+FileHelpers::readUInt(std::istream &strm, bool intelFile)
 {
     unsigned char buf[4];
     strm.read((char*) &buf, sizeof(char)*4);
 #ifdef SUN
-    if(intelFile) {
+    if(!intelFile) {
         return (buf[3]<<24)|(buf[2]<<16)|(buf[1]<<8)|(buf[0]);
     } else {
         return (buf[0]<<24)|(buf[1]<<16)|(buf[2]<<8)|(buf[3]);
     }
 #else
-    if(intelFile) {
+    if(!intelFile) {
         return (buf[0]<<24)|(buf[1]<<16)|(buf[2]<<8)|(buf[3]);
     } else {
         return (buf[3]<<24)|(buf[2]<<16)|(buf[1]<<8)|(buf[0]);
@@ -198,12 +222,12 @@ FileHelpers::readUInt(std::ifstream &strm, bool intelFile)
 
 
 float
-FileHelpers::readFloat(std::ifstream &strm, bool intelFile)
+FileHelpers::readFloat(std::istream &strm, bool intelFile)
 {
     float flt;
     strm.read((char*) &flt, sizeof(char)*4);
 #ifdef SUN
-    if(intelFile) {
+    if(!intelFile) {
         float flt2;
         ((char*) &flt2)[0] = ((char*) &flt)[3];
         ((char*) &flt2)[1] = ((char*) &flt)[2];
@@ -214,25 +238,83 @@ FileHelpers::readFloat(std::ifstream &strm, bool intelFile)
         return flt;
     }
 #else
-    if(intelFile) {
+    if(!intelFile) {
         return flt;
     } else {
-        float flt2;
+        return flt;
+        /*
         ((char*) &flt2)[0] = ((char*) &flt)[3];
         ((char*) &flt2)[1] = ((char*) &flt)[2];
         ((char*) &flt2)[2] = ((char*) &flt)[1];
         ((char*) &flt2)[3] = ((char*) &flt)[0];
         return flt2;
+        */
     }
 #endif
 }
 
 unsigned char
-FileHelpers::readByte(std::ifstream &strm)
+FileHelpers::readByte(std::istream &strm)
 {
     unsigned char chr;
     strm >> chr;
     return chr;
+}
+
+
+std::string
+FileHelpers::readString(std::istream &strm, bool intelFile)
+{
+    int size = readInt(strm, intelFile);
+    if(size<BUF_MAX) {
+        strm.read((char*) &gBuf, sizeof(char)*size);
+        gBuf[size] = 0;
+        return std::string(gBuf);
+    }
+    throw 1;
+}
+
+
+std::ostream &
+FileHelpers::writeInt(std::ostream &strm, int value)
+{
+    strm.write((char*) &value, sizeof(char)*4);
+    return strm;
+}
+
+
+std::ostream &
+FileHelpers::writeUInt(std::ostream &strm, unsigned int value)
+{
+    strm.write((char*) &value, sizeof(char)*4);
+    return strm;
+}
+
+
+std::ostream &
+FileHelpers::writeFloat(std::ostream &strm, float value)
+{
+    strm.write((char*) &value, sizeof(char)*4);
+    return strm;
+}
+
+
+std::ostream &
+FileHelpers::writeByte(std::ostream &strm, unsigned char value)
+{
+    strm.write((char*) &value, sizeof(char)*1);
+    return strm;
+}
+
+
+std::ostream &
+FileHelpers::writeString(std::ostream &strm, const std::string &value)
+{
+    int size = value.length();
+    const char *cstr = value.c_str();
+    writeUInt(strm, size);
+    strm.write((char*) cstr, sizeof(char)*size);
+    return strm;
 }
 
 

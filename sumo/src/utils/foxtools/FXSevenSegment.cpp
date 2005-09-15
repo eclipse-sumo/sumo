@@ -37,6 +37,10 @@
 */
 using namespace FX;
 #include "FXSevenSegment.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 using namespace FXEX;
 namespace FXEX {
 

@@ -1,7 +1,7 @@
-#ifndef NLNetBuilder_h
-#define NLNetBuilder_h
+#ifndef NLBuilder_h
+#define NLBuilder_h
 /***************************************************************************
-                          NLNetBuilder.h
+                          NLBuilder.h
               Container for MSNet during its building
                              -------------------
     project              : SUMO
@@ -20,11 +20,24 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.11  2005/05/04 08:41:33  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
+// Revision 1.1  2005/09/15 12:04:36  dkrajzew
+// LARGE CODE RECHECK
 //
-// Revision 1.10  2004/11/23 10:12:46  dkrajzew
-// new detectors usage applied
+// Revision 1.5  2005/09/09 12:58:18  dksumo
+// new loading scheme implemented
+//
+// Revision 1.4  2005/08/01 13:00:34  dksumo
+// further triggers added; loading and saving of mesostate added
+//
+// Revision 1.3  2005/04/26 07:43:21  dksumo
+// SUMOTime inserted; level3 warnings patched; loading lane geometry into
+//  microsim
+//
+// Revision 1.2  2004/11/22 12:33:28  dksumo
+// tried to simplify the usage of detectors - merging mean lane data
+//
+// Revision 1.1  2004/10/22 12:50:20  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.9  2004/07/02 09:37:31  dkrajzew
 // work on class derivation (for online-routing mainly)
@@ -111,6 +124,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <map>
 #include <vector>
@@ -120,6 +137,7 @@
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <microsim/MSNet.h>
 #include "NLLoadFilter.h"
+#include "NLGeomShapeBuilder.h"
 
 
 /* =========================================================================
@@ -142,47 +160,57 @@ class OptionsCont;
 class NLNetHandler;
 class NLEdgeControlBuilder;
 class NLJunctionControlBuilder;
+class NLDetectorBuilder;
+class NLTriggerBuilder;
+class MSRouteLoader;
+class GNEImageProcWindow;
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * @class NLNetBuilder
+ * @class NLBuilder
  * The class is the main interface to load simulations.
- * It is a black-box where only the options must be supplied on the
- * constructor call
- * It is assumed that the simulation is stored in a XML-file.
+ * It is a black-box where only the options and factories must be supplied
+ * on the constructor call
  */
-class NLNetBuilder {
+class NLBuilder {
 public:
     /// constructor
-    NLNetBuilder(const OptionsCont &oc,
-        NLEdgeControlBuilder &eb, NLJunctionControlBuilder &jb);
+    NLBuilder(const OptionsCont &oc, MSNet &net,
+        NLEdgeControlBuilder &eb, NLJunctionControlBuilder &jb,
+        NLDetectorBuilder &db, NLTriggerBuilder &tb,
+        NLGeomShapeBuilder &sb);
 
     /// Destructor
-    virtual ~NLNetBuilder();
+    virtual ~NLBuilder();
 
     /// the net loading method
-    virtual MSNet *buildNet(MSVehicleControl *vc);
+    virtual bool build();
+
+    /// Closes the net building process
+    bool buildNet(NLNetHandler &handler, GNEImageProcWindow &t);
 
 protected:
-    /// counts the structures and preallocates them
-//    bool load(NLNetHandler &handler, SAX2XMLReader &parser);
-
     /// loads a described subpart form the given list of files
-    bool load(LoadFilter what, const std::string &files,
+    bool load(const std::string &mmlWhat, NLLoadFilter what,
+        const std::string &files,
         NLNetHandler &handler, SAX2XMLReader &parser);
 
     /// parses the files using the given initialised parser
-    bool parse(const std::string &files,
+    bool parse(const std::string &mmlWhat, const std::string &files,
         NLNetHandler &handler, SAX2XMLReader &parser);
-
-    /// returns the data name that accords to the given enum
-    std::string getDataName(LoadFilter forWhat);
 
     /// reports the process (done or failure)
     void subreport(const std::string &ok, const std::string &wrong) ;
+
+    /// Closes the net building process
+    bool buildNet(NLNetHandler &handler);
+
+    /// Builds the route loader control
+    MSRouteLoaderControl *buildRouteLoaderControl(const OptionsCont &oc);
+
 
 protected:
     /// the options to get the names from
@@ -194,12 +222,24 @@ protected:
     /// The junction control builder to use
     NLJunctionControlBuilder &myJunctionBuilder;
 
-private:
-    /** invalid copy operator */
-    NLNetBuilder(const NLNetBuilder &s);
+    /// The detector control builder to use
+    NLDetectorBuilder &myDetectorBuilder;
 
-    /** invalid assignment operator */
-    NLNetBuilder &operator=(const NLNetBuilder &s);
+    /// The trigger control builder to use
+    NLTriggerBuilder &myTriggerBuilder;
+
+    /// The geometry shapes builder to use
+    NLGeomShapeBuilder &myShapeBuilder;
+
+    /// The net to fill
+    MSNet &myNet;
+
+private:
+    /** invalidated copy operator */
+    NLBuilder(const NLBuilder &s);
+
+    /** invalidated assignment operator */
+    NLBuilder &operator=(const NLBuilder &s);
 
 };
 

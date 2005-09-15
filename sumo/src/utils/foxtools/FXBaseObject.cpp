@@ -39,6 +39,10 @@
 */
 using namespace FX;
 #include "FXBaseObject.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 using namespace FXEX;
 namespace FXEX {
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/15 12:18:59  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/07/12 12:49:08  dkrajzew
 // code style adapted
 //
@@ -36,12 +39,20 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsParser.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/DevHelper.h>
 #include "GUIFrame.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -55,6 +66,7 @@ GUIFrame::fillInitOptions(OptionsCont &oc)
     oc.doRegister("max-gl-height", 'h', new Option_Integer(1024));
     oc.doRegister("quit-on-end", 'Q', new Option_Bool(false));
     oc.doRegister("surpress-end-info", 'S', new Option_Bool(false));
+    oc.doRegister("no-start", 'N', new Option_Bool(false));
     oc.doRegister("help", '?', new Option_Bool(false));
     oc.doRegister("configuration", 'c', new Option_FileName());
     oc.doRegister("print-options", 'p', new Option_Bool(false));

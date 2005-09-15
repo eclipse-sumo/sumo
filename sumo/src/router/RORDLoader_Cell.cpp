@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/15 12:05:11  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/05/04 08:50:05  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -76,7 +79,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -89,8 +92,8 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/convert/STRConvert.h>
 #include <utils/convert/ToString.h>
+#include <utils/convert/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
 #include "RORoute.h"
 #include "RORouteDef_Alternatives.h"
@@ -98,6 +101,10 @@ namespace
 #include "RONet.h"
 #include "RORDLoader_Cell.h"
 #include "ROVehicleBuilder.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -304,7 +311,7 @@ RORDLoader_Cell::report(const std::string &result)
 {
     if(_hasIndexFile) {
         try {
-            _routes.push_back(STRConvert::_2int(result)); // !!!
+            _routes.push_back(TplConvert<char>::_2int(result.c_str())); // !!!
         } catch (NumberFormatException) {
             MsgHandler::getErrorInstance()->inform(
                 string("Your '") + _routeIdxFile + string("' contains non-digits."));

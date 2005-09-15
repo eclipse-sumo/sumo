@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/09/15 12:20:59  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2004/11/23 10:35:28  dkrajzew
 // debugging
 //
@@ -33,10 +36,13 @@
 // Revision 1.1  2002/07/25 08:55:42  dkrajzew
 // support for Visum7.5 & Cell import added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <string>
 

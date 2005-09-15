@@ -30,11 +30,13 @@
 namespace
 {
     const char rcsid[] =
-    "";
+    "$Id$";
 }
+// $Log$
+// Revision 1.7  2005/09/15 12:04:48  dkrajzew
+// LARGE CODE RECHECK
 //
-
-
+//
 /* =========================================================================
  * some defines
  * ======================================================================= */
@@ -48,7 +50,15 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <utils/common/SUMOTime.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 typedef int (*CMPFUN)(SUMOTime, SUMOTime);
 

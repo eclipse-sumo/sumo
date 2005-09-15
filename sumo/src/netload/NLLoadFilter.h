@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/09/15 12:04:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/05/04 08:41:33  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -55,15 +58,15 @@
 // Revision 1.2  2002/04/16 06:50:20  dkrajzew
 // documentation added; coding standard attachements added
 //
-//
 /* =========================================================================
  * definitions
  * ======================================================================= */
 /**
+ * @enum NLLoadFilter
  * The load filter is an information given to the handler to describe which
  * types of data shall be loaded.
  */
-enum LoadFilter {
+enum NLLoadFilter {
     /** load all known data */
     LOADFILTER_ALL = 255,
 

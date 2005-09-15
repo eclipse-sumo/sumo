@@ -23,6 +23,9 @@ namespace
 		 "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 12:13:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/04/28 09:02:47  dkrajzew
 // level3 warnings removed
 //
@@ -44,6 +47,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
 #include <sax2/XMLReaderFactory.hpp>
 #include <util/PlatformUtils.hpp>
@@ -51,6 +58,10 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/GenericSAX2Handler.h>
 #include "XMLHelpers.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 12:19:55  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/07/12 11:55:37  dkrajzew
 // fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
 //
@@ -65,6 +68,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <fx.h>
 #include <cassert>
 #include "GUIIcons.h"
@@ -153,6 +160,10 @@ namespace
 #include "vlimit_180.cpp"
 */
 //#include "vlimit_200.cpp"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

@@ -1,5 +1,13 @@
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MFXEventQue.h"
 #include <cassert>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 void *
 MFXEventQue::top()

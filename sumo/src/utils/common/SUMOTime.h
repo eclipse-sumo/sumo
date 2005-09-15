@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/15 12:13:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/07/12 12:43:49  dkrajzew
 // code style adapted
 //
@@ -53,6 +56,13 @@ typedef int SUMOTime;
 
 // x*deltaT
 #define STEP2TIME(x) x
+
+
+
+
+#define GET_XML_SUMO_TIME getInt
+#define GET_XML_SUMO_TIME_SECURE getIntSecure
+
 
 /* =========================================================================
  * type definitions

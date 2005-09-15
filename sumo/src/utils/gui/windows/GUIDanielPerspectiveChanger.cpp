@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/15 12:20:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/05/04 09:23:41  dkrajzew
 // entries for viewport definition added; popups now popup faster
 //
@@ -53,18 +56,28 @@
 // some statistics added; some debugging done
 //
 // Revision 1.6  2003/04/16 09:50:04  dkrajzew
-// centering of the network debugged; additional parameter of maximum display size added
+// centering of the network debugged; additional parameter of maximum
+//  display size added
 //
 // Revision 1.5  2003/04/04 08:37:49  dkrajzew
-// view centering now applies net size; closing problems debugged; comments added; tootip button added
+// view centering now applies net size; closing problems debugged;
+//  comments added; tootip button added
 //
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
 #include "GUIPerspectiveChanger.h"
 #include "GUIDanielPerspectiveChanger.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

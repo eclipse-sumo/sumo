@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/15 12:13:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/04/28 09:02:46  dkrajzew
 // level3 warnings removed
 //
@@ -50,11 +53,19 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <vector>
 #include <iostream> // !!! debug only
 #include "UtilExceptions.h"
 #include "StringTokenizer.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/15 12:05:34  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2004/11/23 10:26:59  dkrajzew
 // debugging
 //
@@ -29,12 +32,11 @@
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <set>

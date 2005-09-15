@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2005/09/15 12:02:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.13  2005/04/27 11:48:26  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -42,7 +45,8 @@
 // yellow traffic lights implemented
 //
 // Revision 1.6  2003/04/07 12:15:45  dkrajzew
-// first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
+// first steps towards a junctions geometry; tyellow removed again,
+//  traffic lights have yellow times given explicitely, now
 //
 // Revision 1.5  2003/04/01 15:15:23  dkrajzew
 // some documentation added
@@ -66,7 +70,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <vector>

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2005/09/15 12:02:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.16  2005/04/27 11:48:25  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -34,7 +37,8 @@ namespace
 // made some deprovements or so
 //
 // Revision 1.13  2004/07/02 09:32:26  dkrajzew
-// mapping of joined edges names added; removal of edges with a too low speed added
+// mapping of joined edges names added; removal of edges with a too low
+//  speed added
 //
 // Revision 1.12  2004/02/16 13:58:22  dkrajzew
 // some further work on edge geometry
@@ -52,13 +56,15 @@ namespace
 // removed some warnings
 //
 // Revision 1.7  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of geometry information
+// some further refinements due to the new 1:N traffic lights and usage of
+//  geometry information
 //
 // Revision 1.6  2003/06/05 11:43:34  dkrajzew
 // class templates applied; documentation added
 //
 // Revision 1.5  2003/04/04 07:43:03  dkrajzew
-// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+// Yellow phases must be now explicetely given; comments added;
+//  order of edge sorting (false lane connections) debugged
 //
 // Revision 1.4  2003/03/17 14:22:32  dkrajzew
 // further debug and windows eol removed
@@ -73,7 +79,8 @@ namespace
 // initial commit for net building classes
 //
 // Revision 1.4  2002/06/11 16:00:41  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+// windows eol removed; template class definition inclusion depends now on
+//  the EXTERNAL_TEMPLATE_DEFINITION-definition
 //
 // Revision 1.3  2002/05/14 04:42:54  dkrajzew
 // new computation flow
@@ -105,11 +112,19 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <map>
 #include <cassert>
 #include "NBContHelper.h"
 #include <utils/geom/GeomHelper.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

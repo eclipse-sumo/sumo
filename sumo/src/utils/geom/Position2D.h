@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2005/09/15 12:18:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.12  2004/11/23 10:34:46  dkrajzew
 // debugging
 //
@@ -63,7 +66,7 @@
 #include <cmath>
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 /* =========================================================================
@@ -150,8 +153,10 @@ public:
     }
 
     void reshiftRotate(double xoff, double yoff, double rot) {
-        _x = _x * cos(rot) + _y * sin(rot) + xoff;
-        _y = _y * cos(rot) - _x * sin(rot) + yoff;
+        float x = _x * cos(rot) + _y * sin(rot) + xoff;
+        float y = _y * cos(rot) - _x * sin(rot) + yoff;
+        _x = x;
+        _y = y;
     }
 
 

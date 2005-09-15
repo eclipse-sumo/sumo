@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2005/09/15 12:20:59  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.9  2005/05/04 09:25:27  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -54,6 +57,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <fstream>
 

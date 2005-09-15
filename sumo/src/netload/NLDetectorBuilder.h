@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2005/09/15 12:04:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.15  2005/07/12 12:36:12  dkrajzew
 // made errors on detector building more readable
 //
@@ -95,6 +98,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <microsim/MSNet.h>
 #include <microsim/output/e2_detectors/MSE2Collector.h>
@@ -104,9 +111,17 @@
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class MSInductionLoop;
+class MSInductLoop;
 class MS_E2_ZS_CollectorOverLanes;
 class MSTrafficLightLogic;
+class MSDetectorControl;
+class MELoop;
+class MSLane;
+
+#ifdef HAVE_MESOSIM
+class MEInductLoop;
+class MESegment;
+#endif
 
 
 /* =========================================================================
@@ -114,7 +129,7 @@ class MSTrafficLightLogic;
  * ======================================================================= */
 /**
  * @class NLDetectorBuilder
- * This class builds the detectors from their descriptions
+ * This class builds detectors and stores them within the given net
  */
 class NLDetectorBuilder {
 public:
@@ -127,7 +142,7 @@ public:
 public:
 
     /// Constructor
-    NLDetectorBuilder();
+    NLDetectorBuilder(MSNet &net);
 
     /// Destructor
     virtual ~NLDetectorBuilder();
@@ -153,7 +168,7 @@ public:
     void buildE2Detector(const SSVMap &laneConts,
         const std::string &id,
         const std::string &lane, double pos, double length,
-        bool cont, MSTrafficLightLogic *tll,
+        bool cont, MSTrafficLightLogic * const tll,
         const std::string &/*style*/, OutputDevice *device,
         const std::string &measures,
         MSUnit::Seconds haltingTimeThreshold,
@@ -165,7 +180,7 @@ public:
     void buildE2Detector(const SSVMap &laneConts,
         const std::string &id,
         const std::string &lane, double pos, double length,
-        bool cont, MSTrafficLightLogic *tll,
+        bool cont, MSTrafficLightLogic * const tll,
         const std::string &tolane,
         const std::string &style, OutputDevice *device,
         const std::string &measures,
@@ -182,7 +197,10 @@ public:
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         SUMOTime deleteDataAfterSeconds);
 
+    /// builds an entry point of an e3 detector
     void addE3Entry(const std::string &lane, double pos);
+
+    /// builds an exit point of an e3 detector
     void addE3Exit(const std::string &lane, double pos);
 
     /// Builds of an e3-detector using collected values
@@ -234,6 +252,12 @@ public:
     virtual MSInductLoop *createInductLoop(const std::string &id,
         MSLane *lane, double pos, int splInterval);
 
+#ifdef HAVE_MESOSIM
+    /// Creates the instance of an induct loop (overwritten by gui version)
+    virtual MEInductLoop *createMEInductLoop(const std::string &id,
+        MESegment *s, double pos, int splInterval);
+#endif
+
     /// Creates the instance of a single-lane-e2-detector (overwritten by gui version)
     virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, double pos, double length,
@@ -262,8 +286,14 @@ public:
 /*     static MSDetector::OutputStyle convertStyle(const std::string &id,
          const std::string &style);*/
 
+    /**
+     * @class E3DetectorDefinition
+     * This class holds the incoming definitions of an e3 detector unless
+     *  the detector is build.
+     */
     class E3DetectorDefinition {
     public:
+        /// Constructor
         E3DetectorDefinition(const std::string &id,
             OutputDevice *device,
             MSUnit::Seconds haltingTimeThreshold,
@@ -272,10 +302,14 @@ public:
             const E3MeasuresVector &measures,
             int splInterval);
 
+        /// Destructor
         ~E3DetectorDefinition();
 
+        /// The id of the detector
         std::string myID;
+        /// The device the detector shall use
         OutputDevice *myDevice;
+        //{ further detector descriptions
         MSUnit::Seconds myHaltingTimeThreshold;
         MSUnit::MetersPerSecond myHaltingSpeedThreshold;
         SUMOTime myDeleteDataAfterSeconds;
@@ -283,23 +317,30 @@ public:
         Detector::CrossSections myEntries;
         Detector::CrossSections myExits;
         int mySampleInterval;
+        //}
 
     };
 
 protected:
-    /// @brief Returns the named lane; throws an exception if the lane does not exist
+    /** @brief Returns the named lane;
+        throws an exception if the lane does not exist */
     MSLane *getLaneChecking(const std::string &id,
         const std::string &detid);
 
     /// Converts the length and the position information for an uncontiuating detector
     void convUncontE2PosLength(const std::string &id, MSLane *clane,
-        double &pos, double &length);
+        double pos, double length);
 
     /// Converts the length and the position information for an contiuating detector
     void convContE2PosLength(const std::string &id, MSLane *clane,
-        double &pos, double &length);
+        double pos, double length);
+
+protected:
+    /// The net to fill
+    MSNet &myNet;
 
 private:
+    /// definition of the currently parsed e3-detector
     E3DetectorDefinition *myE3Definition;
 
 };

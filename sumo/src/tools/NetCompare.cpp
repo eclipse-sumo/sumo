@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        NetCompare.h -
-//  
+//
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Jun 2005
@@ -28,14 +28,22 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "NetCompare.h"
-#include <iostream> 
-#include <fstream> 
-#include <string> 
+#include <iostream>
+#include <fstream>
+#include <string>
 #include <map>
 #include <stdlib.h>
 #include <direct.h>
 #include <math.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -53,13 +61,13 @@ NetCompare::DictTypeJunction NetCompare::myJunctionDictB;
 // Constructor/Destructor
 //////////////////////////////////////////////////////////////////////
 
-NetCompare::NetCompare(const char *netA, const char *netB) 
+NetCompare::NetCompare(const char *netA, const char *netB)
         : net_a(netA), net_b(netB)
 {
 }
 
 NetCompare::~NetCompare()
-{    
+{
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -72,23 +80,23 @@ NetCompare::load(void)
 {
 	loadNet(net_a,1);
 	loadNet(net_b,2);
-	
+
 }
 
 
 void
 NetCompare::loadNet(const char *net, int dic)
-{   
+{
 	char buffer[_MAX_PATH];
 	getcwd(buffer,_MAX_PATH);
 	cout<<"Current directory is "<<buffer<<endl;
 
 	ifstream out(net);
-	
-    if (!out) { 
-      cerr << "cannot open file: " << net <<endl; 
-      exit(-1); 
-	} 
+
+    if (!out) {
+      cerr << "cannot open file: " << net <<endl;
+      exit(-1);
+	}
 
 	std::string buff;
     cout<<endl<<"=====================Loading "<<net<< "============================="<<endl;
@@ -150,14 +158,14 @@ NetCompare::convertA(void)
         throw 1;
     }
 	Junction *j1 = (*i).second;
-   	
+
 	i = myJunctionDictA.find(juncA2);
     if(i==myJunctionDictA.end()) {
         cout << "Could not find junction '" << juncA2 << "'!" << endl;
         throw 1;
     }
 	Junction *j2 = (*i).second;
-	
+
 	i = myJunctionDictA.find(juncA3);
     if(i==myJunctionDictA.end()) {
         cout << "Could not find junction '" << juncA3 << "'!" << endl;
@@ -193,7 +201,7 @@ NetCompare::convertA(void)
 }
 
 /// compare all value to find the NetCompare point
-/// write results in a file 
+/// write results in a file
 void
 NetCompare::convertB(void)
 {
@@ -206,14 +214,14 @@ NetCompare::convertB(void)
         throw 1;
     }
 	Junction *j1 = (*i).second;
-   	
+
 	i = myJunctionDictB.find(juncB2);
     if(i==myJunctionDictB.end()) {
         cout << "Could not find junction '" << juncB2 << "'!" << endl;
         throw 1;
     }
 	Junction *j2 = (*i).second;
-	
+
 	i = myJunctionDictB.find(juncB3);
     if(i==myJunctionDictB.end()) {
         cout << "Could not find junction '" << juncB3 << "'!" << endl;
@@ -234,7 +242,7 @@ NetCompare::convertB(void)
     cout <<" ymin "<<ymin<<endl;
 	cout <<" ymax "<<ymax<<endl;
     cout <<" ywidth "<<yw<<endl;
-	
+
 	for(DictTypeJunction::iterator j=myJunctionDictB.begin(); j!=myJunctionDictB.end(); j++) {
 		cout<<"-----------------------------------------"<<endl;
 		cout <<"Junction ID = "<<(*j).second->id<<endl;
@@ -244,10 +252,10 @@ NetCompare::convertB(void)
         cout <<"       neue x= "<< nx <<" alte y= "<< ny<<endl;
         ((*j).second->pos).set(nx,ny);
 	}
-	
+
 }
 
-void 
+void
 NetCompare::result(const char *output){
 	ofstream out(output);
 	for(DictTypeJunction::iterator i=myJunctionDictA.begin(); i!=myJunctionDictA.end(); i++) {
@@ -259,8 +267,8 @@ NetCompare::result(const char *output){
 			 double nabstand = sqrt(X+Y);
 			 if(nabstand < minAbstand ){
 				 minAbstand = nabstand;
-				 id = (*j).second->id;			
-			 }     
+				 id = (*j).second->id;
+			 }
 		 }
 		 out<<(*i).second->id << ":" << id <<endl;
 		 cout <<(*i).second->id <<"    Aequivalent zu    "<< id <<endl;
@@ -308,14 +316,14 @@ NetCompare::minValue(double a, double b, double c)
 /* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
-int main(int argc, char** argv) 
-{ 
-	
-	if (argc!=7) { 
-    cerr << " syntax error please use:"   
-		 << " NetCompare <netA> <netB> <junctionA1>:<junctionB1> " 
-         << "            <junctionA2>:<junctionB2> <junctionA3>:<junctionB3> <output-file>" << endl; 
-      return -1; 
+int main(int argc, char** argv)
+{
+
+	if (argc!=7) {
+    cerr << " syntax error please use:"
+		 << " NetCompare <netA> <netB> <junctionA1>:<junctionB1> "
+         << "            <junctionA2>:<junctionB2> <junctionA3>:<junctionB3> <output-file>" << endl;
+      return -1;
     }
 
 	std::string arg3 = argv[3];
@@ -324,8 +332,8 @@ int main(int argc, char** argv)
 
 	NetCompare *app = new NetCompare(argv[1],argv[2]);
 
-	app->setJunctionA(arg3.substr(0,arg3.find(":")), 
-		              arg4.substr(0,arg4.find(":")), 
+	app->setJunctionA(arg3.substr(0,arg3.find(":")),
+		              arg4.substr(0,arg4.find(":")),
 		              arg5.substr(0,arg5.find(":")));
 	app->setJunctionB(arg3.substr(arg3.find(":")+1, arg3.length() - arg3.find(":")-1),
 		              arg4.substr(arg4.find(":")+1, arg4.length() - arg4.find(":")-1),

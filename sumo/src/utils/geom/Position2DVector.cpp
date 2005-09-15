@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2005/09/15 12:18:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.28  2005/07/12 12:44:17  dkrajzew
 // access function improved
 //
@@ -57,7 +60,8 @@ namespace
 // catching the case of not crossing lines on concatanation
 //
 // Revision 1.20  2003/12/09 11:33:49  dkrajzew
-// made the assignment operator and copy constructor explicite in the wish to save memory
+// made the assignment operator and copy constructor explicite in the wish to
+//  save memory
 //
 // Revision 1.19  2003/11/18 14:21:20  dkrajzew
 // computation of junction-inlanes geometry added
@@ -66,7 +70,8 @@ namespace
 // some further methods implemented
 //
 // Revision 1.17  2003/10/21 14:39:11  dkrajzew
-// the rotation information now returns the last valid value if the length is exceeded
+// the rotation information now returns the last valid value if the length
+//  is exceeded
 //
 // Revision 1.16  2003/10/17 06:50:02  dkrajzew
 // patched the false usage of a reference
@@ -108,7 +113,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <queue>
@@ -122,6 +127,10 @@ namespace
 #include "GeomHelper.h"
 #include "Line2D.h"
 #include "Helper_ConvexHull.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -582,8 +591,8 @@ Position2DVector::convexHull() const
 {
     Position2DVector ret = *this;
     ret.sortAsPolyCWByAngle();
-    return simpleHull_2D(ret);
-    /*
+	return simpleHull_2D(ret);
+	/*
     if(size()==0) {
         return Position2DVector();
     }
@@ -664,10 +673,10 @@ Position2DVector::convexHull() const
             else
                 top--; // pop top point off stack
         }
-        ++top; // !!! malfunc begin
-        if(top<inp.size()) {
-            ret.set(top, inp.at(i)); // push P[i] onto stack
-        }// !!! malfunc begin
+		++top; // !!! malfunc begin
+		if(top<inp.size()) {
+	        ret.set(top, inp.at(i)); // push P[i] onto stack
+		}// !!! malfunc begin
     }
     if (minmax != minmin)
         ret.set(++top, inp.at(minmin)); // push joining endpoint onto stack
@@ -708,24 +717,26 @@ Position2DVector::intersectsAtPoints(const Position2D &p1,
 }
 
 
-void
+int
 Position2DVector::appendWithCrossingPoint(const Position2DVector &v)
 {
     if(GeomHelper::distance(myCont[myCont.size()-1], v.myCont[0])<0.1) {
         copy(v.myCont.begin()+1, v.myCont.end(), back_inserter(myCont));
-        return;
+        return 1;
     }
     //
     Line2D l1(myCont[myCont.size()-2], myCont[myCont.size()-1]);
     l1.extrapolateBy(100);
     Line2D l2(v.myCont[0], v.myCont[1]);
     l2.extrapolateBy(100);
-    if(l1.intersects(l2)&&l1.intersectsAtLength(l2)<10) { // !!! heuristic
+    if(l1.intersects(l2)&&l1.intersectsAtLength(l2)<l1.length()-100) { // !!! heuristic
         Position2D p = l1.intersectsAt(l2);
         myCont[myCont.size()-1] = p;
         copy(v.myCont.begin()+1, v.myCont.end(), back_inserter(myCont));
+        return 2;
     } else {
         copy(v.myCont.begin(), v.myCont.end(), back_inserter(myCont));
+        return 3;
     }
 }
 
@@ -883,28 +894,33 @@ Position2DVector::beginEndAngle() const
 
 
 void
-Position2DVector::eraseAt(size_t i)
+Position2DVector::eraseAt(int i)
 {
-    myCont.erase(myCont.begin()+i);
+    if(i>=0) {
+        myCont.erase(myCont.begin()+i);
+    } else {
+        myCont.erase(myCont.end()+i);
+    }
 }
 
 
 double
 Position2DVector::nearest_position_on_line_to_point(const Position2D &p) const
 {
-    double shortestDist = 10000000;
-    double nearestPos = 10000;
+    double shortestDist = -1;
+    double nearestPos = -1;
     double seen = 0;
     for(ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
-        double pos = seen +
+        double pos =
             GeomHelper::nearest_position_on_line_to_point(*i, *(i+1), p);
         double dist =
-            GeomHelper::distance(p, positionAtLengthPosition(pos));
+            pos < 0 ? -1 : GeomHelper::distance(p, positionAtLengthPosition(pos+seen));
         //
-        if(shortestDist<dist) {
-            nearestPos = pos;
+        if(dist>=0&&(shortestDist<0||shortestDist>dist)) {
+            nearestPos = pos+seen;
             shortestDist = dist;
         }
+        seen += GeomHelper::distance(*i, *(i+1));
         //
     }
     return nearestPos;
@@ -935,6 +951,7 @@ Position2DVector::distance(const Position2D &p) const
     return shortestDist;
 }
 
+
 DoubleVector
 Position2DVector::intersectsAtLengths(const Position2DVector &s) const
 {
@@ -949,6 +966,7 @@ Position2DVector::intersectsAtLengths(const Position2DVector &s) const
     }
     return ret;
 }
+
 
 DoubleVector
 Position2DVector::intersectsAtLengths(const Line2D &s) const

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/09/15 12:18:59  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.1  2004/11/23 10:38:29  dkrajzew
 // debugging
 //
@@ -51,11 +54,11 @@
 #include <string>
 
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <fx.h>
-#include <helpers/ValueSource.h>
+#include <utils/helpers/ValueSource.h>
 
 
 /* =========================================================================

@@ -1,6 +1,10 @@
 #ifndef MFXMenuHeader_h
 #define MFXMenuHeader_h
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <fx.h>
 
 class MFXMenuHeader : public FXMenuCommand {

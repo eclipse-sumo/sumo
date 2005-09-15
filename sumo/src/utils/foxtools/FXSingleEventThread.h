@@ -1,6 +1,10 @@
 #ifndef FXSingleEventThread_h
 #define FXSingleEventThread_h
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <fx.h>
 #include <FXThread.h>
 #include "fxexdefs.h"

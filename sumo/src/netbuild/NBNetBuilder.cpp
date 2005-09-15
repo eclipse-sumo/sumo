@@ -23,6 +23,10 @@ namespace
     const char rcsid[] =
     "$Id$";
 }
+// $Log$
+// Revision 1.21  2005/09/15 12:02:45  dkrajzew
+// LARGE CODE RECHECK
+//
 //
 /* =========================================================================
  * compiler pragmas
@@ -33,6 +37,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -53,6 +61,10 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/convert/ToString.h>
 #include "NBJoinedEdgesMap.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -230,10 +242,10 @@ NBNetBuilder::recheckLanes(int &step)
 
 
 bool
-NBNetBuilder::computeNodeShapes(int &step)
+NBNetBuilder::computeNodeShapes(int &step, OptionsCont &oc)
 {
     inform(step, "Computing node shapes");
-    return myNodeCont.computeNodeShapes();
+    return myNodeCont.computeNodeShapes(oc);
 }
 
 
@@ -341,7 +353,7 @@ NBNetBuilder::compute(OptionsCont &oc)
     if(ok) ok = computeLanes2Lanes(step);
     if(ok) ok = appendTurnarounds(step, oc);
     if(ok) ok = recheckLanes(step);
-    if(ok) ok = computeNodeShapes(step);
+    if(ok) ok = computeNodeShapes(step, oc);
     if(ok) ok = computeEdgeShapes(step);
 //    if(ok) ok = computeLinkPriorities(step++);
     if(ok) ok = setTLControllingInformation(step);
@@ -497,12 +509,14 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("tls-guess.min-outgoing-speed", new Option_Float((float)(40/3.6)));
     oc.doRegister("tls-guess.max-outgoing-speed", new Option_Float((float)(69/3.6)));
     oc.doRegister("tls-guess.district-nodes", new Option_Bool(false));
-    // tls-shifts
+        // tls-shifts
     oc.doRegister("tl-logics.half-offset", new Option_String());
     oc.doRegister("tl-logics.quarter-offset", new Option_String());
-
+        // explicite tls
     oc.doRegister("explicite-tls", new Option_String());
     oc.doRegister("explicite-no-tls", new Option_String());
+
+    // edge
     oc.doRegister("edges-min-speed", new Option_Float());
     oc.doRegister("keep-edges", new Option_String());
     oc.doRegister("keep-edges.input-file", new Option_FileName());
@@ -516,10 +530,16 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     // ramp guessing options
     oc.doRegister("guess-ramps", new Option_Bool(false));
     oc.doRegister("ramp-guess.max-ramp-speed", new Option_Float(-1));
-    oc.doRegister("ramp-guess.min-highway-speed", new Option_Float((float) (100/3.6)));
+    oc.doRegister("ramp-guess.min-highway-speed", new Option_Float((float) (80/3.6)));
     oc.doRegister("ramp-guess.ramp-length", new Option_Float(100));
 
+    oc.doRegister("guess-obscure-ramps", new Option_Bool(false));
+    oc.doRegister("obscure-ramps.add-ramp", new Option_Bool(false));
+    oc.doRegister("obscure-ramps.min-highway-speed", new Option_Float((float) (100/3.6)));
+
+
     oc.doRegister("plain-output", new Option_FileName());
+    oc.doRegister("node-geometry-dump", new Option_FileName());
 
     oc.doRegister("netbuild.debug", new Option_Integer(0));
 
@@ -602,7 +622,6 @@ NBNetBuilder::getDistrictCont()
 {
     return myDistrictCont;
 }
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

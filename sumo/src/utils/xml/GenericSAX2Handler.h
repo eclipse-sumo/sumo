@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/09/15 12:22:26  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/05/04 09:11:17  dkrajzew
 // speeded up the reading of xml-files
 //
@@ -67,6 +70,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <stack>
 #include <map>

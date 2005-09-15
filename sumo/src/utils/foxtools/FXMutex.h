@@ -22,6 +22,10 @@
 #ifndef FXMUTEX_H
 #define FXMUTEX_H
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "fxexdefs.h"
 
 #ifndef FXLOCKABLE_H

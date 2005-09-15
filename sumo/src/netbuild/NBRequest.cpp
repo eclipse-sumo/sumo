@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2005/09/15 12:02:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.30  2005/07/12 12:32:48  dkrajzew
 // code style adapted; guessing of ramps and unregulated near districts implemented; debugging
 //
@@ -43,7 +46,8 @@ namespace
 // node-building classes are now lying in an own folder
 //
 // Revision 1.24  2003/12/05 10:24:36  dkrajzew
-// false blocking on uncontrolled links being non-foes to controlled ones patched
+// false blocking on uncontrolled links being non-foes to controlled ones
+//  patched
 //
 // Revision 1.23  2003/12/04 13:06:45  dkrajzew
 // work on internal lanes
@@ -158,6 +162,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <vector>
 #include <set>
@@ -178,6 +186,10 @@ namespace
 #include "NBRequest.h"
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -213,9 +225,6 @@ NBRequest::NBRequest(const NBEdgeCont &ec,
 	: _junction(junction),
     _all(all), _incoming(incoming), _outgoing(outgoing)
 {
-    if(junction->getID()=="15031778") {
-        int bla = 0;
-    }
     size_t variations = _incoming->size() * _outgoing->size();
     // we maybe want to keep the junction unregulated
     //  this is mostly the case if Vissim-networks are imported and someone

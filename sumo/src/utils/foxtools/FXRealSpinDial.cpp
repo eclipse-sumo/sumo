@@ -21,6 +21,10 @@
 *********************************************************************************
 * $Id$                   *
 ********************************************************************************/
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <fx.h>
 #include "xincs.h"
 #include "fxver.h"
@@ -40,6 +44,10 @@
 #include "FXRealSpinDial.h"
 
 #include <float.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 /*
   Notes:
   - Based originally on Lyle's FXSpinner.

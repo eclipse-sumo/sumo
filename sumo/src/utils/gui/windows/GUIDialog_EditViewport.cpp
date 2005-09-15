@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/09/15 12:20:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.1  2005/05/04 09:23:41  dkrajzew
 // entries for viewport definition added; popups now popup faster
 //
@@ -39,11 +42,19 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "GUIDialog_EditViewport.h"
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include "GUISUMOAbstractView.h"
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 

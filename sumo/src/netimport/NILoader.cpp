@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/15 12:03:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2005/07/12 12:35:21  dkrajzew
 // elmar2 importer included; debugging
 //
@@ -130,6 +133,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <parsers/SAXParser.hpp>
 #include <util/PlatformUtils.hpp>
@@ -168,6 +175,10 @@ namespace
 #include "NILoader.h"
 #include <netbuild/NLLoadFilter.h>
 #include <utils/convert/TplConvert.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

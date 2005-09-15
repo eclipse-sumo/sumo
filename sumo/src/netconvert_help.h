@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2005/09/15 12:27:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.11  2004/12/20 15:00:37  dkrajzew
 // version patched
 //
@@ -67,7 +70,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 

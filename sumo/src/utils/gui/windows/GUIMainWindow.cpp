@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/15 12:20:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/07/12 12:52:07  dkrajzew
 // code style adapted
 //
@@ -42,10 +45,18 @@ namespace
  * ======================================================================= */
 
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "GUIMainWindow.h"
 #include <algorithm>
 #include "GUIAppEnum.h"
 #include <fx3d.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -55,7 +66,7 @@ namespace
 GUIMainWindow::GUIMainWindow(FXApp* a, int glWidth, int glHeight)
 	: FXMainWindow(a,"SUMO-gui main window",NULL,NULL,DECOR_ALL,20,20,600,400),
     myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER|VISUAL_STEREO)),
-    myGLWidth(glWidth), myGLHeight(glHeight)
+    myGLWidth(glWidth), myGLHeight(glHeight), myRunAtBegin(false)
 {
 
     FXFontDesc fdesc;
@@ -72,6 +83,11 @@ GUIMainWindow::GUIMainWindow(FXApp* a, int glWidth, int glHeight)
 
 GUIMainWindow::~GUIMainWindow()
 {
+    delete myBoldFont;
+    delete myTopDock;
+    delete myBottomDock;
+    delete myLeftDock;
+    delete myRightDock;
 }
 
 

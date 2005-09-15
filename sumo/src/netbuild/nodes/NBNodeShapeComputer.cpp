@@ -4,6 +4,10 @@
 #pragma warning(disable: 4786)
 
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <algorithm>
 #include <utils/geom/Position2DVector.h>
 #include <utils/options/OptionsSubSys.h>
@@ -11,13 +15,19 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/convert/ToString.h>
 #include "NBNode.h"
 #include "NBNodeShapeComputer.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 using namespace std;
 
-NBNodeShapeComputer::NBNodeShapeComputer(const NBNode &node)
-    : myNode(node)
+NBNodeShapeComputer::NBNodeShapeComputer(const NBNode &node,
+                                         std::ofstream * const out)
+    : myNode(node), myOut(out)
 {
 }
 
@@ -69,6 +79,18 @@ NBNodeShapeComputer::compute()
             }
         }
     }*/
+    /*
+    int bla;
+    {
+        const EdgeVector &ev = myNode.getIncomingEdges();
+        for(int i=0; i<ev.size(); ++i) {
+            if(ev[i]->getID()=="15039938") {
+                bla = 0;
+            }
+        }
+    }
+    */
+
     if(isSimpleContinuation(myNode)) {
         ret = computeContinuationNodeShape();
     } else {
@@ -88,6 +110,8 @@ NBNodeShapeComputer::compute()
         }
     }
     if(ret.size()<4) {
+        ret = computeNodeShapeByCrosses();
+        /*
         double maxWidth = myNode.getMaxEdgeWidth();
         Position2D p = myNode.getPosition();
         //
@@ -108,6 +132,17 @@ NBNodeShapeComputer::compute()
         ret.push_back(p1);
 
         ret.closePolygon();
+        */
+    }
+    {
+        if(myOut!=0) {
+            for(int i=0; i<ret.size(); ++i) {
+                (*myOut) << "   <poi id=\"end_" << myNode.getID() << "_"
+                    << toString(i) << "\" type=\"nodeshape.end\" color=\"1,0,1\""
+                    << " x=\"" << ret.at(i).x() << "\" y=\"" << ret.at(i).y() << "\"/>"
+                    << endl;
+            }
+        }
     }
     return ret;
 }
@@ -182,15 +217,35 @@ NBNodeShapeComputer::computeContinuationNodeShape()
             addCCWPoint(ret, inc, MAX2(v1, v2), 1.5);
             addCWPoint(ret, out, MAX2(v1, v2), 1.5);
         }
+        if(myOut!=0) {
+            for(int i=0; i<ret.size(); ++i) {
+                (*myOut) << "   <poi id=\"cont1_" << myNode.getID() << "_" <<
+                    toString<int>(i) << "\" type=\"nodeshape.cont1\" color=\"1,0,0\""
+                    << " x=\"" << ret.at(i).x() << "\" y=\"" << ret.at(i).y() << "\"/>"
+                    << endl;
+            }
+        }
     } else {
-        addCCWPoint(ret,
-            myIncPos.begin()->first, myIncPos.begin()->second, 1.5);
-        addCWPoint(ret,
-            myIncPos.begin()->first, myIncPos.begin()->second, 1.5);
-        addCCWPoint(ret,
-            myOutPos.begin()->first, myOutPos.begin()->second, 1.5);
-        addCWPoint(ret,
-            myOutPos.begin()->first, myOutPos.begin()->second, 1.5);
+        if(myIncPos.size()>0) {
+            addCCWPoint(ret,
+                myIncPos.begin()->first, myIncPos.begin()->second, 1.5);
+            addCWPoint(ret,
+                myIncPos.begin()->first, myIncPos.begin()->second, 1.5);
+        }
+        if(myOutPos.size()>0) {
+            addCCWPoint(ret,
+                myOutPos.begin()->first, myOutPos.begin()->second, 1.5);
+            addCWPoint(ret,
+                myOutPos.begin()->first, myOutPos.begin()->second, 1.5);
+        }
+        if(myOut!=0) {
+            for(int i=0; i<ret.size(); ++i) {
+                (*myOut) << "   <poi id=\"cont2_" << myNode.getID() << "_" <<
+                    toString(i) << "\" type=\"nodeshape.cont2\" color=\"0.5,0,0\""
+                    << " x=\"" << ret.at(i).x() << "\" y=\"" << ret.at(i).y() << "\"/>"
+                    << endl;
+            }
+        }
     }
     return ret;
 }
@@ -239,6 +294,91 @@ NBNodeShapeComputer::computeRealNodeShape()
             addCWPoint(ret, current, used.myCrossingPosition, 1.5);
         }
     }
+    {
+        if(myOut!=0) {
+            for(int i=0; i<ret.size(); ++i) {
+                (*myOut) << "   <poi id=\"real1_" << myNode.getID() << "_" <<
+                    toString(i) << "\" type=\"nodeshape.real1\" color=\"0,1,0\""
+                    << " x=\"" << ret.at(i).x() << "\" y=\"" << ret.at(i).y() << "\"/>"
+                    << endl;
+            }
+        }
+    }
+    return ret;
+}
+
+Position2DVector
+rotateAround(const Position2DVector &what, const Position2D &at, double rot)
+{
+    Position2DVector rret;
+    Position2DVector ret = what;
+    ret.resetBy(-at.x(), -at.y());
+    {
+    float x = ret.at(0).x() * cos(rot) + ret.at(0).y() * sin(rot);
+    float y = ret.at(0).y() * cos(rot) - ret.at(0).x() * sin(rot);
+    rret.push_back(Position2D(x, y));
+    }
+    {
+    float x = ret.at(1).x() * cos(rot) + ret.at(1).y() * sin(rot);
+    float y = ret.at(1).y() * cos(rot) - ret.at(1).x() * sin(rot);
+    rret.push_back(Position2D(x, y));
+    }
+    rret.resetBy(at.x(), at.y());
+    return rret;
+}
+
+Position2DVector
+NBNodeShapeComputer::computeNodeShapeByCrosses()
+{
+    Position2DVector ret;
+    EdgeVector::const_iterator i;
+    for(i=myNode._allEdges.begin(); i!=myNode._allEdges.end(); i++) {
+        // compute crossing with normal
+        {
+            Position2DVector edgebound = (*i)->getCCWBoundaryLine(myNode, 1.5);
+            Position2DVector cross;
+            cross.push_back(edgebound.at(0));
+            cross.push_back(edgebound.at(1));
+            cross = rotateAround(cross, myNode.getPosition(), 90/180.*3.1415926535897932384626433832795);
+            if(cross.intersects(edgebound)) {
+                ret.push_back(cross.intersectsAtPoint(edgebound));
+            } else {
+                Position2DVector cross2 = cross;
+                cross2.extrapolate(500);
+                edgebound.extrapolate(500);
+                if(cross2.intersects(edgebound)) {
+                   ret.push_back(cross2.intersectsAtPoint(edgebound));
+                }
+            }
+        }
+        {
+            Position2DVector edgebound = (*i)->getCWBoundaryLine(myNode, 1.5);
+            Position2DVector cross;
+            cross.push_back(edgebound.at(0));
+            cross.push_back(edgebound.at(1));
+            cross = rotateAround(cross, myNode.getPosition(), 90/180.*3.1415926535897932384626433832795);
+            if(cross.intersects(edgebound)) {
+                ret.push_back(cross.intersectsAtPoint(edgebound));
+            } else {
+                Position2DVector cross2 = cross;
+                cross2.extrapolate(500);
+                edgebound.extrapolate(500);
+                if(cross2.intersects(edgebound)) {
+                   ret.push_back(cross2.intersectsAtPoint(edgebound));
+                }
+            }
+        }
+    }
+    {
+        if(myOut!=0) {
+            for(int i=0; i<ret.size(); ++i) {
+                (*myOut) << "   <poi id=\"cross1_" << myNode.getID() << "_" <<
+                    toString(i) << "\" type=\"nodeshape.cross1\" color=\"0,0,1\""
+                    << " x=\"" << ret.at(i).x() << "\" y=\"" << ret.at(i).y() << "\"/>"
+                    << endl;
+            }
+        }
+    }
     return ret;
 }
 
@@ -284,7 +424,7 @@ NBNodeShapeComputer::getEdgeNeighborCrossings(
         NBContHelper::nextCCW(&(myNode._allEdges), ri);
         //  check the clockwise edge
         NBContHelper::nextCW(&(myNode._allEdges), li);
-        if(current->isTurningDirectionAt(&myNode, *li)) {
+        while(current->isTurningDirectionAt(&myNode, *li)/*||(current->isAlmostSameDirectionAt(&myNode, *li)&&myNode._allEdges.size()>2)*/) {
             mli = li;
             cb = (*li)->getCWBoundaryLine(myNode, 2.5);
             NBContHelper::nextCW(&(myNode._allEdges), li);
@@ -293,7 +433,7 @@ NBNodeShapeComputer::getEdgeNeighborCrossings(
         cl = (*li)->getCCWBoundaryLine(myNode, 2.5);
     } else {
         NBContHelper::nextCCW(&(myNode._allEdges), ri);
-        if((*ri)->isTurningDirectionAt(&myNode, current)) {
+        while((*ri)->isTurningDirectionAt(&myNode, current)/*||((*ri)->isAlmostSameDirectionAt(&myNode, current)&&myNode._allEdges.size()>2)*/) {
             mri = ri;
             ccb = (*ri)->getCCWBoundaryLine(myNode, 2.5);
             NBContHelper::nextCCW(&(myNode._allEdges), ri);

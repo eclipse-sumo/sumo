@@ -23,19 +23,29 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/15 12:20:59  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2004/03/19 13:02:06  dkrajzew
 // some style adaptions
 //
 // Revision 1.1  2004/01/26 07:22:46  dkrajzew
 // added a class theat allows to use csv-files more easily
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "CSVHelpers.h"
 #include "LineHandler.h"
 #include "LineReader.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/15 12:04:48  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2005/05/04 08:44:57  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -44,14 +47,11 @@ namespace
 // Revision 1.2  2003/02/07 10:44:19  dkrajzew
 // updated
 //
-//
-
-
 /* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 #include <vector>
 #include <string>
@@ -60,6 +60,10 @@ namespace
 #include <utils/common/Named.h>
 #include <utils/common/MsgHandler.h>
 #include "ODDistrict.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

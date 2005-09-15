@@ -25,8 +25,12 @@
 namespace
 {
     const char rcsid[] =
-    "";
+    "$Id$";
 }
+// $Log$
+// Revision 1.9  2005/09/15 12:04:48  dkrajzew
+// LARGE CODE RECHECK
+//
 //
 /* =========================================================================
  * included modules

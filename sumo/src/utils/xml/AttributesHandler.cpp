@@ -24,6 +24,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 12:22:26  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2004/11/23 10:36:50  dkrajzew
 // debugging
 //
@@ -63,6 +66,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <sax2/Attributes.hpp>
 #include <string>
 #include <map>
@@ -70,6 +77,11 @@ namespace
 #include <utils/convert/TplConvertSec.h>
 #include "AttributesHandler.h"
 
+/*
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+*/
 
 /* =========================================================================
  * used namespaces
@@ -95,10 +107,12 @@ AttributesHandler::AttributesHandler(Attr *attrs, int noAttrs)
 
 AttributesHandler::~AttributesHandler()
 {
-    for(AttrMap::iterator i=_tags.begin(); i!=_tags.end(); i++) {
-        delete (*i).second;
+    for(AttrMap::iterator i1=myPredefinedTags.begin(); i1!=myPredefinedTags.end(); i1++) {
+        delete (*i1).second;
     }
-    _tags.clear();
+    for(StrAttrMap::iterator i2=myStrTags.begin(); i2!=myStrTags.end(); i2++) {
+        delete (*i2).second;
+    }
 }
 
 
@@ -106,7 +120,7 @@ void
 AttributesHandler::add(int id, const std::string &name)
 {
    check(id);
-   _tags.insert(AttrMap::value_type(id, convert(name)));
+   myPredefinedTags.insert(AttrMap::value_type(id, convert(name)));
 }
 
 
@@ -119,6 +133,23 @@ AttributesHandler::getInt(const Attributes &attrs, int id) const
 
 int
 AttributesHandler::getIntSecure(const Attributes &attrs, int id,
+                                int def) const
+{
+   return TplConvertSec<XMLCh>::_2intSec(
+       getAttributeValueSecure(attrs, id), def);
+}
+
+
+int
+AttributesHandler::getInt(const Attributes &attrs, const std::string &id) const
+{
+   return TplConvert<XMLCh>::_2int(getAttributeValueSecure(attrs, id));
+}
+
+
+int
+AttributesHandler::getIntSecure(const Attributes &attrs,
+                                const std::string &id,
                                 int def) const
 {
    return TplConvertSec<XMLCh>::_2intSec(
@@ -141,6 +172,22 @@ AttributesHandler::getBoolSecure(const Attributes &attrs, int id, bool val) cons
 }
 
 
+bool
+AttributesHandler::getBool(const Attributes &attrs, const std::string &id) const
+{
+   return TplConvert<XMLCh>::_2bool(getAttributeValueSecure(attrs, id));
+}
+
+
+bool
+AttributesHandler::getBoolSecure(const Attributes &attrs,
+                                 const std::string &id, bool val) const
+{
+   return TplConvertSec<XMLCh>::_2boolSec(
+       getAttributeValueSecure(attrs, id), val);
+}
+
+
 std::string
 AttributesHandler::getString(const Attributes &attrs, int id) const
 {
@@ -150,6 +197,24 @@ AttributesHandler::getString(const Attributes &attrs, int id) const
 
 std::string
 AttributesHandler::getStringSecure(const Attributes &attrs, int id,
+                                   const std::string &str) const
+{
+   return TplConvertSec<XMLCh>::_2strSec(
+       getAttributeValueSecure(attrs, id), str);
+}
+
+
+std::string
+AttributesHandler::getString(const Attributes &attrs,
+                             const std::string &id) const
+{
+   return TplConvert<XMLCh>::_2str(getAttributeValueSecure(attrs, id));
+}
+
+
+std::string
+AttributesHandler::getStringSecure(const Attributes &attrs,
+                                   const std::string &id,
                                    const std::string &str) const
 {
    return TplConvertSec<XMLCh>::_2strSec(
@@ -189,12 +254,42 @@ AttributesHandler::getFloatSecure(const Attributes &attrs, int id,
 }
 
 
+float
+AttributesHandler::getFloat(const Attributes &attrs,
+                            const std::string &id) const
+{
+   return TplConvert<XMLCh>::_2float(getAttributeValueSecure(attrs, id));
+}
+
+
+float
+AttributesHandler::getFloatSecure(const Attributes &attrs,
+                                  const std::string &id,
+                                  float def) const
+{
+   return TplConvertSec<XMLCh>::_2floatSec(
+       getAttributeValueSecure(attrs, id), def);
+}
+
+
 const XMLCh *const
 AttributesHandler::getAttributeNameSecure(int id) const
 {
-   AttrMap::const_iterator i=_tags.find(id);
-   if(i==_tags.end()) {
+   AttrMap::const_iterator i=myPredefinedTags.find(id);
+   if(i==myPredefinedTags.end()) {
        throw EmptyData();
+   }
+   return (*i).second;
+}
+
+
+const XMLCh *const
+AttributesHandler::getAttributeNameSecure(const std::string &id) const
+{
+   StrAttrMap::const_iterator i=myStrTags.find(id);
+   if(i==myStrTags.end()) {
+        myStrTags.insert(StrAttrMap::value_type(id, convert(id)));
+        return myStrTags.find(id)->second;
    }
    return (*i).second;
 }
@@ -208,10 +303,18 @@ AttributesHandler::getAttributeValueSecure(const Attributes &attrs,
 }
 
 
+const XMLCh *
+AttributesHandler::getAttributeValueSecure(const Attributes &attrs,
+                                           const std::string &id) const
+{
+    return attrs.getValue(getAttributeNameSecure(id));
+}
+
+
 char *
 AttributesHandler::getCharP(const Attributes &attrs, int id) const
 {
-   AttrMap::const_iterator i=_tags.find(id);
+   AttrMap::const_iterator i=myPredefinedTags.find(id);
    return TplConvert<XMLCh>::_2charp(attrs.getValue(0, (*i).second));
 }
 
@@ -219,7 +322,7 @@ AttributesHandler::getCharP(const Attributes &attrs, int id) const
 void
 AttributesHandler::check(int id) const
 {
-    if(_tags.find(id)!=_tags.end()) {
+    if(myPredefinedTags.find(id)!=myPredefinedTags.end()) {
         throw exception();
     }
 }

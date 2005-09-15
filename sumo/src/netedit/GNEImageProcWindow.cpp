@@ -23,13 +23,16 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 12:03:02  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/05/04 08:37:26  dkrajzew
 // ported to fox1.4
 //
 // Revision 1.3  2005/03/31 14:18:45  miguelliebe
 // ConfigDialog upgrade(Bitmap scale)
 //
-// Revision 1.2  2005/01/31 09:27:35  dkrajzew
+// Revision 1.2  2005/01/31 09:25:20  dksumo
 // added the possibility to save nodes and edges or the build network to netedit
 //
 /* =========================================================================
@@ -41,6 +44,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <fx.h>
 #include "GNEImageProcWindow.h"
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -57,15 +64,21 @@ namespace
 #include <utils/options/Option.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/DevHelper.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/MsgRetrievingFunction.h>
 #include <sstream>
 #include <gui/GUIEvent_SimulationLoaded.h>
+#include <gui/GUIGlobals.h>
 
-#include <guinetload/GUINetBuilder.h>
+#include <netload/NLBuilder.h>
+#include <guinetload/GUINetHandler.h>
+#include <guinetload/GUITriggerBuilder.h>
+#include <guinetload/GUIDetectorBuilder.h>
 #include <guinetload/GUIEdgeControlBuilder.h>
 #include <guinetload/GUIJunctionControlBuilder.h>
+#include <guinetload/GUIGeomShapeBuilder.h>
 #include <guisim/GUIVehicleControl.h>
 #include <guisim/GUINet.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
@@ -73,8 +86,20 @@ namespace
 #include <sumo_only/SUMOFrame.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
+#include <utils/common/XMLHelpers.h>
+#include <xercesc/framework/MemBufInputSource.hpp>
 
 #include <fstream>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
+/* =========================================================================
+ * statc value definitions
+ * ======================================================================= */
+static const char*  gMemBufId = "internal";
+
 
 
 /* =========================================================================
@@ -126,7 +151,7 @@ GNEImageProcWindow::GNEImageProcWindow(GNEApplicationWindow *parent,
                                        const FXString& name,
                                        FXIcon* ic, FXPopup* pup, FXuint opts,
                                        FXint x,FXint y,FXint w,FXint h)
-    : GUIGlChildWindow( p, mdimenu, name, ic),
+	: GUIGlChildWindow( p, mdimenu, name, ic),
     m_img(img), myGraphFlag(false), mySkelFlag(false), myExtrFlag(extrFlag),
     myParent(parent), myNetBuilder(nb)
 
@@ -363,16 +388,6 @@ buildEdgeBuilder()
 }
 
 
-GUINetBuilder *
-buildNetBuilder(const OptionsCont &oc,
-                               NLEdgeControlBuilder &eb,
-                               NLJunctionControlBuilder &jb,
-                               bool allowAggregatedViews)
-{
-    return new GUINetBuilder(oc, eb, jb, true/*gAllowAggregated!!!!*/);
-}
-
-
 GUIVehicleControl*
 buildVehicleControl()
 {
@@ -396,6 +411,8 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
             OptionsCont &oc = OptionsSubSys::getOptions();
             oc.clear();
             myNetBuilder->insertNetBuildOptions(oc);
+            DevHelper::insertDevOptions(oc);
+            // add rand and dev options
             RandHelper::insertRandOptions(oc);
             oc.set("verbose", true);
             oc.set("no-node-removal", true);
@@ -436,22 +453,42 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
             myNetBuilder->compute(oc);
             std::ostringstream strm;
             myNetBuilder->save(strm, oc);
+            string description = strm.str();
             //
             OptionsSubSys::getOptions().clear();
             OptionsSubSys::guiInit(SUMOFrame::fillOptions, "hallo"/*!!!*/);
+            OptionsCont &oc2 = OptionsSubSys::getOptions();
+            GUINet *net = new GUINet(oc2.getInt("begin"), oc2.getInt("end"),
+                new GUIVehicleControl());
+            SUMOFrame::setMSGlobals(oc2);
             GUIEdgeControlBuilder *eb = buildEdgeBuilder();
-            GUIJunctionControlBuilder jb;
-            GUINetBuilder *builder = buildNetBuilder(oc, *eb, jb, false/*gAllowAggregated*/);
-            GUINet *net = 0;
+            GUIJunctionControlBuilder jb(oc2);
+            GUIDetectorBuilder db(*net);
+            GUITriggerBuilder tb;
+            GUIGeomShapeBuilder sb(gIDStorage);
+            NLBuilder builder(oc2, *net, *eb, jb, db, tb, sb);
             try {
                 MsgHandler::getErrorInstance()->clear();
                 MsgHandler::getWarningInstance()->clear();
                 MsgHandler::getMessageInstance()->clear();
 //                initDevices();
                 SUMOFrame::setMSGlobals(oc);
-                net = static_cast<GUINet*>(
-                    builder->buildNetworkFromDescription(
-                        buildVehicleControl(), strm.str()));
+                GUINetHandler handler("", *net, db, tb, *eb, jb, sb);
+                handler.setWanted(LOADFILTER_NET);
+                // ... and the parser
+                SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
+                MemBufInputSource* memBufIS =
+                    new MemBufInputSource((const XMLByte*) description.c_str(),
+                        description.length(), gMemBufId, false);
+                parser->parse(*memBufIS);
+                bool ok = true;
+                if(!MsgHandler::getErrorInstance()->wasInformed()) {
+                    ok = builder.buildNet(handler, *this);
+                } else {
+                    delete net;
+                    net = 0;
+                }
+                delete parser;
                 RandHelper::initRandGlobal(oc);
                 GUIEvent *e =
                     new GUIEvent_SimulationLoaded(
@@ -647,4 +684,8 @@ GNEImageProcWindow::retrieveError(const std::string &msg)
     myParent->handleEvent_Message(e);
 }
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+// Local Variables:
+// mode:C++
+// End:

@@ -23,6 +23,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
 #include <algorithm>
 #include <math.h>
@@ -51,6 +55,10 @@
 #include <od2trips/ODmatrix.h>
 #include <od2trips/ODsubroutines.h>
 #include <utils/common/SUMOTime.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

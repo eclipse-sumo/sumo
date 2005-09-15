@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/15 12:19:44  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/05/04 09:19:51  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -48,7 +51,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -66,35 +69,38 @@ enum GUIGlObjectType {
     /// The network - empty
     GLO_NETWORK = 0,
 
-    /// a vehicles
-    GLO_VEHICLE = 1,
-
-    /// a tl-logic
-    GLO_TLLOGIC = 2,
-
-    /// a detector
-    GLO_DETECTOR = 4,
-
-    /// an emitter
-    GLO_EMITTER = 8,
-
     /// a lane
-    GLO_LANE = 16,
+    GLO_LANE = 1,
 
     /// an edge
-    GLO_EDGE = 32,
+    GLO_EDGE = 2,
 
     /// a junction
-    GLO_JUNCTION = 64,
+    GLO_JUNCTION = 4,
+
+    /// a tl-logic
+    GLO_TLLOGIC = 8,
+
+    /// a detector
+    GLO_DETECTOR = 16,
+
+    /// an emitter
+    GLO_EMITTER = 32,
 
     /// a lane speed trigger,
-    GLO_LANESPEEDTRIGGER = 128,
+    GLO_TRIGGER = 64,
+
+    /// a shape
+    GLO_SHAPE = 128,
+
+    /// a vehicles
+    GLO_VEHICLE = 256,
 
     /// compound additional
-    GLO_ADDITIONAL = GLO_DETECTOR | GLO_EMITTER | GLO_LANESPEEDTRIGGER,
+    GLO_ADDITIONAL = GLO_DETECTOR | GLO_EMITTER | GLO_TRIGGER,
 
     /// empty max
-    GLO_MAX = 256
+    GLO_MAX = 512
 
 };
 

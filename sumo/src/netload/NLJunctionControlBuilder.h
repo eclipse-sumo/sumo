@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2005/09/15 12:04:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.10  2005/05/04 08:41:33  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -37,7 +40,8 @@
 // debugged and completed lane merging detectors
 //
 // Revision 1.5  2003/07/07 08:35:10  dkrajzew
-// changes due to loading of geometry applied from the gui-version (no major drawbacks in loading speed)
+// changes due to loading of geometry applied from the gui-version
+//  (no major drawbacks in loading speed)
 //
 // Revision 1.4  2003/03/20 16:35:44  dkrajzew
 // windows eol removed
@@ -86,47 +90,53 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <vector>
 #include <microsim/MSJunction.h>
 #include <microsim/MSRightOfWayJunction.h>
 #include <microsim/MSJunctionControl.h>
 #include <utils/geom/Position2D.h>
-#include "NLContainer.h"
+#include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
+#include <microsim/MSBitSetLogic.h>
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class MSEventControl;
+class OptionsCont;
 
 
 /* =========================================================================
- * method definitions
+ * class definitions
  * ======================================================================= */
 /**
- * NLJunctionControlBuilder is the container for MSJunction-instances while
+ * @class NLJunctionControlBuilder
+ * NLJunctionControlBuilder is a factory for MSJunction-instances while
  * their building until they are transfered into a MSJunctionControl-instance
  * at last.
  * To avoid memory fraction, the list of the MSJunction-instances is
  * preallocated to the counted number of MSJunctions int he XML-file.
  * The result is a MSJunctionControl-instance holding the parsed MSJunction-
- * -instances
- */
-/* =========================================================================
- * class definitions
- * ======================================================================= */
-/**
- *
+ * -instances.
  */
 class NLJunctionControlBuilder {
 private:
     /// Definition of a lane vector
-    typedef std::vector<MSLane*> LaneCont;
+    typedef std::vector<MSLane*> LaneVector;
+    /// Definition of a string vector
+    typedef std::vector<std::string> StringVector;
+    /// Definitions of a connection map
+    typedef std::map<std::string, StringVector> SSVMap;
 
 public:
     /// standard constructor
-    NLJunctionControlBuilder();
+    NLJunctionControlBuilder(OptionsCont &oc);
 
     /// Destructor
     virtual ~NLJunctionControlBuilder();
@@ -151,15 +161,71 @@ public:
 
     /** Builds the MSJunctionControl which holds all of the simulations
         junctions */
-    MSJunctionControl *build();
+    MSJunctionControl *build() const;
 
     /** Returns the current inlane - container */
-    const LaneCont &getIncomingLanes() const;
+    const LaneVector &getIncomingLanes() const;
 
     /// clears the inlanes-container
     void initIncomingLanes();
 
+    /// initialises a junction logic
+    void initJunctionLogic();
+
+    /// adds a logic item
+    void addLogicItem(int request, const std::string &response,
+        const std::string &foes);
+
+    /// begins the reading of a traffic lights logic
+    void initTrafficLightLogic(const std::string &type,
+        size_t absDuration, int requestSize, int tlLogicNo,
+        int detectorOffset);
+
+    /// adds a phase to the traffic lights logic currently build
+    void addPhase(size_t duration, const std::bitset<64> &phase,
+        const std::bitset<64> &prios, const std::bitset<64> &yellow,
+        int min, int max);
+
+    /// Sets the size of the request
+    void setRequestSize(int size);
+
+    /// Sets the lane number the parsed logic will be responsible for
+    void setLaneNumber(int size);
+
+    /// Set the key of the logic
+    void setKey(const std::string &key);
+
+    /// Set the offset with which the logic shall start
+    void setOffset(int val);
+
+    /// Set the number of the logic
+    void setTLLogicNo(int val);
+
+    /// Returns a previously build logic
+    MSTrafficLightLogic * const getTLLogic(const std::string &id) const;
+
+    /// Returns the complete tls-logic control
+    MSTLLogicControl *buildTLLogics() const;
+
+    /// ends the building of a traffic lights logic
+    virtual void closeTrafficLightLogic();
+
+    /// ends the building of a junction logic (row-logic)
+    void closeJunctionLogic();
+
+    /// closes the building of the junction control
+    void closeJunctions(NLDetectorBuilder &db, const SSVMap &continuations);
+
+
 protected:
+    /** @brief adds an information about the initialisation of a tls
+        The initialisation is done during the closing of junctions */
+    virtual void addJunctionInitInfo(MSExtendedTrafficLightLogic *key,
+        const LaneVector &lv, double det_offset);
+
+    /// Adds a build tls-logic
+    virtual void addTLLogic(MSTrafficLightLogic *logic);
+
     /** builds a junction that does not use a logic */
     virtual MSJunction *buildNoLogicJunction();
 
@@ -172,15 +238,50 @@ protected:
     /** builds the junction's list of lanes catching occuring errors */
     MSRightOfWayJunction::LaneCont getInLaneContSecure();
 
+    /// Compute the initial step of a tls-logic from the given offset
+    SUMOTime computeInitTLSStep() const;
+
+    /// Compute the time offset the tls shall for the first time
+    SUMOTime computeInitTLSEventOffset() const;
+
+
 protected:
+    /// The offset within the junction
+    SUMOTime          m_Offset;
+
+    /// the number of the current traffic light logic
+    int             _tlLogicNo;
+
+    /// The current logic type
+    std::string     m_LogicType;
+
+    /// the right-of-way-logic of the currently chosen bitset-logic
+    MSBitsetLogic::Logic                    *m_pActiveLogic;
+
+    /// the description about which in-junction lanes disallow other passing the junction
+    MSBitsetLogic::Foes                     *m_pActiveFoes;
+
+    /// the current phase definitions for a simple traffic light
+    MSSimpleTrafficLightLogic::Phases   m_ActivePhases;
+
+    /// the size of the request
+    int             _requestSize;
+
+    /// the number of lanes
+    int             _laneNo;
+
+    /// counter for the inserted items
+    int             _requestItems;
+
+
     /// the list of the simulations junctions
     MSJunctionControl::JunctionCont          *m_pJunctions;
 
     /// the list of the incoming lanes of the currently chosen junction
-    LaneCont                    m_pActiveIncomingLanes;
+    LaneVector                    m_pActiveIncomingLanes;
 
     /// the list of the internal lanes of the currently chosen junction
-    LaneCont                    m_pActiveInternalLanes;
+    LaneVector                    m_pActiveInternalLanes;
 
     /// the id of the currently chosen junction
     std::string                 m_CurrentId;
@@ -205,6 +306,51 @@ protected:
     /** the junction's traffic lights' first phase index
         (when the current junction has traffic lights) */
     size_t                      m_InitStep;
+
+    /// The absolute duration of a tls-control loop
+    size_t myAbsDuration;
+
+    /// A map containing the build logics
+    std::map<std::string, MSTrafficLightLogic*> myLogics;
+
+    /// A definition of junction initialisation
+    typedef std::pair<LaneVector, double> TLInitInfo;
+
+    /// Definition of a map which contains information which junctions shall be initialised using which values
+    typedef std::map<MSExtendedTrafficLightLogic*, TLInitInfo> TLLogicInitInfoMap;
+
+    /// The map which contains information which junctions shall be initialised using which values
+    TLLogicInitInfoMap myJunctions2PostLoadInit;
+
+    /// Default detector offset
+    double m_DetectorOffset;
+
+    /// Default detector positions
+    double myStdDetectorPositions;
+
+    /// Default detector lengths (agentbased)
+    double myStdDetectorLengths;
+
+    /// Default learning horizon (agentbased)
+    int myStdLearnHorizon;
+
+    /// Default decision horizon (agentbased)
+    int myStdDecisionHorizon;
+
+    /// Default difference minimum (agentbased)
+    double myStdDeltaLimit;
+
+    /// The loaded default cycle time
+    int myStdTCycle;
+
+    // Default maximum gap  (actuated)
+    double myStdActuatedMaxGap;
+
+    // Default passing time (actuated)
+    double myStdActuatedPassingTime;
+
+    // Default maximum gap actuated)
+    double myStdActuatedDetectorGap;
 
 protected:
     /// numerical representation for a junction with no purpose

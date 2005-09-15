@@ -23,13 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/15 12:20:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/07/12 12:49:08  dkrajzew
 // code style adapted
 //
 // Revision 1.2  2005/06/14 11:29:50  dksumo
 // documentation added
-//
-
 //
 /* =========================================================================
  * compiler pragmas
@@ -43,12 +44,20 @@ namespace
 
 
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <utils/foxtools/MFXEventQue.h>
 #include <utils/foxtools/FXThreadEvent.h>
 #include "GUIAbstractThreadFactory.h"
 //#include "GUIMainWindow.h"
 #include "GUILoadThread.h"
 #include "GUIRunThread.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

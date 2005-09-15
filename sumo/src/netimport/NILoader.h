@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2005/09/15 12:03:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/04/27 12:24:24  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -38,7 +41,10 @@
 // new message subsystem paradigm applied
 //
 // Revision 1.5  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.4  2003/03/20 16:23:09  dkrajzew
 // windows eol removed; multiple vehicle emission added
@@ -56,7 +62,8 @@
 // Visum7.5 and Cell import added
 //
 // Revision 1.4  2002/06/11 16:00:40  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+// windows eol removed; template class definition inclusion depends
+//  now on the EXTERNAL_TEMPLATE_DEFINITION-definition
 //
 // Revision 1.3  2002/05/14 04:42:55  dkrajzew
 // new computation flow
@@ -82,6 +89,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <netbuild/NLLoadFilter.h>
 #include <sax2/SAX2XMLReader.hpp>

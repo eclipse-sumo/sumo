@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.38  2005/09/15 12:02:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.37  2005/07/12 12:32:47  dkrajzew
 // code style adapted; guessing of ramps and unregulated near districts implemented; debugging
 //
@@ -70,7 +73,8 @@
 // geometry computation corrigued partially
 //
 // Revision 1.21  2003/10/06 07:46:12  dkrajzew
-// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
+// further work on vissim import (unsignalised vs. signalised streams
+//  modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
 // Revision 1.20  2003/09/22 12:40:11  dkrajzew
 // further work on vissim-import
@@ -88,22 +92,29 @@
 // some work on the geometry of nodes
 //
 // Revision 1.15  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of geometry information
+// some further refinements due to the new 1:N traffic lights and usage of
+//  geometry information
 //
 // Revision 1.14  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.13  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
 //
 // Revision 1.12  2003/05/20 09:33:47  dkrajzew
-// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+// false computation of yielding on lane ends debugged; some debugging on
+//  tl-import; further work on vissim-import
 //
 // Revision 1.11  2003/04/07 12:15:39  dkrajzew
-// first steps towards a junctions geometry; tyellow removed again, traffic lights have yellow times given explicitely, now
+// first steps towards a junctions geometry; tyellow removed again,
+//  traffic lights have yellow times given explicitely, now
 //
 // Revision 1.10  2003/04/04 07:43:03  dkrajzew
-// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+// Yellow phases must be now explicetely given; comments added;
+//  order of edge sorting (false lane connections) debugged
 //
 // Revision 1.9  2003/04/01 15:15:51  dkrajzew
 // further work on vissim-import
@@ -174,6 +185,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <map>
 #include <vector>
 #include <iostream>
@@ -334,8 +349,13 @@ public:
         returns false when an connection already existed; otherwise true */
     bool addEdge2EdgeConnection(NBEdge *dest);
 
-    /** adds connections between this edge's lanes and the approached ones */
-    bool addLane2LaneConnection(size_t from, NBEdge *dest, size_t toLane);
+    /** adds a connection between the specified this edge's lane and an approached one */
+    bool addLane2LaneConnection(size_t fromLane, NBEdge *dest, size_t toLane);
+
+    /** builds no connections starting at the given lanes */
+    bool addLane2LaneConnections(size_t fromLane,
+        NBEdge *dest, size_t toLane, size_t no,
+        bool invalidatePrevious=false);
 
     /// computes the edge (step1: computation of approached edges)
     bool computeEdge2Edges();
@@ -369,6 +389,8 @@ public:
     /** returns the information whether the given edge is the opposite
         direction to this edge */
     bool isTurningDirectionAt(const NBNode *n, NBEdge *edge) const;
+
+    bool isAlmostSameDirectionAt(const NBNode *n, NBEdge *edge) const;
 
 
     /** @brief Returns the node at the given edges length (using an epsilon)
@@ -467,7 +489,7 @@ public:
 
     void addGeometryPoint(int index, const Position2D &p);
 
-    void incLaneNo();
+    void incLaneNo(int by);
 
     void copyConnectionsFrom(NBEdge *src);
 

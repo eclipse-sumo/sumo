@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/15 12:03:17  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.9  2005/04/27 11:48:51  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -58,6 +61,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <algorithm>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
@@ -72,6 +79,10 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include "NGNetElements.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

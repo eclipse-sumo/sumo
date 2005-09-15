@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 12:22:16  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/04/28 09:02:50  dkrajzew
 // level3 warnings removed
 //
@@ -48,7 +51,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -61,6 +64,10 @@ namespace
 #include <utils/common/FileErrorReporter.h>
 #include "SUMOXMLDefinitions.h"
 #include "SUMOSAXHandler.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -133,9 +140,6 @@ SUMOSAXHandler::fatalError(const SAXParseException& exception)
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-//#ifdef DISABLE_INLINE
-//#include "SUMOSAXHandler.icc"
-//#endif
 
 // Local Variables:
 // mode:C++

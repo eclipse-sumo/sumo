@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2005/09/15 12:22:16  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.28  2005/04/28 09:02:50  dkrajzew
 // level3 warnings removed
 //
@@ -108,24 +111,29 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <utils/xml/GenericSAX2Handler.h>
 #include <utils/xml/AttributesHandler.h>
 #include "SUMOXMLDefinitions.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 
 /* =========================================================================
  * definitions
  * ======================================================================= */
-size_t noSumoTags = 53;
+size_t noSumoTags = 54;
 
-GenericSAX2Handler::Tag sumotags[53] =
+GenericSAX2Handler::Tag sumotags[54] =
 {
       { "simulation",       SUMO_TAG_SIMULATION },
       { "edge",             SUMO_TAG_EDGE },
       { "lane",             SUMO_TAG_LANE },
+      { "poi",              SUMO_TAG_POI },
       { "poly",             SUMO_TAG_POLY },
       { "lanes",            SUMO_TAG_LANES },
       { "cedge",            SUMO_TAG_CEDGE },
@@ -175,14 +183,14 @@ GenericSAX2Handler::Tag sumotags[53] =
       { "sink",             SUMO_TAG_SINK },
       { "supplementary-weights", SUMO_TAG_SUPPLEMENTARY_WEIGHTS },
       { "weight",           SUMO_TAG_WEIGHT },
-      { "reroute-agent",    SUMO_TAG_REROUTE_AGENT }
+	  { "reroute-agent",	SUMO_TAG_REROUTE_AGENT }
 };
 
 size_t noSumoAttrs = 88;
 
 AttributesHandler::Attr sumoattrs[88] =
 {
-    { "id",             SUMO_ATTR_ID },
+	{ "id",             SUMO_ATTR_ID },
     { "name",           SUMO_ATTR_NAME },
     { "type",           SUMO_ATTR_TYPE },
     { "priority",       SUMO_ATTR_PRIORITY },
@@ -207,7 +215,7 @@ AttributesHandler::Attr sumoattrs[88] =
     { "sigma",          SUMO_ATTR_SIGMA },
     { "last",           SUMO_ATTR_LAST },
     { "cost",           SUMO_ATTR_COST },
-    { "probability",    SUMO_ATTR_PROP },
+    { "probability",    SUMO_ATTR_PROB },
     { "pos",            SUMO_ATTR_POS },
     { "lane",           SUMO_ATTR_LANE },
     { "from",           SUMO_ATTR_FROM },
@@ -267,9 +275,9 @@ AttributesHandler::Attr sumoattrs[88] =
     { "dist",           SUMO_ATTR_DIST },
     { "onEdges",        SUMO_ATTR_ONEDGES },
     { "seesEdges",      SUMO_ATTR_SEESEDGES },
-    { "periodBegin",    SUMO_ATTR_PERIODBEGIN },
-    { "viewDist",       SUMO_ATTR_VIEWDIST },
-    { "oneShot",        SUMO_ATTR_ONESHOT }
+	{ "periodBegin",    SUMO_ATTR_PERIODBEGIN },
+	{ "viewDist",       SUMO_ATTR_VIEWDIST },
+	{ "oneShot",        SUMO_ATTR_ONESHOT }
 
 };
 

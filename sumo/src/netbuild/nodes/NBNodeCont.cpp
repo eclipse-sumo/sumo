@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/15 12:02:26  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.10  2005/07/12 12:32:49  dkrajzew
 // code style adapted; guessing of ramps and unregulated near districts implemented; debugging
 //
@@ -64,7 +67,8 @@ namespace
 // consequent position2D instead of two doubles added
 //
 // Revision 1.22  2003/10/06 07:46:12  dkrajzew
-// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
+// further work on vissim import (unsignalised vs. signalised streams modality
+//  cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
 // Revision 1.21  2003/09/22 12:40:12  dkrajzew
 // further work on vissim-import
@@ -79,16 +83,21 @@ namespace
 // reshifting of networks added
 //
 // Revision 1.17  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of geometry information
+// some further refinements due to the new 1:N traffic lights and usage of
+//  geometry information
 //
 // Revision 1.16  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message, warning
+//  or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.15  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
 //
 // Revision 1.14  2003/05/20 09:33:47  dkrajzew
-// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+// false computation of yielding on lane ends debugged; some debugging on
+//  tl-import; further work on vissim-import
 //
 // Revision 1.13  2003/04/14 08:34:59  dkrajzew
 // some further bugs removed
@@ -97,7 +106,8 @@ namespace
 // some lost changes reapplied
 //
 // Revision 1.11  2003/04/04 07:43:04  dkrajzew
-// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+// Yellow phases must be now explicetely given; comments added; order of
+//  edge sorting (false lane connections) debugged
 //
 // Revision 1.10  2003/04/01 15:15:53  dkrajzew
 // further work on vissim-import
@@ -133,7 +143,8 @@ namespace
 // Report methods transfered from loader to the containers
 //
 // Revision 1.4  2002/06/11 16:00:42  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+// windows eol removed; template class definition inclusion depends now on the
+//  EXTERNAL_TEMPLATE_DEFINITION-definition
 //
 // Revision 1.3  2002/05/14 04:42:56  dkrajzew
 // new computation flow
@@ -168,15 +179,21 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <map>
 #include <algorithm>
 #include <fstream>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/Boundary.h>
+#include <utils/geom/GeomHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/StdDefs.h>
 #include <utils/convert/ToString.h>
 #include <netbuild/NBDistrict.h>
 #include <netbuild/NBEdgeCont.h>
@@ -186,6 +203,10 @@ namespace
 #include <netbuild/NBOwnTLDef.h>
 
 #include "NBNodeCont.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -645,11 +666,20 @@ NBNodeCont::getNetworkOffset() const
 }
 
 bool
-NBNodeCont::computeNodeShapes()
+NBNodeCont::computeNodeShapes(OptionsCont &oc)
 {
-    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
-        (*i).second->computeNodeShape();
+    ofstream *ngd = 0;
+    if(oc.isSet("node-geometry-dump")) {
+        ngd = new ofstream(oc.getString("node-geometry-dump").c_str());
+        (*ngd) << "<pois>" << endl;
     }
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+        (*i).second->computeNodeShape(ngd);
+    }
+    if(ngd!=0) {
+        (*ngd) << "</pois>" << endl;
+    }
+    delete ngd;
     return true;
 }
 
@@ -727,248 +757,382 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
 }
 
 
+
+bool
+NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const
+{
+    if(cur->getIncomingEdges().size()==2&&cur->getOutgoingEdges().size()==1) {
+        // may be an on-ramp
+        NBEdge *pot_highway = cur->getIncomingEdges()[0];
+        NBEdge *pot_ramp = cur->getIncomingEdges()[1];
+        NBEdge *cont = cur->getOutgoingEdges()[0];
+        if(pot_highway->getSpeed()<pot_ramp->getSpeed()) {
+            swap(pot_highway, pot_ramp);
+        } else if(pot_highway->getSpeed()==pot_ramp->getSpeed()
+            &&
+            pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
+
+            swap(pot_highway, pot_ramp);
+        }
+        // check conditions
+            // is it really a highway?
+        if(pot_highway->getSpeed()<oc.getFloat("ramp-guess.min-highway-speed")
+            ||
+            cont->getSpeed()<oc.getFloat("ramp-guess.min-highway-speed")) {
+            return false;
+        }
+            // is it really a ramp?
+        if(oc.getFloat("ramp-guess.max-ramp-speed")>0
+            &&
+            oc.getFloat("ramp-guess.max-ramp-speed")<pot_ramp->getSpeed()) {
+            return false;
+        }
+        // ok, may be
+        return true;
+    }
+    return false;
+}
+
+
+void
+NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
+                        NBEdgeCont &ec, NBDistrictCont &dc,
+                        std::vector<NBEdge*> &incremented)
+{
+    NBEdge *pot_highway = cur->getIncomingEdges()[0];
+    NBEdge *pot_ramp = cur->getIncomingEdges()[1];
+    NBEdge *cont = cur->getOutgoingEdges()[0];
+    if(pot_highway->getSpeed()<pot_ramp->getSpeed()) {
+        swap(pot_highway, pot_ramp);
+    } else if(pot_highway->getSpeed()==pot_ramp->getSpeed()
+        &&
+        pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
+
+        swap(pot_highway, pot_ramp);
+    }
+    if(cont->getGeometry().length()<=oc.getFloat("ramp-guess.ramp-length")) {
+        // the edge is shorter than the wished ramp
+            //  append a lane only
+        if(find(incremented.begin(), incremented.end(), cont)==incremented.end()) {
+            cont->incLaneNo(pot_ramp->getNoLanes());
+            incremented.push_back(cont);
+            if(!pot_highway->addLane2LaneConnections(0, cont, pot_ramp->getNoLanes(),
+                MIN2(cont->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), true)) {
+
+                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                throw ProcessError();
+            }
+            if(!pot_ramp->addLane2LaneConnections(0, cont, 0, pot_ramp->getNoLanes(), true)) {
+                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                throw ProcessError();
+            }
+            cont->invalidateConnections(true);
+        }
+        Position2DVector p = pot_ramp->getGeometry();
+        p.pop_back();
+        p.push_back(cont->getLaneShape(0).at(0));
+        pot_ramp->setGeometry(p);
+    } else {
+        NBNode *rn =
+            new NBNode(cont->getID() + "-AddedOnRampNode",
+                cont->getGeometry().positionAtLengthPosition(
+                oc.getFloat("ramp-guess.ramp-length")));
+        if(!insert(rn)) {
+            MsgHandler::getErrorInstance()->inform(
+                "Ups - could not build on-ramp for edge '"
+                + pot_highway->getID() + "' (node could not be build)!");
+            throw ProcessError();
+        }
+        string name = cont->getID();
+        bool ok = ec.splitAt(dc, cont, rn,
+            cont->getID()+"-AddedOnRampEdge", cont->getID(),
+            cont->getNoLanes()+pot_ramp->getNoLanes(), cont->getNoLanes());
+        if(!ok) {
+            MsgHandler::getErrorInstance()->inform(
+                "Ups - could not build on-ramp for edge '"
+                + pot_highway->getID() + "'!");
+                return;
+        } else {
+            NBEdge *added_ramp = ec.retrieve(name+"-AddedOnRampEdge");
+            NBEdge *added = ec.retrieve(name);
+            incremented.push_back(added_ramp);
+            if(added_ramp->getNoLanes()!=added->getNoLanes()) {
+                int off = added_ramp->getNoLanes()-added->getNoLanes();
+                if(!added_ramp->addLane2LaneConnections(off, added, 0, added->getNoLanes(), true)) {
+                    MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                    throw ProcessError();
+                }
+            } else {
+                if(!added_ramp->addLane2LaneConnections(0, added, 0, added_ramp->getNoLanes(), true)) {
+                    MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                    throw ProcessError();
+                }
+            }
+            if(!pot_highway->addLane2LaneConnections(0, added_ramp, pot_ramp->getNoLanes(),
+                MIN2(added_ramp->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), false)) {
+
+                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                throw ProcessError();
+            }
+            if(!pot_ramp->addLane2LaneConnections(0, added_ramp, 0, pot_ramp->getNoLanes(), true)) {
+                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                throw ProcessError();
+            }
+            Position2DVector p = pot_ramp->getGeometry();
+            p.pop_back();
+            p.push_back(added_ramp->getLaneShape(0).at(0));
+            pot_ramp->setGeometry(p);
+        }
+    }
+}
+
+
+void
+NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
+                         NBEdgeCont &ec, NBDistrictCont &dc,
+                         std::vector<NBEdge*> &incremented)
+{
+    NBEdge *pot_highway = cur->getOutgoingEdges()[0];
+    NBEdge *pot_ramp = cur->getOutgoingEdges()[1];
+    NBEdge *prev = cur->getIncomingEdges()[0];
+    if(pot_highway->getSpeed()<pot_ramp->getSpeed()) {
+        swap(pot_highway, pot_ramp);
+    } else if(pot_highway->getSpeed()==pot_ramp->getSpeed()
+        &&
+        pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
+
+        swap(pot_highway, pot_ramp);
+    }
+    // ok, append on-ramp
+    if(prev->getGeometry().length()<=oc.getFloat("ramp-guess.ramp-length")) {
+        // the edge is shorter than the wished ramp
+        //  append a lane only
+        if(find(incremented.begin(), incremented.end(), prev)==incremented.end()) {
+            incremented.push_back(prev);
+            prev->incLaneNo(pot_ramp->getNoLanes());
+            prev->invalidateConnections(true);
+            if(!prev->addLane2LaneConnections(pot_ramp->getNoLanes(), pot_highway, 0,
+                MIN2(prev->getNoLanes()-1, pot_highway->getNoLanes()), true)) {
+
+                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                throw ProcessError();
+            }
+            if(!prev->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNoLanes(), false)) {
+                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                throw ProcessError();
+            }
+        }
+        Position2DVector p = pot_ramp->getGeometry();
+        p.pop_front();
+        p.push_front(prev->getLaneShape(0).at(-1));
+        pot_ramp->setGeometry(p);
+    } else {
+        NBNode *rn =
+            new NBNode(prev->getID() + "-AddedOffRampNode",
+                prev->getGeometry().positionAtLengthPosition(
+                    prev->getGeometry().length()-oc.getFloat("ramp-guess.ramp-length")));
+        if(!insert(rn)) {
+            MsgHandler::getErrorInstance()->inform(
+                "Ups - could not build off-ramp for edge '"
+                + pot_highway->getID() + "' (node could not be build)!");
+            throw ProcessError();
+        }
+        string name = prev->getID();
+        bool ok = ec.splitAt(dc, prev, rn,
+            prev->getID(), prev->getID()+"-AddedOffRampEdge",
+            prev->getNoLanes(), prev->getNoLanes()+pot_ramp->getNoLanes());
+        if(!ok) {
+            MsgHandler::getErrorInstance()->inform(
+                "Ups - could not build on-ramp for edge '"
+                + pot_highway->getID() + "'!");
+            return;
+        } else {
+            NBEdge *added_ramp = ec.retrieve(name+"-AddedOffRampEdge");
+            NBEdge *added = ec.retrieve(name);
+            if(added_ramp->getNoLanes()!=added->getNoLanes()) {
+                incremented.push_back(added_ramp);
+                int off = added_ramp->getNoLanes()-added->getNoLanes();
+                if(!added->addLane2LaneConnections(0, added_ramp, off, added->getNoLanes(), true)) {
+                    MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                    throw ProcessError();
+                }
+            } else {
+                if(!added->addLane2LaneConnections(0, added_ramp, 0, added_ramp->getNoLanes(), true)) {
+                    MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                    throw ProcessError();
+                }
+            }
+            if(!added_ramp->addLane2LaneConnections(pot_ramp->getNoLanes(), pot_highway, 0,
+                MIN2(added_ramp->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), true)) {
+
+                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                throw ProcessError();
+            }
+            if(!added_ramp->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNoLanes(), false)) {
+                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                throw ProcessError();
+            }
+            Position2DVector p = pot_ramp->getGeometry();
+            p.pop_front();
+            p.push_front(added_ramp->getLaneShape(0).at(-1));
+            pot_ramp->setGeometry(p);
+        }
+    }
+}
+
+
+bool
+NBNodeCont::mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const
+{
+    if(cur->getIncomingEdges().size()==1&&cur->getOutgoingEdges().size()==2) {
+        // may be an off-ramp
+        NBEdge *pot_highway = cur->getOutgoingEdges()[0];
+        NBEdge *pot_ramp = cur->getOutgoingEdges()[1];
+        NBEdge *prev = cur->getIncomingEdges()[0];
+        if(pot_highway->getSpeed()<pot_ramp->getSpeed()) {
+            swap(pot_highway, pot_ramp);
+        } else if(pot_highway->getSpeed()==pot_ramp->getSpeed()
+            &&
+            pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
+
+            swap(pot_highway, pot_ramp);
+        }
+        // check conditions
+            // is it really a highway?
+        if(pot_highway->getSpeed()<oc.getFloat("ramp-guess.min-highway-speed")
+            ||
+            prev->getSpeed()<oc.getFloat("ramp-guess.min-highway-speed")) {
+            return false;
+        }
+            // is it really a ramp?
+        if(oc.getFloat("ramp-guess.max-ramp-speed")>0
+            &&
+            oc.getFloat("ramp-guess.max-ramp-speed")<pot_ramp->getSpeed()) {
+            return false;
+        }
+        return true;
+    }
+    return false;
+}
+
+
+void
+NBNodeCont::checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp)
+{
+    if(pot_highway->getSpeed()<pot_ramp->getSpeed()) {
+        swap(pot_highway, pot_ramp);
+    } else if(pot_highway->getSpeed()==pot_ramp->getSpeed()
+        &&
+        pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
+
+        swap(pot_highway, pot_ramp);
+    }
+}
+
+
 bool
 NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
                        NBDistrictCont &dc)
 {
-    // maybe no tls shall be guessed
-    if(!oc.getBool("guess-ramps")) {
-        return true;
-    }
     std::vector<NBEdge*> incremented;
-    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
-        NBNode *cur = (*i).second;
-        if(cur->getIncomingEdges().size()==2&&cur->getOutgoingEdges().size()==1) {
-            // may be an on-ramp
-            NBEdge *pot_highway = cur->getIncomingEdges()[0];
-            NBEdge *pot_ramp = cur->getIncomingEdges()[1];
-            NBEdge *cont = cur->getOutgoingEdges()[0];
-            if(pot_highway->getSpeed()<pot_ramp->getSpeed()) {
-                swap(pot_highway, pot_ramp);
-            } else if(pot_highway->getSpeed()==pot_ramp->getSpeed()
-                &&
-                pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
+    // check whether obsure highway connections shall be checked
+    if(oc.getBool("guess-obscure-ramps")) {
+        for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+            NBNode *cur = (*i).second;
+            const EdgeVector &inc = (*i).second->getIncomingEdges();
+            const EdgeVector &out = (*i).second->getOutgoingEdges();
+            if(inc.size()!=2||out.size()!=2) {
+                continue;
+            }
+            {
+                bool hadInHighway = false;
+                for(EdgeVector::const_iterator j=inc.begin(); j!=inc.end(); ++j) {
+                    if((*j)->getSpeed()>oc.getFloat("obscure-ramps.min-highway-speed")
+                        &&
+                       (*j)->getBasicType()!=NBEdge::EDGEFUNCTION_SOURCE
+                        &&
+                       (*j)->getBasicType()!=NBEdge::EDGEFUNCTION_SINK) {
 
-                swap(pot_highway, pot_ramp);
-            }
-            // check conditions
-                // is it really a highway?
-            if(pot_highway->getSpeed()<oc.getFloat("ramp-guess.min-highway-speed")
-                ||
-               cont->getSpeed()<oc.getFloat("ramp-guess.min-highway-speed")) {
-                continue;
-            }
-                // is it really a ramp?
-            if(oc.getFloat("ramp-guess.max-ramp-speed")>0
-                &&
-               oc.getFloat("ramp-guess.max-ramp-speed")<pot_ramp->getSpeed()) {
-                continue;
-            }
-            // ok, append on-ramp
-            if(cont->getID()=="77268687") {
-                int bla = 0;
-            }
-            if(cont->getLength()<=oc.getFloat("ramp-guess.ramp-length")) {
-                // the edge is shorter than the wished ramp
-                //  append a lane only
-                if(find(incremented.begin(), incremented.end(), cont)==incremented.end()) {
-                    cont->incLaneNo();
-                    incremented.push_back(cont);
-//                    cont->invalidateConnections();
-                    pot_highway->invalidateConnections(true);
-                    for(int i=0; i<cont->getNoLanes()-1&&i<pot_highway->getNoLanes(); i++) {
-                        if(!pot_highway->addLane2LaneConnection(i, cont, i+1)) {
-                            MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
-                            throw ProcessError();
-                        }
+                        hadInHighway = true;
                     }
-                    pot_ramp->invalidateConnections(true);
-                    if(!pot_ramp->addLane2LaneConnection(0, cont, 0)) {
-                        MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
-                        throw ProcessError();
-                    }
-                    cont->invalidateConnections(true);
                 }
-                Position2DVector p = pot_ramp->getGeometry();
-                p.pop_back();
-                p.push_back(cont->getLaneShape(0).at(0));
-                pot_ramp->setGeometry(p);
+                if(!hadInHighway) {
+                    continue;
+                }
+            }
+            {
+                bool hadOutHighway = false;
+                for(EdgeVector::const_iterator j=out.begin(); j!=out.end(); ++j) {
+                    if((*j)->getSpeed()>oc.getFloat("obscure-ramps.min-highway-speed")
+                        &&
+                       (*j)->getBasicType()!=NBEdge::EDGEFUNCTION_SOURCE
+                        &&
+                       (*j)->getBasicType()!=NBEdge::EDGEFUNCTION_SINK) {
+
+                        hadOutHighway = true;
+                    }
+                }
+                if(!hadOutHighway) {
+                    continue;
+                }
+            }
+            // ok, something is strange:
+            //  we do have a highway, here with an off- and an on-ramp on the same node!?
+            // try to place the incoming before...
+            //  ... determine a possible position, first
+            NBEdge *inc_highway = inc[0];
+            NBEdge *inc_ramp = inc[1];
+            NBEdge *out_highway = out[0];
+            NBEdge *out_ramp = out[1];
+            checkHighwayRampOrder(inc_highway, inc_ramp);
+            checkHighwayRampOrder(out_highway, out_ramp);
+
+            if(100>GeomHelper::distance(inc_highway->getToNode()->getPosition(), inc_ramp->getGeometry().at(-1))) {
+                Position2DVector tmp = inc_ramp->getGeometry();
+                tmp.eraseAt(-1);
+                inc_ramp->setGeometry(tmp);
+            }
+            double pos =
+                inc_highway->getGeometry().nearest_position_on_line_to_point(
+                    inc_ramp->getGeometry().at(-1));
+            if(pos<0) {
+                continue;
+            }
+            Position2D p = inc_highway->getGeometry().positionAtLengthPosition(pos);
+            NBNode *rn =
+                new NBNode(inc_highway->getID() + "-AddedAntiObscureNode", p);
+            if(!insert(rn)) {
+                MsgHandler::getErrorInstance()->inform(
+                    "Ups - could not build anti-obscure node '"
+                    + inc_highway->getID() + "'!");
+                throw ProcessError();
+            }
+            string name = inc_highway->getID();
+            bool ok = ec.splitAt(dc, inc_highway, rn,
+                inc_highway->getID(), inc_highway->getID()+"-AddedInBetweenEdge",
+                inc_highway->getNoLanes(), inc_highway->getNoLanes());
+            if(!ok) {
+                MsgHandler::getErrorInstance()->inform(
+                    "Ups - could not build anti-obscure edge '"
+                    + inc_highway->getID() + "'!");
+                throw ProcessError();
             } else {
-                NBNode *rn =
-                    new NBNode(cont->getID() + "-AddedOnRampNode",
-                        cont->getGeometry().positionAtLengthPosition(
-                            oc.getFloat("ramp-guess.ramp-length")));
-                if(!insert(rn)) {
-                    MsgHandler::getErrorInstance()->inform(
-                        "Ups - could not build on-ramp for edge '"
-                        + pot_highway->getID() + "' (node could not be build)!");
-                    throw ProcessError();
-                }
-                string name = cont->getID();
-                bool ok =
-                    ec.splitAt(dc, cont,
-                        //oc.getFloat("ramp-guess.ramp-length"),
-                        rn,
-                        cont->getID()+"-AddedOnRampEdge",
-                        cont->getID(),
-                        cont->getNoLanes()+1, cont->getNoLanes());
-                if(!ok) {
-                    MsgHandler::getErrorInstance()->inform(
-                        "Ups - could not build on-ramp for edge '"
-                        + pot_highway->getID() + "'!");
-                    throw ProcessError();
-                } else {
-                    NBEdge *added_ramp = ec.retrieve(name+"-AddedOnRampEdge");
-                    NBEdge *added = ec.retrieve(name);
-                    incremented.push_back(added_ramp);
-                    added_ramp->invalidateConnections(true);
-                    if(added_ramp->getNoLanes()!=added->getNoLanes()) {
-                        for(int i=0; i<added_ramp->getNoLanes()-1&&i<added->getNoLanes(); i++) {
-                            if(!added_ramp->addLane2LaneConnection(i+1, added, i)) {
-                                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
-                                throw ProcessError();
-                            }
-                        }
-                    } else {
-                        for(int i=0; i<added_ramp->getNoLanes(); i++) {
-                            if(!added_ramp->addLane2LaneConnection(i, added, i)) {
-                                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
-                                throw ProcessError();
-                            }
-                        }
-                    }
-                    pot_highway->invalidateConnections(true);
-                    for(int i=0; i<added_ramp->getNoLanes()-1&&i<pot_highway->getNoLanes(); i++) {
-                        if(!pot_highway->addLane2LaneConnection(i, added_ramp, i+1)) {
-                            MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
-                            throw ProcessError();
-                        }
-                    }
-                    pot_ramp->invalidateConnections(true);
-                    if(!pot_ramp->addLane2LaneConnection(0, added_ramp, 0)) {
-                        MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
-                        throw ProcessError();
-                    }
-                    Position2DVector p = pot_ramp->getGeometry();
-                    p.pop_back();
-                    p.push_back(added_ramp->getLaneShape(0).at(0));
-                    pot_ramp->setGeometry(p);
-                }
+                NBEdge *added_cont = ec.retrieve(name+"-AddedInBetweenEdge");
+                NBEdge *added = ec.retrieve(name);
+                added_cont->getToNode()->removeIncoming(out_ramp);
+                added->getToNode()->addIncomingEdge(out_ramp);
             }
         }
-        if(cur->getIncomingEdges().size()==1&&cur->getOutgoingEdges().size()==2) {
-            // may be an off-ramp
-            NBEdge *pot_highway = cur->getOutgoingEdges()[0];
-            NBEdge *pot_ramp = cur->getOutgoingEdges()[1];
-            NBEdge *prev = cur->getIncomingEdges()[0];
-            if(pot_highway->getSpeed()<pot_ramp->getSpeed()) {
-                swap(pot_highway, pot_ramp);
-            } else if(pot_highway->getSpeed()==pot_ramp->getSpeed()
-                &&
-                pot_highway->getNoLanes()<pot_ramp->getNoLanes()) {
-
-                swap(pot_highway, pot_ramp);
+    }
+    // check whether on-off ramps shall be guessed
+    if(oc.getBool("guess-ramps")) {
+        for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+            NBNode *cur = (*i).second;
+            if(mayNeedOnRamp(oc, cur)) {
+                buildOnRamp(oc, cur, ec, dc, incremented);
             }
-            // check conditions
-                // is it really a highway?
-            if(pot_highway->getSpeed()<oc.getFloat("ramp-guess.min-highway-speed")
-                ||
-               prev->getSpeed()<oc.getFloat("ramp-guess.min-highway-speed")) {
-                continue;
-            }
-                // is it really a ramp?
-            if(oc.getFloat("ramp-guess.max-ramp-speed")>0
-                &&
-               oc.getFloat("ramp-guess.max-ramp-speed")<pot_ramp->getSpeed()) {
-                continue;
-            }
-            // ok, append on-ramp
-            if(prev->getLength()<=oc.getFloat("ramp-guess.ramp-length")) {
-                // the edge is shorter than the wished ramp
-                //  append a lane only
-                if(find(incremented.begin(), incremented.end(), prev)==incremented.end()) {
-                    incremented.push_back(prev);
-                    prev->incLaneNo();
-//                    prev->invalidateConnections();
-                    prev->invalidateConnections(true);
-                    for(int i=0; i<prev->getNoLanes()-1&&i<pot_highway->getNoLanes(); i++) {
-                        if(!prev->addLane2LaneConnection(i+1, pot_highway, i)) {
-                            MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
-                            throw ProcessError();
-                        }
-                    }
-                    if(!prev->addLane2LaneConnection(0, pot_ramp, 0)) {
-                        MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
-                        throw ProcessError();
-                    }
-                }
-                Position2DVector p = pot_ramp->getGeometry();
-                p.pop_front();
-                p.push_front(prev->getLaneShape(0).at(-1));
-                pot_ramp->setGeometry(p);
-            } else {
-                NBNode *rn =
-                    new NBNode(prev->getID() + "-AddedOffRampNode",
-                        prev->getGeometry().positionAtLengthPosition(
-                            prev->getLength()-oc.getFloat("ramp-guess.ramp-length")));
-                if(!insert(rn)) {
-                    MsgHandler::getErrorInstance()->inform(
-                        "Ups - could not build off-ramp for edge '"
-                        + pot_highway->getID() + "' (node could not be build)!");
-                    throw ProcessError();
-                }
-                if(rn->getID()=="153114707-AddedOffRampNode") {
-                    int bla = 0;
-                }
-                string name = prev->getID();
-                bool ok =
-                    ec.splitAt(dc, prev,
-                        //-oc.getFloat("ramp-guess.ramp-length"),
-                        rn,
-                        prev->getID(),
-                        prev->getID()+"-AddedOffRampEdge",
-                        prev->getNoLanes(), prev->getNoLanes()+1);
-                if(!ok) {
-                    MsgHandler::getErrorInstance()->inform(
-                        "Ups - could not build on-ramp for edge '"
-                        + pot_highway->getID() + "'!");
-                    throw ProcessError();
-                } else {
-                    NBEdge *added_ramp = ec.retrieve(name+"-AddedOffRampEdge");
-                    NBEdge *added = ec.retrieve(name);
-                    added->invalidateConnections(true);
-                    if(added_ramp->getNoLanes()!=added->getNoLanes()) {
-                        incremented.push_back(added_ramp);
-                        for(int i=0; i<added_ramp->getNoLanes()-1&&i<added->getNoLanes(); i++) {
-                            if(!added->addLane2LaneConnection(i, added_ramp, i+1)) {
-                                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
-                                throw ProcessError();
-                            }
-                        }
-                    } else {
-                        for(int i=0; i<added_ramp->getNoLanes(); i++) {
-                            if(!added->addLane2LaneConnection(i, added_ramp, i)) {
-                                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
-                                throw ProcessError();
-                            }
-                        }
-                    }
-                    added_ramp->invalidateConnections(true);
-                    for(int i=0; i<added_ramp->getNoLanes()-1&&i<pot_highway->getNoLanes(); i++) {
-                        if(!added_ramp->addLane2LaneConnection(i+1, pot_highway, i)) {
-                            MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
-                            throw ProcessError();
-                        }
-                    }
-                    if(!added_ramp->addLane2LaneConnection(0, pot_ramp, 0)) {
-                        MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
-                        throw ProcessError();
-                    }
-                    Position2DVector p = pot_ramp->getGeometry();
-                    p.pop_front();
-                    p.push_front(added_ramp->getLaneShape(0).at(-1));
-                    pot_ramp->setGeometry(p);
-                }
+            if(mayNeedOffRamp(oc, cur)) {
+                buildOffRamp(oc, cur, ec, dc, incremented);
             }
         }
     }

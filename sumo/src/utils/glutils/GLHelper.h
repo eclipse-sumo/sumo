@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/15 12:18:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2004/07/02 09:46:28  dkrajzew
 // some helper procedures for vss visualisation
 //
@@ -34,7 +37,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <vector>
@@ -60,6 +63,9 @@ public:
         double visLength);
 
     static void drawFilledCircle(double width, int steps=8);
+
+    static void drawFilledCircle(double width, int steps,
+        float beg, float end);
 
 private:
     static std::vector<std::pair<float, float> > myCircleCoords;

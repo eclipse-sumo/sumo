@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2005/09/15 12:02:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.34  2005/07/12 12:32:47  dkrajzew
 // code style adapted; guessing of ramps and unregulated near districts implemented; debugging
 //
@@ -67,7 +70,8 @@ namespace
 // unneeded debug-ifs removed
 //
 // Revision 1.20  2003/10/06 07:46:12  dkrajzew
-// further work on vissim import (unsignalised vs. signalised streams modality cleared & lane2lane instead of edge2edge-prohibitions implemented
+// further work on vissim import (unsignalised vs. signalised streams
+//  modality cleared & lane2lane instead of edge2edge-prohibitions implemented
 //
 // Revision 1.19  2003/09/22 12:40:11  dkrajzew
 // further work on vissim-import
@@ -82,10 +86,14 @@ namespace
 // removed warnings
 //
 // Revision 1.15  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of geometry information
+// some further refinements due to the new 1:N traffic lights and usage of
+//  geometry information
 //
 // Revision 1.14  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.13  2003/06/05 11:43:35  dkrajzew
 // class templates applied; documentation added
@@ -94,7 +102,8 @@ namespace
 // yellow traffic lights implemented
 //
 // Revision 1.11  2003/05/20 09:33:47  dkrajzew
-// false computation of yielding on lane ends debugged; some debugging on tl-import; further work on vissim-import
+// false computation of yielding on lane ends debugged;
+//  some debugging on tl-import; further work on vissim-import
 //
 // Revision 1.10  2003/04/14 08:34:57  dkrajzew
 // some further bugs removed
@@ -130,10 +139,12 @@ namespace
 // Report methods transfered from loader to the containers
 //
 // Revision 1.5  2002/06/11 16:00:41  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+// windows eol removed; template class definition inclusion depends now
+//  on the EXTERNAL_TEMPLATE_DEFINITION-definition
 //
 // Revision 1.4  2002/06/07 14:58:45  dkrajzew
-// Bugs on dead ends and junctions with too few outgoing roads fixed; Comments improved
+// Bugs on dead ends and junctions with too few outgoing roads fixed;
+//  Comments improved
 //
 // Revision 1.3  2002/05/14 04:42:55  dkrajzew
 // new computation flow
@@ -168,6 +179,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <string>
 #include <cassert>
@@ -191,6 +206,10 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 //#include <strstream>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -435,9 +454,13 @@ NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
                     const std::string &secondEdgeName,
                     size_t noLanesFirstEdge, size_t noLanesSecondEdge)
 {
-    double pos = GeomHelper::nearest_position_on_line_to_point(
-        edge->_from->getPosition(), edge->_to->getPosition(),
-        node->getPosition());
+    double pos;
+    pos = edge->getGeometry().nearest_position_on_line_to_point(node->getPosition());
+    if(pos<=0) {
+        pos = GeomHelper::nearest_position_on_line_to_point(
+            edge->_from->getPosition(), edge->_to->getPosition(),
+            node->getPosition());
+    }
     if(pos<=0) {
         return false;
     }
@@ -487,9 +510,6 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     // add connections from the first to the second edge
     size_t noLanes = one->getNoLanes();
     for(i=0; i<one->getNoLanes()&&i<two->getNoLanes(); i++) {
-        if(one->getID()=="153122087"&&two->getID()=="153122087-AddedOffRampEdge") {
-            int bla = 0;
-        }
         if(!one->addLane2LaneConnection(i, two, i)) {// !!! Bresenham, here!!!
             MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
             throw ProcessError();

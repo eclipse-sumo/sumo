@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/15 12:04:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.10  2005/07/12 12:37:15  dkrajzew
 // code style adapted
 //
@@ -93,6 +96,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <string>
 #include <map>
@@ -104,8 +111,12 @@ namespace
 #include <microsim/MSEdgeControl.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/XMLBuildingExceptions.h>
-#include "NLNetBuilder.h"
+#include "NLBuilder.h"
 #include "NLEdgeControlBuilder.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -118,7 +129,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NLEdgeControlBuilder::NLEdgeControlBuilder(unsigned int storageSize)
-    : myCurrentNumericalLaneID(0)
+    : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0)
 {
     m_pActiveEdge = (MSEdge*) 0;
     m_pLaneStorage = new MSEdge::LaneCont();
@@ -147,7 +158,7 @@ NLEdgeControlBuilder::prepare(unsigned int no)
 MSEdge *
 NLEdgeControlBuilder::addEdge(const string &id)
 {
-    MSEdge *edge = new MSEdge(id);
+    MSEdge *edge = new MSEdge(id, myCurrentNumericalEdgeID++);
     if(!MSEdge::dictionary(id, edge)) {
         throw XMLIdAlreadyUsedException("Edge", id);
     }
@@ -171,7 +182,7 @@ NLEdgeControlBuilder::chooseEdge(const string &id,
 
 
 MSLane *
-NLEdgeControlBuilder::addLane(MSNet &net, const std::string &id,
+NLEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
                               double maxSpeed, double length, bool isDepart,
 							  const Position2DVector &shape)
 {
@@ -182,16 +193,16 @@ NLEdgeControlBuilder::addLane(MSNet &net, const std::string &id,
     MSLane *lane = 0;
     switch(m_Function) {
     case MSEdge::EDGEFUNCTION_SOURCE:
-        lane = new MSSourceLane(net, id, maxSpeed, length, m_pActiveEdge,
+        lane = new MSSourceLane(/*net, */id, maxSpeed, length, m_pActiveEdge,
             myCurrentNumericalLaneID++, shape);
         break;
     case MSEdge::EDGEFUNCTION_INTERNAL:
-        lane = new MSInternalLane(net, id, maxSpeed, length, m_pActiveEdge,
+        lane = new MSInternalLane(/*net, */id, maxSpeed, length, m_pActiveEdge,
             myCurrentNumericalLaneID++, shape);
         break;
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_SINK:
-        lane = new MSLane(net, id, maxSpeed, length, m_pActiveEdge,
+        lane = new MSLane(/*net, */id, maxSpeed, length, m_pActiveEdge,
             myCurrentNumericalLaneID++, shape);
         break;
     default:
@@ -283,7 +294,7 @@ NLEdgeControlBuilder::build()
         }
     }
     delete m_pEdges;
-    return new MSEdgeControl("", singleLanes, multiLanes); // !!! ID
+    return new MSEdgeControl(singleLanes, multiLanes);
 }
 
 

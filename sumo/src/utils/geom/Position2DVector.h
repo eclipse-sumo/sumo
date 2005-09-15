@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2005/09/15 12:18:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.19  2005/07/12 12:44:17  dkrajzew
 // access function improved
 //
@@ -81,7 +84,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <queue>
@@ -100,7 +103,7 @@ class Line2D;
 class Position2DVector
         : public AbstractPoly {
 public:
-    /// Definition of the list of points
+	/// Definition of the list of points
     typedef std::deque<Position2D> ContType;
 
 public:
@@ -211,16 +214,16 @@ public:
 
     Position2DVector convexHull() const;
 
-    void appendWithCrossingPoint(const Position2DVector &v);
+    int appendWithCrossingPoint(const Position2DVector &v);
 
 
-    const ContType &getCont() const {
-        return myCont;
-    }
+	const ContType &getCont() const {
+		return myCont;
+	}
 
     Position2DVector resettedBy(double x, double y) const;
 
-    Position2DVector getSubpart(double begin, double end) const;
+	Position2DVector getSubpart(double begin, double end) const;
 
     void sortAsPolyCWByAngle();
 
@@ -271,7 +274,7 @@ public:
     void resetBy(const Position2D &by);
 
 
-    // !!!
+	// !!!
     double isLeft( const Position2D &P0, const Position2D &P1, const Position2D &P2 ) const;
 
     void set(size_t pos, const Position2D &p);
@@ -281,7 +284,7 @@ public:
 
     double beginEndAngle() const;
 
-    void eraseAt(size_t i);
+    void eraseAt(int i);
 
     double nearest_position_on_line_to_point(const Position2D &p) const;
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/09/15 12:18:59  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.1  2004/11/23 10:38:29  dkrajzew
 // debugging
 //
@@ -51,8 +54,16 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <cassert>
 #include "GUIMessageWindow.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -65,7 +76,8 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 GUIMessageWindow::GUIMessageWindow(FXComposite *parent)
-    : FXText(parent, 0, 0, 0, 0, 0, 0, 50)
+    : FXText(parent, 0, 0, 0, 0, 0, 0, 50),
+    myStyles(0)
 {
     setStyled(true);
     setEditable(false);
@@ -113,6 +125,7 @@ GUIMessageWindow::GUIMessageWindow(FXComposite *parent)
 
 GUIMessageWindow::~GUIMessageWindow()
 {
+    delete[] myStyles;
 }
 
 

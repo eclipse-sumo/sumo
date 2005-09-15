@@ -1,3 +1,7 @@
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "Helper_ConvexHull.h"
 
 // Copyright 2002, softSurfer (www.softsurfer.com)
@@ -14,6 +18,10 @@
 
 #include <utils/common/UtilExceptions.h>
 #include <iostream>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 using namespace std;
 

@@ -23,6 +23,10 @@
 #define FXSEVENSEGMENT_H
 
 #ifndef FXFRAME_H
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <FXFrame.h>
 using namespace FX;
 #endif

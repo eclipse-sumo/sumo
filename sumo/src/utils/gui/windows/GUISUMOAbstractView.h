@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/15 12:20:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/07/12 12:52:07  dkrajzew
 // code style adapted
 //
@@ -111,7 +114,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -122,7 +125,7 @@
 #include <utils/geom/Position2D.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/foxtools/FXMutex.h>
-#include <utils/geom/Polygon2D.h>
+#include <utils/shapes/Polygon2D.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include "GUIGrid.h"
 
@@ -148,6 +151,8 @@ class GUIDetectorWrapper;
 class GUIGLObjectPopupMenu;
 class GUIGlObject;
 class GUIGlObjectStorage;
+class PointOfInterest;
+class ShapeContainer;
 
 
 /* =========================================================================
@@ -219,6 +224,7 @@ public:
     virtual long onMouseMove(FXObject*,FXSelector,void*);
     virtual long onCmdShowToolTips(FXObject*,FXSelector,void*);
     virtual long onCmdEditViewport(FXObject*,FXSelector,void*);
+    virtual long onCmdEditView(FXObject*,FXSelector,void*);
     long onCmdShowGrid(FXObject*,FXSelector,void*);
     long onSimStep(FXObject*sender,FXSelector,void*);
 
@@ -242,6 +248,8 @@ public:
 
     /// Builds the popup-menu containing the location-menu
     virtual FXPopup *getLocatorPopup(GUIGlChildWindow &p);
+
+    void drawShapes(const ShapeContainer &sc) const;
 
 public:
     /**
@@ -353,7 +361,10 @@ protected:
     void paintGL();
 
     /// Draws the given polygon
-    void drawPolygon2D(Polygon2D &polygon);
+    void drawPolygon2D(const Polygon2D &polygon) const;
+
+    /// Draws the given polygon
+    void drawPOI2D(const PointOfInterest &p) const;
 
 protected:
     virtual void doPaintGL(int mode, double scale) { }

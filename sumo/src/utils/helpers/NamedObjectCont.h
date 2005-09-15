@@ -20,11 +20,20 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.11  2004/12/16 12:18:02  dkrajzew
+// Revision 1.1  2005/09/15 12:20:44  dkrajzew
+// LARGE CODE RECHECK
+//
+// Revision 1.1  2005/09/09 12:56:08  dksumo
+// helpers added
+//
+// Revision 1.3  2004/12/07 11:59:31  dksumo
 // debugging
 //
-// Revision 1.10  2004/11/23 10:27:45  dkrajzew
-// debugging
+// Revision 1.2  2004/11/22 12:52:29  dksumo
+// removed some warnings
+//
+// Revision 1.1  2004/10/22 12:50:36  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.9  2004/03/19 13:00:20  dkrajzew
 // some style adaptions only
@@ -60,7 +69,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <map>
@@ -80,33 +89,117 @@ template<class T>
 class NamedObjectCont {
 public:
     /// Constructor
-    NamedObjectCont();
+    NamedObjectCont() : myHaveChanged(false) { }
 
     /// Destructor
-    virtual ~NamedObjectCont();
+    virtual ~NamedObjectCont(){
+        for( typename IDMap::iterator i=myMap.begin();
+             i!=myMap.end();
+            i++) {
+
+            delete (*i).second;
+        }
+    }
+
 
     /** @brief Adds an item
         If another item with the same name is already known, false is reported
         and the item is not added. */
-    virtual bool add(const std::string &id, T item);
+    virtual bool add(const std::string &id, T item)
+    {
+        if(myMap.find(id)!=myMap.end()) {
+            return false;
+        }
+        myMap.insert(std::make_pair(id, item));
+        myHaveChanged = true;
+//        myVector.push_back(item);
+        return true;
+    }
+
 
     /** @brief Retrieves an item
         Returns 0 when no such item is stored within the container */
-    T get(const std::string &id) const;
+    T get(const std::string &id) const
+    {
+        typename std::map<std::string, T>::const_iterator i = myMap.find(id);
+        if(i==myMap.end()) {
+            return 0;
+        }
+        return (*i).second;
+    }
+
 
     /// Removes all items from the container (deletes them, too)
-    void clear();
+    void clear()
+    {
+        for(typename IDMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
+            delete (*i).second;
+        }
+	    myMap.clear();
+        myVector.clear();
+        myHaveChanged = true;
+    }
+
 
     /// Returns the number of items within the container
-    size_t size() const;
+    size_t size() const
+    {
+//        assert(myMap.size()==myVector.size());
+        return myMap.size();
+    }
+
 
     /// Removes the named item from the container
-    bool erase(const std::string &id);
+    bool erase(const std::string &id)
+    {
+        typename IDMap::iterator i=myMap.find(id);
+        if(i==myMap.end()) {
+            return false;
+        }
+        T o = (*i).second;
+        myMap.erase(i);
+        // and from the vector
+        typename ObjectVector::iterator i2 =
+            find(myVector.begin(), myVector.end(), o);
+        myHaveChanged = true;
+        if(i2!=myVector.end()) {
+            myVector.erase(i2);
+        }
+        delete o;
+	    return true;
+    }
+
 
     /* @brief Returns a vector that contains all objects. */
-    const std::vector<T> &getVector() const;
+    const std::vector<T> &buildAndGetStaticVector() const
+    {
+        if(myHaveChanged) {
+            myVector.clear();
+            typename IDMap::const_iterator i;
+            for(i=myMap.begin(); i!=myMap.end(); ++i) {
+                myVector.push_back((*i).second);
+            }
+            myHaveChanged = false;
+        }
+        return myVector;
+    }
 
-    const std::map<std::string, T> &getMyMap() const;
+    /* @brief Returns a vector that contains all objects. */
+    std::vector<T> getTempVector() const
+    {
+        std::vector<T> ret;
+        typename IDMap::const_iterator i;
+        for(i=myMap.begin(); i!=myMap.end(); ++i) {
+            ret.push_back((*i).second);
+        }
+        return ret;
+    }
+
+	const std::map<std::string, T> &getMyMap() const
+    {
+        return myMap;
+    }
+
 
 private:
     /// Definition of the key to pointer map type
@@ -122,13 +215,13 @@ private:
     typedef std::vector<T> ObjectVector;
 
     /// The vector of all known items
-    ObjectVector myVector;
+    mutable ObjectVector myVector;
+
+    /// Information whether the vector is out of sync with the map
+    mutable bool myHaveChanged;
 
 };
 
-#ifndef EXTERNAL_TEMPLATE_DEFINITION
-#include "NamedObjectCont.cpp"
-#endif
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

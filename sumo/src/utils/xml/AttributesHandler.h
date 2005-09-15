@@ -22,6 +22,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2005/09/15 12:22:26  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2005/04/28 09:02:50  dkrajzew
 // level3 warnings removed
 //
@@ -53,7 +56,8 @@
 // Windows eol removed
 //
 // Revision 1.4  2002/06/10 08:33:22  dkrajzew
-// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
+// Parsing of strings into other data formats generelized;
+//  Options now recognize false numeric values; documentation added
 //
 // Revision 1.3  2002/04/17 11:19:57  dkrajzew
 // windows-carriage returns removed
@@ -70,6 +74,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <sax2/Attributes.hpp>
 #include <string>
 #include <map>
@@ -120,34 +128,32 @@ public:
     /** returns the named (by id) attribute as a bool */
     bool getBool(const Attributes &attrs, int id) const;
     bool getBoolSecure(const Attributes &attrs, int id, bool val) const;
+    bool getBool(const Attributes &attrs, const std::string &id) const;
+    bool getBoolSecure(const Attributes &attrs, const std::string &id, bool val) const;
 
     /** returns the named (by id) attribute as an int */
     int getInt(const Attributes &attrs, int id) const;
-
-    /** returns the named (by id) attribute as an int */
     int getIntSecure(const Attributes &attrs, int id, int def) const;
+    int getInt(const Attributes &attrs, const std::string &id) const;
+    int getIntSecure(const Attributes &attrs, const std::string &id, int def) const;
 
     /** returns the named (by id) attribute as a string */
     std::string getString(const Attributes &attrs, int id) const;
-
-    /** @brief returns the named (by id) attributes as a string;
-        returns the third parameter when the attribute is not found */
     std::string getStringSecure(const Attributes &attrs, int id,
+        const std::string &str) const;
+    std::string getString(const Attributes &attrs, const std::string &id) const;
+    std::string getStringSecure(const Attributes &attrs, const std::string &id,
         const std::string &str) const;
 
     /** returns the named (by id) attribute as a long */
     long getLong(const Attributes &attrs, int id) const;
-
-    /** returns a long even when no attribute is given */
     long getLongSecure(const Attributes &attrs, int id, long def) const;
 
     /** returns the named (by id) attribute as a float */
     float getFloat(const Attributes &attrs, int id) const;
-
-    /** @brief returns the named (by id) attribute as a float
-        returns the third parameter when the attribute does not
-        exist or is not a float*/
     float getFloatSecure(const Attributes &attrs, int id, float def) const;
+    float getFloat(const Attributes &attrs, const std::string &id) const;
+    float getFloatSecure(const Attributes &attrs, const std::string &id, float def) const;
 
     /** returns the named (by id) attribute as a c-string */
     char *getCharP(const Attributes &attrs, int id) const;
@@ -164,8 +170,17 @@ private:
 
     /** returns the xml-name of an attribute in a way that no NULL-pointer
         exceptions may occure */
+    const XMLCh *const getAttributeNameSecure(const std::string &id) const;
+
+    /** returns the xml-name of an attribute in a way that no NULL-pointer
+        exceptions may occure */
     const XMLCh *getAttributeValueSecure(const Attributes &attrs,
         int id) const;
+
+    /** returns the xml-name of an attribute in a way that no NULL-pointer
+        exceptions may occure */
+    const XMLCh *getAttributeValueSecure(const Attributes &attrs,
+        const std::string &id) const;
 
 private:
     /** invalidated copy constructor */
@@ -177,8 +192,17 @@ private:
 private:
     /** the type of the map from ids to their unicode-string representation */
     typedef std::map<int, unsigned short*> AttrMap;
+
     /** the map from ids to their unicode-string representation */
-    AttrMap _tags;
+    AttrMap myPredefinedTags;
+
+    /** the type of the map from ids to their unicode-string representation */
+    typedef std::map<std::string, unsigned short*> StrAttrMap;
+
+    /** the map from ids to their unicode-string representation */
+    mutable StrAttrMap myStrTags;
+
+
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

@@ -2,7 +2,7 @@
 #define MemDiff_H
 /***************************************************************************
                           MemDiff.h
-              A class that wraps the MS - memory counting methods
+			  A class that wraps the MS - memory counting methods
                              -------------------
     project              : SUMO
     begin                : Thu, 06 Jul 2002
@@ -20,8 +20,14 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.2  2004/11/23 10:32:52  dkrajzew
-// debugging
+// Revision 1.3  2005/09/15 12:17:36  dkrajzew
+// LARGE CODE RECHECK
+//
+// Revision 1.2  2005/09/09 12:54:18  dksumo
+// nvwa 0.6 added
+//
+// Revision 1.1  2004/10/22 12:50:37  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.1  2003/02/07 10:48:55  dkrajzew
 // some debugging and profiling classes added
@@ -46,6 +52,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <afx.h>
 
 /* =========================================================================
@@ -59,10 +69,10 @@ class CMemDiff : CMemoryState
 {
 public:
     /// Constructor
-    CMemDiff();
+	CMemDiff();
 
     /// Destructor
-    ~CMemDiff();
+	~CMemDiff();
 };
 
 #endif

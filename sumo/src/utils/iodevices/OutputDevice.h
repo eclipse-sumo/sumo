@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/15 12:21:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/04/28 09:02:49  dkrajzew
 // level3 warnings removed
 //
@@ -47,6 +50,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include "XMLDevice.h"
 
@@ -61,7 +68,9 @@
 class OutputDevice : public XMLDevice {
 public:
     /// Constructor
-    OutputDevice() : myNeedHeader(true), myNeedDetectorName(false) { }
+    OutputDevice() :
+      myNeedHeader(true), myNeedTail(true), myNeedDetectorName(false)
+      { }
 
     /// Destructor
     virtual ~OutputDevice() { }
@@ -95,6 +104,12 @@ public:
     /// Sets the information whether a header is wished
     void setNeedsHeader(bool value) { myNeedHeader = value; }
 
+    /// Returns the information whether a header shall be printed
+    bool needsTail() const { return myNeedTail; }
+
+    /// Sets the information whether a header is wished
+    void setNeedsTail(bool value) { myNeedTail = value; }
+
     /// Sets the information whether the detector's name should always be printed
     void setNeedsDetectorName(bool value) { myNeedDetectorName = value; }
 
@@ -102,6 +117,9 @@ public:
 protected:
     /// The information whether a header shall be written
     bool myNeedHeader;
+
+    /// The information whether a tail shall be written
+    bool myNeedTail;
 
     /// The information wheter the detector's name should be printed
     bool myNeedDetectorName;

@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/15 12:22:26  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2004/11/23 10:36:50  dkrajzew
 // debugging
 //
@@ -39,10 +42,12 @@ namespace
 // Windows eol removed
 //
 // Revision 1.2  2002/06/10 08:33:23  dkrajzew
-// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
+// Parsing of strings into other data formats generelized;
+//  Options now recognize false numeric values; documentation added
 //
 // Revision 1.4  2002/06/10 06:54:30  dkrajzew
-// Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
+// Conversion of strings (XML and c-strings) to numerical values generalized;
+//  options now recognize false numerical input
 //
 // Revision 1.3  2002/05/14 04:45:50  dkrajzew
 // Bresenham added; some minor changes; windows eol removed
@@ -81,9 +86,17 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <exception>
 #include "XMLBuildingExceptions.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -91,7 +104,7 @@ namespace
  * ======================================================================= */
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC       // exclude standard memory alloc procedures
+   #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #endif
 
 

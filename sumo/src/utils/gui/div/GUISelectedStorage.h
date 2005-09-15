@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/15 12:18:59  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2004/12/16 12:12:59  dkrajzew
 // first steps towards loading of selections between different applications
 //
@@ -32,10 +35,13 @@
 // Revision 1.1  2004/07/02 08:08:33  dkrajzew
 // global object selection added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <string>
 #include <fstream>

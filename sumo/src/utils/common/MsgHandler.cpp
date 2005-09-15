@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2005/09/15 12:13:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/05/04 08:58:33  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -44,6 +47,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <cassert>
 #include <vector>
@@ -54,6 +61,10 @@
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include "AbstractMutex.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

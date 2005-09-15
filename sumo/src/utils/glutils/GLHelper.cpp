@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/15 12:18:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2004/11/23 10:35:13  dkrajzew
 // debugging
 //
@@ -42,7 +45,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #ifdef _WIN32
@@ -53,6 +56,10 @@ namespace
 
 #include "GLHelper.h"
 #include <utils/geom/GeomHelper.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -121,6 +128,13 @@ GLHelper::drawLine(const Position2D &beg, double rot, double visLength)
 void
 GLHelper::drawFilledCircle(double width, int steps)
 {
+    drawFilledCircle(width, steps, 0, 360);
+}
+
+
+void
+GLHelper::drawFilledCircle(double width, int steps, float beg, float end)
+{
     if(myCircleCoords.size()==0) {
         for(int i=0; i<360; i+=10) {
             float x = (float) sin((float) i / 180.0 * PI);
@@ -129,8 +143,9 @@ GLHelper::drawFilledCircle(double width, int steps)
         }
     }
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    std::pair<float, float> p1 = myCircleCoords[0];
-    for(int i=0; i<steps; i++) {
+    std::pair<float, float> p1 =
+        beg==0 ? myCircleCoords[0] : myCircleCoords[((int) beg/10)%36];
+    for(int i=beg/10; i<steps&&(36.0/(float) steps * (float) i)*10<end; i++) {
         const std::pair<float, float> &p2 =
             myCircleCoords[(size_t) (36.0/(float) steps * (float) i)];
         glBegin(GL_TRIANGLES);
@@ -140,7 +155,8 @@ GLHelper::drawFilledCircle(double width, int steps)
         glEnd();
         p1 = p2;
     }
-    const std::pair<float, float> &p2 = myCircleCoords[0];
+    const std::pair<float, float> &p2 =
+        end==360 ? myCircleCoords[0] : myCircleCoords[((int) end/10)%36];
     glBegin(GL_TRIANGLES);
     glVertex2d(p1.first * width, p1.second * width);
     glVertex2d(p2.first * width, p2.second * width);

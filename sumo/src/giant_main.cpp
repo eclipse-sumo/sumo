@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/09/15 12:27:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/07/12 12:55:27  dkrajzew
 // build number output added
 //
@@ -36,9 +39,13 @@
 /*
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // Microsoft memory leak detection procedures
-//   #define _INC_MALLOC         // exclude standard memory alloc procedures
+//   #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #ifdef WIN32
-   #include <utils/dev/MemDiff.h>
+   #ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
+#include <utils/dev/MemDiff.h>
    #include <crtdbg.h>
 #endif
 #endif
@@ -79,6 +86,10 @@
 #include <windows.h>
 #include <GL/gl.h>
 #endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

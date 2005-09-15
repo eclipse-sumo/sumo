@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/15 12:03:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/04/27 12:24:41  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -44,6 +47,11 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
+#include <utils/convert/TplConvert.h>
 #include <utils/convert/TplConvertSec.h>
 #include <netbuild/NBHelpers.h>
 #include <netbuild/nodes/NBNodeCont.h>
@@ -54,6 +62,10 @@ namespace
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

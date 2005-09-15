@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2005/09/15 12:03:02  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.16  2005/07/13 10:22:47  dkrajzew
 // debugging
 //
@@ -140,6 +143,10 @@ namespace
 
 #include "Image.h"
 #include "GNEImageProcWindow.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -289,13 +296,6 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
     //  (it will loop until the application ends deciding by itself whether
     //        to perform a step or not)
     myRunThread->start();
-    // check whether a simulation shall be started on begin
-    if(config!="") {
-        gStartAtBegin = true;
-        load(config);
-    } else {
-        gStartAtBegin = false;
-    }
     setIcon( GUIIconSubSys::getIcon(ICON_APP) );
 }
 
@@ -1325,7 +1325,15 @@ GNEApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         _wasStarted = false;
         // initialise views
         myViewNumber = 0;
+#ifdef HAVE_MESOSIM
+    if(MSGlobals::gUseMesoSim) {
+        openNewView(GUISUMOViewParent::EDGE_MESO_VIEW);
+    } else {
         openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
+    }
+#else
+        openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
+#endif
         // set simulation name on the caption
         string caption = string("SUMO ") + string(version)
             + string(" - ") + ec->_file;
@@ -1337,7 +1345,7 @@ GNEApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
     }
     getApp()->endWaitCursor();
     // start if wished
-    if(gStartAtBegin&&ec->_net!=0) {
+    if(myRunAtBegin&&ec->_net!=0) {
         onCmdStart(0, 0, 0);
     }
     update();

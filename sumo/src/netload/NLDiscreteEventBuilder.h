@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/09/15 12:04:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/05/04 08:39:46  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -34,6 +37,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <sax2/Attributes.hpp>
 #include <string>
 #include <map>

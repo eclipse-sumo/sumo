@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2005/09/15 12:14:41  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/04/28 09:02:47  dkrajzew
 // level3 warnings removed
 //
@@ -48,7 +51,13 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
+#include <cmath>
+#include <utils/common/UtilExceptions.h>
 
 
 /* =========================================================================
@@ -65,93 +74,289 @@ public:
     // conversion methods without a length
     /** converts a 0-terminated char-type array into std::string
         throws an EmptyData - exception if the given string is empty */
-    static std::string _2str(const E * const data);
+    static std::string _2str(const E * const data)
+    {
+        return _2str(data, getLength(data));
+    }
+
 
     /** converts a 0-terminated char-type array into the integer value
             described by it
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain an integer */
-    static int _2int(const E * const data);
+    static int _2int(const E * const data)
+    {
+        return _2int(data, INT_MAX);
+    }
+
 
     /** converts a 0-terminated char-type array into the long value
             described by it
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain a long */
-    static long _2long(const E * const data);
+    static long _2long(const E * const data)
+    {
+        return _2long(data, INT_MAX);
+    }
+
 
     /** converts a 0-terminated char-type array into the float value
             described by it
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string
             does not contain a float */
-    static float _2float(const E * const data);
+    static float _2float(const E * const data)
+    {
+        return _2float(data, INT_MAX);
+    }
+
 
     /** converts a 0-terminated char-type array into the float value
             described by it
         returns true when the first char is one of the following: '1',
             'x', 't', 'T'
         throws an EmptyData - exception if the given string is empty */
-    static bool _2bool(const E * const data);
+    static bool _2bool(const E * const data)
+    {
+        return _2bool(data, 1);
+    }
+
 
     /** converts a 0-terminated char-type array into a 0-terminated
             0-terminated c-char-string
         throws an EmptyData - exception if the given string is empty */
-    static char *_2charp(const E * const data);
+    static char *_2charp(const E * const data)
+    {
+        return _2charp(data, getLength(data));
+    }
 
 
     // conversion methods with a length
     /** converts a char-type array into std::string considering the given
             length
         throws an EmptyData - exception if the given string is empty */
-    static std::string _2str(const E * const data, int length);
+    static std::string _2str(const E * const data, int length)
+    {
+        if(data==0||length==0) {
+            throw EmptyData();
+        }
+        char *buf = new char[length+1];
+        int i = 0;
+        for(i=0; i<length; i++) {
+            buf[i] = (char) data[i];
+        }
+        buf[i] = 0;
+        std::string ret = buf;
+        delete[] buf;
+        return ret;
+    }
+
 
     /** converts a char-type array into the integer value described by it
             considering the given length
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain an integer */
-    static int _2int(const E * const data, int length);
+    static int _2int(const E * const data, int length)
+    {
+        if(data==0||length==0||data[0]==0) {
+            throw EmptyData();
+        }
+        int sgn = 1;
+        int i=0;
+        if(data[0]=='+') {
+            i++;
+        }
+        if(data[0]=='-') {
+            i++;
+            sgn = -1;
+        }
+        int val = 0;
+        for(; i<length&&data[i]!=0; i++) {
+            val = val * 10;
+            char akt = (char) data[i];
+            if(akt<'0'||akt>'9') {
+                throw NumberFormatException();
+            }
+            val = val + akt - 48;
+        }
+        if(i==0) {
+            throw EmptyData();
+        }
+        return val * sgn;
+    }
+
 
     /** converts a char-type array into the long value described by it
             considering the given length
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain a long */
-    static long _2long(const E * const data, int length);
+    static long _2long(const E * const data, int length)
+    {
+        if(data==0||length==0||data[0]==0) {
+            throw EmptyData();
+        }
+        long sgn = 1;
+        int i=0;
+        if(data[0]=='+') {
+            i++;
+        }
+        if(data[0]=='-') {
+            i++;
+            sgn = -1;
+        }
+        long ret = 0;
+        for(; i<length&&data[i]!=0; i++) {
+            ret = ret * 10;
+            char akt = (char) data[i];
+            if(akt<'0'||akt>'9') {
+                throw NumberFormatException();
+            }
+            ret = ret + akt - 48;
+        }
+        if(i==0) {
+            throw EmptyData();
+        }
+        return ret * sgn;
+    }
+
 
     /** converts a char-type array into the float value described by it
             considering the given length
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain a float */
-    static float _2float(const E * const data, int length);
+    static float _2float(const E * const data, int length)
+    {
+        if(data==0||length==0||data[0]==0) {
+            throw EmptyData();
+        }
+        float ret = 0;
+        int i = 0;
+        float sgn = 1;
+        if(data[0]=='+') {
+            i++;
+        }
+        if(data[0]=='-') {
+            i++;
+            sgn = -1;
+        }
+        for(; i<length&&data[i]!=0&&data[i]!='.'&&data[i]!=','&&data[i]!='e'&&data[i]!='E'; i++) {
+            ret = ret * 10;
+            char akt = (char) data[i];
+            if(akt<'0'||akt>'9') {
+                throw NumberFormatException();
+            }
+            ret = ret + akt - 48;
+        }
+        // check what has happened - end of string, e or decimal point
+        if((char) data[i]!='.'&&(char) data[i]!=','&&data[i]!='e'&&data[i]!='E') {
+            if(i==0) {
+                throw EmptyData();
+            }
+            return ret * sgn;
+        }
+        if(data[i]=='e'||data[i]=='E') {
+            // no decimal point, just an exponent
+            try {
+                int exp = _2int(data+i+1, length-i-1);
+                float exp2 = (float) pow(10.0, exp);
+                return ret*sgn*exp2;
+            } catch (EmptyData&) {
+                // the exponent was empty
+                throw NumberFormatException();
+            }
+        }
+        float div = 10;
+        // skip the dot
+        i++;
+        // parse values behin decimal point
+        for(; i<length&&data[i]!=0&&data[i]!='e'&&data[i]!='E'; i++) {
+            char akt = (char) data[i];
+            if(akt<'0'||akt>'9') {
+                throw NumberFormatException();
+            }
+            ret = ret + ((float) (akt - 48)) / div;
+            div = div * 10;
+        }
+        if(data[i]!='e'&&data[i]!='E') {
+            // no exponent
+            return ret * sgn;
+        }
+        // eponent and decimal dot
+        try {
+            int exp = _2int(data+i+1, length-i-1);
+            float exp2 = (float) pow(10.0, exp);
+            return ret*sgn*exp2;
+        } catch (EmptyData&) {
+            // the exponent was empty
+            throw NumberFormatException();
+        }
+    }
+
 
     /** converts a char-type array into the float value described by it
             considering the given length
         returns true when the first char is one of the following: '1',
             'x', 't', 'T'
         throws an EmptyData - exception if the given string is empty */
-    static bool _2bool(const E * const data, int length);
+    static bool _2bool(const E * const data, int length)
+    {
+        if(data==0||length==0||data[0]==0) {
+            throw EmptyData();
+        }
+        char akt = (char) data[0];
+        return akt=='1' || akt=='x' || akt=='t' || akt=='T';
+    }
+
 
     /** converts a char-type array into a 0-terminated 0-terminated
             c-char-string considering the given length
         throws an EmptyData - exception if the given string is empty */
-    static char *_2charp(const E * const data, int length);
+    static char *_2charp(const E * const data, int length)
+    {
+        if(length==0||data==0) {
+            throw EmptyData();
+        }
+        char *ret = new char[length+1];
+        int i = 0;
+        for(; i<length; i++) {
+            ret[i] = (char) data[i];
+        }
+        ret[i] = 0;
+        return ret;
+    }
 
 
     /** duplicates the given string */
-    static E *duplicate(const E * const s);
+    static E *duplicate(const E * const s)
+    {
+        int i=0;
+        for(;s[i]!=0; i++);
+        char *ret = new E[i+1];
+        for(i=0; s[i]!=0; i++) {
+            ret[i] = s[i];
+        }
+        ret[i] = 0;
+        return ret;
+    }
+
 
     /** returns the length of the string (the position of the 0-character) */
-    static size_t getLength(const E * const data);
+    static size_t getLength(const E * const data)
+    {
+        if(data==0) {
+            return 0;
+        }
+        size_t i = 0;
+        for(; data[i]!=0; i++);
+        return i;
+    }
 
 };
-
-#ifndef EXTERNAL_TEMPLATE_DEFINITION
-#include "TplConvert.cpp"
-#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

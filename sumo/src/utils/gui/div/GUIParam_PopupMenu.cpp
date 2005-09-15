@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/15 12:18:59  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/07/12 11:55:37  dkrajzew
 // fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
 //
@@ -62,6 +65,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
 #include <string>
 #include "GUIParameterTableWindow.h"
@@ -72,6 +79,10 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <microsim/MSNet.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -121,7 +132,7 @@ GUIParam_PopupMenu::onCmdOpenTracker(FXObject*,FXSelector,void*)
     GUIParameterTracker *tr = new GUIParameterTracker(*myApplication,
         trackerName, *myObject, 0, 0);
     TrackerValueDesc *newTracked = new TrackerValueDesc(
-        myVarName, RGBColor(0, 0, 0), myObject, myApplication->getCurrentSimTime());
+		myVarName, RGBColor(0, 0, 0), myObject, myApplication->getCurrentSimTime());
     tr->addTracked(*myObject, mySource->copy(), newTracked);
     tr->create();
     tr->show();

@@ -1,5 +1,5 @@
 /***************************************************************************
-                          NLNetBuilder.cpp
+                          NLBuilder.cpp
               Container for MSNet during its building
                              -------------------
     project              : SUMO
@@ -23,23 +23,42 @@ namespace
          "$Id$";
 }
 // $Log$
-// Revision 1.25  2005/05/04 08:41:33  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
+// Revision 1.1  2005/09/15 12:04:36  dkrajzew
+// LARGE CODE RECHECK
 //
-// Revision 1.24  2005/02/17 10:33:39  dkrajzew
-// code beautifying;
-// Linux building patched;
-// warnings removed;
-// new configuration usage within guisim
+// Revision 1.11  2005/09/12 07:40:31  dksumo
+// dos2unix applied; debugging new loading
 //
-// Revision 1.23  2004/12/16 12:23:37  dkrajzew
-// first steps towards a better parametrisation of traffic lights
+// Revision 1.10  2005/09/09 12:58:18  dksumo
+// new loading scheme implemented
 //
-// Revision 1.22  2004/11/25 16:26:49  dkrajzew
-// consolidated and debugged some detectors and their usage
+// Revision 1.9  2005/08/01 13:00:34  dksumo
+// further triggers added; loading and saving of mesostate added
 //
-// Revision 1.21  2004/11/23 10:12:46  dkrajzew
-// new detectors usage applied
+// Revision 1.8  2005/04/26 07:43:21  dksumo
+// SUMOTime inserted; level3 warnings patched; loading lane geometry into
+//  microsim
+//
+// Revision 1.7  2005/02/17 09:30:26  dksumo
+// detector building patched
+//
+// Revision 1.6  2005/01/27 14:36:20  dksumo
+// code beautifying
+//
+// Revision 1.5  2004/12/10 11:42:54  dksumo
+// detectors usage reworked
+//
+// Revision 1.4  2004/11/25 15:56:06  dksumo
+// consolidating and debugging of detector output
+//
+// Revision 1.3  2004/11/22 12:33:28  dksumo
+// tried to simplify the usage of detectors - merging mean lane data
+//
+// Revision 1.2  2004/10/29 05:52:35  dksumo
+// fastened up the output of warnings and messages
+//
+// Revision 1.1  2004/10/22 12:50:19  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.20  2004/08/02 12:47:18  dkrajzew
 // time-to-teleport added
@@ -179,7 +198,11 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include "NLNetBuilder.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
+#include "NLBuilder.h"
 #include <microsim/MSNet.h>
 #include <microsim/MSEmitControl.h>
 #include <microsim/MSGlobals.h>
@@ -189,7 +212,6 @@ namespace
 #include <sax2/SAX2XMLReader.hpp>
 #include <string>
 #include <map>
-#include "NLContainer.h"
 #include "NLNetHandler.h"
 #include "NLEdgeControlBuilder.h"
 #include "NLJunctionControlBuilder.h"
@@ -197,6 +219,10 @@ namespace
 #include "NLTriggerBuilder.h"
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleTransfer.h>
+#include <microsim/trigger/MSTriggerControl.h>
+#include <microsim/output/meandata/MSMeanData_Net_Utils.h>
+#include <microsim/MSRouteLoaderControl.h>
+#include <microsim/MSRouteLoader.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/options/Option.h>
@@ -204,6 +230,15 @@ namespace
 #include <utils/convert/TplConvert.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/XMLHelpers.h>
+#include <microsim/output/MSDetector2File.h>
+#include <microsim/output/MSDetectorControl.h>
+#include <sumo_only/SUMOFrame.h>
+#include <utils/bindevice/BinaryInputDevice.h>
+#include "NLGeomShapeBuilder.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -215,128 +250,142 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLNetBuilder::NLNetBuilder(const OptionsCont &oc,
+NLBuilder::NLBuilder(const OptionsCont &oc,
+                           MSNet &net,
                            NLEdgeControlBuilder &eb,
-                           NLJunctionControlBuilder &jb)
-    : m_pOptions(oc), myEdgeBuilder(eb), myJunctionBuilder(jb)
+                           NLJunctionControlBuilder &jb,
+                           NLDetectorBuilder &db,
+                           NLTriggerBuilder &tb,
+                           NLGeomShapeBuilder &sb)
+    : m_pOptions(oc), myEdgeBuilder(eb), myJunctionBuilder(jb),
+    myDetectorBuilder(db), myTriggerBuilder(tb), myShapeBuilder(sb),
+    myNet(net)
 {
 }
 
 
-NLNetBuilder::~NLNetBuilder()
+NLBuilder::~NLBuilder()
 {
 }
 
 
 
-MSNet *
-NLNetBuilder::buildNet(MSVehicleControl *vc)
+bool
+NLBuilder::build()
 {
-     // preinit network
-    MSNet::preInitMSNet(m_pOptions.getInt("b"), vc);
-    // we need a specialised detector builder
-    NLDetectorBuilder db;
-    NLTriggerBuilder tb;
-    // initialise loading buffer ...
-    NLContainer *container =
-        new NLContainer(myEdgeBuilder, myJunctionBuilder);
-    // ... and the parser
     // get the matching handler
-    NLNetHandler handler("", *container, db, tb,
-        m_pOptions.getFloat("actuated-tl.detector-pos"),
-        m_pOptions.getFloat("agent-tl.detector-len"),
-        m_pOptions.getInt("agent-tl.learn-horizon"),
-        m_pOptions.getInt("agent-tl.decision-horizon"),
-        m_pOptions.getFloat("agent-tl.min-diff"),
-        m_pOptions.getInt("agent-tl.tcycle"),
+    NLNetHandler handler("", myNet, myDetectorBuilder, myTriggerBuilder,
+        myEdgeBuilder, myJunctionBuilder, myShapeBuilder);
 
-        m_pOptions.getFloat("actuated-tl.max-gap"),
-        m_pOptions.getFloat("actuated-tl.passing-time"),
-        m_pOptions.getFloat("actuated-tl.detector-gap"));
     SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
-    MSNet *net = 0;
-    bool ok = load(LOADFILTER_ALL, m_pOptions.getString("n"),
+    bool ok = load("net", LOADFILTER_ALL, m_pOptions.getString("n"),
         handler, *parser);
-//    bool ok = load(handler, *parser);
-    // try to build a net
-    if(!MsgHandler::getErrorInstance()->wasInformed()) {
-        net = container->buildMSNet(db, m_pOptions);
+    // try to build the net
+    if(ok) {
+        ok = buildNet(handler);
     }
-    if(net==0) {
-        ok = false;
+    // load the previous state if wished
+    if(ok&&m_pOptions.isSet("load-state")) {
+        BinaryInputDevice strm(m_pOptions.getString("load-state"));
+        if(!strm.good()) {
+            MsgHandler::getErrorInstance()->inform("Could not read state from '" + m_pOptions.getString("load-state") + "'!");
+            ok = false;
+        } else {
+            myNet.loadState(strm, (long) 0xfffffff);
+        }
     }
-    // load the junctions
+    // load routes
     if(m_pOptions.isSet("r")&&ok&&m_pOptions.getInt("route-steps")<=0) {
-        ok = load(LOADFILTER_DYNAMIC, m_pOptions.getString("r"),
+        ok = load("routes", LOADFILTER_DYNAMIC, m_pOptions.getString("r"),
             handler, *parser);
     }
     // load additional net elements (sources, detectors, ...)
     if(m_pOptions.isSet("a")&&ok) {
-        ok = load(LOADFILTER_NETADD, m_pOptions.getString("a"),
-            handler, *parser);
-    }
-    // close building
-    if(ok) {
-        net->closeBuilding(*this);
+        ok = load("additional elements",
+            (NLLoadFilter) ((int) LOADFILTER_NETADD|(int) LOADFILTER_DYNAMIC),
+            m_pOptions.getString("a"), handler, *parser);
     }
     subreport("Loading done.", "Loading failed.");
     delete parser;
-    delete container;
-    return net;
+    return ok&&!MsgHandler::getErrorInstance()->wasInformed();
 }
 
-/*
+
 bool
-NLNetBuilder::load(NLNetHandler &handler, SAX2XMLReader &parser)
+NLBuilder::buildNet(NLNetHandler &handler, GNEImageProcWindow &t)
 {
-    // load the net
-    // load the junctions
-    if(m_pOptions.isSet("j")&&ok) {
-        ok = load(LOADFILTER_LOGICS, m_pOptions.getString("j"),
-            handler, parser);
-    }
-    return ok;
+    return buildNet(handler);
 }
-*/
+
 
 bool
-NLNetBuilder::load(LoadFilter what, const string &files, NLNetHandler &handler,
-                   SAX2XMLReader &parser)
+NLBuilder::buildNet(NLNetHandler &handler)
+{
+    myJunctionBuilder.closeJunctions(myDetectorBuilder, handler.getContinuations());
+    MSEdgeControl *edges = myEdgeBuilder.build();
+    std::vector<OutputDevice*> streams = SUMOFrame::buildStreams(m_pOptions);
+    MSMeanData_Net_Cont meanData = MSMeanData_Net_Utils::buildList(
+        myNet.getDetectorControl().getDet2File(), *edges,
+        m_pOptions.getIntVector("dump-intervals"),
+        m_pOptions.getString("dump-basename"),
+        m_pOptions.getIntVector("lanedump-intervals"),
+        m_pOptions.getString("lanedump-basename"),
+        m_pOptions.getIntVector("dump-begin"), m_pOptions.getIntVector("dump-end"));
+    myNet.closeBuilding(
+        edges,
+        myJunctionBuilder.build(),
+        buildRouteLoaderControl(m_pOptions),
+        myJunctionBuilder.buildTLLogics(),
+        myShapeBuilder.buildShapeContainer(),
+        streams, meanData,
+        m_pOptions.getIntVector("save-state.times"),
+        m_pOptions.getString("save-state.prefix"));
+    return true;
+}
+
+bool
+NLBuilder::load(const std::string &mmlWhat,
+                NLLoadFilter what,
+                const string &files,
+                NLNetHandler &handler,
+                SAX2XMLReader &parser)
 {
     // initialise the handler for the current type of data
     handler.setWanted(what);
     // check whether the list of files does not contain ';'s only
     if(!FileHelpers::checkFileList(files)) {
         MsgHandler::getErrorInstance()->inform(
-            string("No ") + getDataName(what) + string(" found!"));
+            string("No ") + mmlWhat + string(" found!"));
         MsgHandler::getErrorInstance()->inform(
             "Check your program parameter.");
         return false;
     }
-    // report about loading when wished
-    WRITE_MESSAGE(string("Loading ") + getDataName(what) + string("..."));
     // start parsing
     parser.setContentHandler(&handler);
     parser.setErrorHandler(&handler);
-    parse(files, handler, parser);
+    parse(mmlWhat, files, handler, parser);
     // report about loaded structures
     subreport(
-        "Loading of " + getDataName(what) + " done.",
-        "Loading of " + getDataName(what) + " failed.");
+        "Loading of " + mmlWhat + " done.",
+        "Loading of " + mmlWhat + " failed.");
     return !MsgHandler::getErrorInstance()->wasInformed();
 }
 
 
 bool
-NLNetBuilder::parse(const string &files, NLNetHandler &handler,
+NLBuilder::parse(const std::string &mmlWhat,
+                    const string &files,
+                    NLNetHandler &handler,
                     SAX2XMLReader &parser)
 {
     // for each file in the list
     StringTokenizer st(files, ';');
     bool ok = true;
     while(st.hasNext()&&ok) {
-        // check whether the file exists
         string tmp = st.next();
+        // report about loading when wished
+        WRITE_MESSAGE(string("Loading ") + mmlWhat + string(" from '") + tmp + string("'..."));
+        // check whether the file exists
         if(!FileHelpers::exists(tmp)) {
             // report error if not
             MsgHandler::getErrorInstance()->inform(
@@ -353,31 +402,8 @@ NLNetBuilder::parse(const string &files, NLNetHandler &handler,
 }
 
 
-string
-NLNetBuilder::getDataName(LoadFilter forWhat)
-{
-    switch(forWhat) {
-    case LOADFILTER_ALL:
-        return "net";
-        break;
-    case LOADFILTER_LOGICS:
-        return "junction logics";
-        break;
-    case LOADFILTER_NETADD:
-        return "additional net elements";
-        break;
-    case LOADFILTER_DYNAMIC:
-        return "vehicle routes";
-        break;
-    default:
-        break;
-    }
-    throw exception();
-}
-
-
 void
-NLNetBuilder::subreport(const std::string &ok, const std::string &wrong)
+NLBuilder::subreport(const std::string &ok, const std::string &wrong)
 {
     if(!MsgHandler::getErrorInstance()->wasInformed()) {
         WRITE_MESSAGE(ok.c_str());
@@ -385,6 +411,42 @@ NLNetBuilder::subreport(const std::string &ok, const std::string &wrong)
         WRITE_MESSAGE(wrong.c_str());
     }
 }
+
+
+MSRouteLoaderControl *
+NLBuilder::buildRouteLoaderControl(const OptionsCont &oc)
+{
+    // build the loaders
+    MSRouteLoaderControl::LoaderVector loaders;
+    // check whether a list is existing
+    if(oc.isSet("r")&&oc.getInt("route-steps")>0) {
+        // extract the list
+        StringTokenizer st(oc.getString("r"), ';');
+        // check whether all files can be opened
+        bool ok = true;
+        while(st.hasNext()) {
+            string name = st.next();
+            if(!FileHelpers::exists(name)) {
+                MsgHandler::getErrorInstance()->inform(
+                    string("The route file '") + name
+                    + string("' does not exist."));
+                ok = false;
+            }
+        }
+        if(!ok) {
+            throw ProcessError();
+        }
+        // open files for reading
+        st.reinit();
+        while(st.hasNext()) {
+            string file = st.next();
+            loaders.push_back(myNet.buildRouteLoader(file));
+        }
+    }
+    // build the route control
+    return new MSRouteLoaderControl(myNet, oc.getInt("s"), loaders);
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

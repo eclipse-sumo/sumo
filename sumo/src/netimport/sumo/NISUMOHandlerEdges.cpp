@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 12:03:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/04/27 12:24:35  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -45,7 +48,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 #include <string>
 #include <utils/sumoxml/SUMOSAXHandler.h>
@@ -57,6 +60,10 @@ namespace
 #include <netbuild/nodes/NBNodeCont.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include "NISUMOHandlerEdges.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 using namespace std;
 

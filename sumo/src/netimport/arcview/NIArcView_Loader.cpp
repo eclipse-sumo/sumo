@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/09/15 12:03:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.13  2005/04/27 12:24:24  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -63,7 +66,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -83,6 +86,10 @@ namespace
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NIArcView_Loader.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 
 /* =========================================================================
  * used namespaces
@@ -98,8 +105,7 @@ NIArcView_Loader::NIArcView_Loader(NBNodeCont &nc,
                                    const std::string &dbf_name,
                                    const std::string &shp_name)
     : FileErrorReporter("Navtech Edge description", dbf_name),
-//    myShapeReader(shp_name), myIsFirstLine(true),
-    /*myLineReader(dbf_name),*/ myDBFName(dbf_name), mySHPName(shp_name),
+    myDBFName(dbf_name), mySHPName(shp_name),
     myNameAddition(0),
     myNodeCont(nc), myEdgeCont(ec)
 {
@@ -139,7 +145,7 @@ NIArcView_Loader::parseBin()
         int priority = 0;
         try {
             speed = getSpeed(id);
-            nolanes = getLaneNo(id);
+            nolanes = getLaneNo(id, speed);
             priority = getPriority(id);
         } catch (...) {
             addError(
@@ -240,7 +246,7 @@ NIArcView_Loader::getSpeed(const std::string &edgeid)
 
 
 size_t
-NIArcView_Loader::getLaneNo(const std::string &edgeid)
+NIArcView_Loader::getLaneNo(const std::string &edgeid, float speed)
 {
 
     try {
@@ -251,15 +257,24 @@ NIArcView_Loader::getLaneNo(const std::string &edgeid)
         } catch(...) {
             size_t lanecat =
                 TplConvert<char>::_2int(myBinShapeReader.getAttribute("LANE_CAT").c_str());
-            switch(lanecat) {
-            case 1:
+            if(lanecat<0) {
                 return 1;
-            case 2:
-                return 2;
-            case 3:
-                return 4;
-            default:
-                throw 1;
+            } else if(lanecat/10>0) {
+                return lanecat / 10;
+            } else {
+                switch(lanecat) {
+                case 1:
+                    return 1;
+                case 2:
+                    if(speed>78.0/3.6) {
+                        return 3;
+                    }
+                    return 2;
+                case 3:
+                    return 4;
+                default:
+                    throw 1;
+                }
             }
         }
     } catch (...) {

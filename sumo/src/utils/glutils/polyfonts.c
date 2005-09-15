@@ -27,6 +27,10 @@
   Bob@Pendleton.com
 */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -68,6 +72,16 @@
 
 static pffont *pfCurrentFont = &pfPSansBold16;
 static pffont *pfDefaultFont = &pfPSansBold16;
+
+
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4244) // !!! should be replaced by a stronger type binding
+
+
+// changes for SUMO end
+
 /*
 static pffont *pfCurrentFont = NULL;
 static pffont *pfDefaultFont = NULL;

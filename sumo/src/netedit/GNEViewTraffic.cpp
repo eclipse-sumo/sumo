@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 12:03:02  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/05/04 08:37:26  dkrajzew
 // ported to fox1.4
 //
@@ -45,7 +48,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <iostream>
@@ -61,7 +64,7 @@ namespace
 #include <microsim/MSCORN.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
-#include <utils/geom/Polygon2D.h>
+#include <utils/shapes/Polygon2D.h>
 #include <utils/gui/drawer/GUILaneDrawer_SGwT.h>
 #include <utils/gui/drawer/GUILaneDrawer_SGnT.h>
 #include <utils/gui/drawer/GUILaneDrawer_FGwT.h>
@@ -87,6 +90,10 @@ namespace
 
 #include <GL/gl.h>
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 
 /* =========================================================================
  * used namespaces
@@ -99,7 +106,7 @@ using namespace std;
  * ======================================================================= */
 FXDEFMAP(GNEViewTraffic) GNEViewTrafficMap[]={
 // new Andreas begin
-    FXMAPFUNC(SEL_COMMAND,  MID_EDIT_GRAPH,     GNEViewTraffic::onCmdEditGraph),
+	FXMAPFUNC(SEL_COMMAND,  MID_EDIT_GRAPH,     GNEViewTraffic::onCmdEditGraph),
     FXMAPFUNC(SEL_LEFTBUTTONRELEASE,   0,       GUIViewTraffic::onLeftBtnRelease),
 // new Andreas end
 
@@ -117,7 +124,7 @@ GNEViewTraffic::GNEViewTraffic(FXComposite *p,
                                GUINet &net, FXGLVisual *glVis)
     : GUIViewTraffic(p, app, parent, net, glVis)
 {
-    par=parent;
+	par=parent;
 }
 
 
@@ -128,7 +135,7 @@ GNEViewTraffic::GNEViewTraffic(FXComposite *p,
                                FXGLCanvas *share)
     : GUIViewTraffic(p, app, parent, net, glVis, share)
 {
-    par=parent;
+	par=parent;
 }
 
 
@@ -145,9 +152,9 @@ GNEViewTraffic::onCmdEditGraph(FXObject*sender,FXSelector,void*)
     button->setChecked(!button->amChecked());
     _inEditMode = button->amChecked();
     if(_inEditMode) {
-        static_cast<GNEViewParent*>(par)->getEditGroupBox()->show();
+		static_cast<GNEViewParent*>(par)->getEditGroupBox()->show();
     } else {
-        static_cast<GNEViewParent*>(par)->getEditGroupBox()->hide();
+		static_cast<GNEViewParent*>(par)->getEditGroupBox()->hide();
     }
     recalc();
     _widthInPixels = getWidth();
@@ -180,12 +187,12 @@ long
 GNEViewTraffic::onLeftBtnRelease(FXObject*sender,FXSelector selector,void*data)
 {
     GUIViewTraffic::onLeftBtnRelease(sender, selector, data);
-    FXEvent *e = (FXEvent*) data;
-    //new Andreas
-    if(/*e->state&&*/_inEditMode){
-        _lock.lock();
-        if(makeCurrent())
-    {
+	FXEvent *e = (FXEvent*) data;
+	//new Andreas
+	if(/*e->state&&*/_inEditMode){
+		_lock.lock();
+		if(makeCurrent())
+	{
         // initialise the select mode
         unsigned int id = getObjectUnderCursor();
         GUIGlObject *o = 0;
@@ -196,15 +203,15 @@ GNEViewTraffic::onLeftBtnRelease(FXObject*sender,FXSelector selector,void*data)
         }
 
         if(o!=0) {
-            GUIParameterTableWindow *w =
-            o->getParameterWindow(*myApp, *this);
+			GUIParameterTableWindow *w =
+			o->getParameterWindow(*myApp, *this);
         }
         makeNonCurrent();
     }
-    _lock.unlock();
-    }
+	_lock.unlock();
+	}
 
-    //new Andreas
+	//new Andreas
     return 1;
 }
 

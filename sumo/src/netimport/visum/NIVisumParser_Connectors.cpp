@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/09/15 12:03:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.12  2005/07/12 12:35:23  dkrajzew
 // elmar2 importer included; debugging
 //
@@ -68,6 +71,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <netbuild/NBHelpers.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBTypeCont.h>
@@ -78,6 +85,10 @@ namespace
 #include <utils/convert/TplConvertSec.h>
 #include "NIVisumLoader.h"
 #include "NIVisumParser_Connectors.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

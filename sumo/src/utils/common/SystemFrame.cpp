@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/09/15 12:13:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2005/07/12 12:43:49  dkrajzew
 // code style adapted
 //
@@ -45,6 +48,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "SystemFrame.h"
 #include <string>
 #include <utils/xml/XMLSubSys.h>
@@ -52,6 +59,10 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/LogFile.h>
 #include "RandHelper.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -81,11 +92,11 @@ SystemFrame::init(bool gui, int argc, char **argv,
     MsgHandler::getMessageInstance()->report2cout(true);
     // initialise the xml-subsystem
     if(!XMLSubSys::init()) {
-        return false;
+        return -2;
     }
     // initialise the options-subsystem
     if(!OptionsSubSys::init(!gui, argc, argv, fill_f, check_f, help)) {
-        return false;
+        return -2;
     }
     // check whether only the version shall be printed
     if(OptionsSubSys::getOptions().getBool("version")) {

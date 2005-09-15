@@ -4,6 +4,10 @@
 #pragma warning(disable: 4786)
 
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <map>
 #include <vector>
 #include <string>
@@ -15,6 +19,10 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/importio/LineReader.h>
 #include <cassert>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 /* =========================================================================
  * compiler pragmas
@@ -114,20 +122,20 @@ isSource(const std::string &edgeid,
     if(approaching.find(edgeid)==approaching.end()||approaching[edgeid].size()==0) {
         return true;
     }
-    if(speedmap[edgeid]<19.4 && 
+    if(speedmap[edgeid]<19.4 &&
         (edge2det.find(edgeid)==edge2det.end() || edge2det[edgeid]!=detid) ) {
         return true;
     }
     if(edge2det.find(edgeid)!=edge2det.end() && detmap[detid]!=edgeid) {
         return false;
     }
-    const std::vector<std::string> &appr  
+    const std::vector<std::string> &appr
         = approaching[edgeid];
     bool isall = true;
     seen.push_back(edgeid);
     for(int i=0; i<appr.size()&&isall; i++) {
         //printf("checking %s->\n", appr[i].c_str());
-        bool had = 
+        bool had =
             find(seen.begin(), seen.end(), appr[i])!=seen.end();
         if(!had) {
             if(!isSource(appr[i], seen, detid)) {
@@ -153,13 +161,13 @@ isHighwaySource(const std::string &edgeid,
     if(speedmap[edgeid]<19.4) {
         return false;
     }
-    const std::vector<std::string> &appr  
+    const std::vector<std::string> &appr
         = approaching[edgeid];
     bool isall = true;
     seen.push_back(edgeid);
     for(int i=0; i<appr.size()&&isall; i++) {
         //printf("checking %s->\n", appr[i].c_str());
-        bool had = 
+        bool had =
             find(seen.begin(), seen.end(), appr[i])!=seen.end();
         if(!had) {
             if(!isHighwaySource(appr[i], seen, detid)) {
@@ -182,20 +190,20 @@ isDestination(const std::string &edgeid,
     if(approached.find(edgeid)==approached.end()||approached[edgeid].size()==0) {
         return true;
     }
-    if(speedmap[edgeid]<19.4 && 
+    if(speedmap[edgeid]<19.4 &&
         (edge2det.find(edgeid)==edge2det.end() || edge2det[edgeid]!=detid) ) {
         return true;
     }
     if(edge2det.find(edgeid)!=edge2det.end() && detmap[detid]!=edgeid) {
         return false;
     }
-    const std::vector<std::string> &appr  
+    const std::vector<std::string> &appr
         = approached[edgeid];
     bool isall = true;
     seen.push_back(edgeid);
     for(int i=0; i<appr.size()&&isall; i++) {
         //printf("checking %s->\n", appr[i].c_str());
-        bool had = 
+        bool had =
             find(seen.begin(), seen.end(), appr[i])!=seen.end();
         if(!had) {
             if(!isDestination(appr[i], seen, detid)) {
@@ -285,7 +293,7 @@ readNet(char *file)
     }
 }
 
-void 
+void
 readDetectors(char *file)
 {
     LineReader lr(file);
@@ -318,7 +326,7 @@ readDetectors(char *file)
                 det2pos[id] = TplConvert<char>::_2float(dist.c_str());
                 det2lane[id] = TplConvert<char>::_2int(lane.c_str()) - 1;
                 if(edge=="") {
-                    cout << "Warning: could not find edge '" << redge 
+                    cout << "Warning: could not find edge '" << redge
                         << "' for detector '" << id << "'." << endl;
                 }
                 detmap[id] = edge;
@@ -328,7 +336,7 @@ readDetectors(char *file)
     }
 }
 
-string 
+string
 trim(const string &s)
 {
     string ret;
@@ -340,13 +348,13 @@ trim(const string &s)
     return ret;
 }
 
-string 
+string
 rmSpaces(const string &s)
 {
     string ret;
     int i=0;
     for(; i<s.length(); ++i) {
-        if(s[i]!=' ') { 
+        if(s[i]!=' ') {
             ret += s[i];
         }
     }
@@ -354,7 +362,7 @@ rmSpaces(const string &s)
 }
 
 
-void 
+void
 readIDMap(char *file)
 {
     LineReader lr(file);
@@ -366,9 +374,6 @@ readIDMap(char *file)
     int time = 0;
     int lineNo = 6;
     while(lr.hasMore()) {
-        if(lineNo==2113) {
-            int bla = 0;
-        }
         string line = lr.readLine();
         if(line.length()==0) {
             continue;
@@ -385,9 +390,6 @@ readIDMap(char *file)
         string id3 = st.next();
         string id = id1 + "-" + id2 + "-" + id3;
         idmap[id] = toString(lineNo);
-        if(id=="4129-77-1") {
-            int bla = 0;
-        }
         lineNo++;
     }
 }
@@ -406,7 +408,7 @@ twoPosHourString(int i)
 }
 
 
-void 
+void
 readFlows(char *f)
 {
     int mbeg = beginTime / 4 * 4;
@@ -454,9 +456,6 @@ readFlows(char *f)
                 string s = st.next();
                 string vKFZMittel = st.next();
                 string det = idmap[id];
-                if(det=="2113"||id=="2113") {
-                    int bla = 0;
-                }
 
                 FlowDef fd;
                 fd.isLKW = 0;
@@ -470,9 +469,6 @@ readFlows(char *f)
                 fd.vPKW = TplConvert<char>::_2int(trim(vPKW).c_str());
                 fd.vLKW = TplConvert<char>::_2int(trim(vLKW).c_str());
                 fd.time = time;
-                if(id=="4129-77-1") {
-                    int bla = 0;
-                }
                 if(myFlows.find(det)==myFlows.end()) {
                     myFlows[det] = std::vector<FlowDef>();
                 }
@@ -501,7 +497,7 @@ readFlows(char *f)
 
 
 void
-computeRoutesFor(std::string edgeid, RouteDesc base, int no, std::vector<string> &visited) 
+computeRoutesFor(std::string edgeid, RouteDesc base, int no, std::vector<string> &visited)
 {
 //    base.edges2Pass.push_back(edgeid);
     std::vector<std::string> appr = approached[edgeid];
@@ -605,7 +601,7 @@ computeRoutesFor(std::string edgeid, RouteDesc base, int no, std::vector<string>
             string c = (*i);
             if(use[idx]&&next!=""&&speedmap[c]==speedmap[next]&&lanemap[c]==lanemap[next]) {
                 /*
-                cout << "next: " << c << "(" << speedmap[c] << ", " 
+                cout << "next: " << c << "(" << speedmap[c] << ", "
                     << lanemap[c] << ")" << endl;
                     */
                 RouteDesc t = base;
@@ -662,7 +658,7 @@ getOverallFlow(int time, string det)
     if(myFlows.find(det)==myFlows.end()) {
         throw 1;
     }
-    std::vector<FlowDef>::iterator i 
+    std::vector<FlowDef>::iterator i
         = find_if(myFlows[det].begin(), myFlows[det].end(), matching_time_finder(time));
     if(i==myFlows[det].end()) {
         throw 1;
@@ -823,7 +819,7 @@ buildFlowsForDetector(const std::string &det)
     }
 }
 
-std::vector<RouteDesc*> 
+std::vector<RouteDesc*>
 collectRoutesForEdge(string edge)
 {
     std::vector<RouteDesc*> descs;
@@ -838,7 +834,7 @@ collectRoutesForEdge(string edge)
 }
 
 /*
-std::vector<RouteDesc*> 
+std::vector<RouteDesc*>
 collectRoutesForDetector(string det)
 {
     std::vector<RouteDesc*> descs;
@@ -854,7 +850,7 @@ collectRoutesForDetector(string det)
 */
 
 template<class T>
-class dist 
+class dist
 {
 public:
     dist() : myProb(0) { }
@@ -904,8 +900,8 @@ collectSourceDetectorsOn(const string &edge)
 
 bool testOnly = false;
 
-int 
-main(int argc, char **argv) 
+int
+main(int argc, char **argv)
 {
     if(argc<8) {
         printf("SyntaxError!!!\n");
@@ -1080,16 +1076,13 @@ main(int argc, char **argv)
             for(j=droutes.begin(); j!=droutes.end(); ++j) {
                 std::vector<std::string> route = (*j)->edges2Pass;
                 if((*j)->routename=="") {
-                    string routename = 
+                    string routename =
                         "ua_from-" + *(route.begin()) + "-to-" + *(route.end()-1);
                     while(routes.find(routename)!=routes.end()&&routes.find(routename)->second!=route) {
                         routename += "_2";
                     }
                     routes[routename] = route;
                     (*j)->routename = routename;
-                    if(routename=="ua_from-537837513-to--51050320") {
-                        int bla = 0;
-                    }
                 }
                 strm2 << "         <routedistelem routeid=\""
                     << (*j)->routename << "\" frequency=\"1\"/>" << endl;
@@ -1098,7 +1091,7 @@ main(int argc, char **argv)
                         << (*j)->routename << "\" frequency=\"1\"/>" << endl;
                 }
                 // write route
-                strm1 << "   <route multi_ref=\"x\" id=\"" 
+                strm1 << "   <route multi_ref=\"x\" id=\""
                     << (*j)->routename << "\">";
                 std::vector<std::string>::iterator k;
                 for(k=route.begin(); k!=route.end(); ++k) {
@@ -1178,11 +1171,11 @@ main(int argc, char **argv)
 			        }
                     if(v<=0) {
                         v = 100;
-                    } else if(v>=180) { 
+                    } else if(v>=180) {
                         v = 100;
                     }
                     v = v / 3.6;
-                    
+
                     int ctime = time * 60 + (60. * (double) car / (double) no);
                     /*
                     if(ctime<=ltime) {
@@ -1190,13 +1183,13 @@ main(int argc, char **argv)
                     }
                     ltime = ctime;*/
                     // !!! micro-dectectore einzeln
-                    strm2 << "   <emit id=\"ua_" << 
+                    strm2 << "   <emit id=\"ua_" <<
                         (*i).first << "_" << running++  << "\""
                         << " time=\"" << ctime << "\""
                         << " speed=\"" << v << "\""
                         << " route=\"" << droutes[destIndex]->routename << "\""
                         << " vehtype=\"" << type << "\"/>" << endl;
-                    (*strm2mi[srcIndex]) << "   <emit id=\"ua_" << 
+                    (*strm2mi[srcIndex]) << "   <emit id=\"ua_" <<
                         (*i).first << "_" << running++  << "\""
                         << " time=\"" << ctime << "\""
                         << " speed=\"" << v << "\""
@@ -1205,7 +1198,7 @@ main(int argc, char **argv)
                     overallMeso[(*i).first] = overallMeso[(*i).first] + 1;
                     overallMicro[dets[srcIndex]] = overallMicro[dets[srcIndex]] + 1;
 
-        			droutes[destIndex]->isLKW[time] += 
+        			droutes[destIndex]->isLKW[time] +=
                         droutes[destIndex]->fLKW[time];
                 }
             }
@@ -1214,7 +1207,7 @@ main(int argc, char **argv)
                 (*strm2mi[srcDist]) << "</triggeredsource>" << endl;
                 delete strm2mi[srcDist];
             }
-            delete[] strm2mi; 
+            delete[] strm2mi;
             if(overallMeso[(*i).first]!=0) {
                 float rpos = det2pos[(*i).first];
                 if(rpos>lengthmap[detmap[(*i).first]]) {
@@ -1223,12 +1216,12 @@ main(int argc, char **argv)
                     rpos = lengthmap[detmap[(*i).first]];
                 }
                 // write that sources shall be used
-                strm3a << "   <trigger id=\"uameSource_" 
-                    <<  (*i).first 
+                strm3a << "   <trigger id=\"uameSource_"
+                    <<  (*i).first
                     << "\" objecttype=\"emitter\" "
                     << "pos=\"" << rpos << "\" "
                     << "objectid=\"" << detmap[(*i).first] << "_" << det2lane[(*i).first] << "\" "
-                    << "file=\"sources_meso/uameSource_" 
+                    << "file=\"sources_meso/uameSource_"
                     << (*i).first << ".xml\"/>" << endl;
             }
             for(j2=dets.begin(); j2!=dets.end(); ++j2, ++srcDist) {
@@ -1239,11 +1232,11 @@ main(int argc, char **argv)
                     rpos = lengthmap[detmap[*j2]];
                 }
                 if(overallMicro[*j2]!=0) {
-                    strm3b << "   <source id=\"uamiSource_" <<  *j2 
+                    strm3b << "   <source id=\"uamiSource_" <<  *j2
                         << "\" objecttype=\"emitter\" "
                         << "pos=\"" << rpos << "\" "
                         << "objectid=\"" << detmap[*j2] << "_" << det2lane[*j2] << "\" "
-                        << "file=\"sources_micro/uamiSource_" 
+                        << "file=\"sources_micro/uamiSource_"
                         << *j2 << ".xml\"/>" << endl;
                 }
             }

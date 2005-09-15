@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/09/15 12:03:17  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/04/27 11:48:51  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -43,6 +46,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "NGNet.h"
 #include <map>
 

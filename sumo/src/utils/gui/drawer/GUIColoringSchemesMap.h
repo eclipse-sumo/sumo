@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/15 12:19:10  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/02/17 10:33:41  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -38,6 +41,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <string>
 #include <fx.h>
@@ -63,7 +70,13 @@ public:
 
     /// Destructor
     ~GUIColoringSchemesMap()
-        { }
+    {
+        typename std::vector<ColorMapping>::iterator i;
+        for(i=myAvailableSchemes.begin(); i!=myAvailableSchemes.end(); ++i) {
+            delete (*i).colorer;
+        }
+        myAvailableSchemes.clear();
+    }
 
     /// Adds a named coloring scheme identifier to the list of allowed coloring schemes
     void add(const std::string &name, E1 enumValue, GUIBaseColorer<T1> *colorer) {

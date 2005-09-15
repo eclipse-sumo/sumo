@@ -1,13 +1,51 @@
-// Edge.h: Schnittstelle für die Klasse Edge.
-//
-//////////////////////////////////////////////////////////////////////
-
 #ifndef _EDGE_H_
 #define _EDGE_H_
+//---------------------------------------------------------------------------//
+//                        EDGE.h -
+//
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Fri, 29.04.2005
+//  copyright            : (C) 2005 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
 
-// Bekanntmachen der Klasse Vertex
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.3  2005/09/15 12:03:02  dkrajzew
+// LARGE CODE RECHECK
+//
+// Revision 1.4  2005/06/14 11:22:27  dksumo
+// documentation added
+//
+//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+
 class Vertex;
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class Edge{
 
 private:
@@ -63,7 +101,10 @@ public:
 	//Hole die Länge der Kante
 	double GetLength();
 };
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
-//_EDGE_H
 
+// Local Variables:
+// mode:C++
+// End:

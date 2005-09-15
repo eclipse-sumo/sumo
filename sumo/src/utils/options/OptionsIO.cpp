@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/15 12:21:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.10  2005/07/12 12:52:56  dkrajzew
 // build number output added
 //
@@ -118,6 +121,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <iostream>
 #include <parsers/SAXParser.hpp>
@@ -134,6 +141,10 @@ namespace
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/convert/TplConvert.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

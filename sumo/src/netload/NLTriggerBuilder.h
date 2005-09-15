@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2005/09/15 12:04:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/05/04 08:43:09  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -34,6 +37,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <vector>
 
@@ -44,13 +51,23 @@
 class MSTrigger;
 class MSNet;
 class MSLaneSpeedTrigger;
+class MSTriggeredEmitter;
+class NLNetHandler;
+class MSTriggeredRerouter;
+class MSLane;
+class MSEdge;
+
+#ifdef HAVE_MESOSIM
+class METriggeredCalibrator;
+class MESegment;
+#endif
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * @class
+ * @class NLTriggerBuilder
  * This class builds trigger objects in their non-gui version
  */
 class NLTriggerBuilder {
@@ -63,11 +80,31 @@ public:
 
     /** @brief builds the specified trigger
         The certain type and purpose of the trigger is not yet known */
-    MSTrigger *buildTrigger(MSNet &net,
-        const std::string &id,
-        const std::string &objecttype, const std::string &objectid,
-        const std::string &objectattr,
-        std::string file, std::string base);
+    MSTrigger *buildTrigger(MSNet &net, const Attributes &attrs,
+        const std::string &base, const NLNetHandler &helper);
+
+protected:
+    /// builds a lane speed trigger
+    MSLaneSpeedTrigger *parseAndBuildLaneSpeedTrigger(MSNet &net,
+        const Attributes &attrs, const std::string &base,
+        const NLNetHandler &helper);
+
+    /// builds an emitter
+    MSTriggeredEmitter *parseAndBuildLaneEmitTrigger(MSNet &net,
+        const Attributes &attrs, const std::string &base,
+        const NLNetHandler &helper);
+
+    /// builds a rerouter
+    MSTriggeredRerouter *parseAndBuildRerouter(MSNet &net,
+        const Attributes &attrs, const std::string &base,
+        const NLNetHandler &helper);
+
+#ifdef HAVE_MESOSIM
+    /// Builds a mesoscopic calibrator
+    METriggeredCalibrator *parseAndBuildCalibrator(MSNet &net,
+        const Attributes &attrs, const std::string &base,
+        const NLNetHandler &helper);
+#endif
 
 protected:
     /// builds a lane speed trigger
@@ -75,7 +112,25 @@ protected:
         const std::string &id, const std::vector<MSLane*> &destLanes,
         const std::string &file);
 
+    /// builds an emitter
+    virtual MSTriggeredEmitter *buildLaneEmitTrigger(MSNet &net,
+        const std::string &id, MSLane *destLane, double pos,
+        const std::string &file);
+
+#ifdef HAVE_MESOSIM
+    /// builds a calibrator
+    virtual METriggeredCalibrator *buildCalibrator(MSNet &net,
+        const std::string &id, MESegment *edge, double pos,
+        const std::string &rfile, const std::string &file);
+#endif
+
+    /// builds an emitter
+    virtual MSTriggeredRerouter *buildRerouter(MSNet &net,
+        const std::string &id, std::vector<MSEdge*> &edges,
+        float prob, const std::string &file);
+
 };
+
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
 

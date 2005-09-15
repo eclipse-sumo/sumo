@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/09/15 12:05:11  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2005/05/04 08:46:09  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -45,44 +48,17 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include <map>
-#include <vector>
-#include <string>
 #include "ROEdge.h"
-#include <utils/common/NamedObjectCont.h>
+#include <utils/helpers/NamedObjectCont.h>
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-/**
- * @class ROEdgeCont
- * A container for edges, derived from a simple wrapper for a id to
- * object-hash.
- */
-class ROEdgeCont : public NamedObjectCont<ROEdge*> {
-public:
-    /// Constructor
-    ROEdgeCont();
-
-    /// Destructor
-    ~ROEdgeCont();
-
-    /** @brief Closes the loading process
-        Closes the loading process for each edge stored */
-//    void postloadInit();
-
-private:
-    /// we made the copy constructor invalid
-    ROEdgeCont(const ROEdgeCont &src);
-
-    /// we made the assignment operator invalid
-    ROEdgeCont &operator=(const ROEdgeCont &src);
-
-};
+typedef NamedObjectCont<ROEdge*> ROEdgeCont;
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

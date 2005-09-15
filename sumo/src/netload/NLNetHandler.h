@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.28  2005/09/15 12:04:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.27  2005/05/04 08:42:32  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; debugging the setting of tls-offsets
 //
@@ -36,7 +39,8 @@
 // Polygon visualisation added
 //
 // Revision 1.22  2004/04/02 11:23:52  dkrajzew
-// extended traffic lights are now no longer templates; MSNet now handles all simulation-wide output
+// extended traffic lights are now no longer templates; MSNet now handles all
+//  simulation-wide output
 //
 // Revision 1.21  2004/01/26 07:07:36  dkrajzew
 // work on detectors: e3-detectors loading and visualisation;
@@ -120,14 +124,15 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <sax/HandlerBase.hpp>
 #include <sax/SAXException.hpp>
 #include <sax/AttributeList.hpp>
-#include "NLNetBuilder.h"
+#include "NLBuilder.h"
 #include "NLDiscreteEventBuilder.h"
+#include "NLSucceedingLaneBuilder.h"
 #include <microsim/MSLink.h>
 #include <microsim/MSRouteHandler.h>
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
@@ -150,6 +155,8 @@ using namespace XERCES_CPP_NAMESPACE;
 class NLContainer;
 class NLDetectorBuilder;
 class NLTriggerBuilder;
+class MSTrafficLightLogic;
+class NLGeomShapeBuilder;
 
 
 /* =========================================================================
@@ -163,14 +170,22 @@ class NLTriggerBuilder;
  */
 class NLNetHandler : public MSRouteHandler {
 public:
+    /// Definitions of a string vector
+    typedef std::vector<std::string> StringVector;
+
+    /// Definition of a map from string -> stringvector
+    typedef std::map<std::string, StringVector> SSVMap;
+
+    /// Definition of a lane vector
+    typedef std::vector<MSLane*> LaneVector;
+
+public:
     /// standard constructor
-    NLNetHandler(const std::string &file, NLContainer &container,
+    NLNetHandler(const std::string &file, MSNet &net,
         NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
-        double stdDetectorPositions, double stdDetectorlength,
-        int stdLearnHorizon, int stdDecisionHorizon, double stdDeltaLimit,
-        int stdTCycle,
-        double stdActuatedMaxGap, double stdActuatedPassingTime,
-        double stdActuatedDetectorGap);
+        NLEdgeControlBuilder &edgeBuilder,
+        NLJunctionControlBuilder &junctionBuilder,
+        NLGeomShapeBuilder &shapeBuilder);
 
     /// Destructor
     virtual ~NLNetHandler();
@@ -179,7 +194,10 @@ public:
     std::string getMessage() const;
 
     /// sets the data type filter
-    void setWanted(LoadFilter filter);
+    void setWanted(NLLoadFilter filter);
+
+    /// Returns the information about lane continuations
+    const SSVMap &getContinuations() const;
 
 protected:
     /** called on the occurence of the beginning of a tag;
@@ -215,6 +233,7 @@ protected:
     /// Builds of an e3-detector using collected values
     virtual void endE3Detector();
 
+    /// Ends the detector building
     void endDetector();
 
 
@@ -226,67 +245,29 @@ protected:
 
     /** returns the information whether instances belonging to the
         given class of data shall be extracted during this parsing */
-    bool wanted(LoadFilter filter) const;
+    bool wanted(NLLoadFilter filter) const;
+
+    /// Closes the process of building an edge
+    virtual void closeEdge();
+
+    /// Closes the process of building a lane
+    virtual void closeLane();
+
+    /// Closes the process of building lanes of an edge
+    virtual void closeLanes();
+
+    /// Closes the process of the connections between edges
+    virtual void closeAllowedEdge();
 
 protected:
-    /// the container (storage) for build data
-    NLContainer                             &myContainer;
+    /// The net to fill (preinitialised)
+    MSNet &myNet;
 
     /// the definition of what to load
-    LoadFilter                              _filter;
-
-    /** storage for the id of the currently build lane */
-    std::string                             m_LaneId;
-
-    /// the right-of-way-logic of the currently chosen bitset-logic
-    MSBitsetLogic::Logic                    *m_pActiveLogic;
-
-    /// the description about which in-junction lanes disallow other passing the junction
-    MSBitsetLogic::Foes                     *m_pActiveFoes;
-
-    /// the current phase definitions for a simple traffic light
-    MSSimpleTrafficLightLogic::Phases   m_ActivePhases;
-
-    /// the size of the request
-    int             _requestSize;
-
-    /// the number of lanes
-    int             _laneNo;
-
-    /// counter for the inserted items
-    int             _requestItems;
+    NLLoadFilter                              _filter;
 
     /// the current key
     std::string     m_Key;
-
-    /// the number of the current traffic light logic
-    int             _tlLogicNo;
-
-    /// The current junction type
-    std::string     m_Type;
-
-    /// The offset within the junction
-    SUMOTime          m_Offset;
-
-    /// the current polygon
-    std::string     poly_name;
-
-    double m_DetectorOffset;
-    double myStdDetectorPositions;
-    double myStdDetectorLengths;
-    int myStdLearnHorizon;
-    int myStdDecisionHorizon;
-    double myStdDeltaLimit;
-    int myStdTCycle;
-    double myStdActuatedMaxGap;
-    double myStdActuatedPassingTime;
-    double myStdActuatedDetectorGap;
-
-    /// The absolute duration of a tls-control loop
-    size_t myAbsDuration;
-
-    std::string actuell_poly_name;
-
 
 private:
     /// add the shape to the Lane
@@ -302,6 +283,9 @@ private:
     void addLane(const Attributes &attrs);
 
     /// adds a polygon
+    void addPOI(const Attributes &attrs);
+
+    /// adds a polygon
     void addPoly(const Attributes &attrs);
 
     /// add the position to the Polygon
@@ -309,12 +293,6 @@ private:
 
     /// opens the list of next edges for processing
     void openAllowedEdge(const Attributes &attrs);
-
-    /// adds a junction key
-    void addJunctionKey(const Attributes &attrs);
-
-    /// initialises a junction logic
-    void initJunctionLogic();
 
     /// adds a logic item to the current logic
     void addLogicItem(const Attributes &attrs);
@@ -380,15 +358,9 @@ private:
     /// sets the number of the current logic
     void setTLLogicNo(const std::string &chars);
 
-    /// adds a logic item
-    void addLogicItem(int request, const std::string &response,
-        const std::string &foes);
 
     /// ends the loading of a junction logic
     void closeJunctionLogic();
-
-    /// ends the loading of a traffic lights logic
-    virtual void closeTrafficLightLogic();
 
     /// ends the processing of a junction
     virtual void closeJunction();
@@ -402,14 +374,8 @@ private:
     /// Parses the given character into an enumeration typed link state
     MSLink::LinkState parseLinkState(char state);
 
-    /// Compute the initial step of a tls-logic from the given offset
-    SUMOTime computeInitTLSStep() const;
 
-    /// Compute the time offset the tls shall for the first time
-    SUMOTime computeInitTLSEventOffset() const;
-
-
-private:
+protected:
     /// A builder for object actions
     NLDiscreteEventBuilder myActionBuilder;
 
@@ -424,6 +390,43 @@ private:
 
     /// The trigger builder to use
     NLTriggerBuilder &myTriggerBuilder;
+
+    /** storage for edges during building */
+    NLEdgeControlBuilder      &myEdgeControlBuilder;
+
+    /** storage for junctions during building */
+    NLJunctionControlBuilder  &myJunctionControlBuilder;
+
+    NLGeomShapeBuilder &myShapeBuilder;
+
+    /// storage for building succeeding lanes
+    NLSucceedingLaneBuilder   m_pSLB;
+
+
+    std::string myCurrentID;
+
+    // { Information about a lane
+    /// The id of the current lane
+    std::string myID;
+
+    /// The information whether the current lane is a depart lane
+    bool myLaneIsDepart;
+
+    /// The maximum speed allowed on the current lane
+    float myCurrentMaxSpeed;
+
+    /// The length of the current lane
+    float myCurrentLength;
+
+    /// The changeUrge.Information of the current lane
+    float myCurrentChangeUrge;
+
+    /// The shape of the current lane
+    Position2DVector myShape;
+    // }
+
+    /// Edge continuations
+    SSVMap myContinuations;
 
 private:
     /** invalid copy constructor */

@@ -20,13 +20,19 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/15 12:03:02  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/01/31 09:27:35  dkrajzew
 // added the possibility to save nodes and edges or the build network to netedit
-//
 //
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <fx.h>
 #include <utils/gui/windows/GUIGlChildWindow.h>
 #include "Image.h"
@@ -52,7 +58,7 @@ public:
     GNEImageProcWindow( GNEApplicationWindow *parent, NBNetBuilder *nb,
         FXMDIClient* p, FXMDIMenu *mdimenu,
         Image *img, bool extrFlag, const FXString& name,
-        FXIcon* ic=NULL, FXPopup* pup=NULL,FXuint opts=0,
+		FXIcon* ic=NULL, FXPopup* pup=NULL,FXuint opts=0,
         FXint x=0,FXint y=0,FXint w=0,FXint h=0
         );
 

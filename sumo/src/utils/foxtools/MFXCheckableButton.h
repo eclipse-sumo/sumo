@@ -1,6 +1,10 @@
 #ifndef MFXCheckableButton_h
 #define MFXCheckableButton_h
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <fx.h>
 
 class MFXCheckableButton : public FXButton

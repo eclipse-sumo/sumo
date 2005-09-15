@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 12:03:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/07/12 12:35:22  dkrajzew
 // elmar2 importer included; debugging
 //
@@ -44,6 +47,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <utils/importio/LineHandler.h>
 #include <utils/common/StringTokenizer.h>
@@ -57,6 +64,10 @@ namespace
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBCapacity2Lanes.h>
 #include "NIElmarEdgesHandler.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -85,6 +96,9 @@ NIElmarEdgesHandler::report(const std::string &result)
 // 00: KANTEN_ID Knoten_ID_FROM Knoten_ID_TO length vehicle_type
 // 05: form_of_way brunnel_type street_type speed_category number_of_lanes
 // average_speed    Namens_ID1  Namens_ID2  Hausnummern_rechts  Hausnummern_links   Postleitzahl    Gebiets_ID  Teilgebiets_ID  through_traffic special_restrictions    direction_of_flow_in_validity_period    direction_of_flow_through_traffic   direction_of_flow_vehicle_type  direction_of_flow_validity_period   construction_status_in_validity_period  construction_status_through_traffic construction_status_validity_period construction_status_vehicle_type
+    if(result[0]=='#') {
+        return true;
+    }
 
     string id, fromID, toID;
     float length;

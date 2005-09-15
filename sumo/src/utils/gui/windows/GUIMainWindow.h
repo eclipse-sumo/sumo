@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/15 12:20:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/07/12 12:52:07  dkrajzew
 // code style adapted
 //
@@ -36,6 +39,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
 
 #include <fx.h>
 #include <vector>
@@ -98,6 +105,8 @@ protected:
     FXGLVisual *myGLVisual;
 
     FXDockSite *myTopDock, *myBottomDock, *myLeftDock, *myRightDock;
+
+    bool myRunAtBegin;
 
 protected:
 	GUIMainWindow() { }

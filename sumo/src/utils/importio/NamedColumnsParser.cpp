@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/15 12:20:59  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2005/04/28 09:02:49  dkrajzew
 // level3 warnings removed
 //
@@ -60,11 +63,19 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <map>
 #include <string>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringUtils.h>
 #include "NamedColumnsParser.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

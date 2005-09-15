@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/09/15 12:20:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.1  2004/11/23 10:38:32  dkrajzew
 // debugging
 //
@@ -109,7 +112,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <sumo_version.h>
@@ -119,7 +122,7 @@ namespace
 #include <guinetload/GUIEdgeControlBuilder.h>
 #include <guinetload/GUIJunctionControlBuilder.h>
 #include <guisim/GUIVehicleControl.h>
-#include <microsim/output/MSDetectorSubSys.h>
+#include <microsim/output/MSDetectorControl.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsCont.h>
@@ -130,7 +133,6 @@ namespace
 #include <utils/foxtools/MFXEventQue.h>
 #include <sumo_only/SUMOFrame.h>
 #include <utils/common/MsgRetrievingFunction.h>
-#include <helpers/SingletonDictionary.h>
 #include "GUIMainWindow.h"
 #include "GUIAbstractLoadThread.h"
 #include "GUIGlobals.h"
@@ -141,6 +143,10 @@ namespace
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 
 #include <ctime>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

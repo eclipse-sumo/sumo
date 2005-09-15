@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 12:05:11  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/05/04 08:50:05  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -39,7 +42,9 @@ namespace
 // Type-dependent loader/generator-"API" changed
 //
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work;
+//  documentation added
 //
 // ------------------------------------------------
 // Revision 1.10  2003/10/22 05:22:54  dkrajzew
@@ -76,7 +81,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -94,6 +99,10 @@ namespace
 #include "ROEdgeVector.h"
 #include "RORoute.h"
 #include "RONet.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -185,7 +194,7 @@ RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
     }
     // try to get the probability
     try {
-        _prob = getFloatSecure(attrs, SUMO_ATTR_PROP, -10000);
+        _prob = getFloatSecure(attrs, SUMO_ATTR_PROB, -10000);
     } catch (NumberFormatException) {
         getErrorHandlerMarkInvalid()->inform(
             string("Invalid probability in alternative for route '")

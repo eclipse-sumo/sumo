@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.52  2005/09/15 12:02:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.51  2005/07/12 12:32:46  dkrajzew
 // code style adapted; guessing of ramps and unregulated near districts implemented; debugging
 //
@@ -246,6 +249,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <string>
 #include <algorithm>
@@ -265,6 +272,10 @@ namespace
 #include <utils/convert/ToString.h>
 #include <utils/common/UtilExceptions.h>
 #include "NBEdge.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -292,7 +303,7 @@ void
 NBEdge::ToEdgeConnectionsAdder::execute(double lane, double virtEdge)
 {
     // check
-    assert(virtEdge>=0);
+	assert(virtEdge>=0);
     assert(_transitions.size()>(size_t) virtEdge);
     assert(lane>=0&&lane<10);
     // get the approached edge
@@ -487,12 +498,6 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 
 NBEdge::~NBEdge()
 {
-    if(_id=="153114707") {
-        int bla = 0;
-    }
-//    delete _reachable;
-//    delete _succeedinglanes;
-//    delete _ToEdges;
 }
 
 
@@ -1002,9 +1007,6 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
 bool
 NBEdge::addEdge2EdgeConnection(NBEdge *dest)
 {
-    if(_id=="153114707") {
-        int bla = 0;
-    }
     if(_step==INIT_REJECT_CONNECTIONS) {
         return true;
     }
@@ -1032,9 +1034,6 @@ NBEdge::addEdge2EdgeConnection(NBEdge *dest)
 bool
 NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest, size_t toLane)
 {
-    if(_id=="153114707") {
-        int bla = 0;
-    }
     if(_step==INIT_REJECT_CONNECTIONS) {
         return true;
     }
@@ -1059,11 +1058,26 @@ NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest, size_t toLane)
 
 
 bool
+NBEdge::addLane2LaneConnections(size_t fromLane,
+                                NBEdge *dest, size_t toLane,
+                                size_t no,
+                                bool invalidatePrevious)
+{
+    if(invalidatePrevious) {
+        invalidateConnections(true);
+    }
+    bool ok = true;
+    for(size_t i=0; i<no&&ok; i++) {
+        ok &=
+            addLane2LaneConnection(fromLane+i, dest, toLane+i);
+    }
+    return ok;
+}
+
+
+bool
 NBEdge::computeEdge2Edges()
 {
-    if(_id=="153114707") {
-        int bla = 0;
-    }
     // return if this relationship has been build in previous steps or
     //  during the import
     if(_step>=EDGE2EDGES) {
@@ -1080,9 +1094,6 @@ NBEdge::computeEdge2Edges()
 bool
 NBEdge::computeLanes2Edges()
 {
-    if(_id=="153114707") {
-        int bla = 0;
-    }
     // return if this relationship has been build in previous steps or
     //  during the import
     if(_step>=LANES2EDGES) {
@@ -1103,9 +1114,6 @@ NBEdge::computeLanes2Edges()
 bool
 NBEdge::recheckLanes()
 {
-    if(_id=="153114707") {
-        int bla = 0;
-    }
     size_t i;
     // check:
     //  if there is a lane with no connections and any neighbour lane has
@@ -1154,9 +1162,6 @@ NBEdge::moveConnectionToRight(size_t lane)
 pair<NBEdge*, size_t>
 NBEdge::getConnectionRemoving(size_t srcLane, size_t pos)
 {
-    if(_id=="153114707") {
-        int bla = 0;
-    }
     assert(_reachable.size()>srcLane);
     assert(_reachable[srcLane].size()>pos);
     // get the destination edge and remove from the container
@@ -1309,7 +1314,6 @@ NBEdge::preparePriorities(const vector<NBEdge*> *outgoing)
     for(i=outgoing->begin(); i!=outgoing->end(); i++) {
         int prio = (*i)->getJunctionPriority(_to);
         if(((*i)->getJunctionPriority(_to)+1)*2<=0) {
-            int bla = 0;
             prio = (*i)->getJunctionPriority(_to);
         }
         assert(((*i)->getJunctionPriority(_to)+1)*2>0);
@@ -1433,9 +1437,6 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge, size_t dest_lane)
     if(_step==INIT_REJECT_CONNECTIONS) {
         return;
     }
-    if(_id=="153114707") {
-        int bla = 0;
-    }
     assert(dest_lane>=0&&dest_lane<=10);
     assert(src_lane>=0&&src_lane<=10);
     // this is somekind of a misbehaviour which should only occure when the
@@ -1516,6 +1517,28 @@ NBEdge::isTurningDirectionAt(const NBNode *n, NBEdge *edge) const
         swap(thisFromAngle2, otherToAngle2);
     }
     if(thisFromAngle2-otherToAngle2>170&&thisFromAngle2-otherToAngle2<190) {
+        return true;
+    }
+    return false;
+}
+
+
+
+bool
+NBEdge::isAlmostSameDirectionAt(const NBNode *n, NBEdge *edge) const
+{
+    // if the same nodes are connected
+    if(_to==edge->_to && _from==edge->_from) {
+        return true;
+    }
+    // we have to checke whether the connection between the nodes is
+    //  geometrically similar
+    double thisFromAngle2 = getAngle(*n);
+    double otherToAngle2 = edge->getAngle(*n);
+    if(thisFromAngle2<otherToAngle2) {
+        swap(thisFromAngle2, otherToAngle2);
+    }
+    if(thisFromAngle2-otherToAngle2<20&&thisFromAngle2-otherToAngle2>-20) {
         return true;
     }
     return false;
@@ -1644,9 +1667,6 @@ NBEdge::replaceInConnections(NBEdge *which, NBEdge *by, size_t laneOff)
 void
 NBEdge::moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff)
 {
-    if(_id=="153114707") {
-        int bla = 0;
-    }
     size_t lanes = e->getNoLanes();
     for(size_t i=0; i<lanes; i++) {
         const EdgeLaneVector *elv = e->getEdgeLanesFromLane(i);
@@ -1690,9 +1710,6 @@ NBEdge::remapConnections(const EdgeVector &incoming)
 void
 NBEdge::removeFromConnections(NBEdge *which)
 {
-    if(_id=="153114707") {
-        int bla = 0;
-    }
     // remove from "_connectedEdges"
     for(size_t i=0; i<_connectedEdges.size(); i++) {
         if(_connectedEdges[i]==which) {
@@ -1739,9 +1756,6 @@ NBEdge::removeFromConnections(NBEdge *which)
 void
 NBEdge::invalidateConnections(bool reallowSetting)
 {
-    if(_id=="153114707") {
-        int bla = 0;
-    }
     _turnDestination = 0;
     _ToEdges.clear();
     _reachable.clear();
@@ -1855,9 +1869,6 @@ void
 NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
                                     const std::string &tlID, size_t tlPos)
 {
-    if(_id=="153114707") {
-        int bla = 0;
-    }
     assert(fromLane<0||fromLane<(int) _nolanes);
     // try to use information about the connections if given
     if(fromLane>=0&&toLane>=0) {
@@ -2012,9 +2023,6 @@ NBEdge::width() const
 bool
 NBEdge::expandableBy(NBEdge *possContinuation) const
 {
-    if(_id=="153114707") {
-        int bla = 0;
-    }
     // ok, the number of lanes must match
     if(_nolanes!=possContinuation->_nolanes) {
         return false;
@@ -2193,9 +2201,6 @@ NBEdge::computeEdgeShape()
 bool
 NBEdge::hasSignalisedConnectionTo(NBEdge *e) const
 {
-    if(_id=="153114707") {
-        int bla = 0;
-    }
     for(size_t i=0; i<_nolanes; i++) {
         // get the connections outgoing from this lane
         const EdgeLaneVector &connections = _reachable[i];
@@ -2284,14 +2289,13 @@ NBEdge::addGeometryPoint(int index, const Position2D &p)
 
 
 void
-NBEdge::incLaneNo()
+NBEdge::incLaneNo(int by)
 {
-    if(_id=="153114707") {
-        int bla = 0;
-    }
-    _nolanes++;
+    _nolanes += by;
     _reachable.resize(_nolanes, EdgeLaneVector());
-    myLaneSpeeds.push_back(_speed);
+    while(myLaneSpeeds.size()<_nolanes) {
+        myLaneSpeeds.push_back(_speed);
+    }
     computeLaneShapes();
     const EdgeVector &incs = _from->getIncomingEdges();
     for(EdgeVector::const_iterator i=incs.begin(); i!=incs.end(); ++i) {

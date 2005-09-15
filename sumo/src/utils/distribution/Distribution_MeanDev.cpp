@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 12:17:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2004/01/28 12:35:22  dkrajzew
 // retrival of a distribution maximum value added; documentation added
 //
@@ -36,11 +39,15 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "Distribution.h"
 #include "Distribution_MeanDev.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

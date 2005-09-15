@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/09/15 12:03:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/04/27 12:24:42  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -44,6 +47,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <map>
 #include <string>

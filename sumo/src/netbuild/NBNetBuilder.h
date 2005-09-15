@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2005/09/15 12:02:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.14  2005/07/12 12:32:48  dkrajzew
 // code style adapted; guessing of ramps and unregulated near districts implemented; debugging
 //
@@ -33,6 +36,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <iostream>
 #include "NBEdgeCont.h"
@@ -125,7 +132,7 @@ protected:
 
     void initJoinedEdgesInformation();
 
-    bool computeNodeShapes(int &step);
+    bool computeNodeShapes(int &step, OptionsCont &oc);
     bool computeEdgeShapes(int &step);
 
     bool setTLControllingInformation(int &step);

@@ -17,6 +17,10 @@ before using this file.
 #ifndef _pfPSansBold16_
 #define _pfPSansBold16_
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "polyfonttypes.h"
 
 #ifdef __cplusplus

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/15 12:21:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/04/28 09:02:49  dkrajzew
 // level3 warnings removed
 //
@@ -39,7 +42,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>

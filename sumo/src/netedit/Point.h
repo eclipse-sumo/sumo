@@ -1,10 +1,43 @@
-// Point.h: Schnittstelle für die Klasse Point.
-//
-//////////////////////////////////////////////////////////////////////
-
 #ifndef _POINT_H_
 #define _POINT_H_
+//---------------------------------------------------------------------------//
+//                        Point.h -
+//
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Fri, 29.04.2005
+//  copyright            : (C) 2005 by
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                :
+//---------------------------------------------------------------------------//
 
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.3  2005/09/15 12:03:02  dkrajzew
+// LARGE CODE RECHECK
+//
+// Revision 1.3  2005/05/30 08:18:26  dksumo
+// comments added
+//
+
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ *
+ */
 class Point
 {
 
@@ -32,5 +65,9 @@ public:
     void SetY(int j);
 };
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 #endif
-//_POINT_H_
+// Local Variables:
+// mode:C++
+// End:

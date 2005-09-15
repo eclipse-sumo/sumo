@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 12:04:48  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/05/04 08:44:57  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -42,7 +45,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -55,6 +58,10 @@ namespace
 #include "ODDistrict.h"
 #include "ODDistrictCont.h"
 #include "ODDistrictHandler.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 using namespace std;
 

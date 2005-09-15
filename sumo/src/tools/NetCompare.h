@@ -2,7 +2,7 @@
 #define NetCompare_h
 //---------------------------------------------------------------------------//
 //                        NetCompare.h -
-//  
+//
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Jun 2005
@@ -29,9 +29,13 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <iostream> 
-#include <fstream> 
-#include <string> 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
+#include <iostream>
+#include <fstream>
+#include <string>
 #include <vector>
 #include <map>
 #include <utils/geom/Position2DVector.h>
@@ -41,9 +45,9 @@
  * class definitions
  * ======================================================================= */
 
-class NetCompare  
+class NetCompare
 {
-  
+
 
 public:
 	 /// Constructor

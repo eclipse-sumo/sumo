@@ -19,9 +19,13 @@
  ***************************************************************************/
 namespace
 {
-     const char rcsid[] = "$Id$";
+     const char rcsid[] =
+         "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/15 12:04:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.9  2005/05/04 08:43:09  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -47,7 +51,8 @@ namespace
 // updated
 //
 // Revision 1.1  2002/10/16 15:36:50  dkrajzew
-// moved from ROOT/sumo/netload to ROOT/src/netload; new format definition parseable in one step
+// moved from ROOT/sumo/netload to ROOT/src/netload;
+//  new format definition parseable in one step
 //
 // Revision 1.5  2002/06/11 14:39:27  dkrajzew
 // windows eol removed
@@ -83,6 +88,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <map>
 #include <vector>
@@ -90,11 +99,15 @@ namespace
 #include <microsim/MSLink.h>
 #include <microsim/MSLinkCont.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
-#include "NLNetBuilder.h"
+#include "NLBuilder.h"
 #include "NLSucceedingLaneBuilder.h"
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -195,7 +208,6 @@ NLSucceedingLaneBuilder::closeSuccLane()
     copy(m_SuccLanes->begin(), m_SuccLanes->end(), back_inserter(*cont));
     current->initialize(/*m_Junction, */cont);
     m_SuccLanes->clear();
-//    m_Junction = 0;
 }
 
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2005/09/15 12:13:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.9  2005/05/04 09:10:16  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; added the information about failure on file opening
 //
@@ -81,6 +84,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <exception>
 
@@ -239,6 +246,26 @@ public:
 
     /** destructor */
     ~UnknownElement() throw() { }
+
+};
+
+
+
+/**
+ * SignalException
+ */
+class SignalException : UtilException {
+public:
+    /** constructor */
+    SignalException(int signal) : mySignal(signal) { }
+
+    /** destructor */
+    ~SignalException() throw() { }
+
+    int getSignal() { return mySignal; }
+
+protected:
+    int mySignal;
 
 };
 

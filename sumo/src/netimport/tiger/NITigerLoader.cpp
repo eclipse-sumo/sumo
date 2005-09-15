@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/15 12:03:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/04/27 12:24:36  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -47,6 +50,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <cassert>
 #include <utils/common/MsgHandler.h>
@@ -61,6 +68,10 @@ namespace
 #include <utils/geom/GeomHelper.h>
 
 #include "NITigerLoader.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

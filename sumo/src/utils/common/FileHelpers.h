@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2005/09/15 12:13:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/04/28 09:02:46  dkrajzew
 // level3 warnings removed
 //
@@ -71,6 +74,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <fstream>
 #include <string>
 
@@ -117,16 +124,25 @@ public:
     static bool isAbsolute(const std::string &path);
 
     /** reads an integer from the given stream regarding the byte order */
-    static int readInt(std::ifstream &strm, bool intelFile);
+    static int readInt(std::istream &strm, bool intelFile=true);
 
     /** reads an integer from the given stream regarding the byte order */
-    static unsigned int readUInt(std::ifstream &strm, bool intelFile);
+    static unsigned int readUInt(std::istream &strm, bool intelFile=true);
 
     /** reads a float */
-    static float readFloat(std::ifstream &strm, bool intelFile);
+    static float readFloat(std::istream &strm, bool intelFile=true);
 
     /** reads a byte */
-    static unsigned char readByte(std::ifstream &strm);
+    static unsigned char readByte(std::istream &strm);
+
+    /** reads a string */
+    static std::string readString(std::istream &strm, bool intelFile=true);
+
+    static std::ostream &writeInt(std::ostream &strm, int value);
+    static std::ostream &writeUInt(std::ostream &strm, unsigned int value);
+    static std::ostream &writeFloat(std::ostream &strm, float value);
+    static std::ostream &writeByte(std::ostream &strm, unsigned char value);
+    static std::ostream &writeString(std::ostream &strm, const std::string &value);
 
     /// Checks whether the given file is a xml or csv file
     static FileType checkFileType(const std::string &filename);

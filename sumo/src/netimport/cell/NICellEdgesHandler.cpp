@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/15 12:03:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/04/27 12:24:25  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -59,6 +62,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <utils/importio/LineHandler.h>
 #include <utils/common/StringTokenizer.h>
@@ -72,6 +79,10 @@ namespace
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBCapacity2Lanes.h>
 #include "NICellEdgesHandler.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

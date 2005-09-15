@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2005/09/15 12:05:11  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.22  2005/05/04 08:48:35  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added; handling of vehicles debugged
 //
@@ -45,7 +48,9 @@ namespace
 // error handling corrected
 //
 // Revision 1.15  2004/01/26 08:01:10  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work;
+//  documentation added
 //
 // Revision 1.14  2003/11/11 08:04:46  dkrajzew
 // avoiding emissions of vehicles on too short edges
@@ -96,7 +101,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -122,6 +127,10 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/convert/ToString.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 
@@ -523,7 +532,7 @@ RONet::checkSourceAndDestinations()
     if(myDestinationEdges.size()!=0||mySourceEdges.size()!=0) {
         return;
     }
-    const std::vector<ROEdge*> &edges = _edges.getVector();
+    std::vector<ROEdge*> edges = _edges.getTempVector();
     for(std::vector<ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
         ROEdge::EdgeType type = (*i)->getType();
         // !!! add something like "classified edges only" for using only sources or sinks

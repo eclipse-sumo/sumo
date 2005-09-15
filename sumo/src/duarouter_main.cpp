@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/15 12:27:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/07/12 12:52:55  dkrajzew
 // build number output added
 //
@@ -135,6 +138,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <sax/SAXException.hpp>
 #include <sax/SAXParseException.hpp>
 #include <utils/convert/TplConvert.h>
@@ -174,6 +181,10 @@ namespace
 #ifdef WIN32
 //   #include <utils/dev/MemDiff.h>
 #endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 #endif
 
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2005/09/15 12:27:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.18  2005/07/12 12:55:28  dkrajzew
 // build number output added
 //
@@ -88,6 +91,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -119,6 +126,10 @@ namespace
 #ifdef WIN32
 //   #include <utils/dev/MemDiff.h>
 #endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 #endif
 
 

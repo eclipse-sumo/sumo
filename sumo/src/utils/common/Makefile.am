@@ -1,6 +1,6 @@
 noinst_LIBRARIES = libcommon.a
 
-EXTRA_DIST = NamedObjectCont.cpp DoubleVector.h StdDefs.h SUMOTime.h
+EXTRA_DIST = DoubleVector.h StdDefs.h SUMOTime.h
 
 libcommon_a_SOURCES = AbstractMutex.h \
 BoolVector.h DevHelper.cpp DevHelper.h DoubleVector.cpp DoubleVector.h \
@@ -13,8 +13,7 @@ RandHelper.h RandHelper.cpp \
 SystemFrame.cpp SystemFrame.h SysUtils.h SysUtils.cpp \
 LogFile.cpp LogFile.h \
 MsgRetrievingFunction.h \
-XMLHelpers.cpp XMLHelpers.h \
-NamedObjectContSingleton.h
+XMLHelpers.cpp XMLHelpers.h
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src \
 -I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7)

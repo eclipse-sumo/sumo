@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/09/15 12:21:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/05/04 09:28:01  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -92,6 +95,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <map>
 #include <string>
 #include <vector>

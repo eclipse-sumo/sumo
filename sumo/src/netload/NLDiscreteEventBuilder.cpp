@@ -16,7 +16,15 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+namespace
+{
+     const char rcsid[] =
+         "$Id$";
+}
 // $Log$
+// Revision 1.7  2005/09/15 12:04:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/05/04 08:39:46  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -44,6 +52,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "NLDiscreteEventBuilder.h"
 #include <utils/xml/AttributesHandler.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
@@ -53,6 +65,10 @@
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

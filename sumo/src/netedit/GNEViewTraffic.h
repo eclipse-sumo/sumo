@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/15 12:03:02  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.3  2005/01/31 09:27:35  dkrajzew
 // added the possibility to save nodes and edges or the build network to netedit
 //
@@ -33,7 +36,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -41,7 +44,7 @@
 #include <utils/geom/Position2D.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
-#include <utils/geom/Polygon2D.h>
+#include <utils/shapes/Polygon2D.h>
 #include <utils/foxtools/FXMutex.h>
 #include <gui/GUISUMOViewParent.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
@@ -100,11 +103,11 @@ public:
 
     long onLeftBtnRelease(FXObject*sender,FXSelector selector,void*data);
 
-    long onCmdEditGraph(FXObject*,FXSelector,void*);
+	long onCmdEditGraph(FXObject*,FXSelector,void*);
 
 protected:
 
-    GUISUMOViewParent *par;
+	GUISUMOViewParent *par;
 
 
 protected:

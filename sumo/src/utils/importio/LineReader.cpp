@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/15 12:20:59  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.10  2005/05/04 09:25:27  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -68,6 +71,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -76,6 +83,10 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include "LineHandler.h"
 #include "LineReader.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 /* =========================================================================
  * used namespaces
@@ -178,7 +189,7 @@ LineReader::readLine()
 {
     string toReport;
     bool moreAvailable = true;
-    while(toReport.length()==0) {
+    while(toReport.length()==0&&_strm.good()) {
         size_t idx = _strBuffer.find('\n');
         if(idx==0) {
             _strBuffer = _strBuffer.substr(1);
@@ -207,6 +218,9 @@ LineReader::readLine()
                 }
             }
         }
+    }
+    if(!_strm.good()) {
+        return "";
     }
     // remove trailing blanks
     int idx = toReport.length()-1;

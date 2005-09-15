@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 12:22:26  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/05/04 09:11:17  dkrajzew
 // speeded up the reading of xml-files
 //
@@ -45,7 +48,8 @@ namespace
 // Windows eol removed
 //
 // Revision 1.4  2002/06/10 08:33:22  dkrajzew
-// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
+// Parsing of strings into other data formats generelized;
+//  Options now recognize false numeric values; documentation added
 //
 // Revision 1.3  2002/04/17 11:19:57  dkrajzew
 // windows-carriage returns removed
@@ -62,6 +66,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <stack>
 #include <map>
@@ -69,6 +77,10 @@ namespace
 #include <sax2/DefaultHandler.hpp>
 #include <utils/convert/TplConvert.h>
 #include "GenericSAX2Handler.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

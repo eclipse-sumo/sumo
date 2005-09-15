@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 12:13:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/07/12 12:43:49  dkrajzew
 // code style adapted
 //
@@ -30,6 +33,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "SysUtils.h"
 
 
@@ -44,6 +51,10 @@ namespace
 #else
 #include <windows.h>
 #endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 /* =========================================================================
  * member method definitions

@@ -23,13 +23,15 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/15 12:20:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/07/12 12:52:07  dkrajzew
 // code style adapted
 //
 // Revision 1.2  2005/06/14 11:29:51  dksumo
 // documentation added
 //
-
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -43,7 +45,15 @@ namespace
 
 
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "GUIAppGlobals.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 

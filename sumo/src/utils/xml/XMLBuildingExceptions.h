@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/09/15 12:22:26  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/04/28 09:02:50  dkrajzew
 // level3 warnings removed
 //
@@ -43,10 +46,12 @@
 // Windows eol removed
 //
 // Revision 1.3  2002/06/10 08:33:23  dkrajzew
-// Parsing of strings into other data formats generelized; Options now recognize false numeric values; documentation added
+// Parsing of strings into other data formats generelized;
+//  Options now recognize false numeric values; documentation added
 //
 // Revision 1.4  2002/06/10 06:54:31  dkrajzew
-// Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
+// Conversion of strings (XML and c-strings) to numerical values generalized;
+//  options now recognize false numerical input
 //
 // Revision 1.3  2002/05/14 04:45:50  dkrajzew
 // Bresenham added; some minor changes; windows eol removed
@@ -81,6 +86,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 
 /* =========================================================================

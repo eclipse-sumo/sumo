@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/15 12:05:11  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/05/04 08:50:05  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -55,7 +58,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -123,7 +126,7 @@ private:
     /// The costs of the current alternative
     double _cost;
 
-    /// The propability of the current alternative's usage
+    /// The probability of the current alternative's usage
     double _prob;
 
     /// gawron beta - value

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/15 12:05:11  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/05/04 08:51:41  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -36,7 +39,9 @@ namespace
 // Type-dependent loader/generator-"API" changed
 //
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work;
+//  documentation added
 //
 // ------------------------------------------------
 // Revision 1.10  2003/12/12 12:33:01  dkrajzew
@@ -82,7 +87,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -104,6 +109,10 @@ namespace
 #include "RORouteDef_Complete.h"
 #include "ROAbstractRouteDefLoader.h"
 #include "ROVehicleBuilder.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -170,11 +179,12 @@ RORDLoader_TripDefs::getVehicleID(const Attributes &attrs)
     // get a valid vehicle id
     while(id.length()==0) {
         string tmp = _idSupplier.getNext();
-        if(!_net.isKnownVehicleID(tmp))
+        if(!_net.isKnownVehicleID(tmp)) {
             id = tmp;
+        }
     }
         // and save this vehicle id
-    _net.addVehicleID(id);
+    _net.addVehicleID(id); // !!! what for?
     return id;
 }
 
@@ -338,7 +348,9 @@ RORDLoader_TripDefs::myEndElement(int element, const std::string &name)
     if(element==SUMO_TAG_TRIPDEF &&
        !MsgHandler::getErrorInstance()->wasInformed()) {
 
-        // add the vehicle type, the vehicle and the route to the net
+        if(myDepartureTime<myBegin||myDepartureTime>=myEnd) {
+            return;
+        }
         RORouteDef *route = 0;
         if(myEdges.size()==0) {
             route = new RORouteDef_OrigDest(myID, myColor,
@@ -354,9 +366,6 @@ RORDLoader_TripDefs::myEndElement(int element, const std::string &name)
         }
         _net.addRouteDef(route);
         _nextRouteRead = true;
-        if(myDepartureTime<myBegin||myDepartureTime>=myEnd) {
-            return;
-        }
         // build the vehicle
         if(myPos>=0||mySpeed>=0) {
             _net.addVehicle(myID,

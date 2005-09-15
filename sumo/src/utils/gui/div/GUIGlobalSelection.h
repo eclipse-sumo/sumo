@@ -21,11 +21,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/15 12:18:59  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/07/12 12:49:08  dkrajzew
 // code style adapted
 //
 // Revision 1.1  2004/11/23 10:38:29  dkrajzew
-// debugging
+// 0.8.2.1 patches
 //
 // Revision 1.1  2004/10/22 12:50:47  dksumo
 // initial checkin into an internal, standalone SUMO CVS
@@ -36,6 +39,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "GUISelectedStorage.h"
 
 

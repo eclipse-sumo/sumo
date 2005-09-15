@@ -23,8 +23,17 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/15 12:02:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/04/27 11:48:25  dkrajzew
 // level3 warnings removed; made containers non-static
+//
+// Revision 1.1.2.1  2005/04/15 09:53:22  dksumo
+// using a single SUMOTime type for time values; level3 warnings removed; made the containers unstatic; debugging; added the possibility to change tls offsets
+//
+// Revision 1.1  2004/10/22 12:49:45  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.4  2003/06/05 11:43:34  dkrajzew
 // class templates applied; documentation added
@@ -39,17 +48,17 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "NBDistribution.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
-/* =========================================================================
- * static member variables
- * ======================================================================= */
+
 NBDistribution::TypedDistDict NBDistribution::myDict;
-
 
 /* =========================================================================
  * method definitions

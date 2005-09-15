@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/15 12:05:11  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/05/04 08:55:13  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -51,15 +54,19 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include <utils/common/NamedObjectCont.h>
+#include <utils/helpers/NamedObjectCont.h>
 #include <queue>
 #include "ROVehicle.h"
 #include "ROHelper.h"
 #include "ROVehicleCont.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -89,7 +96,7 @@ ROVehicleCont::sort()
         priority_queue<ROVehicle*,
             std::vector<ROVehicle*>,
             ROHelper::VehicleByDepartureComperator>();
-    const std::vector<ROVehicle*> &v = getVector();
+    std::vector<ROVehicle*> v = getTempVector();
     for(std::vector<ROVehicle*>::const_iterator i=v.begin(); i!=v.end(); i++) {
         _sorted.push(*i);
     }

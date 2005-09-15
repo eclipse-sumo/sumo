@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.30  2005/09/15 12:22:16  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.29  2005/04/28 09:02:50  dkrajzew
 // level3 warnings removed
 //
@@ -108,7 +111,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <utils/xml/GenericSAX2Handler.h>
@@ -139,6 +142,8 @@ enum TagEnum
     SUMO_TAG_EDGE,
     /** begin/end of the description of a single lane */
     SUMO_TAG_LANE,
+    /** begin/end of the description of a polygon */
+    SUMO_TAG_POI,
     /** begin/end of the description of a polygon */
     SUMO_TAG_POLY,
     /** begin/end of the list of lane descriptions */
@@ -235,7 +240,7 @@ enum TagEnum
     SUMO_TAG_SINK,
     SUMO_TAG_SUPPLEMENTARY_WEIGHTS,
     SUMO_TAG_WEIGHT,
-    SUMO_TAG_REROUTE_AGENT,
+	SUMO_TAG_REROUTE_AGENT,
 };
 
 
@@ -281,7 +286,7 @@ enum AttrEnum
     /* route alternatives attributes */
     SUMO_ATTR_LAST,
     SUMO_ATTR_COST,
-    SUMO_ATTR_PROP,
+    SUMO_ATTR_PROB,
     /* trip definition attributes */
     SUMO_ATTR_POS,
     SUMO_ATTR_LANE,
@@ -369,6 +374,7 @@ enum AttrEnum
     SUMO_ATTR_PERIODBEGIN,
     SUMO_ATTR_VIEWDIST,
     SUMO_ATTR_ONESHOT
+
 };
 
 
@@ -378,7 +384,7 @@ enum AttrEnum
 /// The number of SUMO-XML element names
 extern size_t noSumoTags;
 /// The names of SUMO-XML elements
-extern GenericSAX2Handler::Tag sumotags[53];
+extern GenericSAX2Handler::Tag sumotags[54];
 
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;

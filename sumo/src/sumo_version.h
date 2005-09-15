@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/09/15 12:27:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.1  2003/06/18 10:57:09  dkrajzew
 // quite unsane specification within a cpp file only is now split on a cpp and a h file
 //
@@ -29,7 +32,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -38,7 +41,10 @@
  * ======================================================================= */
 extern const char *version;
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
 
-
+// Local Variables:
+// mode:C++
+// End:

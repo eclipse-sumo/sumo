@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/15 12:19:55  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/07/12 11:55:37  dkrajzew
 // fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
 //
@@ -43,6 +46,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <cassert>
 #include <iostream>
 #include <fx.h>
@@ -63,6 +70,10 @@ namespace
 #endif
 
 #include <GL/gl.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 using namespace std;
@@ -155,6 +166,7 @@ GUITexturesHelper::drawTexturedBox(GUITexture which,
     glDisable(GL_TEXTURE_GEN_T);
     glDisable(GL_ALPHA_TEST);
     glEnable(GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
     glBindTexture(GL_TEXTURE_2D, myTextureIDs[which]);
     glBegin(GL_TRIANGLE_STRIP);

@@ -1,7 +1,7 @@
-#ifndef NamedObjectContSingleton_h
-#define NamedObjectContSingleton_h
+#ifndef ValueRetriever_h
+#define ValueRetriever_h
 //---------------------------------------------------------------------------//
-//                        NamedObjectContSingleton.h -
+//                        ValueRetriever.h -
 //
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -20,20 +20,15 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.2  2005/07/12 12:43:49  dkrajzew
-// code style adapted
+// Revision 1.1  2005/09/15 12:20:44  dkrajzew
+// LARGE CODE RECHECK
 //
+// Revision 1.1  2005/09/09 12:56:09  dksumo
+// helpers added
 //
-/* =========================================================================
- * compiler pragmas
- * ======================================================================= */
-#pragma warning(disable: 4786)
-
-
-/* =========================================================================
- * included modules
- * ======================================================================= */
-#include "NamedObjectCont.h"
+// Revision 1.2  2005/05/30 08:15:45  dksumo
+// comments added
+//
 
 /* =========================================================================
  * class definitions
@@ -41,17 +36,14 @@
 /**
  *
  */
-template<class T>
-class NamedObjectContSingleton {
+template<typename _T>
+class ValueRetriever {
 public:
-    static NamedObjectCont<T> &getInstance() { return myObjects; }
-
-private:
-    static NamedObjectCont<T> myObjects;
+    ValueRetriever() { }
+    virtual ~ValueRetriever() { }
+    virtual void addValue(_T value) = 0;
 
 };
-
-template<class T> NamedObjectCont<T> NamedObjectContSingleton<T>::myObjects;
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/09/15 12:02:26  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/07/12 12:32:49  dkrajzew
 // code style adapted; guessing of ramps and unregulated near districts implemented; debugging
 //
@@ -166,6 +169,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <deque>
 #include <utility>
@@ -379,7 +386,7 @@ public:
 
     char stateCode(NBEdge *incoming, NBEdge *outgoing, int fromLane);
 
-    void computeNodeShape();
+    void computeNodeShape(std::ofstream *out);
 
     friend class NBNodeCont;
 

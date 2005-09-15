@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/15 12:05:23  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/07/12 12:39:24  dkrajzew
 // forgetting to take time with patched
 //
@@ -70,7 +73,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -112,26 +115,30 @@ RODijkstraRouter::EdgeInfoCont::add(ROEdge *edgeArg, double effortArg, EdgeInfo 
     ret->edge = edgeArg; // !!! may be set within the constructor
     ret->effort = effortArg;
     ret->prev = prevArg;
-    ret->dist = 0;
+	ret->dist = 0;
     return ret;
 }
 
 
 RODijkstraRouter::EdgeInfo *
 RODijkstraRouter::EdgeInfoCont::add(ROEdge *edgeArg, double effortArg,
-                                    EdgeInfo *prevArg, double distArg)
+									EdgeInfo *prevArg, double distArg)
 {
     EdgeInfo *ret = &(myEdgeInfos[edgeArg->getIndex()]);
     ret->edge = edgeArg; // !!! may be set within the constructor
     ret->effort = effortArg;
     ret->prev = prevArg;
-    ret->dist = distArg;
+	ret->dist = distArg;
     return ret;
 }
 
 
 #ifdef MSVC
 #include <limits>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 #else
 #define DBL_MAX 10000000000.0 // !!!
 #endif
@@ -193,8 +200,8 @@ RODijkstraRouter::compute(ROEdge *from, ROEdge *to, SUMOTime time,
         vector<EdgeInfo*>,
         EdgeInfoByEffortComperator> frontierList;
     // add begin node
-    ROEdge *actualKnot = from;
-    if(from != 0) {
+	ROEdge *actualKnot = from;
+	if(from != 0) {
         EdgeInfo *ei = storage->add(actualKnot, 0, 0);
         frontierList.push(ei);
 	}
@@ -226,7 +233,6 @@ RODijkstraRouter::compute(ROEdge *from, ROEdge *to, SUMOTime time,
             }
 		}
 	}
-    cout << endl;
     if(!continueOnUnbuild) {
         MsgHandler::getErrorInstance()->inform(
             string("No connection between '") + from->getID()

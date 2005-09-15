@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/09/15 12:19:22  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.1  2004/11/23 10:38:30  dkrajzew
 // debugging
 //
@@ -36,7 +39,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <utils/foxtools/FXThreadEvent.h>
@@ -66,7 +69,9 @@ enum GUIEventType {
 
     /** @brief Send when the simulation is over;
         The reason and the time step are stored within the event */
-    EVENT_SIMULATION_ENDED
+    EVENT_SIMULATION_ENDED,
+
+    EVENT_MAX
 
 };
 

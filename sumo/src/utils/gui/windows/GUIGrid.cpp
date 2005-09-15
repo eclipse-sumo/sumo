@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/15 12:20:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/02/17 10:33:42  dkrajzew
 // code beautifying;
 // Linux building patched;
@@ -47,11 +50,19 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <algorithm>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include "GUIGrid.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

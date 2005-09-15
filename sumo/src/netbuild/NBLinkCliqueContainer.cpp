@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 12:02:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/04/27 11:48:25  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -33,7 +36,9 @@ namespace
 // removed warnings
 //
 // Revision 1.3  2003/06/18 11:30:26  dkrajzew
-// debug outputs now use a DEBUG_OUT macro instead of cout; this shall ease the search for further couts which must be redirected to the messaaging subsystem
+// debug outputs now use a DEBUG_OUT macro instead of cout;
+//  this shall ease the search for further couts which must be redirected
+//  to the messaaging subsystem
 //
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
@@ -48,7 +53,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 #include <vector>
 #include <bitset>
@@ -57,6 +62,10 @@ namespace
 #include "NBLinkCliqueContainer.h"
 #include "NBLinkPossibilityMatrix.h"
 #include "NBTrafficLightPhases.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

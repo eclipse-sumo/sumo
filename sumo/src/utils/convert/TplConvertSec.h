@@ -21,6 +21,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2005/09/15 12:14:41  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/04/28 09:02:47  dkrajzew
 // level3 warnings removed
 //
@@ -48,7 +51,12 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
+#include "TplConvert.h"
 
 
 /* =========================================================================
@@ -68,33 +76,56 @@ public:
     /** converts a 0-terminated char-type array into std::string
         returns the default value if the data is empty */
     static std::string _2strSec(const E * const data,
-        const std::string &def);
+        const std::string &def)
+    {
+        return _2strSec(data, TplConvert<E>::getLength(data), def);
+    }
+
 
     /** converts a 0-terminated char-type array into the integer value
             described by it
         returns the default value if the data is empty */
-    static int _2intSec(const E * const data, int def);
+    static int _2intSec(const E * const data, int def)
+    {
+        return _2intSec(data, INT_MAX, def);
+    }
+
 
     /** converts a 0-terminated char-type array into the long value
             described by it
         returns the default value if the data is empty */
-    static long _2longSec(const E * const data, long def);
+    static long _2longSec(const E * const data, long def)
+    {
+        return _2longSec(data, INT_MAX, def);
+    }
+
 
     /** converts a 0-terminated char-type array into the float value
             described by it
         returns the default value if the data is empty */
-    static float _2floatSec(const E * const data, float def);
+    static float _2floatSec(const E * const data, float def)
+    {
+        return _2floatSec(data, INT_MAX, def);
+    }
+
 
     /** converts a 0-terminated char-type array into the float value
             described by it
         returns true when the first char is one of the following: '1', 'x', 't', 'T'
         returns the default value if the data is empty */
-    static bool _2boolSec(const E * const data, bool def);
+    static bool _2boolSec(const E * const data, bool def)
+    {
+       return _2boolSec(data, 1, def);
+    }
+
 
     /** converts a 0-terminated char-type array into a 0-terminated
             0-terminated c-char-string
         returns the default value if the data is empty */
-    static char *_2charpSec(const E * const data, char *def);
+    static char *_2charpSec(const E * const data, char *def)
+    {
+        return _2charpSec(data, TplConvert<E>::getLength(data), def);
+    }
 
 
     // conversion not throwing an exception methods with a length
@@ -102,38 +133,76 @@ public:
             the given length
         returns the default value if the data is empty */
     static std::string _2strSec(const E * const data, int length,
-        const std::string &def);
+        const std::string &def)
+    {
+        if(data==0||length==0) {
+            return def;
+        }
+        return TplConvert<E>::_2str(data, length);
+    }
+
 
     /** converts a char-type array into the integer value described
             by it considering the given length
         returns the default value if the data is empty */
-    static int _2intSec(const E * const data, int length, int def);
+    static int _2intSec(const E * const data, int length, int def)
+    {
+        if(data==0||length==0||data[0]==0) {
+            return def;
+        }
+        return TplConvert<E>::_2int(data, length);
+    }
+
 
     /** converts a char-type array into the long value described
             by it considering the given length
         returns the default value if the data is empty */
-    static long _2longSec(const E * const data, int length, long def);
+    static long _2longSec(const E * const data, int length, long def)
+    {
+        if(data==0||length==0||data[0]==0) {
+            return def;
+        }
+        return TplConvert<E>::_2long(data, length);
+    }
+
 
     /** converts a char-type array into the float value described
             by it considering the given length
         returns the default value if the data is empty */
-    static float _2floatSec(const E * const data, int length, float def);
+    static float _2floatSec(const E * const data, int length, float def)
+    {
+        if(data==0||length==0||data[0]==0) {
+            return def;
+        }
+        return TplConvert<E>::_2float(data, length);
+    }
+
 
     /** converts a char-type array into the float value described
             by it considering the given length
         returns the default value if the data is empty */
-    static bool _2boolSec(const E * const data, int length, bool def);
+    static bool _2boolSec(const E * const data, int length, bool def)
+    {
+        if(data==0||length==0||data[0]==0) {
+            return def;
+        }
+        return TplConvert<E>::_2bool(data, length);
+    }
+
 
     /** converts a char-type array into a 0-terminated 0-terminated
             c-char-string considering the given length
         returns the default value if the data is empty */
-    static char *_2charpSec(const E * const data, int length, char *def);
+    static char *_2charpSec(const E * const data, int length, char *def)
+    {
+        if(data==0||length==0) {
+            return copy(def);
+        }
+        return TplConvert<E>::_2charp(data, length);
+    }
+
 
 };
-
-#ifndef EXTERNAL_TEMPLATE_DEFINITION
-#include "TplConvertSec.cpp"
-#endif // EXTERNAL_TEMPLATE_DEFINITION
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/

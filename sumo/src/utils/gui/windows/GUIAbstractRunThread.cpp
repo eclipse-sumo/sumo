@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/15 12:20:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2005/02/01 10:10:48  dkrajzew
 // got rid of MSNet::Time
 //
@@ -101,7 +104,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <cassert>
@@ -114,7 +117,6 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <guisim/GUINet.h>
 #include <microsim/MSVehicleControl.h>
-#include <helpers/SingletonDictionary.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/events/GUIEvent_SimulationStep.h>
 #include <utils/gui/events/GUIEvent_SimulationEnded.h>
@@ -123,6 +125,10 @@ namespace
 #include "GUIGlobals.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsSubSys.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

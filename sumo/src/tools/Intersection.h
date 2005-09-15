@@ -2,7 +2,7 @@
 #define Intersection_h
 //---------------------------------------------------------------------------//
 //                        Intersection.h -
-//  
+//
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Jun 2005
@@ -29,21 +29,25 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <iostream> 
-#include <fstream> 
-#include <string> 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
+#include <iostream>
+#include <fstream>
+#include <string>
 #include <vector>
 #include <map>
-#include "../geom/Position2DVector.h"
+#include <utils/geom/Position2DVector.h>
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 
-class Intersection  
+class Intersection
 {
-  
+
 
 public:
 	 /// Constructor
@@ -74,7 +78,7 @@ public:
 		Position2DVector posi;
 		std::string id;
 	};
-   
+
     /// load net-file and save the Position intos a dictionnary
     void loadNet();
 
@@ -82,7 +86,7 @@ public:
 	void loadPolygon();
 
     // compare all value to find the intersection point
-	// write results into a file 
+	// write results into a file
     void compare(const char *output);
 
 	// gibt wie oft ein char in ein string vorkommt

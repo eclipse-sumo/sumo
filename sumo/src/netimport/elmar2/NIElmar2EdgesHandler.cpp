@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/09/15 12:03:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.1  2005/07/14 11:05:28  dkrajzew
 // elmar unsplitted import added
 //
@@ -36,6 +39,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <utils/importio/LineHandler.h>
 #include <utils/common/StringTokenizer.h>
@@ -49,6 +56,10 @@ namespace
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBCapacity2Lanes.h>
 #include "NIElmar2EdgesHandler.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -82,7 +93,9 @@ NIElmar2EdgesHandler::report(const std::string &result)
 //  ZIP_CODE	AREA_ID	SUBAREA_ID	through_traffic	special_restrictions
 //  connection
 
-
+    if(result[0]=='#') {
+        return true;
+    }
     string id, fromID, toID, interID;
     float length;
     double speed = 30.0 / 3.6;

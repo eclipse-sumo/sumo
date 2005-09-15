@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/09/15 12:02:26  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.13  2005/07/12 12:32:48  dkrajzew
 // code style adapted; guessing of ramps and unregulated near districts implemented; debugging
 //
@@ -249,6 +252,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <map>
 #include <cassert>
@@ -282,6 +289,10 @@ namespace
 #include <netbuild/NBRequest.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -1250,12 +1261,12 @@ NBNode::sortNodesEdges(const NBTypeCont &tc)
 
 
 void
-NBNode::computeNodeShape()
+NBNode::computeNodeShape(ofstream *out)
 {
     if(_incomingEdges->size()==0&&_outgoingEdges->size()==0) {
         return;
     }
-    NBNodeShapeComputer computer(*this);
+    NBNodeShapeComputer computer(*this, out);
     myPoly = computer.compute();
 }
 

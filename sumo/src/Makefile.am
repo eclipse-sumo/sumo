@@ -19,6 +19,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
 ./microsim/devices/libmicrosimdevs.a \
 ./microsim/output/libmicrosimoutput.a \
+./microsim/trigger/libmicrosimtrigger.a \
 ./microsim/output/e1_detectors/libmicrosimoutpute1.a \
 ./microsim/output/e2_detectors/libmicrosimoutpute2.a \
 ./microsim/output/e3_detectors/libmicrosimoutpute3.a \
@@ -28,15 +29,16 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/traffic_lights/libmicrosimtls.a \
 ./sumo_only/libsumoonly.a \
 ./utils/geom/libgeom.a \
+./utils/shapes/libshapes.a \
+./utils/bindevice/libbindevice.a \
 ./utils/common/libcommon.a \
-./utils/convert/libconvert.a \
 ./utils/options/liboptions.a \
 ./utils/xml/libxml.a \
 ./utils/sumoxml/libsumoxml.a \
-./helpers/libhelpers.a \
 ./utils/gfx/libgfx.a \
 ./utils/iodevices/libiodevices.a \
 -l$(LIB_XERCES)
+
 
 
 sumo_netconvert_SOURCES = netconvert_main.cpp netconvert_help.h \
@@ -66,9 +68,9 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./utils/options/liboptions.a \
 ./utils/common/libcommon.a \
 ./utils/importio/libimportio.a \
-./utils/convert/libconvert.a \
 ./utils/xml/libxml.a \
 -l$(LIB_XERCES)
+
 
 
 sumo_netgen_SOURCES = netgen_main.cpp netgen_help.h \
@@ -84,9 +86,9 @@ sumo_netgen_LDADD   = ./netgen/libnetgen.a \
 ./utils/options/liboptions.a \
 ./utils/common/libcommon.a \
 ./utils/importio/libimportio.a \
-./utils/convert/libconvert.a \
 ./utils/xml/libxml.a \
 -l$(LIB_XERCES)
+
 
 
 sumo_duarouter_SOURCES = duarouter_main.cpp duarouter_help.h \
@@ -98,13 +100,13 @@ sumo_duarouter_LDADD   = ./routing_dua/libduarouting.a \
 ./router/librouter.a \
 ./utils/router/librouter.a \
 ./utils/options/liboptions.a \
-./utils/convert/libconvert.a \
 ./utils/common/libcommon.a \
 ./utils/gfx/libgfx.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
 -l$(LIB_XERCES)
+
 
 
 sumo_jtrrouter_SOURCES = jtrrouter_main.cpp jtrrouter_help.h \
@@ -116,13 +118,13 @@ sumo_jtrrouter_LDADD   = ./routing_jtr/libjtrrouting.a \
 ./router/librouter.a \
 ./utils/router/librouter.a \
 ./utils/options/liboptions.a \
-./utils/convert/libconvert.a \
 ./utils/common/libcommon.a \
 ./utils/gfx/libgfx.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
 -l$(LIB_XERCES)
+
 
 
 sumo_od2trips_SOURCES = od2trips_main.cpp od2trips_help.h \
@@ -133,11 +135,11 @@ sumo_od2trips_LDFLAGS = -L$(XERCES_LDFLAGS)
 sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/options/liboptions.a \
-./utils/convert/libconvert.a \
 ./utils/common/libcommon.a \
 ./utils/importio/libimportio.a \
 ./utils/xml/libxml.a \
 -l$(LIB_XERCES)
+
 
 
 if WITH_GUI
@@ -165,6 +167,7 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./microsim/libmicrosim.a \
 ./microsim/devices/libmicrosimdevs.a \
 ./microsim/output/libmicrosimoutput.a \
+./microsim/trigger/libmicrosimtrigger.a \
 ./microsim/output/e1_detectors/libmicrosimoutpute1.a \
 ./microsim/output/e2_detectors/libmicrosimoutpute2.a \
 ./microsim/output/e3_detectors/libmicrosimoutpute3.a \
@@ -173,11 +176,11 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./microsim/lanechanging/libmicrosimlanechange.a \
 ./microsim/traffic_lights/libmicrosimtls.a \
 ./utils/sumoxml/libsumoxml.a \
-./utils/convert/libconvert.a \
 ./utils/options/liboptions.a \
 ./sumo_only/libsumoonly.a \
-./helpers/libhelpers.a \
+./utils/bindevice/libbindevice.a \
 ./utils/geom/libgeom.a \
+./utils/shapes/libshapes.a \
 ./utils/common/libcommon.a \
 ./utils/xml/libxml.a \
 ./utils/gfx/libgfx.a \
@@ -194,7 +197,7 @@ AM_CPPFLAGS = -I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7) \
 $(GUI_INCS)
 
 
-SUBDIRS = helpers microsim netload sumo_only \
+SUBDIRS = microsim netload sumo_only \
 netbuild netgen netimport \
 od2trips router routing_dua routing_jtr \
 utils $(GUI_DIRS)

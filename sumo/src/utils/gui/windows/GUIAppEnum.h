@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/09/15 12:20:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2005/07/12 12:52:07  dkrajzew
 // code style adapted
 //
@@ -123,6 +126,10 @@ enum {
     MID_NEW_MICROVIEW,
     /// Open a new Lane aggregated View
     MID_NEW_LANEAVIEW,
+#ifdef HAVE_MESOSIM
+    /// Open a new edge meso View
+    MID_NEW_MESOVIEW,
+#endif
     //@}
 
     //@{ SubThread - IDs
@@ -142,6 +149,8 @@ enum {
     MID_EDIT_ADD_WEIGHTS,
     /// Edit simulation breakpoints
     MID_EDIT_BREAKPOINTS,
+
+    MID_CONNECTIONS,
     //@}
 
     //@{ Settings Menu Item - IDs
@@ -153,55 +162,55 @@ enum {
     MID_SIMDELAY,
     //@}
 
-    //@{ Image Menu Item - IDs
-    /// Street Extraction - Menu Entry
-    MID_EXTRACT_STREETS,
-    /// Dilation - Menu Entry
-    MID_DILATION,
-    /// Erosion - Menu Entry
-    MID_EROSION,
-    /// Opening - Menu Entry
-    MID_OPENING,
-    /// Closing - Menu Entry
-    MID_CLOSING,
-    /// Close Gaps - Menu Entry
-    MID_CLOSE_GAPS,
-    /// Skeletonize - Menu Entry
-    MID_SKELETONIZE,
-    /// Rarify - Menu Entry
-    MID_RARIFY,
-    /// Rarify - Menu Entry
+	//@{ Image Menu Item - IDs
+	/// Street Extraction - Menu Entry
+	MID_EXTRACT_STREETS,
+	/// Dilation - Menu Entry
+	MID_DILATION,
+	/// Erosion - Menu Entry
+	MID_EROSION,
+	/// Opening - Menu Entry
+	MID_OPENING,
+	/// Closing - Menu Entry
+	MID_CLOSING,
+	/// Close Gaps - Menu Entry
+	MID_CLOSE_GAPS,
+	/// Skeletonize - Menu Entry
+	MID_SKELETONIZE,
+	/// Rarify - Menu Entry
+	MID_RARIFY,
+	/// Rarify - Menu Entry
     MID_ERASE_STAINS,
-    /// Create Graph - Menu Entry
-    MID_CREATE_GRAPH,
-    /// Opens a dialoge window for image-filter configuration
-    MID_OPEN_BMP_DIALOG,
-    //@}
+	/// Create Graph - Menu Entry
+	MID_CREATE_GRAPH,
+	/// Opens a dialoge window for image-filter configuration
+	MID_OPEN_BMP_DIALOG,
+	//@}
     // Clear simulation settings
     MID_CLEARMESSAGEWINDOW,
 
     //Create Drawing Canvas for an Image
-    ID_CANVAS,
+	ID_CANVAS,
     ID_CLEAR,
 
-    //@{ Graph Menu Item - IDs
-    ///Show Graph on empty Bitmap - Menu Entry
-    MID_SHOW_GRAPH_ON_EMPTY_BITMAP,
-    ///Show Graph on actual Bitmap - Menu Entry
-    MID_SHOW_GRAPH_ON_ACTUAL_BITMAP,
-    ///Reduce Vertexes - Menu Entry
-    MID_REDUCE_VERTEXES,
-    ///Reduce Vertexes Plus - Menu Entry
-    MID_REDUCE_VERTEXES_PLUS,
-    ///Reduce Edges - Menu Entry
-    MID_REDUCE_EDGES,
-    ///Merge Vertexes - Menu Entry
-    MID_MERGE_VERTEXES,
-    ///Export Vertex XML -Menu Entry
-    MID_EXPORT_VERTEXES_XML,
-    ///Export Edges XML - Menu Entry
-    MID_EXPORT_EDGES_XML,
-    //@}
+	//@{ Graph Menu Item - IDs
+	///Show Graph on empty Bitmap - Menu Entry
+	MID_SHOW_GRAPH_ON_EMPTY_BITMAP,
+	///Show Graph on actual Bitmap - Menu Entry
+	MID_SHOW_GRAPH_ON_ACTUAL_BITMAP,
+	///Reduce Vertexes - Menu Entry
+	MID_REDUCE_VERTEXES,
+	///Reduce Vertexes Plus - Menu Entry
+	MID_REDUCE_VERTEXES_PLUS,
+	///Reduce Edges - Menu Entry
+	MID_REDUCE_EDGES,
+	///Merge Vertexes - Menu Entry
+	MID_MERGE_VERTEXES,
+	///Export Vertex XML -Menu Entry
+	MID_EXPORT_VERTEXES_XML,
+	///Export Edges XML - Menu Entry
+	MID_EXPORT_EDGES_XML,
+	//@}
 
     //@{ Common View Settings - IDs
     /// Recenter View - Button
@@ -220,12 +229,14 @@ enum {
     MID_LOCATEADD,
     /// Open Viewport Editor - Button
     MID_EDITVIEWPORT,
+    /// Open View Editor - Button
+    MID_EDITVIEW,
     /// Show Grid - Button
     MID_SHOWGRID,
     /// Show Tool Tips - Button
     MID_SHOWTOOLTIPS,
-    /// Graph Edit Button
-    MID_EDIT_GRAPH,
+	/// Graph Edit Button
+	MID_EDIT_GRAPH,
     /// Show Full Geom - Button
     MID_SHOWFULLGEOM,
     /// Make Snapshot - Button
@@ -336,7 +347,7 @@ enum {
     //@{ IDs for netedit
     /// Import a network - Menu entry
     MID_IMPORT_NET,
-    /// Open a bitmap file - Menu entry
+	/// Open a bitmap file - Menu entry
     MID_LOAD_IMAGE,
     /// Write a loaded bitmap file - Menu entry
     MID_SAVE_IMAGE,

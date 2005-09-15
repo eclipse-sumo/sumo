@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/09/15 12:27:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/07/12 12:55:27  dkrajzew
 // build number output added
 //
@@ -160,13 +163,18 @@
 /*
 #ifdef _DEBUG
    #define _CRTDBG_MAP_ALLOC // Microsoft memory leak detection procedures
-//   #define _INC_MALLOC         // exclude standard memory alloc procedures
+//   #define _INC_MALLOC	     // exclude standard memory alloc procedures
 #ifdef WIN32
-   #include <utils/dev/MemDiff.h>
+   #ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
+#include <utils/dev/MemDiff.h>
    #include <crtdbg.h>
 #endif
 #endif
 */
+
 #include <ctime>
 #include <signal.h>
 #include <iostream>
@@ -202,6 +210,10 @@
 #ifdef _WIN32
 #include <windows.h>
 #include <GL/gl.h>
+#endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
 #endif
 
 
@@ -265,6 +277,14 @@ initColoringSchemes()
 }
 
 
+void
+deleteColoringSchemes()
+{
+    delete &GUIBaseVehicleDrawer::getSchemesMap();
+}
+
+
+
 /* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
@@ -315,12 +335,14 @@ main(int argc, char **argv)
         bool useConfig = oc.isSet("c");
         string configFile =
             useConfig ? oc.getString("c") : "";
+        bool runAfterLoad = !oc.isSet("no-start");
 
         // build the main window
         GUIThreadFactory tf;
         GUIApplicationWindow * window =
-            new GUIApplicationWindow(&application, tf,
+            new GUIApplicationWindow(&application,
                 oc.getInt("w"), oc.getInt("h"), "*.sumo.cfg");
+        window->dependentBuild(tf);
 		gGradients = new GUIGradientStorage(window);
         initColoringSchemes();
         // delete startup-options
@@ -330,7 +352,7 @@ main(int argc, char **argv)
         application.create();
         // Load configuration given oncommand line
         if(useConfig) {
-            window->loadOnStartup(configFile);
+            window->loadOnStartup(configFile, runAfterLoad);
         }
         // Run
         ret = application.run();

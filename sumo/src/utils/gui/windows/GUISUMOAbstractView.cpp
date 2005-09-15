@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/15 12:20:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.5  2005/07/12 12:52:07  dkrajzew
 // code style adapted
 //
@@ -153,7 +156,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <iostream>
@@ -178,12 +181,20 @@ namespace
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include "GUIDialog_EditViewport.h"
 #include <utils/glutils/polyfonts.h>
+#include <utils/shapes/PointOfInterest.h>
+#include <utils/shapes/ShapeContainer.h>
+#include <utils/gui/globjects/GUIPointOfInterest.h>
+#include <utils/gui/globjects/GUIPolygon2D.h>
 
 #ifdef _WIN32
 #include <windows.h>
 #endif
 
 #include <GL/gl.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -256,7 +267,8 @@ FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[]={
     FXMAPFUNC(SEL_COMMAND,             MID_SIMSTEP,       GUISUMOAbstractView::onSimStep),
     FXMAPFUNC(SEL_KEYPRESS,            0,                 GUISUMOAbstractView::onKeyPress),
     FXMAPFUNC(SEL_KEYRELEASE,          0,                 GUISUMOAbstractView::onKeyRelease),
-    FXMAPFUNC(SEL_COMMAND,             MID_EDITVIEWPORT,  GUISUMOAbstractView::onCmdEditViewport),
+    FXMAPFUNC(SEL_COMMAND,             MID_EDITVIEWPORT,  GUISUMOAbstractView::onCmdEditView),
+    FXMAPFUNC(SEL_COMMAND,             MID_EDITVIEW,      GUISUMOAbstractView::onCmdEditViewport),
 
 };
 
@@ -437,7 +449,7 @@ GUISUMOAbstractView::getObjectUnderCursor()
     }
     // Interpret results
     unsigned int idMax = 0;
-    GUIGlObjectType prevType = GLO_MAX;
+    GUIGlObjectType prevType = (GUIGlObjectType) 0;
     for (int i=0; i<nb_hits; ++i) {
         assert (i*4+3<NB_HITS_MAX);
         unsigned int id = hits[i*4+3];
@@ -446,7 +458,7 @@ GUISUMOAbstractView::getObjectUnderCursor()
             continue;
         }
         GUIGlObjectType type = o->getType();
-        if((prevType>=type||idMax<id)&&type!=0) {
+        if((prevType<type)&&type!=0) {
             idMax = id;
             prevType = type;
         }
@@ -935,9 +947,12 @@ GUISUMOAbstractView::onSimStep(FXObject*sender,FXSelector,void*)
 
 
 void
-GUISUMOAbstractView::drawPolygon2D(Polygon2D &polygon)
+GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
 {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    if(_useToolTips) {
+        glPushName(static_cast<const GUIPolygon2D&>(polygon).getGlID());
+    }
     glBegin(GL_POLYGON);
 
     RGBColor color = polygon.getColor();
@@ -949,8 +964,26 @@ GUISUMOAbstractView::drawPolygon2D(Polygon2D &polygon)
         const Position2D &p = *i;
         glVertex2d(p.x(), p.y());
     }
-
     glEnd();
+    if(_useToolTips) {
+        glPopName();
+    }
+}
+
+
+void
+GUISUMOAbstractView::drawPOI2D(const PointOfInterest &p) const
+{
+    if(_useToolTips) {
+        glPushName(static_cast<const GUIPointOfInterest&>(p).getGlID());
+    }
+    glColor3d(p.red(),p.green(),p.blue());
+    glTranslated(p.x(), p.y(), 0);
+    GLHelper::drawFilledCircle(1.3, 16);
+    glTranslated(-p.x(), -p.y(), 0);
+    if(_useToolTips) {
+        glPopName();
+    }
 }
 
 
@@ -1007,12 +1040,39 @@ GUISUMOAbstractView::onCmdEditViewport(FXObject*,FXSelector,void*)
 }
 
 
+long
+GUISUMOAbstractView::onCmdEditView(FXObject*,FXSelector,void*)
+{
+    return 1;
+}
+
+
 void
 GUISUMOAbstractView::setViewport(double zoom, double xPos, double yPos)
 {
     _changer->setViewport(zoom, xPos, yPos);
     _changer->otherChange();
     update();
+}
+
+
+void
+GUISUMOAbstractView::drawShapes(const ShapeContainer &sc) const
+{
+    {
+        const std::vector<Polygon2D*> &pv = sc.getPolygonCont().buildAndGetStaticVector();
+        std::vector<Polygon2D*>::const_iterator pi = pv.begin();
+        for(; pi!=pv.end(); pi++) {
+             drawPolygon2D(**pi);
+        }
+    }
+    {
+        const std::vector<PointOfInterest*> &pv = sc.getPOICont().buildAndGetStaticVector();
+        std::vector<PointOfInterest*>::const_iterator pi = pv.begin();
+        for(; pi!=pv.end(); pi++) {
+             drawPOI2D(**pi);
+        }
+    }
 }
 
 

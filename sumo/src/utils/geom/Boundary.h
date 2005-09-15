@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/09/15 12:18:19  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.1  2004/11/23 10:34:46  dkrajzew
 // debugging
 //
@@ -44,8 +47,8 @@
 // Revision 1.4  2003/03/20 16:41:09  dkrajzew
 // periodical car emission implemented; windows eol removed
 //
-// Revision 1.3  2003/03/12 16:35:42  dkrajzew
-// some further functionality added needed by the artemis-import
+// Revision 1.3  2002/06/11 15:58:25  dkrajzew
+// windows eol removed
 //
 // Revision 1.2  2003/02/07 10:50:20  dkrajzew
 // updated
@@ -54,7 +57,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <iostream>

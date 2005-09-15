@@ -17,8 +17,17 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.2  2005/04/28 09:02:47  dkrajzew
-// level3 warnings removed
+// Revision 1.3  2005/09/15 12:17:36  dkrajzew
+// LARGE CODE RECHECK
+//
+// Revision 1.3  2005/09/09 12:54:18  dksumo
+// nvwa 0.6 added
+//
+// Revision 1.2  2005/04/26 08:11:57  dksumo
+// level3 warnings patched; debugging
+//
+// Revision 1.1  2004/10/22 12:50:37  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.1  2003/02/07 10:48:55  dkrajzew
 // some debugging and profiling classes added
@@ -32,10 +41,16 @@
 // Revision 1.4  2002/06/07 14:58:46  dkrajzew
 // Bugs on dead ends and junctions with too few outgoing roads fixed; Comments improved
 //
+//
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MemDiff.h"
+
 
 /* =========================================================================
  * compiler settings

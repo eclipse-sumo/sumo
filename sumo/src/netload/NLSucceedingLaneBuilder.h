@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/09/15 12:04:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/05/04 08:43:09  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -70,6 +73,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <microsim/MSLinkCont.h>
 
@@ -84,6 +91,7 @@ class MSJunction;
  * class definitions
  * ======================================================================= */
 /**
+ * @class NLSucceedingLaneBuilder
  * A container for the temporary storage of a lanes succeeding lanes while
  * parsing them
  */
@@ -125,6 +133,7 @@ private:
 
     /** invalid assignment operator */
     NLSucceedingLaneBuilder &operator=(const NLSucceedingLaneBuilder &s);
+
 };
 
 

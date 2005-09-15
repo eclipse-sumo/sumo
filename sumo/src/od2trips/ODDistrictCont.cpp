@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/15 12:04:48  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.8  2005/05/04 08:44:57  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -51,14 +54,18 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
 #include <utils/common/UtilExceptions.h>
 #include "ODDistrict.h"
-#include <utils/common/NamedObjectCont.h>
+#include <utils/helpers/NamedObjectCont.h>
 #include "ODDistrictCont.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -108,7 +115,7 @@ ODDistrictCont::getRandomSinkFromDistrict(const std::string &name) const
 void
 ODDistrictCont::colorize()
 {
-    const std::vector<ODDistrict*> &v = getVector();
+    const std::vector<ODDistrict*> &v = getTempVector();
     size_t pos = 0;
     for(size_t i=0; i!=v.size(); i++) {
         v[i]->setColor((double) i / (double) v.size());

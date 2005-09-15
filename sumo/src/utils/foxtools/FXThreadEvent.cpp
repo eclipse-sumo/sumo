@@ -48,6 +48,10 @@
 using namespace FX;
 #include "fxexdefs.h"
 #include "FXThreadEvent.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 using namespace FXEX;
 namespace FXEX {
 

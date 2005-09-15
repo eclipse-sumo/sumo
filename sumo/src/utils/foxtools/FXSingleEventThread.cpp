@@ -1,3 +1,7 @@
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "MFXInterThreadEventClient.h"
 #include "FXSingleEventThread.h"
 #include "fxexdefs.h"
@@ -7,6 +11,10 @@
 #include <unistd.h>
 #else
 #include <process.h>
+#endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
 #endif
 
 #ifndef WIN32

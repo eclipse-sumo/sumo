@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2005/09/15 12:27:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.27  2005/07/12 12:55:28  dkrajzew
 // build number output added
 //
@@ -49,7 +52,8 @@ namespace
 // simulation-wide output files are now handled by MSNet directly
 //
 // Revision 1.20  2004/02/16 13:44:26  dkrajzew
-// dump output generating function renamed in order to add vehicle dump ability in the future
+// dump output generating function renamed in order to add vehicle dump
+//  ability in the future
 //
 // Revision 1.19  2003/12/11 07:14:04  dkrajzew
 // new netload usage adapted
@@ -185,9 +189,9 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
-
+/*
 #ifdef DEBUB_ALLOC
    #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
    #define _INC_MALLOC	     // exclude standard memory alloc procedures
@@ -198,8 +202,8 @@ namespace
 /*
 #include <utils/dev/debug_new.h>
 #define new debug_new
-*/
 #endif
+*/
 
 #include <ctime>
 #include <string>
@@ -209,9 +213,13 @@ namespace
 #include <microsim/MSRoute.h>
 #include <microsim/MSEmitControl.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/trigger/MSTriggerControl.h>
 #include <netload/NLNetBuilder.h>
+#include <netload/NLTriggerBuilder.h>
 #include <netload/NLEdgeControlBuilder.h>
 #include <netload/NLJunctionControlBuilder.h>
+#include <netload/NLDetectorBuilder.h>
+#include <netload/NLGeomShapeBuilder.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/common/MsgHandler.h>
@@ -227,8 +235,12 @@ namespace
 #include "sumo_help.h"
 #include "sumo_build.h"
 #include "sumo_version.h"
-#include <microsim/output/MSDetectorSubSys.h>
+#include <microsim/output/MSDetectorControl.h>
 #include <utils/iodevices/SharedOutputDevices.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif
 
 
 /* =========================================================================
@@ -250,15 +262,20 @@ MSNet *
 load(OptionsCont &oc)
 {
     SharedOutputDevices::setInstance(new SharedOutputDevices());
+    MSNet *net =
+        new MSNet(oc.getInt("begin"), oc.getInt("end"));
     SUMOFrame::setMSGlobals(oc);
     NLEdgeControlBuilder eb;
-    NLJunctionControlBuilder jb;
-    NLNetBuilder builder(oc, eb, jb);
-    MSNet *ret = builder.buildNet(new MSVehicleControl());
-    if(ret==0) {
-        throw ProcessError();
+    NLJunctionControlBuilder jb(oc);
+    NLDetectorBuilder db(*net);
+    NLTriggerBuilder tb;
+    NLGeomShapeBuilder sb;
+    NLNetBuilder builder(oc, *net, eb, jb, db, tb, sb);
+    if(!builder.build()) {
+        delete net;
+        net = 0;
     }
-    return ret;
+    return net;
 }
 
 
@@ -270,10 +287,10 @@ main(int argc, char **argv)
 {
 #ifdef DEBUB_ALLOC
 #ifdef WIN32
-    CMemDiff state1;
+//    CMemDiff state1;
     // uncomment next line and insert the context of an undeleted
     //  allocation to break within it (MSVC++ only)
-//    _CrtSetBreakAlloc(14358);
+    //_CrtSetBreakAlloc(10205803);
 #endif
 #endif
 
@@ -295,14 +312,16 @@ main(int argc, char **argv)
         OptionsCont &oc = OptionsSubSys::getOptions();
         // load the net
         MSNet *net = load(oc);
-        // report the begin when wished
-        WRITE_MESSAGE(string("Simulation started with time: ") + toString<int>(oc.getInt("b")));
-        // simulate
-        net->simulate(oc.getInt("b"), oc.getInt("e"));
-        // report the end when wished
-        WRITE_MESSAGE(string("Simulation ended at time: ") + toString<int>(net->getCurrentTimeStep()));
-        delete net;
-        delete SharedOutputDevices::getInstance();
+        if(net!=0) {
+            // report the begin when wished
+            WRITE_MESSAGE(string("Simulation started with time: ") + toString<int>(oc.getInt("b")));
+            // simulate
+            net->simulate(oc.getInt("b"), oc.getInt("e"));
+            // report the end when wished
+            WRITE_MESSAGE(string("Simulation ended at time: ") + toString<int>(net->getCurrentTimeStep()));
+            delete net;
+            delete SharedOutputDevices::getInstance();
+        }
     } catch (...) {
         MSNet::clearAll();
         delete SharedOutputDevices::getInstance();

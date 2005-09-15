@@ -22,6 +22,10 @@
 #ifndef FXBASEOBJECT_H
 #define FXBASEOBJECT_H
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <FXHash.h>
 using namespace FX;
 #ifndef FXOBJECT_H

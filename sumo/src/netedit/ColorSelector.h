@@ -1,12 +1,54 @@
 #ifndef COLORSELECTOR_H
 #define COLORSELECTOR_H
+//---------------------------------------------------------------------------//
+//                        COLORSELECTOR.h -
+//
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Fri, 29.04.2005
+//  copyright            : (C) 2005 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
 
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.3  2005/09/15 12:03:02  dkrajzew
+// LARGE CODE RECHECK
+//
+// Revision 1.3  2005/09/09 12:51:48  dksumo
+// complete code rework: debug_new and config added
+//
+// Revision 1.2  2005/06/14 11:22:27  dksumo
+// documentation added
+//
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifndef FXPACKER_H
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "FXPacker.h"
 #endif
 
+/* =========================================================================
+ * namespace definitions
+ * ======================================================================= */
 namespace FX {
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class FXColorWell;
 //class FXButton;
 class FXIcon;
@@ -58,5 +100,11 @@ public:
   };
 
 }
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 #endif
-// COLORSELECTOR_H
+
+// Local Variables:
+// mode:C++
+// End:

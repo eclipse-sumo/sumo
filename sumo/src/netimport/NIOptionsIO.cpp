@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/15 12:03:37  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/07/12 12:35:21  dkrajzew
 // elmar2 importer included; debugging
 //
@@ -138,7 +141,8 @@ namespace
 // Windows eol removed; minor double to int conversions removed;
 //
 // Revision 1.3  2002/04/24 06:52:01  dkrajzew
-// Deprecated initialisation of the options container that used enviroment variables removed
+// Deprecated initialisation of the options container that used enviroment
+//  variables removed
 //
 // Revision 1.2  2002/04/16 12:30:13  dkrajzew
 // Usage of SUMO_DATA removed
@@ -176,6 +180,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -190,6 +198,10 @@ namespace
 #include <utils/common/RandHelper.h>
 #include <utils/common/DevHelper.h>
 #include <netbuild/NBNetBuilder.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

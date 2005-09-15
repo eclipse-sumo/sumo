@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/15 12:21:08  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.4  2005/05/04 09:26:19  dkrajzew
 // reports about being unable to build a file added
 //
@@ -42,6 +45,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <map>
 #include <fstream>
 #include <string>
@@ -51,6 +58,10 @@
 #include "OutputDevice_File.h"
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -106,6 +117,7 @@ SharedOutputDevices::getOutputDevice(const std::string &name)
 {
     DeviceMap::iterator i = myOutputDevices.find(name);
     if(i!=myOutputDevices.end()) {
+        (*i).second->setNeedsDetectorName(true);
         return (*i).second;
     }
     std::ofstream *strm = new std::ofstream(name.c_str());

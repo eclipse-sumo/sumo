@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2005/09/15 12:06:04  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.31  2005/07/12 12:06:12  dkrajzew
 // first devices (mobile phones) added
 //
@@ -148,6 +151,10 @@ namespace
 #include <utils/common/DevHelper.h>
 #include "SUMOFrame.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 
 /* =========================================================================
  * used namespaces
@@ -202,8 +209,15 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("lanedump-intervals", new Option_IntVector(""));
     oc.doRegister("lanedump-basename", new Option_FileName());
     oc.doRegister("dump-empty-edges", new Option_Bool(false));
+    oc.doRegister("dump-begin", new Option_IntVector(""));
+    oc.doRegister("dump-end", new Option_IntVector(""));
+    //
+    oc.doRegister("load-state", new Option_FileName());
+    oc.doRegister("save-state.times", new Option_IntVector(""));
+    oc.doRegister("save-state.prefix", new Option_FileName());
     //
     oc.doRegister("time-to-teleport", new Option_Integer(300));
+//    oc.doRegister("no-geom", new Option_Bool(false));
 
     oc.doRegister("use-internal-links", 'I', new Option_Bool(false));
     oc.doRegister("default-lanechange-model", new Option_String("dk1"));
@@ -252,7 +266,7 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
     ret[MSNet::OS_NETSTATE] = buildStream(oc, "netstate-dump");
     ret[MSNet::OS_EMISSIONS] = buildStream(oc, "emissions-output");
     ret[MSNet::OS_TRIPDURATIONS] = buildStream(oc, "tripinfo-output");
-    ret[MSNet::OS_VEHROUTE] = buildStream(oc, "vehroute-output");
+	ret[MSNet::OS_VEHROUTE] = buildStream(oc, "vehroute-output");
     return ret;
 }
 
@@ -345,6 +359,9 @@ SUMOFrame::setMSGlobals(OptionsCont &oc)
     MSGlobals::gCheck4Accidents =
         oc.getBool("check-accidents");
     //
+#ifdef HAVE_MESOSIM
+    MSGlobals::gUseMesoSim = oc.getBool("mesosim");
+#endif
 }
 
 

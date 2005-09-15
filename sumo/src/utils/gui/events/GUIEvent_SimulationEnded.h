@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/15 12:19:22  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2004/12/16 12:21:39  dkrajzew
 // debugging
 //
@@ -39,7 +42,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include "GUIEvent.h"

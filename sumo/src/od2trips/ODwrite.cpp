@@ -26,8 +26,12 @@
 namespace
 {
     const char rcsid[] =
-    "";
+    "$Id$";
 }
+// $Log$
+// Revision 1.9  2005/09/15 12:04:48  dkrajzew
+// LARGE CODE RECHECK
+//
 //
 /* =========================================================================
  * compiler pragmas
@@ -50,7 +54,15 @@ namespace
 # include <utils/common/MsgHandler.h>
 # include <utils/options/OptionsSubSys.h>
 # include <utils/options/OptionsCont.h>
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <od2trips/ODDistrictCont.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 # include "ODmatrix.h"
 
 /* =========================================================================

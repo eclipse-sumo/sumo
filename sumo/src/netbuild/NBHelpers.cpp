@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/15 12:02:45  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.6  2005/04/27 11:48:25  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -34,7 +37,8 @@ namespace
 // consequent position2D instead of two doubles added
 //
 // Revision 1.3  2003/04/04 07:43:03  dkrajzew
-// Yellow phases must be now explicetely given; comments added; order of edge sorting (false lane connections) debugged
+// Yellow phases must be now explicetely given; comments added;
+//  order of edge sorting (false lane connections) debugged
 //
 // Revision 1.2  2003/02/07 10:43:44  dkrajzew
 // updated
@@ -49,7 +53,8 @@ namespace
 // Bug on the computation of an edges direction (angle) fixed
 //
 // Revision 1.4  2002/06/11 16:00:41  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+// windows eol removed; template class definition inclusion depends now
+//  on the EXTERNAL_TEMPLATE_DEFINITION-definition
 //
 // Revision 1.3  2002/05/14 04:42:55  dkrajzew
 // new computation flow
@@ -84,6 +89,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <cmath>
 #include <string>
 #include <sstream>
@@ -93,6 +102,10 @@ namespace
 #include <utils/geom/Position2D.h>
 #include <utils/geom/GeomHelper.h>
 #include <iostream>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

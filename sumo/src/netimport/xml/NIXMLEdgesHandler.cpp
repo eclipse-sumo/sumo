@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2005/09/15 12:03:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.15  2005/04/27 12:24:42  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -124,6 +127,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <iostream>
 #include <map>
@@ -143,6 +150,10 @@ namespace
 #include <utils/convert/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLBuildingExceptions.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

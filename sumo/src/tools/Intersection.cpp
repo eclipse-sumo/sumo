@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        Intersection.h -
-//  
+//
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Jun 2005
@@ -28,14 +28,22 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "Intersection.h"
-#include <iostream> 
-#include <fstream> 
-#include <string> 
+#include <iostream>
+#include <fstream>
+#include <string>
 #include <map>
 #include <stdlib.h>
 #include <direct.h>
-#include "../geom/Position2DVector.h"
+#include <utils/geom/Position2DVector.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 /* =========================================================================
  * used namespaces
@@ -52,13 +60,13 @@ Intersection::DictTypePolygon Intersection::myPolyDict;
 // Constructor/Destructor
 //////////////////////////////////////////////////////////////////////
 
-Intersection::Intersection(const char *nnet, const char *npolygons) 
+Intersection::Intersection(const char *nnet, const char *npolygons)
         : net(nnet),  polygons(npolygons)
 {
 }
 
 Intersection::~Intersection()
-{    
+{
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -68,17 +76,17 @@ Intersection::~Intersection()
 /// load net-file and save the Position into a dictionnary
 void
 Intersection::loadNet(void)
-{   
+{
 	char buffer[_MAX_PATH];
 	getcwd(buffer,_MAX_PATH);
 	cout<<"Current directory is "<<buffer<<endl;
 
 	ifstream out(net);
-	
-    if (!out) { 
-      cerr << "cannot open file: " << net <<endl; 
-      exit(-1); 
-	} 
+
+    if (!out) {
+      cerr << "cannot open file: " << net <<endl;
+      exit(-1);
+	}
 
 	std::string buff;
     cout<<"=======================first loading Lanes==============================="<<endl;
@@ -92,7 +100,7 @@ Intersection::loadNet(void)
        	std::string rest = buff.substr(buff.find(">")+1,buff.find("</")-buff.find(">")-1);
         cout<<l<<". Lane ID = "<<id<<endl;
         int j = getNumberOf(rest);
-        
+
 		for(int k = 0; k<j+1; k++){
 		    std::string  pos1 = rest.substr(0,rest.find(","));
 		    std::string  pos2 = rest.substr(rest.find(",")+1,rest.find(" ")-rest.find(","));
@@ -111,20 +119,20 @@ Intersection::loadNet(void)
 /// load polygon-file file and save the Positions into a dictionnary
 void
 Intersection::loadPolygon(void)
-{  
+{
 	char buffer[_MAX_PATH];
 	getcwd(buffer,_MAX_PATH);
 
 	ifstream out(net);
-	
-    if (!out) { 
-      cerr << "cannot open file: " << net <<endl; 
-      exit(-1); 
-	} 
+
+    if (!out) {
+      cerr << "cannot open file: " << net <<endl;
+      exit(-1);
+	}
 
 	std::string buff;
 	int l = 0;
-    cout<<endl<<"========================second loading Polygons============================="<<endl;	
+    cout<<endl<<"========================second loading Polygons============================="<<endl;
 	while(!out.eof()) {
 		getline(out,buff);
 		if(buff.find("<poly name=")!=string::npos){
@@ -134,7 +142,7 @@ Intersection::loadPolygon(void)
        	std::string rest = buff.substr(buff.find(">")+1,buff.find("</")-buff.find(">")-1);
         cout<<l<<". Polygon ID = "<<id<<endl;
         int j = getNumberOf(rest);
-        
+
 		for(int k = 0; k<j+1; k++){
 		    std::string  pos1 = rest.substr(0,rest.find(","));
 		    std::string  pos2 = rest.substr(rest.find(",")+1,rest.find(" ")-rest.find(","));
@@ -151,10 +159,10 @@ Intersection::loadPolygon(void)
 }
 
 /// compare all value to find the intersection point
-/// write results in a file 
+/// write results in a file
 void
 Intersection::compare(const char *output)
-{  
+{
    cout<<endl<<"======================results========================================="<<endl;
    ofstream out(output);
    for(DictTypePolygon::iterator i=myPolyDict.begin(); i!=myPolyDict.end(); i++) {
@@ -168,9 +176,9 @@ Intersection::compare(const char *output)
    out.close();
 }
 // gibt wie oft ein char in einr string vorkommt
-int 
+int
 Intersection::getNumberOf(std::string str){
-    int i,j = 0; 
+    int i,j = 0;
 	for(i = 0; i < str.length(); i++){
         if (str.at(i)==' '){
 			j = j + 1;
@@ -183,14 +191,14 @@ Intersection::getNumberOf(std::string str){
 /* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
-int main(int argc, char** argv) 
-{ 
-	if (argc!=4) { 
-    cerr << " syntax error please use:"   
-		 << " Intersection <net-file> <polygon-file> <output-file> "<< endl; 
-      return -1; 
+int main(int argc, char** argv)
+{
+	if (argc!=4) {
+    cerr << " syntax error please use:"
+		 << " Intersection <net-file> <polygon-file> <output-file> "<< endl;
+      return -1;
     }
-	
+
 
 	Intersection *app = new Intersection(argv[1],argv[2]);
 	app->loadNet();

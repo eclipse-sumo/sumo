@@ -18,9 +18,13 @@
  ***************************************************************************/
 namespace
 {
-     const char rcsid[] = "$Id$";
+     const char rcsid[] =
+         "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/15 12:04:36  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.7  2005/05/04 08:43:09  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -57,17 +61,36 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <string>
 #include <fstream>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSLane.h>
-#include <microsim/MSTrigger.h>
-#include <microsim/MSLaneSpeedTrigger.h>
+#include <microsim/MSGlobals.h>
+#include <microsim/trigger/MSLaneSpeedTrigger.h>
+#include <microsim/trigger/MSTriggeredEmitter.h>
+#include <microsim/trigger/MSTriggerControl.h>
+#include <microsim/trigger/MSTriggeredRerouter.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
+#include "NLNetHandler.h"
 #include "NLTriggerBuilder.h"
+#include <utils/sumoxml/SUMOXMLDefinitions.h>
+
+#ifdef HAVE_MESOSIM
+#include <mesosim/METriggeredCalibrator.h>
+#include <mesosim/MESegment.h>
+#include <mesosim/MELoop.h>
+#endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -90,42 +113,194 @@ NLTriggerBuilder::~NLTriggerBuilder()
 
 
 MSTrigger *
-NLTriggerBuilder::buildTrigger(MSNet &net, const std::string &id,
-                               const std::string &objecttype,
-                               const std::string &objectid,
-                               const std::string &objectattr,
-                               std::string file, std::string base)
+NLTriggerBuilder::buildTrigger(MSNet &net,
+                               const Attributes &attrs,
+                               const std::string &base,
+                               const NLNetHandler &helper)
+{
+    string type = helper.getString(attrs, SUMO_ATTR_OBJECTTYPE);
+    string attr = helper.getStringSecure(attrs, SUMO_ATTR_ATTR, "");
+    // check which typ of a trigger shall be build
+    MSTrigger *t = 0;
+    if(type=="lane"&&attr=="speed") {
+        t = parseAndBuildLaneSpeedTrigger(net, attrs, base, helper);
+    } else if(type=="emitter") {
+        t = parseAndBuildLaneEmitTrigger(net, attrs, base, helper);
+    } else if(type=="rerouter") {
+        t = parseAndBuildRerouter(net, attrs, base, helper);
+    }
+#ifdef HAVE_MESOSIM
+    else if(type=="calibrator") {
+        t = parseAndBuildCalibrator(net, attrs, base, helper);
+    }
+#endif
+    if(t!=0) {
+        net.getTriggerControl().addTrigger(t);
+    }
+    return t;
+}
+
+
+MSLaneSpeedTrigger *
+NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net,
+                                                const Attributes &attrs,
+                                                const std::string &base,
+                                                const NLNetHandler &helper)
 {
     // check whether absolute or relative filenames are given
+    string file = helper.getString(attrs, SUMO_ATTR_FILE);
     if(!FileHelpers::isAbsolute(file)) {
         file = FileHelpers::getConfigurationRelative(base, file);
     }
-    // check which typ of a trigger shall be build
-    if(objecttype=="lane"&&objectattr=="speed") {
-        std::vector<MSLane*> lanes;
-        StringTokenizer st(objectid, ";");
-        while(st.hasNext()) {
-            MSLane *lane = MSLane::dictionary(st.next());
-            if(lane==0) {
-                MsgHandler::getErrorInstance()->inform(
-                    string("The lane to use within MSLaneSpeedTrigger '")
-                    + id + string("' is not known."));
-                throw ProcessError();
-            }
-            lanes.push_back(lane);
-        }
-        if(lanes.size()==0) {
+    // lane speed trigger
+    string id = helper.getString(attrs, SUMO_ATTR_ID);
+    string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
+    std::vector<MSLane*> lanes;
+    StringTokenizer st(objectid, ";");
+    while(st.hasNext()) {
+        MSLane *lane = MSLane::dictionary(st.next());
+        if(lane==0) {
             MsgHandler::getErrorInstance()->inform(
-                string("No lane defined for MSLaneSpeedTrigger '")
-                + id + string("'."));
+                string("The lane to use within MSLaneSpeedTrigger '")
+                + id + string("' is not known."));
             throw ProcessError();
         }
-        MSTrigger *t = buildLaneSpeedTrigger(net, id, lanes, file);
-        net.addTrigger(t);
-        return t;
+        lanes.push_back(lane);
     }
-    return 0;
+    if(lanes.size()==0) {
+        MsgHandler::getErrorInstance()->inform(
+            string("No lane defined for MSLaneSpeedTrigger '")
+            + id + string("'."));
+        throw ProcessError();
+    }
+    return buildLaneSpeedTrigger(net, id, lanes, file);
 }
+
+
+MSTriggeredEmitter *
+NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net,
+                                               const Attributes &attrs,
+                                               const std::string &base,
+                                               const NLNetHandler &helper)
+{
+    // check whether absolute or relative filenames are given
+    string file = helper.getString(attrs, SUMO_ATTR_FILE);
+    if(!FileHelpers::isAbsolute(file)) {
+        file = FileHelpers::getConfigurationRelative(base, file);
+    }
+    string id = helper.getString(attrs, SUMO_ATTR_ID);
+    string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
+    MSLane *lane = MSLane::dictionary(objectid);
+    if(lane==0) {
+        MsgHandler::getErrorInstance()->inform(
+            string("The lane to use within MSTriggeredEmitter '")
+            + id + string("' is not known."));
+        throw ProcessError();
+    }
+    double pos = helper.getFloat(attrs, SUMO_ATTR_POS);
+    if(pos<0) {
+        pos = lane->length() + pos;
+    }
+    return buildLaneEmitTrigger(net, id, lane, pos, file);
+}
+
+
+#ifdef HAVE_MESOSIM
+METriggeredCalibrator *
+NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
+                                          const Attributes &attrs,
+                                          const std::string &base,
+                                          const NLNetHandler &helper)
+{
+    // check whether absolute or relative filenames are given
+    string file = helper.getString(attrs, SUMO_ATTR_FILE);
+    if(!FileHelpers::isAbsolute(file)) {
+        file = FileHelpers::getConfigurationRelative(base, file);
+    }
+
+    string rfile = helper.getStringSecure(attrs, "rfile", "");
+    if(rfile.length()!=0&&!FileHelpers::isAbsolute(rfile)) {
+        rfile = FileHelpers::getConfigurationRelative(base, rfile);
+    }
+
+    string id = helper.getString(attrs, SUMO_ATTR_ID);
+    string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
+    MSLane *lane = MSLane::dictionary(objectid);
+    if(lane==0) {
+        MsgHandler::getErrorInstance()->inform(
+            string("The lane to use within MSTriggeredEmitter '")
+            + id + string("' is not known."));
+        throw ProcessError();
+    }
+    double pos = helper.getFloat(attrs, SUMO_ATTR_POS);
+
+
+        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&(lane->edge()));
+        MESegment *prev = s;
+        float cpos = 0;
+        while(cpos<pos&&s!=0) {
+            prev = s;
+            cpos += s->getLength();
+            s = s->getNextSegment();
+        }
+        float rpos = pos-cpos-prev->getLength();
+
+    return buildCalibrator(net, id, prev, rpos, rfile, file);
+}
+#endif
+
+
+MSTriggeredRerouter *
+NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
+                                        const Attributes &attrs,
+                                        const std::string &base,
+                                        const NLNetHandler &helper)
+{
+    // check whether absolute or relative filenames are given
+    string file = helper.getString(attrs, SUMO_ATTR_FILE);
+    if(!FileHelpers::isAbsolute(file)) {
+        file = FileHelpers::getConfigurationRelative(base, file);
+    }
+    string id = helper.getString(attrs, SUMO_ATTR_ID);
+    string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
+    std::vector<MSEdge*> edges;
+    StringTokenizer st(objectid, ";");
+    while(st.hasNext()) {
+        MSEdge *edge = MSEdge::dictionary(st.next());
+        if(edge==0) {
+            MsgHandler::getErrorInstance()->inform(
+                string("The edge to use within MSTriggeredRerouter '")
+                + id + string("' is not known."));
+            throw ProcessError();
+        }
+        edges.push_back(edge);
+    }
+    if(edges.size()==0) {
+        MsgHandler::getErrorInstance()->inform(
+            string("No edges found for MSTriggeredRerouter '")
+            + id + string("'."));
+        throw ProcessError();
+    }
+
+    float prob;
+    try {
+        prob = helper.getFloatSecure(attrs, SUMO_ATTR_PROB, 1);
+    } catch(NumberFormatException) {
+        MsgHandler::getErrorInstance()->inform(
+            string("Invalid probability in definition of MSTriggeredRerouter '")
+            + id + string("'."));
+        throw ProcessError();
+    }
+    MSTriggeredRerouter *ret = buildRerouter(net, id, edges, prob, file);
+    if(helper.getBoolSecure(attrs, "off", false)) {
+        ret->setUserMode(true);
+        ret->setUserUsageProbability(0);
+    }
+    return ret;
+}
+
+
+// -------------------------
 
 
 MSLaneSpeedTrigger *
@@ -135,6 +310,39 @@ NLTriggerBuilder::buildLaneSpeedTrigger(MSNet &net,
                                         const std::string &file)
 {
     return new MSLaneSpeedTrigger(id, net, destLanes, file);
+}
+
+
+MSTriggeredEmitter *
+NLTriggerBuilder::buildLaneEmitTrigger(MSNet &net,
+                                       const std::string &id,
+                                       MSLane *destLane,
+                                       double pos,
+                                       const std::string &file)
+{
+    return new MSTriggeredEmitter(id, net, destLane, pos, file);
+}
+
+
+#ifdef HAVE_MESOSIM
+METriggeredCalibrator *
+NLTriggerBuilder::buildCalibrator(MSNet &net,
+                                  const std::string &id,
+                                  MESegment *edge, double pos,
+                                  const std::string &rfile,
+                                  const std::string &file)
+{
+    return new METriggeredCalibrator(id, net, edge, rfile, file);
+}
+#endif
+
+
+MSTriggeredRerouter *
+NLTriggerBuilder::buildRerouter(MSNet &net, const std::string &id,
+                                std::vector<MSEdge*> &edges,
+                                float prob, const std::string &file)
+{
+    return new MSTriggeredRerouter(id, net, edges, prob, file);
 }
 
 

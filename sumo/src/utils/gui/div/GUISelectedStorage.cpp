@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/15 12:18:59  dkrajzew
+// LARGE CODE RECHECK
+//
 // Revision 1.2  2004/12/16 12:12:59  dkrajzew
 // first steps towards loading of selections between different applications
 //
@@ -38,12 +41,20 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <vector>
 #include <algorithm>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include "GUISelectedStorage.h"
 #include "GUIDialog_GLChosenEditor.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -191,7 +202,7 @@ GUISelectedStorage::isSelected(int type, size_t id)
         return mySelectedEdges.isSelected(id);
     case GLO_JUNCTION:
         return mySelectedJunctions.isSelected(id);
-    case GLO_LANESPEEDTRIGGER:
+    case GLO_TRIGGER:
         return mySelectedTriggers.isSelected(id);
     case GLO_ADDITIONAL:
         return
@@ -240,7 +251,7 @@ GUISelectedStorage::select(int type, size_t id, bool update)
     case GLO_JUNCTION:
         mySelectedJunctions.select(id);
         break;
-    case GLO_LANESPEEDTRIGGER:
+    case GLO_TRIGGER:
         mySelectedTriggers.select(id);
         break;
     default:
@@ -275,8 +286,8 @@ GUISelectedStorage::addObjectChecking(size_t id, long withShift)
     /*
     //
     if(o->getType()==GLO_LANE&&withShift!=0) {
-        throw 1;
-        /*
+		throw 1;
+		/*
         string name = o->microsimID();
         const GUIEdge &e =
             static_cast<const GUIEdge&>(MSLane::dictionary(name)->edge());
@@ -289,7 +300,7 @@ GUISelectedStorage::addObjectChecking(size_t id, long withShift)
             }
         }
     }
-        */
+		*/
     gIDStorage.unblockObject(id);
     if(my2Update!=0) {
         my2Update->rebuildList();
@@ -334,7 +345,7 @@ GUISelectedStorage::deselect(int type, size_t id)
     case GLO_JUNCTION:
         mySelectedJunctions.deselect(id);
         break;
-    case GLO_LANESPEEDTRIGGER:
+    case GLO_TRIGGER:
         mySelectedTriggers.deselect(id);
         break;
     default:
@@ -404,7 +415,7 @@ GUISelectedStorage::load(int type, const std::string &filename)
         case GLO_JUNCTION:
             mySelectedJunctions.load(filename);
             break;
-        case GLO_LANESPEEDTRIGGER:
+        case GLO_TRIGGER:
             mySelectedTriggers.load(filename);
             break;
         default:
@@ -442,7 +453,7 @@ GUISelectedStorage::save(int type, const std::string &filename)
         case GLO_JUNCTION:
             mySelectedJunctions.save(filename);
             break;
-        case GLO_LANESPEEDTRIGGER:
+        case GLO_TRIGGER:
             mySelectedTriggers.save(filename);
             break;
         default:
@@ -488,7 +499,7 @@ GUISelectedStorage::getSelected(int type) const
     case GLO_JUNCTION:
         return mySelectedJunctions.getSelected();
         break;
-    case GLO_LANESPEEDTRIGGER:
+    case GLO_TRIGGER:
         return mySelectedTriggers.getSelected();
         break;
     }
