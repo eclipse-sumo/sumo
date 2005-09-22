@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 11:07:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -68,8 +71,8 @@ MSLCM_DK2002::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
                                  const MSVehicle * const neighLead,
                                  const MSVehicle * const neighFollow,
                                  const MSLane &neighLane,
-                                 int bestLaneOffset, double bestDist,
-                                 double currentDist)
+                                 int bestLaneOffset, SUMOReal bestDist,
+                                 SUMOReal currentDist)
 {
     // forced changing
     if(currentDist<400&&bestLaneOffset<0) {
@@ -87,7 +90,7 @@ MSLCM_DK2002::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     }
 
     // higher speed
-    double neighLaneVSafe, thisLaneVSafe;
+    SUMOReal neighLaneVSafe, thisLaneVSafe;
     if ( neighLead == 0 ) {
         neighLaneVSafe =
             myVehicle.vsafe(
@@ -125,8 +128,8 @@ MSLCM_DK2002::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
                                 const MSVehicle * const neighLead,
                                 const MSVehicle * const neighFollow,
                                 const MSLane &neighLane,
-                                int bestLaneOffset, double bestDist,
-                                double currentDist)
+                                int bestLaneOffset, SUMOReal bestDist,
+                                SUMOReal currentDist)
 {
     // forced changing
     if(currentDist<400&&bestLaneOffset>0) {
@@ -144,7 +147,7 @@ MSLCM_DK2002::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     }
 
     // higher speed
-    double neighLaneVSafe, thisLaneVSafe;
+    SUMOReal neighLaneVSafe, thisLaneVSafe;
     if ( neighLead == 0 ) {
         neighLaneVSafe =
             myVehicle.vsafe(

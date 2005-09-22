@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.19  2005/09/22 13:45:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.18  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -296,7 +299,7 @@ public:
 
     std::string getID() { return myID; }
 
-    double getEffort(SUMOTime time) const;
+    SUMOReal getEffort(SUMOTime time) const;
 
     size_t getNumericalID() const { return myNumericalID; }
 

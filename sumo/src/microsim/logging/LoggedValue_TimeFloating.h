@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 11:07:54  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -56,7 +59,7 @@
  * ======================================================================= */
 /**
  * @class LoggedValue_TimeFloating
- * This class allows a view at a floating window of a fixed size.
+ * This class allows a view at a SUMORealing window of a fixed size.
  * The values are stored in an array to allow faster adaption of their sum.
  */
 template<typename _T>
@@ -108,11 +111,11 @@ public:
     {
         // the list is complete
         if(myBufferWasFull) {
-            return myCurrentValue / (double) mySampleInterval;
+            return myCurrentValue / (SUMOReal) mySampleInterval;
         }
         // return only the acquired values
         if(mySampledUnits!=0) {
-            return myCurrentValue / (double) mySampledUnits;
+            return myCurrentValue / (SUMOReal) mySampledUnits;
         }
         // return 0 (or throw an exception when not initialised
         return 0;

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 11:09:53  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -123,26 +126,26 @@ public:
     typedef std::map<MSLane*, MS_E2_ZS_CollectorOverLanes*> E2DetectorMap;
 
     ///stores the detector values of one single phase
-    typedef std::deque<double> ValueType;
+    typedef std::deque<SUMOReal> ValueType;
 
     ///stores the step of the greenphases and their detector values
     typedef std::map<size_t, ValueType> PhaseValueMap;
 
     /// stores the mean data of several (numberOfValues) cycles
-    typedef std::map<size_t, double> MeanDataMap;
+    typedef std::map<size_t, SUMOReal> MeanDataMap;
 
 public:
     /// constructor
     MSAgentbasedTrafficLightLogic(const std::string &id,
         const MSSimpleTrafficLightLogic::Phases &phases,
         size_t step, size_t delay, int learnHorizon, int decHorizon,
-        double minDiff, int tcycle);
+        SUMOReal minDiff, int tcycle);
 
     /// Initialises the tls with information about incoming lanes
 	void init(NLDetectorBuilder &nb,
 		const std::vector<MSLane*> &lanes,
         const std::map<std::string, std::vector<std::string> > &edgeContinuations,
-        double det_offset);
+        SUMOReal det_offset);
 
     /// destructor
     ~MSAgentbasedTrafficLightLogic();
@@ -176,7 +179,7 @@ protected:
     virtual void sproutDetectors(NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
         const std::map<std::string, std::vector<std::string> > &laneContinuations,
-        double det_offset);
+        SUMOReal det_offset);
 
     /// initializes the duration of the phases (except the intergeentimes)
     /// so that the time cycletime tCyle is kept
@@ -198,12 +201,12 @@ protected:
     MSActuatedPhaseDefinition * currentPhaseDef() const;
 
     /// Returns the value of the detector defined by the given lane and type
-    double currentForLane(E2::DetType what,
-        MSLane *lane) const;
+	SUMOReal currentForLane(E2::DetType what,
+		MSLane *lane) const;
 
 protected:
-    /// A map from lanes to E2-detectors lying on them
-    E2DetectorMap myE2Detectors;
+	/// A map from lanes to E2-detectors lying on them
+	E2DetectorMap myE2Detectors;
 
     /// A map of the step of the greenphases and their detectorvalues for several (mumberofValues) cycles
     PhaseValueMap myRawDetectorData;
@@ -232,7 +235,7 @@ protected:
     Queue_Lengt_Ahead_Of_Traffic_Lights of a phase before greentime is given
     from the phase with the shortest Queue_Lengt_Ahead_Of_Traffic_Lights to the phase with
     the longest Queue_Lengt_Ahead_Of_Traffic_Lights*/
-    double deltaLimit;
+    SUMOReal deltaLimit;
 
 };
 

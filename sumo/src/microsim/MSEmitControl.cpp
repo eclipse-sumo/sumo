@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.14  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.13  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -185,7 +188,7 @@ MSEmitControl::emitVehicles(SUMOTime time)
         return 0;
     }
 	size_t noEmitted = 0;
-    // we use double-buffering for the refused emits to save time
+    // we use SUMOReal-buffering for the refused emits to save time
     assert(myRefusedEmits1.size()==0||myRefusedEmits2.size()==0);
     MSVehicleContainer::VehicleVector &refusedEmits =
         myRefusedEmits1.size()==0 ? myRefusedEmits1 : myRefusedEmits2;

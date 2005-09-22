@@ -23,6 +23,9 @@
 
 // $Id$
 // $Log$
+// Revision 1.6  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 11:09:33  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -117,7 +120,7 @@ public:
      */
     MSInductLoop( const std::string& id,
                   MSLane* lane,
-                  double positionInMeters,
+                  SUMOReal positionInMeters,
                   SUMOTime deleteDataAfterSeconds);
 
 
@@ -152,9 +155,9 @@ public:
      * @see leaveDetectorByMove
      */
     bool isStillActive( MSVehicle& veh,
-                        double oldPos,
-                        double newPos,
-                        double newSpeed );
+                        SUMOReal oldPos,
+                        SUMOReal newPos,
+                        SUMOReal newSpeed );
 
 
     /**
@@ -193,7 +196,7 @@ public:
      *
      * @return Flow in [veh/h].
      */
-    double getFlow( SUMOTime lastNTimesteps ) const;
+    SUMOReal getFlow( SUMOTime lastNTimesteps ) const;
 
     /**
      * Calculates the mean-speed in [m/s] over the given interval.
@@ -204,7 +207,7 @@ public:
      * @return Mean-speed in [m/s] averaged over the vehicles that
      * passed during the lastNTimesteps.
      */
-    double getMeanSpeed( SUMOTime lastNTimesteps ) const;
+    SUMOReal getMeanSpeed( SUMOTime lastNTimesteps ) const;
 
     /**
      * Calculates the occupancy in [%], where 100% means lastNTimesteps.
@@ -214,7 +217,7 @@ public:
      *
      * @return Occupancy in [%].
      */
-    double getOccupancy( SUMOTime lastNTimesteps ) const;
+    SUMOReal getOccupancy( SUMOTime lastNTimesteps ) const;
 
     /**
      * Calculate the mean-vehicle-length in [m] averaged over the
@@ -226,7 +229,7 @@ public:
      * @return Mean vehicle-length in [m] averaged over the vehicles
      * that passed during the lastNTimesteps.
      */
-    double getMeanVehicleLength( SUMOTime lastNTimesteps ) const;
+    SUMOReal getMeanVehicleLength( SUMOTime lastNTimesteps ) const;
 
     /**
      * Counts the timesteps from the last leaving of the detector to
@@ -235,7 +238,7 @@ public:
      * @return Timesteps from last leaving (detection) of the detector
      * to now or 0 if detector is occupied.
      */
-    double getTimestepsSinceLastDetection() const;
+    SUMOReal getTimestepsSinceLastDetection() const;
 
     /**
      * How many vehicles passed the detector completely over the
@@ -247,7 +250,7 @@ public:
      * @return Number of vehicles that passed the detector completely
      * over the lastNTimesteps.
      */
-    double getNVehContributed( SUMOTime lastNTimesteps ) const;
+    SUMOReal getNVehContributed( SUMOTime lastNTimesteps ) const;
     //@}
 
     /**
@@ -332,8 +335,8 @@ public:
     {
         /// Use this constructor if the vehicle has passed the induct loop completely
         VehicleData( MSVehicle& veh,
-                     double entryTimestep,
-                     double leaveTimestep )
+                     SUMOReal entryTimestep,
+                     SUMOReal leaveTimestep )
             : lengthM( veh.length() ),
               entryTimeM( MSNet::getSeconds( entryTimestep ) ),
               leaveTimeM( MSNet::getSeconds( leaveTimestep ) ),
@@ -342,16 +345,16 @@ public:
               occupancyM( leaveTimeM - entryTimeM )
             {}
 
-        double lengthM;         /**< Length of the vehicle. */
-        double entryTimeM;      /**< Entry-time of the vehicle in [s]. */
-        double leaveTimeM;      /**< Leave-time of the vehicle in [s]. */
-        double speedM;          /**< Speed of the vehicle in [m/s]. */
-        double speedSquareM;    /**< SpeedSquare of the vehicle in [m/(s^2)].*/
-        double occupancyM;      /**< Occupancy of the detector in [s]. */
+        SUMOReal lengthM;         /**< Length of the vehicle. */
+        SUMOReal entryTimeM;      /**< Entry-time of the vehicle in [s]. */
+        SUMOReal leaveTimeM;      /**< Leave-time of the vehicle in [s]. */
+        SUMOReal speedM;          /**< Speed of the vehicle in [m/s]. */
+        SUMOReal speedSquareM;    /**< SpeedSquare of the vehicle in [m/(s^2)].*/
+        SUMOReal occupancyM;      /**< Occupancy of the detector in [s]. */
     };
 
 
-    typedef std::vector<double> DismissedCont;
+    typedef std::vector<SUMOReal> DismissedCont;
 
 protected:
     /**
@@ -372,7 +375,7 @@ protected:
      * @param entryTimestep Timestep (not neccessary integer) of entrance.
      */
     void enterDetectorByMove( MSVehicle& veh,
-                              double entryTimestep );
+                              SUMOReal entryTimestep );
 
     /**
      * Removes a vehicle from the detector's map vehiclesOnDetM and
@@ -382,7 +385,7 @@ protected:
      * @param leaveTimestep Timestep (not neccessary integer) of leaving.
      */
     void leaveDetectorByMove( MSVehicle& veh,
-                              double leaveTimestep );
+                              SUMOReal leaveTimestep );
 
     /**
      * Removes a vehicle from the detector's map vehiclesOnDetM.
@@ -400,10 +403,10 @@ protected:
      *
      */
     struct leaveTimeLesser :
-            public std::binary_function< VehicleData, double, bool >
+            public std::binary_function< VehicleData, SUMOReal, bool >
     {
         bool operator()( const VehicleData& data,
-                         double leaveTimeBound ) const
+                         SUMOReal leaveTimeBound ) const
         {
             return data.leaveTimeM < leaveTimeBound;
         }
@@ -438,14 +441,14 @@ protected:
         SUMOTime lastNTimesteps ) const;
 
 
-    const double posM;          /**< Detector's position on lane [cells]. */
+    const SUMOReal posM;          /**< Detector's position on lane [cells]. */
 
     SUMOTime deleteDataAfterStepsM; /**< Deletion interval. */
 
-    double lastLeaveTimestepM;  /**< Leave-timestep of the last
+    SUMOReal lastLeaveTimestepM;  /**< Leave-timestep of the last
                                  * vehicle detected. */
 
-    typedef std::map< MSVehicle*, double > VehicleMap; /**< Type of
+    typedef std::map< MSVehicle*, SUMOReal > VehicleMap; /**< Type of
                                                         * vehiclesOnDetM. */
 
     VehicleMap vehiclesOnDetM;  /**< Map that holds the vehicles that
@@ -486,28 +489,28 @@ namespace
      */
     //@{
     /// Adds up VehicleData::speedM
-    inline double speedSum( double sumSoFar,
+    inline SUMOReal speedSum( SUMOReal sumSoFar,
                             const MSInductLoop::VehicleData& data )
     {
         return sumSoFar + data.speedM;
     }
 
     /// Adds up VehicleData::speedSquareM
-    inline double speedSquareSum( double sumSoFar,
+    inline SUMOReal speedSquareSum( SUMOReal sumSoFar,
                                   const MSInductLoop::VehicleData& data )
     {
         return sumSoFar + data.speedSquareM;
     }
 
     /// Adds up VehicleData::occupancyM
-    inline double occupancySum( double sumSoFar,
+    inline SUMOReal occupancySum( SUMOReal sumSoFar,
                                 const MSInductLoop::VehicleData& data )
     {
         return sumSoFar + data.occupancyM;
     }
 
     /// Adds up VehicleData::lengthM
-    inline double lengthSum( double sumSoFar,
+    inline SUMOReal lengthSum( SUMOReal sumSoFar,
                              const MSInductLoop::VehicleData& data )
     {
         return sumSoFar + data.lengthM;

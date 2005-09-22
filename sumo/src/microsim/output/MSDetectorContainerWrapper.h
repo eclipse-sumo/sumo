@@ -249,7 +249,7 @@ struct TimeMapCont
 //            assert( ! hasVehicle( veh ) );
             MSUnit::Seconds entryTime =
                 MSUnit::getInstance()->getSeconds(
-                    MSNet::getInstance()->getCurrentTimeStep() );
+					(MSUnit::Steps) MSNet::getInstance()->getCurrentTimeStep() );
             containerM.insert( std::make_pair( veh, entryTime ) );
         }
 

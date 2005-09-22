@@ -53,11 +53,11 @@ public:
     Vehicle;
 
 protected:
-    typedef double DetectorAggregate;
+    typedef SUMOReal DetectorAggregate;
     typedef DetectorContainer::VehiclesList Container;
     typedef Container::InnerContainer VehicleCont;
 
-    MSSpaceMeanSpeed( double, const Container& vehicleCont )
+    MSSpaceMeanSpeed( SUMOReal, const Container& vehicleCont )
         : containerM( vehicleCont.containerM )
         {}
 
@@ -77,7 +77,7 @@ private:
 
 namespace
 {
-    inline double speedSumUp( double sumSoFar,
+    inline SUMOReal speedSumUp( SUMOReal sumSoFar,
                             const MSSpaceMeanSpeed::Vehicle data )
     {
         return sumSoFar + data->speed();
@@ -92,9 +92,9 @@ MSSpaceMeanSpeed::getDetectorAggregate( void )
     if ( size == 0 ) {
         return 0;
     }
-    double spaceMeanSpeed =
-        std::accumulate( containerM.begin(), containerM.end(),
-                         0.0, speedSumUp ) / size;
+    SUMOReal spaceMeanSpeed = (SUMOReal)
+        (std::accumulate( containerM.begin(), containerM.end(),
+                         (SUMOReal) 0.0, speedSumUp ) / size);
     return MSUnit::getInstance()->getMetersPerSecond( spaceMeanSpeed );
 }
 

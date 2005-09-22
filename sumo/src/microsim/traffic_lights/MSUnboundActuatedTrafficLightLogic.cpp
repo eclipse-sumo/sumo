@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.1  2005/09/15 11:09:53  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -165,7 +168,7 @@ MSUnboundActuatedTrafficLightLogic::MSUnboundActuatedTrafficLightLogic(
             const std::string &id,
             const Phases &phases,
             size_t step, size_t delay,
-            double maxGap, double passingTime, double detectorGap)
+            SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap)
     : MSExtendedTrafficLightLogic(id, phases, step, delay),
     _continue(false),
     myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap)
@@ -177,7 +180,7 @@ void
 MSUnboundActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
         std::map<std::string, std::vector<std::string> > &laneContinuations,
-        double det_offset)
+        SUMOReal det_offset)
 {
     sproutDetectors(nb, lanes, laneContinuations, det_offset);
 }
@@ -210,8 +213,8 @@ MSUnboundActuatedTrafficLightLogic::duration() const
             }
             for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end();j++) {
                 LaneStateMap::const_iterator k = myLaneStates.find(*j);
-                double waiting =  (*k).second->getCurrentNumberOfWaiting();
-                double tmpdur =  myPassingTime * waiting;
+                SUMOReal waiting =  (*k).second->getCurrentNumberOfWaiting();
+                SUMOReal tmpdur =  myPassingTime * waiting;
                 if (tmpdur > newduration) {
                     // here we cut the decimal places, because we have to return an integer
                     newduration = (int) tmpdur;
@@ -248,7 +251,7 @@ void
 MSUnboundActuatedTrafficLightLogic::sproutDetectors(
         NLDetectorBuilder &nb, const std::vector<MSLane*> &lanes,
         const std::map<std::string, std::vector<std::string> > &laneContinuations,
-        double det_offset)
+        SUMOReal det_offset)
 {
     // change values for setting the loops and lanestate-detectors, here
     SUMOTime inductLoopInterval = 1; //
@@ -260,11 +263,11 @@ MSUnboundActuatedTrafficLightLogic::sproutDetectors(
     // build the induct loops
     for(i=lanes.begin(); i!=lanes.end(); i++) {
         MSLane *lane = (*i);
-        double length = lane->length();
-        double speed = lane->maxSpeed();
-        double inductLoopPosition = myDetectorGap * speed;
+        SUMOReal length = lane->length();
+        SUMOReal speed = lane->maxSpeed();
+        SUMOReal inductLoopPosition = myDetectorGap * speed;
         // check whether the lane is long enough
-        double ilpos = length - inductLoopPosition;
+        SUMOReal ilpos = length - inductLoopPosition;
         if(ilpos<0) {
             ilpos = 0;
         }
@@ -278,13 +281,13 @@ MSUnboundActuatedTrafficLightLogic::sproutDetectors(
     // build the lane state-detectors
     for(i=lanes.begin(); i!=lanes.end(); i++) {
         MSLane *lane = (*i);
-        double length = lane->length();
+        SUMOReal length = lane->length();
         // check whether the position is o.k. (not longer than the lane)
-        double lslen = det_offset;
+        SUMOReal lslen = det_offset;
         if(lslen>length) {
             lslen = length;
         }
-        double lspos = length - lslen;
+        SUMOReal lspos = length - lslen;
         // Build the lane state detetcor and set it into the container
         std::string id = "TLS" + _id + "_LaneStateOff_" + lane->id();
         if(myLaneStates.find(lane)==myLaneStates.end()) {
@@ -354,7 +357,7 @@ MSUnboundActuatedTrafficLightLogic::gapControl()
                 if(myInductLoops.find(*j)==myInductLoops.end()) {
                     continue;
                 }
-                double actualGap =
+                SUMOReal actualGap =
                     myInductLoops.find(*j)->second->getTimestepsSinceLastDetection();
                 if (actualGap < myMaxGap) {
                     return _continue = true;

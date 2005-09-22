@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 11:08:20  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -153,10 +156,10 @@ MS_E2_ZS_CollectorOverLanes::init(
 {
     myLength = detLength;
     if(startPosM==0) {
-        startPosM = 0.1;
+        startPosM = (SUMOReal) 0.1;
     }
-    double length = lane->length() - startPosM - 0.1;
-    double dlength = detLength;
+    SUMOReal length = lane->length() - startPosM - (SUMOReal) 0.1;
+    SUMOReal dlength = detLength;
     if(length>dlength) {
         length = dlength;
     }
@@ -179,7 +182,7 @@ MS_E2_ZS_CollectorOverLanes::~MS_E2_ZS_CollectorOverLanes( void )
 
 void
 MS_E2_ZS_CollectorOverLanes::extendTo(
-        double length,
+        SUMOReal length,
         const LaneContinuations &laneContinuations)
 {
     bool done = false;
@@ -195,7 +198,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                 // copy current values
                 LaneVector lv = *lanei;
                 DetectorVector dv = *deti;
-                double clength = *leni;
+                SUMOReal clength = *leni;
                 assert(lv.size()>0);
                 assert(dv.size()>0);
                 // erase previous elements
@@ -239,9 +242,9 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                     // get the lane
                     MSLane *l = *i;
                     // compute detector length
-                    double lanelen = length - clength;
+                    SUMOReal lanelen = length - clength;
                     if(lanelen>l->length()) {
-                        lanelen = l->length() - 0.2;
+                        lanelen = l->length() - (SUMOReal) 0.2;
                     }
                     // build new info
                     LaneVector nlv = lv;
@@ -249,7 +252,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                     DetectorVector ndv = dv;
                     MSE2Collector *coll = 0;
                     if(myAlreadyBuild.find(l)==myAlreadyBuild.end()) {
-                        coll = buildCollector(0, 0, l, 0.1, lanelen);
+                        coll = buildCollector(0, 0, l, (SUMOReal) 0.1, lanelen);
                     } else {
                         coll = myAlreadyBuild.find(l)->second;
                     }
@@ -306,11 +309,11 @@ MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
 
 MSE2Collector *
 MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
-                                            double start, double end)
+                                            SUMOReal start, SUMOReal end)
 {
     string id = makeID(l->id(), c, r);
     if(start+end<l->length()) {
-        start = l->length() - end - 0.1;
+        start = l->length() - end - (SUMOReal) 0.1;
     }
     return new MSE2Collector(id, myUsage,
         l, start, end, haltingTimeThresholdM,
@@ -318,7 +321,7 @@ MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
 }
 
 
-double
+SUMOReal
 MS_E2_ZS_CollectorOverLanes::getCurrent( E2::DetType type )
 {
     switch(type) {
@@ -334,9 +337,9 @@ MS_E2_ZS_CollectorOverLanes::getCurrent( E2::DetType type )
     case E2::SPACE_MEAN_SPEED:
     case E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE:
     default:
-        double myMax = 0;
+        SUMOReal myMax = 0;
         for(DetectorVectorVector::iterator i=myDetectorCombinations.begin(); i!=myDetectorCombinations.end(); i++) {
-            double value = 0;
+            SUMOReal value = 0;
             for(DetectorVector::iterator j=(*i).begin(); j!=(*i).end(); j++) {
                 value += (*j)->getCurrent(type);
             }
@@ -350,7 +353,7 @@ MS_E2_ZS_CollectorOverLanes::getCurrent( E2::DetType type )
 }
 
 
-double
+SUMOReal
 MS_E2_ZS_CollectorOverLanes::getAggregate( E2::DetType type,
                                           MSUnit::Seconds lastNSeconds )
 {
@@ -367,9 +370,9 @@ MS_E2_ZS_CollectorOverLanes::getAggregate( E2::DetType type,
     case E2::SPACE_MEAN_SPEED:
     case E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE:
     default:
-        double myMax = 0;
+        SUMOReal myMax = 0;
         for(DetectorVectorVector::iterator i=myDetectorCombinations.begin(); i!=myDetectorCombinations.end(); i++) {
-            double value = 0;
+            SUMOReal value = 0;
             for(DetectorVector::iterator j=(*i).begin(); j!=(*i).end(); j++) {
                 value += (*j)->getAggregate(type, lastNSeconds);
             }
@@ -407,7 +410,7 @@ MS_E2_ZS_CollectorOverLanes::writeXMLOutput(XMLDevice &dev,
                                             SUMOTime startTime, SUMOTime stopTime )
 {
     MSUnit::Seconds lastNSeconds =
-        MSUnit::getInstance()->getSeconds( stopTime-startTime )+1;
+		MSUnit::getInstance()->getSeconds( (MSUnit::Steps) (stopTime-startTime) )+1;
     dev.writeString("<interval begin=\"").writeString(
         toString(startTime)).writeString("\" end=\"").writeString(
         toString(stopTime)).writeString("\" ");

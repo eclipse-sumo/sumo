@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 11:09:53  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -126,7 +129,7 @@ using namespace std;
 MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
             const std::string &id, const Phases &phases,
             size_t step, size_t delay, int learnHorizon, int decHorizon,
-            double minDiff, int tcycle)
+            SUMOReal minDiff, int tcycle)
     : MSExtendedTrafficLightLogic(id, phases, step, delay),
     tDecide(decHorizon), tSinceLastDecision (0), stepOfLastDecision (0),
     numberOfValues(learnHorizon), tCycle(tcycle), deltaLimit (minDiff)
@@ -139,7 +142,7 @@ MSAgentbasedTrafficLightLogic::init(
         NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
         const std::map<std::string, std::vector<std::string> > &laneContinuations,
-        double det_offset)
+        SUMOReal det_offset)
 {
     sproutDetectors(nb, lanes, laneContinuations, det_offset);
     initializeDuration();
@@ -156,10 +159,10 @@ MSAgentbasedTrafficLightLogic::sproutDetectors(
         NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
         const std::map<std::string, std::vector<std::string> > &laneContinuations,
-        double det_offset)
+        SUMOReal det_offset)
 {
     // change values for setting the detectors, here
-//    double laneStateDetectorLength = 75; // length of the detecor
+//    SUMOReal laneStateDetectorLength = 75; // length of the detecor
     std::vector<MSLane*>::const_iterator i;
     // build the E2-detectors
     for(i=lanes.begin(); i!=lanes.end(); i++) {
@@ -172,7 +175,7 @@ MSAgentbasedTrafficLightLogic::sproutDetectors(
                 nb.buildMultiLaneE2Det(laneContinuations, id,
                     DU_TL_CONTROL, lane, 0, det_offset,
                     /*haltingTimeThreshold*/ 1,
-                    /*haltingSpeedThreshold*/5.0/3.6,
+                    /*haltingSpeedThreshold*/(SUMOReal) (5.0/3.6),
                     /*jamDistThreshold*/ 10,
                     /*deleteDataAfterSeconds*/ 1800);
             myE2Detectors[lane] = det;
@@ -246,7 +249,7 @@ MSAgentbasedTrafficLightLogic::lengthenCycleTime(size_t toLengthen)
     //lengthens the phases acording to the difference between duration and maxDuration
     for (GreenPhasesVector::iterator i=tmp_phases.begin(); i!=tmp_phases.end(); i++) {
         size_t toLengthenPerPhase = 0;
-        double tmpdb = ((*i).first * toLengthen / double(maxLengthen)) + 0.5;
+        SUMOReal tmpdb = ((*i).first * toLengthen / SUMOReal(maxLengthen)) + (SUMOReal) 0.5;
         toLengthenPerPhase = static_cast<size_t>(tmpdb);
         toLengthen = toLengthen - toLengthenPerPhase;
         maxLengthen = maxLengthen - (*i).first;
@@ -287,7 +290,7 @@ MSAgentbasedTrafficLightLogic::cutCycleTime(size_t toCut)
     //cuts the phases acording to the difference between duration and minDuration
     for (GreenPhasesVector::iterator i=tmp_phases.begin(); i!=tmp_phases.end(); i++) {
         size_t toCutPerPhase = 0;
-        double tmpdb = ((*i).first * toCut / double(maxCut)) + 0.5;
+        SUMOReal tmpdb = ((*i).first * toCut / SUMOReal(maxCut)) + (SUMOReal) 0.5;
         toCutPerPhase = static_cast<size_t>(tmpdb);
         toCut = toCut - toCutPerPhase;
         maxCut = maxCut - (*i).first;
@@ -357,7 +360,7 @@ MSAgentbasedTrafficLightLogic::collectData()
     // gets a copy of the driveMask
     const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
     // finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES of one phase
-    double maxPerPhase = 0;
+    SUMOReal maxPerPhase = 0;
     for (size_t i=0; i<isgreen.size(); i++)  {
         /* finds the maximum QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES
            of all lanes of a bit of the drivemask, that shows green */
@@ -366,12 +369,12 @@ MSAgentbasedTrafficLightLogic::collectData()
             if (lanes.empty())    {
                 break;
             }
-            double maxPerBit = 0;
+            SUMOReal maxPerBit = 0;
             for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end();j++) {
                 if((*j)->edge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
                     continue;
                 }
-                double tmp = currentForLane(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES, *j);
+                SUMOReal tmp = currentForLane(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES, *j);
                 if (maxPerBit < tmp)  {
                     maxPerBit = tmp;
                 }
@@ -403,11 +406,11 @@ void
 MSAgentbasedTrafficLightLogic::aggregateRawData()
 {
     for (PhaseValueMap::const_iterator i = myRawDetectorData.begin(); i!=myRawDetectorData.end(); i++) {
-        double sum = 0;
+        SUMOReal sum = 0;
         for (ValueType:: const_iterator it = myRawDetectorData[(*i).first].begin(); it != myRawDetectorData[(*i).first].end(); it ++){
             sum = sum + *it;
         }
-    double meanvalue = sum / myRawDetectorData[(*i).first].size();
+    SUMOReal meanvalue = sum / myRawDetectorData[(*i).first].size();
     myMeanDetectorData[(*i).first] = meanvalue;
     }
 }
@@ -429,7 +432,7 @@ MSAgentbasedTrafficLightLogic::calculateDuration()
         return;
     }
 
-    double deltaIst = (myMeanDetectorData[stepOfMaxValue] - myMeanDetectorData[stepOfMinValue])
+    SUMOReal deltaIst = (myMeanDetectorData[stepOfMaxValue] - myMeanDetectorData[stepOfMinValue])
                         / myMeanDetectorData[stepOfMaxValue];
     if (deltaIst > deltaLimit) {
         myPhases[stepOfMaxValue]->duration = myPhases[stepOfMaxValue]->duration +1;
@@ -444,7 +447,7 @@ size_t
 MSAgentbasedTrafficLightLogic::findStepOfMaxValue()
 {
     size_t StepOfMaxValue = myPhases.size();
-    double MaxValue = -1;
+    SUMOReal MaxValue = -1;
     for (MeanDataMap::iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++){
 
         // checks whether the actual duruation is shorter than maxduration
@@ -467,7 +470,7 @@ size_t
 MSAgentbasedTrafficLightLogic::findStepOfMinValue()
 {
     size_t StepOfMinValue = myPhases.size();
-    double MinValue = 9999;
+    SUMOReal MinValue = 9999;
     for (MeanDataMap::iterator it = myMeanDetectorData.begin(); it!=myMeanDetectorData.end(); it++){
 
         // checks whether the actual duruation is longer than minduration
@@ -520,7 +523,7 @@ MSAgentbasedTrafficLightLogic::isGreenPhase(const size_t testStep) const
 }
 
 
-double
+SUMOReal
 MSAgentbasedTrafficLightLogic::currentForLane(E2::DetType what,
                                               MSLane *lane) const
 {

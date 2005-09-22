@@ -50,7 +50,7 @@
 #include <microsim/output/MSLDDetectorInterface.h>
 #include <microsim/output/MSDetectorTypedefs.h>
 #include <microsim/MSVehicleQuitReminded.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/iodevices/XMLDevice.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
@@ -280,7 +280,7 @@ public:
     /// @return If the detector exists, return it's aggregated value,
     /// else return -1.
     ///
-    double getAggregate( E3::DetType type, MSUnit::Seconds lastNSeconds )
+    SUMOReal getAggregate( E3::DetType type, MSUnit::Seconds lastNSeconds )
         {
             assert( type != E3::ALL );
             LDDetector* det = getDetector( type );
@@ -514,7 +514,7 @@ protected:
                     detectorsM[ E3::MEAN_TRAVELTIME ] =
                         new E3Traveltime(
                             E3Traveltime::getDetectorName() + detId,
-                            deleteDataAfterSecondsM,
+                            (MSUnit::Seconds) deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::TimeMap* >(
                                 containersM[ E3::TRAVELTIME ] ) );
                     break;
@@ -525,7 +525,7 @@ protected:
                     detectorsM[ E3::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE ] =
                         new E3MeanNHaltings(
                             E3MeanNHaltings::getDetectorName() + detId,
-                            deleteDataAfterSecondsM,
+                            (MSUnit::Seconds) deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::HaltingsMap* >(
                                 containersM[ E3::HALTINGS ] ) );
                     break;
@@ -536,7 +536,7 @@ protected:
                     detectorsM[ E3::NUMBER_OF_VEHICLES ] =
                         new E3NVehicles(
                             E3NVehicles::getDetectorName() + detId,
-                            deleteDataAfterSecondsM,
+                            (MSUnit::Seconds) deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::VehicleMap* >(
                                 containersM[ E3::VEHICLES ] ) );
                     break;
@@ -560,7 +560,7 @@ protected:
             SUMOTime startTime, SUMOTime stopTime)
         {
             MSUnit::Seconds lastNSeconds =
-                stopTime-startTime+1;
+                (MSUnit::Seconds) stopTime-startTime+1;
             for ( typename Cont::iterator it = container.begin();
                   it != container.end(); ++it ) {
 

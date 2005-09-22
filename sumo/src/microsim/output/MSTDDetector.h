@@ -104,7 +104,7 @@ namespace TD // timestep data
         /// @param container "Vehicle"-container handed to the
         /// ConcreteDetector.
         MSDetector( std::string id,
-                      double lengthInMeters,
+                      SUMOReal lengthInMeters,
                       MSUnit::Seconds deleteDataAfterSeconds,
                       const DetectorContainer& container )
             : TD::MSDetectorInterface( id )
@@ -124,7 +124,7 @@ namespace TD // timestep data
         /// @param helperDetector The helper-detector handed to the
         /// ConcreteDetector.
         MSDetector( std::string id,
-                      double lengthInMeters,
+                      SUMOReal lengthInMeters,
                       MSUnit::Seconds deleteDataAfterSeconds,
                       const TD::MSDetectorInterface& helperDetector )
             : TD::MSDetectorInterface( id )

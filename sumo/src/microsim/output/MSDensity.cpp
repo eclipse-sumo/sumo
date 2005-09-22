@@ -51,9 +51,9 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-MSDensity::MSDensity( double lengthInMeters,
+MSDensity::MSDensity( SUMOReal lengthInMeters,
                       const DetectorContainer::Count& counter ) :
-    detectorLengthM( lengthInMeters / 1000.0 ),
+    detectorLengthM( lengthInMeters / (SUMOReal) 1000.0 ),
     counterM( counter )
 {}
 
@@ -61,7 +61,7 @@ MSDensity::MSDensity( double lengthInMeters,
 MSDensity::DetectorAggregate
 MSDensity::getDetectorAggregate( void ) // [veh/km]
 {
-    double nVehOnDet = counterM.vehicleCountM -
+    SUMOReal nVehOnDet = counterM.vehicleCountM -
         counterM.occupancyCorrectionM->getOccupancyEntryCorrection() -
         counterM.occupancyCorrectionM->getOccupancyLeaveCorrection();
     return nVehOnDet / detectorLengthM;

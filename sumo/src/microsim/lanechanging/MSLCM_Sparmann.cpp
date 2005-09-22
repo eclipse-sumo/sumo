@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 11:07:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -69,8 +72,8 @@ MSLCM_Sparmann::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgP
                                  const MSVehicle * const neighLead,
                                  const MSVehicle * const neighFollow,
                                  const MSLane &neighLane,
-                                 int bestLaneOffset, double bestDist,
-                                 double currentDist)
+                                 int bestLaneOffset, SUMOReal bestDist,
+                                 SUMOReal currentDist)
 {
     // forced changing
     if(currentDist<400&&bestLaneOffset<0) {
@@ -82,7 +85,7 @@ MSLCM_Sparmann::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgP
     }
 
 /*
-    double sdxp_V =
+    SUMOReal sdxp_V =
   */
 			     throw 1;
 }
@@ -95,8 +98,8 @@ MSLCM_Sparmann::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPa
                                 const MSVehicle * const neighLead,
                                 const MSVehicle * const neighFollow,
                                 const MSLane &neighLane,
-                                int bestLaneOffset, double bestDist,
-                                double currentDist)
+                                int bestLaneOffset, SUMOReal bestDist,
+                                SUMOReal currentDist)
 {
     // forced changing
     if(currentDist<400&&bestLaneOffset>0) {

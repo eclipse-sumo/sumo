@@ -51,7 +51,7 @@ class MSHaltingDurationSum
 public:
 
 protected:
-    typedef double DetectorAggregate;
+    typedef SUMOReal DetectorAggregate;
     typedef halt::HaltEndObserver::ParameterType ParameterType;
     typedef DetectorContainer::HaltingsList Container;
 

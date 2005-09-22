@@ -53,7 +53,7 @@ class MSE3MeanNHaltings
 public:
 
 protected:
-    typedef double DetectorAggregate;
+    typedef SUMOReal DetectorAggregate;
     typedef DetectorContainer::HaltingsMap Container;
     typedef Container::InnerContainer HaltingsMap;
 
@@ -75,7 +75,7 @@ protected:
             HaltingsMap::const_iterator pair =
                 containerM.containerM.find( &veh );
             assert( pair != containerM.containerM.end() );
-            return pair->second.nHalts;
+            return (SUMOReal) pair->second.nHalts;
         }
 
     static std::string getDetectorName( void )

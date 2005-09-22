@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 11:08:51  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -47,7 +50,7 @@ namespace
 #include <set>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <microsim/MSEdgeControl.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/SharedOutputDevices.h>

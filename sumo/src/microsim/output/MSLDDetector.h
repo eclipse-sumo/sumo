@@ -99,8 +99,8 @@ namespace LD
                     return;
                 }
                 aggregatesM.push_back(
-                    TimeValue( MSNet::getInstance()->simSeconds(),
-                               getValue( veh ) ) );
+                    TimeValue((MSUnit::Seconds) MSNet::getInstance()->simSeconds(),
+                              getValue( veh ) ) );
             }
 
         /// Get the aggregated value of the detector. This method is
@@ -226,7 +226,7 @@ namespace LD
         SUMOTime freeContainer( void )
             {
                 AggregatesContIter end =
-                    getAggrContStartIterator( deleteDataAfterStepsM );
+                    getAggrContStartIterator( (MSUnit::Steps) deleteDataAfterStepsM );
                 aggregatesM.erase( aggregatesM.begin(), end );
                 return deleteDataAfterStepsM;
             }

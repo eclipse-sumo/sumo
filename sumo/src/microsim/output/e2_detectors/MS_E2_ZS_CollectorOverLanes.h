@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 11:08:20  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -84,10 +87,10 @@ public:
     virtual ~MS_E2_ZS_CollectorOverLanes( void );
 
 	/// Returns this detector's current value for the measure of the given type
-    double getCurrent( E2::DetType type );
+    SUMOReal getCurrent( E2::DetType type );
 
 	/// Returns this detector's aggregated value for the given measure
-    double getAggregate( E2::DetType type, MSUnit::Seconds lastNSeconds );
+    SUMOReal getAggregate( E2::DetType type, MSUnit::Seconds lastNSeconds );
 
 	/// Returns the information whether the given type is computed
     bool hasDetector( E2::DetType type );
@@ -165,7 +168,7 @@ protected:
 	/** @brief This method extends the current length up to the given
 		This method is called consecutively until all paths have the
 		desired length */
-    void extendTo(double length,
+    void extendTo(SUMOReal length,
 		const LaneContinuations &laneContinuations);
 
 	/// Builds an id for one of the E2-collectors this detector uses
@@ -174,7 +177,7 @@ protected:
 
 	/// Builds a single E2-collector
     virtual MSE2Collector *buildCollector(size_t c, size_t r,
-        MSLane *l, double start, double end);
+        MSLane *l, SUMOReal start, SUMOReal end);
 
 
 	std::vector<MSLane*> getLanePredeccessorLanes(MSLane *l,
@@ -211,10 +214,10 @@ protected:
 	/// Definition of astorage for detector vectors
     typedef std::vector<DetectorVector> DetectorVectorVector;
 
-	/// Definition of a double storage
-    typedef std::vector<double> DoubleVector;
+	/// Definition of a SUMOReal storage
+    typedef std::vector<SUMOReal> DoubleVector;
 
-	/// Definition of a storage for double vectors
+	/// Definition of a storage for SUMOReal vectors
     typedef DoubleVector LengthVector;
 
 	/** @brief Storage for lane combinations

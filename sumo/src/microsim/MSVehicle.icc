@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.13  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.12  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -100,11 +103,11 @@
 /**************** DEFINE INLINE FUNCTIONS HERE *****************************/
 
 inline
-double
-MSVehicle::dawdle( double speed ) const
+SUMOReal
+MSVehicle::dawdle( SUMOReal speed ) const
 {
     // generate random number out of [0,1]
-    double random = double( rand() ) / double( RAND_MAX );
+    SUMOReal random = SUMOReal( rand() ) / SUMOReal( RAND_MAX );
 
     // Dawdle.
     // TODO:
@@ -112,17 +115,17 @@ MSVehicle::dawdle( double speed ) const
     // to reduce the speed 2*decel?
     speed -= myType->dawdle() * myType->accelSpeed(speed) * random;
 
-    return MAX2( double( 0 ), speed );
+    return MAX2( SUMOReal( 0 ), speed );
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
 inline
-double
-MSVehicle::dawdle2( double speed ) const
+SUMOReal
+MSVehicle::dawdle2( SUMOReal speed ) const
 {
     // generate random number out of [0,1]
-    double random = double( rand() ) / double( RAND_MAX );
+    SUMOReal random = SUMOReal( rand() ) / SUMOReal( RAND_MAX );
 
     // Dawdle.
     // TODO:
@@ -130,13 +133,13 @@ MSVehicle::dawdle2( double speed ) const
     // to reduce the speed 2*decel?
     speed -= myType->dawdle() * speed * random;
 
-    return MAX2( double( 0 ), speed );
+    return MAX2( SUMOReal( 0 ), speed );
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
 inline
-double
+SUMOReal
 MSVehicle::tau()
 {
     return myTau;
@@ -145,7 +148,7 @@ MSVehicle::tau()
 /////////////////////////////////////////////////////////////////////////////
 
 inline
-double
+SUMOReal
 MSVehicle::pos() const
 {
     return myState.myPos;
@@ -154,7 +157,7 @@ MSVehicle::pos() const
 /////////////////////////////////////////////////////////////////////////////
 
 inline
-double
+SUMOReal
 MSVehicle::length() const
 {
     return myType->length();
@@ -178,29 +181,29 @@ MSVehicle::overlap( const MSVehicle* veh1, const MSVehicle* veh2 )
 /////////////////////////////////////////////////////////////////////////////
 
 inline
-double
-MSVehicle::vsafe( double speed,
-                  double decel,
-                  double gap2pred,
-                  double predSpeed ) const
+SUMOReal
+MSVehicle::vsafe( SUMOReal speed,
+                  SUMOReal decel,
+                  SUMOReal gap2pred,
+                  SUMOReal predSpeed ) const
 {
     // Calculate the Stefan Krauss (SK) vsafe.
 
     if(predSpeed==0&&gap2pred<0.01) { // !!!
         return 0;
     }
-    assert( speed     >= double(0) );
-    assert( gap2pred  >= double(0) );
-    assert( predSpeed >= double(0) );
-//if(gap2pred<double(0.01)) {
-    double vsafe = predSpeed +
+    assert( speed     >= SUMOReal(0) );
+    assert( gap2pred  >= SUMOReal(0) );
+    assert( predSpeed >= SUMOReal(0) );
+//if(gap2pred<SUMOReal(0.01)) {
+    SUMOReal vsafe = predSpeed +
         ( ( gap2pred - predSpeed * myTau ) /
           ( ( ( predSpeed + speed ) * myType->inversTwoDecel() ) + myTau ) );
     assert( vsafe >= 0 );
 
     return vsafe;
 /*} else {
-    double vsafe = predSpeed +
+    SUMOReal vsafe = predSpeed +
         ( ( gap2pred - 0.01 - predSpeed * myTau ) /
           ( ( ( predSpeed + speed ) * myType->inversTwoDecel() ) + myTau ) );
     assert( vsafe >= 0 );
@@ -208,7 +211,7 @@ MSVehicle::vsafe( double speed,
     return vsafe;
 }*/
 
-// This assertion has not the intended meaning because of doubleing inaccuracy.
+// This assertion has not the intended meaning because of SUMORealing inaccuracy.
 //    assert( vsafe <= gap2pred ); // Collision-free condition.
 // This is not the solution, because vsafe allows this vehicle to overlap at
 // time t+1 with pred at time t.
@@ -218,8 +221,8 @@ MSVehicle::vsafe( double speed,
 /////////////////////////////////////////////////////////////////////////////
 
 inline
-double
-MSVehicle::vMin( double v1, double v2, double v3, double v4 ) const
+SUMOReal
+MSVehicle::vMin( SUMOReal v1, SUMOReal v2, SUMOReal v3, SUMOReal v4 ) const
 {
     return MIN4(v1,v2,v3,v4);
 }
@@ -230,13 +233,13 @@ inline
 bool
 MSVehicle::congested() const
 {
-    return myState.mySpeed < double(60) / double(3.6);
+    return myState.mySpeed < SUMOReal(60) / SUMOReal(3.6);
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline double
-MSVehicle::timeHeadWayGap( double speed ) const
+inline SUMOReal
+MSVehicle::timeHeadWayGap( SUMOReal speed ) const
 {
     assert( speed >= 0 );
     return SPEED2DIST(speed);
@@ -244,20 +247,20 @@ MSVehicle::timeHeadWayGap( double speed ) const
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline double
+inline SUMOReal
 MSVehicle::gap2pred( const MSVehicle& pred ) const
 {
-    double gap = pred.pos() - pred.length() - this->pos();
+    SUMOReal gap = pred.pos() - pred.length() - this->pos();
     if(gap<0&&gap>-1.0e-12) {
         gap = 0;
     }
-    assert( gap >= double( 0 ) );
+    assert( gap >= SUMOReal( 0 ) );
     return gap;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline double
+inline SUMOReal
 MSVehicle::gap2predSec( const MSVehicle& pred ) const
 {
     return pred.pos() - pred.length() - this->pos();

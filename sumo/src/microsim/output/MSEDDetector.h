@@ -97,7 +97,7 @@ namespace ED
                 DetAggregate value = getValue( aObserved );
                 aggregatesM.push_back(
                     TimeValue(
-                        MSNet::getInstance()->simSeconds(), value ) );
+                        (MSUnit::Seconds) MSNet::getInstance()->simSeconds(), value ) );
             }
 
         /// Get the aggregated value of the detector. This method is
@@ -108,7 +108,7 @@ namespace ED
         ///
         /// @return The aggregated value, sampled over lastNSeconds.
         ///
-        virtual double getAggregate( MSUnit::Seconds lastNSeconds ) = 0;
+        virtual SUMOReal getAggregate( MSUnit::Seconds lastNSeconds ) = 0;
 
     protected:
 
@@ -206,7 +206,7 @@ namespace ED
         SUMOTime freeContainer( void )
             {
                 AggregatesContIter end =
-                    getAggrContStartIterator( deleteDataAfterStepsM );
+                    getAggrContStartIterator( (MSUnit::Seconds) deleteDataAfterStepsM );
                 aggregatesM.erase( aggregatesM.begin(), end );
                 return deleteDataAfterStepsM;
             }

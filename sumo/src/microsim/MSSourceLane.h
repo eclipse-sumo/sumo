@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -82,8 +85,8 @@ public:
 
     /** Use this constructor only. Later use initialize to complete
         lane initialization. */
-    MSSourceLane( /*MSNet &net, */std::string id, double maxSpeed,
-        double length, MSEdge* edge, size_t numericalID, const Position2DVector &shape);
+    MSSourceLane( /*MSNet &net, */std::string id, SUMOReal maxSpeed,
+        SUMOReal length, MSEdge* edge, size_t numericalID, const Position2DVector &shape);
 
     /// Emit vehicle with speed 0 into lane if possible.
     virtual bool emit( MSVehicle& newVeh );
@@ -105,7 +108,7 @@ protected:
         if there is. Common code used by emitTry-methods. Returns true if
         emission is possible. */
 /*    bool enoughSpace( MSVehicle& veh,
-                      double followPos, double leaderPos, double safeSpace );
+                      SUMOReal followPos, SUMOReal leaderPos, SUMOReal safeSpace );
 */
 };
 

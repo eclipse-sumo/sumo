@@ -48,11 +48,11 @@
 class MSNVehicles
 {
 protected:
-    typedef double DetectorAggregate;
+    typedef SUMOReal DetectorAggregate;
     typedef DetectorContainer::Count Container;
 
     MSNVehicles( const Container& counter );
-    MSNVehicles( double, const Container& counter );
+    MSNVehicles( SUMOReal, const Container& counter );
 
     virtual ~MSNVehicles( void )
         {}

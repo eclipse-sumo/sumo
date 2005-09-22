@@ -78,7 +78,7 @@ public:
             // returns the sum of the lastNSeconds
             AggregatesContIter startIt =
                 getAggrContStartIterator(
-                    MSUnit::getInstance()->getIntegerSteps( lastNSeconds ) );
+					(MSUnit::Steps) MSUnit::getInstance()->getIntegerSteps( lastNSeconds ) );
             return getSum( lastNSeconds, startIt,
                            Loki::Int2Type< hasTimeValueCont >() );
         }
@@ -86,7 +86,7 @@ public:
 protected:
     // E2 ZS Ctor
     MSSumDetector( std::string id,
-                   double lengthInMeters,
+                   SUMOReal lengthInMeters,
                    MSUnit::Seconds deleteDataAfterSeconds,
                    const DetectorContainer& container )
         : DetectorType( id, lengthInMeters,
@@ -100,7 +100,7 @@ protected:
 
     // Another E2 ZS ctor
     MSSumDetector( std::string id,
-                   double lengthInMeters,
+                   SUMOReal lengthInMeters,
                    MSUnit::Seconds deleteDataAfterSeconds,
                    const TD::MSDetectorInterface& helperDetector )
         : DetectorType( id, lengthInMeters,

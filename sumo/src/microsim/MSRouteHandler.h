@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -130,8 +133,8 @@ protected:
 
     /** adds the parsed vehicle type */
     virtual void addParsedVehicleType(const std::string &id,
-        const float length, const float maxspeed, const float bmax,
-        const float dmax, const float sigma);
+        const SUMOReal length, const SUMOReal maxspeed, const SUMOReal bmax,
+        const SUMOReal dmax, const SUMOReal sigma);
 
 
     /** parses an occured vehicle definition */

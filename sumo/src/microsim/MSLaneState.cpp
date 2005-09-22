@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.42  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.41  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -57,7 +60,7 @@ namespace
 #include "MSLane.h"
 #include "MSNet.h"
 #include "MSEventControl.h"
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/helpers/SimpleCommand.h>
 #include <algorithm>
 #include <numeric>
@@ -128,8 +131,8 @@ MSLaneState::~MSLaneState()
 
 MSLaneState::MSLaneState( string id,
                           MSLane* lane,
-                          double beginInMeters,
-                          double lengthInMeters,
+                          SUMOReal beginInMeters,
+                          SUMOReal lengthInMeters,
                           SUMOTime deleteDataAfterSeconds ) :
     MSMoveReminder( lane, id ),
     timestepDataM     ( ),
@@ -137,7 +140,7 @@ MSLaneState::MSLaneState( string id,
     waitingQueueElemsM( ),
     vehLeftDetectorM  ( ),
     startPosM   ( MSNet::getCells( beginInMeters ) ),
-    deleteDataAfterStepsM( MSNet::getSteps( deleteDataAfterSeconds ) ),
+    deleteDataAfterStepsM( MSNet::getSteps( (SUMOReal) deleteDataAfterSeconds ) ),
     modifiedSinceLastLookupM( true ),
     lookedUpLastNTimestepsM( 0 ),
     nVehContributedM( 0 )
@@ -171,14 +174,14 @@ MSLaneState::MSLaneState( string id,
 
 bool
 MSLaneState::isStillActive( MSVehicle& veh,
-                            double oldPos,
-                            double newPos,
-                            double newSpeed )
+                            SUMOReal oldPos,
+                            SUMOReal newPos,
+                            SUMOReal newSpeed )
 {
     // if vehicle has passed the detector completely we shouldn't
     // be here.
     // fraction of timestep the vehicle is on the detector after entry.
-    double timestepFraction = MSNet::deltaT();
+    SUMOReal timestepFraction = MSNet::deltaT();
     if ( newPos <= startPosM ) {
         return true;
     }
@@ -187,13 +190,13 @@ MSLaneState::isStillActive( MSVehicle& veh,
         timestepFraction = ( newPos-startPosM ) / newSpeed;
         assert( timestepFraction <= MSNet::deltaT() &&
                 timestepFraction >= 0 );
-        enterDetectorByMove( veh, 1.0 - timestepFraction );
+        enterDetectorByMove( veh, (SUMOReal) (1.0 - timestepFraction) );
     }
     if ( newPos - veh.length() > endPosM ) {
         // vehicle will leave detector
         // fraction of timestep the vehicle is not on the detector
         // after leave.
-        double fractionReduce = ( newPos - veh.length() - endPosM ) /
+        SUMOReal fractionReduce = ( newPos - veh.length() - endPosM ) /
             newSpeed;
         assert( fractionReduce <= MSNet::deltaT() &&
                 fractionReduce >= 0 &&
@@ -234,7 +237,7 @@ MSLaneState::isActivatedByEmitOrLaneChange( MSVehicle& veh )
 }
 
 
-double
+SUMOReal
 MSLaneState::getNumberOfWaiting( SUMOTime lastNTimesteps )
 {
     assert( lastNTimesteps > 0 );
@@ -250,8 +253,8 @@ MSLaneState::getNumberOfWaiting( SUMOTime lastNTimesteps )
     if ( (SUMOTime) (timestepDataM.size() - 1) > lastNTimesteps ) {
         start = end - lastNTimesteps;
     }
-    return accumulate( start, end, 0.0, waitingQueueSum ) /
-        static_cast< double >( lastNTimesteps );
+    return (SUMOReal) (accumulate( start, end, (SUMOReal) 0.0, waitingQueueSum ) /
+        static_cast< SUMOReal >( lastNTimesteps ));
 }
 
 
@@ -282,7 +285,7 @@ MSLaneState::getCurrentNumberOfWaiting( void )
 }
 
 
-double
+SUMOReal
 MSLaneState::getMeanSpeed( SUMOTime lastNTimesteps )
 {
     // return unit is [m/s]
@@ -290,18 +293,18 @@ MSLaneState::getMeanSpeed( SUMOTime lastNTimesteps )
     if ( getNVehContributed( lastNTimesteps ) == 0 ) {
         return laneM->maxSpeed();
     }
-    double denominator = // [cells/step]
+    SUMOReal denominator = // [cells/step]
         accumulate( getStartIterator( lastNTimesteps, timestepDataM ),
-                    timestepDataM.end(), 0.0, contTimestepSum );
+                    timestepDataM.end(), (SUMOReal) 0.0, contTimestepSum );
     assert ( denominator > 0 );
-    double speedS = accumulate( // [cells/step]
+    SUMOReal speedS = accumulate( // [cells/step]
             getStartIterator( lastNTimesteps, timestepDataM ),
-            timestepDataM.end(), 0.0, speedSum );
+            timestepDataM.end(), (SUMOReal) 0.0, speedSum );
     return MSNet::getMeterPerSecond( speedS / denominator );
 }
 
 
-double
+SUMOReal
 MSLaneState::getCurrentMeanSpeed( void )
 {
     // return unit is [m/s]
@@ -317,7 +320,7 @@ MSLaneState::getCurrentMeanSpeed( void )
 }
 
 
-double
+SUMOReal
 MSLaneState::getMeanSpeedSquare( SUMOTime lastNTimesteps )
 {
     // return unit is [(m/s)^2]
@@ -325,19 +328,19 @@ MSLaneState::getMeanSpeedSquare( SUMOTime lastNTimesteps )
     if ( getNVehContributed( lastNTimesteps ) == 0 ) {
         return -1;
     }
-    double denominator = // [cells/step]
+    SUMOReal denominator = // [cells/step]
         accumulate( getStartIterator( lastNTimesteps, timestepDataM ),
-                    timestepDataM.end(), 0.0, contTimestepSum );
+                    timestepDataM.end(), (SUMOReal) 0.0, contTimestepSum );
     assert( denominator > 0 );
-    double speedSSum = accumulate( // [(cells/step)^2]
+    SUMOReal speedSSum = accumulate( // [(cells/step)^2]
         getStartIterator( lastNTimesteps, timestepDataM ),
-        timestepDataM.end(), 0.0, speedSquareSum );
+        timestepDataM.end(), (SUMOReal) 0.0, speedSquareSum );
     return MSNet::getMeterPerSecond(
         MSNet::getMeterPerSecond( speedSSum / denominator ) );
 }
 
 
-double
+SUMOReal
 MSLaneState::getCurrentMeanSpeedSquare( void )
 {
     // return unit is [(m/s)^2]
@@ -354,7 +357,7 @@ MSLaneState::getCurrentMeanSpeedSquare( void )
 }
 
 
-double
+SUMOReal
 MSLaneState::getMeanDensity( SUMOTime lastNTimesteps )
 {
     // return unit is veh/km
@@ -362,15 +365,15 @@ MSLaneState::getMeanDensity( SUMOTime lastNTimesteps )
     if ( getNVehContributed( lastNTimesteps ) == 0 ) {
         return 0;
     }
-    double stepsOnDetDuringlastNTimesteps  = accumulate(
+    SUMOReal stepsOnDetDuringlastNTimesteps  = accumulate(
         getStartIterator( lastNTimesteps, timestepDataM ),
-        timestepDataM.end(), 0.0, contTimestepSum );
+        timestepDataM.end(), (SUMOReal) 0.0, contTimestepSum );
     return MSNet::getVehPerKm(
         stepsOnDetDuringlastNTimesteps / lastNTimesteps / laneM->length() );
 }
 
 
-double
+SUMOReal
 MSLaneState::getCurrentDensity( void )
 {
     // return unit is veh/km
@@ -382,7 +385,7 @@ MSLaneState::getCurrentDensity( void )
 }
 
 
-double
+SUMOReal
 MSLaneState::getMeanTraveltime( SUMOTime lastNTimesteps )
 {
     // return unit is [s]
@@ -394,14 +397,14 @@ MSLaneState::getMeanTraveltime( SUMOTime lastNTimesteps )
         return MSNet::getMeters( laneM->length() ) /
             getMeanSpeed( lastNTimesteps );
     }
-    double traveltimeS = accumulate(
+    SUMOReal traveltimeS = accumulate(
         lower_bound( vehLeftDetectorM.begin(), vehLeftDetectorM.end(),
                      getStartTimestep( lastNTimesteps ),
                      leaveTimestepLesser() ),
         vehLeftDetectorM.end(),
-        0.0,
+        (SUMOReal) 0.0,
         traveltimeSum );
-    double traveltime =  traveltimeS / nVehPassedEntire;
+    SUMOReal traveltime =  traveltimeS / nVehPassedEntire;
     assert ( traveltime >= laneM->length() / laneM->maxSpeed() );
     return MSNet::getSeconds( traveltime );
 }
@@ -531,8 +534,8 @@ MSLaneState::getDataCleanUpSteps( void ) const
 
 void
 MSLaneState::addMoveData( MSVehicle& veh,
-                          double newSpeed,
-                          double timestepFraction )
+                          SUMOReal newSpeed,
+                          SUMOReal timestepFraction )
 {
     modifiedSinceLastLookupM = true;
     assert (timestepFraction >= 0);
@@ -550,7 +553,7 @@ MSLaneState::addMoveData( MSVehicle& veh,
 
 void
 MSLaneState::enterDetectorByMove( MSVehicle& veh,
-                                  double enterTimestepFraction )
+                                  SUMOReal enterTimestepFraction )
 {
     modifiedSinceLastLookupM = true;
     ++( timestepDataM.back().nVehEnteredDetectorM );
@@ -573,7 +576,7 @@ MSLaneState::enterDetectorByEmitOrLaneChange( MSVehicle& veh )
     assert ( vehOnDetectorM.find( veh.id() ) == vehOnDetectorM.end() );
     vehOnDetectorM.insert(
         make_pair( veh.id(), VehicleData(
-                       MSNet::getInstance()->getCurrentTimeStep(),
+                       (SUMOReal) MSNet::getInstance()->getCurrentTimeStep(),
                        false )));
     waitingQueueElemsM.push_back( WaitingQueueElem (veh.pos(), veh.length()));
 }
@@ -581,7 +584,7 @@ MSLaneState::enterDetectorByEmitOrLaneChange( MSVehicle& veh )
 
 void
 MSLaneState::leaveDetectorByMove( MSVehicle& veh,
-                                  double leaveTimestepFraction )
+                                  SUMOReal leaveTimestepFraction )
 {
     modifiedSinceLastLookupM = true;
     // finalize vehOnDetectorM
@@ -616,7 +619,7 @@ MSLaneState::leaveDetectorByLaneChange( MSVehicle& veh )
         //  why? maybe due to collisions within the used scenario (MD)
         return;
     }
-    dataIt->second.leaveContTimestepM = MSNet::getInstance()->getCurrentTimeStep();
+    dataIt->second.leaveContTimestepM = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
     dataIt->second.passedEntireDetectorM = false;
     dataIt->second.leftDetectorByMoveM = false;
     // insert so that container keeps being sorted
@@ -720,12 +723,12 @@ MSLaneState::calcWaitingQueueLength( void )
 }
 
 
-double
+SUMOReal
 MSLaneState::getStartTimestep( SUMOTime lastNTimesteps )
 {
-    double timestep =
-        static_cast< double >( MSNet::getInstance()->getCurrentTimeStep() ) -
-        static_cast< double >( lastNTimesteps );
+    SUMOReal timestep =
+        static_cast< SUMOReal >( MSNet::getInstance()->getCurrentTimeStep() ) -
+        static_cast< SUMOReal >( lastNTimesteps );
     if ( timestep < 0 ) {
         return 0;
     }

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/07/12 12:24:01  dkrajzew
 // made checking for accidents optional
 //
@@ -75,15 +78,15 @@ public:
 
     /** minimum velocity a lane must allow in order to let vehicles being teleported
         if being on this lane and the lane may not be used for further route */
-    static float gMinLaneVMax4FalseLaneTeleport;
+    static SUMOReal gMinLaneVMax4FalseLaneTeleport;
 
     /** maximum velocity a vehicle must have in order to be teleported if being
         on a false lane */
-    static float gMaxVehV4FalseLaneTeleport;
+    static SUMOReal gMaxVehV4FalseLaneTeleport;
 
     /** maximum distance a vehicle must have to the false lane's en in order
         to be teleported if being on a false lane */
-    static float gMinVehDist4FalseLaneTeleport;
+    static SUMOReal gMinVehDist4FalseLaneTeleport;
 
     /** information whether the network shall check for collisions */
     static bool gCheck4Accidents;

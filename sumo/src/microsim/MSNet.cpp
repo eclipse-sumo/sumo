@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.61  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.60  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -273,7 +276,7 @@ namespace
 // computation is now only invoked when needed
 //
 // Revision 1.4  2002/04/11 15:25:56  croessel
-// Changed float to double.
+// Changed SUMOReal to SUMOReal.
 //
 // Revision 1.3  2002/04/11 10:33:25  dkrajzew
 // Addition of detectors added
@@ -309,7 +312,7 @@ namespace
 // In *.cpp files also config.h included.
 //
 // Revision 1.8  2002/01/16 10:03:35  croessel
-// New method "static double deltaT()" and member "static double myDeltaT"
+// New method "static SUMOReal deltaT()" and member "static SUMOReal myDeltaT"
 // added. DeltaT is the length of a timestep in seconds.
 //
 // Revision 1.7  2001/12/19 16:34:07  croessel
@@ -397,7 +400,7 @@ namespace
 #include "trigger/MSTrigger.h"
 #include "MSCORN.h"
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSVehicleTransfer.h>
 #include "traffic_lights/MSTrafficLightLogic.h"
@@ -435,8 +438,8 @@ using namespace std;
  * ======================================================================= */
 MSNet* MSNet::myInstance = 0;
 //MSNet::DictType MSNet::myDict;
-double MSNet::myDeltaT = 1;
-double MSNet::myCellLength = 1;
+SUMOReal MSNet::myDeltaT = 1;
+SUMOReal MSNet::myCellLength = 1;
 /*
 SUMOTime MSNet::globaltime;
 
@@ -676,8 +679,8 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
     if(myLogExecutionTime!=0&&mySimDuration!=0) {
         cout << "Performance: " << endl
             << " Duration: " << mySimDuration << "ms" << endl
-            << " Real time factor: " << ((float)(stop-start)*1000./(float)mySimDuration) << endl
-            << " UPS: " << ((float) myVehiclesMoved / (float) mySimDuration * 1000.) << endl;
+            << " Real time factor: " << ((SUMOReal)(stop-start)*1000./(SUMOReal)mySimDuration) << endl
+            << " UPS: " << ((SUMOReal) myVehiclesMoved / (SUMOReal) mySimDuration * 1000.) << endl;
     }
 }
 
@@ -759,7 +762,7 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
     if(find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep)!=myStateDumpTimes.end()) {
         string name = myStateDumpFiles + '_' + toString(myStep) + ".bin";
         ofstream strm(name.c_str(), fstream::out|fstream::binary);
-        saveState(strm, (long) 0xffffffffff);
+        saveState(strm, (long) 0xffffffff);
     }
 
     if(myLogExecutionTime) {

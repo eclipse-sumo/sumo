@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 11:07:54  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -67,7 +70,7 @@ public:
     ~FuncBinding_IntParam()
         {}
 
-    double getValue() const
+    SUMOReal getValue() const
         {
             return ( mySource->*myOperation )(myParam);
         }

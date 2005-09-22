@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.10  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -66,7 +69,7 @@ namespace
 // Inlined some methods. See the .icc files.
 //
 // Revision 1.2  2002/04/11 15:25:56  croessel
-// Changed float to double.
+// Changed SUMOReal to SUMOReal.
 //
 // Revision 1.1.1.1  2002/04/08 07:21:24  traffic
 // new project name
@@ -156,8 +159,8 @@ using namespace std;
  * static member definitions
  * ======================================================================= */
 MSVehicleType::DictType MSVehicleType::myDict;
-double MSVehicleType::myMinDecel  = 0;
-double MSVehicleType::myMaxLength = 0;
+SUMOReal MSVehicleType::myMinDecel  = 0;
+SUMOReal MSVehicleType::myMaxLength = 0;
 
 /* =========================================================================
  * method definitions
@@ -167,8 +170,8 @@ MSVehicleType::~MSVehicleType()
 }
 
 
-MSVehicleType::MSVehicleType(string id, double length, double maxSpeed,
-                             double accel, double decel, double dawdle ) :
+MSVehicleType::MSVehicleType(string id, SUMOReal length, SUMOReal maxSpeed,
+                             SUMOReal accel, SUMOReal decel, SUMOReal dawdle ) :
     myID(id),
     myLength(length),
     myMaxSpeed(maxSpeed),
@@ -194,7 +197,7 @@ MSVehicleType::MSVehicleType(string id, double length, double maxSpeed,
 //    myAccelSpeed          = myAccel * MSNet::deltaT();
     myDecelSpeed          = myDecel * MSNet::deltaT();
 //    myAccelPlusDecelSpeed = ( myAccel + myDecel ) * MSNet::deltaT();
-    myInversTwoDecel      = double( 1 ) / ( double( 2 ) * myDecel );
+    myInversTwoDecel      = SUMOReal( 1 ) / ( SUMOReal( 2 ) * myDecel );
 //    myAccelDist           = myAccel * MSNet::deltaT() * MSNet::deltaT();
     myDecelDist           = myDecel * MSNet::deltaT() * MSNet::deltaT();
 }
@@ -239,7 +242,7 @@ MSVehicleType*
 MSVehicleType::dict_Random()
 {
     assert(myDict.size()!=0);
-    size_t r = (double) rand() / RAND_MAX * myDict.size();
+    size_t r = (size_t) ((SUMOReal) rand() / RAND_MAX * myDict.size());
     if(r>=myDict.size()) {
         r = myDict.size() - 1;
     }

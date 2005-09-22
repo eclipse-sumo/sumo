@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.21  2005/09/22 13:45:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.20  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -438,7 +441,7 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const
         const LaneCont &lanes =  v.departLanes();
         int minI = 0;
         int ir = 0;
-        int noCars = (*getLanes())[0]->length();
+        unsigned int noCars = (unsigned int) (*getLanes())[0]->length();
         {
             for(LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); i++, ir++) {
                 if((*i)->getVehicleNumber()<noCars) {
@@ -542,7 +545,7 @@ MSEdge::getIncomingEdges() const
 }
 
 
-double
+SUMOReal
 MSEdge::getEffort(SUMOTime time) const
 {
     return (*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed();

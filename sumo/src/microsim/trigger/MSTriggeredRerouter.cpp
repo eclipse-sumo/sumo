@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.1  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -52,7 +55,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include "MSTriggeredRerouter.h"
 #include <utils/common/XMLHelpers.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/helpers/SUMODijkstraRouter.h>
 
@@ -84,8 +87,8 @@ MSTriggeredRerouter::Setter::~Setter()
 
 
 bool
-MSTriggeredRerouter::Setter::isStillActive(MSVehicle& veh, double oldPos,
-                                           double newPos, double newSpeed )
+MSTriggeredRerouter::Setter::isStillActive(MSVehicle& veh, SUMOReal oldPos,
+                                           SUMOReal newPos, SUMOReal newSpeed )
 {
     myParent->reroute(veh, &(laneM->edge()));
     return false;
@@ -110,7 +113,7 @@ MSTriggeredRerouter::Setter::isActivatedByEmitOrLaneChange( MSVehicle& veh )
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
                                          MSNet &net,
                                          const std::vector<MSEdge*> &edges,
-                                         float prob,
+                                         SUMOReal prob,
                                          const std::string &aXMLFilename)
     : MSTrigger(id), SUMOSAXHandler("reroutings", aXMLFilename),
     myProbability(prob), myUserProbability(prob), myAmInUserMode(false)
@@ -182,7 +185,7 @@ MSTriggeredRerouter::myStartElement(int element, const std::string &name,
             MsgHandler::getErrorInstance()->inform(string("Could not find edge '") + dest + string("' to reroute in '") + _file + "'.");
             return;
         }
-        float prob = -1;
+        SUMOReal prob = -1;
         try {
             prob = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
         } catch(EmptyData &) {
@@ -196,7 +199,7 @@ MSTriggeredRerouter::myStartElement(int element, const std::string &name,
             MsgHandler::getErrorInstance()->inform(string("Negative probability '") + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + _file + "'.");
             return;
         }
-        myCurrentProb.push_back(std::pair<float, MSEdge*>(prob, to));
+        myCurrentProb.push_back(std::pair<SUMOReal, MSEdge*>(prob, to));
     }
     // maybe by closing
     if(name=="closing_reroute") {
@@ -323,9 +326,9 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
 {
     SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     if(hasCurrentReroute(time, veh)) {
-        float prob =
+        SUMOReal prob =
             myAmInUserMode ? myUserProbability : myProbability;
-        if((double) rand()/(double) (RAND_MAX-1) > prob) {
+        if((SUMOReal) rand()/(SUMOReal) (RAND_MAX-1) > prob) {
             return;
         }
         const MSTriggeredRerouter::RerouteInterval &rerouteDef =
@@ -381,7 +384,7 @@ MSTriggeredRerouter::setUserMode(bool val)
 
 
 void
-MSTriggeredRerouter::setUserUsageProbability(float prob)
+MSTriggeredRerouter::setUserUsageProbability(SUMOReal prob)
 {
     myUserProbability = prob;
 }
@@ -394,14 +397,14 @@ MSTriggeredRerouter::inUserMode() const
 }
 
 
-float
+SUMOReal
 MSTriggeredRerouter::getProbability() const
 {
     return myAmInUserMode ? myUserProbability : myProbability;
 }
 
 
-float
+SUMOReal
 MSTriggeredRerouter::getUserProbability() const
 {
     return myUserProbability;

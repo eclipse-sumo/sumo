@@ -53,11 +53,11 @@ public:
     Vehicle;
 
 protected:
-    typedef double DetectorAggregate;
+    typedef SUMOReal DetectorAggregate;
     typedef DetectorContainer::VehiclesList Container;
     typedef Container::InnerContainer VehicleCont;
 
-    MSOccupancyDegree( double lengthInMeters, const Container& vehicleCont )
+    MSOccupancyDegree( SUMOReal lengthInMeters, const Container& vehicleCont )
         : detectorLengthM( lengthInMeters ),
           containerWrapperM( vehicleCont )
         {}
@@ -79,7 +79,7 @@ private:
 
 namespace
 {
-    inline double occupancySumUp( double sumSoFar,
+    inline SUMOReal occupancySumUp( SUMOReal sumSoFar,
                                   const MSOccupancyDegree::Vehicle data )
     {
         return sumSoFar + data->length();
@@ -94,9 +94,9 @@ MSOccupancyDegree::getDetectorAggregate( void )
     if ( size == 0 ) {
         return 0;
     }
-    double entryCorr(
+    SUMOReal entryCorr(
         containerWrapperM.occupancyCorrectionM->getOccupancyEntryCorrection());
-    double leaveCorr(
+    SUMOReal leaveCorr(
         containerWrapperM.occupancyCorrectionM->getOccupancyLeaveCorrection());
     if ( entryCorr > 0 ){
         entryCorr = 1 - entryCorr;
@@ -104,13 +104,13 @@ MSOccupancyDegree::getDetectorAggregate( void )
     if ( leaveCorr > 0 ){
         leaveCorr = 1 - leaveCorr;
     }
-    double occupancyDegree =
-        ( std::accumulate( containerWrapperM.containerM.begin(),
+    SUMOReal occupancyDegree = (SUMOReal)
+        ( ( std::accumulate( containerWrapperM.containerM.begin(),
                            containerWrapperM.containerM.end(),
-                           0.0, occupancySumUp )
+                           (SUMOReal) 0.0, occupancySumUp )
           - containerWrapperM.containerM.front()->length() * entryCorr
           - containerWrapperM.containerM.back()->length() *  leaveCorr ) /
-        detectorLengthM;
+        detectorLengthM);
     // Note: in reality a occupancyDegree value should be in
     // [0,1]. Due to size-less intersections and some inability of
     // vehicles to see a leading vehicle that partially left a lane,

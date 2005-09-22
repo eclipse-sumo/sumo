@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/22 13:45:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -103,8 +106,8 @@ public:
 
     virtual ~MSAbstractLaneChangeModel() { }
 /*
-    virtual void init(int bestLaneOffset, double bestDist,
-        double currentDist) = 0;
+    virtual void init(int bestLaneOffset, SUMOReal bestDist,
+        SUMOReal currentDist) = 0;
 */
     /*
     /// Called if the vehicle has changed the lane
@@ -124,13 +127,13 @@ public:
         and whether another lane may be more preferable */
     virtual int wantsChangeToRight(
         MSLCMessager &msgPass, int blocked,
-        const std::pair<MSVehicle*, double> &leader,
-        const std::pair<MSVehicle*, double> &neighLead,
-        const std::pair<MSVehicle*, double> &neighFollow,
+        const std::pair<MSVehicle*, SUMOReal> &leader,
+        const std::pair<MSVehicle*, SUMOReal> &neighLead,
+        const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
 //        bool congested, bool predInteraction,
-        int bestLaneOffset, double bestDist, double neighDist,
-        double currentDist,
+        int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
+        SUMOReal currentDist,
         MSVehicle **lastBlocked) = 0;
 
     /** @brief Called to examine whether the vehicle wants to change to left
@@ -138,19 +141,19 @@ public:
         and whether another lane may be more preferable */
     virtual int wantsChangeToLeft(
         MSLCMessager &msgPass, int blocked,
-        const std::pair<MSVehicle*, double> &leader,
-        const std::pair<MSVehicle*, double> &neighLead,
-        const std::pair<MSVehicle*, double> &neighFollow,
+        const std::pair<MSVehicle*, SUMOReal> &leader,
+        const std::pair<MSVehicle*, SUMOReal> &neighLead,
+        const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
 //        bool congested, bool predInteraction,
-        int bestLaneOffset, double bestDist, double neighDist,
-        double currentDist,
+        int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
+        SUMOReal currentDist,
         MSVehicle **lastBlocked) = 0;
 
     virtual void *inform(void *info, MSVehicle *sender) = 0;
 
-    virtual double patchSpeed(double min, double wanted, double max,
-        double vsafe) = 0;
+    virtual SUMOReal patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max,
+        SUMOReal vsafe) = 0;
 
     virtual void changed() = 0;
 
@@ -181,7 +184,7 @@ protected:
         if(leader->speed()<(80.0*3.6)) {
             return false;
         }
-        double gap = leader->pos() - leader->length() - myVehicle.pos();
+        SUMOReal gap = leader->pos() - leader->length() - myVehicle.pos();
         return gap < myVehicle.interactionGap( &myVehicle.getLane(), *leader );
     }
 

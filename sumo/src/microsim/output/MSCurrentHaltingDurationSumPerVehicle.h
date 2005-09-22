@@ -50,11 +50,11 @@ public:
     typedef DetectorContainer::HaltingsList::InnerContainer::value_type Halting;
 
 protected:
-    typedef double DetectorAggregate;
+    typedef SUMOReal DetectorAggregate;
     typedef DetectorContainer::HaltingsList Container;
     typedef Container::InnerContainer HaltingCont;
 
-    MSCurrentHaltingDurationSumPerVehicle( double,
+    MSCurrentHaltingDurationSumPerVehicle( SUMOReal,
                                            const Container& vehicleCont )
         : containerM( vehicleCont.containerM )
         {}
@@ -75,8 +75,8 @@ private:
 
 namespace
 {
-    inline double haltingDurationSumUp(
-        double sumSoFar,
+    inline SUMOReal haltingDurationSumUp(
+        SUMOReal sumSoFar,
         const MSCurrentHaltingDurationSumPerVehicle::Halting& data )
     {
         return sumSoFar + data.haltingDurationM;
@@ -91,9 +91,9 @@ MSCurrentHaltingDurationSumPerVehicle::getDetectorAggregate( void )
     if ( size == 0 ) {
         return 0;
     }
-    double haltingDurationSum =
-        std::accumulate( containerM.begin(), containerM.end(),
-                         0.0, haltingDurationSumUp ) / size;
+    SUMOReal haltingDurationSum = (SUMOReal)
+        (std::accumulate( containerM.begin(), containerM.end(),
+                         (SUMOReal) 0.0, haltingDurationSumUp ) / size);
     return MSUnit::getInstance()->getSeconds( haltingDurationSum );
 }
 #endif // MSCURRENTHALTINGDURATIONSUMPERVEHICLE_H

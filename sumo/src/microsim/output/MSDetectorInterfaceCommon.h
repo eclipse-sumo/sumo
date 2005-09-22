@@ -81,7 +81,7 @@ public:
     ///
     /// @return An aggregated value.
     ///
-    virtual double getAggregate( MSUnit::Seconds lastNSeconds ) = 0;
+    virtual SUMOReal getAggregate( MSUnit::Seconds lastNSeconds ) = 0;
 
     /// Dtor.
     virtual ~MSDetectorInterfaceCommon( void )

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 11:07:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -108,13 +111,13 @@ MSLCM_DK2004::~MSLCM_DK2004()
 int
 MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
                                  int blocked,
-                                 const std::pair<MSVehicle*, double> &leader,
-                                 const std::pair<MSVehicle*, double> &neighLead,
-                                 const std::pair<MSVehicle*, double> &neighFollow,
+                                 const std::pair<MSVehicle*, SUMOReal> &leader,
+                                 const std::pair<MSVehicle*, SUMOReal> &neighLead,
+                                 const std::pair<MSVehicle*, SUMOReal> &neighFollow,
                                  const MSLane &neighLane,
-                                 int bestLaneOffset, double bestDist,
-                                 double neighDist,
-                                 double currentDist,
+                                 int bestLaneOffset, SUMOReal bestDist,
+                                 SUMOReal neighDist,
+                                 SUMOReal currentDist,
                                  MSVehicle **lastBlocked)
 {
     /*
@@ -146,14 +149,14 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     }
 
     if((*lastBlocked)!=0) {
-        double gap = (*lastBlocked)->pos()-(*lastBlocked)->length()-myVehicle.pos();
+        SUMOReal gap = (*lastBlocked)->pos()-(*lastBlocked)->length()-myVehicle.pos();
 /*        if(gap>=1.0) {
-            double decelGap = gap
+            SUMOReal decelGap = gap
                 + SPEED2DIST(myVehicle.speed()) * 2.0
                 - MAX2((*lastBlocked)->speed() - (*lastBlocked)->decelAbility() * 2.0, 0);
             if(decelGap>0&&(*lastBlocked)->isSafeChange_WithDistance(decelGap, myVehicle, &(*lastBlocked)->getLane())) {
                 ret |= LCA_AMBACKBLOCKER;
-                double vSafe = myVehicle.vsafe(myVehicle.speed(),
+                SUMOReal vSafe = myVehicle.vsafe(myVehicle.speed(),
                     myVehicle.decelAbility(), gap-1.0, (*lastBlocked)->speed());
                 if(myVSafe>=0) {
                     myVSafe = MIN2(myVSafe, vSafe);
@@ -168,12 +171,12 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
                 if((*lastBlocked)->speed()<0.1) {
                     ret |= LCA_AMBACKBLOCKER_STANDING;
                     myVSafe = myVehicle.vsafe(myVehicle.speed(),
-                        myVehicle.decelAbility(), gap-0.1, (*lastBlocked)->speed());
+                        myVehicle.decelAbility(), (SUMOReal) (gap-0.1), (*lastBlocked)->speed());
                     (*lastBlocked) = 0;
                 } else {
                     ret |= LCA_AMBACKBLOCKER;
                     myVSafe = myVehicle.vsafe(myVehicle.speed(),
-                        myVehicle.decelAbility(), gap-0.1, (*lastBlocked)->speed());
+                        myVehicle.decelAbility(), (SUMOReal) (gap-0.1), (*lastBlocked)->speed());
                     (*lastBlocked) = 0;
                 }
             }
@@ -181,7 +184,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     }
 
     // -------- forced changing
-    double rv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
+    SUMOReal rv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
         ? neighLead.first->speed()+20.0
         :*/
         //myVehicle.getLane().maxSpeed() * 5;
@@ -194,7 +197,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         if(neighLead.second>0&&neighLead.second>leader.second) {
             myVSafe = myVehicle.vsafe(myVehicle.speed(),
                 myVehicle.decelAbility(), neighLead.second, neighLead.first->speed())
-                - 0.5;
+                - (SUMOReal) 0.5;
         }
         return ret|LCA_RIGHT|LCA_URGENT|blocked;
     }
@@ -229,7 +232,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     if(congested( neighLead.first )||predInteraction(leader.first)) {
         return ret;
     }
-    double neighLaneVSafe, thisLaneVSafe;
+    SUMOReal neighLaneVSafe, thisLaneVSafe;
     if ( neighLead.first == 0 ) {
         neighLaneVSafe =
             myVehicle.vsafe(
@@ -265,7 +268,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         }
     } else {
         // right lane is better
-        myChangeProbability -= (float)
+        myChangeProbability -= (SUMOReal)
             ((neighLaneVSafe-thisLaneVSafe) / (myVehicle.getLane().maxSpeed()));
     }
     if(myChangeProbability<-.2) {
@@ -279,13 +282,13 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
 int
 MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
                                 int blocked,
-                                const std::pair<MSVehicle*, double> &leader,
-                                const std::pair<MSVehicle*, double> &neighLead,
-                                const std::pair<MSVehicle*, double> &neighFollow,
+                                const std::pair<MSVehicle*, SUMOReal> &leader,
+                                const std::pair<MSVehicle*, SUMOReal> &neighLead,
+                                const std::pair<MSVehicle*, SUMOReal> &neighFollow,
                                 const MSLane &neighLane,
-                                int bestLaneOffset, double bestDist,
-                                double neighDist,
-                                double currentDist,
+                                int bestLaneOffset, SUMOReal bestDist,
+                                SUMOReal neighDist,
+                                SUMOReal currentDist,
                                 MSVehicle **lastBlocked)
 {
     /*
@@ -317,15 +320,15 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     }
 
     if((*lastBlocked)!=0) {
-        double gap = (*lastBlocked)->pos()-(*lastBlocked)->length()-myVehicle.pos();
+        SUMOReal gap = (*lastBlocked)->pos()-(*lastBlocked)->length()-myVehicle.pos();
         /*
         if(gap>=1.0) {
-            double decelGap = gap
+            SUMOReal decelGap = gap
                 + SPEED2DIST(myVehicle.speed()) * 2.0
                 - MAX2((*lastBlocked)->speed() - (*lastBlocked)->decelAbility() * 2.0, 0);
             if(decelGap>0&&(*lastBlocked)->isSafeChange_WithDistance(decelGap, myVehicle, &(*lastBlocked)->getLane())) {
                 ret |= LCA_AMBACKBLOCKER;
-                double vSafe = myVehicle.vsafe(myVehicle.speed(),
+                SUMOReal vSafe = myVehicle.vsafe(myVehicle.speed(),
                     myVehicle.decelAbility(),
                    gap-1.0, (*lastBlocked)->speed());
                 myVSafe = MIN2(myVSafe, vSafe);
@@ -346,12 +349,12 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
                 if((*lastBlocked)->speed()<0.1) {
                     ret |= LCA_AMBACKBLOCKER_STANDING;
                     myVSafe = myVehicle.vsafe(myVehicle.speed(),
-                        myVehicle.decelAbility(), gap-0.1, (*lastBlocked)->speed());
+                        myVehicle.decelAbility(), (SUMOReal) (gap-0.1), (*lastBlocked)->speed());
                     (*lastBlocked) = 0;
                 } else {
                     ret |= LCA_AMBACKBLOCKER;
                     myVSafe = myVehicle.vsafe(myVehicle.speed(),
-                        myVehicle.decelAbility(), gap-0.1, (*lastBlocked)->speed());
+                        myVehicle.decelAbility(), (SUMOReal) (gap-0.1), (*lastBlocked)->speed());
                     (*lastBlocked) = 0;
                 }
             }
@@ -359,7 +362,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     }
 
     // -------- forced changing
-    double lv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
+    SUMOReal lv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
         ? neighLead.first->speed()+20.0
         : */
         //myVehicle.getLane().maxSpeed() * 5;
@@ -374,7 +377,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         if(neighLead.second>0&&neighLead.second>leader.second) {
             myVSafe = myVehicle.vsafe(myVehicle.speed(),
                 myVehicle.decelAbility(), neighLead.second, neighLead.first->speed())
-                - 0.5;
+                - (SUMOReal) 0.5;
         }
         return ret|LCA_LEFT|LCA_URGENT|blocked;
     }
@@ -407,7 +410,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     if(congested( neighLead.first )) {
         return ret;
     }
-    double neighLaneVSafe, thisLaneVSafe;
+    SUMOReal neighLaneVSafe, thisLaneVSafe;
     if ( neighLead.first == 0 ) {
         neighLaneVSafe =
             myVehicle.vsafe(
@@ -442,7 +445,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         }
     } else {
         // right lane is better
-        myChangeProbability += (float)
+        myChangeProbability += (SUMOReal)
             ((neighLaneVSafe-thisLaneVSafe) / (myVehicle.getLane().maxSpeed()));
     }
     if(myChangeProbability>.2) {
@@ -453,15 +456,15 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
 }
 
 
-double
-MSLCM_DK2004::patchSpeed(double min, double wanted, double max, double vsafe)
+SUMOReal
+MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal vsafe)
 {
     /*
     if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
         int blb= 0;
     }
     */
-    double vSafe = myVSafe;
+    SUMOReal vSafe = myVSafe;
     int state = myState;
     myState = 0;
     myVSafe = -1;
@@ -482,14 +485,14 @@ MSLCM_DK2004::patchSpeed(double min, double wanted, double max, double vsafe)
             &&
             (state&LCA_BLOCKEDBY_FOLLOWER)!=0) {
 
-            return (min+wanted)/2.0;//wanted;
+            return (min+wanted)/(SUMOReal) 2.0;//wanted;
         } else {
             if((state&LCA_BLOCKEDBY_LEADER)!=0) {
                 // if interacting with leader and not too slow
-                return (min+wanted)/2.0;
+                return (min+wanted)/(SUMOReal) 2.0;
             }
             if((state&LCA_BLOCKEDBY_FOLLOWER)!=0) {
-                return (max+wanted)/2.0;
+                return (max+wanted)/(SUMOReal) 2.0;
             }
         }
     }
@@ -502,7 +505,7 @@ MSLCM_DK2004::patchSpeed(double min, double wanted, double max, double vsafe)
             return 0;
         }
         if(myVSafe<=0) {
-            return (min+wanted)/2.0;
+            return (min+wanted)/(SUMOReal) 2.0;
         }
         return min;//MAX2(min, MIN2(vSafe, wanted));
     }
@@ -517,7 +520,7 @@ MSLCM_DK2004::patchSpeed(double min, double wanted, double max, double vsafe)
     // accelerate if being a blocking leader or blocking follower not able to brake
     //  (and does not have to change lanes)
     if((state&LCA_AMBLOCKINGLEADER)!=0) {
-        return (max+wanted)/2.0;
+        return (max+wanted)/(SUMOReal) 2.0;
     }
     /*
     if((state&LCA_AMBACKBLOCKER)!=0) {
@@ -534,10 +537,10 @@ MSLCM_DK2004::patchSpeed(double min, double wanted, double max, double vsafe)
         if(max<=myVehicle.accelAbility()&&min==0) {
             return wanted;
         }
-        if(myVSafe>(min+wanted)/2.0) {
+        if(myVSafe>(min+wanted)/(SUMOReal) 2.0) {
             return MIN2(vSafe, wanted);
         }
-        return (min+wanted)/2.0;
+        return (min+wanted)/(SUMOReal) 2.0;
     }
     return wanted;
 }
@@ -573,8 +576,8 @@ void
 MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
                             int &blocked,
                             int dir,
-                            const std::pair<MSVehicle*, double> &neighLead,
-                            const std::pair<MSVehicle*, double> &neighFollow)
+                            const std::pair<MSVehicle*, SUMOReal> &neighLead,
+                            const std::pair<MSVehicle*, SUMOReal> &neighFollow)
 {
     /*
     if(gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
@@ -584,17 +587,17 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
     if((blocked&LCA_BLOCKEDBY_FOLLOWER)!=0) {
         assert(neighFollow.first!=0);
         MSVehicle *nv = neighFollow.first;
-        double decelGap =
+        SUMOReal decelGap =
             neighFollow.second
-            + SPEED2DIST(myVehicle.speed()) * 2.0
-            - MAX2(nv->speed() - nv->decelAbility() * 2.0, 0);
+            + SPEED2DIST(myVehicle.speed()) * (SUMOReal) 2.0
+            - MAX2(nv->speed() - nv->decelAbility() * (SUMOReal) 2.0, (SUMOReal) 0);
         if(neighFollow.second>0&&decelGap>0&&nv->isSafeChange_WithDistance(decelGap, myVehicle, &nv->getLane())) {
-            double vsafe = myVehicle.vsafe(myVehicle.speed(), myVehicle.decelAbility(),
+            SUMOReal vsafe = myVehicle.vsafe(myVehicle.speed(), myVehicle.decelAbility(),
                 neighFollow.second, neighFollow.first->speed());
             msgPass.informNeighFollower(
                 (void*) new Info(vsafe, dir|LCA_AMBLOCKINGFOLLOWER), &myVehicle);
         } else {
-            double vsafe = neighFollow.second<=0
+            SUMOReal vsafe = neighFollow.second<=0
                 ? 0
                 : myVehicle.vsafe(myVehicle.speed(), myVehicle.decelAbility(),
                     neighFollow.second, neighFollow.first->speed());
@@ -617,7 +620,7 @@ MSLCM_DK2004::prepareStep()
 }
 
 
-double
+SUMOReal
 MSLCM_DK2004::getProb() const
 {
     return myChangeProbability;

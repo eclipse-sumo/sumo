@@ -57,7 +57,7 @@ private:
 
 protected:
 
-    typedef double DetectorAggregate;
+    typedef SUMOReal DetectorAggregate;
     typedef DetectorContainer::TimeMap Container;
     typedef Container::InnerContainer TravelTimeMap;
 
@@ -80,7 +80,7 @@ protected:
                 containerM.containerM.find( &veh );
             assert( pair != containerM.containerM.end() );
             MSUnit::Seconds startTime = pair->second;
-            MSUnit::Seconds time = MSNet::getInstance()->simSeconds();
+            MSUnit::Seconds time = (MSUnit::Seconds) MSNet::getInstance()->simSeconds();
             assert( time > startTime );
             return  time - startTime;
         }

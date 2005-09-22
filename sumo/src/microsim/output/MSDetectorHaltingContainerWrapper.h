@@ -211,10 +211,10 @@ struct MSDetectorHaltingContainerWrapper
                         rearIt->isInJamM = false;
                         continue;
                     }
-                    double p12 = frontIt->posM;
-                    double l1 = frontIt->vehM->length();
-                    double p22 = rearIt->posM;
-                    double dist = p12-l1-p22;
+                    SUMOReal p12 = frontIt->posM;
+                    SUMOReal l1 = frontIt->vehM->length();
+                    SUMOReal p22 = rearIt->posM;
+                    SUMOReal dist = p12-l1-p22;
                     if ( dist <= jamDistThresholdM ) {
 //                        if ( rearIt == containerM.begin() ) {
                             rearIt->isInJamM = true;
@@ -372,10 +372,10 @@ namespace Predicate
     template<>
     struct PosGreaterC< DetectorContainer::Halting > :
         public std::binary_function< DetectorContainer::Halting,
-                                     double, bool >
+                                     SUMOReal, bool >
     {
         bool operator() ( const DetectorContainer::Halting& item,
-                          double pos ) const {
+                          SUMOReal pos ) const {
             return item.posM > pos;
         }
     };

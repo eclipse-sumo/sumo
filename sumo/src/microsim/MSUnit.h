@@ -37,19 +37,19 @@
 class MSUnit
 {
 public:
-    typedef double Meters;
-    typedef double Seconds;
-    typedef double Cells;
-    typedef double Steps;
+    typedef SUMOReal Meters;
+    typedef SUMOReal Seconds;
+    typedef SUMOReal Cells;
+    typedef SUMOReal Steps;
     typedef unsigned int IntSteps;
-    typedef double MetersPerSecond;
-    typedef double CellsPerStep;
-    typedef double MetersPerCell;
-    typedef double SecondsPerStep;
-    typedef double VehPerKm;
-    typedef double VehPerCell;
-    typedef double VehPerHour;
-    typedef double VehPerStep;
+    typedef SUMOReal MetersPerSecond;
+    typedef SUMOReal CellsPerStep;
+    typedef SUMOReal MetersPerCell;
+    typedef SUMOReal SecondsPerStep;
+    typedef SUMOReal VehPerKm;
+    typedef SUMOReal VehPerCell;
+    typedef SUMOReal VehPerHour;
+    typedef SUMOReal VehPerStep;
 
     static void create( MetersPerCell metersPerCell,
                         SecondsPerStep secondsPerStep )

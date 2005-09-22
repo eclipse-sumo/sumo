@@ -48,17 +48,17 @@ namespace Predicate
 {
     template< typename ContainerItem >
     struct PosGreaterC :
-        public std::binary_function< ContainerItem, double, bool >
+        public std::binary_function< ContainerItem, SUMOReal, bool >
     {
-        bool operator() ( const ContainerItem& item, double pos ) const;
+        bool operator() ( const ContainerItem& item, SUMOReal pos ) const;
     };
 
     // specialization
     template<>
     struct PosGreaterC< MSVehicle* > :
-        public std::binary_function< MSVehicle*, double, bool >
+        public std::binary_function< MSVehicle*, SUMOReal, bool >
     {
-        bool operator() ( const MSVehicle* item, double pos ) const {
+        bool operator() ( const MSVehicle* item, SUMOReal pos ) const {
             return item->pos() > pos;
         }
     };

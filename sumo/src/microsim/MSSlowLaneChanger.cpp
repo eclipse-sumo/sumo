@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.3  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -132,7 +135,7 @@ namespace
 // In updateLanes(): changed swap() against assignment.
 //
 // Revision 1.2  2002/04/11 15:25:56  croessel
-// Changed float to double.
+// Changed SUMOReal to SUMOReal.
 //
 // Revision 1.1.1.1  2002/04/08 07:21:23  traffic
 // new project name
@@ -235,7 +238,7 @@ MSSlowLaneChanger::change()
         MSVehicle::LaneChangeState::LCACT_NONE);*/
 //    vehicle->getLaneChangeState(*this).setIsOverlaping(false);
 /*    MSVehicle::LaneChangeState &lcs = vehicle->getLaneChangeState(*this);
-    double pos = vehicle->pos();
+    SUMOReal pos = vehicle->pos();
     // check whether the vehicle must change lane to contniue his route
     if(lcs.wants2Right4Direction(pos)) {
         if(change2RightPossible()) {
@@ -371,7 +374,7 @@ MSSlowLaneChanger::change()
                     vehicle->leaveLaneAtLaneChange();
                     prohibitor->leaveLaneAtLaneChange();
                     // patch position and speed
-                    double p1 = vehicle->pos();
+                    SUMOReal p1 = vehicle->pos();
                     vehicle->myState.myPos = prohibitor->myState.myPos;
                     prohibitor->myState.myPos = p1;
                     p1 = vehicle->speed();
@@ -561,7 +564,7 @@ MSSlowLaneChanger::overlap( ChangerIt target )
 
     MSVehicle* neighFollow = veh(target);
     if(target->hoppedVeh!=0) {
-        double hoppedPos = target->hoppedVeh->pos();
+        SUMOReal hoppedPos = target->hoppedVeh->pos();
         if( hoppedPos<=veh(myCandi)->pos() &&
             (neighFollow==0 || neighFollow->pos()>hoppedPos) ) {
 
@@ -571,7 +574,7 @@ MSSlowLaneChanger::overlap( ChangerIt target )
 
     MSVehicle* neighLead   = target->lead;
     if(target->hoppedVeh!=0) {
-        double hoppedPos = target->hoppedVeh->pos();
+        SUMOReal hoppedPos = target->hoppedVeh->pos();
         if( hoppedPos>veh(myCandi)->pos() &&
             (neighLead==0 || neighLead->pos()>hoppedPos) ) {
 
@@ -659,7 +662,7 @@ MSSlowLaneChanger::safeChange( ChangerIt target )
     MSLane* targetLane     = target->lane;
 
     if(target->hoppedVeh!=0) {
-        double hoppedPos = target->hoppedVeh->pos();
+        SUMOReal hoppedPos = target->hoppedVeh->pos();
         if( hoppedPos<=veh(myCandi)->pos() &&
             (neighFollow==0 || neighFollow->pos()>hoppedPos) ) {
 
@@ -686,7 +689,7 @@ MSSlowLaneChanger::safeChange( ChangerIt target )
     if ( neighFollow == 0 ) {
         if(targetLane->myApproaching!=0) {
             // Check back gap to following vehicle
-            double backDist = targetLane->myBackDistance;
+            SUMOReal backDist = targetLane->myBackDistance;
             if(backDist<0) {
                 backDist = -backDist;
             } else {
@@ -755,13 +758,13 @@ MSSlowLaneChanger::predInteraction()
         if(pred->speed()<(80.0*3.6)) {
             return false;
         }
-        double gap = pred->pos() - pred->length() - vehicle->pos();
+        SUMOReal gap = pred->pos() - pred->length() - vehicle->pos();
         return gap < vehicle->interactionGap( lane, *pred );
     }
     // No predecessor. Does vehicle need to slow down because it "interacts"
     // with the lane end? (unfortunately it isn't able to look beyond the
     // lane yet.)
-    double gap = lane->length() - vehicle->pos();
+    SUMOReal gap = lane->length() - vehicle->pos();
     // There may be a vehicle on the succeeding lane, touching this lane
     // partely
     gap -= MSVehicleType::maxLength();
@@ -787,7 +790,7 @@ MSSlowLaneChanger::advan2right()
     MSVehicle::State changeState = MSVehicle::State();
 
 
-    double neighLaneVSafe, thisLaneVSafe;
+    SUMOReal neighLaneVSafe, thisLaneVSafe;
     if ( neighLead == 0 ) {
         neighLaneVSafe = vehicle->vsafe(vehicle->speed(), vehicle->decelAbility(),
             neighLane->length() - vehicle->pos(), 0);
@@ -818,7 +821,7 @@ MSSlowLaneChanger::advan2right()
     }
     else { // There is a neigh-leader.
 
-        double gap2lead = neighLead->pos() - neighLead->length() -
+        SUMOReal gap2lead = neighLead->pos() - neighLead->length() -
                          vehicle->pos();
         changeState = vehicle->nextStateCompete( neighLane,
                                                  neighLead->state(),
@@ -853,7 +856,7 @@ MSSlowLaneChanger::advan2left()
     MSVehicle::State   stayState = vehicle->accelState( myCandi->lane );
     MSVehicle::State changeState = MSVehicle::State();
 
-    double neighLaneVSafe, thisLaneVSafe;
+    SUMOReal neighLaneVSafe, thisLaneVSafe;
     if ( neighLead == 0 ) {
         neighLaneVSafe = vehicle->vsafe(vehicle->speed(), vehicle->decelAbility(),
             neighLane->length() - vehicle->pos(), 0);
@@ -902,7 +905,7 @@ MSSlowLaneChanger::advan2left()
     }
     else {
 
-        double gap2pred = pred->pos() - pred->length() - vehicle->pos();
+        SUMOReal gap2pred = pred->pos() - pred->length() - vehicle->pos();
         stayState = vehicle->nextStateCompete( stayLane,
                                                pred->state(),
                                                gap2pred );
@@ -918,7 +921,7 @@ MSSlowLaneChanger::advan2left()
     }
     else {
 
-        double gap2lead = neighLead->pos() - neighLead->length() -
+        SUMOReal gap2lead = neighLead->pos() - neighLead->length() -
                          vehicle->pos();
         changeState = vehicle->nextStateCompete( changeLane,
                                                  neighLead->state(),

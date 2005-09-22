@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 11:09:53  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -152,13 +155,13 @@ public:
     MSActuatedTrafficLightLogic(const std::string &id,
         const MSSimpleTrafficLightLogic::Phases &phases,
         size_t step, size_t delay,
-        double maxGap, double passingTime, double detectorGap);
+        SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap);
 
     /// Initialises the tls with information about incoming lanes
 	void init(NLDetectorBuilder &nb,
 		const std::vector<MSLane*> &lanes,
         const std::map<std::string, std::vector<std::string> > &edgeContinuations,
-        double det_offset);
+        SUMOReal det_offset);
 
     /// destructor
     ~MSActuatedTrafficLightLogic();
@@ -186,7 +189,7 @@ protected:
     virtual void sproutDetectors(NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
         const std::map<std::string, std::vector<std::string> > &laneContinuations,
-        double det_offset);
+        SUMOReal det_offset);
 
     /// Returns the definition of the current phase
     MSActuatedPhaseDefinition * currentPhaseDef() const;
@@ -202,13 +205,13 @@ protected:
     bool _continue;
 
     /// The maximum gap to check
-    double myMaxGap;
+    SUMOReal myMaxGap;
 
     /// The passing time used
-    double myPassingTime;
+    SUMOReal myPassingTime;
 
     /// The detector distance
-    double myDetectorGap;
+    SUMOReal myDetectorGap;
 
 };
 

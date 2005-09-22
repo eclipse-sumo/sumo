@@ -74,13 +74,13 @@ public:
             // returns the mean value of the lastNSeconds
             AggregatesContIter startIt =
                 getAggrContStartIterator(
-                    MSUnit::getInstance()->getIntegerSteps( lastNSeconds ) );
+					(MSUnit::Steps) MSUnit::getInstance()->getIntegerSteps( lastNSeconds ) );
             if(startIt==aggregatesM.end()) {
                 return 0;
             }
             MSUnit::Seconds seconds =
                 MSUnit::getInstance()->getSeconds(
-                    std::distance( startIt, aggregatesM.end() ) );
+					(MSUnit::Steps) std::distance( startIt, aggregatesM.end() ) );
             if(seconds==0) {
                 return 0;
             }
@@ -90,7 +90,7 @@ public:
 
     // E2 ctor
     MSMeanDetector( std::string id,
-                    double lengthInMeters,
+                    SUMOReal lengthInMeters,
                     MSUnit::Seconds deleteDataAfterSeconds,
                     const DetectorContainer& container )
         : MSSumDetector< DetectorType, hasTimeValueCont >(
@@ -103,7 +103,7 @@ public:
 
     // Another E2 ctor
     MSMeanDetector( std::string id,
-                    double lengthInMeters,
+                    SUMOReal lengthInMeters,
                     MSUnit::Seconds deleteDataAfterSeconds,
                     const TD::MSDetectorInterface& helperDetector )
         : MSSumDetector< DetectorType, hasTimeValueCont >(

@@ -22,6 +22,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 11:09:33  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -61,10 +64,10 @@ class MSLane;
 class MSDensity
 {
 protected:
-    typedef double DetectorAggregate;
+    typedef SUMOReal DetectorAggregate;
     typedef DetectorContainer::Count Container;
 
-    MSDensity( double lengthInMeters,
+    MSDensity( SUMOReal lengthInMeters,
                const Container& counter );
 
     virtual ~MSDensity( void )
@@ -78,7 +81,7 @@ protected:
         }
 
 private:
-    double detectorLengthM; //  [km]
+    SUMOReal detectorLengthM; //  [km]
     const Container& counterM;
 
     MSDensity();

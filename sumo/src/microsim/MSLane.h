@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.31  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.30  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -139,7 +142,7 @@
 // MSNet::Time )
 //
 // Revision 1.4  2002/04/11 15:25:56  croessel
-// Changed float to double.
+// Changed SUMOReal to SUMOReal.
 //
 // Revision 1.3  2002/04/11 12:32:07  croessel
 // Added new lookForwardState "URGENT_LANECHANGE_WISH" for vehicles that
@@ -293,11 +296,11 @@ class SSLaneMeanData;
 class MSLane
 {
 public:
-    /// needs access to myTmpVehicles (this maybe should be done via double-buffering!!!)
+    /// needs access to myTmpVehicles (this maybe should be done via SUMOReal-buffering!!!)
     friend class MSLaneChanger;
     friend class MSSlowLaneChanger;
 
-    /// needs access to myTmpVehicles (this maybe should be done via double-buffering!!!)
+    /// needs access to myTmpVehicles (this maybe should be done via SUMOReal-buffering!!!)
     friend class GUILaneChanger;
 
     /// needs direct access to maxSpeed
@@ -313,10 +316,10 @@ public:
     /** Function-object in order to find the vehicle, that has just
         passed the detector. */
     struct VehPosition : public std::binary_function< const MSVehicle*,
-                         double, bool >
+                         SUMOReal, bool >
     {
         /// compares vehicle position to the detector position
-        bool operator() ( const MSVehicle* cmp, double pos ) const {
+        bool operator() ( const MSVehicle* cmp, SUMOReal pos ) const {
             return cmp->pos() >= pos;
         }
     };
@@ -329,8 +332,8 @@ public:
         lane initialization. */
     MSLane( //MSNet &net,
             std::string id,
-            double maxSpeed,
-            double length,
+            SUMOReal maxSpeed,
+            SUMOReal length,
             MSEdge* edge,
             size_t numericalID,
 			const Position2DVector &shape
@@ -381,10 +384,10 @@ public:
     bool empty() const;
 
     /// Returns the lane's maximum speed.
-    double maxSpeed() const;
+    SUMOReal maxSpeed() const;
 
     /// Returns the lane's length.
-    double length() const;
+    SUMOReal length() const;
 
     /// Returns the lane's Edge.
     const MSEdge& edge() const;
@@ -419,10 +422,10 @@ public:
     /* Adds Data for MeanValue calculation. Use this if vehicle
         leaves a lane during move ( hasFinishedLane=true) or during
         lanechange (false) or if interval is over (false). */
-/*    virtual void addVehicleData( double contTimesteps,
-        unsigned discreteTimesteps, double speedSum, double speedSquareSum,
+/*    virtual void addVehicleData( SUMOReal contTimesteps,
+        unsigned discreteTimesteps, SUMOReal speedSum, SUMOReal speedSquareSum,
         unsigned index, bool hasFinishedEntireLane, bool hasLeftLane,
-        bool hasEnteredLane, double travelTimesteps = 0 );
+        bool hasEnteredLane, SUMOReal travelTimesteps = 0 );
 */
 
     /// Returns the lane which may be used from succLinkSource to get to nRouteEdge
@@ -469,13 +472,13 @@ public:
 
     size_t getVehicleNumber() const;
 
-    void setApproaching(double dist, MSVehicle *veh);
+    void setApproaching(SUMOReal dist, MSVehicle *veh);
 
-    VehCont::const_iterator findNextVehicleByPosition(double pos) const;
+    VehCont::const_iterator findNextVehicleByPosition(SUMOReal pos) const;
 
     VehCont::const_iterator findPrevVehicleByPosition(
         const VehCont::const_iterator &beginAt,
-        double pos) const;
+        SUMOReal pos) const;
 
     typedef std::vector< MSMoveReminder* > MoveReminderCont;
     /// Add a move-reminder to move-reminder container
@@ -494,7 +497,7 @@ public:
 
     const std::string &getID() const;
 
-    void addMean2(double v, double l);
+    void addMean2(SUMOReal v, SUMOReal l);
 
 	/// The shape of the lane
     Position2DVector myShape;
@@ -582,20 +585,20 @@ protected:
     VehCont myVehicles;
 
     /// Lane length [m]
-    double myLength;
+    SUMOReal myLength;
 
     /// The lane's edge, for routing only.
     MSEdge* myEdge;
 
     /// Lane-wide speedlimit [m/s]
-    double myMaxSpeed;
+    SUMOReal myMaxSpeed;
 
     /** Container for lane-changing vehicles. After completion of lane-change-
         process, the two containers will be swapped. */
     VehCont myTmpVehicles;
 
 
-    double myBackDistance;
+    SUMOReal myBackDistance;
 
     /** Vehicle-buffer for vehicle that was put onto this lane by a
         junction. The  buffer is neccessary, because of competing

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 11:07:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -66,8 +69,8 @@ MSLCM_Krauss::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
                                  const MSVehicle * const neighLead,
                                  const MSVehicle * const neighFollow,
                                  const MSLane &neighLane,
-                                 int bestLaneOffset, double bestDist,
-                                 double currentDist)
+                                 int bestLaneOffset, SUMOReal bestDist,
+                                 SUMOReal currentDist)
 {
     // forced changing
     if(currentDist<400&&bestLaneOffset<0) {
@@ -84,7 +87,7 @@ MSLCM_Krauss::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     }
 
     // krauss: change for higher speed
-    double thisLaneVSafe;
+    SUMOReal thisLaneVSafe;
     if(leader==0) {
         thisLaneVSafe =
             myVehicle.vsafe(
@@ -116,8 +119,8 @@ MSLCM_Krauss::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
                                 const MSVehicle * const neighLead,
                                 const MSVehicle * const neighFollow,
                                 const MSLane &neighLane,
-                                int bestLaneOffset, double bestDist,
-                                double currentDist)
+                                int bestLaneOffset, SUMOReal bestDist,
+                                SUMOReal currentDist)
 {
     // forced changing
     if(currentDist<400&&bestLaneOffset>0) {
@@ -133,7 +136,7 @@ MSLCM_Krauss::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         return false;
     }
     // krauss: change for higher speed
-    double thisLaneVSafe;
+    SUMOReal thisLaneVSafe;
     if(leader==0) {
         thisLaneVSafe =
             myVehicle.vsafe(

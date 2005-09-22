@@ -85,8 +85,8 @@ public:
      */
     MSLaneState( std::string    id,
                  MSLane*        lane,
-                 double         beginInMeters,
-                 double         lengthInMeters,
+                 SUMOReal         beginInMeters,
+                 SUMOReal         lengthInMeters,
                  SUMOTime    deleteDataAfterSeconds);
 
     /**
@@ -122,9 +122,9 @@ public:
      * @see leaveDetectorByMove
      */
     bool isStillActive( MSVehicle& veh,
-                        double oldPos,
-                        double newPos,
-                        double newSpeed );
+                        SUMOReal oldPos,
+                        SUMOReal newPos,
+                        SUMOReal newSpeed );
 
 
     /**
@@ -159,7 +159,7 @@ public:
      *
      * @return mean waiting-queue length
      */
-    double getNumberOfWaiting( SUMOTime lastNTimesteps );
+    SUMOReal getNumberOfWaiting( SUMOTime lastNTimesteps );
 
     /**
      * Get the waitingQueueLength.
@@ -182,7 +182,7 @@ public:
      *
      * @return Mean speed averaged over the lastNTimesteps
      */
-    double getMeanSpeed( SUMOTime lastNTimesteps );
+    SUMOReal getMeanSpeed( SUMOTime lastNTimesteps );
 
     /**
      * Calculates the mean speed of the current timestep.
@@ -190,7 +190,7 @@ public:
      *
      * @return Current mean speed.
      */
-    double getCurrentMeanSpeed( void );
+    SUMOReal getCurrentMeanSpeed( void );
 
     /**
      * Calculates the mean speed square averaged over the lastNTimesteps.
@@ -200,7 +200,7 @@ public:
      *
      * @return Mean speed square averaged over the lastNTimesteps
      */
-    double getMeanSpeedSquare( SUMOTime lastNTimesteps );
+    SUMOReal getMeanSpeedSquare( SUMOTime lastNTimesteps );
 
     /**
      * Calculates the mean speed square of the current timestep.
@@ -208,7 +208,7 @@ public:
      *
      * @return Current mean speed square.
      */
-    double getCurrentMeanSpeedSquare( void );
+    SUMOReal getCurrentMeanSpeedSquare( void );
 
     /**
      * Calculates the mean density averaged over the lastNTimesteps.
@@ -218,7 +218,7 @@ public:
      *
      * @return Mean density averaged over the lastNTimesteps.
      */
-    double getMeanDensity( SUMOTime lastNTimesteps );
+    SUMOReal getMeanDensity( SUMOTime lastNTimesteps );
 
     /**
      * Calculates the density of the current timestep.
@@ -226,7 +226,7 @@ public:
      *
      * @return Current density.
      */
-    double getCurrentDensity( void );
+    SUMOReal getCurrentDensity( void );
 
     /**
      * Calculates the mean traveltime averaged over the lastNTimesteps. Only
@@ -238,7 +238,7 @@ public:
      *
      * @return Mean traveltime averaged over the lastNTimesteps.
      */
-    double getMeanTraveltime( SUMOTime lastNTimesteps );
+    SUMOReal getMeanTraveltime( SUMOTime lastNTimesteps );
 
     /**
      * Counts the vehicles that added data through addMoveData() over
@@ -383,8 +383,8 @@ public:
      * @param timestepFraction Fraction of the timestep the
      * vehicle is on the detector.
      */
-    void addMoveData( MSVehicle& veh, double newSpeed,
-                      double timestepFraction );
+    void addMoveData( MSVehicle& veh, SUMOReal newSpeed,
+                      SUMOReal timestepFraction );
 
     /**
      * Introduces a vehicle to the detector that enters it by move. Called
@@ -395,7 +395,7 @@ public:
      * @param enterTimestepFraction Fraction of the timestep the
      * vehicle is on the detector.
      */
-    void enterDetectorByMove( MSVehicle& veh, double enterTimestepFraction );
+    void enterDetectorByMove( MSVehicle& veh, SUMOReal enterTimestepFraction );
 
     /**
      * Introduces a vehicle to the detetctor that enters it by
@@ -416,7 +416,7 @@ public:
      * @param leaveTimestepFraction Fraction of the timestep the
      * vehicle is on the detector.
      */
-    void leaveDetectorByMove( MSVehicle& veh, double leaveTimestepFraction );
+    void leaveDetectorByMove( MSVehicle& veh, SUMOReal leaveTimestepFraction );
 
     /**
      * Removes a vehicle from the detector that leaves by lanechange. Called by
@@ -492,19 +492,19 @@ public:
             {}
 
         SUMOTime timestepM;  /**< The timestep the data belongs to. */
-        double speedSumM;       /**< Sum of the speeds the vehicles on the
+        SUMOReal speedSumM;       /**< Sum of the speeds the vehicles on the
                                  * detector added via addMoveData() during
                                  * timestep. [cells/timestep] */
-        double speedSquareSumM; /**< Sum of the speedsquares the
+        SUMOReal speedSquareSumM; /**< Sum of the speedsquares the
                                  * vehicles on the detector added via
                                  * addMoveData() during timestep. */
-        double contTimestepSumM; /**< Continuous sum of timesteps the
+        SUMOReal contTimestepSumM; /**< Continuous sum of timesteps the
                                   * vehicles spend on the
                                   * detector. Continuous because
                                   * vehicles enter/leave the detector
                                   * and contribute only a fraction of
                                   * a timestep.*/
-        double timestepSumM;    /**< Discrete sum of timesteps the
+        SUMOReal timestepSumM;    /**< Discrete sum of timesteps the
                                   * vehicles spend on the
                                   * detector. Every vehicle
                                   * contributes 1 even if it spend
@@ -524,7 +524,7 @@ public:
     struct VehicleData
     {
         /// Sole ctor.
-        VehicleData( double entryContTimestep,
+        VehicleData( SUMOReal entryContTimestep,
                      bool enteredDetectorByMove ) :
             entryContTimestepM ( entryContTimestep ),
             leaveContTimestepM ( -1 ),
@@ -532,9 +532,9 @@ public:
             leftDetectorByMoveM ( false )
             {}
 
-        double entryContTimestepM; /**< The vehicles entry timestep
+        SUMOReal entryContTimestepM; /**< The vehicles entry timestep
                                     * (continuous) */
-        double leaveContTimestepM; /**< The vehicles leave timestep
+        SUMOReal leaveContTimestepM; /**< The vehicles leave timestep
                                     * (continuous). */
         bool passedEntireDetectorM; /**< Indicator if vehicle passed
                                      * the entire dtetctor without
@@ -550,13 +550,13 @@ public:
     struct WaitingQueueElem
     {
         /// Sole ctor.
-        WaitingQueueElem( double pos, double vehLength ) :
+        WaitingQueueElem( SUMOReal pos, SUMOReal vehLength ) :
             posM( pos ), vehLengthM( vehLength )
             {}
 
-        double posM;            /**< Current position of vehicle on
+        SUMOReal posM;            /**< Current position of vehicle on
                                  * the detector. */
-        double vehLengthM;      /**< Length of the vehicle.  */
+        SUMOReal vehLengthM;      /**< Length of the vehicle.  */
     };
 
     /**
@@ -574,10 +574,10 @@ public:
      *
      */
     struct entryTimestepLesser :
-        public std::binary_function< VehicleData, double, bool >
+        public std::binary_function< VehicleData, SUMOReal, bool >
     {
         bool operator()( const VehicleData& data,
-                         double entryTimestepBound ) const
+                         SUMOReal entryTimestepBound ) const
         {
             return data.entryContTimestepM < entryTimestepBound;
         }
@@ -590,10 +590,10 @@ public:
      */
     struct entryTimestepLesserMap :
             public std::binary_function< VehicleDataMap::value_type,
-                double, bool >
+                SUMOReal, bool >
     {
         bool operator()( const VehicleDataMap::value_type& data,
-                         double entryTimestepBound ) const
+                         SUMOReal entryTimestepBound ) const
         {
             return data.second.entryContTimestepM < entryTimestepBound;
         }
@@ -605,10 +605,10 @@ public:
      *
      */
     struct leaveTimestepLesser :
-            public std::binary_function< VehicleData, double, bool >
+            public std::binary_function< VehicleData, SUMOReal, bool >
     {
         bool operator()( const VehicleData& data,
-                         double leaveTimestepBound ) const
+                         SUMOReal leaveTimestepBound ) const
         {
             return data.leaveContTimestepM < leaveTimestepBound;
         }
@@ -672,7 +672,7 @@ protected:
      * @see getStartIterator()
      * @return max( now - lastNTimesteps, 0 )
      */
-    double getStartTimestep( SUMOTime lastNTimesteps );
+    SUMOReal getStartTimestep( SUMOTime lastNTimesteps );
 
     /**
      * Indicator if stored value nVehContributedM is still valid.
@@ -729,10 +729,10 @@ private:
                                             * vehicles that already left
                                             * the detector. */
 
-    double startPosM;                /**< Start-position of the
+    SUMOReal startPosM;                /**< Start-position of the
                                       * detector [cells]. */
 
-    double endPosM;             /**< End-position of the detector [cells]. */
+    SUMOReal endPosM;             /**< End-position of the detector [cells]. */
 
     const SUMOTime deleteDataAfterStepsM; /**< Keep at least data from
                                               * the last
@@ -776,42 +776,42 @@ namespace
      */
     //@{
     /// Adds up TimestepData::speedSumM.
-    inline double speedSum( double sumSoFar,
+    inline SUMOReal speedSum( SUMOReal sumSoFar,
                             const MSLaneState::TimestepData& data )
     {
         return sumSoFar + data.speedSumM;
     }
 
     /// Adds up TimestepData::speedSquareSumM.
-    inline double speedSquareSum( double sumSoFar,
+    inline SUMOReal speedSquareSum( SUMOReal sumSoFar,
                                   const MSLaneState::TimestepData& data )
     {
         return sumSoFar + data.speedSquareSumM;
     }
 
     /// Adds up TimestepData::contTimestepSumM.
-    inline double contTimestepSum( double sumSoFar,
+    inline SUMOReal contTimestepSum( SUMOReal sumSoFar,
                                    const MSLaneState::TimestepData& data )
     {
         return sumSoFar + data.contTimestepSumM;
     }
 
     /// Adds up TimestepData::timestepSumM.
-    inline double timestepSum( double sumSoFar,
+    inline SUMOReal timestepSum( SUMOReal sumSoFar,
                                const MSLaneState::TimestepData& data )
     {
         return sumSoFar + data.timestepSumM;
     }
 
     /// Adds up TimestepData::queueLengthM.
-    inline double waitingQueueSum( double sumSoFar,
+    inline SUMOReal waitingQueueSum( SUMOReal sumSoFar,
                                    const MSLaneState::TimestepData& data )
     {
         return sumSoFar + data.queueLengthM;
     }
 
     /// Adds up traveltimes if vehicles has passed the entire detetctor.
-    inline double traveltimeSum( double sumSoFar,
+    inline SUMOReal traveltimeSum( SUMOReal sumSoFar,
                                  const MSLaneState::VehicleData& data )
     {
         if ( data.passedEntireDetectorM ) {

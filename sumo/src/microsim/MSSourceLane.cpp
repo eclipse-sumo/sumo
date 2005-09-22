@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.10  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -112,8 +115,8 @@ MSSourceLane::~MSSourceLane()
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSSourceLane::MSSourceLane( /*MSNet &net, */string id, double maxSpeed,
-                           double length, MSEdge* edge, size_t numericalID, const Position2DVector &shape)
+MSSourceLane::MSSourceLane( /*MSNet &net, */string id, SUMOReal maxSpeed,
+                           SUMOReal length, MSEdge* edge, size_t numericalID, const Position2DVector &shape)
     : MSLane(/*net, */id, maxSpeed, length, edge, numericalID, shape)
 {
 }
@@ -127,7 +130,7 @@ MSSourceLane::emit( MSVehicle& veh )
     // brakeGap(laneMaxSpeed) + MaxVehicleLength. (in the hope of that
     // the precening lane hasn't a much higher MaxSpeed)
     // This safePos is ugly, but we will live with it in this revision.
-/*    double safePos = pow( myMaxSpeed, 2 ) / ( 2 * MSVehicleType::minDecel() ) +
+/*    SUMOReal safePos = pow( myMaxSpeed, 2 ) / ( 2 * MSVehicleType::minDecel() ) +
                     MSVehicle::tau() + MSVehicleType::maxLength();
     assert( safePos < myLength ); // Lane has to be longer than safePos,
     // otherwise emission (this kind of emission) makes no sense.
@@ -162,7 +165,7 @@ MSSourceLane::emitTry( MSVehicle& veh )
     myVehicles.push_front( &veh );
     myUseDefinition->noVehicles++;
     MSVehicle::State state;
-    state.setPos( myLength>1 ? myLength - 1. : 0 );
+    state.setPos( myLength>1 ? (SUMOReal) (myLength - 1.) : 0 );
     veh.moveSetState( state );
     assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
@@ -182,11 +185,11 @@ MSSourceLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
     // emission as last car (in driving direction)
     MSVehicle *leader = *leaderIt;
     // get invoked vehicles' positions
-    double leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
+    SUMOReal leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
     // get secure gaps
-    double frontGapNeeded = veh.getSecureGap(*this, *leader);
+    SUMOReal frontGapNeeded = veh.getSecureGap(*this, *leader);
     // compute needed room
-    double frontMax = leaderPos - frontGapNeeded;
+    SUMOReal frontMax = leaderPos - frontGapNeeded;
     // check whether there is enough room
     if(frontMax>0) {
         // emit vehicle if so
@@ -234,9 +237,9 @@ MSSourceLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
 
 bool
 MSSourceLane::enoughSpace( MSVehicle& veh,
-                     double followPos, double leaderPos, double safeSpace )
+                     SUMOReal followPos, SUMOReal leaderPos, SUMOReal safeSpace )
 {
-    double free = leaderPos - followPos - safeSpace;
+    SUMOReal free = leaderPos - followPos - safeSpace;
     if ( free >= 0.01 ) {
 
         // prepare vehicle with it's position

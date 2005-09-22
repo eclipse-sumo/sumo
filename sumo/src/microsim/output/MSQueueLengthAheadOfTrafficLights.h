@@ -51,11 +51,11 @@ class MSQueueLengthAheadOfTrafficLightsInVehicles
 {
     friend class MSE2Collector;
 protected:
-    typedef double DetectorAggregate;
+    typedef SUMOReal DetectorAggregate;
     typedef DetectorContainer::HaltingsList Container;
 
     MSQueueLengthAheadOfTrafficLightsInVehicles(
-        double,
+        SUMOReal,
         const TD::MSDetectorInterface& helperDetector )
         : helperDetectorM( helperDetector ),
           maxNVehM( 0 )
@@ -87,7 +87,7 @@ protected:
         }
 private:
     const TD::MSDetectorInterface& helperDetectorM;
-    double maxNVehM;
+    SUMOReal maxNVehM;
 };
 
 
@@ -95,11 +95,11 @@ class MSQueueLengthAheadOfTrafficLightsInMeters
 {
     friend class MSE2Collector;
 protected:
-    typedef double DetectorAggregate;
+    typedef SUMOReal DetectorAggregate;
     typedef DetectorContainer::HaltingsList Container;
 
     MSQueueLengthAheadOfTrafficLightsInMeters(
-        double,
+        SUMOReal,
         const TD::MSDetectorInterface& helperDetector )
         : helperDetectorM( helperDetector ),
           maxJamLengthM( 0 )

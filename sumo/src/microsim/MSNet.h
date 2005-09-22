@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.51  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.50  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -61,7 +64,7 @@
 //  (emission-stats and single vehicle trip-infos)
 //
 // Revision 1.38  2004/02/16 15:20:21  dkrajzew
-// used a double for seconds within an hour to avoid number truncation
+// used a SUMOReal for seconds within an hour to avoid number truncation
 //
 // Revision 1.37  2003/12/11 06:31:45  dkrajzew
 // implemented MSVehicleControl as the instance responsible for vehicles
@@ -97,7 +100,7 @@
 // Revision 1.27  2003/07/30 17:27:21  roessel
 // Removed superflous casts in getSeconds and getSteps.
 //
-// Changed type argument type of getSeconds from Time to double.
+// Changed type argument type of getSeconds from Time to SUMOReal.
 //
 // Revision 1.26  2003/07/30 09:11:22  dkrajzew
 // a better (correct?) processing of yellow lights added; output corrigued;
@@ -225,7 +228,7 @@
 // computation is now only invoked when needed
 //
 // Revision 1.4  2002/04/11 15:25:56  croessel
-// Changed float to double.
+// Changed SUMOReal to SUMOReal.
 //
 // Revision 1.3  2002/04/11 10:33:25  dkrajzew
 // Addition of detectors added
@@ -253,7 +256,7 @@
 // In *.cpp files also config.h included.
 //
 // Revision 1.12  2002/01/16 10:03:34  croessel
-// New method "static double deltaT()" and member "static double myDeltaT"
+// New method "static SUMOReal deltaT()" and member "static SUMOReal myDeltaT"
 // added. DeltaT is the length of a timestep in seconds.
 //
 // Revision 1.11  2001/12/20 14:35:54  croessel
@@ -440,7 +443,7 @@ public:
     static void clearAll();
 
     /// Returns the timestep-length in seconds.
-    static double deltaT();
+    static SUMOReal deltaT();
 
     /**
      * Get the models cellLength in meter
@@ -448,7 +451,7 @@ public:
      *
      * @return The model's cellLength in meter
      */
-    static double getCellLength( void )
+    static SUMOReal getCellLength( void )
         {
             return myCellLength;
         }
@@ -486,40 +489,40 @@ public:
 
     SUMOTime getCurrentTimeStep() const;
 
-    static double getSeconds( double steps )
+    static SUMOReal getSeconds( SUMOReal steps )
         {
             return steps * myDeltaT;
         }
 
-    static SUMOTime getSteps( double seconds )
+    static SUMOTime getSteps( SUMOReal seconds )
         {
             return static_cast< SUMOTime >(
                 floor( seconds / myDeltaT ) );
         }
 
-    static double getMeterPerSecond( double cellsPerTimestep )
+    static SUMOReal getMeterPerSecond( SUMOReal cellsPerTimestep )
         {
             return cellsPerTimestep * myCellLength / myDeltaT;
         }
 
-    static double getMeters( double cells )
+    static SUMOReal getMeters( SUMOReal cells )
         {
             return cells * myCellLength;
         }
 
-    static double getCells( double meter )
+    static SUMOReal getCells( SUMOReal meter )
         {
             return meter / myCellLength;
         }
 
-    static double getVehPerKm( double vehPerCell )
+    static SUMOReal getVehPerKm( SUMOReal vehPerCell )
         {
-            return vehPerCell * 1000.0 / myCellLength;
+            return (SUMOReal) (vehPerCell * 1000.0 / myCellLength);
         }
 
-    static double getVehPerHour( double vehPerStep )
+    static SUMOReal getVehPerHour( SUMOReal vehPerStep )
         {
-            return vehPerStep / myDeltaT * 3600.0;
+            return (SUMOReal) (vehPerStep / myDeltaT * 3600.0);
         }
 
     MSVehicleControl &getVehicleControl() const;
@@ -562,8 +565,8 @@ public:
                 std::cout.setf ( std::ios::showpoint ) ; // print decimal point
                 std::cout << std::setprecision( 2 ) ;
                 std::cout << " (" << mySimStepDuration << "ms ~= "
-                    << (1000./ (float) mySimStepDuration) << "*RT, ~"
-                    << ((float) myVehicleControl->getRunningVehicleNo()/(float) mySimStepDuration*1000.)
+                    << (1000./ (SUMOReal) mySimStepDuration) << "*RT, ~"
+                    << ((SUMOReal) myVehicleControl->getRunningVehicleNo()/(SUMOReal) mySimStepDuration*1000.)
                         << "UPS)"
                     << "               "
                     << (char) 13;
@@ -617,10 +620,10 @@ protected:
     //PreStartVector myPreStartInitialiseItems;
 
     /// Timestep [sec]
-    static double myDeltaT;
+    static SUMOReal myDeltaT;
 
     /// CellLength [m]. Is 1 for space-continous models like SK
-    static double myCellLength;
+    static SUMOReal myCellLength;
 
     /// Current time step.
     SUMOTime myStep;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 11:09:33  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -48,7 +51,7 @@ namespace
 #include <numeric>
 #include <utility>
 #include <utils/helpers/SimpleCommand.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSLane.h>
 #include <utils/common/MsgHandler.h>
@@ -91,11 +94,11 @@ string MSInductLoop::xmlDetectorInfoEndM( "</detector>\n" );
  * ======================================================================= */
 MSInductLoop::MSInductLoop( const string& id,
                             MSLane* lane,
-                            double positionInMeters,
+                            SUMOReal positionInMeters,
                             SUMOTime deleteDataAfterSeconds )
     : MSMoveReminder( lane, id ),
       posM( MSNet::getCells( positionInMeters ) ),
-      deleteDataAfterStepsM( MSNet::getSteps( deleteDataAfterSeconds ) ),
+      deleteDataAfterStepsM( MSNet::getSteps( (SUMOReal) deleteDataAfterSeconds ) ),
       lastLeaveTimestepM( 0 ),
       vehiclesOnDetM(),
       vehicleDataContM()
@@ -120,18 +123,18 @@ MSInductLoop::~MSInductLoop()
 
 bool
 MSInductLoop::isStillActive( MSVehicle& veh,
-                             double oldPos,
-                             double newPos,
-                             double newSpeed )
+                             SUMOReal oldPos,
+                             SUMOReal newPos,
+                             SUMOReal newSpeed )
 {
-    double entryTimestep = MSNet::getInstance()->getCurrentTimeStep();
-    double leaveTimestep = entryTimestep;
+    SUMOReal entryTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
+    SUMOReal leaveTimestep = entryTimestep;
 
     if ( newPos < posM ) {
         // detector not reached yet
         return true;
     }
-    double speed = SPEED2DIST(newSpeed);
+    SUMOReal speed = SPEED2DIST(newSpeed);
     if ( vehiclesOnDetM.find( &veh ) == vehiclesOnDetM.end() ) {
         // entered the detector by move
         entryTimestep -= 1 - ( posM - oldPos ) / speed;
@@ -181,7 +184,7 @@ MSInductLoop::isActivatedByEmitOrLaneChange( MSVehicle& veh )
 }
 
 
-double
+SUMOReal
 MSInductLoop::getFlow( SUMOTime lastNTimesteps ) const
 {
     // return unit is [veh/h]
@@ -190,61 +193,61 @@ MSInductLoop::getFlow( SUMOTime lastNTimesteps ) const
     return MSNet::getVehPerHour(
         ( getNVehContributed( lastNTimesteps ) + distance(
             getDismissedStartIterator( lastNTimesteps ), mend ) )
-            / (double) lastNTimesteps);
+            / (SUMOReal) lastNTimesteps);
 }
 
 
-double
+SUMOReal
 MSInductLoop::getMeanSpeed( SUMOTime lastNTimesteps ) const
 {
     // return unit is [m/s]
     assert( lastNTimesteps > 0 );
-    double nVeh = getNVehContributed( lastNTimesteps );
+    SUMOReal nVeh = getNVehContributed( lastNTimesteps );
     if ( nVeh == 0 ) {
         return -1;
     }
-    double speedS = accumulate( getStartIterator( lastNTimesteps ),
+    SUMOReal speedS = accumulate( getStartIterator( lastNTimesteps ),
                                 vehicleDataContM.end(),
-                                0.0,
+                                (SUMOReal) 0.0,
                                 speedSum );
     return MSNet::getMeterPerSecond( speedS / nVeh );
 }
 
 
-double
+SUMOReal
 MSInductLoop::getOccupancy( SUMOTime lastNTimesteps ) const
 {
     // unit is [%]
     assert( lastNTimesteps > 0 );
-    double nVeh = getNVehContributed( lastNTimesteps );
+    SUMOReal nVeh = getNVehContributed( lastNTimesteps );
     if ( nVeh == 0 ) {
         return 0;
     }
     return accumulate( getStartIterator( lastNTimesteps ),
                        vehicleDataContM.end(),
-                       0.0,
+                       (SUMOReal) 0.0,
                        occupancySum ) /
-        static_cast<double>( lastNTimesteps );
+        static_cast<SUMOReal>( lastNTimesteps );
 }
 
 
-double
+SUMOReal
 MSInductLoop::getMeanVehicleLength( SUMOTime lastNTimesteps ) const
 {
     assert( lastNTimesteps > 0 );
-    double nVeh = getNVehContributed( lastNTimesteps );
+    SUMOReal nVeh = getNVehContributed( lastNTimesteps );
     if ( nVeh == 0 ) {
         return -1;
     }
-    double lengthS = accumulate( getStartIterator( lastNTimesteps ),
+    SUMOReal lengthS = accumulate( getStartIterator( lastNTimesteps ),
                                  vehicleDataContM.end(),
-                                 0.0,
+                                 (SUMOReal) 0.0,
                                  lengthSum );
     return MSNet::getMeters( lengthS / nVeh );
 }
 
 
-double
+SUMOReal
 MSInductLoop::getTimestepsSinceLastDetection() const
 {
     // This method was formely called  getGap()
@@ -256,10 +259,10 @@ MSInductLoop::getTimestepsSinceLastDetection() const
 }
 
 
-double
+SUMOReal
 MSInductLoop::getNVehContributed( SUMOTime lastNTimesteps ) const
 {
-    return (double) distance( getStartIterator( lastNTimesteps ),
+    return (SUMOReal) distance( getStartIterator( lastNTimesteps ),
                      vehicleDataContM.end() );
 }
 
@@ -328,7 +331,7 @@ MSInductLoop::getDataCleanUpSteps( void ) const
 
 void
 MSInductLoop::enterDetectorByMove( MSVehicle& veh,
-                                   double entryTimestep )
+                                   SUMOReal entryTimestep )
 {
     vehiclesOnDetM.insert( make_pair( &veh, entryTimestep ) );
 }
@@ -336,11 +339,11 @@ MSInductLoop::enterDetectorByMove( MSVehicle& veh,
 
 void
 MSInductLoop::leaveDetectorByMove( MSVehicle& veh,
-                                   double leaveTimestep )
+                                   SUMOReal leaveTimestep )
 {
     VehicleMap::iterator it = vehiclesOnDetM.find( &veh );
     assert( it != vehiclesOnDetM.end() );
-    double entryTimestep = it->second;
+    SUMOReal entryTimestep = it->second;
     vehiclesOnDetM.erase( it );
     assert( entryTimestep < leaveTimestep );
     vehicleDataContM.push_back( VehicleData( veh, entryTimestep,
@@ -354,15 +357,15 @@ MSInductLoop::leaveDetectorByLaneChange( MSVehicle& veh )
 {
     // Discard entry data
     vehiclesOnDetM.erase( &veh );
-    dismissedContM.push_back(MSNet::getInstance()->getCurrentTimeStep());
+    dismissedContM.push_back((SUMOReal) MSNet::getInstance()->getCurrentTimeStep());
 }
 
 
 SUMOTime
 MSInductLoop::deleteOldData( void )
 {
-    double deleteBeforeTimestep =
-        MSNet::getInstance()->getCurrentTimeStep() - deleteDataAfterStepsM;
+    SUMOReal deleteBeforeTimestep =
+        (SUMOReal) (MSNet::getInstance()->getCurrentTimeStep() - deleteDataAfterStepsM);
     if ( deleteBeforeTimestep > 0 ) {
         vehicleDataContM.erase(
             vehicleDataContM.begin(),
@@ -383,9 +386,9 @@ MSInductLoop::deleteOldData( void )
 MSInductLoop::VehicleDataCont::const_iterator
 MSInductLoop::getStartIterator( SUMOTime lastNTimesteps ) const
 {
-    double startTime = 0;
+    SUMOReal startTime = 0;
     if ( lastNTimesteps < MSNet::getInstance()->getCurrentTimeStep() ) {
-        startTime = static_cast< double >(
+        startTime = static_cast< SUMOReal >(
             MSNet::getInstance()->getCurrentTimeStep() - lastNTimesteps ) *
             MSNet::deltaT();
     }
@@ -399,9 +402,9 @@ MSInductLoop::getStartIterator( SUMOTime lastNTimesteps ) const
 MSInductLoop::DismissedCont::const_iterator
 MSInductLoop::getDismissedStartIterator( SUMOTime lastNTimesteps ) const
 {
-    double startTime = 0;
+    SUMOReal startTime = 0;
     if ( lastNTimesteps < MSNet::getInstance()->getCurrentTimeStep() ) {
-        startTime = static_cast< double >(
+        startTime = static_cast< SUMOReal >(
             MSNet::getInstance()->getCurrentTimeStep() - lastNTimesteps ) *
             MSNet::deltaT();
     }

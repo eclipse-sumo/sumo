@@ -22,6 +22,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 11:08:09  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -132,7 +135,7 @@ namespace E1
         MSVehicle* vehOnDetectorM;
         MSUnit::Seconds entryTimeM;
         MSUnit::Seconds leaveTimeM;
-        double vehLengthM;
+        SUMOReal vehLengthM;
     };
 }
 

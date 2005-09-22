@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -163,16 +166,16 @@ protected:
     virtual bool candiOnAllowed( ChangerIt target );
 
     virtual int change2right(
-        const std::pair<MSVehicle*, double> &leader,
-        const std::pair<MSVehicle*, double> &rLead,
-        const std::pair<MSVehicle*, double> &rFollow,
-        int bestLaneOffset, double bestDist, double currentDist);
+        const std::pair<MSVehicle*, SUMOReal> &leader,
+        const std::pair<MSVehicle*, SUMOReal> &rLead,
+        const std::pair<MSVehicle*, SUMOReal> &rFollow,
+        int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
 
     virtual int change2left(
-        const std::pair<MSVehicle*, double> &leader,
-        const std::pair<MSVehicle*, double> &rLead,
-        const std::pair<MSVehicle*, double> &rFollow,
-        int bestLaneOffset, double bestDist, double currentDist);
+        const std::pair<MSVehicle*, SUMOReal> &leader,
+        const std::pair<MSVehicle*, SUMOReal> &rLead,
+        const std::pair<MSVehicle*, SUMOReal> &rFollow,
+        int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
 
     /** If candidate isn't on an allowed lane, we need to find target-
         lane that takes it closer to an allowed one. */
@@ -181,12 +184,12 @@ protected:
     /** Returns true if change to target-lane is allowed. */
 //    bool change2target( ChangerIt target );
 
-    virtual void setOverlap(const std::pair<MSVehicle*, double> &neighLead,
-        const std::pair<MSVehicle*, double> &neighFollow,
+    virtual void setOverlap(const std::pair<MSVehicle*, SUMOReal> &neighLead,
+        const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         /*const ChangerIt &target,*/ int &blocked);
 
-    virtual void setIsSafeChange(const std::pair<MSVehicle*, double> &neighLead,
-        const std::pair<MSVehicle*, double> &neighFollow,
+    virtual void setIsSafeChange(const std::pair<MSVehicle*, SUMOReal> &neighLead,
+        const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const ChangerIt &target, int &blocked);
 
     /** Returns true if candidate will be influenced by it's leader. */
@@ -195,18 +198,18 @@ protected:
     /** Returns true, if candidate has an advantage by changing to the
         right. */
     virtual int advan2right(
-        const std::pair<MSVehicle*, double> &leader,
-        const std::pair<MSVehicle*, double> &rLead,
-        const std::pair<MSVehicle*, double> &rFollow,
-        int blocked, int bestLaneOffset, double bestDist, double currentDist);
+        const std::pair<MSVehicle*, SUMOReal> &leader,
+        const std::pair<MSVehicle*, SUMOReal> &rLead,
+        const std::pair<MSVehicle*, SUMOReal> &rFollow,
+        int blocked, int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
 
     /** Returns true, if candidate has an advantage by changing to the
         left. */
     virtual int advan2left(
-        const std::pair<MSVehicle*, double> &leader,
-        const std::pair<MSVehicle*, double> &rLead,
-        const std::pair<MSVehicle*, double> &rFollow,
-        int blocked, int bestLaneOffset, double bestDist, double currentDist);
+        const std::pair<MSVehicle*, SUMOReal> &leader,
+        const std::pair<MSVehicle*, SUMOReal> &rLead,
+        const std::pair<MSVehicle*, SUMOReal> &rFollow,
+        int blocked, int bestLaneOffset, SUMOReal bestDist, SUMOReal currentDist);
 
     /** Returns true if candidate overlaps with a vehicle, that
         already changed the lane.*/
@@ -214,16 +217,16 @@ protected:
 /*
     virtual bool change2RightPossible();
     virtual bool change2LeftPossible();
-    */
-    std::pair<int, double> getChangePreference();
+	*/
+    std::pair<int, SUMOReal> getChangePreference();
 
-    std::pair<MSVehicle *, double> getRealThisLeader(const ChangerIt &target);
-    std::pair<MSVehicle *, double> getRealFollower(const ChangerIt &target);
-    std::pair<MSVehicle *, double> getRealRightFollower();
-    std::pair<MSVehicle *, double> getRealLeftFollower();
-    std::pair<MSVehicle *, double> getRealLeader(const ChangerIt &target);
-    std::pair<MSVehicle *, double> getRealRightLeader();
-    std::pair<MSVehicle *, double> getRealLeftLeader();
+    std::pair<MSVehicle *, SUMOReal> getRealThisLeader(const ChangerIt &target);
+    std::pair<MSVehicle *, SUMOReal> getRealFollower(const ChangerIt &target);
+    std::pair<MSVehicle *, SUMOReal> getRealRightFollower();
+    std::pair<MSVehicle *, SUMOReal> getRealLeftFollower();
+    std::pair<MSVehicle *, SUMOReal> getRealLeader(const ChangerIt &target);
+    std::pair<MSVehicle *, SUMOReal> getRealRightLeader();
+    std::pair<MSVehicle *, SUMOReal> getRealLeftLeader();
 
 
 protected:

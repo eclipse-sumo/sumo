@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.1  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -47,7 +50,7 @@ namespace
 #include <microsim/MSLane.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <microsim/MSEventControl.h>
 #include "MSTriggeredEmitter.h"
 #include <microsim/MSGlobals.h>
@@ -95,11 +98,11 @@ int beginTime_;
 
 MSTriggeredEmitter::MSTriggeredEmitter(const std::string &id,
                                        MSNet &net,
-                                       MSLane* destLane, double pos,
+                                       MSLane* destLane, SUMOReal pos,
                                        const std::string &aXMLFilename)
     : MSTriggeredXMLReader(net, aXMLFilename), MSTrigger(id),
     myDestLane(destLane), myHaveNext(false), myAmOverriding(false),
-    myPos(pos), myUserFlow(1), myUserMode(false), myLastUserEmit(0), myVehicle(0)
+    myPos((SUMOReal) pos), myUserFlow(1), myUserMode(false), myLastUserEmit(0), myVehicle(0)
 {
     assert(myPos>=0);
     beginTime_ = MSNet::getInstance()->getCurrentTimeStep();
@@ -145,7 +148,7 @@ MSTriggeredEmitter::processNext()
 
 
 void
-MSTriggeredEmitter::setUserFlow(float factor)
+MSTriggeredEmitter::setUserFlow(SUMOReal factor)
 {
     // !!! the commands should be adapted to current flow imediatly
     myUserFlow = factor;
@@ -153,7 +156,7 @@ MSTriggeredEmitter::setUserFlow(float factor)
         UserCommand *us = new UserCommand(*this);
         mySentCommands.push_back(us);
         MSEventControl::getBeginOfTimestepEvents()->addEvent(
-            us, getFrequency()+MSNet::getInstance()->getCurrentTimeStep(),
+            us, (SUMOTime) getFrequency()+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
         myLastUserEmit = MSNet::getInstance()->getCurrentTimeStep();
     //}
@@ -167,7 +170,7 @@ MSTriggeredEmitter::setUserMode(bool val)
         UserCommand *us = new UserCommand(*this);
         mySentCommands.push_back(us);
         MSEventControl::getBeginOfTimestepEvents()->addEvent(
-            us, getFrequency()+MSNet::getInstance()->getCurrentTimeStep(),
+            us, (SUMOTime) getFrequency()+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
         myLastUserEmit = MSNet::getInstance()->getCurrentTimeStep();
     }
@@ -176,7 +179,7 @@ MSTriggeredEmitter::setUserMode(bool val)
         UserCommand *us = new UserCommand(*this);
         mySentCommands.push_back(us);
         MSEventControl::getBeginOfTimestepEvents()->addEvent(
-            us, getFrequency()+MSNet::getInstance()->getCurrentTimeStep(),
+            us, (SUMOTime) getFrequency()+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
         myLastUserEmit = MSNet::getInstance()->getCurrentTimeStep();
     }
@@ -214,7 +217,7 @@ MSTriggeredEmitter::userEmit()
     myVehicle->moveSetState( MSVehicle::State( myPos, myDestLane->maxSpeed() ) );
     processNext();
     MSNet::getInstance()->getVehicleControl().newUnbuildVehicleBuild();
-    return getFrequency();
+    return (SUMOTime) getFrequency();
 }
 
 
@@ -232,13 +235,13 @@ MSTriggeredEmitter::wantsMe(MSTriggeredEmitter::UserCommand *us)
 }
 
 
-float
+SUMOReal
 MSTriggeredEmitter::getFrequency() const
 {
 
     return myUserMode
-        ? 1. / (myUserFlow / 3600.)
-        : 1. / (myFlow / 3600.);
+        ? (SUMOReal) (1. / (myUserFlow / 3600.))
+        : (SUMOReal) (1. / (myFlow / 3600.));
 }
 
 
@@ -249,7 +252,7 @@ MSTriggeredEmitter::inUserMode() const
 }
 
 
-float
+SUMOReal
 MSTriggeredEmitter::getUserFlow() const
 {
     return myUserFlow;
@@ -272,7 +275,7 @@ MSTriggeredEmitter::myStartElement(int element, const std::string &name,
             throw ProcessError();
         }
         // check frequency
-        float freq = getFloatSecure(attrs, "frequency", -1);
+        SUMOReal freq = getFloatSecure(attrs, "frequency", -1);
         if(freq<0) {
             MsgHandler::getErrorInstance()->inform(
                 string("MSTriggeredSource ") + getID()
@@ -285,7 +288,7 @@ MSTriggeredEmitter::myStartElement(int element, const std::string &name,
     }
     // vehicle-type distributions
     if(name=="vtype-dist") {
-        float prob = -1;
+        SUMOReal prob = -1;
         try {
             prob = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
         } catch(NumberFormatException) {
@@ -313,7 +316,7 @@ MSTriggeredEmitter::myStartElement(int element, const std::string &name,
     }
 
     if(name=="flow") {
-        float no = -1;
+        SUMOReal no = -1;
         try {
             no = getFloatSecure(attrs, SUMO_ATTR_NO, -1);
         } catch(NumberFormatException) {
@@ -324,11 +327,11 @@ MSTriggeredEmitter::myStartElement(int element, const std::string &name,
             MsgHandler::getErrorInstance()->inform("False probability while parsing calibrator '" + getID() + "' (" + toString(no) + ").");
             return;
         }
-        myFlow = no / 24.; // !!!
+        myFlow = (SUMOReal) (no / 24.); // !!!
         UserCommand *us = new UserCommand(*this);
         mySentCommands.push_back(us);
         MSEventControl::getBeginOfTimestepEvents()->addEvent(
-            us, getFrequency()+MSNet::getInstance()->getCurrentTimeStep(),
+            us, (SUMOTime) getFrequency()+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
         MSNet::getInstance()->getVehicleControl().newUnbuildVehicleBuild();
     }
@@ -398,7 +401,7 @@ MSTriggeredEmitter::setOverriding(bool val)
 
 
 void
-MSTriggeredEmitter::setOverridingValue(double val)
+MSTriggeredEmitter::setOverridingValue(SUMOReal val)
 {
     mySpeedOverrideValue = val;
     if(myAmOverriding) {

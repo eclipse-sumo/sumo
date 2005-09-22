@@ -4,35 +4,30 @@ noinst_LIBRARIES = libmicrosimoutput.a
 EXTRA_DIST =
 
 libmicrosimoutput_a_SOURCES = \
-MSApproachingVehiclesStates.cpp MSApproachingVehiclesStates.h \
-MSCrossSection.cpp MSCrossSection.h \
-MSCurrentHaltingDurationSumPerVehicle.cpp \
+MSApproachingVehiclesStates.h MSCrossSection.h \
 MSCurrentHaltingDurationSumPerVehicle.h \
 MSDensity.cpp MSDensity.h MSDetector2File.cpp MSDetector2File.h \
-MSDetectorControl.cpp MSDetectorControl.h \
 MSDetectorContainerWrapper.h MSDetectorContainerWrapperBase.h \
-MSDetectorCounterContainerWrapper.cpp \
+MSDetectorControl.cpp MSDetectorControl.h \
 MSDetectorCounterContainerWrapper.h \
-MSDetectorFileOutput.cpp MSDetectorFileOutput.h \
+MSDetectorFileOutput.h \
 MSDetectorHaltingContainerWrapper.h \
-MSDetectorInterfaceCommon.cpp MSDetectorInterfaceCommon.h \
-MSDetectorOccupancyCorrection.cpp \
+MSDetectorInterfaceCommon.h \
 MSDetectorOccupancyCorrection.h \
 MSDetectorTypedefs.h \
-MSEDDetector.h MSEDDetectorInterface.cpp MSEDDetectorInterface.h \
-MSHaltDuration.cpp MSHaltDuration.h \
-MSHaltingDurationSum.cpp MSHaltingDurationSum.h \
+MSEDDetector.h MSEDDetectorInterface.h \
+MSHaltDuration.h \
+MSHaltingDurationSum.h \
 MSInductLoop.cpp MSInductLoop.h \
-MSJamLengthAheadOfTrafficLights.cpp \
 MSJamLengthAheadOfTrafficLights.h \
-MSJamLengthSum.cpp MSJamLengthSum.h MSLDDetector.h \
-MSLDDetectorInterface.cpp MSLDDetectorInterface.h \
-MSMaxJamLength.cpp MSMaxJamLength.h MSMeanDetector.h \
-MSNStartedHalts.cpp MSNStartedHalts.h MSNVehicles.cpp MSNVehicles.h \
-MSObserver.h MSOccupancyDegree.cpp MSOccupancyDegree.h MSPredicates.h \
-MSQueueLengthAheadOfTrafficLights.cpp MSQueueLengthAheadOfTrafficLights.h \
-MSSpaceMeanSpeed.cpp MSSpaceMeanSpeed.h MSSubject.h MSSumDetector.h \
-MSTDDetector.h MSTDDetectorInterface.cpp MSTDDetectorInterface.h \
+MSJamLengthSum.h MSLDDetector.h \
+MSLDDetectorInterface.h \
+MSMaxJamLength.h MSMeanDetector.h \
+MSNStartedHalts.h MSNVehicles.cpp MSNVehicles.h \
+MSObserver.h MSOccupancyDegree.h MSPredicates.h \
+MSQueueLengthAheadOfTrafficLights.h \
+MSSpaceMeanSpeed.h MSSubject.h MSSumDetector.h \
+MSTDDetector.h MSTDDetectorInterface.h \
 MSXMLRawOut.cpp MSXMLRawOut.h
 
 SUBDIRS = e1_detectors e2_detectors e3_detectors meandata

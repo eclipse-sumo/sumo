@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.1  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -136,7 +139,7 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &,
     // extract the values
     try {
         long next = getLongSecure(attrs, SUMO_ATTR_TIME, -1);
-        double speed = getFloatSecure(attrs, SUMO_ATTR_SPEED, -1.0);
+        SUMOReal speed = getFloatSecure(attrs, SUMO_ATTR_SPEED, -1.0);
         // check the values
         if(next<0) {
             MsgHandler::getErrorInstance()->inform(
@@ -169,7 +172,7 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &,
 }
 
 
-double
+SUMOReal
 MSLaneSpeedTrigger::getDefaultSpeed() const
 {
     return myDefaultSpeed;
@@ -189,7 +192,7 @@ MSLaneSpeedTrigger::setOverriding(bool val)
 
 
 void
-MSLaneSpeedTrigger::setOverridingValue(double val)
+MSLaneSpeedTrigger::setOverridingValue(SUMOReal val)
 {
     mySpeedOverrideValue = val;
     if(myAmOverriding) {
@@ -201,14 +204,14 @@ MSLaneSpeedTrigger::setOverridingValue(double val)
 }
 
 
-double
+SUMOReal
 MSLaneSpeedTrigger::getLoadedSpeed()
 {
     return myLoadedSpeed;
 }
 
 
-double
+SUMOReal
 MSLaneSpeedTrigger::getCurrentSpeed() const
 {
     return (*(myDestLanes.begin()))->maxSpeed();

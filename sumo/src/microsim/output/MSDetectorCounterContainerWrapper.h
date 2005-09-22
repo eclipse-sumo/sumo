@@ -50,7 +50,7 @@ class MSVehicle;
 struct MSDetectorCounterContainerWrapper
     : public MSDetectorContainerWrapperBase
 {
-    typedef double Container;
+    typedef SUMOReal Container;
 
     void enterDetectorByMove( MSVehicle* )
         {

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.10  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -61,7 +64,7 @@
 // Inlined some methods. See the .icc files.
 //
 // Revision 1.2  2002/04/11 15:25:56  croessel
-// Changed float to double.
+// Changed SUMOReal to SUMOReal.
 //
 // Revision 1.1.1.1  2002/04/08 07:21:24  traffic
 // new project name
@@ -139,50 +142,50 @@ public:
     friend class MSVehicle;
 
     /// Constructor.
-    MSVehicleType( std::string id, double length, double maxSpeed,
-                   double accel = 0.8, double decel = 4.5, double dawdle = 0.5 );
+    MSVehicleType( std::string id, SUMOReal length, SUMOReal maxSpeed,
+                   SUMOReal accel = 0.8, SUMOReal decel = 4.5, SUMOReal dawdle = 0.5 );
 
     /// Destructor.
     virtual ~MSVehicleType();
 
     /// Get vehicle type's length [m].
-    double length() const;
+    SUMOReal length() const;
 
     /// Get vehicle type's maximum speed [m/s].
-    double maxSpeed() const;
+    SUMOReal maxSpeed() const;
 
     /// Get the vehicle type's maximum acceleration [m/s^2]
-    double accel(double v) const;
+    SUMOReal accel(SUMOReal v) const;
 
     /// Get the vehicle type's maximum deceleration [m/s^2]
-    double decel() const;
+    SUMOReal decel() const;
 
     /// Get the vehicle type's dawdle-probability. Out of [0,1]
-    double dawdle() const;
+    SUMOReal dawdle() const;
 
     /// Returns the minimum deceleration-ability of all vehicle-types.
-    static double minDecel();
+    static SUMOReal minDecel();
 
     /// Returns the maximum length of all vehicle-types.
-    static double maxLength();
+    static SUMOReal maxLength();
 
     /// Returns precomputed accel * deltaT
-    double accelSpeed( double v ) const;
+    SUMOReal accelSpeed( SUMOReal v ) const;
 
     /// Returns precomputed decel * deltaT
-    double decelSpeed( void ) const;
+    SUMOReal decelSpeed( void ) const;
 
     /// Returns precomputed ( accel + decel ) * deltaT
-    double accelPlusDecelSpeed( double v ) const;
+    SUMOReal accelPlusDecelSpeed( SUMOReal v ) const;
 
     /// Returns precomputed 1 / ( 2 * decel )
-    double inversTwoDecel( void ) const;
+    SUMOReal inversTwoDecel( void ) const;
 
     /// Returns precomputed accel * deltaT^2
-    double accelDist( double v ) const;
+    SUMOReal accelDist( SUMOReal v ) const;
 
     /// Returns precomputed decel * deltaT^2
-    double decelDist( void ) const;
+    SUMOReal decelDist( void ) const;
 
     /** Inserts a MSVehicleType into the static dictionary and returns true
         if the key id isn't already in the dictionary. Otherwise returns
@@ -206,33 +209,33 @@ private:
     std::string myID;
 
     /// Vehicle type's length [m].
-    double myLength;
+    SUMOReal myLength;
 
     /// Vehicle type's maximum speed [m/s].
-    double myMaxSpeed;
+    SUMOReal myMaxSpeed;
 
     /// The vehicle type's maximum acceleration [m/s^2]
-    double myAccel;
+    SUMOReal myAccel;
 
     /// The vehicle type's maximum deceleration [m/s^2]
-    double myDecel;
+    SUMOReal myDecel;
 
     /// The vehicle type's dawdle-parameter. 0 for no dawdling, 1 for max.
-    double myDawdle;
+    SUMOReal myDawdle;
 
 
-//    double myAccelSpeed;
-    double myDecelSpeed;
-//    double myAccelPlusDecelSpeed;
-    double myInversTwoDecel;
-//    double myAccelDist;
-    double myDecelDist;
+//    SUMOReal myAccelSpeed;
+    SUMOReal myDecelSpeed;
+//    SUMOReal myAccelPlusDecelSpeed;
+    SUMOReal myInversTwoDecel;
+//    SUMOReal myAccelDist;
+    SUMOReal myDecelDist;
 
     /// Minimum deceleration-ability of all vehicle-types.
-    static double myMinDecel;
+    static SUMOReal myMinDecel;
 
     /// Maximum length of all vehicle-types.
-    static double myMaxLength;
+    static SUMOReal myMaxLength;
 
     /// Definition of the type of the static dictionary to associate string-ids with objects.
     typedef std::map< std::string, MSVehicleType* > DictType;

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.1  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -64,7 +67,7 @@ public:
     /** constructor */
     MSTriggeredRerouter(const std::string &id,
         MSNet &net, const std::vector<MSEdge*> &edges,
-        float prob, const std::string &aXMLFilename);
+        SUMOReal prob, const std::string &aXMLFilename);
 
     /** destructor */
     virtual ~MSTriggeredRerouter();
@@ -76,8 +79,8 @@ public:
 
         ~Setter();
 
-        bool isStillActive( MSVehicle& veh, double oldPos, double newPos,
-            double newSpeed );
+        bool isStillActive( MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
+            SUMOReal newSpeed );
 
         void dismissByLaneChange( MSVehicle& veh );
 
@@ -92,7 +95,7 @@ public:
         SUMOTime end;
         std::vector<MSEdge*> closed;
         std::vector<MSEdge*> dests;
-        std::vector<std::pair<float, MSEdge*> > prob;
+        std::vector<std::pair<SUMOReal, MSEdge*> > prob;
     };
 
     void reroute(MSVehicle &veh, const MSEdge *src);
@@ -106,10 +109,10 @@ public:
     const RerouteInterval &getCurrentReroute(SUMOTime time) const;
 
     void setUserMode(bool val);
-    void setUserUsageProbability(float prob);
+    void setUserUsageProbability(SUMOReal prob);
     bool inUserMode() const;
-    float getProbability() const;
-    float getUserProbability() const;
+    SUMOReal getProbability() const;
+    SUMOReal getUserProbability() const;
 
 protected:
     /** the implementation of the SAX-handler interface for reading
@@ -140,8 +143,8 @@ protected:
     SUMOTime myCurrentIntervalBegin, myCurrentIntervalEnd;
     std::vector<MSEdge*> myCurrentClosed;
     std::vector<MSEdge*> myCurrentDests;
-    std::vector<std::pair<float, MSEdge*> > myCurrentProb;
-    float myProbability, myUserProbability;
+    std::vector<std::pair<SUMOReal, MSEdge*> > myCurrentProb;
+    SUMOReal myProbability, myUserProbability;
     bool myAmInUserMode;
 //    MSEdge *myCurrentExplicite;
 

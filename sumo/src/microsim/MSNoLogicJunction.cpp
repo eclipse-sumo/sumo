@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.9  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -30,7 +33,7 @@ namespace
 // level 3 warnings removed; a certain SUMOTime time description added
 //
 // Revision 1.6  2004/08/02 12:09:39  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.5  2003/12/04 13:30:41  dkrajzew
 // work on internal lanes

@@ -47,12 +47,12 @@
 class MSMaxJamLengthInVehicles
 {
 protected:
-    typedef double DetectorAggregate;
+    typedef SUMOReal DetectorAggregate;
     typedef DetectorContainer::HaltingsList Container;
     typedef Container::HaltingsConstIt HaltingsConstIt;
     typedef Container::InnerContainer Haltings;
 
-    MSMaxJamLengthInVehicles( double,
+    MSMaxJamLengthInVehicles( SUMOReal,
                               const Container& container )
         : containerM( container )
         {}
@@ -62,23 +62,23 @@ protected:
 
     DetectorAggregate getDetectorAggregate( void )
         {
-            double maxNVeh = 0.0;
-            double vehCount = 0.0;
+            SUMOReal maxNVeh = 0.0;
+            SUMOReal vehCount = 0.0;
             int pos = 0;
             for ( HaltingsConstIt it = containerM.containerM.begin();
                   it != containerM.containerM.end(); ++it ) {
                 if ( it->isInJamM ) {
                     ++vehCount;
                     if(pos==0) {
-                        double corr = containerM.occupancyCorrectionM->getOccupancyEntryCorrection();
+                        SUMOReal corr = containerM.occupancyCorrectionM->getOccupancyEntryCorrection();
                         if(corr!=0) {
-                            vehCount -= (1.0 - corr);
+                            vehCount -= (SUMOReal) (1.0 - corr);
                         }
                     }
                     if(pos==containerM.containerM.size()-1) {
-                        double corr = containerM.occupancyCorrectionM->getOccupancyLeaveCorrection();
+                        SUMOReal corr = containerM.occupancyCorrectionM->getOccupancyLeaveCorrection();
                         if(corr!=0) {
-                            vehCount -= (1.0 - corr);
+                            vehCount -= (SUMOReal) (1.0 - corr);
                         }
                     }
                     if ( vehCount > maxNVeh ) {
@@ -105,12 +105,12 @@ private:
 class MSMaxJamLengthInMeters
 {
 protected:
-    typedef double DetectorAggregate;
+    typedef SUMOReal DetectorAggregate;
     typedef DetectorContainer::HaltingsList Container;
     typedef Container::HaltingsConstIt HaltingsConstIt;
     typedef Container::InnerContainer Haltings;
 
-    MSMaxJamLengthInMeters( double,
+    MSMaxJamLengthInMeters( SUMOReal,
                             const Container& container )
         : containerM( container )
         {}
@@ -120,7 +120,7 @@ protected:
 
     DetectorAggregate getDetectorAggregate( void )
         {
-            double maxDist = 0.0;
+            SUMOReal maxDist = 0.0;
             const MSVehicle* startVeh = 0;
             const MSVehicle* stopVeh = 0;
             for ( HaltingsConstIt it = containerM.containerM.begin();
@@ -130,18 +130,18 @@ protected:
                         startVeh = it->vehM;
                     }
                     stopVeh = it->vehM;
-                    double dist = stopVeh->pos() - startVeh->pos() +
+                    SUMOReal dist = stopVeh->pos() - startVeh->pos() +
                         startVeh->length();
                     if(startVeh==containerM.containerM.begin()->vehM) {
-                        double corr = containerM.occupancyCorrectionM->getOccupancyEntryCorrection();
+                        SUMOReal corr = containerM.occupancyCorrectionM->getOccupancyEntryCorrection();
                         if(corr!=0) {
-                            dist -= ((1.0 - corr) * startVeh->length());
+                            dist -= (SUMOReal) ((1.0 - corr) * startVeh->length());
                         }
                     }
                     if(stopVeh==(--containerM.containerM.end())->vehM) {
-                        double corr = containerM.occupancyCorrectionM->getOccupancyLeaveCorrection();
+                        SUMOReal corr = containerM.occupancyCorrectionM->getOccupancyLeaveCorrection();
                         if(corr!=0) {
-                            dist -= ((1.0 - corr) * stopVeh->length());
+                            dist -= (SUMOReal) ((1.0 - corr) * stopVeh->length());
                         }
                     }
                     if ( dist > maxDist ) {

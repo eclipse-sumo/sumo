@@ -42,7 +42,7 @@
 #include <microsim/output/MSDetectorHaltingContainerWrapper.h>
 #include <microsim/output/MSDetectorCounterContainerWrapper.h>
 #include <microsim/output/MSDetectorOccupancyCorrection.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <string>
 #include <cassert>
 #include <vector>
@@ -250,7 +250,7 @@ public:
     /// @return If the detector exists, return it's current value,
     /// else return -1.
     ///
-    double getCurrent( E2::DetType type )
+    SUMOReal getCurrent( E2::DetType type )
         {
             assert( type <= E2::lastTD );
 
@@ -276,7 +276,7 @@ public:
     /// @return If the detector exists, return it's aggregated value,
     /// else return -1.
     ///
-    double getAggregate( E2::DetType type, MSUnit::Seconds lastNSeconds )
+    SUMOReal getAggregate( E2::DetType type, MSUnit::Seconds lastNSeconds )
         {
             assert( type <= E2::lastLD );
 
@@ -361,14 +361,14 @@ public:
     /// @param veh The vehicle in question.
     /// @param oldPos Position before the move-micro-timestep.
     /// @param newPos Position after the move-micro-timestep.
-    /// @param double Unused here.
+    /// @param SUMOReal Unused here.
     ///
     /// @return False, if vehicle passed the detector entierly, else true.
     ///
     bool isStillActive( MSVehicle& veh,
-                        double oldPos,
-                        double newPos,
-                        double )
+                        SUMOReal oldPos,
+                        SUMOReal newPos,
+                        SUMOReal )
         {
             if ( newPos <= startPosM ) {
                 // detector not yet reached
@@ -745,8 +745,8 @@ private:
                     detectorsTDM[ E2::DENSITY ] =
                         new E2Density(
                             E2Density::getDetectorName() + detId,
-                            endPosM - startPosM,
-                            deleteDataAfterSecondsM,
+                            (SUMOReal) (endPosM - startPosM),
+                            (SUMOReal) deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::Count* >(
                                 containersM[ E2::COUNTER ] ) );
                     break;
@@ -757,8 +757,8 @@ private:
                     detectorsTDM[ E2::MAX_JAM_LENGTH_IN_VEHICLES ] =
                         new E2MaxJamLengthInVehicles(
                             E2MaxJamLengthInVehicles::getDetectorName() +detId,
-                            endPosM - startPosM,
-                            deleteDataAfterSecondsM,
+                            (SUMOReal) (endPosM - startPosM),
+                            (SUMOReal) deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::HaltingsList* >(
                                 containersM[ E2::HALTINGS ] ) );
                     break;
@@ -769,8 +769,8 @@ private:
                     detectorsTDM[ E2::MAX_JAM_LENGTH_IN_METERS ] =
                         new E2MaxJamLengthInMeters(
                             E2MaxJamLengthInMeters::getDetectorName() + detId,
-                            endPosM - startPosM,
-                            deleteDataAfterSecondsM,
+                            (SUMOReal) (endPosM - startPosM),
+                            (SUMOReal) deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::HaltingsList* >(
                                 containersM[ E2::HALTINGS ] ) );
                     break;
@@ -781,8 +781,8 @@ private:
                     detectorsTDM[ E2::JAM_LENGTH_SUM_IN_VEHICLES ] =
                         new E2JamLengthSumInVehicles(
                             E2JamLengthSumInVehicles::getDetectorName()+detId,
-                            endPosM - startPosM,
-                            deleteDataAfterSecondsM,
+                            (SUMOReal) (endPosM - startPosM),
+                            (SUMOReal) deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::HaltingsList* >(
                                 containersM[ E2::HALTINGS ] ) );
                     break;
@@ -793,8 +793,8 @@ private:
                     detectorsTDM[ E2::JAM_LENGTH_SUM_IN_METERS ] =
                         new E2JamLengthSumInMeters(
                             E2JamLengthSumInMeters::getDetectorName() + detId,
-                            endPosM - startPosM,
-                            deleteDataAfterSecondsM,
+                            (SUMOReal) (endPosM - startPosM),
+                            (SUMOReal) deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::HaltingsList* >(
                                 containersM[ E2::HALTINGS ] ) );
 
@@ -809,8 +809,8 @@ private:
                         E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES ] =
                         new E2QueueLengthAheadOfTrafficLightsInVehicles(
                             E2QueueLengthAheadOfTrafficLightsInVehicles::getDetectorName() + detId,
-                            endPosM - startPosM,
-                            deleteDataAfterSecondsM,
+                            (SUMOReal) (endPosM - startPosM),
+                            (SUMOReal) deleteDataAfterSecondsM,
                             *detectorsTDM[ E2::MAX_JAM_LENGTH_IN_VEHICLES ] );
                     break;
                 }
@@ -823,8 +823,8 @@ private:
                         E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS ] =
                         new E2QueueLengthAheadOfTrafficLightsInMeters(
                             E2QueueLengthAheadOfTrafficLightsInMeters::getDetectorName() + detId,
-                            endPosM - startPosM,
-                            deleteDataAfterSecondsM,
+                            (SUMOReal) (endPosM - startPosM),
+                            (SUMOReal) deleteDataAfterSecondsM,
                             *detectorsTDM[ E2::MAX_JAM_LENGTH_IN_METERS ] );
                     break;
                 }
@@ -834,8 +834,8 @@ private:
                     detectorsTDM[ E2::N_VEHICLES ] =
                         new E2NVehicles(
                             E2NVehicles::getDetectorName() + detId,
-                            endPosM - startPosM,
-                            deleteDataAfterSecondsM,
+                            (SUMOReal) (endPosM - startPosM),
+                            (SUMOReal) deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::Count* >(
                                 containersM[ E2::COUNTER ] ) );
                     break;
@@ -846,8 +846,8 @@ private:
                     detectorsTDM[ E2::OCCUPANCY_DEGREE ] =
                         new E2OccupancyDegree(
                             E2OccupancyDegree::getDetectorName() + detId,
-                            endPosM - startPosM,
-                            deleteDataAfterSecondsM,
+                            (SUMOReal) (endPosM - startPosM),
+                            (SUMOReal) deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::VehiclesList* >(
                                 containersM[ E2::VEHICLES ] ) );
                     break;
@@ -858,8 +858,8 @@ private:
                     detectorsTDM[ E2::SPACE_MEAN_SPEED ] =
                         new E2SpaceMeanSpeed(
                             E2SpaceMeanSpeed::getDetectorName() + detId,
-                            endPosM - startPosM,
-                            deleteDataAfterSecondsM,
+                            (SUMOReal) (endPosM - startPosM),
+                            (SUMOReal) deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::VehiclesList* >(
                                 containersM[ E2::VEHICLES ] ) );
                     break;
@@ -870,8 +870,8 @@ private:
                     detectorsTDM[ E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE] =
                         new E2CurrentHaltingDurationSumPerVehicle(
                             E2CurrentHaltingDurationSumPerVehicle::getDetectorName() + detId,
-                            endPosM - startPosM,
-                            deleteDataAfterSecondsM,
+                            (SUMOReal) (endPosM - startPosM),
+                            (SUMOReal) deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::HaltingsList* >(
                                 containersM[ E2::HALTINGS ] ) );
                     break;
@@ -891,7 +891,7 @@ private:
                     detectorsEDM[ getIndex( E2::N_STARTED_HALTS ) ] =
                         new E2NStartedHalts(
                             E2NStartedHalts::getDetectorName() + detId,
-                            deleteDataAfterSecondsM,
+                            (SUMOReal) deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::HaltingsList* >(
                                 containersM[ E2::HALTINGS ] ) );
                     break;
@@ -915,7 +915,7 @@ private:
                     detectorsLDM[ getIndex( E2::HALTING_DURATION_MEAN ) ] =
                         new E2HaltingDurationMean(
                             E2HaltingDurationMean::getDetectorName() + detId,
-                            deleteDataAfterSecondsM,
+                            (SUMOReal) deleteDataAfterSecondsM,
                             *static_cast< DetectorContainer::HaltingsList* >(
                                 containersM[ E2::HALTINGS ] ) );
                     break;
@@ -939,7 +939,7 @@ private:
             SUMOTime startTime, SUMOTime stopTime)
         {
             MSUnit::Seconds lastNSeconds =
-                stopTime-startTime+1;
+                (MSUnit::Steps) (stopTime-startTime+1);
             size_t i = 0;
             for ( typename Cont::iterator it = container.begin();
                   it != container.end(); ++it, ++i ) {

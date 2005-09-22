@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -63,7 +66,7 @@
 
 
 inline
-double
+SUMOReal
 MSVehicleType::length() const
 {
     return myLength;
@@ -71,7 +74,7 @@ MSVehicleType::length() const
 
 
 inline
-double
+SUMOReal
 MSVehicleType::maxSpeed() const
 {
     return myMaxSpeed;
@@ -79,15 +82,15 @@ MSVehicleType::maxSpeed() const
 
 
 inline
-double
-MSVehicleType::accel(double v) const
+SUMOReal
+MSVehicleType::accel(SUMOReal v) const
 {
-    return myAccel * (1.0 - (v/myMaxSpeed));
+    return (SUMOReal) (myAccel * (1.0 - (v/myMaxSpeed)));
 }
 
 
 inline
-double
+SUMOReal
 MSVehicleType::decel() const
 {
     return myDecel;
@@ -95,7 +98,7 @@ MSVehicleType::decel() const
 
 
 inline
-double
+SUMOReal
 MSVehicleType::dawdle() const
 {
     return myDawdle;
@@ -103,7 +106,7 @@ MSVehicleType::dawdle() const
 
 
 inline
-double
+SUMOReal
 MSVehicleType::minDecel()
 {
     return myMinDecel;
@@ -111,7 +114,7 @@ MSVehicleType::minDecel()
 
 
 inline
-double
+SUMOReal
 MSVehicleType::maxLength()
 {
     return myMaxLength;
@@ -119,15 +122,15 @@ MSVehicleType::maxLength()
 
 
 inline
-double
-MSVehicleType::accelSpeed( double v ) const
+SUMOReal
+MSVehicleType::accelSpeed( SUMOReal v ) const
 {
-    return ACCEL2SPEED(myAccel * (1.0 - (v/(myMaxSpeed*2.0))));
+    return (SUMOReal) (ACCEL2SPEED(myAccel * (1.0 - (v/(myMaxSpeed*2.0)))));
 }
 
 
 inline
-double
+SUMOReal
 MSVehicleType::decelSpeed( void ) const
 {
     return myDecelSpeed;
@@ -135,8 +138,8 @@ MSVehicleType::decelSpeed( void ) const
 
 
 inline
-double
-MSVehicleType::accelPlusDecelSpeed( double v ) const
+SUMOReal
+MSVehicleType::accelPlusDecelSpeed( SUMOReal v ) const
 {
 	return ACCEL2SPEED( accel(v) + myDecel );
 //    return myAccelPlusDecelSpeed;
@@ -144,7 +147,7 @@ MSVehicleType::accelPlusDecelSpeed( double v ) const
 
 
 inline
-double
+SUMOReal
 MSVehicleType::inversTwoDecel( void ) const
 {
     return myInversTwoDecel;
@@ -152,15 +155,15 @@ MSVehicleType::inversTwoDecel( void ) const
 
 
 inline
-double
-MSVehicleType::accelDist( double v ) const
+SUMOReal
+MSVehicleType::accelDist( SUMOReal v ) const
 {
     return ACCEL2DIST(accel(v));
 }
 
 
 inline
-double
+SUMOReal
 MSVehicleType::decelDist( void ) const
 {
     return myDecelDist;

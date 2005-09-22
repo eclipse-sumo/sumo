@@ -19,8 +19,11 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.4  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
-
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -53,8 +56,8 @@ public:
         const MSVehicle * const neighLead,
         const MSVehicle * const neighFollow,
         const MSLane &neighLane,
-        int bestLaneOffset, double bestDist,
-        double currentDist);
+        int bestLaneOffset, SUMOReal bestDist,
+        SUMOReal currentDist);
 
     /** @brief Called to examine whether the vehicle wants to change to left
         This method gets the information about the surrounding vehicles
@@ -66,8 +69,8 @@ public:
         const MSVehicle * const neighFollow,
         const MSLane &neighLane,
 //        bool congested, bool predInteraction,
-        int bestLaneOffset, double bestDist,
-        double currentDist);
+        int bestLaneOffset, SUMOReal bestDist,
+        SUMOReal currentDist);
 
     virtual void inform(LaneChangeAction lca, MSVehicle *sender) { }
 

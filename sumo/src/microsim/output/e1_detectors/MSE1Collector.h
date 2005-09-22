@@ -22,6 +22,9 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.8  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 11:08:09  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -58,7 +61,7 @@
 #include <microsim/output/MSLDDetectorInterface.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/output/MSDetectorTypedefs.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/iodevices/XMLDevice.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
@@ -208,7 +211,7 @@ public:
     /// @return If the detector exists, return it's aggregated value,
     /// else return -1.
     ///
-    double getAggregate( E1::DetType type, MSUnit::Seconds lastNSeconds )
+    SUMOReal getAggregate( E1::DetType type, MSUnit::Seconds lastNSeconds )
         {
             assert( type != E1::ALL );
             LDDetector* det = getDetector( type );
@@ -364,7 +367,7 @@ protected:
                     detectorsM[ E1::MEAN_SPEED ] =
                         new E1MeanSpeed(
                             E1MeanSpeed::getDetectorName() + detId,
-                            deleteDataAfterSecondsM,
+							(MSUnit::Seconds) deleteDataAfterSecondsM,
                             vehOnDetectorM );
                     break;
                 }
@@ -432,7 +435,7 @@ protected:
                 SUMOTime startTime, SUMOTime stopTime)
         {
             MSUnit::Seconds lastNSeconds =
-                MSUnit::getInstance()->getSeconds( stopTime-startTime ) + 1;
+                (MSUnit::Seconds) MSUnit::getInstance()->getSeconds( stopTime-startTime ) + 1;
             for ( typename Cont::iterator it = container.begin();
                   it != container.end(); ++it ) {
 

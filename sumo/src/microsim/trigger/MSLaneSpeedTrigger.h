@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.1  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -95,16 +98,16 @@ public:
     /** the implementation of the MSTriggeredReader-processNext method */
     bool processNext();
 
-    double getDefaultSpeed() const;
+    SUMOReal getDefaultSpeed() const;
 
     void setOverriding(bool val);
 
-    void setOverridingValue(double val);
+    void setOverridingValue(SUMOReal val);
 
-    double getLoadedSpeed();
+    SUMOReal getLoadedSpeed();
 
     /// Returns the current speed
-    double getCurrentSpeed() const;
+    SUMOReal getCurrentSpeed() const;
 
 protected:
     /** the implementation of the SAX-handler interface for reading
@@ -131,21 +134,21 @@ protected:
     LaneCont myDestLanes;
 
     /** the speed that will be set on the next call */
-    double myCurrentSpeed;
+    SUMOReal myCurrentSpeed;
 
     bool myHaveNext;
 
     /// The original speed allowed on the lanes
-    double myDefaultSpeed;
+    SUMOReal myDefaultSpeed;
 
     /// The information whether the read speed shall be overridden
     bool myAmOverriding;
 
     /// The speed to use if overriding the read speed
-    double mySpeedOverrideValue;
+    SUMOReal mySpeedOverrideValue;
 
     /// The loaded speed
-    double myLoadedSpeed;
+    SUMOReal myLoadedSpeed;
 
 };
 

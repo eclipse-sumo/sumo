@@ -23,6 +23,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.16  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.15  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -128,9 +131,9 @@ public:
      * @return True if vehicle hasn't passed the detector completely.
      */
     virtual bool isStillActive( MSVehicle& veh,
-                                double oldPos,
-                                double newPos,
-                                double newSpeed ) = 0;
+                                SUMOReal oldPos,
+                                SUMOReal newPos,
+                                SUMOReal newSpeed ) = 0;
 
     /**
      *  Informs corresponding detector if vehicle leaves reminder

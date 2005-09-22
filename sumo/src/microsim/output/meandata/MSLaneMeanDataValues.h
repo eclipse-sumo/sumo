@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 11:08:51  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -83,7 +86,7 @@ struct MSLaneMeanDataValues
     unsigned nVehEntireLane;
 
     /// the number of vehicles that made up the aggregated data
-    float nVehContributed;
+    SUMOReal nVehContributed;
 
     /// the number of vehicles that left this lane within the
     /// sample intervall
@@ -94,29 +97,29 @@ struct MSLaneMeanDataValues
     unsigned nVehEnteredLane;
 
     /// the number of time steps
-    double contTimestepSum;
+    SUMOReal contTimestepSum;
 
     /// as contTimestepSum but as an integer
     unsigned discreteTimestepSum;
 
     /// the sum of the speeds the vehicles had ont the ...
-    double speedSum;
+    SUMOReal speedSum;
 
     /// the sum of squared speeds the vehicles had ont the ...
-    double speedSquareSum;
+    SUMOReal speedSquareSum;
 
     /// traveltime sum from vehicles that entirely passed the lane
-    double traveltimeStepSum;
+    SUMOReal traveltimeStepSum;
 
 /*    void  addVehicleData(
-        double contTimesteps, unsigned discreteTimesteps, double speedSum,
-        double speedSquareSum, bool hasFinishedEntireLane,
-        bool hasLeftLane, bool hasEnteredLane, double travelTimesteps);
+        SUMOReal contTimesteps, unsigned discreteTimesteps, SUMOReal speedSum,
+        SUMOReal speedSquareSum, bool hasFinishedEntireLane,
+        bool hasLeftLane, bool hasEnteredLane, SUMOReal travelTimesteps);
         */
 
     unsigned haltSum;
 
-    double vehLengthSum;
+    SUMOReal vehLengthSum;
 
 };
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 11:09:53  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -83,7 +86,7 @@ public:
     virtual void init(NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
         const std::map<std::string, std::vector<std::string> > &edgeContinuations,
-        double det_offset) = 0;
+        SUMOReal det_offset) = 0;
 
 };
 

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.1  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -67,7 +70,7 @@ class MSTriggeredEmitter : public MSTriggeredXMLReader,
 public:
     /** constructor */
     MSTriggeredEmitter(const std::string &id,
-        MSNet &net, MSLane* destLane, double pos,
+        MSNet &net, MSLane* destLane, SUMOReal pos,
         const std::string &aXMLFilename);
 
     /** destructor */
@@ -101,17 +104,17 @@ protected:
 
 public:
     void setUserMode(bool val);
-    void setUserFlow(float factor);
+    void setUserFlow(SUMOReal factor);
     int userEmit();
     bool wantsMe(UserCommand *us);
-    float getFrequency() const;
+    SUMOReal getFrequency() const;
     bool inUserMode() const;
-    float getUserFlow() const;
+    SUMOReal getUserFlow() const;
 
 /*
     void setOverriding(bool val);
 /*
-    void setOverridingValue(double val);
+    void setOverridingValue(SUMOReal val);
 */
 protected:
     /** the implementation of the SAX-handler interface for reading
@@ -144,7 +147,7 @@ private:   // private members
         /// Destructor.
         ~RouteDistribution( void );
         void addElement( MSRoute* aRoute,
-                         double aFrequency );
+                         SUMOReal aFrequency );
 		MSRoute* getRndRoute( void );
         unsigned getSize( void ) const;
     protected:
@@ -168,9 +171,9 @@ private:   // private members
                 corresponding route-pointer. Is not bound to a maximum
                 value, but should be > 0.
             /
-            double myFrequency;
+            SUMOReal myFrequency;
 
-            double myFrequencySum;
+            SUMOReal myFrequencySum;
         };
 
         typedef std::vector< RouteDistElement > RouteDistCont;
@@ -180,10 +183,10 @@ private:   // private members
          /
         struct FrequencyGreater :
             public std::binary_function< RouteDistElement,
-                                         double, bool >
+                                         SUMOReal, bool >
         {
             bool operator() ( RouteDistElement elem,
-                              double cmpFreq ) const;
+                              SUMOReal cmpFreq ) const;
         };
 
     }; // end class RouteDistribution
@@ -201,14 +204,14 @@ protected:
     /// The information whether the read speed shall be overridden
     bool myAmOverriding;
     bool myIsNewEmitFound;
-    float myEmitSpeed;
-    float myPos;
+    SUMOReal myEmitSpeed;
+    SUMOReal myPos;
     bool myUserMode;
-    float myUserFlow;
+    SUMOReal myUserFlow;
     SUMOTime myLastUserEmit;
     //int myNoUserEvents;
     RandomDistributor<MSVehicleType*> myCurrentVTypeDist;
-    float myFlow;
+    SUMOReal myFlow;
     std::vector<UserCommand*> mySentCommands;
 
 };

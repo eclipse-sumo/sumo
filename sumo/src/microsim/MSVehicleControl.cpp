@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -193,23 +196,23 @@ MSVehicleControl::getWaitingVehicleNo() const
 }
 
 
-double
+SUMOReal
 MSVehicleControl::getMeanWaitingTime() const
 {
     if(myEmittedVehNo==0) {
         return -1;
     }
-    return (double) myAbsVehWaitingTime / (double) myEmittedVehNo;
+    return (SUMOReal) myAbsVehWaitingTime / (SUMOReal) myEmittedVehNo;
 }
 
 
-double
+SUMOReal
 MSVehicleControl::getMeanTravelTime() const
 {
     if(myEndedVehNo==0) {
         return -1;
     }
-    return (double) myAbsVehTravelTime / (double) myEndedVehNo;
+    return (SUMOReal) myAbsVehTravelTime / (SUMOReal) myEndedVehNo;
 }
 
 

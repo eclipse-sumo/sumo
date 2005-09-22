@@ -78,9 +78,9 @@ public:
 
     bool isStillActive(
         MSVehicle& veh
-        , double oldPos
-        , double newPos
-        , double
+        , SUMOReal oldPos
+        , SUMOReal newPos
+        , SUMOReal
 
         )
         {
@@ -112,8 +112,8 @@ private:
 
     // EntryReminder overload
     bool isActive(MSVehicle& veh,
-                  double oldPos ,
-                  double newPos,
+                  SUMOReal oldPos ,
+                  SUMOReal newPos,
                   Loki::Int2Type< true >)
         {
             // crossSection partially or completely entered
@@ -138,8 +138,8 @@ private:
 
     // LeaveReminder overload
     bool isActive(MSVehicle& veh,
-                  double oldPos ,
-                  double newPos,
+                  SUMOReal oldPos ,
+                  SUMOReal newPos,
                   Loki::Int2Type< false >)
         {
             if ( newPos - veh.length() > posM ) {

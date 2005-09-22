@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/22 13:45:52  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.10  2005/09/15 11:08:51  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -52,7 +55,7 @@ namespace
 #include <microsim/MSEdgeControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSMeanData_Net.h"
 #include <limits>
@@ -148,7 +151,7 @@ MSMeanData_Net::write(XMLDevice &dev,
         return;
     }
     bool found = myDumpBegins.size()==0;
-    for(int i=0; i<myDumpBegins.size()&&!found; ++i) {
+    for(unsigned int i=0; i<myDumpBegins.size()&&!found; ++i) {
         if(!((myDumpBegins[i]>=0&&myDumpBegins[i]>stopTime)||(myDumpEnds[i]>=0&&myDumpEnds[i]<startTime))) {
             found = true;
         }
@@ -157,12 +160,6 @@ MSMeanData_Net::write(XMLDevice &dev,
         resetOnly(stopTime);
         return;
     }
-    /*
-    if((myDumpBegin>=0&&myDumpBegin>stopTime)||(myDumpEnd>=0&&myDumpEnd<startTime)) {
-        resetOnly(stopTime);
-        return;
-    }
-    */
     // interval begin
     // edges
     MSEdgeControl::EdgeCont::const_iterator edg;
@@ -185,59 +182,6 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
                           const MSEdge &edge,
                           SUMOTime startTime, SUMOTime stopTime)
 {
-#ifdef HAVE_MESOSIM
-    if(MSGlobals::gUseMesoSim) {
-        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
-        double flowS = 0;
-        s->updateMeanData((SUMOReal) stopTime);
-        double meanDensityS = 0;
-        double meanSpeedS = 0;
-        double traveltimeS = 0;
-        double noStopsS = 0;
-        double nVehS = 0;
-        int noSegments = 0;
-        while(s!=0) {
-            double traveltime = -42;
-            double meanSpeed = -43;
-            double meanDensity = -45;
-            MSLaneMeanDataValues& meanData = s->getMeanData(myIndex);
-            if(meanData.nVehContributed==0) {
-                traveltime = s->getLength() / s->getMaxSpeed();
-                meanSpeed = s->getMaxSpeed();
-                meanDensity = 0;
-            } else {
-                meanSpeed = meanData.speedSum / (double) meanData.nVehContributed;
-                if(meanSpeed==0) {
-                    traveltime = std::numeric_limits<float>::max() / 100.;
-                } else {
-                    traveltime = s->getLength() / meanSpeed;
-                }
-                meanDensity = (double) meanData.vehLengthSum / //.nVehContributed /
-                    (double) (stopTime-startTime+1) / s->getLength();
-            }
-            meanDensityS += meanDensity;
-            meanSpeedS += meanSpeed;
-            traveltimeS += traveltime;
-            noStopsS += meanData.haltSum;
-            nVehS += meanData.nVehContributed;
-            flowS += s->getMeanData(myIndex).nVehEntireLane;
-            s = s->getNextSegment();
-            meanData.reset();
-            noSegments++;
-        }
-        meanDensityS = meanDensityS / (float) noSegments / (float) edge.nLanes();
-        meanSpeedS = meanSpeedS / (float) noSegments;
-        flowS = flowS / (float) noSegments;
-        dev.writeString("      <edge id=\"").writeString(edge.id()).writeString(
-            "\" traveltime=\"").writeString(toString(traveltimeS)).writeString(
-            "\" noVehContrib=\"").writeString(toString(nVehS)).writeString(
-            "\" density=\"").writeString(toString(meanDensityS)).writeString(
-            "\" noStops=\"").writeString(toString(noStopsS)).writeString(
-            "\" speed=\"").writeString(toString(meanSpeedS)).writeString(
-            "\" flow=\"").writeString(toString(flowS*3600./((float) (stopTime-startTime+1)))).writeString( //!!!
-            "\"/>\n");
-    } else {
-#endif
     MSEdge::LaneCont *lanes = edge.getLanes();
     MSEdge::LaneCont::const_iterator lane;
     if(!myAmEdgeBased) {
@@ -247,33 +191,33 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
         }
         dev.writeString("   </edge>\n");
     } else {
-        double traveltimeS = 0;
-        double meanSpeedS = 0;
-        double meanDensityS = 0;
-        float noStopsS = 0;
-        float nVehS = 0;
+        SUMOReal traveltimeS = 0;
+        SUMOReal meanSpeedS = 0;
+        SUMOReal meanDensityS = 0;
+        SUMOReal noStopsS = 0;
+        SUMOReal nVehS = 0;
         for ( lane = lanes->begin(); lane != lanes->end(); ++lane) {
             MSLaneMeanDataValues& meanData = (*lane)->getMeanData(myIndex);
             // calculate mean data
-            double traveltime = -42;
-            double meanSpeed = -43;
-            double meanDensity = -45;
+            SUMOReal traveltime = -42;
+            SUMOReal meanSpeed = -43;
+            SUMOReal meanDensity = -45;
             if(meanData.nVehContributed==0) {
                 assert((*lane)->myMaxSpeed>=0);
                 traveltime = (*lane)->myLength / (*lane)->myMaxSpeed;
                 meanSpeed = (*lane)->myMaxSpeed;
                 meanDensity = 0;
             } else {
-                meanSpeed = meanData.speedSum / (double) meanData.nVehContributed;
+                meanSpeed = meanData.speedSum / (SUMOReal) meanData.nVehContributed;
                 if(meanSpeed==0) {
-                    traveltime = std::numeric_limits<float>::max() / 100.;
+                    traveltime = std::numeric_limits<SUMOReal>::max() / (SUMOReal) 100.;
                 } else {
                     traveltime = (*lane)->myLength / meanSpeed;
                 }
-                assert((double) (stopTime-startTime+1)!=0);
+                assert((SUMOReal) (stopTime-startTime+1)!=0);
                 assert((*lane)->myLength!=0);
-                meanDensity = (double) meanData.vehLengthSum / //.nVehContributed /
-                    (double) (stopTime-startTime+1) / (*lane)->myLength;
+                meanDensity = (SUMOReal) meanData.vehLengthSum / //.nVehContributed /
+                    (SUMOReal) (stopTime-startTime+1) / (*lane)->myLength;
             }
             traveltimeS += traveltime;
             meanSpeedS += meanSpeed;
@@ -284,16 +228,13 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
         }
         assert(lanes->size()!=0);
         dev.writeString("      <edge id=\"").writeString(edge.id()).writeString(
-            "\" traveltime=\"").writeString(toString(traveltimeS/(float) lanes->size())).writeString(
+            "\" traveltime=\"").writeString(toString(traveltimeS/(SUMOReal) lanes->size())).writeString(
             "\" noVehContrib=\"").writeString(toString(nVehS)).writeString(
-            "\" density=\"").writeString(toString(meanDensityS/(float) lanes->size())).writeString(
+            "\" density=\"").writeString(toString(meanDensityS/(SUMOReal) lanes->size())).writeString(
             "\" noStops=\"").writeString(toString(noStopsS)).writeString(
-            "\" speed=\"").writeString(toString(meanSpeedS/(float) lanes->size())).writeString(
+            "\" speed=\"").writeString(toString(meanSpeedS/(SUMOReal) lanes->size())).writeString(
             "\"/>\n");
     }
-#ifdef HAVE_MESOSIM
-    }
-#endif
 }
 
 
@@ -305,24 +246,24 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
     assert(lane.myMeanData.size()>myIndex);
     MSLaneMeanDataValues& meanData = lane.getMeanData(myIndex);
     // calculate mean data
-    double traveltime = -42;
-    double meanSpeed = -43;
-    double meanSpeedSquare = -44;
-    double meanDensity = -45;
+    SUMOReal traveltime = -42;
+    SUMOReal meanSpeed = -43;
+    SUMOReal meanSpeedSquare = -44;
+    SUMOReal meanDensity = -45;
 
     if(meanData.nVehContributed==0) {
         traveltime = lane.myLength / lane.myMaxSpeed;
         meanSpeed = lane.myMaxSpeed;
         meanDensity = 0;
     } else {
-        meanSpeed = meanData.speedSum / (double) meanData.nVehContributed;
+        meanSpeed = meanData.speedSum / (SUMOReal) meanData.nVehContributed;
         if(meanSpeed==0) {
-            traveltime = std::numeric_limits<float>::max() / 100.;
+            traveltime = std::numeric_limits<SUMOReal>::max() / (SUMOReal) 100.;
         } else {
             traveltime = lane.myLength / meanSpeed;
         }
-        meanDensity = (double) meanData.vehLengthSum / //.nVehContributed /
-            (double) (stopTime-startTime+1) / lane.myLength;
+        meanDensity = (SUMOReal) meanData.vehLengthSum / //.nVehContributed /
+            (SUMOReal) (stopTime-startTime+1) / lane.myLength;
     }
 
     dev.writeString("      <lane id=\"").writeString(lane.id()).writeString(

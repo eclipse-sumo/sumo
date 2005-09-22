@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -121,10 +124,10 @@ public:
     size_t getWaitingVehicleNo() const;
 
     /// Return the meaning waiting time of vehicles (corn-dependent value)
-    double getMeanWaitingTime() const;
+    SUMOReal getMeanWaitingTime() const;
 
     /// Return the meaning waiting time of vehicles (corn-dependent value)
-    double getMeanTravelTime() const;
+    SUMOReal getMeanTravelTime() const;
 
     /// Informs this instance about the successfull emission of a vehicle
     void vehiclesEmitted(size_t no=1);

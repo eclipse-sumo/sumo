@@ -78,9 +78,9 @@ public:
 
     bool isStillActive(
         MSVehicle& veh
-        , double
-        , double newPos
-        , double
+        , SUMOReal
+        , SUMOReal newPos
+        , SUMOReal
 
         )
         {
@@ -110,7 +110,7 @@ public:
 
 private:
 
-    bool isActive(MSVehicle& veh, double, Loki::Int2Type< true >)
+    bool isActive(MSVehicle& veh, SUMOReal, Loki::Int2Type< true >)
         {
             // crossSection partially or completely entered
             collectorM.enter( veh );
@@ -122,7 +122,7 @@ private:
             return veh.pos() <= posM;
         }
 
-    bool isActive(MSVehicle& veh, double newPos, Loki::Int2Type< false >)
+    bool isActive(MSVehicle& veh, SUMOReal newPos, Loki::Int2Type< false >)
         {
             if ( newPos - veh.length() > posM ) {
                 // crossSection completely left

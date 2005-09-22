@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/05/04 08:09:23  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
@@ -47,7 +50,7 @@
  * ======================================================================= */
 /**
  * @class LoggedValue
- * As detectors may store values over a floating or a fixed interval and
+ * As detectors may store values over a SUMORealing or a fixed interval and
  * a sample interval of one does not require any kind of remembering
  * previous values, we implemented this class to make a common access to
  * all those mentioned cases.

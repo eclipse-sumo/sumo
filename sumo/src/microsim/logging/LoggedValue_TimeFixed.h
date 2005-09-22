@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 11:07:54  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -105,7 +108,7 @@ public:
             return 0; // !!! You could also throw an exception here;
             // This is not meant to be done
         }
-        return myCurrentValue / (double) mySampledUnits;
+        return myCurrentValue / (SUMOReal) mySampledUnits;
     }
 
 

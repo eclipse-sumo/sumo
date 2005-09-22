@@ -5,7 +5,7 @@
  * @file   MSDetectorOccupancyCorrection.h
  * @author Christian Roessel
  * @date   Started Thu Sep 11 16:17:08 2003
- * @version
+ * @version $Id$
  * @brief
  *
  *
@@ -56,7 +56,7 @@ class MSDetectorOccupancyCorrection :
 {
 public:
     void setOccupancyEntryCorrection( const MSVehicle& veh,
-                                      double occupancyFractionOnDet )
+                                      SUMOReal occupancyFractionOnDet )
         {
             assert( occupancyFractionOnDet >= 0 &&
                     occupancyFractionOnDet <= 1 );
@@ -65,7 +65,7 @@ public:
         }
 
     void setOccupancyLeaveCorrection( const MSVehicle& veh,
-                                      double occupancyFractionOnDet )
+                                      SUMOReal occupancyFractionOnDet )
         {
             assert( occupancyFractionOnDet >= 0 &&
                     occupancyFractionOnDet <= 1 );
@@ -92,12 +92,12 @@ public:
             return false;
         }
 
-    double getOccupancyEntryCorrection( void ) const
+    SUMOReal getOccupancyEntryCorrection( void ) const
         {
             return occupancyEntryCorrectionM;
         }
 
-    double getOccupancyLeaveCorrection( void ) const
+    SUMOReal getOccupancyLeaveCorrection( void ) const
         {
             return occupancyLeaveCorrectionM;
         }
@@ -114,8 +114,8 @@ public:
         {}
 
 private:
-    double occupancyEntryCorrectionM;
-    double occupancyLeaveCorrectionM;
+    SUMOReal occupancyEntryCorrectionM;
+    SUMOReal occupancyLeaveCorrectionM;
     MSVehicle const* entryCorrectionVehM;
     MSVehicle const* leaveCorrectionVehM;
 

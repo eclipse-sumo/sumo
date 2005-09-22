@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -68,7 +71,7 @@ namespace
 #include <exception>
 #include <climits>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 
@@ -92,8 +95,8 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-MSInternalLane::MSInternalLane( /*MSNet &net, */string id, double maxSpeed,
-                               double length, MSEdge *e, size_t numericalID, const Position2DVector &shape)
+MSInternalLane::MSInternalLane( /*MSNet &net, */string id, SUMOReal maxSpeed,
+                               SUMOReal length, MSEdge *e, size_t numericalID, const Position2DVector &shape)
     :
     MSLane(/*net, */id, maxSpeed, length, e, numericalID, shape)
 {

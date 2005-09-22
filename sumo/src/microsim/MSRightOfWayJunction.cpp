@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.12  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -29,7 +32,7 @@ namespace
 // level 3 warnings removed; a certain SUMOTime time description added
 //
 // Revision 1.10  2004/08/02 12:09:39  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.9  2003/12/05 14:59:33  dkrajzew
 // removed some unused lines
@@ -68,7 +71,7 @@ namespace
 // is able to leave the lane.
 //
 // Revision 1.2  2002/04/11 15:25:56  croessel
-// Changed float to double.
+// Changed SUMOReal to SUMOReal.
 //
 // Revision 1.1.1.1  2002/04/08 07:21:23  traffic
 // new project name
@@ -231,9 +234,9 @@ MSRightOfWayJunction::deadlockKiller()
         // Choose randomly an index out of [0,trueRequests.size()];
         // !!! random choosing may choose one of less priorised lanes
         unsigned noLockIndex = static_cast< unsigned > ( floor (
-           static_cast< double >( rand() ) /
-           (static_cast< double >( RAND_MAX ) + 1.0) *
-           static_cast< double >( trueRequests.size() ) ) );
+           static_cast< SUMOReal >( rand() ) /
+           (static_cast< SUMOReal >( RAND_MAX ) + 1.0) *
+           static_cast< SUMOReal >( trueRequests.size() ) ) );
 
         // Create deadlock-free request.
         std::bitset<64> noLockRequest(false);

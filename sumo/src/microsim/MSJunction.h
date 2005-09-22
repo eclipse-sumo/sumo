@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.12  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -26,10 +29,10 @@
 // new detectors and tls usage applied; debugging
 //
 // Revision 1.9  2004/08/02 12:09:39  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.8  2003/11/11 08:38:51  dkrajzew
-// consequent position2D instead of two doubles added
+// consequent position2D instead of two SUMOReals added
 //
 // Revision 1.7  2003/07/30 09:02:01  dkrajzew
 // comments corrigued

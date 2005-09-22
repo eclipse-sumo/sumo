@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 11:09:33  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -59,7 +62,7 @@ MSNVehicles::MSNVehicles( const DetectorContainer::Count& counter ) :
     counterM( counter )
 {}
 
-MSNVehicles::MSNVehicles( double,
+MSNVehicles::MSNVehicles( SUMOReal,
                           const DetectorContainer::Count& counter ) :
     counterM( counter )
 {}
@@ -67,7 +70,7 @@ MSNVehicles::MSNVehicles( double,
 MSNVehicles::DetectorAggregate
 MSNVehicles::getDetectorAggregate( void ) // [veh]
 {
-    double nVehOnDet = counterM.vehicleCountM;
+    SUMOReal nVehOnDet = counterM.vehicleCountM;
     return nVehOnDet;
 }
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

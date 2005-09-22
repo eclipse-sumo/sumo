@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/22 13:45:51  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -67,11 +70,11 @@ bool MSGlobals::gUsingInternalLanes;
 
 size_t MSGlobals::gTimeToGridlock = 300;
 
-float MSGlobals::gMinLaneVMax4FalseLaneTeleport;
+SUMOReal MSGlobals::gMinLaneVMax4FalseLaneTeleport;
 
-float MSGlobals::gMaxVehV4FalseLaneTeleport;
+SUMOReal MSGlobals::gMaxVehV4FalseLaneTeleport;
 
-float MSGlobals::gMinVehDist4FalseLaneTeleport;
+SUMOReal MSGlobals::gMinVehDist4FalseLaneTeleport;
 
 bool MSGlobals::gCheck4Accidents;
 

@@ -43,20 +43,20 @@ MSDevice_CPhone::MyCommand::execute()
  * ----------------------------------------------------------------------- */
 MSDevice_CPhone::MSDevice_CPhone()
 {
-    double r1 = rand()/(double) RAND_MAX;
+    SUMOReal r1 = rand()/(SUMOReal) RAND_MAX;
     SUMOTime t1;
     if(r1>0.1) {
         // 10% are off
         m_State = STATE_OFF;
-        t1 = (SUMOTime) (rand()/(double) RAND_MAX * 60. * 60.);   // switch on after long time
+        t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 60. * 60.);   // switch on after long time
     } else if(r1>0.2) {
         // 70% are idle
         m_State = STATE_IDLE;
-        t1 = (SUMOTime) (rand()/(double) RAND_MAX * 20. * 60.);   // start telephoning after some time
+        t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 20. * 60.);   // start telephoning after some time
     } else {
         // 20% are connected
         m_State = STATE_CONNECTED;
-        t1 = (SUMOTime) (rand()/(double) RAND_MAX * 5. * 60.);   // stop telephoning after some time
+        t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // stop telephoning after some time
     }
     for(int i=0;i<7;i++)
     {
@@ -136,18 +136,18 @@ SUMOTime
 MSDevice_CPhone::changeState()
 {
     SUMOTime next;
-    double r1 = rand()/(double) RAND_MAX;
+    SUMOReal r1 = rand()/(SUMOReal) RAND_MAX;
     switch(m_State) {
     case STATE_OFF:
         {
             if(r1>0.5) {
                 // some people wait for a call
                 m_State = STATE_IDLE;
-                next = (SUMOTime) (rand()/(double) RAND_MAX * 20. * 60.);   // no calls for some time
+                next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 20. * 60.);   // no calls for some time
             } else {
                 // some start telephoning
                 m_State = STATE_CONNECTED;
-                next = (SUMOTime) (rand()/(double) RAND_MAX * 5. * 60.);   // telephone some seconds
+                next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // telephone some seconds
             }
         }
         break;
@@ -156,11 +156,11 @@ MSDevice_CPhone::changeState()
             if(r1>0.8) {
                 // some people switch off
                 m_State = STATE_OFF;
-                next = (SUMOTime) (rand()/(double) RAND_MAX * 60. * 60.);   // keep it off
+                next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 60. * 60.);   // keep it off
             } else {
                 // most start telephoning
                 m_State = STATE_CONNECTED;
-                next = (SUMOTime) (rand()/(double) RAND_MAX * 5. * 60.);   // telephone some seconds
+                next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // telephone some seconds
             }
         }
         break;
@@ -169,11 +169,11 @@ MSDevice_CPhone::changeState()
             if(r1>0.1) {
                 // most people stop telephonig
                 m_State = STATE_IDLE;
-                next = (SUMOTime) (rand()/(double) RAND_MAX * 20. * 60.);   // no calls for some time
+                next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 20. * 60.);   // no calls for some time
             } else {
                 // some switch off
                 m_State = STATE_OFF;
-                next = (SUMOTime) (rand()/(double) RAND_MAX * 60. * 60.);   // keep it off
+                next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 60. * 60.);   // keep it off
             }
         }
         break;

@@ -55,7 +55,7 @@ public:
         }
 
 protected:
-    typedef double DetectorAggregate;
+    typedef SUMOReal DetectorAggregate;
     typedef E1::E1Container Container;
 
     MSE1MeanSpeed( const Container& container )

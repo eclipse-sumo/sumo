@@ -37,7 +37,7 @@
 #include "MSNet.h"
 #include "MSEdge.h"
 #include "MSLane.h"
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/helpers/OneArgumentCommand.h>
 #include <utils/iodevices/XMLDevice.h>
 #include <utils/common/SUMOTime.h>
@@ -50,7 +50,7 @@
  *
  * The template parameter class Cost must offer following methods:
  * A constructor
- * Cost( std::string id, MSLane* lane, double startPos, double length,
+ * Cost( std::string id, MSLane* lane, SUMOReal startPos, SUMOReal length,
  * SUMOTime deleteDataAfterSeconds)
  * and it must be a
  * MSDetectorFileOutput
@@ -183,7 +183,7 @@ public:
             IntervalFileMapIt ifIt = intervalsAndFilesM.find( intervalInSteps);
             assert( ifIt != intervalsAndFilesM.end() );
             std::ofstream& ofs = *( ifIt->second );
-            double timeInSeconds = MSNet::getInstance()->simSeconds();
+            SUMOReal timeInSeconds = MSNet::getInstance()->simSeconds();
             ofs << "<interval begin=\""
                 << timeInSeconds - MSNet::getSeconds( intervalInSteps ) + 1
                 << "\" end=\"" << timeInSeconds << ">\n";

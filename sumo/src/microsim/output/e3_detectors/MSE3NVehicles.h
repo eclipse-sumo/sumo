@@ -51,7 +51,7 @@ public:
 
 protected:
 
-    typedef double DetectorAggregate;
+    typedef SUMOReal DetectorAggregate;
     typedef DetectorContainer::VehicleMap Container;
     typedef Container::InnerContainer VehiclesMap;
 

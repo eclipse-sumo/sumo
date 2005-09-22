@@ -59,7 +59,7 @@ namespace TD
         ///
         /// @return The detector's value compiled in one timestep.
         ///
-        virtual double getCurrent( void ) const = 0;
+        virtual SUMOReal getCurrent( void ) const = 0;
 
         /// Dtor.
         virtual ~MSDetectorInterface( void )
