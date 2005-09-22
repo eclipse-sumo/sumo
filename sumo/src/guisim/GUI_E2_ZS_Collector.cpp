@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.12  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -179,7 +182,7 @@ GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
         const Position2D &f = myFullGeometry.at(i);
         const Position2D &s = myFullGeometry.at(i+1);
         myShapeLengths.push_back(GeomHelper::distance(f, s));
-        myShapeRotations.push_back(atan2((s.x()-f.x()), (f.y()-s.y()))*180.0/3.14159265);
+        myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265);
     }
     //
     myBoundary = myFullGeometry.getBoxBoundary();
@@ -270,16 +273,16 @@ GUI_E2_ZS_Collector::MyWrapper::active() const
 
 
 void
-GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale)
+GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(SUMOReal scale)
 {
-    double myWidth = 1;
+    SUMOReal myWidth = 1;
     if(myDetector.getUsageType()==DU_TL_CONTROL) {
-        myWidth = 0.3;
-        glColor3d(0, .6, .8);
+        myWidth = (SUMOReal) 0.3;
+        glColor3d(0, (SUMOReal) .6, (SUMOReal) .8);
     } else {
-        glColor3d(0, .8, .8);
+        glColor3d(0, (SUMOReal) .8, (SUMOReal) .8);
     }
-    double width=2; // !!!
+    SUMOReal width=2; // !!!
     if(width>1.0) {
         glPushMatrix();
         glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
@@ -309,16 +312,16 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(double scale)
 
 
 void
-GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(double scale)
+GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(SUMOReal scale)
 {
-    double myWidth = 1;
+    SUMOReal myWidth = 1;
     if(myDetector.getUsageType()==DU_TL_CONTROL) {
-        myWidth = 0.3;
-        glColor3d(0, .6, .8);
+        myWidth = (SUMOReal) 0.3;
+        glColor3d(0, (SUMOReal) .6, (SUMOReal) .8);
     } else {
-        glColor3d(0, .8, .8);
+        glColor3d(0, (SUMOReal) .8, (SUMOReal) .8);
     }
-    double width=2; // !!!
+    SUMOReal width=2; // !!!
     if(width>1.0) {
         for(size_t i=0; i<myFullGeometry.size()-1; i++) {
             GLHelper::drawBoxLine(myFullGeometry.at(i),

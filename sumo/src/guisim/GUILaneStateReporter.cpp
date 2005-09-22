@@ -19,6 +19,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.15  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.14  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -48,19 +51,19 @@
  * member method definitions
  * ======================================================================= */
 GUILaneStateReporter::GUILaneStateReporter(
-        LoggedValue_TimeFloating<double> *densityRetriever,
-        LoggedValue_TimeFloating<double> *speedRetriever,
-        LoggedValue_TimeFloating<double> *haltingDurRetriever,
-        float &floatingDensity, float &floatingSpeed, float &floatingHaltings,
+        LoggedValue_TimeFloating<SUMOReal> *densityRetriever,
+        LoggedValue_TimeFloating<SUMOReal> *speedRetriever,
+        LoggedValue_TimeFloating<SUMOReal> *haltingDurRetriever,
+        SUMOReal &SUMORealingDensity, SUMOReal &SUMORealingSpeed, SUMOReal &SUMORealingHaltings,
         const std::string &id, MSLane *lane, SUMOTime interval)
-    : MSE2Collector(id, DU_SUMO_INTERNAL, lane, 0.1, lane->length()-0.2, //interval,
-        /*haltingTimeThreshold*/ 1, /*haltingSpeedThreshold*/5.0/3.6,
+    : MSE2Collector(id, DU_SUMO_INTERNAL, lane, (SUMOReal) 0.1, lane->length()-(SUMOReal) 0.2, //interval,
+        /*haltingTimeThreshold*/ 1, /*haltingSpeedThreshold*/(SUMOReal) (5.0/3.6),
         /*jamDistThreshold*/ 10, /*deleteDataAfterSeconds*/ interval), // !!!
     myDensityRetriever(densityRetriever), mySpeedRetriever(speedRetriever),
     myHaltingDurRetriever(haltingDurRetriever),
-    myFloatingDensity(floatingDensity),
-    myFloatingSpeed(floatingSpeed),
-    myFloatingHaltings(floatingHaltings)
+    myFloatingDensity(SUMORealingDensity),
+    myFloatingSpeed(SUMORealingSpeed),
+    myFloatingHaltings(SUMORealingHaltings)
 
 {
     assert(lane->length()>0.2);
@@ -79,7 +82,7 @@ bool
 GUILaneStateReporter::updateEachTimestep( void )
 {
     // density
-    float val = (float) getAggregate(E2::DENSITY, 1);
+    SUMOReal val = (SUMOReal) getAggregate(E2::DENSITY, 1);
     if(myDensityRetriever!=0) {
         myDensityRetriever->add(val);
     }
@@ -87,7 +90,7 @@ GUILaneStateReporter::updateEachTimestep( void )
         myFloatingDensity * gAggregationRememberingFactor
         + val * (1.0f - gAggregationRememberingFactor);
     // speed
-    val = (float) getAggregate(E2::SPACE_MEAN_SPEED, 1);
+    val = (SUMOReal) getAggregate(E2::SPACE_MEAN_SPEED, 1);
     if(mySpeedRetriever!=0) {
         mySpeedRetriever->add(val);
     }
@@ -95,7 +98,7 @@ GUILaneStateReporter::updateEachTimestep( void )
         myFloatingSpeed * gAggregationRememberingFactor
         + val * (1.0f - gAggregationRememberingFactor);
     // halts
-    val = (float) getAggregate(E2::HALTING_DURATION_MEAN, 1);
+    val = (SUMOReal) getAggregate(E2::HALTING_DURATION_MEAN, 1);
     if(myHaltingDurRetriever!=0) {
         myHaltingDurRetriever->add(val);
     }

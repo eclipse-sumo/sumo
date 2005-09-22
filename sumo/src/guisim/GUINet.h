@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.34  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.33  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -226,16 +229,16 @@ public:
     int getSimDuration() const;
 
     /// Returns the simulation speed as a factor to real time
-    double getRTFactor() const;
+    SUMOReal getRTFactor() const;
 
     /// Returns the update per seconds rate
-    double getUPS() const;
+    SUMOReal getUPS() const;
 
     /// Returns the simulation speed as a factor to real time
-    double getMeanRTFactor(int duration) const;
+    SUMOReal getMeanRTFactor(int duration) const;
 
     /// Returns the update per seconds rate
-    double getMeanUPS() const;
+    SUMOReal getMeanUPS() const;
 
     // Returns the duration of the last step's visualisation part (in ms)
     //int getVisDuration() const;

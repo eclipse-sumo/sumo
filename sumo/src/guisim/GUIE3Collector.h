@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -117,10 +120,10 @@ public:
         Boundary getBoundary() const;
 
         /// Draws the detector in full-geometry mode
-        void drawGL_FG(double scale);
+        void drawGL_FG(SUMOReal scale);
 
         /// Draws the detector in simple-geometry mode
-        void drawGL_SG(double scale);
+        void drawGL_SG(SUMOReal scale);
 
         /// Draws the detector in full-geometry mode
         GUIParameterTableWindow *getParameterWindow(
@@ -146,11 +149,11 @@ public:
             /// The position in simple-geometry mode
             Position2D mySGPosition;
             /// The rotation in simple-geometry mode
-            double mySGRotation;
+            SUMOReal mySGRotation;
             /// The position in full-geometry mode
             Position2D myFGPosition;
             /// The rotation in full-geometry mode
-            double myFGRotation;
+            SUMOReal myFGRotation;
         };
 
     protected:
@@ -163,7 +166,7 @@ public:
             bool exit);
 
         /// Draws a single entry/exit point
-        void drawSingleCrossing(const Position2D &pos, double rot) const;
+        void drawSingleCrossing(const Position2D &pos, SUMOReal rot) const;
 
     private:
         /// The wrapped detector
@@ -186,7 +189,7 @@ public:
          * This class realises the retrieval of a certain value
          * with a certain interval specification from the detector
          */
-        class MyValueRetriever : public ValueSource<double> {
+        class MyValueRetriever : public ValueSource<SUMOReal> {
         public:
             /// Constructor
             MyValueRetriever(GUIE3Collector &det,
@@ -197,13 +200,13 @@ public:
             ~MyValueRetriever() { }
 
             /// Returns the current value
-            double getValue() const
+            SUMOReal getValue() const
                 {
-                    return myDetector.getAggregate(myType, myNSec);
+                    return myDetector.getAggregate(myType, (MSUnit::Seconds) myNSec);
                 }
 
             /// Returns a copy of this instance
-            ValueSource<double> *copy() const {
+            ValueSource<SUMOReal> *copy() const {
                 return new MyValueRetriever(myDetector, myType, myNSec);
             }
 

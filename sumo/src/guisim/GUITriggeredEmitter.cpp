@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.1  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -56,7 +59,7 @@ namespace
 #include <utils/geom/Line2D.h>
 #include <utils/geom/Boundary.h>
 #include <utils/glutils/GLHelper.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/helpers/Command.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
@@ -190,7 +193,7 @@ GUITriggeredEmitter::GUIManip_TriggeredEmitter::onCmdClose(FXObject*,FXSelector,
 long
 GUITriggeredEmitter::GUIManip_TriggeredEmitter::onCmdUserDef(FXObject*,FXSelector,void*)
 {
-    myFlowFactor = (float) (myFlowFactorDial->getValue());
+    myFlowFactor = (SUMOReal) (myFlowFactorDial->getValue());
     static_cast<GUITriggeredEmitter*>(myObject)->setUserFlow(myFlowFactor);
     static_cast<GUITriggeredEmitter*>(myObject)->setUserMode(true);
     myParent->updateChildren();
@@ -259,7 +262,7 @@ GUITriggeredEmitter::GUITriggeredEmitterPopupMenu::onCmdOpenManip(FXObject*,
  * GUITriggeredEmitter - methods
  * ----------------------------------------------------------------------- */
 GUITriggeredEmitter::GUITriggeredEmitter(const std::string &id,
-            MSNet &net, MSLane *destLanes, double pos,
+            MSNet &net, MSLane *destLanes, SUMOReal pos,
             const std::string &aXMLFilename)
     : MSTriggeredEmitter(id, net, destLanes, pos, aXMLFilename),
     GUIGlObject_AbstractAdd(gIDStorage,
@@ -349,7 +352,7 @@ GUITriggeredEmitter::getParameterWindow(GUIMainWindow &app,
     // add items
     /*
     ret->mkItem("speed [m/s]", true,
-        new FunctionBinding<GUITriggeredEmitter, double>(this, &GUITriggeredEmitter::getCurrentSpeed));
+        new FunctionBinding<GUITriggeredEmitter, SUMOReal>(this, &GUITriggeredEmitter::getCurrentSpeed));
         */
     // close building
     ret->closeBuilding();
@@ -379,22 +382,22 @@ GUITriggeredEmitter::getPosition() const
 
 
 void
-GUITriggeredEmitter::drawGL_FG(double scale)
+GUITriggeredEmitter::drawGL_FG(SUMOReal scale)
 {
     doPaint(myFGPosition, myFGRotation, scale);
 }
 
 
 void
-GUITriggeredEmitter::drawGL_SG(double scale)
+GUITriggeredEmitter::drawGL_SG(SUMOReal scale)
 {
     doPaint(mySGPosition, mySGRotation, scale);
 }
 
 
 void
-GUITriggeredEmitter::doPaint(const Position2D &pos, double rot,
-                             double scale)
+GUITriggeredEmitter::doPaint(const Position2D &pos, SUMOReal rot,
+                             SUMOReal scale)
 {
     glPushMatrix();
     glTranslated(pos.x(), pos.y(), 0);

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.22  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.21  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -141,7 +144,7 @@ public:
     struct networking_EdgeTimeInformation {
         MSEdge *edge;
         size_t time;
-        float val;
+        SUMOReal val;
     };
 	void addEdgeTimeInfo(const GUIVehicle::networking_EdgeTimeInformation &ei);
 
@@ -157,7 +160,7 @@ public:
 
 
 #ifdef NETWORKING_BLA
-    virtual void enterLaneAtMove( MSLane* enteredLane, double driven );
+    virtual void enterLaneAtMove( MSLane* enteredLane, SUMOReal driven );
 
     /** Update of members if vehicle enters a new lane in the emit step.
         @param Pointer to the entered Lane. */

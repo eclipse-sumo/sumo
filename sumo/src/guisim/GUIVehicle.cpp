@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.31  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -274,21 +277,21 @@ GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
         }
     }
     _randomColor1 = RGBColor(
-        (double) (256-(prod & 255)) / (double) 255,
-        (double) (256-((prod>>8) & 255)) / (double) 255,
-        (double) (256-((prod>>16) & 255)) / (double) 255);
+        (SUMOReal) (256-(prod & 255)) / (SUMOReal) 255,
+        (SUMOReal) (256-((prod>>8) & 255)) / (SUMOReal) 255,
+        (SUMOReal) (256-((prod>>16) & 255)) / (SUMOReal) 255);
     // color2
     _randomColor2 = RGBColor(
-        (double)rand() / ( static_cast<double>(RAND_MAX) + 1),
-        (double)rand() / ( static_cast<double>(RAND_MAX) + 1),
-        (double)rand() / ( static_cast<double>(RAND_MAX) + 1));
+        (SUMOReal)rand() / ( static_cast<SUMOReal>(RAND_MAX) + 1),
+        (SUMOReal)rand() / ( static_cast<SUMOReal>(RAND_MAX) + 1),
+        (SUMOReal)rand() / ( static_cast<SUMOReal>(RAND_MAX) + 1));
     // lane change color (static!!!)
     _laneChangeColor1 = RGBColor(1, 1, 1);
-    _laneChangeColor2 = RGBColor(0.7, 0.7, 0.7);
+    _laneChangeColor2 = RGBColor((SUMOReal) 0.7, (SUMOReal) 0.7, (SUMOReal) 0.7);
 
 #ifdef NETWORKING_BLA
-    float prob = OptionsSubSys::getOptions().getFloat("device");
-    if(prob>(double) rand() / (double) RAND_MAX) {
+    SUMOReal prob = OptionsSubSys::getOptions().getFloat("device");
+    if(prob>(SUMOReal) rand() / (SUMOReal) RAND_MAX) {
         networking_HaveDevice = true;
     } else {
         networking_HaveDevice = false;
@@ -328,12 +331,12 @@ GUIVehicle::~GUIVehicle()
 #ifdef NETWORKING_BLA
     if(networking_HaveDevice) {
 		int known = 0;
-		float mmax = 0;
-		float mmin = 0;
-		float meanTimeDist = 0;
-		float mmax2 = 0;
-		float mmin2 = 0;
-		float meanTimeDist2 = 0;
+		SUMOReal mmax = 0;
+		SUMOReal mmin = 0;
+		SUMOReal meanTimeDist = 0;
+		SUMOReal mmax2 = 0;
+		SUMOReal mmin2 = 0;
+		SUMOReal meanTimeDist2 = 0;
 		int i = 0;
 
         for(i=0; i<myRoute->size()-1; i++) {
@@ -344,8 +347,8 @@ GUIVehicle::~GUIVehicle()
             if(j!=networking_myKnownEdges.end()) {*/
                 time = networking_myLaneEmitTime[i] ;
 				if(time!=-1) {
-					float tmp = networking_myLaneEntryTime[i] - (float) time;
-					float tmp2 = (float) time;
+					SUMOReal tmp = networking_myLaneEntryTime[i] - (SUMOReal) time;
+					SUMOReal tmp2 = (SUMOReal) time;
 					if(known==0) {
 						mmin = tmp;
 						mmax = tmp;
@@ -358,7 +361,7 @@ GUIVehicle::~GUIVehicle()
 						mmax2 = mmax2 > tmp2 ? mmax2 : tmp2;
 					}
 	                known++;
-					meanTimeDist += networking_myLaneEntryTime[i] - (float) time;
+					meanTimeDist += networking_myLaneEntryTime[i] - (SUMOReal) time;
 					meanTimeDist2 += tmp2;
 				}
 //            }
@@ -366,8 +369,8 @@ GUIVehicle::~GUIVehicle()
 
 
 		if(known!=0) {
-			meanTimeDist /= (float) known;
-			meanTimeDist2 /= (float) known;
+			meanTimeDist /= (SUMOReal) known;
+			meanTimeDist2 /= (SUMOReal) known;
 		} else {
 			meanTimeDist = 0;
 			meanTimeDist2 = 0;
@@ -521,19 +524,19 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
         new GUIParameterTableWindow(app, *this, 9);
     // add items
     ret->mkItem("type [NAME]", false, myType->id());
-    ret->mkItem("left same route [#]", false, getRepetitionNo());
-    ret->mkItem("emission period [s]", false, getPeriod());
+    ret->mkItem("left same route [#]", false, (SUMOReal) getRepetitionNo());
+    ret->mkItem("emission period [s]", false, (SUMOReal) getPeriod());
     ret->mkItem("waiting time [s]", true,
-        new CastingFunctionBinding<MSVehicle, double, size_t>(
+        new CastingFunctionBinding<MSVehicle, SUMOReal, size_t>(
             this, &MSVehicle::getWaitingTime));
     ret->mkItem("last lane change [s]", true,
-        new CastingFunctionBinding<GUIVehicle, double, size_t>(
+        new CastingFunctionBinding<GUIVehicle, SUMOReal, size_t>(
         this, &GUIVehicle::getLastLaneChangeOffset));
-    ret->mkItem("desired depart [s]", false, getDesiredDepart());
+    ret->mkItem("desired depart [s]", false, (SUMOReal) getDesiredDepart());
     ret->mkItem("position [m]", true,
-        new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::pos));
+        new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::pos));
     ret->mkItem("speed [m/s]", true,
-        new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::speed));
+        new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::speed));
     // close building
     ret->closeBuilding();
     return ret;
@@ -607,22 +610,22 @@ GUIVehicle::getCenteringBoundary() const
 #include "time.h"
 
 void
-px2gps(double x, double y, int scale, int gkr, int gkh, double &lat, double &lon)
+px2gps(SUMOReal x, SUMOReal y, int scale, int gkr, int gkh, SUMOReal &lat, SUMOReal &lon)
 {
     //Berechnet zu x,y-Koordinaten die GK-Koordinaten
     //bei zwei gegebenen GPS-Eckpunkten(der betrachteten Karte)
-    double rm, e2, c, bI, bII, bf, co, g2, g1, t, fa, dl, gb, gl;
+    SUMOReal rm, e2, c, bI, bII, bf, co, g2, g1, t, fa, dl, gb, gl;
     int mKen;
-	double gkx=gkr+x*scale;//2601000.25+x*2;
-    double gky=gkh+x*scale;//5711999.75-y*2;
-    const double rho = 180/3.1415926535897932384626433832795;
-    e2 = 0.0067192188;
-    c = 6398786.849;
+	SUMOReal gkx=gkr+x*scale;//2601000.25+x*2;
+    SUMOReal gky=gkh+x*scale;//5711999.75-y*2;
+    const SUMOReal rho = (SUMOReal) (180/3.1415926535897932384626433832795);
+    e2 = (SUMOReal) 0.0067192188;
+    c = (SUMOReal) 6398786.849;
     mKen = (int) (gkx / 1000000);
     rm = gkx - mKen * 1000000 - 500000;
-    bI = gky / 10000855.7646;
+    bI = gky / (SUMOReal) 10000855.7646;
     bII = bI * bI;
-    bf = 325632.08677 * bI *((((((0.00000562025 * bII - 0.00004363980) * bII + 0.00022976983) * bII - 0.00113566119) * bII + 0.00424914906) * bII - 0.00831729565) * bII + 1);
+    bf = (SUMOReal) 325632.08677 * bI *(((((((SUMOReal) 0.00000562025 * bII - (SUMOReal) 0.00004363980) * bII + (SUMOReal) 0.00022976983) * bII - (SUMOReal) 0.00113566119) * bII + (SUMOReal) 0.00424914906) * bII - (SUMOReal) 0.00831729565) * bII + 1);
     bf = bf / 3600 / rho;
     co = cos(bf);
     g2 = e2 * (co * co);
@@ -644,7 +647,7 @@ GUIVehicle::networking_Begin()
 	char buffer3 [100];
 	time_t rawtime;
 	tm* ptm;
-    double mylat, mylon;
+    SUMOReal mylat, mylon;
 
     int scale = 1;
 	int gkr=1000;
@@ -690,8 +693,8 @@ GUIVehicle::networking_Begin()
 	char buffer1 [100];
 	char buffer2 [100];
 	char buffer3 [100];
-	double mylat;
-	double mylon;
+	SUMOReal mylat;
+	SUMOReal mylon;
 	int mylat1;
 	int mylon1;
 	long mylat2;
@@ -767,15 +770,27 @@ GUIVehicle::addEdgeTimeInfo(const GUIVehicle::networking_EdgeTimeInformation &ei
 void
 GUIVehicle::networking_KnowsAbout(GUIVehicle *v2, MSNet::Time t)
 {
-
-	if(id()=="158_0") {
-		int bla = 0;
-	}
 	networking_globalConns++;
     networking_mySeenThisTime.push_back(v2);
     const std::vector<networking_EdgeTimeInformation> &info
         = v2->networking_GetKnownEdges();
 
+    std::vector<networking_EdgeTimeInformation>::const_iterator i;
+
+    for(i=info.begin(); i!=info.end(); ++i) {
+		addEdgeTimeInfo(*i);
+		if(myRoute->find((*i).edge)==myRoute->end()) {
+			continue;
+		}
+
+		bool over = false;
+		for(int i2=0; i2<myRoute->size(); i2++) {
+			if((*i).edge==(*myRoute)[i2]) {
+				if(networking_myLaneEmitTime[i2]==-1&&over) {
+					networking_myLaneEmitTime[i2] = (*i).time;
+				}
+				/*
+				if(networking_myLaneEmitTime[i2]>ei.time&&over) {
 					networking_myLaneEmitTime[i2] = ei.time;
 				}
 				*/
@@ -801,6 +816,19 @@ void
 GUIVehicle::networking_End()
 {
     networking_stepOut
+        << id() << ";" << MSNet::globaltime << ";"
+        << networking_myKnownEdges.size() << ";"
+		<< networking_mySeenThisTime.size() << endl;
+    if(id()==OptionsSubSys::getOptions().getString("knownveh")) {
+        for(int i=0; i<myRoute->size(); i++) {
+            SUMOTime time = -1;
+            std::vector<networking_EdgeTimeInformation>::iterator j;
+            j = find_if(networking_myKnownEdges.begin(), networking_myKnownEdges.end(),
+                networking_ByEdgeFinder((*myRoute)[i]));
+            if(j!=networking_myKnownEdges.end()) {
+                time = MSNet::globaltime - (*j).time;
+            }
+            networking_knownOut
                 << time << ";";
         }
         networking_knownOut << endl;
@@ -816,7 +844,7 @@ GUIVehicle::networking_hasDevice()
 }
 
 
-void GUIVehicle::enterLaneAtMove( MSLane* enteredLane, double driven )
+void GUIVehicle::enterLaneAtMove( MSLane* enteredLane, SUMOReal driven )
 {
 	networking_EdgeTimeInformation ei;
 	ei.edge = (MSEdge*) &(enteredLane->edge());

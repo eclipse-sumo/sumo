@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.19  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -145,7 +148,7 @@ public:
     std::string microsimID() const;
 
     /** returns the length of the lane */
-    double getLength() const;
+    SUMOReal getLength() const;
 
 	//{
     /** returns the begin position of the lane */
@@ -158,11 +161,11 @@ public:
     const Position2D &getDirection() const;
 
     /** returns the rotation of the lane (!!! describe better) */
-    double getRotation() const;
+    SUMOReal getRotation() const;
 
     /** returns the "visualisation length"; this length may differ to the
         real length */
-    double visLength() const;
+    SUMOReal visLength() const;
 
     const Position2DVector &getShape() const;
     const DoubleVector &getShapeRotations() const;
@@ -173,13 +176,13 @@ public:
     MSEdge::EdgeBasicFunction getPurpose() const;
 
     /** returns the lane's maximum speed */
-    double maxSpeed() const;
+    SUMOReal maxSpeed() const;
 
-    double firstWaitingTime() const;
-    double myMagic() const;
+    SUMOReal firstWaitingTime() const;
+    SUMOReal myMagic() const;
 
     /// Returns the fastest known lane speed
-    static double getOverallMaxSpeed();
+    static SUMOReal getOverallMaxSpeed();
 
     /// Returns true if the given lane id the lane this wrapper wraps the geometry of
     bool forLane(const MSLane &lane) const;
@@ -202,10 +205,10 @@ public:
     /// Returns the tl-logic the numbered link is controlled by
     unsigned int getLinkTLID(const GUINet &net, size_t pos) const;
 
-    double getAggregatedNormed(E2::DetType what,
+    SUMOReal getAggregatedNormed(E2::DetType what,
         size_t aggregationPosition) const;
 
-    double getAggregatedFloat(E2::DetType what) const;
+    SUMOReal getAggregatedFloat(E2::DetType what) const;
 
     const MSEdge& getMSEdge() const;
 
@@ -232,11 +235,11 @@ protected:
     Position2D _direction;
 
     /// the direction of the lane
-    double _rotation;
+    SUMOReal _rotation;
 
     /** the visualisation length; As sources and sinks may be shorter/longer
         as their visualisation length, a second length information is necessary */
-    double _visLength;
+    SUMOReal _visLength;
 
     /// The assigned lane
     MSLane &myLane;
@@ -251,11 +254,11 @@ protected:
     DoubleVector myShapeLengths;
 
     /// The maximum velocity over all lanes
-    static double myAllMaxSpeed;
+    static SUMOReal myAllMaxSpeed;
 
-    LoggedValue_TimeFloating<double> **myAggregatedValues;
+    LoggedValue_TimeFloating<SUMOReal> **myAggregatedValues;
 
-    float myAggregatedFloats[3];
+    SUMOReal myAggregatedFloats[3];
 
     static size_t myAggregationSizes[];
 

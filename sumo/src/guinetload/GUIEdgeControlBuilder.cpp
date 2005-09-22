@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/09/22 13:39:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.12  2005/09/15 11:06:03  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -135,7 +138,7 @@ GUIEdgeControlBuilder::closeEdge()
 
 MSLane *
 GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
-                               double maxSpeed, double length, bool isDepart,
+                               SUMOReal maxSpeed, SUMOReal length, bool isDepart,
                                const Position2DVector &shape)
 {
     // checks if the depart lane was set before

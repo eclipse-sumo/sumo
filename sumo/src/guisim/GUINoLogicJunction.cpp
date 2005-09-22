@@ -23,11 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
 // Revision 1.4  2004/08/02 11:58:14  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.3  2003/12/04 13:38:16  dkrajzew
 // usage of internal links added

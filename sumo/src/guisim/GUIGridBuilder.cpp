@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -167,27 +170,27 @@ GUIGridBuilder::computeLaneCells(size_t index, GUILaneWrapper &lane)
     //  adding the offset of lanes)
     const Position2D &beg = lane.getBegin();
     const Position2D &end = lane.getEnd();
-    double length = GeomHelper::distance(beg, end);
-    std::pair<double, double> offsets(0, 0);
+    SUMOReal length = GeomHelper::distance(beg, end);
+    std::pair<SUMOReal, SUMOReal> offsets(0, 0);
     if(length!=0) {
         offsets = GeomHelper::getNormal90D_CW(beg, end, length,
             3.5 / 2.0);
     }
-    double x11 = beg.x() - offsets.first;
-    double y11 = beg.y() + offsets.second;
-    double x12 = end.x() - offsets.first;
-    double y12 = end.y() + offsets.second;
+    SUMOReal x11 = beg.x() - offsets.first;
+    SUMOReal y11 = beg.y() + offsets.second;
+    SUMOReal x12 = end.x() - offsets.first;
+    SUMOReal y12 = end.y() + offsets.second;
 
-    double x21 = beg.x() + offsets.first;
-    double y21 = beg.y() - offsets.second;
-    double x22 = end.x() + offsets.first;
-    double y22 = end.y() - offsets.second;
+    SUMOReal x21 = beg.x() + offsets.first;
+    SUMOReal y21 = beg.y() - offsets.second;
+    SUMOReal x22 = end.x() + offsets.first;
+    SUMOReal y22 = end.y() - offsets.second;
 
     // compute the cells the lae is going through
     for(int y=0; y<myGrid._ysize; y++) {
-        double ypos1 = double(y) * myGrid._ycellsize;
+        SUMOReal ypos1 = SUMOReal(y) * myGrid._ycellsize;
         for(int x=0; x<myGrid._xsize; x++) {
-            double xpos1 = double(x) * myGrid._xcellsize;
+            SUMOReal xpos1 = SUMOReal(x) * myGrid._xcellsize;
             if(
                 GeomHelper::intersects(x11, y11, x12, y12,
                     xpos1, ypos1, xpos1+myGrid._xcellsize, ypos1) ||

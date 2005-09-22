@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.43  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.42  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -92,7 +95,7 @@ namespace
 // visualisation of tl-logics added
 //
 // Revision 1.21  2003/11/11 08:13:23  dkrajzew
-// consequent usage of Position2D instead of two doubles
+// consequent usage of Position2D instead of two SUMOReals
 //
 // Revision 1.20  2003/10/30 08:59:43  dkrajzew
 // first implementation of aggregated views using E2-detectors
@@ -425,9 +428,9 @@ GUINet::getVehiclePosition(const std::string &name, bool useCenter) const
     if(edge==0) {
         throw GUIExcp_VehicleIsInvisible();
     }
-    double pos = vehicle->pos();
+    SUMOReal pos = vehicle->pos();
     if(useCenter) {
-        pos -= (vehicle->length() / 2.0);
+        pos -= (vehicle->length() / (SUMOReal) 2.0);
     }
     return edge->getLanePosition(vehicle->getLane(), pos);
 }
@@ -483,8 +486,13 @@ void
 GUINet::guiSimulationStep()
 {
     /*
+#ifdef HAVE_MESOSIM
+    if(!MSGlobals::gUseMesoSim) {
+        MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GUILaneStateReporter> >::getInstance()->updateAll();
+    }
+#endif
     */
-    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<double> > >::getInstance()->updateAll();
+    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<SUMOReal> > >::getInstance()->updateAll();
     MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<CompletePhaseDef> > >::getInstance()->updateAll();
 }
 
@@ -569,43 +577,43 @@ GUINet::getVisDuration() const
 */
 
 
-double
+SUMOReal
 GUINet::getRTFactor() const
 {
     if(myLastSimDuration==0) {
         return -1;
     }
-    return 1000. / (double) myLastSimDuration;
+    return (SUMOReal) 1000. / (SUMOReal) myLastSimDuration;
 }
 
 
-double
+SUMOReal
 GUINet::getUPS() const
 {
     if(myLastSimDuration==0) {
         return -1;
     }
-    return (double) myLastVehicleMovementCount / (double) myLastSimDuration * 1000.;
+    return (SUMOReal) myLastVehicleMovementCount / (SUMOReal) myLastSimDuration * (SUMOReal) 1000.;
 }
 
 
-double
+SUMOReal
 GUINet::getMeanRTFactor(int duration) const
 {
     if(myOverallSimDuration==0) {
         return -1;
     }
-    return ((double)(duration)*1000./(double)myOverallSimDuration);
+    return ((SUMOReal)(duration)*(SUMOReal) 1000./(SUMOReal)myOverallSimDuration);
 }
 
 
-double
+SUMOReal
 GUINet::getMeanUPS() const
 {
     if(myOverallSimDuration==0) {
         return -1;
     }
-    return ((double)myVehiclesMoved / (double)myOverallSimDuration * 1000.);
+    return ((SUMOReal)myVehiclesMoved / (SUMOReal)myOverallSimDuration * (SUMOReal) 1000.);
 }
 
 

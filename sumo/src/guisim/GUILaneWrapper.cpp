@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.25  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -123,7 +126,7 @@ namespace
 #include <gui/GUIGlobals.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include "GUILaneWrapper.h"
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/geom/GeomHelper.h>
 #include <guisim/GUINet.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -144,7 +147,7 @@ using namespace std;
 /* =========================================================================
  * static member definitions
  * ======================================================================= */
-double GUILaneWrapper::myAllMaxSpeed = 0;
+SUMOReal GUILaneWrapper::myAllMaxSpeed = 0;
 size_t GUILaneWrapper::myAggregationSizes[] = {
     60, 300, 900
 };
@@ -158,15 +161,15 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
     : GUILaneRepresentation(idStorage, string("lane:")+lane.id()),
     myLane(lane), myShape(shape), myAggregatedValues(0)
 {
-    double x1 = shape.at(0).x();
-    double y1 = shape.at(0).y();
-    double x2 = shape.at(shape.size()-1).x();
-    double y2 = shape.at(shape.size()-1).y();
-    double length = getLength();
+    SUMOReal x1 = shape.at(0).x();
+    SUMOReal y1 = shape.at(0).y();
+    SUMOReal x2 = shape.at(shape.size()-1).x();
+    SUMOReal y2 = shape.at(shape.size()-1).y();
+    SUMOReal length = getLength();
     _begin = Position2D(x1, y1);
     _end = Position2D(x2, y2);
     _direction = Position2D((x1-x2)/length, (y1-y2)/length);
-    _rotation = atan2((x2-x1), (y1-y2))*180.0/3.14159265;
+    _rotation = (SUMOReal) atan2((x2-x1), (y1-y2))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
     // also the virtual length is set in here
     _visLength = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
     // check maximum speed
@@ -184,7 +187,7 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
         const Position2D &f = myShape.at(i);
         const Position2D &s = myShape.at(i+1);
         myShapeLengths.push_back(GeomHelper::distance(f, s));
-        myShapeRotations.push_back(atan2((s.x()-f.x()), (f.y()-s.y()))*180.0/3.14159265);
+        myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265);
     }
 }
 
@@ -221,21 +224,21 @@ GUILaneWrapper::getDirection() const
 }
 
 
-double
+SUMOReal
 GUILaneWrapper::getRotation() const
 {
     return _rotation;
 }
 
 
-double
+SUMOReal
 GUILaneWrapper::getLength() const
 {
     return myLane.myLength;
 }
 
 
-double
+SUMOReal
 GUILaneWrapper::visLength() const
 {
     return _visLength;
@@ -249,14 +252,14 @@ GUILaneWrapper::getPurpose() const
 }
 
 
-double
+SUMOReal
 GUILaneWrapper::maxSpeed() const
 {
     return myLane.maxSpeed();
 }
 
 
-double
+SUMOReal
 GUILaneWrapper::getOverallMaxSpeed()
 {
     return myAllMaxSpeed;
@@ -364,17 +367,17 @@ GUILaneWrapper::buildAggregatedValuesStorage()
     if(myLane.length()<1) {
         return;
     }
-    // build the second floaters if allowed
+    // build the second SUMORealers if allowed
     if(gAllowAggregatedFloating) {
-        myAggregatedValues = new LoggedValue_TimeFloating<double>*[3];
+        myAggregatedValues = new LoggedValue_TimeFloating<SUMOReal>*[3];
         for(size_t i=0; i<3; i++) {
             myAggregatedValues[i] =
-                new LoggedValue_TimeFloating<double>(60);
+                new LoggedValue_TimeFloating<SUMOReal>(60);
         }
     }
     // make them read from lane
     myAggregatedFloats[0] = 0; // density
-    myAggregatedFloats[1] = (float) myLane.maxSpeed(); // speed
+    myAggregatedFloats[1] = (SUMOReal) myLane.maxSpeed(); // speed
     myAggregatedFloats[2] = 0; // haltings
     string id = string("*") + myLane.id();
     if(gAllowAggregatedFloating) {
@@ -394,7 +397,7 @@ GUILaneWrapper::buildAggregatedValuesStorage()
 }
 
 
-double
+SUMOReal
 GUILaneWrapper::getAggregatedNormed(E2::DetType what,
                                     size_t aggregationPosition) const
 {
@@ -403,16 +406,16 @@ GUILaneWrapper::getAggregatedNormed(E2::DetType what,
     }
     switch(what) {
     case E2::DENSITY:
-        return myAggregatedValues[0]->getAvg() / 200.0;
+        return myAggregatedValues[0]->getAvg() / (SUMOReal) 200.0;
     case E2::SPACE_MEAN_SPEED:
         return myAggregatedValues[1]->getAvg() / myAllMaxSpeed;
     case E2::HALTING_DURATION_MEAN:
         {
-            double val = myAggregatedValues[2]->getAvg();
+            SUMOReal val = myAggregatedValues[2]->getAvg();
             if(val>MSGlobals::gTimeToGridlock) {
                 return 1;
             } else {
-                return val / (double) MSGlobals::gTimeToGridlock;
+                return val / (SUMOReal) MSGlobals::gTimeToGridlock;
             }
         }
     default:
@@ -421,21 +424,21 @@ GUILaneWrapper::getAggregatedNormed(E2::DetType what,
 }
 
 
-double
+SUMOReal
 GUILaneWrapper::getAggregatedFloat(E2::DetType what) const
 {
     switch(what) {
     case E2::DENSITY:
-        return myAggregatedFloats[0] / 200.0;
+        return myAggregatedFloats[0] / (SUMOReal) 200.0;
     case E2::SPACE_MEAN_SPEED:
         return myAggregatedFloats[1] / myAllMaxSpeed;
     case E2::HALTING_DURATION_MEAN:
         {
-            double val = myAggregatedFloats[2];
+            SUMOReal val = myAggregatedFloats[2];
             if(val>MSGlobals::gTimeToGridlock) {
                 return 1;
             } else {
-                return val / (double) MSGlobals::gTimeToGridlock;
+                return val / (SUMOReal) MSGlobals::gTimeToGridlock;
             }
         }
     default:
@@ -508,17 +511,17 @@ GUILaneWrapper::getCenteringBoundary() const
 void
 GUILaneWrapper::selectSucessors()
 {
-    double maxDist = 2000;
-    double minDist = 1000;
-    double maxSpeed = 55.0;
+    SUMOReal maxDist = 2000;
+    SUMOReal minDist = 1000;
+    SUMOReal maxSpeed = 55.0;
 
     std::vector<GUILaneWrapper*> selected;
     selected.push_back(this);
-    std::vector<std::pair<GUILaneWrapper*, double> > toProc;
-    toProc.push_back(std::pair<GUILaneWrapper*, double>(this, 0));
+    std::vector<std::pair<GUILaneWrapper*, SUMOReal> > toProc;
+    toProc.push_back(std::pair<GUILaneWrapper*, SUMOReal>(this, 0));
 
     while(!toProc.empty()) {
-        std::pair<GUILaneWrapper*, double> laneAndDist =
+        std::pair<GUILaneWrapper*, SUMOReal> laneAndDist =
             toProc.back();
         toProc.pop_back();
         if(laneAndDist.second<minDist||
@@ -534,7 +537,7 @@ GUILaneWrapper::selectSucessors()
                 std::vector<MSLane*> *lanes = (*i)->getLanes();
                 for(std::vector<MSLane*>::iterator j=lanes->begin(); j!=lanes->end(); ++j) {
                     if(find(selected.begin(), selected.end(), &static_cast<GUIEdge*>(*i)->getLaneGeometry(*j))==selected.end()) {
-                        toProc.push_back(std::pair<GUILaneWrapper*, double>(
+                        toProc.push_back(std::pair<GUILaneWrapper*, SUMOReal>(
                             &static_cast<GUIEdge*>(*i)->getLaneGeometry(*j),
                             laneAndDist.second+laneAndDist.first->getLength()));
                     }
@@ -548,13 +551,13 @@ GUILaneWrapper::selectSucessors()
     }
 
     const Position2DVector &shape = getShape();
-    Position2D initPos = shape.positionAtLengthPosition(getLength()/2.0);
+    Position2D initPos = shape.positionAtLengthPosition(getLength()/(SUMOReal) 2.0);
     Position2DVector poly;
-    for(float i=0; i<360; i += 40) {
-        double random1 = double( rand() ) /
-            ( static_cast<double>(RAND_MAX) + 1);
-        double random2 = double( rand() ) /
-            ( static_cast<double>(RAND_MAX) + 1);
+    for(SUMOReal i=0; i<360; i += 40) {
+        SUMOReal random1 = SUMOReal( rand() ) /
+            ( static_cast<SUMOReal>(RAND_MAX) + 1);
+        SUMOReal random2 = SUMOReal( rand() ) /
+            ( static_cast<SUMOReal>(RAND_MAX) + 1);
         Position2D p = initPos;
         p.add(sin(i)*30+random1*20, cos(i)*30+random1*20);
         poly.push_back(p);
@@ -567,19 +570,19 @@ GUILaneWrapper::selectSucessors()
 }
 
 
-double
+SUMOReal
 GUILaneWrapper::firstWaitingTime() const
 {
     return myLane.myVehicles.size()==0
         ? 0
-        : (double) (*(myLane.myVehicles.end()-1))->getWaitingTime();
+        : (SUMOReal) (*(myLane.myVehicles.end()-1))->getWaitingTime();
 }
 
 
-double
+SUMOReal
 GUILaneWrapper::myMagic() const
 {
-    return (float) myLane.myVehicles.size() * 5. / myLane.length();
+    return (SUMOReal) myLane.myVehicles.size() * (SUMOReal) 5. / myLane.length();
 }
 
 

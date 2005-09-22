@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2005/09/22 13:39:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.10  2005/09/15 11:06:03  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -97,7 +100,7 @@ public:
 
     /// Builds the lane to add
     virtual MSLane *addLane(/*MSNet &net, */const std::string &id,
-        double maxSpeed, double length, bool isDepart,
+        SUMOReal maxSpeed, SUMOReal length, bool isDepart,
         const Position2DVector &shape);
 
     MSEdge *closeEdge();

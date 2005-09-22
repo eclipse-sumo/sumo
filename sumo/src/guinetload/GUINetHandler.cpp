@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2005/09/22 13:39:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.22  2005/09/15 11:06:03  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -119,7 +122,7 @@ namespace
 #include <sax/SAXException.hpp>
 #include <netload/NLNetHandler.h>
 //#include <netload/NLContainer.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/gfx/GfxConvHelper.h>
 #include <utils/common/MsgHandler.h>
@@ -238,9 +241,9 @@ GUINetHandler::addVehicleType(const Attributes &attrs)
 
 
 void
-GUINetHandler::addParsedVehicleType(const string &id, const float length,
-                                    const float maxspeed, const float bmax,
-                                    const float dmax, const float sigma,
+GUINetHandler::addParsedVehicleType(const string &id, const SUMOReal length,
+                                    const SUMOReal maxspeed, const SUMOReal bmax,
+                                    const SUMOReal dmax, const SUMOReal sigma,
                                     const RGBColor &c)
 {
     GUIVehicleType *vtype =

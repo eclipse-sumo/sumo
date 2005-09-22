@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.15  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -89,7 +92,7 @@ class GUIInductLoop : public MSInductLoop
 {
 public:
     /// Construtor
-    GUIInductLoop(const std::string &id, MSLane* lane, double position,
+    GUIInductLoop(const std::string &id, MSLane* lane, SUMOReal position,
         SUMOTime deleteDataAfterSeconds);
 
     /// Destructor
@@ -110,7 +113,7 @@ public:
         /// Constructor
         MyWrapper(GUIInductLoop &detector,
             GUIGlObjectStorage &idStorage, GUILaneWrapper &wrapper,
-            double pos);
+            SUMOReal pos);
 
         /// Destructor
         ~MyWrapper();
@@ -119,10 +122,10 @@ public:
         Boundary getBoundary() const;
 
         /// Draws the detector in full-geometry mode
-        void drawGL_FG(double scale);
+        void drawGL_FG(SUMOReal scale);
 
         /// Draws the detector in simple-geometry mode
-        void drawGL_SG(double scale);
+        void drawGL_SG(SUMOReal scale);
 
         GUIParameterTableWindow *getParameterWindow(
             GUIMainWindow &app, GUISUMOAbstractView &parent);
@@ -153,16 +156,16 @@ public:
         Position2D myFGPosition;
 
         /// The rotation in full-geometry mode
-        double myFGRotation;
+        SUMOReal myFGRotation;
 
         /// The position in simple-geometry mode
         Position2D mySGPosition;
 
         /// The rotation in simple-geometry mode
-        double mySGRotation;
+        SUMOReal mySGRotation;
 
         /// The position on the lane
-        double myPosition;
+        SUMOReal myPosition;
 
     };
 

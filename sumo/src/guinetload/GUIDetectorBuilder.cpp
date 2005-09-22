@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/09/22 13:39:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.12  2005/09/15 11:06:03  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -114,7 +117,7 @@ GUIDetectorBuilder::~GUIDetectorBuilder()
 
 MSInductLoop *
 GUIDetectorBuilder::createInductLoop(const std::string &id,
-                                     MSLane *lane, double pos,
+                                     MSLane *lane, SUMOReal pos,
                                      int splInterval)
 {
     return new GUIInductLoop(id, lane, pos, splInterval);
@@ -123,7 +126,7 @@ GUIDetectorBuilder::createInductLoop(const std::string &id,
 
 MSE2Collector *
 GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, double pos, double length,
+        DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
@@ -138,7 +141,7 @@ GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
 
 MS_E2_ZS_CollectorOverLanes *
 GUIDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, double pos,
+        DetectorUsage usage, MSLane *lane, SUMOReal pos,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,

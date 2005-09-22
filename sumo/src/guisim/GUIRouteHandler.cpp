@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -128,9 +131,9 @@ GUIRouteHandler::addVehicleType(const Attributes &attrs)
 
 
 void
-GUIRouteHandler::addParsedVehicleType(const string &id, const float length,
-                                      const float maxspeed, const float bmax,
-                                      const float dmax, const float sigma,
+GUIRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
+                                      const SUMOReal maxspeed, const SUMOReal bmax,
+                                      const SUMOReal dmax, const SUMOReal sigma,
                                       const RGBColor &c)
 {
     GUIVehicleType *vtype =

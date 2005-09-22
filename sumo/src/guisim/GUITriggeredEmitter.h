@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.1  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -75,7 +78,7 @@ class GUITriggeredEmitter
 public:
     /** constructor */
     GUITriggeredEmitter(const std::string &id, MSNet &net,
-        MSLane* destLanes, double pos,
+        MSLane* destLanes, SUMOReal pos,
         const std::string &aXMLFilename);
 
     /** destructor */
@@ -99,10 +102,10 @@ public:
 
     //@{ From GUIAbstractAddGlObject
     /// Draws the detector in full-geometry mode
-    void drawGL_FG(double scale);
+    void drawGL_FG(SUMOReal scale);
 
     /// Draws the detector in simple-geometry mode
-    void drawGL_SG(double scale);
+    void drawGL_SG(SUMOReal scale);
 
     /// Returns the detector's coordinates
     Position2D getPosition() const;
@@ -166,7 +169,7 @@ public:
 
         FXDataTarget myFlowFactorTarget;
 
-        float myFlowFactor;
+        SUMOReal myFlowFactor;
 
         GUITriggeredEmitter *myObject;
 
@@ -176,26 +179,26 @@ public:
     };
 
 private:
-    void doPaint(const Position2D &pos, double rot, double scale);
+    void doPaint(const Position2D &pos, SUMOReal rot, SUMOReal scale);
 
 private:
     /// The positions in full-geometry mode
     Position2D myFGPosition;
 
     /// The rotations in full-geometry mode
-    double myFGRotation;
+    SUMOReal myFGRotation;
 
     /// The positions in simple-geometry mode
     Position2D mySGPosition;
 
     /// The rotations in simple-geometry mode
-    double mySGRotation;
+    SUMOReal mySGRotation;
 
     /// The information whether the speed shall be shown in m/s or km/h
     bool myShowAsKMH;
 
     /// Storage for last value to avoid string recomputation
-    float myLastValue;
+    SUMOReal myLastValue;
 
     /// Storage for speed string to avoid recomputation
     std::string myLastValueString;

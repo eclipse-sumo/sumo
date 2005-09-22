@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.12  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -137,60 +140,60 @@ GUINetWrapper::getParameterWindow(GUIMainWindow &app,
         new GUIParameterTableWindow(app, *this, 13);
     // add items
     ret->mkItem("vehicles running [#]", true,
-        new CastingFunctionBinding<MSVehicleControl, double, size_t>(
+        new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(
             &(getNet().getVehicleControl()),
             &MSVehicleControl::getRunningVehicleNo));
     ret->mkItem("vehicles ended [#]", true,
-        new CastingFunctionBinding<MSVehicleControl, double, size_t>(
+        new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(
             &(getNet().getVehicleControl()),
             &MSVehicleControl::getEndedVehicleNo));
     ret->mkItem("vehicles emitted [#]", true,
-        new CastingFunctionBinding<MSVehicleControl, double, size_t>(
+        new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(
             &(getNet().getVehicleControl()),
             &MSVehicleControl::getEmittedVehicleNo));
     ret->mkItem("vehicles loaded [#]", true,
-        new CastingFunctionBinding<MSVehicleControl, double, size_t>(
+        new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(
             &(getNet().getVehicleControl()),
             &MSVehicleControl::getLoadedVehicleNo));
     ret->mkItem("vehicles waiting [#]", true,
-        new CastingFunctionBinding<MSVehicleControl, double, size_t>(
+        new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(
             &(getNet().getVehicleControl()),
             &MSVehicleControl::getWaitingVehicleNo));
     ret->mkItem("end time [s]", false,
-        OptionsSubSys::getOptions().getInt("e"));
+        (SUMOReal) OptionsSubSys::getOptions().getInt("e"));
     ret->mkItem("begin time [s]", false,
-        OptionsSubSys::getOptions().getInt("b"));
+        (SUMOReal) OptionsSubSys::getOptions().getInt("b"));
     ret->mkItem("time step [s]", true,
-        new CastingFunctionBinding<GUINet, double, int>(
+        new CastingFunctionBinding<GUINet, SUMOReal, int>(
             &(getNet()), &GUINet::getCurrentTimeStep));
     if(getNet().logSimulationDuration()) {
         ret->mkItem("step duration [ms]", true,
-            new CastingFunctionBinding<GUINet, double, int>(
+            new CastingFunctionBinding<GUINet, SUMOReal, int>(
                 &(getNet()), &GUINet::getWholeDuration));
         ret->mkItem("simulation duration [ms]", true,
-            new CastingFunctionBinding<GUINet, double, int>(
+            new CastingFunctionBinding<GUINet, SUMOReal, int>(
                 &(getNet()), &GUINet::getSimDuration));
         /*
         ret->mkItem("visualisation duration [ms]", true,
-            new CastingFunctionBinding<GUINet, double, int>(
+            new CastingFunctionBinding<GUINet, SUMOReal, int>(
                 &(getNet()), &GUINet::getVisDuration));
         */
         ret->mkItem("idle duration [ms]", true,
-            new CastingFunctionBinding<GUINet, double, int>(
+            new CastingFunctionBinding<GUINet, SUMOReal, int>(
                 &(getNet()), &GUINet::getIdleDuration));
         ret->mkItem("duration factor []", true,
-            new FunctionBinding<GUINet, double>(
+            new FunctionBinding<GUINet, SUMOReal>(
                 &(getNet()), &GUINet::getRTFactor));
         /*
         ret->mkItem("mean duration factor []", true,
-            new FuncBinding_IntParam<GUINet, double>(
+            new FuncBinding_IntParam<GUINet, SUMOReal>(
                 &(getNet()), &GUINet::getMeanRTFactor), 1);
                 */
         ret->mkItem("ups [#]", true,
-            new FunctionBinding<GUINet, double>(
+            new FunctionBinding<GUINet, SUMOReal>(
                 &(getNet()), &GUINet::getUPS));
         ret->mkItem("mean ups [#]", true,
-            new FunctionBinding<GUINet, double>(
+            new FunctionBinding<GUINet, SUMOReal>(
                 &(getNet()), &GUINet::getMeanUPS));
     }
     // close building

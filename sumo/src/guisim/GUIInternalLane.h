@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -80,8 +83,8 @@ class GUIInternalLane :
     public MSInternalLane {
 public:
     /// constructor
-    GUIInternalLane( /*MSNet &net, */std::string id, double maxSpeed,
-        double length, MSEdge* edge, size_t numericalID,
+    GUIInternalLane( /*MSNet &net, */std::string id, SUMOReal maxSpeed,
+        SUMOReal length, MSEdge* edge, size_t numericalID,
         const Position2DVector &shape );
 
     /// destructor

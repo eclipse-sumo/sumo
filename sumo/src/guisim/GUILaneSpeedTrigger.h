@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -106,10 +109,10 @@ public:
 
     //@{ From GUIAbstractAddGlObject
     /// Draws the detector in full-geometry mode
-    void drawGL_FG(double scale);
+    void drawGL_FG(SUMOReal scale);
 
     /// Draws the detector in simple-geometry mode
-    void drawGL_SG(double scale);
+    void drawGL_SG(SUMOReal scale);
 
     /// Returns the detector's coordinates
     Position2D getPosition() const;
@@ -177,7 +180,7 @@ public:
 
         FXDataTarget mySpeedTarget;
 
-        float mySpeed;
+        SUMOReal mySpeed;
 
         GUILaneSpeedTrigger *myObject;
 
@@ -191,10 +194,10 @@ private:
     typedef std::vector<Position2D> PosCont;
 
     /// Definition of a rotation container
-    typedef std::vector<double> RotCont;
+    typedef std::vector<SUMOReal> RotCont;
 
 private:
-    void doPaint(const PosCont &pos, const RotCont rot, double scale);
+    void doPaint(const PosCont &pos, const RotCont rot, SUMOReal scale);
 
 private:
     /// The positions in full-geometry mode
@@ -213,7 +216,7 @@ private:
     bool myShowAsKMH;
 
     /// Storage for last value to avoid string recomputation
-    float myLastValue;
+    SUMOReal myLastValue;
 
     /// Storage for speed string to avoid recomputation
     std::string myLastValueString;

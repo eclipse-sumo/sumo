@@ -24,7 +24,7 @@ public:
     void polygonEnd(const Position2DVector &shape);
 
     void addPoint(const std::string &name, const std::string &type,
-        const RGBColor &c, float x, float y);
+        const RGBColor &c, SUMOReal x, SUMOReal y);
 
     ShapeContainer *buildShapeContainer() const;
 

@@ -51,7 +51,7 @@ void
 GUIGeomShapeBuilder::addPoint(const std::string &name,
                              const std::string &type,
                              const RGBColor &c,
-                             float x, float y)
+                             SUMOReal x, SUMOReal y)
 {
     GUIPointOfInterest *p =
         new GUIPointOfInterest(myIdStorage, name, type,

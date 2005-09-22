@@ -10,7 +10,7 @@ GUIJunctionWrapper.cpp GUIJunctionWrapper.h \
 GUILane.cpp GUILane.h GUILaneChanger.cpp GUILaneChanger.h \
 GUILaneSpeedTrigger.cpp GUILaneSpeedTrigger.h \
 GUILaneStateReporter.cpp GUILaneStateReporter.h \
-GUILaneWrapper.cpp GUILaneWrapper.h GUINet.cpp GUINet.h \
+GUILaneWrapper.cpp GUILaneWrapper.h \
 GUINet.cpp GUINet.h \
 GUINetWrapper.cpp GUINetWrapper.h \
 GUINoLogicJunction.cpp GUINoLogicJunction.h \

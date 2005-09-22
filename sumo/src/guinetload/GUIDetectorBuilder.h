@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2005/09/22 13:39:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 11:06:03  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -90,11 +93,11 @@ public:
 protected:
     /// Creates the instance of an induct loop (gui-version)
     virtual MSInductLoop *createInductLoop(const std::string &id,
-        MSLane *lane, double pos, int splInterval);
+        MSLane *lane, SUMOReal pos, int splInterval);
 
     /// Creates the instance of a single-lane-e2-detector (gui-version)
     virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, double pos, double length,
+        DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
@@ -102,7 +105,7 @@ protected:
 
     /// Creates the instance of a multi-lane-e2-detector (gui-version)
     virtual MS_E2_ZS_CollectorOverLanes *createMultiLaneE2Detector(
-        const std::string &id, DetectorUsage usage, MSLane *lane, double pos,
+        const std::string &id, DetectorUsage usage, MSLane *lane, SUMOReal pos,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,

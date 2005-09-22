@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.15  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -101,7 +104,7 @@ using namespace std;
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string &id, MSLane* lane,
-                             double position,
+                             SUMOReal position,
                              SUMOTime deleteDataAfterSeconds)
     : MSInductLoop(id, lane, position, deleteDataAfterSeconds)
 {
@@ -126,19 +129,19 @@ GUIInductLoop::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
  * ----------------------------------------------------------------------- */
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
                                     GUIGlObjectStorage &idStorage,
-                                    GUILaneWrapper &wrapper, double pos)
+                                    GUILaneWrapper &wrapper, SUMOReal pos)
     : GUIDetectorWrapper(idStorage, string("induct loop:")+detector.getId()),
     myDetector(detector), myPosition(pos)
 {
     const Position2DVector &v = wrapper.getShape();
     myFGPosition = v.positionAtLengthPosition(pos);
     Line2D l(v.getBegin(), v.getEnd());
-    double sgPos = pos / v.length() * l.length();
+    SUMOReal sgPos = pos / v.length() * l.length();
     mySGPosition = l.getPositionAtDistance(sgPos);
-    myBoundary.add(myFGPosition.x()+5.5, myFGPosition.y()+5.5);
-    myBoundary.add(myFGPosition.x()-5.5, myFGPosition.y()-5.5);
-    myBoundary.add(mySGPosition.x()+5.5, mySGPosition.y()+5.5);
-    myBoundary.add(mySGPosition.x()-5.5, mySGPosition.y()-5.5);
+    myBoundary.add(myFGPosition.x()+(SUMOReal) 5.5, myFGPosition.y()+(SUMOReal) 5.5);
+    myBoundary.add(myFGPosition.x()-(SUMOReal) 5.5, myFGPosition.y()-(SUMOReal) 5.5);
+    myBoundary.add(mySGPosition.x()+(SUMOReal) 5.5, mySGPosition.y()+(SUMOReal) 5.5);
+    myBoundary.add(mySGPosition.x()-(SUMOReal) 5.5, mySGPosition.y()-(SUMOReal) 5.5);
     myFGRotation = -v.rotationDegreeAtLengthPosition(pos);
     mySGRotation = -l.atan2DegreeAngle();
 }
@@ -165,19 +168,19 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
         new GUIParameterTableWindow(app, *this, 7);
     // add items
     ret->mkItem("flow [veh/h]", true,
-        new FuncBinding_IntParam<GUIInductLoop, double>(
+        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(
             &(getLoop()), &GUIInductLoop::getFlow, 1));
     ret->mkItem("mean speed [m/s]", true,
-        new FuncBinding_IntParam<GUIInductLoop, double>(
+        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(
             &(getLoop()), &GUIInductLoop::getMeanSpeed, 1));
     ret->mkItem("occupancy [%]", true,
-        new FuncBinding_IntParam<GUIInductLoop, double>(
+        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(
             &(getLoop()), &GUIInductLoop::getOccupancy, 1));
     ret->mkItem("mean vehicle length [m]", true,
-        new FuncBinding_IntParam<GUIInductLoop, double>(
+        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(
             &(getLoop()), &GUIInductLoop::getMeanVehicleLength, 1));
     ret->mkItem("empty time [s]", true,
-        new FunctionBinding<GUIInductLoop, double>(
+        new FunctionBinding<GUIInductLoop, SUMOReal>(
             &(getLoop()), &GUIInductLoop::getTimestepsSinceLastDetection));
     //
     ret->mkItem("position [m]", false, myPosition);
@@ -204,9 +207,9 @@ GUIInductLoop::MyWrapper::active() const
 
 
 void
-GUIInductLoop::MyWrapper::drawGL_SG(double scale)
+GUIInductLoop::MyWrapper::drawGL_SG(SUMOReal scale)
 {
-    double width = 2.0 * scale;
+    SUMOReal width = (SUMOReal) 2.0 * scale;
     glLineWidth(1.0);
     // shape
     glColor3f(1, 1, 0);
@@ -254,9 +257,9 @@ GUIInductLoop::MyWrapper::drawGL_SG(double scale)
 
 
 void
-GUIInductLoop::MyWrapper::drawGL_FG(double scale)
+GUIInductLoop::MyWrapper::drawGL_FG(SUMOReal scale)
 {
-    double width = 2.0 * scale;
+    SUMOReal width = (SUMOReal) 2.0 * scale;
     glLineWidth(1.0);
     // shape
     glColor3f(1, 1, 0);

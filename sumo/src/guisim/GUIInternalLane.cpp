@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.20  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -132,7 +135,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 GUIInternalLane::GUIInternalLane(/*MSNet &net, */std::string id,
-                             double maxSpeed, double length,
+                             SUMOReal maxSpeed, SUMOReal length,
                              MSEdge* edge, size_t numericalID,
                              const Position2DVector &shape )
     : MSInternalLane(/*net, */id, maxSpeed, length, edge, numericalID, shape)
@@ -232,8 +235,8 @@ GUIInternalLane::push( MSVehicle* veh )
     veh->destReached( myEdge );
     myVehBuffer = veh;
     veh->enterLaneAtMove( this, SPEED2DIST(veh->speed()) - veh->pos() );
-    double pspeed = veh->speed();
-    double oldPos = veh->pos() - SPEED2DIST(veh->speed());
+    SUMOReal pspeed = veh->speed();
+    SUMOReal oldPos = veh->pos() - SPEED2DIST(veh->speed());
     veh->workOnMoveReminders( oldPos, veh->pos(), pspeed );
     veh->_assertPos();
     _lock.unlock();//Display();

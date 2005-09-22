@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/22 13:39:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 11:06:03  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -89,7 +92,7 @@ MSTriggeredEmitter *
 GUITriggerBuilder::buildLaneEmitTrigger(MSNet &net,
                                         const std::string &id,
                                         MSLane *destLane,
-                                        double pos,
+                                        SUMOReal pos,
                                         const std::string &file)
 {
     return new GUITriggeredEmitter(id, net, destLane, pos, file);
@@ -100,7 +103,7 @@ GUITriggerBuilder::buildLaneEmitTrigger(MSNet &net,
 MSTriggeredRerouter *
 GUITriggerBuilder::buildRerouter(MSNet &net, const std::string &id,
                                  std::vector<MSEdge*> &edges,
-                                 float prob, const std::string &file)
+                                 SUMOReal prob, const std::string &file)
 {
     return new GUITriggeredRerouter(id, net, edges, prob, file);
 }

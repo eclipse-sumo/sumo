@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.1  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -56,7 +59,7 @@ namespace
 #include <utils/geom/Line2D.h>
 #include <utils/geom/Boundary.h>
 #include <utils/glutils/GLHelper.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/helpers/Command.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
@@ -197,7 +200,7 @@ GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdClose(FXObject*,FXSelecto
 long
 GUITriggeredRerouter::GUIManip_TriggeredRerouter::onCmdUserDef(FXObject*,FXSelector,void*)
 {
-    myUsageProbability = (float) (myUsageProbabilityDial->getValue());
+    myUsageProbability = (SUMOReal) (myUsageProbabilityDial->getValue());
     static_cast<GUITriggeredRerouter*>(myObject)->setUserUsageProbability(myUsageProbability);
     static_cast<GUITriggeredRerouter*>(myObject)->setUserMode(true);
     myParent->updateChildren();
@@ -271,7 +274,7 @@ GUITriggeredRerouter::GUITriggeredRerouterPopupMenu::onCmdOpenManip(FXObject*,
  * ----------------------------------------------------------------------- */
 GUITriggeredRerouter::GUITriggeredRerouter(const std::string &id,
             MSNet &net, const std::vector<MSEdge*> &edges,
-            float prob, const std::string &aXMLFilename)
+            SUMOReal prob, const std::string &aXMLFilename)
     : MSTriggeredRerouter(id, net, edges, prob, aXMLFilename),
     GUIGlObject_AbstractAdd(gIDStorage,
         string("emitter:") + id, GLO_TRIGGER)
@@ -293,7 +296,7 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string &id,
         for(size_t i=0; i<noLanes; ++i) {
             const Position2DVector &v =
                 gedge->getLaneGeometry((size_t) i).getShape();
-            float pos = v.length() - 6.;
+            SUMOReal pos = v.length() - (SUMOReal) 6.;
             myFGPositions.push_back(v.positionAtLengthPosition(pos));
             Line2D l(v.getBegin(), v.getEnd());
             mySGPositions.push_back(l.getPositionAtDistance(pos));
@@ -349,7 +352,7 @@ GUITriggeredRerouter::getParameterWindow(GUIMainWindow &app,
     // add items
     /*
     ret->mkItem("speed [m/s]", true,
-        new FunctionBinding<GUITriggeredRerouter, double>(this, &GUITriggeredRerouter::getCurrentSpeed));
+        new FunctionBinding<GUITriggeredRerouter, SUMOReal>(this, &GUITriggeredRerouter::getCurrentSpeed));
         */
     // close building
     ret->closeBuilding();
@@ -379,14 +382,14 @@ GUITriggeredRerouter::getPosition() const
 
 
 void
-GUITriggeredRerouter::drawGL_FG(double scale)
+GUITriggeredRerouter::drawGL_FG(SUMOReal scale)
 {
     doPaint(myFGPositions, myFGRotations, scale);
 }
 
 
 void
-GUITriggeredRerouter::drawGL_SG(double scale)
+GUITriggeredRerouter::drawGL_SG(SUMOReal scale)
 {
     doPaint(mySGPositions, mySGRotations, scale);
 }
@@ -395,11 +398,11 @@ GUITriggeredRerouter::drawGL_SG(double scale)
 void
 GUITriggeredRerouter::doPaint(const PosCont &poss,
                               const RotCont rots,
-                              double scale)
+                              SUMOReal scale)
 {
     for(size_t i=0; i<poss.size(); ++i) {
         const Position2D &pos = poss[i];
-        double rot = rots[i];
+        SUMOReal rot = rots[i];
         glPushMatrix();
         glTranslated(pos.x(), pos.y(), 0);
         glRotated( rot, 0, 0, 1 );
@@ -419,15 +422,15 @@ GUITriggeredRerouter::doPaint(const PosCont &poss,
         glColor3f(0, 0, 0);
         pfSetPosition(0, 0);
         pfSetScale(3.f);
-        float w = pfdkGetStringWidth("U");
+        SUMOReal w = pfdkGetStringWidth("U");
         glRotated(180, 0, 1, 0);
         glTranslated(-w/2., 2, 0);
         pfDrawString("U");
 
         glTranslated(w/2., -2, 0);
-        float prob = myAmInUserMode ? myUserProbability : myProbability;
+        SUMOReal prob = myAmInUserMode ? myUserProbability : myProbability;
         prob *= 100.;
-        prob = (int) prob;
+        prob = (SUMOReal) ((int) prob);
         string str = toString(prob) + "%";
         pfSetPosition(0, 0);
         pfSetScale(1.4f);
@@ -443,13 +446,13 @@ GUITriggeredRerouter::doPaint(const PosCont &poss,
             GUIEdge *gedge = static_cast<GUIEdge*>(*i);
             MSEdge::LaneCont *lanes = gedge->getLanes();
             size_t noLanes = lanes->size();
-            float prob = getProbability()*360;
+            SUMOReal prob = getProbability()*360;
             for(size_t j=0; j<noLanes; ++j) {
                 const Position2DVector &v =
                     gedge->getLaneGeometry((size_t) j).getShape();
-                float d = 3.;
+                SUMOReal d = 3.;
                 Position2D pos = v.positionAtLengthPosition(d);
-                double rot = -v.rotationDegreeAtLengthPosition(d);
+                SUMOReal rot = -v.rotationDegreeAtLengthPosition(d);
 
                 glPushMatrix();
                 glTranslated(pos.x(), pos.y(), 0);
@@ -463,10 +466,10 @@ GUITriggeredRerouter::doPaint(const PosCont &poss,
                         noPoints = 36;
                     }
                 }
-                glColor3f(0.7, 0, 0);
-                GLHelper::drawFilledCircle(1.3, noPoints);
+                glColor3f((SUMOReal) 0.7, (SUMOReal) 0, (SUMOReal) 0);
+                GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints);
                 glColor3f(1, 0, 0);
-                GLHelper::drawFilledCircle(1.3, noPoints, 0, prob);
+                GLHelper::drawFilledCircle((SUMOReal) 1.3, noPoints, 0, prob);
                 glColor3f(1, 1, 1);
                 glRotated( -90, 0, 0, 1 );
                 glBegin(GL_TRIANGLES);

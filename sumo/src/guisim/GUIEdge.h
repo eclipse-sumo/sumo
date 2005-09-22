@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.16  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -50,7 +53,7 @@
 //  different detector visualistaion in dependence to his controller
 //
 // Revision 1.9  2003/11/11 08:13:23  dkrajzew
-// consequent usage of Position2D instead of two doubles
+// consequent usage of Position2D instead of two SUMOReals
 //
 // Revision 1.8  2003/09/22 12:38:51  dkrajzew
 // detectors need const Lanes
@@ -150,8 +153,8 @@ public:
     /** returns the position on the line given by the coordinates where "prev"
         is the length of the line and "wanted" the distance from the begin
         !!! should be within another class */
-    static std::pair<double, double> getLaneOffsets(double x1, double y1,
-        double x2, double y2, double prev, double wanted);
+    static std::pair<SUMOReal, SUMOReal> getLaneOffsets(SUMOReal x1, SUMOReal y1,
+        SUMOReal x2, SUMOReal y2, SUMOReal prev, SUMOReal wanted);
 
     /** @brief Initialize the edge.
         A GUILaneChanger is build here */
@@ -160,7 +163,7 @@ public:
         EdgeBasicFunction function);
 
     /// Returns the given position on the given lane
-    Position2D getLanePosition(const MSLane &lane, double pos) const;
+    Position2D getLanePosition(const MSLane &lane, SUMOReal pos) const;
 
     static void fill(std::vector<GUIEdge*> &netsWrappers);
 
@@ -188,10 +191,6 @@ public:
 	//}
 
 private:
-
-    /// the origin and the destination junction
-    MSJunction *_from, *_to;
-
     /// Definition of the lane's positions vector
     typedef std::vector<GUILaneWrapper*> LaneWrapperVector;
 

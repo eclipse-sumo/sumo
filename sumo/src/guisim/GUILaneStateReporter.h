@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -50,21 +53,21 @@ class GUILaneStateReporter : public MSE2Collector,
 {
 public:
 	/// Constructor
-    GUILaneStateReporter(LoggedValue_TimeFloating<double> *densityRetriever,
-        LoggedValue_TimeFloating<double> *speedRetriever,
-        LoggedValue_TimeFloating<double> *haltingDurRetriever,
-        float &floatingDensity, float &floatingSpeed, float &floatingHaltings,
+    GUILaneStateReporter(LoggedValue_TimeFloating<SUMOReal> *densityRetriever,
+        LoggedValue_TimeFloating<SUMOReal> *speedRetriever,
+        LoggedValue_TimeFloating<SUMOReal> *haltingDurRetriever,
+        SUMOReal &SUMORealingDensity, SUMOReal &SUMORealingSpeed, SUMOReal &SUMORealingHaltings,
         const std::string &id, MSLane *lane, SUMOTime interval);
 	/// Destructor
     ~GUILaneStateReporter();
     bool updateEachTimestep( void );
 protected:
-    LoggedValue_TimeFloating<double> *myDensityRetriever;
-    LoggedValue_TimeFloating<double> *mySpeedRetriever;
-    LoggedValue_TimeFloating<double> *myHaltingDurRetriever;
-    float &myFloatingDensity;
-    float &myFloatingSpeed;
-    float &myFloatingHaltings;
+    LoggedValue_TimeFloating<SUMOReal> *myDensityRetriever;
+    LoggedValue_TimeFloating<SUMOReal> *mySpeedRetriever;
+    LoggedValue_TimeFloating<SUMOReal> *myHaltingDurRetriever;
+    SUMOReal &myFloatingDensity;
+    SUMOReal &myFloatingSpeed;
+    SUMOReal &myFloatingHaltings;
 
 };
 

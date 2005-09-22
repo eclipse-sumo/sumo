@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.20  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -57,7 +60,7 @@ namespace
 //  different detector visualistaion in dependence to his controller
 //
 // Revision 1.13  2003/11/11 08:13:23  dkrajzew
-// consequent usage of Position2D instead of two doubles
+// consequent usage of Position2D instead of two SUMOReals
 //
 // Revision 1.12  2003/09/22 12:38:51  dkrajzew
 // detectors need const Lanes
@@ -219,7 +222,7 @@ GUIEdge::getBoundary() const
     Boundary ret;
     for(LaneWrapperVector::const_iterator i=_laneGeoms.begin(); i!=_laneGeoms.end(); ++i) {
         const Position2DVector &g = (*i)->getShape();
-        for(int j=0; j<g.size(); j++) {
+        for(unsigned int j=0; j<g.size(); j++) {
             ret.add(g.at(j));
         }
     }
@@ -251,7 +254,7 @@ GUIEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
 
 
 Position2D
-GUIEdge::getLanePosition(const MSLane &lane, double pos) const
+GUIEdge::getLanePosition(const MSLane &lane, SUMOReal pos) const
 {
     LaneWrapperVector::const_iterator i =
         find_if(_laneGeoms.begin(), _laneGeoms.end(),
@@ -261,8 +264,8 @@ GUIEdge::getLanePosition(const MSLane &lane, double pos) const
     // compute the position and return it
     const Position2D &laneEnd = (*i)->getBegin();
     const Position2D &laneDir = (*i)->getDirection();
-    double posX = laneEnd.x() - laneDir.x() * pos;
-    double posY = laneEnd.y() - laneDir.y() * pos;
+    SUMOReal posX = laneEnd.x() - laneDir.x() * pos;
+    SUMOReal posY = laneEnd.y() - laneDir.y() * pos;
     return Position2D(posX, posY);
 }
 

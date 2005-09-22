@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -88,7 +91,7 @@ namespace
  * method definitions
  * ======================================================================= */
 GUISourceLane::GUISourceLane(/*MSNet &net, */std::string id,
-                             double maxSpeed, double length,
+                             SUMOReal maxSpeed, SUMOReal length,
                              MSEdge* edge, size_t numericalID,
                              const Position2DVector &shape )
     : MSSourceLane(/*net, */id, maxSpeed, length, edge, numericalID, shape)

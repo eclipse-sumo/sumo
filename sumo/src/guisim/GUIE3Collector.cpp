@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -88,12 +91,6 @@ using namespace std;
 
 
 /* =========================================================================
- * static member definitions
- * ======================================================================= */
-GUIE3Collector::InstanceVector GUIE3Collector::myInstances;
-
-
-/* =========================================================================
  * method definitions
  * ======================================================================= */
 /* -------------------------------------------------------------------------
@@ -132,7 +129,7 @@ GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section,
                                            bool exit)
 {
     const MSLane *lane = section.laneM;
-    double pos = section.posM;
+    SUMOReal pos = section.posM;
     const GUILaneWrapper &lw =
         static_cast<const GUIEdge&>(lane->edge()).getLaneGeometry(lane);
     const Position2DVector &v =
@@ -203,7 +200,7 @@ GUIE3Collector::MyWrapper::active() const
 
 
 void
-GUIE3Collector::MyWrapper::drawGL_SG(double scale)
+GUIE3Collector::MyWrapper::drawGL_SG(SUMOReal scale)
 {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
@@ -219,7 +216,7 @@ GUIE3Collector::MyWrapper::drawGL_SG(double scale)
 
 
 void
-GUIE3Collector::MyWrapper::drawGL_FG(double scale)
+GUIE3Collector::MyWrapper::drawGL_FG(SUMOReal scale)
 {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
@@ -236,7 +233,7 @@ GUIE3Collector::MyWrapper::drawGL_FG(double scale)
 
 void
 GUIE3Collector::MyWrapper::drawSingleCrossing(const Position2D &pos,
-                                              double rot) const
+                                              SUMOReal rot) const
 {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glPushMatrix();

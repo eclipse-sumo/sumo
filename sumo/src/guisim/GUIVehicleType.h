@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -56,8 +59,8 @@ class GUIVehicleType : public MSVehicleType
 {
 public:
     GUIVehicleType(const RGBColor &c,
-        std::string id, double length, double maxSpeed,
-        double accel = 0.8, double decel = 4.5, double dawdle = 0.5 );
+        std::string id, SUMOReal length, SUMOReal maxSpeed,
+        SUMOReal accel = 0.8, SUMOReal decel = 4.5, SUMOReal dawdle = 0.5 );
 
     /// Destructor.
     ~GUIVehicleType();

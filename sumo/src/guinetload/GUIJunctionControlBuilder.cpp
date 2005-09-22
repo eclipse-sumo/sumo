@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/22 13:39:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 11:06:03  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -33,7 +36,7 @@ namespace
 // first steps towards a better parametrisation of traffic lights
 //
 // Revision 1.3  2004/08/02 11:56:31  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.2  2003/12/04 13:25:52  dkrajzew
 // handling of internal links added; documentation added; some dead code removed

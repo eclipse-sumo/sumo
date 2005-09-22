@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -67,8 +70,8 @@ GUIVehicleType::~GUIVehicleType()
 
 
 GUIVehicleType::GUIVehicleType(const RGBColor &c,
-                               string id, double length, double maxSpeed,
-                               double accel, double decel, double dawdle )
+                               string id, SUMOReal length, SUMOReal maxSpeed,
+                               SUMOReal accel, SUMOReal decel, SUMOReal dawdle )
     : MSVehicleType(id, length, maxSpeed, accel, decel, dawdle), myColor(c)
 {
 }

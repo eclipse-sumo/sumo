@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.1  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -75,7 +78,7 @@ class GUITriggeredRerouter
 public:
     /** constructor */
     GUITriggeredRerouter(const std::string &id, MSNet &net,
-        const std::vector<MSEdge*> &edges, float prob,
+        const std::vector<MSEdge*> &edges, SUMOReal prob,
         const std::string &aXMLFilename);
 
     /** destructor */
@@ -99,10 +102,10 @@ public:
 
     //@{ From GUIAbstractAddGlObject
     /// Draws the detector in full-geometry mode
-    void drawGL_FG(double scale);
+    void drawGL_FG(SUMOReal scale);
 
     /// Draws the detector in simple-geometry mode
-    void drawGL_SG(double scale);
+    void drawGL_SG(SUMOReal scale);
 
     /// Returns the detector's coordinates
     Position2D getPosition() const;
@@ -167,7 +170,7 @@ public:
 
         FXDataTarget myUsageProbabilityTarget;
 
-        float myUsageProbability;
+        SUMOReal myUsageProbability;
 
         GUITriggeredRerouter *myObject;
 
@@ -181,10 +184,10 @@ private:
     typedef std::vector<Position2D> PosCont;
 
     /// Definition of a rotation container
-    typedef std::vector<double> RotCont;
+    typedef std::vector<SUMOReal> RotCont;
 
 private:
-    void doPaint(const PosCont &pos, const RotCont rot, double scale);
+    void doPaint(const PosCont &pos, const RotCont rot, SUMOReal scale);
 
 private:
     /// The positions in full-geometry mode

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/22 13:39:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.10  2005/09/15 11:06:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -144,11 +147,11 @@ GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper(GUIGlObjectStorage &idStorage
 
 MSE2Collector *
 GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
-                                            double start, double end)
+                                            SUMOReal start, SUMOReal end)
 {
     string id = makeID(myID, c, r);
     if(start+end<l->length()) {
-        start = l->length() - end - 0.1;
+        start = l->length() - end - (SUMOReal) 0.1;
     }
     return new GUI_E2_ZS_Collector(id, myUsage,
         l, start, end, haltingTimeThresholdM,
@@ -268,7 +271,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::active() const
 
 
 void
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_SG(double scale)
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_SG(SUMOReal scale)
 {
     for(std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); i++) {
         (*i)->drawGL_SG(scale);
@@ -277,7 +280,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_SG(double scale)
 
 
 void
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_FG(double scale)
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_FG(SUMOReal scale)
 {
     for(std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); i++) {
         (*i)->drawGL_FG(scale);
