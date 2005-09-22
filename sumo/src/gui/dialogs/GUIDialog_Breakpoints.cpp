@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -65,9 +68,9 @@ namespace
 #include <gui/GUIGlobals.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <guisim/GUINet.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/importio/LineReader.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include "GUIDialog_Breakpoints.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/foxtools/MFXAddEditTypedTable.h>

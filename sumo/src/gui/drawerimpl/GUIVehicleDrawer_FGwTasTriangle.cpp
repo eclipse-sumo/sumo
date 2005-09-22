@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 11:05:29  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -105,10 +108,10 @@ GUIVehicleDrawer_FGwTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
     glRotated(rots[0], 0, 0, 1);
     // go through the vehicles
     size_t shapePos = 0;
-    double positionOffset = 0;
+    SUMOReal positionOffset = 0;
     for(MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); v++) {
         MSVehicle *veh = *v;
-        double vehiclePosition = veh->pos();
+        SUMOReal vehiclePosition = veh->pos();
         while(  shapePos<rots.size()-1
                 &&
                 vehiclePosition>positionOffset+lengths[shapePos]) {
@@ -137,7 +140,7 @@ GUIVehicleDrawer_FGwTasTriangle::drawVehicle(const GUIVehicle &vehicle,
 {
     glPushName(vehicle.getGlID());
     glBegin( GL_TRIANGLES );
-    float length = vehicle.length();
+    SUMOReal length = vehicle.length();
     if(length<8) {
         if(scheme!=GUISUMOAbstractView::VCS_LANECHANGE3) {
             setVehicleColor(vehicle, scheme);

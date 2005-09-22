@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.24  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.23  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -181,14 +184,14 @@ protected:
 public:
 
 protected:
-    void doPaintGL(int mode, double scale);
+    void doPaintGL(int mode, SUMOReal scale);
 
     void doInit();
 
     /// returns the color of the edge
     RGBColor getEdgeColor(GUIEdge *edge) const;
 
-    void drawRoute(const VehicleOps &vo, int routeNo, double darken);
+    void drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken);
 
 protected:
     /** @brief Instances of the vehicle drawers

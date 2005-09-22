@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.40  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.39  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -71,7 +74,7 @@ namespace
 // clean up after recent changes
 //
 // Revision 1.24  2003/11/11 08:40:03  dkrajzew
-// consequent position2D instead of two doubles implemented
+// consequent position2D instead of two SUMOReals implemented
 //
 // Revision 1.23  2003/10/15 11:37:50  dkrajzew
 // old row-drawer replaced by new ones; setting of name information seems to
@@ -341,9 +344,9 @@ GUIViewTraffic::init(GUINet &net)
 	myLaneColoringSchemes.add("by allowed speed",
 		GUISUMOAbstractView::LCS_BY_SPEED,
 		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
-            0, 150.0/3.6,
+            0, (SUMOReal) (150.0/3.6),
             RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-            (double (GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
+            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
 	myLaneColoringSchemes.add("by selection",
 		GUISUMOAbstractView::LCS_BY_SELECTION,
 		new GUIColorer_LaneBySelection<GUILaneWrapper>());
@@ -355,13 +358,13 @@ GUIViewTraffic::init(GUINet &net)
 		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
             0, 200,
             RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-            (double (GUILaneWrapper::*)() const) &GUILaneWrapper::firstWaitingTime));
+            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::firstWaitingTime));
 	myLaneColoringSchemes.add("by current density",
 		GUISUMOAbstractView::LCS_WAITING_DENSITYX,
 		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
-            0, .8,
+            0, (SUMOReal) .8,
             RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-            (double (GUILaneWrapper::*)() const) &GUILaneWrapper::myMagic));
+            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::myMagic));
 }
 
 
@@ -503,7 +506,7 @@ GUIViewTraffic::onCmdShowFullGeom(FXObject*sender,FXSelector,void*)
 
 
 void
-GUIViewTraffic::doPaintGL(int mode, double scale)
+GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
 {
     // init view settings
     glRenderMode(mode);
@@ -515,29 +518,29 @@ GUIViewTraffic::doPaintGL(int mode, double scale)
     glDisable(GL_DEPTH_TEST);
     // get the viewport settings
     const Boundary &nb = _net->getBoundary();
-    double x = (nb.getCenter().x() - _changer->getXPos()); // center of view
-    double xoff = 50.0 / _changer->getZoom() * myNetScale
+    SUMOReal x = (nb.getCenter().x() - _changer->getXPos()); // center of view
+    SUMOReal xoff = (SUMOReal) 50.0 / _changer->getZoom() * myNetScale
         / _addScl; // offset to right
-    double y = (nb.getCenter().y() - _changer->getYPos()); // center of view
-    double yoff = 50.0 / _changer->getZoom() * myNetScale
+    SUMOReal y = (nb.getCenter().y() - _changer->getYPos()); // center of view
+    SUMOReal yoff = (SUMOReal) 50.0 / _changer->getZoom() * myNetScale
         / _addScl; // offset to top
     // reset the tables of things to show if the viewport has changed
     if(myViewSettings.differ(x, y, xoff, yoff)) {
 
-double width = nb.getWidth();
-double height = nb.getHeight();
-double mzoom = _changer->getZoom();
-double cy = _changer->getYPos();//cursorY;
-double cx = _changer->getXPos();//cursorY;
-double mratio = (double) _widthInPixels / (double) _heightInPixels;
-double sxmin = nb.getCenter().x() - mratio * width / (mzoom) * 100 / 2. / .97;
+SUMOReal width = nb.getWidth();
+SUMOReal height = nb.getHeight();
+SUMOReal mzoom = _changer->getZoom();
+SUMOReal cy = _changer->getYPos();//cursorY;
+SUMOReal cx = _changer->getXPos();//cursorY;
+SUMOReal mratio = (SUMOReal) _widthInPixels / (SUMOReal) _heightInPixels;
+SUMOReal sxmin = nb.getCenter().x() - mratio * width / (mzoom) * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
 sxmin -= cx;
-double sxmax = nb.getCenter().x() + mratio * width / (mzoom) * 100 / 2. / .97;
+SUMOReal sxmax = nb.getCenter().x() + mratio * width / (mzoom) * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
 sxmax -= cx;
 
-double symin = nb.getCenter().y() - height / mzoom * 100 / 2. / .97;
+SUMOReal symin = nb.getCenter().y() - height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
 symin += cy;
-double symax = nb.getCenter().y() + height / mzoom * 100 / 2. / .97;
+SUMOReal symax = nb.getCenter().y() + height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
 symax += cy;
 
         clearUsetable(_edges2Show, _edges2ShowSize);
@@ -547,7 +550,7 @@ symax += cy;
         myViewSettings.set(x, y, xoff, yoff);
     }
     // compute lane width
-    double width = m2p(3.0) * scale;
+    SUMOReal width = m2p(3.0) * scale;
     size_t drawerToUse = 0;
     // compute which drawer shall be used
     if(myUseFullGeom) {
@@ -577,10 +580,10 @@ symax += cy;
                     int noReroutePlus1 =
                         (int) vo.vehicle->getCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE) + 1;
                     for(int i=noReroutePlus1-1; i>=0; i--) {
-                        double darken =
-                            0.4
-                            / (double) noReroutePlus1
-                            * (double) i;
+                        SUMOReal darken =
+                            (SUMOReal) 0.4
+                            / (SUMOReal) noReroutePlus1
+                            * (SUMOReal) i;
                         drawRoute(vo, i, darken);
                     }
                 }
@@ -605,13 +608,13 @@ GUIViewTraffic::getEdgeColor(GUIEdge *edge) const
 {
     switch(edge->getPurpose()) {
     case GUIEdge::EDGEFUNCTION_NORMAL:
-        return RGBColor(0, 0, 0);
+        return RGBColor((SUMOReal) 0,   (SUMOReal) 0,   (SUMOReal) 0);
     case GUIEdge::EDGEFUNCTION_SOURCE:
-        return RGBColor(0, 0.2, 0);
+        return RGBColor((SUMOReal) 0,   (SUMOReal) 0.2, (SUMOReal) 0);
     case GUIEdge::EDGEFUNCTION_SINK:
-        return RGBColor(0.2, 0, 0);
+        return RGBColor((SUMOReal) 0.2, (SUMOReal) 0,   (SUMOReal) 0);
     case GUIEdge::EDGEFUNCTION_INTERNAL:
-        return RGBColor(0, 0, 0.2);
+        return RGBColor((SUMOReal) 0,   (SUMOReal) 0,   (SUMOReal) 0.2);
     default:
         break;
     }
@@ -633,7 +636,7 @@ GUIViewTraffic::doInit()
 
 
 void
-GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, double darken)
+GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken)
 {
     if(_useToolTips) {
         glPushName(vo.vehicle->getGlID());

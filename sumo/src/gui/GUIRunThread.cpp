@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.31  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.30  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -225,7 +228,7 @@ GUIRunThread::run()
             if(haltAfter) {
                 stop();
             }
-            double val = mySimDelay.getValue();
+            SUMOReal val = (SUMOReal) mySimDelay.getValue();
             if(getNet().logSimulationDuration()) {
                 end = SysUtils::getCurrentMillis();
                 getNet().setSimDuration((int) (end-beg));

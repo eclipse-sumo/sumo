@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -90,7 +93,7 @@ GUIBaseDetectorDrawer::~GUIBaseDetectorDrawer()
 void
 GUIBaseDetectorDrawer::drawGLDetectors(size_t *which,
                                        size_t maxDetectors,
-                                       double scale)
+                                       SUMOReal scale)
 {
     initStep();
     myDrawGLDetectors(which, maxDetectors, scale);

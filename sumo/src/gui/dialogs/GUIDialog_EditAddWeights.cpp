@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -62,8 +65,8 @@ namespace
 #include <gui/GUIGlobals.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <guisim/GUINet.h>
-#include <utils/convert/ToString.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/ToString.h>
+#include <utils/common/TplConvert.h>
 #include "GUIDialog_EditAddWeights.h"
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/foxtools/MFXAddEditTypedTable.h>
@@ -221,11 +224,11 @@ GUIDialog_EditAddWeights::rebuildList()
         myTable->setItemText(row, 2,
             toString<int>((*j).timeEnd).c_str());
         myTable->setItemText(row, 3,
-            toString<float>((*j).abs).c_str());
+            toString<SUMOReal>((*j).abs).c_str());
         myTable->setItemText(row, 4,
-            toString<float>((*j).add).c_str());
+            toString<SUMOReal>((*j).add).c_str());
         myTable->setItemText(row, 5,
-            toString<float>((*j).mult).c_str());
+            toString<SUMOReal>((*j).mult).c_str());
         // replace "invalid" values by empty fields
         for(k=1; k<6; k++) {
             string val = myTable->getItem(row, k)->getText().text();
@@ -459,27 +462,27 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 3:
         try {
-            aw.abs = TplConvert<char>::_2float(value.c_str());
+            aw.abs = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException) {
-            string msg = string("The value must be a float, is:") + value;
+            string msg = string("The value must be a SUMOReal, is:") + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error",
                 msg.c_str());
         }
         break;
     case 4:
         try {
-            aw.add = TplConvert<char>::_2float(value.c_str());
+            aw.add = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException) {
-            string msg = string("The value must be a float, is:") + value;
+            string msg = string("The value must be a SUMOReal, is:") + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error",
                 msg.c_str());
         }
         break;
     case 5:
         try {
-            aw.mult = TplConvert<char>::_2float(value.c_str());
+            aw.mult = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException) {
-            string msg = string("The value must be a float, is:") + value;
+            string msg = string("The value must be a SUMOReal, is:") + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error",
                 msg.c_str());
         }

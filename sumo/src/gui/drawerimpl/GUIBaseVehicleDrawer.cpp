@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.12  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -159,10 +162,10 @@ GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
     switch(scheme) {
     case GUISUMOAbstractView::VCS_BY_SPEED:
         {
-            double speed = vehicle.speed();
-            double maxSpeed = 30; // !!!
-            double fact = speed / maxSpeed / 2.0;
-            return RGBColor(1.0-fact, 0.5, 0.5+fact);
+            SUMOReal speed = vehicle.speed();
+            SUMOReal maxSpeed = 30; // !!!
+            SUMOReal fact = speed / maxSpeed / (SUMOReal) 2.0;
+            return RGBColor((SUMOReal) (1.0-fact), (SUMOReal) 0.5, (SUMOReal) (0.5+fact));
         }
         break;
     case GUISUMOAbstractView::VCS_SPECIFIED:
@@ -199,7 +202,7 @@ GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
         break;
     case GUISUMOAbstractView::VCS_LANECHANGE1:
         {
-            float color = vehicle.getPassedColor() / (float) 255;
+            SUMOReal color = vehicle.getPassedColor() / (SUMOReal) 255;
             return RGBColor(color, color, color);
         }
         break;
@@ -215,7 +218,7 @@ GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
         break;
     case GUISUMOAbstractView::VCS_WAITING1:
         {
-            float color = float(vehicle.getWaitingTime())
+            SUMOReal color = SUMOReal(vehicle.getWaitingTime())
                 / 512.0f;
             if(color>1.0) {
                 return RGBColor(0, 0, 0);
@@ -260,7 +263,7 @@ GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
 
                 return RGBColor(220.0f/255.0f, 134.0f/255.0f, 228.0f/255.0f);
             } else {
-                double val = v.getCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET);
+                SUMOReal val = v.getCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET);
                 if(val>300) {
                     glColor3d(128.0f/255.0f, 128.0f/255.0f, 0/255.0f);
                 } else {
@@ -275,14 +278,17 @@ GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
             GUIVehicle &v = (GUIVehicle&) (vehicle);
             if( !v.hasCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE) ) {
 
-                return RGBColor(220.0/255.0, 134.0/255.0, 228.0/255.0);
+                return RGBColor(
+                    (SUMOReal) (220.0/255.0),
+                    (SUMOReal) (134.0/255.0),
+                    (SUMOReal) (228.0/255.0));
             } else {
-                double val = v.getCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE);
+                SUMOReal val = v.getCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE);
                 if(val>10) {
                     val = 10;
                 }
-                val = val / 10.;
-                return RGBColor(val, 1.0-val, 0);
+                val = val / (SUMOReal) 10.;
+                return RGBColor((SUMOReal) val, (SUMOReal) (1.0-val), (SUMOReal) 0);
             }
             break;
         }
@@ -290,17 +296,17 @@ GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
         {
             const MSLCM_DK2004 &model =
                 static_cast<const MSLCM_DK2004 &>(vehicle.getLaneChangeModel());
-            double prob = model.getProb();
+            SUMOReal prob = model.getProb();
             if(prob>0) {
                 if(prob>1) {
                     prob = 1;
                 }
-                return RGBColor(prob, 0.3, 1.0-prob);
+                return RGBColor((SUMOReal) prob, (SUMOReal) 0.3, (SUMOReal) (1.0-prob));
             } else {
                 if(prob<-1) {
                     prob = -1;
                 }
-                return RGBColor(0.3, -prob, 1.0+prob);
+                return RGBColor((SUMOReal) 0.3, (SUMOReal) -prob, (SUMOReal) (1.0+prob));
             }
             break;
         }
@@ -320,10 +326,10 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
     switch(scheme) {
     case GUISUMOAbstractView::VCS_BY_SPEED:
         {
-            double speed = vehicle.speed();
-            double maxSpeed = 30; // !!!
-            double fact = speed / maxSpeed / 2.0;
-            glColor3d(1.0-fact, 0.5, 0.5+fact);
+            SUMOReal speed = vehicle.speed();
+            SUMOReal maxSpeed = 30; // !!!
+            SUMOReal fact = speed / maxSpeed / (SUMOReal) 2.0;
+            glColor3d((SUMOReal) (1.0-fact), (SUMOReal) 0.5, (SUMOReal) (0.5+fact));
         }
         break;
     case GUISUMOAbstractView::VCS_SPECIFIED:
@@ -360,7 +366,7 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
         break;
     case GUISUMOAbstractView::VCS_LANECHANGE1:
         {
-            float color = vehicle.getPassedColor() / (float) 255;
+            SUMOReal color = vehicle.getPassedColor() / (SUMOReal) 255;
             glColor3d(color, color, color);
         }
         break;
@@ -377,12 +383,12 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
         break;
     case GUISUMOAbstractView::VCS_WAITING1:
         {
-            double color = double(vehicle.getWaitingTime())
-                / 512.0;
+            SUMOReal color = SUMOReal(vehicle.getWaitingTime())
+                / (SUMOReal) 512.0;
             if(color>1.0) {
                 glColor3d(0, 0, 0);
             } else {
-                color = 1.0 - color;
+                color = (SUMOReal) 1.0 - color;
                 glColor3d(color, color, color);
             }
         }
@@ -394,12 +400,12 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
 
                 glColor3d(220.0/255.0, 134.0/255.0, 228.0/255.0);
             } else {
-                double val = v.getCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET);
+                SUMOReal val = v.getCORNDoubleValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET);
                 if(val>300) {
                     glColor3d(128.0/255.0, 128.0/255.0, 0/255.0);
                 } else {
-                    val = 1.0 - (val / 600.0);
-                    glColor3d(val, val, 0/255.0);
+                    val = (SUMOReal) 1.0 - (val / (SUMOReal) 600.0);
+                    glColor3d(val, val, 0/(SUMOReal) 255.0);
                 }
             }
             break;
@@ -411,12 +417,12 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
 
                 glColor3d(220.0/255.0, 134.0/255.0, 228.0/255.0);
             } else {
-                double val = v.getCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE);
+                SUMOReal val = v.getCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE);
                 if(val>10) {
                     val = 10;
                 }
-                val = val / 10.;
-                glColor3d(val, 1.0-val, 0);
+                val = val / (SUMOReal) 10.;
+                glColor3d(val, (SUMOReal) 1.0-val, 0);
             }
             break;
         }
@@ -424,7 +430,7 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
         {
             const MSLCM_DK2004 &model =
                 static_cast<const MSLCM_DK2004 &>(vehicle.getLaneChangeModel());
-            double prob = model.getProb();
+            SUMOReal prob = model.getProb();
             if(prob>0) {
                 if(prob>1) {
                     prob = 1;

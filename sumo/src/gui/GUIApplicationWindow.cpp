@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.43  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.42  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -78,7 +81,7 @@ namespace
 // visualisation of tl-logics added
 //
 // Revision 1.25  2003/11/11 08:40:45  dkrajzew
-// consequent position2D instead of two doubles implemented; logging moved from
+// consequent position2D instead of two SUMOReals implemented; logging moved from
 //  utils to microsim
 //
 // Revision 1.24  2003/10/27 10:47:03  dkrajzew
@@ -177,7 +180,7 @@ namespace
 #include "GUIRunThread.h"
 #include "GUIApplicationWindow.h"
 
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/foxtools/FXLCDLabel.h>
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/FXThreadEvent.h>
@@ -209,6 +212,9 @@ namespace
 #include <guisim/GUISelectionLoader.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 
+#ifdef HAVE_MESOSIM
+#include <microsim/MSGlobals.h>
+#endif
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>

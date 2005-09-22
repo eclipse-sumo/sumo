@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -160,11 +163,11 @@ private:
 
     std::string edgeIdM;        ///< Value of the attribute "edge-id"
                                 ///within tag "weights".
-    double absolutValueM;       ///< Value of the attribute "absolut"
+    SUMOReal absolutValueM;       ///< Value of the attribute "absolut"
                                 ///within tag "weights".
-    double multValueM;          ///< Value of the attribute "mult"
+    SUMOReal multValueM;          ///< Value of the attribute "mult"
                                 ///within tag "weights".
-    double addValueM;           ///< Value of the attribute "add"
+    SUMOReal addValueM;           ///< Value of the attribute "add"
                                 ///within tag "weights".
 
     /// Iterator to WeightsMap.

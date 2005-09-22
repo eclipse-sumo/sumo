@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.16  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -57,7 +60,7 @@ namespace
 // clean up after recent changes
 //
 // Revision 1.5  2003/11/11 08:40:03  dkrajzew
-// consequent position2D instead of two doubles implemented
+// consequent position2D instead of two SUMOReals implemented
 //
 // Revision 1.4  2003/10/30 08:57:53  dkrajzew
 // first implementation of aggregated views using E2-detectors
@@ -289,9 +292,9 @@ GUIViewAggregatedLanes::init(GUINet &net)
 	myLaneColoringSchemes.add("by density",
 		GUISUMOAbstractView::LCS_BY_DENSITY,
         new GUIColorer_GradientByFunctionValue<GUILaneWrapper, E2::DetType, E2::DetType>(
-            (double) 0, (double) 1,
+            (SUMOReal) 0, (SUMOReal) 1,
             gGradients->getRGBColors(GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 100),
-            (double (GUILaneWrapper::*)(E2::DetType) const) &GUILaneWrapper::getAggregatedFloat,
+            (SUMOReal (GUILaneWrapper::*)(E2::DetType) const) &GUILaneWrapper::getAggregatedFloat,
             E2::DENSITY));
     /*
 	myLaneColoringSchemes.add("by mean speed",
@@ -305,13 +308,13 @@ GUIViewAggregatedLanes::init(GUINet &net)
 		GUISUMOAbstractView::LCS_BY_PURPOSE,
 		new GUIColorer_LaneByPurpose<GUILaneWrapper>());
 
-//	    (double (GUILaneWrapper::*)() const) = GUILaneWrapper::maxSpeed;
+//	    (SUMOReal (GUILaneWrapper::*)() const) = GUILaneWrapper::maxSpeed;
 	myLaneColoringSchemes.add("by allowed speed",
 		GUISUMOAbstractView::LCS_BY_SPEED,
 		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
-            (double) 0, GUILaneWrapper::getOverallMaxSpeed(),
+            (SUMOReal) 0, GUILaneWrapper::getOverallMaxSpeed(),
             RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-            (double (GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
+            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
 
 	myLaneColoringSchemes.add("by selection",
 		GUISUMOAbstractView::LCS_BY_SELECTION,
@@ -452,7 +455,7 @@ GUIViewAggregatedLanes::onCmdShowFullGeom(FXObject*sender,FXSelector,void*)
 long
 GUIViewAggregatedLanes::onCmdAggMemory(FXObject*,FXSelector,void*)
 {
-    gAggregationRememberingFactor = (float) myRememberingFactor->getValue();
+    gAggregationRememberingFactor = (SUMOReal) myRememberingFactor->getValue();
     return 1;
 }
 
@@ -469,7 +472,7 @@ GUIViewAggregatedLanes::onCmdAggChoose(FXObject*,FXSelector,void*)
 
 
 void
-GUIViewAggregatedLanes::doPaintGL(int mode, double scale)
+GUIViewAggregatedLanes::doPaintGL(int mode, SUMOReal scale)
 {
     glRenderMode(mode);
     glMatrixMode( GL_MODELVIEW );
@@ -480,11 +483,11 @@ GUIViewAggregatedLanes::doPaintGL(int mode, double scale)
     glDisable(GL_DEPTH_TEST);
 
     const Boundary &nb = _net->getBoundary();
-    double x = (nb.getCenter().x() - _changer->getXPos()); // center of view
-    double xoff = 50.0 / _changer->getZoom() * myNetScale
+    SUMOReal x = (nb.getCenter().x() - _changer->getXPos()); // center of view
+    SUMOReal xoff = (SUMOReal) 50.0 / _changer->getZoom() * myNetScale
         / _addScl; // offset to right
-    double y = (nb.getCenter().y() - _changer->getYPos()); // center of view
-    double yoff = 50.0 / _changer->getZoom() * myNetScale
+    SUMOReal y = (nb.getCenter().y() - _changer->getYPos()); // center of view
+    SUMOReal yoff = (SUMOReal) 50.0 / _changer->getZoom() * myNetScale
         / _addScl; // offset to top
     if(myViewSettings.differ(x, y, xoff, yoff)) {
         clearUsetable(_edges2Show, _edges2ShowSize);
@@ -493,7 +496,7 @@ GUIViewAggregatedLanes::doPaintGL(int mode, double scale)
             _edges2Show, _junctions2Show, _additional2Show);
         myViewSettings.set(x, y, xoff, yoff);
     }
-    double width = m2p(3.0) * scale;
+    SUMOReal width = m2p(3.0) * scale;
     size_t drawerToUse = 0;
     // compute which drawer shall be used
     if(myUseFullGeom) {
@@ -520,13 +523,13 @@ GUIViewAggregatedLanes::getEdgeColor(GUIEdge *edge) const
 {
     switch(edge->getPurpose()) {
     case GUIEdge::EDGEFUNCTION_NORMAL:
-        return RGBColor(0, 0, 0);
+        return RGBColor((SUMOReal) 0,   (SUMOReal) 0,   (SUMOReal) 0);
     case GUIEdge::EDGEFUNCTION_SOURCE:
-        return RGBColor(0, 0.2, 0);
+        return RGBColor((SUMOReal) 0,   (SUMOReal) 0.2, (SUMOReal) 0);
     case GUIEdge::EDGEFUNCTION_SINK:
-        return RGBColor(0.2, 0, 0);
+        return RGBColor((SUMOReal) 0.2, (SUMOReal) 0,   (SUMOReal) 0);
     case GUIEdge::EDGEFUNCTION_INTERNAL:
-        return RGBColor(0, 0, 0.2);
+        return RGBColor((SUMOReal) 0,   (SUMOReal) 0,   (SUMOReal) 0.2);
     default:
         break;
     }

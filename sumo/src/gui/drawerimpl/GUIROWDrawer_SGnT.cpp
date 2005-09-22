@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 11:05:29  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -111,7 +114,7 @@ GUIROWDrawer_SGnT::drawLinkRules(const GUINet &net,
                                  const GUILaneWrapper &lane)
 {
     size_t noLinks = lane.getLinkNumber();
-    double visLength = -lane.visLength();
+    SUMOReal visLength = -lane.visLength();
     if(noLinks==0) {
         // draw a grey bar if no links are on the street
         glColor3f(0.5, 0.5, 0.5);
@@ -129,14 +132,14 @@ GUIROWDrawer_SGnT::drawLinkRules(const GUINet &net,
         return;
     }
     // draw all links
-    float w = 3.0f / (float) noLinks;
-    float x1 = 0;
+    SUMOReal w = 3.0f / (SUMOReal) noLinks;
+    SUMOReal x1 = 0;
     glPushMatrix();
     const Position2D &beg = lane.getBegin();
     glTranslated(beg.x(), beg.y(), 0);
     glRotated( lane.getRotation(), 0, 0, 1 );
     for(size_t i=0; i<noLinks; i++) {
-        float x2 = x1 + w;
+        SUMOReal x2 = x1 + w;
         MSLink::LinkState state = lane.getLinkState(i);
         const RGBColor &color = myLinkColors.find(state)->second;
         glColor3d(color.red(), color.green(), color.blue());
@@ -161,7 +164,7 @@ GUIROWDrawer_SGnT::drawArrows(const GUILaneWrapper &lane)
         return;
     }
     // draw all links
-    double visLength = -lane.visLength();
+    SUMOReal visLength = -lane.visLength();
     glPushMatrix();
     glColor3f(1, 1, 1);
     glEnable(GL_TEXTURE_2D);
@@ -186,7 +189,7 @@ GUIROWDrawer_SGnT::drawArrows(const GUILaneWrapper &lane)
             continue;
         }
         GUITexturesHelper::drawTexturedBox((GUITexture) dir,
-            1.5, visLength+4.0, -1.5, visLength+1);
+            (SUMOReal) 1.5, visLength+(SUMOReal) 4.0, (SUMOReal) -1.5, visLength+1);
     }
     glBindTexture(GL_TEXTURE_2D, 0);
     glPopMatrix();

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -86,7 +89,7 @@ public:
         }
 	}
 
-	void setGlColor(double val) const {
+	void setGlColor(SUMOReal val) const {
         glColor3d(val, val, val);
     }
 

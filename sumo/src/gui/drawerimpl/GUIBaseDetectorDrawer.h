@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -69,14 +72,14 @@ public:
 
     /// Draws all detectors
     void drawGLDetectors(size_t *which, size_t maxDetectors,
-        double scale);
+        SUMOReal scale);
 
 protected:
     /** @brief Virtual function to be implemented taht actually performs the drawing
         The drawing process depends on whether the full or the simply geometry shall
         be used and whether tool tips shall be displayed or not */
     virtual void myDrawGLDetectors(size_t *which, size_t maxDetectors,
-        double scale) = 0;
+        SUMOReal scale) = 0;
 
 protected:
     /** @brief Inititialises the drawing process

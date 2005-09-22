@@ -68,10 +68,10 @@ public:
     /// Called on "Allow aggregated Views"-button change
     long onCmdAllowAggregated(FXObject*,FXSelector,void*);
 
-    /// Called on "Allow aggregated floating Views"-button change
+    /// Called on "Allow aggregated SUMORealing Views"-button change
     long onCmdAllowAggregatedFloating(FXObject*,FXSelector,void*);
 
-    /// Called on "Allow aggregated floating Views"-button update
+    /// Called on "Allow aggregated SUMORealing Views"-button update
     long onUpdAllowAggregatedFloating(FXObject *sender,
         FXSelector, void *ptr);
 
@@ -88,7 +88,7 @@ private:
     /// Information whether aggregated views are allowed
     bool myAllowAggregated;
 
-    /// Information whether aggregated floating views are allowed
+    /// Information whether aggregated SUMORealing views are allowed
     bool myAllowAggregatedFloating;
 
     /// Information whether textures may be used

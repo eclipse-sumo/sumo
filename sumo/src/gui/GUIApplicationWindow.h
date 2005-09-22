@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.30  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.29  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -61,7 +64,7 @@
 // visualisation of tl-logics added
 //
 // Revision 1.17  2003/11/11 08:40:45  dkrajzew
-// consequent position2D instead of two doubles implemented; logging moved
+// consequent position2D instead of two SUMOReals implemented; logging moved
 //  from utils to microsim
 //
 // Revision 1.16  2003/10/27 10:47:03  dkrajzew
@@ -78,13 +81,15 @@
 // unneeded uncommented files removed
 //
 // Revision 1.12  2003/07/07 08:08:33  dkrajzew
-// The restart-button was removed and the play-button has now the function to continue the simulation if it has been started before
+// The restart-button was removed and the play-button has now the function to
+//  continue the simulation if it has been started before
 //
 // Revision 1.11  2003/06/24 14:28:53  dkrajzew
 // first steps towards a settings manipulation applied
 //
 // Revision 1.10  2003/06/19 10:56:03  dkrajzew
-// user information about simulation ending added; the gui may shutdown on end and be started with a simulation now;
+// user information about simulation ending added; the gui may shutdown on
+//  end and be started with a simulation now;
 //
 // Revision 1.9  2003/06/18 11:04:53  dkrajzew
 // new error processing adapted
@@ -96,7 +101,8 @@
 // fontrendeder removed temporarily
 //
 // Revision 1.6  2003/04/16 09:50:04  dkrajzew
-// centering of the network debugged; additional parameter of maximum display size added
+// centering of the network debugged; additional parameter of maximum
+//  display size added
 //
 // Revision 1.5  2003/04/04 15:04:53  roessel
 // Added #include <qtoolbutton.h>

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 11:05:29  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -81,7 +84,7 @@ private:
         GUISUMOAbstractView::VehicleColoringScheme scheme);
 
     void drawVehicle(const GUIVehicle &vehicle,
-        double posX, double posY, double rot,
+        SUMOReal posX, SUMOReal posY, SUMOReal rot,
         GUISUMOAbstractView::VehicleColoringScheme scheme);
 
 

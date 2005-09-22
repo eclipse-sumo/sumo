@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 11:05:29  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -96,12 +99,12 @@ GUIVehicleDrawer_SGwTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
     const MSLane::VehCont &vehicles = lane.getVehiclesSecure();
     const Position2D &laneEnd = lane.getBegin();
     const Position2D &laneDir = lane.getDirection();
-    double rot = lane.getRotation();
+    SUMOReal rot = lane.getRotation();
     // go through the vehicles
     for(MSLane::VehCont::const_iterator v=vehicles.begin(); v!=vehicles.end(); v++) {
         MSVehicle *veh = *v;
-        double posX = laneEnd.x() - laneDir.x() * veh->pos();
-        double posY = laneEnd.y() - laneDir.y() * veh->pos();
+        SUMOReal posX = laneEnd.x() - laneDir.x() * veh->pos();
+        SUMOReal posY = laneEnd.y() - laneDir.y() * veh->pos();
         drawVehicle(static_cast<GUIVehicle&>(*veh), posX, posY, rot, scheme);
     }
     // allow lane simulation
@@ -111,14 +114,14 @@ GUIVehicleDrawer_SGwTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
 
 void
 GUIVehicleDrawer_SGwTasTriangle::drawVehicle(const GUIVehicle &vehicle,
-            double posX, double posY, double rot,
+            SUMOReal posX, SUMOReal posY, SUMOReal rot,
             GUISUMOAbstractView::VehicleColoringScheme scheme)
 {
     glTranslated(posX, posY, 0);
     glRotated(rot, 0, 0, 1);
     glPushName(vehicle.getGlID());
     glBegin( GL_TRIANGLES );
-    float length = vehicle.length();
+    SUMOReal length = vehicle.length();
     if(length<8) {
         if(scheme!=GUISUMOAbstractView::VCS_LANECHANGE3) {
             setVehicleColor(vehicle, scheme);

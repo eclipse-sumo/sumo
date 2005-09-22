@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 11:05:29  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -116,11 +119,11 @@ GUIROWDrawer_FGnT::drawLinkRules(const GUINet &net,
                                  const GUILaneWrapper &lane)
 {
     size_t noLinks = lane.getLinkNumber();
-    double visLength = -lane.visLength();
+    SUMOReal visLength = -lane.visLength();
     const Position2D &end = lane.getShape().getEnd();
     const Position2D &f = lane.getShape().at(lane.getShape().size()-2);
     const Position2D &s = end;
-    double rot = atan2((s.x()-f.x()), (f.y()-s.y()))*180.0/3.14159265;
+    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
     if(noLinks==0) {
         // draw a grey bar if no links are on the street
         glColor3f(0.5, 0.5, 0.5);
@@ -137,13 +140,13 @@ GUIROWDrawer_FGnT::drawLinkRules(const GUINet &net,
         return;
     }
     // draw all links
-    float w = 3.0f / (float) noLinks;
-    float x1 = 0;
+    SUMOReal w = 3.0f / (SUMOReal) noLinks;
+    SUMOReal x1 = 0;
     glPushMatrix();
     glTranslated(end.x(), end.y(), 0);
     glRotated( rot, 0, 0, 1 );
     for(size_t i=0; i<noLinks; i++) {
-        float x2 = x1 + w;
+        SUMOReal x2 = x1 + w;
         MSLink::LinkState state = lane.getLinkState(i);
         const RGBColor &color = myLinkColors.find(state)->second;
         glColor3d(color.red(), color.green(), color.blue());
@@ -171,7 +174,7 @@ GUIROWDrawer_FGnT::drawArrows(const GUILaneWrapper &lane)
     const Position2D &end = lane.getShape().getEnd();
     const Position2D &f = lane.getShape().at(lane.getShape().size()-2);
     const Position2D &s = end;
-    double rot = atan2((s.x()-f.x()), (f.y()-s.y()))*180.0/3.14159265;
+    SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
     glPushMatrix();
     glColor3f(1, 1, 1);
     glEnable(GL_TEXTURE_2D);

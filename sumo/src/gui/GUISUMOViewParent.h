@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.13  2005/07/12 12:09:36  dkrajzew
 // false config inclusion patched; code style adapted
 //
@@ -150,10 +153,10 @@ public:
     void setView(GUIGlObject *o);
 
     /// returns the zooming factor
-    double getZoomingFactor() const;
+    SUMOReal getZoomingFactor() const;
 
     /// sets the zooming factor
-    void setZoomingFactor(double val);
+    void setZoomingFactor(SUMOReal val);
 
     /// returns the information whether the legend shall be shown
     bool showLegend() const;
@@ -185,7 +188,7 @@ protected:
 
 private:
     /// the zooming factor
-    double _zoomingFactor;
+    SUMOReal _zoomingFactor;
 
     /// information whether the legend shall be shown
     bool _showLegend;
@@ -208,7 +211,7 @@ private:
     /// The tool bar
 //    FXToolBar *myToolBar;
 
-   /// The thing that makes the toolbar float
+   /// The thing that makes the toolbar SUMOReal
 //    FXToolBarShell *myToolBarDrag;
 
 protected:

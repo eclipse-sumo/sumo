@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -53,11 +56,11 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/router/FloatValueTimeLine.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include "GUIGlobals.h"
 #include "GUIAddWeightsStorage.h"
 
@@ -188,15 +191,15 @@ GUISupplementaryWeightsHandler::startParseWeight( const Attributes& attrs )
             isEdgeIdSetM = true;
         }
         else if ( attrName == string( "absolut" ) ){
-            absolutValueM      = TplConvert<char>::_2float( attrValue.c_str());
+            absolutValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str());
             isAbsolutValueSetM = true;
         }
         else if ( attrName == string( "mult" ) ){
-            multValueM      = TplConvert<char>::_2float( attrValue.c_str() );
+            multValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str() );
             isMultValueSetM = true;
         }
         else if ( attrName == string( "add" ) ){
-            addValueM      = TplConvert<char>::_2float( attrValue.c_str() );
+            addValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str() );
             isAddValueSetM = true;
         }
 /*        else {
@@ -212,21 +215,21 @@ GUISupplementaryWeightsHandler::startParseWeight( const Attributes& attrs )
         aw.edgeID = edgeIdM;
         aw.timeBeg = intervalStartM;
         aw.timeEnd = intervalEndM;
-        aw.abs = (float) absolutValueM;
+        aw.abs = (SUMOReal) absolutValueM;
         isAbsolutValueSetM = false;
     }
     if ( isMultValueSetM ){
         aw.edgeID = edgeIdM;
         aw.timeBeg = intervalStartM;
         aw.timeEnd = intervalEndM;
-        aw.mult = (float) multValueM;
+        aw.mult = (SUMOReal) multValueM;
         isMultValueSetM = false;
     }
     if ( isAddValueSetM ){
         aw.edgeID = edgeIdM;
         aw.timeBeg = intervalStartM;
         aw.timeEnd = intervalEndM;
-        aw.add = (float) addValueM;
+        aw.add = (SUMOReal) addValueM;
         isAddValueSetM = false;
     }
     gAddWeightsStorage.push_back(aw);

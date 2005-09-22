@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -79,7 +82,7 @@ public:
 protected:
     /// Draws the detectors
     void myDrawGLDetectors(size_t *which, size_t maxDetectors,
-        double scale);
+        SUMOReal scale);
 
 };
 

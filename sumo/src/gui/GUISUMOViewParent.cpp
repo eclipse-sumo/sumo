@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.16  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -406,7 +409,7 @@ GUISUMOViewParent::onCmdLocateAdd(FXObject *sender,FXSelector,void*)
 }
 
 
-double
+SUMOReal
 GUISUMOViewParent::getZoomingFactor() const
 {
     return _zoomingFactor;
@@ -414,7 +417,7 @@ GUISUMOViewParent::getZoomingFactor() const
 
 
 void
-GUISUMOViewParent::setZoomingFactor(double val)
+GUISUMOViewParent::setZoomingFactor(SUMOReal val)
 {
     _zoomingFactor = val;
 }

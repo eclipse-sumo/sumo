@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/09/22 13:30:40  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 11:05:28  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -75,7 +78,7 @@ extern bool gQuitOnEnd;
 /// Information whether aggregated views are allowed
 extern bool gAllowAggregated;
 
-/// Information whether time-floating views are allowed
+/// Information whether time-SUMORealing views are allowed
 extern bool gAllowAggregatedFloating;
 
 /// Information whether not to display the information about a simulation's end
@@ -86,7 +89,7 @@ extern GUISimInfo *gSimInfo;
 
 
 /// A (global?!!!) value about how fast values shall be replaced within aggregated views
-extern float gAggregationRememberingFactor;
+extern SUMOReal gAggregationRememberingFactor;
 
 
 
