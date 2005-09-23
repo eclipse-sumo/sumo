@@ -10,8 +10,8 @@
 
 #include <fx.h>
 #include <fxkeys.h>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 #include "MFXAddEditTypedTable.h"
 
 #ifdef _DEBUG
@@ -250,7 +250,7 @@ MFXAddEditTypedTable::editItem(FXTableItem* item,FXint how)
         {
             try {
                 myNumberEditor->setValue(
-                    TplConvert<char>::_2float(it->getText().text()));
+                    TplConvert<char>::_2SUMOReal(it->getText().text()));
             } catch (NumberFormatException &) {
             } catch (EmptyData &) {
             }

@@ -40,10 +40,6 @@
 #ifndef _DEBUG_NEW_H
 #define _DEBUG_NEW_H
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif // HAVE_CONFIG_H
-
 #include <new>
 #include <stdio.h>
 

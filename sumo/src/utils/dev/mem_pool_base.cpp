@@ -49,10 +49,6 @@
 
 #include "mem_pool_base.h"
 
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
-
 /* Defines macros to abstract system memory routines */
 # ifdef _MEM_POOL_USE_MALLOC
 #   define _MEM_POOL_ALLOCATE(_Sz)    malloc(_Sz)

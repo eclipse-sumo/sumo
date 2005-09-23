@@ -17,8 +17,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.3  2005/09/15 12:17:36  dkrajzew
+// Revision 1.4  2005/09/23 06:06:25  dkrajzew
 // LARGE CODE RECHECK
+//
+// Revision 1.4  2005/09/20 06:13:01  dksumo
+// floats and doubles replaced by SUMOReal; warnings removed
 //
 // Revision 1.3  2005/09/09 12:54:18  dksumo
 // nvwa 0.6 added
@@ -41,14 +44,9 @@
 // Revision 1.4  2002/06/07 14:58:46  dkrajzew
 // Bugs on dead ends and junctions with too few outgoing roads fixed; Comments improved
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif // HAVE_CONFIG_H
-
 #include "MemDiff.h"
 
 

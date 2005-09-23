@@ -40,7 +40,7 @@
 
 #ifndef _PCTIMER_H
 
-typedef double pctimer_t;
+typedef SUMOReal pctimer_t;
 
 #if defined(_WIN32) || defined(__CYGWIN__)
 
@@ -74,7 +74,7 @@ __inline pctimer_t pctimer(void)
     }
 
     QueryPerformanceCounter(&__pcount);
-    return (double)__pcount.QuadPart / (double)__pcfreq.QuadPart;
+    return (SUMOReal)__pcount.QuadPart / (SUMOReal)__pcfreq.QuadPart;
 }
 
 #else /* Not Win32/Cygwin */
@@ -85,7 +85,7 @@ __inline pctimer_t pctimer(void)
 {
     struct timeval __tv;
     gettimeofday(&__tv, NULL);
-    return (double)__tv.tv_sec + (double)__tv.tv_usec / 1000000;
+    return (SUMOReal)__tv.tv_sec + (SUMOReal)__tv.tv_usec / 1000000;
 }
 
 #endif /* Win32/Cygwin */

@@ -20,8 +20,11 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
-// Revision 1.3  2005/09/15 12:17:36  dkrajzew
+// Revision 1.4  2005/09/23 06:06:25  dkrajzew
 // LARGE CODE RECHECK
+//
+// Revision 1.3  2005/09/20 06:13:01  dksumo
+// floats and doubles replaced by SUMOReal; warnings removed
 //
 // Revision 1.2  2005/09/09 12:54:18  dksumo
 // nvwa 0.6 added
@@ -52,10 +55,6 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif // HAVE_CONFIG_H
-
 #include <afx.h>
 
 /* =========================================================================

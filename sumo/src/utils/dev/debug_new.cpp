@@ -141,7 +141,7 @@
  * The program (executable) name to be set at compile time.  It is
  * better to assign the full program path to #new_progname in \e main
  * (at run time) than to use this (compile-time) macro, but this macro
- * serves well as a quick hack.  Note also that double quotation marks
+ * serves well as a quick hack.  Note also that SUMOReal quotation marks
  * need to be used around the program name, i.e., one should specify a
  * command-line option like <code>-D_DEBUG_NEW_PROGNAME=\"a.out\"</code>
  * in \e bash, or <code>-D_DEBUG_NEW_PROGNAME=\"a.exe\"</code> in the

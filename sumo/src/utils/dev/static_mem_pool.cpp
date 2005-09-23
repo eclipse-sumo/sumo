@@ -38,17 +38,9 @@
  *
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif // HAVE_CONFIG_H
-
 #include <algorithm>
 #include "cont_ptr_utils.h"
 #include "static_mem_pool.h"
-
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
 
 static_mem_pool_set::static_mem_pool_set()
 {
