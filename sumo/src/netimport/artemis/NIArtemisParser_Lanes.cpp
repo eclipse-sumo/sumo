@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:01:53  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -53,7 +56,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include "NIArtemisLoader.h"
 #include "NIArtemisTempEdgeLanes.h"
 #include "NIArtemisParser_Lanes.h"
@@ -94,10 +97,10 @@ NIArtemisParser_Lanes::myDependentReport()
         TplConvert<char>::_2int(myLineParser.get("Lane").c_str());
     int section =
         TplConvert<char>::_2int(myLineParser.get("Section").c_str());
-    double start =
-        TplConvert<char>::_2float(myLineParser.get("Start").c_str());
-    double end =
-        TplConvert<char>::_2float(myLineParser.get("End").c_str());
+    SUMOReal start =
+        TplConvert<char>::_2SUMOReal(myLineParser.get("Start").c_str());
+    SUMOReal end =
+        TplConvert<char>::_2SUMOReal(myLineParser.get("End").c_str());
     string mvmt = myLineParser.get("Mvmt");
     // purpose omitted
     NIArtemisTempEdgeLanes::add(link, lane,

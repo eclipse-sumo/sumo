@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -38,12 +41,12 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
-
 
 #include <set>
 #include <string>
+
 
 /* =========================================================================
  * class declarations
@@ -61,7 +64,7 @@ public:
     NIVissimBoundedClusterObject();
     virtual ~NIVissimBoundedClusterObject();
     virtual void computeBounding() = 0;
-    bool crosses(const AbstractPoly &poly, double offset=0) const;
+    bool crosses(const AbstractPoly &poly, SUMOReal offset=0) const;
     void inCluster(int id);
     bool clustered() const;
     const Boundary &getBoundary() const;

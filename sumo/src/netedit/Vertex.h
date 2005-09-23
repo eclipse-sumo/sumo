@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:01:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:03:02  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -63,7 +66,7 @@ private:
     int x,y,id,degree,inDegree,outDegree;
 
     //Gauß-Krüger Koordinaten und GPS-Koordinaten(Longitude,Latitude)
-    double gkx,gky,lon,lat;
+    SUMOReal gkx,gky,lon,lat;
 
     // Dynamisches Array, welches alle Pointer auf Nachfolgerknoten enthält
     vector <Vertex*> nachfolger;
@@ -131,9 +134,9 @@ public:
     //Wandelt die Koordinaten des Knotens in GPS-Koordinaten um
     void px2gps(int scale, int gkr, int gkh);
     //Hole den Longitude-Wert der GPS-Koordinaten
-    double GetGPSLon();
+    SUMOReal GetGPSLon();
     //Hole den Latitude-Wert der GPS-Koordinaten
-    double GetGPSLat();
+    SUMOReal GetGPSLat();
 
 };
 

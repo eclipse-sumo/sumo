@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/23 06:02:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/04/27 12:24:39  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -40,11 +43,19 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimSource.h"
 #include "NIVissimSingleTypeParser_Zuflussdefinition.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -84,20 +95,20 @@ NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream &from)
     }
     // read q
     bool exact = false;
-    double q;
+    SUMOReal q;
     tag = myRead(from);
     if(tag=="exakt") {
         exact = true;
         tag = myRead(from);
     }
-    q = TplConvert<char>::_2float(tag.c_str());
+    q = TplConvert<char>::_2SUMOReal(tag.c_str());
     // read the vehicle types
     from >> tag;
     int vehicle_combination;
     from >> vehicle_combination;
     // check whether optional time information is available
     tag = readEndSecure(from);
-    double beg, end;
+    SUMOReal beg, end;
     beg = -1;
     end = -1;
     if(tag=="zeit") {
@@ -110,3 +121,8 @@ NIVissimSingleTypeParser_Zuflussdefinition::parse(std::istream &from)
         beg, end);
 }
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:

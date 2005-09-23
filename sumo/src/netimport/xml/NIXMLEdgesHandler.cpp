@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2005/09/23 06:04:00  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.16  2005/09/15 12:03:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -35,7 +38,7 @@ namespace
 // debugging
 //
 // Revision 1.13  2004/08/02 12:44:28  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.12  2004/01/12 15:36:36  dkrajzew
 // node-building classes are now lying in an own folder
@@ -92,7 +95,7 @@ namespace
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:12  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -145,9 +148,9 @@ namespace
 #include <netbuild/NBTypeCont.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/geom/GeomConvHelper.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 
@@ -300,9 +303,9 @@ NIXMLEdgesHandler::setGivenSpeed(const Attributes &attrs)
 {
     try {
         myCurrentSpeed =
-            getFloatSecure(attrs, SUMO_ATTR_SPEED, (float) myCurrentSpeed);
+            getFloatSecure(attrs, SUMO_ATTR_SPEED, (SUMOReal) myCurrentSpeed);
         if(_options.getBool("speed-in-km")) {
-            myCurrentSpeed = myCurrentSpeed / 3.6;
+            myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
         }
     } catch (NumberFormatException) {
         addError(
@@ -380,7 +383,7 @@ NIXMLEdgesHandler::setNodes(const Attributes &attrs)
 }
 
 
-double
+SUMOReal
 NIXMLEdgesHandler::tryGetPosition(const Attributes &attrs, int tag,
                                   const std::string &attrName)
 {

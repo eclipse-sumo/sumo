@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/23 06:08:42  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:19:55  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -139,7 +142,7 @@ GUITexturesHelper::assignTextures()
 
 
 void
-GUITexturesHelper::drawTexturedBox(GUITexture which, double size)
+GUITexturesHelper::drawTexturedBox(GUITexture which, SUMOReal size)
 {
     drawTexturedBox(which, size, size, -size, -size);
 }
@@ -147,8 +150,8 @@ GUITexturesHelper::drawTexturedBox(GUITexture which, double size)
 
 void
 GUITexturesHelper::drawTexturedBox(GUITexture which,
-                                   double sizeX1, double sizeY1,
-                                   double sizeX2, double sizeY2)
+                                   SUMOReal sizeX1, SUMOReal sizeY1,
+                                   SUMOReal sizeX2, SUMOReal sizeY2)
 {
     if(!gAllowTextures) {
         return;

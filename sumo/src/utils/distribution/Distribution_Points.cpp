@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:06:37  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:17:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -67,7 +70,7 @@ Distribution_Points::~Distribution_Points()
 }
 
 
-double
+SUMOReal
 Distribution_Points::getMax() const
 {
     assert(myPoints.size()>0);

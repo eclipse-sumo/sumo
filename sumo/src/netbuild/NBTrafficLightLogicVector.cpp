@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -70,7 +73,7 @@ namespace
 #include <iostream>
 #include <set>
 #include <cassert>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightLogicVector.h"
 
@@ -131,7 +134,7 @@ NBTrafficLightLogicVector::add(const NBTrafficLightLogicVector &cont)
 void
 NBTrafficLightLogicVector::writeXML(std::ostream &os) const
 {
-    double distance = 250;
+    SUMOReal distance = 250;
     set<string> inLanes;
     for(NBConnectionVector::const_iterator j=myInLinks.begin(); j!=myInLinks.end(); j++) {
         assert((*j).getFromLane()>=0&&(*j).getFrom()!=0);

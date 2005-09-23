@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2005/09/23 06:05:08  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.32  2005/09/15 12:06:04  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -142,7 +145,7 @@ namespace
 #include <utils/options/Option.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice_File.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSNet.h>
@@ -224,13 +227,13 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 
     oc.doRegister("lc-teleport.min-dist", new Option_Float(100));
     oc.doRegister("lc-teleport.veh-maxv", new Option_Float(-1/*20.0/3.6*/));
-    oc.doRegister("lc-teleport.lane-min-vmax", new Option_Float((float) (80.0/3.6)));
+    oc.doRegister("lc-teleport.lane-min-vmax", new Option_Float((SUMOReal) (80.0/3.6)));
 
     // tls
     oc.doRegister("agent-tl.detector-len", new Option_Float(75));
     oc.doRegister("agent-tl.learn-horizon", new Option_Integer(3));
     oc.doRegister("agent-tl.decision-horizon", new Option_Integer(1));
-    oc.doRegister("agent-tl.min-diff", new Option_Float((float) .1));
+    oc.doRegister("agent-tl.min-diff", new Option_Float((SUMOReal) .1));
     oc.doRegister("agent-tl.tcycle", new Option_Integer(90));
 
     oc.doRegister("actuated-tl.detector-pos", new Option_Float(100));

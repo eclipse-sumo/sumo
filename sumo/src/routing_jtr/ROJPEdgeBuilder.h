@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/23 06:04:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:05:34  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -76,7 +79,7 @@ public:
 
     /** Post process the edges */
     void setTurningDefinitions(RONet &net,
-        const std::vector<float> &turn_defs);
+        const std::vector<SUMOReal> &turn_defs);
 
 private:
     /// The turn definitions

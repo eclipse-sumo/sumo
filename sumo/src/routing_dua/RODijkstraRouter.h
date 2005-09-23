@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/23 06:04:48  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:05:23  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -106,13 +109,13 @@ public:
 
 
         /// Constructor
-        EdgeInfo(ROEdge *edgeArg, double effortArg, EdgeInfo *prevArg)
+        EdgeInfo(ROEdge *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg)
             : edge(edgeArg), effort(effortArg), prev(prevArg)
         {
         }
 
         /// Constructor
-        EdgeInfo(ROEdge *edgeArg, double effortArg, EdgeInfo *prevArg, double distArg)
+        EdgeInfo(ROEdge *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg, SUMOReal distArg)
             : edge(edgeArg), effort(effortArg), prev(prevArg), dist(distArg)
         {
         }
@@ -121,13 +124,13 @@ public:
         ROEdge *edge;
 
         /// Effort to reach the edge
-        double effort;
+        SUMOReal effort;
 
         /// The previous edge
         EdgeInfo *prev;
 
         /// Distance from the begin
-        double dist;
+        SUMOReal dist;
 
     };
 
@@ -169,18 +172,18 @@ public:
         ~EdgeInfoCont();
 
         /// Adds the information about the effort to get to an edge and its predeccessing edge
-        EdgeInfo *add(ROEdge *edgeArg, double effortArg, EdgeInfo *prevArg);
+        EdgeInfo *add(ROEdge *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg);
 
         /// Adds the information about the effort to get to an edge and its predeccessing edge
-        EdgeInfo *add(ROEdge *edgeArg, double effortArg, EdgeInfo *prevArg,
-            double distArg);
+        EdgeInfo *add(ROEdge *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg,
+            SUMOReal distArg);
 
         /// Resets all effort-information
         void reset();
 
         /** @brief Returns the effort to get to the specify edge
             The value is valid if the edge was already visited */
-        double getEffort(ROEdge *to) const;
+        SUMOReal getEffort(ROEdge *to) const;
 
     private:
         /// The container of edge information

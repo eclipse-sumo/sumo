@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/23 06:04:00  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.10  2005/09/15 12:03:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -35,7 +38,7 @@ namespace
 // debugging
 //
 // Revision 1.7  2004/08/02 12:44:28  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.6  2004/01/12 15:36:36  dkrajzew
 // node-building classes are now lying in an own folder
@@ -77,7 +80,7 @@ namespace
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:13  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -121,8 +124,8 @@ namespace
 #include <netbuild/nodes/NBNodeCont.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
@@ -212,8 +215,8 @@ NIXMLNodesHandler::setPosition(const Attributes &attrs)
 {
     // retrieve the positions
     try {
-        double x = getFloat(attrs, SUMO_ATTR_X);
-        double y = getFloat(attrs, SUMO_ATTR_Y);
+        SUMOReal x = getFloat(attrs, SUMO_ATTR_X);
+        SUMOReal y = getFloat(attrs, SUMO_ATTR_Y);
         myPosition.set(x, y);
     } catch (NumberFormatException) {
         addError(string("Not numeric value for position (at node ID='") + myID

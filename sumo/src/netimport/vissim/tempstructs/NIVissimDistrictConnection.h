@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -46,6 +49,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <map>
 #include <string>
 #include <utils/geom/Position2D.h>
@@ -65,7 +72,7 @@ public:
     /// Contructor
     NIVissimDistrictConnection(int id, const std::string &name,
         const IntVector &districts, const DoubleVector &percentages,
-        int edgeid, double position,
+        int edgeid, SUMOReal position,
         const std::vector<std::pair<int, int> > &assignedVehicles);
 
     // Destructor
@@ -81,17 +88,17 @@ public:
     }
 
     /// Returns the position of the connection at the edge
-    double getPosition() const {
+    SUMOReal getPosition() const {
         return myPosition;
     }
 
-    double getMeanSpeed(/*NBDistribution &dc*/) const;
+    SUMOReal getMeanSpeed(/*NBDistribution &dc*/) const;
 
 public:
     /// Inserts the connection into the dictionary after building it
     static bool dictionary(int id, const std::string &name,
         const IntVector &districts, const DoubleVector &percentages,
-        int edgeid, double position,
+        int edgeid, SUMOReal position,
         const std::vector<std::pair<int, int> > &assignedVehicles);
 
     /// Inserts the build connection to the dictionary
@@ -122,7 +129,7 @@ public:
 
 private:
     void checkEdgeEnd();
-    double getRealSpeed(/*NBDistribution &dc, */int distNo) const;
+    SUMOReal getRealSpeed(/*NBDistribution &dc, */int distNo) const;
 
 private:
     /// The id of the connections
@@ -135,7 +142,7 @@ private:
     IntVector myDistricts;
 
     /// Definition of a map of how many vehicles should leave to a certain district
-    typedef std::map<int, double> DistrictPercentages;
+    typedef std::map<int, SUMOReal> DistrictPercentages;
 
     /// A map how many vehicles (key, amount) should leave to a district (key)
     DistrictPercentages myPercentages;
@@ -144,7 +151,7 @@ private:
     int myEdgeID;
 
     /// The position on the edge
-    double myPosition;
+    SUMOReal myPosition;
 
     /// The vehicles using this connection
     std::vector<std::pair<int, int> > myAssignedVehicles;

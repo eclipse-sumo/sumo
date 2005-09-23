@@ -24,6 +24,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:12:43  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:22:26  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -73,8 +76,8 @@ namespace
 #include <sax2/Attributes.hpp>
 #include <string>
 #include <map>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/TplConvertSec.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/TplConvertSec.h>
 #include "AttributesHandler.h"
 
 /*
@@ -238,36 +241,36 @@ AttributesHandler::getLongSecure(const Attributes &attrs, int id,
 }
 
 
-float
+SUMOReal
 AttributesHandler::getFloat(const Attributes &attrs, int id) const
 {
-   return TplConvert<XMLCh>::_2float(getAttributeValueSecure(attrs, id));
+   return TplConvert<XMLCh>::_2SUMOReal(getAttributeValueSecure(attrs, id));
 }
 
 
-float
+SUMOReal
 AttributesHandler::getFloatSecure(const Attributes &attrs, int id,
-                                  float def) const
+                                  SUMOReal def) const
 {
-   return TplConvertSec<XMLCh>::_2floatSec(
+   return TplConvertSec<XMLCh>::_2SUMORealSec(
        getAttributeValueSecure(attrs, id), def);
 }
 
 
-float
+SUMOReal
 AttributesHandler::getFloat(const Attributes &attrs,
                             const std::string &id) const
 {
-   return TplConvert<XMLCh>::_2float(getAttributeValueSecure(attrs, id));
+   return TplConvert<XMLCh>::_2SUMOReal(getAttributeValueSecure(attrs, id));
 }
 
 
-float
+SUMOReal
 AttributesHandler::getFloatSecure(const Attributes &attrs,
                                   const std::string &id,
-                                  float def) const
+                                  SUMOReal def) const
 {
-   return TplConvertSec<XMLCh>::_2floatSec(
+   return TplConvertSec<XMLCh>::_2SUMORealSec(
        getAttributeValueSecure(attrs, id), def);
 }
 

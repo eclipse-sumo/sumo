@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -88,7 +91,7 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-RORoute::RORoute(const std::string &id, double costs, double prop,
+RORoute::RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
                  const ROEdgeVector &route)
     : Named(StringUtils::convertUmlaute(id)), _costs(costs),
     _probability(prop), _route(route)
@@ -127,7 +130,7 @@ RORoute::xmlOutEdges(std::ostream &os) const
 }
 
 
-double
+SUMOReal
 RORoute::getCosts() const
 {
     return _costs;
@@ -135,13 +138,13 @@ RORoute::getCosts() const
 
 
 void
-RORoute::setCosts(double costs)
+RORoute::setCosts(SUMOReal costs)
 {
     _costs = costs;
 }
 
 
-double
+SUMOReal
 RORoute::recomputeCosts(SUMOTime begin) const
 {
     return _route.recomputeCosts(begin);
@@ -163,7 +166,7 @@ RORoute::getLast() const
 
 
 
-double
+SUMOReal
 RORoute::getProbability() const
 {
     return _probability;
@@ -185,7 +188,7 @@ RORoute::size() const
 
 
 void
-RORoute::setProbability(double prop)
+RORoute::setProbability(SUMOReal prop)
 {
     _probability = prop;
 }

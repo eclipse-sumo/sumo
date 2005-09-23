@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -94,8 +97,8 @@ public:
     SUMOTime getCurrentTimeStep() const;
 
 protected:
-    /// Retrieves a float from the attributes and reports errors, if any occure
-    float getFloatReporting(const Attributes &attrs, AttrEnum attr,
+    /// Retrieves a SUMOReal from the attributes and reports errors, if any occure
+    SUMOReal getFloatReporting(const Attributes &attrs, AttrEnum attr,
         const std::string &id, const std::string &name);
 
     /// Retrieves the routes's color definition

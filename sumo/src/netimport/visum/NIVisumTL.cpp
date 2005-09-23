@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/23 06:03:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -86,7 +89,7 @@ NIVisumTL::TimePeriod::TimePeriod()
 	myStartTime = 0;
 }
 
-NIVisumTL::TimePeriod::TimePeriod(double StartTime, double EndTime)
+NIVisumTL::TimePeriod::TimePeriod(SUMOTime StartTime, SUMOTime EndTime)
 {
 	myStartTime = StartTime;
 	myEndTime = EndTime;
@@ -97,22 +100,26 @@ NIVisumTL::TimePeriod::~TimePeriod()
 
 }
 
-double NIVisumTL::TimePeriod::GetEndTime()
+SUMOTime
+NIVisumTL::TimePeriod::GetEndTime()
 {
 	return myEndTime;
 }
 
-double NIVisumTL::TimePeriod::GetStartTime()
+SUMOTime
+NIVisumTL::TimePeriod::GetStartTime()
 {
 	return myStartTime;
 }
 
-void NIVisumTL::TimePeriod::SetEndTime(double EndTime)
+void
+NIVisumTL::TimePeriod::SetEndTime(SUMOTime EndTime)
 {
 	myEndTime = EndTime;
 }
 
-void NIVisumTL::TimePeriod::SetStartTime(double StartTime)
+void
+NIVisumTL::TimePeriod::SetStartTime(SUMOTime StartTime)
 {
 	myStartTime = StartTime;
 }
@@ -126,7 +133,7 @@ NIVisumTL::Phase::Phase()
 {
 }
 
-NIVisumTL::Phase::Phase(double StartTime, double EndTime)
+NIVisumTL::Phase::Phase(SUMOTime StartTime, SUMOTime EndTime)
 	: NIVisumTL::TimePeriod(StartTime, EndTime)
 {
 }
@@ -140,7 +147,7 @@ NIVisumTL::Phase::~Phase()
  * methods from NIVisumTL::SignalGroup
  * ----------------------------------------------------------------------- */
 NIVisumTL::SignalGroup::SignalGroup(const std::string &Name,
-	double StartTime, double EndTime)
+									SUMOTime StartTime, SUMOTime EndTime)
 	: NIVisumTL::TimePeriod(StartTime, EndTime), myName(Name)
 {
 }
@@ -178,8 +185,8 @@ NIVisumTL::NIVisumTL()
 }
 
 
-NIVisumTL::NIVisumTL(const std::string &Name, double CycleTime,
-					 double IntermediateTime, bool PhaseDefined)
+NIVisumTL::NIVisumTL(const std::string &Name, SUMOTime CycleTime,
+					 SUMOTime IntermediateTime, bool PhaseDefined)
     : myName(Name), myCycleTime(CycleTime), myIntermediateTime(IntermediateTime),
     myPhaseDefined(PhaseDefined)
 {
@@ -197,22 +204,26 @@ NIVisumTL::~NIVisumTL()
     }
 }
 
-double NIVisumTL::GetCycleTime()
+SUMOTime
+NIVisumTL::GetCycleTime()
 {
 	return myCycleTime;
 }
 
-double NIVisumTL::GetIntermediateTime()
+SUMOTime
+NIVisumTL::GetIntermediateTime()
 {
 	return myIntermediateTime;
 }
 
-bool NIVisumTL::GetPhaseDefined()
+bool
+NIVisumTL::GetPhaseDefined()
 {
 	return myPhaseDefined;
 }
 
-NIVisumTL::NodeVector* NIVisumTL::GetNodes()
+NIVisumTL::NodeVector*
+NIVisumTL::GetNodes()
 {
 	return &myNodes;
 }
@@ -229,12 +240,12 @@ NIVisumTL::SignalGroupMap* NIVisumTL::GetSignalGroups()
 	return &mySignalGroups;
 }
 
-void NIVisumTL::SetCycleTime(double CycleTime)
+void NIVisumTL::SetCycleTime(SUMOTime CycleTime)
 {
 	myCycleTime = CycleTime;
 }
 
-void NIVisumTL::SetIntermediateTime(double IntermediateTime)
+void NIVisumTL::SetIntermediateTime(SUMOTime IntermediateTime)
 {
 	myIntermediateTime = IntermediateTime;
 }
@@ -244,12 +255,12 @@ void NIVisumTL::SetPhaseDefined(bool PhaseDefined)
 	myPhaseDefined = PhaseDefined;
 }
 
-void NIVisumTL::AddSignalGroup(const std::string Name, double StartTime, double EndTime)
+void NIVisumTL::AddSignalGroup(const std::string Name, SUMOTime StartTime, SUMOTime EndTime)
 {
 	mySignalGroups[Name] = new NIVisumTL::SignalGroup(Name, StartTime, EndTime);
 }
 
-void NIVisumTL::AddPhase(const std::string Name, double StartTime, double EndTime)
+void NIVisumTL::AddPhase(const std::string Name, SUMOTime StartTime, SUMOTime EndTime)
 {
 	myPhases[Name] = new NIVisumTL::Phase(StartTime, EndTime);
 }
@@ -275,7 +286,7 @@ NIVisumTL::build(NBTrafficLightLogicCont &tlc)
 			NIVisumTL::SignalGroup &SG = *(*gi).second;
 			def->addSignalGroup(GroupName);
 			def->addToSignalGroup(GroupName, *SG.GetConnections());
-			def->setSignalYellowTimes(GroupName, myIntermediateTime, myIntermediateTime);
+ 			def->setSignalYellowTimes(GroupName, myIntermediateTime, myIntermediateTime);
 			// phases
 			if (myPhaseDefined) {
 				for(PhaseMap::iterator pi = SG.GetPhases()->begin(); pi!= SG.GetPhases()->end(); pi++)

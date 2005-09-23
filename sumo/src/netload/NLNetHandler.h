@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.29  2005/09/23 06:04:12  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.28  2005/09/15 12:04:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -413,13 +416,13 @@ protected:
     bool myLaneIsDepart;
 
     /// The maximum speed allowed on the current lane
-    float myCurrentMaxSpeed;
+    SUMOReal myCurrentMaxSpeed;
 
     /// The length of the current lane
-    float myCurrentLength;
+    SUMOReal myCurrentLength;
 
     /// The changeUrge.Information of the current lane
-    float myCurrentChangeUrge;
+    SUMOReal myCurrentChangeUrge;
 
     /// The shape of the current lane
     Position2DVector myShape;

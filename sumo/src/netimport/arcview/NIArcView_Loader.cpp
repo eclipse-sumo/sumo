@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/09/23 06:01:43  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.14  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -72,8 +75,8 @@ namespace
 #include <string>
 #include <utils/common/FileErrorReporter.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/ToString.h>
+#include <utils/common/TplConvert.h>
 #include <utils/importio/LineHandler.h>
 #include <utils/importio/LineReader.h>
 #include <utils/common/StringUtils.h>
@@ -140,7 +143,7 @@ NIArcView_Loader::parseBin()
         string from_node = myBinShapeReader.getAttribute("REF_IN_ID");
         string to_node = myBinShapeReader.getAttribute("NREF_IN_ID");
         string type = myBinShapeReader.getAttribute("ST_TYP_AFT");
-        double speed = 0;
+        SUMOReal speed = 0;
         size_t nolanes = 0;
         int priority = 0;
         try {
@@ -174,7 +177,7 @@ NIArcView_Loader::parseBin()
             to = myNodeCont.retrieve(to_pos);
         }
             // retrieve length
-        double length = myBinShapeReader.getLength();
+        SUMOReal length = (SUMOReal) myBinShapeReader.getLength();
 
         // retrieve the information whether the street is bi-directional
         string dir = myBinShapeReader.getAttribute("DIR_TRAVEL");
@@ -210,7 +213,7 @@ NIArcView_Loader::parseBin()
 //en
 
 
-double
+SUMOReal
 NIArcView_Loader::getSpeed(const std::string &edgeid)
 {
     try {
@@ -218,21 +221,21 @@ NIArcView_Loader::getSpeed(const std::string &edgeid)
             TplConvert<char>::_2int(myBinShapeReader.getAttribute("SPEED_CAT").c_str());
         switch(speedcat) {
         case 1:
-            return 300.0 / 3.6;
+            return (SUMOReal) 300.0 / (SUMOReal) 3.6;
         case 2:
-            return 130. / 3.6;
+            return (SUMOReal) 130. / (SUMOReal) 3.6;
         case 3:
-            return 100. / 3.6;
+            return (SUMOReal) 100. / (SUMOReal) 3.6;
         case 4:
-            return 90. / 3.6;
+            return (SUMOReal) 90. / (SUMOReal) 3.6;
         case 5:
-            return 70. / 3.6;
+            return (SUMOReal) 70. / (SUMOReal) 3.6;
         case 6:
-            return 50. / 3.6;
+            return (SUMOReal) 50. / (SUMOReal) 3.6;
         case 7:
-            return 30. / 3.6;
+            return (SUMOReal) 30. / (SUMOReal) 3.6;
         case 8:
-            return 10. / 3.6;
+            return (SUMOReal) 10. / (SUMOReal) 3.6;
         default:
             throw 1;
         }
@@ -246,7 +249,7 @@ NIArcView_Loader::getSpeed(const std::string &edgeid)
 
 
 size_t
-NIArcView_Loader::getLaneNo(const std::string &edgeid, float speed)
+NIArcView_Loader::getLaneNo(const std::string &edgeid, SUMOReal speed)
 {
 
     try {
@@ -285,7 +288,7 @@ NIArcView_Loader::getLaneNo(const std::string &edgeid, float speed)
     }
 }
 
-double
+SUMOReal
 NIArcView_Loader::getLength(const Position2D &from_pos, const Position2D &to_pos)
 {
     return GeomHelper::distance(from_pos, to_pos);

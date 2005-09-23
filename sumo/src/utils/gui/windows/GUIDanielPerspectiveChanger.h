@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/23 06:11:14  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:20:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -40,7 +43,7 @@
 // porting to FOX
 //
 // Revision 1.7  2003/11/11 08:40:03  dkrajzew
-// consequent position2D instead of two doubles implemented
+// consequent position2D instead of two SUMOReals implemented
 //
 // Revision 1.6  2003/07/18 12:29:28  dkrajzew
 // removed some warnings
@@ -101,30 +104,30 @@ public:
     void onMouseMove(void *data);
 
     /// Returns the rotation of the canvas stored in this changer
-    virtual double getRotation() const;
+    virtual SUMOReal getRotation() const;
 
     /// Returns the x-offset of the field to show stored in this changer
-    virtual double getXPos() const;
+    virtual SUMOReal getXPos() const;
 
     /// Returns the y-offset of the field to show stored in this changer
-    virtual double getYPos() const;
+    virtual SUMOReal getYPos() const;
 
     /// Returns the zoom factor computed stored in this changer
-    virtual double getZoom() const;
+    virtual SUMOReal getZoom() const;
 
     /// recenters the view to display the whole network
     void recenterView();
 
     /// Centers the view to the given position, setting it to a size that covers the radius
     void centerTo(const Boundary &netBoundary,
-        const Position2D &pos, double radius);
+        const Position2D &pos, SUMOReal radius);
 
     /// Centers the view to show the given boundary
     void centerTo(const Boundary &netBoundary,
         Boundary bound);
 
     /** @brief Sets the viewport */
-    void setViewport(double zoom, double xPos, double yPos);
+    void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos);
 
     /// Returns the last mouse x-position an event occured at
     int getMouseXPosition() const;
@@ -153,13 +156,13 @@ private:
     int _mouseXPosition, _mouseYPosition;
 
     /// the scale of the net (the maximum size, either width or height)
-    double _netScale;
+    SUMOReal _netScale;
 
     /// the current rotation
-    double _rotation;
+    SUMOReal _rotation;
 
     /// the current zoom factor
-    double _zoom;
+    SUMOReal _zoom;
 
     /// the current mouse state
     MouseState _mouseButtonState;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/23 06:09:38  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:20:06  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -102,19 +105,19 @@ TrackerValueDesc::~TrackerValueDesc()
 
 
 void
-TrackerValueDesc::addValue(double value)
+TrackerValueDesc::addValue(SUMOReal value)
 {
     if(myValues.size()==0) {
-        myMin = (float) value;
-        myMax = (float) value;
+        myMin = (SUMOReal) value;
+        myMax = (SUMOReal) value;
     } else {
-        myMin = (float) value < myMin ? (float) value : myMin;
-        myMax = (float) value > myMax ? (float) value : myMax;
+        myMin = (SUMOReal) value < myMin ? (SUMOReal) value : myMin;
+        myMax = (SUMOReal) value > myMax ? (SUMOReal) value : myMax;
     }
     myLock.lock();
-    myValues.push_back((float) value);
+    myValues.push_back((SUMOReal) value);
     if(value!=myInvalidValue) {
-        myTmpLastAggValue += (float) value;
+        myTmpLastAggValue += (SUMOReal) value;
         myValidNo++;
     }
     // check what to do with aggregated values
@@ -122,7 +125,7 @@ TrackerValueDesc::addValue(double value)
         // ok, a new aggregation is filled completely. Set.
         if(myValidNo!=0) {
             myAggregatedValues.push_back(
-                myTmpLastAggValue / (float) myValidNo);
+                myTmpLastAggValue / (SUMOReal) myValidNo);
         } else {
             myAggregatedValues.push_back(0);
         }
@@ -136,7 +139,7 @@ TrackerValueDesc::addValue(double value)
         // append newly computed
         if(myValidNo!=0) {
             myAggregatedValues.push_back(
-                myTmpLastAggValue / (float) myValidNo);
+                myTmpLastAggValue / (SUMOReal) myValidNo);
         } else {
             myAggregatedValues.push_back(0);
         }
@@ -145,7 +148,7 @@ TrackerValueDesc::addValue(double value)
 }
 
 
-float
+SUMOReal
 TrackerValueDesc::getRange() const
 {
     getMin();
@@ -154,21 +157,21 @@ TrackerValueDesc::getRange() const
 }
 
 
-float
+SUMOReal
 TrackerValueDesc::getMin() const
 {
     return myMin;
 }
 
 
-float
+SUMOReal
 TrackerValueDesc::getMax() const
 {
     return myMax;
 }
 
 
-float
+SUMOReal
 TrackerValueDesc::getYCenter() const
 {
     getMin();
@@ -184,7 +187,7 @@ TrackerValueDesc::getColor() const
 }
 
 
-const std::vector<float> &
+const std::vector<SUMOReal> &
 TrackerValueDesc::getValues()
 {
     myLock.lock();
@@ -192,7 +195,7 @@ TrackerValueDesc::getValues()
 }
 
 
-const std::vector<float> &
+const std::vector<SUMOReal> &
 TrackerValueDesc::getAggregatedValues()
 {
     myLock.lock();
@@ -221,9 +224,9 @@ TrackerValueDesc::setAggregationSpan(size_t as)
         // ok, the aggregation has changed,
         //  let's recompute the list of aggregated values
         myAggregatedValues.clear();
-        std::vector<float>::iterator i;
+        std::vector<SUMOReal>::iterator i;
         for(i=myValues.begin(); i!=myValues.end(); ) {
-            float value = 0;
+            SUMOReal value = 0;
             myValidNo = 0;
             for(size_t j=0; j<as&&i!=myValues.end(); j++, ++i) {
                 if((*i)!=myInvalidValue) {
@@ -235,8 +238,8 @@ TrackerValueDesc::setAggregationSpan(size_t as)
                 myAggregatedValues.push_back(0);
                 myTmpLastAggValue = 0;
             } else {
-                myAggregatedValues.push_back(value / (float) myValidNo);
-                myTmpLastAggValue = value / (float) myValidNo;
+                myAggregatedValues.push_back(value / (SUMOReal) myValidNo);
+                myTmpLastAggValue = value / (SUMOReal) myValidNo;
             }
         }
     }

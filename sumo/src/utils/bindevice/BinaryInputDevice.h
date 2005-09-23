@@ -16,7 +16,7 @@ public:
 
     friend BinaryInputDevice &operator>>(BinaryInputDevice &os, int &i);
     friend BinaryInputDevice &operator>>(BinaryInputDevice &os, unsigned int &i);
-    friend BinaryInputDevice &operator>>(BinaryInputDevice &os, float &f);
+    friend BinaryInputDevice &operator>>(BinaryInputDevice &os, SUMOReal &f);
     friend BinaryInputDevice &operator>>(BinaryInputDevice &os, bool &b);
     friend BinaryInputDevice &operator>>(BinaryInputDevice &os, std::string &s);
     friend BinaryInputDevice &operator>>(BinaryInputDevice &os, long &l);

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.14  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -108,7 +111,7 @@ public:
         std::bitset<64> brakeMask, std::bitset<64> yellowMask);
 
     /// Writes the traffic light logic into the given stream in it's XML-representation
-    void writeXML(std::ostream &into, size_t no, double distance,
+    void writeXML(std::ostream &into, size_t no, SUMOReal distance,
         std::string type, const std::set<std::string> &inLanes) const;
     // !!! the key should be given here, too, instead of storing it
 
@@ -126,7 +129,7 @@ private:
 
     bool checkOffsetFor(const std::string &optionName) const;
 
-    size_t computeOffsetFor(double offsetMult) const;
+    size_t computeOffsetFor(SUMOReal offsetMult) const;
 
 
 private:

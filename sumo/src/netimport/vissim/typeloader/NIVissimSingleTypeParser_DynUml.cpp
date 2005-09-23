@@ -22,8 +22,22 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.5  2005/04/27 12:24:37  dkrajzew
-// level3 warnings removed; made netbuild-containers non-static
+// Revision 1.6  2005/09/23 06:02:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
+// floats and doubles replaced by SUMOReal; warnings removed
+//
+// Revision 1.3  2005/09/09 12:52:11  dksumo
+// complete code rework: debug_new and config added
+//
+// Revision 1.2  2005/04/26 07:54:05  dksumo
+// level3 warnings patched; made containers non-static
+//
+// Revision 1.1.2.1  2005/04/15 09:56:30  dksumo
+// level3 warnings removed; made the containers unstatic
+//
+// Revision 1.1  2004/10/22 12:50:04  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.4  2003/08/18 12:39:23  dkrajzew
 // missing handling of some vissim3.7-structures added
@@ -46,11 +60,19 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
 #include <vector>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include "../NIVissimLoader.h"
 #include "NIVissimSingleTypeParser_DynUml.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================

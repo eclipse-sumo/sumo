@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -233,7 +236,7 @@ RORDLoader_TripDefs::getVehicleType(const Attributes &attrs)
 }
 
 
-float
+SUMOReal
 RORDLoader_TripDefs::getOptionalFloat(const Attributes &attrs,
                                       const std::string &name,
                                       AttrEnum which,
@@ -371,7 +374,7 @@ RORDLoader_TripDefs::myEndElement(int element, const std::string &name)
             _net.addVehicle(myID,
                 myVehicleBuilder.buildRunningVehicle(
                 myID, route, myDepartureTime,
-                type, myLane, (float) myPos, (float) mySpeed, myColor, myPeriodTime,
+                type, myLane, (SUMOReal) myPos, (SUMOReal) mySpeed, myColor, myPeriodTime,
                     myNumberOfRepetitions));
         } else {
             _net.addVehicle(myID,

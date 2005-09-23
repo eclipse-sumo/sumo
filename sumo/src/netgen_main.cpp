@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2005/09/23 06:13:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.19  2005/09/15 12:27:08  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -111,7 +114,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/DevHelper.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include "netgen_help.h"
 #include "netgen_build.h"
 #include "sumo_version.h"
@@ -204,9 +207,9 @@ fillOptions(OptionsCont &oc)
     // register random-net options
     oc.doRegister("rand-max-distance", new Option_Float(250));
     oc.doRegister("rand-min-distance", new Option_Float(100));
-    oc.doRegister("rand-min-angle", new Option_Float((float) (45.0/180.0*PI)));
+    oc.doRegister("rand-min-angle", new Option_Float((SUMOReal) (45.0/180.0*PI)));
     oc.doRegister("rand-num-tries", new Option_Integer(50));
-    oc.doRegister("rand-connectivity", new Option_Float((float) 0.95));
+    oc.doRegister("rand-connectivity", new Option_Float((SUMOReal) 0.95));
     oc.doRegister("rand-neighbor-dist1", new Option_Float(0));
     oc.doRegister("rand-neighbor-dist2", new Option_Float(0));
     oc.doRegister("rand-neighbor-dist3", new Option_Float(10));
@@ -275,8 +278,8 @@ buildNetwork(NBNetBuilder &nb)
     if(oc.getBool("g")) {
         int xNo = oc.getInt("x-no");
         int yNo = oc.getInt("y-no");
-        float xLength = oc.getFloat("x-length");
-        float yLength = oc.getFloat("y-length");
+        SUMOReal xLength = oc.getFloat("x-length");
+        SUMOReal yLength = oc.getFloat("y-length");
         if(oc.isDefault("x-no")&&!oc.isDefault("number")) {
             xNo = oc.getInt("number");
         }

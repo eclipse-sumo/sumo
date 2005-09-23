@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:11:14  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:20:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -75,7 +78,7 @@ namespace
 // clean up after recent changes
 //
 // Revision 1.12  2003/11/11 08:40:03  dkrajzew
-// consequent position2D instead of two doubles implemented
+// consequent position2D instead of two SUMOReals implemented
 //
 // Revision 1.11  2003/09/23 14:25:13  dkrajzew
 // possibility to visualise detectors using different geometry complexities
@@ -164,7 +167,7 @@ namespace
 #include <cmath>
 #include <cassert>
 #include <utils/gfx/RGBColor.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/gui/globjects/GUIGLObjectToolTip.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include "GUIDanielPerspectiveChanger.h"
@@ -221,8 +224,8 @@ GUISUMOAbstractView::ViewSettings::ViewSettings()
 }
 
 
-GUISUMOAbstractView::ViewSettings::ViewSettings(double x, double y,
-                                                double xoff, double yoff)
+GUISUMOAbstractView::ViewSettings::ViewSettings(SUMOReal x, SUMOReal y,
+                                                SUMOReal xoff, SUMOReal yoff)
     : myX(x), myY(y), myXOff(xoff), myYOff(yoff)
 {
 }
@@ -234,16 +237,16 @@ GUISUMOAbstractView::ViewSettings::~ViewSettings()
 
 
 bool
-GUISUMOAbstractView::ViewSettings::differ(double x, double y,
-                                          double xoff, double yoff)
+GUISUMOAbstractView::ViewSettings::differ(SUMOReal x, SUMOReal y,
+                                          SUMOReal xoff, SUMOReal yoff)
 {
     return myX!=x || myY!=y || myXOff!=xoff || myXOff!=yoff;
 }
 
 
 void
-GUISUMOAbstractView::ViewSettings::set(double x, double y,
-                                       double xoff, double yoff)
+GUISUMOAbstractView::ViewSettings::set(SUMOReal x, SUMOReal y,
+                                       SUMOReal xoff, SUMOReal yoff)
 {
     myX = x;
     myY = y;
@@ -301,8 +304,8 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
     flags|=FLAG_ENABLED;
 	_inEditMode=false;
     // compute the net scale
-    double nw = myGrid->getBoundary().getWidth();
-    double nh = myGrid->getBoundary().getHeight();
+    SUMOReal nw = myGrid->getBoundary().getWidth();
+    SUMOReal nh = myGrid->getBoundary().getHeight();
     myNetScale = (nw < nh ? nh : nw);
     // show the middle at the beginning
     _changer = new GUIDanielPerspectiveChanger(*this);
@@ -332,8 +335,8 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
     flags|=FLAG_ENABLED;
 	_inEditMode=false;
     // compute the net scale
-    double nw = myGrid->getBoundary().getWidth();
-    double nh = myGrid->getBoundary().getHeight();
+    SUMOReal nw = myGrid->getBoundary().getWidth();
+    SUMOReal nh = myGrid->getBoundary().getHeight();
     myNetScale = (nw < nh ? nh : nw);
     // show the middle at the beginning
     _changer = new GUIDanielPerspectiveChanger(*this);
@@ -434,7 +437,7 @@ GUISUMOAbstractView::getObjectUnderCursor()
     glSelectBuffer(NB_HITS_MAX, hits);
     glInitNames();
     // compute new scale
-    double scale = double(getMaxGLWidth())/double(SENSITIVITY);
+    SUMOReal scale = SUMOReal(getMaxGLWidth())/SUMOReal(SENSITIVITY);
     applyChanges(scale, _toolTipX+_mouseHotspotX,
         _toolTipY+_mouseHotspotY);
     // paint in select mode
@@ -495,11 +498,11 @@ GUISUMOAbstractView::paintGLGrid()
     glBegin( GL_LINES );
 
     glColor3f(0.5, 0.5, 0.5);
-    double ypos = 0;
-    double xpos = 0;
-    double xend = (myGrid->getNoXCells())
+    SUMOReal ypos = 0;
+    SUMOReal xpos = 0;
+    SUMOReal xend = (myGrid->getNoXCells())
         * myGrid->getXCellSize();
-    double yend = (myGrid->getNoYCells())
+    SUMOReal yend = (myGrid->getNoYCells())
         * myGrid->getYCellSize();
     for(int yr=0; yr<myGrid->getNoYCells()+1; yr++) {
         glVertex2d(0, ypos);
@@ -516,7 +519,7 @@ GUISUMOAbstractView::paintGLGrid()
 
 
 void
-GUISUMOAbstractView::applyChanges(double scale, size_t xoff, size_t yoff)
+GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff)
 {
     _widthInPixels = getWidth();
     _heightInPixels = getHeight();
@@ -531,9 +534,9 @@ GUISUMOAbstractView::applyChanges(double scale, size_t xoff, size_t yoff)
     // apply ratio between window width and height
     glScaled(1/_ratio, 1, 0);
     // initially (zoom=100), the net shall be completely visible on the screen
-    double xs = ((double) _widthInPixels / (double) myApp->getMaxGLWidth())
+    SUMOReal xs = ((SUMOReal) _widthInPixels / (SUMOReal) myApp->getMaxGLWidth())
         / (myGrid->getBoundary().getWidth() / myNetScale) * _ratio;
-    double ys = ((double) _heightInPixels / (double) myApp->getMaxGLHeight())
+    SUMOReal ys = ((SUMOReal) _heightInPixels / (SUMOReal) myApp->getMaxGLHeight())
         / (myGrid->getBoundary().getHeight() / myNetScale);
     if(xs<ys) {
         glScaled(xs, xs, 1);
@@ -543,11 +546,11 @@ GUISUMOAbstractView::applyChanges(double scale, size_t xoff, size_t yoff)
         _addScl = ys;
     }
     // initially, leave some room for the net
-    glScaled(0.97, 0.97, 1);
-    _addScl *= .97;
+    glScaled((SUMOReal) 0.97, (SUMOReal) 0.97, (SUMOReal) 1);
+    _addScl *= (SUMOReal) .97;
 
     // Apply the zoom and the scale
-    double zoom = _changer->getZoom() / 100.0 * scale;
+    SUMOReal zoom = (SUMOReal) (_changer->getZoom() / 100.0 * scale);
     glScaled(zoom, zoom, 0);
     // Translate to the middle of the net
     Position2D center = myGrid->getBoundary().getCenter();
@@ -556,19 +559,19 @@ GUISUMOAbstractView::applyChanges(double scale, size_t xoff, size_t yoff)
     glTranslated(_changer->getXPos(), _changer->getYPos(), 0);
     // Translate to the mouse pointer, when wished
     if(xoff!=0||yoff!=0) {
-        double absX = (double(xoff)-(double(_widthInPixels)/2.0));
-        double absY = (double(yoff)-(double(_heightInPixels)/2.0));
+        SUMOReal absX = (SUMOReal) (xoff-((SUMOReal) _widthInPixels/2.0));
+        SUMOReal absY = (SUMOReal) (yoff-((SUMOReal) _heightInPixels/2.0));
         glTranslated(-p2m(absX), p2m(absY), 0);
     }
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     // apply the widow size
-    double xf = -1.0 *
-        ((double) myApp->getMaxGLWidth() - (double) _widthInPixels)
-        / (double) myApp->getMaxGLWidth();
-    double yf = -1.0 *
-        ((double) myApp->getMaxGLHeight() - (double) _heightInPixels)
-        / (double) myApp->getMaxGLHeight();
+    SUMOReal xf = (SUMOReal) -1.0 *
+        ((SUMOReal) myApp->getMaxGLWidth() - (SUMOReal) _widthInPixels)
+        / (SUMOReal) myApp->getMaxGLWidth();
+    SUMOReal yf = (SUMOReal) -1.0 *
+        ((SUMOReal) myApp->getMaxGLHeight() - (SUMOReal) _heightInPixels)
+        / (SUMOReal) myApp->getMaxGLHeight();
     glTranslated(xf, yf, 0);
     _changer->applied();
 }
@@ -583,15 +586,15 @@ GUISUMOAbstractView::displayLegend(bool flip)
     size_t noDigits = 1;
     size_t pixelSize = 0;
     while(true) {
-        pixelSize = (size_t) m2p((double) length);
+        pixelSize = (size_t) m2p((SUMOReal) length);
         if(pixelSize>20) {
             break;
         }
         length *= 10;
         noDigits++;
     }
-    double lineWidth = 1.0;
-    glLineWidth((float) lineWidth);
+    SUMOReal lineWidth = 1.0;
+    glLineWidth((SUMOReal) lineWidth);
 
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
@@ -610,7 +613,7 @@ GUISUMOAbstractView::displayLegend(bool flip)
     GUITexturesHelper::getFontRenderer().SetActiveFont("std8");
     GUITexturesHelper::getFontRenderer().SetColor(0, 0, 0);
     */
-    double len = (double) pixelSize / (double) (myApp->getMaxGLWidth()-1) * 2.0;
+    SUMOReal len = (SUMOReal) pixelSize / (SUMOReal) (myApp->getMaxGLWidth()-1) * (SUMOReal) 2.0;
     glColor3f(0, 0, 0);
     glBegin( GL_LINES );
     // vertical
@@ -630,7 +633,7 @@ GUISUMOAbstractView::displayLegend(bool flip)
     pfDrawString("0m");
     glRotated(-180, 1, 0, 0);
 
-    pfSetPosition((float) (-.99+len), .96f);
+    pfSetPosition((SUMOReal) (-.99+len), .96f);
     glRotated(180, 1, 0, 0);
     pfDrawString((text.substr(0, noDigits) + "m").c_str());
     glRotated(-180, 1, 0, 0);
@@ -643,31 +646,31 @@ GUISUMOAbstractView::displayLegend(bool flip)
 }
 
 
-std::pair<double, double>
-GUISUMOAbstractView::canvas2World(double x, double y)
+std::pair<SUMOReal, SUMOReal>
+GUISUMOAbstractView::canvas2World(SUMOReal x, SUMOReal y)
 {
-    double xret = p2m(x-(myApp->getMaxGLWidth())/2.0)-_changer->getXPos();
-    double yret = p2m(y-(myApp->getMaxGLHeight())/2.0)-_changer->getYPos();
-    return std::pair<double, double>(xret, yret);
+    SUMOReal xret = (SUMOReal) (p2m(x-(myApp->getMaxGLWidth())/(SUMOReal) 2.0)-_changer->getXPos());
+    SUMOReal yret = (SUMOReal) (p2m(y-(myApp->getMaxGLHeight())/(SUMOReal) 2.0)-_changer->getYPos());
+    return std::pair<SUMOReal, SUMOReal>(xret, yret);
 }
 
 
-double
-GUISUMOAbstractView::m2p(double meter)
+SUMOReal
+GUISUMOAbstractView::m2p(SUMOReal meter)
 {
-    return
+    return (SUMOReal)
         (meter/myNetScale
         * (myApp->getMaxGLWidth()/_ratio)
-        * _addScl * _changer->getZoom() / 100.0);
+        * _addScl * _changer->getZoom() / (SUMOReal) 100.0);
 }
 
 
-double
-GUISUMOAbstractView::p2m(double pixel)
+SUMOReal
+GUISUMOAbstractView::p2m(SUMOReal pixel)
 {
-    return
+    return (SUMOReal)
         pixel * myNetScale /
-        ((myApp->getMaxGLWidth()/_ratio) * _addScl *_changer->getZoom() / 100.0);
+        ((myApp->getMaxGLWidth()/_ratio) * _addScl *_changer->getZoom() / (SUMOReal) 100.0);
 }
 
 
@@ -751,7 +754,7 @@ GUISUMOAbstractView::onConfigure(FXObject*,FXSelector,void*)
         _lock.lock();
         _widthInPixels = myApp->getMaxGLWidth();
         _heightInPixels = myApp->getMaxGLHeight();
-        _ratio = (double) _widthInPixels / (double) _heightInPixels;
+        _ratio = (SUMOReal) _widthInPixels / (SUMOReal) _heightInPixels;
         glViewport( 0, 0, myApp->getMaxGLWidth()-1, myApp->getMaxGLHeight()-1 );
         glClearColor( 1.0, 1.0, 1.0, 1 );
         _changer->applyCanvasSize(width, height);
@@ -979,7 +982,7 @@ GUISUMOAbstractView::drawPOI2D(const PointOfInterest &p) const
     }
     glColor3d(p.red(),p.green(),p.blue());
     glTranslated(p.x(), p.y(), 0);
-    GLHelper::drawFilledCircle(1.3, 16);
+    GLHelper::drawFilledCircle((SUMOReal) 1.3, 16);
     glTranslated(-p.x(), -p.y(), 0);
     if(_useToolTips) {
         glPopName();
@@ -1048,7 +1051,7 @@ GUISUMOAbstractView::onCmdEditView(FXObject*,FXSelector,void*)
 
 
 void
-GUISUMOAbstractView::setViewport(double zoom, double xPos, double yPos)
+GUISUMOAbstractView::setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos)
 {
     _changer->setViewport(zoom, xPos, yPos);
     _changer->otherChange();

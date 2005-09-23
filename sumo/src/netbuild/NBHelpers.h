@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -43,7 +46,7 @@
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:11  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -94,20 +97,20 @@ class NBHelpers {
 public:
     /** computes the angle of the straight which is described by the two
         coordinates */
-    static double angle(double x1, double y1, double x2, double y2);
+    static SUMOReal angle(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2);
 
     /** computes the angle between the first angle and the straigth which
         is described by her coordinates (parameter 2-5) */
-    static double relAngle(double angle,
-        double x1, double y1,
-        double x2, double y2);
+    static SUMOReal relAngle(SUMOReal angle,
+        SUMOReal x1, SUMOReal y1,
+        SUMOReal x2, SUMOReal y2);
 
     /** computes the relative angle between the two angles */
-    static double relAngle(double angle1, double angle2);
+    static SUMOReal relAngle(SUMOReal angle1, SUMOReal angle2);
 
     /** normalises angle <-170 and >170 to 180 after the computation with
         "relAngle" */
-    static double normRelAngle(double angle1, double angle2);
+    static SUMOReal normRelAngle(SUMOReal angle1, SUMOReal angle2);
 
     /** computes number of a logic's setting possibilities for the given key
         In other words: how many permutation of vehicle wishes are possible on
@@ -118,7 +121,7 @@ public:
     static std::string normalIDRepresentation(const std::string &id);
 
     /** returns the distance between both nodes */
-    static double distance(NBNode *node1, NBNode *node2);
+    static SUMOReal distance(NBNode *node1, NBNode *node2);
 
 };
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:01:53  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -65,7 +68,7 @@ class NBDistrictCont;
 class NIArtemisTempEdgeLanes {
 public:
     static void add(const std::string &link, int lane, int section,
-        double start, double end, const std::string &mvmt);
+        SUMOReal start, SUMOReal end, const std::string &mvmt);
     static void close(NBDistrictCont &dc,
         NBEdgeCont &ec, NBNodeCont &nc);
 private:
@@ -73,21 +76,21 @@ private:
     class LinkLaneDesc {
     public:
         LinkLaneDesc(int lane, int section,
-            double start, double end, const std::string &mvmt);
+            SUMOReal start, SUMOReal end, const std::string &mvmt);
         ~LinkLaneDesc();
-        double getStart() const;
-        double getEnd() const;
+        SUMOReal getStart() const;
+        SUMOReal getEnd() const;
         int getLane() const;
-        void patchPosition(double length);
+        void patchPosition(SUMOReal length);
     private:
         int myLane;
         int mySection;
-        double myStart;
-        double myEnd;
+        SUMOReal myStart;
+        SUMOReal myEnd;
     };
 
-    static size_t getBeginIndex(double start, const DoubleVector &poses);
-    static size_t getEndIndex(double start, const DoubleVector &poses);
+    static size_t getBeginIndex(SUMOReal start, const DoubleVector &poses);
+    static size_t getEndIndex(SUMOReal start, const DoubleVector &poses);
     static size_t count(const std::bitset<64> &lanes);
 
 

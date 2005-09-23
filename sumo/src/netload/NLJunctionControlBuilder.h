@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2005/09/23 06:04:12  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 12:04:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -31,7 +34,7 @@
 // first steps towards a better parametrisation of traffic lights
 //
 // Revision 1.8  2004/08/02 12:47:30  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.7  2003/12/04 13:18:23  dkrajzew
 // handling of internal links added
@@ -146,7 +149,7 @@ public:
 
     /// begins the processing of the named junction
     void openJunction(const std::string &id, const std::string &key,
-        const std::string &type, double x, double y);
+        const std::string &type, SUMOReal x, SUMOReal y);
 
     /// Adds an incoming lane to the previously chosen junction
     void addIncomingLane(MSLane *lane);
@@ -221,7 +224,7 @@ protected:
     /** @brief adds an information about the initialisation of a tls
         The initialisation is done during the closing of junctions */
     virtual void addJunctionInitInfo(MSExtendedTrafficLightLogic *key,
-        const LaneVector &lv, double det_offset);
+        const LaneVector &lv, SUMOReal det_offset);
 
     /// Adds a build tls-logic
     virtual void addTLLogic(MSTrafficLightLogic *logic);
@@ -314,7 +317,7 @@ protected:
     std::map<std::string, MSTrafficLightLogic*> myLogics;
 
     /// A definition of junction initialisation
-    typedef std::pair<LaneVector, double> TLInitInfo;
+    typedef std::pair<LaneVector, SUMOReal> TLInitInfo;
 
     /// Definition of a map which contains information which junctions shall be initialised using which values
     typedef std::map<MSExtendedTrafficLightLogic*, TLInitInfo> TLLogicInitInfoMap;
@@ -323,13 +326,13 @@ protected:
     TLLogicInitInfoMap myJunctions2PostLoadInit;
 
     /// Default detector offset
-    double m_DetectorOffset;
+    SUMOReal m_DetectorOffset;
 
     /// Default detector positions
-    double myStdDetectorPositions;
+    SUMOReal myStdDetectorPositions;
 
     /// Default detector lengths (agentbased)
-    double myStdDetectorLengths;
+    SUMOReal myStdDetectorLengths;
 
     /// Default learning horizon (agentbased)
     int myStdLearnHorizon;
@@ -338,19 +341,19 @@ protected:
     int myStdDecisionHorizon;
 
     /// Default difference minimum (agentbased)
-    double myStdDeltaLimit;
+    SUMOReal myStdDeltaLimit;
 
     /// The loaded default cycle time
     int myStdTCycle;
 
     // Default maximum gap  (actuated)
-    double myStdActuatedMaxGap;
+    SUMOReal myStdActuatedMaxGap;
 
     // Default passing time (actuated)
-    double myStdActuatedPassingTime;
+    SUMOReal myStdActuatedPassingTime;
 
     // Default maximum gap actuated)
-    double myStdActuatedDetectorGap;
+    SUMOReal myStdActuatedDetectorGap;
 
 protected:
     /// numerical representation for a junction with no purpose

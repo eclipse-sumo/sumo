@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/23 06:07:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:18:59  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -84,7 +87,7 @@ public:
     /// Constructor
     GUIParam_PopupMenu(GUIMainWindow &app,
         /*GUIParameterTable &parent, */GUIParameterTableWindow &parentWindow,
-        GUIGlObject &o, const std::string &varName, ValueSource<double> *src);
+        GUIGlObject &o, const std::string &varName, ValueSource<SUMOReal> *src);
 
     /// Destructor
     ~GUIParam_PopupMenu();
@@ -106,7 +109,7 @@ private:
     std::string myVarName;
 
 
-    ValueSource<double> *mySource;
+    ValueSource<SUMOReal> *mySource;
 
 protected:
     GUIParam_PopupMenu() { }

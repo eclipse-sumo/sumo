@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/23 06:07:13  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:18:33  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -47,7 +50,7 @@ namespace
 
 #include <string>
 #include <utils/common/StringTokenizer.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include "GfxConvHelper.h"
 
 #ifdef _DEBUG
@@ -62,9 +65,9 @@ RGBColor
 GfxConvHelper::parseColor(const std::string &coldef)
 {
     StringTokenizer st(coldef, ",");
-    double r = TplConvert<char>::_2float(st.next().c_str());
-    double g = TplConvert<char>::_2float(st.next().c_str());
-    double b = TplConvert<char>::_2float(st.next().c_str());
+    SUMOReal r = TplConvert<char>::_2SUMOReal(st.next().c_str());
+    SUMOReal g = TplConvert<char>::_2SUMOReal(st.next().c_str());
+    SUMOReal b = TplConvert<char>::_2SUMOReal(st.next().c_str());
     return RGBColor(r, g, b);
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -71,7 +74,7 @@ namespace
  * method definitions
  * ======================================================================= */
 ROVehicleType::ROVehicleType(const std::string &id, const RGBColor &col,
-                             double length)
+                             SUMOReal length)
     : ReferencedItem(), myID(id), myColor(col), myLength(length)
 {
 }
@@ -89,7 +92,7 @@ ROVehicleType::getID() const
 }
 
 
-double
+SUMOReal
 ROVehicleType::getLength() const
 {
     return myLength;

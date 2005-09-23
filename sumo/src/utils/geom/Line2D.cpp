@@ -12,6 +12,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/09/23 06:07:01  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 12:18:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -66,27 +69,27 @@ Line2D::~Line2D()
 
 
 void
-Line2D::extrapolateBy(double length)
+Line2D::extrapolateBy(SUMOReal length)
 {
-    double oldlen = GeomHelper::distance(myP1, myP2);
-    double x1 = myP1.x() - (myP2.x() - myP1.x()) * (length) / oldlen;
-    double y1 = myP1.y() - (myP2.y() - myP1.y()) * (length) / oldlen;
-    double x2 = myP2.x() - (myP1.x() - myP2.x()) * (length) / oldlen;
-    double y2 = myP2.y() - (myP1.y() - myP2.y()) * (length) / oldlen;
+    SUMOReal oldlen = GeomHelper::distance(myP1, myP2);
+    SUMOReal x1 = myP1.x() - (myP2.x() - myP1.x()) * (length) / oldlen;
+    SUMOReal y1 = myP1.y() - (myP2.y() - myP1.y()) * (length) / oldlen;
+    SUMOReal x2 = myP2.x() - (myP1.x() - myP2.x()) * (length) / oldlen;
+    SUMOReal y2 = myP2.y() - (myP1.y() - myP2.y()) * (length) / oldlen;
     myP1 = Position2D(x1, y1);
     myP2 = Position2D(x2, y2);
 }
 
 
 void
-Line2D::extrapolateFirstBy(double length)
+Line2D::extrapolateFirstBy(SUMOReal length)
 {
     myP1 = GeomHelper::extrapolate_first(myP1, myP2, length);
 }
 
 
 void
-Line2D::extrapolateSecondBy(double length)
+Line2D::extrapolateSecondBy(SUMOReal length)
 {
     myP2 = GeomHelper::extrapolate_second(myP1, myP2, length);
 }
@@ -106,21 +109,21 @@ Line2D::p2() const
 
 
 Position2D
-Line2D::getPositionAtDistance(double offset) const
+Line2D::getPositionAtDistance(SUMOReal offset) const
 {
-    double length = GeomHelper::distance(myP1, myP2);
-    double x = myP1.x() + (myP2.x() - myP1.x()) / length * offset;
-    double y = myP1.y() + (myP2.y() - myP1.y()) / length * offset;
-/*    double x2 = myP2.x() - (myP1.x() - myP2.x())  / length * offset;
-    double y2 = myP2.y() - (myP1.y() - myP2.y()) / length * offset;*/
+    SUMOReal length = GeomHelper::distance(myP1, myP2);
+    SUMOReal x = myP1.x() + (myP2.x() - myP1.x()) / length * offset;
+    SUMOReal y = myP1.y() + (myP2.y() - myP1.y()) / length * offset;
+/*    SUMOReal x2 = myP2.x() - (myP1.x() - myP2.x())  / length * offset;
+    SUMOReal y2 = myP2.y() - (myP1.y() - myP2.y()) / length * offset;*/
     return Position2D(x, y);
 }
 
 
 void
-Line2D::move2side(double amount)
+Line2D::move2side(SUMOReal amount)
 {
-    std::pair<double, double> p = GeomHelper::getNormal90D_CW(myP1, myP2, amount);
+    std::pair<SUMOReal, SUMOReal> p = GeomHelper::getNormal90D_CW(myP1, myP2, amount);
     myP1.add(p.first, p.second);
     myP2.add(p.first, p.second);
 }
@@ -138,26 +141,26 @@ Line2D::intersectsAtLengths(const Position2DVector &v)
 }
 
 
-double
+SUMOReal
 Line2D::atan2Angle() const
 {
     return atan2(myP1.x()-myP2.x(), myP1.y()-myP2.y());
 }
 
 
-double
+SUMOReal
 Line2D::atan2DegreeAngle() const
 {
-    return atan2(myP1.x()-myP2.x(), myP1.y()-myP2.y()) * 180.0 / 3.1415926535897932384626433832795;
+    return (SUMOReal) atan2(myP1.x()-myP2.x(), myP1.y()-myP2.y()) * (SUMOReal) 180.0 / (SUMOReal) 3.1415926535897932384626433832795;
 }
 
 
-double
+SUMOReal
 Line2D::atan2PositiveAngle() const
 {
-    double angle = atan2Angle();
+    SUMOReal angle = atan2Angle();
     if(angle<0) {
-        angle = PI * 2.0 + angle;
+        angle = (SUMOReal) PI * (SUMOReal) 2.0 + angle;
     }
     return angle;
 }
@@ -176,7 +179,7 @@ Line2D::intersects(const Line2D &l) const
 }
 
 
-double
+SUMOReal
 Line2D::length() const
 {
     return sqrt(
@@ -187,7 +190,7 @@ Line2D::length() const
 
 
 void
-Line2D::add(double x, double y)
+Line2D::add(SUMOReal x, SUMOReal y)
 {
     myP1.add(x, y);
     myP2.add(x, y);
@@ -203,7 +206,7 @@ Line2D::add(const Position2D &p)
 
 
 void
-Line2D::sub(double x, double y)
+Line2D::sub(SUMOReal x, SUMOReal y)
 {
     myP1.sub(x, y);
     myP2.sub(x, y);
@@ -212,11 +215,11 @@ Line2D::sub(double x, double y)
 
 
 
-double
+SUMOReal
 Line2D::distanceTo(const Position2D &p) const
 {
-    double LineMag;
-    double U;
+    SUMOReal LineMag;
+    SUMOReal U;
 
     LineMag = GeomHelper::Magnitude( myP2, myP1 );
 
@@ -235,7 +238,7 @@ Line2D::distanceTo(const Position2D &p) const
         myP1.y() + U * ( myP2.y() - myP1.y() ) );
 //    Intersection.Z = LineStart->Z + U * ( LineEnd->Z - LineStart->Z );
 
-    double Distance = GeomHelper::Magnitude( p, Intersection );
+    SUMOReal Distance = GeomHelper::Magnitude( p, Intersection );
 
     return Distance;
 }
@@ -251,14 +254,14 @@ Line2D::reverse()
 }
 
 
-double
+SUMOReal
 Line2D::nearestPositionTo(const Position2D &p)
 {
     return GeomHelper::nearest_position_on_line_to_point(myP1, myP2, p);
 }
 
 
-double
+SUMOReal
 Line2D::intersectsAtLength(const Line2D &v)
 {
     Position2D pos =

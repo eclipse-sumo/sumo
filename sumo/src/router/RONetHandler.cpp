@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.10  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -169,8 +172,8 @@ RONetHandler::parseEdge(const Attributes &attrs)
 void
 RONetHandler::parseLane(const Attributes &attrs)
 {
-    double maxSpeed = -1;
-    double length = -1;
+    SUMOReal maxSpeed = -1;
+    SUMOReal length = -1;
     // get the speed
     try {
         maxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);

@@ -85,8 +85,8 @@ public:
 	void result(const char *output);
 
 	// return the min or max values
-	double minValue(double a, double b, double c);
-	double maxValue(double a, double b, double c);
+	SUMOReal minValue(SUMOReal a, SUMOReal b, SUMOReal c);
+	SUMOReal maxValue(SUMOReal a, SUMOReal b, SUMOReal c);
 
 	public:
 

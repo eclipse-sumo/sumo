@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/09/23 06:01:05  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/04/27 11:48:25  dkrajzew
 // level3 warnings removed; made containers non-static
 //
@@ -50,13 +53,13 @@
 class NBCapacity2Lanes {
 public:
     /// constructor
-    NBCapacity2Lanes(float divider) : _divider(divider) { }
+    NBCapacity2Lanes(SUMOReal divider) : _divider(divider) { }
 
     /// destructor
     ~NBCapacity2Lanes() { }
 
     /// returns the number of lanes computed from the given capacity
-    int get(float capacity) {
+    int get(SUMOReal capacity) {
         capacity /= _divider;
         if(capacity>(int) capacity) {
             capacity += 1;
@@ -70,7 +73,7 @@ public:
 
 private:
     /// the norming factor
-    float _divider;
+    SUMOReal _divider;
 };
 
 

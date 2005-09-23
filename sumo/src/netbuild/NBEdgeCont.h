@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.22  2005/09/23 06:01:05  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.21  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -104,7 +107,7 @@
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:10  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -185,7 +188,7 @@ public:
         To describe which part of the edge shall be returned, a
         position hint is supplied */
     NBEdge *retrievePossiblySplitted(
-        const std::string &id, double pos) const;
+        const std::string &id, SUMOReal pos) const;
 
     /** computes edges, step1: computation of approached edges */
     bool computeEdge2Edges();
@@ -215,7 +218,7 @@ public:
         size_t noLanesFirstEdge, size_t noLanesSecondEdge);
 
     /** @brief Splits the edge at the position nearest to the given node using the given modifications */
-    bool splitAt(NBDistrictCont &dc, NBEdge *edge, double edgepos, NBNode *node,
+    bool splitAt(NBDistrictCont &dc, NBEdge *edge, SUMOReal edgepos, NBNode *node,
         const std::string &firstEdgeName, const std::string &secondEdgeName,
         size_t noLanesFirstEdge, size_t noLanesSecondEdge);
 
@@ -257,7 +260,7 @@ public:
 
     /// moves the geometry of the edges by the network offset
     bool normaliseEdgePositions(const NBNodeCont &nc);
-    bool reshiftEdgePositions(double xoff, double yoff, double rot);
+    bool reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 
     bool computeEdgeShapes();
 

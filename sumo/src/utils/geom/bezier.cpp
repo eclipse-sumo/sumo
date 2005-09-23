@@ -32,10 +32,10 @@ using namespace std;
 
 /* function to calculate the factorial */
 
-double factrl(int n)
+SUMOReal factrl(int n)
 {
     static int ntop=6;
-    static double a[33]={1.0,1.0,2.0,6.0,24.0,120.0,720.0}; /* fill in the first few values */
+    static SUMOReal a[33]={1.0,1.0,2.0,6.0,24.0,120.0,720.0}; /* fill in the first few values */
     int j1;
 
     if (n < 0) { throw 1; } //cout << "\nNegative factorial in routine FACTRL\n" ;
@@ -45,25 +45,25 @@ double factrl(int n)
         j1 = ntop++;
         a[n]=a[j1]*ntop;
     }
-    return a[n]; /* returns the value n! as a floating point number */
+    return a[n]; /* returns the value n! as a SUMORealing point number */
 }
 
 /* function to calculate the factorial function for Bernstein basis */
 
-double Ni(int n,int i)
+SUMOReal Ni(int n,int i)
 {
-    double ni;
+    SUMOReal ni;
     ni = factrl(n)/(factrl(i)*factrl(n-i));
     return ni;
 }
 
 /* function to calculate the Bernstein basis */
 
-double Basis(int n,int i,double t)
+SUMOReal Basis(int n,int i,SUMOReal t)
 {
-    double basis;
-    double ti; /* this is t^i */
-    double tni; /* this is (1 - t)^i */
+    SUMOReal basis;
+    SUMOReal ti; /* this is t^i */
+    SUMOReal tni; /* this is (1 - t)^i */
 
     /* handle the special cases to avoid domain problem with pow */
 
@@ -75,7 +75,7 @@ double Basis(int n,int i,double t)
 
 /* Bezier curve subroutine */
 void
-bezier(int npts, double b[], int cpts, double p[])
+bezier(int npts, SUMOReal b[], int cpts, SUMOReal p[])
 {
     int i;
     int j;
@@ -83,18 +83,18 @@ bezier(int npts, double b[], int cpts, double p[])
     int icount;
     int jcount;
 
-    double step;
-    double t;
+    SUMOReal step;
+    SUMOReal t;
 
-    double factrl(int);
-    double Ni(int,int);
-    double Basis(int,int,double);
+    SUMOReal factrl(int);
+    SUMOReal Ni(int,int);
+    SUMOReal Basis(int,int,SUMOReal);
 
 /*    calculate the points on the Bezier curve */
 
     icount = 0;
     t = 0;
-    step = 1.0/(cpts -1);
+    step = (SUMOReal) 1.0/(cpts -1);
 
     for (i1 = 1; i1<=cpts; i1++){ /* main loop */
 

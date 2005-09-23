@@ -28,6 +28,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/23 06:04:23  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:04:48  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -35,6 +38,10 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -49,7 +56,11 @@ namespace
 #include <utils/importio/LineReader.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -73,7 +84,7 @@ operator<< (std::ostream& os, const OD_IN& od)
 
 void
 ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
-           long *total_cars, SUMOTime *start, SUMOTime *finish, float *factor)
+           long *total_cars, SUMOTime *start, SUMOTime *finish, SUMOReal *factor)
 {
 	std::string cLine;
 	string help;
@@ -108,11 +119,11 @@ ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
         }
     }
     istringstream t1(line);
-    float start_ini, finish_ini;
+    SUMOReal start_ini, finish_ini;
 	t1 >> start_ini >> finish_ini;
 	*start = SUMOTime(start_ini);
 	*finish = SUMOTime(finish_ini);
-	float rest = 6000 * (start_ini - *start);
+	SUMOReal rest = 6000 * (start_ini - *start);
 	*start = (SUMOTime) (3600. * *start + rest);
 	rest = 6000 * (finish_ini - *finish);
 	*finish = (SUMOTime) (3600. * *finish + rest);

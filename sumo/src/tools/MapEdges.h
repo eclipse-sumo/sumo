@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/09/23 06:05:18  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.1  2005/09/15 12:09:27  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -91,8 +94,8 @@ public:
 	void result(void);
 
 	// return the min or max values
-	double minValue(double a, double b, double c);
-	double maxValue(double a, double b, double c);
+	SUMOReal minValue(SUMOReal a, SUMOReal b, SUMOReal c);
+	SUMOReal maxValue(SUMOReal a, SUMOReal b, SUMOReal c);
 
 	public:
 

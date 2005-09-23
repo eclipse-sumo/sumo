@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -137,9 +140,9 @@ protected:
     /// Parses the vehicle type
     std::string getVehicleType(const Attributes &attrs);
 
-    /** @brief Parses a float value which is optional;
+    /** @brief Parses a SUMOReal value which is optional;
         Avoids exceptions */
-    float getOptionalFloat(const Attributes &attrs,
+    SUMOReal getOptionalFloat(const Attributes &attrs,
         const std::string &name, AttrEnum which, const std::string &place);
 
     /// Parses and returns the time the vehicle should start at
@@ -176,10 +179,10 @@ protected:
     std::string myType;
 
     /// The optional position the vehicle shall star at
-    double myPos;
+    SUMOReal myPos;
 
     /// The optional speed the vehicle shall start with
-    double mySpeed;
+    SUMOReal mySpeed;
 
     /// The time the vehicle shall start at
     SUMOTime myDepartureTime;

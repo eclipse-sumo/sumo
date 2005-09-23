@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/23 06:07:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:18:59  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -87,11 +90,11 @@ public:
 
     void closeBuilding();
 
-    void mkItem(const char *name, bool dynamic, ValueSource<double> *src);
+    void mkItem(const char *name, bool dynamic, ValueSource<SUMOReal> *src);
 
     void mkItem(const char *name, bool dynamic, std::string value);
 
-    void mkItem(const char *name, bool dynamic, double value);
+    void mkItem(const char *name, bool dynamic, SUMOReal value);
 
     long onSimStep(FXObject*,FXSelector,void*);
     long onTableSelected(FXObject*,FXSelector,void*);

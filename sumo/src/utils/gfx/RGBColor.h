@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:07:13  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:18:33  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -56,39 +59,39 @@ public:
     RGBColor();
 
     /// Parametrised constructor
-    RGBColor(double red, double green, double blue);
+    RGBColor(SUMOReal red, SUMOReal green, SUMOReal blue);
 
     /// Destructor
     ~RGBColor();
 
     /// Returns the red-amount of the color
-    double red() const;
+    SUMOReal red() const;
 
     /// Returns the green-amount of the color
-    double green() const;
+    SUMOReal green() const;
 
     /// Returns the blue-amount of the color
-    double blue() const;
+    SUMOReal blue() const;
 
     /// Writes the color to the given stream
     friend std::ostream &operator<<(std::ostream &os, const RGBColor &col);
 
     /// Increases the color's brightness
-    void brighten(double by=0.25);
+    void brighten(SUMOReal by=0.25);
 
     /// Decreases the color's brightness
-    void darken(double by=0.25);
+    void darken(SUMOReal by=0.25);
 
     friend RGBColor operator+(const RGBColor &c1, const RGBColor &c2);
 
     friend RGBColor operator-(const RGBColor &c1, const RGBColor &c2);
 
-    friend RGBColor operator*(const RGBColor &c, const double &v);
+    friend RGBColor operator*(const RGBColor &c, const SUMOReal &v);
 
-    friend RGBColor operator/(const RGBColor &c, const double &v);
+    friend RGBColor operator/(const RGBColor &c, const SUMOReal &v);
 
 private:
-    static inline double check(const double &c) {
+    static inline SUMOReal check(const SUMOReal &c) {
         if(c<0) {
             return 0;
         } else if(c>1.0) {
@@ -98,25 +101,25 @@ private:
         }
     }
 
-    static inline double addChecking(const double &c1, const double &c2) {
+    static inline SUMOReal addChecking(const SUMOReal &c1, const SUMOReal &c2) {
         return check(c1+c2);
     }
 
-    static inline double subChecking(const double &c1, const double &c2) {
+    static inline SUMOReal subChecking(const SUMOReal &c1, const SUMOReal &c2) {
         return check(c1-c2);
     }
 
-    static inline double mulChecking(const double &c1, const double &c2) {
+    static inline SUMOReal mulChecking(const SUMOReal &c1, const SUMOReal &c2) {
         return check(c1*c2);
     }
 
-    static inline double divChecking(const double &c1, const double &c2) {
+    static inline SUMOReal divChecking(const SUMOReal &c1, const SUMOReal &c2) {
         return check(c1/c2);
     }
 
 private:
     /// The color amounts
-    double myRed, myGreen, myBlue;
+    SUMOReal myRed, myGreen, myBlue;
 
 };
 

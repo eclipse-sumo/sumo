@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/09/23 06:03:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -152,11 +155,11 @@ public:
         void addError2(const std::string &type, const std::string &id,
             const std::string &exception);
 
-        /** @brief tries to get a float which is possibly assigned to a certain modality
-            When the float cannot be extracted using the given name, "IV" is
+        /** @brief tries to get a SUMOReal which is possibly assigned to a certain modality
+            When the SUMOReal cannot be extracted using the given name, "IV" is
             appended to the begin of the name. Remark that this function does not
             yet support public traffic. */
-        float getWeightedFloat(const std::string &name);
+        SUMOReal getWeightedFloat(const std::string &name);
 
         /** @brief tries to get a bool which is possibly assigned to a certain modality
             When the bool cannot be extracted using the given name, "IV" is

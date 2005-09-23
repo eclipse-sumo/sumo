@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -70,7 +73,7 @@ class ROVehicleType : public ReferencedItem {
 public:
     /// Constructor
     ROVehicleType(const std::string &id, const RGBColor &col,
-        double length);
+        SUMOReal length);
 
     /// Destructor
 	virtual ~ROVehicleType();
@@ -82,7 +85,7 @@ public:
     std::string getID() const;
 
     // Returns the length the vehicles of this type have
-    double getLength() const;
+    SUMOReal getLength() const;
 
 protected:
     /// The name of the type
@@ -92,7 +95,7 @@ protected:
     RGBColor myColor;
 
     /// The length of the vehicle
-    double myLength;
+    SUMOReal myLength;
 
 };
 

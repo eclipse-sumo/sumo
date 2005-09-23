@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/23 06:03:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -48,7 +51,7 @@ namespace
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <netbuild/NBHelpers.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NIVisumLoader.h"
@@ -92,11 +95,11 @@ NIVisumParser_SignalGroups::myDependentReport()
         id = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
         LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
         // StartTime
-        double StartTime = TplConvert<char>::_2float(myLineParser.get("GzStart").c_str());
+        SUMOReal StartTime = TplConvert<char>::_2SUMOReal(myLineParser.get("GzStart").c_str());
 		// EndTime
-        double EndTime = TplConvert<char>::_2float(myLineParser.get("GzEnd").c_str());
+        SUMOReal EndTime = TplConvert<char>::_2SUMOReal(myLineParser.get("GzEnd").c_str());
 		// add to the list
-		(*myNIVisumTLs.find(LSAid)).second->AddSignalGroup(id, StartTime, EndTime);
+		(*myNIVisumTLs.find(LSAid)).second->AddSignalGroup(id, (SUMOTime) StartTime, (SUMOTime) EndTime);
     } catch (OutOfBoundsException) {
         addError2("SignalGroups", "LSA:" + LSAid + " SignalGroup:" + id, "OutOfBounds");
     } catch (NumberFormatException) {

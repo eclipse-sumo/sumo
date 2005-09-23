@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:04:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:05:34  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -85,13 +88,13 @@ public:
 
     /// adds the information about the percentage of using a certain follower
     void addFollowerProbability(ROJPEdge *follower,
-        SUMOTime begTime, SUMOTime endTime, float percentage);
+        SUMOTime begTime, SUMOTime endTime, SUMOReal percentage);
 
     /// Returns the next edge to use
     ROJPEdge *chooseNext(SUMOTime time) const;
 
     /// Sets the turning definition defaults
-    void setTurnDefaults(const std::vector<float> &defs);
+    void setTurnDefaults(const std::vector<SUMOReal> &defs);
 
 private:
     /// Definition of a map that stores the probabilities of using a certain follower over time
@@ -101,7 +104,7 @@ private:
     FollowerUsageCont myFollowingDefs;
 
     /// The defaults for turnings
-    std::vector<float> myParsedTurnings;
+    std::vector<SUMOReal> myParsedTurnings;
 
 private:
     /// we made the copy constructor invalid

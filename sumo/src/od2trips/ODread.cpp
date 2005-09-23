@@ -28,6 +28,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/09/23 06:04:23  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 12:04:48  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -65,7 +68,7 @@ namespace
  * member method definitions
  * ======================================================================= */
 int ODread (string OD_filename,vector<OD_IN>& od_in, SUMOTime *maxele,
-			long *total_cars, SUMOTime *start, SUMOTime *finish, float *factor)
+			long *total_cars, SUMOTime *start, SUMOTime *finish, SUMOReal *factor)
 	{
 	std::string cLine;
 	int ferror = 0;
@@ -80,12 +83,12 @@ int ODread (string OD_filename,vector<OD_IN>& od_in, SUMOTime *maxele,
 	}
 	n = 0;
 	for(i=0;i<2;i++) (getline (fsSrc, cLine)); // read dummy lines
-    float start_ini, finish_ini;
+    SUMOReal start_ini, finish_ini;
 	// read begin and end and convert to seconds
 	fsSrc >> start_ini >> finish_ini;
 	*start = int(start_ini);
 	*finish = int(finish_ini);
-	float rest = 6000 * (start_ini - *start);
+	SUMOReal rest = 6000 * (start_ini - *start);
 	*start = (SUMOTime) (3600. * *start + rest);
 	rest = 6000 * (finish_ini - *finish);
 	*finish = (SUMOTime) (3600. * *finish + rest);

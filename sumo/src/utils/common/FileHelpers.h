@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/09/23 06:05:45  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:13:08  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -129,8 +132,8 @@ public:
     /** reads an integer from the given stream regarding the byte order */
     static unsigned int readUInt(std::istream &strm, bool intelFile=true);
 
-    /** reads a float */
-    static float readFloat(std::istream &strm, bool intelFile=true);
+    /** reads a SUMOReal */
+    static SUMOReal readFloat(std::istream &strm, bool intelFile=true);
 
     /** reads a byte */
     static unsigned char readByte(std::istream &strm);
@@ -140,7 +143,7 @@ public:
 
     static std::ostream &writeInt(std::ostream &strm, int value);
     static std::ostream &writeUInt(std::ostream &strm, unsigned int value);
-    static std::ostream &writeFloat(std::ostream &strm, float value);
+    static std::ostream &writeFloat(std::ostream &strm, SUMOReal value);
     static std::ostream &writeByte(std::ostream &strm, unsigned char value);
     static std::ostream &writeString(std::ostream &strm, const std::string &value);
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/09/23 06:05:18  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.1  2005/09/15 12:09:27  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -201,16 +204,16 @@ MapEdges::convertA(void)
     }
 	Junction *j3 = (*i).second;
 
-	double xmin = minValue(j1->pos.x(),j2->pos.x(),j3->pos.x());
-	double xmax = maxValue(j1->pos.x(),j2->pos.x(),j3->pos.x());
-	double xw   = xmax - xmin ;
+	SUMOReal xmin = minValue(j1->pos.x(),j2->pos.x(),j3->pos.x());
+	SUMOReal xmax = maxValue(j1->pos.x(),j2->pos.x(),j3->pos.x());
+	SUMOReal xw   = xmax - xmin ;
 	cout <<" xminValue "<<xmin<<endl;
 	cout <<" xmaxValue "<<xmax<<endl;
     cout <<" xwidth "<<xw<<endl;
 
-    double ymin = minValue(j1->pos.y(),j2->pos.y(),j3->pos.y());
-	double ymax = maxValue(j1->pos.y(),j2->pos.y(),j3->pos.y());
-	double yw   = ymax - ymin ;
+    SUMOReal ymin = minValue(j1->pos.y(),j2->pos.y(),j3->pos.y());
+	SUMOReal ymax = maxValue(j1->pos.y(),j2->pos.y(),j3->pos.y());
+	SUMOReal yw   = ymax - ymin ;
     cout <<" yminValue "<<ymin<<endl;
 	cout <<" ymaxValue "<<ymax<<endl;
     cout <<" xwidth "<<xw<<endl;
@@ -219,8 +222,8 @@ MapEdges::convertA(void)
 		cout<<"----------------------------------------------"<<endl;
 		cout <<"Junction ID = "<<(*j).second->id<<endl;
 		cout <<"     alte x= "<< (*j).second->pos.x() <<" alte y= "<<(*j).second->pos.y()<<endl;
-		double nx = ((*j).second->pos.x() -xmin)/xw;
-		double ny = ((*j).second->pos.y() -ymin)/yw;
+		SUMOReal nx = ((*j).second->pos.x() -xmin)/xw;
+		SUMOReal ny = ((*j).second->pos.y() -ymin)/yw;
         cout <<"     neue x = "<< nx <<" neue y = "<< ny<<endl;
         ((*j).second->pos).set(nx,ny);
 	}
@@ -257,16 +260,16 @@ MapEdges::convertB(void)
     }
 	Junction *j3 = (*i).second;
 
-	double xmin = minValue(j1->pos.x(),j2->pos.x(),j3->pos.x());
-	double xmax = maxValue(j1->pos.x(),j2->pos.x(),j3->pos.x());
-	double xw   = xmax - xmin ;
+	SUMOReal xmin = minValue(j1->pos.x(),j2->pos.x(),j3->pos.x());
+	SUMOReal xmax = maxValue(j1->pos.x(),j2->pos.x(),j3->pos.x());
+	SUMOReal xw   = xmax - xmin ;
 	cout <<" xmin "<<xmin<<endl;
 	cout <<" xmax "<<xmax<<endl;
     cout <<" xwidth "<<xw<<endl;
 
-    double ymin = minValue(j1->pos.y(),j2->pos.y(),j3->pos.y());
-	double ymax = maxValue(j1->pos.y(),j2->pos.y(),j3->pos.y());
-	double yw   = ymax - ymin ;
+    SUMOReal ymin = minValue(j1->pos.y(),j2->pos.y(),j3->pos.y());
+	SUMOReal ymax = maxValue(j1->pos.y(),j2->pos.y(),j3->pos.y());
+	SUMOReal yw   = ymax - ymin ;
     cout <<" ymin "<<ymin<<endl;
 	cout <<" ymax "<<ymax<<endl;
     cout <<" ywidth "<<yw<<endl;
@@ -275,8 +278,8 @@ MapEdges::convertB(void)
 		cout<<"-----------------------------------------"<<endl;
 		cout <<"Junction ID = "<<(*j).second->id<<endl;
 		cout <<"       alte x "<< (*j).second->pos.x() <<" alte y "<<(*j).second->pos.y()<<endl;
-		double nx = ((*j).second->pos.x() -xmin)/xw;
-		double ny = ((*j).second->pos.y() -ymin)/yw;
+		SUMOReal nx = ((*j).second->pos.x() -xmin)/xw;
+		SUMOReal ny = ((*j).second->pos.y() -ymin)/yw;
         cout <<"       neue x= "<< nx <<" alte y= "<< ny<<endl;
         ((*j).second->pos).set(nx,ny);
 	}
@@ -287,14 +290,14 @@ void
 MapEdges::result(void){
 	ofstream out("result.txt");
 	for(std::map<std::string, std::string>::iterator i=myEdge2JunctionAMap.begin(); i!=myEdge2JunctionAMap.end(); i++) {
-		 double minAbstand = 77777;
+		 SUMOReal minAbstand = 77777;
 		 std::string id = "";
          string nodeID = (*i).second;
          Position2D posA = myJunctionDictA[nodeID]->pos;
 		 for(DictTypeJunction::iterator j=myJunctionDictB.begin(); j!=myJunctionDictB.end(); j++) {
-			 double X = pow(posA.x() - (*j).second->pos.x(),2);
-			 double Y = pow(posA.y() - (*j).second->pos.y(),2);
-			 double nabstand = sqrt(X+Y);
+			 SUMOReal X = pow(posA.x() - (*j).second->pos.x(),2);
+			 SUMOReal Y = pow(posA.y() - (*j).second->pos.y(),2);
+			 SUMOReal nabstand = sqrt(X+Y);
 			 if(nabstand < minAbstand ){
 				 minAbstand = nabstand;
 				 id = myEdge2JunctionBMap[(*j).second->id];
@@ -306,8 +309,8 @@ MapEdges::result(void){
 	out.close();
 }
 
-double
-MapEdges::maxValue(double a, double b, double c)
+SUMOReal
+MapEdges::maxValue(SUMOReal a, SUMOReal b, SUMOReal c)
 {
 	if(a>=b){
 		if(a>=c){
@@ -325,8 +328,8 @@ MapEdges::maxValue(double a, double b, double c)
 
 }
 
-double
-MapEdges::minValue(double a, double b, double c)
+SUMOReal
+MapEdges::minValue(SUMOReal a, SUMOReal b, SUMOReal c)
 {
 	if(a<=b){
 		if(a<=c){

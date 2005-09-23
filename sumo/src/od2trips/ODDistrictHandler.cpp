@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:04:23  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:04:48  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -126,7 +129,7 @@ ODDistrictHandler::openDistrict(const Attributes &attrs)
 void
 ODDistrictHandler::addSource(const Attributes &attrs)
 {
-    std::pair<std::string, double> vals = getValues(attrs, "source");
+    std::pair<std::string, SUMOReal> vals = getValues(attrs, "source");
     if(vals.second>=0) {
         _current->addSource(vals.first, vals.second);
     }
@@ -136,7 +139,7 @@ ODDistrictHandler::addSource(const Attributes &attrs)
 void
 ODDistrictHandler::addSink(const Attributes &attrs)
 {
-    std::pair<std::string, double> vals = getValues(attrs, "sink");
+    std::pair<std::string, SUMOReal> vals = getValues(attrs, "sink");
     if(vals.second>=0) {
         _current->addSink(vals.first, vals.second);
     }
@@ -144,12 +147,12 @@ ODDistrictHandler::addSink(const Attributes &attrs)
 
 
 
-std::pair<std::string, double>
+std::pair<std::string, SUMOReal>
 ODDistrictHandler::getValues(const Attributes &attrs, const std::string &type)
 {
     // check the current district first
     if(_current==0) {
-        return std::pair<std::string, double>("", -1);
+        return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the id first
     string id;
@@ -160,20 +163,20 @@ ODDistrictHandler::getValues(const Attributes &attrs, const std::string &type)
             string("A ") + type
             + string(" without an id occured within district '")
             + _current->getID() + string("'."));
-        return std::pair<std::string, double>("", -1);
+        return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the weight
-    double weight = getFloatSecure(attrs, SUMO_ATTR_WEIGHT, -1);
+    SUMOReal weight = getFloatSecure(attrs, SUMO_ATTR_WEIGHT, -1);
     if(weight==-1) {
         MsgHandler::getErrorInstance()->inform(
             string("The weight of the ") + type + string(" '") + id
             + string("' within district '")
             + _current->getID()
             + string("' is not numeric."));
-        return std::pair<std::string, double>("", -1);
+        return std::pair<std::string, SUMOReal>("", -1);
     }
     // return the values
-    return std::pair<std::string, double>(id, weight);
+    return std::pair<std::string, SUMOReal>(id, weight);
 }
 
 

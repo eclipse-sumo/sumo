@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -93,7 +96,7 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
 #include "RORoute.h"
 #include "RORouteDef_OrigDest.h"
@@ -150,15 +153,14 @@ RORDLoader_Artemis::myReadRoutesAtLeastUntil(SUMOTime time)
 {
     // go through the emitter nodes
     for(NodeFlows::iterator i=myNodeFlows.begin(); i!=myNodeFlows.end(); i++) {
-        double flow = (*i).second; // (in veh/hour)
+        SUMOReal flow = (*i).second; // (in veh/hour)
         // compute the time of the next vehicle emission
         SUMOTime period = (SUMOTime) (3600.0/flow);
         // get the name of the origin node
         string orig = (*i).first;
         // check whether a vehicle shall be emitted at this time
         if(time%period==0) {
-            double prob = (double) rand() /
-                ( static_cast<double>(RAND_MAX) + 1) * 100.0;
+            SUMOReal prob = (SUMOReal) ((double) rand() / (double) ((RAND_MAX) + 1) * (double) 100.0);
             // check which destination to use
             DestProbVector poss = myNodeConnections[orig];
             for(DestProbVector::iterator j=poss.begin(); j!=poss.end(); j++) {
@@ -231,8 +233,8 @@ RORDLoader_Artemis::report(const std::string &result)
             myLineHandler.parseLine(result);
             string nodeid = myLineHandler.get("NodeID");
             string destid = myLineHandler.get("DestID");
-            double perc =
-                TplConvert<char>::_2float(myLineHandler.get("Percent").c_str());
+            SUMOReal perc =
+                TplConvert<char>::_2SUMOReal(myLineHandler.get("Percent").c_str());
             myNodeConnections[nodeid].push_back(
                 DestPercentage(destid, perc));
         }
@@ -244,8 +246,8 @@ RORDLoader_Artemis::report(const std::string &result)
         } else {
             myLineHandler.parseLine(result);
             string nodeid = myLineHandler.get("NodeID");
-            double flow =
-                TplConvert<char>::_2float(myLineHandler.get("a0").c_str());
+            SUMOReal flow =
+                TplConvert<char>::_2SUMOReal(myLineHandler.get("a0").c_str());
             myNodeFlows[nodeid] = flow;
         }
     }

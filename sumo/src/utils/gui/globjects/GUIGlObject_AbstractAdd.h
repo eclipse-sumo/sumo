@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/23 06:08:31  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:19:44  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -78,10 +81,10 @@ public:
     GUIGlObjectType getType() const;
 
     /// Draws the detector in full-geometry mode
-    virtual void drawGL_FG(double scale) = 0;
+    virtual void drawGL_FG(SUMOReal scale) = 0;
 
     /// Draws the detector in simple-geometry mode
-    virtual void drawGL_SG(double scale) = 0;
+    virtual void drawGL_SG(SUMOReal scale) = 0;
 
     /// Returns the detector's coordinates
     virtual Position2D getPosition() const = 0;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/23 06:11:14  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:20:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -256,9 +259,9 @@ GUIGrid::getCellsContaining(Boundary boundary)
     std::vector<size_t> cells;
     // compute the cells the lae is going through
     for(int y=0; y<_ysize; y++) {
-        double ypos1 = double(y) * _ycellsize;
+        SUMOReal ypos1 = SUMOReal(y) * _ycellsize;
         for(int x=0; x<_xsize; x++) {
-            double xpos1 = double(x) * _xcellsize;
+            SUMOReal xpos1 = SUMOReal(x) * _xcellsize;
             Boundary cellBounds;
             cellBounds.add(xpos1, ypos1);
             cellBounds.add(xpos1+_xcellsize, ypos1+_ycellsize);
@@ -311,24 +314,24 @@ GUIGrid::removeFrom(GridCell &cont, int x, int y)
 
 void
 GUIGrid::get(int what,
-             double x, double y, double xoff, double yoff,
+             SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff,
              size_t *setEdges, size_t *setJunctions, size_t *setAdditional) const
 {
     // compute bounderies
-    double xur = x - xoff - _xcellsize;
-    double xdl = x + xoff + _xcellsize;
-    double yur = y - yoff - _ycellsize;
-    double ydl = y + yoff + _ycellsize;
+    SUMOReal xur = x - xoff - _xcellsize;
+    SUMOReal xdl = x + xoff + _xcellsize;
+    SUMOReal yur = y - yoff - _ycellsize;
+    SUMOReal ydl = y + yoff + _ycellsize;
 
     // loop over bounderies
-    double yrun=(yur >= 0 ? yur : 0);
+    SUMOReal yrun=(yur >= 0 ? yur : 0);
     int ypos = (int) (yur/_ycellsize);
     if(ypos<0) {
         ypos = 0;
     }
     size_t yidx = 0;
     for(; yrun<ydl&&ypos<_ysize; yrun+=_ycellsize, ypos++, yidx++) {
-        double xrun=(xur >= 0 ? xur : 0);
+        SUMOReal xrun=(xur >= 0 ? xur : 0);
         int xpos = (int) (xur/_xcellsize);
         if(xpos<0) {
             xpos = 0;
@@ -396,14 +399,14 @@ GUIGrid::getNoYCells() const
 }
 
 
-double
+SUMOReal
 GUIGrid::getXCellSize() const
 {
     return _xcellsize;
 }
 
 
-double
+SUMOReal
 GUIGrid::getYCellSize() const
 {
     return _ycellsize;

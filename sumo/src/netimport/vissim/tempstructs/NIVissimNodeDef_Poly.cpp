@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -44,7 +47,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -59,6 +62,10 @@ namespace
 #include "NIVissimConnection.h"
 #include "NIVissimAbstractEdge.h"
 #include <utils/geom/Boundary.h>
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 using namespace std;
 
@@ -99,7 +106,7 @@ NIVissimNodeDef_Poly::computeBounding()
     assert(myBoundary!=0&&myBoundary->xmax()>=myBoundary->xmin());
 }
 
-double
+SUMOReal
 NIVissimNodeDef_Poly::getEdgePosition(int edgeid) const
 {
     NIVissimEdge *edge = NIVissimEdge::dictionary(edgeid);
@@ -111,7 +118,7 @@ NIVissimNodeDef_Poly::getEdgePosition(int edgeid) const
 
 
 void
-NIVissimNodeDef_Poly::searchAndSetConnections(double offset)
+NIVissimNodeDef_Poly::searchAndSetConnections(SUMOReal offset)
 {
     IntVector within = NIVissimAbstractEdge::getWithin(myPoly, offset);
     IntVector connections;

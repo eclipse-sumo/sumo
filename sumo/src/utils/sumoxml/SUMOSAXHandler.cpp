@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/23 06:12:31  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:22:16  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -59,8 +62,8 @@ namespace
 #include <utils/xml/AttributesReadingGenericSAX2Handler.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 #include <utils/common/FileErrorReporter.h>
 #include "SUMOXMLDefinitions.h"
 #include "SUMOSAXHandler.h"

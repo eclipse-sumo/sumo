@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.16  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -62,7 +65,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -105,15 +108,15 @@ public:
     ~NIVissimConnectionCluster();
 
     /// Returns the information whether the given cluster overlaps the current
-    bool overlapsWith(NIVissimConnectionCluster *c, double offset=0) const;
+    bool overlapsWith(NIVissimConnectionCluster *c, SUMOReal offset=0) const;
 
     bool hasNodeCluster() const;
 
     NBNode *getNBNode() const;
 
-    bool around(const Position2D &p, double offset=0) const;
+    bool around(const Position2D &p, SUMOReal offset=0) const;
 
-    double getPositionForEdge(int edgeid) const;
+    SUMOReal getPositionForEdge(int edgeid) const;
 
     friend class NIVissimEdge; // !!! debug
 
@@ -130,9 +133,9 @@ public:
 public:
     /** @brief Tries to joind clusters participating within a node
         This is done by joining clusters which overlap */
-    static void joinBySameEdges(double offset);
+    static void joinBySameEdges(SUMOReal offset);
 
-    static void joinByDisturbances(double offset);
+    static void joinByDisturbances(SUMOReal offset);
 
     static void buildNodeClusters();
 
@@ -142,17 +145,17 @@ public:
 
     static size_t dictSize();
 
-    static void dict_recheckNodes(double offset);
+    static void dict_recheckNodes(SUMOReal offset);
 
     static int getNextFreeNodeID();
 
     static void clearDict();
 /*
-    static void addNodes(double offset);
+    static void addNodes(SUMOReal offset);
 
     //static void dict_checkDoubleNodes();
 
-    static void addTLs(double offset);
+    static void addTLs(SUMOReal offset);
 */
 private:
     class NodeSubCluster {
@@ -163,7 +166,7 @@ private:
         void add(const NodeSubCluster &c);
         size_t size() const;
         void setConnectionsFree();
-        bool overlapsWith(const NodeSubCluster &c, double offset=0);
+        bool overlapsWith(const NodeSubCluster &c, SUMOReal offset=0);
         IntVector getConnectionIDs() const;
         friend class NIVissimConnectionCluster;
     public:
@@ -174,11 +177,11 @@ private:
 
     class same_direction_sorter {
     private:
-        double _angle;
+        SUMOReal _angle;
 
     public:
         /// constructor
-        explicit same_direction_sorter(double angle)
+        explicit same_direction_sorter(SUMOReal angle)
             : _angle(angle) { }
 
     public:
@@ -203,7 +206,7 @@ private:
 
     void recheckEdges();
 
-    bool joinable(NIVissimConnectionCluster *c2, double offset);
+    bool joinable(NIVissimConnectionCluster *c2, SUMOReal offset);
 
 
     IntVector getDisturbanceParticipators();

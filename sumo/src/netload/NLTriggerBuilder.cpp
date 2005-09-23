@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/23 06:04:12  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:04:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -197,7 +200,7 @@ NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net,
             + id + string("' is not known."));
         throw ProcessError();
     }
-    double pos = helper.getFloat(attrs, SUMO_ATTR_POS);
+    SUMOReal pos = helper.getFloat(attrs, SUMO_ATTR_POS);
     if(pos<0) {
         pos = lane->length() + pos;
     }
@@ -232,18 +235,18 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
             + id + string("' is not known."));
         throw ProcessError();
     }
-    double pos = helper.getFloat(attrs, SUMO_ATTR_POS);
+    SUMOReal pos = helper.getFloat(attrs, SUMO_ATTR_POS);
 
 
         MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&(lane->edge()));
         MESegment *prev = s;
-        float cpos = 0;
+        SUMOReal cpos = 0;
         while(cpos<pos&&s!=0) {
             prev = s;
             cpos += s->getLength();
             s = s->getNextSegment();
         }
-        float rpos = pos-cpos-prev->getLength();
+        SUMOReal rpos = pos-cpos-prev->getLength();
 
     return buildCalibrator(net, id, prev, rpos, rfile, file);
 }
@@ -282,7 +285,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
         throw ProcessError();
     }
 
-    float prob;
+    SUMOReal prob;
     try {
         prob = helper.getFloatSecure(attrs, SUMO_ATTR_PROB, 1);
     } catch(NumberFormatException) {
@@ -317,7 +320,7 @@ MSTriggeredEmitter *
 NLTriggerBuilder::buildLaneEmitTrigger(MSNet &net,
                                        const std::string &id,
                                        MSLane *destLane,
-                                       double pos,
+                                       SUMOReal pos,
                                        const std::string &file)
 {
     return new MSTriggeredEmitter(id, net, destLane, pos, file);
@@ -328,7 +331,7 @@ NLTriggerBuilder::buildLaneEmitTrigger(MSNet &net,
 METriggeredCalibrator *
 NLTriggerBuilder::buildCalibrator(MSNet &net,
                                   const std::string &id,
-                                  MESegment *edge, double pos,
+                                  MESegment *edge, SUMOReal pos,
                                   const std::string &rfile,
                                   const std::string &file)
 {
@@ -340,7 +343,7 @@ NLTriggerBuilder::buildCalibrator(MSNet &net,
 MSTriggeredRerouter *
 NLTriggerBuilder::buildRerouter(MSNet &net, const std::string &id,
                                 std::vector<MSEdge*> &edges,
-                                float prob, const std::string &file)
+                                SUMOReal prob, const std::string &file)
 {
     return new MSTriggeredRerouter(id, net, edges, prob, file);
 }

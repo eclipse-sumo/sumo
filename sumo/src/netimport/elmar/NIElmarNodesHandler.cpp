@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:02:15  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -33,7 +36,7 @@ namespace
 // debugging
 //
 // Revision 1.2  2004/08/02 12:44:12  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.1  2004/07/02 09:34:38  dkrajzew
 // elmar and tiger import added
@@ -56,7 +59,7 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/geom/GeomHelper.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
@@ -77,7 +80,7 @@ using namespace std;
  * ======================================================================= */
 NIElmarNodesHandler::NIElmarNodesHandler(NBNodeCont &nc,
                                          const std::string &file,
-                                         double centerX, double centerY)
+                                         SUMOReal centerX, SUMOReal centerY)
     : FileErrorReporter("elmar-nodes", file),
     myCurrentLine(0), myInitX(centerX), myInitY(centerY),
     myNodeCont(nc)
@@ -103,7 +106,7 @@ NIElmarNodesHandler::report(const std::string &result)
         return true;
     }
     string id;
-    double x, y;
+    SUMOReal x, y;
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
     // check
     if(st.size()<3) {
@@ -116,14 +119,14 @@ NIElmarNodesHandler::report(const std::string &result)
     // parse
     id = st.next();
     try {
-        x = (double) TplConvert<char>::_2float(st.next().c_str());
+        x = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             "Non-numerical value for node-x-position occured.");
         throw ProcessError();
     }
     try {
-        y = (double) TplConvert<char>::_2float(st.next().c_str());
+        y = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             "Non-numerical value for node-y-position occured.");
@@ -131,19 +134,19 @@ NIElmarNodesHandler::report(const std::string &result)
     }
     // geo->metric
 //    x = -1.0 * (x-myInitX)
-//        * (double) 111.320 * /*(double) 1000.0 * */cos(y / (double) 10000.0*PI/180.0)
-//        / (double) 10.0; // 10000.0
+//        * (SUMOReal) 111.320 * /*(SUMOReal) 1000.0 * */cos(y / (SUMOReal) 10000.0*PI/180.0)
+//        / (SUMOReal) 10.0; // 10000.0
 //    y = (y-myInitY)
-//        * (double) 111.136 /* * (double) 1000.0*/
-//        / (double) 10.0; // 10000.0
-    x = x / 100000.0;
-    y = y / 100000.0;
-    double ys = y;
+//        * (SUMOReal) 111.136 /* * (SUMOReal) 1000.0*/
+//        / (SUMOReal) 10.0; // 10000.0
+    x = x / (SUMOReal) 100000.0;
+    y = y / (SUMOReal) 100000.0;
+    SUMOReal ys = y;
     x = (x-myInitX);
     y = (y-myInitY);
-    double x1 = x * 111.320*1000;
-    double y1 = y * 111.136*1000;
-    x1 *= cos(ys*PI/180.0);
+    SUMOReal x1 = (SUMOReal) (x * 111.320*1000.);
+    SUMOReal y1 = (SUMOReal) (y * 111.136*1000.);
+    x1 *= (SUMOReal) cos(ys*PI/180.0);
 //    y1 *= 4.0/2.0;
 
     NBNode *n = new NBNode(id, Position2D(x1, y1));

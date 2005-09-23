@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:04:00  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:03:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -61,7 +64,7 @@ namespace
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:13  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -104,7 +107,7 @@ namespace
 #include <netbuild/NBTypeCont.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 
@@ -153,7 +156,7 @@ NIXMLTypesHandler::myStartElement(int element, const std::string &name,
             // parse the id
             id = getString(attrs, SUMO_ATTR_ID);
             int priority, noLanes;
-            double speed;
+            SUMOReal speed;
             // get the priority
             try {
                 priority = getIntSecure(attrs, SUMO_ATTR_PRIORITY,
@@ -175,7 +178,7 @@ NIXMLTypesHandler::myStartElement(int element, const std::string &name,
             // get the speed
             try {
                 speed = getFloatSecure(attrs, SUMO_ATTR_SPEED,
-                    (float) myTypeCont.getDefaultSpeed());
+                    (SUMOReal) myTypeCont.getDefaultSpeed());
             } catch (NumberFormatException) {
                 addError(
                     string("Not numeric value for Speed (at tag ID='")

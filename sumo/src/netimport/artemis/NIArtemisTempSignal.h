@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/09/23 06:01:53  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -56,7 +59,7 @@
 class NIArtemisTempSignal {
 public:
     static void addPhase(const std::string &nodeid,
-        char phaseName, double perc, int start);
+        char phaseName, SUMOReal perc, int start);
     static void addConnectionPhases(const NBConnection &c,
         char startPhase, char endPhase, const std::string &group);
     static void close();
@@ -64,10 +67,10 @@ private:
 
     class PhaseDescription {
     public:
-        PhaseDescription(double perc, size_t start);
+        PhaseDescription(SUMOReal perc, size_t start);
         ~PhaseDescription();
     private:
-        double myPercentage;
+        SUMOReal myPercentage;
         size_t myBegin;
     };
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/23 06:01:05  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -64,7 +67,7 @@ namespace
 #include <string>
 #include <iostream>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include "NBDistrict.h"
 #include "NBDistrictCont.h"
 
@@ -155,7 +158,7 @@ NBDistrictCont::report()
 
 bool
 NBDistrictCont::addSource(const std::string &dist, NBEdge *source,
-                          double weight)
+                          SUMOReal weight)
 {
     NBDistrict *o = retrieve(dist);
     if(o==0) {
@@ -167,7 +170,7 @@ NBDistrictCont::addSource(const std::string &dist, NBEdge *source,
 
 bool
 NBDistrictCont::addSink(const std::string &dist, NBEdge *destination,
-                        double weight)
+                        SUMOReal weight)
 {
     NBDistrict *o = retrieve(dist);
     if(o==0) {

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -35,7 +38,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -51,15 +54,15 @@
 class NIVissimNodeParticipatingEdge {
 public:
     NIVissimNodeParticipatingEdge(int edgeid,
-        double frompos, double topos);
+        SUMOReal frompos, SUMOReal topos);
     ~NIVissimNodeParticipatingEdge();
     int getID() const;
-    bool positionLiesWithin(double pos) const;
-    double getFromPos() const;
-    double getToPos() const;
+    bool positionLiesWithin(SUMOReal pos) const;
+    SUMOReal getFromPos() const;
+    SUMOReal getToPos() const;
 private:
     int myEdgeID;
-    double myFromPos, myToPos;
+    SUMOReal myFromPos, myToPos;
 };
 
 

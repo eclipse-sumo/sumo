@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/23 06:07:54  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:19:10  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -73,7 +76,7 @@ public:
 
 private:
     /// draws a single vehicle
-    void drawLane(const _L1 &lane, double width) const
+    void drawLane(const _L1 &lane, SUMOReal width) const
     {
         const DoubleVector &rots = lane.getShapeRotations();
         const DoubleVector &lengths = lane.getShapeLengths();

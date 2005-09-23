@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.27  2005/09/23 06:04:11  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.26  2005/09/15 12:04:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -220,7 +223,7 @@ NLDetectorBuilder::~NLDetectorBuilder()
 
 void
 NLDetectorBuilder::buildInductLoop(const std::string &id,
-        const std::string &lane, double pos, int splInterval,
+        const std::string &lane, SUMOReal pos, int splInterval,
         OutputDevice *device, const std::string &/*style*/)
 {
 #ifdef HAVE_MESOSIM
@@ -248,13 +251,13 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
         MSLane *clane = getLaneChecking(lane, id);
         MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&(clane->edge()));
         MESegment *prev = 0;
-        float cpos = 0;
+        SUMOReal cpos = 0;
         while(cpos<pos&&s!=0) {
             prev = s;
             cpos += s->getLength();
             s = s->getNextSegment();
         }
-        float rpos = pos-cpos-prev->getLength();
+        SUMOReal rpos = pos-cpos-prev->getLength();
         MEInductLoop *loop =
             createMEInductLoop(id, prev, rpos, splInterval);
         myNet.getDetectorControl().add(loop, device, splInterval);
@@ -266,7 +269,7 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
 void
 NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
         const std::string &id,
-        const std::string &lane, double pos, double length,
+        const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont, int splInterval,
         const std::string &style,
         OutputDevice *device,
@@ -304,7 +307,7 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
 void
 NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
         const std::string &id,
-        const std::string &lane, double pos, double length,
+        const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont, MSTrafficLightLogic * const tll,
         const std::string &style, OutputDevice *device,
         const std::string &measures,
@@ -344,7 +347,7 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
 void
 NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
         const std::string &id,
-        const std::string &lane, double pos, double length,
+        const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont, MSTrafficLightLogic * const tll,
         const std::string &tolane,
         const std::string &style, OutputDevice *device,
@@ -392,8 +395,8 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
 void
 NLDetectorBuilder::convUncontE2PosLength(const std::string &id,
                                          MSLane *clane,
-                                         double pos,
-                                         double length)
+                                         SUMOReal pos,
+                                         SUMOReal length)
 {
     if(pos<0) {
         pos = clane->length() + pos;
@@ -405,11 +408,11 @@ NLDetectorBuilder::convUncontE2PosLength(const std::string &id,
     }
     // patch position
     if(pos<0.1) {
-        pos = 0.1;
+        pos = (SUMOReal) 0.1;
     }
     // patch length
-    if(pos+length>clane->length()-0.1) {
-        length = clane->length() - 0.1 - pos;
+    if(pos+length>clane->length()-(SUMOReal) 0.1) {
+        length = clane->length() - (SUMOReal) 0.1 - pos;
     }
     if(length<=0) {
         throw InvalidArgument(
@@ -422,8 +425,8 @@ NLDetectorBuilder::convUncontE2PosLength(const std::string &id,
 void
 NLDetectorBuilder::convContE2PosLength(const std::string &id,
                                        MSLane *clane,
-                                       double pos,
-                                       double length)
+                                       SUMOReal pos,
+                                       SUMOReal length)
 {
     if(pos<0) {
         pos *= -1.0;//clane->length() + pos;
@@ -451,7 +454,7 @@ NLDetectorBuilder::beginE3Detector(const std::string &id,
 
 void
 NLDetectorBuilder::addE3Entry(const std::string &lane,
-                              double pos)
+                              SUMOReal pos)
 {
     MSLane *clane = getLaneChecking(lane, myE3Definition->myID);
     if(myE3Definition==0) {
@@ -466,7 +469,7 @@ NLDetectorBuilder::addE3Entry(const std::string &lane,
 
 void
 NLDetectorBuilder::addE3Exit(const std::string &lane,
-                             double pos)
+                             SUMOReal pos)
 {
     MSLane *clane = getLaneChecking(lane, myE3Definition->myID);
     if(myE3Definition==0) {
@@ -508,7 +511,7 @@ NLDetectorBuilder::endE3Detector()
 MSE2Collector *
 NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
         DetectorUsage usage,
-        MSLane *lane, double pos, double length,
+        MSLane *lane, SUMOReal pos, SUMOReal length,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
@@ -529,7 +532,7 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
 MS_E2_ZS_CollectorOverLanes *
 NLDetectorBuilder::buildMultiLaneE2Det(const SSVMap &laneConts,
             const std::string &id, DetectorUsage usage,
-            MSLane *lane, double pos, double length,
+            MSLane *lane, SUMOReal pos, SUMOReal length,
             MSUnit::Seconds haltingTimeThreshold,
             MSUnit::MetersPerSecond haltingSpeedThreshold,
             MSUnit::Meters jamDistThreshold ,
@@ -633,7 +636,7 @@ NLDetectorBuilder::parseE3Measures(const std::string &measures)
 
 MSInductLoop *
 NLDetectorBuilder::createInductLoop(const std::string &id,
-                                    MSLane *lane, double pos,
+                                    MSLane *lane, SUMOReal pos,
                                     int splInterval)
 {
     return new MSInductLoop(id, lane, pos, splInterval);
@@ -643,7 +646,7 @@ NLDetectorBuilder::createInductLoop(const std::string &id,
 #ifdef HAVE_MESOSIM
 MEInductLoop *
 NLDetectorBuilder::createMEInductLoop(const std::string &id,
-                                      MESegment *s, double pos,
+                                      MESegment *s, SUMOReal pos,
                                       int splInterval)
 {
     return new MEInductLoop(id, s, pos, splInterval);
@@ -653,7 +656,7 @@ NLDetectorBuilder::createMEInductLoop(const std::string &id,
 
 MSE2Collector *
 NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, double pos, double length,
+        DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
@@ -668,7 +671,7 @@ NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
 
 MS_E2_ZS_CollectorOverLanes *
 NLDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, double pos,
+        DetectorUsage usage, MSLane *lane, SUMOReal pos,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,

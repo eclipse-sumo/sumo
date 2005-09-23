@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -84,7 +87,7 @@ public:
     RORunningVehicle(ROVehicleBuilder &vb,
         const std::string &id, RORouteDef *route,
         SUMOTime time, ROVehicleType *type, const std::string &lane,
-        float pos, float speed,
+        SUMOReal pos, SUMOReal speed,
         const RGBColor &col, int period, int repNo);
 
     /// Destructor
@@ -103,10 +106,10 @@ private:
     std::string _lane;
 
     /// The position on the lane the vehicle shall depart from
-    float _pos;
+    SUMOReal _pos;
 
     /// The initial speed of the vehicle
-    float _speed;
+    SUMOReal _speed;
 
 };
 

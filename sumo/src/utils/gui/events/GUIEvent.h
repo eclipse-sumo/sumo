@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/23 06:08:18  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:19:22  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -71,8 +74,8 @@ enum GUIEventType {
         The reason and the time step are stored within the event */
     EVENT_SIMULATION_ENDED,
 
-    EVENT_MAX
-
+	/// End of events list; use this to define new
+	EVENT_END
 };
 
 

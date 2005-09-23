@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -137,8 +140,8 @@ using namespace std;
 RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string &id,
                                                 const RGBColor &color,
                                                 size_t lastUsed,
-                                                double gawronBeta,
-                                                double gawronA,
+                                                SUMOReal gawronBeta,
+                                                SUMOReal gawronA,
                                                 int maxRoutes)
     : RORouteDef(id, color), _lastUsed(lastUsed),
     _gawronBeta(gawronBeta), _gawronA(gawronA), myMaxRouteNumber(maxRoutes)
@@ -226,7 +229,7 @@ RORouteDef_Alternatives::findRoute(RORoute *opt) const
 }
 
 
-double mquiet_NaN = numeric_limits<double>::quiet_NaN();
+SUMOReal mquiet_NaN = numeric_limits<SUMOReal>::quiet_NaN();
 
 void
 RORouteDef_Alternatives::addAlternative(RORoute *current, SUMOTime begin)
@@ -244,19 +247,19 @@ RORouteDef_Alternatives::addAlternative(RORoute *current, SUMOTime begin)
         //  (the costs for the current were computed already)
         if((*i)!=current||!_newRoute) {
             // recompute the costs for old routes
-            double oldCosts = alt->getCosts();
-            double newCosts = alt->recomputeCosts(begin);
-            alt->setCosts(_gawronBeta * newCosts + (1.0-_gawronBeta) * oldCosts);
+            SUMOReal oldCosts = alt->getCosts();
+            SUMOReal newCosts = alt->recomputeCosts(begin);
+            alt->setCosts(_gawronBeta * newCosts + ((SUMOReal) 1.0 - _gawronBeta) * oldCosts);
         }
         assert(_alternatives.size()!=0);
         if(_newRoute) {
             if((*i)!=current) {
                 alt->setProbability(
                     alt->getProbability()
-                    * double(_alternatives.size()-1)
-                    / double(_alternatives.size()));
+                    * SUMOReal(_alternatives.size()-1)
+                    / SUMOReal(_alternatives.size()));
             } else {
-                alt->setProbability(1.0 / double(_alternatives.size()));
+                alt->setProbability((SUMOReal) (1.0 / (SUMOReal) _alternatives.size()));
             }
         }
     }
@@ -267,20 +270,20 @@ RORouteDef_Alternatives::addAlternative(RORoute *current, SUMOTime begin)
         for(AlternativesVector::iterator j=i+1; j!=_alternatives.end(); j++) {
             RORoute *pS = *j;
             // see [Gawron, 1998] (4.2)
-            double delta =
+            SUMOReal delta =
                 (pS->getCosts() - pR->getCosts()) /
                 (pS->getCosts() + pR->getCosts());
             // see [Gawron, 1998] (4.3a, 4.3b)
-            double newPR = gawronF(pR->getProbability(), pS->getProbability(), delta);
-            double newPS = pR->getProbability() + pS->getProbability() - newPR;
+            SUMOReal newPR = gawronF(pR->getProbability(), pS->getProbability(), delta);
+            SUMOReal newPS = pR->getProbability() + pS->getProbability() - newPR;
             if(ISNAN(newPR)||ISNAN(newPS)) {
                 newPR = pS->getCosts() > pR->getCosts()
-                    ? 1 : 0;
+                    ? (SUMOReal) 1. : 0;
                 newPS = pS->getCosts() > pR->getCosts()
-                    ? 0 : 1;
+                    ? 0 : (SUMOReal) 1.;
             }
-            newPR = MIN2(MAX2(newPR, 0), 1);
-            newPS = MIN2(MAX2(newPS, 0), 1);
+            newPR = MIN2((SUMOReal) MAX2(newPR, (SUMOReal) 0), (SUMOReal) 1);
+            newPS = MIN2((SUMOReal) MAX2(newPS, (SUMOReal) 0), (SUMOReal) 1);
             pR->setProbability(newPR);
             pS->setProbability(newPS);
         }
@@ -294,8 +297,8 @@ RORouteDef_Alternatives::addAlternative(RORoute *current, SUMOTime begin)
         }
     }
     // find the route to use
-    double chosen = (double)rand() /
-        ( static_cast<double>(RAND_MAX) + 1);
+    SUMOReal chosen = (SUMOReal)rand() /
+        ( static_cast<SUMOReal>(RAND_MAX) + 1);
     size_t pos = 0;
     for(i=_alternatives.begin(); i!=_alternatives.end()-1; i++, pos++) {
         chosen = chosen - (*i)->getProbability();
@@ -308,24 +311,24 @@ RORouteDef_Alternatives::addAlternative(RORoute *current, SUMOTime begin)
 }
 
 
-double
-RORouteDef_Alternatives::gawronF(double pdr, double pds, double x)
+SUMOReal
+RORouteDef_Alternatives::gawronF(SUMOReal pdr, SUMOReal pds, SUMOReal x)
 {
     if(((pdr*gawronG(_gawronA, x)+pds)==0)) {
-        return std::numeric_limits<double>::max();
+        return std::numeric_limits<SUMOReal>::max();
     }
     return (pdr*(pdr+pds)*gawronG(_gawronA, x)) /
         (pdr*gawronG(_gawronA, x)+pds);
 }
 
 
-double
-RORouteDef_Alternatives::gawronG(double a, double x)
+SUMOReal
+RORouteDef_Alternatives::gawronG(SUMOReal a, SUMOReal x)
 {
     if(((1.0-(x*x))==0)) {
-        return std::numeric_limits<double>::max();
+        return std::numeric_limits<SUMOReal>::max();
     }
-    return exp((a*x)/(1.0-(x*x))); // !!! ??
+    return (SUMOReal) exp((a*x)/(1.0-(x*x))); // !!! ??
 }
 
 
@@ -400,18 +403,18 @@ RORouteDef_Alternatives::addExplicite(RORoute *current, SUMOTime begin)
         //  (the costs for the current were computed already)
         if((*i)!=current||!_newRoute) {
             // recompute the costs for old routes
-            double oldCosts = alt->getCosts();
-            double newCosts = alt->recomputeCosts(begin);
-            alt->setCosts(_gawronBeta * newCosts + (1.0-_gawronBeta) * oldCosts);
+            SUMOReal oldCosts = alt->getCosts();
+            SUMOReal newCosts = alt->recomputeCosts(begin);
+            alt->setCosts(_gawronBeta * newCosts + (SUMOReal) (1.0-_gawronBeta) * oldCosts);
         }
         if(_newRoute) {
             if((*i)!=current) {
                 alt->setProbability(
                     alt->getProbability()
-                    * double(_alternatives.size()-1)
-                    / double(_alternatives.size()));
+                    * SUMOReal(_alternatives.size()-1)
+                    / SUMOReal(_alternatives.size()));
             } else {
-                alt->setProbability(1.0 / double(_alternatives.size()));
+                alt->setProbability((SUMOReal) 1.0 / (SUMOReal) _alternatives.size());
             }
         }
     }
@@ -422,21 +425,21 @@ RORouteDef_Alternatives::addExplicite(RORoute *current, SUMOTime begin)
         for(AlternativesVector::iterator j=i+1; j!=_alternatives.end(); j++) {
             RORoute *pS = *j;
             // see [Gawron, 1998] (4.2)
-            double delta =
+            SUMOReal delta =
                 (pS->getCosts() - pR->getCosts()) /
                 (pS->getCosts() + pR->getCosts());
             // see [Gawron, 1998] (4.3a, 4.3b)
-            double newPR = gawronF(pR->getProbability(), pS->getProbability(), delta);
+            SUMOReal newPR = gawronF(pR->getProbability(), pS->getProbability(), delta);
             if(newPR>1||newPR<0) {
                 cout << "Caught strange PR:" << newPR << endl;
                 newPR = 1.0;
             }
-            double newPS = pR->getProbability() + pS->getProbability() - newPR;
+            SUMOReal newPS = pR->getProbability() + pS->getProbability() - newPR;
             if(newPR<0.0001) {
-                newPR = 0.0001;
+                newPR = (SUMOReal) 0.0001;
             }
             if(newPS<0.0001) {
-                newPS = 0.0001;
+                newPS = (SUMOReal) 0.0001;
             }
             pR->setProbability(newPR);
             pS->setProbability(newPS);

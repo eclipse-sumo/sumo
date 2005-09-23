@@ -47,11 +47,11 @@ namespace Loki
 
 ////////////////////////////////////////////////////////////////////////////////
 // class template IsCustomFloat
-// Offers a means to integrate nonstandard floating point types with the
+// Offers a means to integrate nonstandard SUMORealing point types with the
 //     TypeTraits class template defined below.
 // Invocation: IsCustomFloat<T> where T is any type
 // Defines 'value', an enum that is 1 iff T is a custom built-in
-//     floating point type
+//     SUMORealing point type
 // Specialize this class template for nonstandard unsigned integral types
 //     and define value = 1 in those specializations
 ////////////////////////////////////////////////////////////////////////////////
@@ -98,7 +98,7 @@ namespace Loki
 // f) TypeTraits<T>::isStdIntegral
 // returns (at compile time) true if T is a standard integral type
 // g) TypeTraits<T>::isStdFloat
-// returns (at compile time) true if T is a standard floating-point type
+// returns (at compile time) true if T is a standard SUMORealing-point type
 // h) TypeTraits<T>::isStdArith
 // returns (at compile time) true if T is a standard arithmetic type
 // i) TypeTraits<T>::isStdFundamental
@@ -110,7 +110,7 @@ namespace Loki
 // l) TypeTraits<T>::isIntegral
 // returns (at compile time) true if T is a integral type
 // m) TypeTraits<T>::isFloat
-// returns (at compile time) true if T is a floating-point type
+// returns (at compile time) true if T is a SUMORealing-point type
 // n) TypeTraits<T>::isArith
 // returns (at compile time) true if T is a arithmetic type
 // o) TypeTraits<T>::isFundamental

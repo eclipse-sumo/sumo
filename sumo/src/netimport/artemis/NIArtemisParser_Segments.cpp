@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:01:53  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -53,7 +56,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include "NIArtemisLoader.h"
 #include "NIArtemisTempSegments.h"
 #include "NIArtemisParser_Segments.h"
@@ -91,10 +94,10 @@ NIArtemisParser_Segments::myDependentReport()
     string linkname = myLineParser.get("Link");
     int segment =
         TplConvert<char>::_2int(myLineParser.get("Segment").c_str());
-    double x =
-        TplConvert<char>::_2float(myLineParser.get("StartX").c_str());
-    double y =
-        TplConvert<char>::_2float(myLineParser.get("StartY").c_str());
+    SUMOReal x =
+        TplConvert<char>::_2SUMOReal(myLineParser.get("StartX").c_str());
+    SUMOReal y =
+        TplConvert<char>::_2SUMOReal(myLineParser.get("StartY").c_str());
     // length omitted
     // speed omitted!!!
     NIArtemisTempSegments::add(linkname, segment, x, y);

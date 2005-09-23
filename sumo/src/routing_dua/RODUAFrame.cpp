@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/23 06:04:48  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:05:23  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -59,7 +62,7 @@ namespace
 #include <utils/options/Option.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include "RODUAFrame.h"
 #include <router/ROFrame.h>
 
@@ -120,7 +123,7 @@ RODUAFrame::addDUAOptions(OptionsCont &oc)
     oc.addSynonyme("supplementary-weights", "add");
     oc.doRegister("scheme", 'x', new Option_String("traveltime"));
     // register Gawron's DUE-settings
-    oc.doRegister("gBeta", new Option_Float(float(0.3)));
+    oc.doRegister("gBeta", new Option_Float(SUMOReal(0.3)));
     oc.doRegister("gA", new Option_Float(0.05f));
 }
 

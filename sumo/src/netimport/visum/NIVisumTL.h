@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/09/23 06:03:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:03:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -56,7 +59,7 @@
 #include <string>
 #include <netbuild/NBConnectionDefs.h>
 #include <netbuild/nodes/NBNodeCont.h>
-
+#include <utils/common/SUMOTime.h>
 
 class NBTrafficLightLogicCont;
 
@@ -74,26 +77,26 @@ public:
 	/// Timeperiod with starttime and endtime
 	class TimePeriod
 	{
-	private:
-		double myStartTime;
-		double myEndTime;
 	public:
 		// constructor
 		TimePeriod ();
-		TimePeriod(double StartTime, double EndTime);
+		TimePeriod(SUMOTime StartTime, SUMOTime EndTime);
 		// destructor
 		~TimePeriod();
-		void SetStartTime(double StartTime);
-		void SetEndTime(double EndTime);
-		double GetStartTime();
-		double GetEndTime();
+		void SetStartTime(SUMOTime StartTime);
+		void SetEndTime(SUMOTime EndTime);
+		SUMOTime GetStartTime();
+		SUMOTime GetEndTime();
+	private:
+		SUMOTime myStartTime;
+		SUMOTime myEndTime;
 	};
 
 	// phase
 	class Phase : public TimePeriod	{
 	public:
 		Phase();
-		Phase(double StartTime, double EndTime);
+		Phase(SUMOTime StartTime, SUMOTime EndTime);
 		~Phase();
 	};
 
@@ -107,7 +110,7 @@ public:
 	{
 	public:
 		// constructor
-		SignalGroup(const std::string &Name, double StartTime, double EndTime);
+		SignalGroup(const std::string &Name, SUMOTime StartTime, SUMOTime EndTime);
 		// destructor
 		~SignalGroup();
 	private:
@@ -125,7 +128,7 @@ public:
 public:
 	// constructor
 	NIVisumTL();
-	NIVisumTL(const std::string &Name, double CycleTime, double IntermediateTime,
+	NIVisumTL(const std::string &Name, SUMOTime CycleTime, SUMOTime IntermediateTime,
 		bool PhaseDefined);
 	// destructor
 	~NIVisumTL();
@@ -135,17 +138,17 @@ public:
     SignalGroupMap* GetSignalGroups();
 	// set
 	void SetPhaseDefined(bool PhaseDefined);
-	void SetCycleTime(double CylcleTime);
-	void SetIntermediateTime(double IntermediateTime);
+	void SetCycleTime(SUMOTime CylcleTime);
+	void SetIntermediateTime(SUMOTime IntermediateTime);
 	// get
 	bool GetPhaseDefined();
-	double GetCycleTime();
-	double GetIntermediateTime();
-	double GetName();
+	SUMOTime GetCycleTime();
+	SUMOTime GetIntermediateTime();
+	SUMOTime GetName();
 	SignalGroup* GetSignalGroup(const std::string Name);
 	// add
-	void AddSignalGroup(const std::string Name, double StartTime, double EndTime);
-	void AddPhase(const std::string Name, double StartTime, double EndTime);
+	void AddSignalGroup(const std::string Name, SUMOTime StartTime, SUMOTime EndTime);
+	void AddPhase(const std::string Name, SUMOTime StartTime, SUMOTime EndTime);
 	// build the trafficlight
 	void build(NBTrafficLightLogicCont &tlc);
 private:
@@ -153,10 +156,10 @@ private:
 	std::string myName;
 
 	// cycle time of traffic light in seconds
-	double myCycleTime;
+	SUMOTime myCycleTime;
 
 	// length of yellow and red-yellow phases
-	double myIntermediateTime;
+	SUMOTime myIntermediateTime;
 
 	// toogles the usage either of phases or of timeperiods in signalgroups
     bool myPhaseDefined;

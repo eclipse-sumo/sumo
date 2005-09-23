@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:01:53  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -56,18 +59,18 @@
 class NIArtemisTempSegments {
 public:
     static void add(const std::string &linkname, int segment,
-        double x, double y);
+        SUMOReal x, SUMOReal y);
     static void close(NBEdgeCont &ec);
 private:
     class SingleGeomPoint {
     public:
-        SingleGeomPoint(int segment, double x, double y);
+        SingleGeomPoint(int segment, SUMOReal x, SUMOReal y);
         ~SingleGeomPoint();
         Position2D getPosition() const;
         int getSegmentNo() const;
     private:
         int mySegment;
-        double myX, myY;
+        SUMOReal myX, myY;
     };
 
 

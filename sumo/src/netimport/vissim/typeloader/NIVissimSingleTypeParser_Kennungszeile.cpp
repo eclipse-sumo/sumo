@@ -32,10 +32,18 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include "../NIVissimLoader.h"
 #include "NIVissimSingleTypeParser_Kennungszeile.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -64,4 +72,8 @@ NIVissimSingleTypeParser_Kennungszeile::parse(std::istream &from)
     readName(from);
     return true;
 }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+// Local Variables:
+// mode:C++
+// End:

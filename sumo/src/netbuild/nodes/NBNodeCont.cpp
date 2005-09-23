@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 12:02:26  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -64,7 +67,7 @@ namespace
 // work on internal lanes
 //
 // Revision 1.23  2003/11/11 08:33:54  dkrajzew
-// consequent position2D instead of two doubles added
+// consequent position2D instead of two SUMOReals added
 //
 // Revision 1.22  2003/10/06 07:46:12  dkrajzew
 // further work on vissim import (unsignalised vs. signalised streams modality
@@ -150,7 +153,7 @@ namespace
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:12  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -194,7 +197,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StdDefs.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <netbuild/NBDistrict.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBJunctionLogicCont.h>
@@ -274,7 +277,7 @@ NBNodeCont::insert(const string &id, const Position2D &position)
 
 /*
 bool
-NBNodeCont::insert(const string &id, double x, double y,
+NBNodeCont::insert(const string &id, SUMOReal x, SUMOReal y,
                    const std::string &type)
 {
     NodeCont::iterator i = _nodes.find(id);
@@ -294,7 +297,7 @@ NBNodeCont::insert(const string &id, double x, double y,
 Position2D
 NBNodeCont::insert(const string &id) // !!! really needed
 {
-    pair<double, double> ret(-1.0, -1.0);
+    pair<SUMOReal, SUMOReal> ret(-1.0, -1.0);
     NodeCont::iterator i = _nodes.find(id);
     if(i!=_nodes.end()) {
         return (*i).second->getPosition();
@@ -374,8 +377,8 @@ NBNodeCont::normaliseNodePositions()
         boundary.add((*i).second->getPosition());
     }
     // reformat
-    double xmin = boundary.xmin() * -1;
-    double ymin = boundary.ymin() * -1;
+    SUMOReal xmin = boundary.xmin() * -1;
+    SUMOReal ymin = boundary.ymin() * -1;
     for(i=_nodes.begin(); i!=_nodes.end(); i++) {
         (*i).second->resetby(xmin, ymin);
     }
@@ -385,7 +388,7 @@ NBNodeCont::normaliseNodePositions()
 
 
 bool
-NBNodeCont::reshiftNodePositions(double xoff, double yoff, double rot)
+NBNodeCont::reshiftNodePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         (*i).second->reshiftPosition(xoff, yoff, rot);
@@ -690,9 +693,9 @@ NBNodeCont::printNodePositions()
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         string ni = (*i).second->getID();
         ni += string(":")
-            + toString<double>((*i).second->getPosition().x())
+            + toString<SUMOReal>((*i).second->getPosition().x())
             + string(", ")
-            + toString<double>((*i).second->getPosition().y());
+            + toString<SUMOReal>((*i).second->getPosition().y());
         MsgHandler::getMessageInstance()->inform(ni);
     }
 }
@@ -1092,7 +1095,7 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
                 tmp.eraseAt(-1);
                 inc_ramp->setGeometry(tmp);
             }
-            double pos =
+            SUMOReal pos =
                 inc_highway->getGeometry().nearest_position_on_line_to_point(
                     inc_ramp->getGeometry().at(-1));
             if(pos<0) {

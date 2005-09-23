@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.21  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -59,7 +62,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include "NBJoinedEdgesMap.h"
 
 #ifdef _DEBUG
@@ -129,7 +132,7 @@ NBNetBuilder::removeDummyEdges(int &step)
 bool
 NBNetBuilder::joinEdges(int &step)
 {
-    inform(step, "Joining double connections");
+    inform(step, "Joining SUMOReal connections");
     return myNodeCont.recheckEdges(myDistrictCont, myTLLCont, myEdgeCont);
 }
 
@@ -311,9 +314,9 @@ NBNetBuilder::reshiftRotateNet(int &step, OptionsCont &oc)
         return true;
     }
     inform(step, "Transposing network");
-    double xoff = oc.getFloat("x-offset-to-apply");
-    double yoff = oc.getFloat("y-offset-to-apply");
-    double rot = oc.getFloat("rotation-to-apply");
+    SUMOReal xoff = oc.getFloat("x-offset-to-apply");
+    SUMOReal yoff = oc.getFloat("y-offset-to-apply");
+    SUMOReal rot = oc.getFloat("rotation-to-apply");
     inform(step, "Normalising node positions");
     bool ok = myNodeCont.reshiftNodePositions(xoff, yoff, rot);
     if(ok) {
@@ -467,7 +470,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     // register building defaults
     oc.doRegister("type", 'T', new Option_String("Unknown"));
     oc.doRegister("lanenumber", 'L', new Option_Integer(1));
-    oc.doRegister("speed", 'S', new Option_Float((float) 13.9));
+    oc.doRegister("speed", 'S', new Option_Float((SUMOReal) 13.9));
     oc.doRegister("priority", 'P', new Option_Integer(1));
     // register computation variables
     oc.doRegister("min-decel", 'D', new Option_Float(3.0));
@@ -504,10 +507,10 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("tls-guess.no-incoming-max", new Option_Integer(5));
     oc.doRegister("tls-guess.no-outgoing-min", new Option_Integer(1));
     oc.doRegister("tls-guess.no-outgoing-max", new Option_Integer(5));
-    oc.doRegister("tls-guess.min-incoming-speed", new Option_Float((float) (40/3.6)));
-    oc.doRegister("tls-guess.max-incoming-speed", new Option_Float((float)(69/3.6)));
-    oc.doRegister("tls-guess.min-outgoing-speed", new Option_Float((float)(40/3.6)));
-    oc.doRegister("tls-guess.max-outgoing-speed", new Option_Float((float)(69/3.6)));
+    oc.doRegister("tls-guess.min-incoming-speed", new Option_Float((SUMOReal) (40/3.6)));
+    oc.doRegister("tls-guess.max-incoming-speed", new Option_Float((SUMOReal)(69/3.6)));
+    oc.doRegister("tls-guess.min-outgoing-speed", new Option_Float((SUMOReal)(40/3.6)));
+    oc.doRegister("tls-guess.max-outgoing-speed", new Option_Float((SUMOReal)(69/3.6)));
     oc.doRegister("tls-guess.district-nodes", new Option_Bool(false));
         // tls-shifts
     oc.doRegister("tl-logics.half-offset", new Option_String());
@@ -530,12 +533,12 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     // ramp guessing options
     oc.doRegister("guess-ramps", new Option_Bool(false));
     oc.doRegister("ramp-guess.max-ramp-speed", new Option_Float(-1));
-    oc.doRegister("ramp-guess.min-highway-speed", new Option_Float((float) (80/3.6)));
+    oc.doRegister("ramp-guess.min-highway-speed", new Option_Float((SUMOReal) (80/3.6)));
     oc.doRegister("ramp-guess.ramp-length", new Option_Float(100));
 
     oc.doRegister("guess-obscure-ramps", new Option_Bool(false));
     oc.doRegister("obscure-ramps.add-ramp", new Option_Bool(false));
-    oc.doRegister("obscure-ramps.min-highway-speed", new Option_Float((float) (100/3.6)));
+    oc.doRegister("obscure-ramps.min-highway-speed", new Option_Float((SUMOReal) (100/3.6)));
 
 
     oc.doRegister("plain-output", new Option_FileName());

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/23 06:01:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:03:02  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -34,12 +37,13 @@
  * included modules
  * ======================================================================= */
 #ifndef FXPACKER_H
+#include "FXPacker.h"
+#endif
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include "FXPacker.h"
-#endif
 
 /* =========================================================================
  * namespace definitions

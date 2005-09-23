@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.39  2005/09/23 06:01:05  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.38  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -64,7 +67,7 @@
 // computations needed for collecting e2-values over multiple lanes added
 //
 // Revision 1.24  2003/11/11 08:33:54  dkrajzew
-// consequent position2D instead of two doubles added
+// consequent position2D instead of two SUMOReals added
 //
 // Revision 1.23  2003/10/28 09:47:28  dkrajzew
 // lane2lane connections are now kept when edges are joined
@@ -156,7 +159,7 @@
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:10  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -275,13 +278,13 @@ public:
     /// constructor
     NBEdge(std::string id, std::string name,
         NBNode *from, NBNode *to, std::string type,
-        double speed, size_t nolanes, double length, int priority,
+        SUMOReal speed, size_t nolanes, SUMOReal length, int priority,
         LaneSpreadFunction spread=LANESPREAD_RIGHT,
         EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
 
     NBEdge(std::string id, std::string name,
         NBNode *from, NBNode *to, std::string type,
-        double speed, size_t nolanes, double length, int priority,
+        SUMOReal speed, size_t nolanes, SUMOReal length, int priority,
         Position2DVector geom, LaneSpreadFunction spread=LANESPREAD_RIGHT,
         EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
 
@@ -292,7 +295,7 @@ public:
     void computeTurningDirections();
 
     /// returns the angle of the edge
-    double getAngle();
+    SUMOReal getAngle();
 
     /// returns the priority of the edge
     int getPriority();
@@ -325,7 +328,7 @@ public:
     std::string getType();
 
     /// returns the length of the edge
-    double getLength();
+    SUMOReal getLength();
 
     /// Returns the geometry of the edge
     const Position2DVector &getGeometry() const;
@@ -396,20 +399,20 @@ public:
     /** @brief Returns the node at the given edges length (using an epsilon)
         When no node is existing at the given position, 0 is returned
         The epsilon is a static member of NBEdge, should be setable via program options */
-    NBNode *tryGetNodeAtPosition(double pos, double tolerance=5.0) const;
+    NBNode *tryGetNodeAtPosition(SUMOReal pos, SUMOReal tolerance=5.0) const;
 
     NBEdge *checkCorrectNode(NBEdge *opposite);
 
     EdgeBasicFunction getBasicType() const;
 
-    double getSpeed() const;
+    SUMOReal getSpeed() const;
 
     void replaceInConnections(NBEdge *which, NBEdge *by, size_t laneOff);
 
-    double getMaxLaneOffset();
+    SUMOReal getMaxLaneOffset();
 
-    Position2D getMinLaneOffsetPositionAt(NBNode *node, double width);
-    Position2D getMaxLaneOffsetPositionAt(NBNode *node, double width);
+    Position2D getMinLaneOffsetPositionAt(NBNode *node, SUMOReal width);
+    Position2D getMaxLaneOffsetPositionAt(NBNode *node, SUMOReal width);
 
     /// Returns the information whethe a connection to the given edge has been added (or computed)
     bool isConnectedTo(NBEdge *e);
@@ -439,19 +442,19 @@ public:
 
     void normalisePosition(const NBNodeCont &nc);
 
-    void reshiftPosition(double xoff, double yoff, double rot);
+    void reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 
     void addCrossingPointsAsIncomingWithGivenOutgoing(NBEdge *o,
         Position2DVector &into);
 
-    double width() const;
+    SUMOReal width() const;
 
-    Position2DVector getCWBoundaryLine(const NBNode &n, double offset) const;
-    Position2DVector getCCWBoundaryLine(const NBNode &n, double offset) const;
+    Position2DVector getCWBoundaryLine(const NBNode &n, SUMOReal offset) const;
+    Position2DVector getCCWBoundaryLine(const NBNode &n, SUMOReal offset) const;
 
     bool expandableBy(NBEdge *possContinuation) const;
     void append(NBEdge *continuation);
-    double getNormedAngle() const;
+    SUMOReal getNormedAngle() const;
 
     void computeEdgeShape();
 
@@ -477,15 +480,15 @@ public:
 
     std::string getLaneID(size_t lane);
 
-    void setLaneSpeed(int lane, double speed);
+    void setLaneSpeed(int lane, SUMOReal speed);
 
-    double getLaneSpeed(int lane) const;
+    SUMOReal getLaneSpeed(int lane) const;
 
     bool isNearEnough2BeJoined2(NBEdge *e);
 
-    double getAngle(const NBNode &atNode) const;
+    SUMOReal getAngle(const NBNode &atNode) const;
 
-    double getNormedAngle(const NBNode &atNode) const;
+    SUMOReal getNormedAngle(const NBNode &atNode) const;
 
     void addGeometryPoint(int index, const Position2D &p);
 
@@ -519,7 +522,7 @@ private:
         ~ToEdgeConnectionsAdder() { }
 
         /// executes a bresenham - step
-        void execute(double lane, double virtEdge);
+        void execute(SUMOReal lane, SUMOReal virtEdge);
     };
 
     /**
@@ -559,8 +562,8 @@ private:
     Position2DVector computeLaneShape(size_t lane);
 
     /// Computes the offset from the edge shape on the current segment
-    std::pair<double, double> laneOffset(const Position2D &from,
-        const Position2D &to, double lanewidth, size_t lane);
+    std::pair<SUMOReal, SUMOReal> laneOffset(const Position2D &from,
+        const Position2D &to, SUMOReal lanewidth, size_t lane);
 
     void computeLaneShapes();
 
@@ -586,17 +589,17 @@ private:
     NBNode  *_from, *_to;
 
     /// the length of the node
-    double  _length;
+    SUMOReal  _length;
 
     /// the angle of the current edge
-    double  _angle;
+    SUMOReal  _angle;
 
     /** the converted priority of the edge (needed while the ocmputation of
         the node the edge is incoming in / outgoing of) */
     int     _priority;
 
     /// the maximal speed
-    double  _speed;
+    SUMOReal  _speed;
 
     /// the name of the edge
     std::string  _name;
@@ -636,9 +639,9 @@ private:
     LaneSpreadFunction myLaneSpreadFunction;
 
     std::vector<Position2DVector> myLaneGeoms;
-    std::vector<double> myLaneSpeeds;
+    std::vector<SUMOReal> myLaneSpeeds;
 
-    double myAmTurningWithAngle;
+    SUMOReal myAmTurningWithAngle;
     NBEdge *myAmTurningOf;
 
 private:
@@ -679,7 +682,7 @@ private:
     void writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destidx);
 
 
-    void writeLaneContinuation(std::ostream &into, size_t lane, double distance);
+    void writeLaneContinuation(std::ostream &into, size_t lane, SUMOReal distance);
 
 private:
     /** invalid copy constructor */

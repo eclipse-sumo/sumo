@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/23 06:07:54  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:19:10  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -72,14 +75,14 @@ public:
 
 private:
     /// draws a single vehicle
-    void drawLane(const _L1 &lane, double width) const
+    void drawLane(const _L1 &lane, SUMOReal width) const
     {
         if(width>1.0) {
             glPushMatrix();
             const Position2D &beg = lane.getBegin();
             glTranslated(beg.x(), beg.y(), 0);
             glRotated( lane.getRotation(), 0, 0, 1 );
-            double visLength = -lane.visLength();
+            SUMOReal visLength = -lane.visLength();
             glBegin( GL_QUADS );
             glVertex2d(-1.5, 0);
             glVertex2d(-1.5, visLength);

@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.10  2005/09/23 06:05:45  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:13:08  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -33,7 +36,7 @@
 // umlaute conversion added
 //
 // Revision 1.4  2003/07/30 09:27:40  dkrajzew
-// the double-trimming function debugged
+// the SUMOReal-trimming function debugged
 //
 // Revision 1.3  2003/05/20 09:49:43  dkrajzew
 // further work and debugging
@@ -62,8 +65,8 @@
 
 #include <string>
 #include <utils/common/UtilExceptions.h>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 #include "StringUtils.h"
 
 #ifdef _DEBUG
@@ -161,9 +164,9 @@ StringUtils::replace(std::string str, const char *what,
 
 
 std::string
-StringUtils::trim(double val, size_t to)
+StringUtils::trim(SUMOReal val, size_t to)
 {
-    string ret = toString<double>(val);
+    string ret = toString<SUMOReal>(val);
     size_t idx = ret.rfind('.');
     if(idx!=string::npos) {
         return ret.substr(0, ret.find('.') + to);

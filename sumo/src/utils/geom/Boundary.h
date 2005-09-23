@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/23 06:07:01  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:18:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -39,7 +42,7 @@
 // methods needed for the new selection within the gui added; some style adaptions
 //
 // Revision 1.6  2003/11/11 08:00:31  dkrajzew
-// consequent usage of Position2D instead of two doubles
+// consequent usage of Position2D instead of two SUMOReals
 //
 // Revision 1.5  2003/05/20 09:50:20  dkrajzew
 // further work and debugging
@@ -76,31 +79,31 @@ class Boundary
         : public AbstractPoly {
 public:
     Boundary();
-    Boundary(double x1, double y1, double x2, double y2);
+    Boundary(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2);
     ~Boundary();
-    void add(double x, double y);
+    void add(SUMOReal x, SUMOReal y);
     void add(const Position2D &p);
     void add(const Boundary &p);
     Position2D getCenter() const;
-    double xmin() const;
-    double xmax() const;
-    double ymin() const;
-    double ymax() const;
-    double getWidth() const;
-    double getHeight() const;
-    bool around(const Position2D &p, double offset=0) const;
-    bool overlapsWith(const AbstractPoly &poly, double offset=0) const;
-    bool partialWithin(const AbstractPoly &poly, double offset=0) const;
+    SUMOReal xmin() const;
+    SUMOReal xmax() const;
+    SUMOReal ymin() const;
+    SUMOReal ymax() const;
+    SUMOReal getWidth() const;
+    SUMOReal getHeight() const;
+    bool around(const Position2D &p, SUMOReal offset=0) const;
+    bool overlapsWith(const AbstractPoly &poly, SUMOReal offset=0) const;
+    bool partialWithin(const AbstractPoly &poly, SUMOReal offset=0) const;
     bool crosses(const Position2D &p1, const Position2D &p2) const;
     /** brief extends the boundary by the given amount
         The method returns a reference to the instance for further use */
-    Boundary &grow(double by);
+    Boundary &grow(SUMOReal by);
     void flipY();
-    void set(double xmin, double ymin, double xmax, double ymax);
+    void set(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax);
 
     friend std::ostream &operator<<(std::ostream &os, const Boundary &b);
 private:
-    double _xmin, _xmax, _ymin, _ymax;
+    SUMOReal _xmin, _xmax, _ymin, _ymax;
 };
 
 

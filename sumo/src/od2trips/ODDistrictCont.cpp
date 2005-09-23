@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/23 06:04:23  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:04:48  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -118,11 +121,11 @@ ODDistrictCont::colorize()
     const std::vector<ODDistrict*> &v = getTempVector();
     size_t pos = 0;
     for(size_t i=0; i!=v.size(); i++) {
-        v[i]->setColor((double) i / (double) v.size());
+        v[i]->setColor((SUMOReal) i / (SUMOReal) v.size());
     }
 }
 
-double
+SUMOReal
 ODDistrictCont::getDistrictColor(const std::string &name) const
 {
     ODDistrict *district = get(name);

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -76,10 +79,10 @@ public:
         int route[3];
 
         /// the propability of the routes
-        float p[3];
+        SUMOReal p[3];
 
         /// the costs of the routes
-        float cost[3];
+        SUMOReal cost[3];
 
         /// cost of the last route
         int lastcost;
@@ -109,10 +112,10 @@ public:
     int getLast() const;
 
     /// Returns the cost of the route specified by her index
-    double getAlternativeCost(size_t pos) const;
+    SUMOReal getAlternativeCost(size_t pos) const;
 
     /// Returns the propability of the route specified by her index
-    double getAlternativeProbability(size_t pos) const;
+    SUMOReal getAlternativeProbability(size_t pos) const;
 
     /// Returns the route index within the routes file of the route specified by her index
     int getRouteNo(size_t pos) const;

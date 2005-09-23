@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -84,7 +87,7 @@ public:
     /// Constructor
     RORDLoader_SUMOAlt(ROVehicleBuilder &vb, RONet &net,
         SUMOTime begin, SUMOTime end,
-        double gawronBeta, double gawronA, int maxRouteNumber,
+        SUMOReal gawronBeta, SUMOReal gawronA, int maxRouteNumber,
         const std::string &file="");
 
     /// Destructor
@@ -124,16 +127,16 @@ private:
     RORouteDef_Alternatives *_currentAlternatives;
 
     /// The costs of the current alternative
-    double _cost;
+    SUMOReal _cost;
 
     /// The probability of the current alternative's usage
-    double _prob;
+    SUMOReal _prob;
 
     /// gawron beta - value
-    double _gawronBeta;
+    SUMOReal _gawronBeta;
 
     /// gawron beta - value
-    double _gawronA;
+    SUMOReal _gawronA;
 
     /// The information whether the next route was read
     bool _nextRouteRead;

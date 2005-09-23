@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:07:25  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:18:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -65,7 +68,7 @@ namespace
 /* =========================================================================
  * static member definitions
  * ======================================================================= */
-std::vector<std::pair<float, float> > GLHelper::myCircleCoords;
+std::vector<std::pair<SUMOReal, SUMOReal> > GLHelper::myCircleCoords;
 
 
 /* =========================================================================
@@ -90,8 +93,8 @@ GLHelper::drawFilledPoly(const Position2DVector &v, bool close)
 
 
 void
-GLHelper::drawBoxLine(const Position2D &beg, double rot, double visLength,
-                      double width)
+GLHelper::drawBoxLine(const Position2D &beg, SUMOReal rot, SUMOReal visLength,
+                      SUMOReal width)
 {
     glPushMatrix();
     glTranslated(beg.x(), beg.y(), 0);
@@ -111,7 +114,7 @@ GLHelper::drawBoxLine(const Position2D &beg, double rot, double visLength,
 
 
 void
-GLHelper::drawLine(const Position2D &beg, double rot, double visLength)
+GLHelper::drawLine(const Position2D &beg, SUMOReal rot, SUMOReal visLength)
 {
     glPushMatrix();
     glTranslated(beg.x(), beg.y(), 0);
@@ -126,28 +129,28 @@ GLHelper::drawLine(const Position2D &beg, double rot, double visLength)
 
 
 void
-GLHelper::drawFilledCircle(double width, int steps)
+GLHelper::drawFilledCircle(SUMOReal width, int steps)
 {
     drawFilledCircle(width, steps, 0, 360);
 }
 
 
 void
-GLHelper::drawFilledCircle(double width, int steps, float beg, float end)
+GLHelper::drawFilledCircle(SUMOReal width, int steps, SUMOReal beg, SUMOReal end)
 {
     if(myCircleCoords.size()==0) {
         for(int i=0; i<360; i+=10) {
-            float x = (float) sin((float) i / 180.0 * PI);
-            float y = (float) cos((float) i / 180.0 * PI);
-            myCircleCoords.push_back(std::pair<float, float>(x, y));
+            SUMOReal x = (SUMOReal) sin((SUMOReal) i / 180.0 * PI);
+            SUMOReal y = (SUMOReal) cos((SUMOReal) i / 180.0 * PI);
+            myCircleCoords.push_back(std::pair<SUMOReal, SUMOReal>(x, y));
         }
     }
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    std::pair<float, float> p1 =
+    std::pair<SUMOReal, SUMOReal> p1 =
         beg==0 ? myCircleCoords[0] : myCircleCoords[((int) beg/10)%36];
-    for(int i=beg/10; i<steps&&(36.0/(float) steps * (float) i)*10<end; i++) {
-        const std::pair<float, float> &p2 =
-            myCircleCoords[(size_t) (36.0/(float) steps * (float) i)];
+    for(int i=(int) (beg/10); i<steps&&(36.0/(SUMOReal) steps * (SUMOReal) i)*10<end; i++) {
+        const std::pair<SUMOReal, SUMOReal> &p2 =
+            myCircleCoords[(size_t) (36.0/(SUMOReal) steps * (SUMOReal) i)];
         glBegin(GL_TRIANGLES);
         glVertex2d(p1.first * width, p1.second * width);
         glVertex2d(p2.first * width, p2.second * width);
@@ -155,7 +158,7 @@ GLHelper::drawFilledCircle(double width, int steps, float beg, float end)
         glEnd();
         p1 = p2;
     }
-    const std::pair<float, float> &p2 =
+    const std::pair<SUMOReal, SUMOReal> &p2 =
         end==360 ? myCircleCoords[0] : myCircleCoords[((int) end/10)%36];
     glBegin(GL_TRIANGLES);
     glVertex2d(p1.first * width, p1.second * width);

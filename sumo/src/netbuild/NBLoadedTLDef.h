@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -58,22 +61,22 @@ public:
         SignalGroup(const std::string &id);
         ~SignalGroup();
         void addConnection(const NBConnection &c);
-        void addPhaseBegin(double time, TLColor color);
-        void setYellowTimes(double tRedYellowe, double tYellow);
-        DoubleVector getTimes(double cycleDuration) const;
+        void addPhaseBegin(SUMOTime time, TLColor color);
+        void setYellowTimes(SUMOTime tRedYellowe, SUMOTime tYellow);
+        DoubleVector getTimes(SUMOTime cycleDuration) const;
         void sortPhases();
         size_t getLinkNo() const;
-        bool mayDrive(double time) const;
-        bool hasYellow(double time) const;
-//        bool mustBrake(double time) const;
+        bool mayDrive(SUMOTime time) const;
+        bool hasYellow(SUMOTime time) const;
+//        bool mustBrake(SUMOReal time) const;
         bool containsConnection(NBEdge *from, NBEdge *to) const;
         bool containsIncoming(NBEdge *from) const;
         void remapIncoming(NBEdge *which, const EdgeVector &by);
         bool containsOutgoing(NBEdge *to) const;
         void remapOutgoing(NBEdge *which, const EdgeVector &by);
         const NBConnection &getConnection(size_t pos) const;
-        void patchTYellow(size_t tyellow);
-//        void patchFalseGreenPhases(double duration);
+        void patchTYellow(SUMOTime tyellow);
+//        void patchFalseGreenPhases(SUMOReal duration);
         void remap(NBEdge *removed, int removedLane,
             NBEdge *by, int byLane);
 
@@ -82,11 +85,11 @@ public:
     private:
         class PhaseDef {
         public:
-            PhaseDef(double time, TLColor color)
+            PhaseDef(SUMOTime time, TLColor color)
                 : myTime(time), myColor(color) { }
             PhaseDef(const PhaseDef &p)
                 : myTime(p.myTime), myColor(p.myColor) { }
-            double myTime;
+            SUMOTime myTime;
             TLColor myColor;
         };
 
@@ -103,7 +106,7 @@ public:
         NBConnectionVector myConnections;
         typedef std::vector<PhaseDef> GroupsPhases;
         GroupsPhases myPhases;
-        double myTRedYellow, myTYellow;
+        SUMOTime myTRedYellow, myTYellow;
     };
 
     class Phase
@@ -157,11 +160,11 @@ public:
     /** @brief Sets the information about the begin of a phase
         Valid for loaded traffic lights only */
     void addSignalGroupPhaseBegin(const std::string &groupid,
-        double time, TLColor color);
+        SUMOTime time, TLColor color);
 
     /// Sets the times the light is yellow or red/yellow
     void setSignalYellowTimes(const std::string &groupid,
-        double tRedYellowe, double tYellow);
+        SUMOTime tRedYellowe, SUMOTime tYellow);
 
     void setTLControllingInformation(const NBEdgeCont &ec) const;
 

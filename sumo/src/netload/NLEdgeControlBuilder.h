@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/09/23 06:04:11  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:04:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -141,7 +144,7 @@ public:
         lane is marked to be the depart lane and another so marked lane
         was added before */
     virtual MSLane *addLane(/*MSNet &net, */const std::string &id,
-        double maxSpeed, double length, bool isDepart, const Position2DVector &shape);
+        SUMOReal maxSpeed, SUMOReal length, bool isDepart, const Position2DVector &shape);
 
     /// closes (ends) the addition of lanes to the current edge
     void closeLanes();

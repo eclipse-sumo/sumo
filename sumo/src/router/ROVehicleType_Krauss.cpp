@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -72,11 +75,11 @@ using namespace std;
 /* =========================================================================
  * static member variable definitions
  * ======================================================================= */
-double ROVehicleType_Krauss::myDefault_A = 0.8;
-double ROVehicleType_Krauss::myDefault_B = 4.5;
-double ROVehicleType_Krauss::myDefault_EPS = 0.5;
-double ROVehicleType_Krauss::myDefault_LENGTH = 5.0;
-double ROVehicleType_Krauss::myDefault_MAXSPEED = 70;
+SUMOReal ROVehicleType_Krauss::myDefault_A = (SUMOReal) 0.8;
+SUMOReal ROVehicleType_Krauss::myDefault_B = (SUMOReal) 4.5;
+SUMOReal ROVehicleType_Krauss::myDefault_EPS = (SUMOReal) 0.5;
+SUMOReal ROVehicleType_Krauss::myDefault_LENGTH = (SUMOReal) 5.0;
+SUMOReal ROVehicleType_Krauss::myDefault_MAXSPEED = 70;
 
 
 /* =========================================================================
@@ -91,10 +94,10 @@ ROVehicleType_Krauss::ROVehicleType_Krauss()
 
 ROVehicleType_Krauss::ROVehicleType_Krauss(const std::string &id,
                                            const RGBColor &col,
-                                           double length,
-                                           double a, double b,
-                                           double eps,
-                                           double maxSpeed)
+                                           SUMOReal length,
+                                           SUMOReal a, SUMOReal b,
+                                           SUMOReal eps,
+                                           SUMOReal maxSpeed)
     : ROVehicleType(id, col, length), myA(a), myB(b), myEps(eps),
     myMaxSpeed(maxSpeed)
 {

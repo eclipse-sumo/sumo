@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/23 06:07:25  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:18:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -56,19 +59,19 @@ public:
     /// Draws a filled polygon described by the list of points
     static void drawFilledPoly(const Position2DVector &v, bool close);
 
-    static void drawBoxLine(const Position2D &beg, double rot,
-        double visLength, double width);
+    static void drawBoxLine(const Position2D &beg, SUMOReal rot,
+        SUMOReal visLength, SUMOReal width);
 
-    static void drawLine(const Position2D &beg, double rot,
-        double visLength);
+    static void drawLine(const Position2D &beg, SUMOReal rot,
+        SUMOReal visLength);
 
-    static void drawFilledCircle(double width, int steps=8);
+    static void drawFilledCircle(SUMOReal width, int steps=8);
 
-    static void drawFilledCircle(double width, int steps,
-        float beg, float end);
+    static void drawFilledCircle(SUMOReal width, int steps,
+        SUMOReal beg, SUMOReal end);
 
 private:
-    static std::vector<std::pair<float, float> > myCircleCoords;
+    static std::vector<std::pair<SUMOReal, SUMOReal> > myCircleCoords;
 
 };
 

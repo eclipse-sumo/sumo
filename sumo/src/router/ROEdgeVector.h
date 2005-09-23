@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -109,7 +112,7 @@ public:
     std::deque<std::string> getIDs() const;
 
     /// Computes the costs to pass the edges beginning at the given time
-    double recomputeCosts(SUMOTime time) const;
+    SUMOReal recomputeCosts(SUMOTime time) const;
 
     /** @brief Returns the infomration whether both lists are equal
         @deprecated (Should be a comparison operator */

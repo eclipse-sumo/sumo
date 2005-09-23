@@ -28,6 +28,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/23 06:04:23  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:04:48  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -113,8 +116,8 @@ void ODInpread (string OD_filename, std::vector<std::string> &infiles,
 			int typ=atoi(datin+pos1);
 			b=strtok(datin,delim2);
 			b=strtok(NULL,delim3);
-			float anteil;
-			anteil = (float) atof(b);
+			SUMOReal anteil;
+			anteil = (SUMOReal) atof(b);
             while((int) content_tmp.size()<=count3) {
                 content_tmp.push_back(ODContent());
             }

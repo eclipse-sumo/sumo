@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/23 06:03:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -45,7 +48,7 @@ namespace
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <netbuild/NBHelpers.h>
 #include <netbuild/NBType.h>
 #include <netbuild/NBTypeCont.h>
@@ -89,14 +92,14 @@ NIVisumParser_Types::myDependentReport()
         // get the id
         id = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
         // get the maximum speed
-        float speed = TplConvert<char>::_2float(myLineParser.get("v0-IV").c_str());
+        SUMOReal speed = TplConvert<char>::_2SUMOReal(myLineParser.get("v0-IV").c_str());
         // get the priority
         int priority = TplConvert<char>::_2int(myLineParser.get("Rang").c_str());
         // try to retrieve the number of lanes
         int nolanes = myCap2Lanes.get(
-            TplConvert<char>::_2float(myLineParser.get("Kap-IV").c_str()));
+            TplConvert<char>::_2SUMOReal(myLineParser.get("Kap-IV").c_str()));
         // insert the type
-        NBType *type = new NBType(id, nolanes, speed/3.6, 100-priority);
+        NBType *type = new NBType(id, nolanes, speed/(SUMOReal) 3.6, 100-priority);
         if(!myTypeCont.insert(type)) {
             addError(
                 string(" Duplicate type occured ('") + id + string("')."));

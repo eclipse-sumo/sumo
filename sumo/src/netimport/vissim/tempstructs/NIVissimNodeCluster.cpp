@@ -22,11 +22,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.14  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
 // Revision 1.13  2004/08/02 12:44:27  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.12  2004/01/12 15:33:02  dkrajzew
 // node-building classes are now lying in an own folder
@@ -50,7 +53,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -58,7 +61,7 @@ namespace
 #include <algorithm>
 #include <cassert>
 #include <utils/common/IntVector.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/geom/Position2DVector.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
@@ -66,6 +69,10 @@ namespace
 #include "NIVissimDisturbance.h"
 #include "NIVissimConnection.h"
 #include "NIVissimNodeCluster.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 using namespace std;
 

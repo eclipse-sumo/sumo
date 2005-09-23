@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/23 06:07:01  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:18:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -55,9 +58,9 @@ class AbstractPoly {
 public:
     AbstractPoly() { }
     virtual ~AbstractPoly() { }
-    virtual bool around(const Position2D &p, double offset=0) const = 0;
-    virtual bool overlapsWith(const AbstractPoly &poly, double offset=0) const = 0;
-    virtual bool partialWithin(const AbstractPoly &poly, double offset=0) const = 0;
+    virtual bool around(const Position2D &p, SUMOReal offset=0) const = 0;
+    virtual bool overlapsWith(const AbstractPoly &poly, SUMOReal offset=0) const = 0;
+    virtual bool partialWithin(const AbstractPoly &poly, SUMOReal offset=0) const = 0;
     virtual bool crosses(const Position2D &p1,
         const Position2D &p2) const = 0;
 };

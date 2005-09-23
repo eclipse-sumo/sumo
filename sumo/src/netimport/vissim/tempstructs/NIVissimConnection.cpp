@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.19  2005/07/12 12:35:23  dkrajzew
 // elmar2 importer included; debugging
 //
@@ -68,7 +71,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -78,7 +81,7 @@ namespace
 #include <cassert>
 #include <utils/common/IntVector.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include "NIVissimExtendedEdgePoint.h"
 #include <utils/geom/Position2DVector.h>
 #include <utils/geom/Boundary.h>
@@ -92,6 +95,10 @@ namespace
 #include "NIVissimConnection.h"
 #include <utils/common/UtilExceptions.h>
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 using namespace std;
 
 NIVissimConnection::DictType NIVissimConnection::myDict;
@@ -101,8 +108,8 @@ NIVissimConnection::NIVissimConnection(int id,
         const std::string &name, const NIVissimExtendedEdgePoint &from_def,
         const NIVissimExtendedEdgePoint &to_def,
         const Position2DVector &geom, Direction direction,
-        double dxnothalt, double dxeinordnen,
-        double zuschlag1, double zuschlag2, double seglength,
+        SUMOReal dxnothalt, SUMOReal dxeinordnen,
+        SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal seglength,
         const IntVector &assignedVehicles, const NIVissimClosedLanesVector &clv)
         : NIVissimAbstractEdge(id, geom),
         myName(name), myFromDef(from_def), myToDef(to_def),
@@ -129,9 +136,9 @@ NIVissimConnection::dictionary(int id, const std::string &name,
                                const NIVissimExtendedEdgePoint &to_def,
                                const Position2DVector &geom,
                                Direction direction,
-                               double dxnothalt, double dxeinordnen,
-                               double zuschlag1, double zuschlag2,
-                               double seglength,
+                               SUMOReal dxnothalt, SUMOReal dxeinordnen,
+                               SUMOReal zuschlag1, SUMOReal zuschlag2,
+                               SUMOReal seglength,
                                const IntVector &assignedVehicles,
                                const NIVissimClosedLanesVector &clv)
 {
@@ -249,14 +256,14 @@ NIVissimConnection::getToEdgeID() const
 }
 
 
-double
+SUMOReal
 NIVissimConnection::getFromPosition() const
 {
     return myFromDef.getPosition();
 }
 
 
-double
+SUMOReal
 NIVissimConnection::getToPosition() const
 {
     return myToDef.getPosition();

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/23 06:01:53  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -29,7 +32,7 @@ namespace
 // level3 warnings removed; made netbuild-containers non-static
 //
 // Revision 1.7  2004/08/02 12:44:11  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.6  2004/01/12 15:30:31  dkrajzew
 // node-building classes are now lying in an own folder
@@ -64,7 +67,7 @@ namespace
 
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NIArtemisLoader.h"

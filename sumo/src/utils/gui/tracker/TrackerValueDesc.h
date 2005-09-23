@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/23 06:09:38  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:20:06  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -74,7 +77,7 @@ class GUIGlObject;
 /**
  *
  */
-class TrackerValueDesc : public ValueRetriever<double> {
+class TrackerValueDesc : public ValueRetriever<SUMOReal> {
 public:
     /// Constructor
     TrackerValueDesc(const std::string &name, const RGBColor &col,
@@ -84,16 +87,16 @@ public:
     ~TrackerValueDesc();
 
     /// returns the maximum value range
-    float getRange() const;
+    SUMOReal getRange() const;
 
     /// Returns the values minimum
-    float getMin() const;
+    SUMOReal getMin() const;
 
     /// Returns the values maximum
-    float getMax() const;
+    SUMOReal getMax() const;
 
     /// Returns the center of the value
-    float getYCenter() const;
+    SUMOReal getYCenter() const;
 
     /// Returns the color to use to display the value
     const RGBColor &getColor() const;
@@ -101,18 +104,18 @@ public:
     /** @brief returns the vector of collected values
         The values will be locked - no further addition will be perfomed until
         the method "unlockValues" will be called */
-    const std::vector<float> &getValues();
+    const std::vector<SUMOReal> &getValues();
 
     /** @brief returns the vector of aggregated values
         The values will be locked - no further addition will be perfomed until
         the method "unlockValues" will be called */
-    const std::vector<float> &getAggregatedValues();
+    const std::vector<SUMOReal> &getAggregatedValues();
 
     /// Retunrs the name of the value
     const std::string &getName() const;
 
     /// Adds a new value to the list
-    void addValue(double value);
+    void addValue(SUMOReal value);
 
     /// Releases the locking after the values have been drawn
     void unlockValues();
@@ -135,10 +138,10 @@ private:
     GUIGlObject *myObject;
 
     /// Values collected
-    std::vector<float> myValues;
+    std::vector<SUMOReal> myValues;
 
     /// Collected values in their aggregated form
-    std::vector<float> myAggregatedValues;
+    std::vector<SUMOReal> myAggregatedValues;
 
     /// The color to use when the value is set as "active"
     RGBColor myActiveCol;
@@ -150,7 +153,7 @@ private:
     bool myAmActive;
 
     /// The minimum and the maximum of the value
-    float myMin, myMax;
+    SUMOReal myMin, myMax;
 
     // Mutex to avoid parallel drawing and insertion of new items
     FXEX::FXMutex myLock;
@@ -159,10 +162,10 @@ private:
     size_t myAggregationInterval;
 
     /// Values like this shall not be counted on aggregation
-    float myInvalidValue;
+    SUMOReal myInvalidValue;
 
     /// Temporary storage for the last aggregation interval
-    float myTmpLastAggValue;
+    SUMOReal myTmpLastAggValue;
 
     /// Counter for valid numbers within the current aggregation interval
     size_t myValidNo;

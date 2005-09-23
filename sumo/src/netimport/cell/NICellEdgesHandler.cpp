@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/23 06:02:04  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -71,7 +74,7 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBEdge.h>
@@ -149,13 +152,13 @@ NICellEdgesHandler::report(const std::string &result)
         throw ProcessError();
     }
     // other values
-    float length = -1;
-    double speed = myTypeCont.getDefaultSpeed();
+    SUMOReal length = -1;
+    SUMOReal speed = myTypeCont.getDefaultSpeed();
     int priority = myTypeCont.getDefaultPriority();
     size_t nolanes = myTypeCont.getDefaultNoLanes();
     // get the length
     try {
-        length = TplConvert<char>::_2float(st.next().c_str());
+        length = TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException) {
         addError(
             string("Non-numeric length entry in the following line:")
@@ -176,12 +179,12 @@ NICellEdgesHandler::report(const std::string &result)
             // try to resolve capacity->nolanes
             if(name=="-c") {
                 nolanes = _capacity2Lanes.get(
-                    TplConvert<char>::_2float(value.c_str()));
+                    TplConvert<char>::_2SUMOReal(value.c_str()));
             }
             // process maximal velocity
             if(name=="-v") {
                 try {
-                    speed = TplConvert<char>::_2float(value.c_str());
+                    speed = TplConvert<char>::_2SUMOReal(value.c_str());
                 } catch (NumberFormatException) {
                     addError(
                         string("Non-numeric speed value:")

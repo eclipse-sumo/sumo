@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.15  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -53,7 +56,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -61,7 +64,7 @@ namespace
 #include <string>
 #include <iostream>
 #include <cassert>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundary.h>
@@ -75,6 +78,10 @@ namespace
 #include "NIVissimDisturbance.h"
 #include "NIVissimNodeParticipatingEdgeVector.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 using namespace std;
 
 NIVissimDisturbance::DictType NIVissimDisturbance::myDict;
@@ -87,8 +94,8 @@ NIVissimDisturbance::NIVissimDisturbance(int id,
                                          const std::string &name,
                                          const NIVissimExtendedEdgePoint &edge,
                                          const NIVissimExtendedEdgePoint &by,
-                                         double timegap, double waygap,
-                                         double vmax)
+                                         SUMOReal timegap, SUMOReal waygap,
+                                         SUMOReal vmax)
     : myID(id), myNode(-1), myName(name), myEdge(edge), myDisturbance(by),
     myTimeGap(timegap), myWayGap(waygap), myVMax(vmax)
 {
@@ -106,7 +113,7 @@ NIVissimDisturbance::dictionary(int id,
                                 const std::string &name,
                                 const NIVissimExtendedEdgePoint &edge,
                                 const NIVissimExtendedEdgePoint &by,
-                                double timegap, double waygap, double vmax)
+                                SUMOReal timegap, SUMOReal waygap, SUMOReal vmax)
 {
     int nid = id;
     if(id<0) {

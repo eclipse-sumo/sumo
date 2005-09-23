@@ -30,18 +30,18 @@ private:
     Position2DVector computeContinuationNodeShape();
     Position2DVector computeNodeShapeByCrosses();
 
-    void addCCWPoint(Position2DVector &poly, NBEdge *e, double offset,
-        double width);
-    void addCWPoint(Position2DVector &poly, NBEdge *e, double offset,
-        double width);
+    void addCCWPoint(Position2DVector &poly, NBEdge *e, SUMOReal offset,
+        SUMOReal width);
+    void addCWPoint(Position2DVector &poly, NBEdge *e, SUMOReal offset,
+        SUMOReal width);
 
     bool isSimpleContinuation(const NBNode &n) const;
 
     struct NeighborCrossDesc {
         bool myUsedOppositeDirection; // !!!
         bool myAmValid;
-        double myCrossingPosition;
-        double myCrossingAngle;
+        SUMOReal myCrossingPosition;
+        SUMOReal myCrossingAngle;
 
     };
 

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/23 06:11:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:21:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -102,7 +105,7 @@ namespace
 #include <exception>
 #include <sstream>
 #include "Option.h"
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
 
@@ -169,10 +172,10 @@ Option::isSet() const
 }
 
 
-float
+SUMOReal
 Option::getFloat() const
 {
-    throw InvalidArgument("This is not a float-option");
+    throw InvalidArgument("This is not a SUMOReal-option");
 }
 
 
@@ -477,7 +480,7 @@ Option_Float::Option_Float()
 }
 
 
-Option_Float::Option_Float(float value)
+Option_Float::Option_Float(SUMOReal value)
     : Option(true), _value(value)
 {
 }
@@ -507,7 +510,7 @@ Option_Float::operator=(const Option_Float &s)
 }
 
 
-float
+SUMOReal
 Option_Float::getFloat() const
 {
     return _value;
@@ -518,10 +521,10 @@ bool
 Option_Float::set(string v, bool isDefault)
 {
     try {
-        _value = TplConvert<char>::_2float(v.c_str());
+        _value = TplConvert<char>::_2SUMOReal(v.c_str());
         return markSet(isDefault);
     } catch (...) {
-        string s = "'" + v + "' is not a valid float (should be).";
+        string s = "'" + v + "' is not a valid SUMOReal (should be).";
         throw InvalidArgument(s);
     }
 }

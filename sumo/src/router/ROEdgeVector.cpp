@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -160,10 +163,10 @@ ROEdgeVector::getIDs() const
 }
 
 
-double
+SUMOReal
 ROEdgeVector::recomputeCosts(SUMOTime time) const
 {
-    double costs = 0;
+    SUMOReal costs = 0;
     for(EdgeVector::const_iterator i=_edges.begin(); i!=_edges.end(); i++) {
         costs += (*i)->getCost(time);
         time += ((SUMOTime) (*i)->getDuration(time));

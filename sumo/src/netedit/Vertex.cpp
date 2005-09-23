@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:01:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:03:02  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -239,18 +242,18 @@ Vertex::px2gps(int scale, int gkr, int gkh)
 {
     //Berechnet zu x,y-Koordinaten die GK-Koordinaten
     //bei zwei gegebenen GPS-Eckpunkten(der betrachteten Karte)
-    double rm, e2, c, bI, bII, bf, co, g2, g1, t, fa, dl, gb, gl;
+    SUMOReal rm, e2, c, bI, bII, bf, co, g2, g1, t, fa, dl, gb, gl;
     int mKen;
-	double gkx=gkr+x*scale;//2601000.25+x*2;
-    double gky=gkh+x*scale;//5711999.75-y*2;
-    const double rho = 180/3.1415926535897932384626433832795;
-    e2 = 0.0067192188;
-    c = 6398786.849;
+	SUMOReal gkx=(SUMOReal) gkr+x*scale;//2601000.25+x*2;
+    SUMOReal gky=(SUMOReal) gkh+x*scale;//5711999.75-y*2;
+    const SUMOReal rho = (SUMOReal) (180/3.1415926535897932384626433832795);
+    e2 = (SUMOReal) 0.0067192188;
+    c = (SUMOReal) 6398786.849;
     mKen = (int) (gkx / 1000000);
     rm = gkx - mKen * 1000000 - 500000;
-    bI = gky / 10000855.7646;
+    bI = gky / (SUMOReal) 10000855.7646;
     bII = bI * bI;
-    bf = 325632.08677 * bI *((((((0.00000562025 * bII - 0.00004363980) * bII + 0.00022976983) * bII - 0.00113566119) * bII + 0.00424914906) * bII - 0.00831729565) * bII + 1);
+    bf = (SUMOReal) 325632.08677 * bI *(((((((SUMOReal) 0.00000562025 * bII - (SUMOReal) 0.00004363980) * bII + (SUMOReal) 0.00022976983) * bII - (SUMOReal) 0.00113566119) * bII + (SUMOReal) 0.00424914906) * bII - (SUMOReal) 0.00831729565) * bII + 1);
     bf = bf / 3600 / rho;
     co = cos(bf);
     g2 = e2 * (co * co);
@@ -266,13 +269,13 @@ Vertex::px2gps(int scale, int gkr, int gkh)
 }
 
 //Hole den Longitude-Wert der GPS-Koordinaten
-double Vertex::GetGPSLon()
+SUMOReal Vertex::GetGPSLon()
 {
     return lon;
 }
 
 //Hole den Latitude-Wert der GPS-Koordinaten
-double Vertex::GetGPSLat()
+SUMOReal Vertex::GetGPSLat()
 {
     return lat;
 }

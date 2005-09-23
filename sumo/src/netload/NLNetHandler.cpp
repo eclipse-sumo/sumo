@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.55  2005/09/23 06:04:12  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.54  2005/09/15 12:04:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -138,8 +141,8 @@ namespace
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/TplConvertSec.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/TplConvertSec.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/xml/AttributesHandler.h>
@@ -539,7 +542,7 @@ NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
         // get the detector offset
         {
             try {
-                detectorOffset = getFloatSecure(attrs, SUMO_ATTR_DET_OFFSET, -1);
+                detectorOffset = (int) getFloatSecure(attrs, SUMO_ATTR_DET_OFFSET, -1);
             } catch (NumberFormatException&) {
                 MsgHandler::getErrorInstance()->inform(
                     "A detector offset of a traffic light logic is not numeric!");

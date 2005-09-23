@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/23 06:11:14  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:20:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -96,7 +99,7 @@ public:
         The arrays must have the proper size (equals to the number of the
         simulation's objects of each type) */
     void get(int what,
-        double x, double y, double xoff, double yoff,
+        SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff,
         size_t *setEdges, size_t *setJunctions, size_t *setAdditional) const;
 
     /// returns the number of cells in x-direction
@@ -106,10 +109,10 @@ public:
     int getNoYCells() const;
 
     /// returns the size of each cell in x-direction
-    double getXCellSize() const;
+    SUMOReal getXCellSize() const;
 
     /// returns the size of each cell in y-direction
-    double getYCellSize() const;
+    SUMOReal getYCellSize() const;
 
     friend class GUIGridBuilder;
     friend class GUIRouterGridBuilder;
@@ -258,7 +261,7 @@ private:
 
 private:
     /// The sizes of the cells
-    double _xcellsize, _ycellsize;
+    SUMOReal _xcellsize, _ycellsize;
 
     /// The networks boundary
     Boundary _boundary;

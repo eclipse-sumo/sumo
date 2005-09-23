@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/09/23 06:03:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.13  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -39,7 +42,7 @@ namespace
 // debugging
 //
 // Revision 1.8  2004/08/02 12:44:28  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.7  2004/01/12 15:36:08  dkrajzew
 // node-building classes are now lying in an own folder
@@ -81,8 +84,8 @@ namespace
 #include <netbuild/NBDistrictCont.h>
 #include <netbuild/NBDistrict.h>
 #include <netbuild/nodes/NBNode.h>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/TplConvertSec.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/TplConvertSec.h>
 #include "NIVisumLoader.h"
 #include "NIVisumParser_Connectors.h"
 
@@ -131,22 +134,22 @@ NIVisumParser_Connectors::myDependentReport()
             return;
         }
         // get the weight of the connection
-        double proz = getWeightedFloat("Proz");
+        SUMOReal proz = getWeightedFloat("Proz");
         if(proz>0) {
             proz /= 100;
         } else {
             proz = 1;
         }
         // get the duration to wait
-        double retard =
-            TplConvertSec<char>::_2floatSec(
+        SUMOReal retard =
+            TplConvertSec<char>::_2SUMORealSec(
                 myLineParser.get("t0-IV").c_str(), -1);
         // get the type;
         //  use a standard type with a large speed when a type is not given
         string type =
             NBHelpers::normalIDRepresentation(myLineParser.get("Typ"));
 
-        double speed;
+        SUMOReal speed;
         int prio, nolanes;
         if(type.length()==0) {
             speed = 10000;
@@ -228,9 +231,9 @@ NIVisumParser_Connectors::buildDistrictNode(const std::string &id,
         return 0;
     }
     // get the coordinates of the new node
-    double x = dest->getPosition().x()
+    SUMOReal x = dest->getPosition().x()
         + (dist->getPosition().x() - dest->getPosition().x()) / 10;
-    double y = dest->getPosition().y()
+    SUMOReal y = dest->getPosition().y()
         + (dist->getPosition().y() - dest->getPosition().y()) / 10;
     // translate in dependence to the type
     if(dir==NBEdge::EDGEFUNCTION_SINK) {
@@ -248,8 +251,8 @@ NIVisumParser_Connectors::buildDistrictNode(const std::string &id,
     }
     // insert the node
     if(!myNodeCont.insert(nid, Position2D(x, y))) {
-        x += 0.1;
-        y -= 0.1;
+        x += (SUMOReal) 0.1;
+        y -= (SUMOReal) 0.1;
         if(!myNodeCont.insert(nid, Position2D(x, y), dist)) {
             addError(
                 "Ups, this should not happen: A district lies on a node.");

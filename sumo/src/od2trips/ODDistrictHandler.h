@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:04:23  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:04:48  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -98,7 +101,7 @@ private:
     void closeDistrict();
 
     /// Returns the values for a sink/source (name and weight)
-    std::pair<std::string, double> getValues(const Attributes &attrs,
+    std::pair<std::string, SUMOReal> getValues(const Attributes &attrs,
         const std::string &type);
 
 private:

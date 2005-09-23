@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:03:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -52,7 +55,7 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <netbuild/NBHelpers.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <netbuild/NBDistrict.h>
 #include <netbuild/NBDistrictCont.h>
 #include "NIVisumLoader.h"
@@ -99,10 +102,10 @@ NIVisumParser_Districts::myDependentReport()
         bool sourcesWeighted = getWeightedBool("Proz_Q");
         bool destWeighted = getWeightedBool("Proz_Z");
         // get the node information
-        double x =
-            TplConvert<char>::_2float(myLineParser.get("XKoord").c_str());
-        double y =
-            TplConvert<char>::_2float(myLineParser.get("YKoord").c_str());
+        SUMOReal x =
+            TplConvert<char>::_2SUMOReal(myLineParser.get("XKoord").c_str());
+        SUMOReal y =
+            TplConvert<char>::_2SUMOReal(myLineParser.get("YKoord").c_str());
         // build the district
         NBDistrict *district = new NBDistrict(id, name, x, y);
         if(!myDistrictCont.insert(district)) {

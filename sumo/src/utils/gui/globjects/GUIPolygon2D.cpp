@@ -84,7 +84,7 @@ GUIPolygon2D::getParameterWindow(GUIMainWindow &app,
     // add items
     /*
     ret->mkItem("speed [m/s]", true,
-        new FunctionBinding<GUITriggeredRerouter, double>(this, &GUITriggeredRerouter::getCurrentSpeed));
+        new FunctionBinding<GUITriggeredRerouter, SUMOReal>(this, &GUITriggeredRerouter::getCurrentSpeed));
         */
     // close building
     ret->closeBuilding();

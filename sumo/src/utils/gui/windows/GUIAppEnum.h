@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2005/09/23 06:11:14  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:20:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -312,7 +315,7 @@ enum {
     MID_SURPRESSENDINFO,
     /// Allow aggregated Views - Option
     MID_ALLOWAGGREGATED,
-    /// Allow floating aggregated Views - Option
+    /// Allow SUMORealing aggregated Views - Option
     MID_ALLOWAFLOATING,
     /// Allow textures - Option
     MID_ALLOWTEXTURES,

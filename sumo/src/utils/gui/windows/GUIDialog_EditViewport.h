@@ -23,7 +23,7 @@ class GUIDialog_EditViewport : public FXDialogBox
     FXDECLARE(GUIDialog_EditViewport)
 public:
     GUIDialog_EditViewport(GUISUMOAbstractView* parent,  const char* name,
-        double zoom, double xoff, double yoff, int x, int y);
+        SUMOReal zoom, SUMOReal xoff, SUMOReal yoff, int x, int y);
     ~GUIDialog_EditViewport();
     void create();
     long onCmdOk(FXObject*,FXSelector,void*);
@@ -31,8 +31,8 @@ public:
 
 protected:
     GUISUMOAbstractView *myParent;
-    double myOldZoom;
-    double myOldXOff, myOldYOff;
+    SUMOReal myOldZoom;
+    SUMOReal myOldXOff, myOldYOff;
     FXRealSpinDial *myZoom, *myXOff, *myYOff;
 
 protected:

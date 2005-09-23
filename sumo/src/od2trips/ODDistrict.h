@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:04:23  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:04:48  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -70,12 +73,12 @@ public:
     /** @brief Adds a source connection
         A source is an edge where vehicles leave the district from to reach
         the network */
-    void addSource(const std::string &id, double weight);
+    void addSource(const std::string &id, SUMOReal weight);
 
     /** @brief Adds a sink connection
         A sink connection is an edge which is used by vehicles to leave the
         network and reach the district */
-    void addSink(const std::string &id, double weight);
+    void addSink(const std::string &id, SUMOReal weight);
 
     /// Returns the name of a source to use
     std::string getRandomSource() const;
@@ -84,14 +87,14 @@ public:
     std::string getRandomSink() const;
 
     /// Sets the abstract color
-    void setColor(double val);
+    void setColor(SUMOReal val);
 
     /// returns the color of the district
-    double getColor() const;
+    SUMOReal getColor() const;
 
 private:
     /// A name together with a weight (possibility to be chosen)
-    typedef std::pair<std::string, double> WeightedName;
+    typedef std::pair<std::string, SUMOReal> WeightedName;
 
     /// List of string/value pairs
     typedef std::vector<WeightedName> WeightedEdgeIDCont;
@@ -107,7 +110,7 @@ private:
     std::string getRandom(const WeightedEdgeIDCont &cont) const;
 
     /// The abstract color of the district
-    double myColor;
+    SUMOReal myColor;
 
 };
 

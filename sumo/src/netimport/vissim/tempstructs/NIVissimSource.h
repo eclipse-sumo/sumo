@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -35,7 +38,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -51,12 +54,12 @@
 class NIVissimSource {
 public:
     NIVissimSource(const std::string &id, const std::string &name,
-        const std::string &edgeid, double q, bool exact,
-        int vehicle_combination, double beg, double end);
+        const std::string &edgeid, SUMOReal q, bool exact,
+        int vehicle_combination, SUMOReal beg, SUMOReal end);
     ~NIVissimSource();
     static bool dictionary(const std::string &id, const std::string &name,
-        const std::string &edgeid, double q, bool exact,
-        int vehicle_combination, double beg, double end);
+        const std::string &edgeid, SUMOReal q, bool exact,
+        int vehicle_combination, SUMOReal beg, SUMOReal end);
     static bool dictionary(const std::string &id, NIVissimSource *o);
     static NIVissimSource *dictionary(const std::string &id);
     static void clearDict();
@@ -64,11 +67,11 @@ private:
     std::string myID;
     std::string myName;
     std::string myEdgeID;
-    double myQ;
+    SUMOReal myQ;
     bool myExact;
     int myVehicleCombination;
-    double myTimeBeg;
-    double myTimeEnd;
+    SUMOReal myTimeBeg;
+    SUMOReal myTimeEnd;
 
 private:
     typedef std::map<std::string, NIVissimSource*> DictType;

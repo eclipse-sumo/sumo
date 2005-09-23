@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/23 06:02:34  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -30,7 +33,7 @@ namespace
 // level3 warnings removed; made netbuild-containers non-static
 //
 // Revision 1.6  2004/08/02 12:44:12  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.5  2004/01/12 15:31:53  dkrajzew
 // node-building classes are now lying in an own folder
@@ -145,7 +148,7 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
             return;
         }
         // get the position of the node
-        double x, y;
+        SUMOReal x, y;
         x = getFloatSecure(attrs, SUMO_ATTR_X, -1);
         y = getFloatSecure(attrs, SUMO_ATTR_Y, -1);
         if(x<0||y<0) {

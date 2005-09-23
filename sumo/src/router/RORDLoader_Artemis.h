@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -135,7 +138,7 @@ private:
     NamedColumnsParser myLineHandler;
 
     /// Definition of a container for probability of a destination
-    typedef std::pair<std::string, double> DestPercentage;
+    typedef std::pair<std::string, SUMOReal> DestPercentage;
 
     /// Definition of a list of destination probabilities
     typedef std::vector<DestPercentage> DestProbVector;
@@ -147,7 +150,7 @@ private:
     NodeDestProbs myNodeConnections;
 
     /// Definition of a container for flowas (given a node)
-    typedef std::map<std::string, double> NodeFlows;
+    typedef std::map<std::string, SUMOReal> NodeFlows;
 
     /// Flows out of nodes
     NodeFlows myNodeFlows;

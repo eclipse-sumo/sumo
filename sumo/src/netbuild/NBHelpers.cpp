@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -34,7 +37,7 @@ namespace
 // node-building classes are now lying in an own folder
 //
 // Revision 1.4  2003/11/11 08:33:54  dkrajzew
-// consequent position2D instead of two doubles added
+// consequent position2D instead of two SUMOReals added
 //
 // Revision 1.3  2003/04/04 07:43:03  dkrajzew
 // Yellow phases must be now explicetely given; comments added;
@@ -60,7 +63,7 @@ namespace
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:11  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -126,10 +129,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-double
-NBHelpers::angle(double x1, double y1, double x2, double y2)
+SUMOReal
+NBHelpers::angle(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2)
 {
-    double angle = atan2(x1-x2, y1-y2) * 180.0 / 3.14159265;
+    SUMOReal angle = (SUMOReal) atan2(x1-x2, y1-y2) * (SUMOReal) 180.0 / (SUMOReal) 3.14159265;
     if(angle<0) {
         angle = 360 + angle;
     }
@@ -137,16 +140,16 @@ NBHelpers::angle(double x1, double y1, double x2, double y2)
 }
 
 
-double
-NBHelpers::relAngle(double angle, double x1, double y1, double x2, double y2)
+SUMOReal
+NBHelpers::relAngle(SUMOReal angle, SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2)
 {
-    double sec_angle = NBHelpers::angle(x1, y1, x2, y2);
+    SUMOReal sec_angle = NBHelpers::angle(x1, y1, x2, y2);
     return relAngle(angle, sec_angle);
 }
 
 
-double
-NBHelpers::relAngle(double angle1, double angle2)
+SUMOReal
+NBHelpers::relAngle(SUMOReal angle1, SUMOReal angle2)
 {
     angle2 -= angle1;
     if(angle2>180)
@@ -157,9 +160,9 @@ NBHelpers::relAngle(double angle1, double angle2)
 }
 
 
-double
-NBHelpers::normRelAngle(double angle1, double angle2) {
-    double rel = relAngle(angle1, angle2);
+SUMOReal
+NBHelpers::normRelAngle(SUMOReal angle1, SUMOReal angle2) {
+    SUMOReal rel = relAngle(angle1, angle2);
     if(rel<-170||rel>170)
         rel = -180;
     return rel;
@@ -199,7 +202,7 @@ NBHelpers::normalIDRepresentation(const std::string &id)
 }
 
 
-double
+SUMOReal
 NBHelpers::distance(NBNode *node1, NBNode *node2)
 {
     return GeomHelper::distance(node1->getPosition(), node2->getPosition());

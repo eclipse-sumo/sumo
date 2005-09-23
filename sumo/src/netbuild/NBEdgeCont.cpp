@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2005/09/23 06:01:05  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.35  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -61,7 +64,7 @@ namespace
 // node-building classes are now lying in an own folder
 //
 // Revision 1.23  2003/11/11 08:33:54  dkrajzew
-// consequent position2D instead of two doubles added
+// consequent position2D instead of two SUMOReals added
 //
 // Revision 1.22  2003/10/28 09:47:28  dkrajzew
 // lane2lane connections are now kept when edges are joined
@@ -150,7 +153,7 @@ namespace
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:10  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -191,7 +194,7 @@ namespace
 #include <fstream>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include "NBEdgeCont.h"
@@ -454,7 +457,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
                     const std::string &secondEdgeName,
                     size_t noLanesFirstEdge, size_t noLanesSecondEdge)
 {
-    double pos;
+    SUMOReal pos;
     pos = edge->getGeometry().nearest_position_on_line_to_point(node->getPosition());
     if(pos<=0) {
         pos = GeomHelper::nearest_position_on_line_to_point(
@@ -471,7 +474,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
 
 bool
 NBEdgeCont::splitAt(NBDistrictCont &dc,
-                    NBEdge *edge, double pos, NBNode *node,
+                    NBEdge *edge, SUMOReal pos, NBNode *node,
                     const std::string &firstEdgeName,
                     const std::string &secondEdgeName,
                     size_t noLanesFirstEdge, size_t noLanesSecondEdge)
@@ -643,7 +646,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
 
     // count the number of lanes, the speed and the id
     size_t nolanes = 0;
-    double speed = 0;
+    SUMOReal speed = 0;
     int priority = 0;
     string id;
     NBEdge::EdgeBasicFunction function =
@@ -732,7 +735,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
 
 
 NBEdge *
-NBEdgeCont::retrievePossiblySplitted(const std::string &id, double pos) const
+NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const
 {
     // check whether the edge was not split, yet
     NBEdge *edge = retrieve(id);
@@ -740,7 +743,7 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, double pos) const
         return edge;
     }
     // find the part of the edge which matches the position
-    double seen = 0;
+    SUMOReal seen = 0;
     std::vector<string> names;
     names.push_back(id + "[1]");
     names.push_back(id + "[0]");
@@ -793,7 +796,7 @@ NBEdgeCont::normaliseEdgePositions(const NBNodeCont &nc)
 
 
 bool
-NBEdgeCont::reshiftEdgePositions(double xoff, double yoff, double rot)
+NBEdgeCont::reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
 {
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
         (*i).second->reshiftPosition(xoff, yoff, rot);

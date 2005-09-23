@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/23 06:04:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:05:34  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -110,7 +113,7 @@ ROJPEdge::addFollower(ROEdge *s)
 
 void
 ROJPEdge::addFollowerProbability(ROJPEdge *follower, SUMOTime begTime,
-                                 SUMOTime endTime, float percentage)
+                                 SUMOTime endTime, SUMOReal percentage)
 {
     FollowerUsageCont::iterator i = myFollowingDefs.find(follower);
     if(i==myFollowingDefs.end()) {
@@ -140,12 +143,12 @@ ROJPEdge::chooseNext(SUMOTime time) const
         }
     }
     // get a random number between zero and one
-    double chosen = (double)rand() /
-        ( static_cast<double>(RAND_MAX) + 1);
+    SUMOReal chosen = (SUMOReal)rand() /
+        ( static_cast<SUMOReal>(RAND_MAX) + 1);
     // if no description is given for the current time
     if(noDescs==0) {
         //  use the defaults
-        std::vector<float>::const_iterator j;
+        std::vector<SUMOReal>::const_iterator j;
         size_t pos = 0;
         for(j=myParsedTurnings.begin(); j!=myParsedTurnings.end(); j++) {
             chosen = chosen - (*j);
@@ -190,25 +193,25 @@ ROJPEdge::chooseNext(SUMOTime time) const
 
 
 void
-ROJPEdge::setTurnDefaults(const std::vector<float> &defs)
+ROJPEdge::setTurnDefaults(const std::vector<SUMOReal> &defs)
 {
     // I hope, we'll find a less ridiculous solution for this
-    std::vector<float> tmp(defs.size()*myFollowingEdges.size(), 0);
+    std::vector<SUMOReal> tmp(defs.size()*myFollowingEdges.size(), 0);
         // store in less common multiple
     size_t i;
     for(i=0; i<defs.size(); i++) {
         for(size_t j=0; j<myFollowingEdges.size(); j++) {
-            tmp[i*myFollowingEdges.size()+j] = (float)
+            tmp[i*myFollowingEdges.size()+j] = (SUMOReal)
 				(defs[i] / 100.0 / (myFollowingEdges.size()));
         }
     }
         // parse from less common multiple
     for(i=0; i<myFollowingEdges.size(); i++) {
-        double value = 0;
+        SUMOReal value = 0;
         for(size_t j=0; j<defs.size(); j++) {
             value += tmp[i*defs.size()+j];
         }
-        myParsedTurnings.push_back((float) value);
+        myParsedTurnings.push_back((SUMOReal) value);
     }
 }
 

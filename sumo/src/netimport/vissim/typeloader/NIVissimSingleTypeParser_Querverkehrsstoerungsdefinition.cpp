@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:02:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/04/27 12:24:38  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -49,13 +52,21 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimExtendedEdgePoint.h"
 #include "../tempstructs/NIVissimDisturbance.h"
 #include "NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -113,14 +124,14 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePositionDescribed
         from >> tag; // "Strecke"
         NIVissimExtendedEdgePoint by = parsePos(from);
         //
-        double timegap;
+        SUMOReal timegap;
         from >> timegap;
 
         from >> tag;
-        double waygap;
+        SUMOReal waygap;
         from >> waygap;
 
-        double vmax = -1;
+        SUMOReal vmax = -1;
         tag = readEndSecure(from);
         if(tag=="vmax") {
             from >> vmax;
@@ -159,14 +170,14 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseNumbered(std::ist
         from >> tag; // "Strecke"
         NIVissimExtendedEdgePoint by = parsePos(from);
         //
-        double timegap;
+        SUMOReal timegap;
         from >> timegap;
 
-        double waygap;
+        SUMOReal waygap;
         from >> tag;
         from >> waygap;
 
-        double vmax = -1;
+        SUMOReal vmax = -1;
         tag = readEndSecure(from);
         if(tag=="vmax") {
             from >> vmax;
@@ -196,7 +207,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream 
     IntVector lanes;
     lanes.push_back(laneno);
     //
-    double position;
+    SUMOReal position;
     from >> tag;
     from >> position;
     // assigned vehicle types
@@ -217,4 +228,8 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream 
     }
     return NIVissimExtendedEdgePoint(edgeid, lanes, position, types);
 }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+// Local Variables:
+// mode:C++
+// End:

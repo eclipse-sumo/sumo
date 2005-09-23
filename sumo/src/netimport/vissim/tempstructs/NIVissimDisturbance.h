@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -35,7 +38,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -61,7 +64,7 @@ public:
     NIVissimDisturbance(int id, const std::string &name,
         const NIVissimExtendedEdgePoint &edge,
         const NIVissimExtendedEdgePoint &by,
-        double timegap, double waygap, double vmax);
+        SUMOReal timegap, SUMOReal waygap, SUMOReal vmax);
     virtual ~NIVissimDisturbance();
     void computeBounding();
     bool addToNode(NBNode *node, NBDistrictCont &dc,
@@ -74,7 +77,7 @@ public:
     static bool dictionary(int id, const std::string &name,
         const NIVissimExtendedEdgePoint &edge,
         const NIVissimExtendedEdgePoint &by,
-        double timegap, double waygap, double vmax);
+        SUMOReal timegap, SUMOReal waygap, SUMOReal vmax);
     static bool dictionary(int id, NIVissimDisturbance *o);
     static NIVissimDisturbance *dictionary(int id);
     static IntVector getWithin(const AbstractPoly &poly);
@@ -88,7 +91,7 @@ private:
     std::string myName;
     NIVissimExtendedEdgePoint myEdge;
     NIVissimExtendedEdgePoint myDisturbance;
-    double myTimeGap, myWayGap, myVMax;
+    SUMOReal myTimeGap, myWayGap, myVMax;
 
     typedef std::map<int, NIVissimDisturbance*> DictType;
     static DictType myDict;

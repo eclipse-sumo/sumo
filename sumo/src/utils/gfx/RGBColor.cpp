@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:07:13  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:18:33  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -58,7 +61,7 @@ RGBColor::RGBColor()
 }
 
 
-RGBColor::RGBColor(double red, double green, double blue)
+RGBColor::RGBColor(SUMOReal red, SUMOReal green, SUMOReal blue)
     : myRed(red), myGreen(green), myBlue(blue)
 {
 }
@@ -69,21 +72,21 @@ RGBColor::~RGBColor()
 }
 
 
-double
+SUMOReal
 RGBColor::red() const
 {
     return myRed;
 }
 
 
-double
+SUMOReal
 RGBColor::green() const
 {
     return myGreen;
 }
 
 
-double
+SUMOReal
 RGBColor::blue() const
 {
     return myBlue;
@@ -91,11 +94,11 @@ RGBColor::blue() const
 
 
 void
-RGBColor::brighten(double by)
+RGBColor::brighten(SUMOReal by)
 {
-    double r = myRed + by;
-    double g = myGreen + by;
-    double b = myBlue + by;
+    SUMOReal r = myRed + by;
+    SUMOReal g = myGreen + by;
+    SUMOReal b = myBlue + by;
     if(r>1.0) r = 1.0;
     if(g>1.0) g = 1.0;
     if(b>1.0) b = 1.0;
@@ -106,11 +109,11 @@ RGBColor::brighten(double by)
 
 
 void
-RGBColor::darken(double by)
+RGBColor::darken(SUMOReal by)
 {
-    double r = myRed - by;
-    double g = myGreen - by;
-    double b = myBlue - by;
+    SUMOReal r = myRed - by;
+    SUMOReal g = myGreen - by;
+    SUMOReal b = myBlue - by;
     if(r<0) r = 0;
     if(g<0) g = 0;
     if(b<0) b = 0;
@@ -152,7 +155,7 @@ operator-(const RGBColor &c1, const RGBColor &c2)
 
 
 RGBColor
-operator*(const RGBColor &c, const double &v)
+operator*(const RGBColor &c, const SUMOReal &v)
 {
     return RGBColor(
         RGBColor::mulChecking(c.myRed, v),
@@ -162,7 +165,7 @@ operator*(const RGBColor &c, const double &v)
 
 
 RGBColor
-operator/(const RGBColor &c, const double &v)
+operator/(const RGBColor &c, const SUMOReal &v)
 {
     return RGBColor(
         RGBColor::divChecking(c.myRed, v),

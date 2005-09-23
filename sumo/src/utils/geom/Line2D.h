@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2005/09/23 06:07:01  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.10  2005/09/15 12:18:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -60,27 +63,27 @@ public:
     Line2D();
     Line2D(const Position2D &p1, const Position2D &p2);
     ~Line2D();
-    void extrapolateBy(double length);
-    void extrapolateFirstBy(double length);
-    void extrapolateSecondBy(double length);
+    void extrapolateBy(SUMOReal length);
+    void extrapolateFirstBy(SUMOReal length);
+    void extrapolateSecondBy(SUMOReal length);
     const Position2D &p1() const;
     const Position2D &p2() const;
-    Position2D getPositionAtDistance(double offset) const;
-    void move2side(double amount);
+    Position2D getPositionAtDistance(SUMOReal offset) const;
+    void move2side(SUMOReal amount);
     DoubleVector intersectsAtLengths(const Position2DVector &v);
-    double intersectsAtLength(const Line2D &v);
-    double atan2Angle() const;
-    double atan2DegreeAngle() const;
-    double atan2PositiveAngle() const;
+    SUMOReal intersectsAtLength(const Line2D &v);
+    SUMOReal atan2Angle() const;
+    SUMOReal atan2DegreeAngle() const;
+    SUMOReal atan2PositiveAngle() const;
     bool intersects(const Line2D &l) const;
     Position2D intersectsAt(const Line2D &l) const;
-    double length() const;
-    void add(double x, double y);
+    SUMOReal length() const;
+    void add(SUMOReal x, SUMOReal y);
     void add(const Position2D &p);
-    void sub(double x, double y);
-    double distanceTo(const Position2D &p) const;
+    void sub(SUMOReal x, SUMOReal y);
+    SUMOReal distanceTo(const Position2D &p) const;
     Line2D &reverse();
-    double nearestPositionTo(const Position2D &p);
+    SUMOReal nearestPositionTo(const Position2D &p);
 
 private:
     Position2D myP1, myP2;

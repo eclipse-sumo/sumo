@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -80,7 +83,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/gfx/GfxConvHelper.h>
 #include "RORouteDef.h"
@@ -149,10 +152,10 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(ROVehicleBuilder &vb,
         addSingleRoute(vb, net, t);
     }
     // fraction
-    double toEmit =
-        (double) myVehicle2EmitNumber
-        / (double) (myIntervalEnd-myIntervalBegin)
-        * (double) (t-myIntervalBegin);
+    SUMOReal toEmit =
+        (SUMOReal) myVehicle2EmitNumber
+        / (SUMOReal) (myIntervalEnd-myIntervalBegin)
+        * (SUMOReal) (t-myIntervalBegin);
     if(toEmit>myEmitted) {
         addSingleRoute(vb, net, t);
     }
@@ -385,7 +388,7 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
         ROVehicle *vehicle = 0;
         if(myPos>=0||mySpeed>=0) {
             vehicle = myVehicleBuilder.buildRunningVehicle(myID, route, myDepartureTime,
-                type, myLane, (float) myPos, (float) mySpeed, myColor, -1, -1);
+                type, myLane, (SUMOReal) myPos, (SUMOReal) mySpeed, myColor, -1, -1);
         } else {
             vehicle = myVehicleBuilder.buildVehicle(myID, route, myDepartureTime,
                 type, myColor, -1, -1);

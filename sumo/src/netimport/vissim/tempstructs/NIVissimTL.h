@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.10  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -44,7 +47,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -55,7 +58,7 @@
 #include <utils/geom/AbstractPoly.h>
 #include <utils/common/IntVector.h>
 #include <utils/common/DoubleVector.h>
-//#include "NIVissimBoundedClusterObject.h"
+#include <utils/common/SUMOTime.h>
 
 
 class NBTrafficLightLogicCont;
@@ -72,7 +75,7 @@ class NIVissimTL
       /*  : public NIVissimBoundedClusterObject */{
 public:
     NIVissimTL(int id, const std::string &type, const std::string &name,
-        double absdur, double offset);
+        SUMOTime absdur, SUMOTime offset);
     ~NIVissimTL();
 //    void computeBounding();
     std::string getType() const;
@@ -80,10 +83,10 @@ public:
 
 public:
     static bool dictionary(int id, const std::string &type,
-        const std::string &name, double absdur, double offset);
+        const std::string &name, SUMOTime absdur, SUMOTime offset);
     static bool dictionary(int id, NIVissimTL *o);
     static NIVissimTL *dictionary(int id);
-//    static IntVector getWithin(const AbstractPoly &poly, double offset);
+//    static IntVector getWithin(const AbstractPoly &poly, SUMOReal offset);
     static void clearDict();
     static bool dict_SetSignals(NBTrafficLightLogicCont &tlc,
         NBEdgeCont &ec);
@@ -103,7 +106,7 @@ public:
     public:
         NIVissimTLSignal(int lsaid, int id, const std::string &name,
             const IntVector &groupids, int edgeid, int laneno,
-            double position, const IntVector &assignedVehicleTypes);
+            SUMOReal position, const IntVector &assignedVehicleTypes);
         ~NIVissimTLSignal();
         bool isWithin(const Position2DVector &poly) const;
         Position2D getPosition() const;
@@ -122,7 +125,7 @@ public:
         IntVector myGroupIDs;
         int myEdgeID;
         int myLane;
-        double myPosition;
+        SUMOReal myPosition;
         IntVector myVehicleTypes;
         static SignalDictType myDict;
     };
@@ -131,7 +134,7 @@ public:
     public:
         NIVissimTLSignalGroup(int lsaid, int id, const std::string &name,
             bool isGreenBegin, const DoubleVector &times,
-            double tredyellow, double tyellow);
+            SUMOTime tredyellow, SUMOTime tyellow);
         ~NIVissimTLSignalGroup();
         bool addTo(NBLoadedTLDef *node) const;
     public:
@@ -146,15 +149,15 @@ public:
         std::string myName;
         DoubleVector myTimes;
         bool myFirstIsRed;
-        double myTRedYellow, myTYellow;
+        SUMOTime myTRedYellow, myTYellow;
         static GroupDictType myDict;
     };
 
 protected:
     int myID;
     std::string myName;
-    double myAbsDuration;
-    double myOffset;
+    SUMOTime myAbsDuration;
+    SUMOTime myOffset;
     NIVissimTLSignalGroup *myCurrentGroup;
     std::string myType;
 private:

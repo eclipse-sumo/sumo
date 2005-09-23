@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:02:34  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -116,8 +119,8 @@ NISUMOHandlerEdges::addEdge(const Attributes &attrs)
             return;
         }
         // get some other parameter
-        double speed = getFloatReporting(attrs, SUMO_ATTR_SPEED, "speed", id);
-        double length = getFloatReporting(attrs, SUMO_ATTR_LENGTH, "length",
+        SUMOReal speed = getFloatReporting(attrs, SUMO_ATTR_SPEED, "speed", id);
+        SUMOReal length = getFloatReporting(attrs, SUMO_ATTR_LENGTH, "length",
             id);
         int nolanes = getIntReporting(attrs, SUMO_ATTR_NOLANES,
             "number of lanes", id);
@@ -153,7 +156,7 @@ NISUMOHandlerEdges::getNode(const Attributes &attrs, unsigned int id,
     return 0;
 }
 
-float
+SUMOReal
 NISUMOHandlerEdges::getFloatReporting(const Attributes &attrs,
                                       AttrEnum id, const std::string &name,
                                       const std::string &objid)

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/23 06:07:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:18:59  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -60,13 +63,13 @@
 class GUIParameterTableItem
 {
 public:
-    /// Constructor for changing values (double-typed)
+    /// Constructor for changing values (SUMOReal-typed)
     GUIParameterTableItem(FXTable *table, size_t pos,
-        const std::string &name, bool dynamic, ValueSource<double> *src);
+        const std::string &name, bool dynamic, ValueSource<SUMOReal> *src);
 
-    /// Constructor for double-typed, non-changing values
+    /// Constructor for SUMOReal-typed, non-changing values
     GUIParameterTableItem(FXTable *table, size_t pos,
-        const std::string &name, bool dynamic, double value);
+        const std::string &name, bool dynamic, SUMOReal value);
 
     /// Constructor for string-typed, non-changing values
     GUIParameterTableItem(FXTable *table, size_t pos,
@@ -91,7 +94,7 @@ public:
     void update();
 
     /// Returns a copy of the source - if the value is dynamic
-    ValueSource<double> *getSourceCopy() const;
+    ValueSource<SUMOReal> *getSourceCopy() const;
 
 private:
     /// Information whether the value may change
@@ -105,10 +108,10 @@ private:
 
     /** @brief The source to gain new values from
         This source is==0 if the values are not dynamic */
-    ValueSource<double> *mySource;
+    ValueSource<SUMOReal> *mySource;
 
     /// A backup of the value to avoid the redrawing when nothing has changed
-    double myValue;
+    SUMOReal myValue;
 
     FXTable *myTable;
 

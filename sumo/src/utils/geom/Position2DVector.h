@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.21  2005/09/23 06:07:01  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.20  2005/09/15 12:18:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -131,11 +134,11 @@ public:
 
     /** @brief Returns the information whether the position vector describes a polygon lying around the given point
         The optional offset is added to the polygon's bounderies */
-    bool around(const Position2D &p, double offset=0) const;
+    bool around(const Position2D &p, SUMOReal offset=0) const;
 
     /** @brief Returns the information whether the given polygon overlaps with this
         Again a boundary may be specified */
-    bool overlapsWith(const AbstractPoly &poly, double offset=0) const;
+    bool overlapsWith(const AbstractPoly &poly, SUMOReal offset=0) const;
 
     /** Returns the information whether this list of points interesects the given line */
     bool intersects(const Position2D &p1, const Position2D &p2) const;
@@ -170,14 +173,14 @@ public:
     size_t size() const;
 
     /// Returns the position at the given length
-    Position2D positionAtLengthPosition(double pos) const;
+    Position2D positionAtLengthPosition(SUMOReal pos) const;
 
     /// Returns the position at the given length
-    double rotationDegreeAtLengthPosition(double pos) const;
+    SUMOReal rotationDegreeAtLengthPosition(SUMOReal pos) const;
 
     /// Returns the position between the two given point at the specified position */
     static Position2D positionAtLengthPosition(const Position2D &p1,
-        const Position2D &p2, double pos);
+        const Position2D &p2, SUMOReal pos);
 
     /// Returns a boundary enclosing this list of lines
     Boundary getBoxBoundary() const;
@@ -190,10 +193,10 @@ public:
     Position2D pop_front();
 
     /// Returns the length
-    double length() const;
+    SUMOReal length() const;
 
     /// Returns the information whether this polygon lies partially within the given polygon
-    bool partialWithin(const AbstractPoly &poly, double offset=0) const;
+    bool partialWithin(const AbstractPoly &poly, SUMOReal offset=0) const;
 
     /// Returns the first position
     const Position2D &getBegin() const;
@@ -202,7 +205,7 @@ public:
     const Position2D &getEnd() const;
 
     /// Returns the two lists made when this list vector is splitted at the given point
-    std::pair<Position2DVector, Position2DVector> splitAt(double where) const;
+    std::pair<Position2DVector, Position2DVector> splitAt(SUMOReal where) const;
 
     /// Output operator
     friend std::ostream &operator<<(std::ostream &os,
@@ -210,7 +213,7 @@ public:
 
     bool crosses(const Position2D &p1, const Position2D &p2) const;
 
-    void reshiftRotate(double xoff, double yoff, double rot);
+    void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 
     Position2DVector convexHull() const;
 
@@ -221,19 +224,19 @@ public:
 		return myCont;
 	}
 
-    Position2DVector resettedBy(double x, double y) const;
+    Position2DVector resettedBy(SUMOReal x, SUMOReal y) const;
 
-	Position2DVector getSubpart(double begin, double end) const;
+	Position2DVector getSubpart(SUMOReal begin, SUMOReal end) const;
 
     void sortAsPolyCWByAngle();
 
     void sortByIncreasingXY();
 
-    void extrapolate(double val);
+    void extrapolate(SUMOReal val);
 
     Position2DVector reverse() const;
 
-    void move2side(double amount);
+    void move2side(SUMOReal amount);
 
     Line2D lineAt(size_t pos) const;
 
@@ -270,28 +273,28 @@ public:
 
     };
 
-    void resetBy(double x, double y);
+    void resetBy(SUMOReal x, SUMOReal y);
     void resetBy(const Position2D &by);
 
 
 	// !!!
-    double isLeft( const Position2D &P0, const Position2D &P1, const Position2D &P2 ) const;
+    SUMOReal isLeft( const Position2D &P0, const Position2D &P1, const Position2D &P2 ) const;
 
     void set(size_t pos, const Position2D &p);
 
     void pruneFromBeginAt(const Position2D &p);
     void pruneFromEndAt(const Position2D &p);
 
-    double beginEndAngle() const;
+    SUMOReal beginEndAngle() const;
 
     void eraseAt(int i);
 
-    double nearest_position_on_line_to_point(const Position2D &p) const;
+    SUMOReal nearest_position_on_line_to_point(const Position2D &p) const;
 
     DoubleVector distances(const Position2DVector &s) const;
     DoubleVector distancesExt(const Position2DVector &s) const;
 
-    double distance(const Position2D &p) const;
+    SUMOReal distance(const Position2D &p) const;
 
 private:
 

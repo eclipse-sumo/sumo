@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -38,12 +41,16 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
 #include <map>
 #include "NIVissimEdgePosMap.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 NIVissimEdgePosMap::NIVissimEdgePosMap()
@@ -57,17 +64,17 @@ NIVissimEdgePosMap::~NIVissimEdgePosMap()
 
 
 void
-NIVissimEdgePosMap::add(int edgeid, double pos)
+NIVissimEdgePosMap::add(int edgeid, SUMOReal pos)
 {
     add(edgeid, pos, pos);
 }
 
 
 void
-NIVissimEdgePosMap::add(int edgeid, double from, double to)
+NIVissimEdgePosMap::add(int edgeid, SUMOReal from, SUMOReal to)
 {
     if(from>to) {
-        double tmp = from;
+        SUMOReal tmp = from;
         from = to;
         to = tmp;
     }
@@ -75,8 +82,8 @@ NIVissimEdgePosMap::add(int edgeid, double from, double to)
     if(i==myCont.end()) {
         myCont[edgeid] = Range(from, to);
     } else {
-        double pfrom = (*i).second.first;
-        double pto = (*i).second.second;
+        SUMOReal pfrom = (*i).second.first;
+        SUMOReal pto = (*i).second.second;
         if(pfrom<from) {
             from = pfrom;
         }

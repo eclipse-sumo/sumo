@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/23 06:07:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:18:59  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -70,7 +73,7 @@ GUIFrame::fillInitOptions(OptionsCont &oc)
     oc.doRegister("help", '?', new Option_Bool(false));
     oc.doRegister("configuration", 'c', new Option_FileName());
     oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.doRegister("allow-floating-aggregated-views", 'F', new Option_Bool(false));
+    oc.doRegister("allow-SUMORealing-aggregated-views", 'F', new Option_Bool(false));
     oc.doRegister("disable-aggregated-views", 'A', new Option_Bool(false));
     oc.doRegister("disable-textures", 'T', new Option_Bool(false));
     oc.doRegister("verbose", 'v', new Option_Bool(false)); // !!!

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -127,7 +130,7 @@ public:
 
     /** @brief Builds and opens all route loaders
         Route loaders are derived from ROAbstractRouteDefLoader */
-    void openRoutes(RONet &net, float gBeta, float gA);
+    void openRoutes(RONet &net, SUMOReal gBeta, SUMOReal gA);
 
     /** @brief Loads routes stepwise
         This is done for all previously build route loaders */

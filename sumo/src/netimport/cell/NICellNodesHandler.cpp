@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/23 06:02:04  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -30,7 +33,7 @@ namespace
 // level3 warnings removed; made netbuild-containers non-static
 //
 // Revision 1.6  2004/08/02 12:44:12  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.5  2004/01/12 15:31:18  dkrajzew
 // node-building classes are now lying in an own folder
@@ -71,7 +74,7 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NICellNodesHandler.h"
@@ -110,10 +113,10 @@ NICellNodesHandler::report(const std::string &result)
                 + '\n' + result.c_str());
         } else {
             string id = NBHelpers::normalIDRepresentation(st.next());
-            double x, y;
+            SUMOReal x, y;
             try {
-                x = TplConvert<char>::_2float(st.next().c_str());
-                y = TplConvert<char>::_2float(st.next().c_str());
+                x = TplConvert<char>::_2SUMOReal(st.next().c_str());
+                y = TplConvert<char>::_2SUMOReal(st.next().c_str());
                 if(!myNodeCont.insert(id, Position2D(x, y))) {
                     MsgHandler::getErrorInstance()->inform(
                         string("Could not build node '") + id + string("'."));

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/23 06:07:01  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:18:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -79,21 +82,21 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 void
-Bresenham::compute(BresenhamCallBack *callBack, double val1, double val2)
+Bresenham::compute(BresenhamCallBack *callBack, SUMOReal val1, SUMOReal val2)
 {
     // case1: both numbers are equal
     if(val1==val2) {
-        for(double step=0; step<val1; step++) {
+        for(SUMOReal step=0; step<val1; step++) {
             callBack->execute(step, step);
         }
 	return;
     }
     // case2: the first value is higher
     if(val1>val2) {
-        double pos = 0;
-        double prop = val2 / val1;
-        double cnt = prop / 2;
-        for(double i=0; i<val1; i++) {
+        SUMOReal pos = 0;
+        SUMOReal prop = val2 / val1;
+        SUMOReal cnt = prop / 2;
+        for(SUMOReal i=0; i<val1; i++) {
             callBack->execute(i, pos);
             cnt += prop;
             if(cnt>=1.0) {
@@ -105,10 +108,10 @@ Bresenham::compute(BresenhamCallBack *callBack, double val1, double val2)
     }
     // case3: the first value is smaller than the second
     if(val1<val2) {
-        double pos = 0;
-        double prop = val1 / val2;
-        double cnt = prop / 2;
-        for(double i=0; i<val2; i++) {
+        SUMOReal pos = 0;
+        SUMOReal prop = val1 / val2;
+        SUMOReal cnt = prop / 2;
+        for(SUMOReal i=0; i<val2; i++) {
             callBack->execute(pos, i);
             cnt += prop;
             if(cnt>=1.0) {

@@ -14,8 +14,8 @@
 #include <algorithm>
 #include <iostream>
 #include <fstream>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/importio/LineReader.h>
 #include <cassert>
@@ -43,7 +43,7 @@ using namespace std;
 std::map<std::string, std::string> idmap;
 
 // det->det pos
-std::map<std::string, float> det2pos;
+std::map<std::string, SUMOReal> det2pos;
 // det->det lane
 std::map<std::string, int> det2lane;
 
@@ -55,11 +55,11 @@ std::map<std::string, std::vector<std::string> > approached;
 // edge->mapped edge
 std::map<std::string, std::string> edgemap;
 // edge->speed
-std::map<std::string, float> speedmap;
+std::map<std::string, SUMOReal> speedmap;
 // edge->lanes
 std::map<std::string, int> lanemap;
 // edge->length
-std::map<std::string, float> lengthmap;
+std::map<std::string, SUMOReal> lengthmap;
 
 
 // det -> edge
@@ -88,23 +88,23 @@ int beginTime, endTime;
 
 
 struct FlowDef {
-    float qKFZ;
-    float qLKW;
-    float vLKW;
-    float vPKW;
+    SUMOReal qKFZ;
+    SUMOReal qLKW;
+    SUMOReal vLKW;
+    SUMOReal vPKW;
     int time;
     std::string det;
-    float isLKW;
+    SUMOReal isLKW;
 };
 
 struct RouteDesc {
     std::vector<std::string> edges2Pass;
     string routename;
 //    std::string det;
-    std::vector<float> q; // [prob] (0-1440)
-    std::vector<float> fLKW; // [qLKW/qKFZ] (0-1440)
-    std::vector<float> isLKW; // [isLKW] (0-1440)
-    float duration;
+    std::vector<SUMOReal> q; // [prob] (0-1440)
+    std::vector<SUMOReal> fLKW; // [qLKW/qKFZ] (0-1440)
+    std::vector<SUMOReal> isLKW; // [isLKW] (0-1440)
+    SUMOReal duration;
 };
 
 // detector -> [flow definition] (0-1440)
@@ -236,7 +236,7 @@ readMap(char *file)
         }
         StringTokenizer st(line, StringTokenizer::WHITECHARS);
         string edge = st.next();
-        double length = 0;
+        SUMOReal length = 0;
         while(st.hasNext()) {
             string tmp = st.next();
             StringTokenizer st2(tmp, ":");
@@ -278,13 +278,13 @@ readNet(char *file)
                 edgeid = edgeid.substr(0, edgeid.find("\""));
                 string tmp = line.substr(line.find("Speed=")+7);
                 tmp = tmp.substr(0, tmp.find("\""));
-                speedmap[edgeid] = TplConvert<char>::_2float(tmp.c_str());
+                speedmap[edgeid] = TplConvert<char>::_2SUMOReal(tmp.c_str());
                 tmp = line.substr(line.find("NoLanes=")+9);
                 tmp = tmp.substr(0, tmp.find("\""));
                 lanemap[edgeid] = TplConvert<char>::_2int(tmp.c_str());
                 tmp = line.substr(line.find("Length=")+8);
                 tmp = tmp.substr(0, tmp.find("\""));
-                lengthmap[edgeid] = TplConvert<char>::_2float(tmp.c_str());
+                lengthmap[edgeid] = TplConvert<char>::_2SUMOReal(tmp.c_str());
             }
         }
         if(line.find("row-logic")!=string::npos) {
@@ -323,7 +323,7 @@ readDetectors(char *file)
                 string lane = st2.next();
                 string dist = st2.next();
                 string edge = edgemap[redge];
-                det2pos[id] = TplConvert<char>::_2float(dist.c_str());
+                det2pos[id] = TplConvert<char>::_2SUMOReal(dist.c_str());
                 det2lane[id] = TplConvert<char>::_2int(lane.c_str()) - 1;
                 if(edge=="") {
                     cout << "Warning: could not find edge '" << redge
@@ -754,8 +754,8 @@ buildFlowsForDetector(const std::string &det)
         if(fd.qKFZ==0) {
             continue;
         }
-        float duration = 0;
-        float speed1 = fd.vPKW;
+        SUMOReal duration = 0;
+        SUMOReal speed1 = fd.vPKW;
         string firstEdge = "";
         for(std::vector<RouteDesc*>::iterator ri = descs.begin(); ri!=descs.end(); ++ri) {
             std::vector<std::string> edges = (*ri)->edges2Pass;
@@ -769,9 +769,9 @@ buildFlowsForDetector(const std::string &det)
             }
             for(; ei!=edges.end()-1; ++ei) {
                 string edge = (*ei);
-                float speed2 = speedmap[edge];
-                float speed = speed1<speed2 ? speed1 : speed2;
-                float length = lengthmap[edge];
+                SUMOReal speed2 = speedmap[edge];
+                SUMOReal speed = speed1<speed2 ? speed1 : speed2;
+                SUMOReal length = lengthmap[edge];
                 duration += (length/speed);
             }
             firstEdge = *(ei-1);
@@ -856,7 +856,7 @@ public:
     dist() : myProb(0) { }
     ~dist() { }
 
-    void add(float prob, T val) {
+    void add(SUMOReal prob, T val) {
         assert(prob>=0);
         myVals.push_back(val);
         myProbs.push_back(prob);
@@ -864,7 +864,7 @@ public:
     }
 
     T get() const {
-        float prob = (float) (((double) rand()/(double) RAND_MAX) * myProb);
+        SUMOReal prob = (SUMOReal) (((SUMOReal) rand()/(SUMOReal) RAND_MAX) * myProb);
         for(int i=0; i<myVals.size(); i++) {
             if(prob<myProbs[i]) {
                 return myVals[i];
@@ -874,14 +874,14 @@ public:
         return myVals[myVals.size()-1];
     }
 
-    float getOverallProb() const {
+    SUMOReal getOverallProb() const {
         return myProb;
     }
 
 private:
-    float myProb;
+    SUMOReal myProb;
     std::vector<T> myVals;
-    std::vector<float> myProbs;
+    std::vector<SUMOReal> myProbs;
 
 };
 
@@ -1160,7 +1160,7 @@ main(int argc, char **argv)
                     srcIndex = srcDist.get();
                     std::vector<std::string> route = droutes[destIndex]->edges2Pass;
                     string type;
-                    float v;
+                    SUMOReal v;
         			if(droutes[destIndex]->isLKW[time]>1) {
 				        droutes[destIndex]->isLKW[time] = droutes[destIndex]->isLKW[time] - 1.;
 				        type = lkwTypes[vehSpeedDist.get()];
@@ -1176,7 +1176,7 @@ main(int argc, char **argv)
                     }
                     v = v / 3.6;
 
-                    int ctime = time * 60 + (60. * (double) car / (double) no);
+                    int ctime = time * 60 + (60. * (SUMOReal) car / (SUMOReal) no);
                     /*
                     if(ctime<=ltime) {
                         ctime = ltime + 1;
@@ -1209,7 +1209,7 @@ main(int argc, char **argv)
             }
             delete[] strm2mi;
             if(overallMeso[(*i).first]!=0) {
-                float rpos = det2pos[(*i).first];
+                SUMOReal rpos = det2pos[(*i).first];
                 if(rpos>lengthmap[detmap[(*i).first]]) {
                     cout << "Warning; Patching detector's '" << (*i).first << "' position from "
                         << rpos << " to " << lengthmap[detmap[(*i).first]] << endl;
@@ -1225,7 +1225,7 @@ main(int argc, char **argv)
                     << (*i).first << ".xml\"/>" << endl;
             }
             for(j2=dets.begin(); j2!=dets.end(); ++j2, ++srcDist) {
-                float rpos = det2pos[*j2];
+                SUMOReal rpos = det2pos[*j2];
                 if(rpos>lengthmap[detmap[*j2]]) {
                     cout << "Warning; Patching detector's '" << *j2 << "' position from "
                         << rpos << " to " << lengthmap[detmap[*j2]] << endl;

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -38,7 +41,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -62,8 +65,8 @@ public:
     static bool dictionary(int id, NIVissimTrafficDescription *o);
     static NIVissimTrafficDescription *dictionary(int id);
     static void clearDict();
-    static double meanSpeed(int id);
-    double meanSpeed() const;
+    static SUMOReal meanSpeed(int id);
+    SUMOReal meanSpeed() const;
 private:
     int myID;
     std::string myName;

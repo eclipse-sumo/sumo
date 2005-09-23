@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -38,7 +41,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -46,8 +49,12 @@ namespace
 #include "NIVissimExtendedEdgePoint.h"
 #include "NIVissimEdge.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 NIVissimExtendedEdgePoint::NIVissimExtendedEdgePoint(
-        int edgeid, IntVector &lanes, double position,
+        int edgeid, IntVector &lanes, SUMOReal position,
         IntVector &assignedVehicles)
     : myEdgeID(edgeid), myLanes(lanes), myPosition(position),
     myAssignedVehicles(assignedVehicles)
@@ -67,7 +74,7 @@ NIVissimExtendedEdgePoint::getEdgeID() const
 }
 
 
-double
+SUMOReal
 NIVissimExtendedEdgePoint::getPosition() const
 {
     return myPosition;

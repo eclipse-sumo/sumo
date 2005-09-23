@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        DoubleVector.cpp -
-//  A simple vector of doubles
+//  A simple vector of SUMOReals
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/09/23 06:05:45  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.13  2005/09/15 12:13:08  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -70,10 +73,10 @@ namespace
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-double
+SUMOReal
 DoubleVectorHelper::sum(const DoubleVector &dv)
 {
-    double sum = 0;
+    SUMOReal sum = 0;
     for(DoubleVector::const_iterator i=dv.begin(); i!=dv.end(); i++) {
         sum += *i;
     }
@@ -82,15 +85,15 @@ DoubleVectorHelper::sum(const DoubleVector &dv)
 
 
 void
-DoubleVectorHelper::normalise(DoubleVector &dv, double msum)
+DoubleVectorHelper::normalise(DoubleVector &dv, SUMOReal msum)
 {
     if(msum==0) {
         // is an error; do nothing
         return;
     }
-    double rsum = sum(dv);
+    SUMOReal rsum = sum(dv);
     if(rsum==0) {
-        set(dv, 1.0/msum/(double) dv.size());
+        set(dv, (SUMOReal) 1.0/msum/(SUMOReal) dv.size());
         return;
     }
     div(dv, rsum/msum);
@@ -98,7 +101,7 @@ DoubleVectorHelper::normalise(DoubleVector &dv, double msum)
 
 
 void
-DoubleVectorHelper::div(DoubleVector &dv, double by)
+DoubleVectorHelper::div(DoubleVector &dv, SUMOReal by)
 {
     for(DoubleVector::iterator i=dv.begin(); i!=dv.end(); i++) {
         *i /= by;
@@ -106,7 +109,7 @@ DoubleVectorHelper::div(DoubleVector &dv, double by)
 }
 
 void
-DoubleVectorHelper::set(DoubleVector &dv, double to)
+DoubleVectorHelper::set(DoubleVector &dv, SUMOReal to)
 {
     for(DoubleVector::iterator i=dv.begin(); i!=dv.end(); i++) {
         *i = to;
@@ -132,10 +135,10 @@ DoubleVectorHelper::removeDouble(DoubleVector &v)
 }
 
 
-double
+SUMOReal
 DoubleVectorHelper::maxValue(const DoubleVector &v)
 {
-    double m = *(v.begin());
+    SUMOReal m = *(v.begin());
     for(DoubleVector::const_iterator j=v.begin()+1; j!=v.end(); j++) {
         if((*j)>m) {
             m = *j;
@@ -146,7 +149,7 @@ DoubleVectorHelper::maxValue(const DoubleVector &v)
 
 
 void
-DoubleVectorHelper::remove_smaller_than(DoubleVector &v, double swell)
+DoubleVectorHelper::remove_smaller_than(DoubleVector &v, SUMOReal swell)
 {
     for(DoubleVector::iterator j=v.begin(); j!=v.end(); ) {
         if((*j)<swell) {
@@ -159,7 +162,7 @@ DoubleVectorHelper::remove_smaller_than(DoubleVector &v, double swell)
 
 
 void
-DoubleVectorHelper::remove_larger_than(DoubleVector &v, double swell)
+DoubleVectorHelper::remove_larger_than(DoubleVector &v, SUMOReal swell)
 {
     for(DoubleVector::iterator j=v.begin(); j!=v.end(); ) {
         if((*j)>swell) {
@@ -171,10 +174,10 @@ DoubleVectorHelper::remove_larger_than(DoubleVector &v, double swell)
 }
 
 
-double
+SUMOReal
 DoubleVectorHelper::minValue(const DoubleVector &v)
 {
-    double m = *(v.begin());
+    SUMOReal m = *(v.begin());
     for(DoubleVector::const_iterator j=v.begin()+1; j!=v.end(); j++) {
         if((*j)<m) {
             m = *j;
@@ -185,7 +188,7 @@ DoubleVectorHelper::minValue(const DoubleVector &v)
 
 
 void
-DoubleVectorHelper::add2All(DoubleVector &v, double what)
+DoubleVectorHelper::add2All(DoubleVector &v, SUMOReal what)
 {
     for(DoubleVector::iterator j=v.begin(); j!=v.end(); j++) {
         (*j) += what;

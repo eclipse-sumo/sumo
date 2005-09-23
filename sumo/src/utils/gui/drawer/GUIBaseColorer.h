@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/23 06:07:53  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:19:10  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -51,7 +54,7 @@ public:
 	GUIBaseColorer() { }
 	virtual ~GUIBaseColorer() { }
 	virtual void setGlColor(const _T& i) const = 0;
-    virtual void setGlColor(double val) const {
+    virtual void setGlColor(SUMOReal val) const {
         glColor3d(val, val, val);
     }
 };

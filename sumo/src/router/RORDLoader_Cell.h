@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -104,7 +107,7 @@ public:
     /// Constructor
     RORDLoader_Cell(ROVehicleBuilder &vb, RONet &net,
         SUMOTime begin, SUMOTime end,
-        double gawronBeta, double gawronA, int maxRoutes,
+        SUMOReal gawronBeta, SUMOReal gawronA, int maxRoutes,
         std::string file="");
 
     /// Destructor
@@ -185,7 +188,7 @@ private:
     bool _isIntel;
 
     /// Values for Christian Gawron's DUA
-    double _gawronBeta, _gawronA;
+    SUMOReal _gawronBeta, _gawronA;
 
     /// The time step read as the last one
     SUMOTime myCurrentTime;

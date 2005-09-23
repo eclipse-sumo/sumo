@@ -13,9 +13,9 @@
 class GUITexturesHelper {
 public:
     static void init(FXApp *a);
-    static void drawTexturedBox(GUITexture which, double size);
+    static void drawTexturedBox(GUITexture which, SUMOReal size);
     static void drawTexturedBox(GUITexture which,
-        double sizeX1, double sizeY1, double sizeX2, double sizeY2);
+        SUMOReal sizeX1, SUMOReal sizeY1, SUMOReal sizeX2, SUMOReal sizeY2);
     static void close();
 
 private:

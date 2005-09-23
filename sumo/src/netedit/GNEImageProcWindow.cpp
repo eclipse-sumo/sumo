@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:01:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:03:02  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -55,7 +58,7 @@ namespace
 #include <utils/gui/images/GUIIconSubSys.h>
 #include "ConfigDialog.h"
 #include "InfoDialog.h"
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
@@ -426,14 +429,14 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
 			for(vector<Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
 				Edge*e = *i;
 				string name = "e" + toString<int>(idbla++);
-				Position2D fromPos(e->GetStartingVertex()->GetX(), -e->GetStartingVertex()->GetY());
+				Position2D fromPos((SUMOReal) e->GetStartingVertex()->GetX(), (SUMOReal) -e->GetStartingVertex()->GetY());
 				NBNode *fromNode = myNetBuilder->getNodeCont().retrieve(fromPos);
 				if(fromNode==0) {
                     string fname = "n" + toString<int>(idbla++);
 					fromNode = new NBNode(fname, fromPos);
                     myNetBuilder->getNodeCont().insert(fromNode);
 				}
-				Position2D toPos(e->GetEndingVertex()->GetX(), -e->GetEndingVertex()->GetY());
+				Position2D toPos((SUMOReal) e->GetEndingVertex()->GetX(), (SUMOReal) -e->GetEndingVertex()->GetY());
 				NBNode *toNode = myNetBuilder->getNodeCont().retrieve(toPos);
 				if(toNode==0) {
                     string tname = "n" + toString<int>(idbla++);
@@ -442,8 +445,8 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
 				}
 				if(fromNode!=toNode) {
 					int lanes = 1;
-					double speed = 13.8;
-					double length = -1;
+					SUMOReal speed = (SUMOReal) 13.8;
+					SUMOReal length = -1;
 					NBEdge *edge = new NBEdge(name, name, fromNode, toNode,
 						"stdtype", speed, lanes, length, -1);
                     myNetBuilder->getEdgeCont().insert(edge);

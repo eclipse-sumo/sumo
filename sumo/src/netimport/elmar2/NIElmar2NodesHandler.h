@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/09/23 06:02:24  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -58,7 +61,7 @@ class NIElmar2NodesHandler : public LineHandler,
 public:
     /// constructor
     NIElmar2NodesHandler(NBNodeCont &nc, const std::string &file,
-        double xmin, double ymin, std::map<std::string, Position2DVector> &geoms);
+        SUMOReal xmin, SUMOReal ymin, std::map<std::string, Position2DVector> &geoms);
 
     /// destructor
     ~NIElmar2NodesHandler();
@@ -72,7 +75,7 @@ protected:
     /// The number of the line that will be read as next
     size_t myCurrentLine;
 
-    double myInitX, myInitY;
+    SUMOReal myInitX, myInitY;
 
     NBNodeCont &myNodeCont;
 

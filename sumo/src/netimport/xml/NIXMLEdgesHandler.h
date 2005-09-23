@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2005/09/23 06:04:00  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:03:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -58,7 +61,7 @@
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:12  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -158,7 +161,7 @@ private:
 
     /** @brief tries to parse one of the node's positions
         Which position has to be parsed is defined by the given call variables */
-    double tryGetPosition(const Attributes &attrs, int tag,
+    SUMOReal tryGetPosition(const Attributes &attrs, int tag,
         const std::string &attrName);
 
     /** @brief Build the enodes in respect to the given parameters
@@ -180,7 +183,7 @@ private:
     std::string myCurrentName;
 
     /// The current edge's maximum speed
-    double myCurrentSpeed;
+    SUMOReal myCurrentSpeed;
 
     /// The current edge's priority
     int myCurrentPriority;
@@ -195,13 +198,13 @@ private:
     std::string myCurrentBegNodeID, myCurrentEndNodeID;
 
     /// The positions of the nodes
-    double myBegNodeXPos, myBegNodeYPos, myEndNodeXPos, myEndNodeYPos;
+    SUMOReal myBegNodeXPos, myBegNodeYPos, myEndNodeXPos, myEndNodeYPos;
 
     /// The nodes
     NBNode *myFromNode, *myToNode;
 
     /// The current edge's length
-    double myLength;
+    SUMOReal myLength;
 
     /// The shape of the edge
     Position2DVector myShape;

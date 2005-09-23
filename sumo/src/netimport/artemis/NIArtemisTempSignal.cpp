@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/23 06:01:53  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -57,7 +60,7 @@ namespace
 NIArtemisTempSignal::NodeToDescsMap     NIArtemisTempSignal::myDescDict;
 NIArtemisTempSignal::ConnectionToPhases NIArtemisTempSignal::myPhasesDict;
 
-NIArtemisTempSignal::PhaseDescription::PhaseDescription(double perc,
+NIArtemisTempSignal::PhaseDescription::PhaseDescription(SUMOReal perc,
                                                         size_t start)
     : myPercentage(perc), myBegin(start)
 {
@@ -88,7 +91,7 @@ NIArtemisTempSignal::ConnectionPhases::~ConnectionPhases()
 
 void
 NIArtemisTempSignal::addPhase(const std::string &nodeid,
-                              char phaseName, double perc, int start)
+                              char phaseName, SUMOReal perc, int start)
 {
     myDescDict[nodeid][phaseName] =
         new PhaseDescription(perc, start);

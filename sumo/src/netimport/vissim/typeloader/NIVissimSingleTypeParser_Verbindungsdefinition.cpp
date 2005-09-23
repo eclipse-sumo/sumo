@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/23 06:02:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.10  2005/04/27 12:24:39  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -61,12 +64,20 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
 #include <utils/geom/Position2DVector.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimConnection.h"
 #include "NIVissimSingleTypeParser_Verbindungsdefinition.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -79,7 +90,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVissimSingleTypeParser_Verbindungsdefinition::NIVissimSingleTypeParser_Verbindungsdefinition(NIVissimLoader &parent)
-    : NIVissimLoader::VissimSingleTypeParser(parent)
+	: NIVissimLoader::VissimSingleTypeParser(parent)
 {
 }
 
@@ -92,7 +103,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::~NIVissimSingleTypeParser_Verbin
 bool
 NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
 {
-    int id;
+	int id;
     from >> id; // type-checking is missing!
     string tag;
     // Read optional value "Name", skip optional value "Beschriftung"
@@ -113,12 +124,12 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
         if(y!="nach") {
             geom.push_back(
                 Position2D(
-                    TplConvert<char>::_2float(x.c_str()),
-                    TplConvert<char>::_2float(y.c_str())
+                    TplConvert<char>::_2SUMOReal(x.c_str()),
+                    TplConvert<char>::_2SUMOReal(y.c_str())
                 ));
             tag = myRead(from);
             try {
-                double tmp = TplConvert<char>::_2float(tag.c_str());
+                SUMOReal tmp = TplConvert<char>::_2SUMOReal(tag.c_str());
                 tag = myRead(from);
             } catch (NumberFormatException &) {
             }
@@ -128,11 +139,11 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
     }
     NIVissimExtendedEdgePoint to_def = readExtEdgePointDef(from);
     // read some optional values until mandatory "Fahrzeugklassen" occures
-    double dxnothalt = 0;
-    double dxeinordnen = 0;
-    double zuschlag1, zuschlag2;
+    SUMOReal dxnothalt = 0;
+    SUMOReal dxeinordnen = 0;
+    SUMOReal zuschlag1, zuschlag2;
     zuschlag1 = zuschlag2 = 0;
-    double seglength = 0;
+    SUMOReal seglength = 0;
     tag = myRead(from);
     NIVissimConnection::Direction direction;
     while(tag!="fahrzeugklassen"&&tag!="sperrung"&&tag!="auswertung"&&tag!="DATAEND") {
@@ -212,3 +223,8 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
     //return NIVissimAbstractEdge::dictionary(id, c);
 }
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/09/23 06:04:23  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:04:48  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -77,7 +80,7 @@ public:
     void colorize();
 
     /// Returns an abstract (computed) color of the district
-    double getDistrictColor(const std::string &name) const;
+    SUMOReal getDistrictColor(const std::string &name) const;
 
 private:
     /// Holds the information whether the districts were colored

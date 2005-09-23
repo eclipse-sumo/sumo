@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/09/23 06:02:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.12  2005/04/27 12:24:39  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -67,15 +70,23 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <cassert>
 #include <iostream>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/IntVector.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimTL.h"
 #include "NIVissimSingleTypeParser_Signalgeberdefinition.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -88,7 +99,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVissimSingleTypeParser_Signalgeberdefinition::NIVissimSingleTypeParser_Signalgeberdefinition(NIVissimLoader &parent)
-    : NIVissimLoader::VissimSingleTypeParser(parent)
+	: NIVissimLoader::VissimSingleTypeParser(parent)
 {
 }
 
@@ -154,11 +165,16 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
     NIVissimTL *tl = NIVissimTL::dictionary(lsaid);
     NIVissimTL::NIVissimTLSignal *signal =
         new NIVissimTL::NIVissimTLSignal(lsaid, id, name, groupids, edgeid,
-            laneno, position, assignedVehicleTypes);
+            laneno, (SUMOReal) position, assignedVehicleTypes);
     if(!NIVissimTL::NIVissimTLSignal::dictionary(lsaid, id, signal)) {
         throw 1; // !!!
     }
     return true;
 }
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.13  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -46,7 +49,7 @@ namespace
 #include <set>
 #include <cassert>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include "NBTrafficLightLogic.h"
@@ -83,15 +86,15 @@ NBLoadedTLDef::SignalGroup::addConnection(const NBConnection &c)
 
 
 void
-NBLoadedTLDef::SignalGroup::addPhaseBegin(double time, TLColor color)
+NBLoadedTLDef::SignalGroup::addPhaseBegin(SUMOTime time, TLColor color)
 {
     myPhases.push_back(PhaseDef(time, color));
 }
 
 
 void
-NBLoadedTLDef::SignalGroup::setYellowTimes(double tRedYellow,
-                                    double tYellow)
+NBLoadedTLDef::SignalGroup::setYellowTimes(SUMOTime tRedYellow,
+										   SUMOTime tYellow)
 {
     myTRedYellow = tRedYellow;
     myTYellow = tYellow;
@@ -107,20 +110,20 @@ NBLoadedTLDef::SignalGroup::sortPhases()
 
 
 void
-NBLoadedTLDef::SignalGroup::patchTYellow(size_t tyellow)
+NBLoadedTLDef::SignalGroup::patchTYellow(SUMOTime tyellow)
 {
     if(myTYellow<tyellow) {
-        WRITE_WARNING(string("TYellow of signal group '") + getID()+ string("' was less than the computed one; patched (was:")+ toString<double>(myTYellow) + string(", is:")+ toString<int>(tyellow) + string(")"));
+        WRITE_WARNING(string("TYellow of signal group '") + getID()+ string("' was less than the computed one; patched (was:")+ toString<SUMOTime>(myTYellow) + string(", is:")+ toString<int>(tyellow) + string(")"));
         myTYellow = tyellow;
     }
 }
 
 /*
 void
-NBLoadedTLDef::SignalGroup::patchFalseGreenPhases(double cycleDuration)
+NBLoadedTLDef::SignalGroup::patchFalseGreenPhases(SUMOReal cycleDuration)
 {
     for(GroupsPhases::iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
-        double duration;
+        SUMOReal duration;
         if(i==myPhases.end()-1) {
             duration = cycleDuration - (*i).myTime + (*myPhases.begin()).myTime;
         } else {
@@ -138,23 +141,23 @@ NBLoadedTLDef::SignalGroup::patchFalseGreenPhases(double cycleDuration)
 */
 
 DoubleVector
-NBLoadedTLDef::SignalGroup::getTimes(double cycleDuration) const
+NBLoadedTLDef::SignalGroup::getTimes(SUMOTime cycleDuration) const
 {
     // within the phase container, we should have the green and red phases
     //  add their times
-    DoubleVector ret;
+    DoubleVector ret; // !!! time vector
     for(GroupsPhases::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
-        ret.push_back((*i).myTime);
+        ret.push_back((SUMOReal) (*i).myTime);
     }
     // further, we possibly should set the yellow phases
     if(myTYellow>0) {
         for(GroupsPhases::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
             if((*i).myColor==TLCOLOR_RED) {
-                double time = (*i).myTime + myTYellow;
+                SUMOTime time = (SUMOTime) (*i).myTime + myTYellow;
                 if(time>cycleDuration) {
                     time = time - cycleDuration ;
                 }
-                ret.push_back(time);
+                ret.push_back((SUMOReal) time);
             } /*else {
                 // verify whether the green phases are long enough
                 if((*i).myTime-myTYellow<5) {
@@ -179,11 +182,11 @@ NBLoadedTLDef::SignalGroup::getLinkNo() const
 
 
 bool
-NBLoadedTLDef::SignalGroup::mayDrive(double time) const
+NBLoadedTLDef::SignalGroup::mayDrive(SUMOTime time) const
 {
 	assert(myPhases.size()!=0);
     for(GroupsPhases::const_reverse_iterator i=myPhases.rbegin(); i!=myPhases.rend(); i++) {
-        double nextTime = (*i).myTime;
+        SUMOTime nextTime = (*i).myTime;
         if(time>=nextTime) {
 /*            if(i==myPhases.rbegin()) {
                 return (*(myPhases.end()-1)).myColor==TLCOLOR_GREEN;
@@ -197,7 +200,7 @@ NBLoadedTLDef::SignalGroup::mayDrive(double time) const
 
 
 bool
-NBLoadedTLDef::SignalGroup::hasYellow(double time) const
+NBLoadedTLDef::SignalGroup::hasYellow(SUMOTime time) const
 {
     bool has_red_now = !mayDrive(time);
     bool had_green = mayDrive(time-myTYellow);
@@ -206,11 +209,11 @@ NBLoadedTLDef::SignalGroup::hasYellow(double time) const
 
 /*
 bool
-NBLoadedTLDef::SignalGroup::mustBrake(double time) const
+NBLoadedTLDef::SignalGroup::mustBrake(SUMOReal time) const
 {
 	assert(myPhases.size()!=0);
     for(GroupsPhases::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
-        double nextTime = (*i).myTime;
+        SUMOReal nextTime = (*i).myTime;
         if(nextTime>time) {
             if(i==myPhases.begin()) {
                 return (*(myPhases.end()-1)).myColor==TLCOLOR_RED;
@@ -393,7 +396,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string 
     MsgHandler::getWarningInstance()->clear(); // !!!
     NBLoadedTLDef::SignalGroupCont::const_iterator i;
     // compute the switching times
-    std::set<double> tmpSwitchTimes;
+    std::set<SUMOReal> tmpSwitchTimes;
     for(i=mySignalGroups.begin(); i!=mySignalGroups.end(); i++) {
         NBLoadedTLDef::SignalGroup *group = (*i).second;
         // needed later
@@ -412,7 +415,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string 
             tmpSwitchTimes.insert(*k);
         }
     }
-    std::vector<double> switchTimes;
+    std::vector<SUMOReal> switchTimes;
     copy(tmpSwitchTimes.begin(), tmpSwitchTimes.end(),
         back_inserter(switchTimes));
     sort(switchTimes.begin(), switchTimes.end());
@@ -425,7 +428,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string 
     // build the phases
     NBTrafficLightLogic *logic =
         new NBTrafficLightLogic(getID(), noSignals);
-    for(std::vector<double>::iterator l=switchTimes.begin(); l!=switchTimes.end(); l++) {
+    for(std::vector<SUMOReal>::iterator l=switchTimes.begin(); l!=switchTimes.end(); l++) {
         // compute the duration of the current phase
         size_t duration;
         if(l!=switchTimes.end()-1) {
@@ -679,8 +682,8 @@ NBLoadedTLDef::addSignalGroup(const std::string &id)
 
 
 void
-NBLoadedTLDef::addSignalGroupPhaseBegin(const std::string &groupid, double time,
-                                 TLColor color)
+NBLoadedTLDef::addSignalGroupPhaseBegin(const std::string &groupid, SUMOTime time,
+										TLColor color)
 {
     assert(mySignalGroups.find(groupid)!=mySignalGroups.end());
     mySignalGroups[groupid]->addPhaseBegin(time, color);
@@ -688,7 +691,7 @@ NBLoadedTLDef::addSignalGroupPhaseBegin(const std::string &groupid, double time,
 
 void
 NBLoadedTLDef::setSignalYellowTimes(const std::string &groupid,
-                             double myTRedYellow, double myTYellow)
+									SUMOTime myTRedYellow, SUMOTime myTYellow)
 {
     assert(mySignalGroups.find(groupid)!=mySignalGroups.end());
     mySignalGroups[groupid]->setYellowTimes(myTRedYellow, myTYellow);

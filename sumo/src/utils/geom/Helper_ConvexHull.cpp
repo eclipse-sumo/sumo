@@ -13,7 +13,7 @@
 
 
 // Assume that a class is already given for the object:
-//    Position2D with coordinates {float x, y;}
+//    Position2D with coordinates {SUMOReal x, y;}
 //===================================================================
 
 #include <utils/common/UtilExceptions.h>

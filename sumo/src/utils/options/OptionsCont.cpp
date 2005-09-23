@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/23 06:11:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:21:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -263,7 +266,7 @@ OptionsCont::getString(const string &name) const
 }
 
 
-float
+SUMOReal
 OptionsCont::getFloat(const string &name) const
 {
     Option *o = getSecure(name);

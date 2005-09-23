@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2005/09/23 06:11:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:21:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -153,8 +156,8 @@ public:
         (only for Option_String) */
     std::string getString(const std::string &name) const;
 
-    /** returns the float-value of the named option (only for Option_Float) */
-    float getFloat(const std::string &name) const;
+    /** returns the SUMOReal-value of the named option (only for Option_Float) */
+    SUMOReal getFloat(const std::string &name) const;
 
     /** returns the int-value of the named option (only for Option_Intger) */
     int getInt(const std::string &name) const;
@@ -210,7 +213,7 @@ private:
     /** returns the named option */
     Option *getSecure(const std::string &name) const;
 
-    /** writes the warning about double setting to cout */
+    /** writes the warning about SUMOReal setting to cout */
     void reportDoubleSetting(const std::string &arg) const;
 
     /** converts an abbreviation into a name */

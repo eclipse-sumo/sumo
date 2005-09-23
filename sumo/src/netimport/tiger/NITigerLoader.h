@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2005/09/23 06:02:42  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -89,13 +92,13 @@ protected:
 
     std::string getType(const std::vector<std::string> &sv) const;
 
-    double getSpeed(const std::string &type) const;
+    SUMOReal getSpeed(const std::string &type) const;
 
     int getLaneNo(const std::string &type) const;
 
 protected:
     bool myWasSet;
-    double myInitX, myInitY;
+    SUMOReal myInitX, myInitY;
     NBEdgeCont &myEdgeCont;
     NBNodeCont &myNodeCont;
 

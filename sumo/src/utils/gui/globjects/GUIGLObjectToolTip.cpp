@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
 //                        GUIGLObjectToolTip.cpp -
-//  A tooltip floating over a window
+//  A tooltip SUMORealing over a window
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/23 06:08:31  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:19:44  dkrajzew
 // LARGE CODE RECHECK
 //

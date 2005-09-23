@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:05:45  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:13:08  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -221,14 +224,14 @@ FileHelpers::readUInt(std::istream &strm, bool intelFile)
 }
 
 
-float
+SUMOReal
 FileHelpers::readFloat(std::istream &strm, bool intelFile)
 {
-    float flt;
+    SUMOReal flt;
     strm.read((char*) &flt, sizeof(char)*4);
 #ifdef SUN
     if(!intelFile) {
-        float flt2;
+        SUMOReal flt2;
         ((char*) &flt2)[0] = ((char*) &flt)[3];
         ((char*) &flt2)[1] = ((char*) &flt)[2];
         ((char*) &flt2)[2] = ((char*) &flt)[1];
@@ -292,7 +295,7 @@ FileHelpers::writeUInt(std::ostream &strm, unsigned int value)
 
 
 std::ostream &
-FileHelpers::writeFloat(std::ostream &strm, float value)
+FileHelpers::writeFloat(std::ostream &strm, SUMOReal value)
 {
     strm.write((char*) &value, sizeof(char)*4);
     return strm;

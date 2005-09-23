@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -35,7 +38,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -51,11 +54,11 @@ class NIVissimEdgePosMap {
 public:
     NIVissimEdgePosMap();
     ~NIVissimEdgePosMap();
-    void add(int edgeid, double pos);
-    void add(int edgeid, double from, double to);
+    void add(int edgeid, SUMOReal pos);
+    void add(int edgeid, SUMOReal from, SUMOReal to);
     void join(NIVissimEdgePosMap &with);
 private:
-    typedef std::pair<double, double> Range;
+    typedef std::pair<SUMOReal, SUMOReal> Range;
     typedef std::map<int, Range> ContType;
     ContType myCont;
 };

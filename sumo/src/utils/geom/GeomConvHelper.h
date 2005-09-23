@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/23 06:07:01  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:18:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -52,7 +55,7 @@ class GeomConvHelper {
 public:
     /** @brief This method builds a Position2DVector from a string representation
         It is assumed, the vector is stored as "x,y{ x,y}*" where x and y are
-        floats. */
+        SUMOReals. */
     static Position2DVector parseShape(const std::string &shpdef);
 
 };

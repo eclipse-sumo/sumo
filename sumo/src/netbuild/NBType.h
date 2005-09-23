@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -43,7 +46,7 @@
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:12  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -79,7 +82,7 @@
 class NBType {
 public:
     /** parameterised constructor */
-    NBType(const std::string &name, int noLanes, double speed, int priority);
+    NBType(const std::string &name, int noLanes, SUMOReal speed, int priority);
 
     /** destructor */
     ~NBType();
@@ -95,7 +98,7 @@ private:
     int       _noLanes;
 
     /** the speed on a section/edge of this type */
-    double    _speed;
+    SUMOReal    _speed;
 
     /** the priority of the edge/section of this type */
     int       _priority;

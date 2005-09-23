@@ -23,6 +23,9 @@ namespace
 		 "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:05:45  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:13:08  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -54,7 +57,7 @@ namespace
 #include <iostream>
 #include <sax2/XMLReaderFactory.hpp>
 #include <util/PlatformUtils.hpp>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/GenericSAX2Handler.h>
 #include "XMLHelpers.h"

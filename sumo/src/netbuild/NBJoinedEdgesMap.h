@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -87,7 +90,7 @@ private:
     /// Map of edge names to lists of previous edges the current edge is made of
     JoinedEdgesMap myMap;
 
-    std::map<std::string, float> myLengths;
+    std::map<std::string, SUMOReal> myLengths;
 
 };
 

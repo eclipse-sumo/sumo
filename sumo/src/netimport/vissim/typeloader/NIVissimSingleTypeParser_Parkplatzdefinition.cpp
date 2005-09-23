@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:02:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/04/27 12:24:38  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -49,11 +52,15 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
 #include <vector>
 #include <utility>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 #include <utils/common/IntVector.h>
 #include <utils/common/DoubleVector.h>
 #include <netbuild/NBDistrictCont.h>
@@ -63,6 +70,10 @@ namespace
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimDistrictConnection.h"
 #include "NIVissimSingleTypeParser_Parkplatzdefinition.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -103,7 +114,7 @@ NIVissimSingleTypeParser_Parkplatzdefinition::parse(std::istream &from)
     DoubleVector percentages;
     readUntil(from, "bezirke"); // "Bezirke"
     while(tag!="ort") {
-        double perc = -1;
+        SUMOReal perc = -1;
         int districtid;
         from >> districtid;
         tag = myRead(from);
@@ -119,11 +130,11 @@ NIVissimSingleTypeParser_Parkplatzdefinition::parse(std::istream &from)
     int edgeid;
     from >> edgeid;
 
-    double position;
+    SUMOReal position;
     from >> tag; // "bei"
     from >> position;
 
-    double length;
+    SUMOReal length;
     from >> tag;
     from >> length;
 
@@ -152,4 +163,8 @@ NIVissimSingleTypeParser_Parkplatzdefinition::parse(std::istream &from)
     return NIVissimDistrictConnection::dictionary(id, name,
         districts, percentages, edgeid, position, assignedVehicles);
 }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+// Local Variables:
+// mode:C++
+// End:

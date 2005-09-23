@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.18  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -154,7 +157,7 @@ NBTrafficLightLogic::addStep(size_t duration,
 
 
 void
-NBTrafficLightLogic::writeXML(ostream &into, size_t no, double distance,
+NBTrafficLightLogic::writeXML(ostream &into, size_t no, SUMOReal distance,
                               std::string type,
                               const std::set<string> &inLanes) const
 {
@@ -289,13 +292,13 @@ NBTrafficLightLogic::checkOffsetFor(const std::string &optionName) const
 
 
 size_t
-NBTrafficLightLogic::computeOffsetFor(double offsetMult) const
+NBTrafficLightLogic::computeOffsetFor(SUMOReal offsetMult) const
 {
     size_t dur = 0;
     for(size_t i=0; i<_phases.size(); ++i) {
         dur += _phases[i].duration;
     }
-    return (size_t) ((double) dur * offsetMult);
+    return (size_t) ((SUMOReal) dur * offsetMult);
 }
 
 

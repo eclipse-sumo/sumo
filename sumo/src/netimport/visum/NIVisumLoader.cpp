@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/23 06:03:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -71,8 +74,8 @@ namespace
 
 #include <string>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include "NIVisumLoader.h"
@@ -234,17 +237,17 @@ NIVisumLoader::NIVisumSingleDataTypeParser::addError2(
 
 
 
-float
+SUMOReal
 NIVisumLoader::NIVisumSingleDataTypeParser::getWeightedFloat(
     const std::string &name)
 {
     try {
-        return TplConvert<char>::_2float(myLineParser.get(name).c_str());
+        return TplConvert<char>::_2SUMOReal(myLineParser.get(name).c_str());
     } catch (...) {
     }
     try {
         return
-            TplConvert<char>::_2float(myLineParser.get(
+            TplConvert<char>::_2SUMOReal(myLineParser.get(
               (name+string("(IV)"))).c_str());
     } catch (...) {
     }

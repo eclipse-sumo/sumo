@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.14  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -53,7 +56,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -63,7 +66,7 @@ namespace
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundary.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include "NIVissimConnection.h"
 #include <netbuild/NBLoadedTLDef.h>
 #include <netbuild/NBEdge.h>
@@ -76,6 +79,10 @@ namespace
 #include "NIVissimEdge.h"
 #include "NIVissimTL.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 using namespace std;
 
 
@@ -86,7 +93,7 @@ NIVissimTL::NIVissimTLSignal::NIVissimTLSignal(int lsaid, int id,
                                                const IntVector &groupids,
                                                int edgeid,
                                                int laneno,
-                                               double position,
+                                               SUMOReal position,
                                                const IntVector &vehicleTypes)
     : myLSA(lsaid), myID(id), myName(name), myGroupIDs(groupids),
     myEdgeID(edgeid), myLane(laneno), myPosition(position),
@@ -246,7 +253,7 @@ NIVissimTL::NIVissimTLSignalGroup::NIVissimTLSignalGroup(
         int lsaid, int id,
         const std::string &name,
         bool isGreenBegin, const DoubleVector &times,
-        double tredyellow, double tyellow)
+        SUMOTime tredyellow, SUMOTime tyellow)
     : myLSA(lsaid), myID(id), myName(name), myTimes(times),
     myFirstIsRed(!isGreenBegin), myTRedYellow(tredyellow),
     myTYellow(tyellow)
@@ -329,9 +336,9 @@ NIVissimTL::NIVissimTLSignalGroup::addTo(NBLoadedTLDef *tl) const
     NBTrafficLightDefinition::TLColor color = myFirstIsRed
         ? NBTrafficLightDefinition::TLCOLOR_RED : NBTrafficLightDefinition::TLCOLOR_GREEN;
     string id = toString<int>(myID);
-    tl->addSignalGroup(id);
+    tl->addSignalGroup(id); // !!! myTimes als SUMOTime
     for(DoubleVector::const_iterator i=myTimes.begin(); i!=myTimes.end(); i++) {
-        tl->addSignalGroupPhaseBegin(id, *i, color);
+        tl->addSignalGroupPhaseBegin(id, (SUMOTime) *i, color);
         color = color==NBTrafficLightDefinition::TLCOLOR_RED
             ? NBTrafficLightDefinition::TLCOLOR_GREEN : NBTrafficLightDefinition::TLCOLOR_RED;
     }
@@ -356,8 +363,8 @@ NIVissimTL::NIVissimTLSignalGroup::addTo(NBLoadedTLDef *tl) const
 NIVissimTL::DictType NIVissimTL::myDict;
 
 NIVissimTL::NIVissimTL(int id, const std::string &type,
-                       const std::string &name, double absdur,
-                       double offset)
+                       const std::string &name, SUMOTime absdur,
+                       SUMOTime offset)
     : myID(id), myName(name), myAbsDuration(absdur), myOffset(offset),
     myCurrentGroup(0), myType(type)
 
@@ -375,8 +382,8 @@ NIVissimTL::~NIVissimTL()
 
 bool
 NIVissimTL::dictionary(int id, const std::string &type,
-                       const std::string &name, double absdur,
-                       double offset)
+                       const std::string &name, SUMOTime absdur,
+                       SUMOTime offset)
 {
     NIVissimTL *o = new NIVissimTL(id, type, name, absdur, offset);
     if(!dictionary(id, o)) {
@@ -410,7 +417,7 @@ NIVissimTL::dictionary(int id)
 
 /*
 IntVector
-NIVissimTL::getWithin(const AbstractPoly &poly, double offset)
+NIVissimTL::getWithin(const AbstractPoly &poly, SUMOReal offset)
 {
     IntVector ret;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {

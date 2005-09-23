@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.23  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -126,7 +129,7 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -504,8 +507,8 @@ RONet::getRandomSource()
         return 0;
     }
     // choose an edge by random
-    double random = double( rand() ) /
-        ( static_cast<double>(RAND_MAX) + 1);
+    SUMOReal random = SUMOReal( rand() ) /
+        ( static_cast<SUMOReal>(RAND_MAX) + 1);
     return mySourceEdges[(size_t) (random*(mySourceEdges.size()-1))];
 }
 
@@ -520,8 +523,8 @@ RONet::getRandomDestination()
     }
     // choose an edge by random
     // choose an edge by random
-    double random = double( rand() ) /
-        ( static_cast<double>(RAND_MAX) + 1);
+    SUMOReal random = SUMOReal( rand() ) /
+        ( static_cast<SUMOReal>(RAND_MAX) + 1);
     return myDestinationEdges[(size_t) (random*(myDestinationEdges.size()-1))];
 }
 

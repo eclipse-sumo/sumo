@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2005/09/23 06:01:05  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.15  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -76,7 +79,7 @@
 // new computation flow
 //
 // Revision 1.3  2002/04/26 10:07:10  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.2  2002/04/25 14:15:07  dkrajzew
 // The assignement of priorities of incoming edges improved; now,
@@ -139,9 +142,9 @@ public:
     static void nextCCW(const EdgeVector * edges,
         EdgeVector::const_iterator &from);
 
-    static double getMaxSpeed(const EdgeVector &edges);
+    static SUMOReal getMaxSpeed(const EdgeVector &edges);
 
-    static double getMinSpeed(const EdgeVector &edges);
+    static SUMOReal getMinSpeed(const EdgeVector &edges);
 
     /** writes the vector of bools to the given stream */
     static std::ostream &out(std::ostream &os, const std::vector<bool> &v);
@@ -163,7 +166,7 @@ public:
 
     private:
         /// Converts the angle of the edge if it is an incoming edge
-        double getConvAngle(NBEdge *e) const;
+        SUMOReal getConvAngle(NBEdge *e) const;
 
     private:
         /// the edge to compute the relative angle of
@@ -188,9 +191,9 @@ public:
     public:
         /// comparing operation
         int operator() (NBEdge *e1, NBEdge *e2) const {
-            double relAngle1 = NBHelpers::normRelAngle(
+            SUMOReal relAngle1 = NBHelpers::normRelAngle(
                 _edge->getAngle(), e1->getAngle());
-            double relAngle2 = NBHelpers::normRelAngle(
+            SUMOReal relAngle2 = NBHelpers::normRelAngle(
                 _edge->getAngle(), e2->getAngle());
             return relAngle1 > relAngle2;
         }
@@ -217,9 +220,9 @@ public:
     public:
         /// comparing operation
         int operator() (EdgeLane e1, EdgeLane e2) const {
-            double relAngle1 = NBHelpers::normRelAngle(
+            SUMOReal relAngle1 = NBHelpers::normRelAngle(
                 _edge->getAngle(), e1.edge->getAngle());
-            double relAngle2 = NBHelpers::normRelAngle(
+            SUMOReal relAngle2 = NBHelpers::normRelAngle(
                 _edge->getAngle(), e2.edge->getAngle());
             return relAngle1 > relAngle2;
         }
@@ -266,16 +269,16 @@ public:
             if(_edge==e1) {
                 return 0;
             }
-            double d1 = getDiff(e1);
-            double d2 = getDiff(e2);
+            SUMOReal d1 = getDiff(e1);
+            SUMOReal d2 = getDiff(e2);
             return d1 < d2;
         }
 
         /** helping method for the computation of the absolut difference
          * between the edges' angles
          */
-        double getDiff(NBEdge *e) const {
-            double d = e->getAngle()+180;
+        SUMOReal getDiff(NBEdge *e) const {
+            SUMOReal d = e->getAngle()+180;
             if(d>=360) {
                 d -= 360;
             }
@@ -284,7 +287,7 @@ public:
 
     private:
         /// the angle to find the edge with the opposite direction
-        double _angle;
+        SUMOReal _angle;
 
         /// the edge - to avoid comparison of an edge with itself
         NBEdge *_edge;
@@ -305,22 +308,22 @@ public:
 
         /// comparing operation
         int operator() (NBEdge *e1, NBEdge *e2) const {
-            double d1 = getDiff(e1);
-            double d2 = getDiff(e2);
+            SUMOReal d1 = getDiff(e1);
+            SUMOReal d2 = getDiff(e2);
             return d1 < d2;
         }
 
         /** helping method for the computation of the absolut difference
          * between the edges' angles
          */
-        double getDiff(NBEdge *e) const {
-            double d = e->getAngle();
+        SUMOReal getDiff(NBEdge *e) const {
+            SUMOReal d = e->getAngle();
             return fabs(d - _angle);
         }
 
     private:
         /// the angle to find the edge with the opposite direction
-        double _angle;
+        SUMOReal _angle;
     };
 
 
@@ -394,7 +397,7 @@ public:
 
 
     /** returns the maximum speed allowed on the edges */
-    static double maxSpeed(const EdgeVector &ev);
+    static SUMOReal maxSpeed(const EdgeVector &ev);
 
     /**
      * same_connection_edge_sorter
@@ -409,8 +412,8 @@ public:
 
         /// comparing operation
         int operator() (NBEdge *e1, NBEdge *e2) const {
-            std::pair<double, double> mm1 = getMinMaxRelAngles(e1);
-            std::pair<double, double> mm2 = getMinMaxRelAngles(e2);
+            std::pair<SUMOReal, SUMOReal> mm1 = getMinMaxRelAngles(e1);
+            std::pair<SUMOReal, SUMOReal> mm2 = getMinMaxRelAngles(e2);
             assert(
                 (mm1.first<=mm2.first&&mm1.second<=mm2.second)
                 ||
@@ -421,12 +424,12 @@ public:
         /**
          *
          */
-        std::pair<double, double> getMinMaxRelAngles(NBEdge *e) const {
-            double min = 360;
-            double max = 360;
+        std::pair<SUMOReal, SUMOReal> getMinMaxRelAngles(NBEdge *e) const {
+            SUMOReal min = 360;
+            SUMOReal max = 360;
             const EdgeVector &ev = e->getConnected();
             for(EdgeVector::const_iterator i=ev.begin(); i!=ev.end(); i++) {
-                double angle = NBHelpers::normRelAngle(
+                SUMOReal angle = NBHelpers::normRelAngle(
                     e->getAngle(), (*i)->getAngle());
                 if(min==360||min>angle) {
                      min = angle;
@@ -435,7 +438,7 @@ public:
                     max = angle;
                 }
             }
-            return std::pair<double, double>(min, max);
+            return std::pair<SUMOReal, SUMOReal>(min, max);
         }
     };
 

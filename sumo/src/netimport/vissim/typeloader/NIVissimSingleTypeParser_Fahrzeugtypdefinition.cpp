@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/23 06:02:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/04/27 12:24:38  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -40,12 +43,20 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimVehicleType.h"
 #include "NIVissimSingleTypeParser_Fahrzeugtypdefinition.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -99,26 +110,26 @@ NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream &from)
                 from >> g; // type-checking is missing!
                 from >> b; // type-checking is missing!
                 color = RGBColor(
-                    (double) r / 255.0,
-                    (double) g / 255.0,
-                    (double) b / 255.0 );
+                    (SUMOReal) r / (SUMOReal) 255.0,
+                    (SUMOReal) g / (SUMOReal) 255.0,
+                    (SUMOReal) b / (SUMOReal) 255.0 );
             }
         }
         tag = myRead(from);
     }
-    double length;
+    SUMOReal length;
     from >> length;
     // overread until "Maxbeschleunigung"
     while(tag!="maxbeschleunigung") {
         tag = myRead(from);
     }
-    double amax;
+    SUMOReal amax;
     from >> amax; // type-checking is missing!
     // overread until "Maxverzoegerung"
     while(tag!="maxverzoegerung") {
         tag = myRead(from);
     }
-    double dmax;
+    SUMOReal dmax;
     from >> dmax; // type-checking is missing!
     while(tag!="besetzungsgrad") {
         tag = myRead(from);
@@ -129,4 +140,8 @@ NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream &from)
     return NIVissimVehicleType::dictionary(id, name,
         category, length, color, amax, dmax);
 }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+// Local Variables:
+// mode:C++
+// End:

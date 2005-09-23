@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -56,7 +59,7 @@ namespace
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-ROLane::ROLane(const std::string &id, double length, double maxSpeed)
+ROLane::ROLane(const std::string &id, SUMOReal length, SUMOReal maxSpeed)
     : Named(id), myLength(length), myMaxSpeed(maxSpeed)
 {
 }
@@ -67,14 +70,14 @@ ROLane::~ROLane()
 }
 
 
-double
+SUMOReal
 ROLane::getLength() const
 {
     return myLength;
 }
 
 
-double
+SUMOReal
 ROLane::getSpeed() const
 {
     return myMaxSpeed;

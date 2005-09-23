@@ -56,9 +56,9 @@ operator<<(BinaryOutputDevice &os, const unsigned int &i)
 
 
 BinaryOutputDevice &
-operator<<(BinaryOutputDevice &os, const float &f)
+operator<<(BinaryOutputDevice &os, const SUMOReal &f)
 {
-    os.myStream.write((char*) &f, sizeof(float));
+    os.myStream.write((char*) &f, sizeof(SUMOReal));
     return os;
 }
 

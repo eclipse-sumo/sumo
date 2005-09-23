@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.14  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -73,8 +76,8 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 #include <utils/common/Named.h>
 #include <utils/common/StringUtils.h>
 #include <utils/common/MsgHandler.h>

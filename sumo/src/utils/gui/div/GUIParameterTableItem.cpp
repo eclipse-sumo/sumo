@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/23 06:07:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:18:59  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -47,7 +50,7 @@ namespace
 
 #include <string>
 #include "GUIParameterTableItem.h"
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 
 #ifdef _DEBUG
@@ -61,22 +64,22 @@ namespace
 GUIParameterTableItem::GUIParameterTableItem(FXTable *table, size_t pos,
                                              const std::string &name,
                                              bool dynamic,
-                                             ValueSource<double> *src)
+                                             ValueSource<SUMOReal> *src)
     : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(src),
     myValue(src->getValue()), myTable(table)
 {
-    init(dynamic, toString<double>(src->getValue()));
+    init(dynamic, toString<SUMOReal>(src->getValue()));
 }
 
 
 GUIParameterTableItem::GUIParameterTableItem(FXTable *table, size_t pos,
                                              const std::string &name,
                                              bool dynamic,
-                                             double value)
+                                             SUMOReal value)
     : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(0),
     myValue(value), myTable(table)
 {
-    init(dynamic, toString<double>(value));
+    init(dynamic, toString<SUMOReal>(value));
 }
 
 
@@ -134,16 +137,16 @@ GUIParameterTableItem::update()
     if(!dynamic()||mySource==0) {
         return;
     }
-    double value = mySource->getValue();
+    SUMOReal value = mySource->getValue();
     if(value!=myValue) {
         myValue = value;
         myTable->setItemText(myTablePosition, 1,
-            toString<double>(myValue).c_str());
+            toString<SUMOReal>(myValue).c_str());
     }
 }
 
 
-ValueSource<double> *
+ValueSource<SUMOReal> *
 GUIParameterTableItem::getSourceCopy() const
 {
     if(mySource==0) {

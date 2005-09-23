@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:07:13  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:18:33  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -53,7 +56,7 @@ class GfxConvHelper {
 public:
     /** @brief parses a color information
         It is assumed that the color is stored as "<RED>,<GREEN>,<BLUE>"
-        And each color is represented as a float. */
+        And each color is represented as a SUMOReal. */
     static RGBColor parseColor(const std::string &coldef);
 
 };

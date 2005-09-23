@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/23 06:03:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -51,8 +54,8 @@ namespace
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/TplConvertSec.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/TplConvertSec.h>
 #include <netbuild/NBHelpers.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBTypeCont.h>
@@ -105,11 +108,11 @@ NIVisumParser_EdgePolys::myDependentReport()
         }
         bool failed = false;
         int index;
-        float x, y;
+        SUMOReal x, y;
         try {
             index = TplConvert<char>::_2int(myLineParser.get("INDEX").c_str());
-            x = TplConvert<char>::_2float(myLineParser.get("XKoord").c_str());
-            y = TplConvert<char>::_2float(myLineParser.get("YKoord").c_str());
+            x = TplConvert<char>::_2SUMOReal(myLineParser.get("XKoord").c_str());
+            y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKoord").c_str());
         } catch(NumberFormatException&) {
             MsgHandler::getErrorInstance()->inform(
                 string("Error in geometry description from node '") + from->getID()

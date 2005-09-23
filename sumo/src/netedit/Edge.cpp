@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/23 06:01:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:03:02  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -133,9 +136,9 @@ Edge::SetSpeed(int sp)
     speed=sp;
 }
 
-double Edge::Setlength()
+SUMOReal Edge::Setlength()
 {
-	double ergebnis;
+	SUMOReal ergebnis;
 
 	Vertex* ptemp = starting;
 	Vertex* qtemp = ending;
@@ -158,13 +161,13 @@ double Edge::Setlength()
 	}
 	else distanz_y=y1-y2;
 
-	ergebnis=sqrt((double) ((distanz_x * distanz_x) + (distanz_y *distanz_y)));
+	ergebnis=sqrt((SUMOReal) ((distanz_x * distanz_x) + (distanz_y *distanz_y)));
 
 
 	return ergebnis;
 }
 
-double Edge::GetLength()
+SUMOReal Edge::GetLength()
 {
 	return length;
 }

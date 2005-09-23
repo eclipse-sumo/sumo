@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/23 06:02:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/04/27 12:24:39  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -43,13 +46,21 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimVehicleClass.h"
 #include "../tempstructs/NIVissimVehicleClassVector.h"
 #include "../tempstructs/NIVissimTrafficDescription.h"
 #include "NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -92,7 +103,7 @@ NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition::parse(std::istream 
     while(tag!="DATAEND") {
         int type;
         from >> type;
-        double percentage;
+        SUMOReal percentage;
         from >> tag;
         from >> percentage;
         int vwish;
@@ -105,3 +116,8 @@ NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition::parse(std::istream 
     return NIVissimTrafficDescription::dictionary(id, name, assignedTypes);
 }
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:

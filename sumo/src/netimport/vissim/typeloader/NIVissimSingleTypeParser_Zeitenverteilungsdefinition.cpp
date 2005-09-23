@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/23 06:02:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/04/27 12:24:39  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -40,15 +43,23 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include "../NIVissimLoader.h"
 #include <utils/distribution/Distribution_Points.h>
 #include <utils/distribution/Distribution_MeanDev.h>
 #include <netbuild/NBDistribution.h>
 #include "NIVissimSingleTypeParser_Zeitenverteilungsdefinition.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -83,7 +94,7 @@ NIVissimSingleTypeParser_Zeitenverteilungsdefinition::parse(std::istream &from)
     do {
         tag = readEndSecure(from);
         if(tag=="mittelwert") {
-            double mean, deviation;
+            SUMOReal mean, deviation;
             from >> mean;
             from >> tag;
             from >> deviation;
@@ -91,9 +102,9 @@ NIVissimSingleTypeParser_Zeitenverteilungsdefinition::parse(std::istream &from)
                 new Distribution_MeanDev(id, mean, deviation));
         }
         if(tag!="DATAEND") {
-            double p1 = TplConvert<char>::_2float(tag.c_str());
+            SUMOReal p1 = TplConvert<char>::_2SUMOReal(tag.c_str());
             from >> tag;
-            double p2 = TplConvert<char>::_2float(tag.c_str());
+            SUMOReal p2 = TplConvert<char>::_2SUMOReal(tag.c_str());
             points.push_back(Position2D(p1, p2));
         }
     } while(tag!="DATAEND");
@@ -101,3 +112,9 @@ NIVissimSingleTypeParser_Zeitenverteilungsdefinition::parse(std::istream &from)
         id, new Distribution_Points(id, points));
 }
 
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:

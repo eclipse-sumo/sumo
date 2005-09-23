@@ -45,7 +45,7 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/DevHelper.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/common/XMLHelpers.h>
 #include <od2trips/ODDistrictCont.h>
 #include <od2trips/ODDistrictHandler.h>
@@ -219,7 +219,7 @@ main(int argc, char **argv)
 		long maxele=50000; // initial number of ODs, finally derived from OD-inputfile
 		long int total_cars=0;  // total number of cars, finally derived from OD-inputfile
 		long int i, j;
-		float factor;
+		SUMOReal factor;
 		SUMOTime  start, finish;
 		bool ok_begin = oc.isDefault("begin");
 		bool ok_end = oc.isDefault("end");
@@ -241,8 +241,8 @@ main(int argc, char **argv)
 		int index, tmpk, k;
 		SUMOTime begin, end, period;
 		bool ini;
-		double tmprand, maxrand;
-		float scale, rest;
+		SUMOReal tmprand, maxrand;
+		SUMOReal scale, rest;
         ini=true; // initialize random numbers with time, only first call
         for (size_t ifile=0;ifile<infiles.size();ifile++) { // proceed for all *.fma files
             // OD list
@@ -277,11 +277,11 @@ main(int argc, char **argv)
             scale = scale / factor;
             total_cars=0;
             for(it1=od_in.begin(); it1!=od_in.end(); it1++) {
-                rest = (float) (fmod ( double((*it1).how_many), double(scale)) / double(scale));
+                rest = (SUMOReal) (fmod ( SUMOReal((*it1).how_many), SUMOReal(scale)) / SUMOReal(scale));
                 if(rest <= 0.5)
-                    (*it1).how_many = int(double((*it1).how_many) / scale);
+                    (*it1).how_many = int(SUMOReal((*it1).how_many) / scale);
                 else
-                    (*it1).how_many = int(double((*it1).how_many) / scale)+1;
+                    (*it1).how_many = int(SUMOReal((*it1).how_many) / scale)+1;
             }
             // recompute total_cars
             total_cars = 0;

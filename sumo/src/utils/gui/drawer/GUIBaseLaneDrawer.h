@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/23 06:07:53  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:19:10  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -92,7 +95,7 @@ public:
 
 
     virtual void drawGLLanes(size_t *which, size_t maxEdges,
-        double width, GUIBaseColorer<_L1> &colorer)
+        SUMOReal width, GUIBaseColorer<_L1> &colorer)
     {
         // initialise drawing
         initStep();
@@ -135,7 +138,7 @@ protected:
     }
 
     /// draws a single vehicle
-    virtual void drawLane(const _L1 &lane, double width) const = 0;
+    virtual void drawLane(const _L1 &lane, SUMOReal width) const = 0;
 
 protected:
     /// The list of edges to consider at drawing

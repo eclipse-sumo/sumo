@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2005/09/23 06:04:23  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 12:04:48  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -72,10 +75,10 @@ class ODDistrictCont;
  * method declarations
  * ======================================================================= */
 extern int ODread (std::string, std::vector<OD_IN>&, SUMOTime*, long*,
-                   SUMOTime*, SUMOTime*, float* );
+                   SUMOTime*, SUMOTime*, SUMOReal* );
 
 extern void ODPtvread (std::string, std::vector<OD_IN>&, long*, long*, SUMOTime*,
-                      SUMOTime*, float* );
+                      SUMOTime*, SUMOReal* );
 
 extern int ODWrite (std::string , std::vector<OD_OUT>& , long int,
                     ODDistrictCont &districts);

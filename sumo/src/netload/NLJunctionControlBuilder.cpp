@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.16  2005/09/23 06:04:11  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.15  2005/09/15 12:04:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -37,7 +40,7 @@ namespace
 // initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.11  2004/08/02 12:47:30  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.10  2003/12/04 13:18:23  dkrajzew
 // handling of internal links added
@@ -189,7 +192,7 @@ void
 NLJunctionControlBuilder::openJunction(const std::string &id,
                                        const std::string &key,
                                        const std::string &type,
-                                       double x, double y)
+                                       SUMOReal x, SUMOReal y)
 {
     m_pActiveInternalLanes.clear();
     m_pActiveIncomingLanes.clear();
@@ -326,7 +329,7 @@ NLJunctionControlBuilder::getTLLogic(const std::string &id) const
 void
 NLJunctionControlBuilder::addJunctionInitInfo(
             MSExtendedTrafficLightLogic *key,
-            const LaneVector &lv, double det_offset)
+            const LaneVector &lv, SUMOReal det_offset)
 {
     if(myJunctions2PostLoadInit.find(key)!=myJunctions2PostLoadInit.end()) {
         throw XMLIdNotKnownException("junction", key->id());

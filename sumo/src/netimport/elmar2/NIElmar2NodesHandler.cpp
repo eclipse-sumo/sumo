@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/23 06:02:24  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -48,7 +51,7 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/geom/GeomHelper.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
@@ -69,7 +72,7 @@ using namespace std;
  * ======================================================================= */
 NIElmar2NodesHandler::NIElmar2NodesHandler(NBNodeCont &nc,
                                            const std::string &file,
-                                           double centerX, double centerY,
+                                           SUMOReal centerX, SUMOReal centerY,
                                            std::map<std::string, Position2DVector> &geoms)
     : FileErrorReporter("elmar-nodes", file),
     myCurrentLine(0), myInitX(centerX), myInitY(centerY),
@@ -96,7 +99,7 @@ NIElmar2NodesHandler::report(const std::string &result)
         return true;
     }
     string id;
-    double x, y;
+    SUMOReal x, y;
     int no_geoms, intermediate;
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
     // check
@@ -112,7 +115,7 @@ NIElmar2NodesHandler::report(const std::string &result)
     id = st.next();
         // intermediate?
     try {
-        intermediate = (double) TplConvert<char>::_2int(st.next().c_str());
+        intermediate = TplConvert<char>::_2int(st.next().c_str());
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             "Non-numerical value for internmediate y/n occured.");
@@ -120,7 +123,7 @@ NIElmar2NodesHandler::report(const std::string &result)
     }
         // number of geometrical information
     try {
-        no_geoms = (double) TplConvert<char>::_2int(st.next().c_str());
+        no_geoms = TplConvert<char>::_2int(st.next().c_str());
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             "Non-numerical value for number of nodes occured.");
@@ -130,36 +133,36 @@ NIElmar2NodesHandler::report(const std::string &result)
     Position2DVector geoms;
     for(int i=0; i<no_geoms; i++) {
         try {
-            x = (double) TplConvert<char>::_2float(st.next().c_str());
+            x = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform(
                 "Non-numerical value for node-x-position occured.");
             throw ProcessError();
         }
         try {
-            y = (double) TplConvert<char>::_2float(st.next().c_str());
+            y = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform(
                 "Non-numerical value for node-y-position occured.");
             throw ProcessError();
         }
-        x = x / 100000.0;
-        y = y / 100000.0;
-        double ys = y;
+        x = (SUMOReal) (x / 100000.0);
+        y = (SUMOReal) (y / 100000.0);
+        SUMOReal ys = y;
         x = (x-myInitX);
         y = (y-myInitY);
-        double x1 = x * 111.320*1000;
-        double y1 = y * 111.136*1000;
-        x1 *= cos(ys*PI/180.0);
+        SUMOReal x1 = (SUMOReal) (x * 111.320*1000.);
+        SUMOReal y1 = (SUMOReal) (y * 111.136*1000.);
+        x1 *= (SUMOReal) cos(ys*PI/180.0);
         geoms.push_back(Position2D(x1, y1));
     }
     // geo->metric
 //    x = -1.0 * (x-myInitX)
-//        * (double) 111.320 * /*(double) 1000.0 * */cos(y / (double) 10000.0*PI/180.0)
-//        / (double) 10.0; // 10000.0
+//        * (SUMOReal) 111.320 * /*(SUMOReal) 1000.0 * */cos(y / (SUMOReal) 10000.0*PI/180.0)
+//        / (SUMOReal) 10.0; // 10000.0
 //    y = (y-myInitY)
-//        * (double) 111.136 /* * (double) 1000.0*/
-//        / (double) 10.0; // 10000.0
+//        * (SUMOReal) 111.136 /* * (SUMOReal) 1000.0*/
+//        / (SUMOReal) 10.0; // 10000.0
 
 //    y1 *= 4.0/2.0;
 

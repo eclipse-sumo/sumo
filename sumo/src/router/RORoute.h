@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -78,7 +81,7 @@ class ROEdge;
 class RORoute : public Named {
 public:
     /// Constructor
-    RORoute(const std::string &id, double costs, double prop,
+    RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
         const ROEdgeVector &route);
 
     /// Destructor
@@ -100,19 +103,19 @@ public:
     ROEdge *getLast() const;
 
     /// Returns the costs of the route
-    double getCosts() const;
+    SUMOReal getCosts() const;
 
     /// Returns the probability the driver will take this route with
-    double getProbability() const;
+    SUMOReal getProbability() const;
 
     /// Sets the costs of the route
-    void setCosts(double costs);
+    void setCosts(SUMOReal costs);
 
     /// Sets the probability of the route
-    void setProbability(double prop);
+    void setProbability(SUMOReal prop);
 
     /// Recomputes the costs of the route by summing up the costs for every edge
-    double recomputeCosts(SUMOTime begin) const;
+    SUMOReal recomputeCosts(SUMOTime begin) const;
 
     /// Returns the information whether the given route matches to this one
     bool equals(RORoute *ro) const;
@@ -129,10 +132,10 @@ public:
 
 private:
     /// The costs of the route
-    double _costs;
+    SUMOReal _costs;
 
     /// The probability the driver will take this route with
-    double _probability;
+    SUMOReal _probability;
 
     /// The edges the route consists of
     ROEdgeVector _route;

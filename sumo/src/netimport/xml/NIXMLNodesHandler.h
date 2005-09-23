@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2005/09/23 06:04:00  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:03:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -29,7 +32,7 @@
 // level3 warnings removed; made netbuild-containers non-static
 //
 // Revision 1.6  2004/08/02 12:44:28  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.5  2003/07/07 08:33:15  dkrajzew
 // further attribute added: 1:N-definition between node and tl; adapted the importer to the new node type description
@@ -56,7 +59,7 @@
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:13  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/23 06:02:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/04/27 12:24:38  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -52,12 +55,20 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimTL.h"
 #include "NIVissimSingleTypeParser_Lichtsignalanlagendefinition.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -129,11 +140,11 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseFixedTime(
     string tag;
     from >> tag;
     //
-    double absdur;
+    SUMOReal absdur;
     from >> absdur; // type-checking is missing!
     //
     tag = readEndSecure(from);
-    double offset = 0;
+    SUMOReal offset = 0;
     if(tag=="versatz") {
         from >> offset; // type-checking is missing!
     }
@@ -143,7 +154,7 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseFixedTime(
             type = "festzeit_fake";
         }
     }
-    return NIVissimTL::dictionary(id, type, name, absdur, offset);
+    return NIVissimTL::dictionary(id, type, name, (SUMOTime) absdur, (SUMOTime) offset);
 }
 
 
@@ -154,15 +165,15 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseVAS(
     string tag;
     from >> tag;
     //
-    double absdur;
+    SUMOReal absdur;
     from >> absdur; // type-checking is missing!
     //
     tag = readEndSecure(from);
-    double offset = 0;
+    SUMOReal offset = 0;
     if(tag=="versatz") {
         from >> offset; // type-checking is missing!
     }
-    return NIVissimTL::dictionary(id, "vas", name, absdur, offset);
+    return NIVissimTL::dictionary(id, "vas", name, (SUMOTime) absdur, (SUMOTime) offset);
 }
 
 
@@ -173,17 +184,21 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseRestActuated(
     string tag;
     from >> tag;
     //
-    double absdur;
+    SUMOReal absdur;
     from >> absdur; // type-checking is missing!
     //
     tag = readEndSecure(from);
-    double offset = 0;
+    SUMOReal offset = 0;
     if(tag=="versatz") {
         from >> offset; // type-checking is missing!
     }
     while(tag!="datei") {
         tag = myRead(from);
     }
-    return NIVissimTL::dictionary(id, type, name, absdur, offset);
+    return NIVissimTL::dictionary(id, type, name, (SUMOTime) absdur, (SUMOTime) offset);
 }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+// Local Variables:
+// mode:C++
+// End:

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -178,7 +181,7 @@ private:
     NBTrafficLightLogicVector *buildOwnTrafficLights(
         size_t breakingTime, bool buildAll) const;
 
-    size_t computeBrakingTime(double minDecel) const;
+    size_t computeBrakingTime(SUMOReal minDecel) const;
 
     /// returns the information whether the given link is a left-mover
     bool isLeftMover(NBEdge *from, NBEdge *to) const;

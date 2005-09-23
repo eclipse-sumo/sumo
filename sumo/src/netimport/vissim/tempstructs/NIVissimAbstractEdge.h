@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -38,7 +41,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -56,16 +59,16 @@ class NIVissimAbstractEdge {
 public:
     NIVissimAbstractEdge(int id, const Position2DVector &geom);
     virtual ~NIVissimAbstractEdge();
-    Position2D getGeomPosition(double pos) const;
+    Position2D getGeomPosition(SUMOReal pos) const;
     Position2D getBeginPosition() const;
     Position2D getEndPosition() const;
     void splitAssigning();
     bool crossesEdge(NIVissimAbstractEdge *c) const;
     Position2D crossesEdgeAtPoint(NIVissimAbstractEdge *c) const;
-    bool overlapsWith(const AbstractPoly &p, double offset=0.0) const;
+    bool overlapsWith(const AbstractPoly &p, SUMOReal offset=0.0) const;
     virtual void setNodeCluster(int nodeid) = 0;
     bool hasNodeCluster() const;
-    double crossesAtPoint(const Position2D &p1,
+    SUMOReal crossesAtPoint(const Position2D &p1,
         const Position2D &p2) const;
 
     bool hasGeom() const;
@@ -81,7 +84,7 @@ public:
     static bool dictionary(int id, NIVissimAbstractEdge *e);
     static NIVissimAbstractEdge *dictionary(int id);
     static void splitAndAssignToNodes();
-    static IntVector getWithin(const AbstractPoly &p, double offset=0.0);
+    static IntVector getWithin(const AbstractPoly &p, SUMOReal offset=0.0);
     static void clearDict();
 
 

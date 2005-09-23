@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2005/09/23 06:04:11  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.1  2005/09/15 12:04:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -76,7 +79,7 @@ public:
 
     /// Adds the described PointOfInterest to the geometry container
     virtual void addPoint(const std::string &name,
-        const std::string &type, const RGBColor &c, float x, float y);
+        const std::string &type, const RGBColor &c, SUMOReal x, SUMOReal y);
 
     /// Builds the shape container
     ShapeContainer *buildShapeContainer() const;

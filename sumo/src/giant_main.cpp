@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/09/23 06:13:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:27:08  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -141,7 +144,7 @@ main(int argc, char **argv)
         }
         // initialise global settings
         gQuitOnEnd = oc.getBool("quit-on-end");
-        gAllowAggregatedFloating = oc.getBool("allow-floating-aggregated-views");
+        gAllowAggregatedFloating = oc.getBool("allow-SUMORealing-aggregated-views");
         gAllowAggregated = !oc.getBool("disable-aggregated-views");
         gAllowTextures = !oc.getBool("disable-textures");
         gSuppressEndInfo = oc.getBool("surpress-end-info");

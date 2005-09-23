@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/23 06:04:23  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:04:48  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -86,16 +89,16 @@ ODDistrict::~ODDistrict()
 
 
 void
-ODDistrict::addSource(const std::string &id, double weight)
+ODDistrict::addSource(const std::string &id, SUMOReal weight)
 {
-    _sources.push_back(std::pair<std::string, double>(id, weight));
+    _sources.push_back(std::pair<std::string, SUMOReal>(id, weight));
 }
 
 
 void
-ODDistrict::addSink(const std::string &id, double weight)
+ODDistrict::addSink(const std::string &id, SUMOReal weight)
 {
-    _sinks.push_back(std::pair<std::string, double>(id, weight));
+    _sinks.push_back(std::pair<std::string, SUMOReal>(id, weight));
 }
 
 
@@ -124,8 +127,8 @@ ODDistrict::getRandom(const WeightedEdgeIDCont &cont) const
         throw 1;//ProcessError();
     }
     // compute which item to retrieve
-    double val = rand() /
-        ( static_cast<double>(RAND_MAX) + 1);
+    SUMOReal val = rand() /
+        ( static_cast<SUMOReal>(RAND_MAX) + 1);
     // go through the list to retrieve the item
     for(WeightedEdgeIDCont::const_iterator i=cont.begin(); i!=cont.end(); i++) {
         val -= (*i).second;
@@ -140,13 +143,13 @@ ODDistrict::getRandom(const WeightedEdgeIDCont &cont) const
 
 
 void
-ODDistrict::setColor(double val)
+ODDistrict::setColor(SUMOReal val)
 {
     myColor = val;
 }
 
 
-double
+SUMOReal
 ODDistrict::getColor()  const
 {
     return myColor;

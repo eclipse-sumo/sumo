@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -75,8 +78,8 @@ public:
 
     /// Parametrised constructor
 	ROVehicleType_Krauss(const std::string &id, const RGBColor &col,
-        double length,
-        double a, double b, double eps, double maxSpeed);
+        SUMOReal length,
+        SUMOReal a, SUMOReal b, SUMOReal eps, SUMOReal maxSpeed);
 
     /// Destructor
 	~ROVehicleType_Krauss();
@@ -86,11 +89,11 @@ public:
 
 private:
     /// Krauﬂ-parameter
-	double myA, myB, myEps, myMaxSpeed;
+	SUMOReal myA, myB, myEps, myMaxSpeed;
 
 public:
     /// default parameter
-    static double myDefault_A, myDefault_B, myDefault_EPS,
+    static SUMOReal myDefault_A, myDefault_B, myDefault_EPS,
         myDefault_LENGTH, myDefault_MAXSPEED;
 
 };

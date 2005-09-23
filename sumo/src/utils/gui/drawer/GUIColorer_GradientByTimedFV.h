@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/23 06:07:53  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:19:10  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -65,9 +68,9 @@ template<class _T>
 class GUIColorer_GradientByTimedFV : public GUIBaseColorer<_T> {
 public:
     /// Type of the function to execute.
-    typedef double ( _T::* Operation )() const;
+    typedef SUMOReal ( _T::* Operation )() const;
 
-    GUIColorer_GradientByTimedFV(double min, double max,
+    GUIColorer_GradientByTimedFV(SUMOReal min, SUMOReal max,
         const std::vector<RGBColor> &gradient, SUMOTime timeGiver,
         Operation operation)
         : myMin(min), myMax(max), myGradient(gradient),
@@ -79,7 +82,7 @@ public:
 	virtual ~GUIColorer_GradientByTimedFV() { }
 
 	void setGlColor(const _T& i) const {
-        double val = (i.*myOperation)() - myMin;
+        SUMOReal val = (i.*myOperation)() - myMin;
         val = val * myScale;
         if(val==-1) {
             glColor3f(0.5, 0.5, 0.5);
@@ -89,26 +92,26 @@ public:
             } else if(val>1) {
                 val = 1; // !!! Aua!!!
             }
-            int idx = (int) (val * (double) (myGradient.size()-1));
+            int idx = (int) (val * (SUMOReal) (myGradient.size()-1));
             assert(idx<myGradient.size());
             const RGBColor &c = myGradient[idx];
             glColor3f(c.red(), c.green(), c.blue());
 	}
 
-	void setGlColor(double val) const {
+	void setGlColor(SUMOReal val) const {
         if(val<0) {
             val = 0; // !!! Aua!!!
         } else if(val>1) {
             val = 1; // !!! Aua!!!
         }
-        int idx = (int) (val * (double) (myGradient.size()-1));
+        int idx = (int) (val * (SUMOReal) (myGradient.size()-1));
         assert(idx<(int) myGradient.size());
         const RGBColor &c = myGradient[idx];
         glColor3d(c.red(), c.green(), c.blue());
     }
 
 protected:
-    double myMin, myMax, myScale;
+    SUMOReal myMin, myMax, myScale;
     std::vector<RGBColor> myGradient;
 
     /// The object's operation to perform.

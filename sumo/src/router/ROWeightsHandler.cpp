@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -75,7 +78,7 @@ namespace
 #include <utils/xml/AttributesHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include "ROEdge.h"
@@ -189,7 +192,7 @@ ROWeightsHandler::parseLane(const Attributes &attrs)
         return;
     }
     string id;
-    float value = -1;
+    SUMOReal value = -1;
     // try to get the lane id
     try {
         id = getString(attrs, SUMO_ATTR_ID);
@@ -230,7 +233,7 @@ void ROWeightsHandler::myCharacters(int element, const std::string &name,
 void ROWeightsHandler::myEndElement(int element, const std::string &name)
 {
     if(element==SUMO_TAG_EDGE) {
-        _currentEdge->addWeight(myAggValue/(float)myNoLanes,
+        _currentEdge->addWeight(myAggValue/(SUMOReal)myNoLanes,
             _currentTimeBeg, _currentTimeEnd);
         _currentEdge = 0;
     }

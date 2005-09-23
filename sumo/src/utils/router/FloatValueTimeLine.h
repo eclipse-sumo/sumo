@@ -2,7 +2,7 @@
 #define FloatValueTimeLine_h
 //---------------------------------------------------------------------------//
 //                        FloatValueTimeLine.h -
-//  A list of time ranges with float values
+//  A list of time ranges with SUMOReal values
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Thu, 22 Jan 2004
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/23 06:12:08  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:21:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -54,11 +57,11 @@
  * ======================================================================= */
 /**
  * @class FloatValueTimeLine
- * A time line being a list of time period with assigned float values.
+ * A time line being a list of time period with assigned SUMOReal values.
  * Derived from the template time line to allow the computation of
  *  non-existing values through interpolation.
  */
-class FloatValueTimeLine : public ValueTimeLine<float> {
+class FloatValueTimeLine : public ValueTimeLine<SUMOReal> {
 public:
     /// Constructor
     FloatValueTimeLine() { }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/09/23 06:01:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.13  2005/09/15 12:03:02  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -274,12 +277,12 @@ Graph::Reduce()
     Vertex* ptemp_null;
     Vertex* ptemp_eins;
     Vertex* paktuell;
-    double abstand_pn_pa,abstand_pa_pe,abstand_pn_pe,delta_x1,delta_x2,delta_x3,delta_y1,delta_y2,delta_y3,abweichung;
+    SUMOReal abstand_pn_pa,abstand_pa_pe,abstand_pn_pe,delta_x1,delta_x2,delta_x3,delta_y1,delta_y2,delta_y3,abweichung;
     int x1,x2,x3,y1,y2,y3,m,knotenanz;
     unsigned int n;
     n=0;
     //Erlaubte Abweichung
-    abweichung=0.003;
+    abweichung=(SUMOReal) 0.003;
     knotenanz=vArray.size();
     for (m=0;m<knotenanz;m++)
     {
@@ -306,12 +309,12 @@ Graph::Reduce()
                 y3=ptemp_eins->GetY();
 
                 //Berechne alle koordinatenweisen Abstände der Punkte zum Quadrat
-                delta_x1=(x1-x2)*(x1-x2);
-                delta_x2=(x2-x3)*(x2-x3);
-                delta_x3=(x1-x3)*(x1-x3);
-                delta_y1=(y1-y2)*(y1-y2);
-                delta_y2=(y2-y3)*(y2-y3);
-                delta_y3=(y1-y3)*(y1-y3);
+                delta_x1=(SUMOReal) ((x1-x2)*(x1-x2));
+                delta_x2=(SUMOReal) ((x2-x3)*(x2-x3));
+                delta_x3=(SUMOReal) ((x1-x3)*(x1-x3));
+                delta_y1=(SUMOReal) ((y1-y2)*(y1-y2));
+                delta_y2=(SUMOReal) ((y2-y3)*(y2-y3));
+                delta_y3=(SUMOReal) ((y1-y3)*(y1-y3));
 
                 //Berechne die euklidischen Abstände der Punkte
                 abstand_pn_pa=sqrt(delta_x1+delta_y1);
@@ -337,15 +340,15 @@ void
 Graph::Reduce_plus(ConfigDialog* my)
 {
     FXSlider* mySlider= my->getEpsiSlider();
-	double toleranz=(double)(mySlider->getValue());
+	SUMOReal toleranz=(SUMOReal)(mySlider->getValue());
 	int i;
     int m=0;
     unsigned int n=0;
-    double delta_x=0;
-    double delta_y=0;
-    double distanz_a=0;
-    double distanz_b=0;
-    double quotient =0;
+    SUMOReal delta_x=0;
+    SUMOReal delta_y=0;
+    SUMOReal distanz_a=0;
+    SUMOReal distanz_b=0;
+    SUMOReal quotient =0;
 
     int delta_x1=0;
     int delta_x2=0;
@@ -370,8 +373,8 @@ Graph::Reduce_plus(ConfigDialog* my)
             delta_x2=paktuell->GetX()-ptemp_eins->GetX();
             delta_y1=ptemp_null->GetY()-paktuell->GetY();
             delta_y2=paktuell->GetY()-ptemp_eins->GetY();
-            distanz_a=sqrt((double) (delta_x1*delta_x1+delta_y1*delta_y1));
-            distanz_b=sqrt((double) (delta_x2*delta_x2+delta_y2*delta_y2));
+            distanz_a=sqrt((SUMOReal) (delta_x1*delta_x1+delta_y1*delta_y1));
+            distanz_b=sqrt((SUMOReal) (delta_x2*delta_x2+delta_y2*delta_y2));
 
             if(distanz_a<distanz_b)
             {
@@ -387,8 +390,8 @@ Graph::Reduce_plus(ConfigDialog* my)
                 delta_y2=(int) (delta_y2*quotient);
             }
 
-            delta_x=delta_x1-delta_x2;
-            delta_y=delta_y1-delta_y2;
+            delta_x=(SUMOReal) (delta_x1-delta_x2);
+            delta_y=(SUMOReal) (delta_y1-delta_y2);
 
             if (((delta_x<toleranz)&(delta_y<toleranz))&((delta_x>-toleranz)&(delta_y>-toleranz)))
             {
@@ -553,7 +556,7 @@ char* Graph::inttostr(int i)
     return itoa(i,pch,10);
 }
 
-char* Graph::doubletostr(double i,int count)
+char* Graph::SUMORealtostr(SUMOReal i,int count)
 {
     int dec;
     int sig;
@@ -590,8 +593,8 @@ void Graph::GetTraces(int cars, int fuel, ConfigDialog* myDialog)
 	char buffer1 [100];
 	char buffer2 [100];
 	char buffer3 [100];
-	double mylat;
-	double mylon;
+	SUMOReal mylat;
+	SUMOReal mylon;
 	int mylat1;
 	int mylon1;
 	long mylat2;

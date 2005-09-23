@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/23 06:04:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:05:34  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -89,7 +92,7 @@ ROJPEdgeBuilder::buildEdge(const std::string &name)
 
 void
 ROJPEdgeBuilder::setTurningDefinitions(RONet &net,
-                                       const std::vector<float> &turn_defs)
+                                       const std::vector<SUMOReal> &turn_defs)
 {
     for(vector<string>::iterator i=myNames.begin(); i!=myNames.end(); i++) {
         ROJPEdge *edge = static_cast<ROJPEdge*>(net.getEdge((*i)));

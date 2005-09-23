@@ -2,7 +2,7 @@
 #define ValueTimeLine_h
 //---------------------------------------------------------------------------//
 //                        ValueTimeLine.h -
-//  A list of time ranges with float values
+//  A list of time ranges with SUMOReal values
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -484,7 +484,6 @@ private:
 
 };
 
-#include "ValueTimeLine.cpp"
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

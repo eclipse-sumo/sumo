@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/23 06:13:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -138,7 +141,7 @@ namespace
 // new computation flow
 //
 // Revision 1.4  2002/04/26 10:07:12  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.3  2002/04/24 06:52:01  dkrajzew
 // Deprecated initialisation of the options container that used enviroment
@@ -191,7 +194,7 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include "NIOptionsIO.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
@@ -256,7 +259,7 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.addSynonyme("output-file", "output");
     oc.addSynonyme("configuration-file", "configuration");
     // register computation variables
-    oc.doRegister("capacity-norm", 'N', new Option_Float((float) 20000));
+    oc.doRegister("capacity-norm", 'N', new Option_Float((SUMOReal) 20000));
     // register further vissim-options
     oc.doRegister("vissim-offset", new Option_Float(5.0f));
     oc.doRegister("vissim-default-speed", new Option_Float(50.0f/3.6f));

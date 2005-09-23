@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:05:45  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:13:08  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -32,49 +35,60 @@
 #pragma warning(disable: 4786)
 
 
-inline double
-MIN2(double a, double b)
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
+
+template<typename T>
+inline T
+MIN2(T a, T b)
 {
     return a<b?a:b;
 }
 
-inline double
-MAX2(double a, double b)
+template<typename T>
+inline T
+MAX2(T a, T b)
 {
     return a>b?a:b;
 }
 
 
-inline double
-MIN3(double a, double b, double c)
+template<typename T>
+inline T
+MIN3(T a, T b, T c)
 {
     return MIN2(c, a<b?a:b);
 }
 
 
-inline double
-MAX3(double a, double b, double c)
+template<typename T>
+inline T
+MAX3(T a, T b, T c)
 {
     return MAX2(c, a>b?a:b);
 }
 
 
-inline double
-MIN4(double a, double b, double c, double d)
+template<typename T>
+inline T
+MIN4(T a, T b, T c, T d)
 {
     return MIN2(MIN2(a,b),MIN2(c,d));
 }
 
 
-inline double
-MAX4(double a, double b, double c, double d)
+template<typename T>
+inline T
+MAX4(T a, T b, T c, T d)
 {
     return MAX2(MAX2(a,b),MAX2(c,d));
 }
 
-
-/// !!! ins config.h
-#define SUMOReal float
 
 #endif
 

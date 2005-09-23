@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/23 06:13:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:27:08  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -144,7 +147,7 @@ namespace
 
 #include <sax/SAXException.hpp>
 #include <sax/SAXParseException.hpp>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -164,7 +167,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/HelpPrinter.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <routing_dua/RODUAFrame.h>
 #include "duarouter_help.h"

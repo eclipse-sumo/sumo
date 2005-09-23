@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -59,7 +62,7 @@
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:12  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -110,7 +113,7 @@ public:
 
     /** sets the default values */
     void setDefaults(const std::string &formatName, int defaultNoLanes,
-        double defaultSpeed, int defaultPriority);
+        SUMOReal defaultSpeed, int defaultPriority);
 
     /** adds a possible type into the list */
     bool insert(NBType *type);
@@ -121,7 +124,7 @@ public:
 
     /** returns the maximal velocity on a section/edge in m/s
         (the default value if the type does not exist) */
-    double getSpeed(const std::string &type);
+    SUMOReal getSpeed(const std::string &type);
 
     /** returns the priority of the section/edge with the given type
         (the default value if the type does not exist) */
@@ -134,7 +137,7 @@ public:
     int getDefaultNoLanes();
 
     /** returns the default speed */
-    double getDefaultSpeed();
+    SUMOReal getDefaultSpeed();
 
     /** returns the default priority */
     int getDefaultPriority();
@@ -163,7 +166,7 @@ private:
     int                      _defaultNoLanes;
 
     /** the default maximal velocity on a section/edge in m/s */
-    double                   _defaultSpeed;
+    SUMOReal                   _defaultSpeed;
 
     /** the default priority of a section/edge */
     int                      _defaultPriority;

@@ -19,8 +19,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
+//
+// Revision 1.1  2004/10/22 12:50:03  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.4  2003/06/05 11:46:57  dkrajzew
 // class templates applied; documentation added
@@ -35,7 +41,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -52,12 +58,12 @@
 class NIVissimVehicleType {
 public:
     NIVissimVehicleType(int id, const std::string &name,
-        const std::string &category, double length, const RGBColor &color,
-        double amax, double dmax);
+        const std::string &category, SUMOReal length, const RGBColor &color,
+        SUMOReal amax, SUMOReal dmax);
     ~NIVissimVehicleType();
     static bool dictionary(int id, const std::string &name,
-        const std::string &category, double length, const RGBColor &color,
-        double amax, double dmax);
+        const std::string &category, SUMOReal length, const RGBColor &color,
+        SUMOReal amax, SUMOReal dmax);
     static bool dictionary(int id, NIVissimVehicleType *o);
     static NIVissimVehicleType *dictionary(int id);
     static void clearDict();
@@ -66,9 +72,9 @@ private:
     int myID;
     std::string myName;
     std::string myCategory;
-    double myLength;
+    SUMOReal myLength;
     RGBColor myColor;
-    double myAMax, myDMax;
+    SUMOReal myAMax, myDMax;
 private:
     typedef std::map<int, NIVissimVehicleType *> DictType;
     static DictType myDict;

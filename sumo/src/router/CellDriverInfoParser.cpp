@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -120,7 +123,7 @@ CellDriverInfoParser::computeRouteNo()
         _routeNo = _driver.route[_driver.lastroute];
     } else {
         // get the shortest route
-        float min = float(1E+37); // !!! some kind of a float-max
+        SUMOReal min = SUMOReal(1E+37); // !!! some kind of a SUMOReal-max
         for(int i=0; i<3; i++) {
             if (_driver.p[i] <= 1.0 &&
                 _driver.p[i] >=0 &&
@@ -178,14 +181,14 @@ CellDriverInfoParser::getLast() const
 }
 
 
-double
+SUMOReal
 CellDriverInfoParser::getAlternativeCost(size_t pos) const
 {
     return _driver.cost[pos];
 }
 
 
-double
+SUMOReal
 CellDriverInfoParser::getAlternativeProbability(size_t pos) const
 {
     return _driver.p[pos];

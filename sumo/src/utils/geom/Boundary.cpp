@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/23 06:07:01  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:18:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -42,7 +45,7 @@ namespace
 // methods needed for the new selection within the gui added; some style adaptions
 //
 // Revision 1.6  2003/11/11 08:00:30  dkrajzew
-// consequent usage of Position2D instead of two doubles
+// consequent usage of Position2D instead of two SUMOReals
 //
 // Revision 1.5  2003/05/20 09:50:19  dkrajzew
 // further work and debugging
@@ -83,7 +86,7 @@ Boundary::Boundary()
 {
 }
 
-Boundary::Boundary(double x1, double y1, double x2, double y2)
+Boundary::Boundary(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2)
     : _xmin(10000000000.0), _xmax(-10000000000.0),
     _ymin(10000000000.0), _ymax(-10000000000.0)
 {
@@ -98,7 +101,7 @@ Boundary::~Boundary()
 
 
 void
-Boundary::add(double x, double y)
+Boundary::add(SUMOReal x, SUMOReal y)
 {
     _xmin = _xmin < x ? _xmin : x;
     _xmax = _xmax > x ? _xmax : x;
@@ -126,45 +129,45 @@ Boundary::add(const Boundary &p)
 Position2D
 Boundary::getCenter() const
 {
-    return Position2D( (_xmin+_xmax)/2.0, (_ymin+_ymax)/2.0);
+    return Position2D( (_xmin+_xmax)/(SUMOReal) 2.0, (_ymin+_ymax)/(SUMOReal) 2.0);
 }
 
-double
+SUMOReal
 Boundary::xmin() const
 {
     return _xmin;
 }
 
 
-double
+SUMOReal
 Boundary::xmax() const
 {
     return _xmax;
 }
 
 
-double
+SUMOReal
 Boundary::ymin() const
 {
     return _ymin;
 }
 
 
-double
+SUMOReal
 Boundary::ymax() const
 {
     return _ymax;
 }
 
 
-double
+SUMOReal
 Boundary::getWidth() const
 {
     return _xmax - _xmin;
 }
 
 
-double
+SUMOReal
 Boundary::getHeight() const
 {
     return _ymax - _ymin;
@@ -172,7 +175,7 @@ Boundary::getHeight() const
 
 
 bool
-Boundary::around(const Position2D &p, double offset) const
+Boundary::around(const Position2D &p, SUMOReal offset) const
 {
     return
         (p.x()<=_xmax+offset && p.x()>=_xmin-offset) &&
@@ -181,7 +184,7 @@ Boundary::around(const Position2D &p, double offset) const
 
 
 bool
-Boundary::overlapsWith(const AbstractPoly &p, double offset) const
+Boundary::overlapsWith(const AbstractPoly &p, SUMOReal offset) const
 {
     if(
         // check whether one of my points lies within the given poly
@@ -217,7 +220,7 @@ Boundary::crosses(const Position2D &p1, const Position2D &p2) const
 
 
 bool
-Boundary::partialWithin(const AbstractPoly &poly, double offset) const
+Boundary::partialWithin(const AbstractPoly &poly, SUMOReal offset) const
 {
     return
         poly.around(Position2D(_xmax, _ymax), offset) ||
@@ -228,7 +231,7 @@ Boundary::partialWithin(const AbstractPoly &poly, double offset) const
 
 
 Boundary &
-Boundary::grow(double by)
+Boundary::grow(SUMOReal by)
 {
     _xmax += by;
     _ymax += by;
@@ -243,7 +246,7 @@ Boundary::flipY()
 {
     _ymin *= -1.0;
     _ymax *= -1.0;
-    double tmp = _ymin;
+    SUMOReal tmp = _ymin;
     _ymin = _ymax;
     _ymax = tmp;
 }
@@ -261,7 +264,7 @@ operator<<(std::ostream &os, const Boundary &b)
 
 
 void
-Boundary::set(double xmin, double ymin, double xmax, double ymax)
+Boundary::set(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax)
 {
     _xmin = xmin;
     _ymin = ymin;

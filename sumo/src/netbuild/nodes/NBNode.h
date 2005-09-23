@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:02:26  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -43,7 +46,7 @@
 // computation of junction-inlanes geometry added
 //
 // Revision 1.25  2003/11/11 08:33:54  dkrajzew
-// consequent position2D instead of two doubles added
+// consequent position2D instead of two SUMOReals added
 //
 // Revision 1.24  2003/10/15 11:48:13  dkrajzew
 // geometry computation corrigued partially
@@ -134,7 +137,7 @@
 // new computation flow
 //
 // Revision 1.3  2002/04/26 10:07:11  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.2  2002/04/25 14:15:07  dkrajzew
 // The assignement of priorities of incoming edges improved;
@@ -240,12 +243,12 @@ public:
         ~ApproachingDivider();
 
         /** the bresenham-callback */
-        void execute(double src, double dest);
+        void execute(SUMOReal src, SUMOReal dest);
 
         /** the method that spreads the wished number of lanes from the
             the lane given by the bresenham-call to both left and right */
         std::deque<size_t> *spread(const std::vector<size_t> &approachingLanes,
-            double dest) const;
+            SUMOReal dest) const;
 
     };
 
@@ -391,7 +394,7 @@ public:
     friend class NBNodeCont;
 
 
-    double getOffset(Position2DVector on, Position2DVector cross) const;
+    SUMOReal getOffset(Position2DVector on, Position2DVector cross) const;
 
     const Position2DVector &getShape() const;
 
@@ -406,7 +409,7 @@ public:
 
     std::vector<std::pair<NBEdge*, NBEdge*> > getEdgesToJoin() const;
 
-    double getMaxEdgeWidth() const;
+    SUMOReal getMaxEdgeWidth() const;
 
     friend class NBNodeShapeComputer;
 
@@ -470,9 +473,9 @@ private:
     std::vector<NBEdge*> *getApproaching(NBEdge *currentOutgoing);
 
     /// resets the position by the given amount
-    void resetby(double xoffset, double yoffset);
+    void resetby(SUMOReal xoffset, SUMOReal yoffset);
 
-    void reshiftPosition(double xoff, double yoff, double rot);
+    void reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 
     /** @brief Replaces occurences of the first edge within the list of incoming by the second
         Connections are remapped, too */
@@ -498,13 +501,13 @@ private:
     void remapRemoved(NBTrafficLightLogicCont &tc,
         NBEdge *removed, const EdgeVector &incoming, const EdgeVector &outgoing);
 
-    double chooseLaneOffset(DoubleVector &chk);
-    double chooseLaneOffset2(DoubleVector &chk);
+    SUMOReal chooseLaneOffset(DoubleVector &chk);
+    SUMOReal chooseLaneOffset2(DoubleVector &chk);
 
-    double getCCWAngleDiff(double angle1, double angle2) const; // !!! not in NBNode!
+    SUMOReal getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) const; // !!! not in NBNode!
 
 
-    double getCWAngleDiff(double angle1, double angle2) const; // !!! not in NBNode!
+    SUMOReal getCWAngleDiff(SUMOReal angle1, SUMOReal angle2) const; // !!! not in NBNode!
 
 
     Position2DVector computeInternalLaneShape(NBEdge *fromE,

@@ -19,8 +19,14 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/09/23 06:02:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/04/27 12:24:38  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
+//
+// Revision 1.1  2004/10/22 12:50:11  dksumo
+// initial checkin into an internal, standalone SUMO CVS
 //
 // Revision 1.1  2003/02/07 11:08:42  dkrajzew
 // Vissim import added (preview)
@@ -34,6 +40,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
 #include "../NIVissimLoader.h"
 

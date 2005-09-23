@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/09/23 06:01:31  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:03:17  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -29,7 +32,7 @@
 // debugging
 //
 // Revision 1.4  2004/08/02 12:41:40  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.3  2004/03/19 13:03:52  dkrajzew
 // removed some warnings
@@ -94,10 +97,10 @@ public:
     ~TNode();
     const std::string &GetID() const {return myID;}
     const Position2D &getPosition() const { return myPosition; }
-    double MaxNeighbours() {return myMaxNeighbours;}
-    void SetMaxNeighbours(float value) {myMaxNeighbours = value;}
-    void SetX(double x) { myPosition.set(x, myPosition.y()); }
-    void SetY(double y) { myPosition.set(myPosition.x(), y); }
+    SUMOReal MaxNeighbours() {return myMaxNeighbours;}
+    void SetMaxNeighbours(SUMOReal value) {myMaxNeighbours = value;}
+    void SetX(SUMOReal x) { myPosition.set(x, myPosition.y()); }
+    void SetY(SUMOReal y) { myPosition.set(myPosition.x(), y); }
     /// removes link from LinkList
     void RemoveLink(TLink *Link);
 
@@ -126,7 +129,7 @@ private:
     Position2D myPosition;
 
     /// The maximum number of neighbours
-    double myMaxNeighbours;
+    SUMOReal myMaxNeighbours;
 
     /// Information whether this is the center of a cpider-net
     bool myAmCenter;

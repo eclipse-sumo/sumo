@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -70,7 +73,7 @@ public:
 
     virtual RORunningVehicle *buildRunningVehicle(const std::string &id,
         RORouteDef *route, SUMOTime time, ROVehicleType *type,
-        const std::string &lane, float pos, float speed,
+        const std::string &lane, SUMOReal pos, SUMOReal speed,
         const RGBColor &col, int period, int repNo);
 
 

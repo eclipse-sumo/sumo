@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/23 06:13:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -98,7 +101,7 @@ namespace
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:11  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -174,7 +177,7 @@ namespace
 #include <utils/common/XMLHelpers.h>
 #include "NILoader.h"
 #include <netbuild/NLLoadFilter.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -520,7 +523,7 @@ NILoader::loadElmar(OptionsCont &oc)
     LineReader lr;
     // load min/max
     string unsplitted_nodes_file
-        = oc.getString(opt) + string("_knotlist_unsplitted.txt");
+        = oc.getString(opt) + string("_nodes_unsplitted.txt");
     lr.setFileName(unsplitted_nodes_file);
     if(!lr.good()) {
         MsgHandler::getErrorInstance()->inform(
@@ -528,18 +531,18 @@ NILoader::loadElmar(OptionsCont &oc)
             + string("'."));
         throw ProcessError();
     }
-    double xmin, xmax, ymin, ymax;
+    SUMOReal xmin, xmax, ymin, ymax;
     try {
         string line = lr.readLine();
         line = lr.readLine();
-        xmin = TplConvert<char>::_2float(lr.readLine().c_str());
-        xmax = TplConvert<char>::_2float(lr.readLine().c_str());
-        ymin = TplConvert<char>::_2float(lr.readLine().c_str());
-        ymax = TplConvert<char>::_2float(lr.readLine().c_str());
+        xmin = TplConvert<char>::_2SUMOReal(lr.readLine().c_str());
+        xmax = TplConvert<char>::_2SUMOReal(lr.readLine().c_str());
+        ymin = TplConvert<char>::_2SUMOReal(lr.readLine().c_str());
+        ymax = TplConvert<char>::_2SUMOReal(lr.readLine().c_str());
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             string("Error on reading min/max definitions from '")
-            + oc.getString("elmar") + string("_knotlist_unsplitted.txt")
+            + oc.getString("elmar") + string("_nodes_unsplitted.txt")
             + string("'."));
         throw ProcessError();
     }
@@ -547,16 +550,16 @@ NILoader::loadElmar(OptionsCont &oc)
     std::map<std::string, Position2DVector> myGeoms;
     WRITE_MESSAGE("Loading nodes... ");
     if(!unsplitted) {
-        string file = oc.getString(opt) + string("_knotlist.txt");
+        string file = oc.getString(opt) + string("_nodes.txt");
         NIElmarNodesHandler handler1(myNetBuilder.getNodeCont(), file,
-            (xmin+xmax)/2.0, (ymin+ymax)/2.0);
+            (xmin+xmax)/(SUMOReal) 2.0, (ymin+ymax)/(SUMOReal) 2.0);
         if(!useLineReader(lr, file, handler1)) {
             throw ProcessError();
         }
     } else {
-        string file = oc.getString(opt) + string("_knotlist_unsplitted.txt");
+        string file = oc.getString(opt) + string("_nodes_unsplitted.txt");
         NIElmar2NodesHandler handler1(myNetBuilder.getNodeCont(), file,
-            (xmin+xmax)/2.0, (ymin+ymax)/2.0, myGeoms);
+            (xmin+xmax)/(SUMOReal) 2.0, (ymin+ymax)/(SUMOReal) 2.0, myGeoms);
         if(!useLineReader(lr, file, handler1)) {
             throw ProcessError();
         }
@@ -567,7 +570,7 @@ NILoader::loadElmar(OptionsCont &oc)
     // load edges
     WRITE_MESSAGE("Loading edges... ");
     if(!unsplitted) {
-        std::string file = oc.getString(opt) + string("_streetlengths.txt");
+        std::string file = oc.getString(opt) + string("_links.txt");
         // parse the file
         NIElmarEdgesHandler handler2(myNetBuilder.getNodeCont(),
             myNetBuilder.getEdgeCont(), file);
@@ -575,7 +578,7 @@ NILoader::loadElmar(OptionsCont &oc)
             throw ProcessError();
         }
     } else {
-        std::string file = oc.getString(opt) + string("_streetlengths_unsplitted.txt");
+        std::string file = oc.getString(opt) + string("_links_unsplitted.txt");
         // parse the file
         NIElmar2EdgesHandler handler2(myNetBuilder.getNodeCont(),
             myNetBuilder.getEdgeCont(), file, myGeoms);

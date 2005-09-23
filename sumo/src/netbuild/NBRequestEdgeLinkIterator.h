@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.12  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -133,9 +136,9 @@ public:
 
     /*
     bool getDriveAllowed(const NBNode::SignalGroupCont &defs,
-        double time);
+        SUMOReal time);
     bool getBrakeNeeded(const NBNode::SignalGroupCont &defs,
-        double time);
+        SUMOReal time);
 */
     friend std::ostream &operator<<(std::ostream &os, const NBRequestEdgeLinkIterator &o);
 

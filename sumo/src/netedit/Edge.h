@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/23 06:01:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:03:02  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -62,7 +65,7 @@ private:
     // Zulässige Höchstgeschwindigkeit
     int speed;
 	//Länge der Kante(Euklidischer Abstand von Start- und Endknoten)
-	double length;
+	SUMOReal length;
 
 public:
 
@@ -96,10 +99,10 @@ public:
     void SetSpeed(int sp);
 
 	//Setze die Länge der Kante
-	double Setlength();
+	SUMOReal Setlength();
 
 	//Hole die Länge der Kante
-	double GetLength();
+	SUMOReal GetLength();
 };
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

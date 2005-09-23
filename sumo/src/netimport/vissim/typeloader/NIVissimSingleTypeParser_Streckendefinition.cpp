@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/23 06:02:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/04/27 12:24:39  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -58,8 +61,12 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/IntVector.h>
 #include <utils/geom/Position2DVector.h>
 #include "../NIVissimLoader.h"
@@ -67,6 +74,10 @@ namespace
 #include "../tempstructs/NIVissimClosedLaneDef.h"
 #include "../tempstructs/NIVissimClosedLanesVector.h"
 #include "NIVissimSingleTypeParser_Streckendefinition.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -79,7 +90,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVissimSingleTypeParser_Streckendefinition::NIVissimSingleTypeParser_Streckendefinition(NIVissimLoader &parent)
-    : NIVissimLoader::VissimSingleTypeParser(parent)
+	: NIVissimLoader::VissimSingleTypeParser(parent)
 {
 }
 
@@ -93,14 +104,14 @@ bool
 NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
 {
     // read in the id
-    int id;
+	int id;
     from >> id;
     //
     string tag;
     // the following elements may occure: "Name", "Beschriftung", "Typ",
     //  followed by the mandatory "Laenge"
     string name, label, type;
-    double length = -1;
+    SUMOReal length = -1;
     while(length<0) {
         tag = overrideOptionalLabel(from);
         if(tag=="name") {
@@ -117,7 +128,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
     from >> noLanes;
     // skip some parameter, except optional "Zuschlag" until "Von" (mandatory)
     //  occures
-    double zuschlag1, zuschlag2;
+    SUMOReal zuschlag1, zuschlag2;
     zuschlag1 = zuschlag2 = 0;
     while(tag!="von") {
         tag = myRead(from);
@@ -135,7 +146,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
         geom.push_back(getPosition2D(from));
         tag = myRead(from);
         try {
-            double tmp = TplConvert<char>::_2float(tag.c_str());
+            SUMOReal tmp = TplConvert<char>::_2SUMOReal(tag.c_str());
             tag = myRead(from);
         } catch (NumberFormatException &) {
         }
@@ -175,3 +186,8 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
     //return NIVissimAbstractEdge::dictionary(id, e);
 }
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:

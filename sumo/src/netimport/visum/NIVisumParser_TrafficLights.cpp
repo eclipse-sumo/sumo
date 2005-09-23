@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/23 06:03:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -48,7 +51,7 @@ namespace
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <netbuild/NBHelpers.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NIVisumLoader.h"
@@ -90,13 +93,13 @@ NIVisumParser_TrafficLights::myDependentReport()
         // get the id
         id = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
         // cycle time
-        double CycleTime = TplConvert<char>::_2float(myLineParser.get("Umlaufzeit").c_str());
+        SUMOReal CycleTime = TplConvert<char>::_2SUMOReal(myLineParser.get("Umlaufzeit").c_str());
 		// IntermediateTime
-        double IntermediateTime = TplConvert<char>::_2float(myLineParser.get("StdZwischenzeit").c_str());
+        SUMOReal IntermediateTime = TplConvert<char>::_2SUMOReal(myLineParser.get("StdZwischenzeit").c_str());
 		// PhaseBased
         bool PhaseBased = TplConvert<char>::_2bool(myLineParser.get("PhasenBasiert").c_str());
         // add to the list
-		myNIVisumTLs[id] = new NIVisumTL(id, CycleTime, IntermediateTime, PhaseBased);
+		myNIVisumTLs[id] = new NIVisumTL(id, (SUMOTime) CycleTime, (SUMOTime) IntermediateTime, PhaseBased);
     } catch (OutOfBoundsException) {
         addError2("LSA", id, "OutOfBounds");
     } catch (NumberFormatException) {

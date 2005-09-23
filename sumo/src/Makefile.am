@@ -152,7 +152,6 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./guinetload/libguinetload.a \
 ./guisim/libguisim.a \
 ./gui/drawerimpl/libguidrawerimpl.a \
-./gui/manipulators/libguimanipulators.a \
 ./gui/dialogs/libguidialogs.a \
 ./gui/GUISupplementaryWeightsHandler.o \
 ./utils/foxtools/libfoxtools.a \
@@ -186,6 +185,7 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./utils/gfx/libgfx.a \
 ./utils/glutils/libglutils.a \
 ./utils/iodevices/libiodevices.a \
+./gui/GUIManipulator.o \
 -l$(LIB_XERCES) \
 -l$(LIB_FOX) \
 $(LIB_X11)

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/23 06:11:14  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:20:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -108,16 +111,16 @@ public:
     virtual void onMouseMove(void *data);
 
     /// Returns the rotation of the canvas stored in this changer
-    virtual double getRotation() const = 0;
+    virtual SUMOReal getRotation() const = 0;
 
     /// Returns the x-offset of the field to show stored in this changer
-    virtual double getXPos() const = 0;
+    virtual SUMOReal getXPos() const = 0;
 
     /// Returns the y-offset of the field to show stored in this changer
-    virtual double getYPos() const = 0;
+    virtual SUMOReal getYPos() const = 0;
 
     /// Returns the zoom factor computed stored in this changer
-    virtual double getZoom() const = 0;
+    virtual SUMOReal getZoom() const = 0;
 
     /// Returns the information whether the view has chnaged
     bool changed() const;
@@ -136,7 +139,7 @@ public:
         setting it to a size that covers the radius.
         Used for: Centering of vehicles and junctions */
     virtual void centerTo(const Boundary &netBoundary,
-        const Position2D &pos, double radius) = 0;
+        const Position2D &pos, SUMOReal radius) = 0;
 
     /** @brief Centers the view to show the given boundary
         Used for: Centering of lanes */
@@ -145,7 +148,7 @@ public:
 
     /** @brief Sets the viewport
         Used for: Adapting a new viewport */
-    virtual void setViewport(double zoom, double xPos, double yPos) = 0;
+    virtual void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos) = 0;
 
     /// Returns the last mouse x-position an event occured at
     virtual int getMouseXPosition() const = 0; // !!! should not be virtual

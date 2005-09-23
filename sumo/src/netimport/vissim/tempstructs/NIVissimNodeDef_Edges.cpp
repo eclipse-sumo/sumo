@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -44,7 +47,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -60,6 +63,10 @@ namespace
 #include "NIVissimNodeDef_Edges.h"
 #include "NIVissimDisturbance.h"
 #include "NIVissimConnection.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 using namespace std;
 
@@ -151,13 +158,13 @@ NIVissimNodeDef_Edges::searchAndSetConnections()
 
 
 
-double
+SUMOReal
 NIVissimNodeDef_Edges::getEdgePosition(int edgeid) const
 {
     for(NIVissimNodeParticipatingEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         NIVissimNodeParticipatingEdge *edge = *i;
         if(edge->getID()==edgeid) {
-            return (edge->getFromPos() + edge->getToPos()) / 2.0;
+            return (edge->getFromPos() + edge->getToPos()) / (SUMOReal) 2.0;
         }
     }
     return -1;

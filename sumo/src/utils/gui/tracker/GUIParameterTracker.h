@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:09:38  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:20:06  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -124,7 +127,7 @@ public:
     int getMaxGLHeight() const;
 
     /// Adds a further time line to display
-    void addTracked(GUIGlObject &o, ValueSource<double> *src,
+    void addTracked(GUIGlObject &o, ValueSource<SUMOReal> *src,
         TrackerValueDesc *newTracked);
 
     /// Called on window resizing
@@ -181,10 +184,10 @@ public:
         void drawValues();
 
         /// Draws a single value
-        void drawValue(TrackerValueDesc &desc, float namePos);
+        void drawValue(TrackerValueDesc &desc, SUMOReal namePos);
 
         /// Applies the max and min of the value(t) to the current size of the panel
-        float patchHeightVal(TrackerValueDesc &desc, double d);
+        SUMOReal patchHeightVal(TrackerValueDesc &desc, SUMOReal d);
 
     private:
         /// The parent window
@@ -227,7 +230,7 @@ protected:
     GUIParameterTrackerPanel *myPanel;
 
     /// Definition of a list of value passing objects
-    typedef std::vector<GLObjectValuePassConnector<double>*> ValuePasserVector;
+    typedef std::vector<GLObjectValuePassConnector<SUMOReal>*> ValuePasserVector;
 
     /// The value sources
     ValuePasserVector myValuePassers;

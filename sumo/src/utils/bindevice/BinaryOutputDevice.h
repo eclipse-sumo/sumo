@@ -15,7 +15,7 @@ public:
 
     friend BinaryOutputDevice &operator<<(BinaryOutputDevice &os, const int &i);
     friend BinaryOutputDevice &operator<<(BinaryOutputDevice &os, const unsigned int &i);
-    friend BinaryOutputDevice &operator<<(BinaryOutputDevice &os, const float &f);
+    friend BinaryOutputDevice &operator<<(BinaryOutputDevice &os, const SUMOReal &f);
     friend BinaryOutputDevice &operator<<(BinaryOutputDevice &os, const bool &b);
     friend BinaryOutputDevice &operator<<(BinaryOutputDevice &os, const std::string &s);
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/23 06:07:01  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:18:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -55,7 +58,7 @@
 
 
 // Assume that a class is already given for the object:
-//    Position2D with coordinates {float x, y;}
+//    Position2D with coordinates {SUMOReal x, y;}
 //===================================================================
 
 
@@ -67,7 +70,7 @@
 //    See: the January 2001 Algorithm on Area of Triangles
 
 
-inline double
+inline SUMOReal
 isLeft(const Position2D &P0,
        const Position2D &P1,
        const Position2D &P2 )

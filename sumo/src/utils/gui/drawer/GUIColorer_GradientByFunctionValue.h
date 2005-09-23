@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/23 06:07:53  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:19:10  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -64,21 +67,21 @@ template<class _T, class _P, class _PC>
 class GUIColorer_GradientByFunctionValue : public GUIBaseColorer<_T> {
 public:
     /// Type of the function to execute.
-    typedef double ( _T::* Operation )(_PC) const;
+    typedef SUMOReal ( _T::* Operation )(_PC) const;
 
-    GUIColorer_GradientByFunctionValue(double min, double max,
+    GUIColorer_GradientByFunctionValue(SUMOReal min, SUMOReal max,
         const std::vector<RGBColor> &gradient, Operation operation,
         _P param)
         : myMin(min), myMax(max), myGradient(gradient),
             myOperation(operation), myParameter(param)
     {
-        myScale = 1.0 / (myMax-myMin);
+        myScale = (SUMOReal) 1.0 / (myMax-myMin);
     }
 
 	virtual ~GUIColorer_GradientByFunctionValue() { }
 
 	void setGlColor(const _T& i) const {
-        double val = (i.*myOperation)((_PC) myParameter) - myMin;
+        SUMOReal val = (i.*myOperation)((_PC) myParameter) - myMin;
         if(val==-1) {
             glColor3f(0.5, 0.5, 0.5);
         } else {
@@ -88,21 +91,21 @@ public:
                 val = myMax; // !!! Aua!!!
             }
             val = val * myScale;
-            int idx = (int) (val * (double) (myGradient.size()-1));
+            int idx = (int) (val * (SUMOReal) (myGradient.size()-1));
             assert(idx<(int) myGradient.size());
             const RGBColor &c = myGradient[idx];
             glColor3d(c.red(), c.green(), c.blue());
         }
 	}
 
-	void setGlColor(double val) const {
+	void setGlColor(SUMOReal val) const {
         if(val<myMin) {
             val = myMin; // !!! Aua!!!
         } else if(val>myMax) {
             val = myMax; // !!! Aua!!!
         }
         val = val * myScale;
-        int idx = (int) (val * (double) (myGradient.size()-1));
+        int idx = (int) (val * (SUMOReal) (myGradient.size()-1));
         assert(idx<(int) myGradient.size());
         const RGBColor &c = myGradient[idx];
         glColor3d(c.red(), c.green(), c.blue());
@@ -110,7 +113,7 @@ public:
 
 
 protected:
-    double myMin, myMax, myScale;
+    SUMOReal myMin, myMax, myScale;
     std::vector<RGBColor> myGradient;
 
     /// The object's operation to perform.

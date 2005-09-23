@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/09/23 06:07:01  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2004/11/23 10:34:46  dkrajzew
 // debugging
 //
@@ -62,7 +65,7 @@ public:
         virtual ~BresenhamCallBack() { }
 
         /** called when a bresenham step has been computed */
-        virtual void execute(double val1, double val2) = 0;
+        virtual void execute(SUMOReal val1, SUMOReal val2) = 0;
     };
 
 public:
@@ -70,7 +73,7 @@ public:
         the higher number is increased by one for each step while the smaller
         is increased by smaller/higher.
         In each step, the callback is executed. */
-    static void compute(BresenhamCallBack *callBack, double val1, double val2);
+    static void compute(BresenhamCallBack *callBack, SUMOReal val1, SUMOReal val2);
 };
 
 

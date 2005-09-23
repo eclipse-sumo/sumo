@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:04:48  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:05:23  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -109,7 +112,7 @@ RODijkstraRouter::EdgeInfoCont::~EdgeInfoCont()
 
 
 RODijkstraRouter::EdgeInfo *
-RODijkstraRouter::EdgeInfoCont::add(ROEdge *edgeArg, double effortArg, EdgeInfo *prevArg)
+RODijkstraRouter::EdgeInfoCont::add(ROEdge *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg)
 {
     EdgeInfo *ret = &(myEdgeInfos[edgeArg->getIndex()]);
     ret->edge = edgeArg; // !!! may be set within the constructor
@@ -121,8 +124,8 @@ RODijkstraRouter::EdgeInfoCont::add(ROEdge *edgeArg, double effortArg, EdgeInfo 
 
 
 RODijkstraRouter::EdgeInfo *
-RODijkstraRouter::EdgeInfoCont::add(ROEdge *edgeArg, double effortArg,
-									EdgeInfo *prevArg, double distArg)
+RODijkstraRouter::EdgeInfoCont::add(ROEdge *edgeArg, SUMOReal effortArg,
+									EdgeInfo *prevArg, SUMOReal distArg)
 {
     EdgeInfo *ret = &(myEdgeInfos[edgeArg->getIndex()]);
     ret->edge = edgeArg; // !!! may be set within the constructor
@@ -152,7 +155,7 @@ RODijkstraRouter::EdgeInfoCont::reset()
 }
 
 
-double
+SUMOReal
 RODijkstraRouter::EdgeInfoCont::getEffort(ROEdge *to) const
 {
     return myEdgeInfos[to->getIndex()].effort;
@@ -218,8 +221,8 @@ RODijkstraRouter::compute(ROEdge *from, ROEdge *to, SUMOTime time,
             return ret;
         }
         (*visited)[minEdge->getIndex()] = true; //minimumKnot->setExplored(true);
-        float effort = (float) (minimumKnot->effort
-			+ minEdge->getEffort(time + minimumKnot->effort));
+        SUMOReal effort = (SUMOReal) (minimumKnot->effort
+			+ minEdge->getEffort((SUMOTime) (time + minimumKnot->effort)));
 		// check all ways from the node with the minimal length
         size_t i = 0;
         size_t length_size = minEdge->getNoFollowing();

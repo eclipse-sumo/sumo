@@ -34,6 +34,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/09/23 06:04:23  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.13  2005/09/15 12:04:48  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -60,7 +63,7 @@ namespace
 # include <string>
 # include <utils/common/UtilExceptions.h>
 # include <utils/common/MsgHandler.h>
-# include <utils/convert/ToString.h>
+# include <utils/common/ToString.h>
 # include "ODmatrix.h"
 
 /* =========================================================================
@@ -75,7 +78,7 @@ using namespace std;
 int Get_rand (int number,int maxele, int start, int *input, int *output, bool ini)
 	{
 	int i, check, newele, index, initial, k;
-	double rand_space;
+	SUMOReal rand_space;
 
 	initial=number;
 
@@ -100,8 +103,8 @@ int Get_rand (int number,int maxele, int start, int *input, int *output, bool in
 	newele=maxele;
 	while (check < number)
 	{
-		rand_space = static_cast<double>(newele-1) /
-            ( static_cast<double>(RAND_MAX) + 1);
+		rand_space = static_cast<SUMOReal>(newele-1) /
+            ( static_cast<SUMOReal>(RAND_MAX) + 1);
 		index = (int) (rand() * rand_space);
 		if(index==maxele) index--;
 		*(output+check) = *(input+index)+start;

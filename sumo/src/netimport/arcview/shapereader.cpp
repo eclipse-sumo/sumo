@@ -179,7 +179,7 @@ shapereader::getAttribute(char *attrib,const char *&res)
     1:  the value is NULL or not of the type which will parsed
     2:  the value is a string
     3:  the value is a integer
-    4:  the value is a double
+    4:  the value is a SUMOReal
     */
     int i; //getFieldNubmer(attrib)
     int col;
@@ -275,7 +275,7 @@ shapereader::getgeoStruct()
     myPoints.clear();
 
     for(int j = 0; j < psShape->nVertices; j++ )
-    {
+	{
         double x = psShape->padfX[j];
         double y = psShape->padfY[j];
         if(!myWasInitialised) {
@@ -289,8 +289,8 @@ shapereader::getgeoStruct()
         double x1 = x * 111.320*1000;
         double y1 = y * 111.136*1000;
         x1 *= cos(ys*PI/180.0);
-        myPoints.push_back( Position2D( x1, y1 ) );
-    }
+        myPoints.push_back( Position2D( (SUMOReal) x1, (SUMOReal) y1 ) );
+	}
     return 0;
 }
 

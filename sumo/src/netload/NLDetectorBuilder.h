@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.17  2005/09/23 06:04:11  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.16  2005/09/15 12:04:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -149,13 +152,13 @@ public:
 
     /// builds an induct loop
     void buildInductLoop(const std::string &id,
-        const std::string &lane, double pos, int splInterval,
+        const std::string &lane, SUMOReal pos, int splInterval,
         OutputDevice *device, const std::string &style="");
 
     /// builds a lane-based areal (E2-) detector with a fixed interval
     void buildE2Detector(const SSVMap &laneConts,
         const std::string &id,
-        const std::string &lane, double pos, double length,
+        const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont, int splInterval,
         const std::string &/*style*/, OutputDevice *device,
         const std::string &measures,
@@ -167,7 +170,7 @@ public:
     /// builds a lane-based areal (E2-) detector connected to a lsa
     void buildE2Detector(const SSVMap &laneConts,
         const std::string &id,
-        const std::string &lane, double pos, double length,
+        const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont, MSTrafficLightLogic * const tll,
         const std::string &/*style*/, OutputDevice *device,
         const std::string &measures,
@@ -179,7 +182,7 @@ public:
     /// builds a lane-based areal (E2-) detector connected to a link's state
     void buildE2Detector(const SSVMap &laneConts,
         const std::string &id,
-        const std::string &lane, double pos, double length,
+        const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont, MSTrafficLightLogic * const tll,
         const std::string &tolane,
         const std::string &style, OutputDevice *device,
@@ -198,17 +201,17 @@ public:
         SUMOTime deleteDataAfterSeconds);
 
     /// builds an entry point of an e3 detector
-    void addE3Entry(const std::string &lane, double pos);
+    void addE3Entry(const std::string &lane, SUMOReal pos);
 
     /// builds an exit point of an e3 detector
-    void addE3Exit(const std::string &lane, double pos);
+    void addE3Exit(const std::string &lane, SUMOReal pos);
 
     /// Builds of an e3-detector using collected values
     void endE3Detector();
 
     /// Makes some data conversion and calls the propriate building function
     MSDetectorFileOutput* buildE2(const std::string &id,
-        const std::string &lane, double pos, double length, bool cont,
+        const std::string &lane, SUMOReal pos, SUMOReal length, bool cont,
         const std::string &/*style*/, std::string filename,
         const std::string &basePath, const std::string &measures,
         MSUnit::Seconds haltingTimeThreshold,
@@ -219,7 +222,7 @@ public:
 
     /// Builds an e2-detector that lies on only one lane
     MSE2Collector *buildSingleLaneE2Det(const std::string &id,
-        DetectorUsage usage, MSLane *lane, double pos, double length,
+        DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
@@ -229,7 +232,7 @@ public:
     /// Builds an e2-detector that continues on preceeding lanes
     MS_E2_ZS_CollectorOverLanes *buildMultiLaneE2Det(const SSVMap &laneConts,
         const std::string &id,
-        DetectorUsage usage, MSLane *lane, double pos, double length,
+        DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
@@ -250,17 +253,17 @@ public:
 
     /// Creates the instance of an induct loop (overwritten by gui version)
     virtual MSInductLoop *createInductLoop(const std::string &id,
-        MSLane *lane, double pos, int splInterval);
+        MSLane *lane, SUMOReal pos, int splInterval);
 
 #ifdef HAVE_MESOSIM
     /// Creates the instance of an induct loop (overwritten by gui version)
     virtual MEInductLoop *createMEInductLoop(const std::string &id,
-        MESegment *s, double pos, int splInterval);
+        MESegment *s, SUMOReal pos, int splInterval);
 #endif
 
     /// Creates the instance of a single-lane-e2-detector (overwritten by gui version)
     virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, double pos, double length,
+        DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
@@ -268,7 +271,7 @@ public:
 
     /// Creates the instance of a multi-lane-e2-detector (overwritten by gui version)
     virtual MS_E2_ZS_CollectorOverLanes *createMultiLaneE2Detector(
-        const std::string &id, DetectorUsage usage, MSLane *lane, double pos,
+        const std::string &id, DetectorUsage usage, MSLane *lane, SUMOReal pos,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         MSUnit::Meters jamDistThreshold,
@@ -329,11 +332,11 @@ protected:
 
     /// Converts the length and the position information for an uncontiuating detector
     void convUncontE2PosLength(const std::string &id, MSLane *clane,
-        double pos, double length);
+        SUMOReal pos, SUMOReal length);
 
     /// Converts the length and the position information for an contiuating detector
     void convContE2PosLength(const std::string &id, MSLane *clane,
-        double pos, double length);
+        SUMOReal pos, SUMOReal length);
 
 protected:
     /// The net to fill

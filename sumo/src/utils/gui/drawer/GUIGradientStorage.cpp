@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/23 06:07:54  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:19:10  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -145,9 +148,9 @@ GUIGradientStorage::getRGBColors(GradientName idx, size_t noCells)
     for(i=0; i<noCells; i++) {
         ret.push_back(
             RGBColor(
-                ((double) FXREDVAL(ramp[i]))/255.0,
-                ((double) FXGREENVAL(ramp[i]))/255.0,
-                ((double) FXBLUEVAL(ramp[i]))/255.0));
+                (SUMOReal) (FXREDVAL(ramp[i])/255.0),
+                (SUMOReal) (FXGREENVAL(ramp[i])/255.0),
+                (SUMOReal) (FXBLUEVAL(ramp[i])/255.0)));
     }
     FXFREE(&ramp);
     delete bar;

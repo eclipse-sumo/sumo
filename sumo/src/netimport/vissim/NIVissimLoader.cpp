@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2005/09/23 06:02:56  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.22  2005/04/27 12:24:36  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -65,14 +68,14 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
 #include <string>
 #include <fstream>
 #include <utils/common/StringUtils.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <netbuild/NBNetBuilder.h>
@@ -147,6 +150,10 @@ namespace
 #include "tempstructs/NIVissimVehicleType.h"
 
 #include <netbuild/NBEdgeCont.h> // !!! only for debugging purposes
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 using namespace std;
 
@@ -250,7 +257,7 @@ NIVissimLoader::VissimSingleTypeParser::overrideOptionalLabel(std::istream &from
 Position2D
 NIVissimLoader::VissimSingleTypeParser::getPosition2D(std::istream &from)
 {
-    double x, y;
+    SUMOReal x, y;
     from >> x; // type-checking is missing!
     from >> y; // type-checking is missing!
     return Position2D(x, y);
@@ -292,7 +299,7 @@ NIVissimLoader::VissimSingleTypeParser::readExtEdgePointDef(
             lanes.push_back(lane-1);
         }
     }
-    double position;
+    SUMOReal position;
     from >> position;
     IntVector dummy;
     return NIVissimExtendedEdgePoint(edgeid, lanes, position, dummy);
@@ -350,9 +357,9 @@ NIVissimLoader::NIVissimLoader(NBNetBuilder &nb, const std::string &file)
 {
     insertKnownElements();
     buildParsers();
-    myColorMap["blau"] = RGBColor(.3, 0.3, 1);
+    myColorMap["blau"] = RGBColor((SUMOReal) .3, (SUMOReal) 0.3, (SUMOReal) 1);
     myColorMap["gelb"] = RGBColor(1, 1, 0);
-    myColorMap["grau"] = RGBColor(.5, 0.5, .5);
+    myColorMap["grau"] = RGBColor((SUMOReal) .5, (SUMOReal) 0.5, (SUMOReal) .5);
     myColorMap["lila"] = RGBColor(1, 0, 1);
     myColorMap["gruen"] = RGBColor(0, 1, 0);
     myColorMap["rot"] = RGBColor(1, 0, 0);
@@ -435,7 +442,7 @@ NIVissimLoader::readContents(istream &strm)
 
 
 void
-NIVissimLoader::postLoadBuild(double offset)
+NIVissimLoader::postLoadBuild(SUMOReal offset)
 {
     // close the loading process
     NIVissimBoundedClusterObject::closeLoading();

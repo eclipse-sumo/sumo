@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2005/09/23 06:01:43  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -95,13 +98,13 @@ private:
     bool parseLine(const std::string &line);
 
     /// parses the maximum speed allowed on the edge currently processed
-    double getSpeed(const std::string &edgeid);
+    SUMOReal getSpeed(const std::string &edgeid);
 
     /// parses the number of lanes of the edge currently processed
-    size_t getLaneNo(const std::string &edgeid, float speed);
+    size_t getLaneNo(const std::string &edgeid, SUMOReal speed);
 
     /// parses the length of the edge currently processed
-    double getLength(/*const std::string &edgeid,*/
+    SUMOReal getLength(/*const std::string &edgeid,*/
         const Position2D &from_pos, const Position2D &to_pos);
 
     /// parses the priority of the edge currently processed

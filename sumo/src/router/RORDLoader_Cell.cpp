@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -92,8 +95,8 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
-#include <utils/convert/ToString.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/ToString.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
 #include "RORoute.h"
 #include "RORouteDef_Alternatives.h"
@@ -118,7 +121,7 @@ using namespace std;
  * ======================================================================= */
 RORDLoader_Cell::RORDLoader_Cell(ROVehicleBuilder &vb, RONet &net,
                                  SUMOTime begin, SUMOTime end,
-                                 double gawronBeta, double gawronA,
+                                 SUMOReal gawronBeta, SUMOReal gawronA,
                                  int maxRoutes,
                                  string file)
     : ROAbstractRouteDefLoader(vb, net, begin, end),
@@ -212,8 +215,8 @@ RORDLoader_Cell::myReadRoutesAtLeastUntil(SUMOTime time)
 RORoute *
 RORDLoader_Cell::getAlternative(size_t pos)
 {
-    double cost = _driverParser.getAlternativeCost(pos);
-    double prop = _driverParser.getAlternativeProbability(pos);
+    SUMOReal cost = _driverParser.getAlternativeCost(pos);
+    SUMOReal prop = _driverParser.getAlternativeProbability(pos);
     int routeNo = _driverParser.getRouteNo(pos);
     // check whether the route was already read
     //  read the route if not

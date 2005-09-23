@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/09/23 06:02:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.14  2005/04/27 12:24:39  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -73,15 +76,23 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <cassert>
 #include <iostream>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/DoubleVector.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimTL.h"
 #include "NIVissimSingleTypeParser_Signalgruppendefinition.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -94,7 +105,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVissimSingleTypeParser_Signalgruppendefinition::NIVissimSingleTypeParser_Signalgruppendefinition(NIVissimLoader &parent)
-    : NIVissimLoader::VissimSingleTypeParser(parent)
+	: NIVissimLoader::VissimSingleTypeParser(parent)
 {
 }
 
@@ -108,7 +119,7 @@ bool
 NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream &from)
 {
     //
-    int id;
+	int id;
     from >> id; // type-checking is missing!
     //
     string tag;
@@ -176,7 +187,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseFixedTime(
         // the first phase will be green
         isGreenBegin = true;
         while(tag=="rotende"||tag=="gruenanfang") {
-            double point;
+            SUMOReal point;
             from >> point; // type-checking is missing!
             times.push_back(point);
             from >> tag;
@@ -186,13 +197,13 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseFixedTime(
         }
     }
     //
-    double tredyellow, tyellow;
+    SUMOReal tredyellow, tyellow;
     from >> tredyellow;
     from >> tag;
     from >> tyellow;
     NIVissimTL::NIVissimTLSignalGroup *group =
         new NIVissimTL::NIVissimTLSignalGroup(
-            lsaid, id, name, isGreenBegin, times, tredyellow, tyellow);
+            lsaid, id, name, isGreenBegin, times, (SUMOTime) tredyellow, (SUMOTime) tyellow);
     if(!NIVissimTL::NIVissimTLSignalGroup::dictionary(lsaid, id, group)) {
         throw 1; // !!!
     }
@@ -266,5 +277,10 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseExternFixedTime(
     return true;
 }
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
 
 

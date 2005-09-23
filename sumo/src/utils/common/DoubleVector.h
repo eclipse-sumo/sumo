@@ -2,7 +2,7 @@
 #define DoubleVector_h
 //---------------------------------------------------------------------------//
 //                        DoubleVector.h -
-//  A simple vector of doubles
+//  A simple vector of SUMOReals
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Sept 2002
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2005/09/23 06:05:45  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.12  2005/09/15 12:13:08  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -60,7 +63,7 @@
 /* =========================================================================
  * definitions
  * ======================================================================= */
-typedef std::vector<double> DoubleVector;
+typedef std::vector<SUMOReal> DoubleVector;
 
 
 /* =========================================================================
@@ -71,16 +74,16 @@ typedef std::vector<double> DoubleVector;
  */
 class DoubleVectorHelper {
 public:
-    static double sum(const DoubleVector &dv);
-    static void normalise(DoubleVector &dv, double sum=1.0);
-    static void div(DoubleVector &dv, double by);
+    static SUMOReal sum(const DoubleVector &dv);
+    static void normalise(DoubleVector &dv, SUMOReal sum=1.0);
+    static void div(DoubleVector &dv, SUMOReal by);
     static void removeDouble(DoubleVector &v);
-    static void set(DoubleVector &dv, double to);
-    static double maxValue(const DoubleVector &dv);
-    static double minValue(const DoubleVector &dv);
-    static void remove_smaller_than(DoubleVector &v, double swell);
-    static void remove_larger_than(DoubleVector &v, double swell);
-    static void add2All(DoubleVector &v, double what);
+    static void set(DoubleVector &dv, SUMOReal to);
+    static SUMOReal maxValue(const DoubleVector &dv);
+    static SUMOReal minValue(const DoubleVector &dv);
+    static void remove_smaller_than(DoubleVector &v, SUMOReal swell);
+    static void remove_larger_than(DoubleVector &v, SUMOReal swell);
+    static void add2All(DoubleVector &v, SUMOReal what);
 
 };
 

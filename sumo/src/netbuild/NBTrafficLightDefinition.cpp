@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.16  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -94,7 +97,7 @@ namespace
 #include <algorithm>
 #include <cassert>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include "NBTrafficLightDefinition.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsSubSys.h>
@@ -190,9 +193,9 @@ NBTrafficLightDefinition::compute(const NBEdgeCont &ec, OptionsCont &oc)
 
 
 size_t
-NBTrafficLightDefinition::computeBrakingTime(double minDecel) const
+NBTrafficLightDefinition::computeBrakingTime(SUMOReal minDecel) const
 {
-    double vmax = NBContHelper::maxSpeed(_incoming);
+    SUMOReal vmax = NBContHelper::maxSpeed(_incoming);
     return (size_t) (vmax / minDecel);
 }
 

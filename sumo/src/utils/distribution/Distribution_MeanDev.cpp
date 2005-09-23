@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:06:37  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:17:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -54,7 +57,7 @@ namespace
  * method definitions
  * ======================================================================= */
 Distribution_MeanDev::Distribution_MeanDev(const std::string &id,
-                                           double mean, double deviation)
+                                           SUMOReal mean, SUMOReal deviation)
     : Distribution(id), myMeanValue(mean), myDeviation(deviation)
 {
 }
@@ -65,7 +68,7 @@ Distribution_MeanDev::~Distribution_MeanDev()
 }
 
 
-double
+SUMOReal
 Distribution_MeanDev::getMax() const
 {
     return myMeanValue + myDeviation;

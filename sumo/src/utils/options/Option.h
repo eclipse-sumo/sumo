@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/09/23 06:11:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:21:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -124,8 +127,8 @@ public:
     /** returns the information whether the value is valid */
     bool isSet() const;
 
-    /** returns the float value */
-    virtual float getFloat() const;
+    /** returns the SUMOReal value */
+    virtual SUMOReal getFloat() const;
 
     /** returns the long value */
     virtual long getLong() const;
@@ -272,21 +275,21 @@ class Option_String : public Option {
 class Option_Float : public Option {
  private:
     /** the value, valid only when the base-classes "_set"-member is true */
-    float       _value;
+    SUMOReal       _value;
  public:
     /** constructor; the value will be invalid (unset) */
     Option_Float();
     /** constructor; the default value is given */
-    Option_Float(float value);
+    Option_Float(SUMOReal value);
     /** copy constructor */
     Option_Float(const Option_Float &s);
     /** destructor */
     ~Option_Float();
     /** assignment operator */
     Option_Float &operator=(const Option_Float &s);
-    /** returns the float value */
-    float getFloat() const;
-    /** sets the given value (converts it to float) */
+    /** returns the SUMOReal value */
+    SUMOReal getFloat() const;
+    /** sets the given value (converts it to SUMOReal) */
     bool set(std::string v, bool isDefault=false);
     /** returns the values string-representation */
     std::string getValue() const;

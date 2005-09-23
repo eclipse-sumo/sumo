@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -54,11 +57,11 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/router/FloatValueTimeLine.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include "ROEdge.h"
 #include "RONet.h"
 
@@ -204,15 +207,15 @@ ROSupplementaryWeightsHandler::startParseWeight( const Attributes& attrs )
             isEdgeIdSetM = true;
         }
         else if ( attrName == string( "absolut" ) ){
-            absolutValueM      = TplConvert<char>::_2float( attrValue.c_str());
+            absolutValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str());
             isAbsolutValueSetM = true;
         }
         else if ( attrName == string( "mult" ) ){
-            multValueM      = TplConvert<char>::_2float( attrValue.c_str() );
+            multValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str() );
             isMultValueSetM = true;
         }
         else if ( attrName == string( "add" ) ){
-            addValueM      = TplConvert<char>::_2float( attrValue.c_str() );
+            addValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str() );
             isAddValueSetM = true;
         }
 /*        else {
@@ -238,14 +241,14 @@ ROSupplementaryWeightsHandler::startParseWeight( const Attributes& attrs )
 void
 ROSupplementaryWeightsHandler::insertValuedTimeRangeIntoMap(
     WeightsMap& aMap
-    , double aValue )
+    , SUMOReal aValue )
 {
     WeightsMapIt iter = aMap.find( edgeIdM );
     if ( iter == aMap.end() ){
         FloatValueTimeLine* valueTimeLine = new FloatValueTimeLine();
         iter = aMap.insert( make_pair( edgeIdM, valueTimeLine ) ).first;
     }
-    iter->second->add( intervalStartM, intervalEndM, (float) aValue );
+    iter->second->add( intervalStartM, intervalEndM, (SUMOReal) aValue );
 }
 
 

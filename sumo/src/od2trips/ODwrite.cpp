@@ -29,6 +29,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/23 06:04:23  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:04:48  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -94,9 +97,9 @@ ODWrite (string OD_outfile, vector<OD_OUT>& od_out, long int total_cars,
 		fsSrc << "to=\"" << districts.getRandomSinkFromDistrict(od_out[i].to) << "\"" << " " << "type=\"";
 		fsSrc << od_out[i].type << "\"";
         if(!OptionsSubSys::getOptions().getBool("no-color")) {
-            double red = districts.getDistrictColor(od_out[i].from);
-            double blue = districts.getDistrictColor(od_out[i].to);
-            double green = (red + blue) / 2.0;
+            SUMOReal red = districts.getDistrictColor(od_out[i].from);
+            SUMOReal blue = districts.getDistrictColor(od_out[i].to);
+            SUMOReal green = (red + blue) / 2.0;
             fsSrc << " color=\"" << red << "," << green << "," << blue << "\"";
         }
         fsSrc << "/>"<< endl;

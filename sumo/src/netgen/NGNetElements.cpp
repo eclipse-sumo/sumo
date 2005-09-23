@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/23 06:01:31  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.10  2005/09/15 12:03:17  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -29,7 +32,7 @@ namespace
 // level3 warnings removed; made containers non-static
 //
 // Revision 1.8  2004/08/02 12:41:40  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.7  2004/03/19 13:03:52  dkrajzew
 // removed some warnings
@@ -74,7 +77,7 @@ namespace
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>

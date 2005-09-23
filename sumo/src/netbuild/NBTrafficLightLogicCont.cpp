@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.14  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -84,7 +87,7 @@ namespace
 #include <string>
 #include <algorithm>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightLogicVector.h"
 #include "NBTrafficLightLogicCont.h"

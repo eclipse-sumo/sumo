@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/23 06:02:34  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -77,7 +80,7 @@ private:
     void addEdge(const Attributes &attrs);
     NBNode *getNode(const Attributes &attrs, unsigned int id,
         const std::string &dir, const std::string &name);
-    float getFloatReporting(const Attributes &attrs, AttrEnum id,
+    SUMOReal getFloatReporting(const Attributes &attrs, AttrEnum id,
         const std::string &name, const std::string &objid);
     int getIntReporting(const Attributes &attrs, AttrEnum id,
         const std::string &name, const std::string &objid);

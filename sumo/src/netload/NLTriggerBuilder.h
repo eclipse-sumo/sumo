@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/09/23 06:04:12  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:04:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -114,20 +117,20 @@ protected:
 
     /// builds an emitter
     virtual MSTriggeredEmitter *buildLaneEmitTrigger(MSNet &net,
-        const std::string &id, MSLane *destLane, double pos,
+        const std::string &id, MSLane *destLane, SUMOReal pos,
         const std::string &file);
 
 #ifdef HAVE_MESOSIM
     /// builds a calibrator
     virtual METriggeredCalibrator *buildCalibrator(MSNet &net,
-        const std::string &id, MESegment *edge, double pos,
+        const std::string &id, MESegment *edge, SUMOReal pos,
         const std::string &rfile, const std::string &file);
 #endif
 
     /// builds an emitter
     virtual MSTriggeredRerouter *buildRerouter(MSNet &net,
         const std::string &id, std::vector<MSEdge*> &edges,
-        float prob, const std::string &file);
+        SUMOReal prob, const std::string &file);
 
 };
 

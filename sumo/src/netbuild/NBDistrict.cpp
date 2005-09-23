@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/09/23 06:01:05  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.13  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -30,7 +33,7 @@ namespace
 // level3 warnings removed; made containers non-static
 //
 // Revision 1.11  2003/11/11 08:33:54  dkrajzew
-// consequent position2D instead of two doubles added
+// consequent position2D instead of two SUMOReals added
 //
 // Revision 1.10  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
@@ -99,7 +102,7 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 NBDistrict::NBDistrict(const std::string &id, const std::string &name,
-                       double x, double y)
+                       SUMOReal x, SUMOReal y)
     : Named(StringUtils::convertUmlaute(id)),
     _name(StringUtils::convertUmlaute(name)),
     myPosition(x, y), _posKnown(true)
@@ -120,7 +123,7 @@ NBDistrict::~NBDistrict()
 
 
 bool
-NBDistrict::addSource(NBEdge *source, double weight)
+NBDistrict::addSource(NBEdge *source, SUMOReal weight)
 {
     EdgeVector::iterator i =
         find(_sources.begin(), _sources.end(), source);
@@ -135,7 +138,7 @@ NBDistrict::addSource(NBEdge *source, double weight)
 
 
 bool
-NBDistrict::addSink(NBEdge *sink, double weight)
+NBDistrict::addSink(NBEdge *sink, SUMOReal weight)
 {
     EdgeVector::iterator i =
         find(_sinks.begin(), _sinks.end(), sink);
@@ -181,7 +184,7 @@ NBDistrict::writeXML(std::ostream &into)
 
 
 void
-NBDistrict::setCenter(double x, double y)
+NBDistrict::setCenter(SUMOReal x, SUMOReal y)
 {
     myPosition = Position2D(x, y);
 }
@@ -193,13 +196,13 @@ NBDistrict::replaceIncoming(const EdgeVector &which, NBEdge *by)
     // temporary structures
     EdgeVector newList;
     WeightsCont newWeights;
-    double joinedVal = 0;
+    SUMOReal joinedVal = 0;
     // go through the list of sinks
     EdgeVector::iterator i=_sinks.begin();
     WeightsCont::iterator j=_sinkWeights.begin();
     for(; i!=_sinks.end(); i++, j++) {
         NBEdge *tmp = (*i);
-        double val = (*j);
+        SUMOReal val = (*j);
         if(find(which.begin(), which.end(), tmp)==which.end()) {
             // if the current edge shall not be replaced, add to the
             //  temporary list
@@ -226,13 +229,13 @@ NBDistrict::replaceOutgoing(const EdgeVector &which, NBEdge *by)
     // temporary structures
     EdgeVector newList;
     WeightsCont newWeights;
-    double joinedVal = 0;
+    SUMOReal joinedVal = 0;
     // go through the list of sinks
     EdgeVector::iterator i=_sources.begin();
     WeightsCont::iterator j=_sourceWeights.begin();
     for(; i!=_sources.end(); i++, j++) {
         NBEdge *tmp = (*i);
-        double val = (*j);
+        SUMOReal val = (*j);
         if(find(which.begin(), which.end(), tmp)==which.end()) {
             // if the current edge shall not be replaced, add to the
             //  temporary list
@@ -262,7 +265,7 @@ NBDistrict::normalise(DoubleVector &dv, size_t num)
     if(_sourceConnectorsWeighted) {
         DoubleVectorHelper::normalise(dv);
     } else {
-        dv = DoubleVector(1.0 / (double) num);
+        dv = DoubleVector(1.0 / (SUMOReal) num);
     }
 }
 */

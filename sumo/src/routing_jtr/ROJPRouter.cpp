@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/23 06:04:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:05:34  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -85,7 +88,7 @@ ROJPRouter::ROJPRouter(RONet &net)
     : myNet(net)
 {
     myMaxEdges = (int) (
-        ((float) net.getEdgeNo()) *
+        ((SUMOReal) net.getEdgeNo()) *
          OptionsSubSys::getOptions().getFloat("max-edges-factor"));
 }
 

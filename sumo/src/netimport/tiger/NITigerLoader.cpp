@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:02:42  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -33,7 +36,7 @@ namespace
 // debugging
 //
 // Revision 1.3  2004/08/02 12:44:13  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.2  2004/07/05 09:32:22  dkrajzew
 // false geometry assignment patched
@@ -58,8 +61,8 @@ namespace
 #include <cassert>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
@@ -153,9 +156,9 @@ NITigerLoader::load(OptionsCont &options)
         }
         // !!!
         std::string type = getType(values1);
-        double speed = getSpeed(type);
+        SUMOReal speed = getSpeed(type);
         int nolanes = getLaneNo(type);
-        double length = cposes.length();
+        SUMOReal length = cposes.length();
         if(nolanes!=-1&&length>0) {
             int priority = 1;
             NBEdge *e =
@@ -204,11 +207,11 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
             ? info.substr(b2)
             : info.substr(b2, b3-b2);
         try {
-            double x = TplConvert<char>::_2float(p1.c_str());
-            double y = TplConvert<char>::_2float(p2.c_str());
-            x = x / 100000.0;
-            y = y / 100000.0;
-            double ys = y;
+            SUMOReal x = TplConvert<char>::_2SUMOReal(p1.c_str());
+            SUMOReal y = TplConvert<char>::_2SUMOReal(p2.c_str());
+            x = x / (SUMOReal) 100000.0;
+            y = y / (SUMOReal) 100000.0;
+            SUMOReal ys = y;
             if(!myWasSet) {
                 myWasSet = true;
                 myInitX = x;
@@ -216,9 +219,9 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
             }
             x = (x-myInitX);
             y = (y-myInitY);
-            double x1 = x * 111.320*1000;
-            double y1 = y * 111.136*1000;
-            x1 *= cos(ys*PI/180.0);
+            SUMOReal x1 = (SUMOReal) (x * 111.320*1000.);
+            SUMOReal y1 = (SUMOReal) (y * 111.136*1000.);
+            x1 *= (SUMOReal) cos(ys*PI/180.0);
             Position2D p(x1, y1);
             ret.push_back(p);
         } catch(NumberFormatException &) {
@@ -278,22 +281,22 @@ NITigerLoader::getType(const std::vector<std::string> &sv) const
 }
 
 
-double
+SUMOReal
 NITigerLoader::getSpeed(const std::string &type) const
 {
     switch(type[0]) {
     case 'A':
         switch(type[1]) {
         case '1':
-            return 85.0 / 3.6 * 1.6;
+            return (SUMOReal) 85.0 / (SUMOReal) 3.6 * (SUMOReal) 1.6;
         case '2':
-            return 85.0 / 3.6 * 1.6;
+            return (SUMOReal) 85.0 / (SUMOReal) 3.6 * (SUMOReal) 1.6;
         case '3':
-            return 55.0 / 3.6 * 1.6;
+            return (SUMOReal) 55.0 / (SUMOReal) 3.6 * (SUMOReal) 1.6;
         case '4':
-            return 35.0 / 3.6 * 1.6;
+            return (SUMOReal) 35.0 / (SUMOReal) 3.6 * (SUMOReal) 1.6;
         case '5':
-            return 10.0 / 3.6 * 1.6;
+            return (SUMOReal) 10.0 / (SUMOReal) 3.6 * (SUMOReal) 1.6;
         default:
             return -1;
         };

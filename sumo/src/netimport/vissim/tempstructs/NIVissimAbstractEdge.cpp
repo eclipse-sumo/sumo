@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -44,7 +47,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -53,6 +56,10 @@ namespace
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Line2D.h>
 #include "NIVissimAbstractEdge.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 NIVissimAbstractEdge::DictType NIVissimAbstractEdge::myDict;
@@ -95,10 +102,10 @@ NIVissimAbstractEdge::dictionary(int id)
 
 
 Position2D
-NIVissimAbstractEdge::getGeomPosition(double pos) const
+NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const
 {
     if(myGeom.length()<pos) {
-        double amount = pos - myGeom.length();
+        SUMOReal amount = pos - myGeom.length();
         Line2D l(myGeom.at(myGeom.size()-2),
             GeomHelper::extrapolate_second(
                 myGeom.at(myGeom.size()-2), myGeom.at(myGeom.size()-1), amount*2));
@@ -162,7 +169,7 @@ NIVissimAbstractEdge::crossesEdgeAtPoint(NIVissimAbstractEdge *c) const
 }
 
 
-double
+SUMOReal
 NIVissimAbstractEdge::crossesAtPoint(const Position2D &p1,
                                      const Position2D &p2) const
 {
@@ -176,7 +183,7 @@ NIVissimAbstractEdge::crossesAtPoint(const Position2D &p1,
 
 
 IntVector
-NIVissimAbstractEdge::getWithin(const AbstractPoly &p, double offset)
+NIVissimAbstractEdge::getWithin(const AbstractPoly &p, SUMOReal offset)
 {
     IntVector ret;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
@@ -190,7 +197,7 @@ NIVissimAbstractEdge::getWithin(const AbstractPoly &p, double offset)
 
 
 bool
-NIVissimAbstractEdge::overlapsWith(const AbstractPoly &p, double offset) const
+NIVissimAbstractEdge::overlapsWith(const AbstractPoly &p, SUMOReal offset) const
 {
     return myGeom.overlapsWith(p, offset);
 }

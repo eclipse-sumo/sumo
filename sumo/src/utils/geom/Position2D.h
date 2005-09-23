@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2005/09/23 06:07:01  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.13  2005/09/15 12:18:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -81,20 +84,20 @@ public:
     Position2D() : _x(0.0), _y(0.0) { }
 
     /// parametrised constructor
-    Position2D(double x, double y)
+    Position2D(SUMOReal x, SUMOReal y)
         : _x(x), _y(y) { }
 
     /// Destructor
     ~Position2D() { }
 
     /// Returns the x-position
-    double x() const { return _x; }
+    SUMOReal x() const { return _x; }
 
     /// Returns the y-position
-    double y() const { return _y; }
+    SUMOReal y() const { return _y; }
 
     ///
-    void set(double x, double y) {
+    void set(SUMOReal x, SUMOReal y) {
         _x = x;
         _y = y;
     }
@@ -107,13 +110,13 @@ public:
 
 
     /// Multiplies both positions with the given value
-    void mul(double val) {
+    void mul(SUMOReal val) {
         _x *= val;
         _y *= val;
     }
 
     /// Multiplies position with the given values
-    void mul(double mx, double my) {
+    void mul(SUMOReal mx, SUMOReal my) {
         _x *= mx;
         _y *= my;
     }
@@ -125,13 +128,13 @@ public:
     }
 
     /// Adds the given position to this one
-    void add(double dx, double dy) {
+    void add(SUMOReal dx, SUMOReal dy) {
         _x += dx;
         _y += dy;
     }
 
     /// Substracts the given position from this one
-    void sub(double dx, double dy) {
+    void sub(SUMOReal dx, SUMOReal dy) {
         _x -= dx;
         _y -= dy;
     }
@@ -142,19 +145,19 @@ public:
         _y -= pos._y;
     }
 
-    double scalar() const {
+    SUMOReal scalar() const {
         return sqrt(_x*_x + _y*_y);
     }
 
     void norm() {
-        double val = scalar();
+        SUMOReal val = scalar();
         _x = _x / val;
         _y = _y / val;
     }
 
-    void reshiftRotate(double xoff, double yoff, double rot) {
-        float x = _x * cos(rot) + _y * sin(rot) + xoff;
-        float y = _y * cos(rot) - _x * sin(rot) + yoff;
+    void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {
+        SUMOReal x = _x * cos(rot) + _y * sin(rot) + xoff;
+        SUMOReal y = _y * cos(rot) - _x * sin(rot) + yoff;
         _x = x;
         _y = y;
     }
@@ -178,10 +181,10 @@ public:
 
 private:
     /// The x-position
-    double _x;
+    SUMOReal _x;
 
     /// The y-position
-    double _y;
+    SUMOReal _y;
 
 };
 

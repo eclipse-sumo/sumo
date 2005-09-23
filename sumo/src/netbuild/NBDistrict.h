@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2005/09/23 06:01:05  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -27,7 +30,7 @@
 // level3 warnings removed; made containers non-static
 //
 // Revision 1.7  2003/11/11 08:33:54  dkrajzew
-// consequent position2D instead of two doubles added
+// consequent position2D instead of two SUMOReals added
 //
 // Revision 1.6  2003/05/20 09:33:47  dkrajzew
 // false computation of yielding on lane ends debugged; some debugging on
@@ -86,7 +89,7 @@ class NBDistrict : public Named {
 public:
     /** @brief constructor with position */
     NBDistrict(const std::string &id, const std::string &name,
-        double x, double y);
+        SUMOReal x, SUMOReal y);
 
     /** @brief constructor without position
         The position must be computed later */
@@ -96,10 +99,10 @@ public:
     ~NBDistrict();
 
     /// adds a source
-    bool addSource(NBEdge *source, double weight=-1);
+    bool addSource(NBEdge *source, SUMOReal weight=-1);
 
     /// adds a sink
-    bool addSink(NBEdge *sink, double weight=-1);
+    bool addSink(NBEdge *sink, SUMOReal weight=-1);
 
     /// writes the sumo-xml-representation into the given stream
     void writeXML(std::ostream &into);
@@ -112,7 +115,7 @@ public:
 
     /** @brief Sets the center coordinates
         Throws an exception when a center was already given */
-    void setCenter(double x, double y);
+    void setCenter(SUMOReal x, SUMOReal y);
 
     /** @brief normalises the districts connection usage propabilities */
     void normalise(DoubleVector &dv, size_t num);

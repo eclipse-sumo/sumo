@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/23 06:01:31  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:03:17  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -32,7 +35,7 @@ namespace
 // debugging
 //
 // Revision 1.6  2004/08/02 12:41:40  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.5  2004/02/06 08:39:13  dkrajzew
 // false inclusion of old header files removed
@@ -78,7 +81,7 @@ namespace
  * ======================================================================= */
 //------------------------------ TNeighbourDistribution ----------------
 void
-TNeighbourDistribution::Add(int NumNeighbours, float ratio)
+TNeighbourDistribution::Add(int NumNeighbours, SUMOReal ratio)
 {
     Neighbours[NumNeighbours] = ratio;
 }
@@ -87,14 +90,14 @@ TNeighbourDistribution::Add(int NumNeighbours, float ratio)
 int
 TNeighbourDistribution::Num()
 {
-    double sum=0, RandValue;
+    SUMOReal sum=0, RandValue;
     TNeighbourList::iterator i;
     // total sum of ratios
     for (i=Neighbours.begin(); i!=Neighbours.end(); ++i)
         sum += (*i).second;
     // RandValue = [0,sum]
-    RandValue = sum * static_cast<double>(rand()) /
-        ( static_cast<double>(RAND_MAX) + 1);
+    RandValue = sum * static_cast<SUMOReal>(rand()) /
+        ( static_cast<SUMOReal>(RAND_MAX) + 1);
     // find selected item
     i = Neighbours.begin();
     sum = (*i).second;
@@ -186,8 +189,8 @@ TNGRandomNet::CheckAngles(TNode *Node)
                     Position2D v2(
                         ni->getPosition().x() - Node->getPosition().x(),
                         ni->getPosition().y() - Node->getPosition().y());
-                    double angle = GeomHelper::Angle2D(v1.x(), v1.y(), v2.x(), v2.y());
-                    if (fabs((float) angle) < myMinLinkAngle)
+                    SUMOReal angle = GeomHelper::Angle2D(v1.x(), v1.y(), v2.x(), v2.y());
+                    if (fabs((SUMOReal) angle) < myMinLinkAngle)
                         check = false;
                 };
             };
@@ -206,7 +209,7 @@ TNGRandomNet::CanConnect(TNode *BaseNode, TNode *NewNode)
 
     // check for range between Basenode and Newnode
     if (Connectable) {
-        double dist = GeomHelper::distance(n1, n2);
+        SUMOReal dist = GeomHelper::distance(n1, n2);
         if ((dist < myMinDistance) || (dist > myMaxDistance))
             Connectable = false;
     };
@@ -231,7 +234,7 @@ TNGRandomNet::CanConnect(TNode *BaseNode, TNode *NewNode)
             // check NewNode-To-Links distance only, if NewNode isn't part of link
             if ((Connectable) &&
                 (NewNode != (*li)->StartNode()) && (NewNode != (*li)->EndNode())) {
-                double dist = GeomHelper::DistancePointLine(n2, p1, p2);
+                SUMOReal dist = GeomHelper::DistancePointLine(n2, p1, p2);
                 if (( dist < myMinDistance) && (dist > -1))
                     Connectable = false;
             };
@@ -259,19 +262,19 @@ TNGRandomNet::FindPossibleOuterNodes(TNode *Node)
 }
 
 
-double
+SUMOReal
 TNGRandomNet::GetAngle()
 {
-    return 2*PI*rand() /
-        ( static_cast<double>(RAND_MAX) + 1);
+    return (SUMOReal) 2*(SUMOReal) PI*rand() /
+        ( static_cast<SUMOReal>(RAND_MAX) + 1);
 }
 
 
-double
+SUMOReal
 TNGRandomNet::GetDistance()
 {
     return (myMaxDistance - myMinDistance)*
-        static_cast<double>(rand()) / static_cast<double>(RAND_MAX)
+        static_cast<SUMOReal>(rand()) / static_cast<SUMOReal>(RAND_MAX)
         + myMinDistance;
 }
 
@@ -279,8 +282,8 @@ TNGRandomNet::GetDistance()
 bool
 TNGRandomNet::UseOuterNode()
 {
-    double value = rand();
-    double max = static_cast<float>(RAND_MAX) + 1;
+    SUMOReal value = (SUMOReal) rand();
+    SUMOReal max = static_cast<SUMOReal>(RAND_MAX) + 1;
     value = value/max;
     if ((value) < myConnectivity)
         return true;
@@ -296,7 +299,7 @@ TNGRandomNet::CreateNewNode(TNode *BaseNode)
     TLink *NewLink;
 
     // calculate position of new node based on BaseNode
-    double x, y, dist, angle;
+    SUMOReal x, y, dist, angle;
     dist = GetDistance();
     angle = GetAngle();
     x = BaseNode->getPosition().x() + dist * cos(angle);
@@ -304,7 +307,7 @@ TNGRandomNet::CreateNewNode(TNode *BaseNode)
     NewNode = new TNode(myNet->GetID());
     NewNode->SetX(x);
     NewNode->SetY(y);
-    NewNode->SetMaxNeighbours((float) NeighbourDistribution.Num());
+    NewNode->SetMaxNeighbours((SUMOReal) NeighbourDistribution.Num());
     NewLink = new TLink(myNet->GetID(), BaseNode, NewNode);
     if (CanConnect(BaseNode, NewNode)) {
         // add node
@@ -373,7 +376,7 @@ TNGRandomNet::CreateNet(int NumNodes)
               count++;
             } while ((count <= myNumTries) && !created);
             if (!created) {
-                OuterNode->SetMaxNeighbours((float) OuterNode->LinkList.size());
+                OuterNode->SetMaxNeighbours((SUMOReal) OuterNode->LinkList.size());
                 OuterNodes.remove(OuterNode);
             };
         }

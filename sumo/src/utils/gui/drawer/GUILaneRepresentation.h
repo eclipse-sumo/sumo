@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/23 06:07:54  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:19:10  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -68,11 +71,11 @@ public:
     virtual const Position2D &getDirection() const = 0;
 
     /** returns the rotation of the lane (!!! describe better) */
-    virtual double getRotation() const = 0;
+    virtual SUMOReal getRotation() const = 0;
 
     /** returns the "visualisation length"; this length may differ to the
         real length */
-    virtual double visLength() const = 0;
+    virtual SUMOReal visLength() const = 0;
 
     virtual const Position2DVector &getShape() const = 0;
     virtual const DoubleVector &getShapeRotations() const = 0;

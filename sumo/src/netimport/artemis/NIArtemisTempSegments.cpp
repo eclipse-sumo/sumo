@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:01:53  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -68,8 +71,8 @@ NIArtemisTempSegments::Link2PosInfos
         NIArtemisTempSegments::myLinkPosInfos;
 
 NIArtemisTempSegments::SingleGeomPoint::SingleGeomPoint(int segment,
-                                                       double x,
-                                                       double y)
+                                                       SUMOReal x,
+                                                       SUMOReal y)
     : mySegment(segment), myX(x), myY(y)
 {
 }
@@ -99,7 +102,7 @@ NIArtemisTempSegments::SingleGeomPoint::getSegmentNo() const
 
 void
 NIArtemisTempSegments::add(const std::string &linkname, int segment,
-                          double x, double y)
+                          SUMOReal x, SUMOReal y)
 {
     myLinkPosInfos[linkname].push_back(
         new SingleGeomPoint(segment, x, y));

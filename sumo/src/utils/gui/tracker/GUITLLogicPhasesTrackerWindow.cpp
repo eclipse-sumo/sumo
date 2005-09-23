@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:09:38  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:20:06  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -74,7 +77,7 @@ namespace
 #include "GUITLLogicPhasesTrackerWindow.h"
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/MSLink.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -221,23 +224,23 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
     // draw the horizontal lines dividing the signal groups
     glColor3d(1, 1, 1);
     // compute some values needed more than once
-    double height = (double) caller.getHeightInPixels();
-    double width = (double) caller.getWidthInPixels();
-    pfSetScaleXY(.08*300./width, .08*300./height);
-    double h4 = ((double) 4 / height);
-    double h10 = ((double) 10 / height);
-    double h16 = ((double) 16 / height);
-    double h20 = ((double) 20 / height);
+    SUMOReal height = (SUMOReal) caller.getHeightInPixels();
+    SUMOReal width = (SUMOReal) caller.getWidthInPixels();
+    pfSetScaleXY((SUMOReal) (.08*300./width), (SUMOReal) (.08*300./height));
+    SUMOReal h4 = ((SUMOReal) 4 / height);
+    SUMOReal h10 = ((SUMOReal) 10 / height);
+    SUMOReal h16 = ((SUMOReal) 16 / height);
+    SUMOReal h20 = ((SUMOReal) 20 / height);
     // draw the link names and the lines dividing them
-    double h = 1.0 - h10;
-    double h2 = 12;
+    SUMOReal h = (SUMOReal) (1.0 - h10);
+    SUMOReal h2 = 12;
     size_t i;
 
     for(i=0; i<myTLLogic->getLinks().size()+1; i++) {
         // draw the bar
         glBegin(GL_LINES);
         glVertex2d(0, h);
-        glVertex2d((double) 30 / width, h);
+        glVertex2d((SUMOReal) (30 / width), h);
         glEnd();
         // draw the name
         if(i<myTLLogic->getLinks().size()) {
@@ -257,11 +260,11 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
     glEnd();
 
     // draw the names closure (vertical line)
-    h += (double) 20 / height;
+    h += (SUMOReal) 20 / height;
     glColor3d(1, 1, 1);
     glBegin(GL_LINES);
-    glVertex2d((double) 30 / width, 1.0);
-    glVertex2d((double) 30 / width, h);
+    glVertex2d((SUMOReal) 30 / width, 1.0);
+    glVertex2d((SUMOReal) 30 / width, h);
     glEnd();
 
 
@@ -269,7 +272,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
         // disable value addition while drawing
     myLock.lock();
         // determine the initial offset
-    double x = (double) 31 / width;
+    SUMOReal x = (SUMOReal) 31 / width;
     computeOffsets((size_t) width, 31);
         // and the initial phase information
     PhasesVector::iterator pi = myPhases.begin() + myFirstPhase2Show;
@@ -281,12 +284,12 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
         // the first phase may be drawn incompletely
         size_t duration = *pd - fpo;
         // compute the heigh and the width of the phase
-        h = 1.0 - h10;
-        double a = (double) duration / width;
+        h = (SUMOReal) (1.0 - h10);
+        SUMOReal a = (SUMOReal) duration / width;
         if(!myAmInTrackingMode) {
-            a *= ((width-31.0) / ((double) (myLastTime - myBeginTime)) / 1.0);
+            a *= (SUMOReal) (((width-31.0) / ((SUMOReal) (myLastTime - myBeginTime)) / 1.0));
         }
-        double x2 = x + a;
+        SUMOReal x2 = x + a;
 
         // go through the links
         for(size_t j=0; j<myTLLogic->getLinks().size(); j++) {
@@ -345,12 +348,12 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
     if(myPhases.size()!=0) {
         int tickDist = 20;
         // draw time information
-        h = myTLLogic->getLinks().size() * 20 + 12;
-        float glh = (float) (1.0 - myTLLogic->getLinks().size() * h20 - h10);
+        h = (SUMOReal) (myTLLogic->getLinks().size() * 20 + 12);
+        SUMOReal glh = (SUMOReal) (1.0 - myTLLogic->getLinks().size() * h20 - h10);
             // current begin time
         string timeStr = toString<SUMOTime>(myFirstTime2Show);
-        float w = pfdkGetStringWidth(timeStr.c_str());
-        pfSetScaleXY(.05*300./width, .05*300./height);
+        SUMOReal w = pfdkGetStringWidth(timeStr.c_str());
+        pfSetScaleXY((SUMOReal) (.05*300./width), (SUMOReal) (.05*300./height));
         glRotated(180, 1, 0, 0);
             pfSetPosition(0, 0);
             glTranslated(30./width-w/2., -glh+h20-h4, 0);
@@ -360,16 +363,16 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
             // time ticks
         SUMOTime currTime = myFirstTime2Show;
         size_t pos = 31 + /*!!!currTime*/ - myFirstTime2Show;
-        double glpos = (double) pos / (double) width;
+        SUMOReal glpos = (SUMOReal) pos / (SUMOReal) width;
         while(pos<width+50) {
-            double a = (double) tickDist / width;
+            SUMOReal a = (SUMOReal) tickDist / width;
             if(!myAmInTrackingMode) {
-                a *= ((width-31.0) / ((double) (myLastTime - myBeginTime)) / 1.0);
+                a *= (SUMOReal) (((width-31.0) / ((SUMOReal) (myLastTime - myBeginTime)) / 1.0));
             }
             glpos += a;
-            double a2 = (double) tickDist;
+            SUMOReal a2 = (SUMOReal) tickDist;
             if(!myAmInTrackingMode) {
-                a2 *= ((width-31.0) / ((double) (myLastTime - myBeginTime)) / 1.0);
+                a2 *= (SUMOReal) (((width-31.0) / ((SUMOReal) (myLastTime - myBeginTime)) / 1.0));
             }
             pos += (size_t) a2;
             currTime += tickDist;

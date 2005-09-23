@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -85,8 +88,8 @@ public:
 		virtual ~ROAbstractEdgeEffortRetriever() { }
 
 		/// This function should return the effort to use
-		virtual float getEffort(SUMOTime time, const ROEdge * const edge,
-            double dist) = 0;
+		virtual SUMOReal getEffort(SUMOTime time, const ROEdge * const edge,
+            SUMOReal dist) = 0;
 
 		/// This function should return true if the vehicle must not use the given edge
 		virtual bool explicetlyOmit(ROEdge *e) const = 0;

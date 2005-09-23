@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/09/23 06:07:54  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:19:10  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -58,21 +61,21 @@ template<class _T>
 class GUIColorer_ShadeByFunctionValue : public GUIBaseColorer<_T> {
 public:
     /// Type of the function to execute.
-    typedef double ( _T::* Operation )() const;
+    typedef SUMOReal ( _T::* Operation )() const;
 
-    GUIColorer_ShadeByFunctionValue(double min, double max,
+    GUIColorer_ShadeByFunctionValue(SUMOReal min, SUMOReal max,
         const RGBColor &minC, const RGBColor &maxC,
         Operation operation)
         : myMin(min), myMax(max), myMinColor(minC), myMaxColor(maxC),
             myOperation(operation)
     {
-        myScale = 1.0 / (myMax-myMin);
+        myScale = (SUMOReal) 1.0 / (myMax-myMin);
     }
 
 	virtual ~GUIColorer_ShadeByFunctionValue() { }
 
 	void setGlColor(const _T& i) const {
-        double val = (i.*myOperation)() - myMin;
+        SUMOReal val = (i.*myOperation)() - myMin;
         if(val==-1) {
             glColor3f(0.5, 0.5, 0.5);
         } else {
@@ -83,12 +86,12 @@ public:
             }
             val = val * myScale;
             RGBColor c =
-                (myMinColor * (1.0 - val)) + (myMaxColor * val);
+                (myMinColor * ((SUMOReal) 1.0 - val)) + (myMaxColor * val);
             glColor3d(c.red(), c.green(), c.blue());
         }
 	}
 
-	void setGlColor(double val) const {
+	void setGlColor(SUMOReal val) const {
         if(val<myMin) {
             val = myMin; // !!! Aua!!!
         } else if(val>myMax) {
@@ -96,12 +99,12 @@ public:
         }
         val = val * myScale;
         RGBColor c =
-            (myMinColor * (1.0 - val)) + (myMaxColor * val);
+            (myMinColor * ((SUMOReal) 1.0 - val)) + (myMaxColor * val);
         glColor3d(c.red(), c.green(), c.blue());
     }
 
 protected:
-    double myMin, myMax, myScale;
+    SUMOReal myMin, myMax, myScale;
     RGBColor myMinColor, myMaxColor;
 
     /// The object's operation to perform.

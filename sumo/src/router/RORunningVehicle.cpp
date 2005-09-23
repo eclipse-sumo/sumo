@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -83,8 +86,8 @@ using namespace std;
 RORunningVehicle::RORunningVehicle(ROVehicleBuilder &vb,
                                    const std::string &id, RORouteDef *route,
                                    SUMOTime time, ROVehicleType *type,
-                                   const std::string &lane, float pos,
-                                   float speed,
+                                   const std::string &lane, SUMOReal pos,
+                                   SUMOReal speed,
                                    const RGBColor &col,
                                    int period, int repNo)
     : ROVehicle(vb, id, route, time, type, col, period, repNo),

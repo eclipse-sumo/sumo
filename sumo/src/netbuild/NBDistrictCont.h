@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/09/23 06:01:05  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -102,11 +105,11 @@ public:
 
     /// adds a source to the named district
     bool addSource(const std::string &dist, NBEdge *source,
-        double weight);
+        SUMOReal weight);
 
     /// adds a destination to the named district
     bool addSink(const std::string &dist, NBEdge *destination,
-        double weight);
+        SUMOReal weight);
 
     void removeFromSinksAndSources(NBEdge *e);
 

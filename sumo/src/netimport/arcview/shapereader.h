@@ -50,17 +50,17 @@ private:
     //clear();????????????????????????????
     int getgeoStruct();
 private:
-    DBFHandle   hDBF;
-    SHPHandle   hSHP;
+    DBFHandle	hDBF;
+    SHPHandle	hSHP;
     bool        dopen, sopen;
 
-    SHPObject   *psShape;
+    SHPObject	*psShape;
     DBFFieldType eType;
     int         iRecord;        //points to the current entity
-    int         nShapeType;     // type of shape
+    int	        nShapeType;     // type of shape
     int         nEntities;      // total count of entities
-    double  adfMinBound[4], adfMaxBound[4];
-    //char  * pszFieldName;
+    double 	adfMinBound[4], adfMaxBound[4];
+    //char	* pszFieldName;
     std::string FieldName;
     int * pnWidth;
     int * pnDecimals;

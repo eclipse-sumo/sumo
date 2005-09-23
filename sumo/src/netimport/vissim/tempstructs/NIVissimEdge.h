@@ -22,6 +22,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.14  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -64,6 +67,10 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include "NIVissimConnectionCluster.h"
 #include <vector>
 #include <string>
@@ -92,8 +99,8 @@ class NIVissimEdge
 public:
     /// Constructor
     NIVissimEdge(int id, const std::string &name,
-        const std::string &type, int noLanes, double zuschlag1,
-        double zuschlag2, double length,
+        const std::string &type, int noLanes, SUMOReal zuschlag1,
+        SUMOReal zuschlag2, SUMOReal length,
         const Position2DVector &geom,
         const NIVissimClosedLanesVector &clv);
 
@@ -120,9 +127,9 @@ public:
     Position2D getEnd2D() const;
 
     /// Returns the length of the node
-    double getLength() const;
+    SUMOReal getLength() const;
 
-    void checkDistrictConnectionExistanceAt(double pos);
+    void checkDistrictConnectionExistanceAt(SUMOReal pos);
 
     void mergedInto(NIVissimConnectionCluster *old,
         NIVissimConnectionCluster *act);
@@ -142,8 +149,8 @@ public:
     /** @brief Adds the described item to the dictionary
         Builds the edge first */
     static bool dictionary(int id, const std::string &name,
-        const std::string &type, int noLanes, double zuschlag1,
-        double zuschlag2, double length,
+        const std::string &type, int noLanes, SUMOReal zuschlag1,
+        SUMOReal zuschlag2, SUMOReal length,
         const Position2DVector &geom,
         const NIVissimClosedLanesVector &clv);
 
@@ -157,13 +164,13 @@ public:
 
     /// Builds NBEdges from the VissimEdges within the dictionary
     static void dict_buildNBEdges(NBDistrictCont &dc, NBNodeCont &nc,
-        NBEdgeCont &ec, double offset);
+        NBEdgeCont &ec, SUMOReal offset);
 
     static void dict_propagateSpeeds(/* NBDistribution &dc */);
 
     static void dict_checkEdges2Join();
 
-//    static void replaceSpeed(int id, int lane, double speed);
+//    static void replaceSpeed(int id, int lane, SUMOReal speed);
 
 private:
     /// The definition for a container for connection clusters
@@ -172,7 +179,7 @@ private:
 private:
     /// Builds the NBEdge from this VissimEdge
     void buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc,
-        NBEdgeCont &ec, double offset);
+        NBEdgeCont &ec, SUMOReal offset);
 
     /// Returns the origin node
     std::pair<NIVissimConnectionCluster*, NBNode*>
@@ -184,17 +191,17 @@ private:
 
     /// Tries to resolve the problem that the same node has been returned as origin and destination node
     std::pair<NBNode*, NBNode*> resolveSameNode(NBNodeCont &nc,
-        double offset, NBNode *prevFrom, NBNode *prevTo);
+        SUMOReal offset, NBNode *prevFrom, NBNode *prevTo);
 
-//    double recheckSpeedPatches();
+//    SUMOReal recheckSpeedPatches();
 
     std::vector<NIVissimConnection*> getOutgoingConnected(int lane) const;
 
-    void propagateSpeed(/* NBDistribution &dc */double speed, IntVector forLanes);
+    void propagateSpeed(/* NBDistribution &dc */SUMOReal speed, IntVector forLanes);
 
 
     void setDistrictSpeed(/* NBDistribution &dc */);
-    double getRealSpeed(/* NBDistribution &dc */int distNo);
+    SUMOReal getRealSpeed(/* NBDistribution &dc */int distNo);
     void checkUnconnectedLaneSpeeds(/* NBDistribution &dc */);
     void propagateOwn(/* NBDistribution &dc */);
 
@@ -259,7 +266,7 @@ private:
     size_t myNoLanes;
 
     /// Additional load values for this edge
-    double myZuschlag1, myZuschlag2;
+    SUMOReal myZuschlag1, myZuschlag2;
 
     /// List of lanes closed on this edge
     NIVissimClosedLanesVector myClosedLanes;
@@ -280,9 +287,9 @@ private:
 
     IntVector myPatchedSpeeds;
 
-//    double mySpeed;
+//    SUMOReal mySpeed;
 
-    std::vector<double> myLaneSpeeds;
+    std::vector<SUMOReal> myLaneSpeeds;
 
     std::vector<NIVissimEdge*> myToTreatAsSame;
 

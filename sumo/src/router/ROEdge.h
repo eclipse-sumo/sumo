@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.14  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -121,9 +124,9 @@ public:
 
     /// Sets the effort of a lane while loading
 /*    void setLane(long timeBegin, long timeEnd,
-        const std::string &id, float value);*/
+        const std::string &id, SUMOReal value);*/
 
-    void addWeight(float value, SUMOTime timeBegin, SUMOTime timeEnd);
+    void addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd);
 
     /// Adds information about a connected edge
     virtual void addFollower(ROEdge *s);
@@ -139,13 +142,13 @@ public:
     ROEdge *getFollower(size_t pos);
 
     /// retrieves the cost of this edge at the given time
-    double getCost(SUMOTime time);
+    SUMOReal getCost(SUMOTime time);
 
     /// Retrieves the time a vehicle needs to pass this edge starting at the given time
-    double getDuration(SUMOTime time);
+    SUMOReal getDuration(SUMOTime time);
 
     /// Adds a connection, marking the effort to pas the connection (!!!)
-    bool addConnection(ROEdge *to, float effort);
+    bool addConnection(ROEdge *to, SUMOReal effort);
 
     /// Returns the id of the edge
     std::string getID() const;
@@ -157,13 +160,13 @@ public:
     EdgeType getType() const;
 
     /// Returns the length of the edge
-    double getLength() const;
+    SUMOReal getLength() const;
 
     /// Returns the index (numeric id) of the edge
     size_t getIndex() const;
 
     /// returns the effort for this edge only
-    virtual float getEffort(SUMOTime time) const;
+    virtual SUMOReal getEffort(SUMOTime time) const;
 
     /// Takes pointers to FloatValueTimeLines and assigns them to the
     /// classes supplementary weights. You must provide all three
@@ -204,7 +207,7 @@ static ROEdge* dictionary2(std::string id);
 
      ROLane *getLane(size_t index);
 
-    double getSpeed() const;
+    SUMOReal getSpeed() const;
 
 
 protected:
@@ -212,10 +215,10 @@ protected:
     std::string _id;
 
     /// The maximum distance of this edge (including all lanes)
-    double _dist;
+    SUMOReal _dist;
 
     /// The maximum speed allowed on this edge
-    double _speed;
+    SUMOReal _speed;
 /*
     /// Definition of a container for storing passing time varying over time for an edge's lanes
     typedef std::map<ROLane*, FloatValueTimeLine*> LaneUsageCont;
@@ -253,7 +256,7 @@ protected:
     //bool myHaveWarned;
 
     /// The length of the edge
-    double myLength;
+    SUMOReal myLength;
 
     std::vector<ROLane*> myLanes;
 

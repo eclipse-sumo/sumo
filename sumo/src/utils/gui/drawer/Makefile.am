@@ -3,7 +3,6 @@ noinst_LIBRARIES = libguiutilsdrawer.a
 EXTRA_DIST =
 
 libguiutilsdrawer_a_SOURCES = GUIBaseColorer.h \
-GUIBaseEdgeDrawer.h GUIBaseLaneDrawer.h \
 GUIColorer_LaneBySelection.h GUIColorer_ShadeByFunctionValue.h \
 GUIColorer_SingleColor.h GUIColoringSchemesMap.h \
 GUIGradientStorage.cpp GUIGradientStorage.h \

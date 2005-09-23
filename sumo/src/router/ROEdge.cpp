@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.18  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -86,7 +89,7 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <algorithm>
 #include <cassert>
 #include <iostream>
@@ -154,10 +157,10 @@ ROEdge::postloadInit(size_t idx)
         // range to the edge's value of the same range.
         for( unsigned index = 0; index < nValuedTimeRanges; ++index ) {
             range = firstLanesValueTimeLines->getAtPosition( index );
-            double valueSum = 0;
+            SUMOReal valueSum = 0;
             for( LaneUsageCont::iterator lane = _laneCont.begin();
                  lane != _laneCont.end(); ++lane ) {
-                double value = lane->second->getValue( range.first );
+                SUMOReal value = lane->second->getValue( range.first );
                 if ( value < 0 ) {
                     value = _dist / _speed; // default traveltime
                 }
@@ -181,11 +184,11 @@ ROEdge::getIndex() const
 void
 ROEdge::addLane(ROLane *lane)
 {
-    double length = lane->getLength();
+    SUMOReal length = lane->getLength();
     assert(myLength==-1||length==myLength);
     myLength = length;
     _dist = length > _dist ? length : _dist;
-    double speed = lane->getSpeed();
+    SUMOReal speed = lane->getSpeed();
     _speed = speed > _speed ? speed : _speed;
 //    _laneCont[lane] = new FloatValueTimeLine();
     myDictLane[lane->getID()] = lane;
@@ -195,7 +198,7 @@ ROEdge::addLane(ROLane *lane)
 /*
 void
 ROEdge::setLane(long timeBegin, long timeEnd,
-                const std::string &id, float value)
+                const std::string &id, SUMOReal value)
 {
     LaneUsageCont::iterator i = _laneCont.begin();
     while(i!=_laneCont.end()) {
@@ -214,7 +217,7 @@ ROEdge::setLane(long timeBegin, long timeEnd,
 
 
 void
-ROEdge::addWeight(float value, SUMOTime timeBegin, SUMOTime timeEnd)
+ROEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd)
 {
     _ownValueLine.add(timeBegin, timeEnd, value);
     _usingTimeLine = true;
@@ -228,7 +231,7 @@ ROEdge::addFollower(ROEdge *s)
 }
 
 
-float
+SUMOReal
 ROEdge::getEffort(SUMOTime time) const
 {
     FloatValueTimeLine::SearchResult searchResult;
@@ -245,7 +248,7 @@ ROEdge::getEffort(SUMOTime time) const
 
     // ok, no absolute value was found, use the normal value (without)
     //  weight as default
-    float value = (float) (_dist / _speed);
+    SUMOReal value = (SUMOReal) (_dist / _speed);
     if(_usingTimeLine) {
         searchResult = _ownValueLine.getSearchStateAndValue( time );
         if ( searchResult.first == false ) {
@@ -304,14 +307,14 @@ ROEdge::isConnectedTo(ROEdge *e)
 }
 
 
-double
+SUMOReal
 ROEdge::getCost(SUMOTime time)
 {
     return getEffort(time);
 }
 
 
-double
+SUMOReal
 ROEdge::getDuration(SUMOTime time)
 {
     return getEffort(time);
@@ -339,7 +342,7 @@ ROEdge::getType() const
 }
 
 
-double
+SUMOReal
 ROEdge::getLength() const
 {
     /*
@@ -418,7 +421,7 @@ ROEdge::getLane(size_t index)
 }
 
 
-double
+SUMOReal
 ROEdge::getSpeed() const
 {
     return _speed;

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/09/23 06:11:30  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.1  2005/09/15 12:20:44  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -28,7 +31,6 @@
 //
 // Revision 1.1  2005/08/01 13:45:17  dksumo
 // rerouting within the simulation added
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -95,13 +97,13 @@ public:
 
 
         /// Constructor
-        EdgeInfo(const E *edgeArg, double effortArg, EdgeInfo *prevArg)
+        EdgeInfo(const E *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg)
             : edge(edgeArg), effort(effortArg), prev(prevArg)
         {
         }
 
         /// Constructor
-        EdgeInfo(const E *edgeArg, double effortArg, EdgeInfo *prevArg, double distArg)
+        EdgeInfo(const E *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg, SUMOReal distArg)
             : edge(edgeArg), effort(effortArg), prev(prevArg), dist(distArg)
         {
         }
@@ -110,13 +112,13 @@ public:
         const E *edge;
 
         /// Effort to reach the edge
-        double effort;
+        SUMOReal effort;
 
         /// The previous edge
         EdgeInfo *prev;
 
 		/// Distance from the begin
-		double dist;
+		SUMOReal dist;
 
     };
 
@@ -183,7 +185,7 @@ public:
                 return ret;
             }
             (*visited)[minEdge->getNumericalID()] = true; //minimumKnot->setExplored(true);
-            float effort = (float) (minimumKnot->effort
+            SUMOReal effort = (SUMOReal) (minimumKnot->effort
 		    	+ minEdge->getEffort(time + minimumKnot->effort));
     		// check all ways from the node with the minimal length
             size_t i = 0;
@@ -248,7 +250,7 @@ public:
         ~EdgeInfoCont() { }
 
         /// Adds the information about the effort to get to an edge and its predeccessing edge
-        EdgeInfo *add(const E *edgeArg, double effortArg, EdgeInfo *prevArg)
+        EdgeInfo *add(const E *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg)
         {
             EdgeInfo *ret = &(myEdgeInfos[edgeArg->getNumericalID()]);
             ret->edge = edgeArg; // !!! may be set within the constructor
@@ -259,8 +261,8 @@ public:
         }
 
         /// Adds the information about the effort to get to an edge and its predeccessing edge
-        EdgeInfo *add(const E *edgeArg, double effortArg, EdgeInfo *prevArg,
-			double distArg)
+        EdgeInfo *add(const E *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg,
+			SUMOReal distArg)
         {
             EdgeInfo *ret = &(myEdgeInfos[edgeArg->getNumericalID()]);
             ret->edge = edgeArg; // !!! may be set within the constructor
@@ -274,14 +276,14 @@ public:
         void reset()
         {
             for(typename std::vector<EdgeInfo>::iterator i=myEdgeInfos.begin(); i!=myEdgeInfos.end(); i++) {
-                (*i).effort = std::numeric_limits<double>::max();
+                (*i).effort = std::numeric_limits<SUMOReal>::max();
             }
         }
 
 
         /** @brief Returns the effort to get to the specify edge
             The value is valid if the edge was already visited */
-        double getEffort(const E *to) const
+        SUMOReal getEffort(const E *to) const
         {
             return myEdgeInfos[to->getNumericalID()].effort;
         }

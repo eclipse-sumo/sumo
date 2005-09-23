@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -41,7 +44,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 #include <string>
@@ -49,6 +52,10 @@ namespace
 #include <cassert>
 #include "NIVissimVehicleClassVector.h"
 #include "NIVissimTrafficDescription.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -126,7 +133,7 @@ NIVissimTrafficDescription::clearDict()
 
 
 
-double
+SUMOReal
 NIVissimTrafficDescription::meanSpeed(int id)
 {
     NIVissimTrafficDescription *i = dictionary(id);
@@ -135,14 +142,14 @@ NIVissimTrafficDescription::meanSpeed(int id)
 }
 
 
-double
+SUMOReal
 NIVissimTrafficDescription::meanSpeed() const
 {
-    double speed = 0;
+    SUMOReal speed = 0;
     for(NIVissimVehicleClassVector::const_iterator i=myVehicleTypes.begin(); i!=myVehicleTypes.end(); i++) {
         speed += (*i)->getSpeed();
     }
-    return speed / (double) myVehicleTypes.size();
+    return speed / (SUMOReal) myVehicleTypes.size();
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/09/23 06:11:14  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:20:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -190,15 +193,15 @@ public:
     virtual void centerTo(GUIGlObject *o);
 
     /// applies the given viewport settings
-    virtual void setViewport(double zoom, double xPos, double yPos);
+    virtual void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos);
 
     /// meter-to-pixels conversion method
-    double m2p(double meter);
+    SUMOReal m2p(SUMOReal meter);
 
     /// pixels-to-meters conversion method
-    double p2m(double pixel);
+    SUMOReal p2m(SUMOReal pixel);
 
-    std::pair<double, double> canvas2World(double x, double y);
+    std::pair<SUMOReal, SUMOReal> canvas2World(SUMOReal x, SUMOReal y);
 
     /// Returns the information whether rotation is allowd
     bool allowRotation() const;
@@ -338,20 +341,20 @@ public:
         ViewSettings();
 
         /// Parametrised Constructor
-        ViewSettings(double x, double y, double xoff, double yoff);
+        ViewSettings(SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff);
 
         /// Destructor
         ~ViewSettings();
 
         /// Returns the information whether the stored setting differs from the given
-        bool differ(double x, double y, double xoff, double yoff);
+        bool differ(SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff);
 
         /// Sets the setting information to the given values
-        void set(double x, double y, double xoff, double yoff);
+        void set(SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff);
 
     private:
         /// Position and size information to describe the viewport
-        double myX, myY, myXOff, myYOff;
+        SUMOReal myX, myY, myXOff, myYOff;
 
     };
 
@@ -367,7 +370,7 @@ protected:
     void drawPOI2D(const PointOfInterest &p) const;
 
 protected:
-    virtual void doPaintGL(int mode, double scale) { }
+    virtual void doPaintGL(int mode, SUMOReal scale) { }
 
     virtual void doInit() { }
 
@@ -375,14 +378,14 @@ protected:
     void paintGLGrid();
 
     /** applies the changes arised from window resize or movement */
-    void applyChanges(double scale,
+    void applyChanges(SUMOReal scale,
         size_t xoff, size_t yoff);
 
     /// draws the legend
     void displayLegend(bool flip=false);
 
     /// centers the view to the given position and size
-//    void centerTo(Position2D pos, double radius);
+//    void centerTo(Position2D pos, SUMOReal radius);
 
     /// centers the given boundary
     void centerTo(Boundary bound);
@@ -410,7 +413,7 @@ protected:
     int _widthInPixels, _heightInPixels;
 
     /// the scale of the net (the maximum size, either width or height)
-    double myNetScale;
+    SUMOReal myNetScale;
 
     /// information whether the grid shall be displayed
     bool _showGrid;
@@ -438,10 +441,10 @@ protected:
     FXEX::FXMutex _lock;
 
     /// _widthInPixels / _heightInPixels
-    double _ratio;
+    SUMOReal _ratio;
 
     /// Additional scaling factor for meters-to-pixels conversion
-    double _addScl;
+    SUMOReal _addScl;
 
     /// The timer id
     int _timer;

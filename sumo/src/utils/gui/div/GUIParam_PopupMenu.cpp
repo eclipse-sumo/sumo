@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/23 06:07:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:18:59  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -111,7 +114,7 @@ GUIParam_PopupMenu::GUIParam_PopupMenu(GUIMainWindow &app,
                                  GUIParameterTableWindow &parentWindow,
                                  GUIGlObject &o,
                                  const std::string &varName,
-                                 ValueSource<double> *src)
+                                 ValueSource<SUMOReal> *src)
     : FXMenuPane(&parentWindow), myObject(&o), //myParent(&parent),
     myParentWindow(&parentWindow), myApplication(&app), myVarName(varName),
     mySource(src)

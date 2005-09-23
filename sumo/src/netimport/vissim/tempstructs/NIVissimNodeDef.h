@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -41,7 +44,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -60,14 +63,14 @@ public:
     virtual ~NIVissimNodeDef();
     int buildNodeCluster();
 //    virtual void computeBounding() = 0;
-//    bool partialWithin(const AbstractPoly &p, double off=0.0) const;
+//    bool partialWithin(const AbstractPoly &p, SUMOReal off=0.0) const;
     virtual void searchAndSetConnections() = 0;
-    virtual double getEdgePosition(int edgeid) const = 0;
+    virtual SUMOReal getEdgePosition(int edgeid) const = 0;
 
 public:
     static bool dictionary(int id, NIVissimNodeDef *o);
     static NIVissimNodeDef *dictionary(int id);
-//    static IntVector getWithin(const AbstractPoly &p, double off=0.0);
+//    static IntVector getWithin(const AbstractPoly &p, SUMOReal off=0.0);
 //    static void buildNodeClusters();
     static void dict_assignConnectionsToNodes();
     static size_t dictSize();

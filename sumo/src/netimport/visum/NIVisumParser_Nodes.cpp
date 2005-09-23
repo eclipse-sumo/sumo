@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:03:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -30,7 +33,7 @@ namespace
 // level3 warnings removed; made netbuild-containers non-static
 //
 // Revision 1.4  2004/08/02 12:44:28  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.3  2004/01/12 15:36:08  dkrajzew
 // node-building classes are now lying in an own folder
@@ -54,7 +57,7 @@ namespace
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <netbuild/NBHelpers.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NIVisumLoader.h"
@@ -95,8 +98,8 @@ NIVisumParser_Nodes::myDependentReport()
         // get the id
         id = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
         // get the position
-        double x = TplConvert<char>::_2float(myLineParser.get("XKoord").c_str());
-        double y = TplConvert<char>::_2float(myLineParser.get("YKoord").c_str());
+        SUMOReal x = TplConvert<char>::_2SUMOReal(myLineParser.get("XKoord").c_str());
+        SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKoord").c_str());
         // add to the list
         if(!myNodeCont.insert(id, Position2D(x, y))) {
             addError(

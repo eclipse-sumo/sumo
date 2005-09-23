@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.10  2005/09/23 06:05:45  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:13:08  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -91,9 +94,9 @@ public:
     static std::string replace(std::string str, const char *what,
         const char *by);
 
-    /** Returns the given double as a string with as many digits
+    /** Returns the given SUMOReal as a string with as many digits
         after the dot as defined by the second parameter */
-    static std::string trim(double val, size_t to);
+    static std::string trim(SUMOReal val, size_t to);
 
     /// Converts the given string to upper characters
     static void upper(std::string &str);

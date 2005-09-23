@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2005/09/23 06:04:23  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.10  2005/09/15 12:04:48  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -98,7 +101,7 @@ typedef struct content {
     int id;
     int max;
     int cartype[MAX_CARTYPES];
-    float fraction[MAX_CARTYPES];
+    SUMOReal fraction[MAX_CARTYPES];
 } ODContent;
 
 

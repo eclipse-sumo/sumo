@@ -22,6 +22,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2005/09/23 06:12:43  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:22:26  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -149,11 +152,11 @@ public:
     long getLong(const Attributes &attrs, int id) const;
     long getLongSecure(const Attributes &attrs, int id, long def) const;
 
-    /** returns the named (by id) attribute as a float */
-    float getFloat(const Attributes &attrs, int id) const;
-    float getFloatSecure(const Attributes &attrs, int id, float def) const;
-    float getFloat(const Attributes &attrs, const std::string &id) const;
-    float getFloatSecure(const Attributes &attrs, const std::string &id, float def) const;
+    /** returns the named (by id) attribute as a SUMOReal */
+    SUMOReal getFloat(const Attributes &attrs, int id) const;
+    SUMOReal getFloatSecure(const Attributes &attrs, int id, SUMOReal def) const;
+    SUMOReal getFloat(const Attributes &attrs, const std::string &id) const;
+    SUMOReal getFloatSecure(const Attributes &attrs, const std::string &id, SUMOReal def) const;
 
     /** returns the named (by id) attribute as a c-string */
     char *getCharP(const Attributes &attrs, int id) const;

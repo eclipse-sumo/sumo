@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:06:37  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:17:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -55,21 +58,21 @@ class Distribution_MeanDev :
         public Distribution {
 public:
     /// Constructor
-    Distribution_MeanDev(const std::string &id, double mean,
-        double deviation);
+    Distribution_MeanDev(const std::string &id, SUMOReal mean,
+        SUMOReal deviation);
 
     /// Destructor
     virtual ~Distribution_MeanDev();
 
     /// Returns the maximum value of this distribution
-    double getMax() const;
+    SUMOReal getMax() const;
 
 private:
     /// The distribution's mean
-    double myMeanValue;
+    SUMOReal myMeanValue;
 
     /// The distribution's standard deviation
-    double myDeviation;
+    SUMOReal myDeviation;
 
 };
 

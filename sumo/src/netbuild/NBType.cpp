@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -43,7 +46,7 @@ namespace
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:12  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -100,7 +103,7 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NBType::NBType(const string &name, int noLanes, double speed, int priority)
+NBType::NBType(const string &name, int noLanes, SUMOReal speed, int priority)
     : _name(StringUtils::convertUmlaute(name)), _noLanes(noLanes),
     _speed(speed), _priority(priority)
 {

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:02:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/04/27 12:24:38  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -49,8 +52,12 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
 #include "../NIVissimLoader.h"
@@ -60,6 +67,10 @@ namespace
 #include "../tempstructs/NIVissimNodeDef_Poly.h"
 #include "../tempstructs/NIVissimNodeDef.h"
 #include "NIVissimSingleTypeParser_Knotendefinition.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -104,7 +115,7 @@ NIVissimSingleTypeParser_Knotendefinition::parse(std::istream &from)
         NIVissimNodeParticipatingEdgeVector edges;
         while(tag=="strecke") {
             int edgeid;
-            double from_pos, to_pos;
+            SUMOReal from_pos, to_pos;
             from_pos = to_pos = -1.0;
             from >> edgeid;
             tag = readEndSecure(from, "strecke");
@@ -128,4 +139,8 @@ NIVissimSingleTypeParser_Knotendefinition::parse(std::istream &from)
     }
     return true;
 }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+// Local Variables:
+// mode:C++
+// End:

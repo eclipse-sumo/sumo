@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:12:43  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:22:26  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -61,7 +64,7 @@ namespace
 
 #include <iostream>
 #include <util/PlatformUtils.hpp>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include "XMLSubSys.h"
 
 #ifdef _DEBUG

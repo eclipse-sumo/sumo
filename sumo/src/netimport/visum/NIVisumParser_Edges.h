@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/09/23 06:03:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -83,17 +86,17 @@ private:
 	bool checkNodes(NBNode *from, NBNode *to) const;
 
 	/// Returns the length of the edge, either read from the parameter or computed from the geometry
-	double getLength(NBNode *from, NBNode *to) const;
+	SUMOReal getLength(NBNode *from, NBNode *to) const;
 
 	/// Returns the maximum allowed speed on this edge, either read from the parameter or the one of the type the edge is of
-	double getSpeed(const std::string &type) const;
+	SUMOReal getSpeed(const std::string &type) const;
 
 	/// Returns the number of the lanes the edge has; Either read from the parameter or the number of lanes the edges of this type have
 	int getNoLanes(const std::string &type) const;
 
 	/// Build the edge checking the insertion
 	void insertEdge(const std::string &id,  NBNode *from, NBNode *to,
-		const std::string &type, double speed, int nolanes, double length,
+		const std::string &type, SUMOReal speed, int nolanes, SUMOReal length,
 		int prio) const;
 
 private:

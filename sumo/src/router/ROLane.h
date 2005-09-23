@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -57,16 +60,16 @@ class ROEdge;
 class ROLane : public Named {
 public:
     /// Constructor
-    ROLane(const std::string &id, double length, double maxSpeed);
+    ROLane(const std::string &id, SUMOReal length, SUMOReal maxSpeed);
 
     /// Destructor
     ~ROLane();
 
     /// Returns the length of the lane
-    double getLength() const;
+    SUMOReal getLength() const;
 
     /// Returns the maximum speed allowed on this lane
-    double getSpeed() const;
+    SUMOReal getSpeed() const;
 
     /// Return the Edge
     ROEdge *getEdge();
@@ -76,10 +79,10 @@ protected:
     ROEdge *myEdge;
 private:
     /// The length of the lane
-    double myLength;
+    SUMOReal myLength;
 
     /// The maximum speed allowed on the lane
-    double myMaxSpeed;
+    SUMOReal myMaxSpeed;
 
 };
 

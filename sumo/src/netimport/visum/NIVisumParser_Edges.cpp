@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/23 06:03:50  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -60,7 +63,7 @@ namespace
 #include <config.h>
 #endif // HAVE_CONFIG_H
 
-#include <utils/convert/TplConvertSec.h>
+#include <utils/common/TplConvertSec.h>
 #include <netbuild/NBHelpers.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBTypeCont.h>
@@ -114,9 +117,9 @@ NIVisumParser_Edges::myDependentReport()
         // get the type
         string type = myLineParser.get("Typ");
         // get the street length
-        double length = getLength(from, to);
+        SUMOReal length = getLength(from, to);
         // get the speed
-        double speed = getSpeed(type);
+        SUMOReal speed = getSpeed(type);
         // get the information whether the edge is a one-way
         bool oneway =
             TplConvert<char>::_2bool(myLineParser.get("Einbahn").c_str());
@@ -166,12 +169,12 @@ NIVisumParser_Edges::checkNodes(NBNode *from, NBNode *to) const
 }
 
 
-double
+SUMOReal
 NIVisumParser_Edges::getLength(NBNode *from, NBNode *to) const
 {
-    double length = 0;
+    SUMOReal length = 0;
     try {
-        length = TplConvertSec<char>::_2floatSec(
+        length = TplConvertSec<char>::_2SUMORealSec(
             myLineParser.get("Laenge").c_str(), 0);
     } catch (OutOfBoundsException) {
     }
@@ -183,20 +186,20 @@ NIVisumParser_Edges::getLength(NBNode *from, NBNode *to) const
 }
 
 
-double
+SUMOReal
 NIVisumParser_Edges::getSpeed(const std::string &type) const
 {
-    double speed = 0;
+    SUMOReal speed = 0;
     try {
         speed =
-            TplConvertSec<char>::_2floatSec(
+            TplConvertSec<char>::_2SUMORealSec(
                 myLineParser.get("v0-IV").c_str(), -1);
     } catch (OutOfBoundsException) {
     }
     if(speed<=0) {
         speed = myTypeCont.getSpeed(type);
     } else {
-        speed = speed / 3.6;
+        speed = speed / (SUMOReal) 3.6;
     }
     return speed;
 }
@@ -221,7 +224,7 @@ void
 NIVisumParser_Edges::insertEdge(const std::string &id,
                                 NBNode *from, NBNode *to,
                                 const std::string &type,
-                                double speed, int nolanes, double length,
+                                SUMOReal speed, int nolanes, SUMOReal length,
                                 int prio) const
 {
     NBEdge *e = new NBEdge(id, id, from, to, type, speed, nolanes, length, prio);

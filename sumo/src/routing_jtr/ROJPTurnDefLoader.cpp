@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:04:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:05:34  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -65,7 +68,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <router/RONet.h>
 #include "ROJPHelpers.h"
@@ -201,10 +204,10 @@ ROJPTurnDefLoader::report(const std::string &line)
                     + string("' is not known within the network (within a 'to-edge' tag)."));
                 return false;
             }
-            float perc;
+            SUMOReal perc;
             try {
                 perc =
-                    TplConvert<char>::_2float(getSecure("split").c_str());
+                    TplConvert<char>::_2SUMOReal(getSecure("split").c_str());
             } catch (NumberFormatException &) {
                 MsgHandler::getErrorInstance()->inform(
                     string("The attribute 'perc' is not numeric."));
@@ -311,7 +314,7 @@ ROJPTurnDefLoader::addToEdge(const Attributes &attrs)
         return;
     }
     try {
-        float perc = getFloat(attrs, SUMO_ATTR_PERC);
+        SUMOReal perc = getFloat(attrs, SUMO_ATTR_PERC);
         myEdge->addFollowerProbability(edge, myIntervalBegin, myIntervalEnd, perc);
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(

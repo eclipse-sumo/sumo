@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -44,13 +47,17 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
 #include <cassert>
 #include <utils/geom/Boundary.h>
 #include "NIVissimBoundedClusterObject.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 NIVissimBoundedClusterObject::ContType NIVissimBoundedClusterObject::myDict;
 
@@ -69,7 +76,7 @@ NIVissimBoundedClusterObject::~NIVissimBoundedClusterObject()
 
 bool
 NIVissimBoundedClusterObject::crosses(const AbstractPoly &poly,
-                                      double offset) const
+                                      SUMOReal offset) const
 {
     assert(myBoundary!=0&&myBoundary->xmax()>=myBoundary->xmin());
     return myBoundary->overlapsWith(poly, offset);

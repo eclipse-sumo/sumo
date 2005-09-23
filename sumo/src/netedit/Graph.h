@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2005/09/23 06:01:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.9  2005/09/15 12:03:02  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -148,7 +151,7 @@ public:
 
 
 	//Wandelt einen Double-Wert in einen String um
-	char* doubletostr(double i,int count);
+	char* SUMORealtostr(SUMOReal i,int count);
 
 	//Exportiert Traces
 	void GetTraces(int cars,int fuel, ConfigDialog* myDialog);

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.10  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -41,7 +44,7 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -51,6 +54,10 @@ namespace
 #include "NIVissimConnection.h"
 #include "NIVissimDisturbance.h"
 #include "NIVissimTL.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 using namespace std;
 
@@ -108,7 +115,7 @@ NIVissimNodeDef::buildNodeClusters()
 /*
 
 IntVector
-NIVissimNodeDef::getWithin(const AbstractPoly &p, double off)
+NIVissimNodeDef::getWithin(const AbstractPoly &p, SUMOReal off)
 {
     IntVector ret;
     for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
@@ -121,7 +128,7 @@ NIVissimNodeDef::getWithin(const AbstractPoly &p, double off)
 }
 
 bool
-NIVissimNodeDef::partialWithin(const AbstractPoly &p, double off) const
+NIVissimNodeDef::partialWithin(const AbstractPoly &p, SUMOReal off) const
 {
     assert(myBoundary!=0&&myBoundary->xmax()>=myBoundary->xmin());
     return myBoundary->partialWithin(p, off);

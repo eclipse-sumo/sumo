@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.13  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -161,7 +164,7 @@ public:
 
     /** @brief Adds a vehicle id
         As some route formats do not contain vehicle description, the ids
-        are saved to check for double occurences, but are not assigned to
+        are saved to check for SUMOReal occurences, but are not assigned to
         vehicles before the routes are not build */
     void addVehicleID(const std::string &id);
 

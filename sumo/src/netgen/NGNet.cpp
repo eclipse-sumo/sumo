@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/23 06:01:31  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:03:17  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -69,7 +72,7 @@ namespace
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNetBuilder.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include "NGNet.h"
 
 #ifdef _DEBUG
@@ -169,7 +172,7 @@ TNGNet::FindNode(int xID, int yID)
 
 
 void
-TNGNet::CreateChequerBoard(int NumX, int NumY, float SpaceX, float SpaceY)
+TNGNet::CreateChequerBoard(int NumX, int NumY, SUMOReal SpaceX, SUMOReal SpaceY)
 {
 	int ix, iy;
 	TNode *Node;
@@ -197,26 +200,26 @@ TNGNet::CreateChequerBoard(int NumX, int NumY, float SpaceX, float SpaceY)
 }
 
 
-float
-TNGNet::RadialToX(float radius, float phi) {
+SUMOReal
+TNGNet::RadialToX(SUMOReal radius, SUMOReal phi) {
 	return cos(phi) * radius;
 }
 
 
-float
-TNGNet::RadialToY(float radius, float phi) {
+SUMOReal
+TNGNet::RadialToY(SUMOReal radius, SUMOReal phi) {
 	return sin(phi) * radius;
 }
 
 
 void
-TNGNet::CreateSpiderWeb(int NumRadDiv, int NumCircles, float SpaceRad)
+TNGNet::CreateSpiderWeb(int NumRadDiv, int NumCircles, SUMOReal SpaceRad)
 {
 	if (NumRadDiv < 3) NumRadDiv = 3;
 	if (NumCircles < 1) NumCircles = 1;
 
 	int ir, ic;
-	float angle = (float) (2*PI/NumRadDiv);  // angle between radial divisions
+	SUMOReal angle = (SUMOReal) (2*PI/NumRadDiv);  // angle between radial divisions
 	TNode *Node;
 	for (ir=1; ir<NumRadDiv+1; ir++) {
 		for (ic=1; ic<NumCircles+1; ic++) {

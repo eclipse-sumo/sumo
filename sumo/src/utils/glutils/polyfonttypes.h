@@ -40,11 +40,11 @@ typedef signed short int pfint16;
 
 typedef struct
 {
-  float minx;
-  float miny;
-  float maxx;
-  float maxy;
-  float advance;
+  SUMOReal minx;
+  SUMOReal miny;
+  SUMOReal maxx;
+  SUMOReal maxy;
+  SUMOReal advance;
   pfuint16 glyph;
   pfuint16 numsegments;
   pfint16 *segments;
@@ -54,10 +54,10 @@ typedef struct
 {
   char *name;
   int loaded;
-  float minx;
-  float miny;
-  float maxx;
-  float maxy;
+  SUMOReal minx;
+  SUMOReal miny;
+  SUMOReal maxx;
+  SUMOReal maxy;
   int numglyphs;
   pfglyph *glyphs;
 } pffont;

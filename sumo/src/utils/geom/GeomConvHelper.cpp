@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/09/23 06:07:01  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:18:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -48,7 +51,7 @@ namespace
 #include <string>
 #include <utils/geom/Position2DVector.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include "GeomConvHelper.h"
 
 #ifdef _DEBUG
@@ -66,8 +69,8 @@ GeomConvHelper::parseShape(const std::string &shpdef)
     Position2DVector shape;
     while(st.hasNext()) {
         StringTokenizer pos(st.next(), ",");
-        float x = TplConvert<char>::_2float(pos.next().c_str());
-        float y = TplConvert<char>::_2float(pos.next().c_str());
+        SUMOReal x = TplConvert<char>::_2SUMOReal(pos.next().c_str());
+        SUMOReal y = TplConvert<char>::_2SUMOReal(pos.next().c_str());
         shape.push_back(
             Position2D(x, y));
     }

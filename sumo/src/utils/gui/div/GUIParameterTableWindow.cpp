@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/23 06:07:35  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:18:59  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -83,7 +86,7 @@ namespace
 #include <guisim/GUINet.h>
 #include "GUIParameterTableWindow.h"
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/gui/div/GUIParam_PopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
@@ -210,7 +213,7 @@ GUIParameterTableWindow::onRightButtonPress(FXObject*sender,
 
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
-                                ValueSource<double> *src)
+                                ValueSource<SUMOReal> *src)
 {
     GUIParameterTableItem *i = new GUIParameterTableItem(
         myTable, myCurrentPos++, name, dynamic, src);
@@ -230,7 +233,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
 
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
-                                double value)
+                                SUMOReal value)
 {
     GUIParameterTableItem *i = new GUIParameterTableItem(
         myTable, myCurrentPos++, name, dynamic, value);

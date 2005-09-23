@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/23 06:11:14  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:20:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -72,8 +75,8 @@ FXIMPLEMENT(GUIDialog_EditViewport,FXDialogBox,GUIDialog_EditViewportMap, ARRAYN
  * ======================================================================= */
 GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
                                                const char* name,
-                                               double zoom,
-                                               double xoff, double yoff,
+                                               SUMOReal zoom,
+                                               SUMOReal xoff, SUMOReal yoff,
                                                int x, int y)
     : FXDialogBox( parent, name, DECOR_CLOSE|DECOR_TITLE, x, y, 0, 0),
     myParent(parent), myOldZoom(zoom), myOldXOff(xoff), myOldYOff(yoff)
@@ -151,8 +154,8 @@ GUIDialog_EditViewport::~GUIDialog_EditViewport()
 long
 GUIDialog_EditViewport::onCmdOk(FXObject*,FXSelector,void*)
 {
-    myParent->setViewport(myZoom->getValue(),
-        myXOff->getValue(), myYOff->getValue());
+    myParent->setViewport((SUMOReal) myZoom->getValue(),
+        (SUMOReal) myXOff->getValue(), (SUMOReal) myYOff->getValue());
     hide();
     return 1;
 }

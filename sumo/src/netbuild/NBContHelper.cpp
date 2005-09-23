@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2005/09/23 06:01:05  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.17  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -44,7 +47,7 @@ namespace
 // some further work on edge geometry
 //
 // Revision 1.11  2003/11/11 08:33:54  dkrajzew
-// consequent position2D instead of two doubles added
+// consequent position2D instead of two SUMOReals added
 //
 // Revision 1.10  2003/09/22 12:40:11  dkrajzew
 // further work on vissim-import
@@ -86,7 +89,7 @@ namespace
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:10  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -206,11 +209,11 @@ NBContHelper::findConnectingEdge(const EdgeVector &edges,
 
 
 
-double
+SUMOReal
 NBContHelper::maxSpeed(const EdgeVector &ev)
 {
     assert(ev.size()>0);
-    double max = (*(ev.begin()))->getSpeed();
+    SUMOReal max = (*(ev.begin()))->getSpeed();
     for(EdgeVector::const_iterator i=ev.begin()+1; i!=ev.end(); i++) {
         max =
             max > (*i)->getSpeed()
@@ -232,11 +235,11 @@ NBContHelper::edge_by_junction_angle_sorter::operator() (NBEdge *e1, NBEdge *e2)
 
 
 
-double
+SUMOReal
 NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge *e) const
 {
 
-    double angle;
+    SUMOReal angle;
     // convert angle if the edge is an outgoing edge
     if(e->getFromNode()==_node) {
         angle = e->getNormedAngle(*_node);
@@ -357,13 +360,13 @@ NBContHelper::edge_to_lane_sorter::operator() (NBEdge *e1, NBEdge *e2) const {
 }
 
 
-double
+SUMOReal
 NBContHelper::getMaxSpeed(const EdgeVector &edges)
 {
     if(edges.size()==0) {
         return -1;
     }
-    double ret = (*(edges.begin()))->getSpeed();
+    SUMOReal ret = (*(edges.begin()))->getSpeed();
     for(EdgeVector::const_iterator i=edges.begin()+1; i!=edges.end(); i++) {
         if((*i)->getSpeed()>ret) {
             ret = (*i)->getSpeed();
@@ -373,13 +376,13 @@ NBContHelper::getMaxSpeed(const EdgeVector &edges)
 }
 
 
-double
+SUMOReal
 NBContHelper::getMinSpeed(const EdgeVector &edges)
 {
     if(edges.size()==0) {
         return -1;
     }
-    double ret = (*(edges.begin()))->getSpeed();
+    SUMOReal ret = (*(edges.begin()))->getSpeed();
     for(EdgeVector::const_iterator i=edges.begin()+1; i!=edges.end(); i++) {
         if((*i)->getSpeed()<ret) {
             ret = (*i)->getSpeed();

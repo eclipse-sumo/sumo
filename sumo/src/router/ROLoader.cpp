@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.21  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -107,7 +110,7 @@ namespace
 #include <util/TransService.hpp>
 #include <sax2/SAX2XMLReader.hpp>
 #include <utils/options/OptionsCont.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
@@ -190,7 +193,7 @@ ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
 
 
 void
-ROLoader::openRoutes(RONet &net, float gBeta, float gA)
+ROLoader::openRoutes(RONet &net, SUMOReal gBeta, SUMOReal gA)
 {
     // build loader
         // load additional precomputed sumo-routes when wished
@@ -528,8 +531,8 @@ void
 ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo)
 {
     if(_options.getBool("v")) {
-        double perc =
-            (double) (time-start) / (double) absNo;
+        SUMOReal perc =
+            (SUMOReal) (time-start) / (SUMOReal) absNo;
         cout.setf ( ios::fixed , ios::floatfield ) ; // use decimal format
         cout.setf ( ios::showpoint ) ; // print decimal point
         cout << "Reading time step: " << time

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.31  2005/09/15 12:02:45  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -53,7 +56,7 @@ namespace
 // work on internal lanes
 //
 // Revision 1.22  2003/11/11 08:33:54  dkrajzew
-// consequent position2D instead of two doubles added
+// consequent position2D instead of two SUMOReals added
 //
 // Revision 1.21  2003/10/15 11:49:26  dkrajzew
 // unneeded debug-ifs removed
@@ -135,7 +138,7 @@ namespace
 // new computation flow
 //
 // Revision 1.3  2002/04/26 10:07:12  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.2  2002/04/10 04:52:25  dkrajzew
 // False priority of joining lanes removed
@@ -175,7 +178,7 @@ namespace
 #include <map>
 #include <cassert>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include "NBEdge.h"
 #include "NBJunctionLogicCont.h"
 #include "NBContHelper.h"

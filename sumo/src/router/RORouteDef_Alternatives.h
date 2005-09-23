@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -98,7 +101,7 @@ class RORouteDef_Alternatives : public RORouteDef {
 public:
     /// Constructor
     RORouteDef_Alternatives(const std::string &id, const RGBColor &color,
-        size_t lastUsed, double gawronBeta, double gawronA, int maxRoutes);
+        size_t lastUsed, SUMOReal gawronBeta, SUMOReal gawronA, int maxRoutes);
 
     /// Destructor
     virtual ~RORouteDef_Alternatives();
@@ -144,11 +147,11 @@ private:
 
     /** @brief Performs the gawron - f() function
         From "Dynamic User Equilibria..." */
-    double gawronF(double pdr, double pds, double x);
+    SUMOReal gawronF(SUMOReal pdr, SUMOReal pds, SUMOReal x);
 
     /** @brief Performs the gawron - g() function
         From "Dynamic User Equilibria..." */
-    double gawronG(double a, double x);
+    SUMOReal gawronG(SUMOReal a, SUMOReal x);
 
 private:
     /// Information whether a new route was generated
@@ -164,10 +167,10 @@ private:
     AlternativesVector _alternatives;
 
     /// gawron beta - value
-    double _gawronBeta;
+    SUMOReal _gawronBeta;
 
     /// gawron a - value
-    double _gawronA;
+    SUMOReal _gawronA;
 
     /// The maximum route number
     int myMaxRouteNumber;

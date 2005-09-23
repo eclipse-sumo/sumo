@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:13:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:27:08  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -87,7 +90,7 @@ namespace
 
 #include <sax/SAXException.hpp>
 #include <sax/SAXParseException.hpp>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -106,7 +109,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/common/HelpPrinter.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/xml/XMLSubSys.h>
 #include <routing_jtr/ROJPEdgeBuilder.h>
@@ -157,7 +160,7 @@ using namespace std;
  */
 RONet *
 loadNet(ROLoader &loader, OptionsCont &oc,
-        const std::vector<float> &turnDefs)
+        const std::vector<SUMOReal> &turnDefs)
 {
     // load the net
     ROJPEdgeBuilder builder;
@@ -178,11 +181,11 @@ loadNet(ROLoader &loader, OptionsCont &oc,
     return net;
 }
 
-float
+SUMOReal
 parseFloat_ReportError(const std::string &toParse, const std::string &output)
 {
     try {
-        return TplConvert<char>::_2float(toParse.c_str());
+        return TplConvert<char>::_2SUMOReal(toParse.c_str());
     } catch (EmptyData &) {
     } catch (NumberFormatException&) {
     }
@@ -192,10 +195,10 @@ parseFloat_ReportError(const std::string &toParse, const std::string &output)
 }
 
 
-std::vector<float>
+std::vector<SUMOReal>
 getTurningDefaults(OptionsCont &oc)
 {
-    std::vector<float> ret;
+    std::vector<SUMOReal> ret;
     if(oc.isSet("turn-defaults")) {
         string def = oc.getString("turn-defaults");
         StringTokenizer st(def, ";");
@@ -305,7 +308,7 @@ main(int argc, char **argv)
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
         ROFrame::setDefaults(oc);
-        std::vector<float> defs = getTurningDefaults(oc);
+        std::vector<SUMOReal> defs = getTurningDefaults(oc);
         // load data
         ROVehicleBuilder vb;
         ROLoader loader(oc, vb, true);

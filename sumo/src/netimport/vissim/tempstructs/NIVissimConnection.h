@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -41,7 +44,7 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
@@ -73,16 +76,16 @@ public:
         const NIVissimExtendedEdgePoint &from_def,
         const NIVissimExtendedEdgePoint &to_def,
         const Position2DVector &geom,
-        Direction direction, double dxnothalt, double dxeinordnen,
-        double zuschlag1, double zuschlag2, double seglength,
+        Direction direction, SUMOReal dxnothalt, SUMOReal dxeinordnen,
+        SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal seglength,
         const IntVector &assignedVehicles,
         const NIVissimClosedLanesVector &clv);
     virtual ~NIVissimConnection();
     void computeBounding();
     int getFromEdgeID() const;
     int getToEdgeID() const;
-    double getFromPosition() const;
-    double getToPosition() const;
+    SUMOReal getFromPosition() const;
+    SUMOReal getToPosition() const;
     Position2D getFromGeomPosition() const;
     Position2D getToGeomPosition() const;
     void setNodeCluster(int nodeid);
@@ -96,8 +99,8 @@ public:
         const NIVissimExtendedEdgePoint &from_def,
         const NIVissimExtendedEdgePoint &to_def,
         const Position2DVector &geom,
-        Direction direction, double dxnothalt, double dxeinordnen,
-        double zuschlag1, double zuschlag2, double seglength,
+        Direction direction, SUMOReal dxnothalt, SUMOReal dxeinordnen,
+        SUMOReal zuschlag1, SUMOReal zuschlag2, SUMOReal seglength,
         const IntVector &assignedVehicles,
         const NIVissimClosedLanesVector &clv);
     static bool dictionary(int id, NIVissimConnection *o);
@@ -119,8 +122,8 @@ private:
     std::string myName;
     NIVissimExtendedEdgePoint myFromDef, myToDef;
     Direction myDirection;
-    double myDXNothalt, myDXEinordnen;
-    double myZuschlag1, myZuschlag2;
+    SUMOReal myDXNothalt, myDXEinordnen;
+    SUMOReal myZuschlag1, myZuschlag2;
     IntVector myAssignedVehicles;
     NIVissimClosedLanesVector myClosedLanes;
 private:

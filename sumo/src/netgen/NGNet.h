@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2005/09/23 06:01:31  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.4  2005/09/15 12:03:17  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -70,16 +73,16 @@ public:
     /// returns next ID and increases myLastID
 	std::string GetID();
 
-	float RadialToX(float radius, float phi);
-	float RadialToY(float radius, float phi);
+	SUMOReal RadialToX(SUMOReal radius, SUMOReal phi);
+	SUMOReal RadialToY(SUMOReal radius, SUMOReal phi);
 
 	/// creates NGNetwork in chequerboard pattern
-	void CreateChequerBoard(int NumX, int NumY, float SpaceX, float SpaceY);
+	void CreateChequerBoard(int NumX, int NumY, SUMOReal SpaceX, SUMOReal SpaceY);
 
 	/** @brief creates NGNetwork in spiderweb pattern
 	    NumRadDiv >= 3
 	    NumCircles >= 1 */
-	void CreateSpiderWeb(int NumRadDiv, int NumCircles, float SpaceRad);
+	void CreateSpiderWeb(int NumRadDiv, int NumCircles, SUMOReal SpaceRad);
 
 	/// save
 	void SaveNet(char* FileName); // saves NGNetwork to file

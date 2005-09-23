@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/09/23 06:11:14  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/09/15 12:20:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -38,7 +41,7 @@
 // porting to FOX
 //
 // Revision 1.12  2003/11/11 08:40:03  dkrajzew
-// consequent position2D instead of two doubles implemented
+// consequent position2D instead of two SUMOReals implemented
 //
 // Revision 1.11  2003/08/20 11:58:04  dkrajzew
 // cleaned up a bit
@@ -106,7 +109,7 @@ GUIDanielPerspectiveChanger::~GUIDanielPerspectiveChanger()
 void
 GUIDanielPerspectiveChanger::move(int xdiff, int ydiff)
 {
-    myViewCenter.add(-_callback.p2m(xdiff), _callback.p2m(ydiff));
+    myViewCenter.add((SUMOReal) -_callback.p2m((SUMOReal) xdiff), (SUMOReal) _callback.p2m((SUMOReal) ydiff));
     _changed = true;
     _callback.update();
 }
@@ -115,8 +118,8 @@ GUIDanielPerspectiveChanger::move(int xdiff, int ydiff)
 void
 GUIDanielPerspectiveChanger::zoom(int diff)
 {
-    double zoom = _zoom
-        + (double) diff / 100.0 * _zoom;
+    SUMOReal zoom = (SUMOReal) _zoom
+        + (SUMOReal) diff /(SUMOReal)  100.0 * (SUMOReal) _zoom;
     if(zoom>0.01&&zoom<10000000.0) {
         _zoom = zoom;
         _changed = true;
@@ -129,35 +132,35 @@ void
 GUIDanielPerspectiveChanger::rotate(int diff)
 {
     if(_callback.allowRotation()) {
-        _rotation += (double) diff / 10.0;
+        _rotation += (SUMOReal) diff / (SUMOReal) 10.0;
         _changed = true;
         _callback.update();
     }
 }
 
 
-double
+SUMOReal
 GUIDanielPerspectiveChanger::getRotation() const
 {
     return _rotation;
 }
 
 
-double
+SUMOReal
 GUIDanielPerspectiveChanger::getXPos() const
 {
     return myViewCenter.x();
 }
 
 
-double
+SUMOReal
 GUIDanielPerspectiveChanger::getYPos() const
 {
     return myViewCenter.y();
 }
 
 
-double
+SUMOReal
 GUIDanielPerspectiveChanger::getZoom() const
 {
     return _zoom;
@@ -177,15 +180,15 @@ GUIDanielPerspectiveChanger::recenterView()
 
 void
 GUIDanielPerspectiveChanger::centerTo(const Boundary &netBoundary,
-                                      const Position2D &pos, double radius)
+                                      const Position2D &pos, SUMOReal radius)
 {
     myViewCenter.set(pos);
     myViewCenter.sub(netBoundary.getCenter());
     myViewCenter.mul(-1.0);
     _zoom =
         netBoundary.getWidth() < netBoundary.getHeight() ?
-        25.0 * netBoundary.getWidth() / radius :
-        25.0 * netBoundary.getHeight() / radius;
+        (SUMOReal) 25.0 * (SUMOReal) netBoundary.getWidth() / radius :
+        (SUMOReal) 25.0 * (SUMOReal) netBoundary.getHeight() / radius;
     _changed = true;
 }
 
@@ -199,8 +202,8 @@ GUIDanielPerspectiveChanger::centerTo(const Boundary &netBoundary,
     myViewCenter.mul(-1.0);
     _zoom =
         bound.getWidth() > bound.getHeight() ?
-        100.0 * netBoundary.getWidth() / bound.getWidth() :
-        100.0 * netBoundary.getHeight() / bound.getHeight();
+        (SUMOReal) 100.0 * (SUMOReal) netBoundary.getWidth() / (SUMOReal) bound.getWidth() :
+        (SUMOReal) 100.0 * (SUMOReal) netBoundary.getHeight() / (SUMOReal) bound.getHeight();
     _changed = true;
 }
 
@@ -300,8 +303,8 @@ GUIDanielPerspectiveChanger::onMouseMove(void*data)
 
 
 void
-GUIDanielPerspectiveChanger::setViewport(double zoom,
-                                         double xPos, double yPos)
+GUIDanielPerspectiveChanger::setViewport(SUMOReal zoom,
+                                         SUMOReal xPos, SUMOReal yPos)
 {
     _zoom = zoom;
     myViewCenter.set(xPos, yPos);

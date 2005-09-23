@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/09/23 06:01:53  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.10  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -29,7 +32,7 @@ namespace
 // level3 warnings removed; made netbuild-containers non-static
 //
 // Revision 1.8  2004/08/02 12:44:11  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.7  2004/01/12 15:30:31  dkrajzew
 // node-building classes are now lying in an own folder
@@ -67,7 +70,7 @@ namespace
 
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBOwnTLDef.h>
@@ -110,8 +113,8 @@ NIArtemisParser_Nodes::myDependentReport()
 {
     string id = myLineParser.get("IDnum");
     string name = myLineParser.get("Name");
-    double x = TplConvert<char>::_2float(myLineParser.get("X").c_str());
-    double y = TplConvert<char>::_2float(myLineParser.get("Y").c_str());
+    SUMOReal x = TplConvert<char>::_2SUMOReal(myLineParser.get("X").c_str());
+    SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("Y").c_str());
     // size omitted
     int type = TplConvert<char>::_2int(myLineParser.get("Type").c_str());
     // return if an error occured

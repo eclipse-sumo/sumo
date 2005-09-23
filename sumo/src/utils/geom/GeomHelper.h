@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2005/09/23 06:07:01  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.12  2005/09/15 12:18:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -82,14 +85,14 @@
  */
 class GeomHelper {
 public:
-    static bool intersects(double x1b, double y1b, double x1e, double y1e,
-        double x2b, double y2b, double x2e, double y2e);
+    static bool intersects(SUMOReal x1b, SUMOReal y1b, SUMOReal x1e, SUMOReal y1e,
+        SUMOReal x2b, SUMOReal y2b, SUMOReal x2e, SUMOReal y2e);
 
     static bool intersects(const Position2D &p11, const Position2D &p12,
         const Position2D &p21, const Position2D &p22);
 
     /// Returns the distance between both points
-    static double distance(const Position2D &p1, const Position2D &p2);
+    static SUMOReal distance(const Position2D &p1, const Position2D &p2);
 /*
     static Position2DVector::const_iterator
         find_intersecting_line(const Position2D &p1, const Position2D &p2,
@@ -104,52 +107,52 @@ public:
         const Position2D &p12, const Position2D &p21, const Position2D &p22);
 
 //    static bool isWithin(const Position2DVector &poly, const Position2D &p);
-    static double Angle2D(double x1, double y1, double x2, double y2);
+    static SUMOReal Angle2D(SUMOReal x1, SUMOReal y1, SUMOReal x2, SUMOReal y2);
 /*
     static Position2D position_at_length_position(
-        const Position2DVector &poly, double pos);
+        const Position2DVector &poly, SUMOReal pos);
         */
 /*
     static Position2D position_at_length_position(const Position2D &p1,
-        const Position2D &p2, double pos);
+        const Position2D &p2, SUMOReal pos);
 */
 
     static Position2D interpolate(const Position2D &p1,
-        const Position2D &p2, double length);
+        const Position2D &p2, SUMOReal length);
 
     static Position2D extrapolate_first(const Position2D &p1,
-        const Position2D &p2, double length);
+        const Position2D &p2, SUMOReal length);
 
     static Position2D extrapolate_second(const Position2D &p1,
-        const Position2D &p2, double length);
+        const Position2D &p2, SUMOReal length);
 
-    static double nearest_position_on_line_to_point(
+    static SUMOReal nearest_position_on_line_to_point(
         const Position2D &l1, const Position2D &l2,
         const Position2D &p);
 
     /** by Damian Coventry */
-    static double Magnitude(const Position2D &Point1,
+    static SUMOReal Magnitude(const Position2D &Point1,
         const Position2D &Point2 );
     /** by Damian Coventry */
-    static double DistancePointLine(const Position2D &Point,
+    static SUMOReal DistancePointLine(const Position2D &Point,
         const Position2D &LineStart, const Position2D &LineEnd);
 
     static Position2D transfer_to_side(Position2D &p,
         const Position2D &lineBeg, const Position2D &lineEnd,
-        double amount);
+        SUMOReal amount);
 
 
     static Position2D crossPoint(const Boundary &b,
         const Position2DVector &v);
 
-    static std::pair<double, double> getNormal90D_CW(double x1, double y1,
-        double x2, double y2, double length, double wanted_offset);
+    static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(SUMOReal x1, SUMOReal y1,
+        SUMOReal x2, SUMOReal y2, SUMOReal length, SUMOReal wanted_offset);
 
-    static std::pair<double, double> getNormal90D_CW(const Position2D &beg,
-        const Position2D &end, double length, double wanted_offset);
+    static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(const Position2D &beg,
+        const Position2D &end, SUMOReal length, SUMOReal wanted_offset);
 
-    static std::pair<double, double> getNormal90D_CW(const Position2D &beg,
-        const Position2D &end, double wanted_offset);
+    static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(const Position2D &beg,
+        const Position2D &end, SUMOReal wanted_offset);
 
 /*
     static void sortAsPolyCWByAngle(Position2DVector &p);

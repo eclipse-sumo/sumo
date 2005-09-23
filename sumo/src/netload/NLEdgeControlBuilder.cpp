@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/09/23 06:04:11  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 12:04:36  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -183,7 +186,7 @@ NLEdgeControlBuilder::chooseEdge(const string &id,
 
 MSLane *
 NLEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
-                              double maxSpeed, double length, bool isDepart,
+                              SUMOReal maxSpeed, SUMOReal length, bool isDepart,
 							  const Position2DVector &shape)
 {
     // checks if the depart lane was set before

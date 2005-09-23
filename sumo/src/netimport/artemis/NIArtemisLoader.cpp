@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/09/23 06:01:53  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.8  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -63,7 +66,7 @@ namespace
 #include <string>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/options/OptionsCont.h>
 #include "NIArtemisLoader.h"
 #include "NIArtemisParser_Nodes.h"

@@ -8,7 +8,7 @@ public:
     RandomDistributor() : myProb(0) { }
     ~RandomDistributor() { }
 
-    void add(float prob, T val) {
+    void add(SUMOReal prob, T val) {
         assert(prob>=0);
         myVals.push_back(val);
         myProbs.push_back(prob);
@@ -16,7 +16,7 @@ public:
     }
 
     T get() const {
-        float prob = (float) (((double) rand()/(double) RAND_MAX) * myProb);
+        SUMOReal prob = (SUMOReal) (((SUMOReal) rand()/(SUMOReal) RAND_MAX) * myProb);
         for(int i=0; i<myVals.size(); i++) {
             if(prob<myProbs[i]) {
                 return myVals[i];
@@ -26,14 +26,14 @@ public:
         return myVals[myVals.size()-1];
     }
 
-    float getOverallProb() const {
+    SUMOReal getOverallProb() const {
         return myProb;
     }
 
 private:
-    float myProb;
+    SUMOReal myProb;
     std::vector<T> myVals;
-    std::vector<float> myProbs;
+    std::vector<SUMOReal> myProbs;
 
 };
 

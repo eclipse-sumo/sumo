@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:02:26  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -43,7 +46,7 @@
 // node-building classes are now lying in an own folder
 //
 // Revision 1.18  2003/11/11 08:33:54  dkrajzew
-// consequent position2D instead of two doubles added
+// consequent position2D instead of two SUMOReals added
 //
 // Revision 1.17  2003/09/05 15:16:57  dkrajzew
 // umlaute conversion; node geometry computation; internal links computation
@@ -113,7 +116,7 @@
 // new computation flow
 //
 // Revision 1.2  2002/04/26 10:07:12  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.1.1.1  2002/04/09 14:18:27  dkrajzew
 // new version-free project name (try2)
@@ -184,7 +187,7 @@ public:
     bool insert(const std::string &id, const Position2D &position);
 
     /** inserts a node into the map */
-/*    bool insert(const std::string &id, double x, double y,
+/*    bool insert(const std::string &id, SUMOReal x, SUMOReal y,
         const std::string &type);*/
 
     /** inserts a node into the map */
@@ -210,7 +213,7 @@ public:
 
     /// resets the node positions in a way that they begin from (0, 0)
     bool normaliseNodePositions();
-    bool reshiftNodePositions(double xoff, double yoff, double rot);
+    bool reshiftNodePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 
     /// divides the incoming lanes on outgoing lanes
     bool computeLanes2Lanes();

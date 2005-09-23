@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/09/23 06:01:53  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.11  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -33,7 +36,7 @@ namespace
 // level3 warnings removed; made netbuild-containers non-static
 //
 // Revision 1.8  2004/08/02 12:44:11  dkrajzew
-// using Position2D instead of two doubles
+// using Position2D instead of two SUMOReals
 //
 // Revision 1.7  2004/01/12 15:30:47  dkrajzew
 // node-building classes are now lying in an own folder
@@ -65,7 +68,7 @@ namespace
 #include <cassert>
 #include <utils/common/DoubleVector.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <bitset>
 #include <algorithm>
 #include <netbuild/NBEdge.h>
@@ -97,7 +100,7 @@ NIArtemisTempEdgeLanes::Link2Positions NIArtemisTempEdgeLanes::myLinkLanePositio
  * method definitions
  * ======================================================================= */
 NIArtemisTempEdgeLanes::LinkLaneDesc::LinkLaneDesc(int lane, int section,
-                                                   double start, double end,
+                                                   SUMOReal start, SUMOReal end,
                                                    const std::string &mvmt)
     : myLane(lane), mySection(section), myStart(start), myEnd(end)
 {
@@ -108,14 +111,14 @@ NIArtemisTempEdgeLanes::LinkLaneDesc::~LinkLaneDesc()
 }
 
 
-double
+SUMOReal
 NIArtemisTempEdgeLanes::LinkLaneDesc::getStart() const
 {
     return myStart;
 }
 
 
-double
+SUMOReal
 NIArtemisTempEdgeLanes::LinkLaneDesc::getEnd() const
 {
     return myEnd;
@@ -130,7 +133,7 @@ NIArtemisTempEdgeLanes::LinkLaneDesc::getLane() const
 
 
 void
-NIArtemisTempEdgeLanes::LinkLaneDesc::patchPosition(double length)
+NIArtemisTempEdgeLanes::LinkLaneDesc::patchPosition(SUMOReal length)
 {
     if(myStart!=-1) {
         myStart = length - myStart;
@@ -148,7 +151,7 @@ NIArtemisTempEdgeLanes::LinkLaneDesc::patchPosition(double length)
 
 void
 NIArtemisTempEdgeLanes::add(const std::string &link, int lane,
-                            int section, double start, double end,
+                            int section, SUMOReal start, SUMOReal end,
                             const std::string &mvmt)
 {
     myLinkLaneDescs[link].push_back(
@@ -168,7 +171,7 @@ NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
     for(i=myLinkLaneDescs.begin(); i!=myLinkLaneDescs.end(); i++) {
         string name = (*i).first;
         NBEdge *edge = ec.retrieve(name);
-        double length = edge->getLength();
+        SUMOReal length = edge->getLength();
         // patch the information within the lane descriptions
         LaneDescVector defs = (*i).second;
         for(LaneDescVector::iterator j=defs.begin(); j!=defs.end(); j++) {
@@ -199,7 +202,7 @@ NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
         size_t maxLaneNo = edge->getNoLanes();
         // retrieve all positions the edge changes at
         DoubleVector poses = myLinkLanePositions[name];
-        // remove double information then convert and sort the list
+        // remove SUMOReal information then convert and sort the list
         poses.push_back(edge->getLength());
         DoubleVectorHelper::removeDouble(poses);
         sort(poses.begin(), poses.end());
@@ -217,7 +220,7 @@ NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
             }
         }
         // go through the build container and split the edge
-        double lengthRemoved = 0;
+        SUMOReal lengthRemoved = 0;
         for(size_t k=1; k<setLanes.size()-1; k++) {
             // get the position of the lane changing
             string nodename = name + toString<int>(k-1) + string("x") + name + toString<int>(k);
@@ -299,7 +302,7 @@ NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
 
 
 size_t
-NIArtemisTempEdgeLanes::getBeginIndex(double start, const DoubleVector &poses)
+NIArtemisTempEdgeLanes::getBeginIndex(SUMOReal start, const DoubleVector &poses)
 {
     if(start==-1) {
         return 0;
@@ -311,7 +314,7 @@ NIArtemisTempEdgeLanes::getBeginIndex(double start, const DoubleVector &poses)
 
 
 size_t
-NIArtemisTempEdgeLanes::getEndIndex(double end, const DoubleVector &poses)
+NIArtemisTempEdgeLanes::getEndIndex(SUMOReal end, const DoubleVector &poses)
 {
     if(end==-1) {
         return poses.size()-1;

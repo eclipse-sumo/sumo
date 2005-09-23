@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:02:57  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -41,17 +44,21 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
-#include "config.h"
+#include <config.h>
 #endif // HAVE_CONFIG_H
 
 
 #include "NIVissimVehicleType.h"
 
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
 NIVissimVehicleType::DictType NIVissimVehicleType::myDict;
 
 NIVissimVehicleType::NIVissimVehicleType(int id,
-        const std::string &name, const std::string &category, double length,
-        const RGBColor &color, double amax, double dmax)
+        const std::string &name, const std::string &category, SUMOReal length,
+        const RGBColor &color, SUMOReal amax, SUMOReal dmax)
     : myID(id), myName(name), myCategory(category), myLength(length),
     myColor(color), myAMax(amax), myDMax(dmax)
 {
@@ -66,8 +73,8 @@ NIVissimVehicleType::~NIVissimVehicleType()
 
 bool
 NIVissimVehicleType::dictionary(int id,
-    const std::string &name, const std::string &category, double length,
-    const RGBColor &color, double amax, double dmax)
+    const std::string &name, const std::string &category, SUMOReal length,
+    const RGBColor &color, SUMOReal amax, SUMOReal dmax)
 {
     NIVissimVehicleType *o = new NIVissimVehicleType(id, name, category,
         length, color, amax, dmax);

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.5  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -61,7 +64,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/DevHelper.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <router/ROVehicleType_Krauss.h>
 #include "ROFrame.h"
 
@@ -100,11 +103,11 @@ ROFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.doRegister("end", 'e', new Option_Integer(864000));
     // register vehicle type defaults
-    oc.doRegister("krauss-vmax", 'V', new Option_Float(float(70)));
-    oc.doRegister("krauss-a", 'A', new Option_Float(float(2.6)));
-    oc.doRegister("krauss-b", 'B', new Option_Float(float(4.5)));
-    oc.doRegister("krauss-length", 'L', new Option_Float(float(5)));
-    oc.doRegister("krauss-eps", 'E', new Option_Float(float(0.5)));
+    oc.doRegister("krauss-vmax", 'V', new Option_Float(SUMOReal(70)));
+    oc.doRegister("krauss-a", 'A', new Option_Float(SUMOReal(2.6)));
+    oc.doRegister("krauss-b", 'B', new Option_Float(SUMOReal(4.5)));
+    oc.doRegister("krauss-length", 'L', new Option_Float(SUMOReal(5)));
+    oc.doRegister("krauss-eps", 'E', new Option_Float(SUMOReal(0.5)));
     // register the report options
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));

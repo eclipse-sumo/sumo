@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -98,7 +101,7 @@ RORDLoader_SUMOBase::~RORDLoader_SUMOBase()
 }
 
 
-float
+SUMOReal
 RORDLoader_SUMOBase::getFloatReporting(const Attributes &attrs,
                                        AttrEnum attr,
                                        const std::string &id,
@@ -266,15 +269,15 @@ RORDLoader_SUMOBase::startVehType(const Attributes &attrs)
         return;
     }
     // get the other values
-    float maxspeed = getFloatReporting(attrs, SUMO_ATTR_MAXSPEED,
+    SUMOReal maxspeed = getFloatReporting(attrs, SUMO_ATTR_MAXSPEED,
         id, "maxspeed");
-    float length = getFloatReporting(attrs, SUMO_ATTR_LENGTH,
+    SUMOReal length = getFloatReporting(attrs, SUMO_ATTR_LENGTH,
         id, "length");
-    float accel = getFloatReporting(attrs, SUMO_ATTR_ACCEL,
+    SUMOReal accel = getFloatReporting(attrs, SUMO_ATTR_ACCEL,
         id, "accel");
-    float decel = getFloatReporting(attrs, SUMO_ATTR_DECEL,
+    SUMOReal decel = getFloatReporting(attrs, SUMO_ATTR_DECEL,
         id, "decel");
-    float sigma = getFloatReporting(attrs, SUMO_ATTR_SIGMA,
+    SUMOReal sigma = getFloatReporting(attrs, SUMO_ATTR_SIGMA,
         id, "sigma");
     RGBColor color = parseColor(attrs, "vehicle type", id);
     // build the vehicle type after checking

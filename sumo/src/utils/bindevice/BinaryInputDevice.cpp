@@ -62,9 +62,9 @@ operator>>(BinaryInputDevice &os, unsigned int &i)
 
 
 BinaryInputDevice &
-operator>>(BinaryInputDevice &os, float &f)
+operator>>(BinaryInputDevice &os, SUMOReal &f)
 {
-    os.myStream.read((char*) &f, sizeof(float));
+    os.myStream.read((char*) &f, sizeof(SUMOReal));
     return os;
 }
 

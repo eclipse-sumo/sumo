@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/09/23 06:01:06  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.14  2005/09/15 12:02:26  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -79,7 +82,7 @@ namespace
 // computation of junction-inlanes geometry added
 //
 // Revision 1.35  2003/11/11 08:33:54  dkrajzew
-// consequent position2D instead of two doubles added
+// consequent position2D instead of two SUMOReals added
 //
 // Revision 1.34  2003/10/28 09:47:28  dkrajzew
 // lane2lane connections are now kept when edges are joined
@@ -210,7 +213,7 @@ namespace
 // new computation flow
 //
 // Revision 1.5  2002/04/26 10:07:11  dkrajzew
-// Windows eol removed; minor double to int conversions removed;
+// Windows eol removed; minor SUMOReal to int conversions removed;
 //
 // Revision 1.4  2002/04/25 14:16:57  dkrajzew
 // The unneeded iterator definition was again removed
@@ -274,7 +277,7 @@ namespace
 #include <utils/geom/bezier.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <iomanip>
 #include "NBNode.h"
 #include "NBNodeCont.h"
@@ -338,7 +341,7 @@ NBNode::ApproachingDivider::~ApproachingDivider()
 
 
 void
-NBNode::ApproachingDivider::execute(double src, double dest)
+NBNode::ApproachingDivider::execute(SUMOReal src, SUMOReal dest)
 {
     assert(_approaching->size()>src);
     // get the origin edge
@@ -365,11 +368,11 @@ NBNode::ApproachingDivider::execute(double src, double dest)
 
 deque<size_t> *
 NBNode::ApproachingDivider::spread(const vector<size_t> &approachingLanes,
-                                   double dest) const
+                                   SUMOReal dest) const
 {
     deque<size_t> *ret = new deque<size_t>();
     size_t noLanes = approachingLanes.size();
-    // when only one lane is approached, we check, whether the double-value
+    // when only one lane is approached, we check, whether the SUMOReal-value
     //  is assigned more to the left or right lane
     if(noLanes==1) {
         if((size_t) (dest+0.5)>(size_t) dest) {
@@ -384,8 +387,8 @@ NBNode::ApproachingDivider::spread(const vector<size_t> &approachingLanes,
     //
     ret->push_back((size_t) dest);
     size_t noSet = 1;
-    double roffset = 1;
-    double loffset = 1;
+    SUMOReal roffset = 1;
+    SUMOReal loffset = 1;
     while(noSet<noLanes) {
         // It may be possible, that there are not enough lanes the source
         //  lanes may be divided on
@@ -395,7 +398,7 @@ NBNode::ApproachingDivider::spread(const vector<size_t> &approachingLanes,
         if(noOutgoingLanes==noSet)
             return ret;
 
-        // as due to the conversion of double->uint the numbers will be lower
+        // as due to the conversion of SUMOReal->uint the numbers will be lower
         //  than they should be, we try to append to the left side first
         //
         // check whether the left boundary of the approached street has
@@ -861,18 +864,18 @@ NBNode::writeXMLInternalLinks(ostream &into)
                 }
                 // compute the maximu speed allowed
                 //  see !!! for an explanation (with a_lat_mean ~0.3)
-                double vmax = 0.3 * 9.80778 *
+                SUMOReal vmax = (SUMOReal) 0.3 * (SUMOReal) 9.80778 *
                     GeomHelper::distance(
                         (*i)->getLaneShape(j).getEnd(),
                         (*k).edge->getLaneShape((*k).lane).getBegin())
-                    / 2.0 / PI;
-                vmax = MIN2(vmax, (((*i)->getSpeed()+(*k).edge->getSpeed())/2.0));
+                    / (SUMOReal) 2.0 / (SUMOReal) PI;
+                vmax = MIN2(vmax, (((*i)->getSpeed()+(*k).edge->getSpeed())/(SUMOReal) 2.0));
                 //
                 string id =
                    string(":") + _id + string("_") + toString<size_t>(lno);
                 Position2D end = (*k).edge->getLaneShape((*k).lane).getBegin();
                 Position2D beg = (*i)->getLaneShape(j).getEnd();
-                double length = GeomHelper::distance(beg, end);
+                SUMOReal length = GeomHelper::distance(beg, end);
                 Position2DVector shape =
                     computeInternalLaneShape(*i, j, (*k).edge, (*k).lane);
                 into << "   <edge id=\"" << id
@@ -880,7 +883,7 @@ NBNode::writeXMLInternalLinks(ostream &into)
                 into << "      <lanes>" << endl;
                 into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
                     << "maxspeed=\"" << vmax << "\" length=\""
-                    << toString<double>(length) << "\" "
+                    << toString<SUMOReal>(length) << "\" "
                     << "changeurge=\"0\">"
                     << shape
                     << "</lane>" << endl;
@@ -959,7 +962,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
         ret.push_back(end);
         return ret;
     }
-    double def[10];
+    SUMOReal def[10];
     def[1] = beg.x();
     def[2] = 0;
     def[3] = beg.y();
@@ -970,7 +973,7 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
     def[8] = 0;
     def[9] = end.y();
 
-    double ret_buf[NO_INTERNAL_POINTS*3+1];
+    SUMOReal ret_buf[NO_INTERNAL_POINTS*3+1];
     bezier(3, def, NO_INTERNAL_POINTS, ret_buf);
     Position2D prev;
     for(size_t i=0; i<NO_INTERNAL_POINTS; i++) {
@@ -982,29 +985,29 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
     }
     return ret;
     /*
-    double distCW =
+    SUMOReal distCW =
         begAngle > endAngle
         ? endAngle + PI*2 - begAngle
         : endAngle - begAngle;
-    double distCCW =
+    SUMOReal distCCW =
         begAngle > endAngle
         ? begAngle - endAngle
         : begAngle + PI*2 - endAngle;
     assert(distCW>0&&distCCW>0);
     Position2D center = begL.intersectsAt(endL);
-    double radius = GeomHelper::distance(center, beg);
+    SUMOReal radius = GeomHelper::distance(center, beg);
     if(distCW<distCCW) {
         center.add(
             cos(distCW/2.0+begAngle)*radius,
             sin(distCW/2.0+begAngle)*radius);
         Position2D tmp(center);
         tmp.sub(cos(begAngle)*radius, sin(begAngle)*radius);
-        double dist = begL.distanceTo(tmp);
+        SUMOReal dist = begL.distanceTo(tmp);
         dist = dist / radius;
         center.add(sin(distCW/2.0+begAngle)*radius*dist, cos(distCW/2.0+begAngle)*radius*dist);
 //        distCW = -distCW;
         if(begAngle < endAngle) {
-            for(double run=0; run<distCW; run+=distCW/10) {
+            for(SUMOReal run=0; run<distCW; run+=distCW/10) {
                 Position2D np(center.x(), center.y());
                 np.add(cos(begAngle+run)*radius, sin(begAngle+run)*radius);
                 ret.push_back(np);
@@ -1021,11 +1024,11 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
             sin(distCCW/2.0+begAngle)*radius);
         Position2D tmp(center);
         tmp.sub(cos(begAngle)*radius, sin(begAngle)*radius);
-        double dist = begL.distanceTo(tmp);
+        SUMOReal dist = begL.distanceTo(tmp);
         dist = dist / radius;
         center.add(cos(distCCW/2.0+begAngle)*radius*dist, sin(distCCW/2.0+begAngle)*radius*dist);
 //        distCCW = -distCCW;
-        for(double run=0; run<distCCW; run+=distCCW/10) {
+        for(SUMOReal run=0; run<distCCW; run+=distCCW/10) {
             Position2D np(center.x(), center.y());
             np.add(-cos(-begAngle+run)*radius, sin(-begAngle+run)*radius);
             ret.push_back(np);
@@ -1272,8 +1275,8 @@ NBNode::computeNodeShape(ofstream *out)
 
 
 
-double
-NBNode::getCCWAngleDiff(double angle1, double angle2) const
+SUMOReal
+NBNode::getCCWAngleDiff(SUMOReal angle1, SUMOReal angle2) const
 {
     if(angle1<0) {
         angle1 = 360 + angle1;
@@ -1287,8 +1290,8 @@ NBNode::getCCWAngleDiff(double angle1, double angle2) const
     return angle1 + 360 - angle2;
 }
 
-double
-NBNode::getCWAngleDiff(double angle1, double angle2) const
+SUMOReal
+NBNode::getCWAngleDiff(SUMOReal angle1, SUMOReal angle2) const
 {
     if(angle1<0) {
         angle1 = 360 + angle1;
@@ -1303,29 +1306,29 @@ NBNode::getCWAngleDiff(double angle1, double angle2) const
 }
 
 
-double
+SUMOReal
 NBNode::chooseLaneOffset(DoubleVector &chk)
 {
     return DoubleVectorHelper::minValue(chk);
 }
 
 
-double
+SUMOReal
 NBNode::chooseLaneOffset2(DoubleVector &chk)
 {
     DoubleVectorHelper::remove_larger_than(chk, 100);
-    double max = DoubleVectorHelper::maxValue(chk);
+    SUMOReal max = DoubleVectorHelper::maxValue(chk);
     return 100-max+100;
 }
 
-double
+SUMOReal
 NBNode::getOffset(Position2DVector on, Position2DVector cross) const
 {
     if(on.intersects(cross)) {
         DoubleVector posses = on.intersectsAtLengths(cross);
         assert(posses.size()>0);
         // heuristic
-        double val = DoubleVectorHelper::maxValue(posses);
+        SUMOReal val = DoubleVectorHelper::maxValue(posses);
         if(val<50) {
             return val;
         }
@@ -1361,8 +1364,8 @@ NBNode::computeLanes2Lanes()
         vector<NBEdge*> *approaching = getApproaching(currentOutgoing);
         if(approaching->size()!=0) {
             ApproachingDivider divider(approaching, currentOutgoing);
-            Bresenham::compute(&divider, approaching->size(),
-                currentOutgoing->getNoLanes());
+            Bresenham::compute(&divider, (SUMOReal) approaching->size(),
+                (SUMOReal) currentOutgoing->getNoLanes());
         }
         delete approaching;
     }
@@ -1451,7 +1454,7 @@ NBNode::setTurningDefinition(NBNode *from, NBNode *to)
 
 
 void
-NBNode::resetby(double xoffset, double yoffset)
+NBNode::resetby(SUMOReal xoffset, SUMOReal yoffset)
 {
     myPosition.add(xoffset, yoffset);
     myPoly.resetBy(xoffset, yoffset);
@@ -1459,7 +1462,7 @@ NBNode::resetby(double xoffset, double yoffset)
 
 
 void
-NBNode::reshiftPosition(double xoff, double yoff, double rot)
+NBNode::reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
 {
     myPosition.reshiftRotate(xoff, yoff, rot);
     myPoly.reshiftRotate(xoff, yoff, rot);
@@ -1494,7 +1497,7 @@ NBNode::replaceOutgoing(const EdgeVector &which, NBEdge *by)
         replaceOutgoing(*i, by, laneOff);
         laneOff += (*i)->getNoLanes();
     }
-    // removed double occurences
+    // removed SUMOReal occurences
     removeDoubleEdges();
     // check whether this node belongs to a district and the edges
     //  must here be also remapped
@@ -1533,7 +1536,7 @@ NBNode::replaceIncoming(const EdgeVector &which, NBEdge *by)
         replaceIncoming(*i, by, laneOff);
         laneOff += (*i)->getNoLanes();
     }
-    // removed double occurences
+    // removed SUMOReal occurences
     removeDoubleEdges();
     // check whether this node belongs to a district and the edges
     //  must here be also remapped
@@ -1797,17 +1800,17 @@ NBNode::getEmptyDir() const
         NBNode *conn = (*i)->getFromNode();
         Position2D toAdd = conn->getPosition();
         toAdd.sub(myPosition);
-        toAdd.mul(1.0/sqrt(toAdd.x()*toAdd.x()+toAdd.y()*toAdd.y()));
+        toAdd.mul((SUMOReal) 1.0/sqrt(toAdd.x()*toAdd.x()+toAdd.y()*toAdd.y()));
         pos.add(toAdd);
     }
     for(i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
         NBNode *conn = (*i)->getToNode();
         Position2D toAdd = conn->getPosition();
         toAdd.sub(myPosition);
-        toAdd.mul(1.0/sqrt(toAdd.x()*toAdd.x()+toAdd.y()*toAdd.y()));
+        toAdd.mul((SUMOReal) 1.0/sqrt(toAdd.x()*toAdd.x()+toAdd.y()*toAdd.y()));
         pos.add(toAdd);
     }
-    pos.mul(-1.0/(_incomingEdges->size()+_outgoingEdges->size()));
+    pos.mul((SUMOReal) -1.0/(_incomingEdges->size()+_outgoingEdges->size()));
     if(pos.x()==0&&pos.y()==0) {
         pos = Position2D(1, 0);
     }
@@ -2026,7 +2029,7 @@ NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
     if(incoming->isTurningDirectionAt(this, outgoing)) {
         return MMLDIR_TURN;
     }
-    double angle =
+    SUMOReal angle =
         NBHelpers::normRelAngle(
             incoming->getAngle(), outgoing->getAngle());
     // ok, should be a straight connection
@@ -2227,12 +2230,12 @@ NBNode::connectionIsTLControlled(NBEdge *from, NBEdge *to) const
 */
 
 
-double
+SUMOReal
 NBNode::getMaxEdgeWidth() const
 {
     EdgeVector::const_iterator i=_allEdges.begin();
     assert(i!=_allEdges.end());
-    double ret = (*i)->width();
+    SUMOReal ret = (*i)->width();
     ++i;
     for(; i!=_allEdges.end(); i++) {
         ret = ret > (*i)->width()

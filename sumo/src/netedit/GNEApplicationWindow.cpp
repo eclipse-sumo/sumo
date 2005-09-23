@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2005/09/23 06:01:19  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.17  2005/09/15 12:03:02  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -102,7 +105,7 @@ namespace
 #include <gui/GUIRunThread.h>
 #include "GNEApplicationWindow.h"
 #include <gui/GUISUMOViewParent.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include <utils/foxtools/FXLCDLabel.h>
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/FXThreadEvent.h>
@@ -143,6 +146,7 @@ namespace
 
 #include "Image.h"
 #include "GNEImageProcWindow.h"
+#include <microsim/MSGlobals.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>

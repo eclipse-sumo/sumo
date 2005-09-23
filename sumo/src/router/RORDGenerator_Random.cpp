@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.6  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -78,7 +81,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsSubSys.h>
 #include "RORouteDef.h"
@@ -115,9 +118,9 @@ RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
         OptionsSubSys::getOptions().getString("random-route-color");
     StringTokenizer st(color, ";");
     try {
-        double r = TplConvert<char>::_2float(st.next().c_str());
-        double g = TplConvert<char>::_2float(st.next().c_str());
-        double b = TplConvert<char>::_2float(st.next().c_str());
+        SUMOReal r = TplConvert<char>::_2SUMOReal(st.next().c_str());
+        SUMOReal g = TplConvert<char>::_2SUMOReal(st.next().c_str());
+        SUMOReal b = TplConvert<char>::_2SUMOReal(st.next().c_str());
         myColor = RGBColor(r, g, b);
     } catch (...) {
         MsgHandler::getErrorInstance()->inform(
@@ -181,12 +184,9 @@ RORDGenerator_Random::myReadRoutesAtLeastUntil(SUMOTime time)
             myVehicleBuilder.buildVehicle(
                 id, route, time, _net.getDefaultVehicleType(),
                 RGBColor(
-                    double( rand() ) /
-                        ( static_cast<double>(RAND_MAX) + 1) / 2.0 + 0.5,
-                    double( rand() ) /
-                        ( static_cast<double>(RAND_MAX) + 1) / 2.0 + 0.5,
-                    double( rand() ) /
-                        ( static_cast<double>(RAND_MAX) + 1) / 2.0 + 0.5),
+					(SUMOReal) ((double) rand() / (double) (RAND_MAX + 1) / 2.0 + 0.5),
+					(SUMOReal) ((double) rand() / (double) (RAND_MAX + 1) / 2.0 + 0.5),
+					(SUMOReal) ((double) rand() / (double) (RAND_MAX + 1) / 2.0 + 0.5)),
                 -1, 0));
         _net.addRouteDef(route);
         myReadNewRoute = true;
@@ -209,7 +209,7 @@ bool
 RORDGenerator_Random::init(OptionsCont &options)
 {
     myWishedPerSecond = options.getFloat("random-per-second");
-    myCurrentProgress = myWishedPerSecond / 2.0;
+    myCurrentProgress = myWishedPerSecond / (SUMOReal) 2.0;
     if(myWishedPerSecond<0) {
         MsgHandler::getErrorInstance()->inform(
             "We cannot less than no vehicle!");

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/23 06:02:24  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.2  2005/09/15 12:03:37  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -48,7 +51,7 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/convert/TplConvert.h>
+#include <utils/common/TplConvert.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBEdge.h>
@@ -97,8 +100,8 @@ NIElmar2EdgesHandler::report(const std::string &result)
         return true;
     }
     string id, fromID, toID, interID;
-    float length;
-    double speed = 30.0 / 3.6;
+    SUMOReal length;
+    SUMOReal speed = (SUMOReal) 30.0 / (SUMOReal) 3.6;
     int nolanes = 1;
     int priority = 0;
     // parse
@@ -113,7 +116,7 @@ NIElmar2EdgesHandler::report(const std::string &result)
     interID = st.next();
         // length
     try {
-        length = TplConvert<char>::_2float(st.next().c_str());
+        length = TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
             string("Non-numerical value for an edge's length occured (edge '") + id
@@ -132,31 +135,31 @@ NIElmar2EdgesHandler::report(const std::string &result)
         int speed_class = TplConvert<char>::_2int(st.next().c_str());
         switch(speed_class) {
         case -1:
-            speed = 1.0 / 3.6;
+            speed = (SUMOReal) 1.0 / (SUMOReal) 3.6;
             break;
         case 1:
-            speed = 200 / 3.6; //> 130 KPH / > 80 MPH
+            speed = (SUMOReal) 200 / (SUMOReal) 3.6; //> 130 KPH / > 80 MPH
             break;
         case 2:
-            speed = 115 / 3.6; //101-130 KPH / 65-80 MPH
+            speed = (SUMOReal) 115 / (SUMOReal) 3.6; //101-130 KPH / 65-80 MPH
             break;
         case 3:
-            speed = 95 / 3.6; // 91-100 KPH / 55-64 MPH
+            speed = (SUMOReal) 95 / (SUMOReal) 3.6; // 91-100 KPH / 55-64 MPH
             break;
         case 4:
-            speed = 80 / 3.6; // 71-90 KPH / 41-54 MPH
+            speed = (SUMOReal) 80 / (SUMOReal) 3.6; // 71-90 KPH / 41-54 MPH
             break;
         case 5:
-            speed = 60 / 3.6; // 51-70 KPH / 31-40 MPH
+            speed = (SUMOReal) 60 / (SUMOReal) 3.6; // 51-70 KPH / 31-40 MPH
             break;
         case 6:
-            speed = 40 / 3.6; // 31-50 KPH / 21-30 MPH
+            speed = (SUMOReal) 40 / (SUMOReal) 3.6; // 31-50 KPH / 21-30 MPH
             break;
         case 7:
-            speed = 20 / 3.6; // 11-30 KPH / 6-20 MPH
+            speed = (SUMOReal) 20 / (SUMOReal) 3.6; // 11-30 KPH / 6-20 MPH
             break;
         case 8:
-            speed = 5 / 3.6; //< 11 KPH / < 6 MPH
+            speed = (SUMOReal) 5 / (SUMOReal) 3.6; //< 11 KPH / < 6 MPH
             break;
         default:
             MsgHandler::getErrorInstance()->inform(

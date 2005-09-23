@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/09/23 06:04:36  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.7  2005/09/15 12:05:11  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -89,7 +92,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gfx/GfxConvHelper.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include "RORouteDef.h"
 #include "ROVehicle.h"
 #include "RORouteDef_Alternatives.h"
@@ -116,7 +119,7 @@ using namespace std;
  * ======================================================================= */
 RORDLoader_SUMOAlt::RORDLoader_SUMOAlt(ROVehicleBuilder &vb, RONet &net,
                                        SUMOTime begin, SUMOTime end,
-                                       double gawronBeta, double gawronA,
+                                       SUMOReal gawronBeta, SUMOReal gawronA,
                                        int maxRouteNumber,
                                        const std::string &file)
     : RORDLoader_SUMOBase(vb, net, begin, end,
@@ -172,7 +175,7 @@ RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
         getErrorHandlerMarkInvalid()->inform(
             string("Invalid cost in alternative for route '")
             + _currentAlternatives->getID() + string("' (")
-            + getString(attrs, SUMO_ATTR_COST)//toString<double>(_cost)
+            + getString(attrs, SUMO_ATTR_COST)//toString<SUMOReal>(_cost)
             + string(")."));
         mySkipCurrent = true;
         return;
@@ -187,7 +190,7 @@ RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
         getErrorHandlerMarkInvalid()->inform(
             string("Invalid cost in alternative for route '")
             + _currentAlternatives->getID() + string("' (")
-            + toString<double>(_cost)
+            + toString<SUMOReal>(_cost)
             + string(")."));
         mySkipCurrent = true;
         return;
@@ -199,7 +202,7 @@ RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
         getErrorHandlerMarkInvalid()->inform(
             string("Invalid probability in alternative for route '")
             + _currentAlternatives->getID() + string("' (")
-            + toString<double>(_prob)
+            + toString<SUMOReal>(_prob)
             + string(")."));
         mySkipCurrent = true;
         return;
@@ -214,7 +217,7 @@ RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
         getErrorHandlerMarkInvalid()->inform(
             string("Invalid probability in alternative for route '")
             + _currentAlternatives->getID() + string("' (")
-            + toString<double>(_prob)
+            + toString<SUMOReal>(_prob)
             + string(")."));
         mySkipCurrent = true;
         return;

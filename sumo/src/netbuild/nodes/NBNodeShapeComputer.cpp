@@ -15,7 +15,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/ToString.h>
 #include "NBNode.h"
 #include "NBNodeShapeComputer.h"
 
@@ -61,7 +61,7 @@ NBNodeShapeComputer::compute()
             incLine = Line2D(geom.at(1), geom.at(0));
         }
         NBEdge *e1 = (*i);
-        double angle1 = incLine.atan2DegreeAngle();
+        SUMOReal angle1 = incLine.atan2DegreeAngle();
         for(EdgeVector::const_iterator i2=i+1; i2!=myNode._allEdges.end()&&!isRealJunction; i2++) {
             Line2D outLine;
             NBEdge *e2 = (*i2);
@@ -72,7 +72,7 @@ NBNodeShapeComputer::compute()
                 const Position2DVector &geom = (*i2)->getGeometry();
                 outLine = Line2D(geom.at(1), geom.at(0));
             }
-            double angle2 = outLine.atan2DegreeAngle();
+            SUMOReal angle2 = outLine.atan2DegreeAngle();
             //
             if(abs(angle1-angle2)>35&&abs(angle1-angle2)<145) {
                 isRealJunction = true;
@@ -112,7 +112,7 @@ NBNodeShapeComputer::compute()
     if(ret.size()<4) {
         ret = computeNodeShapeByCrosses();
         /*
-        double maxWidth = myNode.getMaxEdgeWidth();
+        SUMOReal maxWidth = myNode.getMaxEdgeWidth();
         Position2D p = myNode.getPosition();
         //
         Position2D p1 = p;
@@ -136,7 +136,7 @@ NBNodeShapeComputer::compute()
     }
     {
         if(myOut!=0) {
-            for(int i=0; i<ret.size(); ++i) {
+            for(int i=0; i<(int) ret.size(); ++i) {
                 (*myOut) << "   <poi id=\"end_" << myNode.getID() << "_"
                     << toString(i) << "\" type=\"nodeshape.end\" color=\"1,0,1\""
                     << " x=\"" << ret.at(i).x() << "\" y=\"" << ret.at(i).y() << "\"/>"
@@ -181,8 +181,8 @@ Position2DVector
 NBNodeShapeComputer::computeContinuationNodeShape()
 {
     EdgeVector::const_iterator i;
-    std::map<NBEdge*, double> myIncPos;
-    std::map<NBEdge*, double> myOutPos;
+    std::map<NBEdge*, SUMOReal> myIncPos;
+    std::map<NBEdge*, SUMOReal> myOutPos;
     for(i=myNode._allEdges.begin(); i!=myNode._allEdges.end(); i++) {
         if(myNode.hasIncoming(*i)) {
             Position2DVector own_bound =
@@ -205,20 +205,20 @@ NBNodeShapeComputer::computeContinuationNodeShape()
     //
     Position2DVector ret;
     if(myIncPos.size()==2) {
-        for(std::map<NBEdge*, double>::iterator j=myIncPos.begin(); j!=myIncPos.end(); j++) {
+        for(std::map<NBEdge*, SUMOReal>::iterator j=myIncPos.begin(); j!=myIncPos.end(); j++) {
             NBEdge *inc = (*j).first;
-            double v1 = (*j).second;
+            SUMOReal v1 = (*j).second;
             NBEdge *out =
                 *(find_if(
                     myNode.getOutgoingEdges().begin(),
                     myNode.getOutgoingEdges().end(),
                     NBContHelper::opposite_finder(inc, &myNode)));
-            double v2 = myOutPos[out];
+            SUMOReal v2 = myOutPos[out];
             addCCWPoint(ret, inc, MAX2(v1, v2), 1.5);
             addCWPoint(ret, out, MAX2(v1, v2), 1.5);
         }
         if(myOut!=0) {
-            for(int i=0; i<ret.size(); ++i) {
+            for(int i=0; i<(int) ret.size(); ++i) {
                 (*myOut) << "   <poi id=\"cont1_" << myNode.getID() << "_" <<
                     toString<int>(i) << "\" type=\"nodeshape.cont1\" color=\"1,0,0\""
                     << " x=\"" << ret.at(i).x() << "\" y=\"" << ret.at(i).y() << "\"/>"
@@ -239,7 +239,7 @@ NBNodeShapeComputer::computeContinuationNodeShape()
                 myOutPos.begin()->first, myOutPos.begin()->second, 1.5);
         }
         if(myOut!=0) {
-            for(int i=0; i<ret.size(); ++i) {
+            for(int i=0; i<(int) ret.size(); ++i) {
                 (*myOut) << "   <poi id=\"cont2_" << myNode.getID() << "_" <<
                     toString(i) << "\" type=\"nodeshape.cont2\" color=\"0.5,0,0\""
                     << " x=\"" << ret.at(i).x() << "\" y=\"" << ret.at(i).y() << "\"/>"
@@ -255,7 +255,7 @@ Position2DVector
 NBNodeShapeComputer::computeRealNodeShape()
 {
     Position2DVector ret;
-//    std::vector<double> edgeOffsets;
+//    std::vector<SUMOReal> edgeOffsets;
     EdgeCrossDefVector edgeOffsets;
     EdgeVector::const_iterator i;
     for(i=myNode._allEdges.begin(); i!=myNode._allEdges.end(); i++) {
@@ -296,7 +296,7 @@ NBNodeShapeComputer::computeRealNodeShape()
     }
     {
         if(myOut!=0) {
-            for(int i=0; i<ret.size(); ++i) {
+            for(int i=0; i<(int) ret.size(); ++i) {
                 (*myOut) << "   <poi id=\"real1_" << myNode.getID() << "_" <<
                     toString(i) << "\" type=\"nodeshape.real1\" color=\"0,1,0\""
                     << " x=\"" << ret.at(i).x() << "\" y=\"" << ret.at(i).y() << "\"/>"
@@ -308,19 +308,19 @@ NBNodeShapeComputer::computeRealNodeShape()
 }
 
 Position2DVector
-rotateAround(const Position2DVector &what, const Position2D &at, double rot)
+rotateAround(const Position2DVector &what, const Position2D &at, SUMOReal rot)
 {
     Position2DVector rret;
     Position2DVector ret = what;
     ret.resetBy(-at.x(), -at.y());
     {
-    float x = ret.at(0).x() * cos(rot) + ret.at(0).y() * sin(rot);
-    float y = ret.at(0).y() * cos(rot) - ret.at(0).x() * sin(rot);
+    SUMOReal x = ret.at(0).x() * cos(rot) + ret.at(0).y() * sin(rot);
+    SUMOReal y = ret.at(0).y() * cos(rot) - ret.at(0).x() * sin(rot);
     rret.push_back(Position2D(x, y));
     }
     {
-    float x = ret.at(1).x() * cos(rot) + ret.at(1).y() * sin(rot);
-    float y = ret.at(1).y() * cos(rot) - ret.at(1).x() * sin(rot);
+    SUMOReal x = ret.at(1).x() * cos(rot) + ret.at(1).y() * sin(rot);
+    SUMOReal y = ret.at(1).y() * cos(rot) - ret.at(1).x() * sin(rot);
     rret.push_back(Position2D(x, y));
     }
     rret.resetBy(at.x(), at.y());
@@ -339,7 +339,7 @@ NBNodeShapeComputer::computeNodeShapeByCrosses()
             Position2DVector cross;
             cross.push_back(edgebound.at(0));
             cross.push_back(edgebound.at(1));
-            cross = rotateAround(cross, myNode.getPosition(), 90/180.*3.1415926535897932384626433832795);
+            cross = rotateAround(cross, myNode.getPosition(), (SUMOReal) (90/180.*3.1415926535897932384626433832795));
             if(cross.intersects(edgebound)) {
                 ret.push_back(cross.intersectsAtPoint(edgebound));
             } else {
@@ -356,7 +356,7 @@ NBNodeShapeComputer::computeNodeShapeByCrosses()
             Position2DVector cross;
             cross.push_back(edgebound.at(0));
             cross.push_back(edgebound.at(1));
-            cross = rotateAround(cross, myNode.getPosition(), 90/180.*3.1415926535897932384626433832795);
+            cross = rotateAround(cross, myNode.getPosition(), (SUMOReal) (90/180.*3.1415926535897932384626433832795));
             if(cross.intersects(edgebound)) {
                 ret.push_back(cross.intersectsAtPoint(edgebound));
             } else {
@@ -371,7 +371,7 @@ NBNodeShapeComputer::computeNodeShapeByCrosses()
     }
     {
         if(myOut!=0) {
-            for(int i=0; i<ret.size(); ++i) {
+            for(int i=0; i<(int) ret.size(); ++i) {
                 (*myOut) << "   <poi id=\"cross1_" << myNode.getID() << "_" <<
                     toString(i) << "\" type=\"nodeshape.cross1\" color=\"0,0,1\""
                     << " x=\"" << ret.at(i).x() << "\" y=\"" << ret.at(i).y() << "\"/>"
@@ -462,11 +462,11 @@ NBNodeShapeComputer::buildCrossingDescription(const EdgeVector::const_iterator &
         ret.myCrossingAngle = 360;
     } else {
         ret.myCrossingPosition = myNode.getOffset(own_bound, opp_bound);
-        double a1 = own_bound.lineAt(0).atan2DegreeAngle();
-        double a2 = opp_bound.lineAt(0).atan2DegreeAngle();
+        SUMOReal a1 = own_bound.lineAt(0).atan2DegreeAngle();
+        SUMOReal a2 = opp_bound.lineAt(0).atan2DegreeAngle();
         ret.myCrossingAngle = myNode.getCCWAngleDiff(a1, a2);
         if(ret.myCrossingAngle>180) {
-            ret.myCrossingAngle = 360.0 - ret.myCrossingAngle;
+            ret.myCrossingAngle = (SUMOReal) 360.0 - ret.myCrossingAngle;
         }
         if(ret.myCrossingAngle>150||ret.myCrossingAngle<20) {
             ret.myAmValid = false;
@@ -478,11 +478,11 @@ NBNodeShapeComputer::buildCrossingDescription(const EdgeVector::const_iterator &
 
 void
 NBNodeShapeComputer::addCCWPoint(Position2DVector &poly,
-                                 NBEdge *e, double offset,
-                                 double width)
+                                 NBEdge *e, SUMOReal offset,
+                                 SUMOReal width)
 {
     Position2DVector l = e->getCCWBoundaryLine(myNode, width);
-    double len = l.length();
+    SUMOReal len = l.length();
     if(len>=offset) {
         poly.push_back(l.positionAtLengthPosition(offset));
     } else {
@@ -492,11 +492,11 @@ NBNodeShapeComputer::addCCWPoint(Position2DVector &poly,
 
 void
 NBNodeShapeComputer::addCWPoint(Position2DVector &poly,
-                                NBEdge *e, double offset,
-                                double width)
+                                NBEdge *e, SUMOReal offset,
+                                SUMOReal width)
 {
     Position2DVector l = e->getCWBoundaryLine(myNode, width);
-    double len = l.length();
+    SUMOReal len = l.length();
     if(len>=offset) {
         poly.push_back(l.positionAtLengthPosition(offset));
     } else {
@@ -508,7 +508,7 @@ Position2DVector
 NBNodeShapeComputer::computeJoinSplitNodeShape()
 {
     Position2DVector ret;
-    std::vector<double> edgeOffsets;
+    std::vector<SUMOReal> edgeOffsets;
     EdgeVector::const_iterator i;
     for(i=myNode._allEdges.begin(); i!=myNode._allEdges.end(); i++) {
         Position2DVector o1 = (*i)->getCCWBoundaryLine(myNode, 1.5);
@@ -522,8 +522,8 @@ NBNodeShapeComputer::computeJoinSplitNodeShape()
         } else {
             incLine = Line2D(geom.at(1), geom.at(0));
         }
-        double xcenter = (incLine.p1().x() + incLine.p2().x()) / 2.0;
-        double ycenter = (incLine.p1().y() + incLine.p2().y()) / 2.0;
+        SUMOReal xcenter = (incLine.p1().x() + incLine.p2().x()) / (SUMOReal) 2.0;
+        SUMOReal ycenter = (incLine.p1().y() + incLine.p2().y()) / (SUMOReal) 2.0;
         incLine.sub(xcenter, ycenter);
         Line2D extrapolated(
             GeomHelper::extrapolate_first(incLine.p1(), incLine.p2(), 1000),
@@ -533,7 +533,7 @@ NBNodeShapeComputer::computeJoinSplitNodeShape()
             Position2D(extrapolated.p2().y(), extrapolated.p2().x()));
         normal.add(myNode.getPosition());
         // get cross position
-        double pos;
+        SUMOReal pos;
         if(myNode.hasIncoming(*i)) {
             pos = 0;//!!!(*i)->getGeometry().length();
         } else {
@@ -621,4 +621,4 @@ NBNodeShapeComputer::isSimpleContinuation(const NBNode &n) const
 }
 
 
-//double getOffset(Position2DVector on, Position2DVector cross) const;
+//SUMOReal getOffset(Position2DVector on, Position2DVector cross) const;

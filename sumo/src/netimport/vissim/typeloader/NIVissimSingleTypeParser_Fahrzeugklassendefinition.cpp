@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/09/23 06:02:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
 // Revision 1.3  2005/04/27 12:24:37  dkrajzew
 // level3 warnings removed; made netbuild-containers non-static
 //
@@ -40,13 +43,21 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif // HAVE_CONFIG_H
+
 #include <iostream>
-#include <utils/convert/TplConvert.h>
-#include <utils/convert/ToString.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 #include <utils/common/IntVector.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimVehTypeClass.h"
 #include "NIVissimSingleTypeParser_Fahrzeugklassendefinition.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -94,9 +105,9 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream &from)
         from >> g; // type-checking is missing!
         from >> b; // type-checking is missing!
         color = RGBColor(
-            (double) r / 255.0,
-            (double) g / 255.0,
-            (double) b / 255.0 );
+            (SUMOReal) r / (SUMOReal) 255.0,
+            (SUMOReal) g / (SUMOReal) 255.0,
+            (SUMOReal) b / (SUMOReal) 255.0 );
     }
     // types
     from >> tag;
@@ -108,3 +119,8 @@ NIVissimSingleTypeParser_Fahrzeugklassendefinition::parse(std::istream &from)
     } while(tag!="DATAEND");
     return NIVissimVehTypeClass::dictionary(id, name, color, types);
 }
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
