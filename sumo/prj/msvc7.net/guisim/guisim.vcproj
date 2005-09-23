@@ -22,8 +22,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;_DEBUG;ABS_DEBUG;FOXDLL;WIN32;_CONSOLE;HAVE_MESOSIM"
+				AdditionalIncludeDirectories="$(FOX14)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
+				PreprocessorDefinitions="HAVE_CONFIG_H;_DEBUG;ABS_DEBUG;FOXDLL;WIN32;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="FALSE"
@@ -41,7 +41,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="opengl32.lib $(XERCES)\lib\xerces-c_2D.lib $(NEWFOX)\lib\FOXDLLD-1.4.lib"
+				AdditionalDependencies="opengl32.lib $(XERCES)\lib\xerces-c_2D.lib $(FOX14)\lib\FOXDLLD-1.4.lib"
 				OutputFile=".\Debug/guisim.exe"
 				LinkIncremental="0"
 				SuppressStartupBanner="TRUE"
@@ -90,8 +90,8 @@ copy Debug\guisim.exe ..\..\..\bin\guisimD.exe
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;NDEBUG;FOXDLL;WIN32;_CONSOLE;HAVE_MESOSIM"
+				AdditionalIncludeDirectories="$(FOX14)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
+				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;FOXDLL;WIN32;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -108,7 +108,7 @@ copy Debug\guisim.exe ..\..\..\bin\guisimD.exe
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="opengl32.lib odbc32.lib odbccp32.lib $(XERCES)\lib\xerces-c_2.lib $(NEWFOX)\lib\FOXDLL-1.4.lib"
+				AdditionalDependencies="opengl32.lib odbc32.lib odbccp32.lib $(XERCES)\lib\xerces-c_2.lib $(FOX14)\lib\FOXDLL-1.4.lib"
 				OutputFile=".\Release/guisim.exe"
 				LinkIncremental="0"
 				SuppressStartupBanner="TRUE"

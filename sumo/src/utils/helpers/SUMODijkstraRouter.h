@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/09/23 13:16:41  dkrajzew
+// debugging the building process
+//
 // Revision 1.2  2005/09/23 06:11:30  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -186,7 +189,7 @@ public:
             }
             (*visited)[minEdge->getNumericalID()] = true; //minimumKnot->setExplored(true);
             SUMOReal effort = (SUMOReal) (minimumKnot->effort
-		    	+ minEdge->getEffort(time + minimumKnot->effort));
+		    	+ minEdge->getEffort((SUMOTime) (time + minimumKnot->effort)));
     		// check all ways from the node with the minimal length
             size_t i = 0;
             size_t length_size = minEdge->getNoFollowing();

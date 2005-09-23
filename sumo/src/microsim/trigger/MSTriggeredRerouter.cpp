@@ -23,12 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/23 13:16:41  dkrajzew
+// debugging the building process
+//
 // Revision 1.2  2005/09/22 13:45:52  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
 // Revision 1.1  2005/09/15 11:10:46  dkrajzew
 // LARGE CODE RECHECK
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -50,7 +52,6 @@ namespace
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
-#include <mesosim/MELoop.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
 #include "MSTriggeredRerouter.h"
@@ -135,14 +136,6 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
         throw ProcessError();
     }
     // build actors
-#ifdef HAVE_MESOSIM
-    if(MSGlobals::gUseMesoSim) {
-        for(std::vector<MSEdge*>::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
-            MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*j);
-            s->addRerouter(this);
-        }
-    } else {
-#endif
     for(std::vector<MSEdge*>::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
         std::vector<MSLane*> *destLanes = (*j)->getLanes();
         std::vector<MSLane*>::const_iterator i;
@@ -151,9 +144,6 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
             mySetter.push_back(new Setter(this, (*i), sid));
         }
     }
-#ifdef HAVE_MESOSIM
-    }
-#endif
 }
 
 

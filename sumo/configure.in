@@ -429,7 +429,6 @@ src/netimport/vissim/tempstructs/Makefile
 src/netimport/vissim/typeloader/Makefile
 src/netimport/visum/Makefile
 src/netimport/xml/Makefile
-src/netedit/Makefile
 src/netload/Makefile
 src/od2trips/Makefile
 src/router/Makefile

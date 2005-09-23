@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2005/09/23 13:16:41  dkrajzew
+// debugging the building process
+//
 // Revision 1.18  2005/09/23 06:01:19  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -1329,15 +1332,7 @@ GNEApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         _wasStarted = false;
         // initialise views
         myViewNumber = 0;
-#ifdef HAVE_MESOSIM
-    if(MSGlobals::gUseMesoSim) {
-        openNewView(GUISUMOViewParent::EDGE_MESO_VIEW);
-    } else {
         openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
-    }
-#else
-        openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
-#endif
         // set simulation name on the caption
         string caption = string("SUMO ") + string(version)
             + string(" - ") + ec->_file;

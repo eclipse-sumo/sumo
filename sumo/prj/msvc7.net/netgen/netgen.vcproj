@@ -88,7 +88,7 @@ copy Release\netgen.exe ..\..\..\bin\netgen.exe
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;WIN32;_DEBUG;_CONSOLE"
+				PreprocessorDefinitions="HAVE_CONFIG_H;WIN32;_DEBUG;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"

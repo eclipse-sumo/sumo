@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.65  2005/09/23 13:16:40  dkrajzew
+// debugging the building process
+//
 // Revision 1.64  2005/09/22 13:45:51  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -605,9 +608,6 @@ MSVehicle::MSVehicle( string id,
                       const MSVehicleType* type,
                       size_t noMeanData,
                       int repNo, int repOffset) :
-#ifdef HAVE_MESOSIM
-    MEVehicle(this, 0, 0),
-#endif
     myLastLaneChangeOffset(0),
     myTarget(0),
     myWaitingTime( 0 ),
@@ -2666,10 +2666,6 @@ MSVehicle::dict_saveState(std::ostream &os, long what)
     FileHelpers::writeString(os, "-----------------end---------------");
 }
 
-
-#include <mesosim/MESegment.h>
-#include <mesosim/MELoop.h>
-#include "MSGlobals.h"
 
 void
 MSVehicle::saveState(std::ostream &os, long what)

@@ -1,0 +1,7 @@
+#ifdnef CONFIG_H
+#define CONFIG_H
+
+#define SUMOReal @SUMOReal@
+
+
+#endif

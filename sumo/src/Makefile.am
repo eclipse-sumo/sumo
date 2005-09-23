@@ -202,11 +202,14 @@ netbuild netgen netimport \
 od2trips router routing_dua routing_jtr \
 tools utils $(GUI_DIRS)
 
-EXTRA_DIST = sumo_version.cpp sumo_version.h \
+EXTRA_DIST = config.h config.h.in \
+sumo_version.cpp sumo_version.h \
 giant_build.h giant_help.h giant_main.cpp \
 guisim.rc \
 netedit_build.h netedit_help.h netedit_main.cpp \
-tagreader.cpp
+tagreader.cpp \
+windows_config.h
+
 
 
 

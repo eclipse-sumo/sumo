@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.62  2005/09/23 13:16:40  dkrajzew
+// debugging the building process
+//
 // Revision 1.61  2005/09/22 13:45:51  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -490,12 +493,6 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep)
     myLogics = 0;//new MSTLLogicControl();
     myTriggerControl = new MSTriggerControl();
     myShapeContainer = 0;//new ShapeContainer();
-
-#ifdef HAVE_MESOSIM
-    if(MSGlobals::gUseMesoSim) {
-        MSGlobals::gMesoNet = new MELoop();
-    }
-#endif
     myInstance = this;
 }
 

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.46  2005/09/23 13:16:40  dkrajzew
+// debugging the building process
+//
 // Revision 1.45  2005/09/22 13:45:51  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -316,10 +319,6 @@
 #include <map>
 #include <string>
 
-#ifdef HAVE_MESOSIM
-#include <mesosim/MEVehicle.h>
-#endif
-
 
 /* =========================================================================
  * class declarations
@@ -342,9 +341,6 @@ class MSAbstractLaneChangeModel;
  * standard physical values such as the gap needed to stop.
  */
 class MSVehicle
-#ifdef HAVE_MESOSIM
-  : public MEVehicle
-#endif
 {
 public:
 

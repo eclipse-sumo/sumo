@@ -13,7 +13,7 @@ RandHelper.h RandHelper.cpp \
 SystemFrame.cpp SystemFrame.h SysUtils.h SysUtils.cpp \
 LogFile.cpp LogFile.h \
 MsgRetrievingFunction.h \
-TpString.h TplConvert.h TplConvertSec.h \
+ToString.h TplConvert.h TplConvertSec.h \
 XMLHelpers.cpp XMLHelpers.h
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src \

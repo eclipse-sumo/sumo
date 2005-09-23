@@ -17,7 +17,7 @@ public:
 
     T get() const {
         SUMOReal prob = (SUMOReal) (((SUMOReal) rand()/(SUMOReal) RAND_MAX) * myProb);
-        for(int i=0; i<myVals.size(); i++) {
+        for(int i=0; i<(int) myVals.size(); i++) {
             if(prob<myProbs[i]) {
                 return myVals[i];
             }

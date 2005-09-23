@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2005/09/23 13:16:40  dkrajzew
+// debugging the building process
+//
 // Revision 1.29  2005/09/23 06:13:19  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -217,7 +220,7 @@ namespace
 #include <microsim/MSEmitControl.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/trigger/MSTriggerControl.h>
-#include <netload/NLNetBuilder.h>
+#include <netload/NLBuilder.h>
 #include <netload/NLTriggerBuilder.h>
 #include <netload/NLEdgeControlBuilder.h>
 #include <netload/NLJunctionControlBuilder.h>
@@ -273,7 +276,7 @@ load(OptionsCont &oc)
     NLDetectorBuilder db(*net);
     NLTriggerBuilder tb;
     NLGeomShapeBuilder sb;
-    NLNetBuilder builder(oc, *net, eb, jb, db, tb, sb);
+    NLBuilder builder(oc, *net, eb, jb, db, tb, sb);
     if(!builder.build()) {
         delete net;
         net = 0;

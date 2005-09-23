@@ -22,6 +22,9 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.9  2005/09/23 13:16:41  dkrajzew
+// debugging the building process
+//
 // Revision 1.8  2005/09/22 13:45:51  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -435,7 +438,7 @@ protected:
                 SUMOTime startTime, SUMOTime stopTime)
         {
             MSUnit::Seconds lastNSeconds =
-                (MSUnit::Seconds) MSUnit::getInstance()->getSeconds( stopTime-startTime ) + 1;
+				(MSUnit::Seconds) MSUnit::getInstance()->getSeconds( (MSUnit::Steps) (stopTime-startTime) ) + 1;
             for ( typename Cont::iterator it = container.begin();
                   it != container.end(); ++it ) {
 

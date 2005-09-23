@@ -1,4 +1,7 @@
-#define NEXT_BUILD_NUMBER 245
+#define NEXT_BUILD_NUMBER 248
+// 247 was build on 2005-09-23;14:00:44
+// 246 was build on 2005-09-23;13:56:13
+// 245 was build on 2005-09-23;11:44:17
 // 244 was build on 2005-09-09;13:39:55
 // 243 was build on 2005-09-09;13:36:19
 // 242 was build on 2005-09-09;11:25:14

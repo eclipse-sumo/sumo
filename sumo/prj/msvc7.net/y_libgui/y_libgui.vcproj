@@ -21,8 +21,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src,..\..\..\src\foreign"
-				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;_DEBUG;FOXDLL;WIN32;_LIB;HAVE_MESOSIM"
+				AdditionalIncludeDirectories="$(FOX14)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src,..\..\..\src\foreign"
+				PreprocessorDefinitions="HAVE_CONFIG_H;_DEBUG;FOXDLL;WIN32;_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -75,8 +75,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src,..\..\..\src\foreign"
-				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;NDEBUG;FOXDLL;WIN32;_LIB;HAVE_MESOSIM"
+				AdditionalIncludeDirectories="$(FOX14)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src,..\..\..\src\foreign"
+				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;FOXDLL;WIN32;_LIB"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -702,9 +702,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\GUIViewMesoEdges.cpp">
-			</File>
-			<File
 				RelativePath="..\..\..\src\gui\GUIViewTraffic.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -841,9 +838,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUIViewAggregatedLanes.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\GUIViewMesoEdges.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUIViewTraffic.h">

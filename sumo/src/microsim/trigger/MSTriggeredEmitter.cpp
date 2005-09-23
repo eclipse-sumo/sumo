@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/09/23 13:16:41  dkrajzew
+// debugging the building process
+//
 // Revision 1.2  2005/09/22 13:45:52  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -121,18 +124,6 @@ MSTriggeredEmitter::processNext()
         return false;
     }
     // try to emit
-#ifdef HAVE_MESOSIM
-    if(MSGlobals::gUseMesoSim) {
-        if ( ((MSEdge&) myDestLane->edge()).emit( *myVehicle,  MSNet::getInstance()->getCurrentTimeStep() ) ) {
-            MSNet::getInstance()->getVehicleControl().vehiclesEmitted(1);
-            myVehicle->onDepart();
-            myHaveNext = false;
-//            readNextEmitElement();
-            myVehicle = 0;
-            return true;
-        }
-    } else {
-#endif
     if ( myDestLane->isEmissionSuccess( myVehicle ) ) {
         myVehicle->onDepart();
         MSNet::getInstance()->getVehicleControl().vehiclesEmitted(1);
@@ -140,9 +131,6 @@ MSTriggeredEmitter::processNext()
         myVehicle = 0;
         return true;
     }
-#ifdef HAVE_MESOSIM
-    }
-#endif
     return false;
 }
 
