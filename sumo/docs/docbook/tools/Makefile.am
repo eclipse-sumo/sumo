@@ -1,2 +1,2 @@
-EXTRA_DIST =
-SUBDIRS = db2man
+EXTRA_DIST = custom.xml
+

@@ -1,1 +1,1 @@
-EXTRA_DIST = gui.dsp
+EXTRA_DIST = guisim.dsp

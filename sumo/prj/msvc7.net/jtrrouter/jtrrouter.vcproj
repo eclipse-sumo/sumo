@@ -22,7 +22,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="_DEBUG;_AFXDLL;WIN32;_CONSOLE;BOOST_HAS_THREADS"
+				PreprocessorDefinitions="HAVE_CONFIG_H;_DEBUG;_AFXDLL;WIN32;_CONSOLE;BOOST_HAS_THREADS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -88,7 +88,7 @@ copy Debug\jtrrouter.exe ..\..\..\bin\jtrrouterD.exe
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="NDEBUG;WIN32;_CONSOLE;BOOST_HAS_THREADS"
+				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;WIN32;_CONSOLE;BOOST_HAS_THREADS"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -147,26 +147,6 @@ copy Release\jtrrouter.exe ..\..\..\bin\jtrrouter.exe
 		<Filter
 			Name="Quellcodedateien"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
-			<File
-				RelativePath="..\..\..\src\utils\router\FloatValueTimeLine.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
 			<File
 				RelativePath="..\..\..\src\utils\router\IDSupplier.cpp">
 				<FileConfiguration
@@ -338,9 +318,6 @@ copy Release\jtrrouter.exe ..\..\..\bin\jtrrouter.exe
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\..\..\src\utils\router\FloatValueTimeLine.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\router\IDSupplier.h">
 			</File>
 			<File
@@ -369,9 +346,6 @@ copy Release\jtrrouter.exe ..\..\..\bin\jtrrouter.exe
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\router\TextHelpers.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\router\ValueTimeLine.h">
 			</File>
 		</Filter>
 		<Filter

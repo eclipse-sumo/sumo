@@ -22,7 +22,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\..\src"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				PreprocessorDefinitions="HAVE_CONFIG_H;WIN32;_DEBUG;_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -74,7 +74,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\..\..\src"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				PreprocessorDefinitions="HAVE_CONFIG_H;WIN32;NDEBUG;_LIB"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -227,24 +227,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\geom\Polygon2D.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\utils\shapes\Polygon2D.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\geom\Position2DVector.cpp">
@@ -298,13 +281,19 @@
 				RelativePath="..\..\..\src\utils\geom\Line2D.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\geom\Polygon2D.h">
+				RelativePath="..\..\..\src\utils\shapes\PointOfInterest.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\shapes\Polygon2D.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\geom\Position2D.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\geom\Position2DVector.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\shapes\ShapeContainer.h">
 			</File>
 		</Filter>
 	</Files>

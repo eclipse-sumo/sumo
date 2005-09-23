@@ -24,7 +24,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="NDEBUG;FOXDLL;WIN32;_CONSOLE"
+				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;NDEBUG;FOXDLL;WIN32;_CONSOLE;HAVE_MESOSIM"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -90,7 +90,7 @@ copy Release\giant.exe ..\..\..\bin\giant.exe
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="_DEBUG;ABS_DEBUG;FOXDLL;WIN32;_CONSOLE"
+				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;_DEBUG;ABS_DEBUG;FOXDLL;WIN32;_CONSOLE;HAVE_MESOSIM"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="TRUE"
@@ -122,7 +122,8 @@ copy Release\giant.exe ..\..\..\bin\giant.exe
 			<Tool
 				Name="VCPostBuildEventTool"
 				CommandLine="mkdir ..\..\..\bin
-copy Debug\giant.exe ..\..\..\bin\giantD.exe"/>
+copy Debug\giant.exe ..\..\..\bin\giantD.exe
+"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -151,26 +152,6 @@ copy Debug\giant.exe ..\..\..\bin\giantD.exe"/>
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
 				RelativePath="..\..\..\src\giant_main.cpp">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\helpers\PreStartInitialised.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool

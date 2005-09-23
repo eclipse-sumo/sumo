@@ -1,7 +1,9 @@
 noinst_LIBRARIES = libguiutilsimages.a
 
-EXTRA_DIST = app_tracker.xpm allow_rotation.xpm camera.xpm \
-close_gaps.xpm closing.xpm \
+EXTRA_DIST = allow_rotation.xpm \
+app_breakpoints.xpm app_linker.xpm app_finder.xpm \
+app_selector.xpm app_table.xpm app_tlstracker.xpm app_tracker.xpm \
+camera.xpm close_gaps.xpm closing.xpm \
 colour_lane.xpm colour_vehicle.xpm cont.xpm create_graph.xpm cut.xpm \
 dilate.xpm document.xpm \
 edit_graph.xpm erode.xpm erase_stains.xpm ext.xpm \
@@ -9,7 +11,7 @@ extract_streets.xpm eyedrop.xpm \
 fileopen.xpm fileprint.xpm filesave.xpm \
 flag.cpp flag_minus.cpp flag_plus.cpp halt.xpm locate.xpm \
 locate_add.xpm locate_edge.xpm locate_junction.xpm locate_vehicle.xpm \
-manip.cpp new_window.xpm no.xpm \
+magnify.xpm manip.cpp new_window.xpm no.xpm \
 open_bmp_dialog.xpm opening.xpm \
 p.xpm paintbrush1x.xpm paintbrush2x.xpm paintbrush3x.xpm paintbrush4x.xpm \
 paintbrush5x.xpm \

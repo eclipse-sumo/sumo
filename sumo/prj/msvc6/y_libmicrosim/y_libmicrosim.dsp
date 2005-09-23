@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "NDEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "NDEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -64,7 +64,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "_DEBUG" /D "ABS_DEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "_DEBUG" /D "ABS_DEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -98,6 +98,10 @@ SOURCE=..\..\..\src\microsim\actions\Command_SaveTLSState.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\MSCORN.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\MSDebugHelper.cpp
 # End Source File
 # Begin Source File
 
@@ -153,7 +157,7 @@ SOURCE=..\..\..\src\microsim\MSLaneChanger.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSLaneSpeedTrigger.cpp
+SOURCE=..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.cpp
 # End Source File
 # Begin Source File
 
@@ -217,31 +221,27 @@ SOURCE=..\..\..\src\microsim\MSSlowLaneChanger.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSSource.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\microsim\MSSourceLane.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSTrigger.cpp
+SOURCE=..\..\..\src\microsim\trigger\MSTriggerControl.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSTriggeredReader.cpp
+SOURCE=..\..\..\src\microsim\trigger\MSTriggeredEmitter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSTriggeredSource.cpp
+SOURCE=..\..\..\src\microsim\trigger\MSTriggeredReader.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSTriggeredSourceXMLHandler.cpp
+SOURCE=..\..\..\src\microsim\trigger\MSTriggeredRerouter.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSTriggeredXMLReader.cpp
+SOURCE=..\..\..\src\microsim\trigger\MSTriggeredXMLReader.cpp
 # End Source File
 # Begin Source File
 
@@ -329,6 +329,10 @@ SOURCE=..\..\..\src\microsim\MSCORN.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\MSDebugHelper.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\devices\MSDevice_CPhone.h
 # End Source File
 # Begin Source File
@@ -385,7 +389,7 @@ SOURCE=..\..\..\src\microsim\MSLaneChanger.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSLaneSpeedTrigger.h
+SOURCE=..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.h
 # End Source File
 # Begin Source File
 
@@ -457,11 +461,11 @@ SOURCE=..\..\..\src\microsim\MSRouteLoaderControl.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSSlowLaneChanger.h
+SOURCE=..\..\..\src\microsim\MSSaveState.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSSource.h
+SOURCE=..\..\..\src\microsim\MSSlowLaneChanger.h
 # End Source File
 # Begin Source File
 
@@ -473,23 +477,27 @@ SOURCE=..\..\..\src\microsim\MSSpaceMeanSpeed.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSTrigger.h
+SOURCE=..\..\..\src\microsim\trigger\MSTrigger.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSTriggeredReader.h
+SOURCE=..\..\..\src\microsim\trigger\MSTriggerControl.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSTriggeredSource.h
+SOURCE=..\..\..\src\microsim\trigger\MSTriggeredEmitter.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSTriggeredSourceXMLHandler.h
+SOURCE=..\..\..\src\microsim\trigger\MSTriggeredReader.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSTriggeredXMLReader.h
+SOURCE=..\..\..\src\microsim\trigger\MSTriggeredRerouter.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\trigger\MSTriggeredXMLReader.h
 # End Source File
 # Begin Source File
 

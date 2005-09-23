@@ -1,6 +1,6 @@
 if WITH_GUI
 GUI_APPS = sumo-guisim
-GUI_DIRS = gui guinetload guisim
+GUI_DIRS = gui guinetload guisim icons
 GUI_INCS = -I$(FOX_INCLUDES)
 endif
 
@@ -197,13 +197,15 @@ AM_CPPFLAGS = -I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7) \
 $(GUI_INCS)
 
 
-SUBDIRS = microsim netload sumo_only \
+SUBDIRS = microsim multimodal netload sumo_only \
 netbuild netgen netimport \
 od2trips router routing_dua routing_jtr \
-utils $(GUI_DIRS)
+tools utils $(GUI_DIRS)
 
 EXTRA_DIST = sumo_version.cpp sumo_version.h \
-giant_help.h giant_main.cpp netedit_help.h netedit_main.cpp \
+giant_build.h giant_help.h giant_main.cpp \
+guisim.rc \
+netedit_build.h netedit_help.h netedit_main.cpp \
 tagreader.cpp
 
 

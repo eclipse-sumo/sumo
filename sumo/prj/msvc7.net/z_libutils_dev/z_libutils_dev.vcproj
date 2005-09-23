@@ -21,7 +21,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				PreprocessorDefinitions="HAVE_CONFIG_H;WIN32;_DEBUG;_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -71,7 +71,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				PreprocessorDefinitions="HAVE_CONFIG_H;WIN32;NDEBUG;_LIB"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -117,29 +117,56 @@
 			Name="Quellcodedateien"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\..\..\src\utils\dev\MemDiff.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\utils\dev\bool_array.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\dev\debug_new.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\dev\mem_pool_base.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\dev\static_mem_pool.cpp">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\..\..\src\utils\dev\MemDiff.h">
+				RelativePath="..\..\..\src\utils\dev\bool_array.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\dev\class_level_lock.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\dev\cont_ptr_utils.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\dev\debug_new.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\dev\fast_mutex.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\dev\fixed_mem_pool.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\dev\mem_pool_base.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\dev\object_level_lock.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\dev\pctimer.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\dev\set_assign.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\dev\static_assert.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\dev\static_mem_pool.h">
 			</File>
 		</Filter>
 	</Files>

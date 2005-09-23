@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "NDEBUG" /D "FOXDLL" /D "_CONSOLE" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "NDEBUG" /D "FOXDLL" /D "_CONSOLE" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -70,7 +70,8 @@ PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\guisim.exe ..\..\..\bin\guisim.ex
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "_DEBUG" /D "ABS_DEBUG" /D "FOXDLL" /D "_CONSOLE" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "_DEBUG" /D "ABS_DEBUG" /D "FOXDLL" /D "_CONSOLE" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /GZ /c
+# SUBTRACT CPP /Fr
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -103,14 +104,6 @@ SOURCE=..\..\..\src\guisim_main.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\helpers\PreStartInitialised.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\SimpleCommand.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\sumo_version.cpp
 # End Source File
 # Begin Source File
@@ -121,34 +114,6 @@ SOURCE=..\..\..\src\sumo_only\SUMOFrame.cpp
 # Begin Group "Header-Dateien"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\Command.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\Counter.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\Dictionary.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\gcc_NullType.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\gcc_Typelist.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\gcc_TypeManip.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\gcc_TypeTraits.h
-# End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\guisim_build.h
@@ -167,55 +132,11 @@ SOURCE=..\..\..\src\microsim\MSExtendedTrafficLightLogic.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\helpers\msvc6_NullType.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\msvc6_static_check.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\msvc6_Typelist.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\msvc6_TypeManip.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\msvc6_TypeTraits.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\OneArgumentCommand.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\PreStartInitialised.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\SimpleCommand.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\SingletonDictionary.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\sumo_version.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\sumo_only\SUMOFrame.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\ValueRetriever.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\ValueSource.h
 # End Source File
 # End Group
 # Begin Group "Ressourcendateien"

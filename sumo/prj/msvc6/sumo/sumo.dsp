@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "NDEBUG" /D "_CONSOLE" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "NDEBUG" /D "_CONSOLE" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -70,7 +70,7 @@ PostBuild_Cmds=mkdir ..\..\..\bin	copy Release\sumo.exe ..\..\..\bin\sumo.exe	..
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "_DEBUG" /D "_CONSOLE" /D "ABS_DEBUG" /D "DEBUB_ALLOC" /D "_AFXDLL" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "_DEBUG" /D "_CONSOLE" /D "ABS_DEBUG" /D "DEBUB_ALLOC" /D "_AFXDLL" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG" /d "_AFXDLL"
 BSC32=bscmake.exe
@@ -99,14 +99,6 @@ SOURCE=..\..\..\src\utils\dev\MemDiff.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\helpers\PreStartInitialised.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\SimpleCommand.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\sumo_main.cpp
 # End Source File
 # Begin Source File
@@ -123,39 +115,11 @@ SOURCE=..\..\..\src\sumo_only\SUMOFrame.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\src\helpers\gcc_NullType.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\gcc_Typelist.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\gcc_TypeManip.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\gcc_TypeTraits.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\OneArgumentCommand.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\sumo_build.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\sumo_help.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\ValueRetriever.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\helpers\ValueSource.h
 # End Source File
 # End Group
 # Begin Group "Ressourcendateien"

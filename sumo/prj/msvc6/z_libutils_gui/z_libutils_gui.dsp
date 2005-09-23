@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "$(NEWFOX)\include" /I "..\..\..\src" /D "NDEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "FOXDLL" /D "HAVE_MESOSIM" /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "$(NEWFOX)\include" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "NDEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "FOXDLL" /D "HAVE_MESOSIM" /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
@@ -65,7 +65,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I "$(NEWFOX)\include" /I "..\..\..\src" /D "_DEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "FOXDLL" /D "HAVE_MESOSIM" /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I "$(NEWFOX)\include" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "_DEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "FOXDLL" /D "HAVE_MESOSIM" /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
@@ -192,6 +192,14 @@ SOURCE=..\..\..\src\utils\gui\tracker\GUIParameterTracker.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\gui\windows\GUIPerspectiveChanger.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\globjects\GUIPointOfInterest.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\globjects\GUIPolygon2D.cpp
 # End Source File
 # Begin Source File
 
@@ -420,6 +428,14 @@ SOURCE=..\..\..\src\utils\gui\tracker\GUIParameterTracker.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\gui\windows\GUIPerspectiveChanger.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\globjects\GUIPointOfInterest.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\globjects\GUIPolygon2D.h
 # End Source File
 # Begin Source File
 

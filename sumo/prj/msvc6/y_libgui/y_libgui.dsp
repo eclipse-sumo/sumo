@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /I "..\..\..\src\foreign" /D "NDEBUG" /D "FOXDLL" /D "_LIB" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /I "..\..\..\src\foreign" /D "HAVE_CONFIG_H" /D "NDEBUG" /D "FOXDLL" /D "_LIB" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -64,7 +64,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /I "..\..\..\src\foreign" /D "_DEBUG" /D "FOXDLL" /D "_LIB" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GR /GX /ZI /Od /I "$(NEWFOX)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /I "..\..\..\src\foreign" /D "HAVE_CONFIG_H" /D "_DEBUG" /D "FOXDLL" /D "_LIB" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
@@ -166,11 +166,7 @@ SOURCE=..\..\..\src\gui\GUILoadThread.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\manipulators\GUIManip_LaneSpeedTrigger.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\manipulators\GUIManipulator.cpp
+SOURCE=..\..\..\src\gui\GUIManipulator.cpp
 # End Source File
 # Begin Source File
 
@@ -223,6 +219,10 @@ SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\GUIViewAggregatedLanes.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\gui\GUIViewMesoEdges.cpp
 # End Source File
 # Begin Source File
 
@@ -318,11 +318,7 @@ SOURCE=..\..\..\src\gui\GUILoadThread.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\manipulators\GUIManip_LaneSpeedTrigger.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\manipulators\GUIManipulator.h
+SOURCE=..\..\..\src\gui\GUIManipulator.h
 # End Source File
 # Begin Source File
 
@@ -375,6 +371,10 @@ SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.h
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\GUIViewAggregatedLanes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\gui\GUIViewMesoEdges.h
 # End Source File
 # Begin Source File
 

@@ -21,7 +21,7 @@
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				AdditionalIncludeDirectories="$(NEWFOX)\include,..\..\..\src"
-				PreprocessorDefinitions="_DEBUG;WIN32;_LIB;FOXDLL"
+				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;_DEBUG;WIN32;_LIB;FOXDLL;HAVE_MESOSIM"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -68,7 +68,7 @@
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="$(NEWFOX)\include,..\..\..\src"
-				PreprocessorDefinitions="NDEBUG;WIN32;_LIB;FOXDLL"
+				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;NDEBUG;WIN32;_LIB;FOXDLL;HAVE_MESOSIM"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="0"
@@ -187,6 +187,12 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIPerspectiveChanger.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\globjects\GUIPointOfInterest.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\globjects\GUIPolygon2D.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUISelectedStorage.cpp">
@@ -345,6 +351,12 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIPerspectiveChanger.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\globjects\GUIPointOfInterest.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\globjects\GUIPolygon2D.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUISelectedStorage.h">

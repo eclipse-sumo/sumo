@@ -22,7 +22,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;ABS_DEBUG"
+				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;WIN32;_DEBUG;_LIB;ABS_DEBUG;HAVE_MESOSIM"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -74,7 +74,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;WIN32;NDEBUG;_LIB;HAVE_MESOSIM"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -200,6 +200,9 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSDebugHelper.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice_CPhone.cpp">
@@ -445,24 +448,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSLaneSpeedTrigger.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSLaneState.cpp">
@@ -748,26 +734,6 @@
 				RelativePath="..\..\..\src\microsim\MSSlowLaneChanger.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSSource.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSSourceLane.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -788,104 +754,19 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSTrigger.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\microsim\trigger\MSTriggerControl.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSTriggeredReader.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredEmitter.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSTriggeredSource.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredReader.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSTriggeredSourceXMLHandler.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredRerouter.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSTriggeredXMLReader.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredXMLReader.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSUnit.cpp">
@@ -1054,6 +935,9 @@
 				RelativePath="..\..\..\src\microsim\MSCORN.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSDebugHelper.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice_CPhone.h">
 			</File>
 			<File
@@ -1096,7 +980,7 @@
 				RelativePath="..\..\..\src\microsim\MSLaneChanger.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSLaneSpeedTrigger.h">
+				RelativePath="..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSLaneState.h">
@@ -1150,28 +1034,28 @@
 				RelativePath="..\..\..\src\microsim\MSSlowLaneChanger.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSSource.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSSourceLane.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSSpaceMeanSpeed.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSTrigger.h">
+				RelativePath="..\..\..\src\microsim\trigger\MSTrigger.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSTriggeredReader.h">
+				RelativePath="..\..\..\src\microsim\trigger\MSTriggerControl.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSTriggeredSource.h">
+				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredEmitter.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSTriggeredSourceXMLHandler.h">
+				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredReader.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSTriggeredXMLReader.h">
+				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredRerouter.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredXMLReader.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSUnit.h">

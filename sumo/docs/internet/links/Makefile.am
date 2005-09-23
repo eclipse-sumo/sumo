@@ -1,3 +1,3 @@
-EXTRA_DIST = development.html links.html simulations.html
+EXTRA_DIST = development.shtml links.shtml simulations.shtml sumoweb.shtml
 
 SUBDIRS =

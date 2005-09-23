@@ -14,6 +14,7 @@ y_libguinetload \
 y_libguisim \
 y_libmicrosim \
 y_libnetbuild \
+y_libnetedit \
 y_libnetgen \
 y_libnetimport \
 y_libnetload \
@@ -21,7 +22,6 @@ y_librouter \
 z_libmicrosim_output \
 z_libmicrosim_tls \
 z_libutils_common \
-z_libutils_convert \
 z_libutils_dev \
 z_libutils_distribution \
 z_libutils_foxtools \

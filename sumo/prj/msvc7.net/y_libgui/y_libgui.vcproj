@@ -22,7 +22,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src,..\..\..\src\foreign"
-				PreprocessorDefinitions="_DEBUG;FOXDLL;WIN32;_LIB"
+				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;_DEBUG;FOXDLL;WIN32;_LIB;HAVE_MESOSIM"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -76,7 +76,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src,..\..\..\src\foreign"
-				PreprocessorDefinitions="NDEBUG;FOXDLL;WIN32;_LIB"
+				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;NDEBUG;FOXDLL;WIN32;_LIB;HAVE_MESOSIM"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -473,44 +473,7 @@
 				RelativePath="..\..\..\src\gui\GUILoadThread.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\manipulators\GUIManip_LaneSpeedTrigger.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\manipulators\GUIManipulator.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\gui\GUIManipulator.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\drawerimpl\GUIROWDrawer_FGnT.cpp">
@@ -739,6 +702,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\gui\GUIViewMesoEdges.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\gui\GUIViewTraffic.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -832,10 +798,7 @@
 				RelativePath="..\..\..\src\gui\GUILoadThread.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\manipulators\GUIManip_LaneSpeedTrigger.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\manipulators\GUIManipulator.h">
+				RelativePath="..\..\..\src\gui\GUIManipulator.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\drawerimpl\GUIROWDrawer_FGnT.h">
@@ -878,6 +841,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUIViewAggregatedLanes.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\gui\GUIViewMesoEdges.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUIViewTraffic.h">

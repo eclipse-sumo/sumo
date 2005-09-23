@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -64,7 +64,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -89,10 +89,6 @@ SOURCE=..\..\..\src\router\CellDriverInfoParser.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\utils\router\FloatValueTimeLine.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\router\IDSupplier.cpp
 # End Source File
 # Begin Source File
@@ -106,10 +102,6 @@ SOURCE=..\..\..\src\router\ROAbstractRouter.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\router\ROEdge.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\router\ROEdgeCont.cpp
 # End Source File
 # Begin Source File
 
@@ -242,10 +234,6 @@ SOURCE=..\..\..\src\router\ROWeightsHandler.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\router\TextHelpers.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\router\ValueTimeLine.cpp
 # End Source File
 # End Group
 # Begin Group "Header-Dateien"

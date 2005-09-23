@@ -22,7 +22,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="_DEBUG;FOXDLL;WIN32;_LIB"
+				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;_DEBUG;FOXDLL;WIN32;_LIB;HAVE_MESOSIM"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -75,7 +75,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="$(NEWFOX)\include,$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="NDEBUG;FOXDLL;WIN32;_LIB"
+				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;NDEBUG;FOXDLL;WIN32;_LIB;HAVE_MESOSIM"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -123,26 +123,6 @@
 			Name="Quellcodedateien"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath="..\..\..\src\guinetload\GUIContainer.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\guinetload\GUIDetectorBuilder.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -183,27 +163,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\guinetload\GUIJunctionControlBuilder.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
+				RelativePath="..\..\..\src\guinetload\GUIGeomShapeBuilder.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\guinetload\GUINetBuilder.cpp">
+				RelativePath="..\..\..\src\guinetload\GUIJunctionControlBuilder.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -267,19 +230,16 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\..\..\src\guinetload\GUIContainer.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\guinetload\GUIDetectorBuilder.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\guinetload\GUIEdgeControlBuilder.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\guinetload\GUIJunctionControlBuilder.h">
+				RelativePath="..\..\..\src\guinetload\GUIGeomShapeBuilder.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\guinetload\GUINetBuilder.h">
+				RelativePath="..\..\..\src\guinetload\GUIJunctionControlBuilder.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\guinetload\GUINetHandler.h">

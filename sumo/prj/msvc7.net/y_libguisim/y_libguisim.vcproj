@@ -22,7 +22,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(NEWFOX)\include,..\..\..\src,$(XERCES)\include,$(XERCES)\include\xercesc"
-				PreprocessorDefinitions="_DEBUG;FOXDLL;WIN32;_LIB"
+				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;_DEBUG;FOXDLL;WIN32;_LIB;HAVE_MESOSIM"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -75,7 +75,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="$(NEWFOX)\include,..\..\..\src,$(XERCES)\include,$(XERCES)\include\xercesc"
-				PreprocessorDefinitions="NDEBUG;FOXDLL;WIN32;_LIB"
+				PreprocessorDefinitions="HAVE_MESOSIM,HAVE_CONFIG_H;NDEBUG;FOXDLL;WIN32;_LIB;HAVE_MESOSIM"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -405,6 +405,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\guisim\GUIMEInductLoop.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\guisim\GUINet.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -568,6 +571,15 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\guisim\GUITriggeredEmitter.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUITriggeredRerouter.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUITriggerWrapper.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\guisim\GUIVehicle.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -680,6 +692,9 @@
 				RelativePath="..\..\..\src\guisim\GUILaneWrapper.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\guisim\GUIMEInductLoop.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\guisim\GUINet.h">
 			</File>
 			<File
@@ -705,6 +720,15 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUITrafficLightLogicWrapper.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUITriggeredEmitter.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUITriggeredRerouter.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUITriggerWrapper.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUIVehicle.h">

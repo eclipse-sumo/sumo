@@ -24,9 +24,6 @@ Package=<4>
     Project_Dep_Name z_libutils_xml
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name z_libutils_convert
-    End Project Dependency
-    Begin Project Dependency
     Project_Dep_Name z_libutils_gfx
     End Project Dependency
     Begin Project Dependency
@@ -34,6 +31,9 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name y_librouter
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_dev
     End Project Dependency
 }}}
 
@@ -72,9 +72,6 @@ Package=<4>
     Project_Dep_Name z_libutils_common
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name z_libutils_convert
-    End Project Dependency
-    Begin Project Dependency
     Project_Dep_Name z_libutils_foxtools
     End Project Dependency
     Begin Project Dependency
@@ -122,6 +119,12 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name y_libmultimodal
     End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_helpers
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_dev
+    End Project Dependency
 }}}
 
 ###############################################################################
@@ -148,9 +151,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_xml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_convert
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_gfx
@@ -193,6 +193,12 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name y_libmultimodal
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_helpers
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_dev
     End Project Dependency
 }}}
 
@@ -228,7 +234,7 @@ Package=<4>
     Project_Dep_Name z_libutils_xml
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name z_libutils_convert
+    Project_Dep_Name z_libutils_dev
     End Project Dependency
 }}}
 
@@ -258,9 +264,6 @@ Package=<4>
     Project_Dep_Name z_libutils_xml
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name z_libutils_convert
-    End Project Dependency
-    Begin Project Dependency
     Project_Dep_Name z_libutils_distribution
     End Project Dependency
     Begin Project Dependency
@@ -274,6 +277,9 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name y_libnetimport
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_dev
     End Project Dependency
 }}}
 
@@ -298,9 +304,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_common
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_convert
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_foxtools
@@ -362,6 +365,12 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name y_libmultimodal
     End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_helpers
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_dev
+    End Project Dependency
 }}}
 
 ###############################################################################
@@ -395,6 +404,9 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name y_libnetgen
     End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_dev
+    End Project Dependency
 }}}
 
 ###############################################################################
@@ -422,6 +434,9 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name z_libutils_importio
     End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_dev
+    End Project Dependency
 }}}
 
 ###############################################################################
@@ -445,9 +460,6 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_xml
-    End Project Dependency
-    Begin Project Dependency
-    Project_Dep_Name z_libutils_convert
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name y_libmicrosim
@@ -475,6 +487,12 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name y_libmultimodal
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_helpers
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_dev
     End Project Dependency
 }}}
 
@@ -648,18 +666,6 @@ Package=<4>
 
 ###############################################################################
 
-Project: "z_libutils_convert"=.\z_libutils_convert\z_libutils_convert.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
 Project: "z_libutils_dev"=.\z_libutils_dev\z_libutils_dev.dsp - Package Owner=<4>
 
 Package=<5>
@@ -733,6 +739,18 @@ Package=<4>
 ###############################################################################
 
 Project: "z_libutils_gui"=.\z_libutils_gui\z_libutils_gui.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "z_libutils_helpers"=.\z_libutils_helpers\z_libutils_helpers.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

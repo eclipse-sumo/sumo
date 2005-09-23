@@ -1,4 +1,5 @@
-EXTRA_DIST = bibliography.html devdocs.html examples.html userdocs.html
+EXTRA_DIST = bibliography.shtml devdocs.shtml \
+examples.shtml manpages.shtml userdocs.shtml
 
 SUBDIRS = gen
 

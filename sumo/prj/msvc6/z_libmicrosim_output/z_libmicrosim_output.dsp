@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "..\..\..\src" /D "NDEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "..\..\..\src" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /D "HAVE_CONFIG_H" /D "NDEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /c
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -64,7 +64,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\..\..\src" /D "_DEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\..\..\src" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /D "HAVE_CONFIG_H" /D "_DEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /D "HAVE_MESOSIM" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -89,14 +89,6 @@ SOURCE=..\..\..\src\microsim\output\e2_detectors\MS_E2_ZS_CollectorOverLanes.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\output\MSCrossSection.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSCurrentHaltingDurationSumPerVehicle.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\microsim\output\MSDensity.cpp
 # End Source File
 # Begin Source File
@@ -105,23 +97,7 @@ SOURCE=..\..\..\src\microsim\output\MSDetector2File.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\output\MSDetectorCounterContainerWrapper.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSDetectorFileOutput.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSDetectorInterfaceCommon.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSDetectorOccupancyCorrection.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSDetectorSubSys.cpp
+SOURCE=..\..\..\src\microsim\output\MSDetectorControl.cpp
 # End Source File
 # Begin Source File
 
@@ -141,47 +117,7 @@ SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3Collector.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3MeanNHaltings.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3NVehicles.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\e3_detectors\MSE3Traveltime.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSEDDetectorInterface.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSHaltDuration.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSHaltingDurationSum.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\microsim\output\MSInductLoop.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSJamLengthAheadOfTrafficLights.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSJamLengthSum.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSLDDetectorInterface.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSMaxJamLength.cpp
 # End Source File
 # Begin Source File
 
@@ -193,27 +129,7 @@ SOURCE=..\..\..\src\microsim\output\meandata\MSMeanData_Net_Utils.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\output\MSNStartedHalts.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\microsim\output\MSNVehicles.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSOccupancyDegree.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSQueueLengthAheadOfTrafficLights.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSSpaceMeanSpeed.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSTDDetectorInterface.cpp
 # End Source File
 # Begin Source File
 
@@ -253,6 +169,10 @@ SOURCE=..\..\..\src\microsim\output\MSDetectorContainerWrapperBase.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\output\MSDetectorControl.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\output\MSDetectorCounterContainerWrapper.h
 # End Source File
 # Begin Source File
@@ -270,10 +190,6 @@ SOURCE=..\..\..\src\microsim\output\MSDetectorInterfaceCommon.h
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\output\MSDetectorOccupancyCorrection.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\output\MSDetectorSubSys.h
 # End Source File
 # Begin Source File
 
