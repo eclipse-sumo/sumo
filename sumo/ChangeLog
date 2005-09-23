@@ -1,365 +1,175 @@
-2002-08-06  Christian Roessel  <roessel@zpr.uni-koeln.de>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSNoLogicJunction.cpp:
-	SetFirstVehiclesRequests implemented.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSNet.h:
-	Default constructor needs to be (dummy) implemented.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSNet.h:
-	New method preInit() and changes in init().
-
-2002-07-31  Christian Roessel  <roessel@zpr.uni-koeln.de>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSTriggeredSource.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSTriggeredSourceXMLHandler.cpp:
-	Removed unneede include.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/Makefile.am, /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSNet.h, /cvsroot/sumo/sumo/sumo/microsim/MSNet.icc, /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.h, /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.icc, /cvsroot/sumo/sumo/sumo/microsim/MSVehicleType.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSVehicleType.h, /cvsroot/sumo/sumo/sumo/microsim/MSVehicleType.icc, /cvsroot/sumo/sumo/sumo/microsim/MSEventControl.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSEventControl.h, /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.h, /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSLane.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSLane.h:
-	Changes since sourceforge cvs request.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSSource.h, /cvsroot/sumo/sumo/sumo/microsim/MSSource.icc, /cvsroot/sumo/sumo/sumo/microsim/MSTriggeredSource.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSTriggeredSource.h, /cvsroot/sumo/sumo/sumo/microsim/MSTriggeredSource.icc, /cvsroot/sumo/sumo/sumo/microsim/MSTriggeredSourceXMLHandler.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSTriggeredSourceXMLHandler.h, /cvsroot/sumo/sumo/sumo/microsim/MSTriggeredSourceXMLHandler.icc, /cvsroot/sumo/sumo/sumo/microsim/MSSource.cpp:
-	Initial sourceforge commit.
-
-2002-06-25  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp:
-	Little mistake in destructor.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSBitSetLogic.cpp:
-	rcsid removed because of multiple-definition problems with MSVC++
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp:
-	safeGap using fabs is not the answer to collisions. Removing it.
-
-2002-06-21  dkrajzew  <dkrajzew@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSBitSetLogic.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSBitSetLogic.h, /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp:
-	inclusion of .cpp-files in .cpp files removed
-
-2002-06-20  dkrajzew  <dkrajzew@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.h:
-	safeGap is now using fabs
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLane.cpp:
-	False assertion corrected
-
-	* /cvsroot/sumo/sumo/sumo/microsim/Makefile.am:
-	if-switches in Makefile.am files that were reported to be unknown removed
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSBitSetLogic.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp:
-	template and .cpp inclusion inserted due to problems with MSVC++; should be revalidated and removed as soon as possible
-
-2002-06-19  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLane.cpp:
-	In moveExceptFirst: Check for timeheadway < deltaT situations.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp:
-	Changed *Gap methods to check for timeheadway < deltaT states.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.h, /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.icc:
-	Added method timeHeadWayGap( speed ) to forbid timeheadway < deltaT states.
-
-2002-06-18  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSBitSetLogic.cpp:
-	Added #ifdef EXTERNAL_TEMPLATE_DEFINITION to prevent multiple inclusions.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSBitSetLogic.cpp:
-	Re-addition of this file. Is now cfront-compliant.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/Makefile.am:
-	Added cfront-conditional.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSBitSetLogic.h:
-	Moved code to cpp and made file cfront-compliant.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/Makefile.am:
-	Removed MSBitSetLogic.cpp (Code moved to MSBitSetLogic.h).
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSNoLogicJunction.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSNoLogicJunction.h:
-	Removed some ^M.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSBitSetLogic.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSBitSetLogic.h:
-	Moved code from .cpp to .h. Removed .cpp
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSTriggeredSource.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSTriggeredSource.h, /cvsroot/sumo/sumo/sumo/microsim/MSTriggeredSource.icc, /cvsroot/sumo/sumo/sumo/microsim/MSSource.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSSource.h, /cvsroot/sumo/sumo/sumo/microsim/MSSource.icc:
-	Not needed for release 0.7
-
-2002-06-12  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSTriggeredSource.h, /cvsroot/sumo/sumo/sumo/microsim/MSSource.h, /cvsroot/sumo/sumo/sumo/microsim/MSSource.icc:
-	Added a emission lane.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSSource.icc, /cvsroot/sumo/sumo/sumo/microsim/MSTriggeredSource.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSTriggeredSource.h, /cvsroot/sumo/sumo/sumo/microsim/MSTriggeredSource.icc, /cvsroot/sumo/sumo/sumo/microsim/MSSource.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSSource.h:
-	Initial commit.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.cpp:
-	There was a problem with infinite densities because myPassingSpeed
-	could have the value 0 after reinitializing the detector and detection
-	of a just emitted vehicle with speed = 0. I added a if (speed>0)
-	condition in sample() to detect only the vehicles, that really passed
-	the detector (speed > 0).
-	Set floating-point output to ios::fixed.
-
-2002-06-11  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp:
-	Bugfix: in safeGap(), vDecel should be max(...), not
-	min(...). Otherwise gap is always < 0 and LaneChanger will almost
-	always allow a change. This may lead to collisions in the next
-	timesteps.
-
-2002-06-07  dkrajzew  <dkrajzew@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/Makefile.am, /cvsroot/sumo/sumo/sumo/microsim/MSNoLogicJunction.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSNoLogicJunction.h:
-	Added MSNoLogicJunction ,,pro forma,,. The code may compile but the class has no real functionality...
-
-2002-06-06  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp:
-	The member myStep was hidden in the simulation-loop "for( Time myStep;
-	...)", so return of simSeconds() was always 0.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.cpp:
-	Calculation of local density refined.
-	New assertions for localDensity.
-	avgFlow is now veh/hour.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSVehicleType.cpp:
-	Changed inclusion from .iC to .icc
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLane.icc: added #include <cassert>
-
-2002-05-30  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/Makefile.am: icc-files added.
-
-2002-05-29  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/Vorlage.icc: Accidentally committed.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.icc, /cvsroot/sumo/sumo/sumo/microsim/MSVehicleType.icc, /cvsroot/sumo/sumo/sumo/microsim/Vorlage.icc, /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.icc, /cvsroot/sumo/sumo/sumo/microsim/MSLane.icc, /cvsroot/sumo/sumo/sumo/microsim/MSNet.icc:
-	Initial commit.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.h, /cvsroot/sumo/sumo/sumo/microsim/MSVehicleType.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSVehicleType.h, /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.h, /cvsroot/sumo/sumo/sumo/microsim/MSLane.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSLane.h, /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSNet.h, /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp:
-	Inlined some methods. See the .icc files.
-
-2002-05-22  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.cpp:
-	advan2left(): First vehicles going to use a prioritized link will not
-	be allowed to change to the left because stayState calculation assumes
-	deceleration.
-
-2002-05-17  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp:
-	Changed novehicles to MSNet::noVehicles
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp:
-	Added _SPEEDCHECK code in all move-methos.
-	Added upper bound (= vaacel) for vSafe in nextState().
-	nextStateCompete():
-	- Removed vMax and vLaneMax, they are already considered in vaccel().
-	- Calculate nextPos with vNext instead of vSafe.
-	New method laneChangeBrake2much() added.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.h:
-	Added new method laneChangeBrake2much() because of lane-changers
-	disability to look beyond lanes.
-	Added some debug ifdefs.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.cpp:
-	advan2left/right: Check if vehicle brakes too much because of laneChangers disability to look beyond a lane. This caused many crashes.
-
-2002-05-16  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.cpp:
-	In constructor: Make sure that vehicles will be detected even at lane end.
-
-2002-05-14  dkrajzew  <dkrajzew@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSNet.h:
-	Windows eol removed
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSNet.h:
-	new _SPEEDCHECK functions: all methods in MSNet, computation of UPS and MUPS
-
-2002-05-08  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp:
-	safeGap(): vDecel shouldn't be less than 0.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp:
-	destReached() changed to allow routes to include the destination-edge
-	several times before reaching the destination.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.cpp:
-	Last change, i.e. test if vrh(target)!=0, moved from change2left/right
-	to congested().
-
-2002-05-06  dkrajzew  <dkrajzew@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp:
-	The output is now directed directly into the output file, no longer via a buffer
-
-2002-05-02  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.cpp:
-	change2left/right(): Check if veh(target) exists before passing target as argument.
-
-2002-04-25  dkrajzew  <dkrajzew@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSPersonControl.cpp:
-	False order of member variables initialisations fixed
-
-2002-04-25  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp: Removed unused variable.
-
-2002-04-24  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp:
-	Bugfix: changed myType->decel() into myType->accel() in dadwle().
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.cpp:
-	Changed the condition-order in change2left(). target-validity-ckeck
-	must be the first one.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSEdgeControl.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSEdgeControl.h, /cvsroot/sumo/sumo/sumo/microsim/MSEdge.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSEdge.h, /cvsroot/sumo/sumo/sumo/microsim/MSLane.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSLane.h, /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp:
-	Changed signature of void detectCollisions() to void detectCollisions(
-	MSNet::Time )
-
-2002-04-18  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp:
-	In nextStateCompete(): Returns now correct position instead of 0.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLane.cpp:
-	In setDriveRequests(): set gap to UINT_MAX instead of 0 for vehicles
-	without a predecessor.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp:
-	Bug in Revision 1.3 changes. Return State( pos, speed = 0 ) instead of
-	myState.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLane.cpp:
-	Changed detectCollisions() output from pointer-address to vehicle-id.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.cpp:
-	Added some static_casts in writeData. Added the output of the number of
-	vehicles that contributed to the sampling.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.h:
-	Bug-fix: Problem was that a right and a left vehicle could change to a
-	middle lane, even though they were overlapping. Solution: Introduction
-	of hoppedVeh in ChangeElem and method overlapWithHopped().
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.cpp:
-	In updateLanes(): changed swap() against assignment.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSRightOfWayJunction.cpp:
-	In findCompetitor we now ignore lanes, that don't have a vehicle that
-	is able to leave the lane.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLogicJunction.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSLogicJunction.h:
-	Introduced new method "bool driveRequest()" in class DriveBrakeRequest
-	to let findCompetitor check, if a first car set a request.
-
-2002-04-17  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.cpp:
-	Modified assert in constructor. Added assert in constructor.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLane.cpp:
-	Forgot to reset visited lanes (see previous revision).
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLane.cpp:
-	Bugfix in setLookForwardState: myGap may be < 0 in the PRED_ON_SUCC
-	state if pred just entered the succ-lane from another source lane. In
-	this case the lane's first vehicle shouldn't leave this lane.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp:
-	Introduced dontMoveGap to handle floating-point-inaccuracy. Vehicles
-	will keep their state if gap2pred is smaller.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSNet.h:
-	(Windows) Carriage returns removed.
-
-2002-04-15  dkrajzew  <dkrajzew@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSNet.h:
-	Addition of routes and detectors removed; a static information about the current time step (globaltime) implemented; output computation is now only invoked when needed
-
-2002-04-11  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSDetector.h, /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.h:
-	Moved ofstream myFile from MSInductLoop to MSDetector. Removed double
-	declaration of OutputStyle.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSLane.h, /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSNet.h, /cvsroot/sumo/sumo/sumo/microsim/MSRightOfWayJunction.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.h, /cvsroot/sumo/sumo/sumo/microsim/MSVehicleType.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSVehicleType.h, /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.h, /cvsroot/sumo/sumo/sumo/microsim/MSLane.cpp:
-	Changed float to double.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLane.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSLane.h:
-	Added new lookForwardState "URGENT_LANECHANGE_WISH" for vehicles that
-	may drive beyond the lane but are not on a lane that is linked to
-	their next route-edge. A second succLink method, named succLinkSec was
-	needed.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSBitSetLogic.cpp:
-	in respond(): changed if with &&.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSBitSetLogic.cpp:
-	in respond(): Perform response-calculation for set-responds only.
-
-2002-04-11  dkrajzew  <dkrajzew@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSNet.h:
-	Addition of detectors added
-
-2002-04-11  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.h:
-	Changed myFile-type from reference to pointer.
-
-2002-04-10  croessel  <croessel@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.h: Made speed() public.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSNet.h:
-	Modifications due to detector-implementation.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSLane.h: Added friend detectors.
-	Added public id() member-function.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSDetector.h:
-	Initial commit. Base class for all specific detectors.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.h:
-	Changeg cless name from MSDetector to MSInductLoop.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/Makefile.am:
-	Files added and removed.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSDetector.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSDetector.h, /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSInductLoop.h:
-	Renamed MSDetector into MSInductLoop.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSDetector.h, /cvsroot/sumo/sumo/sumo/microsim/MSDetector.cpp:
-	Get the job done version.
-
-2002-04-08  traffic  <traffic@pcz57>
-
-	* /cvsroot/sumo/sumo/sumo/microsim/Makefile.am, /cvsroot/sumo/sumo/sumo/microsim/MSVehicleType.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSVehicleType.h:
-	New file.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/Makefile.am, /cvsroot/sumo/sumo/sumo/microsim/MSVehicleType.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSVehicleType.h:
-	new project name
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSBitSetLogic.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSBitSetLogic.h, /cvsroot/sumo/sumo/sumo/microsim/MSDetector.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSDetector.h, /cvsroot/sumo/sumo/sumo/microsim/MSEdgeControl.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSEdgeControl.h, /cvsroot/sumo/sumo/sumo/microsim/MSEdge.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSEdge.h, /cvsroot/sumo/sumo/sumo/microsim/MSEmitControl.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSEmitControl.h, /cvsroot/sumo/sumo/sumo/microsim/MSEventControl.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSEventControl.h, /cvsroot/sumo/sumo/sumo/microsim/MSJunctionControl.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSJunctionControl.h, /cvsroot/sumo/sumo/sumo/microsim/MSJunction.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSJunction.h, /cvsroot/sumo/sumo/sumo/microsim/MSJunctionLogic.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSJunctionLogic.h, /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.h, /cvsroot/sumo/sumo/sumo/microsim/MSLane.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSLane.h, /cvsroot/sumo/sumo/sumo/microsim/MSLogicJunction.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSLogicJunction.h, /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSNet.h, /cvsroot/sumo/sumo/sumo/microsim/MSNoLogicJunction.h, /cvsroot/sumo/sumo/sumo/microsim/MSPersonControl.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSPersonControl.h, /cvsroot/sumo/sumo/sumo/microsim/MSPerson.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSPerson.h, /cvsroot/sumo/sumo/sumo/microsim/MSRightOfWayJunction.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSRightOfWayJunction.h, /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.h:
-	New file.
-
-	* /cvsroot/sumo/sumo/sumo/microsim/MSBitSetLogic.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSBitSetLogic.h, /cvsroot/sumo/sumo/sumo/microsim/MSDetector.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSDetector.h, /cvsroot/sumo/sumo/sumo/microsim/MSEdgeControl.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSEdgeControl.h, /cvsroot/sumo/sumo/sumo/microsim/MSEdge.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSEdge.h, /cvsroot/sumo/sumo/sumo/microsim/MSEmitControl.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSEmitControl.h, /cvsroot/sumo/sumo/sumo/microsim/MSEventControl.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSEventControl.h, /cvsroot/sumo/sumo/sumo/microsim/MSJunctionControl.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSJunctionControl.h, /cvsroot/sumo/sumo/sumo/microsim/MSJunction.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSJunction.h, /cvsroot/sumo/sumo/sumo/microsim/MSJunctionLogic.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSJunctionLogic.h, /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSLaneChanger.h, /cvsroot/sumo/sumo/sumo/microsim/MSLane.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSLane.h, /cvsroot/sumo/sumo/sumo/microsim/MSLogicJunction.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSLogicJunction.h, /cvsroot/sumo/sumo/sumo/microsim/MSNet.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSNet.h, /cvsroot/sumo/sumo/sumo/microsim/MSNoLogicJunction.h, /cvsroot/sumo/sumo/sumo/microsim/MSPersonControl.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSPersonControl.h, /cvsroot/sumo/sumo/sumo/microsim/MSPerson.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSPerson.h, /cvsroot/sumo/sumo/sumo/microsim/MSRightOfWayJunction.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSRightOfWayJunction.h, /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.cpp, /cvsroot/sumo/sumo/sumo/microsim/MSVehicle.h:
-	new project name
-
+$Log$
+Revision 1.3  2005/09/23 09:25:22  dkrajzew
+debugging the building process
+
+Revision 1.2  2005/09/12 07:44:36  dksumo
+real changelog applied
+
+
+Changes from 0.8.2.1 to 0.8.2.2
+- User-relevant changes:
+ - Simulation
+  - XML-Trigger bug on using speed triggers removed
+  - emission of vehicles on multi-lane source edges debugged (now all lanes are used)
+  - Debugged the problem of vehicles stopping before the route is over (reported by Jonathan Davies)
+  - setting tls-offsets debugged
+ - Netconvert
+  - Computation of left-movers debugged
+
+Changes from 0.8.0.2 to 0.8.2.1
+Please remind that several option names have changed! The most important: "net-files" (router, simulation) is now "net-file"...
+Check user documentation and man-pages for this.
+- User-relevant changes:
+ - GUI
+  - "Clear Message Window" menu added
+  - the icons now allow loading instantly after the previous loading has failed
+  - Renamed to "guisim"
+  - using gradients instead of pure interpolation
+  - windows-icons patched
+  - added ability to take snapshots
+  - using popups instead of comboboxes for finding structures and switching between coloring schemes in order to save place
+  - speeded up handling of errors
+  - Locators hidden behind a popup
+  - ToolTips do now not hide dialog windows
+  - Configuration errors are now reported to the window
+  - Added the possibility to display a vehicle's route
+  - added the possibility to save timelines
+ - Simulation
+  - building dump-files now reports about failures
+  - Patched some of the lane-changing bugs
+  - time-to-teleport -option added
+  - replace "treshhold" by "treshold"
+ - Netconvert
+  - Plain output of node and edges added (--plain-output)
+  - got rid of the arcview/shapelib-import chaos
+  - --explicite-junctions -> --explicite-tls
+  - --explicite-no-junctions -> --explicite-no-tls
+  - --keep-edges.input-file
+  - --keep-edges - option added
+  - --keep-edges.input-file
+  - Geometry computation bug patched
+ - Router
+  - Bug on processing all time steps patched
+  - Route output reformatted
+  - max-alternatives
+ - Documentation
+  - Man-pages added
+- Developer-relevant changes:
+ - GUI
+  - Have reworked the class dependencies completely in order to make derivation more easy
+ - Simulation
+  - output moved to "output"
+  - outputs write to OutputDevices, not ostreams
+  - reworked lanechanging
+
+Changes from 0.8.0.1 to 0.8.0.2
+- User-relevant changes:
+ - GUI
+  - Selections
+  - Flag icons added to Popup-Menues
+  - Shift adds (de)selects the whole street, not only a lane
+  - Selection-Editor now saves to *.txt-files
+  - Centering of objects has been revalidated
+  - Variable Speed Signs
+  - Visualisation of vss added
+  - Added the possibility to interact with vss'
+  - "Reload Simulation" option added
+  - Status-Bar message patched
+  - Rotation removed (was buggy)
+  - Error on closing the gui if parameter tracker are opened patched
+  - Value tracker may now be aggregated and are able to save the tracked values
+  - POlygon visualisation added
+  - Breakpoints added
+  - Setting and Saving of additional net weights added (preliminary, subject to improve)
+  - Coloring by type and by route added
+ - Simulation
+  - Reports why the simulation ended if in verbose mode
+  - emissions-output error due to a division by zero patched
+  - VSS may now control several lanes
+ - general
+  - Options
+   - Errors on default value usage patched
+ - Documentation
+  - trying to separate XML-code (green) from command line options (red)
+ - Netconvert
+  - --map-output <FILE> builds a mapping that shows which edges have been removed while joining
+  - guess-tls - options added
+  - extended the FastLane-import by the -l parameter for the number of lanes
+  - --explicite-junctions <JUNCTION_NAME_LIST> allows to say which junctions shall be explicitely tls-controlled
+  - --explicite-no-junctions <JUNCTION_NAME_LIST> allows to say which junctions shall be explicitely non-tls-controlled
+  - --edges-min-speed <SPEED_MS> allows to remove all edges from the input on which a lower speed than <SPEED_MS> is allowed
+  - --elmar allows to import NavTech-GDF-files parsed using Elmar Brockfelds parser
+  - --tiger allows to import tiger files (preliminary, does not look THAAAAT good for an unknown reason, yet)
+ - Router
+  - Generation of random route after the first depart fixed
+  - Warnings about missing weights are printed only once per edge
+  - Supplementary Weights
+  - Examples have now a new folder structure
+- Developer-relevant changes:
+ - GUI
+  - Selected structures are now in a separate class
+  - Additional structures are now displayed using the same "API"
+ - Simulation
+  - removed the MSNet::dictionary
+  - refactored the MSMeanData-output
+
+Changes from 0.8.0 to 0.8.0.1
+Mostly functioning and stable. The main changes are:
+- GUI
+ - The gui now remembers the last used folder
+ - The gui now remembers his
+ - The instance chooser was reworked and shows now which items are selected
+ - An selected-items dialog with the ability to save the names of the selected items was implemented
+ - New colours for aggregated view (aggregated views are still a prototype)
+ - Fixed a bug at optional texture disabling
+ - Update of trackers and tables on simulation steps added
+ - About-dialog debugged
+ - Message window scrolls if new text is appended
+- Router
+ - Output holding the number of loaded, build, and discarded routes added
+ - --move-on-short function implemented
+ - Bug on repeatedly emitted vehicles patched
+- Simulation
+ - Bug on repeatedly emitted vehicles patched
+- Netconvert
+ - Made the geometry of junctions pretty again
+ - Too conservative right-of-way rules on importing vissim-networks was reworked
+ - general implementation issues
+ - Replaced most output to cerr by MsgHandler-calls
+- Documentation
+ - extended the detector-documentation (user)
+ - extended the gui-documentation
+ - extended the description of the build process
+ - added missing pictures
+ - resized some pictures
+ - improved the visibility of XML-format descriptions
+... and some other things ...
+
+Changes from pre0.8.3 to 0.8.0
+Mainly the try to make a working release... Furthermore:
+- More detectors
+- Aggregated views
+- Porting to FOX
+
+Changes from pre0.8.2 to pre0.8.3
+Mostly functioning and stable. The changes
+- Linux-building patched
+- Added a preliminary visualisation of junctions and detectors
+- The detectors were reimplemented
+- Vehicles and vehicle types now contain a certain color (not yet chooseable)
+- Traffic lights may now have offsets
+- Different other, smaller things
+- Changes from pre0.8 to pre0.8.2
+- I decided to post the next pre-release that fast as a bug within the netconversion module strongly disallowed the usage of the package.
+- As the network generator is not working yet, but still is included within the package, a further release will be out win the next days.
+- Netconversion bug removed
+- Preliminary junction display
+- Preliminary netgenerator
+
+Changes from 0.7.1 to pre0.8
+- Further applications added: router, od2trips-converter, tagreader
+- A graphical user interface
+- Further import possibilities added: ArcView, Visum, Vissim (partly in work), ARTEMIS
+- A new concept of the microsimulation
+- Traffic lights simulation
+- Working lane changing

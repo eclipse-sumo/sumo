@@ -57,6 +57,7 @@ if test x$cfront_model = xtrue; then
 fi
 
 AM_CONDITIONAL(CFRONT, test x$cfront_model = xtrue)
+AC_DEFINE([SUMOReal], [float], [defines the precision of floats])
 
 
 dnl ---------------------------------------------
@@ -178,7 +179,7 @@ if test x"$ac_fox_libraries" = x; then
       AC_MSG_RESULT([no])
       AC_MSG_RESULT([---------------------------])
       AC_MSG_RESULT([fox-lib not found.])
-      AC_MSG_RESULT([Specify path with option --with-fox-libraries=DIR for gui-eneabled applications.])
+      AC_MSG_RESULT([Specify path with option --with-fox-libraries=DIR for gui-enabled applications.])
       AC_MSG_RESULT([---------------------------])
    fi
 else
@@ -214,7 +215,7 @@ if test x"$ac_fox_includes" = x; then
       AC_MSG_RESULT([no])
       AC_MSG_RESULT([---------------------------])
       AC_MSG_RESULT([fox-lib not found.])
-      AC_MSG_RESULT([Specify path with option --with-fox-includes=DIR for gui-eneabled applications.])
+      AC_MSG_RESULT([Specify path with option --with-fox-includes=DIR for gui-enabled applications.])
       AC_MSG_RESULT([---------------------------])
    fi
 else
@@ -257,7 +258,9 @@ prj/msvc6/y_libgui/Makefile
 prj/msvc6/y_libguinetload/Makefile
 prj/msvc6/y_libguisim/Makefile
 prj/msvc6/y_libmicrosim/Makefile
+prj/msvc6/y_libmultimodal/Makefile
 prj/msvc6/y_libnetbuild/Makefile
+prj/msvc6/y_libnetedit/Makefile
 prj/msvc6/y_libnetgen/Makefile
 prj/msvc6/y_libnetimport/Makefile
 prj/msvc6/y_libnetload/Makefile
@@ -265,7 +268,6 @@ prj/msvc6/y_librouter/Makefile
 prj/msvc6/z_libmicrosim_output/Makefile
 prj/msvc6/z_libmicrosim_tls/Makefile
 prj/msvc6/z_libutils_common/Makefile
-prj/msvc6/z_libutils_convert/Makefile
 prj/msvc6/z_libutils_dev/Makefile
 prj/msvc6/z_libutils_distribution/Makefile
 prj/msvc6/z_libutils_foxtools/Makefile
@@ -273,6 +275,7 @@ prj/msvc6/z_libutils_geom/Makefile
 prj/msvc6/z_libutils_gfx/Makefile
 prj/msvc6/z_libutils_glutils/Makefile
 prj/msvc6/z_libutils_gui/Makefile
+prj/msvc6/z_libutils_helpers/Makefile
 prj/msvc6/z_libutils_importio/Makefile
 prj/msvc6/z_libutils_iodevices/Makefile
 prj/msvc6/z_libutils_options/Makefile
@@ -294,6 +297,7 @@ prj/msvc7.net/y_libguinetload/Makefile
 prj/msvc7.net/y_libguisim/Makefile
 prj/msvc7.net/y_libmicrosim/Makefile
 prj/msvc7.net/y_libnetbuild/Makefile
+prj/msvc7.net/y_libnetedit/Makefile
 prj/msvc7.net/y_libnetgen/Makefile
 prj/msvc7.net/y_libnetimport/Makefile
 prj/msvc7.net/y_libnetload/Makefile
@@ -301,7 +305,6 @@ prj/msvc7.net/y_librouter/Makefile
 prj/msvc7.net/z_libmicrosim_output/Makefile
 prj/msvc7.net/z_libmicrosim_tls/Makefile
 prj/msvc7.net/z_libutils_common/Makefile
-prj/msvc7.net/z_libutils_convert/Makefile
 prj/msvc7.net/z_libutils_dev/Makefile
 prj/msvc7.net/z_libutils_distribution/Makefile
 prj/msvc7.net/z_libutils_foxtools/Makefile
@@ -373,7 +376,6 @@ docs/docbook/gfx/dev/Makefile
 docs/docbook/gfx/in_progress/Makefile
 docs/docbook/gfx/user/Makefile
 docs/docbook/tools/Makefile
-docs/docbook/tools/db2man/Makefile
 docs/docbook/xslt/Makefile
 docs/docbook/xslt/sumo_html/Makefile
 docs/internet/Makefile
@@ -393,11 +395,10 @@ src/Makefile
 src/gui/Makefile
 src/gui/dialogs/Makefile
 src/gui/drawerimpl/Makefile
-src/gui/manipulators/Makefile
 src/guinetload/Makefile
 src/guisim/Makefile
 src/guisim/guilogging/Makefile
-src/helpers/Makefile
+src/icons/Makefile
 src/microsim/Makefile
 src/microsim/actions/Makefile
 src/microsim/devices/Makefile
@@ -409,8 +410,11 @@ src/microsim/output/e1_detectors/Makefile
 src/microsim/output/e2_detectors/Makefile
 src/microsim/output/e3_detectors/Makefile
 src/microsim/traffic_lights/Makefile
+src/microsim/trigger/Makefile
+src/multimodal/Makefile
 src/netbuild/Makefile
 src/netbuild/nodes/Makefile
+src/netedit/Makefile
 src/netgen/Makefile
 src/netimport/Makefile
 src/netimport/arcview/Makefile
@@ -432,10 +436,11 @@ src/router/Makefile
 src/routing_dua/Makefile
 src/routing_jtr/Makefile
 src/sumo_only/Makefile
+src/tools/Makefile
 src/utils/Makefile
 src/utils/actions/Makefile
+src/utils/bindevice/Makefile
 src/utils/common/Makefile
-src/utils/convert/Makefile
 src/utils/dev/Makefile
 src/utils/distribution/Makefile
 src/utils/foxtools/Makefile
@@ -450,10 +455,12 @@ src/utils/gui/globjects/Makefile
 src/utils/gui/images/Makefile
 src/utils/gui/tracker/Makefile
 src/utils/gui/windows/Makefile
+src/utils/helpers/Makefile
 src/utils/importio/Makefile
 src/utils/iodevices/Makefile
 src/utils/options/Makefile
 src/utils/router/Makefile
+src/utils/shapes/Makefile
 src/utils/sumoxml/Makefile
 src/utils/xml/Makefile
 tests/Makefile
