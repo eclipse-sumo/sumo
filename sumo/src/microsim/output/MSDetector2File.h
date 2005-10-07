@@ -22,6 +22,9 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.7  2005/10/07 11:37:46  dkrajzew
+// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//
 // Revision 1.6  2005/09/15 11:09:33  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -47,7 +50,11 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
 #include <config.h>
+#endif
 #endif // HAVE_CONFIG_H
 
 #include <microsim/MSUnit.h>

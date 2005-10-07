@@ -16,7 +16,11 @@
 // Last update: Oct 17, 2002
 
 #ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
 #include <config.h>
+#endif
 #endif // HAVE_CONFIG_H
 
 #include "msvc6_static_check.h"

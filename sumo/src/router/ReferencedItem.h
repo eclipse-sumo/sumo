@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/10/07 11:42:15  dkrajzew
+// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//
 // Revision 1.3  2004/01/26 08:01:21  dkrajzew
 // loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
 //
@@ -31,7 +34,11 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
 #include <config.h>
+#endif
 #endif // HAVE_CONFIG_H
 
 

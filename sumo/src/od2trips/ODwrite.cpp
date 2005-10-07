@@ -29,6 +29,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/10/07 11:42:00  dkrajzew
+// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//
 // Revision 1.10  2005/09/23 06:04:23  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -58,7 +61,11 @@ namespace
 # include <utils/options/OptionsSubSys.h>
 # include <utils/options/OptionsCont.h>
 #ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
 #include <config.h>
+#endif
 #endif // HAVE_CONFIG_H
 
 #include <od2trips/ODDistrictCont.h>
@@ -99,7 +106,7 @@ ODWrite (string OD_outfile, vector<OD_OUT>& od_out, long int total_cars,
         if(!OptionsSubSys::getOptions().getBool("no-color")) {
             SUMOReal red = districts.getDistrictColor(od_out[i].from);
             SUMOReal blue = districts.getDistrictColor(od_out[i].to);
-            SUMOReal green = (red + blue) / 2.0;
+            SUMOReal green = (red + blue) / 2.0f;
             fsSrc << " color=\"" << red << "," << green << "," << blue << "\"";
         }
         fsSrc << "/>"<< endl;

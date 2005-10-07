@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/10/07 11:38:33  dkrajzew
+// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//
 // Revision 1.5  2005/09/15 12:03:02  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -28,7 +31,6 @@
 //
 // Revision 1.5  2005/05/30 08:18:26  dksumo
 // comments added
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -40,7 +42,11 @@
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
 #include <config.h>
+#endif
 #endif // HAVE_CONFIG_H
 
 #include <fx.h>

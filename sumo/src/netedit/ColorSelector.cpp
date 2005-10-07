@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/10/07 11:38:33  dkrajzew
+// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//
 // Revision 1.3  2005/09/15 12:03:02  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -43,7 +46,11 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
 #include <config.h>
+#endif
 #endif // HAVE_CONFIG_H
 
 #include <fx.h>

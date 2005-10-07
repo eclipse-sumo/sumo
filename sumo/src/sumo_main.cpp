@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2005/10/07 11:48:01  dkrajzew
+// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//
 // Revision 1.30  2005/09/23 13:16:40  dkrajzew
 // debugging the building process
 //
@@ -195,7 +198,11 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
 #include <config.h>
+#endif
 #endif // HAVE_CONFIG_H
 /*
 #ifdef DEBUB_ALLOC

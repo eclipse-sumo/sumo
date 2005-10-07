@@ -26,7 +26,14 @@
 //  Inter-thread communication object
 //
 //------------------------------------------------------------------
-//#include <config.h>
+/*
+#ifdef WIN32
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+*/
+
 #include <fxver.h>
 #include <xincs.h>
 #include <fx.h>

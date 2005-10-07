@@ -198,7 +198,7 @@ $(GUI_INCS)
 
 
 SUBDIRS = microsim multimodal netload sumo_only \
-netbuild netgen netimport \
+netbuild netedit netgen netimport \
 od2trips router routing_dua routing_jtr \
 tools utils $(GUI_DIRS)
 

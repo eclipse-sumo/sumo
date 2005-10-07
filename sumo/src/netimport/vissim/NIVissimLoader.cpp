@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2005/10/07 11:40:47  dkrajzew
+// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//
 // Revision 1.23  2005/09/23 06:02:56  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -68,7 +71,11 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
 #include <config.h>
+#endif
 #endif // HAVE_CONFIG_H
 
 

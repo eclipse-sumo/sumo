@@ -1,7 +1,7 @@
 noinst_LIBRARIES = libguiutilsimages.a
 
 EXTRA_DIST = allow_rotation.xpm \
-app_breakpoints.xpm app_linker.xpm app_finder.xpm \
+app_breakpoints.xpm app_finder.xpm \
 app_selector.xpm app_table.xpm app_tlstracker.xpm app_tracker.xpm \
 camera.xpm close_gaps.xpm closing.xpm \
 colour_lane.xpm colour_vehicle.xpm cont.xpm create_graph.xpm cut.xpm \

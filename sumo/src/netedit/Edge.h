@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/10/07 11:38:33  dkrajzew
+// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//
 // Revision 1.4  2005/09/23 06:01:19  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -28,7 +31,6 @@
 //
 // Revision 1.4  2005/06/14 11:22:27  dksumo
 // documentation added
-//
 //
 /* =========================================================================
  * compiler pragmas

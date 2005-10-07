@@ -2,6 +2,7 @@
 EXTRA_DIST = ColorSelector.cpp ColorSelector.h \
 ConfigDialog.cpp ConfigDialog.h \
 Edge.cpp Edge.h GNEApplicationWindow.cpp GNEApplicationWindow.h \
+GNEImageProcWindow.cpp GNEImageProcWindow.h \
 GNEViewParent.cpp GNEViewParent.h GNEViewTraffic.cpp GNEViewTraffic.h \
 Graph.cpp Graph.h Image.cpp Image.h InfoDialog.cpp InfoDialog.h \
 Point.cpp Point.h Vertex.cpp Vertex.h \

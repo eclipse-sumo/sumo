@@ -25,6 +25,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.7  2005/10/07 11:48:01  dkrajzew
+// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//
 // Revision 1.6  2005/09/15 12:27:08  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -41,7 +44,8 @@ namespace
 // all 0.8.0.2 changes
 //
 // Revision 1.1  2003/06/18 10:57:09  dkrajzew
-// quite unsane specification within a cpp file only is now split on a cpp and a h file
+// quite unsane specification within a cpp file only is now split on a
+//  cpp and a h file
 //
 // Revision 1.2  2003/06/05 14:45:28  dkrajzew
 // class templates applied; documentation added
@@ -50,7 +54,11 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
 #include <config.h>
+#endif
 #endif // HAVE_CONFIG_H
 
 #ifdef _DEBUG
@@ -61,7 +69,7 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-const char *version = "0.8.2";
+const char *version = "0.9.0";
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
