@@ -4,9 +4,9 @@
    <node_count>14</node_count>
 
 
-   <edge id="0" Length="495.00" Speed="36.00" Name="0" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="500.00" YTo="0.00" From="a0" To="a1" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="0" Length="500.75" Speed="36.00" Name="0" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="500.00" YTo="0.00" From="a0" To="a1" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="0_0" depart="1" maxspeed="36.00" length="495.00" changeurge="0">4.00,-1.75 499.00,-1.75</lane>
+         <lane id="0_0" depart="1" maxspeed="36.00" length="500.75" changeurge="0">-1.75,-1.75 499.00,-1.75</lane>
       </lanes>
       <cedge id="1" via=":a1">0_0</cedge>
    </edge>
@@ -88,9 +88,9 @@
       <cedge id="c" via=":b1">b_0</cedge>
    </edge>
 
-   <edge id="c" Length="495.00" Speed="36.00" Name="c" NoLanes="1" XFrom="3500.00" YFrom="0.00" XTo="4000.00" YTo="0.00" From="b1" To="b0" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="c" Length="497.25" Speed="36.00" Name="c" NoLanes="1" XFrom="3500.00" YFrom="0.00" XTo="4000.00" YTo="0.00" From="b1" To="b0" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="c_0" depart="1" maxspeed="36.00" length="495.00" changeurge="0">3501.00,-1.75 3996.00,-1.75</lane>
+         <lane id="c_0" depart="1" maxspeed="36.00" length="497.25" changeurge="0">3501.00,-1.75 3998.25,-1.75</lane>
       </lanes>
    </edge>
 
@@ -207,7 +207,7 @@
 
    <junction id="a0" type="DEAD_END" x="0.00" y="0.00">
       <inclanes></inclanes>
-      <shape>4.00,-0.25 4.00,-3.25 3.00,3.00 3.00,-3.00 -3.00,-3.00 -3.00,3.00 4.00,-0.25</shape>
+      <shape>-0.25,-0.25 -3.25,-3.25</shape>
    </junction>
 
    <junction id="a1" type="priority" x="500.00" y="0.00">
@@ -242,7 +242,7 @@
 
    <junction id="b0" type="DEAD_END" x="4000.00" y="0.00">
       <inclanes>c_0</inclanes>
-      <shape>3996.00,-3.25 3996.00,-0.25 4003.00,3.00 4003.00,-3.00 3997.00,-3.00 3997.00,3.00 3996.00,-3.25</shape>
+      <shape>3996.75,-3.25 3999.75,-0.25</shape>
    </junction>
 
    <junction id="b1" type="priority" x="3500.00" y="0.00">

@@ -109,11 +109,11 @@
    </succ>
 
    <succ edge="1" lane="1_0" junction="2">
-      <succlane lane="2_0" via=":2_0_0" yield="0" dir="t" state="M"/>
+      <succlane lane="2_0" via=":2_0_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="1" lane="1_1" junction="2">
-      <succlane lane="2_1" via=":2_1_0" yield="0" dir="t" state="M"/>
+      <succlane lane="2_1" via=":2_1_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="2" lane="2_0" junction="3">

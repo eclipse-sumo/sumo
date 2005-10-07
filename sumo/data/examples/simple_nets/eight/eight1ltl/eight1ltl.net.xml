@@ -212,40 +212,14 @@
       <phaseno>8</phaseno>
       <offset>0</offset>
       <inclanes>a3_0 a7_0 b1_0 b5_0</inclanes>
-      <phase duration="20" phase="000111000111" brake="111011111011" yellow="000000000000"/>
-      <phase duration="12" phase="000100000100" brake="111011111011" yellow="000011000011"/>
+      <phase duration="20" phase="000111000111" brake="111100111100" yellow="000000000000"/>
+      <phase duration="12" phase="000100000100" brake="111111111111" yellow="000011000011"/>
       <phase duration="3" phase="000100000100" brake="111011111011" yellow="000000000000"/>
       <phase duration="12" phase="000000000000" brake="111111111111" yellow="000100000100"/>
-      <phase duration="20" phase="111000111000" brake="011111011111" yellow="000000000000"/>
-      <phase duration="12" phase="100000100000" brake="011111011111" yellow="011000011000"/>
+      <phase duration="20" phase="111000111000" brake="100111100111" yellow="000000000000"/>
+      <phase duration="12" phase="100000100000" brake="111111111111" yellow="011000011000"/>
       <phase duration="3" phase="100000100000" brake="011111011111" yellow="000000000000"/>
       <phase duration="12" phase="000000000000" brake="111111111111" yellow="100000100000"/>
-   </tl-logic>
-
-   <tl-logic type="static">
-      <key>4</key>
-      <logicno>1</logicno>
-      <phaseno>18</phaseno>
-      <offset>0</offset>
-      <inclanes>a3_0 a7_0 b1_0 b5_0</inclanes>
-      <phase duration="20" phase="000001001111" brake="111111110000" yellow="000000000000"/>
-      <phase duration="12" phase="000000000100" brake="111111111011" yellow="000001001011"/>
-      <phase duration="3" phase="000000000100" brake="111111111011" yellow="000000000000"/>
-      <phase duration="12" phase="000000000000" brake="111111111111" yellow="000000000100"/>
-      <phase duration="20" phase="000111000111" brake="111011111011" yellow="000000000000"/>
-      <phase duration="12" phase="000100000100" brake="111011111011" yellow="000011000011"/>
-      <phase duration="3" phase="000100000100" brake="111011111011" yellow="000000000000"/>
-      <phase duration="12" phase="000000000000" brake="111111111111" yellow="000100000100"/>
-      <phase duration="20" phase="001001001001" brake="110110110110" yellow="000000000000"/>
-      <phase duration="12" phase="000000000000" brake="111111111111" yellow="001001001001"/>
-      <phase duration="20" phase="111000001001" brake="000111111110" yellow="000000000000"/>
-      <phase duration="12" phase="100000000000" brake="011111111111" yellow="011000001001"/>
-      <phase duration="3" phase="100000000000" brake="011111111111" yellow="000000000000"/>
-      <phase duration="12" phase="000000000000" brake="111111111111" yellow="100000000000"/>
-      <phase duration="20" phase="001001111000" brake="111110000111" yellow="000000000000"/>
-      <phase duration="12" phase="000000100000" brake="111111011111" yellow="001001011000"/>
-      <phase duration="3" phase="000000100000" brake="111111011111" yellow="000000000000"/>
-      <phase duration="12" phase="000000000000" brake="111111111111" yellow="000000100000"/>
    </tl-logic>
 
 

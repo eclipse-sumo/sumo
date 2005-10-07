@@ -272,101 +272,75 @@
       <phaseno>8</phaseno>
       <offset>0</offset>
       <inclanes>a3_0 a3_1 a3_2 a7_0 a7_1 a7_2 b1_0 b1_1 b1_2 b5_0 b5_1 b5_2</inclanes>
-      <phase duration="20" phase="0000111100001111" brake="1111011111110111" yellow="0000000000000000"/>
-      <phase duration="4" phase="0000100000001000" brake="1111011111110111" yellow="0000011100000111"/>
+      <phase duration="20" phase="0000111100001111" brake="1111100011111000" yellow="0000000000000000"/>
+      <phase duration="4" phase="0000100000001000" brake="1111111111111111" yellow="0000011100000111"/>
       <phase duration="3" phase="0000100000001000" brake="1111011111110111" yellow="0000000000000000"/>
       <phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="0000100000001000"/>
-      <phase duration="20" phase="1111000011110000" brake="0111111101111111" yellow="0000000000000000"/>
-      <phase duration="4" phase="1000000010000000" brake="0111111101111111" yellow="0111000001110000"/>
+      <phase duration="20" phase="1111000011110000" brake="1000111110001111" yellow="0000000000000000"/>
+      <phase duration="4" phase="1000000010000000" brake="1111111111111111" yellow="0111000001110000"/>
       <phase duration="3" phase="1000000010000000" brake="0111111101111111" yellow="0000000000000000"/>
       <phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="1000000010000000"/>
    </tl-logic>
 
-   <tl-logic type="static">
-      <key>4</key>
-      <logicno>1</logicno>
-      <phaseno>18</phaseno>
-      <offset>0</offset>
-      <inclanes>a3_0 a3_1 a3_2 a7_0 a7_1 a7_2 b1_0 b1_1 b1_2 b5_0 b5_1 b5_2</inclanes>
-      <phase duration="20" phase="0000000100011111" brake="1111111111100000" yellow="0000000000000000"/>
-      <phase duration="4" phase="0000000000001000" brake="1111111111110111" yellow="0000000100010111"/>
-      <phase duration="3" phase="0000000000001000" brake="1111111111110111" yellow="0000000000000000"/>
-      <phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="0000000000001000"/>
-      <phase duration="20" phase="0000111100001111" brake="1111011111110111" yellow="0000000000000000"/>
-      <phase duration="4" phase="0000100000001000" brake="1111011111110111" yellow="0000011100000111"/>
-      <phase duration="3" phase="0000100000001000" brake="1111011111110111" yellow="0000000000000000"/>
-      <phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="0000100000001000"/>
-      <phase duration="20" phase="0001000100010001" brake="1110111011101110" yellow="0000000000000000"/>
-      <phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="0001000100010001"/>
-      <phase duration="20" phase="1111000000010001" brake="0000111111111110" yellow="0000000000000000"/>
-      <phase duration="4" phase="1000000000000000" brake="0111111111111111" yellow="0111000000010001"/>
-      <phase duration="3" phase="1000000000000000" brake="0111111111111111" yellow="0000000000000000"/>
-      <phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="1000000000000000"/>
-      <phase duration="20" phase="0001000111110000" brake="1111111000001111" yellow="0000000000000000"/>
-      <phase duration="4" phase="0000000010000000" brake="1111111101111111" yellow="0001000101110000"/>
-      <phase duration="3" phase="0000000010000000" brake="1111111101111111" yellow="0000000000000000"/>
-      <phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="0000000010000000"/>
-   </tl-logic>
 
-
-   <junction id="1" type="right_before_left" x="0.00" y="1000.00">
+   <junction id="1" type="priority" x="0.00" y="1000.00">
       <inclanes>a8_0 a8_1 a8_2 b8_0 b8_1 b8_2</inclanes>
       <shape>10.25,989.75 10.25,1010.25 -10.25,989.75 10.25,989.75 10.25,989.75</shape>
    </junction>
 
-   <junction id="2" type="right_before_left" x="0.00" y="0.00">
+   <junction id="2" type="priority" x="0.00" y="0.00">
       <inclanes>a1_0 a1_1 a1_2 b7_0 b7_1 b7_2</inclanes>
       <shape>10.25,-10.25 10.25,10.25 10.25,10.25 -10.25,10.25 10.25,-10.25 10.25,-10.25</shape>
    </junction>
 
-   <junction id="3" type="right_before_left" x="1000.00" y="0.00">
+   <junction id="3" type="priority" x="1000.00" y="0.00">
       <inclanes>b6_0 b6_1 b6_2 a2_0 a2_1 a2_2</inclanes>
       <shape>989.75,-10.25 1010.25,10.25 989.75,10.25 989.75,10.25 989.75,-10.25 989.75,-10.25</shape>
    </junction>
 
-   <junction id="4" type="right_before_left" x="1000.00" y="1000.00">
+   <junction id="4" type="priority" x="1000.00" y="1000.00">
       <inclanes>b5_0 b5_1 b5_2 a7_0 a7_1 a7_2 a3_0 a3_1 a3_2 b1_0 b1_1 b1_2</inclanes>
       <shape>1010.25,988.75 1011.25,989.75 1011.25,1010.25 1010.25,1011.25 989.75,1011.25 988.75,1010.25 988.75,989.75 989.75,988.75 1010.25,988.75 1010.25,988.75</shape>
    </junction>
 
-   <junction id="5" type="right_before_left" x="1000.00" y="2000.00">
+   <junction id="5" type="priority" x="1000.00" y="2000.00">
       <inclanes>b4_0 b4_1 b4_2 a4_0 a4_1 a4_2</inclanes>
       <shape>1010.25,1989.75 1010.25,2010.25 989.75,1989.75 1010.25,1989.75 1010.25,1989.75</shape>
    </junction>
 
-   <junction id="6" type="right_before_left" x="2000.00" y="2000.00">
+   <junction id="6" type="priority" x="2000.00" y="2000.00">
       <inclanes>b3_0 b3_1 b3_2 a5_0 a5_1 a5_2</inclanes>
       <shape>2010.25,1989.75 1989.75,2010.25 1989.75,1989.75 2010.25,1989.75 2010.25,1989.75</shape>
    </junction>
 
-   <junction id="7" type="right_before_left" x="2000.00" y="1000.00">
+   <junction id="7" type="priority" x="2000.00" y="1000.00">
       <inclanes>a6_0 a6_1 a6_2 b2_0 b2_1 b2_2</inclanes>
       <shape>1989.75,989.75 2010.25,1010.25 1989.75,1010.25 1989.75,1010.25 1989.75,989.75 1989.75,989.75</shape>
    </junction>
 
 
    <succ edge="a1" lane="a1_0" junction="2">
-      <succlane lane="a2_0" via=":2_0_0" yield="0" dir="l" state="="/>
+      <succlane lane="a2_0" via=":2_0_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="a1" lane="a1_1" junction="2">
-      <succlane lane="a2_1" via=":2_1_0" yield="0" dir="l" state="="/>
+      <succlane lane="a2_1" via=":2_1_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="a1" lane="a1_2" junction="2">
-      <succlane lane="a2_2" via=":2_2_0" yield="0" dir="l" state="="/>
+      <succlane lane="a2_2" via=":2_2_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="a2" lane="a2_0" junction="3">
-      <succlane lane="a3_0" via=":3_3_0" yield="0" dir="l" state="="/>
+      <succlane lane="a3_0" via=":3_3_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="a2" lane="a2_1" junction="3">
-      <succlane lane="a3_1" via=":3_4_0" yield="0" dir="l" state="="/>
+      <succlane lane="a3_1" via=":3_4_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="a2" lane="a2_2" junction="3">
-      <succlane lane="a3_2" via=":3_5_0" yield="0" dir="l" state="="/>
+      <succlane lane="a3_2" via=":3_5_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="a3" lane="a3_0" junction="4">
@@ -383,39 +357,39 @@
    </succ>
 
    <succ edge="a4" lane="a4_0" junction="5">
-      <succlane lane="a5_0" via=":5_3_0" yield="0" dir="r" state="="/>
+      <succlane lane="a5_0" via=":5_3_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="a4" lane="a4_1" junction="5">
-      <succlane lane="a5_1" via=":5_4_0" yield="0" dir="r" state="="/>
+      <succlane lane="a5_1" via=":5_4_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="a4" lane="a4_2" junction="5">
-      <succlane lane="a5_2" via=":5_5_0" yield="0" dir="r" state="="/>
+      <succlane lane="a5_2" via=":5_5_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="a5" lane="a5_0" junction="6">
-      <succlane lane="a6_0" via=":6_3_0" yield="0" dir="r" state="="/>
+      <succlane lane="a6_0" via=":6_3_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="a5" lane="a5_1" junction="6">
-      <succlane lane="a6_1" via=":6_4_0" yield="0" dir="r" state="="/>
+      <succlane lane="a6_1" via=":6_4_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="a5" lane="a5_2" junction="6">
-      <succlane lane="a6_2" via=":6_5_0" yield="0" dir="r" state="="/>
+      <succlane lane="a6_2" via=":6_5_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="a6" lane="a6_0" junction="7">
-      <succlane lane="a7_0" via=":7_0_0" yield="0" dir="r" state="="/>
+      <succlane lane="a7_0" via=":7_0_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="a6" lane="a6_1" junction="7">
-      <succlane lane="a7_1" via=":7_1_0" yield="0" dir="r" state="="/>
+      <succlane lane="a7_1" via=":7_1_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="a6" lane="a6_2" junction="7">
-      <succlane lane="a7_2" via=":7_2_0" yield="0" dir="r" state="="/>
+      <succlane lane="a7_2" via=":7_2_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="a7" lane="a7_0" junction="4">
@@ -432,15 +406,15 @@
    </succ>
 
    <succ edge="a8" lane="a8_0" junction="1">
-      <succlane lane="a1_0" via=":1_0_0" yield="0" dir="l" state="="/>
+      <succlane lane="a1_0" via=":1_0_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="a8" lane="a8_1" junction="1">
-      <succlane lane="a1_1" via=":1_1_0" yield="0" dir="l" state="="/>
+      <succlane lane="a1_1" via=":1_1_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="a8" lane="a8_2" junction="1">
-      <succlane lane="a1_2" via=":1_2_0" yield="0" dir="l" state="="/>
+      <succlane lane="a1_2" via=":1_2_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="b1" lane="b1_0" junction="4">
@@ -457,39 +431,39 @@
    </succ>
 
    <succ edge="b2" lane="b2_0" junction="7">
-      <succlane lane="b3_0" via=":7_3_0" yield="0" dir="l" state="="/>
+      <succlane lane="b3_0" via=":7_3_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="b2" lane="b2_1" junction="7">
-      <succlane lane="b3_1" via=":7_4_0" yield="0" dir="l" state="="/>
+      <succlane lane="b3_1" via=":7_4_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="b2" lane="b2_2" junction="7">
-      <succlane lane="b3_2" via=":7_5_0" yield="0" dir="l" state="="/>
+      <succlane lane="b3_2" via=":7_5_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="b3" lane="b3_0" junction="6">
-      <succlane lane="b4_0" via=":6_0_0" yield="0" dir="l" state="="/>
+      <succlane lane="b4_0" via=":6_0_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="b3" lane="b3_1" junction="6">
-      <succlane lane="b4_1" via=":6_1_0" yield="0" dir="l" state="="/>
+      <succlane lane="b4_1" via=":6_1_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="b3" lane="b3_2" junction="6">
-      <succlane lane="b4_2" via=":6_2_0" yield="0" dir="l" state="="/>
+      <succlane lane="b4_2" via=":6_2_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="b4" lane="b4_0" junction="5">
-      <succlane lane="b5_0" via=":5_0_0" yield="0" dir="l" state="="/>
+      <succlane lane="b5_0" via=":5_0_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="b4" lane="b4_1" junction="5">
-      <succlane lane="b5_1" via=":5_1_0" yield="0" dir="l" state="="/>
+      <succlane lane="b5_1" via=":5_1_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="b4" lane="b4_2" junction="5">
-      <succlane lane="b5_2" via=":5_2_0" yield="0" dir="l" state="="/>
+      <succlane lane="b5_2" via=":5_2_0" yield="0" dir="l" state="M"/>
    </succ>
 
    <succ edge="b5" lane="b5_0" junction="4">
@@ -506,39 +480,39 @@
    </succ>
 
    <succ edge="b6" lane="b6_0" junction="3">
-      <succlane lane="b7_0" via=":3_0_0" yield="0" dir="r" state="="/>
+      <succlane lane="b7_0" via=":3_0_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="b6" lane="b6_1" junction="3">
-      <succlane lane="b7_1" via=":3_1_0" yield="0" dir="r" state="="/>
+      <succlane lane="b7_1" via=":3_1_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="b6" lane="b6_2" junction="3">
-      <succlane lane="b7_2" via=":3_2_0" yield="0" dir="r" state="="/>
+      <succlane lane="b7_2" via=":3_2_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="b7" lane="b7_0" junction="2">
-      <succlane lane="b8_0" via=":2_3_0" yield="0" dir="r" state="="/>
+      <succlane lane="b8_0" via=":2_3_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="b7" lane="b7_1" junction="2">
-      <succlane lane="b8_1" via=":2_4_0" yield="0" dir="r" state="="/>
+      <succlane lane="b8_1" via=":2_4_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="b7" lane="b7_2" junction="2">
-      <succlane lane="b8_2" via=":2_5_0" yield="0" dir="r" state="="/>
+      <succlane lane="b8_2" via=":2_5_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="b8" lane="b8_0" junction="1">
-      <succlane lane="b1_0" via=":1_3_0" yield="0" dir="r" state="="/>
+      <succlane lane="b1_0" via=":1_3_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="b8" lane="b8_1" junction="1">
-      <succlane lane="b1_1" via=":1_4_0" yield="0" dir="r" state="="/>
+      <succlane lane="b1_1" via=":1_4_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="b8" lane="b8_2" junction="1">
-      <succlane lane="b1_2" via=":1_5_0" yield="0" dir="r" state="="/>
+      <succlane lane="b1_2" via=":1_5_0" yield="0" dir="r" state="M"/>
    </succ>
 
 

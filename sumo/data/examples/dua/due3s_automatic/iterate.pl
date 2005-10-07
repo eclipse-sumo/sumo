@@ -3,7 +3,7 @@
 sub writeRouteConf($)
 {
     my $step = $_[0];
-    open(OUTDAT, "> due3s.rou.cfg");
+    open(OUTDAT, "> due3s.dua.cfg");
     print OUTDAT "<configuration>\n";
     print OUTDAT "  <files>\n";
     print OUTDAT "      <net-file>due3s.net.xml</net-file>\n";
@@ -58,7 +58,7 @@ if(defined($ARGV[2])) {
 }
 for(; $step<$end+1; $step++) {
     writeRouteConf($step);
-    system("$ARGV[0]/duarouter.exe -c due3s.rou.cfg --gA=0.5 --gBeta=0.9");
+    system("$ARGV[0]/duarouter.exe -c due3s.dua.cfg --gA=0.5 --gBeta=0.9");
     system("copy due3s_new.rou.xml due3s.rou.xml");
     system("copy due3s_new.rou.xml.alt due3s.rou.xml.alt");
     system("copy aggregated\\due3s_300.xml aggregated\\dues".$step.".xml");
