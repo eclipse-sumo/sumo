@@ -6,7 +6,7 @@ dnl create an config-header
 AM_CONFIG_HEADER(src/config.h)
 
 dnl enabel automake-support
-AM_INIT_AUTOMAKE(sumo,0.8.2)
+AM_INIT_AUTOMAKE(sumo,0.9.0)
 
 AC_PREFIX_DEFAULT(/usr/local)
 if test "x$prefix" = "xNONE"; then
@@ -373,6 +373,7 @@ docs/Makefile
 docs/docbook/Makefile
 docs/docbook/gfx/Makefile
 docs/docbook/gfx/dev/Makefile
+docs/docbook/gfx/more/Makefile
 docs/docbook/gfx/in_progress/Makefile
 docs/docbook/gfx/user/Makefile
 docs/docbook/tools/Makefile
