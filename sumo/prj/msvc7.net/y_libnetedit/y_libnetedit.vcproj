@@ -381,9 +381,6 @@
 				RelativePath="..\..\..\src\netedit\GNEImageProcWindow.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\netedit\GNENetBuilder.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\netedit\GNEViewParent.h">
 			</File>
 			<File
