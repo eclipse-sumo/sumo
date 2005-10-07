@@ -702,7 +702,7 @@
   <xsl:variable name="row1" select="$navig.showtitles != 0"/>
   <xsl:variable name="row2" select="count($prev) &gt; 0
                                     or (count($up) &gt; 0
-                    and generate-id($up) != generate-id($home)
+					and generate-id($up) != generate-id($home)
                                         and $navig.showtitles != 0)
                                     or count($next) &gt; 0"/>
 
@@ -738,7 +738,7 @@
               <th width="60%" align="center">
                 <xsl:choose>
                   <xsl:when test="count($up) > 0
-                  and generate-id($up) != generate-id($home)
+				  and generate-id($up) != generate-id($home)
                                   and $navig.showtitles != 0">
                     <xsl:apply-templates select="$up" mode="object.title.markup"/>
                   </xsl:when>
@@ -914,40 +914,40 @@
     <xsl:param name="direction" select="next"/>
     <xsl:variable name="navtext">
         <xsl:choose>
-        <xsl:when test="$direction = 'prev'">
-        <xsl:call-template name="gentext.nav.prev"/>
-        </xsl:when>
-        <xsl:when test="$direction = 'next'">
-        <xsl:call-template name="gentext.nav.next"/>
-        </xsl:when>
-        <xsl:when test="$direction = 'up'">
-        <xsl:call-template name="gentext.nav.up"/>
-        </xsl:when>
-        <xsl:when test="$direction = 'home'">
-        <xsl:call-template name="gentext.nav.home"/>
-        </xsl:when>
-        <xsl:otherwise>
-        <xsl:text>xxx</xsl:text>
-        </xsl:otherwise>
-    </xsl:choose>
+	    <xsl:when test="$direction = 'prev'">
+		<xsl:call-template name="gentext.nav.prev"/>
+	    </xsl:when>
+	    <xsl:when test="$direction = 'next'">
+		<xsl:call-template name="gentext.nav.next"/>
+	    </xsl:when>
+	    <xsl:when test="$direction = 'up'">
+		<xsl:call-template name="gentext.nav.up"/>
+	    </xsl:when>
+	    <xsl:when test="$direction = 'home'">
+		<xsl:call-template name="gentext.nav.home"/>
+	    </xsl:when>
+	    <xsl:otherwise>
+		<xsl:text>xxx</xsl:text>
+	    </xsl:otherwise>
+	</xsl:choose>
     </xsl:variable>
 
     <xsl:choose>
-    <xsl:when test="$navig.graphics != 0">
-        <img>
-        <xsl:attribute name="src">
-            <xsl:value-of select="$navig.graphics.path"/>
-            <xsl:value-of select="$direction"/>
-            <xsl:value-of select="$navig.graphics.extension"/>
-        </xsl:attribute>
-        <xsl:attribute name="alt">
-            <xsl:value-of select="$navtext"/>
-        </xsl:attribute>
-        </img>
-    </xsl:when>
-    <xsl:otherwise>
-        <xsl:value-of select="$navtext"/>
-    </xsl:otherwise>
+	<xsl:when test="$navig.graphics != 0">
+	    <img>
+		<xsl:attribute name="src">
+		    <xsl:value-of select="$navig.graphics.path"/>
+		    <xsl:value-of select="$direction"/>
+		    <xsl:value-of select="$navig.graphics.extension"/>
+		</xsl:attribute>
+		<xsl:attribute name="alt">
+		    <xsl:value-of select="$navtext"/>
+		</xsl:attribute>
+	    </img>
+	</xsl:when>
+	<xsl:otherwise>
+	    <xsl:value-of select="$navtext"/>
+	</xsl:otherwise>
     </xsl:choose>
 </xsl:template>
 
@@ -986,23 +986,23 @@
               <img src="../../images/sumo_full.gif" width="211" height="16"/></td>
           </tr>
           </table>
-        <hr/>
+		<hr/>
 
 
-		$%MENU1%$../../menus/db_man_menu.html$%MENU2%$
+		$%MENU1%$../../menus/db_more_menu.html$%MENU2%$
 
 
-        <td valign="top">
-        <div class="SUMOMainText">
+		<td valign="top">
+		<div class="SUMOMainText">
 <!-- Text area here -->
 
 <!-- -->
 
 
       <xsl:call-template name="header.navigation">
-    <xsl:with-param name="prev" select="$prev"/>
-    <xsl:with-param name="next" select="$next"/>
-    <xsl:with-param name="nav.context" select="$nav.context"/>
+	<xsl:with-param name="prev" select="$prev"/>
+	<xsl:with-param name="next" select="$next"/>
+	<xsl:with-param name="nav.context" select="$nav.context"/>
       </xsl:call-template>
 
       <xsl:call-template name="user.header.content"/>
@@ -1012,18 +1012,18 @@
       <xsl:call-template name="user.footer.content"/>
 
       <xsl:call-template name="footer.navigation">
-    <xsl:with-param name="prev" select="$prev"/>
-    <xsl:with-param name="next" select="$next"/>
-    <xsl:with-param name="nav.context" select="$nav.context"/>
+	<xsl:with-param name="prev" select="$prev"/>
+	<xsl:with-param name="next" select="$next"/>
+	<xsl:with-param name="nav.context" select="$nav.context"/>
       </xsl:call-template>
 
       <xsl:call-template name="user.footer.navigation"/>
 
 <!-- -->
 
-        </div>
-        </td>
-        $%MENU3%$
+		</div>
+		</td>
+		$%MENU3%$
 
 <!-- -->
 

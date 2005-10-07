@@ -988,44 +988,7 @@
           </table>
         <hr/>
 
-
-<!-- Navigation bar begin -->
-        <table border="0">
-        <tr><td valign="top" width="120">
-        <div class="navbar">
-            <a href="../../index.html" class="SUMOMainLink">Home</a><br/>
-            <a href="../../overview.html" class="SUMOMainLink">Overview</a><br/>
-            <a href="../../documentation.html" class="SUMOMainLink">Documentation</a><br/>
-
-            <a href="../userdocs.html" class="SUMOSubLink">User Docs</a><br/>
-
-            <a href="../devdocs.html" class="SUMOSubLink">Developer Docs</a><br/>
-
-            <a href="../bibliography.html" class="SUMOSubLink">Bibliography</a><br/>
-
-            <a href="faq.html" class="SUMOSubLink">FAQ</a><br/>
-            <a href="../manpages.html" class="SUMOSubLink">ManPages</a><br/>
-
-            <a href="../../screenshots.html" class="SUMOMainLink">Screenshots</a><br/>
-            <a href="../../downloads.html" class="SUMOMainLink">Downloads</a><br/>
-            <a href="../../participants.html" class="SUMOMainLink">Participants</a><br/>
-            <a href="../../projects.html" class="SUMOMainLink">Projects</a><br/>
-            <a href="../../links.html" class="SUMOMainLink">Links</a><br/>
-            <a href="../../disclaimer.html" class="SUMOMainLink">Disclaimer</a><br/>
-            <a href="../../contact.html" class="SUMOMainLink">Contact</a><br/>
-
-            <center><br/>
-            <a href="http://ivf.dlr.de" class="SUMOMainLink">
-            <img src="../../images/logo_dlr.gif" width="40" height="42"/></a>
-            <a href="http://www.zaik.uni-koeln.de/" class="SUMOMainLink">
-            <img src="../../images/logo_zaik.gif" width="40" height="42"/></a><br/>
-
-            <a href="http://sourceforge.net/projects/sumo/"><img src="../../images/sourceforge.gif" width="88" height="31" border="0" alt="SourceForge.net Logo"/></a>
-            </center>
-        </div>
-        </td><td width="20"></td>
-<!-- Navigation bar end -->
-
+		$%MENU1%$../../menus/db_faq_menu.html$%MENU2%$
 
         <td valign="top">
         <div class="SUMOMainText">
@@ -1057,8 +1020,8 @@
 <!-- -->
 
         </div>
-        </td></tr></table>
-        <p></p><hr/>
+        </td>
+        $%MENU3%$
 
 <!-- -->
 

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+"http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
+<book
+><bookinfo
+><title
+>SUMO - More on...</title
+><author
+><firstname
+>Daniel</firstname
+><surname
+>Krajzewicz</surname
+><affiliation
+><address
+><email
+>Daniel.Krajzewicz@dlr.de</email
+></address
+></affiliation
+></author
+><author
+><firstname
+>Danilot</firstname
+><surname
+>Tete Boyom</surname
+></author
+><releaseinfo
+>$Revision$</releaseinfo
+></bookinfo
+><toc
+></toc
+><chapter
+id="more_intro"
+><title
+>Introduction</title
+><sect1
+><title
+>What is SUMO?</title
+><para
+>SUMO is a traffic simulation tool. It was primarily designed for urban street networks, but it may also be used for highway traffic simulations. In the near future it will be extended to model other transit modes simultaneously with ordinary car traffic.</para
+><para
+>You can obtain more information at <ulink
+url="http://sumo.sourceforge.net"
+>http://sumo.sourceforge.net/</ulink
+>.</para
+></sect1
+><sect1
+><title
+>About this document</title
+><para
+>This document describes some certain parts SUMo covers in a larger detail than the developer documentation or the user documentation do.</para
+><para
+>This document is still under development and is meant to grow with the software. Due to this, you may find it together with the sources within out repository at sourceforge (<ulink
+url="http://sumo.sourceforge.net"
+>http://sumo.sourceforge.net/</ulink
+>). It should always describe the current version.</para
+></sect1
+><sect1
+><title
+>Call for Help</title
+><para
+>Please let us know when either the document remains at any point unclear or any of the applications does not behave as expected. We also seek for some participants and further users, not only to share the development tasks, but also to gain some feedback and critics or some usage examples.</para
+><para
+>Every help is appreciated. Thank you.</para
+></sect1
+></chapter
+><chapter
+id="more_tls"
+><title
+>More on... Traffic Lights</title
+><para
+>Within this first chapter, we will describe how traffic lights are implemented and used within SUMO. As basically, traffic lights affect the right-of-way rules at a junction, we will first describe how right-of-way rules are implemented within SUMO. Afterwards, the additional concept of traffic lights is given.</para
+><sect1
+><title
+>Right-Of-Way Rules in SUMO</title
+><sect2
+><title
+>Links: A Connection between Lanes</title
+><para
+>Each lane (<classname
+>MSLane</classname
+>) beside dead ends has a list of at least one following lane. A link (MSLink) connects this following and the lane we regard. Basically, we consider two types of connections between lanes. In the first case, vehicles are able to pass the connection every time, without regarding other, possibly crossing traffic. Such connections may be found at highways or if the connection is a primary road and it is assured that the vehicle is able to pass this link without a collision. Such connections are called &#34;<emphasis
+>priorised</emphasis
+>&#34; connections. The other connections are called &#34;<emphasis
+>unpriorised</emphasis
+>&#34;. They are found on minor roads and a vehicle passing them must decelerate in front of them, because it may have to stop to let other vehicles pass the junction first. Please regard, that a junction may consist of several connections (links) of different type.</para
+></sect2
+><sect2
+><title
+>Usage of Links within the Simulation</title
+><para
+>If a vehicle approaches a link (<classname
+>MSLink</classname
+>), it lets the link know about it by calling <function
+>void <classname
+>MSLink</classname
+>::setApproaching(<classname
+>MSVehicle</classname
+> *approaching)</function
+>. This is done in <function
+>void <classname
+>MSVehicle</classname
+>::vsafeCriticalCont( SUMOReal boundVSafe )</function
+> as soon as a vehicle will have to decelerate to manage to stop in front of the link. Even if the vehicle is too near or too fast to decelerate in front of the link, the link will still be informed until the vehicle will finally pass it. By doing this, each link knows whether a vehicle is approaching or not and stores this vehicle in <varname
+>MSLink::myApproaching</varname
+>. In addition, the information about approaching a link is stored by the link into the <classname
+>MSLogicJunction::Request </classname
+>structure of the junction (<classname
+>MSRightOfWayJunction</classname
+>) it belongs to. After all vehicles have stored this information, <classname
+>MSRightOfWayJunction</classname
+> is able to compute which of the approaching vehicles will have to wait and which not using its <classname
+>MSJunctionLogic</classname
+>.</para
+><para
+>If you are confused about all these classes, the next diagram which shows how the hierarchy of SUMO junction classes, may help you.</para
+><note
+><para
+>Remark that some of the classes are interfaces with only one implementation. It is possible, that this tree is a matter to change in the next time.</para
+></note
+><figure
+><title
+>Junction classes within SUMO</title
+><mediaobject
+><imageobject
+><imagedata
+align="center"
+fileref="./gfx/more/CD_Junctions.gif"
+format="GIF"
+></imagedata
+></imageobject
+></mediaobject
+></figure
+><para
+>In the next pass (but within the same simulation step), each of the vehicles is touched again, but by now it is known whether the vehicle is allowed to pass the junction using his link or not. If not, the vehicle will decelerate and stop in front of the link (or a vehicle in front of it, that is also waiting). If the link is &#34;unpriorised&#34;, the vehicle will decelerate in front of it, even if it may pass it. If the link is &#34;priorised&#34; and the vehicle may pass, the vehicle will continue his drive without being hindered.</para
+></sect2
+><sect2
+><title
+>Setting Information by MSLogicJunctions</title
+><para
+>As we have seen, a MSLogicJunction gives way to the vehicles after the knowledge about all incoming vehicles has been set. We have seen that this information was stored in a structure named &#34;MSLogicJunction::Request&#34;. This is simply a list of bits, a std::bitset&#60;64&#62;, where each bit represents the information whether a certain link is approached by a vehicle currently (it&#39;s then set to true otherwise it&#39;s false).</para
+><para
+>What traffic lights do is simply to mask off those requests which are approaching a currently red sign. By doing this, the response for these streams is also set to false which forces the approaching vehicles to stop in front of the junction. Furthermore, this method keeps the row-logic of the junction untouched, what allows to use it for letting vehicles moving left - in the part of the world that drives on the right sied, that means those streams which have to cross an enemy stream - wait until there is a gap in the enemy stream they can use to move over the junction.</para
+><figure
+><title
+>TLS classes within SUMO</title
+><mediaobject
+><imageobject
+><imagedata
+align="center"
+fileref="./gfx/more/CD_TrafficLights.gif"
+format="GIF"
+></imagedata
+></imageobject
+></mediaobject
+></figure
+></sect2
+><sect2
+><title
+>The whole procedure</title
+><para
+>So the whole procedure of bringing a vehicle save over a junctions is as following:</para
+><procedure
+><step
+><para
+><function
+>MSNet::myJunctions-&#62;resetRequests();</function
+></para
+><para
+>This resets all junctions&#39; requests to false, that means, that no vehicles from previous steps may inference with the current network state</para
+></step
+><step
+><para
+>... (several other things may happen, here)</para
+></step
+><step
+><para
+><function
+>MSNet::myEdges-&#62;moveCritical();</function
+></para
+><para
+>Herein, vehicles which approach a junction set their request</para
+></step
+><step
+><para
+><function
+>MSNet::myLogics-&#62;maskRedLinks();</function
+></para
+><para
+>Requests for vehicles which have red are reset to false</para
+></step
+><step
+><para
+><function
+>MSNet::myJunctions-&#62;setAllowed();</function
+></para
+><para
+>The junctions compute which vehicles may pass them and which have to wait</para
+></step
+><step
+><para
+><function
+>MSNet::myLogics-&#62;maskYellowLinks();</function
+></para
+><para
+>Reallow vehicles trying to pass a yellow tls to pass the junction</para
+></step
+><step
+><para
+><function
+>MSNet::myEdges-&#62;moveFirst();</function
+></para
+><para
+>Move all those vehicles (not only the first one, but all first ones) that approach a junction</para
+></step
+></procedure
+><para
+>What is the meaning of the sixth step? Imagine what shall happen with vehicles driving over yellow. They should stop, but if they are too near to the junction, one has to let them through. Also, they have to be taken into account if an enemy stream exists. In this case, they maybe have to make vehicles on this stream wait. To achieve this, at first only red links are set to false. This is given as input to the junction&#39;s row-logics and that lets all vehicles having red wait, vehicles which have yellow may be able to pass the junction. Then, vehicles having yellow are set to false which lets them try to stop in front of the tls.</para
+></sect2
+></sect1
+><sect1
+><title
+>Loading of TLS- and ROW-logics</title
+><sect2
+><title
+>... tbd ...</title
+><para
+>...tbd...</para
+></sect2
+></sect1
+><sect1
+><title
+>Additional LSA-Algorithms in SUMO</title
+><sect2
+><title
+>Actuated TLS</title
+><para
+>...tbd...</para
+></sect2
+><sect2
+><title
+>Agentbased TLS</title
+><para
+>...tbd...</para
+></sect2
+></sect1
+><sect1
+><title
+>How to implement a new Traffic Lights Logic</title
+><sect2
+><title
+>... tbd ...</title
+><para
+>...tbd...</para
+></sect2
+></sect1
+></chapter
+></book
+>

@@ -502,9 +502,13 @@ url="http://sumo.sourceforge.net/downloads.html"
 ><para
 >Set environment variables for the fox library:</para
 ><para
->FOX=&#60;PATH_TO_FOX&#62;</para
+>FOX14=&#60;PATH_TO_FOX&#62;</para
 ><para
->Example: If you have installed fox to D:\libs\fox-1.4.x, then your environment variables should contain FOX=D:\libs\fox-1.4.x</para
+>Example: If you have installed fox to D:\libs\fox-1.4.x, then your environment variables should contain FOX14=D:\libs\fox-1.4.x</para
+><caution
+><para
+>If you use SUMO 0.8.2.x and FOX1.2, the variable&#39;s name must be &#34;FOX&#34;.</para
+></caution
 ></listitem
 ><listitem
 ><para
@@ -2111,7 +2115,7 @@ format="GIF"
 ><para
 >Used to build edges and lanes, this class&#39; method <methodname
 >MSEdgeControl *NLEdgeControlBuilder::build()</methodname
-> builds an edge control used by the simulation (see [!!!]). The inline documentation says furthermore:  </para
+> builds an edge control used by the simulation (see [!!!]). The inline documentation says furthermore:</para
 ><para
 ><citation
 >This class is the container for MSEdge-instances while they are build.</citation

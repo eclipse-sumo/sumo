@@ -414,7 +414,7 @@
              |descendant::sect3[$chunk.section.depth &gt; 2][1]
              |descendant::sect4[$chunk.section.depth &gt; 3][1]
              |descendant::sect5[$chunk.section.depth &gt; 4][1]
-             |descendant::section[$chunk.section.depth 
+             |descendant::section[$chunk.section.depth
                                   &gt; count(ancestor::section)][1])[1]"/>
 
   <xsl:variable name="next"

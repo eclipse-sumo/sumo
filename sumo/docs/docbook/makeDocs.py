@@ -1,6 +1,18 @@
 #!/usr/bin/python
 import os
 import sys
+import shutil
+
+# get all files from the given folder recursively
+def getStructure(dir):
+	if(dir[-1:]!='/' and dir[-1:]!='\\'):
+		dir = dir + '\\'
+	files = os.listdir(dir)
+	newFiles = []
+	for file in files:
+		if not os.path.isdir(dir + file)==1:
+			newFiles.append( dir + file )
+	return newFiles
 
 # user
 print "Building user docs..."
@@ -8,15 +20,23 @@ print " split..."
 os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam root.filename user_index --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 --stringparam chunk.first.sections 0 --stringparam chunk.section.depth 0 --stringparam use.id.as.filename 1 -o sumo_user.html /usr/share/docbook-xsl/sumo_html/user_chunk.xsl sumo_user.xml")
 print " all in one..."
 os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o sumo_user.html /usr/share/docbook-xsl/sumo_html/user_docbook.xsl sumo_user.xml")
+
 # dev
 print "Building developer docs..."
 print " split..."
 os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam root.filename dev_index --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 --stringparam chunk.first.sections 0 --stringparam chunk.section.depth 0 --stringparam use.id.as.filename 1 -o sumo_dev.html /usr/share/docbook-xsl/sumo_html/dev_chunk.xsl sumo_dev.xml")
 print " all in one..."
 os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o sumo_dev.html /usr/share/docbook-xsl/sumo_html/dev_docbook.xsl sumo_dev.xml")
+
 # faq
 print "Building the faq..."
 os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o faq.html /usr/share/docbook-xsl/sumo_html/faq_docbook.xsl sumo_qa.xml")
+
+# more_on
+print "Building more on..."
+print " split..."
+os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam root.filename more_index --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 --stringparam chunk.first.sections 0 --stringparam chunk.section.depth 0 --stringparam use.id.as.filename 1 -o sumo_moreon.html /usr/share/docbook-xsl/sumo_html/more_chunk.xsl sumo_moreon.xml")
+
 # manpages
 print "Building the man-pages..."
 print " duarouter..."
@@ -56,6 +76,39 @@ else:
     os.system("cp  gfx/dev/*.gif ../internet/docs/gen/gfx/dev/")
     os.system("mkdir ../internet/docs/gen/gfx/user/")
     os.system("cp  gfx/user/*.gif ../internet/docs/gen/gfx/user/")
+
+files = getStructure("../internet/docs/gen/")
+for file in files:
+	if file[-5:]==".html":
+		out = file[:-5] + ".shtml"
+		try:
+			print "Moving from '" + file + "' to '" + out + "'"
+			shutil.copy(file, out)
+		except:
+			print " Could not move from '" + file + "' to '" + out + "'"
+		fd = open(out)
+		content = fd.read()
+		fd.close()
+
+		idx = content.find("$%MENU1%$")
+		content = content[:idx] + "<!--#include virtual=\"" + content[idx+9:]
+
+		idx = content.find("$%MENU2%$")
+		content = content[:idx] + "\"-->" + content[idx+9:]
+
+		idx = content.find("$%MENU3%$")
+		content = content[:idx] + "<!--#include virtual=\"../../menus/db_menu_end.html\"-->" + "<p></p><hr/><p><div align=\"right\" class=\"SUMOPageInfo\">last change: <!--#flastmod file=\"$%NAME%$\"--><!--#exec cgi=\"/cgi-bin/saveenv.pl\"--></div></p>" + content[idx+9:]
+
+		name = out;
+		idx = name.rfind("/")
+		if(idx<0):
+			idx = name.rfind("\\")
+		name = name[idx+1:]
+		idx = content.find("$%NAME%$")
+		content = content[:idx] + name + content[idx+8:]
+		fd = open(out, "w")
+		fd.write(content)
+		fd.close()
 
 
 

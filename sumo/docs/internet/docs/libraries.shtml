@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<link rel="stylesheet" type="text/css" href="../css/sumo.css">
+	<head>
+		<title>SUMO - Simulation of Urban MObility  -  Documentation - Used Libraries</title>
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+<META NAME="DC.Title" CONTENT="SUMO - Simulation of Urban MObility  -  Documentation - Used Libraries">
+<META NAME="DC.Creator.PersonalName" CONTENT="Krajzewicz, Daniel">
+<META NAME="DC.Subject" CONTENT="road traffic simulation package SUMO (Simulation of Urban MObility)">
+<META NAME="DC.Description" CONTENT="">
+<META NAME="DC.Publisher" CONTENT="Institute of Transport Research at the German Aerospace Centre">
+<META NAME="DC.Contributor" CONTENT="Center for Applied Informatics, Cologne">
+<META NAME="DC.Type" CONTENT="Text">
+<META NAME="DC.Format" SCHEME="IMT" CONTENT="text/html">
+<META NAME="DC.Identifier" CONTENT="http://sumo.sourceforge.net">
+<META NAME="DC.Language" SCHEME="ISO639-1" CONTENT="en">
+<META NAME="DC.Relation" SCHEME="URL" CONTENT="http://sumo.sourceforge.net/docs/libraries.shtml">
+<META NAME="DC.Coverage" CONTENT="Used Libraries">
+<META NAME="DC.Rights" CONTENT="(c) IVF/DLR">
+<META NAME="DC.Date.X-MetadataLastModified" SCHEME="ISO8601" CONTENT="2003-07-10">
+
+	</head>
+	<body>
+
+		<img src="../images/sumo_logo.gif" width="72" height="17">&nbsp;&nbsp;&nbsp;<img src="../images/sumo_full.gif" width="211" height="16"><br>
+		<hr>
+
+<!--#include virtual="../menus/docs_menu.html"-->
+
+		<td valign="top">
+		<div class="SUMOMainText">
+<!-- Text area here -->
+
+<center>
+	<h2>Used Libraries and Code</h2>
+</center>
+
+
+<p>
+<b>Libraries</b><br>
+<ul>
+    <li>Xerces<br>
+    Available at:<a href="http://xml.apache.org" class="SUMOInLineLink">http://xml.apache.org</a><br>
+    Purpose: Parsing of XML-documents<br>
+    Located in: external to SUMO<br>
+    Used version: 2.6.0
+    <br><br>
+
+    <li>FOX-Toolkit<br>
+    Available at:<a href="http://www.fox-toolkit.org" class="SUMOInLineLink">www.fox-toolkit.org</a><br>
+    Purpose: Graphical User Interface<br>
+    Located in: external to SUMO<br>
+    Used version: 1.4.x
+    <br><br>
+
+    <li>ACE (ADAPTIVE Communication Environment)<br>
+    Available at:<a href="http://deuce.doc.wustl.edu/" class="SUMOInLineLink">http://deuce.doc.wustl.edu/</a><br>
+    Purpose: Inter-Process Communication<br>
+    Located in: external to SUMO<br>
+    Used version: 5.4
+    <br><br>
+
+    <li>NVWA<br>
+    Available at:<a href="http://sourceforge.net/projects/nvwa" class="SUMOInLineLink">http://sourceforge.net/projects/nvwa</a><br>
+    Purpose: Memory Holes Tracing<br>
+    Located in: src/utils/dev<br>
+    Used version: 0.6
+    <br><br>
+
+</ul>
+</p>
+
+
+
+<p>
+<b>Code snipplets</b>
+<ul>
+    <li>SUMO descriptions<br><br>
+    <a name="Krajzewicz2002_1"><b>[Krajzewicz_et_al2002_1]</b></a>
+    <i>"SUMO (Simulation of Urban MObility); An open-source traffic simulation"</i>; Daniel Krajzewicz, Georg Hertkorn, Christian R&ouml;ssel, Peter Wagner; In: ~Al-Akaidi, A. [Ed.]: Proceedings of the 4th Middle East Symposium on Simulation and Modelling (MESM2002), SCS European Publishing House, pp. 183-187, 4th Middle East Symposium on Simulation and Modelling, Sept. 2002, Sharjah / United Arab Emirates.<br>
+    Available at: <a href="http://eprints.vf.ba.dlr.de/view/year/2002.html" class="SUMOInLineLink">http://eprints.vf.ba.dlr.de/view/year/2002.html</a><br>
+    or as <a href="dkrajzew_MESM2002_SUMO.pdf" class="SUMOInLineLink">[pdf, ~250KB]</a>. You may also download the <a href="dkrajzew_mesm2002_SUMO_transparencies.pdf" class="SUMOInLineLink">[.pdf-transparencies, ~900KB]</a>
+    <br><br>
+
+
+    <li>Validation and Calibration<br><br>
+    <a name="Krajzewicz2002_2"><b>[Krajzewicz_et_al2002_2]</b></a>
+    <i>"An Example of Microscopic Car Models Validation using the open source Traffic Simulation SUMO"</i>; Daniel Krajzewicz, Georg Hertkorn, Christian R&ouml;ssel, Peter Wagner; In: Proceedings of Simulation in Industry, 14th European Simulation Symposium, 2002, SCS European Publishing House, 2002, pp. 318-322, Simulation in Industry, 14th European Simulation Symposium, Oct. 2002, Dresden / Germany<br>
+    Available at: <a href="http://eprints.vf.ba.dlr.de/view/year/2002.html" class="SUMOInLineLink">http://eprints.vf.ba.dlr.de/view/year/2002.html</a><br>
+    or as <a href="dkrajzew_ESS2002_LOG14_Validation.pdf" class="SUMOInLineLink">[pdf, ~320KB]</a>. You may also download the <a href="dkrajzew_ESS2002_Validation_transparencies.pdf" class="SUMOInLineLink">[.pdf-transparencies, ~700KB]</a>
+    <br><br>
+</ul>
+</p>
+</ul>
+</p>
+
+<!-- End of Text area -->
+		</div>
+		</td></tr></table>
+		<p></p><hr>
+
+<p><div align="right" class="SUMOPageInfo">last change: <!--#flastmod file="./libraries.shtml"--><!--#exec cgi="/cgi-bin/saveenv.pl"--></div></p>
+
+	</body>
+</html>

@@ -26,33 +26,7 @@
 		<hr>
 
 
-<!-- Navigation bar begin -->
-		<table border="0">
-		<tr><td valign="top" width="120">
-		<div class="navbar">
-			<a href="index.shtml" class="SUMOMainLink">Home</a><br>
-			<a href="overview.shtml" class="SUMOMainLink">Overview</a><br>
-			<a href="documentation.shtml" class="SUMOMainLink">Documentation</a><br>
-			<a href="screenshots.shtml" class="SUMOMainLink">Screenshots</a><br>
-			<a href="downloads.shtml" class="SUMOMainLink">Downloads</a><br>
-			<a href="participants.shtml" class="SUMOMainLink">Participants</a><br>
-			<a href="projects.shtml" class="SUMOMainLink">Projects</a><br>
-			<a href="links.shtml" class="SUMOMainLink">Links</a><br>
-			<a href="disclaimer.shtml" class="SUMOMainLink">Disclaimer</a><br>
-			<a href="contact.shtml" class="SUMOMainLink">Contact</a><br>
-			<a href="../cgi-bin/moin.cgi" class="SUMOMainLink">Wiki</a><br>
-
-			<center><br>
-			<a href="http://ivf.dlr.de" class="SUMOMainLink">
-            <img src="./images/logo_dlr.gif" width="40" height="42"></a>
-			<a href="http://www.zaik.uni-koeln.de/" class="SUMOMainLink">
-            <img src="./images/logo_zaik.gif" width="40" height="42"></a><br>
-
-			<a href="http://sourceforge.net/projects/sumo/"><img src="http://sourceforge.net/sflogo.php?group_id=45607&type=1" width="88" height="31" border="0" alt="SourceForge.net Logo"></a>
-			</center>
-		</div>
-		</td><td width="20"></td>
-<!-- Navigation bar end -->
+<!--#include virtual="menus/std_menu.html"-->
 
 
 		<td valign="top">
@@ -64,12 +38,40 @@
 </center>
 
 <p>
-If you have any questions about SUMO, please post them into one of our <a class="SUMOInLineLink" href="http://sourceforge.net/tracker/?group_id=45607">mailing lists</a> available at: <a class="SUMOInLineLink" href="http://sourceforge.net/mail/?group_id=45607">sourceforge</a>.
+If you have any questions about SUMO, please post them into one of our <a class="SUMOInLineLink" href="http://sourceforge.net/mail/?group_id=45607">mailing lists</a> available at <a class="SUMOInLineLink" href="http://sourceforge.net/mail/?group_id=45607">sourceforge</a>.<br>
+There are four lists available:
+<ul>
+	<li><a href="http://lists.sourceforge.net/lists/listinfo/sumo-user" class="SUMOInLineLink">sumo-user</a><br>
+	This is the first place you should ask your questions.
+	Several people are observing it and may give you some hints.<br>
+	Subscribe the list if you want to know what other people ask.<br>
+	Frequency: few mail per month<br>
+
+	<li><a href="http://lists.sourceforge.net/lists/listinfo/sumo-cvs" class="SUMOInLineLink">sumo-cvs</a><br>
+	Subscribe the list if you want to get information about changes within the cvs.<br>
+	You should rather not post to the list<br>
+	Frequency: up to 100 messages/day (cvs-logs)<br>
+
+	<li><a href="http://lists.sourceforge.net/lists/listinfo/sumo-devel" class="SUMOInLineLink">sumo-devel</a><br>
+	This list was meant to be used by developers to discuss next steps.
+	As almost everyone is working for himself, this list is almost completely unused.<br>
+	Frequency: not used.<br>
+
+	<li><a href="http://lists.sourceforge.net/lists/listinfo/sumo-announce" class="SUMOInLineLink">sumo-announce</a><br>
+	Subscribe the list if you want to get information about new releases or documents.<br>
+	Post to the list if you have to announce something by yourself<br>
+	Frequency: few per year<br>
+
+</ul>
 </p>
+
+<hr/>
 
 <p>If you have found a bug within one of the applications, please let us know by using
 the project's bug tracking service at
 <a class="SUMOInLineLink" href="http://sourceforge.net/tracker/?group_id=45607">sourceforge</a>.</p>
+
+<hr/>
 
 <p><b>Our institute's address:<br></b></p>
 <p><center>
@@ -82,6 +84,8 @@ Rutherfordstraﬂe 2<br>
 Germany<br>
 <a class="SUMOInLineLink" href="http://ivf.dlr.de">http://ivf.dlr.de</a>.</p>
 </center></p>
+
+<hr/>
 
 <p>If you want us to use SUMO within your project, you can also contact us directly. The responsible person's email address is:
 <script language="JavaScript"  type="text/javascript">

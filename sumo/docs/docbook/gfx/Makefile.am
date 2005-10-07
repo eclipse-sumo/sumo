@@ -1,4 +1,4 @@
 EXTRA_DIST =
 
-SUBDIRS = dev in_progress user
+SUBDIRS = dev in_progress more user
 

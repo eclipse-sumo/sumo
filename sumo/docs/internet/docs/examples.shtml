@@ -26,44 +26,7 @@
 		<hr>
 
 
-<!-- Navigation bar begin -->
-		<table border="0">
-		<tr><td valign="top" width="120">
-		<div class="navbar">
-			<a href="../index.shtml" class="SUMOMainLink">Home</a><br>
-			<a href="../overview.shtml" class="SUMOMainLink">Overview</a><br>
-			<a href="../documentation.shtml" class="SUMOMainLink">Documentation</a><br>
-
-   			<a href="userdocs.html" class="SUMOSubLink">User Docs</a><br>
-			<a href="devdocs.html" class="SUMOSubLink">Developer Docs</a><br>
-			<a href="dev_build.html" class="SUMOSubSubLink">Building SUMO</a><br>
-			<a href="dev_sumo.html" class="SUMOSubSubLink">SUMO</a><br>
-			<a href="dev_netconvert.html" class="SUMOSubSubLink">Netconvert</a><br>
-			<a href="bibliography.shtml" class="SUMOSubLink">Bibliography</a><br>
-			<a href="examples.shtml" class="SUMOSubLink">Examples</a><br>
-			<a href="classdocs/index.shtml" class="SUMOSubLink">Class Docs</a><br>
-
-
-			<a href="../screenshots.shtml" class="SUMOMainLink">Screenshots</a><br>
-			<a href="../downloads.shtml" class="SUMOMainLink">Downloads</a><br>
-			<a href="../participants.shtml" class="SUMOMainLink">Participants</a><br>
-			<a href="../projects.shtml" class="SUMOMainLink">Projects</a><br>
-			<a href="../links.shtml" class="SUMOMainLink">Links</a><br>
-			<a href="../disclaimer.shtml" class="SUMOMainLink">Disclaimer</a><br>
-			<a href="../contact.shtml" class="SUMOMainLink">Contact</a><br>
-			<a href="../../cgi-bin/moin.cgi" class="SUMOMainLink">Wiki</a><br>
-
-			<center><br>
-			<a href="http://ivf.dlr.de" class="SUMOMainLink">
-            <img src="../images/logo_dlr.gif" width="40" height="42"></a>
-			<a href="http://www.zaik.uni-koeln.de/" class="SUMOMainLink">
-            <img src="../images/logo_zaik.gif" width="40" height="42"></a><br>
-
-			<a href="http://sourceforge.net"><img src="http://sourceforge.net/sflogo.php?group_id=45607&type=1" width="88" height="31" border="0" alt="SourceForge.net Logo"></a>
-			</center>
-		</div>
-		</td><td width="20"></td>
-<!-- Navigation bar end -->
+<!--#include virtual="../menus/docs_menu.html"-->
 
 
 		<td valign="top">

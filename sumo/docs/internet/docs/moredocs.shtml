@@ -2,9 +2,9 @@
 <html>
 	<link rel="stylesheet" type="text/css" href="../css/sumo.css">
 	<head>
-		<title>SUMO - Simulation of Urban MObility  -  Documentation - Man Pages</title>
+		<title>SUMO - Simulation of Urban MObility  -  Documentation - More On...</title>
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
-<META NAME="DC.Title" CONTENT="SUMO - Simulation of Urban MObility  -  Documentation - User Documentation">
+<META NAME="DC.Title" CONTENT="SUMO - Simulation of Urban MObility  -  Documentation - More On...">
 <META NAME="DC.Creator.PersonalName" CONTENT="Krajzewicz, Daniel">
 <META NAME="DC.Subject" CONTENT="road traffic simulation package SUMO (Simulation of Urban MObility)">
 <META NAME="DC.Description" CONTENT="">
@@ -14,8 +14,8 @@
 <META NAME="DC.Format" SCHEME="IMT" CONTENT="text/html">
 <META NAME="DC.Identifier" CONTENT="http://sumo.sourceforge.net">
 <META NAME="DC.Language" SCHEME="ISO639-1" CONTENT="en">
-<META NAME="DC.Relation" SCHEME="URL" CONTENT="http://sumo.sourceforge.net/docs/devdocs.html">
-<META NAME="DC.Coverage" CONTENT="Introduction to the user documentation, Navigation">
+<META NAME="DC.Relation" SCHEME="URL" CONTENT="http://sumo.sourceforge.net/docs/moredocs.shtml">
+<META NAME="DC.Coverage" CONTENT="Introduction to further documentation, Navigation">
 <META NAME="DC.Rights" CONTENT="(c) IVF/DLR">
 <META NAME="DC.Date.X-MetadataLastModified" SCHEME="ISO8601" CONTENT="2003-07-10">
 
@@ -26,8 +26,7 @@
 		<hr>
 
 
-	<!--#include virtual="../menus/docs_man_menu.html"-->
-
+<!--#include virtual="../menus/docs_more_menu.html"-->
 
 
 		<td valign="top">
@@ -35,28 +34,27 @@
 <!-- Text area here -->
 
 <center>
-	<h2>Documentation - Man Pages</h2>
+	<h2>Documentation - More On...</h2>
 </center>
 
 <p>
+Here, you may find some additional information about SUMO structures.
 <img src="../images/under_c_small.gif" border="0" width="20" height="20" align="top">
-You may find generated man-pages for the following applications, here:
 </p>
 <ul>
-    <li><a href="gen/man_sumo.shtml" class="SUMOInLineLink">sumo</a><br><br>
-    <li><a href="gen/man_netconvert.shtml" class="SUMOInLineLink">netconvert</a><br><br>
-    <li><a href="gen/man_netgen.shtml" class="SUMOInLineLink">netgen</a><br><br>
-    <li><a href="gen/man_duarouter.shtml" class="SUMOInLineLink">duarouter</a><br><br>
-    <li><a href="gen/man_jtrrouter.shtml" class="SUMOInLineLink">jtrrouter</a><br><br>
+    <li>
+    <a href="gen/more_tls.shtml" class="SUMOInLineLink">More On... Traffic Lights</a><br>
+    This will give you some more information about ths implementation, handling and possible of traffic lights in SUMO.<br><br>
 </ul>
 </p>
+
 
 <!-- End of Text area -->
 		</div>
 		</td></tr></table>
 		<p></p><hr>
 
-<p><div align="right" class="SUMOPageInfo">last change: <!--#flastmod file="./manpages.shtml"--><!--#exec cgi="/cgi-bin/saveenv.pl"--></div></p>
+<p><div align="right" class="SUMOPageInfo">last change: <!--#flastmod file="./moredocs.shtml"--><!--#exec cgi="/cgi-bin/saveenv.pl"--></div></p>
 
 	</body>
 </html>

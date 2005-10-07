@@ -57,42 +57,8 @@
         <hr/>
 
 
-<!-- Navigation bar begin -->
-        <table border="0">
-        <tr><td valign="top" width="120">
-        <div class="navbar">
-            <a href="../../index.html" class="SUMOMainLink">Home</a><br/>
-            <a href="../../overview.html" class="SUMOMainLink">Overview</a><br/>
-            <a href="../../documentation.html" class="SUMOMainLink">Documentation</a><br/>
-            <a href="../userdocs.html" class="SUMOSubLink">User Docs</a><br/>
+		$%MENU1%$../../menus/db_man_menu.html$%MENU2%$
 
-            <a href="../devdocs.html" class="SUMOSubLink">Developer Docs</a><br/>
-
-            <a href="../bibliography.html" class="SUMOSubLink">Bibliography</a><br/>
-
-            <a href="faq.html" class="SUMOSubLink">FAQ</a><br/>
-            <a href="../manpages.html" class="SUMOSubLink">ManPages</a><br/>
-
-
-            <a href="../../screenshots.html" class="SUMOMainLink">Screenshots</a><br/>
-            <a href="../../downloads.html" class="SUMOMainLink">Downloads</a><br/>
-            <a href="../../participants.html" class="SUMOMainLink">Participants</a><br/>
-            <a href="../../projects.html" class="SUMOMainLink">Projects</a><br/>
-            <a href="../../links.html" class="SUMOMainLink">Links</a><br/>
-            <a href="../../disclaimer.html" class="SUMOMainLink">Disclaimer</a><br/>
-            <a href="../../contact.html" class="SUMOMainLink">Contact</a><br/>
-
-            <center><br/>
-            <a href="http://ivf.dlr.de" class="SUMOMainLink">
-            <img src="../../images/logo_dlr.gif" width="40" height="42"/></a>
-            <a href="http://www.zaik.uni-koeln.de/" class="SUMOMainLink">
-            <img src="../../images/logo_zaik.gif" width="40" height="42"/></a><br/>
-
-            <a href="http://sourceforge.net/projects/sumo/"><img src="../../images/sourceforge.gif" width="88" height="31" border="0" alt="SourceForge.net Logo"/></a>
-            </center>
-        </div>
-        </td><td width="20"></td>
-<!-- Navigation bar end -->
 
 
         <td valign="top">
@@ -106,18 +72,19 @@
 
 <!-- End of Text area -->
         </div>
-        </td></tr></table>
-        <p></p><hr/>
+        </td>
+        $%MENU3%$
 
     </body>
   </html>
 </xsl:template>
 
+<!--
 <xsl:template name="root.messages">
-  <!-- redefine this any way you'd like to output messages -->
-  <!-- DO NOT OUTPUT ANYTHING FROM THIS TEMPLATE -->
+  < redefine this any way you'd like to output messages >
+  < DO NOT OUTPUT ANYTHING FROM THIS TEMPLATE >
 </xsl:template>
-
+-->
 
 <xsl:template match="itemizedlist/listitem/para">
   <xsl:call-template name="myparagraph">
@@ -187,7 +154,7 @@
 </xsl:template>
 
 
-
+<!--
 <xsl:template name="nongraphical.admonition">
   <div class="{name(.)}">
     <xsl:if test="$admon.style">
@@ -234,17 +201,17 @@
     <xsl:apply-templates/>
     </div>
 </xsl:template>
-
+-->
 
 <!-- ==================================================================== -->
-
+<!--
 <xsl:template name="chunk">
   <xsl:param name="node" select="."/>
 
-  <!-- The default is that we are not chunking... -->
+  < The default is that we are not chunking... >
   <xsl:text>0</xsl:text>
 </xsl:template>
-
+-->
 <!-- ==================================================================== -->
 
 </xsl:stylesheet>

@@ -1,4 +1,4 @@
-EXTRA_DIST = changes.shtml rel_policy.shtml
+EXTRA_DIST = changes.shtml downloads.shtml rel_policy.shtml
 
 SUBDIRS =
 

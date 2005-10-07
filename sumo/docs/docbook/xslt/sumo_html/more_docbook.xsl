@@ -54,15 +54,15 @@
               <img src="../../images/sumo_full.gif" width="211" height="16"/></td>
           </tr>
           </table>
-        <hr/>
+		<hr/>
 
 
-		$%MENU1%$../../menus/db_faq_menu.html$%MENU2%$
+		$%MENU1%$../../menus/db_more_menu.html$%MENU2%$
 
 
 
-        <td valign="top">
-        <div class="SUMOMainText">
+		<td valign="top">
+		<div class="SUMOMainText">
 <!-- Text area here -->
 
       <xsl:apply-templates select="."/>
@@ -71,14 +71,13 @@
       </xsl:call-template>
 
 <!-- End of Text area -->
-        </div>
-        </td>
-        $%MENU3%$
+		</div>
+		</td>
+		$%MENU3%$
 
     </body>
   </html>
 </xsl:template>
-
 <!--
 <xsl:template name="root.messages">
   < redefine this any way you'd like to output messages >
@@ -174,7 +173,6 @@
   </div>
 </xsl:template>
 
-
 <xsl:template name="graphical.admonition">
   <xsl:variable name="admon.type">
     <xsl:choose>
@@ -199,7 +197,7 @@
             </xsl:attribute>
           </img>
     <xsl:apply-templates/>
-    </div>
+	</div>
 </xsl:template>
 -->
 
