@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/10/10 12:09:55  dkrajzew
+// renamed *NetHandler to *Handler
+//
 // Revision 1.3  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -222,7 +225,7 @@ namespace
 #include <sax2/SAX2XMLReader.hpp>
 #include <string>
 #include <map>
-#include "NLNetHandler.h"
+#include "NLHandler.h"
 #include "NLEdgeControlBuilder.h"
 #include "NLJunctionControlBuilder.h"
 #include "NLDetectorBuilder.h"
@@ -266,10 +269,11 @@ NLBuilder::NLBuilder(const OptionsCont &oc,
                            NLJunctionControlBuilder &jb,
                            NLDetectorBuilder &db,
                            NLTriggerBuilder &tb,
-                           NLGeomShapeBuilder &sb)
+                           NLGeomShapeBuilder &sb,
+                           NLHandler &xmlHandler)
     : m_pOptions(oc), myEdgeBuilder(eb), myJunctionBuilder(jb),
     myDetectorBuilder(db), myTriggerBuilder(tb), myShapeBuilder(sb),
-    myNet(net)
+    myNet(net), myXMLHandler(xmlHandler)
 {
 }
 
@@ -283,16 +287,16 @@ NLBuilder::~NLBuilder()
 bool
 NLBuilder::build()
 {
+    /*
     // get the matching handler
-    NLNetHandler handler("", myNet, myDetectorBuilder, myTriggerBuilder,
+    NLHandler handler("", myNet, myDetectorBuilder, myTriggerBuilder,
         myEdgeBuilder, myJunctionBuilder, myShapeBuilder);
-
-    SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
-    bool ok = load("net", LOADFILTER_ALL, m_pOptions.getString("n"),
-        handler, *parser);
+    */
+    SAX2XMLReader* parser = XMLHelpers::getSAXReader(myXMLHandler);
+    bool ok = load("net", LOADFILTER_ALL, m_pOptions.getString("n"), *parser);
     // try to build the net
     if(ok) {
-        ok = buildNet(handler);
+        ok = buildNet();
     }
     // load the previous state if wished
     if(ok&&m_pOptions.isSet("load-state")) {
@@ -307,13 +311,13 @@ NLBuilder::build()
     // load routes
     if(m_pOptions.isSet("r")&&ok&&m_pOptions.getInt("route-steps")<=0) {
         ok = load("routes", LOADFILTER_DYNAMIC, m_pOptions.getString("r"),
-            handler, *parser);
+            *parser);
     }
     // load additional net elements (sources, detectors, ...)
     if(m_pOptions.isSet("a")&&ok) {
         ok = load("additional elements",
             (NLLoadFilter) ((int) LOADFILTER_NETADD|(int) LOADFILTER_DYNAMIC),
-            m_pOptions.getString("a"), handler, *parser);
+            m_pOptions.getString("a"), *parser);
     }
     subreport("Loading done.", "Loading failed.");
     delete parser;
@@ -322,16 +326,16 @@ NLBuilder::build()
 
 
 bool
-NLBuilder::buildNet(NLNetHandler &handler, GNEImageProcWindow &t)
+NLBuilder::buildNet(GNEImageProcWindow &t)
 {
-    return buildNet(handler);
+    return buildNet();
 }
 
 
 bool
-NLBuilder::buildNet(NLNetHandler &handler)
+NLBuilder::buildNet()
 {
-    myJunctionBuilder.closeJunctions(myDetectorBuilder, handler.getContinuations());
+    myJunctionBuilder.closeJunctions(myDetectorBuilder, myXMLHandler.getContinuations());
     MSEdgeControl *edges = myEdgeBuilder.build();
     std::vector<OutputDevice*> streams = SUMOFrame::buildStreams(m_pOptions);
     MSMeanData_Net_Cont meanData = MSMeanData_Net_Utils::buildList(
@@ -357,11 +361,10 @@ bool
 NLBuilder::load(const std::string &mmlWhat,
                 NLLoadFilter what,
                 const string &files,
-                NLNetHandler &handler,
                 SAX2XMLReader &parser)
 {
     // initialise the handler for the current type of data
-    handler.setWanted(what);
+    myXMLHandler.setWanted(what);
     // check whether the list of files does not contain ';'s only
     if(!FileHelpers::checkFileList(files)) {
         MsgHandler::getErrorInstance()->inform(
@@ -371,9 +374,9 @@ NLBuilder::load(const std::string &mmlWhat,
         return false;
     }
     // start parsing
-    parser.setContentHandler(&handler);
-    parser.setErrorHandler(&handler);
-    parse(mmlWhat, files, handler, parser);
+    parser.setContentHandler(&myXMLHandler);
+    parser.setErrorHandler(&myXMLHandler);
+    parse(mmlWhat, files, parser);
     // report about loaded structures
     subreport(
         "Loading of " + mmlWhat + " done.",
@@ -385,7 +388,6 @@ NLBuilder::load(const std::string &mmlWhat,
 bool
 NLBuilder::parse(const std::string &mmlWhat,
                     const string &files,
-                    NLNetHandler &handler,
                     SAX2XMLReader &parser)
 {
     // for each file in the list
@@ -403,7 +405,7 @@ NLBuilder::parse(const std::string &mmlWhat,
             return false;
         } else {
             // parse the file
-            handler.setFileName(tmp);
+            myXMLHandler.setFileName(tmp);
             parser.parse(tmp.c_str());
             ok = !(MsgHandler::getErrorInstance()->wasInformed());
         }

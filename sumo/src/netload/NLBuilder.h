@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2005/10/10 12:09:55  dkrajzew
+// renamed *NetHandler to *Handler
+//
 // Revision 1.2  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -164,7 +167,7 @@ class MSEmitControl;
 class MSJunctionLogic;
 class MSDetectorControl;
 class OptionsCont;
-class NLNetHandler;
+class NLHandler;
 class NLEdgeControlBuilder;
 class NLJunctionControlBuilder;
 class NLDetectorBuilder;
@@ -188,7 +191,7 @@ public:
     NLBuilder(const OptionsCont &oc, MSNet &net,
         NLEdgeControlBuilder &eb, NLJunctionControlBuilder &jb,
         NLDetectorBuilder &db, NLTriggerBuilder &tb,
-        NLGeomShapeBuilder &sb);
+        NLGeomShapeBuilder &sb, NLHandler &xmlHandler);
 
     /// Destructor
     virtual ~NLBuilder();
@@ -197,23 +200,22 @@ public:
     virtual bool build();
 
     /// Closes the net building process
-    bool buildNet(NLNetHandler &handler, GNEImageProcWindow &t);
+    bool buildNet(GNEImageProcWindow &t);
 
 protected:
     /// loads a described subpart form the given list of files
     bool load(const std::string &mmlWhat, NLLoadFilter what,
-        const std::string &files,
-        NLNetHandler &handler, SAX2XMLReader &parser);
+        const std::string &files, SAX2XMLReader &parser);
 
     /// parses the files using the given initialised parser
     bool parse(const std::string &mmlWhat, const std::string &files,
-        NLNetHandler &handler, SAX2XMLReader &parser);
+        SAX2XMLReader &parser);
 
     /// reports the process (done or failure)
     void subreport(const std::string &ok, const std::string &wrong) ;
 
     /// Closes the net building process
-    bool buildNet(NLNetHandler &handler);
+    bool buildNet();
 
     /// Builds the route loader control
     MSRouteLoaderControl *buildRouteLoaderControl(const OptionsCont &oc);
@@ -240,6 +242,8 @@ protected:
 
     /// The net to fill
     MSNet &myNet;
+
+    NLHandler &myXMLHandler;
 
 private:
     /** invalidated copy operator */

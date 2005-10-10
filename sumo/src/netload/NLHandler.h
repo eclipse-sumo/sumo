@@ -1,5 +1,5 @@
-#ifndef NLNetHandler_h
-#define NLNetHandler_h
+#ifndef NLHandler_h
+#define NLHandler_h
 //---------------------------------------------------------------------------//
 //                        NLNetHandler.h -
 //  The XML-Handler for network loading (parses the elements)
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2005/10/10 12:09:55  dkrajzew
+// renamed *NetHandler to *Handler
+//
 // Revision 1.30  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -178,7 +181,7 @@ class NLGeomShapeBuilder;
  * This is an extension of the MSRouteHandler as routes and vehicles may also
  * be loaded from network descriptions.
  */
-class NLNetHandler : public MSRouteHandler {
+class NLHandler : public MSRouteHandler {
 public:
     /// Definitions of a string vector
     typedef std::vector<std::string> StringVector;
@@ -191,14 +194,14 @@ public:
 
 public:
     /// standard constructor
-    NLNetHandler(const std::string &file, MSNet &net,
+    NLHandler(const std::string &file, MSNet &net,
         NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
         NLEdgeControlBuilder &edgeBuilder,
         NLJunctionControlBuilder &junctionBuilder,
         NLGeomShapeBuilder &shapeBuilder);
 
     /// Destructor
-    virtual ~NLNetHandler();
+    virtual ~NLHandler();
 
     /// returns a message about the processing
     std::string getMessage() const;
@@ -334,7 +337,7 @@ private:
     void addIncomingLanes(const std::string &chars);
 
     /// adds the incoming Polygon's Positions
-    void NLNetHandler::addIncomingPolyPosititon(const std::string &chars);
+    void NLHandler::addIncomingPolyPosititon(const std::string &chars);
 
     /// adds the internal lanes
     void addInternalLanes(const std::string &chars);
@@ -440,10 +443,10 @@ protected:
 
 private:
     /** invalid copy constructor */
-    NLNetHandler(const NLNetHandler &s);
+    NLHandler(const NLHandler &s);
 
     /** invalid assignment operator */
-    NLNetHandler &operator=(const NLNetHandler &s);
+    NLHandler &operator=(const NLHandler &s);
 
 };
 

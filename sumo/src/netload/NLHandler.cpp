@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.1  2005/10/10 12:09:55  dkrajzew
+// renamed *NetHandler to *Handler
+//
 // Revision 1.56  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -139,7 +142,7 @@ namespace
 #include <sax/AttributeList.hpp>
 #include <sax/SAXParseException.hpp>
 #include <sax/SAXException.hpp>
-#include "NLNetHandler.h"
+#include "NLHandler.h"
 #include "NLEdgeControlBuilder.h"
 #include "NLJunctionControlBuilder.h"
 #include "NLDetectorBuilder.h"
@@ -189,7 +192,7 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLNetHandler::NLNetHandler(const std::string &file,
+NLHandler::NLHandler(const std::string &file,
                            MSNet &net,
                            NLDetectorBuilder &detBuilder,
                            NLTriggerBuilder &triggerBuilder,
@@ -198,22 +201,22 @@ NLNetHandler::NLNetHandler(const std::string &file,
                            NLGeomShapeBuilder &shapeBuilder)
 
     : MSRouteHandler(file, true),
-    myNet(net),
+    myActionBuilder(net), myNet(net),
     myCurrentIsInternalToSkip(false),
     myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
     myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
-    myShapeBuilder(shapeBuilder)
+    myShapeBuilder(shapeBuilder), m_pSLB(junctionBuilder)
 {
 }
 
 
-NLNetHandler::~NLNetHandler()
+NLHandler::~NLHandler()
 {
 }
 
 
 void
-NLNetHandler::myStartElement(int element, const std::string &name,
+NLHandler::myStartElement(int element, const std::string &name,
                              const Attributes &attrs)
 {
     // check static net information
@@ -308,7 +311,7 @@ NLNetHandler::myStartElement(int element, const std::string &name,
 
 
 void
-NLNetHandler::setEdgeNumber(const Attributes &attrs)
+NLHandler::setEdgeNumber(const Attributes &attrs)
 {
     try {
         myEdgeControlBuilder.prepare(getInt(attrs, SUMO_ATTR_NO));
@@ -323,7 +326,7 @@ NLNetHandler::setEdgeNumber(const Attributes &attrs)
 
 
 void
-NLNetHandler::chooseEdge(const Attributes &attrs)
+NLHandler::chooseEdge(const Attributes &attrs)
 {
     // get the id
     string id;
@@ -380,14 +383,14 @@ NLNetHandler::chooseEdge(const Attributes &attrs)
 
 
 void
-NLNetHandler::addLaneShape(const std::string &chars)
+NLHandler::addLaneShape(const std::string &chars)
 {
     myShape = GeomConvHelper::parseShape(chars);
 }
 
 
 void
-NLNetHandler::addLane(const Attributes &attrs)
+NLHandler::addLane(const Attributes &attrs)
 {
     // omit internal edges if not wished
     if(myCurrentIsInternalToSkip) {
@@ -422,7 +425,7 @@ NLNetHandler::addLane(const Attributes &attrs)
 
 
 void
-NLNetHandler::addPOI(const Attributes &attrs)
+NLHandler::addPOI(const Attributes &attrs)
 {
     try {
         std::string name = getString(attrs, SUMO_ATTR_ID);
@@ -447,7 +450,7 @@ NLNetHandler::addPOI(const Attributes &attrs)
 
 
 void
-NLNetHandler::addPoly(const Attributes &attrs)
+NLHandler::addPoly(const Attributes &attrs)
 {
     try {
         std::string name = getString(attrs, SUMO_ATTR_ID);
@@ -470,7 +473,7 @@ NLNetHandler::addPoly(const Attributes &attrs)
 
 
 void
-NLNetHandler::openAllowedEdge(const Attributes &attrs)
+NLHandler::openAllowedEdge(const Attributes &attrs)
 {
     // omit internal edges if not wished
     if(myCurrentIsInternalToSkip) {
@@ -501,7 +504,7 @@ NLNetHandler::openAllowedEdge(const Attributes &attrs)
 
 
 void
-NLNetHandler::addLogicItem(const Attributes &attrs)
+NLHandler::addLogicItem(const Attributes &attrs)
 {
     // parse the request
     int request = -1;
@@ -537,12 +540,12 @@ NLNetHandler::addLogicItem(const Attributes &attrs)
 
 
 void
-NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
+NLHandler::initTrafficLightLogic(const Attributes &attrs)
 {
     size_t absDuration = 0;
     int requestSize = -1;
     int tlLogicNo = -1;
-    int detectorOffset = -1;
+    int detectorOffset = -1; // !!!
     myJunctionControlBuilder.initIncomingLanes();
     try {
         string type = getString(attrs, SUMO_ATTR_TYPE);
@@ -564,7 +567,7 @@ NLNetHandler::initTrafficLightLogic(const Attributes &attrs)
 
 
 void
-NLNetHandler::addPhase(const Attributes &attrs)
+NLHandler::addPhase(const Attributes &attrs)
 {
     // try to get the phase definition
     string phase;
@@ -635,7 +638,7 @@ NLNetHandler::addPhase(const Attributes &attrs)
 
 
 void
-NLNetHandler::openJunction(const Attributes &attrs)
+NLHandler::openJunction(const Attributes &attrs)
 {
     string id;
     try {
@@ -659,7 +662,7 @@ NLNetHandler::openJunction(const Attributes &attrs)
 
 
 void
-NLNetHandler::addDetector(const Attributes &attrs)
+NLHandler::addDetector(const Attributes &attrs)
 {
     // try to get the id first
     string id;
@@ -695,7 +698,7 @@ NLNetHandler::addDetector(const Attributes &attrs)
 
 
 void
-NLNetHandler::addE1Detector(const Attributes &attrs)
+NLHandler::addE1Detector(const Attributes &attrs)
 {
     // try to get the id first
     string id;
@@ -730,7 +733,7 @@ NLNetHandler::addE1Detector(const Attributes &attrs)
 
 
 void
-NLNetHandler::addE2Detector(const Attributes &attrs)
+NLHandler::addE2Detector(const Attributes &attrs)
 {
     // try to get the id first
     string id;
@@ -829,7 +832,7 @@ NLNetHandler::addE2Detector(const Attributes &attrs)
 
 
 void
-NLNetHandler::beginE3Detector(const Attributes &attrs)
+NLHandler::beginE3Detector(const Attributes &attrs)
 {
     // try to get the id first
     string id;
@@ -866,7 +869,7 @@ NLNetHandler::beginE3Detector(const Attributes &attrs)
 
 
 void
-NLNetHandler::addE3Entry(const Attributes &attrs)
+NLHandler::addE3Entry(const Attributes &attrs)
 {
     try {
         myDetectorBuilder.addE3Entry(
@@ -883,7 +886,7 @@ NLNetHandler::addE3Entry(const Attributes &attrs)
 
 
 void
-NLNetHandler::addE3Exit(const Attributes &attrs)
+NLHandler::addE3Exit(const Attributes &attrs)
 {
     try {
         myDetectorBuilder.addE3Exit(
@@ -905,7 +908,7 @@ NLNetHandler::addE3Exit(const Attributes &attrs)
 
 
 void
-NLNetHandler::addSource(const Attributes &attrs)
+NLHandler::addSource(const Attributes &attrs)
 {
     string id;
     try {
@@ -933,7 +936,7 @@ NLNetHandler::addSource(const Attributes &attrs)
 
 
 void
-NLNetHandler::addTrigger(const Attributes &attrs)
+NLHandler::addTrigger(const Attributes &attrs)
 {
     string id;
     try {
@@ -960,7 +963,7 @@ NLNetHandler::addTrigger(const Attributes &attrs)
 
 
 void
-NLNetHandler::openSucc(const Attributes &attrs)
+NLHandler::openSucc(const Attributes &attrs)
 {
     try {
         string id = getString(attrs, SUMO_ATTR_LANE);
@@ -972,7 +975,7 @@ NLNetHandler::openSucc(const Attributes &attrs)
 }
 
 void
-NLNetHandler::addSuccLane(const Attributes &attrs)
+NLHandler::addSuccLane(const Attributes &attrs)
 {
     try {
         string tlID = getStringSecure(attrs, SUMO_ATTR_TLID, "");
@@ -1012,7 +1015,7 @@ NLNetHandler::addSuccLane(const Attributes &attrs)
 
 
 MSLink::LinkDirection
-NLNetHandler::parseLinkDir(char dir)
+NLHandler::parseLinkDir(char dir)
 {
     switch(dir) {
     case 's':
@@ -1034,7 +1037,7 @@ NLNetHandler::parseLinkDir(char dir)
 
 
 MSLink::LinkState
-NLNetHandler::parseLinkState(char state)
+NLHandler::parseLinkState(char state)
 {
     switch(state) {
     case 't':
@@ -1060,7 +1063,7 @@ NLNetHandler::parseLinkState(char state)
 
 
 void
-NLNetHandler::myCharacters(int element, const std::string &name,
+NLHandler::myCharacters(int element, const std::string &name,
                                 const std::string &chars)
 {
     // check static net information
@@ -1124,7 +1127,7 @@ NLNetHandler::myCharacters(int element, const std::string &name,
 
 
 void
-NLNetHandler::allocateEdges(const std::string &chars)
+NLHandler::allocateEdges(const std::string &chars)
 {
     size_t beg = 0;
     size_t idx = chars.find(' ');
@@ -1148,7 +1151,7 @@ NLNetHandler::allocateEdges(const std::string &chars)
 
 
 void
-NLNetHandler::setNodeNumber(const std::string &chars)
+NLHandler::setNodeNumber(const std::string &chars)
 {
     try {
         myJunctionControlBuilder.prepare(TplConvert<char>::_2int(chars.c_str()));
@@ -1163,7 +1166,7 @@ NLNetHandler::setNodeNumber(const std::string &chars)
 
 
 void
-NLNetHandler::addAllowedEdges(const std::string &chars)
+NLHandler::addAllowedEdges(const std::string &chars)
 {
     StringTokenizer st(chars);
     while(st.hasNext()) {
@@ -1184,7 +1187,7 @@ NLNetHandler::addAllowedEdges(const std::string &chars)
 
 
 void
-NLNetHandler::setRequestSize(const std::string &chars)
+NLHandler::setRequestSize(const std::string &chars)
 {
     try {
         myJunctionControlBuilder.setRequestSize(TplConvert<char>::_2int(chars.c_str()));
@@ -1198,7 +1201,7 @@ NLNetHandler::setRequestSize(const std::string &chars)
 
 
 void
-NLNetHandler::setLaneNumber(const std::string &chars)
+NLHandler::setLaneNumber(const std::string &chars)
 {
     try {
         myJunctionControlBuilder.setLaneNumber(TplConvert<char>::_2int(chars.c_str()));
@@ -1212,7 +1215,7 @@ NLNetHandler::setLaneNumber(const std::string &chars)
 
 
 void
-NLNetHandler::setKey(const std::string &chars)
+NLHandler::setKey(const std::string &chars)
 {
     if(chars.length()==0) {
         MsgHandler::getErrorInstance()->inform("No key given for the current junction logic.");
@@ -1224,7 +1227,7 @@ NLNetHandler::setKey(const std::string &chars)
 
 
 void
-NLNetHandler::setOffset(const std::string &chars)
+NLHandler::setOffset(const std::string &chars)
 {
     try {
         myJunctionControlBuilder.setOffset(TplConvertSec<char>::_2intSec(chars.c_str(), 0));
@@ -1236,7 +1239,7 @@ NLNetHandler::setOffset(const std::string &chars)
 
 
 void
-NLNetHandler::setTLLogicNo(const std::string &chars)
+NLHandler::setTLLogicNo(const std::string &chars)
 {
     myJunctionControlBuilder.setTLLogicNo(TplConvertSec<char>::_2intSec(chars.c_str(), -1));
 }
@@ -1244,7 +1247,7 @@ NLNetHandler::setTLLogicNo(const std::string &chars)
 
 
 void
-NLNetHandler::addIncomingLanes(const std::string &chars)
+NLHandler::addIncomingLanes(const std::string &chars)
 {
     StringTokenizer st(chars);
     while(st.hasNext()) {
@@ -1265,14 +1268,14 @@ NLNetHandler::addIncomingLanes(const std::string &chars)
 
 
 void
-NLNetHandler::addPolyPosition(const std::string &chars)
+NLHandler::addPolyPosition(const std::string &chars)
 {
     myShapeBuilder.polygonEnd(GeomConvHelper::parseShape(chars));
 }
 
 
 void
-NLNetHandler::addInternalLanes(const std::string &chars)
+NLHandler::addInternalLanes(const std::string &chars)
 {
     StringTokenizer st(chars);
     while(st.hasNext()) {
@@ -1293,7 +1296,7 @@ NLNetHandler::addInternalLanes(const std::string &chars)
 // ----------------------------------
 
 void
-NLNetHandler::myEndElement(int element, const std::string &name)
+NLHandler::myEndElement(int element, const std::string &name)
 {
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
@@ -1348,7 +1351,7 @@ NLNetHandler::myEndElement(int element, const std::string &name)
 
 
 void
-NLNetHandler::closeEdge()
+NLHandler::closeEdge()
 {
     MSEdge *edge = myEdgeControlBuilder.closeEdge();
 #ifdef HAVE_MESOSIM
@@ -1361,7 +1364,7 @@ NLNetHandler::closeEdge()
 
 
 void
-NLNetHandler::closeLane()
+NLHandler::closeLane()
 {
     MSLane *lane =
         myEdgeControlBuilder.addLane(
@@ -1374,14 +1377,14 @@ NLNetHandler::closeLane()
 }
 
 void
-NLNetHandler::closeLanes()
+NLHandler::closeLanes()
 {
     myEdgeControlBuilder.closeLanes();
 }
 
 
 void
-NLNetHandler::closeAllowedEdge()
+NLHandler::closeAllowedEdge()
 {
     myEdgeControlBuilder.closeAllowedEdge();
 }
@@ -1389,7 +1392,7 @@ NLNetHandler::closeAllowedEdge()
 
 
 void
-NLNetHandler::closeJunction()
+NLHandler::closeJunction()
 {
     try {
         myJunctionControlBuilder.closeJunction();
@@ -1403,7 +1406,7 @@ NLNetHandler::closeJunction()
 
 
 void
-NLNetHandler::closeSuccLane()
+NLHandler::closeSuccLane()
 {
     try {
         m_pSLB.closeSuccLane();
@@ -1414,7 +1417,7 @@ NLNetHandler::closeSuccLane()
 
 
 void
-NLNetHandler::endDetector()
+NLHandler::endDetector()
 {
     if(myDetectorType=="e3") {
         endE3Detector();
@@ -1424,7 +1427,7 @@ NLNetHandler::endDetector()
 
 
 void
-NLNetHandler::endE3Detector()
+NLHandler::endE3Detector()
 {
     try {
         myDetectorBuilder.endE3Detector();
@@ -1440,28 +1443,28 @@ NLNetHandler::endE3Detector()
 
 
 std::string
-NLNetHandler::getMessage() const
+NLHandler::getMessage() const
 {
     return "Loading routes, lanes and vehicle types...";
 }
 
 
 bool
-NLNetHandler::wanted(NLLoadFilter filter) const
+NLHandler::wanted(NLLoadFilter filter) const
 {
     return (_filter&filter)!=0;
 }
 
 
 void
-NLNetHandler::setWanted(NLLoadFilter filter)
+NLHandler::setWanted(NLLoadFilter filter)
 {
     _filter = filter;
 }
 
 
 void
-NLNetHandler::setError(const string &type,
+NLHandler::setError(const string &type,
                        const SAXParseException& exception)
 {
     MsgHandler::getErrorInstance()->inform(
@@ -1469,8 +1472,8 @@ NLNetHandler::setError(const string &type,
 }
 
 
-const NLNetHandler::SSVMap &
-NLNetHandler::getContinuations() const
+const NLHandler::SSVMap &
+NLHandler::getContinuations() const
 {
     return myContinuations;
 }

@@ -7,7 +7,7 @@ NLGeomShapeBuilder.h NLGeomShapeBuilder.cpp \
 NLJunctionControlBuilder.h NLJunctionControlBuilder.cpp \
 NLLoadFilter.h \
 NLBuilder.h NLBuilder.cpp \
-NLNetHandler.h NLNetHandler.cpp \
+NLHandler.h NLHandler.cpp \
 NLSucceedingLaneBuilder.h NLSucceedingLaneBuilder.cpp \
 NLTriggerBuilder.h NLTriggerBuilder.cpp
 
