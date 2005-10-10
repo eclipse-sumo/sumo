@@ -1,5 +1,5 @@
-#ifndef GUINetHandler_h
-#define GUINetHandler_h
+#ifndef GUIHandler_h
+#define GUIHandler_h
 //---------------------------------------------------------------------------//
 //                        GUINetHandler.h -
 //  The XML-Handler for building networks within the gui-version derived
@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2005/10/10 11:52:16  dkrajzew
+// renamed *NetHandler to *Handler
+//
 // Revision 1.15  2005/10/07 11:37:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -89,7 +92,7 @@
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <netload/NLNetHandler.h>
+#include <netload/NLHandler.h>
 #include <utils/gfx/RGBColor.h>
 
 
@@ -104,14 +107,14 @@ class NLContainer;
  * class definitions
  * ======================================================================= */
 /**
- * This SAX-Handler overrides some methods of the NLNetHandler, the original
+ * This SAX-Handler overrides some methods of the NLHandler, the original
  * network description handler in order to be used together with a GUIContainer
  * and allow instantiations of gui versions of the microsimulation artifacts
  */
-class GUINetHandler : public NLNetHandler {
+class GUIHandler : public NLHandler {
 public:
     /// standard constructor
-    GUINetHandler(const std::string &file,
+    GUIHandler(const std::string &file,
         MSNet &net,
         NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
         NLEdgeControlBuilder &edgeBuilder,
@@ -119,7 +122,7 @@ public:
         NLGeomShapeBuilder &shapeBuilder);
 
     /// standard destructor
-    ~GUINetHandler();
+    ~GUIHandler();
 
 protected:
     /** called on the occurence of the beginning of a tag;
@@ -152,10 +155,10 @@ private:
 
 private:
     /** invalid copy constructor */
-    GUINetHandler(const GUINetHandler &s);
+    GUIHandler(const GUIHandler &s);
 
     /** invalid assignment operator */
-    GUINetHandler &operator=(const GUINetHandler &s);
+    GUIHandler &operator=(const GUIHandler &s);
 
 };
 

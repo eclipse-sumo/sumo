@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.1  2005/10/10 11:52:16  dkrajzew
+// renamed *NetHandler to *Handler
+//
 // Revision 1.24  2005/10/07 11:37:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -127,8 +130,7 @@ namespace
 #include <sax/AttributeList.hpp>
 #include <sax/SAXParseException.hpp>
 #include <sax/SAXException.hpp>
-#include <netload/NLNetHandler.h>
-//#include <netload/NLContainer.h>
+#include <netload/NLHandler.h>
 #include <utils/common/TplConvert.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/gfx/GfxConvHelper.h>
@@ -141,11 +143,10 @@ namespace
 #include <guisim/GUIInductLoop.h>
 #include <guisim/GUI_E2_ZS_Collector.h>
 #include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
-//#include "GUIContainer.h"
 #include "GUIEdgeControlBuilder.h"
 #include "GUIJunctionControlBuilder.h"
 #include "GUIDetectorBuilder.h"
-#include "GUINetHandler.h"
+#include "GUIHandler.h"
 #include <guisim/GUIVehicleType.h>
 #include <guisim/GUIRoute.h>
 
@@ -163,37 +164,37 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUINetHandler::GUINetHandler(const std::string &file,
+GUIHandler::GUIHandler(const std::string &file,
                              MSNet &net,
                              NLDetectorBuilder &detBuilder,
                              NLTriggerBuilder &triggerBuilder,
                              NLEdgeControlBuilder &edgeBuilder,
                              NLJunctionControlBuilder &junctionBuilder,
                              NLGeomShapeBuilder &shapeBuilder)
-    : NLNetHandler(file, net, detBuilder, triggerBuilder,
+    : NLHandler(file, net, detBuilder, triggerBuilder,
         edgeBuilder, junctionBuilder, shapeBuilder)
 {
 }
 
 
-GUINetHandler::~GUINetHandler()
+GUIHandler::~GUIHandler()
 {
 }
 
 
 void
-GUINetHandler::myStartElement(int element, const std::string &name,
+GUIHandler::myStartElement(int element, const std::string &name,
                                   const Attributes &attrs)
 {
-    NLNetHandler::myStartElement(element, name, attrs);
+    NLHandler::myStartElement(element, name, attrs);
 }
 
 
 void
-GUINetHandler::myCharacters(int element, const std::string &name,
+GUIHandler::myCharacters(int element, const std::string &name,
                                 const std::string &chars)
 {
-    NLNetHandler::myCharacters(element, name, chars);
+    NLHandler::myCharacters(element, name, chars);
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
         case SUMO_TAG_SHAPE:
@@ -207,7 +208,7 @@ GUINetHandler::myCharacters(int element, const std::string &name,
 
 
 void
-GUINetHandler::addJunctionShape(const std::string &chars)
+GUIHandler::addJunctionShape(const std::string &chars)
 {
     Position2DVector shape = GeomConvHelper::parseShape(chars);
     static_cast<GUIJunctionControlBuilder&>(myJunctionControlBuilder).addJunctionShape(shape);
@@ -215,7 +216,7 @@ GUINetHandler::addJunctionShape(const std::string &chars)
 
 
 void
-GUINetHandler::addVehicleType(const Attributes &attrs)
+GUIHandler::addVehicleType(const Attributes &attrs)
 {
     RGBColor col =
         GfxConvHelper::parseColor(
@@ -248,7 +249,7 @@ GUINetHandler::addVehicleType(const Attributes &attrs)
 
 
 void
-GUINetHandler::addParsedVehicleType(const string &id, const SUMOReal length,
+GUIHandler::addParsedVehicleType(const string &id, const SUMOReal length,
                                     const SUMOReal maxspeed, const SUMOReal bmax,
                                     const SUMOReal dmax, const SUMOReal sigma,
                                     const RGBColor &c)
@@ -262,7 +263,7 @@ GUINetHandler::addParsedVehicleType(const string &id, const SUMOReal length,
 
 
 void
-GUINetHandler::openRoute(const Attributes &attrs)
+GUIHandler::openRoute(const Attributes &attrs)
 {
     myColor =
         GfxConvHelper::parseColor(
@@ -272,7 +273,7 @@ GUINetHandler::openRoute(const Attributes &attrs)
 
 
 void
-GUINetHandler::closeRoute()
+GUIHandler::closeRoute()
 {
     int size = m_pActiveRoute->size();
     if(size==0) {
