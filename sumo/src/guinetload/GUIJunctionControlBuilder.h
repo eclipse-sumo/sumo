@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/10/10 11:52:38  dkrajzew
+// reworking the tls-API: made tls-control non-static
+//
 // Revision 1.6  2005/10/07 11:37:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -74,7 +77,7 @@ class GUIJunctionControlBuilder
     : public NLJunctionControlBuilder {
 public:
     /// Constructor
-    GUIJunctionControlBuilder(OptionsCont &oc);
+    GUIJunctionControlBuilder(MSNet &net, OptionsCont &oc);
 
     /// Destructor
     ~GUIJunctionControlBuilder();

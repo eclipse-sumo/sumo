@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/10/10 11:52:38  dkrajzew
+// reworking the tls-API: made tls-control non-static
+//
 // Revision 1.8  2005/10/07 11:37:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -76,8 +79,9 @@ namespace
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIJunctionControlBuilder::GUIJunctionControlBuilder(OptionsCont &oc)
-    : NLJunctionControlBuilder(oc)
+GUIJunctionControlBuilder::GUIJunctionControlBuilder(MSNet &net,
+                                                     OptionsCont &oc)
+    : NLJunctionControlBuilder(net, oc)
 {
 }
 
