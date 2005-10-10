@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/10/10 11:56:09  dkrajzew
+// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
+//
 // Revision 1.6  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -102,6 +105,7 @@
 /* =========================================================================
  * class declarations
  * ======================================================================= */
+class MSNet;
 class MSLink;
 class MSEventControl;
 class DiscreteCommand;
@@ -135,31 +139,32 @@ public:
 
 public:
     /// Constructor
-    MSTrafficLightLogic(const std::string &id, size_t delay);
+    MSTrafficLightLogic(MSNet &net, const std::string &id, size_t delay);
 
     /// Destructor
     virtual ~MSTrafficLightLogic();
 
+
     /** @brief Inserts MSTrafficLightLogic into the static dictionary
         Returns true if the key id isn't already in the dictionary.
-        Otherwise returns false (the logic is not inserted then). */
+        Otherwise returns false (the logic is not inserted then). /
     static bool dictionary(const std::string &name,
         MSTrafficLightLogic *logic);
-
+*/
     /** @brief Switches to the next phase
         Returns the time of the next switch */
     virtual SUMOTime nextPhase() = 0;
 
     /** @brief Returns the MSEdgeControl associated to the key id if exists,
-        Otherwise returns 0. */
+        Otherwise returns 0. /
     static MSTrafficLightLogic *dictionary(const std::string &name);
 
     /// Clears the dictionary
     static void clear();
-
+*/
     /** @brief Returns the list of loaded logics
         Used only within the network initialisation so far... */
-    static std::vector<MSTrafficLightLogic*> getList();
+    //static std::vector<MSTrafficLightLogic*> getList();
 
     /** Returns the link priorities for the given phase */
     virtual const std::bitset<64> &linkPriorities() const = 0;
@@ -180,8 +185,8 @@ public:
         This must be done as they change when the light changes */
     void setLinkPriorities();
 
-    /// Returns the current step
-    virtual size_t step() const = 0;
+	/// Returns the current step
+	virtual size_t step() const = 0;
 
     /// Clears all incoming vehicle information on links that have red
     void maskRedLinks();
@@ -217,14 +222,18 @@ protected:
     void addLink(MSLink *link, MSLane *lane, size_t pos);
 
 protected:
+    /*
     /// Definition of the dictionary type for traffic light logics
     typedef std::map<std::string, MSTrafficLightLogic*> DictType;
 
     /// Traffic light logic dictionary
     static DictType _dict;
+    */
 
     /// The id of the logic
     std::string _id;
+
+    MSNet &myNet;
 
     /// The list of links which do participate in this traffic light
     LinkVectorVector myLinks;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/10/10 11:56:09  dkrajzew
+// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
+//
 // Revision 1.5  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -74,25 +77,29 @@ namespace
 
 
 /* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
+
+
+/* =========================================================================
  * method definitions
  * ======================================================================= */
-MSTLLogicControl::MSTLLogicControl(const std::vector<MSTrafficLightLogic*>  &tlLogics)
-    : myLogics(tlLogics)
+MSTLLogicControl::MSTLLogicControl()
 {
 }
 
+
 MSTLLogicControl::~MSTLLogicControl()
 {
-    for(LogicVector::iterator i=myLogics.begin(); i!=myLogics.end(); i++) {
-        delete (*i);
-    }
 }
 
 
 void
 MSTLLogicControl::maskRedLinks()
 {
-    for(LogicVector::iterator i=myLogics.begin(); i!=myLogics.end(); i++) {
+    const vector<MSTrafficLightLogic*> &logics = buildAndGetStaticVector();
+    for(vector<MSTrafficLightLogic*>::const_iterator i=logics.begin(); i!=logics.end(); ++i) {
         (*i)->maskRedLinks();
     }
 }
@@ -101,7 +108,8 @@ MSTLLogicControl::maskRedLinks()
 void
 MSTLLogicControl::maskYellowLinks()
 {
-    for(LogicVector::iterator i=myLogics.begin(); i!=myLogics.end(); i++) {
+    const vector<MSTrafficLightLogic*> &logics = buildAndGetStaticVector();
+    for(vector<MSTrafficLightLogic*>::const_iterator i=logics.begin(); i!=logics.end(); ++i) {
         (*i)->maskYellowLinks();
     }
 }

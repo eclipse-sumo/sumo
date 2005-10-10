@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/10/10 11:56:09  dkrajzew
+// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
+//
 // Revision 1.7  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -82,9 +85,9 @@ class MSExtendedTrafficLightLogic
 {
 public:
     /// Constructor
-    MSExtendedTrafficLightLogic(const std::string &id, const Phases &phases,
-        size_t step, size_t delay)
-        : MSSimpleTrafficLightLogic(id, phases, step, delay) { }
+    MSExtendedTrafficLightLogic(MSNet &net, const std::string &id,
+        const Phases &phases, size_t step, size_t delay)
+        : MSSimpleTrafficLightLogic(net, id, phases, step, delay) { }
 
     /// Destructor
     ~MSExtendedTrafficLightLogic() { }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/10/10 11:56:09  dkrajzew
+// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
+//
 // Revision 1.2  2005/09/22 13:45:52  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -141,7 +144,11 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
 #include <config.h>
+#endif
 #endif // HAVE_CONFIG_H
 
 #include <utility>

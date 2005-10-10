@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/10/10 11:56:09  dkrajzew
+// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
+//
 // Revision 1.8  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -133,11 +136,11 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
+MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(MSNet &net,
             const std::string &id, const Phases &phases,
             size_t step, size_t delay, int learnHorizon, int decHorizon,
             SUMOReal minDiff, int tcycle)
-    : MSExtendedTrafficLightLogic(id, phases, step, delay),
+    : MSExtendedTrafficLightLogic(net, id, phases, step, delay),
     tDecide(decHorizon), tSinceLastDecision (0), stepOfLastDecision (0),
     numberOfValues(learnHorizon), tCycle(tcycle), deltaLimit (minDiff)
 {

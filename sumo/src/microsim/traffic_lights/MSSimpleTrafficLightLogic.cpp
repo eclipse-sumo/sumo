@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/10/10 11:56:09  dkrajzew
+// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
+//
 // Revision 1.6  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -106,11 +109,12 @@ std::bitset<64> MSSimpleTrafficLightLogic::_allClear;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(const std::string &id,
+MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSNet &net,
+                                                     const std::string &id,
                                                      const Phases &phases,
                                                      size_t step,
                                                      size_t delay)
-    : MSTrafficLightLogic(id, delay), myPhases(phases),
+    : MSTrafficLightLogic(net, id, delay), myPhases(phases),
     myStep(step)
 {
 }

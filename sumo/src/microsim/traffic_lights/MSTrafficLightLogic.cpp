@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/10/10 11:56:09  dkrajzew
+// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
+//
 // Revision 1.5  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -110,16 +113,11 @@ using namespace std;
 
 
 /* =========================================================================
- * static member variable definitions
- * ======================================================================= */
-MSTrafficLightLogic::DictType MSTrafficLightLogic::_dict;
-
-
-/* =========================================================================
  * member method definitions
  * ======================================================================= */
-MSTrafficLightLogic::MSTrafficLightLogic(const std::string &id,  size_t delay)
-    : _id(id)
+MSTrafficLightLogic::MSTrafficLightLogic(MSNet &net,
+                                         const std::string &id, size_t delay)
+    : _id(id), myNet(net)
 {
     MSEventControl::getBeginOfTimestepEvents()->addEvent(
         new SwitchCommand(this), delay, MSEventControl::ADAPT_AFTER_EXECUTION);
@@ -144,7 +142,7 @@ MSTrafficLightLogic::setLinkPriorities()
         }
     }
 }
-
+/*
 
 bool
 MSTrafficLightLogic::dictionary(const std::string &name,
@@ -176,7 +174,7 @@ MSTrafficLightLogic::clear()
     //  !!! check deletion consistency
     _dict.clear();
 }
-
+*/
 
 void
 MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, size_t pos)
@@ -287,7 +285,7 @@ MSTrafficLightLogic::getLinksAt(size_t i) const
     return myLinks[i];
 }
 
-
+/*
 std::vector<MSTrafficLightLogic*>
 MSTrafficLightLogic::getList()
 {
@@ -298,7 +296,7 @@ MSTrafficLightLogic::getList()
     }
     return ret;
 }
-
+*/
 
 const std::string &
 MSTrafficLightLogic::id() const

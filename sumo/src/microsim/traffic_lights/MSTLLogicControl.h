@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/10/10 11:56:09  dkrajzew
+// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
+//
 // Revision 1.5  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -59,12 +62,8 @@
 #endif // HAVE_CONFIG_H
 
 #include <vector>
-
-
-/* =========================================================================
- * class declarations
- * ======================================================================= */
-class MSTrafficLightLogic;
+#include <utils/helpers/NamedObjectCont.h>
+#include "MSTrafficLightLogic.h"
 
 
 /* =========================================================================
@@ -73,10 +72,10 @@ class MSTrafficLightLogic;
 /**
  *
  */
-class MSTLLogicControl {
+class MSTLLogicControl : public NamedObjectCont<MSTrafficLightLogic*> {
 public:
     /// Constructor
-    MSTLLogicControl(const std::vector<MSTrafficLightLogic*> &tlLogics);
+    MSTLLogicControl();
 
     /// Destructor
     ~MSTLLogicControl();
@@ -86,13 +85,6 @@ public:
 
     /// For all traffic lights, the requests are masked away if they have yellow light
     void maskYellowLinks();
-
-private:
-    /// Definition of the storage for traffic light logics
-    typedef std::vector<MSTrafficLightLogic*> LogicVector;
-
-    /// The list of traffic light logics
-    LogicVector myLogics;
 
 };
 
