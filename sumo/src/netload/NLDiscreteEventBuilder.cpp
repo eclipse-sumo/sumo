@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/10/10 12:10:59  dkrajzew
+// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
+//
 // Revision 1.8  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -67,8 +70,10 @@ namespace
 #include <utils/xml/AttributesHandler.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
+#include <microsim/MSNet.h>
 #include <microsim/actions/Command_SaveTLSState.h>
 #include <microsim/MSEventControl.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
@@ -87,8 +92,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLDiscreteEventBuilder::NLDiscreteEventBuilder()
-    : AttributesHandler(sumoattrs, noSumoAttrs)
+NLDiscreteEventBuilder::NLDiscreteEventBuilder(MSNet &net)
+    : AttributesHandler(sumoattrs, noSumoAttrs),
+    myNet(net)
 {
     myActions["SaveTLSState"] = EV_SAVETLSTATE;
 }
@@ -147,7 +153,7 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const Attributes &attrs,
         dest = FileHelpers::getConfigurationRelative(basePath, dest);
     }
     // get the logic
-    MSTrafficLightLogic *logic = MSTrafficLightLogic::dictionary(source);
+    MSTrafficLightLogic *logic = myNet.getTLSControl().get(source);
     if(logic==0) {
         MsgHandler::getErrorInstance()->inform(
             string("The traffic light logic to save (")

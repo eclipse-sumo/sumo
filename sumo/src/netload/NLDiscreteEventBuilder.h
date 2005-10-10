@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/10/10 12:10:59  dkrajzew
+// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
+//
 // Revision 1.5  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -58,6 +61,7 @@
  * class declarations
  * ======================================================================= */
 class Command;
+class MSNet;
 
 
 /* =========================================================================
@@ -84,7 +88,7 @@ public:
     };
 
 	/// Constructor
-    NLDiscreteEventBuilder();
+    NLDiscreteEventBuilder(MSNet &net);
 
 	/// Destructor
     ~NLDiscreteEventBuilder();
@@ -104,6 +108,8 @@ protected:
 
 	/// Build actions that shall be executed during the simulation
     KnownActions myActions;
+
+    MSNet &myNet;
 
 };
 

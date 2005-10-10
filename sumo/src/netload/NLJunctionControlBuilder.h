@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2005/10/10 12:11:23  dkrajzew
+// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
+//
 // Revision 1.13  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -146,7 +149,7 @@ private:
 
 public:
     /// standard constructor
-    NLJunctionControlBuilder(OptionsCont &oc);
+    NLJunctionControlBuilder(MSNet &net, OptionsCont &oc);
 
     /// Destructor
     virtual ~NLJunctionControlBuilder();
@@ -233,9 +236,6 @@ protected:
     virtual void addJunctionInitInfo(MSExtendedTrafficLightLogic *key,
         const LaneVector &lv, SUMOReal det_offset);
 
-    /// Adds a build tls-logic
-    virtual void addTLLogic(MSTrafficLightLogic *logic);
-
     /** builds a junction that does not use a logic */
     virtual MSJunction *buildNoLogicJunction();
 
@@ -256,6 +256,8 @@ protected:
 
 
 protected:
+    MSNet &myNet;
+
     /// The offset within the junction
     SUMOTime          m_Offset;
 
@@ -285,7 +287,7 @@ protected:
 
 
     /// the list of the simulations junctions
-    MSJunctionControl::JunctionCont          *m_pJunctions;
+    mutable MSJunctionControl::JunctionCont          *m_pJunctions;
 
     /// the list of the incoming lanes of the currently chosen junction
     LaneVector                    m_pActiveIncomingLanes;
@@ -319,9 +321,6 @@ protected:
 
     /// The absolute duration of a tls-control loop
     size_t myAbsDuration;
-
-    /// A map containing the build logics
-    std::map<std::string, MSTrafficLightLogic*> myLogics;
 
     /// A definition of junction initialisation
     typedef std::pair<LaneVector, SUMOReal> TLInitInfo;
@@ -361,6 +360,9 @@ protected:
 
     // Default maximum gap actuated)
     SUMOReal myStdActuatedDetectorGap;
+
+
+    mutable MSTLLogicControl *myLogicControl;
 
 protected:
     /// numerical representation for a junction with no purpose

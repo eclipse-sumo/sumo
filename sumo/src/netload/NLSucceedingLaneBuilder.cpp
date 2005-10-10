@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/10/10 12:10:59  dkrajzew
+// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
+//
 // Revision 1.11  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -108,6 +111,7 @@ namespace
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "NLBuilder.h"
 #include "NLSucceedingLaneBuilder.h"
+#include "NLJunctionControlBuilder.h"
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
@@ -126,8 +130,8 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLSucceedingLaneBuilder::NLSucceedingLaneBuilder()
-    //: m_Junction(0)
+NLSucceedingLaneBuilder::NLSucceedingLaneBuilder(NLJunctionControlBuilder &jb)
+    : myJunctionControlBuilder(jb)
 {
     m_SuccLanes = new MSLinkCont();
     m_SuccLanes->reserve(10);
@@ -176,7 +180,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     // check whether this link is controlled by a traffic light
     MSTrafficLightLogic *logic = 0;
     if(tlid!="") {
-        logic = MSTrafficLightLogic::dictionary(tlid);
+        logic = myJunctionControlBuilder.getTLLogic(tlid);
         if(logic==0) {
             throw XMLIdNotKnownException("tl-logic", tlid);
         }

@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.18  2005/10/10 12:11:23  dkrajzew
+// reworking the tls-API: made tls-control non-static; made net an element of traffic lights
+//
 // Revision 1.17  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -169,8 +172,9 @@ const int NLJunctionControlBuilder::TYPE_DEAD_END = 3;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLJunctionControlBuilder::NLJunctionControlBuilder(OptionsCont &oc)
-    : _tlLogicNo(-1), m_Offset(0)
+NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet &net,
+                                                   OptionsCont &oc)
+    : myNet(net), _tlLogicNo(-1), m_Offset(0)
 {
     myStdDetectorPositions = oc.getFloat("actuated-tl.detector-pos");
     myStdDetectorLengths = oc.getFloat("agent-tl.detector-len");
@@ -181,11 +185,15 @@ NLJunctionControlBuilder::NLJunctionControlBuilder(OptionsCont &oc)
     myStdActuatedMaxGap = oc.getFloat("actuated-tl.max-gap");
     myStdActuatedPassingTime = oc.getFloat("actuated-tl.passing-time");
     myStdActuatedDetectorGap = oc.getFloat("actuated-tl.detector-gap");
+
+    myLogicControl = new MSTLLogicControl();
 }
 
 
 NLJunctionControlBuilder::~NLJunctionControlBuilder()
 {
+    delete myLogicControl;
+    delete m_pJunctions;
 }
 
 void
@@ -271,7 +279,9 @@ NLJunctionControlBuilder::closeJunction()
 MSJunctionControl *
 NLJunctionControlBuilder::build() const
 {
-    return new MSJunctionControl("", m_pJunctions);
+    MSJunctionControl::JunctionCont *js = m_pJunctions;
+    m_pJunctions = 0;
+    return new MSJunctionControl("", js);
 }
 
 
@@ -322,12 +332,7 @@ NLJunctionControlBuilder::initIncomingLanes()
 MSTrafficLightLogic * const
 NLJunctionControlBuilder::getTLLogic(const std::string &id) const
 {
-    std::map<std::string, MSTrafficLightLogic*>::const_iterator i =
-        myLogics.find(id);
-    if(i==myLogics.end()) {
-        return 0;
-    }
-    return (*i).second;
+    return myLogicControl->get(id);
 }
 
 
@@ -346,13 +351,6 @@ NLJunctionControlBuilder::addJunctionInitInfo(
 
 
 void
-NLJunctionControlBuilder::addTLLogic(MSTrafficLightLogic *logic)
-{
-    myLogics[logic->id()] = logic;
-}
-
-
-void
 NLJunctionControlBuilder::closeTrafficLightLogic()
 {
     if(_tlLogicNo!=0) {
@@ -361,43 +359,38 @@ NLJunctionControlBuilder::closeTrafficLightLogic()
     // compute the initial step of the tls-logic
     size_t step = computeInitTLSStep();
     size_t firstEventOffset = computeInitTLSEventOffset();
+    MSTrafficLightLogic *tlLogic = 0;
     // build the tls-logic in dependance to its type
     if(m_LogicType=="actuated") {
         // build an actuated logic
-        MSActuatedTrafficLightLogic *tlLogic =
-            new MSActuatedTrafficLightLogic(m_Key, m_ActivePhases,
+        tlLogic =
+            new MSActuatedTrafficLightLogic(myNet, m_Key, m_ActivePhases,
                 step, firstEventOffset,
                 myStdActuatedMaxGap,
                 myStdActuatedPassingTime,
                 myStdActuatedDetectorGap);
-        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
-        // !!! replacement within the dictionary
-        m_ActivePhases.clear();
-        addTLLogic(tlLogic);
-        addJunctionInitInfo(tlLogic,
+        addJunctionInitInfo(static_cast<MSExtendedTrafficLightLogic*>(tlLogic),
             getIncomingLanes(), m_DetectorOffset);
     } else if(m_LogicType=="agentbased") {
         // build an agentbased logic
-        MSAgentbasedTrafficLightLogic *tlLogic =
-            new MSAgentbasedTrafficLightLogic(m_Key, m_ActivePhases,
+        tlLogic =
+            new MSAgentbasedTrafficLightLogic(myNet, m_Key, m_ActivePhases,
                 step, firstEventOffset,
                 myStdLearnHorizon, myStdDecisionHorizon,
                 myStdDeltaLimit, myStdTCycle);
-        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
-        // !!! replacement within the dictionary
-        m_ActivePhases.clear();
-        addTLLogic(tlLogic);
-        addJunctionInitInfo(tlLogic,
+        addJunctionInitInfo(static_cast<MSExtendedTrafficLightLogic*>(tlLogic),
             getIncomingLanes(), m_DetectorOffset);
     } else {
         // build an uncontrolled (fix) tls-logic
-        MSTrafficLightLogic *tlLogic =
-            new MSSimpleTrafficLightLogic(
+        tlLogic =
+            new MSSimpleTrafficLightLogic(myNet,
                 m_Key, m_ActivePhases, step, firstEventOffset);
-        MSTrafficLightLogic::dictionary(m_Key, tlLogic);
         // !!! replacement within the dictionary
-        m_ActivePhases.clear();
-        addTLLogic(tlLogic);
+    }
+    m_ActivePhases.clear();
+    if(tlLogic!=0) {
+        // !!! replacement within the dictionary
+        myLogicControl->add(m_Key, tlLogic);
     }
 }
 
@@ -490,6 +483,7 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string &type,
     _tlLogicNo = tlLogicNo;
     initIncomingLanes();
     m_LogicType = type;
+    m_DetectorOffset = detectorOffset;
     if(m_DetectorOffset==-1) {
         // agentbased
         if(m_LogicType=="agentbased") {
@@ -602,13 +596,9 @@ NLJunctionControlBuilder::closeJunctions(NLDetectorBuilder &db,
 MSTLLogicControl *
 NLJunctionControlBuilder::buildTLLogics() const
 {
-    std::vector<MSTrafficLightLogic*> logics;
-    logics.reserve(myLogics.size());
-    std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
-    for(i=myLogics.begin(); i!=myLogics.end(); i++) {
-        logics.push_back((*i).second);
-    }
-    return new MSTLLogicControl(logics);
+    MSTLLogicControl *ret = myLogicControl;
+    myLogicControl = 0;
+    return ret;
 }
 
 
