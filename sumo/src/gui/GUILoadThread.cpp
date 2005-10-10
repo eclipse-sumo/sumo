@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2005/10/10 11:49:25  dkrajzew
+// debugging missing junction geometries; renamed *NetHandler to *Handler
+//
 // Revision 1.31  2005/10/07 11:36:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -140,6 +143,7 @@ namespace
 #include <guinetload/GUIDetectorBuilder.h>
 #include <guinetload/GUITriggerBuilder.h>
 #include <guinetload/GUIGeomShapeBuilder.h>
+#include <guinetload/GUIHandler.h>
 #include <guisim/GUIVehicleControl.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/common/UtilExceptions.h>
@@ -236,12 +240,12 @@ GUILoadThread::run()
         new GUINet(oc.getInt("begin"), oc.getInt("end"), buildVehicleControl());
     SUMOFrame::setMSGlobals(oc);
     GUIEdgeControlBuilder *eb = buildEdgeBuilder();
-    GUIJunctionControlBuilder jb(oc);
+    GUIJunctionControlBuilder jb(*net, oc);
     GUIDetectorBuilder db(*net);
     GUIGeomShapeBuilder sb(gIDStorage);
     GUITriggerBuilder tb;
-    NLBuilder builder(oc, *net, *eb, jb, db, tb, sb);
-//    NLNetBuilder builder(oc, *net, eb, jb, db, tb);
+    GUIHandler handler("", *net, db, tb, *eb, jb, sb);
+    NLBuilder builder(oc, *net, *eb, jb, db, tb, sb, handler);
     try {
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
