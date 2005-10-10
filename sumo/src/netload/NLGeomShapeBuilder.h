@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.4  2005/10/10 12:11:33  dkrajzew
+// debugging
+//
 // Revision 1.3  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -102,7 +105,7 @@ protected:
     RGBColor myCurrentColor;
 
     /// The shape container
-    ShapeContainer *myShapeContainer;
+    mutable ShapeContainer *myShapeContainer;
 
 };
 

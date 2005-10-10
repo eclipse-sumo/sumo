@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/10/10 12:11:33  dkrajzew
+// debugging
+//
 // Revision 1.13  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -154,6 +157,7 @@ NLEdgeControlBuilder::NLEdgeControlBuilder(unsigned int storageSize)
 NLEdgeControlBuilder::~NLEdgeControlBuilder()
 {
     delete m_pLaneStorage;
+    delete m_pEdges;
 }
 
 
@@ -303,7 +307,6 @@ NLEdgeControlBuilder::build()
             multiLanes->push_back(*i1);
         }
     }
-    delete m_pEdges;
     return new MSEdgeControl(singleLanes, multiLanes);
 }
 

@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/10/10 12:11:33  dkrajzew
+// debugging
+//
 // Revision 1.10  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -88,7 +91,7 @@ namespace
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
-#include "NLNetHandler.h"
+#include "NLHandler.h"
 #include "NLTriggerBuilder.h"
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 
@@ -126,7 +129,7 @@ MSTrigger *
 NLTriggerBuilder::buildTrigger(MSNet &net,
                                const Attributes &attrs,
                                const std::string &base,
-                               const NLNetHandler &helper)
+                               const NLHandler &helper)
 {
     string type = helper.getString(attrs, SUMO_ATTR_OBJECTTYPE);
     string attr = helper.getStringSecure(attrs, SUMO_ATTR_ATTR, "");
@@ -155,7 +158,7 @@ MSLaneSpeedTrigger *
 NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net,
                                                 const Attributes &attrs,
                                                 const std::string &base,
-                                                const NLNetHandler &helper)
+                                                const NLHandler &helper)
 {
     // check whether absolute or relative filenames are given
     string file = helper.getString(attrs, SUMO_ATTR_FILE);
@@ -191,7 +194,7 @@ MSTriggeredEmitter *
 NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net,
                                                const Attributes &attrs,
                                                const std::string &base,
-                                               const NLNetHandler &helper)
+                                               const NLHandler &helper)
 {
     // check whether absolute or relative filenames are given
     string file = helper.getString(attrs, SUMO_ATTR_FILE);
@@ -220,7 +223,7 @@ METriggeredCalibrator *
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
                                           const Attributes &attrs,
                                           const std::string &base,
-                                          const NLNetHandler &helper)
+                                          const NLHandler &helper)
 {
     // check whether absolute or relative filenames are given
     string file = helper.getString(attrs, SUMO_ATTR_FILE);
@@ -264,7 +267,7 @@ MSTriggeredRerouter *
 NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
                                         const Attributes &attrs,
                                         const std::string &base,
-                                        const NLNetHandler &helper)
+                                        const NLHandler &helper)
 {
     // check whether absolute or relative filenames are given
     string file = helper.getString(attrs, SUMO_ATTR_FILE);

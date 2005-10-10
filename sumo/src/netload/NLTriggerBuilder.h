@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/10/10 12:11:33  dkrajzew
+// debugging
+//
 // Revision 1.7  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -62,7 +65,7 @@ class MSTrigger;
 class MSNet;
 class MSLaneSpeedTrigger;
 class MSTriggeredEmitter;
-class NLNetHandler;
+class NLHandler;
 class MSTriggeredRerouter;
 class MSLane;
 class MSEdge;
@@ -91,29 +94,29 @@ public:
     /** @brief builds the specified trigger
         The certain type and purpose of the trigger is not yet known */
     MSTrigger *buildTrigger(MSNet &net, const Attributes &attrs,
-        const std::string &base, const NLNetHandler &helper);
+        const std::string &base, const NLHandler &helper);
 
 protected:
     /// builds a lane speed trigger
     MSLaneSpeedTrigger *parseAndBuildLaneSpeedTrigger(MSNet &net,
         const Attributes &attrs, const std::string &base,
-        const NLNetHandler &helper);
+        const NLHandler &helper);
 
     /// builds an emitter
     MSTriggeredEmitter *parseAndBuildLaneEmitTrigger(MSNet &net,
         const Attributes &attrs, const std::string &base,
-        const NLNetHandler &helper);
+        const NLHandler &helper);
 
     /// builds a rerouter
     MSTriggeredRerouter *parseAndBuildRerouter(MSNet &net,
         const Attributes &attrs, const std::string &base,
-        const NLNetHandler &helper);
+        const NLHandler &helper);
 
 #ifdef HAVE_MESOSIM
     /// Builds a mesoscopic calibrator
     METriggeredCalibrator *parseAndBuildCalibrator(MSNet &net,
         const Attributes &attrs, const std::string &base,
-        const NLNetHandler &helper);
+        const NLHandler &helper);
 #endif
 
 protected:

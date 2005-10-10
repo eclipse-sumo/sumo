@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/10/10 12:11:33  dkrajzew
+// debugging
+//
 // Revision 1.3  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -83,6 +86,7 @@ NLGeomShapeBuilder::NLGeomShapeBuilder()
 
 NLGeomShapeBuilder::~NLGeomShapeBuilder()
 {
+    delete myShapeContainer;
 }
 
 
@@ -127,7 +131,9 @@ NLGeomShapeBuilder::addPoint(const std::string &name,
 ShapeContainer *
 NLGeomShapeBuilder::buildShapeContainer() const
 {
-    return myShapeContainer;
+    ShapeContainer *ret = myShapeContainer;
+    myShapeContainer = 0;
+    return ret;
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/10/10 12:11:33  dkrajzew
+// debugging
+//
 // Revision 1.2  2005/09/15 12:20:19  dkrajzew
 // LARGE CODE RECHECK
 //
@@ -112,7 +115,11 @@ namespace
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
 #include <config.h>
+#endif
 #endif // HAVE_CONFIG_H
 
 #include <sumo_version.h>
