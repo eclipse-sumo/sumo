@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.64  2005/10/10 11:58:14  dkrajzew
+// debugging
+//
 // Revision 1.63  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -580,7 +583,7 @@ MSNet::~MSNet()
         delete *i1;
     }
     // close outputs
-    for(size_t i2=0; i2<OS_MAX; i2++) {
+    for(size_t i2=0; i2<OS_MAX&&i2<myOutputStreams.size(); i2++) {
         delete myOutputStreams[i2];
     }
     myMeanData.clear();
@@ -793,7 +796,7 @@ MSNet::clearAll()
     MSVehicle::clear();
     MSVehicleType::clear();
     MSRoute::clear();
-    MSTrafficLightLogic::clear();
+//    MSTrafficLightLogic::clear();
 //    NamedObjectContSingleton<MSTrigger*>::getInstance().clear();
 //    clear();
     delete MSVehicleTransfer::getInstance();
@@ -914,6 +917,12 @@ MSNet::getTriggerControl()
     return *myTriggerControl;
 }
 
+
+MSTLLogicControl &
+MSNet::getTLSControl()
+{
+    return *myLogics;
+}
 
 
 /*

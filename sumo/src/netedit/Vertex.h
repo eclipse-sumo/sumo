@@ -1,4 +1,3 @@
-// Vertex.h: Schnittstelle für die Klasse Vertex.
 #ifndef _VERTEX_H_
 #define _VERTEX_H_
 //---------------------------------------------------------------------------//
@@ -21,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/10/10 11:59:53  dkrajzew
+// debugging
+//
 // Revision 1.7  2005/10/07 11:38:33  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/10/10 11:59:53  dkrajzew
+// debugging
+//
 // Revision 1.7  2005/10/07 11:38:33  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -83,7 +86,7 @@ namespace
 #include <gui/GUIGlobals.h>
 
 #include <netload/NLBuilder.h>
-#include <guinetload/GUINetHandler.h>
+#include <guinetload/GUIHandler.h>
 #include <guinetload/GUITriggerBuilder.h>
 #include <guinetload/GUIDetectorBuilder.h>
 #include <guinetload/GUIEdgeControlBuilder.h>
@@ -472,18 +475,19 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
                 new GUIVehicleControl());
             SUMOFrame::setMSGlobals(oc2);
             GUIEdgeControlBuilder *eb = buildEdgeBuilder();
-            GUIJunctionControlBuilder jb(oc2);
+            GUIJunctionControlBuilder jb(*net, oc2);
             GUIDetectorBuilder db(*net);
             GUITriggerBuilder tb;
             GUIGeomShapeBuilder sb(gIDStorage);
-            NLBuilder builder(oc2, *net, *eb, jb, db, tb, sb);
+            GUIHandler handler("", *net, db, tb, *eb, jb, sb);
+            NLBuilder builder(oc2, *net, *eb, jb, db, tb, sb, handler);
             try {
                 MsgHandler::getErrorInstance()->clear();
                 MsgHandler::getWarningInstance()->clear();
                 MsgHandler::getMessageInstance()->clear();
 //                initDevices();
                 SUMOFrame::setMSGlobals(oc);
-                GUINetHandler handler("", *net, db, tb, *eb, jb, sb);
+                GUIHandler handler("", *net, db, tb, *eb, jb, sb);
                 handler.setWanted(LOADFILTER_NET);
                 // ... and the parser
                 SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
@@ -493,7 +497,7 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
                 parser->parse(*memBufIS);
                 bool ok = true;
                 if(!MsgHandler::getErrorInstance()->wasInformed()) {
-                    ok = builder.buildNet(handler, *this);
+                    ok = builder.buildNet(*this);
                 } else {
                     delete net;
                     net = 0;

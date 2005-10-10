@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.53  2005/10/10 11:58:14  dkrajzew
+// debugging
+//
 // Revision 1.52  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -544,6 +547,7 @@ public:
     MSEdgeControl &getEdgeControl();
     MSDetectorControl &getDetectorControl();
     MSTriggerControl &getTriggerControl();
+    MSTLLogicControl &getTLSControl();
     void addMeanData(MSMeanData_Net *newMeanData);
 
     virtual void closeBuilding(MSEdgeControl *edges,

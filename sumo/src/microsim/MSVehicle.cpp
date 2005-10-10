@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.67  2005/10/10 11:58:14  dkrajzew
+// debugging
+//
 // Revision 1.66  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -1758,7 +1761,7 @@ MSVehicle::enterLaneAtMove( MSLane* enteredLane, SUMOReal driven )
     SUMOReal entryTimestep =
         static_cast< SUMOReal >( MSNet::getInstance()->getCurrentTimeStep() ) - 1 +
         driven / myState.mySpeed;
-    assert(entryTimestep<debug_globaltime);
+    assert(entryTimestep<=debug_globaltime);
 //    updateMeanData( entryTimestep, 0, myState.mySpeed );
     // get new move reminder
     myMoveReminders = enteredLane->getMoveReminders();
