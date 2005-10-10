@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2005/10/10 11:59:40  dkrajzew
+// removed unneeded APIs
+//
 // Revision 1.20  2005/10/07 11:38:33  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -1521,21 +1524,6 @@ FXCursor *
 GNEApplicationWindow::getDefaultCursor()
 {
     return getApp()->getDefaultCursor(DEF_ARROW_CURSOR);
-}
-
-
-void
-GNEApplicationWindow::addTimeout(FXObject *tgt, FXSelector sel,
-                                 FXuint ms, void *ptr)
-{
-    getApp()->addTimeout(tgt, sel, ms, ptr);
-}
-
-
-void
-GNEApplicationWindow::removeTimeout(FXObject *tgt, FXSelector sel)
-{
-    getApp()->removeTimeout(tgt, sel);
 }
 
 

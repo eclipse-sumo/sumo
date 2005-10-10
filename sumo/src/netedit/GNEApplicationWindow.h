@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2005/10/10 11:59:40  dkrajzew
+// removed unneeded APIs
+//
 // Revision 1.10  2005/10/07 11:38:33  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -219,10 +222,6 @@ public:
     long onCmdPictureMenu(FXObject*,FXSelector,void*);
     long onUpdGraphMenu(FXObject*,FXSelector,void*);
     long onCmdGraphMenu(FXObject*,FXSelector,void*);
-
-    void addTimeout(FXObject *tgt, FXSelector sel,
-        FXuint ms=1000, void *ptr=NULL);
-    void removeTimeout(FXObject *tgt, FXSelector sel);
 
     FXGLCanvas *getBuildGLCanvas() const;
     size_t getCurrentSimTime() const;
