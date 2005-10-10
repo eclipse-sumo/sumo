@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.45  2005/10/10 11:53:36  dkrajzew
+// debugging actuated tls-lights
+//
 // Revision 1.44  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -184,7 +187,7 @@ namespace
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEmitControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
-//#include <utils/common/NamedObjectContSingleton.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gfx/RGBColor.h>
 #include "GUINetWrapper.h"
@@ -219,6 +222,12 @@ namespace
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
+
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
 
 
 /* =========================================================================
@@ -383,15 +392,13 @@ GUINet::initDetectors()
 void
 GUINet::initTLMap()
 {
-    GUINet *net = static_cast<GUINet*>(MSNet::getInstance());
-    //
-    typedef std::vector<MSTrafficLightLogic*> LogicVector;
     // get the list of loaded tl-logics
-    LogicVector tlls = MSTrafficLightLogic::getList();
+    const vector<MSTrafficLightLogic*> &logics =
+        getTLSControl().buildAndGetStaticVector();;
     // allocate storage for the wrappers
-    net->myTLLogicWrappers.reserve(tlls.size());
+    myTLLogicWrappers.reserve(logics.size());
     // go through the logics
-    for(LogicVector::iterator i=tlls.begin(); i!=tlls.end(); i++) {
+    for(vector<MSTrafficLightLogic*>::const_iterator i=logics.begin(); i!=logics.end(); ++i) {
         // get the logic
         MSTrafficLightLogic *tll = (*i);
         // get the links
@@ -408,7 +415,7 @@ GUINet::initTLMap()
         for(j=links.begin(); j!=links.end(); j++) {
             MSTrafficLightLogic::LinkVector::const_iterator j2;
             for(j2=(*j).begin(); j2!=(*j).end(); j2++) {
-                net->myLinks2Logic[*j2] = tllw;
+                myLinks2Logic[*j2] = tllw;
             }
         }
     }
