@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------//
-//                        ROJPEdge.cpp -
+//                        ROJTREdge.cpp -
 //  An edge the router may route through
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.1  2005/10/10 12:09:36  dkrajzew
+// renamed ROJP*-classes to ROJTR*
+//
 // Revision 1.9  2005/10/07 11:42:39  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -79,7 +82,7 @@ namespace
 #include <algorithm>
 #include <cassert>
 #include <utils/common/MsgHandler.h>
-#include "ROJPEdge.h"
+#include "ROJTREdge.h"
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -95,13 +98,13 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-ROJPEdge::ROJPEdge(const std::string &id, int index)
+ROJTREdge::ROJTREdge(const std::string &id, int index)
     : ROEdge(id, index)
 {
 }
 
 
-ROJPEdge::~ROJPEdge()
+ROJTREdge::~ROJTREdge()
 {
     for(FollowerUsageCont::iterator i=myFollowingDefs.begin(); i!=myFollowingDefs.end(); i++) {
         delete (*i).second;
@@ -110,16 +113,16 @@ ROJPEdge::~ROJPEdge()
 
 
 void
-ROJPEdge::addFollower(ROEdge *s)
+ROJTREdge::addFollower(ROEdge *s)
 {
     ROEdge::addFollower(s);
-    myFollowingDefs[static_cast<ROJPEdge*>(s)] =
+    myFollowingDefs[static_cast<ROJTREdge*>(s)] =
         new FloatValueTimeLine();
 }
 
 
 void
-ROJPEdge::addFollowerProbability(ROJPEdge *follower, SUMOTime begTime,
+ROJTREdge::addFollowerProbability(ROJTREdge *follower, SUMOTime begTime,
                                  SUMOTime endTime, SUMOReal percentage)
 {
     FollowerUsageCont::iterator i = myFollowingDefs.find(follower);
@@ -133,8 +136,8 @@ ROJPEdge::addFollowerProbability(ROJPEdge *follower, SUMOTime begTime,
 }
 
 
-ROJPEdge *
-ROJPEdge::chooseNext(SUMOTime time) const
+ROJTREdge *
+ROJTREdge::chooseNext(SUMOTime time) const
 {
     if(myFollowingEdges.size()==0) {
         return 0;
@@ -160,11 +163,11 @@ ROJPEdge::chooseNext(SUMOTime time) const
         for(j=myParsedTurnings.begin(); j!=myParsedTurnings.end(); j++) {
             chosen = chosen - (*j);
             if(chosen<0) {
-                return static_cast<ROJPEdge*>(myFollowingEdges[pos]);
+                return static_cast<ROJTREdge*>(myFollowingEdges[pos]);
             }
             pos++;
         }
-        return static_cast<ROJPEdge*>(myFollowingEdges[0]);
+        return static_cast<ROJTREdge*>(myFollowingEdges[0]);
     }
     // if the probabilities are given for all following edges
     if(noDescs==myFollowingEdges.size()) {
@@ -200,7 +203,7 @@ ROJPEdge::chooseNext(SUMOTime time) const
 
 
 void
-ROJPEdge::setTurnDefaults(const std::vector<SUMOReal> &defs)
+ROJTREdge::setTurnDefaults(const std::vector<SUMOReal> &defs)
 {
     // I hope, we'll find a less ridiculous solution for this
     std::vector<SUMOReal> tmp(defs.size()*myFollowingEdges.size(), 0);

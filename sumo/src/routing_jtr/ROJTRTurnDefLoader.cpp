@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------//
-//                        ROJPTurnDefLoader.cpp -
+//                        ROJTRTurnDefLoader.cpp -
 //      Loader for the description of turning percentages
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.1  2005/10/10 12:09:36  dkrajzew
+// renamed ROJP*-classes to ROJTR*
+//
 // Revision 1.8  2005/10/07 11:42:39  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -78,9 +81,9 @@ namespace
 #include <utils/common/TplConvert.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <router/RONet.h>
-#include "ROJPHelpers.h"
-#include "ROJPEdge.h"
-#include "ROJPTurnDefLoader.h"
+#include "ROJTRHelpers.h"
+#include "ROJTREdge.h"
+#include "ROJTRTurnDefLoader.h"
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -96,20 +99,20 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-ROJPTurnDefLoader::ROJPTurnDefLoader(RONet &net)
+ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet &net)
     : SUMOSAXHandler("turn-definitions"), myNet(net),
     myAmInitialised(false)
 {
 }
 
 
-ROJPTurnDefLoader::~ROJPTurnDefLoader()
+ROJTRTurnDefLoader::~ROJTRTurnDefLoader()
 {
 }
 
 
-std::set<ROJPEdge*>
-ROJPTurnDefLoader::load(const std::string &file)
+std::set<ROJTREdge*>
+ROJTRTurnDefLoader::load(const std::string &file)
 {
     _file = file;
     FileHelpers::FileType type = FileHelpers::checkFileType(file);
@@ -127,7 +130,7 @@ ROJPTurnDefLoader::load(const std::string &file)
 
 
 void
-ROJPTurnDefLoader::myStartElement(int element, const std::string &name,
+ROJTRTurnDefLoader::myStartElement(int element, const std::string &name,
                                   const Attributes &attrs)
 {
     switch(element) {
@@ -145,7 +148,7 @@ ROJPTurnDefLoader::myStartElement(int element, const std::string &name,
 
 
 void
-ROJPTurnDefLoader::myCharacters(int element, const std::string &name,
+ROJTRTurnDefLoader::myCharacters(int element, const std::string &name,
                                 const std::string &chars)
 {
     switch(element) {
@@ -157,7 +160,7 @@ ROJPTurnDefLoader::myCharacters(int element, const std::string &name,
 
 
 void
-ROJPTurnDefLoader::myEndElement(int element, const std::string &name)
+ROJTRTurnDefLoader::myEndElement(int element, const std::string &name)
 {
     switch(element) {
     case SUMO_TAG_INTERVAL:
@@ -171,7 +174,7 @@ ROJPTurnDefLoader::myEndElement(int element, const std::string &name)
 
 
 bool
-ROJPTurnDefLoader::report(const std::string &line)
+ROJTRTurnDefLoader::report(const std::string &line)
 {
     if(!myAmInitialised) {
         myColumnsParser.reinit(line, ";");
@@ -196,7 +199,7 @@ ROJPTurnDefLoader::report(const std::string &line)
                 return false;
             }
             string id = getSecure("from");
-            myEdge = static_cast<ROJPEdge*>(myNet.getEdge(id));
+            myEdge = static_cast<ROJTREdge*>(myNet.getEdge(id));
             if(myEdge==0) {
                 MsgHandler::getErrorInstance()->inform(
                     string("The edge '") + id
@@ -204,7 +207,7 @@ ROJPTurnDefLoader::report(const std::string &line)
                 return false;
             }
             id = getSecure("to");
-            ROJPEdge *edge = static_cast<ROJPEdge*>(myNet.getEdge(id));
+            ROJTREdge *edge = static_cast<ROJTREdge*>(myNet.getEdge(id));
             if(edge==0) {
                 MsgHandler::getErrorInstance()->inform(
                     string("The edge '") + id
@@ -231,7 +234,7 @@ ROJPTurnDefLoader::report(const std::string &line)
 
 
 std::string
-ROJPTurnDefLoader::getSecure(const std::string &name)
+ROJTRTurnDefLoader::getSecure(const std::string &name)
 {
     try {
         return myColumnsParser.get(name);
@@ -250,7 +253,7 @@ ROJPTurnDefLoader::getSecure(const std::string &name)
 
 
 void
-ROJPTurnDefLoader::beginInterval(const Attributes &attrs)
+ROJTRTurnDefLoader::beginInterval(const Attributes &attrs)
 {
     try {
         myIntervalBegin = getInt(attrs, SUMO_ATTR_BEGIN);
@@ -280,7 +283,7 @@ ROJPTurnDefLoader::beginInterval(const Attributes &attrs)
 
 
 void
-ROJPTurnDefLoader::beginFromEdge(const Attributes &attrs)
+ROJTRTurnDefLoader::beginFromEdge(const Attributes &attrs)
 {
     string id;
     try {
@@ -291,7 +294,7 @@ ROJPTurnDefLoader::beginFromEdge(const Attributes &attrs)
         return;
     }
     //
-    myEdge = static_cast<ROJPEdge*>(myNet.getEdge(id));
+    myEdge = static_cast<ROJTREdge*>(myNet.getEdge(id));
     if(myEdge==0) {
         MsgHandler::getErrorInstance()->inform(
             string("The edge '") + id
@@ -302,7 +305,7 @@ ROJPTurnDefLoader::beginFromEdge(const Attributes &attrs)
 
 
 void
-ROJPTurnDefLoader::addToEdge(const Attributes &attrs)
+ROJTRTurnDefLoader::addToEdge(const Attributes &attrs)
 {
     string id;
     try {
@@ -313,7 +316,7 @@ ROJPTurnDefLoader::addToEdge(const Attributes &attrs)
         return;
     }
     //
-    ROJPEdge *edge = static_cast<ROJPEdge*>(myNet.getEdge(id));
+    ROJTREdge *edge = static_cast<ROJTREdge*>(myNet.getEdge(id));
     if(edge==0) {
         MsgHandler::getErrorInstance()->inform(
             string("The edge '") + id
@@ -337,23 +340,23 @@ ROJPTurnDefLoader::addToEdge(const Attributes &attrs)
 
 
 void
-ROJPTurnDefLoader::addSink(const std::string &chars)
+ROJTRTurnDefLoader::addSink(const std::string &chars)
 {
     try {
-        ROJPHelpers::parseROJPEdges(myNet, mySinks, chars);
+        ROJTRHelpers::parseROJTREdges(myNet, mySinks, chars);
     } catch(ProcessError &) {
     }
 }
 
 
 void
-ROJPTurnDefLoader::endInterval()
+ROJTRTurnDefLoader::endInterval()
 {
 }
 
 
 void
-ROJPTurnDefLoader::endFromEdge()
+ROJTRTurnDefLoader::endFromEdge()
 {
 }
 

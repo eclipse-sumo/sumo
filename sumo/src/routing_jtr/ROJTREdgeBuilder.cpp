@@ -1,8 +1,6 @@
-#ifndef ROJPRouter_h
-#define ROJPRouter_h
 //---------------------------------------------------------------------------//
-//                        ROJPRouter.h -
-//      The junction-percentage router
+//                        ROJTREdgeBuilder.cpp -
+//      The builder for jp-edges
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 20 Jan 2004
@@ -19,9 +17,20 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
 // $Log$
-// Revision 1.5  2005/10/07 11:42:39  dkrajzew
+// Revision 1.1  2005/10/10 12:09:36  dkrajzew
+// renamed ROJP*-classes to ROJTR*
+//
+// Revision 1.6  2005/10/07 11:42:39  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+//
+// Revision 1.5  2005/09/23 06:04:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
 // Revision 1.4  2005/09/15 12:05:34  dkrajzew
 // LARGE CODE RECHECK
@@ -29,18 +38,11 @@
 // Revision 1.3  2005/05/04 08:57:12  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
-// Revision 1.2  2004/11/23 10:26:59  dkrajzew
-// debugging
+// Revision 1.2  2004/07/02 09:40:36  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing (lane index added)
 //
 // Revision 1.1  2004/02/06 08:43:46  dkrajzew
 // new naming applied to the folders (jp-router is now called jtr-router)
-//
-// Revision 1.3  2004/01/28 14:19:20  dkrajzew
-// allowed to specify the maximum edge number in a route by a factor
-//
-// Revision 1.2  2004/01/26 09:58:15  dkrajzew
-// sinks are now simply marked as these instead of the usage of a further
-//  container
 //
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
@@ -62,52 +64,54 @@
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <router/ROAbstractRouter.h>
-#include <router/ROEdgeVector.h>
+#include <router/RONet.h>
+#include "ROJTREdge.h"
+#include "ROJTREdgeBuilder.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
- * class declarations
+ * used namespaces
  * ======================================================================= */
-class RONet;
-class ROEdge;
-class ROJPEdge;
+using namespace std;
 
 
 /* =========================================================================
- * class definitions
+ * method definitions
  * ======================================================================= */
-/**
- * @class ROJPRouter
- * Lays the given route over the edges using the dijkstra algorithm
- */
-class ROJPRouter : public ROAbstractRouter {
-public:
-    /// Constructor
-    ROJPRouter(RONet &net);
+ROJTREdgeBuilder::ROJTREdgeBuilder()
+{
+}
 
-    /// Destructor
-    ~ROJPRouter();
 
-    /** @brief Builds the route between the given edges using the minimum afford at the given time
-        The definition of the afford depends on the wished routing scheme */
-    ROEdgeVector compute(ROEdge *from, ROEdge *to,
-        SUMOTime time, bool continueOnUnbuild,
-		ROAbstractEdgeEffortRetriever * const retriever=0);
+ROJTREdgeBuilder::~ROJTREdgeBuilder()
+{
+}
 
-private:
-    /// The network to use
-    RONet &myNet;
 
-    /// The maximum number of edges a route may have
-    int myMaxEdges;
+ROEdge *
+ROJTREdgeBuilder::buildEdge(const std::string &name)
+{
+    myNames.push_back(name);
+    return new ROJTREdge(name, getCurrentIndex());
+}
 
-};
+
+void
+ROJTREdgeBuilder::setTurningDefinitions(RONet &net,
+                                       const std::vector<SUMOReal> &turn_defs)
+{
+    for(vector<string>::iterator i=myNames.begin(); i!=myNames.end(); i++) {
+        ROJTREdge *edge = static_cast<ROJTREdge*>(net.getEdge((*i)));
+        edge->setTurnDefaults(turn_defs);
+    }
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-#endif
 
 // Local Variables:
 // mode:C++

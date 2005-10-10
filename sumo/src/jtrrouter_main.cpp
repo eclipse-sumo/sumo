@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/10/10 12:09:36  dkrajzew
+// renamed ROJP*-classes to ROJTR*
+//
 // Revision 1.8  2005/10/07 11:48:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -119,11 +122,11 @@ namespace
 #include <utils/common/ToString.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/xml/XMLSubSys.h>
-#include <routing_jtr/ROJPEdgeBuilder.h>
-#include <routing_jtr/ROJPRouter.h>
-#include <routing_jtr/ROJPEdge.h>
-#include <routing_jtr/ROJPTurnDefLoader.h>
-#include <routing_jtr/ROJPHelpers.h>
+#include <routing_jtr/ROJTREdgeBuilder.h>
+#include <routing_jtr/ROJTRRouter.h>
+#include <routing_jtr/ROJTREdge.h>
+#include <routing_jtr/ROJTRTurnDefLoader.h>
+#include <routing_jtr/ROJTRHelpers.h>
 #include <routing_jtr/ROJTRFrame.h>
 #include "jtrrouter_help.h"
 #include "jtrrouter_build.h"
@@ -170,7 +173,7 @@ loadNet(ROLoader &loader, OptionsCont &oc,
         const std::vector<SUMOReal> &turnDefs)
 {
     // load the net
-    ROJPEdgeBuilder builder;
+    ROJTREdgeBuilder builder;
     RONet *net = loader.loadNet(builder);
     if(net==0) {
         return 0;
@@ -235,18 +238,18 @@ getTurningDefaults(OptionsCont &oc)
 void
 loadJPDefinitions(RONet &net, OptionsCont &oc)
 {
-    std::set<ROJPEdge*> ret;
+    std::set<ROJTREdge*> ret;
     // load the turning definitions (and possible sink definition)
     if(oc.isSet("turn-definition")) {
-        ROJPTurnDefLoader loader(net);
+        ROJTRTurnDefLoader loader(net);
         ret = loader.load(oc.getString("turn-definition"));
     }
     // add edges specified at the input/within the configuration
     if(oc.isSet("sinks")) {
-        ROJPHelpers::parseROJPEdges(net, ret, oc.getString("sinks"));
+        ROJTRHelpers::parseROJTREdges(net, ret, oc.getString("sinks"));
     }
     // set the sink information into the edges
-    for(std::set<ROJPEdge*>::iterator i=ret.begin(); i!=ret.end(); i++) {
+    for(std::set<ROJTREdge*>::iterator i=ret.begin(); i!=ret.end(); i++) {
         (*i)->setType(ROEdge::ET_SINK);
     }
 }
@@ -262,7 +265,7 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
     net.openOutput(
         oc.getString("output"), false);
     // build the router
-    ROJPRouter router(net);
+    ROJTRRouter router(net);
     // initialise the loader
     loader.openRoutes(net, 1, 1);
     // the routes are sorted - process stepwise

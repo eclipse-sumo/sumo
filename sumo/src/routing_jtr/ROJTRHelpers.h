@@ -1,8 +1,8 @@
-#ifndef ROJPEdge_h
-#define ROJPEdge_h
+#ifndef ROJTRHelpers_h
+#define ROJTRHelpers_h
 //---------------------------------------------------------------------------//
-//                        ROJPEdge.h -
-//  An edge the router may route through
+//                        ROJTRHelpers.h -
+//      A set of helping functions
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 20 Jan 2004
@@ -20,23 +20,17 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.7  2005/10/07 11:42:39  dkrajzew
+// Revision 1.1  2005/10/10 12:09:36  dkrajzew
+// renamed ROJP*-classes to ROJTR*
+//
+// Revision 1.4  2005/10/07 11:42:39  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
-// Revision 1.6  2005/09/23 06:04:58  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 12:05:34  dkrajzew
+// Revision 1.3  2005/09/15 12:05:34  dkrajzew
 // LARGE CODE RECHECK
 //
-// Revision 1.4  2005/05/04 08:57:12  dkrajzew
+// Revision 1.2  2005/05/04 08:57:12  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.3  2004/12/16 12:26:52  dkrajzew
-// debugging
-//
-// Revision 1.2  2004/07/02 09:40:36  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing (lane index added)
 //
 // Revision 1.1  2004/02/06 08:43:46  dkrajzew
 // new naming applied to the folders (jp-router is now called jtr-router)
@@ -61,64 +55,29 @@
 #endif
 #endif // HAVE_CONFIG_H
 
+#include <set>
 #include <string>
-#include <map>
-#include <vector>
-#include <utils/router/FloatValueTimeLine.h>
-#include <router/ROEdge.h>
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class ROLane;
-
+class RONet;
+class ROJTREdge;
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * @class ROJPEdge
- * A router's edge extended by the definition about the probability a
- *  vehicle's probabilities to choose a certain following edge over time.
+ * @class ROJTRHelpers
+ * Some functions commonly used within the junction-percentage router.
  */
-class ROJPEdge : public ROEdge {
+class ROJTRHelpers {
 public:
-    /// Constructor
-    ROJPEdge(const std::string &id, int index);
-
-    /// Desturctor
-    ~ROJPEdge();
-
-    /// Adds information about a connected edge
-    void addFollower(ROEdge *s);
-
-    /// adds the information about the percentage of using a certain follower
-    void addFollowerProbability(ROJPEdge *follower,
-        SUMOTime begTime, SUMOTime endTime, SUMOReal percentage);
-
-    /// Returns the next edge to use
-    ROJPEdge *chooseNext(SUMOTime time) const;
-
-    /// Sets the turning definition defaults
-    void setTurnDefaults(const std::vector<SUMOReal> &defs);
-
-private:
-    /// Definition of a map that stores the probabilities of using a certain follower over time
-    typedef std::map<ROJPEdge*, FloatValueTimeLine*> FollowerUsageCont;
-
-    /// Storage for the probabilities of using a certain follower over time
-    FollowerUsageCont myFollowingDefs;
-
-    /// The defaults for turnings
-    std::vector<SUMOReal> myParsedTurnings;
-
-private:
-    /// we made the copy constructor invalid
-    ROJPEdge(const ROJPEdge &src);
-
-    /// we made the assignment operator invalid
-    ROJPEdge &operator=(const ROJPEdge &src);
+    /** @brief Parses the names of given edges as a list of edge names, adds the edges into the container
+        It is assumed, the names are divided by a ';' */
+	static void parseROJTREdges(RONet &net, std::set<ROJTREdge*> &into,
+		const std::string &chars);
 
 };
 
@@ -130,4 +89,5 @@ private:
 // Local Variables:
 // mode:C++
 // End:
+
 

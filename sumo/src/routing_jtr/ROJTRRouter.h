@@ -1,5 +1,7 @@
+#ifndef ROJTRRouter_h
+#define ROJTRRouter_h
 //---------------------------------------------------------------------------//
-//                        ROJPRouter.cpp -
+//                        ROJTRRouter.h -
 //      The junction-percentage router
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -17,17 +19,12 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
 // $Log$
-// Revision 1.6  2005/10/07 11:42:39  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+// Revision 1.1  2005/10/10 12:09:36  dkrajzew
+// renamed ROJP*-classes to ROJTR*
 //
-// Revision 1.5  2005/09/23 06:04:58  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+// Revision 1.5  2005/10/07 11:42:39  dkrajzew
+// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
 // Revision 1.4  2005/09/15 12:05:34  dkrajzew
 // LARGE CODE RECHECK
@@ -41,14 +38,12 @@ namespace
 // Revision 1.1  2004/02/06 08:43:46  dkrajzew
 // new naming applied to the folders (jp-router is now called jtr-router)
 //
-// Revision 1.4  2004/02/02 16:20:16  dkrajzew
-// catched the problems with dead end edges
-//
-// Revision 1.3  2004/01/28 14:19:16  dkrajzew
+// Revision 1.3  2004/01/28 14:19:20  dkrajzew
 // allowed to specify the maximum edge number in a route by a factor
 //
 // Revision 1.2  2004/01/26 09:58:15  dkrajzew
-// sinks are now simply marked as these instead of the usage of a further container
+// sinks are now simply marked as these instead of the usage of a further
+//  container
 //
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
@@ -70,81 +65,54 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <router/RONet.h>
-#include "ROJPRouter.h"
-#include "ROJPEdge.h"
-#include <utils/common/MsgHandler.h>
-#include <utils/options/OptionsSubSys.h>
-#include <utils/options/OptionsCont.h>
-
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#include <router/ROAbstractRouter.h>
+#include <router/ROEdgeVector.h>
 
 
 /* =========================================================================
- * used namespaces
+ * class declarations
  * ======================================================================= */
-using namespace std;
+class RONet;
+class ROEdge;
+class ROJTREdge;
 
 
 /* =========================================================================
- * method definitions
+ * class definitions
  * ======================================================================= */
-ROJPRouter::ROJPRouter(RONet &net)
-    : myNet(net)
-{
-    myMaxEdges = (int) (
-        ((SUMOReal) net.getEdgeNo()) *
-         OptionsSubSys::getOptions().getFloat("max-edges-factor"));
-}
+/**
+ * @class ROJTRRouter
+ * Lays the given route over the edges using the dijkstra algorithm
+ */
+class ROJTRRouter : public ROAbstractRouter {
+public:
+    /// Constructor
+    ROJTRRouter(RONet &net);
 
+    /// Destructor
+    ~ROJTRRouter();
 
-ROJPRouter::~ROJPRouter()
-{
-}
+    /** @brief Builds the route between the given edges using the minimum afford at the given time
+        The definition of the afford depends on the wished routing scheme */
+    ROEdgeVector compute(ROEdge *from, ROEdge *to,
+        SUMOTime time, bool continueOnUnbuild,
+		ROAbstractEdgeEffortRetriever * const retriever=0);
 
+private:
+    /// The network to use
+    RONet &myNet;
 
-ROEdgeVector
-ROJPRouter::compute(ROEdge *from, ROEdge *to, SUMOTime time,
-                    bool continueOnUnbuild,
-					ROAbstractEdgeEffortRetriever * const retriever)
-{
-    ROEdgeVector ret;
-    ROJPEdge *current = static_cast<ROJPEdge*>(from);
-    // route until a sinks has been found
-    while(  current!=0
-            &&
-            current->getType()!=ROEdge::ET_SINK
-            &&
-            (int) ret.size()<myMaxEdges) {
-        ret.add(current);
-        time += (SUMOTime) current->getDuration(time);
-        current = current->chooseNext(time);
-    }
-    // check whether no valid ending edge was found
-    if((int) ret.size()>=myMaxEdges) {
-        MsgHandler *mh = 0;
-        if(continueOnUnbuild) {
-            mh = MsgHandler::getWarningInstance();
-        } else {
-            mh = MsgHandler::getErrorInstance();
-        }
-        mh->inform(string("The route starting at edge '") + from->getID()
-            + string("' could not be closed."));
-    }
-    // append the sink
-    if(current!=0) {
-        ret.add(current);
-    }
-    return ret;
-}
+    /// The maximum number of edges a route may have
+    int myMaxEdges;
+
+};
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+#endif
+
 // Local Variables:
 // mode:C++
 // End:
-
 

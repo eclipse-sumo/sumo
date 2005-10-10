@@ -3,9 +3,9 @@ noinst_LIBRARIES = libjtrrouting.a
 
 EXTRA_DIST =
 
-libjtrrouting_a_SOURCES = ROJPEdge.cpp ROJPEdge.h \
-ROJPEdgeBuilder.cpp ROJPEdgeBuilder.h ROJPHelpers.cpp ROJPHelpers.h \
-ROJPRouter.cpp ROJPRouter.h ROJPTurnDefLoader.cpp ROJPTurnDefLoader.h \
+libjtrrouting_a_SOURCES = ROJTREdge.cpp ROJTREdge.h \
+ROJTREdgeBuilder.cpp ROJTREdgeBuilder.h ROJTRHelpers.cpp ROJTRHelpers.h \
+ROJTRRouter.cpp ROJTRRouter.h ROJTRTurnDefLoader.cpp ROJTRTurnDefLoader.h \
 ROJTRFrame.cpp ROJTRFrame.h
 
 SUBDIRS =

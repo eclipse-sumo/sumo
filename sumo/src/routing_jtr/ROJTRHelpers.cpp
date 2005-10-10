@@ -1,7 +1,5 @@
-#ifndef ROJPHelpers_h
-#define ROJPHelpers_h
 //---------------------------------------------------------------------------//
-//                        ROJPHelpers.h -
+//                        ROJTRHelpers.cpp -
 //      A set of helping functions
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -19,7 +17,15 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
 // $Log$
+// Revision 1.1  2005/10/10 12:09:36  dkrajzew
+// renamed ROJP*-classes to ROJTR*
+//
 // Revision 1.4  2005/10/07 11:42:39  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -52,39 +58,48 @@
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <set>
 #include <string>
+#include "ROJTRHelpers.h"
+#include <router/RONet.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
+#include "ROJTREdge.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
- * class declarations
+ * used namespaces
  * ======================================================================= */
-class RONet;
-class ROJPEdge;
+using namespace std;
+
 
 /* =========================================================================
- * class definitions
+ * method definitions
  * ======================================================================= */
-/**
- * @class ROJPHelpers
- * Some functions commonly used within the junction-percentage router.
- */
-class ROJPHelpers {
-public:
-    /** @brief Parses the names of given edges as a list of edge names, adds the edges into the container
-        It is assumed, the names are divided by a ';' */
-	static void parseROJPEdges(RONet &net, std::set<ROJPEdge*> &into,
-		const std::string &chars);
-
-};
+void
+ROJTRHelpers::parseROJTREdges(RONet &net, std::set<ROJTREdge*> &into,
+                            const std::string &chars)
+{
+	StringTokenizer st(chars, ";");
+	while(st.hasNext()) {
+		string name = st.next();
+		ROJTREdge *edge = static_cast<ROJTREdge*>(net.getEdge(name));
+		if(edge==0) {
+			MsgHandler::getErrorInstance()->inform(
+				string("The edge '") + name + string(" declared as a sink was not found in the network."));
+			throw ProcessError();
+		}
+		into.insert(edge);
+	}
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-#endif
-
 // Local Variables:
 // mode:C++
 // End:
-
-

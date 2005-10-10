@@ -1,6 +1,8 @@
+#ifndef ROJTREdge_h
+#define ROJTREdge_h
 //---------------------------------------------------------------------------//
-//                        ROJPHelpers.cpp -
-//      A set of helping functions
+//                        ROJTREdge.h -
+//  An edge the router may route through
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 20 Jan 2004
@@ -17,20 +19,27 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
 // $Log$
-// Revision 1.4  2005/10/07 11:42:39  dkrajzew
+// Revision 1.1  2005/10/10 12:09:36  dkrajzew
+// renamed ROJP*-classes to ROJTR*
+//
+// Revision 1.7  2005/10/07 11:42:39  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
-// Revision 1.3  2005/09/15 12:05:34  dkrajzew
+// Revision 1.6  2005/09/23 06:04:58  dkrajzew
+// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+//
+// Revision 1.5  2005/09/15 12:05:34  dkrajzew
 // LARGE CODE RECHECK
 //
-// Revision 1.2  2005/05/04 08:57:12  dkrajzew
+// Revision 1.4  2005/05/04 08:57:12  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
+//
+// Revision 1.3  2004/12/16 12:26:52  dkrajzew
+// debugging
+//
+// Revision 1.2  2004/07/02 09:40:36  dkrajzew
+// debugging while working on INVENT; preparation of classes to be derived for an online-routing (lane index added)
 //
 // Revision 1.1  2004/02/06 08:43:46  dkrajzew
 // new naming applied to the folders (jp-router is now called jtr-router)
@@ -56,47 +65,72 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include "ROJPHelpers.h"
-#include <router/RONet.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/UtilExceptions.h>
-#include "ROJPEdge.h"
-
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#include <map>
+#include <vector>
+#include <utils/router/FloatValueTimeLine.h>
+#include <router/ROEdge.h>
 
 
 /* =========================================================================
- * used namespaces
+ * class declarations
  * ======================================================================= */
-using namespace std;
+class ROLane;
 
 
 /* =========================================================================
- * method definitions
+ * class definitions
  * ======================================================================= */
-void
-ROJPHelpers::parseROJPEdges(RONet &net, std::set<ROJPEdge*> &into,
-                            const std::string &chars)
-{
-	StringTokenizer st(chars, ";");
-	while(st.hasNext()) {
-		string name = st.next();
-		ROJPEdge *edge = static_cast<ROJPEdge*>(net.getEdge(name));
-		if(edge==0) {
-			MsgHandler::getErrorInstance()->inform(
-				string("The edge '") + name + string(" declared as a sink was not found in the network."));
-			throw ProcessError();
-		}
-		into.insert(edge);
-	}
-}
+/**
+ * @class ROJTREdge
+ * A router's edge extended by the definition about the probability a
+ *  vehicle's probabilities to choose a certain following edge over time.
+ */
+class ROJTREdge : public ROEdge {
+public:
+    /// Constructor
+    ROJTREdge(const std::string &id, int index);
+
+    /// Desturctor
+    ~ROJTREdge();
+
+    /// Adds information about a connected edge
+    void addFollower(ROEdge *s);
+
+    /// adds the information about the percentage of using a certain follower
+    void addFollowerProbability(ROJTREdge *follower,
+        SUMOTime begTime, SUMOTime endTime, SUMOReal percentage);
+
+    /// Returns the next edge to use
+    ROJTREdge *chooseNext(SUMOTime time) const;
+
+    /// Sets the turning definition defaults
+    void setTurnDefaults(const std::vector<SUMOReal> &defs);
+
+private:
+    /// Definition of a map that stores the probabilities of using a certain follower over time
+    typedef std::map<ROJTREdge*, FloatValueTimeLine*> FollowerUsageCont;
+
+    /// Storage for the probabilities of using a certain follower over time
+    FollowerUsageCont myFollowingDefs;
+
+    /// The defaults for turnings
+    std::vector<SUMOReal> myParsedTurnings;
+
+private:
+    /// we made the copy constructor invalid
+    ROJTREdge(const ROJTREdge &src);
+
+    /// we made the assignment operator invalid
+    ROJTREdge &operator=(const ROJTREdge &src);
+
+};
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
+#endif
+
 // Local Variables:
 // mode:C++
 // End:
+

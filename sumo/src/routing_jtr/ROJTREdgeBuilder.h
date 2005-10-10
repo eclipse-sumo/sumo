@@ -1,7 +1,7 @@
-#ifndef ROJPEdgeBuilder_h
-#define ROJPEdgeBuilder_h
+#ifndef ROJTREdgeBuilder_h
+#define ROJTREdgeBuilder_h
 //---------------------------------------------------------------------------//
-//                        ROJPEdgeBuilder.h -
+//                        ROJTREdgeBuilder.h -
 //      The builder for jp-edges
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.1  2005/10/10 12:09:36  dkrajzew
+// renamed ROJP*-classes to ROJTR*
+//
 // Revision 1.5  2005/10/07 11:42:39  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -69,17 +72,17 @@ class RONet;
  * class definitions
  * ======================================================================= */
 /**
- * @class ROJPEdgeBuilder
+ * @class ROJTREdgeBuilder
  * This class builds edges that may be used by the junction-percantage
  *  router.
  */
-class ROJPEdgeBuilder : public ROAbstractEdgeBuilder {
+class ROJTREdgeBuilder : public ROAbstractEdgeBuilder {
 public:
     /// Constructor
-    ROJPEdgeBuilder();
+    ROJTREdgeBuilder();
 
     /// Destructor
-    ~ROJPEdgeBuilder();
+    ~ROJTREdgeBuilder();
 
     /** @brief Builds a jp-edge */
     ROEdge *buildEdge(const std::string &name);

@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
-//                        ROJPEdgeBuilder.cpp -
-//      The builder for jp-edges
+//                        ROJTRRouter.cpp -
+//      The junction-percentage router
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
 //  begin                : Tue, 20 Jan 2004
@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.1  2005/10/10 12:09:36  dkrajzew
+// renamed ROJP*-classes to ROJTR*
+//
 // Revision 1.6  2005/10/07 11:42:39  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -35,11 +38,20 @@ namespace
 // Revision 1.3  2005/05/04 08:57:12  dkrajzew
 // level 3 warnings removed; a certain SUMOTime time description added
 //
-// Revision 1.2  2004/07/02 09:40:36  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing (lane index added)
+// Revision 1.2  2004/11/23 10:26:59  dkrajzew
+// debugging
 //
 // Revision 1.1  2004/02/06 08:43:46  dkrajzew
 // new naming applied to the folders (jp-router is now called jtr-router)
+//
+// Revision 1.4  2004/02/02 16:20:16  dkrajzew
+// catched the problems with dead end edges
+//
+// Revision 1.3  2004/01/28 14:19:16  dkrajzew
+// allowed to specify the maximum edge number in a route by a factor
+//
+// Revision 1.2  2004/01/26 09:58:15  dkrajzew
+// sinks are now simply marked as these instead of the usage of a further container
 //
 // Revision 1.1  2004/01/26 06:09:11  dkrajzew
 // initial commit for jp-classes
@@ -62,8 +74,11 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <router/RONet.h>
-#include "ROJPEdge.h"
-#include "ROJPEdgeBuilder.h"
+#include "ROJTRRouter.h"
+#include "ROJTREdge.h"
+#include <utils/common/MsgHandler.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -79,32 +94,53 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-ROJPEdgeBuilder::ROJPEdgeBuilder()
+ROJTRRouter::ROJTRRouter(RONet &net)
+    : myNet(net)
+{
+    myMaxEdges = (int) (
+        ((SUMOReal) net.getEdgeNo()) *
+         OptionsSubSys::getOptions().getFloat("max-edges-factor"));
+}
+
+
+ROJTRRouter::~ROJTRRouter()
 {
 }
 
 
-ROJPEdgeBuilder::~ROJPEdgeBuilder()
+ROEdgeVector
+ROJTRRouter::compute(ROEdge *from, ROEdge *to, SUMOTime time,
+                    bool continueOnUnbuild,
+					ROAbstractEdgeEffortRetriever * const retriever)
 {
-}
-
-
-ROEdge *
-ROJPEdgeBuilder::buildEdge(const std::string &name)
-{
-    myNames.push_back(name);
-    return new ROJPEdge(name, getCurrentIndex());
-}
-
-
-void
-ROJPEdgeBuilder::setTurningDefinitions(RONet &net,
-                                       const std::vector<SUMOReal> &turn_defs)
-{
-    for(vector<string>::iterator i=myNames.begin(); i!=myNames.end(); i++) {
-        ROJPEdge *edge = static_cast<ROJPEdge*>(net.getEdge((*i)));
-        edge->setTurnDefaults(turn_defs);
+    ROEdgeVector ret;
+    ROJTREdge *current = static_cast<ROJTREdge*>(from);
+    // route until a sinks has been found
+    while(  current!=0
+            &&
+            current->getType()!=ROEdge::ET_SINK
+            &&
+            (int) ret.size()<myMaxEdges) {
+        ret.add(current);
+        time += (SUMOTime) current->getDuration(time);
+        current = current->chooseNext(time);
     }
+    // check whether no valid ending edge was found
+    if((int) ret.size()>=myMaxEdges) {
+        MsgHandler *mh = 0;
+        if(continueOnUnbuild) {
+            mh = MsgHandler::getWarningInstance();
+        } else {
+            mh = MsgHandler::getErrorInstance();
+        }
+        mh->inform(string("The route starting at edge '") + from->getID()
+            + string("' could not be closed."));
+    }
+    // append the sink
+    if(current!=0) {
+        ret.add(current);
+    }
+    return ret;
 }
 
 
@@ -113,4 +149,5 @@ ROJPEdgeBuilder::setTurningDefinitions(RONet &net,
 // Local Variables:
 // mode:C++
 // End:
+
 
