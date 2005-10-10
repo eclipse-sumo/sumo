@@ -103,27 +103,27 @@ SOURCE=..\..\..\src\jtrrouter_main.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\routing_jtr\ROJPEdge.cpp
+SOURCE=..\..\..\src\routing_jtr\ROJTREdge.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\routing_jtr\ROJPEdgeBuilder.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\routing_jtr\ROJPHelpers.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\routing_jtr\ROJPRouter.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\routing_jtr\ROJPTurnDefLoader.cpp
+SOURCE=..\..\..\src\routing_jtr\ROJTREdgeBuilder.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\routing_jtr\ROJTRFrame.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_jtr\ROJTRHelpers.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_jtr\ROJTRRouter.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_jtr\ROJTRTurnDefLoader.cpp
 # End Source File
 # Begin Source File
 
@@ -155,27 +155,27 @@ SOURCE=..\..\..\src\jtrrouter_help.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\routing_jtr\ROJPEdge.h
+SOURCE=..\..\..\src\routing_jtr\ROJTREdge.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\routing_jtr\ROJPEdgeBuilder.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\routing_jtr\ROJPHelpers.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\routing_jtr\ROJPRouter.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\routing_jtr\ROJPTurnDefLoader.h
+SOURCE=..\..\..\src\routing_jtr\ROJTREdgeBuilder.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\routing_jtr\ROJTRFrame.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_jtr\ROJTRHelpers.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_jtr\ROJTRRouter.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_jtr\ROJTRTurnDefLoader.h
 # End Source File
 # Begin Source File
 

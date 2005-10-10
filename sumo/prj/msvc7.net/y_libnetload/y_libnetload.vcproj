@@ -207,7 +207,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netload\NLNetHandler.cpp">
+				RelativePath="..\..\..\src\netload\NLHandler.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
@@ -292,7 +292,7 @@
 				RelativePath="..\..\..\src\netload\NLLoadFilter.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\netload\NLNetHandler.h">
+				RelativePath="..\..\..\src\netload\NLHandler.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\netload\NLSucceedingLaneBuilder.h">

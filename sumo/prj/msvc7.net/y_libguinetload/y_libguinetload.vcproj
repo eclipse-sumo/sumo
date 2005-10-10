@@ -186,7 +186,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\guinetload\GUINetHandler.cpp">
+				RelativePath="..\..\..\src\guinetload\GUIHandler.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -242,7 +242,7 @@
 				RelativePath="..\..\..\src\guinetload\GUIJunctionControlBuilder.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\guinetload\GUINetHandler.h">
+				RelativePath="..\..\..\src\guinetload\GUIHandler.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\guinetload\GUITriggerBuilder.h">

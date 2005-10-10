@@ -105,11 +105,11 @@ SOURCE=..\..\..\src\netload\NLGeomShapeBuilder.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\netload\NLJunctionControlBuilder.cpp
+SOURCE=..\..\..\src\netload\NLHandler.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\netload\NLNetHandler.cpp
+SOURCE=..\..\..\src\netload\NLJunctionControlBuilder.cpp
 # End Source File
 # Begin Source File
 
@@ -145,15 +145,15 @@ SOURCE=..\..\..\src\netload\NLGeomShapeBuilder.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\netload\NLHandler.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\netload\NLJunctionControlBuilder.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\netload\NLLoadFilter.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\netload\NLNetHandler.h
 # End Source File
 # Begin Source File
 

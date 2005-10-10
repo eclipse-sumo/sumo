@@ -97,11 +97,11 @@ SOURCE=..\..\..\src\guinetload\GUIGeomShapeBuilder.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\guinetload\GUIJunctionControlBuilder.cpp
+SOURCE=..\..\..\src\guinetload\GUIHandler.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\guinetload\GUINetHandler.cpp
+SOURCE=..\..\..\src\guinetload\GUIJunctionControlBuilder.cpp
 # End Source File
 # Begin Source File
 
@@ -125,11 +125,11 @@ SOURCE=..\..\..\src\guinetload\GUIGeomShapeBuilder.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\guinetload\GUIJunctionControlBuilder.h
+SOURCE=..\..\..\src\guinetload\GUIHandler.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\guinetload\GUINetHandler.h
+SOURCE=..\..\..\src\guinetload\GUIJunctionControlBuilder.h
 # End Source File
 # Begin Source File
 
