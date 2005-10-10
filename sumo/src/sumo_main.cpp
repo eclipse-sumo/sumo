@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2005/10/10 12:10:15  dkrajzew
+// debugging missing junction geometries
+//
 // Revision 1.31  2005/10/07 11:48:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -228,6 +231,7 @@ namespace
 #include <microsim/MSVehicleControl.h>
 #include <microsim/trigger/MSTriggerControl.h>
 #include <netload/NLBuilder.h>
+#include <netload/NLHandler.h>
 #include <netload/NLTriggerBuilder.h>
 #include <netload/NLEdgeControlBuilder.h>
 #include <netload/NLJunctionControlBuilder.h>
@@ -279,11 +283,12 @@ load(OptionsCont &oc)
         new MSNet(oc.getInt("begin"), oc.getInt("end"));
     SUMOFrame::setMSGlobals(oc);
     NLEdgeControlBuilder eb;
-    NLJunctionControlBuilder jb(oc);
+    NLJunctionControlBuilder jb(*net, oc);
     NLDetectorBuilder db(*net);
     NLTriggerBuilder tb;
     NLGeomShapeBuilder sb;
-    NLBuilder builder(oc, *net, eb, jb, db, tb, sb);
+    NLHandler handler("", *net, db, tb, eb, jb, sb);
+    NLBuilder builder(oc, *net, eb, jb, db, tb, sb, handler);
     if(!builder.build()) {
         delete net;
         net = 0;
