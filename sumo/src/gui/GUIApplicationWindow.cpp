@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.45  2005/10/10 11:48:27  dkrajzew
+// removed unneeded APIs
+//
 // Revision 1.44  2005/10/07 11:36:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -1220,21 +1223,6 @@ FXCursor *
 GUIApplicationWindow::getDefaultCursor()
 {
     return getApp()->getDefaultCursor(DEF_ARROW_CURSOR);
-}
-
-
-void
-GUIApplicationWindow::addTimeout(FXObject *tgt, FXSelector sel,
-                                 FXuint ms, void *ptr)
-{
-    getApp()->addTimeout(tgt, sel, ms, ptr);
-}
-
-
-void
-GUIApplicationWindow::removeTimeout(FXObject *tgt, FXSelector sel)
-{
-    getApp()->removeTimeout(tgt, sel);
 }
 
 

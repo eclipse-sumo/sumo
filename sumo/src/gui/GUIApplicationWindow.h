@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.32  2005/10/10 11:48:27  dkrajzew
+// removed unneeded APIs
+//
 // Revision 1.31  2005/10/07 11:36:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -275,10 +278,6 @@ public:
     long onRightBtnRelease(FXObject*sender,FXSelector,void*ptr);
     long onMouseMove(FXObject*sender,FXSelector,void*ptr);
 */
-
-    void addTimeout(FXObject *tgt, FXSelector sel,
-        FXuint ms=1000, void *ptr=NULL);
-    void removeTimeout(FXObject *tgt, FXSelector sel);
 
 	FXGLCanvas *getBuildGLCanvas() const;
     size_t getCurrentSimTime() const;
