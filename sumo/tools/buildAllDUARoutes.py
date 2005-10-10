@@ -22,10 +22,12 @@ def getStructure(dir):
 
 # main
 files = getStructure("../data/examples")
-print sys.platform
 for file in files:
-    if(file.endswith(".rou.cfg")):
-        if(sys.platform=="win32"):
-            ret = os.system("..\\bin\\duarouter -v -c " + file)
-        else:
-            ret = os.system("../src/sumo-duarouter -v -c " + file)
+	if(file.endswith(".dua.cfg")):
+		print "--------------------------"
+		print "Executing " + file
+		print "--------------------------"
+		if(sys.platform=="win32"):
+			ret = os.system("..\\bin\\duarouter -v -c " + file)
+		else:
+			ret = os.system("../src/sumo-duarouter -v -c " + file)
