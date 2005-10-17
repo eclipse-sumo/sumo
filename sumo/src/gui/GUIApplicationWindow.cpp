@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.46  2005/10/17 08:53:32  dkrajzew
+// memory leaks removed
+//
 // Revision 1.45  2005/10/10 11:48:27  dkrajzew
 // removed unneeded APIs
 //
@@ -435,6 +438,13 @@ GUIApplicationWindow::~GUIApplicationWindow()
     delete myLoadThread;
 
     delete gGradients;
+
+    while(!myEvents.empty()) {
+        // get the next event
+        GUIEvent *e = static_cast<GUIEvent*>(myEvents.top());
+        myEvents.pop();
+        delete e;
+    }
 }
 
 

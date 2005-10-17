@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/10/17 08:54:37  dkrajzew
+// memory leaks removed
+//
 // Revision 1.5  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -74,7 +77,12 @@ public:
         ValueRetriever<T> *retriever)
         : myObject(o), mySource(source), myRetriever(retriever)
         { }
-    virtual ~GLObjectValuePassConnector() { }
+
+    virtual ~GLObjectValuePassConnector()
+    {
+        delete mySource;
+    }
+
     virtual bool updateEachTimestep( void ) {
         if(!myObject.active()) {
             return false;
@@ -82,11 +90,14 @@ public:
         myRetriever->addValue(mySource->getValue());
         return true;
     }
+
 private:
     GUIGlObject &myObject;
     ValueSource<T> *mySource;
     ValueRetriever<T> *myRetriever;
+
 };
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif
