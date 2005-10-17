@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/10/17 08:58:24  dkrajzew
+// trigger rework#1
+//
 // Revision 1.2  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -90,7 +93,7 @@ protected:
     virtual bool nextRead() = 0;
 
 protected:
-    void init();
+    void myInit();
 
 protected:
     /// The used SAX-parser

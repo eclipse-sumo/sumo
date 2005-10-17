@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2005/10/17 08:58:24  dkrajzew
+// trigger rework#1
+//
 // Revision 1.12  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -32,7 +35,8 @@
 // got rid of MSNet::Time
 //
 // Revision 1.8  2003/09/05 15:09:16  dkrajzew
-// changed the return value of the event adding method for a better handling of the events by the setters
+// changed the return value of the event adding method for a better
+//  handling of the events by the setters
 //
 // Revision 1.7  2003/08/06 16:49:57  roessel
 // Better distinction between steps and seconds added.
@@ -156,7 +160,10 @@ public:
     typedef std::pair< Command*, SUMOTime > Event;
 
     /// what to do on false time
-    enum AdaptType { ADAPT_AFTER_EXECUTION };
+    enum AdaptType {
+        ADAPT_AFTER_EXECUTION = 1,
+        NO_CHANGE = 2
+    };
 
     /// Sort-criterion for events.
     class EventSortCrit

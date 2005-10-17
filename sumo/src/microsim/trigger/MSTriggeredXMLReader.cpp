@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/10/17 08:58:24  dkrajzew
+// trigger rework#1
+//
 // Revision 1.3  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -104,7 +107,7 @@ MSTriggeredXMLReader::MSTriggeredXMLReader(MSNet &net,
     myHaveMore(true), myParser(0)
 {
     MSEventControl::getBeginOfTimestepEvents()->addEvent(
-        new MSTriggerCommand(*this), 0, MSEventControl::ADAPT_AFTER_EXECUTION);
+        new MSTriggerCommand(*this), 0, MSEventControl::NO_CHANGE);
 }
 
 
@@ -116,9 +119,6 @@ MSTriggeredXMLReader::~MSTriggeredXMLReader()
 bool
 MSTriggeredXMLReader::readNextTriggered()
 {
-    if(myParser==0) {
-        init();
-    }
     while(myHaveMore&&myParser->parseNext(myToken)) {
         if(nextRead()) {
             return true;
@@ -130,7 +130,7 @@ MSTriggeredXMLReader::readNextTriggered()
 
 
 void
-MSTriggeredXMLReader::init()
+MSTriggeredXMLReader::myInit()
 {
     try {
         myParser = XMLHelpers::getSAXReader(*this);
@@ -154,8 +154,10 @@ MSTriggeredXMLReader::init()
             _offset = MSNet::getInstance()->getCurrentTimeStep() + 1;
             // !!! Warning?
         }
+        /*
         MSEventControl::getBeginOfTimestepEvents()->addEvent(
             new MSTriggerCommand(*this), _offset, MSEventControl::ADAPT_AFTER_EXECUTION);
+            */
     } else {
         myHaveMore = false;
     }

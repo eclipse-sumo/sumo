@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/10/17 08:58:24  dkrajzew
+// trigger rework#1
+//
 // Revision 1.3  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -72,10 +75,9 @@ class MSLane;
  * responsible for from a file and sets it.
  * Lanes with variable speeds are so possible.
  */
-class MSTriggeredEmitter : public MSTriggeredXMLReader,
-                           public MSTrigger {
+class MSTriggeredEmitter : public MSTrigger {
 public:
-    /** constructor */
+    /** constructor for file-based emission */
     MSTriggeredEmitter(const std::string &id,
         MSNet &net, MSLane* destLane, SUMOReal pos,
         const std::string &aXMLFilename);
@@ -83,143 +85,102 @@ public:
     /** destructor */
     virtual ~MSTriggeredEmitter();
 
-    /** the implementation of the MSTriggeredReader-processNext method */
-    bool processNext();
 
-
-protected:
-    /**
-     * Event type to trigger the execution of the derived strctures
-     */
-    class UserCommand : public Command
-    {
+public:
+    class MSTriggeredEmitterChild {
     public:
-        /// Constructor
-        UserCommand(MSTriggeredEmitter &parent);
+        MSTriggeredEmitterChild(MSTriggeredEmitter &parent)
+            : myParent(parent) { }
+        MSTriggeredEmitterChild(MSTriggeredEmitter &parent,
+            MSTriggeredEmitterChild &s)
+            : myParent(parent), myRouteDist(s.myRouteDist),
+            myCurrentVTypeDist(s.myCurrentVTypeDist) { }
+        virtual ~MSTriggeredEmitterChild() { }
 
-        /// virtual destructor
-        virtual ~UserCommand( void );
+        MSRoute *getRndRoute() const { return myRouteDist.get(); }
+        MSVehicleType *getRndVType() const { return myCurrentVTypeDist.get(); }
+        bool hasRoutes() const { return myRouteDist.getOverallProb()!=0; }
+        bool hasVTypes() const { return myCurrentVTypeDist.getOverallProb()!=0; }
 
-        /** Execute the command and return an offset for recurring commands
-            or 0 for single-execution commands. */
-        virtual SUMOTime execute();
-
-    private:
-        /// The parent reader
-        MSTriggeredEmitter &_parent;
+    protected:
+        RandomDistributor<MSRoute*> myRouteDist;
+        RandomDistributor<MSVehicleType*> myCurrentVTypeDist;
+        MSTriggeredEmitter &myParent;
     };
 
 public:
+    /** the implementation of the MSTriggeredReader-processNext method */
+    bool childCheckEmit(MSTriggeredEmitterChild *child);
+    size_t getActiveChildIndex() const;
+    void setActiveChild(MSTriggeredEmitterChild *child);
+
+
+protected:
+    class MSTriggeredEmitter_FileTriggeredChild
+        : public MSTriggeredXMLReader, public MSTriggeredEmitterChild/*, public Command*/ {
+    public:
+        MSTriggeredEmitter_FileTriggeredChild(MSNet &net,
+            const std::string &aXMLFilename, MSTriggeredEmitter &parent);
+        ~MSTriggeredEmitter_FileTriggeredChild();
+        /** the implementation of the MSTriggeredReader-processNext method */
+        bool processNext();
+        //SUMOTime execute();
+
+    protected:
+        /** the implementation of the SAX-handler interface for reading
+            element begins */
+        virtual void myStartElement(int element, const std::string &name,
+            const Attributes &attrs);
+
+        /** the implementation of the SAX-handler interface for reading
+            characters */
+        void myCharacters(int element, const std::string &name,
+            const std::string &chars);
+
+        /** the implementation of the SAX-handler interface for reading
+            element ends */
+        void myEndElement(int element, const std::string &name);
+
+        bool nextRead();
+
+    protected:
+        bool myHaveNext;
+    };
+
+public:
+    /*
     void setUserMode(bool val);
     void setUserFlow(SUMOReal factor);
     int userEmit();
-    bool wantsMe(UserCommand *us);
+//    bool wantsMe(UserCommand *us);
     SUMOReal getFrequency() const;
     bool inUserMode() const;
     SUMOReal getUserFlow() const;
-
-/*
-    void setOverriding(bool val);
-/*
-    void setOverridingValue(SUMOReal val);
-*/
-protected:
-    /** the implementation of the SAX-handler interface for reading
-        element begins */
-    virtual void myStartElement(int element, const std::string &name,
-        const Attributes &attrs);
-
-    /** the implementation of the SAX-handler interface for reading
-        characters */
-    void myCharacters(int element, const std::string &name,
-        const std::string &chars);
-
-    /** the implementation of the SAX-handler interface for reading
-        element ends */
-    void myEndElement(int element, const std::string &name);
-
-    bool nextRead();
-
-private:   // private members
-    /**
-
     */
-    /*
-    class RouteDistribution
-    {
-    public:
-        /// Default constructor.
-        RouteDistribution( void );
+public:
+    void schedule(MSTriggeredEmitterChild *child, MSVehicle *v, SUMOReal speed);
 
-        /// Destructor.
-        ~RouteDistribution( void );
-        void addElement( MSRoute* aRoute,
-                         SUMOReal aFrequency );
-		MSRoute* getRndRoute( void );
-        unsigned getSize( void ) const;
-    protected:
-    private:
-        /// Copy constructor.
-        RouteDistribution( const RouteDistribution& );
-
-        /// Assignment operator.
-        RouteDistribution& operator=( RouteDistribution& );
-    protected:
-    private:
-        /
-         /
-        struct RouteDistElement
-        {
-            /// Pointer to route. Shouldn't be 0.
-            MSRoute* myRoute;
-
-            /** Route-pointers frequency.
-                Frequency with which the vehicles will get the
-                corresponding route-pointer. Is not bound to a maximum
-                value, but should be > 0.
-            /
-            SUMOReal myFrequency;
-
-            SUMOReal myFrequencySum;
-        };
-
-        typedef std::vector< RouteDistElement > RouteDistCont;
-        RouteDistCont myDistribution;
-
-        /**
-         /
-        struct FrequencyGreater :
-            public std::binary_function< RouteDistElement,
-                                         SUMOReal, bool >
-        {
-            bool operator() ( RouteDistElement elem,
-                              SUMOReal cmpFreq ) const;
-        };
-
-    }; // end class RouteDistribution
-    */
-
-    RandomDistributor<MSRoute*> myRouteDist;
-    MSVehicle* myVehicle;
 
 protected:
+    MSNet &myNet;
     /** the lane the trigger is responsible for */
     MSLane *myDestLane;
 
-    bool myHaveNext;
 
     /// The information whether the read speed shall be overridden
     bool myAmOverriding;
     bool myIsNewEmitFound;
-    SUMOReal myEmitSpeed;
     SUMOReal myPos;
     bool myUserMode;
     SUMOReal myUserFlow;
     SUMOTime myLastUserEmit;
     //int myNoUserEvents;
-    RandomDistributor<MSVehicleType*> myCurrentVTypeDist;
-    SUMOReal myFlow;
-    std::vector<UserCommand*> mySentCommands;
+//    std::vector<UserCommand*> mySentCommands;
+    MSTriggeredEmitterChild *myFileBasedEmitter;
+    //std::vector<MSTriggeredEmitterChild*> myChildren;
+    std::map<MSTriggeredEmitterChild*, std::pair<MSVehicle*, SUMOReal> > myToEmit;
+    MSTriggeredEmitterChild *myActiveChild;
+
 
 };
 

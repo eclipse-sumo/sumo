@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.16  2005/10/17 08:58:24  dkrajzew
+// trigger rework#1
+//
 // Revision 1.15  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -37,7 +40,8 @@ namespace
 // got rid of MSNet::Time
 //
 // Revision 1.11  2003/09/05 15:09:16  dkrajzew
-// changed the return value of the event adding method for a better handling of the events by the setters
+// changed the return value of the event adding method for a better
+//  handling of the events by the setters
 //
 // Revision 1.10  2003/08/06 16:49:40  roessel
 // Better distinction between steps and seconds added.
@@ -158,6 +162,7 @@ namespace
 
 #include <cassert>
 #include "MSEventControl.h"
+#include <utils/common/MsgHandler.h>
 #include <utils/helpers/Command.h>
 #include "MSNet.h"
 
@@ -267,7 +272,14 @@ MSEventControl::execute(SUMOTime execTime)
             }
         }
         else {
-            break;
+            if ( currEvent.second < execTime ) {
+                // !!! more verbose information
+                MsgHandler::getWarningInstance()->inform("Could not execute scheduled event.");
+                delete currEvent.first;
+                myEvents.pop();
+            } else {
+                break;
+            }
         }
     }
 }

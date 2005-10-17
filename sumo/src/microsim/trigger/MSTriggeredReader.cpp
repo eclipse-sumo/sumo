@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/10/17 08:58:24  dkrajzew
+// trigger rework#1
+//
 // Revision 1.2  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -87,6 +90,9 @@ MSTriggeredReader::MSTriggerCommand::~MSTriggerCommand( void )
 SUMOTime
 MSTriggeredReader::MSTriggerCommand::execute()
 {
+    if(!_parent.isInitialised()) {
+        _parent.init();
+    }
     SUMOTime current = _parent._offset;
     SUMOTime next = current;
     // loop until the next action lies in the future
@@ -120,13 +126,28 @@ MSTriggeredReader::MSTriggerCommand::execute()
  * MSTriggeredReader-methods
  * ----------------------------------------------------------------------- */
 MSTriggeredReader::MSTriggeredReader(MSNet &net)
-    : _offset(0)
+    : _offset(0), myWasInitialised(false)
 {
 }
 
 
 MSTriggeredReader::~MSTriggeredReader()
 {
+}
+
+
+void
+MSTriggeredReader::init()
+{
+    myInit();
+    myWasInitialised = true;
+}
+
+
+bool
+MSTriggeredReader::isInitialised() const
+{
+    return myWasInitialised;
 }
 
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/10/17 08:55:20  dkrajzew
+// trigger rework#1
+//
 // Revision 1.3  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -136,22 +139,91 @@ FXIMPLEMENT(GUITriggeredEmitter::GUIManip_TriggeredEmitter, GUIManipulator, GUIM
 /* -------------------------------------------------------------------------
  * GUITriggeredEmitter::GUIManip_TriggeredEmitter - methods
  * ----------------------------------------------------------------------- */
+GUITriggeredEmitter::GUITriggeredEmitterChild_UserTriggeredChild::GUITriggeredEmitterChild_UserTriggeredChild(
+                MSTriggeredEmitter_FileTriggeredChild &s,
+                MSTriggeredEmitter &parent,
+                SUMOReal flow)
+    : MSTriggeredEmitter::MSTriggeredEmitterChild(parent), myUserFlow(flow),
+    myVehicle(0), mySource(s), myTimeOffset(0)
+{
+    MSEventControl::getBeginOfTimestepEvents()->addEvent(
+        this, (SUMOTime) (1. / (flow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
+        MSEventControl::ADAPT_AFTER_EXECUTION);
+}
+
+
+GUITriggeredEmitter::GUITriggeredEmitterChild_UserTriggeredChild::~GUITriggeredEmitterChild_UserTriggeredChild()
+{
+}
+
+
+SUMOTime
+GUITriggeredEmitter::GUITriggeredEmitterChild_UserTriggeredChild::execute()
+{
+    if(!mySource.isInitialised()) {
+        mySource.init();
+    }
+    if(myVehicle==0) {
+        string aVehicleId = myParent.getID() + string( "_user_" ) +  toString(MSNet::getInstance()->getCurrentTimeStep());
+        MSRoute *aRoute = myRouteDist.getOverallProb()!=0
+            ? myRouteDist.get()
+            : mySource.hasRoutes()
+                ? mySource.getRndRoute()
+                : 0;
+        if(aRoute==0) {
+            MsgHandler::getErrorInstance()->inform("Emitter '" + myParent.getID() + "' has no valid route.");
+            return 0;
+        }
+        MSVehicleType *aType = myCurrentVTypeDist.getOverallProb()!=0
+            ? myCurrentVTypeDist.get()
+            : mySource.hasVTypes()
+                ? mySource.getRndVType()
+                : MSVehicleType::dict_Random();
+        if(aType==0) {
+            MsgHandler::getErrorInstance()->inform("Emitter '" + myParent.getID() + "' has no valid vehicle type.");
+            return 0;
+        }
+        SUMOTime aEmitTime = MSNet::getInstance()->getCurrentTimeStep();
+        myVehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(
+            aVehicleId, aRoute, aEmitTime, aType, 0, 0, RGBColor(1, 1, 1));
+        myParent.schedule(this, myVehicle, -1);
+    }
+    if(myParent.childCheckEmit(this)) {
+        myVehicle = 0;
+        SUMOReal freq = (SUMOReal) (1. / (myUserFlow / 3600.));
+        SUMOTime ret = (SUMOTime) freq;
+        myTimeOffset += (freq - (SUMOReal) ret);
+        if(myTimeOffset>1) {
+            myTimeOffset -= 1;
+            ret += 1;
+        }
+        return ret;
+    }
+    return 1;
+}
+
+
+SUMOReal
+GUITriggeredEmitter::GUITriggeredEmitterChild_UserTriggeredChild::getUserFlow() const
+{
+    return myUserFlow;
+}
+
+
+
 GUITriggeredEmitter::GUIManip_TriggeredEmitter::GUIManip_TriggeredEmitter(
         GUIMainWindow &app,
         const std::string &name, GUITriggeredEmitter &o,
         int xpos, int ypos)
     : GUIManipulator(app, name, 0, 0), myChosenValue(0),
-    myParent(&app),
+    myParent(&app), myFlowFactor(o.getUserFlow()),
     myChosenTarget(myChosenValue, this, MID_OPTION), myFlowFactorTarget(myFlowFactor),
-    myFlowFactor(1800),
     myObject(&o)
 {
     FXVerticalFrame *f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
 
-    if(myObject->inUserMode()) {
-        myChosenValue = 1;
-    }
+    myChosenValue = o.getActiveChildIndex();
 
     FXGroupBox *gp = new FXGroupBox(f1, "Change Flow",
         GROUPBOX_TITLE_LEFT|FRAME_SUNKEN|FRAME_RIDGE,
@@ -172,10 +244,10 @@ GUITriggeredEmitter::GUIManip_TriggeredEmitter::GUIManip_TriggeredEmitter(
             ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP|LAYOUT_CENTER_Y,
             0, 0, 0, 0,   2, 2, 0, 0);
         myFlowFactorDial =
-            new FXRealSpinDial(gf12, 10, this, MID_USER_DEF,
+            new FXRealSpinDial(gf12, 8, this, MID_USER_DEF,
                 LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
-        myFlowFactorDial->setFormatString("%.2f");
-        myFlowFactorDial->setIncrements(.1,1,10);
+        myFlowFactorDial->setFormatString("%.0f");
+        myFlowFactorDial->setIncrements(1,10,100);
         myFlowFactorDial->setRange(0,4000);
         myFlowFactorDial->setValue(myObject->getUserFlow());
     }
@@ -200,9 +272,9 @@ GUITriggeredEmitter::GUIManip_TriggeredEmitter::onCmdClose(FXObject*,FXSelector,
 long
 GUITriggeredEmitter::GUIManip_TriggeredEmitter::onCmdUserDef(FXObject*,FXSelector,void*)
 {
-    myFlowFactor = (SUMOReal) (myFlowFactorDial->getValue());
-    static_cast<GUITriggeredEmitter*>(myObject)->setUserFlow(myFlowFactor);
-    static_cast<GUITriggeredEmitter*>(myObject)->setUserMode(true);
+    static_cast<GUITriggeredEmitter*>(myObject)->setUserFlow(
+        (SUMOReal) (myFlowFactorDial->getValue()));
+    static_cast<GUITriggeredEmitter*>(myObject)->setActiveChild(1);
     myParent->updateChildren();
     return 1;
 }
@@ -222,13 +294,13 @@ GUITriggeredEmitter::GUIManip_TriggeredEmitter::onUpdUserDef(FXObject *sender,FX
 long
 GUITriggeredEmitter::GUIManip_TriggeredEmitter::onCmdChangeOption(FXObject*,FXSelector,void*)
 {
-    static_cast<GUITriggeredEmitter*>(myObject)->setUserFlow(myFlowFactor);
+    static_cast<GUITriggeredEmitter*>(myObject)->setUserFlow(myFlowFactorDial->getValue());
     switch(myChosenValue) {
     case 0:
-        static_cast<GUITriggeredEmitter*>(myObject)->setUserMode(false);
+        static_cast<GUITriggeredEmitter*>(myObject)->setActiveChild(0);
         break;
     case 1:
-        static_cast<GUITriggeredEmitter*>(myObject)->setUserMode(true);
+        static_cast<GUITriggeredEmitter*>(myObject)->setActiveChild(1);
         break;
     default:
         throw 1;
@@ -273,8 +345,7 @@ GUITriggeredEmitter::GUITriggeredEmitter(const std::string &id,
             const std::string &aXMLFilename)
     : MSTriggeredEmitter(id, net, destLanes, pos, aXMLFilename),
     GUIGlObject_AbstractAdd(gIDStorage,
-        string("emitter:") + id, GLO_TRIGGER),
-    myShowAsKMH(true), myLastValue(-1)
+        string("emitter:") + id, GLO_TRIGGER), myUserFlow(900)
 {
     GUIEdge *edge =
         static_cast<GUIEdge*>(MSEdge::dictionary(destLanes->edge().id()));
@@ -288,11 +359,35 @@ GUITriggeredEmitter::GUITriggeredEmitter(const std::string &id,
     mySGPosition = l.getPositionAtDistance(0);
     myFGRotation = -v.rotationDegreeAtLengthPosition(pos);
     mySGRotation = -l.atan2DegreeAngle();
+
+    myUserEmitChild =
+        new GUITriggeredEmitterChild_UserTriggeredChild(
+            static_cast<MSTriggeredEmitter_FileTriggeredChild&>(*myFileBasedEmitter),
+            *this, 10000);
 }
 
 
 GUITriggeredEmitter::~GUITriggeredEmitter()
 {
+}
+
+
+void
+GUITriggeredEmitter::setUserFlow(SUMOReal factor)
+{
+    // !!! the commands should be adapted to current flow imediatly
+    myUserFlow = factor;
+    myUserEmitChild =
+        new GUITriggeredEmitterChild_UserTriggeredChild(
+            static_cast<MSTriggeredEmitter_FileTriggeredChild&>(*myFileBasedEmitter),
+            *this, factor);
+}
+
+
+SUMOReal
+GUITriggeredEmitter::getUserFlow() const
+{
+    return myUserFlow;
 }
 
 
@@ -311,29 +406,6 @@ GUITriggeredEmitter::getPopUpMenu(GUIMainWindow &app,
     //
     new FXMenuCommand(ret, "Open Manipulator...",
         GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_MANIP);
-/*    FXMenuPane *manualSpeed = new FXMenuPane(ret);
-    new FXMenuTitle(ret,"&Arrange",NULL,manualSpeed);
-    new FXMenuCommand(manualSpeed,"20 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);// MID_020KMH);
-    new FXMenuCommand(manualSpeed,"40 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_040KMH);
-    new FXMenuCommand(manualSpeed,"60 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_060KMH);
-    new FXMenuCommand(manualSpeed,"80 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_080KMH);
-    new FXMenuCommand(manualSpeed,"100 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_100KMH);
-    new FXMenuCommand(manualSpeed,"120 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_120KMH);
-    new FXMenuCommand(manualSpeed,"140 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_140KMH);
-    new FXMenuCommand(manualSpeed,"160 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_160KMH);
-    new FXMenuCommand(manualSpeed,"180 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_180KMH);
-    new FXMenuCommand(manualSpeed,"200 km/h\t\t",
-        GUIIconSubSys::getIcon(ICON_FLAG_MINUS), 0, 0);//MID_200KMH);
-        */
     //
     if(gSelected.isSelected(GLO_TRIGGER, getGlID())) {
         new FXMenuCommand(ret, "Remove From Selected",
@@ -457,6 +529,20 @@ GUITriggeredEmitter::openManipulator(GUIMainWindow &app,
     gui->create();
     gui->show();
     return gui;
+}
+
+
+void
+GUITriggeredEmitter::setActiveChild(int index)
+{
+    switch(index) {
+    case 0:
+        myActiveChild = myFileBasedEmitter;
+        break;
+    case 1:
+        myActiveChild = myUserEmitChild;
+        break;
+    }
 }
 
 

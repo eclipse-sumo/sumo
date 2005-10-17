@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2005/10/17 08:58:24  dkrajzew
+// trigger rework#1
+//
 // Revision 1.2  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -71,6 +74,9 @@ public:
     /// Destructor
     virtual ~MSTriggeredReader();
 
+    void init();
+    bool isInitialised() const;
+
 protected:
     /// Constructor (for an abstract class)
     MSTriggeredReader(MSNet &net);
@@ -82,6 +88,8 @@ protected:
 
     /// Reads from the file
     virtual bool readNextTriggered() = 0;
+
+    virtual void myInit() = 0;
 
 protected:
     /**
@@ -114,6 +122,7 @@ public:
 protected:
     /// The offset to the next event
     SUMOTime _offset;
+    bool myWasInitialised;
 
 private:
     /// invalidated default constructor

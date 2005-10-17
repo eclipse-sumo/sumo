@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/10/17 08:55:20  dkrajzew
+// trigger rework#1
+//
 // Revision 1.3  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -123,6 +126,30 @@ public:
     GUIManipulator *openManipulator(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
+    void setUserFlow(SUMOReal factor);
+    SUMOReal getUserFlow() const;
+
+    void setActiveChild(int index);
+
+protected:
+    class GUITriggeredEmitterChild_UserTriggeredChild
+        : public MSTriggeredEmitter::MSTriggeredEmitterChild, public Command {
+    public:
+        GUITriggeredEmitterChild_UserTriggeredChild(
+            MSTriggeredEmitter_FileTriggeredChild &s, MSTriggeredEmitter &parent,
+            SUMOReal flow);
+        virtual ~GUITriggeredEmitterChild_UserTriggeredChild();
+        SUMOTime execute();
+        SUMOReal getUserFlow() const;
+
+    protected:
+        SUMOReal myUserFlow;
+        MSVehicle *myVehicle;
+        MSTriggeredEmitter_FileTriggeredChild &mySource;
+        SUMOReal myTimeOffset;
+
+    };
+
 public:
     class GUITriggeredEmitterPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUITriggeredEmitterPopupMenu)
@@ -202,14 +229,17 @@ private:
     SUMOReal mySGRotation;
 
     /// The information whether the speed shall be shown in m/s or km/h
-    bool myShowAsKMH;
+    //bool myShowAsKMH;
 
     /// Storage for last value to avoid string recomputation
-    SUMOReal myLastValue;
+    //SUMOReal myLastValue;
 
     /// Storage for speed string to avoid recomputation
-    std::string myLastValueString;
+    //std::string myLastValueString;
 
+    SUMOReal myUserFlow;
+
+    MSTriggeredEmitterChild *myUserEmitChild;
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
