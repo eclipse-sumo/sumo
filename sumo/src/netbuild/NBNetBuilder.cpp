@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2005/10/17 09:03:53  dkrajzew
+// output patched
+//
 // Revision 1.23  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -139,7 +142,7 @@ NBNetBuilder::removeDummyEdges(int &step)
 bool
 NBNetBuilder::joinEdges(int &step)
 {
-    inform(step, "Joining SUMOReal connections");
+    inform(step, "Joining double connections");
     return myNodeCont.recheckEdges(myDistrictCont, myTLLCont, myEdgeCont);
 }
 
@@ -169,6 +172,9 @@ NBNetBuilder::removeUnwishedEdges(int &step, OptionsCont &oc)
 bool
 NBNetBuilder::guessRamps(int &step, OptionsCont &oc)
 {
+    if(!oc.getBool("guess-ramps")&&!oc.getBool("guess-obscure-ramps")) {
+        return true;
+    }
     inform(step, "Guessing and setting on-/off-ramps");
     return myNodeCont.guessRamps(oc, myEdgeCont, myDistrictCont);
 }
@@ -293,7 +299,7 @@ NBNetBuilder::appendTurnarounds(int &step, OptionsCont &oc)
 bool
 NBNetBuilder::setTLControllingInformation(int &step)
 {
-    inform(step, "Computing node logics");
+    inform(step, "Computing tls logics");
     return myTLLCont.setTLControllingInformation(myEdgeCont);
 }
 
