@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/10/17 08:54:29  dkrajzew
+// current version patched
+//
 // Revision 1.6  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -218,7 +221,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name,
     FXVerticalFrame *f4 =
         new FXVerticalFrame(f2, FRAME_NONE, 0,0,0,0,   20,0,0,0);
     FXFont *fnt = new FXFont(gFXApp, "Arial", 18, FONTWEIGHT_BOLD);
-    FXLabel *l = new FXLabel(f4, "SUMO 0.8", 0,
+    FXLabel *l = new FXLabel(f4, "SUMO 0.9", 0,
         LAYOUT_CENTER_Y|LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL,
         0,0,0,0, 0,0,0,0);
     l->setFont(fnt);
