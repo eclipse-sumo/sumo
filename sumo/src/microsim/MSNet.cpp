@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.65  2005/10/17 08:59:33  dkrajzew
+// reallowed simulation speed output
+//
 // Revision 1.64  2005/10/10 11:58:14  dkrajzew
 // debugging
 //
@@ -503,6 +506,8 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep)
     myLogics = 0;//new MSTLLogicControl();
     myTriggerControl = new MSTriggerControl();
     myShapeContainer = 0;//new ShapeContainer();
+    myLogExecutionTime = true;
+
     myInstance = this;
 }
 
@@ -523,7 +528,8 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
     myRouteLoaders = 0;//new MSRouteLoaderControl();
     myLogics = 0;//new MSTLLogicControl();
     myTriggerControl = new MSTriggerControl();
-    myShapeContainer = new ShapeContainer();
+    myShapeContainer = 0;
+    myLogExecutionTime = true;
 
     myInstance = this;
 }
