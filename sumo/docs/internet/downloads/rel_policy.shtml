@@ -39,15 +39,14 @@
 
 <b>Version numbering</b>
 <p>
-From version 0.8 on we'd like to use the following numbering scheme: a.x.y.z<br><br>
-This may sound ridiculous first, but has some certain meaning that fits into the project's generation process. The variables a, x, y, z are of course version and subversion numbers and are meant to have the following meanings:<br>
+From version 0.8.3 on we'd like to use the following numbering scheme: a.x.y<br><br>
+This is a common naming scheme for open source projects and has the following meanings:<br>
 <ul>
     <li><b>a:</b> The major release number;<br>actually we do not suppose to get over zero until the end of this year as one of the simulation's major features - the multimodality - is not yet implemented
     <li><b>x:</b> The minor release number;<br>indicates the closure of some subwork (such as multithreading, new detector scheme atc.), so you can expect some new features<br>Furthermore, you can also expect that some of the used formats change.
-    <li><b>y:</b> The subrelease number indicating that some new features are available but possibly not fully developed and the some of the formats used have changed.
-    <li><b>z:</b> The subrelease number indicating that some new features are available but possibly not fully developed and the some of the formats used have NOT changed.
+    <li><b>y:</b> The subrelease number indicating that some new features are available but possibly not fully developed. If x is even, no formats or API functions will be changed. If x is odd, both API functions and formats may change.
 </ul>
-So the major reason for such a complicated procedure is that during the development at such an early stage, some of the formats used, for example the one for the network change over time. This requires a rebuilding/reconversion of the networks used.<br>
+The major reason for such a complicated procedure is that during the development at such an early stage, some of the formats used, for example the one for the network change over time. This requires a rebuilding/reconversion of the networks used.<br>
 There is no possibility to avoid it, in fact, but at least we want to provide our user's information about the necessarity to do it.
 </p>
 

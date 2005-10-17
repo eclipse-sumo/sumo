@@ -36,57 +36,128 @@
 <center>
 	<h2>Changes</h2>
 </center>
-<!--
-<b>Changes from 0.8.2.1 to 0.8.3.0</b>
+
+<b>Changes from 0.9.0 to 0.9.1</b>
 <p>
-User-relevant changes:
+User-relevant changes
 <ul>
     <li>GUI
     <ul>
-		<li><b>ported to FOX1.4</b>
-		<li>You may now open a view that track phases (as before) or show phases (new) of a tls
-		<li>You may now save snapshots in different formats (bmp, gif, ...)
-		<li>The view port may be defined (using a dialog behind the magnify-glass)
-		<li>The right-button popup now shows up as soon as the button is released, as long as the mouse was not moved while the button was pressed
-		<li>fonts are now drawn using polyfonts
-		<li>dialogs have icons
-		<li>searching for structures improved
+		<li>bug on not loading junction geometry patched
 	</ul>
-	<li>Simulation
-	<ul>
-		<li>XML-Trigger bug on using speed triggers removed
-		<li>simulation speed-up by avoiiding multiplication with 1
-		<li>setting tls-offsets debugged
-		<li>edge-based mean data implemented; previous lane-based is now optional
-		<li>made checking for accidents optional
-		<li>emission of vehicles on multi-lane source edges debugged (now all lanes are used)
-		<li>Debugged the problem of vehicles stopping before the route is over (reported by Jonathan Davies)
-    </ul>
-	<li>Netconvert
-	<ul>
-		<li>Computation of left-movers debugged
-		<li>Guessing of on- and off-ramps added
-		<li>Guessing of near-district-center nodes added
-    </ul>
-    <li>Router
-	<ul>
-		<li>usage of the -R option witin the jtr-router debugged
-		<li>handling of invalid vehicles (besser beschreiben)
-		<li>forgetting to take time with patched
-    </ul>
+    <li>Simulation
+    <ul>
+        <li>actuated tls-lights bug patched
+	</ul>
 </ul>
-</p>
-<p>
-Developer-relevant changes:
+Developer-relevant changes
 <ul>
-	<li>Level 3 warnings removed
-	<li>Build number output added
+    <li>GUI
+    <ul>
+		<li>unused addTimeout/removeTimeout-APIs removed
+	</ul>
+    <li>Simulation
+    <ul>
+        <li>renamed NLNetHandler to NLHandler
+		<li>each MSJunction has a reference to the net; net allows retrieval of the tls-logics container (see helpers/NamedObjectCont.h)
+		<li>removed several memory leaks, mainly occuring after broken loading
+		<li>bugs in actuated traffic lights logic patched
+	</ul>
+	<li>Router
+	<ul>
+		<li>renamed all ROJP*-classes to ROJTR*
+	</ul>
+</ul>
+
+<hr/>
+
+<b>Changes from 0.8.x to 0.9.0</b>
+<p>
+User-relevant changes
+<ul>
+    <li>GUI
+    <ul>
+        <li>now tls phases may be shown static or be tracked
+        <li>ported to FOX1.4
+        <li>better view for the legend
+        <li>snapshots may now be saved in different file formats (possibly buggy)
+        <li>the viewport may be defined using a small dialog
+        <li>object-popups now show up as soon as the right button is released
+        <li>dialogs have icons
+        <li>searching for structures improved
+	</ul>
+    <li>Simulation
+    <ul>
+        <li>mean data may now be written edge-wise or lane-wise (to be documented!)
+        <li>simulation speed-up by avoiding multiplication with 1
+        <li>setting tls-offsets debugged
+        <li>edge-based mean data implemented; previous lane-based is now optional
+        <li>first devices (mobile phones) added
+        <li>made checking for accidents optional
+        <li>debugged vehicle emission on source edges
+        <li>debugged "emissions" output
+        <li>some derived information added to tripinfo output
+        <li>dump-begin and dump-end added
+	</ul>
+    <li>Netconvert
+    <ul>
+        <li>leftmover-links building debugged
+        <li>guessing of ramps and unregulated near districts implemented
+	</ul>
+    <li>Documentation
+    <ul>
+        <li>More-On - section added
+	</ul>
+    <li>Router
+    <ul>
+        <li>usage of the -R option witin the jtr-router debugged
+        <li>improved handling of invalid vehicles
+        <li>forgetting to take time with - bug patched
+        <li>handling of subparts of unsorted lists patched
+	</ul>
+</ul>
+
+Developer-relevant changes
+    <li>GUI
+    <ul>
+        <li>ported to FOX1.4
+        <li>fonts are now drawn using polyfonts
+	</ul>
+    <li>Simulation
+    <ul>
+        <li>sampleInterval was removed from detectors
+        <li>XMLTrigger functionality patched
+        <li>vehicle position retrieval added
+	</ul>
+    <ul>
+		<li>unneeded inclusion of icc files removed
+		<li>level 3 warnings removed
+		<li>build number output added
+		<li>code style adapted
+	</ul>
 </ul>
 </p>
 
 <hr/>
+
+<p>
+<b>Changes from 0.8.2.2 to 0.8.3</b>
+<p>
+User-relevant changes
+<ul>
+    <li>Simulation
+    <ul>
+		<li>debugged false tls-offset computation
+	</ul>
+    <li>Windows-package
+    <ul>
+		<li>added libraries missing in 0.8.2.2
+	</ul>
+</ul>
+</p>
+
 <hr/>
--->
+
 <b>Changes from 0.8.2.1 to 0.8.2.2</b>
 <p>
 User-relevant changes:

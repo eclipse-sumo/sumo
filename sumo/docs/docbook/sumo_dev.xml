@@ -1782,6 +1782,7 @@ id="dev_chp03"
 ><title
 >SUMO</title
 ><sect1
+id="dev_chp03-basics"
 ><title
 >Basics</title
 ><para
@@ -1810,6 +1811,7 @@ format="GIF"
 ></sect2
 ></sect1
 ><sect1
+id="dev_chp03-loading"
 ><title
 >Loading</title
 ><para
@@ -1827,6 +1829,7 @@ linenumbering="numbered"
    NLDetectorBuilder db(*net);
    NLTriggerBuilder tb;
    NLGeomShapeBuilder sb;
+   NLHandler handler(&#34;&#34;, *net, db, tb, eb, jb, sb);
    NLNetBuilder builder(oc, *net, eb, jb, db, tb, sb);
    if(!builder.build()) {
       delete net;
@@ -1871,7 +1874,11 @@ linenumbering="numbered"
 ></listitem
 ><listitem
 ><para
->Build a network builder which uses the given factories and options and which fills the given net (they are given to the builder as references)</para
+>Build a network handler which uses the given factories and options and which fills the given net (they are given to the handler as references)</para
+></listitem
+><listitem
+><para
+>Build a network builder which uses the given factories to close the building</para
 ></listitem
 ><listitem
 ><para
@@ -2076,7 +2083,7 @@ format="GIF"
 ></sect3
 ><sect3
 ><title
->The Handlers (NLNetHandler, MSRouteHandler)</title
+>The Handlers (NLHandler, MSRouteHandler and derivates)</title
 ><para
 >We do not handle binary inputs, yet. This allows us to use a handler derived from MSRouteHandler, which is responsible for loading routes to parse all other data stored in XML. The advantage is that we may use the same handler for all other files, which allows the user to specify the simulation as flexible as possible.</para
 ><para
@@ -2103,6 +2110,10 @@ format="GIF"
 > are used.</para
 ><para
 >Within these methods if-statements decide which data may be parsed. So if for example the builder said the handler to build the network, no additional elements will be build. Within these statements, case-trees decide what to do further with the information the occured element contains.</para
+><para
+>A derived version of the handler for the gui (<classname
+>GUIHandler</classname
+>) additionally parses color information and junction geometries from the input files.</para
 ></sect3
 ><sect3
 ><title

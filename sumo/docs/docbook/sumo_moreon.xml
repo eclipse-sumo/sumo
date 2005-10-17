@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-"http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
 <book
 ><bookinfo
 ><title
@@ -220,11 +218,260 @@ format="GIF"
 ><sect1
 ><title
 >Loading of TLS- and ROW-logics</title
+><para
+>Within the next subchapters, we will describe what all these information means and how it is parsed.</para
 ><sect2
 ><title
->... tbd ...</title
+>XML-Representation</title
+><sect3
+><title
+>Description of TLS-Logics</title
 ><para
->...tbd...</para
+>Normally, the descriptions of traffic lights are stored within the network descriptions and look like this (example from <filename
+>cross3ltl.net.xml</filename
+>):</para
+><para
+><programlisting
+format="linespecific"
+linenumbering="unnumbered"
+>&#60;tl-logic type=&#34;static&#34;&#62;
+   &#60;key&#62;0&#60;/key&#62;
+   &#60;logicno&#62;0&#60;/logicno&#62;
+   &#60;phaseno&#62;8&#60;/phaseno&#62;
+   &#60;offset&#62;0&#60;/offset&#62;
+   &#60;inclanes&#62;1si_0 1si_1 1si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 4si_0 4si_1 4si_2&#60;/inclanes&#62;
+   &#60;phase duration=&#34;20&#34; phase=&#34;0000111100001111&#34; brake=&#34;1111110011111100&#34; yellow=&#34;0000000000000000&#34;/&#62;
+   &#60;phase duration=&#34;4&#34; phase=&#34;0000110000001100&#34; brake=&#34;1111111111111111&#34; yellow=&#34;0000001100000011&#34;/&#62;
+   &#60;phase duration=&#34;3&#34; phase=&#34;0000110000001100&#34; brake=&#34;1111001111110011&#34; yellow=&#34;0000000000000000&#34;/&#62;
+   &#60;phase duration=&#34;4&#34; phase=&#34;0000000000000000&#34; brake=&#34;1111111111111111&#34; yellow=&#34;0000110000001100&#34;/&#62;
+   &#60;phase duration=&#34;20&#34; phase=&#34;1111000011110000&#34; brake=&#34;1100111111001111&#34; yellow=&#34;0000000000000000&#34;/&#62;
+   &#60;phase duration=&#34;4&#34; phase=&#34;1100000011000000&#34; brake=&#34;1111111111111111&#34; yellow=&#34;0011000000110000&#34;/&#62;
+   &#60;phase duration=&#34;3&#34; phase=&#34;1100000011000000&#34; brake=&#34;0011111100111111&#34; yellow=&#34;0000000000000000&#34;/&#62;
+   &#60;phase duration=&#34;4&#34; phase=&#34;0000000000000000&#34; brake=&#34;1111111111111111&#34; yellow=&#34;1100000011000000&#34;/&#62;
+&#60;/tl-logic&#62;</programlisting
+></para
+><para
+>This description is build during network conversion/generation within the netbuilding classes.</para
+><para
+>The meaning of the tags and the information stored within them is the following:</para
+><itemizedlist
+><listitem
+><para
+><sgmltag
+>tl-logic</sgmltag
+>: defines the begin of the description of a tls-logic</para
+><para
+>Attributes: <sgmltag
+>type=&#34;static|actuated|agentbased&#34;</sgmltag
+>; describes which tls-algorithm shall be used by this tls (string-enum)</para
+><para
+>Information in CDATA: none</para
+></listitem
+><listitem
+><para
+><sgmltag
+>key</sgmltag
+>: defines the begin of the description of a tls-logic</para
+><para
+>Attributes: none</para
+><para
+>Information in CDATA: the key (name) of the tls (string)</para
+></listitem
+><listitem
+><para
+><sgmltag
+>logicno</sgmltag
+>: unused by now, only tls-logics with logicno=0 are generated (since version 0.8.3) and read</para
+><para
+>Attributes: none</para
+><para
+>Information in CDATA: the number of the logic (int)</para
+></listitem
+><listitem
+><para
+><sgmltag
+>phaseno</sgmltag
+>: the number of phases this tls-logic has</para
+><para
+>Attributes: none</para
+><para
+>Information in CDATA: the number of phases of the logic (int)</para
+></listitem
+><listitem
+><para
+><sgmltag
+>offset</sgmltag
+>: the offset by which the tls shall change to next phase</para
+><para
+>This allows you to &#34;rotate&#34; the red/green phases. The offset is a delay to the simulation begin given in seconds with which the tls shall change to the next phase for the first time.</para
+><para
+>Attributes: none</para
+><para
+>Information in CDATA: the offset in seconds (int)</para
+></listitem
+><listitem
+><para
+><sgmltag
+>inclanes</sgmltag
+>: list of incoming lanes</para
+><para
+>Attributes: none</para
+><para
+>Information in CDATA: names (ids) of the lanes incoming to the tls</para
+><caution
+><para
+>As far as I know, this information is rather buggy and unused. Should be rechecked.</para
+></caution
+></listitem
+><listitem
+><para
+><sgmltag
+>phase</sgmltag
+>: definition of a phase (see below)</para
+></listitem
+></itemizedlist
+><para
+>The definitions of a phase should be investigated more deeply. Each phase has an own definition and the number of such definitions should be equal to the value stored in <sgmltag
+>phaseno</sgmltag
+>. The mandatory attributes store the following information:</para
+><itemizedlist
+><listitem
+><para
+><sgmltag
+>duration</sgmltag
+>: the duration of the phase in seconds</para
+></listitem
+><listitem
+><para
+><sgmltag
+>phase</sgmltag
+>: a bitset which holds the information which streams have a &#34;green&#34; light (1). Vehicles within these streams are allowed to pass the junctions, vehicles within streams that have a zero (0) here, have either &#34;red&#34; light in front or a &#34;yellow&#34; one</para
+></listitem
+><listitem
+><para
+><sgmltag
+>brake</sgmltag
+>: a bitset which holds the information which streams have to decelerate in front of the junction. Vehicles within a stream may have to decelerate either because they have a red or yellow light or because a foe stream has green, to (this is mostly the case for left-turning streams). Streams that have to decelerate are marked with a 1, here, zero (0) means the vehicles may pass without decelerating in front of the tls</para
+></listitem
+><listitem
+><para
+><sgmltag
+>yellow</sgmltag
+>: a bitset which holds the information which vehicles are in front of yellow lights (1).</para
+></listitem
+></itemizedlist
+><para
+>Also some further non-mandatory attributes may be stored within the <sgmltag
+>phase</sgmltag
+>-tag. until now, these tags are used by the actuated and the agentbased tls only. They are:</para
+><itemizedlist
+><listitem
+><para
+><sgmltag
+>min_duration</sgmltag
+>: a minimum duration for the phase. The tls-logic may not shorten the duration of the phase below this value (int, in seconds)</para
+></listitem
+><listitem
+><para
+><sgmltag
+>max_duration</sgmltag
+>: a maximum duration for the phase. The tls-logic may not extend the duration of the phase beyond this value (int, in seconds)</para
+></listitem
+></itemizedlist
+><para
+>There is no possibility to insert values for <sgmltag
+>min_duration</sgmltag
+> and <sgmltag
+>max_duration</sgmltag
+> into the network descriptions by now but by hand.</para
+></sect3
+><sect3
+><title
+>Connections between streams and tls-logics</title
+><para
+>You probably have seen, that the <sgmltag
+>inclanes-tag</sgmltag
+> is buggy. In fact, the links (connections between two consecutive lanes, see above) are added almost at the end of the loading process. When a link is built, the tls-logic which controls it is informed about it getting the information which stream information is used by the link. This information is given as an index to the fields <sgmltag
+>phase</sgmltag
+>, <sgmltag
+>brake</sgmltag
+> and <sgmltag
+>yellow</sgmltag
+> from the <sgmltag
+>phase</sgmltag
+>-element of the tls-description described above.</para
+><para
+>The information about a link is represented as following (example from <filename
+>cross3ltl.net.xml</filename
+>):</para
+><programlisting
+><sgmltag
+>&#60;succ edge=&#34;1si&#34; lane=&#34;1si_0&#34; junction=&#34;0&#34;&#62;
+   &#60;succlane lane=&#34;3o_0&#34; via=&#34;:0_12_0&#34; tl=&#34;0&#34; linkno=&#34;12&#34; yield=&#34;1&#34; dir=&#34;r&#34; state=&#34;t&#34;/&#62;
+&#60;/succ&#62; </sgmltag
+></programlisting
+><para
+>Let&#39;s consider the element &#34;succlane&#34; only, the element &#34;succ&#34; gives us only the names of the edge/lane that is currently processed and the junction this edge/lane yields in.</para
+><itemizedlist
+><listitem
+><para
+><sgmltag
+>lane</sgmltag
+>: the connected lane&#39;s id (mandatory, string)</para
+></listitem
+><listitem
+><para
+><sgmltag
+>via</sgmltag
+>: the connected internal lane&#39;s id (mandatory, string)</para
+><caution
+><para
+>internal lanes are not yet supported, this is just a developer&#39;s information by now</para
+></caution
+></listitem
+><listitem
+><para
+><sgmltag
+>tl</sgmltag
+>: the id of the tls-logic that is responsible for this link; this field is missing if the link is not controlled by a tls</para
+></listitem
+><listitem
+><para
+><sgmltag
+>linkno</sgmltag
+>: the index of the information within the controlling tls logic that shall be used for this link</para
+></listitem
+><listitem
+><para
+><sgmltag
+>yield</sgmltag
+>: information whether vehicles have to wait in front of this link (valid only for uncontrolled links)</para
+></listitem
+><listitem
+><para
+><sgmltag
+>dir</sgmltag
+>: the information about which arrow shall be drawn for this link</para
+></listitem
+><listitem
+><para
+><sgmltag
+>state</sgmltag
+>: the information what kind of state shall be drawn</para
+></listitem
+></itemizedlist
+></sect3
+></sect2
+><sect2
+><title
+>Parsing the network description</title
+><para
+>As described in <ulink
+url="http://sumo.sourceforge.net/docs/gen/dev_chp03.shtml#dev_chp03-loading"
+>Developer Docs - Chapter 3. SUMO - 3.2. Loading</ulink
+>, an instance of NLHandler is used to parse the XML-descriptions of the network and of the tls-logics contained herein. All elements related to traffic lights and junctions at all are delegated to an instance of NLJunctionControlBuilder (from version 0.9.0 on). Herein, the whole description is stored temporarily until the complete description has been read. Then, as the closing <sgmltag
+>tl-logic</sgmltag
+> tag occures, the tls logic is build in accordace to the read type.</para
 ></sect2
 ></sect1
 ><sect1
@@ -246,6 +493,76 @@ format="GIF"
 ><sect1
 ><title
 >How to implement a new Traffic Lights Logic</title
+><sect2
+><title
+>... tbd ...</title
+><para
+>...tbd...</para
+></sect2
+></sect1
+></chapter
+><chapter
+id="more_emissions"
+><title
+>More on... Vehicle Handling</title
+><para
+>SUMO holds several ways to insert vehicles into the network. This chapter decribes the different possibilities and is meant to be an add-on to the <ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
+>user documentation</ulink
+>.</para
+><sect1
+><title
+>Vehicles in the microsim</title
+><sect2
+><title
+>Used Structures</title
+><para
+>... tbd ...</para
+></sect2
+><sect2
+><title
+>A Vehicle&#39;s Lifecycle</title
+><para
+>... tbd ...</para
+></sect2
+></sect1
+><sect1
+><title
+>Emissions</title
+><para
+>... tbd ...</para
+><sect2
+><title
+>Plain Emissions</title
+><sect3
+><title
+>Emissions from normal Edges</title
+><para
+>... tbd ...</para
+></sect3
+><sect3
+><title
+>Emissions from Source Edges</title
+><para
+>... tbd ...</para
+></sect3
+><sect3
+><title
+>Additional Parameter</title
+><para
+>... tbd ...</para
+></sect3
+></sect2
+><sect2
+><title
+>Using TriggeredEmitters</title
+><para
+>... tbd ...</para
+></sect2
+></sect1
+><sect1
+><title
+>Teleporting</title
 ><sect2
 ><title
 >... tbd ...</title
