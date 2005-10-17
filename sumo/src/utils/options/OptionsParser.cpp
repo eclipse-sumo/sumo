@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/10/17 09:25:12  dkrajzew
+// got rid of the old MSVC memory leak checker
+//
 // Revision 1.6  2005/10/07 11:46:56  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -104,15 +107,6 @@ namespace
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
-
-
-/* =========================================================================
- * debugging definitions (MSVC++ only)
- * ======================================================================= */
-#ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC       // exclude standard memory alloc procedures
-#endif
 
 
 /* =========================================================================

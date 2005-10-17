@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2005/10/17 09:27:46  dkrajzew
+// got rid of the old MSVC memory leak checker
+//
 // Revision 1.28  2005/10/07 11:48:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -196,22 +199,9 @@ namespace
 #include "netconvert_build.h"
 #include "sumo_version.h"
 
-
-/* =========================================================================
- * debugging definitions (MSVC++ only)
- * ======================================================================= */
-#ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-//   #define _INC_MALLOC	     // exclude standard memory alloc procedures
-#ifdef WIN32
-//   #include <utils/dev/MemDiff.h>
-//   #include <crtdbg.h>
-#endif
-
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
-#endif
 
 
 /* =========================================================================
@@ -226,15 +216,6 @@ using namespace std;
 int
 main(int argc, char **argv)
 {
-#ifdef _DEBUG
-#ifdef WIN32
-    //CMemDiff state1;
-    // uncomment next line and insert the context of an undeleted
-    //  allocation to break within it (MSVC++ only)
-    // _CrtSetBreakAlloc(814107);
-#endif
-#endif
-
     int ret = 0;
     try {
         int init_ret = SystemFrame::init(false, argc, argv,
@@ -271,7 +252,7 @@ main(int argc, char **argv)
     SystemFrame::close();
     // report about ending
     if(ret==0) {
-        WRITE_MESSAGE("Success.");
+        cout << "Success." << endl;
     }
     return ret;
 }

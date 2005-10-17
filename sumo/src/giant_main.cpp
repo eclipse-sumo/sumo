@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/10/17 09:27:46  dkrajzew
+// got rid of the old MSVC memory leak checker
+//
 // Revision 1.5  2005/10/07 11:48:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -38,16 +41,10 @@
 // Revision 1.1  2004/11/22 13:02:17  dksumo
 // 'netedit' and 'giant' added
 //
-//
 /* =========================================================================
  * included modules
  * ======================================================================= */
-/*
-#ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // Microsoft memory leak detection procedures
-//   #define _INC_MALLOC	     // exclude standard memory alloc procedures
-#ifdef WIN32
-   #ifdef HAVE_CONFIG_H
+#ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
 #else
@@ -55,11 +52,6 @@
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <utils/dev/MemDiff.h>
-   #include <crtdbg.h>
-#endif
-#endif
-*/
 #include <ctime>
 #include <signal.h>
 #include <iostream>
@@ -114,16 +106,6 @@ using namespace std;
 int
 main(int argc, char **argv)
 {
-/*
-#ifdef _DEBUG
-#ifdef WIN32
-    CMemDiff state1;
-    // uncomment next line and insert the context of an undeleted
-    //  allocation to break within it (MSVC++ only)
-    _CrtSetBreakAlloc(376348);
-#endif
-#endif
-*/
     int ret = 0;
     try {
         int init_ret = SystemFrame::init(true, argc, argv,

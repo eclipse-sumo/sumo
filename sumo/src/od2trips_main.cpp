@@ -348,16 +348,15 @@ main(int argc, char **argv)
         for(i=0;i<total_cars;i++)
         {
             index = old_index[i];
-            source_sink[i].from = *(source+index);
-            source_sink[i].to = *(sink+index);
-            source_sink[i].time = *(when_all+i);
-            source_sink[i].type = *(cartype+index);
-        }
-        // writes output to file
-        ODWrite( OD_outfile, source_sink, total_cars, *districts );
-        delete [] source; delete [] sink;
-        delete [] when_all; delete [] cartype;
-        WRITE_MESSAGE("Success.");
+			source_sink[i].from = *(source+index);
+			source_sink[i].to = *(sink+index);
+			source_sink[i].time = *(when_all+i);
+			source_sink[i].type = *(cartype+index);
+		}
+		// writes output to file
+		ODWrite( OD_outfile, source_sink, total_cars, *districts );
+		delete [] source; delete [] sink;
+		delete [] when_all; delete [] cartype;
     } catch (...) {
         MsgHandler::getMessageInstance()->inform(
             "Quitting (on error).");
@@ -365,7 +364,7 @@ main(int argc, char **argv)
     }
     SystemFrame::close();
     if(ret==0) {
-        WRITE_MESSAGE("Success.");
+        cout << "Success." << endl;
     }
     return ret;
 }

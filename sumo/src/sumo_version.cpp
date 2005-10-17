@@ -25,6 +25,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.8  2005/10/17 09:27:46  dkrajzew
+// got rid of the old MSVC memory leak checker
+//
 // Revision 1.7  2005/10/07 11:48:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -69,7 +72,7 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-const char *version = "0.9.0";
+const char *version = "0.9.1";
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

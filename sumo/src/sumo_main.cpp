@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2005/10/17 09:27:46  dkrajzew
+// got rid of the old MSVC memory leak checker
+//
 // Revision 1.32  2005/10/10 12:10:15  dkrajzew
 // debugging missing junction geometries
 //
@@ -207,19 +210,6 @@ namespace
 #include <config.h>
 #endif
 #endif // HAVE_CONFIG_H
-/*
-#ifdef DEBUB_ALLOC
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection procedures
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
-#ifdef WIN32
-   #include <utils/dev/MemDiff.h>
-   #include <crtdbg.h>
-#endif
-/*
-#include <utils/dev/debug_new.h>
-#define new debug_new
-#endif
-*/
 
 #include <ctime>
 #include <string>
@@ -303,15 +293,6 @@ load(OptionsCont &oc)
 int
 main(int argc, char **argv)
 {
-#ifdef DEBUB_ALLOC
-#ifdef WIN32
-//    CMemDiff state1;
-    // uncomment next line and insert the context of an undeleted
-    //  allocation to break within it (MSVC++ only)
-    //_CrtSetBreakAlloc(10205803);
-#endif
-#endif
-
     size_t rand_init = 10551;
     int ret = 0;
     try {
