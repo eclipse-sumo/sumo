@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/10/17 09:20:35  dkrajzew
+// c4503 warning removed
+//
 // Revision 1.1  2005/10/10 12:09:55  dkrajzew
 // renamed *NetHandler to *Handler
 //
@@ -124,6 +127,7 @@ namespace
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
+#pragma warning(disable: 4503)
 
 
 /* =========================================================================

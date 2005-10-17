@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/10/17 09:21:57  dkrajzew
+// c4503 warning removed
+//
 // Revision 1.7  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -79,6 +82,7 @@ namespace
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
+#pragma warning(disable: 4503)
 
 
 /* =========================================================================
