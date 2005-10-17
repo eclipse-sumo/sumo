@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/10/17 09:20:12  dkrajzew
+// segfaults on loading broken configs patched
+//
 // Revision 1.14  2005/10/10 12:11:33  dkrajzew
 // debugging
 //
@@ -142,7 +145,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NLEdgeControlBuilder::NLEdgeControlBuilder(unsigned int storageSize)
-    : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0)
+    : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), m_pEdges(0)
 {
     m_pActiveEdge = (MSEdge*) 0;
     m_pLaneStorage = new MSEdge::LaneCont();

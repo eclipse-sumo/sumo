@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.19  2005/10/17 09:20:12  dkrajzew
+// segfaults on loading broken configs patched
+//
 // Revision 1.18  2005/10/10 12:11:23  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -174,7 +177,7 @@ const int NLJunctionControlBuilder::TYPE_DEAD_END = 3;
  * ======================================================================= */
 NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet &net,
                                                    OptionsCont &oc)
-    : myNet(net), _tlLogicNo(-1), m_Offset(0)
+    : myNet(net), _tlLogicNo(-1), m_Offset(0), m_pJunctions(0)
 {
     myStdDetectorPositions = oc.getFloat("actuated-tl.detector-pos");
     myStdDetectorLengths = oc.getFloat("agent-tl.detector-len");
