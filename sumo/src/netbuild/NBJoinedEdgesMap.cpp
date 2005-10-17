@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/10/17 09:03:33  dkrajzew
+// c4503 warning removed
+//
 // Revision 1.5  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -32,11 +35,11 @@ namespace
 // Revision 1.3  2005/07/12 12:32:47  dkrajzew
 // code style adapted; guessing of ramps and unregulated near districts implemented; debugging
 //
-//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
+#pragma warning(disable: 4503)
 
 
 /* =========================================================================
