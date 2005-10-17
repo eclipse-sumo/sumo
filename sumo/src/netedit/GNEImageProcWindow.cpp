@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/10/17 09:04:48  dkrajzew
+// building patched
+//
 // Revision 1.8  2005/10/10 11:59:53  dkrajzew
 // debugging
 //
@@ -92,6 +95,7 @@ namespace
 #include <guinetload/GUIEdgeControlBuilder.h>
 #include <guinetload/GUIJunctionControlBuilder.h>
 #include <guinetload/GUIGeomShapeBuilder.h>
+#include <guinetload/GUIHandler.h>
 #include <guisim/GUIVehicleControl.h>
 #include <guisim/GUINet.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
