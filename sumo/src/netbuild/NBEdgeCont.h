@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.24  2005/10/17 09:02:44  dkrajzew
+// got rid of the old MSVC memory leak checker; memory leaks removed
+//
 // Revision 1.23  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -176,6 +179,7 @@ class NBTrafficLightLogicCont;
 class NBEdgeCont {
 public:
     NBEdgeCont();
+    ~NBEdgeCont();
 
     /** adds an edge to the dictionary;
         returns false if the edge already was in the dictionary */

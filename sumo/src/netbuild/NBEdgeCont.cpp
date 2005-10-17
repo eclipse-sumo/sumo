@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.38  2005/10/17 09:02:44  dkrajzew
+// got rid of the old MSVC memory leak checker; memory leaks removed
+//
 // Revision 1.37  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -223,15 +226,6 @@ namespace
 
 
 /* =========================================================================
- * debugging definitions (MSVC++ only)
- * ======================================================================= */
-#ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
-   #define _INC_MALLOC       // exclude standard memory alloc procedures
-#endif
-
-
-/* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
@@ -249,6 +243,12 @@ using namespace std;
 NBEdgeCont::NBEdgeCont()
     : EdgesSplit(0)
 {
+}
+
+
+NBEdgeCont::~NBEdgeCont()
+{
+    clear();
 }
 
 bool
@@ -432,7 +432,8 @@ NBEdgeCont::getNo()
 
 
 void
-NBEdgeCont::clear() {
+NBEdgeCont::clear()
+{
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++)
         delete((*i).second);
     _edges.clear();
@@ -880,10 +881,4 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &oc)
 // Local Variables:
 // mode:C++
 // End:
-
-
-
-
-
-
 

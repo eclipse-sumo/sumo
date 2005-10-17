@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2005/10/17 09:02:44  dkrajzew
+// got rid of the old MSVC memory leak checker; memory leaks removed
+//
 // Revision 1.16  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -120,6 +123,7 @@ NBTrafficLightLogicCont::NBTrafficLightLogicCont()
 
 NBTrafficLightLogicCont::~NBTrafficLightLogicCont()
 {
+    clear();
 }
 
 
@@ -165,10 +169,18 @@ NBTrafficLightLogicCont::writeXML(std::ostream &into)
 void
 NBTrafficLightLogicCont::clear()
 {
-    for(ComputedContType::iterator i=_computed.begin(); i!=_computed.end(); i++) {
-        delete (*i).second;
+    {
+        for(ComputedContType::iterator i=_computed.begin(); i!=_computed.end(); ++i) {
+            delete (*i).second;
+        }
+        _computed.clear();
     }
-    _computed.clear();
+    {
+        for(DefinitionContType::iterator i=_definitions.begin(); i!=_definitions.end(); ++i) {
+            delete (*i).second;
+        }
+        _definitions.clear();
+    }
 }
 
 

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/10/17 09:02:44  dkrajzew
+// got rid of the old MSVC memory leak checker; memory leaks removed
+//
 // Revision 1.9  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -41,7 +44,8 @@ namespace
 // node-building classes are now lying in an own folder
 //
 // Revision 1.4  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of geometry information
+// some further refinements due to the new 1:N traffic lights and usage
+//  of geometry information
 //
 // Revision 1.3  2003/04/10 15:45:18  dkrajzew
 // some lost changes reapplied
@@ -108,15 +112,6 @@ namespace
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
-
-
-/* =========================================================================
- * debugging definitions (MSVC++ only)
- * ======================================================================= */
-#ifdef _DEBUG
-   #define _CRTDBG_MAP_ALLOC // include Microsoft memory leak detection
-   #define _INC_MALLOC	     // exclude standard memory alloc procedures
-#endif
 
 
 /* =========================================================================
