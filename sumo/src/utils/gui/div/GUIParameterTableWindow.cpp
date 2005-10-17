@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/10/17 09:23:47  dkrajzew
+// memory leaks removed
+//
 // Revision 1.5  2005/10/07 11:44:53  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -159,6 +162,9 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow &app,
 GUIParameterTableWindow::~GUIParameterTableWindow()
 {
     myApplication->removeChild(this);
+    for(std::vector<GUIParameterTableItem*>::iterator i=myItems.begin(); i!=myItems.end(); ++i) {
+        delete (*i);
+    }
 }
 
 

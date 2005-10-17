@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2005/10/17 09:22:36  dkrajzew
+// memory leaks removed
+//
 // Revision 1.7  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -36,10 +39,14 @@
 // interface changed to allow message building on the fly
 //
 // Revision 1.2  2003/06/24 14:40:22  dkrajzew
-// Error/Warning-prefix added to all messages; endlines are now prompted correctly within log-files
+// Error/Warning-prefix added to all messages; endlines are now prompted
+//  correctly within log-files
 //
 // Revision 1.1  2003/06/18 11:22:56  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 /* =========================================================================
  * compiler pragmas

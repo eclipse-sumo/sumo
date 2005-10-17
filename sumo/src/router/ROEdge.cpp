@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2005/10/17 09:21:36  dkrajzew
+// memory leaks removed
+//
 // Revision 1.20  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -133,53 +136,13 @@ ROEdge::ROEdge(const std::string &id, int index)
 
 ROEdge::~ROEdge()
 {
-    /*
-    for(LaneUsageCont::iterator i=_laneCont.begin(); i!=_laneCont.end(); i++) {
-        delete (*i).first;
-        delete (*i).second;
+    for(std::vector<ROLane*>::iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
+        delete (*i);
     }
-    */
     delete _supplementaryWeightAbsolut;
     delete _supplementaryWeightAdd;
     delete _supplementaryWeightMult;
 }
-
-/*
-void
-ROEdge::postloadInit(size_t idx)
-{
-    // !!! only when not lanes but the edge shall be used for routing
-    if(_usingTimeLine) {
-        // get the number of the ValuedTimeRanges that are in the
-        // container associated to the first lane. We assume, that all
-        // lanes have the same number of ValuedTimeRanges and that the
-        // ranges are identical.
-        assert( _laneCont.size() > 0 );
-        FloatValueTimeLine* firstLanesValueTimeLines =
-            (*(_laneCont.begin())).second;
-        unsigned nValuedTimeRanges =
-            firstLanesValueTimeLines->noDefinitions();
-
-        // Assign the mean-value of the lane's values of the current
-        // range to the edge's value of the same range.
-        for( unsigned index = 0; index < nValuedTimeRanges; ++index ) {
-            range = firstLanesValueTimeLines->getAtPosition( index );
-            SUMOReal valueSum = 0;
-            for( LaneUsageCont::iterator lane = _laneCont.begin();
-                 lane != _laneCont.end(); ++lane ) {
-                SUMOReal value = lane->second->getValue( range.first );
-                if ( value < 0 ) {
-                    value = _dist / _speed; // default traveltime
-                }
-                valueSum += value;
-            }
-            _ownValueLine.addValue( range, valueSum / _laneCont.size() );
-        }
-    }
-    // save the id
-    myIndex = idx;
-}
-*/
 
 size_t
 ROEdge::getIndex() const
@@ -197,30 +160,9 @@ ROEdge::addLane(ROLane *lane)
     _dist = length > _dist ? length : _dist;
     SUMOReal speed = lane->getSpeed();
     _speed = speed > _speed ? speed : _speed;
-//    _laneCont[lane] = new FloatValueTimeLine();
     myDictLane[lane->getID()] = lane;
     myLanes.push_back(lane);
 }
-
-/*
-void
-ROEdge::setLane(long timeBegin, long timeEnd,
-                const std::string &id, SUMOReal value)
-{
-    LaneUsageCont::iterator i = _laneCont.begin();
-    while(i!=_laneCont.end()) {
-        if((*i).first->getID()==id) {
-            (*i).second->addValue(timeBegin, timeEnd, value);
-            _usingTimeLine = true;
-            return;
-        }
-        i++;
-    }
-    MsgHandler::getErrorInstance()->inform(
-        string("Un unknown lane '") + id
-        + string("' occured at loading weights."));
-}
-*/
 
 
 void

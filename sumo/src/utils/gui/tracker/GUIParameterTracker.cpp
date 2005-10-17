@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/10/17 09:24:15  dkrajzew
+// memory leaks removed
+//
 // Revision 1.9  2005/10/07 11:45:56  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -209,6 +212,8 @@ GUIParameterTracker::~GUIParameterTracker()
     for(ValuePasserVector::iterator i2=myValuePassers.begin(); i2!=myValuePassers.end(); i2++) {
         delete (*i2);
     }
+    delete myToolBarDrag;
+    delete myToolBar;
 }
 
 

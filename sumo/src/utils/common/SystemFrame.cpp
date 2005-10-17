@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2005/10/17 09:22:36  dkrajzew
+// memory leaks removed
+//
 // Revision 1.10  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -160,12 +163,12 @@ void
 SystemFrame::close()
 {
     delete myLogFile;
-    // delete messages
-    MsgHandler::cleanupOnEnd();
     // close the xml-subsystem
     XMLSubSys::close();
     // delete build program options
     OptionsSubSys::close();
+    // delete messages
+    MsgHandler::cleanupOnEnd();
 }
 
 

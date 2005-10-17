@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/10/17 09:23:47  dkrajzew
+// memory leaks removed
+//
 // Revision 1.4  2005/10/07 11:44:53  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -121,6 +124,7 @@ GUIParameterTableItem::init(bool dynamic, std::string value)
 
 GUIParameterTableItem::~GUIParameterTableItem()
 {
+    delete mySource;
 }
 
 

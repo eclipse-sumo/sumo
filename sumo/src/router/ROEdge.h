@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2005/10/17 09:21:36  dkrajzew
+// memory leaks removed
+//
 // Revision 1.16  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -122,16 +125,8 @@ public:
     /// Desturctor
     virtual ~ROEdge();
 
-    /** @brief Initialises te edge after loading
-        The weights over time are being set, here */
-//    void postloadInit(size_t idx);
-
     /// Adds a lane to the edge while loading
     virtual void addLane(ROLane *lane);
-
-    /// Sets the effort of a lane while loading
-/*    void setLane(long timeBegin, long timeEnd,
-        const std::string &id, SUMOReal value);*/
 
     void addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd);
 
@@ -226,13 +221,7 @@ protected:
 
     /// The maximum speed allowed on this edge
     SUMOReal _speed;
-/*
-    /// Definition of a container for storing passing time varying over time for an edge's lanes
-    typedef std::map<ROLane*, FloatValueTimeLine*> LaneUsageCont;
 
-    /// Container for storing passing time varying over time for an edge's lanes
-    LaneUsageCont _laneCont;
-*/
     /// Container storing passing time varying over time for the edge
     FloatValueTimeLine _ownValueLine;
 
