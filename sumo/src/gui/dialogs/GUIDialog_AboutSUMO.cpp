@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/11/08 15:52:49  dkrajzew
+// removed memory leaks
+//
 // Revision 1.7  2005/10/17 08:54:29  dkrajzew
 // current version patched
 //
@@ -242,7 +245,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name,
 
     new FXLabel(f3, "(c) Institute of Transportation Research/DLR and ZAIK",
         0, LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL, 0,0,0,0, 0,0,5,0);
-    new FXLabel(f3, "2000-2004",
+    new FXLabel(f3, "2000-2005",
         0, LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL, 0,0,0,0, 0,0,0,0);
 
     new FXLabel(f3, "http://sumo.sourceforge.net",
@@ -265,6 +268,8 @@ GUIDialog_AboutSUMO::create()
 
 GUIDialog_AboutSUMO::~GUIDialog_AboutSUMO()
 {
+    delete myDLRIcon;
+    delete myZAIKIcon;
 }
 
 
