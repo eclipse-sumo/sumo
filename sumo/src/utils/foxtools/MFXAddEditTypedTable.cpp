@@ -23,6 +23,61 @@
 #endif // _DEBUG
 
 
+// Map
+FXDEFMAP(MFXAddEditTypedTable) MFXAddEditTypedTableMap[]={
+  FXMAPFUNC(SEL_CLICKED,0,MFXAddEditTypedTable::onClicked),
+  FXMAPFUNC(SEL_DOUBLECLICKED,0,MFXAddEditTypedTable::onDoubleClicked),
+  };
+// Object implementation
+FXIMPLEMENT(MFXAddEditTypedTable,FXTable,MFXAddEditTypedTableMap,ARRAYNUMBER(MFXAddEditTypedTableMap))
+
+
+/*
+MFXAddEditTypedTable::FXTableItem_Int::FXTableItem_Int(const FXString& text,
+                                                       FXIcon* ic,
+                                                       void* ptr)
+    : FXTableItem(text, ic, ptr)
+{
+}
+
+
+MFXAddEditTypedTable::FXTableItem_Int::~FXTableItem_Int()
+{
+}
+
+
+
+FXWindow *
+MFXAddEditTypedTable::FXTableItem_Int::getControlFor(FXTable* table)
+{
+    register FXRealSpinDial *field;
+    register FXuint justify=0;
+    field=new FXRealSpinDial(table,1,NULL,0,TEXTFIELD_ENTER_ONLY,0,0,0,0,table->getMarginLeft(),table->getMarginRight(),table->getMarginTop(),table->getMarginBottom());
+    if(state&LEFT) justify|=JUSTIFY_LEFT;
+    if(state&RIGHT) justify|=JUSTIFY_RIGHT;
+    if(state&TOP) justify|=JUSTIFY_TOP;
+    if(state&BOTTOM) justify|=JUSTIFY_BOTTOM;
+    field->create();
+    //field->getTextWidget()->setJustify(justify);
+    field->setFont(table->getFont());
+    field->setBackColor(table->getBackColor());
+    field->setTextColor(table->getTextColor());
+    field->setSelBackColor(table->getSelBackColor());
+    field->setSelTextColor(table->getSelTextColor());
+    //field->setText(label);
+    //field->selectAll();
+    return field;
+}
+
+
+
+void
+MFXAddEditTypedTable::FXTableItem_Int::setFromControl(FXWindow *control)
+{
+}
+*/
+
+
 /*
 // Map
 FXDEFMAP(FXComboBox) FXComboBoxMap[]={
@@ -179,15 +234,16 @@ FXDEFMAP(MFXAddEditTypedTable) MFXAddEditTypedTableMap[]=
 
 // Object implementation
 //FXIMPLEMENT(MFXAddEditTypedTable,FXTable,MFXAddEditTypedTableMap,ARRAYNUMBER(MFXAddEditTypedTableMap))
-FXIMPLEMENT(MFXAddEditTypedTable,MFXEditableTable,NULL,0)
+//FXIMPLEMENT(MFXAddEditTypedTable,MFXEditableTable,NULL,0)
 
 
 MFXAddEditTypedTable::MFXAddEditTypedTable(FXComposite *p, FXObject* tgt,
                                    FXSelector sel, FXuint opts,
                                    FXint x, FXint y, FXint w, FXint h,
                                    FXint pl,FXint pr,FXint pt,FXint pb)
-    : MFXEditableTable(p, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb)
+    : FXTable(p, tgt, sel, opts, x, y, w, h, pl, pr, pt, pb)
 {
+    /*
     myNumberEditor =
         new FXRealSpinDial((FXComposite*)getParent(),1,this,
             ID_EDITOR,FRAME_NORMAL|LAYOUT_EXPLICIT);
@@ -201,6 +257,7 @@ MFXAddEditTypedTable::MFXAddEditTypedTable(FXComposite *p, FXObject* tgt,
     myEnumEditor =
         new FXComboBox(this, 10, this, ID_EDITOR);
     myEnumEditor->hide();
+    */
 }
 
 
@@ -208,7 +265,7 @@ MFXAddEditTypedTable::~MFXAddEditTypedTable()
 {
 }
 
-
+/*
 void
 MFXAddEditTypedTable::editItem(FXTableItem* item,FXint how)
 {
@@ -431,6 +488,237 @@ MFXAddEditTypedTable::editCancel()
     setFocus();
     killSelection(true);
 }
+*/
+
+
+FXWindow *
+MFXAddEditTypedTable::getControlForItem(FXint r,FXint c)
+{
+    register FXTableItem* item=cells[r*ncols+c];
+    if(item==NULL){
+        return 0;
+        cells[r*ncols+c]=item=createItem(NULL,NULL,NULL);
+        if(isItemSelected(r,c)) item->setSelected(FALSE);
+    }
+    delete editor;
+    editor=NULL;
+    switch(getCellType(c)) {
+    case CT_UNDEFINED:
+    case CT_STRING:
+        {
+            register FXTextField *field;
+            register FXuint justify=0;
+            field=new FXTextField(this,1,NULL,0,TEXTFIELD_ENTER_ONLY,0,0,0,0,getMarginLeft(),getMarginRight(),getMarginTop(),getMarginBottom());
+            // !!! if(state&LEFT) justify|=JUSTIFY_LEFT;
+            // !!! if(state&RIGHT) justify|=JUSTIFY_RIGHT;
+            // !!! if(state&TOP) justify|=JUSTIFY_TOP;
+            // !!! if(state&BOTTOM) justify|=JUSTIFY_BOTTOM;
+            field->create();
+            field->setJustify(justify);
+            field->setFont(getFont());
+            field->setBackColor(getBackColor());
+            field->setTextColor(getTextColor());
+            field->setSelBackColor(getSelBackColor());
+            field->setSelTextColor(getSelTextColor());
+            field->setText(item->getText());
+            field->selectAll();
+            return field;
+        }
+    case CT_REAL:
+//        return myNumberEditor;
+    case CT_INT:
+        {
+            register FXRealSpinDial *field;
+            register FXuint justify=0;
+            field=new FXRealSpinDial(this,1,NULL,0,TEXTFIELD_ENTER_ONLY,0,0,0,0,getMarginLeft(),getMarginRight(),getMarginTop(),getMarginBottom());
+            // !!! if(state&LEFT) justify|=JUSTIFY_LEFT;
+            // !!! if(state&RIGHT) justify|=JUSTIFY_RIGHT;
+            // !!! if(state&TOP) justify|=JUSTIFY_TOP;
+            // !!! if(state&BOTTOM) justify|=JUSTIFY_BOTTOM;
+            field->create();
+//            field->setJustify(justify);
+            field->setFont(getFont());
+            field->setBackColor(getBackColor());
+            field->setTextColor(getTextColor());
+            field->setSelBackColor(getSelBackColor());
+            field->setSelTextColor(getSelTextColor());
+            try {
+                if(getCellType(c)==CT_REAL) {
+                    field->setValue(TplConvert<char>::_2SUMOReal(item->getText().text()));
+                } else {
+                    field->setValue(TplConvert<char>::_2int(item->getText().text()));
+                }
+            } catch (NumberFormatException &e) {
+                field->setValue(0);
+            }
+            field->selectAll();
+            return field;
+        }
+    case CT_BOOL:
+//        return myBoolEditor;
+    case CT_ENUM:
+//        return myEnumEditor;
+    default:
+        throw 1;
+    }
+}
+
+
+// Cancel editing cell
+void
+MFXAddEditTypedTable::cancelInput()
+{
+    if(editor){
+//        delete editor;
+        /*
+        input.fm.row=-1;
+        input.to.row=-1;
+        input.fm.col=-1;
+        input.to.col=-1;
+//        editor=NULL;
+*/
+    }
+}
+
+
+
+
+void
+MFXAddEditTypedTable::setItemFromControl(FXint r,FXint c,FXWindow *control)
+{
+    register FXTableItem* item=cells[r*ncols+c];
+    if(item==NULL){
+        cells[r*ncols+c]=item=createItem(NULL,NULL,NULL);
+        if(isItemSelected(r,c)) item->setSelected(FALSE);
+    }
+    switch(getCellType(c)) {
+    case CT_UNDEFINED:
+    case CT_STRING:
+        item->setFromControl(control);
+        break;
+    case CT_REAL:
+    case CT_INT:
+        item->setText(toString(static_cast<FXRealSpinDial*>(control)->getValue()).c_str());
+        break;
+    case CT_BOOL:
+//        return myBoolEditor;
+    case CT_ENUM:
+//        return myEnumEditor;
+    default:
+        throw 1;
+    }
+    current.row = -1;
+    current.col = -1;
+    EditedTableItem edited;
+    edited.item = item;
+    edited.row = r;
+    edited.col = c;
+    /*
+    if(item->getText() == text) {
+        target->handle(this,FXSEL(SEL_CHANGED, ID_TEXT_CHANGED), (void*) &edited);
+        return;
+    }
+    */
+    killSelection(true);
+    if(target) {
+        if(!target->handle(this,FXSEL(SEL_CHANGED, ID_TEXT_CHANGED), (void*) &edited)) {
+            // !!! item->setText(myPreviousText);
+        } else {
+            if(edited.row==getNumRows()-1) {
+                insertRows(getNumRows(), 1, true);
+                for(int i=0; i<getNumColumns(); i++) {
+                    setItemText(getNumRows()-1, i, "");
+                    setItemJustify(getNumRows()-1, i, JUSTIFY_CENTER_X);
+                }
+            }
+        }
+    }
+}
+
+
+
+// Clicked in list
+long MFXAddEditTypedTable::onClicked(FXObject*,FXSelector,void* ptr){
+    if(editor){
+        delete editor;
+        input.fm.row=-1;
+        input.to.row=-1;
+        input.fm.col=-1;
+        input.to.col=-1;
+        editor=NULL;
+    }
+//    } else {
+        if(target && target->tryHandle(this,FXSEL(SEL_CLICKED,message),ptr)) return 1;
+        handle(this,FXSEL(SEL_COMMAND,ID_START_INPUT),NULL);
+//    }
+    return 1;
+//  return target && target->tryHandle(this,FXSEL(SEL_CLICKED,message),ptr);
+  }
+
+
+// Double clicked in list; ptr may or may not point to an item
+long MFXAddEditTypedTable::onDoubleClicked(FXObject*,FXSelector,void* ptr){
+    if(editor){
+        delete editor;
+        input.fm.row=-1;
+        input.to.row=-1;
+        input.fm.col=-1;
+        input.to.col=-1;
+        editor=NULL;
+    } else {
+        if(target && target->tryHandle(this,FXSEL(SEL_CLICKED,message),ptr)) return 1;
+        handle(this,FXSEL(SEL_COMMAND,ID_START_INPUT),NULL);
+    }
+    return 1;
+    /*
+  if(target && target->tryHandle(this,FXSEL(SEL_DOUBLECLICKED,message),ptr)) return 1;
+  handle(this,FXSEL(SEL_COMMAND,ID_START_INPUT),NULL);
+  return 1;
+  */
+  }
+
+
+
+/*
+FXTableItem*
+FXTable::createItem(const FXString& text,FXIcon* icon,void* ptr)
+{
+    switch(getCellType(c)) {
+    case CT_UNDEFINED:
+    case CT_STRING:
+        {
+            register FXTextField *field;
+            register FXuint justify=0;
+            field=new FXTextField(this,1,NULL,0,TEXTFIELD_ENTER_ONLY,0,0,0,0,getMarginLeft(),getMarginRight(),getMarginTop(),getMarginBottom());
+            if(item->state&LEFT) justify|=JUSTIFY_LEFT;
+            if(state&RIGHT) justify|=JUSTIFY_RIGHT;
+            if(state&TOP) justify|=JUSTIFY_TOP;
+            if(state&BOTTOM) justify|=JUSTIFY_BOTTOM;
+            field->create();
+            field->setJustify(justify);
+            field->setFont(table->getFont());
+            field->setBackColor(table->getBackColor());
+            field->setTextColor(table->getTextColor());
+            field->setSelBackColor(table->getSelBackColor());
+            field->setSelTextColor(table->getSelTextColor());
+            field->setText(label);
+            field->selectAll();
+            return field;
+        }
+    case CT_REAL:
+        return myNumberEditor;
+    case CT_INT:
+        return myNumberEditor;
+    case CT_BOOL:
+        return myBoolEditor;
+    case CT_ENUM:
+        return myEnumEditor;
+    default:
+        throw 1;
+    }
+    return new FXTableItem(text,icon,ptr);
+}
+*/
 
 
 CellType
