@@ -25,6 +25,7 @@
 				PreprocessorDefinitions="HAVE_CONFIG_H;_DEBUG;FOXDLL;WIN32;_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation=".\Debug/"
@@ -79,6 +80,7 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation=".\Release/"
@@ -220,6 +222,9 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUIEmitter.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUIGridBuilder.cpp">
@@ -568,9 +573,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\guisim\GUITriggeredEmitter.cpp">
-			</File>
-			<File
 				RelativePath="..\..\..\src\guisim\GUITriggeredRerouter.cpp">
 			</File>
 			<File
@@ -659,6 +661,9 @@
 				RelativePath="..\..\..\src\guisim\GUIEdgeCont.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\guisim\GUIEmitter.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\guisim\GUIGridBuilder.h">
 			</File>
 			<File
@@ -714,9 +719,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUITrafficLightLogicWrapper.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\guisim\GUITriggeredEmitter.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUITriggeredRerouter.h">

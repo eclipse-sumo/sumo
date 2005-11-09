@@ -41,7 +41,8 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "$(FOX14)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "NDEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "$(FOX14)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "NDEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /FD /c
+# SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -64,7 +65,8 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "$(FOX14)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "_DEBUG" /D "ABS_DEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "$(FOX14)\include" /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "_DEBUG" /D "ABS_DEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /FD /GZ /c
+# SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -117,11 +119,19 @@ SOURCE=..\..\..\src\microsim\MSEdge.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\MSEdgeContinuations.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\MSEdgeControl.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\MSEmitControl.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\trigger\MSEmitter.cpp
 # End Source File
 # Begin Source File
 
@@ -226,10 +236,6 @@ SOURCE=..\..\..\src\microsim\MSSourceLane.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\trigger\MSTriggerControl.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\trigger\MSTriggeredEmitter.cpp
 # End Source File
 # Begin Source File
 
@@ -345,11 +351,19 @@ SOURCE=..\..\..\src\microsim\MSEdge.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\MSEdgeContinuations.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\MSEdgeControl.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\MSEmitControl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\microsim\trigger\MSEmitter.h
 # End Source File
 # Begin Source File
 
@@ -482,10 +496,6 @@ SOURCE=..\..\..\src\microsim\trigger\MSTrigger.h
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\trigger\MSTriggerControl.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\trigger\MSTriggeredEmitter.h
 # End Source File
 # Begin Source File
 

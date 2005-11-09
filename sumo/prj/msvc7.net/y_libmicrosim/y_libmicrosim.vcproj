@@ -248,6 +248,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSEdgeContinuations.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSEdgeControl.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -286,6 +289,9 @@
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\trigger\MSEmitter.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSEventControl.cpp">
@@ -757,9 +763,6 @@
 				RelativePath="..\..\..\src\microsim\trigger\MSTriggerControl.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredEmitter.cpp">
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredReader.cpp">
 			</File>
 			<File
@@ -947,10 +950,16 @@
 				RelativePath="..\..\..\src\microsim\MSEdge.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSEdgeContinuations.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSEdgeControl.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSEmitControl.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\trigger\MSEmitter.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSEventControl.h">
@@ -1044,9 +1053,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\trigger\MSTriggerControl.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredEmitter.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\trigger\MSTriggeredReader.h">

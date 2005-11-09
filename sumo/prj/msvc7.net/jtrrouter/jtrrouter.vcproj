@@ -23,8 +23,12 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
 				PreprocessorDefinitions="HAVE_CONFIG_H;_DEBUG;_AFXDLL;WIN32;_CONSOLE;BOOST_HAS_THREADS"
+				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				StructMemberAlignment="4"
+				BufferSecurityCheck="TRUE"
+				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=""
 				AssemblerListingLocation=".\Debug/"
@@ -38,9 +42,9 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES)\lib\xerces-c_2D.lib"
+				AdditionalDependencies="$(XERCES)\lib\xerces-c_2D.lib $(NOINHERIT)"
 				OutputFile=".\Debug/jtrrouter.exe"
-				LinkIncremental="0"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
 				GenerateDebugInformation="TRUE"
@@ -86,11 +90,16 @@ copy Debug\jtrrouter.exe ..\..\..\bin\jtrrouterD.exe
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
+				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="1"
+				FavorSizeOrSpeed="1"
+				OptimizeForProcessor="3"
 				AdditionalIncludeDirectories="$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
 				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;WIN32;_CONSOLE;BOOST_HAS_THREADS"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
+				StructMemberAlignment="4"
+				BufferSecurityCheck="FALSE"
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile=""
@@ -104,10 +113,11 @@ copy Debug\jtrrouter.exe ..\..\..\bin\jtrrouterD.exe
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib $(XERCES)\lib\xerces-c_2.lib"
+				AdditionalDependencies="$(XERCES)\lib\xerces-c_2.lib $(NOINHERIT)"
 				OutputFile=".\Release/jtrrouter.exe"
-				LinkIncremental="0"
+				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="FALSE"
 				ProgramDatabaseFile=".\Release/jtrrouter.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
@@ -228,6 +238,9 @@ copy Release\jtrrouter.exe ..\..\..\bin\jtrrouter.exe
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\routing_jtr\ROJTRFrame.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\routing_jtr\ROJTRHelpers.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -288,9 +301,6 @@ copy Release\jtrrouter.exe ..\..\..\bin\jtrrouter.exe
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_jtr\ROJTRFrame.cpp">
-			</File>
-			<File
 				RelativePath="..\..\..\src\sumo_version.cpp">
 			</File>
 			<File
@@ -330,6 +340,9 @@ copy Release\jtrrouter.exe ..\..\..\bin\jtrrouter.exe
 				RelativePath="..\..\..\src\routing_jtr\ROJTREdgeBuilder.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\routing_jtr\ROJTRFrame.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\routing_jtr\ROJTRHelpers.h">
 			</File>
 			<File
@@ -337,9 +350,6 @@ copy Release\jtrrouter.exe ..\..\..\bin\jtrrouter.exe
 			</File>
 			<File
 				RelativePath="..\..\..\src\routing_jtr\ROJTRTurnDefLoader.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\routing_jtr\ROJTRFrame.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\sumo_version.h">
