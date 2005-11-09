@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.47  2005/11/09 06:31:46  dkrajzew
+// added cursor position output (unfinished); catching opening a second file using recent files added
+//
 // Revision 1.46  2005/10/17 08:53:32  dkrajzew
 // memory leaks removed
 //
@@ -272,6 +275,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]=
 
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN,              GUIApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_UPDATE,   MID_RELOAD,            GUIApplicationWindow::onUpdReload),
+    FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,        GUIApplicationWindow::onUpdOpenRecent),
     FXMAPFUNC(SEL_UPDATE,   MID_NEW_MICROVIEW,     GUIApplicationWindow::onUpdAddMicro),
     FXMAPFUNC(SEL_UPDATE,   MID_NEW_LANEAVIEW,     GUIApplicationWindow::onUpdAddALane),
     FXMAPFUNC(SEL_UPDATE,   MID_START,             GUIApplicationWindow::onUpdStart),
@@ -754,6 +758,10 @@ GUIApplicationWindow::onCmdReload(FXObject*,FXSelector,void*)
 long
 GUIApplicationWindow::onCmdOpenRecent(FXObject*,FXSelector,void *data)
 {
+    if(myAmLoading) {
+        myStatusbar->getStatusLine()->setText("Already loading!");
+        return 1;
+    }
     string file = string((const char*)data);
     load(file);
     return 1;
@@ -784,6 +792,16 @@ GUIApplicationWindow::onUpdReload(FXObject*sender,FXSelector,void*ptr)
     sender->handle(this,
         myAmLoading||myLoadThread->getFileName()==""
         ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
+        ptr);
+    return 1;
+}
+
+
+long
+GUIApplicationWindow::onUpdOpenRecent(FXObject*sender,FXSelector,void*ptr)
+{
+    sender->handle(this,
+        myAmLoading?FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
         ptr);
     return 1;
 }
@@ -1221,6 +1239,8 @@ GUIApplicationWindow::closeAllWindows()
         delete myTrackerWindows[0];
     }
     mySubWindows.clear();
+    // clear selected items
+    gSelected.clear();
     // add a separator to the log
     myMessageWindow->addSeparator();
     myTrackerLock.unlock();
@@ -1281,6 +1301,16 @@ GUIApplicationWindow::onCmdCutSwell(FXObject*, FXSelector, void*)
     return 1;
 }
 */
+
+
+void
+GUIApplicationWindow::setStatusBarText(const std::string &text)
+{
+    myStatusbar->getStatusLine()->setText(text.c_str());
+    myStatusbar->getStatusLine()->setNormalText(text.c_str());
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 // Local Variables:

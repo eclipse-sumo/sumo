@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.33  2005/11/09 06:31:46  dkrajzew
+// added cursor position output (unfinished); catching opening a second file using recent files added
+//
 // Revision 1.32  2005/10/10 11:48:27  dkrajzew
 // removed unneeded APIs
 //
@@ -210,6 +213,7 @@ public:
 
     void dependentBuild(GUIThreadFactory &threadFactory);
 
+    void setStatusBarText(const std::string &);
 
 public:
     /// Closes the log window
@@ -258,6 +262,7 @@ public:
 
     long onUpdOpen(FXObject*,FXSelector,void*);
     long onUpdReload(FXObject*,FXSelector,void*);
+    long onUpdOpenRecent(FXObject*,FXSelector,void*);
     long onUpdAddMicro(FXObject*,FXSelector,void*);
     long onUpdAddALane(FXObject*,FXSelector,void*);
     virtual long onUpdStart(FXObject*,FXSelector,void*);
