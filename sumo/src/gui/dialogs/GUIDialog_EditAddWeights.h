@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/11/09 06:30:13  dkrajzew
+// subwindows are now deleted on (re)loading the simulation
+//
 // Revision 1.5  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -80,7 +83,7 @@ class GUIDialog_EditAddWeights : public FXMainWindow
     FXDECLARE(GUIDialog_EditAddWeights)
 public:
     /// constructor
-    GUIDialog_EditAddWeights(FXWindow *parent);
+    GUIDialog_EditAddWeights(GUIMainWindow *parent);
 
     /// destructor
     ~GUIDialog_EditAddWeights();
@@ -114,7 +117,7 @@ private:
     MFXAddEditTypedTable *myTable;
 
     /// the parent window
-//    GUIApplicationWindow *myParent;
+    GUIMainWindow *myParent;
 
     ///
     bool myEntriesAreValid;

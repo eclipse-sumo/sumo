@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/11/09 06:30:13  dkrajzew
+// subwindows are now deleted on (re)loading the simulation
+//
 // Revision 1.9  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -90,6 +93,7 @@ namespace
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIMainWindow.h>
 #include <microsim/MSJunction.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIEdge.h>
@@ -209,11 +213,14 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
         0, 0, 0, 0, 4, 4, 4, 4);
 
     setIcon( GUIIconSubSys::getIcon(ICON_APP_FINDER) );
+
+    myParent->getParent()->addChild(this);
 }
 
 
 GUIDialog_GLObjChooser::~GUIDialog_GLObjChooser()
 {
+    myParent->getParent()->removeChild(this);
 }
 
 

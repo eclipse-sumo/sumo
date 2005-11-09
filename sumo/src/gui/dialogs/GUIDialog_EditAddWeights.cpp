@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/11/09 06:30:13  dkrajzew
+// subwindows are now deleted on (re)loading the simulation
+//
 // Revision 1.7  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -124,9 +127,9 @@ FXIMPLEMENT(GUIDialog_EditAddWeights, FXMainWindow, GUIDialog_EditAddWeightsMap,
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-GUIDialog_EditAddWeights::GUIDialog_EditAddWeights(FXWindow *parent)
+GUIDialog_EditAddWeights::GUIDialog_EditAddWeights(GUIMainWindow *parent)
     : FXMainWindow(gFXApp, "Additional Weights Editor", NULL, NULL, DECOR_ALL, 20,20,300, 300),
-    /*myParent(parent),*/ myEntriesAreValid(false)
+    myParent(parent), myEntriesAreValid(false)
 {
     FXHorizontalFrame *hbox =
         new FXHorizontalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0,
@@ -191,11 +194,14 @@ GUIDialog_EditAddWeights::GUIDialog_EditAddWeights(FXWindow *parent)
     new FXButton(layout, "Close\t\t", 0, this, MID_CANCEL,
         ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,
         0, 0, 0, 0, 4, 4, 3, 3);
+
+    myParent->addChild(this);
 }
 
 
 GUIDialog_EditAddWeights::~GUIDialog_EditAddWeights()
 {
+    myParent->removeChild(this);
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/11/09 06:30:13  dkrajzew
+// subwindows are now deleted on (re)loading the simulation
+//
 // Revision 1.8  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -185,11 +188,13 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow *parent)
         0, 0, 0, 0, 4, 4, 3, 3);
 
     setIcon( GUIIconSubSys::getIcon(ICON_APP_BREAKPOINTS) );
+    myParent->addChild(this);
 }
 
 
 GUIDialog_Breakpoints::~GUIDialog_Breakpoints()
 {
+    myParent->removeChild(this);
 }
 
 
