@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/11/09 06:35:34  dkrajzew
+// debugging
+//
 // Revision 1.5  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -133,9 +136,12 @@ GUIGridBuilder::computeBoundary()
     Boundary ret;
     MSJunction::DictType::iterator i;
     // get the bounderies of the network
-    for(i=MSJunction::myDict.begin(); i!=MSJunction::myDict.end(); i++) {
-        MSJunction *junction = ((*i).second);
-        ret.add(junction->getPosition());
+    for(size_t index=0; index<myNet.myJunctionWrapper.size(); index++) {
+		if(myNet.myJunctionWrapper[index]->getShape().size()>0) {
+	        ret.add(myNet.myJunctionWrapper[index]->getBoundary());
+		} else {
+			ret.add(myNet.myJunctionWrapper[index]->getJunction().getPosition());
+		}
     }
     return ret;
 }

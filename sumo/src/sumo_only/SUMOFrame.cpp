@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2005/11/09 06:44:01  dkrajzew
+// debugging
+//
 // Revision 1.34  2005/10/07 11:42:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -256,6 +259,8 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));
     oc.doRegister("device.cell-phone.amount.max", new Option_Float(1.));
 
+    // debug
+    oc.doRegister("track", new Option_Float(0.));
 
     //
 #ifdef HAVE_MESOSIM

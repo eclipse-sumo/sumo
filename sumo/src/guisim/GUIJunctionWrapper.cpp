@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/11/09 06:35:34  dkrajzew
+// debugging
+//
 // Revision 1.14  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -229,7 +232,11 @@ GUIJunctionWrapper::getCenteringBoundary() const
 	return b;
 }
 
-
+MSJunction &
+GUIJunctionWrapper::getJunction() const
+{
+	return myJunction;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

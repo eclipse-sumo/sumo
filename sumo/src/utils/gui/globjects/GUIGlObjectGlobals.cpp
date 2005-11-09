@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/11/09 06:47:17  dkrajzew
+// debugging
+//
 // Revision 1.3  2005/10/07 11:45:32  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -51,7 +54,6 @@ namespace
 
 #include "GUIGlObjectGlobals.h"
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
-#include <utils/gui/div/GUISelectedStorage.h>
 
 #include <algorithm>
 

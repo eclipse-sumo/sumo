@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2005/11/09 06:41:26  dkrajzew
+// debugging
+//
 // Revision 1.21  2005/10/10 11:59:40  dkrajzew
 // removed unneeded APIs
 //
@@ -195,6 +198,7 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[]=
 
     FXMAPFUNC(SEL_UPDATE,   MID_OPEN,              GNEApplicationWindow::onUpdOpen),
     FXMAPFUNC(SEL_UPDATE,   MID_RELOAD,            GNEApplicationWindow::onUpdReload),
+    FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,        GNEApplicationWindow::onUpdOpenRecent),
     FXMAPFUNC(SEL_UPDATE,   MID_SAVE_IMAGE,        GNEApplicationWindow::onUpdSaveImage),
     FXMAPFUNC(SEL_UPDATE,   MID_SAVE_EDGES_NODES,  GNEApplicationWindow::onUpdSaveEdgesNodes),
     FXMAPFUNC(SEL_UPDATE,   MID_SAVE_NET,          GNEApplicationWindow::onUpdSaveNet),
@@ -803,6 +807,10 @@ GNEApplicationWindow::onCmdReload(FXObject*,FXSelector,void*)
 long
 GNEApplicationWindow::onCmdOpenRecent(FXObject*,FXSelector,void *data)
 {
+    if(myAmLoading) {
+        myStatusbar->getStatusLine()->setText("Already loading!");
+        return 1;
+    }
     string file = string((const char*)data);
     load(file);
     return 1;
@@ -1078,6 +1086,16 @@ GNEApplicationWindow::onUpdReload(FXObject*sender,FXSelector,void*ptr)
     sender->handle(this,
         myAmLoading||myLoadThread->getFileName()==""
         ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
+        ptr);
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onUpdOpenRecent(FXObject*sender,FXSelector,void*ptr)
+{
+    sender->handle(this,
+        myAmLoading?FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
         ptr);
     return 1;
 }
@@ -1512,6 +1530,8 @@ GNEApplicationWindow::closeAllWindows()
         delete myTrackerWindows[0];
     }
     mySubWindows.clear();
+    // clear selected items
+    gSelected.clear();
     // add a separator to the log
     myMessageWindow->addSeparator();
     myTrackerLock.unlock();

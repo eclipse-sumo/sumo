@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2005/11/09 06:41:26  dkrajzew
+// debugging
+//
 // Revision 1.11  2005/10/10 11:59:40  dkrajzew
 // removed unneeded APIs
 //
@@ -167,6 +170,7 @@ public:
 
     long onUpdOpen(FXObject*,FXSelector,void*);
     long onUpdReload(FXObject*,FXSelector,void*);
+    long onUpdOpenRecent(FXObject*,FXSelector,void*);
     long onUpdSaveImage(FXObject*,FXSelector,void*);
     long onUpdSaveEdgesNodes(FXObject*,FXSelector,void*);
     long onUpdSaveNet(FXObject*,FXSelector,void*);

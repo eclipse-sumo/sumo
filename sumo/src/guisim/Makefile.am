@@ -19,7 +19,7 @@ GUIRoute.cpp GUIRoute.h GUIRouteHandler.cpp GUIRouteHandler.h \
 GUISelectionLoader.cpp GUISelectionLoader.h \
 GUISourceLane.cpp GUISourceLane.h \
 GUITrafficLightLogicWrapper.cpp GUITrafficLightLogicWrapper.h \
-GUITriggeredEmitter.cpp GUITriggeredEmitter.h \
+GUIEmitter.cpp GUIEmitter.h \
 GUITriggeredRerouter.cpp GUITriggeredRerouter.h \
 GUITriggerWrapper.cpp GUITriggerWrapper.h \
 GUIVehicle.cpp GUIVehicle.h GUIVehicleControl.cpp GUIVehicleControl.h \

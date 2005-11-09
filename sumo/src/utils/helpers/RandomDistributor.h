@@ -30,6 +30,12 @@ public:
         return myProb;
     }
 
+    void clear() {
+        myProb = 0;
+        myVals.clear();
+        myProbs.clear();
+    }
+
 private:
     SUMOReal myProb;
     std::vector<T> myVals;

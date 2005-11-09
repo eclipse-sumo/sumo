@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.15  2005/11/09 06:39:06  dkrajzew
+// debugging
+//
 // Revision 1.14  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -95,6 +98,8 @@
 #include "MSVehicleType.h"
 #include "MSNet.h"
 #include <utils/common/StdDefs.h>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 #include <iostream>
 #include <cassert>
 #include <cmath>
@@ -257,8 +262,12 @@ MSVehicle::timeHeadWayGap( SUMOReal speed ) const
 inline SUMOReal
 MSVehicle::gap2pred( const MSVehicle& pred ) const
 {
-    SUMOReal gap = pred.pos() - pred.length() - this->pos();
+    SUMOReal gap = pred.pos() - pred.length() - pos();
     if(gap<0&&gap>-1.0e-12) {
+        gap = 0;
+    }
+    if(gap<0) {
+        MsgHandler::getWarningInstance()->inform("Vehicle " + id() + " collides with pred in " + toString(MSNet::getInstance()->getCurrentTimeStep()));
         gap = 0;
     }
     assert( gap >= SUMOReal( 0 ) );
@@ -270,7 +279,7 @@ MSVehicle::gap2pred( const MSVehicle& pred ) const
 inline SUMOReal
 MSVehicle::gap2predSec( const MSVehicle& pred ) const
 {
-    return pred.pos() - pred.length() - this->pos();
+    return pred.pos() - pred.length() - pos();
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/11/09 06:35:34  dkrajzew
+// debugging
+//
 // Revision 1.3  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -284,7 +287,7 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string &id,
             SUMOReal prob, const std::string &aXMLFilename)
     : MSTriggeredRerouter(id, net, edges, prob, aXMLFilename),
     GUIGlObject_AbstractAdd(gIDStorage,
-        string("emitter:") + id, GLO_TRIGGER)
+        string("rerouter:") + id, GLO_TRIGGER)
 {
     size_t k;
     size_t no = 0;

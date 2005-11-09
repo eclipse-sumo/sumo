@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2005/11/09 06:35:34  dkrajzew
+// debugging
+//
 // Revision 1.12  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -137,6 +140,8 @@ public:
 	//{
 	Boundary getCenteringBoundary() const;
 	//}
+
+	MSJunction &getJunction() const;
 
 protected:
 
