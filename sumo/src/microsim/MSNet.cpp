@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.66  2005/11/09 06:38:57  dkrajzew
+// problems on loading geometry items patched
+//
 // Revision 1.65  2005/10/17 08:59:33  dkrajzew
 // reallowed simulation speed output
 //
@@ -505,7 +508,7 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep)
     myRouteLoaders = 0;//new MSRouteLoaderControl();
     myLogics = 0;//new MSTLLogicControl();
     myTriggerControl = new MSTriggerControl();
-    myShapeContainer = 0;//new ShapeContainer();
+    myShapeContainer = new ShapeContainer();
     myLogExecutionTime = true;
 
     myInstance = this;
@@ -528,7 +531,7 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
     myRouteLoaders = 0;//new MSRouteLoaderControl();
     myLogics = 0;//new MSTLLogicControl();
     myTriggerControl = new MSTriggerControl();
-    myShapeContainer = 0;
+    myShapeContainer = new ShapeContainer();
     myLogExecutionTime = true;
 
     myInstance = this;
@@ -540,7 +543,7 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
 void
 MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
                      MSRouteLoaderControl *routeLoaders,
-                     MSTLLogicControl *tlc, ShapeContainer *sc,
+                     MSTLLogicControl *tlc, // ShapeContainer *sc,
                      std::vector<OutputDevice*> streams,
                      const MSMeanData_Net_Cont &meanData,
                      TimeVector stateDumpTimes,
@@ -554,7 +557,6 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
 	MSCORN::setVehicleRouteOutput(streams[OS_VEHROUTE]);
     myOutputStreams = streams;
     myMeanData = meanData;
-    myShapeContainer = sc;
     // we may add it before the network is loaded
     if(myEdges!=0) {
         myEdges->insertMeanData(myMeanData.size());

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.54  2005/11/09 06:38:57  dkrajzew
+// problems on loading geometry items patched
+//
 // Revision 1.53  2005/10/10 11:58:14  dkrajzew
 // debugging
 //
@@ -552,7 +555,7 @@ public:
 
     virtual void closeBuilding(MSEdgeControl *edges,
         MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
-        MSTLLogicControl *tlc, ShapeContainer *sc,
+        MSTLLogicControl *tlc, //ShapeContainer *sc,
         std::vector<OutputDevice*> streams,
         const MSMeanData_Net_Cont &meanData,
         TimeVector stateDumpTimes, std::string stateDumpFiles);
@@ -593,7 +596,7 @@ public:
     void saveState(std::ostream &os, long what);
     void loadState(BinaryInputDevice &bis, long what);
 
-    const ShapeContainer &getShapeContainer() const { return *myShapeContainer; }
+    ShapeContainer &getShapeContainer() const { return *myShapeContainer; }
 
     virtual MSRouteLoader *buildRouteLoader(const std::string &file);
 

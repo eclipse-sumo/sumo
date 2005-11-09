@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/11/09 06:42:35  dkrajzew
+// problems on loading geometry items patched
+//
 // Revision 1.4  2005/10/10 12:09:55  dkrajzew
 // renamed *NetHandler to *Handler
 //
@@ -350,7 +353,6 @@ NLBuilder::buildNet()
         myJunctionBuilder.build(),
         buildRouteLoaderControl(m_pOptions),
         myJunctionBuilder.buildTLLogics(),
-        myShapeBuilder.buildShapeContainer(),
         streams, meanData,
         m_pOptions.getIntVector("save-state.times"),
         m_pOptions.getString("save-state.prefix"));

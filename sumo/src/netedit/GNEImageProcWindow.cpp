@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/11/09 06:41:08  dkrajzew
+// problems on loading geometry items patched
+//
 // Revision 1.9  2005/10/17 09:04:48  dkrajzew
 // building patched
 //
@@ -482,7 +485,7 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
             GUIJunctionControlBuilder jb(*net, oc2);
             GUIDetectorBuilder db(*net);
             GUITriggerBuilder tb;
-            GUIGeomShapeBuilder sb(gIDStorage);
+            GUIGeomShapeBuilder sb(*net, gIDStorage);
             GUIHandler handler("", *net, db, tb, *eb, jb, sb);
             NLBuilder builder(oc2, *net, *eb, jb, db, tb, sb, handler);
             try {
