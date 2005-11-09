@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/11/09 06:37:52  dkrajzew
+// trigger reworked
+//
 // Revision 1.3  2005/10/17 08:58:24  dkrajzew
 // trigger rework#1
 //
@@ -84,12 +87,14 @@ protected:
     /** @brief Processes the next event
         Returns true if the next element shall be read (a new timestemp is then available also)
         Returns false if the action could not be accomplished; this method is then called in the next step again */
-    virtual bool processNext() = 0;
+    virtual bool processNextEntryReaderTriggered() = 0;
 
     /// Reads from the file
     virtual bool readNextTriggered() = 0;
 
     virtual void myInit() = 0;
+
+    virtual void inputEndReached() = 0;
 
 protected:
     /**

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/11/09 06:37:52  dkrajzew
+// trigger reworked
+//
 // Revision 1.4  2005/10/17 08:58:24  dkrajzew
 // trigger rework#1
 //
@@ -107,7 +110,8 @@ MSTriggeredXMLReader::MSTriggeredXMLReader(MSNet &net,
     myHaveMore(true), myParser(0)
 {
     MSEventControl::getBeginOfTimestepEvents()->addEvent(
-        new MSTriggerCommand(*this), 0, MSEventControl::NO_CHANGE);
+        new MSTriggerCommand(*this), net.getCurrentTimeStep(),
+            MSEventControl::NO_CHANGE);
 }
 
 

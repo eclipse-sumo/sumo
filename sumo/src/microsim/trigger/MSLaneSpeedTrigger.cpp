@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/11/09 06:37:52  dkrajzew
+// trigger reworked
+//
 // Revision 1.3  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -115,6 +118,7 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
     : MSTriggeredXMLReader(net, aXMLFilename), MSTrigger(id),
     myDestLanes(destLanes), myHaveNext(false), myAmOverriding(false)
 {
+    myCurrentSpeed = destLanes[0]->maxSpeed();
 }
 
 
@@ -124,12 +128,13 @@ MSLaneSpeedTrigger::~MSLaneSpeedTrigger()
 
 
 bool
-MSLaneSpeedTrigger::processNext()
+MSLaneSpeedTrigger::processNextEntryReaderTriggered()
 {
     std::vector<MSLane*>::iterator i;
     for(i=myDestLanes.begin(); i!=myDestLanes.end(); ++i) {
-        (*i)->myMaxSpeed = 0; // !!!!myCurrentSpeed;
+        (*i)->myMaxSpeed = myCurrentSpeed;
     }
+    myCurrentSpeed = myNextSpeed;
     myHaveNext = false;
     return true;
 }
@@ -163,12 +168,21 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &,
             return;
         }
         // set the values for the next step as they are valid
-        myCurrentSpeed = speed;
+        myNextSpeed = speed;
         _offset = SUMOTime(next);
-        myHaveNext = true;
         myLoadedSpeed = myCurrentSpeed;
         if(myAmOverriding) {
             myCurrentSpeed = mySpeedOverrideValue;
+        }
+        // assert the state before next event
+        if(_offset<MSNet::getInstance()->getCurrentTimeStep()) {
+            std::vector<MSLane*>::iterator i;
+            for(i=myDestLanes.begin(); i!=myDestLanes.end(); ++i) {
+                (*i)->myMaxSpeed = myCurrentSpeed;
+            }
+            myCurrentSpeed = myNextSpeed;
+        } else {
+            myHaveNext = true;
         }
     } catch(NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
@@ -204,7 +218,7 @@ MSLaneSpeedTrigger::setOverridingValue(SUMOReal val)
     mySpeedOverrideValue = val;
     if(myAmOverriding) {
         myCurrentSpeed = mySpeedOverrideValue;
-        processNext();
+        processNextEntryReaderTriggered();
     } else {
         myCurrentSpeed = myLoadedSpeed;
     }
@@ -242,6 +256,12 @@ bool
 MSLaneSpeedTrigger::nextRead()
 {
     return myHaveNext;
+}
+
+
+void
+MSLaneSpeedTrigger::inputEndReached()
+{
 }
 
 

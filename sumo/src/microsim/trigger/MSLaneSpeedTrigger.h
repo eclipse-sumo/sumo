@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2005/11/09 06:37:52  dkrajzew
+// trigger reworked
+//
 // Revision 1.3  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -102,8 +105,8 @@ public:
     /** destructor */
     virtual ~MSLaneSpeedTrigger();
 
-    /** the implementation of the MSTriggeredReader-processNext method */
-    bool processNext();
+    /** the implementation of the MSTriggeredReader-processNextEntryReaderTriggered method */
+    bool processNextEntryReaderTriggered();
 
     SUMOReal getDefaultSpeed() const;
 
@@ -133,6 +136,8 @@ protected:
 
     bool nextRead();
 
+    void inputEndReached();
+
 protected:
     /// Define the container for those lanes that shall be manipulated
     typedef std::vector<MSLane*> LaneCont;
@@ -156,6 +161,8 @@ protected:
 
     /// The loaded speed
     SUMOReal myLoadedSpeed;
+
+    SUMOReal myNextSpeed;
 
 };
 

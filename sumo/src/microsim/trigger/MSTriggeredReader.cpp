@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/11/09 06:37:52  dkrajzew
+// trigger reworked
+//
 // Revision 1.3  2005/10/17 08:58:24  dkrajzew
 // trigger rework#1
 //
@@ -99,7 +102,7 @@ MSTriggeredReader::MSTriggerCommand::execute()
     while(current==next) {
         // run the next action
         //  if it could be accomplished...
-        if(_parent.processNext()) {
+        if(_parent.processNextEntryReaderTriggered()) {
             // read the next one
             if(_parent.readNextTriggered()) {
                 // set the time for comparison if a next one exists
