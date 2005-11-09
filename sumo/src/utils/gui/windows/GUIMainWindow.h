@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2005/11/09 06:46:34  dkrajzew
+// added cursor position output (unfinished)
+//
 // Revision 1.6  2005/10/07 11:46:08  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -32,7 +35,6 @@
 // Revision 1.4  2005/06/14 11:29:51  dksumo
 // documentation added
 //
-
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -91,6 +93,8 @@ public:
     virtual size_t getCurrentSimTime() const = 0;
 
     virtual void loadSelection(const std::string &file) const = 0;
+
+    virtual void setStatusBarText(const std::string &) { }
 
 protected:
 	std::vector<FXMDIChild*> mySubWindows;

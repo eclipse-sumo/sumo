@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/11/09 06:46:34  dkrajzew
+// added cursor position output (unfinished)
+//
 // Revision 1.8  2005/10/07 11:46:08  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -163,6 +166,7 @@ class GUIGlObject;
 class GUIGlObjectStorage;
 class PointOfInterest;
 class ShapeContainer;
+class GUIDialog_EditViewport;
 
 
 /* =========================================================================
@@ -260,6 +264,8 @@ public:
     virtual FXPopup *getLocatorPopup(GUIGlChildWindow &p);
 
     void drawShapes(const ShapeContainer &sc) const;
+
+    void remove(GUIDialog_EditViewport *d) { myViewportChooser = 0; }
 
 public:
     /**
@@ -376,6 +382,8 @@ protected:
     /// Draws the given polygon
     void drawPOI2D(const PointOfInterest &p) const;
 
+    void updatePositionInformation();
+
 protected:
     virtual void doPaintGL(int mode, SUMOReal scale) { }
 
@@ -470,6 +478,9 @@ protected:
 
     /// The locator menu
     FXPopup *myLocatorPopup;
+
+
+    GUIDialog_EditViewport *myViewportChooser;
 
     enum VehicleOperationType {
         VO_TRACK,

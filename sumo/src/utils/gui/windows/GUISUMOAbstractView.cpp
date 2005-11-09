@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/11/09 06:46:34  dkrajzew
+// added cursor position output (unfinished)
+//
 // Revision 1.8  2005/10/07 11:46:08  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -277,8 +280,8 @@ FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[]={
     FXMAPFUNC(SEL_COMMAND,             MID_SIMSTEP,       GUISUMOAbstractView::onSimStep),
     FXMAPFUNC(SEL_KEYPRESS,            0,                 GUISUMOAbstractView::onKeyPress),
     FXMAPFUNC(SEL_KEYRELEASE,          0,                 GUISUMOAbstractView::onKeyRelease),
-    FXMAPFUNC(SEL_COMMAND,             MID_EDITVIEWPORT,  GUISUMOAbstractView::onCmdEditView),
-    FXMAPFUNC(SEL_COMMAND,             MID_EDITVIEW,      GUISUMOAbstractView::onCmdEditViewport),
+    FXMAPFUNC(SEL_COMMAND,             MID_EDITVIEWPORT,  GUISUMOAbstractView::onCmdEditViewport),
+    FXMAPFUNC(SEL_COMMAND,             MID_EDITVIEW,      GUISUMOAbstractView::onCmdEditView),
 
 };
 
@@ -306,7 +309,8 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
     _mouseHotspotX(app.getDefaultCursor()->getHotX()),
     _mouseHotspotY(app.getDefaultCursor()->getHotY()),
     _popup(0),
-    myAmInitialised(false)
+    myAmInitialised(false),
+    myViewportChooser(0)
 {
     flags|=FLAG_ENABLED;
 	_inEditMode=false;
@@ -337,7 +341,8 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
     _mouseHotspotX(app.getDefaultCursor()->getHotX()),
     _mouseHotspotY(app.getDefaultCursor()->getHotY()),
     _popup(0),
-    myAmInitialised(false)
+    myAmInitialised(false),
+    myViewportChooser(0)
 {
     flags|=FLAG_ENABLED;
 	_inEditMode=false;
@@ -354,13 +359,13 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
 
 GUISUMOAbstractView::~GUISUMOAbstractView()
 {
-//    getApp()->removeTimeout(this, ID_RMOUSETIMEOUT);
     delete _changer;
     delete _toolTip;
     // just to quit cleanly on a failure
     if(_lock.locked()) {
         _lock.unlock();
     }
+    delete myViewportChooser;
 }
 
 
@@ -390,6 +395,34 @@ GUISUMOAbstractView::updateToolTip()
 
 
 void
+GUISUMOAbstractView::updatePositionInformation()
+{
+    const Boundary &nb = myGrid->getBoundary();
+    SUMOReal width = nb.getWidth();
+    SUMOReal height = nb.getHeight();
+    SUMOReal mzoom = _changer->getZoom();
+    SUMOReal cy = _changer->getYPos();//cursorY;
+    SUMOReal cx = _changer->getXPos();//cursorY;
+    SUMOReal mratio = (SUMOReal) _widthInPixels / (SUMOReal) _heightInPixels;
+    SUMOReal sxmin = nb.getCenter().x() - mratio * width / (mzoom) * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
+    sxmin -= cx;
+    SUMOReal sxmax = nb.getCenter().x() + mratio * width / (mzoom) * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
+    sxmax -= cx;
+
+    SUMOReal symin = nb.getCenter().y() - height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
+    symin += cy;
+    SUMOReal symax = nb.getCenter().y() + height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
+    symax += cy;
+
+    SUMOReal sx = sxmin + (sxmax-sxmin) / (SUMOReal) _widthInPixels * (SUMOReal) _changer->getMouseXPosition();
+    SUMOReal sy = symin + (symax-symin) / (SUMOReal) _heightInPixels * (SUMOReal) _changer->getMouseYPosition();
+
+    string text = "x:" + toString(sx) + ", y:" + toString(sy);
+    myApp->setStatusBarText(text);
+}
+
+
+void
 GUISUMOAbstractView::paintGL()
 {
     _widthInPixels = getWidth();
@@ -415,6 +448,7 @@ GUISUMOAbstractView::paintGL()
     if(_parent->showLegend()) {
         displayLegend();
     }
+    updatePositionInformation();
     // check whether the select mode /tooltips)
     //  shall be computed, too
     if(!_useToolTips) {
@@ -840,7 +874,6 @@ GUISUMOAbstractView::onRightBtnPress(FXObject *o,FXSelector sel,void *data)
     delete _popup;
     _popup = 0;
     _changer->onRightBtnPress(data);
-//    getApp()->addTimeout(this, ID_RMOUSETIMEOUT, 500);
     grab();
     return 1;
 }
@@ -854,7 +887,6 @@ GUISUMOAbstractView::onRightBtnRelease(FXObject *o,FXSelector sel,void *data)
     if(_changer->onRightBtnRelease(data)) {
         openObjectDialog();
     }
-//    getApp()->removeTimeout(this, ID_RMOUSETIMEOUT);
     ungrab();
     return 1;
 }
@@ -863,8 +895,13 @@ GUISUMOAbstractView::onRightBtnRelease(FXObject *o,FXSelector sel,void *data)
 long
 GUISUMOAbstractView::onMouseMove(FXObject *o,FXSelector sel,void *data)
 {
-//    getApp()->removeTimeout(this, ID_RMOUSETIMEOUT);
     _changer->onMouseMove(data);
+    if(myViewportChooser!=0) {
+        myViewportChooser->setValues(
+            _changer->getZoom(), _changer->getXPos(), _changer->getYPos());
+
+    }
+    updatePositionInformation();
     return 1;
 }
 
@@ -873,7 +910,6 @@ void
 GUISUMOAbstractView::openObjectDialog()
 {
     ungrab();
-//    getApp()->removeTimeout(this, ID_RMOUSETIMEOUT);
     if(!isEnabled()||!myAmInitialised) {
         return;
     }
@@ -1040,12 +1076,14 @@ GUISUMOAbstractView::getLocatorPopup(GUIGlChildWindow &p)
 long
 GUISUMOAbstractView::onCmdEditViewport(FXObject*,FXSelector,void*)
 {
-    GUIDialog_EditViewport *chooser =
-        new GUIDialog_EditViewport(this, "Edit Viewport...",
-        _changer->getZoom(), _changer->getXPos(), _changer->getYPos(),
-        0, 0);
-    chooser->create();
-    chooser->show();
+    if(myViewportChooser==0) {
+        myViewportChooser =
+            new GUIDialog_EditViewport(this, "Edit Viewport...",
+                _changer->getZoom(), _changer->getXPos(), _changer->getYPos(),
+                0, 0);
+        myViewportChooser->create();
+    }
+    myViewportChooser->show();
     return 1;
 }
 
