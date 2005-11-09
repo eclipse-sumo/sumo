@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/11/09 06:36:48  dkrajzew
+// changing the LSA-API: MSEdgeContinuation added; changed the calling API
+//
 // Revision 1.6  2005/10/10 11:56:09  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -68,6 +71,7 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <vector>
+#include <algorithm>
 #include "MSTrafficLightLogic.h"
 #include "MSTLLogicControl.h"
 
@@ -99,9 +103,7 @@ void
 MSTLLogicControl::maskRedLinks()
 {
     const vector<MSTrafficLightLogic*> &logics = buildAndGetStaticVector();
-    for(vector<MSTrafficLightLogic*>::const_iterator i=logics.begin(); i!=logics.end(); ++i) {
-        (*i)->maskRedLinks();
-    }
+    for_each(logics.begin(), logics.end(), mem_fun(&MSTrafficLightLogic::maskRedLinks));
 }
 
 
@@ -109,9 +111,7 @@ void
 MSTLLogicControl::maskYellowLinks()
 {
     const vector<MSTrafficLightLogic*> &logics = buildAndGetStaticVector();
-    for(vector<MSTrafficLightLogic*>::const_iterator i=logics.begin(); i!=logics.end(); ++i) {
-        (*i)->maskYellowLinks();
-    }
+    for_each(logics.begin(), logics.end(), mem_fun(&MSTrafficLightLogic::maskYellowLinks));
 }
 
 

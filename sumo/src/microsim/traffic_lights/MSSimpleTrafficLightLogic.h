@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/11/09 06:36:48  dkrajzew
+// changing the LSA-API: MSEdgeContinuation added; changed the calling API
+//
 // Revision 1.7  2005/10/10 11:56:09  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -131,30 +134,22 @@ public:
         const Phases &phases, size_t step, size_t delay);
 
     /// destructor
-    virtual ~MSSimpleTrafficLightLogic();
+    ~MSSimpleTrafficLightLogic();
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
-    virtual SUMOTime nextPhase();
+    SUMOTime trySwitch();
 
     /// Returns the priorities for all lanes for the current phase
-    virtual const std::bitset<64> &linkPriorities() const;
+    const std::bitset<64> &linkPriorities() const;
 
     /// Returns a bitset where all links having yellow are set
-    virtual const std::bitset<64> &yellowMask() const;
+    const std::bitset<64> &yellowMask() const;
 
-    virtual const std::bitset<64> &allowed() const;
+    const std::bitset<64> &allowed() const;
 
-    /** @brief Switches to the next step
-        Returns the number of the next step what is needed as
-        the number of following steps is not known */
-    virtual size_t nextStep();
-
-    /// Returns the duration of the given step
-    virtual SUMOTime duration() const;
-
-    /// returns the current step
-    size_t step() const;
+	/// returns the current step
+	size_t getStepNo() const;
 
     /// Returns the phases of this tls
     const Phases &getPhases() const;
@@ -162,9 +157,6 @@ public:
 protected:
     /// the list of phases this logic uses
     Phases myPhases;
-
-    /// static container for all lights being set to red
-    static std::bitset<64> _allClear;
 
     /// The current step
     size_t myStep;

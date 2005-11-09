@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2005/11/09 06:36:48  dkrajzew
+// changing the LSA-API: MSEdgeContinuation added; changed the calling API
+//
 // Revision 1.3  2005/10/10 11:56:09  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -189,77 +192,6 @@ MSUnboundActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
         std::map<std::string, std::vector<std::string> > &laneContinuations,
         SUMOReal det_offset)
 {
-    sproutDetectors(nb, lanes, laneContinuations, det_offset);
-}
-
-
-
-MSUnboundActuatedTrafficLightLogic::~MSUnboundActuatedTrafficLightLogic()
-{
-}
-
-
-SUMOTime
-MSUnboundActuatedTrafficLightLogic::duration() const
-{
-    if(_continue) {
-        return 1;
-    }
-    assert(myPhases.size()>myStep);
-    if(!isGreenPhase()) {
-        return currentPhaseDef()->duration;
-    }
-    // define the duration depending from the number of waiting vehicles of the actual phase
-    int newduration = currentPhaseDef()->minDuration;
-    const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
-    for (size_t i=0; i<isgreen.size(); i++)  {
-        if(isgreen.test(i))  {
-            const std::vector<MSLane*> &lanes = getLanesAt(i);
-            if (lanes.empty())    {
-                break;
-            }
-            for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end();j++) {
-                LaneStateMap::const_iterator k = myLaneStates.find(*j);
-                SUMOReal waiting =  (*k).second->getCurrentNumberOfWaiting();
-                SUMOReal tmpdur =  myPassingTime * waiting;
-                if (tmpdur > newduration) {
-                    // here we cut the decimal places, because we have to return an integer
-                    newduration = (int) tmpdur;
-                }
-                if (newduration > (int) currentPhaseDef()->maxDuration)  {
-                    return currentPhaseDef()->maxDuration;
-                }
-            }
-        }
-    }
-    return newduration;
-}
-
-
-SUMOTime
-MSUnboundActuatedTrafficLightLogic::nextPhase()
-{
-    // checks if the actual phase should be continued
-    gapControl();
-    if(_continue) {
-        return duration();
-    }
-    // increment the index to the current phase
-    nextStep();
-    // reset the link priorities
-    setLinkPriorities();
-    // set the next event
-    return duration();
-}
-
-
-
-void
-MSUnboundActuatedTrafficLightLogic::sproutDetectors(
-        NLDetectorBuilder &nb, const std::vector<MSLane*> &lanes,
-        const std::map<std::string, std::vector<std::string> > &laneContinuations,
-        SUMOReal det_offset)
-{
     // change values for setting the loops and lanestate-detectors, here
     SUMOTime inductLoopInterval = 1; //
     // as the laneStateDetector shall end at the end of the lane, the position
@@ -307,9 +239,57 @@ MSUnboundActuatedTrafficLightLogic::sproutDetectors(
 }
 
 
-size_t
-MSUnboundActuatedTrafficLightLogic::nextStep()
+
+MSUnboundActuatedTrafficLightLogic::~MSUnboundActuatedTrafficLightLogic()
 {
+}
+
+
+SUMOTime
+MSUnboundActuatedTrafficLightLogic::duration() const
+{
+    if(_continue) {
+        return 1;
+    }
+    assert(myPhases.size()>myStep);
+    if(!isGreenPhase()) {
+        return currentPhaseDef()->duration;
+    }
+    // define the duration depending from the number of waiting vehicles of the actual phase
+    int newduration = currentPhaseDef()->minDuration;
+    const std::bitset<64> &isgreen = currentPhaseDef()->getDriveMask();
+    for (size_t i=0; i<isgreen.size(); i++)  {
+        if(isgreen.test(i))  {
+            const std::vector<MSLane*> &lanes = getLanesAt(i);
+            if (lanes.empty())    {
+                break;
+            }
+            for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end();j++) {
+                LaneStateMap::const_iterator k = myLaneStates.find(*j);
+                SUMOReal waiting =  (*k).second->getCurrentNumberOfWaiting();
+                SUMOReal tmpdur =  myPassingTime * waiting;
+                if (tmpdur > newduration) {
+                    // here we cut the decimal places, because we have to return an integer
+                    newduration = (int) tmpdur;
+                }
+                if (newduration > (int) currentPhaseDef()->maxDuration)  {
+                    return currentPhaseDef()->maxDuration;
+                }
+            }
+        }
+    }
+    return newduration;
+}
+
+
+SUMOTime
+MSUnboundActuatedTrafficLightLogic::trySwitch()
+{
+    // checks if the actual phase should be continued
+    gapControl();
+    if(_continue) {
+        return duration();
+    }
     // increment the index to the current phase
     myStep++;
     assert(myStep<=myPhases.size());
@@ -319,7 +299,8 @@ MSUnboundActuatedTrafficLightLogic::nextStep()
     //stores the time the phase started
     static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->_lastSwitch =
         MSNet::getInstance()->getCurrentTimeStep();
-    return myStep;
+    // set the next event
+    return duration();
 }
 
 

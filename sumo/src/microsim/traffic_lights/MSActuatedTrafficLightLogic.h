@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2005/11/09 06:36:48  dkrajzew
+// changing the LSA-API: MSEdgeContinuation added; changed the calling API
+//
 // Revision 1.9  2005/10/10 11:56:09  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -170,7 +173,7 @@ public:
     /// Initialises the tls with information about incoming lanes
 	void init(NLDetectorBuilder &nb,
 		const std::vector<MSLane*> &lanes,
-        const std::map<std::string, std::vector<std::string> > &edgeContinuations,
+        const MSEdgeContinuations &edgeContinuations,
         SUMOReal det_offset);
 
     /// destructor
@@ -178,29 +181,19 @@ public:
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
-    virtual SUMOTime nextPhase();
-
-    /// Returns the duration of the given step
-    virtual SUMOTime duration() const;
-
-    /// Returns the index of the phase next to the given phase
-    /// and stores the duration of the phase, which was just sent
-    /// or stores the activation-time in _lastphase of the phase next
-    virtual size_t nextStep();
-
-    /// Desides, whether a phase should be continued by checking the gaps of vehicles having green
-    virtual void gapControl();
-
-    // Checkes wheter the tested phase is a neither a yellow nor a allred phase
-    virtual bool isGreenPhase() const ;
+    SUMOTime trySwitch();
 
 protected:
-    /// Builds the detectors
-    virtual void sproutDetectors(NLDetectorBuilder &nb,
-        const std::vector<MSLane*> &lanes,
-        const std::map<std::string, std::vector<std::string> > &laneContinuations,
-        SUMOReal det_offset);
+    /// Returns the duration of the given step
+    SUMOTime duration() const;
 
+    /// Desides, whether a phase should be continued by checking the gaps of vehicles having green
+    void gapControl();
+
+    // Checkes wheter the tested phase is a neither a yellow nor a allred phase
+    bool isGreenPhase() const ;
+
+protected:
     /// Returns the definition of the current phase
     MSActuatedPhaseDefinition * currentPhaseDef() const;
 

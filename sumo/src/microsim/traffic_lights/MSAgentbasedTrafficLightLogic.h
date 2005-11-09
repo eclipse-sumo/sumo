@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/11/09 06:36:48  dkrajzew
+// changing the LSA-API: MSEdgeContinuation added; changed the calling API
+//
 // Revision 1.8  2005/10/10 11:56:09  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -154,7 +157,7 @@ public:
     /// Initialises the tls with information about incoming lanes
 	void init(NLDetectorBuilder &nb,
 		const std::vector<MSLane*> &lanes,
-        const std::map<std::string, std::vector<std::string> > &edgeContinuations,
+        const MSEdgeContinuations &edgeContinuations,
         SUMOReal det_offset);
 
     /// destructor
@@ -162,50 +165,37 @@ public:
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
-    virtual SUMOTime nextPhase();
+    SUMOTime trySwitch();
 
-    /// Returns the duration of the given step
-    virtual SUMOTime duration() ;
-
+protected:
     /// Returns the index of the phase next to the given phase
     /// and stores the duration of the phase, which was just sent
     /// or stores the activation-time in _lastphase of the phase next
-    virtual size_t nextStep();
+    size_t nextStep();
 
     /// Collects the trafficdata
-    virtual void collectData();
+    void collectData();
 
     /// Aggregates the data of one phase, collected during different cycles
-    virtual void aggregateRawData();
+    void aggregateRawData();
 
     /// Calculates the duration for all real phases except intergreen phases
-    virtual void calculateDuration();
+    void calculateDuration();
 
     /// Checkes wheter the tested phase is a neither a yellow nor a allred phase
-    virtual bool isGreenPhase(const size_t testStep) const ;
-
-protected:
-    /// Builds the detectors
-    virtual void sproutDetectors(NLDetectorBuilder &nb,
-        const std::vector<MSLane*> &lanes,
-        const std::map<std::string, std::vector<std::string> > &laneContinuations,
-        SUMOReal det_offset);
-
-    /// initializes the duration of the phases (except the intergeentimes)
-    /// so that the time cycletime tCyle is kept
-    virtual void initializeDuration();
+    bool isGreenPhase(const size_t testStep) const ;
 
     /// lenghtend the actual cycle by an given value
-    virtual void lengthenCycleTime(size_t toLenghten);
+    void lengthenCycleTime(size_t toLenghten);
 
     /// cuts the actual cycle by an given value
-    virtual void cutCycleTime(size_t toCut);
+    void cutCycleTime(size_t toCut);
 
     /// returns the step of the phase with the longest Queue_Lengt_Ahead_Of_Traffic_Lights
-    virtual size_t findStepOfMaxValue();
+    size_t findStepOfMaxValue();
 
     /// returns the step of the phase with the shortest Queue_Lengt_Ahead_Of_Traffic_Lights
-    virtual size_t findStepOfMinValue();
+    size_t findStepOfMinValue();
 
     /// Returns the definition of the current phase
     MSActuatedPhaseDefinition * currentPhaseDef() const;

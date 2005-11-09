@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2005/11/09 06:36:48  dkrajzew
+// changing the LSA-API: MSEdgeContinuation added; changed the calling API
+//
 // Revision 1.6  2005/10/10 11:56:09  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -142,39 +145,7 @@ MSTrafficLightLogic::setLinkPriorities()
         }
     }
 }
-/*
 
-bool
-MSTrafficLightLogic::dictionary(const std::string &name,
-                                MSTrafficLightLogic *logic)
-{
-    if(_dict.find(name)==_dict.end()) {
-        _dict[name] = logic;
-        return true;
-    }
-    return false;
-}
-
-
-MSTrafficLightLogic *
-MSTrafficLightLogic::dictionary(const std::string &name)
-{
-    DictType::iterator i = _dict.find(name);
-    if(i==_dict.end()) {
-        return 0;
-    }
-    return (*i).second;
-}
-
-
-void
-MSTrafficLightLogic::clear()
-{
-    // they are destroyed within the control
-    //  !!! check deletion consistency
-    _dict.clear();
-}
-*/
 
 void
 MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, size_t pos)
@@ -194,7 +165,7 @@ MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, size_t pos)
 }
 
 
-void
+bool
 MSTrafficLightLogic::maskRedLinks()
 {
     // get the current traffic light signal combination
@@ -230,10 +201,11 @@ MSTrafficLightLogic::maskRedLinks()
             }
         }
     }
+    return true;
 }
 
 
-void
+bool
 MSTrafficLightLogic::maskYellowLinks()
 {
     // get the current traffic light signal combination
@@ -248,6 +220,7 @@ MSTrafficLightLogic::maskYellowLinks()
             }
         }
     }
+    return true;
 }
 
 
@@ -285,18 +258,6 @@ MSTrafficLightLogic::getLinksAt(size_t i) const
     return myLinks[i];
 }
 
-/*
-std::vector<MSTrafficLightLogic*>
-MSTrafficLightLogic::getList()
-{
-    std::vector<MSTrafficLightLogic*> ret;
-    ret.reserve(_dict.size());
-    for(DictType::iterator i=_dict.begin(); i!=_dict.end(); i++) {
-        ret.push_back((*i).second);
-    }
-    return ret;
-}
-*/
 
 const std::string &
 MSTrafficLightLogic::id() const

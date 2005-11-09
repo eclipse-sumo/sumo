@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/11/09 06:36:48  dkrajzew
+// changing the LSA-API: MSEdgeContinuation added; changed the calling API
+//
 // Revision 1.8  2005/10/10 11:56:09  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -68,6 +71,7 @@
  * class declarations
  * ======================================================================= */
 class NLDetectorBuilder;
+class MSEdgeContinuations;
 
 
 /* =========================================================================
@@ -95,7 +99,7 @@ public:
     /// Initialises the tls with information about incoming lanes
     virtual void init(NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
-        const std::map<std::string, std::vector<std::string> > &edgeContinuations,
+        const MSEdgeContinuations &edgeContinuations,
         SUMOReal det_offset) = 0;
 
 };

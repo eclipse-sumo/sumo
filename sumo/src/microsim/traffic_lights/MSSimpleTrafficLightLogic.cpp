@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/11/09 06:36:48  dkrajzew
+// changing the LSA-API: MSEdgeContinuation added; changed the calling API
+//
 // Revision 1.7  2005/10/10 11:56:09  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -101,12 +104,6 @@
 
 
 /* =========================================================================
- * static member variables definitions
- * ======================================================================= */
-std::bitset<64> MSSimpleTrafficLightLogic::_allClear;
-
-
-/* =========================================================================
  * member method definitions
  * ======================================================================= */
 MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSNet &net,
@@ -152,40 +149,24 @@ MSSimpleTrafficLightLogic::allowed() const
 }
 
 
-size_t
-MSSimpleTrafficLightLogic::nextStep()
+SUMOTime
+MSSimpleTrafficLightLogic::trySwitch()
 {
-    // increment the index to the current phase
+    // increment the index
     myStep++;
+    // if the last phase was reached ...
     if(myStep==myPhases.size()) {
+        // ... set the index to the first phase
         myStep = 0;
     }
-    return myStep;
-}
-
-
-SUMOTime
-MSSimpleTrafficLightLogic::duration() const
-{
+    // return offset to the next switch
     assert(myPhases.size()>myStep);
     return myPhases[myStep]->duration;
 }
 
 
-SUMOTime
-MSSimpleTrafficLightLogic::nextPhase()
-{
-    // increment the index to the current phase
-    nextStep();
-    // reset the link priorities
-    setLinkPriorities();
-    // set the next event
-    return duration();
-}
-
-
 size_t
-MSSimpleTrafficLightLogic::step() const
+MSSimpleTrafficLightLogic::getStepNo() const
 {
     return myStep;
 }

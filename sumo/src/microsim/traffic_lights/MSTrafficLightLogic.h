@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2005/11/09 06:36:48  dkrajzew
+// changing the LSA-API: MSEdgeContinuation added; changed the calling API
+//
 // Revision 1.7  2005/10/10 11:56:09  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -144,27 +147,9 @@ public:
     /// Destructor
     virtual ~MSTrafficLightLogic();
 
-
-    /** @brief Inserts MSTrafficLightLogic into the static dictionary
-        Returns true if the key id isn't already in the dictionary.
-        Otherwise returns false (the logic is not inserted then). /
-    static bool dictionary(const std::string &name,
-        MSTrafficLightLogic *logic);
-*/
     /** @brief Switches to the next phase
         Returns the time of the next switch */
-    virtual SUMOTime nextPhase() = 0;
-
-    /** @brief Returns the MSEdgeControl associated to the key id if exists,
-        Otherwise returns 0. /
-    static MSTrafficLightLogic *dictionary(const std::string &name);
-
-    /// Clears the dictionary
-    static void clear();
-*/
-    /** @brief Returns the list of loaded logics
-        Used only within the network initialisation so far... */
-    //static std::vector<MSTrafficLightLogic*> getList();
+    virtual SUMOTime trySwitch() = 0;
 
     /** Returns the link priorities for the given phase */
     virtual const std::bitset<64> &linkPriorities() const = 0;
@@ -175,24 +160,19 @@ public:
     /// Returns the mask of links that may move
     virtual const std::bitset<64> &allowed() const = 0;
 
-    /// Returns the index of the phase next to the given phase
-    virtual size_t nextStep() = 0;
+	/// Returns the current step
+	virtual size_t getStepNo() const = 0;
 
-    /// Returns the duration of the numbered phase
-    virtual SUMOTime duration() const = 0;
 
     /** @brief Sets the priorities of incoming lanes
         This must be done as they change when the light changes */
     void setLinkPriorities();
 
-	/// Returns the current step
-	virtual size_t step() const = 0;
-
     /// Clears all incoming vehicle information on links that have red
-    void maskRedLinks();
+    bool maskRedLinks();
 
     /// Clears all incoming vehicle information on links that have yellow
-    void maskYellowLinks();
+    bool maskYellowLinks();
 
     friend class NLSucceedingLaneBuilder;
 
@@ -222,14 +202,6 @@ protected:
     void addLink(MSLink *link, MSLane *lane, size_t pos);
 
 protected:
-    /*
-    /// Definition of the dictionary type for traffic light logics
-    typedef std::map<std::string, MSTrafficLightLogic*> DictType;
-
-    /// Traffic light logic dictionary
-    static DictType _dict;
-    */
-
     /// The id of the logic
     std::string _id;
 
@@ -249,33 +221,31 @@ private:
      * Class realising the switch between the traffic light states (phases
      */
     class SwitchCommand : public Command {
-    private:
-        /// The logic to be executed on a switch
-        MSTrafficLightLogic *_tlLogic;
-
     public:
         /// Constructor
         SwitchCommand(MSTrafficLightLogic *tlLogic)
-            : _tlLogic(tlLogic) { }
+            : myTLLogic(tlLogic) { }
 
         /// Destructor
         ~SwitchCommand() { }
 
         /** @brief Executes this event
-            Executes the regarded junction's "nextPhase"- method */
+            Executes the regarded junction's "trySwitch"- method */
         SUMOTime execute() {
-            size_t step1 = _tlLogic->step();
-            SUMOTime next = _tlLogic->nextPhase();
-            size_t step2 = _tlLogic->step();
+            size_t step1 = myTLLogic->getStepNo();
+            SUMOTime next = myTLLogic->trySwitch();
+            size_t step2 = myTLLogic->getStepNo();
             if(step1!=step2) {
-                _tlLogic->onSwitch();
+                myTLLogic->onSwitch();
+                myTLLogic->setLinkPriorities();
             }
             return next;
         }
 
     private:
-        /// invalidated default constructor
-        SwitchCommand();
+        /// The logic to be executed on a switch
+        MSTrafficLightLogic *myTLLogic;
+
     };
 
 private:

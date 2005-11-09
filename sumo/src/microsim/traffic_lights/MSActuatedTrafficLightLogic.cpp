@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/11/09 06:36:48  dkrajzew
+// changing the LSA-API: MSEdgeContinuation added; changed the calling API
+//
 // Revision 1.9  2005/10/10 11:56:09  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -174,10 +177,53 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(
 void
 MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
         const std::vector<MSLane*> &lanes,
-        const std::map<std::string, std::vector<std::string> > &laneContinuations,
+        const MSEdgeContinuations &edgeContinuations,
         SUMOReal det_offset)
 {
-    sproutDetectors(nb, lanes, laneContinuations, det_offset);
+    // change values for setting the loops and lanestate-detectors, here
+    SUMOTime inductLoopInterval = 1; //
+    // as the laneStateDetector shall end at the end of the lane, the position
+    // is calculated, not given
+    SUMOTime laneStateDetectorInterval = 1; //
+
+    std::vector<MSLane*>::const_iterator i;
+    // build the induct loops
+    for(i=lanes.begin(); i!=lanes.end(); i++) {
+        MSLane *lane = (*i);
+        SUMOReal length = lane->length();
+        SUMOReal speed = lane->maxSpeed();
+        SUMOReal inductLoopPosition = myDetectorGap * speed;
+        // check whether the lane is long enough
+        SUMOReal ilpos = length - inductLoopPosition;
+        if(ilpos<0) {
+            ilpos = 0;
+        }
+        // Build the induct loop and set it into the container
+        std::string id = "TLS" + _id + "_InductLoopOn_" + lane->id();
+        if(myInductLoops.find(lane)==myInductLoops.end()) {
+            myInductLoops[lane] =
+                nb.createInductLoop(id, lane, ilpos, inductLoopInterval);
+        }
+    }
+    // build the lane state-detectors
+    for(i=lanes.begin(); i!=lanes.end(); i++) {
+        MSLane *lane = (*i);
+        SUMOReal length = lane->length();
+        // check whether the position is o.k. (not longer than the lane)
+        SUMOReal lslen = det_offset;
+        if(lslen>length) {
+            lslen = length;
+        }
+        SUMOReal lspos = length - lslen;
+        // Build the lane state detetcor and set it into the container
+        std::string id = "TLS" + _id + "_LaneStateOff_" + lane->id();
+        if(myLaneStates.find(lane)==myLaneStates.end()) {
+            MSLaneState* loop =
+                new MSLaneState( id, lane, lspos, lslen,
+                    laneStateDetectorInterval );
+            myLaneStates[lane] = loop;
+        }
+    }
 }
 
 
@@ -235,79 +281,13 @@ MSActuatedTrafficLightLogic::duration() const
 
 
 SUMOTime
-MSActuatedTrafficLightLogic::nextPhase()
+MSActuatedTrafficLightLogic::trySwitch()
 {
     // checks if the actual phase should be continued
     gapControl();
     if(_continue) {
         return duration();
     }
-    // increment the index to the current phase
-    nextStep();
-    // reset the link priorities
-    setLinkPriorities();
-    // set the next event
-    return duration();
-}
-
-
-
-void
-MSActuatedTrafficLightLogic::sproutDetectors(
-        NLDetectorBuilder &nb, const std::vector<MSLane*> &lanes,
-        const std::map<std::string, std::vector<std::string> > &laneContinuations,
-        SUMOReal det_offset)
-{
-    // change values for setting the loops and lanestate-detectors, here
-    SUMOTime inductLoopInterval = 1; //
-    // as the laneStateDetector shall end at the end of the lane, the position
-    // is calculated, not given
-    SUMOTime laneStateDetectorInterval = 1; //
-
-    std::vector<MSLane*>::const_iterator i;
-    // build the induct loops
-    for(i=lanes.begin(); i!=lanes.end(); i++) {
-        MSLane *lane = (*i);
-        SUMOReal length = lane->length();
-        SUMOReal speed = lane->maxSpeed();
-        SUMOReal inductLoopPosition = myDetectorGap * speed;
-        // check whether the lane is long enough
-        SUMOReal ilpos = length - inductLoopPosition;
-        if(ilpos<0) {
-            ilpos = 0;
-        }
-        // Build the induct loop and set it into the container
-        std::string id = "TLS" + _id + "_InductLoopOn_" + lane->id();
-        if(myInductLoops.find(lane)==myInductLoops.end()) {
-            myInductLoops[lane] =
-                nb.createInductLoop(id, lane, ilpos, inductLoopInterval);
-        }
-    }
-    // build the lane state-detectors
-    for(i=lanes.begin(); i!=lanes.end(); i++) {
-        MSLane *lane = (*i);
-        SUMOReal length = lane->length();
-        // check whether the position is o.k. (not longer than the lane)
-        SUMOReal lslen = det_offset;
-        if(lslen>length) {
-            lslen = length;
-        }
-        SUMOReal lspos = length - lslen;
-        // Build the lane state detetcor and set it into the container
-        std::string id = "TLS" + _id + "_LaneStateOff_" + lane->id();
-        if(myLaneStates.find(lane)==myLaneStates.end()) {
-            MSLaneState* loop =
-                new MSLaneState( id, lane, lspos, lslen,
-                    laneStateDetectorInterval );
-            myLaneStates[lane] = loop;
-        }
-    }
-}
-
-
-size_t
-MSActuatedTrafficLightLogic::nextStep()
-{
     // increment the index to the current phase
     myStep++;
     assert(myStep<=myPhases.size());
@@ -317,7 +297,8 @@ MSActuatedTrafficLightLogic::nextStep()
     //stores the time the phase started
     static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->_lastSwitch =
         MSNet::getInstance()->getCurrentTimeStep();
-    return myStep;
+    // set the next event
+    return duration();
 }
 
 
