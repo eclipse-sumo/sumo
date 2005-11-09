@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2005/11/09 06:43:20  dkrajzew
+// TLS-API: MSEdgeContinuations added
+//
 // Revision 1.1  2005/10/10 12:09:55  dkrajzew
 // renamed *NetHandler to *Handler
 //
@@ -151,6 +154,7 @@
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/MSBitSetLogic.h>
+#include <microsim/MSEdgeContinuations.h>
 #include <utils/common/SUMOTime.h>
 
 
@@ -183,12 +187,6 @@ class NLGeomShapeBuilder;
  */
 class NLHandler : public MSRouteHandler {
 public:
-    /// Definitions of a string vector
-    typedef std::vector<std::string> StringVector;
-
-    /// Definition of a map from string -> stringvector
-    typedef std::map<std::string, StringVector> SSVMap;
-
     /// Definition of a lane vector
     typedef std::vector<MSLane*> LaneVector;
 
@@ -210,7 +208,7 @@ public:
     void setWanted(NLLoadFilter filter);
 
     /// Returns the information about lane continuations
-    const SSVMap &getContinuations() const;
+    const MSEdgeContinuations &getContinuations() const;
 
 protected:
     /** called on the occurence of the beginning of a tag;
@@ -225,6 +223,8 @@ protected:
     /** called on the end of an element;
         this method */
     virtual void myEndElement(int element, const std::string &name);
+
+    void addParam(const Attributes &attrs);
 
     /** @brief adds a detector
         Determines the type of the detector first, and then calls the
@@ -439,7 +439,10 @@ protected:
     // }
 
     /// Edge continuations
-    SSVMap myContinuations;
+    MSEdgeContinuations myContinuations;
+
+    bool myAmInTLLogicMode;
+
 
 private:
     /** invalid copy constructor */

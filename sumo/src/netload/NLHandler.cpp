@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.3  2005/11/09 06:43:20  dkrajzew
+// TLS-API: MSEdgeContinuations added
+//
 // Revision 1.2  2005/10/17 09:20:35  dkrajzew
 // c4503 warning removed
 //
@@ -209,7 +212,8 @@ NLHandler::NLHandler(const std::string &file,
     myCurrentIsInternalToSkip(false),
     myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
     myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
-    myShapeBuilder(shapeBuilder), m_pSLB(junctionBuilder)
+    myShapeBuilder(shapeBuilder), m_pSLB(junctionBuilder),
+    myAmInTLLogicMode(false)
 {
 }
 
@@ -310,6 +314,36 @@ NLHandler::myStartElement(int element, const std::string &name,
     }
     if(wanted(LOADFILTER_DYNAMIC)) {
         MSRouteHandler::myStartElement(element, name, attrs);
+    }
+    if(element==SUMO_TAG_PARAM) {
+        addParam(attrs);
+    }
+}
+
+
+void
+NLHandler::addParam(const Attributes &attrs)
+{
+    string key, val;
+    try {
+        key = getString(attrs, SUMO_ATTR_KEY);
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform(
+            string("Error in description: missing key for a parameter."));
+        return;
+    }
+    try {
+        val = getString(attrs, SUMO_ATTR_KEY);
+    } catch (EmptyData) {
+        MsgHandler::getErrorInstance()->inform(
+            string("Error in description: missing value for a parameter."));
+        return;
+    }
+    // set
+    if(myAmInTLLogicMode) {
+        assert(key!="");
+        assert(val!="");
+        myJunctionControlBuilder.addParam(key, val);
     }
 }
 
@@ -492,12 +526,7 @@ NLHandler::openAllowedEdge(const Attributes &attrs)
         }
         myEdgeControlBuilder.openAllowedEdge(edge);
         // continuation
-        StringVector pred;
-        if(myContinuations.find(id)!=myContinuations.end()) {
-            pred = myContinuations[id];
-        }
-        pred.push_back(myCurrentID);
-        myContinuations[id] = pred;
+        myContinuations.add(edge, myEdgeControlBuilder.getActiveEdge());
     } catch (XMLIdNotKnownException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("cedge", id));
     } catch (EmptyData) {
@@ -567,6 +596,7 @@ NLHandler::initTrafficLightLogic(const Attributes &attrs)
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing traffic light type.");
     }
+    myAmInTLLogicMode = true;
 }
 
 
@@ -987,7 +1017,9 @@ NLHandler::addSuccLane(const Attributes &attrs)
             m_pSLB.addSuccLane(
                 getBool(attrs, SUMO_ATTR_YIELD),
                 getString(attrs, SUMO_ATTR_LANE),
+#ifdef HAVE_INTERNAL_LANES
                 getStringSecure(attrs, SUMO_ATTR_VIA, ""),
+#endif
                 parseLinkDir(getString(attrs, SUMO_ATTR_DIR)[0]),
                 parseLinkState(getString(attrs, SUMO_ATTR_STATE)[0]),
                 getBoolSecure(attrs, SUMO_ATTR_INTERNALEND, false),
@@ -996,7 +1028,9 @@ NLHandler::addSuccLane(const Attributes &attrs)
             m_pSLB.addSuccLane(
                 getBool(attrs, SUMO_ATTR_YIELD),
                 getString(attrs, SUMO_ATTR_LANE),
+#ifdef HAVE_INTERNAL_LANES
                 getStringSecure(attrs, SUMO_ATTR_VIA, ""),
+#endif
                 parseLinkDir(getString(attrs, SUMO_ATTR_DIR)[0]),
                 parseLinkState(getString(attrs, SUMO_ATTR_STATE)[0]),
                 getBoolSecure(attrs, SUMO_ATTR_INTERNALEND, false));
@@ -1331,6 +1365,7 @@ NLHandler::myEndElement(int element, const std::string &name)
             break;
         case SUMO_TAG_TLLOGIC:
             myJunctionControlBuilder.closeTrafficLightLogic();
+            myAmInTLLogicMode = false;
             break;
         default:
             break;
@@ -1476,7 +1511,7 @@ NLHandler::setError(const string &type,
 }
 
 
-const NLHandler::SSVMap &
+const MSEdgeContinuations &
 NLHandler::getContinuations() const
 {
     return myContinuations;

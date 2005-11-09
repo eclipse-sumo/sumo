@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/11/09 06:43:20  dkrajzew
+// TLS-API: MSEdgeContinuations added
+//
 // Revision 1.12  2005/10/10 12:10:59  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -153,7 +156,9 @@ NLSucceedingLaneBuilder::openSuccLane(const string &laneId)
 
 void
 NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
+#ifdef HAVE_INTERNAL_LANES
                                      const std::string &viaID,
+#endif
                                      MSLink::LinkDirection dir,
                                      MSLink::LinkState state,
                                      bool internalEnd,
@@ -162,7 +167,11 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     // check whether the link is a dead link
     if(laneId=="SUMO_NO_DESTINATION") {
         // build the dead link and add it to the container
+#ifdef HAVE_INTERNAL_LANES
         m_SuccLanes->push_back(new MSLink(0, 0, 0, dir, state, false));
+#else
+        m_SuccLanes->push_back(new MSLink(0, 0, dir, state, false));
+#endif
         return;
     }
     // get the lane the link belongs to
@@ -170,6 +179,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     if(lane==0) {
         throw XMLIdNotKnownException("lane", laneId);
     }
+#ifdef HAVE_INTERNAL_LANES
     MSLane *via = 0;
     if(viaID!="" && OptionsSubSys::getOptions().getBool("use-internal-links")) {
         via = MSLane::dictionary(viaID);
@@ -177,6 +187,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
             throw XMLIdNotKnownException("lane", viaID);
         }
     }
+#endif
     // check whether this link is controlled by a traffic light
     MSTrafficLightLogic *logic = 0;
     if(tlid!="") {
@@ -193,7 +204,11 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     } else {
         via = 0;
     }*/
+#ifdef HAVE_INTERNAL_LANES
     MSLink *link = new MSLink(lane, via, yield, dir, state, internalEnd);
+#else
+    MSLink *link = new MSLink(lane, yield, dir, state, internalEnd);
+#endif
     // if a traffic light is responsible for it, inform the traffic light
     if(logic!=0) {
         MSLane *current = MSLane::dictionary(m_CurrentLane);

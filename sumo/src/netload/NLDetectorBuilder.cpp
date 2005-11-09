@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.29  2005/11/09 06:42:54  dkrajzew
+// TLS-API: MSEdgeContinuations added
+//
 // Revision 1.28  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -274,7 +277,7 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
 
 
 void
-NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
+NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         const std::string &id,
         const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont, int splInterval,
@@ -300,7 +303,7 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
             static_cast<MSE2Collector*>(det), device, splInterval);
     } else {
         convContE2PosLength(id, clane, pos, length);
-        det = buildMultiLaneE2Det(laneConts, id, DU_USER_DEFINED,
+        det = buildMultiLaneE2Det(edgeContinuations, id, DU_USER_DEFINED,
             clane, pos, length,
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
@@ -312,7 +315,7 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
 
 
 void
-NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
+NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         const std::string &id,
         const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont, MSTrafficLightLogic * const tll,
@@ -337,7 +340,7 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
             static_cast<MSE2Collector*>(det));
     } else {
         convContE2PosLength(id, clane, pos, length);
-        det = buildMultiLaneE2Det(laneConts, id, DU_USER_DEFINED,
+        det = buildMultiLaneE2Det(edgeContinuations, id, DU_USER_DEFINED,
             clane, pos, length,
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
@@ -352,7 +355,7 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
 
 
 void
-NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
+NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         const std::string &id,
         const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont, MSTrafficLightLogic * const tll,
@@ -385,7 +388,7 @@ NLDetectorBuilder::buildE2Detector(const SSVMap &laneConts,
             static_cast<MSE2Collector*>(det));
     } else {
         convContE2PosLength(id, clane, pos, length);
-        det = buildMultiLaneE2Det(laneConts, id, DU_USER_DEFINED,
+        det = buildMultiLaneE2Det(edgeContinuations, id, DU_USER_DEFINED,
             clane, pos, length,
             haltingTimeThreshold, haltingSpeedThreshold,
             jamDistThreshold, deleteDataAfterSeconds,
@@ -537,7 +540,7 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
 
 
 MS_E2_ZS_CollectorOverLanes *
-NLDetectorBuilder::buildMultiLaneE2Det(const SSVMap &laneConts,
+NLDetectorBuilder::buildMultiLaneE2Det(const MSEdgeContinuations &edgeContinuations,
             const std::string &id, DetectorUsage usage,
             MSLane *lane, SUMOReal pos, SUMOReal length,
             MSUnit::Seconds haltingTimeThreshold,
@@ -549,7 +552,7 @@ NLDetectorBuilder::buildMultiLaneE2Det(const SSVMap &laneConts,
     MS_E2_ZS_CollectorOverLanes *ret = createMultiLaneE2Detector(id, usage,
         lane, pos, haltingTimeThreshold, haltingSpeedThreshold,
         jamDistThreshold, deleteDataAfterSeconds);
-    ret->init(lane, length, laneConts);
+    ret->init(lane, length, edgeContinuations);
     E2MeasuresVector toAdd = parseE2Measures(measures);
     for(E2MeasuresVector::iterator i=toAdd.begin(); i!=toAdd.end(); i++) {
         ret->addDetector(*i);

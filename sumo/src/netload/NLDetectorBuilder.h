@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.19  2005/11/09 06:42:54  dkrajzew
+// TLS-API: MSEdgeContinuations added
+//
 // Revision 1.18  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -127,6 +130,7 @@ class MSTrafficLightLogic;
 class MSDetectorControl;
 class MELoop;
 class MSLane;
+class MSEdgeContinuations;
 
 #ifdef HAVE_MESOSIM
 class MEInductLoop;
@@ -143,13 +147,6 @@ class MESegment;
  */
 class NLDetectorBuilder {
 public:
-    /// Definitions of a string vector
-    typedef std::vector<std::string> StringVector;
-
-    /// Definition of a map from string -> stringvector
-    typedef std::map<std::string, StringVector> SSVMap;
-
-public:
 
     /// Constructor
     NLDetectorBuilder(MSNet &net);
@@ -163,7 +160,7 @@ public:
         OutputDevice *device, const std::string &style="");
 
     /// builds a lane-based areal (E2-) detector with a fixed interval
-    void buildE2Detector(const SSVMap &laneConts,
+    void buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         const std::string &id,
         const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont, int splInterval,
@@ -175,7 +172,7 @@ public:
         SUMOTime deleteDataAfterSeconds);
 
     /// builds a lane-based areal (E2-) detector connected to a lsa
-    void buildE2Detector(const SSVMap &laneConts,
+    void buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         const std::string &id,
         const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont, MSTrafficLightLogic * const tll,
@@ -187,7 +184,7 @@ public:
         SUMOTime deleteDataAfterSeconds);
 
     /// builds a lane-based areal (E2-) detector connected to a link's state
-    void buildE2Detector(const SSVMap &laneConts,
+    void buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         const std::string &id,
         const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont, MSTrafficLightLogic * const tll,
@@ -237,7 +234,7 @@ public:
         const std::string &measures);
 
     /// Builds an e2-detector that continues on preceeding lanes
-    MS_E2_ZS_CollectorOverLanes *buildMultiLaneE2Det(const SSVMap &laneConts,
+    MS_E2_ZS_CollectorOverLanes *buildMultiLaneE2Det(const MSEdgeContinuations &edgeContinuations,
         const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
         MSUnit::Seconds haltingTimeThreshold,

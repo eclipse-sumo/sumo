@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2005/11/09 06:43:20  dkrajzew
+// TLS-API: MSEdgeContinuations added
+//
 // Revision 1.9  2005/10/10 12:10:59  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -120,7 +123,9 @@ public:
 
     /// add a succeeding lane
     void addSuccLane(bool yield, const std::string &laneId,
+#ifdef HAVE_INTERNAL_LANES
         const std::string &viaID,
+#endif
         MSLink::LinkDirection dir, MSLink::LinkState state,
         bool internalEnd,
         const std::string &tlid="", size_t linkNo=0);

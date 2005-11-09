@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.20  2005/11/09 06:43:20  dkrajzew
+// TLS-API: MSEdgeContinuations added
+//
 // Revision 1.19  2005/10/17 09:20:12  dkrajzew
 // segfaults on loading broken configs patched
 //
@@ -216,10 +219,7 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
     m_pActiveIncomingLanes.clear();
     m_CurrentId = id;
     m_Key = key;
-    m_TLKey = key;
     m_Type = -1;
-    m_Delay = 0;
-    m_InitStep = 0;
     if(type=="none") {
         m_Type = TYPE_NOJUNCTION;
     } else if(type=="right_before_left") {
@@ -342,14 +342,14 @@ NLJunctionControlBuilder::getTLLogic(const std::string &id) const
 
 
 void
-NLJunctionControlBuilder::addJunctionInitInfo(
-            MSExtendedTrafficLightLogic *key,
-            const LaneVector &lv, SUMOReal det_offset)
+NLJunctionControlBuilder::addJunctionInitInfo(MSExtendedTrafficLightLogic *tl)
 {
-    if(myJunctions2PostLoadInit.find(key)!=myJunctions2PostLoadInit.end()) {
-        throw XMLIdNotKnownException("junction", key->id());
-    }
-    myJunctions2PostLoadInit[key] = TLInitInfo(lv, det_offset);
+    TLInitInfo ii;
+    ii.logic = tl;
+    ii.lanes = getIncomingLanes();
+    ii.det_offset = m_DetectorOffset;
+    ii.params = myAdditionalParameter;
+    myJunctions2PostLoadInit.push_back(ii);
 }
 
 
@@ -372,8 +372,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic()
                 myStdActuatedMaxGap,
                 myStdActuatedPassingTime,
                 myStdActuatedDetectorGap);
-        addJunctionInitInfo(static_cast<MSExtendedTrafficLightLogic*>(tlLogic),
-            getIncomingLanes(), m_DetectorOffset);
+        addJunctionInitInfo(static_cast<MSExtendedTrafficLightLogic*>(tlLogic));
     } else if(m_LogicType=="agentbased") {
         // build an agentbased logic
         tlLogic =
@@ -381,8 +380,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic()
                 step, firstEventOffset,
                 myStdLearnHorizon, myStdDecisionHorizon,
                 myStdDeltaLimit, myStdTCycle);
-        addJunctionInitInfo(static_cast<MSExtendedTrafficLightLogic*>(tlLogic),
-            getIncomingLanes(), m_DetectorOffset);
+        addJunctionInitInfo(static_cast<MSExtendedTrafficLightLogic*>(tlLogic));
     } else {
         // build an uncontrolled (fix) tls-logic
         tlLogic =
@@ -487,6 +485,7 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string &type,
     initIncomingLanes();
     m_LogicType = type;
     m_DetectorOffset = detectorOffset;
+    myAdditionalParameter.clear();
     if(m_DetectorOffset==-1) {
         // agentbased
         if(m_LogicType=="agentbased") {
@@ -587,11 +586,11 @@ NLJunctionControlBuilder::closeJunctionLogic()
 
 void
 NLJunctionControlBuilder::closeJunctions(NLDetectorBuilder &db,
-                                         const SSVMap &continuations)
+                                         const MSEdgeContinuations &edgeContinuations)
 {
-    for(TLLogicInitInfoMap::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
-        (*i).first->init(
-            db, (*i).second.first, continuations, (*i).second.second);
+    for(std::vector<TLInitInfo>::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
+        (*i).logic->init(
+            db, (*i).lanes, edgeContinuations, (*i).det_offset);
     }
 }
 
@@ -603,6 +602,15 @@ NLJunctionControlBuilder::buildTLLogics() const
     myLogicControl = 0;
     return ret;
 }
+
+
+void
+NLJunctionControlBuilder::addParam(const std::string &key,
+                                   const std::string &value)
+{
+    myAdditionalParameter[key] = value;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

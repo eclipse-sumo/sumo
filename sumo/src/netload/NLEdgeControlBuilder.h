@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2005/11/09 06:42:54  dkrajzew
+// TLS-API: MSEdgeContinuations added
+//
 // Revision 1.9  2005/10/07 11:41:49  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -174,6 +177,8 @@ public:
 
     /// builds the MSEdgeControl-class which holds all edges
     MSEdgeControl *build();
+
+    MSEdge *getActiveEdge() const;
 
 protected:
     /** storage for edges; to allow the splitting of edges after their number

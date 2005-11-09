@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2005/11/09 06:43:20  dkrajzew
+// TLS-API: MSEdgeContinuations added
+//
 // Revision 1.14  2005/10/10 12:11:23  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -123,6 +126,7 @@
  * ======================================================================= */
 class MSEventControl;
 class OptionsCont;
+class MSEdgeContinuations;
 
 
 /* =========================================================================
@@ -142,10 +146,6 @@ class NLJunctionControlBuilder {
 private:
     /// Definition of a lane vector
     typedef std::vector<MSLane*> LaneVector;
-    /// Definition of a string vector
-    typedef std::vector<std::string> StringVector;
-    /// Definitions of a connection map
-    typedef std::map<std::string, StringVector> SSVMap;
 
 public:
     /// standard constructor
@@ -227,14 +227,16 @@ public:
     void closeJunctionLogic();
 
     /// closes the building of the junction control
-    void closeJunctions(NLDetectorBuilder &db, const SSVMap &continuations);
+    void closeJunctions(NLDetectorBuilder &db,
+        const MSEdgeContinuations &edgeContinuations);
+
+    void addParam(const std::string &key, const std::string &value);
 
 
 protected:
     /** @brief adds an information about the initialisation of a tls
         The initialisation is done during the closing of junctions */
-    virtual void addJunctionInitInfo(MSExtendedTrafficLightLogic *key,
-        const LaneVector &lv, SUMOReal det_offset);
+    void addJunctionInitInfo(MSExtendedTrafficLightLogic *key);
 
     /** builds a junction that does not use a logic */
     virtual MSJunction *buildNoLogicJunction();
@@ -301,35 +303,29 @@ protected:
     /// the key of the currently chosen junction
     std::string                 m_Key;
 
-    /** the key of the traffic loght logic when the current junction
-        has traffic lights */
-    std::string                 m_TLKey;
-
     /// the type of the currently chosen junction
-    int                         m_Type;
+    int m_Type;
 
     /// the position of the junction
-    Position2D                  myPosition;
-
-    /** the time delay to the next traffic light switch
-        (when the current junction has traffic lights) */
-    size_t                      m_Delay;
+    Position2D myPosition;
 
     /** the junction's traffic lights' first phase index
         (when the current junction has traffic lights) */
-    size_t                      m_InitStep;
+    size_t m_InitStep;
 
     /// The absolute duration of a tls-control loop
     size_t myAbsDuration;
 
     /// A definition of junction initialisation
-    typedef std::pair<LaneVector, SUMOReal> TLInitInfo;
+    struct TLInitInfo {
+        MSExtendedTrafficLightLogic *logic;
+        LaneVector lanes;
+        SUMOReal det_offset;
+        std::map<std::string, std::string> params;
+    };
 
-    /// Definition of a map which contains information which junctions shall be initialised using which values
-    typedef std::map<MSExtendedTrafficLightLogic*, TLInitInfo> TLLogicInitInfoMap;
-
-    /// The map which contains information which junctions shall be initialised using which values
-    TLLogicInitInfoMap myJunctions2PostLoadInit;
+    /// The container for information which junctions shall be initialised using which values
+    std::vector<TLInitInfo> myJunctions2PostLoadInit;
 
     /// Default detector offset
     SUMOReal m_DetectorOffset;
@@ -361,8 +357,10 @@ protected:
     // Default maximum gap actuated)
     SUMOReal myStdActuatedDetectorGap;
 
-
     mutable MSTLLogicControl *myLogicControl;
+
+    typedef std::map<std::string, std::string> StringParameterMap;
+    StringParameterMap myAdditionalParameter;
 
 protected:
     /// numerical representation for a junction with no purpose

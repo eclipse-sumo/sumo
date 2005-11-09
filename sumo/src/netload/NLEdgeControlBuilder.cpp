@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.16  2005/11/09 06:42:54  dkrajzew
+// TLS-API: MSEdgeContinuations added
+//
 // Revision 1.15  2005/10/17 09:20:12  dkrajzew
 // segfaults on loading broken configs patched
 //
@@ -311,6 +314,12 @@ NLEdgeControlBuilder::build()
         }
     }
     return new MSEdgeControl(singleLanes, multiLanes);
+}
+
+MSEdge *
+NLEdgeControlBuilder::getActiveEdge() const
+{
+    return m_pActiveEdge;
 }
 
 
