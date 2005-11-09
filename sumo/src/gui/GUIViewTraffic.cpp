@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.42  2005/11/09 06:33:15  dkrajzew
+// removed unneeded stuff
+//
 // Revision 1.41  2005/10/07 11:36:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -533,23 +536,6 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
         / _addScl; // offset to top
     // reset the tables of things to show if the viewport has changed
     if(myViewSettings.differ(x, y, xoff, yoff)) {
-
-SUMOReal width = nb.getWidth();
-SUMOReal height = nb.getHeight();
-SUMOReal mzoom = _changer->getZoom();
-SUMOReal cy = _changer->getYPos();//cursorY;
-SUMOReal cx = _changer->getXPos();//cursorY;
-SUMOReal mratio = (SUMOReal) _widthInPixels / (SUMOReal) _heightInPixels;
-SUMOReal sxmin = nb.getCenter().x() - mratio * width / (mzoom) * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
-sxmin -= cx;
-SUMOReal sxmax = nb.getCenter().x() + mratio * width / (mzoom) * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
-sxmax -= cx;
-
-SUMOReal symin = nb.getCenter().y() - height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
-symin += cy;
-SUMOReal symax = nb.getCenter().y() + height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
-symax += cy;
-
         clearUsetable(_edges2Show, _edges2ShowSize);
         clearUsetable(_junctions2Show, _junctions2ShowSize);
         _net->_grid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR, x, y, xoff, yoff,
