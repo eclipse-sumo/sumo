@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/11/09 07:29:43  dkrajzew
+// debugging
+//
 // Revision 1.8  2005/10/07 11:44:40  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -84,6 +87,9 @@ std::vector<std::pair<SUMOReal, SUMOReal> > GLHelper::myCircleCoords;
 void
 GLHelper::drawFilledPoly(const Position2DVector &v, bool close)
 {
+	if(v.size()==0) {
+		return;
+	}
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glBegin(GL_POLYGON);
     const Position2DVector::ContType &l = v.getCont();
