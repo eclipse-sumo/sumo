@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2005/11/09 06:39:38  dkrajzew
+// usage of internal lanes is now optional at building
+//
 // Revision 1.5  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -79,10 +82,12 @@ typedef std::vector<MSLink*> MSLinkCont;
  */
 class MSLinkContHelper {
 public:
+#ifdef HAVE_INTERNAL_LANES
     /** @brief Returns the internal lane that must be passed in order to get to the desired edge
         Returns 0 if no such edge exists */
     static const MSEdge *getInternalFollowingEdge(MSLane *fromLane,
         MSEdge *followerAfterInternal);
+#endif
 
     /** @brief Returns the link connecting both lanes
         Both lanes have to be non-internal; 0 may be returned if no connection

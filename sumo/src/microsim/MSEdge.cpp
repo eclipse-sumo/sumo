@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.23  2005/11/09 06:39:38  dkrajzew
+// usage of internal lanes is now optional at building
+//
 // Revision 1.22  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -493,6 +496,7 @@ MSEdge::getLanes( void ) const
 }
 
 
+#ifdef HAVE_INTERNAL_LANES
 const MSEdge *
 MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const
 {
@@ -509,7 +513,7 @@ MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const
     }
     return 0;
 }
-
+#endif
 
 SUMOTime
 MSEdge::getLastFailedEmissionTime() const

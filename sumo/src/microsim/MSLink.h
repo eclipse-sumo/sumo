@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2005/11/09 06:39:38  dkrajzew
+// usage of internal lanes is now optional at building
+//
 // Revision 1.14  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -121,10 +124,15 @@ public:
         LINKDIR_PARTLEFT,
         LINKDIR_PARTRIGHT
     };
-
+#ifndef HAVE_INTERNAL_LANES
+    /// Constructor
+    MSLink( MSLane* succLane,
+        bool yield, LinkDirection dir, LinkState state, bool internalEnd );
+#else
     /// Constructor
     MSLink( MSLane* succLane, MSLane *via,
         bool yield, LinkDirection dir, LinkState state, bool internalEnd );
+#endif
 
     /// Destructor
     ~MSLink();
@@ -163,8 +171,11 @@ public:
     /// Returns the connected lane
     MSLane *getLane() const;
 
+#ifdef HAVE_INTERNAL_LANES
     /// Returns the innerlane following
     MSLane * const getViaLane() const;
+#endif
+
 
     bool havePriority() const;
 
@@ -198,8 +209,10 @@ private:
     /// MSLink's destination lane.
     MSLane* myLane;
 
+#ifdef HAVE_INTERNAL_LANES
     /// The following junction-internal lane if used
     MSLane * const myJunctionInlane;
+#endif
 
     /// MSLinks's default right of way, true for right of way MSLinks.
     bool myPrio;

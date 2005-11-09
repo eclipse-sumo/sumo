@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/11/09 06:39:38  dkrajzew
+// usage of internal lanes is now optional at building
+//
 // Revision 1.14  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -85,6 +88,17 @@ namespace
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
+#ifndef HAVE_INTERNAL_LANES
+MSLink::MSLink(MSLane* succLane, bool yield,
+               LinkDirection dir, LinkState state, bool internalEnd ) // !!! subclass
+    : myLane(succLane),
+    myPrio(!yield), myApproaching(0),
+    myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
+    myState(state), myAmYellow(false), myDirection(dir),
+    myIsInternalEnd(internalEnd)
+{
+}
+#else
 MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
                LinkDirection dir, LinkState state, bool internalEnd ) // !!! subclass
     : myLane(succLane), myJunctionInlane(via),
@@ -93,8 +107,8 @@ MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
     myState(state), myAmYellow(false), myDirection(dir),
     myIsInternalEnd(internalEnd)
 {
-//    assert(internalEnd==false);
 }
+#endif
 
 
 MSLink::~MSLink()
@@ -218,11 +232,13 @@ MSLink::havePriority() const
 }
 
 
+#ifdef HAVE_INTERNAL_LANES
 MSLane * const
 MSLink::getViaLane() const
 {
     return myJunctionInlane;
 }
+#endif
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

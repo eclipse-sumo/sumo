@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.21  2005/11/09 06:39:38  dkrajzew
+// usage of internal lanes is now optional at building
+//
 // Revision 1.20  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -294,7 +297,9 @@ public:
 
     LaneCont* getLanes( void ) const; // !!! not the container itself!
 
+#ifdef HAVE_INTERNAL_LANES
     const MSEdge *getInternalFollowingEdge(MSEdge *followerAfterInternal) const;
+#endif
 
     SUMOTime getLastFailedEmissionTime() const;
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.68  2005/11/09 06:39:38  dkrajzew
+// usage of internal lanes is now optional at building
+//
 // Revision 1.67  2005/10/10 11:58:14  dkrajzew
 // debugging
 //
@@ -879,8 +882,7 @@ MSVehicle::accelDist() const
 SUMOReal
 MSVehicle::vNeighEqualPos( const MSVehicle& neigh )
 {
-    SUMOReal v = DIST2SPEED( neigh.pos() - this->pos() +
-                 SPEED2DIST(neigh.speed()) );
+    SUMOReal v = DIST2SPEED( neigh.pos() - pos() + SPEED2DIST(neigh.speed()) );
     assert( v >= 0 );
     // Don't break too hard.
     if ( v < speed() - SPEED2DIST(myType->decel()) ) {
@@ -1175,10 +1177,14 @@ MSVehicle::moveFirstChecked()
         }
         // proceed to the next lane
         if(link!=0/*approachedLane->isLinkEnd(link)*/) {
+#ifdef HAVE_INTERNAL_LANES
             approachedLane = link->getViaLane();
             if(approachedLane==0) {
                 approachedLane = link->getLane();
             }
+#else
+            approachedLane = link->getLane();
+#endif
         }
         // set information about approaching
         approachedLane->setApproaching(myState.pos(), this);
@@ -1195,14 +1201,15 @@ MSVehicle::moveFirstChecked()
         if(link==0) {
             break;
         }
-        tmpPos -= approachedLane->length();
-//        dist -= approachedLane->length();
-//        if(!tmpApproached->isLinkEnd(link)) {
-            tmpApproached = link->getViaLane();
-            if(tmpApproached==0) {
-                tmpApproached = link->getLane();
-            }
-  //      }
+        tmpPos -= tmpApproached->length();//approachedLane->length();
+#ifdef HAVE_INTERNAL_LANES
+        tmpApproached = link->getViaLane();
+        if(tmpApproached==0) {
+            tmpApproached = link->getLane();
+        }
+#else
+        tmpApproached = link->getLane();
+#endif
         tmpApproached->setApproaching(tmpPos, this);
     }
     // needed as the lane changer maybe looks back
@@ -1263,8 +1270,10 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
     SUMOReal vLinkPass = boundVSafe;
     SUMOReal vLinkWait = vLinkPass;
     size_t view = 1;
+#ifdef HAVE_INTERNAL_LANES
     bool nextInternal =
         nextLane->edge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL;
+#endif
     // loop over following lanes
     while(true) {
         // get the next link used
@@ -1286,6 +1295,7 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
         // if the vehicle drives over the end of the lane, inform the link
 
         // get the following lane
+#ifdef HAVE_INTERNAL_LANES
         nextLane = (*link)->getViaLane();
         if(nextLane==0) {
             nextInternal = false;
@@ -1293,7 +1303,9 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
         } else {
             nextInternal = true;
         }
-
+#else
+        nextLane = (*link)->getLane();
+#endif
         // compute the velocity to use when the link is not blocked by oter vehicles
             // the vehicle shall be not fastern when reaching the next lane than allowed
         SUMOReal vmaxNextLane =
@@ -1320,15 +1332,9 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
                 vsafe(myState.mySpeed, decelAbility, seen, 0);
         }
 
-
-            // the vehicle shall not driver over more than two junctions (by now @!!!)
-//      SUMOReal vsafeNextLaneEnd =
-//          vsafe(myState.mySpeed, decelAbility, seen+nextLane->length(), 0);
-
             // compute the velocity to use when the link may be used
         vLinkPass =
             MIN3(vLinkPass, vmaxNextLane, vsafePredNextLane/*, vsafeNextLaneEnd*/);
-
 
         // if the link may not be used (is blocked by another vehicle) then let the
         //  vehicle decelerate until the end of the street
@@ -1342,8 +1348,7 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
             //  (the check whether other incoming vehicles may stop this one is done later)
             // then let it pass
             if(seen<decelAbility&&dist2Pred>0) {
-                vLinkPass =
-                    MIN3(vLinkPass, vsafePredNextLane, vaccel(myLane)); // otherwise vsafe may become incredibly large
+                vLinkPass = MIN2(vLinkPass, vaccel(myLane)); // otherwise vsafe may become incredibly large
                 (*link)->setApproaching(this);
             } else {
                 // let it wait in the other cases
@@ -1361,9 +1366,13 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
         if(seen>dist) {
             return;
         }
+#ifdef HAVE_INTERNAL_LANES
         if(!nextInternal) {
             view++;
         }
+#else
+        view++;
+#endif
     }
 }
 
@@ -2148,10 +2157,12 @@ MSVehicle::removeApproachingInformationOnKill()
         if(tmp!=0) {
             tmp->resetApproacherDistance(this);
         }
+#ifdef HAVE_INTERNAL_LANES
         tmp = (*i).myLink->getViaLane();
         if(tmp!=0) {
             tmp->resetApproacherDistance(this);
         }
+#endif
         ++i;
     }
     /*
@@ -2309,13 +2320,13 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         int textdummy = 0;
         for(MSEdgeVector::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-            cout << (*i)->id() << ", ";
+            DEBUG_OUT << (*i)->id() << ", ";
         }
-        cout << "-------------" << endl;
+        DEBUG_OUT << "-------------" << endl;
         for(MSRouteIterator i2=myRoute->begin(); i2!=myRoute->end(); ++i2) {
-            cout << (*i2)->id() << ", ";
+            DEBUG_OUT << (*i2)->id() << ", ";
         }
-        cout << "-------------" << endl;
+        DEBUG_OUT << "-------------" << endl;
     }
 #endif
     MSRoute *otherr = 0;
@@ -2353,9 +2364,9 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         int textdummy = 0;
         for(MSRouteIterator i=myRoute->begin(); i!=myRoute->end(); ++i) {
-            cout << (*i)->id() << ", ";
+            DEBUG_OUT << (*i)->id() << ", ";
         }
-        cout << "-------------" << endl;
+        DEBUG_OUT << "-------------" << endl;
     }
 #endif
     return replaced;
@@ -2369,13 +2380,13 @@ MSVehicle::replaceRoute(MSRoute *newRoute, size_t simTime)
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         int textdummy = 0;
         for(MSEdgeVector::const_iterator i=newRoute->begin(); i!=newRoute->end(); ++i) {
-            cout << (*i)->id() << ", ";
+            DEBUG_OUT << (*i)->id() << ", ";
         }
-        cout << "-------------" << endl;
+        DEBUG_OUT << "-------------" << endl;
         for(MSRouteIterator i2=myRoute->begin(); i2!=myRoute->end(); ++i2) {
-            cout << (*i2)->id() << ", ";
+            DEBUG_OUT << (*i2)->id() << ", ";
         }
-        cout << "-------------" << endl;
+        DEBUG_OUT << "-------------" << endl;
     }
 #endif
     MSRoute *otherr = 0;
@@ -2411,9 +2422,9 @@ MSVehicle::replaceRoute(MSRoute *newRoute, size_t simTime)
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         int textdummy = 0;
         for(MSRouteIterator i=myRoute->begin(); i!=myRoute->end(); ++i) {
-            cout << (*i)->id() << ", ";
+            DEBUG_OUT << (*i)->id() << ", ";
         }
-        cout << "-------------" << endl;
+        DEBUG_OUT << "-------------" << endl;
     }
 #endif
     return true;
@@ -2742,7 +2753,7 @@ MSVehicle::dict_loadState(BinaryInputDevice &bis, long what)
             type = MSVehicleType::dictionary(typeID);
         //if(wasEmitted!=0) {
             if(dictionary(id)!=0) {
-                cout << "Error: vehicle was already added" << endl;
+                DEBUG_OUT << "Error: vehicle was already added" << endl;
                 continue;
             }
 
@@ -2759,7 +2770,7 @@ MSVehicle::dict_loadState(BinaryInputDevice &bis, long what)
             size--;
         }
     } while(id!="-----------------end---------------");
-    cout << myDict.size() << " vehicles loaded."; // !!! verbose
+    DEBUG_OUT << myDict.size() << " vehicles loaded."; // !!! verbose
 }
 
 
