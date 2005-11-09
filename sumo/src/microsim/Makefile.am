@@ -4,7 +4,9 @@ EXTRA_DIST =
 
 libmicrosim_a_SOURCES = MSAbstractLaneChangeModel.h MSBitSetLogic.h \
 MSDebugHelper.cpp MSDebugHelper.h \
-MSCORN.cpp MSCORN.h MSEdge.cpp MSEdge.h MSEdgeControl.cpp MSEdgeControl.h \
+MSCORN.cpp MSCORN.h MSEdge.cpp MSEdge.h \
+MSEdgeContinuations.cpp MSEdgeContinuations.h \
+MSEdgeControl.cpp MSEdgeControl.h \
 MSEmitControl.cpp MSEmitControl.h MSEventControl.cpp MSEventControl.h \
 MSGlobals.cpp MSGlobals.h MSInterface_NetRun.h \
 MSInternalLane.cpp MSInternalLane.h MSJunction.cpp MSJunction.h \

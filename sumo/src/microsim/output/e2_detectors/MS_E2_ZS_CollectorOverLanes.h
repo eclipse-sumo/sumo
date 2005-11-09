@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/11/09 06:36:06  dkrajzew
+// changing the LSA-API: MSEdgeContinuation added
+//
 // Revision 1.8  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -51,6 +54,10 @@
 #include <utils/iodevices/XMLDevice.h>
 
 
+
+class MSEdgeContinuations;
+
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
@@ -72,9 +79,6 @@ public:
 	/// Definition of a E2-collector storage
     typedef std::vector< MSE2Collector* > CollectorCont;
 
-	/// !!!
-    typedef std::map<std::string, std::vector<std::string> > LaneContinuations;
-
 	/// Constructor
     MS_E2_ZS_CollectorOverLanes( std::string id,
         DetectorUsage usage, MSLane* lane, MSUnit::Meters startPos,
@@ -88,7 +92,7 @@ public:
 		most functions but the building of detectors itself which in fact
 		is depending on whether the normal or the gui-version is used */
     void init(MSLane *lane, MSUnit::Meters detLength,
-        const LaneContinuations &laneContinuations);
+        const MSEdgeContinuations &edgeContinuations);
 
 	/// Destructor
     virtual ~MS_E2_ZS_CollectorOverLanes( void );
@@ -176,7 +180,7 @@ protected:
 		This method is called consecutively until all paths have the
 		desired length */
     void extendTo(SUMOReal length,
-		const LaneContinuations &laneContinuations);
+		const MSEdgeContinuations &edgeContinuations);
 
 	/// Builds an id for one of the E2-collectors this detector uses
     std::string  makeID( const std::string &baseID,
@@ -188,7 +192,7 @@ protected:
 
 
 	std::vector<MSLane*> getLanePredeccessorLanes(MSLane *l,
-		const LaneContinuations &laneContinuations);
+		const MSEdgeContinuations &edgeContinuations);
 
 protected:
 	/// The position the collector starts at
