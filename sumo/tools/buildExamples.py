@@ -1,4 +1,6 @@
 import os
 
 os.system("buildAllNets.py")
-os.system("buildAllRoutes.py")
+os.system("buildAllDUARoutes.py")
+os.system("buildAllJTRRoutes.py")
+
