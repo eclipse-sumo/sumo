@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/11/09 06:43:51  dkrajzew
+// error handling improved
+//
 // Revision 1.12  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -184,21 +187,31 @@ RONetHandler::parseLane(const Attributes &attrs)
     // get the speed
     try {
         maxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
-    } catch (EmptyData) {
+    } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform(
             string("A lane without a maxspeed definition occured within '")
-            + _file + string("'."));
+            + _file + string("', edge '") + _currentName + string("'."));
         return;
-    } // !!! NumberFormatException
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform(
+            string("A lane with a nonnumerical maxspeed definition occured within '")
+            + _file + string("', edge '") + _currentName + string("'."));
+        return;
+    }
     // get the length
     try {
         length = getFloat(attrs, SUMO_ATTR_LENGTH);
-    } catch (EmptyData) {
+    } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform(
             string("A lane without a length definition occured within '")
-            + _file + string("'."));
+            + _file + string("', edge '") + _currentName + string("'."));
         return;
-    } // !!! NumberFormatException
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform(
+            string("A lane with a nonnumerical length definition occured within '")
+            + _file + string("', edge '") + _currentName + string("'."));
+        return;
+    }
     string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
     if(id.length()==0) {
         MsgHandler::getErrorInstance()->inform("Could not retrieve the id of a lane.");
