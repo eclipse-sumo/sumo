@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2005/11/09 06:48:16  dkrajzew
+// removed some memory leaks
+//
 // Revision 1.29  2005/10/17 09:27:46  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -249,6 +252,7 @@ main(int argc, char **argv)
         MsgHandler::getErrorInstance()->inform("Quitting (conversion failed).");
         ret = 1;
     }
+    NBDistribution::clear();
     SystemFrame::close();
     // report about ending
     if(ret==0) {
