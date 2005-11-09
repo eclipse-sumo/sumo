@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/11/09 06:46:52  dkrajzew
+// some further work on viewport changer (unfinished)
+//
 // Revision 1.4  2005/10/07 11:46:08  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -92,39 +95,28 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
         new FXVerticalFrame(this,
             LAYOUT_TOP|FRAME_NONE|LAYOUT_FILL_X,
             0,0,0,0, 0,0,1,1);
+    FXMatrix *m1 = new FXMatrix(f1, 2, MATRIX_BY_COLUMNS);
     //
     {
-        FXHorizontalFrame *f2 =
-            new FXHorizontalFrame(f1,
-                LAYOUT_TOP|FRAME_NONE|LAYOUT_FILL_X,
-                0,0,0,0, 0,0,1,1);
-        new FXLabel(f2, "Zoom:");
-        myZoom = new FXRealSpinDial(f2, 16, 0, 0,
-            LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        new FXLabel(m1, "Zoom:", 0, LAYOUT_CENTER_Y);
+        myZoom = new FXRealSpinDial(m1, 16, 0, 0,
+            LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myZoom->setRange(0.0001, 100000);
         myZoom->setNumberFormat(4);
         myZoom->setValue(zoom);
     }
     {
-        FXHorizontalFrame *f2 =
-            new FXHorizontalFrame(f1,
-                LAYOUT_TOP|FRAME_NONE|LAYOUT_FILL_X,
-                0,0,0,0, 0,0,1,1);
-        new FXLabel(f2, "X Offset:");
-        myXOff = new FXRealSpinDial(f2, 16, 0, 0,
-            LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        new FXLabel(m1, "X Offset:", 0, LAYOUT_CENTER_Y);
+        myXOff = new FXRealSpinDial(m1, 16, 0, 0,
+            LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myXOff->setRange(-1000000, 1000000);
         myXOff->setNumberFormat(4);
         myXOff->setValue(xoff);
     }
     {
-        FXHorizontalFrame *f2 =
-            new FXHorizontalFrame(f1,
-                LAYOUT_TOP|FRAME_NONE|LAYOUT_FILL_X,
-                0,0,0,0, 0,0,1,1);
-        new FXLabel(f2, "Y Offset:");
-        myYOff = new FXRealSpinDial(f2, 16, 0, 0,
-            LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        new FXLabel(m1, "Y Offset:", 0, LAYOUT_CENTER_Y);
+        myYOff = new FXRealSpinDial(m1, 16, 0, 0,
+            LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myYOff->setRange(-1000000, 1000000);
         myYOff->setNumberFormat(4);
         myYOff->setValue(yoff);
@@ -175,6 +167,15 @@ GUIDialog_EditViewport::onCmdCancel(FXObject*,FXSelector,void*)
     return 1;
 }
 
+
+void
+GUIDialog_EditViewport::setValues(SUMOReal zoom,
+                                  SUMOReal xoff, SUMOReal yoff)
+{
+    myZoom->setValue(zoom);
+    myXOff->setValue(xoff);
+    myYOff->setValue(yoff);
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -32,6 +32,7 @@ public:
     void create();
     long onCmdOk(FXObject*,FXSelector,void*);
     long onCmdCancel(FXObject*,FXSelector,void*);
+    void setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff);
 
 protected:
     GUISUMOAbstractView *myParent;
