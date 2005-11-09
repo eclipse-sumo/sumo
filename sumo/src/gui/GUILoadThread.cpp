@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2005/11/09 06:32:46  dkrajzew
+// problems on loading geometry items patched
+//
 // Revision 1.32  2005/10/10 11:49:25  dkrajzew
 // debugging missing junction geometries; renamed *NetHandler to *Handler
 //
@@ -242,7 +245,7 @@ GUILoadThread::run()
     GUIEdgeControlBuilder *eb = buildEdgeBuilder();
     GUIJunctionControlBuilder jb(*net, oc);
     GUIDetectorBuilder db(*net);
-    GUIGeomShapeBuilder sb(gIDStorage);
+    GUIGeomShapeBuilder sb(*net, gIDStorage);
     GUITriggerBuilder tb;
     GUIHandler handler("", *net, db, tb, *eb, jb, sb);
     NLBuilder builder(oc, *net, *eb, jb, db, tb, sb, handler);

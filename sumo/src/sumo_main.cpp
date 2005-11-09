@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2005/11/09 06:32:46  dkrajzew
+// problems on loading geometry items patched
+//
 // Revision 1.33  2005/10/17 09:27:46  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -276,7 +279,7 @@ load(OptionsCont &oc)
     NLJunctionControlBuilder jb(*net, oc);
     NLDetectorBuilder db(*net);
     NLTriggerBuilder tb;
-    NLGeomShapeBuilder sb;
+    NLGeomShapeBuilder sb(*net);
     NLHandler handler("", *net, db, tb, eb, jb, sb);
     NLBuilder builder(oc, *net, eb, jb, db, tb, sb, handler);
     if(!builder.build()) {

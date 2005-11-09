@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.5  2005/11/09 06:32:46  dkrajzew
+// problems on loading geometry items patched
+//
 // Revision 1.4  2005/10/10 12:11:33  dkrajzew
 // debugging
 //
@@ -63,6 +66,7 @@ namespace
 #include <utils/shapes/ShapeContainer.h>
 #include "NLGeomShapeBuilder.h"
 #include <utils/common/MsgHandler.h>
+#include <microsim/MSNet.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -78,15 +82,15 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NLGeomShapeBuilder::NLGeomShapeBuilder()
-    : myShapeContainer(new ShapeContainer)
+NLGeomShapeBuilder::NLGeomShapeBuilder(MSNet &net)
+    : myShapeContainer(net.getShapeContainer())
 {
 }
 
 
 NLGeomShapeBuilder::~NLGeomShapeBuilder()
 {
-    delete myShapeContainer;
+//    delete myShapeContainer;
 }
 
 
@@ -106,7 +110,7 @@ NLGeomShapeBuilder::polygonEnd(const Position2DVector &shape)
 {
     Polygon2D *p =
         new Polygon2D(myCurrentName, myCurrentType, myCurrentColor, shape);
-    if(!myShapeContainer->add(p)) {
+    if(!myShapeContainer.add(p)) {
 
         MsgHandler::getErrorInstance()->inform("A duplicate of the polygon '" + myCurrentName + "' occured.");
         delete p;
@@ -120,22 +124,12 @@ NLGeomShapeBuilder::addPoint(const std::string &name,
                              SUMOReal x, SUMOReal y)
 {
     PointOfInterest *p = new PointOfInterest(name, type, Position2D(x, y), c);
-    if(!myShapeContainer->add(p)) {
+    if(!myShapeContainer.add(p)) {
 
         MsgHandler::getErrorInstance()->inform("A duplicate of the POI '" + name + "' occured.");
         delete p;
     }
 }
-
-
-ShapeContainer *
-NLGeomShapeBuilder::buildShapeContainer() const
-{
-    ShapeContainer *ret = myShapeContainer;
-    myShapeContainer = 0;
-    return ret;
-}
-
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

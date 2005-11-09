@@ -22,16 +22,13 @@ class GUIGlObjectStorage;
 
 class GUIGeomShapeBuilder : public NLGeomShapeBuilder {
 public:
-    GUIGeomShapeBuilder(GUIGlObjectStorage &idStorage);
+    GUIGeomShapeBuilder(MSNet &net, GUIGlObjectStorage &idStorage);
     ~GUIGeomShapeBuilder();
 
     void polygonEnd(const Position2DVector &shape);
 
     void addPoint(const std::string &name, const std::string &type,
         const RGBColor &c, SUMOReal x, SUMOReal y);
-
-    ShapeContainer *buildShapeContainer() const;
-
 protected:
     GUIGlObjectStorage &myIdStorage;
 

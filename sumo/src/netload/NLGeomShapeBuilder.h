@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2005/11/09 06:32:46  dkrajzew
+// problems on loading geometry items patched
+//
 // Revision 1.4  2005/10/10 12:11:33  dkrajzew
 // debugging
 //
@@ -61,6 +64,7 @@
  * class declarations
  * ======================================================================= */
 class ShapeContainer;
+class MSNet;
 
 
 /* =========================================================================
@@ -73,7 +77,7 @@ class ShapeContainer;
 class NLGeomShapeBuilder {
 public:
     /// Constructor
-    NLGeomShapeBuilder();
+    NLGeomShapeBuilder(MSNet &net);
 
     /// Destructor
     ~NLGeomShapeBuilder();
@@ -105,7 +109,7 @@ protected:
     RGBColor myCurrentColor;
 
     /// The shape container
-    mutable ShapeContainer *myShapeContainer;
+    ShapeContainer &myShapeContainer;
 
 };
 

@@ -27,8 +27,9 @@
 #endif // _DEBUG
 
 
-GUIGeomShapeBuilder::GUIGeomShapeBuilder(GUIGlObjectStorage &idStorage)
-    : myIdStorage(idStorage)
+GUIGeomShapeBuilder::GUIGeomShapeBuilder(MSNet &net,
+                                         GUIGlObjectStorage &idStorage)
+    : NLGeomShapeBuilder(net), myIdStorage(idStorage)
 {
 }
 
@@ -44,7 +45,7 @@ GUIGeomShapeBuilder::polygonEnd(const Position2DVector &shape)
     GUIPolygon2D *p =
         new GUIPolygon2D(myIdStorage, myCurrentName, myCurrentType,
             myCurrentColor, shape);
-    if(!myShapeContainer->add(p)) {
+    if(!myShapeContainer.add(p)) {
 
         MsgHandler::getErrorInstance()->inform("A duplicate of the polygon '" + myCurrentName + "' occured.");
         delete p;
@@ -60,16 +61,10 @@ GUIGeomShapeBuilder::addPoint(const std::string &name,
     GUIPointOfInterest *p =
         new GUIPointOfInterest(myIdStorage, name, type,
             Position2D(x, y), c);
-    if(!myShapeContainer->add(p)) {
+    if(!myShapeContainer.add(p)) {
 
         MsgHandler::getErrorInstance()->inform("A duplicate of the POI '" + name + "' occured.");
         delete p;
     }
 }
 
-
-ShapeContainer *
-GUIGeomShapeBuilder::buildShapeContainer() const
-{
-    return myShapeContainer;
-}
