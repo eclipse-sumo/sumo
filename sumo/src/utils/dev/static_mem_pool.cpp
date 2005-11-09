@@ -1,5 +1,5 @@
 #ifdef _DEBUG
-
+#ifdef CHECK_MEMORY_LEAKS
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
@@ -81,4 +81,5 @@ void static_mem_pool_set::add(mem_pool_base* __memory_pool_p)
     _M_memory_pool_set.push_back(__memory_pool_p);
 }
 
+#endif // CHECK_MEMORY_LEAKS
 #endif // _DEBUG

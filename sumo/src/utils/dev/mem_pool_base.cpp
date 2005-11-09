@@ -1,4 +1,5 @@
 #ifdef _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
@@ -72,4 +73,5 @@ void mem_pool_base::dealloc_sys(void* __ptr)
     _MEM_POOL_DEALLOCATE(__ptr);
 }
 
+#endif // CHECK_MEMORY_LEAKS
 #endif // _DEBUG

@@ -1,4 +1,5 @@
 #ifdef _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
@@ -148,4 +149,5 @@ _Container& set_assign_difference(_Container& __dest,
 
 #endif // _SET_ASSIGN_H
 
+#endif // CHECK_MEMORY_LEAKS
 #endif // _DEBUG

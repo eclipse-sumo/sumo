@@ -1,4 +1,5 @@
 #ifdef _DEBUG
+#ifdef CHECK_MEMORY_LEAKS
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
@@ -689,4 +690,5 @@ __debug_new_counter::~__debug_new_counter()
         }
 }
 
+#endif // CHECK_MEMORY_LEAKS
 #endif // _DEBUG

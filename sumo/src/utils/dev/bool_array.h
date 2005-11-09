@@ -1,5 +1,5 @@
 #ifdef _DEBUG
-
+#ifdef CHECK_MEMORY_LEAKS
 // -*- Mode: C++; tab-width: 4; c-basic-offset: 4; indent-tabs-mode: nil -*-
 // vim:tabstop=4:shiftwidth=4:expandtab:
 
@@ -227,4 +227,5 @@ inline void bool_array::set(unsigned long __idx)
 
 #endif // _BOOL_ARRAY_H
 
+#endif // CHECK_MEMORY_LEAKS
 #endif // _DEBUG
