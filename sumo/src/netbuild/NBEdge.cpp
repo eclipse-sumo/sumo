@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.56  2005/11/09 06:40:49  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.55  2005/10/17 09:03:33  dkrajzew
 // c4503 warning removed
 //
@@ -292,6 +295,12 @@ namespace
 
 
 /* =========================================================================
+ * debug definitions
+ * ======================================================================= */
+#define DEBUG_OUT cout
+
+
+/* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
@@ -433,6 +442,14 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     assert(_from->getPosition()!=_to->getPosition());
     myGeom.push_back(_from->getPosition());
     myGeom.push_back(_to->getPosition());
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!myGeom.assertNonEqual()) {
+        DEBUG_OUT << getID() << "in constructor" << endl;
+        throw 1;
+    }
+#endif
+#endif
     if(_priority<0) {
         _priority = 0;
     }
@@ -497,6 +514,14 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     for(size_t i=0; i<_nolanes; i++) {
         myLaneSpeeds.push_back(speed);
     }
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!myGeom.assertNonEqual()) {
+        DEBUG_OUT << getID() << "in constructor" << endl;
+        throw 1;
+    }
+#endif
+#endif
 }
 
 
@@ -549,14 +574,14 @@ NBEdge::setJunctionPriority(NBNode *node, int prio)
 
 
 string
-NBEdge::getID()
+NBEdge::getID() const
 {
     return _id;
 }
 
 
 string
-NBEdge::getName()
+NBEdge::getName() const
 {
     return _name;
 }
@@ -621,6 +646,14 @@ NBEdge::computeTurningDirections()
 SUMOReal
 NBEdge::getAngle(const NBNode &atNode) const
 {
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!myGeom.assertNonEqual()) {
+        DEBUG_OUT << getID() << "in getAngle" << endl;
+        throw 1;
+    }
+#endif
+#endif
     if(&atNode==_from) {
         return myGeom.getBegLine().atan2DegreeAngle();
     } else {
@@ -737,33 +770,6 @@ NBEdge::writeXMLStep2(std::ostream &into)
 
 
 void
-NBEdge::writeXMLStep3(std::ostream &into)
-{
-    for(size_t i=0; i<_nolanes; i++) {
-        into << "   <edgepos id=\"" << _id << "\""
-            << " from=\"" << _from->getID() << "\""
-            << " to=\"" << _to->getID() << "\""
-            << " lane=\"" << i << "\""
-            << " function=\"";
-        switch(_basicType) {
-        case EDGEFUNCTION_NORMAL:
-            into << "normal";
-            break;
-        case EDGEFUNCTION_SOURCE:
-            into << "source";
-            break;
-        case EDGEFUNCTION_SINK:
-            into << "sink";
-            break;
-        default:
-            throw 1;
-        }
-        into << "\"/>" << endl;
-    }
-}
-
-
-void
 NBEdge::writeLane(std::ostream &into, size_t lane)
 {
     // output the lane's attributes
@@ -818,6 +824,14 @@ NBEdge::computeLaneShapes()
     myLaneGeoms.clear();
     for(size_t i=0; i<_nolanes; i++) {
         myLaneGeoms.push_back(computeLaneShape(i));
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+        if(!myLaneGeoms[myLaneGeoms.size()-1].assertNonEqual()) {
+            DEBUG_OUT << getID() << "in computeLaneShapes" << endl;
+            throw 1;
+        }
+#endif
+#endif
     }
 }
 
@@ -825,6 +839,14 @@ NBEdge::computeLaneShapes()
 const Position2DVector &
 NBEdge::getLaneShape(size_t i) const
 {
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!myLaneGeoms[i].assertNonEqual()) {
+        DEBUG_OUT << getID() << "in getLaneShape" << endl;
+        throw 1;
+    }
+#endif
+#endif
     return myLaneGeoms[i];
 }
 
@@ -833,35 +855,106 @@ Position2DVector
 NBEdge::computeLaneShape(size_t lane)
 {
     Position2DVector shape;
-    // extrapolate first
-    // (needed for a better junction shape computation, they will be prunned later)
-    Position2D from = GeomHelper::extrapolate_first(
-        myGeom.at(0), myGeom.at(1), 100);
 
+    for(size_t i=0; i<myGeom.size(); i++) {
+        if(/*i==myGeom.size()-2||*/i==0) {
+            Position2D from = myGeom.at(i);
+            Position2D to = myGeom.at(i+1);
+            std::pair<SUMOReal, SUMOReal> offsets =
+                laneOffset(from, to, 3.5, _nolanes-1-lane);
+            shape.push_back_noDoublePos(//.push_back(
+                // (methode umbenennen; was heisst hier "-")
+                Position2D(from.x()-offsets.first, from.y()-offsets.second));
+        } else if(i==myGeom.size()-1) {
+            Position2D from = myGeom.at(i-1);
+            Position2D to = myGeom.at(i);
+            std::pair<SUMOReal, SUMOReal> offsets =
+                laneOffset(from, to, 3.5, _nolanes-1-lane);
+            shape.push_back_noDoublePos(//.push_back(
+                // (methode umbenennen; was heisst hier "-")
+                Position2D(to.x()-offsets.first, to.y()-offsets.second));
+        } else {
+            Position2D from = myGeom.at(i-1);
+            Position2D me = myGeom.at(i);
+            Position2D to = myGeom.at(i+1);
+            std::pair<SUMOReal, SUMOReal> offsets =
+                laneOffset(from, me, 3.5, _nolanes-1-lane);
+            std::pair<SUMOReal, SUMOReal> offsets2 =
+                laneOffset(me, to, 3.5, _nolanes-1-lane);
+            Line2D l1(
+                Position2D(from.x()-offsets.first, from.y()-offsets.second),
+                Position2D(me.x()-offsets.first, me.y()-offsets.second));
+            l1.extrapolateBy(100);
+            Line2D l2(
+                Position2D(me.x()-offsets2.first, me.y()-offsets2.second),
+                Position2D(to.x()-offsets2.first, to.y()-offsets2.second));
+            l2.extrapolateBy(100);
+            if(l1.intersects(l2)) {
+                shape.push_back_noDoublePos(//.push_back(
+                    // (methode umbenennen; was heisst hier "-")
+                    l1.intersectsAt(l2));
+            } else {
+                // !!! should never happen
+             //   throw 1;
+            }
+        }
+    }
+
+    /*
+    Position2D from = myGeom.at(0);
     size_t i = 1;
     std::pair<SUMOReal, SUMOReal> offsets;
     // go thorugh the list of segments
     for(; i<myGeom.size(); i++) {
-        Position2D to =
-            i==myGeom.size()-1
-                ? GeomHelper::extrapolate_second(
-                    myGeom.at(myGeom.size()-2), myGeom.at(myGeom.size()-1), 100)
-                : myGeom.at(i);
-        // compute the lane position in dependence to the lane
+        Position2D to = myGeom.at(i);
         offsets =
             laneOffset(from, to, 3.5, _nolanes-1-lane);
-        shape.push_back(
-            Position2D(from.x()-offsets.first, from.y()-offsets.second)); // (methode umbenennen; was heisst hier "-")
+        if(i==myGeom.size()-1||i==1) {
+            shape.push_back_noDoublePos(//.push_back(
+                // (methode umbenennen; was heisst hier "-")
+                Position2D(from.x()-offsets.first, from.y()-offsets.second));
+        } else {
+            shape.push_back_noDoublePos(//.push_back(
+                // (methode umbenennen; was heisst hier "-")
+                Position2D(from.x()-offsets.first, from.y()-offsets.second));
+            Line2D l1(
+                Position2D(from.x()-offsets.first, from.y()-offsets.second),
+                Position2D(to.x()-offsets.first, to.y()-offsets.second));
+            l1.extrapolateBy(100);
+            Position2D to2 = myGeom.at(i+1);
+            std::pair<SUMOReal, SUMOReal> offsets2 =
+                laneOffset(to, to2, 3.5, _nolanes-1-lane);
+            Line2D l2(
+                Position2D(to.x()-offsets2.first, to.y()-offsets2.second),
+                Position2D(to2.x()-offsets2.first, to2.y()-offsets2.second));
+            l2.extrapolateBy(100);
+            //if(!l1.intersects(l2)) { throw 1; }
+
+            if(l1.intersects(l2)) {
+                to = l1.intersectsAt(l2);
+            } else {
+                // !!! should never happen
+             //   throw 1;
+            }
+        }
         from = to;
     }
     // end on last segment
     shape.push_back(
         Position2D(from.x()-offsets.first, from.y()-offsets.second)); // (methode umbenennen; was heisst hier "-")
+        */
     // prune the geometry to the begin and the end node
     //  begin node first
-    shape.pruneFromBeginAt(_from->getPosition());
+//    shape.pruneFromBeginAt(_from->getPosition());
     //  then end node
-    shape.pruneFromEndAt(_to->getPosition());
+//    shape.pruneFromEndAt(_to->getPosition());
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!shape.assertNonEqual()) {
+        DEBUG_OUT << getID() << "computeLaneShape" << endl;
+    }
+#endif
+#endif
     return shape;
 }
 
@@ -1493,6 +1586,10 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge, size_t dest_lane)
     }
     // append current connection only if no equal is already known
     if(!known) {
+        if(_reachable.size()<=src_lane) {
+            MsgHandler::getErrorInstance()->inform("Could not ste connection from '" + _id + "_" + toString(src_lane) + "' to '" + dest_edge->getID() + "_" + toString(dest_lane) + "'.");
+            return;
+        }
         assert(_reachable.size()>src_lane);
         _reachable[src_lane].push_back(el);
     }
@@ -1804,6 +1901,14 @@ NBEdge::getEdgesFromLane(size_t lane) const
 const Position2DVector &
 NBEdge::getGeometry() const
 {
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!myGeom.assertNonEqual()) {
+        DEBUG_OUT << getID() << "in getGeometry" << endl;
+        throw 1;
+    }
+#endif
+#endif
     return myGeom;
 }
 
@@ -1812,7 +1917,17 @@ void
 NBEdge::setGeometry(const Position2DVector &s)
 {
     myGeom = s;
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!myGeom.assertNonEqual()) {
+        DEBUG_OUT << getID() << "in setGeometry" << endl;
+        throw 1;
+    }
+#endif
+#endif
     computeLaneShapes();
+
+
 }
 
 
@@ -1826,6 +1941,14 @@ NBEdge::getMaxLaneOffset()
 Position2D
 NBEdge::getMinLaneOffsetPositionAt(NBNode *node, SUMOReal width)
 {
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!myLaneGeoms[0].assertNonEqual()) {
+        DEBUG_OUT << getID() << "in minlaneoffset" << endl;
+        throw 1;
+    }
+#endif
+#endif
     width = width < myLaneGeoms[0].length()/(SUMOReal) 2.0
         ? width
         : myLaneGeoms[0].length()/(SUMOReal) 2.0;
@@ -1850,6 +1973,14 @@ NBEdge::getMinLaneOffsetPositionAt(NBNode *node, SUMOReal width)
 Position2D
 NBEdge::getMaxLaneOffsetPositionAt(NBNode *node, SUMOReal width)
 {
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!myLaneGeoms[0].assertNonEqual()) {
+        DEBUG_OUT << getID() << "in getmaxlane" << endl;
+        throw 1;
+    }
+#endif
+#endif
     width = width < myLaneGeoms[0].length()/(SUMOReal) 2.0
         ? width
         : myLaneGeoms[0].length()/(SUMOReal) 2.0;
@@ -1931,8 +2062,24 @@ void
 NBEdge::normalisePosition(const NBNodeCont &nc)
 {
     myGeom.resetBy(nc.getNetworkOffset());
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!myGeom.assertNonEqual()) {
+        DEBUG_OUT << getID() << "in normalise2" << endl;
+        throw 1;
+    }
+#endif
+#endif
     for(size_t i=0; i<_nolanes; i++) {
         myLaneGeoms[i].resetBy(nc.getNetworkOffset());
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+        if(!myLaneGeoms[i].assertNonEqual()) {
+            DEBUG_OUT << getID() << "in normalise" << endl;
+            throw 1;
+        }
+#endif
+#endif
     }
 }
 
@@ -1941,8 +2088,24 @@ void
 NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
 {
     myGeom.reshiftRotate(xoff, yoff, rot);
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!myGeom.assertNonEqual()) {
+        DEBUG_OUT << getID() << "in reshift" << endl;
+        throw 1;
+    }
+#endif
+#endif
     for(size_t i=0; i<_nolanes; i++) {
         myLaneGeoms[i].reshiftRotate(xoff, yoff, rot);
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+        if(!myLaneGeoms[i].assertNonEqual()) {
+            DEBUG_OUT << getID() << "in reshift2" << endl;
+            throw 1;
+        }
+#endif
+#endif
     }
 }
 
@@ -1950,6 +2113,17 @@ NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
 Position2DVector
 NBEdge::getCWBoundaryLine(const NBNode &n, SUMOReal offset) const
 {
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    for(size_t bla=0; bla<_nolanes; bla++) {
+        if(!myLaneGeoms[bla].assertNonEqual()) {
+            DEBUG_OUT << getID() << endl;
+            DEBUG_OUT << myLaneGeoms[bla] << endl;
+            throw 1;
+        }
+    }
+#endif
+#endif
     Position2DVector ret;
     if(_from==(&n)) {
         // outgoing
@@ -1958,6 +2132,14 @@ NBEdge::getCWBoundaryLine(const NBNode &n, SUMOReal offset) const
         // incoming
         ret = myLaneGeoms[getNoLanes()-1].reverse();
     }
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!ret.assertNonEqual()) {
+        DEBUG_OUT << getID() << "in cwBoundary" << endl;
+        throw 1;
+    }
+#endif
+#endif
     ret.move2side(-offset);
     return ret;
 }
@@ -1974,6 +2156,14 @@ NBEdge::getCCWBoundaryLine(const NBNode &n, SUMOReal offset) const
         // incoming
         ret = myLaneGeoms[0].reverse();
     }
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!ret.assertNonEqual()) {
+        DEBUG_OUT << getID() << "in ccwboundary" << endl;
+        throw 1;
+    }
+#endif
+#endif
     ret.move2side(offset);
     return ret;
 }
@@ -2108,8 +2298,24 @@ NBEdge::append(NBEdge *e)
 {
     // append geometry
     myGeom.appendWithCrossingPoint(e->myGeom);
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!myGeom.assertNonEqual()) {
+        DEBUG_OUT << getID() << "in append" << endl;
+        throw 1;
+    }
+#endif
+#endif
     for(size_t i=0; i<_nolanes; i++) {
         myLaneGeoms[i].appendWithCrossingPoint(e->myLaneGeoms[i]);
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+        if(!myLaneGeoms[i].assertNonEqual()) {
+            DEBUG_OUT << getID() << "in append2" << endl;
+            throw 1;
+        }
+#endif
+#endif
     }
     // recompute length
     _length += e->_length;
@@ -2161,7 +2367,7 @@ NBEdge::computeEdgeShape()
                 SUMOReal pb = DoubleVectorHelper::maxValue(pbv);
                 if(pb>=0) {
                     myLaneGeoms[i].eraseAt(0);
-                    myLaneGeoms[i].push_front(lb.getPositionAtDistance(pb));
+                    myLaneGeoms[i].push_front_noDoublePos(lb.getPositionAtDistance(pb));
                 }
             }
         }
@@ -2181,7 +2387,7 @@ NBEdge::computeEdgeShape()
                 SUMOReal pe = DoubleVectorHelper::maxValue(pev);
                 if(pe>=0) {
                     myLaneGeoms[i].eraseAt(myLaneGeoms[i].size()-1);
-                    myLaneGeoms[i].push_back(le.getPositionAtDistance(pe));
+                    myLaneGeoms[i].push_back_noDoublePos(le.getPositionAtDistance(pe));
                 }
             }
         }
@@ -2316,6 +2522,20 @@ NBEdge::copyConnectionsFrom(NBEdge *src)
     _ToEdges = src->_ToEdges;
     _reachable = src->_reachable;
     _succeedinglanes = src->_succeedinglanes;
+}
+
+
+void
+NBEdge::setLaneSpreadFunction(LaneSpreadFunction spread)
+{
+    myLaneSpreadFunction = spread;
+}
+
+
+NBEdge::LaneSpreadFunction
+NBEdge::getLaneSpreadFunction() const
+{
+    return myLaneSpreadFunction;
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2005/11/09 06:45:15  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.31  2005/10/07 11:44:16  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -144,6 +147,12 @@ namespace
 
 
 /* =========================================================================
+ * debug definitions
+ * ======================================================================= */
+#define DEBUG_OUT cout
+
+
+/* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
@@ -171,6 +180,15 @@ Position2DVector::~Position2DVector()
 void
 Position2DVector::push_back(const Position2D &p)
 {
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(myCont.size()!=0&&myCont[myCont.size()-1]==p) {
+        DEBUG_OUT << "on push_back" << endl;
+        DEBUG_OUT << *this << endl;
+    }
+#endif
+#endif
+//    assert(myCont.size()==0||myCont[myCont.size()-1]!=p);
     myCont.push_back(p);
 }
 
@@ -179,12 +197,30 @@ void
 Position2DVector::push_back(const Position2DVector &p)
 {
     copy(p.myCont.begin(), p.myCont.end(), back_inserter(myCont));
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!assertNonEqual()) {
+        DEBUG_OUT << "on push_back2" << endl;
+        throw 1;
+    }
+#endif
+#endif
 }
 
 
 void
 Position2DVector::push_front(const Position2D &p)
 {
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(myCont.size()!=0&&myCont[0]==p) {
+        DEBUG_OUT << "on push_front" << endl;
+        DEBUG_OUT << *this << endl;
+        throw 1;
+    }
+#endif
+#endif
+	assert(myCont.size()==0||myCont[0]!=p);
     myCont.push_front(p);
 }
 
@@ -266,12 +302,6 @@ Position2DVector::intersectsAtPoint(const Position2D &p1,
             return GeomHelper::intersection_position(*i, *(i+1), p1, p2);
         }
     }
-    /*
-    if(GeomHelper::intersects(*(myCont.end()-1), *(myCont.begin()), p1, p2)) {
-        return GeomHelper::intersection_position(
-            *(myCont.end()-1), *(myCont.begin()), p1, p2);
-    }
-    */
     return Position2D(-1, -1);
 }
 
@@ -446,25 +476,44 @@ Position2DVector::getEnd() const
 std::pair<Position2DVector, Position2DVector>
 Position2DVector::splitAt(SUMOReal where) const
 {
-    Position2DVector one;
-    SUMOReal tmp = 0;
-    ContType::const_iterator i=myCont.begin();
+    assert(size()>=2);
+    assert(where!=0);
+    Position2DVector one, two;
     Position2D last = myCont[0];
-    for(; i!=myCont.end()&&tmp<where; i++) {
-        Position2D curr = (*i);
-        if(i!=myCont.begin()) {
-            tmp += GeomHelper::distance(last, curr);
-        }
-        if(tmp<where) {
-            one.push_back(*i);
-        }
+    Position2D curr = myCont[0];
+    SUMOReal seen = 0;
+    SUMOReal currdist = 0;
+    one.push_back(myCont[0]);
+    ContType::const_iterator i=myCont.begin()+1;
+
+    do {
         last = curr;
+        curr = *i;
+        currdist = GeomHelper::distance(last, curr);
+        if(seen+currdist<where&&i!=myCont.begin()+1) {
+            one.push_back(last);
+        }
+        i++;
+        seen += currdist;
+    } while(seen<where&&i!=myCont.end());
+    seen -= currdist;
+    i--;
+
+    if(seen+currdist==where) {
+        one.push_back(curr);
+    } else {
+        Line2D tmpL(last, curr);
+        assert(seen+currdist>where);
+        Position2D p = tmpL.getPositionAtDistance(seen+currdist-where);
+        one.push_back(p);
+        two.push_back(p);
     }
-    Position2DVector two;
-    two.push_back(last);
+
     for(; i!=myCont.end(); i++) {
         two.push_back(*i);
     }
+    assert(one.size()>=2);
+    assert(two.size()>=2);
     return std::pair<Position2DVector, Position2DVector>(one, two);
 }
 
@@ -581,121 +630,12 @@ Position2DVector::isLeft(const Position2D &P0, const Position2D &P1,
 }
 
 
-// Copyright 2001, softSurfer (www.softsurfer.com)
-// This code may be freely used and modified for any purpose
-// providing that this copyright notice is included with it.
-// SoftSurfer makes no warranty for this code, and cannot be held
-// liable for any real or imagined damage resulting from its use.
-// Users of this code must verify correctness for their application.
-// Assume that a class is already given for the object:
-// Point with coordinates {SUMOReal x, y;}
-//===================================================================
-// isLeft(): tests if a point is Left|On|Right of an infinite line.
-// Input: three points P0, P1, and P2
-// Return: >0 for P2 left of the line through P0 and P1
-// =0 for P2 on the line
-// <0 for P2 right of the line
-// See: the January 2001 Algorithm on Area of Triangles
 Position2DVector
 Position2DVector::convexHull() const
 {
     Position2DVector ret = *this;
     ret.sortAsPolyCWByAngle();
 	return simpleHull_2D(ret);
-	/*
-    if(size()==0) {
-        return Position2DVector();
-    }
-    // build the sorted input point-list
-    // copy
-    Position2DVector inp;
-    inp.myCont = myCont;
-    // sort by increasing x, then y
-    inp.sortByIncreasingXY();
-    int n = inp.size();
-
-    // convex-hull algo
-    Position2DVector ret(n);
-    // the output ret will be used as the stack
-    int bot=0, top=(-1); // indices for bottom and top of the stack
-    int i; // array scan index
-
-    // Get the indices of points with min x-coord and min|max y-coord
-    int minmin = 0, minmax;
-    SUMOReal xmin = inp.at(0).x();
-    for (i=1; i<n; i++)
-        if (inp.at(i).x() != xmin)
-            break;
-    minmax = i-1;
-
-    if (minmax == n-1) { // degenerate case: all x-coords == xmin
-        ret.set(++top, inp.at(minmin));
-        if (inp.at(minmax).y() != inp.at(minmin).y()) // a nontrivial segment
-            ret.set(++top, inp.at(minmax));
-        ret.set(++top, inp.at(minmin)); // add polygon endpoint
-        return top+1;
-    }
-
-    // Get the indices of points with max x-coord and min|max y-coord
-    int maxmin, maxmax = n-1;
-    SUMOReal xmax = inp.at(n-1).x();
-    for (i=n-2; i>=0; i--)
-        if (inp.at(i).x() != xmax)
-            break;
-    maxmin = i+1;
-
-    // Compute the lower hull on the stack H
-    ret.set(++top, inp.at(minmin)); // push minmin point onto stack
-    i = minmax;
-    while (++i <= maxmin)
-    {
-        // the lower line joins P[minmin] with P[maxmin]
-        if (isLeft( inp.at(minmin), inp.at(maxmin), inp.at(i)) >= 0 && i < maxmin)
-            continue; // ignore P[i] above or on the lower line
-
-        while (top > 0) // there are at least 2 points on the stack
-        {
-            // test if P[i] is left of the line at the stack top
-            if (isLeft( ret.at(top-1), ret.at(top), inp.at(i)) > 0)
-                break; // P[i] is a new hull vertex
-            else
-                top--; // pop top point off stack
-        }
-        ret.set(++top, inp.at(i)); // push P[i] onto stack
-    }
-
-    // Next, compute the upper hull on the stack H above the bottom hull
-    if (maxmax != maxmin) // if distinct xmax points
-        ret.set(++top, inp.at(maxmax)); // push maxmax point onto stack
-    bot = top; // the bottom point of the upper hull stack
-    i = maxmin;
-    while (--i >= minmax)
-    {
-        // the upper line joins P[maxmax] with P[minmax]
-        if (isLeft( inp.at(maxmax), inp.at(minmax), inp.at(i)) >= 0 && i > minmax)
-            continue; // ignore P[i] below or on the upper line
-
-        while (top > bot) // at least 2 points on the upper stack
-        {
-            // test if P[i] is left of the line at the stack top
-            if (isLeft( ret.at(top-1), ret.at(top), inp.at(i)) > 0)
-                break; // P[i] is a new hull vertex
-            else
-                top--; // pop top point off stack
-        }
-		++top; // !!! malfunc begin
-		if(top<inp.size()) {
-	        ret.set(top, inp.at(i)); // push P[i] onto stack
-		}// !!! malfunc begin
-    }
-    if (minmax != minmin)
-        ret.set(++top, inp.at(minmin)); // push joining endpoint onto stack
-
-    Position2DVector rret;
-    for(size_t j=0; j<top; j++) {
-        rret.push_back(ret.at(j));
-    }
-    return rret;*/
 }
 
 
@@ -712,17 +652,20 @@ Position2DVector::intersectsAtPoints(const Position2D &p1,
                                      const Position2D &p2) const
 {
     Position2DVector ret;
-    for(ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!assertNonEqual()) {
+        DEBUG_OUT << *this << endl;
+        DEBUG_OUT << "in iintersects at points" << endl;
+        throw 1;
+    }
+#endif
+#endif
+	for(ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
         if(GeomHelper::intersects(*i, *(i+1), p1, p2)) {
-            ret.push_back(GeomHelper::intersection_position(*i, *(i+1), p1, p2));
+            ret.push_back_noDoublePos(GeomHelper::intersection_position(*i, *(i+1), p1, p2));
         }
     }
-    /*
-    if(GeomHelper::intersects(*(myCont.end()-1), *(myCont.begin()), p1, p2)) {
-        ret.push_back(GeomHelper::intersection_position(
-            *(myCont.end()-1), *(myCont.begin()), p1, p2));
-    }
-    */
     return ret;
 }
 
@@ -730,8 +673,22 @@ Position2DVector::intersectsAtPoints(const Position2D &p1,
 int
 Position2DVector::appendWithCrossingPoint(const Position2DVector &v)
 {
-    if(GeomHelper::distance(myCont[myCont.size()-1], v.myCont[0])<0.1) {
-        copy(v.myCont.begin()+1, v.myCont.end(), back_inserter(myCont));
+    if(GeomHelper::distance(myCont[myCont.size()-1], v.myCont[0])<2) { // !!! heuristic
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+        if(!assertNonEqual()) {
+            DEBUG_OUT << "this in appendwithcrossing" << endl;
+            DEBUG_OUT << *this << endl;
+            throw 1;
+        }
+        if(!v.assertNonEqual()) {
+            DEBUG_OUT << "v in appendwithcrossing" << endl;
+            DEBUG_OUT << v << endl;
+            throw 1;
+        }
+#endif
+#endif
+		copy(v.myCont.begin()+1, v.myCont.end(), back_inserter(myCont));
         return 1;
     }
     //
@@ -743,10 +700,28 @@ Position2DVector::appendWithCrossingPoint(const Position2DVector &v)
         Position2D p = l1.intersectsAt(l2);
         myCont[myCont.size()-1] = p;
         copy(v.myCont.begin()+1, v.myCont.end(), back_inserter(myCont));
-        return 2;
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+        if(!assertNonEqual()) {
+            DEBUG_OUT << "this in appendwithcrossing2" << endl;
+            DEBUG_OUT << *this << endl;
+            throw 1;
+        }
+#endif
+#endif
+		return 2;
     } else {
         copy(v.myCont.begin(), v.myCont.end(), back_inserter(myCont));
-        return 3;
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+        if(!assertNonEqual()) {
+            DEBUG_OUT << "this in appendwithcrossing3" << endl;
+            DEBUG_OUT << *this << endl;
+            throw 1;
+        }
+#endif
+#endif
+		return 3;
     }
 }
 
@@ -775,12 +750,18 @@ Position2DVector::getSubpart(SUMOReal begin, SUMOReal end) const
     while((i+1)!=myCont.end()
         &&
         seen+GeomHelper::distance((*i), *(i+1))<end) {
-        ret.push_back(*(i+1));
+
+        ret.push_back_noDoublePos(*(i+1));
+        /*
+        if(ret.at(-1)!=*(i+1)) {
+            ret.push_back(*(i+1));
+        }
+        */
         seen += GeomHelper::distance((*i), *(i+1));
         i++;
     }
     // append end
-    ret.push_back(endPos);
+    ret.push_back_noDoublePos(endPos);
     return ret;
 }
 
@@ -788,24 +769,6 @@ Position2DVector::getSubpart(SUMOReal begin, SUMOReal end) const
 void
 Position2DVector::pruneFromBeginAt(const Position2D &p)
 {
-/*    ContType::reverse_iterator i=myCont.rbegin();
-    const Position2D &cp = (*i);
-    SUMOReal dist = GeomHelper::distance(p, cp);
-    SUMOReal cdist = dist;
-    size_t pos = 0;
-    do {
-        const Position2D &cp2 = *(++i);
-        cdist = GeomHelper::distance(p, cp2);
-        pos++;
-    } while(cdist<dist&&i!=myCont.rend());
-    if(i==myCont.rend()) {
-        return;
-    }
-    while(myCont.size()>pos-1) {
-        myCont.erase(myCont.begin());
-    }
-    assert(myCont.size()>=2);*/
-
     // find minimum distance (from the begin)
     size_t pos = 0;
     SUMOReal dist = 1000000;
@@ -1060,7 +1023,7 @@ Position2DVector::move2side(SUMOReal amount)
 Line2D
 Position2DVector::lineAt(size_t pos) const
 {
-    assert(myCont.size()>pos);
+    assert(myCont.size()>pos+1);
     return Line2D(myCont[pos], myCont[pos+1]);
 }
 
@@ -1082,7 +1045,24 @@ Position2DVector::getEndLine() const
 void
 Position2DVector::closePolygon()
 {
-    push_back(myCont[0]);
+    if(myCont[0]==myCont[myCont.size()-1]) {
+        return;
+    }
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(myCont.size()!=0&&myCont[myCont.size()-1]==myCont[0]) {
+        DEBUG_OUT << "on closePlygon" << endl;
+        DEBUG_OUT << *this << endl;
+        throw 1;
+    }
+    if(size()<2) {
+        DEBUG_OUT << *this << endl;
+        DEBUG_OUT << "nope1" << endl;
+        throw 1;
+    }
+#endif
+#endif
+	push_back(myCont[0]);
 }
 
 
@@ -1178,6 +1158,59 @@ Position2DVector::insertAt(int index, const Position2D &p)
     } else {
         myCont.insert(myCont.end()+index, p);
     }
+}
+
+
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+bool
+Position2DVector::assertNonEqual() const
+{
+    if(myCont.size()<2) {
+        return true;
+    }
+    for(ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; ++i) {
+        if(*i==*(i+1)) {
+            return false;
+        }
+    }
+    return true;
+}
+#endif
+
+
+void
+Position2DVector::push_back_noDoublePos(const Position2D &p, float eps)
+{
+    if(size()==0) {
+        myCont.push_back(p);
+    } else {
+        const Position2D &pp = myCont[myCont.size()-1];
+        if(fabs(pp.x()-p.x())>eps||fabs(pp.y()-p.y())>eps) {
+            myCont.push_back(p);
+        }
+    }
+}
+
+
+void
+Position2DVector::push_front_noDoublePos(const Position2D &p, float eps)
+{
+    if(size()==0) {
+        myCont.push_front(p);
+    } else {
+        const Position2D &pp = myCont[0];
+        if(fabs(pp.x()-p.x())>eps||fabs(pp.y()-p.y())>eps) {
+            myCont.push_front(p);
+        }
+    }
+}
+
+
+void
+Position2DVector::replaceAt(size_t index, const Position2D &by)
+{
+    assert(size()>index);
+    myCont[index] = by;
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/11/09 06:42:07  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.10  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -132,24 +135,42 @@ NIVisumParser_Edges::myDependentReport()
             TplConvert<char>::_2bool(myLineParser.get("Einbahn").c_str());
         // get the number of lanes
         int nolanes = getNoLanes(type);
-        if(nolanes==0) {
-            return;
-        }
         // check whether the id is already used
         //  (should be the opposite direction)
-        if(myEdgeCont.retrieve(id)!=0) {
+        bool oneway_checked = oneway;
+        NBEdge *previous = myEdgeCont.retrieve(id);
+        if(previous!=0) {
             id = '-' + id;
+            previous->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
+            oneway_checked = false;
+        }
+        if(find(myTouchedEdges.begin(), myTouchedEdges.end(), id)!=myTouchedEdges.end()) {
+            oneway_checked = false;
+        }
+        string tmpid = '-' + id;
+        if(find(myTouchedEdges.begin(), myTouchedEdges.end(), tmpid)!=myTouchedEdges.end()) {
+            previous = myEdgeCont.retrieve(tmpid);
+            if(previous!=0) {
+                previous->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
+            }
+            oneway_checked = false;
         }
         // add the edge
         int prio = myTypeCont.getPriority(type);
-        insertEdge(id, from, to, type, speed, nolanes, length, prio);
+        if(nolanes!=0) {
+            insertEdge(id, from, to, type, speed, nolanes, length, prio, oneway_checked);
+        }
+        myTouchedEdges.push_back(id);
         // nothing more to do, when the edge is a one-way street
         if(oneway) {
             return;
         }
         // add the opposite edge
         id = '-' + id;
-        insertEdge(id, to, from, type, speed, nolanes, length, prio);
+        if(nolanes!=0) {
+            insertEdge(id, to, from, type, speed, nolanes, length, prio, false);
+        }
+        myTouchedEdges.push_back(id);
     } catch (OutOfBoundsException) {
         addError2("STRECKE", id, "OutOfBounds");
     } catch (NumberFormatException) {
@@ -232,9 +253,12 @@ NIVisumParser_Edges::insertEdge(const std::string &id,
                                 NBNode *from, NBNode *to,
                                 const std::string &type,
                                 SUMOReal speed, int nolanes, SUMOReal length,
-                                int prio) const
+                                int prio, bool oneway) const
 {
-    NBEdge *e = new NBEdge(id, id, from, to, type, speed, nolanes, length, prio);
+    NBEdge::LaneSpreadFunction lsf = oneway
+        ? NBEdge::LANESPREAD_CENTER
+        : NBEdge::LANESPREAD_RIGHT;
+    NBEdge *e = new NBEdge(id, id, from, to, type, speed, nolanes, length, prio, lsf);
     if( !myEdgeCont.insert(e)) {
         delete e;
         addError(

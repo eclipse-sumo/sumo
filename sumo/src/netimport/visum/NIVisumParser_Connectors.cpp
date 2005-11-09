@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2005/11/09 06:42:07  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.15  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -185,7 +188,7 @@ NIVisumParser_Connectors::myDependentReport()
                 return;
             }
             NBEdge *edge = new NBEdge(id, id, src, dest, "VisumConnector",
-                100, 3/*nolanes*/, 20000.0, prio, NBEdge::LANESPREAD_RIGHT,
+                100, 3/*nolanes*/, 2000.0, prio, NBEdge::LANESPREAD_RIGHT,
                 NBEdge::EDGEFUNCTION_SOURCE);
             if(!myEdgeCont.insert(edge)) {
                 addError(
@@ -207,7 +210,7 @@ NIVisumParser_Connectors::myDependentReport()
             }
             id = string("-") + id;
             NBEdge *edge = new NBEdge(id, id, dest, src, "VisumConnector",
-                100, 3/*nolanes*/, 20000.0, prio, NBEdge::LANESPREAD_RIGHT,
+                100, 3/*nolanes*/, 2000.0, prio, NBEdge::LANESPREAD_RIGHT,
                 NBEdge::EDGEFUNCTION_SINK);
             if(!myEdgeCont.insert(edge)) {
                 addError(

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.41  2005/11/09 06:40:49  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.40  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -320,10 +323,10 @@ public:
     const EdgeLaneVector * const getEdgeLanesFromLane(size_t lane) const;
 
     /// returns the id of the edge
-    std::string getID();
+    std::string getID() const;
 
     /// returns the name of the edge
-    std::string getName();
+    std::string getName() const;
 
     /// returns the origin node of the edge
     NBNode *getFromNode();
@@ -349,9 +352,6 @@ public:
 
     /** writes the succeeding lane information */
     void writeXMLStep2(std::ostream &into);
-
-    /** writes the positions of edges */
-    void writeXMLStep3(std::ostream &into);
 
     /** adds a connection to another edge;
         instead of adding connections one by one, they may be computed
@@ -502,6 +502,11 @@ public:
     void incLaneNo(int by);
 
     void copyConnectionsFrom(NBEdge *src);
+
+    void setLaneSpreadFunction(LaneSpreadFunction spread);
+
+    LaneSpreadFunction getLaneSpreadFunction() const;
+
 
 
 private:

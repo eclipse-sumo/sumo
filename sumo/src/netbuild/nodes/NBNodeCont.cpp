@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/11/09 06:40:49  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.14  2005/10/17 09:00:44  dkrajzew
 // got rid of the old MSVC memory leak checker; memory leaks removed
 //
@@ -464,16 +467,6 @@ NBNodeCont::writeXMLInternalLinks(ostream &into)
 
 
 void
-NBNodeCont::writeXMLInternalEdgePos(ostream &into)
-{
-    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
-        (*i).second->writeXMLInternalEdgePos(into);
-    }
-    into << endl;
-}
-
-
-void
 NBNodeCont::writeXMLInternalSuccInfos(ostream &into)
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
@@ -832,10 +825,15 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                 throw ProcessError();
             }
             cont->invalidateConnections(true);
+            if(cont->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
+                Position2DVector g = cont->getGeometry();
+                g.move2side(-3.5/2.);
+                cont->setGeometry(g);
+            }
         }
         Position2DVector p = pot_ramp->getGeometry();
         p.pop_back();
-        p.push_back(cont->getLaneShape(0).at(0));
+        p.push_back(cont->getFromNode()->getPosition());//added_ramp->getLaneShape(0).at(0));
         pot_ramp->setGeometry(p);
     } else {
         NBNode *rn =
@@ -867,6 +865,11 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                     MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                     throw ProcessError();
                 }
+                if(added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
+                    Position2DVector g = added_ramp->getGeometry();
+                    g.move2side(-3.5/2.);
+                    added_ramp->setGeometry(g);
+                }
             } else {
                 if(!added_ramp->addLane2LaneConnections(0, added, 0, added_ramp->getNoLanes(), true)) {
                     MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
@@ -885,7 +888,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             }
             Position2DVector p = pot_ramp->getGeometry();
             p.pop_back();
-            p.push_back(added_ramp->getLaneShape(0).at(0));
+            p.push_back(added_ramp->getFromNode()->getPosition());//added_ramp->getLaneShape(0).at(0));
             pot_ramp->setGeometry(p);
         }
     }
@@ -926,10 +929,15 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                 MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                 throw ProcessError();
             }
+            if(prev->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
+                Position2DVector g = prev->getGeometry();
+                g.move2side(-3.5/2.);
+                prev->setGeometry(g);
+            }
         }
         Position2DVector p = pot_ramp->getGeometry();
         p.pop_front();
-        p.push_front(prev->getLaneShape(0).at(-1));
+        p.push_front(prev->getToNode()->getPosition());//added_ramp->getLaneShape(0).at(-1));
         pot_ramp->setGeometry(p);
     } else {
         NBNode *rn =
@@ -961,6 +969,11 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                     MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                     throw ProcessError();
                 }
+                if(added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
+                    Position2DVector g = added_ramp->getGeometry();
+                    g.move2side(-3.5/2.);
+                    added_ramp->setGeometry(g);
+                }
             } else {
                 if(!added->addLane2LaneConnections(0, added_ramp, 0, added_ramp->getNoLanes(), true)) {
                     MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
@@ -979,7 +992,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
             }
             Position2DVector p = pot_ramp->getGeometry();
             p.pop_front();
-            p.push_front(added_ramp->getLaneShape(0).at(-1));
+            p.push_front(added_ramp->getToNode()->getPosition());//added_ramp->getLaneShape(0).at(-1));
             pot_ramp->setGeometry(p);
         }
     }
@@ -994,6 +1007,7 @@ NBNodeCont::mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const
         NBEdge *pot_highway = cur->getOutgoingEdges()[0];
         NBEdge *pot_ramp = cur->getOutgoingEdges()[1];
         NBEdge *prev = cur->getIncomingEdges()[0];
+
         if(pot_highway->getSpeed()<pot_ramp->getSpeed()) {
             swap(pot_highway, pot_ramp);
         } else if(pot_highway->getSpeed()==pot_ramp->getSpeed()

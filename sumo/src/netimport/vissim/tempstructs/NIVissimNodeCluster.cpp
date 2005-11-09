@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2005/11/09 06:42:07  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.16  2005/10/07 11:40:10  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -184,7 +187,7 @@ NIVissimNodeCluster::buildNBNode(NBNodeCont &nc)
 // !!! should be        assert(myTLID==-1);
         for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
             NIVissimConnection *c1 = NIVissimConnection::dictionary(*i);
-            crossings.push_back(c1->getFromGeomPosition());
+            crossings.push_back_noDoublePos(c1->getFromGeomPosition());
         }
     } else {
         // compute the places the connections cross
@@ -195,7 +198,7 @@ NIVissimNodeCluster::buildNBNode(NBNodeCont &nc)
                 NIVissimAbstractEdge *c2 = NIVissimAbstractEdge::dictionary(*j);
                 c2->buildGeom();
                 if(c1->crossesEdge(c2)) {
-                    crossings.push_back(c1->crossesEdgeAtPoint(c2));
+                    crossings.push_back_noDoublePos(c1->crossesEdgeAtPoint(c2));
                 }
             }
         }
@@ -203,8 +206,8 @@ NIVissimNodeCluster::buildNBNode(NBNodeCont &nc)
         if(crossings.size()==0) {
             for(i=myConnectors.begin(); i!=myConnectors.end(); i++) {
                 NIVissimConnection *c1 = NIVissimConnection::dictionary(*i);
-                crossings.push_back(c1->getFromGeomPosition());
-                crossings.push_back(c1->getToGeomPosition());
+                crossings.push_back_noDoublePos(c1->getFromGeomPosition());
+                crossings.push_back_noDoublePos(c1->getToGeomPosition());
             }
         }
     }

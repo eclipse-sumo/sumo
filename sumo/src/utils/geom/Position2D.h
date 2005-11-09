@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2005/11/09 06:45:15  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.15  2005/10/07 11:44:16  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -163,8 +166,8 @@ public:
     }
 
     void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {
-        SUMOReal x = _x * cos(rot) + _y * sin(rot) + xoff;
-        SUMOReal y = _y * cos(rot) - _x * sin(rot) + yoff;
+        SUMOReal x = _x * cos(rot) - _y * sin(rot) + xoff;
+        SUMOReal y = _x * sin(rot) + yoff + _y * cos(rot);
         _x = x;
         _y = y;
     }

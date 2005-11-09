@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2005/11/09 06:40:49  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.17  2005/10/17 09:00:20  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -310,6 +313,7 @@ using namespace std;
  * ======================================================================= */
 /** Definition how many points an internal lane-geometry should be made of */
 #define NO_INTERNAL_POINTS 5
+#define DEBUG_OUT cout
 
 
 /* =========================================================================
@@ -497,6 +501,12 @@ NBNode::addIncomingEdge(NBEdge *edge)
         ==_incomingEdges->end()) {
 
         _incomingEdges->push_back(edge);
+        for(std::vector<NBEdge*>::iterator i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); ++i) {
+            if((*i)->getToNode()==edge->getFromNode()) {
+                (*i)->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
+                edge->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
+            }
+        }
     }
 }
 
@@ -509,6 +519,12 @@ NBNode::addOutgoingEdge(NBEdge *edge)
         ==_outgoingEdges->end()) {
 
         _outgoingEdges->push_back(edge);
+        for(std::vector<NBEdge*>::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); ++i) {
+            if((*i)->getFromNode()==edge->getToNode()) {
+                (*i)->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
+                edge->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
+            }
+        }
     }
 }
 
@@ -899,36 +915,6 @@ NBNode::writeXMLInternalLinks(ostream &into)
 }
 
 
-void
-NBNode::writeXMLInternalEdgePos(ostream &into)
-{
-    if(countInternalLanes()==0) {
-        return;
-    }
-    size_t lno = 0;
-    for(EdgeVector::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
-        size_t noLanesEdge = (*i)->getNoLanes();
-        for(size_t j=0; j<noLanesEdge; j++) {
-            const EdgeLaneVector *elv = (*i)->getEdgeLanesFromLane(j);
-            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
-                if((*k).edge==0) {
-                    continue;
-                }
-                string id =
-                   string(":") + _id + string("_") + toString<size_t>(lno);
-                Position2DVector shape =
-                    computeInternalLaneShape(*i, j, (*k).edge, (*k).lane);
-                into << "   <edgepos id=\"" << id
-                    << "\" from=\"" << _id << "\" to=\"" << _id << "\" "
-                    << "lane=\"" << 0 << "\" function=\"internal\"/>"
-                    << endl;
-                lno++;
-            }
-        }
-    }
-}
-
-
 Position2DVector
 NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
                                  NBEdge *toE, size_t toL)
@@ -1247,12 +1233,12 @@ NBNode::sortNodesEdges(const NBTypeCont &tc)
     }
 #ifdef _DEBUG
     if(OptionsSubSys::getOptions().getInt("netbuild.debug")>0) {
-        cout << "Node '" << _id << "': ";
+        DEBUG_OUT << "Node '" << _id << "': ";
         const EdgeVector &ev = getEdges();
         for(EdgeVector::const_iterator i=ev.begin(); i!=ev.end(); ++i) {
-            cout << (*i)->getID() << ", ";
+            DEBUG_OUT << (*i)->getID() << ", ";
         }
-        cout << endl;
+        DEBUG_OUT << endl;
     }
 #endif
     NBNode::BasicNodeType type = computeType(tc);

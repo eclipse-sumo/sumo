@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.23  2005/11/09 06:45:15  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.22  2005/10/07 11:44:16  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -302,6 +305,15 @@ public:
     DoubleVector distancesExt(const Position2DVector &s) const;
 
     SUMOReal distance(const Position2D &p) const;
+
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    bool assertNonEqual() const;
+#endif
+
+    void push_back_noDoublePos(const Position2D &p, float eps=.1);
+    void push_front_noDoublePos(const Position2D &p, float eps=.1);
+
+    void replaceAt(size_t index, const Position2D &by);
 
 private:
 

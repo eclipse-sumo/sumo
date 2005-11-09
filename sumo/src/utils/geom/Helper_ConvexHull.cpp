@@ -98,7 +98,7 @@ simpleHull_2D(const Position2DVector &V)
         if(bot + h>=(int) D.size()) {
             throw ProcessError();
         }
-        H.push_back(D[bot + h]);
+        H.push_back_noDoublePos(D[bot + h]);
     }
     return H;
 }

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/11/09 06:42:07  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.12  2005/10/07 11:40:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -129,7 +132,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
         string x = myRead(from);
         string y = myRead(from);
         if(y!="nach") {
-            geom.push_back(
+            geom.push_back_noDoublePos(
                 Position2D(
                     TplConvert<char>::_2SUMOReal(x.c_str()),
                     TplConvert<char>::_2SUMOReal(y.c_str())

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2005/11/09 06:45:15  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.17  2005/10/07 11:44:16  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -93,6 +96,7 @@ namespace
 
 #include <cmath>
 #include <algorithm>
+#include <iostream>
 #include "GeomHelper.h"
 
 #ifdef _DEBUG
@@ -559,6 +563,7 @@ GeomHelper::getNormal90D_CW(SUMOReal x1, SUMOReal y1,
             return std::pair<SUMOReal, SUMOReal>
                 (dy*wanted_offset/length, 0);
         } else { // zero !
+            std::cout << "same points" << std::endl;
             throw 1;
         }
     }

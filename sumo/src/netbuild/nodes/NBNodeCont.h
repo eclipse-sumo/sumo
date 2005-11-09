@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2005/11/09 06:40:49  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.9  2005/10/07 11:38:19  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -237,7 +240,6 @@ public:
     void writeXMLNumber(std::ostream &into);
 
     void writeXMLInternalLinks(std::ostream &into);
-    void writeXMLInternalEdgePos(std::ostream &into);
     void writeXMLInternalSuccInfos(std::ostream &into);
 
 

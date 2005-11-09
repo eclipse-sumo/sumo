@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2005/11/09 06:40:49  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.24  2005/10/17 09:03:53  dkrajzew
 // output patched
 //
@@ -359,11 +362,12 @@ NBNetBuilder::compute(OptionsCont &oc)
         if(ok) ok = removeUnwishedEdges(step, oc);
         if(ok) ok = removeUnwishedNodes(step, oc);
     }
+    if(ok) ok = normaliseNodePositions(step);
+    if(ok) ok = myEdgeCont.recomputeLaneShapes(); // !!!!!
     if(ok) ok = guessRamps(step, oc);
     if(ok) ok = guessTLs(step, oc);
     if(ok) ok = computeTurningDirections(step);
     if(ok) ok = sortNodesEdges(step);
-    if(ok) ok = normaliseNodePositions(step);
     if(ok) ok = computeEdge2Edges(step);
     if(ok) ok = computeLanes2Edges(step);
     if(ok) ok = computeLanes2Lanes(step);
@@ -430,11 +434,6 @@ NBNetBuilder::save(ostream &res, OptionsCont &oc)
     myEdgeCont.writeXMLStep2(res);
     if(oc.getBool("add-internal-links")) {
         myNodeCont.writeXMLInternalSuccInfos(res);
-    }
-    // write the positions of edges
-    myEdgeCont.writeXMLStep3(res);
-    if(oc.getBool("add-internal-links")) {
-        myNodeCont.writeXMLInternalEdgePos(res);
     }
     res << "</net>" << endl;
     return true;

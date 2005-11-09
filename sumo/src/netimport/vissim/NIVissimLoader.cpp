@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2005/11/09 06:42:07  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.24  2005/10/07 11:40:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -631,8 +634,6 @@ NIVissimLoader::buildParsers()
         new NIVissimSingleTypeParser_Fahrzeugtypdefinition(*this, myColorMap);
     myParsers[VE_Fahrzeugklassendefinition] =
         new NIVissimSingleTypeParser_Fahrzeugklassendefinition(*this, myColorMap);
-    myParsers[VE_Verkehrszusammensetzungsdefinition] =
-        new NIVissimSingleTypeParser_Verkehrszusammensetzungsdefinition(*this);
     myParsers[VE_Geschwindigkeitsverteilungsdefinition] =
         new NIVissimSingleTypeParser_Geschwindigkeitsverteilungsdefinition(*this);
     myParsers[VE_Laengenverteilungsdefinition] =
@@ -671,8 +672,6 @@ NIVissimLoader::buildParsers()
         new NIVissimSingleTypeParser_Richtungspfeildefinition(*this);
     myParsers[VE_Parkplatzdefinition] =
         new NIVissimSingleTypeParser_Parkplatzdefinition(*this);
-    myParsers[VE_Fahrverhaltendefinition] =
-        new NIVissimSingleTypeParser_Fahrverhaltendefinition(*this);
     myParsers[VE_Fahrverhaltendefinition] =
         new NIVissimSingleTypeParser_Fahrverhaltendefinition(*this);
     myParsers[VE_Streckentypdefinition] =

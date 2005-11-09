@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/11/09 06:42:07  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.11  2005/10/07 11:40:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -150,7 +153,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
     // Read the geometry information
     Position2DVector geom;
     while(tag!="nach") {
-        geom.push_back(getPosition2D(from));
+        geom.push_back_noDoublePos(getPosition2D(from));
         tag = myRead(from);
         try {
             SUMOReal tmp = TplConvert<char>::_2SUMOReal(tag.c_str());
@@ -158,7 +161,7 @@ NIVissimSingleTypeParser_Streckendefinition::parse(std::istream &from)
         } catch (NumberFormatException &) {
         }
     }
-    geom.push_back(getPosition2D(from));
+    geom.push_back_noDoublePos(getPosition2D(from));
     // Read definitions of closed lanes
     NIVissimClosedLanesVector clv;
     // check whether a next close lane definition can be found

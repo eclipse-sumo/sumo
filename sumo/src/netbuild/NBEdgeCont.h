@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.25  2005/11/09 06:40:49  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.24  2005/10/17 09:02:44  dkrajzew
 // got rid of the old MSVC memory leak checker; memory leaks removed
 //
@@ -247,9 +250,6 @@ public:
     /** writes the successor definitions of edges */
     void writeXMLStep2(std::ostream &into);
 
-    /** writes the positions of edges */
-    void writeXMLStep3(std::ostream &into);
-
     /** returns the size of the edges */
     int size();
 
@@ -280,6 +280,8 @@ public:
     bool savePlain(const std::string &file);
 
     bool removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &oc);
+
+    bool recomputeLaneShapes();
 
 private:
     std::vector<std::string> buildPossibilities(

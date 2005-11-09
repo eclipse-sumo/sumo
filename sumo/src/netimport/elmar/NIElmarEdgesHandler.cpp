@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/11/09 06:42:07  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.7  2005/10/07 11:39:26  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -226,7 +229,8 @@ NIElmarEdgesHandler::report(const std::string &result)
 
     NBEdge *e =
         new NBEdge(id, id, from, to, "DEFAULT",
-            speed, nolanes, length, priority);
+            speed, nolanes, length, priority,
+            NBEdge::LANESPREAD_CENTER);
 
     if(!myEdgeCont.insert(e)) {
         delete e;

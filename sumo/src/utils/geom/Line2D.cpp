@@ -12,6 +12,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/11/09 06:45:15  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.13  2005/10/07 11:44:16  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -119,6 +122,12 @@ Position2D
 Line2D::getPositionAtDistance(SUMOReal offset) const
 {
     SUMOReal length = GeomHelper::distance(myP1, myP2);
+    if(length==0) {
+        if(offset!=0) {
+            throw 1;
+        }
+        return myP1;
+    }
     SUMOReal x = myP1.x() + (myP2.x() - myP1.x()) / length * offset;
     SUMOReal y = myP1.y() + (myP2.y() - myP1.y()) / length * offset;
 /*    SUMOReal x2 = myP2.x() - (myP1.x() - myP2.x())  / length * offset;
@@ -275,6 +284,19 @@ Line2D::intersectsAtLength(const Line2D &v)
         GeomHelper::intersection_position(myP1, myP2, v.myP1, v.myP2);
     return nearestPositionTo(pos);
 }
+
+
+void
+Line2D::rotateDegAtP1(double degs)
+{
+    Position2D p = myP2;
+    p.sub(myP1);
+    p.reshiftRotate(0, 0, degs*(SUMOReal)3.1415926535897932384626433832795/180.);
+    p.add(myP1);
+    myP2 = p;
+}
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 // Local Variables:

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.39  2005/11/09 06:40:49  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.38  2005/10/17 09:02:44  dkrajzew
 // got rid of the old MSVC memory leak checker; memory leaks removed
 //
@@ -218,11 +221,16 @@ namespace
 #include <iostream>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
-//#include <strstream>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
+
+
+/* =========================================================================
+ * debug definitions
+ * ======================================================================= */
+#define DEBUG_OUT cout
 
 
 /* =========================================================================
@@ -407,17 +415,6 @@ NBEdgeCont::writeXMLStep2(std::ostream &into)
     into << endl;
 }
 
-
-void
-NBEdgeCont::writeXMLStep3(std::ostream &into)
-{
-    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
-        (*i).second->writeXMLStep3(into);
-    }
-    into << endl;
-}
-
-
 int NBEdgeCont::size()
 {
     return _edges.size();
@@ -475,6 +472,9 @@ NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
     if(pos<=0) {
         return false;
     }
+    if(pos>edge->getGeometry().length()) {
+        pos = edge->getGeometry().length()-10; // !!!! bla!!!
+    }
     return splitAt(dc, edge, pos, node, firstEdgeName, secondEdgeName,
         noLanesFirstEdge, noLanesSecondEdge);
         //!!! does not regard the real edge geometry
@@ -487,13 +487,32 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
                     const std::string &secondEdgeName,
                     size_t noLanesFirstEdge, size_t noLanesSecondEdge)
 {
-    // compute the position to split the edge at
-//!!!    assert(pos<edge->getLength());
     // build the new edges' geometries
     std::pair<Position2DVector, Position2DVector> geoms =
         edge->getGeometry().splitAt(pos);
-    geoms.first.push_back(node->getPosition());
-    geoms.second.push_front(node->getPosition());
+    if(geoms.first.at(-1)!=node->getPosition()) {
+        geoms.first.pop_back();
+        geoms.first.push_back(node->getPosition());
+    }
+
+    if(geoms.second.at(0)!=node->getPosition()) {
+        geoms.second.pop_front();
+        geoms.second.push_front(node->getPosition());
+    }
+#ifdef _DEBUG
+#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
+    if(!geoms.first.assertNonEqual()) {
+        DEBUG_OUT << "first: " << edge->getID() << endl;
+        DEBUG_OUT << geoms.first << endl;
+        DEBUG_OUT << geoms.second << endl;
+    }
+    if(!geoms.second.assertNonEqual()) {
+        DEBUG_OUT << "second: " << edge->getID() << endl;
+        DEBUG_OUT << geoms.first << endl;
+        DEBUG_OUT << geoms.second << endl;
+    }
+#endif
+#endif
     // build and insert the edges
     NBEdge *one = new NBEdge(firstEdgeName, firstEdgeName,
         edge->_from, node, edge->_type, edge->_speed, noLanesFirstEdge,
@@ -871,6 +890,16 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &oc)
     }
     for(std::vector<NBEdge*>::iterator j=toRemove.begin(); j!=toRemove.end(); ++j) {
         erase(dc, *j);
+    }
+    return true;
+}
+
+
+bool
+NBEdgeCont::recomputeLaneShapes()
+{
+    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); ++i) {
+        (*i).second->computeLaneShapes();
     }
     return true;
 }

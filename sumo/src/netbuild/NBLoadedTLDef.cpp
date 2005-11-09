@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2005/11/09 06:40:49  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.15  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -394,6 +397,11 @@ NBLoadedTLDef::NBLoadedTLDef(const std::string &id)
 
 NBLoadedTLDef::~NBLoadedTLDef()
 {
+    {
+        for(SignalGroupCont::iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); ++i) {
+            delete (*i).second;
+        }
+    }
 }
 
 

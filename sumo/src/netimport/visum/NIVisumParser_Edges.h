@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/11/09 06:42:07  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.7  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -57,6 +60,9 @@
 #include <config.h>
 #endif
 #endif // HAVE_CONFIG_H
+
+#include <vector>
+#include <string>
 
 #include "NIVisumLoader.h"
 
@@ -104,12 +110,13 @@ private:
 	/// Build the edge checking the insertion
 	void insertEdge(const std::string &id,  NBNode *from, NBNode *to,
 		const std::string &type, SUMOReal speed, int nolanes, SUMOReal length,
-		int prio) const;
+		int prio, bool oneway) const;
 
 private:
     NBNodeCont &myNodeCont;
     NBEdgeCont &myEdgeCont;
 	NBTypeCont &myTypeCont;
+    std::vector<std::string > myTouchedEdges;
 
 };
 

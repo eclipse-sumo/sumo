@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2005/11/09 06:42:07  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.25  2005/10/07 11:40:10  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -329,11 +332,12 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset)
             joinAble.clear();
         } else {
             i++;
-            cout << "Checked : " << pos << "/" << myClusters.size() << "         " << (char) 13;
+            cout << "Checked(1): " << pos << "/" << myClusters.size() << "         " << (char) 13;
             pos++;
         }
     }
     //
+    pos = 0;
     i = myClusters.begin();
     while(i!=myClusters.end()) {
         bool restart = false;
@@ -359,15 +363,17 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset)
             i = myClusters.begin();
 			// clear temporary storages
             joinAble.clear();
+            pos = 0;
         } else {
             i++;
             pos++;
-            cout << "Checked : " << pos << "/" << myClusters.size() << "         " << (char) 13;
+            cout << "Checked(2): " << pos << "/" << myClusters.size() << "         " << (char) 13;
         }
     }
     // check for weak district connections
     //  (junctions made up by district connections, where prohibitions are not
     //   modelled properly)
+    pos = 0;
     i = myClusters.begin();
     while(i!=myClusters.end()) {
         bool restart = false;
@@ -393,10 +399,11 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset)
             i = myClusters.begin();
 			// clear temporary storages
             joinAble.clear();
+            pos = 0;
         } else {
             i++;
             pos++;
-            cout << "Checked : " << pos << "/" << myClusters.size() << "         " << (char) 13;
+            cout << "Checked(3): " << pos << "/" << myClusters.size() << "         " << (char) 13;
         }
     }
 /* !_!   // check for connection clusters lying beyond the edge

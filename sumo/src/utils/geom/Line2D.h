@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2005/11/09 06:45:15  dkrajzew
+// complete geometry building rework (unfinished)
+//
 // Revision 1.12  2005/10/07 11:44:16  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -91,6 +94,7 @@ public:
     SUMOReal distanceTo(const Position2D &p) const;
     Line2D &reverse();
     SUMOReal nearestPositionTo(const Position2D &p);
+    void rotateDegAtP1(double degs);
 
 private:
     Position2D myP1, myP2;
