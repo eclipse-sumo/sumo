@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.33  2005/11/09 06:40:05  dkrajzew
+// removed unneeded stuff
+//
 // Revision 1.32  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -412,10 +415,6 @@ public:
     static void clear();
 
     static size_t dictSize() { return myDict.size(); }
-
-    /// resets the lane's link priorities
-    virtual void setLinkPriorities(const std::bitset<64> &prios,
-        const std::bitset<64> &yellowMask, size_t &beginPos);
 
     /// simple output operator
     friend std::ostream& operator<<( std::ostream& os, const MSLane& lane );

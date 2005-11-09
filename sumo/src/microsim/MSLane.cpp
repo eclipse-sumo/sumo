@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.58  2005/11/09 06:40:05  dkrajzew
+// removed unneeded stuff
+//
 // Revision 1.57  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -1282,19 +1285,6 @@ operator<<( ostream& os, const MSLane& lane )
     return os;
 }
 
-
-/////////////////////////////////////////////////////////////////////////////
-
-void
-MSLane::setLinkPriorities(const std::bitset<64> &prios,
-                          const std::bitset<64> &yellowMask,
-                          size_t &beginPos)
-{
-    for(MSLinkCont::iterator i=myLinks.begin(); i!=myLinks.end()&&beginPos<64; i++) {// !!! hell happens when i>=64
-        (*i)->setPriority(prios.test(beginPos), yellowMask.test(beginPos));
-        beginPos++;
-    }
-}
 
 /////////////////////////////////////////////////////////////////////////////
 
