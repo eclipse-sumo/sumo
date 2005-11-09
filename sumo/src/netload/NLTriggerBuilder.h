@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2005/11/09 06:35:03  dkrajzew
+// Emitters reworked
+//
 // Revision 1.8  2005/10/10 12:11:33  dkrajzew
 // debugging
 //
@@ -64,7 +67,7 @@
 class MSTrigger;
 class MSNet;
 class MSLaneSpeedTrigger;
-class MSTriggeredEmitter;
+class MSEmitter;
 class NLHandler;
 class MSTriggeredRerouter;
 class MSLane;
@@ -103,7 +106,7 @@ protected:
         const NLHandler &helper);
 
     /// builds an emitter
-    MSTriggeredEmitter *parseAndBuildLaneEmitTrigger(MSNet &net,
+    MSEmitter *parseAndBuildLaneEmitTrigger(MSNet &net,
         const Attributes &attrs, const std::string &base,
         const NLHandler &helper);
 
@@ -126,7 +129,7 @@ protected:
         const std::string &file);
 
     /// builds an emitter
-    virtual MSTriggeredEmitter *buildLaneEmitTrigger(MSNet &net,
+    virtual MSEmitter *buildLaneEmitTrigger(MSNet &net,
         const std::string &id, MSLane *destLane, SUMOReal pos,
         const std::string &file);
 

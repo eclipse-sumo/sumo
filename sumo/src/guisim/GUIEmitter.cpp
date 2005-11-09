@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------//
-//                        GUITriggeredEmitter.cpp -
-//  The gui-version of MSTriggeredEmitter
+//                        GUIEmitter.cpp -
+//  The gui-version of MSEmitter
 //                           -------------------
 //  begin                : Thu, 21.07.2005
 //  copyright            : (C) 2005 by Daniel Krajzewicz
@@ -22,17 +22,17 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.4  2005/10/17 08:55:20  dkrajzew
-// trigger rework#1
+// Revision 1.1  2005/11/09 06:35:03  dkrajzew
+// Emitters reworked
 //
-// Revision 1.3  2005/10/07 11:37:17  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+// Revision 1.5  2005/10/17 08:31:59  dksumo
+// emitter rework#1
 //
-// Revision 1.2  2005/09/22 13:39:35  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
+// Revision 1.4  2005/10/06 13:39:12  dksumo
+// using of a configuration file rechecked
 //
-// Revision 1.1  2005/09/15 11:06:37  dkrajzew
-// LARGE CODE RECHECK
+// Revision 1.3  2005/09/20 06:10:40  dksumo
+// floats and doubles replaced by SUMOReal; warnings removed
 //
 // Revision 1.2  2005/09/09 12:50:30  dksumo
 // complete code rework: debug_new and config added
@@ -76,7 +76,7 @@ namespace
 #include <microsim/MSEdge.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIEdge.h>
-#include "GUITriggeredEmitter.h"
+#include "GUIEmitter.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -105,31 +105,31 @@ using namespace std;
  * FOX callback mapping
  * ======================================================================= */
 /* -------------------------------------------------------------------------
- * GUITriggeredEmitter::GUITriggeredEmitterPopupMenu - mapping
+ * GUIEmitter::GUIEmitterPopupMenu - mapping
  * ----------------------------------------------------------------------- */
-FXDEFMAP(GUITriggeredEmitter::GUITriggeredEmitterPopupMenu)
-    GUITriggeredEmitterPopupMenuMap[]=
+FXDEFMAP(GUIEmitter::GUIEmitterPopupMenu)
+    GUIEmitterPopupMenuMap[]=
 {
-    FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUITriggeredEmitter::GUITriggeredEmitterPopupMenu::onCmdOpenManip),
+    FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUIEmitter::GUIEmitterPopupMenu::onCmdOpenManip),
 
 };
 
 // Object implementation
-FXIMPLEMENT(GUITriggeredEmitter::GUITriggeredEmitterPopupMenu, GUIGLObjectPopupMenu, GUITriggeredEmitterPopupMenuMap, ARRAYNUMBER(GUITriggeredEmitterPopupMenuMap))
+FXIMPLEMENT(GUIEmitter::GUIEmitterPopupMenu, GUIGLObjectPopupMenu, GUIEmitterPopupMenuMap, ARRAYNUMBER(GUIEmitterPopupMenuMap))
 
 
 /* -------------------------------------------------------------------------
- * GUITriggeredEmitter::GUIManip_TriggeredEmitter - mapping
+ * GUIEmitter::GUIManip_TriggeredEmitter - mapping
  * ----------------------------------------------------------------------- */
-FXDEFMAP(GUITriggeredEmitter::GUIManip_TriggeredEmitter) GUIManip_TriggeredEmitterMap[]=
+FXDEFMAP(GUIEmitter::GUIManip_TriggeredEmitter) GUIManip_TriggeredEmitterMap[]=
 {
-    FXMAPFUNC(SEL_COMMAND,  GUITriggeredEmitter::GUIManip_TriggeredEmitter::MID_USER_DEF, GUITriggeredEmitter::GUIManip_TriggeredEmitter::onCmdUserDef),
-    FXMAPFUNC(SEL_UPDATE,   GUITriggeredEmitter::GUIManip_TriggeredEmitter::MID_USER_DEF, GUITriggeredEmitter::GUIManip_TriggeredEmitter::onUpdUserDef),
-    FXMAPFUNC(SEL_COMMAND,  GUITriggeredEmitter::GUIManip_TriggeredEmitter::MID_OPTION,   GUITriggeredEmitter::GUIManip_TriggeredEmitter::onCmdChangeOption),
-    FXMAPFUNC(SEL_COMMAND,  GUITriggeredEmitter::GUIManip_TriggeredEmitter::MID_CLOSE,    GUITriggeredEmitter::GUIManip_TriggeredEmitter::onCmdClose),
+    FXMAPFUNC(SEL_COMMAND,  GUIEmitter::GUIManip_TriggeredEmitter::MID_USER_DEF, GUIEmitter::GUIManip_TriggeredEmitter::onCmdUserDef),
+    FXMAPFUNC(SEL_UPDATE,   GUIEmitter::GUIManip_TriggeredEmitter::MID_USER_DEF, GUIEmitter::GUIManip_TriggeredEmitter::onUpdUserDef),
+    FXMAPFUNC(SEL_COMMAND,  GUIEmitter::GUIManip_TriggeredEmitter::MID_OPTION,   GUIEmitter::GUIManip_TriggeredEmitter::onCmdChangeOption),
+    FXMAPFUNC(SEL_COMMAND,  GUIEmitter::GUIManip_TriggeredEmitter::MID_CLOSE,    GUIEmitter::GUIManip_TriggeredEmitter::onCmdClose),
 };
 
-FXIMPLEMENT(GUITriggeredEmitter::GUIManip_TriggeredEmitter, GUIManipulator, GUIManip_TriggeredEmitterMap, ARRAYNUMBER(GUIManip_TriggeredEmitterMap))
+FXIMPLEMENT(GUIEmitter::GUIManip_TriggeredEmitter, GUIManipulator, GUIManip_TriggeredEmitterMap, ARRAYNUMBER(GUIManip_TriggeredEmitterMap))
 
 
 
@@ -137,29 +137,34 @@ FXIMPLEMENT(GUITriggeredEmitter::GUIManip_TriggeredEmitter, GUIManipulator, GUIM
  * method definitions
  * ======================================================================= */
 /* -------------------------------------------------------------------------
- * GUITriggeredEmitter::GUIManip_TriggeredEmitter - methods
+ * GUIEmitter::GUIManip_TriggeredEmitter - methods
  * ----------------------------------------------------------------------- */
-GUITriggeredEmitter::GUITriggeredEmitterChild_UserTriggeredChild::GUITriggeredEmitterChild_UserTriggeredChild(
-                MSTriggeredEmitter_FileTriggeredChild &s,
-                MSTriggeredEmitter &parent,
+GUIEmitter::GUIEmitterChild_UserTriggeredChild::GUIEmitterChild_UserTriggeredChild(
+                MSEmitter_FileTriggeredChild &s,
+                MSEmitter &parent,
                 SUMOReal flow)
-    : MSTriggeredEmitter::MSTriggeredEmitterChild(parent), myUserFlow(flow),
-    myVehicle(0), mySource(s), myTimeOffset(0)
+    : MSEmitter::MSEmitterChild(parent), myUserFlow(flow),
+    myVehicle(0), mySource(s)
 {
-    MSEventControl::getBeginOfTimestepEvents()->addEvent(
-        this, (SUMOTime) (1. / (flow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
-        MSEventControl::ADAPT_AFTER_EXECUTION);
+    if(myUserFlow>0) {
+        MSEventControl::getBeginOfTimestepEvents()->addEvent(
+            this, (SUMOTime) (1. / (flow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
+            MSEventControl::ADAPT_AFTER_EXECUTION);
+    }
 }
 
 
-GUITriggeredEmitter::GUITriggeredEmitterChild_UserTriggeredChild::~GUITriggeredEmitterChild_UserTriggeredChild()
+GUIEmitter::GUIEmitterChild_UserTriggeredChild::~GUIEmitterChild_UserTriggeredChild()
 {
 }
 
 
 SUMOTime
-GUITriggeredEmitter::GUITriggeredEmitterChild_UserTriggeredChild::execute()
+GUIEmitter::GUIEmitterChild_UserTriggeredChild::execute()
 {
+    if(myUserFlow==0) {
+        return 0;
+    }
     if(!mySource.isInitialised()) {
         mySource.init();
     }
@@ -174,8 +179,8 @@ GUITriggeredEmitter::GUITriggeredEmitterChild_UserTriggeredChild::execute()
             MsgHandler::getErrorInstance()->inform("Emitter '" + myParent.getID() + "' has no valid route.");
             return 0;
         }
-        MSVehicleType *aType = myCurrentVTypeDist.getOverallProb()!=0
-            ? myCurrentVTypeDist.get()
+        MSVehicleType *aType = myVTypeDist.getOverallProb()!=0
+            ? myVTypeDist.get()
             : mySource.hasVTypes()
                 ? mySource.getRndVType()
                 : MSVehicleType::dict_Random();
@@ -190,30 +195,23 @@ GUITriggeredEmitter::GUITriggeredEmitterChild_UserTriggeredChild::execute()
     }
     if(myParent.childCheckEmit(this)) {
         myVehicle = 0;
-        SUMOReal freq = (SUMOReal) (1. / (myUserFlow / 3600.));
-        SUMOTime ret = (SUMOTime) freq;
-        myTimeOffset += (freq - (SUMOReal) ret);
-        if(myTimeOffset>1) {
-            myTimeOffset -= 1;
-            ret += 1;
-        }
-        return ret;
+        return (SUMOTime) computeOffset(myUserFlow);
     }
     return 1;
 }
 
 
 SUMOReal
-GUITriggeredEmitter::GUITriggeredEmitterChild_UserTriggeredChild::getUserFlow() const
+GUIEmitter::GUIEmitterChild_UserTriggeredChild::getUserFlow() const
 {
     return myUserFlow;
 }
 
 
 
-GUITriggeredEmitter::GUIManip_TriggeredEmitter::GUIManip_TriggeredEmitter(
+GUIEmitter::GUIManip_TriggeredEmitter::GUIManip_TriggeredEmitter(
         GUIMainWindow &app,
-        const std::string &name, GUITriggeredEmitter &o,
+        const std::string &name, GUIEmitter &o,
         int xpos, int ypos)
     : GUIManipulator(app, name, 0, 0), myChosenValue(0),
     myParent(&app), myFlowFactor(o.getUserFlow()),
@@ -256,13 +254,13 @@ GUITriggeredEmitter::GUIManip_TriggeredEmitter::GUIManip_TriggeredEmitter(
 }
 
 
-GUITriggeredEmitter::GUIManip_TriggeredEmitter::~GUIManip_TriggeredEmitter()
+GUIEmitter::GUIManip_TriggeredEmitter::~GUIManip_TriggeredEmitter()
 {
 }
 
 
 long
-GUITriggeredEmitter::GUIManip_TriggeredEmitter::onCmdClose(FXObject*,FXSelector,void*)
+GUIEmitter::GUIManip_TriggeredEmitter::onCmdClose(FXObject*,FXSelector,void*)
 {
     destroy();
     return 1;
@@ -270,18 +268,18 @@ GUITriggeredEmitter::GUIManip_TriggeredEmitter::onCmdClose(FXObject*,FXSelector,
 
 
 long
-GUITriggeredEmitter::GUIManip_TriggeredEmitter::onCmdUserDef(FXObject*,FXSelector,void*)
+GUIEmitter::GUIManip_TriggeredEmitter::onCmdUserDef(FXObject*,FXSelector,void*)
 {
-    static_cast<GUITriggeredEmitter*>(myObject)->setUserFlow(
+    static_cast<GUIEmitter*>(myObject)->setUserFlow(
         (SUMOReal) (myFlowFactorDial->getValue()));
-    static_cast<GUITriggeredEmitter*>(myObject)->setActiveChild(1);
+    static_cast<GUIEmitter*>(myObject)->setActiveChild(1);
     myParent->updateChildren();
     return 1;
 }
 
 
 long
-GUITriggeredEmitter::GUIManip_TriggeredEmitter::onUpdUserDef(FXObject *sender,FXSelector,void*ptr)
+GUIEmitter::GUIManip_TriggeredEmitter::onUpdUserDef(FXObject *sender,FXSelector,void*ptr)
 {
     sender->handle(this,
         myChosenValue!=1 ? FXSEL(SEL_COMMAND,ID_DISABLE):FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -292,15 +290,15 @@ GUITriggeredEmitter::GUIManip_TriggeredEmitter::onUpdUserDef(FXObject *sender,FX
 
 
 long
-GUITriggeredEmitter::GUIManip_TriggeredEmitter::onCmdChangeOption(FXObject*,FXSelector,void*)
+GUIEmitter::GUIManip_TriggeredEmitter::onCmdChangeOption(FXObject*,FXSelector,void*)
 {
-    static_cast<GUITriggeredEmitter*>(myObject)->setUserFlow(myFlowFactorDial->getValue());
+    static_cast<GUIEmitter*>(myObject)->setUserFlow((SUMOReal) myFlowFactorDial->getValue());
     switch(myChosenValue) {
     case 0:
-        static_cast<GUITriggeredEmitter*>(myObject)->setActiveChild(0);
+        static_cast<GUIEmitter*>(myObject)->setActiveChild(0);
         break;
     case 1:
-        static_cast<GUITriggeredEmitter*>(myObject)->setActiveChild(1);
+        static_cast<GUIEmitter*>(myObject)->setActiveChild(1);
         break;
     default:
         throw 1;
@@ -311,9 +309,9 @@ GUITriggeredEmitter::GUIManip_TriggeredEmitter::onCmdChangeOption(FXObject*,FXSe
 
 
 /* -------------------------------------------------------------------------
- * GUITriggeredEmitter::GUITriggeredEmitterPopupMenu - methods
+ * GUIEmitter::GUIEmitterPopupMenu - methods
  * ----------------------------------------------------------------------- */
-GUITriggeredEmitter::GUITriggeredEmitterPopupMenu::GUITriggeredEmitterPopupMenu(
+GUIEmitter::GUIEmitterPopupMenu::GUIEmitterPopupMenu(
         GUIMainWindow &app, GUISUMOAbstractView &parent,
         GUIGlObject &o)
     : GUIGLObjectPopupMenu(app, parent, o)
@@ -321,31 +319,31 @@ GUITriggeredEmitter::GUITriggeredEmitterPopupMenu::GUITriggeredEmitterPopupMenu(
 }
 
 
-GUITriggeredEmitter::GUITriggeredEmitterPopupMenu::~GUITriggeredEmitterPopupMenu()
+GUIEmitter::GUIEmitterPopupMenu::~GUIEmitterPopupMenu()
 {
 }
 
 
 long
-GUITriggeredEmitter::GUITriggeredEmitterPopupMenu::onCmdOpenManip(FXObject*,
+GUIEmitter::GUIEmitterPopupMenu::onCmdOpenManip(FXObject*,
                                                                   FXSelector,
                                                                   void*)
 {
-    static_cast<GUITriggeredEmitter*>(myObject)->openManipulator(
+    static_cast<GUIEmitter*>(myObject)->openManipulator(
         *myApplication, *myParent);
     return 1;
 }
 
 
 /* -------------------------------------------------------------------------
- * GUITriggeredEmitter - methods
+ * GUIEmitter - methods
  * ----------------------------------------------------------------------- */
-GUITriggeredEmitter::GUITriggeredEmitter(const std::string &id,
+GUIEmitter::GUIEmitter(const std::string &id,
             MSNet &net, MSLane *destLanes, SUMOReal pos,
             const std::string &aXMLFilename)
-    : MSTriggeredEmitter(id, net, destLanes, pos, aXMLFilename),
+    : MSEmitter(id, net, destLanes, pos, aXMLFilename),
     GUIGlObject_AbstractAdd(gIDStorage,
-        string("emitter:") + id, GLO_TRIGGER), myUserFlow(900)
+        string("emitter:") + id, GLO_TRIGGER), myUserFlow(-1)
 {
     GUIEdge *edge =
         static_cast<GUIEdge*>(MSEdge::dictionary(destLanes->edge().id()));
@@ -361,42 +359,47 @@ GUITriggeredEmitter::GUITriggeredEmitter(const std::string &id,
     mySGRotation = -l.atan2DegreeAngle();
 
     myUserEmitChild =
-        new GUITriggeredEmitterChild_UserTriggeredChild(
-            static_cast<MSTriggeredEmitter_FileTriggeredChild&>(*myFileBasedEmitter),
+        new GUIEmitterChild_UserTriggeredChild(
+            static_cast<MSEmitter_FileTriggeredChild&>(*myFileBasedEmitter),
             *this, 10000);
 }
 
 
-GUITriggeredEmitter::~GUITriggeredEmitter()
+GUIEmitter::~GUIEmitter()
 {
 }
 
 
 void
-GUITriggeredEmitter::setUserFlow(SUMOReal factor)
+GUIEmitter::setUserFlow(SUMOReal factor)
 {
     // !!! the commands should be adapted to current flow imediatly
     myUserFlow = factor;
-    myUserEmitChild =
-        new GUITriggeredEmitterChild_UserTriggeredChild(
-            static_cast<MSTriggeredEmitter_FileTriggeredChild&>(*myFileBasedEmitter),
-            *this, factor);
+    if(myUserFlow>0) {
+        myUserEmitChild =
+            new GUIEmitterChild_UserTriggeredChild(
+                static_cast<MSEmitter_FileTriggeredChild&>(*myFileBasedEmitter),
+                *this, factor);
+    }
 }
 
 
 SUMOReal
-GUITriggeredEmitter::getUserFlow() const
+GUIEmitter::getUserFlow() const
 {
+    if(myUserFlow<0&&static_cast<MSEmitter_FileTriggeredChild*>(myFileBasedEmitter)->getLoadedFlow()>0) {
+        myUserFlow = static_cast<MSEmitter_FileTriggeredChild*>(myFileBasedEmitter)->getLoadedFlow();
+    }
     return myUserFlow;
 }
 
 
 GUIGLObjectPopupMenu *
-GUITriggeredEmitter::getPopUpMenu(GUIMainWindow &app,
+GUIEmitter::getPopUpMenu(GUIMainWindow &app,
                                   GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret =
-        new GUITriggeredEmitterPopupMenu(app, parent, *this);
+        new GUIEmitterPopupMenu(app, parent, *this);
     new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     //
@@ -423,7 +426,7 @@ GUITriggeredEmitter::getPopUpMenu(GUIMainWindow &app,
 
 
 GUIParameterTableWindow *
-GUITriggeredEmitter::getParameterWindow(GUIMainWindow &app,
+GUIEmitter::getParameterWindow(GUIMainWindow &app,
                                         GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
@@ -431,7 +434,7 @@ GUITriggeredEmitter::getParameterWindow(GUIMainWindow &app,
     // add items
     /*
     ret->mkItem("speed [m/s]", true,
-        new FunctionBinding<GUITriggeredEmitter, SUMOReal>(this, &GUITriggeredEmitter::getCurrentSpeed));
+        new FunctionBinding<GUIEmitter, SUMOReal>(this, &GUIEmitter::getCurrentSpeed));
         */
     // close building
     ret->closeBuilding();
@@ -440,42 +443,42 @@ GUITriggeredEmitter::getParameterWindow(GUIMainWindow &app,
 
 
 std::string
-GUITriggeredEmitter::microsimID() const
+GUIEmitter::microsimID() const
 {
     return getID();
 }
 
 
 bool
-GUITriggeredEmitter::active() const
+GUIEmitter::active() const
 {
     return true;
 }
 
 
 Position2D
-GUITriggeredEmitter::getPosition() const
+GUIEmitter::getPosition() const
 {
     return myFGPosition;
 }
 
 
 void
-GUITriggeredEmitter::drawGL_FG(SUMOReal scale)
+GUIEmitter::drawGL_FG(SUMOReal scale)
 {
     doPaint(myFGPosition, myFGRotation, scale);
 }
 
 
 void
-GUITriggeredEmitter::drawGL_SG(SUMOReal scale)
+GUIEmitter::drawGL_SG(SUMOReal scale)
 {
     doPaint(mySGPosition, mySGRotation, scale);
 }
 
 
 void
-GUITriggeredEmitter::doPaint(const Position2D &pos, SUMOReal rot,
+GUIEmitter::doPaint(const Position2D &pos, SUMOReal rot,
                              SUMOReal scale)
 {
     glPushMatrix();
@@ -510,8 +513,9 @@ GUITriggeredEmitter::doPaint(const Position2D &pos, SUMOReal rot,
     glPopMatrix();
 }
 
+
 Boundary
-GUITriggeredEmitter::getBoundary() const
+GUIEmitter::getBoundary() const
 {
     Position2D pos = getPosition();
     Boundary ret(pos.x(), pos.y(), pos.x(), pos.y());
@@ -521,7 +525,7 @@ GUITriggeredEmitter::getBoundary() const
 
 
 GUIManipulator *
-GUITriggeredEmitter::openManipulator(GUIMainWindow &app,
+GUIEmitter::openManipulator(GUIMainWindow &app,
                                      GUISUMOAbstractView &parent)
 {
     GUIManip_TriggeredEmitter *gui =
@@ -533,7 +537,7 @@ GUITriggeredEmitter::openManipulator(GUIMainWindow &app,
 
 
 void
-GUITriggeredEmitter::setActiveChild(int index)
+GUIEmitter::setActiveChild(int index)
 {
     switch(index) {
     case 0:

@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/11/09 06:35:03  dkrajzew
+// Emitters reworked
+//
 // Revision 1.11  2005/10/10 12:11:33  dkrajzew
 // debugging
 //
@@ -84,7 +87,7 @@ namespace
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
-#include <microsim/trigger/MSTriggeredEmitter.h>
+#include <microsim/trigger/MSEmitter.h>
 #include <microsim/trigger/MSTriggerControl.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include <utils/common/MsgHandler.h>
@@ -190,7 +193,7 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net,
 }
 
 
-MSTriggeredEmitter *
+MSEmitter *
 NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net,
                                                const Attributes &attrs,
                                                const std::string &base,
@@ -206,7 +209,7 @@ NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net,
     MSLane *lane = MSLane::dictionary(objectid);
     if(lane==0) {
         MsgHandler::getErrorInstance()->inform(
-            string("The lane to use within MSTriggeredEmitter '")
+            string("The lane to use within MSEmitter '")
             + id + string("' is not known."));
         throw ProcessError();
     }
@@ -241,7 +244,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
     MSLane *lane = MSLane::dictionary(objectid);
     if(lane==0) {
         MsgHandler::getErrorInstance()->inform(
-            string("The lane to use within MSTriggeredEmitter '")
+            string("The lane to use within MSEmitter '")
             + id + string("' is not known."));
         throw ProcessError();
     }
@@ -326,14 +329,14 @@ NLTriggerBuilder::buildLaneSpeedTrigger(MSNet &net,
 }
 
 
-MSTriggeredEmitter *
+MSEmitter *
 NLTriggerBuilder::buildLaneEmitTrigger(MSNet &net,
                                        const std::string &id,
                                        MSLane *destLane,
                                        SUMOReal pos,
                                        const std::string &file)
 {
-    return new MSTriggeredEmitter(id, net, destLane, pos, file);
+    return new MSEmitter(id, net, destLane, pos, file);
 }
 
 

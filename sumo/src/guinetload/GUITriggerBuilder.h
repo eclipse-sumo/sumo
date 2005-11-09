@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2005/11/09 06:35:03  dkrajzew
+// Emitters reworked
+//
 // Revision 1.5  2005/10/07 11:37:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -80,7 +83,7 @@ protected:
         const std::string &file);
 
     /// builds an emitter
-    virtual MSTriggeredEmitter *buildLaneEmitTrigger(MSNet &net,
+    virtual MSEmitter *buildLaneEmitTrigger(MSNet &net,
         const std::string &id, MSLane *destLane, SUMOReal pos,
         const std::string &file);
 

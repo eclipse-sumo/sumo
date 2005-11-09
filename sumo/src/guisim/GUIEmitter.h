@@ -1,8 +1,8 @@
-#ifndef GUITriggeredEmitter_h
-#define GUITriggeredEmitter_h
+#ifndef GUIEmitter_h
+#define GUIEmitter_h
 //---------------------------------------------------------------------------//
-//                        GUITriggeredEmitter.h -
-//  The gui-version of MSTriggeredEmitter
+//                        GUIEmitter.h -
+//  The gui-version of MSEmitter
 //                           -------------------
 //  begin                : Thu, 21.07.2005
 //  copyright            : (C) 2005 by Daniel Krajzewicz
@@ -19,17 +19,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.4  2005/10/17 08:55:20  dkrajzew
-// trigger rework#1
+// Revision 1.1  2005/11/09 06:35:03  dkrajzew
+// Emitters reworked
 //
-// Revision 1.3  2005/10/07 11:37:17  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+// Revision 1.4  2005/10/06 13:39:12  dksumo
+// using of a configuration file rechecked
 //
-// Revision 1.2  2005/09/22 13:39:35  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.1  2005/09/15 11:06:37  dkrajzew
-// LARGE CODE RECHECK
+// Revision 1.3  2005/09/20 06:10:40  dksumo
+// floats and doubles replaced by SUMOReal; warnings removed
 //
 // Revision 1.2  2005/09/09 12:50:30  dksumo
 // complete code rework: debug_new and config added
@@ -57,7 +54,7 @@
 #include <vector>
 #include <string>
 #include <utils/helpers/Command.h>
-#include <microsim/trigger/MSTriggeredEmitter.h>
+#include <microsim/trigger/MSEmitter.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -79,20 +76,20 @@ class GUIManipulator;
  * class definitions
  * ======================================================================= */
 /**
- * @class GUITriggeredEmitter
+ * @class GUIEmitter
  * This is the gui-version of the MSTriggeredSource-object
  */
-class GUITriggeredEmitter
-    : public MSTriggeredEmitter,
+class GUIEmitter
+    : public MSEmitter,
     public GUIGlObject_AbstractAdd {
 public:
     /** constructor */
-    GUITriggeredEmitter(const std::string &id, MSNet &net,
+    GUIEmitter(const std::string &id, MSNet &net,
         MSLane* destLanes, SUMOReal pos,
         const std::string &aXMLFilename);
 
     /** destructor */
-    ~GUITriggeredEmitter();
+    ~GUIEmitter();
 
     //@{ From GUIGlObject
     /// Returns an own popup-menu
@@ -132,39 +129,38 @@ public:
     void setActiveChild(int index);
 
 protected:
-    class GUITriggeredEmitterChild_UserTriggeredChild
-        : public MSTriggeredEmitter::MSTriggeredEmitterChild, public Command {
+    class GUIEmitterChild_UserTriggeredChild
+        : public MSEmitter::MSEmitterChild, public Command {
     public:
-        GUITriggeredEmitterChild_UserTriggeredChild(
-            MSTriggeredEmitter_FileTriggeredChild &s, MSTriggeredEmitter &parent,
+        GUIEmitterChild_UserTriggeredChild(
+            MSEmitter_FileTriggeredChild &s, MSEmitter &parent,
             SUMOReal flow);
-        virtual ~GUITriggeredEmitterChild_UserTriggeredChild();
+        virtual ~GUIEmitterChild_UserTriggeredChild();
         SUMOTime execute();
         SUMOReal getUserFlow() const;
 
     protected:
         SUMOReal myUserFlow;
         MSVehicle *myVehicle;
-        MSTriggeredEmitter_FileTriggeredChild &mySource;
-        SUMOReal myTimeOffset;
+        MSEmitter_FileTriggeredChild &mySource;
 
     };
 
 public:
-    class GUITriggeredEmitterPopupMenu : public GUIGLObjectPopupMenu {
-        FXDECLARE(GUITriggeredEmitterPopupMenu)
+    class GUIEmitterPopupMenu : public GUIGLObjectPopupMenu {
+        FXDECLARE(GUIEmitterPopupMenu)
     public:
 
-        GUITriggeredEmitterPopupMenu(GUIMainWindow &app,
+        GUIEmitterPopupMenu(GUIMainWindow &app,
             GUISUMOAbstractView &parent, GUIGlObject &o);
 
-        ~GUITriggeredEmitterPopupMenu();
+        ~GUIEmitterPopupMenu();
 
         /** @brief Called if the object's manipulator shall be shown */
         long onCmdOpenManip(FXObject*,FXSelector,void*);
 
     protected:
-        GUITriggeredEmitterPopupMenu() { }
+        GUIEmitterPopupMenu() { }
 
     };
 
@@ -180,7 +176,7 @@ public:
         };
         /// Constructor
         GUIManip_TriggeredEmitter(GUIMainWindow &app,
-            const std::string &name, GUITriggeredEmitter &o,
+            const std::string &name, GUIEmitter &o,
             int xpos, int ypos);
 
         /// Destructor
@@ -205,7 +201,7 @@ public:
 
         SUMOReal myFlowFactor;
 
-        GUITriggeredEmitter *myObject;
+        GUIEmitter *myObject;
 
     protected:
         GUIManip_TriggeredEmitter() { }
@@ -237,9 +233,10 @@ private:
     /// Storage for speed string to avoid recomputation
     //std::string myLastValueString;
 
-    SUMOReal myUserFlow;
+    mutable SUMOReal myUserFlow;
 
-    MSTriggeredEmitterChild *myUserEmitChild;
+    MSEmitterChild *myUserEmitChild;
+
 };
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

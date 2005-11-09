@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/11/09 06:35:03  dkrajzew
+// Emitters reworked
+//
 // Revision 1.5  2005/10/07 11:37:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -53,7 +56,7 @@ namespace
 #include <microsim/MSLane.h>
 #include <microsim/trigger/MSTrigger.h>
 #include <guisim/GUILaneSpeedTrigger.h>
-#include <guisim/GUITriggeredEmitter.h>
+#include <guisim/GUIEmitter.h>
 #include <guisim/GUITriggeredRerouter.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
@@ -95,14 +98,14 @@ GUITriggerBuilder::buildLaneSpeedTrigger(MSNet &net,
 
 
 
-MSTriggeredEmitter *
+MSEmitter *
 GUITriggerBuilder::buildLaneEmitTrigger(MSNet &net,
                                         const std::string &id,
                                         MSLane *destLane,
                                         SUMOReal pos,
                                         const std::string &file)
 {
-    return new GUITriggeredEmitter(id, net, destLane, pos, file);
+    return new GUIEmitter(id, net, destLane, pos, file);
 }
 
 

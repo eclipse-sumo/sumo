@@ -7,7 +7,7 @@ libmicrosimtrigger_a_SOURCES = \
 MSLaneSpeedTrigger.cpp MSLaneSpeedTrigger.h \
 MSTrigger.h \
 MSTriggerControl.cpp MSTriggerControl.h \
-MSTriggeredEmitter.cpp MSTriggeredEmitter.h \
+MSEmitter.cpp MSEmitter.h \
 MSTriggeredReader.cpp MSTriggeredReader.h \
 MSTriggeredRerouter.cpp MSTriggeredRerouter.h \
 MSTriggeredXMLReader.cpp MSTriggeredXMLReader.h
