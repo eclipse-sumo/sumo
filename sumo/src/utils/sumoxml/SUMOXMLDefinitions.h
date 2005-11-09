@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.32  2005/11/09 06:47:53  dkrajzew
+// tls-api changes
+//
 // Revision 1.31  2005/10/07 11:47:29  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -215,8 +218,6 @@ enum TagEnum
     SUMO_TAG_PHASENO,
     /** a single phase description */
     SUMO_TAG_PHASE,
-    /** the position of an edge */
-    SUMO_TAG_EDGEPOS,
     /** the route alternatives */
     SUMO_TAG_ROUTEALT,
     /** a single trip definition (used by router) */
@@ -248,6 +249,7 @@ enum TagEnum
     SUMO_TAG_SUPPLEMENTARY_WEIGHTS,
     SUMO_TAG_WEIGHT,
 	SUMO_TAG_REROUTE_AGENT,
+	SUMO_TAG_PARAM,
 };
 
 

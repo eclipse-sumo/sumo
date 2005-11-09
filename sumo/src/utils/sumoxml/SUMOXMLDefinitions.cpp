@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2005/11/09 06:47:53  dkrajzew
+// tls-api changes
+//
 // Revision 1.30  2005/10/07 11:47:29  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -173,7 +176,6 @@ GenericSAX2Handler::Tag sumotags[54] =
       { "initstep",         SUMO_TAG_INITSTEP },
       { "phaseno",          SUMO_TAG_PHASENO },
       { "phase",            SUMO_TAG_PHASE },
-      { "edgepos",          SUMO_TAG_EDGEPOS },
       { "routealt",         SUMO_TAG_ROUTEALT },
       { "tripdef",          SUMO_TAG_TRIPDEF },
       { "flow",             SUMO_TAG_FLOW },
@@ -190,7 +192,8 @@ GenericSAX2Handler::Tag sumotags[54] =
       { "sink",             SUMO_TAG_SINK },
       { "supplementary-weights", SUMO_TAG_SUPPLEMENTARY_WEIGHTS },
       { "weight",           SUMO_TAG_WEIGHT },
-	  { "reroute-agent",	SUMO_TAG_REROUTE_AGENT }
+	  { "reroute-agent",	SUMO_TAG_REROUTE_AGENT },
+	  { "param",	        SUMO_TAG_PARAM }
 };
 
 size_t noSumoAttrs = 88;
