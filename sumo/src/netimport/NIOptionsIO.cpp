@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/11/14 09:53:49  dkrajzew
+// "speed-in-km" is now called "speed-in-kmh"; removed two files definition for arcview
+//
 // Revision 1.11  2005/10/17 09:18:44  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -233,6 +236,7 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("xml-node-files", 'n', new Option_FileName());
     oc.doRegister("xml-edge-files", 'e', new Option_FileName());
     oc.doRegister("xml-connection-files", 'x', new Option_FileName());
+    oc.doRegister("xml-type-files", 't', new Option_FileName());
     oc.doRegister("elmar", new Option_FileName());
     oc.doRegister("elmar2", new Option_FileName());
     oc.doRegister("tiger", new Option_FileName());
@@ -242,21 +246,18 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("vissim-file", new Option_FileName());
     oc.doRegister("artemis-path", new Option_FileName());
     oc.doRegister("arcview", new Option_FileName());
-    oc.doRegister("arcview-shp", new Option_FileName());
-    oc.doRegister("arcview-dbf", new Option_FileName());
-    oc.doRegister("type-file", 't', new Option_FileName(/*"types.xml"*/));
     oc.doRegister("output-file", 'o', new Option_FileName("default.net.xml"));
     oc.doRegister("configuration-file", 'c',
         new Option_FileName());
     oc.addSynonyme("xml-node-files", "xml-nodes");
     oc.addSynonyme("xml-edge-files", "xml-edges");
     oc.addSynonyme("xml-connection-files", "xml-connections");
+    oc.addSynonyme("xml-type-files", "types");
     oc.addSynonyme("cell-node-file", "cell-nodes");
     oc.addSynonyme("cell-edge-file", "cell-edges");
     oc.addSynonyme("visum-file", "visum");
     oc.addSynonyme("vissim-file", "vissim");
     oc.addSynonyme("artemis-path", "artemis");
-    oc.addSynonyme("type-file", "types");
     oc.addSynonyme("output-file", "output");
     oc.addSynonyme("configuration-file", "configuration");
     // register computation variables
@@ -266,7 +267,7 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("vissim-default-speed", new Option_Float(50.0f/3.6f));
     oc.doRegister("vissim-speed-norm", new Option_Float(1.0f));
     // register the data processing options
-    oc.doRegister("speed-in-km", new Option_Bool(false));
+    oc.doRegister("speed-in-kmh", new Option_Bool(false));
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
     // add rand and dev options
@@ -313,8 +314,6 @@ NIOptionsIO::checkNodes(OptionsCont &oc)
         oc.isSet("tiger") ||
         oc.isSet("elmar") ||
         oc.isSet("arcview") ||
-        oc.isSet("arcview-shp") ||
-        oc.isSet("arcview-dbf") ||
         oc.isSet("sumo-net") ) {
         return true;
     }
@@ -333,8 +332,6 @@ NIOptionsIO::checkEdges(OptionsCont &oc)
         oc.isSet("vissim") ||
         oc.isSet("artemis") ||
         oc.isSet("arcview") ||
-        oc.isSet("arcview-shp") ||
-        oc.isSet("arcview-dbf") ||
         oc.isSet("sumo-net") ) {
         return true;
     }

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2005/11/14 09:53:49  dkrajzew
+// "speed-in-km" is now called "speed-in-kmh"; removed two files definition for arcview
+//
 // Revision 1.19  2005/10/17 09:18:44  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -305,7 +308,7 @@ NIXMLEdgesHandler::setGivenSpeed(const Attributes &attrs)
     try {
         myCurrentSpeed =
             getFloatSecure(attrs, SUMO_ATTR_SPEED, (SUMOReal) myCurrentSpeed);
-        if(_options.getBool("speed-in-km")) {
+        if(_options.getBool("speed-in-kmh")) {
             myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
         }
     } catch (NumberFormatException) {

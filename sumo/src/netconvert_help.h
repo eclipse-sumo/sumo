@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2005/11/14 09:56:18  dkrajzew
+// "speed-in-km" is now called "speed-in-kmh"; removed two files definition for arcview
+//
 // Revision 1.13  2005/10/07 11:48:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -105,10 +108,8 @@ char *help[] = {
     "  -e, --xml-edge-files FILE[;+]  edge definitions in XML-format",
     "  -x, --xml-connection-files FILE[;+]",
     "                                 connection definitions in XML-format",
-    "  -t, --type-file FILE           FILE contains type definitions (XML)",
-    "  --arcview FILE_NO_EXT          The name of arcview files",
-    "  --arcview-shp FILE             The name of the arcview-shp file",
-    "  --arcview-dbf FILE             The name of the arcview-sbf file",
+    "  -t, --xml-type-files FILE[;+]  type definitions in XML-format",
+    "  --arcview FILE_NO_EXTENSION    The name of arcview files",
     "  --artemis PATH                 Artemis path",
     "  --cell-node-file FILE          node definitions in Cell-format",
     "  --cell-edge-file FILE          edge definitions in Cell-format",
@@ -136,7 +137,7 @@ char *help[] = {
     "  --vissim-speed-norm FLOAT      Factor for edge velocity (vissim only)",
     "  --vissim-default-speed FLOAT   Default speed for edges (vissim only)",
     "  --flip-y                       Flips the y-coordinate along zero",
-    "  --speed-in-km                  vmax is parsed as given in km/h; XML only",
+    "  --speed-in-kmh                 vmax is parsed as given in km/h; XML only",
     "  --use-laneno-as-priority       Uses the number of lanes priority hint",
     "  --omit-corrupt-edges           Continues parsing although a corrupt edge",
     "                                    occured (warning is printed)",

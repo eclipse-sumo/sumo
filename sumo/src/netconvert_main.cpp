@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2005/11/14 09:56:18  dkrajzew
+// "speed-in-km" is now called "speed-in-kmh"; removed two files definition for arcview
+//
 // Revision 1.30  2005/11/09 06:48:16  dkrajzew
 // removed some memory leaks
 //
@@ -248,7 +251,7 @@ main(int argc, char **argv)
             throw ProcessError();
         }
         nb.buildLoaded();
-    } catch (NILoader&) {
+    } catch (...) {
         MsgHandler::getErrorInstance()->inform("Quitting (conversion failed).");
         ret = 1;
     }

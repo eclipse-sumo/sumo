@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2005/11/14 09:56:18  dkrajzew
+// "speed-in-km" is now called "speed-in-kmh"; removed two files definition for arcview
+//
 // Revision 1.8  2005/10/07 11:48:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -123,7 +126,7 @@ char *help[] =
     "  -N, --capacity-norm FLOAT      The factor for flow to no. lanes conv.",
     "  -D, --min-decel FLOAT          The least vehicle deceleration value used",
     "  --flip-y                       Flips the y-coordinate along zero",
-    "  --speed-in-km                  vmax is parsed as given in km/h; XML only",
+    "  --speed-in-kmh                 vmax is parsed as given in km/h; XML only",
     "  --use-laneno-as-priority       Uses the number of lanes priority hint",
     "  --omit-corrupt-edges           Continues parsing although a corrupt edge",
     "                                    occured (warning is printed)",

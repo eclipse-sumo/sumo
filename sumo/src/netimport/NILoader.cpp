@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/11/14 09:53:49  dkrajzew
+// "speed-in-km" is now called "speed-in-kmh"; removed two files definition for arcview
+//
 // Revision 1.12  2005/10/17 09:18:43  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -276,10 +279,10 @@ void
 NILoader::loadXML(OptionsCont &oc) {
     // load types
     try {
-        if(oc.isUsableFileList("t")) {
+        if(oc.isUsableFileList("xml-type-files")) {
 			NIXMLTypesHandler *handler =
 				new NIXMLTypesHandler(myNetBuilder.getTypeCont());
-            loadXMLType(handler, oc.getString("t"), "types");
+            loadXMLType(handler, oc.getString("xml-type-files"), "types");
             myNetBuilder.getTypeCont().report();
         } else {
             if(oc.isSet("e")&&oc.isSet("n")) {
@@ -292,11 +295,11 @@ NILoader::loadXML(OptionsCont &oc) {
 
     // load nodes
     try {
-        if(oc.isUsableFileList("n")) {
+        if(oc.isUsableFileList("xml-node-files")) {
             NIXMLNodesHandler *handler =
                 new NIXMLNodesHandler(myNetBuilder.getNodeCont(),
                     myNetBuilder.getTLLogicCont(), oc);
-            loadXMLType(handler, oc.getString("n"), "nodes");
+            loadXMLType(handler, oc.getString("xml-node-files"), "nodes");
             myNetBuilder.getNodeCont().report();
         }
     } catch (InvalidArgument &e) {
@@ -305,12 +308,12 @@ NILoader::loadXML(OptionsCont &oc) {
 
     // load the edges
     try {
-        if(oc.isUsableFileList("e")) {
+        if(oc.isUsableFileList("xml-edge-files")) {
             NIXMLEdgesHandler *handler =
                 new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
 					myNetBuilder.getEdgeCont(),
 					myNetBuilder.getTypeCont(), oc);
-            loadXMLType(handler, oc.getString("e"), "edges");
+            loadXMLType(handler, oc.getString("xml-edge-files"), "edges");
             myNetBuilder.getEdgeCont().report();
         }
     } catch (InvalidArgument &e) {
@@ -319,10 +322,10 @@ NILoader::loadXML(OptionsCont &oc) {
 
     // load the connections
     try {
-        if(oc.isUsableFileList("x")) {
+        if(oc.isUsableFileList("xml-connection-files")) {
             NIXMLConnectionsHandler *handler =
                 new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont());
-            loadXMLType(handler, oc.getString("x"), "connections");
+            loadXMLType(handler, oc.getString("xml-connection-files"), "connections");
         }
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
@@ -427,47 +430,25 @@ NILoader::loadVisum(OptionsCont &oc) {
 
 
 void
-NILoader::loadArcView(OptionsCont &oc) {
-    if(!oc.isSet("arcview")&&!oc.isSet("arcview-dbf")&&!oc.isSet("arcview-shp")) {
+NILoader::loadArcView(OptionsCont &oc)
+{
+    if(!oc.isSet("arcview")) {
         return;
     }
     // check whether the correct set of entries is given
     //  and compute both file names
-    string dbf_file;
-    string shp_file;
-        // check whether both the combines and explicite name giving were used
-    if(oc.isSet("arcview")) {
-        if(oc.isSet("arcview-dbf")||oc.isSet("arcview-shp")) {
-            MsgHandler::getErrorInstance()->inform(
-                string("It is not possible to load multiple files."));
-            MsgHandler::getErrorInstance()->inform(
-                string(" Use EITHER \"--arcview\" OR \"--arcview-dbf\"/\"--arcview-shp\""));
-            return;
-        }
-        dbf_file = oc.getString("arcview") + string(".dbf");
-        shp_file = oc.getString("arcview") + string(".shp");
-    }
-        // check whether only one of the files was given (when explicite
-        //  file names for bith structures are given)
-    if(!oc.isSet("arcview")) {
-        if(!oc.isSet("arcview-dbf")||!oc.isSet("arcview-shp")) {
-            MsgHandler::getErrorInstance()->inform(
-                string("You must give two files to parse ArcView-data."));
-            MsgHandler::getErrorInstance()->inform(
-                string(" (\"--arcview-dbf\"/\"--arcview-shp\")"));
-            return;
-        }
-        dbf_file = oc.getString("arcview-dbf");
-        shp_file = oc.getString("arcview-shp");
-    }
-    // check whether both files do exist
+    string dbf_file = oc.getString("arcview") + string(".dbf");
+    string shp_file = oc.getString("arcview") + string(".shp");
+    string shx_file = oc.getString("arcview") + string(".shx");
+    // check whether the files do exist
     if(!FileHelpers::exists(dbf_file)) {
-        MsgHandler::getErrorInstance()->inform(
-            string("File not found: ") + dbf_file);
+        MsgHandler::getErrorInstance()->inform(string("File not found: ") + dbf_file);
     }
     if(!FileHelpers::exists(shp_file)) {
-        MsgHandler::getErrorInstance()->inform(
-            string("File not found: ") + shp_file);
+        MsgHandler::getErrorInstance()->inform(string("File not found: ") + shp_file);
+    }
+    if(!FileHelpers::exists(shx_file)) {
+        MsgHandler::getErrorInstance()->inform(string("File not found: ") + shx_file);
     }
     if(MsgHandler::getErrorInstance()->wasInformed()) {
         return;
@@ -475,7 +456,7 @@ NILoader::loadArcView(OptionsCont &oc) {
     // load the arcview files
     NIArcView_Loader loader(myNetBuilder.getNodeCont(),
         myNetBuilder.getEdgeCont(),
-        dbf_file, shp_file);
+        dbf_file, shp_file, oc.getBool("speed-in-kmh"));
     loader.load(oc);
 }
 
