@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2005/11/14 09:51:17  dkrajzew
+// allowed further information to be stored in arcview-files
+//
 // Revision 1.16  2005/10/07 11:38:54  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -113,11 +116,12 @@ using namespace std;
 NIArcView_Loader::NIArcView_Loader(NBNodeCont &nc,
                                    NBEdgeCont &ec,
                                    const std::string &dbf_name,
-                                   const std::string &shp_name)
+                                   const std::string &shp_name,
+                                   bool speedInKMH)
     : FileErrorReporter("Navtech Edge description", dbf_name),
     myDBFName(dbf_name), mySHPName(shp_name),
     myNameAddition(0),
-    myNodeCont(nc), myEdgeCont(ec)
+    myNodeCont(nc), myEdgeCont(ec), mySpeedInKMH(speedInKMH)
 {
 }
 
@@ -155,6 +159,9 @@ NIArcView_Loader::parseBin()
         int priority = 0;
         try {
             speed = getSpeed(id);
+            if(mySpeedInKMH) {
+                speed = speed / (SUMOReal) 3.6;
+            }
             nolanes = getLaneNo(id, speed);
             priority = getPriority(id);
         } catch (...) {
@@ -223,6 +230,17 @@ NIArcView_Loader::parseBin()
 SUMOReal
 NIArcView_Loader::getSpeed(const std::string &edgeid)
 {
+    // try to get definitions as to be found in SUMO-XML-definitions
+    //  idea by John Michael Calandrino
+    try {
+        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("speed").c_str());
+    } catch (...) {
+    }
+    try {
+        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("SPEED").c_str());
+    } catch (...) {
+    }
+    // try to get the NavTech-information
     try {
         int speedcat =
             TplConvert<char>::_2int(myBinShapeReader.getAttribute("SPEED_CAT").c_str());
@@ -258,38 +276,48 @@ NIArcView_Loader::getSpeed(const std::string &edgeid)
 size_t
 NIArcView_Loader::getLaneNo(const std::string &edgeid, SUMOReal speed)
 {
-
+    // try to get definitions as to be found in SUMO-XML-definitions
+    //  idea by John Michael Calandrino
+    try{
+        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("nolanes").c_str());
+    } catch(...) {
+    }
+    try{
+        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("NOLANES").c_str());
+    } catch(...) {
+    }
+    // try to get old DLR-lanes definition
+    //  invented by Eric Nicolay
+    try{
+        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("rnol").c_str());
+    } catch(...) {
+    }
+    // try to get the NavTech-information
     try {
-        try{
-            size_t lanecat =
-            TplConvert<char>::_2int(myBinShapeReader.getAttribute("rnol").c_str());
-            return lanecat;
-        } catch(...) {
-            size_t lanecat =
-                TplConvert<char>::_2int(myBinShapeReader.getAttribute("LANE_CAT").c_str());
-            if(lanecat<0) {
+        int nolanes =
+            TplConvert<char>::_2int(myBinShapeReader.getAttribute("LANE_CAT").c_str());
+        if(nolanes<0) {
+            return 1;
+        } else if(nolanes/10>0) {
+           nolanes = nolanes / 10;
+        } else {
+            switch(nolanes) {
+            case 1:
                 return 1;
-            } else if(lanecat/10>0) {
-                return lanecat / 10;
-            } else {
-                switch(lanecat) {
-                case 1:
-                    return 1;
-                case 2:
-                    if(speed>78.0/3.6) {
-                        return 3;
-                    }
-                    return 2;
-                case 3:
-                    return 4;
-                default:
-                    throw 1;
+            case 2:
+                if(speed>78.0/3.6) {
+                    return 3;
                 }
+                return 2;
+            case 3:
+                return 4;
+            default:
+                throw 1;
             }
         }
     } catch (...) {
         addError(
-            string("Error on parsing edge's noumber of lanes information for edge '")
+            string("Error on parsing edge's number of lanes information for edge '")
             + edgeid + string("'."));
         return 0;
     }
@@ -305,6 +333,17 @@ NIArcView_Loader::getLength(const Position2D &from_pos, const Position2D &to_pos
 int
 NIArcView_Loader::getPriority(const std::string &edgeid)
 {
+    // try to get definitions as to be found in SUMO-XML-definitions
+    //  idea by John Michael Calandrino
+    try{
+        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("priority").c_str());
+    } catch(...) {
+    }
+    try{
+        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("PRIORITY").c_str());
+    } catch(...) {
+    }
+    // try to determine priority from NavTechs FUNC_CLASS attribute
     try {
         int prio =
             TplConvert<char>::_2int(myBinShapeReader.getAttribute("FUNC_CLASS").c_str());

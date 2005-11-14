@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2005/11/14 09:51:17  dkrajzew
+// allowed further information to be stored in arcview-files
+//
 // Revision 1.11  2005/10/07 11:38:54  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -91,7 +94,8 @@ class NIArcView_Loader :
 public:
     /// Contructor
     NIArcView_Loader(NBNodeCont &nc, NBEdgeCont &ec,
-        const std::string &dbf_name, const std::string &shp_name);
+        const std::string &dbf_name, const std::string &shp_name,
+        bool speedInKMH);
 
     /// Destructor
     ~NIArcView_Loader();
@@ -130,6 +134,7 @@ private:
     int myNameAddition;
     NBNodeCont &myNodeCont;
     NBEdgeCont &myEdgeCont;
+    bool mySpeedInKMH;
 
 };
 
