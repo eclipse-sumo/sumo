@@ -1163,3 +1163,8 @@ FXRealSpinDial::selectAll(){
 
 
 
+const FXDial &
+FXRealSpinDial::getDial() const
+{
+    return *dial;
+}

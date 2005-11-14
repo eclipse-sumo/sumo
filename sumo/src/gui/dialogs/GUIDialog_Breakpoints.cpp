@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/11/14 09:46:37  dkrajzew
+// debugging editable tables
+//
 // Revision 1.9  2005/11/09 06:30:13  dkrajzew
 // subwindows are now deleted on (re)loading the simulation
 //
@@ -121,7 +124,7 @@ FXDEFMAP(GUIDialog_Breakpoints) GUIDialog_BreakpointsMap[]=
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,                   GUIDialog_Breakpoints::onCmdSave),
     FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,                  GUIDialog_Breakpoints::onCmdClear),
     FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,                         GUIDialog_Breakpoints::onCmdClose),
-    FXMAPFUNC(SEL_CHANGED,  MFXEditableTable::ID_TEXT_CHANGED,  GUIDialog_Breakpoints::onCmdEditTable),
+    FXMAPFUNC(SEL_CHANGED,  MFXAddEditTypedTable::ID_TEXT_CHANGED,  GUIDialog_Breakpoints::onCmdEditTable),
 
 //    FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_SAVE,       GUIDialog_Breakpoints::onUpdSave),
 };
@@ -208,6 +211,7 @@ GUIDialog_Breakpoints::rebuildList()
     myTable->setTableSize(gBreakpoints.size()+1, 1);
     myTable->setColumnText(0, "Time");
     FXHeader *header = myTable->getColumnHeader();
+    header->setHeight(getApp()->getNormalFont()->getFontHeight()+getApp()->getNormalFont()->getFontAscent());
     int k;
     for(k=0; k<1; k++) {
         header->setItemJustify(k, JUSTIFY_CENTER_X);

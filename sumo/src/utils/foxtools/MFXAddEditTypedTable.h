@@ -120,19 +120,18 @@ public:
     void cancelInput();
     long onClicked(FXObject*,FXSelector,void* ptr);
     long onDoubleClicked(FXObject*,FXSelector,void* ptr);
+    long onLeftBtnRelease(FXObject*,FXSelector,void* ptr);
+    long onLeftBtnPress(FXObject*,FXSelector,void* ptr);
 
 protected:
   virtual FXWindow *getControlForItem(FXint r,FXint c);
   virtual void setItemFromControl(FXint r,FXint c,FXWindow *control);
+    void acceptInput(FXbool notify);
 
 protected:
     std::vector<CellType> myCellTypes;
     std::vector<NumberCellParams> myNumberCellParams;
     std::vector<std::vector<std::string> > myEnums;
-    FXRealSpinDial *myNumberEditor;
-    FXCheckButton *myBoolEditor;
-    FXComboBox *myEnumEditor;
-    FXTextField *myEditor;
 
 protected:
     MFXAddEditTypedTable() { }

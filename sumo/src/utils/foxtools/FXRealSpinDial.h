@@ -293,6 +293,8 @@ public:
   /// Mark the text entry as selected
   void selectAll();
 
+  const FXDial &getDial() const;
+
   /// Destructor
   virtual ~FXRealSpinDial();
   };

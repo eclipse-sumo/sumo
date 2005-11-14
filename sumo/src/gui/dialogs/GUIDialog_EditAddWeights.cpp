@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/11/14 09:46:37  dkrajzew
+// debugging editable tables
+//
 // Revision 1.8  2005/11/09 06:30:13  dkrajzew
 // subwindows are now deleted on (re)loading the simulation
 //
@@ -128,7 +131,7 @@ FXIMPLEMENT(GUIDialog_EditAddWeights, FXMainWindow, GUIDialog_EditAddWeightsMap,
  * method definitions
  * ======================================================================= */
 GUIDialog_EditAddWeights::GUIDialog_EditAddWeights(GUIMainWindow *parent)
-    : FXMainWindow(gFXApp, "Additional Weights Editor", NULL, NULL, DECOR_ALL, 20,20,300, 300),
+    : FXMainWindow(gFXApp, "Additional Weights Editor", NULL, NULL, DECOR_ALL, 20,20,500, 300),
     myParent(parent), myEntriesAreValid(false)
 {
     FXHorizontalFrame *hbox =
@@ -220,10 +223,17 @@ GUIDialog_EditAddWeights::rebuildList()
     myTable->setColumnText(4, "Add");
     myTable->setColumnText(5, "Mult");
     FXHeader *header = myTable->getColumnHeader();
+    header->setHeight(getApp()->getNormalFont()->getFontHeight()+getApp()->getNormalFont()->getFontAscent());
     int k;
     for(k=0; k<6; k++) {
-        header->setItemJustify(k, JUSTIFY_CENTER_X);
+        header->setItemJustify(k, JUSTIFY_CENTER_X|JUSTIFY_TOP);
     }
+    header->setItemSize(0, 149); // !! check if the size will be changed
+    header->setItemSize(1, 60); // !! check if the size will be changed
+    header->setItemSize(2, 60); // !! check if the size will be changed
+    header->setItemSize(3, 60); // !! check if the size will be changed
+    header->setItemSize(4, 60); // !! check if the size will be changed
+    header->setItemSize(5, 60); // !! check if the size will be changed
 
     // insert into table
     size_t row = 0;
