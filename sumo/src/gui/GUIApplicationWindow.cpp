@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.48  2005/11/15 10:34:33  dkrajzew
+// debugging and beautifying for the next release
+//
 // Revision 1.47  2005/11/09 06:31:46  dkrajzew
 // added cursor position output (unfinished); catching opening a second file using recent files added
 //
@@ -290,9 +293,6 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]=
     FXMAPFUNC(SEL_THREAD_EVENT, ID_RUNTHREAD_EVENT,  GUIApplicationWindow::onRunThreadEvent),
     FXMAPFUNC(SEL_THREAD, ID_LOADTHREAD_EVENT,       GUIApplicationWindow::onLoadThreadEvent),
     FXMAPFUNC(SEL_THREAD, ID_RUNTHREAD_EVENT,        GUIApplicationWindow::onRunThreadEvent),
-
-//    FXMAPFUNC(SEL_COMMAND,  MID_CUTSWELL,               GUIApplicationWindow::onCmdCutSwell),
-
 };
 
 // Object implementation
