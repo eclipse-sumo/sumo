@@ -25,8 +25,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2005/11/15 10:15:49  dkrajzew
+// debugging and beautifying for the next release
+//
 // Revision 1.12  2005/11/14 09:53:49  dkrajzew
-// "speed-in-km" is now called "speed-in-kmh"; removed two files definition for arcview
+// "speed-in-km" is now called "speed-in-kmh";
+//  removed two files definition for arcview
 //
 // Revision 1.11  2005/10/17 09:18:44  dkrajzew
 // got rid of the old MSVC memory leak checker
@@ -252,7 +256,7 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.addSynonyme("xml-node-files", "xml-nodes");
     oc.addSynonyme("xml-edge-files", "xml-edges");
     oc.addSynonyme("xml-connection-files", "xml-connections");
-    oc.addSynonyme("xml-type-files", "types");
+    oc.addSynonyme("xml-type-files", "xml-types");
     oc.addSynonyme("cell-node-file", "cell-nodes");
     oc.addSynonyme("cell-edge-file", "cell-edges");
     oc.addSynonyme("visum-file", "visum");

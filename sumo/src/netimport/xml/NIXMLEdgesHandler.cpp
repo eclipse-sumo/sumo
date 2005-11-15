@@ -25,8 +25,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2005/11/15 10:15:49  dkrajzew
+// debugging and beautifying for the next release
+//
 // Revision 1.20  2005/11/14 09:53:49  dkrajzew
-// "speed-in-km" is now called "speed-in-kmh"; removed two files definition for arcview
+// "speed-in-km" is now called "speed-in-kmh";
+//  removed two files definition for arcview
 //
 // Revision 1.19  2005/10/17 09:18:44  dkrajzew
 // got rid of the old MSVC memory leak checker
@@ -56,7 +60,8 @@ namespace
 // consequent geometry usage; made the code a little bit more pretty
 //
 // Revision 1.10  2003/07/16 15:34:07  dkrajzew
-// conversion tools splitted and relocated to avoid mandatory inclusion of unused files
+// conversion tools splitted and relocated to avoid mandatory inclusion
+//  of unused files
 //
 // Revision 1.9  2003/07/07 08:32:19  dkrajzew
 // adapted the importer to the new lane geometry description
@@ -65,13 +70,17 @@ namespace
 // error output patched
 //
 // Revision 1.7  2003/06/18 11:17:29  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.6  2003/05/20 09:44:35  dkrajzew
 // some make-up done (splitting large methods)
 //
 // Revision 1.5  2003/04/01 15:26:15  dkrajzew
-// insertion of nodes is now checked, but still unsafe; districts are always weighted
+// insertion of nodes is now checked, but still unsafe;
+//  districts are always weighted
 //
 // Revision 1.4  2003/03/20 16:34:54  dkrajzew
 // windows eol removed
@@ -95,10 +104,12 @@ namespace
 // unreferenced variable declarations removed
 //
 // Revision 1.5  2002/06/11 16:00:42  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+// windows eol removed; template class definition inclusion depends now on
+//  the EXTERNAL_TEMPLATE_DEFINITION-definition
 //
 // Revision 1.4  2002/06/10 06:56:14  dkrajzew
-// Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
+// Conversion of strings (XML and c-strings) to numerical values generalized;
+//  options now recognize false numerical input
 //
 // Revision 1.3  2002/05/14 04:42:56  dkrajzew
 // new computation flow
@@ -119,7 +130,8 @@ namespace
 // Memory leaks debugging added (MSVC++)
 //
 // Revision 1.3  2002/03/20 08:32:41  dkrajzew
-// Numeric format exception is now being caught when the edge s length is malicious
+// Numeric format exception is now being caught when the edge s length is
+//  malicious
 //
 // Revision 1.2  2002/03/15 09:20:51  traffic
 // Warnings (unused variables) patched

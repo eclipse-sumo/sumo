@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2005/11/15 10:15:49  dkrajzew
+// debugging and beautifying for the next release
+//
 // Revision 1.34  2005/11/09 06:32:46  dkrajzew
 // problems on loading geometry items patched
 //
@@ -89,7 +92,8 @@ namespace
 // new detector usage applied
 //
 // Revision 1.14  2003/07/21 18:17:28  roessel
-// Creation of SingletonDictionaries for Detectors added. Move to another place?
+// Creation of SingletonDictionaries for Detectors added.
+//  Move to another place?
 //
 // Revision 1.13  2003/06/24 14:41:37  dkrajzew
 // the correct step number is now prompted as the step the simulation ended at

@@ -443,7 +443,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>--speed-in-km</term>
+          <term>--speed-in-kmh</term>
 
           <listitem>
             <para>Parses speed information stored in XML-edge definition files

@@ -122,7 +122,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --type-file | --types | -t ] <replaceable class="parameter">types-file</replaceable></term>
+          <term>[ --xml-type-files | --xml-types | -t ] <replaceable class="parameter">types-file</replaceable></term>
 
           <listitem>
             <para>Uses the given file as the source of edge types.

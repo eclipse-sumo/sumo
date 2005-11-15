@@ -20,8 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2005/11/15 10:15:49  dkrajzew
+// debugging and beautifying for the next release
+//
 // Revision 1.9  2005/11/14 09:56:18  dkrajzew
-// "speed-in-km" is now called "speed-in-kmh"; removed two files definition for arcview
+// "speed-in-km" is now called "speed-in-kmh";
+//  removed two files definition for arcview
 //
 // Revision 1.8  2005/10/07 11:48:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs

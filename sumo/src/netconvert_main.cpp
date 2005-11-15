@@ -25,8 +25,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2005/11/15 10:15:49  dkrajzew
+// debugging and beautifying for the next release
+//
 // Revision 1.31  2005/11/14 09:56:18  dkrajzew
-// "speed-in-km" is now called "speed-in-kmh"; removed two files definition for arcview
+// "speed-in-km" is now called "speed-in-kmh";
+//  removed two files definition for arcview
 //
 // Revision 1.30  2005/11/09 06:48:16  dkrajzew
 // removed some memory leaks
@@ -68,7 +72,8 @@ namespace
 // removed some warnings
 //
 // Revision 1.17  2003/07/17 12:14:21  dkrajzew
-// NBLoader moved to netimport; NBNetBuilder performs now all the building steps
+// NBLoader moved to netimport;
+//  NBNetBuilder performs now all the building steps
 //
 // Revision 1.16  2003/07/07 08:41:12  dkrajzew
 // the edges positions are now normalised, too; the edges are joined if

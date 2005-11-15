@@ -240,7 +240,7 @@
         m/s, no vehicle could be emitted due to a too large space needed for
         oncoming traffic. Check whether your network description also defines
         speed in km/h. If so, use the SUMO-NETCONVERT - switch
-        &#34;speed-in-km&#34; to recompute the speed limits. If this does not
+        &#34;speed-in-kmh&#34; to recompute the speed limits. If this does not
         help, contact us.</para>
       </sect3>
 

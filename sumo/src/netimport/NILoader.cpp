@@ -25,8 +25,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2005/11/15 10:15:49  dkrajzew
+// debugging and beautifying for the next release
+//
 // Revision 1.13  2005/11/14 09:53:49  dkrajzew
-// "speed-in-km" is now called "speed-in-kmh"; removed two files definition for arcview
+// "speed-in-km" is now called "speed-in-kmh";
+//  removed two files definition for arcview
 //
 // Revision 1.12  2005/10/17 09:18:43  dkrajzew
 // got rid of the old MSVC memory leak checker
@@ -62,16 +66,21 @@ namespace
 // node-building classes are now lying in an own folder
 //
 // Revision 1.1  2003/07/17 12:15:39  dkrajzew
-// NBLoader moved to netimport; NBNetBuilder performs now all the building steps
+// NBLoader moved to netimport; NBNetBuilder performs now all the building
+//  steps
 //
 // Revision 1.9  2003/07/07 08:22:42  dkrajzew
-// some further refinements due to the new 1:N traffic lights and usage of geometry information
+// some further refinements due to the new 1:N traffic lights and usage of
+//  geometry information
 //
 // Revision 1.8  2003/06/19 07:17:21  dkrajzew
 // new message subsystem paradigm applied
 //
 // Revision 1.7  2003/06/18 11:13:13  dkrajzew
-// new message and error processing: output to user may be a messageing or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a messageing or
+//  an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.6  2003/03/20 16:23:09  dkrajzew
 // windows eol removed; multiple vehicle emission added
@@ -101,10 +110,12 @@ namespace
 // unreferenced variable declarations removed
 //
 // Revision 1.5  2002/06/11 16:00:41  dkrajzew
-// windows eol removed; template class definition inclusion depends now on the EXTERNAL_TEMPLATE_DEFINITION-definition
+// windows eol removed; template class definition inclusion depends now on
+//  the EXTERNAL_TEMPLATE_DEFINITION-definition
 //
 // Revision 1.4  2002/06/10 06:56:14  dkrajzew
-// Conversion of strings (XML and c-strings) to numerical values generalized; options now recognize false numerical input
+// Conversion of strings (XML and c-strings) to numerical values generalized;
+//  options now recognize false numerical input
 //
 // Revision 1.3  2002/05/14 04:42:55  dkrajzew
 // new computation flow

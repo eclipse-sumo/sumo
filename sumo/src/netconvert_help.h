@@ -20,8 +20,12 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.15  2005/11/15 10:15:49  dkrajzew
+// debugging and beautifying for the next release
+//
 // Revision 1.14  2005/11/14 09:56:18  dkrajzew
-// "speed-in-km" is now called "speed-in-kmh"; removed two files definition for arcview
+// "speed-in-km" is now called "speed-in-kmh";
+//  removed two files definition for arcview
 //
 // Revision 1.13  2005/10/07 11:48:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
@@ -70,7 +74,8 @@
 // windows eol removed
 //
 // Revision 1.4  2002/06/07 14:58:44  dkrajzew
-// Bugs on dead ends and junctions with too few outgoing roads fixed; Comments improved
+// Bugs on dead ends and junctions with too few outgoing roads fixed;
+//  Comments improved
 //
 /* =========================================================================
  * included modules

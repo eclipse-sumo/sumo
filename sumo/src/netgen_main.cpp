@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2005/11/15 10:15:49  dkrajzew
+// debugging and beautifying for the next release
+//
 // Revision 1.22  2005/10/17 09:27:46  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -62,7 +65,8 @@ namespace
 // _INC_MALLOC definition removed (does not work on MSVC7.0)
 //
 // Revision 1.10  2003/12/04 12:51:26  dkrajzew
-// documentation added; possibility to use actuated and agentbased junctions added; usage of street types patched
+// documentation added; possibility to use actuated and agentbased
+//  junctions added; usage of street types patched
 //
 // Revision 1.9  2003/10/28 08:35:01  dkrajzew
 // random number specification options added
@@ -86,7 +90,8 @@ namespace
 // removed some warnings
 //
 // Revision 1.2  2003/07/17 12:14:21  dkrajzew
-// NBLoader moved to netimport; NBNetBuilder performs now all the building steps
+// NBLoader moved to netimport;
+//  NBNetBuilder performs now all the building steps
 //
 // Revision 1.1  2003/07/16 15:41:17  dkrajzew
 // network generator added
