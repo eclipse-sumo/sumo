@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/11/29 13:34:47  dkrajzew
+// viewport debugged
+//
 // Revision 1.9  2005/11/09 06:46:34  dkrajzew
 // added cursor position output (unfinished)
 //
@@ -397,28 +400,45 @@ GUISUMOAbstractView::updateToolTip()
 void
 GUISUMOAbstractView::updatePositionInformation()
 {
-    const Boundary &nb = myGrid->getBoundary();
-    SUMOReal width = nb.getWidth();
-    SUMOReal height = nb.getHeight();
-    SUMOReal mzoom = _changer->getZoom();
-    SUMOReal cy = _changer->getYPos();//cursorY;
-    SUMOReal cx = _changer->getXPos();//cursorY;
-    SUMOReal mratio = (SUMOReal) _widthInPixels / (SUMOReal) _heightInPixels;
-    SUMOReal sxmin = nb.getCenter().x() - mratio * width / (mzoom) * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
-    sxmin -= cx;
-    SUMOReal sxmax = nb.getCenter().x() + mratio * width / (mzoom) * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
-    sxmax -= cx;
+    if(false) {
+        const Boundary &nb = myGrid->getBoundary();
+        SUMOReal width = nb.getWidth();
+        SUMOReal height = nb.getHeight();
+        SUMOReal mzoom = _changer->getZoom();
 
-    SUMOReal symin = nb.getCenter().y() - height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
-    symin += cy;
-    SUMOReal symax = nb.getCenter().y() + height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
-    symax += cy;
+        // compute the offset
+        SUMOReal cy = _changer->getYPos();//cursorY;
+        SUMOReal cx = _changer->getXPos();//cursorY;
 
-    SUMOReal sx = sxmin + (sxmax-sxmin) / (SUMOReal) _widthInPixels * (SUMOReal) _changer->getMouseXPosition();
-    SUMOReal sy = symin + (symax-symin) / (SUMOReal) _heightInPixels * (SUMOReal) _changer->getMouseYPosition();
+        cout << cx << ", " << cy << endl;
 
-    string text = "x:" + toString(sx) + ", y:" + toString(sy);
-    myApp->setStatusBarText(text);
+        // compute the visible area in horizontal direction
+        SUMOReal mratio = (SUMOReal) _widthInPixels / (SUMOReal) _heightInPixels;
+        SUMOReal sxmin = nb.getCenter().x()
+            - mratio * width * (SUMOReal) 100 / (mzoom) / (SUMOReal) 2. / (SUMOReal) .97;
+        sxmin -= cx;
+        SUMOReal sxmax = nb.getCenter().x()
+            + mratio * width * (SUMOReal) 100 / (mzoom) / (SUMOReal) 2. / (SUMOReal) .97;
+        sxmax -= cx;
+
+        // compute the visible area in vertical direction
+        SUMOReal symin = nb.getCenter().y() - height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
+        symin += cy;
+        SUMOReal symax = nb.getCenter().y() + height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
+        symax += cy;
+
+        SUMOReal sx = sxmin
+            + (sxmax-sxmin)
+            * (SUMOReal) _changer->getMouseXPosition()
+            / (SUMOReal) _widthInPixels;
+        SUMOReal sy = symin
+            + (symax-symin)
+            * ((SUMOReal) _heightInPixels - (SUMOReal) _changer->getMouseYPosition())
+            / (SUMOReal) _heightInPixels;
+
+        string text = "x:" + toString(sx) + ", y:" + toString(sy);
+        myApp->setStatusBarText(text);
+    }
 }
 
 
@@ -895,8 +915,15 @@ GUISUMOAbstractView::onRightBtnRelease(FXObject *o,FXSelector sel,void *data)
 long
 GUISUMOAbstractView::onMouseMove(FXObject *o,FXSelector sel,void *data)
 {
-    _changer->onMouseMove(data);
-    if(myViewportChooser!=0) {
+    SUMOReal xpos = _changer->getXPos();
+    SUMOReal ypos = _changer->getYPos();
+    SUMOReal zoom = _changer->getZoom();
+    if(myViewportChooser==0||!myViewportChooser->haveGrabbed()) {
+        _changer->onMouseMove(data);
+    }
+    if(myViewportChooser!=0 &&
+        (xpos!=_changer->getXPos()||ypos!=_changer->getYPos()||zoom!=_changer->getZoom()) ) {
+
         myViewportChooser->setValues(
             _changer->getZoom(), _changer->getXPos(), _changer->getYPos());
 
@@ -1083,6 +1110,8 @@ GUISUMOAbstractView::onCmdEditViewport(FXObject*,FXSelector,void*)
                 0, 0);
         myViewportChooser->create();
     }
+    myViewportChooser->setOldValues(
+        _changer->getZoom(), _changer->getXPos(), _changer->getYPos());
     myViewportChooser->show();
     return 1;
 }

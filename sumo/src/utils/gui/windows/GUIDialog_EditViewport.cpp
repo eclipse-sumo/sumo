@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/11/29 13:34:47  dkrajzew
+// viewport debugged
+//
 // Revision 1.5  2005/11/09 06:46:52  dkrajzew
 // some further work on viewport changer (unfinished)
 //
@@ -40,7 +43,6 @@ namespace
 //
 // Revision 1.1  2005/04/26 07:35:59  dksumo
 // SUMOTime inserted; level3 warnings patched; port to fox1.4
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -72,8 +74,9 @@ namespace
 
 
 FXDEFMAP(GUIDialog_EditViewport) GUIDialog_EditViewportMap[]={
-    FXMAPFUNC(SEL_COMMAND, MID_OK,            GUIDialog_EditViewport::onCmdOk),
-    FXMAPFUNC(SEL_COMMAND, MID_CANCEL,        GUIDialog_EditViewport::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND, GUIDialog_EditViewport::MID_CHANGED, GUIDialog_EditViewport::onCmdChanged),
+    FXMAPFUNC(SEL_COMMAND, MID_OK,                              GUIDialog_EditViewport::onCmdOk),
+    FXMAPFUNC(SEL_COMMAND, MID_CANCEL,                          GUIDialog_EditViewport::onCmdCancel),
 };
 
 
@@ -99,7 +102,7 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
     //
     {
         new FXLabel(m1, "Zoom:", 0, LAYOUT_CENTER_Y);
-        myZoom = new FXRealSpinDial(m1, 16, 0, 0,
+        myZoom = new FXRealSpinDial(m1, 16, this, MID_CHANGED,
             LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myZoom->setRange(0.0001, 100000);
         myZoom->setNumberFormat(4);
@@ -107,7 +110,7 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
     }
     {
         new FXLabel(m1, "X Offset:", 0, LAYOUT_CENTER_Y);
-        myXOff = new FXRealSpinDial(m1, 16, 0, 0,
+        myXOff = new FXRealSpinDial(m1, 16, this, MID_CHANGED,
             LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myXOff->setRange(-1000000, 1000000);
         myXOff->setNumberFormat(4);
@@ -115,7 +118,7 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
     }
     {
         new FXLabel(m1, "Y Offset:", 0, LAYOUT_CENTER_Y);
-        myYOff = new FXRealSpinDial(m1, 16, 0, 0,
+        myYOff = new FXRealSpinDial(m1, 16, this, MID_CHANGED,
             LAYOUT_CENTER_Y|LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
         myYOff->setRange(-1000000, 1000000);
         myYOff->setNumberFormat(4);
@@ -163,7 +166,17 @@ GUIDialog_EditViewport::onCmdOk(FXObject*,FXSelector,void*)
 long
 GUIDialog_EditViewport::onCmdCancel(FXObject*,FXSelector,void*)
 {
+    myParent->setViewport(myOldZoom, myOldXOff, myOldYOff);
     hide();
+    return 1;
+}
+
+
+long
+GUIDialog_EditViewport::onCmdChanged(FXObject*,FXSelector,void*)
+{
+    myParent->setViewport((SUMOReal) myZoom->getValue(),
+        (SUMOReal) myXOff->getValue(), (SUMOReal) myYOff->getValue());
     return 1;
 }
 
@@ -175,6 +188,25 @@ GUIDialog_EditViewport::setValues(SUMOReal zoom,
     myZoom->setValue(zoom);
     myXOff->setValue(xoff);
     myYOff->setValue(yoff);
+}
+
+
+void
+GUIDialog_EditViewport::setOldValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff)
+{
+    myZoom->setValue(zoom);
+    myXOff->setValue(xoff);
+    myYOff->setValue(yoff);
+    myOldZoom = zoom;
+    myOldXOff = xoff;
+    myOldYOff = yoff;
+}
+
+
+bool
+GUIDialog_EditViewport::haveGrabbed() const
+{
+    return myZoom->getDial().grabbed()||myXOff->getDial().grabbed()||myYOff->getDial().grabbed();
 }
 
 

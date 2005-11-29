@@ -26,13 +26,20 @@ class GUIDialog_EditViewport : public FXDialogBox
     // FOX-declarations
     FXDECLARE(GUIDialog_EditViewport)
 public:
+    enum {
+        MID_CHANGED = FXDialogBox::ID_LAST
+    };
+
     GUIDialog_EditViewport(GUISUMOAbstractView* parent,  const char* name,
         SUMOReal zoom, SUMOReal xoff, SUMOReal yoff, int x, int y);
     ~GUIDialog_EditViewport();
     void create();
+    long onCmdChanged(FXObject*,FXSelector,void*);
     long onCmdOk(FXObject*,FXSelector,void*);
     long onCmdCancel(FXObject*,FXSelector,void*);
     void setValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff);
+    bool haveGrabbed() const;
+    void setOldValues(SUMOReal zoom, SUMOReal xoff, SUMOReal yoff);
 
 protected:
     GUISUMOAbstractView *myParent;
