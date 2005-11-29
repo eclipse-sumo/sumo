@@ -18,6 +18,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.16  2005/11/29 13:28:34  dkrajzew
+// mispelled "floating" patched
+//
 // Revision 1.15  2005/11/09 06:39:06  dkrajzew
 // debugging
 //
@@ -223,7 +226,7 @@ MSVehicle::vsafe( SUMOReal speed,
     return vsafe;
 }*/
 
-// This assertion has not the intended meaning because of SUMORealing inaccuracy.
+// This assertion has not the intended meaning because of floating inaccuracy.
 //    assert( vsafe <= gap2pred ); // Collision-free condition.
 // This is not the solution, because vsafe allows this vehicle to overlap at
 // time t+1 with pred at time t.

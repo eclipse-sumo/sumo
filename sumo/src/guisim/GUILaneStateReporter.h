@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2005/11/29 13:25:06  dkrajzew
+// mispelled "floating" patched
+//
 // Revision 1.13  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -63,7 +66,7 @@ public:
     GUILaneStateReporter(LoggedValue_TimeFloating<SUMOReal> *densityRetriever,
         LoggedValue_TimeFloating<SUMOReal> *speedRetriever,
         LoggedValue_TimeFloating<SUMOReal> *haltingDurRetriever,
-        SUMOReal &SUMORealingDensity, SUMOReal &SUMORealingSpeed, SUMOReal &SUMORealingHaltings,
+        SUMOReal &floatingDensity, SUMOReal &floatingSpeed, SUMOReal &floatingHaltings,
         const std::string &id, MSLane *lane, SUMOTime interval);
 	/// Destructor
     ~GUILaneStateReporter();

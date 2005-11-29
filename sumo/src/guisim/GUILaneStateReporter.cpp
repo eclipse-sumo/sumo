@@ -19,6 +19,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.17  2005/11/29 13:25:06  dkrajzew
+// mispelled "floating" patched
+//
 // Revision 1.16  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -61,16 +64,16 @@ GUILaneStateReporter::GUILaneStateReporter(
         LoggedValue_TimeFloating<SUMOReal> *densityRetriever,
         LoggedValue_TimeFloating<SUMOReal> *speedRetriever,
         LoggedValue_TimeFloating<SUMOReal> *haltingDurRetriever,
-        SUMOReal &SUMORealingDensity, SUMOReal &SUMORealingSpeed, SUMOReal &SUMORealingHaltings,
+        SUMOReal &floatingDensity, SUMOReal &floatingSpeed, SUMOReal &floatingHaltings,
         const std::string &id, MSLane *lane, SUMOTime interval)
     : MSE2Collector(id, DU_SUMO_INTERNAL, lane, (SUMOReal) 0.1, lane->length()-(SUMOReal) 0.2, //interval,
         /*haltingTimeThreshold*/ 1, /*haltingSpeedThreshold*/(SUMOReal) (5.0/3.6),
         /*jamDistThreshold*/ 10, /*deleteDataAfterSeconds*/ interval), // !!!
     myDensityRetriever(densityRetriever), mySpeedRetriever(speedRetriever),
     myHaltingDurRetriever(haltingDurRetriever),
-    myFloatingDensity(SUMORealingDensity),
-    myFloatingSpeed(SUMORealingSpeed),
-    myFloatingHaltings(SUMORealingHaltings)
+    myFloatingDensity(floatingDensity),
+    myFloatingSpeed(floatingSpeed),
+    myFloatingHaltings(floatingHaltings)
 
 {
     assert(lane->length()>0.2);
