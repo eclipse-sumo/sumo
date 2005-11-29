@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.67  2005/11/29 13:27:59  dkrajzew
+// added a minimum simulation speed definition before the simulation ends (unfinished)
+//
 // Revision 1.66  2005/11/09 06:38:57  dkrajzew
 // problems on loading geometry items patched
 //
@@ -494,7 +497,9 @@ MSNet::preInitMSNet(SUMOTime startTimeStep,
 */
 
 
-MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep)
+MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
+             SUMOReal tooSlowRTF, bool logExecTime)
+    : myLogExecutionTime(logExecTime), myTooSlowRTF(tooSlowRTF)
 {
     MSCORN::init();
 //    MSDetectorControl::createDictionaries();
@@ -517,7 +522,9 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep)
 
 
 MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
-             MSVehicleControl *vc)
+             MSVehicleControl *vc,
+             SUMOReal tooSlowRTF, bool logExecTime)
+    : myLogExecutionTime(logExecTime), myTooSlowRTF(tooSlowRTF)
 {
     MSCORN::init();
 //    MSDetectorControl::createDictionaries();
@@ -617,6 +624,7 @@ MSNet::simulate( SUMOTime start, SUMOTime stop )
 {
     initialiseSimulation();
     // the simulation loop
+    bool tooSlow = false;
     myStep = start;
     try {
         do {
@@ -624,8 +632,16 @@ MSNet::simulate( SUMOTime start, SUMOTime stop )
             simulationStep(start, myStep);
             postSimStepOutput();
             myStep++;
-        } while( myStep<=stop&&!myVehicleControl->haveAllVehiclesQuit());
-        if(myStep>stop) {
+            if(myLogExecutionTime && myTooSlowRTF>0) {
+                SUMOReal rtf = ((SUMOReal) myVehicleControl->getRunningVehicleNo()/(SUMOReal) mySimStepDuration*1000.);
+                if(rtf<myTooSlowRTF) {
+                    tooSlow = true;
+                }
+            }
+        } while( myStep<=stop && !myVehicleControl->haveAllVehiclesQuit() && !tooSlow);
+        if(tooSlow) {
+            WRITE_MESSAGE("Simulation End: The simulation got too slow.");
+        } else if(myStep>stop) {
             WRITE_MESSAGE("Simulation End: The final simulation step has been reached.");
         } else {
             WRITE_MESSAGE("Simulation End: All vehicles have left the simulation.");
@@ -994,6 +1010,13 @@ MSRouteLoader *
 MSNet::buildRouteLoader(const std::string &file)
 {
     return new MSRouteLoader(*this, new MSRouteHandler(file, false));
+}
+
+
+SUMOReal
+MSNet::getTooSlowRTF() const
+{
+    return myTooSlowRTF;
 }
 
 

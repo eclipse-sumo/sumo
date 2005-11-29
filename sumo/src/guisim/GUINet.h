@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.36  2005/11/29 13:24:03  dkrajzew
+// added a minimum simulation speed definition before the simulation ends (unfinished)
+//
 // Revision 1.35  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -189,7 +192,8 @@ class GUINet
     : public MSNet
 {
 public:
-    GUINet(SUMOTime startTimestep, SUMOTime stopTimestep, MSVehicleControl *vc);
+    GUINet(SUMOTime startTimestep, SUMOTime stopTimestep,
+        MSVehicleControl *vc, SUMOReal tooSlowRTF, bool logExecTime);
 
     /// destructor
     ~GUINet();

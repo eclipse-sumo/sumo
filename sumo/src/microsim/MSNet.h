@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.55  2005/11/29 13:27:59  dkrajzew
+// added a minimum simulation speed definition before the simulation ends (unfinished)
+//
 // Revision 1.54  2005/11/09 06:38:57  dkrajzew
 // problems on loading geometry items patched
 //
@@ -417,8 +420,10 @@ public:
     static void preInitMSNet( SUMOTime startTimestep,
         MSVehicleControl *vc);
 */
-    MSNet(SUMOTime startTimestep, SUMOTime stopTimestep);
-    MSNet(SUMOTime startTimestep, SUMOTime stopTimestep, MSVehicleControl *vc);
+    MSNet(SUMOTime startTimestep, SUMOTime stopTimestep,
+        SUMOReal tooSlowRTF, bool logExecTime);
+    MSNet(SUMOTime startTimestep, SUMOTime stopTimestep, MSVehicleControl *vc,
+        SUMOReal tooSlowRTF, bool logExecTime);
 
 
     /// Destructor.
@@ -600,6 +605,8 @@ public:
 
     virtual MSRouteLoader *buildRouteLoader(const std::string &file);
 
+    SUMOReal getTooSlowRTF() const;
+
 protected:
 
     /** initialises the MeanData-container */
@@ -674,6 +681,7 @@ protected:
     TimeVector myStateDumpTimes;
     std::string myStateDumpFiles;
 
+    SUMOReal myTooSlowRTF;
 
 private:
     /// Copy constructor.

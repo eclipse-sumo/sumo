@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.46  2005/11/29 13:24:03  dkrajzew
+// added a minimum simulation speed definition before the simulation ends (unfinished)
+//
 // Revision 1.45  2005/10/10 11:53:36  dkrajzew
 // debugging actuated tls-lights
 //
@@ -233,8 +236,11 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUINet::GUINet(SUMOTime startTimestep, SUMOTime stopTimestep, MSVehicleControl *vc)
-    : MSNet(startTimestep, stopTimestep, vc), _grid(10, 10),
+GUINet::GUINet(SUMOTime startTimestep, SUMOTime stopTimestep,
+               MSVehicleControl *vc,
+               SUMOReal tooSlowRTF, bool logExecTime)
+    : MSNet(startTimestep, stopTimestep, vc, tooSlowRTF, logExecTime),
+    _grid(10, 10),
     myWrapper(new GUINetWrapper(gIDStorage, *this)),
     myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
     myOverallSimDuration(0), myLastVehicleMovementCount(0),

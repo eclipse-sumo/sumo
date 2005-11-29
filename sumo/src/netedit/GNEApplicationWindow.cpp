@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2005/11/29 13:31:35  dkrajzew
+// added a minimum simulation speed definition before the simulation ends (unfinished)
+//
 // Revision 1.22  2005/11/09 06:41:26  dkrajzew
 // debugging
 //
@@ -1421,6 +1424,9 @@ GNEApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e)
             break;
         case GUIEvent_SimulationEnded::ER_FORCED:
             gQuitOnEnd = true;
+            break;
+        case GUIEvent_SimulationEnded::ER_TOO_SLOW:
+            text << "Reason: The simulation got too slow.";
             break;
         default:
             throw 1;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2005/11/29 13:34:06  dkrajzew
+// added a minimum simulation speed definition before the simulation ends (unfinished)
+//
 // Revision 1.35  2005/11/09 06:44:01  dkrajzew
 // debugging
 //
@@ -206,6 +209,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("route-steps", 's', new Option_Integer(0));
     oc.doRegister("quit-on-accident", new Option_Bool(false));
     oc.doRegister("check-accidents", new Option_Bool(false));
+    oc.doRegister("too-slow-rtf", new Option_Float(-1));
     // register the report options
     oc.doRegister("no-duration-log", new Option_Bool(false));
     oc.doRegister("verbose", 'v', new Option_Bool(false));

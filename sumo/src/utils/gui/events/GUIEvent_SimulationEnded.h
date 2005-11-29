@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2005/11/29 13:34:07  dkrajzew
+// added a minimum simulation speed definition before the simulation ends (unfinished)
+//
 // Revision 1.4  2005/10/07 11:45:20  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -76,7 +79,10 @@ public:
         ER_ERROR_IN_SIM,
 
         /// Someone else has forced the simulation to quit
-        ER_FORCED
+        ER_FORCED,
+
+        /// The simulation got too slow
+        ER_TOO_SLOW
 
     };
 
