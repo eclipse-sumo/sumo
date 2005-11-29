@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/11/29 13:33:08  dkrajzew
+// debugging
+//
 // Revision 1.7  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -124,7 +127,7 @@ ROAbstractRouteDefLoader::readRoutesAtLeastUntil(SUMOTime time)
 {
     if(!myReadRoutesAtLeastUntil(time)) {
         MsgHandler::getErrorInstance()->inform(
-            string("Problems on parsing the ") + getDataName() +
+            string("Problems on parsing ") + getDataName() +
             string(" file."));
         throw ProcessError();
     }

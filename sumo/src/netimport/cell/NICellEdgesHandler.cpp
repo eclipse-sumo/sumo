@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/11/29 13:31:16  dkrajzew
+// debugging
+//
 // Revision 1.10  2005/10/07 11:39:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -172,6 +175,7 @@ NICellEdgesHandler::report(const std::string &result)
             + '\n' + result.c_str());
     }
     // get the other parameter
+    bool hadExpliciteLaneNo = false;
     while(st.hasNext()) {
         string name = st.next();
         if(!st.hasNext()) {
@@ -184,7 +188,7 @@ NICellEdgesHandler::report(const std::string &result)
             if(name=="-n"||name=="-s") {
             }
             // try to resolve capacity->nolanes
-            if(name=="-c") {
+            if(name=="-c"&&!hadExpliciteLaneNo) {
                 nolanes = _capacity2Lanes.get(
                     TplConvert<char>::_2SUMOReal(value.c_str()));
             }
@@ -202,6 +206,7 @@ NICellEdgesHandler::report(const std::string &result)
             if(name=="-l") {
                 try {
                     nolanes = TplConvert<char>::_2int(value.c_str());
+                    hadExpliciteLaneNo = true;
                 } catch (NumberFormatException) {
                     addError(
                         string("Non-numeric lane number value:")

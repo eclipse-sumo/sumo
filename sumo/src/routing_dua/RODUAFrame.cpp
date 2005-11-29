@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/11/29 13:33:08  dkrajzew
+// debugging
+//
 // Revision 1.5  2005/10/07 11:42:28  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -131,7 +134,7 @@ RODUAFrame::addDUAOptions(OptionsCont &oc)
     oc.doRegister("scheme", 'x', new Option_String("traveltime"));
     // register Gawron's DUE-settings
     oc.doRegister("gBeta", new Option_Float(SUMOReal(0.3)));
-    oc.doRegister("gA", new Option_Float(0.05f));
+    oc.doRegister("gA", new Option_Float((SUMOReal) 0.05));
 }
 
 

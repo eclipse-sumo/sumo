@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2005/11/29 13:31:24  dkrajzew
+// debugging
+//
 // Revision 1.18  2005/11/09 06:40:49  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -206,6 +209,10 @@ replaceFirstChecking(Position2DVector &g, bool decenter,
 Position2DVector
 NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
 {
+    if(myNode._allEdges.size()<2) {
+        return Position2DVector();
+    }
+
     EdgeVector::const_iterator i, j;
     EdgeVector::iterator i2;
     std::map<NBEdge*, std::vector<NBEdge*> > same;
@@ -218,10 +225,6 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
     for(i=myNode._allEdges.begin(); i!=myNode._allEdges.end(); i++) {
         cwBoundary[*i] = *i;
         ccwBoundary[*i] = *i;
-    }
-
-    if(myNode._allEdges.size()<2) {
-        return Position2DVector();
     }
 
     // check which edges are parallel

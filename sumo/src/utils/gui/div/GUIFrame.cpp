@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/11/29 13:33:09  dkrajzew
+// debugging
+//
 // Revision 1.5  2005/10/07 11:44:53  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -80,7 +83,7 @@ GUIFrame::fillInitOptions(OptionsCont &oc)
     oc.doRegister("help", '?', new Option_Bool(false));
     oc.doRegister("configuration", 'c', new Option_FileName());
     oc.doRegister("print-options", 'p', new Option_Bool(false));
-    oc.doRegister("allow-SUMORealing-aggregated-views", 'F', new Option_Bool(false));
+    oc.doRegister("allow-floating-aggregated-views", 'F', new Option_Bool(false));
     oc.doRegister("disable-aggregated-views", 'A', new Option_Bool(false));
     oc.doRegister("disable-textures", 'T', new Option_Bool(false));
     oc.doRegister("verbose", 'v', new Option_Bool(false)); // !!!
@@ -99,6 +102,8 @@ GUIFrame::checkInitOptions(OptionsCont &oc)
     }
     return true;
 }
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 // Local Variables:

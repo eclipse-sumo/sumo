@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2005/11/29 13:31:16  dkrajzew
+// debugging
+//
 // Revision 1.18  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -192,7 +195,7 @@ NBTrafficLightDefinition::compute(const NBEdgeCont &ec, OptionsCont &oc)
     size_t breakingTime = computeBrakingTime(oc.getFloat("min-decel"));
     // perform the computation depending on whether the traffic light
     //  definition was loaded or shall be computed new completely
-    if(OptionsSubSys::getOptions().isSet("traffic-light-green")) {
+    if(OptionsSubSys::getOptions().isSet("traffic-light-yellow")) {
         breakingTime = OptionsSubSys::getOptions().getInt("traffic-light-yellow");
     }
     return myCompute(ec, breakingTime, myType, oc.getBool("all-logics"));

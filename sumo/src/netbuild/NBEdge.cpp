@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.57  2005/11/29 13:31:16  dkrajzew
+// debugging
+//
 // Revision 1.56  2005/11/09 06:40:49  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -432,13 +435,6 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
         _length = GeomHelper::distance(
             _from->getPosition(), _to->getPosition());
     }
-    if(basic==EDGEFUNCTION_SOURCE&&_length<200) {
-        _length = 200;
-    }
-    if(basic==EDGEFUNCTION_SINK&&_length<200) {
-        _length = 200;
-    }
-    assert(_length>0);
     assert(_from->getPosition()!=_to->getPosition());
     myGeom.push_back(_from->getPosition());
     myGeom.push_back(_to->getPosition());
@@ -482,6 +478,8 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     if(_from==0||_to==0) {
         throw std::exception();
     }
+    myGeom.push_back_noDoublePos(to->getPosition());
+    myGeom.push_front_noDoublePos(from->getPosition());
     _angle = NBHelpers::angle(
         _from->getPosition().x(), _from->getPosition().y(),
         _to->getPosition().x(), _to->getPosition().y()
@@ -499,13 +497,6 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
         _length = GeomHelper::distance(
             _from->getPosition(), _to->getPosition());
     }
-    if(basic==EDGEFUNCTION_SOURCE&&_length<200) {
-        _length = 200;
-    }
-    if(basic==EDGEFUNCTION_SINK&&_length<200) {
-        _length = 200;
-    }
-    assert(_length>0);
     assert(myGeom.size()>=2);
     if(_priority<0) {
         _priority = 0;
@@ -1587,7 +1578,7 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge, size_t dest_lane)
     // append current connection only if no equal is already known
     if(!known) {
         if(_reachable.size()<=src_lane) {
-            MsgHandler::getErrorInstance()->inform("Could not ste connection from '" + _id + "_" + toString(src_lane) + "' to '" + dest_edge->getID() + "_" + toString(dest_lane) + "'.");
+            MsgHandler::getErrorInstance()->inform("Could not set connection from '" + _id + "_" + toString(src_lane) + "' to '" + dest_edge->getID() + "_" + toString(dest_lane) + "'.");
             return;
         }
         assert(_reachable.size()>src_lane);
@@ -1926,8 +1917,6 @@ NBEdge::setGeometry(const Position2DVector &s)
 #endif
 #endif
     computeLaneShapes();
-
-
 }
 
 

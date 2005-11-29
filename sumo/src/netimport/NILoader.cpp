@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2005/11/29 13:31:16  dkrajzew
+// debugging
+//
 // Revision 1.14  2005/11/15 10:15:49  dkrajzew
 // debugging and beautifying for the next release
 //
@@ -377,7 +380,7 @@ void
 NILoader::loadXMLFile(SAX2XMLReader &parser, const std::string &file,
                       const string &type)
 {
-    WRITE_MESSAGE(string("Parsing the ") + type + string(" from '")+ string(file) + string("'..."));
+    WRITE_MESSAGE(string("Parsing ") + type + string(" from '")+ string(file) + string("'..."));
     parser.parse(file.c_str());
 }
 
@@ -503,6 +506,7 @@ NILoader::loadElmar(OptionsCont &oc)
     if(!oc.isSet("elmar")&&!oc.isSet("elmar2")) {
         return;
     }
+    // check which one to use
     std::string opt;
     bool unsplitted;
     if(oc.isSet("elmar")) {

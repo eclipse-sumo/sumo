@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2005/11/29 13:33:09  dkrajzew
+// debugging
+//
 // Revision 1.32  2005/11/09 06:45:15  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -987,12 +990,74 @@ Position2DVector::reverse() const
 }
 
 
+std::pair<SUMOReal, SUMOReal>
+offset(const Position2D &from, const Position2D &to,
+                   SUMOReal width)
+{
+    SUMOReal x1 = from.x();
+    SUMOReal y1 = from.y();
+    SUMOReal x2 = to.x();
+    SUMOReal y2 = to.y();
+    assert(x1!=x2||y1!=y2);
+    SUMOReal length = sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
+    std::pair<SUMOReal, SUMOReal> offsets =
+        GeomHelper::getNormal90D_CW(x1, y1, x2, y2, length, width);
+    return offsets;
+}
+
+
 void
 Position2DVector::move2side(SUMOReal amount)
 {
     if(myCont.size()<2) {
         return;
     }
+    Position2DVector shape;
+    for(size_t i=0; i<myCont.size(); i++) {
+        if(/*i==myGeom.size()-2||*/i==0) {
+            Position2D from = myCont.at(i);
+            Position2D to = myCont.at(i+1);
+            std::pair<SUMOReal, SUMOReal> offsets =
+                offset(from, to, amount);
+            shape.push_back_noDoublePos(//.push_back(
+                // (methode umbenennen; was heisst hier "-")
+                Position2D(from.x()-offsets.first, from.y()-offsets.second));
+        } else if(i==myCont.size()-1) {
+            Position2D from = myCont.at(i-1);
+            Position2D to = myCont.at(i);
+            std::pair<SUMOReal, SUMOReal> offsets =
+                offset(from, to, amount);
+            shape.push_back_noDoublePos(//.push_back(
+                // (methode umbenennen; was heisst hier "-")
+                Position2D(to.x()-offsets.first, to.y()-offsets.second));
+        } else {
+            Position2D from = myCont.at(i-1);
+            Position2D me = myCont.at(i);
+            Position2D to = myCont.at(i+1);
+            std::pair<SUMOReal, SUMOReal> offsets =
+                offset(from, me, amount);
+            std::pair<SUMOReal, SUMOReal> offsets2 =
+                offset(me, to, amount);
+            Line2D l1(
+                Position2D(from.x()-offsets.first, from.y()-offsets.second),
+                Position2D(me.x()-offsets.first, me.y()-offsets.second));
+            l1.extrapolateBy(100);
+            Line2D l2(
+                Position2D(me.x()-offsets2.first, me.y()-offsets2.second),
+                Position2D(to.x()-offsets2.first, to.y()-offsets2.second));
+            l2.extrapolateBy(100);
+            if(l1.intersects(l2)) {
+                shape.push_back_noDoublePos(//.push_back(
+                    // (methode umbenennen; was heisst hier "-")
+                    l1.intersectsAt(l2));
+            } else {
+                // !!! should never happen
+             //   throw 1;
+            }
+        }
+    }
+
+    /*
     ContType newCont;
     std::pair<SUMOReal, SUMOReal> p;
     Position2D newPos;
@@ -1017,6 +1082,8 @@ Position2DVector::move2side(SUMOReal amount)
     newPos.add(p.first, p.second);
     newCont.push_back(newPos);
     myCont = newCont;
+    */
+    myCont = shape.myCont;
 }
 
 

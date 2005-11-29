@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2005/11/29 13:31:16  dkrajzew
+// debugging
+//
 // Revision 1.21  2005/11/15 10:15:49  dkrajzew
 // debugging and beautifying for the next release
 //
@@ -250,7 +253,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
                     myCurrentID, myCurrentName,
                     myFromNode, myToNode,
                     myCurrentType, myCurrentSpeed,
-                    myCurrentLaneNo, myLength, myCurrentPriority);
+                    myCurrentLaneNo, myLength, myCurrentPriority, myLanesSpread);
             } else {
                 edge = new NBEdge(
                     myCurrentID, myCurrentName,
@@ -379,12 +382,14 @@ NIXMLEdgesHandler::setNodes(const Attributes &attrs)
     myEndNodeXPos = tryGetPosition(attrs, SUMO_ATTR_XTO, "XTo");
     myEndNodeYPos = tryGetPosition(attrs, SUMO_ATTR_YTO, "YTo");
         // check with shape
+    /*
     if(myShape.size()!=0) {
         myBegNodeXPos = myShape.getBegin().x();
         myBegNodeXPos = myShape.getBegin().y();
         myBegNodeXPos = myShape.getEnd().x();
         myBegNodeXPos = myShape.getEnd().y();
     }
+    */
     // check the obtained values for nodes
     if(!insertNodesCheckingCoherence()) {
         if(!_options.getBool("omit-corrupt-edges")) {
@@ -538,6 +543,7 @@ NIXMLEdgesHandler::tryGetShape(const Attributes &attrs)
             addError(string("The shape of edge '") + myCurrentID
                 + string("' has only one entry."));
         }
+        return shape;
     } catch (EmptyData) {
         addError(
             string("At least one number is missing in shape definition for edge '")

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2005/11/29 13:31:16  dkrajzew
+// debugging
+//
 // Revision 1.25  2005/11/09 06:40:49  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -153,7 +156,7 @@ NBNetBuilder::joinEdges(int &step)
 bool
 NBNetBuilder::removeUnwishedNodes(int &step, OptionsCont &oc)
 {
-    if(oc.getBool("no-node-removal")) {
+    if(!oc.getBool("remove-geometry")) {
         return true;
     }
     inform(step, "Removing empty nodes and geometry nodes.");
@@ -291,7 +294,7 @@ computeLinkPriorities(int &step, bool verbose)
 bool
 NBNetBuilder::appendTurnarounds(int &step, OptionsCont &oc)
 {
-    if(!oc.getBool("append-turnarounds")) {
+    if(oc.getBool("no-turnarounds")) {
         return true;
     }
     inform(step, "Appending Turnarounds");
@@ -495,20 +498,20 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     // extended
     oc.doRegister("print-node-positions", new Option_Bool(false));
     // register the data processing options
-    oc.doRegister("recompute-junction-logics", new Option_Bool(false));
+//    oc.doRegister("recompute-junction-logics", new Option_Bool(false));
     oc.doRegister("omit-corrupt-edges", new Option_Bool(false));
     oc.doRegister("flip-y", new Option_Bool(false));
     oc.doRegister("all-logics", new Option_Bool(false));
-    oc.doRegister("use-laneno-as-priority", new Option_Bool(false));
+    oc.doRegister("use-laneno-as-priority", new Option_Bool(false)); // !!! not described
     oc.doRegister("keep-small-tyellow", new Option_Bool(false));
     oc.doRegister("traffic-light-green", new Option_Integer());
     oc.doRegister("traffic-light-yellow", new Option_Integer());
     oc.doRegister("x-offset-to-apply", new Option_Float(0));
     oc.doRegister("y-offset-to-apply", new Option_Float(0));
     oc.doRegister("rotation-to-apply", new Option_Float(0));
-    oc.doRegister("no-node-removal", new Option_Bool(false));
-    oc.doRegister("append-turnarounds", new Option_Bool(false));
-    oc.doRegister("add-internal-links", 'I', new Option_Bool(false));
+    oc.doRegister("remove-geometry", 'R', new Option_Bool(false));
+    oc.doRegister("no-turnarounds", new Option_Bool(false));
+    oc.doRegister("add-internal-links", 'I', new Option_Bool(false)); // !!! not described
 
     oc.doRegister("map-output", 'M', new Option_FileName());
 
