@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2005/11/29 13:42:03  dkrajzew
+// added a minimum simulation speed definition before the simulation ends (unfinished)
+//
 // Revision 1.23  2005/11/15 10:15:49  dkrajzew
 // debugging and beautifying for the next release
 //
@@ -344,7 +347,6 @@ main(int argc, char **argv)
         TNGNet *net = buildNetwork(nb);
         // ... and we have to do this...
         oc.resetWritable();
-        oc.set("no-node-removal", true);
         // transfer to the netbuilding structures
         NBNetBuilder::preCheckOptions(oc);
         net->toNB();

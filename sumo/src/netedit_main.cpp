@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2005/11/29 13:42:03  dkrajzew
+// added a minimum simulation speed definition before the simulation ends (unfinished)
+//
 // Revision 1.7  2005/10/17 09:27:46  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -136,7 +139,7 @@ main(int argc, char **argv)
         }
         // initialise global settings
         gQuitOnEnd = oc.getBool("quit-on-end");
-        gAllowAggregatedFloating = oc.getBool("allow-SUMORealing-aggregated-views");
+        gAllowAggregatedFloating = oc.getBool("allow-floating-aggregated-views");
         gAllowAggregated = !oc.getBool("disable-aggregated-views");
         gAllowTextures = !oc.getBool("disable-textures");
         gSuppressEndInfo = oc.getBool("surpress-end-info");

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2005/11/29 13:42:03  dkrajzew
+// added a minimum simulation speed definition before the simulation ends (unfinished)
+//
 // Revision 1.10  2005/11/15 10:15:49  dkrajzew
 // debugging and beautifying for the next release
 //
@@ -321,7 +324,7 @@ main(int argc, char **argv)
         }
         // initialise global settings
         gQuitOnEnd = oc.getBool("quit-on-end");
-        gAllowAggregatedFloating = oc.getBool("allow-SUMORealing-aggregated-views");
+        gAllowAggregatedFloating = oc.getBool("allow-floating-aggregated-views");
         gAllowAggregated = !oc.getBool("disable-aggregated-views");
         gAllowTextures = !oc.getBool("disable-textures");
         gSuppressEndInfo = oc.getBool("surpress-end-info");
