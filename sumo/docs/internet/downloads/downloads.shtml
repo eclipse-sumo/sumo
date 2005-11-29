@@ -51,7 +51,7 @@
 
 							<hr>
 							<p>
-								<h2>SUMO - Latest Developer Release (Version 0.9.1)</h2>
+								<h2>SUMO - Latest Developer Release (Version 0.9.2)</h2>
 								<br>
 								This is the version we are currently working on.<br>
 								It is possible, that some APIs will change in the future. The main difference between the 0.9.x version and version 0.8.x is that we have moved to FOX1.4.<br>
@@ -77,8 +77,8 @@
 										The MS Windows binaries.
 										<br>
 										Contains the binaries, all dlls needed and some examples.<br>
-										Download as: <a class="SUMOInLineLink" href="sumo-winbin-0.9.1.zip">[sumo-winbin-0.9.1.zip,
-											~4.6MB]</a><br>
+										Download as: <a class="SUMOInLineLink" href="sumo-winbin-0.9.2.zip">[sumo-winbin-0.9.2.zip,
+											~4.7MB]</a><br>
 										<br>
 									<li>
 										The last stable Linux binaries.<br>
@@ -88,9 +88,9 @@
 										The last stable source-tarball. This one was built on 07.10.2005. Includes
 										sources, examples, Linux-Makefiles and MSVC++ 6.0 and MS Visual Studio
 										.net-project workspace.<br>
-										Download as: <a class="SUMOInLineLink" href="sumo-src-0.9.1.tar.gz">[sumo-src-0.9.1.tar.gz,
-											~2.8MB]</a> <a class="SUMOInLineLink" href="sumo-src-0.9.1.zip">[sumo-src-0.9.1.zip,
-											~4.7MB]</a><br>
+										Download as: <a class="SUMOInLineLink" href="sumo-src-0.9.2.tar.gz">[sumo-src-0.9.2.tar.gz,
+											~2.8MB]</a> <a class="SUMOInLineLink" href="sumo-src-0.9.2.zip">[sumo-src-0.9.2.zip,
+											~4.6MB]</a><br>
 										<br>
 									<li>
 										<b>Needed Libraries</b><br>

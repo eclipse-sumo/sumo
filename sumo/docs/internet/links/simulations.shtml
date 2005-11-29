@@ -51,7 +51,11 @@
     <li><a class="SUMOInLineLink" href="http://www.esat.kuleuven.ac.be/~smaerivo/website/phdresearch/index.php?page=mitrasim-2000">MITRASIM-2000</a><br>
     An (open source?) traffic simulation in Java. [not revised]<br>
     <li><a class="SUMOInLineLink" href="http://www.esat.kuleuven.ac.be/~smaerivo/website/phdresearch/index.php?page=sm-tca">Traffic Cellular Automata+</a><br>
-    A java application to test cellular automata traffic models. [not revised]<br>
+    A java application to test cellular automata traffic models. Very nice, but runs on Java1.3 only.<br>
+    <li><a class="SUMOInLineLink" href="http://www.babsim.de/">BABSIM</a><br>
+    A simulation mainly concentrating on highways (BAB=BundesAutoBahnen, Federal Highways). Not yet given o the public.<br>
+    <li><a class="SUMOInLineLink" href="http://traffspot.db-nico.de/">TraffSpot</a><br>
+    A microscopic simulation with a nice 3D-view.<br>
 </ul><br>
 
 <b>Traffic lights optimisation</b>

@@ -54,7 +54,7 @@ os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --st
 print " od2trips..."
 os.system("xsltproc.exe ./tools/custom.xml man-od2trips.xml")
 os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o man_od2trips.html /usr/share/docbook-xsl/sumo_html/faq_docbook.xsl man-od2trips.xml")
-print " sumo..."
+#print " sumo..."
 os.system("xsltproc.exe ./tools/custom.xml man-sumo.xml")
 os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o man_sumo.html /usr/share/docbook-xsl/sumo_html/faq_docbook.xsl man-sumo.xml")
 
@@ -90,14 +90,22 @@ for file in files:
 		content = fd.read()
 		fd.close()
 
+		# replace html by shtml
+		idx = content.find(".html")
+		while(idx>=0):
+			if content[idx:idx+7] != ".html$%":
+				content = content[:idx] + ".shtml" + content[idx+5:]
+			idx = content.find(".html", idx+1)
+
+
+		# insert menus
 		idx = content.find("$%MENU1%$")
 		content = content[:idx] + "<!--#include virtual=\"" + content[idx+9:]
-
 		idx = content.find("$%MENU2%$")
 		content = content[:idx] + "\"-->" + content[idx+9:]
-
 		idx = content.find("$%MENU3%$")
 		content = content[:idx] + "<!--#include virtual=\"../../menus/db_menu_end.html\"-->" + "<p></p><hr/><p><div align=\"right\" class=\"SUMOPageInfo\">last change: <!--#flastmod file=\"$%NAME%$\"--><!--#exec cgi=\"/cgi-bin/saveenv.pl\"--></div></p>" + content[idx+9:]
+
 
 		name = out;
 		idx = name.rfind("/")

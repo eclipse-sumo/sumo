@@ -67,6 +67,10 @@ id="more_tls"
 >More on... Traffic Lights</title
 ><para
 >Within this first chapter, we will describe how traffic lights are implemented and used within SUMO. As basically, traffic lights affect the right-of-way rules at a junction, we will first describe how right-of-way rules are implemented within SUMO. Afterwards, the additional concept of traffic lights is given.</para
+><para
+><emphasis
+>Audience:</emphasis
+> developers of traffic light system logics</para
 ><sect1
 ><title
 >Right-Of-Way Rules in SUMO</title
@@ -135,7 +139,11 @@ format="GIF"
 ><title
 >Setting Information by MSLogicJunctions</title
 ><para
->As we have seen, a MSLogicJunction gives way to the vehicles after the knowledge about all incoming vehicles has been set. We have seen that this information was stored in a structure named &#34;MSLogicJunction::Request&#34;. This is simply a list of bits, a std::bitset&#60;64&#62;, where each bit represents the information whether a certain link is approached by a vehicle currently (it&#39;s then set to true otherwise it&#39;s false).</para
+>As we have seen, a MSLogicJunction gives way to the vehicles after the knowledge about all incoming vehicles has been set. We have seen that this information was stored in a structure named &#34;<classname
+>MSLogicJunction::Reques</classname
+>t&#34;. This is simply a list of bits, a <classname
+>std::bitset&#60;64&#62;</classname
+>, where each bit represents the information whether a certain link is approached by a vehicle currently (it&#39;s then set to true otherwise it&#39;s false).</para
 ><para
 >What traffic lights do is simply to mask off those requests which are approaching a currently red sign. By doing this, the response for these streams is also set to false which forces the approaching vehicles to stop in front of the junction. Furthermore, this method keeps the row-logic of the junction untouched, what allows to use it for letting vehicles moving left - in the part of the world that drives on the right sied, that means those streams which have to cross an enemy stream - wait until there is a gap in the enemy stream they can use to move over the junction.</para
 ><figure
@@ -151,6 +159,47 @@ format="GIF"
 ></imageobject
 ></mediaobject
 ></figure
+></sect2
+><sect2
+><title
+>Switching the Phases</title
+><para
+>What we furthermore need to know is how a traffic light is forces to switch its phases and how the links get informed about this. When being instantiated, the tls adds an event to SUMO&#39;s event handler (<classname
+>MSEventHandler</classname
+>). This is done within the <classname
+>MSTrafficLightLogic</classname
+>-constructor, a class from which all tls algorithms are derived (see above). This event, being a <classname
+>MSTrafficLightLogic::SwitchCommand</classname
+> executes the following steps:</para
+><programlisting
+>SUMOTime execute() {
+   size_t step1 = myTLLogic-&#62;getStepNo(); // get the current phase index
+   SUMOTime next = myTLLogic-&#62;trySwitch(); // try to switch, get next duration
+   size_t step2 = myTLLogic-&#62;getStepNo(); // get the phase index after possible switch
+   if(step1!=step2) { // has the phase changed?
+      myTLLogic-&#62;onSwitch(); // yes -&#62; do some further actions (see below)
+      myTLLogic-&#62;setLinkPriorities(); // inform the links about current state
+   }
+   return next; // return period after which the tls shall be tried to switch again
+}
+</programlisting
+><para
+>Let&#39;s review it. At first, we remember the state of the tls before trying to switch it in the variable <varname
+>step1</varname
+>. This &#34;state&#34; is simply the index of the current tls phase. Then, we try to switch the tls using <function
+>trySwitch()</function
+> and gain the period to the next try which we save in <varname
+>next</varname
+>. After this, we check whether the tls has really changed by asking for its current step. If the step before and the step after trying to switch the tls are not the same, the tls has switched. We then inform the links about it using the <classname
+>MSTrafficLightLogic::setLinkPriorities</classname
+> function. The call to <function
+>onSwitch</function
+> should not bother you, herein. It is not a part of the tls-steering, but used to inform connected structures about the phase change. By now, only assigned detectors (see [!!!]) may be informed and their assignment is done separately from the tls-implementations. The comparison between the step before and after trying to switch is needed, as maybe the tls decides not to switch, yet, although the phases duration is over (see the <ulink
+url="#more_tls-existing-static"
+>description of the agentbased tls</ulink
+>). After all has been done, we return the period to wait until we again try to switch the tls. If you want, your implementation of &#34;<function
+>trySwitch</function
+>&#34; may always return 1 in order to check the tls each simulation step.</para
 ></sect2
 ><sect2
 ><title
@@ -360,6 +409,16 @@ linenumbering="unnumbered"
 >: a bitset which holds the information which vehicles are in front of yellow lights (1).</para
 ></listitem
 ></itemizedlist
+><caution
+><para
+>The indices of &#34;<sgmltag
+>phase</sgmltag
+>&#34;, &#34;<sgmltag
+>brake</sgmltag
+>&#34; and &#34;<sgmltag
+>yellow</sgmltag
+>&#34; are from right to left, that means the rightmost (last) entry will be later found at index 0.</para
+></caution
 ><para
 >Also some further non-mandatory attributes may be stored within the <sgmltag
 >phase</sgmltag
@@ -476,26 +535,54 @@ url="http://sumo.sourceforge.net/docs/gen/dev_chp03.shtml#dev_chp03-loading"
 ></sect1
 ><sect1
 ><title
->Additional LSA-Algorithms in SUMO</title
+>How to implement a new Traffic Lights Logic</title
 ><sect2
 ><title
->Actuated TLS</title
-><para
->...tbd...</para
-></sect2
-><sect2
-><title
->Agentbased TLS</title
+>Existing APIs</title
 ><para
 >...tbd...</para
 ></sect2
 ></sect1
 ><sect1
 ><title
->How to implement a new Traffic Lights Logic</title
+>Existing LSA-Algorithms in SUMO</title
+><sect2
+id="more_tls-existing-static"
+><title
+>Static TLS (MSSimpleTrafficLightLogic)</title
+><para
+>This tls-type simply obtains the list of phases from the description and switches between the cycles after each cycle&#39;s period is over. We have seen that the tls algorithm is stored in <function
+>trySwitch()</function
+>. What a simple traffic light&#39;s implementation does is the following:</para
+><programlisting
+>SUMOTime
+MSSimpleTrafficLightLogic::trySwitch()
+{
+    // increment the index
+    myStep++;
+    // if the last phase was reached ...
+    if(myStep==myPhases.size()) {
+        // ... set the index to the first phase
+        myStep = 0;
+    }
+    // return offset to the next switch
+    assert(myPhases.size()&#62;myStep);
+    return myPhases[myStep]-&#62;duration;
+}
+</programlisting
+><para
+>That means that we simply rotate our index over the phases and return each phase&#39;s duration as the time that has to pass before the traffic light is switched one step further.</para
+></sect2
 ><sect2
 ><title
->... tbd ...</title
+>Actuated TLS</title
+><para
+>Sorry, we have found some inconvenient things within our implementation of Actuated TLS. We have to fix this, before we will describe the algorithm (dkrajzew, 14.11.2005). ... tbd ...</para
+></sect2
+><sect2
+id="more_tls-existing-agentbased"
+><title
+>Agentbased TLS</title
 ><para
 >...tbd...</para
 ></sect2
@@ -506,10 +593,14 @@ id="more_emissions"
 ><title
 >More on... Vehicle Handling</title
 ><para
->SUMO holds several ways to insert vehicles into the network. This chapter decribes the different possibilities and is meant to be an add-on to the <ulink
+>Being a traffic simulation, SUMO has to handle vehicles in many ways. This chapter describes how vehicles are used within the simulation, how they can be added to the net and several other aspects of vehicles within the simulation. This chapter is meant to be an add-on to the <ulink
 url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
 >user documentation</ulink
 >.</para
+><para
+><emphasis
+>Audience:</emphasis
+> users</para
 ><sect1
 ><title
 >Vehicles in the microsim</title
@@ -518,10 +609,34 @@ url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
 >Used Structures</title
 ><para
 >... tbd ...</para
+><sect3
+><title
+>Route Definitions (MSRoute)</title
+><para
+>You</para
+></sect3
+><sect3
+><title
+>Vehicle Types (MSVehicleType)</title
+><para
+>You</para
+></sect3
+><sect3
+><title
+>Vehicles (MSVehicle)</title
+><para
+>You</para
+></sect3
 ></sect2
 ><sect2
 ><title
 >A Vehicle&#39;s Lifecycle</title
+><para
+>... tbd ...</para
+></sect2
+><sect2
+><title
+>The &#34;three edges rule&#34;</title
 ><para
 >... tbd ...</para
 ></sect2
@@ -530,7 +645,19 @@ url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
 ><title
 >Emissions</title
 ><para
->... tbd ...</para
+>In the real life, vehicles are parked somewhere in the near of the road and start their route from this place. A plain modelling of this is not useful because</para
+><itemizedlist
+><listitem
+><para
+>You would have to handle all vehicles, also those standing around what would cost you much memory and cpu time and would need more effort in modelling,</para
+></listitem
+><listitem
+><para
+>A simulation mostly takes place at a subpart of a network and vehicles come mostly from the boundaries of the simulated area.</para
+></listitem
+></itemizedlist
+><para
+>Due to this, within traffic simulations, vehicles are inserted into the net on emission and are deleted when leaving the simulation, either by leaving the area or by parking. This paradigm is also used within SUMO.</para
 ><sect2
 ><title
 >Plain Emissions</title
@@ -538,7 +665,7 @@ url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
 ><title
 >Emissions from normal Edges</title
 ><para
->... tbd ...</para
+>The most common procedure to emit vehicles in SUMO is to insert them at normal edges (streets). This</para
 ></sect3
 ><sect3
 ><title
@@ -568,6 +695,483 @@ url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
 >... tbd ...</title
 ><para
 >...tbd...</para
+></sect2
+></sect1
+></chapter
+><chapter
+id="more_dua"
+><title
+>More on... Dynamic User Assignment</title
+><para
+>This chapter is meant to be an add-on to the <ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
+>user documentation</ulink
+>. We will not discuss how to perform the DUA using SUMO, herein, this is described within chapter &#34;<ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-dua"
+>Dynamic User Assignment</ulink
+>&#34; of the <ulink
+url="http://sumo.sourceforge.net/docs/userdocs.shtml"
+>user documentation</ulink
+>. What we would like to do instead is to talk some deeper aspects using a examples.</para
+><para
+><emphasis
+>Audience:</emphasis
+> users</para
+><sect1
+><title
+>DUA on the City of Magdeburg from the INVENT Project</title
+><sect2
+><title
+>Prerequisites</title
+><para
+>The next picture shows the network we have used within the project &#34;INVENT&#34;. It was given to us as an VISUM network. As VISUM-routes normally start at explicite feeding edges, we could reduce the network by removing geometry nodes. The routes were given as OD-matrices in a ptv-Format. They define the flows for the time betwee 5am and 12pm (!!!). After converting the matrices using <application
+>OD2TRIPS</application
+> into trips we were able to begin with the DUA. The assignment was made using the <filename
+>iterate.pl</filename
+> - script described here (tbd).</para
+><figure
+><title
+>The network of City of Magdeburg used within INVENT as shown by SUMO (tbd)</title
+><mediaobject
+><imageobject
+><imagedata
+align="center"
+fileref="./gfx/more/CD_TrafficLights.gif"
+format="GIF"
+></imagedata
+></imageobject
+></mediaobject
+></figure
+><para
+>You may find some further information on the simulation&#39;s settings within the TBD chapter, where this network is also used as example.</para
+><sect3
+><title
+>!!!</title
+><para
+>You</para
+></sect3
+></sect2
+><sect2
+><title
+>Evaluations of the DUA</title
+><para
+>The DUA has been run 40 times in order to check the behaviour of the algorithm. As output, we generated the vehicle emissions (see chapter tbd), vehicle trip duration (see chapter tbd) and edge-based dumps (see chapter TBD), the latest with aggregation times of 150s, 300s and 900s.</para
+><para
+>We will now examine the data generated, starting with the vehicle emissions file.</para
+><sect3
+><title
+>Development of Vehicle Emissions</title
+><para
+>The vehicle emissions file (see chapter tbd) gives information about how many vehicles were loaded/runnning and have started/ended for each time stemp. Additionally, the time the simulation needed to compute the step is written.</para
+><sect4
+><title
+>Running Vehicles</title
+><para
+>The next picture shows the development of the number of vehicles within the simulation over the dua iteration process. Every 5th iteration is shown. The plot was done using the following gnuplot command after converting the xml-output into files readable by gnuplot:</para
+><screen
+>gnuplot&#62; plot &#34;emissions_0.txt&#34; u 1:4 w l, &#34;emissions_5.txt&#34; u 1:4 w l, \
+   &#34;emissions_10.txt&#34; u 1:4 w l, &#34;emissions_15.txt&#34; u 1:4 w l, \
+   &#34;emissions_20.txt&#34; u 1:4 w l, &#34;emissions_25.txt&#34; u 1:4 w l, \
+   &#34;emissions_30.txt&#34; u 1:4 w l, &#34;emissions_35.txt&#34; u 1:4 w l</screen
+><figure
+><title
+>Development of running vehicles over time and dua iteration step (iteration step number is increased by 5) (tbd)</title
+><mediaobject
+><imageobject
+><imagedata
+align="center"
+fileref="./gfx/more/CD_TrafficLights.gif"
+format="GIF"
+></imagedata
+></imageobject
+></mediaobject
+></figure
+><para
+>Lets review what we see:</para
+><orderedlist
+><listitem
+><para
+>The number of running vehicles decreases with each step</para
+><para
+>What we see here in fact is exactly the reason for using a dynamic user assignment. The large number of vehicles within the first iterations indicates that new vehicles are inserted into the network while the previously inserted have not yet left. The reason why previously inserted vehicles are still in the net is that they got stocked in jams. And the jams occured because all vehicles are trying to use the same route.</para
+></listitem
+><listitem
+><para
+>Not every following iteration step is better than the previous</para
+><para
+>It may be supposes that this may only be due to the dynamic changes within the simulation. That means, that both small changes within the routes&#39; distribution and the stochasticity in the microscopic model may yield in a larger jam which breaks down the network&#39;s capacity. Nevertheless, it is also possible that the microscopic model is not flexible enough not to cause the network to be free of jams and grid-locks as the reality is.</para
+></listitem
+></orderedlist
+><para
+>Now let&#39;s recheck the last steps (step 30-39) using:</para
+><screen
+>gnuplot&#62; plot &#34;emissions_30.txt&#34; u 1:4 w l, &#34;emissions_31.txt&#34; u 1:4 w l, \
+   &#34;emissions_32.txt&#34; u 1:4 w l, &#34;emissions_33.txt&#34; u 1:4 w l, \
+   &#34;emissions_34.txt&#34; u 1:4 w l, &#34;emissions_35.txt&#34; u 1:4 w l, \
+   &#34;emissions_36.txt&#34; u 1:4 w l, &#34;emissions_37.txt&#34; u 1:4 w l, \
+   &#34;emissions_38.txt&#34; u 1:4 w l, &#34;emissions_39.txt&#34; u 1:4 w l</screen
+><figure
+><title
+>Development of running vehicles over time in steps 30-39 (tbd)</title
+><mediaobject
+><imageobject
+><imagedata
+align="center"
+fileref="./gfx/more/CD_TrafficLights.gif"
+format="GIF"
+></imagedata
+></imageobject
+></mediaobject
+></figure
+><para
+>If we remove those &#34;broken&#34; assignments, we can see that the development is almost closed at step 30 and only a small advantage can is done:</para
+><screen
+>gnuplot&#62; plot &#34;emissions_30.txt&#34; u 1:4 w l, &#34;emissions_31.txt&#34; u 1:4 w l, \
+   &#34;emissions_32.txt&#34; u 1:4 w l, &#34;emissions_33.txt&#34; u 1:4 w l, \
+   &#34;emissions_36.txt&#34; u 1:4 w l, &#34;emissions_37.txt&#34; u 1:4 w l, \
+   &#34;emissions_38.txt&#34; u 1:4 w l, &#34;emissions_39.txt&#34; u 1:4 w l</screen
+><figure
+><title
+>Development of running vehicles over time in steps 30-39, step 34 and 35 excluded (tbd)</title
+><mediaobject
+><imageobject
+><imagedata
+align="center"
+fileref="./gfx/more/CD_TrafficLights.gif"
+format="GIF"
+></imagedata
+></imageobject
+></mediaobject
+></figure
+><para
+>It is not clear whether it is necessary to try the really optimal approach. One can assume that in reality, some drivers are still passing major roads they know without asking about a shorter possibility. As the next picture shows, the dua of step !!! is fitting very well to the data we got from detectors within Magdeburg.</para
+><para
+>One can state, that the dua is finished if the vehicles running in a simulation step is not changing over some iteration step dramatically. A real function or algorithm for evaluating this but is still missing.</para
+></sect4
+><sect4
+><title
+>Ended Vehicles</title
+><para
+>Almost the same information can be gained using the information about the number of vehicles that have left the simulation stored within the emissions file. As one may see within the next picture, the number of vehicles which have left the simulation is increasing with the iteration step. This of course has the same reasons as described within the previous chapter: the vehicles get stocked in the simulation due to jams.</para
+><figure
+><title
+>Development of ended vehicles over time and dua iteration step (iteration step number is increased by 5) (tbd)</title
+><mediaobject
+><imageobject
+><imagedata
+align="center"
+fileref="./gfx/more/CD_TrafficLights.gif"
+format="GIF"
+></imagedata
+></imageobject
+></mediaobject
+></figure
+><para
+>This picture was done using:</para
+><screen
+>gnuplot&#62; plot &#34;emissions_0.txt&#34; u 1:6 w l, &#34;emissions_5.txt&#34; u 1:6 w l, \
+   &#34;emissions_10.txt&#34; u 1:6 w l, &#34;emissions_15.txt&#34; u 1:6 w l, \
+   &#34;emissions_20.txt&#34; u 1:6 w l, &#34;emissions_25.txt&#34; u 1:6 w l, \
+   &#34;emissions_30.txt&#34; u 1:6 w l, &#34;emissions_35.txt&#34; u 1:6 w l</screen
+></sect4
+><sect4
+><title
+>Waiting Vehicles and the Mean Waiting Time</title
+><para
+>That vehicles are stocked may be also visualised using the number of waiting vehicles. Vehicles are declared as waiting if they can not be emitted into the network, because their departure edge is full. The next picture shows the development of this value during the simulations and the dua-steps.</para
+><figure
+><title
+>Development of waiting vehicles over time and dua iteration step (iteration step number is increased by 5) (tbd)</title
+><mediaobject
+><imageobject
+><imagedata
+align="center"
+fileref="./gfx/more/CD_TrafficLights.gif"
+format="GIF"
+></imagedata
+></imageobject
+></mediaobject
+></figure
+><para
+>This picture was done using:</para
+><screen
+>gnuplot&#62; plot &#34;emissions_0.txt&#34; u 1:5 w l, &#34;emissions_5.txt&#34; u 1:5 w l, \
+   &#34;emissions_10.txt&#34; u 1:5 w l, &#34;emissions_15.txt&#34; u 1:5 w l, \
+   &#34;emissions_20.txt&#34; u 1:5 w l, &#34;emissions_25.txt&#34; u 1:5 w l, \
+   &#34;emissions_30.txt&#34; u 1:5 w l, &#34;emissions_35.txt&#34; u 1:5 w l</screen
+><para
+>This is also visible when evaluating the mean waiting time:</para
+><figure
+><title
+>Development of the mean waiting time over time and dua iteration step (iteration step number is increased by 5) (tbd)</title
+><mediaobject
+><imageobject
+><imagedata
+align="center"
+fileref="./gfx/more/CD_TrafficLights.gif"
+format="GIF"
+></imagedata
+></imageobject
+></mediaobject
+></figure
+><para
+>This picture was done using:</para
+><screen
+>gnuplot&#62; plot &#34;emissions_0.txt&#34; u 1:7 w l, &#34;emissions_5.txt&#34; u 1:7 w l, \
+   &#34;emissions_10.txt&#34; u 1:7 w l, &#34;emissions_15.txt&#34; u 1:7 w l, \
+   &#34;emissions_20.txt&#34; u 1:7 w l, &#34;emissions_25.txt&#34; u 1:7 w l, \
+   &#34;emissions_30.txt&#34; u 1:7 w l, &#34;emissions_35.txt&#34; u 1:7 w l</screen
+></sect4
+><sect4
+><title
+>Mean Travel Time</title
+><para
+>The next picture shows how dramatically the dua changes the mean travel time.</para
+><figure
+><title
+>Development of the mean travel time over time and dua iteration step (iteration step number is increased by 5) (tbd)</title
+><mediaobject
+><imageobject
+><imagedata
+align="center"
+fileref="./gfx/more/CD_TrafficLights.gif"
+format="GIF"
+></imagedata
+></imageobject
+></mediaobject
+></figure
+><para
+>This picture was done using:</para
+><screen
+>gnuplot&#62; plot &#34;emissions_0.txt&#34; u 1:8 w l, &#34;emissions_5.txt&#34; u 1:8 w l, \
+   &#34;emissions_10.txt&#34; u 1:8 w l, &#34;emissions_15.txt&#34; u 1:8 w l, \
+   &#34;emissions_20.txt&#34; u 1:8 w l, &#34;emissions_25.txt&#34; u 1:8 w l, \
+   &#34;emissions_30.txt&#34; u 1:8 w l, &#34;emissions_35.txt&#34; u 1:8 w l</screen
+><para
+>... and for the last 10 steps:</para
+><figure
+><title
+>Development of the mean waiting time over time and dua iteration step (iteration step number is increased by 5) (tbd)</title
+><mediaobject
+><imageobject
+><imagedata
+align="center"
+fileref="./gfx/more/CD_TrafficLights.gif"
+format="GIF"
+></imagedata
+></imageobject
+></mediaobject
+></figure
+><para
+>This picture was done using:</para
+><screen
+>tbd</screen
+><para
+>One may see that for the last steps of the last iterations, the mean travel time differs only by 30s. This is really not that important...</para
+></sect4
+></sect3
+></sect2
+></sect1
+><sect1
+><title
+>Tools</title
+><sect2
+><title
+>iterate.pl</title
+><para
+>At first, let&#39;s look at the development of the number of vehicles.</para
+><sect3
+><title
+>!!!</title
+><para
+>You</para
+></sect3
+><sect3
+><title
+>!!!</title
+><para
+>You</para
+></sect3
+><sect3
+><title
+>!!!</title
+><para
+>You</para
+></sect3
+></sect2
+><sect2
+><title
+>!!!!</title
+><para
+>... tbd ...</para
+></sect2
+><sect2
+><title
+>!!!</title
+><para
+>... tbd ...</para
+></sect2
+></sect1
+></chapter
+><chapter
+id="more_performance"
+><title
+>More on... Simulation Performance</title
+><para
+>!!! This chapter is meant to be an add-on to the <ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
+>user documentation</ulink
+>.</para
+><para
+><emphasis
+>Audience:</emphasis
+> users</para
+><sect1
+><title
+>!!!</title
+><sect2
+><title
+>!!!!</title
+><para
+>... tbd ...</para
+><sect3
+><title
+>!!!</title
+><para
+>You</para
+></sect3
+><sect3
+><title
+>!!!</title
+><para
+>You</para
+></sect3
+><sect3
+><title
+>!!!</title
+><para
+>You</para
+></sect3
+></sect2
+><sect2
+><title
+>!!!!</title
+><para
+>... tbd ...</para
+></sect2
+><sect2
+><title
+>!!!</title
+><para
+>... tbd ...</para
+></sect2
+></sect1
+></chapter
+><chapter
+id="more_model_extensions"
+><title
+>More on... Traffic Flow Model and Extensions</title
+><para
+>!!! This chapter is meant to be an add-on to the <ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
+>user documentation</ulink
+>.</para
+><para
+><emphasis
+>Audience:</emphasis
+> users</para
+><sect1
+><title
+>!!!</title
+><sect2
+><title
+>!!!!</title
+><para
+>... tbd ...</para
+><sect3
+><title
+>!!!</title
+><para
+>You</para
+></sect3
+><sect3
+><title
+>!!!</title
+><para
+>You</para
+></sect3
+><sect3
+><title
+>!!!</title
+><para
+>You</para
+></sect3
+></sect2
+><sect2
+><title
+>!!!!</title
+><para
+>... tbd ...</para
+></sect2
+><sect2
+><title
+>!!!</title
+><para
+>... tbd ...</para
+></sect2
+></sect1
+></chapter
+><chapter
+id="more_tests"
+><title
+>More on... Software Tests</title
+><para
+>!!! This chapter is meant to be an add-on to the <ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
+>user documentation</ulink
+>.</para
+><para
+><emphasis
+>Audience:</emphasis
+> users</para
+><sect1
+><title
+>!!!</title
+><sect2
+><title
+>!!!!</title
+><para
+>... tbd ...</para
+><sect3
+><title
+>!!!</title
+><para
+>You</para
+></sect3
+><sect3
+><title
+>!!!</title
+><para
+>You</para
+></sect3
+><sect3
+><title
+>!!!</title
+><para
+>You</para
+></sect3
+></sect2
+><sect2
+><title
+>!!!!</title
+><para
+>... tbd ...</para
+></sect2
+><sect2
+><title
+>!!!</title
+><para
+>... tbd ...</para
 ></sect2
 ></sect1
 ></chapter

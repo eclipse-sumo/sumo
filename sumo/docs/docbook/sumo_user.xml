@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
-"http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
 <book
 ><bookinfo
 ><title
@@ -39,20 +37,21 @@ id="user_chp01"
 ><title
 >Introduction</title
 ><sect1
+id="user_chp01-sumo"
 ><title
 >What is SUMO?</title
 ><para
 >SUMO is a traffic simulation tool. It was primarily designed for urban street networks, but it may also be used for highway traffic simulations. In the near future it will be extended to model other transit modes simultaneously with ordinary car traffic.</para
 ></sect1
 ><sect1
+id="user_chp01-opensource"
 ><title
 >Why open source?</title
 ><para
->Two thoughts stood behind the release of the package as open source. At first the fact that every traffic research organisation has to implement an own simulation package for its own. Some people are interested in traffic light optimisation, other try to find mistakes made during the design of a road network. Both need some kind of a simulation package and have to implement a framework containing input and output functions and other things from scratch. So the first idea was to give them a basic framework - containing all needed methods for a simulation - they can put own ideas into.</para
-><para
->The second idea is to supply a common test bed for models, especially car models, to the community to make them comparable. Due to different architectures of traffic simulations such comparisons on a wide scale are not possible by now.</para
+>Two thoughts stood behind the release of the package as open source. At first the fact that every traffic research organisation is forced to implement an own simulation package; some people are interested in traffic light optimisation, other try to find mistakes made during the design of a road network. Both need some kind of a simulation package and have to implement a framework containing input and output functions and other things from scratch. So the first idea was to give them a basic framework - containing all needed methods for a simulation - they can put own ideas into. The second idea is to supply a common test bed for models, especially car models, to the community to make them comparable. Due to different architectures of traffic simulations such comparisons on a wide scale are not possible by now.</para
 ></sect1
 ><sect1
+id="user_chp01-features"
 ><title
 >Features</title
 ><para
@@ -110,49 +109,273 @@ spacing="compact"
 ></para
 ></sect1
 ><sect1
+id="user_chp01-about_document"
 ><title
->About this document</title
+>About this Document</title
 ><para
->This document describes how to use each of the applications that come with the SUMO-package.</para
+>This document describes how to use each of the applications that come with the SUMO-package. We should remark, that this document only covers the usage of the software and some descriptions of the used models. Information about the applications&#39; interna may be found in the <ulink
+url="http://sumo.sourceforge.net/docs/devdocs.shtml"
+>developer documentation</ulink
+>.</para
+><sect2
+id="user_chp01-about_document-applications"
+><title
+>Described Applications</title
+><table
+><title
+>Applications described within this document</title
+><tgroup
+cols="5"
+><thead
+><row
+><entry
+>Application</entry
+><entry
+>Application Name (Windows)</entry
+><entry
+>Application Name (Linux/UNIX)</entry
+><entry
+>Description</entry
+><entry
+>Described in Chapter</entry
+></row
+></thead
+><tbody
+><row
+><entry
+><application
+>NETCONVERT</application
+></entry
+><entry
+>netconvert.exe</entry
+><entry
+>sumo-netconvert</entry
+><entry
+>A network converter/importer</entry
+><entry
+><ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml"
+>Chapter 4</ulink
+></entry
+></row
+><row
+><entry
+><application
+>NETGEN</application
+></entry
+><entry
+>netgen.exe</entry
+><entry
+>sumo-netgen</entry
+><entry
+>A generator of abstract networks</entry
+><entry
+><ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml"
+>Chapter 4</ulink
+></entry
+></row
+><row
+><entry
+><application
+>DUAROUTER</application
+></entry
+><entry
+>duarouter.exe</entry
+><entry
+>sumo-durarouter</entry
+><entry
+>A router for dynamic user assignment</entry
+><entry
+><ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml"
+>Chapter 5</ulink
+></entry
+></row
+><row
+><entry
+><application
+>JTRROUTER</application
+></entry
+><entry
+>jtrrouter.exe</entry
+><entry
+>sumo-jtrrouter</entry
+><entry
+>A router using junction turning ratios</entry
+><entry
+><ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml"
+>Chapter 5</ulink
+></entry
+></row
+><row
+><entry
+><application
+>SUMO</application
+></entry
+><entry
+>sumo.exe</entry
+><entry
+>sumo</entry
+><entry
+>The microscopic simulation</entry
+><entry
+><ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
+>Chapter 6</ulink
+></entry
+></row
+><row
+><entry
+><application
+>GUISIM</application
+></entry
+><entry
+>guisim.exe</entry
+><entry
+>sumo-guisim</entry
+><entry
+>The gui-version of the microscopic simulation</entry
+><entry
+><ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp07.shtml"
+>Chapter 7</ulink
+></entry
+></row
+></tbody
+></tgroup
+></table
 ><para
->This document is still under development and is meant to grow with the software. Due to this, you may find it together with the sources within out repository at sourceforge (<ulink
+>Please remark that you may also find the applications &#34;<application
+>NETEDIT</application
+>&#34; and &#34;<application
+>GIANT</application
+>&#34; within the source distribution. Both are not supported, not working properly and will be not discussed, herein.</para
+></sect2
+><sect2
+id="user_chp01-about_document-notation"
+><title
+>Notation</title
+><para
+>This document uses coloring to differ between different type of information. If you encounter something like this:</para
+><screen
+>netconvert --visum=MyVisumNet.inp --output-file=MySUMONet.net.xml</screen
+><para
+>you should know that this is a call on the command line. There may be also a &#39;\&#39; at the end of a line. This indicates that you have to continue typing without pressing return (ignoring both the &#39;\&#39; and the following newline). The following example means exactly the same as the one above:</para
+><screen
+>netconvert --visum=MyVisumNet.inp \
+   --output-file=MySUMONet.net.xml</screen
+><para
+>Command line option names are normally coloured <option
+>this way</option
+>. Their values if optional <option
+><replaceable
+>&#60;LIKE THIS&#62;</replaceable
+></option
+>. XML-elements and attributes are shown are coloured <sgmltag
+>like this</sgmltag
+>. Their values if optional <sgmltag
+><replaceable
+>&#60;LIKE THIS&#62;</replaceable
+></sgmltag
+>. Complete examples of XML-Files are shown like the following:</para
+><programlisting
+><sgmltag
+>&#60;MyType&#62;</sgmltag
+>
+
+   <sgmltag
+>&#60;MyElem myAttr1=&#34;0&#34; myAttr2=&#34;0.0&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;MyElem myAttr1=&#34;1&#34; myAttr2=&#34;-500.0&#34;/&#62;</sgmltag
+>
+
+<sgmltag
+>&#60;/MyType&#62;</sgmltag
+></programlisting
+><para
+>You may also find some notations from the EBNF; brackets &#39;[&#39; and &#39;]&#39; indicate that the enclosed information is optional. Brackets &#39;&#60;&#39; and &#39;&#62;&#39; indicate a type - insert your own value in here... All applications are shown like <application
+>THIS</application
+>.</para
+></sect2
+><sect2
+id="user_chp01-about_document-status"
+><title
+>Status</title
+><para
+>This document is still under development and grows with the software. Due to this, you may find it together with the sources within the SUMO repository at sourceforge (<ulink
 url="http://sumo.sourceforge.net"
 >http://sumo.sourceforge.net/</ulink
 >). It should always describe the current version.</para
-><para
->We should remark, that this document only covers the usage of the software and some description of the models used. Information about the programming side - if you want to extend the software what is really appreciated by us - may be found in the programmer manual.</para
-><para
->We should also remark, that the previous division of documents where each document described a single application is now abandoned. We hope to make the process of simulation easier to understand.</para
+></sect2
 ></sect1
 ><sect1
+id="user_chp01-call4help"
 ><title
 >Call for Help</title
 ><para
->Please let us know when either the document remains at any point unclear or any of the applications does not behave as expected. We also seek for some participants and further users, not only to share the development tasks, but also to gain some feedback and critics or some usage examples.</para
+>Please let us know when either the document remains at any point unclear or any of the applications does not behave as expected. We would be very happy if you report broken links or mispelled words. We also seek for some participants and further users, not only to share the development tasks, but also to gain some feedback and critics or some usage examples.</para
 ><para
->Every help is appreciated. Thank you.</para
+>To summarize: every help is appreciated. Thank you.</para
 ></sect1
 ></chapter
 ><chapter
 id="user_chp02"
 ><title
->First Steps: Running the examples</title
+>First Steps</title
 ><sect1
+id="user_chp02-install"
 ><title
->Install</title
+>Installing SUMO</title
 ><para
->From version 0.8 on, we want not only supply the sources, but also the compiled binaries at least for MS Windows and a Linux-derivate.</para
+>From version 0.8 on, we want not only supply the sources, but also the compiled binaries at least for MS Windows. We have abandonned the idea of releasing binaries for Linux due to large variety of the target systems.</para
 ><para
->At first, You have to decide whether you primary want to use the software only or also extend it. In the first case, you should download the binaries, appropriate to your operating system. All needed libraries will be included and - if necessary - a script should guide you through the installation process.</para
-><para
->In the latter case, please download the source distribution and compile it for your own. We hope to be able to support two distributions, one with all needed libraries included and a second without. The description of the building process is found within a separate document located <ulink
+>If you are a Windows user, you should decide whether you primary want to use the software only or also extend it. In the first case, you should download the binaries. All needed libraries will be included and - if necessary - a script should guide you through the installation process. In the latter case, please download the source distribution and compile it for your own. The description of the building process is found within a separate document located <ulink
 url="http://sumo.sourceforge.net/docs/dev_chp02.html"
 >here</ulink
->.</para
+>. If you have built the package on a system not included within our binary distribution, please let us know and send it to us, so that we can include it into the pages.</para
 ><para
->If you have built the package on a system not included within our binary distribution, please let us know and send it to us, so that we can include it into the pages.</para
+>There are also some scripts available, located within the <filename
+>tools</filename
+>-folder. To execute them you&#39;ll need to have <ulink
+url="http://www.python.org/"
+>python</ulink
+> and/or <ulink
+url="http://www.perl.org/"
+>perl</ulink
+> installed.</para
+></sect1
+><sect1
+id="user_chp02-running_examples"
+><title
+>Running the Examples</title
 ><para
->There are some scripts available to, located within the tools-folder. To execute them you&#39;ll need to have python and/or perl installed.</para
+>All examples are located within the <filename
+>&#60;SUMO&#62;/data</filename
+> - folder and its subfolders. All examples come with a configuration-file for network building and running the simulation and some contain also a configuration-file for building the routes. Read chapter &#34;<ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp08.shtml#user_chp08-configs"
+>Using Configuration Files</ulink
+>&#34; for further information on how to use configuration files. Some of the examples also contain .bat-files which contain the call to the applications so you may take a look into these files to see how the applications are run. Please remark that almost all applications are command line tools, what means that no window pops up if you start it, you have to open a shell window first.</para
+><para
+>You may also run the examples in batch mode. For this, change into the folder you have extracted the package into, build the project if necessary (not needed if you have downloaded the binaries) and go further to the &#34;<filename
+>tools</filename
+>&#34;-folder. You will find the scripts &#34;<filename
+>buildAllNets.py</filename
+>&#34;, &#34;<filename
+>buildAllDUARoutes.py</filename
+>&#34;, and &#34;<filename
+>buildAllJTRRoutes.py</filename
+>&#34; in here which will run all configuration files located in the examples-section for <application
+>NETCONVERT</application
+>, <application
+>DUAROUTER</application
+> and <application
+>JTRROUTER</application
+>, respectively. The script &#34;<filename
+>buildExamples.py</filename
+>&#34; runs all these three scripts in the order as given above.</para
 ></sect1
 ></chapter
 ><chapter
@@ -160,15 +383,34 @@ id="user_chp03"
 ><title
 >Traffic Simulations and SUMO</title
 ><sect1
+id="user_chp03-simulation_theory"
 ><title
->Some Traffic Simulation Theory</title
+>A short Traffic Simulation Theory</title
 ><sect2
+id="user_chp03-simulation_theory-simulation_types"
 ><title
 >Simulation types</title
 ><para
 >SUMO is a microscopic, space continuous and time discrete traffic simulation.</para
 ><para
->In traffic research three or four classes of models are distinguished according to the level of detail of the simulation. In macroscopic models traffic flow is the basic entity. Microscopic models simulate the movement of every single vehicle on the street, mostly assuming that the behaviour of the vehicle depends on both, the vehicle&#39;s physical abilities to move and the driver&#39;s controlling behaviour (Krauss 1998; Janz 1998). Sub-microscopic models regard single vehicles like microscopic but extend them by modelling their substructures, which describe the engine&#39;s rotation speed in relation to the vehicle&#39;s speed or the driver&#39;s preferred gear switching actions, for instance. This allows more detailed computations of the emissions produced by the vehicle compared to a simple microscopic simulation (Diekamp 1995; Schreckenberg and Wolf 1998; Helbig et al. 2001). However, sub-microscopic models require large computation times. This restrains the size of the networks to be simulated.</para
+>In traffic research four classes of models are distinguished according to the level of detail of the simulation. In <emphasis
+>macroscopic</emphasis
+> models traffic flow is the basic entity. <emphasis
+>Microscopic</emphasis
+> models simulate the movement of every single vehicle on the street, mostly assuming that the behaviour of the vehicle depends on both, the vehicle&#39;s physical abilities to move and the driver&#39;s controlling behaviour (see <ulink
+url="http://sumo.sourceforge.net/docs/bibliography.shtml#ChowdhurySantenSchadschneider2000"
+>[Chowdhury, Santen, Schadschneider, 2000]</ulink
+>). Within SUMO, the microscopic model developed by Stefan Krauß is used (see <ulink
+url="http://sumo.sourceforge.net/docs/bibliography.shtml#Krauss1998_1"
+>[Krauss1998_1]</ulink
+>, <ulink
+url="http://sumo.sourceforge.net/docs/bibliography.shtml#Krauss1998_2"
+>[Krauss1998_2]</ulink
+>). <emphasis
+>Mesoscopic</emphasis
+> simulations are located at the boundary between microscopic and macroscopic ones. Herein, vehicle movement is mostly simulated using queue approaches and single vehicles are moved between such queues. <emphasis
+>Sub-microscopic</emphasis
+> models regard single vehicles like microscopic but extend them by modelling their substructures, which describe the engine&#39;s rotation speed in relation to the vehicle&#39;s speed or the driver&#39;s preferred gear switching actions, for instance. This allows more detailed computations of the emissions produced by the vehicle compared to a simple microscopic simulation. However, sub-microscopic models require large computation times. This restrains the size of the networks to be simulated.</para
 ><figure
 ><title
 >The different simulation granularities; from left to right: macroscopic, microscopic, sub-microscopic (within the circle: mesoscopic)</title
@@ -183,7 +425,7 @@ format="GIF"
 ></mediaobject
 ></figure
 ><para
->Within a space-continuous simulation each vehicle has a certain position described by a floating-point number. In contrast, space-discrete simulations are a special kind of cellular automata. They use cells and vehicles driving on the simulated streets &#34;jump&#34; from one cell to another (Brockfeld et al 2001).</para
+>Within a space-continuous simulation each vehicle has a certain position described by a floating-point number. In contrast, space-discrete simulations are a special kind of cellular automata. They use cells and vehicles driving on the simulated streets &#34;jump&#34; from one cell to another.</para
 ><figure
 ><title
 >The difference between a space-continuous (top) and a space-discrete (bottom) simulation</title
@@ -198,30 +440,79 @@ format="GIF"
 ></mediaobject
 ></figure
 ><para
->And there is another difference between the available simulation packages. Almost every simulation packages uses an own model for vehicle movement. Almost all models are so-called &#34;car-following-models&#34;: the behaviour of the driver is herein meant to be dependent on his distance to the vehicle in front of him and of this vehicle&#39;s speed. Although SUMO is meant to be a test bed for such vehicle models, only one is implemented by now, which was developed by Stefan Kraus. Other obstacles such as traffic lights are of course considered herein, too. Please take a look into &#34;Used models&#34; for a more detailed description of the Krauß-model.</para
+>And there is another difference between the available simulation packages. Almost every simulation packages uses an own model for vehicle movement. Almost all models are so-called &#34;<emphasis
+>car-following-models</emphasis
+>&#34;: the behaviour of the driver is herein meant to be dependent on his distance to the vehicle in front of him and of this vehicle&#39;s speed. Although SUMO is meant to be a test bed for such vehicle models, only one is implemented by now, which was developed by Stefan Kraus. Other obstacles such as traffic lights are of course considered herein, too.</para
+><para
+>It seems obvious, that each driver is trying to use to shortest path through the network. But when all are trying to do this, some of the roads - mainly the arterial roads would get congested and their benefit would sink. This problem is known to traffic research as the dynamic user assignment. Some approaches have been developed to solve this. SUMO uses the dynamic user assignment approach developed by Christian Gawron (see <ulink
+url="http://sumo.sourceforge.net/docs/bibliography.shtml#Gawron1998_1"
+>[Gawron1998_1]</ulink
+>).</para
 ></sect2
 ><sect2
+id="user_chp03-simulation_theory-needed_data"
 ><title
 >Needed Data</title
 ><para
->What data is needed to simulate traffic? At first, you need the network the traffic to simulate takes place on. As SUMO is meant to work with large networks, we mainly concentrated our work on importing networks and the computation of further needed values. Beside information about a network&#39;s roads, information about traffic lights is needed.</para
+>What data is needed to simulate traffic? At first, you need the network the traffic to simulate takes place on. As SUMO is meant to work with large networks, we mainly concentrated our work on importing networks and the computation of further needed values. Due to this, no graphical editor for networks is available, yet. Beside information about a network&#39;s roads, information about traffic lights is needed.</para
 ><para
->Further, you need information of the traffic demand. While most traffic simulation use a statistical distribution which is laid over the network, each vehicle within SUMO knows its route. Within this approach, the route is a list of edges to pass. Although this approach is more realistic, it also induces a large amount of data needed to describe the vehicle movements. By now, routes are not compressed within SUMO and so may be several MB large. We will possibly change this in future.</para
-></sect2
-><sect2
-><title
->User Assignment</title
-><para
->It seems obvious, that each driver is trying to use to shortest path through the network. But when all are trying to do this, some of the roads - mainly the arterial roads would get congested and their benefit would sink. This problem is known to traffic research as the dynamic user assignment. Some approaches have been developed to solve this.</para
+>Further, you need information about the traffic demand. While most traffic simulation use a statistical distribution which is laid over the network, each vehicle within SUMO knows its route. Within this approach, the route is a list of edges to pass. Although this approach is more realistic, it also induces a large amount of data needed to describe the vehicle movements. By now, routes are not compressed within SUMO and so may be several MB large. We will possibly change this in future.</para
 ></sect2
 ></sect1
 ><sect1
+id="user_chp03-simulation_workflow"
 ><title
 >The Workflow of preparing a Simulation</title
 ><para
->As shortly described above, you basically have to the following steps: generation of the road network and generation of the vehicle movements. After this, you can perform your first simulation steps. This process is also visualised within the next figure.</para
+>As shortly described above, you basically have to perform the following steps in order to make your simulation run:</para
+><procedure
+><step
 ><para
->Please remark, that most of the tools are command-line tools by now. They do nothing if you just double-click them. Do also notice, that we describe the call parameter in the following chapters which may be also stored in so-called &#34;configuration files&#34; to allow their reuse. This possibility is described on a later place in the document.</para
+>Build your network</para
+><para
+>Use either own descriptions (described in chapter 4, &#34;<ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-xml_descriptions"
+>Building Networks from own XML-descriptions</ulink
+>&#34;) or if you have some digital networks SUMOcan import, convert them (described in chapter 4, &#34;<ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-other_input"
+>Converting other Input Data</ulink
+>&#34;)</para
+></step
+><step
+><para
+>Build the vehicle routes</para
+><para
+>Build your own movements using either by a) describing the vehicle routes explicitely (see chapter 5, &#34;<ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-own_routes-tripdefs"
+>Generation of own, explicit Routes using Trip Definitions</ulink
+>&#34;), b) using flows and turning percentages only (see chapter 5, &#34;<ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-own_routes-jtr"
+>Using the Junction Turning Ratio - Router</ulink
+>&#34;), c) generating random routes (see chapter 5, &#34;<ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-own_routes-random"
+>Generating random Routes</ulink
+>&#34;), d) importing OD-matrices (see chapter &#34;... TBD ...&#34;), or e) importing routes you own (see chapter 5, &#34;<ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-import_routes"
+>Importing Routes</ulink
+>&#34;).</para
+></step
+><step
+><para
+>If needed, compute the dynamic user assignment (described in chapter 5, &#34;<ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-dua"
+>Dynamic User Assignment</ulink
+>&#34;)</para
+></step
+><step
+><para
+>Perform the simulation (described in chapter 6, &#34;<ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
+>Performing the Simulation</ulink
+>&#34;)</para
+></step
+></procedure
+><para
+>This process is also visualised within the next figure.</para
 ><figure
 ><title
 >Process of simulation with SUMO; (grey and rounded: data used; white: program calls)</title
@@ -231,78 +522,46 @@ format="GIF"
 align="center"
 fileref="./gfx/user/simsteps1.gif"
 format="GIF"
-scale="1"
 ></imagedata
 ></imageobject
 ></mediaobject
 ></figure
+><para
+>Please remark, that most of the tools are command-line tools by now. They do nothing if you just double-click them (besides printing errors). Do also notice, that we describe the call parameter in the following chapters which may be also stored in so-called &#34;<emphasis
+>configuration files</emphasis
+>&#34; to allow their reuse. This possibility is described in chapter &#34;<ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp08.shtml#user_chp08-configs"
+>Using Configuration Files</ulink
+>&#34;.</para
 ></sect1
 ><sect1
+id="user_chp03-software_paradigms"
 ><title
 >Main Software Paradigms</title
 ><para
->Two basic design goals are approached: the software shall be fast and it shall be portable. Due to this, the very first versions were developed to be run from the command line - no graphical interface was supplied at first and all parameter had to be inserted by hand. Also, due to these goals, the software was split into several parts. Each of them has a certain purpose and must be run individually. This is something that makes SUMO different to other simulation packages where the dynamical user assignment is made within the simulation itself, not via an external application like here.</para
+>Two basic design goals are approached: the software shall be fast and it shall be portable. Due to this, the very first versions were developed to be run from the command line only - no graphical interface was supplied at first and all parameter had to be inserted by hand. Also, due to these goals, the software was split into several parts. Each of them has a certain purpose and must be run individually. This is something that makes SUMO different to other simulation packages where the dynamical user assignment is made within the simulation itself, not via an external application like here.</para
 ><para
->The split allows an easier extension of the application&#39;s part as they small enough and it also allows the usage of faster data structures, each adjusted to the current purpose, instead of using complicated and ballast-loaded ones. Still, this makes the usage of SUMO a little bit uncomfortable in comparison to other simulation packages. As there are still other things to do, we are not thinking of a redesign towards an integrated approach by now.</para
+>This split allows an easier extension of an application because they are smaller than a monolithic application doing everything. Also, it also allows the usage of faster data structures, each adjusted to the current purpose, instead of using complicated and ballast-loaded ones. Still, this makes the usage of SUMO a little bit uncomfortable in comparison to other simulation packages. As there are still other things to do, we are not thinking of a redesign towards an integrated approach by now.</para
 ></sect1
 ></chapter
 ><chapter
 id="user_chp04"
 ><title
 >Network Generation</title
+><sect1
+id="user_chp04-introduction"
+><title
+>Introduction</title
 ><para
->As SUMO uses an own road network description, normally networks must be generated from an existing dataset. The only exception is that someone already possesses build SUMO-networks, normally having the extension *.net.xml. Although being readable (xml) by human beings, the format of the road network used by SUMO is not meant to be edited by a human being and will also not be described herein due to its complexity. Take a look into the developer documentation if you want more information about this, please.</para
-><para
->Having data describing the network, you may convert them into a network description readable by SUMO using the SUMO-NETCONVERT tool. By now, SUMO-NETCONVERT is capable to parse the following formats:</para
-><para
-><itemizedlist
-spacing="compact"
-><listitem
-><para
->ptv VISUM (a macroscopic traffic simulation package)</para
-></listitem
-><listitem
-><para
->ptv VISSIM (a microscopic traffic simulation package)</para
-></listitem
-><listitem
-><para
->ARTEMIS by Prof. Peter Hidas (a microscopic traffic simulation package)</para
-></listitem
-><listitem
-><para
->CELL by Christian Gawron (a mesoscopic traffic simulation package)</para
-></listitem
-><listitem
-><para
->ARCVIEW-data base files</para
-></listitem
-><listitem
-><para
->XML-descriptions</para
-></listitem
-><listitem
-><para
->Elmar Brockfelds splitted NavTeq-data</para
-></listitem
-><listitem
-><para
->Elmar Brockfelds unsplitted NavTeq-data</para
-></listitem
-></itemizedlist
-></para
-><para
->In most of these cases, SUMO-NETCOVERT needs only two parameter: the name of the input format followed by the name of the file and the name of the output format. If you want to import a file generated by the VISUM simulation package, simply write the following:</para
-><blockquote
-><para
->netconvert(.exe) --visum=MyVisumNet.inp --output-file=MySUMOFile.net.xml</para
-></blockquote
-><para
->Please note, that SUMO-NETCONVERT has to be started from the command line. There is no graphical interface available, yet.</para
-><para
->The only exception to this rule occurs if you want to use XML-descriptions of the network and we will describe this a little bit more detailed, now. This is the common way to build own networks.</para
-><para
->Here, again a figure may explain what to do beside the descriptions given next.</para
+>As <application
+><application
+>SUMO</application
+></application
+> uses an own road network description, normally networks must be converted from an existing dataset. Although being readable (xml) by human beings, the format of road networks used by <application
+>SUMO</application
+> is not meant to be edited by hand and will also not be described herein due to its complexity. The following figure shows the function of <application
+>NETCONVERT</application
+> within the flow of building and running a simulation.</para
 ><figure
 ><title
 >Building a network</title
@@ -316,20 +575,143 @@ format="GIF"
 ></imageobject
 ></mediaobject
 ></figure
+><para
+>Having data describing the network, you may convert them into a network description readable by <application
+>SUMO</application
+> using the <application
+>NETCONVERT</application
+> tool. By now, <application
+>NETCONVERT</application
+> is capable to parse the following formats:</para
+><para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+><emphasis
+>ptv VISUM</emphasis
+> (a macroscopic traffic simulation package), see chapter &#34;<ulink
+url="#user_chp04-other_input-visum"
+>Importing VISUM-networks</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+><emphasis
+>ptv VISSIM</emphasis
+> (a microscopic traffic simulation package), see chapter &#34;<ulink
+url="#user_chp04-other_input-vissim"
+>Importing VISSIM-networks</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+><emphasis
+>ARTEMIS</emphasis
+> by Prof. Peter Hidas (a microscopic traffic simulation package), see chapter &#34;<ulink
+url="#user_chp04-other_input-artemis"
+>Importing Artemis-simulation folders</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+><emphasis
+>FastLane</emphasis
+> by Christian Gawron (a mesoscopic traffic simulation package), see chapter &#34;<ulink
+url="#user_chp04-other_input-fastlane"
+>Importing Cell/Fastlane-networks</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+><emphasis
+>ArcView</emphasis
+>-data base files, see chapter &#34;<ulink
+url="#user_chp04-other_input"
+>Importing ArcView-databases</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+><emphasis
+>XML</emphasis
+>-descriptions, see chapter &#34;<ulink
+url="#user_chp04-xml_descriptions"
+>Building Networks from own XML-descriptions</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+>Elmar Brockfelds <emphasis
+>unsplitted</emphasis
+> and <emphasis
+>splitted NavTeq-data</emphasis
+>, see chapter &#34;<ulink
+url="#user_chp04-other_input-elmar"
+>Importing Elmar&#39;s converted NavTech-Files</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+><emphasis
+>TIGER</emphasis
+> databases, see chapter &#34;<ulink
+url="#user_chp04-other_input-tiger"
+>Importing TIGER-databases</ulink
+>&#34;</para
+></listitem
+></itemizedlist
+></para
+><para
+>In most of these cases, <application
+>NETCOVERT</application
+> needs only two parameter: the option named as the source application/format followed by the name of the file to convert and the name of the output file (using the <option
+>--output-file</option
+> option). So if you want to import a file generated by the <application
+>VISUM</application
+> simulation package, simply write the following:</para
+><screen
+>netconvert --visum=MyVisumNet.inp --output-file=MySUMONet.net.xml</screen
+><para
+>Please note, that <application
+>NETCONVERT</application
+> has to be started from the command line. There is no graphical interface available, yet.</para
+><para
+>The following subchapters will describe how to use <application
+>NETCONVERT</application
+> more deeply, also discussing some problems with each of the possible import formats. Please remark that the following option is mandatory:</para
+><variablelist
+><varlistentry
+><term
+><option
+>[ --output-file | --output | -o ] <replaceable
+>&#60;OUTPUT_FILE&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>Defines the file to write the computed network into. This file will contain the generated network if the conversion could be accomplished. <remark
+>Mandatory, type:filename, default: none</remark
+></para
+></listitem
+></varlistentry
+></variablelist
+></sect1
 ><sect1
+id="user_chp04-xml_descriptions"
 ><title
 >Building Networks from own XML-descriptions</title
 ><para
->All of examples within the distribution were made by hand. For doing this, you need at least two files: one file for nodes and another one for the streets between them. Please notice that we use both names &#34;node&#34; and &#34;junction&#34; the same way. <caution
-><para
->Please read also the chapter &#34;General comments on import of networks without traffic light logics&#34;</para
-></caution
-></para
+>All examples within the distribution were made by hand. For doing this, you need at least two files: one file for nodes and another one for the streets between them. Please notice that we use both names &#34;node&#34; and &#34;junction&#34; the same way. Besides this, you can also join edge types and explcitely set connections between lanes. We will describe how each of these four file types should be set up in the following.</para
 ><sect2
+id="user_chp04-xml_descriptions-nodes"
 ><title
->Nodes description</title
+>Nodes Descriptions</title
 ><para
->Within the nodes-files, normally named MyNodes.nod.xml, every node is described in a single line which looks like this: <sgmltag
+>Within the nodes-files, normally having the extension &#34;.nod.xml&#34; (see Appendix &#34;<ulink
+url="http://sumo.sourceforge.net/docs/gen/user_apa.shtml"
+>Naming Conventions</ulink
+>&#34;), every node is described in a single line which looks like this: <sgmltag
 >&#60;node id=&#34;<replaceable
 >&#60;STRING&#62;</replaceable
 >&#34; x=&#34;<replaceable
@@ -352,66 +734,104 @@ format="GIF"
 ><para
 ><sgmltag
 >x</sgmltag
->: The x-position of the node on the plane in m; must be a floating point number</para
+>: The x-position of the node on the plane in meters; must be a floating point number</para
 ></listitem
 ><listitem
 ><para
 ><sgmltag
 >y</sgmltag
->: The y-position of the node on the plane in m; must be a floating point number</para
+>: The y-position of the node on the plane in meters; must be a floating point number</para
 ></listitem
 ><listitem
 ><para
 ><sgmltag
 >type</sgmltag
->: An optional type for the node. If you leave out the type of the node, it is automatically guessed by SUMO-NETCOVERT but may not be the one you intentionally thought of. The following types are possible, any other string is counted as an error and will yield in a program stop:</para
+>: An optional type for the node. If you leave out the type of the node, it is automatically guessed by <application
+>NETCOVERT</application
+> but may not be the one you intentionally thought of. The following types are possible, any other string is counted as an error and will yield in a program stop:</para
 ><itemizedlist
 ><listitem
 ><para
 ><sgmltag
 >priority</sgmltag
->: Vehicles have to wait until vehicles right to them have passed the junction. This is a very common scheme within Germany.</para
+>: Vehicles have to wait until vehicles right to them have passed the junction.</para
 ></listitem
 ><listitem
 ><para
 ><sgmltag
 >traffic_light</sgmltag
->: The junction is controlled by a traffic light.</para
+>: The junction is controlled by a traffic light. (... TBD ... further types?)</para
 ></listitem
 ></itemizedlist
-><para
->We do not have implemented the american way of giving way on junctions that are not controlled by a traffic light. It is also not possible to describe the parameter of the traffic light at this level.</para
 ></listitem
 ></itemizedlist
-> When writing your nodes-file, please do not forget to embed your node definitions into an opening and a closing &#34;tag&#34;. A complete file should like the example below, which is the node file for the &#34;cross1ltl&#34; example. And you may also take a look into our examples using a simple text editor.</para
-><para
+>When writing your nodes-file, please do not forget to embed your node definitions into an opening and a closing &#34;tag&#34;. A complete file should like the example below, which is the node file &#34;<filename
+>cross3l.nod.xml</filename
+>&#34; for the examples &#34;<filename
+>&#60;SUMO_PATH&#62;/data/examples/netbuild/cross_usingtypes/</filename
+>&#34; and &#34;<filename
+>&#60;SUMO_PATH&#62;/data/examples/netbuild/cross_notypes/</filename
+>&#34; example.</para
+><programlisting
 ><sgmltag
->&#60;nodes&#62; &#60;!-- The opening tag --&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;node id=&#34;0&#34; x=&#34;0.0&#34; y=&#34;0.0&#34; type=&#34;traffic_light&#34;/&#62; &#60;!-- definition of node &#34;0&#34; --&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;node id=&#34;1&#34; x=&#34;-500.0&#34; y=&#34;0.0&#34; type=&#34;priority&#34;/&#62; &#60;!-- definition of node &#34;1&#34; --&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;node id=&#34;2&#34; x=&#34;+500.0&#34; y=&#34;0.0&#34; type=&#34;priority&#34;/&#62; &#60;!-- definition of node &#34;2&#34; --&#62; </sgmltag
-></para
-><para
-><sgmltag
-> &#60;node id=&#34;3&#34; x=&#34;0.0&#34; y=&#34;-500.0&#34; type=&#34;priority&#34;/&#62; &#60;!-- definition of node &#34;3&#34; --&#62; </sgmltag
-></para
-><para
-><sgmltag
-> &#60;node id=&#34;4&#34; x=&#34;0.0&#34; y=&#34;+500.0&#34; type=&#34;priority&#34;/&#62; &#60;!-- definition of node &#34;4&#34; --&#62; </sgmltag
-></para
-><para
-><sgmltag
->&#60;/nodes&#62; &#60;!-- The closing tag --&#62;</sgmltag
-></para
+>&#60;nodes&#62;</sgmltag
+> <sgmltag
+>&#60;!-- The opening tag --&#62;</sgmltag
+>
+
+   <sgmltag
+>&#60;node id=&#34;0&#34; x=&#34;0.0&#34; y=&#34;0.0&#34; type=&#34;traffic_light&#34;/&#62;</sgmltag
+> <sgmltag
+>&#60;!-- definition of node &#34;0&#34; --&#62;</sgmltag
+>
+
+   <sgmltag
+>&#60;node id=&#34;1&#34; x=&#34;-500.0&#34; y=&#34;0.0&#34; type=&#34;priority&#34;/&#62;</sgmltag
+> <sgmltag
+>&#60;!-- definition of node &#34;1&#34; --&#62;</sgmltag
+>
+   <sgmltag
+>&#60;node id=&#34;2&#34; x=&#34;+500.0&#34; y=&#34;0.0&#34; type=&#34;priority&#34;/&#62;</sgmltag
+> <sgmltag
+>&#60;!-- definition of node &#34;2&#34; --&#62;</sgmltag
+>
+   <sgmltag
+>&#60;node id=&#34;3&#34; x=&#34;0.0&#34; y=&#34;-500.0&#34; type=&#34;priority&#34;/&#62;</sgmltag
+> <sgmltag
+>&#60;!-- definition of node &#34;3&#34; --&#62;</sgmltag
+>
+   <sgmltag
+>&#60;node id=&#34;4&#34; x=&#34;0.0&#34; y=&#34;+500.0&#34; type=&#34;priority&#34;/&#62;</sgmltag
+> <sgmltag
+>&#60;!-- definition of node &#34;4&#34; --&#62;</sgmltag
+>
+
+   <sgmltag
+>&#60;node id=&#34;m1&#34; x=&#34;-250.0&#34; y=&#34;0.0&#34; type=&#34;priority&#34;/&#62;</sgmltag
+> <sgmltag
+>&#60;!-- definition of node &#34;m1&#34; --&#62;</sgmltag
+>
+   <sgmltag
+>&#60;node id=&#34;m2&#34; x=&#34;+250.0&#34; y=&#34;0.0&#34; type=&#34;priority&#34;/&#62;</sgmltag
+> <sgmltag
+>&#60;!-- definition of node &#34;m2&#34; --&#62;</sgmltag
+>
+   <sgmltag
+>&#60;node id=&#34;m3&#34; x=&#34;0.0&#34; y=&#34;-250.0&#34; type=&#34;priority&#34;/&#62;</sgmltag
+> <sgmltag
+>&#60;!-- definition of node &#34;m3&#34; --&#62;</sgmltag
+>
+   <sgmltag
+>&#60;node id=&#34;m4&#34; x=&#34;0.0&#34; y=&#34;+250.0&#34; type=&#34;priority&#34;/&#62;</sgmltag
+> <sgmltag
+>&#60;!-- definition of node &#34;m4&#34; --&#62;</sgmltag
+>
+
+<sgmltag
+>&#60;/nodes&#62;</sgmltag
+> <sgmltag
+>&#60;!-- The closing tag --&#62;</sgmltag
+></programlisting
 ><para
 >As you may notice, only the first node named &#34;0&#34;, which is the node in the middle of the network, is a traffic light controlled junction. All other nodes are uncontrolled. You may also notice, that each of both ends of a street needs an according node. This is not really necessary as you may see soon, but it eases the understanding of the concept: every edge (road) is a connection between two nodes.</para
 ><para
@@ -431,8 +851,9 @@ format="GIF"
 ></figure
 ></sect2
 ><sect2
+id="user_chp04-xml_descriptions-edges"
 ><title
->Edges description</title
+>Edges Descriptions</title
 ><para
 >Edges are described quite the same way as nodes, but possesses other parameter. Within the edges file, each description of a single edge looks like this: <sgmltag
 >&#60;edge id=&#34;<replaceable
@@ -484,21 +905,34 @@ format="GIF"
 >&#34; yto=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;</sgmltag
->. In the second case, a node will be build automatically at the given positions. Each edge is unidirectional and starts at the &#34;<sgmltag
+>. In the second case, nodes will be build automatically at the given positions. Each edge is unidirectional and starts at the &#34;<sgmltag
 >from</sgmltag
 >&#34;-node and ends at the &#34;<sgmltag
 >to</sgmltag
->&#34;-node. If a name of one of the nodes can not be dereferenced - no node with the name is found - an error is generated.</para
+>&#34;-node. If a name of one of the nodes can not be dereferenced (because they have not been defined within the nodes file) an error is generated.</para
 ><para
->For each edge, some further attributes should be supplied, being the number of lanes the edge has, the maximum speed allowed on the edge, the length the edge has (in meters) and a priority value. These values - beside the length in fact - may either be given explicitly for each edge using according attributes or they may reference a &#34;<sgmltag
+>For each edge, some further attributes should be supplied, being the number of lanes the edge has, the maximum speed allowed on the edge, the length the edge has (in meters) and a priority value. These values - beside the length in fact - may either be given explicitly for each edge using according attributes or you can omit them by giving the edge a &#34;<sgmltag
 >type</sgmltag
->&#34;. In this case, you should also write a type-file which format will be described within the next chapter and give each edge within your edge file a reference to a type within your type file using the name of the type to use. A type with this name should of course be within the generated type-file, otherwise an error is reported. You may also leave the edge parameter of. In this case, default-values will be used and the edge will have a single lane, a priority of 0 (zero) and the maximum allowed speed on this edge will be 13.9m/s being around 50km/h. The length of this edge will be computed as the distance between the starting and the end point.</para
+>&#34;. In this case, you should also write a type-file (see &#34;<ulink
+url="#user_chp04-xml_descriptions-types"
+>Types Descriptions</ulink
+>&#34;). A type with this name should of course be within the generated type-file, otherwise an error is reported. Even if you supply a type, you can still override the type&#39;s values by supplying any of the parameter <sgmltag
+>nolanes</sgmltag
+>, <sgmltag
+>speed</sgmltag
+> and <sgmltag
+>priority</sgmltag
+>. You may also leave the edge parameter completely unset. In this case, default-values will be used and the edge will have a single lane, a priority of 0 (zero) and the maximum allowed speed on this edge will be 13.9m/s being around 50km/h. The length of this edge will be computed as the distance between the starting and the end point.</para
 ><para
->As an edge may have a more complicated geometry, especially when it is a highway off road, you may supply the edge&#39;s shape within the shape tag. If the length of the edge is not given otherwise, the distances of the shape elements will be summed.</para
+>As an edge may have a more complicated geometry, you may supply the edge&#39;s shape within the <sgmltag
+>shape</sgmltag
+> tag. If the length of the edge is not given otherwise, the distances of the shape elements will be summed.</para
 ><para
 >The information <sgmltag
 >spread_type=&#34;center&#34; </sgmltag
->forces NETCONVERT to spread lanes to both sides of the connection between the begin node and the end node or from the list of lines making up the shape. If not given, lanes are spread to right, as default.</para
+>forces <application
+>NETCONVERT</application
+> to spread lanes to both sides of the connection between the begin node and the end node or from the list of lines making up the shape. If not given, lanes are spread to right, as default.</para
 ><para
 >Let&#39;s list an edge&#39;s attributes again:</para
 ><para
@@ -536,25 +970,25 @@ spacing="compact"
 ><para
 ><sgmltag
 >xfrom</sgmltag
->: The x-position of the node the edge shall start at in m; must be a floating point number</para
+>: The x-position of the node the edge shall start at in meters; must be a floating point number</para
 ></listitem
 ><listitem
 ><para
 ><sgmltag
 >yfrom</sgmltag
->: The y-position of the node the edge shall start at in m; must be a floating point number</para
+>: The y-position of the node the edge shall start at in meters; must be a floating point number</para
 ></listitem
 ><listitem
 ><para
 ><sgmltag
 >xto</sgmltag
->: The x-position of the node the edge shall end at in m; must be a floating point number</para
+>: The x-position of the node the edge shall end at in meters; must be a floating point number</para
 ></listitem
 ><listitem
 ><para
 ><sgmltag
 >yto</sgmltag
->: The y-position of the node the edge shall end at in m; must be a floating point number</para
+>: The y-position of the node the edge shall end at in meters; must be a floating point number</para
 ></listitem
 ></itemizedlist
 ></listitem
@@ -584,7 +1018,10 @@ spacing="compact"
 ><para
 ><sgmltag
 >speed</sgmltag
->: The maximum speed allowed on the edge in m/s; must be a floating point number</para
+>: The maximum speed allowed on the edge in m/s; must be a floating point number (see also <ulink
+url="#user_chp04-further_options-kmh_speed"
+>&#34;Using Edges&#39; maximum Speed Definitions in km/h&#34;</ulink
+>)</para
 ></listitem
 ><listitem
 ><para
@@ -608,7 +1045,9 @@ spacing="compact"
 ><para
 ><sgmltag
 >shape</sgmltag
->: List of positions; each position is encoded in x,y (do not separate the numbers with a space!) in meters; an edge&#39;s shape definition must of course be at least two positions long; an example: shape=&#34;0,0 0,100&#34; describes a vertical edge of one hundred meters.</para
+>: List of positions; each position is encoded in x,y (do not separate the numbers with a space!) in meters; an edge&#39;s shape definition must of course be at least two positions long; an example: <sgmltag
+>shape=&#34;0,0 0,100&#34;</sgmltag
+> describes a vertical edge of one hundred meters.</para
 ></listitem
 ><listitem
 ><para
@@ -619,71 +1058,80 @@ spacing="compact"
 ></itemizedlist
 ></listitem
 ></itemizedlist
-> The priority plays a role during the computation of the way-giving rules of a node. Larger values for the priority of an edge allow vehicles using it to pass without waiting - if no traffic light is on the node.</para
+>The priority (... TBD ...) plays a role during the computation of the way-giving rules of a node. Larger values for the priority of an edge allow vehicles using it to pass without waiting - if no traffic light is on the node.</para
 ><para
->Even if you supply a type, you can still override the so set values by supplying any of the parameter <sgmltag
->nolanes</sgmltag
->, <sgmltag
->speed</sgmltag
-> and <sgmltag
->priority</sgmltag
->.</para
-><para
->Also the definitions of the edges must be embedded into an opening and a closing tag and for the example &#34;cross1ltl&#34; the whole edges-file looks like this:</para
-><para
+>Also the definitions of edges must be embedded into an opening and a closing tag and for the example &#34;<filename
+>&#60;SUMO_PATH&#62;/data/examples/netbuild/cross_notypes/</filename
+>&#34; the whole edges-file looks like this (&#34;<filename
+>cross3l.edg.xml</filename
+>&#34;):</para
+><programlisting
 ><sgmltag
 >&#60;edges&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;edge id=&#34;1i&#34; fromnode=&#34;1&#34; tonode=&#34;0&#34; type=&#34;25&#34;/&#62; &#60;!-- incoming edge 1 --&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;edge id=&#34;1o&#34; fromnode=&#34;0&#34; tonode=&#34;1&#34; type=&#34;51&#34;/&#62; &#60;!-- outgoing edge 1 --&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;edge id=&#34;2i&#34; fromnode=&#34;2&#34; tonode=&#34;0&#34; type=&#34;25&#34;/&#62; &#60;!-- incoming edge 2 --&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;edge id=&#34;2o&#34; fromnode=&#34;0&#34; tonode=&#34;2&#34; type=&#34;51&#34;/&#62; &#60;!-- outgoing edge 2 --&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;edge id=&#34;3i&#34; fromnode=&#34;3&#34; tonode=&#34;0&#34; type=&#34;25&#34;/&#62; &#60;!-- incoming edge 3 --&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;edge id=&#34;3o&#34; fromnode=&#34;0&#34; tonode=&#34;3&#34; type=&#34;51&#34;/&#62; &#60;!-- outgoing edge 3 --&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;edge id=&#34;4i&#34; fromnode=&#34;4&#34; tonode=&#34;0&#34; type=&#34;25&#34;/&#62; &#60;!-- incoming edge 4 --&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;edge id=&#34;4o&#34; fromnode=&#34;0&#34; tonode=&#34;4&#34; type=&#34;51&#34;/&#62; &#60;!-- outgoing edge 4 --&#62;</sgmltag
-></para
-><para
-><sgmltag
+>
+
+   <sgmltag
+>&#60;edge id=&#34;1fi&#34; fromnode=&#34;1&#34; tonode=&#34;m1&#34; priority=&#34;2&#34; nolanes=&#34;2&#34; speed=&#34;11.111&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;1si&#34; fromnode=&#34;m1&#34; tonode=&#34;0&#34; priority=&#34;3&#34; nolanes=&#34;3&#34; speed=&#34;13.889&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;1o&#34; fromnode=&#34;0&#34; tonode=&#34;1&#34; priority=&#34;1&#34; nolanes=&#34;1&#34; speed=&#34;11.111&#34;/&#62;</sgmltag
+>
+
+   <sgmltag
+>&#60;edge id=&#34;2fi&#34; fromnode=&#34;2&#34; tonode=&#34;m2&#34; priority=&#34;2&#34; nolanes=&#34;2&#34; speed=&#34;11.111&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;2si&#34; fromnode=&#34;m2&#34; tonode=&#34;0&#34; priority=&#34;3&#34; nolanes=&#34;3&#34; speed=&#34;13.889&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;2o&#34; fromnode=&#34;0&#34; tonode=&#34;2&#34; priority=&#34;1&#34; nolanes=&#34;1&#34; speed=&#34;11.111&#34;/&#62;</sgmltag
+>
+
+   <sgmltag
+>&#60;edge id=&#34;3fi&#34; fromnode=&#34;3&#34; tonode=&#34;m3&#34; priority=&#34;2&#34; nolanes=&#34;2&#34; speed=&#34;11.111&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;3si&#34; fromnode=&#34;m3&#34; tonode=&#34;0&#34; priority=&#34;3&#34; nolanes=&#34;3&#34; speed=&#34;13.889&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;3o&#34; fromnode=&#34;0&#34; tonode=&#34;3&#34; priority=&#34;1&#34; nolanes=&#34;1&#34; speed=&#34;11.111&#34;/&#62;</sgmltag
+>
+
+   <sgmltag
+>&#60;edge id=&#34;4fi&#34; fromnode=&#34;4&#34; tonode=&#34;m4&#34; priority=&#34;2&#34; nolanes=&#34;2&#34; speed=&#34;11.111&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;4si&#34; fromnode=&#34;m4&#34; tonode=&#34;0&#34; priority=&#34;3&#34; nolanes=&#34;3&#34; speed=&#34;13.889&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;4o&#34; fromnode=&#34;0&#34; tonode=&#34;4&#34; priority=&#34;1&#34; nolanes=&#34;1&#34; speed=&#34;11.111&#34;/&#62;</sgmltag
+>
+
+<sgmltag
 >&#60;/edges&#62;</sgmltag
-></para
+>
+</programlisting
 ><para
->As you see, we have used references to road types and to junctions, here.</para
+>Within this example, we have used explicite definitions of edges. An example for using types is described in the chapter &#34;<ulink
+url="#user_chp04-xml_descriptions-types"
+>Types Descriptions</ulink
+>&#34;.</para
 ><caution
 ><para
 >There are some constraints about the streets&#39; ids. They must not contain any of the following characters: &#39;_&#39; (underline - used for lane ids), &#39;[&#39; and &#39;]&#39; (used for enumerations), &#39; &#39; (space - used as list divider), &#39;*&#39; (star, used as wildcard), &#39;:&#39; (used as marker for internal lanes).</para
 ></caution
 ></sect2
 ><sect2
+id="user_chp04-xml_descriptions-types"
 ><title
->Types description</title
+>Types Descriptions</title
 ><para
->Road types are meant to be used to ease the definition of edges. As described above, the description of an edge should include information about the number of lanes, the maximum speed allowed on this edge and the edge&#39;s priority. To avoid the explicit definition of each parameter for every edge, one can use road types, which encapsulate parameter under a given name, the road type, which instead may be used on describing the edge.</para
+>As mentioned, road types are meant to be used to ease the definition of edges. As described above, the description of an edge should include information about the number of lanes, the maximum speed allowed on this edge and the edge&#39;s priority. To avoid the explicit definition of each parameter for every edge, one can use road types, which encapsulate these parameter under a given name.</para
 ><para
->Due to the usage, the attributes are of course exactly the same as for edges themselves:</para
+>The attributes of a type are of course exactly the same as for edges themselves:</para
 ><para
 ><itemizedlist
 spacing="compact"
@@ -714,39 +1162,90 @@ spacing="compact"
 ></itemizedlist
 >The information about the nodes the edge starts and ends at is not given within the types&#39; descriptions. They can only be set within the edge&#39;s attributes.</para
 ><para
->Within the previous edge input file example, two references to type definitions were used, &#34;25&#34; and &#34;51&#34;. You can find the definitions themselves within the file &#34;std_types.xml&#34; within the &#34;data/types&#34; - folder. They are:</para
+>An example of using types may be found in &#34;<filename
+>&#60;SUMO_PATH&#62;/data/examples/netbuild/cross_usingtypes/</filename
+>&#34;. Instead of explicite parameter edges reference types:</para
+><programlisting
+><sgmltag
+>&#60;edges&#62;</sgmltag
+>
+
+   <sgmltag
+>&#60;edge id=&#34;1fi&#34; fromnode=&#34;1&#34; tonode=&#34;m1&#34; type=&#34;b&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;1si&#34; fromnode=&#34;m1&#34; tonode=&#34;0&#34; type=&#34;a&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;1o&#34; fromnode=&#34;0&#34; tonode=&#34;1&#34; type=&#34;c&#34;/&#62;</sgmltag
+>
+
+   <sgmltag
+>&#60;edge id=&#34;2fi&#34; fromnode=&#34;2&#34; tonode=&#34;m2&#34; type=&#34;b&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;2si&#34; fromnode=&#34;m2&#34; tonode=&#34;0&#34; type=&#34;a&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;2o&#34; fromnode=&#34;0&#34; tonode=&#34;2&#34; type=&#34;c&#34;/&#62;</sgmltag
+>
+
+   <sgmltag
+>&#60;edge id=&#34;3fi&#34; fromnode=&#34;3&#34; tonode=&#34;m3&#34; type=&#34;b&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;3si&#34; fromnode=&#34;m3&#34; tonode=&#34;0&#34; type=&#34;a&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;3o&#34; fromnode=&#34;0&#34; tonode=&#34;3&#34; type=&#34;c&#34;/&#62;</sgmltag
+>
+
+   <sgmltag
+>&#60;edge id=&#34;4fi&#34; fromnode=&#34;4&#34; tonode=&#34;m4&#34; type=&#34;b&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;4si&#34; fromnode=&#34;m4&#34; tonode=&#34;0&#34; type=&#34;a&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;edge id=&#34;4o&#34; fromnode=&#34;0&#34; tonode=&#34;4&#34; type=&#34;c&#34;/&#62;</sgmltag
+>
+
+<sgmltag
+>&#60;/edges&#62;</sgmltag
+>
+</programlisting
 ><para
+>and the according types file looks like this:</para
+><programlisting
 ><sgmltag
 >&#60;types&#62;</sgmltag
-></para
-><para
->... some other types ...</para
-><para
-><sgmltag
-> &#60;type id=&#34;25&#34; priority=&#34;78&#34; nolanes=&#34;1&#34; speed=&#34;19.444&#34;/&#62;</sgmltag
-></para
-><para
->... some other types ...</para
-><para
-><sgmltag
-> &#60;type id=&#34;51&#34; priority=&#34;46&#34; nolanes=&#34;1&#34; speed=&#34;11.111&#34;/&#62;</sgmltag
-></para
-><para
->... some other types ...</para
-><para
-><sgmltag
+>
+
+   <sgmltag
+>&#60;type id=&#34;a&#34; priority=&#34;3&#34; nolanes=&#34;3&#34; speed=&#34;13.889&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;type id=&#34;b&#34; priority=&#34;2&#34; nolanes=&#34;2&#34; speed=&#34;11.111&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;type id=&#34;c&#34; priority=&#34;1&#34; nolanes=&#34;1&#34; speed=&#34;11.111&#34;/&#62;</sgmltag
+>
+
+<sgmltag
 >&#60;/types&#62;</sgmltag
-></para
+>
+</programlisting
 ><para
->This snippet has the following meaning: every incoming street which is every street that ends at node &#34;0&#34;, is of the type named &#34;25&#34;. This type sets the edge&#39;s maximum speed to 19.444m/s being around 70km/h and the edge&#39;s priority to 78. All edges of this type will have one lane - unless not overwritten within the edge definition what is not done, here.</para
-><para
->All outgoing edges (those starting at node &#34;0&#34;) or of the type &#34;51&#34;, so being roads where 11.111m/s (~40km/h) is the maximum speed. They also have one lane and their priority is &#34;46&#34;.</para
+>As you can see, we have joined the edges into three classes &#34;a&#34;, &#34;b&#34;, and &#34;c&#34; and have generated a description for each of these classes. Doing this, the generated net is similar to the one generated using the settings described above (example &#34;<filename
+>&#60;SUMO_PATH&#62;/data/examples/netbuild/cross_notypes/</filename
+>&#34; ).</para
 ></sect2
 ><sect2
+id="user_chp04-xml_descriptions-connections"
 ><title
->Connection descriptions</title
+>Connection Descriptions</title
 ><para
->If you have tried the version 0.7 you have possibly missed the possibility to specify the connections between the edges for yourself. This is possibly using a further file, the connections file. The connection file specifies which edges outgoing from a junction may be reached by a certain edge incoming into this junction and optionally also which lanes shall be used on both sides.</para
+>If you have tried the version 0.7 you have possibly missed the possibility to specify the connections between the edges for yourself. This is now possible using a further file, the connections file. The connection file specifies which edges outgoing from a junction may be reached by a certain edge incoming into this junction and optionally also which lanes shall be used on both sides.</para
 ><para
 >If you only want to describe which edges may be reached from a certain edge, this definition could look something like this: <sgmltag
 >&#60;connection from=&#34;<replaceable
@@ -754,7 +1253,9 @@ spacing="compact"
 >&#34; to=&#34;<replaceable
 >&#60;T0_EDGE_ID&#62;</replaceable
 >&#34;/&#62;</sgmltag
->. This tells the netconverter not only that vehicles shall be allowed to drive from the edge named <sgmltag
+>. This tells <application
+>NETCONVERT</application
+> not only that vehicles shall be allowed to drive from the edge named <sgmltag
 ><replaceable
 >&#60;FROM_EDGE_ID&#62;</replaceable
 ></sgmltag
@@ -783,7 +1284,9 @@ spacing="compact"
 ></listitem
 ></itemizedlist
 ><para
->When using this kind of input, NETCONVERT will compute which lanes shall be used if any of the connected edges has more than one lane.</para
+>When using this kind of input, <application
+>NETCONVERT</application
+> will compute which lanes shall be used if any of the connected edges has more than one lane.</para
 ><para
 >If you also want to explicitly override this computation and set the lanes by hand, use the following: <sgmltag
 >&#60;connection from=&#34;&#60;FROM_EDGE_ID&#62;&#34; to=&#34;&#60;T0_EDGE_ID&#62;&#34; lane=&#34;&#60;INT_1&#62;:&#60;INT_2&#62;&#34;/&#62;</sgmltag
@@ -826,35 +1329,263 @@ spacing="compact"
 >: the numbers of the connected lanes, separated with &#39;:&#39;; lanes are counter from right to left beginning with 0</para
 ></listitem
 ></itemizedlist
->Warning: Please do not use both connection declarations for the same from-edge! The behaviour is not verified and tested for these settings.</para
+></para
+><warning
+><para
+>Please do not use both connection declarations for the same from-edge! The behaviour is not verified and tested for these settings.</para
+><para
+>... TBD ... example</para
+></warning
+></sect2
+><sect2
+id="user_chp04-xml_descriptions-running"
+><title
+>Building the Network</title
+><para
+>After you have generated the files you need being at least the edges and the nodes-files and optionally also a type and/or a connections file you should run <application
+>NETCONVERT</application
+> to build the network. The call should look like:</para
+><screen
+>netconvert --xml-nodes-files=MyNodes.nod.xml --xml-edge-files=MyEdges.edg.xml \
+   --output-file=MySUMONet.net.xml</screen
+><para
+>if you only use edges and nodes. Types and connections may be given as:</para
+><screen
+>netconvert --xml-nodes-files=MyNodes.nod.xml --xml-edge-files=MyEdges.edg.xml \
+   --xml-connection-files=MyConnections.con.xml --type-file=MyTypes.typ.xml \
+   --output-file=MySUMONet.net.xml</screen
+><para
+>Maybe your edge definitions are incomplete or buggy. If you still want to import your network, you can try passing &#34;<option
+>--omit-corrupt-edges</option
+>&#34; to <application
+>NETCONVERT</application
+>. In this case, edges which are not defined properly, are omitted, but <application
+>NETCONVERT</application
+> tries to build the network anyway. You may also flip the network around the horizontal axis. Use option &#34;<option
+>--flip-y</option
+>&#34; for this.</para
+><para
+>You may also use abbreviations for the option names. These abbreviations and options used when building SUMO-networks from own XML-descriptions are:</para
+><variablelist
+><varlistentry
+><term
+><option
+>[ --xml-node-files | --xml-nodes | -n ] <replaceable
+>&#60;NODES_FILE&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>Uses the given file as the source of specification node positions and types. <remark
+>Optional, type:filename, default: none</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>[ --xml-edge-files | --xml-edges | -e ] <replaceable
+>&#60;EDGES_FILE&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>Uses the given file as the source of specification of roads connecting nodes. <remark
+>Optional, type:filename, default: none</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>[ --xml-connection-files | --xml-connections | -x ] <replaceable
+>&#60;CONNECTIONS_FILE&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>Uses the given file as the source of specification how roads are connected (which lanes may be reached from which lanes). <remark
+>Optional, type:filename, default: none</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>[ --xml-type-files | --types | -t ] <replaceable
+>&#60;TYPES_FILE&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>Uses the given file as the source of edge types. <remark
+>Optional, type:filename, default: none</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>--omit-corrupt-edges</option
+></term
+><listitem
+><para
+>Continues with parsing although a corrupt edge occurred. This edge is not inserted and a warning is printed. <remark
+>Optional (pregiven), type:bool, default: false</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>--flip-y</option
+></term
+><listitem
+><para
+>Flips the y-position of nodes (and edges) along the y=zero-line. <remark
+>Optional (pregiven), type:bool, default: false</remark
+></para
+></listitem
+></varlistentry
+></variablelist
+><para
+>Known problems: none yet</para
+><para
+>See also:</para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-defaults"
+>Setting default Values</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+><ulink
+url="#user_chp04-further_options-kmh_speed"
+>&#34;Using Edges&#39; maximum Speed Definitions in km/h&#34;</ulink
+></para
+></listitem
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-importing_notls"
+>Importing Networks without Traffic Light Logics</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-guessing_ramps"
+>Guessing On- and Off-Ramps</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-turnarounds"
+>Adding Turnarounds</ulink
+>&#34;</para
+></listitem
+></itemizedlist
+><para
+>Examples:</para
+><para
+>Almost all networks within the <filename
+>&#60;SUMO&#62;/data/</filename
+> - folder. Additionally some examples that cover the mentioned topics are (see also this chapter itself):</para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+>On using types:</para
+><itemizedlist
+><listitem
+><para
+><filename
+>&#60;SUMO_PATH&#62;/data/examples/netbuild/cross_notypes/</filename
+></para
+></listitem
+><listitem
+><para
+><filename
+>&#60;SUMO_PATH&#62;/data/examples/netbuild/cross_usingtypes/</filename
+></para
+></listitem
+></itemizedlist
+></listitem
+><listitem
+><para
+>On using speed definition in km/h</para
+><itemizedlist
+><listitem
+><para
+><filename
+>&#60;SUMO_PATH&#62;/data/examples/netbuild/cross_notypes_kmh/</filename
+></para
+></listitem
+><listitem
+><para
+><filename
+>&#60;SUMO_PATH&#62;/data/examples/netbuild/cross_usingtypes_kmh/</filename
+></para
+></listitem
+></itemizedlist
+></listitem
+></itemizedlist
+><para
+>Changes:</para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+><option
+>--xml-type-files</option
+> was named <option
+>--type-file</option
+> in versions earlier than 0.9.2</para
+></listitem
+></itemizedlist
 ></sect2
 ></sect1
 ><sect1
+id="user_chp04-other_input"
 ><title
->Converting other input data</title
+>Converting other Input Data</title
 ><para
->Large maps cannot be inserted by hand. We use maps from NavTech stored in the ArcView database format and maps from other simulation suppliers such as ptv within our projects and both are too large for this. We will now explain how to convert such data. We will not give any introduction into those formats/simulations themselves or compare their quality, look out for other sources of information on this, but we will also describe what is being imported and what problems may arise during the conversion.</para
+>Large maps cannot be inserted by hand. We use maps from NavTech stored in the ArcView database format and maps from other simulation suppliers such as ptv within our projects and both are too large for this. We will now explain how to convert such data. We will not give any introduction into those formats/simulations themselves or compare their quality, look out for other sources of information on this, but we will describe what is being imported and what problems may arise during the conversion.</para
 ><sect2
+id="user_chp04-other_input-arcview"
 ><title
 >Importing ArcView-databases</title
 ><para
->The first attempt to import ArcView-databases was to convert them into a textual representation first using shapelib and then to convert them into SUMO-networks using SUMO-NETCONVERT equipped with a matching importer for files generated by shapelib. This has changed in the late 2003 and now the binary &#34;.dbf&#34;- and &#34;.shp&#34;-files can be imported directly. The user may either give the names for both files separately using the <option
->--arcview-shp=&#60;SHP_FILE&#62;</option
-> and the <option
->--arcview-dbf=&#60;DBF_FILE&#62;</option
-> - options or use the <option
+><application
+>NETCONVERT</application
+> is able to directly read binary NavTechs ArcView databases. To convert such databases, you need at least three files: a file with the extension &#34;<filename
+>.dbf</filename
+>&#34;, one with the extension &#34;.<filename
+>shp</filename
+>&#34; and one with the extension &#34;<filename
+>.shx</filename
+>&#34;. Since version 0.9.2 we do not suply the possibility to use different names for the files, so all files should have the same name besides the extension. To build your network from an ArcView-database use the option &#34;<option
 >--arcview=&#60;FILENAME_WITHOUT_EXTENSION&#62;</option
-> option. In the second case, the extensions &#34;.dbf&#34; and &#34;.shp&#34; will be appended to the given name in order to get the real files names. So both versions do the same:</para
-><blockquote
+>&#34;:</para
+><screen
+>netconvert --arcview=MyArcViewDB --output-file=MySUMONet.net.xml</screen
 ><para
->netconvert(.exe) --arcview-dbf=myArcViewData.dbf --arcview-shp=myArcViewData.shp --output-file=MySUMOFile.net.xml</para
-></blockquote
-><para
->and:</para
-><blockquote
-><para
->netconvert(.exe) --arcview=myArcViewData --output-file=MySUMOFile.net.xml</para
-></blockquote
+>This call will force <application
+>NETCONVERT</application
+> to read the files &#34;<filename
+>MyArcViewDB.dbf</filename
+>&#34;, &#34;<filename
+>MyArcViewDB.shx</filename
+>&#34;, and &#34;<filename
+>MyArcViewDB.shp</filename
+>&#34; and to generate a network named &#34;<filename
+>MySUMONet.net.xml</filename
+>&#34;.</para
 ><para
 ><caution
 ><para
@@ -862,13 +1593,128 @@ spacing="compact"
 >--arcview</option
 >-option.</para
 ></caution
+><caution
+><para
+>Please remark that the options &#34;<option
+>--arcview-dbf</option
+>&#34; and &#34;<option
+>--arcview-shp</option
+>&#34; are no valid.</para
+></caution
 ></para
+><para
+>We have been asked which fields are read from ArcView-files. As said before, the reader was build to read ArcView-files containing road networks from NavTech. Due to this the following fields are used:</para
+><table
+><title
+>Entries read by NETCONVERT</title
+><tgroup
+cols="2"
+><thead
+><row
+><entry
+>Entity Name</entry
+><entry
+>Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+>LINK_ID</entry
+><entry
+>The id of an edge</entry
+></row
+><row
+><entry
+>ST_NAME</entry
+><entry
+>The name of an edge (not really used)</entry
+></row
+><row
+><entry
+>REF_IN_ID</entry
+><entry
+>The name of the node the edge starts at</entry
+></row
+><row
+><entry
+>NREF_IN_ID</entry
+><entry
+>The name of the node the edge ends at</entry
+></row
+><row
+><entry
+>ST_TYP_AFT</entry
+><entry
+>The type of the street (not really used)</entry
+></row
+><row
+><entry
+>SPEED_CAT</entry
+><entry
+>Speed category</entry
+></row
+><row
+><entry
+>LANE_CAT</entry
+><entry
+>Lane category</entry
+></row
+><row
+><entry
+>FUNC_CLASS</entry
+><entry
+>Road class, used to determine the priority</entry
+></row
+></tbody
+></tgroup
+></table
+><para
+>Since version 0.9.2 we also allow to override the rather &#34;fuzzy&#34; information from NavTech using own fields:</para
+><table
+><title
+>Possible entries to override NavTech-information</title
+><tgroup
+cols="2"
+><thead
+><row
+><entry
+>Entity Name</entry
+><entry
+>Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+>SPEED</entry
+><entry
+>The explicite speed in m/s (see also <ulink
+url="#user_chp04-further_options-kmh_speed"
+>&#34;Using Edges&#39; maximum Speed Definitions in km/h&#34;</ulink
+>)</entry
+></row
+><row
+><entry
+>NOLANES</entry
+><entry
+>The explicite number of lanes</entry
+></row
+><row
+><entry
+>PRIORITY</entry
+><entry
+>The explicite priority</entry
+></row
+></tbody
+></tgroup
+></table
+><para
+>This idea came from John Michael Calandrino.</para
 ><para
 >Some remarks:</para
 ><para
->Each of the maps we&#39;ve got from NavTech, being encoded in the ArcView database format, describes an area of a single state or federal state. This is much too large for our purposes, as we are mainly interested in urban traffic. In fact, we have not tried out which resources are needed to perform the simulation of a single German federal state with SUMO, although this should be possible at all.</para
-><para
->Due to this, one has at first to extract an area of interest. Our first approaches to do this by using postal numbers is not as sophisticated as firstly though to be: some interesting parts of the cities, above all major highways do not belong to the postal code area of the regarded city (Magdeburg and Munich within this test).</para
+>Each of the maps we&#39;ve got from NavTech, being encoded in the ArcView database format, describes an area of a single state or federal state. This is much too large for our purposes, as we are mainly interested in urban traffic. In fact, we have not tried out which resources are needed to perform the simulation of a single German federal state with SUMO, although this should be possible at all. Due to this, one has at first to extract an area of interest. Our first approaches to do this by using postal numbers is not as sophisticated as firstly though to be: some interesting parts of the cities, above all major highways do not belong to the postal code area of the regarded city (Magdeburg and Munich within this test).</para
 ><para
 ><caution
 ><para
@@ -876,29 +1722,90 @@ spacing="compact"
 ></caution
 ></para
 ><para
-><caution
-><para
->Please read also the chapter &#34;General comments on import of networks without traffic light logics&#34;</para
-></caution
-></para
-><para
->Known problems:</para
-><itemizedlist
+>Specific options:</para
+><variablelist
+><varlistentry
+><term
+><option
+>--arcview <replaceable
+>&#60;ARCVIEW_PREFIX&#62;</replaceable
+></option
+></term
 ><listitem
 ><para
->The junctions are not assigned to proper types</para
+>Loads definitions from &#34;<filename
+>&#60;ARCVIEW_PREFIX&#62;.shp</filename
+>&#34;, &#34;<filename
+>&#60;ARCVIEW_PREFIX&#62;.dbf</filename
+>&#34; and &#34;<filename
+>&#60;ARCVIEW_PREFIX&#62;.shx</filename
+>&#34;. <remark
+>Optional, type:filename-prefix, default: none</remark
+></para
+></listitem
+></varlistentry
+></variablelist
+><para
+>Known problems: none yet</para
+><para
+>See also:</para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-importing_notls"
+>Importing Networks without Traffic Light Logics</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+><ulink
+url="#user_chp04-further_options-kmh_speed"
+>&#34;Using Edges&#39; maximum Speed Definitions in km/h&#34;</ulink
+></para
+></listitem
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-guessing_ramps"
+>Guessing On- and Off-Ramps</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-turnarounds"
+>Adding Turnarounds</ulink
+>&#34;</para
+></listitem
+></itemizedlist
+><para
+>Examples: none yet</para
+><para
+>Changes:</para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+>versions earlier than 0.9.2 allowe to use an explicite filename for both the .dbf and the .shp file using &#34;<option
+>--arcview-dbf</option
+>&#34; and &#34;<option
+>--arcview-shp</option
+>&#34;. This was abondonned, because of the need to use .shx-files, also.</para
 ></listitem
 ></itemizedlist
 ></sect2
 ><sect2
+id="user_chp04-other_input-artemis"
 ><title
 >Importing Artemis-simulation folders</title
 ><para
->To import Artemis-network descriptions, start SUMO-NETCONVERT with the following parameter:</para
-><blockquote
-><para
->netconvert(.exe) --artemis=&#60;PATH&#62; --output-file=MySUMOFile.net.xml</para
-></blockquote
+>To import Artemis-network descriptions, start <application
+>NETCONVERT</application
+> with the following parameter:</para
+><screen
+>netconvert --artemis=&#60;PATH&#62; --output-file=MySUMOFile.net.xml</screen
 ><para
 >This should build the network &#34;<filename
 >MySUMOFile.net.xml</filename
@@ -972,44 +1879,225 @@ spacing="compact"
 ></listitem
 ></itemizedlist
 ><para
->Artemis simulation description also holds definitions of the traffic flows to use. They are not parsed by the SUMO-NETCONVERT - module, but may be passed to SUMO-ROUTER to gain the according routes.</para
+>Artemis simulation description also holds definitions of the traffic flows to use. They are not parsed by the <application
+>NETCONVERT</application
+> - module, but may be passed to <application
+>ROUTER</application
+> to gain the according routes.</para
+><para
+>Specific options:</para
+><variablelist
+><varlistentry
+><term
+><option
+>[ --artemis-path | --artemis ] <replaceable
+>&#60;PATH&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>Loads definitions from the given path. <remark
+>Optional, type:path, default: none</remark
+></para
+></listitem
+></varlistentry
+></variablelist
+><para
+>Known problems:</para
+><caution
+><para
+>The import of ARTMIS is not longer supplied and seems to be buggy.</para
+></caution
+><para
+>Examples: none yet</para
 ></sect2
 ><sect2
+id="user_chp04-other_input-fastlane"
 ><title
 >Importing Cell/Fastlane-networks</title
 ><para
->FastLane, developed at the ZAIK, is a mesoscopic traffic simulation. The network description consists of a file containing edges and a second one containing nodes. Due to this, you need to supply two values as input parameter and the call looks like this:</para
-><blockquote
-><para
->netconvert(.exe) --cell-nodes=<replaceable
+>FastLane, developed at the <ulink
+url="http://www.zaik.uni-koeln.de/"
+>ZAIK</ulink
+>, is a mesoscopic traffic simulation. The network description consists of a file containing edges and a second one containing nodes. Due to this, you need to supply two values as input parameter and the call looks like this:</para
+><screen
+>netconvert --cell-nodes=<replaceable
 >&#60;CELL_NODE_FILE&#62;</replaceable
 > --cell-edges=<replaceable
 >&#60;CELL_EDGE_FILE&#62;</replaceable
-> --output-file=<replaceable
+> \
+   --output-file=<replaceable
 >MySUMOFile.net.xml</replaceable
+></screen
+><para
+>Of course, both files must belong to the same network. As FastLane is a mesoscopic simulation, sometime the number of an edge&#39;s lanes is not given. Instead, FastLane uses the capacity. In such cases, the number of lanes is computed roughly using the edge&#39;s capacity. We assume a linear dependency for this, currently, although this may not be the best solution. So, the number of lanes is computed as EDGE_CAPACITY/NORM. You may change the norm from its default of 20000 using the option <option
+>--capacity-norm</option
+>.</para
+><para
+>Specific options:</para
+><variablelist
+><varlistentry
+><term
+><option
+>[ --cell-node-file | --cell-nodes ] <replaceable
+>&#60;FILE&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>Reads nodes definitions from <replaceable
+>&#60;FILE&#62;</replaceable
+>. <remark
+>Optional, type:path, default: none</remark
 ></para
-></blockquote
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>[ --cell-edge-file | --cell-edges ] <replaceable
+>&#60;FILE&#62;</replaceable
+></option
+></term
+><listitem
 ><para
->Of course, both files must belong to the same network.</para
+>Reads edges definitions from <replaceable
+>&#60;FILE&#62;</replaceable
+>. <remark
+>Optional, type:path, default: none</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>[ --capacity-norm | -N ] <replaceable
+>&#60;FLOAT&#62;</replaceable
+></option
+></term
+><listitem
 ><para
->Known problems:</para
+>Sets the capacity norm to the given value. <remark
+>Optional (pregiven), type:float, default: 20000</remark
+></para
+></listitem
+></varlistentry
+></variablelist
+><para
+>Known problems: none yet</para
+><para
+>See also:</para
 ><itemizedlist
 spacing="compact"
 ><listitem
 ><para
->All junctions are interpreted as priority-junctions</para
+>&#34;<ulink
+url="#user_chp04-further_options-importing_notls"
+>Importing Networks without Traffic Light Logics</ulink
+>&#34;</para
 ></listitem
 ><listitem
 ><para
->The number of a street&#39;s lanes is not computed from the flows, it must be given</para
+>&#34;<ulink
+url="#user_chp04-further_options-guessing_ramps"
+>Guessing On- and Off-Ramps</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-turnarounds"
+>Adding Turnarounds</ulink
+>&#34;</para
 ></listitem
 ></itemizedlist
+><para
+>Examples: none yet</para
 ></sect2
 ><sect2
+id="user_chp04-other_input-vissim"
 ><title
 >Importing VISSIM-networks</title
 ><para
->Although Vissim is a microscopic simulation as SUMO is, it follows a completely different concept of modelling traffic. Due to this, the import is quite clumsy and may not work with all networks. Also, we have to insert additional edges into our networks to simulate the Vissim-parking places, originally being nodes, which we do not have.</para
+>Although Vissim is a microscopic simulation as SUMO is, it follows a completely different concept of modelling traffic. Due to this, the import is quite clumsy and may not work with all networks. Also, we have to insert additional edges into our networks to simulate the Vissim-parking places, originally being nodes, which we do not have. An usage example could be this one:</para
+><screen
+>netconvert --vissim=<replaceable
+>&#60;VISSIM_FILE&#62;</replaceable
+> --output-file=<replaceable
+>MySUMOFile.net.xml</replaceable
+></screen
+><para
+>Vissim-networks do possibly not contain explicite definitions of an edge&#39;s speed. We have to propagate once set velocities, but even then some edges&#39; speeds may not be defined. The option &#34;<option
+>--vissim-default-speed</option
+>&#34; may change the default speed used in the case an edge&#39;s speed is not defined. The default value for this parameter is 13.89m/s, being around 50km/h. The second parameter &#34;<option
+>--vissim-speed-norm</option
+>&#34; describes the factor to multiply a described flows maximum velocity to gain the velocity to use. The default value is 1.</para
+><para
+>Furthermore, as we have to use geometrical heuristics, a further factor steers the process of converting Vissim-networks: simply spoken, &#34;<option
+>--vissim-offset</option
+>&#34; holds the information how near two nodes must be (in meters) to be joined.</para
+><para
+>During import, different actions must be done which may yield in some loss of data and may be watched in part by setting the verbose option. The additional warnings will be described in a further document (... TBD ...).</para
+><para
+>Specific options:</para
+><variablelist
+><varlistentry
+><term
+><option
+>--vissim <replaceable
+>&#60;FILE&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>Loads definitions from the given file (should end with &#34;.inp&#34;). <remark
+>Optional, type:filename, default: none</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>--vissim-speed-norm <replaceable
+>&#60;SPEED_NORM_FACTOR&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>A factor that is multiplied with a streams maximum velocity to determine the velocity to use for an edge. <remark
+>Optional (pregiven), type:float, default: 1</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>--vissim-default-speed <replaceable
+>&#60;DEFAULT_SPEED&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>The default speed to use for a street when no information is available. <remark
+>Optional (pregiven), type:float, default: 13.89 (m/s)</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>--vissim-offset <replaceable
+>&#60;MAX_JOIN_DISTANCE&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>This value is used to determine whether two Vissim-structures are near enough to be joined into a node. <remark
+>Optional (pregiven), type:float, default: 5 (m)</remark
+></para
+></listitem
+></varlistentry
+></variablelist
 ><para
 >Known problems:</para
 ><itemizedlist
@@ -1028,66 +2116,969 @@ spacing="compact"
 ></listitem
 ></itemizedlist
 ><para
->An usage example could be this one:</para
-><blockquote
-><para
->netconvert(.exe) --vissim=<replaceable
->&#60;VISSIM_FILE&#62;</replaceable
-> --output-file=<replaceable
->MySUMOFile.net.xml</replaceable
-></para
-></blockquote
-><para
->As Vissim-networks do not hold explicit definitions of an edge&#39;s speed, we have to use the vehicle flow definitions. Two parameter control this process. &#34;<option
->--vissim-default-speed</option
->&#34; is the definition of the speed limit to use when no information is available in m/s. The default value for this parameter is 50km/h. The second parameter &#34;<option
->--vissim-speed-norm</option
->&#34; describes the factor to multiply a described flows maximum velocity to gain the velocity to use.</para
-><para
->During import, different actions must be done which may yield in some loss of data and may be watched in part by setting the verbose option. The additional warnings will be described in a further document.</para
+>Examples: none yet</para
 ></sect2
 ><sect2
+id="user_chp04-other_input-visum"
 ><title
 >Importing VISUM-networks</title
 ><para
 >Visum is a macroscopic simulation developed by ptv. As the network description does not possess any information about the number of lanes, we have to generate it from the street&#39;s flow. The computation is done by dividing the flow through a fix value, 2000 by default. This yields in a realistic network but fails on &#39;feeder roads&#39; where vehicles are emitted. Some further parameter allow fixing the problem.</para
 ><para
 >An usage example could be this one:</para
-><blockquote
-><para
->netconvert(.exe) --visum=<replaceable
+><screen
+>netconvert --visum=<replaceable
 >&#60;VISUM_FILE&#62;</replaceable
 > --output-file=<replaceable
 >MySUMOFile.net.xml</replaceable
+></screen
+><para
+>Specific options:</para
+><variablelist
+><varlistentry
+><term
+><option
+>--visum <replaceable
+>&#60;FILE&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>Loads definitions from the given file (should end with &#34;.net&#34;). <remark
+>Optional, type:filename, default: none</remark
 ></para
-></blockquote
+></listitem
+></varlistentry
+></variablelist
+><para
+>Known problems: none yet</para
+><para
+>See also:</para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-importing_notls"
+>Importing Networks without Traffic Light Logics</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-guessing_ramps"
+>Guessing On- and Off-Ramps</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-turnarounds"
+>Adding Turnarounds</ulink
+>&#34;</para
+></listitem
+></itemizedlist
 ></sect2
 ><sect2
+id="user_chp04-other_input-elmar"
 ><title
->General comments on import of networks without traffic light logics</title
+>Importing Elmar&#39;s converted NavTech-Files</title
 ><para
->Some of the supported network formats - Visum, Vissim and Artemis, supply information about the logic of the traffic lights. The others do not. Due to this, we have to compute the traffic lights by our own. This is working, but one has to remind one thing: dead times are necessary to avoid collisions of vehicles which do not manage to break as they are too near to the traffic light when it switches to red. This time may be computed, and is, but depends on the maximum deceleration possibility of the vehicles used. As this parameter is not known to the network builder at all - the vehicle types are supported to the simulation only - we added a parameter that allows specifying it:</para
+>You can convert both the splitted and the unsplitted version of files generated by Elmar from NavTech-files. I suppose, there is no difference between them, but some other projects are using one certain type and so may have only this type of files. The option <option
+>--elmar</option
+> loads the splitted definitions, <option
+>--elmar2</option
+> the unsplitted. Both options await the prefix as generated by Elmar&#39;s converter, an optional path is allowed. Example:</para
+><screen
+>netconvert --elmar=berlin_ --output-file=<replaceable
+>MySUMOFile.net.xml</replaceable
+></screen
 ><para
+>Imports the descriptions of nodes from &#34;<filename
+>berlin_nodes.txt</filename
+>&#34; and the edges from &#34;<filename
+>berlin_links.txt</filename
+>&#34;.</para
+><para
+>Specific options:</para
+><variablelist
+><varlistentry
+><term
 ><option
->--min-decel (-D) <replaceable
->&#60;DOUBLE&#62;</replaceable
+>--elmar <replaceable
+>&#60;NET_PREFIX&#62;</replaceable
 ></option
+></term
+><listitem
+><para
+>Loads the splitted versions of the files behind &#60;NET_PREFIX&#62;. <remark
+>Optional, type:filename-prefix, default: none</remark
 ></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>--elmar2 <replaceable
+>&#60;NET_PREFIX&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>Loads the unsplitted versions of the files behind &#60;NET_PREFIX&#62;. <remark
+>Optional, type:filename-prefix, default: none</remark
+></para
+></listitem
+></varlistentry
+></variablelist
+><para
+>Known problems: none yet</para
+><para
+>See also:</para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-importing_notls"
+>Importing Networks without Traffic Light Logics</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-guessing_ramps"
+>Guessing On- and Off-Ramps</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-turnarounds"
+>Adding Turnarounds</ulink
+>&#34;</para
+></listitem
+></itemizedlist
+></sect2
+><sect2
+id="user_chp04-other_input-tiger"
+><title
+>Importing TIGER-databases</title
+><para
+>This import function is in a rather experimental state. We need someone who owns a network she/he knows and who could give us an advice whether the import work as expected. You still may try it out using the option <option
+>--tiger=<replaceable
+>&#60;FILE_PREFIX&#62;</replaceable
+></option
+>.</para
+><para
+>Known problems: none yet</para
+><para
+>See also:</para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-importing_notls"
+>Importing Networks without Traffic Light Logics</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-guessing_ramps"
+>Guessing On- and Off-Ramps</ulink
+>&#34;</para
+></listitem
+><listitem
+><para
+>&#34;<ulink
+url="#user_chp04-further_options-turnarounds"
+>Adding Turnarounds</ulink
+>&#34;</para
+></listitem
+></itemizedlist
 ></sect2
 ></sect1
 ><sect1
+id="user_chp04-further_options"
 ><title
->Automatic network generation</title
+>Further NETCONVERT Options</title
 ><para
->NETGEN allows building of easy networks. In dependence to what is wished, three types of networks can be built. All of them are very sophisticated, but may be used as examples. You are also greatly invited to extend the concepts. Available types are: grid-networks, spider-networks and random-networks.</para
+><application
+>NETCONVERT</application
+> allows offers some more options to describe how the network shall be imported. The scope of some options does not cover all import types, though a list of valid import types for each options set is given.</para
+><sect2
+id="user_chp04-further_options-defaults"
+><title
+>Setting default Values</title
 ><para
->Beside the parameter describing the thing to build more precise, you always have to supply the name of the network to generate using <option
->--output &#60;FILENAME&#62;</option
+>We have mentioned, that edge parameter may be omitted and defaults will be used in this case. You have the possibility to define these defaults using the following options:</para
+><variablelist
+><varlistentry
+><term
+><option
+>[ --type | -T ] <replaceable
+>&#60;DEFAULT_TYPE_NAME&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>The name of the default type of edges. <remark
+>Optional (pregiven), type:string, default: &#34;Unknown&#34;</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>[ --lanenumber | -L ] <replaceable
+>&#60;DEFAULT_LANE_NUMBER&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>The number of lanes an edge has to use as default. <remark
+>Optional (pregiven), type:int, default: 1</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>[ --speed | -S ] <replaceable
+>&#60;DEFAULT_MAX_SPEED&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>The maximum speed allowed on an edge in m/s to use as default. <remark
+>Optional (pregiven), type:float, default: 13.9</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>[ --priority | -P ] <replaceable
+>&#60;DEFAULT_PRIORITY&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>The default priority of an edge. <remark
+>Optional (pregiven), type:int, default: 1</remark
+></para
+></listitem
+></varlistentry
+></variablelist
+><para
+>These options may be used while importing the following formats:</para
+><para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+><application
+>FastLane/CELL</application
+> by Christian Gawron (a mesoscopic traffic simulation package) (... TBD ...)</para
+></listitem
+><listitem
+><para
+>XML-descriptions</para
+></listitem
+></itemizedlist
+></para
+><para
+>Examples: none yet</para
+></sect2
+><sect2
+id="user_chp04-further_options-turnarounds"
+><title
+>Adding Turnarounds</title
+><para
+>To add turnarounds use the option option &#34;<option
+>--append-turnarounds</option
+>&#34;.</para
+><para
+>Specific option:</para
+><variablelist
+><varlistentry
+><term
+>--append-turnarounds</term
+><listitem
+><para
+><remark
+>Optional (pregiven), type:bool, default: false</remark
+></para
+></listitem
+></varlistentry
+></variablelist
+><para
+>This options may be used while importing the following formats:</para
+><para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+><application
+>FastLane/CELL</application
+> by Christian Gawron (a mesoscopic traffic simulation package) (... TBD ...)</para
+></listitem
+><listitem
+><para
+>ARCVIEW-data base files (... TBD ...)</para
+></listitem
+><listitem
+><para
+>XML-descriptions</para
+></listitem
+></itemizedlist
+></para
+></sect2
+><sect2
+id="user_chp04-further_options-turnarounds"
+><title
+>Removing Geometry Nodes</title
+><para
+>In most input networks one may find nodes where one street comes in and one with the same attributes goes one or two parallel edges come in and two (with the same attribute) come out. Such nodes have mostly no meaning (maybe besides the additional possibility to make a U-turn) and may be removed. The removal of such nodes increases the simulation speed due to a smaller number of edges to process during each time step. That&#39;s why such nodes are removed by default. To avoid this behaviour, use &#34;<option
+>--no-node-removal</option
+>&#34;.</para
+><para
+>Specific option:</para
+><variablelist
+><varlistentry
+><term
+>--no-node-removal</term
+><listitem
+><para
+><remark
+>Optional (pregiven), type:bool, default: false</remark
+></para
+></listitem
+></varlistentry
+></variablelist
+><para
+>This options may be used while importing the following formats:</para
+><para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+><application
+>FastLane/CELL</application
+> by Christian Gawron (a mesoscopic traffic simulation package) (... TBD ...)</para
+></listitem
+><listitem
+><para
+>ARCVIEW-data base files (... TBD ...)</para
+></listitem
+><listitem
+><para
+>XML-descriptions</para
+></listitem
+></itemizedlist
+></para
+></sect2
+><sect2
+id="user_chp04-further_options-kmh_speed"
+><title
+>Using Edges&#39; maximum Speed Definitions in km/h</title
+><para
+>Some people do not like to use speed definitions in m/s. If you want to define the speeds allowed on your edges in km/h instead, you should pass the following option to <application
+>NETCONVERT:</application
+></para
+><variablelist
+><varlistentry
+><term
+>--speed-in-kmh</term
+><listitem
+><para
+><remark
+>Optional (pregiven), type:bool, default: false</remark
+></para
+></listitem
+></varlistentry
+></variablelist
+><para
+>This option may be used while importing the following formats:</para
+><para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+><application
+>FastLane/CELL</application
+> by Christian Gawron (a mesoscopic traffic simulation package) (... TBD ...)</para
+></listitem
+><listitem
+><para
+>ARCVIEW-data base files (... TBD ...)</para
+></listitem
+><listitem
+><para
+>XML-descriptions</para
+></listitem
+></itemizedlist
+></para
+><para
+>Examples:</para
+><para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+><filename
+>&#60;SUMO&#62;\data\examples\netbuild\cross_notypes_kmh</filename
+> in comparison to <filename
+>&#60;SUMO&#62;\data\examples\netbuild\cross_notypes</filename
+></para
+></listitem
+><listitem
+><para
+><filename
+>&#60;SUMO&#62;\data\examples\netbuild\cross_usingtypes_kmh</filename
+> in comparison to <filename
+>&#60;SUMO&#62;\data\examples\netbuild\cross_usingtypes</filename
+></para
+></listitem
+></itemizedlist
+></para
+><para
+>Changes:</para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+><option
+>--speed-in-kmh</option
+> was named <option
+>--speed-in-km</option
+> in versions earlier than 0.9.2</para
+></listitem
+></itemizedlist
+></sect2
+><sect2
+id="user_chp04-further_options-importing_notls"
+><title
+>Importing Networks without Traffic Light Logics</title
+><para
+>Some of the supported network formats - Visum, Vissim and Artemis, supply information about the logic of the traffic lights. The others do not. Due to this, we have to compute the traffic lights by our own. Doing this, we do not only have to compute the plans, but of course also, on which junction traffic lights are positioned. There are several options steering this procedure. At first, you have to tell <application
+>NETCONVERT</application
+>/<application
+>NETGEN</application
+> that you wish him to guess positions of traffic lights. This is done using the &#34;<option
+>--guess-tls</option
+>&#34;-option. Then, you have the possibility to describe the junctions at which you think a tls shall be placed using description of incoming and outgoing edges: &#34;<option
+>--tls-guess.no-incoming-min</option
+>&#34;, &#34;<option
+>--tls-guess.no-incoming-max</option
+>&#34;, &#34;<option
+>--tls-guess.no-outgoing-min</option
+>&#34; and &#34;<option
+>--tls-guess.no-outgoing-max</option
+>&#34; constraint the building of a tls by the number of the lanes incoming/outgoing edges have. All these four options require an int as parameter. Furthermore, you may constraint the junctions by giving the minimum/maximum of allowed speed on edges that participate: &#34;<option
+>--tls-guess.min-incoming-speed</option
+>&#34;, &#34;<option
+>--tls-guess.max-incoming-speed</option
+>&#34;, &#34;<option
+>--tls-guess.min-outgoing-speed</option
+>&#34;, and &#34;<option
+>--tls-guess.max-outgoing-speed</option
+>&#34;.</para
+><caution
+><para
+>No, we do not have a validated set of these option&#39;s settings, yet.</para
+></caution
+><para
+>You may also explicitely set junctions as tls-controlled using &#34;<option
+>--explicite-tls</option
+>&#34; or as uncontrolled using &#34;<option
+>--explicite-no-tls</option
+>&#34;. Both options assume to get a list of node names divided by &#39;;&#39; as parameter. The behaviour when a node is in both lists is undefined.</para
+><para
+>Normally, only one traffic lights logic (phases definition) is computed per a traffic lights controlled junction, but the algorithm we use is able to compute several logics. To force the computation of all possible logics, use &#34;<option
+>--all-logics</option
+>&#34;. Remind, that all logics will be written to the network file and that we have no tools for further procesing of these logics.</para
+><para
+>During the computation of tls-logics among other information we have to guess the duration of the phases. The options &#34;<option
+>--traffic-light-green</option
+>&#34; and &#34;<option
+>--traffic-light-yellow</option
+>&#34; allow you to give the durations of green and yellow lights. Both options assume the duration in s as an int as parameter. The duration of having red is dependant to the number of other phases and their green and yellow phase durations. The green phase length has a default of 20s, yellow lights are - if no value is set for this option - computed using the &#34;<option
+>--min-decel</option
+>&#34; - value described below.</para
+><para
+>One has to remind one thing: dead times are necessary to avoid collisions of vehicles which do not manage to break as they are too near to the traffic light when it switches to red. This time may be computed, and is, but depends on the maximum deceleration possibility of the vehicles used. As this parameter is not known to the network builder at all - the vehicle types are supported to the simulation only - the option &#34;<option
+>--min-decel</option
+>&#34; (or <option
+>-D</option
+> for short) is used to set the minimum deceleration of vehicles. The default is 3.0 in m/s^2.</para
+><para
+>There is no possibility to compute or estimate green light districts, yet. You have only the options to shift the computed phases by half of their duration or by a quarter of their duration. The options for this are: &#34;<option
+>--tl-logics.half-offset</option
+>&#34; and &#34;<option
+>--tl-logics.quarter-offset</option
+>&#34;. Both options assume to get a list of node names divided by &#39;;&#39; as parameter. The behaviour when a node is in both lists or if the node is not meant to be controlled by a tls is undefined.</para
+><para
+>Specific options:</para
+><variablelist
+><varlistentry
+><term
+><option
+><option
+>--guess-tls</option
+></option
+></term
+><listitem
+><para
+>Forces NETCONVERT/NETGEN to guess whether a junction is controlled by a tls or not. <remark
+>Optional, type:bool, default: false</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+><option
+>--tls-guess.min-incoming-speed <replaceable
+>&#60;SPEED&#62;</replaceable
+>, --tls-guess.max-incoming-speed <replaceable
+>&#60;SPEED&#62;</replaceable
+></option
+></option
+></term
+><listitem
+><para
+>Sets the minimum and the maximum of the velocity a junction&#39;s incoming edges may have if the junction shall be tls-controlled in m/s. <remark
+>Optional (pregiven), type:float, defaults: --tls-guess.min-incoming-speed: 40/3.6, --tls-guess.min-incoming-speed: 69/3.6</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+><option
+>--tls-guess.min-outgoing-speed <replaceable
+>&#60;SPEED&#62;</replaceable
+>, --tls-guess.max-outgoing-speed <replaceable
+>&#60;SPEED&#62;</replaceable
+></option
+></option
+></term
+><listitem
+><para
+>Sets the minimum and the maximum of the velocity a junction&#39;s outgoing edges may have if the junction shall be tls-controlled in m/s. <remark
+>Optional (pregiven), type:float, defaults: --tls-guess.min-outgoing-speed: 40/3.6, --tls-guess.max-outgoing-speed: 69/3.6</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+><option
+>--tls-guess.no-incoming-min <replaceable
+>&#60;LANE_NUMBER&#62;</replaceable
+>, --tls-guess.no-incoming-max <replaceable
+>&#60;LANE_NUMBER&#62;</replaceable
+></option
+></option
+></term
+><listitem
+><para
+>Sets the minimum and the maximum number of a junction&#39;s incoming edges to allow the junction to be controlled by a tls. <remark
+>Optional (pregiven), type:int, defaults: --tls-guess.no-incoming-min: 2, --tls-guess.no-incoming-max: 5</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+><option
+>--tls-guess.no-outgoing-min <replaceable
+>&#60;LANE_NUMBER&#62;</replaceable
+>, --tls-guess.no-outgoing-max <replaceable
+>&#60;LANE_NUMBER&#62;</replaceable
+></option
+></option
+></term
+><listitem
+><para
+>Sets the minimum and the maximum number of a junction&#39;s outgoing edges to allow the junction to be controlled by a tls. <remark
+>Optional (pregiven), type:int, defaults: --tls-guess.no-outgoing-min: 1, --tls-guess.no-outgoing-max: 5</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+><option
+>--explicite-tls <replaceable
+>&#60;JUNCTION_ID&#62;</replaceable
+>[;<replaceable
+>&#60;JUNCTION_ID&#62;</replaceable
+>]*</option
+></option
+></term
+><listitem
+><para
+>Informs the network builder that the given junctions shall be treated as being controlled by traffic lights, even if they do not match the tls-guess rules. <remark
+>Optional, type:list of strings, default: none</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+><option
+>--explicite-no-tls <replaceable
+>&#60;JUNCTION_ID&#62;</replaceable
+>[;<replaceable
+>&#60;JUNCTION_ID&#62;</replaceable
+>]*</option
+></option
+></term
+><listitem
+><para
+>Informs the network builder that the given junctions shall be treated as NOT being controlled by traffic lights, even if they match the tls-guess rules. <remark
+>Optional, type:list of strings, default: none</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+><option
+>--all-logics</option
+></option
+></term
+><listitem
+><para
+>Computes and saves all possible cliques and phases for a traffic light instead of the fastest one only. <remark
+>Optional, type:bool, default: false</remark
+></para
+><caution
+><para
+>This process may be very time consuming.</para
+></caution
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>[ --min-decel | -D ] <replaceable
+class="parameter"
+>&#60;FLOAT&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>he minimum deceleration value for vehicles in m/s^2. <remark
+>Optional (pregiven), type:float, default: 3</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>--traffic-light-green <replaceable
+>&#60;DURATION&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>The duration of green lights. <remark
+>Optional, type:int, default: none (20s internally)</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+>--traffic-light-yellow <replaceable
+>&#60;DURATION&#62;</replaceable
+></option
+></term
+><listitem
+><para
+>The duration of yellow lights; overrides <option
+>--min-decel</option
+>. <remark
+>Optional, type:int, default: none</remark
+></para
+></listitem
+></varlistentry
+></variablelist
+><para
+>These options may be used while importing the following formats:</para
+><para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+><application
+>FastLane/CELL</application
+> by Christian Gawron (a mesoscopic traffic simulation package) (... TBD ...)</para
+></listitem
+><listitem
+><para
+>ARCVIEW-data base files (... TBD ...)</para
+></listitem
+><listitem
+><para
+>XML-descriptions</para
+></listitem
+></itemizedlist
+></para
+><para
+>Examples: none yet</para
+></sect2
+><sect2
+id="user_chp04-further_options-guessing_ramps"
+><title
+>Guessing On- and Off-Ramps</title
+><para
+>Most of the imported network descriptions do not have information about highway on- and off-ramps. You can force <application
+>NETCONVERT</application
+> to guess where on- and off-ramps shall be build. To enable this, use the option &#34;<option
+>--guess-ramps</option
+>&#34;. The algorithm assumes that an on-ramp shall be build on highway junctions with one incoming and one outgoing highway edge and one incoming minor edge and that an off-ramp shall be build on highway junctions with one incoming and one outgoing highway edge and one outgoing minor edge. You can contrain what a highway highway by giving its minimum speed of this edge using &#34;<option
+>--ramp-guess.min-highway-speed</option
+>&#34; and what a minor edge is by giving its maximum speed using &#34;<option
+>--ramp-guess.max-ramp-speed</option
+>&#34;. Both options assume a float parameter being the speed. Furthermore, &#34;<option
+>--ramp-guess.ramp-length</option
+>&#34; tells <application
+>NETCONVERT</application
+> how long the added ramp shall be in meters.</para
+><note
+><para
+>Normally, we keep the edge as it is and let the geometry computation do the rest.</para
+></note
+><caution
+><para
+>Note that computation of on- and off-ramps radically changes the lengths of your edges.</para
+></caution
+><para
+>Specific options:</para
+><variablelist
+><varlistentry
+><term
+><option
+><option
+>--guess-ramps</option
+></option
+></term
+><listitem
+><para
+>Forces <application
+>NETCONVERT</application
+>/<application
+>NETGEN</application
+> to guess whether a junction is controlled by a tls or not. <remark
+>Optional, type:bool, default: false</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+><option
+>--ramp-guess.max-ramp-speed <replaceable
+>&#60;SPEED&#62;</replaceable
+></option
+></option
+></term
+><listitem
+><para
+>Defines the maximum speed an edge may have in order to be a ramp in m/s. The default of -1 tells <application
+>NETCONVERT</application
+> that all edges may be potential ramps. <remark
+>Optional (pregiven), type:float, default: -1</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+><option
+>--ramp-guess.min-highway-speed <replaceable
+>&#60;SPEED&#62;</replaceable
+></option
+></option
+></term
+><listitem
+><para
+>Defines the minimum speed an edge may have in order to be a highway in m/s. <remark
+>Optional (pregiven), type:float, default: 80/3.6</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+><option
+>--ramp-guess.ramp-length <replaceable
+>&#60;LENGTH&#62;</replaceable
+></option
+></option
+></term
+><listitem
+><para
+>Sets the length of the ramps to build in meters. <remark
+>Optional (pregiven), type:float, defaults: 100</remark
+></para
+></listitem
+></varlistentry
+></variablelist
+><para
+>These options may be used while importing the following formats:</para
+><para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+><application
+>FastLane/CELL</application
+> by Christian Gawron (a mesoscopic traffic simulation package) (... TBD ...)</para
+></listitem
+><listitem
+><para
+>ARCVIEW-data base files (... TBD ...)</para
+></listitem
+><listitem
+><para
+>XML-descriptions</para
+></listitem
+></itemizedlist
+></para
+><para
+>Examples: none yet</para
+></sect2
+><sect2
+id="user_chp04-further_options-additional_output"
+><title
+>Additional Output</title
+><para
+><application
+>NETCONVERT</application
+> and <application
+>NETGEN</application
+> allow to generate additional output files. At first, parsed node and edge definitions may be saved into an XML-file which have the same formats as the ones used for importing XML-networks. This shall ease processing networks read from other formats than XML. The option <option
+>--plain-output <replaceable
+>&#60;FILENAME_PREFIX&#62;</replaceable
+></option
+> forces <application
+>NETCONVERT</application
+> and <application
+>NETGEN</application
+> to generate a file named &#34;<filename
+>&#60;FILENAME_PREFIX&#62;.nod.xml</filename
+>&#34; which contains the previously imported nodes and a file named &#34;<filename
+>&#60;FILENAME_PREFIX&#62;.edg.xml</filename
+>&#34; which contains the previously imported edges.</para
+><para
+>The option <option
+>--map-output</option
+> (or <option
+>-M</option
+> fo short) generates a file which contains the information about which edges have been joined (see also chapter &#34;... TBD ...&#34;). ... TBD ... format</para
+><para
+>The option <option
+>--node-geometry-dump</option
+> is meant to be used when debugging the geometry computation. It generates a list of points of interest as readable by guisim (see chapter &#34;... TBD ...&#34;) on the positions that were used to compute the imported nodes&#39; geometries. The option &#34;<option
+>--print-node-positions</option
+>&#34; forces <application
+>NETCONVERT</application
+> and <application
+>NETGEN</application
+> to print the positions of the imported/build nodes on the command line.</para
+><para
+>Specific options:</para
+><variablelist
+><varlistentry
+><term
+>--plain-output <replaceable
+>&#60;PLAIN_OUTPUT_PREFIX&#62;</replaceable
+></term
+><listitem
+><para
+>Writes the files <filename
+><replaceable
+>&#60;PLAIN_OUTPUT_PREFIX&#62;</replaceable
+>.nod.xml</filename
+> and <filename
+><replaceable
+>&#60;PLAIN_OUTPUT_PREFIX&#62;</replaceable
+>.edg.xml</filename
+> that contain the descriptions about the nodes and the edges a network is made of. These files may be reread into the netgener using the XML-import capabilities. <remark
+>Optional, type:filename-prefix, default: none</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+>[ --map-output | -M ] <replaceable
+>&#60;MAP_OUTPUT_FILE&#62;</replaceable
+></term
+><listitem
+><para
+>Writes the file <filename
+>&#60;MAP_OUTPUT_FILE&#62;</filename
+> which holds the list of edges that were joined to a single edge for each edge. <remark
+>Optional, type:filename, default: none</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+>----node-geometry-dump <replaceable
+>&#60;DUMP_FILENAME&#62;</replaceable
+></term
+><listitem
+><para
+>Writes the positions that were used during geometry computation into <filename
+><replaceable
+>&#60;DUMP_FILENAME&#62;</replaceable
+></filename
+>. <remark
+>Optional, type:filename, default: none</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+>--print-node-positions</term
+><listitem
+><para
+>Prints the node positions during building. <remark
+>Optional (pregiven), type:bool, default: false</remark
+></para
+></listitem
+></varlistentry
+></variablelist
+><para
+>Examples: none yet</para
+></sect2
+></sect1
+><sect1
+id="user_chp04-netgen"
+><title
+>Automatic Network Generation</title
+><para
+><application
+>NETGEN</application
+> allows builds abstract networks. Three types of networks can be built. All of them are very easy, but may be used as examples. You are also greatly invited to extend the concepts. Available types are: grid-networks, spider-networks and random-networks.</para
+><para
+>You always have to supply the name of the network to generate using <option
+>--output <replaceable
+>&#60;FILENAME&#62;</replaceable
+></option
 > or <option
 >-o <replaceable
 >&#60;FILENAME&#62;</replaceable
 ></option
-> for short and also the type of network you want to create. So, exactly one of the following switches must be supported: <option
+> for short and the type of network you want to create. So, exactly one of the following switches must be supported: <option
 >--grid-net</option
 >, <option
 >--spider-net</option
@@ -1095,7 +3086,7 @@ spacing="compact"
 >--random-net</option
 >.</para
 ><para
->While the type-dependent options are described within the next chapters, all types share some command line options. As all networks possess junctions and some investigations on traffic light switching strategies have been made, here, you are able to set the default type of junctions to build using the <option
+>While the type-dependent options are described within the next chapters, all types share some command line options. As all networks may possess junctions, you are able to set the default type of junctions to build using the <option
 >--default-junction-type</option
 >-option (or <option
 >-j</option
@@ -1120,7 +3111,7 @@ spacing="compact"
 >Further, you can specify the default street type by using the same options as in the netconvert-application.</para
 ><sect2
 ><title
->Grid-like networks</title
+>Grid-like Networks</title
 ><para
 >You are able to describe how many junctions in x- and in y-direction you want to be build and how far from each other they should be. The parameter for the number of junctions are <option
 >--grid-x-number</option
@@ -1140,7 +3131,7 @@ spacing="compact"
 ><figure
 ><title
 ><command
->netgen(.exe) --grid-net --grid-number=10 --grid-length=400 --output-file=MySUMOFile.net.xml</command
+>netgen --grid-net --grid-number=10 --grid-length=400 --output-file=MySUMOFile.net.xml</command
 ></title
 ><mediaobject
 ><imageobject
@@ -1157,7 +3148,7 @@ format="GIF"
 ><figure
 ><title
 ><command
->netgen(.exe) --grid-net --grid-x-number=20 --grid-y-number=5 --grid-y-length=40 --grid-x-length=200 --output-file=MySUMOFile.net.xml</command
+>netgen --grid-net --grid-x-number=20 --grid-y-number=5 --grid-y-length=40 --grid-x-length=200 --output-file=MySUMOFile.net.xml</command
 ></title
 ><mediaobject
 ><imageobject
@@ -1172,7 +3163,7 @@ format="GIF"
 ></sect2
 ><sect2
 ><title
->Spider-net-like networks</title
+>Spider-net-like Networks</title
 ><para
 >Spider-net networks are defined by the number of axes dividing them (parameter <option
 >--spider-arm-number</option
@@ -1198,7 +3189,7 @@ format="GIF"
 ><figure
 ><title
 ><command
->netgen(.exe) --spider-net --spider-arm-number=10 --spider-circle-number=10 --spider-space-rad=100 --output-file=MySUMOFile.net.xml</command
+>netgen --spider-net --spider-arm-number=10 --spider-circle-number=10 --spider-space-rad=100 --output-file=MySUMOFile.net.xml</command
 ></title
 ><mediaobject
 ><imageobject
@@ -1215,7 +3206,7 @@ format="GIF"
 ><figure
 ><title
 ><command
->netgen(.exe) --spider-net --spider-arm-number=4 --spider-circle-number=3 --spider-space-rad=100 --output-file=MySUMOFile.net.xml</command
+>netgen --spider-net --spider-arm-number=4 --spider-circle-number=3 --spider-space-rad=100 --output-file=MySUMOFile.net.xml</command
 ></title
 ><mediaobject
 ><imageobject
@@ -1230,9 +3221,9 @@ format="GIF"
 ></sect2
 ><sect2
 ><title
->Random networks</title
+>Random Networks</title
 ><para
->The random network generator does just what his name says. Several settings may be changed:</para
+>The random network generator does just what his name says, it builds random networks... Several settings may be changed:</para
 ><itemizedlist
 spacing="compact"
 ><listitem
@@ -1329,7 +3320,7 @@ spacing="compact"
 ><figure
 ><title
 ><command
->netgen(.exe) --random-net -o MySUMOFile.net.xml --rand-ite rations=200 --abs-rand</command
+>netgen --random-net -o MySUMOFile.net.xml --rand-ite rations=200 --abs-rand</command
 ></title
 ><mediaobject
 ><imageobject
@@ -1348,18 +3339,94 @@ format="GIF"
 ></caution
 ></para
 ></sect2
+><sect2
+><title
+>Further NETGEN Options</title
+><para
+>... TBD ...</para
+></sect2
+></sect1
+><sect1
+id="user_chp04-closing"
+><title
+>Closing Thoughts</title
+><para
+><application
+>NETGEN</application
+> allows to create networks in a very comfortable way. For some small-sized tests of rerouting strategies, tls-signals etc. this is probably the best solution to get a network one can run some simulations at. The clear naming of the streets also eases defining own routes.</para
+><para
+>The most examples within the data-section were written by hand for several reasons. At first, the examples are small enough and one may see the effects better than when using <application
+>NETGEN</application
+>. Furthermore, defining own networks using XML-data is more fleixble than using <application
+>NETGEN</application
+>. <application
+>NETGEN</application
+> is of course useless as soon as you want to simulate the reality.</para
+><para
+>... tbd ... (real life networks)</para
+></sect1
+><sect1
+id="user_chp04-changes"
+><title
+>Recent Changes</title
+><para
+>The following list contains recent changes in the naming or meaning of options. It has been started during the work on version 0.9.2, so earlier changes are not contained, herein. The changes list contains the version where the change occured or will occure. The changes should be valid for the next stable release.</para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+>Changes in version 0.9.2</para
+><itemizedlist
+><listitem
+><para
+><option
+>--xml-type-files</option
+> was named <option
+>--type-file</option
+> in versions earlier than 0.9.2</para
+><para
+>Reason: the naming does not fit into the naming scheme of other XML-input files.</para
+></listitem
+><listitem
+><para
+>versions earlier than 0.9.2 allowe to use an explicite filename for both the .dbf and the .shp file using &#34;<option
+>--arcview-dbf</option
+>&#34; and &#34;<option
+>--arcview-shp</option
+>&#34;.</para
+><para
+>Reason: This was abondonned, because of the need to use .shx-files, also.</para
+></listitem
+><listitem
+><para
+><option
+>--speed-in-kmh</option
+> was named <option
+>--speed-in-km</option
+> in versions earlier than 0.9.2</para
+><para
+>Reason: false physical measure</para
+></listitem
+></itemizedlist
+></listitem
+></itemizedlist
 ></sect1
 ></chapter
 ><chapter
 id="user_chp05"
 ><title
 >Route Generation</title
+><sect1
+><title
+>Introduction</title
 ><para
 >After having your network converted into the SUMO-format, you could take a look at it using the gui-version of the simulation, but no cars would be driving around. You still need some kind of description about the vehicles. A vehicle consists of three parts: the vehicle itself, its type and the route. We will describe this in detail later as most of the step needed to generate these descriptions may be done without knowing this.</para
 ><para
 >If you are importing data from other simulation packages, they bring own representations of vehicle movements you can use. In case of using ArcView- or own data or in other cases where you do not have the vehicle movements at all, you have to generate the movements by your own. We will now describe, how to import vehicle movements from other simulations and how to build own movement descriptions.</para
 ><para
->Before doing this, we want to explain why you possibly need two steps to do it: Within the real life single vehicles are using a route the driver knows which may be a list of streets the vehicle passes. This is quite simple but the amount of data needed to describe this is very large. Due to this, vehicle movements are often given as the amount of vehicles moving from one point to another point within the network. A point in this sense may be a position on the street, but mostly it is something like a district or another area. Given such information, you have to generate single trips from this so-called OD-matrix (Origin/Destination-matrix) using the SUMO-OD2TRIP-tool.</para
+>Before doing this, we want to explain why you possibly need two steps to do it: Within the real life single vehicles are using a route the driver knows which may be a list of streets the vehicle passes. This is quite simple but the amount of data needed to describe this is very large. Due to this, vehicle movements are often given as the amount of vehicles moving from one point to another point within the network. A point in this sense may be a position on the street, but mostly it is something like a district or another area. Given such information, you have to generate single trips from this so-called OD-matrix (Origin/Destination-matrix) using the <application
+>OD2TRIPS</application
+>-tool.</para
 ><figure
 ><title
 >Building trips from the OD-matrix</title
@@ -1374,7 +3441,9 @@ format="GIF"
 ></mediaobject
 ></figure
 ><para
->As trip definitions mostly contain the places the vehicle starts and ends his trip at, but not which edges have to be passed, they have to be fed into SUMO-ROUTER. This tool computes the list of edges the vehicle passes and saves them into a route file.</para
+>As trip definitions mostly contain the places the vehicle starts and ends his trip at, but not which edges have to be passed, they have to be fed into <application
+>DUAROUTER</application
+>. This tool computes the list of edges the vehicle passes and saves them into a route file.</para
 ><figure
 ><title
 >Building routes from trips</title
@@ -1392,46 +3461,51 @@ format="GIF"
 >If you are preparing a simulation by your own and not import an existing one, you can directly use routes. As supplying information about roads and junctions is insufficient to generate districts, this is even the only possible way in most cases. Information about how to import routes from existing simulations is listed later.</para
 ><para
 >One application that has been added to the package for 0.8 release was the junction turning ratio (jtr-)router. Instead of using a description about a vehicles starting end ending point, it uses a starting point only and routes the vehicle through the net by choosing a new direction at each junction the vehicle approaches. This approach is quite common within traffic modelling and may be helpful, when no flows are given.</para
+></sect1
 ><sect1
+id="user_chp05-own_routes"
 ><title
->Building own routes from scratch</title
+>Building own Routes from Scratch</title
 ><para
->You have either the possibility to generate completely random routes or to exactly describe what you want and pass this information to SUMO-ROUTER, which then completes this description by necessary information. The results may be then used within the simulation.</para
+>You have either the possibility to generate completely random routes or to exactly describe what you want and pass this information to <application
+>DUAROUTER</application
+> or <application
+>JTRROUTER</application
+>, which then completes this description by necessary information. The results may be then used within the simulation.</para
 ><sect2
+id="user_chp05-own_routes-random"
 ><title
->Generating random routes</title
+>Generating random Routes</title
 ><para
 >Random routes are the easiest, but also the most inaccurate way to feed your network with vehicle movements. Using the following call:</para
-><blockquote
-><para
->duarouter(.exe) --net=<replaceable
+><screen
+>duarouter --net=<replaceable
 >&#60;SUMO_NET&#62;</replaceable
 > -R <replaceable
 >&#60;FLOAT&#62;</replaceable
 > --output-file=<replaceable
 >MySUMORoutes.rou.xml</replaceable
-> -b <replaceable
+> \
+   -b <replaceable
 >&#60;UINT&#62;</replaceable
 > -e <replaceable
 >&#60;UINT&#62;</replaceable
-></para
-></blockquote
+></screen
 ><para
 >or the same for the jtr-router:</para
-><blockquote
-><para
->jtrrouter(.exe) --net=<replaceable
+><screen
+>jtrrouter --net=<replaceable
 >&#60;SUMO_NET&#62;</replaceable
 > -R <replaceable
 >&#60;FLOAT&#62;</replaceable
 > --output-file=<replaceable
 >MySUMORoutes.rou.xml</replaceable
-> -b <replaceable
+> \
+   -b <replaceable
 >&#60;UINT&#62;</replaceable
 > -e <replaceable
 >&#60;UINT&#62;</replaceable
-></para
-></blockquote
+></screen
 ><para
 >generates random routes for the time interval given by -b(egin) and -e(nd). In each time step as many vehicles will be emitted into the network as given by the value of <option
 >-R</option
@@ -1465,8 +3539,9 @@ format="GIF"
 >There is also another problem with random routes: By definition, in 50% of the cases, the route starts in the opposite direction of the destination - on the wrong side of the road. This yields in a large amount of vehicles that want to turn back using the first possibility. This is of course also not common in the real world, especially not in areas as the one shown before. To avoid this, we remove the first and the last edge from the route per default.</para
 ></sect2
 ><sect2
+id="user_chp05-own_routes-tripdefs"
 ><title
->Generation of own, explicit routes using Trip Definitions</title
+>Generation of own, explicit Routes using Trip Definitions</title
 ><para
 >There are two possibilities to describe own routes. The first one id the usage of trip definitions, the second one the usage of flow descriptions. Trip definitions describe the movement of a single vehicle giving the departure time, and both the origin and the destination via their edge-id. Flow descriptions use these values to, but instead of describing only one vehicle, the description is used for a defined number of vehicles to be emitted within a described interval. Due to this, instead of the departure time, the period&#39;s begin and end times must be supplied and the number of vehicles to emit within this interval.</para
 ><para
@@ -1546,20 +3621,19 @@ spacing="compact"
 >&#34; or &#34;<option
 >-t</option
 >&#34;:</para
-><blockquote
-><para
->duarouter(.exe) --trip-defs=<replaceable
+><screen
+>duarouter --trip-defs=<replaceable
 >&#60;TRIP_DEFS&#62;</replaceable
 > --net=<replaceable
 >&#60;SUMO_NET&#62;</replaceable
 > --output-file=<replaceable
 >MySUMORoutes.rou.xml</replaceable
-> -b <replaceable
+> \
+   -b <replaceable
 >&#60;UINT&#62;</replaceable
 > -e <replaceable
 >&#60;UINT&#62;</replaceable
-></para
-></blockquote
+></screen
 ><para
 >Flow amounts share most of the parameter with trip definitions. The syntax is: <sgmltag
 >&#60;flow id=&#34;<replaceable
@@ -1596,86 +3670,83 @@ spacing="compact"
 >&#34; and &#34;<sgmltag
 >end</sgmltag
 >&#34; out. So the following two snipples mean the same:</para
-><para
->a) <sgmltag
+><programlisting
+><sgmltag
 >&#60;flow id=&#34;0&#34; from=&#34;edge0&#34; to=&#34;edge1&#34; begin=&#34;0&#34; end=&#34;3600&#34; no=&#34;100&#34;/&#62;</sgmltag
-></para
+>
+</programlisting
 ><para
->b) <sgmltag
+>and</para
+><programlisting
+><sgmltag
 >&#60;interval begin=&#34;0&#34; end=&#34;3600&#34;&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;flow id=&#34;0&#34; from=&#34;edge0&#34; to=&#34;edge1&#34; no=&#34;100&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;/interval&#62;</sgmltag
-></para
+>
+   <sgmltag
+>&#60;flow id=&#34;0&#34; from=&#34;edge0&#34; to=&#34;edge1&#34; no=&#34;100&#34;/&#62;</sgmltag
+>
+<sgmltag
+>&#60;/interval&#62;</sgmltag
+></programlisting
 ><para
 >As we have to read in the flow definitions completely into the memory - something we do not have to do necessarily with trips, an extra parameter (<option
 >-f</option
 > or <option
 >--flow-defs</option
 >) is used to make them known by the router:</para
-><blockquote
-><para
->duarouter(.exe) --flow-defs=<replaceable
+><screen
+>duarouter --flow-defs=<replaceable
 >&#60;FLOW_DEFS&#62;</replaceable
 > --net=<replaceable
 >&#60;SUMO_NET&#62;</replaceable
 > --output-file=<replaceable
 >MySUMORoutes.rou.xml</replaceable
-> -b <replaceable
+> \
+   -b <replaceable
 >&#60;UINT&#62;</replaceable
 > -e <replaceable
 >&#60;UINT&#62;</replaceable
-></para
-></blockquote
+></screen
 ><para
-><inlinegraphic
-fileref="./gfx/user/bulb.gif"
-format="GIF"
-></inlinegraphic
-> Remind that you can not insert flow descriptions into a trip definitions file. The opposite (some trip definitions within a flow descriptions file) is possible. You also can give both files at the input file, for example: <command
->duarouter(.exe) --flow-defs=<replaceable
+>Remind that you can not insert flow descriptions into a trip definitions file. The opposite (some trip definitions within a flow descriptions file) is possible. You also can give both files at the input file, for example:</para
+><screen
+>duarouter --flow-defs=<replaceable
 >&#60;FLOW_DEFS&#62;</replaceable
 > --trip-defs=<replaceable
 >&#60;TRIP_DEFS&#62;</replaceable
 > --net=<replaceable
 >&#60;SUMO_NET&#62;</replaceable
-> --output-file=<replaceable
+> \
+   --output-file=<replaceable
 >MySUMORoutes.rou.xml</replaceable
 > -b <replaceable
 >&#60;UINT&#62;</replaceable
 > -e <replaceable
 >&#60;UINT&#62;</replaceable
-></command
->.</para
+></screen
 ></sect2
 ><sect2
+id="user_chp05-own_routes-jtr"
 ><title
 >Using the Junction Turning Ratio - Router</title
 ><para
 >The following parameter must be supplied to the jtr-router: the network to route the vehicles through, the description of the turning ratios for the junctions (defaults may be used for this, too), and the descriptions of the flow.</para
 ><para
 >A call may look like this:</para
-><blockquote
-><para
->jtrrouter(.exe) --flow-defs=<replaceable
+><screen
+>jtrrouter --flow-defs=<replaceable
 >&#60;FLOW_DEFS&#62;</replaceable
 > --turns=<replaceable
 >&#60;TURN_DEFINITIONS&#62;</replaceable
 > --net=<replaceable
 >&#60;SUMO_NET&#62;</replaceable
-> --output-file=<replaceable
+> \
+   --output-file=<replaceable
 >MySUMORoutes.rou.xml</replaceable
 > -b <replaceable
 >&#60;UINT&#62;</replaceable
 > -e <replaceable
 >&#60;UINT&#62;</replaceable
-></para
-></blockquote
+></screen
 ><para
 >The definitions of the flow - may they be trip definitions or amount definitions - look like the ones for the dua-router with just a single difference: as the it is not known where the vehicle will leave the network as the route it uses is randomly computed, the destination parameter has no meaning for jtr-routing and so may be left off. A vehicle leaves the network as soon as it comes to a sink edge. As not all networks have sink edges set explicitly, one can support a list of edges to be declared as sinks using <option
 >--sinks <replaceable
@@ -1688,56 +3759,47 @@ format="GIF"
 > is in this case a list of edge ids separated using a &#39;;&#39;.</para
 ><para
 >To describe the turn definitions, one has to build a further file. Within this file, for each interval and each edge the list of percentages to use a certain follower is to be given. An example:</para
-><para
+><programlisting
 ><sgmltag
 >&#60;turn-defs&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;interval begin=&#34;0&#34; end=&#34;3600&#34;&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;fromedge id=&#34;myEdge0&#34;&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;toedge id=&#34;myEdge1&#34; perc=&#34;0.2&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;toedge id=&#34;myEdge2&#34; perc=&#34;0.7&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;toedge id=&#34;myEdge3&#34; perc=&#34;0.1&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;/fromedge&#62;</sgmltag
-></para
-><para
->... any other edges ...</para
-><para
-><sgmltag
-> &#60;/interval&#62;</sgmltag
-></para
-><para
->... some further intervals ...</para
-><para
-><sgmltag
+>
+   <sgmltag
+>&#60;interval begin=&#34;0&#34; end=&#34;3600&#34;&#62;</sgmltag
+>
+      <sgmltag
+>&#60;fromedge id=&#34;myEdge0&#34;&#62;</sgmltag
+>
+         <sgmltag
+>&#60;toedge id=&#34;myEdge1&#34; perc=&#34;0.2&#34;/&#62;</sgmltag
+>
+         <sgmltag
+>&#60;toedge id=&#34;myEdge2&#34; perc=&#34;0.7&#34;/&#62;</sgmltag
+>
+         <sgmltag
+>&#60;toedge id=&#34;myEdge3&#34; perc=&#34;0.1&#34;/&#62;</sgmltag
+>
+      <sgmltag
+>&#60;/fromedge&#62;</sgmltag
+>
+
+      ... any other edges ...
+
+   <sgmltag
+>&#60;/interval&#62;</sgmltag
+>
+
+   ... some further intervals ...
+
+<sgmltag
 >&#60;/turn-defs&#62;</sgmltag
-></para
+></programlisting
 ><para
 >The snippet defines that vehicles coming at the end of edge &#34;myEdge0&#34; within the time interval between 0s and 3600s will choose the edge &#34;myEdge1&#34; with a probability of 20%, &#34;myEdge2&#34; with a probability of 70% and &#34;myEdge3&#34; with a probability of 10%. The specification of such information is of course quite extensive and so the jtr-router is also able to read the turning ratios from a cvs file. The same information as above may be coded the following way:</para
-><para
->interval;begin;end;from;to;split;</para
-><para
->;0;3600;myEdge0;myEdge1;0.2;</para
-><para
->;0;3600;myEdge0;myEdge2;0.7;</para
-><para
->;0;3600;myEdge0;myEdge3;0.1;</para
+><programlisting
+>interval;begin;end;from;to;split;
+;0;3600;myEdge0;myEdge1;0.2;
+;0;3600;myEdge0;myEdge2;0.7;
+;0;3600;myEdge0;myEdge3;0.1;</programlisting
 ><para
 ><caution
 ><para
@@ -1769,29 +3831,32 @@ format="GIF"
 ></sect2
 ></sect1
 ><sect1
+id="user_chp05-import_routes"
 ><title
->Importing Routes</title
+>Importing Routes from other Simulations</title
 ><sect2
+id="user_chp05-import_routes-artemis"
 ><title
 >Importing Artemis-routes</title
 ><para
->Although originally ARTEMIS-routes are stored within an OD-matrix, the import within SUMO is done using the SUMO-ROUTER program.</para
+>Although originally ARTEMIS-routes are stored within an OD-matrix, the import within SUMO is done using the <application
+>DUAROUTER</application
+> program.</para
 ><para
 >This is basically done this way:</para
-><blockquote
-><para
->dua-router(.exe) --artemis=<replaceable
+><screen
+>duarouter --artemis=<replaceable
 >&#60;ARTEMIS_FOLDER&#62;</replaceable
 > --net=<replaceable
 >&#60;SUMO_NET&#62;</replaceable
 > --output-file=<replaceable
 >MySUMORoutes.rou.xml</replaceable
-> -b <replaceable
+> \
+   -b <replaceable
 >&#60;UINT&#62;</replaceable
 > -e <replaceable
 >&#60;UINT&#62;</replaceable
-></para
-></blockquote
+></screen
 ><para
 >Remind that you have to specify the begin and the end of the simulation. This is quite inconsequent, as our mechanisms would allow import of repeatable routes, too. This is just not yet implemented.</para
 ><para
@@ -1809,24 +3874,24 @@ spacing="compact"
 ></itemizedlist
 ></sect2
 ><sect2
+id="user_chp05-import_routes-fastlane"
 ><title
 >Importing FastLane-routes</title
 ><para
 >One of the main concepts of FastLane is the Dynamic User Assignment by Christian Gawron. As this mechanism is based on single vehicle routes, those are explicitly given for a FastLane simulation. The router module has only to convert routes from the FastLane- into the SUMO-representation. Do this using the following command:</para
-><blockquote
-><para
->dua-router(.exe) --cell=<replaceable
+><screen
+>duarouter --cell=<replaceable
 >&#60;CELL_FILE_NAME(NO_EXTENSION)&#62;</replaceable
 > --net=<replaceable
 >&#60;SUMO_NET&#62;</replaceable
-> --output-file=<replaceable
+> \
+   --output-file=<replaceable
 >MySUMORoutes.rou.xml</replaceable
 > -b <replaceable
 >&#60;UINT&#62;</replaceable
 > -e <replaceable
 >&#60;UINT&#62;</replaceable
-></para
-></blockquote
+></screen
 ><para
 >If you are familiar with FastLane, you may have noticed that you have only to supply one file name while FastLane uses two files to describe the routes: one &#34;*.driver&#34; and one &#34;*.rinfo&#34; file. As both files have the same name and only the extension differs, you have to give the name without the extension. So if your files have the names &#34;<filename
 >foo.drive</filename
@@ -1844,17 +3909,22 @@ spacing="compact"
 ><para
 >As FastLane is portable, you may encounter files generated on a Windows-machine. Those files give some strange warnings, something that should not happen if you supply the right net. To avoid them, use the <option
 >--intel-cell</option
-> switch to tell SUMO-ROUTER it has to turn the byte order.</para
+> switch to tell <application
+>DUAROUTER</application
+> it has to turn the byte order.</para
 ><para
 >You can also decide whether the best, not the last route a driver took shall be used: set the switch <option
 >--no-last-cell</option
 > for this.</para
 ></sect2
 ><sect2
+id="user_chp05-import_routes-ptv"
 ><title
 >Importing VISSIM und VISUM-routes</title
 ><para
->While VISSIM holds the possibility to describe vehicle-based routes, too, our package contain only the second of VISSIM&#39;s route specification abilities, it shares with VISUM. This representation of vehicle movements is stored as origin-destination matrices which have to be translated into single vehicle movements first. This is done using the OD2TRIPS module. One has to pass the SUMO-network to use using the <option
+>While VISSIM holds the possibility to describe vehicle-based routes, too, our package contain only the second of VISSIM&#39;s route specification abilities, it shares with VISUM. This representation of vehicle movements is stored as origin-destination matrices which have to be translated into single vehicle movements first. This is done using the <application
+>OD2TRIPS</application
+> module. One has to pass the SUMO-network to use using the <option
 >--net-file</option
 > (<option
 >-n</option
@@ -1862,34 +3932,184 @@ spacing="compact"
 >--output-file</option
 > (<option
 >-o</option
->). The generated output contains the single vehicle trips build from the OD-matrix. Also, one has to supply the file the origin/destination-matrix is described in. This is either a file with an &#34;.fma&#34; extension (other table types supported by VISSIM/VISUM are not supported) which holds a single OD-matrix or the VISSIM-simulation file itself (*.inp) which holds the names of the OD-files to use. The option that lets OD2TRIPS know about the file is <option
+>). The generated output contains the single vehicle trips build from the OD-matrix. Also, one has to supply the file the origin/destination-matrix is described in. This is either a file with an &#34;.fma&#34; extension (other table types supported by VISSIM/VISUM are not supported) which holds a single OD-matrix or the VISSIM-simulation file itself (*.inp) which holds the names of the OD-files to use. The option that lets <application
+>OD2TRIPS</application
+> know about the file is <option
 >--od-file</option
 >. In the second case, the path to the matrices has to be supplied using the <option
 >--od-path</option
 > - option, too.</para
 ><para
 >Additionally, the first and the last time step to process may be given. If not given, the values stored within the parsed descriptions will be used. A further scaling factor may be used, too, which will be applied on the read streams. An example for parsing an OD-description that uses multiple matrices may be:</para
-><blockquote
-><para
->od2trips(.exe) --od-file=<replaceable
+><screen
+>od2trips --od-file=<replaceable
 >VISSIM/test.inp</replaceable
 > --od-path=<replaceable
 >VISSIM/</replaceable
 > --n=<replaceable
 >MySUMONet.net.xml</replaceable
-> --output-file=<replaceable
+> \
+   --output-file=<replaceable
 >MySUMORoutes.rou.xml</replaceable
-></para
-></blockquote
+></screen
 ><para
 >After obtaining single vehicle trips using this approach they should be parsed into full route descriptions using router as described within the chapter &#34;Generation of own, explicit routes&#34;.</para
 ></sect2
 ></sect1
 ><sect1
+id="user_chp05-dua"
 ><title
 >Dynamic User Assignment</title
 ><para
->... to be described ...</para
+>Dynamic Assignment is used to find out which routes the simulated driver really would take. One could assume that everyone is traing to use the fastest route. But what is the fastest route? Look at the network shown in the next picture. It is abvious, that the fastest route is the one in the middle of the network, even when considering the tls at the end of this road. But as soon as we insert many vehicles into the network, all trying to use this route, the edge located at the center soon gets full and vehicles need much more time than estimated to pass it. In fact, they need longer to pass this edge than if they would try to use one of the outer connections.</para
+><figure
+><title
+>Example DUA-network (from &#60;SUMO&#62;/data/examples/dua/dua3s*)</title
+><mediaobject
+><imageobject
+><imagedata
+align="center"
+fileref="./gfx/user/dua_step1_a.gif"
+format="GIF"
+></imagedata
+></imageobject
+></mediaobject
+></figure
+><para
+>Within Christian Gawron&#39;s approach (see <ulink
+url="http://sumo.sourceforge.net/docs/bibliography.shtml#Gawron1998_1"
+>[Gawron1998_1]</ulink
+>), which we use, each driver has a list of routes. At the beginning, we build a single route for each driver being the shortest route within an empty network - not knowing how many vehicles will use this route. You may wonder that two files are built. The file you have named as output file and a further file having the additional extension &#34;.alt&#34;. Within this second file route alternatives - the set of all routes the driver knows - are stored. </para
+><para
+>After having generated the routes, we let the simulation run forcing it to generate edge- or lane-based dumps (see chapter 6, &#34;TBD&#34;). In fact, edge-based dumps are the better choice, because the route is not able to use lane-based dumps at all. Now, we have the information about the state of the network, meaning the real speeds that were driven within it, when all vehicles are using the same route. Now we can pass this information to a second call to <application
+>DUAROUTER</application
+> and now - instead of the previous input file - we give the route alternatives file as input using the option <option
+>--alternatives</option
+> (or <option
+>-a</option
+> for short). Now, <application
+>DUAROUTER</application
+> is capable to compute the new shortest routes, based on the real speeds within our simulation. In order to avoid that again all vehicles will use the currently shortest route only some of the drivers will get the new shortest route. Again, two files are generated, a route file which contains the current routes and a new route alternatives file. The entries within the new alternatives file stay the same for all those drivers who keep their old route. Those who got a new route assigned, will get this route stored additionally to their previous route within the file. Whether a route is replaced by a new, better route is depending on how much better the new route is and how fast a driver shall forget his old one. There are two parameters determining this: <option
+>--gBeta</option
+> and <option
+>--gA</option
+>. Please see (see <ulink
+url="http://sumo.sourceforge.net/docs/bibliography.shtml#Gawron1998_1"
+>[Gawron1998_1]</ulink
+>) for further information.</para
+><figure
+><title
+>Example showing the effects of Christian Gawron dua-approach on route distribution within the network; blue color indicates that an edge is used within the step, red shows jams (tbd)</title
+><mediaobject
+><imageobject
+><imagedata
+align="center"
+fileref="./gfx/user/dua_step1_a.gif"
+format="GIF"
+></imagedata
+></imageobject
+></mediaobject
+></figure
+><para
+>Still, as the picture above shows, there may be other faster routes when again running the simulation, so in order to get a balanced assignment, you have to iterate this process several time.</para
+><para
+>Here, you may again find the procedure to generate a dynamic user assignment:</para
+><procedure
+><step
+><para
+>Generate the network (see <ulink
+url="#user_chp04"
+>chapter 4</ulink
+>)</para
+></step
+><step
+><para
+>Import your routes (see chapter 5, &#34;<ulink
+url="#user_chp05-own_routes"
+>Building own Routes from Scratch</ulink
+>&#34; or &#34;<ulink
+url="#user_chp05-import_routes"
+>Importing Routes from other Simulations</ulink
+>&#34;), generating a routes file and an alternatives file</para
+></step
+><step
+><para
+>Simulate using the network and the routes (see <ulink
+url="#user_chp06"
+>chapter 6</ulink
+>) forcing <application
+>SUMO</application
+> to write edge-based dumps (see chapter 6, &#34;TBD&#34;)</para
+></step
+><step
+><para
+>Compute new routes and alternatives using the previously generated alternatives and the edge-based dumps generated within the last step</para
+></step
+><step
+><para
+>Continue with step 3 until the DUA is completed</para
+></step
+></procedure
+><para
+>How do we know when the dua is completed? In fact. we don&#39;t know any possibility to determine this, yet. Within very large networks we are running mostly about 20 iterations, but this is just a hint. One may say, that the dua is finished if there is no further change in the aggregated vehicles trip duration. DUA is definitely still a research topic and if you are interested in more details than note the next note...</para
+><note
+><para
+>There is some further reading on DUA within our More On... - section. See TBD.</para
+></note
+><para
+>Specific options:</para
+><variablelist
+><varlistentry
+><term
+><option
+><option
+>[--alternatives | -a ] <replaceable
+>&#60;ALTERNATIVES_FILE&#62;</replaceable
+></option
+></option
+></term
+><listitem
+><para
+>Forces DUAROUTER to use the previously generated &#60;ALTERNATIVES_FILE&#62; as input. <remark
+>Optional, type:filename, default: none</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+><option
+>--gBeta <replaceable
+>&#60;FLOAT&#62;</replaceable
+></option
+></option
+></term
+><listitem
+><para
+>Defines Christian Gawron&#39;s beta. <remark
+>Optional (pregiven), type:float, default: 0.3</remark
+></para
+></listitem
+></varlistentry
+><varlistentry
+><term
+><option
+><option
+>--gA <replaceable
+>&#60;FLOAT&#62;</replaceable
+></option
+></option
+></term
+><listitem
+><para
+>Defines Christian Gawron&#39;s alpha!!!. <remark
+>Optional (pregiven), type:float, defaults: 0.05</remark
+></para
+></listitem
+></varlistentry
+></variablelist
+><para
+>Examples: TBD</para
 ></sect1
 ><sect1
 ><title
@@ -1908,58 +4128,46 @@ spacing="compact"
 >&#60;FILE&#62;</replaceable
 ></option
 >) - option. A file containing additional weights looks like this:</para
-><para
+><programlisting
 ><sgmltag
 >&#60;supplementary-weights&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;interval begin=&#34;60&#34; end=&#34;119&#34;&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;weight edge-id=&#34;1fi&#34; absolut=&#34;42&#34; mult=&#34;2.5&#34; add=&#34;-21&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;weight edge-id=&#34;2o&#34; mult=&#34;13&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
->... further weights ...</sgmltag
-></para
-><para
-><sgmltag
+>
+   <sgmltag
+>&#60;interval begin=&#34;60&#34; end=&#34;119&#34;&#62;</sgmltag
+>
+      <sgmltag
+>&#60;weight edge-id=&#34;1fi&#34; absolut=&#34;42&#34; mult=&#34;2.5&#34; add=&#34;-21&#34;/&#62;</sgmltag
+>
+      <sgmltag
+>&#60;weight edge-id=&#34;2o&#34; mult=&#34;13&#34;/&#62;</sgmltag
+>
+
+      ... further weights ...
+
+   <sgmltag
+>&#60;/interval&#62;</sgmltag
+>
+   <sgmltag
+>&#60;interval begin=&#34;120&#34; end=&#34;179&#34;&#62;</sgmltag
+>
+      <sgmltag
+>&#60;weight edge-id=&#34;1fi&#34; absolut=&#34;48&#34; mult=&#34;2.5&#34;/&#62;</sgmltag
+>
+      <sgmltag
+>&#60;weight edge-id=&#34;2o&#34; add=&#34;7&#34;/&#62;</sgmltag
+>
+
+      ... further weights ...
+
+  <sgmltag
 > &#60;/interval&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;interval begin=&#34;120&#34; end=&#34;179&#34;&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;weight edge-id=&#34;1fi&#34; absolut=&#34;48&#34; mult=&#34;2.5&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;weight edge-id=&#34;2o&#34; add=&#34;7&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
->... further weights ...</sgmltag
-></para
-><para
-><sgmltag
-> &#60;/interval&#62;</sgmltag
-></para
-><para
-><sgmltag
->... further intervals ...</sgmltag
-></para
-><para
-><sgmltag
+>
+
+   ... further intervals ...
+
+<sgmltag
 >&#60;/supplementary-weights&#62;</sgmltag
-></para
+></programlisting
 ><caution
 ><para
 >The option name may be changed in the near future...</para
@@ -2000,7 +4208,11 @@ spacing="normal"
 ><replaceable
 >&#60;FILE&#62;</replaceable
 ></option
-> option to pass the simulation the name of the network to use. The network must be one build using SUMO-NETCONVERT or SUMO-NETGEN.</para
+> option to pass the simulation the name of the network to use. The network must be one build using <application
+>NETCONVERT</application
+> or <application
+>NETGEN</application
+>.</para
 ></listitem
 ><listitem
 ><para
@@ -2116,25 +4328,26 @@ url="http://sumo.sourceforge.net/documentation.html"
 ><title
 >E1-Detectors (Induct Loops)</title
 ><para
->An induct loop is described the following way:</para
-><para
->a) <sgmltag
+>An induct loop is described either this way:</para
+><programlisting
+><sgmltag
 >&#60;detector id=&#34;<replaceable
 >&#60;ID&#62;</replaceable
 >&#34; type=&#34;[induct_loop|E1]&#34; lane=&#34;<replaceable
 >&#60;LANE_ID&#62;</replaceable
 >&#34; pos=&#34;<replaceable
 >&#60;POSITION_ON_LANE&#62;</replaceable
->&#34; freq=&#34;<replaceable
+>&#34;
+   freq=&#34;<replaceable
 >&#60;AGGREGATION_TIME&#62;</replaceable
 >&#34; [style=&#34;xml&#34;] file=&#34;<replaceable
 >&#60;OUTPUT_FILE&#62;</replaceable
 >&#34;/&#62;</sgmltag
-></para
+></programlisting
 ><para
->or :</para
-><para
->b) <sgmltag
+>or this way:</para
+><programlisting
+><sgmltag
 >&#60;e1-detector id=&#34;<replaceable
 >&#60;ID&#62;</replaceable
 >&#34; lane=&#34;<replaceable
@@ -2143,10 +4356,11 @@ url="http://sumo.sourceforge.net/documentation.html"
 >&#60;POSITION_ON_LANE&#62;</replaceable
 >&#34; freq=&#34;<replaceable
 >&#60;AGGREGATION_TIME&#62;</replaceable
->&#34; [style=&#34;xml&#34;] file=&#34;<replaceable
+>&#34;
+   [style=&#34;xml&#34;] file=&#34;<replaceable
 >&#60;OUTPUT_FILE&#62;</replaceable
 >&#34;/&#62;</sgmltag
-></para
+></programlisting
 ><para
 >The id is any string that let&#39;s you know which detector is meant. The type indicates that a induct loop shall be build, here. The attributes &#34;<sgmltag
 >lane</sgmltag
@@ -2212,36 +4426,39 @@ spacing="compact"
 >E2-Detectors (Areal, lane-based Detectors)</title
 ><para
 >An induct loop is described the following way:</para
-><para
->a) <sgmltag
+><programlisting
+><sgmltag
 >&#60;detector id=&#34;<replaceable
 >&#60;ID&#62;</replaceable
 >&#34; type=&#34;[areal|lane_based|E2]&#34; lane=&#34;<replaceable
 >&#60;LANE_ID&#62;</replaceable
 >&#34; pos=&#34;<replaceable
 >&#60;POSITION_ON_LANE&#62;</replaceable
->&#34; length=&#34;<replaceable
+>&#34;
+   length=&#34;<replaceable
 >&#60;DETECTOR_LENGTH&#62;</replaceable
 >&#34; freq=&#34;<replaceable
 >&#60;AGGREGATION_TIME&#62;</replaceable
 >&#34; [style=&#34;xml&#34;] file=&#34;<replaceable
 >&#60;OUTPUT_FILE&#62;</replaceable
->&#34; [measures=&#34;<replaceable
+>&#34;
+   [measures=&#34;<replaceable
 >&#60;MEASURES&#62;</replaceable
 >&#34;] [time_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;] [speed_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
->&#34;] [jam_treshold=&#34;<replaceable
+>&#34;]
+   [jam_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;] [keep_for=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;]/&#62;</sgmltag
-></para
+></programlisting
 ><para
 >or:</para
-><para
->b) <sgmltag
+><programlisting
+><sgmltag
 >&#60;e2-detector id=&#34;<replaceable
 >&#60;ID&#62;</replaceable
 >&#34; lane=&#34;<replaceable
@@ -2250,22 +4467,25 @@ spacing="compact"
 >&#60;POSITION_ON_LANE&#62;</replaceable
 >&#34; length=&#34;<replaceable
 >&#60;DETECTOR_LENGTH&#62;</replaceable
->&#34; freq=&#34;<replaceable
+>&#34;
+   freq=&#34;<replaceable
 >&#60;AGGREGATION_TIME&#62;</replaceable
 >&#34; [style=&#34;xml&#34;] file=&#34;<replaceable
 >&#60;OUTPUT_FILE&#62;</replaceable
 >&#34; [measures=&#34;<replaceable
 >&#60;MEASURES&#62;</replaceable
->&#34;] [time_treshold=&#34;<replaceable
+>&#34;]
+   [time_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;] [speed_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;] [jam_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
->&#34;] [keep_for=&#34;<replaceable
+>&#34;]
+   [keep_for=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;]/&#62;</sgmltag
-></para
+></programlisting
 ><para
 >Most of the attributes have the same meaning as for induct loops. As an areal detector has a certain length, this length must be supplied as a further parameter. It may also be a negative number which lets the detector be extended upstream to the given beginning position. The type must be set to either &#34;<sgmltag
 >areal</sgmltag
@@ -2292,38 +4512,41 @@ spacing="compact"
 >But there is also a further possibility to use E2-detectors. If you place them in front of a traffic light, you can use the traffic light to describe the intervals (aggregation) time instead of giving a fixed aggregation time. In this case, output will be generated every time the traffic light switches. To use this feature, simply replace the freq-attribute within the description of your detector by the id of the traffic light that should steer it (use the attribute &#34;<sgmltag
 >tl</sgmltag
 >&#34; to specify the id) :</para
-><para
->a) <sgmltag
+><programlisting
+><sgmltag
 >&#60;detector id=&#34;<replaceable
 >&#60;ID&#62;</replaceable
 >&#34; type=&#34;[areal|lane_based|E2]&#34; lane=&#34;<replaceable
 >&#60;LANE_ID&#62;</replaceable
 >&#34; pos=&#34;<replaceable
 >&#60;POSITION_ON_LANE&#62;</replaceable
->&#34; length=&#34;<replaceable
+>&#34;
+   length=&#34;<replaceable
 >&#60;DETECTOR_LENGTH&#62;</replaceable
 >&#34; tl=&#34;<replaceable
 >&#60;TL-ID&#62;</replaceable
 >&#34; freq=&#34;<replaceable
 >&#60;AGGREGATION_TIME&#62;</replaceable
->&#34; [style=&#34;xml&#34;] file=&#34;<replaceable
+>&#34; [style=&#34;xml&#34;]
+   file=&#34;<replaceable
 >&#60;OUTPUT_FILE&#62;</replaceable
 >&#34; [measures=&#34;<replaceable
 >&#60;MEASURES&#62;</replaceable
 >&#34;] [time_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
->&#34;] [speed_treshold=&#34;<replaceable
+>&#34;]
+   [speed_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;] [jam_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;] [keep_for=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;]/&#62;</sgmltag
-></para
+></programlisting
 ><para
 >or:</para
-><para
->b) <sgmltag
+><programlisting
+><sgmltag
 >&#60;e2-detector id=&#34;<replaceable
 >&#60;ID&#62;</replaceable
 >&#34; lane=&#34;<replaceable
@@ -2332,24 +4555,27 @@ spacing="compact"
 >&#60;POSITION_ON_LANE&#62;</replaceable
 >&#34; length=&#34;<replaceable
 >&#60;DETECTOR_LENGTH&#62;</replaceable
->&#34; tl=&#34;<replaceable
+>&#34;
+   tl=&#34;<replaceable
 >&#60;TL-ID&#62;</replaceable
 >&#34; freq=&#34;<replaceable
 >&#60;AGGREGATION_TIME&#62;</replaceable
 >&#34; [style=&#34;xml&#34;] file=&#34;<replaceable
 >&#60;OUTPUT_FILE&#62;</replaceable
->&#34; [measures=&#34;<replaceable
+>&#34;
+   [measures=&#34;<replaceable
 >&#60;MEASURES&#62;</replaceable
 >&#34;] [time_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;] [speed_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
->&#34;] [jam_treshold=&#34;<replaceable
+>&#34;]
+   [jam_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;] [keep_for=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;]/&#62;</sgmltag
-></para
+></programlisting
 ><para
 >A further feature allows you to output values not for all switches of the traffic light the detector is attached to, but only when the light turns red for the assigned link (connection between the incoming and the outgoing lane). This should allow you to measure the maximum jam length in front of a red traffic light for this link. To switch on this feature, you have to add the name of the following lane:<sgmltag
 > to=&#34;<replaceable
@@ -2543,44 +4769,48 @@ spacing="compact"
 ><listitem
 ><para
 >A beginning tag that describes some global attributes of the detector just as the descriptions of e1- and e2-detectors do. The format is either:</para
-><para
->a) <sgmltag
+><programlisting
+><sgmltag
 >&#60;detector id=&#34;<replaceable
 >&#60;ID&#62;</replaceable
 >&#34; type=&#34;[multi_od|E3]&#34; file=&#34;<replaceable
 >&#60;OUTPUT_FILE&#62;</replaceable
->&#34; freq=&#34;<replaceable
+>&#34;
+   freq=&#34;<replaceable
 >&#60;AGGREGATION_TIME&#62;</replaceable
 >&#34; [measures=&#34;<replaceable
 >&#60;MEASURES&#62;</replaceable
 >&#34;] [time_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
->&#34;] [speed_treshold=&#34;<replaceable
+>&#34;]
+   [speed_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;] [keep_for=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;]&#62;</sgmltag
-></para
+></programlisting
 ><para
 >or:</para
-><para
->b) <sgmltag
+><programlisting
+><sgmltag
 >&#60;e3-detector id=&#34;<replaceable
 >&#60;ID&#62;</replaceable
 >&#34; file=&#34;<replaceable
 >&#60;OUTPUT_FILE&#62;</replaceable
 >&#34; freq=&#34;<replaceable
 >&#60;AGGREGATION_TIME&#62;</replaceable
->&#34; [measures=&#34;<replaceable
+>&#34;
+   [measures=&#34;<replaceable
 >&#60;MEASURES&#62;</replaceable
 >&#34;] [time_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;] [speed_treshold=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
->&#34;] [keep_for=&#34;<replaceable
+>&#34;]
+   [keep_for=&#34;<replaceable
 >&#60;FLOAT&#62;</replaceable
 >&#34;]&#62;</sgmltag
-></para
+></programlisting
 ><para
 >As one can see, no information about the detector&#39;s position is stored herein. They are stored in embedded tags instead (2. and 3.)</para
 ></listitem
@@ -2624,31 +4854,26 @@ spacing="compact"
 ></listitem
 ></orderedlist
 ><para
->The following example</para
-><para
+>The definition</para
+><programlisting
 ><sgmltag
 >&#60;e3-detector id=&#34;e3_1&#34; freq=&#34;300&#34; file=&#34;./output/e3_1.xml&#34;&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;det_entry lane=&#34;myEdge0_0&#34; pos=&#34;0&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;det_entry lane=&#34;myEdge0_1&#34; pos=&#34;0&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;det_entry lane=&#34;myEdge2_0&#34; pos=&#34;0&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;det_entry lane=&#34;myEdge2_1&#34; pos=&#34;0&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
+>
+   <sgmltag
+>&#60;det_entry lane=&#34;myEdge0_0&#34; pos=&#34;0&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;det_entry lane=&#34;myEdge0_1&#34; pos=&#34;0&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;det_exit lane=&#34;myEdge2_0&#34; pos=&#34;0&#34;/&#62;</sgmltag
+>
+   <sgmltag
+>&#60;det_exit lane=&#34;myEdge2_1&#34; pos=&#34;0&#34;/&#62;</sgmltag
+>
+<sgmltag
 >&#60;/e3-detector&#62;</sgmltag
-></para
+></programlisting
 ><para
 >will build an e3-detector starting at either lane 0 or 1 of the edge called &#34;myEdge0&#34; and end at the same lane of &#34;myEdge2&#34;. All values will be computed as the default-value for measures is used and aggregated over a time of 300s. They will be written into the file &#34;<filename
 >e3_1.xm</filename
@@ -2707,62 +4932,51 @@ spacing="compact"
 > is hereby the name of the file the output will be written to. Any other file with this name will be overwritten, the destination folder must exist.</para
 ><para
 >The network dump is a xml-file containing for each time step every edge of the network with every lane of this edge with all vehicles on this lane. For each vehicle, his name, speed and position on his lane are written. A network dump-file looks like this:</para
-><para
+><programlisting
 ><sgmltag
 >&#60;timestep id=&#34;<replaceable
 >&#60;TIME_STEP&#62;</replaceable
 >&#34;&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;edge id=&#34;<replaceable
+>
+   <sgmltag
+>&#60;edge id=&#34;<replaceable
 >&#60;EDGE_ID&#62;</replaceable
 >&#34;&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;lane id=&#34;<replaceable
+>
+   <sgmltag
+>   &#60;lane id=&#34;<replaceable
 >&#60;LANE_ID&#62;</replaceable
 >&#34;&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;vehicle id=&#34;<replaceable
+>
+         <sgmltag
+>&#60;vehicle id=&#34;<replaceable
 >&#60;VEHICLE_ID&#62;</replaceable
 >&#34; pos=&#34;<replaceable
 >&#60;VEH_POSITION&#62;</replaceable
 >&#34; speed=&#34;<replaceable
 >&#60;VEH_SPEED&#62;</replaceable
 >&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
-> ... more vehicles if any on this lane ...</sgmltag
-></para
-><para
-><sgmltag
-> &#60;/lane&#62;</sgmltag
-></para
-><para
-><sgmltag
-> ... more lanes if the edge possesses more ...</sgmltag
-></para
-><para
-><sgmltag
-> &#60;/edge&#62;</sgmltag
-></para
-><para
-><sgmltag
-> ... more edges ....</sgmltag
-></para
-><para
-><sgmltag
+>
+
+         ... more vehicles if any on this lane ...
+
+      <sgmltag
+>&#60;/lane&#62;</sgmltag
+>
+
+      ... more lanes if the edge possesses more ...
+
+   <sgmltag
+>&#60;/edge&#62;</sgmltag
+>
+
+   ... more edges ....
+
+<sgmltag
 >&#60;/timestep&#62;</sgmltag
-></para
-><para
-><sgmltag
->... the next timestep ...</sgmltag
-></para
+>
+
+... the next timestep ...</programlisting
 ><para
 >Well, this output is very verbose. His main disadvantage is the size of the generated file. It&#39;s very easy to generate files that are several GB large within some minutes. This implicates the next problem with this output: no one can handle it. It would be of course possible to write some nice tools that parse the file (using a SAX-parser) and generate some meaningful information, but we do not know anyone who has made this. As a third problem one could state that the simulation&#39;s execution speed of course breaks down when such an amount of data must be written.</para
 ></sect2
@@ -2789,70 +5003,64 @@ spacing="compact"
 >.</para
 ><para
 >The lane state dump is a xml-file containing the aggregated values for each lane of an edge for each interval:</para
-><para
+><programlisting
 ><sgmltag
 >&#60;netstats&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;interval begin=&#34;<replaceable
+>
+   <sgmltag
+>&#60;interval begin=&#34;<replaceable
 >&#60;INTERVAL_BEGIN&#62;</replaceable
 >&#34; end=&#34;<replaceable
 >&#60;INTERVAL_END&#62;</replaceable
->&#34;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;edge id=&#34;<replaceable
+>&#34;&#62;</sgmltag
+>
+      <sgmltag
+>&#60;edge id=&#34;<replaceable
 >&#60;EDGE_ID&#62;</replaceable
 >&#34;&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;lane id=&#34;<replaceable
+>
+         <sgmltag
+>&#60;lane id=&#34;<replaceable
 >&#60;LANE_ID&#62;</replaceable
 >&#34; traveltime=&#34;&#60;<replaceable
 >MEAN_TRAVEL_TIME&#62;</replaceable
 >&#34; speed=&#34;<replaceable
 >&#60;MEAN_SPEED&#62;</replaceable
->&#34; speedsquare=&#34;<replaceable
+>&#34; \
+                 speedsquare=&#34;<replaceable
 >&#60;SPEED_SQUARE&#62;</replaceable
 >&#34; density=&#34;<replaceable
 >&#60;MEAN_DENSITY&#62;</replaceable
->&#34; noVehContrib=&#34;<replaceable
+>&#34; \
+                 noVehContrib=&#34;<replaceable
 >&#60;VEHICLE_NUMBER#1&#62;</replaceable
 >&#34; noVehEntire=&#34;<replaceable
 >&#60;VEHICLE_NUMBER#2&#62;</replaceable
->&#34; noVehEntered=&#34;<replaceable
+>&#34; \
+                 noVehEntered=&#34;<replaceable
 >&#60;VEHICLE_NUMBER#3&#62;</replaceable
 >&#34; noVehLeft=&#34;<replaceable
 >&#60;VEHICLE_NUMBER#4&#62;</replaceable
 >&#34; /&#62;</sgmltag
-></para
-><para
-><sgmltag
-> ... more lanes if the edge possesses more ...</sgmltag
-></para
-><para
-><sgmltag
-> &#60;/edge&#62;</sgmltag
-></para
-><para
-><sgmltag
-> ... more edges ....</sgmltag
-></para
-><para
-><sgmltag
-> &#60;/interval&#62;</sgmltag
-></para
-><para
-><sgmltag
-> ... further intervals ...</sgmltag
-></para
-><para
-><sgmltag
+>
+
+         ... more lanes if the edge possesses more ...
+
+      <sgmltag
+>&#60;/edge&#62;</sgmltag
+>
+
+      ... more edges ...
+
+   <sgmltag
+>&#60;/interval&#62;</sgmltag
+>
+
+   ... further intervals ...
+
+<sgmltag
 >&#60;/netstats&#62;</sgmltag
-></para
+></programlisting
 ><para
 >It should be obvious, that <sgmltag
 ><replaceable
@@ -2936,36 +5144,36 @@ spacing="compact"
 >Vehicle Emission States &#38; Trip Durations</title
 ><para
 >This output contains the simulation-wide number of vehicles that are loaded, emitted, running, waiting to be emitted, have reached their destination and how long they needed to finish the route. The last value is normalised over all vehicles that have reached their destination so far. The information containing all those values is computed for each time step and the output file looks like following:</para
-><para
+><programlisting
 ><sgmltag
 >&#60;emissions&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;emission-state time=&#34;<replaceable
+>
+   <sgmltag
+>&#60;emission-state time=&#34;<replaceable
 >&#60;SIMULATION_TIME&#62;</replaceable
 >&#34; loaded=&#34;<replaceable
 >&#60;LOADED_VEHICLE_NUMBER&#62;</replaceable
->&#34; emitted=&#34;<replaceable
+>&#34; \
+              emitted=&#34;<replaceable
 >&#60;EMITTED_VEHICLE_NUMBER&#62;</replaceable
 >&#34; running=&#34;<replaceable
 >&#60;RUNNING_VEHICLE_NUMBER&#62;</replaceable
->&#34; waiting=&#34;<replaceable
+>&#34; \
+              waiting=&#34;<replaceable
 >&#60;NUMBER_OF_VEHICLES_WAITING_FOR_EMISSION&#62;</replaceable
->&#34; ended=&#34;<replaceable
+>&#34; \
+              ended=&#34;<replaceable
 >&#60;ENDED_VEHICLE_NUMBER&#62;</replaceable
 >&#34; meanTravelTime=&#34;<replaceable
 >&#60;MEAN_TRAVEL_TIME&#62;</replaceable
 >&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
-> ... further time steps ...</sgmltag
-></para
-><para
-><sgmltag
->&#60;/emissions&#62;</sgmltag
-></para
+>
+
+   ... further time steps ...
+
+<sgmltag
+>&#60;/netstats&#62;</sgmltag
+></programlisting
 ><para
 >You can force the simulation to generate this output using <option
 >--emissions-output <replaceable
@@ -2982,26 +5190,28 @@ spacing="compact"
 >Trip Information</title
 ><para
 >This output contains the information about each vehicle&#39;s departure time, the time the vehicle wanted to start at (which may be lower than the real departure time) and the time the vehicle has arrived. Such an information is generated for each vehicle as soon as the vehicle has arrived its destination and is removed from the network. The format is as following:</para
-><para
+><programlisting
 ><sgmltag
 >&#60;tripinfos&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;tripinfo id=&#34;<replaceable
+>
+   <sgmltag
+>&#60;tripinfo id=&#34;<replaceable
 >&#60;VEHICLE_ID&#62;</replaceable
 >&#34; start=&#34;<replaceable
 >&#60;DEPARTURE_TIME&#62;</replaceable
 >&#34; wished=&#34;<replaceable
 >&#60;WISHED_DEPARTURE_TIME&#62;</replaceable
->&#34; end=&#34;<replaceable
+>&#34; \
+            end=&#34;<replaceable
 >&#60;ARRIVAL_TIME&#62;</replaceable
 >&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
+>
+
+   ... information about further vehicles ...
+
+<sgmltag
 >&#60;/tripinfos&#62;</sgmltag
-></para
+></programlisting
 ><para
 >The simulation is forced to generate this output using: <option
 >--tripinfo-output <replaceable
@@ -3058,42 +5268,37 @@ spacing="compact"
 >You may have noticed that a file name must be supplied, called <sgmltag
 >DEF_FILE</sgmltag
 > within the schema above. This file must contain the information about when a certain speed shall be set onto the lane. This file has the following format:</para
-><para
+><programlisting
 ><sgmltag
 >&#60;vss&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;step time=&#34;<replaceable
+>
+   <sgmltag
+>&#60;step time=&#34;<replaceable
 >&#60;TIME&#62;</replaceable
 >&#34; speed=&#34;<replaceable
 >&#60;SPEED&#62;</replaceable
 >&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;step time=&#34;<replaceable
+>
+   <sgmltag
+>&#60;step time=&#34;<replaceable
 >&#60;TIME&#62;</replaceable
 >&#34; speed=&#34;<replaceable
 >&#60;SPEED&#62;</replaceable
 >&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
-> ... further entries ...</sgmltag
-></para
-><para
-><sgmltag
-> &#60;step time=&#34;<replaceable
+>
+
+   ... further entries ...
+
+   <sgmltag
+>&#60;step time=&#34;<replaceable
 >&#60;TIME&#62;</replaceable
 >&#34; speed=&#34;<replaceable
 >&#60;SPEED&#62;</replaceable
 >&#34;/&#62;</sgmltag
-></para
-><para
-><sgmltag
+>
+<sgmltag
 >&#60;/vss&#62;</sgmltag
-></para
+></programlisting
 ><para
 >Each <sgmltag
 >step</sgmltag
@@ -3989,32 +6194,30 @@ id="user_chp08"
 ><para
 >We will now discuss the different possibilities to use the graphical user interface more deeply.</para
 ><sect1
+id="user_chp08-configs"
 ><title
 >Using Configuration Files</title
 ><para
 >Most simulations have to be executed more than only one time. Furthermore, some experiments require the execution of similar, slightly different settings, for example the same network with a different route set. To avoid the retyping of all the parameter at the input line, all of the main applications can be fed with a configuration file. This configuration file contains the values the user normally would give to the program at the command line. For example, instead of typing</para
-><blockquote
-><para
->dua-router(.exe) --cell=<replaceable
+><screen
+>duarouter --cell=<replaceable
 >myCellFile</replaceable
 > --net=<replaceable
 >mySUMONet.net.xml</replaceable
 > --output-file=<replaceable
 >MySUMORoutes.rou.xml</replaceable
-> -b <replaceable
+> \
+   -b <replaceable
 >0</replaceable
 > -e <replaceable
 >3600</replaceable
-></para
-></blockquote
+></screen
 ><para
 >you can start the router with a configuration file only:</para
-><blockquote
-><para
->dua-router(.exe) -c=<replaceable
+><screen
+>duarouter -c=<replaceable
 >myConfig.rou.cfg</replaceable
-></para
-></blockquote
+></screen
 ><para
 >The <option
 >-c <replaceable
@@ -4029,20 +6232,20 @@ id="user_chp08"
 >A configuration file is a simple XML-file in which each of the command line parameter is represented as a XML-element with the parameter&#39;s value being given as text between the begin and end tag of this parameter. So if you want to set a parameter &#34;foo&#34; to the value &#34;bar&#34; within your configuration file, write <sgmltag
 >&#60;foo&#62;bar&#60;foo/&#62;</sgmltag
 > into the configuration file. Do not forget that each XML-file has to have a root element, so that the whole configuration file would look like this:</para
-><para
-><sgmltag
->&#60;configuration&#62;</sgmltag
-></para
-><para
-><sgmltag
-> &#60;foo&#62;bar&#60;foo/&#62;</sgmltag
-></para
-><para
-><sgmltag
+><programlisting
+>&#60;configuration&#62;
+   <sgmltag
+>&#60;foo&#62;</sgmltag
+>bar<sgmltag
+>&#60;foo/&#62;</sgmltag
+>
+<sgmltag
 >&#60;/configuration&#62;</sgmltag
-></para
+></programlisting
 ><para
->Between the starting at the ending tag, any type of values may be set, use a &#39;x&#39; to mark boolean values as set. If a parameter allows a set of values (normally separated by a &#39;;&#39;), you have to use a single element and embed these value into it as you would on command line. A different approach will maybe be invented in future.</para
+>Between the starting at the ending tag, any type of values may be set, use a &#39;x&#39; to mark boolean values as set. If a parameter allows a set of values (normally separated by a &#39;;&#39;), you have to use a single element and embed these value into it as you would on command line. A different approach will maybe be invented in future. You can find the templates for each of the package&#39;s application&#39;s configuration files within the folder &#34;<filename
+>[SUMO]/data/cfg_templates</filename
+>&#34;.</para
 ></sect1
 ><sect1
 ><title
@@ -4066,31 +6269,41 @@ spacing="compact"
 ><para
 >*.sumo.cfg</para
 ><para
->Configuration file for SUMO (both command line and GUI-version)</para
+>Configuration file for <application
+>SUMO</application
+> (both command line and GUI-version)</para
 ></listitem
 ><listitem
 ><para
 >*.netc.cfg</para
 ><para
->Configuration file for the netconverter/-builder</para
+>Configuration file for <application
+>NETCONVERT</application
+></para
 ></listitem
 ><listitem
 ><para
 >*.dua.cfg</para
 ><para
->Configuration file for the dua-router</para
+>Configuration file for <application
+>DUAROUTER</application
+></para
 ></listitem
 ><listitem
 ><para
 >*.jtr.cfg</para
 ><para
->Configuration file for the jtr-router</para
+>Configuration file for <application
+>JTRROUTER</application
+></para
 ></listitem
 ><listitem
 ><para
 >*.od2t.cfg</para
 ><para
->Configuration file for the O/D to trip converter</para
+>Configuration file for <application
+>OD2TRIPS</application
+></para
 ></listitem
 ></itemizedlist
 ></para
@@ -4110,16 +6323,6 @@ spacing="compact"
 >Standard: edges with lanes and other attributes; junction definitions;</para
 ><para
 >Optional: all other simulation information</para
-></listitem
-><listitem
-><para
->*.log.xml</para
-><para
->sumo - junction logics file</para
-><para
->Contents:</para
-><para
->Contents: The definitions of junction logics</para
 ></listitem
 ><listitem
 ><para
@@ -4149,7 +6352,9 @@ spacing="compact"
 ><para
 >*.edg.xml</para
 ><para
->sumo-netconvert - edges file</para
+><application
+>NETCONVERT</application
+> - edges file</para
 ><para
 >Contents: definitions of edges to build the network from</para
 ></listitem
@@ -4157,7 +6362,9 @@ spacing="compact"
 ><para
 >*.nod.xml</para
 ><para
->sumo-netconvert - nodes file</para
+><application
+>NETCONVERT</application
+> - nodes file</para
 ><para
 >Contents: definitions of nodes to build the network from</para
 ></listitem
@@ -4165,7 +6372,9 @@ spacing="compact"
 ><para
 >*.con.xml</para
 ><para
->sumo-netconvert - connection file</para
+><application
+>NETCONVERT</application
+>- connection file</para
 ><para
 >Contents: definitions of nodes to build the network from</para
 ></listitem
@@ -4224,6 +6433,12 @@ spacing="compact"
 ><para
 >index files generated for CELL route files</para
 ></listitem
+><listitem
+><para
+>*.shp, *.shx, *.dbf</para
+><para
+>ArcView-network descriptions (shapes, shape indices, definitions)</para
+></listitem
 ></itemizedlist
 ></para
 ></listitem
@@ -4237,7 +6452,9 @@ id="user_apb"
 ><title
 >Configuration File Templates</title
 ><para
->You can find the templates for each of the package&#39;s application&#39;s configuration files within the folder &#34;[SUMO]/data/cfg_templates&#34;.</para
+>You can find the templates for each of the package&#39;s application&#39;s configuration files within the folder &#34;<filename
+>[SUMO]/data/cfg_templates</filename
+>&#34;.</para
 ></sect1
 ><sect1
 ><title

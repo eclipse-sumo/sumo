@@ -37,6 +37,17 @@
 	<h2>Referencable Publications</h2>
 </center>
 
+<p>
+<b>Simulation Theory</b><br>
+<ul>
+    <li>Traffic Flow and Models<br><br>
+    <a name="ChowdhurySantenSchadschneider2000"><b>[Chowdhury, Santen, Schadschneider, 2000]</b></a>
+    <i>"Statistical Physics of Vehicular Traffic and Some Related Systems"</i>; D. Chowdhury, L. Santen, A. Schadschneider; Physics Reports 329, (4-6), S. 199-329, Elsevier, 2000, ISSN: 0370-1573<br>
+    Available at: <a href="http://arxiv.org/abs/cond-mat/0007053" class="SUMOInLineLink">http://arxiv.org/abs/cond-mat/0007053</a><br>
+    <br><br>
+
+</ul>
+</p>
 
 <p>
 <b>Used Methods and Models</b><br>
@@ -93,8 +104,16 @@
     Available at: <a href="http://eprints.vf.ba.dlr.de/view/year/2002.html" class="SUMOInLineLink">http://eprints.vf.ba.dlr.de/view/year/2002.html</a><br>
     or as <a href="dkrajzew_ESS2002_LOG14_Validation.pdf" class="SUMOInLineLink">[pdf, ~320KB]</a>. You may also download the <a href="dkrajzew_ESS2002_Validation_transparencies.pdf" class="SUMOInLineLink">[.pdf-transparencies, ~700KB]</a>
     <br><br>
+
+	<a name="BrockfeldWagner2004"><b>[Brockfeld, Wagner, 2004]</b></a>
+	<i>Testing and Benchmarking of Microscopic Traffic Flow Models</i>; E. Brockfeld, P. Wagner; In: 10th world conference on transport research, Band abstract book I, A-D, S. 775-776, WCTR04 - 10th World Conference for Transport Research, 2004.07.04 - 2004.07.08, Istanbul, Turkey<br>
+	Available at: <a href="http://eprints.vf.ba.dlr.de/view/year/2004.html" class="SUMOInLineLink">http://eprints.vf.ba.dlr.de/view/year/2004.html</a><br>
+    or as <a href="WCTR2004_Brockfeld.pdf" class="SUMOInLineLink">[pdf, ~290KB]</a>.
+    <br><br>
+
 </ul>
 </p>
+
 
 <p>
 <b>Projects done by IVF</b>
@@ -104,6 +123,13 @@
     <i>"Simulation of modern Traffic Lights Control Systems using the open source Traffic Simulation SUMO"</i>; Daniel Krajzewicz, Elmar Brockfeld, J&uuml;rgen Mikat, Julia Ringel, Christian R&ouml;ssel, Wolfram Tuchscheerer, Peter Wagner, Richard Woesler; In: Proceedings of the 3rd Industrial Simulation Conference 2005; J. Kr&uuml;ger, A. Lisounkin, G. Schreck (Eds.); EUROSIS-ETI, S. 299-302, ISBN: 90-77381-18-X, Jun. 2005, Berlin / Germany<br>
     Available at: <a href="http://eprints.vf.ba.dlr.de/view/year/2005.html" class="SUMOInLineLink">http://eprints.vf.ba.dlr.de/view/year/2005.html</a><br>
     or as <a href="dkrajzew_TRAF9_AgentbasedTLS.pdf" class="SUMOInLineLink">[pdf, ~200KB]</a>. You may also download the <a href="dkrajzew_TRAF9_AgentbasedTLS_transparencies.pdf" class="SUMOInLineLink">[.pdf-transparencies, ~2MB]</a>
+    <br><br>
+
+	<li>Car2Car Communication<br><br>
+    <a name="Lehr2005"><b>[Lehr2005]</b></a>
+    <i>"Optimierung der Kommunikation zwischen am Verkehr beteiligten Strukturen"</i>; Sebastian Lehr; Diploma Thesis; Fachhochschule für Technik und Wirtschaft Berlin<br>
+    Available at: <a href="http://eprints.vf.ba.dlr.de/view/year/2005.html" class="SUMOInLineLink">http://eprints.vf.ba.dlr.de/view/year/2005.html</a><br>
+    or as <a href="DiplomarbeitSebastianLehr.pdf" class="SUMOInLineLink">[pdf, ~1MB]</a>.
     <br><br>
 </ul>
 </p>

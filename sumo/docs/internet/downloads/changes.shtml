@@ -43,11 +43,39 @@ User-relevant changes
 <ul>
     <li>GUI
     <ul>
-		<li>bug on not loading junction geometry patched
+		<li>version information in gui patched
+		<li>segfaults on loading broken configs patched
+		<li>catching opening a second file using recent files added
+		<li>subwindows are now deleted on (re)loading the simulation
+		<li>some improvements on visualisation (unfinished (GridBuilder))
+		<li>viewport changer debugged
+		<li>problems on loading geometry items patched
+		<li>list of selected items is now cleared on closing/reloading (was buggy before)
+		<li>table editing debugged
+		<li>rerouters are now correctly named
 	</ul>
-    <li>Simulation
-    <ul>
-        <li>actuated tls-lights bug patched
+	<li>Simulation
+	<ul>
+		<li>debugging numeric issues in MSVehicle
+		<li>Emitters reworked
+	</ul>
+	<li>Netconversion
+	<ul>
+		<li>output during netbuilding patched
+		<li>network geometry reworked (unfinished)
+		<li>"speed-in-km" is now called "speed-in-kmh"
+		<li>"type-file" is now called "xml-type-files"
+		<li>removed two files definition for arcview
+		<li>allowed further information to be stored in arcview-files
+	</ul>
+	<li>Documentation
+	<ul>
+		<li>User docs, netconversion partly updated
+		<li>further work on tls-api-description
+	</ul>
+	<li>All
+	<ul>
+		<li>copyright information patched
 	</ul>
 </ul>
 Developer-relevant changes
@@ -55,378 +83,55 @@ Developer-relevant changes
     <li>GUI
     <ul>
 		<li>unused addTimeout/removeTimeout-APIs removed
+		<li>debugged building of the gui-application with MSVC7
 	</ul>
     <li>Simulation
     <ul>
-        <li>renamed NLNetHandler to NLHandler
-		<li>each MSJunction has a reference to the net; net allows retrieval of the tls-logics container (see helpers/NamedObjectCont.h)
-		<li>removed several memory leaks, mainly occuring after broken loading
-		<li>bugs in actuated traffic lights logic patched
+        <li>(MS|GUI)TriggeredEmitter is now (MS|GUI)Emitter
+        <li>TLS-API: MSEdgeContinuations added
+        <li>usage of internal lanes is now optional at building
 	</ul>
-	<li>Router
+	<li>All
 	<ul>
-		<li>renamed all ROJP*-classes to ROJTR*
+		<li>got rid of the old MSVC memory leak checker
+		<li>several memory leaks removed
+		<li>made checking the geometry for correctness optional on building (CHECK_UNIQUE_POINTS_GEOMETRY)
+		<li>made memory checking optional on building (CHECK_MEMORY_LEAKS)
+		<li>foreign libraries will now be moved to src/foreign
 	</ul>
 </ul>
+Previous changes for version 0.9:<br>
+<a class="SUMOInLineLink" target="new" href="changes_090_091.shtml">from 0.9.0 to 0.9.1</a><br>
+<a class="SUMOInLineLink" target="new" href="changes_08x_090.shtml">from 0.8.x to 0.9.0</a><br>
+<br/>
 
 <hr/>
 
-<b>Changes from 0.8.x to 0.9.0</b>
+<b>Changes from 0.8.3 to 0.8.4</b>
 <p>
 User-relevant changes
 <ul>
     <li>GUI
     <ul>
-        <li>now tls phases may be shown static or be tracked
-        <li>ported to FOX1.4
-        <li>better view for the legend
-        <li>snapshots may now be saved in different file formats (possibly buggy)
-        <li>the viewport may be defined using a small dialog
-        <li>object-popups now show up as soon as the right button is released
-        <li>dialogs have icons
-        <li>searching for structures improved
+		<li>version information in gui patched
+		<li>catching opening a second file using recent files added
 	</ul>
-    <li>Simulation
-    <ul>
-        <li>mean data may now be written edge-wise or lane-wise (to be documented!)
-        <li>simulation speed-up by avoiding multiplication with 1
-        <li>setting tls-offsets debugged
-        <li>edge-based mean data implemented; previous lane-based is now optional
-        <li>first devices (mobile phones) added
-        <li>made checking for accidents optional
-        <li>debugged vehicle emission on source edges
-        <li>debugged "emissions" output
-        <li>some derived information added to tripinfo output
-        <li>dump-begin and dump-end added
-	</ul>
-    <li>Netconvert
-    <ul>
-        <li>leftmover-links building debugged
-        <li>guessing of ramps and unregulated near districts implemented
-	</ul>
-    <li>Documentation
-    <ul>
-        <li>More-On - section added
-	</ul>
-    <li>Router
-    <ul>
-        <li>usage of the -R option witin the jtr-router debugged
-        <li>improved handling of invalid vehicles
-        <li>forgetting to take time with - bug patched
-        <li>handling of subparts of unsorted lists patched
+	<li>All
+	<ul>
+		<li>copyright information patched
 	</ul>
 </ul>
+Previous changes for version 0.8:<br>
+<a class="SUMOInLineLink" target="new" href="changes_0822_083.shtml">from 0.8.2.2 to 0.8.3</a><br>
+<a class="SUMOInLineLink" target="new" href="changes_0821_0822.shtml">from 0.8.2.1 to 0.8.2.2</a><br>
+<a class="SUMOInLineLink" target="new" href="changes_0802_0821.shtml">from 0.8.0.2 to 0.8.2.1</a><br>
+<a class="SUMOInLineLink" target="new" href="changes_0801_0802.shtml">from 0.8.0.1 to 0.8.0.2</a><br>
+<a class="SUMOInLineLink" target="new" href="changes_080_0801.shtml">from 0.8.0 to 0.8.0.1</a><br>
+<a class="SUMOInLineLink" target="new" href="changes_pre083_080.shtml">from pre0.8.3 to 0.8.0</a><br>
+<a class="SUMOInLineLink" target="new" href="changes_pre082_pre083.shtml">from pre0.8.2 to pre0.8.3</a><br>
+<a class="SUMOInLineLink" target="new" href="changes_pre08_pre082.shtml">from pre0.8 to pre0.8.2</a><br>
+<a class="SUMOInLineLink" target="new" href="changes_070_pre08.shtml">from 0.7 to pre0.8</a><br>
 
-Developer-relevant changes
-    <li>GUI
-    <ul>
-        <li>ported to FOX1.4
-        <li>fonts are now drawn using polyfonts
-	</ul>
-    <li>Simulation
-    <ul>
-        <li>sampleInterval was removed from detectors
-        <li>XMLTrigger functionality patched
-        <li>vehicle position retrieval added
-	</ul>
-    <ul>
-		<li>unneeded inclusion of icc files removed
-		<li>level 3 warnings removed
-		<li>build number output added
-		<li>code style adapted
-	</ul>
-</ul>
-</p>
-
-<hr/>
-
-<p>
-<b>Changes from 0.8.2.2 to 0.8.3</b>
-<p>
-User-relevant changes
-<ul>
-    <li>Simulation
-    <ul>
-		<li>debugged false tls-offset computation
-	</ul>
-    <li>Windows-package
-    <ul>
-		<li>added libraries missing in 0.8.2.2
-	</ul>
-</ul>
-</p>
-
-<hr/>
-
-<b>Changes from 0.8.2.1 to 0.8.2.2</b>
-<p>
-User-relevant changes:
-<ul>
-    <li>Simulation
-    <ul>
-		<li>XML-Trigger bug on using speed triggers removed
-		<li>emission of vehicles on multi-lane source edges debugged (now all lanes are used)
-		<li>Debugged the problem of vehicles stopping before the route is over (reported by Jonathan Davies)
-		<li>setting tls-offsets debugged
-	</ul>
-	<li>Netconvert
-	<ul>
-		<li>Computation of left-movers debugged
-    </ul>
-</ul>
-
-<hr/>
-
-<b>Changes from 0.8.0.2 to 0.8.2.1</b>
-<p>
-</p>
-<b>Please remind that several option names have changed!</b> The most important: "net-files" (router, simulation) is now "net-file"...<br>
-Check user documentation and man-pages for this.<br>
-<p>
-User-relevant changes:
-<ul>
-	<li>GUI
-	<ul>
-		<li>"Clear Message Window" menu added
-		<li>the icons now allow loading instantly after the previous loading has failed
-		<li>Renamed to "guisim"
-		<li>using gradients instead of pure interpolation
-		<li>windows-icons patched
-		<li>added ability to take snapshots
-		<li>using popups instead of comboboxes for finding structures and switching between coloring schemes in order to save place
-		<li>speeded up handling of errors
-		<li>Locators hidden behind a popup
-		<li>ToolTips do now not hide dialog windows
-		<li>Configuration errors are now reported to the window
-		<li>Added the possibility to display a vehicle's route
-		<li>added the possibility to save timelines
-	</ul>
-    <li>Simulation
-    <ul>
-		<li>building dump-files now reports about failures
-		<li>Patched some of the lane-changing bugs
-		<li>time-to-teleport -option added
-		<li>replace "treshhold" by "treshold"
-	</ul>
-	<li>Netconvert
-	<ul>
-		<li>Plain output of node and edges added (--plain-output)
-		<li>got rid of the arcview/shapelib-import chaos
-		<li>--explicite-junctions -> --explicite-tls
-		<li>--explicite-no-junctions -> --explicite-no-tls
-		<li>--keep-edges.input-file
-		<li>--keep-edges - option added
-		<li>--keep-edges.input-file
-		<li>Geometry computation bug patched
-    </ul>
-    <li>Router
-    <ul>
-		<li>Bug on processing all time steps patched
-		<li>Route output reformatted
-		<li>max-alternatives
-    </ul>
-    <li>Documentation
-    <ul>
-		<li>Man-pages added
-    </ul>
-</ul>
-
-Developer-relevant changes:
-<ul>
-	<li>GUI
-	<ul>
-		<li>Have reworked the class dependencies completely in order to make derivation more easy
-	</ul>
-	<li>Simulation
-	<ul>
-		<li>output moved to "output"
-		<li>outputs write to OutputDevices, not ostreams
-		<li>reworked lanechanging
-	</ul>
-</ul>
-</p>
-
-<hr/>
-
-<b>Changes from 0.8.0.1 to 0.8.0.2</b>
-<p>
-</p>
-<p>
-User-relevant changes:
-<ul>
-	<li>GUI
-	<ul>
-		<li>Selections
-		<ul>
-			<li>Flag icons added to Popup-Menues
-			<li>Shift adds (de)selects the whole street, not only a lane
-			<li>Selection-Editor now saves to *.txt-files
-		</ul>
-        <li>Centering of objects has been revalidated
-        <li>Variable Speed Signs
-        <ul>
-        	<li>Visualisation of vss added
-        	<li>Added the possibility to interact with vss'
-        </ul>
-        <li>"Reload Simulation" option added
-        <li>Status-Bar message patched
-        <li>Rotation removed (was buggy)
-        <li>Error on closing the gui if parameter tracker are opened patched
-        <li>Value tracker may now be aggregated and are able to save the tracked values
-        <li>POlygon visualisation added
-        <li>Breakpoints added
-        <li>Setting and Saving of additional net weights added (preliminary, subject to improve)
-        <li>Coloring by type and by route added
-    </ul>
-    <li>Simulation
-    <ul>
-		<li>Reports why the simulation ended if in verbose mode
-		<li>emissions-output error due to a division by zero patched
-		<li>VSS may now control several lanes
-	</ul>
-	<li>general
-	<ul>
-		<li>Options
-		<ul>
-			<li>Errors on default value usage patched
-		</ul>
-	</ul>
-	<li>Documentation
-	<ul>
-		<li>trying to separate XML-code (green) from command line options (red)
-	</ul>
-	<li>Netconvert
-	<ul>
-		<li>--map-output &lt;FILE&gt; builds a mapping that shows which edges have been removed while joining
-		<li>guess-tls - options added
-		<li>extended the FastLane-import by the -l parameter for the number of lanes
-		<li>--explicite-junctions &lt;JUNCTION_NAME_LIST&gt; allows to say which junctions shall be explicitely tls-controlled
-		<li>--explicite-no-junctions &lt;JUNCTION_NAME_LIST&gt; allows to say which junctions shall be explicitely non-tls-controlled
-        <li>--edges-min-speed &lt;SPEED_MS&gt; allows to remove all edges from the input on which a lower speed than &lt;SPEED_MS&gt; is allowed
-        <li>--elmar allows to import NavTech-GDF-files parsed using Elmar Brockfelds parser
-        <li>--tiger allows to import tiger files (preliminary, does not look THAAAAT good for an unknown reason, yet)
-    </ul>
-    <li>Router
-    <ul>
-    	<li>Generation of random route after the first depart fixed
-    	<li>Warnings about missing weights are printed only once per edge
-    	<li>Supplementary Weights
-    </ul>
-    <li>Examples have now a new folder structure
-</ul>
-
-Developer-relevant changes:
-<ul>
-	<li>GUI
-	<ul>
-		<li>Selected structures are now in a separate class
-		<li>Additional structures are now displayed using the same "API"
-	</ul>
-	<li>Simulation
-	<ul>
-		<li>removed the MSNet::dictionary
-		<li>refactored the MSMeanData-output
-	</ul>
-</ul>
-</p>
-
-<hr/>
-
-
-<b>Changes from 0.8.0 to 0.8.0.1</b>
-<p>
-Mostly functioning and stable. The main changes are:
-</p>
-<p><ul>
-    <li>GUI
-    <ul>
-    	<li>The gui now remembers the last used folder
-    	<li>The gui now remembers his
-    	<li>The instance chooser was reworked and shows now which items are selected
-    	<li>An selected-items dialog with the ability to save the names of the selected items was implemented
-    	<li>New colours for aggregated view (aggregated views are still a prototype)
-    	<li>Fixed a bug at optional texture disabling
-    	<li>Update of trackers and tables on simulation steps added
-    	<li>About-dialog debugged
-    	<li>Message window scrolls if new text is appended
-    </ul>
-    <li>Router
-    <ul>
-    	<li>Output holding the number of loaded, build, and discarded routes added
-    	<li>--move-on-short function implemented
-    	<li>Bug on repeatedly emitted vehicles patched
-    </ul>
-    <li>Simulation
-    <ul>
-    	<li>Bug on repeatedly emitted vehicles patched
-    </ul>
-    <li>Netconvert
-    <ul>
-    	<li>Made the geometry of junctions pretty again
-    	<li>Too conservative right-of-way rules on importing vissim-networks was reworked
-    </ul>
-    <li>general implementation issues
-    <ul>
-    	<li>Replaced most output to cerr by MsgHandler-calls
-    </ul>
-    <li>Documentation
-    <ul>
-    	<li>extended the detector-documentation (user)
-    	<li>extended the gui-documentation
-    	<li>extended the description of the build process
-    	<li>added missing pictures
-    	<li>resized some pictures
-    	<li>improved the visibility of XML-format descriptions
-    </ul>
-</ul>
-... and some other things ...
-</p>
-
-<hr/>
-
-<b>Changes from pre0.8.3 to 0.8.0</b>
-<p>Mainly the try to make a working release... Furthermore:</p>
-<p><ul>
-    <li>More detectors
-    <li>Aggregated views
-    <li>Porting to FOX
-</ul></p>
-
-<hr/>
-
-<b>Changes from pre0.8.2 to pre0.8.3</b>
-<p>
-Mostly functioning and stable. The changes
-</p>
-<p><ul>
-    <li>Linux-building patched
-    <li>Added a preliminary visualisation of junctions and detectors
-    <li>The detectors were reimplemented
-    <li>Vehicles and vehicle types now contain a certain color (not yet chooseable)
-    <li>Traffic lights may now have offsets
-    <li>Different other, smaller things
-</ul></p>
-
-<b>Changes from pre0.8 to pre0.8.2</b>
-<p>
-I decided to post the next pre-release that fast as a bug within the netconversion module strongly disallowed the usage of the package.<br>
-As the network generator is not working yet, but still is included within the package, a further release will be out win the next days.
-</p>
-<p><ul>
-    <li>Netconversion bug removed
-    <li>Preliminary junction display
-    <li>Preliminary netgenerator
-</ul></p>
-
-<b>Changes from 0.7.1 to pre0.8</b>
-<p><ul>
-    <li>Further applications added: router, od2trips-converter, tagreader
-    <li>A graphical user interface
-    <li>Further import possibilities added: ArcView, Visum, Vissim (partly in work), ARTEMIS
-    <li>A new concept of the microsimulation
-    <li>Traffic lights simulation
-    <li>Working lane changing
-</ul></p>
 
 <!-- End of Text area -->
 		</div>

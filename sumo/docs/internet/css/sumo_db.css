@@ -28,12 +28,28 @@ h2 {
 	color:#000000;
 	}
 
-.SUMOMainText {
+.SUMOMainText, .SUMOMainText td {
 	font-family:Helvetica,Arial,Palatino;
 	font-size:10pt;
 	font-weight:normal;
 	color:#000000;
 	background-color:#ffffff;
+	}
+
+.caution td  {
+	font-family:Helvetica,Arial,Palatino;
+	font-size:10pt;
+	font-weight:bold;
+	color:#000000;
+	background-color:#ffff88;
+	}
+
+.warning td  {
+	font-family:Helvetica,Arial,Palatino;
+	font-size:10pt;
+	font-weight:bold;
+	color:#000000;
+	background-color:#ff8888;
 	}
 
 
@@ -42,6 +58,22 @@ h2 {
 	font-size:10pt;
 	font-weight:bold;
 	color:#006600;
+	background-color:#ffffff;
+	}
+
+.programlisting .sgmltag-element {
+	font-family:Helvetica,Arial,Palatino;
+	font-size:10pt;
+	font-weight:bold;
+	color:#006600;
+	background-color:#cceeff;
+	}
+
+.navfooter td {
+	font-family:Helvetica,Arial,Palatino;
+	font-size:10pt;
+	font-weight:bold;
+	color:#000000;
 	background-color:#ffffff;
 	}
 
@@ -56,6 +88,21 @@ h2 {
 .replaceable {
 	font-weight:normal;
 	}
+
+.programlisting {
+	background-color:#cceeff;
+	}
+
+.screen {
+	background-color:#000000;
+	color:#eeeeee;
+	font-weight:bold;
+	}
+
+.application {
+	color:#005588;
+	font-weight:bold;
+}
 
 a:link {
 	font-family:Helvetica,Arial,Palatino;
