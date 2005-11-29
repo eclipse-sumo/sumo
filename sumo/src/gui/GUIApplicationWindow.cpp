@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.49  2005/11/29 13:22:20  dkrajzew
+// dded a minimum simulation speed definition before the simulation ends (unfinished)
+//
 // Revision 1.48  2005/11/15 10:34:33  dkrajzew
 // debugging and beautifying for the next release
 //
@@ -1127,6 +1130,9 @@ GUIApplicationWindow::handleEvent_SimulationEnded(GUIEvent *e)
             break;
         case GUIEvent_SimulationEnded::ER_ERROR_IN_SIM:
             text << "Reason: An error occured (see log).";
+            break;
+        case GUIEvent_SimulationEnded::ER_TOO_SLOW:
+            text << "Reason: The simulation got too slow.";
             break;
         case GUIEvent_SimulationEnded::ER_FORCED:
             gQuitOnEnd = true;

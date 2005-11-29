@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2005/11/29 13:22:20  dkrajzew
+// dded a minimum simulation speed definition before the simulation ends (unfinished)
+//
 // Revision 1.33  2005/11/09 06:32:46  dkrajzew
 // problems on loading geometry items patched
 //
@@ -240,7 +243,9 @@ GUILoadThread::run()
 
     // try to load
     net =
-        new GUINet(oc.getInt("begin"), oc.getInt("end"), buildVehicleControl());
+        new GUINet(oc.getInt("begin"), oc.getInt("end"),
+            buildVehicleControl(),
+            oc.getFloat("too-slow-rtf"), !oc.getBool("no-duration-log"));
     SUMOFrame::setMSGlobals(oc);
     GUIEdgeControlBuilder *eb = buildEdgeBuilder();
     GUIJunctionControlBuilder jb(*net, oc);
@@ -261,9 +266,9 @@ GUILoadThread::run()
             net->initGUIStructures();
             simStartTime = oc.getInt("begin");
             simEndTime = oc.getInt("end");
+            closeNetLoadingDependent(oc, *net);
+            RandHelper::initRandGlobal(oc);
         }
-        closeNetLoadingDependent(oc, *net);
-        RandHelper::initRandGlobal(oc);
     } catch (UtilException &e) {
         string error = e.msg();
         MsgHandler::getErrorInstance()->inform(error);

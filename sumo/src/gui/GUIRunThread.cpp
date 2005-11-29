@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.33  2005/11/29 13:22:20  dkrajzew
+// dded a minimum simulation speed definition before the simulation ends (unfinished)
+//
 // Revision 1.32  2005/10/07 11:36:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -309,6 +312,18 @@ GUIRunThread::makeStep()
         myEventThrow.signal();
         _halting = true;
         _ok = false;
+    }
+    // check whether the simulation got too slow, halt then
+    if(_net->logSimulationDuration() && _net->getTooSlowRTF()>0) {
+        SUMOReal rtf =
+            ((SUMOReal) _net->getVehicleControl().getRunningVehicleNo()/(SUMOReal) _net->getSimStepDurationInMillis()*1000.);
+        if(rtf<_net->getTooSlowRTF()) {
+            _halting = true;
+            e = new GUIEvent_SimulationEnded(
+                GUIEvent_SimulationEnded::ER_NO_VEHICLES, _step-1);
+            myEventQue.add(e);
+            myEventThrow.signal();
+        }
     }
 }
 
