@@ -385,7 +385,7 @@ id="user_chp03"
 ><sect1
 id="user_chp03-simulation_theory"
 ><title
->A short Traffic Simulation Theory</title
+>A short Introduction to Traffic Simulation Theory</title
 ><sect2
 id="user_chp03-simulation_theory-simulation_types"
 ><title
@@ -2397,15 +2397,18 @@ id="user_chp04-further_options-turnarounds"
 ><title
 >Adding Turnarounds</title
 ><para
->To add turnarounds use the option option &#34;<option
->--append-turnarounds</option
+>Normally, turnarounds are added as a possible edge continuations and play an important role during network building (see <ulink
+url="http://sumo.sourceforge.net/docs/bibliography.shtml#Krajzewicz2005_2"
+>[Krajzewicz_et_al2005_2]</ulink
+>). Still, one may want not to add them. In this cases, it is possible to disallow their appending using option &#34;<option
+>--no-turnarounds</option
 >&#34;.</para
 ><para
 >Specific option:</para
 ><variablelist
 ><varlistentry
 ><term
->--append-turnarounds</term
+>--no-turnarounds</term
 ><listitem
 ><para
 ><remark
@@ -2435,21 +2438,34 @@ spacing="compact"
 ></listitem
 ></itemizedlist
 ></para
+><para
+>Changes:</para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+>in versions earlier than 0.9.3, turnarounds were not added per default. Instead the option &#34;<option
+>--append-turnarounds</option
+>&#34; has forced <application
+>NETCONVERT</application
+> to add them.</para
+></listitem
+></itemizedlist
 ></sect2
 ><sect2
 id="user_chp04-further_options-turnarounds"
 ><title
 >Removing Geometry Nodes</title
 ><para
->In most input networks one may find nodes where one street comes in and one with the same attributes goes one or two parallel edges come in and two (with the same attribute) come out. Such nodes have mostly no meaning (maybe besides the additional possibility to make a U-turn) and may be removed. The removal of such nodes increases the simulation speed due to a smaller number of edges to process during each time step. That&#39;s why such nodes are removed by default. To avoid this behaviour, use &#34;<option
->--no-node-removal</option
->&#34;.</para
+>In most input networks one may find nodes where one street comes in and one with the same attributes goes one or two parallel edges come in and two (with the same attribute) come out. Such nodes have mostly no meaning (maybe besides the additional possibility to make a U-turn) and may be removed. The removal of such nodes increases the simulation speed due to a smaller number of edges to process during each time step (see ...TBD ...). To remove such nodes and join the incoming and outgoing edges use &#34;<option
+>--remove-geometry</option
+>&#34;. The removal of nodes preserves the geometry of edges by ading a further geometry point at the removed node&#39;s position.</para
 ><para
 >Specific option:</para
 ><variablelist
 ><varlistentry
 ><term
->--no-node-removal</term
+>[ --remove-geometry | -R ]</term
 ><listitem
 ><para
 ><remark
@@ -2479,6 +2495,17 @@ spacing="compact"
 ></listitem
 ></itemizedlist
 ></para
+><para
+>Changes:</para
+><itemizedlist
+spacing="compact"
+><listitem
+><para
+>in versions earlier than 0.9.3, geometry nodes were removed by default. One could change this behaviour using the &#34;<option
+>--no-node-removal</option
+>&#34; option.</para
+></listitem
+></itemizedlist
 ></sect2
 ><sect2
 id="user_chp04-further_options-kmh_speed"
@@ -3409,6 +3436,32 @@ spacing="compact"
 ></listitem
 ></itemizedlist
 ></listitem
+><listitem
+><para
+>Changes in version 0.9.3 (unreleased, yet)</para
+><itemizedlist
+><listitem
+><para
+>in versions earlier than 0.9.3, turnarounds were not added per default. Instead the option &#34;<option
+>--append-turnarounds</option
+>&#34; has forced <application
+>NETCONVERT</application
+> to add them.</para
+><para
+>Reason: turnarounds semm to be wished for the wider set of applications. Only sometimes it is unwished to add them.</para
+></listitem
+><listitem
+><para
+>in versions earlier than 0.9.3, geometry nodes were removed by default. One could change this behaviour using the &#34;<option
+>--no-node-removal</option
+>&#34; option.</para
+><para
+>Reason: the same as for &#34;<option
+>--append-turnarounds</option
+>&#34;</para
+></listitem
+></itemizedlist
+></listitem
 ></itemizedlist
 ></sect1
 ></chapter
@@ -3959,17 +4012,17 @@ id="user_chp05-import_routes-ptv"
 ><sect1
 id="user_chp05-dua"
 ><title
->Dynamic User Assignment</title
+>Dynamic User Assignment and Alternative Routes</title
 ><para
 >Dynamic Assignment is used to find out which routes the simulated driver really would take. One could assume that everyone is traing to use the fastest route. But what is the fastest route? Look at the network shown in the next picture. It is abvious, that the fastest route is the one in the middle of the network, even when considering the tls at the end of this road. But as soon as we insert many vehicles into the network, all trying to use this route, the edge located at the center soon gets full and vehicles need much more time than estimated to pass it. In fact, they need longer to pass this edge than if they would try to use one of the outer connections.</para
 ><figure
 ><title
->Example DUA-network (from &#60;SUMO&#62;/data/examples/dua/dua3s*)</title
+>Example DUA-network (from &#34;&#60;SUMO&#62;/data/examples/dua/dua3s*&#34;)</title
 ><mediaobject
 ><imageobject
 ><imagedata
 align="center"
-fileref="./gfx/user/dua_step1_a.gif"
+fileref="./gfx/user/dua_step1.gif"
 format="GIF"
 ></imagedata
 ></imageobject
@@ -3979,7 +4032,7 @@ format="GIF"
 >Within Christian Gawron&#39;s approach (see <ulink
 url="http://sumo.sourceforge.net/docs/bibliography.shtml#Gawron1998_1"
 >[Gawron1998_1]</ulink
->), which we use, each driver has a list of routes. At the beginning, we build a single route for each driver being the shortest route within an empty network - not knowing how many vehicles will use this route. You may wonder that two files are built. The file you have named as output file and a further file having the additional extension &#34;.alt&#34;. Within this second file route alternatives - the set of all routes the driver knows - are stored. </para
+>), which we use, each driver has a list of routes. At the beginning, we build a single route for each driver being the shortest route within an empty network - not knowing how many vehicles will use this route. You may wonder that two files are built. The file you have named as output file and a further file having the additional extension &#34;.alt&#34;. Within this second file route alternatives - the set of all routes the driver knows - are stored.</para
 ><para
 >After having generated the routes, we let the simulation run forcing it to generate edge- or lane-based dumps (see chapter 6, &#34;TBD&#34;). In fact, edge-based dumps are the better choice, because the route is not able to use lane-based dumps at all. Now, we have the information about the state of the network, meaning the real speeds that were driven within it, when all vehicles are using the same route. Now we can pass this information to a second call to <application
 >DUAROUTER</application
@@ -3999,12 +4052,12 @@ url="http://sumo.sourceforge.net/docs/bibliography.shtml#Gawron1998_1"
 >) for further information.</para
 ><figure
 ><title
->Example showing the effects of Christian Gawron dua-approach on route distribution within the network; blue color indicates that an edge is used within the step, red shows jams (tbd)</title
+>Example showing the effects of Christian Gawron dua-approach on route distribution within the network; blue color indicates that an edge is used within the step, red shows jams</title
 ><mediaobject
 ><imageobject
 ><imagedata
 align="center"
-fileref="./gfx/user/dua_step1_a.gif"
+fileref="./gfx/user/dua_steps.gif"
 format="GIF"
 ></imagedata
 ></imageobject
