@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.58  2005/11/30 08:52:43  dkrajzew
+// debugging geometry computation
+//
 // Revision 1.57  2005/11/29 13:31:16  dkrajzew
 // debugging
 //
@@ -2129,7 +2132,7 @@ NBEdge::getCWBoundaryLine(const NBNode &n, SUMOReal offset) const
     }
 #endif
 #endif
-    ret.move2side(-offset);
+    ret.move2side(offset);
     return ret;
 }
 
@@ -2153,7 +2156,7 @@ NBEdge::getCCWBoundaryLine(const NBNode &n, SUMOReal offset) const
     }
 #endif
 #endif
-    ret.move2side(offset);
+    ret.move2side(-offset);
     return ret;
 }
 
