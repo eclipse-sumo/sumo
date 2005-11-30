@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2005/11/30 08:53:48  dkrajzew
+// removed warning if no types are defined
+//
 // Revision 1.15  2005/11/29 13:31:16  dkrajzew
 // debugging
 //
@@ -298,10 +301,6 @@ NILoader::loadXML(OptionsCont &oc) {
 				new NIXMLTypesHandler(myNetBuilder.getTypeCont());
             loadXMLType(handler, oc.getString("xml-type-files"), "types");
             myNetBuilder.getTypeCont().report();
-        } else {
-            if(oc.isSet("e")&&oc.isSet("n")) {
-                WRITE_WARNING("No types defined, using defaults...");
-            }
         }
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());

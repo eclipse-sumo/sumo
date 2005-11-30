@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.40  2005/11/30 08:53:03  dkrajzew
+// removed warning if no types are defined
+//
 // Revision 1.39  2005/11/09 06:40:49  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -867,7 +870,11 @@ NBEdgeCont::savePlain(const std::string &file)
         res << "   <edge id=\"" << e->getID() << "\" from=\"" <<
             e->getFromNode()->getID() << "\" to=\"" << e->getToNode()->getID()
             << "\" nolanes=\"" << e->getNoLanes() << "\" speed=\""
-            << e->getSpeed() << "\"/>" << endl;
+            << e->getSpeed() << "\"";
+        if(e->getGeometry().size()>2) {
+            res << " shape=\"" << e->getGeometry() << "\"";
+        }
+        res << "/>" << endl;
     }
     res << "</edges>" << endl;
     return res.good();
