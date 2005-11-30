@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2005/11/30 08:56:49  dkrajzew
+// final try/catch is now only used in the release version
+//
 // Revision 1.24  2005/11/29 13:42:03  dkrajzew
 // added a minimum simulation speed definition before the simulation ends (unfinished)
 //
@@ -324,7 +327,9 @@ int
 main(int argc, char **argv)
 {
     int ret = 0;
+#ifndef _DEBUG
     try {
+#endif
         // initialise the application system (messaging, xml, options)
         int init_ret = SystemFrame::init(false, argc, argv,
             fillOptions, checkOptions, help);
@@ -352,11 +357,13 @@ main(int argc, char **argv)
         net->toNB();
         delete net;
         nb.buildLoaded();
+#ifndef _DEBUG
     } catch (...) {
         MsgHandler::getMessageInstance()->inform(
             "Quitting (building failed).");
         ret = 1;
     }
+#endif
     SystemFrame::close();
     if(ret==0) {
         cout << "Success." << endl;

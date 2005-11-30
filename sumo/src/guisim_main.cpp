@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2005/11/30 08:56:49  dkrajzew
+// final try/catch is now only used in the release version
+//
 // Revision 1.11  2005/11/29 13:42:03  dkrajzew
 // added a minimum simulation speed definition before the simulation ends (unfinished)
 //
@@ -298,7 +301,9 @@ int
 main(int argc, char **argv)
 {
     int ret = 0;
+#ifndef _DEBUG
     try {
+#endif
         int init_ret = SystemFrame::init(true, argc, argv,
 			GUIFrame::fillInitOptions, GUIFrame::checkInitOptions, help);
         if(init_ret==-1) {
@@ -352,10 +357,12 @@ main(int argc, char **argv)
         }
         // Run
         ret = application.run();
+#ifndef _DEBUG
     } catch(...) {
         WRITE_MESSAGE("Quitting (on error).");
         ret = 1;
     }
+#endif
     SystemFrame::close();
     return ret;
 }

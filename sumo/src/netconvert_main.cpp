@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2005/11/30 08:56:49  dkrajzew
+// final try/catch is now only used in the release version
+//
 // Revision 1.32  2005/11/15 10:15:49  dkrajzew
 // debugging and beautifying for the next release
 //
@@ -228,7 +231,9 @@ int
 main(int argc, char **argv)
 {
     int ret = 0;
+#ifndef _DEBUG
     try {
+#endif
         int init_ret = SystemFrame::init(false, argc, argv,
             NIOptionsIO::fillOptions, 0, help);
         if(init_ret==-1) {
@@ -256,10 +261,12 @@ main(int argc, char **argv)
             throw ProcessError();
         }
         nb.buildLoaded();
+#ifndef _DEBUG
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("Quitting (conversion failed).");
         ret = 1;
     }
+#endif
     NBDistribution::clear();
     SystemFrame::close();
     // report about ending

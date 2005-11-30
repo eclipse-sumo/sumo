@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.11  2005/11/30 08:56:49  dkrajzew
+// final try/catch is now only used in the release version
+//
 // Revision 1.10  2005/10/17 09:27:46  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -281,7 +284,9 @@ main(int argc, char **argv)
 {
     int ret = 0;
     RONet *net = 0;
+#ifndef _DEBUG
     try {
+#endif
         // initialise the application system (messaging, xml, options)
         int init_ret = SystemFrame::init(false, argc, argv,
 			ROJTRFrame::fillOptions, ROJTRFrame::checkOptions, help);
@@ -324,10 +329,12 @@ main(int argc, char **argv)
         if(MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();
         }
+#ifndef _DEBUG
     } catch (...) {
         WRITE_MESSAGE("Quitting (on error).");
         ret = 1;
     }
+#endif
     delete net;
     SystemFrame::close();
     if(ret==0) {

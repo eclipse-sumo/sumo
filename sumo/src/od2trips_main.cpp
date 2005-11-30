@@ -190,7 +190,9 @@ int
 main(int argc, char **argv)
 {
     int ret = 0;
+#ifndef _DEBUG
     try {
+#endif
         // initialise subsystems
         int init_ret = SystemFrame::init(false, argc, argv,
             fillOptions, checkOptions, help);
@@ -357,11 +359,13 @@ main(int argc, char **argv)
 		ODWrite( OD_outfile, source_sink, total_cars, *districts );
 		delete [] source; delete [] sink;
 		delete [] when_all; delete [] cartype;
+#ifndef _DEBUG
     } catch (...) {
         MsgHandler::getMessageInstance()->inform(
             "Quitting (on error).");
         ret = 1;
     }
+#endif
     SystemFrame::close();
     if(ret==0) {
         cout << "Success." << endl;

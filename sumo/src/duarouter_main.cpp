@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.8  2005/11/30 08:56:49  dkrajzew
+// final try/catch is now only used in the release version
+//
 // Revision 1.7  2005/10/17 09:27:46  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -271,7 +274,9 @@ main(int argc, char **argv)
 {
     int ret = 0;
     RONet *net = 0;
+#ifndef _DEBUG
     try {
+#endif
         // initialise the application system (messaging, xml, options)
         int init_ret = SystemFrame::init(false, argc, argv,
 			RODUAFrame::fillOptions_fullImport, RODUAFrame::checkOptions, help);
@@ -307,10 +312,12 @@ main(int argc, char **argv)
         } else {
             ret = 1;
         }
+#ifndef _DEBUG
     } catch (...) {
         WRITE_MESSAGE("Quitting (on error).");
         ret = 1;
     }
+#endif
     delete net;
     SystemFrame::close();
     if(ret==0) {

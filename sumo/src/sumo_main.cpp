@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2005/11/30 08:56:49  dkrajzew
+// final try/catch is now only used in the release version
+//
 // Revision 1.36  2005/11/29 13:42:03  dkrajzew
 // added a minimum simulation speed definition before the simulation ends (unfinished)
 //
@@ -306,7 +309,9 @@ main(int argc, char **argv)
 {
     size_t rand_init = 10551;
     int ret = 0;
+#ifndef _DEBUG
     try {
+#endif
         int init_ret = SystemFrame::init(false, argc, argv,
             SUMOFrame::fillOptions, SUMOFrame::checkOptions, help);
         if(init_ret==-1) {
@@ -332,6 +337,7 @@ main(int argc, char **argv)
             delete net;
             delete SharedOutputDevices::getInstance();
         }
+#ifndef _DEBUG
     } catch (...) {
         MSNet::clearAll();
         delete SharedOutputDevices::getInstance();
@@ -339,6 +345,7 @@ main(int argc, char **argv)
             "Quitting (on error).");
         ret = 1;
     }
+#endif
     SystemFrame::close();
     return ret;
 }
