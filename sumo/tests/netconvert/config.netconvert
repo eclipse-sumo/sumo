@@ -1,0 +1,8 @@
+binary:D:\projects\TrafficTower\sumo\bin\netconvert.exe
+
+[collate_file]
+net:net.net.xml
+plain_nodes:plain.nod.xml
+plain_edges:plain.edg.xml
+
+

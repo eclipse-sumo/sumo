@@ -1,0 +1,17 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+
+# using shapes to model hokkaido
+hokkaido
+
+# test whether the output and rereading of shapes works
+hokkaido-iterated
+
+# test whether the output and rereading of shapes works
+hokkaido-iterated
+
+# test whether the output and rereading of shapes works
+hokkaido-iterated
+
+# the second part of hokkaido-iterated
+hokkaido-iterated2
