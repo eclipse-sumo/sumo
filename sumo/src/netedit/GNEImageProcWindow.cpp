@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/12/01 07:38:40  dkrajzew
+// debugged setting globals in false order
+//
 // Revision 1.11  2005/11/29 13:31:35  dkrajzew
 // added a minimum simulation speed definition before the simulation ends (unfinished)
 //
@@ -480,10 +483,10 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
             OptionsSubSys::getOptions().clear();
             OptionsSubSys::guiInit(SUMOFrame::fillOptions, "hallo"/*!!!*/);
             OptionsCont &oc2 = OptionsSubSys::getOptions();
+            SUMOFrame::setMSGlobals(oc2);
             GUINet *net = new GUINet(oc2.getInt("begin"), oc2.getInt("end"),
                 new GUIVehicleControl(),
                 oc.getFloat("too-slow-rtf"), !oc.getBool("no-duration-log"));
-            SUMOFrame::setMSGlobals(oc2);
             GUIEdgeControlBuilder *eb = buildEdgeBuilder();
             GUIJunctionControlBuilder jb(*net, oc2);
             GUIDetectorBuilder db(*net);

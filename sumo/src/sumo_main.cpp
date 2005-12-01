@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.38  2005/12/01 07:42:17  dkrajzew
+// debugged setting globals in false order
+//
 // Revision 1.37  2005/11/30 08:56:49  dkrajzew
 // final try/catch is now only used in the release version
 //
@@ -282,10 +285,10 @@ MSNet *
 load(OptionsCont &oc)
 {
     SharedOutputDevices::setInstance(new SharedOutputDevices());
+    SUMOFrame::setMSGlobals(oc);
     MSNet *net =
         new MSNet(oc.getInt("begin"), oc.getInt("end"),
         oc.getFloat("too-slow-rtf"), !oc.getBool("no-duration-log"));
-    SUMOFrame::setMSGlobals(oc);
     NLEdgeControlBuilder eb;
     NLJunctionControlBuilder jb(*net, oc);
     NLDetectorBuilder db(*net);
