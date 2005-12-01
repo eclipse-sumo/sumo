@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2005/12/01 07:31:30  dkrajzew
+// debugged setting globals in false order
+//
 // Revision 1.34  2005/11/29 13:22:20  dkrajzew
 // dded a minimum simulation speed definition before the simulation ends (unfinished)
 //
@@ -242,11 +245,11 @@ GUILoadThread::run()
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);
 
     // try to load
+    SUMOFrame::setMSGlobals(oc);
     net =
         new GUINet(oc.getInt("begin"), oc.getInt("end"),
             buildVehicleControl(),
             oc.getFloat("too-slow-rtf"), !oc.getBool("no-duration-log"));
-    SUMOFrame::setMSGlobals(oc);
     GUIEdgeControlBuilder *eb = buildEdgeBuilder();
     GUIJunctionControlBuilder jb(*net, oc);
     GUIDetectorBuilder db(*net);
