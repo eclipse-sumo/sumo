@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.41  2005/12/01 07:38:13  dkrajzew
+// debugging plain edge output
+//
 // Revision 1.40  2005/11/30 08:53:03  dkrajzew
 // removed warning if no types are defined
 //
@@ -867,8 +870,8 @@ NBEdgeCont::savePlain(const std::string &file)
     res << "<edges>" << endl;
     for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
         NBEdge *e = (*i).second;
-        res << "   <edge id=\"" << e->getID() << "\" from=\"" <<
-            e->getFromNode()->getID() << "\" to=\"" << e->getToNode()->getID()
+        res << "   <edge id=\"" << e->getID() << "\" fromnode=\"" <<
+            e->getFromNode()->getID() << "\" tonode=\"" << e->getToNode()->getID()
             << "\" nolanes=\"" << e->getNoLanes() << "\" speed=\""
             << e->getSpeed() << "\"";
         if(e->getGeometry().size()>2) {
