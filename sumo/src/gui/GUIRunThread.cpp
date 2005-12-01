@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.34  2005/12/01 07:32:03  dkrajzew
+// final try/catch is now only used in the release version
+//
 // Revision 1.33  2005/11/29 13:22:20  dkrajzew
 // dded a minimum simulation speed definition before the simulation ends (unfinished)
 //
@@ -265,7 +268,9 @@ GUIRunThread::makeStep()
     // simulation is being perfomed
     _simulationInProgress = true;
     // execute a single step
+#ifndef _DEBUG
     try {
+#endif
         mySimulationLock.lock();
         _net->simulationStep(_simStartTime, _step);
         _net->guiSimulationStep();
@@ -303,6 +308,7 @@ GUIRunThread::makeStep()
             myEventQue.add(e);
             myEventThrow.signal();
         }
+#ifndef _DEBUG
     } catch (...) {
         mySimulationLock.unlock();
         _simulationInProgress = false;
@@ -313,6 +319,7 @@ GUIRunThread::makeStep()
         _halting = true;
         _ok = false;
     }
+#endif
     // check whether the simulation got too slow, halt then
     if(_net->logSimulationDuration() && _net->getTooSlowRTF()>0) {
         SUMOReal rtf =
@@ -349,12 +356,15 @@ GUIRunThread::singleStep()
 void
 GUIRunThread::begin()
 {
+#ifndef _DEBUG
     try {
+#endif
         _simulationInProgress = true;
         _step = _simStartTime;
         _single = false;
         _halting = false;
         _ok = true;
+#ifndef _DEBUG
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("A serious error occured.");
         _ok = false;
@@ -365,6 +375,7 @@ GUIRunThread::begin()
         myEventThrow.signal();
         _halting = true;
     }
+#endif
 }
 
 
