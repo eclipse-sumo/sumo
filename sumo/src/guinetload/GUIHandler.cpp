@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/12/01 07:32:27  dkrajzew
+// introducing bus stops: eased building vehicles; vehicles may now have nested elements
+//
 // Revision 1.1  2005/10/10 11:52:16  dkrajzew
 // renamed *NetHandler to *Handler
 //
@@ -275,17 +278,18 @@ GUIHandler::openRoute(const Attributes &attrs)
 void
 GUIHandler::closeRoute()
 {
-    int size = m_pActiveRoute->size();
+    int size = myActiveRoute.size();
     if(size==0) {
         throw XMLListEmptyException();
     }
     GUIRoute *route =
-        new GUIRoute(myColor, m_ActiveId, *m_pActiveRoute, m_IsMultiReferenced);
-    m_pActiveRoute->clear();
-    if(!MSRoute::dictionary(m_ActiveId, route)) {
+        new GUIRoute(myColor, myActiveRouteID, myActiveRoute, m_IsMultiReferenced);
+    myActiveRoute.clear();
+    if(!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
-        throw XMLIdAlreadyUsedException("route", m_ActiveId);
+        throw XMLIdAlreadyUsedException("route", myActiveRouteID);
     }
+    myActiveRouteID = "";
 }
 
 

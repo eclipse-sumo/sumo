@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.68  2005/12/01 07:37:35  dkrajzew
+// introducing bus stops: eased building vehicles; vehicles may now have nested elements
+//
 // Revision 1.67  2005/11/29 13:27:59  dkrajzew
 // added a minimum simulation speed definition before the simulation ends (unfinished)
 //
@@ -459,19 +462,9 @@ using namespace std;
  * static member defintions
  * ======================================================================= */
 MSNet* MSNet::myInstance = 0;
-//MSNet::DictType MSNet::myDict;
 SUMOReal MSNet::myDeltaT = 1;
 SUMOReal MSNet::myCellLength = 1;
-/*
-SUMOTime MSNet::globaltime;
 
-#ifdef ABS_DEBUG
-SUMOTime MSNet::searchedtime = 18193;
-std::string MSNet::searched1 = "107";
-std::string MSNet::searched2 = "2858";
-std::string MSNet::searchedJunction = "536";
-#endif
-*/
 
 /* =========================================================================
  * member method definitions
@@ -486,35 +479,24 @@ MSNet::getInstance( void )
     return 0;
 }
 
-/*
-void
-MSNet::preInitMSNet(SUMOTime startTimeStep,
-                    MSVehicleControl *vc)
-{
-    myInstance = new MSNet();
-    preInit(startTimeStep, vc);
-}
-*/
-
 
 MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
              SUMOReal tooSlowRTF, bool logExecTime)
     : myLogExecutionTime(logExecTime), myTooSlowRTF(tooSlowRTF)
 {
     MSCORN::init();
-//    MSDetectorControl::createDictionaries();
     MSVehicleTransfer::setInstance(new MSVehicleTransfer());
     myStep = startTimeStep;
     myEmitter = new MSEmitControl("");
     myVehicleControl = new MSVehicleControl();
     myDetectorControl = new MSDetectorControl();
-    myEdges = 0;//new MSEdgeControl();
-    myJunctions = 0;//new MSJunctionControl();
-    myRouteLoaders = 0;//new MSRouteLoaderControl();
-    myLogics = 0;//new MSTLLogicControl();
+    myEdges = 0;
+    myJunctions = 0;
+    myRouteLoaders = 0;
+    myLogics = 0;
     myTriggerControl = new MSTriggerControl();
     myShapeContainer = new ShapeContainer();
-    myLogExecutionTime = true;
+
 
     myInstance = this;
 }
@@ -527,19 +509,18 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
     : myLogExecutionTime(logExecTime), myTooSlowRTF(tooSlowRTF)
 {
     MSCORN::init();
-//    MSDetectorControl::createDictionaries();
     MSVehicleTransfer::setInstance(new MSVehicleTransfer());
     myStep = startTimeStep;
     myEmitter = new MSEmitControl("");
     myVehicleControl = vc;
     myDetectorControl = new MSDetectorControl();
-    myEdges = 0;//new MSEdgeControl();
-    myJunctions = 0;//new MSJunctionControl();
-    myRouteLoaders = 0;//new MSRouteLoaderControl();
-    myLogics = 0;//new MSTLLogicControl();
+    myEdges = 0;
+    myJunctions = 0;
+    myRouteLoaders = 0;
+    myLogics = 0;
     myTriggerControl = new MSTriggerControl();
     myShapeContainer = new ShapeContainer();
-    myLogExecutionTime = true;
+
 
     myInstance = this;
 }
@@ -573,24 +554,13 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     myStateDumpFiles = stateDumpFiles;
 
     // set requests/responses
-    MSJunction::postloadInitContainer();
-    // make detectors accessable
-    //myDetectorControl->setDictionariesFindMode();
-    /*
-    // initialise lane mean data and readers
-
-    for(PreStartVector::iterator i=myPreStartInitialiseItems.begin();
-        i!=myPreStartInitialiseItems.end(); i++) {
-        (*i)->init(*this);
-    }
-    */
+    MSJunction::postloadInitContainer(); // !!!
 }
 
 
 MSNet::~MSNet()
 {
     // delete controls
-//?    MSDetectorControl::deleteDictionariesAndContents();
     delete myJunctions;
     delete myDetectorControl;
     // delete mean data
@@ -608,12 +578,6 @@ MSNet::~MSNet()
     delete myRouteLoaders;
     delete myVehicleControl;
     delete myShapeContainer;
-    /*
-    for(PolyDic::iterator j=poly_dic.begin(); j != poly_dic.end(); j++){
-       delete (*j).second;
-    }
-    poly_dic.clear();
-    */
     delete myTriggerControl;
     clearAll();
 }
@@ -810,7 +774,6 @@ MSNet::clearAll()
 {
     // clear container
     MSEdge::clear();
-//    MSEdgeControl::clear();
     MSEmitControl::clear();
     MSEventControl::clear();
     MSJunction::clear();
@@ -820,9 +783,6 @@ MSNet::clearAll()
     MSVehicle::clear();
     MSVehicleType::clear();
     MSRoute::clear();
-//    MSTrafficLightLogic::clear();
-//    NamedObjectContSingleton<MSTrigger*>::getInstance().clear();
-//    clear();
     delete MSVehicleTransfer::getInstance();
 }
 
@@ -832,14 +792,6 @@ MSNet::getNDumpIntervalls( void )
 {
     return myMeanData.size();
 }
-
-/*
-void
-MSNet::addPreStartInitialisedItem(PreStartInitialised *preinit)
-{
-    myPreStartInitialiseItems.push_back(preinit);
-}
-*/
 
 
 SUMOTime
@@ -883,19 +835,7 @@ MSNet::writeOutput()
     }
 }
 
-/*
-bool
-MSNet::addPoly(const std::string &name, const std::string &type,
-               const RGBColor &color)
-{
-    if(MSNet::poly_dic[name] != 0) {
-        return false;
-    }
-    Polygon2D *poly = new Polygon2D(name, type, color);
-    MSNet::poly_dic[name] = poly;
-    return true;
-}
-*/
+
 bool
 MSNet::haveAllVehiclesQuit()
 {
@@ -948,26 +888,6 @@ MSNet::getTLSControl()
     return *myLogics;
 }
 
-
-/*
-void
-MSNet::addTrigger(MSTrigger *t)
-{
-    myTrigger.push_back(t);
-}
-
-
-MSTrigger *
-MSNet::getTrigger(const std::string &id)
-{
-    for(TriggerVector::iterator i=myTrigger.begin(); i!=myTrigger.end(); ++i) {
-        if((*i)->getID()==id) {
-            return (*i);
-        }
-    }
-    return 0;
-}
-*/
 
 long
 MSNet::getSimStepDurationInMillis() const

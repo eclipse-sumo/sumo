@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2005/12/01 07:37:35  dkrajzew
+// introducing bus stops: eased building vehicles; vehicles may now have nested elements
+//
 // Revision 1.11  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -154,12 +157,6 @@ using namespace std;
 
 
 /* =========================================================================
- * static member definitions
- * ======================================================================= */
-//MSEdgeControl::DictType MSEdgeControl::myDict;
-
-
-/* =========================================================================
  * member method definitions
  * ======================================================================= */
 MSEdgeControl::MSEdgeControl()
@@ -167,9 +164,8 @@ MSEdgeControl::MSEdgeControl()
 }
 
 
-MSEdgeControl::MSEdgeControl(/*string id, */EdgeCont* singleLane,
-                             EdgeCont *multiLane)
-    : //myID(id),
+MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane)
+    :
     mySingleLaneEdges(singleLane),
     myMultiLaneEdges(multiLane),
     myLanes(MSLane::dictSize())
@@ -186,7 +182,6 @@ MSEdgeControl::MSEdgeControl(/*string id, */EdgeCont* singleLane,
         myLanes[pos].lastNeigh = lanes->end();
         pos++;
     }
-//    myFirstMultiPos = pos;
         // for lanes with neighbors
     for(i=multiLane->begin(); i!=multiLane->end(); i++) {
         MSEdge::LaneCont *lanes = (*i)->getLanes();
@@ -254,6 +249,7 @@ MSEdgeControl::moveFirst()
     }
 }
 
+
 void
 MSEdgeControl::changeLanes()
 {
@@ -269,66 +265,14 @@ void
 MSEdgeControl::detectCollisions( SUMOTime timestep )
 {
     LaneUsageVector::iterator i;
-//    EdgeCont::iterator edge;
     // Detections is made by the edge's lanes, therefore hand over.
     for (i = myLanes.begin(); i != myLanes.end(); ++i) {
         if((*i).noVehicles>1) {
             (*i).lane->detectCollisions( timestep );
         }
     }
-    /*
-    for (i = myMultiLaneEdges->begin();
-         i != myMultiLaneEdges->end(); ++i) {
-        if((*i).noVehicles>1) {
-            (*i)->detectCollisions( timestep );
-        }
-    }
-    */
 }
 
-/*
-bool
-MSEdgeControl::dictionary(string id, MSEdgeControl* ptr)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        myDict.insert(DictType::value_type(id, ptr));
-        return true;
-    }
-    return false;
-}
-
-
-MSEdgeControl*
-MSEdgeControl::dictionary(string id)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        return 0;
-    }
-    return it->second;
-}
-*/
-/*
-void
-MSEdgeControl::clear()
-{
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        delete (*i).second;
-    }
-    myDict.clear();
-}
-*/
-/*
-ostream&
-operator<<( ostream& os, const MSEdgeControl& ec )
-{
-    os << "MSEdgeControll: ID = " << ec.myID << endl;
-    return os;
-}
-*/
 
 void
 MSEdgeControl::insertMeanData(unsigned int number)

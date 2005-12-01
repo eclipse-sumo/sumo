@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2005/12/01 07:33:44  dkrajzew
+// introducing bus stops: eased building vehicles; vehicles may now have nested elements
+//
 // Revision 1.33  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -266,10 +269,9 @@ GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
                        SUMOTime departTime,
                        const MSVehicleType* type,
                        size_t noMeanData,
-                       int repNo, int repOffset,
-                       const RGBColor &color)
+                       int repNo, int repOffset)
     : MSVehicle(id, route, departTime, type, noMeanData, repNo, repOffset),
-    GUIGlObject(idStorage, string("vehicle:")+id), myDefinedColor(color)
+    GUIGlObject(idStorage, string("vehicle:")+id)
 #ifdef NETWORKING_BLA
     ,networking_globalConns(0)
 #endif
@@ -433,7 +435,7 @@ GUIVehicle::getIDs()
 const RGBColor &
 GUIVehicle::getDefinedColor() const
 {
-    return myDefinedColor;
+    return RGBColor(1, 1, 1); // !!!
 }
 
 
@@ -482,7 +484,7 @@ GUIVehicle::getNextPeriodical() const
     }
     return MSNet::getInstance()->getVehicleControl().buildVehicle(
         StringUtils::version1(myID), myRoute, myDesiredDepart+myPeriod,
-        myType, myRepetitionNumber-1, myPeriod, myDefinedColor);
+        myType, myRepetitionNumber-1, myPeriod);
 }
 
 

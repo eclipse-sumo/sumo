@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.24  2005/12/01 07:33:44  dkrajzew
+// introducing bus stops: eased building vehicles; vehicles may now have nested elements
+//
 // Revision 1.23  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -269,17 +272,9 @@ protected:
     GUIVehicle( GUIGlObjectStorage &idStorage,
         std::string id, MSRoute* route, SUMOTime departTime,
         const MSVehicleType* type, size_t noMeanData,
-        int repNo, int repOffset, const RGBColor &color);
-/*
-    TableType getTableType(size_t pos) const;
-
-    const char *getTableBeginValue(size_t pos) const;
-*/
+        int repNo, int repOffset);
 
 private:
-    /// the color read from the XML-description
-    RGBColor myDefinedColor;
-
     /// random color #1 (build from name)
     RGBColor _randomColor1;
 

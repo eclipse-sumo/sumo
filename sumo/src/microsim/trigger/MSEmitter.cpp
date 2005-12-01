@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/12/01 07:37:35  dkrajzew
+// introducing bus stops: eased building vehicles; vehicles may now have nested elements
+//
 // Revision 1.1  2005/11/09 06:35:03  dkrajzew
 // Emitters reworked
 //
@@ -145,7 +148,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
 
     MSVehicle *veh =
         MSNet::getInstance()->getVehicleControl().buildVehicle(
-            aVehicleId, aEmitRoute, _offset+1, aVehType, 0, 0, RGBColor(1, 1, 1));
+            aVehicleId, aEmitRoute, _offset+1, aVehType, 0, 0);
     myParent.schedule(this, veh, -1);
     myHaveNext = true;
 }
@@ -290,7 +293,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int element, const std::
         veh =
             MSNet::getInstance()->getVehicleControl().buildVehicle(
                 aVehicleId, aEmitRoute, aEmitTime,
-                aVehType, 0, 0, RGBColor(1, 1, 1));
+                aVehType, 0, 0);
         myParent.schedule(this, veh, aEmitSpeed);
         myHaveNext = true;
         _offset = SUMOTime(aEmitTime);

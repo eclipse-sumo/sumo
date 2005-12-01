@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.69  2005/12/01 07:37:35  dkrajzew
+// introducing bus stops: eased building vehicles; vehicles may now have nested elements
+//
 // Revision 1.68  2005/11/09 06:39:38  dkrajzew
 // usage of internal lanes is now optional at building
 //
@@ -2758,7 +2761,7 @@ MSVehicle::dict_loadState(BinaryInputDevice &bis, long what)
             }
 
             MSVehicle *v = MSNet::getInstance()->getVehicleControl().buildVehicle(id,
-                route, desiredDepart, type, repetitionNumber, period, RGBColor(0, 0, 0));
+                route, desiredDepart, type, repetitionNumber, period);
             v->myDoubleCORNMap[MSCORN::CORN_VEH_REALDEPART] = (SUMOReal) wasEmitted;
             while(routeOffset>0) {
                 v->myCurrEdge++;

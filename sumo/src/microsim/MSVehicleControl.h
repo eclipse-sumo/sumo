@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2005/12/01 07:37:35  dkrajzew
+// introducing bus stops: eased building vehicles; vehicles may now have nested elements
+//
 // Revision 1.9  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -100,11 +103,6 @@ public:
     virtual MSVehicle *buildVehicle(std::string id, MSRoute* route,
         SUMOTime departTime, const MSVehicleType* type,
         int repNo, int repOffset);
-
-    /// Builds a vehicle in the case his color is given
-    virtual MSVehicle *buildVehicle(std::string id, MSRoute* route,
-        SUMOTime departTime, const MSVehicleType* type,
-        int repNo, int repOffset, const RGBColor &col);
 
     /// Removes the vehicle
     void scheduleVehicleRemoval(MSVehicle *v);

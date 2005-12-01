@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2005/12/01 07:37:35  dkrajzew
+// introducing bus stops: eased building vehicles; vehicles may now have nested elements
+//
 // Revision 1.9  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -99,19 +102,6 @@ MSVehicleControl::buildVehicle(std::string id, MSRoute* route,
                                SUMOTime departTime,
                                const MSVehicleType* type,
                                int repNo, int repOffset)
-{
-    myLoadedVehNo++;
-    route->incReferenceCnt();
-    return new MSVehicle(id, route, departTime, type,
-        MSNet::getInstance()->getNDumpIntervalls(), repNo, repOffset);
-}
-
-
-MSVehicle *
-MSVehicleControl::buildVehicle(std::string id, MSRoute* route,
-                               SUMOTime departTime,
-                               const MSVehicleType* type,
-                               int repNo, int repOffset, const RGBColor &col)
 {
     myLoadedVehNo++;
     route->incReferenceCnt();

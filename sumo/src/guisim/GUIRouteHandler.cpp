@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.6  2005/12/01 07:33:44  dkrajzew
+// introducing bus stops: eased building vehicles; vehicles may now have nested elements
+//
 // Revision 1.5  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -154,17 +157,18 @@ GUIRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
 void
 GUIRouteHandler::closeRoute()
 {
-    int size = m_pActiveRoute->size();
+    int size = myActiveRoute.size();
     if(size==0) {
         throw XMLListEmptyException();
     }
     GUIRoute *route =
-        new GUIRoute(myColor, m_ActiveId, *m_pActiveRoute, m_IsMultiReferenced);
-    m_pActiveRoute->clear();
-    if(!MSRoute::dictionary(m_ActiveId, route)) {
+        new GUIRoute(myColor, myActiveRouteID, myActiveRoute, m_IsMultiReferenced);
+    myActiveRoute.clear();
+    if(!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
-        throw XMLIdAlreadyUsedException("route", m_ActiveId);
+        throw XMLIdAlreadyUsedException("route", myActiveRouteID);
     }
+    myActiveRouteID = "";
 }
 
 

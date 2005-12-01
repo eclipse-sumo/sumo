@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/12/01 07:33:44  dkrajzew
+// introducing bus stops: eased building vehicles; vehicles may now have nested elements
+//
 // Revision 1.1  2005/11/09 06:35:03  dkrajzew
 // Emitters reworked
 //
@@ -190,7 +193,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::execute()
         }
         SUMOTime aEmitTime = MSNet::getInstance()->getCurrentTimeStep();
         myVehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(
-            aVehicleId, aRoute, aEmitTime, aType, 0, 0, RGBColor(1, 1, 1));
+            aVehicleId, aRoute, aEmitTime, aType, 0, 0);
         myParent.schedule(this, myVehicle, -1);
     }
     if(myParent.childCheckEmit(this)) {

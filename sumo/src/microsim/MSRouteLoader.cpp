@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2005/12/01 07:37:35  dkrajzew
+// introducing bus stops: eased building vehicles; vehicles may now have nested elements
+//
 // Revision 1.8  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -78,8 +81,7 @@ using namespace std;
  * ======================================================================= */
 MSRouteLoader::MSRouteLoader(MSNet &net,
                              MSRouteHandler *handler)
-    : //MSRouteHandler(file, false),
-    myParser(0), _moreAvailable(true), myHandler(handler)
+    : myParser(0), _moreAvailable(true), myHandler(handler)
 {
     myParser = XMLHelpers::getSAXReader(*myHandler);
 }
@@ -95,7 +97,6 @@ MSRouteLoader::~MSRouteLoader()
 void
 MSRouteLoader::init()
 {
-    myHandler->init();
     _moreAvailable = true;
     if(!myParser->parseFirst(myHandler->getFileName().c_str(), myToken)) {
         MsgHandler::getErrorInstance()->inform(

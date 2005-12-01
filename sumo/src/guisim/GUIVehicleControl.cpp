@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2005/12/01 07:33:44  dkrajzew
+// introducing bus stops: eased building vehicles; vehicles may now have nested elements
+//
 // Revision 1.8  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -95,21 +98,11 @@ GUIVehicleControl::buildVehicle(std::string id, MSRoute* route,
                                const MSVehicleType* type,
                                int repNo, int repOffset)
 {
-    throw 1;
-}
-
-
-MSVehicle *
-GUIVehicleControl::buildVehicle(std::string id, MSRoute* route,
-                               SUMOTime departTime,
-                               const MSVehicleType* type,
-                               int repNo, int repOffset, const RGBColor &col)
-{
     myLoadedVehNo++;
     MSNet *net = MSNet::getInstance();
     return new GUIVehicle(
         gIDStorage, id, route, departTime, type,
-        net->getNDumpIntervalls(), repNo, repOffset, col);
+        net->getNDumpIntervalls(), repNo, repOffset);
 }
 
 

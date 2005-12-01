@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.19  2005/12/01 07:37:35  dkrajzew
+// introducing bus stops: eased building vehicles; vehicles may now have nested elements
+//
 // Revision 1.18  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -68,7 +71,11 @@ namespace
 // removed some warnings
 //
 // Revision 1.3  2003/06/18 11:12:51  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing:
+//  output to user may be a message, warning or an error now;
+//  it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.2  2003/03/20 16:21:12  dkrajzew
 // windows eol removed; multiple vehicle emission added
@@ -130,30 +137,19 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-int beginTime_3;
-
 MSRouteHandler::MSRouteHandler(const std::string &file,
                                bool addVehiclesDirectly)
     : SUMOSAXHandler("sumo-network/routes", file),
-    myLastDepart(0), myLastReadVehicle(0), m_pActiveRoute(0),
-    myAddVehiclesDirectly(addVehiclesDirectly)
+    myLastDepart(0), myLastReadVehicle(0),
+    myAddVehiclesDirectly(addVehiclesDirectly), myAmInEmbeddedMode(false),
+    myCurrentEmbeddedRoute(0)
 {
-    m_pActiveRoute = new MSEdgeVector(); // !!! why a pointer
-    m_pActiveRoute->reserve(100);
+    myActiveRoute.reserve(100);
 }
 
 
 MSRouteHandler::~MSRouteHandler()
 {
-    delete m_pActiveRoute;
-}
-
-
-void
-MSRouteHandler::init()
-{
-    myLastDepart = 0;
-    myLastReadVehicle = 0;
 }
 
 
@@ -179,7 +175,7 @@ MSRouteHandler::myStartElement(int element, const std::string &,
 {
     switch(element) {
     case SUMO_TAG_VEHICLE:
-        addVehicle(attrs);
+        openVehicle(attrs);
         break;
     case SUMO_TAG_VTYPE:
         addVehicleType(attrs);
@@ -243,9 +239,16 @@ void
 MSRouteHandler::openRoute(const Attributes &attrs)
 {
     // get the id
-    string id;
     try {
-        id = getString(attrs, SUMO_ATTR_ID);
+        // check whether the id is really necessary
+        if(myAmInEmbeddedMode) {
+            // ok, a vehicle is wrapping the route,
+            //  we may use this vehicle's id as default
+            myActiveRouteID =
+                getStringSecure(attrs, SUMO_ATTR_ID, "!" + myActiveVehicleID); // !!! document this
+        } else {
+            myActiveRouteID = getString(attrs, SUMO_ATTR_ID);
+        }
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
             "Error in description: missing id of a route-object.");
@@ -261,38 +264,37 @@ MSRouteHandler::openRoute(const Attributes &attrs)
         multiReferenced = getBool(attrs, SUMO_ATTR_MULTIR);
     } catch (...) {
     }
-    m_ActiveId = id;
     m_IsMultiReferenced = multiReferenced;
 }
 
 
 void
-MSRouteHandler::addVehicle(const Attributes &attrs)
+MSRouteHandler::openVehicle(const Attributes &attrs)
 {
+    myAmInEmbeddedMode = true;
+    /*
     RGBColor col =
         GfxConvHelper::parseColor(
             getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
     // !!! unsecure
     // try to get the id first
-    string id;
+            */
     try {
-        id = getString(attrs, SUMO_ATTR_ID);
+        myActiveVehicleID = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
             "Error in description: missing id of a vehicle-object.");
         return;
     }
     // try to get some optional values
-    int repOffset = getIntSecure(attrs, SUMO_ATTR_PERIOD, -1);
-    int repNumber = getIntSecure(attrs, SUMO_ATTR_REPNUMBER, -1);
+    myRepOffset = getIntSecure(attrs, SUMO_ATTR_PERIOD, -1);
+    myRepNumber = getIntSecure(attrs, SUMO_ATTR_REPNUMBER, -1);
     // now try to build the rest of the vehicle
     MSVehicle *vehicle = 0;
     try {
-        vehicle = addParsedVehicle(id,
-            getString(attrs, SUMO_ATTR_TYPE),
-            getString(attrs, SUMO_ATTR_ROUTE),
-            getInt(attrs, SUMO_ATTR_DEPART),
-            repNumber, repOffset, col);
+        myCurrentVType = getString(attrs, SUMO_ATTR_TYPE);
+        myCurrentRouteName = getStringSecure(attrs, SUMO_ATTR_ROUTE, "");
+        myCurrentDepart = getInt(attrs, SUMO_ATTR_DEPART);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
             "Error in description: missing attribute in a vehicle-object.");
@@ -301,26 +303,18 @@ MSRouteHandler::addVehicle(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform(e.getMessage("", ""));
         return;
     } catch(XMLIdAlreadyUsedException &e) {
-        MsgHandler::getErrorInstance()->inform(e.getMessage("vehicle", id));
+        MsgHandler::getErrorInstance()->inform(e.getMessage("vehicle", myActiveVehicleID));
         return;
-    }
-    // check whether the vehicle shall be added directly to the network or
-    //  shall stay in the internal buffer
-    if(myAddVehiclesDirectly) {
-        if(vehicle!=0) {
-            MSNet::getInstance()->myEmitter->add(vehicle);
-        }
-    } else {
-        myLastReadVehicle = vehicle;
     }
 }
 
-
+/*
 MSVehicle *
 MSRouteHandler::addParsedVehicle(const string &id, const string &vtypeid,
                                  const string &routeid, const long &depart,
                                  int repNumber, int repOffset, RGBColor &c)
 {
+    /*
     if(MSVehicle::dictionary(id)==0&&depart<beginTime_3) { //!!! only if multiple vehicles allowed
         MSRoute *r = MSRoute::dictionary(routeid);
         if(r!=0&&!r->inFurtherUse()) {
@@ -336,9 +330,10 @@ MSRouteHandler::addParsedVehicle(const string &id, const string &vtypeid,
                 MSRoute::erase(routeid);
             }
         }
-        */
-        return 0;
+        /
+        eturn 0;
     }
+    /
     MSVehicleType *vtype = MSVehicleType::dictionary(vtypeid);
     if(vtype==0) {
         throw XMLIdNotKnownException("vtype", vtypeid);
@@ -362,7 +357,7 @@ MSRouteHandler::addParsedVehicle(const string &id, const string &vtypeid,
     myLastDepart = depart;
     return vehicle;
 }
-
+*/
 
 // ----------------------------------
 
@@ -399,12 +394,12 @@ MSRouteHandler::addRouteElements(const std::string &name,
         if(edge==0) {
             MsgHandler::getErrorInstance()->inform(
                 string("The edge '") + set + string("' within route '")
-                + m_ActiveId + string("' is not known."));
+                + myActiveRouteID + string("' is not known."));
             MsgHandler::getErrorInstance()->inform(
                 " The route can not be build.");
             throw ProcessError();
         }
-        m_pActiveRoute->push_back(edge);
+        myActiveRoute.push_back(edge);
     }
 }
 
@@ -426,6 +421,9 @@ MSRouteHandler::myEndElement(int element, const std::string &)
                 e.getMessage("route", ""));
         }
         break;
+    case SUMO_TAG_VEHICLE:
+        closeVehicle();
+        break;
     }
 }
 
@@ -433,20 +431,95 @@ MSRouteHandler::myEndElement(int element, const std::string &)
 void
 MSRouteHandler::closeRoute()
 {
-    int size = m_pActiveRoute->size();
+    int size = myActiveRoute.size();
     if(size==0) {
         throw XMLListEmptyException();
     }
-    MSRoute *route = new MSRoute(m_ActiveId, *m_pActiveRoute, m_IsMultiReferenced);
-    m_pActiveRoute->clear();
-    if(!MSRoute::dictionary(m_ActiveId, route)) {
+    MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, m_IsMultiReferenced);
+    myActiveRoute.clear();
+    if(!MSRoute::dictionary(myActiveRouteID, route)) {
+        delete route;
+        throw XMLIdAlreadyUsedException("route", myActiveRouteID);
+        /*
         if(false) {//!!!
             delete route;
-            throw XMLIdAlreadyUsedException("route", m_ActiveId);
+            throw XMLIdAlreadyUsedException("route", myActiveRouteID);
         } else {
             delete route;
         }
+        */
     }
+}
+
+
+void
+MSRouteHandler::closeVehicle()
+{
+    /*
+    if(MSVehicle::dictionary(id)==0&&depart<beginTime_3) { //!!! only if multiple vehicles allowed
+        MSRoute *r = MSRoute::dictionary(routeid);
+        if(r!=0&&!r->inFurtherUse()) {
+            MSRoute::erase(routeid);
+        }
+    }
+
+    if(MSVehicle::dictionary(id)!=0||depart<beginTime_3) { //!!! only if multiple vehicles allowed
+        /*
+        MSRoute *r = MSRoute::dictionary(routeid);
+        if(r!=0&&lastUnadded!=) {
+            if(!r->inFurtherUse()) {
+                MSRoute::erase(routeid);
+            }
+        }
+        /
+        eturn 0;
+    }
+    */
+
+    myAmInEmbeddedMode = false;
+    // get the vehicle's type
+    MSVehicleType *vtype = MSVehicleType::dictionary(myCurrentVType);
+    if(vtype==0) {
+        throw XMLIdNotKnownException("vtype", myCurrentVType);
+    }
+    // get the vehicle's route
+    //  maybe it was explicitely assigned to the vehicle
+    MSRoute *route = myCurrentEmbeddedRoute;
+    if(route==0) {
+        // if not, try via the (hopefully) given route-id
+        route = MSRoute::dictionary(myCurrentRouteName);
+    }
+    if(route==0) {
+        // nothing found? -> error
+        throw XMLIdNotKnownException("route", myCurrentRouteName);
+    }
+    //
+    MSVehicle *vehicle =
+        MSNet::getInstance()->getVehicleControl().buildVehicle(myActiveVehicleID,
+            route, myCurrentDepart, vtype, myRepNumber, myRepOffset);
+    if(!MSVehicle::dictionary(myActiveVehicleID, vehicle)) {
+        delete vehicle;
+        throw XMLIdAlreadyUsedException("vehicle", myActiveVehicleID);
+        /*
+        if(false) { // !!!
+            throw XMLIdAlreadyUsedException("vehicle", id);
+        } else {
+            delete vehicle;
+            vehicle = 0;
+            return vehicle;
+        }
+        */
+    }
+    // check whether the vehicle shall be added directly to the network or
+    //  shall stay in the internal buffer
+    if(myAddVehiclesDirectly&&vehicle!=0) {
+        MSNet::getInstance()->myEmitter->add(vehicle);
+    } else {
+        myLastReadVehicle = vehicle;
+    }
+    myLastDepart = myCurrentDepart;
+    myCurrentEmbeddedRoute = 0;
+//    return vehicle;
 }
 
 

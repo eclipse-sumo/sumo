@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2005/12/01 07:37:35  dkrajzew
+// introducing bus stops: eased building vehicles; vehicles may now have nested elements
+//
 // Revision 1.11  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -103,8 +106,6 @@ public:
     /// standard destructor
     virtual ~MSRouteHandler();
 
-    void init();
-
     /// opens a route for the addition of edges
     void openRoute(const std::string &id, bool multiReferenced);
 
@@ -145,13 +146,13 @@ protected:
 
 
     /** parses an occured vehicle definition */
-    void addVehicle(const Attributes &attrs);
+    void openVehicle(const Attributes &attrs);
 
-    /** adds the parsed vehicle */
+    /** adds the parsed vehicle /
     MSVehicle *addParsedVehicle(const std::string &id,
         const std::string &vtypeid, const std::string &routeid,
         const long &depart, int repNumber, int repOffset, RGBColor &c);
-
+*/
 
     /** opens a route for reading */
     virtual void openRoute(const Attributes &attrs);
@@ -159,6 +160,9 @@ protected:
     /** reads the route elements */
     void addRouteElements(const std::string &name,
         const std::string &chars);
+
+    void closeVehicle();
+
 
 protected:
     /// the emission time of the vehicle read last
@@ -168,10 +172,10 @@ protected:
     MSVehicle *myLastReadVehicle;
 
     /// the current route
-    MSEdgeVector    *m_pActiveRoute;
+    MSEdgeVector myActiveRoute;
 
     /// the id of the current route
-    std::string     m_ActiveId;
+    std::string myActiveRouteID;
 
     /** information wheter the route shall be kept after being passed
         (otherwise it will be deleted) */
@@ -181,6 +185,31 @@ protected:
         or kept within the buffer */
     bool myAddVehiclesDirectly;
 
+    //{ variables used during parsing of vehicles
+    /// the id of the current vehicle
+    std::string myActiveVehicleID;
+
+    /// Information about how often vehicles like the currently read shall be emitted
+    int myRepNumber;
+
+    /// Information about the dureation of the period between such emissions
+    int myRepOffset;
+
+    /// name of the currently read vehicle's type
+    std::string myCurrentVType;
+
+    /// name of the currently read vehicle's route
+    std::string myCurrentRouteName;
+
+    /// The currently read vehicle's depart
+    SUMOTime myCurrentDepart;
+
+    /// The vehicle's explicite route
+    MSRoute *myCurrentEmbeddedRoute;
+
+    /// infomration whether the route is read in vehicle-embedded mode
+    bool myAmInEmbeddedMode;
+    //}
 
 private:
     /** invalid copy constructor */
