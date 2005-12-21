@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/12/21 12:48:39  ericnicolay
+// *** empty log message ***
+//
 // Revision 1.1  2005/12/08 12:59:41  ericnicolay
 // *** empty log message ***
 //
@@ -113,19 +116,19 @@ RODFFrame::fillOptions_fullImport(OptionsCont &oc)
 void
 RODFFrame::addImportOptions(OptionsCont &oc)
 {
-    oc.doRegister("cell-input", new Option_FileName());
-    oc.doRegister("artemis-input", new Option_FileName());
-    oc.doRegister("flow-definition", 'f', new Option_FileName());
-    oc.doRegister("sumo-input", 's', new Option_FileName());
-    oc.doRegister("trip-defs", 't', new Option_FileName());
-    oc.addSynonyme("flow-definition", "flows");
-    oc.addSynonyme("artemis", "artemis-input");
-    oc.addSynonyme("cell", "cell-input");
-    oc.addSynonyme("sumo", "sumo-input");
-    oc.addSynonyme("trips", "trip-defs");
-    oc.doRegister("save-cell-rindex", new Option_Bool(false));
-    oc.doRegister("intel-cell", new Option_Bool(false));
-    oc.doRegister("no-last-cell", new Option_Bool(false));
+    //oc.doRegister("cell-input", new Option_FileName());
+    //oc.doRegister("artemis-input", new Option_FileName());
+    //oc.doRegister("flow-definition", 'f', new Option_FileName());
+    //oc.doRegister("sumo-input", 's', new Option_FileName());
+    //oc.doRegister("trip-defs", 't', new Option_FileName());
+    //oc.addSynonyme("flow-definition", "flows");
+    //oc.addSynonyme("artemis", "artemis-input");
+    //oc.addSynonyme("cell", "cell-input");
+    //oc.addSynonyme("sumo", "sumo-input");
+    //oc.addSynonyme("trips", "trip-defs");
+    //oc.doRegister("save-cell-rindex", new Option_Bool(false));
+    //oc.doRegister("intel-cell", new Option_Bool(false));
+    //oc.doRegister("no-last-cell", new Option_Bool(false));
 }
 
 

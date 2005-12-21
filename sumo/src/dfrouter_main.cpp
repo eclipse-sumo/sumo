@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.2  2005/12/21 12:48:38  ericnicolay
+// *** empty log message ***
+//
 // Revision 1.1  2005/12/08 12:51:15  ericnicolay
 // add new workingmap for the dfrouter
 //
@@ -40,7 +43,6 @@ namespace
 #include <config.h>
 #endif
 #endif // HAVE_CONFIG_H
-
 #include <sax/SAXException.hpp>
 #include <sax/SAXParseException.hpp>
 #include <utils/common/TplConvert.h>
@@ -66,20 +68,17 @@ namespace
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <routing_df/RODFFrame.h>
+#include <routing_df/DFRONet.h>
 #include "dfrouter_help.h"
-#include "duarouter_build.h"
+#include "dfrouter_build.h"
 #include "sumo_version.h"
-
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
-
-
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
-
 
 /* =========================================================================
  * functions
@@ -92,27 +91,14 @@ using namespace std;
  * The net is in this meaning made up by the net itself and the dynamic
  * weights which may be supplied in a separate file
  */
-RONet *
+DFRONet *
 loadNet(ROLoader &loader, OptionsCont &oc)
 {
     // load the net
     RODFEdgeBuilder builder;
-    RONet *net = loader.loadNet(builder);
+    DFRONet *net = new DFRONet( loader.loadNet( builder ) );
     if(net==0) {
         return 0;
-    }
-    // load the weights when wished/available
-    if(oc.isSet("w")) {
-        loader.loadWeights(*net, oc.getString("w"), false);
-    }
-    if(oc.isSet("lane-weights")) {
-        loader.loadWeights(*net, oc.getString("lane-weights"), true);
-    }
-    // initialise the network
-//    net->postloadInit();
-
-    if ( oc.isSet( "S" ) ) {
-        loader.loadSupplementaryWeights( *net );
     }
 
     return net;
@@ -156,7 +142,7 @@ int
 main(int argc, char **argv)
 {
     int ret = 0;
-    RONet *net = 0;
+    DFRONet *net = 0;
 #ifndef _DEBUG
     try {
 #endif
@@ -181,15 +167,11 @@ main(int argc, char **argv)
         net = loadNet(loader, oc);
         if(net!=0) {
             // build routes
-            try {
-                startComputation(*net, loader, oc);
+			try {net->getApproach() ;//startComputation(*net, loader, oc);
             } catch (SAXParseException &e) {
-                MsgHandler::getErrorInstance()->inform(
-                    toString<int>(e.getLineNumber()));
+                MsgHandler::getErrorInstance()->inform( toString<int>(e.getLineNumber()));
                 ret = 1;
-            } catch (SAXException &e) {
-                MsgHandler::getErrorInstance()->inform(
-                    TplConvert<XMLCh>::_2str(e.getMessage()));
+            } catch (SAXException &e) {MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
                 ret = 1;
             }
         } else {
