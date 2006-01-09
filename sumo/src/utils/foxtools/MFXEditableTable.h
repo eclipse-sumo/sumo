@@ -22,6 +22,7 @@ struct MFXEditedTableItem {
     FXTableItem *item;
     int row;
     int col;
+    bool updateOnly;
 };
 
 enum {

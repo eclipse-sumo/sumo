@@ -15,6 +15,7 @@
 
 class MFXImageHelper {
 public:
+    static FXImage * loadimage(FXApp *a, const std::string& file);
     static FXbool saveimage(FXApp *a, const std::string& file,
         int width, int height, FXColor *data);
 
