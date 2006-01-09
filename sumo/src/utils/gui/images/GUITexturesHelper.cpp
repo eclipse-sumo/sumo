@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/01/09 13:37:29  dkrajzew
+// decals added
+//
 // Revision 1.5  2005/10/07 11:45:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -147,16 +150,48 @@ GUITexturesHelper::assignTextures()
     }
 }
 
+unsigned int
+GUITexturesHelper::add(FXImage *i)
+{
+    unsigned int id;
+    glGenTextures(1, &id);
+    glBindTexture(GL_TEXTURE_2D, id);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+        i->getWidth(), i->getHeight(), 0,
+        GL_RGBA, GL_UNSIGNED_BYTE, i->getData() );
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    return id;
+}
+
 
 void
-GUITexturesHelper::drawTexturedBox(GUITexture which, SUMOReal size)
+GUITexturesHelper::drawDirectionArrow(GUITexture which, SUMOReal size)
+{
+    drawTexturedBox(myTextureIDs[which], size, size, -size, -size);
+}
+
+
+void
+GUITexturesHelper::drawDirectionArrow(unsigned int which,
+                                   SUMOReal sizeX1, SUMOReal sizeY1,
+                                   SUMOReal sizeX2, SUMOReal sizeY2)
+{
+    drawTexturedBox(myTextureIDs[which], sizeX1, sizeY1, sizeX2, sizeY2);
+}
+
+void
+GUITexturesHelper::drawTexturedBox(unsigned int which, SUMOReal size)
 {
     drawTexturedBox(which, size, size, -size, -size);
 }
 
 
 void
-GUITexturesHelper::drawTexturedBox(GUITexture which,
+GUITexturesHelper::drawTexturedBox(unsigned int which,
                                    SUMOReal sizeX1, SUMOReal sizeY1,
                                    SUMOReal sizeX2, SUMOReal sizeY2)
 {
@@ -178,7 +213,7 @@ GUITexturesHelper::drawTexturedBox(GUITexture which,
     glEnable(GL_BLEND);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-    glBindTexture(GL_TEXTURE_2D, myTextureIDs[which]);
+    glBindTexture(GL_TEXTURE_2D, which);
     glBegin(GL_TRIANGLE_STRIP);
     glTexCoord2f(0, 1);
     glVertex2d(sizeX1, sizeY1);

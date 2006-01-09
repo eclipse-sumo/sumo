@@ -17,10 +17,14 @@
 class GUITexturesHelper {
 public:
     static void init(FXApp *a);
-    static void drawTexturedBox(GUITexture which, SUMOReal size);
-    static void drawTexturedBox(GUITexture which,
+    static void drawDirectionArrow(GUITexture which, SUMOReal size);
+    static void drawDirectionArrow(unsigned int which,
+        SUMOReal sizeX1, SUMOReal sizeY1, SUMOReal sizeX2, SUMOReal sizeY2);
+    static void drawTexturedBox(unsigned int which, SUMOReal size);
+    static void drawTexturedBox(unsigned int which,
         SUMOReal sizeX1, SUMOReal sizeY1, SUMOReal sizeX2, SUMOReal sizeY2);
     static void close();
+    static unsigned int add(FXImage *i);
 
 private:
     static void assignTextures();
