@@ -49,11 +49,11 @@ MSDevice_CPhone::MSDevice_CPhone()
 {
     SUMOReal r1 = rand()/(SUMOReal) RAND_MAX;
     SUMOTime t1;
-    if(r1>0.1) {
+    if(r1<0.1) {
         // 10% are off
         m_State = STATE_OFF;
         t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 60. * 60.);   // switch on after long time
-    } else if(r1>0.2) {
+    } else if(r1<0.2) {
         // 70% are idle
         m_State = STATE_IDLE;
         t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 20. * 60.);   // start telephoning after some time
