@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/01/09 13:35:32  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.7  2005/10/07 11:44:28  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -96,6 +99,9 @@ public:
     friend RGBColor operator*(const RGBColor &c, const SUMOReal &v);
 
     friend RGBColor operator/(const RGBColor &c, const SUMOReal &v);
+
+    bool operator==(const RGBColor &c) const;
+    bool operator!=(const RGBColor &c) const;
 
 private:
     static inline SUMOReal check(const SUMOReal &c) {
