@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.35  2006/01/09 11:50:41  dkrajzew
+// warnings removed
+//
 // Revision 1.34  2005/12/01 07:32:03  dkrajzew
 // final try/catch is now only used in the release version
 //
@@ -323,7 +326,7 @@ GUIRunThread::makeStep()
     // check whether the simulation got too slow, halt then
     if(_net->logSimulationDuration() && _net->getTooSlowRTF()>0) {
         SUMOReal rtf =
-            ((SUMOReal) _net->getVehicleControl().getRunningVehicleNo()/(SUMOReal) _net->getSimStepDurationInMillis()*1000.);
+            ((SUMOReal) _net->getVehicleControl().getRunningVehicleNo()/(SUMOReal) _net->getSimStepDurationInMillis()*(SUMOReal) 1000.);
         if(rtf<_net->getTooSlowRTF()) {
             _halting = true;
             e = new GUIEvent_SimulationEnded(
