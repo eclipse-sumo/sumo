@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/01/09 13:36:47  dkrajzew
+// removed unneeded includes
+//
 // Revision 1.6  2005/11/09 06:47:05  dkrajzew
 // subwindows are now deleted on (re)loading the simulation
 //
@@ -103,7 +106,6 @@ namespace
 
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
-#include <microsim/MSVehicle.h>
 #include <guisim/GUIEdge.h>
 
 #ifdef _DEBUG

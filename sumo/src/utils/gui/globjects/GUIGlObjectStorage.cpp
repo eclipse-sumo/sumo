@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/01/09 13:36:47  dkrajzew
+// removed unneeded includes
+//
 // Revision 1.4  2005/10/07 11:45:32  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -70,12 +73,10 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
-
+#include <cassert>
 #include "GUIGlObject.h"
 #include <map>
 #include "GUIGlObjectStorage.h"
-#include <microsim/MSVehicle.h>
-#include <guisim/GUIVehicle.h>
 #include <iostream>
 
 #ifdef _DEBUG
@@ -168,13 +169,12 @@ GUIGlObjectStorage::remove(size_t id)
         myMap.erase(id);
         my2Delete[id] = o;
         _lock.unlock();
-        return false;
+		return false;
     } else {
         GUIGlObject *o = (*i).second;
         myMap.erase(id);
-//        MSVehicle::remove(static_cast<GUIVehicle*>(o)->id());
         _lock.unlock();
-        return true;
+		return true;
     }
 }
 
