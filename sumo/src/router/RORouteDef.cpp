@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/01/09 12:00:59  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.16  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -33,7 +36,9 @@ namespace
 // LARGE CODE RECHECK
 //
 // Revision 1.13  2004/01/26 08:01:21  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work;
+//  documentation added
 //
 // Revision 1.12  2003/12/09 11:30:37  dkrajzew
 // false detection whether a vehicle is too long to start from an edge patched
@@ -138,6 +143,27 @@ RORouteDef::patchID()
     } else {
         _id = _id + "_0";
     }
+}
+
+
+int
+RORouteDef::getLastUsedIndex() const
+{
+    return 0;
+}
+
+
+size_t
+RORouteDef::getAlternativesSize() const
+{
+    return 1;
+}
+
+
+const RGBColor &
+RORouteDef::getColor() const
+{
+    return myColor;
 }
 
 

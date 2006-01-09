@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/01/09 12:00:59  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.6  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -119,35 +122,20 @@ RORDLoader_SUMORoutes::~RORDLoader_SUMORoutes()
 {
 }
 
-void RORDLoader_SUMORoutes::myStartElement(int element,
-                                          const std::string &name,
-                                          const Attributes &attrs)
-{
-    switch(element) {
-    case SUMO_TAG_ROUTE:
-        startRoute(attrs);
-        break;
-    case SUMO_TAG_VEHICLE:
-        startVehicle(attrs);
-        break;
-    case SUMO_TAG_VTYPE:
-        startVehType(attrs);
-        break;
-    default:
-        break;
-    }
-}
-
 
 void
 RORDLoader_SUMORoutes::startRoute(const Attributes &attrs)
 {
     try {
         mySkipCurrent = false;
-        _currentRoute = getString(attrs, SUMO_ATTR_ID);
-        myCurrentColor = parseColor(attrs, "route", _currentRoute);
+        if(myAmInEmbeddedMode) {
+            myCurrentRouteName = getStringSecure(attrs, SUMO_ATTR_ID, "!" + myActiveVehicleID);
+        } else {
+            myCurrentRouteName = getString(attrs, SUMO_ATTR_ID);
+        }
+        myCurrentColor = parseColor(*this, attrs, "route", myCurrentRouteName);
     } catch (EmptyData) {
-        _currentRoute = "";
+        myCurrentRouteName = "";
         getErrorHandlerMarkInvalid()->inform("Missing id in route.");
     }
 }
@@ -158,7 +146,8 @@ void
 RORDLoader_SUMORoutes::myCharacters(int element, const std::string &name,
                                    const std::string &chars)
 {
-    if(element==SUMO_TAG_ROUTE&&_currentRoute.length()!=0) {
+    if(element==SUMO_TAG_ROUTE&&myCurrentRouteName.length()!=0) {
+        // parse the list of edges
         ROEdgeVector list;
         StringTokenizer st(chars);
         bool ok = st.size()>1;
@@ -169,24 +158,24 @@ RORDLoader_SUMORoutes::myCharacters(int element, const std::string &name,
                 list.add(edge);
             } else {
                 getErrorHandlerMarkInvalid()->inform(
-                    string("The route '") + _currentRoute +
+                    string("The route '") + myCurrentRouteName +
                     string("' contains the unknown edge '") + id +
                     string("'."));
                 ok = false;
             }
         }
+        // ... after reading the route ...
         if(ok) {
+            // build the route if everything's ok
             RORouteDef_Complete *route =
-                new RORouteDef_Complete(_currentRoute, myCurrentColor, list);
+                new RORouteDef_Complete(myCurrentRouteName, myCurrentColor, list);
             _net.addRouteDef(route);
         } else {
-            if(_currentRoute.length()>0) {
-                getErrorHandlerMarkInvalid()->inform(
-                    string("Something is wrong with route '")
-                    + _currentRoute + string("'."));
+            // report problems otherwise
+            if(myCurrentRouteName.length()>0) {
+                getErrorHandlerMarkInvalid()->inform(string("Something is wrong with route '") + myCurrentRouteName + string("'."));
             } else {
-                getErrorHandlerMarkInvalid()->inform(
-                    string("Invalid route occured."));
+                getErrorHandlerMarkInvalid()->inform(string("Invalid route occured."));
             }
         }
     }
@@ -196,26 +185,20 @@ RORDLoader_SUMORoutes::myCharacters(int element, const std::string &name,
 void
 RORDLoader_SUMORoutes::myEndElement(int element, const std::string &name)
 {
-    if(element==SUMO_TAG_ROUTE) {
-        _currentRoute = "";
-        _nextRouteRead = true;
+    RORDLoader_SUMOBase::myEndElement(element, name);
+    switch(element) {
+    case SUMO_TAG_ROUTE:
+        if(!myAmInEmbeddedMode) {
+            myHaveNextRoute = true;
+        }
+        break;
+    case SUMO_TAG_VEHICLE:
+        myHaveNextRoute = true;
+        break;
+    default:
+        break;
     }
 }
-
-
-bool
-RORDLoader_SUMORoutes::nextRouteRead()
-{
-    return _nextRouteRead;
-}
-
-
-void
-RORDLoader_SUMORoutes::beginNextRoute()
-{
-    _nextRouteRead = false;
-}
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

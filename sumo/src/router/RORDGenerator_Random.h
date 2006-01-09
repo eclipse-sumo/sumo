@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/01/09 12:00:58  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.7  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -89,7 +92,7 @@ class RORDGenerator_Random :
 public:
     /// Constructor
     RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
-        SUMOTime begin, SUMOTime end, const std::string &file="");
+        SUMOTime begin, SUMOTime end, bool removeFirst, const std::string &file="");
 
     /// Destructor
     ~RORDGenerator_Random();
@@ -134,6 +137,9 @@ private:
 
     /// The information whether a new route was read
     bool myReadNewRoute;
+
+    /// Information whether the first and last edge shall be removed
+    bool myRemoveFirst;
 
 };
 

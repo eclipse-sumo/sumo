@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/01/09 12:00:59  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.8  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -117,13 +120,15 @@ ROVehicleType_Krauss::~ROVehicleType_Krauss()
 std::ostream &
 ROVehicleType_Krauss::xmlOut(std::ostream &os) const
 {
-	os << "<vtype id=\"" << myID << "\"";
+	os << "   <vtype id=\"" << myID << "\"";
 	os << " accel=\"" << myA << "\"";
 	os << " decel=\"" << myB << "\"";
 	os << " sigma=\"" << myEps << "\"";
 	os << " length=\"" << myLength << "\"";
 	os << " maxspeed=\"" << myMaxSpeed << "\"";
-    os << " color=\"" << myColor << "\"";
+    if(myColor!=RGBColor(-1,-1,-1)) {
+        os << " color=\"" << myColor << "\"";
+    }
 	os << "/>" << endl;
 	return os;
 }

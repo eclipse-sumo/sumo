@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/01/09 12:00:58  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.10  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -39,19 +42,23 @@
 // debugging
 //
 // Revision 1.5  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+// debugging while working on INVENT; preparation of classes to be derived
+//  for an online-routing
 //
 // Revision 1.4  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
 //
 // Revision 1.3  2004/02/02 16:19:23  dkrajzew
-// trying to catch up false user input (using the same name for different routes)
+// trying to catch up false user input
+//  (using the same name for different routes)
 //
 // Revision 1.2  2004/01/27 08:45:00  dkrajzew
 // given flow definitions an own tag
 //
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work;
+//  documentation added
 //
 /* =========================================================================
  * compiler pragmas

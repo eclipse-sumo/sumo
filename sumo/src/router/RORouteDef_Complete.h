@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/01/09 12:00:59  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.6  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -122,9 +125,9 @@ public:
     /// Outputs the new (current) route
     void xmlOutCurrent(std::ostream &res, bool isPeriodical) const;
 
-    /** @brief Outputs the alternatives
+    /* @brief Outputs the alternatives
         (being the only one route here) */
-    void xmlOutAlternatives(std::ostream &altres) const;
+//    void xmlOutAlternatives(std::ostream &altres) const;
 
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;

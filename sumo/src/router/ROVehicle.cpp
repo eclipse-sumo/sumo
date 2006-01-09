@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/01/09 12:00:59  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.13  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -84,6 +87,8 @@ namespace
 #include "ROVehicleType.h"
 #include "RORouteDef.h"
 #include "ROVehicle.h"
+#include "RORouteDef_Alternatives.h"
+#include "RORoute.h"
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -128,20 +133,6 @@ ROVehicle::getType() const
 }
 
 
-void ROVehicle::xmlOut(std::ostream &os) const
-{
-    os << "<vehicle id=\"" << _id << "\"";
-    os << " type=\"" << _type->getID() << "\"";
-    os << " route=\"" << _route->getID() << "\"";
-    os << " depart=\"" << _depart << "\"";
-    os << " color=\"" << myColor << "\"";
-    if(_period!=-1) {
-        os << " period=\"" << _period << "\"";
-        os << " repno=\"" << _repNo << "\"";
-    }
-    os << "/>" << endl;
-}
-
 std::string
 ROVehicle::getID() const
 {
@@ -163,24 +154,123 @@ ROVehicle::periodical() const
 
 
 void
-ROVehicle::saveTypeAndSelf(std::ostream &os,
-                           ROVehicleType &defType) const
+ROVehicle::saveAllAsXML(std::ostream * const os,
+                        std::ostream * const altos,
+                        ROVehicleType &defType,
+                        RORouteDef *route) const
 {
+    // get the reference vehicle's type
     ROVehicleType &type = getTypeForSaving(defType);
+    // check whether it was saved before
     if(!type.isSaved()) {
-        os << "   ";
-        type.xmlOut(os);
+        // ... save if not
+        type.xmlOut(*os);
+        if(altos!=0) {
+            type.xmlOut(*altos);
+        }
         type.markSaved();
     }
+
+    // write the vehicle (new style, with included routes)
+    (*os) << "   <vehicle id=\"" << _id << "\"";
+    (*os) << " type=\"" << _type->getID() << "\"";
+    /*
+    if(!_route->isAssignedExplicite) {
+        os << " route=\"" << _route->getID() << "\"";
+    }
+    */
+    (*os) << " depart=\"" << _depart << "\"";
+    if(myColor!=RGBColor(-1,-1,-1)) {
+        (*os) << " color=\"" << myColor << "\"";
+    }
+    if(_period!=-1) {
+        (*os) << " period=\"" << _period << "\"";
+        (*os) << " repno=\"" << _repNo << "\"";
+    }
+    (*os) << ">" << endl;
+
+    if(altos!=0) {
+        (*altos) << "   <vehicle id=\"" << _id << "\"";
+        (*altos) << " type=\"" << _type->getID() << "\"";
+    /*
+    if(!_route->isAssignedExplicite) {
+        os << " route=\"" << _route->getID() << "\"";
+    }
+    */
+        (*altos) << " depart=\"" << _depart << "\"";
+        if(myColor!=RGBColor(-1,-1,-1)) {
+            (*altos) << " color=\"" << myColor << "\"";
+        }
+        if(_period!=-1) {
+            (*altos) << " period=\"" << _period << "\"";
+            (*altos) << " repno=\"" << _repNo << "\"";
+        }
+        (*altos) << ">" << endl;
+    }
+    // check w
+
+    if(!route->isSaved()) {
+        // write the route
+        const ROEdgeVector &routee = route->getCurrentEdgeVector();
+        (*os) << "      <route";
+        if(this->periodical()) {
+            // remark for further usage if referenced by more than one vehicle
+            (*os) << " multi_ref=\"x\"";
+        }
+        const RGBColor &c = route->getColor();
+        if(c!=RGBColor(-1,-1,-1)) {
+            (*os) << " color=\"" << c << "\"";
+        }
+        (*os) << ">" << routee << "</route>" << endl;
+        //route->xmlOutCurrent(*os, periodical());
+        // check whether the alternatives shall be written
+        if(altos!=0) {
+            (*altos) << "      <routealt last=\"" << _route->getLastUsedIndex() << "\"";
+            if(c!=RGBColor(-1,-1,-1)) {
+                (*altos) << " color=\"" << c << "\"";
+            }
+            (*altos) << ">" << endl;
+            if(_route->getAlternativesSize()!=1) {
+                // ok, we have here a RORouteDef_Alternatives
+                for(size_t i=0; i!=_route->getAlternativesSize(); i++) {
+                    const RORoute &alt =
+                        static_cast<RORouteDef_Alternatives*>(_route)->getAlternative(i);//_alternatives[i];
+                    (*altos) << "         <route cost=\"" << alt.getCosts();
+                    (*altos) << "\" probability=\"" << alt.getProbability();
+                    (*altos) << "\">";
+                    alt.xmlOutEdges((*altos));
+                    (*altos) << "</route>" << endl;
+                }
+            } else {
+                // ok, only one alternative; let's write it plain
+                (*altos) << "         <route cost=\"" << routee.recomputeCosts(getDepartureTime());
+                (*altos) << "\" probability=\"1";
+                (*altos) << "\">" << routee << "</route>" << endl;
+            }
+            (*altos) << "      </routealt>" << endl;
+
+        //    route->xmlOutAlternatives(*altos);
+        }
+    } else {
+        cout << "Route '" << _route->getID() << "' was already saved" << endl;
+    }
+
+    (*os) << "   </vehicle>" << endl;
+    if(altos!=0) {
+        (*altos) << "   </vehicle>" << endl;
+    }
+
+    /*
     os << "   ";
     xmlOut(os);
     os << endl;
+    */
 }
 
-
+/*
 void
-ROVehicle::saveTypeAndSelf(std::ostream &os, std::ostream &altos,
-                           ROVehicleType &defType) const
+ROVehicle::saveAll(std::ostream &os, std::ostream &altos,
+                   ROVehicleType &defType, RORouteDef *route) const
 {
     ROVehicleType &type = getTypeForSaving(defType);
     if(!type.isSaved()) {
@@ -197,7 +287,7 @@ ROVehicle::saveTypeAndSelf(std::ostream &os, std::ostream &altos,
     xmlOut(altos);
     altos << endl;
 }
-
+*/
 
 ROVehicleType &
 ROVehicle::getTypeForSaving(ROVehicleType &defType) const

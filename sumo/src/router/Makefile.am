@@ -30,7 +30,7 @@ ROTypedXMLRoutesLoader.cpp ROTypedXMLRoutesLoader.h \
 ROVehTypeCont.cpp ROVehTypeCont.h ROVehicle.cpp ROVehicle.h \
 ROVehicleBuilder.cpp ROVehicleBuilder.h ROVehicleCont.cpp ROVehicleCont.h \
 ROVehicleType.cpp ROVehicleType.h \
-ROVehicleType_Krauss.cpp ROVehicleType_Krauss.h \
+ROVehicleType_ID.cpp ROVehicleType_ID.h ROVehicleType_Krauss.cpp ROVehicleType_Krauss.h \
 ROWeightsHandler.cpp ROWeightsHandler.h
 
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_srcdir)/src \

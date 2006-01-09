@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/01/09 12:00:58  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.13  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -137,7 +140,7 @@ public:
 
     /** @brief Builds and opens all route loaders
         Route loaders are derived from ROAbstractRouteDefLoader */
-    void openRoutes(RONet &net, SUMOReal gBeta, SUMOReal gA);
+    size_t openRoutes(RONet &net, SUMOReal gBeta, SUMOReal gA);
 
     /** @brief Loads routes stepwise
         This is done for all previously build route loaders */

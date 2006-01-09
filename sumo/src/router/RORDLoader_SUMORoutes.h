@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/01/09 12:00:59  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.6  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -36,7 +39,9 @@
 // Type-dependent loader/generator-"API" changed
 //
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work;
+//  documentation added
 //
 // ------------------------------------------------
 // Revision 1.4  2003/07/30 09:26:33  dkrajzew
@@ -89,37 +94,18 @@ public:
     ~RORDLoader_SUMORoutes();
 
 protected:
-    /** the user-impemlented handler method for an opening tag */
-    void myStartElement(int element, const std::string &name,
-        const Attributes &attrs);
-
+    //{ XML-handling methods
     /** the user-implemented handler method for characters */
     void myCharacters(int element, const std::string &name,
         const std::string &chars);
 
     /** the user-implemented handler method for a closing tag */
     void myEndElement(int element, const std::string &name);
+    //}
 
 protected:
-    /// Return the information whether a route was read
-    bool nextRouteRead();
-
-    /// Initialises the reading of a further route
-    void beginNextRoute();
-
-private:
     /// begins the processing of a route
     void startRoute(const Attributes &attrs);
-
-private:
-    /// the name of the current route
-    std::string _currentRoute;
-
-    /// The color of the current route
-    RGBColor myCurrentColor;
-
-    /// The information whether the next route was read
-    bool _nextRouteRead;
 
 private:
     /// we made the copy constructor invalid
@@ -127,6 +113,7 @@ private:
 
     /// we made the assignment operator invalid
     RORDLoader_SUMORoutes &operator=(const RORDLoader_SUMORoutes &src);
+
 };
 
 

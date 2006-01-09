@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/01/09 12:00:15  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.2  2005/11/09 06:43:20  dkrajzew
 // TLS-API: MSEdgeContinuations added
 //
@@ -196,7 +199,8 @@ public:
         NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
         NLEdgeControlBuilder &edgeBuilder,
         NLJunctionControlBuilder &junctionBuilder,
-        NLGeomShapeBuilder &shapeBuilder);
+        NLGeomShapeBuilder &shapeBuilder,
+        bool wantsVehicleColor);
 
     /// Destructor
     virtual ~NLHandler();

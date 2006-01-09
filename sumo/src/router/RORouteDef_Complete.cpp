@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/01/09 12:00:59  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.7  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -145,6 +148,7 @@ RORouteDef_Complete::addAlternative(RORoute *current, SUMOTime begin)
 }
 
 
+/*
 void
 RORouteDef_Complete::xmlOutCurrent(std::ostream &res, bool isPeriodical) const
 {
@@ -155,7 +159,7 @@ RORouteDef_Complete::xmlOutCurrent(std::ostream &res, bool isPeriodical) const
     res << ">" << _edges << "</route>" << endl;
 }
 
-
+/*
 void
 RORouteDef_Complete::xmlOutAlternatives(std::ostream &altres) const
 {
@@ -167,7 +171,7 @@ RORouteDef_Complete::xmlOutAlternatives(std::ostream &altres) const
     altres << "</route>" << endl;
     altres << "   </routealt>" << endl;
 }
-
+*/
 
 RORouteDef *
 RORouteDef_Complete::copy(const std::string &id) const

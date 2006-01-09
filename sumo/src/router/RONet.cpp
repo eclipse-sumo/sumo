@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/01/09 12:00:58  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.25  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -131,6 +134,7 @@ namespace
 #include "ROVehicle.h"
 #include "ROVehicleType.h"
 #include "ROVehicleType_Krauss.h"
+#include "ROVehicleType_ID.h"
 #include "ROAbstractRouter.h"
 #include "ROAbstractEdgeBuilder.h"
 #include <utils/options/OptionsCont.h>
@@ -143,16 +147,15 @@ namespace
 #endif // _DEBUG
 
 
-
-
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
-//ofstream blaa("bla.txt");
 
 RONet *RONet::myInstance;
+
+
 /* =========================================================================
  * method definitions
  * ======================================================================= */
@@ -291,7 +294,16 @@ RONet::getVehicleTypeSecure(const std::string &id)
     if(type!=0) {
         return type;
     }
-    return getDefaultVehicleType();
+    if(id=="!") { // !!! make this is static const
+        // ok, no vehicle type was given within the user input
+        //  return the default type
+        return getDefaultVehicleType();
+    }
+    // Assume, the user will define the type somewhere else
+    //  return a type which contains the id only
+    type = new ROVehicleType_ID(id);
+    addVehicleType(type);
+    return type;
 }
 
 
@@ -394,20 +406,6 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
 }
 
 
-bool
-RONet::saveRoute(RORouteDef *route, ROVehicle *veh)
-{
-    if(route->isSaved()) {
-        return true;
-    }
-    // save route
-    route->xmlOutCurrent(*myRoutesOutput, veh->periodical());
-    if(myRouteAlternativesOutput!=0) {
-        route->xmlOutAlternatives(*myRouteAlternativesOutput);
-    }
-    return true;
-}
-
 void
 RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
                                 SUMOTime time)
@@ -448,14 +446,8 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
         RORouteDef *route = computeRoute(options, router, veh);
         if(route!=0) {
             // write the route
-            saveRoute(route, veh);
-            if(myRouteAlternativesOutput==0) {
-                veh->saveTypeAndSelf(*myRoutesOutput,
-                    *_vehicleTypes.getDefault());
-            } else {
-                veh->saveTypeAndSelf(*myRoutesOutput,
-                    *myRouteAlternativesOutput, *_vehicleTypes.getDefault());
-            }
+            veh->saveAllAsXML(myRoutesOutput, myRouteAlternativesOutput,
+                *_vehicleTypes.getDefault(), route);
             myWrittenRouteNo++;
         } else {
             myDiscardedRouteNo++;

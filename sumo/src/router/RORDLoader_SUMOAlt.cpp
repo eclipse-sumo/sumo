@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/09 12:00:59  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.9  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -42,7 +45,8 @@ namespace
 // debugging
 //
 // Revision 1.3  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+// debugging while working on INVENT; preparation of classes to be
+//  derived for an online-routing
 //
 // Revision 1.2  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
@@ -131,8 +135,8 @@ RORDLoader_SUMOAlt::RORDLoader_SUMOAlt(ROVehicleBuilder &vb, RONet &net,
                                        const std::string &file)
     : RORDLoader_SUMOBase(vb, net, begin, end,
         "precomputed sumo route alternatives", file),
-    _currentAlternatives(0),
-    _gawronBeta(gawronBeta), _gawronA(gawronA), myMaxRouteNumber(maxRouteNumber)
+    myCurrentAlternatives(0),
+    myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRouteNumber)
 {
 }
 
@@ -142,22 +146,15 @@ RORDLoader_SUMOAlt::~RORDLoader_SUMOAlt()
 }
 
 
-void RORDLoader_SUMOAlt::myStartElement(int element,
-                                        const std::string &name,
-                                        const Attributes &attrs)
+void
+RORDLoader_SUMOAlt::myStartElement(int element,
+                                   const std::string &name,
+                                   const Attributes &attrs)
 {
+    RORDLoader_SUMOBase::myStartElement(element, name, attrs);
     switch(element) {
     case SUMO_TAG_ROUTEALT:
         startAlternative(attrs);
-        break;
-    case SUMO_TAG_ROUTE:
-        startRoute(attrs);
-        break;
-    case SUMO_TAG_VEHICLE:
-        startVehicle(attrs);
-        break;
-    case SUMO_TAG_VTYPE:
-        startVehType(attrs);
         break;
     default:
         break;
@@ -169,7 +166,7 @@ void
 RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
 {
     mySkipCurrent = false;
-    if(_currentAlternatives==0) {
+    if(myCurrentAlternatives==0) {
         getErrorHandlerMarkInvalid()->inform(
             "Route declaration without an alternatives container occured.");
         mySkipCurrent = true;
@@ -177,54 +174,54 @@ RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
     }
     // try to get the costs
     try {
-        _cost = getFloat(attrs, SUMO_ATTR_COST);
+        myCost = getFloat(attrs, SUMO_ATTR_COST);
     } catch (NumberFormatException) {
         getErrorHandlerMarkInvalid()->inform(
             string("Invalid cost in alternative for route '")
-            + _currentAlternatives->getID() + string("' (")
-            + getString(attrs, SUMO_ATTR_COST)//toString<SUMOReal>(_cost)
+            + myCurrentAlternatives->getID() + string("' (")
+            + getString(attrs, SUMO_ATTR_COST)//toString<SUMOReal>(myCost)
             + string(")."));
         mySkipCurrent = true;
         return;
     } catch (EmptyData) {
         getErrorHandlerMarkInvalid()->inform(
             string("Missing cost in alternative for route '")
-            + _currentAlternatives->getID() + string("'."));
+            + myCurrentAlternatives->getID() + string("'."));
         mySkipCurrent = true;
         return;
     }
-    if(_cost<0) {
+    if(myCost<0) {
         getErrorHandlerMarkInvalid()->inform(
             string("Invalid cost in alternative for route '")
-            + _currentAlternatives->getID() + string("' (")
-            + toString<SUMOReal>(_cost)
+            + myCurrentAlternatives->getID() + string("' (")
+            + toString<SUMOReal>(myCost)
             + string(")."));
         mySkipCurrent = true;
         return;
     }
     // try to get the probability
     try {
-        _prob = getFloatSecure(attrs, SUMO_ATTR_PROB, -10000);
+        myProbability = getFloatSecure(attrs, SUMO_ATTR_PROB, -10000);
     } catch (NumberFormatException) {
         getErrorHandlerMarkInvalid()->inform(
             string("Invalid probability in alternative for route '")
-            + _currentAlternatives->getID() + string("' (")
-            + toString<SUMOReal>(_prob)
+            + myCurrentAlternatives->getID() + string("' (")
+            + toString<SUMOReal>(myProbability)
             + string(")."));
         mySkipCurrent = true;
         return;
     } catch (EmptyData) {
         getErrorHandlerMarkInvalid()->inform(
             string("Missing probability in alternative for route '")
-            + _currentAlternatives->getID() + string("'."));
+            + myCurrentAlternatives->getID() + string("'."));
         mySkipCurrent = true;
         return;
     }
-    if(_prob<0) {
+    if(myProbability<0) {
         getErrorHandlerMarkInvalid()->inform(
             string("Invalid probability in alternative for route '")
-            + _currentAlternatives->getID() + string("' (")
-            + toString<SUMOReal>(_prob)
+            + myCurrentAlternatives->getID() + string("' (")
+            + toString<SUMOReal>(myProbability)
             + string(")."));
         mySkipCurrent = true;
         return;
@@ -242,7 +239,7 @@ RORDLoader_SUMOAlt::myCharacters(int element, const std::string &name,
         return;
     }
     // check whether the costs and the probability are valid
-    if(_cost<0||_prob<0||mySkipCurrent) {
+    if(myCost<0||myProbability<0||mySkipCurrent) {
         return;
     }
     // build the list of edges
@@ -256,15 +253,15 @@ RORDLoader_SUMOAlt::myCharacters(int element, const std::string &name,
             list->add(edge);
         } else {
             getErrorHandlerMarkInvalid()->inform(
-                string("The route '") + _currentAlternatives->getID() +
+                string("The route '") + myCurrentAlternatives->getID() +
                 string("' contains the unknown edge '") + id +
                 string("'."));
             ok = false;
         }
     }
     if(ok) {
-        _currentAlternatives->addLoadedAlternative(
-            new RORoute(_currentAlternatives->getID(), _cost, _prob, *list));
+        myCurrentAlternatives->addLoadedAlternative(
+            new RORoute(myCurrentAlternatives->getID(), myCost, myProbability, *list));
     }
     delete list;
 }
@@ -273,12 +270,22 @@ RORDLoader_SUMOAlt::myCharacters(int element, const std::string &name,
 void
 RORDLoader_SUMOAlt::myEndElement(int element, const std::string &name)
 {
-    if(element==SUMO_TAG_ROUTEALT) {
+    RORDLoader_SUMOBase::myEndElement(element, name);
+    switch(element) {
+    case SUMO_TAG_ROUTEALT:
         if(mySkipCurrent) {
             return;
         }
+        if(!myAmInEmbeddedMode) {
+            myHaveNextRoute = true;
+        }
         endAlternative();
-        _nextRouteRead = true;
+        break;
+    case SUMO_TAG_VEHICLE:
+        myHaveNextRoute = true;
+        break;
+    default:
+        break;
     }
 }
 
@@ -289,22 +296,25 @@ RORDLoader_SUMOAlt::startAlternative(const Attributes &attrs)
     // try to get the id
     string id;
     try {
-        id = getString(attrs, SUMO_ATTR_ID);
+        mySkipCurrent = false;
+        if(myAmInEmbeddedMode) {
+            id = getStringSecure(attrs, SUMO_ATTR_ID, "!" + myActiveVehicleID);
+        } else {
+            id = getString(attrs, SUMO_ATTR_ID);
+        }
     } catch (EmptyData) {
-        getErrorHandlerMarkInvalid()->inform(
-            "Missing route alternative name.");
+        getErrorHandlerMarkInvalid()->inform("Missing route alternative name.");
         return;
     }
     // try to get the index of the last element
     int index = getIntSecure(attrs, SUMO_ATTR_LAST, -1);
     if(index<0) {
-        getErrorHandlerMarkInvalid()->inform(
-            string("Missing or non-numeric index of a route alternative (id='")
-            + id + string("'."));
+        getErrorHandlerMarkInvalid()->inform(string("Missing or non-numeric index of a route alternative (id='") + id + string("'."));
         return;
     }
+    myCurrentColor = parseColor(*this, attrs, "route", myCurrentRouteName);
     // try to get the color
-    myCurrentColor = parseColor(attrs, "route", id);
+//!!!    myCurrentColor = parseColor(attrs, "route", id);
     // try to get the start time
 /*    SUMOTime time = getLongSecure(attrs, SUMO_ATTR_DEPART, -1);
     if(time<0) {
@@ -315,32 +325,17 @@ RORDLoader_SUMOAlt::startAlternative(const Attributes &attrs)
     }*/
     // !!!
     // build the alternative cont
-    _currentAlternatives = new RORouteDef_Alternatives(id, myCurrentColor,
-        index, _gawronBeta, _gawronA, myMaxRouteNumber);
+    myCurrentAlternatives = new RORouteDef_Alternatives(id, myCurrentColor,
+        index, myGawronBeta, myGawronA, myMaxRouteNumber);
 }
 
 
 void
 RORDLoader_SUMOAlt::endAlternative()
 {
-    _net.addRouteDef(_currentAlternatives);
-    _currentAlternatives = 0;
+    _net.addRouteDef(myCurrentAlternatives);
+    myCurrentAlternatives = 0;
 }
-
-
-bool
-RORDLoader_SUMOAlt::nextRouteRead()
-{
-    return _nextRouteRead;
-}
-
-
-void
-RORDLoader_SUMOAlt::beginNextRoute()
-{
-    _nextRouteRead = false;
-}
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

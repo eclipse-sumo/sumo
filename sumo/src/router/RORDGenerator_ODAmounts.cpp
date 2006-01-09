@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/01/09 12:00:58  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.13  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -45,7 +48,8 @@ namespace
 // debugging
 //
 // Revision 1.7  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+// debugging while working on INVENT;
+//  preparation of classes to be derived for an online-routing
 //
 // Revision 1.6  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
@@ -54,16 +58,20 @@ namespace
 // removed some debug-variables
 //
 // Revision 1.4  2004/02/02 16:19:23  dkrajzew
-// trying to catch up false user input (using the same name for different routes)
+// trying to catch up false user input
+//  (using the same name for different routes)
 //
 // Revision 1.3  2004/01/27 08:45:00  dkrajzew
 // given flow definitions an own tag
 //
 // Revision 1.2  2004/01/26 09:56:11  dkrajzew
-// error handling corrected; forgotten call of to interval end and trip building inserted :-)
+// error handling corrected;
+//  forgotten call of to interval end and trip building inserted :-)
 //
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work;
+//  documentation added
 //
 /* =========================================================================
  * compiler pragmas
@@ -142,7 +150,7 @@ RORDGenerator_ODAmounts::FlowDef::~FlowDef()
 bool
 RORDGenerator_ODAmounts::FlowDef::applicableForTime(SUMOTime t) const
 {
-    return myIntervalBegin<=t&&myIntervalEnd>=t;
+    return myIntervalBegin<=t&&myIntervalEnd>t;
 }
 
 
@@ -262,6 +270,7 @@ RORDGenerator_ODAmounts::myStartElement(int element,
                                         const std::string &name,
                                         const Attributes &attrs)
 {
+    RORDLoader_TripDefs::myStartElement(element, name, attrs);
     switch(element) {
     case SUMO_TAG_FLOW:
         parseFlowAmountDef(attrs);
@@ -348,12 +357,14 @@ void
 RORDGenerator_ODAmounts::myCharacters(int element, const std::string &name,
                                       const std::string &chars)
 {
+    RORDLoader_TripDefs::myCharacters(element, name, chars);
 }
 
 
 void
 RORDGenerator_ODAmounts::myEndElement(int element, const std::string &name)
 {
+    RORDLoader_TripDefs::myEndElement(element, name);
     switch(element) {
     case SUMO_TAG_FLOW:
         myEndFlowAmountDef();
@@ -412,7 +423,7 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
 std::string
 RORDGenerator_ODAmounts::getDataName() const
 {
-    return "XML-trip amount definitions";
+    return "XML-flow definitions";
 }
 
 

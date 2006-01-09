@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/01/09 12:00:58  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.7  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -96,40 +99,51 @@ ROFrame::fillOptions(OptionsCont &oc)
     DevHelper::insertDevOptions(oc);
     RandHelper::insertRandOptions(oc);
     // register the file i/o options
-    oc.doRegister("output", 'o', new Option_FileName());
-    oc.doRegister("net-file", 'n', new Option_FileName());
-    oc.doRegister("weights", 'w', new Option_FileName());
-    oc.doRegister("lane-weights", 'l', new Option_FileName());
-    oc.doRegister("alternatives", 'a', new Option_FileName());
     oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.addSynonyme("net-file", "net");
-    oc.addSynonyme("output-file", "output");
     oc.addSynonyme("configuration-file", "configuration");
+
+    oc.doRegister("output", 'o', new Option_FileName());
+    oc.addSynonyme("output-file", "output");
+
+    oc.doRegister("net-file", 'n', new Option_FileName());
+    oc.addSynonyme("net-file", "net");
+
+    oc.doRegister("alternatives", 'a', new Option_FileName());
+
+    oc.doRegister("weights", 'w', new Option_FileName());
     oc.addSynonyme("weights", "weight-files");
+
+    oc.doRegister("lane-weights", 'l', new Option_FileName());
+
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.doRegister("end", 'e', new Option_Integer(864000));
+
     // register vehicle type defaults
     oc.doRegister("krauss-vmax", 'V', new Option_Float(SUMOReal(70)));
     oc.doRegister("krauss-a", 'A', new Option_Float(SUMOReal(2.6)));
     oc.doRegister("krauss-b", 'B', new Option_Float(SUMOReal(4.5)));
     oc.doRegister("krauss-length", 'L', new Option_Float(SUMOReal(5)));
     oc.doRegister("krauss-eps", 'E', new Option_Float(SUMOReal(0.5)));
+
     // register the report options
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
-    oc.doRegister("continue-on-unbuild", new Option_Bool(false));
     oc.doRegister("print-options", 'p', new Option_Bool(false));
     oc.doRegister("help", new Option_Bool(false));
     oc.doRegister("log-file", 'l', new Option_FileName());
+    oc.doRegister("stats-period", new Option_Integer(-1));
+
     // register the data processing options
+    oc.doRegister("continue-on-unbuild", new Option_Bool(false));
     oc.doRegister("unsorted", new Option_Bool(false));
     oc.doRegister("move-on-short", new Option_Bool(false));
-    oc.doRegister("stats-period", new Option_Integer(-1));
     oc.doRegister("max-alternatives", new Option_Integer(5));
     // add possibility to insert random vehicles
     oc.doRegister("random-per-second", 'R', new Option_Float());
+    oc.doRegister("prune-random", new Option_Bool(false));
 }
+
 
 
 bool

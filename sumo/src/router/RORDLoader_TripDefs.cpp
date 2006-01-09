@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/01/09 12:00:59  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.8  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -39,7 +42,8 @@ namespace
 // debugging
 //
 // Revision 1.3  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+// debugging while working on INVENT; preparation of classes to be derived
+//  for an online-routing
 //
 // Revision 1.2  2004/02/16 13:47:07  dkrajzew
 // Type-dependent loader/generator-"API" changed
@@ -119,6 +123,7 @@ namespace
 #include "RORouteDef_Complete.h"
 #include "ROAbstractRouteDefLoader.h"
 #include "ROVehicleBuilder.h"
+#include "ROVehicleType_Krauss.h"
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -154,6 +159,7 @@ void
 RORDLoader_TripDefs::myStartElement(int element, const std::string &name,
                                     const Attributes &attrs)
 {
+    // check whether a trip definition shall be parsed
     if(element==SUMO_TAG_TRIPDEF) {
         // get the vehicle id, the edges, the speed and position and
         //  the departure time and other information
@@ -173,6 +179,37 @@ RORDLoader_TripDefs::myStartElement(int element, const std::string &name,
         // recheck attributes
         if(myDepartureTime<0) {
             MsgHandler::getErrorInstance()->inform("The departure time must be positive.");
+            return;
+        }
+    }
+    // check whether a vehicle type shall be parsed
+    if(element==SUMO_TAG_VTYPE) {
+        // get and check the vtype-id
+        string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
+        if(id=="") {
+            MsgHandler::getErrorInstance()->inform("A vehicle type with an unknown id occured.");
+            return;
+        }
+        // get the rest of the parameter
+        try {
+            SUMOReal a = getFloat(attrs, SUMO_ATTR_ACCEL);
+            SUMOReal b = getFloat(attrs, SUMO_ATTR_DECEL);
+            SUMOReal vmax = getFloat(attrs, SUMO_ATTR_MAXSPEED);
+            SUMOReal length = getFloat(attrs, SUMO_ATTR_LENGTH);
+            SUMOReal eps = getFloat(attrs, SUMO_ATTR_SIGMA);
+            string colordef = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
+            RGBColor col = colordef!=""
+                ? GfxConvHelper::parseColor(colordef)
+                : RGBColor(-1, -1, -1);
+            ROVehicleType *vt =
+                new ROVehicleType_Krauss(id, col, length, a, b, eps, vmax);
+            _net.addVehicleType(vt);
+        } catch (NumberFormatException&) {
+            MsgHandler::getErrorInstance()->inform("One of the parameter for vehicle type '" + id + "' is not numeric.");
+            return;
+        } catch (EmptyData&) {
+            MsgHandler::getErrorInstance()->inform("One of the parameter for vehicle type '" + id + "' is not given.");
+            return;
         }
     }
 }
@@ -238,7 +275,7 @@ RORDLoader_TripDefs::getVehicleType(const Attributes &attrs)
     try {
         return getString(attrs, SUMO_ATTR_TYPE);
     } catch(EmptyData) {
-        return "SUMO_DEFAULT_TYPE";
+        return "!";// !!! make this is static const
     }
 }
 

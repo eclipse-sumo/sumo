@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/01/09 12:00:59  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.11  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -99,7 +102,7 @@ public:
     ROVehicleType *getType() const;
 
     /// Saves information wbout the vehicle (in SUMO-XML)
-    virtual void xmlOut(std::ostream &os) const;
+    //virtual void xmlOut(std::ostream &os) const;
 
     /// Returns the id of the vehicle
     std::string getID() const;
@@ -113,12 +116,15 @@ public:
 
     /** @brief Saves the vehicle type if it was not saved before and the vehicle itself
         Use this method polymorph if no route alternatives shall be generated */
-    void saveTypeAndSelf(std::ostream &os, ROVehicleType &defType) const;
+    void saveAllAsXML(std::ostream * const os, std::ostream * const altos,
+        ROVehicleType &defType, RORouteDef *route) const;
 
     /** @brief Saves the vehicle type if it was not saved before and the vehicle itself
         Use this method polymorph if route alternatives shall be written, too */
-    void saveTypeAndSelf(std::ostream &os, std::ostream &altos,
-        ROVehicleType &defType) const;
+    /*
+    void saveAll(std::ostream &os, std::ostream &altos,
+        ROVehicleType &defType, RORouteDef *route) const;
+        */
 
     /// Returns a copy of the vehicle using a new id, departure time and route
     virtual ROVehicle *copy(ROVehicleBuilder &vb,

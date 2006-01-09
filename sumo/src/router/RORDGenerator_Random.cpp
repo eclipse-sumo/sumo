@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/01/09 12:00:58  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.8  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -113,9 +116,10 @@ using namespace std;
 RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
                                            SUMOTime begin,
                                            SUMOTime end,
+                                           bool removeFirst,
                                            const std::string &file)
     : ROAbstractRouteDefLoader(vb, net, begin, end), myIDSupplier("Rand"),
-    myCurrentTime(0)
+    myCurrentTime(0), myRemoveFirst(removeFirst)
 {
     if(!OptionsSubSys::getOptions().isSet("random-route-color")) {
         myColor = RGBColor(-1, -1, -1);
@@ -174,19 +178,17 @@ RORDGenerator_Random::myReadRoutesAtLeastUntil(SUMOTime time)
         // chekc whether valid values could be found
         if(from==0||to==0) {
             if(from==0) {
-                MsgHandler::getErrorInstance()->inform(
-                    "The network does not contain any valid starting edges!");
+                MsgHandler::getErrorInstance()->inform("The network does not contain any valid starting edges!");
             }
             if(from==0) {
-                MsgHandler::getErrorInstance()->inform(
-                    "The network does not contain any valid end edges!");
+                MsgHandler::getErrorInstance()->inform("The network does not contain any valid end edges!");
             }
             return false;
         }
         // build trip and add
         string id = myIDSupplier.getNext();
         RORouteDef *route =
-            new RORouteDef_OrigDest(id, myColor, from, to, true);
+            new RORouteDef_OrigDest(id, myColor, from, to, myRemoveFirst);
         _net.addVehicle(id,
             myVehicleBuilder.buildVehicle(
                 id, route, time, _net.getDefaultVehicleType(),
@@ -218,8 +220,7 @@ RORDGenerator_Random::init(OptionsCont &options)
     myWishedPerSecond = options.getFloat("random-per-second");
     myCurrentProgress = myWishedPerSecond / (SUMOReal) 2.0;
     if(myWishedPerSecond<0) {
-        MsgHandler::getErrorInstance()->inform(
-            "We cannot less than no vehicle!");
+        MsgHandler::getErrorInstance()->inform("We cannot less than no vehicle!");
         throw ProcessError();
     }
     return true;

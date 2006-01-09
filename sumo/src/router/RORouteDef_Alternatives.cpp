@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/01/09 12:00:59  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.8  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -338,7 +341,7 @@ RORouteDef_Alternatives::gawronG(SUMOReal a, SUMOReal x)
     return (SUMOReal) exp((a*x)/(1.0-(x*x))); // !!! ??
 }
 
-
+/*
 void
 RORouteDef_Alternatives::xmlOutCurrent(std::ostream &res,
                                        bool isPeriodical) const
@@ -346,7 +349,7 @@ RORouteDef_Alternatives::xmlOutCurrent(std::ostream &res,
     _alternatives[_lastUsed]->xmlOut(res, isPeriodical);
 }
 
-
+/*
 void
 RORouteDef_Alternatives::xmlOutAlternatives(std::ostream &os) const
 {
@@ -362,7 +365,7 @@ RORouteDef_Alternatives::xmlOutAlternatives(std::ostream &os) const
     }
     os << "   </routealt>" << endl;
 }
-
+*/
 
 RORouteDef *
 RORouteDef_Alternatives::copy(const std::string &id) const
@@ -472,6 +475,26 @@ RORouteDef_Alternatives::removeLast()
 	// !!! recompute probabilities
 }
 
+
+int
+RORouteDef_Alternatives::getLastUsedIndex() const
+{
+    return _lastUsed;
+}
+
+
+size_t
+RORouteDef_Alternatives::getAlternativesSize() const
+{
+    return _alternatives.size();
+}
+
+
+const RORoute &
+RORouteDef_Alternatives::getAlternative(size_t i) const
+{
+    return *(_alternatives[i]);
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

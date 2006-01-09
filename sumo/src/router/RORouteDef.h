@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/01/09 12:00:59  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.13  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -33,10 +36,13 @@
 // debugging
 //
 // Revision 1.9  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+// debugging while working on INVENT;
+//  preparation of classes to be derived for an online-routing
 //
 // Revision 1.8  2004/01/26 08:01:21  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work;
+//  documentation added
 //
 // Revision 1.7  2003/11/11 08:04:47  dkrajzew
 // avoiding emissions of vehicles on too short edges
@@ -126,17 +132,33 @@ public:
         (This may be the new route) */
     virtual void addAlternative(RORoute *current, SUMOTime begin) = 0;
 
-    /** @brief Writes the current route */
-    virtual void xmlOutCurrent(std::ostream &res,
+    /* @brief Writes the current route */
+/*    virtual void xmlOutCurrent(std::ostream &res,
         bool isPeriodical) const = 0;
 
-    /** @brief Writes the list of known alternatives */
-    virtual void xmlOutAlternatives(std::ostream &altres) const = 0;
+    /* @brief Writes the list of known alternatives */
+//    virtual void xmlOutAlternatives(std::ostream &altres) const = 0;
 
     /** @brief Returns a copy of the route definition */
     virtual RORouteDef *copy(const std::string &id) const = 0;
 
     virtual const ROEdgeVector &getCurrentEdgeVector() const = 0;
+
+    /** @brief returns the index of the route that was used as last
+        Returns 0 for most of the implementations, as currently only alternatives may
+        have more than just a single route */
+    virtual int getLastUsedIndex() const;
+
+    /** @brief returns the number of alternatives
+        Returns 1 for most of the implementations, as currently only alternatives may
+        have more than just a single route */
+    virtual size_t getAlternativesSize() const;
+
+    /// Returns the color of the route
+    const RGBColor &getColor() const;
+
+    /// Returns the alternative at the given index
+//    virtual const RORoute &getAlternative(size_t i) const = 0;
 
 protected:
     /// The color the route shall have

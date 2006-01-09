@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2006/01/09 12:00:58  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.15  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -39,13 +42,16 @@
 // debugging
 //
 // Revision 1.9  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+// debugging while working on INVENT; preparation of classes to be derived
+//  for an online-routing
 //
 // Revision 1.8  2004/04/02 11:26:26  dkrajzew
-// moving the vehicle forward if it shall start at a too short edge added; output of the number of loaded, build, and discarded vehicles added
+// moving the vehicle forward if it shall start at a too short edge added;
+//  output of the number of loaded, build, and discarded vehicles added
 //
 // Revision 1.7  2004/01/26 08:01:10  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work; documentation added
 //
 // Revision 1.6  2003/04/09 15:39:11  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
@@ -218,8 +224,6 @@ protected:
     /** Saves the given route together with her alternatives */
     RORouteDef *computeRoute(OptionsCont &options, ROAbstractRouter &router,
         ROVehicle *veh);
-
-    bool saveRoute(RORouteDef *route, ROVehicle *veh);
 
     /// Initialises the lists of source and destination edges
     void checkSourceAndDestinations();

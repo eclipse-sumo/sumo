@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/01/09 12:00:59  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.8  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -101,6 +104,7 @@ public:
     ~RORDLoader_SUMOAlt();
 
 protected:
+    //{ XML-handling methods
     /** the user-impemlented handler method for an opening tag */
     void myStartElement(int element, const std::string &name,
         const Attributes &attrs);
@@ -111,15 +115,9 @@ protected:
 
     /** the user-implemented handler method for a closing tag */
     void myEndElement(int element, const std::string &name);
+    //}
 
 protected:
-    /// Return the information whether a route was read
-    bool nextRouteRead();
-
-    /// Initialises the reading of a further route
-    void beginNextRoute();
-
-private:
     /// Begins the parsing of the next route alternative in the file
     void startAlternative(const Attributes &attrs);
 
@@ -131,22 +129,19 @@ private:
 
 private:
     /// The current route alternatives
-    RORouteDef_Alternatives *_currentAlternatives;
+    RORouteDef_Alternatives *myCurrentAlternatives;
 
     /// The costs of the current alternative
-    SUMOReal _cost;
+    SUMOReal myCost;
 
     /// The probability of the current alternative's usage
-    SUMOReal _prob;
+    SUMOReal myProbability;
 
     /// gawron beta - value
-    SUMOReal _gawronBeta;
+    SUMOReal myGawronBeta;
 
     /// gawron beta - value
-    SUMOReal _gawronA;
-
-    /// The information whether the next route was read
-    bool _nextRouteRead;
+    SUMOReal myGawronA;
 
     /// The maximum route alternatives number
     int myMaxRouteNumber;

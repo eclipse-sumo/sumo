@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/01/09 12:00:59  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.7  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -36,10 +39,13 @@
 // debugging
 //
 // Revision 1.2  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
+// debugging while working on INVENT;
+//  preparation of classes to be derived for an online-routing
 //
 // Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
+// loaders and route-def types are now renamed in an senseful way;
+//  further changes in order to make both new routers work;
+//  documentation added
 //
 // ------------------------------------------------
 //
@@ -58,6 +64,7 @@
 #include "ROTypedXMLRoutesLoader.h"
 #include <utils/gfx/RGBColor.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/sumoxml/SUMOBaseRouteHandler.h>
 
 
 /* =========================================================================
@@ -86,7 +93,7 @@ class MsgHandler;
  *  single class (this one).
  */
 class RORDLoader_SUMOBase :
-    public ROTypedXMLRoutesLoader {
+    public ROTypedXMLRoutesLoader, public SUMOBaseRouteHandler {
 public:
     /// Constructor
     RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
@@ -104,33 +111,31 @@ public:
     SUMOTime getCurrentTimeStep() const;
 
 protected:
-    /// Retrieves a SUMOReal from the attributes and reports errors, if any occure
-    SUMOReal getFloatReporting(const Attributes &attrs, AttrEnum attr,
-        const std::string &id, const std::string &name);
+    //{ XML-handling methods
+    /** the user-impemlented handler method for an opening tag */
+    virtual void myStartElement(int element, const std::string &name,
+        const Attributes &attrs);
 
-    /// Retrieves the routes's color definition
-    RGBColor parseColor(const Attributes &attrs,
-        const std::string &type, const std::string &id);
+    /** the user-implemented handler method for a closing tag */
+    virtual void myEndElement(int element, const std::string &name);
+    //}
 
-    /// Parses and returns the type of the vehicle
-    ROVehicleType* getVehicleType(const Attributes &attrs,
-        const std::string &id);
+    /// Return the information whether a route was read
+    bool nextRouteRead();
 
-    /// Parses and returns the departure time of the current vehicle
-    void getVehicleDepartureTime(const Attributes &attrs,
-        const std::string &id);
-
-    /// Parses and returns the route of the vehicle
-    RORouteDef *getVehicleRoute(const Attributes &attrs,
-        const std::string &id);
-
-    /// Parses a vehicle
-    void startVehicle(const Attributes &attrs);
+    /// Initialises the reading of a further route
+    void beginNextRoute();
 
     /// Parses a vehicle type
     void startVehType(const Attributes &attrs);
 
     MsgHandler *getErrorHandlerMarkInvalid();
+
+    /// begins the processing of a route
+    virtual void startRoute(const Attributes &attrs) = 0;
+
+    void closeVehicle();
+
 
 protected:
     /// The type of the parsed file to allow a distinction
@@ -139,12 +144,12 @@ protected:
     /// The color of the current route
     RGBColor myCurrentColor;
 
-    /// The time step read as last
-    SUMOTime myDepartureTime;
-
     /** @brief Information whether the current route shall not be processed
         This may occure on errors */
     bool mySkipCurrent;
+
+    /// Information whether a further route has been read
+    bool myHaveNextRoute;
 
 };
 

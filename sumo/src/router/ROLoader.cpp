@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/01/09 12:00:58  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.23  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -179,11 +182,19 @@ ROLoader::~ROLoader()
 RONet *
 ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
 {
-    RONet *net = new RONet(_options.isSet("sumo-input"));
     std::string file = _options.getString("n");
+    if(file=="") {
+        MsgHandler::getErrorInstance()->inform("Missing definition of network to load!");
+        return 0;
+    }
+    if(!FileHelpers::exists(file)) {
+        MsgHandler::getErrorInstance()->inform("The network file '" + file + "' could not be found.");
+        return 0;
+    }
     if(_options.getBool("v")) {
         MsgHandler::getMessageInstance()->inform("Loading net... ");
     }
+    RONet *net = new RONet(_options.isSet("sumo-input"));
     RONetHandler handler(_options, *net, eb);
     handler.setFileName(file);
     XMLHelpers::runParser(handler, file);
@@ -199,7 +210,7 @@ ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
 }
 
 
-void
+size_t
 ROLoader::openRoutes(RONet &net, SUMOReal gBeta, SUMOReal gA)
 {
     // build loader
@@ -220,13 +231,15 @@ ROLoader::openRoutes(RONet &net, SUMOReal gBeta, SUMOReal gA)
     if(_options.isSet("R")) {
         RORDGenerator_Random *randGen =
             new RORDGenerator_Random(myVehicleBuilder, net,
-                _options.getInt("begin"), _options.getInt("end"));
+                _options.getInt("begin"), _options.getInt("end"),
+                _options.getBool("prune-random"));
         randGen->init(_options);
         _handler.push_back(randGen);
     }
     if(!_options.getBool("unsorted")) {
         skipUntilBegin();
     }
+    return _handler.size();
 }
 
 void
@@ -358,10 +371,7 @@ ROLoader::openTypedRoutes(const std::string &optionName,
         return;
     }
     // check the given files
-    if(!FileHelpers::checkFileList(_options.getString(optionName))) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The list of ") + optionName +
-            string("' is empty!"));
+    if(!FileHelpers::checkFileList(optionName, _options.getString(optionName))) {
         throw ProcessError();
     }
     // allocate a reader and add it to the list
@@ -439,45 +449,25 @@ void
 ROLoader::checkFile(const std::string &optionName,
                     const std::string &file)
 {
-    if(optionName=="sumo-input") {
-        if(FileHelpers::exists(file)) {
-            return;
-        }
+    if(optionName=="sumo-input"&&FileHelpers::exists(file)) {
+        return;
     }
-    if(optionName=="trip-defs") {
-        if(FileHelpers::exists(file)) {
-            return;
-        }
+    if(optionName=="trip-defs"&&FileHelpers::exists(file)) {
+        return;
     }
-    if(optionName=="cell-input") {
-        if( FileHelpers::exists(file+string(".driver"))
-            &&
-            FileHelpers::exists(file+string(".rinfo"))) {
-
-            return;
-        }
+    if(optionName=="cell-input"&&FileHelpers::exists(file+string(".driver"))&&FileHelpers::exists(file+".rinfo")) {
+        return;
     }
-    if(optionName=="artemis-input") {
-        if( FileHelpers::exists(file + "/HVdests.txt")
-            &&
-            FileHelpers::exists(file + "/Flows.txt")) {
-
-            return;
-        }
+    if(optionName=="artemis-input"&&FileHelpers::exists(file + "/HVdests.txt")&&FileHelpers::exists(file + "/Flows.txt")) {
+        return;
     }
-    if(optionName=="alternatives") {
-        if(FileHelpers::exists(file)) {
-            return;
-        }
+    if(optionName=="alternatives"&&FileHelpers::exists(file)) {
+        return;
     }
-    if(optionName=="flows") {
-        if(FileHelpers::exists(file)) {
-            return;
-        }
+    if(optionName=="flows"&&FileHelpers::exists(file)) {
+        return;
     }
-    MsgHandler::getErrorInstance()->inform(
-        string("Problems with ") + optionName + string("-typed input '")
-        + file + string("'."));
+    MsgHandler::getErrorInstance()->inform("File '" + file + "' used as " + optionName + " not found.");
     throw ProcessError();
 }
 
@@ -488,9 +478,7 @@ ROLoader::loadWeights(RONet &net, const std::string &file,
 {
     // check whether the file exists
     if(!FileHelpers::exists(file)) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The weights file '") + file
-            + string("' does not exist!"));
+        MsgHandler::getErrorInstance()->inform("The weights file '" + file + "' does not exist!");
         return false;
     }
     // build and prepare the weights handler
@@ -514,9 +502,7 @@ ROLoader::loadSupplementaryWeights( RONet& net )
 {
     string filename = _options.getString( "S" );
     if( ! FileHelpers::exists( filename ) ) {
-        MsgHandler::getErrorInstance()->inform(
-            string( "The supplementary-weights file '" ) + filename +
-            string( "' does not exist!" ) );
+        MsgHandler::getErrorInstance()->inform("The supplementary-weights file '" + filename + "' does not exist!" );
         throw ProcessError();
     }
 

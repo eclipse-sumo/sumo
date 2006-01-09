@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/01/09 12:00:14  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.3  2005/11/09 06:43:20  dkrajzew
 // TLS-API: MSEdgeContinuations added
 //
@@ -173,7 +176,6 @@ namespace
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
-#include <microsim/MSLaneState.h>
 #include <microsim/traffic_lights/MSAgentbasedTrafficLightLogic.h>
 #include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <utils/iodevices/SharedOutputDevices.h>
@@ -205,9 +207,10 @@ NLHandler::NLHandler(const std::string &file,
                            NLTriggerBuilder &triggerBuilder,
                            NLEdgeControlBuilder &edgeBuilder,
                            NLJunctionControlBuilder &junctionBuilder,
-                           NLGeomShapeBuilder &shapeBuilder)
+                           NLGeomShapeBuilder &shapeBuilder,
+                           bool wantsVehicleColor)
 
-    : MSRouteHandler(file, true),
+    : MSRouteHandler(file, true, wantsVehicleColor),
     myActionBuilder(net), myNet(net),
     myCurrentIsInternalToSkip(false),
     myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),

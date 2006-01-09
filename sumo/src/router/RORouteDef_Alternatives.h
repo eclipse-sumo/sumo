@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/01/09 12:00:59  dkrajzew
+// debugging vehicle color usage
+//
 // Revision 1.7  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -132,10 +135,10 @@ public:
     void addAlternative(RORoute *current, SUMOTime begin);
 
     /// Writes the currently chosen route to the stream
-    void xmlOutCurrent(std::ostream &res, bool isPeriodical) const;
+//    void xmlOutCurrent(std::ostream &res, bool isPeriodical) const;
 
-    /// Writes all the alternatives to the stream
-    void xmlOutAlternatives(std::ostream &altres) const;
+    // Writes all the alternatives to the stream
+//    void xmlOutAlternatives(std::ostream &altres) const;
 
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;
@@ -147,6 +150,15 @@ public:
 	void addExplicite(RORoute *current, SUMOTime begin);
 
 	void removeLast();
+
+    /** @brief returns the index of the route that was used as last */
+    virtual int getLastUsedIndex() const;
+
+    /** @brief returns the number of alternatives */
+    virtual size_t getAlternativesSize() const;
+
+    /// Returns the alternative at the given index
+    virtual const RORoute &getAlternative(size_t i) const;
 
 private:
     /// Searches for the route within the list of alternatives
