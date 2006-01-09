@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2006/01/09 13:38:46  dkrajzew
+// debugging
+//
 // Revision 1.31  2005/11/09 06:47:53  dkrajzew
 // tls-api changes
 //
@@ -206,6 +209,7 @@ AttributesHandler::Attr sumoattrs[88] =
     { "priority",       SUMO_ATTR_PRIORITY },
     { "nolanes",        SUMO_ATTR_NOLANES },
     { "speed",          SUMO_ATTR_SPEED },
+
     { "length",         SUMO_ATTR_LENGTH },
     { "fromnode",       SUMO_ATTR_FROMNODE },
     { "tonode",         SUMO_ATTR_TONODE },
@@ -213,27 +217,37 @@ AttributesHandler::Attr sumoattrs[88] =
     { "yfrom",          SUMO_ATTR_YFROM },
     { "xto",            SUMO_ATTR_XTO },
     { "yto",            SUMO_ATTR_YTO },
+
+    { "changeurge",     SUMO_ATTR_CHANGEURGE },
+
     { "x",              SUMO_ATTR_X },
     { "y",              SUMO_ATTR_Y },
+
     { "key",            SUMO_ATTR_KEY },
+    { "request",        SUMO_ATTR_REQUEST },
+    { "response",       SUMO_ATTR_RESPONSE },
+
     { "weight",         SUMO_ATTR_WEIGHT },
+
     { "depart",         SUMO_ATTR_DEPART },
     { "route",          SUMO_ATTR_ROUTE },
     { "maxspeed",       SUMO_ATTR_MAXSPEED },
     { "accel",          SUMO_ATTR_ACCEL },
     { "decel",          SUMO_ATTR_DECEL },
     { "sigma",          SUMO_ATTR_SIGMA },
+    { "repno",          SUMO_ATTR_REPNUMBER },
+
     { "last",           SUMO_ATTR_LAST },
     { "cost",           SUMO_ATTR_COST },
     { "probability",    SUMO_ATTR_PROB },
+
     { "pos",            SUMO_ATTR_POS },
     { "lane",           SUMO_ATTR_LANE },
     { "from",           SUMO_ATTR_FROM },
     { "to",             SUMO_ATTR_TO },
+    { "period",         SUMO_ATTR_PERIOD },
+
     { "function",       SUMO_ATTR_FUNC },
-    { "changeurge",     SUMO_ATTR_CHANGEURGE },
-    { "request",        SUMO_ATTR_REQUEST },
-    { "response",       SUMO_ATTR_RESPONSE },
     { "pos",            SUMO_ATTR_POSITION },
     { "freq",           SUMO_ATTR_SPLINTERVAL },
     { "style",          SUMO_ATTR_STYLE },
@@ -245,6 +259,7 @@ AttributesHandler::Attr sumoattrs[88] =
     { "brake",          SUMO_ATTR_BRAKE },
     { "yellow",         SUMO_ATTR_YELLOW },
     { "duration",       SUMO_ATTR_DURATION },
+
     { "objecttype",     SUMO_ATTR_OBJECTTYPE },
     { "attr",           SUMO_ATTR_ATTR },
     { "objectid",       SUMO_ATTR_OBJECTID },
@@ -253,8 +268,6 @@ AttributesHandler::Attr sumoattrs[88] =
     { "traveltime",     SUMO_ATTR_VALUE },
     { "begin",          SUMO_ATTR_BEGIN },
     { "end",            SUMO_ATTR_END },
-    { "period",         SUMO_ATTR_PERIOD },
-    { "repno",          SUMO_ATTR_REPNUMBER },
     { "tl",             SUMO_ATTR_TLID },
     { "linkno",         SUMO_ATTR_TLLINKNO },
     { "shape",          SUMO_ATTR_SHAPE },
@@ -262,26 +275,31 @@ AttributesHandler::Attr sumoattrs[88] =
     { "color",          SUMO_ATTR_COLOR },
     { "dir",            SUMO_ATTR_DIR },
     { "state",          SUMO_ATTR_STATE },
+
     { "dest",           SUMO_ATTR_DEST },
     { "source",         SUMO_ATTR_SOURCE },
     { "via",            SUMO_ATTR_VIA },
     { "int_end",        SUMO_ATTR_INTERNALEND },
+
     { "min_dur",        SUMO_ATTR_MINDURATION },
     { "max_dur",        SUMO_ATTR_MAXDURATION },
     { "foes",           SUMO_ATTR_FOES },
     { "measures",       SUMO_ATTR_MEASURES },
+
     { "cont",           SUMO_ATTR_CONT },
     { "time_treshold",  SUMO_ATTR_HALTING_TIME_THRESHOLD },
     { "speed_treshold", SUMO_ATTR_HALTING_SPEED_THRESHOLD },
     { "jam_treshold",   SUMO_ATTR_JAM_DIST_THRESHOLD },
     { "keep_for",       SUMO_ATTR_DELETE_DATA_AFTER_SECONDS },
     { "det_offset",     SUMO_ATTR_DET_OFFSET },
+
     { "vehno",          SUMO_ATTR_VEHNO },
     { "perc",           SUMO_ATTR_PERC },
     { "edge-id",        SUMO_ATTR_EDGE_ID },
     { "absolut",        SUMO_ATTR_ABSOLUT },
     { "mult",           SUMO_ATTR_MULT },
     { "add",            SUMO_ATTR_ADD },
+
     { "dist",           SUMO_ATTR_DIST },
     { "onEdges",        SUMO_ATTR_ONEDGES },
     { "seesEdges",      SUMO_ATTR_SEESEDGES },
