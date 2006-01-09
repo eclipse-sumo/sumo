@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/01/09 11:54:21  dkrajzew
+// debugging
+//
 // Revision 1.10  2005/11/09 06:36:06  dkrajzew
 // changing the LSA-API: MSEdgeContinuation added
 //
@@ -223,10 +226,10 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                 std::vector<MSLane*> predeccessors =
                     getLanePredeccessorLanes(toExtend, edgeContinuations);
                 if(predeccessors.size()==0) {
-                    size_t off = 1;
+                    int off = 1;
                     const MSEdge &e = toExtend->edge();
                     const std::vector<MSLane*> *lanes = e.getLanes();
-                    size_t idx =
+                    int idx =
                         distance(lanes->begin(), find(lanes->begin(), lanes->end(), toExtend));
                     while(predeccessors.size()==0) {
                         if(idx-off>=0) {
@@ -234,7 +237,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
                             predeccessors =
                                 getLanePredeccessorLanes(tryMe, edgeContinuations);
                         }
-                        if(predeccessors.size()==0&&idx+off<lanes->size()) {
+                        if(predeccessors.size()==0&&idx+off<(int) lanes->size()) {
                             MSLane *tryMe = (*lanes)[idx+off];
                             predeccessors =
                                 getLanePredeccessorLanes(tryMe, edgeContinuations);
@@ -288,7 +291,7 @@ MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
 {
     string eid = l->edge().id();
     // check whether any exist
-    if(edgeContinuations.hasFurther(l->edge())) {
+    if(!edgeContinuations.hasFurther(l->edge())) {
         return std::vector<MSLane*>();
     }
     // get predecessing edges
