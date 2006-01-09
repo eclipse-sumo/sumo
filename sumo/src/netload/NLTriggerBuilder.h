@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2006/01/09 12:00:28  dkrajzew
+// bus stops implemented
+//
 // Revision 1.9  2005/11/09 06:35:03  dkrajzew
 // Emitters reworked
 //
@@ -72,6 +75,7 @@ class NLHandler;
 class MSTriggeredRerouter;
 class MSLane;
 class MSEdge;
+class MSBusStop;
 
 #ifdef HAVE_MESOSIM
 class METriggeredCalibrator;
@@ -115,6 +119,11 @@ protected:
         const Attributes &attrs, const std::string &base,
         const NLHandler &helper);
 
+    /// builds a busstop
+    MSBusStop *parseAndBuildBusStop(MSNet &net,
+        const Attributes &attrs, const std::string &base,
+        const NLHandler &helper);
+
 #ifdef HAVE_MESOSIM
     /// Builds a mesoscopic calibrator
     METriggeredCalibrator *parseAndBuildCalibrator(MSNet &net,
@@ -132,6 +141,10 @@ protected:
     virtual MSEmitter *buildLaneEmitTrigger(MSNet &net,
         const std::string &id, MSLane *destLane, SUMOReal pos,
         const std::string &file);
+
+    virtual MSBusStop* buildBusStop(MSNet &net,
+        const std::string &id, const std::vector<std::string> &lines,
+        MSLane *lane, SUMOReal frompos, SUMOReal topos);
 
 #ifdef HAVE_MESOSIM
     /// builds a calibrator

@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.48  2006/01/09 11:53:00  dkrajzew
+// bus stops implemented
+//
 // Revision 1.47  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -321,7 +324,7 @@
 #include "MSRoute.h"
 #include "MSUnit.h"
 #include "MSCORN.h"
-//#include <utils/helpers/Counter.h>
+#include <list>
 #include <deque>
 #include <map>
 #include <string>
@@ -337,6 +340,7 @@ class MSLaneChanger;
 class MSVehicleTransfer;
 class MSVehicleQuitReminded;
 class MSAbstractLaneChangeModel;
+class MSBusStop;
 
 
 /* =========================================================================
@@ -403,9 +407,6 @@ public:
     };
 
 
-
-    /// Sort criterion for vehiles is the departure time.
-//    friend bool departTimeSortCrit( const MSVehicle* x, const MSVehicle* y );
 
     /// Destructor.
     virtual ~MSVehicle();
@@ -543,26 +544,8 @@ public:
     void moveRegardingCritical( MSLane* lane,
         const MSVehicle* pred, const MSVehicle* neigh );
 
-    /// Slow down towards lane end. Updates state. For first vehicles only.
-//    void moveDecel2laneEnd( MSLane* lane );
-
-    /// Use this move for first vehicles that won't leave it's lane.
-//    void moveUpdateState( const State newState );
-
     /// Use this move for first vehicles that will leave it's lane.
     void moveSetState( const State newState );
-
-    // Slow down to one's lane end, don't respect neighbours. Lane-end
-    // need not to be the lane-end of the current lane.
-//    State nextState( MSLane* lane, SUMOReal gap ) const;
-
-    // Use this form if pred would give the wrong position, e.g. if you
-    // want to know what might will happen if this vehicle would have
-    // a new pred.
-/*    State nextStateCompete( MSLane* lane,
-                            State predState,
-                            SUMOReal gap2pred ) const;
-*/
 
 ///////////////////////////////////////////////////////////////////////////
     /// Returns the information whether the route ends on the given lane
@@ -683,10 +666,6 @@ public:
     bool isInsertBrakeCond( MSVehicle& aPred );
 
     const MSEdge * const getEdge() const;
-    /** Dumps the collected meanData of the indexed interval to myLane.
-        @param The index of the intervall to dump. */
-//    void dumpData( unsigned index );
-
     /** Update of members if vehicle enters a new lane in the move step.
         @param Pointer to the entered Lane. */
     void enterLaneAtMove( MSLane* enteredLane, SUMOReal driven );
@@ -705,9 +684,6 @@ public:
     /** Update of members if vehicle leaves a new lane in the
         laneChange step. */
     void leaveLaneAtLaneChange( void );
-
-    /* Update of MeanData members at every move a vehicle performs. */
-//    void meanDataMove( void );
 
     bool reachingCritical(SUMOReal laneLength) const;
 
@@ -748,9 +724,15 @@ public:
 
     bool proceedVirtualReturnWhetherEnded(const MSEdge *const to);
 
+    /** @brief returns the number of steps waited
+        A vehicle is meant to be "waiting" when it's speed is less than 0.1
+        It is only computed for "critical" vehicles
+        The method return a size_t, now, as we assume a vehicle will not wait for
+        longer than about 50 hours which still fits into a size_t when the simulation
+        runs in ms */
     size_t getWaitingTime() const;
+
     void removeApproachingInformationOnKill();
-//    void removeApproachingInformationOnKill(MSLane *begin);
 
     void rebuildAllowedLanes();
 
@@ -787,11 +769,34 @@ public:
 
     const MSVehicleType &getVehicleType() const;
 
+    void setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue);
+/*
+    struct StopDefinition {
+        MSLane *lane;
+        SUMOReal pos;
+    };
+*/
 public:
     void onDepart();
 
     void onTripEnd(/*MSLane &caller, */bool wasAlreadySet=false);
 	void writeXMLRoute(std::ostream &os, int index=-1) const;
+
+    struct Stop {
+        MSLane *lane;
+        MSBusStop *busstop;
+        SUMOReal pos;
+        SUMOTime duration;
+        bool reached;
+    };
+
+    std::list<Stop> myStops;
+
+    void addStop(const Stop &stop) {
+        myStops.push_back(stop);
+    }
+
+
 protected:
     /// Use this constructor only.
     MSVehicle( std::string id, MSRoute* route, SUMOTime departTime,
@@ -803,20 +808,6 @@ protected:
     SUMOReal vMin( SUMOReal v1, SUMOReal v2, SUMOReal v3, SUMOReal v4 ) const;
 
     void initDevices();
-
-    /** Reset meanData of indexed intervall after a dump.
-        @param The index of the intervall to clear. */
-//    void resetMeanData( unsigned index );
-
-    /* Helper for enterLaneAt* methods.
-        @param Timestep when vehicle entered the lane.
-        @param Position where vehicle entered the lane.
-        @param Speed at which vehicle entered the lane. */
-    /*
-    void updateMeanData( SUMOReal entryTimestep,
-                         SUMOReal pos,
-                         SUMOReal speed );
-*/
 
     /// information how long ago the vehicle has performed a lane-change
     SUMOTime myLastLaneChangeOffset;
@@ -869,22 +860,6 @@ private:
         according to it's route. */
     NextAllowedLanes myAllowedLanes;
 
-    // Collection of meanDataValues
-    /*
-    struct MeanDataValues
-    {
-        SUMOReal entryContTimestep;
-        unsigned entryDiscreteTimestep;
-        SUMOReal speedSum;
-        SUMOReal speedSquareSum;
-        bool enteredAtLaneStart;
-        SUMOReal entryTravelTimestep;
-        bool enteredLaneWithinIntervall;
-    };
-
-    /// Container of meanDataValues, one element for each mean-interval.
-    std::vector< MeanDataValues > myMeanData;
-*/
     /// Default constructor.
     MSVehicle();
 
@@ -908,18 +883,6 @@ private:
     /// Container for used Links/visited Lanes during lookForward.
     DriveItemVector myLFLinkLanes;
 
-/*    /// We need our own min/max methods because MSVC++ can't use the STL-ones.
-    inline SUMOReal min(SUMOReal v1, SUMOReal v2) const
-        { return ((v1 < v2) ? v1 : v2); };
-    inline SUMOReal max(SUMOReal v1, SUMOReal v2) const
-        { return ((v1 > v2) ? v1 : v2); };*/
-
-
-//  SUMOReal myVLinkPass;
-//  SUMOReal myVLinkWait;
-
-//    struct
-
     typedef std::vector< MSMoveReminder* > MoveReminderCont;
     typedef MoveReminderCont::iterator MoveReminderContIt;
     MoveReminderCont myMoveReminders;
@@ -931,8 +894,6 @@ private:
     void workOnMoveReminders( SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed,
                               MoveOnReminderMode = BOTH);
     void activateRemindersByEmitOrLaneChange( void );
-
-//    MSUnit::Cells movedDistanceDuringStepM;
 
     typedef std::vector<MSVehicleQuitReminded*> QuitRemindedVector;
     QuitRemindedVector myQuitReminded;

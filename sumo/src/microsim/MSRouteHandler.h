@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2006/01/09 11:57:05  dkrajzew
+// bus stops implemented
+//
 // Revision 1.12  2005/12/01 07:37:35  dkrajzew
 // introducing bus stops: eased building vehicles; vehicles may now have nested elements
 //
@@ -48,7 +51,10 @@
 // loading and using of a predefined vehicle color added
 //
 // Revision 1.3  2003/06/18 11:12:51  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.2  2003/03/20 16:21:12  dkrajzew
 // windows eol removed; multiple vehicle emission added
@@ -76,7 +82,9 @@
 #include <string>
 #include "MSRoute.h"
 #include "MSEmitControl.h"
+#include "MSVehicle.h"
 #include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/sumoxml/SUMOBaseRouteHandler.h>
 #include <utils/common/SUMOTime.h>
 
 
@@ -97,11 +105,12 @@ class RGBColor;
  * their transfering to the MSNet::RouteDict
  * The result of the operations are single MSNet::Route-instances
  */
-class MSRouteHandler : public SUMOSAXHandler
+class MSRouteHandler : public SUMOSAXHandler, public SUMOBaseRouteHandler
 {
 public:
     /// standard constructor
-    MSRouteHandler(const std::string &file, bool addVehiclesDirectly);
+    MSRouteHandler(const std::string &file, bool addVehiclesDirectly,
+        bool wantsVehicleColor);
 
     /// standard destructor
     virtual ~MSRouteHandler();
@@ -145,8 +154,8 @@ protected:
         const SUMOReal dmax, const SUMOReal sigma);
 
 
-    /** parses an occured vehicle definition */
-    void openVehicle(const Attributes &attrs);
+    /* parses an occured vehicle definition */
+    //void openVehicle(const Attributes &attrs);
 
     /** adds the parsed vehicle /
     MSVehicle *addParsedVehicle(const std::string &id,
@@ -185,31 +194,14 @@ protected:
         or kept within the buffer */
     bool myAddVehiclesDirectly;
 
-    //{ variables used during parsing of vehicles
-    /// the id of the current vehicle
-    std::string myActiveVehicleID;
-
-    /// Information about how often vehicles like the currently read shall be emitted
-    int myRepNumber;
-
-    /// Information about the dureation of the period between such emissions
-    int myRepOffset;
-
-    /// name of the currently read vehicle's type
-    std::string myCurrentVType;
-
-    /// name of the currently read vehicle's route
-    std::string myCurrentRouteName;
-
-    /// The currently read vehicle's depart
-    SUMOTime myCurrentDepart;
+    /** information whether colors of vehicles shall be loaded */
+    bool myWantVehicleColor;
 
     /// The vehicle's explicite route
     MSRoute *myCurrentEmbeddedRoute;
 
-    /// infomration whether the route is read in vehicle-embedded mode
-    bool myAmInEmbeddedMode;
-    //}
+    /// List of the stops the vehicle will make
+    std::vector<MSVehicle::Stop> myVehicleStops;
 
 private:
     /** invalid copy constructor */
@@ -217,6 +209,7 @@ private:
 
     /** invalid assignment operator */
     MSRouteHandler &operator=(const MSRouteHandler &s);
+
 };
 
 

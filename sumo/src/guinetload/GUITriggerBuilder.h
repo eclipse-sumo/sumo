@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2006/01/09 11:53:00  dkrajzew
+// bus stops implemented
+//
 // Revision 1.6  2005/11/09 06:35:03  dkrajzew
 // Emitters reworked
 //
@@ -91,6 +94,11 @@ protected:
     virtual MSTriggeredRerouter *buildRerouter(MSNet &net,
         const std::string &id, std::vector<MSEdge*> &edges,
         SUMOReal prob, const std::string &file);
+
+    /// builds a bus stop
+    virtual MSBusStop* buildBusStop(MSNet &net,
+        const std::string &id, const std::vector<std::string> &lines,
+        MSLane *lane, SUMOReal frompos, SUMOReal topos);
 
 };
 

@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/01/09 11:57:05  dkrajzew
+// bus stops implemented
+//
 // Revision 1.19  2005/12/01 07:37:35  dkrajzew
 // introducing bus stops: eased building vehicles; vehicles may now have nested elements
 //
@@ -123,6 +126,9 @@ namespace
 #include <utils/options/OptionsCont.h>
 #include "MSNet.h"
 
+#include <microsim/trigger/MSTriggerControl.h>
+#include <microsim/trigger/MSBusStop.h>
+
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
@@ -138,10 +144,12 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 MSRouteHandler::MSRouteHandler(const std::string &file,
-                               bool addVehiclesDirectly)
+                               bool addVehiclesDirectly,
+                               bool wantsVehicleColor)
     : SUMOSAXHandler("sumo-network/routes", file),
     myLastDepart(0), myLastReadVehicle(0),
-    myAddVehiclesDirectly(addVehiclesDirectly), myAmInEmbeddedMode(false),
+    myAddVehiclesDirectly(addVehiclesDirectly),
+    myWantVehicleColor(wantsVehicleColor),
     myCurrentEmbeddedRoute(0)
 {
     myActiveRoute.reserve(100);
@@ -170,12 +178,12 @@ MSRouteHandler::retrieveLastReadVehicle()
 
 
 void
-MSRouteHandler::myStartElement(int element, const std::string &,
-                              const Attributes &attrs)
+MSRouteHandler::myStartElement(int element, const std::string &name,
+                               const Attributes &attrs)
 {
     switch(element) {
     case SUMO_TAG_VEHICLE:
-        openVehicle(attrs);
+        openVehicle(*this, attrs, myWantVehicleColor);
         break;
     case SUMO_TAG_VTYPE:
         addVehicleType(attrs);
@@ -185,6 +193,66 @@ MSRouteHandler::myStartElement(int element, const std::string &,
         break;
     default:
         break;
+    }
+
+    if(name=="stop") { // !!! make an int out of this
+        MSVehicle::Stop stop;
+        stop.lane = 0;
+        stop.busstop = 0;
+        // try to parse the assigne bus stop
+        string bus_stop = getStringSecure(attrs, "bus_stop", "");
+        if(bus_stop!="") {
+            // ok, we have obviously a bus stop
+            MSBusStop *bs =
+                (MSBusStop*) MSNet::getInstance()->getTriggerControl().getTrigger(bus_stop);
+            if(bs!=0) {
+                const MSLane &l = bs->getLane();
+                stop.lane = &((MSLane &) l);
+                stop.busstop = bs;
+                stop.pos = bs->getEndLanePosition();
+            } else {
+                MsgHandler::getErrorInstance()->inform("The bus stop '" + bus_stop + "' is not known.");
+                return;
+            }
+        } else {
+            // no, the lane and the position should be given
+                // get the lane
+            string laneS = getStringSecure(attrs, SUMO_ATTR_LANE, "");
+            if(laneS!="") {
+                MSLane *l = MSLane::dictionary(laneS);
+                if(l==0) {
+                    MsgHandler::getErrorInstance()->inform("The lane '" + laneS + "' for a stop is not known.");
+                    return;
+                }
+                stop.lane = l;
+            } else {
+                MsgHandler::getErrorInstance()->inform("A stop must be placed on a bus stop or a lane.");
+                return;
+            }
+                // get the position
+            try {
+                stop.pos = getFloat(attrs, SUMO_ATTR_POS);
+            } catch(EmptyData&) {
+                MsgHandler::getErrorInstance()->inform("The position of a stop is not defined.");
+                return;
+            } catch(NumberFormatException&) {
+                MsgHandler::getErrorInstance()->inform("The position of a stop is not numeric.");
+                return;
+            }
+        }
+
+        // get the standing duration
+        try {
+            stop.duration = getFloat(attrs, "duration");
+        } catch(EmptyData&) {
+            MsgHandler::getErrorInstance()->inform("The duration of a stop is not defined.");
+            return;
+        } catch(NumberFormatException&) {
+            MsgHandler::getErrorInstance()->inform("The duration of a stop is not numeric.");
+            return;
+        }
+        stop.reached = false;
+        myVehicleStops.push_back(stop);
     }
 }
 
@@ -267,7 +335,7 @@ MSRouteHandler::openRoute(const Attributes &attrs)
     m_IsMultiReferenced = multiReferenced;
 }
 
-
+/*
 void
 MSRouteHandler::openVehicle(const Attributes &attrs)
 {
@@ -278,7 +346,7 @@ MSRouteHandler::openVehicle(const Attributes &attrs)
             getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
     // !!! unsecure
     // try to get the id first
-            */
+            /
     try {
         myActiveVehicleID = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
@@ -307,6 +375,7 @@ MSRouteHandler::openVehicle(const Attributes &attrs)
         return;
     }
 }
+*/
 
 /*
 MSVehicle *
@@ -449,6 +518,9 @@ MSRouteHandler::closeRoute()
         }
         */
     }
+    if(myAmInEmbeddedMode) {
+        myCurrentEmbeddedRoute = route;
+    }
 }
 
 
@@ -476,7 +548,7 @@ MSRouteHandler::closeVehicle()
     }
     */
 
-    myAmInEmbeddedMode = false;
+    SUMOBaseRouteHandler::closeVehicle();
     // get the vehicle's type
     MSVehicleType *vtype = MSVehicleType::dictionary(myCurrentVType);
     if(vtype==0) {
@@ -497,6 +569,12 @@ MSRouteHandler::closeVehicle()
     MSVehicle *vehicle =
         MSNet::getInstance()->getVehicleControl().buildVehicle(myActiveVehicleID,
             route, myCurrentDepart, vtype, myRepNumber, myRepOffset);
+    if(myWantVehicleColor&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
+        vehicle->setCORNColor(
+            myCurrentVehicleColor.red(),
+            myCurrentVehicleColor.green(),
+            myCurrentVehicleColor.blue());
+    }
     if(!MSVehicle::dictionary(myActiveVehicleID, vehicle)) {
         delete vehicle;
         throw XMLIdAlreadyUsedException("vehicle", myActiveVehicleID);
@@ -517,6 +595,12 @@ MSRouteHandler::closeVehicle()
     } else {
         myLastReadVehicle = vehicle;
     }
+    if(vehicle!=0) {
+        for(std::vector<MSVehicle::Stop>::iterator i=myVehicleStops.begin(); i!=myVehicleStops.end(); ++i) {
+            vehicle->addStop(*i);
+        }
+    }
+    myVehicleStops.clear();
     myLastDepart = myCurrentDepart;
     myCurrentEmbeddedRoute = 0;
 //    return vehicle;

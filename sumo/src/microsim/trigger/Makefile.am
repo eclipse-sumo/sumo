@@ -3,7 +3,7 @@ noinst_LIBRARIES = libmicrosimtrigger.a
 
 EXTRA_DIST =
 
-libmicrosimtrigger_a_SOURCES = \
+libmicrosimtrigger_a_SOURCES = MSBusStop.cpp MSBusStop.h \
 MSLaneSpeedTrigger.cpp MSLaneSpeedTrigger.h \
 MSTrigger.h \
 MSTriggerControl.cpp MSTriggerControl.h \

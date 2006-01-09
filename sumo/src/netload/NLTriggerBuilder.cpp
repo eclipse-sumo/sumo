@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/01/09 12:00:28  dkrajzew
+// bus stops implemented
+//
 // Revision 1.12  2005/11/09 06:35:03  dkrajzew
 // Emitters reworked
 //
@@ -90,6 +93,7 @@ namespace
 #include <microsim/trigger/MSEmitter.h>
 #include <microsim/trigger/MSTriggerControl.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
+#include <microsim/trigger/MSBusStop.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/FileHelpers.h>
@@ -136,7 +140,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
 {
     string type = helper.getString(attrs, SUMO_ATTR_OBJECTTYPE);
     string attr = helper.getStringSecure(attrs, SUMO_ATTR_ATTR, "");
-    // check which typ of a trigger shall be build
+    // check which type of a trigger shall be build
     MSTrigger *t = 0;
     if(type=="lane"&&attr=="speed") {
         t = parseAndBuildLaneSpeedTrigger(net, attrs, base, helper);
@@ -144,6 +148,8 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
         t = parseAndBuildLaneEmitTrigger(net, attrs, base, helper);
     } else if(type=="rerouter") {
         t = parseAndBuildRerouter(net, attrs, base, helper);
+    } else if(type=="bus_stop") {
+        t = parseAndBuildBusStop(net, attrs, base, helper);
     }
 #ifdef HAVE_MESOSIM
     else if(type=="calibrator") {
@@ -163,8 +169,9 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net,
                                                 const std::string &base,
                                                 const NLHandler &helper)
 {
-    // check whether absolute or relative filenames are given
+    // get the file name to read further definitions from
     string file = helper.getString(attrs, SUMO_ATTR_FILE);
+        // check whether absolute or relative filenames are given
     if(!FileHelpers::isAbsolute(file)) {
         file = FileHelpers::getConfigurationRelative(base, file);
     }
@@ -199,8 +206,9 @@ NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net,
                                                const std::string &base,
                                                const NLHandler &helper)
 {
-    // check whether absolute or relative filenames are given
+    // get the file name to read further definitions from
     string file = helper.getString(attrs, SUMO_ATTR_FILE);
+        // check whether absolute or relative filenames are given
     if(!FileHelpers::isAbsolute(file)) {
         file = FileHelpers::getConfigurationRelative(base, file);
     }
@@ -221,6 +229,50 @@ NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net,
 }
 
 
+MSBusStop *
+NLTriggerBuilder::parseAndBuildBusStop(MSNet &net,
+                                       const Attributes &attrs,
+                                       const std::string &base,
+                                       const NLHandler &helper)
+{
+    string id = helper.getString(attrs, SUMO_ATTR_ID);
+    // get the lane
+    string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
+    MSLane *lane = MSLane::dictionary(objectid);
+    if(lane==0) {
+        MsgHandler::getErrorInstance()->inform("The lane to use within MSEmitter '" + id + "' is not known.");
+        throw ProcessError();
+    }
+    // get the positions
+    SUMOReal frompos, topos;
+    try {
+        frompos = helper.getFloat(attrs, SUMO_ATTR_FROM);
+        topos = helper.getFloat(attrs, SUMO_ATTR_TO);
+    } catch (EmptyData&) {
+        MsgHandler::getErrorInstance()->inform("Either the begin or the end position of busstop '" + id + "' is not given.");
+        throw ProcessError();
+    } catch (NumberFormatException&) {
+        MsgHandler::getErrorInstance()->inform("Either the begin or the end position of busstop '" + id + "' is not numeric.");
+        throw ProcessError();
+    }
+    if(frompos<0) {
+        frompos = lane->length() + frompos;
+    }
+    if(topos<0) {
+        topos = lane->length() + topos;
+    }
+    // get the lines
+    std::string lineStr = helper.getStringSecure(attrs, "lines", "");
+    std::vector<std::string> lines;
+    if(lineStr.length()!=0) {
+        StringTokenizer st(lineStr, ";");
+        lines = st.getVector();
+    }
+    // build the bus stop
+    return buildBusStop(net, id, lines, lane, frompos, topos);
+}
+
+
 #ifdef HAVE_MESOSIM
 METriggeredCalibrator *
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
@@ -228,8 +280,9 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
                                           const std::string &base,
                                           const NLHandler &helper)
 {
-    // check whether absolute or relative filenames are given
+    // get the file name to read further definitions from
     string file = helper.getString(attrs, SUMO_ATTR_FILE);
+        // check whether absolute or relative filenames are given
     if(!FileHelpers::isAbsolute(file)) {
         file = FileHelpers::getConfigurationRelative(base, file);
     }
@@ -272,8 +325,9 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
                                         const std::string &base,
                                         const NLHandler &helper)
 {
-    // check whether absolute or relative filenames are given
+    // get the file name to read further definitions from
     string file = helper.getString(attrs, SUMO_ATTR_FILE);
+        // check whether absolute or relative filenames are given
     if(!FileHelpers::isAbsolute(file)) {
         file = FileHelpers::getConfigurationRelative(base, file);
     }
@@ -360,6 +414,17 @@ NLTriggerBuilder::buildRerouter(MSNet &net, const std::string &id,
 {
     return new MSTriggeredRerouter(id, net, edges, prob, file);
 }
+
+
+MSBusStop*
+NLTriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
+                               const std::vector<std::string> &lines,
+                               MSLane *lane,
+                               SUMOReal frompos, SUMOReal topos)
+{
+    return new MSBusStop(id, std::vector<std::string>(), *lane, frompos, topos);
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

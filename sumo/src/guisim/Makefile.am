@@ -1,6 +1,7 @@
 noinst_LIBRARIES = libguisim.a
 
-libguisim_a_SOURCES = GUIDetectorWrapper.cpp GUIDetectorWrapper.h \
+libguisim_a_SOURCES = GUIBusStop.cpp GUIBusStop.h \
+GUIDetectorWrapper.cpp GUIDetectorWrapper.h \
 GUIE3Collector.cpp GUIE3Collector.h GUIEdge.cpp GUIEdge.h \
 GUIEdgeCont.h GUIGridBuilder.cpp GUIGridBuilder.h  \
 GUIHelpingJunction.cpp GUIHelpingJunction.h \

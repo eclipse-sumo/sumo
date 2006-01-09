@@ -21,6 +21,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/01/09 11:53:00  dkrajzew
+// bus stops implemented
+//
 // Revision 1.6  2005/11/09 06:35:03  dkrajzew
 // Emitters reworked
 //
@@ -58,6 +61,7 @@ namespace
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUIEmitter.h>
 #include <guisim/GUITriggeredRerouter.h>
+#include <guisim/GUIBusStop.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
@@ -116,6 +120,16 @@ GUITriggerBuilder::buildRerouter(MSNet &net, const std::string &id,
                                  SUMOReal prob, const std::string &file)
 {
     return new GUITriggeredRerouter(id, net, edges, prob, file);
+}
+
+
+MSBusStop*
+GUITriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
+                                const std::vector<std::string> &lines,
+                                MSLane *lane,
+                                SUMOReal frompos, SUMOReal topos)
+{
+    return new GUIBusStop(id, net, lines, *lane, frompos, topos);
 }
 
 
