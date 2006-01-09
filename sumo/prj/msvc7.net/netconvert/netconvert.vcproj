@@ -131,10 +131,11 @@ copy Debug\netconvert.exe ..\..\..\bin\netconvertD.exe
 				Name="VCPostBuildEventTool"
 				CommandLine="mkdir ..\..\..\bin
 copy Release\netconvert.exe ..\..\..\bin\netconvert.exe
-..\..\add-ins\incBuildNumber.pl netconvert
+
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				CommandLine="..\..\add-ins\incBuildNumber.pl netconvert"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool

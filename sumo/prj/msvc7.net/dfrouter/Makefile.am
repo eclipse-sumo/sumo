@@ -1,1 +1,1 @@
-EXTRA_DIST = duarouter.vcproj
+EXTRA_DIST = dfrouter.vcproj

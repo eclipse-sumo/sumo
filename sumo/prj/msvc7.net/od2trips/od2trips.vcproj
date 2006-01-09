@@ -60,10 +60,11 @@
 				Name="VCPostBuildEventTool"
 				CommandLine="mkdir ..\..\..\bin
 copy Release\od2trips.exe ..\..\..\bin\od2trips.exe
-..\..\add-ins\incBuildNumber.pl od2trips
+
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				CommandLine="..\..\add-ins\incBuildNumber.pl od2trips"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool

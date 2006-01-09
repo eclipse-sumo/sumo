@@ -63,11 +63,12 @@
 				Name="VCPostBuildEventTool"
 				CommandLine="mkdir ..\..\..\bin
 copy Release\giant.exe ..\..\..\bin\giant.exe
-..\..\add-ins\incBuildNumber.pl giant
+
 
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				CommandLine="..\..\add-ins\incBuildNumber.pl giant"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool

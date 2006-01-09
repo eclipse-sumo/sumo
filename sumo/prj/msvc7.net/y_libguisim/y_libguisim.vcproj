@@ -164,6 +164,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\guisim\GUIBusStop.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\guisim\GUIDetectorWrapper.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -647,6 +650,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUI_E2_ZS_CollectorOverLanes.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\guisim\GUIBusStop.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUIDetectorWrapper.h">

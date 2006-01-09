@@ -129,10 +129,11 @@ copy Debug\jtrrouter.exe ..\..\..\bin\jtrrouterD.exe
 				Name="VCPostBuildEventTool"
 				CommandLine="mkdir ..\..\..\bin
 copy Release\jtrrouter.exe ..\..\..\bin\jtrrouter.exe
-..\..\add-ins\incBuildNumber.pl jtrrouter
+
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				CommandLine="..\..\add-ins\incBuildNumber.pl jtrrouter"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool

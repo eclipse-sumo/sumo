@@ -143,10 +143,6 @@ SOURCE=..\..\..\src\gui\dialogs\GUIDialog_GLObjChooser.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\dialogs\GUIDialog_MicroViewSettings.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\gui\dialogs\GUIDialog_SimSettings.cpp
 # End Source File
 # Begin Source File
@@ -219,10 +215,6 @@ SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\gui\GUIViewAggregatedLanes.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\gui\GUIViewTraffic.cpp
 # End Source File
 # End Group
@@ -252,6 +244,10 @@ SOURCE=..\..\..\src\gui\drawerimpl\GUIBaseROWDrawer.h
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\drawerimpl\GUIBaseVehicleDrawer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\drawer\GUIColorer_ColorRetrival.h
 # End Source File
 # Begin Source File
 
@@ -288,10 +284,6 @@ SOURCE=..\..\..\src\gui\dialogs\GUIDialog_EditAddWeights.h
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\dialogs\GUIDialog_GLObjChooser.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\dialogs\GUIDialog_MicroViewSettings.h
 # End Source File
 # Begin Source File
 
@@ -364,10 +356,6 @@ SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGnTasTriangle.h
 # Begin Source File
 
 SOURCE=..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\gui\GUIViewAggregatedLanes.h
 # End Source File
 # Begin Source File
 

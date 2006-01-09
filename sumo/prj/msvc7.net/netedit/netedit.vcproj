@@ -132,10 +132,11 @@ copy Debug\netedit.exe ..\..\..\bin\neteditD.exe
 				Name="VCPostBuildEventTool"
 				CommandLine="mkdir ..\..\..\bin
 copy Release\netedit.exe ..\..\..\bin\netedit.exe
-..\..\add-ins\incBuildNumber.pl netedit
+
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				CommandLine="..\..\add-ins\incBuildNumber.pl netedit"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool

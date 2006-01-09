@@ -129,10 +129,10 @@ copy Debug\sumo.exe ..\..\..\bin\sumoD.exe
 				Name="VCPostBuildEventTool"
 				CommandLine="mkdir ..\..\..\bin
 copy Release\sumo.exe ..\..\..\bin\sumo.exe
-..\..\add-ins\incBuildNumber.pl sumo
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				CommandLine="..\..\add-ins\incBuildNumber.pl sumo"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool

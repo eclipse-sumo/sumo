@@ -389,26 +389,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_MicroViewSettings.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_SimSettings.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -684,26 +664,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\GUIViewAggregatedLanes.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\gui\GUIViewTraffic.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -776,9 +736,6 @@
 				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_GLObjChooser.h">
 			</File>
 			<File
-				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_MicroViewSettings.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\gui\dialogs\GUIDialog_SimSettings.h">
 			</File>
 			<File
@@ -837,9 +794,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\drawerimpl\GUIVehicleDrawer_SGwTasTriangle.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\gui\GUIViewAggregatedLanes.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\gui\GUIViewTraffic.h">

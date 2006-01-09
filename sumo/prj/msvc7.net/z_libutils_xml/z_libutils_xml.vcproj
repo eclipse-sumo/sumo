@@ -163,6 +163,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\sumoxml\SUMOBaseRouteHandler.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\xml\XMLBuildingExceptions.cpp">
 				<FileConfiguration
 					Name="Release|Win32">
@@ -214,6 +217,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\xml\GenericSAX2Handler.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\sumoxml\SUMOBaseRouteHandler.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\xml\XMLBuildingExceptions.h">

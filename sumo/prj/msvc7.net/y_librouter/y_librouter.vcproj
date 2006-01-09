@@ -768,6 +768,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\router\ROVehicleType_ID.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\router\ROVehicleType_Krauss.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -956,6 +959,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\ROVehicleType.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\router\ROVehicleType_ID.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\ROVehicleType_Krauss.h">

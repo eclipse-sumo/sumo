@@ -1,4 +1,5 @@
 SUBDIRS = \
+dfrouter \
 duarouter \
 giant \
 guisim \

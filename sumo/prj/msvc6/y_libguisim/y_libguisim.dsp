@@ -95,6 +95,10 @@ SOURCE=..\..\..\src\guisim\GUI_E2_ZS_CollectorOverLanes.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\guisim\GUIBusStop.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\guisim\GUIDetectorWrapper.cpp
 # End Source File
 # Begin Source File
@@ -212,6 +216,10 @@ SOURCE=..\..\..\src\guisim\GUI_E2_ZS_Collector.h
 # Begin Source File
 
 SOURCE=..\..\..\src\guisim\GUI_E2_ZS_CollectorOverLanes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\guisim\GUIBusStop.h
 # End Source File
 # Begin Source File
 

@@ -91,6 +91,10 @@ SOURCE=..\..\..\src\utils\gui\windows\GUIAppGlobals.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\gui\drawer\GUICompleteSchemeStorage.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.cpp
 # End Source File
 # Begin Source File
@@ -100,6 +104,10 @@ SOURCE=..\..\..\src\utils\gui\windows\GUIDialog_EditViewport.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\gui\div\GUIDialog_GLChosenEditor.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\windows\GUIDialog_ViewSettings.cpp
 # End Source File
 # Begin Source File
 
@@ -275,6 +283,10 @@ SOURCE=..\..\..\src\utils\gui\drawer\GUIColoringSchemesMap.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\gui\drawer\GUICompleteSchemeStorage.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.h
 # End Source File
 # Begin Source File
@@ -284,6 +296,10 @@ SOURCE=..\..\..\src\utils\gui\windows\GUIDialog_EditViewport.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\gui\div\GUIDialog_GLChosenEditor.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\gui\windows\GUIDialog_ViewSettings.h
 # End Source File
 # Begin Source File
 

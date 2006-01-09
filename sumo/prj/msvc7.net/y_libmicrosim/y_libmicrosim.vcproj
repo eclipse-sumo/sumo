@@ -182,6 +182,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\trigger\MSBusStop.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSCORN.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -455,26 +458,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.cpp">
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSLaneState.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\lanechanging\MSLCM_DK2002.cpp">
@@ -935,6 +918,9 @@
 				RelativePath="..\..\..\src\microsim\MSBitSetLogic.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\trigger\MSBusStop.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSCORN.h">
 			</File>
 			<File
@@ -990,9 +976,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSLaneState.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\lanechanging\MSLCM_DK2002.h">

@@ -134,10 +134,11 @@ copy Debug\guisim.exe ..\..\..\bin\guisimD.exe
 				Name="VCPostBuildEventTool"
 				CommandLine="mkdir ..\..\..\bin
 copy Release\guisim.exe ..\..\..\bin\guisim.exe
-..\..\add-ins\incBuildNumber.pl guisim
+
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				CommandLine="..\..\add-ins\incBuildNumber.pl guisim"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool

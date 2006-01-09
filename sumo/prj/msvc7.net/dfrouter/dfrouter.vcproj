@@ -24,7 +24,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="HAVE_CONFIG_H;_DEBUG;WIN32;_CONSOLE;BOOST_HAS_THREADS"
+				PreprocessorDefinitions="HAVE_CONFIG_H;_DEBUG;WIN32;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -98,7 +98,7 @@ copy Debug\dfrouter.exe ..\..\..\bin\dfrouterD.exe
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="3"
 				AdditionalIncludeDirectories="$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;WIN32;_CONSOLE;BOOST_HAS_THREADS"
+				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;WIN32;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				StructMemberAlignment="4"
@@ -132,10 +132,11 @@ copy Debug\dfrouter.exe ..\..\..\bin\dfrouterD.exe
 				Name="VCPostBuildEventTool"
 				CommandLine="mkdir ..\..\..\bin
 copy Release\dfrouter.exe ..\..\..\bin\dfrouter.exe
-..\..\add-ins\incBuildNumber.pl dfrouter
+
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				CommandLine="..\..\add-ins\incBuildNumber.pl dfrouter"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool

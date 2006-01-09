@@ -99,6 +99,10 @@ SOURCE=..\..\..\src\microsim\actions\Command_SaveTLSState.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\trigger\MSBusStop.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\MSCORN.cpp
 # End Source File
 # Begin Source File
@@ -168,10 +172,6 @@ SOURCE=..\..\..\src\microsim\MSLaneChanger.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\MSLaneState.cpp
 # End Source File
 # Begin Source File
 
@@ -331,6 +331,10 @@ SOURCE=..\..\..\src\microsim\MSBitSetLogic.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\microsim\trigger\MSBusStop.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\microsim\MSCORN.h
 # End Source File
 # Begin Source File
@@ -404,10 +408,6 @@ SOURCE=..\..\..\src\microsim\MSLaneChanger.h
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\trigger\MSLaneSpeedTrigger.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\MSLaneState.h
 # End Source File
 # Begin Source File
 

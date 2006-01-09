@@ -223,6 +223,10 @@ SOURCE=..\..\..\src\router\ROVehicleType.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\router\ROVehicleType_ID.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\router\ROVehicleType_Krauss.cpp
 # End Source File
 # Begin Source File
@@ -396,6 +400,10 @@ SOURCE=..\..\..\src\router\ROVehicleCont.h
 # Begin Source File
 
 SOURCE=..\..\..\src\router\ROVehicleType.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\router\ROVehicleType_ID.h
 # End Source File
 # Begin Source File
 

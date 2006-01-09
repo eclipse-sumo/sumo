@@ -61,10 +61,11 @@
 				Name="VCPostBuildEventTool"
 				CommandLine="mkdir ..\..\..\bin
 copy Release\netgen.exe ..\..\..\bin\netgen.exe
-..\..\add-ins\incBuildNumber.pl netgen
+
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				CommandLine="..\..\add-ins\incBuildNumber.pl netgen"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool

@@ -113,6 +113,9 @@
 				RelativePath="..\..\..\src\utils\gui\windows\GUIAppGlobals.cpp">
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUICompleteSchemeStorage.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.cpp">
 			</File>
 			<File
@@ -120,6 +123,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUIDialog_GLChosenEditor.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\windows\GUIDialog_ViewSettings.cpp">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\events\GUIEvent_SimulationEnded.cpp">
@@ -241,6 +247,9 @@
 				RelativePath="..\..\..\src\utils\gui\drawer\GUIColoringSchemesMap.h">
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\gui\drawer\GUICompleteSchemeStorage.h">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIDanielPerspectiveChanger.h">
 			</File>
 			<File
@@ -248,6 +257,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUIDialog_GLChosenEditor.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\gui\windows\GUIDialog_ViewSettings.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\events\GUIEvent.h">

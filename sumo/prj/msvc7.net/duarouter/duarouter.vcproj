@@ -23,7 +23,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="HAVE_CONFIG_H;_DEBUG;WIN32;_CONSOLE;BOOST_HAS_THREADS"
+				PreprocessorDefinitions="HAVE_CONFIG_H;_DEBUG;WIN32;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -97,7 +97,7 @@ copy Debug\duarouter.exe ..\..\..\bin\duarouterD.exe
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="3"
 				AdditionalIncludeDirectories="$(XERCES)\include,$(XERCES)\include\xercesc,..\..\..\src"
-				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;WIN32;_CONSOLE;BOOST_HAS_THREADS"
+				PreprocessorDefinitions="HAVE_CONFIG_H;NDEBUG;WIN32;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				StructMemberAlignment="4"
@@ -131,10 +131,11 @@ copy Debug\duarouter.exe ..\..\..\bin\duarouterD.exe
 				Name="VCPostBuildEventTool"
 				CommandLine="mkdir ..\..\..\bin
 copy Release\duarouter.exe ..\..\..\bin\duarouter.exe
-..\..\add-ins\incBuildNumber.pl duarouter
+
 "/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				CommandLine="..\..\add-ins\incBuildNumber.pl duarouter"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
