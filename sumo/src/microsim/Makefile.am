@@ -13,7 +13,7 @@ MSInternalLane.cpp MSInternalLane.h MSJunction.cpp MSJunction.h \
 MSJunctionControl.cpp MSJunctionControl.h \
 MSJunctionLogic.cpp MSJunctionLogic.h MSLane.cpp MSLane.h MSLane.icc \
 MSLaneChanger.cpp MSLaneChanger.h MSLaneChanger.icc \
-MSLaneState.cpp MSLaneState.h MSLink.cpp MSLink.h MSLinkCont.cpp MSLinkCont.h \
+MSLink.cpp MSLink.h MSLinkCont.cpp MSLinkCont.h \
 MSLogicJunction.cpp MSLogicJunction.h MSMoveReminder.h \
 MSNet.cpp MSNet.h MSNet.icc MSNoLogicJunction.cpp MSNoLogicJunction.h \
 MSRightOfWayJunction.cpp MSRightOfWayJunction.h \

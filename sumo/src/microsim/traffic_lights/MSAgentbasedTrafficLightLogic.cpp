@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/01/09 11:55:19  dkrajzew
+// lanestates removed
+//
 // Revision 1.10  2005/11/09 06:36:48  dkrajzew
 // changing the LSA-API: MSEdgeContinuation added; changed the calling API
 //
@@ -119,7 +122,6 @@ namespace
 #include <bitset>
 #include <microsim/MSEventControl.h>
 #include <microsim/output/MSInductLoop.h>
-#include <microsim/MSLaneState.h>
 #include <microsim/MSNet.h>
 #include "MSTrafficLightLogic.h"
 #include "MSAgentbasedTrafficLightLogic.h"

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/01/09 11:55:19  dkrajzew
+// lanestates removed
+//
 // Revision 1.10  2005/11/09 06:36:48  dkrajzew
 // changing the LSA-API: MSEdgeContinuation added; changed the calling API
 //
@@ -148,7 +151,6 @@ namespace
 #include <bitset>
 #include <microsim/MSEventControl.h>
 #include <microsim/output/MSInductLoop.h>
-#include <microsim/MSLaneState.h>
 #include <microsim/MSNet.h>
 #include "MSTrafficLightLogic.h"
 #include "MSActuatedTrafficLightLogic.h"
@@ -217,12 +219,15 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
         SUMOReal lspos = length - lslen;
         // Build the lane state detetcor and set it into the container
         std::string id = "TLS" + _id + "_LaneStateOff_" + lane->id();
+            /*!!!!
+
         if(myLaneStates.find(lane)==myLaneStates.end()) {
             MSLaneState* loop =
                 new MSLaneState( id, lane, lspos, lslen,
                     laneStateDetectorInterval );
             myLaneStates[lane] = loop;
         }
+            */
     }
 }
 
@@ -235,11 +240,13 @@ MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic()
             delete (*i).second;
         }
     }
+    /*!!!!
     {
         for(LaneStateMap::iterator i=myLaneStates.begin(); i!=myLaneStates.end(); ++i) {
             delete (*i).second;
         }
     }
+    */
 }
 
 
@@ -263,6 +270,18 @@ MSActuatedTrafficLightLogic::duration() const
                 break;
             }
             for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end();j++) {
+                InductLoopMap::const_iterator k = myInductLoops.find(*j);
+                SUMOReal waiting =  (SUMOReal) (*k).second->getNVehContributed(0/* !!! */);
+                SUMOReal tmpdur =  myPassingTime * waiting;
+                if (tmpdur > newduration) {
+                    // here we cut the decimal places, because we have to return an integer
+                    newduration = (int) tmpdur;
+                }
+                if (newduration > (int) currentPhaseDef()->maxDuration)  {
+                    return currentPhaseDef()->maxDuration;
+                }
+
+                /*!!!!
                 LaneStateMap::const_iterator k = myLaneStates.find(*j);
                 SUMOReal waiting =  (SUMOReal) (*k).second->getCurrentNumberOfWaiting();
                 SUMOReal tmpdur =  myPassingTime * waiting;
@@ -273,6 +292,7 @@ MSActuatedTrafficLightLogic::duration() const
                 if (newduration > (int) currentPhaseDef()->maxDuration)  {
                     return currentPhaseDef()->maxDuration;
                 }
+                */
             }
         }
     }

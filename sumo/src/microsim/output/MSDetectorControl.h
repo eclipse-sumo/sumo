@@ -44,7 +44,6 @@
 #include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
 //#include <microsim/output/e3_detectors/MSE3Collector.h>
-#include <microsim/MSLaneState.h>
 #include <microsim/output/MSInductLoop.h>
 #include "meandata/MSMeanData_Net_Cont.h"
 #include "MSDetector2File.h"
@@ -66,13 +65,11 @@ class MSE3Collector;
  */
 class MSDetectorControl {
 public:
-    typedef NamedObjectCont< MSLaneState*> LaneStateDict;
     typedef NamedObjectCont< MSInductLoop*> LoopDict;
     typedef NamedObjectCont< MSE2Collector*> E2Dict;
     typedef NamedObjectCont< MSE3Collector*> E3Dict;
     typedef NamedObjectCont< MS_E2_ZS_CollectorOverLanes* > E2ZSOLDict;
 
-    typedef std::vector< MSLaneState*> LaneStateVect;
     typedef std::vector< MSInductLoop*> LoopVect;
     typedef std::vector< MSE2Collector*> E2Vect;
     typedef std::vector< MSE3Collector*> E3Vect;
@@ -110,7 +107,6 @@ public:
 
     void resetInterval(MSDetectorFileOutput *il, SUMOTime interval);
 
-    LaneStateVect getLaneStateVector() const;
     LoopVect getLoopVector() const;
     E2Vect getE2Vector() const;
     E3Vect getE3Vector() const;
@@ -118,7 +114,6 @@ public:
 
 
 protected:
-    LaneStateDict myLaneStates;
     LoopDict myLoops;
     E2Dict myE2Detectors;
     E3Dict myE3Detectors;

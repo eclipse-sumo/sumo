@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/01/09 11:55:04  dkrajzew
+// lanestates removed
+//
 // Revision 1.2  2005/10/07 11:37:46  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -59,7 +62,6 @@ namespace
 #include "MSDetectorControl.h"
 #include "MSDetector2File.h"
 #include "MSInductLoop.h"
-#include <microsim/MSLaneState.h>
 #include <microsim/MSUnit.h>
 #include <microsim/MSUpdateEachTimestepContainer.h>
 #include "MSDetectorHaltingContainerWrapper.h"
@@ -70,11 +72,9 @@ namespace
 #include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/output/e3_detectors/MSE3Collector.h>
-#include <microsim/MSLaneState.h>
 #include <microsim/output/MSInductLoop.h>
 
 #include "MSInductLoop.h"
-#include "../MSLaneState.h"
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MEInductLoop.h>
@@ -103,7 +103,6 @@ MSDetectorControl::MSDetectorControl()
 MSDetectorControl::~MSDetectorControl()
 {
     myDetector2File.close();
-    myLaneStates.clear();
 #ifdef HAVE_MESOSIM
     myMesoLoops.clear();
 #endif
@@ -278,14 +277,6 @@ MSDetectorControl::getDet2File()
 {
     return myDetector2File;
 }
-
-
-MSDetectorControl::LaneStateVect
-MSDetectorControl::getLaneStateVector() const
-{
-    return myLaneStates.getTempVector();
-}
-
 
 MSDetectorControl::LoopVect
 MSDetectorControl::getLoopVector() const

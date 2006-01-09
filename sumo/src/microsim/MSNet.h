@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.56  2006/01/09 11:56:53  dkrajzew
+// lanestates removed
+//
 // Revision 1.55  2005/11/29 13:27:59  dkrajzew
 // added a minimum simulation speed definition before the simulation ends (unfinished)
 //
@@ -353,12 +356,10 @@ class MSEventControl;
 class MSRouteLoaderControl;
 class Event;
 class RGBColor;
-//class PreStartInitialised;
 class MSVehicle;
 class MSRoute;
 class MSVehicleType;
 class MSLane;
-class MSLaneState;
 class MSTLLogicControl;
 class MSVehicleTransfer;
 class OutputDevice;

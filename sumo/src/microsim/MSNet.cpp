@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.69  2006/01/09 11:56:53  dkrajzew
+// lanestates removed
+//
 // Revision 1.68  2005/12/01 07:37:35  dkrajzew
 // introducing bus stops: eased building vehicles; vehicles may now have nested elements
 //
@@ -597,7 +600,7 @@ MSNet::simulate( SUMOTime start, SUMOTime stop )
             postSimStepOutput();
             myStep++;
             if(myLogExecutionTime && myTooSlowRTF>0) {
-                SUMOReal rtf = ((SUMOReal) myVehicleControl->getRunningVehicleNo()/(SUMOReal) mySimStepDuration*1000.);
+                SUMOReal rtf = ((SUMOReal) 1000./ (SUMOReal) mySimStepDuration);
                 if(rtf<myTooSlowRTF) {
                     tooSlow = true;
                 }
@@ -690,9 +693,6 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
         mySimStepBegin = SysUtils::getCurrentMillis();
     }
     MSEventControl::getBeginOfTimestepEvents()->execute(myStep);
-
-    MSLaneState::actionsBeforeMoveAndEmit();
-
     // load routes
     myEmitter->moveFrom(myRouteLoaders->loadNext(step));
     // emit Vehicles
@@ -728,9 +728,6 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
     if(MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions( step );
     }
-    // detect
-
-    MSLaneState::actionsAfterMoveAndEmit();
 
     MSUpdateEachTimestepContainer<
         DetectorContainer::UpdateHaltings >::getInstance()->updateAll();
@@ -929,7 +926,12 @@ MSNet::loadState(BinaryInputDevice &bis, long what)
 MSRouteLoader *
 MSNet::buildRouteLoader(const std::string &file)
 {
-    return new MSRouteLoader(*this, new MSRouteHandler(file, false));
+    // return a new build route loader
+    //  the handler is
+    //  a) not adding the vehicles directly
+    //  b) not using colors
+    // (overridden in GUINet)
+    return new MSRouteLoader(*this, new MSRouteHandler(file, false, false));
 }
 
 

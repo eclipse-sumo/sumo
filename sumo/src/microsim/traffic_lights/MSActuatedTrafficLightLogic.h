@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/01/09 11:55:19  dkrajzew
+// lanestates removed
+//
 // Revision 1.10  2005/11/09 06:36:48  dkrajzew
 // changing the LSA-API: MSEdgeContinuation added; changed the calling API
 //
@@ -133,7 +136,6 @@
 #include "MSActuatedPhaseDefinition.h"
 #include "MSExtendedTrafficLightLogic.h"
 #include <microsim/output/MSInductLoop.h>
-#include <microsim/MSLaneState.h>
 
 
 /* =========================================================================
@@ -161,7 +163,7 @@ public:
     typedef std::map<MSLane*, MSInductLoop*> InductLoopMap;
 
     /// Definition of a map from lanes to lane state detectors lying on them
-    typedef std::map<MSLane*, MSLaneState*> LaneStateMap;
+//!!!!    typedef std::map<MSLane*, MSLaneState*> LaneStateMap;
 
 public:
     /// constructor
@@ -202,7 +204,7 @@ protected:
     InductLoopMap myInductLoops;
 
     /// A map from lanes to lane states lying on them
-    LaneStateMap myLaneStates;
+//!!!!    LaneStateMap myLaneStates;
 
     /// information whether the current phase should be lenghtend
     bool _continue;
