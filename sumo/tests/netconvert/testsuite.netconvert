@@ -1,3 +1,10 @@
 
 # testing XML-import
-XML
+XML2
+
+# testing meta processing
+meta
+
+# testing error input
+errors
+

@@ -1,1 +1,0 @@
---xml-edge-files=%SUMO_DIST%\data\examples\netbuild\shapes\hokkaido-japan\hokkaido.edg.xml --xml-node-files=%SUMO_DIST%\data\examples\netbuild\shapes\hokkaido-japan\hokkaido.nod.xml --output-file=net.net.xml --plain-output=plain

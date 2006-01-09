@@ -1,8 +1,11 @@
 binary:D:\projects\TrafficTower\sumo\bin\netconvert.exe
+home_operating_system:nt
 
 [collate_file]
 net:net.net.xml
 plain_nodes:plain.nod.xml
 plain_edges:plain.edg.xml
 
+[run_dependent_text]
+output:Build #
 
