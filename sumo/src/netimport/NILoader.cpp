@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/01/09 11:59:22  dkrajzew
+// debugging error handling; beautifying
+//
 // Revision 1.16  2005/11/30 08:53:48  dkrajzew
 // removed warning if no types are defined
 //
@@ -260,13 +263,8 @@ void
 NILoader::loadSUMO(OptionsCont &oc)
 {
     // load the network
-    try {
-        if(oc.isUsableFileList("sumo-net")) {
-            loadSUMOFiles(oc, LOADFILTER_ALL, oc.getString("sumo-net"),
-                "sumo-net");
-        }
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+    if(oc.isUsableFileList("sumo-net")) {
+        loadSUMOFiles(oc, LOADFILTER_ALL, oc.getString("sumo-net"), "sumo-net");
     }
 }
 
@@ -295,53 +293,37 @@ NILoader::loadSUMOFiles(OptionsCont &oc, LoadFilter what, const string &files,
 void
 NILoader::loadXML(OptionsCont &oc) {
     // load types
-    try {
-        if(oc.isUsableFileList("xml-type-files")) {
-			NIXMLTypesHandler *handler =
-				new NIXMLTypesHandler(myNetBuilder.getTypeCont());
-            loadXMLType(handler, oc.getString("xml-type-files"), "types");
-            myNetBuilder.getTypeCont().report();
-        }
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+    if(oc.isUsableFileList("xml-type-files")) {
+	    NIXMLTypesHandler *handler =
+		    new NIXMLTypesHandler(myNetBuilder.getTypeCont());
+        loadXMLType(handler, oc.getString("xml-type-files"), "types");
+        myNetBuilder.getTypeCont().report();
     }
 
     // load nodes
-    try {
-        if(oc.isUsableFileList("xml-node-files")) {
-            NIXMLNodesHandler *handler =
-                new NIXMLNodesHandler(myNetBuilder.getNodeCont(),
-                    myNetBuilder.getTLLogicCont(), oc);
-            loadXMLType(handler, oc.getString("xml-node-files"), "nodes");
-            myNetBuilder.getNodeCont().report();
-        }
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+    if(oc.isUsableFileList("xml-node-files")) {
+        NIXMLNodesHandler *handler =
+            new NIXMLNodesHandler(myNetBuilder.getNodeCont(),
+                myNetBuilder.getTLLogicCont(), oc);
+        loadXMLType(handler, oc.getString("xml-node-files"), "nodes");
+        myNetBuilder.getNodeCont().report();
     }
 
     // load the edges
-    try {
-        if(oc.isUsableFileList("xml-edge-files")) {
-            NIXMLEdgesHandler *handler =
-                new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
-					myNetBuilder.getEdgeCont(),
-					myNetBuilder.getTypeCont(), oc);
-            loadXMLType(handler, oc.getString("xml-edge-files"), "edges");
-            myNetBuilder.getEdgeCont().report();
-        }
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+    if(oc.isUsableFileList("xml-edge-files")) {
+        NIXMLEdgesHandler *handler =
+            new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
+			    myNetBuilder.getEdgeCont(),
+				myNetBuilder.getTypeCont(), oc);
+        loadXMLType(handler, oc.getString("xml-edge-files"), "edges");
+        myNetBuilder.getEdgeCont().report();
     }
 
     // load the connections
-    try {
-        if(oc.isUsableFileList("xml-connection-files")) {
-            NIXMLConnectionsHandler *handler =
-                new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont());
-            loadXMLType(handler, oc.getString("xml-connection-files"), "connections");
-        }
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.msg());
+    if(oc.isUsableFileList("xml-connection-files")) {
+        NIXMLConnectionsHandler *handler =
+            new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont());
+        loadXMLType(handler, oc.getString("xml-connection-files"), "connections");
     }
 }
 
@@ -455,13 +437,13 @@ NILoader::loadArcView(OptionsCont &oc)
     string shx_file = oc.getString("arcview") + string(".shx");
     // check whether the files do exist
     if(!FileHelpers::exists(dbf_file)) {
-        MsgHandler::getErrorInstance()->inform(string("File not found: ") + dbf_file);
+        MsgHandler::getErrorInstance()->inform("File not found: " + dbf_file);
     }
     if(!FileHelpers::exists(shp_file)) {
-        MsgHandler::getErrorInstance()->inform(string("File not found: ") + shp_file);
+        MsgHandler::getErrorInstance()->inform("File not found: " + shp_file);
     }
     if(!FileHelpers::exists(shx_file)) {
-        MsgHandler::getErrorInstance()->inform(string("File not found: ") + shx_file);
+        MsgHandler::getErrorInstance()->inform("File not found: " + shx_file);
     }
     if(MsgHandler::getErrorInstance()->wasInformed()) {
         return;

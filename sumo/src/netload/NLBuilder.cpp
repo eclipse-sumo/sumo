@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/01/09 11:59:49  dkrajzew
+// debugging error handling; beautifying
+//
 // Revision 1.5  2005/11/09 06:42:35  dkrajzew
 // problems on loading geometry items patched
 //
@@ -368,11 +371,7 @@ NLBuilder::load(const std::string &mmlWhat,
     // initialise the handler for the current type of data
     myXMLHandler.setWanted(what);
     // check whether the list of files does not contain ';'s only
-    if(!FileHelpers::checkFileList(files)) {
-        MsgHandler::getErrorInstance()->inform(
-            string("No ") + mmlWhat + string(" found!"));
-        MsgHandler::getErrorInstance()->inform(
-            "Check your program parameter.");
+    if(!FileHelpers::checkFileList(mmlWhat, files)) {
         return false;
     }
     // start parsing
@@ -402,8 +401,7 @@ NLBuilder::parse(const std::string &mmlWhat,
         // check whether the file exists
         if(!FileHelpers::exists(tmp)) {
             // report error if not
-            MsgHandler::getErrorInstance()->inform(
-                string("The file '") + tmp + string("' does not exist!"));
+            MsgHandler::getErrorInstance()->inform("The file '" + tmp + "' does not exist!");
             return false;
         } else {
             // parse the file
@@ -441,9 +439,7 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont &oc)
         while(st.hasNext()) {
             string name = st.next();
             if(!FileHelpers::exists(name)) {
-                MsgHandler::getErrorInstance()->inform(
-                    string("The route file '") + name
-                    + string("' does not exist."));
+                MsgHandler::getErrorInstance()->inform("The route file '" + name + "' does not exist.");
                 ok = false;
             }
         }

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/01/09 11:59:22  dkrajzew
+// debugging error handling; beautifying
+//
 // Revision 1.6  2005/10/07 11:40:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -147,7 +150,6 @@ public:
 private:
     bool readContents(std::istream &strm);
     void postLoadBuild(SUMOReal offset);
-    void buildNBStructures();
 
 
     /// adds name-to-id - relationships of known elements into myKnownElements

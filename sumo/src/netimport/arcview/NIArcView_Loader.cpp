@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/01/09 11:59:22  dkrajzew
+// debugging error handling; beautifying
+//
 // Revision 1.17  2005/11/14 09:51:17  dkrajzew
 // allowed further information to be stored in arcview-files
 //
@@ -233,11 +236,11 @@ NIArcView_Loader::getSpeed(const std::string &edgeid)
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
     try {
-        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("speed").c_str());
+        return TplConvert<char>::_2SUMOReal(myBinShapeReader.getAttribute("speed").c_str());
     } catch (...) {
     }
     try {
-        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("SPEED").c_str());
+        return TplConvert<char>::_2SUMOReal(myBinShapeReader.getAttribute("SPEED").c_str());
     } catch (...) {
     }
     // try to get the NavTech-information
@@ -319,8 +322,8 @@ NIArcView_Loader::getLaneNo(const std::string &edgeid, SUMOReal speed)
         addError(
             string("Error on parsing edge's number of lanes information for edge '")
             + edgeid + string("'."));
-        return 0;
     }
+	return 0;
 }
 
 SUMOReal

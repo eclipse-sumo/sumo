@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/01/09 11:59:22  dkrajzew
+// debugging error handling; beautifying
+//
 // Revision 1.25  2005/11/09 06:42:07  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -56,7 +59,8 @@ namespace
 // missing handling of some vissim3.7-structures added
 //
 // Revision 1.14  2003/06/18 11:35:29  dkrajzew
-// message subsystem changes applied and some further work done; seems to be stable but is not perfect, yet
+// message subsystem changes applied and some further work done;
+//  seems to be stable but is not perfect, yet
 //
 // Revision 1.13  2003/06/16 08:01:57  dkrajzew
 // further work on Vissim-import
@@ -406,7 +410,6 @@ NIVissimLoader::load(OptionsCont &options)
         return;
     }
     postLoadBuild(options.getFloat("vissim-offset"));
-    buildNBStructures();
 }
 
 
@@ -521,18 +524,6 @@ NIVissimLoader::postLoadBuild(SUMOReal offset)
     NIVissimVehicleType::clearDict();
     NIVissimConnectionCluster::clearDict();
 }
-
-
-void
-NIVissimLoader::buildNBStructures()
-{
-//    NIVissimNodeCluster::buildNBNodes();
-//    NIVissimAbstractEdge::buildNBEdges();
-}
-
-
-
-
 
 
 void

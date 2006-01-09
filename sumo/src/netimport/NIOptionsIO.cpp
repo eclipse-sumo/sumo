@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/01/09 11:59:22  dkrajzew
+// debugging error handling; beautifying
+//
 // Revision 1.13  2005/11/15 10:15:49  dkrajzew
 // debugging and beautifying for the next release
 //
@@ -250,9 +253,8 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("vissim-file", new Option_FileName());
     oc.doRegister("artemis-path", new Option_FileName());
     oc.doRegister("arcview", new Option_FileName());
-    oc.doRegister("output-file", 'o', new Option_FileName("default.net.xml"));
-    oc.doRegister("configuration-file", 'c',
-        new Option_FileName());
+    oc.doRegister("output-file", 'o', new Option_FileName("net.net.xml"));
+    oc.doRegister("configuration-file", 'c', new Option_FileName());
     oc.addSynonyme("xml-node-files", "xml-nodes");
     oc.addSynonyme("xml-edge-files", "xml-edges");
     oc.addSynonyme("xml-connection-files", "xml-connections");
