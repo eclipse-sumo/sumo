@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.10  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -91,7 +94,7 @@ namespace
  * ======================================================================= */
 void
 GUIDetectorDrawer_SGwT::myDrawGLDetectors(size_t *which, size_t maxDetectors,
-                                          SUMOReal scale)
+                                          SUMOReal scale, SUMOReal upscale)
 {
     for(size_t i=0; i<maxDetectors; i++ ) {
         if(which[i]==0) {
@@ -101,7 +104,7 @@ GUIDetectorDrawer_SGwT::myDrawGLDetectors(size_t *which, size_t maxDetectors,
         for(size_t j=0; j<32; j++, pos<<=1) {
             if((which[i]&pos)!=0) {
                 glPushName(myAdditionals[j+(i<<5)]->getGlID());
-                myAdditionals[j+(i<<5)]->drawGL_SG(scale);
+                myAdditionals[j+(i<<5)]->drawGL_SG(scale, upscale);
                 glPopName();
             }
         }

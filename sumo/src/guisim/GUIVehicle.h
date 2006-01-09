@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.25  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.24  2005/12/01 07:33:44  dkrajzew
 // introducing bus stops: eased building vehicles; vehicles may now have nested elements
 //
@@ -112,6 +115,8 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gfx/RGBColor.h>
 #include <microsim/MSVehicle.h>
+#include "GUIVehicleType.h"
+#include "GUIRoute.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 
@@ -148,6 +153,21 @@ public:
     /// Returns the type of the object as coded in GUIGlObjectType
     GUIGlObjectType getType() const;
 
+
+    inline void setOwnDefinedColor() const {
+        if(hasCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_RED)) {
+            glColor3d(
+                getCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_RED),
+                getCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_GREEN),
+                getCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_BLUE));
+            return;
+        }
+        glColor3d(1,1,0);
+    }
+
+    inline void setOwnTypeColor() const { static_cast<const GUIVehicleType&>(getVehicleType()).setColor(); }
+    inline void setOwnRouteColor() const { static_cast<const GUIRoute&>(getRoute()).setColor(); }
+
 // !!! 4 UniDortmund
     void networking_Begin();
 #ifdef NETWORKING_BLA
@@ -183,9 +203,6 @@ public:
     /** Returns the list of all known junctions as their ids */
     static std::vector<size_t> getIDs();
 
-    /// returns the color of the vehicle defined in the xml-description
-    const RGBColor &getDefinedColor() const;
-
     /** returns a random color based on the vehicle's name
         (should stay the same across simulations */
     const RGBColor &getRandomColor1() const;
@@ -197,19 +214,7 @@ public:
     /** returns a color that describes how long ago the vehicle has
         changed the lane (is white after a lane change and becomes darker
         with each timestep */
-    int getPassedColor() const;
-
-    /** returns white if the vehicle has changed the lane in the current step,
-        othewise dark grey */
-    const RGBColor &getLaneChangeColor2() const;
-
-    /** @brief returns the number of steps waited
-        A vehicle is meant to be "waiting" when it's speed is less than 0.1
-        It is only computed for "critical" vehicles
-        The method return a size_t, now, as we assume a vehicle will not wait for
-        longer than about 50 hours which still fits into a size_t when the simulation
-        runs in ms */
-//    size_t getWaitingTime() const;
+    SUMOReal getTimeSinceLastLaneChangeAsReal() const;
 
     /** @brief Returns the next "periodical" vehicle with the same route
         We have to duplicate the vehicle if a further has to be emitted with
@@ -280,12 +285,6 @@ private:
 
     /// random color #2 (completely random)
     RGBColor _randomColor2;
-
-    /// white
-    static RGBColor _laneChangeColor1;
-
-    /// dark grey
-    static RGBColor _laneChangeColor2;
 
 #ifdef NETWORKING_BLA
     std::vector<networking_EdgeTimeInformation> networking_myKnownEdges;

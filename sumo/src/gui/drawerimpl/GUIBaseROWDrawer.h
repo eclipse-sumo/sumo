@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.9  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -91,7 +94,17 @@ public:
     virtual ~GUIBaseROWDrawer();
 
     void drawGLROWs(const GUINet &net,
-        size_t *which, size_t maxEdges, SUMOReal width);
+        size_t *which, size_t maxEdges, SUMOReal width, bool showLane2Lane,
+        bool withArrows);
+
+protected:
+    void drawGLROWs_Only(const GUINet &net,
+        size_t *which, size_t maxEdges, SUMOReal width,
+        bool withArrows);
+
+    void drawGLROWs_WithConnections(const GUINet &net,
+        size_t *which, size_t maxEdges, SUMOReal width,
+        bool withArrows);
 
 private:
     /// initialises the drawing

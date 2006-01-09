@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.10  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -454,27 +457,28 @@ GUILaneSpeedTrigger::getPosition() const
 
 
 void
-GUILaneSpeedTrigger::drawGL_FG(SUMOReal scale)
+GUILaneSpeedTrigger::drawGL_FG(SUMOReal scale, SUMOReal upscale)
 {
-    doPaint(myFGPositions, myFGRotations, scale);
+    doPaint(myFGPositions, myFGRotations, scale, upscale);
 }
 
 
 void
-GUILaneSpeedTrigger::drawGL_SG(SUMOReal scale)
+GUILaneSpeedTrigger::drawGL_SG(SUMOReal scale, SUMOReal upscale)
 {
-    doPaint(mySGPositions, mySGRotations, scale);
+    doPaint(mySGPositions, mySGRotations, scale, upscale);
 }
 
 
 void
 GUILaneSpeedTrigger::doPaint(const PosCont &poss, const RotCont rots,
-                             SUMOReal scale)
+                             SUMOReal scale, SUMOReal upscale)
 {
     for(size_t i=0; i<poss.size(); ++i) {
         const Position2D &pos = poss[i];
         SUMOReal rot = rots[i];
         glPushMatrix();
+        glScaled(upscale, upscale, upscale);
         glTranslated(pos.x(), pos.y(), 0);
         glRotated( rot, 0, 0, 1 );
         glTranslated(0, -1.5, 0);

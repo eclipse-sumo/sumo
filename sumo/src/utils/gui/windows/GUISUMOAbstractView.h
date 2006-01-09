@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.9  2005/11/09 06:46:34  dkrajzew
 // added cursor position output (unfinished)
 //
@@ -167,6 +170,7 @@ class GUIGlObjectStorage;
 class PointOfInterest;
 class ShapeContainer;
 class GUIDialog_EditViewport;
+class GUIDialog_ViewSettings;
 
 
 /* =========================================================================
@@ -238,7 +242,7 @@ public:
     virtual long onMouseMove(FXObject*,FXSelector,void*);
     virtual long onCmdShowToolTips(FXObject*,FXSelector,void*);
     virtual long onCmdEditViewport(FXObject*,FXSelector,void*);
-    virtual long onCmdEditView(FXObject*,FXSelector,void*);
+    virtual long onCmdEditView(FXObject*,FXSelector,void*) = 0;
     long onCmdShowGrid(FXObject*,FXSelector,void*);
     long onSimStep(FXObject*sender,FXSelector,void*);
 
@@ -267,72 +271,13 @@ public:
 
     void remove(GUIDialog_EditViewport *d) { myViewportChooser = 0; }
 
+    void remove(GUIDialog_ViewSettings *d) { myVisualizationChanger = 0; }
+
+
+    SUMOReal getGridWidth() const;
+    SUMOReal getGridHeight() const;
+
 public:
-    /**
-     * VehicleColoringScheme
-     * This enumeration holds the possible vehicle colouring schemes
-     */
-    enum VehicleColoringScheme {
-        /// colouring by vehicle speed
-        VCS_BY_SPEED = 0,
-        /// use the colour specified in the input
-        VCS_SPECIFIED = 1,
-        /// use the type color
-        VCS_TYPE = 2,
-        /// use the route color
-        VCS_ROUTE = 3,
-        /// use random scheme 1
-        VCS_RANDOM1 = 4,
-        /// use random scheme 2
-        VCS_RANDOM2 = 5,
-        /// use lanechanging scheme 1
-        VCS_LANECHANGE1 = 6,
-        /// use lanechanging scheme 2
-        VCS_LANECHANGE2 = 7,
-        /// use lanechanging scheme 3
-        VCS_LANECHANGE3 = 8,
-        /// use waiting scheme 1
-        VCS_WAITING1 = 9,
-        /// use the route change offset
-        VCS_ROUTECHANGEOFFSET = 10,
-        /// use the route change offset
-        VCS_ROUTECHANGENUMBER = 11,
-
-        VCS_LANECHANGE4 = 12,
-
-        VCS_DEVICENO = 13,
-        VCS_DEVICE_STATE = 14
-
-    };
-
-    /**
-     * LaneColoringScheme
-     * This enumeration holds the possible lane colouring schemes
-     */
-    enum LaneColoringScheme {
-        /// all lanes will be black
-        LCS_BLACK = 0,
-        /** colouring by purpose of the edge the lane lies in
-            (sources:blue, sinks:red, normal:black) */
-        LCS_BY_PURPOSE = 1,
-        /// use the lane's speed
-        LCS_BY_SPEED = 2,
-        /// use the information whether the lane is selected or not
-        LCS_BY_SELECTION = 3,
-        /// aggregated views: use density
-        LCS_BY_DENSITY = 4,
-        /// aggregated views: use mean speed
-        LCS_BY_MEAN_SPEED = 5,
-        /// aggregated views: use mean halting duration
-        LCS_BY_MEAN_HALTS = 6,
-        /// all views: white (for better visualisation of other things)
-        LCS_WHITE = 7,
-        LCS_BY_LOADED_WEIGHTS = 8,
-        LCS_WAITING_FIRST = 9,
-        LCS_WAITING_DENSITYX = 9,
-
-    };
-
     /**
      * JunctionColoringScheme
      * This enumeration holds the possible vehicle colouring schemes
@@ -342,22 +287,33 @@ public:
         VCS_BY_TYPE = 0
     };
 
+    struct Decal {
+        std::string filename;
+        SUMOReal left;
+        SUMOReal top;
+        SUMOReal right;
+        SUMOReal bottom;
+        SUMOReal rot;
+        bool initialised;
+        int glID;
+    };
+
 public:
     /**
      * @class ViewSettings
      * This class stores the viewport information for an easier checking whether
      *  it has changed.
      */
-    class ViewSettings {
+    class ViewportSettings {
     public:
         /// Constructor
-        ViewSettings();
+        ViewportSettings();
 
         /// Parametrised Constructor
-        ViewSettings(SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff);
+        ViewportSettings(SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff);
 
         /// Destructor
-        ~ViewSettings();
+        ~ViewportSettings();
 
         /// Returns the information whether the stored setting differs from the given
         bool differ(SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff);
@@ -368,6 +324,43 @@ public:
     private:
         /// Position and size information to describe the viewport
         SUMOReal myX, myY, myXOff, myYOff;
+
+    };
+
+    /**
+     * @struct VisualizationSettings
+     * This class stores the information about how to visualize the structures
+     */
+    struct VisualizationSettings {
+        bool antialiase;
+        bool dither;
+
+        RGBColor backgroundColor;
+        bool showBackgroundDecals;
+
+        int laneEdgeMode;
+        RGBColor singleLaneColor;
+        RGBColor minLaneColor;
+        RGBColor maxLaneColor;
+        bool laneShowBorders;
+        std::vector<RGBColor> laneGradient;
+        bool showLinkDecals;
+
+        int vehicleMode;
+        float minVehicleSize;
+        float vehicleExaggeration;
+        RGBColor singleVehicleColor;
+        RGBColor minVehicleColor;
+        RGBColor maxVehicleColor;
+        std::vector<RGBColor> vehicleGradient;
+
+        int junctionMode;
+
+        bool showLane2Lane;
+
+        int addMode;
+        float minAddSize;
+        float addExaggeration;
 
     };
 
@@ -471,7 +464,9 @@ protected:
     GUIGLObjectPopupMenu *_popup;
 
     /// the description of the viewport
-    ViewSettings myViewSettings;
+    ViewportSettings myViewportSettings;
+
+    VisualizationSettings myVisualizationSettings;
 
     /// Internal information whether doInit() was called
     bool myAmInitialised;
@@ -481,6 +476,10 @@ protected:
 
 
     GUIDialog_EditViewport *myViewportChooser;
+    GUIDialog_ViewSettings *myVisualizationChanger;
+
+    std::vector<Decal> myDecals;
+    FXEX::FXMutex myDecalsLock;
 
     enum VehicleOperationType {
         VO_TRACK,

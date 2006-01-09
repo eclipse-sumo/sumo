@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.9  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -100,7 +103,7 @@ GUIVehicleDrawer_SGwTasTriangle::~GUIVehicleDrawer_SGwTasTriangle()
 
 void
 GUIVehicleDrawer_SGwTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
-        GUISUMOAbstractView::VehicleColoringScheme scheme)
+        GUIBaseColorer<GUIVehicle> &colorer, float upscale)
 {
     // retrieve vehicles from lane; disallow simulation
     const MSLane::VehCont &vehicles = lane.getVehiclesSecure();
@@ -112,7 +115,7 @@ GUIVehicleDrawer_SGwTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
         MSVehicle *veh = *v;
         SUMOReal posX = laneEnd.x() - laneDir.x() * veh->pos();
         SUMOReal posY = laneEnd.y() - laneDir.y() * veh->pos();
-        drawVehicle(static_cast<GUIVehicle&>(*veh), posX, posY, rot, scheme);
+        drawVehicle(static_cast<GUIVehicle&>(*veh), posX, posY, rot, colorer, upscale);
     }
     // allow lane simulation
     lane.releaseVehicles();
@@ -122,39 +125,46 @@ GUIVehicleDrawer_SGwTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
 void
 GUIVehicleDrawer_SGwTasTriangle::drawVehicle(const GUIVehicle &vehicle,
             SUMOReal posX, SUMOReal posY, SUMOReal rot,
-            GUISUMOAbstractView::VehicleColoringScheme scheme)
+            GUIBaseColorer<GUIVehicle> &colorer, float upscale)
 {
     glTranslated(posX, posY, 0);
     glRotated(rot, 0, 0, 1);
+    glScaled(upscale, upscale, upscale);
     glPushName(vehicle.getGlID());
     glBegin( GL_TRIANGLES );
     SUMOReal length = vehicle.length();
+    colorer.setGlColor(vehicle);
     if(length<8) {
+/*
         if(scheme!=GUISUMOAbstractView::VCS_LANECHANGE3) {
-            setVehicleColor(vehicle, scheme);
+        */
             glVertex2d(0, 0);
-            glVertex2d(0-1.25, 0+length);
-            glVertex2d(0+1.25, 0+length);
+            glVertex2d(0-1.25, length);
+            glVertex2d(0+1.25, length);
+            /*
         } else {
             setVehicleColor1Of3(vehicle);
             glVertex2d(0, 0);
             setVehicleColor2Of3(vehicle);
-            glVertex2d(0-1.25, 0+length);
+            glVertex2d(0-1.25, length);
             setVehicleColor3Of3(vehicle);
-            glVertex2d(0+1.25, 0+length);
+            glVertex2d(0+1.25, length);
         }
+        */
     } else {
+        /*
         if(scheme!=GUISUMOAbstractView::VCS_LANECHANGE3) {
-            setVehicleColor(vehicle, scheme);
+        */
             glVertex2d(0, 0);
             glVertex2d(0-1.25, 0+2);
             glVertex2d(0+1.25, 0+2);
             glVertex2d(0-1.25, 2);
-            glVertex2d(0-1.25, length-2);
-            glVertex2d(0+1.25, length-2);
+            glVertex2d(0-1.25, length);
+            glVertex2d(0+1.25, length);
             glVertex2d(0+1.25, 2);
             glVertex2d(0-1.25, 2);
-            glVertex2d(0+1.25, length-2);
+            glVertex2d(0+1.25, length);
+            /*
         } else {
             setVehicleColor1Of3(vehicle);
             glVertex2d(0, 0);
@@ -162,13 +172,14 @@ GUIVehicleDrawer_SGwTasTriangle::drawVehicle(const GUIVehicle &vehicle,
             glVertex2d(0+1.25, 0+2);
             setVehicleColor2Of3(vehicle);
             glVertex2d(0-1.25, 2);
-            glVertex2d(0-1.25, length-2);
-            glVertex2d(0+1.25, length-2);
+            glVertex2d(0-1.25, length);
+            glVertex2d(0+1.25, length);
             setVehicleColor3Of3(vehicle);
             glVertex2d(0+1.25, 2);
             glVertex2d(0-1.25, 2);
-            glVertex2d(0+1.25, length-2);
+            glVertex2d(0+1.25, length);
         }
+        */
     }
     glEnd();
     glPopName();

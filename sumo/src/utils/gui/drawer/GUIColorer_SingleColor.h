@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.6  2005/10/07 11:45:09  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -36,7 +39,6 @@
 // Revision 1.3  2005/06/14 11:29:50  dksumo
 // documentation added
 //
-
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -76,6 +78,18 @@ public:
 	void setGlColor(SUMOReal val) const {
 		glColor3d(myColor.red(), myColor.green(), myColor.blue());
 	}
+
+    virtual ColorSetType getSetType() const {
+        return CST_SINGLE;
+    }
+
+    virtual void resetColor(const RGBColor &c) {
+        myColor = c;
+    }
+
+    virtual const RGBColor &getSingleColor() const {
+        return myColor;
+    }
 
 private:
 	RGBColor myColor;

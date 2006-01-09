@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.10  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -130,16 +133,16 @@ GUIROWDrawer_SGnT::drawLinkRules(const GUINet &net,
         glTranslated(beg.x(), beg.y(), 0);
         glRotated( lane.getRotation(), 0, 0, 1 );
         glBegin( GL_QUADS );
-        glVertex2d(-1.5, visLength+.0);
-        glVertex2d(-1.5, visLength+.5);
-        glVertex2d(1.5, visLength+.5);
-        glVertex2d(1.5, visLength+.0);
+        glVertex2d(-SUMO_const_halfLaneWidth, visLength+.0);
+        glVertex2d(-SUMO_const_halfLaneWidth, visLength+.5);
+        glVertex2d(SUMO_const_halfLaneWidth, visLength+.5);
+        glVertex2d(SUMO_const_halfLaneWidth, visLength+.0);
         glEnd();
         glPopMatrix();
         return;
     }
     // draw all links
-    SUMOReal w = 3.0f / (SUMOReal) noLinks;
+    SUMOReal w = SUMO_const_laneWidth / (SUMOReal) noLinks;
     SUMOReal x1 = 0;
     glPushMatrix();
     const Position2D &beg = lane.getBegin();
@@ -151,10 +154,10 @@ GUIROWDrawer_SGnT::drawLinkRules(const GUINet &net,
         const RGBColor &color = myLinkColors.find(state)->second;
         glColor3d(color.red(), color.green(), color.blue());
         glBegin( GL_QUADS );
-        glVertex2d(x1-1.5, visLength+0.0);
-        glVertex2d(x1-1.5, visLength+0.5);
-        glVertex2d(x2-1.5, visLength+0.5);
-        glVertex2d(x2-1.5, visLength+0.0);
+        glVertex2d(x1-SUMO_const_halfLaneWidth, visLength+0.0);
+        glVertex2d(x1-SUMO_const_halfLaneWidth, visLength+0.5);
+        glVertex2d(x2-SUMO_const_halfLaneWidth, visLength+0.5);
+        glVertex2d(x2-SUMO_const_halfLaneWidth, visLength+0.0);
         glEnd();
         x1 = x2;
         x2 += w;
@@ -195,7 +198,7 @@ GUIROWDrawer_SGnT::drawArrows(const GUILaneWrapper &lane)
         if(state==MSLink::LINKSTATE_TL_OFF_NOSIGNAL) {
             continue;
         }
-        GUITexturesHelper::drawTexturedBox((GUITexture) dir,
+        GUITexturesHelper::drawDirectionArrow((GUITexture) dir,
             (SUMOReal) 1.5, visLength+(SUMOReal) 4.0, (SUMOReal) -1.5, visLength+1);
     }
     glBindTexture(GL_TEXTURE_2D, 0);

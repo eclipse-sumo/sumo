@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.14  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -45,7 +48,8 @@ namespace
 // removed some warnings and adapted the new class hierarchy
 //
 // Revision 1.7  2004/08/02 11:30:54  dkrajzew
-// refactored vehicle and lane coloring scheme usage to allow optional coloring schemes
+// refactored vehicle and lane coloring scheme usage to allow optional coloring
+//  schemes
 //
 // Revision 1.6  2004/07/02 08:12:51  dkrajzew
 // global object selection added
@@ -107,8 +111,7 @@ namespace
 /* =========================================================================
  * static members definitions
  * ======================================================================= */
-GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme, GUIVehicle>
-    GUIBaseVehicleDrawer::myColoringSchemes;
+GUIColoringSchemesMap<GUIVehicle> GUIBaseVehicleDrawer::myColoringSchemes;
 
 
 /* =========================================================================
@@ -127,7 +130,7 @@ GUIBaseVehicleDrawer::~GUIBaseVehicleDrawer()
 
 void
 GUIBaseVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
-        GUISUMOAbstractView::VehicleColoringScheme scheme)
+        GUIBaseColorer<GUIVehicle> &colorer, float upscale)
 {
     initStep();
     // go through edges
@@ -146,7 +149,7 @@ GUIBaseVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
                 for(size_t i=0; i<noLanes; i++) {
                     // get the lane
                     GUILaneWrapper &laneGeom = edge->getLaneGeometry(i);
-                    drawLanesVehicles(laneGeom, scheme);
+                    drawLanesVehicles(laneGeom, colorer, upscale);
                 }
             }
         }
@@ -164,8 +167,10 @@ GUIBaseVehicleDrawer::initStep()
 
 RGBColor
 GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
-        GUISUMOAbstractView::VehicleColoringScheme scheme)
+        GUIBaseColorer<GUIVehicle> &colorer)
 {
+    return colorer.getMinColor();
+    /*
     switch(scheme) {
     case GUISUMOAbstractView::VCS_BY_SPEED:
         {
@@ -177,8 +182,13 @@ GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
         break;
     case GUISUMOAbstractView::VCS_SPECIFIED:
         {
-            const RGBColor &col = vehicle.getDefinedColor();
-            return RGBColor(col.red(), col.green(), col.blue());
+            if(vehicle.hasCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_RED)) {
+                return RGBColor(
+                    vehicle.getCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_RED),
+                    vehicle.getCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_GREEN),
+                    vehicle.getCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_BLUE));
+            }
+            return RGBColor(1, 1, 0);
         }
         break;
     case GUISUMOAbstractView::VCS_TYPE:
@@ -321,15 +331,17 @@ GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
         break;
     }
     return RGBColor(1, 1, 1);
+    */
 }
 
 
 
-
+/*
 void
 GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
-        GUISUMOAbstractView::VehicleColoringScheme scheme)
+        GUIBaseColorer<GUIVehicle> &colorer)
 {
+    /*
     switch(scheme) {
     case GUISUMOAbstractView::VCS_BY_SPEED:
         {
@@ -341,8 +353,14 @@ GUIBaseVehicleDrawer::setVehicleColor(const GUIVehicle &vehicle,
         break;
     case GUISUMOAbstractView::VCS_SPECIFIED:
         {
-            const RGBColor &col = vehicle.getDefinedColor();
-            glColor3d(col.red(), col.green(), col.blue());
+            if(vehicle.hasCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_RED)) {
+                 glColor3d(
+                    vehicle.getCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_RED),
+                    vehicle.getCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_GREEN),
+                    vehicle.getCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_BLUE));
+            } else {
+                glColor3d(1, 1, 0);
+            }
         }
         break;
     case GUISUMOAbstractView::VCS_TYPE:
@@ -584,9 +602,9 @@ GUIBaseVehicleDrawer::setVehicleColor3Of3(const GUIVehicle &vehicle)
         glColor3d(0.3f, 1, 0.3f);
     }
 }
+*/
 
-
-GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme, GUIVehicle> &
+GUIColoringSchemesMap<GUIVehicle> &
 GUIBaseVehicleDrawer::getSchemesMap()
 {
     return myColoringSchemes;

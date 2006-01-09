@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.4  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -54,13 +57,15 @@
 #include <vector>
 #include <microsim/MSRoute.h>
 #include <utils/gfx/RGBColor.h>
+#include <utils/gui/div/GUIColorSetter.h>
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- *
+ * @class GUIRoute
+ * Just a MSRoute extended by a color
  */
 class GUIRoute : public MSRoute {
 public:
@@ -72,13 +77,17 @@ public:
     /// Destructor
     ~GUIRoute();
 
+    /// Returns the color
     const RGBColor &getColor() const;
 
+    /// Sets the color in openGL
+    inline void setColor() const { mglColor(myColor); }
+
 private:
+    /// The color
     RGBColor myColor;
 
 };
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

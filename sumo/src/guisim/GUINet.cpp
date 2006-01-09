@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.47  2006/01/09 11:53:24  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.46  2005/11/29 13:24:03  dkrajzew
 // added a minimum simulation speed definition before the simulation ends (unfinished)
 //
@@ -209,7 +212,6 @@ namespace
 #include <guisim/GUIVehicleControl.h>
 #include <guisim/GUIRouteHandler.h>
 #include <gui/GUIGlobals.h>
-#include <microsim/MSLaneState.h>
 #include <microsim/MSUpdateEachTimestepContainer.h>
 #include <microsim/MSRouteLoader.h>
 #include "GUIVehicle.h"
@@ -671,6 +673,10 @@ GUINet::setIdleDuration(int val)
 MSRouteLoader *
 GUINet::buildRouteLoader(const std::string &file)
 {
+    // return a new build route loader
+    //  the handler is
+    //  a) not adding the vehicles directly
+    //  b) using colors
     return new MSRouteLoader(*this, new GUIRouteHandler(file, false));
 }
 

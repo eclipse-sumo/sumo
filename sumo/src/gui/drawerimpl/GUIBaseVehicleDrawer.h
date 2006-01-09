@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.8  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -90,28 +93,14 @@ public:
 
     /// Draws the vehicles that are on the marked edges
     void drawGLVehicles(size_t *onWhich, size_t maxEdges,
-        GUISUMOAbstractView::VehicleColoringScheme scheme);
+        GUIBaseColorer<GUIVehicle> &colorer, float upscale);
 
     /// Returns the list of available coloring schemes
-    static GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme, GUIVehicle> &
-        getSchemesMap();
+    static GUIColoringSchemesMap<GUIVehicle> &getSchemesMap();
 
     /// sets the colour of the vehicle to draw
     RGBColor getVehicleColor(const GUIVehicle &vehicle,
-        GUISUMOAbstractView::VehicleColoringScheme scheme);
-
-    /// sets the colour of the vehicle to draw
-    void setVehicleColor(const GUIVehicle &vehicle,
-        GUISUMOAbstractView::VehicleColoringScheme scheme);
-
-    /// Sets the front color of the vehicle if the vehicle shall be draw in more than a single color
-    void setVehicleColor1Of3(const GUIVehicle &vehicle);
-
-    /// Sets the right color of the vehicle if the vehicle shall be draw in more than a single color
-    void setVehicleColor2Of3(const GUIVehicle &vehicle);
-
-    /// Sets the left color of the vehicle if the vehicle shall be draw in more than a single color
-    void setVehicleColor3Of3(const GUIVehicle &vehicle);
+        GUIBaseColorer<GUIVehicle> &colorer);
 
 protected:
     /// initialises the drawing
@@ -119,7 +108,7 @@ protected:
 
     /// Draws all vehicles that are on the given lane
     virtual void drawLanesVehicles(GUILaneWrapper &lane,
-        GUISUMOAbstractView::VehicleColoringScheme scheme) = 0;
+        GUIBaseColorer<GUIVehicle> &colorer, float upscale) = 0;
 
 protected:
     /// The list of edges to consider at drawing
@@ -127,8 +116,7 @@ protected:
 
     /** @brief The list of coloring schemes that may be used
         They are not fixed as they may change in dependence to the available parameter */
-    static GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme, GUIVehicle>
-        myColoringSchemes;
+    static GUIColoringSchemesMap<GUIVehicle> myColoringSchemes;
 
 };
 

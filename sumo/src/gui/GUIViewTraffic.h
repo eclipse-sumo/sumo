@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.26  2006/01/09 11:50:20  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.25  2005/10/07 11:36:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -171,9 +174,8 @@ public:
 
     void track(int id);
 
-    long onCmdColourVehicles(FXObject*,FXSelector,void*);
-    long onCmdColourLanes(FXObject*,FXSelector,void*);
     long onCmdShowFullGeom(FXObject*,FXSelector,void*);
+    long onCmdChangeColorScheme(FXObject*,FXSelector sel,void*);
 
     void centerTo(GUIGlObject *o);
 
@@ -185,6 +187,8 @@ public:
 
     /// Returns the information whether the route of the given vehicle is shown
     bool amShowingRouteFor(GUIVehicle *v, int index=-1);
+
+    virtual long onCmdEditView(FXObject*,FXSelector,void*);
 
 protected:
     void draw(const MSRoute &r);
@@ -226,12 +230,6 @@ protected:
         geometry shall be used and whether to show tooltips or not */
     GUIBaseROWDrawer *myROWDrawer[8];
 
-    /// The coloring scheme of vehicles to use
-    VehicleColoringScheme _vehicleColScheme;
-
-    /// The coloring scheme of lanes to use
-    GUIBaseColorer<GUILaneWrapper> *myLaneColorer;
-
     /// The coloring scheme of junctions to use
     JunctionColoringScheme _junctionColScheme;
 
@@ -247,13 +245,9 @@ protected:
     /// The absolut numbers of the array sizes
     size_t _edges2ShowSize, _junctions2ShowSize, _additional2ShowSize;
 
-    /// The widgets for colour manipulation
-    FXPopup *myVehColoring, *myLaneColoring;
+    GUIColoringSchemesMap<GUILaneWrapper> myLaneColoringSchemes;
 
-    GUIColoringSchemesMap<GUISUMOAbstractView::LaneColoringScheme, GUILaneWrapper>
-        myLaneColoringSchemes;
-
-    GUINet *_net;
+	GUINet *_net;
 
 protected:
     GUIViewTraffic() { }

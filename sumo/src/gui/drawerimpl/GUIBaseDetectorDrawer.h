@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.7  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -79,14 +82,14 @@ public:
 
     /// Draws all detectors
     void drawGLDetectors(size_t *which, size_t maxDetectors,
-        SUMOReal scale);
+        SUMOReal scale, SUMOReal upscale);
 
 protected:
     /** @brief Virtual function to be implemented taht actually performs the drawing
         The drawing process depends on whether the full or the simply geometry shall
         be used and whether tool tips shall be displayed or not */
     virtual void myDrawGLDetectors(size_t *which, size_t maxDetectors,
-        SUMOReal scale) = 0;
+        SUMOReal scale, SUMOReal upscale) = 0;
 
 protected:
     /** @brief Inititialises the drawing process

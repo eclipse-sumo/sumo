@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.4  2005/10/07 11:45:09  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -32,7 +35,6 @@
 // Revision 1.2  2005/06/14 11:29:50  dksumo
 // documentation added
 //
-
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -82,7 +84,13 @@ public:
         }
 	}
 
+    virtual ColorSetType getSetType() const {
+        return CST_SET;
+    }
+
 };
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif

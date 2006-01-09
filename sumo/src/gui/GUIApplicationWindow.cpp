@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.50  2006/01/09 11:50:20  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.49  2005/11/29 13:22:20  dkrajzew
 // dded a minimum simulation speed definition before the simulation ends (unfinished)
 //
@@ -90,7 +93,8 @@ namespace
 // errors during simulation are now caught properly
 //
 // Revision 1.28  2003/11/26 09:39:13  dkrajzew
-// added a logging windows to the gui (the passing of more than a single lane to come makes it necessary)
+// added a logging windows to the gui (the passing of more than a single
+//  lane to come makes it necessary)
 //
 // Revision 1.27  2003/11/20 13:17:32  dkrajzew
 // further work on aggregated views
@@ -223,7 +227,6 @@ namespace
 #include "dialogs/GUIDialog_AboutSUMO.h"
 #include "dialogs/GUIDialog_AppSettings.h"
 #include "dialogs/GUIDialog_SimSettings.h"
-#include "dialogs/GUIDialog_MicroViewSettings.h"
 #include "dialogs/GUIDialog_EditAddWeights.h"
 #include "dialogs/GUIDialog_Breakpoints.h"
 #include "GUIThreadFactory.h"
@@ -272,7 +275,6 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]=
     FXMAPFUNC(SEL_COMMAND,  MID_SIMSETTINGS,        GUIApplicationWindow::onCmdSimSettings),
     FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,              GUIApplicationWindow::onCmdAbout),
     FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW,      GUIApplicationWindow::onCmdNewMicro),
-    FXMAPFUNC(SEL_COMMAND,  MID_NEW_LANEAVIEW,      GUIApplicationWindow::onCmdNewLaneA),
     FXMAPFUNC(SEL_COMMAND,  MID_START,              GUIApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_STOP,               GUIApplicationWindow::onCmdStop),
     FXMAPFUNC(SEL_COMMAND,  MID_STEP,               GUIApplicationWindow::onCmdStep),
@@ -283,7 +285,6 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]=
     FXMAPFUNC(SEL_UPDATE,   MID_RELOAD,            GUIApplicationWindow::onUpdReload),
     FXMAPFUNC(SEL_UPDATE,   MID_RECENTFILE,        GUIApplicationWindow::onUpdOpenRecent),
     FXMAPFUNC(SEL_UPDATE,   MID_NEW_MICROVIEW,     GUIApplicationWindow::onUpdAddMicro),
-    FXMAPFUNC(SEL_UPDATE,   MID_NEW_LANEAVIEW,     GUIApplicationWindow::onUpdAddALane),
     FXMAPFUNC(SEL_UPDATE,   MID_START,             GUIApplicationWindow::onUpdStart),
     FXMAPFUNC(SEL_UPDATE,   MID_STOP,              GUIApplicationWindow::onUpdStop),
     FXMAPFUNC(SEL_UPDATE,   MID_STEP,              GUIApplicationWindow::onUpdStep),
@@ -671,10 +672,6 @@ GUIApplicationWindow::buildToolBars()
         new FXButton(myToolBar5,"\t\tOpen a new microscopic View.",
             GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW,
             ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        new FXButton(myToolBar5,
-            "\t\tOpen a new lane aggregated View.",
-            GUIIconSubSys::getIcon(ICON_LAGGRVIEW), this, MID_NEW_LANEAVIEW,
-            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     }
 }
 
@@ -866,17 +863,6 @@ GUIApplicationWindow::onCmdClearMsgWindow(FXObject*,FXSelector,void*)
 
 
 long
-GUIApplicationWindow::onUpdAddALane(FXObject*sender,FXSelector,void*ptr)
-{
-    sender->handle(this,
-        myAmLoading||!myRunThread->simulationAvailable()||!gAllowAggregated
-        ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
-        ptr);
-    return 1;
-}
-
-
-long
 GUIApplicationWindow::onUpdStart(FXObject*sender,FXSelector,void*ptr)
 {
     sender->handle(this,
@@ -974,14 +960,6 @@ long
 GUIApplicationWindow::onCmdNewMicro(FXObject*,FXSelector,void*)
 {
     openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
-    return 1;
-}
-
-
-long
-GUIApplicationWindow::onCmdNewLaneA(FXObject*,FXSelector,void*)
-{
-    openNewView(GUISUMOViewParent::LANE_AGGREGATED_VIEW);
     return 1;
 }
 

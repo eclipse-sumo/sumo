@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.2  2005/12/01 07:33:44  dkrajzew
 // introducing bus stops: eased building vehicles; vehicles may now have nested elements
 //
@@ -467,24 +470,25 @@ GUIEmitter::getPosition() const
 
 
 void
-GUIEmitter::drawGL_FG(SUMOReal scale)
+GUIEmitter::drawGL_FG(SUMOReal scale, SUMOReal upscale)
 {
-    doPaint(myFGPosition, myFGRotation, scale);
+    doPaint(myFGPosition, myFGRotation, scale, upscale);
 }
 
 
 void
-GUIEmitter::drawGL_SG(SUMOReal scale)
+GUIEmitter::drawGL_SG(SUMOReal scale, SUMOReal upscale)
 {
-    doPaint(mySGPosition, mySGRotation, scale);
+    doPaint(mySGPosition, mySGRotation, scale, upscale);
 }
 
 
 void
 GUIEmitter::doPaint(const Position2D &pos, SUMOReal rot,
-                             SUMOReal scale)
+                    SUMOReal scale, SUMOReal upscale)
 {
     glPushMatrix();
+    glScaled(upscale, upscale, upscale);
     glTranslated(pos.x(), pos.y(), 0);
     glRotated( rot, 0, 0, 1 );
 

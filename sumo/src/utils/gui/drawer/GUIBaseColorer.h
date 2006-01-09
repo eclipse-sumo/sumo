@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.6  2005/10/07 11:45:09  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -35,7 +38,6 @@
 // Revision 1.3  2005/06/14 11:29:50  dksumo
 // documentation added
 //
-
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -55,16 +57,59 @@
 
 #include <GL/gl.h>
 
+enum ColorSetType {
+    CST_SINGLE,
+    CST_GRADIENT,
+    CST_PALETTE,
+    CST_MINMAX,
+    CST_SET,
+    CST_STATIC
+};
+
+class GUIBaseColorerInterface {
+public:
+    virtual void resetColor(const RGBColor &) = 0;
+    virtual void resetColor(const RGBColor &, const RGBColor &) = 0;
+    virtual void resetColor(const std::vector<RGBColor> &) = 0;
+
+    virtual const RGBColor &getSingleColor() const = 0;
+    virtual const RGBColor &getMinColor() const = 0;
+    virtual const RGBColor &getMaxColor() const = 0;
+    virtual const std::vector<RGBColor> &getGradient() const = 0;
+};
+
+/**
+ * @class GUIBaseColorer
+ * Base class for coloring
+ */
 template<class _T>
-class GUIBaseColorer {
+class GUIBaseColorer : public GUIBaseColorerInterface {
 public:
 	GUIBaseColorer() { }
 	virtual ~GUIBaseColorer() { }
+
 	virtual void setGlColor(const _T& i) const = 0;
+
     virtual void setGlColor(SUMOReal val) const {
         glColor3d(val, val, val);
     }
+
+    virtual ColorSetType getSetType() const {
+        return CST_SINGLE;
+    }
+
+    virtual void resetColor(const RGBColor &) { }
+    virtual void resetColor(const RGBColor &, const RGBColor &) { }
+    virtual void resetColor(const std::vector<RGBColor> &) { }
+
+    virtual const RGBColor &getSingleColor() const { throw 1; }
+    virtual const RGBColor &getMinColor() const { throw 1; }
+    virtual const RGBColor &getMaxColor() const { throw 1; }
+    virtual const std::vector<RGBColor> &getGradient() const { throw 1; }
+
 };
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif

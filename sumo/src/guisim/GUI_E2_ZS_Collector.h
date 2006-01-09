@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.15  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -154,10 +157,10 @@ public:
         Boundary getBoundary() const;
 
         /// Draws the detector in full-geometry mode
-        void drawGL_FG(SUMOReal scale);
+        void drawGL_FG(SUMOReal scale, SUMOReal upscale);
 
         /// Draws the detector in simple-geometry mode
-        void drawGL_SG(SUMOReal scale);
+        void drawGL_SG(SUMOReal scale, SUMOReal upscale);
 
         /// Draws the detector in full-geometry mode
         GUIParameterTableWindow *getParameterWindow(

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/01/09 11:50:20  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.18  2005/10/07 11:36:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -123,7 +126,6 @@ namespace
 #include "GUIGlobals.h"
 #include "dialogs/GUIDialog_GLObjChooser.h"
 #include "GUIViewTraffic.h"
-#include "GUIViewAggregatedLanes.h"
 #include "GUIApplicationWindow.h"
 #include "GUISUMOViewParent.h"
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
@@ -231,17 +233,6 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
             _view =
                 new GUIViewTraffic(glcanvasFrame, *myParent, this, net,
                     myParent->getGLVisual());
-        }
-        break;
-    case LANE_AGGREGATED_VIEW:
-        if(share!=0) {
-            _view =
-                new GUIViewAggregatedLanes(glcanvasFrame, *myParent, this,
-                    net, myParent->getGLVisual(), share);
-        } else {
-            _view =
-                new GUIViewAggregatedLanes(glcanvasFrame, *myParent, this,
-                    net, myParent->getGLVisual());
         }
         break;
     default:

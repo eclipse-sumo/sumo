@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.10  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -207,43 +210,44 @@ GUIE3Collector::MyWrapper::active() const
 
 
 void
-GUIE3Collector::MyWrapper::drawGL_SG(SUMOReal scale)
+GUIE3Collector::MyWrapper::drawGL_SG(SUMOReal scale, SUMOReal upscale)
 {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     glColor3d(0, .8, 0);
     for(i=myEntryDefinitions.begin(); i!=myEntryDefinitions.end(); i++) {
-        drawSingleCrossing((*i).mySGPosition, (*i).mySGRotation);
+        drawSingleCrossing((*i).mySGPosition, (*i).mySGRotation, upscale);
     }
     glColor3d(.8, 0, 0);
     for(i=myExitDefinitions.begin(); i!=myExitDefinitions.end(); i++) {
-        drawSingleCrossing((*i).mySGPosition, (*i).mySGRotation);
+        drawSingleCrossing((*i).mySGPosition, (*i).mySGRotation, upscale);
     }
 }
 
 
 void
-GUIE3Collector::MyWrapper::drawGL_FG(SUMOReal scale)
+GUIE3Collector::MyWrapper::drawGL_FG(SUMOReal scale, SUMOReal upscale)
 {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     glColor3d(0, .8, 0);
     for(i=myEntryDefinitions.begin(); i!=myEntryDefinitions.end(); i++) {
-        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation);
+        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, upscale);
     }
     glColor3d(.8, 0, 0);
     for(i=myExitDefinitions.begin(); i!=myExitDefinitions.end(); i++) {
-        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation);
+        drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, upscale);
     }
 }
 
 
 void
 GUIE3Collector::MyWrapper::drawSingleCrossing(const Position2D &pos,
-                                              SUMOReal rot) const
+                                              SUMOReal rot, SUMOReal upscale) const
 {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glPushMatrix();
+    glScaled(upscale, upscale, upscale);
     glTranslated(pos.x(), pos.y(), 0);
     glRotated( rot, 0, 0, 1 );
     glBegin( GL_LINES);
@@ -258,9 +262,9 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position2D &pos,
     glEnd();
     // arrows
     glTranslated(1.5, 0, 0);
-    GUITexturesHelper::drawTexturedBox(TEXTURE_LINKDIR_STRAIGHT, 1.0);
+    GUITexturesHelper::drawDirectionArrow(TEXTURE_LINKDIR_STRAIGHT, 1.0);
     glTranslated(-3, 0, 0);
-    GUITexturesHelper::drawTexturedBox(TEXTURE_LINKDIR_STRAIGHT, 1.0);
+    GUITexturesHelper::drawDirectionArrow(TEXTURE_LINKDIR_STRAIGHT, 1.0);
     glPopMatrix();
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.43  2006/01/09 11:50:20  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.42  2005/11/09 06:33:15  dkrajzew
 // removed unneeded stuff
 //
@@ -177,7 +180,6 @@ namespace
 #include <guisim/GUIVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
-#include <microsim/MSVehicle.h>
 #include <microsim/MSCORN.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
@@ -215,7 +217,10 @@ namespace
 #include "GUIColorer_LaneByPurpose.h"
 #include <utils/gui/div/GUIExcp_VehicleIsInvisible.h>
 #include <utils/glutils/polyfonts.h>
-
+#include <utils/gui/windows/GUIDialog_ViewSettings.h>
+#include <utils/gui/drawer/GUICompleteSchemeStorage.h>
+#include <utils/gui/images/GUITexturesHelper.h>
+#include <utils/foxtools/MFXImageHelper.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -238,8 +243,8 @@ using namespace std;
  * FOX callback mapping
  * ======================================================================= */
 FXDEFMAP(GUIViewTraffic) GUIViewTrafficMap[]={
-    FXMAPFUNCS(SEL_COMMAND,  MID_COLOURVEHICLES, MID_COLOURVEHICLES+99, GUIViewTraffic::onCmdColourVehicles),
-    FXMAPFUNCS(SEL_COMMAND,  MID_COLOURLANES,    MID_COLOURLANES+99,    GUIViewTraffic::onCmdColourLanes),
+    FXMAPFUNC(SEL_COMMAND,  MID_COLOURSCHEMECHANGE,   GUIViewTraffic::onCmdChangeColorScheme),
+
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWTOOLTIPS,   GUIViewTraffic::onCmdShowToolTips),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWGRID,       GUIViewTraffic::onCmdShowGrid),
     FXMAPFUNC(SEL_COMMAND,  MID_SHOWFULLGEOM,   GUIViewTraffic::onCmdShowFullGeom),
@@ -256,7 +261,6 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
                                GUISUMOViewParent *parent,
                                GUINet &net, FXGLVisual *glVis)
 	: GUISUMOAbstractView(p, app, parent, net._grid, glVis),
-    _vehicleColScheme(VCS_BY_SPEED),
     myTrackedID(-1), myUseFullGeom(true),
     _edges2Show(0), _junctions2Show(0), _additional2Show(0),
 	_net(&net)
@@ -271,7 +275,6 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
                                GUINet &net, FXGLVisual *glVis,
                                FXGLCanvas *share)
     : GUISUMOAbstractView(p, app, parent, net._grid, glVis, share),
-    _vehicleColScheme(VCS_BY_SPEED),
     myTrackedID(-1), myUseFullGeom(true),
     _edges2Show(0), _junctions2Show(0), _additional2Show(0),
 	_net(&net)
@@ -342,39 +345,36 @@ GUIViewTraffic::init(GUINet &net)
     myROWDrawer[5] = new GUIROWDrawer_SGwT(_net->myEdgeWrapper);
     myROWDrawer[6] = new GUIROWDrawer_FGnT(_net->myEdgeWrapper);
     myROWDrawer[7] = new GUIROWDrawer_FGwT(_net->myEdgeWrapper);
+
     // lane coloring
-	GUIBaseColorer<GUILaneWrapper> *defLaneColorer =
-		new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0));
-	myLaneColorer = defLaneColorer;
-	myLaneColoringSchemes.add("black",
-		GUISUMOAbstractView::LCS_BLACK, defLaneColorer);
-	myLaneColoringSchemes.add("by purpose",
-		GUISUMOAbstractView::LCS_BY_PURPOSE,
-		new GUIColorer_LaneByPurpose<GUILaneWrapper>());
-	myLaneColoringSchemes.add("by allowed speed",
-		GUISUMOAbstractView::LCS_BY_SPEED,
+	myLaneColoringSchemes.add("uniform",
+        new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(0, 0, 0)));
+
+	myLaneColoringSchemes.add("by allowed speed (lanewise)",
 		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
             0, (SUMOReal) (150.0/3.6),
             RGBColor(1, 0, 0), RGBColor(0, 0, 1),
             (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
-	myLaneColoringSchemes.add("by selection",
-		GUISUMOAbstractView::LCS_BY_SELECTION,
-		new GUIColorer_LaneBySelection<GUILaneWrapper>());
-	myLaneColoringSchemes.add("white",
-		GUISUMOAbstractView::LCS_WHITE,
-        new GUIColorer_SingleColor<GUILaneWrapper>(RGBColor(1, 1, 1)));
-	myLaneColoringSchemes.add("by first vehicle waiting time",
-		GUISUMOAbstractView::LCS_WAITING_FIRST,
+
+	myLaneColoringSchemes.add("by current density (lanewise)",
+		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+            0, (SUMOReal) .8,
+            RGBColor(0, 1, 0), RGBColor(1, 0, 0),
+            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::myMagic)); // !!!
+
+	myLaneColoringSchemes.add("by first vehicle waiting time (lanewise)",
 		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
             0, 200,
             RGBColor(0, 1, 0), RGBColor(1, 0, 0),
             (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::firstWaitingTime));
-	myLaneColoringSchemes.add("by current density",
-		GUISUMOAbstractView::LCS_WAITING_DENSITYX,
-		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
-            0, (SUMOReal) .8,
-            RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::myMagic));
+
+	myLaneColoringSchemes.add("by selection (lanewise)",
+		new GUIColorer_LaneBySelection<GUILaneWrapper>());
+
+	myLaneColoringSchemes.add("by purpose (lanewise)",
+		new GUIColorer_LaneByPurpose<GUILaneWrapper>());
+
+    myVisualizationSettings = gSchemeStorage.get(gSchemeStorage.getNames()[0]);
 }
 
 
@@ -390,8 +390,6 @@ GUIViewTraffic::~GUIViewTraffic()
     delete[] _edges2Show;
     delete[] _junctions2Show;
     delete[] _additional2Show;
-    delete myVehColoring;
-    delete myLaneColoring;
     delete myLocatorPopup;
 }
 
@@ -400,8 +398,6 @@ void
 GUIViewTraffic::create()
 {
     FXGLCanvas::create();
-    myVehColoring->create();
-    myLaneColoring->create();
     myLocatorPopup->create();
 }
 
@@ -412,19 +408,16 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
     FXToolBar &toolbar = v.getToolBar(*this);
     new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
     // build coloring tools
-        // vehicle colors
-    myVehColoring=new FXPopup(&toolbar, POPUP_VERTICAL);
-    GUIBaseVehicleDrawer::getSchemesMap().fill(*myVehColoring, this, MID_COLOURVEHICLES);
-    new FXMenuButton(&toolbar,"\tSet the coloring scheme for vehicles",
-        GUIIconSubSys::getIcon(ICON_COLOURVEHICLES), myVehColoring,
-        MENUBUTTON_RIGHT|LAYOUT_TOP|BUTTON_TOOLBAR|FRAME_RAISED|FRAME_THICK);
+    {
+        FXComboBox *myColoringSchemes =
+            new FXComboBox(&toolbar, 8, this, MID_COLOURSCHEMECHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
+        const std::vector<std::string> &names = gSchemeStorage.getNames();
+        for(std::vector<std::string>::const_iterator i=names.begin(); i!=names.end(); ++i) {
+            myColoringSchemes->appendItem((*i).c_str());
+        }
+    }
 
-        // lane colors
-    myLaneColoring=new FXPopup(&toolbar, POPUP_VERTICAL);
-    myLaneColoringSchemes.fill(*myLaneColoring, this, MID_COLOURLANES);
-    new FXMenuButton(&toolbar,"\tSet the coloring scheme for lanes",
-        GUIIconSubSys::getIcon(ICON_COLOURLANES), myLaneColoring,
-        MENUBUTTON_RIGHT|LAYOUT_TOP|BUTTON_TOOLBAR|FRAME_RAISED|FRAME_THICK);
+
 
     new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
 
@@ -458,7 +451,16 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
         "\tEdit Viewport...\tOpens a menu which lets you edit the viewport.",
         GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEWPORT,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-
+    new FXButton(&toolbar,
+        "\tEdit Viewport...\tOpens a menu which lets you edit the viewport.",
+        GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEW,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+    /*
+    new FXButton(&toolbar,
+        "\tEdit Viewport...\tOpens a menu which lets you edit the viewport.",
+        GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEW,
+        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
+*/
     new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
 
     // add toggle button for grid on/off
@@ -483,22 +485,32 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
 
 
 long
-GUIViewTraffic::onCmdColourVehicles(FXObject*,FXSelector sel,void*)
+GUIViewTraffic::onCmdChangeColorScheme(FXObject*,FXSelector sel,void*data)
 {
-    int index = FXSELID(sel) - MID_COLOURVEHICLES;
-    _vehicleColScheme =
-        GUIBaseVehicleDrawer::getSchemesMap().getEnumValue(index);
-    update();
-    return 1;
-}
-
-
-long
-GUIViewTraffic::onCmdColourLanes(FXObject*,FXSelector sel,void*)
-{
-    int index = FXSELID(sel) - MID_COLOURLANES;
-    myLaneColorer =
-        myLaneColoringSchemes.getColorer(index);
+    char *dataC = (char*) data; // !!! unicode
+    myVisualizationSettings = gSchemeStorage.get(dataC);
+    // lanes
+    switch(myLaneColoringSchemes.getColorSetType(myVisualizationSettings.laneEdgeMode)) {
+    case CST_SINGLE:
+        myLaneColoringSchemes.getColorerInterface(myVisualizationSettings.laneEdgeMode)->resetColor(myVisualizationSettings.singleLaneColor);
+        break;
+    case CST_MINMAX:
+        myLaneColoringSchemes.getColorerInterface(myVisualizationSettings.laneEdgeMode)->resetColor(myVisualizationSettings.minLaneColor, myVisualizationSettings.maxLaneColor);
+        break;
+    default:
+        break;
+    }
+    // vehicles
+    switch(GUIBaseVehicleDrawer::getSchemesMap().getColorSetType(myVisualizationSettings.vehicleMode)) {
+    case CST_SINGLE:
+        GUIBaseVehicleDrawer::getSchemesMap().getColorerInterface(myVisualizationSettings.vehicleMode)->resetColor(myVisualizationSettings.singleVehicleColor);
+        break;
+    case CST_MINMAX:
+        GUIBaseVehicleDrawer::getSchemesMap().getColorerInterface(myVisualizationSettings.vehicleMode)->resetColor(myVisualizationSettings.minVehicleColor, myVisualizationSettings.maxVehicleColor);
+        break;
+    default:
+        break;
+    }
     update();
     return 1;
 }
@@ -535,12 +547,12 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     SUMOReal yoff = (SUMOReal) 50.0 / _changer->getZoom() * myNetScale
         / _addScl; // offset to top
     // reset the tables of things to show if the viewport has changed
-    if(myViewSettings.differ(x, y, xoff, yoff)) {
+    if(myViewportSettings.differ(x, y, xoff, yoff)) {
         clearUsetable(_edges2Show, _edges2ShowSize);
         clearUsetable(_junctions2Show, _junctions2ShowSize);
         _net->_grid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR, x, y, xoff, yoff,
             _edges2Show, _junctions2Show, _additional2Show);
-        myViewSettings.set(x, y, xoff, yoff);
+        myViewportSettings.set(x, y, xoff, yoff);
     }
     // compute lane width
     SUMOReal width = m2p(3.0) * scale;
@@ -553,14 +565,36 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
         drawerToUse += 1;
     }
     // draw
-    myJunctionDrawer[drawerToUse]->drawGLJunctions(_junctions2Show,
-        _junctions2ShowSize, _junctionColScheme);
-    myLaneDrawer[drawerToUse]->drawGLLanes(_edges2Show, _edges2ShowSize,
-        width, *myLaneColorer);
-    myDetectorDrawer[drawerToUse]->drawGLDetectors(_additional2Show,
-        _additional2ShowSize, width);
-    myROWDrawer[drawerToUse]->drawGLROWs(*_net,
-        _edges2Show, _edges2ShowSize, width);
+    {
+        myDecalsLock.lock();
+        for(std::vector<GUISUMOAbstractView::Decal>::iterator l=myDecals.begin(); l!=myDecals.end(); ++l) {
+            GUISUMOAbstractView::Decal &d = *l;
+            if(!d.initialised) {
+                FXImage *i = MFXImageHelper::loadimage(getApp(), d.filename);
+                if(i!=0) {
+                    d.glID = GUITexturesHelper::add(i);
+                    d.initialised = true;
+                }
+            }
+            glPushMatrix();
+            glTranslated(d.left, d.top, 0);
+            glRotated(d.rot, 0, 0, 1);
+            glColor3d(1,1,1);
+            GUITexturesHelper::drawTexturedBox(d.glID, 0, 0, d.right-d.left, d.bottom-d.top);
+            glPopMatrix();
+        }
+        myDecalsLock.unlock();
+    }
+
+    myJunctionDrawer[drawerToUse]->drawGLJunctions(_junctions2Show, _junctions2ShowSize,
+        _junctionColScheme);
+    myLaneDrawer[drawerToUse]->drawGLLanes(_edges2Show, _edges2ShowSize, width,
+        *myLaneColoringSchemes.getColorer(myVisualizationSettings.laneEdgeMode),
+        myVisualizationSettings.laneShowBorders);
+    myDetectorDrawer[drawerToUse]->drawGLDetectors(_additional2Show, _additional2ShowSize,
+        width, myVisualizationSettings.addExaggeration);
+    myROWDrawer[drawerToUse]->drawGLROWs(*_net, _edges2Show, _edges2ShowSize, width,
+        myVisualizationSettings.showLane2Lane, myVisualizationSettings.showLinkDecals);
     //
     for(std::vector<VehicleOps>::iterator i=myVehicleOps.begin(); i!=myVehicleOps.end(); ++i) {
         const VehicleOps &vo = *i;
@@ -589,10 +623,59 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     // draw the Polygons
     drawShapes(_net->getShapeContainer());
     // draw vehicles only when they're visible
-    if(scale*m2p(3)>1) {
-        myVehicleDrawer[drawerToUse]->drawGLVehicles(_edges2Show,
-            _edges2ShowSize, _vehicleColScheme);
+    if(scale*m2p(3)>myVisualizationSettings.minVehicleSize) {
+        myVehicleDrawer[drawerToUse]->drawGLVehicles(_edges2Show, _edges2ShowSize,
+            *GUIBaseVehicleDrawer::getSchemesMap().getColorer(myVisualizationSettings.vehicleMode),
+            myVisualizationSettings.vehicleExaggeration);
     }
+
+/*
+    if(!TexturesInitialised) {
+        TexturesInitialised = true;
+        FXImage *i = MFXImageHelper::loadimage(getApp(), "D:\\koeln_fastlane.gif");
+        TextureNo = GUITexturesHelper::add(i);
+/*
+        FXIcon *i = GUIIconSubSys::getIcon(ICON_APP_BREAKPOINTS);
+        glEnable(GL_TEXTURE_2D);
+        glGenTextures( 1, &TextureNo );
+        glBindTexture(GL_TEXTURE_2D, TextureNo);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexImage2D(GL_TEXTURE_2D, 0, 4, i->getWidth(), i->getHeight(), 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, i->getData());
+            */
+//    }
+
+/*
+    glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, TextureNo);
+	glBegin(GL_QUADS);
+	glColor3f(0.0f, 1.0f, 1.0f);
+
+    glTexCoord2f(0.0f, 0.0f); glVertex2d(0, 0);
+    glTexCoord2f(1.0f, 0.0f); glVertex2d(150, 0);
+    glTexCoord2f(1.0f, 1.0f); glVertex2d(150, 150);
+    glTexCoord2f(0.0f, 1.0f); glVertex2d(0, 150);
+
+    glTexCoord2f(0.0f, 0.0f); glVertex2d(200+0, 0);
+    glTexCoord2f(1.0f, 0.0f); glVertex2d(200+0, 150);
+    glTexCoord2f(1.0f, 1.0f); glVertex2d(200+150, 150);
+    glTexCoord2f(0.0f, 1.0f); glVertex2d(200+150, 0);
+
+    glDisable(GL_TEXTURE_2D);
+
+    glEnd();
+*/
+    /*
+    glPushMatrix();
+    glTranslated(100, 100, 0);
+    GUITexturesHelper::drawTexturedBox(TextureNo, 20);
+    glPopMatrix();
+    */
+    // !!!!
+
     glPopMatrix();
 }
 
@@ -631,6 +714,7 @@ GUIViewTraffic::doInit()
 void
 GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken)
 {
+    /*!!!
     if(_useToolTips) {
         glPushName(vo.vehicle->getGlID());
     }
@@ -642,6 +726,7 @@ GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken)
     if(_useToolTips) {
         glPopName();
     }
+    */
 }
 
 
@@ -726,6 +811,21 @@ GUIViewTraffic::amShowingRouteFor(GUIVehicle *v, int index)
     return false;
 }
 
+
+long
+GUIViewTraffic::onCmdEditView(FXObject*,FXSelector,void*)
+{
+    if(myVisualizationChanger==0) {
+        myVisualizationChanger =
+            new GUIDialog_ViewSettings(
+                myApp, this, &myVisualizationSettings,
+                &myLaneColoringSchemes, &GUIBaseVehicleDrawer::getSchemesMap(),
+                &myDecals, &myDecalsLock);
+        myVisualizationChanger->create();
+    }
+    myVisualizationChanger->show();
+    return 1;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

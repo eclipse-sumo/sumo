@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.1  2005/11/09 06:35:03  dkrajzew
 // Emitters reworked
 //
@@ -109,10 +112,10 @@ public:
 
     //@{ From GUIAbstractAddGlObject
     /// Draws the detector in full-geometry mode
-    void drawGL_FG(SUMOReal scale);
+    void drawGL_FG(SUMOReal scale, SUMOReal upscale);
 
     /// Draws the detector in simple-geometry mode
-    void drawGL_SG(SUMOReal scale);
+    void drawGL_SG(SUMOReal scale, SUMOReal upscale);
 
     /// Returns the detector's coordinates
     Position2D getPosition() const;
@@ -209,7 +212,7 @@ public:
     };
 
 private:
-    void doPaint(const Position2D &pos, SUMOReal rot, SUMOReal scale);
+    void doPaint(const Position2D &pos, SUMOReal rot, SUMOReal scale, SUMOReal upscale);
 
 private:
     /// The positions in full-geometry mode

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.4  2005/10/07 11:45:09  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -61,6 +64,14 @@
 /* =========================================================================
  * class definitions
  * ======================================================================= */
+class BaseSchemeInfoSource {
+public:
+    virtual void fill(FXComboBox &cb) = 0;
+	virtual ColorSetType getColorSetType(size_t index) const = 0;
+	virtual GUIBaseColorerInterface *getColorerInterface(size_t index) const = 0;
+};
+
+
 /**
  * @class GUIColoringSchemesMap
  * To allow a variable usage of coloring schemes - as not always all are available
@@ -68,8 +79,8 @@
  * as understood by the corresponding drawer classes, their names and their
  * numerical representation within a filled chooser widget.
  */
-template<typename E1, class T1>
-class GUIColoringSchemesMap {
+template<class T1>
+class GUIColoringSchemesMap : public BaseSchemeInfoSource {
 public:
     /// Constructor
     GUIColoringSchemesMap()
@@ -86,11 +97,10 @@ public:
     }
 
     /// Adds a named coloring scheme identifier to the list of allowed coloring schemes
-    void add(const std::string &name, E1 enumValue, GUIBaseColorer<T1> *colorer) {
+    void add(const std::string &name, GUIBaseColorer<T1> *colorer) {
         ColorMapping cm;
         cm.name = name;
-        cm.enumValue = enumValue;
-        cm.colorer = colorer;
+		cm.colorer = colorer;
         myAvailableSchemes.push_back(cm);
     }
 
@@ -98,28 +108,27 @@ public:
         The indices of the coloring schemes are stored within this structures
         in order to allow the retrieval of their enumeration values. */
     void fill(FXComboBox &cb) {
-        int choserValue = 0;
         typename std::vector<ColorMapping>::iterator i;
         for(i=myAvailableSchemes.begin(); i!=myAvailableSchemes.end(); ++i) {
-            (*i).choserValue = choserValue++;
             cb.appendItem((*i).name.c_str());
         }
     }
 
-    /** @brief Fills the given popup with the names of available coloring
+    /* @brief Fills the given popup with the names of available coloring
         The indices of the coloring schemes are stored within this structures
         in order to allow the retrieval of their enumeration values. */
+    /*
     void fill(FXPopup &p, FXObject *target, int selector) {
-        int choserValue = 0;
         typename std::vector<ColorMapping>::iterator i;
         for(i=myAvailableSchemes.begin(); i!=myAvailableSchemes.end(); ++i) {
-            (*i).choserValue = choserValue++;
             new FXButton(&p, (*i).name.c_str(),
                 NULL,target,selector+choserValue-1,FRAME_THICK|FRAME_RAISED);
         }
     }
+    */
 
     /// Returns the enumeration value for a previously given int value
+    /*
     E1 getEnumValue(int choserValue) const {
         typename std::vector<ColorMapping>::const_iterator i;
         for(i=myAvailableSchemes.begin(); i!=myAvailableSchemes.end(); ++i) {
@@ -129,21 +138,24 @@ public:
         }
         throw 1; // !!!
     }
+    */
 
     /// Returns the number of available coloring schemes
     size_t size() const {
         return myAvailableSchemes.size();
     }
 
-    GUIBaseColorer<T1> *getColorer(int choserValue) const {
-        typename std::vector<ColorMapping>::const_iterator i;
-        for(i=myAvailableSchemes.begin(); i!=myAvailableSchemes.end(); ++i) {
-            if((*i).choserValue==choserValue) {
-                return (*i).colorer;
-            }
-        }
-        throw 1; // !!!
-    }
+	GUIBaseColorer<T1> *getColorer(size_t index) const {
+        return myAvailableSchemes[index].colorer;
+	}
+
+	GUIBaseColorerInterface *getColorerInterface(size_t index) const {
+        return myAvailableSchemes[index].colorer;
+	}
+
+	ColorSetType getColorSetType(size_t index) const {
+        return myAvailableSchemes[index].colorer->getSetType();
+	}
 
 private:
     /**
@@ -155,14 +167,11 @@ private:
         /// The name of the coloring scheme
         std::string name;
 
-        /// The coloring scheme's enumeration value
-        E1 enumValue;
+        // The coloring scheme's enumeration index
+        //int choserValue;
 
-        /// The coloring scheme's enumeration index
-        int choserValue;
-
-        /// The colorer to use
-        GUIBaseColorer<T1> *colorer;
+		/// The colorer to use
+		GUIBaseColorer<T1> *colorer;
 
     };
 

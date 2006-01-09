@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.10  2005/11/29 13:34:47  dkrajzew
 // viewport debugged
 //
@@ -201,6 +204,8 @@ namespace
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
 #include <utils/gui/globjects/GUIPolygon2D.h>
+#include <utils/gui/windows/GUIDialog_ViewSettings.h>
+
 
 #ifdef _WIN32
 #include <windows.h>
@@ -229,37 +234,39 @@ using namespace std;
  * member method definitions
  * ======================================================================= */
 /* -------------------------------------------------------------------------
- * GUISUMOAbstractView::ViewSettings - methods
+ * GUISUMOAbstractView::ViewportSettings - methods
  * ----------------------------------------------------------------------- */
-GUISUMOAbstractView::ViewSettings::ViewSettings()
+GUISUMOAbstractView::ViewportSettings::ViewportSettings()
     : myX(-1), myY(-1), myXOff(-1), myYOff(-1)
 {
 }
 
 
-GUISUMOAbstractView::ViewSettings::ViewSettings(SUMOReal x, SUMOReal y,
-                                                SUMOReal xoff, SUMOReal yoff)
+GUISUMOAbstractView::ViewportSettings::ViewportSettings(SUMOReal x,
+                                                        SUMOReal y,
+                                                        SUMOReal xoff,
+                                                        SUMOReal yoff)
     : myX(x), myY(y), myXOff(xoff), myYOff(yoff)
 {
 }
 
 
-GUISUMOAbstractView::ViewSettings::~ViewSettings()
+GUISUMOAbstractView::ViewportSettings::~ViewportSettings()
 {
 }
 
 
 bool
-GUISUMOAbstractView::ViewSettings::differ(SUMOReal x, SUMOReal y,
-                                          SUMOReal xoff, SUMOReal yoff)
+GUISUMOAbstractView::ViewportSettings::differ(SUMOReal x, SUMOReal y,
+                                              SUMOReal xoff, SUMOReal yoff)
 {
     return myX!=x || myY!=y || myXOff!=xoff || myXOff!=yoff;
 }
 
 
 void
-GUISUMOAbstractView::ViewSettings::set(SUMOReal x, SUMOReal y,
-                                       SUMOReal xoff, SUMOReal yoff)
+GUISUMOAbstractView::ViewportSettings::set(SUMOReal x, SUMOReal y,
+                                           SUMOReal xoff, SUMOReal yoff)
 {
     myX = x;
     myY = y;
@@ -279,7 +286,6 @@ FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[]={
     FXMAPFUNC(SEL_RIGHTBUTTONPRESS,    0,                 GUISUMOAbstractView::onRightBtnPress),
     FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,  0,                 GUISUMOAbstractView::onRightBtnRelease),
     FXMAPFUNC(SEL_MOTION,              0,                 GUISUMOAbstractView::onMouseMove),
-//    FXMAPFUNC(SEL_TIMEOUT,             ID_RMOUSETIMEOUT,  GUISUMOAbstractView::onRightMouseTimeOut),
     FXMAPFUNC(SEL_COMMAND,             MID_SIMSTEP,       GUISUMOAbstractView::onSimStep),
     FXMAPFUNC(SEL_KEYPRESS,            0,                 GUISUMOAbstractView::onKeyPress),
     FXMAPFUNC(SEL_KEYRELEASE,          0,                 GUISUMOAbstractView::onKeyRelease),
@@ -288,8 +294,8 @@ FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[]={
 
 };
 
-  // Macro for the GLTestApp class hierarchy implementation
-FXIMPLEMENT(GUISUMOAbstractView,FXGLCanvas,GUISUMOAbstractViewMap,ARRAYNUMBER(GUISUMOAbstractViewMap))
+
+FXIMPLEMENT_ABSTRACT(GUISUMOAbstractView,FXGLCanvas,GUISUMOAbstractViewMap,ARRAYNUMBER(GUISUMOAbstractViewMap))
 
 
 /* -------------------------------------------------------------------------
@@ -313,7 +319,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
     _mouseHotspotY(app.getDefaultCursor()->getHotY()),
     _popup(0),
     myAmInitialised(false),
-    myViewportChooser(0)
+    myViewportChooser(0), myVisualizationChanger(0)
 {
     flags|=FLAG_ENABLED;
 	_inEditMode=false;
@@ -345,7 +351,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
     _mouseHotspotY(app.getDefaultCursor()->getHotY()),
     _popup(0),
     myAmInitialised(false),
-    myViewportChooser(0)
+    myViewportChooser(0), myVisualizationChanger(0)
 {
     flags|=FLAG_ENABLED;
 	_inEditMode=false;
@@ -369,6 +375,7 @@ GUISUMOAbstractView::~GUISUMOAbstractView()
         _lock.unlock();
     }
     delete myViewportChooser;
+    delete myVisualizationChanger;
 }
 
 
@@ -451,11 +458,30 @@ GUISUMOAbstractView::paintGL()
         return;
     }
     // draw
+    glClearColor(
+        myVisualizationSettings.backgroundColor.red(),
+        myVisualizationSettings.backgroundColor.green(),
+        myVisualizationSettings.backgroundColor.blue(),
+        1);
     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glDisable(GL_POINT_SMOOTH);
-    glDisable(GL_LINE_SMOOTH);
-    glDisable(GL_POLYGON_SMOOTH);
+
+    if(myVisualizationSettings.dither) {
+        glEnable(GL_DITHER);
+    } else {
+        glDisable(GL_DITHER);
+    }
+    if(myVisualizationSettings.antialiase) {
+        glEnable(GL_BLEND);
+        glEnable(GL_POLYGON_SMOOTH);
+        glEnable(GL_LINE_SMOOTH);
+//        glDisable (GL_DEPTH_TEST);
+    } else {
+        glDisable(GL_BLEND);
+        glDisable(GL_POLYGON_SMOOTH);
+        glDisable(GL_LINE_SMOOTH);
+//        glEnable (GL_DEPTH_TEST);
+    }
 
     applyChanges(1.0, 0, 0);
     if(_showGrid) {
@@ -817,7 +843,11 @@ GUISUMOAbstractView::onConfigure(FXObject*,FXSelector,void*)
         _heightInPixels = myApp->getMaxGLHeight();
         _ratio = (SUMOReal) _widthInPixels / (SUMOReal) _heightInPixels;
         glViewport( 0, 0, myApp->getMaxGLWidth()-1, myApp->getMaxGLHeight()-1 );
-        glClearColor( 1.0, 1.0, 1.0, 1 );
+        glClearColor(
+            myVisualizationSettings.backgroundColor.red(),
+            myVisualizationSettings.backgroundColor.green(),
+            myVisualizationSettings.backgroundColor.blue(),
+            1);
         _changer->applyCanvasSize(width, height);
         doInit();
         myAmInitialised = true;
@@ -1117,13 +1147,6 @@ GUISUMOAbstractView::onCmdEditViewport(FXObject*,FXSelector,void*)
 }
 
 
-long
-GUISUMOAbstractView::onCmdEditView(FXObject*,FXSelector,void*)
-{
-    return 1;
-}
-
-
 void
 GUISUMOAbstractView::setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos)
 {
@@ -1152,6 +1175,19 @@ GUISUMOAbstractView::drawShapes(const ShapeContainer &sc) const
     }
 }
 
+
+SUMOReal
+GUISUMOAbstractView::getGridWidth() const
+{
+    return myGrid->getBoundary().getWidth();
+}
+
+
+SUMOReal
+GUISUMOAbstractView::getGridHeight() const
+{
+    return myGrid->getBoundary().getHeight();
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

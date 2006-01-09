@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.4  2005/10/07 11:45:09  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -55,6 +58,7 @@
 #include <map>
 #include <utils/gfx/RGBColor.h>
 #include "GUIBaseLaneDrawer.h"
+#include <utils/common/StdDefs.h>
 #include <utils/glutils/GLHelper.h>
 
 
@@ -76,30 +80,30 @@ class GUILaneDrawer_FGwT : public GUIBaseLaneDrawer<_E1, _E2, _L1> {
 public:
     /// constructor
     GUILaneDrawer_FGwT(const std::vector<_E1*> &edges)
-        : GUIBaseLaneDrawer<_E1, _E2, _L1>(edges) { }
+		: GUIBaseLaneDrawer<_E1, _E2, _L1>(edges) { }
 
     /// destructor
-    ~GUILaneDrawer_FGwT() { }
+	~GUILaneDrawer_FGwT() { }
 
 private:
     /// draws a single vehicle;
     void drawLane(const _L1 &lane, SUMOReal width) const
-    {
-        glPushName(lane.getGlID());
-        const DoubleVector &rots = lane.getShapeRotations();
-        const DoubleVector &lengths = lane.getShapeLengths();
-        const Position2DVector &geom = lane.getShape();
-        if(width>1.0) {
-            for(size_t i=0; i<geom.size()-1; i++) {
-                GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], 1.5);
-            }
-        } else {
-            for(size_t i=0; i<geom.size()-1; i++) {
-                GLHelper::drawLine(geom.at(i), rots[i], lengths[i]);
-            }
-        }
-        glPopName();
-    }
+	{
+		glPushName(lane.getGlID());
+		const DoubleVector &rots = lane.getShapeRotations();
+		const DoubleVector &lengths = lane.getShapeLengths();
+		const Position2DVector &geom = lane.getShape();
+	    if(width>1.0) {
+		    for(size_t i=0; i<geom.size()-1; i++) {
+			    GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], SUMO_const_halfLaneWidth);
+	        }
+		} else {
+			for(size_t i=0; i<geom.size()-1; i++) {
+				GLHelper::drawLine(geom.at(i), rots[i], lengths[i]);
+	        }
+		}
+	    glPopName();
+	}
 
 };
 

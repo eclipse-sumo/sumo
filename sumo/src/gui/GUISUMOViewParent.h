@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2006/01/09 11:50:20  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.15  2005/10/07 11:36:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -127,8 +130,7 @@ class GUISUMOViewParent : public GUIGlChildWindow
     FXDECLARE(GUISUMOViewParent)
 public:
     enum ViewType {
-        MICROSCOPIC_VIEW,
-        LANE_AGGREGATED_VIEW
+        MICROSCOPIC_VIEW
     };
 
     /// constructor

@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.3  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -109,10 +112,10 @@ public:
 
     //@{ From GUIAbstractAddGlObject
     /// Draws the detector in full-geometry mode
-    void drawGL_FG(SUMOReal scale);
+    void drawGL_FG(SUMOReal scale, SUMOReal upscale);
 
     /// Draws the detector in simple-geometry mode
-    void drawGL_SG(SUMOReal scale);
+    void drawGL_SG(SUMOReal scale, SUMOReal upscale);
 
     /// Returns the detector's coordinates
     Position2D getPosition() const;
@@ -194,7 +197,7 @@ private:
     typedef std::vector<SUMOReal> RotCont;
 
 private:
-    void doPaint(const PosCont &pos, const RotCont rot, SUMOReal scale);
+    void doPaint(const PosCont &pos, const RotCont rot, SUMOReal scale, SUMOReal upscale);
 
 private:
     /// The positions in full-geometry mode

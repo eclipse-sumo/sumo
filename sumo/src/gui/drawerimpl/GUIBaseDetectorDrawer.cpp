@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.9  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -100,10 +103,11 @@ GUIBaseDetectorDrawer::~GUIBaseDetectorDrawer()
 void
 GUIBaseDetectorDrawer::drawGLDetectors(size_t *which,
                                        size_t maxDetectors,
-                                       SUMOReal scale)
+                                       SUMOReal scale,
+                                       SUMOReal upscale)
 {
     initStep();
-    myDrawGLDetectors(which, maxDetectors, scale);
+    myDrawGLDetectors(which, maxDetectors, scale, upscale);
 }
 
 

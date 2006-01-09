@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.5  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -55,12 +58,15 @@
 #include <string>
 #include <microsim/MSVehicleType.h>
 #include <utils/gfx/RGBColor.h>
+#include <utils/gui/div/GUIColorSetter.h>
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
+ * @class GUIVehicleType
+ * A plain MSVehicleType, only extended by a color.
  */
 class GUIVehicleType : public MSVehicleType
 {
@@ -72,11 +78,17 @@ public:
     /// Destructor.
     ~GUIVehicleType();
 
+    /// Returns the color
     const RGBColor &getColor() const;
 
+    /// Sets the color in openGL
+    inline void setColor() const { mglColor(myColor); }
+
 private:
+    /// The color
     RGBColor myColor;
 
+private:
     /// Default constructor.
     GUIVehicleType();
 

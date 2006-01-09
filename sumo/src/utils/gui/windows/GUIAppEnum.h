@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.11  2005/10/07 11:46:08  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -134,8 +137,6 @@ enum {
     //@{ Main Window Windows Control - IDs
     /// Open a new microscopic View
     MID_NEW_MICROVIEW,
-    /// Open a new Lane aggregated View
-    MID_NEW_LANEAVIEW,
 #ifdef HAVE_MESOSIM
     /// Open a new edge meso View
     MID_NEW_MESOVIEW,
@@ -261,12 +262,10 @@ enum {
     //@}
 
     //@{ View Settings - IDs
-    /// Change Vehicle Coloring Scheme- combo
-    MID_COLOURVEHICLES,
-    /// Change Lane Coloring Scheme- combo
-    MID_COLOURLANES = MID_COLOURVEHICLES+100,
+    /// Change Coloring Scheme- combo
+    MID_COLOURSCHEMECHANGE,
     /// Change the aggregation Time Value - combo
-    MID_LANEAGGTIME = MID_COLOURLANES+100,
+    MID_LANEAGGTIME,
     /// The Aggregation Memory - dial
     MID_LANEAGGRMEM,
     //@}
@@ -313,6 +312,8 @@ enum {
     MID_SETTINGS_OK,
     /// Cancel-Button was pushed
     MID_SETTINGS_CANCEL,
+    /// Save-Button was pushed
+    MID_SETTINGS_SAVE,
     //@}
 
     //@{ Application Settings - Dialog IDs
@@ -368,6 +369,9 @@ enum {
     /// Save generated SUMO-network - Menu entry
     MID_SAVE_NET,
     //@}
+
+    MID_SIMPLE_VIEW_COLORCHANGE,
+    MID_SIMPLE_VIEW_NAMECHANGE,
 
 
     MID_CUTSWELL,

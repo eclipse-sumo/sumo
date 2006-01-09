@@ -11,7 +11,6 @@ GUIRunThread.cpp GUIRunThread.h \
 GUISUMOViewParent.cpp GUISUMOViewParent.h \
 GUISupplementaryWeightsHandler.cpp GUISupplementaryWeightsHandler.h \
 GUIThreadFactory.cpp GUIThreadFactory.h \
-GUIViewAggregatedLanes.cpp GUIViewAggregatedLanes.h \
 GUIViewTraffic.cpp GUIViewTraffic.h
 
 AM_CPPFLAGS = -I$(top_srcdir)/src -I$(FOX_INCLUDES) \

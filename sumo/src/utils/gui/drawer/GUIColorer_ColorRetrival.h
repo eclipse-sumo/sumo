@@ -1,20 +1,11 @@
-/****************************************************************************
-** Form interface generated from reading ui file 'MicroscopicViewSettings.ui'
-**
-** Created: Mon Aug 18 17:19:19 2003
-**      by:  The User Interface Compiler (uic)
-**
-** WARNING! All changes made in this file will be lost!
-****************************************************************************/
-#ifndef GUIDialog_MicroViewSettings_H
-#define GUIDialog_MicroViewSettings_H
-
+#ifndef GUIColorer_ColorRetrival_h
+#define GUIColorer_ColorRetrival_h
 //---------------------------------------------------------------------------//
-//                       GUIDialog_MicroViewSettings.h -
+//                        GUIColorer_ColorRetrival.h -
 //
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Fri, 29.04.2005
+//  begin                : Thu, 22. Dec. 2005
 //  copyright            : (C) 2005 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
@@ -28,8 +19,11 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.1  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
 //
-
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -39,6 +33,7 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
+
 #ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
@@ -47,37 +42,54 @@
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <fx.h>
+#include "GUIBaseColorer.h"
+#include <utils/gfx/RGBColor.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
-/* =========================================================================
- * class definitions
- * ======================================================================= */
-class GUIDialog_MicroViewSettings : public FXDialogBox
-{
+#include <GL/gl.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+
+template<class _T>
+class GUIColorer_ColorRetrival : public GUIBaseColorer<_T> {
 public:
-    GUIDialog_MicroViewSettings( FXMainWindow* parent = 0, const char* name = 0);
-    ~GUIDialog_MicroViewSettings();
-/*
-    QPushButton* PushButton15;
-    QPushButton* PushButton16;
-    QTabWidget* TabWidget5;
-    QWidget* tab;
-    QCheckBox* CheckBox5;
-    QLabel* TextLabel11;
-    QComboBox* ComboBox1;
-    QWidget* tab_2;
-    QCheckBox* CheckBox7;
-    QCheckBox* CheckBox6;
-    QWidget* tab_3;
-    QLabel* TextLabel12;
-    QComboBox* ComboBox2;
-    QWidget* tab_4;
-    QLabel* TextLabel13;
-    QComboBox* ComboBox3;
-*/
-};
+    /// Type of the function to execute.
+    typedef const RGBColor & ( _T::* Operation )() const;
 
+    GUIColorer_ColorRetrival(Operation operation)
+        : myOperation(operation)
+    {
+    }
+
+	virtual ~GUIColorer_ColorRetrival() { }
+
+	void setGlColor(const _T& i) const {
+        const RGBColor &c = (i.*myOperation)();
+        glColor3d(c.red(), c.green(), c.blue());
+	}
+
+	void setGlColor(SUMOReal val) const {
+        glColor3d(1, 1, 0);
+    }
+
+    virtual ColorSetType getSetType() const {
+        return CST_STATIC;
+    }
+
+    virtual void resetColor(const RGBColor &min) {
+    }
+
+    virtual const RGBColor &getSingleColor() const {
+        throw 1;
+    }
+
+protected:
+    Operation myOperation;
+
+
+};
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 #endif

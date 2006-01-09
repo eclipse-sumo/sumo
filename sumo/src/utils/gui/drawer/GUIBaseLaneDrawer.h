@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.4  2005/10/07 11:45:09  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -70,6 +73,7 @@
 #include <utils/gfx/RGBColor.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/common/StdDefs.h>
 #include "GUIGradients.h"
 #include "GUIBaseColorer.h"
 
@@ -94,55 +98,91 @@ class GUIBaseLaneDrawer {
 public:
     /// constructor
     GUIBaseLaneDrawer(const std::vector<_E1*> &edges)
-        : myEdges(edges), myUseExponential(true) { }
+		: myEdges(edges), myUseExponential(true) { }
 
 
     /// destructor
-    virtual ~GUIBaseLaneDrawer() { }
+	virtual ~GUIBaseLaneDrawer() { }
 
 
     virtual void drawGLLanes(size_t *which, size_t maxEdges,
-        SUMOReal width, GUIBaseColorer<_L1> &colorer)
-    {
-        // initialise drawing
-        initStep();
-        // go through edges
-        for(size_t i=0; i<maxEdges; i++ ) {
-            if(which[i]==0) {
-                continue;
-            }
-            size_t pos = 1;
-            for(size_t j=0; j<32; j++, pos<<=1) {
-                if((which[i]&pos)!=0) {
-                    _E2 *edge = static_cast<_E2*>(myEdges[j+(i<<5)]);
-                    size_t noLanes = edge->nLanes();
-                    // go through the current edge's lanes
-                    for(size_t k=0; k<noLanes; k++) {
-                        const _L1 &lane = edge->getLaneGeometry(k);
-                        colorer.setGlColor(lane);
-//                        if(lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
-                        drawLane(lane, width);
-      /*                  } else {
-                            drawLane(lane, scheme, 0.1);
-                        }*/
+        SUMOReal width, GUIBaseColorer<_L1> &colorer, bool showBoxes)
+	{
+	    // initialise drawing
+		initStep();
+	    // go through edges
+		for(size_t i=0; i<maxEdges; i++ ) {
+			if(which[i]==0) {
+				continue;
+	        }
+		    size_t pos = 1;
+			for(size_t j=0; j<32; j++, pos<<=1) {
+				if((which[i]&pos)!=0) {
+					_E2 *edge = static_cast<_E2*>(myEdges[j+(i<<5)]);
+	                size_t noLanes = edge->nLanes();
+                    if(showBoxes&&width>1.) {
+                        glColor3d(1,1,1);
+                        // draw white boundings
+                        size_t k;
+                        for(k=0; k<noLanes; k++) {
+                            const _L1 &lane = edge->getLaneGeometry(k);
+		                    const DoubleVector &rots = lane.getShapeRotations();
+	                        const DoubleVector &lengths = lane.getShapeLengths();
+		                    const Position2DVector &geom = lane.getShape();
+                            for(size_t i=0; i<geom.size()-1; i++) {
+				                GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], SUMO_const_halfLaneAndOffset);
+	                        }
+                        }
+                        // draw black boxes
+                        for(k=1; k<noLanes; k++) {
+                            const _L1 &lane = edge->getLaneGeometry(k);
+                            colorer.setGlColor(lane);
+		                    const DoubleVector &rots = lane.getShapeRotations();
+	                        const DoubleVector &lengths = lane.getShapeLengths();
+		                    const Position2DVector &geom = lane.getShape();
+                            for(size_t i=0; i<geom.size()-1; i++) {
+                                glPushMatrix();
+                                glTranslated(geom.at(i).x(), geom.at(i).y(), 0);
+                                glRotated( rots[i], 0, 0, 1 );
+                                for(SUMOReal t=0; t<lengths[i]; t+=2) {
+                                    glBegin(GL_QUADS);
+                                    glVertex2d(-1.7, -t);
+                                    glVertex2d(-1.7, -t-1);
+                                    glVertex2d(1.5, -t-1);
+                                    glVertex2d(1.5, -t);
+                                    glEnd();
+                                }
+                                glPopMatrix();
+                            }
+                        }
                     }
-                }
-            }
-        }
-    }
+		            // go through the current edge's lanes
+			        for(size_t k=0; k<noLanes; k++) {
+				        const _L1 &lane = edge->getLaneGeometry(k);
+						colorer.setGlColor(lane);
+//					      if(lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+						drawLane(lane, width);
+	  /*                  } else {
+		                    drawLane(lane, scheme, 0.1);
+			            }*/
+				    }
+	            }
+		    }
+	    }
+	}
 
 
-    void setUseExponential(bool val) {
-        myUseExponential = val;
-    }
+	void setUseExponential(bool val) {
+	    myUseExponential = val;
+	}
 
 protected:
     /// initialises the drawing
     virtual void initStep() {
-        glLineWidth(1);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        glColor3d(0, 0, 0);
-    }
+		glLineWidth(1);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glColor3d(0, 0, 0);
+	}
 
     /// draws a single vehicle
     virtual void drawLane(const _L1 &lane, SUMOReal width) const = 0;

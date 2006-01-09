@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.12  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -278,19 +281,19 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::active() const
 
 
 void
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_SG(SUMOReal scale)
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_SG(SUMOReal scale, SUMOReal upscale)
 {
     for(std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); i++) {
-        (*i)->drawGL_SG(scale);
+        (*i)->drawGL_SG(scale, upscale);
     }
 }
 
 
 void
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_FG(SUMOReal scale)
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL_FG(SUMOReal scale, SUMOReal upscale)
 {
     for(std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); i++) {
-        (*i)->drawGL_FG(scale);
+        (*i)->drawGL_FG(scale, upscale);
     }
 }
 

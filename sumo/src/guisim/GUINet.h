@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.37  2006/01/09 11:53:24  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.36  2005/11/29 13:24:03  dkrajzew
 // added a minimum simulation speed definition before the simulation ends (unfinished)
 //
@@ -280,7 +283,6 @@ public:
 
 
     friend class GUIViewTraffic; // !!!
-    friend class GUIViewAggregatedLanes; // !!!
     friend class GUISUMOAbstractView; // !!!
     friend class GUIViewMesoEdges; // !!!
     friend class GUIGridBuilder;

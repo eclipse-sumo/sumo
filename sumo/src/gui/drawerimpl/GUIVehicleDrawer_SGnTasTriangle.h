@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.8  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -88,11 +91,11 @@ public:
 
 private:
     void drawLanesVehicles(GUILaneWrapper &lane,
-        GUISUMOAbstractView::VehicleColoringScheme scheme);
+        GUIBaseColorer<GUIVehicle> &colorer, float upscale);
 
     void drawVehicle(const GUIVehicle &vehicle,
         SUMOReal posX, SUMOReal posY, SUMOReal rot,
-        GUISUMOAbstractView::VehicleColoringScheme scheme);
+        GUIBaseColorer<GUIVehicle> &colorer, float upscale);
 
 
 };

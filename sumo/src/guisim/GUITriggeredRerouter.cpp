@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.4  2005/11/09 06:35:34  dkrajzew
 // debugging
 //
@@ -392,28 +395,29 @@ GUITriggeredRerouter::getPosition() const
 
 
 void
-GUITriggeredRerouter::drawGL_FG(SUMOReal scale)
+GUITriggeredRerouter::drawGL_FG(SUMOReal scale, SUMOReal upscale)
 {
-    doPaint(myFGPositions, myFGRotations, scale);
+    doPaint(myFGPositions, myFGRotations, scale, upscale);
 }
 
 
 void
-GUITriggeredRerouter::drawGL_SG(SUMOReal scale)
+GUITriggeredRerouter::drawGL_SG(SUMOReal scale, SUMOReal upscale)
 {
-    doPaint(mySGPositions, mySGRotations, scale);
+    doPaint(mySGPositions, mySGRotations, scale, upscale);
 }
 
 
 void
 GUITriggeredRerouter::doPaint(const PosCont &poss,
                               const RotCont rots,
-                              SUMOReal scale)
+                              SUMOReal scale, SUMOReal upscale)
 {
     for(size_t i=0; i<poss.size(); ++i) {
         const Position2D &pos = poss[i];
         SUMOReal rot = rots[i];
         glPushMatrix();
+        glScaled(upscale, upscale, upscale);
         glTranslated(pos.x(), pos.y(), 0);
         glRotated( rot, 0, 0, 1 );
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

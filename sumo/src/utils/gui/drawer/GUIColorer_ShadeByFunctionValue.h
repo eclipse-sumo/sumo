@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.6  2005/10/07 11:45:09  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -35,7 +38,6 @@
 // Revision 1.4  2005/06/14 11:29:50  dksumo
 // documentation added
 //
-
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -108,6 +110,23 @@ public:
         RGBColor c =
             (myMinColor * ((SUMOReal) 1.0 - val)) + (myMaxColor * val);
         glColor3d(c.red(), c.green(), c.blue());
+    }
+
+    virtual ColorSetType getSetType() const {
+        return CST_MINMAX;
+    }
+
+    virtual void resetColor(const RGBColor &min, const RGBColor &max) {
+        myMinColor = min;
+        myMaxColor = max;
+    }
+
+    virtual const RGBColor &getMinColor() const {
+        return myMinColor;
+    }
+
+    virtual const RGBColor &getMaxColor() const {
+        return myMaxColor;
     }
 
 protected:

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.17  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -214,13 +217,14 @@ GUIInductLoop::MyWrapper::active() const
 
 
 void
-GUIInductLoop::MyWrapper::drawGL_SG(SUMOReal scale)
+GUIInductLoop::MyWrapper::drawGL_SG(SUMOReal scale, SUMOReal upscale)
 {
     SUMOReal width = (SUMOReal) 2.0 * scale;
     glLineWidth(1.0);
     // shape
     glColor3f(1, 1, 0);
     glPushMatrix();
+    glScaled(upscale, upscale, upscale);
     glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
     glRotated( mySGRotation, 0, 0, 1 );
     glBegin( GL_QUADS );
@@ -238,7 +242,7 @@ GUIInductLoop::MyWrapper::drawGL_SG(SUMOReal scale)
 
 
     // outline
-    if(width>1) {
+    if(width*upscale>1) {
         glColor3f(1, 1, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin( GL_QUADS );
@@ -251,7 +255,7 @@ GUIInductLoop::MyWrapper::drawGL_SG(SUMOReal scale)
     }
 
     // position indicator
-    if(width>1) {
+    if(width*upscale>1) {
         glRotated( 90, 0, 0, -1 );
         glColor3f(1, 1, 1);
         glBegin( GL_LINES);
@@ -264,7 +268,7 @@ GUIInductLoop::MyWrapper::drawGL_SG(SUMOReal scale)
 
 
 void
-GUIInductLoop::MyWrapper::drawGL_FG(SUMOReal scale)
+GUIInductLoop::MyWrapper::drawGL_FG(SUMOReal scale, SUMOReal upscale)
 {
     SUMOReal width = (SUMOReal) 2.0 * scale;
     glLineWidth(1.0);
@@ -273,6 +277,7 @@ GUIInductLoop::MyWrapper::drawGL_FG(SUMOReal scale)
     glPushMatrix();
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
     glRotated( myFGRotation, 0, 0, 1 );
+    glScaled(upscale, upscale, upscale);
     glBegin( GL_QUADS );
     glVertex2d(0-1.0, 2);
     glVertex2d(-1.0, -2);
@@ -288,7 +293,7 @@ GUIInductLoop::MyWrapper::drawGL_FG(SUMOReal scale)
 
 
     // outline
-    if(width>1) {
+    if(width*upscale>1) {
         glColor3f(1, 1, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin( GL_QUADS );
@@ -301,7 +306,7 @@ GUIInductLoop::MyWrapper::drawGL_FG(SUMOReal scale)
     }
 
     // position indicator
-    if(width>1) {
+    if(width*upscale>1) {
         glRotated( 90, 0, 0, -1 );
         glColor3f(1, 1, 1);
         glBegin( GL_LINES);

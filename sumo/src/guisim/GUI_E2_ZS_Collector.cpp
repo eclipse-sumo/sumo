@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.14  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -280,7 +283,7 @@ GUI_E2_ZS_Collector::MyWrapper::active() const
 
 
 void
-GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(SUMOReal scale)
+GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(SUMOReal scale, SUMOReal upscale)
 {
     SUMOReal myWidth = 1;
     if(myDetector.getUsageType()==DU_TL_CONTROL) {
@@ -290,8 +293,9 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(SUMOReal scale)
         glColor3d(0, (SUMOReal) .8, (SUMOReal) .8);
     }
     SUMOReal width=2; // !!!
-    if(width>1.0) {
+    if(width*upscale>1.0) {
         glPushMatrix();
+        glScaled(upscale, upscale, upscale);
         glTranslated(mySGPosition.x(), mySGPosition.y(), 0);
         glRotated( mySGRotation, 0, 0, 1 );
         glBegin( GL_QUADS );
@@ -319,7 +323,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_SG(SUMOReal scale)
 
 
 void
-GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(SUMOReal scale)
+GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(SUMOReal scale, SUMOReal upscale)
 {
     SUMOReal myWidth = 1;
     if(myDetector.getUsageType()==DU_TL_CONTROL) {
@@ -329,7 +333,8 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(SUMOReal scale)
         glColor3d(0, (SUMOReal) .8, (SUMOReal) .8);
     }
     SUMOReal width=2; // !!!
-    if(width>1.0) {
+    if(width*upscale>1.0) {
+        glScaled(upscale, upscale, upscale);
         for(size_t i=0; i<myFullGeometry.size()-1; i++) {
             GLHelper::drawBoxLine(myFullGeometry.at(i),
                 myShapeRotations[i], myShapeLengths[i], myWidth);

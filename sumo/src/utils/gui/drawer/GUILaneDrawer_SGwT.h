@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.4  2005/10/07 11:45:09  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -54,6 +57,7 @@
 
 #include <map>
 #include <utils/gfx/RGBColor.h>
+#include <utils/common/StdDefs.h>
 #include "GUIBaseLaneDrawer.h"
 
 
@@ -75,45 +79,45 @@ class GUILaneDrawer_SGwT : public GUIBaseLaneDrawer<_E1, _E2, _L1> {
 public:
     /// constructor
     GUILaneDrawer_SGwT(const std::vector<_E1*> &edges)
-        : GUIBaseLaneDrawer<_E1, _E2, _L1>(edges) { }
+		: GUIBaseLaneDrawer<_E1, _E2, _L1>(edges) { }
 
     /// destructor
-        ~GUILaneDrawer_SGwT() { }
+		~GUILaneDrawer_SGwT() { }
 
 private:
     /// draws a single vehicle;
     void drawLane(const _L1 &lane, SUMOReal width) const
-    {
-        glPushName(lane.getGlID());
-        if(width>1.0) {
-            glPushMatrix();
-            const Position2D &beg = lane.getBegin();
-            glTranslated(beg.x(), beg.y(), 0);
-            glRotated( lane.getRotation(), 0, 0, 1 );
-            SUMOReal visLength = -lane.visLength();
-            glBegin( GL_QUADS );
-            glVertex2d(0-1.5, 0);
-            glVertex2d(-1.5, visLength);
-            glVertex2d(1.5, visLength);
-            glVertex2d(1.5, 0);
-            glEnd();
-            glBegin( GL_LINES);
-            // without the substracted offsets, lines are partially longer
-            //  than the boxes
-            glVertex2d(0, 0-.1);
-            glVertex2d(0, visLength-.1);
-            glEnd();
-            glPopMatrix();
-        } else {
-            const Position2D &begin = lane.getBegin();
-            const Position2D &end = lane.getEnd();
-            glBegin( GL_LINES);
-            glVertex2d(begin.x(), begin.y());
-            glVertex2d(end.x(), end.y());
-            glEnd();
-        }
-        glPopName();
-    }
+	{
+	    glPushName(lane.getGlID());
+		if(width>1.0) {
+	        glPushMatrix();
+		    const Position2D &beg = lane.getBegin();
+			glTranslated(beg.x(), beg.y(), 0);
+	        glRotated( lane.getRotation(), 0, 0, 1 );
+		    SUMOReal visLength = -lane.visLength();
+			glBegin( GL_QUADS );
+	        glVertex2d(-SUMO_const_halfLaneWidth, 0);
+		    glVertex2d(-SUMO_const_halfLaneWidth, visLength);
+			glVertex2d(SUMO_const_halfLaneWidth, visLength);
+	        glVertex2d(SUMO_const_halfLaneWidth, 0);
+		    glEnd();
+	        glBegin( GL_LINES);
+		    // without the substracted offsets, lines are partially longer
+	        //  than the boxes
+		    glVertex2d(0, 0-.1);
+			glVertex2d(0, visLength-.1);
+	        glEnd();
+		    glPopMatrix();
+	    } else {
+		    const Position2D &begin = lane.getBegin();
+	        const Position2D &end = lane.getEnd();
+		    glBegin( GL_LINES);
+	        glVertex2d(begin.x(), begin.y());
+		    glVertex2d(end.x(), end.y());
+	        glEnd();
+	    }
+		glPopName();
+	}
 
 
 };

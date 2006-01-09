@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.8  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -70,6 +73,7 @@ namespace
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILaneWrapper.h>
+#include <utils/glutils/GLHelper.h>
 #include "GUIBaseROWDrawer.h"
 
 #ifdef _WIN32
@@ -114,11 +118,25 @@ GUIBaseROWDrawer::~GUIBaseROWDrawer()
 
 void
 GUIBaseROWDrawer::drawGLROWs(const GUINet &net, size_t *which,
-                             size_t maxEdges, SUMOReal width)
+                             size_t maxEdges, SUMOReal width,
+                             bool showLane2Lane, bool withArrows)
 {
     if(width<1.0) {
         return;
     }
+    if(showLane2Lane) {
+        drawGLROWs_WithConnections(net, which, maxEdges, width, withArrows);
+    } else {
+        drawGLROWs_Only(net, which, maxEdges, width, withArrows);
+    }
+}
+
+
+void
+GUIBaseROWDrawer::drawGLROWs_Only(const GUINet &net, size_t *which,
+                                  size_t maxEdges, SUMOReal width,
+                                  bool withArrows)
+{
     // initialise drawing
     initStep();
     // go through edges
@@ -138,7 +156,63 @@ GUIBaseROWDrawer::drawGLROWs(const GUINet &net, size_t *which,
                         continue;
                     }
                     drawLinkRules(net, lane);
-                    drawArrows(lane);
+                    if(withArrows) {
+                        drawArrows(lane);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+void
+GUIBaseROWDrawer::drawGLROWs_WithConnections(const GUINet &net,
+                                             size_t *which,
+                                             size_t maxEdges,
+                                             SUMOReal width,
+                                             bool withArrows)
+{
+    // initialise drawing
+    initStep();
+    // go through edges
+    for(size_t i=0; i<maxEdges; i++ ) {
+        if(which[i]==0) {
+            continue;
+        }
+        size_t pos = 1;
+        for(size_t j=0; j<32; j++, pos<<=1) {
+            if((which[i]&pos)!=0) {
+                GUIEdge *edge = static_cast<GUIEdge*>(myEdges[j+(i<<5)]);
+                size_t noLanes = edge->nLanes();
+                // go through the current edge's lanes
+                for(size_t k=0; k<noLanes; k++) {
+                    const GUILaneWrapper &lane = edge->getLaneGeometry(k);
+                    if(lane.getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+                        continue;
+                    }
+                    drawLinkRules(net, lane);
+                    if(withArrows) {
+                        drawArrows(lane);
+                    }
+                    // this should be independent to the geometry:
+                    //  draw from end of first to the begin of second
+                    size_t noLinks = lane.getLinkNumber();
+                    for(size_t i=0; i<noLinks; i++) {
+                        MSLink::LinkState state = lane.getLinkState(i);
+                        const RGBColor &color = myLinkColors.find(state)->second;
+                        glColor3d(color.red(), color.green(), color.blue());
+                        const MSLane *connected = lane.getLinkLane(i);
+                        if(connected!=0) {
+                            glBegin(GL_LINES);
+                            const Position2D &p1 = lane.getShape().at(-1);
+                            const Position2D &p2 = connected->getShape().at(0);
+                            glVertex2f(p1.x(), p1.y());
+                            glVertex2f(p2.x(), p2.y());
+                            glEnd();
+                            GLHelper::drawTriangleAtEnd(Line2D(p1, p2), (SUMOReal) .4, (SUMOReal) .2);
+                        }
+                    }
                 }
             }
         }

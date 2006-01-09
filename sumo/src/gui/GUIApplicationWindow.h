@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.34  2006/01/09 11:50:20  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.33  2005/11/09 06:31:46  dkrajzew
 // added cursor position output (unfinished); catching opening a second file using recent files added
 //
@@ -258,13 +261,11 @@ public:
     long onCmdStep(FXObject*,FXSelector,void*);
 
     long onCmdNewMicro(FXObject*,FXSelector,void*);
-    long onCmdNewLaneA(FXObject*,FXSelector,void*);
 
     long onUpdOpen(FXObject*,FXSelector,void*);
     long onUpdReload(FXObject*,FXSelector,void*);
     long onUpdOpenRecent(FXObject*,FXSelector,void*);
     long onUpdAddMicro(FXObject*,FXSelector,void*);
-    long onUpdAddALane(FXObject*,FXSelector,void*);
     virtual long onUpdStart(FXObject*,FXSelector,void*);
     long onUpdStop(FXObject*,FXSelector,void*);
     long onUpdStep(FXObject*,FXSelector,void*);
@@ -276,13 +277,6 @@ public:
 
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
     long onRunThreadEvent(FXObject*, FXSelector, void*);
-
-//    long onCmdCutSwell(FXObject*, FXSelector, void*);
-/*
-    long onLeftBtnRelease(FXObject*sender,FXSelector,void*ptr);
-    long onRightBtnRelease(FXObject*sender,FXSelector,void*ptr);
-    long onMouseMove(FXObject*sender,FXSelector,void*ptr);
-*/
 
 	FXGLCanvas *getBuildGLCanvas() const;
     size_t getCurrentSimTime() const;

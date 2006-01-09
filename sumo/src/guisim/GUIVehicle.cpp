@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2006/01/09 11:50:21  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.34  2005/12/01 07:33:44  dkrajzew
 // introducing bus stops: eased building vehicles; vehicles may now have nested elements
 //
@@ -163,19 +166,14 @@ namespace
 #include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <gui/GUIViewTraffic.h>
+#include <guisim/GUIVehicleType.h>
+#include <guisim/GUIRoute.h>
 
 
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
-
-
-/* =========================================================================
- * static member variables
- * ======================================================================= */
-RGBColor GUIVehicle::_laneChangeColor1;
-RGBColor GUIVehicle::_laneChangeColor2;
 
 
 /* =========================================================================
@@ -261,6 +259,7 @@ ofstream networking_knownOut("known.txt");
 #include <utils/options/OptionsCont.h>
 #endif
 
+
 /* =========================================================================
  * method definitions
  * ======================================================================= */
@@ -294,9 +293,6 @@ GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
         (SUMOReal)rand() / ( static_cast<SUMOReal>(RAND_MAX) + 1),
         (SUMOReal)rand() / ( static_cast<SUMOReal>(RAND_MAX) + 1),
         (SUMOReal)rand() / ( static_cast<SUMOReal>(RAND_MAX) + 1));
-    // lane change color (static!!!)
-    _laneChangeColor1 = RGBColor(1, 1, 1);
-    _laneChangeColor2 = RGBColor((SUMOReal) 0.7, (SUMOReal) 0.7, (SUMOReal) 0.7);
 
 #ifdef NETWORKING_BLA
     SUMOReal prob = OptionsSubSys::getOptions().getFloat("device");
@@ -433,13 +429,6 @@ GUIVehicle::getIDs()
 
 
 const RGBColor &
-GUIVehicle::getDefinedColor() const
-{
-    return RGBColor(1, 1, 1); // !!!
-}
-
-
-const RGBColor &
 GUIVehicle::getRandomColor1() const
 {
     return _randomColor1;
@@ -453,25 +442,10 @@ GUIVehicle::getRandomColor2() const
 }
 
 
-int
-GUIVehicle::getPassedColor() const
+SUMOReal
+GUIVehicle::getTimeSinceLastLaneChangeAsReal() const
 {
-    int passed = 255 - myLastLaneChangeOffset;
-    if(passed<128) {
-        passed = 128;
-    }
-    return passed;
-}
-
-
-const RGBColor &
-GUIVehicle::getLaneChangeColor2() const
-{
-    if(myLastLaneChangeOffset==0) {
-        return _laneChangeColor1;
-    } else {
-        return _laneChangeColor2;
-    }
+    return (SUMOReal) myLastLaneChangeOffset;
 }
 
 
