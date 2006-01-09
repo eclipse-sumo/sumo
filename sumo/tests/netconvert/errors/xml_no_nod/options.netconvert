@@ -1,0 +1,1 @@
+--xml-edge-files=%SUMO_DIST%\tests\netconvert\errors\xml_no_nod\hokkaido.edg.xml --output-file=net.net.xml

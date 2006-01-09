@@ -1,0 +1,17 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+
+
+
+# Simple cross using explicite edge information, speed is given in km/h
+cross_notypes_kmh
+
+# Simple cross using types for edge definition, speed is given in km/h
+cross_usingtypes_kmh
+
+# Simple cross using explicite edge information (verbose)
+cross_notypes_kmh_v
+
+# Simple cross using types for edge definition, speed is given in km/h (verbose)
+cross_usingtypes_kmh_v
+

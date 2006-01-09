@@ -1,0 +1,26 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+
+# Test with 100 vehicles having one departure time
+flows2routes
+
+# Test with 100 vehicles being divided on 100s
+flows2routes_100s_interval
+
+# Same as flows2routes_100s_interval, but the interval is defined as being enclosing
+flows2routes_100s_interval_ext
+
+# Test with 100 vehicles being divided on 200s
+flows2routes_200s_interval
+
+# Same as flows2routes_200s_interval, but the interval is defined as being enclosing
+flows2routes_200s_interval_ext
+
+# Test whether color definition works
+flows2routes_100s_interval_withcolor
+
+# Test whether types are used
+flows2routes_100s_interval_withtype
+
+# Test whether types may be defined
+flows2routes_100s_interval_typedefined

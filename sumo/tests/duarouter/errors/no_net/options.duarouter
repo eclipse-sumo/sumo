@@ -1,0 +1,1 @@
+--trip-defs=%SUMO_DIST%\tests\duarouter\errors\no_net\increasing_trips.trips.xml -o routes.rou.xml

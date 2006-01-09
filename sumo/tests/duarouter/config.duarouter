@@ -1,0 +1,10 @@
+binary:D:\projects\TrafficTower\sumo\bin\duarouter.exe
+home_operating_system:nt
+
+[collate_file]
+routes:routes.rou.xml
+alts:routes.rou.xml.alt
+
+[run_dependent_text]
+output:Build #
+

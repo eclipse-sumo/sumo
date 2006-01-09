@@ -1,0 +1,1 @@
+--net-file=%SUMO_DIST%\tests\duarouter\routes\newstyle_noid_increasing_time\increasing_routes.net.xml --sumo-input=%SUMO_DIST%\tests\duarouter\routes\newstyle_noid_increasing_time\increasing_routes_input.rou.xml -o routes.rou.xml

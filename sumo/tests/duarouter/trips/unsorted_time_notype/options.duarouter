@@ -1,0 +1,2 @@
+--net-file=%SUMO_DIST%\tests\duarouter\trips\unsorted_time_notype\unsorted_trips.net.xml --trip-defs=%SUMO_DIST%\tests\duarouter\trips\unsorted_time_notype\unsorted_trips.trips.xml -o routes.rou.xml --unsorted
+

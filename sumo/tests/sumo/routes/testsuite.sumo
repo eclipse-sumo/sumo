@@ -1,0 +1,8 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+
+# Tests whether the old-style routes can be handled
+old_style
+
+# Tests whether the new-style routes can be handled
+new_style

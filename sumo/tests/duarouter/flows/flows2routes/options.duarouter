@@ -1,0 +1,1 @@
+--net-file=%SUMO_DIST%\tests\duarouter\flows\flows2routes\flows2routes.net.xml --flow-defs=%SUMO_DIST%\tests\duarouter\flows\flows2routes\flows2routes.flows.xml -o routes.rou.xml

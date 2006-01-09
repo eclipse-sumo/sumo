@@ -1,0 +1,1 @@
+--net-file=%SUMO_DIST%\tests\duarouter\alternatives\unsorted_time\unsorted_routes.net.xml --alternatives=%SUMO_DIST%\tests\duarouter\alternatives\unsorted_time\unsorted_routes_input.rou.xml.alt -o routes.rou.xml --unsorted

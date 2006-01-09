@@ -1,0 +1,202 @@
+<net>
+
+   <edges no="7">beg beg2left end left left2end middle rend</edges>
+   <node_count>10</node_count>
+
+
+   <edge id="beg" Length="502.25" Speed="27.80" Name="beg" NoLanes="2" XFrom="0.00" YFrom="20.00" XTo="500.00" YTo="20.00" From="absBeg" To="beg" Priority="1" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="beg_0" depart="1" maxspeed="27.80" length="502.25" changeurge="0">-5.25,14.75 498.75,14.75</lane>
+         <lane id="beg_1" depart="0" maxspeed="27.80" length="502.25" changeurge="0">-1.75,18.25 498.75,18.25</lane>
+      </lanes>
+      <cedge id="middle" via=":beg">beg_0</cedge>
+      <cedge id="beg2left" via=":beg">beg_1</cedge>
+   </edge>
+
+   <edge id="beg2left" Length="495.50" Speed="27.80" Name="beg2left" NoLanes="1" XFrom="500.00" YFrom="20.00" XTo="500.00" YTo="520.00" From="beg" To="begleft" Priority="1" Angle="180.00" Type="" function="normal">
+      <lanes>
+         <lane id="beg2left_0" depart="1" maxspeed="27.80" length="495.50" changeurge="0">501.75,21.25 501.75,516.75</lane>
+      </lanes>
+      <cedge id="left" via=":begleft">beg2left_0</cedge>
+   </edge>
+
+   <edge id="end" Length="498.75" Speed="27.80" Name="end" NoLanes="2" XFrom="1500.00" YFrom="20.00" XTo="2000.00" YTo="20.00" From="end" To="absEnd" Priority="1" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="end_0" depart="1" maxspeed="27.80" length="498.75" changeurge="0">1501.25,14.75 2000.00,14.75</lane>
+         <lane id="end_1" depart="0" maxspeed="27.80" length="498.75" changeurge="0">1501.25,18.25 2000.00,18.25</lane>
+      </lanes>
+      <cedge id="rend" via=":absEnd">end_0 end_1</cedge>
+   </edge>
+
+   <edge id="left" Length="993.50" Speed="27.80" Name="left" NoLanes="1" XFrom="500.00" YFrom="520.00" XTo="1500.00" YTo="520.00" From="begleft" To="endleft" Priority="1" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="left_0" depart="1" maxspeed="27.80" length="993.50" changeurge="0">503.25,518.25 1496.75,518.25</lane>
+      </lanes>
+      <cedge id="left2end" via=":endleft">left_0</cedge>
+   </edge>
+
+   <edge id="left2end" Length="495.50" Speed="27.80" Name="left2end" NoLanes="1" XFrom="1500.00" YFrom="520.00" XTo="1500.00" YTo="20.00" From="endleft" To="end" Priority="1" Angle="0.00" Type="" function="normal">
+      <lanes>
+         <lane id="left2end_0" depart="1" maxspeed="27.80" length="495.50" changeurge="0">1498.25,516.75 1498.25,21.25</lane>
+      </lanes>
+      <cedge id="end" via=":end">left2end_0</cedge>
+   </edge>
+
+   <edge id="middle" Length="990.50" Speed="13.90" Name="middle" NoLanes="1" XFrom="500.00" YFrom="20.00" XTo="1500.00" YTo="20.00" From="beg" To="end" Priority="1" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="middle_0" depart="1" maxspeed="13.90" length="990.50" changeurge="0">504.75,18.25 1495.25,18.25</lane>
+      </lanes>
+      <cedge id="end" via=":end">middle_0</cedge>
+   </edge>
+
+   <edge id="rend" Length="496.50" Speed="27.80" Name="rend" NoLanes="2" XFrom="2000.00" YFrom="20.00" XTo="2500.00" YTo="20.00" From="absEnd" To="rabsEnd" Priority="1" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="rend_0" depart="1" maxspeed="27.80" length="496.50" changeurge="0">2000.00,14.75 2494.75,14.75</lane>
+         <lane id="rend_1" depart="0" maxspeed="27.80" length="496.50" changeurge="0">2000.00,18.25 2498.25,18.25</lane>
+      </lanes>
+   </edge>
+
+
+   <row-logic>
+      <key>absEnd</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>beg</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>begleft</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>end</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="10"/>
+         <logicitem request="1" response="00" foes="01"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>endleft</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+
+
+   <junction id="absBeg" type="DEAD_END" x="0.00" y="20.00">
+      <inclanes></inclanes>
+      <shape>-0.25,19.75 -6.75,13.25</shape>
+   </junction>
+
+   <junction id="absEnd" type="priority" x="2000.00" y="20.00">
+      <inclanes>end_0 end_1</inclanes>
+      <shape>2000.00,19.75 2000.00,13.25 2000.00,19.75</shape>
+   </junction>
+
+   <junction id="beg" type="priority" x="500.00" y="20.00">
+      <inclanes>beg_0 beg_1</inclanes>
+      <shape>500.25,21.25 503.25,21.25 504.75,19.75 504.75,16.75 498.75,13.25 498.75,19.75</shape>
+   </junction>
+
+   <junction id="begleft" type="priority" x="500.00" y="520.00">
+      <inclanes>beg2left_0</inclanes>
+      <shape>503.25,519.75 503.25,516.75 500.25,516.75</shape>
+   </junction>
+
+   <junction id="end" type="priority" x="1500.00" y="20.00">
+      <inclanes>left2end_0 middle_0</inclanes>
+      <shape>1496.75,21.25 1499.75,21.25 1501.25,19.75 1501.25,13.25 1495.25,16.75 1495.25,19.75</shape>
+   </junction>
+
+   <junction id="endleft" type="priority" x="1500.00" y="520.00">
+      <inclanes>left_0</inclanes>
+      <shape>1499.75,516.75 1496.75,516.75 1496.75,519.75</shape>
+   </junction>
+
+   <junction id="mid" type="DEAD_END" x="1000.00" y="20.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+   <junction id="midmax" type="DEAD_END" x="1000.00" y="40.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+   <junction id="midmin" type="DEAD_END" x="1000.00" y="0.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+   <junction id="rabsEnd" type="DEAD_END" x="2500.00" y="20.00">
+      <inclanes>rend_0 rend_1</inclanes>
+      <shape>2493.25,13.25 2499.75,19.75</shape>
+   </junction>
+
+
+   <succ edge="beg" lane="beg_0" junction="beg">
+      <succlane lane="middle_0" via=":beg_0_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="beg" lane="beg_1" junction="beg">
+      <succlane lane="beg2left_0" via=":beg_1_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="beg2left" lane="beg2left_0" junction="begleft">
+      <succlane lane="left_0" via=":begleft_0_0" yield="0" dir="r" state="M"/>
+   </succ>
+
+   <succ edge="end" lane="end_0" junction="absEnd">
+      <succlane lane="rend_0" via=":absEnd_0_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="end" lane="end_1" junction="absEnd">
+      <succlane lane="rend_1" via=":absEnd_1_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="left" lane="left_0" junction="endleft">
+      <succlane lane="left2end_0" via=":endleft_0_0" yield="0" dir="r" state="M"/>
+   </succ>
+
+   <succ edge="left2end" lane="left2end_0" junction="end">
+      <succlane lane="end_1" via=":end_0_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="middle" lane="middle_0" junction="end">
+      <succlane lane="end_0" via=":end_1_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="rend" lane="rend_0" junction="rabsEnd">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="rend" lane="rend_1" junction="rabsEnd">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+
+</net>

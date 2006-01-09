@@ -1,0 +1,3 @@
+Error: An exception occurred! Type:RuntimeException, Message:The primary document entity could not be opened. Id=D:\projects\TrafficTower\sumo\tests\netconvert\XML\shapes\hokkaido-iterated2\plain_nodes.netconvert.exe
+Error:  (At line/column 1/0).
+Error: Quitting (conversion failed).

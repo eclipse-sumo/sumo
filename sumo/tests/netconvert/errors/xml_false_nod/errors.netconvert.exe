@@ -1,0 +1,19 @@
+Error: File 'D:\projects\TrafficTower\sumo\tests\netconvert\errors\xml_false_nod\hokkaido2.nod.xml' does not exist.
+Error: The xml-edges - file 'D:\projects\TrafficTower\sumo\tests\netconvert\errors\xml_false_nod\hokkaido.edg.xml' is corrupt:
+Error: On parsing edge '1':
+Error: The xml-edges - file 'D:\projects\TrafficTower\sumo\tests\netconvert\errors\xml_false_nod\hokkaido.edg.xml' is corrupt:
+Error:  The data are not coherent or the nodes are not given...
+Error: The xml-edges - file 'D:\projects\TrafficTower\sumo\tests\netconvert\errors\xml_false_nod\hokkaido.edg.xml' is corrupt:
+Error: On parsing edge '2':
+Error: The xml-edges - file 'D:\projects\TrafficTower\sumo\tests\netconvert\errors\xml_false_nod\hokkaido.edg.xml' is corrupt:
+Error:  The data are not coherent or the nodes are not given...
+Error: The xml-edges - file 'D:\projects\TrafficTower\sumo\tests\netconvert\errors\xml_false_nod\hokkaido.edg.xml' is corrupt:
+Error: On parsing edge '3':
+Error: The xml-edges - file 'D:\projects\TrafficTower\sumo\tests\netconvert\errors\xml_false_nod\hokkaido.edg.xml' is corrupt:
+Error:  The data are not coherent or the nodes are not given...
+Error: The xml-edges - file 'D:\projects\TrafficTower\sumo\tests\netconvert\errors\xml_false_nod\hokkaido.edg.xml' is corrupt:
+Error: On parsing edge '4':
+Error: The xml-edges - file 'D:\projects\TrafficTower\sumo\tests\netconvert\errors\xml_false_nod\hokkaido.edg.xml' is corrupt:
+Error:  The data are not coherent or the nodes are not given...
+Error: No nodes loaded.
+Quitting (conversion failed).

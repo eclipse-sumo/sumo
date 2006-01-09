@@ -1,0 +1,1 @@
+--net-file=%SUMO_DIST%\tests\duarouter\errors\no_output\increasing_trips.net.xml -o routes.rou.xml

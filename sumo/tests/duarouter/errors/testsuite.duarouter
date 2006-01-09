@@ -1,0 +1,22 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+
+# Tests what happens if the net is not given
+no_net
+
+# Tests what happens if the net is not available
+false_net
+
+# Tests what happens if the output is not given
+no_output
+
+# Tests what happens if the output can not be written
+false_output
+
+# Tests what happens if the input is not given
+no_input
+
+
+
+
+

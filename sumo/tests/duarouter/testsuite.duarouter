@@ -1,0 +1,24 @@
+
+
+# Testing trip processing
+trips
+
+# Testing flow processing
+flows
+
+# testing routes processing
+routes
+
+# testing route alternatives processing
+alternatives
+
+# testing the dua
+dua
+
+# testing meta processing
+meta
+
+# testing error input
+errors
+
+

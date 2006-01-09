@@ -1,0 +1,7 @@
+binary:D:\projects\TrafficTower\sumo\bin\sumo.exe
+home_operating_system:nt
+
+[run_dependent_text]
+output:Build #
+
+
