@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2006/01/09 13:30:28  dkrajzew
+// debugging
+//
 // Revision 1.7  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -121,7 +124,8 @@ public:
     static std::string removeDir(const std::string &path);
 
     /** checks whether the list of files is not empty */
-    static bool checkFileList(const std::string &files);
+    static bool checkFileList(const std::string &optionName,
+        const std::string &files);
 
     /** removes the file information from the given path */
     static std::string removeFile(const std::string &path);

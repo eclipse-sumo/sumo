@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/01/09 13:30:28  dkrajzew
+// debugging
+//
 // Revision 1.7  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -96,6 +99,7 @@ namespace
 #include <sys/stat.h>
 #include "FileHelpers.h"
 #include "StringTokenizer.h"
+#include "MsgHandler.h"
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -127,10 +131,12 @@ char gBuf[BUF_MAX];
 bool
 FileHelpers::exists(string path)
 {
-    // !!! not really well
-    while(path.at(path.length()-1)=='/'||path.at(path.length()-1)=='\\')
+    while(path.at(path.length()-1)=='/'||path.at(path.length()-1)=='\\') {
         path.erase(path.end()-1);
-    if(path.length()==0) return false;
+    }
+    if(path.length()==0) {
+        return false;
+    }
     struct stat st;
     bool ret = ( stat( path.c_str(), &st ) == 0 );
     return ret;
@@ -141,17 +147,31 @@ std::string
 FileHelpers::removeDir(const std::string &path)
 {
     size_t beg = path.find_last_of("\\/");
-    if(beg==string::npos||beg==0)
+    if(beg==string::npos||beg==0) {
         return path;
+    }
     return path.substr(beg);
 }
 
 
 bool
-FileHelpers::checkFileList(const std::string &files)
+FileHelpers::checkFileList(const std::string &optionName,
+                           const std::string &files)
 {
+    bool ok = true;
     StringTokenizer st(files, ';');
-    return st.size()!=0;
+    if(st.size()==0) {
+        MsgHandler::getErrorInstance()->inform("The file list for '" + optionName + "' is empty.");
+        ok = false;
+    }
+    while(st.hasNext()) {
+        string file = st.next();
+        if(!exists(file)) {
+            MsgHandler::getErrorInstance()->inform("File '" + file + "' does not exist.");
+            ok = false;
+        }
+    }
+    return ok;
 }
 
 
@@ -159,8 +179,9 @@ std::string
 FileHelpers::removeFile(const std::string &path)
 {
     size_t beg = path.find_last_of("\\/");
-    if(beg==string::npos||beg==0)
+    if(beg==string::npos||beg==0) {
         return "";
+    }
     return path.substr(0, beg+1);
 }
 

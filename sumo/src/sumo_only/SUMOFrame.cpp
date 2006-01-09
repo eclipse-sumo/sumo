@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2006/01/09 13:30:06  dkrajzew
+// debugging
+//
 // Revision 1.36  2005/11/29 13:34:06  dkrajzew
 // added a minimum simulation speed definition before the simulation ends (unfinished)
 //
@@ -203,6 +206,13 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.addSynonyme("tripinfo-output", "tripinfo");
     oc.doRegister("vehroute-output", new Option_FileName());
     oc.addSynonyme("vehroute-output", "vehroutes");
+    oc.doRegister("dump-intervals", new Option_IntVector(""));
+    oc.doRegister("dump-basename", new Option_FileName());
+    oc.doRegister("lanedump-intervals", new Option_IntVector(""));
+    oc.doRegister("lanedump-basename", new Option_FileName());
+    oc.doRegister("dump-empty-edges", new Option_Bool(false));
+    oc.doRegister("dump-begin", new Option_IntVector(""));
+    oc.doRegister("dump-end", new Option_IntVector(""));
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.doRegister("end", 'e', new Option_Integer(86400));
@@ -221,16 +231,9 @@ SUMOFrame::fillOptions(OptionsCont &oc)
 //    oc.doRegister("initial-density", new Option_Float());
 //    oc.doRegister("initial-speed", new Option_Float());
     // register the data processing options
-    oc.doRegister("dump-intervals", new Option_IntVector(""));
-    oc.doRegister("dump-basename", new Option_FileName());
-    oc.doRegister("lanedump-intervals", new Option_IntVector(""));
-    oc.doRegister("lanedump-basename", new Option_FileName());
-    oc.doRegister("dump-empty-edges", new Option_Bool(false));
-    oc.doRegister("dump-begin", new Option_IntVector(""));
-    oc.doRegister("dump-end", new Option_IntVector(""));
     //
-    oc.doRegister("load-state", new Option_FileName());
-    oc.doRegister("save-state.times", new Option_IntVector(""));
+    oc.doRegister("load-state", new Option_FileName());//!!! check, describe
+    oc.doRegister("save-state.times", new Option_IntVector(""));//!!! check, describe
     oc.doRegister("save-state.prefix", new Option_FileName());
     //
     oc.doRegister("time-to-teleport", new Option_Integer(300));
@@ -320,19 +323,16 @@ SUMOFrame::checkOptions(OptionsCont &oc)
         oc.resetWritable();
         // check the existance of a name for simulation file
         if(!oc.isSet("n")) {
-            MsgHandler::getErrorInstance()->inform(
-                "No simulation file (-n) specified.");
+            MsgHandler::getErrorInstance()->inform("No network file (-n) specified.");
             ok = false;
         }
         // check if the begin and the end of the simulation are supplied
         if(!oc.isSet("b")) {
-            MsgHandler::getErrorInstance()->inform(
-                "The begin of the simulation (-b) is not specified.");
+            MsgHandler::getErrorInstance()->inform("The begin of the simulation (-b) is not specified.");
             ok = false;
         }
         if(!oc.isSet("e")) {
-            MsgHandler::getErrorInstance()->inform(
-                "The end of the simulation (-e) is not specified.");
+            MsgHandler::getErrorInstance()->inform("The end of the simulation (-e) is not specified.");
             ok = false;
         }
     } catch (InvalidArgument &e) {
@@ -343,8 +343,7 @@ SUMOFrame::checkOptions(OptionsCont &oc)
     if(oc.isSet("default-lanechange-model")) {
         string t = oc.getString("default-lanechange-model");
         if(t!="dk1") {
-            MsgHandler::getErrorInstance()->inform(
-                "Unknown lane change model");
+            MsgHandler::getErrorInstance()->inform("Unknown lane change model");
             ok = false;
         }
     }

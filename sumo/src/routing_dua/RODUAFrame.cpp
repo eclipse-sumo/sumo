@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/01/09 13:30:06  dkrajzew
+// debugging
+//
 // Revision 1.6  2005/11/29 13:33:08  dkrajzew
 // debugging
 //
@@ -110,16 +113,22 @@ RODUAFrame::fillOptions_fullImport(OptionsCont &oc)
 void
 RODUAFrame::addImportOptions(OptionsCont &oc)
 {
-    oc.doRegister("cell-input", new Option_FileName());
-    oc.doRegister("artemis-input", new Option_FileName());
-    oc.doRegister("flow-definition", 'f', new Option_FileName());
-    oc.doRegister("sumo-input", 's', new Option_FileName());
     oc.doRegister("trip-defs", 't', new Option_FileName());
-    oc.addSynonyme("flow-definition", "flows");
-    oc.addSynonyme("artemis", "artemis-input");
-    oc.addSynonyme("cell", "cell-input");
-    oc.addSynonyme("sumo", "sumo-input");
     oc.addSynonyme("trips", "trip-defs");
+
+    oc.doRegister("flow-definition", 'f', new Option_FileName());
+    oc.addSynonyme("flow-definition", "flows");
+    oc.addSynonyme("flow-definition", "flow-defs");
+
+    oc.doRegister("sumo-input", 's', new Option_FileName());
+    oc.addSynonyme("sumo", "sumo-input");
+
+    oc.doRegister("cell-input", new Option_FileName());
+    oc.addSynonyme("cell", "cell-input");
+
+    oc.doRegister("artemis-input", new Option_FileName());
+    oc.addSynonyme("artemis", "artemis-input");
+
     oc.doRegister("save-cell-rindex", new Option_Bool(false));
     oc.doRegister("intel-cell", new Option_Bool(false));
     oc.doRegister("no-last-cell", new Option_Bool(false));
@@ -131,7 +140,9 @@ RODUAFrame::addDUAOptions(OptionsCont &oc)
 {
     oc.doRegister( "supplementary-weights", 'S', new Option_FileName() );
     oc.addSynonyme("supplementary-weights", "add");
+
     oc.doRegister("scheme", 'x', new Option_String("traveltime"));
+
     // register Gawron's DUE-settings
     oc.doRegister("gBeta", new Option_Float(SUMOReal(0.3)));
     oc.doRegister("gA", new Option_Float((SUMOReal) 0.05));

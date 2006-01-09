@@ -1,4 +1,11 @@
-#include ".\dfronet.h"
+#include "DFRONet.h"
+
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+#pragma warning(disable: 4503)
+
 
 #include <iostream>
 
@@ -18,7 +25,7 @@ DFRONet::~DFRONet()
 		delete ro;
 }
 
-void 
+void
 DFRONet::getApproach()
 {
 	std::vector<ROEdge *> r = ro->getMyEdgeCont()->getTempVector();
@@ -27,10 +34,10 @@ DFRONet::getApproach()
 	{
 		size_t i = 0;
         size_t length_size = (*rit)->getNoFollowing();
-        for(i=0; i<length_size; i++) 
+        for(i=0; i<length_size; i++)
 		{
             ROEdge *help = (*rit)->getFollower(i);
-			
+
 			if(approaching.find(help->getID())==approaching.end()) {
                 approaching[help->getID()] = std::vector<std::string>();
             }
@@ -40,7 +47,7 @@ DFRONet::getApproach()
                 approached[help->getID()] = std::vector<std::string>();
             }
 			approached[(*rit)->getID()].push_back(help->getID());
-            
+
 		}
 	}
 

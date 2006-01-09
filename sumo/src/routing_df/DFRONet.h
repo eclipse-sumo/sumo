@@ -1,8 +1,16 @@
-#pragma once
-#include "d:\prjnet\sumo\sumo\src\router\ronet.h"
+#ifndef DFRONet_h
+#define DFRONet_h
+
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+#include <router/RONet.h>
 #include <utils/options/OptionsCont.h>
 
-class DFRONet 
+class DFRONet
 
 {
 public:
@@ -27,3 +35,5 @@ private:
 	std::map<std::string, SUMOReal> lengthmap;
 
 };
+
+#endif
