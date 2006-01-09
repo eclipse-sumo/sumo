@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.34  2006/01/09 11:55:52  dkrajzew
+// shape retrival added
+//
 // Revision 1.33  2005/11/09 06:40:05  dkrajzew
 // removed unneeded stuff
 //
@@ -512,6 +515,8 @@ public:
         assert((int) myMeanData.size()>index);
         return myMeanData[index];
     }
+
+    const Position2DVector &getShape() const { return myShape; }
 
 protected:
     /** @brief Function Object for use with Function Adapter on vehicle containers.
