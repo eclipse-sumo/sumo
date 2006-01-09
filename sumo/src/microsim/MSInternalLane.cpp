@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/09 11:56:21  dkrajzew
+// includes debugged
+//
 // Revision 1.9  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -60,8 +63,6 @@ namespace
 
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StdDefs.h>
-#include "MSVehicle.h"
-#include "MSVehicleType.h"
 #include "MSEdge.h"
 #include "MSJunction.h"
 #include "MSLogicJunction.h"

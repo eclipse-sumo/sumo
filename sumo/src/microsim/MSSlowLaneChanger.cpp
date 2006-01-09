@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.5  2006/01/09 11:56:21  dkrajzew
+// includes debugged
+//
 // Revision 1.4  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -191,6 +194,10 @@ namespace
 #ifdef DISABLE_INLINE
 #include "MSSlowLaneChanger.icc"
 #endif
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
 
 
 /* =========================================================================
@@ -991,10 +998,6 @@ MSSlowLaneChanger::change2LeftPossible()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
 
 // Local Variables:
 // mode:C++

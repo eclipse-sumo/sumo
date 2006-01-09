@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/01/09 11:56:21  dkrajzew
+// includes debugged
+//
 // Revision 1.7  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -52,7 +55,6 @@
 #include "MSLogicJunction.h"
 #include "MSEdge.h"
 #include "MSLane.h"
-#include "MSVehicle.h"
 #include "MSEdgeControl.h"
 #include <bitset>
 #include <deque>
