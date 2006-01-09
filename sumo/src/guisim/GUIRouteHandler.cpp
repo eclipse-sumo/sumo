@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/01/09 11:51:30  dkrajzew
+// usage of vehicle and route coloring debugged
+//
 // Revision 1.6  2005/12/01 07:33:44  dkrajzew
 // introducing bus stops: eased building vehicles; vehicles may now have nested elements
 //
@@ -97,7 +100,7 @@ using namespace std;
  * ======================================================================= */
 GUIRouteHandler::GUIRouteHandler(const std::string &file,
                                  bool addVehiclesDirectly)
-    : MSRouteHandler(file, addVehiclesDirectly)
+    : MSRouteHandler(file, addVehiclesDirectly, true)
 {
 }
 
@@ -168,7 +171,9 @@ GUIRouteHandler::closeRoute()
         delete route;
         throw XMLIdAlreadyUsedException("route", myActiveRouteID);
     }
-    myActiveRouteID = "";
+    if(myAmInEmbeddedMode) {
+        myCurrentEmbeddedRoute = route;
+    }
 }
 
 

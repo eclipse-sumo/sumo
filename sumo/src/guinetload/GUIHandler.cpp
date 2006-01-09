@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/01/09 11:51:30  dkrajzew
+// usage of vehicle and route coloring debugged
+//
 // Revision 1.2  2005/12/01 07:32:27  dkrajzew
 // introducing bus stops: eased building vehicles; vehicles may now have nested elements
 //
@@ -175,7 +178,7 @@ GUIHandler::GUIHandler(const std::string &file,
                              NLJunctionControlBuilder &junctionBuilder,
                              NLGeomShapeBuilder &shapeBuilder)
     : NLHandler(file, net, detBuilder, triggerBuilder,
-        edgeBuilder, junctionBuilder, shapeBuilder)
+        edgeBuilder, junctionBuilder, shapeBuilder, true) // wants vehicle color
 {
 }
 
@@ -289,7 +292,9 @@ GUIHandler::closeRoute()
         delete route;
         throw XMLIdAlreadyUsedException("route", myActiveRouteID);
     }
-    myActiveRouteID = "";
+    if(myAmInEmbeddedMode) {
+        myCurrentEmbeddedRoute = route;
+    }
 }
 
 
