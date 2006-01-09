@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/01/09 11:58:37  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.5  2005/10/07 11:38:33  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -67,7 +70,6 @@ namespace
 #include <gui/GUIGlobals.h>
 #include <gui/dialogs/GUIDialog_GLObjChooser.h>
 #include <gui/GUIViewTraffic.h>
-#include <gui/GUIViewAggregatedLanes.h>
 #include <gui/GUIApplicationWindow.h>
 #include "GNEViewParent.h"
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
@@ -151,17 +153,6 @@ GNEViewParent::init(GUISUMOViewParent::ViewType view, FXGLCanvas *share, GUINet 
                     myParent->getGLVisual());
 			//if(!(_view->isInEditMode()))
 			//	groupBox->hide();
-        }
-        break;
-    case LANE_AGGREGATED_VIEW:
-        if(share!=0) {
-            _view =
-                new GUIViewAggregatedLanes(glcanvasFrame, *myParent, this,
-                    net, myParent->getGLVisual(), share);
-        } else {
-            _view =
-                new GUIViewAggregatedLanes(glcanvasFrame, *myParent, this,
-                    net, myParent->getGLVisual());
         }
         break;
     default:

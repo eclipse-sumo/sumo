@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/01/09 11:58:37  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.23  2005/11/29 13:31:35  dkrajzew
 // added a minimum simulation speed definition before the simulation ends (unfinished)
 //
@@ -144,7 +147,6 @@ namespace
 #include <gui/dialogs/GUIDialog_AboutSUMO.h>
 #include <gui/dialogs/GUIDialog_AppSettings.h>
 #include <gui/dialogs/GUIDialog_SimSettings.h>
-#include <gui/dialogs/GUIDialog_MicroViewSettings.h>
 #include <utils/gui/div/GUIDialog_GLChosenEditor.h>
 #include <gui/dialogs/GUIDialog_EditAddWeights.h>
 #include <gui/dialogs/GUIDialog_Breakpoints.h>
@@ -223,7 +225,6 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[]=
     FXMAPFUNC(SEL_COMMAND,  MID_SIMSETTINGS,   GNEApplicationWindow::onCmdSimSettings),
     FXMAPFUNC(SEL_COMMAND,  MID_ABOUT,         GNEApplicationWindow::onCmdAbout),
     FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW, GNEApplicationWindow::onCmdNewMicro),
-    FXMAPFUNC(SEL_COMMAND,  MID_NEW_LANEAVIEW, GNEApplicationWindow::onCmdNewLaneA),
     FXMAPFUNC(SEL_COMMAND,  MID_START,         GNEApplicationWindow::onCmdStart),
     FXMAPFUNC(SEL_COMMAND,  MID_STOP,          GNEApplicationWindow::onCmdStop),
     FXMAPFUNC(SEL_COMMAND,  MID_STEP,          GNEApplicationWindow::onCmdStep),
@@ -231,7 +232,6 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[]=
 
 
     FXMAPFUNC(SEL_UPDATE,   MID_NEW_MICROVIEW,     GNEApplicationWindow::onUpdAddMicro),
-    FXMAPFUNC(SEL_UPDATE,   MID_NEW_LANEAVIEW,     GNEApplicationWindow::onUpdAddALane),
     FXMAPFUNC(SEL_UPDATE,   MID_START,             GNEApplicationWindow::onUpdStart),
     FXMAPFUNC(SEL_UPDATE,   MID_STOP,              GNEApplicationWindow::onUpdStop),
     FXMAPFUNC(SEL_UPDATE,   MID_STEP,              GNEApplicationWindow::onUpdStep),
@@ -677,10 +677,6 @@ GNEApplicationWindow::buildToolBars()
         // build view tools
         new FXButton(myToolBar5,"\t\tOpen a new microscopic View.",
             GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW,
-            ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-        new FXButton(myToolBar5,
-            "\t\tOpen a new Lane aggregated View.",
-            GUIIconSubSys::getIcon(ICON_LAGGRVIEW), this, MID_NEW_LANEAVIEW,
             ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     }
 }
@@ -1160,17 +1156,6 @@ GNEApplicationWindow::onCmdClearMsgWindow(FXObject*,FXSelector,void*)
 
 
 long
-GNEApplicationWindow::onUpdAddALane(FXObject*sender,FXSelector,void*ptr)
-{
-    sender->handle(this,
-        myAmLoading||!myRunThread->simulationAvailable()||!gAllowAggregated
-        ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
-        ptr);
-    return 1;
-}
-
-
-long
 GNEApplicationWindow::onUpdStart(FXObject*sender,FXSelector,void*ptr)
 {
     sender->handle(this,
@@ -1273,14 +1258,6 @@ GNEApplicationWindow::onCmdNewMicro(FXObject*,FXSelector,void*)
 
 
 long
-GNEApplicationWindow::onCmdNewLaneA(FXObject*,FXSelector,void*)
-{
-    openNewView(GUISUMOViewParent::LANE_AGGREGATED_VIEW);
-    return 1;
-}
-
-
-long
 GNEApplicationWindow::onCmdAbout(FXObject*,FXSelector,void*)
 {
     GUIDialog_AboutSUMO *about =
@@ -1363,7 +1340,15 @@ GNEApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         _wasStarted = false;
         // initialise views
         myViewNumber = 0;
+#ifdef HAVE_MESOSIM
+    if(MSGlobals::gUseMesoSim) {
+        openNewView(GUISUMOViewParent::EDGE_MESO_VIEW);
+    } else {
         openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
+    }
+#else
+        openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
+#endif
         // set simulation name on the caption
         string caption = string("SUMO ") + string(version)
             + string(" - ") + ec->_file;

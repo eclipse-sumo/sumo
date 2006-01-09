@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/01/09 11:58:37  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.6  2005/10/07 11:38:33  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -67,7 +70,6 @@ namespace
 #include <guisim/GUIVehicle.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
-#include <microsim/MSVehicle.h>
 #include <microsim/MSCORN.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>

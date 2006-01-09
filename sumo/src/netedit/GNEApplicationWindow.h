@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/01/09 11:58:37  dkrajzew
+// new visualization settings implemented
+//
 // Revision 1.12  2005/11/09 06:41:26  dkrajzew
 // debugging
 //
@@ -198,10 +201,8 @@ public:
     long onCmdStep(FXObject*,FXSelector,void*);
 
     long onCmdNewMicro(FXObject*,FXSelector,void*);
-    long onCmdNewLaneA(FXObject*,FXSelector,void*);
 
     long onUpdAddMicro(FXObject*,FXSelector,void*);
-    long onUpdAddALane(FXObject*,FXSelector,void*);
     long onUpdStart(FXObject*,FXSelector,void*);
     long onUpdStop(FXObject*,FXSelector,void*);
     long onUpdStep(FXObject*,FXSelector,void*);
