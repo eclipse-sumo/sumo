@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/01/09 11:57:50  dkrajzew
+// using definitions of lane widths instead of hard-coded values
+//
 // Revision 1.15  2005/11/09 06:40:49  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -764,6 +767,7 @@ NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const
         NBEdge *pot_highway = cur->getIncomingEdges()[0];
         NBEdge *pot_ramp = cur->getIncomingEdges()[1];
         NBEdge *cont = cur->getOutgoingEdges()[0];
+
         if(pot_highway->getSpeed()<pot_ramp->getSpeed()) {
             swap(pot_highway, pot_ramp);
         } else if(pot_highway->getSpeed()==pot_ramp->getSpeed()
@@ -827,7 +831,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             cont->invalidateConnections(true);
             if(cont->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                 Position2DVector g = cont->getGeometry();
-                g.move2side(-3.5/2.);
+                g.move2side(-SUMO_const_halfLaneAndOffset);
                 cont->setGeometry(g);
             }
         }
@@ -867,7 +871,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                 }
                 if(added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                     Position2DVector g = added_ramp->getGeometry();
-                    g.move2side(-3.5/2.);
+                    g.move2side(-SUMO_const_halfLaneAndOffset);
                     added_ramp->setGeometry(g);
                 }
             } else {
@@ -931,7 +935,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
             }
             if(prev->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                 Position2DVector g = prev->getGeometry();
-                g.move2side(-3.5/2.);
+                g.move2side(-SUMO_const_halfLaneAndOffset);
                 prev->setGeometry(g);
             }
         }
@@ -971,7 +975,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                 }
                 if(added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                     Position2DVector g = added_ramp->getGeometry();
-                    g.move2side(-3.5/2.);
+                    g.move2side(-SUMO_const_halfLaneAndOffset);
                     added_ramp->setGeometry(g);
                 }
             } else {

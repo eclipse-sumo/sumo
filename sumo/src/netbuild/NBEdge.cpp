@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.59  2006/01/09 11:57:50  dkrajzew
+// using definitions of lane widths instead of hard-coded values
+//
 // Revision 1.58  2005/11/30 08:52:43  dkrajzew
 // debugging geometry computation
 //
@@ -293,6 +296,7 @@ namespace
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/StdDefs.h>
 #include "NBEdge.h"
 
 #ifdef _DEBUG
@@ -855,7 +859,7 @@ NBEdge::computeLaneShape(size_t lane)
             Position2D from = myGeom.at(i);
             Position2D to = myGeom.at(i+1);
             std::pair<SUMOReal, SUMOReal> offsets =
-                laneOffset(from, to, 3.5, _nolanes-1-lane);
+                laneOffset(from, to, SUMO_const_laneWidthAndOffset, _nolanes-1-lane);
             shape.push_back_noDoublePos(//.push_back(
                 // (methode umbenennen; was heisst hier "-")
                 Position2D(from.x()-offsets.first, from.y()-offsets.second));
@@ -863,7 +867,7 @@ NBEdge::computeLaneShape(size_t lane)
             Position2D from = myGeom.at(i-1);
             Position2D to = myGeom.at(i);
             std::pair<SUMOReal, SUMOReal> offsets =
-                laneOffset(from, to, 3.5, _nolanes-1-lane);
+                laneOffset(from, to, SUMO_const_laneWidthAndOffset, _nolanes-1-lane);
             shape.push_back_noDoublePos(//.push_back(
                 // (methode umbenennen; was heisst hier "-")
                 Position2D(to.x()-offsets.first, to.y()-offsets.second));
@@ -872,9 +876,9 @@ NBEdge::computeLaneShape(size_t lane)
             Position2D me = myGeom.at(i);
             Position2D to = myGeom.at(i+1);
             std::pair<SUMOReal, SUMOReal> offsets =
-                laneOffset(from, me, 3.5, _nolanes-1-lane);
+                laneOffset(from, me, SUMO_const_laneWidthAndOffset, _nolanes-1-lane);
             std::pair<SUMOReal, SUMOReal> offsets2 =
-                laneOffset(me, to, 3.5, _nolanes-1-lane);
+                laneOffset(me, to, SUMO_const_laneWidthAndOffset, _nolanes-1-lane);
             Line2D l1(
                 Position2D(from.x()-offsets.first, from.y()-offsets.second),
                 Position2D(me.x()-offsets.first, me.y()-offsets.second));
@@ -1926,7 +1930,7 @@ NBEdge::setGeometry(const Position2DVector &s)
 SUMOReal
 NBEdge::getMaxLaneOffset()
 {
-    return (SUMOReal) 3.5 * _nolanes;
+    return (SUMOReal) SUMO_const_laneWidthAndOffset * _nolanes;
 }
 
 
@@ -1949,14 +1953,14 @@ NBEdge::getMinLaneOffsetPositionAt(NBNode *node, SUMOReal width)
             myLaneGeoms[myLaneGeoms.size()-1].positionAtLengthPosition(width);
             GeomHelper::transfer_to_side(pos,
                 myLaneGeoms[myLaneGeoms.size()-1].at(0), myLaneGeoms[myLaneGeoms.size()-1].at(myLaneGeoms[0].size()-1),
-                3.5 / 2.0);
+                SUMO_const_halfLaneAndOffset);
         return pos;
     } else {
         Position2D pos =
             myLaneGeoms[0].positionAtLengthPosition(myLaneGeoms[0].length() - width);
             GeomHelper::transfer_to_side(pos,
                 myLaneGeoms[0].at(myLaneGeoms[0].size()-1), myLaneGeoms[0].at(0),
-                3.5 / 2.0);
+                SUMO_const_halfLaneAndOffset);
         return pos;
     }
 }
@@ -1980,13 +1984,13 @@ NBEdge::getMaxLaneOffsetPositionAt(NBNode *node, SUMOReal width)
         Position2D pos = myLaneGeoms[0].positionAtLengthPosition(width);
             GeomHelper::transfer_to_side(pos,
                 myLaneGeoms[0].at(0), myLaneGeoms[0].at(myLaneGeoms[0].size()-1),
-                -3.5 / 2.0);
+                -SUMO_const_halfLaneAndOffset);
         return pos;
     } else {
         Position2D pos = myLaneGeoms[myLaneGeoms.size()-1].positionAtLengthPosition(myLaneGeoms[myLaneGeoms.size()-1].length() - width);
             GeomHelper::transfer_to_side(pos,
                 myLaneGeoms[myLaneGeoms.size()-1].at(myLaneGeoms[myLaneGeoms.size()-1].size()-1), myLaneGeoms[myLaneGeoms.size()-1].at(0),
-                -3.5 / 2.0);
+                -SUMO_const_halfLaneAndOffset);
         return pos;
     }
 }
@@ -2202,7 +2206,7 @@ NBEdge::getNECCWBoundaryLine(NBNode *n, SUMOReal offset)
 SUMOReal
 NBEdge::width() const
 {
-    return (SUMOReal) _nolanes * (SUMOReal) 3.0;
+    return (SUMOReal) _nolanes * SUMO_const_laneWidth + (SUMOReal) (_nolanes-1) * SUMO_const_laneOffset;
 }
 
 
