@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/01/09 13:37:38  dkrajzew
+// further visualization options added
+//
 // Revision 1.5  2005/07/12 11:55:37  dkrajzew
 // fonts are now drawn using polyfonts; dialogs have icons; searching for structures improved;
 //
@@ -57,8 +60,6 @@ enum GUIIcon {
     ICON_LOCATEVEHICLE,
     ICON_LOCATEADD,
 
-    ICON_COLOURVEHICLES,
-    ICON_COLOURLANES,
     ICON_SHOWGRID,
     ICON_SHOWTOOLTIPS,
     ICON_SHOWFULLGEOM,
@@ -95,7 +96,6 @@ enum GUIIcon {
     ICON_SPEEDLIMIT_140KMH,
     ICON_SPEEDLIMIT_160KMH,
     ICON_SPEEDLIMIT_180KMH,
-//    ICON_SPEEDLIMIT_200KMH,
 
 	ICON_EXTRACT,
 	ICON_DILATE,

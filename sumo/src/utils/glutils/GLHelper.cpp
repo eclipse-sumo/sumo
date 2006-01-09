@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/09 13:36:09  dkrajzew
+// further visualization options added
+//
 // Revision 1.9  2005/11/09 07:29:43  dkrajzew
 // debugging
 //
@@ -180,6 +183,26 @@ GLHelper::drawFilledCircle(SUMOReal width, int steps, SUMOReal beg, SUMOReal end
     glEnd();
 }
 
+
+void
+GLHelper::drawTriangleAtEnd(const Line2D &l, float tLength,
+                            float tWidth)
+{
+    if(l.length()<tLength) {
+        tWidth = tWidth * l.length() / tLength;
+        tLength = l.length();
+    }
+    Line2D rl(l.getPositionAtDistance(l.length()-tLength), l.p2());
+    glPushMatrix();
+    glTranslated(rl.p1().x(), rl.p1().y(), 0);
+    glRotated(-l.atan2DegreeAngle(), 0, 0, 1);
+    glBegin( GL_TRIANGLES );
+    glVertex2d(0, -tLength);
+    glVertex2d(-tWidth, 0);
+    glVertex2d(+tWidth, 0);
+    glEnd();
+    glPopMatrix();
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

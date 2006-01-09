@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/01/09 13:37:38  dkrajzew
+// further visualization options added
+//
 // Revision 1.8  2005/10/07 11:45:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -155,19 +158,6 @@ namespace
 #include "cut.xpm"
 #include "ext.xpm"
 
-/*
-#include "vlimit_20.cpp"
-#include "vlimit_40.cpp"
-#include "vlimit_60.cpp"
-#include "vlimit_80.cpp"
-#include "vlimit_100.cpp"
-#include "vlimit_120.cpp"
-#include "vlimit_140.cpp"
-#include "vlimit_160.cpp"
-#include "vlimit_180.cpp"
-*/
-//#include "vlimit_200.cpp"
-
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
@@ -213,8 +203,6 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     myIcons[ICON_LOCATEVEHICLE] = new FXXPMIcon(a, locate_vehicle_xpm);
     myIcons[ICON_LOCATEADD] = new FXXPMIcon(a, locate_add_xpm);
 
-    myIcons[ICON_COLOURLANES] = new FXXPMIcon(a, colour_lane_xpm);
-    myIcons[ICON_COLOURVEHICLES] = new FXXPMIcon(a, colour_vehicle_xpm);
     myIcons[ICON_SHOWGRID] = new FXXPMIcon(a, show_grid_xpm);
     myIcons[ICON_SHOWTOOLTIPS] = new FXXPMIcon(a, show_tooltips_xpm);
     myIcons[ICON_SHOWFULLGEOM] = new FXXPMIcon(a, show_geometry_xpm);

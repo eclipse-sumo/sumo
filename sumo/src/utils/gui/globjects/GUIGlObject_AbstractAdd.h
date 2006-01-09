@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/01/09 13:36:33  dkrajzew
+// further visualization options added
+//
 // Revision 1.5  2005/10/07 11:45:32  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -88,10 +91,10 @@ public:
     GUIGlObjectType getType() const;
 
     /// Draws the detector in full-geometry mode
-    virtual void drawGL_FG(SUMOReal scale) = 0;
+    virtual void drawGL_FG(SUMOReal scale, SUMOReal upscale) = 0;
 
     /// Draws the detector in simple-geometry mode
-    virtual void drawGL_SG(SUMOReal scale) = 0;
+    virtual void drawGL_SG(SUMOReal scale, SUMOReal upscale) = 0;
 
     /// Returns the detector's coordinates
     virtual Position2D getPosition() const = 0;

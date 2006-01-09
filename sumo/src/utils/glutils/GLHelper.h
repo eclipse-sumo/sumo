@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/01/09 13:36:09  dkrajzew
+// further visualization options added
+//
 // Revision 1.6  2005/10/07 11:44:40  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -53,6 +56,7 @@
 #include <vector>
 #include <utility>
 #include <utils/geom/Position2DVector.h>
+#include <utils/geom/Line2D.h>
 
 
 /* =========================================================================
@@ -76,6 +80,9 @@ public:
 
     static void drawFilledCircle(SUMOReal width, int steps,
         SUMOReal beg, SUMOReal end);
+
+    static void drawTriangleAtEnd(const Line2D &l, float tLength,
+        float tWidth);
 
 private:
     static std::vector<std::pair<SUMOReal, SUMOReal> > myCircleCoords;
