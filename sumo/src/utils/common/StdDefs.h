@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/01/09 13:31:04  dkrajzew
+// using definitions of lane widths instead of hard-coded values
+//
 // Revision 1.7  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -50,6 +53,25 @@
 #endif // HAVE_CONFIG_H
 
 
+/* -------------------------------------------------------------------------
+ * some constant defaults used by SUMO
+ * ----------------------------------------------------------------------- */
+const SUMOReal SUMO_const_laneWidth = (SUMOReal) 3.2;
+const SUMOReal SUMO_const_halfLaneWidth = (SUMOReal) 1.6;
+const SUMOReal SUMO_const_laneOffset = (SUMOReal) .1;
+const SUMOReal SUMO_const_laneWidthAndOffset = (SUMOReal) 3.3;
+const SUMOReal SUMO_const_halfLaneAndOffset = (SUMOReal) (3.2/2.+.1);
+
+
+/* -------------------------------------------------------------------------
+ * definitions of common used conversions
+ * ----------------------------------------------------------------------- */
+#define mBYs2kmBYh(x) ((SUMOReal) (x/3.6))
+
+
+/* -------------------------------------------------------------------------
+ * templates for mathematical functions missing in some c++-implementations
+ * ----------------------------------------------------------------------- */
 template<typename T>
 inline T
 MIN2(T a, T b)
@@ -97,5 +119,11 @@ MAX4(T a, T b, T c, T d)
 }
 
 
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
 
