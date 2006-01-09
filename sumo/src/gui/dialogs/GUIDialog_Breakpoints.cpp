@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/01/09 11:44:40  dkrajzew
+// debugging the editable table
+//
 // Revision 1.10  2005/11/14 09:46:37  dkrajzew
 // debugging editable tables
 //
@@ -382,7 +385,9 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*,FXSelector,void*data)
     default:
         throw 1;
     }
-    rebuildList();
+    if(!i->updateOnly) {
+        rebuildList();
+    }
     return 1;
 }
 

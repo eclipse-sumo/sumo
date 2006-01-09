@@ -46,6 +46,7 @@ public:
         FXTableItem *item;
         int row;
         int col;
+        bool updateOnly;
     };
 
 
@@ -127,6 +128,7 @@ protected:
   virtual FXWindow *getControlForItem(FXint r,FXint c);
   virtual void setItemFromControl(FXint r,FXint c,FXWindow *control);
     void acceptInput(FXbool notify);
+    void setItemFromControl_NoRelease(FXint r,FXint c,FXWindow *control);
 
 protected:
     std::vector<CellType> myCellTypes;

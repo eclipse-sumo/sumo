@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/01/09 11:44:40  dkrajzew
+// debugging the editable table
+//
 // Revision 1.8  2005/11/08 15:52:49  dkrajzew
 // removed memory leaks
 //
@@ -245,7 +248,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name,
 
     new FXLabel(f3, "(c) Institute of Transportation Research/DLR and ZAIK",
         0, LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL, 0,0,0,0, 0,0,5,0);
-    new FXLabel(f3, "2000-2005",
+    new FXLabel(f3, "2000-2006",
         0, LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL, 0,0,0,0, 0,0,0,0);
 
     new FXLabel(f3, "http://sumo.sourceforge.net",

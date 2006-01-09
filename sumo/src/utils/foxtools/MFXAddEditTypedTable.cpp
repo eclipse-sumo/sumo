@@ -293,6 +293,8 @@ MFXAddEditTypedTable::acceptInput(FXbool notify)
         if(dial!=0) {
             if(!dial->getDial().grabbed()) {
                 set = true;
+            } else {
+                setItemFromControl_NoRelease(input.fm.row,input.fm.col,editor);
             }
         }
         if(dynamic_cast<FXTextField*>(editor)!=0) {
@@ -343,6 +345,7 @@ MFXAddEditTypedTable::setItemFromControl(FXint r,FXint c,FXWindow *control)
     edited.item = item;
     edited.row = r;
     edited.col = c;
+    edited.updateOnly = false;
     killSelection(true);
     bool accepted = true;
     if(target) {
@@ -361,6 +364,46 @@ MFXAddEditTypedTable::setItemFromControl(FXint r,FXint c,FXWindow *control)
         }
     }
     mode = MOUSE_NONE;
+}
+
+
+void
+MFXAddEditTypedTable::setItemFromControl_NoRelease(FXint r,FXint c,FXWindow *control)
+{
+    register FXTableItem* item=cells[r*ncols+c];
+    if(item==NULL){
+        return;
+    }
+    switch(getCellType(c)) {
+    case CT_UNDEFINED:
+    case CT_STRING:
+        item->setFromControl(control);
+        break;
+    case CT_REAL:
+        item->setText(toString(static_cast<FXRealSpinDial*>(control)->getValue()).c_str());
+        break;
+    case CT_INT:
+        item->setText(toString((int) static_cast<FXRealSpinDial*>(control)->getValue()).c_str());
+        break;
+    case CT_BOOL:
+//        return myBoolEditor;
+    case CT_ENUM:
+//        return myEnumEditor;
+    default:
+        throw 1;
+    }
+    EditedTableItem edited;
+    edited.item = item;
+    edited.row = r;
+    edited.col = c;
+    edited.updateOnly = true;
+    bool accepted = true;
+    if(target) {
+        if(!target->handle(this,FXSEL(SEL_CHANGED, ID_TEXT_CHANGED), (void*) &edited)) {
+            accepted = false;
+            // !!! item->setText(myPreviousText);
+        }
+    }
 }
 
 
