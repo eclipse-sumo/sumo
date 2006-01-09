@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/01/09 11:58:14  dkrajzew
+// debugging error handling
+//
 // Revision 1.26  2005/11/29 13:31:16  dkrajzew
 // debugging
 //
@@ -116,7 +119,10 @@ NBNetBuilder::buildLoaded()
     OptionsCont &oc = OptionsSubSys::getOptions();
     compute(oc);
     // save network when wished
-    save(oc.getString("o"), oc);
+    if(!save(oc.getString("o"), oc)) {
+        MsgHandler::getErrorInstance()->inform("Could not save net to '" + oc.getString("o") + "'.");
+        throw ProcessError();
+    }
     // save plain nodes/edges/connections
     if(oc.isSet("plain-output")) {
         savePlain(oc.getString("plain-output"));
@@ -589,6 +595,11 @@ NBNetBuilder::preCheckOptions(OptionsCont &oc)
             first = false;
         }
         oc.set("keep-edges", oss.str());
+    }
+    // check whether at least one output file is given
+    if(!oc.isSet("o")&&!oc.isSet("plain-output")&&!oc.isSet("map-output")) {
+        MsgHandler::getErrorInstance()->inform("No output defined.");
+        throw ProcessError();
     }
 }
 

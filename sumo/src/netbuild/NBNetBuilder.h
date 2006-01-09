@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2006/01/09 11:58:14  dkrajzew
+// debugging error handling
+//
 // Revision 1.16  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -74,7 +77,7 @@ public:
 
     static void insertNetBuildOptions(OptionsCont &oc);
 
-    static void preCheckOptions(OptionsCont &oc);
+    void preCheckOptions(OptionsCont &oc);
 
     /**
      * @brief computes the structures
