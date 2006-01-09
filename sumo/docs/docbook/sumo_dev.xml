@@ -1870,8 +1870,8 @@ linenumbering="numbered"
 >MSNet * load(OptionsCont &#38;oc)
 {
    SharedOutputDevices::setInstance(new SharedOutputDevices());
-   MSNet *net = new MSNet(oc.getInt(&#34;begin&#34;), oc.getInt(&#34;end&#34;));
    SUMOFrame::setMSGlobals(oc);
+   MSNet *net = new MSNet(oc.getInt(&#34;begin&#34;), oc.getInt(&#34;end&#34;));
    NLEdgeControlBuilder eb;
    NLJunctionControlBuilder jb(oc);
    NLDetectorBuilder db(*net);
@@ -1894,11 +1894,11 @@ linenumbering="numbered"
 ></listitem
 ><listitem
 ><para
->Prebuild the net; it will be filled during the build process</para
+>Set global variables using the current options</para
 ></listitem
 ><listitem
 ><para
->Set global variables using the current options</para
+>Prebuild the net; it will be filled during the build process</para
 ></listitem
 ><listitem
 ><para

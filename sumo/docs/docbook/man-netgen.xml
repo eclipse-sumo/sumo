@@ -29,7 +29,8 @@
     <cmdsynopsis>
       <command>netgen</command>
 
-      <arg><option>-c <replaceable class="parameter">configuration</replaceable></option></arg>
+      <arg><option>-c <replaceable
+      class="parameter">configuration</replaceable></option></arg>
     </cmdsynopsis>
 
     <cmdsynopsis>
@@ -44,15 +45,16 @@
 
     <para><application>netgen</application> is a tool for automatic generation
     of road networks. It is capable to build random networks, grid networks
-    and spider net - like networks. Most of each network type&#39;s parameter
-    may be changed what allows a large variety of networks and their usage for
+    and spider net - like networks. Most of each network type's parameter may
+    be changed what allows a large variety of networks and their usage for
     statistical evaluation of other models.</para>
 
     <para>The major input is the definition which network type shall be build.
     All other (beside the output file name) parameter have a default value.
-    You have either to pass <option>--grid-net</option> (or <option>-g</option>
-    for short), <option>--spider-net</option> (<option>-s</option>), or
-    <option>--random-net</option> (<option>-r</option>).</para>
+    You have either to pass <option>--grid-net</option> (or
+    <option>-g</option> for short), <option>--spider-net</option>
+    (<option>-s</option>), or <option>--random-net</option>
+    (<option>-r</option>).</para>
 
     <para>Beside the normal output which is the road network converted into
     the SUMO-format, <application>netgen</application> may generate a list of
@@ -66,26 +68,27 @@
     <para>In the following, all possible options are presented.</para>
 
     <para>Please remark, that the configuration-option may be used to supply a
-    file that contains all other parameter&#39;s definition. Please take a
-    look into the SUMO user documentation for further information about the
-    usage of configuration files.</para>
+    file that contains all other parameter's definition. Please take a look
+    into the SUMO user documentation for further information about the usage
+    of configuration files.</para>
 
     <refsect2>
       <title>Input Options:</title>
 
       <variablelist>
         <varlistentry>
-          <term>[ --configuration-file | --configuration | -c ] <replaceable
-          class="parameter">&#60;configuration-file&#62;</replaceable></term>
+          <term>( --configuration-file | --configuration | -c ) <replaceable
+          class="parameter">&lt;configuration-file&gt;</replaceable></term>
 
           <listitem>
             <para>Specifies whether and which a configuration file shall be
-            loaded. <remark>Optional, type:filename, default: none</remark></para>
+            loaded. <remark>Optional, type:filename, default:
+            none</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --grid-net | -g ]</term>
+          <term>( --grid-net | -g )</term>
 
           <listitem>
             <para>Forces NETGEN to build a grid-like network.
@@ -94,7 +97,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --spider-net | -s ]</term>
+          <term>( --spider-net | -s )</term>
 
           <listitem>
             <para>Forces NETGEN to build a spider-net-like network.
@@ -103,7 +106,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --random-net | -r ]</term>
+          <term>( --random-net | -r )</term>
 
           <listitem>
             <para>Forces NETGEN to build a random network. <remark>Optional,
@@ -118,34 +121,39 @@
 
       <variablelist>
         <varlistentry>
-          <term>[ --output-file | --output | -o ] <replaceable
-          class="parameter">&#60;output-file&#62;</replaceable></term>
+          <term>( --output-file | --output | -o ) <replaceable
+          class="parameter">&lt;output-file&gt;</replaceable></term>
 
           <listitem>
             <para>Defines the file to write the computed network into.</para>
 
             <para>This file will contain the generated network if the
-            conversion could be accomplished. <remark>Mandatory,
-            type:filename, default: none</remark></para>
+            conversion could be accomplished. <remark>Optional (pregiven),
+            type:filename, default: "net.net.xml"</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --map-output ] <replaceable class="parameter">&#60;map-output-file&#62;</replaceable></term>
+          <term>( --map-output ) <replaceable
+          class="parameter">&lt;map-output-file&gt;</replaceable></term>
 
           <listitem>
-            <para>Writes the file <filename>&#60;map-output-file&#62;</filename>
+            <para>Writes the file <filename>&lt;map-output-file&gt;</filename>
             which holds the list of edges that were joined to a single edge
-            for each edge. <remark>Optional, type:filename, default: none</remark></para>
+            for each edge. <remark>Optional, type:filename, default:
+            none</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --plain-output ] <replaceable class="parameter">&#60;plain-output-prefix&#62;</replaceable></term>
+          <term>( --plain-output ) <replaceable
+          class="parameter">&lt;plain-output-prefix&gt;</replaceable></term>
 
           <listitem>
-            <para>Writes the files <filename><replaceable>&#60;plain-output-prefix&#62;</replaceable>.nod.xml</filename>
-            and <filename><replaceable>&#60;plain-output-prefix&#62;</replaceable>.edg.xml</filename>
+            <para>Writes the files
+            <filename><replaceable>&lt;plain-output-prefix&gt;</replaceable>.nod.xml</filename>
+            and
+            <filename><replaceable>&lt;plain-output-prefix&gt;</replaceable>.edg.xml</filename>
             that contain the descriptions about the nodes and the edges a
             network is made of. These files may be reread into the netgener
             using the XML-import capabilities. <remark>Optional,
@@ -160,25 +168,30 @@
 
       <variablelist>
         <varlistentry>
-          <term>[ --grid-x-number | --x-no ] <replaceable class="parameter">&#60;edge-number&#62;</replaceable></term>
+          <term>( --grid-x-number | --x-no ) <replaceable
+          class="parameter">&lt;edge-number&gt;</replaceable></term>
 
           <listitem>
             <para>Describes how many junctions in the x-directions shall be
-            build. <remark>Optional (pre-given), type:int, default: 5</remark></para>
+            build. <remark>Optional (pre-given), type:int, default:
+            5</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --grid-y-number | --y-no ] <replaceable class="parameter">&#60;edge-number&#62;</replaceable></term>
+          <term>( --grid-y-number | --y-no ) <replaceable
+          class="parameter">&lt;edge-number&gt;</replaceable></term>
 
           <listitem>
             <para>Describes how many junctions in the y-directions shall be
-            build. <remark>Optional (pre-given), type:int, default: 5</remark></para>
+            build. <remark>Optional (pre-given), type:int, default:
+            5</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --grid-number | --number ] <replaceable class="parameter">&#60;edge-number&#62;</replaceable></term>
+          <term>( --grid-number | --number ) <replaceable
+          class="parameter">&lt;edge-number&gt;</replaceable></term>
 
           <listitem>
             <para>Describes how many junctions in both the x- and the
@@ -188,8 +201,8 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --grid-x-length | --x-length ] <replaceable
-          class="parameter">&#60;edge-length&#62;</replaceable></term>
+          <term>( --grid-x-length | --x-length ) <replaceable
+          class="parameter">&lt;edge-length&gt;</replaceable></term>
 
           <listitem>
             <para>Describes how long each horizontal street shall be in
@@ -200,17 +213,19 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --grid-y-length | --y-length ] <replaceable
-          class="parameter">&#60;edge-length&#62;</replaceable></term>
+          <term>( --grid-y-length | --y-length ) <replaceable
+          class="parameter">&lt;edge-length&gt;</replaceable></term>
 
           <listitem>
             <para>Describes how long each vertical street shall be in meters.
-            <remark>Optional (pre-given), type:float, default: 100</remark></para>
+            <remark>Optional (pre-given), type:float, default:
+            100</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --grid-length | --length ] <replaceable class="parameter">&#60;edge-length&#62;</replaceable></term>
+          <term>( --grid-length | --length ) <replaceable
+          class="parameter">&lt;edge-length&gt;</replaceable></term>
 
           <listitem>
             <para>Describes how long both horizontal and vertical streets
@@ -226,8 +241,8 @@
 
       <variablelist>
         <varlistentry>
-          <term>[ --spider-arm-number | --arms ] <replaceable
-          class="parameter">&#60;edge-number&#62;</replaceable></term>
+          <term>( --spider-arm-number | --arms ) <replaceable
+          class="parameter">&lt;edge-number&gt;</replaceable></term>
 
           <listitem>
             <para>Specifies how many arms (axes) the net shall have.</para>
@@ -237,8 +252,8 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --spider-circle-number | --circles ] <replaceable
-          class="parameter">&#60;edge-number&#62;</replaceable></term>
+          <term>( --spider-circle-number | --circles ) <replaceable
+          class="parameter">&lt;edge-number&gt;</replaceable></term>
 
           <listitem>
             <para>Specifies how many circles shall be build. <remark>Optional
@@ -247,12 +262,13 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --spider-space-rad | --radius ] <replaceable
-          class="parameter">&#60;edge-length&#62;</replaceable></term>
+          <term>( --spider-space-rad | --radius ) <replaceable
+          class="parameter">&lt;edge-length&gt;</replaceable></term>
 
           <listitem>
             <para>Specifies how far the circles shall be from each other in
-            meters. <remark>Optional (pre-given), type:float, default: 100</remark></para>
+            meters. <remark>Optional (pre-given), type:float, default:
+            100</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -263,36 +279,39 @@
 
       <variablelist>
         <varlistentry>
-          <term>[ --rand-iterations | --iterations ] <replaceable
-          class="parameter">&#60;iteration-number&#62;</replaceable></term>
+          <term>( --rand-iterations | --iterations ) <replaceable
+          class="parameter">&lt;iteration-number&gt;</replaceable></term>
 
           <listitem>
             <para>Describes how many times an edge shall be added to the net.
-            <remark>Optional (pre-given), type:int, default: 2000</remark></para>
+            <remark>Optional (pre-given), type:int, default:
+            2000</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --rand-max-distance | --max-dist ] <replaceable
-          class="parameter">&#60;float&#62;</replaceable></term>
+          <term>( --rand-max-distance | --max-dist ) <replaceable
+          class="parameter">&lt;float&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default: 25</remark></para>
+            <para><remark>Optional (pre-given), type:float, default:
+            25</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --rand-min-distance | --min-dist ] <replaceable
-          class="parameter">&#60;float&#62;</replaceable></term>
+          <term>( --rand-min-distance | --min-dist ) <replaceable
+          class="parameter">&lt;float&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default: 100</remark></para>
+            <para><remark>Optional (pre-given), type:float, default:
+            100</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --rand-min-angle | --min-angle ] &#60;<replaceable
-          class="parameter">float&#62;</replaceable></term>
+          <term>( --rand-min-angle | --min-angle ) &lt;<replaceable
+          class="parameter">float&gt;</replaceable></term>
 
           <listitem>
             <para><remark>Optional (pre-given), type:float, default:
@@ -301,65 +320,72 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --rand-num-tries | --num-tries ] <replaceable
-          class="parameter">&#60;int&#62;</replaceable></term>
+          <term>( --rand-num-tries | --num-tries ) <replaceable
+          class="parameter">&lt;int&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:int, default: 50</remark></para>
+            <para><remark>Optional (pre-given), type:int, default:
+            50</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --rand-connectivity | --connectivity ] <replaceable
-          class="parameter">&#60;float&#62;</replaceable></term>
+          <term>( --rand-connectivity | --connectivity ) <replaceable
+          class="parameter">&lt;float&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default: 0.95</remark></para>
+            <para><remark>Optional (pre-given), type:float, default:
+            0.95</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --rand-neighbor-dist1 | --dist1 ] <replaceable
-          class="parameter">&#60;float&#62;</replaceable></term>
+          <term>( --rand-neighbor-dist1 | --dist1 ) <replaceable
+          class="parameter">&lt;float&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default: 0</remark></para>
+            <para><remark>Optional (pre-given), type:float, default:
+            0</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --rand-neighbor-dist3 | --dist3 ] <replaceable
-          class="parameter">&#60;float&#62;</replaceable></term>
+          <term>( --rand-neighbor-dist3 | --dist3 ) <replaceable
+          class="parameter">&lt;float&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default: 10</remark></para>
+            <para><remark>Optional (pre-given), type:float, default:
+            10</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --rand-neighbor-dist4 | --dist4 ] <replaceable
-          class="parameter">&#60;float&#62;</replaceable></term>
+          <term>( --rand-neighbor-dist4 | --dist4 ) <replaceable
+          class="parameter">&lt;float&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default: 10</remark></para>
+            <para><remark>Optional (pre-given), type:float, default:
+            10</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --rand-neighbor-dist5 | --dist5 ] <replaceable
-          class="parameter">&#60;float&#62;</replaceable></term>
+          <term>( --rand-neighbor-dist5 | --dist5 ) <replaceable
+          class="parameter">&lt;float&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default: 2</remark></para>
+            <para><remark>Optional (pre-given), type:float, default:
+            2</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --rand-neighbor-dist6 | --dist6 ] <replaceable
-          class="parameter">&#60;float&#62;</replaceable></term>
+          <term>( --rand-neighbor-dist6 | --dist6 ) <replaceable
+          class="parameter">&lt;float&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default: 1</remark></para>
+            <para><remark>Optional (pre-given), type:float, default:
+            1</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -370,16 +396,18 @@
 
       <variablelist>
         <varlistentry>
-          <term>[ --type | -T ] &#60;<replaceable class="parameter">type-name&#62;</replaceable></term>
+          <term>( --type | -T ) &lt;<replaceable
+          class="parameter">type-name&gt;</replaceable></term>
 
           <listitem>
             <para>The name of the default type of edges. <remark>Optional
-            (pre-given), type:string, default: &#34;Unknown&#34;</remark></para>
+            (pre-given), type:string, default: "Unknown"</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --lanenumber | -L ] <replaceable class="parameter">&#60;lane-number&#62;</replaceable></term>
+          <term>( --lanenumber | -L ) <replaceable
+          class="parameter">&lt;lane-number&gt;</replaceable></term>
 
           <listitem>
             <para>The number of lanes an edge has to use as default.
@@ -388,16 +416,19 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --speed | -S ] <replaceable class="parameter">&#60;max-speed&#62;</replaceable></term>
+          <term>( --speed | -S ) <replaceable
+          class="parameter">&lt;max-speed&gt;</replaceable></term>
 
           <listitem>
             <para>The maximum speed allowed on an edge in m/s to use as
-            default. <remark>Optional (pre-given), type:float, default: 13.9</remark></para>
+            default. <remark>Optional (pre-given), type:float, default:
+            13.9</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --priority | -P ] <replaceable class="parameter">&#60;priority&#62;</replaceable></term>
+          <term>( --priority | -P ) <replaceable
+          class="parameter">&lt;priority&gt;</replaceable></term>
 
           <listitem>
             <para>The default priority of an edge. <remark>Optional
@@ -412,7 +443,7 @@
 
       <variablelist>
         <varlistentry>
-          <term>[ --default-junction-type | --junctions | -j ] <replaceable
+          <term>( --default-junction-type | --junctions | -j ) <replaceable
           class="parameter">[ priority | traffic_light | actuated | agentbased
           ]</replaceable></term>
 
@@ -420,7 +451,7 @@
             <para>Defines what type of junctions shall be build. Remark that
             the junction in the center of a spider-network is always a
             priority junction. <remark>Optional (pre-given), type:string-enum,
-            default: &#34;prority&#34;</remark></para>
+            default: "prority"</remark></para>
           </listitem>
         </varlistentry>
 
@@ -429,16 +460,19 @@
 
           <listitem>
             <para>Flips the y-position of nodes (and edges) along the
-            y=zero-line. <remark>Optional, type:bool, default: false</remark></para>
+            y=zero-line. <remark>Optional, type:bool, default:
+            false</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --min-decel | -D ] <replaceable class="parameter">&#60;float&#62;</replaceable></term>
+          <term>( --min-decel | -D ) <replaceable
+          class="parameter">&lt;float&gt;</replaceable></term>
 
           <listitem>
             <para>The minimum deceleration value for vehicles.
-            <remark>Optional (pre-given), type:float, default: 3</remark></para>
+            <remark>Optional (pre-given), type:float, default:
+            3</remark></para>
           </listitem>
         </varlistentry>
 
@@ -500,12 +534,14 @@
         </varlistentry>
 
         <varlistentry>
-          <term>--tls-guess.min-incoming-speed <replaceable class="parameter">&#60;speed</replaceable>&#62;,
-          --tls-guess.max-incoming-speed <replaceable class="parameter">&#60;speed&#62;</replaceable></term>
+          <term>--tls-guess.min-incoming-speed <replaceable
+          class="parameter">&lt;speed</replaceable>&gt;,
+          --tls-guess.max-incoming-speed <replaceable
+          class="parameter">&lt;speed&gt;</replaceable></term>
 
           <listitem>
             <para>Sets the minimum and the maximum of the velocity a
-            junction&#39;s incoming edges may have if the junction shall be
+            junction's incoming edges may have if the junction shall be
             tls-controlled in m/s. <remark>Optional (pre-given), type:float,
             defaults: --tls-guess.min-incoming-speed: 40/3.6,
             --tls-guess.min-incoming-speed: 69/3.6</remark></para>
@@ -513,12 +549,14 @@
         </varlistentry>
 
         <varlistentry>
-          <term>--tls-guess.min-outgoing-speed <replaceable class="parameter">&#60;speed&#62;</replaceable>,
-          --tls-guess.max-outgoing-speed <replaceable class="parameter">&#60;speed&#62;</replaceable></term>
+          <term>--tls-guess.min-outgoing-speed <replaceable
+          class="parameter">&lt;speed&gt;</replaceable>,
+          --tls-guess.max-outgoing-speed <replaceable
+          class="parameter">&lt;speed&gt;</replaceable></term>
 
           <listitem>
             <para>Sets the minimum and the maximum of the velocity a
-            junction&#39;s outgoing edges may have if the junction shall be
+            junction's outgoing edges may have if the junction shall be
             tls-controlled in m/s. <remark>Optional (pre-given), type:float,
             defaults: --tls-guess.min-outgoing-speed: 40/3.6,
             --tls-guess.max-outgoing-speed: 69/3.6</remark></para>
@@ -526,32 +564,38 @@
         </varlistentry>
 
         <varlistentry>
-          <term>--tls-guess.no-incoming-min <replaceable class="parameter">&#60;lane-number&#62;</replaceable>,
-          --tls-guess.no-incoming-max &#60;<replaceable class="parameter">lane-number&#62;</replaceable></term>
+          <term>--tls-guess.no-incoming-min <replaceable
+          class="parameter">&lt;lane-number&gt;</replaceable>,
+          --tls-guess.no-incoming-max &lt;<replaceable
+          class="parameter">lane-number&gt;</replaceable></term>
 
           <listitem>
-            <para>Sets the minimum and the maximum number of a junction&#39;s
+            <para>Sets the minimum and the maximum number of a junction's
             incoming edges to allow the junction to be controlled by a tls.
             <remark>Optional (pre-given), type:int, defaults:
-            --tls-guess.no-incoming-min: 2, --tls-guess.no-incoming-max: 5</remark></para>
+            --tls-guess.no-incoming-min: 2, --tls-guess.no-incoming-max:
+            5</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>--tls-guess.no-outgoing-min &#60;<replaceable
-          class="parameter">lane-number</replaceable>&#62;,
-          --tls-guess.no-outgoing-max <replaceable class="parameter">&#60;lane-number&#62;</replaceable></term>
+          <term>--tls-guess.no-outgoing-min &lt;<replaceable
+          class="parameter">lane-number</replaceable>&gt;,
+          --tls-guess.no-outgoing-max <replaceable
+          class="parameter">&lt;lane-number&gt;</replaceable></term>
 
           <listitem>
-            <para>Sets the minimum and the maximum number of a junction&#39;s
+            <para>Sets the minimum and the maximum number of a junction's
             outgoing edges to allow the junction to be controlled by a tls.
             <remark>Optional (pre-given), type:int, defaults:
-            --tls-guess.no-outgoing-min: 1, --tls-guess.no-outgoing-max: 5</remark></para>
+            --tls-guess.no-outgoing-min: 1, --tls-guess.no-outgoing-max:
+            5</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>--explicite-tls &#60;<replaceable class="parameter">junction-id[;junction-id]*&#62;</replaceable></term>
+          <term>--explicite-tls &lt;<replaceable
+          class="parameter">junction-id[;junction-id]*&gt;</replaceable></term>
 
           <listitem>
             <para>Informs the network builder that the given junctions shall
@@ -562,7 +606,8 @@
         </varlistentry>
 
         <varlistentry>
-          <term>--explicite-no-tls &#60;<replaceable class="parameter">junction-id[;junction-id]*&#62;</replaceable></term>
+          <term>--explicite-no-tls &lt;<replaceable
+          class="parameter">junction-id[;junction-id]*&gt;</replaceable></term>
 
           <listitem>
             <para>Informs the network builder that the given junctions shall
@@ -573,12 +618,14 @@
         </varlistentry>
 
         <varlistentry>
-          <term>--edges-min-speed <replaceable class="parameter">&#60;min-speed&#62;</replaceable></term>
+          <term>--edges-min-speed <replaceable
+          class="parameter">&lt;min-speed&gt;</replaceable></term>
 
           <listitem>
             <para>Informs the network importer that edges with a lower speed
             than the one defined by this options shall not be included into
-            the network. <remark>Optional, type:float, default: none</remark></para>
+            the network. <remark>Optional, type:float, default:
+            none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -589,7 +636,7 @@
 
       <variablelist>
         <varlistentry>
-          <term>[ --verbose | -v ]</term>
+          <term>( --verbose | -v )</term>
 
           <listitem>
             <para>Prints some information about the process during execution.
@@ -598,7 +645,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --suppress-warnings | -W ]</term>
+          <term>( --suppress-warnings | -W )</term>
 
           <listitem>
             <para>No warnings will be prompted if this option is set.
@@ -607,21 +654,23 @@
         </varlistentry>
 
         <varlistentry>
-          <term>[ --print-options | -p ]</term>
+          <term>( --print-options | -p )</term>
 
           <listitem>
             <para>Prints the current option settings before the execution
-            starts. <remark>Optional, type:bool, default: false</remark></para>
+            starts. <remark>Optional, type:bool, default:
+            false</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>[ --log-file | -L ]<replaceable class="parameter">
-          &#60;log-file-name&#62;</replaceable></term>
+          <term>( --log-file | -L )<replaceable class="parameter">
+          &lt;log-file-name&gt;</replaceable></term>
 
           <listitem>
             <para>All outputs (messages, warnings, and errors) will be written
-            to the named file. <remark>Optional, type:filename, default: none</remark></para>
+            to the named file. <remark>Optional, type:filename, default:
+            none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -643,7 +692,8 @@
         </varlistentry>
 
         <varlistentry>
-          <term>--srand <replaceable class="parameter">&#60;number&#62;</replaceable></term>
+          <term>--srand <replaceable
+          class="parameter">&lt;number&gt;</replaceable></term>
 
           <listitem>
             <para>Initialises the random number generator with the given
@@ -658,20 +708,25 @@
     <title>USAGE</title>
 
     <para>The following topics should be described more precisely within the
-    SUMO user documentation that may be found at http://sumo.sourceforge.net</para>
+    SUMO user documentation that may be found at
+    http://sumo.sourceforge.net</para>
 
     <para><application>netgen</application> requires at least the information
     which network type shall be build and the name of the file to generate.
-    All further parameter depend on the type of the network to be build.</para>
+    All further parameter depend on the type of the network to be
+    build.</para>
 
     <refsect2>
       <title>Examples</title>
 
-      <para><command>netgen</command> -c <filename>myConfig.netc.cfg</filename></para>
+      <para><command>netgen</command> -c
+      <filename>myConfig.netc.cfg</filename></para>
 
-      <para>Does the things described by the configuration &#34;<filename>myConfig.netc.cfg</filename>&#34;</para>
+      <para>Does the things described by the configuration
+      "<filename>myConfig.netc.cfg</filename>"</para>
 
-      <para><command>netgen</command> -g -o <filename>myNet.net.xml</filename></para>
+      <para><command>netgen</command> -g -o
+      <filename>myNet.net.xml</filename></para>
 
       <para>Builds a simple grid network using default parameter.</para>
     </refsect2>
@@ -704,6 +759,10 @@
   <refsect1>
     <title>AUTHOR</title>
 
-    <para><author><firstname>Daniel</firstname><surname>Krajzewicz</surname></author></para>
+    <para><author>
+        <firstname>Daniel</firstname>
+
+        <surname>Krajzewicz</surname>
+      </author></para>
   </refsect1>
 </refentry>

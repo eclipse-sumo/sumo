@@ -699,6 +699,250 @@ url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
 ></sect1
 ></chapter
 ><chapter
+id="more_trigger"
+><title
+>More on... Trigger</title
+><para
+>This chapter is meant to be an add-on to the <ulink
+url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
+>user documentation</ulink
+>.</para
+><para
+><emphasis
+>Audience:</emphasis
+> users</para
+><sect1
+><title
+>Building an Own Trigger</title
+><para
+>To build an own trigger, use the following procedure:</para
+><procedure
+><step
+><para
+>Generate a class which is derived from <classname
+>MSTrigger</classname
+> (located in <filename
+><replaceable
+>&#60;SUMO&#62;</replaceable
+>/src/microsim/trigger/</filename
+>)</para
+></step
+><step
+><para
+>Add a reading procedure for this class within <classname
+>NLTriggerBuilder</classname
+></para
+></step
+><step
+><para
+>Generate the GUI-version of the trigger</para
+></step
+><step
+><para
+>Add the generation procedure in GUITriggerBuilder</para
+></step
+></procedure
+><para
+>We will now go through these steps using the MSBusStop-class as an example.</para
+><sect2
+><title
+>Generate an own Class</title
+><para
+>Ok, this is not really that hard. A bus stop is simply a part of a lane, so we need the lane, the begin and the end position. Additionally we want to know which lines will hold there. Knowing this, we have to generate a MSBusStop.h and its implementation MSBusStop.cpp:</para
+><programlisting
+>#ifndef MSBusStop_h
+#define MSBusStop_h
+
+#include &#60;vector&#62;
+#include &#60;string&#62;
+#include &#34;MSTrigger.h&#34;
+
+class MSLane;
+
+class MSBusStop : public MSTrigger {
+public:
+    MSBusStop(const std::string &#38;id, const std::vector&#60;std::string&#62; &#38;lines,
+        MSLane &#38;lane, SUMOReal begPos, SUMOReal endPos);
+    virtual ~MSBusStop();
+
+protected:
+    std::vector&#60;std::string&#62; myLines;
+    MSLane &#38;myLane;
+    SUMOReal myBegPos;
+    SUMOReal myEndPos;
+
+};
+
+#endif
+</programlisting
+><programlisting
+>#include &#34;MSTrigger.h&#34;
+#include &#34;MSBusStop.h&#34;
+
+
+MSBusStop::MSBusStop(const std::string &#38;id,
+                     const std::vector&#60;std::string&#62; &#38;lines,
+                     MSLane &#38;lane,
+                     SUMOReal begPos, SUMOReal endPos)
+    : MSTrigger(id), myLines(lines), myLane(lane),
+    myBegPos(begPos), myEndPos(myEndPos)
+{
+}
+
+MSBusStop::~MSBusStop()
+{
+}
+</programlisting
+></sect2
+><sect2
+><title
+>Add a reading Procedure</title
+><para
+>Take a look at MSTrigger *NLTriggerBuilder::buildTrigger(MSNet &#38;net, const Attributes &#38;attrs, const std::string &#38;base,const NLHandler &#38;helper). Think about a name for your trigger and add the call to a function which parses your structure. For our purpose, we will add the following lines to this function:</para
+><programlisting
+>    } else if(type==&#34;bus_stop&#34;) {
+        t = parseAndBuildBusStop(net, attrs, base, helper);
+    }
+</programlisting
+><para
+>Then you of course have to implement the function that builds the structure itself. . To implement the function we add its declaration within NLTriggerBuilder&#39;s (NLTriggerBuilder.h) protected part:</para
+><programlisting
+>    /// builds a busstop
+    MSBusStop *parseAndBuildBusStop(MSNet &#38;net,
+        const Attributes &#38;attrs, const std::string &#38;base,
+        const NLHandler &#38;helper);
+</programlisting
+><para
+>... and it&#39;s definition in NLTriggerBuilder.cpp:</para
+><programlisting
+>MSBusStop *
+NLTriggerBuilder::parseAndBuildBusStop(MSNet &#38;net,
+                                       const Attributes &#38;attrs,
+                                       const std::string &#38;base,
+                                       const NLHandler &#38;helper)
+{
+    string id = helper.getString(attrs, SUMO_ATTR_ID);
+    string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
+    MSLane *lane = MSLane::dictionary(objectid);
+    if(lane==0) {
+        MsgHandler::getErrorInstance()-&#62;inform(
+            string(&#34;The lane to use within MSEmitter &#39;&#34;)
+            + id + string(&#34;&#39; is not known.&#34;));
+        throw ProcessError();
+    }
+    SUMOReal frompos = helper.getFloat(attrs, SUMO_ATTR_FROM);
+    SUMOReal topos = helper.getFloat(attrs, SUMO_ATTR_TO);
+    if(frompos&#60;0) {
+        frompos = lane-&#62;length() + frompos;
+    }
+    if(topos&#60;0) {
+        topos = lane-&#62;length() + topos;
+    }
+    return buildBusStop(net, id, lane, frompos, topos, file);
+}
+</programlisting
+><para
+>Well, we have now parsed all the values we need from the XML-description which will have to look like this: <sgmltag
+>&#60;trigger id=&#34;<replaceable
+>&#60;ID&#62;</replaceable
+>&#34; objecttype=&#34;bus_stop&#34; objectid=&#34;<replaceable
+>&#60;LANE_ID&#62;</replaceable
+>&#34; from=&#34;<replaceable
+>&#60;FROM_POS&#62;</replaceable
+>&#34; to=&#34;<replaceable
+>&#60;TO_POS&#62;</replaceable
+>&#34;/&#62;</sgmltag
+>. We can now build the bus stop. We do this in a separate method, because it will be overwritten within the gui-version of NLTriggerBuild (see !!!). So we add the missing function (see below) to our declaration and definition of NLTriggerBuilder and we&#39;re finished (don&#39;t foret to add your trigger to the includes):</para
+><para
+>NLTriggerBuilder.h:</para
+><programlisting
+>    virtual MSBusStop* buildBusStop(MSNet &#38;net,
+        const std::string &#38;id, MSLane *lane,
+        SUMOReal frompos, SUMOReal topos);
+</programlisting
+><para
+>NLTriggerBuilder.cpp:</para
+><programlisting
+>MSBusStop*
+NLTriggerBuilder::buildBusStop(MSNet &#38;net, const std::string &#38;id,
+                               MSLane *lane,
+                               SUMOReal frompos, SUMOReal topos)
+{
+    return new MSBusStop(id, std::vector&#60;std::string&#62;(), lane, frompos, toPos);
+}
+</programlisting
+></sect2
+><sect2
+><title
+>Generate the GUI-version of the trigger</title
+><para
+>... tbd ...</para
+></sect2
+><sect2
+><title
+>Add a reading Procedure for the GUI</title
+><para
+>This is simple again. Simply extend the !!!</para
+></sect2
+></sect1
+><sect1
+><title
+>Emissions</title
+><para
+>In the real life, vehicles are parked somewhere in the near of the road and start their route from this place. A plain modelling of this is not useful because</para
+><itemizedlist
+><listitem
+><para
+>You would have to handle all vehicles, also those standing around what would cost you much memory and cpu time and would need more effort in modelling,</para
+></listitem
+><listitem
+><para
+>A simulation mostly takes place at a subpart of a network and vehicles come mostly from the boundaries of the simulated area.</para
+></listitem
+></itemizedlist
+><para
+>Due to this, within traffic simulations, vehicles are inserted into the net on emission and are deleted when leaving the simulation, either by leaving the area or by parking. This paradigm is also used within SUMO.</para
+><sect2
+><title
+>Plain Emissions</title
+><sect3
+><title
+>Emissions from normal Edges</title
+><para
+>The most common procedure to emit vehicles in SUMO is to insert them at normal edges (streets). This</para
+></sect3
+><sect3
+><title
+>Emissions from Source Edges</title
+><para
+>... tbd ...</para
+></sect3
+><sect3
+><title
+>Additional Parameter</title
+><para
+>... tbd ...</para
+></sect3
+></sect2
+><sect2
+><title
+>Using TriggeredEmitters</title
+><para
+>... tbd ...</para
+></sect2
+></sect1
+><sect1
+><title
+>Teleporting</title
+><sect2
+><title
+>... tbd ...</title
+><para
+>...tbd...</para
+></sect2
+></sect1
+></chapter
+><chapter
 id="more_dua"
 ><title
 >More on... Dynamic User Assignment</title
@@ -731,25 +975,17 @@ url="http://sumo.sourceforge.net/docs/userdocs.shtml"
 > - script described here (tbd).</para
 ><figure
 ><title
->The network of City of Magdeburg used within INVENT as shown by SUMO (tbd)</title
+>The network of City of Magdeburg used within INVENT as shown by SUMO</title
 ><mediaobject
 ><imageobject
 ><imagedata
 align="center"
-fileref="./gfx/more/CD_TrafficLights.gif"
+fileref="./gfx/more/magdeburg_sumo.gif"
 format="GIF"
 ></imagedata
 ></imageobject
 ></mediaobject
 ></figure
-><para
->You may find some further information on the simulation&#39;s settings within the TBD chapter, where this network is also used as example.</para
-><sect3
-><title
->!!!</title
-><para
->You</para
-></sect3
 ></sect2
 ><sect2
 ><title
@@ -769,7 +1005,9 @@ format="GIF"
 ><para
 >The next picture shows the development of the number of vehicles within the simulation over the dua iteration process. Every 5th iteration is shown. The plot was done using the following gnuplot command after converting the xml-output into files readable by gnuplot:</para
 ><screen
->gnuplot&#62; plot &#34;emissions_0.txt&#34; u 1:4 w l, &#34;emissions_5.txt&#34; u 1:4 w l, \
+>gnuplot&#62; set xlabel &#34;t&#34;
+gnuplot&#62; set ylabel &#34;veh&#34;
+gnuplot&#62; plot &#34;emissions_0.txt&#34; u 1:4 w l, &#34;emissions_5.txt&#34; u 1:4 w l, \
    &#34;emissions_10.txt&#34; u 1:4 w l, &#34;emissions_15.txt&#34; u 1:4 w l, \
    &#34;emissions_20.txt&#34; u 1:4 w l, &#34;emissions_25.txt&#34; u 1:4 w l, \
    &#34;emissions_30.txt&#34; u 1:4 w l, &#34;emissions_35.txt&#34; u 1:4 w l</screen
@@ -780,7 +1018,7 @@ format="GIF"
 ><imageobject
 ><imagedata
 align="center"
-fileref="./gfx/more/CD_TrafficLights.gif"
+fileref="./gfx/more/veh_time1.gif"
 format="GIF"
 ></imagedata
 ></imageobject
@@ -805,7 +1043,9 @@ format="GIF"
 ><para
 >Now let&#39;s recheck the last steps (step 30-39) using:</para
 ><screen
->gnuplot&#62; plot &#34;emissions_30.txt&#34; u 1:4 w l, &#34;emissions_31.txt&#34; u 1:4 w l, \
+>gnuplot&#62; set xlabel &#34;t&#34;
+gnuplot&#62; set ylabel &#34;veh&#34;
+gnuplot&#62; plot &#34;emissions_30.txt&#34; u 1:4 w l, &#34;emissions_31.txt&#34; u 1:4 w l, \
    &#34;emissions_32.txt&#34; u 1:4 w l, &#34;emissions_33.txt&#34; u 1:4 w l, \
    &#34;emissions_34.txt&#34; u 1:4 w l, &#34;emissions_35.txt&#34; u 1:4 w l, \
    &#34;emissions_36.txt&#34; u 1:4 w l, &#34;emissions_37.txt&#34; u 1:4 w l, \
@@ -817,7 +1057,7 @@ format="GIF"
 ><imageobject
 ><imagedata
 align="center"
-fileref="./gfx/more/CD_TrafficLights.gif"
+fileref="./gfx/more/veh_time2.gif"
 format="GIF"
 ></imagedata
 ></imageobject
@@ -826,7 +1066,9 @@ format="GIF"
 ><para
 >If we remove those &#34;broken&#34; assignments, we can see that the development is almost closed at step 30 and only a small advantage can is done:</para
 ><screen
->gnuplot&#62; plot &#34;emissions_30.txt&#34; u 1:4 w l, &#34;emissions_31.txt&#34; u 1:4 w l, \
+>gnuplot&#62; set xlabel &#34;t&#34;
+gnuplot&#62; set ylabel &#34;veh&#34;
+gnuplot&#62; plot &#34;emissions_30.txt&#34; u 1:4 w l, &#34;emissions_31.txt&#34; u 1:4 w l, \
    &#34;emissions_32.txt&#34; u 1:4 w l, &#34;emissions_33.txt&#34; u 1:4 w l, \
    &#34;emissions_36.txt&#34; u 1:4 w l, &#34;emissions_37.txt&#34; u 1:4 w l, \
    &#34;emissions_38.txt&#34; u 1:4 w l, &#34;emissions_39.txt&#34; u 1:4 w l</screen
@@ -837,7 +1079,7 @@ format="GIF"
 ><imageobject
 ><imagedata
 align="center"
-fileref="./gfx/more/CD_TrafficLights.gif"
+fileref="./gfx/more/veh_time3.gif"
 format="GIF"
 ></imagedata
 ></imageobject
@@ -860,7 +1102,7 @@ format="GIF"
 ><imageobject
 ><imagedata
 align="center"
-fileref="./gfx/more/CD_TrafficLights.gif"
+fileref="./gfx/more/ended_time1.gif"
 format="GIF"
 ></imagedata
 ></imageobject
@@ -869,7 +1111,9 @@ format="GIF"
 ><para
 >This picture was done using:</para
 ><screen
->gnuplot&#62; plot &#34;emissions_0.txt&#34; u 1:6 w l, &#34;emissions_5.txt&#34; u 1:6 w l, \
+>gnuplot&#62; set xlabel &#34;t&#34;
+gnuplot&#62; set ylabel &#34;ended&#34;
+gnuplot&#62; plot &#34;emissions_0.txt&#34; u 1:6 w l, &#34;emissions_5.txt&#34; u 1:6 w l, \
    &#34;emissions_10.txt&#34; u 1:6 w l, &#34;emissions_15.txt&#34; u 1:6 w l, \
    &#34;emissions_20.txt&#34; u 1:6 w l, &#34;emissions_25.txt&#34; u 1:6 w l, \
    &#34;emissions_30.txt&#34; u 1:6 w l, &#34;emissions_35.txt&#34; u 1:6 w l</screen
@@ -886,7 +1130,7 @@ format="GIF"
 ><imageobject
 ><imagedata
 align="center"
-fileref="./gfx/more/CD_TrafficLights.gif"
+fileref="./gfx/more/waiting_time1.gif"
 format="GIF"
 ></imagedata
 ></imageobject
@@ -895,7 +1139,9 @@ format="GIF"
 ><para
 >This picture was done using:</para
 ><screen
->gnuplot&#62; plot &#34;emissions_0.txt&#34; u 1:5 w l, &#34;emissions_5.txt&#34; u 1:5 w l, \
+>gnuplot&#62; set xlabel &#34;t&#34;
+gnuplot&#62; set ylabel &#34;waiting&#34;
+gnuplot&#62; plot &#34;emissions_0.txt&#34; u 1:5 w l, &#34;emissions_5.txt&#34; u 1:5 w l, \
    &#34;emissions_10.txt&#34; u 1:5 w l, &#34;emissions_15.txt&#34; u 1:5 w l, \
    &#34;emissions_20.txt&#34; u 1:5 w l, &#34;emissions_25.txt&#34; u 1:5 w l, \
    &#34;emissions_30.txt&#34; u 1:5 w l, &#34;emissions_35.txt&#34; u 1:5 w l</screen
@@ -908,7 +1154,7 @@ format="GIF"
 ><imageobject
 ><imagedata
 align="center"
-fileref="./gfx/more/CD_TrafficLights.gif"
+fileref="./gfx/more/meanwaitingtime_time1.gif"
 format="GIF"
 ></imagedata
 ></imageobject
@@ -917,7 +1163,9 @@ format="GIF"
 ><para
 >This picture was done using:</para
 ><screen
->gnuplot&#62; plot &#34;emissions_0.txt&#34; u 1:7 w l, &#34;emissions_5.txt&#34; u 1:7 w l, \
+>gnuplot&#62; set xlabel &#34;t&#34;
+gnuplot&#62; set ylabel &#34;mean waiting time&#34;
+gnuplot&#62; plot &#34;emissions_0.txt&#34; u 1:7 w l, &#34;emissions_5.txt&#34; u 1:7 w l, \
    &#34;emissions_10.txt&#34; u 1:7 w l, &#34;emissions_15.txt&#34; u 1:7 w l, \
    &#34;emissions_20.txt&#34; u 1:7 w l, &#34;emissions_25.txt&#34; u 1:7 w l, \
    &#34;emissions_30.txt&#34; u 1:7 w l, &#34;emissions_35.txt&#34; u 1:7 w l</screen
@@ -934,7 +1182,7 @@ format="GIF"
 ><imageobject
 ><imagedata
 align="center"
-fileref="./gfx/more/CD_TrafficLights.gif"
+fileref="./gfx/more/meantraveltime_time1.gif"
 format="GIF"
 ></imagedata
 ></imageobject
@@ -943,7 +1191,9 @@ format="GIF"
 ><para
 >This picture was done using:</para
 ><screen
->gnuplot&#62; plot &#34;emissions_0.txt&#34; u 1:8 w l, &#34;emissions_5.txt&#34; u 1:8 w l, \
+>gnuplot&#62; set xlabel &#34;t&#34;
+gnuplot&#62; set ylabel &#34;mean travel time&#34;
+gnuplot&#62; plot &#34;emissions_0.txt&#34; u 1:8 w l, &#34;emissions_5.txt&#34; u 1:8 w l, \
    &#34;emissions_10.txt&#34; u 1:8 w l, &#34;emissions_15.txt&#34; u 1:8 w l, \
    &#34;emissions_20.txt&#34; u 1:8 w l, &#34;emissions_25.txt&#34; u 1:8 w l, \
    &#34;emissions_30.txt&#34; u 1:8 w l, &#34;emissions_35.txt&#34; u 1:8 w l</screen
@@ -951,12 +1201,12 @@ format="GIF"
 >... and for the last 10 steps:</para
 ><figure
 ><title
->Development of the mean waiting time over time and dua iteration step (iteration step number is increased by 5) (tbd)</title
+>Development of the mean travel time over time and dua iteration step for the last iteration steps</title
 ><mediaobject
 ><imageobject
 ><imagedata
 align="center"
-fileref="./gfx/more/CD_TrafficLights.gif"
+fileref="./gfx/more/meantraveltime_time2.gif"
 format="GIF"
 ></imagedata
 ></imageobject
@@ -965,7 +1215,37 @@ format="GIF"
 ><para
 >This picture was done using:</para
 ><screen
->tbd</screen
+>gnuplot&#62; set xlabel &#34;t&#34;
+gnuplot&#62; set ylabel &#34;mean travel time&#34;
+gnuplot&#62; plot &#34;emissions_30.txt&#34; u 1:8 w l, &#34;emissions_31.txt&#34; u 1:8 w l, \
+   &#34;emissions_32.txt&#34; u 1:8 w l, &#34;emissions_33.txt&#34; u 1:8 w l, \
+   &#34;emissions_34.txt&#34; u 1:8 w l, &#34;emissions_35.txt&#34; u 1:8 w l, \
+   &#34;emissions_36.txt&#34; u 1:8 w l, &#34;emissions_37.txt&#34; u 1:8 w l, \
+   &#34;emissions_38.txt&#34; u 1:8 w l, &#34;emissions_39.txt&#34; u 1:8 w l</screen
+><para
+>... and for those last steps where no vehicle blocked:</para
+><figure
+><title
+>Development of the mean travel time over time and dua iteration step for the last and valid iteration steps</title
+><mediaobject
+><imageobject
+><imagedata
+align="center"
+fileref="./gfx/more/meantraveltime_time3.gif"
+format="GIF"
+></imagedata
+></imageobject
+></mediaobject
+></figure
+><para
+>using:</para
+><screen
+>gnuplot&#62; set xlabel &#34;t&#34;
+gnuplot&#62; set ylabel &#34;mean travel time&#34;
+gnuplot&#62; plot &#34;emissions_30.txt&#34; u 1:8 w l, &#34;emissions_31.txt&#34; u 1:8 w l, \
+   &#34;emissions_32.txt&#34; u 1:8 w l, &#34;emissions_33.txt&#34; u 1:8 w l, \
+   &#34;emissions_36.txt&#34; u 1:8 w l, &#34;emissions_37.txt&#34; u 1:8 w l, \
+   &#34;emissions_38.txt&#34; u 1:8 w l, &#34;emissions_39.txt&#34; u 1:8 w l</screen
 ><para
 >One may see that for the last steps of the last iterations, the mean travel time differs only by 30s. This is really not that important...</para
 ></sect4
@@ -979,37 +1259,7 @@ format="GIF"
 ><title
 >iterate.pl</title
 ><para
->At first, let&#39;s look at the development of the number of vehicles.</para
-><sect3
-><title
->!!!</title
-><para
->You</para
-></sect3
-><sect3
-><title
->!!!</title
-><para
->You</para
-></sect3
-><sect3
-><title
->!!!</title
-><para
->You</para
-></sect3
-></sect2
-><sect2
-><title
->!!!!</title
-><para
->... tbd ...</para
-></sect2
-><sect2
-><title
->!!!</title
-><para
->... tbd ...</para
+>tbd</para
 ></sect2
 ></sect1
 ></chapter
@@ -1066,6 +1316,26 @@ url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
 >... tbd ...</para
 ></sect2
 ></sect1
+><sect1
+><title
+>Further Ideas</title
+><para
+>There are of course some further possibilities to reduce the needed CPU time which are not yet implemented. There are two classes. The first one contains items which should not change the simulation&#39;s behaviour:</para
+><itemizedlist
+><listitem
+><para
+>no not recompute onAllowed each time the vehicle moves to a new lane, rather remove the first item only and keep track whether the next one should be recomputed using a seen distance value</para
+></listitem
+></itemizedlist
+><para
+>The first one contains items which may affect the simulation:</para
+><itemizedlist
+><listitem
+><para
+>do not move vehicles standing in jams (idea by Tomasz K. Jarzynka, tomee at kadu dot net)</para
+></listitem
+></itemizedlist
+></sect1
 ></chapter
 ><chapter
 id="more_model_extensions"
@@ -1091,6 +1361,155 @@ url="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml"
 ><sect3
 ><title
 >!!!</title
+><para
+>You</para
+></sect3
+><sect3
+><title
+>!!!</title
+><para
+>You</para
+></sect3
+><sect3
+><title
+>!!!</title
+><para
+>You</para
+></sect3
+></sect2
+><sect2
+><title
+>!!!!</title
+><para
+>... tbd ...</para
+></sect2
+><sect2
+><title
+>!!!</title
+><para
+>... tbd ...</para
+></sect2
+></sect1
+><sect1
+><title
+>Example Vehicle Parameter</title
+><sect2
+><title
+>Busses</title
+><para
+>... tbd ...</para
+><sect3
+><title
+>City Traffic Busses</title
+><table
+><title
+>Parameters for City Traffic Busses</title
+><tgroup
+cols="6"
+><thead
+><row
+><entry
+>Type</entry
+><entry
+>Built</entry
+><entry
+>Capacity (sitting, standing, wheelchair)</entry
+><entry
+>Sizes (length, width, height)</entry
+><entry
+>max vel. (km/h)</entry
+><entry
+>Number</entry
+></row
+></thead
+><tbody
+><row
+><entry
+>MB O 405 N</entry
+><entry
+>1990-1995</entry
+><entry
+>31-38 / 59-69 / 1</entry
+><entry
+>11.6-11.8 / 2.5 / 2.9</entry
+><entry
+>80</entry
+><entry
+>Berlin: 154 (2005)</entry
+></row
+><row
+><entry
+>EvoBus Cito O 520</entry
+><entry
+>2001</entry
+><entry
+>14 / 34 / 1</entry
+><entry
+>8.9 / 2.4 / 2.9</entry
+><entry
+>75</entry
+><entry
+>Berlin: 7 (2005)</entry
+></row
+><row
+><entry
+>EvoBus Cito O 530 / 2002</entry
+><entry
+>2002</entry
+><entry
+>26 / 69 / 1</entry
+><entry
+>12. / 2.6 / 3.1</entry
+><entry
+>85</entry
+><entry
+>Berlin: 97 (2005)</entry
+></row
+><row
+><entry
+>EvoBus Cito O 530 / 2005</entry
+><entry
+>2005</entry
+><entry
+>29 / 68 / 1</entry
+><entry
+>12. / 2.6 / 3.1</entry
+><entry
+>80</entry
+><entry
+>Berlin: 30 (2005)</entry
+></row
+><row
+><entry
+>MAN NL 202</entry
+><entry
+>1990-1991</entry
+><entry
+>37 / 69 / 1</entry
+><entry
+>11.7-11.8 / 2.5 / 2.9</entry
+><entry
+>74</entry
+><entry
+>Berlin: 19 (2005)</entry
+></row
+><row
+><entry
+>MAN ND 202</entry
+><entry
+>1995</entry
+><entry
+>71 / 24 / 1</entry
+><entry
+>11.8 / 2.5 / 4.1</entry
+><entry
+>74</entry
+><entry
+>Berlin: 86 (?)</entry
+></row
+></tbody
+></tgroup
+></table
 ><para
 >You</para
 ></sect3
@@ -1163,7 +1582,9 @@ url="http://texttest.carmen.se/"
 ><itemizedlist
 ><listitem
 ><para
->TEXTTEST_HOME</para
+><envar
+>TEXTTEST_HOME</envar
+></para
 ><para
 >Set it to the path SUMO-tests are located in (<filename
 >&#60;SUMO&#62;/tests</filename
@@ -1171,10 +1592,14 @@ url="http://texttest.carmen.se/"
 ></listitem
 ><listitem
 ><para
->SUMO_DIST</para
+><envar
+>SUMO_DIST</envar
+></para
 ><para
 >Set it to the path the SUMO distribution is located in (<filename
->&#60;SUMO&#62;</filename
+><replaceable
+>&#60;SUMO_DIST&#62;</replaceable
+></filename
 >)</para
 ></listitem
 ></itemizedlist
@@ -1187,9 +1612,15 @@ url="http://texttest.carmen.se/"
 ><title
 >Running the Tests</title
 ><para
->Within the &#60;SUMO&#62;/tests - folder you can find batch-files which start TextTest. &#34;runAllTests.bat&#34; starts TextTest for testing all apllications located in the folder, &#34;runNetconvertTests.bat&#34; will only show tests for <application
+>Within the &#60;SUMO&#62;/tests - folder you can find batch-files which start TextTest. &#34;runAllTests.bat&#34; starts TextTest for testing all apllications located in the folder, &#34;<filename
+>runNetconvertTests.bat</filename
+>&#34; will only show tests for <application
 >NETCONVERT</application
->.</para
+>, &#34;<filename
+>runDuarouterTests.bat</filename
+>&#34; only those for <application
+>DUAROUTER</application
+> etc,</para
 ></sect2
 ><sect2
 ><title
@@ -1199,168 +1630,852 @@ url="http://texttest.carmen.se/"
 ></sect2
 ><sect2
 ><title
->Coverage</title
+>Coverage and Results</title
 ><para
->As said before, the tests subsystem is quite new. Further tests have to be added. The following subchapters will list the current tests by application.</para
-><sect3
-><title
->NETCONVERT</title
-><para
->The following tests for <application
->NETCONVERT</application
-> are available:</para
+>As said before, the tests subsystem is quite new. Further tests have to be added. The following tests are currently available:</para
 ><table
 ><title
->Tests for NETCONVERT</title
+>Tests for DUAROUTER</title
 ><tgroup
-cols="4"
+cols="1"
 ><thead
 ><row
 ><entry
->(Test) Path</entry
-><entry
->Test Description</entry
-><entry
 >Test Set Description</entry
-><entry
->Constraints</entry
 ></row
 ></thead
 ><tbody
 ><row
 ><entry
->XML</entry
+><emphasis
+>Tests whether showing meta-information works</emphasis
+></entry
+></row
+><row
+><entrytbl
+cols="2"
+><thead
+><row
 ><entry
+>Path</entry
+><entry
+>Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+><filename
+>duarouter/meta/help</filename
 ></entry
 ><entry
->Tests for importing XML-files</entry
+>checks whether printing help works</entry
+></row
+><row
+><entry
+><filename
+>duarouter/meta/version</filename
+></entry
+><entry
+>checks whether printing version works</entry
+></row
+><row
+><entry
+><filename
+>duarouter/trips/noop</filename
+></entry
+><entry
+>checks what happens when no argument is given</entry
+></row
+></tbody
+></entrytbl
+></row
+><row
+><entry
+><emphasis
+></emphasis
+></entry
+></row
+><row
+><entry
+><emphasis
+>Checks whether the import of route alternatives works</emphasis
+></entry
+></row
+><row
+><entrytbl
+cols="2"
+><thead
+><row
+><entry
+>Path</entry
+><entry
+>Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+><filename
+>duarouter/alternatives/increasing_time</filename
+></entry
+><entry
+>plain old style alternatives with increasing departue time</entry
+></row
+><row
+><entry
+><filename
+>duarouter/alternatives/newstyle_noid_increasing_time</filename
+></entry
+><entry
+>new style alternatives with increasing departure times</entry
+></row
+><row
+><entry
+><filename
+>duarouter/alternatives/newstyle_noid_one_time</filename
+></entry
+><entry
+>new style alternatives with one departure time</entry
+></row
+><row
+><entry
+><filename
+>duarouter/alternatives/newstyle_noid_unsorted_time</filename
+></entry
+><entry
+>new style alternatives with random departure time with and <option
+>--unsorted</option
+> set</entry
+></row
+><row
+><entry
+><filename
+>duarouter/alternatives/one_time</filename
+></entry
+><entry
+>plain old style alternatives with one departue time</entry
+></row
+><row
+><entry
+><filename
+>duarouter/alternatives/unsorted_time</filename
+></entry
+><entry
+>plain old style alternatives with random departure time and <option
+>--unsorted</option
+> set</entry
+></row
+></tbody
+></entrytbl
+></row
+><row
+><entry
+><emphasis
+></emphasis
+></entry
+></row
+><row
+><entry
+><emphasis
+>Checks whether the import of flows works</emphasis
+></entry
+></row
+><row
+><entrytbl
+cols="2"
+><thead
+><row
+><entry
+>Path</entry
+><entry
+>Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+><filename
+>duarouter/flows/flows2routes</filename
+></entry
+><entry
+>simple test with 100 vehicles and one departure time</entry
+></row
+><row
+><entry
+><filename
+>duarouter/flows/flows2routes_100s_interval</filename
+></entry
+><entry
+>simple test with 100 vehicles with departure interval between 0 and 100s</entry
+></row
+><row
+><entry
+><filename
+>duarouter/flows/flows2routes_100s_interval_ext</filename
+></entry
+><entry
+>The same as flows2routes_100s_interval but the interval is specified using an enclosing element</entry
+></row
+><row
+><entry
+><filename
+>duarouter/flows/flows2routes_200s_interval</filename
+></entry
+><entry
+>simple test with 100 vehicles with departure interval between 0 and 200s</entry
+></row
+><row
+><entry
+><filename
+>duarouter/flows/flows2routes_200s_interval_ext</filename
+></entry
+><entry
+>The same as flows2routes_200s_interval but the interval is specified using an enclosing element</entry
+></row
+><row
+><entry
+><filename
+>duarouter/flows/flows2routes_100s_interval_withcolor</filename
+></entry
+><entry
+>Checks whether defining colors works</entry
+></row
+></tbody
+></entrytbl
+></row
+><row
+><entry
+><emphasis
+></emphasis
+></entry
+></row
+><row
+><entry
+><emphasis
+>Checks whether the import of trips works</emphasis
+></entry
+></row
+><row
+><entrytbl
+cols="2"
+><thead
+><row
+><entry
+>Path</entry
+><entry
+>Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+><filename
+>duarouter/trips/increasing_time</filename
+></entry
+><entry
+>100 trips, departure time is increasing</entry
+></row
+><row
+><entry
+><filename
+>duarouter/trips/increasing_time_notype</filename
+></entry
+><entry
+>same as increasing_time, but no type is given in the trips</entry
+></row
+><row
+><entry
+><filename
+>duarouter/trips/increasing_time_typedefined</filename
+></entry
+><entry
+>same as increasing_time, but a type is given and defined in the trips</entry
+></row
+><row
+><entry
+><filename
+>duarouter/trips/increasing_time_unsorted</filename
+></entry
+><entry
+>same as increasing_time, but with <option
+>--unsorted</option
+> set</entry
+></row
+><row
+><entry
+><filename
+>duarouter/trips/increasing_time_withcolor</filename
+></entry
+><entry
+>same as increasing_time, a color is given partially</entry
+></row
+><row
+><entry
+><filename
+>duarouter/trips/one_time</filename
+></entry
+><entry
+>100 trips, one departure time</entry
+></row
+><row
+><entry
+><filename
+>duarouter/trips/one_time_notype</filename
+></entry
+><entry
+>same as increasing_time, but no type is given in the trips</entry
+></row
+><row
+><entry
+><filename
+>duarouter/trips/one_time_typedefined</filename
+></entry
+><entry
+>same as increasing_time, but a type is given and defined in the trips</entry
+></row
+><row
+><entry
+><filename
+>duarouter/trips/one_time_unsorted</filename
+></entry
+><entry
+>the same, but with <option
+>--unsorted</option
+> set</entry
+></row
+><row
+><entry
+><filename
+>duarouter/trips/unsorted_time</filename
+></entry
+><entry
+>100 trips, random departure time, <option
+>--unsorted</option
+> set</entry
+></row
+><row
+><entry
+><filename
+>duarouter/trips/unsorted_time_notype</filename
+></entry
+><entry
+>same as unsorted_time, but no type is given in the trips</entry
+></row
+><row
+><entry
+><filename
+>duarouter/trips/unsorted_time_typedefined</filename
+></entry
+><entry
+>same as unsorted_time, , but a type is given and defined in the trips</entry
+></row
+></tbody
+></entrytbl
+></row
+><row
 ><entry
 ></entry
 ></row
 ><row
 ><entry
->XML/shapes</entry
+><emphasis
+>Checks whether the import of routes (SUMO) works</emphasis
+></entry
+></row
+><row
+><entrytbl
+cols="2"
+><thead
+><row
 ><entry
+>Path</entry
+><entry
+>Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+><filename
+>duarouter/routes/increasing_time</filename
 ></entry
 ><entry
->Check whether the definition of edge shapes work</entry
+>100 routes (old style), departure time is increasing</entry
+></row
+><row
+><entry
+><filename
+>duarouter/routes/one_time</filename
+></entry
+><entry
+>100 routes (old style), one departure time</entry
+></row
+><row
+><entry
+><filename
+>duarouter/routes/unsorted_time</filename
+></entry
+><entry
+>100 routes (old style), random departure time, <option
+>--unsorted</option
+> set</entry
+></row
+><row
+><entry
+><filename
+>duarouter/routes/newstyle_withid_increasing_time</filename
+></entry
+><entry
+>100 routes (new style, routes have an id), departure time is increasing</entry
+></row
+><row
+><entry
+><filename
+>duarouter/routes/newstyle_withid_one_time</filename
+></entry
+><entry
+>100 routes (new style, routes have an id), one departure time</entry
+></row
+><row
+><entry
+><filename
+>duarouter/routes/newstyle_withid_unsorted_time</filename
+></entry
+><entry
+>100 routes (new style, routes have an id), random departure time, <option
+>--unsorted</option
+> set</entry
+></row
+><row
+><entry
+><filename
+>duarouter/routes/newstyle_noid_increasing_time</filename
+></entry
+><entry
+>100 routes (new style, routes have no id), departure time is increasing</entry
+></row
+><row
+><entry
+><filename
+>duarouter/routes/newstyle_noid_one_time</filename
+></entry
+><entry
+>100 routes (new style, routes have no id), one departure time</entry
+></row
+><row
+><entry
+><filename
+>duarouter/routes/newstyle_noid_increasing_time</filename
+></entry
+><entry
+>100 routes (new style, routes have no id), random departure time, <option
+>--unsorted</option
+> set</entry
+></row
+><row
+><entry
+><filename
+>duarouter/routes/newstyle_increasing_colors</filename
+></entry
+><entry
+>same as newstyle_noid_increasing_time, but colors are supplied partially</entry
+></row
+></tbody
+></entrytbl
+></row
+><row
 ><entry
 ></entry
 ></row
 ><row
 ><entry
->XML/shapes/hokkaido</entry
-><entry
->Basic shape definition in edges</entry
-><entry
-></entry
-><entry
+><emphasis
+>Checks whether the DUA works</emphasis
 ></entry
 ></row
 ><row
+><entrytbl
+cols="2"
+><thead
+><row
 ><entry
->XML/speed_in_kmh</entry
+>Path</entry
 ><entry
+>Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+><filename
+>duarouter/dua/newstyle_dua3s_step1</filename
 ></entry
 ><entry
->Check whether the maximum speed allowed on edges may be defined in km/h</entry
-><entry
-></entry
+>the first step of the dua3s-example using current (new style) output; converts trips to routes and alternatives</entry
 ></row
 ><row
 ><entry
->XML/speed_in_kmh/cross_notypes_kmh</entry
-><entry
->Not using types, plain output</entry
-><entry
+><filename
+>duarouter/dua/newstyle_dua3s_step2</filename
 ></entry
 ><entry
->The networks generated by the next four settings should be the same, despite that edges generated using the definitions with types will have a type name; The networks should also be the equal with the networks generated by the examples in XML/types/ (despite the type names)</entry
+>the second step of the dua3s-example using current (new style) output; converts alternatives from step 1 to routes and alternatives using weights</entry
 ></row
 ><row
 ><entry
->XML/speed_in_kmh/cross_notypes_kmh_v</entry
-><entry
->Not using types, verbose output</entry
-><entry
+><filename
+>duarouter/dua/newstyle_dua3s_step3</filename
 ></entry
 ><entry
-></entry
+>the third step of the dua3s-example using current (new style) output; converts alternatives from step 2 to routes and alternatives using weights</entry
 ></row
 ><row
 ><entry
->XML/speed_in_kmh/cross_usingtypes_kmh</entry
-><entry
->Using types, plain output</entry
-><entry
+><filename
+>duarouter/dua/oldstyle_dua3s_step2</filename
 ></entry
 ><entry
-></entry
+>the second step of the dua3s-example using old (style) output; converts alternatives from step 1 to routes and alternatives using weights</entry
 ></row
 ><row
 ><entry
->XML/speed_in_kmh/cross_usingtypes_kmh_v</entry
-><entry
->Using types, verbose output</entry
-><entry
+><filename
+>duarouter/dua/oldstyle_dua3s_step3</filename
 ></entry
 ><entry
-></entry
+>the third step of the dua3s-example using old (style) output; converts alternatives from step 2 to routes and alternatives using weights</entry
+></row
+></tbody
+></entrytbl
 ></row
 ><row
-><entry
->XML/types</entry
-><entry
-></entry
-><entry
->Checks whether types may be used to describe edges</entry
-><entry
-></entry
-></row
-><row
-><entry
->XML/types/cross_notypes</entry
-><entry
->Network description not using types, plain output</entry
-><entry
-></entry
-><entry
->The networks generated by the next four settings should be the same, despite that edges generated using the definitions with types will have a type name</entry
-></row
-><row
-><entry
->XML/types/cross_notypes_v</entry
-><entry
->Network description not using types, verbose output</entry
-><entry
-></entry
-><entry
-></entry
-></row
-><row
-><entry
->XML/types/cross_usingtypes</entry
-><entry
->Network description using types, plain output</entry
-><entry
-></entry
-><entry
-></entry
-></row
-><row
-><entry
->XML/types/cross_usingtypes_v</entry
-><entry
->Network description using types, verbose output</entry
-><entry
-></entry
 ><entry
 ></entry
 ></row
 ></tbody
 ></tgroup
 ></table
-></sect3
+><table
+><title
+>Tests for NETCONVERT</title
+><tgroup
+cols="1"
+><thead
+><row
+><entry
+>Test Set Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+><emphasis
+>Tests whether showing meta-information works</emphasis
+></entry
+></row
+><row
+><entrytbl
+cols="2"
+><thead
+><row
+><entry
+>Path</entry
+><entry
+>Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+><filename
+>netconvert/meta/help</filename
+></entry
+><entry
+>checks whether printing help works</entry
+></row
+><row
+><entry
+><filename
+>netconvert/meta/version</filename
+></entry
+><entry
+>checks whether printing version works</entry
+></row
+><row
+><entry
+><filename
+>netconvert/trips/noop</filename
+></entry
+><entry
+>checks what happens when no argument is given</entry
+></row
+></tbody
+></entrytbl
+></row
+><row
+><entry
+><emphasis
+></emphasis
+></entry
+></row
+><row
+><entry
+><emphasis
+>Checks whether --speed-in-kmh works (in XML)</emphasis
+></entry
+></row
+><row
+><entrytbl
+cols="2"
+><thead
+><row
+><entry
+>Path</entry
+><entry
+>Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+><filename
+>netconvert/XML2/speed_in_kmh/cross_notypes_kmh</filename
+></entry
+><entry
+>no types, speed in kmh</entry
+></row
+><row
+><entry
+><filename
+>netconvert/XML2/speed_in_kmh/cross_notypes_kmh_v</filename
+></entry
+><entry
+>the same, with verbose output</entry
+></row
+><row
+><entry
+><filename
+>netconvert/XML2/speed_in_kmh/cross_usingtypes_kmh</filename
+></entry
+><entry
+>types, speed in kmh</entry
+></row
+><row
+><entry
+><filename
+>netconvert/XML2/speed_in_kmh/cross_usingtypes_kmh_v</filename
+></entry
+><entry
+>the same, with verbose output</entry
+></row
+></tbody
+></entrytbl
+></row
+><row
+><entry
+></entry
+></row
+><row
+><entry
+><emphasis
+>Checks whether types may be used to describe edges (in XML)</emphasis
+></entry
+></row
+><row
+><entrytbl
+cols="2"
+><thead
+><row
+><entry
+>Path</entry
+><entry
+>Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+><filename
+>netconvert/XML2/types/cross_notypes</filename
+></entry
+><entry
+>no types</entry
+></row
+><row
+><entry
+><filename
+>netconvert/XML2/types/cross_notypes_v</filename
+></entry
+><entry
+>the same, with verbose output</entry
+></row
+><row
+><entry
+><filename
+>netconvert/XML2/types/cross_usingtypes</filename
+></entry
+><entry
+>with types</entry
+></row
+><row
+><entry
+><filename
+>netconvert/XML2/types/cross_usingtypes_v</filename
+></entry
+><entry
+>the same, with verbose output</entry
+></row
+></tbody
+></entrytbl
+></row
+><row
+><entry
+></entry
+></row
+><row
+><entry
+><emphasis
+>Checks whether description of edge shapes works (in XML)</emphasis
+></entry
+></row
+><row
+><entrytbl
+cols="2"
+><thead
+><row
+><entry
+>Path</entry
+><entry
+>Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+><filename
+>netconvert/XML2/shapes/hokkaido-japan</filename
+></entry
+><entry
+>a simple test for the hokkaido-network</entry
+></row
+></tbody
+></entrytbl
+></row
+><row
+><entry
+></entry
+></row
+></tbody
+></tgroup
+></table
+><table
+><title
+>Tests for SUMO</title
+><tgroup
+cols="1"
+><thead
+><row
+><entry
+>Test Set Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+><emphasis
+>Tests whether showing meta-information works</emphasis
+></entry
+></row
+><row
+><entrytbl
+cols="2"
+><thead
+><row
+><entry
+>Path</entry
+><entry
+>Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+><filename
+>sumo/meta/help</filename
+></entry
+><entry
+>checks whether printing help works</entry
+></row
+><row
+><entry
+><filename
+>sumo/meta/version</filename
+></entry
+><entry
+>checks whether printing version works</entry
+></row
+><row
+><entry
+><filename
+>sumo/trips/noop</filename
+></entry
+><entry
+>checks what happens when no argument is given</entry
+></row
+></tbody
+></entrytbl
+></row
+><row
+><entry
+><emphasis
+></emphasis
+></entry
+></row
+><row
+><entry
+><emphasis
+>Checks whether routes are read</emphasis
+></entry
+></row
+><row
+><entrytbl
+cols="2"
+><thead
+><row
+><entry
+>Path</entry
+><entry
+>Description</entry
+></row
+></thead
+><tbody
+><row
+><entry
+><filename
+>sumo/routes/new_style</filename
+></entry
+><entry
+>checks whether newstyle routes are read properly</entry
+></row
+><row
+><entry
+><filename
+>sumo/routes/old_style</filename
+></entry
+><entry
+>checks whether oldstyle routes are read properly</entry
+></row
+></tbody
+></entrytbl
+></row
+><row
+><entry
+></entry
+></row
+></tbody
+></tgroup
+></table
 ></sect2
 ></sect1
 ></chapter

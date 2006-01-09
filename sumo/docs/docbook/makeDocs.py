@@ -54,7 +54,7 @@ os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --st
 print " od2trips..."
 os.system("xsltproc.exe ./tools/custom.xml man-od2trips.xml")
 os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o man_od2trips.html /usr/share/docbook-xsl/sumo_html/faq_docbook.xsl man-od2trips.xml")
-#print " sumo..."
+print " sumo..."
 os.system("xsltproc.exe ./tools/custom.xml man-sumo.xml")
 os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o man_sumo.html /usr/share/docbook-xsl/sumo_html/faq_docbook.xsl man-sumo.xml")
 
@@ -83,7 +83,7 @@ for file in files:
 		out = file[:-5] + ".shtml"
 		try:
 			print "Moving from '" + file + "' to '" + out + "'"
-			shutil.copy(file, out)
+			shutil.move(file, out)
 		except:
 			print " Could not move from '" + file + "' to '" + out + "'"
 		fd = open(out)
