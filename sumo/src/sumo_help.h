@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2006/01/09 13:33:30  dkrajzew
+// debugging error handling
+//
 // Revision 1.17  2005/10/07 11:48:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -60,7 +63,10 @@
 // included new options into the help-screens
 //
 // Revision 1.5  2003/06/18 11:26:15  dkrajzew
-// new message and error processing: output to user may be a message, warning or an error now; it is reported to a Singleton (MsgHandler); this handler puts it further to output instances. changes: no verbose-parameter needed; messages are exported to singleton
+// new message and error processing: output to user may be a message,
+//  warning or an error now; it is reported to a Singleton (MsgHandler);
+//  this handler puts it further to output instances.
+//  changes: no verbose-parameter needed; messages are exported to singleton
 //
 // Revision 1.4  2003/03/31 06:18:18  dkrajzew
 // help screen corrected
@@ -87,34 +93,53 @@
  * The list of help strings for the sumo (simulation) module
  */
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2 - sumo application",
-    "  The command line version of the simulation.",
-    "  http://sumo.sourceforge.net",
-    "Usage: sumo [OPTION]+",
+    " The simulation.",
+    " ",
+    "Usage: (sumo-)sumo(.exe) [OPTION]*",
+    " ",
     " ",
     "Examples: ",
     "  sumo -b 0 -e 1000 -n net.xml -r routes.xml -C",
     "  sumo -c munich_config.cfg",
+    "  sumo --version",
+    "  sumo --help",
     " ",
     "Options:",
     " Input files:",
-    "   -n, --net-file FILE[;FILE]*    FILE is a network file",
+    "   -n, --net-file FILE[;FILE]*     FILE is a network file",
     "   -r, --route-files FILE[;FILE]*  FILE is a route file",
     "   -a, --additional-files FILE...  FILE is a detector file",
     "   -c, --configuration FILE        FILE will be used as configuration",
     "                                    1. Default: ./sumo.cfg",
     " ",
     " Output files:",
-    "   -o, --output-file FILE          FILE is the raw output destination file",
-    "                                    Default: stdout",
     "   --dump-basename PATH            PATH is the name and path prefix that",
-    "                                    specifies where to save the net loads",
+    "                                    of edge-based net loads destination",
+    "                                   To use in conjunction with --dump-intervals",
     "   --dump-intervals UINT[;UINT]*   UINT is a positive integer time interval",
-    "                                    for which a net load will generated",
+    "                                    of edge-based net loads",
+    "                                   To use in conjunction with --dump-basename",
+    " ",
+    "   --lanedump-basename PATH        PATH is the name and path prefix that",
+    "                                    of lane-based net loads destination",
+    "                                   To use in c. with --lanedump-intervals",
+    "   --lanedump-intervals UINT...    UINT is a positive integer time interval",
+    "                                    of lane-based net loads",
+    "                                   To use in c. with --lanedump-basename",
+    " ",
+    "   --dump-begin UINT[;UINT]*       List of begin time steps dump data will",
+    "                                    be written",
+    "   --dump-end UINT[;UINT]*         List of end time steps dump data will",
+    "                                    be written",
+    " ",
     "   --emissions FILE                Writes statistics about vehicle emissions",
     "                                    to FILE",
     "   --tripinfo FILE                 Writes trip information for each vehicle",
     "                                    to FILE",
+    " ",
+    "   --netstate-dump  FILE           FILE is the raw output destination file",
+    "   --dump-empty-edges              Forces SUMO to write edges in dump even",
+    "                                    if they are empty.",
     " ",
     " Simulation timing:",
     "   -b, --begin INT                 First time step of the simulation",
@@ -123,14 +148,28 @@ char *help[] = {
     "                                   forward (default=0: read all routes)",
     " Simulation options:",
     "   --quit-on-accident              Quits when an accident occures",
-    "   --actuated-tl.detector-pos <FLOAT> The distance to the actuated lsa his",
-    "                                     actuating detectors shall be placed at",
-    "   --agent-detector-len <FLOAT>     The length of the actuating detectors",
-    "                                     of an agentbased lsa",
+    "   --time-to-teleport              Specifies maximum waiting time before",
+    "                                    a vehicle is being teleported",
     "   --srand <INT>                   Initialises the random number generator",
     "                                    with the given value",
     "   --abs-rand                      Set this when the current time shall be",
     "                                    used for random number initialisation",
+    " ",
+    " Traffic Lights Options:",
+    "   --actuated-tl.detector-pos <FLOAT> The position of the detectors in front",
+    "                                    of an actuated tls",
+    "   --actuated-tl.max-gap <FLOAT>   The max gap an actuated tls shall use",
+    "   --actuated-tl.detector-gap <FLOAT> unknown meaning",
+    "   --actuated-tl.passing-time <FLOAT> The passing time used",
+    " ",
+    "   --agent-tl.detector-len <FLOAT> The length of the e2-detectors that ",
+    "                                    compute the jam used by a agent based",
+    "                                    traffic light logic in m",
+    "   --agent-tl.learn-horizon <FLOAT> The learning horizon in s",
+    "   --agent-tl.decision-horizon <FLOAT> The decision horizon",
+    "   --agent-tl.min-diff <FLOAT>     The minimum difference in jam lengths",
+    "                                   to make the tls react in m",
+    "   --agent-tl.tcycle <FLOAT>       The cycle length of a tls in s",
     " ",
     " Report Options:",
     "   -v, --verbose                   SUMO will report what it does",
@@ -138,6 +177,7 @@ char *help[] = {
     "   -l, --log-file FILE             Writes all messages to the file",
     "   -p, --print-options             Prints option values before processing",
     "   -?, --help                      This screen",
+    "   --version                       Prints the program version",
     0
 };
 

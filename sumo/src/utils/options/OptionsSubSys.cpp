@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/01/09 13:38:04  dkrajzew
+// debugging error handling
+//
 // Revision 1.8  2005/10/07 11:46:56  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -63,7 +66,6 @@
 #include <cassert>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/common/HelpPrinter.h>
 #include <utils/common/StringTokenizer.h>
 #include "OptionsSubSys.h"
 
@@ -90,26 +92,11 @@ OptionsCont OptionsSubSys::myOptions;
 bool
 OptionsSubSys::init(bool loadConfig, int argc, char **argv,
                     fill_options *fill_f,
-                    check_options *check_f,
-                    char *help[])
+                    check_options *check_f)
 {
     (*fill_f)(myOptions);
     // parse options
     if(OptionsIO::getOptions(loadConfig, &myOptions, argc, argv)) {
-        // check whether the help shall be printed
-        if(myOptions.getBool("help")) {
-            HelpPrinter::print(help);
-            // end application
-            return false;
-        }
-        // check whether the settings shall be printed
-        if(myOptions.getBool("print-options")) {
-            cout << myOptions;
-        }
-		// 01.06.2005: version retrieval patched
-		if(myOptions.exists("version")&&myOptions.getBool("version")) {
-			return true;
-		}
 		// 01.06.2005: version retrieval patched
         // check the settings
         if(check_f!=0&&!check_f(myOptions)) {
@@ -117,7 +104,7 @@ OptionsSubSys::init(bool loadConfig, int argc, char **argv,
         }
     } else {
         // the options could not be parsed
-        //  - something is wrong with the calling parameter
+        //  something is wrong with the calling parameter
         return false;
     }
     return true;

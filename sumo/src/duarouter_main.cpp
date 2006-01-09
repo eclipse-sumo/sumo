@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/01/09 13:33:30  dkrajzew
+// debugging error handling
+//
 // Revision 1.8  2005/11/30 08:56:49  dkrajzew
 // final try/catch is now only used in the release version
 //
@@ -55,7 +58,8 @@ namespace
 // Changes and additions in order to implement supplementary-weights.
 //
 // Revision 1.4  2004/04/02 11:30:35  dkrajzew
-// moving the vehicle forward if it shall start at a too short edge added; output of the number of loaded, build, and discarded
+// moving the vehicle forward if it shall start at a too short edge added;
+//  output of the number of loaded, build, and discarded
 //
 // Revision 1.3  2004/02/06 08:54:28  dkrajzew
 // _INC_MALLOC definition removed (does not work on MSVC7.0)
@@ -186,6 +190,7 @@ namespace
 #include "duarouter_help.h"
 #include "duarouter_build.h"
 #include "sumo_version.h"
+#include <utils/common/HelpPrinter.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -216,7 +221,7 @@ loadNet(ROLoader &loader, OptionsCont &oc)
     RODUAEdgeBuilder builder;
     RONet *net = loader.loadNet(builder);
     if(net==0) {
-        return 0;
+        throw ProcessError();
     }
     // load the weights when wished/available
     if(oc.isSet("w")) {
@@ -225,13 +230,9 @@ loadNet(ROLoader &loader, OptionsCont &oc)
     if(oc.isSet("lane-weights")) {
         loader.loadWeights(*net, oc.getString("lane-weights"), true);
     }
-    // initialise the network
-//    net->postloadInit();
-
     if ( oc.isSet( "S" ) ) {
         loader.loadSupplementaryWeights( *net );
     }
-
     return net;
 }
 
@@ -243,13 +244,17 @@ loadNet(ROLoader &loader, OptionsCont &oc)
 void
 startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
-    // prepare the output
-    net.openOutput(
-        oc.getString("output"), true);
     // build the router
     RODijkstraRouter router(net);
     // initialise the loader
-    loader.openRoutes(net, oc.getFloat("gBeta"), oc.getFloat("gA"));
+    size_t noLoaders =
+        loader.openRoutes(net, oc.getFloat("gBeta"), oc.getFloat("gA"));
+    if(noLoaders==0) {
+        MsgHandler::getErrorInstance()->inform("No route input specified.");
+        throw ProcessError();
+    }
+    // prepare the output
+    net.openOutput(oc.getString("output"), true);
     // the routes are sorted - process stepwise
     if(!oc.getBool("unsorted")) {
         loader.processRoutesStepWise(
@@ -274,19 +279,30 @@ main(int argc, char **argv)
 {
     int ret = 0;
     RONet *net = 0;
+    ROLoader *loader = 0;
 #ifndef _DEBUG
     try {
 #endif
         // initialise the application system (messaging, xml, options)
-        int init_ret = SystemFrame::init(false, argc, argv,
-			RODUAFrame::fillOptions_fullImport, RODUAFrame::checkOptions, help);
-        if(init_ret==-1) {
+        int init_ret =
+            SystemFrame::init(false, argc, argv, RODUAFrame::fillOptions_fullImport);
+        if(init_ret<0) {
             cout << "SUMO duarouter" << endl;
-            cout << " Version " << version << endl;
-            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            switch(init_ret) {
+            case -1:
+                cout << " Version " << version << endl;
+                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+                break;
+            case -2:
+                HelpPrinter::print(help);
+                break;
+            default:
+                cout << " Use --help to get the list of options." << endl;
+            }
             SystemFrame::close();
             return 0;
-        } else if(init_ret!=0) {
+        } else if(init_ret!=0||!RODUAFrame::checkOptions(OptionsSubSys::getOptions())) {
             throw ProcessError();
         }
         // retrieve the options
@@ -294,12 +310,12 @@ main(int argc, char **argv)
 		ROFrame::setDefaults(oc);
         // load data
         ROVehicleBuilder vb;
-        ROLoader loader(oc, vb, false);
-        net = loadNet(loader, oc);
+        loader = new ROLoader(oc, vb, false);
+        net = loadNet(*loader, oc);
         if(net!=0) {
             // build routes
             try {
-                startComputation(*net, loader, oc);
+                startComputation(*net, *loader, oc);
             } catch (SAXParseException &e) {
                 MsgHandler::getErrorInstance()->inform(
                     toString<int>(e.getLineNumber()));
@@ -314,11 +330,12 @@ main(int argc, char **argv)
         }
 #ifndef _DEBUG
     } catch (...) {
-        WRITE_MESSAGE("Quitting (on error).");
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
     }
 #endif
     delete net;
+    delete loader;
     SystemFrame::close();
     if(ret==0) {
         cout << "Success." << endl;

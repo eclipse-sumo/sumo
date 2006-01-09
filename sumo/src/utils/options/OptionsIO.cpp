@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/01/09 13:38:04  dkrajzew
+// debugging error handling
+//
 // Revision 1.14  2005/10/17 09:25:12  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -208,8 +211,7 @@ OptionsIO::loadConfiguration(OptionsCont *oc)
     bool ok = true;
     string path = oc->getString("c");
     if(!FileHelpers::exists(path)) {
-        MsgHandler::getErrorInstance()->inform(
-            "Could not find configuration '" + oc->getString("c") + "'.");
+        MsgHandler::getErrorInstance()->inform("Could not find configuration '" + oc->getString("c") + "'.");
         return false;
     }
     WRITE_MESSAGE("Loading configuration...");

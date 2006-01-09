@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/01/09 13:33:30  dkrajzew
+// debugging error handling
+//
 // Revision 1.8  2005/10/07 11:48:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -96,10 +99,9 @@
  * The list of help strings for the sumo-router module
  */
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2 - duarouter application",
-    "  Routes vehicles by shortest path using dua.",
-    "  http://sumo.sourceforge.net",
-    "Usage: sumo-duarouter [OPTION]*",
+    " Routes vehicles by shortest path using dua.",
+    " ",
+    "Usage: (sumo-)duarouter(.exe) [OPTION]*",
     " ",
     "Examples: ",
     "  sumo-duarouter -c routes_munich.cfg",
@@ -117,38 +119,38 @@ char *help[] = {
     "                                   of the net",
     " ",
     "  Route descriptions:",
-    "   -s, --sumo-input FILE       FILE containing SUMO-routes",
     "   -t, --trip-defs FILE        FILE containing trip definitions",
-    "   -a, --alternatives FILE     FILE containing route alternatives",
     "   -f, --flow-definition FILE  FILE containing flow definition",
+    "   -a, --alternatives FILE     FILE containing route alternatives",
+    "   -s, --sumo-input FILE       FILE containing SUMO-routes",
     "   --cell-input FILE           FILE containing cell routes",
     "   --artemis-input FILE        FILE containing cell routes",
+    "   -R, --random-per-second FLOAT   Builds (additional) random routes",
     " ",
     " Output files:",
     "   -o, --output-file FILE      Generated routes will be written to FILE",
     "                                 Additionally, a file with route",
     "                                 alternatives will be generated as",
     "                                 'FILE.alt'",
+    "   --save-cell-rindex          The index to cell-routes will be saved",
     " ",
-    " Process Options:",
+    " Time Description Options:",
     "   -b, --begin INT             The begin time of routing",
     "   -e, --end INT               The end time of routing",
-    "   -R, --random-per-second FLOAT   Builds (additional) random routes",
-    "   --gBeta FLOAT               Gawron-Beta for DUE",
-    "   --gA FLOAT                  Gawron-A for DUE",
-    "   --unsorted                  The routes are assumed to be unsorted",
-    "   --save-cell-rindex          The index to cell-routes will be saved",
+    " ",
+    " Computation Variables Settings:",
+    "   --gBeta FLOAT               Gawron-Beta for DUA",
+    "   --gA FLOAT                  Gawron-A for DUA",
     "   --intel-cell                Set, when reading cell-routes computed",
     "                                 on an Intel-machine",
     "   --no-last-cell              Use best, not the last cell-route",
+    " ",
+    " Processing Options:",
+    "   --unsorted                  The routes are assumed to be unsorted",
     "   --continue-on-unbuild       Continue if a route could not be build",
     "   --move-on-short              Move vehicles on too short edges forward"
-    "   --srand INT                 Initialises the random number generator",
-    "                                 with the given value",
-    "   --abs-rand                  Set this when the current time shall be",
-    "                                 used for random number initialisation",
     " ",
-    " Deafults:",
+    " Defaults:",
     "   -V, --krauss-vmax FLOAT    Default value for krauss' vmax",
     "   -A, --krauss-a FLOAT       Default value for krauss' max. accel",
     "   -B, --krauss-b FLOAT       Default value for krauss' max. decel",
@@ -161,7 +163,14 @@ char *help[] = {
     "   -l, -log-file FILE         Writes all messages to the file",
     "   -p, -print-options         Prints option values before processing",
     "   -?, --help                 This screen",
+    "   --version                       Prints the program version",
     "   --stats-period INT         Step number to pass between status output",
+    " ",
+    " Report options:",
+    "   --srand INT                 Initialises the random number generator",
+    "                                 with the given value",
+    "   --abs-rand                  Set this when the current time shall be",
+    "                                 used for random number initialisation",
     0
 };
 

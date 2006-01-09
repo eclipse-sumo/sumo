@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.39  2006/01/09 13:33:30  dkrajzew
+// debugging error handling
+//
 // Revision 1.38  2005/12/01 07:42:17  dkrajzew
 // debugged setting globals in false order
 //
@@ -260,6 +263,7 @@ namespace
 #include "sumo_version.h"
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/iodevices/SharedOutputDevices.h>
+#include <utils/common/HelpPrinter.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -294,7 +298,7 @@ load(OptionsCont &oc)
     NLDetectorBuilder db(*net);
     NLTriggerBuilder tb;
     NLGeomShapeBuilder sb(*net);
-    NLHandler handler("", *net, db, tb, eb, jb, sb);
+    NLHandler handler("", *net, db, tb, eb, jb, sb, false);
     NLBuilder builder(oc, *net, eb, jb, db, tb, sb, handler);
     if(!builder.build()) {
         delete net;
@@ -315,15 +319,24 @@ main(int argc, char **argv)
 #ifndef _DEBUG
     try {
 #endif
-        int init_ret = SystemFrame::init(false, argc, argv,
-            SUMOFrame::fillOptions, SUMOFrame::checkOptions, help);
-        if(init_ret==-1) {
+        int init_ret = SystemFrame::init(false, argc, argv, SUMOFrame::fillOptions);
+        if(init_ret<0) {
             cout << "SUMO sumo" << endl;
-            cout << " Version " << version << endl;
-            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            switch(init_ret) {
+            case -1:
+                cout << " Version " << version << endl;
+                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+                break;
+            case -2:
+                HelpPrinter::print(help);
+                break;
+            default:
+                cout << " Use --help to get the list of options." << endl;
+            }
             SystemFrame::close();
             return 0;
-        } else if(init_ret!=0) {
+        } else if(init_ret!=0||!SUMOFrame::checkOptions(OptionsSubSys::getOptions())) {
             throw ProcessError();
         }
         // retrieve the options
@@ -344,8 +357,7 @@ main(int argc, char **argv)
     } catch (...) {
         MSNet::clearAll();
         delete SharedOutputDevices::getInstance();
-        MsgHandler::getMessageInstance()->inform(
-            "Quitting (on error).");
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
     }
 #endif

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2006/01/09 13:33:30  dkrajzew
+// debugging error handling
+//
 // Revision 1.9  2005/11/30 08:56:49  dkrajzew
 // final try/catch is now only used in the release version
 //
@@ -92,6 +95,7 @@
 #include <utils/gui/drawer/GUIColorer_SingleColor.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/gui/images/GUIImageGlobals.h>
+#include <utils/common/HelpPrinter.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -119,15 +123,24 @@ main(int argc, char **argv)
 #ifndef _DEBUG
     try {
 #endif
-        int init_ret = SystemFrame::init(true, argc, argv,
-			GUIFrame::fillInitOptions, GUIFrame::checkInitOptions, help);
-        if(init_ret==-1) {
+        int init_ret = SystemFrame::init(true, argc, argv, GUIFrame::fillInitOptions);
+        if(init_ret<0) {
             cout << "SUMO giant" << endl;
-            cout << " Version " << version << endl;
-            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            switch(init_ret) {
+            case -1:
+                cout << " Version " << version << endl;
+                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+                break;
+            case -2:
+                HelpPrinter::print(help);
+                break;
+            default:
+                cout << " Use --help to get the list of options." << endl;
+            }
             SystemFrame::close();
             return 0;
-        } else if(init_ret!=0) {
+        } else if(init_ret!=0||!GUIFrame::checkInitOptions(OptionsSubSys::getOptions())) {
             throw ProcessError();
         }
         // Make application
@@ -165,7 +178,7 @@ main(int argc, char **argv)
         ret = application.run();
 #ifndef _DEBUG
     } catch(...) {
-        WRITE_MESSAGE("Quitting (on error).");
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
     }
 #endif

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/01/09 13:33:30  dkrajzew
+// debugging error handling
+//
 // Revision 1.25  2005/11/30 08:56:49  dkrajzew
 // final try/catch is now only used in the release version
 //
@@ -139,6 +142,7 @@ namespace
 #include "netgen_help.h"
 #include "netgen_build.h"
 #include "sumo_version.h"
+#include <utils/common/HelpPrinter.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -206,7 +210,7 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("random-net", 'r', new Option_Bool(false));
     oc.doRegister("spider-net", 's', new Option_Bool(false));
     oc.doRegister("grid-net", 'g', new Option_Bool(false));
-    oc.doRegister("output", 'o', new Option_FileName());
+    oc.doRegister("output", 'o', new Option_FileName("net.net.xml"));
     oc.doRegister("configuration-file", 'c', new Option_FileName());
     oc.addSynonyme("random-net", "random");
     oc.addSynonyme("spider-net", "spider");
@@ -331,15 +335,24 @@ main(int argc, char **argv)
     try {
 #endif
         // initialise the application system (messaging, xml, options)
-        int init_ret = SystemFrame::init(false, argc, argv,
-            fillOptions, checkOptions, help);
-        if(init_ret==-1) {
+        int init_ret = SystemFrame::init(false, argc, argv, fillOptions);
+        if(init_ret<0) {
             cout << "SUMO netgen" << endl;
-            cout << " Version " << version << endl;
-            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            switch(init_ret) {
+            case -1:
+                cout << " Version " << version << endl;
+                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+                break;
+            case -2:
+                HelpPrinter::print(help);
+                break;
+            default:
+                cout << " Use --help to get the list of options." << endl;
+            }
             SystemFrame::close();
             return 0;
-        } else if(init_ret!=0) {
+        } else if(init_ret!=0||!checkOptions(OptionsSubSys::getOptions())) {
             throw ProcessError();
         }
         // initialise the (default) types
@@ -353,14 +366,13 @@ main(int argc, char **argv)
         // ... and we have to do this...
         oc.resetWritable();
         // transfer to the netbuilding structures
-        NBNetBuilder::preCheckOptions(oc);
+        nb.preCheckOptions(oc);
         net->toNB();
         delete net;
         nb.buildLoaded();
 #ifndef _DEBUG
     } catch (...) {
-        MsgHandler::getMessageInstance()->inform(
-            "Quitting (building failed).");
+        MsgHandler::getMessageInstance()->inform("Quitting (building failed).", false);
         ret = 1;
     }
 #endif

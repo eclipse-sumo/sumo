@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/01/09 13:33:30  dkrajzew
+// debugging error handling
+//
 // Revision 1.2  2005/12/21 12:48:38  ericnicolay
 // *** empty log message ***
 //
@@ -72,13 +75,17 @@ namespace
 #include "dfrouter_help.h"
 #include "dfrouter_build.h"
 #include "sumo_version.h"
+
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
+
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
 
 /* =========================================================================
  * functions
@@ -103,7 +110,6 @@ loadNet(ROLoader &loader, OptionsCont &oc)
 
     return net;
 }
-
 
 
 /**
@@ -148,14 +154,24 @@ main(int argc, char **argv)
 #endif
         // initialise the application system (messaging, xml, options)
         int init_ret = SystemFrame::init(false, argc, argv,
-			RODFFrame::fillOptions_fullImport, RODFFrame::checkOptions, help);
-        if(init_ret==-1) {
+			RODFFrame::fillOptions_fullImport);
+        if(init_ret<0) {
             cout << "SUMO dfrouter" << endl;
-            cout << " Version " << version << endl;
-            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            switch(init_ret) {
+            case -1:
+                cout << " Version " << version << endl;
+                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+                break;
+            case -2:
+                HelpPrinter::print(help);
+                break;
+            default:
+                cout << " Use --help to get the list of options." << endl;
+            }
             SystemFrame::close();
             return 0;
-        } else if(init_ret!=0) {
+        } else if(init_ret!=0||!RODFFrame::checkOptions(OptionsSubSys::getOptions())) {
             throw ProcessError();
         }
         // retrieve the options
@@ -179,7 +195,7 @@ main(int argc, char **argv)
         }
 #ifndef _DEBUG
     } catch (...) {
-        WRITE_MESSAGE("Quitting (on error).");
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
     }
 #endif

@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/01/09 13:33:30  dkrajzew
+// debugging error handling
+//
 // Revision 1.11  2005/11/30 08:56:49  dkrajzew
 // final try/catch is now only used in the release version
 //
@@ -137,6 +140,7 @@ namespace
 #include "jtrrouter_help.h"
 #include "jtrrouter_build.h"
 #include "sumo_version.h"
+#include <utils/common/HelpPrinter.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -259,7 +263,8 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
     // build the router
     ROJTRRouter router(net);
     // initialise the loader
-    loader.openRoutes(net, 1, 1);
+    size_t noLoaders =
+        loader.openRoutes(net, 1, 1);
     // the routes are sorted - process stepwise
     if(!oc.getBool("unsorted")) {
         loader.processRoutesStepWise(
@@ -288,15 +293,24 @@ main(int argc, char **argv)
     try {
 #endif
         // initialise the application system (messaging, xml, options)
-        int init_ret = SystemFrame::init(false, argc, argv,
-			ROJTRFrame::fillOptions, ROJTRFrame::checkOptions, help);
-        if(init_ret==-1) {
+        int init_ret = SystemFrame::init(false, argc, argv, ROJTRFrame::fillOptions);
+        if(init_ret<0) {
             cout << "SUMO jtrrouter" << endl;
-            cout << " Version " << version << endl;
-            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            switch(init_ret) {
+            case -1:
+                cout << " Version " << version << endl;
+                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+                break;
+            case -2:
+                HelpPrinter::print(help);
+                break;
+            default:
+                cout << " Use --help to get the list of options." << endl;
+            }
             SystemFrame::close();
             return 0;
-        } else if(init_ret!=0) {
+        } else if(init_ret!=0||!ROJTRFrame::checkOptions(OptionsSubSys::getOptions())) {
             throw ProcessError();
         }
         // retrieve the options
@@ -331,7 +345,7 @@ main(int argc, char **argv)
         }
 #ifndef _DEBUG
     } catch (...) {
-        WRITE_MESSAGE("Quitting (on error).");
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
     }
 #endif

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/01/09 13:33:30  dkrajzew
+// debugging error handling
+//
 // Revision 1.10  2005/11/15 10:15:49  dkrajzew
 // debugging and beautifying for the next release
 //
@@ -69,10 +72,9 @@
  * ======================================================================= */
 char *help[] =
 {
-    "Simulation of Urban MObility v0.8.2 - netgen application",
-    "  Generates abstract networks.",
-    "  http://sumo.sourceforge.net",
-    "Usage: sumo-netgen [OPTION]*",
+    " Generates abstract networks.",
+    " ",
+    "Usage: (sumo-)netgen(.exe) [OPTION]*",
     " ",
     "Examples: ",
     "  netgen --grid-net [grid-network options] -o <OUTPUTFILE>",

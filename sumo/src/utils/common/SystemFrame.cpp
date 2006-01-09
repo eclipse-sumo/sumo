@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/01/09 13:31:17  dkrajzew
+// debugging error handling
+//
 // Revision 1.11  2005/10/17 09:22:36  dkrajzew
 // memory leaks removed
 //
@@ -37,7 +40,8 @@
 // debugging
 //
 // Revision 1.5  2003/10/27 10:54:31  dkrajzew
-// problems on setting gui options patched - the configuration is not loaded directly any more
+// problems on setting gui options patched -
+//  - the configuration is not loaded directly any more
 //
 // Revision 1.4  2003/06/24 08:10:23  dkrajzew
 // extended by the options sub system; dcumentation added
@@ -68,6 +72,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/LogFile.h>
+#include <utils/common/HelpPrinter.h>
 #include "RandHelper.h"
 
 #ifdef _DEBUG
@@ -93,8 +98,7 @@ LogFile *SystemFrame::myLogFile = 0;
 int
 SystemFrame::init(bool gui, int argc, char **argv,
                     fill_options *fill_f,
-                    check_options *check_f,
-                    char *help[])
+                    check_options *check_f)
 {
     // initialise the output for option processing
     MsgHandler::getErrorInstance()->report2cout(true);
@@ -102,28 +106,51 @@ SystemFrame::init(bool gui, int argc, char **argv,
     MsgHandler::getMessageInstance()->report2cout(true);
     // initialise the xml-subsystem
     if(!XMLSubSys::init()) {
-        return -2;
+        return 2;
     }
     // initialise the options-subsystem
-    if(!OptionsSubSys::init(!gui, argc, argv, fill_f, check_f, help)) {
-        return -2;
+    if(argc<2&&!gui) {
+        // no options are given
+        return -3;
     }
+    bool iret = OptionsSubSys::init(!gui, argc, argv, fill_f, check_f);
     // check whether only the version shall be printed
     if(OptionsSubSys::getOptions().getBool("version")) {
         return -1;
     }
+    // check whether the help shall be printed
+    if(OptionsSubSys::getOptions().getBool("help")) {
+        //HelpPrinter::print(help);
+        return -2;
+    }
+    // check whether the settings shall be printed
+    if(OptionsSubSys::getOptions().getBool("print-options")) {
+        cout << OptionsSubSys::getOptions();
+    }
+
+    // were the options ok?
+    if(!iret) {
+        return -3;
+    }
+
     // initialise the output
         // check whether it is a gui-version or not, first
     if(gui) {
         // within gui-based applications, nothing is reported to the console
         MsgHandler::getErrorInstance()->report2cout(false);
+        MsgHandler::getErrorInstance()->report2cerr(false);
         MsgHandler::getWarningInstance()->report2cout(false);
+        MsgHandler::getWarningInstance()->report2cerr(false);
         MsgHandler::getMessageInstance()->report2cout(false);
+        MsgHandler::getMessageInstance()->report2cerr(false);
     } else {
         // within console-based applications, report everything to the console
-        MsgHandler::getErrorInstance()->report2cout(true);
-        MsgHandler::getWarningInstance()->report2cout(true);
+        MsgHandler::getErrorInstance()->report2cout(false);
+        MsgHandler::getErrorInstance()->report2cerr(true);
+        MsgHandler::getWarningInstance()->report2cout(false);
+        MsgHandler::getWarningInstance()->report2cerr(true);
         MsgHandler::getMessageInstance()->report2cout(true);
+        MsgHandler::getMessageInstance()->report2cerr(false);
     }
         // then, check whether be verbose
     if(!gui&&!OptionsSubSys::getOptions().getBool("v")) {

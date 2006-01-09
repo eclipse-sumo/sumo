@@ -59,6 +59,7 @@
 #include <od2trips/ODmatrix.h>
 #include <od2trips/ODsubroutines.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/HelpPrinter.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -194,15 +195,24 @@ main(int argc, char **argv)
     try {
 #endif
         // initialise subsystems
-        int init_ret = SystemFrame::init(false, argc, argv,
-            fillOptions, checkOptions, help);
-        if(init_ret==-1) {
+        int init_ret = SystemFrame::init(false, argc, argv, fillOptions);
+        if(init_ret<0) {
             cout << "SUMO od2trips" << endl;
-            cout << " Version " << version << endl;
-            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            switch(init_ret) {
+            case -1:
+                cout << " Version " << version << endl;
+                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+                break;
+            case -2:
+                HelpPrinter::print(help);
+                break;
+            default:
+                cout << " Use --help to get the list of options." << endl;
+            }
             SystemFrame::close();
             return 0;
-        } else if(init_ret!=0) {
+        } else if(init_ret!=0||!checkOptions(OptionsSubSys::getOptions())) {
             throw ProcessError();
         }
         // retrieve the options
@@ -361,8 +371,7 @@ main(int argc, char **argv)
 		delete [] when_all; delete [] cartype;
 #ifndef _DEBUG
     } catch (...) {
-        MsgHandler::getMessageInstance()->inform(
-            "Quitting (on error).");
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
     }
 #endif

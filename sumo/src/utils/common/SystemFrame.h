@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/01/09 13:31:17  dkrajzew
+// debugging error handling
+//
 // Revision 1.8  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -84,10 +87,10 @@ public:
     /** @brief Initialises the application's subsystems
         Initialises the xml-subsystem, the options subsystem and the messaging.
         Returns 0 (zero) if everything's ok, -1 if the application shall be quit
-        normally and 1 if an error occured */
+        be quit normally (because the help screen has been printed, f.e.)
+        and a value >0 if an error occured */
     static int init(bool gui, int argc, char **argv,
-        fill_options *fill_f, check_options *check_f,
-        char *help[]);
+        fill_options *fill_f, check_options *check_f=0);
 
     /// Closes all of an applications subsystems
     static void close();

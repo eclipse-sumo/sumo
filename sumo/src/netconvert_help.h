@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2006/01/09 13:33:30  dkrajzew
+// debugging error handling
+//
 // Revision 1.15  2005/11/15 10:15:49  dkrajzew
 // debugging and beautifying for the next release
 //
@@ -96,10 +99,9 @@
  * The help text
  */
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2 - netconvert application",
-    "  Imports networks.",
-    "  http://sumo.sourceforge.net",
-    "Usage: sumo-netconvert [OPTION]*",
+    " Imports network descriptions and builds sumo-networks.",
+    " ",
+    "Usage: (sumo-)netconvert(.exe) [OPTION]*",
     " ",
     "Examples: ",
     " sumo-netconvert -n ./nodes.xml -e ./edges.xml -v -t ./owntypes.xml",

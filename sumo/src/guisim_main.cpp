@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2006/01/09 13:33:30  dkrajzew
+// debugging error handling
+//
 // Revision 1.12  2005/11/30 08:56:49  dkrajzew
 // final try/catch is now only used in the release version
 //
@@ -176,6 +179,12 @@
 // Merging sourceForge with tesseraCVS.
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef WIN32
@@ -215,6 +224,18 @@
 #include <utils/gui/drawer/GUIColorer_SingleColor.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/gui/images/GUIImageGlobals.h>
+#include <utils/gui/drawer/GUICompleteSchemeStorage.h>
+#include <utils/common/HelpPrinter.h>
+
+#include <utils/gui/drawer/GUIColorer_SingleColor.h>
+#include <utils/gui/drawer/GUIColorer_LaneBySelection.h>
+#include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
+#include <utils/gui/drawer/GUIColorer_ColorRetrival.h>
+#include <utils/gui/drawer/GUIColorer_ColorSettingFunction.h>
+#include <utils/gui/drawer/GUIColorer_ByDeviceNumber.h>
+//#include <utils/gui/drawer/GUIColorer_ByDeviceState.h>
+#include <guisim/GUIVehicle.h>
+
 
 #ifdef _WIN32
 #include <windows.h>
@@ -238,44 +259,61 @@ using namespace std;
 void
 initColoringSchemes()
 {
-    GUIColoringSchemesMap<GUISUMOAbstractView::VehicleColoringScheme, GUIVehicle> &sm =
-        GUIBaseVehicleDrawer::getSchemesMap();
+    // insert possible vehicle coloring schemes
+    GUIColoringSchemesMap<GUIVehicle> &sm = GUIBaseVehicleDrawer::getSchemesMap();
+    sm.add("given vehicle color",
+        new GUIColorer_ColorSettingFunction<GUIVehicle>(
+            (void (GUIVehicle::*)() const) &GUIVehicle::setOwnDefinedColor));
+
+    sm.add("given type color",
+        new GUIColorer_ColorSettingFunction<GUIVehicle>(
+            (void (GUIVehicle::*)() const) &GUIVehicle::setOwnTypeColor));
+
+    sm.add("given route color",
+        new GUIColorer_ColorSettingFunction<GUIVehicle>(
+            (void (GUIVehicle::*)() const) &GUIVehicle::setOwnRouteColor));
+
     sm.add("by speed",
-		GUISUMOAbstractView::VCS_BY_SPEED,
-			new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
-    sm.add("specified",
-		GUISUMOAbstractView::VCS_SPECIFIED,
-			new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
-    sm.add("type",
-		GUISUMOAbstractView::VCS_TYPE,
-			new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
-    sm.add("route",
-		GUISUMOAbstractView::VCS_ROUTE,
-			new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
-    sm.add("random#1",
-		GUISUMOAbstractView::VCS_RANDOM1,
-			new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
-    sm.add("random#2",
-		GUISUMOAbstractView::VCS_RANDOM2,
-			new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
-    sm.add("lanechange#1",
-		GUISUMOAbstractView::VCS_LANECHANGE1,
-			new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
-    sm.add("lanechange#2",
-		GUISUMOAbstractView::VCS_LANECHANGE2,
-			new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
-    sm.add("lanechange#3",
-		GUISUMOAbstractView::VCS_LANECHANGE3,
-			new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
-    sm.add("waiting#1",
-		GUISUMOAbstractView::VCS_WAITING1,
-			new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
-    sm.add("device #",
-		GUISUMOAbstractView::VCS_DEVICENO,
-			new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
-    sm.add("device state",
-		GUISUMOAbstractView::VCS_DEVICE_STATE,
-			new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
+        new GUIColorer_ShadeByFunctionValue<GUIVehicle>(
+            0, (SUMOReal) (150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+            (SUMOReal (GUIVehicle::*)() const) &GUIVehicle::speed));
+
+    sm.add("by waiting time",
+        new GUIColorer_ShadeByFunctionValue<GUIVehicle>(
+            0, (SUMOReal) (5*60), RGBColor(0, 0, 1), RGBColor(1, 0, 0),
+            (SUMOReal (GUIVehicle::*)() const) &GUIVehicle::speed));
+
+    sm.add("by time since last lanechange",
+        new GUIColorer_ShadeByFunctionValue<GUIVehicle>(
+            0, (SUMOReal) (5*60), RGBColor(1, 1, 1), RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5),
+            (SUMOReal (GUIVehicle::*)() const) &GUIVehicle::speed));
+
+    sm.add("by device number",
+        new GUIColorer_ByDeviceNumber<GUIVehicle, MSCORN::Function>(
+            (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
+            (SUMOReal (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
+            true, 1, 10,
+            RGBColor(1,0,0), RGBColor(1,1,0), RGBColor(1,1,1),
+            MSCORN::CORN_VEH_DEV_NO_CPHONE));
+/*
+    GUIColorer_ByDeviceState *c1 = new GUIColorer_ByDeviceState<GUIVehicle, MSCORN::Function>(
+        (bool (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::hasCORNDoubleValue,
+        (size_t (GUIVehicle::*)(MSCORN::Function) const) &GUIVehicle::getCORNDoubleValue,
+        true, RGBColor(1,0,0), MSCORN::CORN_P_VEH_DEV_CPHONE, MSCORN::CORN_P_VEH_DEV_CPHONE));
+
+    /*
+    sm.add("by device state",
+        new GUIColorer_ByDeviceNumber<GUIVehicle>(
+            (void (GUIVehicle::*)() const) &GUIVehicle::setDeviceStateColor));
+*/
+
+
+    /*
+    sm.add("random#1", new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
+    sm.add("random#2", new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
+    sm.add("device #", new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
+    sm.add("device state", new GUIColorer_SingleColor<GUIVehicle>(RGBColor()));
+*/
 //    sm.add("reroute off", GUISUMOAbstractView::VCS_ROUTECHANGEOFFSET);
 //    sm.add("reroute #", GUISUMOAbstractView::VCS_ROUTECHANGENUMBER);
 //    sm.add("lanechange#4", GUISUMOAbstractView::VCS_LANECHANGE4);
@@ -283,6 +321,7 @@ initColoringSchemes()
 		gGradients->getRGBColors(
 			GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 101);
 	//
+    gSchemeStorage.init();
 }
 
 
@@ -304,15 +343,24 @@ main(int argc, char **argv)
 #ifndef _DEBUG
     try {
 #endif
-        int init_ret = SystemFrame::init(true, argc, argv,
-			GUIFrame::fillInitOptions, GUIFrame::checkInitOptions, help);
-        if(init_ret==-1) {
+        int init_ret = SystemFrame::init(true, argc, argv, GUIFrame::fillInitOptions);
+        if(init_ret<0) {
             cout << "SUMO guisim" << endl;
-            cout << " Version " << version << endl;
-            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            switch(init_ret) {
+            case -1:
+                cout << " Version " << version << endl;
+                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+                break;
+            case -2:
+                HelpPrinter::print(help);
+                break;
+            default:
+                cout << " Use --help to get the list of options." << endl;
+            }
             SystemFrame::close();
             return 0;
-        } else if(init_ret!=0) {
+        } else if(init_ret!=0||!GUIFrame::checkInitOptions(OptionsSubSys::getOptions())) {
             throw ProcessError();
         }
         // Make application
@@ -359,7 +407,7 @@ main(int argc, char **argv)
         ret = application.run();
 #ifndef _DEBUG
     } catch(...) {
-        WRITE_MESSAGE("Quitting (on error).");
+        MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
     }
 #endif

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/01/09 13:33:30  dkrajzew
+// debugging error handling
+//
 // Revision 1.7  2005/10/07 11:48:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -69,10 +72,10 @@
 #endif // HAVE_CONFIG_H
 
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2 - guisim application",
-    "  The graphical version of the simulation.",
-    "  http://sumo.sourceforge.net",
-    "Usage: guisim [OPTION]*",
+    " GUI version of the simulation (sumo).",
+    " ",
+    "Usage: (sumo-)guisim(.exe) [OPTION]*",
+    " ",
     " ",
     "Options:",
     " General options:",

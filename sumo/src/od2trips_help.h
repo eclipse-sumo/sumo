@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.13  2006/01/09 13:33:30  dkrajzew
+// debugging error handling
+//
 // Revision 1.12  2005/10/07 11:48:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -52,10 +55,9 @@
  * The list of help strings for the sumo-od2trips module
  */
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2 - od2trips application",
-    "  Merges OD matrix and net to trip tables.",
-    "  http://sumo.sourceforge.net",
-    "Usage: od2trips [OPTION]*",
+    " Generates trip tables from OD matrices.",
+    " ",
+    "Usage: (sumo-)od2trips(.exe) [OPTION]*",
     " ",
     "Examples: ",
     " od2trips -n ./MD_Netz.net.xml -d ./muenchen1.inp -o ./triptable.txt -vC",

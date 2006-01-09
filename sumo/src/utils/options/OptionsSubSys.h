@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/01/09 13:38:04  dkrajzew
+// debugging error handling
+//
 // Revision 1.7  2005/10/07 11:46:56  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -92,8 +95,7 @@ public:
         to validate them. This method performs the parsing of options and
         also other options-related function (printing the help screen etc.) */
     static bool init(bool loadConfig, int argc, char **argv,
-        fill_options *fill_f, check_options *check_f,
-        char *help[]);
+        fill_options *fill_f, check_options *check_f=0);
 
     /** @brief Initialisation method for gui-based applications
         We may be sure that we set our options when performing gui-based

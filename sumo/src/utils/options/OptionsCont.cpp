@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/01/09 13:38:04  dkrajzew
+// debugging error handling
+//
 // Revision 1.12  2005/10/17 09:25:12  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -400,9 +403,8 @@ OptionsCont::isUsableFileList(const std::string &name) const
         return false;
     }
     // check whether the list of files is valid
-    if(!FileHelpers::checkFileList(o->getString())) {
-        throw InvalidArgument("The option '" + name
-            + "' should not contain delimiters only.");
+    if(!FileHelpers::checkFileList(name, o->getString())) {
+        return false;
     }
     return true;
 }

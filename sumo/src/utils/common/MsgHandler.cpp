@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.9  2006/01/09 13:30:45  dkrajzew
+// debugging error handling
+//
 // Revision 1.8  2005/10/17 09:22:36  dkrajzew
 // memory leaks removed
 //
@@ -136,26 +139,32 @@ MsgHandler::getErrorInstance()
 
 
 void
-MsgHandler::inform(std::string error)
+MsgHandler::inform(std::string error, bool addType)
 {
     if(myLock!=0) {
         myLock->lock();
     }
-    switch(myType) {
-    case MT_MESSAGE:
-        break;
-    case MT_WARNING:
-        error = "Warning: " + error;
-        break;
-    case MT_ERROR:
-        error = "Error: " + error;
-        break;
-    default:
-        throw 1;
+    if(addType) {
+        switch(myType) {
+        case MT_MESSAGE:
+            break;
+        case MT_WARNING:
+            error = "Warning: " + error;
+            break;
+        case MT_ERROR:
+            error = "Error: " + error;
+            break;
+        default:
+            throw 1;
+        }
     }
-    // report to cour if wished
+    // report to cout if wished
     if(myReport2COUT) {
         cout << error << endl;
+    }
+    // report to cerr if wished
+    if(myReport2CERR) {
+        cerr << error << endl;
     }
     // inform all other receivers
     for(RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
@@ -232,6 +241,21 @@ MsgHandler::report2cout(bool value)
 
 
 void
+MsgHandler::report2cerr(bool value)
+{
+    myReport2CERR = value;
+    if(myType==MT_WARNING) {
+        gSuppressWarnings = OptionsSubSys::getOptions().exists("suppress-warnings")
+            ? OptionsSubSys::getOptions().getBool("suppress-warnings")
+            : !myReport2COUT;
+    } else if(myType==MT_MESSAGE) {
+        gSuppressMessages =
+            !(myRetrievers.size()==0||myReport2COUT);
+    }
+}
+
+
+void
 MsgHandler::cleanupOnEnd()
 {
     delete myMessageInstance;
@@ -245,7 +269,7 @@ MsgHandler::cleanupOnEnd()
 
 MsgHandler::MsgHandler(MsgType type)
     : myType(type), myWasInformed(false), myReport2COUT(true),
-    myLock(0)
+    myReport2CERR(false), myLock(0)
 {
 }
 

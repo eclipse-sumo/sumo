@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2006/01/09 13:33:30  dkrajzew
+// debugging error handling
+//
 // Revision 1.33  2005/11/30 08:56:49  dkrajzew
 // final try/catch is now only used in the release version
 //
@@ -212,6 +215,7 @@ namespace
 #include "netconvert_help.h"
 #include "netconvert_build.h"
 #include "sumo_version.h"
+#include <utils/common/HelpPrinter.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -234,12 +238,21 @@ main(int argc, char **argv)
 #ifndef _DEBUG
     try {
 #endif
-        int init_ret = SystemFrame::init(false, argc, argv,
-            NIOptionsIO::fillOptions, 0, help);
-        if(init_ret==-1) {
+        int init_ret = SystemFrame::init(false, argc, argv, NIOptionsIO::fillOptions);
+        if(init_ret<0) {
             cout << "SUMO netconvert" << endl;
-            cout << " Version " << version << endl;
-            cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+            cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
+            switch(init_ret) {
+            case -1:
+                cout << " Version " << version << endl;
+                cout << " Build #" << NEXT_BUILD_NUMBER << endl;
+                break;
+            case -2:
+                HelpPrinter::print(help);
+                break;
+            default:
+                cout << " Use --help to get the list of options." << endl;
+            }
             SystemFrame::close();
             return 0;
         } else if(init_ret!=0) {
@@ -263,7 +276,7 @@ main(int argc, char **argv)
         nb.buildLoaded();
 #ifndef _DEBUG
     } catch (...) {
-        MsgHandler::getErrorInstance()->inform("Quitting (conversion failed).");
+        MsgHandler::getErrorInstance()->inform("Quitting (conversion failed).", false);
         ret = 1;
     }
 #endif

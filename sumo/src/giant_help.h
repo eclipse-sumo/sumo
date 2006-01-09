@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/01/09 13:33:30  dkrajzew
+// debugging error handling
+//
 // Revision 1.6  2005/10/07 11:48:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -75,10 +78,9 @@
 #endif // HAVE_CONFIG_H
 
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2 - giant application",
-    "  Graphical network editor and simulation.",
-    "  http://sumo.sourceforge.net",
-    "Usage: giant [OPTION]*",
+    " Graphical network editor and simulation.",
+    " ",
+    "Usage: (sumo-)giant(.exe) [OPTION]*",
     " ",
     "Options:",
     " General options:",

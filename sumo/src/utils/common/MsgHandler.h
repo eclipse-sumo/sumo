@@ -22,6 +22,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.9  2006/01/09 13:30:45  dkrajzew
+// debugging error handling
+//
 // Revision 1.8  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -120,7 +123,7 @@ public:
     static void cleanupOnEnd();
 
     /// adds a new error to the list
-    void inform(std::string error);
+    void inform(std::string error, bool addType=true);
 
     /// closes a sublist of information
     void finalizeInform(std::string msg) {
@@ -138,6 +141,9 @@ public:
 
     /// Sets the information whether stdout shall be used as output device, too
     void report2cout(bool value);
+
+    /// Sets the information whether stderr shall be used as output device
+    void report2cerr(bool value);
 
     /// Returns the information whether any messages were added
     bool wasInformed() const;
@@ -172,6 +178,9 @@ private:
 
     /// Information whether stdout shall be used as output device, too
     bool myReport2COUT;
+
+    /// Information whether stderr shall be used as output device, too
+    bool myReport2CERR;
 
     /// Definition of the list of retrievers to inform
     typedef std::vector<MsgRetriever*> RetrieverVector;
