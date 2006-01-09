@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/01/09 11:53:43  dkrajzew
+// further visualization possibilities added
+//
 // Revision 1.27  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -363,6 +366,12 @@ MSLink::LinkDirection
 GUILaneWrapper::getLinkDirection(size_t pos) const
 {
     return myLane.getLinkCont()[pos]->getDirection();
+}
+
+MSLane *
+GUILaneWrapper::getLinkLane(size_t pos) const
+{
+    return myLane.getLinkCont()[pos]->getLane();
 }
 
 

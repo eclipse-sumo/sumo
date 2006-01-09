@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.22  2006/01/09 11:53:43  dkrajzew
+// further visualization possibilities added
+//
 // Revision 1.21  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -208,6 +211,8 @@ public:
 
     /// Returns the direction of the numbered link
     MSLink::LinkDirection getLinkDirection(size_t pos) const;
+
+    MSLane *getLinkLane(size_t pos) const;
 
     /// Returns the tl-logic the numbered link is controlled by
     unsigned int getLinkTLID(const GUINet &net, size_t pos) const;

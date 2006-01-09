@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/01/09 11:55:34  dkrajzew
+// further visualization possibilities added
+//
 // Revision 1.7  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -80,6 +83,9 @@ public:
         CORN_VEH_LASTREROUTEOFFSET,
         CORN_VEH_NUMBERROUTE,
         CORN_VEH_DEV_NO_CPHONE,
+        CORN_VEH_OWNCOL_RED,
+        CORN_VEH_OWNCOL_GREEN,
+        CORN_VEH_OWNCOL_BLUE,
         CORN_VEH_REROUTE_TIME,
 
         CORN_BLA = CORN_VEH_REROUTE_TIME + 1000,
