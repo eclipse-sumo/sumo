@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.42  2006/01/11 11:59:20  dkrajzew
+// patched reassignment of explicite connections
+//
 // Revision 1.41  2005/12/01 07:38:13  dkrajzew
 // debugging plain edge output
 //
@@ -546,7 +549,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     // add connections from the first to the second edge
     size_t noLanes = one->getNoLanes();
     for(i=0; i<one->getNoLanes()&&i<two->getNoLanes(); i++) {
-        if(!one->addLane2LaneConnection(i, two, i)) {// !!! Bresenham, here!!!
+        if(!one->addLane2LaneConnection(i, two, i, false)) {// !!! Bresenham, here!!!
             MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
             throw ProcessError();
         }
@@ -748,7 +751,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     //  move lane2lane-connections
     size_t currLane = 0;
     for(i=edges.begin(); i!=edges.end(); i++) {
-        newEdge->moveOutgoingConnectionsFrom(*i, currLane);
+        newEdge->moveOutgoingConnectionsFrom(*i, currLane, false);
         currLane += (*i)->getNoLanes();
     }
     // patch tl-information
@@ -920,4 +923,6 @@ NBEdgeCont::recomputeLaneShapes()
 // Local Variables:
 // mode:C++
 // End:
+
+
 

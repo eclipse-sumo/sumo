@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/01/11 12:01:03  dkrajzew
+// patched reassignment of explicite connections
+//
 // Revision 1.13  2005/10/07 11:39:05  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -238,8 +241,7 @@ NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
             // build the node and try to insert it into the net description
             NBNode *node = nc.retrieve(pos);
             if(node==0) {
-                node = new NBNode(nodename, pos,
-                    NBNode::NODETYPE_PRIORITY_JUNCTION);
+                node = new NBNode(nodename, pos, NBNode::NODETYPE_PRIORITY_JUNCTION);
                 if(!nc.insert(node)) {
                     MsgHandler::getErrorInstance()->inform(
                         string("Problems on adding a lane-splitting node for edge '")
@@ -270,7 +272,7 @@ NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
             for(size_t l=0; l<maxLaneNo; l++) {
                 // if both lanes exist, connect
                 if(setLanes[k-1].test(l)&&setLanes[k].test(l)) {
-                    if(!edge1->addLane2LaneConnection(runLaneNo1, edge2, runLaneNo2)) {
+                    if(!edge1->addLane2LaneConnection(runLaneNo1, edge2, runLaneNo2, false)) {
                         MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                         throw ProcessError();
                     }
@@ -279,14 +281,14 @@ NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
                 if(!setLanes[k-1].test(l)&&setLanes[k].test(l)) {
                     // lane is a new rightmost lane
                     if(l>0&&setLanes[k-1].test(l-1)) {
-                        if(!edge1->addLane2LaneConnection(0, edge2, runLaneNo2)) {
+                        if(!edge1->addLane2LaneConnection(0, edge2, runLaneNo2, false)) {
                             MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                             throw ProcessError();
                         }
                     }
                     // lane is a new leftmost lane
                     if(setLanes[k-1].test(l+1)) {
-                        if(!edge1->addLane2LaneConnection(edge1->getNoLanes()-1, edge2, runLaneNo2)) {
+                        if(!edge1->addLane2LaneConnection(edge1->getNoLanes()-1, edge2, runLaneNo2, false)) {
                             MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                             throw ProcessError();
                         }

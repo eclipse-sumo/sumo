@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/01/11 12:01:03  dkrajzew
+// patched reassignment of explicite connections
+//
 // Revision 1.22  2005/11/09 06:42:07  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -449,7 +452,7 @@ NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont &ec)
         for(IntVector::const_iterator j=fromLanes.begin(); j!=fromLanes.end(); j++) {
             for(IntVector::const_iterator k=toLanes.begin(); k!=toLanes.end(); k++) {
 
-                if(!fromEdge->addLane2LaneConnection((*j), toEdge, (*k))) {
+                if(!fromEdge->addLane2LaneConnection((*j), toEdge, (*k), false)) {
 //                    MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
 // bla!!!!                    throw ProcessError();
                 }

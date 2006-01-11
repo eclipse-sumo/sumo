@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/01/11 11:59:20  dkrajzew
+// patched reassignment of explicite connections
+//
 // Revision 1.16  2006/01/09 11:57:50  dkrajzew
 // using definitions of lane widths instead of hard-coded values
 //
@@ -819,12 +822,12 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             cont->incLaneNo(pot_ramp->getNoLanes());
             incremented.push_back(cont);
             if(!pot_highway->addLane2LaneConnections(0, cont, pot_ramp->getNoLanes(),
-                MIN2(cont->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), true)) {
+                MIN2(cont->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), false, true)) {
 
                 MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                 throw ProcessError();
             }
-            if(!pot_ramp->addLane2LaneConnections(0, cont, 0, pot_ramp->getNoLanes(), true)) {
+            if(!pot_ramp->addLane2LaneConnections(0, cont, 0, pot_ramp->getNoLanes(), false, true)) {
                 MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                 throw ProcessError();
             }
@@ -865,7 +868,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             incremented.push_back(added_ramp);
             if(added_ramp->getNoLanes()!=added->getNoLanes()) {
                 int off = added_ramp->getNoLanes()-added->getNoLanes();
-                if(!added_ramp->addLane2LaneConnections(off, added, 0, added->getNoLanes(), true)) {
+                if(!added_ramp->addLane2LaneConnections(off, added, 0, added->getNoLanes(), false, true)) {
                     MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                     throw ProcessError();
                 }
@@ -875,18 +878,18 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                     added_ramp->setGeometry(g);
                 }
             } else {
-                if(!added_ramp->addLane2LaneConnections(0, added, 0, added_ramp->getNoLanes(), true)) {
+                if(!added_ramp->addLane2LaneConnections(0, added, 0, added_ramp->getNoLanes(), false, true)) {
                     MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                     throw ProcessError();
                 }
             }
             if(!pot_highway->addLane2LaneConnections(0, added_ramp, pot_ramp->getNoLanes(),
-                MIN2(added_ramp->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), false)) {
+                MIN2(added_ramp->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), false, false)) {
 
                 MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                 throw ProcessError();
             }
-            if(!pot_ramp->addLane2LaneConnections(0, added_ramp, 0, pot_ramp->getNoLanes(), true)) {
+            if(!pot_ramp->addLane2LaneConnections(0, added_ramp, 0, pot_ramp->getNoLanes(), false, true)) {
                 MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                 throw ProcessError();
             }
@@ -924,12 +927,12 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
             prev->incLaneNo(pot_ramp->getNoLanes());
             prev->invalidateConnections(true);
             if(!prev->addLane2LaneConnections(pot_ramp->getNoLanes(), pot_highway, 0,
-                MIN2(prev->getNoLanes()-1, pot_highway->getNoLanes()), true)) {
+                MIN2(prev->getNoLanes()-1, pot_highway->getNoLanes()), false, true)) {
 
                 MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                 throw ProcessError();
             }
-            if(!prev->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNoLanes(), false)) {
+            if(!prev->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNoLanes(), false, false)) {
                 MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                 throw ProcessError();
             }
@@ -969,7 +972,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
             if(added_ramp->getNoLanes()!=added->getNoLanes()) {
                 incremented.push_back(added_ramp);
                 int off = added_ramp->getNoLanes()-added->getNoLanes();
-                if(!added->addLane2LaneConnections(0, added_ramp, off, added->getNoLanes(), true)) {
+                if(!added->addLane2LaneConnections(0, added_ramp, off, added->getNoLanes(), false, true)) {
                     MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                     throw ProcessError();
                 }
@@ -979,18 +982,18 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                     added_ramp->setGeometry(g);
                 }
             } else {
-                if(!added->addLane2LaneConnections(0, added_ramp, 0, added_ramp->getNoLanes(), true)) {
+                if(!added->addLane2LaneConnections(0, added_ramp, 0, added_ramp->getNoLanes(), false, true)) {
                     MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                     throw ProcessError();
                 }
             }
             if(!added_ramp->addLane2LaneConnections(pot_ramp->getNoLanes(), pot_highway, 0,
-                MIN2(added_ramp->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), true)) {
+                MIN2(added_ramp->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), false, true)) {
 
                 MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                 throw ProcessError();
             }
-            if(!added_ramp->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNoLanes(), false)) {
+            if(!added_ramp->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNoLanes(), false, false)) {
                 MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
                 throw ProcessError();
             }

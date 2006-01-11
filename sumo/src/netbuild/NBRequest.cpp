@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2006/01/11 11:59:20  dkrajzew
+// patched reassignment of explicite connections
+//
 // Revision 1.34  2005/10/17 09:02:44  dkrajzew
 // got rid of the old MSVC memory leak checker; memory leaks removed
 //
@@ -623,6 +626,7 @@ NBRequest::getSizes() const
          i!=_incoming->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
+            // assert that at least one edge is approached from this lane
             assert((*i)->getEdgeLanesFromLane(j)->size()!=0);
             noLinks += (*i)->getEdgeLanesFromLane(j)->size();
         }

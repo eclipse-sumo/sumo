@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/01/11 11:59:20  dkrajzew
+// patched reassignment of explicite connections
+//
 // Revision 1.18  2005/11/09 06:40:49  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -365,7 +368,7 @@ NBNode::ApproachingDivider::execute(SUMOReal src, SUMOReal dest)
         assert(approachedLanes->size()>i);
         assert(approachingLanes.size()>i);
         incomingEdge->setConnection(approachingLanes[i], _currentOutgoing,
-            approached);
+            approached, true);
     }
     delete approachedLanes;
 }
@@ -1344,8 +1347,9 @@ NBNode::computeLanes2Lanes()
     // go through this node's outgoing edges
     //  for every outgoing edge, compute the distribution of the node's
     //  incoming edges on this edge when approaching this edge
-    for( vector<NBEdge*>::reverse_iterator i=_outgoingEdges->rbegin();
-         i!=_outgoingEdges->rend(); i++) {
+    // the incoming edges' steps will then also be marked as LANE2LANE_RECHECK...
+    vector<NBEdge*>::reverse_iterator i;
+    for(i=_outgoingEdges->rbegin(); i!=_outgoingEdges->rend(); i++) {
         NBEdge *currentOutgoing = *i;
         // get the information about edges that do approach this edge
         vector<NBEdge*> *approaching = getApproaching(currentOutgoing);
@@ -1355,6 +1359,14 @@ NBNode::computeLanes2Lanes()
                 (SUMOReal) currentOutgoing->getNoLanes());
         }
         delete approaching;
+    }
+    // ... but we may have the case that there are no outgoing edges
+    //  In this case, we have to mark the incoming edges as being in state
+    //   LANE2LANE( not RECHECK) by hand
+    if(_outgoingEdges->size()==0) {
+        for(i=_incomingEdges->rbegin(); i!=_incomingEdges->rend(); i++) {
+            (*i)->markAsInLane2LaneState();
+        }
     }
 }
 

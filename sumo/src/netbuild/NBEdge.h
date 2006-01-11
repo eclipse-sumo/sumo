@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.42  2006/01/11 11:59:20  dkrajzew
+// patched reassignment of explicite connections
+//
 // Revision 1.41  2005/11/09 06:40:49  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -279,8 +282,10 @@ public:
         EDGE2EDGES = 1,
         /// lanes to edges - relationships are computed/loaded
         LANES2EDGES = 2,
-        /// lanes to lanes - relationships are computed/loaded
-        LANES2LANES = 3
+        /// lanes to lanes - relationships are loaded; no recheck is necessary/wished
+        LANES2LANES = 3,
+        /// lanes to lanes - relationships are computed; should be recheked
+        LANES2LANES_RECHECK = 4
     };
 
 
@@ -360,12 +365,13 @@ public:
     bool addEdge2EdgeConnection(NBEdge *dest);
 
     /** adds a connection between the specified this edge's lane and an approached one */
-    bool addLane2LaneConnection(size_t fromLane, NBEdge *dest, size_t toLane);
+    bool addLane2LaneConnection(size_t fromLane, NBEdge *dest,
+        size_t toLane, bool markAs2Recheck);
 
     /** builds no connections starting at the given lanes */
     bool addLane2LaneConnections(size_t fromLane,
         NBEdge *dest, size_t toLane, size_t no,
-        bool invalidatePrevious=false);
+        bool markAs2Recheck, bool invalidatePrevious=false);
 
     /// computes the edge (step1: computation of approached edges)
     bool computeEdge2Edges();
@@ -394,7 +400,8 @@ public:
     std::vector<size_t> getConnectionLanes(NBEdge *currentOutgoing);
 
     /// adds a connection to a certain lane of a certain edge
-    void setConnection(size_t lane, NBEdge *destEdge, size_t destLane);
+    void setConnection(size_t lane, NBEdge *destEdge,
+        size_t destLane, bool markAs2Recheck);
 
     /** returns the information whether the given edge is the opposite
         direction to this edge */
@@ -480,7 +487,9 @@ public:
         return _step;
     }
 
-    void moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff);
+    void moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff,
+        bool markAs2Recheck);
+
     NBEdge *getTurnDestination() const;
 
     typedef std::map<std::string, std::vector<std::string> > StringContMap;;
@@ -507,6 +516,7 @@ public:
 
     LaneSpreadFunction getLaneSpreadFunction() const;
 
+    void markAsInLane2LaneState();
 
 
 private:
@@ -600,10 +610,10 @@ private:
     /// the source and the destination node
     NBNode  *_from, *_to;
 
-    /// the length of the node
+    /// the length of the edge
     SUMOReal  _length;
 
-    /// the angle of the current edge
+    /// the angle of the edge
     SUMOReal  _angle;
 
     /** the converted priority of the edge (needed while the ocmputation of

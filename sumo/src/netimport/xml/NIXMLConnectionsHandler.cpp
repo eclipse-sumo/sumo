@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/11 12:01:03  dkrajzew
+// patched reassignment of explicite connections
+//
 // Revision 1.9  2005/10/17 09:18:44  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -205,7 +208,7 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
         try {
             fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
             toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-            if(!from->addLane2LaneConnection(fromLane, to, toLane)) {
+            if(!from->addLane2LaneConnection(fromLane, to, toLane, false)) {
                 MsgHandler::getWarningInstance()->inform(
                     "Could not set loaded connection from '"
                     + from->getID() + "_" + toString<int>(fromLane)
