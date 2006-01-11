@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/01/11 11:56:30  dkrajzew
+// added a colorwheel icon for visualization changer
+//
 // Revision 1.6  2006/01/09 13:37:38  dkrajzew
 // further visualization options added
 //
@@ -61,6 +64,7 @@ enum GUIIcon {
     ICON_LOCATEADD,
 
     ICON_SHOWGRID,
+    ICON_COLORWHEEL,
     ICON_SHOWTOOLTIPS,
     ICON_SHOWFULLGEOM,
     ICON_EDITVIEWPORT,

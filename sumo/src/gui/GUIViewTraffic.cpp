@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.44  2006/01/11 11:56:30  dkrajzew
+// added a colorwheel icon for visualization changer
+//
 // Revision 1.43  2006/01/09 11:50:20  dkrajzew
 // new visualization settings implemented
 //
@@ -453,7 +456,7 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     new FXButton(&toolbar,
         "\tEdit Viewport...\tOpens a menu which lets you edit the viewport.",
-        GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEW,
+        GUIIconSubSys::getIcon(ICON_COLORWHEEL), this, MID_EDITVIEW,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     /*
     new FXButton(&toolbar,

@@ -3,7 +3,7 @@ noinst_LIBRARIES = libguiutilsimages.a
 EXTRA_DIST = allow_rotation.xpm \
 app_breakpoints.xpm app_finder.xpm \
 app_selector.xpm app_table.xpm app_tlstracker.xpm app_tracker.xpm \
-camera.xpm close_gaps.xpm closing.xpm \
+camera.xpm close_gaps.xpm closing.xpm colorwheel.xpm \
 colour_lane.xpm colour_vehicle.xpm cont.xpm create_graph.xpm cut.xpm \
 dilate.xpm document.xpm \
 edit_graph.xpm erode.xpm erase_stains.xpm ext.xpm \

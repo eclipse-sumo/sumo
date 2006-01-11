@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/11 11:56:30  dkrajzew
+// added a colorwheel icon for visualization changer
+//
 // Revision 1.9  2006/01/09 13:37:38  dkrajzew
 // further visualization options added
 //
@@ -108,6 +111,7 @@ namespace
 #include "locate_vehicle.xpm"
 #include "locate_add.xpm"
 
+#include "colorwheel.xpm"
 #include "recenter_view.xpm"
 #include "show_legend.xpm"
 #include "allow_rotation.xpm"
@@ -204,6 +208,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     myIcons[ICON_LOCATEADD] = new FXXPMIcon(a, locate_add_xpm);
 
     myIcons[ICON_SHOWGRID] = new FXXPMIcon(a, show_grid_xpm);
+    myIcons[ICON_COLORWHEEL] = new FXXPMIcon(a, colorwheel_xpm);
     myIcons[ICON_SHOWTOOLTIPS] = new FXXPMIcon(a, show_tooltips_xpm);
     myIcons[ICON_SHOWFULLGEOM] = new FXXPMIcon(a, show_geometry_xpm);
     myIcons[ICON_YES] = new FXXPMIcon(a, yes_xpm);
