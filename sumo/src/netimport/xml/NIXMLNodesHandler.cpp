@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/01/11 12:02:08  dkrajzew
+// debugged node type specification (unfinished)
+//
 // Revision 1.13  2005/10/17 09:18:44  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -193,14 +196,21 @@ NIXMLNodesHandler::myStartElement(int element, const std::string &tag,
     }
     // get the type
     myType = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
+    NBNode::BasicNodeType type = NBNode::NODETYPE_UNKNOWN;
+    if(myType=="priority") {
+        type = NBNode::NODETYPE_PRIORITY_JUNCTION;
+    } else if(myType=="right_before_left"||myType=="right_for_left") {
+        type = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
+    } else if(myType=="traffic_light") {
+        type = NBNode::NODETYPE_PRIORITY_JUNCTION;
+    }
     // check whether there is a traffic light to assign this node to
     // build the node
-    NBNode *node = new NBNode(myID, myPosition);
+    NBNode *node = new NBNode(myID, myPosition, type);
     // insert the node
     if(!myNodeCont.insert(node)) {
         if(myNodeCont.retrieve(myPosition)!=0) {
-            addError(string("Duplicate node occured. ID='") + myID
-                + string("'"));
+            addError(string("Duplicate node occured. ID='") + myID + string("'"));
         }
     }
     // process traffic light definition
@@ -247,8 +257,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
         tlDef = myTLLogicCont.getDefinition(tlID);
         if(tlDef==0) {
             // this traffic light is visited the first time
-            NBTrafficLightDefinition *tlDef =
-                new NBOwnTLDef(tlID, currentNode);
+            NBTrafficLightDefinition *tlDef = new NBOwnTLDef(tlID, currentNode);
             if(!myTLLogicCont.insert(tlID, tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;
@@ -260,8 +269,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
     } catch (EmptyData) {
         // ok, this node is a traffic light node where no other nodes
         //  participate
-        NBTrafficLightDefinition *tlDef =
-            new NBOwnTLDef(myID, currentNode);
+        NBTrafficLightDefinition *tlDef = new NBOwnTLDef(myID, currentNode);
         if(!myTLLogicCont.insert(myID, tlDef)) {
             // actually, nothing should fail here
             delete tlDef;
