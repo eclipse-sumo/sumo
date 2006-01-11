@@ -1,0 +1,3 @@
+SUBDIRS =  flows2routes flows2routes_100s_interval \
+flows2routes_100s_interval_ext flows2routes_200s_interval trips2routes \
+trips2routes_repetition

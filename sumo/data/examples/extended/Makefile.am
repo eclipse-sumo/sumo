@@ -1,2 +1,2 @@
-SUBDIRS = variable_speed_signs
+SUBDIRS = 3busses1 busses1 variable_speed_signs vehicle stops
 

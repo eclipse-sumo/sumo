@@ -1,0 +1,35 @@
+<additional>
+
+	<trigger id="busstop1" objecttype="bus_stop" objectid="2/1to1/1_0" from="10" to="50" lines="100;101;102"/>
+	<trigger id="busstop2" objecttype="bus_stop" objectid="1/2to0/2_0" from="20" to="40" lines="100;101"/>
+	<trigger id="busstop3" objecttype="bus_stop" objectid="0/1to0/0_0" from="20" to="40" lines="100;101;102"/>
+	<trigger id="busstop4" objecttype="bus_stop" objectid="1/0to2/0_0" from="20" to="40" lines="100;101"/>
+
+	<vtype id="BUS" accel="2.6" decel="4.5" sigma="0.5" length="15" maxspeed="70" color="1,1,0"/>
+
+	<vehicle id="0" type="BUS" depart="0" color="1,1,0">
+		<route>2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0to2/1</route>
+		<stop bus_stop="busstop1" duration="20"/>
+		<stop bus_stop="busstop2" duration="20"/>
+		<stop bus_stop="busstop3" duration="20"/>
+		<stop bus_stop="busstop4" duration="20"/>
+	</vehicle>
+
+	<vehicle id="1" type="BUS" depart="3" color="1,1,0">
+		<route>2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0to2/1</route>
+		<stop bus_stop="busstop1" duration="20"/>
+		<stop bus_stop="busstop2" duration="20"/>
+		<stop bus_stop="busstop3" duration="20"/>
+		<stop bus_stop="busstop4" duration="20"/>
+	</vehicle>
+
+	<vehicle id="2" type="BUS" depart="6" color="1,1,0">
+		<route>2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0to2/1</route>
+		<stop bus_stop="busstop1" duration="20"/>
+		<stop bus_stop="busstop2" duration="20"/>
+		<stop bus_stop="busstop3" duration="20"/>
+		<stop bus_stop="busstop4" duration="20"/>
+	</vehicle>
+
+
+</additional>

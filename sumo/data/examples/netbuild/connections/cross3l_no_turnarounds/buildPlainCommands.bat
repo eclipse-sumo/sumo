@@ -1,0 +1,1 @@
+..\..\..\..\..\bin\netconvert.exe --xml-edge-files=cross3l_no_turnarounds.edg.xml --xml-node-files=cross3l_no_turnarounds.nod.xml --output-file=cross3l_no_turnarounds.net.xml --speed-in-kmh --no-turnarounds

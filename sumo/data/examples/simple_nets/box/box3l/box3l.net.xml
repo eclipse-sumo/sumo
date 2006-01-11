@@ -4,38 +4,38 @@
    <node_count>4</node_count>
 
 
-   <edge id="0" Length="479.50" Speed="36.00" Name="0" NoLanes="3" XFrom="0.00" YFrom="0.00" XTo="0.00" YTo="500.00" From="0" To="1" Priority="1" Angle="180.00" Type="" function="normal">
+   <edge id="0" Length="480.30" Speed="36.00" Name="0" NoLanes="3" XFrom="0.00" YFrom="0.00" XTo="0.00" YTo="500.00" From="0" To="1" Priority="1" Angle="180.00" Type="" function="normal">
       <lanes>
-         <lane id="0_0" depart="1" maxspeed="36.00" length="479.50" changeurge="0">8.75,10.25 8.75,489.75</lane>
-         <lane id="0_1" depart="0" maxspeed="36.00" length="479.50" changeurge="0">5.25,10.25 5.25,489.75</lane>
-         <lane id="0_2" depart="0" maxspeed="36.00" length="479.50" changeurge="0">1.75,10.25 1.75,489.75</lane>
+         <lane id="0_0" depart="1" maxspeed="36.00" length="480.30" changeurge="0">8.25,9.85 8.25,490.15</lane>
+         <lane id="0_1" depart="0" maxspeed="36.00" length="480.30" changeurge="0">4.95,9.85 4.95,490.15</lane>
+         <lane id="0_2" depart="0" maxspeed="36.00" length="480.30" changeurge="0">1.65,9.85 1.65,490.15</lane>
       </lanes>
       <cedge id="1" via=":1">0_0 0_1 0_2</cedge>
    </edge>
 
-   <edge id="1" Length="479.50" Speed="36.00" Name="1" NoLanes="3" XFrom="0.00" YFrom="500.00" XTo="500.00" YTo="500.00" From="1" To="2" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="1" Length="480.30" Speed="36.00" Name="1" NoLanes="3" XFrom="0.00" YFrom="500.00" XTo="500.00" YTo="500.00" From="1" To="2" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="1_0" depart="1" maxspeed="36.00" length="479.50" changeurge="0">10.25,491.25 489.75,491.25</lane>
-         <lane id="1_1" depart="0" maxspeed="36.00" length="479.50" changeurge="0">10.25,494.75 489.75,494.75</lane>
-         <lane id="1_2" depart="0" maxspeed="36.00" length="479.50" changeurge="0">10.25,498.25 489.75,498.25</lane>
+         <lane id="1_0" depart="1" maxspeed="36.00" length="480.30" changeurge="0">9.85,491.75 490.15,491.75</lane>
+         <lane id="1_1" depart="0" maxspeed="36.00" length="480.30" changeurge="0">9.85,495.05 490.15,495.05</lane>
+         <lane id="1_2" depart="0" maxspeed="36.00" length="480.30" changeurge="0">9.85,498.35 490.15,498.35</lane>
       </lanes>
       <cedge id="2" via=":2">1_0 1_1 1_2</cedge>
    </edge>
 
-   <edge id="2" Length="479.50" Speed="36.00" Name="2" NoLanes="3" XFrom="500.00" YFrom="500.00" XTo="500.00" YTo="0.00" From="2" To="3" Priority="1" Angle="0.00" Type="" function="normal">
+   <edge id="2" Length="480.30" Speed="36.00" Name="2" NoLanes="3" XFrom="500.00" YFrom="500.00" XTo="500.00" YTo="0.00" From="2" To="3" Priority="1" Angle="0.00" Type="" function="normal">
       <lanes>
-         <lane id="2_0" depart="1" maxspeed="36.00" length="479.50" changeurge="0">491.25,489.75 491.25,10.25</lane>
-         <lane id="2_1" depart="0" maxspeed="36.00" length="479.50" changeurge="0">494.75,489.75 494.75,10.25</lane>
-         <lane id="2_2" depart="0" maxspeed="36.00" length="479.50" changeurge="0">498.25,489.75 498.25,10.25</lane>
+         <lane id="2_0" depart="1" maxspeed="36.00" length="480.30" changeurge="0">491.75,490.15 491.75,9.85</lane>
+         <lane id="2_1" depart="0" maxspeed="36.00" length="480.30" changeurge="0">495.05,490.15 495.05,9.85</lane>
+         <lane id="2_2" depart="0" maxspeed="36.00" length="480.30" changeurge="0">498.35,490.15 498.35,9.85</lane>
       </lanes>
       <cedge id="3" via=":3">2_0 2_1 2_2</cedge>
    </edge>
 
-   <edge id="3" Length="479.50" Speed="36.00" Name="3" NoLanes="3" XFrom="500.00" YFrom="0.00" XTo="0.00" YTo="0.00" From="3" To="0" Priority="1" Angle="90.00" Type="" function="normal">
+   <edge id="3" Length="480.30" Speed="36.00" Name="3" NoLanes="3" XFrom="500.00" YFrom="0.00" XTo="0.00" YTo="0.00" From="3" To="0" Priority="1" Angle="90.00" Type="" function="normal">
       <lanes>
-         <lane id="3_0" depart="1" maxspeed="36.00" length="479.50" changeurge="0">489.75,8.75 10.25,8.75</lane>
-         <lane id="3_1" depart="0" maxspeed="36.00" length="479.50" changeurge="0">489.75,5.25 10.25,5.25</lane>
-         <lane id="3_2" depart="0" maxspeed="36.00" length="479.50" changeurge="0">489.75,1.75 10.25,1.75</lane>
+         <lane id="3_0" depart="1" maxspeed="36.00" length="480.30" changeurge="0">490.15,8.25 9.85,8.25</lane>
+         <lane id="3_1" depart="0" maxspeed="36.00" length="480.30" changeurge="0">490.15,4.95 9.85,4.95</lane>
+         <lane id="3_2" depart="0" maxspeed="36.00" length="480.30" changeurge="0">490.15,1.65 9.85,1.65</lane>
       </lanes>
       <cedge id="0" via=":0">3_0 3_1 3_2</cedge>
    </edge>
@@ -89,22 +89,22 @@
 
    <junction id="0" type="priority" x="0.00" y="0.00">
       <inclanes>3_0 3_1 3_2</inclanes>
-      <shape>10.25,0.25 10.25,10.25 10.25,10.25 0.25,10.25 10.25,0.25 10.25,0.25</shape>
+      <shape>0.05,9.85 9.85,9.85 9.85,0.05</shape>
    </junction>
 
    <junction id="1" type="priority" x="0.00" y="500.00">
       <inclanes>0_0 0_1 0_2</inclanes>
-      <shape>10.25,489.75 10.25,499.75 0.25,489.75 10.25,489.75 10.25,489.75</shape>
+      <shape>9.85,499.95 9.85,490.15 0.05,490.15</shape>
    </junction>
 
    <junction id="2" type="priority" x="500.00" y="500.00">
       <inclanes>1_0 1_1 1_2</inclanes>
-      <shape>499.75,489.75 489.75,499.75 489.75,489.75 499.75,489.75 499.75,489.75</shape>
+      <shape>499.95,490.15 490.15,490.15 490.15,499.95</shape>
    </junction>
 
    <junction id="3" type="priority" x="500.00" y="0.00">
       <inclanes>2_0 2_1 2_2</inclanes>
-      <shape>489.75,0.25 499.75,10.25 489.75,10.25 489.75,10.25 489.75,0.25 489.75,0.25</shape>
+      <shape>490.15,9.85 499.95,9.85 490.15,0.05 490.15,9.85</shape>
    </junction>
 
 
@@ -156,18 +156,5 @@
       <succlane lane="0_2" via=":0_2_0" yield="0" dir="r" state="M"/>
    </succ>
 
-
-   <edgepos id="0" from="0" to="1" lane="0" function="normal"/>
-   <edgepos id="0" from="0" to="1" lane="1" function="normal"/>
-   <edgepos id="0" from="0" to="1" lane="2" function="normal"/>
-   <edgepos id="1" from="1" to="2" lane="0" function="normal"/>
-   <edgepos id="1" from="1" to="2" lane="1" function="normal"/>
-   <edgepos id="1" from="1" to="2" lane="2" function="normal"/>
-   <edgepos id="2" from="2" to="3" lane="0" function="normal"/>
-   <edgepos id="2" from="2" to="3" lane="1" function="normal"/>
-   <edgepos id="2" from="2" to="3" lane="2" function="normal"/>
-   <edgepos id="3" from="3" to="0" lane="0" function="normal"/>
-   <edgepos id="3" from="3" to="0" lane="1" function="normal"/>
-   <edgepos id="3" from="3" to="0" lane="2" function="normal"/>
 
 </net>
