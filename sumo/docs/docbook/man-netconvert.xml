@@ -7,15 +7,14 @@
 
     <manvolnum>1</manvolnum>
 
-    <refmiscinfo>netconvert 0.9.2</refmiscinfo>
+    <refmiscinfo>netconvert 0.9.3</refmiscinfo>
   </refmeta>
 
   <refnamediv>
     <refname><application>netconvert</application></refname>
 
-    <refpurpose>This application is used to convert networks from other
-    formats into networks that may be used by other
-    SUMO-applications</refpurpose>
+    <refpurpose>Road network importer / builder for the microscopic road
+    traffic simulation SUMO.</refpurpose>
   </refnamediv>
 
   <refsynopsisdiv>
@@ -197,11 +196,13 @@
           class="parameter">&lt;ARCVIEW_FILENAME&gt;</replaceable></term>
 
           <listitem>
-            <para>Parses the edge attributes from &lt;ARCVIEW_FILENAME&gt;.dbf
-            assuming it is an arcview-dbf-file. Parses the edge geometries
-            from &lt;ARCVIEW_FILENAME&gt;.shp and &lt;ARCVIEW_FILENAME&gt;.shx
-            assuming it is an ArcView-shape file. <remark>Optional,
-            type:filename (prefix), default: none</remark></para>
+            <para>Parses the edge attributes from
+            "<replaceable>&lt;ARCVIEW_FILENAME&gt;</replaceable>.dbf" assuming
+            it is an arcview-dbf-file. Parses the edge geometries from
+            "<replaceable>&lt;ARCVIEW_FILENAME&gt;</replaceable>.shp" and
+            "<replaceable>&lt;ARCVIEW_FILENAME&gt;</replaceable>.shx" assuming
+            it is an ArcView-shape file. <remark>Optional, type:filename
+            (prefix), default: none</remark></para>
           </listitem>
         </varlistentry>
 
@@ -210,10 +211,11 @@
           class="parameter">&lt;ELMAR_PREFIX&gt;</replaceable></term>
 
           <listitem>
-            <para>Parses the files starting with &lt;ELMAR_PREFIX&gt; assuming
-            they are stored in the format Elmar Brockfeld uses to save
-            NavTeq-data (splitted, IVF-internal). <remark>Optional,
-            type:filename (prefix) default: none</remark></para>
+            <para>Parses the files starting with
+            <replaceable>&lt;ELMAR_PREFIX&gt;</replaceable> assuming they are
+            stored in the format Elmar Brockfeld uses to save NavTeq-data
+            (splitted, IVF-internal). <remark>Optional, type:filename (prefix)
+            default: none</remark></para>
           </listitem>
         </varlistentry>
 
@@ -222,10 +224,11 @@
           class="parameter">&lt;ELMAR_PREFIX&gt;</replaceable></term>
 
           <listitem>
-            <para>Parses the files starting with &lt;ELMAR_PREFIX&gt; assuming
-            they are stored in the format Elmar Brockfeld uses to save
-            NavTeq-data (unsplitted, IVF-internal). <remark>Optional,
-            type:filename (prefix), default: none</remark></para>
+            <para>Parses the files starting with
+            <replaceable>&lt;ELMAR_PREFIX&gt;</replaceable> assuming they are
+            stored in the format Elmar Brockfeld uses to save NavTeq-data
+            (unsplitted, IVF-internal). <remark>Optional, type:filename
+            (prefix), default: none</remark></para>
           </listitem>
         </varlistentry>
 
@@ -234,9 +237,10 @@
           class="parameter">&lt;TIGER_PREFIX&gt;</replaceable></term>
 
           <listitem>
-            <para>Parses the files starting with &lt;TIGER_PREFIX&gt; assuming
-            they are stored in the TIGER-format. <remark>Optional,
-            type:filename (prefix), default: none</remark></para>
+            <para>Parses the files starting with
+            <replaceable>&lt;TIGER_PREFIX&gt;</replaceable> assuming they are
+            stored in the TIGER-format. <remark>Optional, type:filename
+            (prefix), default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -263,7 +267,8 @@
           class="parameter">&lt;MAP_OUTPUT_FILE&gt;</replaceable></term>
 
           <listitem>
-            <para>Writes the file <filename>&lt;MAP_OUTPUT_FILE&gt;</filename>
+            <para>Writes the file
+            <filename><replaceable>&lt;MAP_OUTPUT_FILE&gt;</replaceable></filename>
             which holds the list of edges that were joined to a single edge
             for each edge. <remark>Optional, type:filename, default:
             none</remark></para>
@@ -276,9 +281,9 @@
 
           <listitem>
             <para>Writes the files
-            <filename><replaceable>&lt;PLAIN_OUTPUT_PREFIX&gt;</replaceable>.nod.xml</filename>
+            "<filename><replaceable>&lt;PLAIN_OUTPUT_PREFIX&gt;</replaceable>.nod.xml</filename>"
             and
-            <filename><replaceable>&lt;PLAIN_OUTPUT_PREFIX&gt;</replaceable>.edg.xml</filename>
+            "<filename><replaceable>&lt;PLAIN_OUTPUT_PREFIX&gt;</replaceable>.edg.xml</filename>"
             that contain the descriptions about the nodes and the edges a
             network is made of. These files may be reread into the netgener
             using the XML-import capabilities. <remark>Optional,
@@ -306,7 +311,7 @@
       <variablelist>
         <varlistentry>
           <term>( --type | -T ) &lt;<replaceable
-          class="parameter">type-name&gt;</replaceable></term>
+          class="parameter">TYPE_NAME&gt;</replaceable></term>
 
           <listitem>
             <para>The name of the default type of edges. <remark>Optional
@@ -316,7 +321,7 @@
 
         <varlistentry>
           <term>( --lanenumber | -L ) <replaceable
-          class="parameter">&lt;lane-number&gt;</replaceable></term>
+          class="parameter">&lt;LANE_NUMBER&gt;</replaceable></term>
 
           <listitem>
             <para>The number of lanes an edge has to use as default.
@@ -326,7 +331,7 @@
 
         <varlistentry>
           <term>( --speed | -S ) <replaceable
-          class="parameter">&lt;max-speed&gt;</replaceable></term>
+          class="parameter">&lt;MAX_SPEED&gt;</replaceable></term>
 
           <listitem>
             <para>The maximum speed allowed on an edge in m/s to use as
@@ -337,7 +342,7 @@
 
         <varlistentry>
           <term>( --priority | -P ) <replaceable
-          class="parameter">&lt;priority&gt;</replaceable></term>
+          class="parameter">&lt;PRIORITY&gt;</replaceable></term>
 
           <listitem>
             <para>The default priority of an edge. <remark>Optional
@@ -622,7 +627,7 @@
 
         <varlistentry>
           <term>--edges-min-speed <replaceable
-          class="parameter">&lt;min-speed&gt;</replaceable></term>
+          class="parameter">&lt;MIN_SPEED&gt;</replaceable></term>
 
           <listitem>
             <para>Informs the network importer that edges with a lower speed
@@ -713,12 +718,12 @@
 
         <varlistentry>
           <term>( --log-file | -L )<replaceable class="parameter">
-          &lt;log-file-name&gt;</replaceable></term>
+          &lt;LOG_FILE_NAME&gt;</replaceable></term>
 
           <listitem>
             <para>All outputs (messages, warnings, and errors) will be written
-            to the named file. <remark>Optional, type:filename, default:
-            none</remark></para>
+            to <replaceable>&lt;LOG_FILE_NAME&gt;</replaceable>.
+            <remark>Optional, type:filename, default: none</remark></para>
           </listitem>
         </varlistentry>
 
@@ -751,11 +756,12 @@
 
         <varlistentry>
           <term>--srand <replaceable
-          class="parameter">&lt;number&gt;</replaceable></term>
+          class="parameter">&lt;SEED&gt;</replaceable></term>
 
           <listitem>
-            <para>Initialises the random number generator with the given
-            value. <remark>Optional, type:int, default: none</remark></para>
+            <para>Initialises the random number generator with
+            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
+            type:int, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -835,7 +841,7 @@
   <refsect1>
     <title>SEE ALSO</title>
 
-    <para>netconvert(1), sumo(1), guisim(1), jtrrouter(1), duarouter(1),
+    <para>netconvert(1), sumo(1), jtrrouter(1), duarouter(1),
     od2trips(1)</para>
   </refsect1>
 

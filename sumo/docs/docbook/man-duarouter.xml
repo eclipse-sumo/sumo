@@ -1,538 +1,599 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
-<refentry
-><refmeta
-><refentrytitle
-><application
->duarouter</application
-></refentrytitle
-><manvolnum
->1</manvolnum
-><refmiscinfo
->duarouter 0.8.2.1</refmiscinfo
-></refmeta
-><refnamediv
-><refname
-><application
->duarouter</application
-></refname
-><refpurpose
->This application is used to build vehicle routes which may be used by the SUMO simulation using the dijkstra algorthm an a dynamic user assignment approach by Christian Gawron.</refpurpose
-></refnamediv
-><refsynopsisdiv
-><cmdsynopsis
-><command
->duarouter</command
-><group
-><option
-><replaceable
-class="option"
->options</replaceable
-></option
-></group
-></cmdsynopsis
-><cmdsynopsis
-><command
->duarouter</command
-><arg
-><option
->-c <replaceable
-class="parameter"
->configuration</replaceable
-></option
-></arg
-></cmdsynopsis
-><cmdsynopsis
-><command
->duarouter</command
-><arg
-><option
->--help</option
-></arg
-></cmdsynopsis
-></refsynopsisdiv
-><refsect1
-><title
->DESCRIPTION</title
-><para
-><application
->duarouter</application
-> computes full vehicle routes (lists of all edges the vehicle has to pass) from short trip definitions and route information supported by other applications. Beside this, it may be used to compute a dynamic user equilibrium of the road network if running iteratively in combination with the simulation application. In this case, the simulation must be forced to generate lane-dumps which may be read by the duarouter in order to get the information about the time needed to pass each edge. The simulated vehicles are then rerouted using this information and an annealing procedure hinders vehicles from using the currently shortest route only.</para
-></refsect1
-><refsect1
-><title
->OPTIONS</title
-><para
->In the following, all possible options are presented.</para
-><para
->Please remark, that the configuration-option may be used to supply a file that contains all other parameter&#39;s definition. Please take a look into the SUMO user documentation for further information about the usage of configuration files.</para
-><refsect2
-><title
->Input Options:</title
-><variablelist
-><varlistentry
-><term
->( --configuration-file | --configuration | -c ) <replaceable
-class="parameter"
->&#60;configuration-file&#62;</replaceable
-></term
-><listitem
-><para
->Specifies whether and which a configuration file shall be loaded. <remark
->Optional, type:filename, default: none</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --net-file | --net | -n ) <replaceable
-class="parameter"
->&#60;sumo-net-file&#62;</replaceable
-></term
-><listitem
-><para
->Informs duarouter to use the sumo-network sumo-net-file for routing. <remark
->Mandatory, type:filename, default: none</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --weights | --weight-files | -w ) <replaceable
-class="parameter"
->&#60;sumo-weights-file&#62;</replaceable
-></term
-><listitem
-><para
->Forces duarouter to read the network weights from sumo-weights-file. <remark
->Optional, type:filename, default: none</remark
-></para
-><caution
-><para
->The name &#34;weight-files&#34; is ambiguous: only one weight file can be loaded by now.</para
-></caution
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --supplementary-weights | --add | -S ) <replaceable
-class="parameter"
->&#60;sumo-user-weights-file&#62;</replaceable
-></term
-><listitem
-><para
->Forces duarouter to read the additional (user defined) network weights from sumo-user-weights-file. <remark
->Optional, type:filename, default: none</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --flow-definition | --flows | -f ) <replaceable
-class="parameter"
->&#60;sumo-flow-definition-file&#62; </replaceable
-></term
-><listitem
-><para
->Informs duarouter to process the file sumo-flow-definition-file as a flow definition file. <remark
->Optional, type:filename, default: none</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --cell-input | --cell ) <replaceable
-class="parameter"
->&#60;cell-route-files-prefix&#62;</replaceable
-></term
-><listitem
-><para
->Informs duarouter to process the files cell-route-files-prefix.driver and cell-route-files-prefix.rinfo as route definition files. <remark
->Optional, type:filename, default: none</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --artemis-input | --artemis ) <replaceable
-class="parameter"
->&#60;artemis-folder&#62;</replaceable
-></term
-><listitem
-><para
->Builds routes from ARTEMIS-data stored in artemis-folder. <remark
->Optional, type:filename, default: none</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --sumo-input | --sumo | -s ) &#60;<replaceable
-class="parameter"
->sumo-routes-file&#62;</replaceable
-></term
-><listitem
-><para
->Builds routes from previous sumo-routes. <remark
->Optional, type:filename, default: none</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --trip-defs | --trips | -t ) <replaceable
-class="parameter"
->sumo-tripdefs-file</replaceable
-></term
-><listitem
-><para
->Informs duarouter to use the trip definitions stored in sumo-tripdefs-file. Such trip definitions may be the output of od2trips or made by hand.</para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --alternatives | -a ) <replaceable
-class="parameter"
->&#60;sumo-route-alternatives-file&#62;</replaceable
-></term
-><listitem
-><para
->Uses route alternatives from file sumo-route-alternatives-file. <remark
->Optional, type:filename, default: none</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --random-per-second | -R ) &#60;<replaceable
-class="parameter"
->float&#62; </replaceable
-></term
-><listitem
-><para
->Builds additional random routes. The float to give is the number of routes to build for a simulation second (may be lower than 1). <remark
->Optional, type:float, default: none</remark
-></para
-></listitem
-></varlistentry
-></variablelist
-></refsect2
-><refsect2
-><title
->Output Options:</title
-><variablelist
-><varlistentry
-><term
->( --output-file | --output | -o ) <replaceable
-class="parameter"
->&#60;filename&#62; </replaceable
-></term
-><listitem
-><para
->Defines the file to write the computed routes into. Additionally, a second file containing the route alternatives named filename.alt will be generated. <remark
->Mandatory, type:filename, default: none</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->--save-cell-rindex</term
-><listitem
-><para
->The index to each route within the FastLane-rinfo file is saved under cell-route-files-prefix.rindex. <remark
->Optional, type:bool, default: false (Only for FastLane-processing) </remark
-></para
-></listitem
-></varlistentry
-></variablelist
-></refsect2
-><refsect2
-><title
->Times settings:</title
-><variablelist
-><varlistentry
-><term
->( --begin | -b ) &#60;<replaceable
-class="parameter"
->time&#62;</replaceable
-></term
-><listitem
-><para
->A virtual time to specify the begin of route computation. Previous routes are skipped. <remark
->Optional (pre-given), type:int, default: 0</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --end | -e ) <replaceable
-class="parameter"
->&#60;time&#62;</replaceable
-></term
-><listitem
-><para
->A virtual time to specify the end of route computation. Later routes are skipped. <remark
->Optional (pre-given), type:int, default: 86400</remark
-></para
-></listitem
-></varlistentry
-></variablelist
-></refsect2
-><refsect2
-><title
->Computation Variables Settings:</title
-><variablelist
-><varlistentry
-><term
->--gBeta &#60;<replaceable
-class="parameter"
->float&#62;</replaceable
-></term
-><listitem
-><para
->Gawron&#39;s beta; See also the documentation on Christian Gawron&#39;s Dynamic User Assignment. <remark
->Optional (pre-given), type:float, default: 0.3 (Only for processing of alternatives)</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->--gA <replaceable
-class="parameter"
->&#60;float&#62;</replaceable
-></term
-><listitem
-><para
->Gawron&#39;s A; See also the documentation on Christian Gawron&#39;s Dynamic User Assignment. <remark
->Optional (pre-given), type:float, default: 0.05 (Only for processing of alternatives)</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->--intel-cell</term
-><listitem
-><para
->Switches the byte order within the FastLane-.driver-files. <remark
->Optional, type:bool, default: false (Only for processing of FastLane-routes)</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->--no-last-cell</term
-><listitem
-><para
->Use best, not the last cell-route. <remark
->Optional, type:bool, default: false (Only for processing of FastLane-routes)</remark
-></para
-></listitem
-></varlistentry
-></variablelist
-></refsect2
-><refsect2
-><title
->Processing Options:</title
-><variablelist
-><varlistentry
-><term
->--continue-on-unbuild</term
-><listitem
-><para
->Continues when a described connection could not be build. The default behaviour is to stop with an error. <remark
->Optional, type:bool, default: false</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->--unsorted</term
-><listitem
-><para
->When set to true, all routes are read into the memory before being computed. This is necessary if the routes are in a random order within the files that describe them. <remark
->Optional, type:bool, default: false</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->--move-on-short</term
-><listitem
-><para
->When set to true, all vehicles that shall be emitted on a too short edge are moved one edge further. The default (false) forces the route to discard the route as its not valid (or even quit the computation). <remark
->Optional, type:bool, default: false</remark
-></para
-></listitem
-></varlistentry
-></variablelist
-></refsect2
-><refsect2
-><title
->Report Options:</title
-><variablelist
-><varlistentry
-><term
->--stats-period <replaceable
-class="parameter"
->&#60;int&#62; </replaceable
-></term
-><listitem
-><para
->Each int timesteps a small message about how many routes were loaded/build/discarded is printed (value must be larger than 0). <remark
->Optional, type:int, default: always (-1)</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --verbose | -v )</term
-><listitem
-><para
->Prints some information about the process during execution. <remark
->Optional, type:bool, default: false</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --suppress-warnings | -W )</term
-><listitem
-><para
->No warnings will be prompted if this option is set. <remark
->Optional, type:bool, default: false</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --print-options | -p )</term
-><listitem
-><para
->Prints the current option settings before the execution starts. <remark
->Optional, type:bool, default: false</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --log-file | -L )</term
-><listitem
-><para
->All outputs (messages, warnings, and errors) will be written to the named file. <remark
->Optional, type:filename, default: none</remark
-></para
-></listitem
-></varlistentry
-></variablelist
-></refsect2
-><refsect2
-><title
->Random Number Options:</title
-><variablelist
-><varlistentry
-><term
->--abs-rand</term
-><listitem
-><para
->Initialises the random number generator with the current time (in ms) in the hope to make him generate really random numbers of an unknown order. <remark
->Optional, type:bool, default: false</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->--srand <replaceable
-class="parameter"
->number</replaceable
-></term
-><listitem
-><para
->Initialises the random number generator with the given value. <remark
->Optional, type:int, default: none</remark
-></para
-></listitem
-></varlistentry
-></variablelist
-></refsect2
-></refsect1
-><refsect1
-><title
->USAGE</title
-><para
->The following topics should be described more precisely within the SUMO user documentation that may be found at http://sumo.sourceforge.net</para
-><para
->duarouter is both a route importer and a rerouter. As input, at least the network to use is needed, about the input and about the output filename. In dependence to the input type, duarouter should be started with a certain option. It&#39;s <option
->--trip-def</option
-> (or <option
->-t</option
-> for short) if you want to import trip definitions, <option
->--cell</option
-> for loading FastLane/Cell routes, <option
->--artemis</option
-> for artemis routes and <option
->--sumo</option
-> for sumo routes (see caveats).</para
-><para
->The loaded routes are laid onto the networkd using a plain dijkstra algorithm. If no weights file was given, the router uses the edges&#39; lengths and maximum velocities they allow to compute the durations of each edge&#39;s passing. Otherwise, if a weights-file is given, the edges&#39; weights are read from this file.</para
-><para
->Besides the routes a file containing &#34;route alternatives&#34; is build. With increasing number of simulations, this files grows as new route variants - fitting to the current situation on the streets - are appended (weighted). This memory of a driver is described within Christian Gawron&#39;s PhD which is the base for the rerouting algorithm used herein.</para
-><refsect2
-><title
->Examples</title
-><para
-><command
->duarouter</command
-> -c <filename
->myConfig.netc.cfg</filename
-></para
-><para
->Does the things described by the configuration &#34;<filename
->myConfig.netc.cfg</filename
->&#34;</para
-><para
-><command
->duarouter</command
-> -n <filename
->myNet.net.xml</filename
-> -R 1 -o <filename
->myNet.net.xml</filename
-></para
-><para
->Let one vehicle per second start at a random edge. The vehicle&#39;s route ends at a random edge, too. As no begin and no end time was given, random routes (and vehicles) will be generated for a while day.</para
-></refsect2
-></refsect1
-><refsect1
-><title
->CAVEATS</title
-><para
->Being meant as a feature, sumo-routes are not rerouted. The idea was that someone may add some routes that shall not be changed. In fact, we had never to do this and this synopsis is quite confusing.</para
-><para
->duarouter should not do both things, conversion and rerouting.</para
-></refsect1
-><refsect1
-><title
->BUGS</title
-><para
->The program is still under development.</para
-></refsect1
-><refsect1
-><title
->SEE ALSO</title
-><para
->netconvert(1), netgen(1), sumo(1), guisim(1), jtrrouter(1), od2trips(1)</para
-></refsect1
-><refsect1
-><title
->AUTHOR</title
-><para
-><author
-><firstname
->Daniel</firstname
-><surname
->Krajzewicz</surname
-></author
-></para
-></refsect1
-></refentry
->
+<refentry>
+  <refmeta>
+    <refentrytitle><application>duarouter</application></refentrytitle>
+
+    <manvolnum>1</manvolnum>
+
+    <refmiscinfo>duarouter 0.9.3</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname><application>(SUMO-)DUAROUTER</application></refname>
+
+    <refpurpose>Shortest path router for the microscopic road traffic
+    simulation SUMO.</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>duarouter</command>
+
+      <group>
+        <option><replaceable class="option">options</replaceable></option>
+      </group>
+    </cmdsynopsis>
+
+    <cmdsynopsis>
+      <command>duarouter</command>
+
+      <arg><option>-c <replaceable
+      class="parameter">configuration</replaceable></option></arg>
+    </cmdsynopsis>
+
+    <cmdsynopsis>
+      <command>duarouter</command>
+
+      <arg><option>--help</option></arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para><application>(SUMO-)DUAROUTER</application> computes full vehicle
+    routes (lists of all edges a vehicle has to pass) from trip definitions or
+    other route information supported. Beside this, it may be used to compute
+    a dynamic user assignment if run iteratively in combination with the
+    simulation (SUMO). In this case, the simulation must be forced to generate
+    edge-dumps which may be read by the (SUMO-)DUAROUTER in order to supply
+    him the information about the time needed to pass each edge. The simulated
+    vehicles are then rerouted using this information and an annealing
+    procedure hinders vehicles from using the currently shortest route
+    only.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>OPTIONS</title>
+
+    <para>In the following, all possible options are presented.</para>
+
+    <para>Please remark, that the configuration-option may be used to supply a
+    file that contains all other parameter's definition. Please take a look
+    into the SUMO user documentation for further information about the usage
+    of configuration files.</para>
+
+    <refsect2>
+      <title>Input Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>( --configuration-file | --configuration | -c ) <replaceable
+          class="parameter">&lt;CONFIGURATION_FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>Specifies whether and which a configuration file shall be
+            loaded. <remark>Optional, type:filename, default:
+            none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --net-file | --net | -n ) <replaceable
+          class="parameter">&lt;SUMO_NET_FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>Informs (SUMO-)DUAROUTER to use the sumo-network
+            <replaceable>&lt;SUMO_NET_FILE&gt;</replaceable> for routing.
+            <remark>Mandatory, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --weights | --weight-files | -w ) <replaceable
+          class="parameter">&lt;SUMO_WEIGHTS_FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>Forces (SUMO-)DUAROUTER to read the network weights from
+            <replaceable>&lt;SUMO_WEIGHTS_FILE&gt;</replaceable>. In this
+            case, (SUMO-)DUAROUTER assumes that the weights file is in the
+            same format as edge-based weight files generated by the
+            simulation. <remark>Optional, type:filename, default:
+            none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --supplementary-weights | --add | -S ) <replaceable
+          class="parameter">&lt;SUMO_WEIGHTS_FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>Forces (SUMO-)DUAROUTER to read the additional (user
+            defined) network weights from
+            <replaceable>&lt;SUMO_WEIGHTS_FILE&gt;</replaceable>.
+            <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --trip-defs | --trips | -t ) <replaceable
+          class="parameter">&lt;SUMO_TRIP_DEFINITIONS_FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>Informs (SUMO-)DUAROUTER to use the trip definitions stored
+            in <replaceable>&lt;SUMO_TRIP_DEFINITIONS_FILE&gt;</replaceable>.
+            Such trip definitions may be the output of od2trips or made by
+            hand.</para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --flow-definition | --flows | -f ) <replaceable
+          class="parameter">&lt;SUMO_FLOW_DEFINITIONS_FILE&gt;
+          </replaceable></term>
+
+          <listitem>
+            <para>Informs (SUMO-)DUAROUTER to process the file
+            <replaceable>&lt;SUMO_FLOW_DEFINITIONS_FILE&gt;</replaceable> as a
+            flow definition file. <remark>Optional, type:filename, default:
+            none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --alternatives | -a ) <replaceable
+          class="parameter">&lt;SUMO_ROUTE_ALTERNATIVES_FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>Uses route alternatives from
+            <replaceable>&lt;SUMO_ROUTE_ALTERNATIVES_FILE&gt;</replaceable>.
+            <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --sumo-input | --sumo | -s ) &lt;<replaceable
+          class="parameter">SUMO_ROUTES_FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>Builds routes from previous sumo-routes which are located in
+            <replaceable>&lt;SUMO_ROUTES_FILE&gt;</replaceable>.
+            <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --cell-input | --cell ) <replaceable
+          class="parameter">&lt;CELL_ROUTE_FILES_PREFIX&gt;</replaceable></term>
+
+          <listitem>
+            <para>Informs (SUMO-)DUAROUTER to process the files
+            "<replaceable>&lt;CELL_ROUTE_FILES_PREFIX&gt;</replaceable>.driver"
+            and
+            "<replaceable>&lt;CELL_ROUTE_FILES_PREFIX&gt;</replaceable>.rinfo"
+            as route definition files. <remark>Optional, type:filename,
+            default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --artemis-input | --artemis ) <replaceable
+          class="parameter">&lt;ARTEMIS_FOLDER&gt;</replaceable></term>
+
+          <listitem>
+            <para>Builds routes from ARTEMIS-data stored in
+            <replaceable>&lt;ARTEMIS_FOLDER&gt;</replaceable>.
+            <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --random-per-second | -R ) &lt;<replaceable
+          class="parameter">FLOAT&gt; </replaceable></term>
+
+          <listitem>
+            <para>Builds additional random routes. The float to give is the
+            number of routes to build for a simulation second (may be lower
+            than 1). <remark>Optional, type:float, default:
+            none</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Output Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>( --output-file | --output | -o ) <replaceable
+          class="parameter">&lt;ROUTES_OUTPUT_FILE&gt; </replaceable></term>
+
+          <listitem>
+            <para>Defines the file to write the computed routes into.
+            Additionally, a second file containing the route alternatives
+            named "<replaceable>&lt;ROUTES_OUTPUT_FILE&gt;</replaceable>.alt"
+            will be generated. <remark>Mandatory, type:filename, default:
+            none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--save-cell-rindex</term>
+
+          <listitem>
+            <para>The index to each route within the FastLane-rinfo file is
+            saved under cell-route-files-prefix.rindex. <remark>Optional,
+            type:bool, default: false (Only for FastLane-processing)
+            </remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Time Settings:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>( --begin | -b ) &lt;<replaceable
+          class="parameter">TIME_IN_S&gt;</replaceable></term>
+
+          <listitem>
+            <para>A virtual time to specify the begin of route computation.
+            Previous routes are skipped. <remark>Optional (pre-given),
+            type:int, default: 0</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --end | -e ) <replaceable
+          class="parameter">&lt;TIME_IN_S&gt;</replaceable></term>
+
+          <listitem>
+            <para>A virtual time to specify the end of route computation.
+            Later routes are skipped. <remark>Optional (pre-given), type:int,
+            default: 86400</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Computation Variables Settings:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>--gBeta &lt;<replaceable
+          class="parameter">FLOAT&gt;</replaceable></term>
+
+          <listitem>
+            <para>Gawron's beta; See also the documentation on Christian
+            Gawron's Dynamic User Assignment. <remark>Optional (pre-given),
+            type:float, default: 0.3 (Only for processing of
+            alternatives)</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--gA <replaceable
+          class="parameter">&lt;FLOAT&gt;</replaceable></term>
+
+          <listitem>
+            <para>Gawron's A; See also the documentation on Christian Gawron's
+            Dynamic User Assignment. <remark>Optional (pre-given), type:float,
+            default: 0.05 (Only for processing of
+            alternatives)</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--intel-cell</term>
+
+          <listitem>
+            <para>Switches the byte order within the FastLane .driver-files.
+            <remark>Optional, type:bool, default: false (Only for processing
+            of FastLane-routes)</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--no-last-cell</term>
+
+          <listitem>
+            <para>Use best, not the last cell-route. <remark>Optional,
+            type:bool, default: false (Only for processing of
+            FastLane-routes)</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Processing Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>--continue-on-unbuild</term>
+
+          <listitem>
+            <para>Continues when a described connection could not be build.
+            The default behaviour is to stop with an error. <remark>Optional,
+            type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--unsorted</term>
+
+          <listitem>
+            <para>When set to true, all routes are read into the memory before
+            being computed. This is necessary if the routes are in a random
+            order within the files that describe them. <remark>Optional,
+            type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--move-on-short</term>
+
+          <listitem>
+            <para>When set to true, all vehicles that shall be emitted on a
+            too short edge are moved one edge further. The default (false)
+            forces the route to discard the route as its not valid (or even
+            quit the computation). <remark>Optional, type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Defaults:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>--krauss-vmax <replaceable
+          class="parameter">&lt;FLOAT&gt;</replaceable></term>
+
+          <listitem>
+            <para>The maximum velocity for the default vehicle type
+            "KRAUSS_DEFAULT" in m/s. <remark>Optional (pre-given), type:float,
+            default: 70 (m/s)</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--krauss-a <replaceable
+          class="parameter">&lt;FLOAT&gt;</replaceable></term>
+
+          <listitem>
+            <para>The maximum acceleration for the default vehicle type
+            "KRAUSS_DEFAULT" in m/s^2. <remark>Optional (pre-given),
+            type:float, default: 2.6 (m/s^2)</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--krauss-b <replaceable
+          class="parameter">&lt;FLOAT&gt;</replaceable></term>
+
+          <listitem>
+            <para>The maximum deceleration for the default vehicle type
+            "KRAUSS_DEFAULT" in m/s^2. <remark>Optional (pre-given),
+            type:float, default: 4.5 (m/s^2)</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--krauss-length <replaceable
+          class="parameter">&lt;FLOAT&gt;</replaceable></term>
+
+          <listitem>
+            <para>The vehicle length for the default vehicle type
+            "KRAUSS_DEFAULT" in m. <remark>Optional (pre-given), type:float,
+            default: 5 (m)</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--krauss-eps <replaceable
+          class="parameter">&lt;FLOAT&gt;</replaceable></term>
+
+          <listitem>
+            <para>The driver imperfection for the default vehicle type
+            "KRAUSS_DEFAULT". <remark>Optional (pre-given), type:float (should
+            be between 0 and 1), default: 0.5</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Report Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>--help</term>
+
+          <listitem>
+            <para>Prints a help screen. The execution is then stopped.
+            <remark><remark>Optional, type:bool, default:
+            false</remark></remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--version</term>
+
+          <listitem>
+            <para>Prints the current version. The execution is then stopped.
+            <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--stats-period <replaceable
+          class="parameter">&lt;TIME_IN_S&gt; </replaceable></term>
+
+          <listitem>
+            <para>Each int timesteps a small message about how many routes
+            were loaded/build/discarded is printed (value must be larger than
+            0). <remark>Optional, type:int, default: always
+            (-1)</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --verbose | -v )</term>
+
+          <listitem>
+            <para>Prints some information about the process during execution.
+            <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --suppress-warnings | -W )</term>
+
+          <listitem>
+            <para>No warnings will be prompted if this option is set.
+            <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --print-options | -p )</term>
+
+          <listitem>
+            <para>Prints the current option settings before the execution
+            starts. <remark>Optional, type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --log-file | -L )
+          <replaceable>&lt;LOG_FILE_NAME&gt;</replaceable></term>
+
+          <listitem>
+            <para>All outputs (messages, warnings, and errors) will be written
+            to <replaceable>&lt;LOG_FILE_NAME&gt;</replaceable>.
+            <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Random Number Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>--abs-rand</term>
+
+          <listitem>
+            <para>Initialises the random number generator with the current
+            time (in ms) in the hope to make him generate really random
+            numbers of an unknown order. <remark>Optional, type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--srand <replaceable
+          class="parameter">&lt;SEED&gt;</replaceable></term>
+
+          <listitem>
+            <para>Initialises the random number generator with
+            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
+            type:int, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+  </refsect1>
+
+  <refsect1>
+    <title>USAGE</title>
+
+    <para>The following topics should be described more precisely within the
+    SUMO user documentation that may be found at
+    http://sumo.sourceforge.net.</para>
+
+    <para>(SUMO-)DUAROUTER is both a route importer and a rerouter. As input,
+    at least the network to route on and a route(s) description are needed. In
+    dependence to the route input type, (SUMO-)DUAROUTER should be started
+    with a certain option. Use <option>--trip-def</option> (or
+    <option>-t</option> for short) if you want to import trip definitions,
+    <option>--flows</option> to read flow definitions,
+    <option>--alternatives</option> to read sumo route alternatives,
+    <option>--cell</option> for loading FastLane/Cell routes,
+    <option>--artemis</option> for ARTEMIS routes and <option>--sumo</option>
+    for sumo routes (see caveats).</para>
+
+    <para>The loaded routes are laid onto the networkd using a plain dijkstra
+    algorithm. If no weights file was given, the router uses the edges'
+    lengths and the maximum velocities allowed on these edges to compute the
+    durations of each edge's passing. Otherwise, if a weights-file is given,
+    the edges' weights (passing times) are read from this file.</para>
+
+    <para>Besides the routes, a file containing "route alternatives" is build.
+    With increasing number of simulations, this files grows as new route
+    variants - fitting to the current situation on the streets - are appended.
+    This memory of each driver is described within Christian Gawron's PhD
+    which is the base for the rerouting algorithm used herein.</para>
+
+    <refsect2>
+      <title>Examples</title>
+
+      <para><command>duarouter</command> -c
+      <filename>myConfig.netc.cfg</filename></para>
+
+      <para>Does the things described by the configuration
+      "<filename>myConfig.netc.cfg</filename>"</para>
+
+      <para><command>duarouter</command> -n <filename>myNet.net.xml</filename>
+      -R 1 -o <filename>myNet.net.xml</filename></para>
+
+      <para>Let one vehicle per second start at a random edge. The vehicle's
+      route ends at a random edge, too. As no begin and no end time was given,
+      random routes (and vehicles) will be generated for a while day.</para>
+    </refsect2>
+  </refsect1>
+
+  <refsect1>
+    <title>CAVEATS</title>
+
+    <para>Being meant as a feature, sumo-routes are not rerouted. The idea was
+    that someone may add some routes that shall not be changed. In fact, we
+    had never to do this and this synopsis is quite confusing.</para>
+
+    <para>(SUMO-)DUAROUTER maybe should not do both things, conversion and
+    rerouting.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>BUGS</title>
+
+    <para>The program is still under development.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para>netconvert(1), netgen(1), sumo(1), jtrrouter(1), od2trips(1)</para>
+  </refsect1>
+
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para><author>
+        <firstname>Daniel</firstname>
+
+        <surname>Krajzewicz</surname>
+      </author></para>
+  </refsect1>
+</refentry>

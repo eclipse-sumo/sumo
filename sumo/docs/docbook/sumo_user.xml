@@ -1207,13 +1207,121 @@
             </listitem>
           </itemizedlist></para>
 
-        <warning>
-          <para>Please do not use both connection declarations for the same
-          from-edge! The behaviour is not verified and tested for these
-          settings.</para>
+        <para>There are two examples within the distribution. Both use the
+        nodes and edges descriptions from the example located in
+        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/cross_notypes/</filename>".
+        The junction in the center of this example looks like shown within the
+        next figure. We will now call it the "unconstrained network" because
+        all connections and turnarounds are computed using the default
+        values.</para>
 
-          <para>... TBD ... example</para>
+        <figure>
+          <title>Unconstrained Network</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center"
+                         fileref="./gfx/user/cross3l_unconstrained.gif"
+                         format="GIF" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>The example
+        <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_edge2edge_conns/</filename>"
+        shows what happens when one uses connections to limit the number of
+        reachable edges. To do this we built a connections file where we say
+        that the horizontal edges ("1si" and "2si") have only connections to
+        the edges right to them and the edge in straight direction. The file
+        looks like this:</para>
+
+        <programlisting><sgmltag>&lt;connections&gt;</sgmltag>
+
+   <sgmltag>&lt;connection from="1si" to="3o"/&gt;</sgmltag>
+   <sgmltag>&lt;connection from="1si" to="2o"/&gt;</sgmltag>
+
+   <sgmltag>&lt;connection from="2si" to="4o"/&gt;</sgmltag>
+   <sgmltag>&lt;connection from="2si" to="1o"/&gt;</sgmltag>
+
+<sgmltag>&lt;/connections&gt;</sgmltag>
+</programlisting>
+
+        <para> As you may see in the next picture, the horizontal edges within
+        the result network contain no left-moving connections. </para>
+
+        <figure>
+          <title>Network with explicite edge-2-edge connections</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center"
+                         fileref="./gfx/user/cross3l_edge2edge_conns.gif"
+                         format="GIF" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <para>In the second example located in
+        <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_laneslane_conns/</filename>"
+        we additionally describe which lanes shall be connected. The according
+        connections file says that the connections going straight shall be
+        start at the second lane of the incoming edges:</para>
+
+        <programlisting><sgmltag>&lt;connections&gt;</sgmltag>
+
+   <sgmltag>&lt;connection from="1si" to="3o" lane="0:0"/&gt;</sgmltag>
+   <sgmltag>&lt;connection from="1si" to="2o" lane="2:0"/&gt;</sgmltag>
+
+   <sgmltag>&lt;connection from="2si" to="4o" lane="0:0"/&gt;</sgmltag>
+   <sgmltag>&lt;connection from="2si" to="1o" lane="2:0"/&gt;</sgmltag>
+
+<sgmltag>&lt;/connections&gt;</sgmltag>
+</programlisting>
+
+        <para>The built file looks like this:</para>
+
+        <figure>
+          <title>Network with explicite lane-2-lane connections</title>
+
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center"
+                         fileref="./gfx/user/cross3l_lane2lane_conns.gif"
+                         format="GIF" />
+            </imageobject>
+          </mediaobject>
+        </figure>
+
+        <warning>
+          <para>Please do not use both types of connection declarations (those
+          with an <sgmltag>lane</sgmltag> attribute and those without) for the
+          same from-edge! The behaviour is not verified and tested for these
+          settings.</para>
         </warning>
+
+        <para>Examples (compare both to
+        <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/netbuild/cross_notypes/</filename>):</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_edge2edge_conns/</filename>
+            shows how edge-to-edge connections may be specified</para>
+          </listitem>
+
+          <listitem>
+            <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/connections/cross3l_lane2lane_conns/</filename>
+            shows how lane-to-lane connections may be specified</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Recent Changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>A bug which sometimes yielded in a reassignment of
+            connections is patched in version 0.9.3</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
 
       <sect2 id="user_chp04-xml_descriptions-running">
@@ -1864,8 +1972,8 @@
 
         <para>During import, different actions must be done which may yield in
         some loss of data and may be watched in part by setting the verbose
-        option. The additional warnings will be described in a further
-        document (... TBD ...).</para>
+        option. The additional warnings the import of Vissim-networks
+        generates will be described in a further document.</para>
 
         <para>Specific options:</para>
 
@@ -2160,12 +2268,6 @@
 
         <para><itemizedlist spacing="compact">
             <listitem>
-              <para><application>FastLane/CELL</application> by Christian
-              Gawron (a mesoscopic traffic simulation package) (... TBD
-              ...)</para>
-            </listitem>
-
-            <listitem>
               <para>XML-descriptions</para>
             </listitem>
           </itemizedlist></para>
@@ -2201,13 +2303,11 @@
 
         <para><itemizedlist spacing="compact">
             <listitem>
-              <para><application>FastLane/CELL</application> by Christian
-              Gawron (a mesoscopic traffic simulation package) (... TBD
-              ...)</para>
+              <para>FastLane/CELL</para>
             </listitem>
 
             <listitem>
-              <para>ARCVIEW-data base files (... TBD ...)</para>
+              <para>ARCVIEW-data base files</para>
             </listitem>
 
             <listitem>
@@ -2254,24 +2354,8 @@
           </varlistentry>
         </variablelist>
 
-        <para>This options may be used while importing the following
-        formats:</para>
-
-        <para><itemizedlist spacing="compact">
-            <listitem>
-              <para><application>FastLane/CELL</application> by Christian
-              Gawron (a mesoscopic traffic simulation package) (... TBD
-              ...)</para>
-            </listitem>
-
-            <listitem>
-              <para>ARCVIEW-data base files (... TBD ...)</para>
-            </listitem>
-
-            <listitem>
-              <para>XML-descriptions</para>
-            </listitem>
-          </itemizedlist></para>
+        <para>This options may be used in conjunction with all import
+        formats.</para>
 
         <para>Changes:</para>
 
@@ -2308,13 +2392,11 @@
 
         <para><itemizedlist spacing="compact">
             <listitem>
-              <para><application>FastLane/CELL</application> by Christian
-              Gawron (a mesoscopic traffic simulation package) (... TBD
-              ...)</para>
+              <para>FastLane/CELL</para>
             </listitem>
 
             <listitem>
-              <para>ARCVIEW-data base files (... TBD ...)</para>
+              <para>ARCView-databases</para>
             </listitem>
 
             <listitem>
@@ -2574,13 +2656,11 @@
 
         <para><itemizedlist spacing="compact">
             <listitem>
-              <para><application>FastLane/CELL</application> by Christian
-              Gawron (a mesoscopic traffic simulation package) (... TBD
-              ...)</para>
+              <para>FastLane/CELL</para>
             </listitem>
 
             <listitem>
-              <para>ARCVIEW-data base files (... TBD ...)</para>
+              <para>ARCVIEW-data base files</para>
             </listitem>
 
             <listitem>
@@ -2672,24 +2752,8 @@
           </varlistentry>
         </variablelist>
 
-        <para>These options may be used while importing the following
-        formats:</para>
-
-        <para><itemizedlist spacing="compact">
-            <listitem>
-              <para><application>FastLane/CELL</application> by Christian
-              Gawron (a mesoscopic traffic simulation package) (... TBD
-              ...)</para>
-            </listitem>
-
-            <listitem>
-              <para>ARCVIEW-data base files (... TBD ...)</para>
-            </listitem>
-
-            <listitem>
-              <para>XML-descriptions</para>
-            </listitem>
-          </itemizedlist></para>
+        <para>These options may be used in conjunction with all import
+        formats.</para>
 
         <para>Examples: none yet</para>
       </sect2>
@@ -2713,8 +2777,9 @@
 
         <para>The option <option>--map-output</option> (or <option>-M</option>
         fo short) generates a file which contains the information about which
-        edges have been joined (see also chapter "... TBD ..."). ... TBD ...
-        format</para>
+        edges have been joined (see chapter "<ulink
+        url="#user_chp04-further_options-turnarounds">Removing Geometry
+        Nodes</ulink>"). ... TBD ... format</para>
 
         <para>The option <option>--node-geometry-dump</option> is meant to be
         used when debugging the geometry computation. It generates a list of
@@ -2750,9 +2815,10 @@
 
             <listitem>
               <para>Writes the file
-              <filename>&lt;MAP_OUTPUT_FILE&gt;</filename> which holds the
-              list of edges that were joined to a single edge for each edge.
-              <remark>Optional, type:filename, default: none</remark></para>
+              <filename><replaceable>&lt;MAP_OUTPUT_FILE&gt;</replaceable></filename>
+              which holds the list of edges that were joined to a single edge
+              for each edge. <remark>Optional, type:filename, default:
+              none</remark></para>
             </listitem>
           </varlistentry>
 
@@ -3464,7 +3530,7 @@
 
             <listitem>
               <para><sgmltag>type</sgmltag>: The name of the type the vehicle
-              has (tbd)</para>
+              has</para>
             </listitem>
 
             <listitem>
@@ -3917,12 +3983,13 @@
       knows - are stored.</para>
 
       <para>After having generated the routes, we let the simulation run
-      forcing it to generate edge- or lane-based dumps (see chapter 6, "TBD").
-      In fact, edge-based dumps are the better choice, because the route is
-      not able to use lane-based dumps at all. Now, we have the information
-      about the state of the network, meaning the real speeds that were driven
-      within it, when all vehicles are using the same route. Now we can pass
-      this information to a second call to
+      forcing it to generate edge- or lane-based dumps (see chapter 6, "<ulink
+      url="#user_chp06-output-edgelanestates">Aggregated Edge/Lane
+      States</ulink>"). In fact, edge-based dumps are the better choice,
+      because the route is not able to use lane-based dumps at all. Now, we
+      have the information about the state of the network, meaning the real
+      speeds that were driven within it, when all vehicles are using the same
+      route. Now we can pass this information to a second call to
       <application>DUAROUTER</application> and now - instead of the previous
       input file - we give the route alternatives file as input using the
       option <option>--alternatives</option> (or <option>-a</option> for
@@ -3981,7 +4048,9 @@
           <para>Simulate using the network and the routes (see <ulink
           url="#user_chp06">chapter 6</ulink>) forcing
           <application>SUMO</application> to write edge-based dumps (see
-          chapter 6, "TBD")</para>
+          chapter 6, "<ulink
+          url="#user_chp06-output-edgelanestates">Aggregated Edge/Lane
+          States</ulink>")</para>
         </step>
 
         <step>
@@ -4160,6 +4229,20 @@
           </itemizedlist>
         </listitem>
       </itemizedlist>
+    </sect1>
+
+    <sect1 id="user_chp05-changes">
+      <title>Missing</title>
+
+      <para>--lane-weights is not tested and described</para>
+
+      <para>--scheme is not tested, implemented and described</para>
+
+      <para>--max-alternatives is not tested and described</para>
+
+      <para>--prune-random is not tested and described</para>
+
+      <para></para>
     </sect1>
   </chapter>
 
@@ -4896,13 +4979,13 @@
         <itemizedlist>
           <listitem>
             <para>Please notcie that this options has been earlier falsely
-            named <option>--output</option> (<option>-o</option>) </para>
+            named <option>--output</option> (<option>-o</option>)</para>
           </listitem>
         </itemizedlist>
       </sect2>
 
       <sect2 id="user_chp06-output-lanestates">
-        <title>Aggregated Lane States</title>
+        <title>Aggregated Lane/Edge States</title>
 
         <para>TBD: --dump-end + dump-begin; difference lane-based &amp;
         edge-based</para>
@@ -5079,22 +5162,6 @@
       <title>Vehicles Handling Revisited</title>
 
       <para>... to be described ...</para>
-
-      <para>--route-steps TBD</para>
-
-      <para>--quit-on-accident TBD</para>
-
-      <para>--check-accidents TBD</para>
-
-      <para>--too-slow-rtf TBD</para>
-
-      <para>--no-duration-log TBD</para>
-
-      <para>TBD: loading &amp; saving of states</para>
-
-      <para>--time-to-teleport TBD</para>
-
-      <para>--version --help BD</para>
 
       <sect2>
         <title>Emitter</title>
@@ -5298,7 +5365,7 @@
 
         <para>Variable speed signs available in SUMO read the speed limits
         they set from a file and can be placed on several lanes. To insert a
-        vss into the simulation use the following definition Tbd:
+        vss into the simulation use the following definition:
         <sgmltag>&lt;stop (
         bus_stop="<replaceable>&lt;BUS_STOP_ID&gt;</replaceable>" |
         lane="<replaceable>&lt;LANE_ID&gt;</replaceable>"
@@ -5386,12 +5453,26 @@
       <title>Using the Files in a correct Way</title>
 
       <para>... to be described ...</para>
+    </sect1>
 
-      <sect2>
-        <title>Emitter</title>
+    <sect1 id="user_chp06-file_load_order">
+      <title>Missing</title>
 
-        <para>... to be described ...</para>
-      </sect2>
+      <para>--route-steps TBD</para>
+
+      <para>--quit-on-accident TBD</para>
+
+      <para>--check-accidents TBD</para>
+
+      <para>--too-slow-rtf TBD</para>
+
+      <para>--no-duration-log TBD</para>
+
+      <para>TBD: loading &amp; saving of states</para>
+
+      <para>--time-to-teleport TBD</para>
+
+      <para>--version --help BD</para>
     </sect1>
   </chapter>
 
@@ -6678,7 +6759,9 @@
 
       <para>You can find the templates for each of the package's application's
       configuration files within the folder
-      <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/cfg_templates</filename>.</para>
+      <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/cfg_templates</filename>.
+      These templates may be filled with your own values. Examples of fille
+      configuration files may be found within the examples-section.</para>
     </sect1>
 
     <sect1>

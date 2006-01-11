@@ -1,315 +1,282 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
 "http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
-<refentry
-><refmeta
-><refentrytitle
-><application
->od2trips</application
-></refentrytitle
-><manvolnum
->1</manvolnum
-><refmiscinfo
->od2trips 0.8.1</refmiscinfo
-></refmeta
-><refnamediv
-><refname
-><application
->od2trips</application
-></refname
-><refpurpose
->This application is used convert OD-matrices (stored in Vissim format) into single trip definitions. No routing takes place, yet.</refpurpose
-></refnamediv
-><refsynopsisdiv
-><cmdsynopsis
-><command
->od2trips</command
-><group
-><option
-><replaceable
-class="option"
->options</replaceable
-></option
-></group
-></cmdsynopsis
-><cmdsynopsis
-><command
->od2trips</command
-><arg
-><option
->-c <replaceable
-class="parameter"
->configuration</replaceable
-></option
-></arg
-></cmdsynopsis
-><cmdsynopsis
-><command
->od2trips</command
-><arg
-><option
->--help</option
-></arg
-></cmdsynopsis
-></refsynopsisdiv
-><refsect1
-><title
->DESCRIPTION</title
-><para
-><application
->od2trips</application
-> obtains a network generated from a Vissim or a Visum-network and a set of od-files stored in Vissim/Visum format. This information is used to generate single vehicle trips by dividing the od-matrix into the amounts of vehicles with a certain origin and destination and writing each of such vehicle trip information into the named output file.</para
-></refsect1
-><refsect1
-><title
->OPTIONS</title
-><para
->In the following, all possible options are presented.</para
-><para
->Please remark, that the configuration-option may be used to supply a file that contains all other parameter&#39;s definition. Please take a look into the SUMO user documentation for further information about the usage of configuration files.</para
-><refsect2
-><title
->Input Options:</title
-><variablelist
-><varlistentry
-><term
->( --configuration-file | --configuration | -c ) <replaceable
-class="parameter"
->&#60;configuration-file&#62;</replaceable
-></term
-><listitem
-><para
->Specifies whether and which a configuration file shall be loaded. <remark
->Optional, type:filename, default: none</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --net-file | -n ) <replaceable
-class="parameter"
->&#60;sumo-net-file&#62;</replaceable
-></term
-><listitem
-><para
->The SUMO-network file to use. <remark
->Mandatory, type:filename, default: none</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --route-file | -d ) <replaceable
-class="parameter"
->&#60;VISSIM-ROUTES-FILE&#62;</replaceable
-></term
-><listitem
-><para
->The file containing a single O/D-matrix. <remark
->Optional, type:filename, default: none</remark
-></para
-></listitem
-></varlistentry
-></variablelist
-></refsect2
-><refsect2
-><title
->Output Options:</title
-><variablelist
-><varlistentry
-><term
->( --output-file | --output | -o ) <replaceable
-class="parameter"
->&#60;output-file&#62;</replaceable
-></term
-><listitem
-><para
->Defines the name of the file to write the computed trips into. <remark
->Mandatory, type:filename, default: none</remark
-></para
-></listitem
-></varlistentry
-></variablelist
-></refsect2
-><refsect2
-><title
->Computation Variables Settings:</title
-><variablelist
-><varlistentry
-><term
->( --scale | -s ) <replaceable
-class="parameter"
->&#60;SCALE&#62;</replaceable
-></term
-><listitem
-><para
->A scaling value the O/D-matrix is scaled with. This value is not depending on values stored within the matrix. <remark
->Optional (pre-given), type:float, default: 1</remark
-></para
-></listitem
-></varlistentry
-></variablelist
-></refsect2
-><refsect2
-><title
->Times settings:</title
-><variablelist
-><varlistentry
-><term
->( --begin | -b ) &#60;<replaceable
-class="parameter"
->TIME&#62;</replaceable
-></term
-><listitem
-><para
->A virtual time to specify the begin of route computation. Previous routes are skipped. <remark
->Optional (pre-given), type:int, default: 0</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --end | -e ) <replaceable
-class="parameter"
->&#60;TIME&#62;</replaceable
-></term
-><listitem
-><para
->A virtual time to specify the end of route computation. Later routes are skipped. <remark
->Optional (pre-given), type:int, default: 86400</remark
-></para
-></listitem
-></varlistentry
-></variablelist
-></refsect2
-><refsect2
-><title
->Report Options:</title
-><variablelist
-><varlistentry
-><term
->( --verbose | -v )</term
-><listitem
-><para
->Prints some information about the process during execution. <remark
->Optional, type:bool, default: false</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --suppress-warnings | -W )</term
-><listitem
-><para
->No warnings will be prompted if this option is set. <remark
->Optional, type:bool, default: false</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --print-options | -p )</term
-><listitem
-><para
->Prints the current option settings before the execution starts. <remark
->Optional, type:bool, default: false</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->( --log-file | -L )<replaceable
-class="parameter"
-> &#60;LOG_FILE_NAME&#62;</replaceable
-></term
-><listitem
-><para
->All outputs (messages, warnings, and errors) will be written to the named file. <remark
->Optional, type:filename, default: none</remark
-></para
-></listitem
-></varlistentry
-></variablelist
-></refsect2
-><refsect2
-><title
->Random Number Options:</title
-><variablelist
-><varlistentry
-><term
->--abs-rand</term
-><listitem
-><para
->Initialises the random number generator with the current time (in ms) in the hope to make him generate really random numbers of an unknown order. <remark
->Optional, type:bool, default: false</remark
-></para
-></listitem
-></varlistentry
-><varlistentry
-><term
->--srand <replaceable
-class="parameter"
->&#60;SEED&#62;</replaceable
-></term
-><listitem
-><para
->Initialises the random number generator with the given value. <remark
->Optional, type:int, default: none</remark
-></para
-></listitem
-></varlistentry
-></variablelist
-></refsect2
-></refsect1
-><refsect1
-><title
->USAGE</title
-><para
->The following topics should be described more precisely within the SUMO user documentation that may be found at http://sumo.sourceforge.net</para
-><refsect2
-><title
->Examples</title
-><para
-><command
->od2trips</command
-> -c <filename
->myConfig.netc.cfg</filename
-></para
-><para
->Does the things described by the configuration &#34;<filename
->myConfig.netc.cfg</filename
->&#34;</para
-></refsect2
-></refsect1
-><refsect1
-><title
->CAVEATS</title
-><para
->The program is still under development.</para
-></refsect1
-><refsect1
-><title
->BUGS</title
-><para
->The program is still under development.</para
-></refsect1
-><refsect1
-><title
->SEE ALSO</title
-><para
->netconvert(1), sumo(1), guisim(1), jtrrouter(1), duarouter(1), netgen(1)</para
-></refsect1
-><refsect1
-><title
->AUTHOR</title
-><para
-><author
-><firstname
->Daniel</firstname
-><surname
->Krajzewicz</surname
-></author
-></para
-></refsect1
-></refentry
->
+<refentry>
+  <refmeta>
+    <refentrytitle><application>od2trips</application></refentrytitle>
+
+    <manvolnum>1</manvolnum>
+
+    <refmiscinfo>od2trips 0.9.3</refmiscinfo>
+  </refmeta>
+
+  <refnamediv>
+    <refname><application>od2trips</application></refname>
+
+    <refpurpose>Importer of O/D-matrices for the microscopic road traffic
+    simulation SUMO.</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>od2trips</command>
+
+      <group>
+        <option><replaceable class="option">options</replaceable></option>
+      </group>
+    </cmdsynopsis>
+
+    <cmdsynopsis>
+      <command>od2trips</command>
+
+      <arg><option>-c <replaceable
+      class="parameter">configuration</replaceable></option></arg>
+    </cmdsynopsis>
+
+    <cmdsynopsis>
+      <command>od2trips</command>
+
+      <arg><option>--help</option></arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title>DESCRIPTION</title>
+
+    <para><application>od2trips</application> obtains a network generated from
+    a Vissim or a Visum-network and a set of od-files stored in Vissim/Visum
+    format. This information is used to generate single vehicle trips by
+    dividing the od-matrix into the amounts of vehicles with a certain origin
+    and destination and writing each of such vehicle trip information into the
+    named output file.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>OPTIONS</title>
+
+    <para>In the following, all possible options are presented.</para>
+
+    <para>Please remark, that the configuration-option may be used to supply a
+    file that contains all other parameter's definition. Please take a look
+    into the SUMO user documentation for further information about the usage
+    of configuration files.</para>
+
+    <refsect2>
+      <title>Input Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>( --configuration-file | --configuration | -c ) <replaceable
+          class="parameter">&lt;CONFIGURATION_FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>Specifies whether and which a configuration file shall be
+            loaded. <remark>Optional, type:filename, default:
+            none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --net-file | -n ) <replaceable
+          class="parameter">&lt;SUMO_NET_FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>The SUMO-network file to use. <remark>Mandatory,
+            type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --route-file | -d ) <replaceable
+          class="parameter">&lt;VISSIM-ROUTES-FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>The file containing a single O/D-matrix. <remark>Optional,
+            type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Output Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>( --output-file | --output | -o ) <replaceable
+          class="parameter">&lt;TRIP_OUTPUT_FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>Defines the name of the file to write the computed trips
+            into. <remark>Mandatory, type:filename, default:
+            none</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Computation Variables Settings:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>( --scale | -s ) <replaceable
+          class="parameter">&lt;SCALE&gt;</replaceable></term>
+
+          <listitem>
+            <para>A scaling value the O/D-matrix is scaled with. This value is
+            not depending on values stored within the matrix. <remark>Optional
+            (pre-given), type:float, default: 1</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Times settings:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>( --begin | -b ) &lt;<replaceable
+          class="parameter">TIME_IN_S&gt;</replaceable></term>
+
+          <listitem>
+            <para>A virtual time to specify the begin of route computation.
+            Previous routes are skipped. <remark>Optional (pre-given),
+            type:int, default: 0</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --end | -e ) <replaceable
+          class="parameter">&lt;TIME_IN_S&gt;</replaceable></term>
+
+          <listitem>
+            <para>A virtual time to specify the end of route computation.
+            Later routes are skipped. <remark>Optional (pre-given), type:int,
+            default: 86400</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Report Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>( --verbose | -v )</term>
+
+          <listitem>
+            <para>Prints some information about the process during execution.
+            <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --suppress-warnings | -W )</term>
+
+          <listitem>
+            <para>No warnings will be prompted if this option is set.
+            <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --print-options | -p )</term>
+
+          <listitem>
+            <para>Prints the current option settings before the execution
+            starts. <remark>Optional, type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --log-file | -L )<replaceable class="parameter">
+          &lt;LOG_FILE_NAME&gt;</replaceable></term>
+
+          <listitem>
+            <para>All outputs (messages, warnings, and errors) will be written
+            to <replaceable>&lt;LOG_FILE_NAME&gt;</replaceable>.
+            <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Random Number Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>--abs-rand</term>
+
+          <listitem>
+            <para>Initialises the random number generator with the current
+            time (in ms) in the hope to make him generate really random
+            numbers of an unknown order. <remark>Optional, type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--srand <replaceable
+          class="parameter">&lt;SEED&gt;</replaceable></term>
+
+          <listitem>
+            <para>Initialises the random number generator with
+            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
+            type:int, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+  </refsect1>
+
+  <refsect1>
+    <title>USAGE</title>
+
+    <para>The following topics should be described more precisely within the
+    SUMO user documentation that may be found at
+    http://sumo.sourceforge.net</para>
+
+    <refsect2>
+      <title>Examples</title>
+
+      <para><command>od2trips</command> -c
+      <filename>myConfig.netc.cfg</filename></para>
+
+      <para>Does the things described by the configuration
+      "<filename>myConfig.netc.cfg</filename>"</para>
+    </refsect2>
+  </refsect1>
+
+  <refsect1>
+    <title>CAVEATS</title>
+
+    <para>The program is still under development.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>BUGS</title>
+
+    <para>The program is still under development.</para>
+  </refsect1>
+
+  <refsect1>
+    <title>SEE ALSO</title>
+
+    <para>netconvert(1), sumo(1), jtrrouter(1), duarouter(1), netgen(1)</para>
+  </refsect1>
+
+  <refsect1>
+    <title>AUTHOR</title>
+
+    <para><author>
+        <firstname>Daniel</firstname>
+
+        <surname>Krajzewicz</surname>
+      </author></para>
+  </refsect1>
+</refentry>
