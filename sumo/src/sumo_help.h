@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2006/01/11 12:05:58  dkrajzew
+// using the same text in man-pages and help
+//
 // Revision 1.18  2006/01/09 13:33:30  dkrajzew
 // debugging error handling
 //
@@ -93,7 +96,7 @@
  * The list of help strings for the sumo (simulation) module
  */
 char *help[] = {
-    " The simulation.",
+    " A microscopic road traffic simulation.",
     " ",
     "Usage: (sumo-)sumo(.exe) [OPTION]*",
     " ",

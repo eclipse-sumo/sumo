@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/01/11 12:05:58  dkrajzew
+// using the same text in man-pages and help
+//
 // Revision 1.9  2006/01/09 13:33:30  dkrajzew
 // debugging error handling
 //
@@ -99,7 +102,7 @@
  * The list of help strings for the sumo-router module
  */
 char *help[] = {
-    " Routes vehicles by shortest path using dua.",
+    " Shortest path router for the microscopic road traffic simulation SUMO.",
     " ",
     "Usage: (sumo-)duarouter(.exe) [OPTION]*",
     " ",

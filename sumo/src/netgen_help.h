@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/01/11 12:05:58  dkrajzew
+// using the same text in man-pages and help
+//
 // Revision 1.11  2006/01/09 13:33:30  dkrajzew
 // debugging error handling
 //
@@ -72,7 +75,7 @@
  * ======================================================================= */
 char *help[] =
 {
-    " Generates abstract networks.",
+    " Road network generator for the microscopic road traffic simulation SUMO.",
     " ",
     "Usage: (sumo-)netgen(.exe) [OPTION]*",
     " ",

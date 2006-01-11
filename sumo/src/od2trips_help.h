@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.14  2006/01/11 12:05:58  dkrajzew
+// using the same text in man-pages and help
+//
 // Revision 1.13  2006/01/09 13:33:30  dkrajzew
 // debugging error handling
 //
@@ -55,7 +58,7 @@
  * The list of help strings for the sumo-od2trips module
  */
 char *help[] = {
-    " Generates trip tables from OD matrices.",
+    " Importer of O/D-matrices for the road traffic simulation SUMO.",
     " ",
     "Usage: (sumo-)od2trips(.exe) [OPTION]*",
     " ",

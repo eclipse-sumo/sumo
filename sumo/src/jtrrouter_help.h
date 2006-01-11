@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/01/11 12:05:58  dkrajzew
+// using the same text in man-pages and help
+//
 // Revision 1.8  2006/01/09 13:33:30  dkrajzew
 // debugging error handling
 //
@@ -70,7 +73,8 @@
  * The list of help strings for the sumo-junction percentage router module
  */
 char *help[] = {
-    " Routes vehicles by turning percentages on junctions.",
+    " Router for the microscopic road traffic simulation SUMO based on ",
+    "  junction turning ratios.",
     " ",
     "Usage: (sumo-)jtrrouter(.exe) [OPTION]*",
     " ",

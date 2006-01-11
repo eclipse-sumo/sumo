@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.17  2006/01/11 12:05:58  dkrajzew
+// using the same text in man-pages and help
+//
 // Revision 1.16  2006/01/09 13:33:30  dkrajzew
 // debugging error handling
 //
@@ -99,7 +102,7 @@
  * The help text
  */
 char *help[] = {
-    " Imports network descriptions and builds sumo-networks.",
+    " Road network importer / builder for the road traffic simulation SUMO.",
     " ",
     "Usage: (sumo-)netconvert(.exe) [OPTION]*",
     " ",
