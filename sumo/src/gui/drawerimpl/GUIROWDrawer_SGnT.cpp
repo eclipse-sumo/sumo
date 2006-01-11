@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/01/11 11:54:35  dkrajzew
+// reworked possible link states; new link coloring
+//
 // Revision 1.11  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -195,7 +198,7 @@ GUIROWDrawer_SGnT::drawArrows(const GUILaneWrapper &lane)
     for(size_t i=0; i<noLinks; i++) {
         MSLink::LinkDirection dir = lane.getLinkDirection(i);
         MSLink::LinkState state = lane.getLinkState(i);
-        if(state==MSLink::LINKSTATE_TL_OFF_NOSIGNAL) {
+        if(state==MSLink::LINKSTATE_TL_OFF_NOSIGNAL||dir==MSLink::LINKDIR_NODIR) {
             continue;
         }
         GUITexturesHelper::drawDirectionArrow((GUITexture) dir,

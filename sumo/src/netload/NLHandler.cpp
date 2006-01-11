@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/01/11 11:54:35  dkrajzew
+// reworked possible link states; new link coloring
+//
 // Revision 1.4  2006/01/09 12:00:14  dkrajzew
 // debugging vehicle color usage
 //
@@ -1082,7 +1085,6 @@ NLHandler::parseLinkState(char state)
 {
     switch(state) {
     case 't':
-        return MSLink::LINKSTATE_ABSTRACT_TL;
     case 'o':
         return MSLink::LINKSTATE_TL_OFF_BLINKING;
     case 'O':

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/11 11:54:35  dkrajzew
+// reworked possible link states; new link coloring
+//
 // Revision 1.9  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -99,15 +102,15 @@ using namespace std;
 GUIBaseROWDrawer::GUIBaseROWDrawer(std::vector<GUIEdge*> &edges)
     : myEdges(edges)
 {
-    myLinkColors[MSLink::LINKSTATE_ABSTRACT_TL] = RGBColor(0, 0, 1);
     myLinkColors[MSLink::LINKSTATE_TL_GREEN] = RGBColor(0, 1, 0);
     myLinkColors[MSLink::LINKSTATE_TL_RED] = RGBColor(1, 0, 0);
     myLinkColors[MSLink::LINKSTATE_TL_YELLOW] = RGBColor(1, 1, 0);
     myLinkColors[MSLink::LINKSTATE_TL_OFF_BLINKING] = RGBColor(1, 1, 0);
     myLinkColors[MSLink::LINKSTATE_TL_OFF_NOSIGNAL] = RGBColor(0, 1, 1);
-    myLinkColors[MSLink::LINKSTATE_MAJOR] = RGBColor(1, 0, 1);
-    myLinkColors[MSLink::LINKSTATE_MINOR] = RGBColor(1, 1, 1);
+    myLinkColors[MSLink::LINKSTATE_MAJOR] = RGBColor(1, 1, 1);
+    myLinkColors[MSLink::LINKSTATE_MINOR] = RGBColor((SUMOReal) .2, (SUMOReal) .2, (SUMOReal) .2);
     myLinkColors[MSLink::LINKSTATE_EQUAL] = RGBColor(0.5, 0.5, .5);
+    myLinkColors[MSLink::LINKSTATE_DEADEND] = RGBColor(0, 0, 0);
 }
 
 

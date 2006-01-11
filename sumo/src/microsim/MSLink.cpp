@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/01/11 11:54:35  dkrajzew
+// reworked possible link states; new link coloring
+//
 // Revision 1.15  2005/11/09 06:39:38  dkrajzew
 // usage of internal lanes is now optional at building
 //
@@ -183,8 +186,9 @@ MSLink::deleteRequest()
 MSLink::LinkState
 MSLink::getState() const
 {
-    if(myState!=LINKSTATE_ABSTRACT_TL) {
+//    if(myState!=LINKSTATE_ABSTRACT_TL) {
         return myState;
+        /*
     }
     if(myAmYellow) {
         return LINKSTATE_TL_YELLOW;
@@ -194,6 +198,7 @@ MSLink::getState() const
     } else {
         return LINKSTATE_TL_RED;
     }
+    */
 }
 
 

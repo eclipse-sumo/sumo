@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2006/01/11 11:54:35  dkrajzew
+// reworked possible link states; new link coloring
+//
 // Revision 1.15  2005/11/09 06:39:38  dkrajzew
 // usage of internal lanes is now optional at building
 //
@@ -101,7 +104,6 @@ public:
      * possible traffic light states.
      */
     enum LinkState {
-        LINKSTATE_ABSTRACT_TL,
         LINKSTATE_TL_GREEN,
         LINKSTATE_TL_RED,
         LINKSTATE_TL_YELLOW,
@@ -109,7 +111,8 @@ public:
         LINKSTATE_TL_OFF_NOSIGNAL,
         LINKSTATE_MAJOR,
         LINKSTATE_MINOR,
-        LINKSTATE_EQUAL
+        LINKSTATE_EQUAL,
+        LINKSTATE_DEADEND
     };
 
     /**
@@ -122,7 +125,8 @@ public:
         LINKDIR_LEFT,
         LINKDIR_RIGHT,
         LINKDIR_PARTLEFT,
-        LINKDIR_PARTRIGHT
+        LINKDIR_PARTRIGHT,
+        LINKDIR_NODIR
     };
 #ifndef HAVE_INTERNAL_LANES
     /// Constructor

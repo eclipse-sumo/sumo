@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/01/11 11:54:35  dkrajzew
+// reworked possible link states; new link coloring
+//
 // Revision 1.12  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -162,7 +165,6 @@ GUIROWDrawer_FGwT::drawLinkRules(const GUINet &net,
         SUMOReal x2 = x1 + w;
         MSLink::LinkState state = lane.getLinkState(i);
         switch(state) {
-        case MSLink::LINKSTATE_ABSTRACT_TL:
         case MSLink::LINKSTATE_TL_GREEN:
         case MSLink::LINKSTATE_TL_RED:
         case MSLink::LINKSTATE_TL_YELLOW:
@@ -225,7 +227,7 @@ GUIROWDrawer_FGwT::drawArrows(const GUILaneWrapper &lane)
     for(size_t i=0; i<noLinks; i++) {
         MSLink::LinkDirection dir = lane.getLinkDirection(i);
         MSLink::LinkState state = lane.getLinkState(i);
-        if(state==MSLink::LINKSTATE_TL_OFF_NOSIGNAL) {
+        if(state==MSLink::LINKSTATE_TL_OFF_NOSIGNAL||dir==MSLink::LINKDIR_NODIR) {
             continue;
         }
         GUITexturesHelper::drawDirectionArrow((GUITexture) dir,

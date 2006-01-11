@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/01/11 11:54:35  dkrajzew
+// reworked possible link states; new link coloring
+//
 // Revision 1.13  2005/11/09 06:43:20  dkrajzew
 // TLS-API: MSEdgeContinuations added
 //
@@ -168,9 +171,9 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     if(laneId=="SUMO_NO_DESTINATION") {
         // build the dead link and add it to the container
 #ifdef HAVE_INTERNAL_LANES
-        m_SuccLanes->push_back(new MSLink(0, 0, 0, dir, state, false));
+        m_SuccLanes->push_back(new MSLink(0, 0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, false));
 #else
-        m_SuccLanes->push_back(new MSLink(0, 0, dir, state, false));
+        m_SuccLanes->push_back(new MSLink(0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, false));
 #endif
         return;
     }
