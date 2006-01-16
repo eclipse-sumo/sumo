@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/01/16 13:38:22  dkrajzew
+// help and error handling patched
+//
 // Revision 1.12  2006/01/09 13:33:30  dkrajzew
 // debugging error handling
 //
@@ -258,8 +261,7 @@ void
 startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
     // prepare the output
-    net.openOutput(
-        oc.getString("output"), false);
+    net.openOutput(oc.getString("output"), false);
     // build the router
     ROJTRRouter router(net);
     // initialise the loader

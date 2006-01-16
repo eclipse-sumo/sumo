@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.15  2006/01/16 13:38:22  dkrajzew
+// help and error handling patched
+//
 // Revision 1.14  2006/01/11 12:05:58  dkrajzew
 // using the same text in man-pages and help
 //
@@ -84,10 +87,12 @@ char *help[] = {
     "                                   The number of trips is =",
     "                                           number of read/factor",
     "   --no-color                     Suppresses color saving.",
-    "   --srand INT                    Initialises the random number generator",
-    "                                   with the given value",
-    "   --abs-rand                     Set this when the current time shall be",
-    "                                   used for random number initialisation",
+    " ",
+    " Random Number Options:",
+    "   --srand INT                 Initialises the random number generator",
+    "                                 with the given value",
+    "   --abs-rand                  Set this when the current time shall be",
+    "                                 used for random number initialisation",
     " Report options:",
     "   -v, --verbose                  SUMO-OD2TRIPS will report what it does",
     "   -W, --suppress-warnings        No warnings will be printed",

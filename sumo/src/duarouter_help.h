@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/01/16 13:38:22  dkrajzew
+// help and error handling patched
+//
 // Revision 1.10  2006/01/11 12:05:58  dkrajzew
 // using the same text in man-pages and help
 //
@@ -160,6 +163,12 @@ char *help[] = {
     "   -L, --krauss-length FLOAT  Default value for krauss' vehicle length",
     "   -E, --krauss-eps FLOAT     Default value for krauss' driver imperf.",
     " ",
+    " Random Number Options:",
+    "   --srand INT                 Initialises the random number generator",
+    "                                 with the given value",
+    "   --abs-rand                  Set this when the current time shall be",
+    "                                 used for random number initialisation",
+    " ",
     " Report options:",
     "   -v, --verbose              Verbose reports",
     "   -W, -suppress-warnings     No warnings will be printed",
@@ -168,12 +177,6 @@ char *help[] = {
     "   -?, --help                 This screen",
     "   --version                       Prints the program version",
     "   --stats-period INT         Step number to pass between status output",
-    " ",
-    " Report options:",
-    "   --srand INT                 Initialises the random number generator",
-    "                                 with the given value",
-    "   --abs-rand                  Set this when the current time shall be",
-    "                                 used for random number initialisation",
     0
 };
 

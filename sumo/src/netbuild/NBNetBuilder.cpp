@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/01/16 13:38:22  dkrajzew
+// help and error handling patched
+//
 // Revision 1.27  2006/01/09 11:58:14  dkrajzew
 // debugging error handling
 //
@@ -488,40 +491,50 @@ NBNetBuilder::saveMap(string path)
 void
 NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
 {
+    // register additional output options
+    oc.doRegister("plain-output", new Option_FileName());
+    oc.doRegister("node-geometry-dump", new Option_FileName());
+    oc.doRegister("map-output", 'M', new Option_FileName());
+
     // register building defaults
     oc.doRegister("type", 'T', new Option_String("Unknown"));
     oc.doRegister("lanenumber", 'L', new Option_Integer(1));
     oc.doRegister("speed", 'S', new Option_Float((SUMOReal) 13.9));
     oc.doRegister("priority", 'P', new Option_Integer(1));
-    // register computation variables
-    oc.doRegister("min-decel", 'D', new Option_Float(3.0));
+
     // register the report options
     oc.doRegister("verbose", 'v', new Option_Bool(false));
     oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
     oc.doRegister("print-options", 'p', new Option_Bool(false));
     oc.doRegister("help", new Option_Bool(false));
     oc.doRegister("log-file", 'l', new Option_FileName());
+
     // extended
-    oc.doRegister("print-node-positions", new Option_Bool(false));
+    oc.doRegister("print-node-positions", new Option_Bool(false)); // !!! not described
     // register the data processing options
-//    oc.doRegister("recompute-junction-logics", new Option_Bool(false));
+
     oc.doRegister("omit-corrupt-edges", new Option_Bool(false));
     oc.doRegister("flip-y", new Option_Bool(false));
-    oc.doRegister("all-logics", new Option_Bool(false));
+
     oc.doRegister("use-laneno-as-priority", new Option_Bool(false)); // !!! not described
-    oc.doRegister("keep-small-tyellow", new Option_Bool(false));
-    oc.doRegister("traffic-light-green", new Option_Integer());
-    oc.doRegister("traffic-light-yellow", new Option_Integer());
+
     oc.doRegister("x-offset-to-apply", new Option_Float(0));
     oc.doRegister("y-offset-to-apply", new Option_Float(0));
     oc.doRegister("rotation-to-apply", new Option_Float(0));
+
     oc.doRegister("remove-geometry", 'R', new Option_Bool(false));
     oc.doRegister("no-turnarounds", new Option_Bool(false));
     oc.doRegister("add-internal-links", 'I', new Option_Bool(false)); // !!! not described
 
-    oc.doRegister("map-output", 'M', new Option_FileName());
 
     // tls setting options
+        // computational
+    oc.doRegister("min-decel", 'D', new Option_Float(3.0));
+    oc.doRegister("all-logics", new Option_Bool(false));
+    oc.doRegister("keep-small-tyellow", new Option_Bool(false));
+    oc.doRegister("traffic-light-green", new Option_Integer());
+    oc.doRegister("traffic-light-yellow", new Option_Integer());
+
         // tls-guessing
     oc.doRegister("guess-tls", new Option_Bool(false));
     oc.doRegister("tls-guess.no-incoming-min", new Option_Integer(2));
@@ -540,7 +553,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("explicite-tls", new Option_String());
     oc.doRegister("explicite-no-tls", new Option_String());
 
-    // edge
+    // edge constraints
     oc.doRegister("edges-min-speed", new Option_Float());
     oc.doRegister("keep-edges", new Option_String());
     oc.doRegister("keep-edges.input-file", new Option_FileName());
@@ -557,15 +570,12 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("ramp-guess.min-highway-speed", new Option_Float((SUMOReal) (80/3.6)));
     oc.doRegister("ramp-guess.ramp-length", new Option_Float(100));
 
-    oc.doRegister("guess-obscure-ramps", new Option_Bool(false));
-    oc.doRegister("obscure-ramps.add-ramp", new Option_Bool(false));
-    oc.doRegister("obscure-ramps.min-highway-speed", new Option_Float((SUMOReal) (100/3.6)));
+    oc.doRegister("guess-obscure-ramps", new Option_Bool(false)); // !!! not described
+    oc.doRegister("obscure-ramps.add-ramp", new Option_Bool(false)); // !!! not described
+    oc.doRegister("obscure-ramps.min-highway-speed", new Option_Float((SUMOReal) (100/3.6))); // !!! not described
 
 
-    oc.doRegister("plain-output", new Option_FileName());
-    oc.doRegister("node-geometry-dump", new Option_FileName());
-
-    oc.doRegister("netbuild.debug", new Option_Integer(0));
+    oc.doRegister("netbuild.debug", new Option_Integer(0)); // !!! not described
 
 }
 

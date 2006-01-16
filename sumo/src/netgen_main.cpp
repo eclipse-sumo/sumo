@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/01/16 13:38:22  dkrajzew
+// help and error handling patched
+//
 // Revision 1.26  2006/01/09 13:33:30  dkrajzew
 // debugging error handling
 //
@@ -168,9 +171,7 @@ checkOptions(OptionsCont &oc)
     }
     std::ofstream tst(oc.getString("o").c_str());
     if(!tst.good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The output file '") + oc.getString("o")
-            + string("' can not be build."));
+        MsgHandler::getErrorInstance()->inform("The output file '" + oc.getString("o") + "' can not be build.");
         return false;
     }
     // check whether exactly one type of a network to build was wished
@@ -179,21 +180,18 @@ checkOptions(OptionsCont &oc)
     if(oc.getBool("g")) no++;
     if(oc.getBool("r")) no++;
     if(no==0) {
-        MsgHandler::getErrorInstance()->inform(
-            "You have to specify the type of network to generate.");
+        MsgHandler::getErrorInstance()->inform("You have to specify the type of network to generate.");
         return false;
     }
     if(no>1) {
-        MsgHandler::getErrorInstance()->inform(
-            "You may specify only one type of network to generate at once.");
+        MsgHandler::getErrorInstance()->inform("You may specify only one type of network to generate at once.");
         return false;
     }
     // check whether the junction type to use is properly set
     if(!oc.isDefault("default-junction-type")) {
         string type = oc.getString("default-junction-type");
         if(type!="traffic_light"&&type!="priority"&&type!="actuated"&&type!="agentbased") {
-            MsgHandler::getErrorInstance()->inform(
-                "Only the following junction types are known: traffic_light, priority, actuated, agentbased");
+            MsgHandler::getErrorInstance()->inform("Only the following junction types are known: traffic_light, priority, actuated, agentbased");
             return false;
         }
     }
@@ -207,65 +205,91 @@ void
 fillOptions(OptionsCont &oc)
 {
     // register the file i/o options
-    oc.doRegister("random-net", 'r', new Option_Bool(false));
-    oc.doRegister("spider-net", 's', new Option_Bool(false));
-    oc.doRegister("grid-net", 'g', new Option_Bool(false));
-    oc.doRegister("output", 'o', new Option_FileName("net.net.xml"));
     oc.doRegister("configuration-file", 'c', new Option_FileName());
-    oc.addSynonyme("random-net", "random");
-    oc.addSynonyme("spider-net", "spider");
-    oc.addSynonyme("grid-net", "grid");
-    oc.addSynonyme("output-file", "output");
     oc.addSynonyme("configuration-file", "configuration");
+
+    oc.doRegister("random-net", 'r', new Option_Bool(false));
+    oc.addSynonyme("random-net", "random");
+
+    oc.doRegister("spider-net", 's', new Option_Bool(false));
+    oc.addSynonyme("spider-net", "spider");
+
+    oc.doRegister("grid-net", 'g', new Option_Bool(false));
+    oc.addSynonyme("grid-net", "grid");
+
+    oc.doRegister("output", 'o', new Option_FileName("net.net.xml"));
+    oc.addSynonyme("output-file", "output");
+
     // register random-net options
-    oc.doRegister("rand-max-distance", new Option_Float(250));
-    oc.doRegister("rand-min-distance", new Option_Float(100));
-    oc.doRegister("rand-min-angle", new Option_Float((SUMOReal) (45.0/180.0*PI)));
-    oc.doRegister("rand-num-tries", new Option_Integer(50));
-    oc.doRegister("rand-connectivity", new Option_Float((SUMOReal) 0.95));
-    oc.doRegister("rand-neighbor-dist1", new Option_Float(0));
-    oc.doRegister("rand-neighbor-dist2", new Option_Float(0));
-    oc.doRegister("rand-neighbor-dist3", new Option_Float(10));
-    oc.doRegister("rand-neighbor-dist4", new Option_Float(10));
-    oc.doRegister("rand-neighbor-dist5", new Option_Float(2));
-    oc.doRegister("rand-neighbor-dist6", new Option_Float(1));
     oc.doRegister("rand-iterations", new Option_Integer(2000));
-    oc.addSynonyme("rand-max-distance", "max-dist");
-    oc.addSynonyme("rand-min-distance", "min-dist");
-    oc.addSynonyme("rand-min-angle", "min-angle");
-    oc.addSynonyme("rand-num-tries", "num-tries");
-    oc.addSynonyme("rand-connectivity", "connectivity");
-    oc.addSynonyme("rand-neighbor-dist1", "dist1");
-    oc.addSynonyme("rand-neighbor-dist2", "dist2");
-    oc.addSynonyme("rand-neighbor-dist3", "dist3");
-    oc.addSynonyme("rand-neighbor-dist4", "dist4");
-    oc.addSynonyme("rand-neighbor-dist5", "dist5");
-    oc.addSynonyme("rand-neighbor-dist6", "dist6");
     oc.addSynonyme("rand-iterations", "iterations");
+
+    oc.doRegister("rand-max-distance", new Option_Float(250));
+    oc.addSynonyme("rand-max-distance", "max-dist");
+
+    oc.doRegister("rand-min-distance", new Option_Float(100));
+    oc.addSynonyme("rand-min-distance", "min-dist");
+
+    oc.doRegister("rand-min-angle", new Option_Float((SUMOReal) (45.0/180.0*PI)));
+    oc.addSynonyme("rand-min-angle", "min-angle");
+
+    oc.doRegister("rand-num-tries", new Option_Integer(50));
+    oc.addSynonyme("rand-num-tries", "num-tries");
+
+    oc.doRegister("rand-connectivity", new Option_Float((SUMOReal) 0.95));
+    oc.addSynonyme("rand-connectivity", "connectivity");
+
+    oc.doRegister("rand-neighbor-dist1", new Option_Float(0));
+    oc.addSynonyme("rand-neighbor-dist1", "dist1");
+
+    oc.doRegister("rand-neighbor-dist2", new Option_Float(0));
+    oc.addSynonyme("rand-neighbor-dist2", "dist2");
+
+    oc.doRegister("rand-neighbor-dist3", new Option_Float(10));
+    oc.addSynonyme("rand-neighbor-dist3", "dist3");
+
+    oc.doRegister("rand-neighbor-dist4", new Option_Float(10));
+    oc.addSynonyme("rand-neighbor-dist4", "dist4");
+
+    oc.doRegister("rand-neighbor-dist5", new Option_Float(2));
+    oc.addSynonyme("rand-neighbor-dist5", "dist5");
+
+    oc.doRegister("rand-neighbor-dist6", new Option_Float(1));
+    oc.addSynonyme("rand-neighbor-dist6", "dist6");
+
     // register spider-net options
     oc.doRegister("spider-arm-number", new Option_Integer(13));
-    oc.doRegister("spider-circle-number", new Option_Integer(20));
-    oc.doRegister("spider-space-rad", new Option_Float(100));
     oc.addSynonyme("spider-arm-number", "arms");
+
+    oc.doRegister("spider-circle-number", new Option_Integer(20));
     oc.addSynonyme("spider-circle-number", "circles");
+
+    oc.doRegister("spider-space-rad", new Option_Float(100));
     oc.addSynonyme("spider-space-rad", "radius");
-//    oc.doRegister("spider-override-priority-center", new Option_Bool(false));
+
     // register grid-net options
-    oc.doRegister("grid-x-number", new Option_Integer(5));
-    oc.doRegister("grid-y-number", new Option_Integer(5));
-    oc.doRegister("grid-x-length", new Option_Float(100));
-    oc.doRegister("grid-y-length", new Option_Float(100));
     oc.doRegister("grid-number", new Option_Integer(5));
-    oc.doRegister("grid-length", new Option_Float(100));
-    oc.addSynonyme("grid-x-number", "x-no");
-    oc.addSynonyme("grid-y-number", "y-no");
-    oc.addSynonyme("grid-x-length", "x-length");
-    oc.addSynonyme("grid-y-length", "y-length");
-    oc.addSynonyme("grid-length", "length");
     oc.addSynonyme("grid-number", "number");
+
+    oc.doRegister("grid-length", new Option_Float(100));
+    oc.addSynonyme("grid-length", "length");
+
+    oc.doRegister("grid-x-number", new Option_Integer(5));
+    oc.addSynonyme("grid-x-number", "x-no");
+
+    oc.doRegister("grid-y-number", new Option_Integer(5));
+    oc.addSynonyme("grid-y-number", "y-no");
+
+    oc.doRegister("grid-x-length", new Option_Float(100));
+    oc.addSynonyme("grid-x-length", "x-length");
+
+    oc.doRegister("grid-y-length", new Option_Float(100));
+    oc.addSynonyme("grid-y-length", "y-length");
+
     // register building options
     oc.doRegister("default-junction-type", 'j', new Option_String("priority"));
     oc.addSynonyme("default-junction-type", "junctions");
+
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
     // add rand and dev options

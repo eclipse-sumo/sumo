@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2006/01/16 13:38:22  dkrajzew
+// help and error handling patched
+//
 // Revision 1.19  2006/01/11 12:05:58  dkrajzew
 // using the same text in man-pages and help
 //
@@ -116,6 +119,13 @@ char *help[] = {
     "                                    1. Default: ./sumo.cfg",
     " ",
     " Output files:",
+    "   --emissions FILE                Writes statistics about vehicle emissions",
+    "                                    to FILE",
+    "   --tripinfo FILE                 Writes trip information for each vehicle",
+    "                                    to FILE",
+    "   --vehroutes FILE                Writes route information for each vehicle",
+    "                                    to FILE",
+    " ",
     "   --dump-basename PATH            PATH is the name and path prefix that",
     "                                    of edge-based net loads destination",
     "                                   To use in conjunction with --dump-intervals",
@@ -135,11 +145,6 @@ char *help[] = {
     "   --dump-end UINT[;UINT]*         List of end time steps dump data will",
     "                                    be written",
     " ",
-    "   --emissions FILE                Writes statistics about vehicle emissions",
-    "                                    to FILE",
-    "   --tripinfo FILE                 Writes trip information for each vehicle",
-    "                                    to FILE",
-    " ",
     "   --netstate-dump  FILE           FILE is the raw output destination file",
     "   --dump-empty-edges              Forces SUMO to write edges in dump even",
     "                                    if they are empty.",
@@ -153,10 +158,6 @@ char *help[] = {
     "   --quit-on-accident              Quits when an accident occures",
     "   --time-to-teleport              Specifies maximum waiting time before",
     "                                    a vehicle is being teleported",
-    "   --srand <INT>                   Initialises the random number generator",
-    "                                    with the given value",
-    "   --abs-rand                      Set this when the current time shall be",
-    "                                    used for random number initialisation",
     " ",
     " Traffic Lights Options:",
     "   --actuated-tl.detector-pos <FLOAT> The position of the detectors in front",
@@ -174,6 +175,12 @@ char *help[] = {
     "                                   to make the tls react in m",
     "   --agent-tl.tcycle <FLOAT>       The cycle length of a tls in s",
     " ",
+    " ",
+    " Random Number Options:",
+    "   --srand INT                 Initialises the random number generator",
+    "                                 with the given value",
+    "   --abs-rand                  Set this when the current time shall be",
+    "                                 used for random number initialisation",
     " Report Options:",
     "   -v, --verbose                   SUMO will report what it does",
     "   -W, --suppress-warnings         No warnings will be printed",

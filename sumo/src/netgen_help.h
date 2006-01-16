@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/01/16 13:38:22  dkrajzew
+// help and error handling patched
+//
 // Revision 1.12  2006/01/11 12:05:58  dkrajzew
 // using the same text in man-pages and help
 //
@@ -123,30 +126,23 @@ char *help[] =
     "  -o, --output-file FILE         The generated net will be written to FILE",
     "  --map-output FILE              File to write joined edges information to",
     "  --plain-output FILE            Prefix of files to write node and edge",
+    "                                   information to",
+    "  --node-geometry-dump FILE      Writes node corner positions to FILE",
     " ",
-    " Setting Defaults:",
+    " Building Defaults:",
     "   -T, --type NAME                The default name for an edges type",
     "   -L, --lanenumber INT           The default number of lanes in an edge",
     "   -S, --speed DOUBLE             The default speed on an edge (in m/s)",
     "   -P, --priority INT             The default priority of an edge",
     "   -j, --default-junction-type [traffic_light|priority|actuated|agentbased]",
     "                                    Determines the type of the build junctions",
-    " Processing Options:",
-    "  -N, --capacity-norm FLOAT      The factor for flow to no. lanes conv.",
+    "  --edges-min-speed FLOAT        Specifies the minimum speed of edges in order",
+    "                                  to be generated (DEPRECATED in netgen)",
+    " Traffic Lights Building:",
     "  -D, --min-decel FLOAT          The least vehicle deceleration value used",
-    "  --flip-y                       Flips the y-coordinate along zero",
-    "  --speed-in-kmh                 vmax is parsed as given in km/h; XML only",
-    "  --use-laneno-as-priority       Uses the number of lanes priority hint",
-    "  --omit-corrupt-edges           Continues parsing although a corrupt edge",
-    "                                    occured (warning is printed)",
-    "  --vissim-offset DOUBLE         Specifies the structure join offset within",
-    "                                   vissim-import",
-    "  --keep-small-tyellow           Given yellow times are kept even if too ",
-    "                                   they are small",
+    "  --traffic-light-yellow INT     Set a fixed duration time for yellow phases",
     "  --traffic-light-green INT      Overide the default (20s) of a green phase",
     "                                   duration ",
-    "  --edges-min-speed FLOAT        Specifies the minimum speed of edges in order",
-    "                                  to be important",
     "  --guess-tls                    Turn on tls guessing",
     "  --guess-tls.min-incoming-speed FLOAT",
     "  --guess-tls.max-incoming-speed FLOAT",
@@ -166,7 +162,6 @@ char *help[] =
     "  --explicite-no-tls JID[;JID]*  Specifies which junctions named by their ids",
     "                                  shall not be tls-controlled."
     " ",
-    " ",
     " Random Number Options:",
     "  --srand INT                     Initialises the random number generator",
     "                                   with the given value",
@@ -179,6 +174,13 @@ char *help[] =
     "  -l, --log-file FILE             Writes all messages to the file",
     "  -p, --print-options             Prints option values before processing",
     "  -?, --help                      This screen",
+    " --print-node-positions           Prints the positions of read nodes",
+    " ",
+    " Deprecated options:",
+    " The following options are not working properly or do not make any sense. ",
+    "  They will be removed in the future.",
+    "  --edges-min-speed FLOAT        Specifies the minimum speed of edges in order",
+    "                                  to be imported",
     0
 };
 

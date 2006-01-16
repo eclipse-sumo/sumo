@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/01/16 13:38:23  dkrajzew
+// help and error handling patched
+//
 // Revision 1.12  2006/01/09 13:31:17  dkrajzew
 // debugging error handling
 //
@@ -101,8 +104,11 @@ SystemFrame::init(bool gui, int argc, char **argv,
                     check_options *check_f)
 {
     // initialise the output for option processing
-    MsgHandler::getErrorInstance()->report2cout(true);
+    MsgHandler::getErrorInstance()->report2cerr(true);
+    MsgHandler::getErrorInstance()->report2cout(false);
+    MsgHandler::getWarningInstance()->report2cerr(false);
     MsgHandler::getWarningInstance()->report2cout(true);
+    MsgHandler::getMessageInstance()->report2cerr(false);
     MsgHandler::getMessageInstance()->report2cout(true);
     // initialise the xml-subsystem
     if(!XMLSubSys::init()) {

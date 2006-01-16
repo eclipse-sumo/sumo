@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.40  2006/01/16 13:38:22  dkrajzew
+// help and error handling patched
+//
 // Revision 1.39  2006/01/09 13:33:30  dkrajzew
 // debugging error handling
 //
@@ -345,11 +348,11 @@ main(int argc, char **argv)
         MSNet *net = load(oc);
         if(net!=0) {
             // report the begin when wished
-            WRITE_MESSAGE(string("Simulation started with time: ") + toString<int>(oc.getInt("b")));
+            WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("b")));
             // simulate
             net->simulate(oc.getInt("b"), oc.getInt("e"));
             // report the end when wished
-            WRITE_MESSAGE(string("Simulation ended at time: ") + toString<int>(net->getCurrentTimeStep()));
+            WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
             delete net;
             delete SharedOutputDevices::getInstance();
         }

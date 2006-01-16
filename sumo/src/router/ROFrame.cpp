@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/01/16 13:38:22  dkrajzew
+// help and error handling patched
+//
 // Revision 1.8  2006/01/09 12:00:58  dkrajzew
 // debugging vehicle color usage
 //
@@ -152,14 +155,6 @@ ROFrame::checkOptions(OptionsCont &oc)
     // check whether the output is valid and can be build
     if(!oc.isSet("o")) {
         MsgHandler::getErrorInstance()->inform("No output specified.");
-        return false;
-    }
-    //
-    std::ofstream tst(oc.getString("o").c_str());
-    if(!tst.good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The output file '") + oc.getString("o")
-            + string("' can not be build."));
         return false;
     }
     //

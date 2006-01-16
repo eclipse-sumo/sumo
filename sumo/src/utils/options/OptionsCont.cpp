@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/01/16 13:38:23  dkrajzew
+// help and error handling patched
+//
 // Revision 1.13  2006/01/09 13:38:04  dkrajzew
 // debugging error handling
 //
@@ -255,8 +258,7 @@ OptionsCont::getSecure(const string &name) const
 {
     KnownContType::const_iterator i = _values.find(name);
     if(i==_values.end()) {
-        throw InvalidArgument("No option with the name '" + name
-            + "' exists.");
+        throw InvalidArgument("No option with the name '" + name + "' exists.");
     }
     return (*i).second;
 }

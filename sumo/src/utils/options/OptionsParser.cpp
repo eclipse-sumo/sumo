@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/01/16 13:38:23  dkrajzew
+// help and error handling patched
+//
 // Revision 1.7  2005/10/17 09:25:12  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -139,10 +142,8 @@ OptionsParser::parse(OptionsCont *oc, int argc, char **argv)
                 ok = false;
             }
         } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(
-                "Error on processing option '" + string(argv[i]) + "':");
-            MsgHandler::getErrorInstance()->inform(
-                " " + e.msg());
+            MsgHandler::getErrorInstance()->inform("Error on processing option '" + string(argv[i]) + "':");
+            MsgHandler::getErrorInstance()->inform(" " + e.msg());
             i++;
             ok = false;
         }
