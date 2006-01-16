@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/01/16 13:35:52  dkrajzew
+// output formats updated for the next release
+//
 // Revision 1.5  2005/10/07 11:37:46  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -92,7 +95,7 @@ MSXMLRawOut::write(OutputDevice* of, const MSEdgeControl &ec,
                    SUMOTime timestep,
                    unsigned int intend)
 {
-    of->getOStream() << "   <timestep id=\"" << timestep << "\">" << endl;
+    of->getOStream() << "   <timestep time=\"" << timestep << "\">" << endl;
     const MSEdgeControl::EdgeCont &ec1 = ec.getSingleLaneEdges();
     for ( MSEdgeControl::EdgeCont::const_iterator edg1=ec1.begin(); edg1!=ec1.end(); ++edg1 ) {
         writeEdge(of, **edg1, intend+3);

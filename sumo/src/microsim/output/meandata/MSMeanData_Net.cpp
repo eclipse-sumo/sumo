@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/01/16 13:35:52  dkrajzew
+// output formats updated for the next release
+//
 // Revision 1.12  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -301,7 +304,7 @@ void
 MSMeanData_Net::writeXMLOutput(XMLDevice &dev,
                                SUMOTime startTime, SUMOTime stopTime)
 {
-    dev.writeString("<interval begin=\"").writeString(
+    dev.writeString("   <interval begin=\"").writeString(
         toString(startTime)).writeString("\" end=\"").writeString(
         toString(stopTime)).writeString("\" ");
     if(dev.needsDetectorName()) {
@@ -309,7 +312,7 @@ MSMeanData_Net::writeXMLOutput(XMLDevice &dev,
     }
     dev.writeString(">\n");
     write(dev, startTime, stopTime);
-    dev.writeString("</interval>");
+    dev.writeString("   </interval>");
 }
 
 

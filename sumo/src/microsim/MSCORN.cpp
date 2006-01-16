@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/01/16 13:35:52  dkrajzew
+// output formats updated for the next release
+//
 // Revision 1.5  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -148,7 +151,7 @@ MSCORN::compute_TripDurationsOutput(MSVehicle *v)
     SUMOTime realDepart = (SUMOTime) v->getCORNDoubleValue(CORN_VEH_REALDEPART);
     SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     myTripDurationsOutput->getOStream()
-        << "<tripinfo id=\"" << v->id() << "\" "
+        << "   <tripinfo vehicle_id=\"" << v->id() << "\" "
         << "start=\"" << realDepart << "\" "
         << "wished=\"" << v->desiredDepart() << "\" "
         << "end=\"" << time << "\" "
@@ -166,13 +169,14 @@ MSCORN::compute_VehicleRouteOutput(MSVehicle *v)
         << v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART)
         << "\" endedAt=\"" << MSNet::getInstance()->getCurrentTimeStep()
         << "\">" << endl;
-	for(int i=0; i<(int) v->getCORNDoubleValue(CORN_VEH_NUMBERROUTE); i++) {
-		v->writeXMLRoute(myVehicleRouteOutput->getOStream(), i);
-        myVehicleRouteOutput->getOStream() << endl;
-	}
+    if(v->hasCORNDoubleValue(CORN_VEH_NUMBERROUTE)) {
+    	for(int i=0; i<(int) v->getCORNDoubleValue(CORN_VEH_NUMBERROUTE); i++) {
+	    	v->writeXMLRoute(myVehicleRouteOutput->getOStream(), i);
+            myVehicleRouteOutput->getOStream() << endl;
+	    }
+    }
 	v->writeXMLRoute(myVehicleRouteOutput->getOStream());
-	myVehicleRouteOutput->getOStream() <<
-		"   </vehicle>" << endl << endl;
+	myVehicleRouteOutput->getOStream() << "   </vehicle>" << endl << endl;
 }
 
 

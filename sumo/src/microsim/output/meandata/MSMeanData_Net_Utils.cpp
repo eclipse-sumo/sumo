@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/16 13:35:52  dkrajzew
+// output formats updated for the next release
+//
 // Revision 1.9  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -137,6 +140,7 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
                 throw ProcessError();
             }
             // Write xml-comment
+            /*
             dev->getOStream() << "<!--\n"
                 "- noVehContrib is the number of vehicles have been on the lane for\n"
                 "  at least one timestep during the current intervall.\n"
@@ -165,7 +169,7 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
                 "- density [veh/km]\n"
                 "  If noVehContrib==0 then density is set to 0.\n"
                 "-->\n" ;
-
+            */
             MSMeanData_Net *det =
                 new MSMeanData_Net( *it, ret.size(), ec,
                     dumpBegins, dumpEnds, useLanes, true);

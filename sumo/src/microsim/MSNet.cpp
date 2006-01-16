@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.70  2006/01/16 13:35:52  dkrajzew
+// output formats updated for the next release
+//
 // Revision 1.69  2006/01/09 11:56:53  dkrajzew
 // lanestates removed
 //
@@ -815,7 +818,7 @@ MSNet::writeOutput()
     // emission output
     if ( myOutputStreams[OS_EMISSIONS]!=0 ) {
         myOutputStreams[OS_EMISSIONS]->getOStream()
-            << "    <emission-state id=\"" << myStep << "\" "
+            << "    <emission-state time=\"" << myStep << "\" "
             << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "
             << "emitted=\"" << myVehicleControl->getEmittedVehicleNo() << "\" "
             << "running=\"" << myVehicleControl->getRunningVehicleNo() << "\" "
