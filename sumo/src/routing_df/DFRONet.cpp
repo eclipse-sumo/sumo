@@ -389,7 +389,7 @@ DFRONet::isHighwaySource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge
     if(edge->getSpeed()<19.4) {
         return false;
     }
-    const std::vector<ROEdge*>> &appr = myApproachingEdges.find(edge)->second;
+    const std::vector<ROEdge*> &appr = myApproachingEdges.find(edge)->second;
     bool isall = true;
     seen.push_back(edge);
     for(int i=0; i<appr.size()&&isall; i++) {
