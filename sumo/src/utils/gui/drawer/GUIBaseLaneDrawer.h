@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/01/16 13:38:33  dkrajzew
+// debugging
+//
 // Revision 1.5  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -121,6 +124,7 @@ public:
 					_E2 *edge = static_cast<_E2*>(myEdges[j+(i<<5)]);
 	                size_t noLanes = edge->nLanes();
                     if(showBoxes&&width>1.) {
+		                glPushName(edge->getGlID());
                         glColor3d(1,1,1);
                         // draw white boundings
                         size_t k;
@@ -155,6 +159,7 @@ public:
                                 glPopMatrix();
                             }
                         }
+	                    glPopName();
                     }
 		            // go through the current edge's lanes
 			        for(size_t k=0; k<noLanes; k++) {

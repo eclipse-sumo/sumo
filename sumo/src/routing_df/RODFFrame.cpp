@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/01/16 13:37:47  dkrajzew
+// debugging
+//
 // Revision 1.4  2006/01/16 13:21:28  dkrajzew
 // computation of detector types validated for the 'messstrecke'-scenario
 //
@@ -35,30 +38,6 @@ namespace
 // Revision 1.1  2005/12/08 12:59:41  ericnicolay
 // *** empty log message ***
 //
-// Revision 1.6  2005/11/29 13:33:08  dkrajzew
-// debugging
-//
-// Revision 1.5  2005/10/07 11:42:28  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/23 06:04:48  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.3  2005/09/15 12:05:23  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.2  2005/05/04 08:57:12  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.1  2004/11/23 10:26:27  dkrajzew
-// debugging
-// Revision 1.2  2005/02/17 09:27:35  dksumo
-// code beautifying;
-// some warnings removed;
-// compileable under linux
-//
-// Revision 1.1  2004/10/22 12:50:28  dksumo
-// initial checkin into an internal, standalone SUMO CVS
 //
 /* =========================================================================
  * compiler pragmas

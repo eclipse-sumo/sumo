@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/01/16 13:38:33  dkrajzew
+// debugging
+//
 // Revision 1.22  2006/01/16 10:46:24  dkrajzew
 // some initial work on  the dfrouter
 //
@@ -146,6 +149,7 @@ ROEdge::~ROEdge()
     delete _supplementaryWeightAdd;
     delete _supplementaryWeightMult;
 }
+
 
 size_t
 ROEdge::getIndex() const

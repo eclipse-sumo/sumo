@@ -20,14 +20,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/01/16 13:37:47  dkrajzew
+// debugging
+//
 // Revision 1.2  2006/01/16 10:46:24  dkrajzew
 // some initial work on  the dfrouter
 //
 // Revision 1.1  2005/12/08 12:59:41  ericnicolay
 // *** empty log message ***
-//
-// Revision 0.1  2005/12/06 12:50:29  nie
-// initial checkin into an internal, standalone SUMO CVS
 //
 /* =========================================================================
  * compiler pragmas

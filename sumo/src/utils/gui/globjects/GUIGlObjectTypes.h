@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/01/16 13:38:34  dkrajzew
+// debugging
+//
 // Revision 1.4  2005/10/07 11:45:32  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -76,11 +79,11 @@ enum GUIGlObjectType {
     /// The network - empty
     GLO_NETWORK = 0,
 
-    /// a lane
-    GLO_LANE = 1,
-
     /// an edge
-    GLO_EDGE = 2,
+    GLO_EDGE = 1,
+
+    /// a lane
+    GLO_LANE = 2,
 
     /// a junction
     GLO_JUNCTION = 4,
