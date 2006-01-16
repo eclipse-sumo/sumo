@@ -162,6 +162,9 @@ copy Release\dfrouter.exe ..\..\..\bin\dfrouter.exe
 			Name="Quellcodedateien"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
+				RelativePath="..\..\..\src\routing_df\DFRONet.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\dfrouter_main.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -217,6 +220,9 @@ copy Release\dfrouter.exe ..\..\..\bin\dfrouter.exe
 		<Filter
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
+			<File
+				RelativePath="..\..\..\src\routing_df\DFRONet.h">
+			</File>
 			<File
 				RelativePath="..\..\..\src\dfrouter_help.h">
 			</File>

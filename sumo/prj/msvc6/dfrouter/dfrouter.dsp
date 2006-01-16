@@ -97,7 +97,19 @@ PostBuild_Cmds=mkdir ..\..\..\bin	copy Debug\dfrouter.exe ..\..\..\bin\dfrouterD
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=..\..\..\src\routing_df\DFDetector.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_df\DFDetectorHandler.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\routing_df\DFRONet.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_df\DFRORouteCont.cpp
 # End Source File
 # Begin Source File
 
@@ -137,7 +149,23 @@ SOURCE=..\..\..\src\utils\router\TextHelpers.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=..\..\..\src\routing_df\DFDetector.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_df\DFDetectorHandler.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\routing_df\DFRONet.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_df\DFRORouteCont.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_df\DFRORouteDesc.h
 # End Source File
 # Begin Source File
 
