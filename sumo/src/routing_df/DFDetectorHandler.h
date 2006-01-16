@@ -20,26 +20,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/01/16 08:09:46  dkrajzew
+// set proper types; false cvs log removed
+//
 // Revision 1.1  2006/01/13 16:40:56  ericnicolay
 // base classes for the reading of the detectordefs
-//
-// Revision 1.7  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.5  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
-//
-// Revision 1.4  2004/01/26 08:01:10  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
-//
-// Revision 1.3  2003/09/05 15:22:44  dkrajzew
-// handling of internal lanes added
-//
-// Revision 1.2  2003/02/07 10:45:07  dkrajzew
-// updated
 //
 /* =========================================================================
  * included modules

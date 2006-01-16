@@ -17,17 +17,17 @@ class DFDetector
 public:
 	DFDetector();
 	~DFDetector();
-	void setID(const int Id ){ id = Id; };
-	void setLaneID(const int laneId ){ laneid = laneId; };
+    void setID(const std::string &Id ){ id = Id; };
+	void setLaneID(const std::string &laneId ){ laneid = laneId; };
 	void setPos(const int Pos ){ pos = Pos; };
 	void setType(const dfdetector_type T ){ type = T; };
-	int getID(){ return id; };
-	int getLaneID(){ return laneid; };
-	int getPos(){ return pos; };
-	dfdetector_type getType(){ return type; };
+    const std::string &getID() const { return id; };
+	const std::string &getLaneID() const { return laneid; };
+	int getPos() const { return pos; };
+	dfdetector_type getType() const { return type; };
 protected:
-	int id;
-	int laneid;
+	std::string id;
+	std::string laneid;
 	int pos;
 	dfdetector_type type;
 };
