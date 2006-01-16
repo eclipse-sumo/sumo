@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/01/16 10:46:24  dkrajzew
+// some initial work on  the dfrouter
+//
 // Revision 1.2  2005/12/21 12:48:39  ericnicolay
 // *** empty log message ***
 //
@@ -97,57 +100,40 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 void
-RODFFrame::fillOptions_basicImport(OptionsCont &oc)
+RODFFrame::fillOptions(OptionsCont &oc)
 {
-	ROFrame::fillOptions(oc);
-	addDFOptions(oc);
-}
+    // register input-options
+    oc.doRegister("configuration-file", 'c', new Option_FileName());
+    oc.addSynonyme("configuration-file", "configuration");
+
+    oc.doRegister("routes-input", new Option_FileName());
+
+    oc.doRegister("detectors-file", 'd', new Option_FileName());
+    oc.addSynonyme("detectors-file", "detectors");
+
+    oc.doRegister("net-file", 'n', new Option_FileName());
+    oc.addSynonyme("net-file", "net");
+
+    oc.doRegister("flow-definitions", 'f', new Option_FileName());
+    oc.addSynonyme("flow-definitions", "flows");
+
+    // register output options
+    oc.doRegister("routes-output", new Option_FileName());
+    oc.doRegister("detector-output", new Option_FileName());
 
 
-void
-RODFFrame::fillOptions_fullImport(OptionsCont &oc)
-{
-	ROFrame::fillOptions(oc);
-	addImportOptions(oc);
-	addDFOptions(oc);
-}
+    // register processing options
+    oc.doRegister("build-calibrators", 'C', new Option_Bool(false));
+    oc.doRegister("revalidate-routes", new Option_Bool(false));
+    oc.doRegister("revalidate-detectors", new Option_Bool(false));
 
-
-void
-RODFFrame::addImportOptions(OptionsCont &oc)
-{
-    //oc.doRegister("cell-input", new Option_FileName());
-    //oc.doRegister("artemis-input", new Option_FileName());
-    //oc.doRegister("flow-definition", 'f', new Option_FileName());
-    //oc.doRegister("sumo-input", 's', new Option_FileName());
-    //oc.doRegister("trip-defs", 't', new Option_FileName());
-    //oc.addSynonyme("flow-definition", "flows");
-    //oc.addSynonyme("artemis", "artemis-input");
-    //oc.addSynonyme("cell", "cell-input");
-    //oc.addSynonyme("sumo", "sumo-input");
-    //oc.addSynonyme("trips", "trip-defs");
-    //oc.doRegister("save-cell-rindex", new Option_Bool(false));
-    //oc.doRegister("intel-cell", new Option_Bool(false));
-    //oc.doRegister("no-last-cell", new Option_Bool(false));
-}
-
-
-void
-RODFFrame::addDFOptions(OptionsCont &oc)
-{
-    //oc.doRegister( "supplementary-weights", 'S', new Option_FileName() );
-    //oc.addSynonyme("supplementary-weights", "add");
-    //oc.doRegister("scheme", 'x', new Option_String("traveltime"));
-    // register Gawron's DUE-settings
-    //oc.doRegister("gBeta", new Option_Float(SUMOReal(0.3)));
-    //oc.doRegister("gA", new Option_Float((SUMOReal) 0.05));
 }
 
 
 bool
 RODFFrame::checkOptions(OptionsCont &oc)
 {
-	return ROFrame::checkOptions(oc);
+    return true;
 }
 
 

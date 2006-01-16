@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2006/01/16 10:46:24  dkrajzew
+// some initial work on  the dfrouter
+//
 // Revision 1.17  2005/10/17 09:21:36  dkrajzew
 // memory leaks removed
 //
@@ -210,6 +213,8 @@ static ROEdge* dictionary2(std::string id);
      ROLane *getLane(size_t index);
 
     SUMOReal getSpeed() const;
+
+    int getLaneNo() const;
 
 
 protected:

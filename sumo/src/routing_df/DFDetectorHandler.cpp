@@ -23,47 +23,17 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/01/16 10:46:24  dkrajzew
+// some initial work on  the dfrouter
+//
 // Revision 1.1  2006/01/13 16:40:56  ericnicolay
 // base classes for the reading of the detectordefs
-//
-// Revision 1.13  2005/11/09 06:43:51  dkrajzew
-// error handling improved
-//
-// Revision 1.12  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.11  2005/09/23 06:04:36  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.10  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.9  2004/04/14 13:53:50  roessel
-// Changes and additions in order to implement supplementary-weights.
-//
-// Revision 1.8  2004/02/10 07:16:05  dkrajzew
-// removed some debug-variables
-//
-// Revision 1.7  2004/01/26 08:01:10  dkrajzew
-// loaders and route-def types are now renamed in an senseful way;
-//  further changes in order to make both new routers work;
-//  documentation added
-//
-// Revision 1.6  2003/09/05 15:22:44  dkrajzew
-// handling of internal lanes added
-//
-// Revision 1.5  2003/06/18 11:20:54  dkrajzew
-// new message and error processing: output to user may be a message,
-//  warning or an error now; it is reported to a Singleton (MsgHandler);
-// this handler puts it further to output instances.
-// changes: no verbose-parameter needed; messages are exported to singleton
-//
-// Revision 1.4  2003/04/09 15:39:11  dkrajzew
-// router debugging & extension: no routing over sources, random routes added
-//
-// Revision 1.3  2003/02/07 10:45:04  dkrajzew
-// updated
-//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

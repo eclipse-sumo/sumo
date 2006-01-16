@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/01/16 10:46:24  dkrajzew
+// some initial work on  the dfrouter
+//
 // Revision 1.21  2005/10/17 09:21:36  dkrajzew
 // memory leaks removed
 //
@@ -374,6 +377,13 @@ SUMOReal
 ROEdge::getSpeed() const
 {
     return _speed;
+}
+
+
+int
+ROEdge::getLaneNo() const
+{
+    return myLanes.size();
 }
 
 

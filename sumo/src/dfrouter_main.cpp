@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/01/16 10:46:24  dkrajzew
+// some initial work on  the dfrouter
+//
 // Revision 1.3  2006/01/09 13:33:30  dkrajzew
 // debugging error handling
 //
@@ -37,6 +40,12 @@ namespace
 // first start
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -46,6 +55,7 @@ namespace
 #include <config.h>
 #endif
 #endif // HAVE_CONFIG_H
+
 #include <sax/SAXException.hpp>
 #include <sax/SAXParseException.hpp>
 #include <utils/common/TplConvert.h>
@@ -72,9 +82,13 @@ namespace
 #include <utils/xml/XMLSubSys.h>
 #include <routing_df/RODFFrame.h>
 #include <routing_df/DFRONet.h>
+#include <routing_df/DFDetector.h>
+#include <routing_df/DFDetectorHandler.h>
+#include <routing_df/DFRORouteCont.h>
 #include "dfrouter_help.h"
 #include "dfrouter_build.h"
 #include "sumo_version.h"
+#include <utils/common/XMLHelpers.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -99,45 +113,102 @@ using namespace std;
  * weights which may be supplied in a separate file
  */
 DFRONet *
-loadNet(ROLoader &loader, OptionsCont &oc)
+loadNet(OptionsCont &oc)
 {
-    // load the net
-    RODFEdgeBuilder builder;
-    DFRONet *net = new DFRONet( loader.loadNet( builder ) );
-    if(net==0) {
+    // load the network if wished
+    if(!oc.isSet("net-file")) {
         return 0;
     }
-
+    ROVehicleBuilder vb;
+    ROLoader *loader = new ROLoader(oc, vb, false);
+    // load the net
+    RODFEdgeBuilder builder;
+    DFRONet *net = new DFRONet( loader->loadNet( builder ) );
+    delete loader;
+    if(net==0) {
+        throw ProcessError();
+    }
+    net->buildApproachList();
     return net;
 }
 
+
+DFDetectorCon *
+readDetectors(OptionsCont &oc)
+{
+    DFDetectorCon *cont = new DFDetectorCon();
+    DFDetectorHandler handler(oc, *cont);
+    SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
+    try {
+        parser->parse(oc.getString("detectors-file").c_str());
+    } catch (SAXException &e) {
+        delete cont;
+        cont = 0;
+        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
+    } catch (XMLException &e) {
+        delete cont;
+        cont = 0;
+        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
+    }
+    return cont;
+}
+
+
+void
+buildVehicleEmissions(const std::string &file)
+{
+}
 
 /**
  * Computes the routes saving them
  */
 void
-startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
+startComputation(DFRONet *optNet, OptionsCont &oc)
 {
-    // prepare the output
-    net.openOutput(
-        oc.getString("output"), true);
-    // build the router
-    RODijkstraRouter router(net);
-    // initialise the loader
-    loader.openRoutes(net, oc.getFloat("gBeta"), oc.getFloat("gA"));
-    // the routes are sorted - process stepwise
-    if(!oc.getBool("unsorted")) {
-        loader.processRoutesStepWise(
-            oc.getInt("b"), oc.getInt("e"), net, router);
+    // read the detector definitions
+    DFDetectorCon *detectors = readDetectors(oc);
+    if(detectors==0) {
+        throw 1;
     }
-    // the routes are not sorted: load all and process
-    else {
-        loader.processAllRoutes(
-            oc.getInt("b"), oc.getInt("e"), net, router);
+
+    // read routes optionally
+    DFRORouteCont *routes = new DFRORouteCont();
+    if(oc.isSet("routes-input")) {
+        routes->readFrom(oc.getString("routes-input"));
     }
-    // end the processing
-    loader.closeReading();
-    net.closeOutput();
+
+    // if a network was loaded...
+    //  mode1:
+    if(optNet!=0) {
+        // compute the detector types optionally
+        if(!detectors->detectorsHaveCompleteTypes()||oc.isSet("revalidate-detectors")) {
+            optNet->computeTypes(*detectors);
+        }
+        // save the detectors if wished
+        if(oc.isSet("detector-output")) {
+            detectors->save("detector-output");
+        }
+        // compute routes between the detectors
+        if(!routes->computed()||oc.isSet("revalidate-routes")) {
+            optNet->buildRoutes(*detectors, *routes);
+        }
+    }
+    // check
+    if(!detectors->detectorsHaveCompleteTypes()) {
+        MsgHandler::getErrorInstance()->inform("The detector types are not defined; use in combination with a network");
+    }
+    // save the routes file if it was changed
+    if(routes->computed()&&oc.isSet("routes-output")) {
+        routes->save(oc.getString("routes-output"));
+    }
+
+    // save the emission definitions
+    if(oc.isSet("flow-definitions")) {
+        buildVehicleEmissions(oc.getString("flow-definitions"));
+    }
+    //
+    delete detectors;
+    delete routes;
 }
 
 
@@ -153,8 +224,7 @@ main(int argc, char **argv)
     try {
 #endif
         // initialise the application system (messaging, xml, options)
-        int init_ret = SystemFrame::init(false, argc, argv,
-			RODFFrame::fillOptions_fullImport);
+        int init_ret = SystemFrame::init(false, argc, argv, RODFFrame::fillOptions);
         if(init_ret<0) {
             cout << "SUMO dfrouter" << endl;
             cout << " (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net" << endl;
@@ -177,22 +247,9 @@ main(int argc, char **argv)
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
 		ROFrame::setDefaults(oc);
-        // load data
-        ROVehicleBuilder vb;
-        ROLoader loader(oc, vb, false);
-        net = loadNet(loader, oc);
-        if(net!=0) {
-            // build routes
-			try {net->getApproach() ;//startComputation(*net, loader, oc);
-            } catch (SAXParseException &e) {
-                MsgHandler::getErrorInstance()->inform( toString<int>(e.getLineNumber()));
-                ret = 1;
-            } catch (SAXException &e) {MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
-                ret = 1;
-            }
-        } else {
-            ret = 1;
-        }
+        net = loadNet(oc);
+        // build routes
+        startComputation(net, oc);
 #ifndef _DEBUG
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

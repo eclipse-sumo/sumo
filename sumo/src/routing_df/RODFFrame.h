@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/01/16 10:46:24  dkrajzew
+// some initial work on  the dfrouter
+//
 // Revision 1.1  2005/12/08 12:59:41  ericnicolay
 // *** empty log message ***
 //
@@ -59,16 +62,9 @@ class OptionsCont;
 class RODFFrame {
 public:
     /// Builds the simulation options
-    static void fillOptions_basicImport(OptionsCont &oc);
-
-    static void fillOptions_fullImport(OptionsCont &oc);
+    static void fillOptions(OptionsCont &oc);
 
     static bool checkOptions(OptionsCont &oc);
-
-    static void addImportOptions(OptionsCont &oc);
-
-    static void addDFOptions(OptionsCont &oc);
-
 
 };
 
