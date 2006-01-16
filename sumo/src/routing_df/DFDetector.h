@@ -35,21 +35,19 @@ enum dfdetector_type
 class DFDetector
 {
 public:
-	DFDetector();
+	DFDetector(const std::string &Id, const std::string &laneId,
+        SUMOReal pos, const dfdetector_type type);
 	~DFDetector();
-    void setID(const std::string &Id ){ id = Id; };
-	void setLaneID(const std::string &laneId ){ laneid = laneId; };
-	void setPos(const SUMOReal Pos ){ pos = Pos; };
-	void setType(const dfdetector_type T ){ type = T; };
-    const std::string &getID() const { return id; };
-	const std::string &getLaneID() const { return laneid; };
-	SUMOReal getPos() const { return pos; };
-	dfdetector_type getType() const { return type; };
+    const std::string &getID() const { return myID; };
+	const std::string &getLaneID() const { return myLaneID; };
+	SUMOReal getPos() const { return myPosition; };
+	dfdetector_type getType() const { return myType; };
+    void setType(dfdetector_type type);
 protected:
-	std::string id;
-	std::string laneid;
-	SUMOReal pos;
-	dfdetector_type type;
+	std::string myID;
+	std::string myLaneID;
+	SUMOReal myPosition;
+	dfdetector_type myType;
 };
 
 class DFDetectorCon
@@ -57,7 +55,7 @@ class DFDetectorCon
 public:
 	DFDetectorCon();
 	~DFDetectorCon();
-	void addDetector(const DFDetector & dfd );
+	bool addDetector(const DFDetector & dfd );
     bool detectorsHaveCompleteTypes() const;
     std::vector< DFDetector > &getDetectors();
     void save(const std::string &file) const;

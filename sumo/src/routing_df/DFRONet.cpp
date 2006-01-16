@@ -121,9 +121,9 @@ DFRONet::getEdgesAfter(ROEdge *edge) const
 void
 DFRONet::buildDetectorEdgeDependencies(DFDetectorCon &detcont) const
 {
+    myDetectorsOnEdges.clear();
+    myDetectorEdges.clear();
     std::vector< DFDetector > &dets = detcont.getDetectors();
-    std::map<ROEdge*, std::vector<std::string> > detectorsOnEdges;
-    std::map<std::string, ROEdge*> detectorEdges;
     {
         for(std::vector< DFDetector >::iterator i=dets.begin(); i!=dets.end(); ++i) {
             ROEdge *e = getDetectorEdge(*i);
@@ -340,6 +340,9 @@ DFRONet::isDestination(const DFDetector &det) const
 bool
 DFRONet::isSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> seen) const
 {
+    if(det.getID()=="MQ43Fs1") {
+        int bla = 0;
+    }
     // it's a source if no edges are approaching the edge
     if(myApproachingEdges.find(edge)==myApproachingEdges.end()||myApproachingEdges.find(edge)->second.size()==0) {
         return true;
@@ -347,14 +350,16 @@ DFRONet::isSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> seen
     // it is a source if it's outside a highway and
     // a) there is no detector
     // b) there is another detector
+    /* !!!!
     if(edge->getSpeed()<19.4 &&
         (myDetectorsOnEdges.find(edge)==myDetectorsOnEdges.end()
         ||
         std::find(myDetectorsOnEdges.find(edge)->second.begin(), myDetectorsOnEdges.find(edge)->second.end(), det.getID())==myDetectorsOnEdges.find(edge)->second.end()) ) {
         return true;
     }
+    */
     // it is not a source if
-    //  !!!
+    // a) there is another detector on the edge
     if(myDetectorsOnEdges.find(edge)!=myDetectorsOnEdges.end()
         &&
         myDetectorEdges.find(det.getID())->second!=edge) {
@@ -411,15 +416,20 @@ DFRONet::isHighwaySource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge
 bool
 DFRONet::isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> seen) const
 {
+    if(det.getID()=="MQ43Fs1") {
+        int bla = 0;
+    }
     if(myApproachedEdges.find(edge)==myApproachedEdges.end()||myApproachedEdges.find(edge)->second.size()==0) {
         return true;
     }
+    /* !!!
     if(edge->getSpeed()<19.4 &&
         (myDetectorsOnEdges.find(edge)==myDetectorsOnEdges.end()
         ||
         std::find(myDetectorsOnEdges.find(edge)->second.begin(), myDetectorsOnEdges.find(edge)->second.end(), det.getID())==myDetectorsOnEdges.find(edge)->second.end()) ) {
         return true;
     }
+    */
     if(myDetectorsOnEdges.find(edge)!=myDetectorsOnEdges.end()
         &&
         myDetectorEdges.find(det.getID())->second!=edge) {

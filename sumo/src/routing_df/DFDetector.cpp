@@ -9,24 +9,41 @@
 
 using namespace std;
 
-DFDetector::DFDetector(): id(0),laneid(0),pos(0),type(BETWEEN_DETECTOR)
-{}
+DFDetector::DFDetector(const std::string &Id, const std::string &laneId,
+                       SUMOReal pos, const dfdetector_type type)
+    : myID(Id), myLaneID(laneId), myPosition(pos), myType(type)
+{
+}
+
 
 DFDetector::~DFDetector()
-{}
+{
+}
+
+
+void
+DFDetector::setType(dfdetector_type type)
+{
+    myType = type;
+}
+
+
 
 
 DFDetectorCon::DFDetectorCon()
-{}
+{
+}
+
 
 DFDetectorCon::~DFDetectorCon()
 {
 }
 
-void
+bool
 DFDetectorCon::addDetector(const DFDetector & dfd )
 {
 	myDetectors.push_back(dfd);
+    return true; // !!!
 }
 
 

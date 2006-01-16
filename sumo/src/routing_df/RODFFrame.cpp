@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/01/16 13:21:28  dkrajzew
+// computation of detector types validated for the 'messstrecke'-scenario
+//
 // Revision 1.3  2006/01/16 10:46:24  dkrajzew
 // some initial work on  the dfrouter
 //
@@ -84,6 +87,9 @@ namespace
 #include <utils/common/ToString.h>
 #include "RODFFrame.h"
 #include <router/ROFrame.h>
+#include <utils/common/DevHelper.h>
+#include <utils/common/RandHelper.h>
+
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -119,7 +125,7 @@ RODFFrame::fillOptions(OptionsCont &oc)
 
     // register output options
     oc.doRegister("routes-output", new Option_FileName());
-    oc.doRegister("detector-output", new Option_FileName());
+    oc.doRegister("detectors-output", new Option_FileName());
 
 
     // register processing options
@@ -127,6 +133,27 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("revalidate-routes", new Option_Bool(false));
     oc.doRegister("revalidate-detectors", new Option_Bool(false));
 
+
+    // register the simulation settings
+    oc.doRegister("begin", 'b', new Option_Integer(0));
+    oc.doRegister("end", 'e', new Option_Integer(864000));
+
+    // register vehicle type defaults
+    oc.doRegister("krauss-vmax", 'V', new Option_Float(SUMOReal(70)));
+    oc.doRegister("krauss-a", 'A', new Option_Float(SUMOReal(2.6)));
+    oc.doRegister("krauss-b", 'B', new Option_Float(SUMOReal(4.5)));
+    oc.doRegister("krauss-length", 'L', new Option_Float(SUMOReal(5)));
+    oc.doRegister("krauss-eps", 'E', new Option_Float(SUMOReal(0.5)));
+
+
+    oc.doRegister("verbose", 'v', new Option_Bool(false));
+    oc.doRegister("suppress-warnings", 'W', new Option_Bool(false));
+    oc.doRegister("print-options", 'p', new Option_Bool(false));
+    oc.doRegister("help", new Option_Bool(false));
+    oc.doRegister("log-file", 'l', new Option_FileName());
+
+    DevHelper::insertDevOptions(oc);
+    RandHelper::insertRandOptions(oc);
 }
 
 

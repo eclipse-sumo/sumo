@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/16 13:21:28  dkrajzew
+// computation of detector types validated for the 'messstrecke'-scenario
+//
 // Revision 1.9  2006/01/09 13:33:30  dkrajzew
 // debugging error handling
 //
@@ -151,6 +154,12 @@ namespace
 // Moved from ROOT/sumo to ROOT/src; added further help and main files for
 //  netconvert, router, od2trips and gui version
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

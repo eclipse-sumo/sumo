@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2006/01/16 13:21:28  dkrajzew
+// computation of detector types validated for the 'messstrecke'-scenario
+//
 // Revision 1.3  2006/01/16 10:46:24  dkrajzew
 // some initial work on  the dfrouter
 //
@@ -90,33 +93,10 @@ protected:
     void myEndElement(int element, const std::string &name);
 
 protected:
-    /// Parses an edge
-    void parseDetector(const Attributes &attrs);
-
-    /// Preallocates edges
-    void preallocateEdges(const std::string &chars);
-
-protected:
     /// the options (program settings)
-    OptionsCont &_options;
+    OptionsCont &myOptions;
 
-	DFDetectorCon &_con;
-
-    /// the net to store the information into
-//    RONet &_net;
-
-    /// the name of the edge/node that is currently processed
-    std::string _currentName;
-
-    /// the currently build edge
-    //ROEdge *_currentEdge;
-
-    /** @brief An indicator whether the next edge shall be read
-        Internal edges are not read by now */
-    bool _process;
-
- //   /// The object used to build of edges of the desired type
-   // ROAbstractEdgeBuilder &myEdgeBuilder;
+	DFDetectorCon &myContainer;
 
 private:
     /// invalidated copy constructor
@@ -124,6 +104,7 @@ private:
 
     /// invalidated assignment operator
     DFDetectorHandler &operator=(const DFDetectorHandler &src);
+
 };
 
 

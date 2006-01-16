@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/01/16 13:21:28  dkrajzew
+// computation of detector types validated for the 'messstrecke'-scenario
+//
 // Revision 1.4  2006/01/16 10:46:24  dkrajzew
 // some initial work on  the dfrouter
 //
@@ -89,6 +92,7 @@ namespace
 #include "dfrouter_build.h"
 #include "sumo_version.h"
 #include <utils/common/XMLHelpers.h>
+#include <utils/common/FileHelpers.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -136,6 +140,10 @@ loadNet(OptionsCont &oc)
 DFDetectorCon *
 readDetectors(OptionsCont &oc)
 {
+    if(!oc.isSet("detectors-file")||!FileHelpers::exists(oc.getString("detectors-file"))) {
+        MsgHandler::getErrorInstance()->inform("The detector file is not given or can not be opened.");
+        throw ProcessError();
+    }
     DFDetectorCon *cont = new DFDetectorCon();
     DFDetectorHandler handler(oc, *cont);
     SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
@@ -197,6 +205,12 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
     if(!detectors->detectorsHaveCompleteTypes()) {
         MsgHandler::getErrorInstance()->inform("The detector types are not defined; use in combination with a network");
     }
+
+    // save the detectors if wished
+    if(oc.isSet("detectors-output")) {
+        detectors->save(oc.getString("detectors-output"));
+    }
+
     // save the routes file if it was changed
     if(routes->computed()&&oc.isSet("routes-output")) {
         routes->save(oc.getString("routes-output"));

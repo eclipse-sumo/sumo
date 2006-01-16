@@ -23,11 +23,15 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/01/16 13:21:28  dkrajzew
+// computation of detector types validated for the 'messstrecke'-scenario
+//
 // Revision 1.2  2006/01/16 10:46:24  dkrajzew
 // some initial work on  the dfrouter
 //
 // Revision 1.1  2006/01/13 16:40:56  ericnicolay
 // base classes for the reading of the detectordefs
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
@@ -77,7 +81,7 @@ using namespace std;
  * ======================================================================= */
 DFDetectorHandler::DFDetectorHandler(OptionsCont &oc, DFDetectorCon &con)
     : SUMOSAXHandler("Detector-Defintion"),
-    _options(oc),  _con(con),_currentName()//,_currentDetector(0)
+    myOptions(oc),  myContainer(con)
 {
 }
 
@@ -88,68 +92,57 @@ DFDetectorHandler::~DFDetectorHandler()
 
 
 void
-DFDetectorHandler::myStartElement(int element, const std::string&,
+DFDetectorHandler::myStartElement(int element, const std::string&name,
                              const Attributes &attrs)
 {
-    switch(element) {
-    case SUMO_TAG_EDGE:
-        // in the first step, we do need the name to allocate the edge
-        // in the second, we need it to know to which edge we have to add
-        //  the following edges to
-//        parseEdge(attrs);
-        break;
-    case SUMO_TAG_LANE:
-        if(_process) {
-  //          parseLane(attrs);
-        }
-        break;
-    case SUMO_TAG_JUNCTION:
-    //    parseJunction(attrs);
-        break;
-    case SUMO_TAG_CEDGE:
-        if(_process) {
-//            parseConnEdge(attrs);
-        }
-        break;
-    default:
-        break;
-    }
-}
-
-
-void
-DFDetectorHandler::parseDetector(const Attributes &attrs)
-{
-    try {
-
-        _currentName = getString(attrs, SUMO_ATTR_ID);
-//        _currentDetector = _net.getEdge(_currentName);
-/*        if(_currentEdge==0) {
+    if(name=="detector_definition") {
+        string id;
+        try {
+            id = getString(attrs, SUMO_ATTR_ID);
+        } catch (EmptyData&) {
             MsgHandler::getErrorInstance()->inform(
-                string("An unknown edge occured within '")
-                + _file + string("."));
-            MsgHandler::getErrorInstance()->inform("Contact your net supplier!");
+                "A detector without an id occured within '" + _file + ".");
+            return;
         }
-        string type = getString(attrs, SUMO_ATTR_FUNC);
-        _process = true;
-        if(type=="normal") {
-            _currentEdge->setType(ROEdge::ET_NORMAL);
-        } else if(type=="source") {
-            _currentEdge->setType(ROEdge::ET_SOURCE);
-        } else if(type=="sink") {
-            _currentEdge->setType(ROEdge::ET_SINK);
-        } else if(type=="internal") {
-            _process = false;
-        } else {
-            throw 1; // !!!
-        }*/
-    } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            string("An edge without an id occured within '")
-            + _file + string("."));
-        MsgHandler::getErrorInstance()->inform("Contact your net supplier!");
+        string lane;
+        try {
+            lane = getString(attrs, SUMO_ATTR_LANE);
+        } catch (EmptyData&) {
+            MsgHandler::getErrorInstance()->inform(
+                "A detector without a lane information occured within '" + _file + "' (detector id='" + id + ").");
+            return;
+        }
+        SUMOReal pos;
+        try {
+            pos = getFloat(attrs, SUMO_ATTR_POS);
+        } catch (EmptyData&) {
+            MsgHandler::getErrorInstance()->inform(
+                "A detector without a lane position occured within '" + _file + "' (detector id='" + id + ").");
+            return;
+        } catch (NumberFormatException&) {
+            MsgHandler::getErrorInstance()->inform(
+                "Not numeric lane position within '" + _file + "' (detector id='" + id + ").");
+            return;
+        }
+        string mml_type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
+        dfdetector_type type = TYPE_NOT_DEFINED;
+        if(mml_type=="between") {
+            type = BETWEEN_DETECTOR;
+        } else if(mml_type=="source") {
+            type = SOURCE_DETECTOR;
+        } else if(mml_type=="highway_source") {
+            type = HIGHWAY_SOURCE_DETECTOR;
+        } else if(mml_type=="sink") {
+            type = SINK_DETEKTOR;
+        }
+        DFDetector detector(id, lane, pos, type);
+        if(!myContainer.addDetector(detector)) {
+            MsgHandler::getErrorInstance()->inform(
+                "Could not add detector '" + id + "' (probably the id is already used).");
+        }
     }
 }
+
 
 
 
