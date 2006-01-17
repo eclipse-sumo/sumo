@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.43  2006/01/17 14:11:52  dkrajzew
+// "split-geometry" - option added (unfinsihed, rename)
+//
 // Revision 1.42  2006/01/11 11:59:20  dkrajzew
 // patched reassignment of explicite connections
 //
@@ -588,6 +591,9 @@ private:
         const Position2D &to, SUMOReal lanewidth, size_t lane);
 
     void computeLaneShapes();
+
+    bool splitGeometry(NBEdgeCont &ec, NBNodeCont &nc);
+
 
 protected:
     void setTurningDestination(NBEdge *e);

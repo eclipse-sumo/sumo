@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.61  2006/01/17 14:11:52  dkrajzew
+// "split-geometry" - option added (unfinsihed, rename)
+//
 // Revision 1.60  2006/01/11 11:59:20  dkrajzew
 // patched reassignment of explicite connections
 //
@@ -2564,6 +2567,56 @@ NBEdge::markAsInLane2LaneState()
     assert(_to->getOutgoingEdges().size()==0);
     _step = LANES2LANES;
 }
+
+
+bool
+NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
+{
+    // check whether there any splits to perform
+    if(myGeom.size()<3) {
+        return false;
+    }
+    // ok, split
+    NBNode *newFrom = _from;
+    NBNode *myLastNode = _to;
+    NBNode *newTo = 0;
+    NBEdge *currentEdge = this;
+    for(size_t i=1; i<myGeom.size()-1; i++) {
+        // build the node first
+        if(i!=myGeom.size()-2) {
+            string nodename = _id + "_in_between#" + toString(i);
+            if(!nc.insert(nodename, myGeom.at(i))) {
+                MsgHandler::getErrorInstance()->inform("Error on adding in-between node '" + nodename + "'.");
+                throw ProcessError();
+            }
+            newTo = nc.retrieve(nodename);
+        } else {
+            newTo = myLastNode;
+        }
+        if(i==1) {
+            currentEdge->_to->removeIncoming(this);
+            currentEdge->_to = newTo;
+            newTo->addIncomingEdge(currentEdge);
+        } else {
+            string edgename = _id + "[" + toString(i-1) + "]";
+            currentEdge = new NBEdge(edgename, edgename, newFrom, newTo, _type, _speed, _nolanes,
+                -1, _priority, myLaneSpreadFunction, _basicType);
+            if(!ec.insert(currentEdge)) {
+                MsgHandler::getErrorInstance()->inform("Error on adding splitted edge '" + edgename + "'.");
+                throw ProcessError();
+            }
+        }
+        newFrom = newTo;
+    }
+    //currentEdge->copyConnectionsFrom(this);
+    myGeom.clear();
+    myGeom.push_back(_from->getPosition());
+    myGeom.push_back(_to->getPosition());
+    //invalidateConnections();
+    _step = INIT;
+    return true;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.26  2006/01/17 14:11:52  dkrajzew
+// "split-geometry" - option added (unfinsihed, rename)
+//
 // Revision 1.25  2005/11/09 06:40:49  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -282,6 +285,8 @@ public:
     bool removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &oc);
 
     bool recomputeLaneShapes();
+
+    bool splitGeometry(NBNodeCont &nc);
 
 private:
     std::vector<std::string> buildPossibilities(

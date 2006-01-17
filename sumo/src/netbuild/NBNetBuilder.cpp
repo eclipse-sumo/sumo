@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2006/01/17 14:11:52  dkrajzew
+// "split-geometry" - option added (unfinsihed, rename)
+//
 // Revision 1.28  2006/01/16 13:38:22  dkrajzew
 // help and error handling patched
 //
@@ -170,6 +173,17 @@ NBNetBuilder::removeUnwishedNodes(int &step, OptionsCont &oc)
     }
     inform(step, "Removing empty nodes and geometry nodes.");
     return myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont);
+}
+
+
+bool
+NBNetBuilder::splitGeometry(int &step, OptionsCont &oc)
+{
+    if(!oc.getBool("split-geometry")) {
+        return true;
+    }
+    inform(step, "Splitting geometry edges.");
+    return myEdgeCont.splitGeometry(myNodeCont);
 }
 
 
@@ -374,6 +388,7 @@ NBNetBuilder::compute(OptionsCont &oc)
         if(ok) ok = removeUnwishedEdges(step, oc);
         if(ok) ok = removeUnwishedNodes(step, oc);
     }
+    if(ok) ok = splitGeometry(step, oc);
     if(ok) ok = normaliseNodePositions(step);
     if(ok) ok = myEdgeCont.recomputeLaneShapes(); // !!!!!
     if(ok) ok = guessRamps(step, oc);
@@ -525,6 +540,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("remove-geometry", 'R', new Option_Bool(false));
     oc.doRegister("no-turnarounds", new Option_Bool(false));
     oc.doRegister("add-internal-links", 'I', new Option_Bool(false)); // !!! not described
+    oc.doRegister("split-geometry", new Option_Bool(false)); // !!!not described
 
 
     // tls setting options

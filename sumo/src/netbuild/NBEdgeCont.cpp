@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.43  2006/01/17 14:11:52  dkrajzew
+// "split-geometry" - option added (unfinsihed, rename)
+//
 // Revision 1.42  2006/01/11 11:59:20  dkrajzew
 // patched reassignment of explicite connections
 //
@@ -917,6 +920,18 @@ NBEdgeCont::recomputeLaneShapes()
     return true;
 }
 
+
+bool
+NBEdgeCont::splitGeometry(NBNodeCont &nc)
+{
+    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); ++i) {
+        if((*i).second->getGeometry().size()<3) {
+            continue;
+        }
+        (*i).second->splitGeometry(*this, nc);
+    }
+    return true;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

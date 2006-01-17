@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2006/01/17 14:11:52  dkrajzew
+// "split-geometry" - option added (unfinsihed, rename)
+//
 // Revision 1.17  2006/01/09 11:58:14  dkrajzew
 // debugging error handling
 //
@@ -115,6 +118,8 @@ protected:
 
     bool guessRamps(int &step, OptionsCont &oc);
     bool guessTLs(int &step, OptionsCont &oc);
+
+    bool splitGeometry(int &step, OptionsCont &oc);
 
     /** computes the turning direction for each edge */
     bool computeTurningDirections(int &step);
