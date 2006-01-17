@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/01/17 14:12:48  dkrajzew
+// code beautifying
+//
 // Revision 1.17  2006/01/09 11:59:22  dkrajzew
 // debugging error handling; beautifying
 //
@@ -344,11 +347,8 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const std::string &files,
             loadXMLFile(*parser, file, type);
         }
     } catch (const XMLException& toCatch) {
-        MsgHandler::getErrorInstance()->inform(
-            TplConvert<XMLCh>::_2str(toCatch.getMessage()));
-        MsgHandler::getErrorInstance()->inform(
-            string("  The ") + type  + string(" could not be loaded from '")
-            + handler->getFileName() + string("'."));
+        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(toCatch.getMessage()));
+        MsgHandler::getErrorInstance()->inform("  The " + type  + " could not be loaded from '" + handler->getFileName() + "'.");
         delete handler;
         throw ProcessError();
     }
@@ -361,7 +361,7 @@ void
 NILoader::loadXMLFile(SAX2XMLReader &parser, const std::string &file,
                       const string &type)
 {
-    WRITE_MESSAGE(string("Parsing ") + type + string(" from '")+ string(file) + string("'..."));
+    WRITE_MESSAGE("Parsing " + type + " from '" + file + "'...");
     parser.parse(file.c_str());
 }
 
@@ -403,8 +403,7 @@ NILoader::useLineReader(LineReader &lr, const std::string &file,
                         LineHandler &lh) {
     // check opening
     if(!lr.setFileName(file)) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The file '") + file + string("' could not be opened."));
+        MsgHandler::getErrorInstance()->inform("The file '" + file + "' could not be opened.");
         return false;
     }
     lr.readAll(lh);
@@ -432,9 +431,9 @@ NILoader::loadArcView(OptionsCont &oc)
     }
     // check whether the correct set of entries is given
     //  and compute both file names
-    string dbf_file = oc.getString("arcview") + string(".dbf");
-    string shp_file = oc.getString("arcview") + string(".shp");
-    string shx_file = oc.getString("arcview") + string(".shx");
+    string dbf_file = oc.getString("arcview") + ".dbf";
+    string shp_file = oc.getString("arcview") + ".shp";
+    string shx_file = oc.getString("arcview") + ".shx";
     // check whether the files do exist
     if(!FileHelpers::exists(dbf_file)) {
         MsgHandler::getErrorInstance()->inform("File not found: " + dbf_file);
@@ -500,13 +499,10 @@ NILoader::loadElmar(OptionsCont &oc)
 
     LineReader lr;
     // load min/max
-    string unsplitted_nodes_file
-        = oc.getString(opt) + string("_nodes_unsplitted.txt");
+    string unsplitted_nodes_file = oc.getString(opt) + "_nodes_unsplitted.txt";
     lr.setFileName(unsplitted_nodes_file);
     if(!lr.good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Could not open '") + unsplitted_nodes_file
-            + string("'."));
+        MsgHandler::getErrorInstance()->inform("Could not open '" + unsplitted_nodes_file + "'.");
         throw ProcessError();
     }
     SUMOReal xmin, xmax, ymin, ymax;
@@ -518,24 +514,21 @@ NILoader::loadElmar(OptionsCont &oc)
         ymin = TplConvert<char>::_2SUMOReal(lr.readLine().c_str());
         ymax = TplConvert<char>::_2SUMOReal(lr.readLine().c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Error on reading min/max definitions from '")
-            + oc.getString("elmar") + string("_nodes_unsplitted.txt")
-            + string("'."));
+        MsgHandler::getErrorInstance()->inform("Error on reading min/max definitions from '" + oc.getString(opt) + "_nodes_unsplitted.txt'.");
         throw ProcessError();
     }
     // load nodes
     std::map<std::string, Position2DVector> myGeoms;
     WRITE_MESSAGE("Loading nodes... ");
     if(!unsplitted) {
-        string file = oc.getString(opt) + string("_nodes.txt");
+        string file = oc.getString(opt) + "_nodes.txt";
         NIElmarNodesHandler handler1(myNetBuilder.getNodeCont(), file,
             (xmin+xmax)/(SUMOReal) 2.0, (ymin+ymax)/(SUMOReal) 2.0);
         if(!useLineReader(lr, file, handler1)) {
             throw ProcessError();
         }
     } else {
-        string file = oc.getString(opt) + string("_nodes_unsplitted.txt");
+        string file = oc.getString(opt) + "_nodes_unsplitted.txt";
         NIElmar2NodesHandler handler1(myNetBuilder.getNodeCont(), file,
             (xmin+xmax)/(SUMOReal) 2.0, (ymin+ymax)/(SUMOReal) 2.0, myGeoms);
         if(!useLineReader(lr, file, handler1)) {
@@ -548,7 +541,7 @@ NILoader::loadElmar(OptionsCont &oc)
     // load edges
     WRITE_MESSAGE("Loading edges... ");
     if(!unsplitted) {
-        std::string file = oc.getString(opt) + string("_links.txt");
+        std::string file = oc.getString(opt) + "_links.txt";
         // parse the file
         NIElmarEdgesHandler handler2(myNetBuilder.getNodeCont(),
             myNetBuilder.getEdgeCont(), file);
@@ -556,7 +549,7 @@ NILoader::loadElmar(OptionsCont &oc)
             throw ProcessError();
         }
     } else {
-        std::string file = oc.getString(opt) + string("_links_unsplitted.txt");
+        std::string file = oc.getString(opt) + "_links_unsplitted.txt";
         // parse the file
         NIElmar2EdgesHandler handler2(myNetBuilder.getNodeCont(),
             myNetBuilder.getEdgeCont(), file, myGeoms);
