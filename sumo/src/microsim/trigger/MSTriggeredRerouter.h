@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2006/01/17 14:10:56  dkrajzew
+// debugging
+//
 // Revision 1.3  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -139,22 +142,14 @@ protected:
     bool nextRead();
 
 protected:
-
-    MSEdge *myEdge;
-    /// The used SAX-parser
-    SAX2XMLReader* myParser;
     std::vector<Setter*> mySetter;
     std::vector<RerouteInterval> myIntervals;
-
-
     SUMOTime myCurrentIntervalBegin, myCurrentIntervalEnd;
     std::vector<MSEdge*> myCurrentClosed;
     std::vector<MSEdge*> myCurrentDests;
     std::vector<std::pair<SUMOReal, MSEdge*> > myCurrentProb;
     SUMOReal myProbability, myUserProbability;
     bool myAmInUserMode;
-//    MSEdge *myCurrentExplicite;
-
 
 };
 

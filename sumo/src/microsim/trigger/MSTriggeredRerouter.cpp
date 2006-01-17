@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/01/17 14:10:56  dkrajzew
+// debugging
+//
 // Revision 1.4  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -129,19 +132,19 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
     /*,
     myEdge(edge)*/
 {
-    // read the description
+    // read in the trigger description
+    SAX2XMLReader* triggerParser = 0;
     try {
-        myParser = XMLHelpers::getSAXReader(*this);
-        myParser->parse(aXMLFilename.c_str());
+        triggerParser = XMLHelpers::getSAXReader(*this);
+        triggerParser->parse(aXMLFilename.c_str());
     } catch (SAXException &e) {
-        MsgHandler::getErrorInstance()->inform(
-            TplConvert<XMLCh>::_2str(e.getMessage()));
+        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
         throw ProcessError();
     } catch (XMLException &e) {
-        MsgHandler::getErrorInstance()->inform(
-            TplConvert<XMLCh>::_2str(e.getMessage()));
+        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
         throw ProcessError();
     }
+    delete triggerParser;
     // build actors
     for(std::vector<MSEdge*>::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
         std::vector<MSLane*> *destLanes = (*j)->getLanes();
@@ -156,7 +159,6 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
 
 MSTriggeredRerouter::~MSTriggeredRerouter()
 {
-    delete myParser;
     {
         std::vector<Setter*>::iterator i;
         for(i=mySetter.begin(); i!=mySetter.end(); ++i) {
@@ -203,13 +205,15 @@ MSTriggeredRerouter::myStartElement(int element, const std::string &name,
         string toid = getStringSecure(attrs, SUMO_ATTR_ID, "");
         MSEdge *to = MSEdge::dictionary(toid);
         if(to==0) {
-            MsgHandler::getErrorInstance()->inform(string("Could not find edge '") + toid + string("' to reroute in '") + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("Could not find edge '" + toid + "' to reroute in '" + _file + "'.");
             return;
         }
         myCurrentClosed.push_back(to);
         string destid = getStringSecure(attrs, SUMO_ATTR_TO, "");
         MSEdge *dest = MSEdge::dictionary(destid);
-        myCurrentDests.push_back(dest);
+        if(dest!=0) {
+            myCurrentDests.push_back(dest);
+        }
     }
     /*
     // maybe by explicite

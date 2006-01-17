@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/01/17 14:10:56  dkrajzew
+// debugging
+//
 // Revision 1.4  2005/11/09 06:37:52  dkrajzew
 // trigger reworked
 //
@@ -96,6 +99,9 @@ namespace
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
 #include "MSLaneSpeedTrigger.h"
+#include <utils/common/XMLHelpers.h>
+#include <utils/common/TplConvert.h>
+#include <microsim/MSEventControl.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -115,10 +121,41 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
                                        MSNet &net,
                                        const std::vector<MSLane*> &destLanes,
                                        const std::string &aXMLFilename)
-    : MSTriggeredXMLReader(net, aXMLFilename), MSTrigger(id),
-    myDestLanes(destLanes), myHaveNext(false), myAmOverriding(false)
+    : MSTrigger(id), SUMOSAXHandler("speed_limits", aXMLFilename),
+    myDestLanes(destLanes), /*myHaveNext(false), */myAmOverriding(false)
+/*    ,
+    myNextOffset(0)*/
 {
     myCurrentSpeed = destLanes[0]->maxSpeed();
+    // read in the trigger description
+    SAX2XMLReader* triggerParser = 0;
+    try {
+        triggerParser = XMLHelpers::getSAXReader(*this);
+        triggerParser->parse(aXMLFilename.c_str());
+    } catch (SAXException &e) {
+        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
+        throw ProcessError();
+    } catch (XMLException &e) {
+        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
+        throw ProcessError();
+    }
+    // set it to the right value
+        // assert there is at least one
+    if(myLoadedSpeeds.size()==0) {
+        myLoadedSpeeds.push_back(make_pair(100000, myCurrentSpeed));
+    }
+        // set the process to the begin
+    myCurrentEntry = myLoadedSpeeds.begin();
+        // pass previous time steps
+    while((*myCurrentEntry).first<net.getCurrentTimeStep()&&myCurrentEntry!=myLoadedSpeeds.end()) {
+        processCommand(true);
+    }
+
+    // add the processing to the event handler
+    MSEventControl::getBeginOfTimestepEvents()->addEvent(
+        new MyCommand(this), (*myCurrentEntry).first,
+            MSEventControl::NO_CHANGE);
+    delete triggerParser;
 }
 
 
@@ -127,16 +164,21 @@ MSLaneSpeedTrigger::~MSLaneSpeedTrigger()
 }
 
 
-bool
-MSLaneSpeedTrigger::processNextEntryReaderTriggered()
+SUMOTime
+MSLaneSpeedTrigger::processCommand(bool move2next)
 {
     std::vector<MSLane*>::iterator i;
     for(i=myDestLanes.begin(); i!=myDestLanes.end(); ++i) {
-        (*i)->myMaxSpeed = myCurrentSpeed;
+        (*i)->myMaxSpeed = getCurrentSpeed();
     }
-    myCurrentSpeed = myNextSpeed;
-    myHaveNext = false;
-    return true;
+    if(move2next&&myCurrentEntry!=myLoadedSpeeds.end()) {
+        ++myCurrentEntry;
+    }
+    if(myCurrentEntry!=myLoadedSpeeds.end()) {
+        return ((*myCurrentEntry).first)-((*(myCurrentEntry-1)).first);
+    } else {
+        return 0;
+    }
 }
 
 
@@ -150,44 +192,21 @@ MSLaneSpeedTrigger::myStartElement(int element, const std::string &,
     }
     // extract the values
     try {
-        long next = getLongSecure(attrs, SUMO_ATTR_TIME, -1);
+        int next = getIntSecure(attrs, SUMO_ATTR_TIME, -1);
         SUMOReal speed = getFloatSecure(attrs, SUMO_ATTR_SPEED, -1.0);
         // check the values
         if(next<0) {
-            MsgHandler::getErrorInstance()->inform(
-                string("Wrong time in MSLaneSpeedTrigger in file '")
-                + _file
-                + string("'."));
+            MsgHandler::getErrorInstance()->inform("Wrong time in MSLaneSpeedTrigger in file '" + _file + "'.");
             return;
         }
         if(speed<0) {
-            MsgHandler::getErrorInstance()->inform(
-                string("Wrong speed in MSLaneSpeedTrigger in file '")
-                + _file
-                + string("'."));
+            MsgHandler::getErrorInstance()->inform("Wrong speed in MSLaneSpeedTrigger in file '" + _file + "'.");
             return;
         }
         // set the values for the next step as they are valid
-        myNextSpeed = speed;
-        _offset = SUMOTime(next);
-        myLoadedSpeed = myCurrentSpeed;
-        if(myAmOverriding) {
-            myCurrentSpeed = mySpeedOverrideValue;
-        }
-        // assert the state before next event
-        if(_offset<MSNet::getInstance()->getCurrentTimeStep()) {
-            std::vector<MSLane*>::iterator i;
-            for(i=myDestLanes.begin(); i!=myDestLanes.end(); ++i) {
-                (*i)->myMaxSpeed = myCurrentSpeed;
-            }
-            myCurrentSpeed = myNextSpeed;
-        } else {
-            myHaveNext = true;
-        }
+        myLoadedSpeeds.push_back(make_pair(next, speed));
     } catch(NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Could not initialise vss '") + getID()
-            + string("'."));
+        MsgHandler::getErrorInstance()->inform("Could not initialise vss '" + getID() + "'.");
         throw ProcessError();
     }
 }
@@ -204,11 +223,7 @@ void
 MSLaneSpeedTrigger::setOverriding(bool val)
 {
     myAmOverriding = val;
-    if(myAmOverriding) {
-        myCurrentSpeed = mySpeedOverrideValue;
-    } else {
-        myCurrentSpeed = myLoadedSpeed;
-    }
+    processCommand(false);
 }
 
 
@@ -216,26 +231,38 @@ void
 MSLaneSpeedTrigger::setOverridingValue(SUMOReal val)
 {
     mySpeedOverrideValue = val;
-    if(myAmOverriding) {
-        myCurrentSpeed = mySpeedOverrideValue;
-        processNextEntryReaderTriggered();
-    } else {
-        myCurrentSpeed = myLoadedSpeed;
-    }
+    processCommand(false);
 }
 
 
 SUMOReal
 MSLaneSpeedTrigger::getLoadedSpeed()
 {
-    return myLoadedSpeed;
+    if(myCurrentEntry!=myLoadedSpeeds.end()) {
+        return (*myCurrentEntry).second;
+    } else {
+        return (*(myCurrentEntry-1)).second;
+    }
 }
 
 
 SUMOReal
 MSLaneSpeedTrigger::getCurrentSpeed() const
 {
-    return (*(myDestLanes.begin()))->maxSpeed();
+    if(myAmOverriding) {
+        return mySpeedOverrideValue;
+    } else {
+        // ok, maybe the first shall not yet be the valid one
+        if(myCurrentEntry==myLoadedSpeeds.begin()&&(*myCurrentEntry).first>MSNet::getInstance()->getCurrentTimeStep()) {
+            return myDefaultSpeed;
+        }
+        // try the loaded
+        if(myCurrentEntry!=myLoadedSpeeds.end()&&(*myCurrentEntry).first<=MSNet::getInstance()->getCurrentTimeStep()) {
+            return (*myCurrentEntry).second;
+        } else {
+            return (*(myCurrentEntry-1)).second;
+        }
+    }
 }
 
 
@@ -248,19 +275,6 @@ MSLaneSpeedTrigger::myCharacters(int , const std::string &,
 
 void
 MSLaneSpeedTrigger::myEndElement(int , const std::string &)
-{
-}
-
-
-bool
-MSLaneSpeedTrigger::nextRead()
-{
-    return myHaveNext;
-}
-
-
-void
-MSLaneSpeedTrigger::inputEndReached()
 {
 }
 

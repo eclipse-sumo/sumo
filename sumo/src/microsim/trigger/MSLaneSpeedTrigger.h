@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/01/17 14:10:56  dkrajzew
+// debugging
+//
 // Revision 1.4  2005/11/09 06:37:52  dkrajzew
 // trigger reworked
 //
@@ -94,8 +97,7 @@ class MSLane;
  * responsible for from a file and sets it.
  * Lanes with variable speeds are so possible.
  */
-class MSLaneSpeedTrigger : public MSTriggeredXMLReader,
-                           public MSTrigger {
+class MSLaneSpeedTrigger : public MSTrigger, public SUMOSAXHandler {
 public:
     /** constructor */
     MSLaneSpeedTrigger(const std::string &id,
@@ -106,7 +108,7 @@ public:
     virtual ~MSLaneSpeedTrigger();
 
     /** the implementation of the MSTriggeredReader-processNextEntryReaderTriggered method */
-    bool processNextEntryReaderTriggered();
+    SUMOTime processCommand(bool move2next);
 
     SUMOReal getDefaultSpeed() const;
 
@@ -134,9 +136,30 @@ protected:
         element ends */
     void myEndElement(int element, const std::string &name);
 
-    bool nextRead();
+        /**
+     * Class realising the switch between the traffic light states (phases
+     */
+    class MyCommand : public Command {
+    public:
+        /// Constructor
+        MyCommand(MSLaneSpeedTrigger *vss)
+            : myVSS(vss) { }
 
-    void inputEndReached();
+        /// Destructor
+        ~MyCommand() { }
+
+        /** @brief Executes this event
+            Executes the regarded junction's "trySwitch"- method */
+        SUMOTime execute() {
+            return myVSS->processCommand(true);
+        }
+
+    private:
+        /// The logic to be executed on a switch
+        MSLaneSpeedTrigger *myVSS;
+
+    };
+
 
 protected:
     /// Define the container for those lanes that shall be manipulated
@@ -148,8 +171,6 @@ protected:
     /** the speed that will be set on the next call */
     SUMOReal myCurrentSpeed;
 
-    bool myHaveNext;
-
     /// The original speed allowed on the lanes
     SUMOReal myDefaultSpeed;
 
@@ -159,10 +180,8 @@ protected:
     /// The speed to use if overriding the read speed
     SUMOReal mySpeedOverrideValue;
 
-    /// The loaded speed
-    SUMOReal myLoadedSpeed;
-
-    SUMOReal myNextSpeed;
+    std::vector<std::pair<SUMOTime, SUMOReal> > myLoadedSpeeds;
+    std::vector<std::pair<SUMOTime, SUMOReal> >::iterator myCurrentEntry;
 
 };
 
