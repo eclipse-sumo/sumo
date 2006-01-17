@@ -2331,6 +2331,71 @@ gnuplot&gt; plot "emissions_30.txt" u 1:8 w l, "emissions_31.txt" u 1:8 w l, \
               <row>
                 <entry></entry>
               </row>
+
+              <row>
+                <entry><emphasis>Checks whether error handling
+                works</emphasis></entry>
+              </row>
+
+              <row>
+                <entrytbl cols="2">
+                  <thead>
+                    <row>
+                      <entry>Path</entry>
+
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+
+                  <tbody>
+                    <row>
+                      <entry><filename>duarouter/errors/no_net</filename></entry>
+
+                      <entry>Tests what happens if the net is not
+                      given</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/errors/false_net</filename></entry>
+
+                      <entry>Tests what happens if the net is not
+                      available</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/errors/no_output</filename></entry>
+
+                      <entry>Tests what happens if the output is not
+                      given</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/errors/no_input</filename></entry>
+
+                      <entry>Tests what happens if the output can not be
+                      written</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/errors/no_input</filename></entry>
+
+                      <entry>Tests what happens if the input is not
+                      given</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/errors/unknown_option</filename></entry>
+
+                      <entry>Tests what happens if an unknown option is
+                      passed</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry></entry>
+              </row>
             </tbody>
           </tgroup>
         </table>
@@ -2510,6 +2575,121 @@ gnuplot&gt; plot "emissions_30.txt" u 1:8 w l, "emissions_31.txt" u 1:8 w l, \
               <row>
                 <entry></entry>
               </row>
+
+              <row>
+                <entry><emphasis>Checks whether setting connections and
+                disabling addition of turnaround work</emphasis></entry>
+              </row>
+
+              <row>
+                <entrytbl cols="2">
+                  <thead>
+                    <row>
+                      <entry>Path</entry>
+
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+
+                  <tbody>
+                    <row>
+                      <entry><filename>netconvert/XML2/connections/cross3l_edge2edge_conns</filename></entry>
+
+                      <entry>a simple test for setting connections
+                      edge-wise</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>netconvert/XML2/connections/cross3l_lane2lane_conns</filename></entry>
+
+                      <entry>a simple test for setting connections
+                      lane-wise</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>netconvert/XML2/connections/cross3l_no_turnarounds</filename></entry>
+
+                      <entry>a simple test to check whether appending
+                      turnarounds may be disabled</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry></entry>
+              </row>
+
+              <row>
+                <entry><emphasis>Checks whether error handling
+                works</emphasis></entry>
+              </row>
+
+              <row>
+                <entrytbl cols="2">
+                  <thead>
+                    <row>
+                      <entry>Path</entry>
+
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+
+                  <tbody>
+                    <row>
+                      <entry><filename>netconvert/errors/false_output</filename></entry>
+
+                      <entry>Tests what happens if the output can not be
+                      written</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>netconvert/errors/no_output</filename></entry>
+
+                      <entry>Tests what happens if no output is given</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>netconvert/errors/xml_false_edg</filename></entry>
+
+                      <entry>Tests what happens if xml-edges can not be
+                      read</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>netconvert/errors/xml_no_edg</filename></entry>
+
+                      <entry>Tests what happens if no xml-edges are
+                      given</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>netconvert/errors/xml_false_nod</filename></entry>
+
+                      <entry>Tests what happens if xml-nodes can not be
+                      read</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>netconvert/errors/xml_no_nod</filename></entry>
+
+                      <entry>Tests what happens if no xml-nodes are
+                      given</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>netconvert/errors/unknown_option</filename></entry>
+
+                      <entry>Tests what happens if an unknown option is
+                      passed</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry></entry>
+              </row>
             </tbody>
           </tgroup>
         </table>
@@ -2595,6 +2775,130 @@ gnuplot&gt; plot "emissions_30.txt" u 1:8 w l, "emissions_31.txt" u 1:8 w l, \
 
                       <entry>checks whether oldstyle routes are read
                       properly</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry></entry>
+              </row>
+
+              <row>
+                <entry><emphasis>Checks whether outputs are generated
+                properly</emphasis></entry>
+              </row>
+
+              <row>
+                <entrytbl cols="2">
+                  <thead>
+                    <row>
+                      <entry>Path</entry>
+
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+
+                  <tbody>
+                    <row>
+                      <entry><filename>sumo/routes/output/cross3ltl_emissions</filename></entry>
+
+                      <entry>checks whether emissions are written</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>sumo/routes/output/cross3ltl_meandata</filename></entry>
+
+                      <entry>checks whether mean data are written
+                      (edge-based)</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>sumo/routes/output/cross3ltl_rawdump</filename></entry>
+
+                      <entry>checks whether raw dump is written</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>sumo/routes/output/cross3ltl_rawdump_withempty</filename></entry>
+
+                      <entry>checks whether raw dump is written (with
+                      <option>--dump-empty-edges</option>)</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>sumo/routes/output/cross3ltl_tripinfo</filename></entry>
+
+                      <entry>checks whether tripinfos are written</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>sumo/routes/output/cross3ltl_vehroutes</filename></entry>
+
+                      <entry>checks whether vehroutes are written (buggy); see
+                      also
+                      <filename>netconvert/extended/rerouter</filename></entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry></entry>
+              </row>
+
+              <row>
+                <entry><emphasis>Checks whether additional structures
+                work</emphasis></entry>
+              </row>
+
+              <row>
+                <entrytbl cols="2">
+                  <thead>
+                    <row>
+                      <entry>Path</entry>
+
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+
+                  <tbody>
+                    <row>
+                      <entry><filename>netconvert/extended/rerouter</filename></entry>
+
+                      <entry>Tests whether rerouter work; checks also whether
+                      vehroutes work properly when vehicles are
+                      rerouted</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry></entry>
+              </row>
+
+              <row>
+                <entry><emphasis>Checks whether error handling
+                works</emphasis></entry>
+              </row>
+
+              <row>
+                <entrytbl cols="2">
+                  <thead>
+                    <row>
+                      <entry>Path</entry>
+
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+
+                  <tbody>
+                    <row>
+                      <entry><filename>netconvert/errors/unknown_option</filename></entry>
+
+                      <entry>Tests what happens if an unknown option is
+                      passed</entry>
                     </row>
                   </tbody>
                 </entrytbl>

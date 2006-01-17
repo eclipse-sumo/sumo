@@ -229,7 +229,7 @@
 
           <listitem>
             <para>A virtual time to specify the begin of route computation.
-            Previous routes are skipped. <remark>Optional (pre-given),
+            Previous routes are skipped. <remark>Optional (pregiven),
             type:int, default: 0</remark></para>
           </listitem>
         </varlistentry>
@@ -240,7 +240,7 @@
 
           <listitem>
             <para>A virtual time to specify the end of route computation.
-            Later routes are skipped. <remark>Optional (pre-given), type:int,
+            Later routes are skipped. <remark>Optional (pregiven), type:int,
             default: 86400</remark></para>
           </listitem>
         </varlistentry>
@@ -257,7 +257,7 @@
 
           <listitem>
             <para>Gawron's beta; See also the documentation on Christian
-            Gawron's Dynamic User Assignment. <remark>Optional (pre-given),
+            Gawron's Dynamic User Assignment. <remark>Optional (pregiven),
             type:float, default: 0.3 (Only for processing of
             alternatives)</remark></para>
           </listitem>
@@ -269,7 +269,7 @@
 
           <listitem>
             <para>Gawron's A; See also the documentation on Christian Gawron's
-            Dynamic User Assignment. <remark>Optional (pre-given), type:float,
+            Dynamic User Assignment. <remark>Optional (pregiven), type:float,
             default: 0.05 (Only for processing of
             alternatives)</remark></para>
           </listitem>
@@ -341,8 +341,36 @@
           <listitem>
             <para>This value describes with which factor the number of edges
             within the net shall be multiplied to get the maximum number of
-            edges a route may have. <remark>Optional (pre-given), type:float,
+            edges a route may have. <remark>Optional (pregiven), type:float,
             default: 2</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Random Number Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>--abs-rand</term>
+
+          <listitem>
+            <para>Initialises the random number generator with the current
+            time (in ms) in the hope to make him generate really random
+            numbers of an unknown order. <remark>Optional, type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--srand <replaceable
+          class="parameter">&lt;SEED&gt;</replaceable></term>
+
+          <listitem>
+            <para>Initialises the random number generator with
+            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
+            type:int, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -400,34 +428,6 @@
             <para>All outputs (messages, warnings, and errors) will be written
             to <replaceable>&lt;LOG_FILE_NAME&gt;</replaceable>.
             <remark>Optional, type:filename, default: none</remark></para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-    </refsect2>
-
-    <refsect2>
-      <title>Random Number Options:</title>
-
-      <variablelist>
-        <varlistentry>
-          <term>--abs-rand</term>
-
-          <listitem>
-            <para>Initialises the random number generator with the current
-            time (in ms) in the hope to make him generate really random
-            numbers of an unknown order. <remark>Optional, type:bool, default:
-            false</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--srand <replaceable
-          class="parameter">&lt;SEED&gt;</replaceable></term>
-
-          <listitem>
-            <para>Initialises the random number generator with
-            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
-            type:int, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>

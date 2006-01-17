@@ -243,7 +243,7 @@
 
           <listitem>
             <para>A virtual time to specify the begin of route computation.
-            Previous routes are skipped. <remark>Optional (pre-given),
+            Previous routes are skipped. <remark>Optional (pregiven),
             type:int, default: 0</remark></para>
           </listitem>
         </varlistentry>
@@ -254,7 +254,7 @@
 
           <listitem>
             <para>A virtual time to specify the end of route computation.
-            Later routes are skipped. <remark>Optional (pre-given), type:int,
+            Later routes are skipped. <remark>Optional (pregiven), type:int,
             default: 86400</remark></para>
           </listitem>
         </varlistentry>
@@ -271,7 +271,7 @@
 
           <listitem>
             <para>Gawron's beta; See also the documentation on Christian
-            Gawron's Dynamic User Assignment. <remark>Optional (pre-given),
+            Gawron's Dynamic User Assignment. <remark>Optional (pregiven),
             type:float, default: 0.3 (Only for processing of
             alternatives)</remark></para>
           </listitem>
@@ -283,7 +283,7 @@
 
           <listitem>
             <para>Gawron's A; See also the documentation on Christian Gawron's
-            Dynamic User Assignment. <remark>Optional (pre-given), type:float,
+            Dynamic User Assignment. <remark>Optional (pregiven), type:float,
             default: 0.05 (Only for processing of
             alternatives)</remark></para>
           </listitem>
@@ -360,7 +360,7 @@
 
           <listitem>
             <para>The maximum velocity for the default vehicle type
-            "KRAUSS_DEFAULT" in m/s. <remark>Optional (pre-given), type:float,
+            "KRAUSS_DEFAULT" in m/s. <remark>Optional (pregiven), type:float,
             default: 70 (m/s)</remark></para>
           </listitem>
         </varlistentry>
@@ -371,7 +371,7 @@
 
           <listitem>
             <para>The maximum acceleration for the default vehicle type
-            "KRAUSS_DEFAULT" in m/s^2. <remark>Optional (pre-given),
+            "KRAUSS_DEFAULT" in m/s^2. <remark>Optional (pregiven),
             type:float, default: 2.6 (m/s^2)</remark></para>
           </listitem>
         </varlistentry>
@@ -382,7 +382,7 @@
 
           <listitem>
             <para>The maximum deceleration for the default vehicle type
-            "KRAUSS_DEFAULT" in m/s^2. <remark>Optional (pre-given),
+            "KRAUSS_DEFAULT" in m/s^2. <remark>Optional (pregiven),
             type:float, default: 4.5 (m/s^2)</remark></para>
           </listitem>
         </varlistentry>
@@ -393,7 +393,7 @@
 
           <listitem>
             <para>The vehicle length for the default vehicle type
-            "KRAUSS_DEFAULT" in m. <remark>Optional (pre-given), type:float,
+            "KRAUSS_DEFAULT" in m. <remark>Optional (pregiven), type:float,
             default: 5 (m)</remark></para>
           </listitem>
         </varlistentry>
@@ -404,8 +404,36 @@
 
           <listitem>
             <para>The driver imperfection for the default vehicle type
-            "KRAUSS_DEFAULT". <remark>Optional (pre-given), type:float (should
+            "KRAUSS_DEFAULT". <remark>Optional (pregiven), type:float (should
             be between 0 and 1), default: 0.5</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Random Number Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>--abs-rand</term>
+
+          <listitem>
+            <para>Initialises the random number generator with the current
+            time (in ms) in the hope to make him generate really random
+            numbers of an unknown order. <remark>Optional, type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--srand <replaceable
+          class="parameter">&lt;SEED&gt;</replaceable></term>
+
+          <listitem>
+            <para>Initialises the random number generator with
+            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
+            type:int, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -482,34 +510,6 @@
             <para>All outputs (messages, warnings, and errors) will be written
             to <replaceable>&lt;LOG_FILE_NAME&gt;</replaceable>.
             <remark>Optional, type:filename, default: none</remark></para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-    </refsect2>
-
-    <refsect2>
-      <title>Random Number Options:</title>
-
-      <variablelist>
-        <varlistentry>
-          <term>--abs-rand</term>
-
-          <listitem>
-            <para>Initialises the random number generator with the current
-            time (in ms) in the hope to make him generate really random
-            numbers of an unknown order. <remark>Optional, type:bool, default:
-            false</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--srand <replaceable
-          class="parameter">&lt;SEED&gt;</replaceable></term>
-
-          <listitem>
-            <para>Initialises the random number generator with
-            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
-            type:int, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>

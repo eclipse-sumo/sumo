@@ -498,11 +498,10 @@
         <step>
           <para>Build the vehicle routes</para>
 
-          <para>Build your own movements using either by a) describing the
-          vehicle routes explicitely (see chapter 5, "<ulink
-          url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-own_routes-tripdefs">Generation
-          of own, explicit Routes using Trip Definitions</ulink>"), b) using
-          flows and turning percentages only (see chapter 5, "<ulink
+          <para>Build your own movements using either by a) describing
+          explicit vehicle routes (see chapter 5, "<ulink
+          url="#user_chp05-explicit">Using Trip Definitions</ulink>"), b)
+          using flows and turning percentages only (see chapter 5, "<ulink
           url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-own_routes-jtr">Using
           the Junction Turning Ratio - Router</ulink>"), c) generating random
           routes (see chapter 5, "<ulink
@@ -711,9 +710,9 @@
       "<emphasis>node</emphasis>" and "<emphasis>junction</emphasis>" means
       the same as well as "<emphasis>edge</emphasis>" and
       "<emphasis>street</emphasis>". Besides defining the nodes and edges, you
-      can also join edge types and explicitely set connections between lanes.
-      We will describe how each of these four file types should be set up in
-      the following.</para>
+      can also join edge types and set explicit connections between lanes. We
+      will describe how each of these four file types should be set up in the
+      following.</para>
 
       <sect2 id="user_chp04-xml_descriptions-nodes">
         <title>Node Descriptions</title>
@@ -865,21 +864,21 @@
         <para>For each edge, some further attributes should be supplied, being
         the number of lanes the edge has, the maximum speed allowed on the
         edge, the length the edge has (in meters) and a priority value. These
-        values - beside the length in fact - may either be given explicitly
-        for each edge using according attributes or you can omit them by
-        giving the edge a "<sgmltag>type</sgmltag>". In this case, you should
-        also write a type-file (see "<ulink
-        url="#user_chp04-xml_descriptions-types">Types Descriptions</ulink>").
-        A type with this name should of course be within the generated
-        type-file, otherwise an error is reported. Even if you supply a type,
-        you can still override the type's values by supplying any of the
-        parameter <sgmltag>nolanes</sgmltag>, <sgmltag>speed</sgmltag> and
-        <sgmltag>priority</sgmltag>. You may also leave the edge parameter
-        completely unset. In this case, default-values will be used and the
-        edge will have a single lane, a priority of 0 (zero) and the maximum
-        allowed speed on this edge will be 13.9m/s being around 50km/h. The
-        length of this edge will be computed as the distance between the
-        starting and the end point.</para>
+        values - beside the length in fact - may either be given for each edge
+        using according attributes or you can omit them by giving the edge a
+        "<sgmltag>type</sgmltag>". In this case, you should also write a
+        type-file (see "<ulink url="#user_chp04-xml_descriptions-types">Types
+        Descriptions</ulink>"). A type with this name should of course be
+        within the generated type-file, otherwise an error is reported. Even
+        if you supply a type, you can still override the type's values by
+        supplying any of the parameter <sgmltag>nolanes</sgmltag>,
+        <sgmltag>speed</sgmltag> and <sgmltag>priority</sgmltag>. You may also
+        leave the edge parameter completely unset. In this case,
+        default-values will be used and the edge will have a single lane, a
+        priority of 0 (zero) and the maximum allowed speed on this edge will
+        be 13.9m/s being around 50km/h. The length of this edge will be
+        computed as the distance between the starting and the end
+        point.</para>
 
         <para>As an edge may have a more complicated geometry, you may supply
         the edge's shape within the <sgmltag>shape</sgmltag> tag. If the
@@ -1038,8 +1037,8 @@
 <sgmltag>&lt;/edges&gt;</sgmltag>
 </programlisting>
 
-        <para>Within this example, we have used explicite definitions of
-        edges. An example for using types is described in the chapter "<ulink
+        <para>Within this example, we have used explicit definitions of edges.
+        An example for using types is described in the chapter "<ulink
         url="#user_chp04-xml_descriptions-types">Types
         Descriptions</ulink>".</para>
 
@@ -1091,7 +1090,7 @@
 
         <para>An example of using types may be found in
         "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/cross_usingtypes/</filename>".
-        Instead of explicite parameter edges reference types:</para>
+        Instead of explicit parameter edges reference types:</para>
 
         <programlisting><sgmltag>&lt;edges&gt;</sgmltag>
 
@@ -1174,8 +1173,8 @@
         <application>NETCONVERT</application> will compute which lanes shall
         be used if any of the connected edges has more than one lane.</para>
 
-        <para>If you also want to explicitly override this computation and set
-        the lanes by hand, use the following: <sgmltag>&lt;connection
+        <para>If you also want to override this computation and set the lanes
+        by hand, use the following: <sgmltag>&lt;connection
         from="&lt;FROM_EDGE_ID&gt;" to="&lt;T0_EDGE_ID&gt;"
         lane="&lt;INT_1&gt;:&lt;INT_2&gt;"/&gt;</sgmltag>. Here, a connection
         from the edge's
@@ -1246,11 +1245,11 @@
 <sgmltag>&lt;/connections&gt;</sgmltag>
 </programlisting>
 
-        <para> As you may see in the next picture, the horizontal edges within
-        the result network contain no left-moving connections. </para>
+        <para>As you may see in the next picture, the horizontal edges within
+        the result network contain no left-moving connections.</para>
 
         <figure>
-          <title>Network with explicite edge-2-edge connections</title>
+          <title>Network with explicit edge-2-edge connections</title>
 
           <mediaobject>
             <imageobject>
@@ -1281,7 +1280,7 @@
         <para>The built file looks like this:</para>
 
         <figure>
-          <title>Network with explicite lane-2-lane connections</title>
+          <title>Network with explicit lane-2-lane connections</title>
 
           <mediaobject>
             <imageobject>
@@ -1643,7 +1642,7 @@
               <row>
                 <entry>SPEED</entry>
 
-                <entry>The explicite speed in m/s (see also <ulink
+                <entry>The speed in m/s (see also <ulink
                 url="#user_chp04-further_options-kmh_speed">"Using Edges'
                 maximum Speed Definitions in km/h"</ulink>)</entry>
               </row>
@@ -1651,13 +1650,13 @@
               <row>
                 <entry>NOLANES</entry>
 
-                <entry>The explicite number of lanes</entry>
+                <entry>The number of lanes</entry>
               </row>
 
               <row>
                 <entry>PRIORITY</entry>
 
-                <entry>The explicite priority</entry>
+                <entry>The priority</entry>
               </row>
             </tbody>
           </tgroup>
@@ -1735,7 +1734,7 @@
 
         <itemizedlist spacing="compact">
           <listitem>
-            <para>versions earlier than 0.9.2 allowe to use an explicite
+            <para>versions earlier than 0.9.2 allow to use an explicit
             filename for both the .dbf and the .shp file using
             "<option>--arcview-dbf</option>" and
             "<option>--arcview-shp</option>". This was abondonned, because of
@@ -1955,7 +1954,7 @@
 
         <screen>netconvert --vissim=<replaceable>&lt;VISSIM_FILE&gt;</replaceable> --output-file=<replaceable>MySUMOFile.net.xml</replaceable></screen>
 
-        <para>Vissim-networks do possibly not contain explicite definitions of
+        <para>Vissim-networks do possibly not contain explicit definitions of
         an edge's speed. We have to propagate once set velocities, but even
         then some edges' speeds may not be defined. The option
         "<option>--vissim-default-speed</option>" may change the default speed
@@ -2327,7 +2326,7 @@
         </itemizedlist>
       </sect2>
 
-      <sect2 id="user_chp04-further_options-turnarounds">
+      <sect2 id="user_chp04-further_options-nogeometry">
         <title>Removing Geometry Nodes</title>
 
         <para>In most input networks one may find nodes where one street comes
@@ -2464,7 +2463,7 @@
           yet.</para>
         </caution>
 
-        <para>You may also explicitely set junctions as tls-controlled using
+        <para>You may also set junctions as tls-controlled using
         "<option>--explicite-tls</option>" or as uncontrolled using
         "<option>--explicite-no-tls</option>". Both options assume to get a
         list of node names divided by ';' as parameter. The behaviour when a
@@ -3115,8 +3114,8 @@
             </listitem>
 
             <listitem>
-              <para>versions earlier than 0.9.2 allowe to use an explicite
-              filename for both the .dbf and the .shp file using
+              <para>versions earlier than 0.9.2 allow to use a filename for
+              each of the .dbf and the .shp file using
               "<option>--arcview-dbf</option>" and
               "<option>--arcview-shp</option>".</para>
 
@@ -3160,6 +3159,34 @@
           </itemizedlist>
         </listitem>
       </itemizedlist>
+    </sect1>
+
+    <sect1 id="user_chp04-missing">
+      <title>Missing</title>
+
+      <para>Not yet described:</para>
+
+      <para>--print-node-positions</para>
+
+      <para>--omit-corrupt-edges</para>
+
+      <para>--flip-y</para>
+
+      <para>--use-laneno-as-priority</para>
+
+      <para>--x-offset-to-apply, --y-offset-to-apply,
+      --rotation-to-apply</para>
+
+      <para>--add-internal-links</para>
+
+      <para>--edges-min-speed, --keep-edges, --keep-edges.input-file,
+      --keep-edges.postload</para>
+
+      <para>--keep-unregulated, --keep-unregulated.nodes,
+      --keep-unregulated.district-nodes</para>
+
+      <para>--guess-obscure-ramps, --obscure-ramps.add-ramp,
+      --obscure-ramps.min-highway-speed</para>
     </sect1>
   </chapter>
 
@@ -3328,8 +3355,8 @@
         have one edge in between!</para>
       </caution>
 
-      <sect2 id="user_chp05-explicite">
-        <title>Own Explicite Routes</title>
+      <sect2 id="user_chp05-explicit">
+        <title>Generating own, explicit Routes</title>
 
         <para>There are two possibilities to describe own routes. The first
         one id the usage of trip definitions, the second one the usage of flow
@@ -3449,8 +3476,8 @@
 
           <para>Almost all networks within the
           <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/</filename>
-          - folder. Additionally some examples that explicitely deal with
-          trips may be found in
+          - folder. Additionally some examples that deal with trips may be
+          found in
           <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/router</filename>.</para>
 
           <itemizedlist spacing="compact">
@@ -3463,9 +3490,8 @@
             <listitem>
               <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/router/trips2routes_repetition/</filename>
               does exactly the same, but not by defining each of the 100
-              vehicles explicitely, but letting one vehicle be duplicated
-              using <sgmltag>period</sgmltag> and
-              <sgmltag>repno</sgmltag></para>
+              vehicles, but letting one vehicle be duplicated using
+              <sgmltag>period</sgmltag> and <sgmltag>repno</sgmltag></para>
             </listitem>
           </itemizedlist>
         </sect3>
@@ -3735,8 +3761,8 @@
         the network as the route it uses is randomly computed, the destination
         parameter has no meaning for jtr-routing and so may be left off. A
         vehicle leaves the network as soon as it comes to a sink edge. As not
-        all networks have sink edges set explicitly, one can support a list of
-        edges to be declared as sinks using <option>--sinks
+        all networks have sink edges set, one can support a list of edges to
+        be declared as sinks using <option>--sinks
         <replaceable>&lt;EDGE_IDS&gt;</replaceable></option>.
         <option><replaceable>&lt;EDGE_IDS&gt;</replaceable></option> is in
         this case a list of edge ids separated using a ';'.</para>
@@ -3871,9 +3897,9 @@
 
         <para>One of the main concepts of FastLane is the Dynamic User
         Assignment by Christian Gawron. As this mechanism is based on single
-        vehicle routes, those are explicitly given for a FastLane simulation.
-        The router module has only to convert routes from the FastLane- into
-        the SUMO-representation. Do this using the following command:</para>
+        vehicle routes, those are given for a FastLane simulation. The router
+        module has only to convert routes from the FastLane- into the
+        SUMO-representation. Do this using the following command:</para>
 
         <screen>duarouter --cell=<replaceable>&lt;CELL_FILE_NAME(NO_EXTENSION)&gt;</replaceable> --net=<replaceable>&lt;SUMO_NET&gt;</replaceable> \
    --output-file=<replaceable>MySUMORoutes.rou.xml</replaceable> -b <replaceable>&lt;UINT&gt;</replaceable> -e <replaceable>&lt;UINT&gt;</replaceable></screen>
@@ -4231,7 +4257,7 @@
       </itemizedlist>
     </sect1>
 
-    <sect1 id="user_chp05-changes">
+    <sect1 id="user_chp05-missing">
       <title>Missing</title>
 
       <para>--lane-weights is not tested and described</para>
@@ -4572,8 +4598,8 @@
           be generated. The "measures"-attribute must contain the measures
           divided by a ' ' (blank) in the case he does not want to compute all
           parameters. Computing all parameters is the default case but may
-          also be explicitly set using '<sgmltag>measures="ALL"</sgmltag>' .
-          The available measures are:</para>
+          also be set using '<sgmltag>measures="ALL"</sgmltag>' . The
+          available measures are:</para>
 
           <itemizedlist spacing="compact">
             <listitem>
@@ -4941,24 +4967,51 @@
         vehicles on this lane. For each vehicle, his name, speed and position
         on his lane are written. A network dump-file looks like this:</para>
 
-        <programlisting><sgmltag>&lt;timestep id="<replaceable>&lt;TIME_STEP&gt;</replaceable>"&gt;</sgmltag>
-   <sgmltag>&lt;edge id="<replaceable>&lt;EDGE_ID&gt;</replaceable>"&gt;</sgmltag>
-   <sgmltag>   &lt;lane id="<replaceable>&lt;LANE_ID&gt;</replaceable>"&gt;</sgmltag>
-         <sgmltag>&lt;vehicle id="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>" pos="<replaceable>&lt;VEH_POSITION&gt;</replaceable>" speed="<replaceable>&lt;VEH_SPEED&gt;</replaceable>"/&gt;</sgmltag>
+        <programlisting><sgmltag>&lt;sumo-netstate&gt;</sgmltag>
+   <sgmltag>&lt;timestep time="<replaceable>&lt;TIME_STEP&gt;</replaceable>"&gt;</sgmltag>
+      <sgmltag>&lt;edge id="<replaceable>&lt;EDGE_ID&gt;</replaceable>"&gt;</sgmltag>
+   <sgmltag>      &lt;lane id="<replaceable>&lt;LANE_ID&gt;</replaceable>"&gt;</sgmltag>
+            <sgmltag>&lt;vehicle id="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>" pos="<replaceable>&lt;VEH_POSITION&gt;</replaceable>" speed="<replaceable>&lt;VEH_SPEED&gt;</replaceable>"/&gt;</sgmltag>
 
-         ... more vehicles if any on this lane ...
+            ... more vehicles if any on this lane ...
 
-      <sgmltag>&lt;/lane&gt;</sgmltag>
+         <sgmltag>&lt;/lane&gt;</sgmltag>
 
-      ... more lanes if the edge possesses more ...
+         ... more lanes if the edge possesses more ...
 
-   <sgmltag>&lt;/edge&gt;</sgmltag>
+      <sgmltag>&lt;/edge&gt;</sgmltag>
 
-   ... more edges ....
+      ... more edges ....
 
-<sgmltag>&lt;/timestep&gt;</sgmltag>
+<sgmltag>   &lt;/timestep&gt;</sgmltag>
 
-... the next timestep ...</programlisting>
+... the next timestep ...
+
+<sgmltag>&lt;/sumo-netstate&gt;</sgmltag></programlisting>
+
+        <para>The values have the following meaning:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para><sgmltag>time</sgmltag>: The time step described by the
+            values within this <sgmltag>timestep</sgmltag>-element</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>id</sgmltag>: The id of the
+            edge/lane/vehicle</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>pos</sgmltag>: The position of the vehicle at the
+            lane within the described time step</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>speed</sgmltag>: The speed of the vehicle within
+            the described time step</para>
+          </listitem>
+        </itemizedlist>
 
         <para>As you may imagine, this output is very verbose. His main
         disadvantage is the size of the generated file. It's very easy to
@@ -4973,6 +5026,10 @@
         them. You can change this behaviour using the boolean switch
         <option>--dump-empty-edges</option>. In this case, only those edges
         and lanes will be written that contain vehicles.</para>
+
+        <para>Examples:</para>
+
+        <para>TBD</para>
 
         <para>Changes:</para>
 
@@ -4990,11 +5047,13 @@
         <para>TBD: --dump-end + dump-begin; difference lane-based &amp;
         edge-based</para>
 
-        <para>This information is far more feasible than the network dump. For
-        each lane, his attributes, aggregated over a freely specifiable time
-        interval are generated and written. To force SUMO to generate lane
-        state dumps, you have to use two command line options: a)
-        <option>--dump-basename
+        <para>This information is far more feasible than the network dump.
+        There are two different types of these files, one is edge-based, the
+        other lane-based. The aggregated state files contain information about
+        all edges/lanes states of the network.</para>
+
+        <para>To force SUMO to generate edge-based state dumps, you have to
+        use two command line options: a) <option>--dump-basename
         <replaceable>&lt;PATH_AND_FILE_PREFIX&gt;</replaceable></option>
         describes where to write the dumps to and how the begin of the name
         is. b) <option>--dump-intervals
@@ -5007,22 +5066,16 @@
         <option>--dump-basename=./output/lanedump
         --dump-intervals=300;600</option> will build two files:
         <filename>./output/lanedump_300.xml</filename> and
-        <filename>./output/lanedump_600.xml</filename>.</para>
-
-        <para>The lane state dump is a xml-file containing the aggregated
-        values for each lane of an edge for each interval:</para>
+        <filename>./output/lanedump_600.xml</filename>. For edge-based state
+        dumps, the output file will look as the following:</para>
 
         <programlisting><sgmltag>&lt;netstats&gt;</sgmltag>
    <sgmltag>&lt;interval begin="<replaceable>&lt;INTERVAL_BEGIN&gt;</replaceable>" end="<replaceable>&lt;INTERVAL_END&gt;</replaceable>"&gt;</sgmltag>
-      <sgmltag>&lt;edge id="<replaceable>&lt;EDGE_ID&gt;</replaceable>"&gt;</sgmltag>
-         <sgmltag>&lt;lane id="<replaceable>&lt;LANE_ID&gt;</replaceable>" traveltime="&lt;<replaceable>MEAN_TRAVEL_TIME&gt;</replaceable>" speed="<replaceable>&lt;MEAN_SPEED&gt;</replaceable>" \
-                 speedsquare="<replaceable>&lt;SPEED_SQUARE&gt;</replaceable>" density="<replaceable>&lt;MEAN_DENSITY&gt;</replaceable>" \
-                 noVehContrib="<replaceable>&lt;VEHICLE_NUMBER#1&gt;</replaceable>" noVehEntire="<replaceable>&lt;VEHICLE_NUMBER#2&gt;</replaceable>" \
-                 noVehEntered="<replaceable>&lt;VEHICLE_NUMBER#3&gt;</replaceable>" noVehLeft="<replaceable>&lt;VEHICLE_NUMBER#4&gt;</replaceable>" /&gt;</sgmltag>
-
-         ... more lanes if the edge possesses more ...
-
-      <sgmltag>&lt;/edge&gt;</sgmltag>
+      <sgmltag>&lt;edge id="<replaceable>&lt;EDGE_ID&gt;</replaceable>"</sgmltag> <sgmltag>traveltime="&lt;<replaceable>MEAN_TRAVEL_TIME&gt;</replaceable>" \
+                 noVehContrib="<replaceable>&lt;VEHICLE_NUMBER#1&gt;</replaceable>" \
+                 density="<replaceable>&lt;MEAN_DENSITY&gt;</replaceable>" \
+                 noStops="<replaceable>&lt;NUMBER_OF_HALTING_VEHICLES&gt;</replaceable>" \
+                 speed="<replaceable>&lt;MEAN_SPEED&gt;</replaceable>"/&gt;</sgmltag>
 
       ... more edges ...
 
@@ -5032,74 +5085,68 @@
 
 <sgmltag>&lt;/netstats&gt;</sgmltag></programlisting>
 
-        <para>It should be obvious, that
-        <sgmltag><replaceable>&lt;INTERVAL_END&gt;</replaceable></sgmltag> is
-        <sgmltag><replaceable>&lt;INTERVAL_BEGIN&gt;</replaceable></sgmltag>
-        plus the interval length. The values written for each lane are:</para>
+        <para>Please remark, that in contrary to the example above, for each
+        edge, all those values are reported in one line.</para>
+
+        <para>The meanings of the written values are:</para>
 
         <itemizedlist spacing="compact">
           <listitem>
-            <para><sgmltag>traveltime</sgmltag>:</para>
-
-            <para>The mean travel time the vehicles needed to pass the lane.
-            Only vehicles that pass the whole lane are regarded. Measure:
-            s</para>
+            <para><sgmltag>traveltime</sgmltag>: The mean travel time the
+            vehicles needed to pass the lane. Only vehicles that pass the
+            whole lane are regarded. If no vehicle has passed the edge,
+            length/maximum allowed velocity is used; Measure: s</para>
           </listitem>
 
           <listitem>
-            <para><sgmltag>speed</sgmltag>:</para>
-
-            <para>The mean speed the vehicles had when passing the lane. Only
-            vehicles that pass the whole lane are regarded. Measure:
-            m/s</para>
+            <para><sgmltag>speed</sgmltag>: The mean speed the vehicles had
+            when passing the lane. Only vehicles that pass the whole lane are
+            regarded. If no vehicle has passed the edge, the maximum allowed
+            velocity is used; Measure: m/s</para>
           </listitem>
 
           <listitem>
-            <para><sgmltag>speedsquare</sgmltag>:</para>
-
-            <para>Squared speed (?). Measure: m^2/s^2</para>
+            <para><sgmltag>density</sgmltag>: The mean density on the lane
+            during the interval. Only vehicles that pass the whole lane are
+            regarded. Measure: veh/h</para>
           </listitem>
 
           <listitem>
-            <para><sgmltag>density</sgmltag>:</para>
-
-            <para>The mean density on the lane during the interval. Only
-            vehicles that pass the whole lane are regarded. Measure:
-            veh/h</para>
-          </listitem>
-
-          <listitem>
-            <para><sgmltag>noVehContrib</sgmltag>:</para>
-
-            <para>The number of vehicles that were on the lane during the
-            interval. All vehicles are regarded. Measure: n (veh)</para>
-          </listitem>
-
-          <listitem>
-            <para><sgmltag>noVehEntire</sgmltag>:</para>
-
-            <para>The number of vehicles that have passed the lane completely.
+            <para><sgmltag>noVehContrib</sgmltag>: The number of vehicles that
+            were on the lane during the interval. All vehicles are regarded.
             Measure: n (veh)</para>
           </listitem>
+        </itemizedlist>
 
+        <para>The interval end is the interval begin + aggregation time - 1,
+        meaning that values were collected within these steps. If the
+        simulation ends before the last interval is over, the interval will be
+        prunned.</para>
+
+        <para>To generate lane-based dumps, TBD!!!</para>
+
+        <para>Examples:</para>
+
+        <para>tbd</para>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist>
           <listitem>
-            <para><sgmltag>noVehEntered</sgmltag>:</para>
-
-            <para>The number of vehicles that have entered the lane during the
-            interval. Measure: n (veh)</para>
+            <para>The documentation has been updated to fit the real output
+            when being rechecked for verion 0.9.3</para>
           </listitem>
 
           <listitem>
-            <para><sgmltag>noVehLeft</sgmltag>:</para>
-
-            <para>The number of vehicles that have left the lane during the
-            interval. Measure: n (veh)</para>
+            <para>The (even invalid) documentation of the file printed
+            previously at the begin of the file was removed in version
+            0.9.3</para>
           </listitem>
         </itemizedlist>
       </sect2>
 
       <sect2 id="user_chp06-output-emissions">
-        <title>Vehicle Emission States &amp; Trip Durations</title>
+        <title>Net-Wide Vehicle Emission States &amp; Travel Times</title>
 
         <para>This output contains the simulation-wide number of vehicles that
         are loaded, emitted, running, waiting to be emitted, have reached
@@ -5110,24 +5157,83 @@
         following:</para>
 
         <programlisting><sgmltag>&lt;emissions&gt;</sgmltag>
-   <sgmltag>&lt;emission-state time="<replaceable>&lt;SIMULATION_TIME&gt;</replaceable>" loaded="<replaceable>&lt;LOADED_VEHICLE_NUMBER&gt;</replaceable>" \
-              emitted="<replaceable>&lt;EMITTED_VEHICLE_NUMBER&gt;</replaceable>" running="<replaceable>&lt;RUNNING_VEHICLE_NUMBER&gt;</replaceable>" \
+   <sgmltag>&lt;emission-state time="<replaceable>&lt;SIMULATION_TIME&gt;</replaceable>"
+              loaded="<replaceable>&lt;LOADED_VEHICLE_NUMBER&gt;</replaceable>" \
+              emitted="<replaceable>&lt;EMITTED_VEHICLE_NUMBER&gt;</replaceable>" \
+              running="<replaceable>&lt;RUNNING_VEHICLE_NUMBER&gt;</replaceable>" \
               waiting="<replaceable>&lt;NUMBER_OF_VEHICLES_WAITING_FOR_EMISSION&gt;</replaceable>" \
-              ended="<replaceable>&lt;ENDED_VEHICLE_NUMBER&gt;</replaceable>" meanTravelTime="<replaceable>&lt;MEAN_TRAVEL_TIME&gt;</replaceable>"/&gt;</sgmltag>
+              ended="<replaceable>&lt;ENDED_VEHICLE_NUMBER&gt;</replaceable>" \
+              meanWaitingTime="<replaceable>&lt;MEAN_WAITING_TIME&gt;</replaceable>" \
+              meanTravelTime="<replaceable>&lt;MEAN_TRAVEL_TIME&gt;</replaceable>"/&gt;</sgmltag>
 
    ... further time steps ...
 
-<sgmltag>&lt;/netstats&gt;</sgmltag></programlisting>
+<sgmltag>&lt;/emissions&gt;</sgmltag></programlisting>
+
+        <para>Please remark, that in contrary to the example above, for each
+        time step, all those values are reported in one line.</para>
+
+        <para>The meanings of the written values are:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><sgmltag>time</sgmltag>: the time step the entry
+            describes</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>loaded</sgmltag>: the number of vehicles that were
+            loaded into the simulation until the reported time step</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>emitted</sgmltag>: the number of vehicles already
+            emitted until the reported time step</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>running</sgmltag>: the number of vehicles that were
+            running within the reported time step</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>ended</sgmltag>: the number of vehicles that have
+            reached their destination within the reported and the prior time
+            step</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>meanWaitingTime</sgmltag>: the mean time all
+            vehicles up to and within the reported time step had to wait for
+            being emitted;-1 if no vehicle has been emitted, yet</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>meanTravelTime</sgmltag>: the mean travel time of
+            all vehicles that have left the simulation within the previous and
+            the reported time;-1 if no vehicle has been removed from the
+            simulation, yet</para>
+          </listitem>
+        </itemizedlist>
 
         <para>You can force the simulation to generate this output using
         <option>--emissions-output
         <replaceable>&lt;FILENAME&gt;</replaceable></option> or
         <option>--emissions
         <replaceable>&lt;FILENAME&gt;</replaceable></option>.</para>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>In versions prior to 0.9.3, the attribute
+            "<sgmltag>time</sgmltag>" was named "<sgmltag>id</sgmltag>"</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
 
       <sect2 id="user_chp06-output-tripinfo">
-        <title>Trip Information</title>
+        <title>Vehicle-Oriented Trip Information</title>
 
         <para>This output contains the information about each vehicle's
         departure time, the time the vehicle wanted to start at (which may be
@@ -5137,36 +5243,178 @@
         network. The format is as following:</para>
 
         <programlisting><sgmltag>&lt;tripinfos&gt;</sgmltag>
-   <sgmltag>&lt;tripinfo id="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>" start="<replaceable>&lt;DEPARTURE_TIME&gt;</replaceable>" wished="<replaceable>&lt;WISHED_DEPARTURE_TIME&gt;</replaceable>" \
-            end="<replaceable>&lt;ARRIVAL_TIME&gt;</replaceable>"/&gt;</sgmltag>
+   <sgmltag>&lt;tripinfo vehicle_id="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>" start="<replaceable>&lt;DEPARTURE_TIME&gt;</replaceable>" \
+            wished="<replaceable>&lt;WISHED_DEPARTURE_TIME&gt;</replaceable>" \
+            end="<replaceable>&lt;ARRIVAL_TIME&gt;</replaceable>" \
+            duration="&lt;TRAVEL_TIME&gt;" \
+            waited="&lt;WAITING_TIME&gt;"/&gt;</sgmltag>
 
    ... information about further vehicles ...
 
 <sgmltag>&lt;/tripinfos&gt;</sgmltag></programlisting>
+
+        <para>Please remark, that in contrary to the example above, for each
+        time step, all those values are reported in one line. An entry is
+        written each time a vehicle has arrived at his destination. In prior
+        to this, the written values would not be known.</para>
+
+        <para>The meanings of the written values are:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><sgmltag>vehicle_id</sgmltag>: theid of the vehicle this
+            entry describes</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>start</sgmltag>: The real departure time (the time
+            the vehicle was emitted into the network)</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>wished</sgmltag>: The departure time the vehicles
+            wanted to be emitted into the network</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>end</sgmltag>: The time the vehicle was removed
+            from the simulation (due to arriving at the route end)</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>duration</sgmltag>: The time the vehicle needed to
+            accomplish the route (in s)</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>waited</sgmltag>: The time the vehicle has waited
+            until being emitted</para>
+          </listitem>
+        </itemizedlist>
 
         <para>The simulation is forced to generate this output using:
         <option>--tripinfo-output
         <replaceable>&lt;FILENAME&gt;</replaceable></option> or
         <option>--tripinfo
         <replaceable>&lt;FILENAME&gt;</replaceable></option>.</para>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>In versions prior to 0.9.3, the attribute
+            "<sgmltag>vehicle_id</sgmltag>" was named
+            "<sgmltag>id</sgmltag>"</para>
+          </listitem>
+
+          <listitem>
+            <para>The documentation has been updated before releasing version
+            0.9.3</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
 
-      <sect2 id="user_chp06-output-tripinfo">
+      <sect2 id="user_chp06-output-vehroutes">
         <title>Vehicle Routes</title>
 
-        <para>TBD</para>
+        <para>the vehicle routes output contains information about which route
+        a vehicle took and if his route was replaced at any time by a new one,
+        each of the previous routes together with the edge at the time their
+        replacement took place is reported. Furthermore, the vehicle emission
+        and ending time is stored herein.</para>
+
+        <para>The generated file look like this:</para>
+
+        <programlisting><sgmltag>&lt;vehicleroutes&gt;</sgmltag>
+   <sgmltag>&lt;vehicle id="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>" emitedAt="<replaceable>&lt;EMISSION_TIME&gt;</replaceable>" endedAt="<replaceable>&lt;ARRIVAL_TIME&gt;</replaceable>"&gt;</sgmltag>
+      <sgmltag>&lt;route replacedOnEdge="<replaceable>&lt;EDGE_ID&gt;</replaceable>" replacedAtTime="<replaceable>&lt;TIME&gt;</replaceable>"&gt;<replaceable>&lt;PREVIOUS_ROUTE&gt;</replaceable>&lt;/route&gt;</sgmltag>
+      ... further replaced routes ...
+
+     <sgmltag> &lt;route&gt;<replaceable>&lt;LAST_ROUTE&gt;</replaceable>&lt;/route&gt;</sgmltag>
+   <sgmltag>&lt;/vehicle&gt;</sgmltag>
+
+<sgmltag>   ... information about further vehicles ...
+
+&lt;/tripinfos&gt;</sgmltag></programlisting>
+
+        <para>The values have the following meanings:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><sgmltag>id</sgmltag>: theid of the vehicle this entry
+            describes</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>emitedAt</sgmltag>: The time the vehicle was
+            emitted into the network)</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>endedAt</sgmltag>: The time the vehicle was removed
+            from the simulation (due to arriving at the route end)</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>replacedOnEdge</sgmltag>: The edge the vehicle was
+            on when the described route was replaced</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>replacedAtTime</sgmltag>: The time step of this
+            replacement</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag><replaceable>&lt;PREVIOUS_ROUTE&gt;</replaceable></sgmltag>:
+            The replaced route</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag><replaceable>&lt;LAST_ROUTE&gt;</replaceable></sgmltag>:
+            The final vehicle route</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Both the previous and the final routes are complete, that means
+        that they contain all the edges the vehicle was meant to pass as long
+        as the route was not replaced, yet. The information
+        <sgmltag>replacedOnEdge</sgmltag> and
+        <sgmltag>replacedAtTime</sgmltag> are available only for routes which
+        were replaced.</para>
+
+        <para>In normal conditions, when all vehicles use predefined routes,
+        the output does not contain any information that could not be
+        retrieved from the routes and the tripinfo output. But as soon as you
+        reroute your vehicles within the simulation, f.e. using rerouters (see
+        TBD), it will contain new information.</para>
+
+        <para>The simulation is forced to generate this output using:
+        <option>--vehroutes-output
+        <replaceable>&lt;FILENAME&gt;</replaceable></option> or
+        <option>--vehroutes
+        <replaceable>&lt;FILENAME&gt;</replaceable></option>.</para>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>This output was finally finished and validated for version
+            0.9.3</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
     </sect1>
 
     <sect1 id="user_chp06-vehicle_handling">
       <title>Vehicles Handling Revisited</title>
 
-      <para>... to be described ...</para>
+      <para>... tbd ...</para>
 
       <sect2>
         <title>Emitter</title>
 
-        <para>... to be described ...</para>
+        <para>... tbd ...</para>
       </sect2>
     </sect1>
 
@@ -5360,28 +5608,65 @@
         </itemizedlist>
       </sect2>
 
-      <sect2 id="user_chp06-trigger-vss">
-        <title>Variable Speed Signs</title>
+      <sect2>
+        <title>Variable Speed Signs (VSS)</title>
 
-        <para>Variable speed signs available in SUMO read the speed limits
-        they set from a file and can be placed on several lanes. To insert a
-        vss into the simulation use the following definition:
-        <sgmltag>&lt;stop (
-        bus_stop="<replaceable>&lt;BUS_STOP_ID&gt;</replaceable>" |
-        lane="<replaceable>&lt;LANE_ID&gt;</replaceable>"
-        pos="<replaceable>&lt;POSITION_AT_LANE&gt;</replaceable>" )
-        duration="<replaceable>&lt;HALTING_DURATION&gt;</replaceable>"/&gt;</sgmltag>.</para>
+        <para>One of the trigger objects that may be specified within an
+        additional file allows the simulation of variable speed signs. The
+        syntax for such an object is: <sgmltag>&lt;trigger
+        id="<replaceable>&lt;VSS_ID&gt;</replaceable>" objecttype="lane"
+        objectid="<replaceable>&lt;LANE_ID&gt;</replaceable>" attr="speed"
+        file="<replaceable>&lt;DEF_FILE&gt;</replaceable>"/&gt;</sgmltag>.
+        This trigger is typed to be a vss by the combination of the values of
+        the attributes <sgmltag>objecttype="lane"</sgmltag> and
+        <sgmltag>attr="speed"</sgmltag>. Although no other combinations are
+        implemented so far, this combination forces the simulation to change
+        the attribute "speed" of a "lane"-object, exactly what vss do. Of
+        course, the vehicles themselves do not override this maximum velocity
+        what does not exactly represent the reality.</para>
 
-        <para>Examples:</para>
+        <para>You may have noticed that a file name must be supplied, called
+        <sgmltag><replaceable>&lt;DEF_FILE&gt;</replaceable></sgmltag> within
+        the schema above. This file must contain the information about when a
+        certain speed shall be set onto the lane. This file has the following
+        format:</para>
 
-        <itemizedlist>
-          <listitem>
-            <para><filename><replaceable>&lt;tbd</replaceable></filename></para>
-          </listitem>
-        </itemizedlist>
+        <programlisting><sgmltag>&lt;vss&gt;</sgmltag>
+   <sgmltag>&lt;step time="<replaceable>&lt;TIME&gt;</replaceable>" speed="<replaceable>&lt;SPEED&gt;</replaceable>"/&gt;</sgmltag>
+   <sgmltag>&lt;step time="<replaceable>&lt;TIME&gt;</replaceable>" speed="<replaceable>&lt;SPEED&gt;</replaceable>"/&gt;</sgmltag>
+
+   ... further entries ...
+
+   <sgmltag>&lt;step time="<replaceable>&lt;TIME&gt;</replaceable>" speed="<replaceable>&lt;SPEED&gt;</replaceable>"/&gt;</sgmltag>
+<sgmltag>&lt;/vss&gt;</sgmltag></programlisting>
+
+        <para>Each <sgmltag>step</sgmltag> is a combination of the
+        <sgmltag>time</sgmltag> the next new speed shall be set and the
+        <sgmltag>speed</sgmltag> to set itself.</para>
+
+        <para>A small example for usage of vss' within SUMO may be found in
+        <filename>"data/examples/extended/variable_speed_signs"</filename>.</para>
       </sect2>
 
-      <sect2 id="user_chp06-trigger-accidents">
+      <sect2>
+        <title>Traffic Light Types and their Usage</title>
+
+        <para>... to be described ...</para>
+      </sect2>
+    </sect1>
+
+    <sect1 id="user_chp06-file_load_order">
+      <title>Using the Files in a correct Way</title>
+
+      <para>... to be described ...</para>
+    </sect1>
+
+    <sect1 id="user_chp06-other">
+      <title>Other Topics</title>
+
+      <para>This chapter includes some problems not described, yet.</para>
+
+      <sect2 id="user_chp06-other-accidents">
         <title>Simulation of Accidents</title>
 
         <para>SUMO uses a collision-free traffic flow model. So if everything
@@ -5402,60 +5687,9 @@
           </listitem>
         </itemizedlist>
       </sect2>
-
-      <sect2>
-        <title>Traffic Light Types and their Usage</title>
-
-        <para>... to be described ...</para>
-      </sect2>
-
-      <sect2>
-        <title>Variable Speed Signs (VSS)</title>
-
-        <para>One of the trigger objects that may be specified within an
-        additional file allows the simulation of variable speed signs. The
-        syntax for such an object is: <sgmltag>&lt;trigger
-        id="<replaceable>&lt;VSS_ID&gt;</replaceable>" objecttype="lane"
-        objectid="<replaceable>&lt;LANE_ID&gt;</replaceable>" attr="speed"
-        file="<replaceable>&lt;DEF_FILE&gt;</replaceable>"/&gt;</sgmltag>.
-        This trigger is typed to be a vss by the combination of the values of
-        the attributes <sgmltag>objecttype="lane"</sgmltag> and
-        <sgmltag>attr="speed"</sgmltag>. Although no other combinations are
-        implemented so far, this combination forces the simulation to change
-        the attribute "speed" of a "lane"-object, exactly what vss do. Of
-        course, the vehicles themselves do not override this maximum velocity
-        what does not exactly represent the reality.</para>
-
-        <para>You may have noticed that a file name must be supplied, called
-        <sgmltag>DEF_FILE</sgmltag> within the schema above. This file must
-        contain the information about when a certain speed shall be set onto
-        the lane. This file has the following format:</para>
-
-        <programlisting><sgmltag>&lt;vss&gt;</sgmltag>
-   <sgmltag>&lt;step time="<replaceable>&lt;TIME&gt;</replaceable>" speed="<replaceable>&lt;SPEED&gt;</replaceable>"/&gt;</sgmltag>
-   <sgmltag>&lt;step time="<replaceable>&lt;TIME&gt;</replaceable>" speed="<replaceable>&lt;SPEED&gt;</replaceable>"/&gt;</sgmltag>
-
-   ... further entries ...
-
-   <sgmltag>&lt;step time="<replaceable>&lt;TIME&gt;</replaceable>" speed="<replaceable>&lt;SPEED&gt;</replaceable>"/&gt;</sgmltag>
-<sgmltag>&lt;/vss&gt;</sgmltag></programlisting>
-
-        <para>Each <sgmltag>step</sgmltag> is a combination of the
-        <sgmltag>time</sgmltag> the next new speed shall be set and the
-        <sgmltag>speed</sgmltag> to set itself.</para>
-
-        <para>A small example for usage of vss' within SUMO may be found in
-        <filename>"data/examples/management/var_speed_signs/example1"</filename>.</para>
-      </sect2>
     </sect1>
 
-    <sect1 id="user_chp06-file_load_order">
-      <title>Using the Files in a correct Way</title>
-
-      <para>... to be described ...</para>
-    </sect1>
-
-    <sect1 id="user_chp06-file_load_order">
+    <sect1 id="user_chp06-missing">
       <title>Missing</title>
 
       <para>--route-steps TBD</para>
@@ -6906,7 +7140,7 @@
           <title>"types": Using Type Definitions to describe edges</title>
 
           <para>Both of these two examples describe the same network (a simple
-          cross), but "cross_notypes" describes each edge explicitely while
+          cross), but "cross_notypes" describes each edge while
           "cross_usingtypes" uses types.</para>
 
           <para><emphasis>Location:</emphasis>
@@ -6919,8 +7153,8 @@
           <para>Both of these two examples describe the same network (a simple
           cross) as the settings in
           <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuilding/types</filename>,
-          but the speed is given in km/h, both within explicite edge
-          definitions (cross_notypes_kmh) and within the version using types
+          but the speed is given in km/h, both within edge definitions
+          (cross_notypes_kmh) and within the version using types
           (cross_usingtypes_kmh).</para>
 
           <para><emphasis>Location:</emphasis>
@@ -6952,9 +7186,9 @@
           Different Definition Types for the Same</title>
 
           <para>All these three examples generate 100 vehicles which all have
-          the same route. In "trips2routes" the routes are given explicitely
-          for each vehicle. They all are the same, only the vehicles' ids
-          differ. "trips2routes_repetition" generates one vehicle but which is
+          the same route. In "trips2routes" each vehicle has an own route.
+          They all are the same, only the vehicles' ids differ.
+          "trips2routes_repetition" generates one vehicle but which is
           duplicated within the simulation 100 times. "flows2routes" generates
           100 vehicles and routes using a flow definition. The vehicles differ
           from those generated by "trips2routes" only by their ids.</para>

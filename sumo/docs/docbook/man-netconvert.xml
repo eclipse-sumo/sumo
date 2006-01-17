@@ -292,7 +292,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>----node-geometry-dump
+          <term>--node-geometry-dump
           <replaceable>&lt;DUMP_FILENAME&gt;</replaceable></term>
 
           <listitem>
@@ -315,7 +315,7 @@
 
           <listitem>
             <para>The name of the default type of edges. <remark>Optional
-            (pre-given), type:string, default: "Unknown"</remark></para>
+            (pregiven), type:string, default: "Unknown"</remark></para>
           </listitem>
         </varlistentry>
 
@@ -325,7 +325,7 @@
 
           <listitem>
             <para>The number of lanes an edge has to use as default.
-            <remark>Optional (pre-given), type:int, default: 1</remark></para>
+            <remark>Optional (pregiven), type:int, default: 1</remark></para>
           </listitem>
         </varlistentry>
 
@@ -335,7 +335,7 @@
 
           <listitem>
             <para>The maximum speed allowed on an edge in m/s to use as
-            default. <remark>Optional (pre-given), type:float, default:
+            default. <remark>Optional (pregiven), type:float, default:
             13.9</remark></para>
           </listitem>
         </varlistentry>
@@ -346,7 +346,7 @@
 
           <listitem>
             <para>The default priority of an edge. <remark>Optional
-            (pre-given), type:int, default: 1</remark></para>
+            (pregiven), type:int, default: 1</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -378,6 +378,30 @@
             <para>Flips the y-position of nodes (and edges) along the
             y=zero-line. <remark>Optional (pregiven), type:bool, default:
             false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--speed-in-km</term>
+
+          <listitem>
+            <para>Scope: XML-Import, ARCView-Import,
+            CELL/FastLane-Import</para>
+
+            <para>Parses speed information stored in XML-edge definition files
+            as being given in km/h (not m/s as usual). <remark>Optional,
+            type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--use-laneno-as-priority</term>
+
+          <listitem>
+            <para>Scope: XML-Import</para>
+
+            <para>Interprets the number of lanes as an edges priority.
+            <remark>Optional, type:bool, default: false</remark></para>
           </listitem>
         </varlistentry>
 
@@ -437,22 +461,9 @@
     </refsect2>
 
     <refsect2>
-      <title>Processing Options:</title>
+      <title>Traffic Lights Building:</title>
 
       <variablelist>
-        <varlistentry>
-          <term>( --default-junction-type | --junctions | -j ) <replaceable
-          class="parameter">[ priority | traffic_light | actuated | agentbased
-          ]</replaceable></term>
-
-          <listitem>
-            <para>Defines what type of junctions shall be build. Remark that
-            the junction in the center of a spider-network is always a
-            priority junction. <remark>Optional (pre-given), type:string-enum,
-            default: "prority"</remark></para>
-          </listitem>
-        </varlistentry>
-
         <varlistentry>
           <term>( --min-decel | -D ) <replaceable
           class="parameter">&lt;FLOAT&gt;</replaceable></term>
@@ -461,25 +472,6 @@
             <para>The minimum deceleration value for vehicles in m/s^2.
             <remark>Optional (pregiven), type:float, default:
             3</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--speed-in-km</term>
-
-          <listitem>
-            <para>Parses speed information stored in XML-edge definition files
-            as being given in km/h (not m/s as usual). <remark>Optional,
-            type:bool, default: false</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--use-laneno-as-priority</term>
-
-          <listitem>
-            <para>Interprets the number of lanes as an edges priority.
-            <remark>Optional, type:bool, default: false</remark></para>
           </listitem>
         </varlistentry>
 
@@ -550,7 +542,7 @@
           <listitem>
             <para>Sets the minimum and the maximum of the velocity a
             junction's incoming edges may have if the junction shall be
-            tls-controlled in m/s. <remark>Optional (pre-given), type:float,
+            tls-controlled in m/s. <remark>Optional (pregiven), type:float,
             defaults: --tls-guess.min-incoming-speed: 40/3.6,
             --tls-guess.min-incoming-speed: 69/3.6</remark></para>
           </listitem>
@@ -565,7 +557,7 @@
           <listitem>
             <para>Sets the minimum and the maximum of the velocity a
             junction's outgoing edges may have if the junction shall be
-            tls-controlled in m/s. <remark>Optional (pre-given), type:float,
+            tls-controlled in m/s. <remark>Optional (pregiven), type:float,
             defaults: --tls-guess.min-outgoing-speed: 40/3.6,
             --tls-guess.max-outgoing-speed: 69/3.6</remark></para>
           </listitem>
@@ -580,7 +572,7 @@
           <listitem>
             <para>Sets the minimum and the maximum number of a junction's
             incoming edges to allow the junction to be controlled by a tls.
-            <remark>Optional (pre-given), type:int, defaults:
+            <remark>Optional (pregiven), type:int, defaults:
             --tls-guess.no-incoming-min: 2, --tls-guess.no-incoming-max:
             5</remark></para>
           </listitem>
@@ -595,7 +587,7 @@
           <listitem>
             <para>Sets the minimum and the maximum number of a junction's
             outgoing edges to allow the junction to be controlled by a tls.
-            <remark>Optional (pre-given), type:int, defaults:
+            <remark>Optional (pregiven), type:int, defaults:
             --tls-guess.no-outgoing-min: 1, --tls-guess.no-outgoing-max:
             5</remark></para>
           </listitem>
@@ -624,19 +616,13 @@
             default: none</remark></para>
           </listitem>
         </varlistentry>
+      </variablelist>
+    </refsect2>
 
-        <varlistentry>
-          <term>--edges-min-speed <replaceable
-          class="parameter">&lt;MIN_SPEED&gt;</replaceable></term>
+    <refsect2>
+      <title>Highway On-/Off-Ramps Building:</title>
 
-          <listitem>
-            <para>Informs the network importer that edges with a lower speed
-            than the one defined by this options shall not be included into
-            the network. <remark>Optional, type:float, default:
-            none</remark></para>
-          </listitem>
-        </varlistentry>
-
+      <variablelist>
         <varlistentry>
           <term>--guess-ramps</term>
 
@@ -679,6 +665,34 @@
             <para>Sets the length of the ramps to build in meters.
             <remark>Optional (pregiven), type:float, defaults:
             100</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Random Number Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>--abs-rand</term>
+
+          <listitem>
+            <para>Initialises the random number generator with the current
+            time (in ms) in the hope to make him generate really random
+            numbers of an unknown order. <remark>Optional, type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--srand <replaceable
+          class="parameter">&lt;SEED&gt;</replaceable></term>
+
+          <listitem>
+            <para>Initialises the random number generator with
+            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
+            type:int, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -728,40 +742,11 @@
         </varlistentry>
 
         <varlistentry>
-          <term><replaceable
-          class="parameter">--print-node-position</replaceable></term>
+          <term>--print-node-position</term>
 
           <listitem>
             <para>Prints the node positions during building. <remark>Optional
             (pregiven), type:bool, default: false</remark></para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-    </refsect2>
-
-    <refsect2>
-      <title>Random Number Options:</title>
-
-      <variablelist>
-        <varlistentry>
-          <term>--abs-rand</term>
-
-          <listitem>
-            <para>Initialises the random number generator with the current
-            time (in ms) in the hope to make him generate really random
-            numbers of an unknown order. <remark>Optional, type:bool, default:
-            false</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--srand <replaceable
-          class="parameter">&lt;SEED&gt;</replaceable></term>
-
-          <listitem>
-            <para>Initialises the random number generator with
-            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
-            type:int, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>

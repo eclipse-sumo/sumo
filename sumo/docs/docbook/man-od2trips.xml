@@ -87,11 +87,22 @@
         </varlistentry>
 
         <varlistentry>
-          <term>( --route-file | -d ) <replaceable
-          class="parameter">&lt;VISSIM-ROUTES-FILE&gt;</replaceable></term>
+          <term>( --od-file | -d ) <replaceable
+          class="parameter">&lt;VISSIM_NETWORK_FILE&gt;</replaceable></term>
 
           <listitem>
-            <para>The file containing a single O/D-matrix. <remark>Optional,
+            <para>The meta file (VISSIM, *.inp) which contains the definition
+            about which matrices shall be processed. <remark>Optional,
+            type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>( --od-path | -i ) <replaceable
+          class="parameter">&lt;MATRICES_PATH&gt;</replaceable></term>
+
+          <listitem>
+            <para>Path to OD input files *.fma. <remark>Optional,
             type:filename, default: none</remark></para>
           </listitem>
         </varlistentry>
@@ -126,7 +137,16 @@
           <listitem>
             <para>A scaling value the O/D-matrix is scaled with. This value is
             not depending on values stored within the matrix. <remark>Optional
-            (pre-given), type:float, default: 1</remark></para>
+            (pregiven), type:float, default: 1</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--no-color</term>
+
+          <listitem>
+            <para>Disables color building. <remark>Optional (pregiven),
+            type:bool, default: false</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -142,7 +162,7 @@
 
           <listitem>
             <para>A virtual time to specify the begin of route computation.
-            Previous routes are skipped. <remark>Optional (pre-given),
+            Previous routes are skipped. <remark>Optional (pregiven),
             type:int, default: 0</remark></para>
           </listitem>
         </varlistentry>
@@ -153,8 +173,36 @@
 
           <listitem>
             <para>A virtual time to specify the end of route computation.
-            Later routes are skipped. <remark>Optional (pre-given), type:int,
+            Later routes are skipped. <remark>Optional (pregiven), type:int,
             default: 86400</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Random Number Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>--abs-rand</term>
+
+          <listitem>
+            <para>Initialises the random number generator with the current
+            time (in ms) in the hope to make him generate really random
+            numbers of an unknown order. <remark>Optional, type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--srand <replaceable
+          class="parameter">&lt;SEED&gt;</replaceable></term>
+
+          <listitem>
+            <para>Initialises the random number generator with
+            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
+            type:int, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -200,34 +248,6 @@
             <para>All outputs (messages, warnings, and errors) will be written
             to <replaceable>&lt;LOG_FILE_NAME&gt;</replaceable>.
             <remark>Optional, type:filename, default: none</remark></para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-    </refsect2>
-
-    <refsect2>
-      <title>Random Number Options:</title>
-
-      <variablelist>
-        <varlistentry>
-          <term>--abs-rand</term>
-
-          <listitem>
-            <para>Initialises the random number generator with the current
-            time (in ms) in the hope to make him generate really random
-            numbers of an unknown order. <remark>Optional, type:bool, default:
-            false</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--srand <replaceable
-          class="parameter">&lt;SEED&gt;</replaceable></term>
-
-          <listitem>
-            <para>Initialises the random number generator with
-            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
-            type:int, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>

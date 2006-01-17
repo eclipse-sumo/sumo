@@ -150,6 +150,20 @@
         </varlistentry>
 
         <varlistentry>
+          <term>( --vehroute-output | --vehroutes ) <replaceable
+          class="parameter">&lt;VEHICLE_ROUTES_FILE&gt;</replaceable></term>
+
+          <listitem>
+            <para>Forces SUMO to generate
+            <replaceable>&lt;VEHICLE_ROUTES_FILE&gt;</replaceable> which
+            contains for each vehicle the list of used that were valid
+            together with their replacement times and positions and the
+            vehicles departure and ending time. <remark>Optional,
+            type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>--dump-intervals<replaceable class="parameter">
           &lt;INTERVAL_LENGTH&gt;[;&lt;INTERVAL_LENGTH&gt;]*</replaceable></term>
 
@@ -263,7 +277,7 @@
 
           <listitem>
             <para>A virtual time to specify the begin of the simulation.
-            Previous routes are skipped. <remark>Optional (pre-given),
+            Previous routes are skipped. <remark>Optional (pregiven),
             type:int, default: 0</remark></para>
           </listitem>
         </varlistentry>
@@ -274,7 +288,7 @@
 
           <listitem>
             <para>A virtual time to specify the end of the simulation. Later
-            routes are skipped. <remark>Optional (pre-given), type:int,
+            routes are skipped. <remark>Optional (pregiven), type:int,
             default: 86400</remark></para>
           </listitem>
         </varlistentry>
@@ -287,7 +301,164 @@
             <para>When set to a positive, nonzero value, this value describes
             in what intervals routes shall be reloaded. For large simulations,
             it is quite wise to reload routes stepwise. <remark>Optional
-            (pre-given), type:int, default: 0</remark></para>
+            (pregiven), type:int, default: 0</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Processing Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>--quit-on-accident</term>
+
+          <listitem>
+            <para>Normally, when an accident occurs, the simulation should
+            continue and manage it. Still, as the vehicle model is normally
+            collision-free, accidents should be caught. If set to true, this
+            parameter forces the simulation to quit with an error.
+            <remark>Optional (pregiven), type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--time-to-teleport <replaceable class="parameter">
+          &lt;TIME_IN_S&gt;</replaceable></term>
+
+          <listitem>
+            <para>The time a vehicle shall wait in front of a junction before
+            it is teleported in s. <remark>Optional (pregiven), type:int,
+            default: 300s</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Defaults for simulated Devices:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>--actuated-tl.detector-pos<replaceable class="parameter">
+          &lt;POSITION_IN_M&gt;</replaceable></term>
+
+          <listitem>
+            <para>The position of the detectors in front of an actuated tls.
+            <remark>Optional (pregiven), type:float, default:
+            100m</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--actuated-tl.max-gap<replaceable class="parameter">
+          &lt;MAX_GAP&gt;</replaceable></term>
+
+          <listitem>
+            <para>The max gap an actuated tls shall use. <remark>Optional
+            (pregiven), type:float, default: 3.1</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--actuated-tl.detector-gap <replaceable class="parameter">
+          &lt;DISTANCE&gt;</replaceable></term>
+
+          <listitem>
+            <para>unknown meaning. <remark>Optional (pregiven), type:float,
+            default: 3m</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--actuated-tl.passing-time <replaceable class="parameter">
+          &lt;TIME&gt;</replaceable></term>
+
+          <listitem>
+            <para>The passing time used by an actuated tls. <remark>Optional
+            (pregiven), type:float, default: 1.9</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--agent-tl.detector-len <replaceable class="parameter">
+          &lt;LENGTH&gt;</replaceable></term>
+
+          <listitem>
+            <para>The length of the e2-detectors that compute the jam used by
+            a agent based traffic light logic in m. <remark>Optional
+            (pregiven), type:float, default: 75m</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--agent-tl.learn-horizon <replaceable class="parameter">
+          &lt;TIME_IN_S&gt;</replaceable></term>
+
+          <listitem>
+            <para>The learning horizon of an agentbased tls in s.
+            <remark>Optional (pregiven), type:int, default: 3s</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--agent-tl.decision-horizon <replaceable class="parameter">
+          &lt;TIME_IN_S&gt;</replaceable></term>
+
+          <listitem>
+            <para>The decision horizon of an agentbased tls. <remark>Optional
+            (pregiven), type:int, default: 1</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--agent-tl.min-diff <replaceable class="parameter">
+          &lt;LENGTH&gt;</replaceable></term>
+
+          <listitem>
+            <para>The minimum difference in jam lengths to make the agentbased
+            tls react in m. <remark>Optional (pregiven), type:float, default:
+            0.1m</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--agent-tl.tcycle <replaceable class="parameter">
+          &lt;TIME_IN_S&gt;</replaceable></term>
+
+          <listitem>
+            <para>The cycle length of an agentbased tls in s. <remark>Optional
+            (pregiven), type:int, default: 90s</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Random Number Options:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term>--abs-rand</term>
+
+          <listitem>
+            <para>Initialises the random number generator with the current
+            time (in ms) in the hope to make him generate really random
+            numbers of an unknown order. <remark>Optional, type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--srand <replaceable
+          class="parameter">&lt;SEED&gt;</replaceable></term>
+
+          <listitem>
+            <para>Initialises the random number generator with
+            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
+            type:int, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -351,164 +522,6 @@
             <para>All outputs (messages, warnings, and errors) will be written
             to <replaceable>&lt;LOG_FILE_NAME&gt;</replaceable>.
             <remark>Optional, type:filename, default: none</remark></para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-    </refsect2>
-
-    <refsect2>
-      <title>Processing Options:</title>
-
-      <variablelist>
-        <varlistentry>
-          <term>--quit-on-accident</term>
-
-          <listitem>
-            <para>Normally, when an accident occurs, the simulation should
-            continue and manage it. Still, as the vehicle model is normally
-            collision-free, accidents should be caught. If set to true, this
-            parameter forces the simulation to quit with an error.
-            <remark>Optional (pre-given), type:bool, default:
-            false</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--time-to-teleport <replaceable class="parameter">
-          &lt;TIME_IN_S&gt;</replaceable></term>
-
-          <listitem>
-            <para>The time a vehicle shall wait in front of a junction before
-            it is teleported in s. <remark>Optional (pre-given), type:int,
-            default: 300s</remark></para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-    </refsect2>
-
-    <refsect2>
-      <title>Defaults for simulated Devices:</title>
-
-      <variablelist>
-        <varlistentry>
-          <term>--actuated-tl.detector-pos<replaceable class="parameter">
-          &lt;POSITION_IN_M&gt;</replaceable></term>
-
-          <listitem>
-            <para>The position of the detectors in front of an actuated tls.
-            <remark>Optional (pre-given), type:float, default:
-            100m</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--actuated-tl.max-gap<replaceable class="parameter">
-          &lt;MAX_GAP&gt;</replaceable></term>
-
-          <listitem>
-            <para>The max gap an actuated tls shall use. <remark>Optional
-            (pre-given), type:float, default: 3.1</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--actuated-tl.detector-gap <replaceable class="parameter">
-          &lt;DISTANCE&gt;</replaceable></term>
-
-          <listitem>
-            <para>unknown meaning. <remark>Optional (pre-given), type:float,
-            default: 3m</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--actuated-tl.passing-time <replaceable class="parameter">
-          &lt;TIME&gt;</replaceable></term>
-
-          <listitem>
-            <para>The passing time used by an actuated tls. <remark>Optional
-            (pre-given), type:float, default: 1.9</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--agent-tl.detector-len <replaceable class="parameter">
-          &lt;LENGTH&gt;</replaceable></term>
-
-          <listitem>
-            <para>The length of the e2-detectors that compute the jam used by
-            a agent based traffic light logic in m. <remark>Optional
-            (pre-given), type:float, default: 75m</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--agent-tl.learn-horizon <replaceable class="parameter">
-          &lt;TIME_IN_S&gt;</replaceable></term>
-
-          <listitem>
-            <para>The learning horizon of an agentbased tls in s.
-            <remark>Optional (pre-given), type:int, default:
-            3s</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--agent-tl.decision-horizon <replaceable class="parameter">
-          &lt;TIME_IN_S&gt;</replaceable></term>
-
-          <listitem>
-            <para>The decision horizon of an agentbased tls. <remark>Optional
-            (pre-given), type:int, default: 1</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--agent-tl.min-diff <replaceable class="parameter">
-          &lt;LENGTH&gt;</replaceable></term>
-
-          <listitem>
-            <para>The minimum difference in jam lengths to make the agentbased
-            tls react in m. <remark>Optional (pre-given), type:float, default:
-            0.1m</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--agent-tl.tcycle <replaceable class="parameter">
-          &lt;TIME_IN_S&gt;</replaceable></term>
-
-          <listitem>
-            <para>The cycle length of an agentbased tls in s. <remark>Optional
-            (pre-given), type:int, default: 90s</remark></para>
-          </listitem>
-        </varlistentry>
-      </variablelist>
-    </refsect2>
-
-    <refsect2>
-      <title>Random Number Options:</title>
-
-      <variablelist>
-        <varlistentry>
-          <term>--abs-rand</term>
-
-          <listitem>
-            <para>Initialises the random number generator with the current
-            time (in ms) in the hope to make him generate really random
-            numbers of an unknown order. <remark>Optional, type:bool, default:
-            false</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--srand <replaceable
-          class="parameter">&lt;SEED&gt;</replaceable></term>
-
-          <listitem>
-            <para>Initialises the random number generator with
-            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
-            type:int, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>

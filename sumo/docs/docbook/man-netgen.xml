@@ -159,6 +159,18 @@
             type:filename-prefix, default: none</remark></para>
           </listitem>
         </varlistentry>
+
+        <varlistentry>
+          <term>--node-geometry-dump
+          <replaceable>&lt;DUMP_FILENAME&gt;</replaceable></term>
+
+          <listitem>
+            <para>Writes the positions that were used during geometry
+            computation into
+            <filename><replaceable>&lt;DUMP_FILENAME&gt;</replaceable></filename>.
+            <remark>Optional, type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
       </variablelist>
     </refsect2>
 
@@ -167,12 +179,23 @@
 
       <variablelist>
         <varlistentry>
+          <term>( --grid-number | --number ) <replaceable
+          class="parameter">&lt;EDGE_NUMBER&gt;</replaceable></term>
+
+          <listitem>
+            <para>Describes how many junctions in both the x- and the
+            y-direction shall be build. <remark>Optional (pregiven), type:int,
+            default: 5</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>( --grid-x-number | --x-no ) <replaceable
           class="parameter">&lt;EDGE_NUMBER&gt;</replaceable></term>
 
           <listitem>
             <para>Describes how many junctions in the x-directions shall be
-            build. <remark>Optional (pre-given), type:int, default:
+            build. <remark>Optional (pregiven), type:int, default:
             5</remark></para>
           </listitem>
         </varlistentry>
@@ -183,19 +206,19 @@
 
           <listitem>
             <para>Describes how many junctions in the y-directions shall be
-            build. <remark>Optional (pre-given), type:int, default:
+            build. <remark>Optional (pregiven), type:int, default:
             5</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>( --grid-number | --number ) <replaceable
-          class="parameter">&lt;EDGE_NUMBER&gt;</replaceable></term>
+          <term>( --grid-length | --length ) <replaceable
+          class="parameter">&lt;EDGE_LENGTH_IN_METERS&gt;</replaceable></term>
 
           <listitem>
-            <para>Describes how many junctions in both the x- and the
-            y-direction shall be build. <remark>Optional (pre-given),
-            type:int, default: 5</remark></para>
+            <para>Describes how long both horizontal and vertical streets
+            shall be (in meters). <remark>Optional (pregiven), type:float,
+            default: 100</remark></para>
           </listitem>
         </varlistentry>
 
@@ -207,7 +230,7 @@
             <para>Describes how long each horizontal street shall be in
             meters.</para>
 
-            <remark>Optional (pre-given), type:float, default: 100</remark>
+            <remark>Optional (pregiven), type:float, default: 100</remark>
           </listitem>
         </varlistentry>
 
@@ -217,19 +240,8 @@
 
           <listitem>
             <para>Describes how long each vertical street shall be in meters.
-            <remark>Optional (pre-given), type:float, default:
+            <remark>Optional (pregiven), type:float, default:
             100</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>( --grid-length | --length ) <replaceable
-          class="parameter">&lt;EDGE_LENGTH_IN_METERS&gt;</replaceable></term>
-
-          <listitem>
-            <para>Describes how long both horizontal and vertical streets
-            shall be (in meters). <remark>Optional (pre-given), type:float,
-            default: 100</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -246,7 +258,7 @@
           <listitem>
             <para>Specifies how many arms (axes) the net shall have.</para>
 
-            <remark>Optional (pre-given), type:int, default: 13</remark>
+            <remark>Optional (pregiven), type:int, default: 13</remark>
           </listitem>
         </varlistentry>
 
@@ -256,7 +268,7 @@
 
           <listitem>
             <para>Specifies how many circles shall be build. <remark>Optional
-            (pre-given), type:int, default: 20</remark></para>
+            (pregiven), type:int, default: 20</remark></para>
           </listitem>
         </varlistentry>
 
@@ -266,7 +278,7 @@
 
           <listitem>
             <para>Specifies how far the circles shall be from each other in
-            meters. <remark>Optional (pre-given), type:float, default:
+            meters. <remark>Optional (pregive), type:float, default:
             100</remark></para>
           </listitem>
         </varlistentry>
@@ -283,7 +295,7 @@
 
           <listitem>
             <para>Describes how many times an edge shall be added to the net.
-            <remark>Optional (pre-given), type:int, default:
+            <remark>Optional (pregiven), type:int, default:
             2000</remark></para>
           </listitem>
         </varlistentry>
@@ -293,7 +305,7 @@
           class="parameter">&lt;FLOAT&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default:
+            <para><remark>Optional (pregiven), type:float, default:
             25</remark></para>
           </listitem>
         </varlistentry>
@@ -303,7 +315,7 @@
           class="parameter">&lt;FLOAT&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default:
+            <para><remark>Optional (pregiven), type:float, default:
             100</remark></para>
           </listitem>
         </varlistentry>
@@ -313,7 +325,7 @@
           class="parameter">floFLOATat&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default:
+            <para><remark>Optional (pregiven), type:float, default:
             45.0/180.0*PI</remark></para>
           </listitem>
         </varlistentry>
@@ -323,7 +335,7 @@
           class="parameter">&lt;INT&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:int, default:
+            <para><remark>Optional (pregiven), type:int, default:
             50</remark></para>
           </listitem>
         </varlistentry>
@@ -333,7 +345,7 @@
           class="parameter">&lt;FLOAT&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default:
+            <para><remark>Optional (pregiven), type:float, default:
             0.95</remark></para>
           </listitem>
         </varlistentry>
@@ -343,7 +355,7 @@
           class="parameter">&lt;FLOAT&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default:
+            <para><remark>Optional (pregiven), type:float, default:
             0</remark></para>
           </listitem>
         </varlistentry>
@@ -353,7 +365,7 @@
           class="parameter">&lt;FLOAT&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default:
+            <para><remark>Optional (pregiven), type:float, default:
             10</remark></para>
           </listitem>
         </varlistentry>
@@ -363,7 +375,7 @@
           class="parameter">&lt;FLOAT&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default:
+            <para><remark>Optional (pregiven), type:float, default:
             10</remark></para>
           </listitem>
         </varlistentry>
@@ -373,7 +385,7 @@
           class="parameter">&lt;FLOAT&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default:
+            <para><remark>Optional (pregiven), type:float, default:
             2</remark></para>
           </listitem>
         </varlistentry>
@@ -383,7 +395,7 @@
           class="parameter">&lt;FLOAT&gt;</replaceable></term>
 
           <listitem>
-            <para><remark>Optional (pre-given), type:float, default:
+            <para><remark>Optional (pregiven), type:float, default:
             1</remark></para>
           </listitem>
         </varlistentry>
@@ -400,7 +412,7 @@
 
           <listitem>
             <para>The name of the default type of edges. <remark>Optional
-            (pre-given), type:string, default: "Unknown"</remark></para>
+            (pregiven), type:string, default: "Unknown"</remark></para>
           </listitem>
         </varlistentry>
 
@@ -410,7 +422,7 @@
 
           <listitem>
             <para>The number of lanes an edge has to use as default.
-            <remark>Optional (pre-given), type:int, default: 1</remark></para>
+            <remark>Optional (pregiven), type:int, default: 1</remark></para>
           </listitem>
         </varlistentry>
 
@@ -420,7 +432,7 @@
 
           <listitem>
             <para>The maximum speed allowed on an edge in m/s to use as
-            default. <remark>Optional (pre-given), type:float, default:
+            default. <remark>Optional (pregiven), type:float, default:
             13.9</remark></para>
           </listitem>
         </varlistentry>
@@ -431,16 +443,10 @@
 
           <listitem>
             <para>The default priority of an edge. <remark>Optional
-            (pre-given), type:int, default: 1</remark></para>
+            (pregiven), type:int, default: 1</remark></para>
           </listitem>
         </varlistentry>
-      </variablelist>
-    </refsect2>
 
-    <refsect2>
-      <title>Processing Options:</title>
-
-      <variablelist>
         <varlistentry>
           <term>( --default-junction-type | --junctions | -j ) <replaceable
           class="parameter">[ priority | traffic_light | actuated | agentbased
@@ -449,48 +455,25 @@
           <listitem>
             <para>Defines what type of junctions shall be build. Remark that
             the junction in the center of a spider-network is always a
-            priority junction. <remark>Optional (pre-given), type:string-enum,
+            priority junction. <remark>Optional (pregiven), type:string-enum,
             default: "prority"</remark></para>
           </listitem>
         </varlistentry>
+      </variablelist>
+    </refsect2>
 
-        <varlistentry>
-          <term>--flip-y</term>
+    <refsect2>
+      <title>Traffic Lights Building:</title>
 
-          <listitem>
-            <para>Flips the y-position of nodes (and edges) along the
-            y=zero-line. <remark>Optional, type:bool, default:
-            false</remark></para>
-          </listitem>
-        </varlistentry>
-
+      <variablelist>
         <varlistentry>
           <term>( --min-decel | -D ) <replaceable
           class="parameter">&lt;FLOAT&gt;</replaceable></term>
 
           <listitem>
-            <para>The minimum deceleration value for vehicles.
-            <remark>Optional (pre-given), type:float, default:
+            <para>The minimum deceleration value for vehicles in m/s^2.
+            <remark>Optional (pregiven), type:float, default:
             3</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--speed-in-kmh</term>
-
-          <listitem>
-            <para>Parses speed information stored in XML-edge definition files
-            as being given in km/h (not m/s as usual). <remark>Optional,
-            type:bool, default: false</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--use-laneno-as-priority</term>
-
-          <listitem>
-            <para>Interprets the number of lanes as an edges priority.
-            <remark>Optional, type:bool, default: false</remark></para>
           </listitem>
         </varlistentry>
 
@@ -505,6 +488,26 @@
             <caution>
               <para>This process may be very time consuming.</para>
             </caution>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--traffic-light-green <replaceable
+          class="parameter">&lt;DURATION&gt;</replaceable></term>
+
+          <listitem>
+            <para>The duration of green lights. <remark>Optional, type:int,
+            default: none (20s internally)</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--traffic-light-yellow <replaceable
+          class="parameter">&lt;DURATION&gt;</replaceable></term>
+
+          <listitem>
+            <para>The duration of yellow lights; overrides --min-decel.
+            <remark>Optional, type:int, default: none</remark></para>
           </listitem>
         </varlistentry>
 
@@ -524,7 +527,7 @@
           <term>--guess-tls</term>
 
           <listitem>
-            <para>Forces netgen/NETGEN to guess which junctions posess traffic
+            <para>Forces NETCONVERT to guess which junctions posess traffic
             light logics. This should of course only be used for fast
             estimations and only if no tls-definitions are supplied. The
             following parameter steer the guessing more precisely.
@@ -534,14 +537,14 @@
 
         <varlistentry>
           <term>--tls-guess.min-incoming-speed <replaceable
-          class="parameter">&lt;speed</replaceable>&gt;,
+          class="parameter">&lt;SPEED&gt;</replaceable>,
           --tls-guess.max-incoming-speed <replaceable
           class="parameter">&lt;SPEED&gt;</replaceable></term>
 
           <listitem>
             <para>Sets the minimum and the maximum of the velocity a
             junction's incoming edges may have if the junction shall be
-            tls-controlled in m/s. <remark>Optional (pre-given), type:float,
+            tls-controlled in m/s. <remark>Optional (pregiven), type:float,
             defaults: --tls-guess.min-incoming-speed: 40/3.6,
             --tls-guess.min-incoming-speed: 69/3.6</remark></para>
           </listitem>
@@ -549,14 +552,14 @@
 
         <varlistentry>
           <term>--tls-guess.min-outgoing-speed <replaceable
-          class="parameter">&lt;speed&gt;</replaceable>,
+          class="parameter">&lt;SPEED&gt;</replaceable>,
           --tls-guess.max-outgoing-speed <replaceable
           class="parameter">&lt;SPEED&gt;</replaceable></term>
 
           <listitem>
             <para>Sets the minimum and the maximum of the velocity a
             junction's outgoing edges may have if the junction shall be
-            tls-controlled in m/s. <remark>Optional (pre-given), type:float,
+            tls-controlled in m/s. <remark>Optional (pregiven), type:float,
             defaults: --tls-guess.min-outgoing-speed: 40/3.6,
             --tls-guess.max-outgoing-speed: 69/3.6</remark></para>
           </listitem>
@@ -564,37 +567,37 @@
 
         <varlistentry>
           <term>--tls-guess.no-incoming-min <replaceable
-          class="parameter">&lt;lane-number&gt;</replaceable>,
-          --tls-guess.no-incoming-max &lt;<replaceable
-          class="parameter">LANE_NUMBER&gt;</replaceable></term>
+          class="parameter">&lt;LANE_NUMBER&gt;</replaceable>,
+          --tls-guess.no-incoming-max <replaceable
+          class="parameter">&lt;LANE_NUMBER&gt;</replaceable></term>
 
           <listitem>
             <para>Sets the minimum and the maximum number of a junction's
             incoming edges to allow the junction to be controlled by a tls.
-            <remark>Optional (pre-given), type:int, defaults:
+            <remark>Optional (pregiven), type:int, defaults:
             --tls-guess.no-incoming-min: 2, --tls-guess.no-incoming-max:
             5</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>--tls-guess.no-outgoing-min &lt;<replaceable
-          class="parameter">lane-number</replaceable>&gt;,
+          <term>--tls-guess.no-outgoing-min <replaceable
+          class="parameter">&lt;LANE_NUMBER&gt;</replaceable>,
           --tls-guess.no-outgoing-max <replaceable
           class="parameter">&lt;LANE_NUMBER&gt;</replaceable></term>
 
           <listitem>
             <para>Sets the minimum and the maximum number of a junction's
             outgoing edges to allow the junction to be controlled by a tls.
-            <remark>Optional (pre-given), type:int, defaults:
+            <remark>Optional (pregiven), type:int, defaults:
             --tls-guess.no-outgoing-min: 1, --tls-guess.no-outgoing-max:
             5</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>--explicite-tls &lt;<replaceable
-          class="parameter">JUNCTION_ID[;JUNCTION_ID]*&gt;</replaceable></term>
+          <term>--explicite-tls <replaceable
+          class="parameter">&lt;JUNCTION_ID&gt;[;&lt;JUNCTION_ID&gt;]*</replaceable></term>
 
           <listitem>
             <para>Informs the network builder that the given junctions shall
@@ -605,8 +608,8 @@
         </varlistentry>
 
         <varlistentry>
-          <term>--explicite-no-tls &lt;<replaceable
-          class="parameter">JUNCTION_ID[;JUNCTION_ID]*&gt;</replaceable></term>
+          <term>--explicite-no-tls <replaceable
+          class="parameter">&lt;JUNCTION_ID&gt;[;&lt;JUNCTION_ID]*</replaceable></term>
 
           <listitem>
             <para>Informs the network builder that the given junctions shall
@@ -615,16 +618,32 @@
             default: none</remark></para>
           </listitem>
         </varlistentry>
+      </variablelist>
+    </refsect2>
 
+    <refsect2>
+      <title>Random Number Options:</title>
+
+      <variablelist>
         <varlistentry>
-          <term>--edges-min-speed <replaceable
-          class="parameter">&lt;MIN_SPEED&gt;</replaceable></term>
+          <term>--abs-rand</term>
 
           <listitem>
-            <para>Informs the network importer that edges with a lower speed
-            than the one defined by this options shall not be included into
-            the network. <remark>Optional, type:float, default:
-            none</remark></para>
+            <para>Initialises the random number generator with the current
+            time (in ms) in the hope to make him generate really random
+            numbers of an unknown order. <remark>Optional, type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--srand <replaceable
+          class="parameter">&lt;SEED&gt;</replaceable></term>
+
+          <listitem>
+            <para>Initialises the random number generator with
+            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
+            type:int, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -672,32 +691,34 @@
             <remark>Optional, type:filename, default: none</remark></para>
           </listitem>
         </varlistentry>
+
+        <varlistentry>
+          <term>--print-node-position</term>
+
+          <listitem>
+            <para>Prints the node positions during building. <remark>Optional
+            (pregiven), type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
       </variablelist>
     </refsect2>
 
     <refsect2>
-      <title>Random Number Options:</title>
+      <title>Deprecated Options:</title>
+
+      <para>The following options are not working properly or do not make any
+      sense. They will be removed or changed in the future.</para>
 
       <variablelist>
         <varlistentry>
-          <term>--abs-rand</term>
+          <term>--edges-min-speed <replaceable
+          class="parameter">&lt;MIN_SPEED&gt;</replaceable></term>
 
           <listitem>
-            <para>Initialises the random number generator with the current
-            time (in ms) in the hope to make him generate really random
-            numbers of an unknown order. <remark>Optional, type:bool, default:
-            false</remark></para>
-          </listitem>
-        </varlistentry>
-
-        <varlistentry>
-          <term>--srand <replaceable
-          class="parameter">&lt;SEED&gt;</replaceable></term>
-
-          <listitem>
-            <para>Initialises the random number generator with
-            <replaceable>&lt;SEED&gt;</replaceable>. <remark>Optional,
-            type:int, default: none</remark></para>
+            <para>Informs the network importer that edges with a lower speed
+            than the one defined by this options shall not be included into
+            the network. <remark>Optional, type:float, default:
+            none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
