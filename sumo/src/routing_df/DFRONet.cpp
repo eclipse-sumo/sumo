@@ -155,7 +155,7 @@ DFRONet::computeTypes(DFDetectorCon &detcont) const
                 (*i).setType(HIGHWAY_SOURCE_DETECTOR);
             }
             if(isDestination(*i)) {
-                (*i).setType(SINK_DETEKTOR);
+                (*i).setType(SINK_DETECTOR);
             }
             if((*i).getType()==TYPE_NOT_DEFINED) {
                 (*i).setType(BETWEEN_DETECTOR);
@@ -288,7 +288,12 @@ DFRONet::buildRoutes(DFDetectorCon &detcont, DFRORouteCont &into) const
     std::map<ROEdge*, bool > doneEdges;
     std::vector< DFDetector > &dets = detcont.getDetectors();
     for(std::vector< DFDetector >::iterator i=dets.begin(); i!=dets.end(); ++i) {
-        if((*i).getType()==SINK_DETEKTOR) {
+        if((*i).getType()==SINK_DETECTOR) {
+            // do not build routes for sinks
+            continue;
+        }
+        // !!! maybe (optional) routes for between-detectors also should not be build
+        if((*i).getType()==BETWEEN_DETECTOR) {
             // do not build routes for sinks
             continue;
         }

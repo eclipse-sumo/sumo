@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/01/17 14:12:30  dkrajzew
+// routes output added; debugging
+//
 // Revision 1.3  2006/01/16 13:21:28  dkrajzew
 // computation of detector types validated for the 'messstrecke'-scenario
 //
@@ -133,7 +136,7 @@ DFDetectorHandler::myStartElement(int element, const std::string&name,
         } else if(mml_type=="highway_source") {
             type = HIGHWAY_SOURCE_DETECTOR;
         } else if(mml_type=="sink") {
-            type = SINK_DETEKTOR;
+            type = SINK_DETECTOR;
         }
         DFDetector detector(id, lane, pos, type);
         if(!myContainer.addDetector(detector)) {

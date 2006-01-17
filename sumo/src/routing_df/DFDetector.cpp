@@ -85,7 +85,7 @@ DFDetectorCon::save(const std::string &file) const
         case HIGHWAY_SOURCE_DETECTOR:
             strm << "\" type=\"highway_source\"";
             break;
-        case SINK_DETEKTOR:
+        case SINK_DETECTOR:
             strm << "\" type=\"sink\"";
             break;
         default:

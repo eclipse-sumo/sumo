@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/01/17 14:12:30  dkrajzew
+// routes output added; debugging
+//
 // Revision 1.5  2006/01/16 13:21:28  dkrajzew
 // computation of detector types validated for the 'messstrecke'-scenario
 //
@@ -182,7 +185,7 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
     // read routes optionally
     DFRORouteCont *routes = new DFRORouteCont();
     if(oc.isSet("routes-input")) {
-        routes->readFrom(oc.getString("routes-input"));
+        routes->readFrom(oc.getString("routes-input")); // !!!
     }
 
     // if a network was loaded...
@@ -198,7 +201,7 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
         }
         // compute routes between the detectors
         if(!routes->computed()||oc.isSet("revalidate-routes")) {
-            optNet->buildRoutes(*detectors, *routes);
+            optNet->buildRoutes(*detectors, *routes); // !!!
         }
     }
     // check
@@ -218,7 +221,7 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
 
     // save the emission definitions
     if(oc.isSet("flow-definitions")) {
-        buildVehicleEmissions(oc.getString("flow-definitions"));
+        buildVehicleEmissions(oc.getString("flow-definitions")); // !!!
     }
     //
     delete detectors;
