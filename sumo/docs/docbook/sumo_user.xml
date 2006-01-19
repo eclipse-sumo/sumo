@@ -3349,7 +3349,7 @@
 
       <caution>
         <para>You have to know that each route should consist of at least
-        three edges! On the first, teh vehicle will be emitted. As soon as it
+        three edges! On the first, the vehicle will be emitted. As soon as it
         reaches <emphasis>the begin</emphasis> of the last, it will be removed
         from the network. So to see the vehicle running, you should at least
         have one edge in between!</para>
@@ -3838,10 +3838,9 @@
         <title>Using OD2TRIPS</title>
 
         <para>By now, <application>OD2TRIPS</application> handles only
-        matrices in some of the formats provided by ptv software. Please read
-        the chapter !!! on this. Still, you may convert your own OD-matrices
-        into flow definitions and then give them to
-        <application>DUAROUTER</application> (see Chapter "<ulink
+        matrices in some of the formats provided by ptv software. Still, you
+        may convert your own OD-matrices into flow definitions and then give
+        them to <application>DUAROUTER</application> (see Chapter "<ulink
         url="#user_chp05-explicite-flows">Using Flow
         Definitions</ulink>").</para>
 
@@ -4112,8 +4111,8 @@
 
           <listitem>
             <para>Forces DUAROUTER to use the previously generated
-            &lt;ALTERNATIVES_FILE&gt; as input. <remark>Optional,
-            type:filename, default: none</remark></para>
+            <replaceable>&lt;ALTERNATIVES_FILE&gt;</replaceable> as input.
+            <remark>Optional, type:filename, default: none</remark></para>
           </listitem>
         </varlistentry>
 
@@ -4132,13 +4131,82 @@
           <replaceable>&lt;FLOAT&gt;</replaceable></option></option></term>
 
           <listitem>
-            <para>Defines Christian Gawron's alpha!!!. <remark>Optional
+            <para>Defines Christian Gawron's alpha. <remark>Optional
             (pregiven), type:float, defaults: 0.05</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
 
-      <para>Examples: TBD</para>
+      <para>Examples:</para>
+
+      <itemizedlist spacing="compact">
+        <listitem>
+          <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/dua/due2s_singlestep/</filename>
+          contains configuration files for the first three steps of a dynamic
+          user assignment in a network with two possible ways.</para>
+        </listitem>
+
+        <listitem>
+          <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/dua/due2s_automatic/</filename>
+          uses the same input as
+          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/dua/due2s_singlestep/</filename>,
+          but the iterations are done using a script.</para>
+        </listitem>
+
+        <listitem>
+          <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/dua/due3s_singlestep/</filename>
+          contains configuration files for the first three steps of a dynamic
+          user assignment in a network with three possible ways.</para>
+        </listitem>
+
+        <listitem>
+          <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/dua/due3s_automatic/</filename>
+          uses the same input as
+          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/dua/due3s_singlestep/</filename>,
+          but the iterations are done using a script.</para>
+        </listitem>
+      </itemizedlist>
+
+      <sect2 id="user_chp05-dua-iterate">
+        <title>Automatic Iteration using 'dua-iterate.pl'</title>
+
+        <para>"dua-iterate.pl" helps you to perform the computation of a
+        dynamic user assignment. The script needs at least two parameter: the
+        path to the folder where you have located your SUMO-binaries in and
+        the number of iteration steps to perform. When started with these to
+        options, the script computes the given number of dua-steps. As input
+        two files have to be located in the same folder as the script: a
+        SUMO-network named "net.net.xml" and a set of trip definitions named
+        "trips.trips.xml". if you want to start with another routes
+        definition, you have to change this within the script's source
+        code.</para>
+
+        <para>Within each iteration step, the script generates a configuration
+        file for the <application>DUAROUTER</application> and starts
+        <application>DUAROUTER</application> with this configuration file.
+        Then, a configuration file for <application>SUMO</application> is
+        built and <application>SUMO</application> ist started. Both
+        configuration files are competely defined within the script itself. As
+        default, for each time step, <application>SUMO</application> will
+        generate three dump files with edge-dumps aggregated over 150, 300,
+        and 900s, an emissions and a trip information output. The names of
+        these outputs are numbered over the iteration steps. If you want to
+        change the outputs, you also have to take a look into the script, but
+        you should not disable the edge-based dump for aggregation over 900s,
+        because this is read by the <application>DUAROUTER</application> in
+        the next iteration steps in order to compute the DUA.</para>
+
+        <para>When started with a third parameter, the second parameter given
+        will be interpreted as the start iteration step and the third as the
+        end iteration step.</para>
+
+        <para>This useful script is located in
+        <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/tools/dua_tools/</filename>.</para>
+
+        <para>Synopsis:</para>
+
+        <screen>./dua-iterate.pl <replaceable>&lt;PATH_TO_SUMO_BINARIES&gt;</replaceable> <optional>[<replaceable>&lt;BEGIN_ITERATION_STEP&gt;</replaceable>]</optional> <replaceable>&lt;END_ITERATION_STEP&gt;</replaceable></screen>
+      </sect2>
     </sect1>
 
     <sect1>
@@ -5029,7 +5097,13 @@
 
         <para>Examples:</para>
 
-        <para>TBD</para>
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/output_tests/cross3ltl_rawdump/</filename>
+            shows how the raw output is used. The output is written into the
+            subfolder "<filename>output</filename>".</para>
+          </listitem>
+        </itemizedlist>
 
         <para>Changes:</para>
 
@@ -5222,6 +5296,16 @@
         <option>--emissions
         <replaceable>&lt;FILENAME&gt;</replaceable></option>.</para>
 
+        <para>Examples:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/output_tests/cross3ltl_emissions/</filename>
+            shows how the emissions output is used. The output is written into
+            the subfolder "<filename>output</filename>".</para>
+          </listitem>
+        </itemizedlist>
+
         <para>Recent changes:</para>
 
         <itemizedlist>
@@ -5297,6 +5381,16 @@
         <replaceable>&lt;FILENAME&gt;</replaceable></option> or
         <option>--tripinfo
         <replaceable>&lt;FILENAME&gt;</replaceable></option>.</para>
+
+        <para>Examples:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/output_tests/cross3ltl_tripinfo/</filename>
+            shows how the tripinfo output is used. The output is written into
+            the subfolder "<filename>output</filename>".</para>
+          </listitem>
+        </itemizedlist>
 
         <para>Recent changes:</para>
 
@@ -5394,6 +5488,24 @@
         <replaceable>&lt;FILENAME&gt;</replaceable></option> or
         <option>--vehroutes
         <replaceable>&lt;FILENAME&gt;</replaceable></option>.</para>
+
+        <para>Examples:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/output_tests/cross3ltl_vehroutes/</filename>
+            shows how the vehicle routes output is used. The output is written
+            into the subfolder "<filename>output</filename>". This is just a
+            basic example that the output is generated. Better take a look at
+            <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/extended/rerouter/</filename>.</para>
+          </listitem>
+
+          <listitem>
+            <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/extended/rerouter/</filename>
+            uses rerouters to change the vehicles' routes. A vehicle routes
+            output into the <filename>output</filename>-subfolder.</para>
+          </listitem>
+        </itemizedlist>
 
         <para>Recent changes:</para>
 
@@ -6640,6 +6752,34 @@
       devided by the topic the tools cover.</para>
 
       <sect2>
+        <title>Helpers for DUA-Computation</title>
+
+        <sect3>
+          <title>dua-iterate.pl</title>
+
+          <para>This script performs a dua computation by runing the
+          <application>DUAROUTER</application> and
+          <application>SUMO</application> a given number of times and using
+          the previous outputs. A detailed description may be found in the
+          subchapter "<ulink url="#user_chp05-dua-iterate">Automatic Iteration
+          using 'dua-iterate.pl'</ulink>".</para>
+
+          <para><emphasis>Usage</emphasis>: <command>dua-iterate.pl
+          <replaceable>&lt;PATH_TO_SUMO_BINARIES&gt;
+          </replaceable><optional><replaceable>[&lt;BEGIN_ITERATION_STEP&gt;]
+          </replaceable></optional><replaceable>&lt;END_ITERATION_STEP&gt;
+          </replaceable></command></para>
+
+          <para><emphasis>Output</emphasis>: see "<ulink
+          url="#user_chp05-dua-iterate">Automatic Iteration using
+          'dua-iterate.pl'</ulink>"</para>
+
+          <para><emphasis>Location</emphasis>:
+          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/tools/dua_tools</filename></para>
+        </sect3>
+      </sect2>
+
+      <sect2>
         <title>Handling Routes and Route Alternatives</title>
 
         <sect3>
@@ -6657,6 +6797,9 @@
 
           <para><emphasis>Output</emphasis>: The tool prints the modified
           route file in the new-style on the command line</para>
+
+          <para><emphasis>Location</emphasis>:
+          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/tools/route_tools</filename></para>
         </sect3>
 
         <sect3>
@@ -6672,6 +6815,9 @@
           <para><emphasis>Output</emphasis>: The tool prints the modified
           route / route alternatives file in the new-style on the command
           line</para>
+
+          <para><emphasis>Location</emphasis>:
+          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/tools/route_tools</filename></para>
 
           <caution>
             <para>This tool is meant to be used for tests only - routes in
@@ -6691,6 +6837,9 @@
           <para><emphasis>Output</emphasis>: The tool prints the modified
           route file in the new-style on the command line</para>
 
+          <para><emphasis>Location</emphasis>:
+          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/tools/route_tools</filename></para>
+
           <caution>
             <para>This tool is meant to be used for tests only - you may get
             an unexpected behaviour if you delete route ids which are still
@@ -6709,6 +6858,9 @@
 
           <para><emphasis>Output</emphasis>: The tool prints the modified
           route file in the new-style on the command line</para>
+
+          <para><emphasis>Location</emphasis>:
+          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/tools/route_tools</filename></para>
 
           <caution>
             <para>This tool is meant to be used for tests only - you may get

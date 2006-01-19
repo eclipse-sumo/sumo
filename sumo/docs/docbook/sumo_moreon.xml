@@ -2836,8 +2836,7 @@ gnuplot&gt; plot "emissions_30.txt" u 1:8 w l, "emissions_31.txt" u 1:8 w l, \
                       <entry><filename>sumo/routes/output/cross3ltl_vehroutes</filename></entry>
 
                       <entry>checks whether vehroutes are written (buggy); see
-                      also
-                      <filename>netconvert/extended/rerouter</filename></entry>
+                      also <filename>sumo/extended/rerouter</filename></entry>
                     </row>
                   </tbody>
                 </entrytbl>
