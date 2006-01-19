@@ -5,6 +5,10 @@ GUI_INCS = -I$(FOX_INCLUDES)
 endif
 
 
+if CHECK_MEMORY_LEAKS
+MEM_LIBS  = ./foreign/nvwa/nvwalib.a
+endif
+
 bin_PROGRAMS = sumo sumo-netconvert sumo-netgen sumo-duarouter sumo-jtrrouter \
 sumo-od2trips $(GUI_APPS)
 
@@ -37,6 +41,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/gfx/libgfx.a \
 ./utils/iodevices/libiodevices.a \
+$(MEM_LIBS) \
 -l$(LIB_XERCES)
 
 
@@ -69,6 +74,7 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./utils/common/libcommon.a \
 ./utils/importio/libimportio.a \
 ./utils/xml/libxml.a \
+$(MEM_LIBS) \
 -l$(LIB_XERCES)
 
 
@@ -87,6 +93,7 @@ sumo_netgen_LDADD   = ./netgen/libnetgen.a \
 ./utils/common/libcommon.a \
 ./utils/importio/libimportio.a \
 ./utils/xml/libxml.a \
+$(MEM_LIBS) \
 -l$(LIB_XERCES)
 
 
@@ -105,6 +112,7 @@ sumo_duarouter_LDADD   = ./routing_dua/libduarouting.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
+$(MEM_LIBS) \
 -l$(LIB_XERCES)
 
 
@@ -123,6 +131,7 @@ sumo_jtrrouter_LDADD   = ./routing_jtr/libjtrrouting.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
+$(MEM_LIBS) \
 -l$(LIB_XERCES)
 
 
@@ -138,6 +147,7 @@ sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 ./utils/common/libcommon.a \
 ./utils/importio/libimportio.a \
 ./utils/xml/libxml.a \
+$(MEM_LIBS) \
 -l$(LIB_XERCES)
 
 
@@ -186,6 +196,7 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./utils/glutils/libglutils.a \
 ./utils/iodevices/libiodevices.a \
 ./gui/GUIManipulator.o \
+$(MEM_LIBS) \
 -l$(LIB_XERCES) \
 -l$(LIB_FOX) \
 $(LIB_X11)
@@ -197,7 +208,7 @@ AM_CPPFLAGS = -I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7) \
 $(GUI_INCS)
 
 
-SUBDIRS = microsim multimodal netload sumo_only \
+SUBDIRS = foreign microsim multimodal netload sumo_only \
 netbuild netedit netgen netimport \
 od2trips router routing_dua routing_jtr \
 tools utils $(GUI_DIRS)

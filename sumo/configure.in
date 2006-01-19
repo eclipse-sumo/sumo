@@ -5,7 +5,7 @@ AC_CANONICAL_SYSTEM
 dnl create an config-header
 AM_CONFIG_HEADER(src/config.h)
 
-dnl enabel automake-support
+dnl enable automake-support
 AM_INIT_AUTOMAKE(sumo,0.9.3)
 
 AC_PREFIX_DEFAULT(/usr/local)
@@ -403,8 +403,6 @@ data/examples/simple_nets/eight/eight1l/Makefile
 data/examples/simple_nets/eight/eight1ltl/Makefile
 data/examples/simple_nets/eight/eight3l/Makefile
 data/examples/simple_nets/eight/eight3ltl/Makefile
-data/ressources/Makefile
-data/types/Makefile
 docs/Makefile
 docs/docbook/Makefile
 docs/docbook/gfx/Makefile
