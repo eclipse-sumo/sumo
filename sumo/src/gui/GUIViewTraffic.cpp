@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.46  2006/01/19 15:13:51  dkrajzew
+// reinsert route visualization
+//
 // Revision 1.45  2006/01/19 09:26:19  dkrajzew
 // debugging
 //
@@ -609,14 +612,18 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
                 if(vo.routeNo>=0) {
                     drawRoute(vo, vo.routeNo, 0.25);
                 } else {
-                    int noReroutePlus1 =
-                        (int) vo.vehicle->getCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE) + 1;
-                    for(int i=noReroutePlus1-1; i>=0; i--) {
-                        SUMOReal darken =
-                            (SUMOReal) 0.4
-                            / (SUMOReal) noReroutePlus1
-                            * (SUMOReal) i;
-                        drawRoute(vo, i, darken);
+                    if(vo.vehicle->hasCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
+                        int noReroutePlus1 =
+                            (int) vo.vehicle->getCORNDoubleValue(MSCORN::CORN_VEH_NUMBERROUTE) + 1;
+                        for(int i=noReroutePlus1-1; i>=0; i--) {
+                            SUMOReal darken =
+                                (SUMOReal) 0.4
+                                / (SUMOReal) noReroutePlus1
+                                * (SUMOReal) i;
+                            drawRoute(vo, i, darken);
+                        }
+                    } else {
+                        drawRoute(vo, 0, 0.25);
                     }
                 }
             }
@@ -719,19 +726,25 @@ GUIViewTraffic::doInit()
 void
 GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken)
 {
-    /*!!!
     if(_useToolTips) {
         glPushName(vo.vehicle->getGlID());
     }
-    RGBColor c =
-        myVehicleDrawer[0]->getVehicleColor(*(vo.vehicle), _vehicleColScheme);
-    c.darken(darken);
-    glColor3d(c.red(), c.green(), c.blue());
+    GUIBaseVehicleDrawer::getSchemesMap().getColorer(myVisualizationSettings.vehicleMode)->setGlColor(*(vo.vehicle));
+    GLdouble colors[4];
+    glGetDoublev(GL_CURRENT_COLOR, colors);
+    colors[0] -= darken;
+    if(colors[0]<0) colors[0] = 0;
+    colors[1] -= darken;
+    if(colors[1]<0) colors[1] = 0;
+    colors[2] -= darken;
+    if(colors[2]<0) colors[2] = 0;
+    colors[3] -= darken;
+    if(colors[3]<0) colors[3] = 0;
+    glColor3dv(colors);
     draw(vo.vehicle->getRoute(routeNo));
     if(_useToolTips) {
         glPopName();
     }
-    */
 }
 
 
