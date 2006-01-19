@@ -1,1 +1,1 @@
-SUBDIRS =  hokkaido-japan
+SUBDIRS =  dlr-testtrack hokkaido-japan
