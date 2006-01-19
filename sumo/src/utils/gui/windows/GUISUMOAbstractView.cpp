@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/01/19 09:27:12  dkrajzew
+// cursor position output finished
+//
 // Revision 1.11  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -184,6 +187,7 @@ namespace
 #include <cassert>
 #include <utils/gfx/RGBColor.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringUtils.h>
 #include <utils/gui/globjects/GUIGLObjectToolTip.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include "GUIDanielPerspectiveChanger.h"
@@ -407,43 +411,69 @@ GUISUMOAbstractView::updateToolTip()
 void
 GUISUMOAbstractView::updatePositionInformation()
 {
-    if(false) {
+    if(true) {
         const Boundary &nb = myGrid->getBoundary();
         SUMOReal width = nb.getWidth();
         SUMOReal height = nb.getHeight();
+
         SUMOReal mzoom = _changer->getZoom();
 
         // compute the offset
         SUMOReal cy = _changer->getYPos();//cursorY;
         SUMOReal cx = _changer->getXPos();//cursorY;
 
-        cout << cx << ", " << cy << endl;
-
         // compute the visible area in horizontal direction
-        SUMOReal mratio = (SUMOReal) _widthInPixels / (SUMOReal) _heightInPixels;
+        SUMOReal mratioX;
+        SUMOReal mratioY;
+        SUMOReal xs = ((SUMOReal) _widthInPixels / (SUMOReal) myApp->getMaxGLWidth())
+            / (myGrid->getBoundary().getWidth() / myNetScale) * _ratio;
+        SUMOReal ys = ((SUMOReal) _heightInPixels / (SUMOReal) myApp->getMaxGLHeight())
+            / (myGrid->getBoundary().getHeight() / myNetScale);
+        if(xs<ys) {
+            mratioX = 1;
+            mratioY = ys/xs;
+        } else {
+            mratioY = 1;
+            mratioX = xs/ys;
+        }
+
         SUMOReal sxmin = nb.getCenter().x()
-            - mratio * width * (SUMOReal) 100 / (mzoom) / (SUMOReal) 2. / (SUMOReal) .97;
+            - mratioX * width * (SUMOReal) 100 / (mzoom) / (SUMOReal) 2. / (SUMOReal) .97;
         sxmin -= cx;
         SUMOReal sxmax = nb.getCenter().x()
-            + mratio * width * (SUMOReal) 100 / (mzoom) / (SUMOReal) 2. / (SUMOReal) .97;
+            + mratioX * width * (SUMOReal) 100 / (mzoom) / (SUMOReal) 2. / (SUMOReal) .97;
         sxmax -= cx;
 
         // compute the visible area in vertical direction
-        SUMOReal symin = nb.getCenter().y() - height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
-        symin += cy;
-        SUMOReal symax = nb.getCenter().y() + height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
-        symax += cy;
+        SUMOReal symin = nb.getCenter().y()
+            - mratioY * height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
+        symin -= cy;
+        SUMOReal symax = nb.getCenter().y()
+            + mratioY * height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
+        symax -= cy;
 
-        SUMOReal sx = sxmin
-            + (sxmax-sxmin)
-            * (SUMOReal) _changer->getMouseXPosition()
-            / (SUMOReal) _widthInPixels;
-        SUMOReal sy = symin
-            + (symax-symin)
-            * ((SUMOReal) _heightInPixels - (SUMOReal) _changer->getMouseYPosition())
-            / (SUMOReal) _heightInPixels;
+        SUMOReal sx, sy;
+        if(width<height) {
+            sx = sxmin
+                + (sxmax-sxmin)
+                * (SUMOReal) _changer->getMouseXPosition()
+                / (SUMOReal) _widthInPixels;
+            sy = symin
+                + (symax-symin)
+                * ((SUMOReal) _heightInPixels - (SUMOReal) _changer->getMouseYPosition())
+                / (SUMOReal) _heightInPixels;
+        } else {
+            sx = sxmin
+                + (sxmax-sxmin)
+                * (SUMOReal) _changer->getMouseXPosition()
+                / (SUMOReal) _widthInPixels;
+            sy = symin
+                + (symax-symin)
+                * ((SUMOReal) _heightInPixels - (SUMOReal) _changer->getMouseYPosition())
+                / (SUMOReal) _heightInPixels;
+        }
 
-        string text = "x:" + toString(sx) + ", y:" + toString(sy);
+        string text = "x:" + StringUtils::trim(sx, 3) + ", y:" + StringUtils::trim(sy, 3);
         myApp->setStatusBarText(text);
     }
 }
@@ -730,15 +760,6 @@ GUISUMOAbstractView::displayLegend(bool flip)
     glPopMatrix();
     glMatrixMode(GL_MODELVIEW);
     glPopMatrix();
-}
-
-
-std::pair<SUMOReal, SUMOReal>
-GUISUMOAbstractView::canvas2World(SUMOReal x, SUMOReal y)
-{
-    SUMOReal xret = (SUMOReal) (p2m(x-(myApp->getMaxGLWidth())/(SUMOReal) 2.0)-_changer->getXPos());
-    SUMOReal yret = (SUMOReal) (p2m(y-(myApp->getMaxGLHeight())/(SUMOReal) 2.0)-_changer->getYPos());
-    return std::pair<SUMOReal, SUMOReal>(xret, yret);
 }
 
 

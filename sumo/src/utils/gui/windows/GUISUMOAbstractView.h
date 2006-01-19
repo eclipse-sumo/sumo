@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/01/19 09:27:12  dkrajzew
+// cursor position output finished
+//
 // Revision 1.10  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -216,8 +219,6 @@ public:
     /// pixels-to-meters conversion method
     SUMOReal p2m(SUMOReal pixel);
 
-    std::pair<SUMOReal, SUMOReal> canvas2World(SUMOReal x, SUMOReal y);
-
     /// Returns the information whether rotation is allowd
     bool allowRotation() const;
 
@@ -386,8 +387,7 @@ protected:
     void paintGLGrid();
 
     /** applies the changes arised from window resize or movement */
-    void applyChanges(SUMOReal scale,
-        size_t xoff, size_t yoff);
+    void applyChanges(SUMOReal scale, size_t xoff, size_t yoff);
 
     /// draws the legend
     void displayLegend(bool flip=false);
