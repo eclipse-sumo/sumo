@@ -95,3 +95,15 @@ DFDetectorCon::save(const std::string &file) const
     }
     strm << "</detectors>" << endl;
 }
+
+
+bool
+DFDetectorCon::isDetector( std::string id )
+{
+	bool ret = false;
+	for(std::vector<DFDetector>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+		if ( i->getID() == id )
+			ret = true;
+	}
+	return ret;
+}

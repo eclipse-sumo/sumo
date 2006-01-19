@@ -55,6 +55,7 @@ class DFDetectorCon
 public:
 	DFDetectorCon();
 	~DFDetectorCon();
+	bool isDetector(std::string id);
 	bool addDetector(const DFDetector & dfd );
     bool detectorsHaveCompleteTypes() const;
     std::vector< DFDetector > &getDetectors();

@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/01/19 17:42:58  ericnicolay
+// base classes for the reading of the detectorflows
+//
 // Revision 1.6  2006/01/17 14:12:30  dkrajzew
 // routes output added; debugging
 //
@@ -91,11 +94,14 @@ namespace
 #include <routing_df/DFDetector.h>
 #include <routing_df/DFDetectorHandler.h>
 #include <routing_df/DFRORouteCont.h>
+#include <routing_df/DFDetectorFlow.h>
+#include <routing_df/DFDetFlowLoader.h>
 #include "dfrouter_help.h"
 #include "dfrouter_build.h"
 #include "sumo_version.h"
 #include <utils/common/XMLHelpers.h>
 #include <utils/common/FileHelpers.h>
+
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -162,6 +168,20 @@ readDetectors(OptionsCont &oc)
         MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
     }
     return cont;
+}
+
+DFDetectorFlows *
+readDetectorFlows( OptionsCont &oc, DFDetectorCon * dc)
+{
+	if(!oc.isSet("detectorfow-file")||!FileHelpers::exists(oc.getString("detectorflow-file"))) {
+        MsgHandler::getErrorInstance()->inform("The detectorflow file is not given or can not be opened.");
+		throw ProcessError();
+	}
+	DFDetFlowLoader * dfl = new DFDetFlowLoader(oc.getString("detectorflow-file"), dc);
+	
+	DFDetectorFlows * df = dfl->getFlows();
+	delete dfl;
+	return df;
 }
 
 
