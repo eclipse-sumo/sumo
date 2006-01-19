@@ -154,13 +154,13 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./gui/drawerimpl/libguidrawerimpl.a \
 ./gui/dialogs/libguidialogs.a \
 ./gui/GUISupplementaryWeightsHandler.o \
-./utils/foxtools/libfoxtools.a \
 ./utils/gui/div/libguiutilsdiv.a \
 ./utils/gui/drawer/libguiutilsdrawer.a \
 ./utils/gui/events/libguiutilsevents.a \
 ./utils/gui/images/libguiutilsimages.a \
 ./utils/gui/tracker/libguiutilstracker.a \
 ./utils/gui/windows/libguiutilsWindows.a \
+./utils/foxtools/libfoxtools.a \
 ./utils/gui/globjects/libguiutilsglobjects.a \
 ./netload/libnetload.a \
 ./microsim/libmicrosim.a \

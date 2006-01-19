@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/01/19 08:49:45  dkrajzew
+// debugging for the next release
+//
 // Revision 1.11  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -358,8 +361,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
             MSNet &net, const std::vector<MSLane*> &destLanes,
             const std::string &aXMLFilename)
     : MSLaneSpeedTrigger(id, net, destLanes, aXMLFilename),
-    GUIGlObject_AbstractAdd(gIDStorage,
-        string("speedtrigger:") + id, GLO_TRIGGER),
+    GUIGlObject_AbstractAdd(gIDStorage, "speedtrigger:" + id, GLO_TRIGGER),
     myShowAsKMH(true), myLastValue(-1)
 {
     mySGPositions.reserve(destLanes.size());
@@ -379,7 +381,6 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
         mySGRotations.push_back(-l.atan2DegreeAngle());
         myDefaultSpeed = (*i)->maxSpeed();
         mySpeedOverrideValue = (*i)->maxSpeed();
-        myLoadedSpeed = (*i)->maxSpeed();
     }
 }
 

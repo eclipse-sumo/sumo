@@ -1,6 +1,9 @@
 EXTRA_DIST = 3sims.gif allow_rotation.gif attention_small.gif \
-basic_coordinates.gif bulb.gif \
+basic_coordinates.gif bulb.gif bus_stop1.gif \
 colour_lane.gif colour_vehicle.gif contdisc.gif \
+cross3l_edge2edge_conns.gif cross3l_lane2lane_conns.gif \
+cross3l_no_turnarounds.gif cross3l_unconstrained.gif \
+dua_step1.gif dua_steps.gif \
 ivf.gif \
 locate_edge.gif locate_junction.gif locate_vehicle.gif \
 manip.gif \
