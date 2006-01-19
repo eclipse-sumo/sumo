@@ -259,6 +259,7 @@ bin/Makefile
 prj/Makefile
 prj/add-ins/Makefile
 prj/msvc6/Makefile
+prj/msvc6/dfrouter/Makefile
 prj/msvc6/duarouter/Makefile
 prj/msvc6/giant/Makefile
 prj/msvc6/guisim/Makefile
@@ -297,6 +298,7 @@ prj/msvc6/z_libutils_options/Makefile
 prj/msvc6/z_libutils_sumoxml/Makefile
 prj/msvc6/z_libutils_xml/Makefile
 prj/msvc7.net/Makefile
+prj/msvc7.net/dfrouter/Makefile
 prj/msvc7.net/duarouter/Makefile
 prj/msvc7.net/giant/Makefile
 prj/msvc7.net/guisim/Makefile
@@ -401,10 +403,6 @@ data/examples/simple_nets/eight/eight1l/Makefile
 data/examples/simple_nets/eight/eight1ltl/Makefile
 data/examples/simple_nets/eight/eight3l/Makefile
 data/examples/simple_nets/eight/eight3ltl/Makefile
-dnl data/examples/traffic_lights/Makefile
-dnl data/examples/traffic_lights/cross3l_actuated/Makefile
-dnl data/examples/traffic_lights/cross3l_agentbased/Makefile
-dnl data/examples/traffic_lights/cross3l_simpletl/Makefile
 data/ressources/Makefile
 data/types/Makefile
 docs/Makefile
@@ -504,5 +502,8 @@ src/utils/shapes/Makefile
 src/utils/sumoxml/Makefile
 src/utils/xml/Makefile
 tests/Makefile
+tools/Makefile
+tools/dua_tools/Makefile
+tools/route_tools/Makefile
 Makefile)
 

@@ -1,5 +1,5 @@
 if CHECK_MEMORY_LEAKS
-MEM_DIRS = nvwa
+MEMDIRS = nvwa
 endif
 
 EXTRA_DIST = additional.txt
