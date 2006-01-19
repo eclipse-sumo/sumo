@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/01/19 09:26:04  dkrajzew
+// adapted to the current version
+//
 // Revision 1.4  2005/10/07 11:39:36  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -82,7 +85,7 @@ NIElmar2NodesHandler::NIElmar2NodesHandler(NBNodeCont &nc,
                                            SUMOReal centerX, SUMOReal centerY,
                                            std::map<std::string, Position2DVector> &geoms)
     : FileErrorReporter("elmar-nodes", file),
-    myCurrentLine(0), myInitX(centerX), myInitY(centerY),
+    myInitX(centerX), myInitY(centerY),
     myNodeCont(nc), myGeoms(geoms)
 {
     myInitX /= 100000.0;
@@ -99,10 +102,6 @@ bool
 NIElmar2NodesHandler::report(const std::string &result)
 {
     if(result[0]=='#') {
-        return true;
-    }
-    // skip previous information
-    while(++myCurrentLine<7) {
         return true;
     }
     string id;

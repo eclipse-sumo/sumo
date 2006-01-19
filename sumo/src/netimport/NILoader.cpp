@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/01/19 09:26:04  dkrajzew
+// adapted to the current version
+//
 // Revision 1.18  2006/01/17 14:12:48  dkrajzew
 // code beautifying
 //
@@ -178,6 +181,7 @@ namespace
 #include <utils/options/Option.h>
 #include <utils/importio/LineReader.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/StringUtils.h>
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include <netbuild/NBEdgeCont.h>
@@ -507,12 +511,17 @@ NILoader::loadElmar(OptionsCont &oc)
     }
     SUMOReal xmin, xmax, ymin, ymax;
     try {
-        string line = lr.readLine();
+        string line;
+        while(line.find("[xmin]")==string::npos) {
+            line = lr.readLine();
+        }
+        xmin = TplConvert<char>::_2SUMOReal(StringUtils::prune(line.substr(line.find("]") + 1)).c_str());
         line = lr.readLine();
-        xmin = TplConvert<char>::_2SUMOReal(lr.readLine().c_str());
-        xmax = TplConvert<char>::_2SUMOReal(lr.readLine().c_str());
-        ymin = TplConvert<char>::_2SUMOReal(lr.readLine().c_str());
-        ymax = TplConvert<char>::_2SUMOReal(lr.readLine().c_str());
+        xmax = TplConvert<char>::_2SUMOReal(StringUtils::prune(line.substr(line.find("]") + 1)).c_str());
+        line = lr.readLine();
+        ymin = TplConvert<char>::_2SUMOReal(StringUtils::prune(line.substr(line.find("]") + 1)).c_str());
+        line = lr.readLine();
+        ymax = TplConvert<char>::_2SUMOReal(StringUtils::prune(line.substr(line.find("]") + 1)).c_str());
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Error on reading min/max definitions from '" + oc.getString(opt) + "_nodes_unsplitted.txt'.");
         throw ProcessError();

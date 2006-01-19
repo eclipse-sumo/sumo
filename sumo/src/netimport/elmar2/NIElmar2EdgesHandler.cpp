@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/01/19 09:26:04  dkrajzew
+// adapted to the current version
+//
 // Revision 1.4  2005/10/07 11:39:36  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -126,8 +129,7 @@ NIElmar2EdgesHandler::report(const std::string &result)
         length = TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
-            string("Non-numerical value for an edge's length occured (edge '") + id
-            + string("'."));
+            "Non-numerical value for an edge's length occured (edge '" + id + "'.");
         throw ProcessError();
     }
         // vehicle_type
@@ -169,15 +171,12 @@ NIElmar2EdgesHandler::report(const std::string &result)
             speed = (SUMOReal) 5 / (SUMOReal) 3.6; //< 11 KPH / < 6 MPH
             break;
         default:
-            MsgHandler::getErrorInstance()->inform(
-                string("Invalid speed code (edge '") + id
-                + string("'."));
+            MsgHandler::getErrorInstance()->inform("Invalid speed code (edge '" + id + "'.");
             throw ProcessError();
         }
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
-            string("Non-numerical value for an edge's speed type occured (edge '") + id
-            + string("')."));
+            "Non-numerical value for an edge's speed type occured (edge '" + id + "').");
         throw ProcessError();
     }
         // number of lanes
@@ -202,16 +201,13 @@ NIElmar2EdgesHandler::report(const std::string &result)
                 nolanes = 4;
                 break;
             default:
-                MsgHandler::getErrorInstance()->inform(
-                    string("Invalid lane number (edge '") + id
-                    + string("')."));
+                MsgHandler::getErrorInstance()->inform("Invalid lane number (edge '" + id + "').");
                 throw ProcessError();
             }
         }
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
-            string("Non-numerical value for an edge's lane number occured (edge '") + id
-            + string("'."));
+            "Non-numerical value for an edge's lane number occured (edge '" + id + "'.");
         throw ProcessError();
     }
         // skip some
@@ -234,14 +230,12 @@ NIElmar2EdgesHandler::report(const std::string &result)
     NBNode *to = myNodeCont.retrieve(toID);
     if(from==0) {
         MsgHandler::getErrorInstance()->inform(
-            string("The from-node '") + fromID + string("' of edge '")
-            + id + string("' could not be found"));
+            "The from-node '" + fromID + "' of edge '" + id + "' could not be found");
         throw ProcessError();
     }
     if(to==0) {
         MsgHandler::getErrorInstance()->inform(
-            string("The to-node '") + toID + string("' of edge '")
-            + id + string("' could not be found"));
+            "The to-node '" + toID + "' of edge '" + id + "' could not be found");
         throw ProcessError();
     }
 
@@ -267,8 +261,7 @@ NIElmar2EdgesHandler::report(const std::string &result)
 
     if(!myEdgeCont.insert(e)) {
         delete e;
-        MsgHandler::getErrorInstance()->inform(
-            string("Could not add edge '") + id + string("'."));
+        MsgHandler::getErrorInstance()->inform("Could not add edge '" + id + "'.");
         throw ProcessError();
     }
     return true;

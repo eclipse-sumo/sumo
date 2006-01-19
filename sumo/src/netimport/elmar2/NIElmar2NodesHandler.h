@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2006/01/19 09:26:04  dkrajzew
+// adapted to the current version
+//
 // Revision 1.4  2005/10/07 11:39:36  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -79,9 +82,6 @@ public:
     bool report(const std::string &result);
 
 protected:
-    /// The number of the line that will be read as next
-    size_t myCurrentLine;
-
     SUMOReal myInitX, myInitY;
 
     NBNodeCont &myNodeCont;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/01/19 09:26:04  dkrajzew
+// adapted to the current version
+//
 // Revision 1.7  2005/10/07 11:39:26  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -89,7 +92,7 @@ NIElmarNodesHandler::NIElmarNodesHandler(NBNodeCont &nc,
                                          const std::string &file,
                                          SUMOReal centerX, SUMOReal centerY)
     : FileErrorReporter("elmar-nodes", file),
-    myCurrentLine(0), myInitX(centerX), myInitY(centerY),
+    myInitX(centerX), myInitY(centerY),
     myNodeCont(nc)
 {
     myInitX /= 100000.0;
@@ -109,9 +112,6 @@ NIElmarNodesHandler::report(const std::string &result)
         return true;
     }
     // skip previous information
-    while(++myCurrentLine<6) {
-        return true;
-    }
     string id;
     SUMOReal x, y;
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
