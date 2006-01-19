@@ -1,1 +1,1 @@
-SUBDIRS = cfg_templates examples ressources types
+SUBDIRS = cfg_templates examples
