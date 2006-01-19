@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/01/19 13:36:38  dkrajzew
+// debugging the resize bug
+//
 // Revision 1.1  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -98,7 +101,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
     myMainWindow(mainWindow), myParent(parent), mySettings(settings),
     myLaneColoringInfoSource(laneEdgeModeSource),
     myVehicleColoringInfoSource(vehicleModeSource),
-    myDecals(decals), myDecalsLock(decalsLock)
+    myDecals(decals), myDecalsLock(decalsLock), myDecalsTable(0)
 {
     myBackup = (*mySettings);
 
@@ -135,7 +138,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         FXTabItem *tab2 = new FXTabItem(tabbook,"Streets",NULL);
         FXVerticalFrame *frame2 =
             new FXVerticalFrame(tabbook,FRAME_THICK|FRAME_RAISED, 0,0,0,0, 0,0,0,0, 2,2);
-        FXSplitter *s2 = new FXSplitter(frame2);
+        FXSplitter *s2 = new FXSplitter(frame2, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0, 0,80);
         FXMatrix *m21 =
             new FXMatrix(s2,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                 0,0,0,0, 10,10,10,10, 5,5);
@@ -157,7 +160,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         c1->appendItem("LOS (edge)");
         */
         myLaneEdgeColorMode->setNumVisible(10);
-        myLaneColorSettingFrame = new FXVerticalFrame(s2);
+        myLaneColorSettingFrame =
+            new FXVerticalFrame(s2, LAYOUT_FIX_HEIGHT|LAYOUT_FIX_Y|LAYOUT_FILL_Y,  0,0,  0,0, 10,10,10,10, 5,2);
         new FXHorizontalSeparator(frame2,SEPARATOR_GROOVE|LAYOUT_FILL_X);
         FXMatrix *m22 =
             new FXMatrix(frame2,1,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
@@ -184,7 +188,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
             c31->setNumVisible(4);
             c31->disable();
             new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
-            FXSplitter *s3 = new FXSplitter(frame3);
+            FXSplitter *s3 = new FXSplitter(frame3, LAYOUT_FILL_X|LAYOUT_FILL_Y, 0,0, 0,400);
             FXMatrix *m32 =
                 new FXMatrix(s3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                     0,0,0,0, 10,10,10,10, 5,5);
@@ -193,7 +197,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
             myVehicleColoringInfoSource->fill(*myVehicleColorMode);
             myVehicleColorMode->setNumVisible(10);
             myVehicleColorSettingFrame =
-                new FXVerticalFrame(s3, 0, 0,0,0,0, 10,10,10,10, 5,2);
+                new FXVerticalFrame(s3, 0, 0,0,80,0, 10,10,10,10, 5,2);
             new FXHorizontalSeparator(frame3,SEPARATOR_GROOVE|LAYOUT_FILL_X);
             FXMatrix *m33 =
                 new FXMatrix(frame3,1,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
@@ -523,8 +527,9 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
 {
     {
         // decals
+        delete myDecalsTable;
         myDecalsTable = new MFXAddEditTypedTable(myDecalsFrame, this, MID_TABLE,
-            LAYOUT_FIX_WIDTH|LAYOUT_FILL_Y, 0,0, 470);
+            LAYOUT_FILL_Y|LAYOUT_FIX_WIDTH/*|LAYOUT_FIX_HEIGHT*/, 0,0, 470, 0);
         myDecalsTable->setVisibleRows(5);
         myDecalsTable->setVisibleColumns(8);
         myDecalsTable->setTableSize(5,8);
@@ -552,13 +557,16 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
         myDecalsTable->setNumberCellParams(7, -10000000, 10000000,
             .1, 1, 10, "%.2f");
         rebuildList();
+        if(doCreate) {
+            myDecalsTable->create();
+        }
     }
     {
         // lane
         MFXUtils::deleteChildren(myLaneColorSettingFrame);
         FXMatrix *m = new FXMatrix(myLaneColorSettingFrame,2,
-            LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-            0,0,0,0,10,10,10,10, 5,3);
+            LAYOUT_FILL_X|MATRIX_BY_COLUMNS|LAYOUT_FIX_HEIGHT,
+            0,0,0,80,10,10,10,10, 5,3);
         mySingleLaneColor = 0;
         myMinLaneColor = 0;
         myMaxLaneColor = 0;
@@ -568,7 +576,7 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
             new FXLabel(m , "Color", 0, LAYOUT_CENTER_Y);
             mySingleLaneColor = new FXColorWell(m , convert(mySettings->singleLaneColor),
                 this, MID_SIMPLE_VIEW_COLORCHANGE,
-                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                 0, 0, 100, 0,   0, 0, 0, 0);
             break;
         case CST_MINMAX:
@@ -577,12 +585,12 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
             new FXLabel(m , "min Color", 0, LAYOUT_CENTER_Y);
             myMinLaneColor = new FXColorWell(m , convert(mySettings->minLaneColor),
                 this, MID_SIMPLE_VIEW_COLORCHANGE,
-                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                 0, 0, 100, 0,   0, 0, 0, 0);
             new FXLabel(m , "max Color", 0, LAYOUT_CENTER_Y);
             myMaxLaneColor = new FXColorWell(m , convert(mySettings->maxLaneColor),
                 this, MID_SIMPLE_VIEW_COLORCHANGE,
-                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|LAYOUT_SIDE_TOP|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
+                LAYOUT_FIX_WIDTH|LAYOUT_CENTER_Y|FRAME_SUNKEN|FRAME_THICK|ICON_AFTER_TEXT,
                 0, 0, 100, 0,   0, 0, 0, 0);
             break;
         case CST_GRADIENT:
@@ -600,8 +608,8 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
             // vehicles
             MFXUtils::deleteChildren(myVehicleColorSettingFrame);
             FXMatrix *m = new FXMatrix(myVehicleColorSettingFrame,2,
-                LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
-                0,0,0,0,10,10,10,10, 5,3);
+                LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS|LAYOUT_FIX_HEIGHT,
+                0,0,0,80,10,10,10,10, 5,3);
             mySingleVehicleColor = 0;
             myMinVehicleColor = 0;
             myMaxVehicleColor = 0;
@@ -639,6 +647,8 @@ GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
             }
         }
     }
+    layout();
+    update();
 }
 
 
@@ -750,8 +760,6 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
     myParent->update();
     return 1;
 }
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
