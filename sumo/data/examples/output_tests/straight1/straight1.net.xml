@@ -4,93 +4,93 @@
    <node_count>14</node_count>
 
 
-   <edge id="0" Length="500.75" Speed="36.00" Name="0" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="500.00" YTo="0.00" From="a0" To="a1" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="0" Length="501.65" Speed="36.00" Name="0" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="500.00" YTo="0.00" From="a0" To="a1" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="0_0" depart="1" maxspeed="36.00" length="500.75" changeurge="0">-1.75,-1.75 499.00,-1.75</lane>
+         <lane id="0_0" depart="1" maxspeed="36.00" length="501.65" changeurge="0">-1.65,-1.65 500.00,-1.65</lane>
       </lanes>
       <cedge id="1" via=":a1">0_0</cedge>
    </edge>
 
-   <edge id="1" Length="248.00" Speed="36.00" Name="1" NoLanes="1" XFrom="500.00" YFrom="0.00" XTo="750.00" YTo="0.00" From="a1" To="a2" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="1" Length="250.00" Speed="36.00" Name="1" NoLanes="1" XFrom="500.00" YFrom="0.00" XTo="750.00" YTo="0.00" From="a1" To="a2" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="1_0" depart="1" maxspeed="36.00" length="248.00" changeurge="0">501.00,-1.75 749.00,-1.75</lane>
+         <lane id="1_0" depart="1" maxspeed="36.00" length="250.00" changeurge="0">500.00,-1.65 750.00,-1.65</lane>
       </lanes>
       <cedge id="2" via=":a2">1_0</cedge>
    </edge>
 
-   <edge id="2" Length="148.00" Speed="36.00" Name="2" NoLanes="1" XFrom="750.00" YFrom="0.00" XTo="900.00" YTo="0.00" From="a2" To="a3" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="2" Length="150.00" Speed="36.00" Name="2" NoLanes="1" XFrom="750.00" YFrom="0.00" XTo="900.00" YTo="0.00" From="a2" To="a3" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="2_0" depart="1" maxspeed="36.00" length="148.00" changeurge="0">751.00,-1.75 899.00,-1.75</lane>
+         <lane id="2_0" depart="1" maxspeed="36.00" length="150.00" changeurge="0">750.00,-1.65 900.00,-1.65</lane>
       </lanes>
       <cedge id="3" via=":a3">2_0</cedge>
    </edge>
 
-   <edge id="3" Length="48.00" Speed="36.00" Name="3" NoLanes="1" XFrom="900.00" YFrom="0.00" XTo="950.00" YTo="0.00" From="a3" To="a4" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="3" Length="50.00" Speed="36.00" Name="3" NoLanes="1" XFrom="900.00" YFrom="0.00" XTo="950.00" YTo="0.00" From="a3" To="a4" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="3_0" depart="1" maxspeed="36.00" length="48.00" changeurge="0">901.00,-1.75 949.00,-1.75</lane>
+         <lane id="3_0" depart="1" maxspeed="36.00" length="50.00" changeurge="0">900.00,-1.65 950.00,-1.65</lane>
       </lanes>
       <cedge id="4" via=":a4">3_0</cedge>
    </edge>
 
-   <edge id="4" Length="38.00" Speed="36.00" Name="4" NoLanes="1" XFrom="950.00" YFrom="0.00" XTo="990.00" YTo="0.00" From="a4" To="a5" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="4" Length="40.00" Speed="36.00" Name="4" NoLanes="1" XFrom="950.00" YFrom="0.00" XTo="990.00" YTo="0.00" From="a4" To="a5" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="4_0" depart="1" maxspeed="36.00" length="38.00" changeurge="0">951.00,-1.75 989.00,-1.75</lane>
+         <lane id="4_0" depart="1" maxspeed="36.00" length="40.00" changeurge="0">950.00,-1.65 990.00,-1.65</lane>
       </lanes>
       <cedge id="5" via=":a5">4_0</cedge>
    </edge>
 
-   <edge id="5" Length="8.00" Speed="36.00" Name="5" NoLanes="1" XFrom="990.00" YFrom="0.00" XTo="1000.00" YTo="0.00" From="a5" To="a6" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="5" Length="10.00" Speed="36.00" Name="5" NoLanes="1" XFrom="990.00" YFrom="0.00" XTo="1000.00" YTo="0.00" From="a5" To="a6" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="5_0" depart="1" maxspeed="36.00" length="8.00" changeurge="0">991.00,-1.75 999.00,-1.75</lane>
+         <lane id="5_0" depart="1" maxspeed="36.00" length="10.00" changeurge="0">990.00,-1.65 1000.00,-1.65</lane>
       </lanes>
       <cedge id="6" via=":a6">5_0</cedge>
    </edge>
 
-   <edge id="6" Length="1998.00" Speed="36.00" Name="6" NoLanes="1" XFrom="1000.00" YFrom="0.00" XTo="3000.00" YTo="0.00" From="a6" To="b6" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="6" Length="2000.00" Speed="36.00" Name="6" NoLanes="1" XFrom="1000.00" YFrom="0.00" XTo="3000.00" YTo="0.00" From="a6" To="b6" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="6_0" depart="1" maxspeed="36.00" length="1998.00" changeurge="0">1001.00,-1.75 2999.00,-1.75</lane>
+         <lane id="6_0" depart="1" maxspeed="36.00" length="2000.00" changeurge="0">1000.00,-1.65 3000.00,-1.65</lane>
       </lanes>
       <cedge id="7" via=":b6">6_0</cedge>
    </edge>
 
-   <edge id="7" Length="8.00" Speed="36.00" Name="7" NoLanes="1" XFrom="3000.00" YFrom="0.00" XTo="3010.00" YTo="0.00" From="b6" To="b5" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="7" Length="10.00" Speed="36.00" Name="7" NoLanes="1" XFrom="3000.00" YFrom="0.00" XTo="3010.00" YTo="0.00" From="b6" To="b5" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="7_0" depart="1" maxspeed="36.00" length="8.00" changeurge="0">3001.00,-1.75 3009.00,-1.75</lane>
+         <lane id="7_0" depart="1" maxspeed="36.00" length="10.00" changeurge="0">3000.00,-1.65 3010.00,-1.65</lane>
       </lanes>
       <cedge id="8" via=":b5">7_0</cedge>
    </edge>
 
-   <edge id="8" Length="38.00" Speed="36.00" Name="8" NoLanes="1" XFrom="3010.00" YFrom="0.00" XTo="3050.00" YTo="0.00" From="b5" To="b4" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="8" Length="40.00" Speed="36.00" Name="8" NoLanes="1" XFrom="3010.00" YFrom="0.00" XTo="3050.00" YTo="0.00" From="b5" To="b4" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="8_0" depart="1" maxspeed="36.00" length="38.00" changeurge="0">3011.00,-1.75 3049.00,-1.75</lane>
+         <lane id="8_0" depart="1" maxspeed="36.00" length="40.00" changeurge="0">3010.00,-1.65 3050.00,-1.65</lane>
       </lanes>
       <cedge id="9" via=":b4">8_0</cedge>
    </edge>
 
-   <edge id="9" Length="48.00" Speed="36.00" Name="9" NoLanes="1" XFrom="3050.00" YFrom="0.00" XTo="3100.00" YTo="0.00" From="b4" To="b3" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="9" Length="50.00" Speed="36.00" Name="9" NoLanes="1" XFrom="3050.00" YFrom="0.00" XTo="3100.00" YTo="0.00" From="b4" To="b3" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="9_0" depart="1" maxspeed="36.00" length="48.00" changeurge="0">3051.00,-1.75 3099.00,-1.75</lane>
+         <lane id="9_0" depart="1" maxspeed="36.00" length="50.00" changeurge="0">3050.00,-1.65 3100.00,-1.65</lane>
       </lanes>
       <cedge id="a" via=":b3">9_0</cedge>
    </edge>
 
-   <edge id="a" Length="148.00" Speed="36.00" Name="a" NoLanes="1" XFrom="3100.00" YFrom="0.00" XTo="3250.00" YTo="0.00" From="b3" To="b2" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="a" Length="150.00" Speed="36.00" Name="a" NoLanes="1" XFrom="3100.00" YFrom="0.00" XTo="3250.00" YTo="0.00" From="b3" To="b2" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="a_0" depart="1" maxspeed="36.00" length="148.00" changeurge="0">3101.00,-1.75 3249.00,-1.75</lane>
+         <lane id="a_0" depart="1" maxspeed="36.00" length="150.00" changeurge="0">3100.00,-1.65 3250.00,-1.65</lane>
       </lanes>
       <cedge id="b" via=":b2">a_0</cedge>
    </edge>
 
-   <edge id="b" Length="248.00" Speed="36.00" Name="b" NoLanes="1" XFrom="3250.00" YFrom="0.00" XTo="3500.00" YTo="0.00" From="b2" To="b1" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="b" Length="250.00" Speed="36.00" Name="b" NoLanes="1" XFrom="3250.00" YFrom="0.00" XTo="3500.00" YTo="0.00" From="b2" To="b1" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="b_0" depart="1" maxspeed="36.00" length="248.00" changeurge="0">3251.00,-1.75 3499.00,-1.75</lane>
+         <lane id="b_0" depart="1" maxspeed="36.00" length="250.00" changeurge="0">3250.00,-1.65 3500.00,-1.65</lane>
       </lanes>
       <cedge id="c" via=":b1">b_0</cedge>
    </edge>
 
-   <edge id="c" Length="497.25" Speed="36.00" Name="c" NoLanes="1" XFrom="3500.00" YFrom="0.00" XTo="4000.00" YTo="0.00" From="b1" To="b0" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="c" Length="498.35" Speed="36.00" Name="c" NoLanes="1" XFrom="3500.00" YFrom="0.00" XTo="4000.00" YTo="0.00" From="b1" To="b0" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="c_0" depart="1" maxspeed="36.00" length="497.25" changeurge="0">3501.00,-1.75 3998.25,-1.75</lane>
+         <lane id="c_0" depart="1" maxspeed="36.00" length="498.35" changeurge="0">3500.00,-1.65 3998.35,-1.65</lane>
       </lanes>
    </edge>
 
@@ -207,72 +207,72 @@
 
    <junction id="a0" type="DEAD_END" x="0.00" y="0.00">
       <inclanes></inclanes>
-      <shape>-0.25,-0.25 -3.25,-3.25</shape>
+      <shape>-0.05,-0.05 -3.25,-3.25</shape>
    </junction>
 
    <junction id="a1" type="priority" x="500.00" y="0.00">
       <inclanes>0_0</inclanes>
-      <shape>499.00,-3.25 501.00,-3.25 501.00,-0.25 499.00,-0.25 499.00,-3.25 499.00,-3.25</shape>
+      <shape>500.00,-0.05 500.00,-3.25 500.00,-0.05</shape>
    </junction>
 
    <junction id="a2" type="priority" x="750.00" y="0.00">
       <inclanes>1_0</inclanes>
-      <shape>749.00,-3.25 751.00,-3.25 751.00,-0.25 749.00,-0.25 749.00,-3.25 749.00,-3.25</shape>
+      <shape>750.00,-0.05 750.00,-3.25 750.00,-0.05</shape>
    </junction>
 
    <junction id="a3" type="priority" x="900.00" y="0.00">
       <inclanes>2_0</inclanes>
-      <shape>899.00,-3.25 901.00,-3.25 901.00,-0.25 899.00,-0.25 899.00,-3.25 899.00,-3.25</shape>
+      <shape>900.00,-0.05 900.00,-3.25 900.00,-0.05</shape>
    </junction>
 
    <junction id="a4" type="priority" x="950.00" y="0.00">
       <inclanes>3_0</inclanes>
-      <shape>949.00,-3.25 951.00,-3.25 951.00,-0.25 949.00,-0.25 949.00,-3.25 949.00,-3.25</shape>
+      <shape>950.00,-0.05 950.00,-3.25 950.00,-0.05</shape>
    </junction>
 
    <junction id="a5" type="priority" x="990.00" y="0.00">
       <inclanes>4_0</inclanes>
-      <shape>989.00,-3.25 991.00,-3.25 991.00,-0.25 989.00,-0.25 989.00,-3.25 989.00,-3.25</shape>
+      <shape>990.00,-0.05 990.00,-3.25 990.00,-0.05</shape>
    </junction>
 
    <junction id="a6" type="priority" x="1000.00" y="0.00">
       <inclanes>5_0</inclanes>
-      <shape>999.00,-3.25 1001.00,-3.25 1001.00,-0.25 999.00,-0.25 999.00,-3.25 999.00,-3.25</shape>
+      <shape>1000.00,-0.05 1000.00,-3.25 1000.00,-0.05</shape>
    </junction>
 
    <junction id="b0" type="DEAD_END" x="4000.00" y="0.00">
       <inclanes>c_0</inclanes>
-      <shape>3996.75,-3.25 3999.75,-0.25</shape>
+      <shape>3996.75,-3.25 3999.95,-0.05</shape>
    </junction>
 
    <junction id="b1" type="priority" x="3500.00" y="0.00">
       <inclanes>b_0</inclanes>
-      <shape>3499.00,-3.25 3501.00,-3.25 3501.00,-0.25 3499.00,-0.25 3499.00,-3.25 3499.00,-3.25</shape>
+      <shape>3500.00,-0.05 3500.00,-3.25 3500.00,-0.05</shape>
    </junction>
 
    <junction id="b2" type="priority" x="3250.00" y="0.00">
       <inclanes>a_0</inclanes>
-      <shape>3249.00,-3.25 3251.00,-3.25 3251.00,-0.25 3249.00,-0.25 3249.00,-3.25 3249.00,-3.25</shape>
+      <shape>3250.00,-0.05 3250.00,-3.25 3250.00,-0.05</shape>
    </junction>
 
    <junction id="b3" type="priority" x="3100.00" y="0.00">
       <inclanes>9_0</inclanes>
-      <shape>3099.00,-3.25 3101.00,-3.25 3101.00,-0.25 3099.00,-0.25 3099.00,-3.25 3099.00,-3.25</shape>
+      <shape>3100.00,-0.05 3100.00,-3.25 3100.00,-0.05</shape>
    </junction>
 
    <junction id="b4" type="priority" x="3050.00" y="0.00">
       <inclanes>8_0</inclanes>
-      <shape>3049.00,-3.25 3051.00,-3.25 3051.00,-0.25 3049.00,-0.25 3049.00,-3.25 3049.00,-3.25</shape>
+      <shape>3050.00,-0.05 3050.00,-3.25 3050.00,-0.05</shape>
    </junction>
 
    <junction id="b5" type="priority" x="3010.00" y="0.00">
       <inclanes>7_0</inclanes>
-      <shape>3009.00,-3.25 3011.00,-3.25 3011.00,-0.25 3009.00,-0.25 3009.00,-3.25 3009.00,-3.25</shape>
+      <shape>3010.00,-0.05 3010.00,-3.25 3010.00,-0.05</shape>
    </junction>
 
    <junction id="b6" type="priority" x="3000.00" y="0.00">
       <inclanes>6_0</inclanes>
-      <shape>2999.00,-3.25 3001.00,-3.25 3001.00,-0.25 2999.00,-0.25 2999.00,-3.25 2999.00,-3.25</shape>
+      <shape>3000.00,-0.05 3000.00,-3.25 3000.00,-0.05</shape>
    </junction>
 
 
@@ -328,19 +328,5 @@
       <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
 
-
-   <edgepos id="0" from="a0" to="a1" lane="0" function="normal"/>
-   <edgepos id="1" from="a1" to="a2" lane="0" function="normal"/>
-   <edgepos id="2" from="a2" to="a3" lane="0" function="normal"/>
-   <edgepos id="3" from="a3" to="a4" lane="0" function="normal"/>
-   <edgepos id="4" from="a4" to="a5" lane="0" function="normal"/>
-   <edgepos id="5" from="a5" to="a6" lane="0" function="normal"/>
-   <edgepos id="6" from="a6" to="b6" lane="0" function="normal"/>
-   <edgepos id="7" from="b6" to="b5" lane="0" function="normal"/>
-   <edgepos id="8" from="b5" to="b4" lane="0" function="normal"/>
-   <edgepos id="9" from="b4" to="b3" lane="0" function="normal"/>
-   <edgepos id="a" from="b3" to="b2" lane="0" function="normal"/>
-   <edgepos id="b" from="b2" to="b1" lane="0" function="normal"/>
-   <edgepos id="c" from="b1" to="b0" lane="0" function="normal"/>
 
 </net>
