@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/01/19 09:26:20  dkrajzew
+// debugging
+//
 // Revision 1.7  2005/10/07 11:47:41  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -173,13 +176,6 @@ GenericSAX2Handler::endElement(const XMLCh* const uri,
     }
     // call user handler
         // collect characters
-    /*
-    std::ostringstream oss;
-    for(int i=0; i<myCharactersVector.size(); i++) {
-        oss << myCharactersVector[i];
-    }
-    return oss.str();
-    */
     size_t len = 0;
     size_t i;
     for(i=0; i<myCharactersVector.size(); ++i) {
@@ -211,7 +207,6 @@ GenericSAX2Handler::characters(const XMLCh* const chars,
                                const unsigned int length)
 {
     myCharactersVector.push_back(TplConvert<XMLCh>::_2str(chars, length));
-//   _characters += TplConvert<XMLCh>::_2str(chars, length);
 }
 
 
@@ -272,10 +267,11 @@ GenericSAX2Handler::myEndElementDump(int element,
 int
 GenericSAX2Handler::convertTag(const std::string &tag) const
 {
-   TagMap::const_iterator i=_tagMap.find(tag);
-   if(i==_tagMap.end())
-      return -1; // !!! should it be reported (as error)
-   return (*i).second;
+    TagMap::const_iterator i=_tagMap.find(tag);
+    if(i==_tagMap.end()) {
+        return -1; // !!! should it be reported (as error)
+    }
+    return (*i).second;
 }
 
 

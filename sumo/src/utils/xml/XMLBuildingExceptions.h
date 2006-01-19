@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2006/01/19 09:26:20  dkrajzew
+// debugging
+//
 // Revision 1.7  2005/10/07 11:47:41  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -102,8 +105,12 @@
 /* =========================================================================
  * class definitions
  * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * for XMLBuildingException
+ * ----------------------------------------------------------------------- */
 /**
- * XMLBuildingException
+ * @class XMLBuildingException
+ *
  * Basic class for all following exception classes which are exceptions
  * which may be thrown during the parsing of XML-files.
  */
@@ -122,28 +129,11 @@ public:
 };
 
 
-
+/* -------------------------------------------------------------------------
+ * for XMLIdNotKnownException
+ * ----------------------------------------------------------------------- */
 /**
- * XMLIdNotGivenException
- * thrown when the id is not supplied
- */
-class XMLIdNotGivenException : public XMLBuildingException  {
-public:
-    /** constructor */
-    XMLIdNotGivenException();
-
-    /** destructor */
-    ~XMLIdNotGivenException();
-
-    /** returns the error message */
-    std::string getMessage(const std::string &obj, const std::string &id);
-
-};
-
-
-
-/**
- * XMLIdNotKnownException
+ * @class XMLIdNotKnownException
  * thrown when an object of the named class and id is not known
  * (was not loaded/parsed) but its parent is known
  */
@@ -168,9 +158,11 @@ private:
 };
 
 
-
+/* -------------------------------------------------------------------------
+ * for XMLIdAlreadyUsedException
+ * ----------------------------------------------------------------------- */
 /**
- * XMLIdAlreadyUsedException
+ * @class XMLIdAlreadyUsedException
  * thrown when a duplicate key for the same object type is given
  */
 class XMLIdAlreadyUsedException : public XMLBuildingException  {
@@ -195,9 +187,11 @@ private:
 };
 
 
-
+/* -------------------------------------------------------------------------
+ * for XMLDepartLaneDuplicationException
+ * ----------------------------------------------------------------------- */
 /**
- * XMLDepartLaneDuplicationException
+ * @class XMLDepartLaneDuplicationException
  * thrown when an edge has two or more defined depart lanes
  */
 class XMLDepartLaneDuplicationException : public XMLBuildingException  {
@@ -214,9 +208,11 @@ public:
 };
 
 
-
+/* -------------------------------------------------------------------------
+ * for XMLInvalidChildException
+ * ----------------------------------------------------------------------- */
 /**
- * XMLInvalidChildException
+ * @class XMLInvalidChildException
  * thrown when a child to add to a larger structure is invalid
  * (f.i. was not formerly known)
  */
@@ -234,48 +230,11 @@ public:
 };
 
 
-
+/* -------------------------------------------------------------------------
+ * for XMLListEmptyException
+ * ----------------------------------------------------------------------- */
 /**
- * XMLInvalidParentException
- * thrown when a parent to add a child to is not known
- * (f.i. when the child is not inside of valid tags)
- */
-class XMLInvalidParentException : public XMLBuildingException  {
-public:
-    /** constructor */
-    XMLInvalidParentException();
-
-    /** destructor */
-    ~XMLInvalidParentException();
-
-    /** returns the error message */
-    std::string getMessage(const std::string &obj, const std::string &id);
-
-};
-
-
-
-/**
- * XMLKeyDuplicateException
- * thrown when a key-value pair with the same key as given was already set
- */
-class XMLKeyDuplicateException  : public XMLBuildingException {
-public:
-    /** constructor */
-    XMLKeyDuplicateException();
-
-    /** destructor */
-    ~XMLKeyDuplicateException();
-
-    /** returns the error message */
-    std::string getMessage(const std::string &obj, const std::string &id);
-
-};
-
-
-
-/**
- * XMLListEmptyException
+ * @class XMLListEmptyException
  * thrown when an empty list which should have values is used
  */
 class XMLListEmptyException  : public XMLBuildingException {

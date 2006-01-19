@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.45  2006/01/19 09:26:19  dkrajzew
+// debugging
+//
 // Revision 1.44  2006/01/11 11:56:30  dkrajzew
 // added a colorwheel icon for visualization changer
 //
@@ -413,14 +416,13 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
     // build coloring tools
     {
         FXComboBox *myColoringSchemes =
-            new FXComboBox(&toolbar, 8, this, MID_COLOURSCHEMECHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
+            new FXComboBox(&toolbar, 12, this, MID_COLOURSCHEMECHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
         const std::vector<std::string> &names = gSchemeStorage.getNames();
         for(std::vector<std::string>::const_iterator i=names.begin(); i!=names.end(); ++i) {
             myColoringSchemes->appendItem((*i).c_str());
         }
+        myColoringSchemes->setNumVisible(5);
     }
-
-
 
     new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
 

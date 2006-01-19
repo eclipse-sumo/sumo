@@ -23,6 +23,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/01/19 09:26:20  dkrajzew
+// debugging
+//
 // Revision 1.6  2005/10/17 09:25:12  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -141,32 +144,6 @@ XMLBuildingException::getMessage(const string &obj, const string &id)
 
 
 /* -------------------------------------------------------------------------
- * XMLIdNotGivenException - methods
- * ----------------------------------------------------------------------- */
-XMLIdNotGivenException::XMLIdNotGivenException() : XMLBuildingException()
-{
-}
-
-
-XMLIdNotGivenException::~XMLIdNotGivenException()
-{
-}
-
-
-string
-XMLIdNotGivenException::getMessage(const string &obj, const string &id)
-{
-    string _myObj = obj;
-    if(_myObj=="") {
-        _myObj = "<unknown>";
-    }
-    return "The id of the object " + _myObj
-        + " is missing in the description.";
-}
-
-
-
-/* -------------------------------------------------------------------------
  * XMLIdNotKnownException - methods
  * ----------------------------------------------------------------------- */
 XMLIdNotKnownException::XMLIdNotKnownException(const string object,
@@ -266,54 +243,6 @@ XMLInvalidChildException::getMessage(const string &obj, const string &id)
     }
     return "The object " + _myObj + " with the id " + _myId
         + " is not nested properly";
-}
-
-
-
-/* -------------------------------------------------------------------------
- * XMLInvalidParentException - methods
- * ----------------------------------------------------------------------- */
-XMLInvalidParentException::XMLInvalidParentException()
-    : XMLBuildingException()
-{
-}
-
-
-XMLInvalidParentException::~XMLInvalidParentException()
-{
-}
-
-
-string
-XMLInvalidParentException::getMessage(const string &obj, const string &id)
-{
-    string _myObj = obj;
-    string _myId = id;
-    if(_myObj=="") _myObj = "<unknown>";
-    if(_myId=="") _myId = "<unknown>";
-    return "The object " + _myObj + " with the id " + _myId
-        + " is not nested properly";
-}
-
-
-
-/* -------------------------------------------------------------------------
- * XMLKeyDuplicateException - methods
- * ----------------------------------------------------------------------- */
-XMLKeyDuplicateException::XMLKeyDuplicateException()
-{
-}
-
-
-XMLKeyDuplicateException::~XMLKeyDuplicateException()
-{
-}
-
-
-string
-XMLKeyDuplicateException::getMessage(const string &obj, const string &id)
-{
-    return "Double request-respond definition occured";
 }
 
 

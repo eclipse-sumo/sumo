@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/01/19 09:26:19  dkrajzew
+// debugging
+//
 // Revision 1.5  2006/01/17 14:10:56  dkrajzew
 // debugging
 //
@@ -128,9 +131,6 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
                                          const std::string &aXMLFilename)
     : MSTrigger(id), SUMOSAXHandler("reroutings", aXMLFilename),
     myProbability(prob), myUserProbability(prob), myAmInUserMode(false)
-
-    /*,
-    myEdge(edge)*/
 {
     // read in the trigger description
     SAX2XMLReader* triggerParser = 0;

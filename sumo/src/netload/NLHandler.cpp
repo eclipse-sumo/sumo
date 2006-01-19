@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/01/19 09:26:57  dkrajzew
+// debugging
+//
 // Revision 1.5  2006/01/11 11:54:35  dkrajzew
 // reworked possible link states; new link coloring
 //
@@ -448,8 +451,6 @@ NLHandler::addLane(const Attributes &attrs)
             myCurrentMaxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
             myCurrentLength = getFloat(attrs, SUMO_ATTR_LENGTH);
             myCurrentChangeUrge = getFloat(attrs, SUMO_ATTR_CHANGEURGE);
-        } catch (XMLInvalidParentException &e) {
-            MsgHandler::getErrorInstance()->inform(e.getMessage("lane", id));
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("lane", id));
         } catch (XMLDepartLaneDuplicationException &e) {
