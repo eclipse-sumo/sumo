@@ -101,7 +101,15 @@ SOURCE=..\..\..\src\routing_df\DFDetector.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\routing_df\DFDetectorFlow.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\routing_df\DFDetectorHandler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_df\DFDetFlowLoader.cpp
 # End Source File
 # Begin Source File
 
@@ -153,7 +161,15 @@ SOURCE=..\..\..\src\routing_df\DFDetector.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\routing_df\DFDetectorFlow.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\routing_df\DFDetectorHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_df\DFDetFlowLoader.h
 # End Source File
 # Begin Source File
 

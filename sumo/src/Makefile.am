@@ -210,7 +210,7 @@ $(GUI_INCS)
 
 SUBDIRS = foreign microsim multimodal netload sumo_only \
 netbuild netedit netgen netimport \
-od2trips router routing_dua routing_jtr \
+od2trips router routing_df routing_dua routing_jtr \
 tools utils $(GUI_DIRS)
 
 EXTRA_DIST = config.h config.h.in \

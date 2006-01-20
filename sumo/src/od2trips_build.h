@@ -1,4 +1,5 @@
-#define NEXT_BUILD_NUMBER 100
+#define NEXT_BUILD_NUMBER 123
+// 122 was build on 2006-01-20;11:24:24
 // 99 was build on 2005-10-06;15:11:03
 // 98 was build on 2005-10-06;14:26:42
 // 97 was build on 2005-09-23;14:00:24
