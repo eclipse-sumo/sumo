@@ -11,7 +11,7 @@
   </refmeta>
 
   <refnamediv>
-    <refname><application>(SUMO-)JTRROUTER</application></refname>
+    <refname><application>sumo-jtrrouter</application></refname>
 
     <refpurpose>Router for the microscopic road traffic simulation SUMO based
     on junction turning ratios.</refpurpose>
@@ -19,7 +19,7 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>jtrrouter</command>
+      <command>sumo-jtrrouter</command>
 
       <group>
         <option><replaceable class="option">options</replaceable></option>
@@ -27,14 +27,14 @@
     </cmdsynopsis>
 
     <cmdsynopsis>
-      <command>jtrrouter</command>
+      <command>sumo-jtrrouter</command>
 
       <arg><option>-c <replaceable
       class="parameter">configuration</replaceable></option></arg>
     </cmdsynopsis>
 
     <cmdsynopsis>
-      <command>jtrrouter</command>
+      <command>sumo-jtrrouter</command>
 
       <arg><option>--help</option></arg>
     </cmdsynopsis>
@@ -94,13 +94,13 @@
 
         <varlistentry>
           <term>( --turn-definition | --turns | -t ) <replaceable
-          class="parameter">&lt;filename&gt;</replaceable></term>
+          class="parameter">&lt;TURN_DEFINTIONS_FILE&gt;</replaceable></term>
 
           <listitem>
             <para>Informs (SUMO-)JTRROUTER to read turn definitions from
-            <replaceable>&lt;filename&gt;</replaceable>. The format (xml or
-            cvs) is determined automatically. <remark>Optional, type:filename,
-            default: none</remark></para>
+            <replaceable>&lt;TURN_DEFINTIONS_FILE&gt;</replaceable>. The
+            format (xml or cvs) is determined automatically. <remark>Optional,
+            type:filename, default: none</remark></para>
           </listitem>
         </varlistentry>
 

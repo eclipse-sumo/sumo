@@ -34,8 +34,10 @@ os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --st
 
 # more_on
 print "Building more on..."
-print " split..."
-os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam root.filename more_index --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 --stringparam chunk.first.sections 0 --stringparam chunk.section.depth 0 --stringparam use.id.as.filename 1 -o sumo_moreon.html /usr/share/docbook-xsl/sumo_html/more_chunk.xsl sumo_moreon.xml")
+print " all in one..."
+os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o sumo_moreon_tls.html /usr/share/docbook-xsl/sumo_html/more_docbook.xsl sumo_moreon_tls.xml")
+os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o sumo_moreon_dua.html /usr/share/docbook-xsl/sumo_html/more_docbook.xsl sumo_moreon_dua.xml")
+os.system("xsltproc.exe --param html.stylesheet '\"../../css/sumo_db.css\"' --stringparam section.autolabel 1 --stringparam section.label.includes.component.label 1 --stringparam admon.graphics 1 -o sumo_moreon_testing.html /usr/share/docbook-xsl/sumo_html/more_docbook.xsl sumo_moreon_testing.xml")
 
 # manpages
 print "Building the man-pages..."
@@ -65,8 +67,10 @@ if(sys.platform=="win32"):
     os.system("mkdir ..\\internet\\docs\\gen\\gfx\\")
     os.system("mkdir ..\\internet\\docs\\gen\\gfx\\dev\\")
     os.system("copy  gfx\\dev\\*.gif ..\\internet\\docs\\gen\\gfx\\dev\\")
-    os.system("mkdir ..\\internet\\docs\\gen\\gfx\\dev\\")
+    os.system("mkdir ..\\internet\\docs\\gen\\gfx\\user\\")
     os.system("copy  gfx\\user\\*.gif ..\\internet\\docs\\gen\\gfx\\user\\")
+    os.system("mkdir ..\\internet\\docs\\gen\\gfx\\more\\")
+    os.system("copy  gfx\\more\\*.gif ..\\internet\\docs\\gen\\gfx\\more\\")
 else:
     print "Installing (Linux/UNIX)"
     os.system("mv *.html ../internet/docs/gen/")
@@ -76,6 +80,8 @@ else:
     os.system("cp  gfx/dev/*.gif ../internet/docs/gen/gfx/dev/")
     os.system("mkdir ../internet/docs/gen/gfx/user/")
     os.system("cp  gfx/user/*.gif ../internet/docs/gen/gfx/user/")
+    os.system("mkdir ../internet/docs/gen/gfx/more/")
+    os.system("cp  gfx/more/*.gif ../internet/docs/gen/gfx/more/")
 
 files = getStructure("../internet/docs/gen/")
 for file in files:

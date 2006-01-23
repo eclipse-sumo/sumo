@@ -37,70 +37,85 @@
 	<h2>Changes</h2>
 </center>
 
-<b>Changes from 0.9.0 to 0.9.1</b>
+<b>Changes from 0.9.2 to 0.9.3</b>
 <p>
-User-relevant changes
+User-relevant changes<br>
 <ul>
     <li>GUI
     <ul>
-		<li>version information in gui patched
-		<li>segfaults on loading broken configs patched
-		<li>catching opening a second file using recent files added
-		<li>subwindows are now deleted on (re)loading the simulation
-		<li>some improvements on visualisation (unfinished (GridBuilder))
-		<li>viewport changer debugged
-		<li>problems on loading geometry items patched
-		<li>list of selected items is now cleared on closing/reloading (was buggy before)
-		<li>table editing debugged
-		<li>rerouters are now correctly named
+		<li>cursor position output added
+		<li>new visualization settings implemented
+		<li>decals added (but should be reworked and documented)
+		<li>debugged using tables
+		<li>renamed some mispelled output
 	</ul>
 	<li>Simulation
 	<ul>
-		<li>debugging numeric issues in MSVehicle
-		<li>Emitters reworked
+		<li>added a minimum simulation speed definition before the simulation ends (unfinished)
+		<li>viewport dialog debugged
+		<li>renamed some mispelled output
+		<li><b>microsim outputs patched</b>
+		<ul>
+			<li>in emissions output: renamed attribute "id" to "time"
+			<li>in tripinfo output: renamed attribute "id" to "vehicle_id"
+		</ul>
+		<li>debugged variable speed signs
+		<li>patched the documentation on raw dump (was named output within the documentation) (was [sumo-Bugs-1180985])
+		<li>bus stops implemented
 	</ul>
-	<li>Netconversion
+	<li>Netconvert
 	<ul>
-		<li>output during netbuilding patched
+		<li>removed warning if no types are defined (was [sumo-Bugs-1369190])
 		<li>network geometry reworked (unfinished)
-		<li>"speed-in-km" is now called "speed-in-kmh"
-		<li>"type-file" is now called "xml-type-files"
-		<li>removed two files definition for arcview
-		<li>allowed further information to be stored in arcview-files
+		<li>plain-output now saves edge geometries (if longer than only the from/to node-positions) (was [sumo-Bugs-1369193])
+		<li>split-geometry option added (unfinished)
+		<li>debugged setting new connections over user-given
+		<li>added several new features to the ArcView importer (see documentation)
+		<li>some work on CELL-import
+		<li>new Elmar-format adapted
+		<li>XML-import
+		<ul>
+			<li>import of shapes debugged
+			<li>node-type import debugged
+		</ul>
+		<li><b>--type-file renamed to --xml-type-files</b>
+		<li><b>arcview-import now requires the file name begin only</b>
+		<li><b>switched from --append-turnarounds to --no-turnarounds</b>
+		<li><b>switched from --no-node-removal to --remove-geometry</b>
 	</ul>
-	<li>Documentation
+	<li>DUARouter
 	<ul>
-		<li>User docs, netconversion partly updated
-		<li>further work on tls-api-description
+		<li>debugged vehicle type processing
+		<li>debugged colors processing
 	</ul>
 	<li>All
 	<ul>
-		<li>copyright information patched
+		<li>errors are now printed to stderr (was [sumo-Bugs-1373537])
+		<li>reworked error handling (were [sumo-Bugs-1371531] and  [sumo-Bugs-1373540])
+	</ul>
+	<li>Documentation
+	<ul>
+		<li>complete recheck of user-docs for NETCONVERT/NETGEN/DUAROUTER
+		<li>updated all man-pages
+		<li>updated all help-pages
+		<li>many examples described and added
 	</ul>
 </ul>
 Developer-relevant changes
 <ul>
-    <li>GUI
-    <ul>
-		<li>unused addTimeout/removeTimeout-APIs removed
-		<li>debugged building of the gui-application with MSVC7
-	</ul>
-    <li>Simulation
-    <ul>
-        <li>(MS|GUI)TriggeredEmitter is now (MS|GUI)Emitter
-        <li>TLS-API: MSEdgeContinuations added
-        <li>usage of internal lanes is now optional at building
-	</ul>
 	<li>All
 	<ul>
-		<li>got rid of the old MSVC memory leak checker
-		<li>several memory leaks removed
-		<li>made checking the geometry for correctness optional on building (CHECK_UNIQUE_POINTS_GEOMETRY)
-		<li>made memory checking optional on building (CHECK_MEMORY_LEAKS)
-		<li>foreign libraries will now be moved to src/foreign
+		<li>added support for enabling explicite geometry checking under Linux
+		<li>geometry computation now uses constants for lane width
+		<li>final try/catch is now only used in the release version (to be reworked)
+	</ul>
+	<li>Simulation
+	<ul>
+		<li>debugged setting globals in false order
 	</ul>
 </ul>
 Previous changes for version 0.9:<br>
+<a class="SUMOInLineLink" target="new" href="changes_091_092.shtml">from 0.9.1 to 0.9.2</a><br>
 <a class="SUMOInLineLink" target="new" href="changes_090_091.shtml">from 0.9.0 to 0.9.1</a><br>
 <a class="SUMOInLineLink" target="new" href="changes_08x_090.shtml">from 0.8.x to 0.9.0</a><br>
 <br/>

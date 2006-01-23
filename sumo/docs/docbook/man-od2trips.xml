@@ -11,7 +11,7 @@
   </refmeta>
 
   <refnamediv>
-    <refname><application>od2trips</application></refname>
+    <refname><application>sumo-od2trips</application></refname>
 
     <refpurpose>Importer of O/D-matrices for the microscopic road traffic
     simulation SUMO.</refpurpose>
@@ -19,7 +19,7 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>od2trips</command>
+      <command>sumo-od2trips</command>
 
       <group>
         <option><replaceable class="option">options</replaceable></option>
@@ -27,14 +27,14 @@
     </cmdsynopsis>
 
     <cmdsynopsis>
-      <command>od2trips</command>
+      <command>sumo-od2trips</command>
 
       <arg><option>-c <replaceable
       class="parameter">configuration</replaceable></option></arg>
     </cmdsynopsis>
 
     <cmdsynopsis>
-      <command>od2trips</command>
+      <command>sumo-od2trips</command>
 
       <arg><option>--help</option></arg>
     </cmdsynopsis>

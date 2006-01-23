@@ -11,7 +11,7 @@
   </refmeta>
 
   <refnamediv>
-    <refname><application>netconvert</application></refname>
+    <refname><application>sumo-netconvert</application></refname>
 
     <refpurpose>Road network importer / builder for the microscopic road
     traffic simulation SUMO.</refpurpose>
@@ -19,7 +19,7 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>netconvert</command>
+      <command>sumo-netconvert</command>
 
       <group>
         <option><replaceable class="option">options</replaceable></option>
@@ -27,14 +27,14 @@
     </cmdsynopsis>
 
     <cmdsynopsis>
-      <command>netconvert</command>
+      <command>sumo-netconvert</command>
 
       <arg><option>-c <replaceable
       class="parameter">configuration</replaceable></option></arg>
     </cmdsynopsis>
 
     <cmdsynopsis>
-      <command>netconvert</command>
+      <command>sumo-netconvert</command>
 
       <arg><option>--help</option></arg>
     </cmdsynopsis>

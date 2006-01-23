@@ -2,9 +2,9 @@
 <html>
 	<link rel="stylesheet" type="text/css" href="../css/sumo.css">
 	<head>
-		<title>SUMO - Simulation of Urban MObility  -  Downloads - Changes</title>
+		<title>SUMO - Simulation of Urban MObility  -  Downloads - Changes from pre0.8 to pre0.8.2</title>
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
-<META NAME="DC.Title" CONTENT="SUMO - Simulation of Urban MObility  -  Changes">
+<META NAME="DC.Title" CONTENT="SUMO - Simulation of Urban MObility  -  Changes from pre0.8 to pre0.8.2">
 <META NAME="DC.Creator.PersonalName" CONTENT="Krajzewicz, Daniel">
 <META NAME="DC.Subject" CONTENT="road traffic simulation package SUMO (Simulation of Urban MObility)">
 <META NAME="DC.Description" CONTENT="">
@@ -34,10 +34,9 @@
 <!-- Text area here -->
 
 <center>
-	<h2>Changes</h2>
+	<h2>Changes from pre0.8 to pre0.8.2</h2>
 </center>
 
-<b>Changes from pre0.8 to pre0.8.2</b>
 <p>
 I decided to post the next pre-release that fast as a bug within the netconversion module strongly disallowed the usage of the package.<br>
 As the network generator is not working yet, but still is included within the package, a further release will be out win the next days.

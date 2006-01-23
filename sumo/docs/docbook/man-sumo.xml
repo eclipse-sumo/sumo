@@ -11,7 +11,7 @@
   </refmeta>
 
   <refnamediv>
-    <refname><application>SUMO</application></refname>
+    <refname><application>sumo</application></refname>
 
     <refpurpose>A microscopic road traffic simulation.</refpurpose>
   </refnamediv>

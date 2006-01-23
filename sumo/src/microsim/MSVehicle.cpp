@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.71  2006/01/23 10:25:29  dkrajzew
+// post-release changes
+//
 // Revision 1.70  2006/01/09 11:53:00  dkrajzew
 // bus stops implemented
 //
@@ -1351,6 +1354,7 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
     SUMOReal dist = boundVSafe + brakeGap(myLane);
     SUMOReal vLinkPass = boundVSafe;
     SUMOReal vLinkWait = vLinkPass;
+
     size_t view = 1;
 #ifdef HAVE_INTERNAL_LANES
     bool nextInternal =

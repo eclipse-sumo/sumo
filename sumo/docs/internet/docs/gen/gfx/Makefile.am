@@ -1,6 +1,6 @@
 EXTRA_DIST =
 
-SUBDIRS = dev user
+SUBDIRS = dev user more
 
 
 

@@ -51,10 +51,9 @@
 
 							<hr>
 							<p>
-								<h2>SUMO - Latest Developer Release (Version 0.9.2)</h2>
+								<h2>SUMO - Latest Developer Release (Version 0.9.3)</h2>
 								<br>
 								This is the version we are currently working on.<br>
-								It is possible, that some APIs will change in the future. The main difference between the 0.9.x version and version 0.8.x is that we have moved to FOX1.4.<br>
 								Please report bugs to
 								<script language="JavaScript" type="text/javascript">
 <!--
@@ -77,7 +76,7 @@
 										The MS Windows binaries.
 										<br>
 										Contains the binaries, all dlls needed and some examples.<br>
-										Download as: <a class="SUMOInLineLink" href="sumo-winbin-0.9.2.zip">[sumo-winbin-0.9.2.zip,
+										Download as: <a class="SUMOInLineLink" href="sumo-winbin-0.9.3.zip">[sumo-winbin-0.9.3.zip,
 											~4.7MB]</a><br>
 										<br>
 									<li>
@@ -88,9 +87,9 @@
 										The last stable source-tarball. This one was built on 07.10.2005. Includes
 										sources, examples, Linux-Makefiles and MSVC++ 6.0 and MS Visual Studio
 										.net-project workspace.<br>
-										Download as: <a class="SUMOInLineLink" href="sumo-src-0.9.2.tar.gz">[sumo-src-0.9.2.tar.gz,
-											~2.8MB]</a> <a class="SUMOInLineLink" href="sumo-src-0.9.2.zip">[sumo-src-0.9.2.zip,
-											~4.6MB]</a><br>
+										Download as: <a class="SUMOInLineLink" href="sumo-src-0.9.3.tar.gz">[sumo-src-0.9.3.tar.gz,
+											~3MB]</a> <a class="SUMOInLineLink" href="sumo-src-0.9.3.zip">[sumo-src-0.9.3.zip,
+											~5.1MB]</a><br>
 										<br>
 									<li>
 										<b>Needed Libraries</b><br>
@@ -100,12 +99,10 @@
 											<li>
 												<a class="SUMOInLineLink" href="http://xml.apache.org/xerces-c/index.html">Xerces</a>
 												(XML-parser)<br>
-												Windows: <a class="SUMOInLineLink" href="xerces-c_2_6_0-windows_nt-msvc_60.zip">
-													[.zip] (xerces-c_2_6_0-windows_nt-msvc_60.zip, ~11.1MB)</a><br>
-												Source Code: <a class="SUMOInLineLink" href="xerces-c-src_2_6_0.tar.gz">[.tar.gz]
-													(xerces-c-src_2_6_0.tar.gz ~9.1MB)</a> or <a class="SUMOInLineLink" href="xerces-c-src_2_6_0.zip">
-													[.zip] (xerces-c-src_2_6_0.zip ~12.5MB)</a><br>
-												<b>Please remark that we had major problems with the version 2.4.0</b><br>
+												Windows: <a class="SUMOInLineLink" href="xerces-c_2_7_0-windows_2000-msvc_60.zip">
+													[.zip] (xerces-c_2_7_0-windows_2000-msvc_60.zip, ~10MB)</a><br>
+												Source Code: <a class="SUMOInLineLink" href="xerces-c-current.tar.gz">
+													[.zip] (xerces-c-current.tar.gz ~7.5MB)</a><br>
 												<br>
 											<li>
 												<a class="SUMOInLineLink" href="http://www.fox-toolkit.org">FOX-Toolkit</a> (GUI
@@ -113,8 +110,9 @@
 												<img src="../images/attention_small.gif" border="0" width="15" height="16"><b>You <font color="red">
 														must</font> download the version 1.4.x. SUMO 0.9 does not compile with versions
 													below 1.4 and possibly also not with versions higher than 1.4.</b><br>
-												Source Code: <a class="SUMOInLineLink" href="fox-1.4.17.zip">[.zip]
-													(fox-1.4.17.zip, ~4.5MB)</a> (zipped source files)<br>
+												Source Code: <a class="SUMOInLineLink" href="fox-1.4.29.zip">[.zip]
+													(fox-1.4.29.zip, ~4.5MB)</a> or <a class="SUMOInLineLink" href="fox-1.4.29.tar.gz">[.tar.gz]
+													(fox-1.4.29.tar.gz, ~4MB)</a><br>
 												Sorry, no binaries are available...<br>
 												<br>
 										</ul>

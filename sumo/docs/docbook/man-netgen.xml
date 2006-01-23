@@ -11,7 +11,7 @@
   </refmeta>
 
   <refnamediv>
-    <refname><application>netgen</application></refname>
+    <refname><application>sumo-netgen</application></refname>
 
     <refpurpose>Road network generator for the microscopic road traffic
     simulation SUMO.</refpurpose>
@@ -19,7 +19,7 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>netgen</command>
+      <command>sumo-netgen</command>
 
       <group>
         <option><replaceable class="option">options</replaceable></option>
@@ -27,14 +27,14 @@
     </cmdsynopsis>
 
     <cmdsynopsis>
-      <command>netgen</command>
+      <command>sumo-netgen</command>
 
       <arg><option>-c <replaceable
       class="parameter">configuration</replaceable></option></arg>
     </cmdsynopsis>
 
     <cmdsynopsis>
-      <command>netgen</command>
+      <command>sumo-netgen</command>
 
       <arg><option>--help</option></arg>
     </cmdsynopsis>

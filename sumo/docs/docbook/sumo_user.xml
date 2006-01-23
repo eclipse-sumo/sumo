@@ -1499,7 +1499,7 @@
           </listitem>
         </itemizedlist>
 
-        <para>Changes:</para>
+        <para>Recent changes:</para>
 
         <itemizedlist spacing="compact">
           <listitem>
@@ -1730,7 +1730,7 @@
 
         <para>Examples: none yet</para>
 
-        <para>Changes:</para>
+        <para>Recent changes:</para>
 
         <itemizedlist spacing="compact">
           <listitem>
@@ -2314,7 +2314,7 @@
             </listitem>
           </itemizedlist></para>
 
-        <para>Changes:</para>
+        <para>Recent changes:</para>
 
         <itemizedlist spacing="compact">
           <listitem>
@@ -2356,7 +2356,7 @@
         <para>This options may be used in conjunction with all import
         formats.</para>
 
-        <para>Changes:</para>
+        <para>Recent changes:</para>
 
         <itemizedlist spacing="compact">
           <listitem>
@@ -2419,7 +2419,7 @@
             </listitem>
           </itemizedlist></para>
 
-        <para>Changes:</para>
+        <para>Recent changes:</para>
 
         <itemizedlist spacing="compact">
           <listitem>
@@ -2705,7 +2705,7 @@
 
         <variablelist>
           <varlistentry>
-            <term><option><option>--guess-ramps</option></option></term>
+            <term><option>--guess-ramps</option></term>
 
             <listitem>
               <para>Forces
@@ -2791,10 +2791,10 @@
 
         <para>Specific options:</para>
 
-        <variablelist>
+        <variablelist spacing="compact">
           <varlistentry>
-            <term>--plain-output
-            <replaceable>&lt;PLAIN_OUTPUT_PREFIX&gt;</replaceable></term>
+            <term><option>--plain-output
+            <replaceable>&lt;PLAIN_OUTPUT_PREFIX&gt;</replaceable></option></term>
 
             <listitem>
               <para>Writes the files
@@ -2809,8 +2809,8 @@
           </varlistentry>
 
           <varlistentry>
-            <term>( --map-output | -M )
-            <replaceable>&lt;MAP_OUTPUT_FILE&gt;</replaceable></term>
+            <term><option>( --map-output | -M )
+            <replaceable>&lt;MAP_OUTPUT_FILE&gt;</replaceable></option></term>
 
             <listitem>
               <para>Writes the file
@@ -2822,8 +2822,8 @@
           </varlistentry>
 
           <varlistentry>
-            <term>----node-geometry-dump
-            <replaceable>&lt;DUMP_FILENAME&gt;</replaceable></term>
+            <term><option>--node-geometry-dump
+            <replaceable>&lt;DUMP_FILENAME&gt;</replaceable></option></term>
 
             <listitem>
               <para>Writes the positions that were used during geometry
@@ -2834,7 +2834,7 @@
           </varlistentry>
 
           <varlistentry>
-            <term>--print-node-positions</term>
+            <term><option>--print-node-positions</option></term>
 
             <listitem>
               <para>Prints the node positions during building.
@@ -5105,7 +5105,7 @@
           </listitem>
         </itemizedlist>
 
-        <para>Changes:</para>
+        <para>Recent changes:</para>
 
         <itemizedlist>
           <listitem>

@@ -5,7 +5,7 @@
   <title>Questions and Answers</title>
 
   <para>We advice you to read also the user documentation - especially the
-  tricks, tips &#38; tools - chapter.</para>
+  tricks, tips &amp; tools - chapter.</para>
 
   <sect1>
     <title>General</title>
@@ -16,25 +16,20 @@
       <para><emphasis>Question: </emphasis>What is SUMO?</para>
 
       <para><emphasis>Answer:</emphasis> SUMO is a traffic simulation package.
-      It is meant to be used to simulate networks of a city&#39;s size, but
-      you can of course use it for smaller networks and larger, too, if your
+      It is meant to be used to simulate networks of a city's size, but you
+      can of course use it for smaller networks and larger, too, if your
       computer power is large enough.</para>
     </sect2>
 
     <sect2>
-      <title>What does &#34;SUMO&#34; mean?</title>
+      <title>What does "SUMO" mean?</title>
 
-      <para><emphasis>Question: </emphasis>What does &#34;SUMO&#34; mean?</para>
-
-      <para><emphasis>Answer:</emphasis> &#34;SUMO&#34; is an acronym for
-      &#34;Simulation of Urban MObility&#34;.</para>
+      <para><emphasis>Answer:</emphasis> "SUMO" is an acronym for "Simulation
+      of Urban MObility".</para>
     </sect2>
 
     <sect2>
       <title>What kind of a traffic simulation is SUMO?</title>
-
-      <para><emphasis>Question: </emphasis>What kind of a traffic simulation
-      is SUMO?</para>
 
       <para><emphasis>Answer:</emphasis> SUMO is a microscopic,
       space-continuous road traffic simulation. In the next time it will be
@@ -51,61 +46,21 @@
       <sect3>
         <title>How do I access the CVS using cygwin or Linux?</title>
 
-        <para><emphasis>Question: </emphasis>How do I access the CVS?</para>
-
         <para><emphasis>Answer:</emphasis> Use the following commands:</para>
 
-        <para><command>export CVS_RSH=ssh</command></para>
+        <screen>export CVS_RSH=ssh
+cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</screen>
 
-        <para><command>cvs -z3
-        -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/sumo co sumo</command></para>
-
-        <para>Press RETURN if you should be asked for a password.</para>
+        <para>Press <keycode>RETURN</keycode> if you should be asked for a
+        password.</para>
       </sect3>
 
       <sect3>
         <title>Is there further documentation on the CVS?</title>
 
-        <para><emphasis>Question: </emphasis>Is there further documentation on
-        the CVS?</para>
-
         <para><emphasis>Answer:</emphasis> Look under <ulink
         url="http://sourceforge.net/docman/?group_id=1">Sourceforge
         documentation</ulink> in Section F.</para>
-      </sect3>
-    </sect2>
-
-    <sect2>
-      <title>Using Windows and MSVC++</title>
-
-      <sect3>
-        <title>moc-files not found</title>
-
-        <para><emphasis>Question: </emphasis>For the GUI project I didn’t find
-        files such as &#34;moc_GUIApplicationWindow.cpp&#34; (there are seven
-        files beginning with “moc_” ). If I delete them, I have some link
-        errors like : error LNK2001: unresolved external symbol
-        &#34;protected: virtual void __thiscall
-        GUIApplicationWindow::initMetaObject(void)&#34;
-        (?initMetaObject@GUIApplicationWindow@@MAEXXZ)</para>
-
-        <para>Do you have any suggestions to resolve this problem ?</para>
-
-        <para><emphasis>Answer:</emphasis> Yes, those files are used by the
-        Qt-library (www.troll-tech.com) and are build automatically. If you
-        take a look into the project settings (MSVC++:
-        project-&#62;settings-&#62;gui) and open the file browser within this
-        window, some .h-files have another icon. If you click on one of these
-        and choose the &#34;user defined building&#34; (I do not exactly know
-        how it is called in english), you will see some additional program
-        calls.</para>
-
-        <para>To build the gui, you have to install Qt2.3 which includes some
-        additional programs within a bin-folder, automatically installed. Set
-        the environment variable &#34;QTDIR&#34; to the folder you have
-        installed Qt into (not to the bin-folder as you may see from the calls
-        within the project). This should let MSVC++ build the moc*-files
-        first.</para>
       </sect3>
     </sect2>
   </sect1>
@@ -119,8 +74,9 @@
       <para><emphasis>Question: </emphasis>Does SUMO support traffic within
       the junctions?</para>
 
-      <para>No, not yet. There is an approach towards this, but it is not yet
-      in such a stable state that it would be useable.</para>
+      <para><emphasis>Answer:</emphasis> No, not yet. There is an approach
+      towards this, but it is not yet in such a stable state that it would be
+      useable.</para>
     </sect2>
 
     <sect2>
@@ -129,10 +85,10 @@
       <para><emphasis>Question: </emphasis>Is it possible to connect SUMO to
       an external application (f.e. ns-2)?</para>
 
-      <para>No, not yet. We have build an internal version which handles
-      connections to other applications, but it&#39;s not yet available as
-      open source. So in principle, it is possible, but there is nothing that
-      does it within the current code.</para>
+      <para><emphasis>Answer:</emphasis> No, not yet. We have build an
+      internal version which handles connections to other applications, but
+      it's not yet available as open source. So in principle, it is possible,
+      but there is nothing that does it within the current code.</para>
     </sect2>
   </sect1>
 
@@ -150,12 +106,12 @@
 
         <para>Warning: No types defined, using defaults... Error: An exception
         occurred! Type:RuntimeException, Message:The primary document entity
-        could not be opened. Id=&#60;PATH&#62; Error: (At line/column 1/0).
+        could not be opened. Id=&lt;PATH&gt; Error: (At line/column 1/0).
         Error: Quitting (conversion failed).</para>
 
         <para><emphasis>Answer:</emphasis> Simply that the file you try to use
-        (&#60;PATH&#62;) does not exist. This is xercec&#39; way to say
-        &#34;file not found&#34;.</para>
+        (&lt;PATH&gt;) does not exist. This is xercec' way to say "file not
+        found".</para>
       </sect3>
     </sect2>
   </sect1>
@@ -178,7 +134,8 @@
         <para><emphasis>Answer:</emphasis> You are propably running a program
         compiled in the debug-mode. This yields in at least the triple of
         normal memory usage and your system may not be able to solve. Try to
-        use the normal version, build in Release-mode (or buy more RAM :-) ).</para>
+        use the normal version, build in Release-mode (or buy more RAM :-)
+        ).</para>
       </sect3>
     </sect2>
   </sect1>
@@ -198,7 +155,7 @@
         <para><emphasis>Answer:</emphasis> On the one hand, SUMO-routers quit
         processing if a route could not be build. On the other hand, the
         generation of a random route may fail quite easily, simply because
-        it&#39;s too short or no connection could have been found. If you have
+        it's too short or no connection could have been found. If you have
         made everything right, but your route file is empty, try to use the
         --continue-on-unbuild switch on your command line / within your
         configuration file.</para>
@@ -239,9 +196,9 @@
         maximum speed allowed on was given in km/h instead of the supposed
         m/s, no vehicle could be emitted due to a too large space needed for
         oncoming traffic. Check whether your network description also defines
-        speed in km/h. If so, use the SUMO-NETCONVERT - switch
-        &#34;speed-in-kmh&#34; to recompute the speed limits. If this does not
-        help, contact us.</para>
+        speed in km/h. If so, use the SUMO-NETCONVERT - switch "speed-in-kmh"
+        to recompute the speed limits. If this does not help, contact
+        us.</para>
       </sect3>
 
       <sect3>
@@ -277,9 +234,9 @@
 
         <para><emphasis>Answer:</emphasis> Newer Windows-Versions seem to
         cache the area under the mouse to apply the mouse shadow afterwards.
-        To avoid this, go to your Systemmenu, then Mouse-&#62;Pointers and
-        disable the mouse shadows. That&#39;s the only solution so far.
-        (Origin: Till Oliver Knoll, via QT Interest List)</para>
+        To avoid this, go to your Systemmenu, then Mouse-&gt;Pointers and
+        disable the mouse shadows. That's the only solution so far. (Origin:
+        Till Oliver Knoll, via QT Interest List)</para>
       </sect3>
     </sect2>
   </sect1>

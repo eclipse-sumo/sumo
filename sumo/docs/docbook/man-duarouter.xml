@@ -11,7 +11,7 @@
   </refmeta>
 
   <refnamediv>
-    <refname><application>(SUMO-)DUAROUTER</application></refname>
+    <refname><application>sumo-duarouter</application></refname>
 
     <refpurpose>Shortest path router for the microscopic road traffic
     simulation SUMO.</refpurpose>
@@ -19,7 +19,7 @@
 
   <refsynopsisdiv>
     <cmdsynopsis>
-      <command>duarouter</command>
+      <command>sumo-duarouter</command>
 
       <group>
         <option><replaceable class="option">options</replaceable></option>
@@ -27,14 +27,14 @@
     </cmdsynopsis>
 
     <cmdsynopsis>
-      <command>duarouter</command>
+      <command>sumo-duarouter</command>
 
       <arg><option>-c <replaceable
       class="parameter">configuration</replaceable></option></arg>
     </cmdsynopsis>
 
     <cmdsynopsis>
-      <command>duarouter</command>
+      <command>sumo-duarouter</command>
 
       <arg><option>--help</option></arg>
     </cmdsynopsis>

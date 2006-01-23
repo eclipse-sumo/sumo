@@ -44,12 +44,28 @@ h2 {
 	background-color:#ffff88;
 	}
 
-.warning td  {
+.caution td  {
 	font-family:Helvetica,Arial,Palatino;
 	font-size:10pt;
 	font-weight:bold;
 	color:#000000;
-	background-color:#ff8888;
+	background-color:#ffff88;
+	}
+
+.caution .sgmltag-element {
+	font-family:Helvetica,Arial,Palatino;
+	font-size:10pt;
+	font-weight:bold;
+	color:#0066000;
+	background-color:#ffff88;
+	}
+
+.caution .option {
+	font-family:Helvetica,Arial,Palatino;
+	font-size:10pt;
+	font-weight:bold;
+	color:#882200;
+	background-color:#ffff88;
 	}
 
 
@@ -77,6 +93,27 @@ h2 {
 	background-color:#ffffff;
 	}
 
+p {
+	margin-top:0px;
+	margin-bottom:5px;
+		}
+
+ul {
+	margin-top:0px;
+	margin-bottom:10px;
+	}
+
+ul ul {
+	margin-top:0px;
+	margin-bottom:0px;
+	}
+
+.table, .figure {
+	margin-top:0px;
+	margin-bottom:20px;
+	text-align:center;
+	}
+
 .blockquote, .option {
 	font-family:Helvetica,Arial,Palatino;
 	font-size:10pt;
@@ -94,8 +131,8 @@ h2 {
 	}
 
 .screen {
-	background-color:#000000;
-	color:#eeeeee;
+	background-color:#dddddd;
+	color:#000000;
 	font-weight:bold;
 	}
 
@@ -255,6 +292,7 @@ h1.SUMOMainText.chapter.title {
 	font-size:20pt;
 	font-weight:bold;
 	color:#000000;
+	margin-bottom:5px;
 	}
 
 h2.SUMOMainText.chapter.title {
@@ -262,6 +300,7 @@ h2.SUMOMainText.chapter.title {
 	font-size:24pt;
 	font-weight:bold;
 	color:#000000;
+	margin-bottom:5px;
 	}
 
 h2.SUMOMainText.chapter.sect1.title {
@@ -269,6 +308,7 @@ h2.SUMOMainText.chapter.sect1.title {
 	font-size:13pt;
 	font-weight:bold;
 	color:#000000;
+	margin-bottom:5px;
 	}
 
 h3.SUMOMainText.chapter.sect2.title {
@@ -276,6 +316,7 @@ h3.SUMOMainText.chapter.sect2.title {
 	font-size:12pt;
 	font-weight:bold;
 	color:#000000;
+	margin-bottom:5px;
 	}
 
 h4.SUMOMainText.chapter.sect3.title {
@@ -283,6 +324,7 @@ h4.SUMOMainText.chapter.sect3.title {
 	font-size:11pt;
 	font-weight:bold;
 	color:#000000;
+	margin-bottom:5px;
 	}
 
 h5.SUMOMainText.chapter.sect4.title {
@@ -290,4 +332,5 @@ h5.SUMOMainText.chapter.sect4.title {
 	font-size:10pt;
 	font-weight:bold;
 	color:#000000;
+	margin-bottom:5px;
 	}
