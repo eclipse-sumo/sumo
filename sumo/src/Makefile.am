@@ -14,6 +14,8 @@ sumo-od2trips $(GUI_APPS)
 
 EXTRA_PROGRAMS =
 
+EXTRA_DIST = dfrouter_main.cpp dfrouter_build.h dfrouter_help.h
+
 sumo_SOURCES = sumo_main.cpp sumo_help.h \
 sumo_version.cpp sumo_version.h sumo_build.h
 
