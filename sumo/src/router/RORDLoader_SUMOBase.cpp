@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.9  2006/01/09 12:00:59  dkrajzew
 // debugging vehicle color usage
 //
@@ -165,7 +168,6 @@ RORDLoader_SUMOBase::closeVehicle()
         return;
     }
     // get the vehicle color
-//    RGBColor color = parseColor(attrs, "vehicle", id);
     // build the vehicle
     // get further optional information
     if(!MsgHandler::getErrorInstance()->wasInformed()) {
@@ -214,12 +216,13 @@ RORDLoader_SUMOBase::startVehType(const Attributes &attrs)
     SUMOReal sigma =
         getFloatReporting(*this, attrs, SUMO_ATTR_SIGMA, id, "sigma");
     RGBColor color = parseColor(*this, attrs, "vehicle type", id);
+	SUMOVehicleClass vclass = parseVehicleClass(*this, attrs, "vehicle type", id);
     // build the vehicle type after checking
     //  by now, only vehicles using the krauss model are supported
     if(maxspeed>0&&length>0&&accel>0&&decel>0&&sigma>0) {
         _net.addVehicleType(
             new ROVehicleType_Krauss(
-                id, color, length, accel, decel, sigma, maxspeed));
+                id, color, length, vclass, accel, decel, sigma, maxspeed));
     }
 }
 

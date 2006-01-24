@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.7  2006/01/09 12:00:59  dkrajzew
 // debugging vehicle color usage
 //
@@ -111,17 +114,11 @@ public:
     /// Builds the current route from the given information (perform routing, here)
     RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
         bool continueOnUnbuild, ROVehicle &veh,
-		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever);
+		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) const;
 
     /** @brief Adds the build route to the container
         Here, the currently new route is added */
     void addAlternative(RORoute *current, SUMOTime begin);
-
-    // Saves the current route
-//    void xmlOutCurrent(std::ostream &res, bool isPeriodical) const;
-
-    // Saves the current route as a single alternative
-//    void xmlOutAlternatives(std::ostream &altres) const;
 
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;

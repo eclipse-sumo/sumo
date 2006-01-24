@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.9  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -81,8 +84,9 @@ namespace
  * method definitions
  * ======================================================================= */
 ROVehicleType::ROVehicleType(const std::string &id, const RGBColor &col,
-                             SUMOReal length)
-    : ReferencedItem(), myID(id), myColor(col), myLength(length)
+                             SUMOReal length, SUMOVehicleClass vclass)
+    : ReferencedItem(), myID(id), myColor(col), myLength(length),
+	myClass(vclass)
 {
 }
 

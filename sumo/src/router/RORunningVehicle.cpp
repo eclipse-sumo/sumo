@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.11  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -112,10 +115,10 @@ RORunningVehicle::~RORunningVehicle()
 void
 RORunningVehicle::xmlOut(std::ostream &os) const
 {
-    os << "<vehicle id=\"" << _id << "\"";
-    os << " type=\"" << _type->getID() << "\"";
-    os << " route=\"" << _route->getID() << "\"";
-    os << " depart=\"" << _depart << "\"";
+    os << "<vehicle id=\"" << myID << "\"";
+    os << " type=\"" << myType->getID() << "\"";
+    os << " route=\"" << myRoute->getID() << "\"";
+    os << " depart=\"" << myDepartTime << "\"";
     os << " lane=\"" << _lane << "\"";
     os << " pos=\"" << _pos << "\"";
     os << " speed=\"" << _speed << "\"";
@@ -128,8 +131,8 @@ RORunningVehicle::copy(ROVehicleBuilder &vb,
                        const std::string &id, unsigned int depTime,
                        RORouteDef *newRoute)
 {
-    return new RORunningVehicle(vb, id, newRoute, depTime, _type, _lane, _pos,
-        _speed, myColor, _period, _repNo);
+    return new RORunningVehicle(vb, id, newRoute, depTime, myType, _lane, _pos,
+        _speed, myColor, myRepetitionPeriod, myRepetitionNumber);
 }
 
 

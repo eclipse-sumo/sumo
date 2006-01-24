@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.9  2006/01/09 12:00:59  dkrajzew
 // debugging vehicle color usage
 //
@@ -197,12 +200,29 @@ RORDLoader_TripDefs::myStartElement(int element, const std::string &name,
             SUMOReal vmax = getFloat(attrs, SUMO_ATTR_MAXSPEED);
             SUMOReal length = getFloat(attrs, SUMO_ATTR_LENGTH);
             SUMOReal eps = getFloat(attrs, SUMO_ATTR_SIGMA);
+
+			RGBColor col(-1,-1,-1);
             string colordef = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
-            RGBColor col = colordef!=""
-                ? GfxConvHelper::parseColor(colordef)
-                : RGBColor(-1, -1, -1);
-            ROVehicleType *vt =
-                new ROVehicleType_Krauss(id, col, length, a, b, eps, vmax);
+			if(colordef!="") {
+				try {
+					col = GfxConvHelper::parseColor(colordef);
+				} catch (NumberFormatException &) {
+					MsgHandler::getErrorInstance()->inform("The color information for vehicle type '" + id + "' is not numeric.");
+				} catch (...) {
+					MsgHandler::getErrorInstance()->inform("The color information for vehicle type '" + id + "' is malicious.");
+				}
+			}
+
+			SUMOVehicleClass vclass = SVC_UNKNOWN;
+			string classdef = getStringSecure(attrs, SUMO_ATTR_VCLASS, "");
+			if(classdef!="") {
+				try {
+					vclass = getVehicleClassID(classdef);
+				} catch (...) {
+					MsgHandler::getErrorInstance()->inform("The vehicle class for vehicle type '" + id + "' is malicious.");
+				}
+			}
+            ROVehicleType *vt = new ROVehicleType_Krauss(id, col, length, vclass, a, b, eps, vmax);
             _net.addVehicleType(vt);
         } catch (NumberFormatException&) {
             MsgHandler::getErrorInstance()->inform("One of the parameter for vehicle type '" + id + "' is not numeric.");

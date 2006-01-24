@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.1  2006/01/09 13:29:32  dkrajzew
 // debugging vehicle color usage
 //
@@ -65,13 +68,15 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 ROVehicleType_ID::ROVehicleType_ID(const std::string &id)
-    : ROVehicleType(id, RGBColor(-1, -1, -1), 1)
+    : ROVehicleType(id, RGBColor(-1, -1, -1), 1, SVC_UNKNOWN)
 {
 }
+
 
 ROVehicleType_ID::~ROVehicleType_ID()
 {
 }
+
 
 std::ostream &
 ROVehicleType_ID::xmlOut(std::ostream &os) const

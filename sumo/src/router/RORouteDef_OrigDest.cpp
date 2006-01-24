@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.8  2006/01/09 12:00:59  dkrajzew
 // debugging vehicle color usage
 //
@@ -141,7 +144,7 @@ RORouteDef_OrigDest::getTo() const
 RORoute *
 RORouteDef_OrigDest::buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
 		bool continueOnUnbuild, ROVehicle &veh,
-		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever)
+		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) const
 {
     ROEdgeVector rv = router.compute(_from, _to, begin, continueOnUnbuild, retriever);
     if(myRemoveFirst&&rv.size()>1) {
@@ -158,27 +161,6 @@ RORouteDef_OrigDest::addAlternative(RORoute *current, SUMOTime begin)
     _startTime = begin;
 }
 
-/*
-void
-RORouteDef_OrigDest::xmlOutCurrent(std::ostream &res,
-                                   bool isPeriodical) const
-{
-    _current->xmlOut(res, isPeriodical);
-}
-
-/*
-void
-RORouteDef_OrigDest::xmlOutAlternatives(std::ostream &altres) const
-{
-    altres << "   <routealt id=\"" << _current->getID()
-        << "\" last=\"0\">" << endl;
-    altres << "      <route cost=\"" << _current->recomputeCosts(_startTime)
-        << "\" probability=\"1\">";
-    _current->xmlOutEdges(altres);
-    altres << "</route>" << endl;
-    altres << "   </routealt>" << endl;
-}
-*/
 
 RORouteDef *
 RORouteDef_OrigDest::copy(const std::string &id) const

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.7  2006/01/09 12:00:59  dkrajzew
 // debugging vehicle color usage
 //
@@ -94,7 +97,7 @@ class ROVehicle;
  * ======================================================================= */
 /**
  * @class RORouteDef_Complete
- * A complete route description containing all edges the driver will pass.
+ * @brief A complete route description containing all edges the driver will pass.
  */
 class RORouteDef_Complete :
             public RORouteDef {
@@ -115,7 +118,7 @@ public:
     /// Builds the route
     RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
         bool continueOnUnbuild, ROVehicle &veh,
-		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever);
+		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) const;
 
     /** @brief Adds an route alternative (see further comments)
         Here, as in most cases, the alternative is the route that was build
@@ -124,10 +127,6 @@ public:
 
     /// Outputs the new (current) route
     void xmlOutCurrent(std::ostream &res, bool isPeriodical) const;
-
-    /* @brief Outputs the alternatives
-        (being the only one route here) */
-//    void xmlOutAlternatives(std::ostream &altres) const;
 
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;

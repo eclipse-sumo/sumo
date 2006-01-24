@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.26  2006/01/09 12:00:58  dkrajzew
 // debugging vehicle color usage
 //
@@ -176,20 +179,7 @@ RONet::~RONet()
     _vehicles.clear();
 }
 
-/*
-void
-RONet::postloadInit()
-{
-    _edges.postloadInit();
-}
-*/
-/*
-void
-RONet::preInitRONet()
-{
-	myInstance = new RONet(false);
-}
-*/
+
 void
 RONet::addEdge(ROEdge *edge)
 {
@@ -335,6 +325,7 @@ RONet::setNetInstance(RONet *net)
 
 }
 
+
 RONet *
 RONet::getNetInstance()
 {
@@ -344,7 +335,8 @@ RONet::getNetInstance()
 	return myInstance;
 }
 
-RORouteDef *
+
+const RORouteDef * const
 RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
                     ROVehicle *veh)
 {
@@ -352,7 +344,7 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
     if(options.getBool("continue-on-unbuild")) {
         mh = MsgHandler::getWarningInstance();
     }
-    RORouteDef *routeDef = veh->getRoute();
+    RORouteDef * const routeDef = veh->getRoute();
     // check if the route definition is valid
     if(routeDef==0) {
         mh->inform(string("The vehicle '") + veh->getID()
@@ -443,7 +435,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
         // ok, compute the route (try it)
         sortedVehicles.pop();
         // compute the route
-        RORouteDef *route = computeRoute(options, router, veh);
+        const RORouteDef * const route = computeRoute(options, router, veh);
         if(route!=0) {
             // write the route
             veh->saveAllAsXML(myRoutesOutput, myRouteAlternativesOutput,
@@ -460,7 +452,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
 
 
 void
-RONet::removeRouteSecure(RORouteDef *route)
+RONet::removeRouteSecure(const RORouteDef * const route)
 {
     // !!! later, a counter should be used to keep computed routes in the memory
     if(!_routes.erase(route->getID())) {
@@ -567,6 +559,7 @@ RONet::buildOutput(const std::string &name)
     }
     return ret;
 }
+
 
 ROEdgeCont *
 RONet::getMyEdgeCont()

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.9  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -67,6 +70,7 @@
 #include <string>
 #include <utils/gfx/RGBColor.h>
 #include "ReferencedItem.h"
+#include <utils/common/SUMOVehicleClass.h>
 
 
 /* =========================================================================
@@ -74,13 +78,13 @@
  * ======================================================================= */
 /**
  * @class ROVehicleType
- * The base class for vehicle types.
+ * @brief The base class for vehicle types.
  */
 class ROVehicleType : public ReferencedItem {
 public:
     /// Constructor
     ROVehicleType(const std::string &id, const RGBColor &col,
-        SUMOReal length);
+        SUMOReal length, SUMOVehicleClass vclass);
 
     /// Destructor
 	virtual ~ROVehicleType();
@@ -103,6 +107,9 @@ protected:
 
     /// The length of the vehicle
     SUMOReal myLength;
+
+	/// The class of the vehicle
+	SUMOVehicleClass myClass;
 
 };
 

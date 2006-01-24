@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.8  2006/01/09 12:00:59  dkrajzew
 // debugging vehicle color usage
 //
@@ -105,7 +108,7 @@ class ROEdge;
  * ======================================================================= */
 /**
  * @class RORouteDef_Alternatives
- * A route definition which has some alternatives, already.
+ * @brief A route definition which has some alternatives, already.
  */
 class RORouteDef_Alternatives : public RORouteDef {
 public:
@@ -129,16 +132,10 @@ public:
     /// Build the next route
     RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
         bool continueOnUnbuild, ROVehicle &veh,
-		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever);
+		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) const;
 
     /// Adds a build alternative
     void addAlternative(RORoute *current, SUMOTime begin);
-
-    /// Writes the currently chosen route to the stream
-//    void xmlOutCurrent(std::ostream &res, bool isPeriodical) const;
-
-    // Writes all the alternatives to the stream
-//    void xmlOutAlternatives(std::ostream &altres) const;
 
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;
@@ -174,10 +171,10 @@ private:
 
 private:
     /// Information whether a new route was generated
-    bool _newRoute;
+    mutable bool _newRoute;
 
     /// Index of the route used within the last step
-    int _lastUsed;
+    mutable int _lastUsed;
 
     /// Definition of the storage for alternatives
     typedef std::vector<RORoute*> AlternativesVector;

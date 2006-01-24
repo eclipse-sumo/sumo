@@ -135,6 +135,10 @@ SOURCE=..\..\..\src\utils\common\StringUtils.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\utils\common\SUMOVehicleClass.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\utils\common\SystemFrame.cpp
 # End Source File
 # Begin Source File
@@ -236,6 +240,10 @@ SOURCE=..\..\..\src\utils\common\StringUtils.h
 # Begin Source File
 
 SOURCE=..\..\..\src\utils\common\SUMOTime.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\utils\common\SUMOVehicleClass.h
 # End Source File
 # Begin Source File
 

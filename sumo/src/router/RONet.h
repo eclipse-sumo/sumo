@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.16  2006/01/09 12:00:58  dkrajzew
 // debugging vehicle color usage
 //
@@ -125,11 +128,6 @@ public:
     /// Destructor
     virtual ~RONet();
 
-    /** @brief Performs some initialisations after the net (and the weights) have been loaded
-        The weight-timelines must be computed for the edges */
-//    void postloadInit();
-
-//	static void preInitRONet();
     /** @brief opens the output for computed routes
         if the second parameter is true, a second file for route alternatives
         will be opened.
@@ -218,12 +216,12 @@ public:
     ROEdgeCont *getMyEdgeCont();
 
     /** @brief Removes the route from the net when no further usage is needed */
-    virtual void removeRouteSecure(RORouteDef *route); // !!! was protected before
+    virtual void removeRouteSecure(const RORouteDef * const route); // !!! was protected before
 
 protected:
     /** Saves the given route together with her alternatives */
-    RORouteDef *computeRoute(OptionsCont &options, ROAbstractRouter &router,
-        ROVehicle *veh);
+    const RORouteDef * const computeRoute(OptionsCont &options,
+		ROAbstractRouter &router, ROVehicle *veh);
 
     /// Initialises the lists of source and destination edges
     void checkSourceAndDestinations();

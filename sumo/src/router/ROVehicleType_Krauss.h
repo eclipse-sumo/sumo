@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.10  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -85,7 +88,7 @@ public:
 
     /// Parametrised constructor
 	ROVehicleType_Krauss(const std::string &id, const RGBColor &col,
-        SUMOReal length,
+        SUMOReal length, SUMOVehicleClass vclass,
         SUMOReal a, SUMOReal b, SUMOReal eps, SUMOReal maxSpeed);
 
     /// Destructor

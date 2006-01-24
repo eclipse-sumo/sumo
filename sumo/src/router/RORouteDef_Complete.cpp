@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.8  2006/01/09 12:00:59  dkrajzew
 // debugging vehicle color usage
 //
@@ -134,7 +137,7 @@ RORouteDef_Complete::getTo() const
 RORoute *
 RORouteDef_Complete::buildCurrentRoute(ROAbstractRouter &router,
 		SUMOTime begin, bool continueOnUnbuild, ROVehicle &veh,
-		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever)
+		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) const
 {
     return new RORoute(_id, 0, 1, _edges);
 }
@@ -147,31 +150,6 @@ RORouteDef_Complete::addAlternative(RORoute *current, SUMOTime begin)
     delete current;
 }
 
-
-/*
-void
-RORouteDef_Complete::xmlOutCurrent(std::ostream &res, bool isPeriodical) const
-{
-    res << "   <route id=\"" << _id << "\"";
-    if(isPeriodical) {
-        res << " multi_ref=\"x\"";
-    }
-    res << ">" << _edges << "</route>" << endl;
-}
-
-/*
-void
-RORouteDef_Complete::xmlOutAlternatives(std::ostream &altres) const
-{
-    altres << "   <routealt id=\"" << _id
-        << "\" last=\"0\">" << endl;
-    altres << "      <route cost=\"" << _edges.recomputeCosts(_startTime)
-        << "\" probability=\"1\">";
-    altres << _edges;
-    altres << "</route>" << endl;
-    altres << "   </routealt>" << endl;
-}
-*/
 
 RORouteDef *
 RORouteDef_Complete::copy(const std::string &id) const

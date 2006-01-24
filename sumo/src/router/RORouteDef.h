@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.14  2006/01/09 12:00:59  dkrajzew
 // debugging vehicle color usage
 //
@@ -98,7 +101,7 @@ class ROEdgeVector;
  * ======================================================================= */
 /**
  * @class RORouteDef
- * A RORouteDef is the upper class for all route definitions.
+ * @brief A RORouteDef is the upper class for all route definitions.
  * Whether it is just the origin and the destination, the whole route through
  * the network or even a route with alternatives depends on the derived class.
  */
@@ -126,18 +129,11 @@ public:
         (or chooses her from the list of alternatives, when existing) */
     virtual RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
         bool continueOnUnbuild, ROVehicle &veh,
-		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) = 0;
+		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) const = 0;
 
     /** @brief Adds an alternative to the list of routes
         (This may be the new route) */
     virtual void addAlternative(RORoute *current, SUMOTime begin) = 0;
-
-    /* @brief Writes the current route */
-/*    virtual void xmlOutCurrent(std::ostream &res,
-        bool isPeriodical) const = 0;
-
-    /* @brief Writes the list of known alternatives */
-//    virtual void xmlOutAlternatives(std::ostream &altres) const = 0;
 
     /** @brief Returns a copy of the route definition */
     virtual RORouteDef *copy(const std::string &id) const = 0;
@@ -156,9 +152,6 @@ public:
 
     /// Returns the color of the route
     const RGBColor &getColor() const;
-
-    /// Returns the alternative at the given index
-//    virtual const RORoute &getAlternative(size_t i) const = 0;
 
 protected:
     /// The color the route shall have

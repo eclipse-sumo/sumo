@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.9  2006/01/09 12:00:59  dkrajzew
 // debugging vehicle color usage
 //
@@ -200,7 +203,7 @@ RORouteDef_Alternatives::getTo() const
 RORoute *
 RORouteDef_Alternatives::buildCurrentRoute(ROAbstractRouter &router,
 		SUMOTime begin, bool continueOnUnbuild, ROVehicle &veh,
-		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever)
+		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) const
 {
     // recompute duration of the last route used
     // build a new route to test whether it is better

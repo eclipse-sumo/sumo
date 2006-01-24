@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.9  2006/01/09 12:00:59  dkrajzew
 // debugging vehicle color usage
 //
@@ -96,26 +99,30 @@ SUMOReal ROVehicleType_Krauss::myDefault_MAXSPEED = 70;
  * method definitions
  * ======================================================================= */
 ROVehicleType_Krauss::ROVehicleType_Krauss()
-    : ROVehicleType("KRAUSS_DEFAULT",  RGBColor(1, 1, 0), myDefault_LENGTH),
+    : ROVehicleType("KRAUSS_DEFAULT",  RGBColor(1,1,0), myDefault_LENGTH, SVC_UNKNOWN),
     myA(myDefault_A), myB(myDefault_B), myEps(myDefault_EPS),
     myMaxSpeed(myDefault_MAXSPEED)
 {
 }
 
+
 ROVehicleType_Krauss::ROVehicleType_Krauss(const std::string &id,
                                            const RGBColor &col,
                                            SUMOReal length,
+										   SUMOVehicleClass vclass,
                                            SUMOReal a, SUMOReal b,
                                            SUMOReal eps,
                                            SUMOReal maxSpeed)
-    : ROVehicleType(id, col, length), myA(a), myB(b), myEps(eps),
+    : ROVehicleType(id, col, length, vclass), myA(a), myB(b), myEps(eps),
     myMaxSpeed(maxSpeed)
 {
 }
 
+
 ROVehicleType_Krauss::~ROVehicleType_Krauss()
 {
 }
+
 
 std::ostream &
 ROVehicleType_Krauss::xmlOut(std::ostream &os) const
@@ -128,6 +135,9 @@ ROVehicleType_Krauss::xmlOut(std::ostream &os) const
 	os << " maxspeed=\"" << myMaxSpeed << "\"";
     if(myColor!=RGBColor(-1,-1,-1)) {
         os << " color=\"" << myColor << "\"";
+    }
+    if(myClass!=SVC_UNKNOWN) {
+        os << " class=\"" << getVehicleClassName(myClass) << "\"";
     }
 	os << "/>" << endl;
 	return os;

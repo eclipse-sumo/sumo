@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/01/24 13:43:53  dkrajzew
+// added vehicle classes to the routing modules
+//
 // Revision 1.12  2006/01/09 12:00:59  dkrajzew
 // debugging vehicle color usage
 //
@@ -82,8 +85,8 @@ class RORouteDef;
  * ======================================================================= */
 /**
  * @class ROVehicle
- * A single vehicle holding information about his type, departure time and
- * the route he takes.
+ * @brief A single vehicle holding information about his type,
+ *  departure time and the route he takes.
  */
 class ROVehicle {
 public:
@@ -96,16 +99,13 @@ public:
     virtual ~ROVehicle();
 
     /// Returns the route the vehicle takes
-    RORouteDef *getRoute() const;
+    RORouteDef * const getRoute() const;
 
     /// Returns the type of the vehicle
-    ROVehicleType *getType() const;
-
-    /// Saves information wbout the vehicle (in SUMO-XML)
-    //virtual void xmlOut(std::ostream &os) const;
+    const ROVehicleType * const getType() const;
 
     /// Returns the id of the vehicle
-    std::string getID() const;
+    const std::string &getID() const;
 
     /// Returns the time the vehicle starts his route
     SUMOTime getDepartureTime() const;
@@ -114,17 +114,14 @@ public:
         settings shall be emitted. */
     bool periodical() const;
 
-    /** @brief Saves the vehicle type if it was not saved before and the vehicle itself
-        Use this method polymorph if no route alternatives shall be generated */
+    /** @brief Saves the complete vehicle description.
+	 *
+	 * Saves the vehicle type if it was not saved before.
+	 * Saves the vehicle route if it was not saved before.
+	 * Saves the vehicle itself.
+	 * Use this method polymorph if no route alternatives shall be generated */
     void saveAllAsXML(std::ostream * const os, std::ostream * const altos,
-        ROVehicleType &defType, RORouteDef *route) const;
-
-    /** @brief Saves the vehicle type if it was not saved before and the vehicle itself
-        Use this method polymorph if route alternatives shall be written, too */
-    /*
-    void saveAll(std::ostream &os, std::ostream &altos,
-        ROVehicleType &defType, RORouteDef *route) const;
-        */
+        ROVehicleType &defType, const RORouteDef * const route) const;
 
     /// Returns a copy of the vehicle using a new id, departure time and route
     virtual ROVehicle *copy(ROVehicleBuilder &vb,
@@ -132,31 +129,34 @@ public:
 
 protected:
     /** @brief Returns the type of the vehicle
-        Returns the default vehicle type if no vehicle type was set */
+	 *
+     * Returns the default vehicle type if no vehicle type was set */
     ROVehicleType &getTypeForSaving(ROVehicleType &defType) const;
 
+	/// Saves the vehicle definition only into the given stream
+	void saveXMLVehicle(std::ostream * const os) const;
 
 protected:
     /// The name of the vehicle
-    std::string _id;
+    std::string myID;
 
     /// The color of the vehicle
     RGBColor myColor;
 
     /// The type of the vehicle
-    ROVehicleType *_type;
+    ROVehicleType *myType;
 
     /// The route the vehicle takes
-    RORouteDef *_route;
+    RORouteDef *myRoute;
 
     /// The time the vehicle shall be emitted at
-    unsigned int _depart;
+    unsigned int myDepartTime;
 
     /// The repetition period (-1 if only one vehicle shall be emitted)
-    int _period;
+    int myRepetitionPeriod;
 
     /// The number of times such vehicles shall be emitted
-    int _repNo;
+    int myRepetitionNumber;
 
 };
 
