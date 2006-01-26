@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.8  2006/01/24 13:43:53  dkrajzew
 // added vehicle classes to the routing modules
 //
@@ -88,7 +91,6 @@
  * ======================================================================= */
 class ROEdge;
 class RORoute;
-class ROAbstractRouter;
 class ROVehicle;
 
 
@@ -110,19 +112,19 @@ public:
     virtual ~RORouteDef_Complete();
 
     /// returns the begin of the trip
-    ROEdge *getFrom() const;
+    const ROEdge * const getFrom() const;
 
     /// Returns the end of the trip
-    ROEdge *getTo() const;
+    const ROEdge * const getTo() const;
 
     /// Builds the route
     RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
-        bool continueOnUnbuild, ROVehicle &veh,
-		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) const;
+        ROVehicle &veh) const;
 
     /** @brief Adds an route alternative (see further comments)
-        Here, as in most cases, the alternative is the route that was build
-        as last and will stay the only route known */
+	 *
+     * Here, as in most cases, the alternative is the route that was build
+     * as last and will stay the only route known */
     void addAlternative(RORoute *current, SUMOTime begin);
 
     /// Outputs the new (current) route

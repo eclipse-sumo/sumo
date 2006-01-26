@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.10  2006/01/24 13:43:53  dkrajzew
 // added vehicle classes to the routing modules
 //
@@ -178,7 +181,7 @@ RORouteDef_Alternatives::addLoadedAlternative(RORoute *alt)
 
 
 
-ROEdge *
+const ROEdge * const
 RORouteDef_Alternatives::getFrom() const
 {
     // check whether the item was correctly initialised
@@ -189,7 +192,7 @@ RORouteDef_Alternatives::getFrom() const
 }
 
 
-ROEdge *
+const ROEdge * const
 RORouteDef_Alternatives::getTo() const
 {
     // check whether the item was correctly initialised
@@ -202,15 +205,14 @@ RORouteDef_Alternatives::getTo() const
 
 RORoute *
 RORouteDef_Alternatives::buildCurrentRoute(ROAbstractRouter &router,
-		SUMOTime begin, bool continueOnUnbuild, ROVehicle &veh,
-		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) const
+		SUMOTime begin, ROVehicle &veh) const
 {
     // recompute duration of the last route used
     // build a new route to test whether it is better
     //  !!! after some iterations, no further routes should be build
-    RORoute *opt =
-        new RORoute(_id, 0, 1,
-            router.compute(getFrom(), getTo(), begin, continueOnUnbuild));
+	std::vector<const ROEdge*> edges;
+	router.compute(getFrom(), getTo(), &veh, begin, edges);
+    RORoute *opt = new RORoute(_id, 0, 1, edges);
     opt->setCosts(opt->recomputeCosts(begin));
     // check whether the same route was already used
     _lastUsed = findRoute(opt);
@@ -344,31 +346,6 @@ RORouteDef_Alternatives::gawronG(SUMOReal a, SUMOReal x)
     return (SUMOReal) exp((a*x)/(1.0-(x*x))); // !!! ??
 }
 
-/*
-void
-RORouteDef_Alternatives::xmlOutCurrent(std::ostream &res,
-                                       bool isPeriodical) const
-{
-    _alternatives[_lastUsed]->xmlOut(res, isPeriodical);
-}
-
-/*
-void
-RORouteDef_Alternatives::xmlOutAlternatives(std::ostream &os) const
-{
-    os << "   <routealt id=\"" << _id << "\" last=\""
-        << _lastUsed << "\">" << endl;
-    for(size_t i=0; i!=_alternatives.size(); i++) {
-        RORoute *alt = _alternatives[i];
-        os << "      <route cost=\"" << alt->getCosts()
-            << "\" probability=\"" << alt->getProbability()
-            << "\">";
-        alt->xmlOutEdges(os);
-        os << "</route>" << endl;
-    }
-    os << "   </routealt>" << endl;
-}
-*/
 
 RORouteDef *
 RORouteDef_Alternatives::copy(const std::string &id) const

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.11  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -117,7 +120,7 @@ public:
 
 private:
     /// Definitions of a container of route definitions from their start eand end points to the route definition
-    typedef std::map<std::pair<ROEdge*, ROEdge*>, RORouteDef*> idMap;
+    typedef std::map<std::pair<const ROEdge*, const ROEdge*>, RORouteDef*> idMap;
 
     /// Container with routes definitions accessable by their starting and ending point
     idMap _known;

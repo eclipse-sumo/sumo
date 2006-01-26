@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.14  2006/01/09 12:00:58  dkrajzew
 // debugging vehicle color usage
 //
@@ -80,6 +83,7 @@
 #include "RORouteDefList.h"
 #include <sax2/SAX2XMLReader.hpp>
 #include <utils/common/SUMOTime.h>
+#include "ROAbstractRouter.h"
 
 
 /* =========================================================================
@@ -98,7 +102,6 @@ class RONet;
 class RONetHandler;
 class ROAbstractRouteDefLoader;
 class GenericSAX2Handler;
-class ROAbstractRouter;
 class ROAbstractEdgeBuilder;
 class ROVehicleBuilder;
 class GUIRouterRunThread;

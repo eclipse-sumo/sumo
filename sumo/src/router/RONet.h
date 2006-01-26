@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.17  2006/01/24 13:43:53  dkrajzew
 // added vehicle classes to the routing modules
 //
@@ -106,7 +109,6 @@
 class ROEdge;
 class RONode;
 class RORouteDef;
-class ROAbstractRouter;
 class ROVehicle;
 class OptionsCont;
 class ROAbstractEdgeBuilder;

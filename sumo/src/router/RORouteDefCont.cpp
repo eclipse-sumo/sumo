@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.6  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -105,8 +108,8 @@ RORouteDefCont::add(RORouteDef *def)
         }
     }
     // insert the route into the structures
-    NamedObjectCont<RORouteDef*>::add(string(id), def);
-    _known.insert(idMap::value_type(std::pair<ROEdge*, ROEdge*>(def->getFrom(), def->getTo()), def)); // !!! not very well
+    NamedObjectCont<RORouteDef*>::add(id, def);
+    _known.insert(idMap::value_type(std::pair<const ROEdge*, const ROEdge*>(def->getFrom(), def->getTo()), def)); // !!! not very well
     return true;
 }
 
@@ -116,24 +119,6 @@ RORouteDefCont::writeXML(std::ostream &os)
 {
 }
 
-/*
-std::string
-RORouteDefCont::add(ROEdge *from, ROEdge *to) {
-    // check whether a route like the given is already known
-    if(known(from, to)) {
-        return getID(from, to);
-    }
-    // get a valid id
-    string id = _idSupplier.getNext();
-    while(known(id)) {
-        _idSupplier.getNext();
-    }
-    // add the route
-    NamedObjectCont<RORouteDef*>::add(
-        id, new RORouteDef_OrigDest(id, from, to));
-    return id;
-}
-*/
 
 bool
 RORouteDefCont::known(ROEdge *from, ROEdge *to) const

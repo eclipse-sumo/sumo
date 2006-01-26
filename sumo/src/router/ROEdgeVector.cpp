@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.13  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -108,7 +111,7 @@ ROEdgeVector::ROEdgeVector(size_t toReserve)
 }
 
 
-ROEdgeVector::ROEdgeVector(EdgeVector &edges)
+ROEdgeVector::ROEdgeVector(const EdgeVector &edges)
     : _edges(edges)
 {
 }
@@ -120,7 +123,7 @@ ROEdgeVector::~ROEdgeVector()
 
 
 void
-ROEdgeVector::add(ROEdge *edge)
+ROEdgeVector::add(const ROEdge *edge)
 {
     _edges.push_back(edge);
 }
@@ -130,7 +133,7 @@ std::ostream &operator<<(std::ostream &os, const ROEdgeVector &ev)
 {
     for(ROEdgeVector::EdgeVector::const_iterator j=ev._edges.begin(); j!=ev._edges.end(); j++) {
         if(j!=ev._edges.begin()) {
-            os << string(" ");
+            os << ' ';
         }
         os << (*j)->getID();
     }
@@ -138,7 +141,7 @@ std::ostream &operator<<(std::ostream &os, const ROEdgeVector &ev)
 }
 
 
-ROEdge *
+const ROEdge *
 ROEdgeVector::getFirst() const
 {
     if(_edges.size()==0) {
@@ -148,7 +151,7 @@ ROEdgeVector::getFirst() const
 }
 
 
-ROEdge *
+const ROEdge *
 ROEdgeVector::getLast() const
 {
     if(_edges.size()==0) {

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.15  2006/01/24 13:43:53  dkrajzew
 // added vehicle classes to the routing modules
 //
@@ -67,6 +70,12 @@
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -89,7 +98,6 @@
  * class declarations
  * ======================================================================= */
 class ROEdge;
-class ROAbstractRouter;
 class RORoute;
 class OptionsCont;
 class ROVehicle;
@@ -102,6 +110,7 @@ class ROEdgeVector;
 /**
  * @class RORouteDef
  * @brief A RORouteDef is the upper class for all route definitions.
+ *
  * Whether it is just the origin and the destination, the whole route through
  * the network or even a route with alternatives depends on the derived class.
  */
@@ -116,23 +125,25 @@ public:
     virtual ~RORouteDef();
 
     /// Returns the route's origin edge
-    virtual ROEdge *getFrom() const = 0;
+    virtual const ROEdge * const getFrom() const = 0;
 
     /// Returns the route's destination edge
-    virtual ROEdge *getTo() const = 0;
+    virtual const ROEdge * const getTo() const = 0;
 
     /** @brief Changes the id to a next, hopefully valid
-        This is done if the vehicle(s) using this route are emitted periodically */
+	 *
+     * This is done if the vehicle(s) using this route are emitted periodically */
     void patchID();
 
     /** @brief Builds the complete route
-        (or chooses her from the list of alternatives, when existing) */
+     *
+     * (or chooses her from the list of alternatives, when existing) */
     virtual RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
-        bool continueOnUnbuild, ROVehicle &veh,
-		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) const = 0;
+        ROVehicle &veh) const = 0;
 
     /** @brief Adds an alternative to the list of routes
-        (This may be the new route) */
+	 *
+     * (This may be the new route) */
     virtual void addAlternative(RORoute *current, SUMOTime begin) = 0;
 
     /** @brief Returns a copy of the route definition */
@@ -141,13 +152,15 @@ public:
     virtual const ROEdgeVector &getCurrentEdgeVector() const = 0;
 
     /** @brief returns the index of the route that was used as last
-        Returns 0 for most of the implementations, as currently only alternatives may
-        have more than just a single route */
+	 *
+     * Returns 0 for most of the implementations, as currently only alternatives may
+     * have more than just a single route */
     virtual int getLastUsedIndex() const;
 
     /** @brief returns the number of alternatives
-        Returns 1 for most of the implementations, as currently only alternatives may
-        have more than just a single route */
+	 *
+     * Returns 1 for most of the implementations, as currently only alternatives may
+     * have more than just a single route */
     virtual size_t getAlternativesSize() const;
 
     /// Returns the color of the route

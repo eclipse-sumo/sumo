@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.13  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -106,6 +109,14 @@ RORoute::RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
 }
 
 
+RORoute::RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
+                 const std::vector<const ROEdge*> &route)
+    : Named(StringUtils::convertUmlaute(id)), _costs(costs),
+    _probability(prop), _route(route)
+{
+}
+
+
 RORoute::~RORoute()
 {
 }
@@ -158,14 +169,14 @@ RORoute::recomputeCosts(SUMOTime begin) const
 }
 
 
-ROEdge *
+const ROEdge *
 RORoute::getFirst() const
 {
     return _route.getFirst();
 }
 
 
-ROEdge *
+const ROEdge *
 RORoute::getLast() const
 {
     return _route.getLast();

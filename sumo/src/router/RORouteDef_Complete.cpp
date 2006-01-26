@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.9  2006/01/24 13:43:53  dkrajzew
 // added vehicle classes to the routing modules
 //
@@ -120,14 +123,14 @@ RORouteDef_Complete::~RORouteDef_Complete()
 }
 
 
-ROEdge *
+const ROEdge * const
 RORouteDef_Complete::getFrom() const
 {
     return _edges.getFirst();
 }
 
 
-ROEdge *
+const ROEdge * const
 RORouteDef_Complete::getTo() const
 {
     return _edges.getLast();
@@ -136,8 +139,7 @@ RORouteDef_Complete::getTo() const
 
 RORoute *
 RORouteDef_Complete::buildCurrentRoute(ROAbstractRouter &router,
-		SUMOTime begin, bool continueOnUnbuild, ROVehicle &veh,
-		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) const
+		SUMOTime begin, ROVehicle &veh) const
 {
     return new RORoute(_id, 0, 1, _edges);
 }

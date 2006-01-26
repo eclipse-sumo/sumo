@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.11  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -91,6 +94,10 @@ public:
     RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
         const ROEdgeVector &route);
 
+    /// Constructor
+    RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
+        const std::vector<const ROEdge*> &route);
+
     /// Destructor
     ~RORoute();
 
@@ -104,10 +111,10 @@ public:
     void xmlOutEdges(std::ostream &os) const;
 
     /// Returns the first edge in the route
-    ROEdge *getFirst() const;
+    const ROEdge *getFirst() const;
 
     /// Returns the last edge in the route
-    ROEdge *getLast() const;
+    const ROEdge *getLast() const;
 
     /// Returns the costs of the route
     SUMOReal getCosts() const;

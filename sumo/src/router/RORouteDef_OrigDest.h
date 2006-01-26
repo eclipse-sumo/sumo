@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.8  2006/01/24 13:43:53  dkrajzew
 // added vehicle classes to the routing modules
 //
@@ -66,6 +69,12 @@
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -85,7 +94,6 @@
  * ======================================================================= */
 class ROEdge;
 class RORoute;
-class ROAbstractRouter;
 
 
 /* =========================================================================
@@ -100,24 +108,24 @@ class RORouteDef_OrigDest
 public:
     /// Constructor
     RORouteDef_OrigDest(const std::string &id, const RGBColor &color,
-        ROEdge *from, ROEdge *to, bool removeFirst=false);
+        const ROEdge *from, const ROEdge *to, bool removeFirst=false);
 
     /// Destructor
     virtual ~RORouteDef_OrigDest();
 
     /// Returns the begin of the trip
-    ROEdge *getFrom() const;
+    const ROEdge * const getFrom() const;
 
     /// Returns the end of the trip
-    ROEdge *getTo() const;
+    const ROEdge * const getTo() const;
 
     /// Builds the current route from the given information (perform routing, here)
     RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
-        bool continueOnUnbuild, ROVehicle &veh,
-		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) const;
+        ROVehicle &veh) const;
 
     /** @brief Adds the build route to the container
-        Here, the currently new route is added */
+	 *
+     * Here, the currently new route is added */
     void addAlternative(RORoute *current, SUMOTime begin);
 
     /** @brief Returns a copy of the route definition */
@@ -127,7 +135,7 @@ public:
 
 protected:
     /// The origin and the destination edge of the route
-    ROEdge *_from, *_to;
+    const ROEdge *_from, *_to;
 
     /// The complete route (after building)
     RORoute *_current;

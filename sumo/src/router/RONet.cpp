@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.27  2006/01/24 13:43:53  dkrajzew
 // added vehicle classes to the routing modules
 //
@@ -184,9 +187,7 @@ void
 RONet::addEdge(ROEdge *edge)
 {
     if(!_edges.add(edge->getID(), edge)) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The edge '") + edge->getID()
-            + string("' occures at least twice."));
+        MsgHandler::getErrorInstance()->inform("The edge '" + edge->getID() + "' occures at least twice.");
     }
 }
 
@@ -251,7 +252,7 @@ RONet::openOutput(const std::string &filename, bool useAlternatives)
     myRoutesOutput = buildOutput(filename);
     (*myRoutesOutput) << "<routes>" << endl;
     if(useAlternatives) {
-        myRouteAlternativesOutput = buildOutput(filename+string(".alt"));
+        myRouteAlternativesOutput = buildOutput(filename+".alt");
         (*myRouteAlternativesOutput) << "<route-alternatives>" << endl;
     }
 }
@@ -347,8 +348,7 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
     RORouteDef * const routeDef = veh->getRoute();
     // check if the route definition is valid
     if(routeDef==0) {
-        mh->inform(string("The vehicle '") + veh->getID()
-            + string("' has no valid route."));
+        mh->inform("The vehicle '" + veh->getID() + "' has no valid route.");
         return 0;
     }
     // check whether the route was already saved
@@ -356,8 +356,8 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
         return routeDef;
     }
     //
-    RORoute *current = routeDef->buildCurrentRoute(router,
-        veh->getDepartureTime(), options.getBool("continue-on-unbuild"), *veh, 0);
+    RORoute *current =
+		routeDef->buildCurrentRoute(router, veh->getDepartureTime(), *veh);
     if(current==0) {
         return 0;
     }
@@ -368,9 +368,7 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
         //  router
         if(current->size()!=0) {
             cout << endl;
-            mh->inform(
-                string("The route '") + routeDef->getID()
-                + string("' is too short, propably ending at the starting edge."));
+            mh->inform("The route '" + routeDef->getID() + "' is too short, propably ending at the starting edge.");
             WRITE_WARNING("Skipping...");
         }
         delete current;
@@ -379,18 +377,15 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
     // check whether the vehicle is able to start at this edge
     //  (the edge must be longer than the vehicle)
     while(current->getFirst()->getLength()<=veh->getType()->getLength()) {
-        mh->inform(string("The vehicle '")
-            + veh->getID()
-            + string("' is too long to start at edge '")
-            + current->getFirst()->getID() + string("'."));
+        mh->inform("The vehicle '" + veh->getID() + "' is too long to start at edge '"
+            + current->getFirst()->getID() + "'.");
         if(!options.getBool("move-on-short")||current->size()<3) {
             mh->inform(" Discarded.");
             delete current;
             return 0;
         }
         current->pruneFirst();
-        mh->inform(string(" Prunned (now starting at '")
-            + current->getFirst()->getID() + string("')."));
+        mh->inform(" Prunned (now starting at '" + current->getFirst()->getID() + "').");
     }
     // add build route
     routeDef->addAlternative(current, veh->getDepartureTime());
@@ -425,9 +420,9 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
                 (currentTime%options.getInt("stats-period"))==0) {
 
                 WRITE_MESSAGE(\
-                    string("Read: ") + toString<int>(myReadRouteNo)\
-                    + string(",  Discarded: ") + toString<int>(myDiscardedRouteNo)\
-                    + string(",  Written: ") + toString<int>(myWrittenRouteNo));
+                    "Read: " + toString<int>(myReadRouteNo)\
+                    + ",  Discarded: " + toString<int>(myDiscardedRouteNo)\
+                    + ",  Written: " + toString<int>(myWrittenRouteNo));
             }
         }
         lastTime = currentTime;
@@ -552,9 +547,7 @@ RONet::buildOutput(const std::string &name)
 {
     std::ofstream *ret = new std::ofstream(name.c_str());
     if(!ret->good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The file '") + name +
-            string("' could not be opened for writing."));
+        MsgHandler::getErrorInstance()->inform("The file '" + name + "' could not be opened for writing.");
         throw ProcessError();
     }
     return ret;

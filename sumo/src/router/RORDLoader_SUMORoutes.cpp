@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.7  2006/01/09 12:00:59  dkrajzew
 // debugging vehicle color usage
 //
@@ -68,6 +71,12 @@ namespace
 // Revision 1.2  2003/02/07 10:45:06  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -158,9 +167,8 @@ RORDLoader_SUMORoutes::myCharacters(int element, const std::string &name,
                 list.add(edge);
             } else {
                 getErrorHandlerMarkInvalid()->inform(
-                    string("The route '") + myCurrentRouteName +
-                    string("' contains the unknown edge '") + id +
-                    string("'."));
+                    "The route '" + myCurrentRouteName + "' contains the unknown edge '"
+					+ id + "'.");
                 ok = false;
             }
         }
@@ -173,9 +181,9 @@ RORDLoader_SUMORoutes::myCharacters(int element, const std::string &name,
         } else {
             // report problems otherwise
             if(myCurrentRouteName.length()>0) {
-                getErrorHandlerMarkInvalid()->inform(string("Something is wrong with route '") + myCurrentRouteName + string("'."));
+                getErrorHandlerMarkInvalid()->inform("Something is wrong with route '" + myCurrentRouteName + "'.");
             } else {
-                getErrorHandlerMarkInvalid()->inform(string("Invalid route occured."));
+                getErrorHandlerMarkInvalid()->inform("Invalid route occured.");
             }
         }
     }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.14  2006/01/09 12:00:58  dkrajzew
 // debugging vehicle color usage
 //
@@ -182,8 +185,7 @@ RORDGenerator_ODAmounts::FlowDef::addSingleRoute(ROVehicleBuilder &vb,
                                                  RONet &net,
                                                  SUMOTime t)
 {
-    string id = myVehicle->getID()
-        + string("_") + toString<unsigned int>(myEmitted);
+    string id = myVehicle->getID() + "_" + toString<unsigned int>(myEmitted);
     RORouteDef *rd = myRoute->copy(id);
     net.addRouteDef(rd);
     ROVehicle *veh = myVehicle->copy(vb, id, t, rd);
@@ -289,9 +291,7 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const Attributes &attrs)
     //  the departure time and other information
     myID = getVehicleID(attrs);
     if(myKnownIDs.find(myID)!=myKnownIDs.end()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The id '") + myID
-            + string("' appears twice within the flow descriptions.'"));
+        MsgHandler::getErrorInstance()->inform("The id '" + myID + "' appears twice within the flow descriptions.'");
         return;
     }
     myKnownIDs.insert(myID); // !!! a local storage is not save
@@ -304,26 +304,21 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const Attributes &attrs)
     try {
         myIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, myUpperIntervalBegin);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("An interval begin is not numeric."));
+        MsgHandler::getErrorInstance()->inform("An interval begin is not numeric.");
         return;
     }
     try {
         myIntervalEnd = getIntSecure(attrs, SUMO_ATTR_END, myUpperIntervalEnd);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("An interval end is not numeric."));
+        MsgHandler::getErrorInstance()->inform("An interval end is not numeric.");
         return;
     }
     myVehicle2EmitNumber = getTime(attrs, SUMO_ATTR_NO, myID);
     if(myIntervalEnd<=myIntervalBegin) {
+        MsgHandler::getErrorInstance()->inform("The interval must be larger than 0.");
         MsgHandler::getErrorInstance()->inform(
-            string("The interval must be larger than 0."));
-        MsgHandler::getErrorInstance()->inform(
-            string("The current values are: begin=")
-            + toString<unsigned int>(myIntervalBegin)
-            + string(" end=")
-            + toString<unsigned int>(myIntervalEnd));
+            "The current values are: begin=" + toString<unsigned int>(myIntervalBegin)
+            + " end=" + toString<unsigned int>(myIntervalEnd));
         return;
     }
     myPeriodTime = -1;
@@ -339,15 +334,13 @@ RORDGenerator_ODAmounts::parseInterval(const Attributes &attrs)
     try {
         myUpperIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, -1);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("An interval begin is not numeric."));
+        MsgHandler::getErrorInstance()->inform("An interval begin is not numeric.");
         return;
     }
     try {
         myUpperIntervalEnd = getIntSecure(attrs, SUMO_ATTR_END, -1);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("An interval end is not numeric."));
+        MsgHandler::getErrorInstance()->inform("An interval end is not numeric.");
         return;
     }
 }

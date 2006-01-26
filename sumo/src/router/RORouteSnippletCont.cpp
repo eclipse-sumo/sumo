@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.7  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -88,12 +91,12 @@ RORouteSnippletCont::~RORouteSnippletCont()
 bool
 RORouteSnippletCont::add(const ROEdgeVector &item)
 {
-    ROEdge *from = item.getFirst();
-    ROEdge *to = item.getLast();
+    const ROEdge *from = item.getFirst();
+    const ROEdge *to = item.getLast();
     MapType::iterator i=_known.find(MapType::key_type(from, to));
     if(i==_known.end()) {
         _known.insert(
-            MapType::value_type(std::pair<ROEdge*, ROEdge*>(from, to), item));
+            MapType::value_type(std::pair<const ROEdge*, const ROEdge*>(from, to), item));
         return true;
     }
     return false;

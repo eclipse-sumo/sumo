@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.9  2006/01/24 13:43:53  dkrajzew
 // added vehicle classes to the routing modules
 //
@@ -75,6 +78,12 @@ namespace
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -113,7 +122,8 @@ using namespace std;
  * ======================================================================= */
 RORouteDef_OrigDest::RORouteDef_OrigDest(const std::string &id,
                                          const RGBColor &color,
-                                         ROEdge *from, ROEdge *to,
+                                         const ROEdge *from,
+										 const ROEdge *to,
                                          bool removeFirst)
     : RORouteDef(id, color), _from(from), _to(to), _current(0),
     myRemoveFirst(removeFirst)
@@ -127,14 +137,14 @@ RORouteDef_OrigDest::~RORouteDef_OrigDest()
 }
 
 
-ROEdge *
+const ROEdge * const
 RORouteDef_OrigDest::getFrom() const
 {
     return _from;
 }
 
 
-ROEdge *
+const ROEdge * const
 RORouteDef_OrigDest::getTo() const
 {
     return _to;
@@ -142,15 +152,16 @@ RORouteDef_OrigDest::getTo() const
 
 
 RORoute *
-RORouteDef_OrigDest::buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
-		bool continueOnUnbuild, ROVehicle &veh,
-		ROAbstractRouter::ROAbstractEdgeEffortRetriever * const retriever) const
+RORouteDef_OrigDest::buildCurrentRoute(ROAbstractRouter &router,
+									   SUMOTime begin, ROVehicle &veh) const
 {
-    ROEdgeVector rv = router.compute(_from, _to, begin, continueOnUnbuild, retriever);
-    if(myRemoveFirst&&rv.size()>1) {
-        rv.removeEnds();
+	std::vector<const ROEdge*> edges;
+	router.compute(_from, _to, &veh, begin, edges);
+    if(myRemoveFirst&&edges.size()>1) {
+        edges.erase(edges.begin());
+		edges.erase(edges.end()-1);
     }
-    return new RORoute(_id, 0, 1, rv);
+    return new RORoute(_id, 0, 1, edges);
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.8  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -98,7 +101,7 @@ public:
 
 private:
     /// Definition of a snipplet container
-    typedef std::map<std::pair<ROEdge*, ROEdge*>, ROEdgeVector > MapType;
+    typedef std::map<std::pair<const ROEdge*, const ROEdge*>, ROEdgeVector > MapType;
 
     /// The snipplet container
     MapType _known;

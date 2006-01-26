@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.11  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -92,7 +95,7 @@ class ROEdge;
 class ROEdgeVector {
 public:
     /// Definition of a list of edges
-    typedef std::vector<ROEdge*> EdgeVector;
+    typedef std::vector<const ROEdge*> EdgeVector;
 
     /// Constructor
     ROEdgeVector();
@@ -101,19 +104,19 @@ public:
     ROEdgeVector(size_t toReserve);
 
     /// Constructor
-    ROEdgeVector(EdgeVector &edges);
+    ROEdgeVector(const EdgeVector &edges);
 
     /// Destructor
     ~ROEdgeVector();
 
     /// Adds a further edge to the end
-    void add(ROEdge *edge);
+    void add(const ROEdge *edge);
 
     /// Returns the first edge
-    ROEdge *getFirst() const;
+    const ROEdge *getFirst() const;
 
     /// Returns the last edge
-    ROEdge *getLast() const;
+    const ROEdge *getLast() const;
 
     /// Returns a list of the edge ids in the order of the edges
     std::deque<std::string> getIDs() const;

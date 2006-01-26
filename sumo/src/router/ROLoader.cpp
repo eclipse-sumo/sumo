@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/01/26 08:44:14  dkrajzew
+// adapted the new router API
+//
 // Revision 1.24  2006/01/09 12:00:58  dkrajzew
 // debugging vehicle color usage
 //
@@ -249,8 +252,7 @@ ROLoader::skipUntilBegin()
     for(RouteLoaderCont::iterator i=_handler.begin(); i!=_handler.end(); i++) {
         (*i)->skipUntilBegin();
     }
-    MsgHandler::getMessageInstance()->inform(
-        string("Skipped until: ") + toString<SUMOTime>(getMinTimeStep()));
+    MsgHandler::getMessageInstance()->inform("Skipped until: " + toString<SUMOTime>(getMinTimeStep()));
 }
 
 
@@ -292,8 +294,8 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
     time = end;
     writeStats(time, start, absNo);
     MsgHandler::getMessageInstance()->inform(
-        string("Routes found between time steps ") + toString<int>(firstStep)
-        + string(" and ") + toString<int>(lastStep) + string("."));
+        "Routes found between time steps " + toString<int>(firstStep)
+        + " and " + toString<int>(lastStep) + ".");
 }
 
 
@@ -396,9 +398,8 @@ ROLoader::addToHandlerList(const std::string &optionName,
             buildNamedHandler(optionName, file, net);
         if(!instance->init(_options)) {
             delete instance;
-            MsgHandler::getErrorInstance()->inform(string("The loader for ")
-                + optionName + string(" from file '") + file
-                + string("' could not be initialised."));
+            MsgHandler::getErrorInstance()->inform("The loader for "
+                + optionName + " from file '" + file + "' could not be initialised.");
             throw ProcessError();
         }
         _handler.push_back(instance);
@@ -455,7 +456,7 @@ ROLoader::checkFile(const std::string &optionName,
     if(optionName=="trip-defs"&&FileHelpers::exists(file)) {
         return;
     }
-    if(optionName=="cell-input"&&FileHelpers::exists(file+string(".driver"))&&FileHelpers::exists(file+".rinfo")) {
+    if(optionName=="cell-input"&&FileHelpers::exists(file+".driver")&&FileHelpers::exists(file+".rinfo")) {
         return;
     }
     if(optionName=="artemis-input"&&FileHelpers::exists(file + "/HVdests.txt")&&FileHelpers::exists(file + "/Flows.txt")) {

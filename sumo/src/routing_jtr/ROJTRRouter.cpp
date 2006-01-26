@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/01/26 08:47:17  dkrajzew
+// adapted the new router API
+//
 // Revision 1.1  2005/10/10 12:09:36  dkrajzew
 // renamed ROJP*-classes to ROJTR*
 //
@@ -94,8 +97,8 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-ROJTRRouter::ROJTRRouter(RONet &net)
-    : myNet(net)
+ROJTRRouter::ROJTRRouter(RONet &net, bool unbuildIsWarningOnly)
+    : myNet(net), myUnbuildIsWarningOnly(unbuildIsWarningOnly)
 {
     myMaxEdges = (int) (
         ((SUMOReal) net.getEdgeNo()) *
@@ -108,39 +111,37 @@ ROJTRRouter::~ROJTRRouter()
 }
 
 
-ROEdgeVector
-ROJTRRouter::compute(ROEdge *from, ROEdge *to, SUMOTime time,
-                    bool continueOnUnbuild,
-					ROAbstractEdgeEffortRetriever * const retriever)
+void
+ROJTRRouter::compute(const ROEdge *from, const ROEdge *to,
+					 const ROVehicle * const vehicle,
+					 SUMOTime time, std::vector<const ROEdge*> &into)
 {
-    ROEdgeVector ret;
-    ROJTREdge *current = static_cast<ROJTREdge*>(from);
+    const ROJTREdge *current = static_cast<const ROJTREdge*>(from);
     // route until a sinks has been found
     while(  current!=0
             &&
             current->getType()!=ROEdge::ET_SINK
             &&
-            (int) ret.size()<myMaxEdges) {
-        ret.add(current);
+            (int) into.size()<myMaxEdges) {
+
+        into.push_back(current);
         time += (SUMOTime) current->getDuration(time);
         current = current->chooseNext(time);
     }
     // check whether no valid ending edge was found
-    if((int) ret.size()>=myMaxEdges) {
+    if((int) into.size()>=myMaxEdges) {
         MsgHandler *mh = 0;
-        if(continueOnUnbuild) {
+        if(myUnbuildIsWarningOnly) {
             mh = MsgHandler::getWarningInstance();
         } else {
             mh = MsgHandler::getErrorInstance();
         }
-        mh->inform(string("The route starting at edge '") + from->getID()
-            + string("' could not be closed."));
+        mh->inform("The route starting at edge '" + from->getID() + "' could not be closed.");
     }
     // append the sink
     if(current!=0) {
-        ret.add(current);
+        into.push_back(current);
     }
-    return ret;
 }
 
 

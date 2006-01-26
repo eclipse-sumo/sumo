@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/01/26 08:47:17  dkrajzew
+// adapted the new router API
+//
 // Revision 1.1  2005/10/10 12:09:36  dkrajzew
 // renamed ROJP*-classes to ROJTR*
 //
@@ -87,16 +90,15 @@ class ROJTREdge;
 class ROJTRRouter : public ROAbstractRouter {
 public:
     /// Constructor
-    ROJTRRouter(RONet &net);
+    ROJTRRouter(RONet &net, bool unbuildIsWarningOnly);
 
     /// Destructor
     ~ROJTRRouter();
 
     /** @brief Builds the route between the given edges using the minimum afford at the given time
         The definition of the afford depends on the wished routing scheme */
-    ROEdgeVector compute(ROEdge *from, ROEdge *to,
-        SUMOTime time, bool continueOnUnbuild,
-		ROAbstractEdgeEffortRetriever * const retriever=0);
+    void compute(const ROEdge *from, const ROEdge *to, const ROVehicle * const vehicle,
+        SUMOTime time, std::vector<const ROEdge*> &into);
 
 private:
     /// The network to use
@@ -104,6 +106,8 @@ private:
 
     /// The maximum number of edges a route may have
     int myMaxEdges;
+
+	bool myUnbuildIsWarningOnly;
 
 };
 
