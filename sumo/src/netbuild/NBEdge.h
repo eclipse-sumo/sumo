@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.44  2006/01/26 08:49:44  dkrajzew
+// debugging of vehicle class handling
+//
 // Revision 1.43  2006/01/17 14:11:52  dkrajzew
 // "split-geometry" - option added (unfinsihed, rename)
 //
@@ -219,6 +222,7 @@
 #include <utils/geom/Bresenham.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/geom/Line2D.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 
 /* =========================================================================
@@ -387,7 +391,7 @@ public:
 
     /// returns the information whether this edge is a source only
     // !!! regarded?
-    bool isSource() const;
+    //bool isSource() const;
 
     /// returns the information whether this edge is a sink only
     // !!! regarded?    bool isSink() const;
@@ -521,6 +525,8 @@ public:
 
     void markAsInLane2LaneState();
 
+	void allowVehicleClass(int lane, SUMOVehicleClass vclass);
+	void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
 
 private:
     /**
@@ -632,8 +638,6 @@ private:
     /// the name of the edge
     std::string  _name;
 
-    //
-
     /// information about connected edges
     EdgeVector _connectedEdges;
 
@@ -668,6 +672,9 @@ private:
 
     std::vector<Position2DVector> myLaneGeoms;
     std::vector<SUMOReal> myLaneSpeeds;
+	std::vector<std::vector<SUMOVehicleClass> > myAllowedOnLanes;
+	std::vector<std::vector<SUMOVehicleClass> > myNotAllowedOnLanes;
+
 
     SUMOReal myAmTurningWithAngle;
     NBEdge *myAmTurningOf;

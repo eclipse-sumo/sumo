@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.62  2006/01/26 08:49:44  dkrajzew
+// debugging of vehicle class handling
+//
 // Revision 1.61  2006/01/17 14:11:52  dkrajzew
 // "split-geometry" - option added (unfinsihed, rename)
 //
@@ -425,6 +428,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     /*_linkIsPriorised(0),*/ //_succeedinglanes(0),
     _fromJunctionPriority(-1), _toJunctionPriority(-1),
     _basicType(basic), myLaneSpreadFunction(spread),
+	myAllowedOnLanes(nolanes), myNotAllowedOnLanes(nolanes),
     myAmTurningWithAngle(0), myAmTurningOf(0)
 {
     assert(_nolanes!=0);
@@ -485,6 +489,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 /*    _linkIsPriorised(0), *///_succeedinglanes(0),
     _fromJunctionPriority(-1), _toJunctionPriority(-1),
     _basicType(basic), myGeom(geom), myLaneSpreadFunction(spread),
+	myAllowedOnLanes(nolanes), myNotAllowedOnLanes(nolanes),
     myAmTurningWithAngle(0), myAmTurningOf(0)
 {
     assert(_nolanes!=0);
@@ -784,6 +789,27 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
     } else {
         into << " depart=\"0\"";
     }
+	// write the list of allowed/disallowed vehicle classes
+	{
+		into << " vclasses=\"";
+		std::vector<SUMOVehicleClass>::const_iterator i;
+		bool hadOne = false;
+		for(i=myAllowedOnLanes[lane].begin(); i!=myAllowedOnLanes[lane].end(); ++i) {
+			if(hadOne) {
+				into << ';';
+			}
+			into << getVehicleClassName(*i);
+			hadOne = true;
+		}
+		for(i=myNotAllowedOnLanes[lane].begin(); i!=myNotAllowedOnLanes[lane].end(); ++i) {
+			if(hadOne) {
+				into << ';';
+			}
+			into << '-' << getVehicleClassName(*i);
+			hadOne = true;
+		}
+		into << '\"';
+	}
     // some further information
     if(myLaneSpeeds[lane]==0) {
         WRITE_WARNING(string("Lane #") + toString<size_t>(lane) + string(" of edge '") + _id + string("' has a maximum velocity of 0."));
@@ -2527,6 +2553,8 @@ NBEdge::incLaneNo(int by)
     _reachable.resize(_nolanes, EdgeLaneVector());
     while(myLaneSpeeds.size()<_nolanes) {
         myLaneSpeeds.push_back(_speed);
+		myAllowedOnLanes.push_back(std::vector<SUMOVehicleClass>());
+		myNotAllowedOnLanes.push_back(std::vector<SUMOVehicleClass>());
     }
     computeLaneShapes();
     const EdgeVector &incs = _from->getIncomingEdges();
@@ -2615,6 +2643,46 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
     //invalidateConnections();
     _step = INIT;
     return true;
+}
+
+
+void
+NBEdge::allowVehicleClass(int lane, SUMOVehicleClass vclass)
+{
+	if(lane<0) {
+		// if all lanes are meant...
+		for(size_t i=0; i<_nolanes; i++) {
+			// ... do it for each lane
+			allowVehicleClass((int) i, vclass);
+		}
+		return;
+	}
+	assert(lane<(int) _nolanes);
+	assert(lane<(int) myAllowedOnLanes.size());
+	// add it only if not already done
+	if(find(myAllowedOnLanes[lane].begin(), myAllowedOnLanes[lane].end(), vclass)==myAllowedOnLanes[lane].end()) {
+		myAllowedOnLanes[lane].push_back(vclass);
+	}
+}
+
+
+void
+NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass)
+{
+	if(lane<0) {
+		// if all lanes are meant...
+		for(size_t i=0; i<_nolanes; i++) {
+			// ... do it for each lane
+			disallowVehicleClass((int) i, vclass);
+		}
+		return;
+	}
+	assert(lane<(int) _nolanes);
+	assert(lane<(int) myAllowedOnLanes.size());
+	// add it only if not already done
+	if(find(myNotAllowedOnLanes[lane].begin(), myNotAllowedOnLanes[lane].end(), vclass)==myNotAllowedOnLanes[lane].end()) {
+		myNotAllowedOnLanes[lane].push_back(vclass);
+	}
 }
 
 
