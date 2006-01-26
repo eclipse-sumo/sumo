@@ -227,9 +227,9 @@ AM_CPPFLAGS = -I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7) \
 $(GUI_INCS)
 
 
-SUBDIRS = foreign microsim multimodal netload sumo_only \
-netbuild netedit netgen netimport \
-od2trips router routing_df routing_dua routing_jtr \
+SUBDIRS = foreign microsim multimodal \
+netbuild netedit netgen netimport netload \
+od2trips router routing_df routing_dua routing_jtr sumo_only \
 tools utils $(GUI_DIRS)
 
 EXTRA_DIST = config.h config.h.in \
