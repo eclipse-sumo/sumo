@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/01/26 08:42:50  dkrajzew
+// made lanes and edges being aware to vehicle classes
+//
 // Revision 1.9  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -42,6 +45,12 @@
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -52,7 +61,9 @@
 #endif
 #endif // HAVE_CONFIG_H
 
+#include <vector>
 #include <utils/common/Named.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 class ROEdge;
 
@@ -67,7 +78,9 @@ class ROEdge;
 class ROLane : public Named {
 public:
     /// Constructor
-    ROLane(const std::string &id, SUMOReal length, SUMOReal maxSpeed);
+    ROLane(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
+		const std::vector<SUMOVehicleClass> &allowed,
+		const std::vector<SUMOVehicleClass> &disallowed);
 
     /// Destructor
     ~ROLane();
@@ -78,18 +91,30 @@ public:
     /// Returns the maximum speed allowed on this lane
     SUMOReal getSpeed() const;
 
-    /// Return the Edge
-    ROEdge *getEdge();
+	/// Return the Edge
+	ROEdge *getEdge();
+
+	/// Returns the list of allowed vehicle classes
+	const std::vector<SUMOVehicleClass> &getAllowedClasses() const;
+
+	/// Returns the list of not allowed vehicle classes
+	const std::vector<SUMOVehicleClass> &getDisallowedClasses() const;
 
 protected:
 
-    ROEdge *myEdge;
+	ROEdge *myEdge;
 private:
     /// The length of the lane
     SUMOReal myLength;
 
     /// The maximum speed allowed on the lane
     SUMOReal myMaxSpeed;
+
+	/// The list of allowed vehicle classes
+	std::vector<SUMOVehicleClass> myAllowedClasses;
+
+	/// The list of disallowed vehicle classes
+	std::vector<SUMOVehicleClass> myDisAllowedClasses;
 
 };
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/26 08:42:50  dkrajzew
+// made lanes and edges being aware to vehicle classes
+//
 // Revision 1.9  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -45,6 +48,12 @@ namespace
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -66,8 +75,11 @@ namespace
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-ROLane::ROLane(const std::string &id, SUMOReal length, SUMOReal maxSpeed)
-    : Named(id), myLength(length), myMaxSpeed(maxSpeed)
+ROLane::ROLane(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
+			   const std::vector<SUMOVehicleClass> &allowed,
+			   const std::vector<SUMOVehicleClass> &disallowed)
+    : Named(id), myLength(length), myMaxSpeed(maxSpeed),
+	myAllowedClasses(allowed), myDisAllowedClasses(disallowed)
 {
 }
 
@@ -93,8 +105,24 @@ ROLane::getSpeed() const
 ROEdge *
 ROLane::getEdge()
 {
-    return myEdge;
+	return myEdge;
 }
+
+
+const std::vector<SUMOVehicleClass> &
+ROLane::getAllowedClasses() const
+{
+	return myAllowedClasses;
+}
+
+const std::vector<SUMOVehicleClass> &
+ROLane::getDisallowedClasses() const
+{
+	return myDisAllowedClasses;
+}
+
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 // Local Variables:

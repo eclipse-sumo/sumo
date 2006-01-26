@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/01/26 08:42:50  dkrajzew
+// made lanes and edges being aware to vehicle classes
+//
 // Revision 1.10  2006/01/24 13:43:53  dkrajzew
 // added vehicle classes to the routing modules
 //
@@ -97,6 +100,9 @@ public:
 
     // Returns the length the vehicles of this type have
     SUMOReal getLength() const;
+
+	/// Returns the class of the vehicle
+	SUMOVehicleClass getClass() const;
 
 protected:
     /// The name of the type

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/01/26 08:42:50  dkrajzew
+// made lanes and edges being aware to vehicle classes
+//
 // Revision 1.10  2006/01/24 13:43:53  dkrajzew
 // added vehicle classes to the routing modules
 //
@@ -107,6 +110,13 @@ SUMOReal
 ROVehicleType::getLength() const
 {
     return myLength;
+}
+
+
+SUMOVehicleClass
+ROVehicleType::getClass() const
+{
+	return myClass;
 }
 
 

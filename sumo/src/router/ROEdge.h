@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2006/01/26 08:42:50  dkrajzew
+// made lanes and edges being aware to vehicle classes
+//
 // Revision 1.18  2006/01/16 10:46:24  dkrajzew
 // some initial work on  the dfrouter
 //
@@ -91,12 +94,14 @@
 #include <map>
 #include <vector>
 #include <utils/router/FloatValueTimeLine.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class ROLane;
+class ROVehicle;
 
 
 /* =========================================================================
@@ -141,16 +146,16 @@ public:
 
     /** @brief Returns the number of edges this edge is connected to
         (size of the list of reachable edges) */
-    size_t getNoFollowing();
+    size_t getNoFollowing() const;
 
     /// Returns the edge at the given position from the list of reachable edges
-    ROEdge *getFollower(size_t pos);
+    ROEdge *getFollower(size_t pos) const;
 
     /// retrieves the cost of this edge at the given time
-    SUMOReal getCost(SUMOTime time);
+    SUMOReal getCost(SUMOTime time) const;
 
     /// Retrieves the time a vehicle needs to pass this edge starting at the given time
-    SUMOReal getDuration(SUMOTime time);
+    SUMOReal getDuration(SUMOTime time) const;
 
     /// Adds a connection, marking the effort to pas the connection (!!!)
     bool addConnection(ROEdge *to, SUMOReal effort);
@@ -168,7 +173,7 @@ public:
     SUMOReal getLength() const;
 
     /// Returns the index (numeric id) of the edge
-    size_t getIndex() const;
+    size_t getNumericalID() const;
 
     /// returns the effort for this edge only
     virtual SUMOReal getEffort(SUMOTime time) const;
@@ -192,30 +197,31 @@ public:
 
    virtual ROLane *getLane(std::string name) ; //###################
 
-static  bool dictionary(std::string id, ROEdge* ptr);
+static	bool dictionary(std::string id, ROEdge* ptr);
 
 static ROEdge* dictionary2(std::string id);
 ////#########################  muss Private sein
 
 
-            /// definition of the static dictionary type
+		    /// definition of the static dictionary type
     typedef std::map<std::string, ROEdge* > DictType;
 
     /// Static dictionary to associate string-ids with objects.
     static DictType myDict;
 
-            /// definition of the static dictionary type
+		    /// definition of the static dictionary type
     typedef std::map<std::string, ROLane* > DictLane;
 
     /// Static dictionary to associate string-ids with objects.
      DictLane myDictLane;
 
-     ROLane *getLane(size_t index);
+	 ROLane *getLane(size_t index);
 
     SUMOReal getSpeed() const;
 
     int getLaneNo() const;
 
+	bool prohibits(const ROVehicle * const vehicle) const;
 
 protected:
     /// The id of the edge
@@ -259,7 +265,14 @@ protected:
     /// The length of the edge
     SUMOReal myLength;
 
-    std::vector<ROLane*> myLanes;
+	std::vector<ROLane*> myLanes;
+
+	/// The list of allowed vehicle classes
+	std::vector<SUMOVehicleClass> myAllowedClasses;
+
+	/// The list of disallowed vehicle classes
+	std::vector<SUMOVehicleClass> myDisAllowedClasses;
+
 
 private:
     /// we made the copy constructor invalid

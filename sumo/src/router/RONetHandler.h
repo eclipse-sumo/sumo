@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/01/26 08:42:50  dkrajzew
+// made lanes and edges being aware to vehicle classes
+//
 // Revision 1.7  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -39,6 +42,12 @@
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -51,6 +60,7 @@
 
 #include <string>
 #include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 
 /* =========================================================================
@@ -122,6 +132,10 @@ protected:
     /** @brief An indicator whether the next edge shall be read
         Internal edges are not read by now */
     bool _process;
+
+	std::vector<SUMOVehicleClass> myAllowedClasses;
+	std::vector<SUMOVehicleClass> myDisallowedClasses;
+
 
     /// The object used to build of edges of the desired type
     ROAbstractEdgeBuilder &myEdgeBuilder;

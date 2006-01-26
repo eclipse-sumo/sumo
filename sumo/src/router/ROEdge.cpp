@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/01/26 08:42:50  dkrajzew
+// made lanes and edges being aware to vehicle classes
+//
 // Revision 1.23  2006/01/16 13:38:33  dkrajzew
 // debugging
 //
@@ -94,6 +97,12 @@ namespace
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -111,6 +120,8 @@ namespace
 #include <iostream>
 #include "ROLane.h"
 #include "ROEdge.h"
+#include "ROVehicle.h"
+#include "ROVehicleType.h"
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -135,7 +146,7 @@ ROEdge::ROEdge(const std::string &id, int index)
       _supplementaryWeightMult(0),
       _usingTimeLine(false),
       _hasSupplementaryWeights(false),
-      /*myHaveWarned(false),*/ myIndex(index), myLength(-1)
+      myIndex(index), myLength(-1)
 {
 }
 
@@ -152,7 +163,7 @@ ROEdge::~ROEdge()
 
 
 size_t
-ROEdge::getIndex() const
+ROEdge::getNumericalID() const
 {
     return myIndex;
 }
@@ -167,8 +178,41 @@ ROEdge::addLane(ROLane *lane)
     _dist = length > _dist ? length : _dist;
     SUMOReal speed = lane->getSpeed();
     _speed = speed > _speed ? speed : _speed;
-    myDictLane[lane->getID()] = lane;
-    myLanes.push_back(lane);
+	myDictLane[lane->getID()] = lane;
+	myLanes.push_back(lane);
+
+	std::vector<SUMOVehicleClass>::const_iterator i;
+	const std::vector<SUMOVehicleClass> &allowed = lane->getAllowedClasses();
+	// for allowed classes
+	for(i=allowed.begin(); i!=allowed.end(); ++i) {
+		SUMOVehicleClass allowedC = *i;
+		std::vector<SUMOVehicleClass>::iterator t;
+		// add to allowed if not already in there
+		t = find(myAllowedClasses.begin(), myAllowedClasses.end(), allowedC);
+		if(t==myAllowedClasses.end()) {
+			myAllowedClasses.push_back(allowedC);
+		}
+		// remove from disallowed if allowed on the lane
+		t = find(myDisAllowedClasses.begin(), myDisAllowedClasses.end(), allowedC);
+		if(t!=myDisAllowedClasses.end()) {
+			myDisAllowedClasses.erase(t);
+		}
+	}
+	// for disallowed classes
+	const std::vector<SUMOVehicleClass> &disallowed = lane->getDisallowedClasses();
+	for(i=disallowed.begin(); i!=disallowed.end(); ++i) {
+		SUMOVehicleClass disallowedC = *i;
+		std::vector<SUMOVehicleClass>::iterator t;
+		// add to disallowed if not already in there
+		//  and not within allowed
+		t = find(myAllowedClasses.begin(), myAllowedClasses.end(), disallowedC);
+		if(t==myAllowedClasses.end()) {
+			t = find(myDisAllowedClasses.begin(), myDisAllowedClasses.end(), disallowedC);
+			if(t==myDisAllowedClasses.end()) {
+				myDisAllowedClasses.push_back(disallowedC);
+			}
+		}
+	}
 }
 
 
@@ -209,8 +253,8 @@ ROEdge::getEffort(SUMOTime time) const
         searchResult = _ownValueLine.getSearchStateAndValue( time );
         if ( searchResult.first == false ) {
             if(!myHaveWarned) {
-                WRITE_WARNING(string("ROEdge::getMyEffort(id ") + _id+ string(" ):"));
-                WRITE_WARNING(string(" No interval matches passed time ")+ toString<SUMOTime>(time)  + string("."));
+                WRITE_WARNING("ROEdge::getMyEffort(id " + _id+ " ):");
+                WRITE_WARNING(" No interval matches passed time "+ toString<SUMOTime>(time)  + ".");
                 WRITE_WARNING("Using edge's length / edge's speed.");
                 myHaveWarned = true;
             }
@@ -240,7 +284,7 @@ ROEdge::getEffort(SUMOTime time) const
 
 
 size_t
-ROEdge::getNoFollowing()
+ROEdge::getNoFollowing() const
 {
     if(getType()==ET_SINK) {
         return 0;
@@ -250,7 +294,7 @@ ROEdge::getNoFollowing()
 
 
 ROEdge *
-ROEdge::getFollower(size_t pos)
+ROEdge::getFollower(size_t pos) const
 {
     return myFollowingEdges[pos];
 }
@@ -264,14 +308,14 @@ ROEdge::isConnectedTo(ROEdge *e)
 
 
 SUMOReal
-ROEdge::getCost(SUMOTime time)
+ROEdge::getCost(SUMOTime time) const
 {
     return getEffort(time);
 }
 
 
 SUMOReal
-ROEdge::getDuration(SUMOTime time)
+ROEdge::getDuration(SUMOTime time) const
 {
     return getEffort(time);
 }
@@ -390,6 +434,29 @@ ROEdge::getLaneNo() const
     return myLanes.size();
 }
 
+
+bool
+ROEdge::prohibits(const ROVehicle * const vehicle) const
+{
+	if(myAllowedClasses.size()==0&&myDisAllowedClasses.size()==0) {
+		return false;
+	}
+	SUMOVehicleClass vclass = vehicle->getType()->getClass();
+    if(vclass==SVC_UNKNOWN) {
+        return false;
+    }
+	// check whether it is explicitely disallowed
+	if(find(myDisAllowedClasses.begin(), myDisAllowedClasses.end(), vclass)!=myDisAllowedClasses.end()) {
+		return true;
+	}
+	// check whether it is within the allowed classes
+	if(myAllowedClasses.size()==0||find(myAllowedClasses.begin(), myAllowedClasses.end(), vclass)!=myAllowedClasses.end()) {
+		return false;
+	}
+	// ok, we have a set of allowed vehicle classes, but this vehicle's class
+	//  is not among them
+	return true;
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
