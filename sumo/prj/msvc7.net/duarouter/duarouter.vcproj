@@ -201,26 +201,6 @@ copy Release\duarouter.exe ..\..\..\bin\duarouter.exe
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_dua\RODijkstraRouter.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\routing_dua\RODUAEdgeBuilder.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -261,9 +241,6 @@ copy Release\duarouter.exe ..\..\..\bin\duarouter.exe
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\ReferencedItem.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\routing_dua\RODijkstraRouter.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\routing_dua\RODUAEdgeBuilder.h">

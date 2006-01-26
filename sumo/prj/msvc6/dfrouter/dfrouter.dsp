@@ -1,24 +1,24 @@
 # Microsoft Developer Studio Project File - Name="dfrouter" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** NICHT BEARBEITEN **
+# ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 CFG=dfrouter - Win32 Debug
-!MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
-!MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
+!MESSAGE This is not a valid makefile. To build this project using NMAKE,
+!MESSAGE use the Export Makefile command and run
 !MESSAGE 
 !MESSAGE NMAKE /f "dfrouter.mak".
 !MESSAGE 
-!MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
-!MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
+!MESSAGE You can specify a configuration when running NMAKE
+!MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
 !MESSAGE NMAKE /f "dfrouter.mak" CFG="dfrouter - Win32 Debug"
 !MESSAGE 
-!MESSAGE Für die Konfiguration stehen zur Auswahl:
+!MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "dfrouter - Win32 Release" (basierend auf  "Win32 (x86) Console Application")
-!MESSAGE "dfrouter - Win32 Debug" (basierend auf  "Win32 (x86) Console Application")
+!MESSAGE "dfrouter - Win32 Release" (based on "Win32 (x86) Console Application")
+!MESSAGE "dfrouter - Win32 Debug" (based on "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
@@ -141,10 +141,6 @@ SOURCE=..\..\..\src\routing_df\RODFFrame.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\routing_df\RODijkstraRouter.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\sumo_version.cpp
 # End Source File
 # Begin Source File
@@ -222,10 +218,6 @@ SOURCE=..\..\..\src\routing_df\RODFEdgeBuilder.h
 # Begin Source File
 
 SOURCE=..\..\..\src\routing_df\RODFFrame.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\routing_df\RODijkstraRouter.h
 # End Source File
 # Begin Source File
 

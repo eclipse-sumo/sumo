@@ -117,6 +117,25 @@ $(MEM_LIBS) \
 
 
 
+sumo_dfrouter_SOURCES = dfrouter_main.cpp dfrouter_help.h \
+sumo_version.cpp sumo_version.h dfrouter_build.h
+
+sumo_dfrouter_LDFLAGS = -L$(XERCES_LDFLAGS)
+
+sumo_dfrouter_LDADD   = ./routing_df/libdfrouting.a \
+./router/librouter.a \
+./utils/router/librouter.a \
+./utils/options/liboptions.a \
+./utils/common/libcommon.a \
+./utils/gfx/libgfx.a \
+./utils/sumoxml/libsumoxml.a \
+./utils/xml/libxml.a \
+./utils/importio/libimportio.a \
+$(MEM_LIBS) \
+-l$(LIB_XERCES)
+
+
+
 sumo_jtrrouter_SOURCES = jtrrouter_main.cpp jtrrouter_help.h \
 sumo_version.cpp sumo_version.h jtrrouter_build.h
 
@@ -219,8 +238,8 @@ giant_build.h giant_help.h giant_main.cpp \
 guisim.rc \
 netedit_build.h netedit_help.h netedit_main.cpp \
 tagreader.cpp \
-windows_config.h \
-dfrouter_main.cpp dfrouter_build.h dfrouter_help.h
+windows_config.h
+
 
 
 

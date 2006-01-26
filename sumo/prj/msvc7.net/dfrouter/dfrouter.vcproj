@@ -226,9 +226,6 @@ copy Release\dfrouter.exe ..\..\..\bin\dfrouter.exe
 				RelativePath="..\..\..\src\routing_df\RODFFrame.cpp">
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODijkstraRouter.cpp">
-			</File>
-			<File
 				RelativePath="..\..\..\src\sumo_version.cpp">
 			</File>
 		</Filter>
@@ -273,9 +270,6 @@ copy Release\dfrouter.exe ..\..\..\bin\dfrouter.exe
 			</File>
 			<File
 				RelativePath="..\..\..\src\routing_df\RODFFrame.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\routing_df\RODijkstraRouter.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\sumo_version.h">

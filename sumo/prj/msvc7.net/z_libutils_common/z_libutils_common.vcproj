@@ -294,6 +294,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\SUMOVehicleClass.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\SystemFrame.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -422,6 +425,15 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\StringUtils.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\helpers\SUMOAbstractRouter.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\helpers\SUMODijkstraRouter.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\SUMOVehicleClass.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\SystemFrame.h">

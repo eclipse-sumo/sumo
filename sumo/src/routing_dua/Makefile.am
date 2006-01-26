@@ -1,6 +1,5 @@
 noinst_LIBRARIES = libduarouting.a
 
-
 EXTRA_DIST =
 
 libduarouting_a_SOURCES = RODUAEdgeBuilder.cpp RODUAEdgeBuilder.h \
