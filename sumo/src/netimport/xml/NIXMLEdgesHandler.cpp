@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/01/26 08:51:08  dkrajzew
+// added definition of allowed/disallowed vehicle classes
+//
 // Revision 1.22  2005/11/29 13:31:16  dkrajzew
 // debugging
 //
@@ -177,6 +180,7 @@ namespace
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
@@ -216,7 +220,7 @@ void
 NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
                                   const Attributes &attrs)
 {
-    if(tag=="edge") {
+    if(element==SUMO_TAG_EDGE) {
         // retrieve the id of the edge
         setID(attrs);
         // retrieve the name of the edge
@@ -264,17 +268,42 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
             }
             // insert the edge
             if(!myEdgeCont.insert(edge)) {
-                addError(
-                    string("Duplicate edge occured. ID='") + myCurrentID
-                    + string("'"));
+                addError("Duplicate edge occured. ID='" + myCurrentID + "'");
                 delete edge;
             }
         } catch (...) {
             addError(
-                string("Important information (propably the source or the destination node) missing in edge '")
-                    + myCurrentID + string("'."));
+                "Important information (propably the source or the destination node) missing in edge '"
+				+ myCurrentID + "'.");
         }
     }
+    if(element==SUMO_TAG_LANE) {
+		NBEdge *edge = myEdgeCont.retrieve(myCurrentID);
+		if(edge==0) {
+			addError("Additional lane information could not been set.");
+			return;
+		}
+		int lane = getIntSecure(attrs, "id", -1);
+		string disallowed = getStringSecure(attrs, "disallow", "");
+		string allowed = getStringSecure(attrs, "allow", "");
+		if(disallowed!="") {
+			StringTokenizer st(disallowed, ";");
+			while(st.hasNext()) {
+				edge->disallowVehicleClass(lane, getVehicleClassID(st.next()));
+			}
+		}
+		if(allowed!="") {
+			StringTokenizer st(allowed, ";");
+			while(st.hasNext()) {
+				string next = st.next();
+				if(next[0]=='-') {
+					edge->disallowVehicleClass(lane, getVehicleClassID(next.substr(1)));
+				} else {
+					edge->allowVehicleClass(lane, getVehicleClassID(next));
+				}
+			}
+		}
+	}
 }
 
 
@@ -327,9 +356,7 @@ NIXMLEdgesHandler::setGivenSpeed(const Attributes &attrs)
             myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
         }
     } catch (NumberFormatException) {
-        addError(
-            string("Not numeric value for speed (at tag ID='")
-            + myCurrentID + string("')."));
+        addError("Not numeric value for speed (at tag ID='" + myCurrentID + "').");
     }
 }
 
@@ -342,9 +369,7 @@ NIXMLEdgesHandler::setGivenLanes(const Attributes &attrs)
         myCurrentLaneNo =
             getIntSecure(attrs, SUMO_ATTR_NOLANES, myCurrentLaneNo);
     } catch (NumberFormatException) {
-        addError(
-            string("Not numeric value for nolanes (at tag ID='")
-            + myCurrentID + string("')."));
+        addError("Not numeric value for nolanes (at tag ID='" + myCurrentID + "').");
     }
 }
 
@@ -361,9 +386,7 @@ NIXMLEdgesHandler::setGivenPriority(const Attributes &attrs)
         myCurrentPriority =
             getIntSecure(attrs, SUMO_ATTR_PRIORITY, myCurrentPriority);
     } catch (NumberFormatException) {
-        addError(
-            string("Not numeric value for priority (at tag ID='")
-            + myCurrentID + string("')."));
+        addError("Not numeric value for priority (at tag ID='" + myCurrentID + "').");
     }
 }
 
@@ -393,10 +416,8 @@ NIXMLEdgesHandler::setNodes(const Attributes &attrs)
     // check the obtained values for nodes
     if(!insertNodesCheckingCoherence()) {
         if(!_options.getBool("omit-corrupt-edges")) {
-			addError(
-				string("On parsing edge '") + myCurrentID + string("':"));
-            addError(
-                string(" The data are not coherent or the nodes are not given..."));
+			addError("On parsing edge '" + myCurrentID + "':");
+            addError(" The data are not coherent or the nodes are not given...");
         }
         return false;
     }
@@ -411,10 +432,7 @@ NIXMLEdgesHandler::tryGetPosition(const Attributes &attrs, int tag,
     try {
         return getFloatSecure(attrs, tag, -1);
     } catch (NumberFormatException) {
-        addError(
-            string("Not numeric value for ") + attrName
-                + (" (at tag ID='")
-                + myCurrentID + string("')."));
+        addError("Not numeric value for " + attrName + " (at tag ID='" + myCurrentID + "').");
         return -1.0;
     }
 }
@@ -516,9 +534,7 @@ NIXMLEdgesHandler::setLength(const Attributes &attrs)
             myLength = 0;
         }
     } catch (NumberFormatException) {
-        addError(
-            string("Not numeric value for length (at tag ID='")
-                + myCurrentID + string("')."));
+        addError("Not numeric value for length (at tag ID='" + myCurrentID + "').");
     }
 }
 
@@ -540,18 +556,13 @@ NIXMLEdgesHandler::tryGetShape(const Attributes &attrs)
     try {
         Position2DVector shape = GeomConvHelper::parseShape(shpdef);
         if(shape.size()==1) {
-            addError(string("The shape of edge '") + myCurrentID
-                + string("' has only one entry."));
+            addError("The shape of edge '" + myCurrentID + "' has only one entry.");
         }
         return shape;
     } catch (EmptyData) {
-        addError(
-            string("At least one number is missing in shape definition for edge '")
-            + myCurrentID + string("'."));
+        addError("At least one number is missing in shape definition for edge '" + myCurrentID + "'.");
     } catch (NumberFormatException) {
-        addError(
-            string("A non-numeric value occured in shape definition for edge '")
-            + myCurrentID + string("'."));
+        addError("A non-numeric value occured in shape definition for edge '" + myCurrentID + "'.");
     }
     return Position2DVector();
 }
