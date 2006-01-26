@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/01/26 08:52:40  dkrajzew
+// removed 4786 warnings
+//
 // Revision 1.7  2005/10/07 11:47:09  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -41,6 +44,12 @@ namespace
 // Revision 1.2  2003/02/07 10:52:57  dkrajzew
 // updated
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
