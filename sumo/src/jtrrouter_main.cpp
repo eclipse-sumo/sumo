@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/01/26 08:54:44  dkrajzew
+// adapted the new router API
+//
 // Revision 1.13  2006/01/16 13:38:22  dkrajzew
 // help and error handling patched
 //
@@ -263,7 +266,7 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
     // prepare the output
     net.openOutput(oc.getString("output"), false);
     // build the router
-    ROJTRRouter router(net);
+    ROJTRRouter router(net, oc.getBool("continue-on-unbuild"));
     // initialise the loader
     size_t noLoaders =
         loader.openRoutes(net, 1, 1);

@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/01/26 08:54:44  dkrajzew
+// adapted the new router API
+//
 // Revision 1.7  2006/01/19 17:42:58  ericnicolay
 // base classes for the reading of the detectorflows
 //
@@ -76,7 +79,6 @@ namespace
 #include <router/ROLoader.h>
 #include <router/RONet.h>
 #include <router/ROVehicleType_Krauss.h>
-#include <routing_df/RODijkstraRouter.h>
 #include <routing_df/RODFEdgeBuilder.h>
 #include <router/ROFrame.h>
 #include <utils/common/MsgHandler.h>
@@ -101,7 +103,6 @@ namespace
 #include "sumo_version.h"
 #include <utils/common/XMLHelpers.h>
 #include <utils/common/FileHelpers.h>
-
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -178,7 +179,7 @@ readDetectorFlows( OptionsCont &oc, DFDetectorCon * dc)
 		throw ProcessError();
 	}
 	DFDetFlowLoader * dfl = new DFDetFlowLoader(oc.getString("detectorflow-file"), dc);
-	
+
 	DFDetectorFlows * df = dfl->getFlows();
 	delete dfl;
 	return df;

@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/01/26 08:54:44  dkrajzew
+// adapted the new router API
+//
 // Revision 1.10  2006/01/16 13:21:28  dkrajzew
 // computation of detector types validated for the 'messstrecke'-scenario
 //
@@ -180,9 +183,10 @@ namespace
 #include <limits.h>
 #include <ctime>
 #include <router/ROLoader.h>
+#include <router/ROEdgeVector.h>
 #include <router/RONet.h>
 #include <router/ROVehicleType_Krauss.h>
-#include <routing_dua/RODijkstraRouter.h>
+#include <utils/helpers/SUMODijkstraRouter.h>
 #include <routing_dua/RODUAEdgeBuilder.h>
 #include <router/ROFrame.h>
 #include <utils/common/MsgHandler.h>
@@ -254,7 +258,8 @@ void
 startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
     // build the router
-    RODijkstraRouter router(net);
+    SUMODijkstraRouter<ROEdge, ROVehicle> router(
+		net.getEdgeNo(), oc.getBool("continue-on-unbuild"));
     // initialise the loader
     size_t noLoaders =
         loader.openRoutes(net, oc.getFloat("gBeta"), oc.getFloat("gA"));
@@ -266,13 +271,11 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
     net.openOutput(oc.getString("output"), true);
     // the routes are sorted - process stepwise
     if(!oc.getBool("unsorted")) {
-        loader.processRoutesStepWise(
-            oc.getInt("b"), oc.getInt("e"), net, router);
+        loader.processRoutesStepWise(oc.getInt("b"), oc.getInt("e"), net, router);
     }
     // the routes are not sorted: load all and process
     else {
-        loader.processAllRoutes(
-            oc.getInt("b"), oc.getInt("e"), net, router);
+        loader.processAllRoutes(oc.getInt("b"), oc.getInt("e"), net, router);
     }
     // end the processing
     loader.closeReading();
