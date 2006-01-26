@@ -175,7 +175,7 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc base, int no,
     if(myApproachedEdges.find(edge)==myApproachedEdges.end()) {
         // ok, no further connections to follow
         DFRORouteDesc tmp = base;
-        tmp.duration += edge->getLength()/(100./3.6);
+        tmp.duration += edge->getLength()/(SUMOReal)(100./3.6);//!!!
         tmp.probab = -1;
         into.addRouteDesc(tmp);
         return;
@@ -254,14 +254,14 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc base, int no,
             ROEdge *c = (*i);
             if(use[idx]&&next!=0&&c->getSpeed()==next->getSpeed()&&c->getLaneNo()==next->getLaneNo()) {
                 DFRORouteDesc t = base;
-                t.duration += c->getLength()/(100./3.6);
+                t.duration += c->getLength()/(SUMOReal)(100./3.6);//!!!
                 t.edges2Pass.push_back(c);
                 computeRoutesFor(c, t, 0, visited, det, into);
             } else {
                 if(!use[idx]||c->getSpeed()!=next->getSpeed()||c->getLaneNo()!=next->getLaneNo()) {
                     DFRORouteDesc t = base;
                     t.edges2Pass.push_back(c);
-                    t.duration += c->getLength()/(100./3.6);
+                    t.duration += c->getLength()/(SUMOReal)(100./3.6);//!!!
                     into.addRouteDesc(t);
                     /*!!!
                     if(edge2det.find(c)!=edge2det.end()) {
@@ -373,7 +373,7 @@ DFRONet::isSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> seen
     const std::vector<ROEdge*> &appr = myApproachingEdges.find(edge)->second;
     bool isall = true;
     seen.push_back(edge);
-    for(int i=0; i<appr.size()&&isall; i++) {
+    for(size_t i=0; i<appr.size()&&isall; i++) {
         //printf("checking %s->\n", appr[i].c_str());
         bool had = std::find(seen.begin(), seen.end(), appr[i])!=seen.end();
         if(!had) {
@@ -402,7 +402,7 @@ DFRONet::isHighwaySource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge
     const std::vector<ROEdge*> &appr = myApproachingEdges.find(edge)->second;
     bool isall = true;
     seen.push_back(edge);
-    for(int i=0; i<appr.size()&&isall; i++) {
+    for(size_t i=0; i<appr.size()&&isall; i++) {
         //printf("checking %s->\n", appr[i].c_str());
         bool had = std::find(seen.begin(), seen.end(), appr[i])!=seen.end();
         if(!had) {
@@ -443,7 +443,7 @@ DFRONet::isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*>
     const std::vector<ROEdge*> &appr  = myApproachedEdges.find(edge)->second;
     bool isall = true;
     seen.push_back(edge);
-    for(int i=0; i<appr.size()&&isall; i++) {
+    for(size_t i=0; i<appr.size()&&isall; i++) {
         //printf("checking %s->\n", appr[i].c_str());
         bool had = std::find(seen.begin(), seen.end(), appr[i])!=seen.end();
         if(!had) {
