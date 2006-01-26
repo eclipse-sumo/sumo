@@ -1,10 +1,10 @@
 noinst_LIBRARIES = libduarouting.a
 
+
 EXTRA_DIST =
 
 libduarouting_a_SOURCES = RODUAEdgeBuilder.cpp RODUAEdgeBuilder.h \
-RODUAFrame.cpp RODUAFrame.h \
-RODijkstraRouter.cpp RODijkstraRouter.h
+RODUAFrame.cpp RODUAFrame.h
 
 SUBDIRS =
 
