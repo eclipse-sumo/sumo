@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/01/26 08:49:15  dkrajzew
+// removed uneeded variables
+//
 // Revision 1.19  2006/01/11 11:59:20  dkrajzew
 // patched reassignment of explicite connections
 //
@@ -1151,13 +1154,13 @@ NBNode::writeXML(ostream &into)
     into << "   </junction>" << endl << endl;
 }
 
-
+/*
 void
 NBNode::setKey(string key)
 {
     _key = key;
 }
-
+*/
 
 void
 NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,

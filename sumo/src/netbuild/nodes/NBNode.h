@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2006/01/26 08:49:15  dkrajzew
+// removed uneeded variables
+//
 // Revision 1.9  2005/11/09 06:40:49  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -531,7 +534,7 @@ private:
     Position2D myPosition;
 
     /** the logic-key */
-    std::string _key;
+    //std::string _key;
 
     /// vector of incoming edges
     std::vector<NBEdge*> *_incomingEdges;
