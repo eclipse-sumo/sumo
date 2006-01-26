@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/26 08:37:24  dkrajzew
+// removed warnings 4786
+//
 // Revision 1.9  2006/01/09 12:00:58  dkrajzew
 // debugging vehicle color usage
 //
@@ -74,6 +77,12 @@ namespace
 // Revision 1.1  2003/04/09 15:41:19  dkrajzew
 // router debugging & extension: no routing over sources, random routes added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */

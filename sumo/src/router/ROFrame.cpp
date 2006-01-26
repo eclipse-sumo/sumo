@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/26 08:37:23  dkrajzew
+// removed warnings 4786
+//
 // Revision 1.9  2006/01/16 13:38:22  dkrajzew
 // help and error handling patched
 //
@@ -57,6 +60,12 @@ namespace
 // Revision 1.1  2004/10/22 12:50:23  dksumo
 // initial checkin into an internal, standalone SUMO CVS
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
