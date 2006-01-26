@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2006/01/26 08:54:59  dkrajzew
+// missing files added
+//
 // Revision 1.32  2006/01/09 13:38:46  dkrajzew
 // debugging
 //
@@ -199,9 +202,9 @@ GenericSAX2Handler::Tag sumotags[54] =
 	  { "param",	        SUMO_TAG_PARAM }
 };
 
-size_t noSumoAttrs = 88;
+size_t noSumoAttrs = 89;
 
-AttributesHandler::Attr sumoattrs[88] =
+AttributesHandler::Attr sumoattrs[89] =
 {
 	{ "id",             SUMO_ATTR_ID },
     { "name",           SUMO_ATTR_NAME },
@@ -235,6 +238,7 @@ AttributesHandler::Attr sumoattrs[88] =
     { "accel",          SUMO_ATTR_ACCEL },
     { "decel",          SUMO_ATTR_DECEL },
     { "sigma",          SUMO_ATTR_SIGMA },
+    { "class",          SUMO_ATTR_VCLASS },
     { "repno",          SUMO_ATTR_REPNUMBER },
 
     { "last",           SUMO_ATTR_LAST },

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.33  2006/01/26 08:54:59  dkrajzew
+// missing files added
+//
 // Revision 1.32  2005/11/09 06:47:53  dkrajzew
 // tls-api changes
 //
@@ -291,6 +294,7 @@ enum AttrEnum
     SUMO_ATTR_ACCEL,
     SUMO_ATTR_DECEL,
     SUMO_ATTR_SIGMA,
+    SUMO_ATTR_VCLASS,
     SUMO_ATTR_REPNUMBER,
     /* route alternatives attributes */
     SUMO_ATTR_LAST,
@@ -398,7 +402,7 @@ extern GenericSAX2Handler::Tag sumotags[54];
 /// The number of SUMO-XML attributes
 extern size_t noSumoAttrs;
 /// The names of SUMO-XML attributes
-extern AttributesHandler::Attr sumoattrs[88];
+extern AttributesHandler::Attr sumoattrs[89];
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

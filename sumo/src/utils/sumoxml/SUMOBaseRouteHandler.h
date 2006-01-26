@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2006/01/26 08:54:59  dkrajzew
+// missing files added
+//
 // Revision 1.1  2006/01/09 13:38:36  dkrajzew
 // debugging vehicle color usage
 //
@@ -46,6 +49,7 @@
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/gfx/RGBColor.h>
+#include <utils/common/SUMOVehicleClass.h>
 
 
 /* =========================================================================
@@ -58,7 +62,10 @@
 class SUMOBaseRouteHandler
 {
 public:
+	/// Constructor
     SUMOBaseRouteHandler();
+
+	/// Destructor
     ~SUMOBaseRouteHandler();
 
 protected:
@@ -70,6 +77,11 @@ protected:
     /// Retrieves a color definition
     RGBColor parseColor(SUMOSAXHandler &helper, const Attributes &attrs,
         const std::string &type, const std::string &id);
+
+	/// Retrieves the class
+	SUMOVehicleClass parseVehicleClass(SUMOSAXHandler &helper,
+		const Attributes &attrs, const std::string &type,
+		const std::string &id);
 
     /// Parses and returns the departure time of the current vehicle
     SUMOTime getVehicleDepartureTime(SUMOSAXHandler &helper,

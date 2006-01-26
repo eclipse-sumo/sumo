@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/01/26 08:54:59  dkrajzew
+// missing files added
+//
 // Revision 1.1  2006/01/09 13:38:36  dkrajzew
 // debugging vehicle color usage
 //
@@ -117,10 +120,30 @@ SUMOBaseRouteHandler::parseColor(SUMOSAXHandler &helper,
     RGBColor col;
     try {
         col = GfxConvHelper::parseColor(helper.getStringSecure(attrs, SUMO_ATTR_COLOR, "-1,-1,-1"));
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The color definition for " + type + " '" + id + "' is malicious.");
     }
     return col;
+}
+
+
+SUMOVehicleClass
+SUMOBaseRouteHandler::parseVehicleClass(SUMOSAXHandler &helper,
+										const Attributes &attrs,
+										const std::string &type,
+										const std::string &id)
+{
+    SUMOVehicleClass vclass = SVC_UNKNOWN;
+    try {
+		string vclassS = helper.getStringSecure(attrs, SUMO_ATTR_VCLASS, "");
+		if(vclassS=="") {
+			return vclass;
+		}
+        return getVehicleClassID(vclassS);
+    } catch (...) {
+        MsgHandler::getErrorInstance()->inform("The class for " + type + " '" + id + "' is not known.");
+    }
+    return vclass;
 }
 
 
