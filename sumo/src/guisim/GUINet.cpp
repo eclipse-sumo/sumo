@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.48  2006/01/26 08:28:53  dkrajzew
+// patched MSEdge in order to work with a generic router
+//
 // Revision 1.47  2006/01/09 11:53:24  dkrajzew
 // new visualization settings implemented
 //
@@ -342,7 +345,7 @@ GUINet::initDetectors()
         for(MSDetectorControl::E2Vect::const_iterator i2=loopVec2.begin(); i2!=loopVec2.end(); i2++) {
             const MSLane *lane = (*i2)->getLane();
             GUIEdge *edge =
-                static_cast<GUIEdge*>(MSEdge::dictionary(lane->edge().id()));
+                static_cast<GUIEdge*>(MSEdge::dictionary(lane->edge().getID())); //!!!
             // build the wrapper
             if( (*i2)->getUsageType()==DU_SUMO_INTERNAL
                 ||
@@ -374,7 +377,7 @@ GUINet::initDetectors()
         for(MSDetectorControl::LoopVect::const_iterator i=loopVec.begin(); i!=loopVec.end(); i++) {
             const MSLane *lane = (*i)->getLane();
             GUIEdge *edge =
-                static_cast<GUIEdge*>(MSEdge::dictionary(lane->edge().id()));
+                static_cast<GUIEdge*>(MSEdge::dictionary(lane->edge().getID()));//!!!
             // build the wrapper
             GUIDetectorWrapper *wrapper =
                 static_cast<GUIInductLoop*>(*i)->buildDetectorWrapper(

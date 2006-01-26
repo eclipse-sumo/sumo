@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/01/26 08:28:53  dkrajzew
+// patched MSEdge in order to work with a generic router
+//
 // Revision 1.22  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -299,7 +302,7 @@ GUIEdge::getType() const
 std::string
 GUIEdge::microsimID() const
 {
-    return id();
+    return getID();
 }
 
 

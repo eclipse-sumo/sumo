@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/01/26 08:28:53  dkrajzew
+// patched MSEdge in order to work with a generic router
+//
 // Revision 1.13  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -183,7 +186,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
     for(LaneDetMap::const_iterator i=detectors.begin(); i!=detectors.end(); i++) {
         MSLane *l = (*i).first;
         GUIEdge *edge =
-            static_cast<GUIEdge*>(MSEdge::dictionary(l->edge().id()));
+            static_cast<GUIEdge*>(MSEdge::dictionary(l->edge().getID())); // !!!
         GUILaneWrapper &w = edge->getLaneGeometry(l);
         GUI_E2_ZS_Collector *c =
             static_cast<GUI_E2_ZS_Collector*>((*i).second);

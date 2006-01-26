@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/01/26 08:30:29  dkrajzew
+// patched MSEdge in order to work with a generic router
+//
 // Revision 1.6  2006/01/16 13:35:52  dkrajzew
 // output formats updated for the next release
 //
@@ -126,7 +129,7 @@ MSXMLRawOut::writeEdge(OutputDevice* of, const MSEdge &edge,
     //en
     if ( dump ) {
         string indent( intend, ' ' );
-        of->getOStream() << indent << "<edge id=\"" << edge.id() << "\">" << endl;
+        of->getOStream() << indent << "<edge id=\"" << edge.getID() << "\">" << endl;
         for ( MSEdge::LaneCont::const_iterator lane=edge.getLanes()->begin(); lane!=edge.getLanes()->end(); ++lane) {
             writeLane(of, **lane, intend+3);
         }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/01/26 08:30:29  dkrajzew
+// patched MSEdge in order to work with a generic router
+//
 // Revision 1.13  2006/01/16 13:35:52  dkrajzew
 // output formats updated for the next release
 //
@@ -195,7 +198,7 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
     MSEdge::LaneCont *lanes = edge.getLanes();
     MSEdge::LaneCont::const_iterator lane;
     if(!myAmEdgeBased) {
-        dev.writeString("   <edge id=\"").writeString(edge.id()).writeString("\">\n");
+        dev.writeString("   <edge id=\"").writeString(edge.getID()).writeString("\">\n");
         for ( lane = lanes->begin(); lane != lanes->end(); ++lane) {
             writeLane(dev, *(*lane), startTime, stopTime);
         }
@@ -237,7 +240,7 @@ MSMeanData_Net::writeEdge(XMLDevice &dev,
             meanData.reset();
         }
         assert(lanes->size()!=0);
-        dev.writeString("      <edge id=\"").writeString(edge.id()).writeString(
+        dev.writeString("      <edge id=\"").writeString(edge.getID()).writeString(
             "\" traveltime=\"").writeString(toString(traveltimeS/(SUMOReal) lanes->size())).writeString(
             "\" noVehContrib=\"").writeString(toString(nVehS)).writeString(
             "\" density=\"").writeString(toString(meanDensityS/(SUMOReal) lanes->size())).writeString(

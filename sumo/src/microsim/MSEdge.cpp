@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.24  2006/01/26 08:30:29  dkrajzew
+// patched MSEdge in order to work with a generic router
+//
 // Revision 1.23  2005/11/09 06:39:38  dkrajzew
 // usage of internal lanes is now optional at building
 //
@@ -362,7 +365,7 @@ MSEdge::changeLanes()
 
 
 const std::string &
-MSEdge::id() const
+MSEdge::getID() const
 {
     return myID;
 }

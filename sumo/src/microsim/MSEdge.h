@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.22  2006/01/26 08:30:29  dkrajzew
+// patched MSEdge in order to work with a generic router
+//
 // Revision 1.21  2005/11/09 06:39:38  dkrajzew
 // usage of internal lanes is now optional at building
 //
@@ -280,7 +283,7 @@ public:
     virtual void changeLanes();
 
     /** returns the id of the edge */
-    const std::string &id() const;
+    const std::string &getID() const;
 
     /** @brief Returns the edge type
         Returns information whether the edge is a sink, a source or a
@@ -326,6 +329,7 @@ public:
         return (*i).first;
     }
 
+	virtual bool prohibits(const MSVehicle *veh) const { return false; } // !!!
 
 protected:
     /// Unique ID.

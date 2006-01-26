@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/01/26 08:30:29  dkrajzew
+// patched MSEdge in order to work with a generic router
+//
 // Revision 1.11  2006/01/09 11:54:21  dkrajzew
 // debugging
 //
@@ -289,7 +292,7 @@ std::vector<MSLane*>
 MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
         const MSEdgeContinuations &edgeContinuations)
 {
-    string eid = l->edge().id();
+    string eid = l->edge().getID();
     // check whether any exist
     if(!edgeContinuations.hasFurther(l->edge())) {
         return std::vector<MSLane*>();

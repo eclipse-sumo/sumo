@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.72  2006/01/26 08:30:29  dkrajzew
+// patched MSEdge in order to work with a generic router
+//
 // Revision 1.71  2006/01/23 10:25:29  dkrajzew
 // post-release changes
 //
@@ -2189,11 +2192,11 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         int textdummy = 0;
         for(MSEdgeVector::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
-            DEBUG_OUT << (*i)->id() << ", ";
+            DEBUG_OUT << (*i)->getID() << ", ";
         }
         DEBUG_OUT << "-------------" << endl;
         for(MSRouteIterator i2=myRoute->begin(); i2!=myRoute->end(); ++i2) {
-            DEBUG_OUT << (*i2)->id() << ", ";
+            DEBUG_OUT << (*i2)->getID() << ", ";
         }
         DEBUG_OUT << "-------------" << endl;
     }
@@ -2233,7 +2236,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, size_t simTime)
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         int textdummy = 0;
         for(MSRouteIterator i=myRoute->begin(); i!=myRoute->end(); ++i) {
-            DEBUG_OUT << (*i)->id() << ", ";
+            DEBUG_OUT << (*i)->getID() << ", ";
         }
         DEBUG_OUT << "-------------" << endl;
     }
@@ -2249,11 +2252,11 @@ MSVehicle::replaceRoute(MSRoute *newRoute, size_t simTime)
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         int textdummy = 0;
         for(MSEdgeVector::const_iterator i=newRoute->begin(); i!=newRoute->end(); ++i) {
-            DEBUG_OUT << (*i)->id() << ", ";
+            DEBUG_OUT << (*i)->getID() << ", ";
         }
         DEBUG_OUT << "-------------" << endl;
         for(MSRouteIterator i2=myRoute->begin(); i2!=myRoute->end(); ++i2) {
-            DEBUG_OUT << (*i2)->id() << ", ";
+            DEBUG_OUT << (*i2)->getID() << ", ";
         }
         DEBUG_OUT << "-------------" << endl;
     }
@@ -2291,7 +2294,7 @@ MSVehicle::replaceRoute(MSRoute *newRoute, size_t simTime)
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         int textdummy = 0;
         for(MSRouteIterator i=myRoute->begin(); i!=myRoute->end(); ++i) {
-            DEBUG_OUT << (*i)->id() << ", ";
+            DEBUG_OUT << (*i)->getID() << ", ";
         }
         DEBUG_OUT << "-------------" << endl;
     }
@@ -2510,7 +2513,7 @@ MSVehicle::writeXMLRoute(std::ostream &os, int index) const
 		std::map<MSCORN::Pointer, void*>::const_iterator j =
 			myPointerCORNMap.find(
                 (MSCORN::Pointer) (MSCORN::CORN_P_VEH_ROUTE_BEGIN_EDGE+index));
-        os << " replacedOnEdge=\"" << ((MSEdge*) (*j).second)->id() << "\" ";
+        os << " replacedOnEdge=\"" << ((MSEdge*) (*j).second)->getID() << "\" ";
         // write the time at which the route was replaced
         std::map<MSCORN::Function, SUMOReal>::const_iterator j2 =
 			myDoubleCORNMap.find(

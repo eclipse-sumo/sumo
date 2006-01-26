@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/01/26 08:30:29  dkrajzew
+// patched MSEdge in order to work with a generic router
+//
 // Revision 1.9  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -220,7 +223,7 @@ MSRoute::writeEdgeIDs(std::ostream &os) const
 		if(i!=_edges.begin()) {
 			os << ' ';
 		}
-		os << (*i)->id();
+		os << (*i)->getID();
 	}
 }
 
