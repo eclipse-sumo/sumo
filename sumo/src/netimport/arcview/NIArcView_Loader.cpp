@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/01/26 08:50:31  dkrajzew
+// beautifying
+//
 // Revision 1.18  2006/01/09 11:59:22  dkrajzew
 // debugging error handling; beautifying
 //
@@ -139,8 +142,7 @@ NIArcView_Loader::load(OptionsCont &)
 {
     int i = myBinShapeReader.openFiles(mySHPName.c_str(), myDBFName.c_str() );
     if( i != 0 ) {
-        MsgHandler::getErrorInstance()->inform(
-            "Could not open shape description.");
+        MsgHandler::getErrorInstance()->inform("Could not open shape description.");
         return;
     }
     parseBin();
@@ -168,8 +170,7 @@ NIArcView_Loader::parseBin()
             nolanes = getLaneNo(id, speed);
             priority = getPriority(id);
         } catch (...) {
-            addError(
-                string("An attribute is not given within the file!"));
+            addError("An attribute is not given within the file!");
             return false;
         }
         NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_NORMAL;
@@ -178,7 +179,7 @@ NIArcView_Loader::parseBin()
         // build from-node
         Position2D from_pos = myBinShapeReader.getFromNodePosition();
         if(!myNodeCont.insert(from_node, from_pos)) {
-            from = new NBNode(from_node + string("___") + toString<int>(myNameAddition++),
+            from = new NBNode(from_node + "___" + toString<int>(myNameAddition++),
                 from_pos);
             myNodeCont.insert(from);
         } else {
@@ -187,7 +188,7 @@ NIArcView_Loader::parseBin()
         // build to-node
         Position2D to_pos = myBinShapeReader.getToNodePosition();
         if(!myNodeCont.insert(to_node, to_pos)) {
-            to = new NBNode(to_node + string("___") + toString<int>(myNameAddition++),
+            to = new NBNode(to_node + "___" + toString<int>(myNameAddition++),
                 to_pos);
             myNodeCont.insert(to);
         } else {
@@ -268,9 +269,7 @@ NIArcView_Loader::getSpeed(const std::string &edgeid)
             throw 1;
         }
     } catch (...) {
-        addError(
-            string("Error on parsing edge speed definition for edge '")
-            + edgeid + string("'."));
+        addError("Error on parsing edge speed definition for edge '" + edgeid + "'.");
     }
     return 0;
 }
@@ -319,9 +318,7 @@ NIArcView_Loader::getLaneNo(const std::string &edgeid, SUMOReal speed)
             }
         }
     } catch (...) {
-        addError(
-            string("Error on parsing edge's number of lanes information for edge '")
-            + edgeid + string("'."));
+        addError("Error on parsing edge's number of lanes information for edge '" + edgeid + "'.");
     }
 	return 0;
 }
@@ -352,9 +349,7 @@ NIArcView_Loader::getPriority(const std::string &edgeid)
             TplConvert<char>::_2int(myBinShapeReader.getAttribute("FUNC_CLASS").c_str());
         return 5 - prio;
     } catch (...) {
-        addError(
-            string("Error on parsing edge priority information for edge '")
-            + edgeid + string("'."));
+        addError("Error on parsing edge priority information for edge '" + edgeid + "'.");
         return 0;
     }
 }
