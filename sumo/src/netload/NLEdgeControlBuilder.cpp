@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/01/26 08:43:23  dkrajzew
+// patched MSEdge in order to work with a generic router
+//
 // Revision 1.16  2005/11/09 06:42:54  dkrajzew
 // TLS-API: MSEdgeContinuations added
 //
@@ -289,8 +292,8 @@ NLEdgeControlBuilder::closeEdge()
 {
     if(m_pAllowedLanes==0 || /*m_pDepartLane==0 ||*/ m_pLanes==0) {
         MsgHandler::getErrorInstance()->inform(
-            string("Something is corrupt within the definition of lanes for the edge '")
-            + m_pActiveEdge->id() + string("'."));
+            "Something is corrupt within the definition of lanes for the edge '"
+            + m_pActiveEdge->getID() + "'.");
         return 0;
     }
     m_pActiveEdge->initialize(m_pAllowedLanes, m_pDepartLane,
