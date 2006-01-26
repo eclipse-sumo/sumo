@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/01/26 08:33:11  dkrajzew
+// adapted the new router API
+//
 // Revision 1.6  2006/01/19 09:26:19  dkrajzew
 // debugging
 //
@@ -181,21 +184,21 @@ MSTriggeredRerouter::myStartElement(int element, const std::string &name,
         string dest = getStringSecure(attrs, SUMO_ATTR_DEST, "");
         MSEdge *to = MSEdge::dictionary(dest);
         if(to==0) {
-            MsgHandler::getErrorInstance()->inform(string("Could not find edge '") + dest + string("' to reroute in '") + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("Could not find edge '" + dest + "' to reroute in '" + _file + "'.");
             return;
         }
         SUMOReal prob = -1;
         try {
             prob = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
         } catch(EmptyData &) {
-            MsgHandler::getErrorInstance()->inform(string("Missing probability in '") + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("Missing probability in '" + _file + "'.");
             return;
         } catch(NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform(string("No numeric probability '") + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("No numeric probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + _file + "'.");
             return;
         }
         if(prob<0) {
-            MsgHandler::getErrorInstance()->inform(string("Negative probability '") + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + _file + "'.");
+            MsgHandler::getErrorInstance()->inform("Negative probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + _file + "'.");
             return;
         }
         myCurrentProb.push_back(std::pair<SUMOReal, MSEdge*>(prob, to));
@@ -341,20 +344,17 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
         }
         if(route.inFurtherUse()) {
             string nid = _id + "_re_"
-                + src->id()
+                + src->getID()
                 + "_" + route.getID();
             if(MSRoute::dictionary(nid)!=0) {
                 MSRoute *rep = MSRoute::dictionary(nid);
                 veh.replaceRoute(rep,
                     MSNet::getInstance()->getCurrentTimeStep());
             } else {
-                SUMODijkstraRouter<MSEdge> router(MSEdge::dictSize());
+                SUMODijkstraRouter<MSEdge, MSVehicle> router(MSEdge::dictSize(), true);
                 router.prohibit(rerouteDef.closed);
-                std::deque<const MSEdge*> newRoute =
-                    router.compute(src, lastEdge,
-                        MSNet::getInstance()->getCurrentTimeStep(), true);
-                MSEdgeVector edges;
-                copy(newRoute.begin(), newRoute.end(), back_inserter(edges));
+                std::vector<const MSEdge*> edges;
+				router.compute(src, lastEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
                 MSRoute *rep = new MSRoute(nid, edges, true);
                 if(!MSRoute::dictionary(nid, rep)) {
                     cout << "Error: Could not insert route ''" << endl;
@@ -364,13 +364,10 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
                     MSNet::getInstance()->getCurrentTimeStep());
             }
         } else {
-            SUMODijkstraRouter<MSEdge> router(MSEdge::dictSize());
+            SUMODijkstraRouter<MSEdge, MSVehicle> router(MSEdge::dictSize(), true);
             router.prohibit(rerouteDef.closed);
-            std::deque<const MSEdge*> newRoute =
-                router.compute(src, lastEdge,
-                    MSNet::getInstance()->getCurrentTimeStep(), true);
             MSEdgeVector edges;
-            copy(newRoute.begin(), newRoute.end(), back_inserter(edges));
+			router.compute(src, lastEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
             veh.replaceRoute(edges, time);
         }
     }
