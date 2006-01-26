@@ -2,8 +2,8 @@ $Id: README.CVS,v 1.2 2004/10/28 12:50:58 dksumo Exp $
 
 After downloading the sources from cvs call
 
-make -f admin/Makefile.common cvs
-./configure --with-xerces-libraries=<PATH_TO_XERCES_LIB> --with-xerces-includes=<PATH_TO_XERCES_INCLUDES> --with-fox-libraries=<PATH_TO_FOX_LIB> --with-fox-includes=<PATH_TO_FOX_INCLUDES> --with-ace-libraries=<PATH_TO_ACE_LIB> --with-ace-includes=<PATH_TO_ACE_INCLUDES>
+make -f Makefile.cvs
+./configure --with-xerces-libraries=<PATH_TO_XERCES_LIB> --with-xerces-includes=<PATH_TO_XERCES_INCLUDES> --with-fox-libraries=<PATH_TO_FOX_LIB> --with-fox-includes=<PATH_TO_FOX_INCLUDES>
 make
 
 to build sumo*. Add configure-option when needed (see ./configure --help
