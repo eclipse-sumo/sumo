@@ -1,0 +1,1 @@
+--no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml --vehroute-output=vehroutes.xml -b 0 -e 10000

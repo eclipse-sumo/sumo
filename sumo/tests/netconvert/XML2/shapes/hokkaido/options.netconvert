@@ -1,1 +1,1 @@
---xml-edge-files=%SUMO_DIST%\tests\netconvert\XML2\shapes\hokkaido\hokkaido.edg.xml --xml-node-files=%SUMO_DIST%\tests\netconvert\XML2\shapes\hokkaido\hokkaido.nod.xml --output-file=net.net.xml
+--xml-edge-files=input_edges.edg.xml --xml-node-files=input_nodes.nod.xml --output-file=net.net.xml

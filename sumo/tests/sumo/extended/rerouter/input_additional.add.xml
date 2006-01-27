@@ -1,0 +1,3 @@
+<additional>
+    <trigger id="rerouter" objecttype="rerouter" objectid="beg" attr="reroute" pos="20" file="input_definition.def.xml"/>
+</additional>

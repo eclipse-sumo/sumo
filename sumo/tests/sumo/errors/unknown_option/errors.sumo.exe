@@ -1,0 +1,2 @@
+Error: Error on processing option '--test_this_funky_but_not_exitsing_option':
+Error:  No option with the name 'test_this_funky_but_not_exitsing_option' exists.

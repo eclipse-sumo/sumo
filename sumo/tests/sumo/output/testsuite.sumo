@@ -1,0 +1,19 @@
+
+# Tests whether emission output works
+cross3ltl_emissions
+
+# Tests whether meandata output works
+cross3ltl_meandata
+
+# Tests whether rawdump output works
+cross3ltl_rawdump
+
+# Tests whether rawdump output without prunning works
+cross3ltl_rawdump_withempty
+
+# Tests whether tripinfo output works
+cross3ltl_tripinfo
+
+# Tests whether vehroutes output works
+cross3ltl_vehroutes
+

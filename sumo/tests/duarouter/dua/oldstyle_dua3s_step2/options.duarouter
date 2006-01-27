@@ -1,1 +1,1 @@
---net-file=%SUMO_DIST%\tests\duarouter\dua\oldstyle_dua3s_step2\due3s.net.xml --weights=%SUMO_DIST%\tests\duarouter\dua\oldstyle_dua3s_step2\due3s_step1.dump.xml --alternatives=%SUMO_DIST%\tests\duarouter\dua\oldstyle_dua3s_step2\due3s_step1.rou.xml.alt -o routes.rou.xml
+--net-file=net.net.xml --weights=input_weights.dump.xml --alternatives=input_alts.rou.xml.alt -o routes.rou.xml

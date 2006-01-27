@@ -1,5 +1,11 @@
 binary:D:\projects\TrafficTower\sumo\bin\duarouter.exe
 home_operating_system:nt
+copy_test_path:input_alts.rou.xml.alt
+copy_test_path:input_routes.rou.xml
+copy_test_path:input_flows.flows.xml
+copy_test_path:input_trips.trips.xml
+copy_test_path:input_weights.dump.xml
+copy_test_path:net.net.xml
 
 [collate_file]
 routes:routes.rou.xml

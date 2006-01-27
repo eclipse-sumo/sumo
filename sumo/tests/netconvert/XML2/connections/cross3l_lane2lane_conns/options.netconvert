@@ -1,0 +1,1 @@
+--xml-edge-files=input_edges.edg.xml --xml-connection-files=%SUMO_DIST%\tests\netconvert\XML2\connections\cross3l_lane2lane_conns\cross3l_lane2lane_conns.con.xml --xml-node-files=input_nodes.nod.xml --output-file=net.net.xml --speed-in-kmh

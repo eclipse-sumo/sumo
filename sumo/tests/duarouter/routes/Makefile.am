@@ -1,0 +1,7 @@
+SUBDIRS =  increasing_time newstyle_colorcheck newstyle_increasing_colors \
+newstyle_noid_increasing_time newstyle_noid_one_time \
+newstyle_noid_unsorted_time newstyle_with_vehtype \
+newstyle_with_vehtype_nodef newstyle_withid_increasing_time \
+newstyle_withid_one_time newstyle_withid_unsorted_time one_time \
+unsorted_time
+EXTRA_DIST =  testsuite.duarouter

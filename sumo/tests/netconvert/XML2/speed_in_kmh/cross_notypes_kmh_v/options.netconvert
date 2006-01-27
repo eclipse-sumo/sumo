@@ -1,1 +1,1 @@
--v --xml-edge-files=%SUMO_DIST%\tests\netconvert\XML2\speed_in_kmh\cross_notypes_kmh_v\cross3l.edg.xml --xml-node-files=%SUMO_DIST%\tests\netconvert\XML2\speed_in_kmh\cross_notypes_kmh_v\cross3l.nod.xml --output-file=net.net.xml --speed-in-kmh
+-v --xml-edge-files=input_edges.edg.xml --xml-node-files=input_nodes.nod.xml --output-file=net.net.xml --speed-in-kmh

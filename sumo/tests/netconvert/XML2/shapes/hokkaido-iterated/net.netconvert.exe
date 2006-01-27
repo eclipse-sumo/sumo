@@ -4,30 +4,30 @@
    <node_count>4</node_count>
 
 
-   <edge id="1" Length="1199.86" Speed="13.90" Name="1" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="1200.00" YTo="0.00" From="dl" To="dr" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="1" Length="1200.00" Speed="13.90" Name="1" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="1200.00" YTo="0.00" From="dl" To="dr" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="1_0" depart="1" maxspeed="13.90" length="1199.86" changeurge="0">0.07,0.00 1199.93,0.00</lane>
+         <lane id="1_0" depart="1" vclasses="" maxspeed="13.90" length="1200.00" changeurge="0">-0.00,-1.65 1200.00,-1.65</lane>
       </lanes>
       <cedge id="2" via=":dr">1_0</cedge>
    </edge>
 
-   <edge id="2" Length="299.48" Speed="13.90" Name="2" NoLanes="1" XFrom="1200.00" YFrom="0.00" XTo="1200.00" YTo="190.99" From="dr" To="tr" Priority="1" Angle="180.00" Type="" function="normal">
+   <edge id="2" Length="304.53" Speed="13.90" Name="2" NoLanes="1" XFrom="1200.00" YFrom="0.00" XTo="1200.00" YTo="190.99" From="dr" To="tr" Priority="1" Angle="180.00" Type="" function="normal">
       <lanes>
-         <lane id="2_0" depart="1" maxspeed="13.90" length="299.48" changeurge="0">1200.07,0.01 1216.58,1.45 1232.66,5.76 1247.75,12.79 1261.38,22.34 1273.15,34.11 1282.70,47.75 1289.73,62.83 1294.04,78.91 1295.49,95.49 1294.04,112.08 1289.73,128.15 1282.70,143.24 1273.15,156.87 1261.38,168.65 1247.75,178.19 1232.66,185.23 1216.58,189.54 1200.07,190.98</lane>
+         <lane id="2_0" depart="1" vclasses="" maxspeed="13.90" length="304.53" changeurge="0">1200.14,-1.64 1216.87,-0.18 1233.23,4.20 1248.58,11.36 1262.44,21.07 1274.42,33.05 1284.13,46.92 1291.29,62.27 1295.67,78.62 1297.15,95.49 1295.67,112.36 1291.29,128.72 1284.13,144.07 1274.42,157.94 1262.44,169.91 1248.58,179.63 1233.23,186.78 1216.87,191.17 1200.14,192.63</lane>
       </lanes>
       <cedge id="3" via=":tr">2_0</cedge>
    </edge>
 
-   <edge id="3" Length="1199.86" Speed="13.90" Name="3" NoLanes="1" XFrom="1200.00" YFrom="190.99" XTo="0.00" YTo="190.99" From="tr" To="tl" Priority="1" Angle="90.00" Type="" function="normal">
+   <edge id="3" Length="1200.00" Speed="13.90" Name="3" NoLanes="1" XFrom="1200.00" YFrom="190.99" XTo="0.00" YTo="190.99" From="tr" To="tl" Priority="1" Angle="90.00" Type="" function="normal">
       <lanes>
-         <lane id="3_0" depart="1" maxspeed="13.90" length="1199.86" changeurge="0">1199.93,190.99 0.07,190.99</lane>
+         <lane id="3_0" depart="1" vclasses="" maxspeed="13.90" length="1200.00" changeurge="0">1200.00,192.64 -0.00,192.64</lane>
       </lanes>
       <cedge id="4" via=":tl">3_0</cedge>
    </edge>
 
-   <edge id="4" Length="299.48" Speed="13.90" Name="4" NoLanes="1" XFrom="0.00" YFrom="190.99" XTo="0.00" YTo="0.00" From="tl" To="dl" Priority="1" Angle="0.00" Type="" function="normal">
+   <edge id="4" Length="304.53" Speed="13.90" Name="4" NoLanes="1" XFrom="0.00" YFrom="190.99" XTo="0.00" YTo="0.00" From="tl" To="dl" Priority="1" Angle="0.00" Type="" function="normal">
       <lanes>
-         <lane id="4_0" depart="1" maxspeed="13.90" length="299.48" changeurge="0">-0.07,190.98 -16.58,189.54 -32.66,185.23 -47.75,178.19 -61.38,168.64 -73.15,156.87 -82.70,143.24 -89.73,128.15 -94.04,112.08 -95.49,95.49 -94.04,78.91 -89.73,62.83 -82.70,47.75 -73.15,34.11 -61.38,22.34 -47.75,12.79 -32.66,5.76 -16.58,1.45 -0.07,0.01</lane>
+         <lane id="4_0" depart="1" vclasses="" maxspeed="13.90" length="304.53" changeurge="0">-0.14,192.63 -16.87,191.17 -33.23,186.78 -48.57,179.63 -62.45,169.91 -74.42,157.94 -84.13,144.07 -91.29,128.72 -95.67,112.36 -97.15,95.49 -95.67,78.62 -91.29,62.27 -84.13,46.92 -74.42,33.05 -62.45,21.07 -48.57,11.36 -33.23,4.20 -16.87,-0.18 -0.14,-1.64</lane>
       </lanes>
       <cedge id="1" via=":dl">4_0</cedge>
    </edge>
@@ -73,22 +73,22 @@
 
    <junction id="dl" type="priority" x="0.00" y="0.00">
       <inclanes>4_0</inclanes>
-      <shape>0.07,1.60 0.07,-1.60 -0.21,-1.59 0.07,1.60</shape>
+      <shape>-0.00,-0.05 -0.00,-3.25 -0.28,-3.24 -0.00,-0.05</shape>
    </junction>
 
    <junction id="dr" type="priority" x="1200.00" y="0.00">
       <inclanes>1_0</inclanes>
-      <shape>1199.93,1.60 1200.21,-1.59 1199.93,-1.60 1199.93,1.60</shape>
+      <shape>1200.00,-0.05 1200.28,-3.24 1200.00,-3.25 1200.00,-0.05</shape>
    </junction>
 
    <junction id="tl" type="priority" x="0.00" y="190.99">
       <inclanes>3_0</inclanes>
-      <shape>0.07,192.59 0.07,189.39 -0.21,192.58</shape>
+      <shape>-0.00,194.24 -0.00,191.04 -0.28,194.23</shape>
    </junction>
 
    <junction id="tr" type="priority" x="1200.00" y="190.99">
       <inclanes>2_0</inclanes>
-      <shape>1200.21,192.58 1199.93,189.39 1199.93,192.59</shape>
+      <shape>1200.28,194.23 1200.00,191.04 1200.00,194.24</shape>
    </junction>
 
 

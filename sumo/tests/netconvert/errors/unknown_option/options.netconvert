@@ -1,0 +1,1 @@
+--no-duration-log --net-file=net.net.xml --routes=routes.rou.xml --test_this_funky_but_not_exitsing_option

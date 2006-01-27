@@ -37,3 +37,5 @@ increasing_time_typedefined
 # Test whether trips with unsorted are imported correctly, a type is defined in the trips file, should be kept
 unsorted_time_typedefined
 
+# Test whether the vehicle class is processed
+increasing_time_typedefined_withclass

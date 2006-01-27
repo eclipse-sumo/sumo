@@ -1,1 +1,1 @@
---net-file=%SUMO_DIST%\tests\duarouter\flows\flows2routes_100s_interval_withcolor\flows2routes_100s_interval.net.xml --flow-defs=%SUMO_DIST%\tests\duarouter\flows\flows2routes_100s_interval_withcolor\flows2routes_100s_interval.flows.xml -o routes.rou.xml
+--net-file=net.net.xml --flow-defs=input_flows.flows.xml -o routes.rou.xml

@@ -1,1 +1,1 @@
---xml-node-files=%SUMO_DIST%\tests\netconvert\errors\xml_no_edg\hokkaido.nod.xml --output-file=net.net.xml
+--xml-node-files=input_nodes.nod.xml --output-file=net.net.xml

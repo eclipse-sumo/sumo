@@ -19,6 +19,9 @@ xml_false_nod
 # Tests what happens if no xml-nodes are given
 xml_no_nod
 
+# Tests what happens if an unknown option is passed
+unknown_option
+
 
 
 

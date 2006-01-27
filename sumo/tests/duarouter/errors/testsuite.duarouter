@@ -16,6 +16,8 @@ false_output
 # Tests what happens if the input is not given
 no_input
 
+# Tests what happens if an unknown option is passed
+unknown_option
 
 
 

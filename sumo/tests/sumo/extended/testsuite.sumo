@@ -1,0 +1,12 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+
+# Tests whether rerouter works; also tests functioning of vehroutes output
+rerouter
+
+# Tests whether variable speed signs work
+variable_speed_signs
+
+
+
+

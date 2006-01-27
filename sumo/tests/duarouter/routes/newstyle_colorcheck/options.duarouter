@@ -1,1 +1,1 @@
---net-file=%SUMO_DIST%\tests\duarouter\routes\newstyle_colorcheck\increasing_routes.net.xml --sumo-input=%SUMO_DIST%\tests\duarouter\routes\newstyle_colorcheck\increasing_routes_input.rou.xml -o routes.rou.xml
+--net-file=net.net.xml --sumo-input=input_routes.rou.xml -o routes.rou.xml

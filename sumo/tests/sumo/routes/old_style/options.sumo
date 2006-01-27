@@ -1,1 +1,1 @@
---no-duration-log --net-file=%SUMO_DIST%\tests\sumo\routes\old_style\increasing_routes.net.xml --routes=%SUMO_DIST%\tests\sumo\routes\old_style\increasing_routes.rou.xml
+--no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml

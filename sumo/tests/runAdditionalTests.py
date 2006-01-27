@@ -16,10 +16,15 @@ def getStructure(dir):
 			newFiles.append( dir + file )
 	return newFiles
 
+def performInList(files):
+	print " Checking TLS for invalid combinations"
+	for file in files:
+		if(file == "net.netconvert.exe" or file.endswith(".net.xml")):
+			os.system("checkTLS.py " + file)
+
+
 # main
 print "Performing additional tests in 'tests'..."
-files = getStructure("./")
-print " Checking TLS for invalid combinations"
-for file in files:
-    if(file == "net.netconvert.exe" or file.endswith(".net.xml")):
-        os.system("checkTLS.py " + file)
+performInList(getStructure("./"))
+print "Performing additional tests in 'data'..."
+performInList(getStructure("../data/"))

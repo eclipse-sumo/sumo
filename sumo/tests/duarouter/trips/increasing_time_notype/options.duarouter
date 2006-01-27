@@ -1,1 +1,1 @@
---net-file=%SUMO_DIST%\tests\duarouter\trips\increasing_time_notype\increasing_trips.net.xml --trip-defs=%SUMO_DIST%\tests\duarouter\trips\increasing_time_notype\increasing_trips.trips.xml -o routes.rou.xml
+--net-file=net.net.xml --trip-defs=input_trips.trips.xml -o routes.rou.xml

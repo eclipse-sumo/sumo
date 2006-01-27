@@ -1,6 +1,6 @@
 SUMO netconvert
  (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net
- Imports network descriptions and builds sumo-networks.
+ Road network importer / builder for the road traffic simulation SUMO.
 
 Usage: (sumo-)netconvert(.exe) [OPTION]*
 
@@ -17,46 +17,51 @@ Options:
   -x, --xml-connection-files FILE[;+]
                                  connection definitions in XML-format
   -t, --xml-type-files FILE[;+]  type definitions in XML-format
+
   --arcview FILE_NO_EXTENSION    The name of arcview files
   --artemis PATH                 Artemis path
   --cell-node-file FILE          node definitions in Cell-format
   --cell-edge-file FILE          edge definitions in Cell-format
   --visum FILE                   Visum v7.5 file (.net)
   --vissim FILE                  Vissim v3.6.2+ file (.inp)
-  --elmar PATH                   Elmar path and file prefix.
+  --elmar PATH                   Elmar (splitted) path and file prefix.
+  --elmar2 PATH                   Elmar (unsplitted) path and file prefix.
+  --tiger PATH                   TIGER path
 
  Output files:
   -o, --output-file FILE         The generated net will be written to FILE
   --map-output FILE              File to write joined edges information to
   --plain-output FILE            Prefix of files to write node and edge
                                    information to
+  --node-geometry-dump FILE      Writes node corner positions to FILE
 
- Setting Defaults:
+ Building Defaults:
   -T, --type NAME                The default name for an edges type
   -L, --lanenumber INT           The default number of lanes in an edge
   -S, --speed DOUBLE             The default speed on an edge (in m/s)
   -P, --priority INT             The default priority of an edge
-   -j, --default-junction-type [traffic_light|priority|actuated|agentbased]
-                                    Determines the type of the build junctions
 
- Processing Options:
-  -N, --capacity-norm FLOAT      The factor for flow to no. lanes conv.
-  -D, --min-decel FLOAT          The least vehicle deceleration value used
-  --vissim-speed-norm FLOAT      Factor for edge velocity (vissim only)
-  --vissim-default-speed FLOAT   Default speed for edges (vissim only)
+ Import-type dependent Parameter:
+  --omit-corrupt-edges           Continues parsing although a corrupt edge
+                                    occured (warning is printed)
   --flip-y                       Flips the y-coordinate along zero
   --speed-in-kmh                 vmax is parsed as given in km/h; XML only
   --use-laneno-as-priority       Uses the number of lanes priority hint
-  --omit-corrupt-edges           Continues parsing although a corrupt edge
-                                    occured (warning is printed)
+  --vissim-speed-norm FLOAT      Factor for edge velocity (vissim only)
+  --vissim-default-speed FLOAT   Default speed for edges (vissim only)
   --vissim-offset DOUBLE         Specifies the structure join offset within
                                    vissim-import
-  --keep-small-tyellow           Given yellow times are kept even if too
-                                   they are small
+  -N, --capacity-norm FLOAT      The factor for flow to no. lanes conv.
+  --edges-min-speed FLOAT        Specifies the minimum speed of edges in order
+                                  to be imported
+
+ Traffic Lights Building:
+  -D, --min-decel FLOAT          The least vehicle deceleration value used
+  --traffic-light-yellow INT     Set a fixed duration time for yellow phases
   --traffic-light-green INT      Overide the default (20s) of a green phase
                                    duration
-  --edges-min-speed FLOAT        Specifies the minimum speed of edges in order
-                                  to be important
+  --keep-small-tyellow           Given yellow times are kept even if too
+                                   they are small
   --guess-tls                    Turn on tls guessing
   --guess-tls.min-incoming-speed FLOAT
   --guess-tls.max-incoming-speed FLOAT
@@ -74,9 +79,22 @@ Options:
   --explicite-tls JID[;JID]*     Specifies which junctions named by their ids
                                   shall be tls-controlled.  --explicite-no-tls JID[;JID]*  Specifies which junctions named by their ids
                                   shall not be tls-controlled.
+ Highway On-/Off-Ramps Building:
+  --guess-ramps                  Turn on on-/off-ramp guessing
+  --ramp-guess.max-ramp-speed FLOAT     The maximum velocity for ramps
+  --ramp-guess.min-highway-speed FLOAT  The minimum velocity for highways
+  --ramp-guess.ramp-length FLOAT        The length of ramps to build
+
+ Random Number Options:
+  --srand INT                     Initialises the random number generator
+                                   with the given value
+  --abs-rand                      Set this when the current time shall be
+                                   used for random number initialisation
+
  Report options:
   -v, --verbose                   SUMO-NETCONVERT will report what it does
   -W, --suppress-warnings         No warnings will be printed
   -l, --log-file FILE             Writes all messages to the file
   -p, --print-options             Prints option values before processing
   -?, --help                      This screen
+ --print-node-positions           Prints the positions of read nodes

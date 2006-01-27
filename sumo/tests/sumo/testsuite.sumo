@@ -2,6 +2,14 @@
 # testing route loading
 routes
 
+# output tests
+output
+
+# tests for additional structures
+extended
+
 # testing meta processing
 meta
 
+# error handling tests
+errors
