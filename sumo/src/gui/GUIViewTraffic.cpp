@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.47  2006/01/31 10:53:02  dkrajzew
+// new visualization scheme for lanes added; work on the grid
+//
 // Revision 1.46  2006/01/19 15:13:51  dkrajzew
 // reinsert route visualization
 //
@@ -383,6 +386,12 @@ GUIViewTraffic::init(GUINet &net)
 	myLaneColoringSchemes.add("by purpose (lanewise)",
 		new GUIColorer_LaneByPurpose<GUILaneWrapper>());
 
+	myLaneColoringSchemes.add("by lane number (streetwise)",
+		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+            0, (SUMOReal) 5,
+            RGBColor(1, 0, 0), RGBColor(0, 0, 1),
+            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::getEdgeLaneNumber));
+
     myVisualizationSettings = gSchemeStorage.get(gSchemeStorage.getNames()[0]);
 }
 
@@ -554,14 +563,54 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     SUMOReal y = (nb.getCenter().y() - _changer->getYPos()); // center of view
     SUMOReal yoff = (SUMOReal) 50.0 / _changer->getZoom() * myNetScale
         / _addScl; // offset to top
+	{
+        SUMOReal width = nb.getWidth();
+        SUMOReal height = nb.getHeight();
+        SUMOReal mzoom = _changer->getZoom();
+        SUMOReal cy = _changer->getYPos();//cursorY;
+        SUMOReal cx = _changer->getXPos();//cursorY;
+
+
+        // compute the visible area in horizontal direction
+        SUMOReal mratioX = 1;
+        SUMOReal mratioY = 1;
+        SUMOReal xs = ((SUMOReal) _widthInPixels / (SUMOReal) myApp->getMaxGLWidth())
+            / (myGrid->getBoundary().getWidth() / myNetScale) * _ratio;
+        SUMOReal ys = ((SUMOReal) _heightInPixels / (SUMOReal) myApp->getMaxGLHeight())
+            / (myGrid->getBoundary().getHeight() / myNetScale);
+        if(xs<ys) {
+            mratioX = 1;
+            mratioY = ys/xs;
+        } else {
+            mratioY = 1;
+            mratioX = xs/ys;
+        }
+        SUMOReal sxmin = nb.getCenter().x()
+            - mratioX * width * (SUMOReal) 100 / (mzoom) / (SUMOReal) 2. / (SUMOReal) .97;
+        sxmin -= cx;
+        SUMOReal sxmax = nb.getCenter().x()
+            + mratioX * width * (SUMOReal) 100 / (mzoom) / (SUMOReal) 2. / (SUMOReal) .97;
+        sxmax -= cx;
+
+        // compute the visible area in vertical direction
+        SUMOReal symin = nb.getCenter().y()
+            - mratioY * height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
+        symin -= cy;
+        SUMOReal symax = nb.getCenter().y()
+            + mratioY * height / mzoom * (SUMOReal) 100 / (SUMOReal) 2. / (SUMOReal) .97;
+        symax -= cy;
+
+
     // reset the tables of things to show if the viewport has changed
-    if(myViewportSettings.differ(x, y, xoff, yoff)) {
+    if(myViewportSettings.differ(sxmin, symin, sxmax, symax)) {
         clearUsetable(_edges2Show, _edges2ShowSize);
         clearUsetable(_junctions2Show, _junctions2ShowSize);
-        _net->_grid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR, x, y, xoff, yoff,
+        _net->_grid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR,
+			sxmin, symin, sxmax, symax,
             _edges2Show, _junctions2Show, _additional2Show);
-        myViewportSettings.set(x, y, xoff, yoff);
+        myViewportSettings.set(sxmin, symin, sxmax, symax);
     }
+	}
     // compute lane width
     SUMOReal width = m2p(3.0) * scale;
     size_t drawerToUse = 0;
