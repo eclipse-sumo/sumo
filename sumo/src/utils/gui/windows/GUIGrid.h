@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/01/31 11:03:20  dkrajzew
+// debugging the grid
+//
 // Revision 1.4  2005/10/07 11:46:08  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -84,8 +87,15 @@
  */
 class GUIGrid {
 public:
+	enum PaintState {
+		GPS_NOT_DRAWN,
+		GPS_FULL_DRAWN,
+		GPS_ADD_DRAWN
+	};
+
+
     /// Constructor
-    GUIGrid(int noXCells, int noYCells);
+    GUIGrid(size_t noXCells, size_t noYCells);
 
     /// Destructor
     ~GUIGrid();
@@ -96,8 +106,8 @@ public:
     /// Returns the network's boundary
     const Boundary &getBoundary() const;
 
-    ///
-    void setBoundary(const Boundary &b);
+	///
+	void setBoundary(const Boundary &b);
 
     /** @brief Fills the given containers with the wished information
         The offsets and x/y-positions are used to determine the viewport.
@@ -106,7 +116,7 @@ public:
         The arrays must have the proper size (equals to the number of the
         simulation's objects of each type) */
     void get(int what,
-        SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff,
+        SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax,
         size_t *setEdges, size_t *setJunctions, size_t *setAdditional) const;
 
     /// returns the number of cells in x-direction
@@ -121,8 +131,10 @@ public:
     /// returns the size of each cell in y-direction
     SUMOReal getYCellSize() const;
 
-    friend class GUIGridBuilder;
-    friend class GUIRouterGridBuilder;
+	PaintState getPaintState(size_t x, size_t y);
+
+	friend class GUIGridBuilder;
+	friend class GUIRouterGridBuilder;
     friend class VGridBuilder;
 
 private:
@@ -264,23 +276,25 @@ private:
     /// Removes items from the cell at x/y which are included in the given cell
     void removeFrom(GridCell &cont, int x, int y);
 
-    void closeBuilding();
+	void closeBuilding();
 
 private:
     /// The sizes of the cells
-    SUMOReal _xcellsize, _ycellsize;
+    SUMOReal myXCellSize, myYCellSize;
 
     /// The networks boundary
-    Boundary _boundary;
+    Boundary myBoundary;
 
     /// The build grid
-    GridCell *_grid;
+    GridCell *myGrid;
 
     /// The build relations
-    GridCell *_relations[3];
+    GridCell *myRelations[3];
 
     /// The size of the grid in cells in x- and y-direction
-    int _xsize, _ysize;
+    size_t myXSize, myYSize;
+
+	PaintState *myVisHelper;
 
 };
 

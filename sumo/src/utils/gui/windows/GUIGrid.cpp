@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/01/31 11:03:20  dkrajzew
+// debugging the grid
+//
 // Revision 1.5  2005/10/07 11:46:08  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -234,29 +237,31 @@ GUIGrid::GridCell::removeIfIn(const GridCell &other)
 /* -------------------------------------------------------------------------
  * GUIGrid - methods
  * ----------------------------------------------------------------------- */
-GUIGrid::GUIGrid(int noXCells, int noYCells)
-    : _xcellsize(0), _ycellsize(0), _boundary(), _grid(0),
-    _xsize(noXCells), _ysize(noYCells)
+GUIGrid::GUIGrid(size_t noXCells, size_t noYCells)
+    : myXCellSize(0), myYCellSize(0), myBoundary(), myGrid(0),
+    myXSize(noXCells), myYSize(noYCells)
 {
     for(size_t i=0; i<3; i++) {
-        _relations[i] = 0;
+        myRelations[i] = 0;
     }
+	myVisHelper = new PaintState[myXSize*myYSize];
 }
 
 
 GUIGrid::~GUIGrid()
 {
-    delete[] _grid;
+    delete[] myGrid;
     for(size_t i=0; i<3; i++) {
-        delete[] _relations[i];
+        delete[] myRelations[i];
     }
+	delete[] myVisHelper;
 }
 
 
 const Boundary &
 GUIGrid::getBoundary() const
 {
-    return _boundary;
+    return myBoundary;
 }
 
 
@@ -264,16 +269,16 @@ std::vector<size_t>
 GUIGrid::getCellsContaining(Boundary boundary)
 {
     std::vector<size_t> cells;
-    // compute the cells the lae is going through
-    for(int y=0; y<_ysize; y++) {
-        SUMOReal ypos1 = SUMOReal(y) * _ycellsize;
-        for(int x=0; x<_xsize; x++) {
-            SUMOReal xpos1 = SUMOReal(x) * _xcellsize;
+    // compute the cells the boundary is going through
+    for(int y=0; y<myYSize; y++) {
+        SUMOReal ypos1 = SUMOReal(y) * myYCellSize + myBoundary.ymin();
+        for(int x=0; x<myXSize; x++) {
+            SUMOReal xpos1 = SUMOReal(x) * myXCellSize + myBoundary.xmin();
             Boundary cellBounds;
             cellBounds.add(xpos1, ypos1);
-            cellBounds.add(xpos1+_xcellsize, ypos1+_ycellsize);
+            cellBounds.add(xpos1+myXCellSize, ypos1+myYCellSize);
             if( boundary.partialWithin(cellBounds) ) {
-                int offset = _xsize * y + x;
+                int offset = myXSize * y + x;
                 cells.push_back(offset);
             }
         }
@@ -285,22 +290,22 @@ GUIGrid::getCellsContaining(Boundary boundary)
 void
 GUIGrid::buildRelationships()
 {
-    for(int y=0; y<_ysize; y++) {
-        for(int x=0; x<_xsize; x++) {
-            size_t pos = y*_xsize + x;
+    for(int y=0; y<myYSize; y++) {
+        for(int x=0; x<myXSize; x++) {
+            size_t pos = y*myXSize + x;
             // build cont without upper
-            GridCell cont = _grid[pos];
+            GridCell cont = myGrid[pos];
             removeFrom(cont, x, y-1);
-            _relations[0][pos] = cont;
+            myRelations[0][pos] = cont;
             // build cont without left
-            cont = _grid[pos];
+            cont = myGrid[pos];
             removeFrom(cont, x-1, y);
-            _relations[1][pos] = cont;
+            myRelations[1][pos] = cont;
             // build cont without left and upper
-            cont = _grid[pos];
+            cont = myGrid[pos];
             removeFrom(cont, x-1, y);
             removeFrom(cont, x, y-1);
-            _relations[2][pos] = cont;
+            myRelations[2][pos] = cont;
         }
     }
 }
@@ -309,83 +314,94 @@ GUIGrid::buildRelationships()
 void
 GUIGrid::removeFrom(GridCell &cont, int x, int y)
 {
-    if(x<0||y<0||x>=_xsize||y>=_ysize) {
+    if(x<0||y<0||x>=myXSize||y>=myYSize) {
         return;
     }
     // get the list of edges to remove
-    size_t pos = y*_xsize + x;
-    GridCell &from = _grid[pos];
+    size_t pos = y*myXSize + x;
+    GridCell &from = myGrid[pos];
     cont.removeIfIn(from);
 }
 
 
 void
 GUIGrid::get(int what,
-             SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff,
+             SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax,
              size_t *setEdges, size_t *setJunctions, size_t *setAdditional) const
 {
+	xmax += myXCellSize;
+	ymax += myYCellSize;
     // compute bounderies
-    SUMOReal xur = x - xoff - _xcellsize;
-    SUMOReal xdl = x + xoff + _xcellsize;
-    SUMOReal yur = y - yoff - _ycellsize;
-    SUMOReal ydl = y + yoff + _ycellsize;
+	/*
+    SUMOReal xmin = x - xoff - myXCellSize;
+    SUMOReal xmax = x + xoff + myXCellSize;
+    SUMOReal ymin = y - yoff - myYCellSize;
+    SUMOReal ymax = y + yoff + myYCellSize;
+	*/
+	for(int i=0; i<myXSize*myYSize; i++) {
+		myVisHelper[i] = GPS_NOT_DRAWN;// = new bool[myXSize*myYSize];
+	}
 
     // loop over bounderies
-    SUMOReal yrun=(yur >= 0 ? yur : 0);
-    int ypos = (int) (yur/_ycellsize);
+    SUMOReal yrun= ymin;//(yur >= 0 ? yur : 0);
+    int ypos = (int) ((ymin/*+myBoundary.ymin()*/)/myYCellSize);
     if(ypos<0) {
         ypos = 0;
     }
     size_t yidx = 0;
-    for(; yrun<ydl&&ypos<_ysize; yrun+=_ycellsize, ypos++, yidx++) {
-        SUMOReal xrun=(xur >= 0 ? xur : 0);
-        int xpos = (int) (xur/_xcellsize);
+    for(; yrun<ymax&&ypos<myYSize; yrun+=myYCellSize, ypos++, yidx++) {
+        SUMOReal xrun=xmin;//(xur >= 0 ? xur : 0);
+        int xpos = (int) ((xmin/*+myBoundary.xmin()*/)/myXCellSize);
         if(xpos<0) {
             xpos = 0;
         }
         size_t xidx = 0;
-        for(; xrun<xdl&&xpos<_xsize; xrun+=_xcellsize, xpos++, xidx++) {
-            int offs = ypos*_xsize+xpos;
+        for(; xrun<xmax&&xpos<myXSize; xrun+=myXCellSize, xpos++, xidx++) {
+            int offs = ypos*myXSize+xpos;
             if(xidx==0&&yidx==0) {
                 if((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
-                    _grid[offs].setEdges(setEdges);
+                    myGrid[offs].setEdges(setEdges);
                 }
                 if((what&GLO_JUNCTION)!=0) {
-                    _grid[offs].setJunctions(setJunctions);
+                    myGrid[offs].setJunctions(setJunctions);
                 }
                 if((what&GLO_DETECTOR)!=0) {
-                    _grid[offs].setAdditional(setAdditional);
+                    myGrid[offs].setAdditional(setAdditional);
                 }
+				myVisHelper[offs] = GPS_FULL_DRAWN;
             } else if(yidx!=0 && xidx!=0) {
                 if((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
-                    _relations[2][offs].setEdges(setEdges);
+                    myRelations[2][offs].setEdges(setEdges);
                 }
                 if((what&GLO_JUNCTION)!=0) {
-                    _relations[2][offs].setJunctions(setJunctions);
+                    myRelations[2][offs].setJunctions(setJunctions);
                 }
                 if((what&GLO_DETECTOR)!=0) {
-                    _relations[2][offs].setAdditional(setAdditional);
+                    myRelations[2][offs].setAdditional(setAdditional);
                 }
+				myVisHelper[offs] = GPS_ADD_DRAWN;
             } else if(yidx==0) {
                 if((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
-                    _relations[1][offs].setEdges(setEdges);
+                    myRelations[1][offs].setEdges(setEdges);
                 }
                 if((what&GLO_JUNCTION)!=0) {
-                    _relations[1][offs].setJunctions(setJunctions);
+                    myRelations[1][offs].setJunctions(setJunctions);
                 }
                 if((what&GLO_DETECTOR)!=0) {
-                    _relations[1][offs].setAdditional(setAdditional);
+                    myRelations[1][offs].setAdditional(setAdditional);
                 }
+				myVisHelper[offs] = GPS_ADD_DRAWN;
             } else {
                 if((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
-                    _relations[0][offs].setEdges(setEdges);
+                    myRelations[0][offs].setEdges(setEdges);
                 }
                 if((what&GLO_JUNCTION)!=0) {
-                    _relations[0][offs].setJunctions(setJunctions);
+                    myRelations[0][offs].setJunctions(setJunctions);
                 }
                 if((what&GLO_DETECTOR)!=0) {
-                    _relations[0][offs].setAdditional(setAdditional);
+                    myRelations[0][offs].setAdditional(setAdditional);
                 }
+				myVisHelper[offs] = GPS_ADD_DRAWN;
             }
         }
     }
@@ -395,28 +411,28 @@ GUIGrid::get(int what,
 int
 GUIGrid::getNoXCells() const
 {
-    return _xsize;
+    return myXSize;
 }
 
 
 int
 GUIGrid::getNoYCells() const
 {
-    return _ysize;
+    return myYSize;
 }
 
 
 SUMOReal
 GUIGrid::getXCellSize() const
 {
-    return _xcellsize;
+    return myXCellSize;
 }
 
 
 SUMOReal
 GUIGrid::getYCellSize() const
 {
-    return _ycellsize;
+    return myYCellSize;
 }
 
 
@@ -425,9 +441,9 @@ GUIGrid::closeBuilding()
 {
     // ok, we now have a grid, but we don not want to draw edges more
     //  than once; build the relationship matrix next
-    size_t size = getNoXCells() * getNoYCells();
+	size_t size = getNoXCells() * getNoYCells();
     for(size_t i=0; i<3; i++) {
-        _relations[i] = new GUIGrid::GridCell[size];
+		myRelations[i] = new GUIGrid::GridCell[size];
     }
     buildRelationships();
 }
@@ -436,8 +452,16 @@ GUIGrid::closeBuilding()
 void
 GUIGrid::setBoundary(const Boundary &b)
 {
-    _boundary = b;
+	myBoundary = b;
 }
+
+
+GUIGrid::PaintState
+GUIGrid::getPaintState(size_t x, size_t y)
+{
+	return myVisHelper[myXSize*y+x];
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
