@@ -264,6 +264,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dfrouter", "dfrouter\dfrout
 		{508F0BFF-83FE-444C-9509-A359BCA83BC4} = {508F0BFF-83FE-444C-9509-A359BCA83BC4}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libmultimodal", "y_libmultimodal\y_libmultimodal.vcproj", "{31A2B986-DAE9-4DA0-BF1A-3AC74415CBE2}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -410,6 +414,10 @@ Global
 		{171F8F50-AC6B-4FBC-9F6C-32C65F0A310C}.Debug.Build.0 = Debug|Win32
 		{171F8F50-AC6B-4FBC-9F6C-32C65F0A310C}.Release.ActiveCfg = Release|Win32
 		{171F8F50-AC6B-4FBC-9F6C-32C65F0A310C}.Release.Build.0 = Release|Win32
+		{31A2B986-DAE9-4DA0-BF1A-3AC74415CBE2}.Debug.ActiveCfg = Debug|Win32
+		{31A2B986-DAE9-4DA0-BF1A-3AC74415CBE2}.Debug.Build.0 = Debug|Win32
+		{31A2B986-DAE9-4DA0-BF1A-3AC74415CBE2}.Release.ActiveCfg = Release|Win32
+		{31A2B986-DAE9-4DA0-BF1A-3AC74415CBE2}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
