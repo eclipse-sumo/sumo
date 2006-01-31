@@ -1,3 +1,4 @@
-EXTRA_DIST =  cross3l.edg.xml cross3l.nod.xml errors.netconvert.exe \
+EXTRA_DIST =  errors.netconvert.exe input_edges.edg.xml input_nodes.nod.xml \
 net.netconvert.exe options.netconvert output.netconvert.exe \
 show_net.sumo.cfg
+

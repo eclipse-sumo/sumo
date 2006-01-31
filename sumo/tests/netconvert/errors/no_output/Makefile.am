@@ -1,2 +1,3 @@
-EXTRA_DIST =  errors.netconvert.exe hokkaido.edg.xml hokkaido.nod.xml \
+EXTRA_DIST =  errors.netconvert.exe input_edges.edg.xml input_nodes.nod.xml \
 net.netconvert.exe options.netconvert output.netconvert.exe
+

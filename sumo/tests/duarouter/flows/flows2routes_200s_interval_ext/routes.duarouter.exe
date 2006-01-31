@@ -1,303 +1,303 @@
 <routes>
    <vtype id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="5" maxspeed="70" color="1,1,0"/>
    <vehicle id="0_0" type="KRAUSS_DEFAULT" depart="1">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_1" type="KRAUSS_DEFAULT" depart="3">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_2" type="KRAUSS_DEFAULT" depart="5">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_3" type="KRAUSS_DEFAULT" depart="7">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_4" type="KRAUSS_DEFAULT" depart="9">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_5" type="KRAUSS_DEFAULT" depart="11">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_6" type="KRAUSS_DEFAULT" depart="13">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_7" type="KRAUSS_DEFAULT" depart="15">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_8" type="KRAUSS_DEFAULT" depart="17">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_9" type="KRAUSS_DEFAULT" depart="19">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_10" type="KRAUSS_DEFAULT" depart="21">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_11" type="KRAUSS_DEFAULT" depart="23">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_12" type="KRAUSS_DEFAULT" depart="25">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_13" type="KRAUSS_DEFAULT" depart="27">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_14" type="KRAUSS_DEFAULT" depart="29">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_15" type="KRAUSS_DEFAULT" depart="31">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_16" type="KRAUSS_DEFAULT" depart="33">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_17" type="KRAUSS_DEFAULT" depart="35">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_18" type="KRAUSS_DEFAULT" depart="37">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_19" type="KRAUSS_DEFAULT" depart="39">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_20" type="KRAUSS_DEFAULT" depart="41">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_21" type="KRAUSS_DEFAULT" depart="43">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_22" type="KRAUSS_DEFAULT" depart="45">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_23" type="KRAUSS_DEFAULT" depart="47">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_24" type="KRAUSS_DEFAULT" depart="49">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_25" type="KRAUSS_DEFAULT" depart="51">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_26" type="KRAUSS_DEFAULT" depart="53">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_27" type="KRAUSS_DEFAULT" depart="55">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_28" type="KRAUSS_DEFAULT" depart="57">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_29" type="KRAUSS_DEFAULT" depart="59">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_30" type="KRAUSS_DEFAULT" depart="61">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_31" type="KRAUSS_DEFAULT" depart="63">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_32" type="KRAUSS_DEFAULT" depart="65">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_33" type="KRAUSS_DEFAULT" depart="67">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_34" type="KRAUSS_DEFAULT" depart="69">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_35" type="KRAUSS_DEFAULT" depart="71">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_36" type="KRAUSS_DEFAULT" depart="73">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_37" type="KRAUSS_DEFAULT" depart="75">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_38" type="KRAUSS_DEFAULT" depart="77">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_39" type="KRAUSS_DEFAULT" depart="79">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_40" type="KRAUSS_DEFAULT" depart="81">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_41" type="KRAUSS_DEFAULT" depart="83">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_42" type="KRAUSS_DEFAULT" depart="85">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_43" type="KRAUSS_DEFAULT" depart="87">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_44" type="KRAUSS_DEFAULT" depart="89">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_45" type="KRAUSS_DEFAULT" depart="91">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_46" type="KRAUSS_DEFAULT" depart="93">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_47" type="KRAUSS_DEFAULT" depart="95">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_48" type="KRAUSS_DEFAULT" depart="97">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_49" type="KRAUSS_DEFAULT" depart="99">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_50" type="KRAUSS_DEFAULT" depart="101">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_51" type="KRAUSS_DEFAULT" depart="103">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_52" type="KRAUSS_DEFAULT" depart="105">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_53" type="KRAUSS_DEFAULT" depart="107">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_54" type="KRAUSS_DEFAULT" depart="109">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_55" type="KRAUSS_DEFAULT" depart="111">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_56" type="KRAUSS_DEFAULT" depart="113">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_57" type="KRAUSS_DEFAULT" depart="115">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_58" type="KRAUSS_DEFAULT" depart="117">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_59" type="KRAUSS_DEFAULT" depart="119">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_60" type="KRAUSS_DEFAULT" depart="121">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_61" type="KRAUSS_DEFAULT" depart="123">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_62" type="KRAUSS_DEFAULT" depart="125">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_63" type="KRAUSS_DEFAULT" depart="127">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_64" type="KRAUSS_DEFAULT" depart="129">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_65" type="KRAUSS_DEFAULT" depart="131">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_66" type="KRAUSS_DEFAULT" depart="133">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_67" type="KRAUSS_DEFAULT" depart="135">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_68" type="KRAUSS_DEFAULT" depart="137">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_69" type="KRAUSS_DEFAULT" depart="139">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_70" type="KRAUSS_DEFAULT" depart="141">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_71" type="KRAUSS_DEFAULT" depart="143">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_72" type="KRAUSS_DEFAULT" depart="145">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_73" type="KRAUSS_DEFAULT" depart="147">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_74" type="KRAUSS_DEFAULT" depart="149">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_75" type="KRAUSS_DEFAULT" depart="151">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_76" type="KRAUSS_DEFAULT" depart="153">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_77" type="KRAUSS_DEFAULT" depart="155">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_78" type="KRAUSS_DEFAULT" depart="157">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_79" type="KRAUSS_DEFAULT" depart="159">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_80" type="KRAUSS_DEFAULT" depart="161">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_81" type="KRAUSS_DEFAULT" depart="163">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_82" type="KRAUSS_DEFAULT" depart="165">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_83" type="KRAUSS_DEFAULT" depart="167">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_84" type="KRAUSS_DEFAULT" depart="169">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_85" type="KRAUSS_DEFAULT" depart="171">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_86" type="KRAUSS_DEFAULT" depart="173">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_87" type="KRAUSS_DEFAULT" depart="175">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_88" type="KRAUSS_DEFAULT" depart="177">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_89" type="KRAUSS_DEFAULT" depart="179">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_90" type="KRAUSS_DEFAULT" depart="181">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_91" type="KRAUSS_DEFAULT" depart="183">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_92" type="KRAUSS_DEFAULT" depart="185">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_93" type="KRAUSS_DEFAULT" depart="187">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_94" type="KRAUSS_DEFAULT" depart="189">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_95" type="KRAUSS_DEFAULT" depart="191">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_96" type="KRAUSS_DEFAULT" depart="193">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_97" type="KRAUSS_DEFAULT" depart="195">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_98" type="KRAUSS_DEFAULT" depart="197">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0_99" type="KRAUSS_DEFAULT" depart="199">
-      <route>beg middle1 middle2 end rend</route>
+      <route>beg middle end rend</route>
    </vehicle>
 </routes>

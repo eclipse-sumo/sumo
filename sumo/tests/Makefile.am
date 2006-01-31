@@ -1,5 +1,6 @@
-SUBDIRS =
+SUBDIRS =  dfrouter duarouter jtrrouter netconvert sumo
 
-EXTRA_DIST = runAllTests.bat \
-runDuarouterTests.bat runNetconvertTests.bat runSumoTests.bat
+EXTRA_DIST =  checkTLS.py runAdditionalTests.py runDfrouterTests.bat \
+runDuarouterTests.bat runJTRrouterTests.bat runNetconvertTests.bat \
+runSumoTests.bat
 

@@ -1,6 +1,8 @@
 SUBDIRS =  increasing_time increasing_time_notype \
-increasing_time_typedefined increasing_time_unsorted \
-increasing_time_withcolor one_time one_time_notype one_time_typedefined \
-one_time_unsorted unsorted_time unsorted_time_notype \
+increasing_time_typedefined increasing_time_typedefined_withclass \
+increasing_time_unsorted increasing_time_withcolor one_time one_time_notype \
+one_time_typedefined one_time_unsorted unsorted_time unsorted_time_notype \
 unsorted_time_typedefined
+
 EXTRA_DIST =  testsuite.duarouter
+

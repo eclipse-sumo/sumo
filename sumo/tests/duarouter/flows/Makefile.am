@@ -1,5 +1,8 @@
 SUBDIRS =  flows2routes flows2routes_100s_interval \
 flows2routes_100s_interval_ext flows2routes_100s_interval_typedefined \
 flows2routes_100s_interval_withcolor flows2routes_100s_interval_withtype \
-flows2routes_200s_interval flows2routes_200s_interval_ext
+flows2routes_100s_interval_withtype_withclass flows2routes_200s_interval \
+flows2routes_200s_interval_ext
+
 EXTRA_DIST =  testsuite.duarouter
+

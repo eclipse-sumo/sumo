@@ -1,1 +1,1 @@
---net-file=net.net.xml --trip-defs=increasing_trips.trips.xml
+--net-file=input_net.net.xml --trip-defs=increasing_trips.trips.xml

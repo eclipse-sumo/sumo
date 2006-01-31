@@ -2,7 +2,7 @@ SUMO sumo
  (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net
  A microscopic road traffic simulation.
 
-Usage: (sumo-)sumo(.exe) [OPTION]*
+Usage: sumo(.exe) [OPTION]*
 
 
 Examples:

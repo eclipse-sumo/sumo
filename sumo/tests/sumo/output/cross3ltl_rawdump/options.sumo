@@ -1,1 +1,1 @@
---no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml --netstate-dump=rawdump.xml -b 0 -e 10000
+--no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml --netstate-dump=rawdump.xml -b 100 -e 200
