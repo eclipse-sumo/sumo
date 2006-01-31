@@ -3745,27 +3745,27 @@
       <sect2 id="user_chp05-own_routes-jtr">
         <title>Using the Junction Turning Ratio - Router</title>
 
-        <para>The following parameter must be supplied to the jtr-router: the
-        network to route the vehicles through, the description of the turning
-        ratios for the junctions (defaults may be used for this, too), and the
-        descriptions of the flow.</para>
+        <para>The <application>JTRROUTER</application> is a routing
+        applications which uses flows and turning percentages at junctions as
+        input. The following parameter must be supplied: the network to route
+        the vehicles through, the description of the turning ratios for the
+        junctions (defaults may be used for this, too), and the descriptions
+        of the flows.</para>
 
         <para>A call may look like this:</para>
 
         <screen>jtrrouter --flow-defs=<replaceable>&lt;FLOW_DEFS&gt;</replaceable> --turns=<replaceable>&lt;TURN_DEFINITIONS&gt;</replaceable> --net=<replaceable>&lt;SUMO_NET&gt;</replaceable> \
    --output-file=<replaceable>MySUMORoutes.rou.xml</replaceable> -b <replaceable>&lt;UINT&gt;</replaceable> -e <replaceable>&lt;UINT&gt;</replaceable></screen>
 
-        <para>The definitions of the flow - may they be trip definitions or
-        amount definitions - look like the ones for the dua-router with just a
-        single difference: as the it is not known where the vehicle will leave
-        the network as the route it uses is randomly computed, the destination
-        parameter has no meaning for jtr-routing and so may be left off. A
-        vehicle leaves the network as soon as it comes to a sink edge. As not
-        all networks have sink edges set, one can support a list of edges to
-        be declared as sinks using <option>--sinks
-        <replaceable>&lt;EDGE_IDS&gt;</replaceable></option>.
-        <option><replaceable>&lt;EDGE_IDS&gt;</replaceable></option> is in
-        this case a list of edge ids separated using a ';'.</para>
+        <para>The definitions of the flow look like the ones for the
+        <application>DUAROUTER</application> with just a single difference: as
+        it is not known where the vehicle will leave the network as the route
+        it uses is randomly computed, the destination parameter has no meaning
+        for jtr-routing and so may be left off. A vehicle leaves the network
+        as soon as it comes to a sink edge. As not all networks have sink
+        edges set, one can support a list of edges to be declared as sinks
+        using <option>--sinks
+        <replaceable>&lt;EDGE_ID&gt;[;&lt;EDGE_ID&gt;]*</replaceable></option>.</para>
 
         <para>To describe the turn definitions, one has to build a further
         file. Within this file, for each interval and each edge the list of
@@ -3775,9 +3775,9 @@
         <programlisting><sgmltag>&lt;turn-defs&gt;</sgmltag>
    <sgmltag>&lt;interval begin="0" end="3600"&gt;</sgmltag>
       <sgmltag>&lt;fromedge id="myEdge0"&gt;</sgmltag>
-         <sgmltag>&lt;toedge id="myEdge1" perc="0.2"/&gt;</sgmltag>
-         <sgmltag>&lt;toedge id="myEdge2" perc="0.7"/&gt;</sgmltag>
-         <sgmltag>&lt;toedge id="myEdge3" perc="0.1"/&gt;</sgmltag>
+         <sgmltag>&lt;toedge id="myEdge1" probability="0.2"/&gt;</sgmltag>
+         <sgmltag>&lt;toedge id="myEdge2" probability="0.7"/&gt;</sgmltag>
+         <sgmltag>&lt;toedge id="myEdge3" probability="0.1"/&gt;</sgmltag>
       <sgmltag>&lt;/fromedge&gt;</sgmltag>
 
       ... any other edges ...
@@ -3793,14 +3793,14 @@
         the edge "myEdge1" with a probability of 20%, "myEdge2" with a
         probability of 70% and "myEdge3" with a probability of 10%. The
         specification of such information is of course quite extensive and so
-        the jtr-router is also able to read the turning ratios from a cvs
-        file. The same information as above may be coded the following
-        way:</para>
+        the <application>JTRROUTER</application> is also able to read the
+        turning ratios from a cvs file. The same information as above may be
+        coded the following way:</para>
 
-        <programlisting>interval;begin;end;from;to;split;
-;0;3600;myEdge0;myEdge1;0.2;
-;0;3600;myEdge0;myEdge2;0.7;
-;0;3600;myEdge0;myEdge3;0.1;</programlisting>
+        <programlisting>begin;end;from;to;split
+0;3600;myEdge0;myEdge1;0.2
+0;3600;myEdge0;myEdge2;0.7
+0;3600;myEdge0;myEdge3;0.1</programlisting>
 
         <para><caution>
             <para>Do not forget to give the order of the attributes in the
@@ -3819,19 +3819,44 @@
         The values will be applied to an edge's following edges beginning at
         the right edge (20%) and ending at the leftmost edge (10%). As the
         number of possible followers changes for different edges, the values
-        are resampled to directional ratios for edges which number of
-        following edges differs from the list of edges given within the
-        turning defaults. Given <option>--turn-defaults=20;70;10</option> a
-        vehicle using an edge that has two followers would use the follower to
-        the right with 55% probability, the one to the left with 45%.</para>
+        are resampled for edges which number of following edges differs from
+        the number of given turning probability defaults. Given
+        <option>--turn-defaults=20;70;10</option> a vehicle using an edge that
+        has two followers would use the follower to the right with 55%
+        probability, the one to the left with 45%.</para>
 
         <para>As theoretically a route may get infinitely long when a vehicle
         is forced to take always the same direction, it is possible to limit
         the route's size using <option>max-edges-factor</option>. This factor,
         multiplied with the number of the used network's edges is the maximum
         number of edges a route may have. With the default of 2.0, a route may
-        contain twice as many edges as the network has. We assume that for
-        each network this number has to be chosen again.</para>
+        contain twice as many edges as the network has. Any route longer than
+        this size will be marked as invalid. We assume that for each network
+        this number has to be chosen again.</para>
+
+        <para>The following options are accepted by
+        <application>JTRROUTER</application>:</para>
+
+        <para>!!!</para>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>The attribute "<sgmltag>probability</sgmltag>" within turn
+            definitions was named "<sgmltag>perc</sgmltag>" in versions lower
+            than 0.9.4 The reason for this change is that
+            "<sgmltag>probability</sgmltag>" is more common throughout the
+            package and the values had to be in the range between 0 and 1,
+            what is no percentage information at all.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Examples:</para>
+
+        <para>Several examples may be found in
+        <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/jtrrouter/</filename>.
+        !!!</para>
       </sect2>
 
       <sect2 id="user_chp05-od2trips">
@@ -5135,9 +5160,10 @@
         describes over what time the values shall be collected and aggregated
         ("interval length"). Each aggregation interval is written into an own,
         single file. The file name is made up from the base name and the
-        aggregation interval: &lt;FILENAME&gt; =
-        &lt;PATH_AND_FILE_PREFIX&gt;_&lt;INTERVAL&gt;.xml. An example:
-        <option>--dump-basename=./output/lanedump
+        aggregation interval:
+        <filename><replaceable>&lt;FILENAME&gt;</replaceable> =
+        <replaceable>&lt;PATH_AND_FILE_PREFIX&gt;</replaceable>_<replaceable>&lt;INTERVAL&gt;</replaceable>.xml</filename>.
+        An example: <option>--dump-basename=./output/lanedump
         --dump-intervals=300;600</option> will build two files:
         <filename>./output/lanedump_300.xml</filename> and
         <filename>./output/lanedump_600.xml</filename>. For edge-based state
@@ -5330,8 +5356,8 @@
    <sgmltag>&lt;tripinfo vehicle_id="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>" start="<replaceable>&lt;DEPARTURE_TIME&gt;</replaceable>" \
             wished="<replaceable>&lt;WISHED_DEPARTURE_TIME&gt;</replaceable>" \
             end="<replaceable>&lt;ARRIVAL_TIME&gt;</replaceable>" \
-            duration="&lt;TRAVEL_TIME&gt;" \
-            waited="&lt;WAITING_TIME&gt;"/&gt;</sgmltag>
+            duration="<replaceable>&lt;TRAVEL_TIME&gt;</replaceable>" \
+            waited="<replaceable>&lt;WAITING_TIME&gt;</replaceable>"/&gt;</sgmltag>
 
    ... information about further vehicles ...
 
@@ -5422,6 +5448,7 @@
         <programlisting><sgmltag>&lt;vehicleroutes&gt;</sgmltag>
    <sgmltag>&lt;vehicle id="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>" emitedAt="<replaceable>&lt;EMISSION_TIME&gt;</replaceable>" endedAt="<replaceable>&lt;ARRIVAL_TIME&gt;</replaceable>"&gt;</sgmltag>
       <sgmltag>&lt;route replacedOnEdge="<replaceable>&lt;EDGE_ID&gt;</replaceable>" replacedAtTime="<replaceable>&lt;TIME&gt;</replaceable>"&gt;<replaceable>&lt;PREVIOUS_ROUTE&gt;</replaceable>&lt;/route&gt;</sgmltag>
+
       ... further replaced routes ...
 
      <sgmltag> &lt;route&gt;<replaceable>&lt;LAST_ROUTE&gt;</replaceable>&lt;/route&gt;</sgmltag>
@@ -5761,9 +5788,89 @@
       </sect2>
 
       <sect2>
-        <title>Traffic Light Types and their Usage</title>
+        <title>Rerouter</title>
 
-        <para>... to be described ...</para>
+        <para>Rerouter change the route of vehicles as soon as a vehicle moves
+        on a specified edge. Although implemented earlier, were firstly
+        described and tested within version 0.9.4.</para>
+
+        <para>A rerouter is set into the simulated by adding the following
+        line to an "additional file": <sgmltag>&lt;trigger
+        id="<replaceable>&lt;REROUTER_ID&gt;</replaceable>"
+        objecttype="rerouter"
+        objectid="<replaceable>&lt;EDGE_ID&gt;</replaceable>[;<replaceable>&lt;EDGE_ID&gt;</replaceable>]"
+        file="<replaceable>&lt;DEFINITION_FILE&gt;</replaceable>"
+        [probability="<replaceable>&lt;PROBABILITY&gt;</replaceable>"]/&gt;</sgmltag>.
+        As you may see, rerouter may be placed on several edges, at least one
+        edge is necessary. Furthermore, you may already give within this
+        definition how many vehicles shall be rerouted by giving a number
+        between 0 (none) and 1 (all). In addition to this definition a
+        description file
+        (<sgmltag><replaceable>&lt;DEFINITION_FILE&gt;</replaceable></sgmltag>)
+        must be given which describes the behaviour of the rerouter over time.
+        The definition values are</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><sgmltag>id</sgmltag>: the id of of the rerouter</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>objecttype</sgmltag>: always
+            "<sgmltag>rerouter</sgmltag>"</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>objectid</sgmltag>: an edge id or a list of edge
+            ids where vehicles shall be rerouted</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>file</sgmltag>: path to the definition file</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>probability</sgmltag>: the rpobability for vehicle
+            rerouting (0-1)</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>A rerouter may work in several different ways. Assume you would
+        give the following file as definition:</para>
+
+        <programlisting><sgmltag>&lt;rerouter&gt;</sgmltag>
+   <sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>"/&gt;</sgmltag>
+      <sgmltag>&lt;closing_reroute id="<replaceable>&lt;EDGE_ID&gt;</replaceable>" [to="<replaceable>&lt;EDGE_ID&gt;</replaceable>"]/&gt;</sgmltag>
+   <sgmltag>&lt;/interval/&gt;</sgmltag>
+
+   ... further intervals ...
+
+<sgmltag>&lt;/rerouter&gt;</sgmltag></programlisting>
+
+        <para>A "<sgmltag>closing_reroute</sgmltag>" forces the rerouter to
+        close the edge
+        <sgmltag><replaceable>&lt;EDGE_ID&gt;</replaceable></sgmltag>.
+        Vehicles which normally would pass this edge will get a new route as
+        soon as they reach one of the edges given in the
+        <sgmltag>objectid</sgmltag>-attribute of the rerouter's definition. If
+        you change the <sgmltag>probability</sgmltag>-attribute within the
+        rerouter's definition, only a part of the vehicles will be rerouted.
+        The optional "<sgmltag>to</sgmltag>"-edge will be set as the new
+        destination of the vehicle. If no new destination edge is given, the
+        vehicle will keep his previous destaintion. The values for a closing
+        reroute:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para><sgmltag>id</sgmltag>: the id of the closed edge</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>to</sgmltag>: the destination to use (edge)</para>
+          </listitem>
+        </itemizedlist>
+
+        <para></para>
       </sect2>
     </sect1>
 
@@ -5932,7 +6039,8 @@
 
                 <para>This menu enables you to edit additional weights for
                 edges. These additional weight descriptions may be saved into
-                a file and read by the dua-router and his variants.</para>
+                a file and read by the <application>DUAROUTER</application>
+                and his variants.</para>
               </listitem>
 
               <listitem>

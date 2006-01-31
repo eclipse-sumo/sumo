@@ -124,6 +124,192 @@
         tests are currently available:</para>
 
         <table>
+          <title>Tests for DFROUTER</title>
+
+          <tgroup cols="1">
+            <thead>
+              <row>
+                <entry>Test Set Description</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry><emphasis>Tests whether showing meta-information
+                works</emphasis></entry>
+              </row>
+
+              <row>
+                <entrytbl cols="2">
+                  <thead>
+                    <row>
+                      <entry>Path</entry>
+
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+
+                  <tbody>
+                    <row>
+                      <entry><filename>dfrouter/meta/help</filename></entry>
+
+                      <entry>checks whether printing help works</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>dfrouter/meta/version</filename></entry>
+
+                      <entry>checks whether printing version works</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>dfrouter/trips/noop</filename></entry>
+
+                      <entry>checks what happens when no argument is
+                      given</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry><emphasis></emphasis></entry>
+              </row>
+
+              <row>
+                <entry><emphasis>Checks whether the detector types are
+                computed properly</emphasis></entry>
+              </row>
+
+              <row>
+                <entrytbl cols="2">
+                  <thead>
+                    <row>
+                      <entry>Path</entry>
+
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+
+                  <tbody>
+                    <row>
+                      <entry><filename>dfrouter/detector_types/messstrecke</filename></entry>
+
+                      <entry>Example using the dlr-testtrack</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry></entry>
+              </row>
+
+              <row>
+                <entry><emphasis>Checks whether the detector pois are written
+                correctly</emphasis></entry>
+              </row>
+
+              <row>
+                <entrytbl cols="2">
+                  <thead>
+                    <row>
+                      <entry>Path</entry>
+
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+
+                  <tbody>
+                    <row>
+                      <entry><filename>dfrouter/detector_pois/messstrecke</filename></entry>
+
+                      <entry>Example using the dlr-testtrack</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry></entry>
+              </row>
+
+              <row>
+                <entry><emphasis>Checks whether the routes are computed
+                correctly</emphasis></entry>
+              </row>
+
+              <row>
+                <entrytbl cols="2">
+                  <thead>
+                    <row>
+                      <entry>Path</entry>
+
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+
+                  <tbody>
+                    <row>
+                      <entry><filename>dfrouter/routes/messstrecke</filename></entry>
+
+                      <entry>Example using the dlr-testtrack</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry></entry>
+              </row>
+
+              <row>
+                <entry><emphasis>Checks whether error handling
+                works</emphasis></entry>
+              </row>
+
+              <row>
+                <entrytbl cols="2">
+                  <thead>
+                    <row>
+                      <entry>Path</entry>
+
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+
+                  <tbody>
+                    <row>
+                      <entry><filename>dfrouter/errors/false_net</filename></entry>
+
+                      <entry>Tests what happens if an unknown network is
+                      passed</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>dfrouter/errors/no_output</filename></entry>
+
+                      <entry>Tests what happens if no output is given</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>dfrouter/errors/unknown_option</filename></entry>
+
+                      <entry>Tests what happens if an unknown option is
+                      passed</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+
+        <table>
           <title>Tests for DUAROUTER</title>
 
           <tgroup cols="1">
@@ -200,6 +386,13 @@
                     </row>
 
                     <row>
+                      <entry><filename>duarouter/alternatives/newstyle_colorcheck</filename></entry>
+
+                      <entry>as below, but color information is
+                      provided</entry>
+                    </row>
+
+                    <row>
                       <entry><filename>duarouter/alternatives/newstyle_noid_increasing_time</filename></entry>
 
                       <entry>new style alternatives with increasing departure
@@ -218,6 +411,27 @@
 
                       <entry>new style alternatives with random departure time
                       with and <option>--unsorted</option> set</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/alternatives/newstyle_with_vehtype</filename></entry>
+
+                      <entry><filename>newstyle_noid_increasing_time</filename>,
+                      but a (defined) vehicle type is used</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/alternatives/newstyle_with_vehtype_nodef</filename></entry>
+
+                      <entry><filename>newstyle_noid_increasing_time</filename>,
+                      but an (undefined) vehicle type is used</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/alternatives/newstyle_with_vehtype_with_class</filename></entry>
+
+                      <entry><filename>newstyle_with_vehtype</filename>, but
+                      the vehicle type has a class</entry>
                     </row>
 
                     <row>
@@ -280,6 +494,34 @@
                     </row>
 
                     <row>
+                      <entry><filename>duarouter/flows/flows2routes_100s_interval_typedefined</filename></entry>
+
+                      <entry>flows2routes_100s_interval, but with a defined
+                      vehicle type</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/flows/flows2routes_100s_interval_withcolor</filename></entry>
+
+                      <entry>flows2routes_100s_interval, but with an
+                      additional color information</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/flows/flows2routes_100s_interval_withtype</filename></entry>
+
+                      <entry>flows2routes_100s_interval, but with an undefined
+                      vehicle type</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/flows/flows2routes_100s_interval_withtype_withclass</filename></entry>
+
+                      <entry>flows2routes_100s_interval_typedefined,but the
+                      vehicle type has a class</entry>
+                    </row>
+
+                    <row>
                       <entry><filename>duarouter/flows/flows2routes_200s_interval</filename></entry>
 
                       <entry>simple test with 100 vehicles with departure
@@ -311,6 +553,13 @@
 
                       <entry>Checks whether a defined type is passed
                       further</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/flows/flows2routes_100s_interval_withtype_withclass</filename></entry>
+
+                      <entry>flows2routes_100s_interval_typedefined, but the
+                      vehicle type has a class</entry>
                     </row>
                   </tbody>
                 </entrytbl>
@@ -354,6 +603,13 @@
 
                       <entry>same as increasing_time, but a type is given and
                       defined in the trips</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/trips/increasing_time_typedefined_withclass</filename></entry>
+
+                      <entry>same as increasing_time_typedefined, but the type
+                      has a class</entry>
                     </row>
 
                     <row>
@@ -500,6 +756,13 @@
                     <row>
                       <entry><filename>duarouter/routes/newstyle_noid_increasing_time</filename></entry>
 
+                      <entry>100 routes (new style, routes have no id),
+                      increasing departure time</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/routes/newstyle_noid_unsorted_time</filename></entry>
+
                       <entry>100 routes (new style, routes have no id), random
                       departure time, <option>--unsorted</option> set</entry>
                     </row>
@@ -509,6 +772,33 @@
 
                       <entry>same as newstyle_noid_increasing_time, but colors
                       are supplied partially</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/routes/newstyle_with_vehtype</filename></entry>
+
+                      <entry>Another (!!!) color check</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/routes/newstyle_with_vehtype</filename></entry>
+
+                      <entry>newstyle_withid_one_time, but the with a defined
+                      vehicle type</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/routes/newstyle_with_vehtype_nodef</filename></entry>
+
+                      <entry>newstyle_withid_one_time, but the with an
+                      undefined vehicle type</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>duarouter/routes/newstyle_with_vehtype_withclass</filename></entry>
+
+                      <entry>newstyle_with_vehtype, but the vehicle type has a
+                      class</entry>
                     </row>
                   </tbody>
                 </entrytbl>
@@ -619,7 +909,7 @@
                     </row>
 
                     <row>
-                      <entry><filename>duarouter/errors/no_input</filename></entry>
+                      <entry><filename>duarouter/errors/false_output</filename></entry>
 
                       <entry>Tests what happens if the output can not be
                       written</entry>
@@ -634,6 +924,213 @@
 
                     <row>
                       <entry><filename>duarouter/errors/unknown_option</filename></entry>
+
+                      <entry>Tests what happens if an unknown option is
+                      passed</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+
+        <table>
+          <title>Tests for JTRROUTER</title>
+
+          <tgroup cols="1">
+            <thead>
+              <row>
+                <entry>Test Set Description</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry><emphasis>Tests whether showing meta-information
+                works</emphasis></entry>
+              </row>
+
+              <row>
+                <entrytbl cols="2">
+                  <thead>
+                    <row>
+                      <entry>Path</entry>
+
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+
+                  <tbody>
+                    <row>
+                      <entry><filename>dfrouter/meta/help</filename></entry>
+
+                      <entry>checks whether printing help works</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>dfrouter/meta/version</filename></entry>
+
+                      <entry>checks whether printing version works</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>dfrouter/trips/noop</filename></entry>
+
+                      <entry>checks what happens when no argument is
+                      given</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry><emphasis></emphasis></entry>
+              </row>
+
+              <row>
+                <entry><emphasis>Checks plain functioning</emphasis></entry>
+              </row>
+
+              <row>
+                <entrytbl cols="2">
+                  <thead>
+                    <row>
+                      <entry>Path</entry>
+
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+
+                  <tbody>
+                    <row>
+                      <entry><filename>dfrouter/plain/plain</filename></entry>
+
+                      <entry>A basic test</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>dfrouter/plain/no_turnarounds</filename></entry>
+
+                      <entry>As plain, but turning around is prohibited (by
+                      setting the probability to zero)</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>dfrouter/plain/straight_only</filename></entry>
+
+                      <entry>As plain, but only moving forward is allowed (by
+                      setting all other probabilities to 0)</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>dfrouter/plain/straight_only</filename></entry>
+
+                      <entry>As straight_only, but the ending edge is a
+                      sink</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry><emphasis></emphasis></entry>
+              </row>
+
+              <row>
+                <entry><emphasis>Checks whether the processing of turn
+                definitions works</emphasis></entry>
+              </row>
+
+              <row>
+                <entrytbl cols="2">
+                  <thead>
+                    <row>
+                      <entry>Path</entry>
+
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+
+                  <tbody>
+                    <row>
+                      <entry><filename>dfrouter/turns/definite_xml</filename></entry>
+
+                      <entry>Description of two routes using turn definitions
+                      in XML</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>dfrouter/turns/definite_csv</filename></entry>
+
+                      <entry>Description of two routes using turn definitions
+                      in CSV</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry><emphasis></emphasis></entry>
+              </row>
+
+              <row>
+                <entry><emphasis>Checks whether error handling
+                works</emphasis></entry>
+              </row>
+
+              <row>
+                <entrytbl cols="2">
+                  <thead>
+                    <row>
+                      <entry>Path</entry>
+
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+
+                  <tbody>
+                    <row>
+                      <entry><filename>dfrouter/errors/no_net</filename></entry>
+
+                      <entry>Tests what happens if the net is not
+                      given</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>dfrouter/errors/false_net</filename></entry>
+
+                      <entry>Tests what happens if the net is not
+                      available</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>dfrouter/errors/no_output</filename></entry>
+
+                      <entry>Tests what happens if the output is not
+                      given</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>dfrouter/errors/false_output</filename></entry>
+
+                      <entry>Tests what happens if the output can not be
+                      written</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>dfrouter/errors/no_input</filename></entry>
+
+                      <entry>Tests what happens if the input is not
+                      given</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>dfrouter/errors/unknown_option</filename></entry>
 
                       <entry>Tests what happens if an unknown option is
                       passed</entry>
@@ -1112,11 +1609,17 @@
 
                   <tbody>
                     <row>
-                      <entry><filename>netconvert/extended/rerouter</filename></entry>
+                      <entry><filename>sumo/extended/rerouter</filename></entry>
 
                       <entry>Tests whether rerouter work; checks also whether
                       vehroutes work properly when vehicles are
                       rerouted</entry>
+                    </row>
+
+                    <row>
+                      <entry><filename>sumo/extended/variable_speed_signs</filename></entry>
+
+                      <entry>Tests whether variable speed signs work</entry>
                     </row>
                   </tbody>
                 </entrytbl>
@@ -1143,7 +1646,7 @@
 
                   <tbody>
                     <row>
-                      <entry><filename>netconvert/errors/unknown_option</filename></entry>
+                      <entry><filename>sumo/errors/unknown_option</filename></entry>
 
                       <entry>Tests what happens if an unknown option is
                       passed</entry>

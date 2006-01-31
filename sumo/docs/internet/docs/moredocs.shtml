@@ -39,8 +39,29 @@
 
 <p>
 Here, you may find some additional information about SUMO structures.
-<img src="../images/under_c_small.gif" border="0" width="20" height="20" align="top">
 </p>
+<table border="1" cellpadding="5">
+	<tr>
+		<th valign="top">Document</th>
+		<th valign="top">Contents</th>
+		<th valign="top">Audience</th>
+	</tr>
+	<tr>
+		<td valign="top"><pre><a href="gen/sumo_moreon_dua.shtml" class="SUMOInLineLink">More On... Dynamic User Assignment</a></pre></td>
+		<td valign="top">Examples of using and evaluating the dynamic user assignment SUMO uses</td>
+		<td valign="top"><i>User</i></td>
+	</tr>
+	<tr>
+		<td valign="top"><pre><a href="gen/sumo_moreon_tls.shtml" class="SUMOInLineLink">More On... Traffic Lights</a></pre></td>
+		<td valign="top">Information about how Traffic Lights are implemented in SUMO and how to extend them or build own algorithms</td>
+		<td valign="top"><i>Developer</i></td>
+	</tr>
+	<tr>
+		<td valign="top"><pre><a href="gen/sumo_moreon_tests.shtml" class="SUMOInLineLink">More On... Software Tests</a></pre></td>
+		<td valign="top">Introduction to the test suite we use and a list of what the tests cover</td>
+		<td valign="top"><i>Developer</i></td>
+	</tr>
+</table>
 <ul>
     <li>
     <a href="gen/more_tls.shtml" class="SUMOInLineLink">More On... Traffic Lights</a><br>

@@ -28,7 +28,7 @@ h2 {
 	color:#000000;
 	}
 
-.SUMOMainText {
+.SUMOMainText, .SUMOMainText td {
 	font-family:Helvetica,Arial,Palatino;
 	font-size:10pt;
 	font-weight:normal;
