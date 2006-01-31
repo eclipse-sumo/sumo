@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/01/31 11:01:40  dkrajzew
+// patching incoherences; added possibility to end on non-sink-edges
+//
 // Revision 1.2  2006/01/26 08:47:17  dkrajzew
 // adapted the new router API
 //
@@ -90,7 +93,8 @@ class ROJTREdge;
 class ROJTRRouter : public ROAbstractRouter {
 public:
     /// Constructor
-    ROJTRRouter(RONet &net, bool unbuildIsWarningOnly);
+    ROJTRRouter(RONet &net, bool unbuildIsWarningOnly,
+		bool acceptAllDestinations);
 
     /// Destructor
     ~ROJTRRouter();
@@ -108,6 +112,8 @@ private:
     int myMaxEdges;
 
 	bool myUnbuildIsWarningOnly;
+
+	bool myAcceptAllDestination;
 
 };
 

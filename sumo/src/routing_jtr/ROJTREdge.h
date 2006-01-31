@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/01/31 11:01:40  dkrajzew
+// patching incoherences; added possibility to end on non-sink-edges
+//
 // Revision 1.1  2005/10/10 12:09:36  dkrajzew
 // renamed ROJP*-classes to ROJTR*
 //
@@ -98,7 +101,7 @@ public:
 
     /// adds the information about the percentage of using a certain follower
     void addFollowerProbability(ROJTREdge *follower,
-        SUMOTime begTime, SUMOTime endTime, SUMOReal percentage);
+        SUMOTime begTime, SUMOTime endTime, SUMOReal probability);
 
     /// Returns the next edge to use
     ROJTREdge *chooseNext(SUMOTime time) const;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/01/31 11:01:40  dkrajzew
+// patching incoherences; added possibility to end on non-sink-edges
+//
 // Revision 1.2  2006/01/26 08:47:17  dkrajzew
 // adapted the new router API
 //
@@ -97,8 +100,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-ROJTRRouter::ROJTRRouter(RONet &net, bool unbuildIsWarningOnly)
-    : myNet(net), myUnbuildIsWarningOnly(unbuildIsWarningOnly)
+ROJTRRouter::ROJTRRouter(RONet &net, bool unbuildIsWarningOnly,
+						 bool acceptAllDestinations)
+    : myNet(net), myUnbuildIsWarningOnly(unbuildIsWarningOnly),
+	myAcceptAllDestination(acceptAllDestinations)
 {
     myMaxEdges = (int) (
         ((SUMOReal) net.getEdgeNo()) *
@@ -130,13 +135,17 @@ ROJTRRouter::compute(const ROEdge *from, const ROEdge *to,
     }
     // check whether no valid ending edge was found
     if((int) into.size()>=myMaxEdges) {
-        MsgHandler *mh = 0;
-        if(myUnbuildIsWarningOnly) {
-            mh = MsgHandler::getWarningInstance();
-        } else {
-            mh = MsgHandler::getErrorInstance();
-        }
-        mh->inform("The route starting at edge '" + from->getID() + "' could not be closed.");
+		if(myAcceptAllDestination) {
+			return;
+		} else {
+	        MsgHandler *mh = 0;
+		    if(myUnbuildIsWarningOnly) {
+			    mh = MsgHandler::getWarningInstance();
+	        } else {
+		        mh = MsgHandler::getErrorInstance();
+			}
+			mh->inform("The route starting at edge '" + from->getID() + "' could not be closed.");
+		}
     }
     // append the sink
     if(current!=0) {

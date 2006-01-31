@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/01/31 11:01:40  dkrajzew
+// patching incoherences; added possibility to end on non-sink-edges
+//
 // Revision 1.5  2005/10/07 11:42:39  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -104,6 +107,8 @@ ROJTRFrame::addJTROptions(OptionsCont &oc)
     oc.addSynonyme("turn-definition", "turns");
     oc.doRegister("turn-defaults", 'T', new Option_String("30;50;20"));
     oc.doRegister("sinks", 's', new Option_String());
+
+	oc.doRegister("accept-all-destinations", 'A', new Option_Bool(false));
 }
 
 

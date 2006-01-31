@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/01/31 11:01:40  dkrajzew
+// patching incoherences; added possibility to end on non-sink-edges
+//
 // Revision 1.1  2005/10/10 12:09:36  dkrajzew
 // renamed ROJP*-classes to ROJTR*
 //
@@ -186,45 +189,39 @@ ROJTRTurnDefLoader::report(const std::string &line)
                 myIntervalBegin =
                     TplConvert<char>::_2int(getSecure("begin").c_str());
             } catch (NumberFormatException &) {
-                MsgHandler::getErrorInstance()->inform(
-                    string("The attribute 'from' is not numeric."));
+                MsgHandler::getErrorInstance()->inform("The attribute 'from' is not numeric.");
                 return false;
             }
             try {
                 myIntervalEnd =
                     TplConvert<char>::_2int(getSecure("end").c_str());
             } catch (NumberFormatException &) {
-                MsgHandler::getErrorInstance()->inform(
-                    string("The attribute 'to' is not numeric."));
+                MsgHandler::getErrorInstance()->inform("The attribute 'to' is not numeric.");
                 return false;
             }
             string id = getSecure("from");
             myEdge = static_cast<ROJTREdge*>(myNet.getEdge(id));
             if(myEdge==0) {
                 MsgHandler::getErrorInstance()->inform(
-                    string("The edge '") + id
-                    + string("' is not known within the network (within a 'from-edge' tag)."));
+                    "The edge '" + id + "' is not known within the network (within a 'from-edge' tag).");
                 return false;
             }
             id = getSecure("to");
             ROJTREdge *edge = static_cast<ROJTREdge*>(myNet.getEdge(id));
             if(edge==0) {
                 MsgHandler::getErrorInstance()->inform(
-                    string("The edge '") + id
-                    + string("' is not known within the network (within a 'to-edge' tag)."));
+                    "The edge '" + id + "' is not known within the network (within a 'to-edge' tag).");
                 return false;
             }
-            SUMOReal perc;
+            SUMOReal probability;
             try {
-                perc =
+                probability =
                     TplConvert<char>::_2SUMOReal(getSecure("split").c_str());
             } catch (NumberFormatException &) {
-                MsgHandler::getErrorInstance()->inform(
-                    string("The attribute 'perc' is not numeric."));
+                MsgHandler::getErrorInstance()->inform("The attribute 'perc' is not numeric.");
                 return false;
             }
-            myEdge->addFollowerProbability(edge,
-                myIntervalBegin, myIntervalEnd, perc);
+            myEdge->addFollowerProbability(edge, myIntervalBegin, myIntervalEnd, probability);
         } catch (InvalidArgument &) {
             return false;
         }
@@ -239,14 +236,10 @@ ROJTRTurnDefLoader::getSecure(const std::string &name)
     try {
         return myColumnsParser.get(name);
     } catch (UnknownElement &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The definition of '") + name
-            + string("' is missing within the file."));
+        MsgHandler::getErrorInstance()->inform("The definition of '" + name + "' is missing within the file.");
         throw InvalidArgument("");
     } catch (OutOfBoundsException &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The definition of '") + name
-            + string("' is missing within the file."));
+        MsgHandler::getErrorInstance()->inform("The definition of '" + name + "' is missing within the file.");
         throw InvalidArgument("");
     }
 }
@@ -259,24 +252,20 @@ ROJTRTurnDefLoader::beginInterval(const Attributes &attrs)
         myIntervalBegin = getInt(attrs, SUMO_ATTR_BEGIN);
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
-            string("The attribute 'from' is not numeric ('")
-            + getString(attrs, SUMO_ATTR_FROM) + string("')."));
+            "The attribute 'from' is not numeric ('" + getString(attrs, SUMO_ATTR_FROM) + "').");
         return;
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The 'from'-attribute is not given."));
+        MsgHandler::getErrorInstance()->inform("The 'from'-attribute is not given.");
         return;
     }
     try {
         myIntervalEnd = getInt(attrs, SUMO_ATTR_END);
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
-            string("The attribute 'to' is not numeric ('")
-            + getString(attrs, SUMO_ATTR_FROM) + string("')."));
+            "The attribute 'to' is not numeric ('" + getString(attrs, SUMO_ATTR_FROM) + "').");
         return;
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The 'to'-attribute is not given."));
+        MsgHandler::getErrorInstance()->inform("The 'to'-attribute is not given.");
         return;
     }
 }
@@ -289,16 +278,14 @@ ROJTRTurnDefLoader::beginFromEdge(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The id of an edge is missing within a 'from-edge' tag."));
+        MsgHandler::getErrorInstance()->inform("The id of an edge is missing within a 'from-edge' tag.");
         return;
     }
     //
     myEdge = static_cast<ROJTREdge*>(myNet.getEdge(id));
     if(myEdge==0) {
         MsgHandler::getErrorInstance()->inform(
-            string("The edge '") + id
-            + string("' is not known within the network (within a 'from-edge' tag)."));
+            "The edge '" + id + "' is not known within the network (within a 'from-edge' tag).");
         return;
     }
 }
@@ -311,29 +298,25 @@ ROJTRTurnDefLoader::addToEdge(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The id of an edge is missing within a 'to-edge' tag."));
+        MsgHandler::getErrorInstance()->inform("The id of an edge is missing within a 'to-edge' tag.");
         return;
     }
     //
     ROJTREdge *edge = static_cast<ROJTREdge*>(myNet.getEdge(id));
     if(edge==0) {
         MsgHandler::getErrorInstance()->inform(
-            string("The edge '") + id
-            + string("' is not known within the network (within a 'to-edge' tag)."));
+            "The edge '" + id + "' is not known within the network (within a 'to-edge' tag).");
         return;
     }
     try {
-        SUMOReal perc = getFloat(attrs, SUMO_ATTR_PERC);
-        myEdge->addFollowerProbability(edge, myIntervalBegin, myIntervalEnd, perc);
+        SUMOReal probability = getFloat(attrs, SUMO_ATTR_PROB);
+        myEdge->addFollowerProbability(edge, myIntervalBegin, myIntervalEnd, probability);
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform(
-            string("The attribute 'perc' is not numeric ('")
-            + getString(attrs, SUMO_ATTR_PERC) + string("')."));
+            "The attribute 'probability' is not numeric ('" + getString(attrs, SUMO_ATTR_PROB) + "').");
         return;
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The 'perc'-attribute is not given."));
+        MsgHandler::getErrorInstance()->inform("The 'probability'-attribute is not given.");
         return;
     }
 }
