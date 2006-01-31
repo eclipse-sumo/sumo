@@ -60,6 +60,7 @@ public:
     bool detectorsHaveCompleteTypes() const;
     std::vector< DFDetector > &getDetectors();
     void save(const std::string &file) const;
+	void saveAsPOIs(const std::string &file) const;
 
 
 

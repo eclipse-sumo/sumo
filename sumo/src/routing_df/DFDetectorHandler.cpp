@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/01/31 11:00:47  dkrajzew
+// added the possibility to write detector positions as pois; debugging
+//
 // Revision 1.4  2006/01/17 14:12:30  dkrajzew
 // routes output added; debugging
 //
@@ -59,13 +62,7 @@ namespace
 #include <utils/common/UtilExceptions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
-//#include "ROEdge.h"
-//#include "ROLane.h"
-//#include "RONode.h"
-//#include "ROEdgeVector.h"
-//#include <RONet.h>
 #include "DFDetectorHandler.h"
-//#include "ROAbstractEdgeBuilder.h"
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>

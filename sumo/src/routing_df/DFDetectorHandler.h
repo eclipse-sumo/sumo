@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/01/31 11:00:47  dkrajzew
+// added the possibility to write detector positions as pois; debugging
+//
 // Revision 1.4  2006/01/16 13:21:28  dkrajzew
 // computation of detector types validated for the 'messstrecke'-scenario
 //
@@ -52,16 +55,7 @@
 #include <string>
 #include <utils/sumoxml/SUMOSAXHandler.h>
 #include <utils/options/OptionsCont.h>
-#include "dfdetector.h"
-
-
-/* =========================================================================
- * class declarations
- * ======================================================================= */
-//class RONet;
-//class OptionsCont;
-//class ROEdge;
-//class ROAbstractEdgeBuilder;
+#include "DFDetector.h"
 
 
 /* =========================================================================

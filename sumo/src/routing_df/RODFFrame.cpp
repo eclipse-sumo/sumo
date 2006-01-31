@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/01/31 11:00:47  dkrajzew
+// added the possibility to write detector positions as pois; debugging
+//
 // Revision 1.5  2006/01/16 13:37:47  dkrajzew
 // debugging
 //
@@ -105,6 +108,7 @@ RODFFrame::fillOptions(OptionsCont &oc)
     // register output options
     oc.doRegister("routes-output", new Option_FileName());
     oc.doRegister("detectors-output", new Option_FileName());
+    oc.doRegister("detectors-poi-output", new Option_FileName());
 
 
     // register processing options

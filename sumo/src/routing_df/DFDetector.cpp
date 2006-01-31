@@ -97,6 +97,36 @@ DFDetectorCon::save(const std::string &file) const
 }
 
 
+void
+DFDetectorCon::saveAsPOIs(const std::string &file) const
+{
+    ofstream strm(file.c_str());
+    strm << "<pois>" << endl;
+    for(std::vector<DFDetector>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+		strm << "   <poi id=\"" << (*i).getID();
+        switch((*i).getType()) {
+        case BETWEEN_DETECTOR:
+            strm << "\" type=\"between_detector_position\" color=\"0,0,1\"";
+            break;
+        case SOURCE_DETECTOR:
+            strm << "\" type=\"source_detector_position\" color=\"0,1,0\"";
+            break;
+        case HIGHWAY_SOURCE_DETECTOR:
+            strm << "\" type=\"highway_source_detector_position\" color=\".5,1,.5\"";
+            break;
+        case SINK_DETECTOR:
+            strm << "\" type=\"sink_detector_position\" color=\"1,0,0\"";
+            break;
+        default:
+            throw 1;
+        }
+        strm << " lane=\"" << (*i).getLaneID()<< "\" pos=\""
+			<< (*i).getPos() << "\"/>" << endl;
+    }
+    strm << "</pois>" << endl;
+}
+
+
 bool
 DFDetectorCon::isDetector( std::string id )
 {
