@@ -507,6 +507,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\NINavTeqHelper.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NIOptionsIO.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -2632,6 +2635,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NILoader.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\NINavTeqHelper.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NIOptionsIO.h">

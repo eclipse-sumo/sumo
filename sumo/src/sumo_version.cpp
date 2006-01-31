@@ -25,6 +25,9 @@ namespace
 }
 */
 // $Log$
+// Revision 1.10  2006/01/31 12:52:51  dkrajzew
+// debugging
+//
 // Revision 1.9  2005/11/15 10:15:49  dkrajzew
 // debugging and beautifying for the next release
 //
@@ -75,7 +78,7 @@ namespace
 /* =========================================================================
  * definitions
  * ======================================================================= */
-const char *version = "0.9.2";
+const char *version = "0.9.4";
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

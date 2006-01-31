@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/01/31 12:50:13  dkrajzew
+// debugging
+//
 // Revision 1.13  2006/01/31 11:03:01  dkrajzew
 // added the possibility to exaggerate pois; debugging the grid
 //
@@ -637,10 +640,10 @@ GUISUMOAbstractView::paintGLGrid()
 				case GUIGrid::GPS_NOT_DRAWN:
 					continue;
 				case GUIGrid::GPS_FULL_DRAWN:
-					glColor3f(0.7, 0.7, 0.7);
+					glColor3f((SUMOReal) 0.7, (SUMOReal) 0.7, (SUMOReal) 0.7);
 					break;
 				case GUIGrid::GPS_ADD_DRAWN:
-					glColor3f(0.8, 0.8, 0.8);
+					glColor3f((SUMOReal) 0.8, (SUMOReal) 0.8, (SUMOReal) 0.8);
 					break;
 				default:
 					throw 1;

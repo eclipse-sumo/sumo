@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/01/31 12:50:13  dkrajzew
+// debugging
+//
 // Revision 1.6  2006/01/31 11:03:20  dkrajzew
 // debugging the grid
 //
@@ -270,9 +273,9 @@ GUIGrid::getCellsContaining(Boundary boundary)
 {
     std::vector<size_t> cells;
     // compute the cells the boundary is going through
-    for(int y=0; y<myYSize; y++) {
+    for(size_t y=0; y<myYSize; y++) {
         SUMOReal ypos1 = SUMOReal(y) * myYCellSize + myBoundary.ymin();
-        for(int x=0; x<myXSize; x++) {
+        for(size_t x=0; x<myXSize; x++) {
             SUMOReal xpos1 = SUMOReal(x) * myXCellSize + myBoundary.xmin();
             Boundary cellBounds;
             cellBounds.add(xpos1, ypos1);
@@ -290,8 +293,8 @@ GUIGrid::getCellsContaining(Boundary boundary)
 void
 GUIGrid::buildRelationships()
 {
-    for(int y=0; y<myYSize; y++) {
-        for(int x=0; x<myXSize; x++) {
+    for(size_t y=0; y<myYSize; y++) {
+        for(size_t x=0; x<myXSize; x++) {
             size_t pos = y*myXSize + x;
             // build cont without upper
             GridCell cont = myGrid[pos];
@@ -314,7 +317,7 @@ GUIGrid::buildRelationships()
 void
 GUIGrid::removeFrom(GridCell &cont, int x, int y)
 {
-    if(x<0||y<0||x>=myXSize||y>=myYSize) {
+    if(x<0||y<0||x>=(int) myXSize||y>=(int) myYSize) {
         return;
     }
     // get the list of edges to remove
@@ -338,7 +341,7 @@ GUIGrid::get(int what,
     SUMOReal ymin = y - yoff - myYCellSize;
     SUMOReal ymax = y + yoff + myYCellSize;
 	*/
-	for(int i=0; i<myXSize*myYSize; i++) {
+	for(size_t i=0; i<myXSize*myYSize; i++) {
 		myVisHelper[i] = GPS_NOT_DRAWN;// = new bool[myXSize*myYSize];
 	}
 
@@ -349,14 +352,14 @@ GUIGrid::get(int what,
         ypos = 0;
     }
     size_t yidx = 0;
-    for(; yrun<ymax&&ypos<myYSize; yrun+=myYCellSize, ypos++, yidx++) {
+    for(; yrun<ymax&&ypos<(int) myYSize; yrun+=myYCellSize, ypos++, yidx++) {
         SUMOReal xrun=xmin;//(xur >= 0 ? xur : 0);
         int xpos = (int) ((xmin/*+myBoundary.xmin()*/)/myXCellSize);
         if(xpos<0) {
             xpos = 0;
         }
         size_t xidx = 0;
-        for(; xrun<xmax&&xpos<myXSize; xrun+=myXCellSize, xpos++, xidx++) {
+        for(; xrun<xmax&&xpos<(int) myXSize; xrun+=myXCellSize, xpos++, xidx++) {
             int offs = ypos*myXSize+xpos;
             if(xidx==0&&yidx==0) {
                 if((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {

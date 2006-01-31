@@ -42,6 +42,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/gfx/libgfx.a \
 ./utils/iodevices/libiodevices.a \
+./utils/common/SUMOVehicleClass.o \
 $(MEM_LIBS) \
 -l$(LIB_XERCES)
 
@@ -65,6 +66,7 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netimport/vissim/libvissimimport.a \
 ./netimport/vissim/typeloader/libvissimtypeload.a \
 ./netimport/vissim/tempstructs/libvissimtmpstr.a \
+./netimport/NINavTeqHelper.o \
 ./netbuild/libnetbuild.a \
 ./netbuild/nodes/libnodesnetbuild.a \
 ./utils/sumoxml/libsumoxml.a \
