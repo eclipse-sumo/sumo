@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2006/01/31 10:55:27  dkrajzew
+// unneeded inclusions removed
+//
 // Revision 1.33  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -142,7 +145,6 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include <iostream> // !!!
 #include <utility>
 #include <utils/foxtools/FXMutex.h>
 #include <utils/geom/Position2D.h>

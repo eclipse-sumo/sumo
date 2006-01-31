@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/01/31 10:55:27  dkrajzew
+// unneeded inclusions removed
+//
 // Revision 1.15  2005/11/09 06:35:34  dkrajzew
 // debugging
 //
@@ -89,7 +92,6 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include <iostream> // !!!
 #include <utility>
 #include <utils/foxtools/FXMutex.h>
 #include <microsim/MSLane.h>
