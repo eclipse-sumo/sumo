@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/01/31 10:55:42  dkrajzew
+// debugged bad edge retrieval
+//
 // Revision 1.13  2006/01/26 08:28:53  dkrajzew
 // patched MSEdge in order to work with a generic router
 //
@@ -373,8 +376,7 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
     mySGRotations.reserve(destLanes.size());
     vector<MSLane*>::const_iterator i;
     for(i=destLanes.begin(); i!=destLanes.end(); ++i) {
-        GUIEdge *edge =
-            static_cast<GUIEdge*>(MSEdge::dictionary((*i)->edge().getID())); // !!!
+        const GUIEdge *edge = static_cast<const GUIEdge*>(&((*i)->edge()));
         const Position2DVector &v =
             edge->getLaneGeometry((const MSLane *) (*i)).getShape();
         myFGPositions.push_back(v.positionAtLengthPosition(0));

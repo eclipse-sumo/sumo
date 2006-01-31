@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/01/31 10:54:29  dkrajzew
+// debugged bad edge retrieval
+//
 // Revision 1.4  2006/01/26 08:28:53  dkrajzew
 // patched MSEdge in order to work with a generic router
 //
@@ -354,8 +357,7 @@ GUIEmitter::GUIEmitter(const std::string &id,
     GUIGlObject_AbstractAdd(gIDStorage,
         string("emitter:") + id, GLO_TRIGGER), myUserFlow(-1)
 {
-    GUIEdge *edge =
-        static_cast<GUIEdge*>(MSEdge::dictionary(destLanes->edge().getID())); // !!!
+    const GUIEdge *edge = static_cast<const GUIEdge*>(&destLanes->edge());
     const Position2DVector &v =
         edge->getLaneGeometry(destLanes).getShape();
     if(pos<0) {
