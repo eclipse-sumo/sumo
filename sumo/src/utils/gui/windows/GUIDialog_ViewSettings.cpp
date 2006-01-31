@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/01/31 11:02:37  dkrajzew
+// added the possibility to exaggerate pois
+//
 // Revision 1.2  2006/01/19 13:36:38  dkrajzew
 // debugging the resize bug
 //
@@ -266,6 +269,23 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         myAntialiase->setCheck(mySettings->antialiase);
         myDither = new FXCheckButton(m62, "Dither", this, MID_SIMPLE_VIEW_COLORCHANGE);
         myDither->setCheck(mySettings->dither);
+
+        new FXHorizontalSeparator(frame6,SEPARATOR_GROOVE|LAYOUT_FILL_X);
+		new FXLabel(frame6, "points of interest");
+        FXMatrix *m63 =
+            new FXMatrix(frame6,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
+                0,0,0,0, 10,10,10,10, 5,5);
+        new FXLabel(m63, "Minimum size to show", 0, LAYOUT_CENTER_Y);
+        myPOIMinSizeDialer =
+            new FXRealSpinDial(m63, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        myPOIMinSizeDialer->setValue(mySettings->minAddSize);
+        new FXLabel(m63, "Exaggerate by", 0, LAYOUT_CENTER_Y);
+        myPOIUpscaleDialer =
+            new FXRealSpinDial(m63, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
+                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
+        myPOIUpscaleDialer->setRange(1, 100);
+        myPOIUpscaleDialer->setValue(mySettings->addExaggeration);
     }
     FXHorizontalFrame *f2 = new FXHorizontalFrame(contentFrame, LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X|PACK_UNIFORM_WIDTH,0,0,0,0, 10,10,5,5);
     FXButton *initial=new FXButton(f2,"&Use",NULL,this,MID_SETTINGS_OK,BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
@@ -349,6 +369,9 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     myDetectorUpscaleDialer->setValue(mySettings->addExaggeration);
     myDetectorMinSizeDialer->setValue(mySettings->minAddSize);
 
+    myPOIUpscaleDialer->setValue(mySettings->poiExaggeration);
+    myPOIMinSizeDialer->setValue(mySettings->minPOISize);
+
     myShowLane2Lane->setCheck(mySettings->showLane2Lane);
     myAntialiase->setCheck(mySettings->antialiase);
     myDither->setCheck(mySettings->dither);
@@ -408,6 +431,9 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
 
     mySettings->addExaggeration = (SUMOReal) myDetectorUpscaleDialer->getValue();
     mySettings->minAddSize = (SUMOReal) myDetectorMinSizeDialer->getValue();
+
+    mySettings->poiExaggeration = (SUMOReal) myPOIUpscaleDialer->getValue();
+    mySettings->minPOISize = (SUMOReal) myPOIMinSizeDialer->getValue();
 
     mySettings->showLane2Lane = myShowLane2Lane->getCheck()!=0;
     mySettings->antialiase = myAntialiase->getCheck()!=0;

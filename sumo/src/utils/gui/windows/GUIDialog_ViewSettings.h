@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/01/31 11:02:37  dkrajzew
+// added the possibility to exaggerate pois
+//
 // Revision 1.2  2006/01/19 13:36:38  dkrajzew
 // debugging the resize bug
 //
@@ -125,6 +128,8 @@ private:
     FXRealSpinDial *myVehicleMinSizeDialer, *myVehicleUpscaleDialer;
 
     FXRealSpinDial *myDetectorMinSizeDialer, *myDetectorUpscaleDialer;
+
+    FXRealSpinDial *myPOIMinSizeDialer, *myPOIUpscaleDialer;
 
     FXCheckButton *myShowLane2Lane;
     FXCheckButton *myAntialiase;

@@ -11,6 +11,8 @@ GUICompleteSchemeStorage::init()
 {
     {
         GUISUMOAbstractView::VisualizationSettings vs;
+        vs.poiExaggeration = 1;
+        vs.minPOISize = 0;
         vs.addExaggeration = 1;
         vs.addMode = 0;
         vs.backgroundColor = RGBColor(1, 1, 1);
@@ -32,6 +34,8 @@ GUICompleteSchemeStorage::init()
     }
     {
         GUISUMOAbstractView::VisualizationSettings vs;
+        vs.poiExaggeration = 1;
+        vs.minPOISize = 0;
         vs.addExaggeration = 1;
         vs.addMode = 0;
         vs.backgroundColor = RGBColor(1, 1, 1);
@@ -53,6 +57,8 @@ GUICompleteSchemeStorage::init()
     }
     {
         GUISUMOAbstractView::VisualizationSettings vs;
+        vs.poiExaggeration = 1;
+        vs.minPOISize = 0;
         vs.addExaggeration = 1;
         vs.addMode = 0;
         vs.backgroundColor = RGBColor((SUMOReal) .2, (SUMOReal) .5, (SUMOReal) .2);
