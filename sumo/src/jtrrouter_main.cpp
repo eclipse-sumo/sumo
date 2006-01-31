@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/01/31 11:04:10  dkrajzew
+// debugging
+//
 // Revision 1.14  2006/01/26 08:54:44  dkrajzew
 // adapted the new router API
 //
@@ -214,23 +217,13 @@ getTurningDefaults(OptionsCont &oc)
     if(oc.isSet("turn-defaults")) {
         string def = oc.getString("turn-defaults");
         StringTokenizer st(def, ";");
-        switch(st.size()) {
-        case 3:
-            try {
-                ret.push_back(parseFloat_ReportError(st.next(),
-                    "The first number in turn defaults is not numeric."));
-                ret.push_back(parseFloat_ReportError(st.next(),
-                    "The second number in turn defaults is not numeric."));
-                ret.push_back(parseFloat_ReportError(st.next(),
-                    "The second number in turn defaults is not numeric."));
-            } catch(NumberFormatException&) {
-                throw ProcessError();
-            }
-            break;
-        default:
+		if(st.size()<2) {
             MsgHandler::getErrorInstance()->inform(
-                "The defaults for turnings must be a tuple of two or three numbers divided by ';'");
+                "The defaults for turnings must be a tuple of at least two numbers divided by ';'");
             throw ProcessError();
+		}
+		while(st.hasNext()) {
+			ret.push_back(parseFloat_ReportError(st.next(), "A number in turn defaults is not numeric."));
         }
     }
     return ret;
@@ -263,13 +256,17 @@ loadJPDefinitions(RONet &net, OptionsCont &oc)
 void
 startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
+    // build the router
+    ROJTRRouter router(net, oc.getBool("continue-on-unbuild"),
+		oc.getBool("accept-all-destinations"));
+    // initialise the loader
+    size_t noLoaders = loader.openRoutes(net, 1, 1);
+    if(noLoaders==0) {
+        MsgHandler::getErrorInstance()->inform("No route input specified.");
+        throw ProcessError();
+    }
     // prepare the output
     net.openOutput(oc.getString("output"), false);
-    // build the router
-    ROJTRRouter router(net, oc.getBool("continue-on-unbuild"));
-    // initialise the loader
-    size_t noLoaders =
-        loader.openRoutes(net, 1, 1);
     // the routes are sorted - process stepwise
     if(!oc.getBool("unsorted")) {
         loader.processRoutesStepWise(

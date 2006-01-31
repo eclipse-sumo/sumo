@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/01/31 11:04:10  dkrajzew
+// debugging
+//
 // Revision 1.8  2006/01/26 08:54:44  dkrajzew
 // adapted the new router API
 //
@@ -216,13 +219,9 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
         if(!detectors->detectorsHaveCompleteTypes()||oc.isSet("revalidate-detectors")) {
             optNet->computeTypes(*detectors);
         }
-        // save the detectors if wished
-        if(oc.isSet("detector-output")) {
-            detectors->save("detector-output");
-        }
         // compute routes between the detectors
         if(!routes->computed()||oc.isSet("revalidate-routes")) {
-            optNet->buildRoutes(*detectors, *routes); // !!!
+            optNet->buildRoutes(*detectors, *routes);
         }
     }
     // check
@@ -233,6 +232,10 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
     // save the detectors if wished
     if(oc.isSet("detectors-output")) {
         detectors->save(oc.getString("detectors-output"));
+    }
+	// save their positions as POIs if wished
+    if(oc.isSet("detectors-poi-output")) {
+        detectors->saveAsPOIs(oc.getString("detectors-poi-output"));
     }
 
     // save the routes file if it was changed

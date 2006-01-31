@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.21  2006/01/31 11:04:10  dkrajzew
+// debugging
+//
 // Revision 1.20  2006/01/16 13:38:22  dkrajzew
 // help and error handling patched
 //
@@ -101,7 +104,7 @@
 char *help[] = {
     " A microscopic road traffic simulation.",
     " ",
-    "Usage: (sumo-)sumo(.exe) [OPTION]*",
+    "Usage: sumo(.exe) [OPTION]*",
     " ",
     " ",
     "Examples: ",

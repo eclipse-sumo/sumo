@@ -9,7 +9,8 @@ if CHECK_MEMORY_LEAKS
 MEM_LIBS  = ./foreign/nvwa/nvwalib.a
 endif
 
-bin_PROGRAMS = sumo sumo-netconvert sumo-netgen sumo-duarouter sumo-jtrrouter \
+bin_PROGRAMS = sumo sumo-netconvert sumo-netgen \
+sumo-duarouter sumo-dfrouter sumo-jtrrouter \
 sumo-od2trips $(GUI_APPS)
 
 EXTRA_PROGRAMS =
@@ -215,6 +216,7 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./utils/glutils/libglutils.a \
 ./utils/iodevices/libiodevices.a \
 ./gui/GUIManipulator.o \
+./utils/gui/drawer/GUICompleteSchemeStorage.o \
 $(MEM_LIBS) \
 -l$(LIB_XERCES) \
 -l$(LIB_FOX) \
