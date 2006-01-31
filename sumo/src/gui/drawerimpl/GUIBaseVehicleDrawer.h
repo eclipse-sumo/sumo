@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/01/31 10:51:18  dkrajzew
+// unused methods documented out (kept for further use)
+//
 // Revision 1.9  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -97,10 +100,6 @@ public:
 
     /// Returns the list of available coloring schemes
     static GUIColoringSchemesMap<GUIVehicle> &getSchemesMap();
-
-    /// sets the colour of the vehicle to draw
-    RGBColor getVehicleColor(const GUIVehicle &vehicle,
-        GUIBaseColorer<GUIVehicle> &colorer);
 
 protected:
     /// initialises the drawing

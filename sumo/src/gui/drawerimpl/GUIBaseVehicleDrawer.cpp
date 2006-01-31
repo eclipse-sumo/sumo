@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/01/31 10:51:18  dkrajzew
+// unused methods documented out (kept for further use)
+//
 // Revision 1.15  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -165,12 +168,12 @@ GUIBaseVehicleDrawer::initStep()
 }
 
 
+    /*
 RGBColor
 GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
         GUIBaseColorer<GUIVehicle> &colorer)
 {
     return colorer.getMinColor();
-    /*
     switch(scheme) {
     case GUISUMOAbstractView::VCS_BY_SPEED:
         {
@@ -331,8 +334,8 @@ GUIBaseVehicleDrawer::getVehicleColor(const GUIVehicle &vehicle,
         break;
     }
     return RGBColor(1, 1, 1);
-    */
 }
+    */
 
 
 
