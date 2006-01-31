@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/01/31 11:03:01  dkrajzew
+// added the possibility to exaggerate pois; debugging the grid
+//
 // Revision 1.12  2006/01/19 09:27:12  dkrajzew
 // cursor position output finished
 //
@@ -241,16 +244,16 @@ using namespace std;
  * GUISUMOAbstractView::ViewportSettings - methods
  * ----------------------------------------------------------------------- */
 GUISUMOAbstractView::ViewportSettings::ViewportSettings()
-    : myX(-1), myY(-1), myXOff(-1), myYOff(-1)
+    : myXMin(-1), myYMin(-1), myXMax(-1), myYMax(-1)
 {
 }
 
 
-GUISUMOAbstractView::ViewportSettings::ViewportSettings(SUMOReal x,
-                                                        SUMOReal y,
-                                                        SUMOReal xoff,
-                                                        SUMOReal yoff)
-    : myX(x), myY(y), myXOff(xoff), myYOff(yoff)
+GUISUMOAbstractView::ViewportSettings::ViewportSettings(SUMOReal xmin,
+                                                        SUMOReal ymin,
+                                                        SUMOReal xmax,
+                                                        SUMOReal ymax)
+    : myXMin(xmin), myYMin(ymin), myXMax(xmax), myYMax(ymax)
 {
 }
 
@@ -261,21 +264,21 @@ GUISUMOAbstractView::ViewportSettings::~ViewportSettings()
 
 
 bool
-GUISUMOAbstractView::ViewportSettings::differ(SUMOReal x, SUMOReal y,
-                                              SUMOReal xoff, SUMOReal yoff)
+GUISUMOAbstractView::ViewportSettings::differ(SUMOReal xmin, SUMOReal ymin,
+                                              SUMOReal xmax, SUMOReal ymax)
 {
-    return myX!=x || myY!=y || myXOff!=xoff || myXOff!=yoff;
+    return myXMin!=xmin || myYMin!=ymin || myXMax!=xmax || myYMax!=ymax;
 }
 
 
 void
-GUISUMOAbstractView::ViewportSettings::set(SUMOReal x, SUMOReal y,
-                                           SUMOReal xoff, SUMOReal yoff)
+GUISUMOAbstractView::ViewportSettings::set(SUMOReal xmin, SUMOReal ymin,
+                                           SUMOReal xmax, SUMOReal ymax)
 {
-    myX = x;
-    myY = y;
-    myXOff = xoff;
-    myYOff = yoff;
+    myXMin = xmin;
+    myYMin = ymin;
+    myXMax = xmax;
+    myYMax = ymax;
 }
 
 
@@ -612,26 +615,64 @@ GUISUMOAbstractView::paintGLGrid()
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
     glLineWidth(1);
-    glBegin( GL_LINES );
 
+	SUMOReal xmin = myGrid->getBoundary().xmin();
+	SUMOReal ymin = myGrid->getBoundary().ymin();
+    SUMOReal ypos = ymin;
+    SUMOReal xpos = xmin;
+    SUMOReal xend = (myGrid->getNoXCells()) * myGrid->getXCellSize() + myGrid->getBoundary().xmin();
+    SUMOReal yend = (myGrid->getNoYCells()) * myGrid->getYCellSize() + myGrid->getBoundary().ymin();
+
+
+	// draw boxes
+	{
+	    glBegin( GL_QUADS );
+		SUMOReal yb = ymin;
+		for(int yr=0; yr<myGrid->getNoYCells(); yr++) {
+			SUMOReal ye = yb + myGrid->getYCellSize();
+			SUMOReal xb = xmin;
+			for(int xr=0; xr<myGrid->getNoXCells(); xr++) {
+				SUMOReal xe = xb + myGrid->getXCellSize();
+				switch(myGrid->getPaintState(xr, yr)) {
+				case GUIGrid::GPS_NOT_DRAWN:
+					continue;
+				case GUIGrid::GPS_FULL_DRAWN:
+					glColor3f(0.7, 0.7, 0.7);
+					break;
+				case GUIGrid::GPS_ADD_DRAWN:
+					glColor3f(0.8, 0.8, 0.8);
+					break;
+				default:
+					throw 1;
+				}
+				glVertex2d(xb+1, yb+1);
+				glVertex2d(xe-1, yb+1);
+				glVertex2d(xe-1, ye-1);
+				glVertex2d(xb+1, ye-1);
+				xb = xe;
+			}
+			yb = ye;
+	    }
+	    glEnd();
+	}
+
+	// draw horizontal lines
     glColor3f(0.5, 0.5, 0.5);
-    SUMOReal ypos = 0;
-    SUMOReal xpos = 0;
-    SUMOReal xend = (myGrid->getNoXCells())
-        * myGrid->getXCellSize();
-    SUMOReal yend = (myGrid->getNoYCells())
-        * myGrid->getYCellSize();
-    for(int yr=0; yr<myGrid->getNoYCells()+1; yr++) {
-        glVertex2d(0, ypos);
-        glVertex2d(xend, ypos);
-        ypos += myGrid->getYCellSize();
-    }
-    for(int xr=0; xr<myGrid->getNoXCells()+1; xr++) {
-        glVertex2d(xpos, 0);
-        glVertex2d(xpos, yend);
-        xpos += myGrid->getXCellSize();
-    }
-    glEnd();
+	{
+		glBegin( GL_LINES );
+	    for(int yr=0; yr<myGrid->getNoYCells()+1; yr++) {
+		    glVertex2d(xmin, ypos);
+			glVertex2d(xend, ypos);
+	        ypos += myGrid->getYCellSize();
+		}
+		// draw vertical lines
+		for(int xr=0; xr<myGrid->getNoXCells()+1; xr++) {
+			glVertex2d(xpos, ymin);
+	        glVertex2d(xpos, yend);
+		    xpos += myGrid->getXCellSize();
+		}
+		glEnd();
+	}
 }
 
 
@@ -1103,7 +1144,8 @@ GUISUMOAbstractView::drawPOI2D(const PointOfInterest &p) const
     }
     glColor3d(p.red(),p.green(),p.blue());
     glTranslated(p.x(), p.y(), 0);
-    GLHelper::drawFilledCircle((SUMOReal) 1.3, 16);
+    GLHelper::drawFilledCircle(
+		(SUMOReal) 1.3*myVisualizationSettings.poiExaggeration, 16);
     glTranslated(-p.x(), -p.y(), 0);
     if(_useToolTips) {
         glPopName();
@@ -1209,6 +1251,7 @@ GUISUMOAbstractView::getGridHeight() const
 {
     return myGrid->getBoundary().getHeight();
 }
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

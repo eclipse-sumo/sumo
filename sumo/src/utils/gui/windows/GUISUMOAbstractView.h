@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/01/31 11:03:01  dkrajzew
+// added the possibility to exaggerate pois; debugging the grid
+//
 // Revision 1.11  2006/01/19 09:27:12  dkrajzew
 // cursor position output finished
 //
@@ -311,20 +314,20 @@ public:
         ViewportSettings();
 
         /// Parametrised Constructor
-        ViewportSettings(SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff);
+        ViewportSettings(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax);
 
         /// Destructor
         ~ViewportSettings();
 
         /// Returns the information whether the stored setting differs from the given
-        bool differ(SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff);
+        bool differ(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax);
 
         /// Sets the setting information to the given values
-        void set(SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff);
+        void set(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax);
 
     private:
         /// Position and size information to describe the viewport
-        SUMOReal myX, myY, myXOff, myYOff;
+        SUMOReal myXMin, myYMin, myXMax, myYMax;
 
     };
 
@@ -362,6 +365,9 @@ public:
         int addMode;
         float minAddSize;
         float addExaggeration;
+
+        float minPOISize;
+        float poiExaggeration;
 
     };
 
