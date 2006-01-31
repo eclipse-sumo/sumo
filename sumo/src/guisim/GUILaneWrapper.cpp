@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2006/01/31 10:56:14  dkrajzew
+// new visualization scheme for lanes added
+//
 // Revision 1.28  2006/01/09 11:53:43  dkrajzew
 // further visualization possibilities added
 //
@@ -602,6 +605,11 @@ GUILaneWrapper::myMagic() const
 }
 
 
+SUMOReal
+GUILaneWrapper::getEdgeLaneNumber() const
+{
+	return (SUMOReal) myLane.edge().getLanes()->size();
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

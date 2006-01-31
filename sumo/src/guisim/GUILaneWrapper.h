@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.23  2006/01/31 10:56:14  dkrajzew
+// new visualization scheme for lanes added
+//
 // Revision 1.22  2006/01/09 11:53:43  dkrajzew
 // further visualization possibilities added
 //
@@ -223,6 +226,8 @@ public:
     SUMOReal getAggregatedFloat(E2::DetType what) const;
 
     const MSEdge& getMSEdge() const;
+
+    SUMOReal getEdgeLaneNumber() const;
 
 	//{
 	Boundary getCenteringBoundary() const;
