@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/01/31 10:56:35  dkrajzew
+// debugging (unfinished)
+//
 // Revision 1.6  2005/11/09 06:35:34  dkrajzew
 // debugging
 //
@@ -111,19 +114,19 @@ GUIGridBuilder::build()
 {
     // allocate grid
     size_t size = myGrid.getNoXCells()*myGrid.getNoYCells();
-    myGrid._grid = new GUIGrid::GridCell[size];
+    myGrid.myGrid = new GUIGrid::GridCell[size];
     // get the boundary
-    myGrid._boundary = computeBoundary();
+    myGrid.myBoundary = computeBoundary();
     // assert that the boundary is not zero in neither dimension
-    if(myGrid._boundary.getHeight()==0||myGrid._boundary.getWidth()==0) {
-        myGrid._boundary.add(myGrid._boundary.xmin()+1, myGrid._boundary.ymax()+1);
-        myGrid._boundary.add(myGrid._boundary.xmin()-1, myGrid._boundary.ymax()-1);
+    if(myGrid.myBoundary.getHeight()==0||myGrid.myBoundary.getWidth()==0) {
+        myGrid.myBoundary.add(myGrid.myBoundary.xmin()+1, myGrid.myBoundary.ymax()+1);
+        myGrid.myBoundary.add(myGrid.myBoundary.xmin()-1, myGrid.myBoundary.ymax()-1);
     }
     // compute the cell size
-    myGrid._xcellsize =
-        (myGrid._boundary.xmax()-myGrid._boundary.xmin()) / myGrid.getNoXCells();
-    myGrid._ycellsize =
-        (myGrid._boundary.ymax()-myGrid._boundary.ymin()) / myGrid.getNoYCells();
+    myGrid.myXCellSize =
+        (myGrid.myBoundary.xmax()-myGrid.myBoundary.xmin()) / myGrid.getNoXCells();
+    myGrid.myYCellSize =
+        (myGrid.myBoundary.ymax()-myGrid.myBoundary.ymin()) / myGrid.getNoYCells();
     // divide Edges on grid
     divideOnGrid();
 	myGrid.closeBuilding();
@@ -134,15 +137,22 @@ Boundary
 GUIGridBuilder::computeBoundary()
 {
     Boundary ret;
-    MSJunction::DictType::iterator i;
-    // get the bounderies of the network
-    for(size_t index=0; index<myNet.myJunctionWrapper.size(); index++) {
-		if(myNet.myJunctionWrapper[index]->getShape().size()>0) {
-	        ret.add(myNet.myJunctionWrapper[index]->getBoundary());
-		} else {
-			ret.add(myNet.myJunctionWrapper[index]->getJunction().getPosition());
+	{
+		// use the junctions to compute the boundaries
+		for(size_t index=0; index<myNet.myJunctionWrapper.size(); index++) {
+			if(myNet.myJunctionWrapper[index]->getShape().size()>0) {
+				ret.add(myNet.myJunctionWrapper[index]->getBoundary());
+			} else {
+				ret.add(myNet.myJunctionWrapper[index]->getJunction().getPosition());
+			}
 		}
-    }
+	}
+	{
+		// use the lanes to compute the boundaries
+		for(size_t index=0; index<myNet.myEdgeWrapper.size(); index++) {
+			ret.add(myNet.myEdgeWrapper[index]->getBoundary());
+		}
+	}
     return ret;
 }
 
@@ -200,41 +210,41 @@ GUIGridBuilder::computeLaneCells(size_t index, GUILaneWrapper &lane)
     SUMOReal y22 = end.y() - offsets.second;
 
     // compute the cells the lae is going through
-    for(int y=0; y<myGrid._ysize; y++) {
-        SUMOReal ypos1 = SUMOReal(y) * myGrid._ycellsize;
-        for(int x=0; x<myGrid._xsize; x++) {
-            SUMOReal xpos1 = SUMOReal(x) * myGrid._xcellsize;
+    for(int y=0; y<myGrid.myYSize; y++) {
+        SUMOReal ypos1 = SUMOReal(y) * myGrid.myYCellSize;
+        for(int x=0; x<myGrid.myXSize; x++) {
+            SUMOReal xpos1 = SUMOReal(x) * myGrid.myXCellSize;
             if(
                 GeomHelper::intersects(x11, y11, x12, y12,
-                    xpos1, ypos1, xpos1+myGrid._xcellsize, ypos1) ||
+                    xpos1, ypos1, xpos1+myGrid.myXCellSize, ypos1) ||
                 GeomHelper::intersects(x11, y11, x12, y12,
-                    xpos1, ypos1, xpos1, ypos1+myGrid._ycellsize) ||
+                    xpos1, ypos1, xpos1, ypos1+myGrid.myYCellSize) ||
                 GeomHelper::intersects(x11, y11, x12, y12,
-                    xpos1, ypos1+myGrid._ycellsize, xpos1+myGrid._xcellsize,
-                    ypos1+myGrid._ycellsize) ||
+                    xpos1, ypos1+myGrid.myYCellSize, xpos1+myGrid.myXCellSize,
+                    ypos1+myGrid.myYCellSize) ||
                 GeomHelper::intersects(x11, y11, x12, y12,
-                    xpos1+myGrid._xcellsize, ypos1, xpos1+myGrid._xcellsize,
-                    ypos1+myGrid._ycellsize) ||
+                    xpos1+myGrid.myXCellSize, ypos1, xpos1+myGrid.myXCellSize,
+                    ypos1+myGrid.myYCellSize) ||
 
                 GeomHelper::intersects(x21, y21, x22, y22,
-                    xpos1, ypos1, xpos1+myGrid._xcellsize, ypos1) ||
+                    xpos1, ypos1, xpos1+myGrid.myXCellSize, ypos1) ||
                 GeomHelper::intersects(x21, y21, x22, y22,
-                    xpos1, ypos1, xpos1, ypos1+myGrid._ycellsize) ||
+                    xpos1, ypos1, xpos1, ypos1+myGrid.myYCellSize) ||
                 GeomHelper::intersects(x21, y21, x22, y22,
-                    xpos1, ypos1+myGrid._ycellsize, xpos1+myGrid._xcellsize,
-                    ypos1+myGrid._ycellsize) ||
+                    xpos1, ypos1+myGrid.myYCellSize, xpos1+myGrid.myXCellSize,
+                    ypos1+myGrid.myYCellSize) ||
                 GeomHelper::intersects(x21, y21, x22, y22,
-                    xpos1+myGrid._xcellsize, ypos1, xpos1+myGrid._xcellsize,
-                    ypos1+myGrid._ycellsize) ||
+                    xpos1+myGrid.myXCellSize, ypos1, xpos1+myGrid.myXCellSize,
+                    ypos1+myGrid.myYCellSize) ||
 
-                (x11>=xpos1&&x11<xpos1+myGrid._xcellsize&&y11>=ypos1&&y11<ypos1+myGrid._ycellsize) ||
-                (x12>=xpos1&&x12<xpos1+myGrid._xcellsize&&y12>=ypos1&&y12<ypos1+myGrid._ycellsize) ||
-                (x21>=xpos1&&x21<xpos1+myGrid._xcellsize&&y21>=ypos1&&y21<ypos1+myGrid._ycellsize) ||
-                (x22>=xpos1&&x22<xpos1+myGrid._xcellsize&&y22>=ypos1&&y22<ypos1+myGrid._ycellsize)
+                (x11>=xpos1&&x11<xpos1+myGrid.myXCellSize&&y11>=ypos1&&y11<ypos1+myGrid.myYCellSize) ||
+                (x12>=xpos1&&x12<xpos1+myGrid.myXCellSize&&y12>=ypos1&&y12<ypos1+myGrid.myYCellSize) ||
+                (x21>=xpos1&&x21<xpos1+myGrid.myXCellSize&&y21>=ypos1&&y21<ypos1+myGrid.myYCellSize) ||
+                (x22>=xpos1&&x22<xpos1+myGrid.myXCellSize&&y22>=ypos1&&y22<ypos1+myGrid.myYCellSize)
                     )
             {
-                size_t offset = myGrid._xsize * y + x;
-                myGrid._grid[offset].addEdge(index);
+                size_t offset = myGrid.myXSize * y + x;
+                myGrid.myGrid[offset].addEdge(index);
             }
         }
     }
@@ -246,7 +256,7 @@ GUIGridBuilder::setJunction(size_t index, GUIJunctionWrapper *junction)
 {
     std::vector<size_t> cells = myGrid.getCellsContaining(junction->getBoundary());
     for(std::vector<size_t>::iterator i=cells.begin(); i!=cells.end(); i++) {
-        myGrid._grid[*i].addJunction(index);
+        myGrid.myGrid[*i].addJunction(index);
     }
 }
 
@@ -256,7 +266,7 @@ GUIGridBuilder::setAdditional(size_t index, GUIGlObject_AbstractAdd *add)
 {
     std::vector<size_t> cells = myGrid.getCellsContaining(add->getBoundary());
     for(std::vector<size_t>::iterator i=cells.begin(); i!=cells.end(); i++) {
-        myGrid._grid[*i].addAdditional(index);
+        myGrid.myGrid[*i].addAdditional(index);
     }
 }
 
