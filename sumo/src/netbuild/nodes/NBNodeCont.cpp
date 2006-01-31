@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/01/31 10:57:39  dkrajzew
+// debugging ramp guessing
+//
 // Revision 1.17  2006/01/11 11:59:20  dkrajzew
 // patched reassignment of explicite connections
 //
@@ -771,6 +774,12 @@ NBNodeCont::mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const
         NBEdge *pot_ramp = cur->getIncomingEdges()[1];
         NBEdge *cont = cur->getOutgoingEdges()[0];
 
+		// check whether a lane is missing
+		if(pot_highway->getNoLanes()+pot_ramp->getNoLanes()<=cont->getNoLanes()) {
+			return false;
+		}
+
+		// assign highway/ramp properly
         if(pot_highway->getSpeed()<pot_ramp->getSpeed()) {
             swap(pot_highway, pot_ramp);
         } else if(pot_highway->getSpeed()==pot_ramp->getSpeed()
@@ -807,6 +816,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
     NBEdge *pot_highway = cur->getIncomingEdges()[0];
     NBEdge *pot_ramp = cur->getIncomingEdges()[1];
     NBEdge *cont = cur->getOutgoingEdges()[0];
+	// assign highway/ramp properly
     if(pot_highway->getSpeed()<pot_ramp->getSpeed()) {
         swap(pot_highway, pot_ramp);
     } else if(pot_highway->getSpeed()==pot_ramp->getSpeed()
@@ -815,11 +825,17 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
 
         swap(pot_highway, pot_ramp);
     }
+	// compute the number of lanes to append
+	int toAdd = (pot_ramp->getNoLanes() + pot_highway->getNoLanes()) - cont->getNoLanes();
+	if(toAdd<=0) {
+		return;
+	}
+	//
     if(cont->getGeometry().length()<=oc.getFloat("ramp-guess.ramp-length")) {
         // the edge is shorter than the wished ramp
             //  append a lane only
         if(find(incremented.begin(), incremented.end(), cont)==incremented.end()) {
-            cont->incLaneNo(pot_ramp->getNoLanes());
+            cont->incLaneNo(toAdd);
             incremented.push_back(cont);
             if(!pot_highway->addLane2LaneConnections(0, cont, pot_ramp->getNoLanes(),
                 MIN2(cont->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), false, true)) {
@@ -856,7 +872,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
         string name = cont->getID();
         bool ok = ec.splitAt(dc, cont, rn,
             cont->getID()+"-AddedOnRampEdge", cont->getID(),
-            cont->getNoLanes()+pot_ramp->getNoLanes(), cont->getNoLanes());
+            cont->getNoLanes()+toAdd, cont->getNoLanes());
         if(!ok) {
             MsgHandler::getErrorInstance()->inform(
                 "Ups - could not build on-ramp for edge '"
@@ -910,6 +926,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
     NBEdge *pot_highway = cur->getOutgoingEdges()[0];
     NBEdge *pot_ramp = cur->getOutgoingEdges()[1];
     NBEdge *prev = cur->getIncomingEdges()[0];
+	// assign highway/ramp properly
     if(pot_highway->getSpeed()<pot_ramp->getSpeed()) {
         swap(pot_highway, pot_ramp);
     } else if(pot_highway->getSpeed()==pot_ramp->getSpeed()
@@ -918,13 +935,18 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
 
         swap(pot_highway, pot_ramp);
     }
-    // ok, append on-ramp
+	// compute the number of lanes to append
+	int toAdd = (pot_ramp->getNoLanes() + pot_highway->getNoLanes()) - prev->getNoLanes();
+	if(toAdd<=0) {
+		return;
+	}
+    // append on-ramp
     if(prev->getGeometry().length()<=oc.getFloat("ramp-guess.ramp-length")) {
         // the edge is shorter than the wished ramp
         //  append a lane only
         if(find(incremented.begin(), incremented.end(), prev)==incremented.end()) {
             incremented.push_back(prev);
-            prev->incLaneNo(pot_ramp->getNoLanes());
+            prev->incLaneNo(toAdd);
             prev->invalidateConnections(true);
             if(!prev->addLane2LaneConnections(pot_ramp->getNoLanes(), pot_highway, 0,
                 MIN2(prev->getNoLanes()-1, pot_highway->getNoLanes()), false, true)) {
@@ -960,7 +982,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
         string name = prev->getID();
         bool ok = ec.splitAt(dc, prev, rn,
             prev->getID(), prev->getID()+"-AddedOffRampEdge",
-            prev->getNoLanes(), prev->getNoLanes()+pot_ramp->getNoLanes());
+            prev->getNoLanes(), prev->getNoLanes()+toAdd);
         if(!ok) {
             MsgHandler::getErrorInstance()->inform(
                 "Ups - could not build on-ramp for edge '"
@@ -1015,6 +1037,12 @@ NBNodeCont::mayNeedOffRamp(OptionsCont &oc, NBNode *cur) const
         NBEdge *pot_ramp = cur->getOutgoingEdges()[1];
         NBEdge *prev = cur->getIncomingEdges()[0];
 
+		// check whether a lane is missing
+		if(pot_highway->getNoLanes()+pot_ramp->getNoLanes()<=prev->getNoLanes()) {
+			return false;
+		}
+
+		// assign highway/ramp properly
         if(pot_highway->getSpeed()<pot_ramp->getSpeed()) {
             swap(pot_highway, pot_ramp);
         } else if(pot_highway->getSpeed()==pot_ramp->getSpeed()

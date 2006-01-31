@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2006/01/31 10:58:00  dkrajzew
+// debugging ramp guessing
+//
 // Revision 1.29  2006/01/17 14:11:52  dkrajzew
 // "split-geometry" - option added (unfinsihed, rename)
 //
@@ -583,7 +586,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     // ramp guessing options
     oc.doRegister("guess-ramps", new Option_Bool(false));
     oc.doRegister("ramp-guess.max-ramp-speed", new Option_Float(-1));
-    oc.doRegister("ramp-guess.min-highway-speed", new Option_Float((SUMOReal) (80/3.6)));
+    oc.doRegister("ramp-guess.min-highway-speed", new Option_Float((SUMOReal) (79/3.6)));
     oc.doRegister("ramp-guess.ramp-length", new Option_Float(100));
 
     oc.doRegister("guess-obscure-ramps", new Option_Bool(false)); // !!! not described
