@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/01/31 10:53:44  dkrajzew
+// pois may be now placed on lane positions
+//
 // Revision 1.5  2005/11/09 06:32:46  dkrajzew
 // problems on loading geometry items patched
 //
@@ -65,8 +68,10 @@ namespace
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include "NLGeomShapeBuilder.h"
+#include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSLane.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -121,15 +126,37 @@ void
 NLGeomShapeBuilder::addPoint(const std::string &name,
                              const std::string &type,
                              const RGBColor &c,
-                             SUMOReal x, SUMOReal y)
+                             SUMOReal x, SUMOReal y,
+							 const std::string &lane, SUMOReal posOnLane)
 {
-    PointOfInterest *p = new PointOfInterest(name, type, Position2D(x, y), c);
+    PointOfInterest *p =
+		new PointOfInterest(name, type, getPointPosition(x, y, lane, posOnLane), c);
     if(!myShapeContainer.add(p)) {
 
         MsgHandler::getErrorInstance()->inform("A duplicate of the POI '" + name + "' occured.");
         delete p;
     }
 }
+
+
+Position2D
+NLGeomShapeBuilder::getPointPosition(SUMOReal x, SUMOReal y,
+									 const std::string &laneID,
+									 SUMOReal posOnLane) const
+{
+	if(x!=INVALID_POSITION&&y!=INVALID_POSITION) {
+		return Position2D(x,y);
+	}
+	MSLane *lane = MSLane::dictionary(laneID);
+	if(lane==0) {
+		throw EmptyData();
+	}
+	if(posOnLane<0) {
+		posOnLane = lane->length() + posOnLane;
+	}
+	return lane->getShape().positionAtLengthPosition(posOnLane);
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

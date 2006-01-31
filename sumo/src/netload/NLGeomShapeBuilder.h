@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2006/01/31 10:53:44  dkrajzew
+// pois may be now placed on lane positions
+//
 // Revision 1.5  2005/11/09 06:32:46  dkrajzew
 // problems on loading geometry items patched
 //
@@ -67,6 +70,8 @@ class ShapeContainer;
 class MSNet;
 
 
+#define INVALID_POSITION -1000000
+
 /* =========================================================================
  * class definitions
  * ======================================================================= */
@@ -93,10 +98,15 @@ public:
 
     /// Adds the described PointOfInterest to the geometry container
     virtual void addPoint(const std::string &name,
-        const std::string &type, const RGBColor &c, SUMOReal x, SUMOReal y);
+        const std::string &type, const RGBColor &c,
+		SUMOReal x, SUMOReal y, const std::string &lane, SUMOReal posOnLane);
 
     /// Builds the shape container
     ShapeContainer *buildShapeContainer() const;
+
+protected:
+	Position2D getPointPosition(SUMOReal x, SUMOReal y,
+		const std::string &laneID, SUMOReal posOnLane) const;
 
 protected:
     /// The current polygon's name

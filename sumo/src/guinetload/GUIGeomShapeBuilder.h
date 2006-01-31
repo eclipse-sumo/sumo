@@ -28,7 +28,9 @@ public:
     void polygonEnd(const Position2DVector &shape);
 
     void addPoint(const std::string &name, const std::string &type,
-        const RGBColor &c, SUMOReal x, SUMOReal y);
+        const RGBColor &c, SUMOReal x, SUMOReal y,
+		const std::string &lane, SUMOReal posOnLane);
+
 protected:
     GUIGlObjectStorage &myIdStorage;
 

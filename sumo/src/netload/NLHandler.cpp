@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/01/31 10:53:44  dkrajzew
+// pois may be now placed on lane positions
+//
 // Revision 1.6  2006/01/19 09:26:57  dkrajzew
 // debugging
 //
@@ -478,8 +481,10 @@ NLHandler::addPOI(const Attributes &attrs)
             myShapeBuilder.addPoint(name,
                 getString(attrs, SUMO_ATTR_TYPE),
                 GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
-                getFloat(attrs, SUMO_ATTR_X),
-                getFloat(attrs, SUMO_ATTR_Y));
+                getFloatSecure(attrs, SUMO_ATTR_X, INVALID_POSITION),
+                getFloatSecure(attrs, SUMO_ATTR_Y, INVALID_POSITION),
+				getStringSecure(attrs, SUMO_ATTR_LANE, ""),
+				getFloatSecure(attrs, SUMO_ATTR_POS, INVALID_POSITION));
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("poi", name));
         } catch (NumberFormatException &) {
@@ -488,8 +493,7 @@ NLHandler::addPOI(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform("POI '" + name + "' misses an attribute.");
         }
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing name of an poly-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing name of an poly-object.");
     }
 }
 
