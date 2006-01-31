@@ -1,0 +1,15 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+
+# Plain test
+plain
+
+# Disallow turning
+no_turnarounds
+
+# driving straight only
+straight_only
+
+# straight only with sinks
+straight_only_sinks
+

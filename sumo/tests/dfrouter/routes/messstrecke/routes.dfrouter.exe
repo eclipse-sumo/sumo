@@ -1,0 +1,31 @@
+<routes>
+   <route id="AltglienickerBreitN_to_ErnstRuskaSink5O" multi_ref="x">AltglienickerBreitN ErnstRuska5O ErnstRuskaSink5O</route>
+   <route id="AltglienickerBreitN_to_VolmerN" multi_ref="x">AltglienickerBreitN ErnstRuska4W VolmerN</route>
+   <route id="AltglienickerBreitN_to_HavestadtN" multi_ref="x">AltglienickerBreitN ErnstRuska4W ErnstRuska3W ErnstRuska232W HavestadtN</route>
+   <route id="AltglienickerBreitN_to_EinsteinN" multi_ref="x">AltglienickerBreitN ErnstRuska4W ErnstRuska3W ErnstRuska232W ErnstRuska231W ErnstRuska2W EinsteinN</route>
+   <route id="AltglienickerBreitN_to_ErnstRuskaSink1W" multi_ref="x">AltglienickerBreitN ErnstRuska4W ErnstRuska3W ErnstRuska232W ErnstRuska231W ErnstRuska2W ErnstRuska1W ErnstRuskaSink1W</route>
+
+   <route id="EinsteinS_to_ErnstRuskaSink1W" multi_ref="x">EinsteinS ErnstRuska1W ErnstRuskaSink1W</route>
+   <route id="EinsteinS_to_AltglienickerBreitS" multi_ref="x">EinsteinS ErnstRuska2O ErnstRuska231O ErnstRuska232O ErnstRuska3O ErnstRuska4O AltglienickerBreitS</route>
+   <route id="EinsteinS_to_ErnstRuskaSink5O" multi_ref="x">EinsteinS ErnstRuska2O ErnstRuska231O ErnstRuska232O ErnstRuska3O ErnstRuska4O ErnstRuska5O ErnstRuskaSink5O</route>
+   <route id="EinsteinS_to_VolmerN" multi_ref="x">EinsteinS ErnstRuska2O ErnstRuska231O ErnstRuska232O ErnstRuska3O VolmerN</route>
+   <route id="EinsteinS_to_HavestadtN" multi_ref="x">EinsteinS ErnstRuska2O ErnstRuska231O HavestadtN</route>
+
+   <route id="ErnstRuska5W_to_VolmerN" multi_ref="x">ErnstRuska5W ErnstRuska4W VolmerN</route>
+   <route id="ErnstRuska5W_to_HavestadtN" multi_ref="x">ErnstRuska5W ErnstRuska4W ErnstRuska3W ErnstRuska232W HavestadtN</route>
+   <route id="ErnstRuska5W_to_EinsteinN" multi_ref="x">ErnstRuska5W ErnstRuska4W ErnstRuska3W ErnstRuska232W ErnstRuska231W ErnstRuska2W EinsteinN</route>
+   <route id="ErnstRuska5W_to_ErnstRuskaSink1W" multi_ref="x">ErnstRuska5W ErnstRuska4W ErnstRuska3W ErnstRuska232W ErnstRuska231W ErnstRuska2W ErnstRuska1W ErnstRuskaSink1W</route>
+   <route id="ErnstRuska5W_to_AltglienickerBreitS" multi_ref="x">ErnstRuska5W AltglienickerBreitS</route>
+
+   <route id="HavestadtS_to_ErnstRuska231W" multi_ref="x">HavestadtS ErnstRuska231W</route>
+   <route id="HavestadtS_to_AltglienickerBreitS" multi_ref="x">HavestadtS ErnstRuska232O ErnstRuska3O ErnstRuska4O AltglienickerBreitS</route>
+   <route id="HavestadtS_to_ErnstRuskaSink5O" multi_ref="x">HavestadtS ErnstRuska232O ErnstRuska3O ErnstRuska4O ErnstRuska5O ErnstRuskaSink5O</route>
+   <route id="HavestadtS_to_VolmerN" multi_ref="x">HavestadtS ErnstRuska232O ErnstRuska3O VolmerN</route>
+
+   <route id="VolmerS_to_HavestadtN" multi_ref="x">VolmerS ErnstRuska3W ErnstRuska232W HavestadtN</route>
+   <route id="VolmerS_to_EinsteinN" multi_ref="x">VolmerS ErnstRuska3W ErnstRuska232W ErnstRuska231W ErnstRuska2W EinsteinN</route>
+   <route id="VolmerS_to_ErnstRuskaSink1W" multi_ref="x">VolmerS ErnstRuska3W ErnstRuska232W ErnstRuska231W ErnstRuska2W ErnstRuska1W ErnstRuskaSink1W</route>
+   <route id="VolmerS_to_AltglienickerBreitS" multi_ref="x">VolmerS ErnstRuska4O AltglienickerBreitS</route>
+   <route id="VolmerS_to_ErnstRuskaSink5O" multi_ref="x">VolmerS ErnstRuska4O ErnstRuska5O ErnstRuskaSink5O</route>
+
+</routes>

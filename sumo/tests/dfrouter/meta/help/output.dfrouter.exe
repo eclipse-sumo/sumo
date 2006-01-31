@@ -1,0 +1,35 @@
+SUMO dfrouter
+ (c) DLR/ZAIK 2000-2006; http://sumo.sourceforge.net
+  Routes vehicles between detectors.
+
+Usage: (sumo-)dfrouter(.exe) [OPTION]*
+
+Examples:
+  dfrouter -c routes_munich.cfg
+
+Options:
+ Input files:
+  Configuration
+   -c, --configuration FILE    FILE will be used as configuration
+
+  Network description:
+   -n, --net-file FILE         FILE containing the SUMO-net
+
+  Route descriptions:
+
+ Output files:
+   -o, --output-file FILE      Generated routes will be written to FILE
+                                 Additionally, a file with route
+                                 alternatives will be generated as
+                                 'FILE.alt'
+
+ Process Options:
+   -b, --begin INT             The begin time of routing
+   -e, --end INT               The end time of routing
+
+ Report options:
+   -v, --verbose              Verbose reports
+   -W, -suppress-warnings     No warnings will be printed
+   -p, -print-options         Prints option values before processing
+   -?, --help                 This screen
+   --stats-period INT         Step number to pass between status output

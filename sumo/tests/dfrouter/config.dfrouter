@@ -1,0 +1,14 @@
+binary:D:\projects\TrafficTower\sumo\bin\dfrouter.exe
+home_operating_system:nt
+copy_test_path:input_net.net.xml
+copy_test_path:input_detectors.det.xml
+
+
+[collate_file]
+detector_defs:detectors_def.det.xml
+routes:routes.rou.xml
+pois:detectors.poi.xml
+
+[run_dependent_text]
+output:Build #
+

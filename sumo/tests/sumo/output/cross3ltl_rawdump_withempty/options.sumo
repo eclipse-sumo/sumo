@@ -1,0 +1,1 @@
+--no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml --netstate-dump=rawdump.xml -b 100 -e 200 --dump-empty-edges

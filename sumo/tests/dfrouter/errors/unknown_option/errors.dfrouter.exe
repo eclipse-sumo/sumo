@@ -1,0 +1,6 @@
+Error: Error on processing option '--no-duration-log':
+Error:  No option with the name 'no-duration-log' exists.
+Error: Error on processing option '--routes=routes.rou.xml':
+Error:  No option with the name 'routes' exists.
+Error: Error on processing option '--test_this_funky_but_not_exitsing_option':
+Error:  No option with the name 'test_this_funky_but_not_exitsing_option' exists.

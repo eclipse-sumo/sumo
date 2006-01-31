@@ -1,0 +1,17 @@
+
+# Tests whether the detector types are computed properly
+detector_types
+
+# Tests whether the detector positions are saved properly
+detector_pois
+
+# Tests whether the routes are computed properly
+routes
+
+# testing meta processing
+meta
+
+# testing error input
+errors
+
+
