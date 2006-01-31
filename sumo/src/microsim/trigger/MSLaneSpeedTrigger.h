@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/01/31 10:57:12  dkrajzew
+// debugging
+//
 // Revision 1.5  2006/01/17 14:10:56  dkrajzew
 // debugging
 //
@@ -77,7 +80,7 @@
 #include <string>
 #include <vector>
 #include <utils/helpers/Command.h>
-#include "MSTriggeredXMLReader.h"
+#include <utils/sumoxml/SUMOSAXHandler.h>
 #include "MSTrigger.h"
 
 
