@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/01/31 10:59:35  dkrajzew
+// extracted common used methods; optional usage of old lane number information in navteq-networks import added
+//
 // Revision 1.5  2006/01/19 09:26:04  dkrajzew
 // adapted to the current version
 //
@@ -69,6 +72,7 @@ namespace
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBCapacity2Lanes.h>
 #include "NIElmar2EdgesHandler.h"
+#include <netimport/NINavTeqHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -86,9 +90,12 @@ using namespace std;
  * ======================================================================= */
 NIElmar2EdgesHandler::NIElmar2EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
                                            const std::string &file,
-                                           std::map<std::string, Position2DVector> &geoms)
+                                           std::map<std::string,
+										   Position2DVector> &geoms,
+										   bool useNewLaneNumberInfoPlain)
     : FileErrorReporter("elmar-edges", file),
-    myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms)
+    myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms),
+	myUseNewLaneNumberInfoPlain(useNewLaneNumberInfoPlain)
 {
 }
 
@@ -140,76 +147,10 @@ NIElmar2EdgesHandler::report(const std::string &result)
     string brunnel_type = st.next();
         // street_type
     string street_type = st.next();
-    try {
-        int speed_class = TplConvert<char>::_2int(st.next().c_str());
-        switch(speed_class) {
-        case -1:
-            speed = (SUMOReal) 1.0 / (SUMOReal) 3.6;
-            break;
-        case 1:
-            speed = (SUMOReal) 200 / (SUMOReal) 3.6; //> 130 KPH / > 80 MPH
-            break;
-        case 2:
-            speed = (SUMOReal) 115 / (SUMOReal) 3.6; //101-130 KPH / 65-80 MPH
-            break;
-        case 3:
-            speed = (SUMOReal) 95 / (SUMOReal) 3.6; // 91-100 KPH / 55-64 MPH
-            break;
-        case 4:
-            speed = (SUMOReal) 80 / (SUMOReal) 3.6; // 71-90 KPH / 41-54 MPH
-            break;
-        case 5:
-            speed = (SUMOReal) 60 / (SUMOReal) 3.6; // 51-70 KPH / 31-40 MPH
-            break;
-        case 6:
-            speed = (SUMOReal) 40 / (SUMOReal) 3.6; // 31-50 KPH / 21-30 MPH
-            break;
-        case 7:
-            speed = (SUMOReal) 20 / (SUMOReal) 3.6; // 11-30 KPH / 6-20 MPH
-            break;
-        case 8:
-            speed = (SUMOReal) 5 / (SUMOReal) 3.6; //< 11 KPH / < 6 MPH
-            break;
-        default:
-            MsgHandler::getErrorInstance()->inform("Invalid speed code (edge '" + id + "'.");
-            throw ProcessError();
-        }
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            "Non-numerical value for an edge's speed type occured (edge '" + id + "').");
-        throw ProcessError();
-    }
+	speed = NINavTeqHelper::getSpeed(id, st.next());
         // number of lanes
-    try {
-        nolanes = TplConvert<char>::_2int(st.next().c_str());
-        if(nolanes<0) {
-            nolanes = 1;
-        } else if(nolanes/10>0) {
-                nolanes = nolanes / 10;
-        } else {
-            switch(nolanes%10) {
-            case 1:
-                nolanes = 1;
-                break;
-            case 2:
-                nolanes = 2;
-                if(speed>78.0/3.6) {
-                    nolanes = 3;
-                }
-                break;
-            case 3:
-                nolanes = 4;
-                break;
-            default:
-                MsgHandler::getErrorInstance()->inform("Invalid lane number (edge '" + id + "').");
-                throw ProcessError();
-            }
-        }
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            "Non-numerical value for an edge's lane number occured (edge '" + id + "'.");
-        throw ProcessError();
-    }
+	nolanes =
+		NINavTeqHelper::getLaneNumber(id, st.next(), speed, myUseNewLaneNumberInfoPlain);
         // skip some
     st.next(); // average_speed
     st.next(); // NAME_ID1

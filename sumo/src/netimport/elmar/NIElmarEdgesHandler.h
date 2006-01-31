@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2006/01/31 10:59:35  dkrajzew
+// extracted common used methods; optional usage of old lane number information in navteq-networks import added
+//
 // Revision 1.4  2005/10/07 11:39:26  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -75,7 +78,7 @@ class NIElmarEdgesHandler : public LineHandler,
 public:
     /// constructor
     NIElmarEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-        const std::string &file);
+        const std::string &file, bool useNewLaneNumberInfoPlain);
 
     /// destructor
     ~NIElmarEdgesHandler();
@@ -88,6 +91,7 @@ public:
 protected:
     NBNodeCont &myNodeCont;
     NBEdgeCont &myEdgeCont;
+	bool myUseNewLaneNumberInfoPlain;
 
 };
 

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/01/31 10:59:35  dkrajzew
+// extracted common used methods; optional usage of old lane number information in navteq-networks import added
+//
 // Revision 1.19  2006/01/19 09:26:04  dkrajzew
 // adapted to the current version
 //
@@ -454,7 +457,8 @@ NILoader::loadArcView(OptionsCont &oc)
     // load the arcview files
     NIArcView_Loader loader(myNetBuilder.getNodeCont(),
         myNetBuilder.getEdgeCont(),
-        dbf_file, shp_file, oc.getBool("speed-in-kmh"));
+        dbf_file, shp_file, oc.getBool("speed-in-kmh"),
+		!oc.getBool("navtech-rechecklanes"));
     loader.load(oc);
 }
 
@@ -553,7 +557,8 @@ NILoader::loadElmar(OptionsCont &oc)
         std::string file = oc.getString(opt) + "_links.txt";
         // parse the file
         NIElmarEdgesHandler handler2(myNetBuilder.getNodeCont(),
-            myNetBuilder.getEdgeCont(), file);
+            myNetBuilder.getEdgeCont(), file,
+			!oc.getBool("navtech-rechecklanes"));
         if(!useLineReader(lr, file, handler2)) {
             throw ProcessError();
         }
@@ -561,7 +566,8 @@ NILoader::loadElmar(OptionsCont &oc)
         std::string file = oc.getString(opt) + "_links_unsplitted.txt";
         // parse the file
         NIElmar2EdgesHandler handler2(myNetBuilder.getNodeCont(),
-            myNetBuilder.getEdgeCont(), file, myGeoms);
+            myNetBuilder.getEdgeCont(), file, myGeoms,
+			!oc.getBool("navtech-rechecklanes"));
         if(!useLineReader(lr, file, handler2)) {
             throw ProcessError();
         }

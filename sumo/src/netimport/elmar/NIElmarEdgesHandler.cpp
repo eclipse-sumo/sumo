@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/01/31 10:59:35  dkrajzew
+// extracted common used methods; optional usage of old lane number information in navteq-networks import added
+//
 // Revision 1.8  2005/11/09 06:42:07  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -77,6 +80,7 @@ namespace
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBCapacity2Lanes.h>
 #include "NIElmarEdgesHandler.h"
+#include <netimport/NINavTeqHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -93,9 +97,11 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIElmarEdgesHandler::NIElmarEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-                                         const std::string &file)
+                                         const std::string &file,
+										 bool useNewLaneNumberInfoPlain)
     : FileErrorReporter("elmar-edges", file),
-    myNodeCont(nc), myEdgeCont(ec)
+    myNodeCont(nc), myEdgeCont(ec),
+	myUseNewLaneNumberInfoPlain(useNewLaneNumberInfoPlain)
 {
 }
 
@@ -126,104 +132,25 @@ NIElmarEdgesHandler::report(const std::string &result)
     try {
         length = TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Non-numerical value for an edge's length occured (edge '") + id
-            + string("'."));
+        MsgHandler::getErrorInstance()->inform("Non-numerical value for an edge's length occured (edge '" + id + "'.");
         throw ProcessError();
     }
     string veh_type = st.next();
     string form_of_way = st.next();
     string brunnel_type = st.next();
     string street_type = st.next();
-    try {
-        int speed_class = TplConvert<char>::_2int(st.next().c_str());
-        switch(speed_class) {
-        case -1:
-            speed = (SUMOReal) 1.0 / (SUMOReal) 3.6;
-            break;
-        case 1:
-            speed = (SUMOReal) 200 / (SUMOReal) 3.6; //> 130 KPH / > 80 MPH
-            break;
-        case 2:
-            speed = (SUMOReal) 115 / (SUMOReal) 3.6; //101-130 KPH / 65-80 MPH
-            break;
-        case 3:
-            speed = (SUMOReal) 95 / (SUMOReal) 3.6; // 91-100 KPH / 55-64 MPH
-            break;
-        case 4:
-            speed = (SUMOReal) 80 / (SUMOReal) 3.6; // 71-90 KPH / 41-54 MPH
-            break;
-        case 5:
-            speed = (SUMOReal) 60 / (SUMOReal) 3.6; // 51-70 KPH / 31-40 MPH
-            break;
-        case 6:
-            speed = (SUMOReal) 40 / (SUMOReal) 3.6; // 31-50 KPH / 21-30 MPH
-            break;
-        case 7:
-            speed = (SUMOReal) 20 / (SUMOReal) 3.6; // 11-30 KPH / 6-20 MPH
-            break;
-        case 8:
-            speed = (SUMOReal) 5 / (SUMOReal) 3.6; //< 11 KPH / < 6 MPH
-            break;
-        default:
-            MsgHandler::getErrorInstance()->inform(
-                string("Invalid speed code (edge '") + id
-                + string("'."));
-            throw ProcessError();
-        }
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Non-numerical value for an edge's speed type occured (edge '") + id
-            + string("')."));
-        throw ProcessError();
-    }
-    try {
-        nolanes = TplConvert<char>::_2int(st.next().c_str());
-        if(nolanes<0) {
-            nolanes = 1;
-        } else if(nolanes/10>0) {
-                nolanes = nolanes / 10;
-        } else {
-            switch(nolanes%10) {
-            case 1:
-                nolanes = 1;
-                break;
-            case 2:
-                nolanes = 2;
-                if(speed>78.0/3.6) {
-                    nolanes = 3;
-                }
-                break;
-            case 3:
-                nolanes = 4;
-                break;
-            default:
-                MsgHandler::getErrorInstance()->inform(
-                    string("Invalid lane number (edge '") + id
-                    + string("')."));
-                throw ProcessError();
-            }
-        }
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Non-numerical value for an edge's lane number occured (edge '") + id
-            + string("'."));
-        throw ProcessError();
-    }
-
+	speed = NINavTeqHelper::getSpeed(id, st.next());
+	nolanes =
+		NINavTeqHelper::getLaneNumber(id, st.next(), speed, myUseNewLaneNumberInfoPlain);
     // try to get the nodes
     NBNode *from = myNodeCont.retrieve(fromID);
     NBNode *to = myNodeCont.retrieve(toID);
     if(from==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The from-node '") + fromID + string("' of edge '")
-            + id + string("' could not be found"));
+        MsgHandler::getErrorInstance()->inform("The from-node '" + fromID + "' of edge '" + id + "' could not be found");
         throw ProcessError();
     }
     if(to==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The to-node '") + toID + string("' of edge '")
-            + id + string("' could not be found"));
+        MsgHandler::getErrorInstance()->inform("The to-node '" + toID + "' of edge '" + id + "' could not be found");
         throw ProcessError();
     }
 
@@ -234,8 +161,7 @@ NIElmarEdgesHandler::report(const std::string &result)
 
     if(!myEdgeCont.insert(e)) {
         delete e;
-        MsgHandler::getErrorInstance()->inform(
-            string("Could not add edge '") + id + string("'."));
+        MsgHandler::getErrorInstance()->inform("Could not add edge '" + id + "'.");
         throw ProcessError();
     }
     return true;

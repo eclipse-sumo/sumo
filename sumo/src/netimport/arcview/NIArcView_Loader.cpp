@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/01/31 10:59:35  dkrajzew
+// extracted common used methods; optional usage of old lane number information in navteq-networks import added
+//
 // Revision 1.19  2006/01/26 08:50:31  dkrajzew
 // beautifying
 //
@@ -104,6 +107,7 @@ namespace
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NIArcView_Loader.h"
+#include <netimport/NINavTeqHelper.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -123,11 +127,13 @@ NIArcView_Loader::NIArcView_Loader(NBNodeCont &nc,
                                    NBEdgeCont &ec,
                                    const std::string &dbf_name,
                                    const std::string &shp_name,
-                                   bool speedInKMH)
+                                   bool speedInKMH,
+								   bool useNewLaneNumberInfoPlain)
     : FileErrorReporter("Navtech Edge description", dbf_name),
     myDBFName(dbf_name), mySHPName(shp_name),
     myNameAddition(0),
-    myNodeCont(nc), myEdgeCont(ec), mySpeedInKMH(speedInKMH)
+    myNodeCont(nc), myEdgeCont(ec), mySpeedInKMH(speedInKMH),
+	myUseNewLaneNumberInfoPlain(useNewLaneNumberInfoPlain)
 {
 }
 
@@ -167,7 +173,7 @@ NIArcView_Loader::parseBin()
             if(mySpeedInKMH) {
                 speed = speed / (SUMOReal) 3.6;
             }
-            nolanes = getLaneNo(id, speed);
+            nolanes = getLaneNo(id, speed, myUseNewLaneNumberInfoPlain);
             priority = getPriority(id);
         } catch (...) {
             addError("An attribute is not given within the file!");
@@ -234,6 +240,7 @@ NIArcView_Loader::parseBin()
 SUMOReal
 NIArcView_Loader::getSpeed(const std::string &edgeid)
 {
+	string def;
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
     try {
@@ -246,82 +253,46 @@ NIArcView_Loader::getSpeed(const std::string &edgeid)
     }
     // try to get the NavTech-information
     try {
-        int speedcat =
-            TplConvert<char>::_2int(myBinShapeReader.getAttribute("SPEED_CAT").c_str());
-        switch(speedcat) {
-        case 1:
-            return (SUMOReal) 300.0 / (SUMOReal) 3.6;
-        case 2:
-            return (SUMOReal) 130. / (SUMOReal) 3.6;
-        case 3:
-            return (SUMOReal) 100. / (SUMOReal) 3.6;
-        case 4:
-            return (SUMOReal) 90. / (SUMOReal) 3.6;
-        case 5:
-            return (SUMOReal) 70. / (SUMOReal) 3.6;
-        case 6:
-            return (SUMOReal) 50. / (SUMOReal) 3.6;
-        case 7:
-            return (SUMOReal) 30. / (SUMOReal) 3.6;
-        case 8:
-            return (SUMOReal) 10. / (SUMOReal) 3.6;
-        default:
-            throw 1;
-        }
+		def = myBinShapeReader.getAttribute("SPEED_CAT");
+		return NINavTeqHelper::getSpeed(edgeid, def);
     } catch (...) {
-        addError("Error on parsing edge speed definition for edge '" + edgeid + "'.");
+		addError("Error on parsing edge speed definition for edge '" + edgeid + "'.");
     }
     return 0;
 }
 
 
 size_t
-NIArcView_Loader::getLaneNo(const std::string &edgeid, SUMOReal speed)
+NIArcView_Loader::getLaneNo(const std::string &edgeid,
+							SUMOReal speed, bool useNewLaneNumberInfoPlain)
 {
+	string def;
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
     try{
-        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("nolanes").c_str());
+        return TplConvert<char>::_2SUMOReal(myBinShapeReader.getAttribute("nolanes").c_str());
     } catch(...) {
     }
     try{
-        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("NOLANES").c_str());
+        return TplConvert<char>::_2SUMOReal(myBinShapeReader.getAttribute("NOLANES").c_str());
     } catch(...) {
     }
     // try to get old DLR-lanes definition
     //  invented by Eric Nicolay
     try{
-        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("rnol").c_str());
+        return TplConvert<char>::_2SUMOReal(myBinShapeReader.getAttribute("rnol").c_str());
     } catch(...) {
     }
     // try to get the NavTech-information
     try {
-        int nolanes =
-            TplConvert<char>::_2int(myBinShapeReader.getAttribute("LANE_CAT").c_str());
-        if(nolanes<0) {
-            return 1;
-        } else if(nolanes/10>0) {
-           nolanes = nolanes / 10;
-        } else {
-            switch(nolanes) {
-            case 1:
-                return 1;
-            case 2:
-                if(speed>78.0/3.6) {
-                    return 3;
-                }
-                return 2;
-            case 3:
-                return 4;
-            default:
-                throw 1;
-            }
-        }
-    } catch (...) {
+		def = myBinShapeReader.getAttribute("LANE_CAT");
+		return NINavTeqHelper::getLaneNumber(edgeid, def, speed, myUseNewLaneNumberInfoPlain);
+	} catch (...) {
         addError("Error on parsing edge's number of lanes information for edge '" + edgeid + "'.");
-    }
+	}
 	return 0;
 }
+
 
 SUMOReal
 NIArcView_Loader::getLength(const Position2D &from_pos, const Position2D &to_pos)

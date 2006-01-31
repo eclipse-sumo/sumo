@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/01/31 10:59:35  dkrajzew
+// extracted common used methods; optional usage of old lane number information in navteq-networks import added
+//
 // Revision 1.14  2006/01/09 11:59:22  dkrajzew
 // debugging error handling; beautifying
 //
@@ -272,6 +275,8 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("vissim-offset", new Option_Float(5.0f));
     oc.doRegister("vissim-default-speed", new Option_Float(50.0f/3.6f));
     oc.doRegister("vissim-speed-norm", new Option_Float(1.0f));
+	// register further navteq-options
+	oc.doRegister("navtech-rechecklanes", new Option_Bool(false));
     // register the data processing options
     oc.doRegister("speed-in-kmh", new Option_Bool(false));
     // add netbuilding options

@@ -1,7 +1,7 @@
 noinst_LIBRARIES = libnetimport.a
 
 libnetimport_a_SOURCES = NILoader.cpp NILoader.h \
-NIOptionsIO.cpp NIOptionsIO.h
+NIOptionsIO.cpp NIOptionsIO.h NINavTeqHelper.cpp NINavTeqHelper.h
 
 CFRONT_FILES =
 

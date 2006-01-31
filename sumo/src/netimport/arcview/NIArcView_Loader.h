@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/01/31 10:59:35  dkrajzew
+// extracted common used methods; optional usage of old lane number information in navteq-networks import added
+//
 // Revision 1.12  2005/11/14 09:51:17  dkrajzew
 // allowed further information to be stored in arcview-files
 //
@@ -95,7 +98,7 @@ public:
     /// Contructor
     NIArcView_Loader(NBNodeCont &nc, NBEdgeCont &ec,
         const std::string &dbf_name, const std::string &shp_name,
-        bool speedInKMH);
+        bool speedInKMH, bool useNewLaneNumberInfoPlain);
 
     /// Destructor
     ~NIArcView_Loader();
@@ -112,11 +115,11 @@ private:
     SUMOReal getSpeed(const std::string &edgeid);
 
     /// parses the number of lanes of the edge currently processed
-    size_t getLaneNo(const std::string &edgeid, SUMOReal speed);
+    size_t getLaneNo(const std::string &edgeid, SUMOReal speed,
+		bool useNewLaneNumberInfoPlain);
 
     /// parses the length of the edge currently processed
-    SUMOReal getLength(/*const std::string &edgeid,*/
-        const Position2D &from_pos, const Position2D &to_pos);
+    SUMOReal getLength(const Position2D &from_pos, const Position2D &to_pos);
 
     /// parses the priority of the edge currently processed
     int getPriority(const std::string &edgeid);
@@ -135,6 +138,7 @@ private:
     NBNodeCont &myNodeCont;
     NBEdgeCont &myEdgeCont;
     bool mySpeedInKMH;
+	bool myUseNewLaneNumberInfoPlain;
 
 };
 
