@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/02/01 06:10:56  dkrajzew
+// warnings removed
+//
 // Revision 1.7  2006/01/31 10:56:35  dkrajzew
 // debugging (unfinished)
 //
@@ -210,9 +213,9 @@ GUIGridBuilder::computeLaneCells(size_t index, GUILaneWrapper &lane)
     SUMOReal y22 = end.y() - offsets.second;
 
     // compute the cells the lae is going through
-    for(int y=0; y<myGrid.myYSize; y++) {
+    for(int y=0; y<(int) myGrid.myYSize; y++) {
         SUMOReal ypos1 = SUMOReal(y) * myGrid.myYCellSize;
-        for(int x=0; x<myGrid.myXSize; x++) {
+        for(int x=0; x<(int) myGrid.myXSize; x++) {
             SUMOReal xpos1 = SUMOReal(x) * myGrid.myXCellSize;
             if(
                 GeomHelper::intersects(x11, y11, x12, y12,
