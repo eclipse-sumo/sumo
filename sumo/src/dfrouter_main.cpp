@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/02/01 06:10:40  dkrajzew
+// applied Eric's changes
+//
 // Revision 1.9  2006/01/31 11:04:10  dkrajzew
 // debugging
 //
@@ -140,12 +143,15 @@ loadNet(OptionsCont &oc)
     ROLoader *loader = new ROLoader(oc, vb, false);
     // load the net
     RODFEdgeBuilder builder;
-    DFRONet *net = new DFRONet( loader->loadNet( builder ) );
+	RONet *ronet =  loader->loadNet( builder );
     delete loader;
-    if(net==0) {
+	if(ronet==0) {
         throw ProcessError();
     }
+
+	DFRONet *net = new DFRONet( ronet );
     net->buildApproachList();
+
     return net;
 }
 

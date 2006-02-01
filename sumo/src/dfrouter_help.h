@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/02/01 06:10:40  dkrajzew
+// applied Eric's changes
+//
 // Revision 1.2  2005/12/21 12:48:38  ericnicolay
 // *** empty log message ***
 //
@@ -102,10 +105,9 @@
  * The list of help strings for the sumo-router module
  */
 char *help[] = {
-    "Simulation of Urban MObility v0.8.2 - dfrouter application",
-    "  Routes vehicles on detector base.",
-    "  http://sumo.sourceforge.net",
-    "Usage: dfrouter [OPTION]*",
+    "  Routes vehicles between detectors.",
+    " ",
+    "Usage: (sumo-)dfrouter(.exe) [OPTION]*",
     " ",
     "Examples: ",
     "  dfrouter -c routes_munich.cfg",
@@ -123,12 +125,16 @@ char *help[] = {
     //"                                   of the net",
     " ",
     "  Route descriptions:",
-    //"   -s, --sumo-input FILE       FILE containing SUMO-routes",
+    "   -r, --routes-input FILE       FILE containing SUMO-routes",
     //"   -t, --trip-defs FILE        FILE containing trip definitions",
     //"   -a, --alternatives FILE     FILE containing route alternatives",
     //"   -f, --flow-definition FILE  FILE containing flow definition",
     //"   --cell-input FILE           FILE containing cell routes",
     //"   --artemis-input FILE        FILE containing cell routes",
+    " ",
+    " Detector files:",
+    "   -d, --detector-definitions FILE FILE containing detector definition",
+    "   -f, --flow-definitions        FILE containing flow definition",
     " ",
     " Output files:",
     "   -o, --output-file FILE      Generated routes will be written to FILE",
@@ -164,7 +170,7 @@ char *help[] = {
     " Report options:",
     "   -v, --verbose              Verbose reports",
     "   -W, -suppress-warnings     No warnings will be printed",
-   // "   -l, -log-file FILE         Writes all messages to the file",
+    "   -l, -log-file FILE         Writes all messages to the file",
     "   -p, -print-options         Prints option values before processing",
     "   -?, --help                 This screen",
     "   --stats-period INT         Step number to pass between status output",

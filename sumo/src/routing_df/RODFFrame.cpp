@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/02/01 06:10:40  dkrajzew
+// applied Eric's changes
+//
 // Revision 1.6  2006/01/31 11:00:47  dkrajzew
 // added the possibility to write detector positions as pois; debugging
 //
@@ -94,7 +97,8 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("configuration-file", 'c', new Option_FileName());
     oc.addSynonyme("configuration-file", "configuration");
 
-    oc.doRegister("routes-input", new Option_FileName());
+    oc.doRegister("routes-input", 'r', new Option_FileName());
+
 
     oc.doRegister("detectors-file", 'd', new Option_FileName());
     oc.addSynonyme("detectors-file", "detectors");
@@ -106,7 +110,7 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.addSynonyme("flow-definitions", "flows");
 
     // register output options
-    oc.doRegister("routes-output", new Option_FileName());
+    oc.doRegister("routes-output", 'o', new Option_FileName());
     oc.doRegister("detectors-output", new Option_FileName());
     oc.doRegister("detectors-poi-output", new Option_FileName());
 
