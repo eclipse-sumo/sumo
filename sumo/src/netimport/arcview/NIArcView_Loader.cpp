@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/02/13 07:19:26  dkrajzew
+// debugging
+//
 // Revision 1.20  2006/01/31 10:59:35  dkrajzew
 // extracted common used methods; optional usage of old lane number information in navteq-networks import added
 //
@@ -270,17 +273,17 @@ NIArcView_Loader::getLaneNo(const std::string &edgeid,
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
     try{
-        return TplConvert<char>::_2SUMOReal(myBinShapeReader.getAttribute("nolanes").c_str());
+        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("nolanes").c_str());
     } catch(...) {
     }
     try{
-        return TplConvert<char>::_2SUMOReal(myBinShapeReader.getAttribute("NOLANES").c_str());
+        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("NOLANES").c_str());
     } catch(...) {
     }
     // try to get old DLR-lanes definition
     //  invented by Eric Nicolay
     try{
-        return TplConvert<char>::_2SUMOReal(myBinShapeReader.getAttribute("rnol").c_str());
+        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("rnol").c_str());
     } catch(...) {
     }
     // try to get the NavTech-information
