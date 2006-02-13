@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/02/13 07:35:16  dkrajzew
+// made dijkstra-router checking for closures optionally
+//
 // Revision 1.11  2006/01/26 08:54:44  dkrajzew
 // adapted the new router API
 //
@@ -257,9 +260,15 @@ loadNet(ROLoader &loader, OptionsCont &oc)
 void
 startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
+    SUMOAbstractRouter<ROEdge, ROVehicle> *router;
+    if(net.hasRestrictions()) {
+        router = new SUMODijkstraRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
+		        net.getEdgeNo(), oc.getBool("continue-on-unbuild"));
+    } else {
+        router = new SUMODijkstraRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
+		    net.getEdgeNo(), oc.getBool("continue-on-unbuild"));
+    }
     // build the router
-    SUMODijkstraRouter<ROEdge, ROVehicle> router(
-		net.getEdgeNo(), oc.getBool("continue-on-unbuild"));
     // initialise the loader
     size_t noLoaders =
         loader.openRoutes(net, oc.getFloat("gBeta"), oc.getFloat("gA"));
@@ -271,15 +280,16 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
     net.openOutput(oc.getString("output"), true);
     // the routes are sorted - process stepwise
     if(!oc.getBool("unsorted")) {
-        loader.processRoutesStepWise(oc.getInt("b"), oc.getInt("e"), net, router);
+        loader.processRoutesStepWise(oc.getInt("b"), oc.getInt("e"), net, *router);
     }
     // the routes are not sorted: load all and process
     else {
-        loader.processAllRoutes(oc.getInt("b"), oc.getInt("e"), net, router);
+        loader.processAllRoutes(oc.getInt("b"), oc.getInt("e"), net, *router);
     }
     // end the processing
     loader.closeReading();
     net.closeOutput();
+    delete router;
 }
 
 
