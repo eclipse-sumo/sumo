@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2006/02/13 07:21:04  dkrajzew
+// parsing of edge function added
+//
 // Revision 1.11  2005/10/07 11:41:16  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -163,6 +166,9 @@ private:
     /// tries to parse the shape definition
     Position2DVector tryGetShape(const Attributes &attrs);
 
+    void setGivenType(const Attributes &attrs);
+
+
     /// Tries to set information needed by the nodes
     bool setNodes(const Attributes &attrs);
 
@@ -224,6 +230,8 @@ private:
 	NBEdgeCont &myEdgeCont;
 
 	NBTypeCont &myTypeCont;
+
+    NBEdge::EdgeBasicFunction myFunction;
 
 private:
     /** invalid copy constructor */

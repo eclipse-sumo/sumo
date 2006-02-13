@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/02/13 07:21:04  dkrajzew
+// parsing of edge function added
+//
 // Revision 1.23  2006/01/26 08:51:08  dkrajzew
 // added definition of allowed/disallowed vehicle classes
 //
@@ -236,6 +239,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
         setGivenSpeed(attrs);
         setGivenLanes(attrs);
         setGivenPriority(attrs);
+        setGivenType(attrs);
         // try to get the shape
         myShape = tryGetShape(attrs);
             // and how to spread the lanes
@@ -257,14 +261,16 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
                     myCurrentID, myCurrentName,
                     myFromNode, myToNode,
                     myCurrentType, myCurrentSpeed,
-                    myCurrentLaneNo, myLength, myCurrentPriority, myLanesSpread);
+                    myCurrentLaneNo, myLength, myCurrentPriority, myLanesSpread,
+                    myFunction);
             } else {
                 edge = new NBEdge(
                     myCurrentID, myCurrentName,
                     myFromNode, myToNode,
                     myCurrentType, myCurrentSpeed,
                     myCurrentLaneNo, myLength, myCurrentPriority,
-                    myShape, myLanesSpread);
+                    myShape, myLanesSpread,
+                    myFunction);
             }
             // insert the edge
             if(!myEdgeCont.insert(edge)) {
@@ -373,11 +379,11 @@ NIXMLEdgesHandler::setGivenLanes(const Attributes &attrs)
     }
 }
 
+
 void
 NIXMLEdgesHandler::setGivenPriority(const Attributes &attrs)
 {
-    // try to get the priority
-        // check whether the number of lanes shall be used
+    // check whether the number of lanes shall be used
     if(_options.getBool("use-laneno-as-priority")) {
         myCurrentPriority = myCurrentLaneNo;
     }
@@ -387,6 +393,25 @@ NIXMLEdgesHandler::setGivenPriority(const Attributes &attrs)
             getIntSecure(attrs, SUMO_ATTR_PRIORITY, myCurrentPriority);
     } catch (NumberFormatException) {
         addError("Not numeric value for priority (at tag ID='" + myCurrentID + "').");
+    }
+}
+
+
+void
+NIXMLEdgesHandler::setGivenType(const Attributes &attrs)
+{
+    // try to get the tpe
+    string func = getStringSecure(attrs, SUMO_ATTR_FUNC, "");
+    myFunction = NBEdge::EDGEFUNCTION_NORMAL;
+    if(func=="") {
+        return;
+    }
+    if(func=="source") {
+        myFunction = NBEdge::EDGEFUNCTION_SOURCE;
+    } else if(func=="sink") {
+        myFunction = NBEdge::EDGEFUNCTION_SINK;
+    } else if(func!="normal") {
+        addError("Unknown edge function '" + func + "' in edge '" + myCurrentID + "'.");
     }
 }
 
