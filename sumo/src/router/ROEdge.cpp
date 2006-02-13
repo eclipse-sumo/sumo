@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/02/13 07:24:11  dkrajzew
+// usage of vehicle classes revalidated
+//
 // Revision 1.24  2006/01/26 08:42:50  dkrajzew
 // made lanes and edges being aware to vehicle classes
 //
@@ -441,8 +444,10 @@ ROEdge::prohibits(const ROVehicle * const vehicle) const
 	if(myAllowedClasses.size()==0&&myDisAllowedClasses.size()==0) {
 		return false;
 	}
+    // ok, vehicles with an unknown class may be only prohibited
+    //  if the edge is limited to a set of classes
 	SUMOVehicleClass vclass = vehicle->getType()->getClass();
-    if(vclass==SVC_UNKNOWN) {
+    if(vclass==SVC_UNKNOWN&&myAllowedClasses.size()==0) {
         return false;
     }
 	// check whether it is explicitely disallowed
