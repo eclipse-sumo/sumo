@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/02/13 07:24:49  dkrajzew
+// debugging missing spaces on linux
+//
 // Revision 1.14  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -82,6 +85,7 @@ namespace
 #include <vector>
 #include <string>
 #include <deque>
+#include <iostream>
 #include <utils/common/UtilExceptions.h>
 #include "ROEdge.h"
 #include "ROEdgeVector.h"
