@@ -553,26 +553,42 @@
       Configuration Files</ulink>".</para>
     </sect1>
 
-    <sect1 id="user_chp03-software_paradigms">
-      <title>Main Software Paradigms</title>
+    <sect1 id="user_chp03-sumo">
+      <title>SUMO</title>
 
-      <para>Two basic design goals are approached: the software shall be fast
-      and it shall be portable. Due to this, the very first versions were
-      developed to be run from the command line only - no graphical interface
-      was supplied at first and all parameter had to be inserted by hand. This
-      should increase the execution speed by leaving off slow visualisation.
-      Also, due to these goals, the software was split into several parts.
-      Each of them has a certain purpose and must be run individually. This is
-      something that makes SUMO different to other simulation packages where
-      the dynamical user assignment is made within the simulation itself, not
-      via an external application like here. This split allows an easier
-      extension of each of the applications within the package because each is
-      smaller than a monolithic application doing everything. Also, it also
-      allows the usage of faster data structures, each adjusted to the current
-      purpose, instead of using complicated and ballast-loaded ones. Still,
-      this makes the usage of SUMO a little bit uncomfortable in comparison to
-      other simulation packages. As there are still other things to do, we are
-      not thinking of a redesign towards an integrated approach by now.</para>
+      <sect2 id="user_chp03-sumo-software_paradigms">
+        <title>Main Software Paradigms</title>
+
+        <para>Two basic design goals are approached: the software shall be
+        fast and it shall be portable. Due to this, the very first versions
+        were developed to be run from the command line only - no graphical
+        interface was supplied at first and all parameter had to be inserted
+        by hand. This should increase the execution speed by leaving off slow
+        visualisation. Also, due to these goals, the software was split into
+        several parts. Each of them has a certain purpose and must be run
+        individually. This is something that makes SUMO different to other
+        simulation packages where the dynamical user assignment is made within
+        the simulation itself, not via an external application like here. This
+        split allows an easier extension of each of the applications within
+        the package because each is smaller than a monolithic application
+        doing everything. Also, it also allows the usage of faster data
+        structures, each adjusted to the current purpose, instead of using
+        complicated and ballast-loaded ones. Still, this makes the usage of
+        SUMO a little bit uncomfortable in comparison to other simulation
+        packages. As there are still other things to do, we are not thinking
+        of a redesign towards an integrated approach by now.</para>
+      </sect2>
+
+      <sect2 id="user_chp03-sumo-meta">
+        <title>Available Meta-Information</title>
+
+        <para>All applications of the SUMO-package print the current version
+        and build number when started with the option
+        <option>--version</option>. Furthermore a help-screen is printed
+        including all options the application knows when the application is
+        started with the <option>--help</option> (<option>-?</option> for
+        short) option.</para>
+      </sect2>
     </sect1>
   </chapter>
 
@@ -5437,7 +5453,7 @@
       <sect2 id="user_chp06-output-vehroutes">
         <title>Vehicle Routes</title>
 
-        <para>the vehicle routes output contains information about which route
+        <para>The vehicle routes output contains information about which route
         a vehicle took and if his route was replaced at any time by a new one,
         each of the previous routes together with the edge at the time their
         replacement took place is reported. Furthermore, the vehicle emission
@@ -5542,6 +5558,12 @@
             0.9.3</para>
           </listitem>
         </itemizedlist>
+      </sect2>
+
+      <sect2 id="user_chp06-output-command_line">
+        <title>Output to the Command Line</title>
+
+        <para>!!!</para>
       </sect2>
     </sect1>
 
@@ -5905,6 +5927,18 @@
             Transport</ulink>")</para>
           </listitem>
         </itemizedlist>
+
+        <para>Still, in some cases, for example if you insert a tls with no
+        yellow phase, collisions may occure within the simulation. Earlier
+        versions of <application>SUMO</application> reported an error in such
+        cases and quit. We decided to change this behaviour. By now, the
+        simulation reports a warning in such cases and tries to solve the
+        problem internally, either by changing the position of the last car or
+        - if this does not work because the lane the accident happened at is
+        full - by removing one of the cars and trying to reinsert it as soon
+        as possible (see also "Vehicle Teleportation" !!!). You still may
+        force the simulation to quit as soon an "accident" happens using the
+        option <option>--quit-on-accident</option>.</para>
       </sect2>
     </sect1>
 
@@ -5912,8 +5946,6 @@
       <title>Missing</title>
 
       <para>--route-steps TBD</para>
-
-      <para>--quit-on-accident TBD</para>
 
       <para>--check-accidents TBD</para>
 
@@ -5924,8 +5956,6 @@
       <para>TBD: loading &amp; saving of states</para>
 
       <para>--time-to-teleport TBD</para>
-
-      <para>--version --help BD</para>
     </sect1>
   </chapter>
 
