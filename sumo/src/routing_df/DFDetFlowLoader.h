@@ -20,35 +20,11 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/02/13 07:27:06  dkrajzew
+// current work on the DFROUTER added (unfinished)
+//
 // Revision 1.1  2006/01/19 17:42:59  ericnicolay
 // base classes for the reading of the detectorflows
-//
-// Revision 1.7  2005/10/07 11:42:15  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.6  2005/09/23 06:04:36  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.5  2005/09/15 12:05:11  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.4  2005/05/04 08:50:05  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.3  2004/07/02 09:39:41  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing
-//
-// Revision 1.2  2004/02/16 13:47:07  dkrajzew
-// Type-dependent loader/generator-"API" changed
-//
-// Revision 1.1  2004/01/26 08:02:27  dkrajzew
-// loaders and route-def types are now renamed in an senseful way; further changes in order to make both new routers work; documentation added
-//
-// Revision 1.2  2003/03/17 14:26:38  dkrajzew
-// debugging
-//
-// Revision 1.1  2003/03/12 16:39:19  dkrajzew
-// artemis route support added
 //
 /* =========================================================================
  * compiler pragmas
@@ -93,13 +69,13 @@ class DFDetFlowLoader :
             public LineHandler{
 public:
     /// Constructor
-	DFDetFlowLoader();
-	DFDetFlowLoader( std::string file, DFDetectorCon *detcon);
+	///!!!DFDetFlowLoader();
+	DFDetFlowLoader(DFDetectorCon *detcon);
 
     /// Destructor
     ~DFDetFlowLoader();
 
-	DFDetectorFlows* getFlows(); 
+	DFDetectorFlows *read(const std::string &file);
 
     /* ----- from the LineHandler - "interface" ----- */
     /** @brief Receives input from a line reader (watch full description!)
@@ -119,7 +95,7 @@ private:
 
     /// The value extractor
     NamedColumnsParser myLineHandler;
-  
+
     /// Supplier for route ids
     IDSupplier myRouteIDSupplier;
 

@@ -14,14 +14,28 @@
 class DFRORouteCont {
 public:
     DFRORouteCont();
+	DFRORouteCont(const DFRORouteCont &s);
     ~DFRORouteCont();
-    void addRouteDesc(const DFRORouteDesc &desc);
+    void addRouteDesc(DFRORouteDesc *desc);
     bool readFrom(const std::string &file);
-    bool save(const std::string &file);
+    bool save(std::vector<std::string> &saved,
+		const std::string &prependix, std::ostream &os/*const std::string &file*/);
     bool computed() const;
+	const std::vector<DFRORouteDesc*> &get() const;
+    void sortByDistance();
 
 protected:
-    std::map<ROEdge*, std::vector<DFRORouteDesc> > myRoutes;
+    class by_distance_sorter {
+    public:
+        /// constructor
+        explicit by_distance_sorter() { }
+
+        int operator() (DFRORouteDesc *p1, DFRORouteDesc *p2) {
+            return p1->distance2Last<p2->distance2Last;
+        }
+    };
+
+    std::vector<DFRORouteDesc*> myRoutes;
 
 };
 

@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.7  2006/02/01 06:10:40  dkrajzew
-// applied Eric's changes
+// Revision 1.8  2006/02/13 07:27:06  dkrajzew
+// current work on the DFROUTER added (unfinished)
 //
 // Revision 1.6  2006/01/31 11:00:47  dkrajzew
 // added the possibility to write detector positions as pois; debugging
@@ -43,7 +43,6 @@ namespace
 //
 // Revision 1.1  2005/12/08 12:59:41  ericnicolay
 // *** empty log message ***
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -103,22 +102,29 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("detectors-file", 'd', new Option_FileName());
     oc.addSynonyme("detectors-file", "detectors");
 
+    oc.doRegister("detector-flows-file", 'f', new Option_FileName());
+    oc.addSynonyme("detector-flows-file", "detflows");
+
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
 
-    oc.doRegister("flow-definitions", 'f', new Option_FileName());
-    oc.addSynonyme("flow-definitions", "flows");
+//    oc.doRegister("flow-definitions", 'f', new Option_FileName());
+//    oc.addSynonyme("flow-definitions", "flows");
 
     // register output options
     oc.doRegister("routes-output", 'o', new Option_FileName());
     oc.doRegister("detectors-output", new Option_FileName());
     oc.doRegister("detectors-poi-output", new Option_FileName());
+	oc.doRegister("emitters-output", new Option_FileName());
+
 
 
     // register processing options
     oc.doRegister("build-calibrators", 'C', new Option_Bool(false));
     oc.doRegister("revalidate-routes", new Option_Bool(false));
     oc.doRegister("revalidate-detectors", new Option_Bool(false));
+	oc.doRegister("write-calibrators", new Option_Bool(false));
+
 
 
     // register the simulation settings
@@ -131,6 +137,8 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("krauss-b", 'B', new Option_Float(SUMOReal(4.5)));
     oc.doRegister("krauss-length", 'L', new Option_Float(SUMOReal(5)));
     oc.doRegister("krauss-eps", 'E', new Option_Float(SUMOReal(0.5)));
+
+    oc.doRegister("highway-mode", 'h', new Option_Bool(false));
 
 
     oc.doRegister("verbose", 'v', new Option_Bool(false));

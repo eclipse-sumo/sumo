@@ -17,7 +17,7 @@ class DFRONet
 
 {
 public:
-	DFRONet( RONet * ro );
+	DFRONet( RONet * ro, bool amInHighwayMode );
 	DFRONet();
 	~DFRONet();
 	void buildApproachList();
@@ -27,25 +27,56 @@ public:
     const std::vector<ROEdge*> &getEdgesAfter(ROEdge *edge) const;
 
     void computeTypes(DFDetectorCon &dets) const;
-    void buildRoutes(DFDetectorCon &det, DFRORouteCont &into) const;
+    void buildRoutes(DFDetectorCon &det) const;
+	SUMOReal getAbsPos(const DFDetector &det) const;
 
 
 protected:
-    bool isSource(const DFDetector &det) const;
-    bool isHighwaySource(const DFDetector &det) const;
-    bool isDestination(const DFDetector &det) const;
+    bool isSource(const DFDetector &det,
+		const DFDetectorCon &detectors) const;
+    bool isFalseSource(const DFDetector &det,
+		const DFDetectorCon &detectors) const;
+    bool isDestination(const DFDetector &det,
+		const DFDetectorCon &detectors) const;
 
     ROEdge *getDetectorEdge(const DFDetector &det) const;
-    bool isSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> seen) const;
-    bool isHighwaySource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> seen) const;
-    bool isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> seen) const;
+    bool isSource(const DFDetector &det, ROEdge *edge,
+		std::vector<ROEdge*> seen, const DFDetectorCon &detectors) const;
+    bool isFalseSource(const DFDetector &det, ROEdge *edge,
+		std::vector<ROEdge*> seen, const DFDetectorCon &detectors) const;
+    bool isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> seen,
+		const DFDetectorCon &detectors) const;
 
-    void computeRoutesFor(ROEdge *edge, DFRORouteDesc base, int no,
+    void computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
         std::vector<ROEdge*> &visited, const DFDetector &det,
-        DFRORouteCont &into) const;
+        DFRORouteCont &into, const DFDetectorCon &detectors,
+		std::vector<ROEdge*> &seen) const;
 
     void buildDetectorEdgeDependencies(DFDetectorCon &dets) const;
 
+	bool hasApproaching(ROEdge *edge) const;
+	bool hasApproached(ROEdge *edge) const;
+	bool hasDetector(ROEdge *edge) const;
+
+	std::string buildRouteID(const DFRORouteDesc &desc) const;
+
+	bool hasInBetweenDetectorsOnly(ROEdge *edge,
+		const DFDetectorCon &detectors) const;
+
+protected:
+    class DFRouteDescByTimeComperator {
+    public:
+        /// Constructor
+        explicit DFRouteDescByTimeComperator() { }
+
+        /// Destructor
+        ~DFRouteDescByTimeComperator() { }
+
+        /// Comparing method
+        bool operator()(const DFRORouteDesc *nod1, const DFRORouteDesc *nod2) const {
+            return nod1->duration>nod2->duration;
+        }
+    };
 
 private:
 	RONet * ro;
@@ -72,6 +103,9 @@ private:
 	// edge->length
 	std::map<std::string, SUMOReal> lengthmap;
 */
+
+	bool myAmInHighwayMode;
+
 };
 
 #endif

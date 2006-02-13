@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/02/13 07:27:06  dkrajzew
+// current work on the DFROUTER added (unfinished)
+//
 // Revision 1.5  2006/01/31 11:00:47  dkrajzew
 // added the possibility to write detector positions as pois; debugging
 //
@@ -135,10 +138,11 @@ DFDetectorHandler::myStartElement(int element, const std::string&name,
         } else if(mml_type=="sink") {
             type = SINK_DETECTOR;
         }
-        DFDetector detector(id, lane, pos, type);
+        DFDetector *detector = new DFDetector(id, lane, pos, type);
         if(!myContainer.addDetector(detector)) {
             MsgHandler::getErrorInstance()->inform(
                 "Could not add detector '" + id + "' (probably the id is already used).");
+			delete detector;
         }
     }
 }

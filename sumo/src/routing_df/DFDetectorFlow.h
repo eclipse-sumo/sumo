@@ -15,27 +15,26 @@
 #endif
 #endif // HAVE_CONFIG_H
 
+#include <utils/common/SUMOTime.h>
 #include <map>
 #include <string>
 #include <vector>
 //#include <routing_df/DFDetector.h>
 
 struct FlowDef {
-    // Anzahl Fahrzeuge innerhalb der beschriebenen Zeit
-    float qPKW;     
-    // Anzahl PKWs innerhalb der beschriebenen Zeit
+    // Number of passenger vehicles that passed within the described time
+    float qPKW;
+    // Number of heavy duty vehicles that passed within the described time
     float qLKW;
-    // Durchschnittsgeschwindigkeit der LKWs in der b. Zeit
-    float vLKW;
-    // Durchschnittsgeschwindigkeit der PKWs in der b. Zeit
+    // Mean velocity of passenger vehicles within the described time
     float vPKW;
-    // Anfangszeitpunkt der beschriebenen Zeit (in s?)
+    // Mean velocity of heavy duty vehicles within the described time
+    float vLKW;
+    // begin time (in s)
     int time;
-    // Name des Detektors
-    std::string det;
-    // Verhältnis LKW/PKW (qKFZ!=0 ? (qLKW / qKFZ) : 0;)
+    // probability for having a heavy duty vehicle(qKFZ!=0 ? (qLKW / qKFZ) : 0;)
     float fLKW;
-    // mit 0 initialisieren
+    // initialise with 0
     float isLKW;
 };
 
@@ -45,11 +44,13 @@ public:
 	DFDetectorFlows();
 	~DFDetectorFlows();
 	void addFlow(std::string detector_id, int timestamp, FlowDef fd );
-	FlowDef getFlowDef( std::string det_id, int timestamp);
-	std::map< int, FlowDef > &getFlowDefs( std::string id );
+	const FlowDef &getFlowDef(const std::string &det_id, SUMOTime timestamp) const;
+	const std::map< int, FlowDef > &getFlowDefs( const std::string &id ) const;
+    bool knows( const std::string &det_id ) const;
+    bool knows( const std::string &det_id, SUMOTime time ) const;
 protected:
-    std::map<std::string, std::map<int, FlowDef> > myCurrFlows;
-  
+    std::map<std::string, std::map<SUMOTime, FlowDef> > myCurrFlows;
+
 };
 
 

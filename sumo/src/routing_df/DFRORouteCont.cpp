@@ -19,19 +19,29 @@ DFRORouteCont::DFRORouteCont()
 }
 
 
+DFRORouteCont::DFRORouteCont(const DFRORouteCont &s)
+{
+	for(std::vector<DFRORouteDesc*>::const_iterator j=s.myRoutes.begin(); j!=s.myRoutes.end(); ++j) {
+		DFRORouteDesc *desc = (*j);
+		myRoutes.push_back(desc);
+	}
+}
+
 DFRORouteCont::~DFRORouteCont()
 {
 }
 
 
 void
-DFRORouteCont::addRouteDesc(const DFRORouteDesc &desc)
+DFRORouteCont::addRouteDesc(DFRORouteDesc *desc)
 {
+	/*
     ROEdge *start = desc.edges2Pass[0];
     if(myRoutes.find(start)==myRoutes.end()) {
         myRoutes[start] = std::vector<DFRORouteDesc>();
     }
-    myRoutes[start].push_back(desc);
+	*/
+    myRoutes.push_back(desc);
 }
 
 
@@ -43,33 +53,41 @@ DFRORouteCont::readFrom(const std::string &file)
 
 
 bool
-DFRORouteCont::save(const std::string &file)
+DFRORouteCont::save(std::vector<std::string> &saved,
+					const std::string &prependix, std::ostream &os/*const std::string &file*/)
 {
+	/*
     ofstream strm(file.c_str());
     if(!strm.good()) {
         return false;
     }
-    strm << "<routes>" << endl;
-    for(std::map<ROEdge*, std::vector<DFRORouteDesc> >::iterator i=myRoutes.begin(); i!=myRoutes.end(); ++i) {
-        const std::vector<DFRORouteDesc> &routes = (*i).second;
-        for(std::vector<DFRORouteDesc>::const_iterator j=routes.begin(); j!=routes.end(); ++j) {
-            const DFRORouteDesc &desc = (*j);
-            assert(desc.edges2Pass.size()>=1);
-            ROEdge *first = *(desc.edges2Pass.begin());
-            ROEdge *last = *(desc.edges2Pass.end()-1);
-            strm << "   <route id=\"" << first->getID() << "_to_" << last->getID() << "\" multi_ref=\"x\">";
-            for(std::vector<ROEdge*>::const_iterator k=desc.edges2Pass.begin(); k!=desc.edges2Pass.end(); k++) {
-                if(k!=desc.edges2Pass.begin()) {
-                    strm << ' ';
+    //strm << "<routes>" << endl;
+//    for(std::map<ROEdge*, std::vector<DFRORouteDesc> >::iterator i=myRoutes.begin(); i!=myRoutes.end(); ++i) {
+//        const std::vector<DFRORouteDesc> &routes = (*i).second;
+*/
+	bool haveSavedOnAtLeast = false;
+        for(std::vector<DFRORouteDesc*>::const_iterator j=myRoutes.begin(); j!=myRoutes.end(); ++j) {
+            const DFRORouteDesc *desc = (*j);
+			if(find(saved.begin(), saved.end(), (*j)->routename)!=saved.end()) {
+				continue;
+			}
+			saved.push_back((*j)->routename);
+            assert(desc->edges2Pass.size()>=1);
+            os << "   <route id=\"" << prependix << (*j)->routename << "\" multi_ref=\"x\">";
+            for(std::vector<ROEdge*>::const_iterator k=desc->edges2Pass.begin(); k!=desc->edges2Pass.end(); k++) {
+                if(k!=desc->edges2Pass.begin()) {
+                    os << ' ';
                 }
-                strm << (*k)->getID();
+                os << (*k)->getID();
             }
-            strm << "</route>" << endl;
+            os << "</route>" << endl;
+			haveSavedOnAtLeast = true;
         }
-        strm << endl;
-    }
-    strm << "</routes>" << endl;
-    return true;
+/*        strm << endl;
+  //  }
+    //strm << "</routes>" << endl;
+    return true;*/
+	return haveSavedOnAtLeast;
 }
 
 
@@ -78,5 +96,20 @@ DFRORouteCont::computed() const
 {
     return myRoutes.size()!=0;
 }
+
+
+const std::vector<DFRORouteDesc*> &
+DFRORouteCont::get() const
+{
+	return myRoutes;
+}
+
+
+void
+DFRORouteCont::sortByDistance()
+{
+    sort(myRoutes.begin(), myRoutes.end(), by_distance_sorter());
+}
+
 
 

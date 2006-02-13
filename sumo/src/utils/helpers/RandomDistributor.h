@@ -1,6 +1,8 @@
 #ifndef RandomDistributor_h
 #define RandomDistributor_h
 
+#include <cassert>
+
 template<class T>
 class RandomDistributor
 {
@@ -35,6 +37,10 @@ public:
         myVals.clear();
         myProbs.clear();
     }
+
+	const std::vector<T> &getVals() const {
+		return myVals;
+	}
 
 private:
     SUMOReal myProb;
