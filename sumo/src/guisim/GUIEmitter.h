@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/02/13 07:52:43  dkrajzew
+// debugging
+//
 // Revision 1.2  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -131,6 +134,8 @@ public:
 
     void setActiveChild(int index);
 
+	void toggleDrawRoutes();
+
 protected:
     class GUIEmitterChild_UserTriggeredChild
         : public MSEmitter::MSEmitterChild, public Command {
@@ -146,6 +151,7 @@ protected:
         SUMOReal myUserFlow;
         MSVehicle *myVehicle;
         MSEmitter_FileTriggeredChild &mySource;
+        bool myDescheduleVehicle;
 
     };
 
@@ -161,6 +167,8 @@ public:
 
         /** @brief Called if the object's manipulator shall be shown */
         long onCmdOpenManip(FXObject*,FXSelector,void*);
+
+        long onCmdDrawRoute(FXObject*,FXSelector,void*);
 
     protected:
         GUIEmitterPopupMenu() { }
@@ -239,6 +247,8 @@ private:
     mutable SUMOReal myUserFlow;
 
     MSEmitterChild *myUserEmitChild;
+
+	bool myDrawRoutes;
 
 };
 

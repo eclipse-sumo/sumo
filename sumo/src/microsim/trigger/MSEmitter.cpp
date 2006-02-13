@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/02/13 07:52:43  dkrajzew
+// debugging
+//
 // Revision 1.2  2005/12/01 07:37:35  dkrajzew
 // introducing bus stops: eased building vehicles; vehicles may now have nested elements
 //
@@ -118,6 +121,9 @@ MSEmitter::MSEmitter_FileTriggeredChild::processNextEntryReaderTriggered()
     if(myFlow>=0) {
         return true;
     }
+    if(!myHaveNext) {
+        return true;
+    }
     if(myParent.childCheckEmit(this)) {
         myHaveNext = false;
         return true;
@@ -134,14 +140,14 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
         ? myVTypeDist.get()
         : MSVehicleType::dict_Random();
     if(aVehType==0) {
-        WRITE_WARNING(string("MSTriggeredSource ") + myParent.getID()+ string(": no valid vehicle type exists."));
+        WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid vehicle type exists.");
         WRITE_WARNING("Continuing with next element.");
         return;// false;
     }
     // check and assign vehicle type
     MSRoute *aEmitRoute = myRouteDist.get();
     if(aEmitRoute==0) {
-        WRITE_WARNING(string("MSTriggeredSource ") + myParent.getID()+ string(": no valid route exsists."));
+        WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid route exsists.");
         WRITE_WARNING("Continuing with next element.");
         return;// false;
     }
@@ -161,20 +167,18 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int element, const std::
     if(name=="routedistelem") {
         // parse route distribution
         // check if route exists
-        string routeStr = getStringSecure(attrs, "routeid", "");
+        string routeStr = getStringSecure(attrs, SUMO_ATTR_ID, "");
         MSRoute* route = MSRoute::dictionary( routeStr );
         if ( route == 0 ) {
             MsgHandler::getErrorInstance()->inform(
-                string("MSTriggeredSource ") + myParent.getID()
-                + string(": Route '") + routeStr + string("' does not exist."));
+                "MSTriggeredSource " + myParent.getID() + ": Route '" + routeStr + "' does not exist.");
             throw ProcessError();
         }
         // check frequency
-        SUMOReal freq = getFloatSecure(attrs, "frequency", -1);
+        SUMOReal freq = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
         if(freq<0) {
             MsgHandler::getErrorInstance()->inform(
-                string("MSTriggeredSource ") + myParent.getID()
-                + string(": Attribute \"frequency\" has value < 0."));
+                "MSTriggeredSource " + myParent.getID() + ": Attribute \"frequency\" has value < 0.");
             throw ProcessError();
         }
         // Attributes ok, add to routeDist
@@ -182,7 +186,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int element, const std::
         return;
     }
     // vehicle-type distributions
-    if(name=="vtype-dist") {
+    if(name=="vtypedistelem") {
         SUMOReal prob = -1;
         try {
             prob = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
@@ -255,12 +259,16 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int element, const std::
             return;
         }
         // check and assign id
-        string aVehicleId = myParent.getID() + string( "_" ) + getStringSecure(attrs, "id", "");
+        string aVehicleId = myParent.getID() +  "_" + getStringSecure(attrs, "id", "");
         MSVehicle* veh = MSVehicle::dictionary( aVehicleId );
         if ( veh != 0 ) {
-            WRITE_WARNING(string("MSTriggeredSource ") + myParent.getID()+ string(": Vehicle ") + aVehicleId+ string(" does already exist. "));
-            WRITE_WARNING("Continuing with next element.");
-            return;// false;
+            aVehicleId = myParent.getID() +  "_" + toString(myRunningID++);
+            veh = MSVehicle::dictionary( aVehicleId );
+            if ( veh != 0 ) {
+                WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + aVehicleId + " does already exist. ");
+                WRITE_WARNING("Continuing with next element.");
+                return;// false;
+            }
         }
         // check and assign vehicle type
         string emitType = getStringSecure(attrs, "vehtype", "");
@@ -270,9 +278,12 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int element, const std::
                 aVehType = myVTypeDist.get();
             }
             if(aVehType==0) {
-                WRITE_WARNING(string("MSTriggeredSource ") + myParent.getID()+ string(": no valid vehicle type exists."));
-                WRITE_WARNING("Continuing with next element.");
-                return;// false;
+                aVehType = MSVehicleType::dict_Random();
+                if(aVehType==0) {
+                    WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid vehicle type exists.");
+                    WRITE_WARNING("Continuing with next element.");
+                    return;// false;
+                }
             }
         }
         // check and assign vehicle type
@@ -283,7 +294,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int element, const std::
                 aEmitRoute = myRouteDist.get();
             }
             if(aEmitRoute==0) {
-                WRITE_WARNING(string("MSTriggeredSource ") + myParent.getID()+ string(": no valid route exsists."));
+                WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid route exsists.");
                 WRITE_WARNING("Continuing with next element.");
                 return;// false;
             }

@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.2  2006/02/13 07:52:43  dkrajzew
+// debugging
+//
 // Revision 1.1  2005/11/09 06:35:03  dkrajzew
 // Emitters reworked
 //
@@ -96,6 +99,11 @@ public:
         virtual ~MSEmitterChild() { }
 
         MSRoute *getRndRoute() const { return myRouteDist.get(); }
+
+		const std::vector<MSRoute*> &getAllRoutes() const
+		{
+			return myRouteDist.getVals();
+		}
 
         MSVehicleType *getRndVType() const { return myVTypeDist.get(); }
 

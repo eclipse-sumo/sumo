@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/02/13 07:52:43  dkrajzew
+// debugging
+//
 // Revision 1.5  2006/01/31 10:54:29  dkrajzew
 // debugged bad edge retrieval
 //
@@ -123,6 +126,7 @@ FXDEFMAP(GUIEmitter::GUIEmitterPopupMenu)
     GUIEmitterPopupMenuMap[]=
 {
     FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUIEmitter::GUIEmitterPopupMenu::onCmdOpenManip),
+    FXMAPFUNC(SEL_COMMAND,  MID_DRAWROUTE,     GUIEmitter::GUIEmitterPopupMenu::onCmdDrawRoute),
 
 };
 
@@ -156,25 +160,30 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::GUIEmitterChild_UserTriggeredChi
                 MSEmitter &parent,
                 SUMOReal flow)
     : MSEmitter::MSEmitterChild(parent), myUserFlow(flow),
-    myVehicle(0), mySource(s)
+    myVehicle(0), mySource(s), myDescheduleVehicle(false)
 {
     if(myUserFlow>0) {
         MSEventControl::getBeginOfTimestepEvents()->addEvent(
             this, (SUMOTime) (1. / (flow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
+        MSNet::getInstance()->getVehicleControl().newUnbuildVehicleLoaded();
+        myDescheduleVehicle = true;
     }
 }
 
 
 GUIEmitter::GUIEmitterChild_UserTriggeredChild::~GUIEmitterChild_UserTriggeredChild()
 {
+    if(myDescheduleVehicle) {
+        MSNet::getInstance()->getVehicleControl().newUnbuildVehicleBuild();
+    }
 }
 
 
 SUMOTime
 GUIEmitter::GUIEmitterChild_UserTriggeredChild::execute()
 {
-    if(myUserFlow==0) {
+    if(myUserFlow<=0) {
         return 0;
     }
     if(!mySource.isInitialised()) {
@@ -204,6 +213,10 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::execute()
         myVehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(
             aVehicleId, aRoute, aEmitTime, aType, 0, 0);
         myParent.schedule(this, myVehicle, -1);
+        if(myDescheduleVehicle) {
+            MSNet::getInstance()->getVehicleControl().newUnbuildVehicleBuild();
+            myDescheduleVehicle = false;
+        }
     }
     if(myParent.childCheckEmit(this)) {
         myVehicle = 0;
@@ -347,6 +360,17 @@ GUIEmitter::GUIEmitterPopupMenu::onCmdOpenManip(FXObject*,
 }
 
 
+long
+GUIEmitter::GUIEmitterPopupMenu::onCmdDrawRoute(FXObject*,
+												FXSelector,
+												void*)
+{
+    static_cast<GUIEmitter*>(myObject)->toggleDrawRoutes();
+	myParent->update();
+    return 1;
+}
+
+
 /* -------------------------------------------------------------------------
  * GUIEmitter - methods
  * ----------------------------------------------------------------------- */
@@ -355,7 +379,8 @@ GUIEmitter::GUIEmitter(const std::string &id,
             const std::string &aXMLFilename)
     : MSEmitter(id, net, destLanes, pos, aXMLFilename),
     GUIGlObject_AbstractAdd(gIDStorage,
-        string("emitter:") + id, GLO_TRIGGER), myUserFlow(-1)
+        string("emitter:") + id, GLO_TRIGGER), myUserFlow(-1),
+		myDrawRoutes(false)
 {
     const GUIEdge *edge = static_cast<const GUIEdge*>(&destLanes->edge());
     const Position2DVector &v =
@@ -372,7 +397,7 @@ GUIEmitter::GUIEmitter(const std::string &id,
     myUserEmitChild =
         new GUIEmitterChild_UserTriggeredChild(
             static_cast<MSEmitter_FileTriggeredChild&>(*myFileBasedEmitter),
-            *this, 10000);
+            *this, 0);
 }
 
 
@@ -387,6 +412,7 @@ GUIEmitter::setUserFlow(SUMOReal factor)
     // !!! the commands should be adapted to current flow imediatly
     myUserFlow = factor;
     if(myUserFlow>0) {
+        delete myUserEmitChild;
         myUserEmitChild =
             new GUIEmitterChild_UserTriggeredChild(
                 static_cast<MSEmitter_FileTriggeredChild&>(*myFileBasedEmitter),
@@ -420,6 +446,13 @@ GUIEmitter::getPopUpMenu(GUIMainWindow &app,
     //
     new FXMenuCommand(ret, "Open Manipulator...",
         GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_MANIP);
+	if(!myDrawRoutes) {
+	    new FXMenuCommand(ret, "Show Routes...",
+		    GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_DRAWROUTE);
+	} else {
+	    new FXMenuCommand(ret, "Hide Routes...",
+		    GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_DRAWROUTE);
+	}
     //
     if(gSelected.isSelected(GLO_TRIGGER, getGlID())) {
         new FXMenuCommand(ret, "Remove From Selected",
@@ -475,9 +508,36 @@ GUIEmitter::getPosition() const
 
 
 void
+GUIEmitter::toggleDrawRoutes()
+{
+	myDrawRoutes = !myDrawRoutes;
+}
+
+void
 GUIEmitter::drawGL_FG(SUMOReal scale, SUMOReal upscale)
 {
     doPaint(myFGPosition, myFGRotation, scale, upscale);
+	if(!myDrawRoutes) {
+		return;
+	}
+	const std::vector<MSRoute*> &routes = myFileBasedEmitter->getAllRoutes();
+	std::vector<MSRoute*>::const_iterator j;
+	for(j=routes.begin(); j!=routes.end(); ++j) {
+		glColor3d(1,1,0);
+		MSRouteIterator i = (*j)->begin();
+		for(; i!=(*j)->end(); ++i) {
+			const MSEdge *e = *i;
+			const GUIEdge *ge = static_cast<const GUIEdge*>(e);
+			const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
+			const DoubleVector &rots = lane.getShapeRotations();
+			const DoubleVector &lengths = lane.getShapeLengths();
+			const Position2DVector &geom = lane.getShape();
+			for(size_t i=0; i<geom.size()-1; i++) {
+				GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], 0.5);
+			}
+		}
+    }
+
 }
 
 
