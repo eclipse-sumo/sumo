@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/02/13 07:20:23  dkrajzew
+// code beautifying
+//
 // Revision 1.15  2006/01/31 10:59:35  dkrajzew
 // extracted common used methods; optional usage of old lane number information in navteq-networks import added
 //
@@ -357,9 +360,7 @@ NIOptionsIO::checkOutput(OptionsCont &oc)
 {
     ofstream strm(oc.getString("o").c_str()); // !!! should be made when input are ok
     if(!strm.good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The output file \"") + oc.getString("o")
-            + string("\" can not be build."));
+        MsgHandler::getErrorInstance()->inform("The output file \"" + oc.getString("o") + "\" can not be build.");
         return false;
     }
     return true;

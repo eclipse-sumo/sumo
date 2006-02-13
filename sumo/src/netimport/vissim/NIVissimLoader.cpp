@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/02/13 07:20:23  dkrajzew
+// code beautifying
+//
 // Revision 1.26  2006/01/09 11:59:22  dkrajzew
 // debugging error handling; beautifying
 //
@@ -401,9 +404,7 @@ NIVissimLoader::load(OptionsCont &options)
         // try to open the file
     ifstream strm(options.getString("vissim").c_str());
     if(!strm.good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The vissim-file '") + options.getString("vissim")
-            + string("' was not found."));
+        MsgHandler::getErrorInstance()->inform("The vissim-file '" + options.getString("vissim") + "' was not found.");
         return;
     }
     if(!readContents(strm)) {

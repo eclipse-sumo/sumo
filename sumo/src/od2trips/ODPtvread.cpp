@@ -28,6 +28,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/02/13 07:23:39  dkrajzew
+// code beautifying
+//
 // Revision 1.11  2005/10/07 11:42:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -100,8 +103,7 @@ ODPtvread (string OD_filename,vector<OD_IN>& od_inp, long *maxele,
     int i;
     LineReader lr(OD_filename);
 	if (!lr.good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Could not open ") + OD_filename + string("."));
+        MsgHandler::getErrorInstance()->inform("Could not open " + OD_filename + ".");
 		throw ProcessError();
 	}
 	*maxele=0;

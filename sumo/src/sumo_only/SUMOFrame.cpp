@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.38  2006/02/13 07:27:59  dkrajzew
+// code beautifying
+//
 // Revision 1.37  2006/01/09 13:30:06  dkrajzew
 // debugging
 //
@@ -270,10 +273,6 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("track", new Option_Float(0.));
 
     //
-#ifdef HAVE_MESOSIM
-    oc.doRegister("mesosim", new Option_Bool(false));
-    oc.doRegister("mesosim-edgelength", new Option_Float(98.0f));
-#endif
 
     // add rand and dev options
     RandHelper::insertRandOptions(oc);

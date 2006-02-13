@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/02/13 07:26:18  dkrajzew
+// code beautifying
+//
 // Revision 1.16  2006/01/26 08:37:24  dkrajzew
 // removed warnings 4786
 //
@@ -213,7 +216,7 @@ ROVehicle::saveAllAsXML(std::ostream * const os,
         // write the route
         const ROEdgeVector &routee = route->getCurrentEdgeVector();
         (*os) << "      <route";
-        if(this->periodical()) {
+        if(periodical()) {
             // remark for further usage if referenced by more than one vehicle
             (*os) << " multi_ref=\"x\"";
         }

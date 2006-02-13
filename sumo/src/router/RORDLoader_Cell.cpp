@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/02/13 07:23:40  dkrajzew
+// code beautifying
+//
 // Revision 1.10  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -132,20 +135,20 @@ RORDLoader_Cell::RORDLoader_Cell(ROVehicleBuilder &vb, RONet &net,
                                  int maxRoutes,
                                  string file)
     : ROAbstractRouteDefLoader(vb, net, begin, end),
-    _routeIdSupplier(string("Cell_")+file, 0),
-    _vehicleIdSupplier(string("Cell_")+file, 0),
+    _routeIdSupplier("Cell_"+file, 0),
+    _vehicleIdSupplier("Cell_"+file, 0),
     _driverParser(true, true),
     _gawronBeta(gawronBeta), _gawronA(gawronA), myHaveEnded(false),
     myMaxRoutes(maxRoutes)
 {
     if(file.length()!=0) {
         // initialise the .rinfo-reader
-        _routeDefFile = file + string(".rinfo");
+        _routeDefFile = file + ".rinfo";
         // pre-initialise the .driver-reader
-        _driverFile = file + string(".driver");
+        _driverFile = file + ".driver";
         _driverStrm.open(_driverFile.c_str(), fstream::in|fstream::binary);
         // compute the name of the index file
-        _routeIdxFile = file + string(".rindex");
+        _routeIdxFile = file + ".rindex";
     }
 }
 
@@ -193,8 +196,7 @@ RORDLoader_Cell::myReadRoutesAtLeastUntil(SUMOTime time)
         // get the route-number
         int routeNo = _driverParser.getRouteNo();
         if(routeNo<0) {
-            MsgHandler::getWarningInstance()->inform(
-                string("Skipping Route: ") + toString<int>(routeNo));
+            MsgHandler::getWarningInstance()->inform("Skipping Route: " + toString<int>(routeNo));
             return true; // !!!
         }
         // add the route when it is not yet known
@@ -269,10 +271,7 @@ RORDLoader_Cell::getRouteInfoFrom(unsigned long position)
         string id = st.next();
         ROEdge *edge = _net.getEdge(id);
         if(edge==0) {
-            MsgHandler::getErrorInstance()->inform(
-                string("A route read from '") + _routeDefFile +
-                string("' contains an unknown edge ('") +
-                id + string("')."));
+            MsgHandler::getErrorInstance()->inform("A route read from '" + _routeDefFile + "' contains an unknown edge ('" + id + "').");
             delete edges;
             return 0;
         }
@@ -302,9 +301,7 @@ RORDLoader_Cell::init(OptionsCont &options)
     _lineReader.readAll(*this);
     // save the index file when wished
     if(!_hasIndexFile&&options.getBool("save-cell-rindex")) {
-        MsgHandler::getMessageInstance()->inform(
-            string("Saving the cell-rindex file '") + _routeIdxFile
-            + string("'... "));
+        MsgHandler::getMessageInstance()->inform("Saving the cell-rindex file '" + _routeIdxFile + "'... ");
         std::ofstream out(_routeIdxFile.c_str());
         for(std::vector<unsigned long>::iterator i=_routes.begin(); i!=_routes.end(); i++) {
             out << (*i) << endl;
@@ -323,8 +320,7 @@ RORDLoader_Cell::report(const std::string &result)
         try {
             _routes.push_back(TplConvert<char>::_2int(result.c_str())); // !!!
         } catch (NumberFormatException) {
-            MsgHandler::getErrorInstance()->inform(
-                string("Your '") + _routeIdxFile + string("' contains non-digits."));
+            MsgHandler::getErrorInstance()->inform("Your '" + _routeIdxFile + "' contains non-digits.");
             throw ProcessError();
         } catch (EmptyData) {
         }
@@ -340,8 +336,7 @@ bool
 RORDLoader_Cell::initDriverFile()
 {
     if(!_driverStrm.good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Problems on opening '") + _driverFile + string("'."));
+        MsgHandler::getErrorInstance()->inform("Problems on opening '" + _driverFile + "'.");
         return false;
     }
     // check for header

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/02/13 07:15:03  dkrajzew
+// code beautifying
+//
 // Revision 1.6  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -78,9 +81,7 @@ Command_SaveTLSState::Command_SaveTLSState(MSTrafficLightLogic * const logic,
         0, MSEventControl::ADAPT_AFTER_EXECUTION);
     myFile.open(file.c_str());
     if(!myFile.good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The file '") + file
-            + string("'to save the tl-states into could not be opened."));
+        MsgHandler::getErrorInstance()->inform("The file '" + file + "'to save the tl-states into could not be opened.");
         throw ProcessError();
     }
     myFile << "<sumo-output>" << endl;

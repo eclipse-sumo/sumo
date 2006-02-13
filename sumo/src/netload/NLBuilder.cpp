@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/02/13 07:21:48  dkrajzew
+// code beautifying
+//
 // Revision 1.6  2006/01/09 11:59:49  dkrajzew
 // debugging error handling; beautifying
 //
@@ -397,7 +400,7 @@ NLBuilder::parse(const std::string &mmlWhat,
     while(st.hasNext()&&ok) {
         string tmp = st.next();
         // report about loading when wished
-        WRITE_MESSAGE(string("Loading ") + mmlWhat + string(" from '") + tmp + string("'..."));
+        WRITE_MESSAGE("Loading " + mmlWhat + " from '" + tmp + "'...");
         // check whether the file exists
         if(!FileHelpers::exists(tmp)) {
             // report error if not

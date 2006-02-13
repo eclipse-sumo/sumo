@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/02/13 07:20:23  dkrajzew
+// code beautifying
+//
 // Revision 1.8  2005/10/07 11:39:57  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -109,12 +112,10 @@ NITigerLoader::~NITigerLoader()
 void
 NITigerLoader::load(OptionsCont &options)
 {
-    LineReader tgr1r((_file + string(".rt1")).c_str());
-    LineReader tgr2r((_file + string(".rt2")).c_str());
+    LineReader tgr1r((_file + ".rt1").c_str());
+    LineReader tgr2r((_file + ".rt2").c_str());
     if(!tgr1r.good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Could not open '") + _file + string(".rt1")
-            + string("'."));
+        MsgHandler::getErrorInstance()->inform("Could not open '" + _file + ".rt1" + "'.");
         throw ProcessError();
     }
     string line1, line2, tmp;
@@ -149,15 +150,11 @@ NITigerLoader::load(OptionsCont &options)
         NBNode *to = getNode(cposes.at(cposes.size()-1));
         if(from==0||to==0) {
             if(from==0) {
-                MsgHandler::getErrorInstance()->inform(
-                    string("Could not find start node of edge '")
-                    + eid + string("'."));
+                MsgHandler::getErrorInstance()->inform("Could not find start node of edge '" + eid + "'.");
                 throw ProcessError();
             }
             if(to==0) {
-                MsgHandler::getErrorInstance()->inform(
-                    string("Could not find end node of edge '")
-                    + eid + string("'."));
+                MsgHandler::getErrorInstance()->inform("Could not find end node of edge '" + eid + "'.");
                 throw ProcessError();
             }
         }
@@ -173,20 +170,16 @@ NITigerLoader::load(OptionsCont &options)
                     cposes.length(), priority, cposes);
             if(!myEdgeCont.insert(e)) {
                 delete e;
-                MsgHandler::getErrorInstance()->inform(
-                    string("Could not insert edge '")
-                    + eid + string("'."));
+                MsgHandler::getErrorInstance()->inform("Could not insert edge '" + eid + "'.");
                 throw ProcessError();
             }
-            eid = string("-") + eid;
+            eid = "-" + eid;
             e =
                 new NBEdge(eid, eid, to, from, type, speed, nolanes,
                     cposes.length(), priority, cposes.reverse());
             if(!myEdgeCont.insert(e)) {
                 delete e;
-                MsgHandler::getErrorInstance()->inform(
-                    string("Could not insert edge '")
-                    + eid + string("'."));
+                MsgHandler::getErrorInstance()->inform("Could not insert edge '" + eid + "'.");
                 throw ProcessError();
             }
         }
@@ -233,8 +226,7 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
             ret.push_back(p);
         } catch(NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform(
-                string("Could not convert position '")
-                + p1 + string("/") + p2 + string("'."));
+                "Could not convert position '" + p1 + "/" + p2 + "'.");
             throw ProcessError();
         }
     }
@@ -250,10 +242,7 @@ NITigerLoader::getNode(const Position2D &p)
     if(n==0) {
         n = new NBNode(toString<int>(bla++), p);
         if(!myNodeCont.insert(n)) {
-            MsgHandler::getErrorInstance()->inform(
-                string("Could not insert node at position ")
-                + toString(p.x()) + string("/") + toString(p.y())
-                + string("."));
+            MsgHandler::getErrorInstance()->inform("Could not insert node at position " + toString(p.x()) + "/" + toString(p.y()) + ".");
             throw ProcessError();
         }
     }
@@ -282,8 +271,7 @@ NITigerLoader::getType(const std::vector<std::string> &sv) const
         // ok, its the type (let's hope)
         return tc;
     }
-    MsgHandler::getErrorInstance()->inform(
-        string("Could not determine type for an edge...")); // !!! be more verbose
+    MsgHandler::getErrorInstance()->inform("Could not determine type for an edge..."); // !!! be more verbose
     throw ProcessError();
 }
 
