@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.44  2006/02/13 07:17:35  dkrajzew
+// code beautifying; added pois output of built tls
+//
 // Revision 1.43  2006/01/17 14:11:52  dkrajzew
 // "split-geometry" - option added (unfinsihed, rename)
 //
@@ -452,9 +455,9 @@ NBEdgeCont::clear()
 void
 NBEdgeCont::report()
 {
-    WRITE_MESSAGE(string("   ") + toString<int>(getNo()) + string(" edges loaded."));
+    WRITE_MESSAGE("   " + toString<int>(getNo()) + " edges loaded.");
     if(EdgesSplit>0) {
-        WRITE_WARNING(string("Warning: The split of edges was performed ")+ toString<int>(EdgesSplit) + string(" times."));
+        WRITE_WARNING("Warning: The split of edges was performed "+ toString<int>(EdgesSplit) + " times.");
     }
 }
 
@@ -463,7 +466,7 @@ bool
 NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node)
 {
     return splitAt(dc, edge, node,
-        edge->getID() + string("[0]"), edge->getID() + string("[1]"),
+        edge->getID() + "[0]", edge->getID() + "[1]",
         edge->_nolanes, edge->_nolanes);
 }
 
@@ -665,8 +668,8 @@ NBEdgeCont::buildPossibilities(const std::vector<std::string> &s)
 {
     std::vector<std::string> ret;
     for(std::vector<std::string>::const_iterator i=s.begin(); i!=s.end(); i++) {
-        ret.push_back((*i) + string("[0]"));
-        ret.push_back((*i) + string("[1]"));
+        ret.push_back((*i) + "[0]");
+        ret.push_back((*i) + "[1]");
     }
     return ret;
 }
@@ -871,6 +874,7 @@ NBEdgeCont::savePlain(const std::string &file)
     // try to build the output file
     ofstream res(file.c_str());
     if(!res.good()) {
+        MsgHandler::getErrorInstance()->inform("Plain edge file '" + file + "' could not be opened.");
         return false;
     }
     res << "<edges>" << endl;

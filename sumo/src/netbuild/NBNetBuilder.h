@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2006/02/13 07:17:35  dkrajzew
+// code beautifying; added pois output of built tls
+//
 // Revision 1.18  2006/01/17 14:11:52  dkrajzew
 // "split-geometry" - option added (unfinsihed, rename)
 //
@@ -89,7 +92,6 @@ public:
     void compute(OptionsCont &oc);
 
     /** saves the net */
-    bool save(std::string path, OptionsCont &oc);
     bool save(std::ostream &os, OptionsCont &oc);
 
     bool netBuild() const;
@@ -165,9 +167,7 @@ protected:
 
     void checkPrint(OptionsCont &oc) ;
 
-    bool saveMap(std::string path);
-
-    void savePlain(const std::string &filename);
+    bool saveMap(const std::string &path);
 
 protected:
     bool myHaveBuildNet;

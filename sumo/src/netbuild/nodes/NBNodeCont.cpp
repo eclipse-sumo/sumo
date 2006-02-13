@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/02/13 07:17:36  dkrajzew
+// code beautifying; added pois output of built tls
+//
 // Revision 1.18  2006/01/31 10:57:39  dkrajzew
 // debugging ramp guessing
 //
@@ -1314,6 +1317,7 @@ NBNodeCont::savePlain(const std::string &file)
     // try to build the output file
     ofstream res(file.c_str());
     if(!res.good()) {
+        MsgHandler::getErrorInstance()->inform("Plain node file '" + file + "' could not be opened.");
         return false;
     }
     res << "<nodes>" << endl;
@@ -1327,6 +1331,29 @@ NBNodeCont::savePlain(const std::string &file)
     return res.good();
 }
 
+bool
+NBNodeCont::writeTLSasPOIs(const std::string &file)
+
+{
+    // try to build the output file
+    ofstream res(file.c_str());
+    if(!res.good()) {
+        MsgHandler::getErrorInstance()->inform("Plain node file '" + file + "' could not be opened.");
+        return false;
+    }
+    res << "<pois>" << endl;
+    for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
+        NBNode *n = (*i).second;
+        if(n->isTLControlled()) {
+            res << "   <poi id=\"" << (*i).first
+                << "\" type=\"tls controlled node\" color=\"1,1,0\""
+                << " x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>"
+                << endl;
+        }
+    }
+    res << "</pois>" << endl;
+    return res.good();
+}
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

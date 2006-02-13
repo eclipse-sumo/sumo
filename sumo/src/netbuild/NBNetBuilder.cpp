@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2006/02/13 07:17:35  dkrajzew
+// code beautifying; added pois output of built tls
+//
 // Revision 1.30  2006/01/31 10:58:00  dkrajzew
 // debugging ramp guessing
 //
@@ -128,19 +131,28 @@ NBNetBuilder::buildLoaded()
     OptionsCont &oc = OptionsSubSys::getOptions();
     compute(oc);
     // save network when wished
-    if(!save(oc.getString("o"), oc)) {
+    ofstream res(oc.getString("o").c_str());
+    if(res.good()) {
+        save(res, oc);
+    } else {
         MsgHandler::getErrorInstance()->inform("Could not save net to '" + oc.getString("o") + "'.");
         throw ProcessError();
     }
     // save plain nodes/edges/connections
     if(oc.isSet("plain-output")) {
-        savePlain(oc.getString("plain-output"));
+        myNodeCont.savePlain(oc.getString("plain-output") + string(".nod.xml"));
+        myEdgeCont.savePlain(oc.getString("plain-output") + string(".edg.xml"));
     }
     // save the mapping information when wished
     if(oc.isSet("map-output")) {
         saveMap(oc.getString("map-output"));
     }
+    // save the tls positions as a list of pois
+    if(oc.isSet("tls-poi-output")) {
+        myNodeCont.writeTLSasPOIs(oc.getString("tls-poi-output"));
+    }
 }
+
 
 
 void
@@ -371,8 +383,6 @@ NBNetBuilder::reshiftRotateNet(int &step, OptionsCont &oc)
 }
 
 
-
-
 void
 NBNetBuilder::compute(OptionsCont &oc)
 {
@@ -471,33 +481,12 @@ NBNetBuilder::save(ostream &res, OptionsCont &oc)
 
 
 bool
-NBNetBuilder::save(string path, OptionsCont &oc)
+NBNetBuilder::saveMap(const string &path)
 {
     // try to build the output file
     ofstream res(path.c_str());
     if(!res.good()) {
-        return false;
-    }
-    return save(res, oc);
-}
-
-
-void
-NBNetBuilder::savePlain(const std::string &filename)
-{
-    // try to build the output file
-    myNodeCont.savePlain(filename + string(".nod.xml"));
-    myEdgeCont.savePlain(filename + string(".edg.xml"));
-//    NBConnectionCont::svaePlain(filename);
-}
-
-
-bool
-NBNetBuilder::saveMap(string path)
-{
-    // try to build the output file
-    ofstream res(path.c_str());
-    if(!res.good()) {
+        MsgHandler::getErrorInstance()->inform("Map output '" + path + "' could not be opened.");
         return false;
     }
     // write map
@@ -513,6 +502,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("plain-output", new Option_FileName());
     oc.doRegister("node-geometry-dump", new Option_FileName());
     oc.doRegister("map-output", 'M', new Option_FileName());
+    oc.doRegister("tls-poi-output", new Option_FileName()); // !!! describe
 
     // register building defaults
     oc.doRegister("type", 'T', new Option_String("Unknown"));

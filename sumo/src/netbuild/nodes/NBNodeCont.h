@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2006/02/13 07:17:36  dkrajzew
+// code beautifying; added pois output of built tls
+//
 // Revision 1.10  2005/11/09 06:40:49  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -288,6 +291,8 @@ public:
         NBTrafficLightLogicCont &tlc);
 
     bool savePlain(const std::string &file);
+
+    bool writeTLSasPOIs(const std::string &file);
 
 private:
     bool mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const;
