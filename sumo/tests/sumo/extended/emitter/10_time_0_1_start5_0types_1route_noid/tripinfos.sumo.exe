@@ -1,0 +1,8 @@
+<?xml version="1.0" standalone="no"?>
+<tripinfos>
+   <tripinfo vehicle_id="emitter_" start="5" wished="5" end="122" duration="117" waited="0" />
+   <tripinfo vehicle_id="emitter_0" start="8" wished="6" end="126" duration="118" waited="2" />
+   <tripinfo vehicle_id="emitter_1" start="11" wished="7" end="129" duration="118" waited="4" />
+   <tripinfo vehicle_id="emitter_2" start="14" wished="8" end="131" duration="117" waited="6" />
+   <tripinfo vehicle_id="emitter_3" start="17" wished="9" end="134" duration="117" waited="8" />
+</tripinfos>

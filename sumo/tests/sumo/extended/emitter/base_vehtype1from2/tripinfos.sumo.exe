@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?>
+<tripinfos>
+   <tripinfo vehicle_id="emitter_" start="0" wished="0" end="197" duration="197" waited="0" />
+   <tripinfo vehicle_id="emitter_0" start="3" wished="1" end="200" duration="197" waited="2" />
+   <tripinfo vehicle_id="emitter_1" start="6" wished="2" end="204" duration="198" waited="4" />
+   <tripinfo vehicle_id="emitter_2" start="9" wished="3" end="206" duration="197" waited="6" />
+   <tripinfo vehicle_id="emitter_3" start="12" wished="4" end="209" duration="197" waited="8" />
+   <tripinfo vehicle_id="emitter_4" start="15" wished="5" end="212" duration="197" waited="10" />
+   <tripinfo vehicle_id="emitter_5" start="18" wished="6" end="216" duration="198" waited="12" />
+   <tripinfo vehicle_id="emitter_6" start="21" wished="7" end="218" duration="197" waited="14" />
+   <tripinfo vehicle_id="emitter_7" start="24" wished="8" end="222" duration="198" waited="16" />
+   <tripinfo vehicle_id="emitter_8" start="28" wished="9" end="225" duration="197" waited="19" />
+</tripinfos>
