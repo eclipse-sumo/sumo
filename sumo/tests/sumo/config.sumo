@@ -11,6 +11,7 @@ output:Build #
 [collate_file]
 emissions:emissions.xml
 aggregated15:aggregated_15.xml
+aggregated25:aggregated_25.xml
 aggregated60:aggregated_60.xml
 aggregated300:aggregated_300.xml
 aggregated900:aggregated_900.xml
