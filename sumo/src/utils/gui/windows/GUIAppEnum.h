@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/02/13 07:29:01  dkrajzew
+// added route visualization in emitters
+//
 // Revision 1.12  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -288,6 +291,7 @@ enum {
     MID_REMOVESELECT,
     /// Open the object's manipulator
     MID_MANIP,
+    MID_DRAWROUTE, // !!!
     /// Show vehicle's current route
     MID_SHOW_CURRENTROUTE,
     /// Hide vehicle's current route
