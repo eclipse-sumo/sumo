@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/02/13 07:22:20  dkrajzew
+// detector position may now be "friendly"
+//
 // Revision 1.7  2006/01/31 10:53:44  dkrajzew
 // pois may be now placed on lane positions
 //
@@ -400,11 +403,7 @@ NLHandler::chooseEdge(const Attributes &attrs)
     try {
         func = getString(attrs, SUMO_ATTR_FUNC);
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing function of an edge-object.");
-    } catch (XMLIdNotKnownException &e) {
-        MsgHandler::getErrorInstance()->inform(
-            e.getMessage("edge", id));
+        MsgHandler::getErrorInstance()->inform("Error in description: missing function of an edge-object.");
     }
 
     // get the type
@@ -761,8 +760,8 @@ NLHandler::addE1Detector(const Attributes &attrs)
             getInt(attrs, SUMO_ATTR_SPLINTERVAL),
             SharedOutputDevices::getInstance()->getOutputDeviceChecking(
                 _file, getString(attrs, SUMO_ATTR_FILE)),
-            getStringSecure(attrs, SUMO_ATTR_STYLE, "")
-                );
+			getBoolSecure(attrs, "friendly_pos", false),
+            getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
     } catch (XMLBuildingException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("detector", id));
     } catch (InvalidArgument &e) {

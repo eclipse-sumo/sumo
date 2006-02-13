@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.20  2006/02/13 07:22:20  dkrajzew
+// detector position may now be "friendly"
+//
 // Revision 1.19  2005/11/09 06:42:54  dkrajzew
 // TLS-API: MSEdgeContinuations added
 //
@@ -157,7 +160,7 @@ public:
     /// builds an induct loop
     void buildInductLoop(const std::string &id,
         const std::string &lane, SUMOReal pos, int splInterval,
-        OutputDevice *device, const std::string &style="");
+        OutputDevice *device, bool friendly_pos, const std::string &style="");
 
     /// builds a lane-based areal (E2-) detector with a fixed interval
     void buildE2Detector(const MSEdgeContinuations &edgeContinuations,

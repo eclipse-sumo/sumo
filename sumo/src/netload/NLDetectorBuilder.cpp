@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.30  2006/02/13 07:22:20  dkrajzew
+// detector position may now be "friendly"
+//
 // Revision 1.29  2005/11/09 06:42:54  dkrajzew
 // TLS-API: MSEdgeContinuations added
 //
@@ -234,7 +237,8 @@ NLDetectorBuilder::~NLDetectorBuilder()
 void
 NLDetectorBuilder::buildInductLoop(const std::string &id,
         const std::string &lane, SUMOReal pos, int splInterval,
-        OutputDevice *device, const std::string &/*style*/)
+        OutputDevice *device, bool friendly_pos,
+		const std::string &/*style*/)
 {
 #ifdef HAVE_MESOSIM
     if(!MSGlobals::gUseMesoSim) {
@@ -249,8 +253,11 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
         pos = clane->length() + pos;
     }
     if(pos>clane->length()) {
-        throw InvalidArgument("The position of detector '" + id
-            + "' lies beyond the lane's '" + lane + "' length.");
+		if(friendly_pos) {
+			pos = clane->length() - (SUMOReal) 0.1;
+		} else {
+			throw InvalidArgument("The position of detector '" + id + "' lies beyond the lane's '" + lane + "' length.");
+		}
     }
     // build the loop
     MSInductLoop *loop = createInductLoop(id, clane, pos, splInterval);
