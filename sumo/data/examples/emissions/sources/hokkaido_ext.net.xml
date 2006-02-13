@@ -1,0 +1,129 @@
+<net>
+
+   <edges no="5">1 2 3 4 source</edges>
+   <node_count>5</node_count>
+
+
+   <edge id="1" Length="1198.36" Speed="13.90" Name="1" NoLanes="1" XFrom="500.00" YFrom="0.00" XTo="1700.00" YTo="0.00" From="dl" To="dr" Priority="2" Angle="270.00" Type="" function="normal">
+      <lanes>
+         <lane id="1_0" depart="1" vclasses="" maxspeed="13.90" length="1198.36" changeurge="0">501.57,0.00 1699.93,0.00</lane>
+      </lanes>
+      <cedge id="2" via=":dr">1_0</cedge>
+   </edge>
+
+   <edge id="2" Length="299.48" Speed="13.90" Name="2" NoLanes="1" XFrom="1700.00" YFrom="0.00" XTo="1700.00" YTo="190.99" From="dr" To="tr" Priority="2" Angle="180.00" Type="" function="normal">
+      <lanes>
+         <lane id="2_0" depart="1" vclasses="" maxspeed="13.90" length="299.48" changeurge="0">1700.07,0.01 1716.58,1.45 1732.66,5.76 1747.75,12.79 1761.38,22.34 1773.15,34.11 1782.70,47.75 1789.73,62.83 1794.04,78.91 1795.49,95.49 1794.04,112.08 1789.73,128.15 1782.70,143.24 1773.15,156.87 1761.38,168.64 1747.75,178.19 1732.66,185.23 1716.58,189.54 1700.07,190.98</lane>
+      </lanes>
+      <cedge id="3" via=":tr">2_0</cedge>
+   </edge>
+
+   <edge id="3" Length="1199.86" Speed="13.90" Name="3" NoLanes="1" XFrom="1700.00" YFrom="190.99" XTo="500.00" YTo="190.99" From="tr" To="tl" Priority="2" Angle="90.00" Type="" function="normal">
+      <lanes>
+         <lane id="3_0" depart="1" vclasses="" maxspeed="13.90" length="1199.86" changeurge="0">1699.93,190.99 500.07,190.99</lane>
+      </lanes>
+      <cedge id="4" via=":tl">3_0</cedge>
+   </edge>
+
+   <edge id="4" Length="297.98" Speed="13.90" Name="4" NoLanes="1" XFrom="500.00" YFrom="190.99" XTo="500.00" YTo="0.00" From="tl" To="dl" Priority="2" Angle="0.00" Type="" function="normal">
+      <lanes>
+         <lane id="4_0" depart="1" vclasses="" maxspeed="13.90" length="297.98" changeurge="0">499.93,190.98 483.42,189.54 467.34,185.23 452.25,178.19 438.62,168.64 426.85,156.87 417.30,143.24 410.27,128.15 405.96,112.08 404.51,95.49 405.96,78.91 410.27,62.83 417.30,47.75 426.85,34.11 438.62,22.34 452.25,12.79 467.34,5.76 483.42,1.45 498.44,0.14</lane>
+      </lanes>
+      <cedge id="1" via=":dl">4_0</cedge>
+   </edge>
+
+   <edge id="source" Length="500.00" Speed="13.90" Name="source" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="500.00" YTo="0.00" From="source" To="dl" Priority="1" Angle="270.00" Type="" function="source">
+      <lanes>
+         <lane id="source_0" depart="1" vclasses="" maxspeed="13.90" length="500.00" changeurge="0">-1.65,-1.65 500.00,-1.65</lane>
+      </lanes>
+      <cedge id="1" via=":dl">source_0</cedge>
+   </edge>
+
+
+   <row-logic>
+      <key>dl</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="10" foes="10"/>
+         <logicitem request="1" response="00" foes="01"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>dr</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>tl</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>tr</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+
+
+   <junction id="dl" type="priority" x="500.00" y="0.00">
+      <inclanes>source_0 4_0</inclanes>
+      <shape>501.57,1.60 501.57,-1.60 498.30,-1.46 498.58,1.73</shape>
+   </junction>
+
+   <junction id="dr" type="priority" x="1700.00" y="0.00">
+      <inclanes>1_0</inclanes>
+      <shape>1699.93,1.60 1700.21,-1.59 1699.93,-1.60 1699.93,1.60</shape>
+   </junction>
+
+   <junction id="source" type="DEAD_END" x="0.00" y="0.00">
+      <inclanes></inclanes>
+      <shape>-0.05,-0.05 -3.25,-3.25</shape>
+   </junction>
+
+   <junction id="tl" type="priority" x="500.00" y="190.99">
+      <inclanes>3_0</inclanes>
+      <shape>500.07,192.59 500.07,189.39 499.79,192.58</shape>
+   </junction>
+
+   <junction id="tr" type="priority" x="1700.00" y="190.99">
+      <inclanes>2_0</inclanes>
+      <shape>1700.21,192.58 1699.93,189.39 1699.93,192.59</shape>
+   </junction>
+
+
+   <succ edge="1" lane="1_0" junction="dr">
+      <succlane lane="2_0" via=":dr_0_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="2" lane="2_0" junction="tr">
+      <succlane lane="3_0" via=":tr_0_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="3" lane="3_0" junction="tl">
+      <succlane lane="4_0" via=":tl_0_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="4" lane="4_0" junction="dl">
+      <succlane lane="1_0" via=":dl_1_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="source" lane="source_0" junction="dl">
+      <succlane lane="1_0" via=":dl_0_0" yield="1" dir="s" state="m"/>
+   </succ>
+
+
+</net>
