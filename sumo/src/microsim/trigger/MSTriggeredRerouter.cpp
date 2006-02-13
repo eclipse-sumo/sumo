@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/02/13 07:52:53  dkrajzew
+// made dijkstra-router checking for closures optionally
+//
 // Revision 1.7  2006/01/26 08:33:11  dkrajzew
 // adapted the new router API
 //
@@ -351,7 +354,7 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
                 veh.replaceRoute(rep,
                     MSNet::getInstance()->getCurrentTimeStep());
             } else {
-                SUMODijkstraRouter<MSEdge, MSVehicle> router(MSEdge::dictSize(), true);
+                SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > router(MSEdge::dictSize(), true);
                 router.prohibit(rerouteDef.closed);
                 std::vector<const MSEdge*> edges;
 				router.compute(src, lastEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
@@ -364,7 +367,7 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
                     MSNet::getInstance()->getCurrentTimeStep());
             }
         } else {
-            SUMODijkstraRouter<MSEdge, MSVehicle> router(MSEdge::dictSize(), true);
+            SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > router(MSEdge::dictSize(), true);
             router.prohibit(rerouteDef.closed);
             MSEdgeVector edges;
 			router.compute(src, lastEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
