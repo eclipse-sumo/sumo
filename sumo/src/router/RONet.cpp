@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2006/02/13 07:26:05  dkrajzew
+// made dijkstra-router checking for closures optionally
+//
 // Revision 1.28  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -168,7 +171,8 @@ RONet *RONet::myInstance;
 RONet::RONet(bool multireferencedRoutes)
     : _vehicleTypes(new ROVehicleType_Krauss()),
     myRoutesOutput(0), myRouteAlternativesOutput(0),
-    myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0)
+    myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
+    myHaveRestrictions(false)
 {
 }
 
@@ -558,6 +562,20 @@ ROEdgeCont *
 RONet::getMyEdgeCont()
 {
 	return &_edges;
+}
+
+
+bool
+RONet::hasRestrictions() const
+{
+    return myHaveRestrictions;
+}
+
+
+void
+RONet::setRestrictionFound()
+{
+    myHaveRestrictions = true;
 }
 
 

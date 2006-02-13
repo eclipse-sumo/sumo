@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2006/02/13 07:26:05  dkrajzew
+// made dijkstra-router checking for closures optionally
+//
 // Revision 1.18  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -220,6 +223,11 @@ public:
     /** @brief Removes the route from the net when no further usage is needed */
     virtual void removeRouteSecure(const RORouteDef * const route); // !!! was protected before
 
+    bool hasRestrictions() const;
+
+    void setRestrictionFound();
+
+
 protected:
     /** Saves the given route together with her alternatives */
     const RORouteDef * const computeRoute(OptionsCont &options,
@@ -281,6 +289,8 @@ protected:
 
     /// number of written routes
     size_t myWrittenRouteNo;
+
+    bool myHaveRestrictions;
 
 private:
     /// we made the copy constructor invalid

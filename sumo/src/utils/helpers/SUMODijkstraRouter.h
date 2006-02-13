@@ -20,20 +20,20 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.5  2006/01/26 08:39:57  dkrajzew
+// Revision 1.6  2006/02/13 07:29:20  dkrajzew
+// made dijkstra-router checking for closures optionally
+//
+// Revision 1.5  2006/01/26 08:39:50  dksumo
 // made the abstract router usable within microsim and routers
 //
-// Revision 1.4  2005/10/07 11:46:23  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+// Revision 1.4  2005/10/06 13:39:50  dksumo
+// using of a configuration file rechecked
 //
-// Revision 1.3  2005/09/23 13:16:41  dkrajzew
-// debugging the building process
+// Revision 1.3  2005/09/23 13:17:33  dksumo
+// debugging building for sumo0.8.3
 //
-// Revision 1.2  2005/09/23 06:11:30  dkrajzew
-// SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
-//
-// Revision 1.1  2005/09/15 12:20:44  dkrajzew
-// LARGE CODE RECHECK
+// Revision 1.2  2005/09/20 06:13:04  dksumo
+// floats and doubles replaced by SUMOReal; warnings removed
 //
 // Revision 1.1  2005/09/09 12:56:09  dksumo
 // helpers added
@@ -74,12 +74,45 @@
 /* =========================================================================
  * class definitions
  * ======================================================================= */
+/*
+template<class E, class V>
+typedef inline bool ( ProhibitionFunction )(const E *edge, const V *vehicle);
+*/
+
+template<class E, class V>
+struct prohibited_withRestrictions {
+public:
+    inline bool operator()(const E *edge, const V *vehicle) {
+        if(std::find(myProhibited.begin(), myProhibited.end(), edge)!=myProhibited.end()) {
+	        return true;
+        }
+	    return edge->prohibits(vehicle);
+    }
+
+    void prohibit(const std::vector<E*> &toProhibit) {
+        myProhibited = toProhibit;
+    }
+
+protected:
+    std::vector<E*> myProhibited;
+
+};
+
+template<class E, class V>
+struct prohibited_noRestrictions {
+public:
+    inline bool operator()(const E *edge, const V *vehicle) {
+        return false;
+    }
+};
+
+
 /**
  * @class SUMODijkstraRouter
  * @brief Lays the given route over the edges using the dijkstra algorithm
  */
-template<class E, class V>
-class SUMODijkstraRouter : public SUMOAbstractRouter<E, V> {
+template<class E, class V, class PF >
+class SUMODijkstraRouter : public SUMOAbstractRouter<E, V>, public PF {
 public:
     /// Constructor
     SUMODijkstraRouter(size_t noE, bool unbuildIsWarningOnly)
@@ -208,7 +241,7 @@ public:
             for(i=0; i<length_size; i++) {
                 const E* help = minEdge->getFollower(i);
                 // check whether it can be used
-				if(prohibited(help, vehicle)) {
+                if(PF::operator()(help, vehicle)) {
 					continue;
 				}
                 //
@@ -225,10 +258,6 @@ public:
             WRITE_WARNING("No connection between '" + from->getID() + "' and '" + to->getID() + "' found.");
         }
         clearTemporaryStorages(visited, storage);
-    }
-
-    void prohibit(const std::vector<E*> &toProhibit) {
-        myProhibited = toProhibit;
     }
 
 public:
@@ -315,13 +344,6 @@ protected:
         myReusableEdgeInfoLists.addFreeInstance(consecutionList);
     }
 
-	virtual inline bool prohibited(const E *edge, const V *vehicle) {
-		if(std::find(myProhibited.begin(), myProhibited.end(), edge)!=myProhibited.end()) {
-			return true;
-		}
-		return edge->prohibits(vehicle);
-	}
-
 
 protected:
     /// The network to use
@@ -332,8 +354,6 @@ protected:
 
     /// A container for reusage of edge consecution lists
     InstancePool<EdgeInfoCont> myReusableEdgeInfoLists;
-
-    std::vector<E*> myProhibited;
 
 	bool myUnbuildIsWarningOnly;
 

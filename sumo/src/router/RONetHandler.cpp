@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/02/13 07:26:05  dkrajzew
+// made dijkstra-router checking for closures optionally
+//
 // Revision 1.14  2006/01/26 08:42:50  dkrajzew
 // made lanes and edges being aware to vehicle classes
 //
@@ -226,8 +229,10 @@ RONetHandler::parseLane(const Attributes &attrs)
 			string next = st.next();
 			if(next[0]=='-') {
 				disallowed.push_back(getVehicleClassID(next.substr(1)));
+                _net.setRestrictionFound();
 			} else {
 				allowed.push_back(getVehicleClassID(next));
+                _net.setRestrictionFound();
 			}
 		}
 	}
