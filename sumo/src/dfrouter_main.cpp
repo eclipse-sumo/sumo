@@ -24,8 +24,8 @@ namespace
         "$Id$";
 }
 // $Log$
-// Revision 1.10  2006/02/01 06:10:40  dkrajzew
-// applied Eric's changes
+// Revision 1.11  2006/02/13 07:35:04  dkrajzew
+// current work on the DFROUTER added (unfinished)
 //
 // Revision 1.9  2006/01/31 11:04:10  dkrajzew
 // debugging
@@ -149,7 +149,7 @@ loadNet(OptionsCont &oc)
         throw ProcessError();
     }
 
-	DFRONet *net = new DFRONet( ronet );
+	DFRONet *net = new DFRONet( ronet, oc.getBool("highway-mode") );
     net->buildApproachList();
 
     return net;
@@ -180,17 +180,22 @@ readDetectors(OptionsCont &oc)
     return cont;
 }
 
+
 DFDetectorFlows *
 readDetectorFlows( OptionsCont &oc, DFDetectorCon * dc)
 {
-	if(!oc.isSet("detectorfow-file")||!FileHelpers::exists(oc.getString("detectorflow-file"))) {
-        MsgHandler::getErrorInstance()->inform("The detectorflow file is not given or can not be opened.");
+	if(!oc.isSet("detector-flows-file")) {
+		// ok, not given, return an empty container
+		return new DFDetectorFlows();
+	}
+	// check whether the file exists
+	if(!FileHelpers::exists(oc.getString("detector-flows-file"))) {
+        MsgHandler::getErrorInstance()->inform("The detector-flows-file '" + oc.getString("detector-flows-file") + "' can not be opened.");
 		throw ProcessError();
 	}
-	DFDetFlowLoader * dfl = new DFDetFlowLoader(oc.getString("detectorflow-file"), dc);
-
-	DFDetectorFlows * df = dfl->getFlows();
-	delete dfl;
+	// parse
+	DFDetFlowLoader dfl(dc);
+	DFDetectorFlows *df = dfl.read(oc.getString("detector-flows-file"));
 	return df;
 }
 
@@ -200,39 +205,52 @@ buildVehicleEmissions(const std::string &file)
 {
 }
 
+
+
+
 /**
  * Computes the routes saving them
  */
 void
 startComputation(DFRONet *optNet, OptionsCont &oc)
 {
-    // read the detector definitions
+    // read the detector definitions (mandatory)
     DFDetectorCon *detectors = readDetectors(oc);
     if(detectors==0) {
         throw 1;
     }
-
-    // read routes optionally
+    // read routes (optionally)
+	/*!!!
     DFRORouteCont *routes = new DFRORouteCont();
     if(oc.isSet("routes-input")) {
-        routes->readFrom(oc.getString("routes-input")); // !!!
+		throw 1;//!!!
+        routes->readFrom(oc.getString("routes-input"));
     }
+	*/
+	DFDetectorFlows *flows = readDetectorFlows(oc, detectors);
 
-    // if a network was loaded...
-    //  mode1:
+    // if a network was loaded... (mode1)
     if(optNet!=0) {
-        // compute the detector types optionally
+        // compute the detector types (optionally)
         if(!detectors->detectorsHaveCompleteTypes()||oc.isSet("revalidate-detectors")) {
             optNet->computeTypes(*detectors);
         }
-        // compute routes between the detectors
-        if(!routes->computed()||oc.isSet("revalidate-routes")) {
-            optNet->buildRoutes(*detectors, *routes);
+        // compute routes between the detectors (optionally)
+        if(!detectors->detectorsHaveRoutes()||oc.isSet("revalidate-routes")) {
+            optNet->buildRoutes(*detectors);
         }
     }
+
     // check
+		// whether the detectors are valid
     if(!detectors->detectorsHaveCompleteTypes()) {
         MsgHandler::getErrorInstance()->inform("The detector types are not defined; use in combination with a network");
+		throw ProcessError();
+    }
+		// whether the detectors have routes
+    if(!detectors->detectorsHaveRoutes()) {
+        MsgHandler::getErrorInstance()->inform("The emitters have no routes; use in combination with a network");
+		throw ProcessError();
     }
 
     // save the detectors if wished
@@ -244,18 +262,28 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
         detectors->saveAsPOIs(oc.getString("detectors-poi-output"));
     }
 
-    // save the routes file if it was changed
-    if(routes->computed()&&oc.isSet("routes-output")) {
-        routes->save(oc.getString("routes-output"));
+    // save the routes file if it was changed or it's wished
+    if(detectors->detectorsHaveRoutes()&&oc.isSet("routes-output")) {
+        detectors->saveRoutes(oc.getString("routes-output"));
     }
 
+	// !!!
+	// save emitters if wished
+	if(oc.isSet("emitters-output")) {
+		detectors->writeEmitters(oc.getString("emitters-output"), *flows,
+			0, 86400, 60,
+			oc.getBool("write-calibrators"));
+	}
+	/*
     // save the emission definitions
     if(oc.isSet("flow-definitions")) {
-        buildVehicleEmissions(oc.getString("flow-definitions")); // !!!
+        buildVehicleEmissions(oc.getString("flow-definitions"));
     }
+	*/
     //
+	delete flows;
     delete detectors;
-    delete routes;
+//!!!    delete routes;
 }
 
 
