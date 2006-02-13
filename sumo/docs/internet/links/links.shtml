@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-	<link rel="stylesheet" type="text/css" href="./css/sumo.css">
+	<link rel="stylesheet" type="text/css" href="../css/sumo.css">
 	<head>
 		<title>SUMO - Simulation of Urban MObility  -  Links</title>
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
@@ -22,7 +22,7 @@
 	</head>
 	<body>
 
-		<img src="./images/sumo_logo.gif" width="72" height="17">&nbsp;&nbsp;&nbsp;<img src="./images/sumo_full.gif" width="211" height="16"><br>
+		<img src="../images/sumo_logo.gif" width="72" height="17">&nbsp;&nbsp;&nbsp;<img src="../images/sumo_full.gif" width="211" height="16"><br>
 		<hr>
 
 

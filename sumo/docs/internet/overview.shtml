@@ -66,7 +66,8 @@ From the begin on the following design principles were followed: the software ha
 Other limitations such as the memory usage are not considered that much, although a simulation of large areas shall be possible on normal desktop computers.
 
 <br><br><b>Current Version</b><br>
-The current version is 0.8.2.2. You may take a look into the <a class="SUMOInLineLink" href="downloads/changes.shtml">changes</a>-section for further information about this release and/or download it from the <a class="SUMOInLineLink" href="downloads.shtml">download</a>-section.
+There are two versions available: a "stable" version where the options stay the same. The current number of this version is 0.8.3. There is also a version which is under development, the options may change during this but this version contains more features. The current number is 0.9.3.<br>
+You may take a look into the <a class="SUMOInLineLink" href="downloads/changes.shtml">changes</a>-section for further information about these releases and/or download it from the <a class="SUMOInLineLink" href="downloads.shtml">download</a>-section.
 
 
 <!-- End of Text area -->
