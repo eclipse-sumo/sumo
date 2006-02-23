@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/02/23 11:23:53  dkrajzew
+// VISION import added
+//
 // Revision 1.11  2005/11/09 06:42:07  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -117,22 +120,33 @@ NIVisumParser_Edges::myDependentReport()
         // get the id
         id = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
         // get the from- & to-node and validate them
-        NBNode *from = myNodeCont.retrieve(
-            NBHelpers::normalIDRepresentation(myLineParser.get("VonKnot")));
-        NBNode *to = myNodeCont.retrieve(
-            NBHelpers::normalIDRepresentation(myLineParser.get("NachKnot")));
+        string from_id =
+            myLineParser.know("VonKnot")
+            ? myLineParser.get("VonKnot")
+            : myLineParser.get("VonKnotNr");
+        NBNode *from = myNodeCont.retrieve(NBHelpers::normalIDRepresentation(from_id));
+        string to_id =
+            myLineParser.know("NachKnot")
+            ? myLineParser.get("NachKnot")
+            : myLineParser.get("NachKnotNr");
+        NBNode *to = myNodeCont.retrieve(NBHelpers::normalIDRepresentation(to_id));
         if(!checkNodes(from, to)) {
             return;
         }
         // get the type
-        string type = myLineParser.get("Typ");
+        string type =
+            myLineParser.know("Typ")
+            ? myLineParser.get("Typ")
+            : myLineParser.get("TypNr");
         // get the street length
         SUMOReal length = getLength(from, to);
         // get the speed
         SUMOReal speed = getSpeed(type);
         // get the information whether the edge is a one-way
         bool oneway =
-            TplConvert<char>::_2bool(myLineParser.get("Einbahn").c_str());
+            myLineParser.know("Einbahn")
+            ? TplConvert<char>::_2bool(myLineParser.get("Einbahn").c_str())
+            : true;
         // get the number of lanes
         int nolanes = getNoLanes(type);
         // check whether the id is already used
@@ -219,9 +233,9 @@ NIVisumParser_Edges::getSpeed(const std::string &type) const
 {
     SUMOReal speed = 0;
     try {
-        speed =
-            TplConvertSec<char>::_2SUMORealSec(
-                myLineParser.get("v0-IV").c_str(), -1);
+        speed = myLineParser.know("v0-IV")
+            ? TplConvertSec<char>::_2SUMORealSec(myLineParser.get("v0-IV").c_str(), -1)
+            : TplConvertSec<char>::_2SUMORealSec(myLineParser.get("V0IV").c_str(), -1);
     } catch (OutOfBoundsException) {
     }
     if(speed<=0) {
@@ -238,9 +252,9 @@ NIVisumParser_Edges::getNoLanes(const std::string &type) const
 {
     int nolanes = 0;
     try {
-        nolanes =
-            TplConvertSec<char>::_2intSec(
-                myLineParser.get("Fahrstreifen").c_str(), 0);
+        nolanes = myLineParser.know("Fahrstreifen")
+            ? TplConvertSec<char>::_2intSec(myLineParser.get("Fahrstreifen").c_str(), 0)
+            : TplConvertSec<char>::_2intSec(myLineParser.get("ANZFAHRSTREIFEN").c_str(), 0);
     } catch (UnknownElement) {
         nolanes = myTypeCont.getNoLanes(type);
     }
@@ -261,9 +275,7 @@ NIVisumParser_Edges::insertEdge(const std::string &id,
     NBEdge *e = new NBEdge(id, id, from, to, type, speed, nolanes, length, prio, lsf);
     if( !myEdgeCont.insert(e)) {
         delete e;
-        addError(
-            string(" Duplicate edge occured ('")
-            + id + string("')."));
+        addError(" Duplicate edge occured ('" + id + "').");
     }
 }
 

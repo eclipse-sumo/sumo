@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/02/23 11:23:53  dkrajzew
+// VISION import added
+//
 // Revision 1.6  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -97,22 +100,22 @@ NIVisumParser_Turns::myDependentReport()
 {
     try {
         // retrieve the nodes
+        string from_node_row = myLineParser.know("VonKnot") ? "VonKnot" : "VonKnotNr";
         NBNode *from =
-            myNodeCont.retrieve(
-                NBHelpers::normalIDRepresentation(
-                    myLineParser.get("VonKnot")));
+            myNodeCont.retrieve(NBHelpers::normalIDRepresentation(myLineParser.get(from_node_row)));
+
+        string via_node_row = myLineParser.know("UeberKnot") ? "UeberKnot" : "UeberKnotNr";
         NBNode *via =
-            myNodeCont.retrieve(
-                NBHelpers::normalIDRepresentation(
-                    myLineParser.get("UeberKnot")));
+            myNodeCont.retrieve(NBHelpers::normalIDRepresentation(myLineParser.get(via_node_row)));
+
+        string to_node_row = myLineParser.know("NachKnot") ? "NachKnot" : "NachKnotNr";
         NBNode *to =
-            myNodeCont.retrieve(
-                NBHelpers::normalIDRepresentation(
-                    myLineParser.get("NachKnot")));
+            myNodeCont.retrieve(NBHelpers::normalIDRepresentation(myLineParser.get(to_node_row)));
+
         // check the nodes
-        bool ok = checkNode(from, "from", "VonKnot") &&
-            checkNode(via, "via", "UeberKnot") &&
-            checkNode(to, "to", "NachKnot");
+        bool ok = checkNode(from, "from", from_node_row) &&
+            checkNode(via, "via", via_node_row) &&
+            checkNode(to, "to", to_node_row);
         if(!ok) {
             return;
         }
@@ -137,10 +140,7 @@ NIVisumParser_Turns::checkNode(NBNode *node, const std::string &type,
                                const std::string &nodeTypeName)
 {
     if(node==0) {
-        addError(
-            string("The ") + type + ("-node '")
-            + NBHelpers::normalIDRepresentation(myLineParser.get(nodeTypeName))
-            + string("' is not known inside the net."));
+        addError("The " + type + "-node '" + NBHelpers::normalIDRepresentation(myLineParser.get(nodeTypeName)) + "' is not known inside the net.");
         return false;
     }
     return true;
@@ -149,7 +149,10 @@ NIVisumParser_Turns::checkNode(NBNode *node, const std::string &type,
 
 bool
 NIVisumParser_Turns::isVehicleTurning() {
-    string type = myLineParser.get("VSysCode");
+    string type =
+        myLineParser.know("VSysCode")
+        ? myLineParser.get("VSysCode")
+        : myLineParser.get("VSYSSET");
     return usedVSysTypes.find(type)!=usedVSysTypes.end() &&
         usedVSysTypes.find(type)->second=="IV";
 }

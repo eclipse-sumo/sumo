@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/02/23 11:23:53  dkrajzew
+// VISION import added
+//
 // Revision 1.10  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -172,7 +175,7 @@ NIVisumLoader::NIVisumSingleDataTypeParser::readUsing(LineReader &reader)
     if(myPosition==-1) {
         return false;
     }
-    WRITE_MESSAGE(string("Parsing ") + getDataName() + string("... "));
+    WRITE_MESSAGE("Parsing " + getDataName() + "... ");
     reader.reinit();
     reader.setPos(myPosition);
     reader.readAll(*this);
@@ -225,20 +228,12 @@ NIVisumLoader::NIVisumSingleDataTypeParser::addError2(
 {
     if(id.length()!=0) {
         if(exception.length()!=0) {
-            addError(
-                string("The definition of the ") + type + string(" '")
-                + id
-                + string("' is malicious (") + exception + string(")."));
+            addError("The definition of the " + type + " '" + id + "' is malicious (" + exception + ").");
         } else {
-            addError(
-                string("The definition of the ") + type + string(" '")
-                + id
-                + string("' is malicious."));
+            addError("The definition of the " + type + " '" + id + "' is malicious.");
         }
     } else {
-        addError(
-            string("Something is wrong with a ") + type
-            + string(" (unknown id)."));
+        addError("Something is wrong with a " + type + " (unknown id).");
     }
 }
 
@@ -254,8 +249,7 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getWeightedFloat(
     }
     try {
         return
-            TplConvert<char>::_2SUMOReal(myLineParser.get(
-              (name+string("(IV)"))).c_str());
+            TplConvert<char>::_2SUMOReal(myLineParser.get((name+"(IV)")).c_str());
     } catch (...) {
     }
     return -1;
@@ -272,8 +266,7 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getWeightedBool(
     }
     try {
         return
-            TplConvert<char>::_2bool(myLineParser.get(
-            (name+string("(IV)"))).c_str());
+            TplConvert<char>::_2bool(myLineParser.get((name+"(IV)")).c_str());
     } catch (...) {
     }
     return false;
@@ -297,39 +290,36 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
     mySingleDataParsers.push_back(
         new NIVisumParser_VSysTypes(*this, "VSYS", myVSysTypes));
     mySingleDataParsers.push_back(
-		new NIVisumParser_Types(*this, nb.getTypeCont(),
-			"STRECKENTYP", _capacity2Lanes));
+        new NIVisumParser_Types(*this, nb.getTypeCont(), "STRECKENTYP", _capacity2Lanes));
     mySingleDataParsers.push_back(
-		new NIVisumParser_Nodes(*this, nb.getNodeCont(), "KNOTEN"));
+        new NIVisumParser_Nodes(*this, nb.getNodeCont(), "KNOTEN"));
     mySingleDataParsers.push_back(
-		new NIVisumParser_Districts(*this, nb.getDistrictCont(),
-			"BEZIRK"));
+        new NIVisumParser_Districts(*this, nb.getDistrictCont(), "BEZIRK"));
     // set2
+        // two types of "strecke"
     mySingleDataParsers.push_back(
-        new NIVisumParser_Edges(*this,
-			nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), "STRECKEN"));
+        new NIVisumParser_Edges(*this, nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), "STRECKE"));
+    mySingleDataParsers.push_back(
+        new NIVisumParser_Edges(*this, nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), "STRECKEN"));
     // set3
     mySingleDataParsers.push_back(
-        new NIVisumParser_Connectors(*this,
-			nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), nb.getDistrictCont(),
-			"ANBINDUNG"));
+        new NIVisumParser_Connectors(*this, nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), nb.getDistrictCont(), "ANBINDUNG"));
+        // two types of "abbieger"
     mySingleDataParsers.push_back(
-        new NIVisumParser_Turns(*this, nb.getNodeCont(),
-            "ABBIEGEBEZIEHUNG", myVSysTypes));
+        new NIVisumParser_Turns(*this, nb.getNodeCont(), "ABBIEGEBEZIEHUNG", myVSysTypes));
     mySingleDataParsers.push_back(
-        new NIVisumParser_EdgePolys(*this, nb.getNodeCont(),
-            "STRECKENPOLY"));
+        new NIVisumParser_Turns(*this, nb.getNodeCont(), "ABBIEGER", myVSysTypes));
+    mySingleDataParsers.push_back(
+        new NIVisumParser_EdgePolys(*this, nb.getNodeCont(), "STRECKENPOLY"));
 	// set4
 	mySingleDataParsers.push_back(
 		new NIVisumParser_TrafficLights(*this, "LSA", myNIVisumTLs));
 	mySingleDataParsers.push_back(
-		new NIVisumParser_NodesToTrafficLights(*this,
-            nb.getNodeCont(), "KNOTENZULSA", myNIVisumTLs));
+		new NIVisumParser_NodesToTrafficLights(*this, nb.getNodeCont(), "KNOTENZULSA", myNIVisumTLs));
 	mySingleDataParsers.push_back(
 		new NIVisumParser_SignalGroups(*this, "LSASIGNALGRUPPE", myNIVisumTLs));
 	mySingleDataParsers.push_back(
-		new NIVisumParser_TurnsToSignalGroups(*this,
-            nb.getNodeCont(), "ABBZULSASIGNALGRUPPE", myNIVisumTLs));
+		new NIVisumParser_TurnsToSignalGroups(*this, nb.getNodeCont(), "ABBZULSASIGNALGRUPPE", myNIVisumTLs));
 	mySingleDataParsers.push_back(
 		new NIVisumParser_Phases(*this, "LSAPHASE", myNIVisumTLs));
 	mySingleDataParsers.push_back(
@@ -355,10 +345,7 @@ void NIVisumLoader::load(OptionsCont &options)
 {
     // open the file
     if(!myLineReader.setFileName(options.getString("visum"))) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Can not open visum-file '")
-            + options.getString("visum")
-            + string("'."));
+        MsgHandler::getErrorInstance()->inform("Can not open visum-file '" + options.getString("visum") + "'.");
         throw ProcessError();
     }
     // scan the file for data positions
@@ -389,11 +376,11 @@ NIVisumLoader::checkForPosition(const std::string &line)
     for( i=mySingleDataParsers.begin();
          i!=mySingleDataParsers.end(); i++) {
         NIVisumSingleDataTypeParser *parser = (*i);
-        string dataName = string("$") + parser->getDataName() + string(":");
+        string dataName = "$" + parser->getDataName() + ":";
         if(line.substr(0, dataName.length())==dataName) {
             parser->setStreamPosition(myLineReader.getPosition());
             parser->initLineParser(line.substr(dataName.length()));
-            WRITE_MESSAGE(string("Found: ") + dataName + string(" at ")+ toString<int>(myLineReader.getPosition()));
+            WRITE_MESSAGE("Found: " + dataName + " at " + toString<int>(myLineReader.getPosition()));
         }
     }
     // it is not necessary to rea the whole file

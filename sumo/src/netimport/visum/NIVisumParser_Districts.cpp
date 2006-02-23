@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/02/23 11:23:53  dkrajzew
+// VISION import added
+//
 // Revision 1.7  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -116,9 +119,7 @@ NIVisumParser_Districts::myDependentReport()
         // build the district
         NBDistrict *district = new NBDistrict(id, name, x, y);
         if(!myDistrictCont.insert(district)) {
-            addError(
-                string(" Duplicate district occured ('")
-                + id + string("')."));
+            addError(" Duplicate district occured ('" + id + "').");
             delete district;
         }
 /*            // use a special name for the node

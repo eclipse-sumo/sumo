@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/02/23 11:23:53  dkrajzew
+// VISION import added
+//
 // Revision 1.6  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -106,10 +109,16 @@ NIVisumParser_EdgePolys::myDependentReport()
     string id;
     try {
         // get the from- & to-node and validate them
-        NBNode *from = myNodeCont.retrieve(
-            NBHelpers::normalIDRepresentation(myLineParser.get("VonKnot")));
-        NBNode *to = myNodeCont.retrieve(
-            NBHelpers::normalIDRepresentation(myLineParser.get("NachKnot")));
+        string from_id =
+            myLineParser.know("VonKnot")
+            ? myLineParser.get("VonKnot")
+            : myLineParser.get("VonKnotNr");
+        NBNode *from = myNodeCont.retrieve(NBHelpers::normalIDRepresentation(from_id));
+        string to_id =
+            myLineParser.know("NachKnot")
+            ? myLineParser.get("NachKnot")
+            : myLineParser.get("NachKnotNr");
+        NBNode *to = myNodeCont.retrieve(NBHelpers::normalIDRepresentation(to_id));
         if(!checkNodes(from, to)) {
             return;
         }
@@ -122,8 +131,8 @@ NIVisumParser_EdgePolys::myDependentReport()
             y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKoord").c_str());
         } catch(NumberFormatException&) {
             MsgHandler::getErrorInstance()->inform(
-                string("Error in geometry description from node '") + from->getID()
-                + string("' to node '") + to->getID() + string("'."));
+                "Error in geometry description from node '" + from->getID()
+                + "' to node '" + to->getID() + "'.");
             return;
         }
         NBEdge *e = from->getConnectionTo(to);
@@ -137,18 +146,22 @@ NIVisumParser_EdgePolys::myDependentReport()
             e->addGeometryPoint(-index, Position2D(x, y));
             failed = false;
         }
+        // check whether the operation has failed
         if(failed) {
+            // we should report this to the warning instance only if we have removed
+            //  some nodes or edges...
             if( OptionsSubSys::getOptions().isSet("edges-min-speed")
                 ||
                 OptionsSubSys::getOptions().isSet("keep-edges")) {
 
                 WRITE_WARNING(\
-                    string("Could not set geometry between node '") + from->getID()\
-                    + string("' and node '") + to->getID() + string("'."));
+                    "Could not set geometry between node '" + from->getID()\
+                    + "' and node '" + to->getID() + "'.");
             } else {
+                // ... in the other case we report this to the error instance
                 MsgHandler::getErrorInstance()->inform(
-                    string("There is no edge from node '") + from->getID()
-                    + string("' to node '") + to->getID() + string("'."));
+                    "There is no edge from node '" + from->getID()
+                    + "' to node '" + to->getID() + "'.");
             }
         }
     } catch (OutOfBoundsException) {

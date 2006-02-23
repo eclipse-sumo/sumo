@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/02/23 11:23:53  dkrajzew
+// VISION import added
+//
 // Revision 1.4  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -88,8 +91,14 @@ void
 NIVisumParser_VSysTypes::myDependentReport()
 {
     try {
-        string name = myLineParser.get("VSysCode");
-        string type = myLineParser.get("VSysMode");
+        string name =
+            myLineParser.know("VSysCode")
+            ? myLineParser.get("VSysCode").c_str()
+            : myLineParser.get("CODE").c_str();
+        string type =
+            myLineParser.know("VSysMode")
+            ? myLineParser.get("VSysMode").c_str()
+            : myLineParser.get("Typ").c_str();
         usedVSysTypes[name] = type;
     } catch (OutOfBoundsException) {
         addError2("VSYS", "", "OutOfBounds");

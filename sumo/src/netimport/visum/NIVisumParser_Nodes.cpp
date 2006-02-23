@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/02/23 11:23:53  dkrajzew
+// VISION import added
+//
 // Revision 1.8  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -109,9 +112,7 @@ NIVisumParser_Nodes::myDependentReport()
         SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKoord").c_str());
         // add to the list
         if(!myNodeCont.insert(id, Position2D(x, y))) {
-            addError(
-                string(" Duplicate node occured ('")
-                + id + string("')."));
+            addError(" Duplicate node occured ('" + id + "').");
         }
     } catch (OutOfBoundsException) {
         addError2("KNOTEN", id, "OutOfBounds");

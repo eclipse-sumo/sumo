@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/02/23 11:23:53  dkrajzew
+// VISION import added
+//
 // Revision 1.16  2005/11/09 06:42:07  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -139,8 +142,7 @@ NIVisumParser_Connectors::myDependentReport()
             NBHelpers::normalIDRepresentation(myLineParser.get("KnotNr"));
         NBNode *dest = myNodeCont.retrieve(node);
         if(dest==0) {
-            addError(
-                string("The node '") + bez + string("' is not known."));
+            addError("The node '" + bez + "' is not known.");
             return;
         }
         // get the weight of the connection
@@ -151,19 +153,22 @@ NIVisumParser_Connectors::myDependentReport()
             proz = 1;
         }
         // get the duration to wait
-        SUMOReal retard =
-            TplConvertSec<char>::_2SUMORealSec(
-                myLineParser.get("t0-IV").c_str(), -1);
+        SUMOReal retard = -1;
+        if(myLineParser.know("t0-IV")) {
+            retard = TplConvertSec<char>::_2SUMORealSec(myLineParser.get("t0-IV").c_str(), -1);
+        }
         // get the type;
         //  use a standard type with a large speed when a type is not given
         string type =
-            NBHelpers::normalIDRepresentation(myLineParser.get("Typ"));
+            myLineParser.know("Typ")
+            ? NBHelpers::normalIDRepresentation(myLineParser.get("Typ"))
+            : "";
 
         SUMOReal speed;
         int prio, nolanes;
         if(type.length()==0) {
-            speed = 10000;
-            nolanes = 1;
+            speed = 2000;
+            nolanes = 3;
             prio = 0;
         } else {
             speed = myTypeCont.getSpeed(type);
@@ -171,7 +176,7 @@ NIVisumParser_Connectors::myDependentReport()
             prio = myTypeCont.getPriority(type);
         }
         // add the connectors as an edge
-        string id = bez + string("-") + node;
+        string id = bez + "-" + node;
         // get the information whether this is a sink or a source
         string dir = myLineParser.get("Richtung");
         if(dir.length()==0) {
@@ -182,9 +187,7 @@ NIVisumParser_Connectors::myDependentReport()
             NBNode *src = buildDistrictNode(bez, dest,
                 NBEdge::EDGEFUNCTION_SOURCE);
             if(src==0) {
-                addError(
-                    string("The district '")
-                    + bez + string("' is not known."));
+                addError("The district '" + bez + "' is not known.");
                 return;
             }
             NBEdge *edge = new NBEdge(id, id, src, dest, "VisumConnector",
@@ -192,8 +195,7 @@ NIVisumParser_Connectors::myDependentReport()
                 NBEdge::EDGEFUNCTION_SOURCE);
             if(!myEdgeCont.insert(edge)) {
                 addError(
-                    string("A duplicate edge id occured (ID='") + id
-                    + string("')."));
+                    "A duplicate edge id occured (ID='" + id + "').");
             } else {
                 myDistrictCont.addSource(bez, edge, proz);
             }
@@ -203,19 +205,15 @@ NIVisumParser_Connectors::myDependentReport()
             NBNode *src = buildDistrictNode(bez, dest,
                 NBEdge::EDGEFUNCTION_SINK);
             if(src==0) {
-                addError(
-                    string("The district '") + bez
-                    + string("' is not known."));
+                addError("The district '" + bez + "' is not known.");
                 return;
             }
-            id = string("-") + id;
+            id = "-" + id;
             NBEdge *edge = new NBEdge(id, id, dest, src, "VisumConnector",
                 100, 3/*nolanes*/, 2000.0, prio, NBEdge::LANESPREAD_RIGHT,
                 NBEdge::EDGEFUNCTION_SINK);
             if(!myEdgeCont.insert(edge)) {
-                addError(
-                    string("A duplicate edge id occured (ID='") + id
-                    + string("')."));
+                addError("A duplicate edge id occured (ID='" + id + "').");
             } else {
                 myDistrictCont.addSink(bez, edge, proz);
             }

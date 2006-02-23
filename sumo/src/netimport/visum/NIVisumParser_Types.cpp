@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/02/23 11:23:53  dkrajzew
+// VISION import added
+//
 // Revision 1.5  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -99,17 +102,22 @@ NIVisumParser_Types::myDependentReport()
         // get the id
         id = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
         // get the maximum speed
-        SUMOReal speed = TplConvert<char>::_2SUMOReal(myLineParser.get("v0-IV").c_str());
+        SUMOReal speed =
+            myLineParser.know("v0-IV")
+            ? TplConvert<char>::_2SUMOReal(myLineParser.get("v0-IV").c_str())
+            : TplConvert<char>::_2SUMOReal(myLineParser.get("V0IV").c_str());
         // get the priority
         int priority = TplConvert<char>::_2int(myLineParser.get("Rang").c_str());
         // try to retrieve the number of lanes
-        int nolanes = myCap2Lanes.get(
-            TplConvert<char>::_2SUMOReal(myLineParser.get("Kap-IV").c_str()));
+        SUMOReal cap =
+            myLineParser.know("Kap-IV")
+            ? TplConvert<char>::_2SUMOReal(myLineParser.get("Kap-IV").c_str())
+            : TplConvert<char>::_2SUMOReal(myLineParser.get("KAPIV").c_str());
+        int nolanes = myCap2Lanes.get(cap);
         // insert the type
         NBType *type = new NBType(id, nolanes, speed/(SUMOReal) 3.6, 100-priority);
         if(!myTypeCont.insert(type)) {
-            addError(
-                string(" Duplicate type occured ('") + id + string("')."));
+            addError(" Duplicate type occured ('" + id + "').");
             delete type;
         }
     } catch (OutOfBoundsException) {
