@@ -23,6 +23,9 @@
 #*                                                                         *
 #***************************************************************************
 # $Log$
+# Revision 1.2  2006/02/23 11:41:24  dkrajzew
+# debugging
+#
 # Revision 1.1  2006/02/13 07:42:09  dkrajzew
 # some tools for trip manipulation added
 #
@@ -48,7 +51,7 @@ for($hour=$min; $hour<=$max; $hour++) {
 	$tmp[0] = $tmp[0]."_".$hour;
 	$out = join('.', @tmp);
 	$begin = $hour * 3600;
-	$end = $begin + 3600;
+	$end = $begin + 3599;
 	print "Building trips between ".$begin." and ".$end."\n";
 	system("removeTripsIfNotInInterval.pl ".$ARGV[0]." ".$begin." ".$end." > ".$out);
 }

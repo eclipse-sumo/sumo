@@ -3,8 +3,8 @@
       <edge id="beg2left" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left" traveltime="35.7374" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left2end" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="middle" traveltime="485.329" noVehContrib="82" density="0.0165573" noStops="0" speed="2.04088"/>
-      <edge id="beg" traveltime="44.153" noVehContrib="792" density="0.157816" noStops="14" speed="17.4717"/>
+      <edge id="middle" traveltime="353.75" noVehContrib="0" density="0" noStops="0" speed="2.8"/>
+      <edge id="beg" traveltime="51.5206" noVehContrib="351" density="0.0699412" noStops="0" speed="16.8524"/>
       <edge id="end" traveltime="17.9335" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="rend" traveltime="17.8669" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
    </interval>
@@ -12,8 +12,8 @@
       <edge id="beg2left" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left" traveltime="35.7374" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left2end" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="middle" traveltime="477.145" noVehContrib="220" density="0.044422" noStops="0" speed="2.07589"/>
-      <edge id="beg" traveltime="64.5658" noVehContrib="992" density="0.197669" noStops="16" speed="16.159"/>
+      <edge id="middle" traveltime="464.69" noVehContrib="28" density="0.00565371" noStops="0" speed="2.13153"/>
+      <edge id="beg" traveltime="51.2051" noVehContrib="867" density="0.172761" noStops="2" speed="16.8745"/>
       <edge id="end" traveltime="17.9335" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="rend" traveltime="17.8669" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
    </interval>
@@ -21,8 +21,8 @@
       <edge id="beg2left" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left" traveltime="35.7374" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left2end" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="middle" traveltime="472.969" noVehContrib="343" density="0.069258" noStops="0" speed="2.09422"/>
-      <edge id="beg" traveltime="88.5497" noVehContrib="1204" density="0.239912" noStops="63" speed="15.4777"/>
+      <edge id="middle" traveltime="482.848" noVehContrib="139" density="0.0280666" noStops="1" speed="2.05137"/>
+      <edge id="beg" traveltime="67.1574" noVehContrib="1055" density="0.210222" noStops="35" speed="16.0583"/>
       <edge id="end" traveltime="17.9335" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="rend" traveltime="17.8669" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
    </interval>
@@ -30,8 +30,8 @@
       <edge id="beg2left" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left" traveltime="35.7374" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left2end" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="middle" traveltime="466.534" noVehContrib="485" density="0.0979303" noStops="1" speed="2.1231"/>
-      <edge id="beg" traveltime="113.427" noVehContrib="1342" density="0.267411" noStops="81" speed="15.1017"/>
+      <edge id="middle" traveltime="449.852" noVehContrib="258" density="0.0520949" noStops="0" speed="2.20183"/>
+      <edge id="beg" traveltime="91.5971" noVehContrib="1250" density="0.249078" noStops="74" speed="15.4194"/>
       <edge id="end" traveltime="17.9335" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="rend" traveltime="17.8669" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
    </interval>
@@ -39,8 +39,8 @@
       <edge id="beg2left" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left" traveltime="35.7374" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left2end" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="middle" traveltime="99.0469" noVehContrib="665" density="0.134276" noStops="0" speed="10.0003"/>
-      <edge id="beg" traveltime="121.248" noVehContrib="1428" density="0.284547" noStops="79" speed="15.018"/>
+      <edge id="middle" traveltime="71.389" noVehContrib="456" density="0.0920747" noStops="0" speed="13.8747"/>
+      <edge id="beg" traveltime="108.397" noVehContrib="1333" density="0.265617" noStops="88" speed="15.1626"/>
       <edge id="end" traveltime="17.9335" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="rend" traveltime="17.8669" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
    </interval>
@@ -48,74 +48,63 @@
       <edge id="beg2left" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left" traveltime="35.7374" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left2end" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="middle" traveltime="44.5745" noVehContrib="761" density="0.15366" noStops="0" speed="22.2212"/>
-      <edge id="beg" traveltime="109.128" noVehContrib="1397" density="0.27837" noStops="50" speed="15.1534"/>
-      <edge id="end" traveltime="18.2843" noVehContrib="156" density="0.0312907" noStops="0" speed="27.2767"/>
-      <edge id="rend" traveltime="18.4607" noVehContrib="2" density="0.000402658" noStops="0" speed="26.9337"/>
+      <edge id="middle" traveltime="36.1929" noVehContrib="645" density="0.130237" noStops="0" speed="27.3672"/>
+      <edge id="beg" traveltime="85.3951" noVehContrib="1234" density="0.24589" noStops="41" speed="15.5428"/>
+      <edge id="end" traveltime="18.2594" noVehContrib="140" density="0.0280814" noStops="0" speed="27.3125"/>
+      <edge id="rend" traveltime="17.9848" noVehContrib="1" density="0.000201329" noStops="0" speed="27.619"/>
    </interval>
    <interval begin="250" end="274" >
       <edge id="beg2left" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left" traveltime="35.7374" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left2end" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="middle" traveltime="36.2357" noVehContrib="683" density="0.13791" noStops="0" speed="27.3349"/>
-      <edge id="beg" traveltime="75.126" noVehContrib="1224" density="0.243898" noStops="27" speed="15.7981"/>
-      <edge id="end" traveltime="18.2405" noVehContrib="334" density="0.0669943" noStops="0" speed="27.3398"/>
-      <edge id="rend" traveltime="18.6836" noVehContrib="17" density="0.00342259" noStops="0" speed="26.6358"/>
+      <edge id="middle" traveltime="33.3013" noVehContrib="630" density="0.127208" noStops="0" speed="29.7436"/>
+      <edge id="beg" traveltime="57.1556" noVehContrib="1033" density="0.205838" noStops="28" speed="16.5068"/>
+      <edge id="end" traveltime="18.2595" noVehContrib="341" density="0.0683984" noStops="0" speed="27.3123"/>
+      <edge id="rend" traveltime="18.9581" noVehContrib="17" density="0.00342259" noStops="0" speed="26.287"/>
    </interval>
    <interval begin="275" end="299" >
       <edge id="beg2left" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left" traveltime="35.7374" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left2end" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="middle" traveltime="34.7716" noVehContrib="672" density="0.135689" noStops="0" speed="28.4859"/>
-      <edge id="beg" traveltime="48.1624" noVehContrib="960" density="0.191292" noStops="2" speed="17.1058"/>
-      <edge id="end" traveltime="18.2693" noVehContrib="350" density="0.0702036" noStops="0" speed="27.2981"/>
-      <edge id="rend" traveltime="18.6593" noVehContrib="18" density="0.00362392" noStops="0" speed="26.6675"/>
+      <edge id="middle" traveltime="32.5111" noVehContrib="625" density="0.126199" noStops="0" speed="30.4665"/>
+      <edge id="beg" traveltime="35.879" noVehContrib="757" density="0.150842" noStops="5" speed="18.5722"/>
+      <edge id="end" traveltime="18.2622" noVehContrib="352" density="0.0706048" noStops="0" speed="27.3084"/>
+      <edge id="rend" traveltime="18.7803" noVehContrib="18" density="0.00362392" noStops="0" speed="26.5106"/>
    </interval>
    <interval begin="300" end="324" >
       <edge id="beg2left" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left" traveltime="35.7374" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left2end" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="middle" traveltime="34.3804" noVehContrib="664" density="0.134074" noStops="0" speed="28.81"/>
-      <edge id="beg" traveltime="31.6224" noVehContrib="671" density="0.133705" noStops="0" speed="19.4524"/>
-      <edge id="end" traveltime="18.2978" noVehContrib="360" density="0.0722094" noStops="0" speed="27.2572"/>
-      <edge id="rend" traveltime="18.8021" noVehContrib="18" density="0.00362392" noStops="0" speed="26.4828"/>
+      <edge id="middle" traveltime="33.0104" noVehContrib="630" density="0.127208" noStops="0" speed="30.0057"/>
+      <edge id="beg" traveltime="23.9255" noVehContrib="441" density="0.0878749" noStops="0" speed="22.3206"/>
+      <edge id="end" traveltime="18.2653" noVehContrib="357" density="0.0716077" noStops="0" speed="27.3039"/>
+      <edge id="rend" traveltime="18.8575" noVehContrib="18" density="0.00362392" noStops="0" speed="26.4125"/>
    </interval>
    <interval begin="325" end="349" >
       <edge id="beg2left" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left" traveltime="35.7374" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left2end" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="middle" traveltime="35.2787" noVehContrib="667" density="0.134679" noStops="0" speed="28.0764"/>
-      <edge id="beg" traveltime="25.1911" noVehContrib="473" density="0.0942513" noStops="0" speed="21.6614"/>
-      <edge id="end" traveltime="18.3166" noVehContrib="359" density="0.0720088" noStops="0" speed="27.2304"/>
-      <edge id="rend" traveltime="18.7624" noVehContrib="18" density="0.00362392" noStops="0" speed="26.5336"/>
+      <edge id="middle" traveltime="33.8872" noVehContrib="564" density="0.113882" noStops="0" speed="29.2294"/>
+      <edge id="beg" traveltime="18.8237" noVehContrib="56" density="0.0111587" noStops="0" speed="26.7054"/>
+      <edge id="end" traveltime="18.2728" noVehContrib="356" density="0.0714071" noStops="0" speed="27.2932"/>
+      <edge id="rend" traveltime="18.7054" noVehContrib="18" density="0.00362392" noStops="0" speed="26.6073"/>
    </interval>
    <interval begin="350" end="374" >
       <edge id="beg2left" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left" traveltime="35.7374" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
       <edge id="left2end" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="middle" traveltime="35.4626" noVehContrib="579" density="0.116911" noStops="0" speed="27.9308"/>
-      <edge id="beg" traveltime="22.6982" noVehContrib="244" density="0.0486201" noStops="0" speed="23.0765"/>
-      <edge id="end" traveltime="18.3114" noVehContrib="360" density="0.0722094" noStops="0" speed="27.2378"/>
-      <edge id="rend" traveltime="18.7134" noVehContrib="19" density="0.00382525" noStops="0" speed="26.597"/>
-   </interval>
-   <interval begin="375" end="399" >
-      <edge id="beg2left" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="left" traveltime="35.7374" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="left2end" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="middle" traveltime="31.6197" noVehContrib="354" density="0.0714791" noStops="0" speed="31.3254"/>
-      <edge id="beg" traveltime="18.3178" noVehContrib="2" density="0.000398525" noStops="0" speed="27.4026"/>
-      <edge id="end" traveltime="18.2864" noVehContrib="355" density="0.0712065" noStops="0" speed="27.2736"/>
-      <edge id="rend" traveltime="18.8633" noVehContrib="18" density="0.00362392" noStops="0" speed="26.4053"/>
-   </interval>
-   <interval begin="400" end="424" >
-      <edge id="beg2left" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="left" traveltime="35.7374" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="left2end" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="middle" traveltime="39.8988" noVehContrib="20" density="0.00403836" noStops="0" speed="24.8253"/>
+      <edge id="middle" traveltime="39.1633" noVehContrib="160" density="0.0323069" noStops="0" speed="25.2915"/>
       <edge id="beg" traveltime="18.0522" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
-      <edge id="end" traveltime="18.2191" noVehContrib="224" density="0.0449303" noStops="0" speed="27.3709"/>
-      <edge id="rend" traveltime="18.7474" noVehContrib="18" density="0.00362392" noStops="0" speed="26.553"/>
+      <edge id="end" traveltime="18.272" noVehContrib="349" density="0.070003" noStops="0" speed="27.2943"/>
+      <edge id="rend" traveltime="18.8188" noVehContrib="19" density="0.00382525" noStops="0" speed="26.4615"/>
    </interval>
-   <interval begin="425" end="425" >
+   <interval begin="375" end="389" >
+      <edge id="beg2left" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
+      <edge id="left" traveltime="35.7374" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
+      <edge id="left2end" traveltime="17.8165" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
+      <edge id="middle" traveltime="20.9763" noVehContrib="0" density="0" noStops="0" speed="47.22"/>
+      <edge id="beg" traveltime="18.0522" noVehContrib="0" density="0" noStops="0" speed="27.8"/>
+      <edge id="end" traveltime="18.2016" noVehContrib="76" density="0.025407" noStops="0" speed="27.3964"/>
+      <edge id="rend" traveltime="18.7334" noVehContrib="10" density="0.00335548" noStops="0" speed="26.571"/>
    </interval>
 </netstats>
