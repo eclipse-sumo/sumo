@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/02/23 11:34:22  dkrajzew
+// code beautifying
+//
 // Revision 1.6  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -105,24 +108,11 @@ FileErrorReporter::~FileErrorReporter()
 {
 }
 
-/*
-void
-FileErrorReporter::addError(const std::string &filetype,
-                            const std::string &msg)
-{
-    SErrorHandler::add(
-        string("The ") + filetype + string(" '") + _file
-        + string("' is corrupt:"));
-    SErrorHandler::add(msg);
-}
-*/
 
 void
 FileErrorReporter::addError(const std::string &msg)
 {
-    MsgHandler::getErrorInstance()->inform(
-        string("The ") + _filetype + string(" '") + _file
-        + string("' is corrupt:"));
+    MsgHandler::getErrorInstance()->inform("The " + _filetype + " '" + _file + "' is corrupt:");
     MsgHandler::getErrorInstance()->inform(msg);
 }
 
