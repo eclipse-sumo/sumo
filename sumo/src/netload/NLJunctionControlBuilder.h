@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.16  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.15  2005/11/09 06:43:20  dkrajzew
 // TLS-API: MSEdgeContinuations added
 //
@@ -119,6 +122,7 @@
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/MSBitSetLogic.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
 
 
 /* =========================================================================
@@ -164,8 +168,10 @@ public:
     /// Adds an incoming lane to the previously chosen junction
     void addIncomingLane(MSLane *lane);
 
+#ifdef HAVE_INTERNAL_LANES
     /// Adds an internal lane to the previously chosen junction
     void addInternalLane(MSLane *lane);
+#endif
 
     /** @brief Closes (ends) the processing of the current junction;
         This method may throw a XMLIdAlreadyUsedException when a junction
@@ -191,8 +197,7 @@ public:
 
     /// begins the reading of a traffic lights logic
     void initTrafficLightLogic(const std::string &type,
-        size_t absDuration, int requestSize, int tlLogicNo,
-        int detectorOffset);
+        size_t absDuration, int requestSize, int detectorOffset);
 
     /// adds a phase to the traffic lights logic currently build
     void addPhase(size_t duration, const std::bitset<64> &phase,
@@ -208,14 +213,14 @@ public:
     /// Set the key of the logic
     void setKey(const std::string &key);
 
+    /// Set the subkey of the logic
+    void setSubKey(const std::string &key);
+
     /// Set the offset with which the logic shall start
     void setOffset(int val);
 
-    /// Set the number of the logic
-    void setTLLogicNo(int val);
-
     /// Returns a previously build logic
-    MSTrafficLightLogic * const getTLLogic(const std::string &id) const;
+    const MSTLLogicControl::Variants &getTLLogic(const std::string &id) const;
 
     /// Returns the complete tls-logic control
     MSTLLogicControl *buildTLLogics() const;
@@ -256,62 +261,62 @@ protected:
     /// Compute the time offset the tls shall for the first time
     SUMOTime computeInitTLSEventOffset() const;
 
+    MSTLLogicControl &getTLLogicControlToUse() const;
 
 protected:
     MSNet &myNet;
 
     /// The offset within the junction
-    SUMOTime          m_Offset;
-
-    /// the number of the current traffic light logic
-    int             _tlLogicNo;
+    SUMOTime myOffset;
 
     /// The current logic type
-    std::string     m_LogicType;
+    std::string myLogicType;
 
     /// the right-of-way-logic of the currently chosen bitset-logic
-    MSBitsetLogic::Logic                    *m_pActiveLogic;
+    MSBitsetLogic::Logic *myActiveLogic;
 
     /// the description about which in-junction lanes disallow other passing the junction
-    MSBitsetLogic::Foes                     *m_pActiveFoes;
+    MSBitsetLogic::Foes *myActiveFoes;
 
     /// the current phase definitions for a simple traffic light
-    MSSimpleTrafficLightLogic::Phases   m_ActivePhases;
+    MSSimpleTrafficLightLogic::Phases myActivePhases;
 
     /// the size of the request
-    int             _requestSize;
+    int myRequestSize;
 
     /// the number of lanes
-    int             _laneNo;
+    int myLaneNumber;
 
     /// counter for the inserted items
-    int             _requestItems;
+    int myRequestItemNumber;
 
 
     /// the list of the simulations junctions
-    mutable MSJunctionControl::JunctionCont          *m_pJunctions;
+    mutable MSJunctionControl::JunctionCont *myJunctions;
 
     /// the list of the incoming lanes of the currently chosen junction
-    LaneVector                    m_pActiveIncomingLanes;
+    LaneVector myActiveIncomingLanes;
 
+#ifdef HAVE_INTERNAL_LANES
     /// the list of the internal lanes of the currently chosen junction
-    LaneVector                    m_pActiveInternalLanes;
+    LaneVector myActiveInternalLanes;
+#endif
 
     /// the id of the currently chosen junction
-    std::string                 m_CurrentId;
+    std::string myActiveID;
 
     /// the key of the currently chosen junction
-    std::string                 m_Key;
+    std::string myActiveKey, myActiveSubKey;
 
     /// the type of the currently chosen junction
-    int m_Type;
+    int myType;
 
     /// the position of the junction
     Position2D myPosition;
 
-    /** the junction's traffic lights' first phase index
+    /* the junction's traffic lights' first phase index
         (when the current junction has traffic lights) */
-    size_t m_InitStep;
+    //size_t m_InitStep;
 
     /// The absolute duration of a tls-control loop
     size_t myAbsDuration;
@@ -328,7 +333,7 @@ protected:
     std::vector<TLInitInfo> myJunctions2PostLoadInit;
 
     /// Default detector offset
-    SUMOReal m_DetectorOffset;
+    SUMOReal myDetectorOffset;
 
     /// Default detector positions
     SUMOReal myStdDetectorPositions;

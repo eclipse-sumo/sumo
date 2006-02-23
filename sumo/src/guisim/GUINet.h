@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.38  2006/02/23 11:27:56  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.37  2006/01/09 11:53:24  dkrajzew
 // new visualization settings implemented
 //
@@ -335,7 +338,10 @@ protected:
     std::map<std::string, GUIDetectorWrapper*> myDetectorDict;
 
     /// A link2tl-logic map
-    std::map<MSLink*, GUITrafficLightLogicWrapper*> myLinks2Logic;
+    typedef std::map<MSLink*, std::string> Links2LogicMap;
+    Links2LogicMap myLinks2Logic;
+    typedef std::map<MSTrafficLightLogic*, GUITrafficLightLogicWrapper*> Logics2WrapperMap;
+    Logics2WrapperMap myLogics2Wrapper;
 
     /// The step durations (simulation, /*visualisation, */idle)
     int myLastSimDuration, /*myLastVisDuration, */myLastIdleDuration;

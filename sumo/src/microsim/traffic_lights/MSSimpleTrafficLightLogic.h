@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.8  2005/11/09 06:36:48  dkrajzew
 // changing the LSA-API: MSEdgeContinuation added; changed the calling API
 //
@@ -130,7 +133,8 @@ public:
 
 public:
     /// constructor
-    MSSimpleTrafficLightLogic(MSNet &net, const std::string &id,
+    MSSimpleTrafficLightLogic(MSNet &net, MSTLLogicControl &tlcontrol,
+        const std::string &id, const std::string &subid,
         const Phases &phases, size_t step, size_t delay);
 
     /// destructor
@@ -138,7 +142,7 @@ public:
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
-    SUMOTime trySwitch();
+    SUMOTime trySwitch(bool isActive);
 
     /// Returns the priorities for all lanes for the current phase
     const std::bitset<64> &linkPriorities() const;

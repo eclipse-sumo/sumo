@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.11  2006/01/09 11:55:19  dkrajzew
 // lanestates removed
 //
@@ -167,7 +170,8 @@ public:
 
 public:
     /// constructor
-    MSActuatedTrafficLightLogic(MSNet &net, const std::string &id,
+    MSActuatedTrafficLightLogic(MSNet &net, MSTLLogicControl &tlcontrol,
+        const std::string &id, const std::string &subid,
         const MSSimpleTrafficLightLogic::Phases &phases,
         size_t step, size_t delay,
         SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap);
@@ -183,7 +187,7 @@ public:
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
-    SUMOTime trySwitch();
+    SUMOTime trySwitch(bool isActive);
 
 protected:
     /// Returns the duration of the given step

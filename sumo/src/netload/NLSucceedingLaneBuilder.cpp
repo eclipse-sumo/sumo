@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/02/23 11:32:54  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.14  2006/01/11 11:54:35  dkrajzew
 // reworked possible link states; new link coloring
 //
@@ -173,7 +176,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
 #ifdef HAVE_INTERNAL_LANES
         m_SuccLanes->push_back(new MSLink(0, 0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, false));
 #else
-        m_SuccLanes->push_back(new MSLink(0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, false));
+        m_SuccLanes->push_back(new MSLink(0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND));
 #endif
         return;
     }
@@ -192,10 +195,10 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     }
 #endif
     // check whether this link is controlled by a traffic light
-    MSTrafficLightLogic *logic = 0;
+    MSTLLogicControl::Variants logics;
     if(tlid!="") {
-        logic = myJunctionControlBuilder.getTLLogic(tlid);
-        if(logic==0) {
+        logics = myJunctionControlBuilder.getTLLogic(tlid);
+        if(logics.ltVariants.size()==0) {
             throw XMLIdNotKnownException("tl-logic", tlid);
         }
     }
@@ -210,15 +213,18 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
 #ifdef HAVE_INTERNAL_LANES
     MSLink *link = new MSLink(lane, via, yield, dir, state, internalEnd);
 #else
-    MSLink *link = new MSLink(lane, yield, dir, state, internalEnd);
+    MSLink *link = new MSLink(lane, yield, dir, state);
 #endif
     // if a traffic light is responsible for it, inform the traffic light
-    if(logic!=0) {
+    if(logics.ltVariants.size()!=0) {
         MSLane *current = MSLane::dictionary(m_CurrentLane);
         if(current==0) {
             throw XMLIdNotKnownException("lane", m_CurrentLane);
         }
-        logic->addLink(link, current, linkNo);
+        std::map<std::string, MSTrafficLightLogic *>::iterator i;
+        for(i=logics.ltVariants.begin(); i!=logics.ltVariants.end(); ++i) {
+            (*i).second->addLink(link, current, linkNo);
+        }
     }
     // add the link to the container
     m_SuccLanes->push_back(link);

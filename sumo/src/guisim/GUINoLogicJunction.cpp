@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/02/23 11:27:56  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.7  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -66,16 +69,25 @@ namespace
  * ======================================================================= */
 GUINoLogicJunction::GUINoLogicJunction( const std::string &id,
                                        const Position2D &position,
-                                       LaneCont incoming, LaneCont internal,
+                                       LaneCont incoming,
+#ifdef HAVE_INTERNAL_LANES
+                                       LaneCont internal,
+#endif
                                        const Position2DVector &shape)
-    : MSNoLogicJunction(id, position, incoming, internal), myShape(shape)
+    : MSNoLogicJunction(id, position,
+#ifdef HAVE_INTERNAL_LANES
+    incoming, internal),
+#else
+    incoming),
+#endif
+    myShape(shape)
 {
 }
+
 
 GUINoLogicJunction::~GUINoLogicJunction()
 {
 }
-
 
 
 GUIJunctionWrapper *

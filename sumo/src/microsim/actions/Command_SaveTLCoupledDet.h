@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.5  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -48,6 +51,7 @@
 #include "Action.h"
 #include <microsim/MSNet.h>
 #include <utils/helpers/DiscreteCommand.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
 
 
 /* =========================================================================
@@ -74,7 +78,8 @@ class Command_SaveTLCoupledDet : public DiscreteCommand
 {
 public:
     /// Constructor
-    Command_SaveTLCoupledDet(MSTrafficLightLogic * const tll,
+    Command_SaveTLCoupledDet(
+        const MSTLLogicControl::Variants &tlls,
         MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice *device);
 
     /// Destructor
@@ -88,7 +93,7 @@ protected:
     OutputDevice *myDevice;
 
     /// The logic to use
-    MSTrafficLightLogic * const myLogic;
+    const MSTLLogicControl::Variants &myLogics;
 
     /// The detector to use
     MSDetectorFileOutput *myDetector;

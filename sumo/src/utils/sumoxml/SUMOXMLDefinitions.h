@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.34  2006/02/23 11:35:55  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.33  2006/01/26 08:54:59  dkrajzew
 // missing files added
 //
@@ -228,7 +231,7 @@ enum TagEnum
     /** a flow definition (used by router) */
     SUMO_TAG_FLOW,
     /** the number of the logic (traffic light logic) */
-    SUMO_TAG_LOGICNO,
+    SUMO_TAG_SUBKEY,
     /** a trigger definition */
     SUMO_TAG_TRIGGER,
     /** trigger: a step description */

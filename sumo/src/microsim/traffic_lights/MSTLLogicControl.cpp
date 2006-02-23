@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.7  2005/11/09 06:36:48  dkrajzew
 // changing the LSA-API: MSEdgeContinuation added; changed the calling API
 //
@@ -57,6 +60,7 @@ namespace
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
+#pragma warning(disable: 4503)
 
 
 /* =========================================================================
@@ -72,6 +76,7 @@ namespace
 
 #include <vector>
 #include <algorithm>
+#include <cassert>
 #include "MSTrafficLightLogic.h"
 #include "MSTLLogicControl.h"
 
@@ -90,28 +95,170 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 MSTLLogicControl::MSTLLogicControl()
+    : myNetWasLoaded(false)
 {
 }
 
 
 MSTLLogicControl::~MSTLLogicControl()
 {
+    std::map<std::string, Variants>::const_iterator i;
+    for(i=myLogics.begin(); i!=myLogics.end(); ++i) {
+        const Variants &vars = (*i).second;
+        std::map<std::string, MSTrafficLightLogic *>::const_iterator j;
+        for(j=vars.ltVariants.begin(); j!=vars.ltVariants.end(); ++j) {
+            delete (*j).second;
+        }
+    }
 }
 
 
 void
 MSTLLogicControl::maskRedLinks()
 {
-    const vector<MSTrafficLightLogic*> &logics = buildAndGetStaticVector();
-    for_each(logics.begin(), logics.end(), mem_fun(&MSTrafficLightLogic::maskRedLinks));
+    for_each(myActiveLogics.begin(), myActiveLogics.end(), mem_fun(&MSTrafficLightLogic::maskRedLinks));
 }
 
 
 void
 MSTLLogicControl::maskYellowLinks()
 {
-    const vector<MSTrafficLightLogic*> &logics = buildAndGetStaticVector();
-    for_each(logics.begin(), logics.end(), mem_fun(&MSTrafficLightLogic::maskYellowLinks));
+    for_each(myActiveLogics.begin(), myActiveLogics.end(), mem_fun(&MSTrafficLightLogic::maskYellowLinks));
+}
+
+
+std::vector<MSTrafficLightLogic*>
+MSTLLogicControl::getAllLogics() const
+{
+    std::vector<MSTrafficLightLogic*> ret;
+    std::map<std::string, Variants>::const_iterator i;
+    for(i=myLogics.begin(); i!=myLogics.end(); ++i) {
+        const Variants &vars = (*i).second;
+        std::map<std::string, MSTrafficLightLogic *>::const_iterator j;
+        for(j=vars.ltVariants.begin(); j!=vars.ltVariants.end(); ++j) {
+            ret.push_back((*j).second);
+        }
+    }
+    return ret;
+}
+
+const MSTLLogicControl::Variants &
+MSTLLogicControl::get(const std::string &id) const
+{
+    std::map<std::string, Variants>::const_iterator i = myLogics.find(id);
+    if(i==myLogics.end()) {
+        throw 1;
+    }
+    return (*i).second;
+}
+
+
+MSTrafficLightLogic *
+MSTLLogicControl::get(const std::string &id, const std::string &subid) const
+{
+    std::map<std::string, Variants>::const_iterator i = myLogics.find(id);
+    if(i==myLogics.end()) {
+        throw 1;
+    }
+    const std::map<std::string, MSTrafficLightLogic *> &vars = (*i).second.ltVariants;
+    std::map<std::string, MSTrafficLightLogic *>::const_iterator j = vars.find(subid);
+    if(j==vars.end()) {
+        throw 1;
+    }
+    return (*j).second;
+}
+
+
+bool
+MSTLLogicControl::add(const std::string &id, const std::string &subID,
+                      MSTrafficLightLogic *logic, bool newDefault)
+{
+    if(myLogics.find(id)==myLogics.end()) {
+        Variants var;
+        var.defaultTL = 0;
+        myLogics[id] = var;
+    }
+    std::map<std::string, Variants>::iterator i = myLogics.find(id);
+    Variants &tlmap = (*i).second;
+    if(tlmap.ltVariants.find(subID)!=tlmap.ltVariants.end()) {
+        return false;
+    }
+    // assert the liks are set
+    if(myNetWasLoaded) {
+        // this one has not yet its links set
+        assert(tlmap.defaultTL!=0);
+        logic->adaptLinkInformationFrom(*(tlmap.defaultTL));
+    }
+    // add to the list of active
+    if(tlmap.ltVariants.size()==0) {
+        tlmap.defaultTL = logic;
+        myActiveLogics.push_back(logic);
+    } else if(newDefault) {
+        std::vector<MSTrafficLightLogic*>::iterator i =
+            find(myActiveLogics.begin(), myActiveLogics.end(), tlmap.defaultTL);
+        assert(i!=myActiveLogics.end());
+        *i = logic;
+        tlmap.defaultTL = logic;
+    }
+    // add to the list of logic
+    tlmap.ltVariants[subID] = logic;
+    return true;
+}
+
+
+bool
+MSTLLogicControl::knows(const std::string &id) const
+{
+    std::map<std::string, Variants>::const_iterator i = myLogics.find(id);
+    if(i==myLogics.end()) {
+        return false;
+    }
+    return true;
+}
+
+
+void
+MSTLLogicControl::markNetLoadingClosed()
+{
+    myNetWasLoaded = true;
+}
+
+
+bool
+MSTLLogicControl::isActive(const MSTrafficLightLogic *tl) const
+{
+    std::map<std::string, Variants>::const_iterator i = myLogics.find(tl->id());
+    if(i==myLogics.end()) {
+        throw 1;
+    }
+    return (*i).second.defaultTL == tl;
+}
+
+
+MSTrafficLightLogic *
+MSTLLogicControl::getActive(const std::string &id) const
+{
+    std::map<std::string, Variants>::const_iterator i = myLogics.find(id);
+    if(i==myLogics.end()) {
+        throw 1;
+    }
+    return (*i).second.defaultTL;
+}
+
+
+void
+MSTLLogicControl::switchTo(const std::string &id, const std::string &subid)
+{
+    std::map<std::string, Variants>::iterator i = myLogics.find(id);
+    if(i==myLogics.end()) {
+        throw 1;
+    }
+    MSTrafficLightLogic *touse = (*i).second.ltVariants[subid];
+    std::vector<MSTrafficLightLogic*>::iterator j =
+        find(myActiveLogics.begin(), myActiveLogics.end(), (*i).second.defaultTL);
+    assert(j!=myActiveLogics.end());
+    *j = touse;
+    (*i).second.defaultTL = touse;
 }
 
 

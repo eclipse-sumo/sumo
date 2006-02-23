@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.3  2006/01/09 12:00:15  dkrajzew
 // debugging vehicle color usage
 //
@@ -343,8 +346,10 @@ private:
     /// adds the incoming Polygon's Positions
     void NLHandler::addIncomingPolyPosititon(const std::string &chars);
 
+#ifdef HAVE_INTERNAL_LANES
     /// adds the internal lanes
     void addInternalLanes(const std::string &chars);
+#endif
 
 
     /// allocates edges from the initial list
@@ -369,11 +374,12 @@ private:
     /// sets the key of the current junction logic
     void setKey(const std::string &chars);
 
+    /// sets the subkey of the current junction logic
+    void setSubKey(const std::string &chars);
+
     /// Sets the offset a tl-logic shall be fired the first time after
     void setOffset(const std::string &chars);
 
-    /// sets the number of the current logic
-    void setTLLogicNo(const std::string &chars);
 
 
     /// ends the loading of a junction logic

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/02/23 11:32:54  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.20  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -170,11 +173,12 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no, SUMOReal distance,
 {
     into << "   <tl-logic type=\"" << type << "\">" << endl;
     into << "      <key>" << _key << "</key>" << endl;
-    into << "      <logicno>" << no << "</logicno>" << endl;
+    into << "      <subkey>" << no << "</subkey>" << endl;
     into << "      <phaseno>" << _phases.size() << "</phaseno>" << endl;
     int offset = getOffset();
     into << "      <offset>" << offset << "</offset>" << endl;
     // write the inlanes
+    /*
     std::set<string>::const_iterator j;
     into << "      <inclanes>";
 //    bool first = true;
@@ -186,6 +190,7 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no, SUMOReal distance,
         into << (*j);
     }
     into << "</inclanes>" << endl;
+    */
     // write the phases
     for( PhaseDefinitionVector::const_iterator i=_phases.begin();
          i!=_phases.end(); i++) {

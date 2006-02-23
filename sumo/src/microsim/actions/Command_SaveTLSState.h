@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.5  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -45,8 +48,10 @@
 
 #include <string>
 #include <fstream>
+#include <map>
 #include "Action.h"
 #include <utils/helpers/Command.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
 
 
 /* =========================================================================
@@ -67,7 +72,7 @@ class Command_SaveTLSState : public Command
 {
 public:
     /// Constructor
-    Command_SaveTLSState(MSTrafficLightLogic * const logic,
+    Command_SaveTLSState(const MSTLLogicControl::Variants &logics,
         const std::string &file);
 
     /// Destructor
@@ -81,7 +86,7 @@ private:
     std::ofstream myFile;
 
     /// The traffic light logic to use
-    MSTrafficLightLogic *myLogic;
+    const MSTLLogicControl::Variants &myLogics;
 
     /// The time this action is executed
     SUMOTime myExecTime;

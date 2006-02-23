@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.9  2005/10/10 12:10:59  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -119,8 +122,7 @@ NLDiscreteEventBuilder::addAction(const Attributes &attrs,
     // get the numerical representation
     KnownActions::iterator i = myActions.find(type);
     if(i==myActions.end()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The action type '") + type + string("' is not known."));
+        MsgHandler::getErrorInstance()->inform("The action type '" + type + "' is not known.");
         return;
     }
     ActionType at = (*i).second;
@@ -152,17 +154,14 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const Attributes &attrs,
     if(!FileHelpers::isAbsolute(dest)) {
         dest = FileHelpers::getConfigurationRelative(basePath, dest);
     }
-    // get the logic
-    MSTrafficLightLogic *logic = myNet.getTLSControl().get(source);
-    if(logic==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The traffic light logic to save (")
-            + source +
-            string( ") is not given."));
+    // get the logics
+    if(!myNet.getTLSControl().knows(source)) {
+        MsgHandler::getErrorInstance()->inform("The traffic light logic to save (" + source +  ") is not given.");
         throw ProcessError();
     }
+    const MSTLLogicControl::Variants &logics = myNet.getTLSControl().get(source);
     // build the action
-    return new Command_SaveTLSState(logic, dest);
+    return new Command_SaveTLSState(logics, dest);
 }
 
 

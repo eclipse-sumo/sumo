@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.49  2006/02/23 11:27:56  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.48  2006/01/26 08:28:53  dkrajzew
 // patched MSEdge in order to work with a generic router
 //
@@ -266,14 +269,8 @@ GUINet::~GUINet()
     GUIGlObject_AbstractAdd::clearDictionary();
     // of tl-logics
     {
-        typedef std::map<MSLink*, GUITrafficLightLogicWrapper*> Link2LogicMap;
-        typedef std::set<GUITrafficLightLogicWrapper*> LogicSet;
-        LogicSet known;
-        for(Link2LogicMap::iterator i3=myLinks2Logic.begin(); i3!=myLinks2Logic.end(); i3++) {
-            known.insert((*i3).second);
-        }
-        for(LogicSet::iterator i4=known.begin(); i4!=known.end(); i4++) {
-            delete (*i4);
+        for(Logics2WrapperMap::iterator i3=myLogics2Wrapper.begin(); i3!=myLogics2Wrapper.end(); i3++) {
+            delete (*i3).second;
         }
     }
     {
@@ -404,8 +401,7 @@ void
 GUINet::initTLMap()
 {
     // get the list of loaded tl-logics
-    const vector<MSTrafficLightLogic*> &logics =
-        getTLSControl().buildAndGetStaticVector();;
+    const vector<MSTrafficLightLogic*> &logics = getTLSControl().getAllLogics();
     // allocate storage for the wrappers
     myTLLogicWrappers.reserve(logics.size());
     // go through the logics
@@ -413,22 +409,22 @@ GUINet::initTLMap()
         // get the logic
         MSTrafficLightLogic *tll = (*i);
         // get the links
-        const MSTrafficLightLogic::LinkVectorVector &links =
-            tll->getLinks();
+        const MSTrafficLightLogic::LinkVectorVector &links = tll->getLinks();
         if(links.size()==0) {
             continue;
         }
         // build the wrapper
         GUITrafficLightLogicWrapper *tllw =
-            new GUITrafficLightLogicWrapper(gIDStorage, *tll);
+            new GUITrafficLightLogicWrapper(gIDStorage, *myLogics, *tll);
         // build the association link->wrapper
         MSTrafficLightLogic::LinkVectorVector::const_iterator j;
         for(j=links.begin(); j!=links.end(); j++) {
             MSTrafficLightLogic::LinkVector::const_iterator j2;
             for(j2=(*j).begin(); j2!=(*j).end(); j2++) {
-                myLinks2Logic[*j2] = tllw;
+                myLinks2Logic[*j2] = tll->id();
             }
         }
+        myLogics2Wrapper[tll] = tllw;
     }
 }
 
@@ -500,10 +496,9 @@ GUINet::getWrapper() const
 unsigned int
 GUINet::getLinkTLID(MSLink *link) const
 {
-    std::map<MSLink*, GUITrafficLightLogicWrapper*>::const_iterator i =
-        myLinks2Logic.find(link);
+    Links2LogicMap::const_iterator i = myLinks2Logic.find(link);
     assert(i!=myLinks2Logic.end());
-    return (*i).second->getGlID();
+    return myLogics2Wrapper.find(myLogics->getActive((*i).second))->second->getGlID();
 }
 
 

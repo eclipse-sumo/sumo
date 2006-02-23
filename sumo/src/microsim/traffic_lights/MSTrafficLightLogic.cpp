@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.7  2005/11/09 06:36:48  dkrajzew
 // changing the LSA-API: MSEdgeContinuation added; changed the calling API
 //
@@ -102,6 +105,7 @@ namespace
 #include <microsim/MSLane.h>
 #include "MSTrafficLightLogic.h"
 #include <microsim/MSEventControl.h>
+#include "MSTLLogicControl.h"
 #include <utils/helpers/DiscreteCommand.h>
 
 #ifdef _DEBUG
@@ -118,18 +122,56 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * member method definitions
+ * ----------------------------------------------------------------------- */
+MSTrafficLightLogic::SwitchCommand::SwitchCommand(MSTLLogicControl &tlcontrol,
+                             MSTrafficLightLogic *tlLogic)
+    : myTLControl(tlcontrol), myTLLogic(tlLogic)
+{
+}
+
+
+MSTrafficLightLogic::SwitchCommand::~SwitchCommand()
+{
+}
+
+
+
+SUMOTime
+MSTrafficLightLogic::SwitchCommand::execute()
+{
+    bool isActive = myTLControl.isActive(myTLLogic);
+    size_t step1 = myTLLogic->getStepNo();
+    SUMOTime next = myTLLogic->trySwitch(isActive);
+    size_t step2 = myTLLogic->getStepNo();
+    if(step1!=step2) {
+        myTLLogic->onSwitch();
+        if(isActive) {
+            myTLLogic->setLinkPriorities();
+        }
+    }
+    return next;
+}
+
+
+/* -------------------------------------------------------------------------
+ * member method definitions
+ * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::MSTrafficLightLogic(MSNet &net,
-                                         const std::string &id, size_t delay)
-    : _id(id), myNet(net)
+                                         MSTLLogicControl &tlcontrol,
+                                         const std::string &id,
+                                         const std::string &subid,
+                                         size_t delay)
+    : myID(id), mySubID(subid), myNet(net)
 {
     MSEventControl::getBeginOfTimestepEvents()->addEvent(
-        new SwitchCommand(this), delay, MSEventControl::ADAPT_AFTER_EXECUTION);
+        new SwitchCommand(tlcontrol, this), delay, MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 
 
 MSTrafficLightLogic::~MSTrafficLightLogic()
 {
-    myLinks.clear();
 }
 
 
@@ -262,7 +304,14 @@ MSTrafficLightLogic::getLinksAt(size_t i) const
 const std::string &
 MSTrafficLightLogic::id() const
 {
-    return _id;
+    return myID;
+}
+
+
+const std::string &
+MSTrafficLightLogic::subid() const
+{
+    return mySubID;
 }
 
 
@@ -286,10 +335,19 @@ MSTrafficLightLogic::onSwitch()
     for(std::vector<DiscreteCommand*>::iterator i=mySwitchCommands.begin(); i!=mySwitchCommands.end(); ) {
         if(!(*i)->execute()) {
             i = mySwitchCommands.erase(i);
+            // !!! delete???
         } else {
             i++;
         }
     }
+}
+
+
+void
+MSTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic)
+{
+    myLinks = logic.myLinks;
+    myLanes = logic.myLanes;
 }
 
 

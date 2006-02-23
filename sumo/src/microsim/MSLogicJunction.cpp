@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/02/23 11:27:56  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.11  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -114,9 +117,16 @@ using namespace std;
  * methods from MSLogicJunction
  * ----------------------------------------------------------------------- */
 MSLogicJunction::MSLogicJunction(string id, const Position2D &position,
-                                 LaneCont incoming, LaneCont internal)
+                                 LaneCont incoming
+#ifdef HAVE_INTERNAL_LANES
+                                 , LaneCont internal
+#endif
+                                 )
     : MSJunction( id, position ),
-    myIncomingLanes(incoming), myInternalLanes(internal),
+    myIncomingLanes(incoming),
+#ifdef HAVE_INTERNAL_LANES
+    myInternalLanes(internal),
+#endif
     myRequest(false), myInnerState(false), myRespond(false)
 {
 }
@@ -145,6 +155,7 @@ MSLogicJunction::postloadInit()
             requestPos++;
         }
     }
+#ifdef HAVE_INTERNAL_LANES
     // set information for the internal lanes
     requestPos = 0;
     for(i=myInternalLanes.begin(); i!=myInternalLanes.end(); i++) {
@@ -152,6 +163,7 @@ MSLogicJunction::postloadInit()
         static_cast<MSInternalLane*>(*i)->setParentJunctionInformation(
             &myInnerState, requestPos++);
     }
+#endif
 }
 
 

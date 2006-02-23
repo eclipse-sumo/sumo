@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.7  2006/02/13 07:15:03  dkrajzew
 // code beautifying
 //
@@ -73,9 +76,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-Command_SaveTLSState::Command_SaveTLSState(MSTrafficLightLogic * const logic,
-                                           const std::string &file)
-    : myLogic(logic)
+Command_SaveTLSState::Command_SaveTLSState(
+            const MSTLLogicControl::Variants &logics,
+            const std::string &file)
+    : myLogics(logics)
 {
     myExecTime = MSEventControl::getBeginOfTimestepEvents()->addEvent(this,
         0, MSEventControl::ADAPT_AFTER_EXECUTION);
@@ -97,9 +101,12 @@ Command_SaveTLSState::~Command_SaveTLSState()
 SUMOTime
 Command_SaveTLSState::execute()
 {
+    throw 1;
+    /* !!!!
     myFile << "   <tlsstate time=\"" << myExecTime++
         << "\" state=\"" << myLogic->buildStateList() << "\"/>" << endl;
     return 1;
+    */
 }
 
 

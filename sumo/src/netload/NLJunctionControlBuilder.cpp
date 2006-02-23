@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.20  2005/11/09 06:43:20  dkrajzew
 // TLS-API: MSEdgeContinuations added
 //
@@ -180,7 +183,7 @@ const int NLJunctionControlBuilder::TYPE_DEAD_END = 3;
  * ======================================================================= */
 NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet &net,
                                                    OptionsCont &oc)
-    : myNet(net), _tlLogicNo(-1), m_Offset(0), m_pJunctions(0)
+    : myNet(net), myOffset(0), myJunctions(0)
 {
     myStdDetectorPositions = oc.getFloat("actuated-tl.detector-pos");
     myStdDetectorLengths = oc.getFloat("agent-tl.detector-len");
@@ -199,15 +202,16 @@ NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet &net,
 NLJunctionControlBuilder::~NLJunctionControlBuilder()
 {
     delete myLogicControl;
-    delete m_pJunctions;
+    delete myJunctions;
 }
 
 void
 NLJunctionControlBuilder::prepare(unsigned int no)
 {
-    m_pJunctions = new MSJunctionControl::JunctionCont();
-    m_pJunctions->reserve(no);
+    myJunctions = new MSJunctionControl::JunctionCont();
+    myJunctions->reserve(no);
 }
+
 
 void
 NLJunctionControlBuilder::openJunction(const std::string &id,
@@ -215,41 +219,43 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
                                        const std::string &type,
                                        SUMOReal x, SUMOReal y)
 {
-    m_pActiveInternalLanes.clear();
-    m_pActiveIncomingLanes.clear();
-    m_CurrentId = id;
-    m_Key = key;
-    m_Type = -1;
+#ifdef HAVE_INTERNAL_LANES
+    myActiveInternalLanes.clear();
+#endif
+    myActiveIncomingLanes.clear();
+    myActiveID = id;
+    myActiveKey = key;
+    myType = -1;
     if(type=="none") {
-        m_Type = TYPE_NOJUNCTION;
+        myType = TYPE_NOJUNCTION;
     } else if(type=="right_before_left") {
-        m_Type = TYPE_RIGHT_BEFORE_LEFT;
+        myType = TYPE_RIGHT_BEFORE_LEFT;
     } else if(type=="priority") {
-        m_Type = TYPE_PRIORITY_JUNCTION;
+        myType = TYPE_PRIORITY_JUNCTION;
     } else if(type=="DEAD_END"||type=="district") {
-        m_Type = TYPE_DEAD_END;
+        myType = TYPE_DEAD_END;
     }
-    if(m_Type<0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("An unknown junction type occured: '") + type
-            + string("' on junction '") + id + string("'."));
+    if(myType<0) {
+        MsgHandler::getErrorInstance()->inform("An unknown junction type occured: '" + type + "' on junction '" + id + "'.");
         throw ProcessError();
     }
     myPosition.set(x, y);
 }
 
 
+#ifdef HAVE_INTERNAL_LANES
 void
 NLJunctionControlBuilder::addInternalLane(MSLane *lane)
 {
-    m_pActiveInternalLanes.push_back(lane);
+    myActiveInternalLanes.push_back(lane);
 }
+#endif
 
 
 void
 NLJunctionControlBuilder::addIncomingLane(MSLane *lane)
 {
-    m_pActiveIncomingLanes.push_back(lane);
+    myActiveIncomingLanes.push_back(lane);
 }
 
 
@@ -257,7 +263,7 @@ void
 NLJunctionControlBuilder::closeJunction()
 {
     MSJunction *junction;
-    switch(m_Type) {
+    switch(myType) {
     case TYPE_NOJUNCTION:
         junction = buildNoLogicJunction();
         break;
@@ -272,9 +278,9 @@ NLJunctionControlBuilder::closeJunction()
         MsgHandler::getErrorInstance()->inform("False junction type.");
         throw ProcessError();
     }
-    m_pJunctions->push_back(junction);
-    if(!MSJunction::dictionary(m_CurrentId, junction)) {
-        throw XMLIdAlreadyUsedException("junction", m_CurrentId);
+    myJunctions->push_back(junction);
+    if(!MSJunction::dictionary(myActiveID, junction)) {
+        throw XMLIdAlreadyUsedException("junction", myActiveID);
     }
 }
 
@@ -282,8 +288,8 @@ NLJunctionControlBuilder::closeJunction()
 MSJunctionControl *
 NLJunctionControlBuilder::build() const
 {
-    MSJunctionControl::JunctionCont *js = m_pJunctions;
-    m_pJunctions = 0;
+    MSJunctionControl::JunctionCont *js = myJunctions;
+    myJunctions = 0;
     return new MSJunctionControl("", js);
 }
 
@@ -291,8 +297,11 @@ NLJunctionControlBuilder::build() const
 MSJunction *
 NLJunctionControlBuilder::buildNoLogicJunction()
 {
-    return new MSNoLogicJunction(m_CurrentId, myPosition,
-        m_pActiveIncomingLanes, m_pActiveInternalLanes);
+    return new MSNoLogicJunction(myActiveID, myPosition, myActiveIncomingLanes
+#ifdef HAVE_INTERNAL_LANES
+        , myActiveInternalLanes
+#endif
+        );
 }
 
 
@@ -301,8 +310,11 @@ NLJunctionControlBuilder::buildLogicJunction()
 {
     MSJunctionLogic *jtype = getJunctionLogicSecure();
     // build the junction
-    return new MSRightOfWayJunction(m_CurrentId, myPosition,
-        m_pActiveIncomingLanes, m_pActiveInternalLanes, jtype);
+    return new MSRightOfWayJunction(myActiveID, myPosition, myActiveIncomingLanes,
+#ifdef HAVE_INTERNAL_LANES
+        myActiveInternalLanes,
+#endif
+        jtype);
 }
 
 
@@ -310,9 +322,9 @@ MSJunctionLogic *
 NLJunctionControlBuilder::getJunctionLogicSecure()
 {
     // get and check the junction logic
-    MSJunctionLogic *jtype = MSJunctionLogic::dictionary(m_CurrentId);//m_Key);
+    MSJunctionLogic *jtype = MSJunctionLogic::dictionary(myActiveID);
     if(jtype==0) {
-        throw XMLIdNotKnownException("junctiontype (key)", m_CurrentId);//m_Key);
+        throw XMLIdNotKnownException("junctiontype (key)", myActiveID);
     }
     return jtype;
 }
@@ -321,24 +333,22 @@ NLJunctionControlBuilder::getJunctionLogicSecure()
 const NLJunctionControlBuilder::LaneVector &
 NLJunctionControlBuilder::getIncomingLanes() const
 {
-    return m_pActiveIncomingLanes;
+    return myActiveIncomingLanes;
 }
 
 
 void
 NLJunctionControlBuilder::initIncomingLanes()
 {
-    m_pActiveIncomingLanes.clear();
+    myActiveIncomingLanes.clear();
 }
 
 
-MSTrafficLightLogic * const
+const MSTLLogicControl::Variants &
 NLJunctionControlBuilder::getTLLogic(const std::string &id) const
 {
-    return myLogicControl->get(id);
+    return getTLLogicControlToUse().get(id);
 }
-
-
 
 
 void
@@ -347,7 +357,7 @@ NLJunctionControlBuilder::addJunctionInitInfo(MSExtendedTrafficLightLogic *tl)
     TLInitInfo ii;
     ii.logic = tl;
     ii.lanes = getIncomingLanes();
-    ii.det_offset = m_DetectorOffset;
+    ii.det_offset = myDetectorOffset;
     ii.params = myAdditionalParameter;
     myJunctions2PostLoadInit.push_back(ii);
 }
@@ -356,42 +366,42 @@ NLJunctionControlBuilder::addJunctionInitInfo(MSExtendedTrafficLightLogic *tl)
 void
 NLJunctionControlBuilder::closeTrafficLightLogic()
 {
-    if(_tlLogicNo!=0) {
-        return;
-    }
     // compute the initial step of the tls-logic
     size_t step = computeInitTLSStep();
     size_t firstEventOffset = computeInitTLSEventOffset();
+    if(myActiveSubKey=="") {
+        myActiveSubKey = "<default>";
+    }
     MSTrafficLightLogic *tlLogic = 0;
     // build the tls-logic in dependance to its type
-    if(m_LogicType=="actuated") {
+    if(myLogicType=="actuated") {
         // build an actuated logic
         tlLogic =
-            new MSActuatedTrafficLightLogic(myNet, m_Key, m_ActivePhases,
-                step, firstEventOffset,
-                myStdActuatedMaxGap,
-                myStdActuatedPassingTime,
-                myStdActuatedDetectorGap);
+            new MSActuatedTrafficLightLogic(myNet, getTLLogicControlToUse(),
+                myActiveKey, myActiveSubKey,
+                myActivePhases, step, firstEventOffset, myStdActuatedMaxGap,
+                myStdActuatedPassingTime, myStdActuatedDetectorGap);
         addJunctionInitInfo(static_cast<MSExtendedTrafficLightLogic*>(tlLogic));
-    } else if(m_LogicType=="agentbased") {
+    } else if(myLogicType=="agentbased") {
         // build an agentbased logic
         tlLogic =
-            new MSAgentbasedTrafficLightLogic(myNet, m_Key, m_ActivePhases,
-                step, firstEventOffset,
-                myStdLearnHorizon, myStdDecisionHorizon,
-                myStdDeltaLimit, myStdTCycle);
+            new MSAgentbasedTrafficLightLogic(myNet, getTLLogicControlToUse(),
+                myActiveKey, myActiveSubKey,
+                myActivePhases, step, firstEventOffset, myStdLearnHorizon,
+                myStdDecisionHorizon, myStdDeltaLimit, myStdTCycle);
         addJunctionInitInfo(static_cast<MSExtendedTrafficLightLogic*>(tlLogic));
     } else {
         // build an uncontrolled (fix) tls-logic
         tlLogic =
-            new MSSimpleTrafficLightLogic(myNet,
-                m_Key, m_ActivePhases, step, firstEventOffset);
-        // !!! replacement within the dictionary
+            new MSSimpleTrafficLightLogic(myNet, getTLLogicControlToUse(),
+                myActiveKey, myActiveSubKey,
+                myActivePhases, step, firstEventOffset);
     }
-    m_ActivePhases.clear();
+    myActivePhases.clear();
     if(tlLogic!=0) {
-        // !!! replacement within the dictionary
-        myLogicControl->add(m_Key, tlLogic);
+        if(!getTLLogicControlToUse().add(myActiveKey, myActiveSubKey, tlLogic)) {
+            MsgHandler::getErrorInstance()->inform("Another logic with id '" + myActiveKey + "' and subid '" + myActiveSubKey + "' exists.");
+        }
     }
 }
 
@@ -399,10 +409,10 @@ NLJunctionControlBuilder::closeTrafficLightLogic()
 SUMOTime
 NLJunctionControlBuilder::computeInitTLSStep()  const
 {
-    assert(m_ActivePhases.size()!=0);
-    SUMOTime offset = m_Offset % myAbsDuration;
+    assert(myActivePhases.size()!=0);
+    SUMOTime offset = myOffset % myAbsDuration;
     MSSimpleTrafficLightLogic::Phases::const_iterator i
-        = m_ActivePhases.begin();
+        = myActivePhases.begin();
     SUMOTime step = 0;
     while(true) {
         if(offset<(*i)->duration) {
@@ -418,10 +428,10 @@ NLJunctionControlBuilder::computeInitTLSStep()  const
 SUMOTime
 NLJunctionControlBuilder::computeInitTLSEventOffset()  const
 {
-    assert(m_ActivePhases.size()!=0);
-    SUMOTime offset = m_Offset % myAbsDuration;
+    assert(myActivePhases.size()!=0);
+    SUMOTime offset = myOffset % myAbsDuration;
     MSSimpleTrafficLightLogic::Phases::const_iterator i
-        = m_ActivePhases.begin();
+        = myActivePhases.begin();
     while(true) {
         if(offset<(*i)->duration) {
             return offset;
@@ -436,12 +446,13 @@ NLJunctionControlBuilder::computeInitTLSEventOffset()  const
 void
 NLJunctionControlBuilder::initJunctionLogic()
 {
-    m_Key = "";
-    m_pActiveLogic = new MSBitsetLogic::Logic();
-    m_pActiveFoes = new MSBitsetLogic::Foes();
-    _requestSize = -1;
-    _laneNo = -1;
-    _requestItems = 0;
+    myActiveKey = "";
+    myActiveSubKey = "";
+    myActiveLogic = new MSBitsetLogic::Logic();
+    myActiveFoes = new MSBitsetLogic::Foes();
+    myRequestSize = -1;
+    myLaneNumber = -1;
+    myRequestItemNumber = 0;
 }
 
 
@@ -450,50 +461,50 @@ NLJunctionControlBuilder::addLogicItem(int request,
                                        const string &response,
                                        const std::string &foes)
 {
-    if(_requestSize<=0) {
+    if(myRequestSize<=0) {
         MsgHandler::getErrorInstance()->inform(
             "The request size,  the response size or the number of lanes is not given! Contact your net supplier");
         return;
     }
     // add the read response for the given request index
     bitset<64> use(response);
-    assert(m_pActiveLogic->size()>(size_t) request);
-    (*m_pActiveLogic)[request] = use;
+    assert(myActiveLogic->size()>(size_t) request);
+    (*myActiveLogic)[request] = use;
     // add the read junction-internal foes for the given request index
     //  ...but only if junction-internal lanes shall be loaded
     if(MSGlobals::gUsingInternalLanes) {
         bitset<64> use2(foes);
-        assert(m_pActiveFoes->size()>(size_t) request);
-        (*m_pActiveFoes)[request] = use2;
+        assert(myActiveFoes->size()>(size_t) request);
+        (*myActiveFoes)[request] = use2;
     }
     // increse number of set information
-    _requestItems++;
+    myRequestItemNumber++;
 }
 
 
 void
 NLJunctionControlBuilder::initTrafficLightLogic(const std::string &type,
                                                 size_t absDuration,
-                                                int requestSize, int tlLogicNo,
+                                                int requestSize,
                                                 int detectorOffset)
 {
-    m_Key = "";
-    m_ActivePhases.clear();
+    myActiveKey = "";
+    myActiveSubKey = "";
+    myActivePhases.clear();
     myAbsDuration = absDuration;
-    _requestSize = requestSize;
-    _tlLogicNo = tlLogicNo;
+    myRequestSize = requestSize;
     initIncomingLanes();
-    m_LogicType = type;
-    m_DetectorOffset = detectorOffset;
+    myLogicType = type;
+    myDetectorOffset = detectorOffset;
     myAdditionalParameter.clear();
-    if(m_DetectorOffset==-1) {
+    if(myDetectorOffset==-1) {
         // agentbased
-        if(m_LogicType=="agentbased") {
-            m_DetectorOffset = myStdDetectorLengths;
+        if(myLogicType=="agentbased") {
+            myDetectorOffset = myStdDetectorLengths;
         }
         // actuated
-        if(m_LogicType=="actuated") {
-            m_DetectorOffset = myStdDetectorPositions;
+        if(myLogicType=="actuated") {
+            myDetectorOffset = myStdDetectorPositions;
         }
     }
 }
@@ -505,20 +516,15 @@ NLJunctionControlBuilder::addPhase(size_t duration, const std::bitset<64> &phase
                                    const std::bitset<64> &yellow,
                                    int min, int max)
 {
-    if(_tlLogicNo!=0) {
-        return;
-    }
     // build and add the phase definition to the list
-    if(m_LogicType=="actuated"||m_LogicType=="agentbased") {
+    if(myLogicType=="actuated"||myLogicType=="agentbased") {
         // for a controlled tls-logic
-        m_ActivePhases.push_back(
-            new MSActuatedPhaseDefinition(
-                duration, phase, prios, yellow, min, max));
+        myActivePhases.push_back(
+            new MSActuatedPhaseDefinition(duration, phase, prios, yellow, min, max));
     } else {
         // for an controlled tls-logic
-        m_ActivePhases.push_back(
-            new MSPhaseDefinition(
-                duration, phase, prios, yellow));
+        myActivePhases.push_back(
+            new MSPhaseDefinition(duration, phase, prios, yellow));
     }
     // add phase duration to the absolute duration
     myAbsDuration += duration;
@@ -528,9 +534,9 @@ NLJunctionControlBuilder::addPhase(size_t duration, const std::bitset<64> &phase
 void
 NLJunctionControlBuilder::setRequestSize(int size)
 {
-    _requestSize = size;
-    m_pActiveLogic->resize(_requestSize);
-    m_pActiveFoes->resize(_requestSize);
+    myRequestSize = size;
+    myActiveLogic->resize(myRequestSize);
+    myActiveFoes->resize(myRequestSize);
 }
 
 
@@ -538,49 +544,40 @@ NLJunctionControlBuilder::setRequestSize(int size)
 void
 NLJunctionControlBuilder::setLaneNumber(int val)
 {
-    _laneNo = val;
+    myLaneNumber = val;
 }
 
 
 void
 NLJunctionControlBuilder::setOffset(int val)
 {
-    m_Offset = val;
-}
-
-
-void
-NLJunctionControlBuilder::setTLLogicNo(int val)
-{
-    _tlLogicNo = val;
-    if(_tlLogicNo<0) {
-        MsgHandler::getErrorInstance()->inform("Somenthing is wrong with a traffic light logic number.");
-        MsgHandler::getErrorInstance()->inform(
-            string(" In logic '") + m_Key + string("'."));
-    }
+    myOffset = val;
 }
 
 
 void
 NLJunctionControlBuilder::setKey(const std::string &key)
 {
-    m_Key = key;
+    myActiveKey = key;
+}
+
+
+void
+NLJunctionControlBuilder::setSubKey(const std::string &key)
+{
+    myActiveSubKey = key;
 }
 
 
 void
 NLJunctionControlBuilder::closeJunctionLogic()
 {
-    if(_requestItems!=_requestSize) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The description for the junction logic '") +
-            m_Key +
-            string("' is malicious."));
+    if(myRequestItemNumber!=myRequestSize) {
+        MsgHandler::getErrorInstance()->inform("The description for the junction logic '" + myActiveKey + "' is malicious.");
     }
     MSJunctionLogic *logic =
-        new MSBitsetLogic(_requestSize, _laneNo,
-            m_pActiveLogic, m_pActiveFoes);
-    MSJunctionLogic::dictionary(m_Key, logic); // !!! replacement within the dictionary
+        new MSBitsetLogic(myRequestSize, myLaneNumber, myActiveLogic, myActiveFoes);
+    MSJunctionLogic::dictionary(myActiveKey, logic); // !!! replacement within the dictionary
 }
 
 
@@ -589,8 +586,7 @@ NLJunctionControlBuilder::closeJunctions(NLDetectorBuilder &db,
                                          const MSEdgeContinuations &edgeContinuations)
 {
     for(std::vector<TLInitInfo>::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
-        (*i).logic->init(
-            db, (*i).lanes, edgeContinuations, (*i).det_offset);
+        (*i).logic->init(db, (*i).lanes, edgeContinuations, (*i).det_offset);
     }
 }
 
@@ -600,6 +596,7 @@ NLJunctionControlBuilder::buildTLLogics() const
 {
     MSTLLogicControl *ret = myLogicControl;
     myLogicControl = 0;
+    ret->markNetLoadingClosed();
     return ret;
 }
 
@@ -611,6 +608,15 @@ NLJunctionControlBuilder::addParam(const std::string &key,
     myAdditionalParameter[key] = value;
 }
 
+
+MSTLLogicControl &
+NLJunctionControlBuilder::getTLLogicControlToUse() const
+{
+    if(myLogicControl!=0) {
+        return *myLogicControl;
+    }
+    return myNet.getTLSControl();
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

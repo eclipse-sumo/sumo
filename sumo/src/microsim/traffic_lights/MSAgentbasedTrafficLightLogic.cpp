@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.11  2006/01/09 11:55:19  dkrajzew
 // lanestates removed
 //
@@ -141,11 +144,12 @@ using namespace std;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(MSNet &net,
-            const std::string &id, const Phases &phases,
-            size_t step, size_t delay, int learnHorizon, int decHorizon,
-            SUMOReal minDiff, int tcycle)
-    : MSExtendedTrafficLightLogic(net, id, phases, step, delay),
+MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
+            MSNet &net, MSTLLogicControl &tlcontrol,
+            const std::string &id, const std::string &subid,
+            const Phases &phases, size_t step, size_t delay,
+            int learnHorizon, int decHorizon, SUMOReal minDiff, int tcycle)
+    : MSExtendedTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
     tDecide(decHorizon), tSinceLastDecision (0), stepOfLastDecision (0),
     numberOfValues(learnHorizon), tCycle(tcycle), deltaLimit (minDiff)
 {
@@ -165,7 +169,7 @@ MSAgentbasedTrafficLightLogic::init(
     for(i=lanes.begin(); i!=lanes.end(); i++) {
         MSLane *lane = (*i);
         // Build the lane state detetcor and set it into the container
-        std::string id = "TL_" + _id + "_E2OverLanesDetectorStartingAt_" + lane->id();
+        std::string id = "TL_" + myID + "_" + mySubID + "_E2OverLanesDetectorStartingAt_" + lane->id();
 
         if ( myE2Detectors.find(lane)==myE2Detectors.end()){
             MS_E2_ZS_CollectorOverLanes* det =
@@ -298,7 +302,7 @@ MSAgentbasedTrafficLightLogic::cutCycleTime(size_t toCut)
 
 
 SUMOTime
-MSAgentbasedTrafficLightLogic::trySwitch()
+MSAgentbasedTrafficLightLogic::trySwitch(bool )
 {
     assert (currentPhaseDef()->minDuration >=0);
     assert (currentPhaseDef()->minDuration <= currentPhaseDef()->duration);

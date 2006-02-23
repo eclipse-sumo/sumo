@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.10  2006/02/23 11:27:56  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.9  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -119,13 +122,16 @@ class findCompetitor;
 class MSRightOfWayJunction : public MSLogicJunction
 {
 public:
+    /** Use this constructor only. */
+    MSRightOfWayJunction( std::string id, const Position2D &position,
+        LaneCont incoming,
+#ifdef HAVE_INTERNAL_LANES
+        LaneCont internal,
+#endif
+        MSJunctionLogic* logic );
 
     /// Destructor.
     virtual ~MSRightOfWayJunction();
-
-    /** Use this constructor only. */
-    MSRightOfWayJunction( std::string id, const Position2D &position,
-        LaneCont incoming, LaneCont internal, MSJunctionLogic* logic );
 
     /** Clears junction's and lane's requests to prepare for the next
         iteration. */

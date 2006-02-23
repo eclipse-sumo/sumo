@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.11  2006/02/23 11:27:56  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.10  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -109,10 +112,16 @@ std::bitset<64> MSNoLogicJunction::myDump((unsigned long) 0xffffffff);
  * method definitions
  * ======================================================================= */
 MSNoLogicJunction::MSNoLogicJunction(string id, const Position2D &position,
-                                     LaneCont incoming,
-                                     LaneCont internal)
+                                     LaneCont incoming
+#ifdef HAVE_INTERNAL_LANES
+                                     , LaneCont internal
+#endif
+                                     )
     : MSJunction( id, position ),
-    myIncomingLanes( incoming ), myInternalLanes( internal )
+    myIncomingLanes( incoming )
+#ifdef HAVE_INTERNAL_LANES
+    , myInternalLanes( internal )
+#endif
 {
 }
 
@@ -143,12 +152,14 @@ MSNoLogicJunction::postloadInit()
                 &myDump, 0);
         }
     }
+#ifdef HAVE_INTERNAL_LANES
     // set information for the internal lanes
     for(i=myInternalLanes.begin(); i!=myInternalLanes.end(); i++) {
         // ... set information about participation
         static_cast<MSInternalLane*>(*i)->setParentJunctionInformation(
             &myDump, 0);
     }
+#endif
 }
 
 

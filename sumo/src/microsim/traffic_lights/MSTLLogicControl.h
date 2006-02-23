@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.6  2005/10/10 11:56:09  dkrajzew
 // reworking the tls-API: made tls-control non-static; made net an element of traffic lights
 //
@@ -62,7 +65,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <vector>
-#include <utils/helpers/NamedObjectCont.h>
+#include <map>
 #include "MSTrafficLightLogic.h"
 
 
@@ -72,8 +75,13 @@
 /**
  *
  */
-class MSTLLogicControl : public NamedObjectCont<MSTrafficLightLogic*> {
+class MSTLLogicControl {
 public:
+    struct Variants {
+        MSTrafficLightLogic *defaultTL;
+        std::map<std::string, MSTrafficLightLogic*> ltVariants;
+    };
+
     /// Constructor
     MSTLLogicControl();
 
@@ -85,6 +93,30 @@ public:
 
     /// For all traffic lights, the requests are masked away if they have yellow light
     void maskYellowLinks();
+
+    std::vector<MSTrafficLightLogic*> getAllLogics() const;
+
+    const Variants &get(const std::string &id) const; // !!! reference?
+    MSTrafficLightLogic *get(const std::string &id, const std::string &subid) const; // !!! reference?
+    MSTrafficLightLogic *getActive(const std::string &id) const; // !!! reference?
+
+    bool add(const std::string &id, const std::string &subID,
+        MSTrafficLightLogic *logic, bool newDefault=true);
+
+    bool knows(const std::string &id) const;
+
+    void markNetLoadingClosed();
+
+    bool isActive(const MSTrafficLightLogic *tl) const;
+
+    void switchTo(const std::string &id, const std::string &subid);
+
+protected:
+
+    std::map<std::string, Variants> myLogics;
+    std::vector<MSTrafficLightLogic*> myActiveLogics;
+
+    bool myNetWasLoaded;
 
 };
 

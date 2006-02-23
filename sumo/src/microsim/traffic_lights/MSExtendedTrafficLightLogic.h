@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.9  2005/11/09 06:36:48  dkrajzew
 // changing the LSA-API: MSEdgeContinuation added; changed the calling API
 //
@@ -89,9 +92,10 @@ class MSExtendedTrafficLightLogic
 {
 public:
     /// Constructor
-    MSExtendedTrafficLightLogic(MSNet &net, const std::string &id,
+    MSExtendedTrafficLightLogic(MSNet &net, MSTLLogicControl &tlcontrol,
+        const std::string &id, const std::string &subid,
         const Phases &phases, size_t step, size_t delay)
-        : MSSimpleTrafficLightLogic(net, id, phases, step, delay) { }
+        : MSSimpleTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay) { }
 
     /// Destructor
     ~MSExtendedTrafficLightLogic() { }

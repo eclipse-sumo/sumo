@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.8  2005/11/09 06:36:48  dkrajzew
 // changing the LSA-API: MSEdgeContinuation added; changed the calling API
 //
@@ -112,6 +115,7 @@ class MSNet;
 class MSLink;
 class MSEventControl;
 class DiscreteCommand;
+class MSTLLogicControl;
 
 
 /* =========================================================================
@@ -142,14 +146,15 @@ public:
 
 public:
     /// Constructor
-    MSTrafficLightLogic(MSNet &net, const std::string &id, size_t delay);
+    MSTrafficLightLogic(MSNet &net, MSTLLogicControl &tlcontrol,
+        const std::string &id, const std::string &subid, size_t delay);
 
     /// Destructor
     virtual ~MSTrafficLightLogic();
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
-    virtual SUMOTime trySwitch() = 0;
+    virtual SUMOTime trySwitch(bool isActive) = 0;
 
     /** Returns the link priorities for the given phase */
     virtual const std::bitset<64> &linkPriorities() const = 0;
@@ -191,19 +196,25 @@ public:
     /// Returns this tl-logic's id
     const std::string &id() const;
 
+    /// Returns this tl-logic's id
+    const std::string &subid() const;
+
     /// Adds an action that shall be executed if the tls switched
     void addSwitchAction(DiscreteCommand *a);
 
     /// Executes commands if the tls switched (!!! should be protected/private)
     void onSwitch();
 
+    void adaptLinkInformationFrom(const MSTrafficLightLogic &logic);
+
 protected:
     /// Adds a link on building
     void addLink(MSLink *link, MSLane *lane, size_t pos);
 
+
 protected:
     /// The id of the logic
-    std::string _id;
+    std::string myID, mySubID;
 
     MSNet &myNet;
 
@@ -223,26 +234,19 @@ private:
     class SwitchCommand : public Command {
     public:
         /// Constructor
-        SwitchCommand(MSTrafficLightLogic *tlLogic)
-            : myTLLogic(tlLogic) { }
+        SwitchCommand(MSTLLogicControl &tlcontrol,
+            MSTrafficLightLogic *tlLogic);
 
         /// Destructor
-        ~SwitchCommand() { }
+        ~SwitchCommand();
 
         /** @brief Executes this event
             Executes the regarded junction's "trySwitch"- method */
-        SUMOTime execute() {
-            size_t step1 = myTLLogic->getStepNo();
-            SUMOTime next = myTLLogic->trySwitch();
-            size_t step2 = myTLLogic->getStepNo();
-            if(step1!=step2) {
-                myTLLogic->onSwitch();
-                myTLLogic->setLinkPriorities();
-            }
-            return next;
-        }
+        SUMOTime execute();
 
     private:
+        MSTLLogicControl &myTLControl;
+
         /// The logic to be executed on a switch
         MSTrafficLightLogic *myTLLogic;
 

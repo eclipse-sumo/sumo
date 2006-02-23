@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/02/23 11:27:56  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.7  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -75,7 +78,7 @@ class GUITrafficLightLogicWrapper
 public:
     /// Constructor
     GUITrafficLightLogicWrapper(GUIGlObjectStorage &idStorage,
-        MSTrafficLightLogic &tll);
+        MSTLLogicControl &control, MSTrafficLightLogic &tll);
 
     /// Destructor
     ~GUITrafficLightLogicWrapper();
@@ -95,7 +98,7 @@ public:
     std::string microsimID() const;
 
     /// Returns the information whether this object is still active
-    bool active() const;
+	bool active() const;
 
     /// Returns the current phase definition
     CompletePhaseDef getPhaseDef() const;
@@ -106,9 +109,12 @@ public:
     /// Builds a GUITLLogicPhasesTrackerWindow which displays the phase diagram
     void showPhases();
 
-    //{
-    Boundary getCenteringBoundary() const;
-    //}
+    /// Builds a GUITLLogicPhasesTrackerWindow which displays the phase diagram
+    void switchTLSLogic(int to);
+
+	//{
+	Boundary getCenteringBoundary() const;
+	//}
 
 public:
     /**
@@ -119,7 +125,7 @@ public:
     class GUITrafficLightLogicWrapperPopupMenu : public GUIGLObjectPopupMenu {
         FXDECLARE(GUITrafficLightLogicWrapperPopupMenu)
     public:
-
+        /// Constructor
         GUITrafficLightLogicWrapperPopupMenu(GUIMainWindow &app,
             GUISUMOAbstractView &parent, GUIGlObject &o);
 
@@ -132,6 +138,7 @@ public:
         /// Called if the phases shall be begun to track
         long onCmdBegin2TrackPhases(FXObject*,FXSelector,void*);
 
+        long onCmdSwitchTLSLogic(FXObject*,FXSelector,void*);
 
     protected:
         /// protected constructor for FOX
@@ -142,6 +149,8 @@ public:
 private:
     /// The wrapped tl-logic
     MSTrafficLightLogic &myTLLogic;
+
+    MSTLLogicControl &myTLLogicControl;
 
     /// The main application
     GUIMainWindow *myApp;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.11  2006/01/09 11:55:19  dkrajzew
 // lanestates removed
 //
@@ -166,10 +169,12 @@ namespace
  * method definitions
  * ======================================================================= */
 MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(
-            MSNet &net, const std::string &id, const Phases &phases,
+            MSNet &net, MSTLLogicControl &tlcontrol,
+            const std::string &id, const std::string &subid,
+            const Phases &phases,
             size_t step, size_t delay, SUMOReal maxGap, SUMOReal passingTime,
             SUMOReal detectorGap)
-    : MSExtendedTrafficLightLogic(net, id, phases, step, delay),
+    : MSExtendedTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
     _continue(false),
     myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap)
 {
@@ -201,7 +206,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
             ilpos = 0;
         }
         // Build the induct loop and set it into the container
-        std::string id = "TLS" + _id + "_InductLoopOn_" + lane->id();
+        std::string id = "TLS" + myID + "_" + mySubID + "_InductLoopOn_" + lane->id();
         if(myInductLoops.find(lane)==myInductLoops.end()) {
             myInductLoops[lane] =
                 nb.createInductLoop(id, lane, ilpos, inductLoopInterval);
@@ -218,7 +223,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
         }
         SUMOReal lspos = length - lslen;
         // Build the lane state detetcor and set it into the container
-        std::string id = "TLS" + _id + "_LaneStateOff_" + lane->id();
+        std::string id = "TLS" + myID + "_" + mySubID + "_LaneStateOff_" + lane->id();
             /*!!!!
 
         if(myLaneStates.find(lane)==myLaneStates.end()) {
@@ -296,12 +301,13 @@ MSActuatedTrafficLightLogic::duration() const
             }
         }
     }
+//    currentPhaseDef()->duration = newduration;
     return newduration;
 }
 
 
 SUMOTime
-MSActuatedTrafficLightLogic::trySwitch()
+MSActuatedTrafficLightLogic::trySwitch(bool)
 {
     // checks if the actual phase should be continued
     gapControl();

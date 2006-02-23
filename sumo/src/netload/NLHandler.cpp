@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.8  2006/02/13 07:22:20  dkrajzew
 // detector position may now be "friendly"
 //
@@ -343,15 +346,13 @@ NLHandler::addParam(const Attributes &attrs)
     try {
         key = getString(attrs, SUMO_ATTR_KEY);
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Error in description: missing key for a parameter."));
+        MsgHandler::getErrorInstance()->inform("Error in description: missing key for a parameter.");
         return;
     }
     try {
         val = getString(attrs, SUMO_ATTR_KEY);
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Error in description: missing value for a parameter."));
+        MsgHandler::getErrorInstance()->inform("Error in description: missing value for a parameter.");
         return;
     }
     // set
@@ -369,11 +370,9 @@ NLHandler::setEdgeNumber(const Attributes &attrs)
     try {
         myEdgeControlBuilder.prepare(getInt(attrs, SUMO_ATTR_NO));
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Error in description: missing number of edges."));
+        MsgHandler::getErrorInstance()->inform("Error in description: missing number of edges.");
     } catch(NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Error in description: non-digit number of edges."));
+        MsgHandler::getErrorInstance()->inform("Error in description: non-digit number of edges.");
     }
 }
 
@@ -392,8 +391,7 @@ NLHandler::chooseEdge(const Attributes &attrs)
         }
         myCurrentIsInternalToSkip = false;
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Error in description: missing id of an edge-object."));
+        MsgHandler::getErrorInstance()->inform("Error in description: missing id of an edge-object.");
     } catch (XMLIdNotKnownException &e) {
         MsgHandler::getErrorInstance()->inform(
             e.getMessage("edge", id));
@@ -587,7 +585,6 @@ NLHandler::initTrafficLightLogic(const Attributes &attrs)
 {
     size_t absDuration = 0;
     int requestSize = -1;
-    int tlLogicNo = -1;
     int detectorOffset = -1; // !!!
     myJunctionControlBuilder.initIncomingLanes();
     try {
@@ -602,7 +599,7 @@ NLHandler::initTrafficLightLogic(const Attributes &attrs)
             }
         }
         myJunctionControlBuilder.initTrafficLightLogic(type,
-            absDuration, requestSize, tlLogicNo, detectorOffset);
+            absDuration, requestSize, detectorOffset);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing traffic light type.");
     }
@@ -651,8 +648,7 @@ NLHandler::addPhase(const Attributes &attrs)
     }
     if(duration==0) {
         MsgHandler::getErrorInstance()->inform(
-            string("The duration of a tls-logic must not be zero. Is in '")
-            + m_Key + string("'."));
+            "The duration of a tls-logic must not be zero. Is in '" + m_Key + "'.");
         return;
     }
     // if the traffic light is an actuated traffic light, try to get
@@ -767,9 +763,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The description of the detector '")
-            + id + string("' does not contain a needed value."));
+        MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
     } catch (FileBuildError &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
     }
@@ -784,21 +778,17 @@ NLHandler::addE2Detector(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of a detector-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
         return;
     }
     // check whether this is a lsa-based detector or one that uses a sample
     //  interval
-    MSTrafficLightLogic * tll = 0;
+    MSTLLogicControl::Variants tll;
     try {
         string lsaid = getString(attrs, SUMO_ATTR_TLID);
         tll = myJunctionControlBuilder.getTLLogic(lsaid);
-        if(tll==0) {
-            MsgHandler::getErrorInstance()->inform(
-                string("The detector '") + id
-                + string("' refers to the unknown lsa '") + lsaid
-                + string("'."));
+        if(tll.ltVariants.size()==0) {
+            MsgHandler::getErrorInstance()->inform("The detector '" + id + "' refers to the unknown lsa '" + lsaid + "'.");
             return;
         }
     } catch (EmptyData) {
@@ -807,7 +797,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
     std::string toLane = getStringSecure(attrs, SUMO_ATTR_TO, "");
     //
     try {
-        if(tll!=0) {
+        if(tll.ltVariants.size()!=0) {
             if(toLane.length()==0) {
                 myDetectorBuilder.buildE2Detector(myContinuations,
                     id,
@@ -866,9 +856,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The description of the detector '")
-            + id + string("' does not contain a needed value."));
+        MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
     } catch (FileBuildError &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
     }
@@ -903,9 +891,7 @@ NLHandler::beginE3Detector(const Attributes &attrs)
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The description of the detector '")
-            + id + string("' does not contain a needed value."));
+        MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
     } catch (FileBuildError &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
     }
@@ -922,9 +908,7 @@ NLHandler::addE3Entry(const Attributes &attrs)
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The description of the detector '")
-            + m_Key + string("' does not contain a needed value."));
+        MsgHandler::getErrorInstance()->inform("The description of the detector '" + m_Key + "' does not contain a needed value.");
     }
 }
 
@@ -940,8 +924,7 @@ NLHandler::addE3Exit(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform(e.msg());
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
-            string("The description of the detector '")
-            + m_Key + string("' does not contain a needed value."));
+            "The description of the detector '" + m_Key + "' does not contain a needed value.");
     } catch (FileBuildError &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
     }
@@ -967,8 +950,7 @@ NLHandler::addSource(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform(e.msg());
         } catch (EmptyData) {
             MsgHandler::getErrorInstance()->inform(
-                string("The description of trigger '")
-                + id + string("' does not contain a needed value."));
+                "The description of trigger '" + id + "' does not contain a needed value.");
         }
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
@@ -994,8 +976,7 @@ NLHandler::addTrigger(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform(e.msg());
         } catch (EmptyData) {
             MsgHandler::getErrorInstance()->inform(
-                string("The description of the trigger '")
-                + id + string("' does not contain a needed value."));
+                "The description of the trigger '" + id + "' does not contain a needed value.");
         } catch (FileBuildError &e) {
             MsgHandler::getErrorInstance()->inform(e.msg());
         }
@@ -1050,13 +1031,9 @@ NLHandler::addSuccLane(const Attributes &attrs)
             "Error in description: missing attribute in a succlane-object.");
     } catch (XMLIdNotKnownException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("", ""));
-        MsgHandler::getErrorInstance()->inform(
-            string(" While building lane '")
-            + m_pSLB.getSuccingLaneName()
-            + string("'"));
+        MsgHandler::getErrorInstance()->inform(" While building lane '" + m_pSLB.getSuccingLaneName() + "'");
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Something is wrong with the definition of a link"));
+        MsgHandler::getErrorInstance()->inform("Something is wrong with the definition of a link");
     }
 }
 
@@ -1113,6 +1090,9 @@ void
 NLHandler::myCharacters(int element, const std::string &name,
                                 const std::string &chars)
 {
+    if(element==SUMO_TAG_SUBKEY) {
+        int bla = 0;
+    }
     // check static net information
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
@@ -1131,12 +1111,15 @@ NLHandler::myCharacters(int element, const std::string &name,
         case SUMO_TAG_INCOMING_LANES:
             addIncomingLanes(chars);
             break;
+#ifdef HAVE_INTERNAL_LANES
         case SUMO_TAG_INTERNAL_LANES:
             addInternalLanes(chars);
             break;
+#endif
 		case SUMO_TAG_LANE:
             addLaneShape(chars);
             break;
+            /*
         default:
             break;
         }
@@ -1144,6 +1127,7 @@ NLHandler::myCharacters(int element, const std::string &name,
     // check junction logics
     if(wanted(LOADFILTER_LOGICS)) {
         switch(element) {
+        */
         case SUMO_TAG_REQUESTSIZE:
             if(m_Key.length()!=0) {
                 setRequestSize(chars);
@@ -1157,11 +1141,11 @@ NLHandler::myCharacters(int element, const std::string &name,
         case SUMO_TAG_KEY:
             setKey(chars);
             break;
+        case SUMO_TAG_SUBKEY:
+            setSubKey(chars);
+            break;
         case SUMO_TAG_OFFSET:
             setOffset(chars);
-            break;
-        case SUMO_TAG_LOGICNO:
-            setTLLogicNo(chars);
             break;
         default:
             break;
@@ -1274,6 +1258,18 @@ NLHandler::setKey(const std::string &chars)
 
 
 void
+NLHandler::setSubKey(const std::string &chars)
+{
+    if(chars.length()==0) {
+        MsgHandler::getErrorInstance()->inform("No subkey given for the current junction logic.");
+        return;
+    }
+    m_Key = chars;
+    myJunctionControlBuilder.setSubKey(m_Key);
+}
+
+
+void
 NLHandler::setOffset(const std::string &chars)
 {
     try {
@@ -1283,14 +1279,6 @@ NLHandler::setOffset(const std::string &chars)
         return;
     }
 }
-
-
-void
-NLHandler::setTLLogicNo(const std::string &chars)
-{
-    myJunctionControlBuilder.setTLLogicNo(TplConvertSec<char>::_2intSec(chars.c_str(), -1));
-}
-
 
 
 void
@@ -1321,6 +1309,7 @@ NLHandler::addPolyPosition(const std::string &chars)
 }
 
 
+#ifdef HAVE_INTERNAL_LANES
 void
 NLHandler::addInternalLanes(const std::string &chars)
 {
@@ -1338,7 +1327,7 @@ NLHandler::addInternalLanes(const std::string &chars)
         }
     }
 }
-
+#endif
 
 // ----------------------------------
 

@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.21  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.20  2006/02/13 07:22:20  dkrajzew
 // detector position may now be "friendly"
 //
@@ -122,6 +125,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/output/e3_detectors/MSE3Collector.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
 
 
 /* =========================================================================
@@ -178,7 +182,7 @@ public:
     void buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         const std::string &id,
         const std::string &lane, SUMOReal pos, SUMOReal length,
-        bool cont, MSTrafficLightLogic * const tll,
+        bool cont, const MSTLLogicControl::Variants &tlls,
         const std::string &/*style*/, OutputDevice *device,
         const std::string &measures,
         MSUnit::Seconds haltingTimeThreshold,
@@ -190,7 +194,7 @@ public:
     void buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         const std::string &id,
         const std::string &lane, SUMOReal pos, SUMOReal length,
-        bool cont, MSTrafficLightLogic * const tll,
+        bool cont, const MSTLLogicControl::Variants &tlls,
         const std::string &tolane,
         const std::string &style, OutputDevice *device,
         const std::string &measures,

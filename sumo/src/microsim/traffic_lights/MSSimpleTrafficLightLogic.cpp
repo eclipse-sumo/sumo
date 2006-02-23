@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.8  2005/11/09 06:36:48  dkrajzew
 // changing the LSA-API: MSEdgeContinuation added; changed the calling API
 //
@@ -107,11 +110,13 @@
  * member method definitions
  * ======================================================================= */
 MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSNet &net,
+                                                     MSTLLogicControl &tlcontrol,
                                                      const std::string &id,
+                                                     const std::string &subid,
                                                      const Phases &phases,
                                                      size_t step,
                                                      size_t delay)
-    : MSTrafficLightLogic(net, id, delay), myPhases(phases),
+    : MSTrafficLightLogic(net, tlcontrol, id, subid, delay), myPhases(phases),
     myStep(step)
 {
 }
@@ -150,7 +155,7 @@ MSSimpleTrafficLightLogic::allowed() const
 
 
 SUMOTime
-MSSimpleTrafficLightLogic::trySwitch()
+MSSimpleTrafficLightLogic::trySwitch(bool )
 {
     // increment the index
     myStep++;

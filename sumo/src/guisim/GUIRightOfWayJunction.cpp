@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/02/23 11:27:56  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.8  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -76,10 +79,17 @@ namespace
 GUIRightOfWayJunction::GUIRightOfWayJunction(const std::string &id,
                                              const Position2D &position,
                                              LaneCont incoming,
+#ifdef HAVE_INTERNAL_LANES
                                              LaneCont internal,
+#endif
                                              MSJunctionLogic* logic,
                                              const Position2DVector &shape)
-    : MSRightOfWayJunction(id, position, incoming, internal, logic),
+    : MSRightOfWayJunction(id, position, incoming,
+#ifdef HAVE_INTERNAL_LANES
+    internal,
+#endif
+    logic),
+
     myShape(shape)
 {
 }
@@ -95,7 +105,6 @@ GUIRightOfWayJunction::buildJunctionWrapper(GUIGlObjectStorage &idStorage)
 {
     return new GUIJunctionWrapper(idStorage, *this, myShape);
 }
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

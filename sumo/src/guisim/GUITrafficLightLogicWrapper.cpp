@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/02/23 11:27:56  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.9  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -63,6 +66,7 @@ namespace
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <gui/GUIApplicationWindow.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <gui/GUIGlobals.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -91,8 +95,9 @@ using namespace std;
 FXDEFMAP(GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu)
     GUITrafficLightLogicWrapperPopupMenuMap[]=
 {
-    FXMAPFUNC(SEL_COMMAND,  MID_SHOWPHASES,    GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhases),
-    FXMAPFUNC(SEL_COMMAND,  MID_TRACKPHASES,   GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdBegin2TrackPhases),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWPHASES,             GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhases),
+    FXMAPFUNC(SEL_COMMAND,  MID_TRACKPHASES,            GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdBegin2TrackPhases),
+    FXMAPFUNCS(SEL_COMMAND, MID_SWITCH, MID_SWITCH+20, GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLSLogic),
 };
 
 // Object implementation
@@ -139,12 +144,25 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhas
 }
 
 
+long
+GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLSLogic(
+        FXObject*,FXSelector sel,void* )
+{
+    assert(myObject->getType()==GLO_TLLOGIC);
+    static_cast<GUITrafficLightLogicWrapper*>(myObject)->switchTLSLogic(FXSELID(sel)-MID_SWITCH);
+    return 1;
+}
+
+
+
 /* -------------------------------------------------------------------------
  * GUITrafficLightLogicWrapper - methods
  * ----------------------------------------------------------------------- */
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapper(
-        GUIGlObjectStorage &idStorage, MSTrafficLightLogic &tll)
-    : GUIGlObject(idStorage, string("tl-logic:")+tll.id()), myTLLogic(tll)
+        GUIGlObjectStorage &idStorage,
+        MSTLLogicControl &control, MSTrafficLightLogic &tll)
+    : GUIGlObject(idStorage, string("tl-logic:")+tll.id()),
+    myTLLogicControl(control), myTLLogic(tll)
 {
 }
 
@@ -166,6 +184,17 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
     //
     new FXMenuCommand(ret, "Center",
         GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
+    new FXMenuSeparator(ret);
+    //
+    const MSTLLogicControl::Variants &vars = myTLLogicControl.get(myTLLogic.id());
+    std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
+    size_t index = 0;
+    for(i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {
+        if((*i).second!=vars.defaultTL) {
+            new FXMenuCommand(ret, ("Switch to '" + (*i).second->subid() + "'").c_str(),
+                GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_SWITCH+index);
+        }
+    }
     new FXMenuSeparator(ret);
     //
     if(gSelected.isSelected(GLO_TLLOGIC, getGlID())) {
@@ -247,8 +276,24 @@ GUITrafficLightLogicWrapper::microsimID() const
 Boundary
 GUITrafficLightLogicWrapper::getCenteringBoundary() const
 {
-    throw 1;
+	throw 1;
 }
+
+
+void
+GUITrafficLightLogicWrapper::switchTLSLogic(int to)
+{
+    const MSTLLogicControl::Variants &vars = myTLLogicControl.get(myTLLogic.id());
+    std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
+    size_t index = 0;
+    for(i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {
+        if(index==to) {
+            myTLLogicControl.switchTo((*i).second->id(), (*i).second->subid());
+            return;
+        }
+    }
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/02/23 11:27:56  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.9  2005/10/10 11:52:38  dkrajzew
 // reworking the tls-API: made tls-control non-static
 //
@@ -101,8 +104,12 @@ GUIJunctionControlBuilder::addJunctionShape(const Position2DVector &shape)
 MSJunction *
 GUIJunctionControlBuilder::buildNoLogicJunction()
 {
-    return new GUINoLogicJunction(m_CurrentId, myPosition,
-        m_pActiveIncomingLanes, m_pActiveInternalLanes, myShape);
+    return new GUINoLogicJunction(myActiveID, myPosition, myActiveIncomingLanes,
+#ifdef HAVE_INTERNAL_LANES
+        myActiveInternalLanes,
+#endif
+        myShape);
+    myShape.clear();
 }
 
 
@@ -111,8 +118,11 @@ GUIJunctionControlBuilder::buildLogicJunction()
 {
     MSJunctionLogic *jtype = getJunctionLogicSecure();
     // build the junction
-    return new GUIRightOfWayJunction(m_CurrentId, myPosition,
-        m_pActiveIncomingLanes, m_pActiveInternalLanes, jtype, myShape);
+    return new GUIRightOfWayJunction(myActiveID, myPosition, myActiveIncomingLanes,
+#ifdef HAVE_INTERNAL_LANES
+        m_pActiveInternalLanes,
+#endif
+        jtype, myShape);
     myShape.clear();
 }
 

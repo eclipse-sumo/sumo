@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2006/02/23 11:35:55  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.33  2006/01/26 08:54:59  dkrajzew
 // missing files added
 //
@@ -185,7 +188,7 @@ GenericSAX2Handler::Tag sumotags[54] =
       { "routealt",         SUMO_TAG_ROUTEALT },
       { "tripdef",          SUMO_TAG_TRIPDEF },
       { "flow",             SUMO_TAG_FLOW },
-      { "logicno",          SUMO_TAG_LOGICNO },
+      { "subkey",           SUMO_TAG_SUBKEY },
       { "trigger",          SUMO_TAG_TRIGGER },
       { "step",             SUMO_TAG_STEP },
       { "interval",         SUMO_TAG_INTERVAL },

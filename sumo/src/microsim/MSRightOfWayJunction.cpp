@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/02/23 11:27:56  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.14  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -161,9 +164,16 @@ using namespace std;
 MSRightOfWayJunction::MSRightOfWayJunction( string id,
                                             const Position2D &position,
                                             LaneCont incoming,
+#ifdef HAVE_INTERNAL_LANES
                                             LaneCont internal,
+#endif
                                             MSJunctionLogic* logic)
-    : MSLogicJunction( id, position, incoming, internal ),
+    : MSLogicJunction( id, position, incoming
+#ifdef HAVE_INTERNAL_LANES
+    , internal ),
+#else
+    ),
+#endif
     myLogic( logic )
 {
 }

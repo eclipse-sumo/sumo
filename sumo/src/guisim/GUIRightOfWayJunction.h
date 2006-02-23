@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/02/23 11:27:56  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.8  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -83,8 +86,11 @@ class GUIRightOfWayJunction
 public:
     /** Use this constructor only. */
     GUIRightOfWayJunction( const std::string &id, const Position2D &position,
-        LaneCont incoming, LaneCont internal, MSJunctionLogic* logic,
-        const Position2DVector &myShape);
+        LaneCont incoming,
+#ifdef HAVE_INTERNAL_LANES
+        LaneCont internal,
+#endif
+        MSJunctionLogic* logic, const Position2DVector &myShape);
 
     /// Destructor.
     virtual ~GUIRightOfWayJunction();

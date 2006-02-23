@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/02/23 11:27:57  dkrajzew
+// tls may have now several programs
+//
 // Revision 1.4  2005/11/09 06:36:48  dkrajzew
 // changing the LSA-API: MSEdgeContinuation added; changed the calling API
 //
@@ -192,7 +195,7 @@ public:
 
     /** @brief Switches to the next phase
         Returns the time of the next switch */
-    SUMOTime trySwitch();
+    SUMOTime trySwitch(bool isActive);
 
     /// Returns the duration of the given step
     SUMOTime duration() const;
