@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/02/23 11:37:55  dkrajzew
+// adding pois on the gui implemented (Danilot Tete Boyom)
+//
 // Revision 1.14  2006/01/31 12:50:13  dkrajzew
 // debugging
 //
@@ -222,6 +225,7 @@ namespace
 #endif
 
 #include <GL/gl.h>
+#include <GL/glu.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -414,13 +418,12 @@ GUISUMOAbstractView::updateToolTip()
 }
 
 
-void
-GUISUMOAbstractView::updatePositionInformation()
+std::pair<SUMOReal, SUMOReal>
+GUISUMOAbstractView::getPositionInformation() const
 {
-    if(true) {
-        const Boundary &nb = myGrid->getBoundary();
-        SUMOReal width = nb.getWidth();
-        SUMOReal height = nb.getHeight();
+    const Boundary &nb = myGrid->getBoundary();
+    SUMOReal width = nb.getWidth();
+    SUMOReal height = nb.getHeight();
 
         SUMOReal mzoom = _changer->getZoom();
 
@@ -472,14 +475,22 @@ GUISUMOAbstractView::updatePositionInformation()
             sx = sxmin
                 + (sxmax-sxmin)
                 * (SUMOReal) _changer->getMouseXPosition()
-                / (SUMOReal) _widthInPixels;
-            sy = symin
-                + (symax-symin)
-                * ((SUMOReal) _heightInPixels - (SUMOReal) _changer->getMouseYPosition())
-                / (SUMOReal) _heightInPixels;
-        }
+            / (SUMOReal) _widthInPixels;
+        sy = symin
+            + (symax-symin)
+            * ((SUMOReal) _heightInPixels - (SUMOReal) _changer->getMouseYPosition())
+            / (SUMOReal) _heightInPixels;
+    }
+    return make_pair<SUMOReal, SUMOReal>(sx, sy);
+}
 
-        string text = "x:" + StringUtils::trim(sx, 3) + ", y:" + StringUtils::trim(sy, 3);
+
+void
+GUISUMOAbstractView::updatePositionInformation() const
+{
+    if(true) {
+        std::pair<SUMOReal, SUMOReal> pos = getPositionInformation();
+        string text = "x:" + StringUtils::trim(pos.first, 3) + ", y:" + StringUtils::trim(pos.second, 3);
         myApp->setStatusBarText(text);
     }
 }
@@ -1113,29 +1124,99 @@ GUISUMOAbstractView::onSimStep(FXObject*sender,FXSelector,void*)
     return 1;
 }
 
+void CALLBACK beginCallback(GLenum which)
+{
+   glBegin(which);
+}
+
+void CALLBACK errorCallback(GLenum errorCode)
+{
+   const GLubyte *estring;
+
+   estring = gluErrorString(errorCode);
+   fprintf(stderr, "Tessellation Error: %s\n", estring);
+   exit(0);
+}
+
+void CALLBACK endCallback(void)
+{
+   glEnd();
+}
+
+void CALLBACK vertexCallback(GLvoid *vertex)
+{
+   const GLdouble *pointer;
+
+   pointer = (GLdouble *) vertex;
+   glVertex3dv((GLdouble *) vertex);
+}
+
+/*  combineCallback is used to create a new vertex when edges
+ *  intersect.  coordinate location is trivial to calculate,
+ *  but weight[4] may be used to average color, normal, or texture
+ *  coordinate data.  In this program, color is weighted.
+ */
+void CALLBACK combineCallback(GLdouble coords[3],
+                     GLdouble *vertex_data[4],
+                     GLfloat weight[4], GLdouble **dataOut )
+{
+   GLdouble *vertex;
+
+   vertex = (GLdouble *) malloc(7 * sizeof(GLdouble));
+
+   vertex[0] = coords[0];
+   vertex[1] = coords[1];
+   vertex[2] = coords[2];
+   *dataOut = vertex;
+}
+
+double glvert[6];
 
 void
 GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
 {
+	if(polygon.getPosition2DVector().size()<3) {
+		return;
+	}
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	myPolyDrawLock.lock();
     if(_useToolTips) {
         glPushName(static_cast<const GUIPolygon2D&>(polygon).getGlID());
     }
-    glBegin(GL_POLYGON);
+	RGBColor color = polygon.getColor();
+	glColor3d(color.red(), color.green(), color.blue());
+	double *bla = new double[polygon.getPosition2DVector().size()*3];
+	GLUtesselator *tobj = gluNewTess();
+	gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid (CALLBACK*) ()) &glVertex3dv);
+	gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid (CALLBACK*) ()) &beginCallback);
+	gluTessCallback(tobj, GLU_TESS_END, (GLvoid (CALLBACK*) ()) &endCallback);
+	//gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (CALLBACK*) ()) &errorCallback);
+	gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid (CALLBACK*) ()) &combineCallback);
+	gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
+	gluTessBeginPolygon(tobj, NULL);
+		gluTessBeginContour(tobj);
+        for(int i=0; i!=polygon.getPosition2DVector().size(); ++i) {
+            bla[3*i]  = polygon.getPosition2DVector().at(i).x();
+            bla[3*i+1]  = polygon.getPosition2DVector().at(i).y();
+            bla[3*i+2]  = 0;
+            glvert[0] = polygon.getPosition2DVector().at(i).x();
+            glvert[1] = polygon.getPosition2DVector().at(i).y();
+            glvert[2] = 0;
+            glvert[3] = 1;
+            glvert[4] = 1;
+            glvert[5] = 1;
+			gluTessVertex( tobj, bla+3*i, bla+3*i) ;
+        }
+		gluTessEndContour(tobj);
 
-    RGBColor color = polygon.getColor();
-    glColor3d(color.red(),color.green(),color.blue());
-    Position2DVector position2dV = polygon.getPosition2DVector();
+	gluTessEndPolygon(tobj);
+	gluDeleteTess(tobj);
+	delete[] bla;
 
-    const Position2DVector::ContType &l = position2dV.getCont();
-    for(Position2DVector::ContType ::const_iterator i=l.begin(); i!=l.end(); i++) {
-        const Position2D &p = *i;
-        glVertex2d(p.x(), p.y());
-    }
-    glEnd();
     if(_useToolTips) {
         glPopName();
     }
+	myPolyDrawLock.unlock();
 }
 
 

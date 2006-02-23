@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/02/23 11:37:55  dkrajzew
+// adding pois on the gui implemented (Danilot Tete Boyom)
+//
 // Revision 1.12  2006/01/31 11:03:01  dkrajzew
 // added the possibility to exaggerate pois; debugging the grid
 //
@@ -382,7 +385,9 @@ protected:
     /// Draws the given polygon
     void drawPOI2D(const PointOfInterest &p) const;
 
-    void updatePositionInformation();
+    void updatePositionInformation() const;
+
+    std::pair<SUMOReal, SUMOReal> getPositionInformation() const;
 
 protected:
     virtual void doPaintGL(int mode, SUMOReal scale) { }
@@ -486,6 +491,8 @@ protected:
 
     std::vector<Decal> myDecals;
     FXEX::FXMutex myDecalsLock;
+
+	mutable FXEX::FXMutex myPolyDrawLock;
 
     enum VehicleOperationType {
         VO_TRACK,
