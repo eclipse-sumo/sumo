@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/02/23 11:37:40  dkrajzew
+// emitters may now show their routes
+//
 // Revision 1.13  2006/02/13 07:29:01  dkrajzew
 // added route visualization in emitters
 //
@@ -280,7 +283,8 @@ enum {
     /// Show Object Parameter - Menu Entry
     MID_SHOWPARS,
     /// Show TLS phases - Menu Entry
-    MID_SHOWPHASES,
+    MID_SWITCH,
+    MID_SHOWPHASES = MID_SWITCH + 20,
     /// Begin to track phases - Menu Entry
     MID_TRACKPHASES,
     /// Add to selected Items - Menu Entry

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/02/23 11:29:20  dkrajzew
+// emitters may now show their routes
+//
 // Revision 1.6  2006/02/13 07:52:43  dkrajzew
 // debugging
 //
@@ -520,12 +523,52 @@ GUIEmitter::drawGL_FG(SUMOReal scale, SUMOReal upscale)
 	if(!myDrawRoutes) {
 		return;
 	}
-	const std::vector<MSRoute*> &routes = myFileBasedEmitter->getAllRoutes();
-	std::vector<MSRoute*>::const_iterator j;
-	for(j=routes.begin(); j!=routes.end(); ++j) {
-		glColor3d(1,1,0);
-		MSRouteIterator i = (*j)->begin();
-		for(; i!=(*j)->end(); ++i) {
+	const std::vector<MSRoute*> &routes = myFileBasedEmitter->getRouteDist().getVals();
+    const std::vector<SUMOReal> &probs = myFileBasedEmitter->getRouteDist().getProbs();
+    size_t j;
+    SUMOReal maxProb = 0;
+    for(j=0; j<routes.size(); ++j) {
+        maxProb = MAX2(maxProb, probs[j]);
+    }
+
+    std::map<const MSEdge*, SUMOReal> e2prob;
+	for(j=0; j<routes.size(); ++j) {
+        SUMOReal prob = probs[j];
+        MSRoute *r = routes[j];
+		MSRouteIterator i = r->begin();
+		for(; i!=r->end(); ++i) {
+			const MSEdge *e = *i;
+            if(e2prob.find(e)==e2prob.end()) {
+                e2prob[e] = 0;
+            }
+            e2prob[e] = e2prob[e] + prob;
+        }
+    }
+    for(std::map<const MSEdge*, SUMOReal>::iterator k=e2prob.begin(); k!=e2prob.end(); ++k) {
+        double c = (*k).second / maxProb;
+		glColor3d(1.-c,1.-c,0);
+			const MSEdge *e = (*k).first;
+			const GUIEdge *ge = static_cast<const GUIEdge*>(e);
+			const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
+			const DoubleVector &rots = lane.getShapeRotations();
+			const DoubleVector &lengths = lane.getShapeLengths();
+			const Position2DVector &geom = lane.getShape();
+			for(size_t i=0; i<geom.size()-1; i++) {
+				GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], 0.5);
+			}
+    }
+    /*
+    size_t j;
+    SUMOReal maxProb = 0;
+    for(j=0; j<routes.size(); ++j) {
+        maxProb = MAX2(maxProb, probs[j]);
+    }
+	for(j=0; j<routes.size(); ++j) {
+        double c = probs[j] / maxProb;
+		glColor3d(c,c,0);
+        MSRoute *r = routes[j];
+		MSRouteIterator i = r->begin();
+		for(; i!=r->end(); ++i) {
 			const MSEdge *e = *i;
 			const GUIEdge *ge = static_cast<const GUIEdge*>(e);
 			const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
@@ -537,7 +580,7 @@ GUIEmitter::drawGL_FG(SUMOReal scale, SUMOReal upscale)
 			}
 		}
     }
-
+    */
 }
 
 

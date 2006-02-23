@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/02/23 11:30:01  dkrajzew
+// emitters may now show their routes
+//
 // Revision 1.2  2006/02/13 07:52:43  dkrajzew
 // debugging
 //
@@ -123,6 +126,10 @@ public:
                 ret = 1;
             }
             return ret;
+        }
+
+        RandomDistributor<MSRoute*> &getRouteDist() {
+            return myRouteDist;
         }
 
     protected:

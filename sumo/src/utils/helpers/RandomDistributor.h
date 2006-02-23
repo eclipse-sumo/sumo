@@ -42,6 +42,10 @@ public:
 		return myVals;
 	}
 
+	const std::vector<SUMOReal> &getProbs() const {
+		return myProbs;
+	}
+
 private:
     SUMOReal myProb;
     std::vector<T> myVals;
