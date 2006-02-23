@@ -2,6 +2,14 @@
 
 #ifndef MSDevice_CPhoneH
 #define MSDevice_CPhoneH
+
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+
 //---------------------------------------------------------------------------
 #ifdef HAVE_CONFIG_H
 #ifdef WIN32
@@ -14,6 +22,7 @@
 #include <vector>
 #include <utils/helpers/Command.h>
 
+class MSVehicle;
 
 // class in order to expand the MSVehicle-class concerning the availability and the usage state
 // of cellphones carried along.
@@ -32,7 +41,7 @@ public:
         int m_LoS;          //Level of Service
     };
 
-    MSDevice_CPhone();
+    MSDevice_CPhone(MSVehicle &vehicle);
     ~MSDevice_CPhone();
     const std::vector<CPhoneBroadcastCell*> &GetProvidedCells() const;
     State GetState() const;
@@ -40,6 +49,8 @@ public:
     //int SetState(int ActualState);
 
     SUMOTime changeState();
+
+    void onDepart();
 
 protected:
     class MyCommand : public Command
@@ -55,9 +66,14 @@ protected:
             or 0 for single-execution commands. */
         virtual SUMOTime execute();
 
+        void setInactivated();
+
     private:
         /// The parent reader
         MSDevice_CPhone &myParent;
+
+        bool myAmActive;
+
     };
 
 private:
@@ -68,6 +84,11 @@ private:
     State m_State;
   //the best 6 of the available broadcast cells; index "0" represents the actual serving cell
     std::vector<CPhoneBroadcastCell*> m_ProvidedCells;
+    MSVehicle &myVehicle;
+
+    static int gCallID;
+
+    MyCommand *myCommand;
 
 };
 #endif

@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/02/23 11:31:09  dkrajzew
+// TO SS2 output added
+//
 // Revision 1.6  2006/01/16 13:35:52  dkrajzew
 // output formats updated for the next release
 //
@@ -65,6 +68,8 @@ using namespace std;
  * ======================================================================= */
 OutputDevice *MSCORN::myTripDurationsOutput = 0;
 OutputDevice *MSCORN::myVehicleRouteOutput = 0;
+OutputDevice *MSCORN::myVehicleDeviceTOSS2Output = 0;
+
 bool MSCORN::myWished[CORN_MAX];
 
 
@@ -76,6 +81,7 @@ MSCORN::init()
 {
     myTripDurationsOutput = 0;
 	myVehicleRouteOutput = 0;
+    myVehicleDeviceTOSS2Output = 0;
     for(int i=0; i<CORN_MAX; i++) {
         myWished[i] = false;
     }
@@ -87,6 +93,7 @@ MSCORN::clear()
 {
 	delete myTripDurationsOutput;
 	delete myVehicleRouteOutput;
+    delete myVehicleDeviceTOSS2Output;
 }
 
 
@@ -146,6 +153,14 @@ MSCORN::setVehicleRouteOutput(OutputDevice *s)
 
 
 void
+MSCORN::setVehicleDeviceTOSS2Output(OutputDevice *s)
+{
+    myVehicleDeviceTOSS2Output = s;
+}
+
+
+
+void
 MSCORN::compute_TripDurationsOutput(MSVehicle *v)
 {
     SUMOTime realDepart = (SUMOTime) v->getCORNDoubleValue(CORN_VEH_REALDEPART);
@@ -178,6 +193,19 @@ MSCORN::compute_VehicleRouteOutput(MSVehicle *v)
 	v->writeXMLRoute(myVehicleRouteOutput->getOStream());
 	myVehicleRouteOutput->getOStream() << "   </vehicle>" << endl << endl;
 }
+
+
+void
+MSCORN::saveTOSS2_CalledPositionData(SUMOTime time, int callID,
+                                     const std::string &pos,
+                                     int quality)
+{
+    if(myVehicleDeviceTOSS2Output!=0) {
+        myVehicleDeviceTOSS2Output->getOStream()
+            << "01;" << time << ';' << callID << ';' << pos << ';' << quality << "\n"; // !!! check <CR><LF>-combination
+    }
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

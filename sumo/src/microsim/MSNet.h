@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.57  2006/02/23 11:31:09  dkrajzew
+// TO SS2 output added
+//
 // Revision 1.56  2006/01/09 11:56:53  dkrajzew
 // lanestates removed
 //
@@ -393,13 +396,15 @@ public:
         /// netstate output
         OS_NETSTATE = 0,
         /// emissions output
-        OS_EMISSIONS = 1,
+        OS_EMISSIONS,
         /// trip information output
-        OS_TRIPDURATIONS = 2,
-		/// route information output
-		OS_VEHROUTE = 3,
+        OS_TRIPDURATIONS,
+        /// route information output
+        OS_VEHROUTE,
+        /// TrafficOnline-SS2 output
+        OS_DEVICE_TO_SS2,
         /// maximum value
-        OS_MAX = 4
+        OS_MAX
     };
 
 public:

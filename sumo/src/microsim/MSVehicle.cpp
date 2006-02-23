@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.73  2006/02/23 11:31:09  dkrajzew
+// TO SS2 output added
+//
 // Revision 1.72  2006/01/26 08:30:29  dkrajzew
 // patched MSEdge in order to work with a generic router
 //
@@ -617,6 +620,14 @@ MSVehicle::~MSVehicle()
 	  delete (MSRoute*) myPointerCORNMap[(MSCORN::Pointer) (i+noReroutes)];
         }
     }
+        // devices
+    {
+        // cell phones
+        size_t no = (size_t) myDoubleCORNMap[(MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE];
+        for(size_t np=0; np<no; np++) {
+    	    delete ((MSDevice_CPhone*) myPointerCORNMap[(MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np)]);
+        }
+    }
     delete myLaneChangeModel;
 }
 
@@ -667,7 +678,7 @@ MSVehicle::initDevices()
                 (SUMOReal) noCellPhones;
             for(int np=0; np<noCellPhones; np++) {
     		    myPointerCORNMap[(MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np)] =
-                    (void*) new MSDevice_CPhone();
+                    (void*) new MSDevice_CPhone(*this);
             }
         }
     }
@@ -2121,7 +2132,14 @@ MSVehicle::onDepart()
     if(MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
         MSNet::getInstance()->getVehicleControl().vehicleEmitted(this);
     }
-
+    // initialise devices
+    {
+        // cell phones
+        size_t no = (size_t) myDoubleCORNMap[(MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE];
+        for(size_t np=0; np<no; np++) {
+    	    ((MSDevice_CPhone*) myPointerCORNMap[(MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np)])->onDepart();
+        }
+    }
 }
 
 
@@ -2391,8 +2409,7 @@ MSVehicle::countAllowedContinuations(const MSLane *lane, int dir) const
             }
         }
         if(ce==myRoute->end()-1) {
-            ret += 1;
-            return ret;
+            return ret + 1;
         }
         const MSEdge::LaneCont *al = ( *ce )->allowedLanes( **( ce + 1 ) );
         if(al==0) {

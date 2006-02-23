@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.39  2006/02/23 11:33:26  dkrajzew
+// TO SS2 output added
+//
 // Revision 1.38  2006/02/13 07:27:59  dkrajzew
 // code beautifying
 //
@@ -262,12 +265,14 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("actuated-tl.passing-time", new Option_Float(1.9f));
 
     // device
-    oc.doRegister("device", new Option_Float(0.5));
-    oc.doRegister("knownveh", new Option_String("444_4"));
+    oc.doRegister("device", new Option_Float(0.5));//!!! check, describe
+    oc.doRegister("knownveh", new Option_String("444_4"));//!!! check, describe
+    oc.doRegister("ss2-output", new Option_FileName());//!!! check, describe
 
-    oc.doRegister("device.cell-phone.probability", new Option_Float(0.));
-    oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));
-    oc.doRegister("device.cell-phone.amount.max", new Option_Float(1.));
+
+    oc.doRegister("device.cell-phone.probability", new Option_Float(0.));//!!! check, describe
+    oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));//!!! check, describe
+    oc.doRegister("device.cell-phone.amount.max", new Option_Float(1.));//!!! check, describe
 
     // debug
     oc.doRegister("track", new Option_Float(0.));
@@ -288,6 +293,7 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
     ret[MSNet::OS_EMISSIONS] = buildStream(oc, "emissions-output");
     ret[MSNet::OS_TRIPDURATIONS] = buildStream(oc, "tripinfo-output");
 	ret[MSNet::OS_VEHROUTE] = buildStream(oc, "vehroute-output");
+	ret[MSNet::OS_DEVICE_TO_SS2] = buildStream(oc, "ss2-output");
     return ret;
 }
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/02/23 11:31:09  dkrajzew
+// TO SS2 output added
+//
 // Revision 1.8  2006/01/09 11:55:34  dkrajzew
 // further visualization possibilities added
 //
@@ -50,6 +53,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <iostream>
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -62,6 +66,11 @@ class OutputDevice;
 /* =========================================================================
  * class definitions
  * ======================================================================= */
+/**
+ * @class MSCORN
+ * Helper calls to store information about what shall be computed
+ *  (CORN == COmpute Or Not)
+ */
 class MSCORN {
 public:
     /**
@@ -71,7 +80,8 @@ public:
     enum Function {
         CORN_OUT_TRIPDURATIONS,
         CORN_OUT_EMISSIONS,
-		CORN_OUT_VEHROUTES,
+        CORN_OUT_VEHROUTES,
+        CORN_OUT_DEVICE_TO_SS2,
 
         CORN_VEH_REALDEPART,
         CORN_MEAN_VEH_TRAVELTIME,
@@ -108,13 +118,19 @@ public:
 public:
     static void setTripDurationsOutput(OutputDevice *s);
 	static void setVehicleRouteOutput(OutputDevice *s);
+    static void setVehicleDeviceTOSS2Output(OutputDevice *s);
+
     static void compute_TripDurationsOutput(MSVehicle *v);
 	static void compute_VehicleRouteOutput(MSVehicle *v);
+
+    static void saveTOSS2_CalledPositionData(SUMOTime time,
+        int callID, const std::string &pos, int quality);
 
 
 private:
     static OutputDevice *myTripDurationsOutput;
     static OutputDevice *myVehicleRouteOutput;
+    static OutputDevice *myVehicleDeviceTOSS2Output;
     static bool myWished[CORN_MAX];
 
 private:

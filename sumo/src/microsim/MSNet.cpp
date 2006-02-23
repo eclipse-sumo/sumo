@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.71  2006/02/23 11:31:09  dkrajzew
+// TO SS2 output added
+//
 // Revision 1.70  2006/01/16 13:35:52  dkrajzew
 // output formats updated for the next release
 //
@@ -549,6 +552,7 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     myLogics = tlc;//new MSTLLogicControl();
     MSCORN::setTripDurationsOutput(streams[OS_TRIPDURATIONS]);
 	MSCORN::setVehicleRouteOutput(streams[OS_VEHROUTE]);
+    MSCORN::setVehicleDeviceTOSS2Output(streams[OS_DEVICE_TO_SS2]);
     myOutputStreams = streams;
     myMeanData = meanData;
     // we may add it before the network is loaded
@@ -654,6 +658,10 @@ MSNet::initialiseSimulation()
             << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
             << "<vehicleroutes>" << endl;
         MSCORN::setWished(MSCORN::CORN_OUT_VEHROUTES);
+    }
+    // ... the same for TrafficOnline-SS2 information
+    if ( myOutputStreams[OS_DEVICE_TO_SS2]!=0 ) {
+        MSCORN::setWished(MSCORN::CORN_OUT_DEVICE_TO_SS2);
     }
 }
 
