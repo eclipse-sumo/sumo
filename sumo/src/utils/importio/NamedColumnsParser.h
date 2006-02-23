@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2006/02/23 11:36:23  dkrajzew
+// VISION import added
+//
 // Revision 1.9  2005/10/07 11:46:34  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -95,30 +98,32 @@ public:
 
     /// constructor
     NamedColumnsParser(const std::string &def, const std::string &defDelim=";",
-        const std::string &lineDelim=";", bool chomp=false);
+        const std::string &lineDelim=";", bool chomp=false, bool ignoreCase=true);
 
     /// destructor
     ~NamedColumnsParser();
 
     /** @brief reinitialises the parser
-        (does the same like the constructor without the reallocation
-        of the object) */
+     * (does the same like the constructor without the reallocation of the object) */
     void reinit(const std::string &def, const std::string &defDelim=";",
-        const std::string &lineDelim=";", bool chomp=false);
+        const std::string &lineDelim=";", bool chomp=false,
+        bool ignoreCase=true);
 
     /// parses the contents of the line
     void parseLine(const std::string &line);
 
     /** @brief returns the named information
-        throws an UnknownElement when the element was not named during the
-            initialisation
-        throws an OutOfBoundsException when the line was too
-            short and did not contain the item */
+     *
+     * throws an UnknownElement when the element was not named during the initialisation
+     * throws an OutOfBoundsException when the line was too short and did not contain the item */
     std::string get(const std::string &name, bool prune=false) const;
+
+    /// Returns the information whether the named column is known
+    bool know(const std::string &name) const;
 
 private:
     /** returns the map of attribute names to their positions in a table */
-    void reinitMap(const std::string &s, const std::string &delim=";",
+    void reinitMap(std::string s, const std::string &delim=";",
         bool chomp=false);
 
     void checkPrune(std::string &str, bool prune) const;
@@ -129,13 +134,16 @@ private:
     typedef std::map<std::string, size_t> PosMap;
 
     /// the map of column item names to their positions within the table
-    PosMap _defMap;
+    PosMap myDefinitionsMap;
 
     /// the delimiter to split the column items on
-    std::string _lineDelim;
+    std::string myLineDelimiter;
 
     /// the contents of the current line
-    StringTokenizer _line;
+    StringTokenizer myLineParser;
+
+    /// Information whether case insensitive match shal be done
+    bool myAmCaseInsensitive;
 
 };
 

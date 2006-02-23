@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2006/02/23 11:38:47  dkrajzew
+// VISION import added
+//
 // Revision 1.34  2006/01/09 13:33:30  dkrajzew
 // debugging error handling
 //
@@ -269,6 +272,9 @@ main(int argc, char **argv)
         nb.preCheckOptions(oc);
         NILoader nl(nb);
         nl.load(oc);
+        if(oc.getBool("dismiss-loading-errors")) {
+            MsgHandler::getErrorInstance()->clear();
+        }
         // check whether any errors occured
         if(MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();
