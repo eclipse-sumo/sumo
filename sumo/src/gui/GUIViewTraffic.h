@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.27  2006/02/23 11:25:19  dkrajzew
+// adding pois on the gui implemented (Danilot Tete Boyom)
+//
 // Revision 1.26  2006/01/09 11:50:20  dkrajzew
 // new visualization settings implemented
 //
@@ -176,6 +179,8 @@ public:
 
     long onCmdShowFullGeom(FXObject*,FXSelector,void*);
     long onCmdChangeColorScheme(FXObject*,FXSelector sel,void*);
+    long onLeftBtnPress(FXObject *o,FXSelector sel,void *data);
+
 
     void centerTo(GUIGlObject *o);
 

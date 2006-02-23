@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.48  2006/02/23 11:25:19  dkrajzew
+// adding pois on the gui implemented (Danilot Tete Boyom)
+//
 // Revision 1.47  2006/01/31 10:53:02  dkrajzew
 // new visualization scheme for lanes added; work on the grid
 //
@@ -233,6 +236,9 @@ namespace
 #include <utils/gui/drawer/GUICompleteSchemeStorage.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/foxtools/MFXImageHelper.h>
+#include <utils/gui/globjects/GUIPointOfInterest.h>
+#include <utils/shapes/ShapeContainer.h>
+#include <utils/gui/globjects/GUIGlObjectGlobals.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -893,6 +899,43 @@ GUIViewTraffic::onCmdEditView(FXObject*,FXSelector,void*)
     myVisualizationChanger->show();
     return 1;
 }
+
+
+long
+GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
+{
+    long ret = GUISUMOAbstractView::onLeftBtnPress(o, sel, data);
+    FXEvent *e = (FXEvent*) data;
+    if((e->state&SHIFTMASK)!=0) {
+		std::pair<SUMOReal, SUMOReal> point = getPositionInformation();
+		std::string Id= toString(point.first) +  "," + toString(point.second);
+		GUIPointOfInterest *p = new GUIPointOfInterest(gIDStorage, Id, "point",
+            Position2D(point.first, point.second),RGBColor(0,0,0) );
+		_net->getShapeContainer().add(p);
+		 update();
+	}
+    return ret;
+}
+
+
+/*
+void
+GUIViewTraffic::savePointOfInterest(PointOfInterest *p)
+{
+    ofstream out("PointOfInt.txt", ios::app);
+    if (!out) {
+        cerr << "cannot open file: " <<endl;
+        exit(-1);
+	}
+	out.write((" ID  "+ p->getID()+" ").c_str(), sizeof((" ID  "+ p->getID()+" ").c_str())*4);
+    out.write((" Type  "+ p->getType()+" ").c_str(), sizeof((" Type  "+ p->getType()+" ").c_str())*3);
+	out.write((" Xpos "+ toString(p->x()) +" ").c_str(), sizeof((" Xpos "+ toString(p->x())+" ").c_str())*3);
+	out.write((" Ypos "+ toString(p->y()) +" ").c_str(),sizeof((" Ypos "+ toString(p->y())+" ").c_str())*3);
+
+	out.write("\n",sizeof("\n"));
+	out.close();
+}
+*/
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
