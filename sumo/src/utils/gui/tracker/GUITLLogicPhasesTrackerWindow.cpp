@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/02/23 11:37:01  dkrajzew
+// made the tls visualisation adaptive
+//
 // Revision 1.8  2005/10/07 11:45:56  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -148,7 +151,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
             0,0,0,0,0,0,0,0);
     myPanel = new
         GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
-    setTitle((logic.id()+"-tracker").c_str());
+    setTitle((logic.id() + " - " + logic.subid() + " - tracker").c_str());
     setIcon( GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER) );
 }
 
@@ -174,19 +177,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
             0,0,0,0,0,0,0,0);
     myPanel = new
         GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
-    // insert phases
-    MSSimpleTrafficLightLogic::Phases::const_iterator j;
-    myLastTime = 0;
-    myBeginTime = 0;
-    for(j=phases.begin(); j!=phases.end(); ++j) {
-        myPhases.push_back(
-            SimplePhaseDef(
-                (*j)->getDriveMask(),
-                (*j)->getYellowMask()));
-        myDurations.push_back((*j)->duration);
-        myLastTime += (*j)->duration;
-    }
-    setTitle((logic.id()+"-tracker").c_str());
+    setTitle((logic.id() + " - " + logic.subid() + " - tracker").c_str());
     setIcon( GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER) );
 }
 
@@ -219,6 +210,20 @@ GUITLLogicPhasesTrackerWindow::getMaxGLHeight() const
 void
 GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
 {
+    if(!myAmInTrackingMode) {
+        myPhases.clear();
+        myDurations.clear();
+        // insert phases
+        const MSSimpleTrafficLightLogic::Phases &phases = static_cast<MSSimpleTrafficLightLogic*>(myTLLogic)->getPhases();
+        MSSimpleTrafficLightLogic::Phases::const_iterator j;
+        myLastTime = 0;
+        myBeginTime = 0;
+        for(j=phases.begin(); j!=phases.end(); ++j) {
+            myPhases.push_back(SimplePhaseDef((*j)->getDriveMask(), (*j)->getYellowMask()));
+            myDurations.push_back((*j)->duration);
+            myLastTime += (*j)->duration;
+        }
+    }
     // begin drawing
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
