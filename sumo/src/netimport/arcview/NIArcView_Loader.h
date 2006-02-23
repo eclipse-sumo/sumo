@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/02/23 11:22:33  dkrajzew
+// changed shape reading import
+//
 // Revision 1.13  2006/01/31 10:59:35  dkrajzew
 // extracted common used methods; optional usage of old lane number information in navteq-networks import added
 //
@@ -78,13 +81,13 @@
 #include <utils/importio/LineHandler.h>
 #include <utils/importio/LineReader.h>
 #include <utils/importio/NamedColumnsParser.h>
-#include "shapereader.h"
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
 class OptionsCont;
+class OGRFeature;
 
 
 /* =========================================================================
@@ -96,7 +99,8 @@ class NIArcView_Loader :
 {
 public:
     /// Contructor
-    NIArcView_Loader(NBNodeCont &nc, NBEdgeCont &ec,
+    NIArcView_Loader(OptionsCont &oc,
+        NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
         const std::string &dbf_name, const std::string &shp_name,
         bool speedInKMH, bool useNewLaneNumberInfoPlain);
 
@@ -104,7 +108,7 @@ public:
     ~NIArcView_Loader();
 
     /// loads the navtech-data
-    void load(OptionsCont &options);
+    bool load(OptionsCont &options);
 
 private:
     bool parseBin();
@@ -112,33 +116,37 @@ private:
     bool parseLine(const std::string &line);
 
     /// parses the maximum speed allowed on the edge currently processed
-    SUMOReal getSpeed(const std::string &edgeid);
+    SUMOReal getSpeed(OGRFeature &f, const std::string &edgeid);
 
     /// parses the number of lanes of the edge currently processed
-    size_t getLaneNo(const std::string &edgeid, SUMOReal speed,
+    size_t getLaneNo(OGRFeature &f,
+        const std::string &edgeid, SUMOReal speed,
 		bool useNewLaneNumberInfoPlain);
 
-    /// parses the length of the edge currently processed
-    SUMOReal getLength(const Position2D &from_pos, const Position2D &to_pos);
 
     /// parses the priority of the edge currently processed
-    int getPriority(const std::string &edgeid);
-
+    int getPriority(OGRFeature &f, const std::string &edgeid);
+/*
     std::string getStringSecure(const std::string &which);
-
+*/
 
 private:
+    OptionsCont &myOptions;
+
     /// parser of the dbf-file columns
     NamedColumnsParser myColumnsParser;
 
     std::string myDBFName;
     std::string mySHPName;
-    shapereader myBinShapeReader;
     int myNameAddition;
     NBNodeCont &myNodeCont;
     NBEdgeCont &myEdgeCont;
+    NBTypeCont &myTypeCont;
     bool mySpeedInKMH;
 	bool myUseNewLaneNumberInfoPlain;
+
+    int myRunningNodeID;
+
 
 };
 

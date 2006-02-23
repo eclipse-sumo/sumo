@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/02/23 11:22:33  dkrajzew
+// changed shape reading import
+//
 // Revision 1.21  2006/02/13 07:19:26  dkrajzew
 // debugging
 //
@@ -107,10 +110,12 @@ namespace
 #include <netbuild/NBHelpers.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
+#include <netbuild/NBTypeCont.h>
 #include <netbuild/nodes/NBNode.h>
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NIArcView_Loader.h"
 #include <netimport/NINavTeqHelper.h>
+#include <ogrsf_frmts/ogrsf_frmts.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -126,17 +131,21 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NIArcView_Loader::NIArcView_Loader(NBNodeCont &nc,
+NIArcView_Loader::NIArcView_Loader(OptionsCont &oc,
+                                   NBNodeCont &nc,
                                    NBEdgeCont &ec,
+                                   NBTypeCont &tc,
                                    const std::string &dbf_name,
                                    const std::string &shp_name,
                                    bool speedInKMH,
 								   bool useNewLaneNumberInfoPlain)
     : FileErrorReporter("Navtech Edge description", dbf_name),
-    myDBFName(dbf_name), mySHPName(shp_name),
+    myOptions(oc), myDBFName(dbf_name), mySHPName(shp_name),
     myNameAddition(0),
-    myNodeCont(nc), myEdgeCont(ec), mySpeedInKMH(speedInKMH),
-	myUseNewLaneNumberInfoPlain(useNewLaneNumberInfoPlain)
+    myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc),
+    mySpeedInKMH(speedInKMH),
+	myUseNewLaneNumberInfoPlain(useNewLaneNumberInfoPlain),
+    myRunningNodeID(0)
 {
 }
 
@@ -146,47 +155,116 @@ NIArcView_Loader::~NIArcView_Loader()
 }
 
 
-void
+bool
 NIArcView_Loader::load(OptionsCont &)
 {
-    int i = myBinShapeReader.openFiles(mySHPName.c_str(), myDBFName.c_str() );
-    if( i != 0 ) {
-        MsgHandler::getErrorInstance()->inform("Could not open shape description.");
-        return;
+    OGRRegisterAll();
+    OGRDataSource       *poDS;
+
+    poDS = OGRSFDriverRegistrar::Open( mySHPName.c_str(), FALSE );
+    if( poDS == NULL ) {
+        MsgHandler::getErrorInstance()->inform("Could not open shape description '" + mySHPName + "'.");
+        return false;
     }
-    parseBin();
-}
 
+    // begin file parsing
+    OGRLayer  *poLayer = poDS->GetLayer(0);
+    poLayer->ResetReading();
+    OGRFeatureDefn *poFDefn = poLayer->GetLayerDefn();
 
-//en
-bool
-NIArcView_Loader::parseBin()
-{
-    for ( int i =0 ; i < myBinShapeReader.getShapeCount(); i++) {
-        string id = myBinShapeReader.getAttribute( "LINK_ID" );
-        string name = myBinShapeReader.getAttribute("ST_NAME");
-        string from_node = myBinShapeReader.getAttribute("REF_IN_ID");
-        string to_node = myBinShapeReader.getAttribute("NREF_IN_ID");
-        string type = myBinShapeReader.getAttribute("ST_TYP_AFT");
+    // build coordinate transformation
+    OGRSpatialReference *origTransf = poLayer->GetSpatialRef();
+    OGRSpatialReference destTransf;
+    // assume utm-projection
+    destTransf.SetProjCS("UTM 32 / WGS84");
+    destTransf.SetWellKnownGeogCS( "WGS84" );
+    int zone = myOptions.getInt("arcview.utm");
+    destTransf.SetUTM( zone );
+    OGRCoordinateTransformation *poCT =
+        OGRCreateCoordinateTransformation( origTransf, &destTransf );
+    if( poCT == NULL ) {
+        if(myOptions.isSet("arcview.guess-projection")) {
+            OGRSpatialReference origTransf2;
+            origTransf2.SetWellKnownGeogCS( "WGS84" );
+            poCT = OGRCreateCoordinateTransformation( &origTransf2, &destTransf );
+        }
+        if(poCT==0) {
+            MsgHandler::getWarningInstance()->inform("Could not create geocoordinates converter; check whether proj.4 is installed.");
+        }
+    }
+
+    OGRFeature *poFeature;
+    poLayer->ResetReading();
+    while( (poFeature = poLayer->GetNextFeature()) != NULL )
+    {
+        // read in edge attributes
+        string id =
+            myOptions.isSet("arcview.street-id")
+            ? poFeature->GetFieldAsString( (char*) (myOptions.getString("arcview.street-id").c_str()) )
+            : poFeature->GetFieldAsString( "LINK_ID" );
+        id = StringUtils::prune(id);
+        string name =
+            myOptions.isSet("arcview.street-id")
+            ? poFeature->GetFieldAsString( (char*) myOptions.getString("arcview.street-id").c_str())
+            : poFeature->GetFieldAsString( "ST_NAME" );
+        name = StringUtils::prune(name);
+
+        string from_node =
+            myOptions.isSet("arcview.from-id")
+            ? poFeature->GetFieldAsString( (char*) (myOptions.getString("arcview.from-id").c_str()) )
+            : poFeature->GetFieldAsString( "REF_IN_ID" );
+        from_node = StringUtils::prune(from_node);
+        string to_node =
+            myOptions.isSet("arcview.to-id")
+            ? poFeature->GetFieldAsString( (char*) myOptions.getString("arcview.to-id").c_str())
+            : poFeature->GetFieldAsString( "NREF_IN_ID" );
+        to_node = StringUtils::prune(to_node);
+        if(from_node==""||to_node=="") {
+            from_node = toString(myRunningNodeID++);
+            to_node = toString(myRunningNodeID++);
+        }
+        string type = poFeature->GetFieldAsString("ST_TYP_AFT");
         SUMOReal speed = 0;
         size_t nolanes = 0;
         int priority = 0;
-        try {
-            speed = getSpeed(id);
-            if(mySpeedInKMH) {
-                speed = speed / (SUMOReal) 3.6;
+        speed = getSpeed(*poFeature, id);
+        nolanes = getLaneNo(*poFeature, id, speed, myUseNewLaneNumberInfoPlain);
+        priority = getPriority(*poFeature, id);
+        if(nolanes==0||speed==0) {
+            if(myOptions.getBool("arcview.use-defaults-on-failure")) {
+                nolanes = myTypeCont.getDefaultNoLanes();
+                speed = myTypeCont.getDefaultSpeed();
+            } else {
+                OGRFeature::DestroyFeature( poFeature );
+                MsgHandler::getErrorInstance()->inform("The description seems to be invalid;Please recheck usage of types.");
+                return false;
             }
-            nolanes = getLaneNo(id, speed, myUseNewLaneNumberInfoPlain);
-            priority = getPriority(id);
-        } catch (...) {
-            addError("An attribute is not given within the file!");
-            return false;
         }
+        if(mySpeedInKMH) {
+            speed = speed / (SUMOReal) 3.6;
+        }
+
         NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_NORMAL;
         NBNode *from = 0;
         NBNode *to = 0;
+
+        // read in the geometry
+        OGRGeometry *poGeometry = poFeature->GetGeometryRef();
+        OGRwkbGeometryType gtype = poGeometry->getGeometryType();
+        assert(gtype==wkbLineString);
+        OGRLineString *cgeom = (OGRLineString*) poGeometry;//;dynamic_cast<OGRLineString*>(poGeometry);
+        if(poCT!=0) {
+            cgeom->transform(poCT);
+        }
+
+        Position2DVector shape;
+        for(int j=0; j<cgeom->getNumPoints(); j++) {
+            shape.push_back_noDoublePos(Position2D((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j))); // !!!
+        }
+
+
         // build from-node
-        Position2D from_pos = myBinShapeReader.getFromNodePosition();
+        Position2D from_pos = shape.at(0);
         if(!myNodeCont.insert(from_node, from_pos)) {
             from = new NBNode(from_node + "___" + toString<int>(myNameAddition++),
                 from_pos);
@@ -195,7 +273,7 @@ NIArcView_Loader::parseBin()
             from = myNodeCont.retrieve(from_pos);
         }
         // build to-node
-        Position2D to_pos = myBinShapeReader.getToNodePosition();
+        Position2D to_pos = shape.at(-1);
         if(!myNodeCont.insert(to_node, to_pos)) {
             to = new NBNode(to_node + "___" + toString<int>(myNameAddition++),
                 to_pos);
@@ -204,128 +282,123 @@ NIArcView_Loader::parseBin()
             to = myNodeCont.retrieve(to_pos);
         }
             // retrieve length
-        SUMOReal length = (SUMOReal) myBinShapeReader.getLength();
+        SUMOReal length = (SUMOReal) cgeom->get_Length();
 
         // retrieve the information whether the street is bi-directional
-        string dir = myBinShapeReader.getAttribute("DIR_TRAVEL");
+        string dir;
+        int index = poFeature->GetDefnRef()->GetFieldIndex("DIR_TRAVEL");
+        if(index>=0&&poFeature->IsFieldSet(index)) {
+            dir = poFeature->GetFieldAsString(index);
+        }
             // add positive direction if wanted
-        if(dir=="B"||dir=="F") {
+        if(dir=="B"||dir=="F"||dir==""||myOptions.getBool("arcview.all-bidi")) {
             if(myEdgeCont.retrieve(id)==0) {
-                NBEdge::LaneSpreadFunction spread = dir=="B"
+                NBEdge::LaneSpreadFunction spread =
+                    dir=="B"||dir=="FALSE"
                     ? NBEdge::LANESPREAD_RIGHT
                     : NBEdge::LANESPREAD_CENTER;
                 NBEdge *edge = new NBEdge(id, name, from, to, type, speed, nolanes,
-                    length, priority, myBinShapeReader.getShape(), spread, function);
+                    length, priority, shape, spread, function);
                 myEdgeCont.insert(edge);
             }
         }
             // add negative direction if wanted
-        if(dir=="B"||dir=="T") {
+        if(dir=="B"||dir=="T"||myOptions.getBool("arcview.all-bidi")) {
             id = "-" + id;
             if(myEdgeCont.retrieve(id)==0) {
-                NBEdge::LaneSpreadFunction spread = dir=="B"
+                NBEdge::LaneSpreadFunction spread =
+                    dir=="B"||dir=="FALSE"
                     ? NBEdge::LANESPREAD_RIGHT
                     : NBEdge::LANESPREAD_CENTER;
                 NBEdge *edge = new NBEdge(id, name, to, from, type, speed, nolanes,
-                    length, priority, myBinShapeReader.getReverseShape(), spread, function);
+                    length, priority, shape.reverse(), spread, function);
                 myEdgeCont.insert(edge);
             }
         }
-        myBinShapeReader.forwardShape();
+        OGRFeature::DestroyFeature( poFeature );
     }
     return !MsgHandler::getErrorInstance()->wasInformed();
-
-
 }
-//en
 
 
 SUMOReal
-NIArcView_Loader::getSpeed(const std::string &edgeid)
+NIArcView_Loader::getSpeed(OGRFeature &poFeature, const std::string &edgeid)
 {
-	string def;
+    if(myOptions.isSet("arcview.type-id")) {
+        return myTypeCont.getSpeed(poFeature.GetFieldAsString((char*) (myOptions.getString("arcview.type-id").c_str())));
+    }
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
-    try {
-        return TplConvert<char>::_2SUMOReal(myBinShapeReader.getAttribute("speed").c_str());
-    } catch (...) {
+    int index = poFeature.GetDefnRef()->GetFieldIndex("speed");
+    if(index>=0&&poFeature.IsFieldSet(index)) {
+        return (SUMOReal) poFeature.GetFieldAsDouble(index);
     }
-    try {
-        return TplConvert<char>::_2SUMOReal(myBinShapeReader.getAttribute("SPEED").c_str());
-    } catch (...) {
+    index = poFeature.GetDefnRef()->GetFieldIndex("SPEED");
+    if(index>=0&&poFeature.IsFieldSet(index)) {
+        return (SUMOReal) poFeature.GetFieldAsDouble(index);
     }
     // try to get the NavTech-information
-    try {
-		def = myBinShapeReader.getAttribute("SPEED_CAT");
+    index = poFeature.GetDefnRef()->GetFieldIndex("SPEED_CAT");
+    if(index>=0&&poFeature.IsFieldSet(index)) {
+		string def = poFeature.GetFieldAsString(index);
 		return NINavTeqHelper::getSpeed(edgeid, def);
-    } catch (...) {
-		addError("Error on parsing edge speed definition for edge '" + edgeid + "'.");
     }
     return 0;
 }
 
 
 size_t
-NIArcView_Loader::getLaneNo(const std::string &edgeid,
+NIArcView_Loader::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
 							SUMOReal speed, bool useNewLaneNumberInfoPlain)
 {
-	string def;
+    if(myOptions.isSet("arcview.type-id")) {
+        return myTypeCont.getNoLanes(poFeature.GetFieldAsString((char*) (myOptions.getString("arcview.type-id").c_str())));
+    }
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
-    try{
-        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("nolanes").c_str());
-    } catch(...) {
+    int index = poFeature.GetDefnRef()->GetFieldIndex("nolanes");
+    if(index>=0&&poFeature.IsFieldSet(index)) {
+        return poFeature.GetFieldAsInteger(index);
     }
-    try{
-        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("NOLANES").c_str());
-    } catch(...) {
+    index = poFeature.GetDefnRef()->GetFieldIndex("NOLANES");
+    if(index>=0&&poFeature.IsFieldSet(index)) {
+        return poFeature.GetFieldAsInteger(index);
     }
-    // try to get old DLR-lanes definition
-    //  invented by Eric Nicolay
-    try{
-        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("rnol").c_str());
-    } catch(...) {
+    index = poFeature.GetDefnRef()->GetFieldIndex("rnol");
+    if(index>=0&&poFeature.IsFieldSet(index)) {
+        return poFeature.GetFieldAsInteger(index);
     }
-    // try to get the NavTech-information
-    try {
-		def = myBinShapeReader.getAttribute("LANE_CAT");
+    index = poFeature.GetDefnRef()->GetFieldIndex("LANE_CAT");
+    if(index>=0&&poFeature.IsFieldSet(index)) {
+		string def = poFeature.GetFieldAsString(index);
 		return NINavTeqHelper::getLaneNumber(edgeid, def, speed, myUseNewLaneNumberInfoPlain);
-	} catch (...) {
-        addError("Error on parsing edge's number of lanes information for edge '" + edgeid + "'.");
-	}
+    }
 	return 0;
 }
 
 
-SUMOReal
-NIArcView_Loader::getLength(const Position2D &from_pos, const Position2D &to_pos)
-{
-    return GeomHelper::distance(from_pos, to_pos);
-}
-
-
 int
-NIArcView_Loader::getPriority(const std::string &edgeid)
+NIArcView_Loader::getPriority(OGRFeature &poFeature, const std::string &edgeid)
 {
+    if(myOptions.isSet("arcview.type-id")) {
+        return myTypeCont.getPriority(poFeature.GetFieldAsString((char*) (myOptions.getString("arcview.type-id").c_str())));
+    }
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
-    try{
-        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("priority").c_str());
-    } catch(...) {
+    int index = poFeature.GetDefnRef()->GetFieldIndex("priority");
+    if(index>=0&&poFeature.IsFieldSet(index)) {
+        return poFeature.GetFieldAsInteger(index);
     }
-    try{
-        return TplConvert<char>::_2int(myBinShapeReader.getAttribute("PRIORITY").c_str());
-    } catch(...) {
+    index = poFeature.GetDefnRef()->GetFieldIndex("PRIORITY");
+    if(index>=0&&poFeature.IsFieldSet(index)) {
+        return poFeature.GetFieldAsInteger(index);
     }
     // try to determine priority from NavTechs FUNC_CLASS attribute
-    try {
-        int prio =
-            TplConvert<char>::_2int(myBinShapeReader.getAttribute("FUNC_CLASS").c_str());
-        return 5 - prio;
-    } catch (...) {
-        addError("Error on parsing edge priority information for edge '" + edgeid + "'.");
-        return 0;
+    index = poFeature.GetDefnRef()->GetFieldIndex("FUNC_CLASS");
+    if(index>=0&&poFeature.IsFieldSet(index)) {
+        return poFeature.GetFieldAsInteger(index);
     }
+    return 0;
 }
 
 

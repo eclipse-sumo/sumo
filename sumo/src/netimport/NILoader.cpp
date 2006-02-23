@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/02/23 11:22:33  dkrajzew
+// changed shape reading import
+//
 // Revision 1.20  2006/01/31 10:59:35  dkrajzew
 // extracted common used methods; optional usage of old lane number information in navteq-networks import added
 //
@@ -245,6 +248,7 @@ NILoader::load(OptionsCont &oc)
     // get the format to use
     //string type = oc.getString("used-file-format");
     // try to load using different methods
+    loadXML(oc);
     loadSUMO(oc);
     loadCell(oc);
     loadVisum(oc);
@@ -253,7 +257,6 @@ NILoader::load(OptionsCont &oc)
     loadVissim(oc);
     loadElmar(oc);
     loadTiger(oc);
-    loadXML(oc);
     // check the loaded structures
     if(myNetBuilder.getNodeCont().size()==0) {
         MsgHandler::getErrorInstance()->inform("No nodes loaded.");
@@ -455,10 +458,9 @@ NILoader::loadArcView(OptionsCont &oc)
         return;
     }
     // load the arcview files
-    NIArcView_Loader loader(myNetBuilder.getNodeCont(),
-        myNetBuilder.getEdgeCont(),
-        dbf_file, shp_file, oc.getBool("speed-in-kmh"),
-		!oc.getBool("navtech-rechecklanes"));
+    NIArcView_Loader loader(oc,
+        myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(), myNetBuilder.getTypeCont(),
+        dbf_file, shp_file, oc.getBool("speed-in-kmh"), !oc.getBool("navtech-rechecklanes"));
     loader.load(oc);
 }
 

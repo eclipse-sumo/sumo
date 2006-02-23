@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/02/23 11:22:33  dkrajzew
+// changed shape reading import
+//
 // Revision 1.16  2006/02/13 07:20:23  dkrajzew
 // code beautifying
 //
@@ -258,7 +261,20 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("visum-file", new Option_FileName());
     oc.doRegister("vissim-file", new Option_FileName());
     oc.doRegister("artemis-path", new Option_FileName());
+
     oc.doRegister("arcview", new Option_FileName());
+    oc.doRegister("arcview.street-id", new Option_String()); // !!! describe, document
+    oc.doRegister("arcview.from-id", new Option_String()); // !!! describe, document
+    oc.doRegister("arcview.to-id", new Option_String()); // !!! describe, document
+    oc.doRegister("arcview.type-id", new Option_String()); // !!! describe, document
+    oc.doRegister("arcview.all-bidi", new Option_Bool(false)); // !!! describe, document
+    oc.doRegister("arcview.utm", new Option_Integer(32)); // !!! describe, document
+    oc.doRegister("arcview.use-defaults-on-failure", new Option_Bool(false)); // !!! describe, document
+    oc.doRegister("arcview.guess-projection", new Option_Bool(false)); // !!! describe, document
+
+
+
+
     oc.doRegister("output-file", 'o', new Option_FileName("net.net.xml"));
     oc.doRegister("configuration-file", 'c', new Option_FileName());
     oc.addSynonyme("xml-node-files", "xml-nodes");
@@ -282,6 +298,8 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
 	oc.doRegister("navtech-rechecklanes", new Option_Bool(false));
     // register the data processing options
     oc.doRegister("speed-in-kmh", new Option_Bool(false));
+
+    oc.doRegister("dismiss-loading-errors", new Option_Bool(false)); // !!! describe, document
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
     // add rand and dev options

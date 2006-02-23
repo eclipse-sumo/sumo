@@ -44,7 +44,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES)\lib\xerces-c_2D.lib $(NOINHERIT)"
+				AdditionalDependencies="$(XERCES)\lib\xerces-c_2D.lib $(GDAL)\gdal_i.lib $(NOINHERIT)"
 				OutputFile=".\Debug/netconvert.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -115,7 +115,7 @@ copy Debug\netconvert.exe ..\..\..\bin\netconvertD.exe
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES)\lib\xerces-c_2.lib $(NOINHERIT)"
+				AdditionalDependencies="$(XERCES)\lib\xerces-c_2.lib $(GDAL)\gdal_i.lib $(NOINHERIT)"
 				OutputFile=".\Release/netconvert.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"

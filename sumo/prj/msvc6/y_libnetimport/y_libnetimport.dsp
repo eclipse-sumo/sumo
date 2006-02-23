@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /w /W0 /GX /O2 /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /FD /c
+# ADD CPP /nologo /MD /w /W0 /GX /O2 /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /I "$(GDAL)\ogr" /I "$(GDAL)\port" /D "HAVE_CONFIG_H" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x407 /d "NDEBUG"
 # ADD RSC /l 0x407 /d "NDEBUG"
@@ -65,7 +65,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /D "HAVE_CONFIG_H" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FD /GZ /c
+# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "$(XERCES)\include" /I "$(XERCES)\include\xercesc" /I "..\..\..\src" /I "$(GDAL)\ogr" /I "$(GDAL)\port" /D "HAVE_CONFIG_H" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x407 /d "_DEBUG"
 # ADD RSC /l 0x407 /d "_DEBUG"
@@ -85,10 +85,6 @@ LIB32=link.exe -lib
 # Begin Group "Quellcodedateien"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
-# Begin Source File
-
-SOURCE=..\..\..\src\netimport\arcview\dbfopen.c
-# End Source File
 # Begin Source File
 
 SOURCE=..\..\..\src\netimport\arcview\NIArcView_Loader.cpp
@@ -580,14 +576,6 @@ SOURCE=..\..\..\src\netimport\xml\NIXMLNodesHandler.cpp
 # Begin Source File
 
 SOURCE=..\..\..\src\netimport\xml\NIXMLTypesHandler.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\netimport\arcview\shapereader.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\netimport\arcview\shpopen.c
 # End Source File
 # End Group
 # Begin Group "Header-Dateien"
@@ -1100,14 +1088,6 @@ SOURCE=..\..\..\src\netimport\xml\NIXMLNodesHandler.h
 # Begin Source File
 
 SOURCE=..\..\..\src\netimport\xml\NIXMLTypesHandler.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\netimport\arcview\shapefil.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\netimport\arcview\shapereader.h
 # End Source File
 # End Group
 # End Target
