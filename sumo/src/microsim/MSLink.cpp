@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/02/23 11:32:13  dkrajzew
+// some further work on the encapsulation of internal lanes
+//
 // Revision 1.16  2006/01/11 11:54:35  dkrajzew
 // reworked possible link states; new link coloring
 //
@@ -93,12 +96,11 @@ namespace
  * ======================================================================= */
 #ifndef HAVE_INTERNAL_LANES
 MSLink::MSLink(MSLane* succLane, bool yield,
-               LinkDirection dir, LinkState state, bool internalEnd ) // !!! subclass
+               LinkDirection dir, LinkState state) // !!! subclass
     : myLane(succLane),
     myPrio(!yield), myApproaching(0),
     myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
-    myState(state), myAmYellow(false), myDirection(dir),
-    myIsInternalEnd(internalEnd)
+    myState(state), myAmYellow(false), myDirection(dir)
 {
 }
 #else
@@ -156,9 +158,11 @@ MSLink::setPriority( bool prio, bool yellow )
 bool
 MSLink::opened() const
 {
+#ifdef HAVE_INTERNAL_LANES
     if(myIsInternalEnd) {
         return true;
     }
+#endif
     if(myRespond==0) {
         std::cout << "Buggy" << std::endl;
         return false; // !!! should never happen, was sometimes the case in possibly buggy networks

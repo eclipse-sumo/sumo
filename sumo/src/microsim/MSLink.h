@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2006/02/23 11:32:13  dkrajzew
+// some further work on the encapsulation of internal lanes
+//
 // Revision 1.16  2006/01/11 11:54:35  dkrajzew
 // reworked possible link states; new link coloring
 //
@@ -131,7 +134,7 @@ public:
 #ifndef HAVE_INTERNAL_LANES
     /// Constructor
     MSLink( MSLane* succLane,
-        bool yield, LinkDirection dir, LinkState state, bool internalEnd );
+        bool yield, LinkDirection dir, LinkState state );
 #else
     /// Constructor
     MSLink( MSLane* succLane, MSLane *via,
@@ -180,11 +183,12 @@ public:
     MSLane * const getViaLane() const;
 #endif
 
-
     bool havePriority() const;
 
 private:
+#ifdef HAVE_INTERNAL_LANES
     bool myIsInternalEnd;
+#endif
 
     /// the request to set incoming request into
     MSLogicJunction::Request *myRequest;
