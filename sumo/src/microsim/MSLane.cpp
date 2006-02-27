@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.59  2006/02/27 12:06:56  dkrajzew
+// raknet-support added
+//
 // Revision 1.58  2005/11/09 06:40:05  dkrajzew
 // removed unneeded stuff
 //
@@ -504,15 +507,7 @@ MSLane::MSLane( //MSNet &net,
     myLastState(10000, 10000),
     myFirstUnsafe(0)
 {
-        if(id=="15032778_0") {
-            int bla = 0;
-        }
-
         assert(myMaxSpeed>0);
-        /*
-    myMeanData.insert(
-        myMeanData.end(), net.getNDumpIntervalls(), MSLaneMeanDataValues() );
-        */
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -950,7 +945,16 @@ MSLane::setCritical()
         MSVehicle *p = pop();
         assert(v==p);
         MSLane *target = p->getTargetLane();
+#ifdef RAKNET_DEMO
+		int oc = v->intOC;
+		if(target->push(p)) {
+			Vehicle::removeFromClient(oc);
+		} else {
+			v->setPosition(v->position().x(), 0, v->position().y());
+		}
+#else
         target->push(p);
+#endif
     }
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     // check whether the lane is free

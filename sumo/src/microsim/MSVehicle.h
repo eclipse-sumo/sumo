@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.49  2006/02/27 12:08:15  dkrajzew
+// raknet-support added
+//
 // Revision 1.48  2006/01/09 11:53:00  dkrajzew
 // bus stops implemented
 //
@@ -329,6 +332,10 @@
 #include <map>
 #include <string>
 
+#ifdef RAKNET_DEMO
+#include <raknet_demo/vehicle.h>
+#endif
+
 
 /* =========================================================================
  * class declarations
@@ -352,6 +359,9 @@ class MSBusStop;
  * standard physical values such as the gap needed to stop.
  */
 class MSVehicle
+#ifdef RAKNET_DEMO
+  : public Vehicle
+#endif
 {
 public:
 

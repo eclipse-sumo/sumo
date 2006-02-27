@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.74  2006/02/27 12:08:14  dkrajzew
+// raknet-support added
+//
 // Revision 1.73  2006/02/23 11:31:09  dkrajzew
 // TO SS2 output added
 //
@@ -639,6 +642,9 @@ MSVehicle::MSVehicle( string id,
                       const MSVehicleType* type,
                       size_t noMeanData,
                       int repNo, int repOffset) :
+#ifdef RAKNET_DEMO
+    Vehicle(),
+#endif
     myLastLaneChangeOffset(0),
     myTarget(0),
     myWaitingTime( 0 ),
@@ -1066,6 +1072,9 @@ MSVehicle::move( MSLane* lane,
     }
     // !!! remove this! make this somewhere else!
     myLane->addMean2(vNext, length());
+#ifdef RAKNET_DEMO
+    setPosition(position().x(), 0, position().y());
+#endif
 }
 
 
@@ -1135,6 +1144,7 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
         myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
             myDoubleCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
     }
+    // !!! remove this! make this somewhere else!
 }
 
 
@@ -1339,6 +1349,11 @@ MSVehicle::moveFirstChecked()
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         DEBUG_OUT << "moveb/1:" << debug_globaltime << ": " << id() << " at " << getLane().id() << ": " << myState.myPos << ", " << myState.mySpeed << endl;
     }
+#endif
+#ifdef RAKNET_DEMO
+	if(myTarget==myLane) {
+	    setPosition(position().x(), 0, position().y());
+	}
 #endif
     assert(myTarget->length()>=myState.myPos);
 }
@@ -2124,10 +2139,8 @@ void
 MSVehicle::onDepart()
 {
     // check whether the vehicle's departure time shall be saved
-//    if( MSCORN::wished(MSCORN::CORN_VEH_REALDEPART) ) { // !!! wjt needs this
-        myDoubleCORNMap[MSCORN::CORN_VEH_REALDEPART] =
-            (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
-//    }
+    myDoubleCORNMap[MSCORN::CORN_VEH_REALDEPART] =
+        (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
     // check whether the vehicle control shall be informed
     if(MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
         MSNet::getInstance()->getVehicleControl().vehicleEmitted(this);
