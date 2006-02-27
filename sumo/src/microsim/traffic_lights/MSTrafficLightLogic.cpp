@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/02/27 12:06:17  dkrajzew
+// parameter-API and raknet-support added
+//
 // Revision 1.8  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -117,6 +120,11 @@ namespace
  * used namespaces
  * ======================================================================= */
 using namespace std;
+#ifdef RAKNET_DEMO
+Ampel *myAmpel = 0;
+std::map<std::string, int> myIDs;
+int myAmpelRunningID = 0;
+#endif
 
 
 /* =========================================================================
@@ -167,6 +175,11 @@ MSTrafficLightLogic::MSTrafficLightLogic(MSNet &net,
 {
     MSEventControl::getBeginOfTimestepEvents()->addEvent(
         new SwitchCommand(tlcontrol, this), delay, MSEventControl::ADAPT_AFTER_EXECUTION);
+#ifdef RAKNET_DEMO
+	if(myAmpel==0) {
+		myAmpel = new Ampel();
+	}
+#endif
 }
 
 
@@ -204,6 +217,11 @@ MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, size_t pos)
         myLanes.push_back(LaneVector());
     }
     myLanes[pos].push_back(lane);
+
+#ifdef RAKNET_DEMO
+	myAmpel->addTrafficLight(myIDs[id()]*1000 + pos,
+		lane->getShape().at(-1).x(), 0, lane->getShape().at(-1).y(), lane->getShape().getEndLine().atan2DegreeAngle());
+#endif
 }
 
 
@@ -340,6 +358,33 @@ MSTrafficLightLogic::onSwitch()
             i++;
         }
     }
+#ifdef RAKNET_DEMO
+    // get the current traffic light signal combination
+    const std::bitset<64> &allowedLinks = allowed();
+    const std::bitset<64> &yellowLinks = yellowMask();
+    // go through the links
+    for(size_t i=0; i<myLinks.size(); i++) {
+        // set the states for assigned links
+        if(!allowedLinks.test(i)) {
+            if(yellowLinks.test(i)) {
+                const LinkVector &currGroup = myLinks[i];
+                for(LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+					myAmpel->setTrafficLightState(myIDs[id()]*1000 + i, TRAFFIC_SIGN_YELLOW);
+                }
+            } else {
+                const LinkVector &currGroup = myLinks[i];
+                for(LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+					myAmpel->setTrafficLightState(myIDs[id()]*1000 + i, TRAFFIC_SIGN_RED);
+                }
+            }
+        } else {
+            const LinkVector &currGroup = myLinks[i];
+            for(LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+				myAmpel->setTrafficLightState(myIDs[id()]*1000 + i, TRAFFIC_SIGN_GREEN);
+            }
+        }
+    }
+#endif
 }
 
 
@@ -348,6 +393,25 @@ MSTrafficLightLogic::adaptLinkInformationFrom(const MSTrafficLightLogic &logic)
 {
     myLinks = logic.myLinks;
     myLanes = logic.myLanes;
+}
+
+
+void
+MSTrafficLightLogic::setParameter(const std::map<std::string, std::string> &params)
+{
+    int bla = params.size();
+    myParameter = params;
+}
+
+
+std::string
+MSTrafficLightLogic::getParameterValue(const std::string &key) const
+{
+    int bla = myParameter.size();
+    if(myParameter.find(key)==myParameter.end()) {
+        return "";
+    }
+    return myParameter.find(key)->second;
 }
 
 

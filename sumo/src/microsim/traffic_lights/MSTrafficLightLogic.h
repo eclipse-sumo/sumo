@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/02/27 12:06:17  dkrajzew
+// parameter-API and raknet-support added
+//
 // Revision 1.9  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -207,12 +210,18 @@ public:
 
     void adaptLinkInformationFrom(const MSTrafficLightLogic &logic);
 
+    void setParameter(const std::map<std::string, std::string> &params);
+
+    std::string getParameterValue(const std::string &key) const;
+
 protected:
     /// Adds a link on building
     void addLink(MSLink *link, MSLane *lane, size_t pos);
 
-
 protected:
+    /// given parameter
+    std::map<std::string, std::string> myParameter;
+
     /// The id of the logic
     std::string myID, mySubID;
 
