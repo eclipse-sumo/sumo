@@ -12,6 +12,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/02/27 12:12:08  dkrajzew
+// warnings removed
+//
 // Revision 1.15  2006/01/09 13:35:13  dkrajzew
 // warnings removed
 //
@@ -294,7 +297,7 @@ Line2D::rotateDegAtP1(double degs)
 {
     Position2D p = myP2;
     p.sub(myP1);
-    p.reshiftRotate(0, 0, degs*(SUMOReal) (3.1415926535897932384626433832795/180.));
+    p.reshiftRotate(0, 0, (SUMOReal) (degs*3.1415926535897932384626433832795/180.));
     p.add(myP1);
     myP2 = p;
 }
