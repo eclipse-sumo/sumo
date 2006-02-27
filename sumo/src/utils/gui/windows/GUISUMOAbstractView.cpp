@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/02/27 12:12:37  dkrajzew
+// code beautifying
+//
 // Revision 1.15  2006/02/23 11:37:55  dkrajzew
 // adding pois on the gui implemented (Danilot Tete Boyom)
 //
@@ -1185,7 +1188,7 @@ GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
     }
 	RGBColor color = polygon.getColor();
 	glColor3d(color.red(), color.green(), color.blue());
-	double *bla = new double[polygon.getPosition2DVector().size()*3];
+	double *points = new double[polygon.getPosition2DVector().size()*3];
 	GLUtesselator *tobj = gluNewTess();
 	gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid (CALLBACK*) ()) &glVertex3dv);
 	gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid (CALLBACK*) ()) &beginCallback);
@@ -1196,22 +1199,22 @@ GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
 	gluTessBeginPolygon(tobj, NULL);
 		gluTessBeginContour(tobj);
         for(int i=0; i!=polygon.getPosition2DVector().size(); ++i) {
-            bla[3*i]  = polygon.getPosition2DVector().at(i).x();
-            bla[3*i+1]  = polygon.getPosition2DVector().at(i).y();
-            bla[3*i+2]  = 0;
+            points[3*i]  = polygon.getPosition2DVector().at(i).x();
+            points[3*i+1]  = polygon.getPosition2DVector().at(i).y();
+            points[3*i+2]  = 0;
             glvert[0] = polygon.getPosition2DVector().at(i).x();
             glvert[1] = polygon.getPosition2DVector().at(i).y();
             glvert[2] = 0;
             glvert[3] = 1;
             glvert[4] = 1;
             glvert[5] = 1;
-			gluTessVertex( tobj, bla+3*i, bla+3*i) ;
+			gluTessVertex( tobj, points+3*i, points+3*i) ;
         }
 		gluTessEndContour(tobj);
 
 	gluTessEndPolygon(tobj);
 	gluDeleteTess(tobj);
-	delete[] bla;
+	delete[] points;
 
     if(_useToolTips) {
         glPopName();

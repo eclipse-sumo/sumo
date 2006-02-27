@@ -270,7 +270,6 @@ void
 MFXAddEditTypedTable::cancelInput()
 {
     if(editor){
-        int bla = 0;
         delete editor;
         input.fm.row=-1;
         input.to.row=-1;
@@ -510,7 +509,6 @@ MFXAddEditTypedTable::onLeftBtnPress(FXObject*,FXSelector,void* ptr)
 long
 MFXAddEditTypedTable::onClicked(FXObject*o,FXSelector sel,void* ptr)
 {
-    int bla = 0;
     if(editor){
         delete editor;
         input.fm.row=-1;

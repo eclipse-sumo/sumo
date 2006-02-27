@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/02/27 12:09:11  dkrajzew
+// code beautifying
+//
 // Revision 1.24  2006/01/09 11:58:37  dkrajzew
 // new visualization settings implemented
 //
@@ -956,8 +959,6 @@ GNEApplicationWindow::onCmdSaveEdgesNodes(FXObject*,FXSelector,void*)
         //setCurrentPattern(savedialog.getCurrentPattern());
 		FXString file = savedialog.getFilename();
         string filestr = file.text();
-
-        size_t bla1 = filestr.rfind(".nod.xml");
 
         // prune the postfix
         if( filestr.rfind(".nod.xml")==filestr.length()-8
