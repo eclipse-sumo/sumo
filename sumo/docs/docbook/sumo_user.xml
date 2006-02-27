@@ -5586,6 +5586,191 @@
       public transport etc. The structures are normally defined within
       additional files.</para>
 
+      <sect2 id="user_chp06-output-detectors">
+        <title>Traffic Lights</title>
+
+        <para>Normally, <application>NETCONVERT</application> will generate
+        traffic lights and programs for junctions during the computation of
+        the networks. Still, these computed programs differ quite often from
+        those found in reality. To feed the simulation with traffic light
+        programs from the reality, it is possible to load additional programs
+        since version 0.9.4. Furthermore, one can describe when and how a set
+        of traffic lights can switch from one program to another. Both will be
+        discussed in the following subchapters.</para>
+
+        <para>Handling of traffic lights is not yet very user friendly.
+        Besides the following descriptions, a further document, "<ulink
+        url="http://sumo.sourceforge.net/docs/gen/sumo_moreon_tls.shtml">SUMO
+        - More on... Traffic Lights</ulink>", exists which describes the usage
+        of traffic lights more deeply.</para>
+
+        <sect3 id="user_chp06-output-detectors-e1">
+          <title>Adding new Programs</title>
+
+          <para>Since version 0.9.4 you may attach a new program to a tls
+          after the network has been loaded. Defining a tls program is not
+          that straightforward, yet. If you are definitely interested in this,
+          we advice you to read the "<ulink
+          url="http://sumo.sourceforge.net/docs/gen/sumo_moreon_tls.shtml">SUMO
+          - More on... Traffic Lights</ulink>" document where the format is
+          described. Basically, a tls program definition looks like
+          this:</para>
+
+          <para><programlisting format="linespecific"
+          linenumbering="unnumbered"><sgmltag>&lt;tl-logic type="static"&gt;</sgmltag>
+   <sgmltag>&lt;key&gt;</sgmltag>0<sgmltag>&lt;/key&gt;</sgmltag>
+   <sgmltag>&lt;subkey&gt;</sgmltag>0<sgmltag>&lt;/subkey&gt;</sgmltag>
+   <sgmltag>&lt;phaseno&gt;</sgmltag>8<sgmltag>&lt;/phaseno&gt;</sgmltag>
+   <sgmltag>&lt;offset&gt;</sgmltag>0<sgmltag>&lt;/offset&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="20" phase="0000111100001111" brake="1111110011111100" yellow="0000000000000000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="4" phase="0000110000001100" brake="1111111111111111" yellow="0000001100000011"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="3" phase="0000110000001100" brake="1111001111110011" yellow="0000000000000000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="0000110000001100"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="20" phase="1111000011110000" brake="1100111111001111" yellow="0000000000000000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="4" phase="1100000011000000" brake="1111111111111111" yellow="0011000000110000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="3" phase="1100000011000000" brake="0011111100111111" yellow="0000000000000000"/&gt;</sgmltag>
+   <sgmltag>&lt;phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="1100000011000000"/&gt;</sgmltag>
+<sgmltag>&lt;/tl-logic&gt;</sgmltag></programlisting></para>
+
+          <para>After you have defined a tls program, you can add it to one of
+          your additional files. You may load several programs for a single
+          tls into the simulation. The program loaded as last will be used
+          (unless not defined using a WAUT description, see below). Please
+          remark, that all subkeys of your programs must differ if they
+          describe the same tls.</para>
+
+          <para>Recent changes:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para>Loading of additional tls programs is implemented since
+              version 0.9.4</para>
+            </listitem>
+
+            <listitem>
+              <para>The <sgmltag>inclanes</sgmltag> tag has been removed from
+              the network description since version 0.9.4</para>
+            </listitem>
+
+            <listitem>
+              <para>The tag <sgmltag>keyno</sgmltag> has been renamed to
+              <sgmltag>subkey</sgmltag> since version 0.9.4</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+
+        <sect3 id="user_chp06-output-detectors-e23">
+          <title>Defining the switch Times and Procedure</title>
+
+          <para>In the reality, a tls often uses different programs during a
+          day and maybe also for weekdays and for the weekend days. Since
+          version 0.9.4 you can define switch times between the programs using
+          a WAUT (I am very sorry, but I do not know the English word for WAUT
+          - this may be a matter of change).</para>
+
+          <para>Let's assume we would have a tls which knows four programs -
+          two for weekdays and two for weekend days where from 22.00 till 6.00
+          the night plan shall be used and from 6.00 till 22.00 the day plan.
+          We'll give these programs the names "weekday_night", "weekday_day",
+          "weekend_night", "weekend_day". To describe the switch process, we
+          have to describe the switch at first, assuming our simulation runs
+          from monday 0.00 (second 0) to monday 0.00 (second 604800):</para>
+
+          <para><programlisting format="linespecific"
+          linenumbering="unnumbered"><sgmltag>&lt;WAUT refTime="0" id="myWAUT" startProg="weekday_night"&gt;</sgmltag>
+   <sgmltag>&lt;wautSwitch time="21600" to="weekday_day"/&gt;</sgmltag>    &lt;!-- monday, 6.00 --&gt;
+   <sgmltag>&lt;wautSwitch time="79200" to="weekday_night"/&gt;</sgmltag>  &lt;!-- monday, 22.00 --&gt;
+   <sgmltag>&lt;wautSwitch time="108000" to="weekday_day"/&gt;</sgmltag>   &lt;!-- tuesday, 6.00 --&gt;
+... further weekdays ...
+   <sgmltag>&lt;wautSwitch time="453600" to="weekend_day"/&gt;</sgmltag>   &lt;!-- saturday, 6.00 --&gt;
+... the weekend days ...
+<sgmltag>&lt;/WAUT&gt;</sgmltag></programlisting></para>
+
+          <para>The fields in <sgmltag>WAUT</sgmltag> have the following
+          meanings:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><sgmltag>refTime</sgmltag>: A reference time which is used
+              as offset to the switch times given later (in simulation
+              seconds)</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>id</sgmltag>: The name of the defined WAUT</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>startProg</sgmltag>: The program that will be
+              used at the simulation's begin</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>and the fields in <sgmltag>wautSwitch</sgmltag>:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><sgmltag>time</sgmltag>: The time the switch will take
+              place</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>to</sgmltag>: The name of the program the
+              assigned tls shall switch to</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Of course, programs with the used names must be defined before
+          this definition is read. Also, the time must be sorted.</para>
+
+          <para>Additionally, we have to define which tls shall be switched by
+          the WAUT. This is done as following:</para>
+
+          <para><programlisting format="linespecific"
+          linenumbering="unnumbered"><sgmltag>&lt;wautJunction wautID="myWAUT" junctionID="RCAS" [procedure="Stretch"] [synchron="t"]/&gt;</sgmltag>
+</programlisting></para>
+
+          <para>Here, the attributes have the following meaning:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><sgmltag>wautID</sgmltag>: The id of the WAUT the tls
+              shall be switched by</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>junctionID</sgmltag>: The name of the tls to
+              assign to the WAUT</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>procedure</sgmltag>: The switching algorithm to
+              use; If none is given, the programs will switch immediately
+              (default)</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>synchron</sgmltag>: Additional information
+              whether the switch shall be done synchron (default:
+              false)</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>You may assign several tls to a single WAUT. YOu may also
+          assign several WAUTs to a single junction in theory, but this is not
+          done in reality. The switching procedures are currently under
+          development.</para>
+
+          <para>Recent changes:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>WAUTs are implemented since version 0.9.4</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
+      </sect2>
+
       <sect2 id="user_chp06-trigger-public">
         <title>Public Transport</title>
 

@@ -39,7 +39,7 @@
 		<div class="SUMOMainText">
 <!-- Text area here -->
 <center>
-	<h1>SUMO - Simulation of Urban MObility</h1>
+	<h1>SUMO - <u>S</u>imulation of <u>U</u>rban <u>MO</u>bility</h1>
 	<h2>An open source traffic simulation package</h2>
 </center>
 <p></p>

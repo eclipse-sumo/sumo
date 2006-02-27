@@ -27,12 +27,42 @@
   <chapter id="more_tests">
     <title>Introduction</title>
 
-    <para>Since version 0.9.3 we support some basic tests which prove the
-    software functionality. The number of the available tests is not that
-    large, yet, but it will hopefuly grow with time. Ths chapter describes how
-    to set up the testing system and how to use it.</para>
+    <sect1>
+      <title>Document Information</title>
 
-    <para><emphasis>Audience:</emphasis> developers</para>
+      <para>This document is a part of <emphasis>SUMO</emphasis> -
+      <emphasis>S</emphasis>imulation of <emphasis>U</emphasis>rban
+      <emphasis>MO</emphasis>bility. SUMO is an open source microscopic road
+      traffic simulation. It can be found under <ulink
+      url="http://sumo.sourceforge.net/">http://sumo.sourceforge.net/</ulink>.</para>
+
+      <para>This document fits to version 0.9.4 We will try to keep it
+      up-to-date with the next versions.</para>
+    </sect1>
+
+    <sect1>
+      <title>Document Scope</title>
+
+      <para>Since version 0.9.3 we support some basic tests which prove the
+      software functionality. The number of the available tests is not that
+      large, yet, but it will hopefuly grow with time. Ths chapter describes
+      how to set up the testing system and how to use it.</para>
+    </sect1>
+
+    <sect1>
+      <title>Document Audience</title>
+
+      <para>This document contains information for
+      <emphasis>developers</emphasis> who extend SUMO and want to assure their
+      changes work properly.</para>
+    </sect1>
+
+    <sect1>
+      <title>Document Structure</title>
+
+      <para>At first, the acceptance tests that come with the package are
+      described.</para>
+    </sect1>
   </chapter>
 
   <chapter>

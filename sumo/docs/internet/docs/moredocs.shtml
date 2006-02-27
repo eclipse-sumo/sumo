@@ -34,13 +34,15 @@
 <!-- Text area here -->
 
 <center>
-	<h2>Documentation - More On...</h2>
+	<h2>Documentation - More Inormation</h2>
 </center>
 
 <p>
 Here, you may find some additional information about SUMO structures.
+The <b>"More On..."</b>-chapters describe some subsystems and structures more deeply while the <b>"HowTos"</b> are brief descriptions how extensions can be made.<br>
 </p>
-<table border="1" cellpadding="5">
+<p>
+<table border="1" cellpadding="2" width="100%">
 	<tr>
 		<th valign="top">Document</th>
 		<th valign="top">Contents</th>
@@ -62,11 +64,20 @@ Here, you may find some additional information about SUMO structures.
 		<td valign="top"><i>Developer</i></td>
 	</tr>
 </table>
-<ul>
-    <li>
-    <a href="gen/more_tls.shtml" class="SUMOInLineLink">More On... Traffic Lights</a><br>
-    This will give you some more information about ths implementation, handling and possible of traffic lights in SUMO.<br><br>
-</ul>
+</p>
+<p>
+<table border="1" cellpadding="2" width="100%">
+	<tr>
+		<th valign="top">Document</th>
+		<th valign="top">Contents</th>
+		<th valign="top">Audience</th>
+	</tr>
+	<tr>
+		<td valign="top"><pre><a href="gen/sumo_howto_global_output_file.shtml" class="SUMOInLineLink">HowTo... Add a global output File</a></pre></td>
+		<td valign="top">Description how an optional output file can be added to the simulation</td>
+		<td valign="top"><i>Developer</i></td>
+	</tr>
+</table>
 </p>
 
 
