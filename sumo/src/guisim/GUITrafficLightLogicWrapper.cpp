@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/02/27 12:03:22  dkrajzew
+// variants container named properly
+//
 // Revision 1.10  2006/02/23 11:27:56  dkrajzew
 // tls may have now several programs
 //
@@ -186,7 +189,7 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
         GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
     new FXMenuSeparator(ret);
     //
-    const MSTLLogicControl::Variants &vars = myTLLogicControl.get(myTLLogic.id());
+    const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.id());
     std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
     size_t index = 0;
     for(i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {
@@ -283,7 +286,7 @@ GUITrafficLightLogicWrapper::getCenteringBoundary() const
 void
 GUITrafficLightLogicWrapper::switchTLSLogic(int to)
 {
-    const MSTLLogicControl::Variants &vars = myTLLogicControl.get(myTLLogic.id());
+    const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.id());
     std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
     size_t index = 0;
     for(i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {

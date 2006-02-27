@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/02/27 12:03:23  dkrajzew
+// variants container named properly
+//
 // Revision 1.6  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -79,8 +82,9 @@ class Command_SaveTLCoupledDet : public DiscreteCommand
 public:
     /// Constructor
     Command_SaveTLCoupledDet(
-        const MSTLLogicControl::Variants &tlls,
-        MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice *device);
+        const MSTLLogicControl::TLSLogicVariants &tlls,
+        MSDetectorFileOutput *dtf, unsigned int begin,
+        OutputDevice *device);
 
     /// Destructor
     virtual ~Command_SaveTLCoupledDet();
@@ -93,7 +97,7 @@ protected:
     OutputDevice *myDevice;
 
     /// The logic to use
-    const MSTLLogicControl::Variants &myLogics;
+    const MSTLLogicControl::TLSLogicVariants &myLogics;
 
     /// The detector to use
     MSDetectorFileOutput *myDetector;

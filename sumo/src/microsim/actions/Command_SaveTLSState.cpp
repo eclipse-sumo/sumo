@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/02/27 12:03:23  dkrajzew
+// variants container named properly
+//
 // Revision 1.8  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -77,7 +80,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 Command_SaveTLSState::Command_SaveTLSState(
-            const MSTLLogicControl::Variants &logics,
+            const MSTLLogicControl::TLSLogicVariants &logics,
             const std::string &file)
     : myLogics(logics)
 {

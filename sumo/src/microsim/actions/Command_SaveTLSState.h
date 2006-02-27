@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/02/27 12:03:23  dkrajzew
+// variants container named properly
+//
 // Revision 1.6  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -72,7 +75,7 @@ class Command_SaveTLSState : public Command
 {
 public:
     /// Constructor
-    Command_SaveTLSState(const MSTLLogicControl::Variants &logics,
+    Command_SaveTLSState(const MSTLLogicControl::TLSLogicVariants &logics,
         const std::string &file);
 
     /// Destructor
@@ -86,7 +89,7 @@ private:
     std::ofstream myFile;
 
     /// The traffic light logic to use
-    const MSTLLogicControl::Variants &myLogics;
+    const MSTLLogicControl::TLSLogicVariants &myLogics;
 
     /// The time this action is executed
     SUMOTime myExecTime;

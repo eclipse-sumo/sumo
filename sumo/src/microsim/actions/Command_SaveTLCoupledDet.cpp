@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/02/27 12:03:23  dkrajzew
+// variants container named properly
+//
 // Revision 1.7  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -77,16 +80,15 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 Command_SaveTLCoupledDet::Command_SaveTLCoupledDet(
-            const MSTLLogicControl::Variants &tlls,
+            const MSTLLogicControl::TLSLogicVariants &tlls,
             MSDetectorFileOutput *dtf, unsigned int begin,
             OutputDevice *device)
     : myLogics(tlls), myDetector(dtf), myDevice(device),
     myStartTime(begin)
 {
-    throw 1;
-    /* !!!
-    tlls->addSwitchAction(this);
-    */
+    for(std::map<std::string, MSTrafficLightLogic*>::const_iterator i=tlls.ltVariants.begin(); i!=tlls.ltVariants.end(); ++i) {
+        (*i).second->addSwitchAction(this);
+    }
 }
 
 

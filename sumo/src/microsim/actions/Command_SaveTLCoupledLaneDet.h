@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/02/27 12:03:23  dkrajzew
+// variants container named properly
+//
 // Revision 1.5  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -66,7 +69,7 @@ class Command_SaveTLCoupledLaneDet : public Command_SaveTLCoupledDet
 public:
     /// Constructor
     Command_SaveTLCoupledLaneDet(
-        const MSTLLogicControl::Variants &tlls,
+        const MSTLLogicControl::TLSLogicVariants &tlls,
         MSDetectorFileOutput *dtf,
         unsigned int begin, OutputDevice *device, MSLink *link);
 
