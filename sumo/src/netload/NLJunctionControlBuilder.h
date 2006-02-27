@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.17  2006/02/27 12:10:41  dkrajzew
+// WAUTs added
+//
 // Revision 1.16  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -220,7 +223,7 @@ public:
     void setOffset(int val);
 
     /// Returns a previously build logic
-    const MSTLLogicControl::Variants &getTLLogic(const std::string &id) const;
+    const MSTLLogicControl::TLSLogicVariants &getTLLogic(const std::string &id) const;
 
     /// Returns the complete tls-logic control
     MSTLLogicControl *buildTLLogics() const;
@@ -237,6 +240,10 @@ public:
 
     void addParam(const std::string &key, const std::string &value);
 
+    void addWAUT(SUMOTime refTime, const std::string &id, const std::string &startProg);
+    void addWAUTSwitch(const std::string &wautid, SUMOTime when, const std::string &to);
+    void addWAUTJunction(const std::string &wautid, const std::string &junc,
+        const std::string &proc, bool synchron);
 
 protected:
     /** @brief adds an information about the initialisation of a tls
@@ -324,8 +331,6 @@ protected:
     /// A definition of junction initialisation
     struct TLInitInfo {
         MSExtendedTrafficLightLogic *logic;
-        LaneVector lanes;
-        SUMOReal det_offset;
         std::map<std::string, std::string> params;
     };
 

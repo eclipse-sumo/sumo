@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/02/27 12:10:41  dkrajzew
+// WAUTs added
+//
 // Revision 1.9  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -283,7 +286,7 @@ NLHandler::myStartElement(int element, const std::string &name,
         }
     }
     // check junction logics
-    if(wanted(LOADFILTER_LOGICS)) {
+//    if(wanted(LOADFILTER_LOGICS)) {
         switch(element) {
         case SUMO_TAG_ROWLOGIC:
             myJunctionControlBuilder.initJunctionLogic();
@@ -297,7 +300,18 @@ NLHandler::myStartElement(int element, const std::string &name,
         default:
             break;
         }
-    }
+//    }
+        // !!!
+        if(name=="WAUT") {
+            openWAUT(attrs);
+        }
+        if(name=="wautSwitch") {
+            addWAUTSwitch(attrs);
+        }
+        if(name=="wautJunction") {
+            addWAUTJunction(attrs);
+        }
+        // !!!!
     // process detectors when wished
     if(wanted(LOADFILTER_NETADD)) {
         switch(element) {
@@ -344,13 +358,13 @@ NLHandler::addParam(const Attributes &attrs)
 {
     string key, val;
     try {
-        key = getString(attrs, SUMO_ATTR_KEY);
+        key = getString(attrs, "key");
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing key for a parameter.");
         return;
     }
     try {
-        val = getString(attrs, SUMO_ATTR_KEY);
+        val = getString(attrs, "value");
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing value for a parameter.");
         return;
@@ -361,6 +375,80 @@ NLHandler::addParam(const Attributes &attrs)
         assert(val!="");
         myJunctionControlBuilder.addParam(key, val);
     }
+}
+
+
+void
+NLHandler::openWAUT(const Attributes &attrs)
+{
+    SUMOTime t;
+    std::string id, pro;
+    try {
+        id = getString(attrs, SUMO_ATTR_ID);
+    } catch(EmptyData&) {
+        MsgHandler::getErrorInstance()->inform("Missing id for a WAUT (attribute 'id').");
+        return;
+    }
+    try {
+        t = getIntSecure(attrs, "refTime", 0);
+    } catch(NumberFormatException&) {
+        MsgHandler::getErrorInstance()->inform("The reference time for WAUT '" + id + "' is not numeric.");
+        return;
+    }
+    try {
+        pro = getString(attrs, "startProg");
+    } catch(EmptyData&) {
+        MsgHandler::getErrorInstance()->inform("Missing start program for WAUT '" + id + "'.");
+        return;
+    }
+    myCurrentWAUTID = id;
+    myJunctionControlBuilder.addWAUT(t, id, pro);
+}
+
+
+void
+NLHandler::addWAUTSwitch(const Attributes &attrs)
+{
+    SUMOTime t;
+    std::string to;
+    try {
+        t = getInt(attrs, SUMO_ATTR_TIME);
+    } catch(NumberFormatException&) {
+        MsgHandler::getErrorInstance()->inform("The reference time for WAUT '" + myCurrentWAUTID + "' is not numeric.");
+        return;
+    } catch(EmptyData&) {
+        MsgHandler::getErrorInstance()->inform("Missing reference time for WAUT '" + myCurrentWAUTID + "'.");
+        return;
+    }
+    try {
+        to = getString(attrs, SUMO_ATTR_TO);
+    } catch(EmptyData&) {
+        MsgHandler::getErrorInstance()->inform("Missing destination program for WAUT '" + myCurrentWAUTID + "'.");
+        return;
+    }
+    myJunctionControlBuilder.addWAUTSwitch(myCurrentWAUTID, t, to);
+}
+
+
+void
+NLHandler::addWAUTJunction(const Attributes &attrs)
+{
+    std::string wautID, junctionID, procedure;
+    try {
+        wautID = getString(attrs, "wautID");
+    } catch(EmptyData&) {
+        MsgHandler::getErrorInstance()->inform("Missing WAUT id in wautJunction.");
+        return;
+    }
+    try {
+        junctionID = getString(attrs, "junctionID");
+    } catch(EmptyData&) {
+        MsgHandler::getErrorInstance()->inform("Missing junction id in wautJunction.");
+        return;
+    }
+    procedure = getStringSecure(attrs, "procedure", "");
+    bool synchron = getBoolSecure(attrs, "synchron", false);
+    myJunctionControlBuilder.addWAUTJunction(wautID, junctionID, procedure, synchron);
 }
 
 
@@ -783,7 +871,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
     }
     // check whether this is a lsa-based detector or one that uses a sample
     //  interval
-    MSTLLogicControl::Variants tll;
+    MSTLLogicControl::TLSLogicVariants tll;
     try {
         string lsaid = getString(attrs, SUMO_ATTR_TLID);
         tll = myJunctionControlBuilder.getTLLogic(lsaid);
@@ -1090,9 +1178,6 @@ void
 NLHandler::myCharacters(int element, const std::string &name,
                                 const std::string &chars)
 {
-    if(element==SUMO_TAG_SUBKEY) {
-        int bla = 0;
-    }
     // check static net information
     if(wanted(LOADFILTER_NET)) {
         switch(element) {
@@ -1369,6 +1454,11 @@ NLHandler::myEndElement(int element, const std::string &name)
             break;
         }
     }
+        // !!!
+        if(name=="WAUT") {
+            closeWAUT();
+        }
+        // !!!!
     if(wanted(LOADFILTER_NETADD)) {
         switch(element) {
         case SUMO_TAG_E3DETECTOR:
@@ -1472,6 +1562,13 @@ NLHandler::endE3Detector()
         MsgHandler::getErrorInstance()->inform(e.msg());
     } catch (ProcessError) {
     }
+}
+
+
+void
+NLHandler::closeWAUT()
+{
+    myCurrentWAUTID = "";
 }
 
 

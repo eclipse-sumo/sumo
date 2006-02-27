@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/02/27 12:10:41  dkrajzew
+// WAUTs added
+//
 // Revision 1.4  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -279,6 +282,8 @@ protected:
     /// Closes the process of the connections between edges
     virtual void closeAllowedEdge();
 
+
+
 protected:
     /// The net to fill (preinitialised)
     MSNet &myNet;
@@ -352,6 +357,11 @@ private:
 #endif
 
 
+    virtual void openWAUT(const Attributes &attrs);
+    void addWAUTSwitch(const Attributes &attrs);
+    void addWAUTJunction(const Attributes &attrs);
+
+
     /// allocates edges from the initial list
     void allocateEdges(const std::string &chars);
 
@@ -387,6 +397,8 @@ private:
 
     /// ends the processing of a junction
     virtual void closeJunction();
+
+    void closeWAUT();
 
     /// closes the processing of a lane
     void closeSuccLane();
@@ -451,7 +463,11 @@ protected:
     /// Edge continuations
     MSEdgeContinuations myContinuations;
 
+    /// internal information whether a tls-logic is currently read
     bool myAmInTLLogicMode;
+
+    /// The id of the currently processed WAUT
+    std::string myCurrentWAUTID;
 
 
 private:

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.72  2006/02/27 12:07:33  dkrajzew
+// WAUTs added
+//
 // Revision 1.71  2006/02/23 11:31:09  dkrajzew
 // TO SS2 output added
 //
@@ -751,6 +754,9 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
 
     // Vehicles change Lanes (maybe)
     myEdges->changeLanes();
+
+    // check whether the tls shall be switched
+    myLogics->check2Switch();
 
     if(MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions( step );

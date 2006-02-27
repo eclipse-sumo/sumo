@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/02/27 12:10:41  dkrajzew
+// WAUTs added
+//
 // Revision 1.21  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -344,7 +347,7 @@ NLJunctionControlBuilder::initIncomingLanes()
 }
 
 
-const MSTLLogicControl::Variants &
+const MSTLLogicControl::TLSLogicVariants &
 NLJunctionControlBuilder::getTLLogic(const std::string &id) const
 {
     return getTLLogicControlToUse().get(id);
@@ -356,9 +359,8 @@ NLJunctionControlBuilder::addJunctionInitInfo(MSExtendedTrafficLightLogic *tl)
 {
     TLInitInfo ii;
     ii.logic = tl;
-    ii.lanes = getIncomingLanes();
-    ii.det_offset = myDetectorOffset;
     ii.params = myAdditionalParameter;
+    ii.params["detector_offset"] = toString(myDetectorOffset);
     myJunctions2PostLoadInit.push_back(ii);
 }
 
@@ -396,6 +398,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic()
             new MSSimpleTrafficLightLogic(myNet, getTLLogicControlToUse(),
                 myActiveKey, myActiveSubKey,
                 myActivePhases, step, firstEventOffset);
+        tlLogic->setParameter(myAdditionalParameter);
     }
     myActivePhases.clear();
     if(tlLogic!=0) {
@@ -586,7 +589,8 @@ NLJunctionControlBuilder::closeJunctions(NLDetectorBuilder &db,
                                          const MSEdgeContinuations &edgeContinuations)
 {
     for(std::vector<TLInitInfo>::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
-        (*i).logic->init(db, (*i).lanes, edgeContinuations, (*i).det_offset);
+        (*i).logic->setParameter((*i).params);
+        (*i).logic->init(db, edgeContinuations);
     }
 }
 
@@ -616,6 +620,38 @@ NLJunctionControlBuilder::getTLLogicControlToUse() const
         return *myLogicControl;
     }
     return myNet.getTLSControl();
+}
+
+
+
+void
+NLJunctionControlBuilder::addWAUT(SUMOTime refTime, const std::string &id,
+                                  const std::string &startProg)
+{
+    if(!getTLLogicControlToUse().addWAUT(refTime, id, startProg)) {
+        MsgHandler::getErrorInstance()->inform("WAUT '" + id + "' was already defined.");
+    }
+}
+
+
+void
+NLJunctionControlBuilder::addWAUTSwitch(const std::string &wautid,
+                                        SUMOTime when, const std::string &to)
+{
+    if(!getTLLogicControlToUse().addWAUTSwitch(wautid, when, to)) {
+        MsgHandler::getErrorInstance()->inform("WAUT '" + wautid + "' was not defined.");
+    }
+}
+
+
+void
+NLJunctionControlBuilder::addWAUTJunction(const std::string &wautid,
+                                          const std::string &junc,
+                                          const std::string &proc, bool sync)
+{
+    if(!getTLLogicControlToUse().addWAUTJunction(wautid, junc, proc, sync)) {
+        MsgHandler::getErrorInstance()->inform("WAUT '" + wautid + "' or tls '" + junc + "' was not defined.");
+    }
 }
 
 
