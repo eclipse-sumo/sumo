@@ -28,12 +28,14 @@ struct DFRORouteDesc {
     std::string routename;
     float duration;
     float distance;
-	std::vector<std::pair<SUMOReal, SUMOReal> > myProbabilities;
+//	std::vector<std::pair<SUMOReal, SUMOReal> > myProbabilities;
 	int passedNo;
 	const ROEdge *endDetectorEdge;
 	const ROEdge *lastDetectorEdge;
     float distance2Last;
     SUMOTime duration2Last;
+
+    float overallProb;
 
 };
 

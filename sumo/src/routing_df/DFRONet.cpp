@@ -1,5 +1,3 @@
-#include "DFRONet.h"
-#include <routing_df/DFDetector.h>
 
 /* =========================================================================
  * compiler pragmas
@@ -9,6 +7,9 @@
 
 
 #include <iostream>
+#include <map>
+#include <vector>
+#include "DFRONet.h"
 #include <routing_df/DFDetector.h>
 #include <routing_df/DFRORouteDesc.h>
 
@@ -212,12 +213,27 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
 						  std::vector<ROEdge*> &seen) const
 {
     priority_queue<DFRORouteDesc*, vector<DFRORouteDesc*>, DFRouteDescByTimeComperator> toSolve;
+    std::map<ROEdge*, std::vector<ROEdge*> > dets2Follow;
+    dets2Follow[edge] = std::vector<ROEdge*>();
 	base->passedNo = 0;
 	toSolve.push(base);
 	while(!toSolve.empty()) {
 		DFRORouteDesc *current = toSolve.top();
 		toSolve.pop();
 		ROEdge *last = *(current->edges2Pass.end()-1);
+
+        if(hasDetector(last)) {
+            if(dets2Follow.find(last)==dets2Follow.end()) {
+                dets2Follow[last] = std::vector<ROEdge*>();
+            }
+            for(std::vector<ROEdge*>::reverse_iterator i=current->edges2Pass.rbegin()+1; i!=current->edges2Pass.rend(); ++i) {
+                if(hasDetector(*i)) {
+                    dets2Follow[*i].push_back(last);
+                    break;
+                }
+            }
+        }
+
 		// do not process an edge twice
 		if(find(seen.begin(), seen.end(), last)!=seen.end()) {
 			// ... but keep the way to it
@@ -244,14 +260,14 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
 					// -> let's add this edge and the following, but not any further
 					addNextNoFurther = true;
 					current->lastDetectorEdge = last;
-                    current->duration2Last = current->duration;
+                    current->duration2Last = (SUMOTime) current->duration;
                     current->distance2Last = current->distance;
 					current->endDetectorEdge = last;
 				} else {
 					// ... if it's an in-between-detector
 					// -> mark the current route as to be continued
 					current->passedNo = 0;
-                    current->duration2Last = current->duration;
+                    current->duration2Last = (SUMOTime) current->duration;
                     current->distance2Last = current->distance;
 					current->lastDetectorEdge = last;
 				}
@@ -304,6 +320,119 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
 			}
 		}
 	}
+    into.setDets2Follow(dets2Follow);
+    /*
+    // ok, we have built the routes;
+    //  now, we have to compute the relationships between them
+	const std::vector<DFRORouteDesc*> &routes = into.get();
+    if(routes.empty()) {
+        return;
+    }
+        // build a tree of routes
+    tree<ROEdge*> routesTree;
+    map<ROEdge*, std::vector<DFRORouteDesc*> > edges2Routes;
+    {
+        routesTree.insert(routes[0]->edges2Pass[0]);
+        edges2Routes[routes[0]->edges2Pass[0]] = std::vector<DFRORouteDesc*>();
+        for(std::vector<DFRORouteDesc*>::const_iterator i=routes.begin(); i!=routes.end(); ++i) {
+            DFRORouteDesc *c = *i;
+            tree<ROEdge*>::iterator k = routesTree.begin();
+            edges2Routes[routes[0]->edges2Pass[0]].push_back(c);
+            for(std::vector<ROEdge*>::const_iterator j=c->edges2Pass.begin()+1; j!=c->edges2Pass.end(); ++j) {
+                tree<ROEdge*>::iterator l = (*k).find(*j);
+                if(l==(*k).end()) {
+                    k = (*k).insert(*j);
+                } else {
+                    k = l;
+                }
+                if(edges2Routes.find(*j)==edges2Routes.end()) {
+                    edges2Routes[*j] = std::vector<DFRORouteDesc*>();
+                }
+                edges2Routes[*j].push_back(*i);
+            }
+        }
+    }
+        // travel the tree and compute the distributions of routes
+            // mark first detectors on edges?
+    {
+        std::vector<ROEdge*> solved;
+        std::vector<tree<ROEdge*>::iterator> toSolve;
+        std::map<ROEdge*, std::vector<ROEdge*> > split2Dets;
+        toSolve.push_back(routesTree.begin());
+        while(!toSolve.empty()) {
+            tree<ROEdge*>::iterator i = toSolve.back();
+            toSolve.pop_back();
+            if((*i).size()==1) {
+                toSolve.push_back((*i).begin());
+                continue;
+            }
+            if((*i).size()==0) {
+                // ok, we have found the end, let's move backwards
+                ROEdge *lastWithDetector = 0;
+                tree<ROEdge*> *parent = (*i).parent();
+                tree<ROEdge*> *current = &(*i);
+                while(parent!=0) {
+                    ROEdge *currentEdge = *(current->get());
+                    if(hasDetector(currentEdge)) {
+                        lastWithDetector = currentEdge;
+                    }
+                    current = parent;
+                    parent = current->parent();
+                    if(parent->size()>1) {
+                        if(split2Dets.find(*(parent->get()))==split2Dets.end()) {
+                            split2Dets[*(parent->get())] = std::vector<ROEdge*>();
+                        }
+                        split2Dets[*(parent->get())].push_back(currentEdge);
+                    }
+                }
+            }
+            if((*i).size()>1) {
+                tree<ROEdge*>::iterator j;
+                for(j=(*i).begin(); j!=(*i).end(); ++j) {
+                    toSolve.push_back(j);
+                }
+            }
+        }
+        /*
+        std::vector<tree<ROEdge*>::iterator> toSolve;
+        // a map of (unsolved) edges to the list of solving edges
+        std::map<ROEdge*, std::vector<std::pair<ROEdge*, bool> > > split2Dets;
+        std::map<ROEdge*, ROEdge*> dets2Split;
+        toSolve.push_back(routesTree.begin());
+        while(!toSolve.empty()) {
+            tree<ROEdge*>::iterator i = toSolve.back();
+            ROEdge *c = *(i->get());
+            if(dets2Split.find(c)!=dets2Split.end()&&hasDetector(c)) {
+                std::vector<std::pair<ROEdge*, bool> >::iterator l;
+                for(l=split2Dets[dets2Split[c]].begin(); l!=split2Dets[dets2Split[c]].end(); ++l) {
+                    if((*l).first==c) {
+                        (*l).second = true;
+                        break;
+                    }
+                }
+            }
+            toSolve.pop_back();
+            if((*i).size()==1) {
+                toSolve.push_back((*i).begin());
+                continue;
+            }
+            if((*i).size()==0) {
+                // !!!
+            }
+            if((*i).size()>1) {
+                // ok, a split; check what to do
+                split2Dets[*(i->get())] = std::vector<std::pair<ROEdge*, bool> >();
+                tree<ROEdge*>::iterator j;
+                for(j=(*i).begin(); j!=(*i).end(); ++j) {
+                    toSolve.push_back(j);
+                    split2Dets[*(i->get())].push_back(make_pair(*(j->get()), false) );
+                    dets2Split[*(j->get())] = *(i->get());
+                }
+            }
+        }
+        /
+    }
+    */
 }
 
 
@@ -344,6 +473,9 @@ DFRONet::buildRoutes(DFDetectorCon &detcont) const
 		rd->distance = 0;
 		rd->distance2Last = 0;
 		rd->duration2Last = 0;
+
+        rd->overallProb = 0;
+
         std::vector<ROEdge*> visited;
         visited.push_back(e);
         computeRoutesFor(e, rd, 0, visited, **i, *routes, detcont, seen);
@@ -521,9 +653,6 @@ bool
 DFRONet::isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> seen,
 					   const DFDetectorCon &detectors) const
 {
-	if(det.getID()=="1607") {
-		int bla = 0;
-	}
 	if(edge==getDetectorEdge(det)) {
 		// maybe there is another detector at the same edge
 		//  get the list of this/these detector(s)
@@ -596,9 +725,6 @@ bool
 DFRONet::isFalseSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> seen,
 					   const DFDetectorCon &detectors) const
 {
-	if(det.getID()=="2868") {
-		int bla = 0;
-	}
 	if(edge!=getDetectorEdge(det)) {
 		// ok, we are at one of the edges coming behind
 		if(myAmInHighwayMode) {

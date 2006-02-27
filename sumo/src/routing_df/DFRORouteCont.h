@@ -23,6 +23,9 @@ public:
     bool computed() const;
 	const std::vector<DFRORouteDesc*> &get() const;
     void sortByDistance();
+    void setDets2Follow(const std::map<ROEdge*, std::vector<ROEdge*> > &d2f);
+    const std::map<ROEdge*, std::vector<ROEdge*> > &getDets2Follow() const;
+
 
 protected:
     class by_distance_sorter {
@@ -36,6 +39,7 @@ protected:
     };
 
     std::vector<DFRORouteDesc*> myRoutes;
+    std::map<ROEdge*, std::vector<ROEdge*> > myDets2Follow;
 
 };
 

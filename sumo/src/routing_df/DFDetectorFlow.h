@@ -23,19 +23,19 @@
 
 struct FlowDef {
     // Number of passenger vehicles that passed within the described time
-    float qPKW;
+    SUMOReal qPKW;
     // Number of heavy duty vehicles that passed within the described time
-    float qLKW;
+    SUMOReal qLKW;
     // Mean velocity of passenger vehicles within the described time
-    float vPKW;
+    SUMOReal vPKW;
     // Mean velocity of heavy duty vehicles within the described time
-    float vLKW;
+    SUMOReal vLKW;
     // begin time (in s)
     int time;
     // probability for having a heavy duty vehicle(qKFZ!=0 ? (qLKW / qKFZ) : 0;)
-    float fLKW;
+    SUMOReal fLKW;
     // initialise with 0
-    float isLKW;
+    SUMOReal isLKW;
 };
 
 class DFDetectorFlows

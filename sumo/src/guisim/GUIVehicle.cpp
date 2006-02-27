@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2006/02/27 12:14:36  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.35  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -589,7 +592,7 @@ GUIVehicle::getCenteringBoundary() const
 	throw 1;
 }
 
-// !!! 4 UniDortmund #ifdef NETWORKING_BLA
+#ifdef NETWORKING_BLA
 #include "time.h"
 
 void
@@ -730,7 +733,7 @@ GUIVehicle::networking_Begin()
 
 }
 
-#ifdef NETWORKING_BLA// !!! 4 UniDortmund
+//#ifdef NETWORKING_BLA// !!! 4 UniDortmund
 
 void
 GUIVehicle::addEdgeTimeInfo(const GUIVehicle::networking_EdgeTimeInformation &ei)

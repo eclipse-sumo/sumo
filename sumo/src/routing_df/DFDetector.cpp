@@ -45,6 +45,146 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                                          SUMOTime stepOffset,
                                          std::map<size_t, RandomDistributor<size_t>* > &into) const
 {
+    if(myID=="12") {
+        int bla = 0;
+    }
+    const std::map< int, FlowDef > &mflows = flows.getFlowDefs(myID);
+    const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
+    for(int time=startTime; time<endTime; time+=stepOffset) {
+        if(mflows.find(time)==mflows.end()) {
+            continue;
+        }
+        into[time] = new RandomDistributor<size_t>();
+        FlowDef srcFD = mflows.find(time)->second;
+        SUMOReal toEmit = (SUMOReal) (srcFD.qLKW + srcFD.qPKW);
+        const std::vector<DFRORouteDesc*> &descs = myRoutes->get();
+        std::vector<DFRORouteDesc*>::const_iterator ri;
+        size_t index = 0;
+        for(ri=descs.begin(); ri!=descs.end()&&toEmit>=0; ++ri, index++) {
+            DFRORouteDesc *rd = *ri;
+            SUMOReal ovProb = 1.;
+            bool hadMissing = false;
+            std::vector<ROEdge*>::reverse_iterator i = rd->edges2Pass.rbegin() + 1;
+            while(i!=rd->edges2Pass.rend()) {
+                if((*i)->getNoFollowing()>1||hadMissing) {
+                    if(dets2Follow.find(*i)!=dets2Follow.end()) {
+
+                        const std::vector<ROEdge*> &possNext = dets2Follow.find(*i)->second;
+                        ROEdge *my = 0;
+                        SUMOReal sumFlows = 0;
+                        SUMOReal myFlow = 0;
+                        for(std::vector<ROEdge*>::const_iterator k=possNext.begin(); k!=possNext.end(); ++k) {
+                            SUMOReal cflow = (SUMOReal) detectors.getFlowFor(*k, (time/*!!! + desc->duration2Last*/), flows);
+                            if(cflow<0) {
+                                cflow = 0; // !!!
+                            }
+                            if(my==0&&find((*ri)->edges2Pass.begin(), (*ri)->edges2Pass.end(), *k)!=(*ri)->edges2Pass.end()) {
+                                my = *k;
+                                myFlow = cflow;
+                            }
+                            sumFlows += cflow;
+                        }
+
+                        SUMOReal cProb = 1;
+                        if(sumFlows!=0) {
+                            cProb = (myFlow / sumFlows);
+                        }
+                        ovProb *= cProb;
+                        hadMissing = false;
+                    } else {
+                        hadMissing = true;
+                    }
+                }
+                ++i;
+            }
+            into[time]->add(ovProb, index);
+            (*ri)->overallProb += ovProb;
+        }
+    }
+    /*
+    const std::map< int, FlowDef > &mflows = flows.getFlowDefs(myID);
+    const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
+    for(int time=startTime; time<endTime; time+=stepOffset) {
+        if(mflows.find(time)==mflows.end()) {
+            continue;
+        }
+        into[time] = new RandomDistributor<size_t>();
+        FlowDef srcFD = mflows.find(time)->second;
+        SUMOReal toEmit = (SUMOReal) (srcFD.qLKW + srcFD.qPKW);
+        const std::vector<DFRORouteDesc*> &descs = myRoutes->get();
+        std::vector<DFRORouteDesc*>::const_iterator ri;
+        size_t index = 0;
+        for(ri=descs.begin(); ri!=descs.end()&&toEmit>=0; ++ri, index++) {
+            SUMOReal destFlow = toEmit;
+            for(std::vector<ROEdge*>::iterator j=(*ri)->edges2Pass.begin(); j!=(*ri)->edges2Pass.end()&&destFlow>0; ++j) {
+                if(dets2Follow.find(*j)!=dets2Follow.end()) {
+                    // here we have a detector which flows divides on consecutives
+                    const std::vector<ROEdge*> &possNext = dets2Follow.find(*j)->second;
+                    ROEdge *my = 0;
+                    SUMOReal sumFlows = 0;
+                    SUMOReal myFlow = 0;
+                    for(std::vector<ROEdge*>::const_iterator k=possNext.begin(); k!=possNext.end(); ++k) {
+                        SUMOReal cflow = detectors.getFlowFor(*k, (time/*!!! + desc->duration2Last/), flows);
+    if(myID=="12") {
+        cout << myID << " " << cflow << " " << (*k)->getID() << endl;
+    }
+                        if(cflow<0) {
+                            cflow = destFlow; // !!!
+                        }
+                        if(my==0&&find((*ri)->edges2Pass.begin(), (*ri)->edges2Pass.end(), *k)!=(*ri)->edges2Pass.end()) {
+                            my = *k;
+                            myFlow = cflow;
+                        }
+                        sumFlows += cflow;
+    if(myID=="12") {
+        if(my!=0) {
+            cout << myID << " " << cflow << " " << my->getID() << endl;
+        } else {
+            cout << myID << " " << cflow << endl;
+        }
+        cout << myID << " " << destFlow << " " << sumFlows << " " << cflow << endl;
+    }
+
+                    }
+                    if(my!=0&&sumFlows>0) {
+                        destFlow = (myFlow / sumFlows) * destFlow;
+                    } else {
+                        destFlow = 0;
+                    }
+                }
+            }
+//            cout << myID << " " << destFlow << endl;
+            into[time]->add(destFlow, index);
+    if(myID=="12") {
+        cout << "dest " << myID << " " << destFlow << endl;
+    }
+            (*ri)->overallProb += destFlow;
+        }
+    }
+/*
+        std::vector<size_t> unset;
+        size_t index = 0;
+        for(ri=descs.begin(); ri!=descs.end()&&toEmit>=0; ++ri, index++) {
+            DFRORouteDesc *desc = (*ri);
+            const ROEdge *lastEdge = desc->lastDetectorEdge;
+            if(lastEdge!=0) {
+                int flow = detectors.getFlowFor(lastEdge, (SUMOTime) (time + desc->duration2Last), flows);
+                if(flow>=0) {
+                    into[time]->add(flow, index);
+                    toEmit -= flow;
+                    continue;
+                }
+            }
+            unset.push_back(index);
+        }
+        if(toEmit>=0) {
+            std::vector<size_t>::const_iterator di;
+            for(di=unset.begin(); di!=unset.end()&&toEmit>=0; ++di) {
+                into[time]->add((SUMOReal) toEmit / (SUMOReal) unset.size(), *di);
+            }
+        }
+    }
+    /*
     myRoutes->sortByDistance();
     const std::map< int, FlowDef > &mflows = flows.getFlowDefs(myID);
     for(int time=startTime; time<endTime; time+=stepOffset) {
@@ -105,16 +245,35 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 	} else {
 		strm << "<calibrator>" << endl;
 	}
+
+
+        std::map<size_t, RandomDistributor<size_t>* > dists;
+	if(flows.knows(myID)) {
+        buildDestinationDistribution(detectors, flows, startTime, endTime, stepOffset, dists);
+    }
+
 		// routes
 	{
+
 		if(myRoutes!=0) {
+
+		const std::vector<DFRORouteDesc*> &routes = myRoutes->get();
+		std::vector<DFRORouteDesc*>::const_iterator i;
+
+        SUMOReal overallSum = 0;
+        for(i=routes.begin(); i!=routes.end(); ++i) {
+            //cout << myID << " " << (*i)->routename << " " << (*i)->overallProb << endl;
+            overallSum += (*i)->overallProb;
+    if(myID=="12") {
+        cout << "overall" << myID << " " << overallSum << endl;
+    }
+        }
 
 		// !!! check things about intervals
         // !!! optional
-		const std::vector<DFRORouteDesc*> &routes = myRoutes->get();
-		std::vector<DFRORouteDesc*>::const_iterator i;
 		for(i=routes.begin(); i!=routes.end(); ++i) {
-			strm << "   <routedistelem id=\"" << (*i)->routename << "\" probability=\"" << 1 << "\"/>" << endl; // !!!
+
+			strm << "   <routedistelem id=\"" << (*i)->routename << "\" probability=\"" << ((*i)->overallProb/overallSum) << "\"/>" << endl; // !!!
 		}
 		/*
                     if(haveEnd) {
@@ -145,8 +304,6 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 	if(flows.knows(myID)) {
 		// get the flows for this detector
 		const std::map< int, FlowDef > &mflows = flows.getFlowDefs(myID);
-        std::map<size_t, RandomDistributor<size_t>* > dists;
-        buildDestinationDistribution(detectors, flows, startTime, endTime, stepOffset, dists);
 		// go through the simulation seconds
 		for(int time=startTime; time<endTime; time+=stepOffset) {
             if(mflows.find(time)==mflows.end()) {
@@ -157,7 +314,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 			// get flows at end
             RandomDistributor<size_t> *destDist = dists[time];
 			// go through the cars
-			size_t carNo = srcFD.qLKW + srcFD.qLKW;
+			size_t carNo = (size_t) (srcFD.qLKW + srcFD.qLKW);
 			for(size_t car=0; car<carNo; ++car) {
 				// get the vehicle parameter
 				string type = "test";
@@ -166,7 +323,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 //!!! micro srcIndex = srcDist.get();
 //				std::vector<std::string> route = droutes[destIndex]->edges2Pass;
 				if(srcFD.isLKW>1) {
-					srcFD.isLKW = srcFD.isLKW - 1.;
+					srcFD.isLKW = srcFD.isLKW - (SUMOReal) 1.;
 //!!!		        	type = lkwTypes[vehSpeedDist.get()];
 			        v = srcFD.vLKW;
 				} else {
@@ -180,7 +337,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 				}
 
 				// compute the departure time
-				int ctime = time * stepOffset + ((double) stepOffset * (double) car / (double) carNo);
+				int ctime = (int) (time * stepOffset + ((SUMOReal) stepOffset * (SUMOReal) car / (SUMOReal) carNo));
 
 				// write
 				strm << "   <emit id=\"";
@@ -461,17 +618,17 @@ DFDetectorCon::getFlowFor(const ROEdge *edge, SUMOTime time,
     assert(myDetectorEdgeMap.find(edge->getID())!=myDetectorEdgeMap.end());
     const std::vector<DFDetector*> &detsOnEdge = myDetectorEdgeMap.find(edge->getID())->second;
     std::vector<DFDetector*>::const_iterator i;
-    int ret = 0;
+    SUMOReal ret = 0;
     int counted = 0;
     for(i=detsOnEdge.begin(); i!=detsOnEdge.end(); ++i) {
         if(flows.knows((*i)->getID(), time)) {
             const FlowDef &flow = flows.getFlowDef((*i)->getID(), time);
             counted++; // !!! make a difference between pkws and lkws
-            ret += flow.qLKW + flow.qPKW;
+            ret += (flow.qLKW + flow.qPKW);
         }
     }
     if(counted!=0) {
-        return ret / counted;
+        return (int) (ret / (SUMOReal) counted);
     }
     return -1;
 }

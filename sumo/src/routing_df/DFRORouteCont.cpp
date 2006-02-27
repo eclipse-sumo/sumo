@@ -112,4 +112,16 @@ DFRORouteCont::sortByDistance()
 }
 
 
+void
+DFRORouteCont::setDets2Follow(const std::map<ROEdge*, std::vector<ROEdge*> > &d2f)
+{
+    myDets2Follow = d2f;
+}
+
+
+const std::map<ROEdge*, std::vector<ROEdge*> > &
+DFRORouteCont::getDets2Follow() const
+{
+    return myDets2Follow;
+}
 
