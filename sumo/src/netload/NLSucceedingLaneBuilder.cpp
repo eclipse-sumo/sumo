@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/02/27 12:11:04  dkrajzew
+// variants container named properly
+//
 // Revision 1.15  2006/02/23 11:32:54  dkrajzew
 // tls may have now several programs
 //
@@ -195,7 +198,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     }
 #endif
     // check whether this link is controlled by a traffic light
-    MSTLLogicControl::Variants logics;
+    MSTLLogicControl::TLSLogicVariants logics;
     if(tlid!="") {
         logics = myJunctionControlBuilder.getTLLogic(tlid);
         if(logics.ltVariants.size()==0) {

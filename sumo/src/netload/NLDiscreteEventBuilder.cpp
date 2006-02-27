@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/02/27 12:09:49  dkrajzew
+// variants container named properly
+//
 // Revision 1.10  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -159,7 +162,7 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const Attributes &attrs,
         MsgHandler::getErrorInstance()->inform("The traffic light logic to save (" + source +  ") is not given.");
         throw ProcessError();
     }
-    const MSTLLogicControl::Variants &logics = myNet.getTLSControl().get(source);
+    const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
     // build the action
     return new Command_SaveTLSState(logics, dest);
 }

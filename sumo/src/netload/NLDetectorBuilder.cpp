@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.32  2006/02/27 12:09:49  dkrajzew
+// variants container named properly
+//
 // Revision 1.31  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -329,7 +332,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         const std::string &id,
         const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont,
-        const MSTLLogicControl::Variants &tlls,
+        const MSTLLogicControl::TLSLogicVariants &tlls,
         const std::string &style, OutputDevice *device,
         const std::string &measures,
         MSUnit::Seconds haltingTimeThreshold,
@@ -370,7 +373,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         const std::string &id,
         const std::string &lane, SUMOReal pos, SUMOReal length,
         bool cont,
-        const MSTLLogicControl::Variants &tlls,
+        const MSTLLogicControl::TLSLogicVariants &tlls,
         const std::string &tolane,
         const std::string &style, OutputDevice *device,
         const std::string &measures,
