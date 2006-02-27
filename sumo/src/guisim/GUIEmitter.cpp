@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/02/27 12:01:42  dkrajzew
+// routes visualization for simple geometry added
+//
 // Revision 1.7  2006/02/23 11:29:20  dkrajzew
 // emitters may now show their routes
 //
@@ -516,6 +519,31 @@ GUIEmitter::toggleDrawRoutes()
 	myDrawRoutes = !myDrawRoutes;
 }
 
+
+std::map<const MSEdge*, SUMOReal>
+GUIEmitter::getEdgeProbs() const
+{
+    std::map<const MSEdge*, SUMOReal> ret;
+	const std::vector<MSRoute*> &routes = myFileBasedEmitter->getRouteDist().getVals();
+    const std::vector<SUMOReal> &probs = myFileBasedEmitter->getRouteDist().getProbs();
+    size_t j;
+
+	for(j=0; j<routes.size(); ++j) {
+        SUMOReal prob = probs[j];
+        MSRoute *r = routes[j];
+		MSRouteIterator i = r->begin();
+		for(; i!=r->end(); ++i) {
+			const MSEdge *e = *i;
+            if(ret.find(e)==ret.end()) {
+                ret[e] = 0;
+            }
+            ret[e] = ret[e] + prob;
+        }
+    }
+    return ret;
+}
+
+
 void
 GUIEmitter::drawGL_FG(SUMOReal scale, SUMOReal upscale)
 {
@@ -523,39 +551,26 @@ GUIEmitter::drawGL_FG(SUMOReal scale, SUMOReal upscale)
 	if(!myDrawRoutes) {
 		return;
 	}
-	const std::vector<MSRoute*> &routes = myFileBasedEmitter->getRouteDist().getVals();
-    const std::vector<SUMOReal> &probs = myFileBasedEmitter->getRouteDist().getProbs();
     size_t j;
     SUMOReal maxProb = 0;
+	const std::vector<MSRoute*> &routes = myFileBasedEmitter->getRouteDist().getVals();
+    const std::vector<SUMOReal> &probs = myFileBasedEmitter->getRouteDist().getProbs();
     for(j=0; j<routes.size(); ++j) {
         maxProb = MAX2(maxProb, probs[j]);
     }
-
-    std::map<const MSEdge*, SUMOReal> e2prob;
-	for(j=0; j<routes.size(); ++j) {
-        SUMOReal prob = probs[j];
-        MSRoute *r = routes[j];
-		MSRouteIterator i = r->begin();
-		for(; i!=r->end(); ++i) {
-			const MSEdge *e = *i;
-            if(e2prob.find(e)==e2prob.end()) {
-                e2prob[e] = 0;
-            }
-            e2prob[e] = e2prob[e] + prob;
-        }
-    }
+    std::map<const MSEdge*, SUMOReal> e2prob = getEdgeProbs();
     for(std::map<const MSEdge*, SUMOReal>::iterator k=e2prob.begin(); k!=e2prob.end(); ++k) {
         double c = (*k).second / maxProb;
-		glColor3d(1.-c,1.-c,0);
-			const MSEdge *e = (*k).first;
-			const GUIEdge *ge = static_cast<const GUIEdge*>(e);
-			const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
-			const DoubleVector &rots = lane.getShapeRotations();
-			const DoubleVector &lengths = lane.getShapeLengths();
-			const Position2DVector &geom = lane.getShape();
-			for(size_t i=0; i<geom.size()-1; i++) {
-				GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], 0.5);
-			}
+		glColor3d(1.-c, 1.-c, 0);
+        const MSEdge *e = (*k).first;
+		const GUIEdge *ge = static_cast<const GUIEdge*>(e);
+		const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
+		const DoubleVector &rots = lane.getShapeRotations();
+		const DoubleVector &lengths = lane.getShapeLengths();
+		const Position2DVector &geom = lane.getShape();
+        for(size_t i=0; i<geom.size()-1; i++) {
+		    GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], 0.5);
+        }// !!! all this is also done in lane drawer
     }
     /*
     size_t j;
@@ -588,6 +603,40 @@ void
 GUIEmitter::drawGL_SG(SUMOReal scale, SUMOReal upscale)
 {
     doPaint(mySGPosition, mySGRotation, scale, upscale);
+	if(!myDrawRoutes) {
+		return;
+	}
+    size_t j;
+    SUMOReal maxProb = 0;
+	const std::vector<MSRoute*> &routes = myFileBasedEmitter->getRouteDist().getVals();
+    const std::vector<SUMOReal> &probs = myFileBasedEmitter->getRouteDist().getProbs();
+    for(j=0; j<routes.size(); ++j) {
+        maxProb = MAX2(maxProb, probs[j]);
+    }
+    std::map<const MSEdge*, SUMOReal> e2prob = getEdgeProbs();
+    for(std::map<const MSEdge*, SUMOReal>::iterator k=e2prob.begin(); k!=e2prob.end(); ++k) {
+        double c = (*k).second / maxProb;
+		glColor3d(1.-c, 1.-c, 0);
+        const MSEdge *e = (*k).first;
+		const GUIEdge *ge = static_cast<const GUIEdge*>(e);
+        const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
+        glPushMatrix();
+        const Position2D &beg = lane.getBegin();
+		glTranslated(beg.x(), beg.y(), 0);
+		glRotated( lane.getRotation(), 0, 0, 1 );
+	    SUMOReal visLength = -lane.visLength();
+		glBegin( GL_QUADS );
+		glVertex2d(-SUMO_const_halfLaneWidth, 0);
+	    glVertex2d(-SUMO_const_halfLaneWidth, visLength);
+		glVertex2d(SUMO_const_halfLaneWidth, visLength);
+	    glVertex2d(SUMO_const_halfLaneWidth, 0);
+		glEnd();
+		glBegin( GL_LINES);
+	    glVertex2d(0, 0);
+		glVertex2d(0, visLength);
+		glEnd();
+	    glPopMatrix(); // !!! all this is also done in lane drawer
+    }
 }
 
 

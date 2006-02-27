@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2006/02/27 12:01:42  dkrajzew
+// routes visualization for simple geometry added
+//
 // Revision 1.3  2006/02/13 07:52:43  dkrajzew
 // debugging
 //
@@ -221,6 +224,7 @@ public:
 
 private:
     void doPaint(const Position2D &pos, SUMOReal rot, SUMOReal scale, SUMOReal upscale);
+    std::map<const MSEdge*, SUMOReal> getEdgeProbs() const;
 
 private:
     /// The positions in full-geometry mode
