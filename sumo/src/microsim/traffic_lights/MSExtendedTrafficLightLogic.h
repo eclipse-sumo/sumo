@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/02/27 12:04:40  dkrajzew
+// eased the initialisation API
+//
 // Revision 1.10  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -102,9 +105,7 @@ public:
 
     /// Initialises the tls with information about incoming lanes
     virtual void init(NLDetectorBuilder &nb,
-        const std::vector<MSLane*> &lanes,
-        const MSEdgeContinuations &edgeContinuations,
-        SUMOReal det_offset) = 0;
+        const MSEdgeContinuations &edgeContinuations) = 0;
 
 };
 

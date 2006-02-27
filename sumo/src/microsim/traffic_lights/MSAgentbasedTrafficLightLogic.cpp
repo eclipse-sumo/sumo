@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/02/27 12:04:40  dkrajzew
+// eased the initialisation API
+//
 // Revision 1.12  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -129,6 +132,7 @@ namespace
 #include "MSTrafficLightLogic.h"
 #include "MSAgentbasedTrafficLightLogic.h"
 #include <netload/NLDetectorBuilder.h>
+#include <utils/common/TplConvert.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -159,27 +163,29 @@ MSAgentbasedTrafficLightLogic::MSAgentbasedTrafficLightLogic(
 void
 MSAgentbasedTrafficLightLogic::init(
         NLDetectorBuilder &nb,
-        const std::vector<MSLane*> &lanes,
-        const MSEdgeContinuations &edgeContinuations,
-        SUMOReal det_offset)
+        const MSEdgeContinuations &edgeContinuations)
 {
+    SUMOReal det_offset = TplConvert<char>::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
+    LaneVectorVector::const_iterator i2;
+    LaneVector::const_iterator i;
     // build the detectors
-    std::vector<MSLane*>::const_iterator i;
-    // build the E2-detectors
-    for(i=lanes.begin(); i!=lanes.end(); i++) {
-        MSLane *lane = (*i);
-        // Build the lane state detetcor and set it into the container
-        std::string id = "TL_" + myID + "_" + mySubID + "_E2OverLanesDetectorStartingAt_" + lane->id();
+    for(i2=myLanes.begin(); i2!=myLanes.end(); ++i2) {
+        const LaneVector &lanes = *i2;
+        for(i=lanes.begin(); i!=lanes.end(); i++) {
+            MSLane *lane = (*i);
+            // Build the lane state detetcor and set it into the container
+            std::string id = "TL_" + myID + "_" + mySubID + "_E2OverLanesDetectorStartingAt_" + lane->id();
 
-        if ( myE2Detectors.find(lane)==myE2Detectors.end()){
-            MS_E2_ZS_CollectorOverLanes* det =
-                nb.buildMultiLaneE2Det(edgeContinuations, id,
-                    DU_TL_CONTROL, lane, 0, det_offset,
-                    /*haltingTimeThreshold!!!*/ 1,
-                    /*haltingSpeedThreshold!!!*/(SUMOReal) (5.0/3.6),
-                    /*jamDistThreshold!!!*/ 10,
-                    /*deleteDataAfterSeconds!!!*/ 1800);
-            myE2Detectors[lane] = det;
+            if ( myE2Detectors.find(lane)==myE2Detectors.end()){
+                MS_E2_ZS_CollectorOverLanes* det =
+                    nb.buildMultiLaneE2Det(edgeContinuations, id,
+                        DU_TL_CONTROL, lane, 0, det_offset,
+                        /*haltingTimeThreshold!!!*/ 1,
+                        /*haltingSpeedThreshold!!!*/(SUMOReal) (5.0/3.6),
+                        /*jamDistThreshold!!!*/ 10,
+                        /*deleteDataAfterSeconds!!!*/ 1800);
+                myE2Detectors[lane] = det;
+            }
         }
     }
 
