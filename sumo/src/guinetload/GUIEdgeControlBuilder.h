@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/02/27 13:16:34  dkrajzew
+// raknet-support added
+//
 // Revision 1.12  2005/10/07 11:37:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -83,6 +86,10 @@
  * ======================================================================= */
 class MSJunction;
 
+#ifdef RAKNET_DEMO
+class Street;
+#endif
+
 
 /* =========================================================================
  * class definitions
@@ -116,6 +123,10 @@ public:
 private:
     /// The gl-object id giver
     GUIGlObjectStorage &myGlObjectIDStorage;
+
+#ifdef RAKNET_DEMO
+	Street *myStreet;
+#endif
 
 private:
     /** invalid copy constructor */

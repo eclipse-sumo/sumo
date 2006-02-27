@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/02/27 13:16:34  dkrajzew
+// raknet-support added
+//
 // Revision 1.14  2005/10/07 11:37:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -96,6 +99,10 @@ namespace
 #include <gui/GUIGlobals.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 
+#ifdef RAKNET_DEMO
+#include <raknet_demo/street.h>
+#endif
+
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
@@ -115,6 +122,9 @@ GUIEdgeControlBuilder::GUIEdgeControlBuilder(
     : NLEdgeControlBuilder(storageSize),
     myGlObjectIDStorage(glObjectIDStorage)
 {
+#ifdef RAKNET_DEMO
+    myStreet = new Street();
+#endif
 }
 
 GUIEdgeControlBuilder::~GUIEdgeControlBuilder()
@@ -170,6 +180,17 @@ GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
     default:
         throw 1;
     }
+#ifdef RAKNET_DEMO
+	float *xPos = new float[shape.size()];
+	float *zPos = new float[shape.size()];
+    for(size_t i=0; i<shape.size(); ++i) {
+        xPos[i] = shape.at(i).x();
+        zPos[i] = shape.at(i).y();
+    }
+	myStreet->addLane(myCurrentNumericalLaneID-1, shape.size(), xPos, zPos);
+    delete[] xPos;
+    delete[] zPos;
+#endif
     m_pLaneStorage->push_back(lane);
     if(isDepart) {
         m_pDepartLane = lane;

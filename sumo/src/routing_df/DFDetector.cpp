@@ -45,9 +45,6 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                                          SUMOTime stepOffset,
                                          std::map<size_t, RandomDistributor<size_t>* > &into) const
 {
-    if(myID=="12") {
-        int bla = 0;
-    }
     const std::map< int, FlowDef > &mflows = flows.getFlowDefs(myID);
     const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
     for(int time=startTime; time<endTime; time+=stepOffset) {
