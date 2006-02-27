@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/02/27 12:05:32  dkrajzew
+// WAUTs and WAUT-API added
+//
 // Revision 1.8  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -79,6 +82,9 @@ namespace
 #include <cassert>
 #include "MSTrafficLightLogic.h"
 #include "MSTLLogicControl.h"
+#include <microsim/MSEventControl.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/ToString.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -94,6 +100,118 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * method definitions for the Switching Procedures
+ * ----------------------------------------------------------------------- */
+MSTLLogicControl::WAUTSwitchProcedure_JustSwitch::WAUTSwitchProcedure_JustSwitch(
+        MSTrafficLightLogic *from, MSTrafficLightLogic *to, bool synchron)
+    : MSTLLogicControl::WAUTSwitchProcedure(from, to, synchron)
+{
+}
+
+
+MSTLLogicControl::WAUTSwitchProcedure_JustSwitch::~WAUTSwitchProcedure_JustSwitch()
+{
+}
+
+
+bool
+MSTLLogicControl::WAUTSwitchProcedure_JustSwitch::trySwitch()
+{
+    return true;
+}
+
+
+
+
+
+
+MSTLLogicControl::WAUTSwitchProcedure_GSP::WAUTSwitchProcedure_GSP(
+        MSTrafficLightLogic *from, MSTrafficLightLogic *to, bool synchron)
+    : MSTLLogicControl::WAUTSwitchProcedure(from, to, synchron)
+{
+}
+
+
+MSTLLogicControl::WAUTSwitchProcedure_GSP::~WAUTSwitchProcedure_GSP()
+{
+}
+
+
+bool
+MSTLLogicControl::WAUTSwitchProcedure_GSP::trySwitch()
+{
+    SUMOReal gsp = getGSPValue(myFrom);
+    int bla = 0;
+    return true;
+}
+
+
+SUMOReal
+MSTLLogicControl::WAUTSwitchProcedure_GSP::getGSPValue(MSTrafficLightLogic *from) const
+{
+    string val = from->getParameterValue("GSP");
+    if(val.length()==0) {
+        return -1;
+    }
+    return TplConvert<char>::_2SUMOReal(val.c_str());
+}
+
+
+
+
+
+
+MSTLLogicControl::WAUTSwitchProcedure_Stretch::WAUTSwitchProcedure_Stretch(
+        MSTrafficLightLogic *from, MSTrafficLightLogic *to, bool synchron)
+    : MSTLLogicControl::WAUTSwitchProcedure(from, to, synchron)
+{
+}
+
+
+MSTLLogicControl::WAUTSwitchProcedure_Stretch::~WAUTSwitchProcedure_Stretch()
+{
+}
+
+
+bool
+MSTLLogicControl::WAUTSwitchProcedure_Stretch::trySwitch()
+{
+    int noBereiche = getStretchBereicheNo(myFrom);
+    for(int i=0; i<noBereiche; i++) {
+        StretchBereichDef def = getStretchBereichDef(myFrom, i+1);
+        int bla = 0;
+    }
+    return true;
+}
+
+
+int
+MSTLLogicControl::WAUTSwitchProcedure_Stretch::getStretchBereicheNo(MSTrafficLightLogic *from) const
+{
+    int no = 0;
+    while(from->getParameterValue("B" + toString(no+1) + ".begin")!="") {
+        no++;
+    }
+    return no;
+}
+
+
+
+MSTLLogicControl::WAUTSwitchProcedure_Stretch::StretchBereichDef
+MSTLLogicControl::WAUTSwitchProcedure_Stretch::getStretchBereichDef(MSTrafficLightLogic *from, int index) const
+{
+    StretchBereichDef def;
+    def.begin = TplConvert<char>::_2SUMOReal(from->getParameterValue("B" + toString(index) + ".begin").c_str());
+    def.end = TplConvert<char>::_2SUMOReal(from->getParameterValue("B" + toString(index) + ".end").c_str());
+    def.fac = TplConvert<char>::_2SUMOReal(from->getParameterValue("B" + toString(index) + ".factor").c_str());
+    return def;
+}
+
+
+/* -------------------------------------------------------------------------
+ * method definitions for MSTLLogicControl
+ * ----------------------------------------------------------------------- */
 MSTLLogicControl::MSTLLogicControl()
     : myNetWasLoaded(false)
 {
@@ -102,9 +220,9 @@ MSTLLogicControl::MSTLLogicControl()
 
 MSTLLogicControl::~MSTLLogicControl()
 {
-    std::map<std::string, Variants>::const_iterator i;
+    std::map<std::string, TLSLogicVariants>::const_iterator i;
     for(i=myLogics.begin(); i!=myLogics.end(); ++i) {
-        const Variants &vars = (*i).second;
+        const TLSLogicVariants &vars = (*i).second;
         std::map<std::string, MSTrafficLightLogic *>::const_iterator j;
         for(j=vars.ltVariants.begin(); j!=vars.ltVariants.end(); ++j) {
             delete (*j).second;
@@ -131,9 +249,9 @@ std::vector<MSTrafficLightLogic*>
 MSTLLogicControl::getAllLogics() const
 {
     std::vector<MSTrafficLightLogic*> ret;
-    std::map<std::string, Variants>::const_iterator i;
+    std::map<std::string, TLSLogicVariants>::const_iterator i;
     for(i=myLogics.begin(); i!=myLogics.end(); ++i) {
-        const Variants &vars = (*i).second;
+        const TLSLogicVariants &vars = (*i).second;
         std::map<std::string, MSTrafficLightLogic *>::const_iterator j;
         for(j=vars.ltVariants.begin(); j!=vars.ltVariants.end(); ++j) {
             ret.push_back((*j).second);
@@ -142,10 +260,10 @@ MSTLLogicControl::getAllLogics() const
     return ret;
 }
 
-const MSTLLogicControl::Variants &
+const MSTLLogicControl::TLSLogicVariants &
 MSTLLogicControl::get(const std::string &id) const
 {
-    std::map<std::string, Variants>::const_iterator i = myLogics.find(id);
+    std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(id);
     if(i==myLogics.end()) {
         throw 1;
     }
@@ -156,14 +274,14 @@ MSTLLogicControl::get(const std::string &id) const
 MSTrafficLightLogic *
 MSTLLogicControl::get(const std::string &id, const std::string &subid) const
 {
-    std::map<std::string, Variants>::const_iterator i = myLogics.find(id);
+    std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(id);
     if(i==myLogics.end()) {
-        throw 1;
+        return 0;
     }
     const std::map<std::string, MSTrafficLightLogic *> &vars = (*i).second.ltVariants;
     std::map<std::string, MSTrafficLightLogic *>::const_iterator j = vars.find(subid);
     if(j==vars.end()) {
-        throw 1;
+        return 0;
     }
     return (*j).second;
 }
@@ -174,12 +292,12 @@ MSTLLogicControl::add(const std::string &id, const std::string &subID,
                       MSTrafficLightLogic *logic, bool newDefault)
 {
     if(myLogics.find(id)==myLogics.end()) {
-        Variants var;
+        TLSLogicVariants var;
         var.defaultTL = 0;
         myLogics[id] = var;
     }
-    std::map<std::string, Variants>::iterator i = myLogics.find(id);
-    Variants &tlmap = (*i).second;
+    std::map<std::string, TLSLogicVariants>::iterator i = myLogics.find(id);
+    TLSLogicVariants &tlmap = (*i).second;
     if(tlmap.ltVariants.find(subID)!=tlmap.ltVariants.end()) {
         return false;
     }
@@ -209,7 +327,7 @@ MSTLLogicControl::add(const std::string &id, const std::string &subID,
 bool
 MSTLLogicControl::knows(const std::string &id) const
 {
-    std::map<std::string, Variants>::const_iterator i = myLogics.find(id);
+    std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(id);
     if(i==myLogics.end()) {
         return false;
     }
@@ -227,9 +345,9 @@ MSTLLogicControl::markNetLoadingClosed()
 bool
 MSTLLogicControl::isActive(const MSTrafficLightLogic *tl) const
 {
-    std::map<std::string, Variants>::const_iterator i = myLogics.find(tl->id());
+    std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(tl->id());
     if(i==myLogics.end()) {
-        throw 1;
+        return false;
     }
     return (*i).second.defaultTL == tl;
 }
@@ -238,28 +356,144 @@ MSTLLogicControl::isActive(const MSTrafficLightLogic *tl) const
 MSTrafficLightLogic *
 MSTLLogicControl::getActive(const std::string &id) const
 {
-    std::map<std::string, Variants>::const_iterator i = myLogics.find(id);
+    std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(id);
     if(i==myLogics.end()) {
-        throw 1;
+        return 0;
     }
     return (*i).second.defaultTL;
 }
 
 
-void
+bool
 MSTLLogicControl::switchTo(const std::string &id, const std::string &subid)
 {
-    std::map<std::string, Variants>::iterator i = myLogics.find(id);
+    std::map<std::string, TLSLogicVariants>::iterator i = myLogics.find(id);
     if(i==myLogics.end()) {
-        throw 1;
+        return false;
     }
     MSTrafficLightLogic *touse = (*i).second.ltVariants[subid];
     std::vector<MSTrafficLightLogic*>::iterator j =
         find(myActiveLogics.begin(), myActiveLogics.end(), (*i).second.defaultTL);
-    assert(j!=myActiveLogics.end());
+    if(j!=myActiveLogics.end()) {
+        return false;
+    }
     *j = touse;
     (*i).second.defaultTL = touse;
+    return true;
 }
+
+
+bool
+MSTLLogicControl::addWAUT(SUMOTime refTime, const std::string &id,
+                          const std::string &startProg)
+{
+    if(myWAUTs.find(id)!=myWAUTs.end()) {
+        return false;
+    }
+    WAUT w;
+    w.id = id;
+    w.refTime = refTime;
+    w.startProg = startProg;
+    myWAUTs[id] = w;
+}
+
+
+bool
+MSTLLogicControl::addWAUTSwitch(const std::string &wautid,
+                                SUMOTime when, const std::string &to)
+{
+    if(myWAUTs.find(wautid)==myWAUTs.end()) {
+        return false;
+    }
+    WAUTSwitch s;
+    s.to = to;
+    s.when = when;
+    myWAUTs[wautid].switches.push_back(s);
+    if(myWAUTs[wautid].switches.size()==1) {
+        MSEventControl::getBeginOfTimestepEvents()->addEvent(
+            new SwitchInitCommand(*this, wautid),
+            when-myWAUTs[wautid].refTime, MSEventControl::NO_CHANGE);
+    }
+    return true;
+}
+
+
+bool
+MSTLLogicControl::addWAUTJunction(const std::string &wautid,
+                                  const std::string &junc,
+                                  const std::string &proc,
+                                  bool synchron)
+{
+    if(myWAUTs.find(wautid)==myWAUTs.end()) {
+        return false;
+    }
+    if(myLogics.find(junc)==myLogics.end()) {
+        return false;
+    }
+    WAUTJunction j;
+    j.junction = junc;
+    j.procedure = proc;
+    j.synchron = synchron;
+    myWAUTs[wautid].junctions.push_back(j);
+    // set the current program
+    TLSLogicVariants &vars = myLogics.find(junc)->second;
+    switchTo(vars.defaultTL->id(), myWAUTs[wautid].startProg);
+    return true;
+}
+
+
+SUMOTime
+MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand &cmd)
+{
+    const std::string &wautid = cmd.getWAUTID();
+    int index = cmd.getIndex();
+    WAUTSwitch s = myWAUTs[wautid].switches[index];
+    for(std::vector<WAUTJunction>::iterator i=myWAUTs[wautid].junctions.begin(); i!=myWAUTs[wautid].junctions.end(); ++i) {
+
+        TLSLogicVariants &vars = myLogics.find((*i).junction)->second;
+        MSTrafficLightLogic *from = vars.defaultTL;
+        MSTrafficLightLogic *to = vars.ltVariants.find(s.to)->second;
+
+        WAUTSwitchProcedure *proc = 0;
+        if((*i).procedure=="GSP") {
+            proc = new WAUTSwitchProcedure_GSP(from, to, (*i).synchron);
+        } else if((*i).procedure=="Stretch") {
+            proc = new WAUTSwitchProcedure_Stretch(from, to, (*i).synchron);
+        } else {
+            proc = new WAUTSwitchProcedure_JustSwitch(from, to, (*i).synchron);
+        }
+
+        WAUTSwitchProcess p;
+        p.junction = (*i).junction;
+        p.proc = proc;
+        p.from = from;
+        p.to = to;
+
+        myCurrentlySwitched.push_back(p);
+    }
+    index++;
+    if(index==myWAUTs[wautid].switches.size()) {
+        return 0;
+    }
+    return myWAUTs[wautid].switches[index].when - myWAUTs[wautid].switches[index-1].when;
+}
+
+
+void
+MSTLLogicControl::check2Switch()
+{
+    for(std::vector<WAUTSwitchProcess>::iterator i=myCurrentlySwitched.begin(); i!=myCurrentlySwitched.end(); ) {
+        const WAUTSwitchProcess &proc = *i;
+        if(proc.proc->trySwitch()) {
+            delete proc.proc;
+            switchTo((*i).to->id(), (*i).to->subid());
+            i = myCurrentlySwitched.erase(i);
+        } else {
+            ++i;
+        }
+    }
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
