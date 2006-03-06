@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <bookinfo>
+    <title>SUMO - HowTo... Build</title>
+
+    <author>
+      <firstname>Christian</firstname>
+
+      <surname>Rössel</surname>
+
+      <affiliation>
+        <address><email>christian.roessel@dlr.de</email></address>
+      </affiliation>
+    </author>
+
+    <author>
+      <firstname>Daniel</firstname>
+
+      <surname>Krajzewicz</surname>
+
+      <affiliation>
+        <address><email>Daniel.Krajzewicz@dlr.de</email></address>
+      </affiliation>
+    </author>
+
+    <releaseinfo>$Revision$</releaseinfo>
+  </bookinfo>
+
+  <toc></toc>
+
+  <chapter id="more_tests">
+    <title>Introduction</title>
+
+    <sect1>
+      <title>Document Information</title>
+
+      <para>This document is a part of <emphasis>SUMO</emphasis> -
+      <emphasis>S</emphasis>imulation of <emphasis>U</emphasis>rban
+      <emphasis>MO</emphasis>bility. SUMO is an open source microscopic road
+      traffic simulation. It can be found under <ulink
+      url="http://sumo.sourceforge.net/">http://sumo.sourceforge.net/</ulink>.</para>
+
+      <para>This document fits to version 0.9.4 We will try to keep it
+      up-to-date with the next versions.</para>
+    </sect1>
+
+    <sect1>
+      <title>Document Scope</title>
+
+      <para>This document describes how to obtain SUMO-sources and how to used
+      them to build SUMO.</para>
+    </sect1>
+
+    <sect1>
+      <title>Document Audience</title>
+
+      <para>This document contains information for
+      <emphasis>developers</emphasis> who want to build SUMO from
+      sources.</para>
+    </sect1>
+
+    <sect1>
+      <title>Document Structure</title>
+
+      <para>The first chapter describes what the described extension shall do
+      (the goal).</para>
+
+      <para>The second one described how to extend SUMO to achieve the
+      goal.</para>
+    </sect1>
+  </chapter>
+
+  <chapter id="dev_chp02">
+    <title>All Platforms: Obtaining the sources</title>
+
+    <para>There are two possibilities to obtain the sources needed to build
+    SUMO. The first is to download the latest distribution, located within the
+    <ulink
+    url="http://sumo.sourceforge.net/downloads.html#sumo-latest">download</ulink>
+    section of our <ulink url="http://sumo.sourceforge.net">internet
+    pages</ulink> internet pages. The other one is to checkout the <ulink
+    url="http://sourceforge.net/cvs/?group_id=45607">current CVS</ulink> tree
+    (Use <literal>sumo</literal> as <literal>modulname</literal>).</para>
+
+    <para>Normally, the CVS tree is stable and buildable and of course does
+    contain the latest patches, the latest release may not contain.</para>
+  </chapter>
+
+  <chapter id="dev_chp02">
+    <title>UNIX/Linux: SUMO and the GNU build process</title>
+
+    <para>Here we descride how to use the <ulink
+    url="http://sources.redhat.com/autobook/">GNU Autotools</ulink>, <ulink
+    url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>,
+    <ulink
+    url="http://www.gnu.org/software/automake"><literal>automake</literal></ulink>
+    and <ulink
+    url="http://www.gnu.org/software/libtool"><literal>libtool</literal></ulink>
+    to build SUMO from the cvs-sources.</para>
+
+    <para>We will also discuss how to add new option to
+    <literal>configure</literal> and how to modify
+    <literal>Makefile.am</literal> if new files or libraries are added.</para>
+
+    <sect1>
+      <title>Building SUMO from CVS</title>
+
+      <procedure>
+        <step>
+          <para>Download the sources from <ulink
+          url="http://sourceforge.net/cvs/?group_id=45607">sourceforge.net</ulink>.</para>
+        </step>
+
+        <step>
+          <para>Download the <ulink
+          url="http://xml.apache.org/xerces-c/index.html">Xerces C++
+          library</ulink> (version 2.6 or greater), the <ulink
+          url="http://www.fox-toolkit.org">FOX</ulink>-library (version
+          1.4.x), the <ulink
+          url="http://www.remotesensing.org/proj/">PROJ</ulink>-library
+          (version 4.4.9), and the <ulink
+          url="http://www.remotesensing.org/gdal/">GDAL</ulink>-library
+          (version 1.3.1). All libraries are also available at our <ulink
+          url="http://sumo.sourceforge.net/downloads.html">download</ulink>-pages.
+          Make sure you download the Linux-version of Xerces, the sources for
+          FOX in the version 1.4.x and GDAL version 1.3.1.</para>
+
+          <caution>
+            <para>If you use SUMO 0.8.x you have to use FOX1.2 instead. You
+            will also not need the PROJ and the GDAL library.</para>
+          </caution>
+        </step>
+
+        <step>
+          <para>Install all libraries into desired folder (FOX and GDAL must
+          be build, Xerces possibly not)</para>
+        </step>
+
+        <step>
+          <para><literal>cd</literal> into the directory
+          <literal>sumo</literal>.</para>
+        </step>
+
+        <step>
+          <para>Execute <command>make -f admin/Makefile.common cvs</command>.
+          This will create the <filename>configure</filename>-script from
+          <filename>configure.in</filename> and
+          <filename>Makefile.in</filename> for each
+          <filename>Makefile.am</filename> by calling the GNU
+          Autotools.</para>
+        </step>
+
+        <step>
+          <para>Call <command>./configure</command>. You can get a list of
+          <command>configure</command>-option by calling <command>./configure
+          --help</command>. <command>./configure</command> builds a
+          <filename>Makefile</filename> for each
+          <filename>Makefile.in</filename>.</para>
+
+          <para>Normally, you have to supply the places the includes and the
+          libraries are located at, both for Xerces and FOX. This is done
+          using:</para>
+
+          <para><option>--with-xerces-libraries=<replaceable>&lt;PATH_TO_XERCES_LIBS&gt;</replaceable></option></para>
+
+          <para><option>--with-xerces-inludes=<replaceable>&lt;PATH_TO_XERCES_INCLUDES&gt;</replaceable></option></para>
+
+          <para><option>--with-fox-libraries=<replaceable>&lt;PATH_TO_FOX_LIBS&gt;</replaceable></option></para>
+
+          <para><option>--with-fox-includes=<replaceable>&lt;PATH_TO_FOX_INCLUDES&gt;</replaceable></option></para>
+        </step>
+
+        <step>
+          <para>Call <command>make</command> to build all applications within
+          the SUMO package.</para>
+        </step>
+      </procedure>
+
+      <para>If everything was build, the applications may be found in
+      <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/src</filename>.
+      Enjoy!</para>
+
+      <sect2>
+        <title>Adding options to configure</title>
+
+        <para>You need to modify the file <filename>configure.in</filename>.
+        There are some SUMO-specific options. Take them as sample and consult
+        the <ulink
+        url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
+        for further insights.</para>
+      </sect2>
+
+      <sect2>
+        <title>Adding header/library-checks to configure</title>
+
+        <para>You need to modify the file <filename>configure.in</filename>.
+        There are some SUMO-specific header/library-checks for both the <ulink
+        url="http://xml.apache.org/xerces-c/index.html">Xerces C++
+        library</ulink> and the <ulink url="http://www.fox-toolkit.org">FOX
+        library</ulink>. Take them as sample and consult the <ulink
+        url="http://www.gnu.org/software/autoconf"><literal>autoconf</literal></ulink>
+        for further insights. Take care of <ulink
+        url="http://sources.redhat.com/autobook/autobook/autobook_208.html">non-portable
+        shell-code</ulink>.</para>
+      </sect2>
+
+      <sect2>
+        <title>Modifying Makefile.am</title>
+
+        <para>There is a need of modifying <literal>Makefile.am</literal> if
+        you</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>add or remove new sources or files that should go in the
+            distribution: All source files must be listed behind
+            <literal>*_SOURCES</literal>. All other files that should be
+            included in the distribution must be listed behind
+            <literal>EXTRA_DIST</literal></para>
+          </listitem>
+
+          <listitem>
+            <para>need to include header-files from different directories: Add
+            the header directories to <literal>AM_CPPFLAGS</literal>. If these
+            header-directories have been assigned to a name in
+            <literal>configure</literal>, refer to them like
+            <literal>-I$(FOX_INCLUDES)</literal> or
+            <literal>-I$(XERCESINCLUDE)</literal>. To search for headers
+            within SUMO directories, use
+            <literal>-I$(top_srcdir)/Path_to_dir</literal>.</para>
+          </listitem>
+
+          <listitem>
+            <para>need to link against new libraries or create new programs:
+            Modify the file <literal>src/Makefile.am</literal>. Add a new
+            program to <literal>bin_PROGRAMS</literal>. For each program you
+            need to provide <literal>prg_SOURCES</literal>,
+            <literal>prg_LDFLAGS</literal> and <literal>prg_LDADD</literal>.
+            <literal>prg_LDFLAGS</literal> holds the linker flags and
+            library-directories like <literal>-L$(XERCESLIBPATH)</literal> or
+            <literal>$(QT_LDFLAGS)</literal>. <literal>prg_LDADD</literal>
+            lists all libraries that should be linked with the executable
+            (e.g. <literal>./utils/xml/libxml.a -l$(XERCESLIB)
+            -l$(FOXLIB)</literal>).</para>
+          </listitem>
+
+          <listitem>
+            <para>you create new subdirectories: Add the new subdirectory to
+            <literal>SUBDIRS</literal> and create a new
+            <literal>Makefile.am</literal> there. In this case, you also have
+            to include the command to build this directory's makefiles within
+            <literal>configure.in</literal>.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>I don't want to go into detail of <literal>Makefile.am</literal>
+        creation. For SUMO we have one top-level
+        <literal>Makefile.am</literal> in the directory
+        <literal>sumo</literal> This needs to be changed only if you add new
+        subdirectories</para>
+
+        <para>All SUMO-executables are build in <literal>sumo/src</literal>.
+        Add this directory's <literal>Makefile.am</literal> to add new
+        executables.</para>
+
+        <para>All other <literal>Makefile.am</literal> looks e.g. like
+        this:</para>
+
+        <screen>noinst_LIBRARIES = libxxx.a
+EXTRA_DIST = distributed_but_not_compiled_file
+libxxx_a_SOURCES = header.h source.cpp
+AM_CPPFLAGS = -I$(top_srcdir)/src/helpers -I$(FOX_INCLUDES) \ -I$(XERCESINCLUDE)
+SUBDIRS = icons
+METASOURCES = AUTO</screen>
+
+        <sect3>
+          <title>Makefile.am additions for Xerces</title>
+
+          <para>If you need to include Xerces-headers in a specific directory
+          add <literal>-I$(XERCESINCLUDE)
+          -I$(XERCESINCLUDE_PRIOR_1_7)</literal> to
+          <literal>AM_CPPFLAGS</literal>.</para>
+
+          <para>If you need to link against the Xerces-library add
+          <literal>-L$(XERCES_LDFLAGS)</literal> to
+          <literal>prg_LDFLAGS</literal> and <literal>-l$(XERCESLIB)</literal>
+          to <literal>prg_LDADD</literal>.</para>
+        </sect3>
+
+        <sect3>
+          <title>Makefile.am additions for FOX</title>
+
+          <para>If you need to include FOX-headers in a specific directory add
+          -I<literal>$(FOX_INCLUDES)</literal> to
+          <literal>AM_CPPFLAGS</literal>.</para>
+
+          <para>If you need to link against FOX-library add
+          <literal>-L$(FOX_LDFLAGS)</literal> to
+          <literal>prg_LDFLAGS</literal> and <literal>-l$(FOXLIBS)</literal>
+          to <literal>prg_LDADD</literal>.</para>
+        </sect3>
+      </sect2>
+    </sect1>
+  </chapter>
+
+  <chapter id="dev_chp02">
+    <title>Windows: Using MSVC++ 6.0</title>
+
+    <sect1>
+      <title>Using MSVC++ 6.0</title>
+
+      <para>Building under Windows is as easy as under Linux. The following
+      steps have to be done (steps 9-11 may be skipped if using SUMO
+      0.8.x):</para>
+
+      <procedure>
+        <step>
+          <para>Install the Service Pack 5 or 6 for MSVC++.</para>
+        </step>
+
+        <step>
+          <para>Obtain the sources as described above.</para>
+        </step>
+
+        <step>
+          <para>Download the <ulink
+          url="http://xml.apache.org/xerces-c/index.html">Xerces C++
+          library</ulink> (version 2.6 or greater), the <ulink
+          url="http://www.fox-toolkit.org">FOX</ulink>-library (version
+          1.4.x), the <ulink
+          url="http://www.remotesensing.org/proj/">PROJ</ulink>-library
+          (version 4.4.9), and the <ulink
+          url="http://www.remotesensing.org/gdal/">GDAL</ulink>-library
+          (version 1.3.1). All libraries are also available at our <ulink
+          url="http://sumo.sourceforge.net/downloads.html">download</ulink>-pages.
+          Make sure you download the Windows-version of Xerces, the sources
+          for FOX in the version 1.4.x and GDAL version 1.3.1.</para>
+
+          <caution>
+            <para>If you use SUMO 0.8.x you have to use FOX1.2 instead. You
+            will also not need the PROJ and the GDAL library.</para>
+          </caution>
+        </step>
+
+        <step>
+          <para>Install all libraries into desired folder (FOX and GDAL must
+          be build, Xerces and PROJ possibly not)</para>
+        </step>
+
+        <step>
+          <para>Set environment variables for the xerces library:</para>
+
+          <para><envar>XERCES=<replaceable>&lt;PATH_TO_XERCES&gt;</replaceable></envar></para>
+
+          <para>Example: If you have installed xerces to
+          <filename>D:\libs\xerces-c_2_X_0-win32</filename>, then your
+          environment variables should contain
+          <envar>XERCES=D:\libs\xerces-c_2_X_0-win32</envar></para>
+        </step>
+
+        <step>
+          <para>Copy <filename>xerces-c_2_X_0.dll</filename> and
+          <filename>xerces-c_2_X_0D.dll</filename> into the folder your
+          binaries are located in or into your windows-system folder.</para>
+        </step>
+
+        <step>
+          <para>Set environment variables for the FOX library:</para>
+
+          <para><envar>FOX14=<replaceable>&lt;PATH_TO_FOX&gt;</replaceable></envar></para>
+
+          <para>Example: If you have installed fox to
+          <filename>D:\libs\fox-1.4.x</filename>, then your environment
+          variables should contain
+          <envar>FOX14=D:\libs\fox-1.4.x</envar></para>
+
+          <caution>
+            <para>If you use SUMO 0.8.x and FOX1.2, the variable's name must
+            be "FOX".</para>
+          </caution>
+        </step>
+
+        <step>
+          <para>Compile the fox-library (Xerces comes mostly with precompiled
+          binaries, so a rebuild is not necessary) and copy
+          <filename>FOXDLL-1.4.dll</filename> and
+          <filename>FOXDLLD-1.4.dll</filename> into your windows-system
+          folder.</para>
+        </step>
+
+        <step>
+          <para>Set environment variables for the GDAL library:</para>
+
+          <para><envar>GDAL=<replaceable>&lt;PATH_TO_GDAL&gt;</replaceable></envar></para>
+
+          <para>Example: If you have installed fox to
+          <filename>D:\libs\gdal-1.3.1\</filename>, then your environment
+          variables should contain
+          <envar>GDAL=D:\libs\gdal-1.3.1\</envar></para>
+
+          <caution>
+            <para>If you use SUMO version 0.8.x, you do not have to install
+            the GDAL library (this step may be skipped)</para>
+          </caution>
+        </step>
+
+        <step>
+          <para>Copy <filename>gdal13.dll</filename> into the folder your
+          binaries are located in or into your windows-system folder.</para>
+
+          <caution>
+            <para>If you use SUMO version 0.8.x, you do not have to install
+            the GDAL library (this step may be skipped)</para>
+          </caution>
+        </step>
+
+        <step>
+          <para>Copy <filename>proj.dll</filename> into the folder your
+          binaries are located in or into your windows-system folder.</para>
+
+          <caution>
+            <para>If you use SUMO version 0.8.x, you do not have to install
+            the PROJ library (this step may be skipped)</para>
+          </caution>
+        </step>
+
+        <step>
+          <para>Start MSVC++ and open the file <filename>prj.dsw</filename>
+          located in
+          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/prj/msvc6</filename></para>
+        </step>
+
+        <step>
+          <para>Go to <guimenu>Build</guimenu> and <guimenuitem>Rebuild
+          All</guimenuitem></para>
+        </step>
+      </procedure>
+
+      <para>If everything was build, the applications may be found in
+      <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/bin</filename>.
+      Enjoy!</para>
+    </sect1>
+
+    <sect1>
+      <title>Using MS Studio 7.0 .NET</title>
+
+      <para>Follow steps 2-12 as described for <application
+      class="software">MSVC++ 6.0</application>. Then continue as
+      follows:</para>
+
+      <procedure>
+        <step>
+          <para>Start MSVC++ and open the file <filename>prj.sln</filename>
+          located in
+          <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/prj/msvc7.net</filename></para>
+        </step>
+
+        <step>
+          <para>Go to <guimenu>Build</guimenu> and <guimenuitem>Rebuild
+          All</guimenuitem></para>
+        </step>
+      </procedure>
+
+      <para>Enjoy!</para>
+    </sect1>
+  </chapter>
+</book>
