@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/03/08 12:59:35  dkrajzew
+// add a link to the "about" dialog
+//
 // Revision 1.9  2006/01/09 11:44:40  dkrajzew
 // debugging the editable table
 //
@@ -72,6 +75,7 @@ namespace
 
 #include "GUIDialog_AboutSUMO.h"
 #include <utils/gui/windows/GUIAppGlobals.h>
+#include <utils/foxtools/FXLinkLabel.h>
 //#include <gui/GUIGlobals.h>
 
 #ifdef _DEBUG
@@ -251,8 +255,9 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name,
     new FXLabel(f3, "2000-2006",
         0, LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL, 0,0,0,0, 0,0,0,0);
 
-    new FXLabel(f3, "http://sumo.sourceforge.net",
+    FXLinkLabel *link = new FXLinkLabel(f3, "http://sumo.sourceforge.net",
         0, LAYOUT_CENTER_X|JUSTIFY_CENTER_X|LABEL_NORMAL, 0,0,0,0, 5,5,5,5);
+    link->setTipText("http://sumo.sourceforge.net");
     // ok-button
     new FXButton(f1,"OK\t\t", 0, this, ID_ACCEPT,
         LAYOUT_FIX_WIDTH|LAYOUT_CENTER_X|JUSTIFY_CENTER_X|FRAME_THICK|FRAME_RAISED,

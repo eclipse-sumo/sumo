@@ -163,6 +163,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\foxtools\FXLinkLabel.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\foxtools\FXLockable.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -400,6 +403,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\foxtools\FXLCDLabel.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\foxtools\FXLinkLabel.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\foxtools\FXLockable.h">

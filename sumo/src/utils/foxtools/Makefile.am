@@ -7,6 +7,7 @@ FXBaseObject.cpp FXBaseObject.h \
 fxexdefs.h \
 MFXImageHelper.cpp MFXImageHelper.h \
 FXLCDLabel.cpp FXLCDLabel.h \
+FXLinkLabel.cpp FXLinkLabel.h \
 FXLockable.cpp FXLockable.h \
 FXMutex.cpp FXMutex.h \
 FXRealSpinDial.cpp FXRealSpinDial.h \
