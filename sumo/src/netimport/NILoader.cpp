@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/03/08 13:02:26  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.21  2006/02/23 11:22:33  dkrajzew
 // changed shape reading import
 //
@@ -181,6 +184,7 @@ namespace
 #include <util/PlatformUtils.hpp>
 #include <util/TransService.hpp>
 #include <sax2/SAX2XMLReader.hpp>
+#include <proj_api.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/OptionsCont.h>
@@ -244,19 +248,25 @@ NILoader::~NILoader()
 void
 NILoader::load(OptionsCont &oc)
 {
-    // get the report options
-    // get the format to use
-    //string type = oc.getString("used-file-format");
+    // build the projection
+    projPJ pj = 0;
+    if(oc.getBool("use-projection")) {
+        pj = pj_init_plus(oc.getString("proj").c_str());
+        if(pj==0) {
+            MsgHandler::getErrorInstance()->inform("Could not build projection!");
+            throw ProcessError();
+        }
+    }
     // try to load using different methods
-    loadXML(oc);
+    loadXML(oc, pj);
     loadSUMO(oc);
     loadCell(oc);
-    loadVisum(oc);
-    loadArcView(oc);
+    loadVisum(oc, pj);
+    loadArcView(oc, pj);
     loadArtemis(oc);
     loadVissim(oc);
-    loadElmar(oc);
-    loadTiger(oc);
+    loadElmar(oc, pj);
+    loadTiger(oc, pj);
     // check the loaded structures
     if(myNetBuilder.getNodeCont().size()==0) {
         MsgHandler::getErrorInstance()->inform("No nodes loaded.");
@@ -304,7 +314,8 @@ NILoader::loadSUMOFiles(OptionsCont &oc, LoadFilter what, const string &files,
 
 
 void
-NILoader::loadXML(OptionsCont &oc) {
+NILoader::loadXML(OptionsCont &oc, projPJ pj)
+{
     // load types
     if(oc.isUsableFileList("xml-type-files")) {
 	    NIXMLTypesHandler *handler =
@@ -317,7 +328,7 @@ NILoader::loadXML(OptionsCont &oc) {
     if(oc.isUsableFileList("xml-node-files")) {
         NIXMLNodesHandler *handler =
             new NIXMLNodesHandler(myNetBuilder.getNodeCont(),
-                myNetBuilder.getTLLogicCont(), oc);
+                myNetBuilder.getTLLogicCont(), oc, pj);
         loadXMLType(handler, oc.getString("xml-node-files"), "nodes");
         myNetBuilder.getNodeCont().report();
     }
@@ -377,7 +388,8 @@ NILoader::loadXMLFile(SAX2XMLReader &parser, const std::string &file,
 
 
 void
-NILoader::loadCell(OptionsCont &oc) {
+NILoader::loadCell(OptionsCont &oc)
+{
     LineReader lr;
     // load nodes
     if(oc.isSet("cell-node-file")) {
@@ -410,7 +422,8 @@ NILoader::loadCell(OptionsCont &oc) {
 
 bool
 NILoader::useLineReader(LineReader &lr, const std::string &file,
-                        LineHandler &lh) {
+                        LineHandler &lh)
+{
     // check opening
     if(!lr.setFileName(file)) {
         MsgHandler::getErrorInstance()->inform("The file '" + file + "' could not be opened.");
@@ -422,19 +435,20 @@ NILoader::useLineReader(LineReader &lr, const std::string &file,
 
 
 void
-NILoader::loadVisum(OptionsCont &oc) {
+NILoader::loadVisum(OptionsCont &oc, projPJ pj)
+{
     if(!oc.isSet("visum")) {
         return;
     }
     // load the visum network
     NIVisumLoader loader(myNetBuilder, oc.getString("visum"),
-        NBCapacity2Lanes(oc.getFloat("N")));
+        NBCapacity2Lanes(oc.getFloat("N")), pj);
     loader.load(oc);
 }
 
 
 void
-NILoader::loadArcView(OptionsCont &oc)
+NILoader::loadArcView(OptionsCont &oc, projPJ pj)
 {
     if(!oc.isSet("arcview")) {
         return;
@@ -460,13 +474,14 @@ NILoader::loadArcView(OptionsCont &oc)
     // load the arcview files
     NIArcView_Loader loader(oc,
         myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(), myNetBuilder.getTypeCont(),
-        dbf_file, shp_file, oc.getBool("speed-in-kmh"), !oc.getBool("navtech-rechecklanes"));
+        dbf_file, shp_file, oc.getBool("speed-in-kmh"), !oc.getBool("navtech-rechecklanes"), pj);
     loader.load(oc);
 }
 
 
 void
-NILoader::loadVissim(OptionsCont &oc) {
+NILoader::loadVissim(OptionsCont &oc)
+{
     if(!oc.isSet("vissim")) {
         return;
     }
@@ -477,7 +492,8 @@ NILoader::loadVissim(OptionsCont &oc) {
 
 
 void
-NILoader::loadArtemis(OptionsCont &oc) {
+NILoader::loadArtemis(OptionsCont &oc)
+{
     if(!oc.isSet("artemis")) {
         return;
     }
@@ -491,7 +507,7 @@ NILoader::loadArtemis(OptionsCont &oc) {
 
 
 void
-NILoader::loadElmar(OptionsCont &oc)
+NILoader::loadElmar(OptionsCont &oc, projPJ pj)
 {
     if(!oc.isSet("elmar")&&!oc.isSet("elmar2")) {
         return;
@@ -508,44 +524,18 @@ NILoader::loadElmar(OptionsCont &oc)
     }
 
     LineReader lr;
-    // load min/max
-    string unsplitted_nodes_file = oc.getString(opt) + "_nodes_unsplitted.txt";
-    lr.setFileName(unsplitted_nodes_file);
-    if(!lr.good()) {
-        MsgHandler::getErrorInstance()->inform("Could not open '" + unsplitted_nodes_file + "'.");
-        throw ProcessError();
-    }
-    SUMOReal xmin, xmax, ymin, ymax;
-    try {
-        string line;
-        while(line.find("[xmin]")==string::npos) {
-            line = lr.readLine();
-        }
-        xmin = TplConvert<char>::_2SUMOReal(StringUtils::prune(line.substr(line.find("]") + 1)).c_str());
-        line = lr.readLine();
-        xmax = TplConvert<char>::_2SUMOReal(StringUtils::prune(line.substr(line.find("]") + 1)).c_str());
-        line = lr.readLine();
-        ymin = TplConvert<char>::_2SUMOReal(StringUtils::prune(line.substr(line.find("]") + 1)).c_str());
-        line = lr.readLine();
-        ymax = TplConvert<char>::_2SUMOReal(StringUtils::prune(line.substr(line.find("]") + 1)).c_str());
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Error on reading min/max definitions from '" + oc.getString(opt) + "_nodes_unsplitted.txt'.");
-        throw ProcessError();
-    }
     // load nodes
     std::map<std::string, Position2DVector> myGeoms;
     WRITE_MESSAGE("Loading nodes... ");
     if(!unsplitted) {
         string file = oc.getString(opt) + "_nodes.txt";
-        NIElmarNodesHandler handler1(myNetBuilder.getNodeCont(), file,
-            (xmin+xmax)/(SUMOReal) 2.0, (ymin+ymax)/(SUMOReal) 2.0);
+        NIElmarNodesHandler handler1(myNetBuilder.getNodeCont(), file, pj);
         if(!useLineReader(lr, file, handler1)) {
             throw ProcessError();
         }
     } else {
         string file = oc.getString(opt) + "_nodes_unsplitted.txt";
-        NIElmar2NodesHandler handler1(myNetBuilder.getNodeCont(), file,
-            (xmin+xmax)/(SUMOReal) 2.0, (ymin+ymax)/(SUMOReal) 2.0, myGeoms);
+        NIElmar2NodesHandler handler1(myNetBuilder.getNodeCont(), file, myGeoms, pj);
         if(!useLineReader(lr, file, handler1)) {
             throw ProcessError();
         }
@@ -574,19 +564,20 @@ NILoader::loadElmar(OptionsCont &oc)
             throw ProcessError();
         }
     }
+    myNetBuilder.getEdgeCont().recheckLaneSpread();
     WRITE_MESSAGE("done.");
     myNetBuilder.getEdgeCont().report();
 }
 
 
 void
-NILoader::loadTiger(OptionsCont &oc)
+NILoader::loadTiger(OptionsCont &oc, projPJ pj)
 {
     if(!oc.isSet("tiger")) {
         return;
     }
-    NITigerLoader l(myNetBuilder.getEdgeCont(),
-        myNetBuilder.getNodeCont(), oc.getString("tiger"));
+    NITigerLoader l(myNetBuilder.getEdgeCont(), myNetBuilder.getNodeCont(),
+        oc.getString("tiger"), pj);
     l.load(oc);
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/03/08 13:02:26  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.10  2005/10/07 11:39:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -115,9 +118,7 @@ NICellNodesHandler::report(const std::string &result)
     if(result.length()>0) {
         StringTokenizer st(result);
         if(st.size()!=3) {
-            addError(
-                string("The following cell-nodes - entry contains an error:")
-                + '\n' + result.c_str());
+            addError("The following cell-nodes - entry contains an error:\n" + result);
         } else {
             string id = NBHelpers::normalIDRepresentation(st.next());
             SUMOReal x, y;
@@ -125,13 +126,10 @@ NICellNodesHandler::report(const std::string &result)
                 x = TplConvert<char>::_2SUMOReal(st.next().c_str());
                 y = TplConvert<char>::_2SUMOReal(st.next().c_str());
                 if(!myNodeCont.insert(id, Position2D(x, y))) {
-                    MsgHandler::getErrorInstance()->inform(
-                        string("Could not build node '") + id + string("'."));
+                    MsgHandler::getErrorInstance()->inform("Could not build node '" + id + "'.");
                 }
             } catch (NumberFormatException) {
-                addError(
-                    string("The following cell-nodes - entry contains a non-digit position information:")
-                    + '\n' + result.c_str());
+                addError("The following cell-nodes - entry contains a non-digit position information:\n" + result);
                 throw ProcessError();
             }
         }

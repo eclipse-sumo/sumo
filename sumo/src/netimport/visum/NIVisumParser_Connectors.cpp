@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/03/08 13:02:27  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.17  2006/02/23 11:23:53  dkrajzew
 // VISION import added
 //
@@ -163,18 +166,6 @@ NIVisumParser_Connectors::myDependentReport()
             myLineParser.know("Typ")
             ? NBHelpers::normalIDRepresentation(myLineParser.get("Typ"))
             : "";
-
-        SUMOReal speed;
-        int prio, nolanes;
-        if(type.length()==0) {
-            speed = 2000;
-            nolanes = 3;
-            prio = 0;
-        } else {
-            speed = myTypeCont.getSpeed(type);
-            nolanes = myTypeCont.getNoLanes(type);
-            prio = myTypeCont.getPriority(type);
-        }
         // add the connectors as an edge
         string id = bez + "-" + node;
         // get the information whether this is a sink or a source
@@ -191,7 +182,7 @@ NIVisumParser_Connectors::myDependentReport()
                 return;
             }
             NBEdge *edge = new NBEdge(id, id, src, dest, "VisumConnector",
-                100, 3/*nolanes*/, 2000.0, prio, NBEdge::LANESPREAD_RIGHT,
+                100, 3/*nolanes*/, 2000.0, 0, NBEdge::LANESPREAD_RIGHT,
                 NBEdge::EDGEFUNCTION_SOURCE);
             if(!myEdgeCont.insert(edge)) {
                 addError(
@@ -210,7 +201,7 @@ NIVisumParser_Connectors::myDependentReport()
             }
             id = "-" + id;
             NBEdge *edge = new NBEdge(id, id, dest, src, "VisumConnector",
-                100, 3/*nolanes*/, 2000.0, prio, NBEdge::LANESPREAD_RIGHT,
+                100, 3/*nolanes*/, 2000.0, 0, NBEdge::LANESPREAD_RIGHT,
                 NBEdge::EDGEFUNCTION_SINK);
             if(!myEdgeCont.insert(edge)) {
                 addError("A duplicate edge id occured (ID='" + id + "').");

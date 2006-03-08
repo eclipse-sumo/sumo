@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/03/08 13:02:27  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.5  2006/01/19 09:26:04  dkrajzew
 // adapted to the current version
 //
@@ -82,14 +85,12 @@ using namespace std;
  * ======================================================================= */
 NIElmar2NodesHandler::NIElmar2NodesHandler(NBNodeCont &nc,
                                            const std::string &file,
-                                           SUMOReal centerX, SUMOReal centerY,
-                                           std::map<std::string, Position2DVector> &geoms)
+                                           std::map<std::string, Position2DVector> &geoms,
+                                           projPJ pj)
     : FileErrorReporter("elmar-nodes", file),
-    myInitX(centerX), myInitY(centerY),
-    myNodeCont(nc), myGeoms(geoms)
+    myInitX(-1), myInitY(-1),
+    myNodeCont(nc), myGeoms(geoms), myProjection(pj)
 {
-    myInitX /= 100000.0;
-    myInitY /= 100000.0;
 }
 
 
@@ -110,10 +111,8 @@ NIElmar2NodesHandler::report(const std::string &result)
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
     // check
     if(st.size()<5) {
-        MsgHandler::getErrorInstance()->inform(
-            "Something is wrong with the following data line");
-        MsgHandler::getErrorInstance()->inform(
-            result);
+        MsgHandler::getErrorInstance()->inform("Something is wrong with the following data line");
+        MsgHandler::getErrorInstance()->inform(result);
         throw ProcessError();
     }
     // parse
@@ -123,16 +122,14 @@ NIElmar2NodesHandler::report(const std::string &result)
     try {
         intermediate = TplConvert<char>::_2int(st.next().c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            "Non-numerical value for internmediate y/n occured.");
+        MsgHandler::getErrorInstance()->inform("Non-numerical value for internmediate y/n occured.");
         throw ProcessError();
     }
         // number of geometrical information
     try {
         no_geoms = TplConvert<char>::_2int(st.next().c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            "Non-numerical value for number of nodes occured.");
+        MsgHandler::getErrorInstance()->inform("Non-numerical value for number of nodes occured.");
         throw ProcessError();
     }
         // geometrical information
@@ -141,36 +138,36 @@ NIElmar2NodesHandler::report(const std::string &result)
         try {
             x = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform(
-                "Non-numerical value for node-x-position occured.");
+            MsgHandler::getErrorInstance()->inform("Non-numerical value for node-x-position occured.");
             throw ProcessError();
         }
         try {
             y = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform(
-                "Non-numerical value for node-y-position occured.");
+            MsgHandler::getErrorInstance()->inform("Non-numerical value for node-y-position occured.");
             throw ProcessError();
         }
-        x = (SUMOReal) (x / 100000.0);
-        y = (SUMOReal) (y / 100000.0);
-        SUMOReal ys = y;
-        x = (x-myInitX);
-        y = (y-myInitY);
-        SUMOReal x1 = (SUMOReal) (x * 111.320*1000.);
-        SUMOReal y1 = (SUMOReal) (y * 111.136*1000.);
-        x1 *= (SUMOReal) cos(ys*PI/180.0);
-        geoms.push_back(Position2D(x1, y1));
+        projUV p;
+        p.u = x / 100000.0 * DEG_TO_RAD;
+        p.v = y / 100000.0 * DEG_TO_RAD;
+        if(myProjection!=0) {
+            p = pj_fwd(p, myProjection);
+        } else {
+            x = (SUMOReal) (x / 100000.0);
+            y = (SUMOReal) (y / 100000.0);
+            SUMOReal ys = y;
+            if(myInitX=-1) {
+                myInitX = x;
+                myInitY = y;
+            }
+            x = (x-myInitX);
+            y = (y-myInitY);
+            p.v = (SUMOReal) (x * 111.320*1000.);
+            SUMOReal y1 = (SUMOReal) (y * 111.136*1000.);
+            p.u *= (SUMOReal) cos(ys*PI/180.0);
+        }
+        geoms.push_back(Position2D((SUMOReal) p.u, (SUMOReal) p.v));
     }
-    // geo->metric
-//    x = -1.0 * (x-myInitX)
-//        * (SUMOReal) 111.320 * /*(SUMOReal) 1000.0 * */cos(y / (SUMOReal) 10000.0*PI/180.0)
-//        / (SUMOReal) 10.0; // 10000.0
-//    y = (y-myInitY)
-//        * (SUMOReal) 111.136 /* * (SUMOReal) 1000.0*/
-//        / (SUMOReal) 10.0; // 10000.0
-
-//    y1 *= 4.0/2.0;
 
     if(intermediate==0) {
         NBNode *n = new NBNode(id, geoms.at(0));

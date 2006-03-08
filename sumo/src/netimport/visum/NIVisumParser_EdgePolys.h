@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2006/03/08 13:02:27  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.4  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -51,6 +54,7 @@
 #endif
 #endif // HAVE_CONFIG_H
 
+#include <proj_api.h>
 #include "NIVisumLoader.h"
 
 
@@ -72,7 +76,7 @@ class NIVisumParser_EdgePolys :
 public:
     /// Constructor
     NIVisumParser_EdgePolys(NIVisumLoader &parent, NBNodeCont &nc,
-        const std::string &dataName);
+        projPJ projection, const std::string &dataName);
 
     /// Destructor
     ~NIVisumParser_EdgePolys();
@@ -87,6 +91,8 @@ private:
 
 private:
     NBNodeCont &myNodeCont;
+
+    projPJ myProjection;
 
 };
 

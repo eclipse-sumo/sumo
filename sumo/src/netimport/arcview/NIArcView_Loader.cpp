@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/03/08 13:02:26  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.22  2006/02/23 11:22:33  dkrajzew
 // changed shape reading import
 //
@@ -138,14 +141,15 @@ NIArcView_Loader::NIArcView_Loader(OptionsCont &oc,
                                    const std::string &dbf_name,
                                    const std::string &shp_name,
                                    bool speedInKMH,
-								   bool useNewLaneNumberInfoPlain)
+								   bool useNewLaneNumberInfoPlain,
+                                   projPJ pj)
     : FileErrorReporter("Navtech Edge description", dbf_name),
     myOptions(oc), myDBFName(dbf_name), mySHPName(shp_name),
     myNameAddition(0),
     myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc),
     mySpeedInKMH(speedInKMH),
 	myUseNewLaneNumberInfoPlain(useNewLaneNumberInfoPlain),
-    myRunningNodeID(0)
+    myRunningNodeID(0), myProjection(pj)
 {
 }
 
@@ -253,13 +257,23 @@ NIArcView_Loader::load(OptionsCont &)
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
         assert(gtype==wkbLineString);
         OGRLineString *cgeom = (OGRLineString*) poGeometry;//;dynamic_cast<OGRLineString*>(poGeometry);
+        bool try_transform2 = true;
         if(poCT!=0) {
             cgeom->transform(poCT);
+            try_transform2 = false;
         }
 
         Position2DVector shape;
         for(int j=0; j<cgeom->getNumPoints(); j++) {
-            shape.push_back_noDoublePos(Position2D((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j))); // !!!
+            if(!try_transform2||myProjection==0) {
+                shape.push_back_noDoublePos(Position2D((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j))); // !!!
+            } else {
+                projUV p;
+                p.u = cgeom->getX(j) / 100000.0 * DEG_TO_RAD;
+                p.v = cgeom->getY(j) / 100000.0 * DEG_TO_RAD;
+                p = pj_fwd(p, myProjection);
+                shape.push_back_noDoublePos(Position2D((SUMOReal) p.u, (SUMOReal) p.v));
+            }
         }
 
 

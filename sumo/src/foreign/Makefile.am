@@ -4,7 +4,7 @@ endif
 
 EXTRA_DIST = additional.txt
 
-SUBDIRS = $(MEMDIRS)
+SUBDIRS = proj $(MEMDIRS)
 
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/03/08 13:02:26  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.11  2005/11/29 13:31:16  dkrajzew
 // debugging
 //
@@ -138,9 +141,7 @@ NICellEdgesHandler::report(const std::string &result)
     }
     // check mandatory parameter
     if(st.size()<4) {
-        addError(
-            string("The following cell-edges - entry does not match the format:")
-            + '\n' + result.c_str());
+        addError("The following cell-edges - entry does not match the format:\n" + result);
         throw ProcessError();
     }
     string id = NBHelpers::normalIDRepresentation(st.next());
@@ -151,13 +152,9 @@ NICellEdgesHandler::report(const std::string &result)
     // check whether the nodes are known
     if(from==0||to==0) {
         if(from==0) {
-            addError(
-                string("The from-node is not known within the following entry:")
-                + '\n' + result.c_str());
+            addError("The from-node is not known within the following entry:\n" + result);
         } else {
-            addError(
-                string("The to-node is not known within the following entry:")
-                + '\n' + result.c_str());
+            addError("The to-node is not known within the following entry:\n" + result);
         }
         throw ProcessError();
     }
@@ -170,18 +167,14 @@ NICellEdgesHandler::report(const std::string &result)
     try {
         length = TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException) {
-        addError(
-            string("Non-numeric length entry in the following line:")
-            + '\n' + result.c_str());
+        addError("Non-numeric length entry in the following line:\n" + result);
     }
     // get the other parameter
     bool hadExpliciteLaneNo = false;
     while(st.hasNext()) {
         string name = st.next();
         if(!st.hasNext()) {
-            addError(
-                string("Something seems to be wrong with the following line:")
-                + '\n' + result.c_str());
+            addError("Something seems to be wrong with the following line:\n" + result);
         } else {
             string value = st.next();
             // do nothing on maximal vehicle number
@@ -197,9 +190,7 @@ NICellEdgesHandler::report(const std::string &result)
                 try {
                     speed = TplConvert<char>::_2SUMOReal(value.c_str());
                 } catch (NumberFormatException) {
-                    addError(
-                        string("Non-numeric speed value:")
-                        + '\n' + result.c_str());
+                    addError("Non-numeric speed value:\n" + result);
                 }
             }
             // process lane number
@@ -208,9 +199,7 @@ NICellEdgesHandler::report(const std::string &result)
                     nolanes = TplConvert<char>::_2int(value.c_str());
                     hadExpliciteLaneNo = true;
                 } catch (NumberFormatException) {
-                    addError(
-                        string("Non-numeric lane number value:")
-                        + '\n' + result.c_str());
+                    addError("Non-numeric lane number value:\n" + result);
                 }
             }
         }

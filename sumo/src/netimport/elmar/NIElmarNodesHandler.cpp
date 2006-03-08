@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/03/08 13:02:27  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.8  2006/01/19 09:26:04  dkrajzew
 // adapted to the current version
 //
@@ -85,18 +88,17 @@ namespace
  * ======================================================================= */
 using namespace std;
 
+
 /* =========================================================================
  * method definitions
  * ======================================================================= */
 NIElmarNodesHandler::NIElmarNodesHandler(NBNodeCont &nc,
                                          const std::string &file,
-                                         SUMOReal centerX, SUMOReal centerY)
+                                         projPJ pj)
     : FileErrorReporter("elmar-nodes", file),
-    myInitX(centerX), myInitY(centerY),
-    myNodeCont(nc)
+    myInitX(-1), myInitY(-1),
+    myNodeCont(nc), myProjection(pj)
 {
-    myInitX /= 100000.0;
-    myInitY /= 100000.0;
 }
 
 
@@ -140,27 +142,29 @@ NIElmarNodesHandler::report(const std::string &result)
         throw ProcessError();
     }
     // geo->metric
-//    x = -1.0 * (x-myInitX)
-//        * (SUMOReal) 111.320 * /*(SUMOReal) 1000.0 * */cos(y / (SUMOReal) 10000.0*PI/180.0)
-//        / (SUMOReal) 10.0; // 10000.0
-//    y = (y-myInitY)
-//        * (SUMOReal) 111.136 /* * (SUMOReal) 1000.0*/
-//        / (SUMOReal) 10.0; // 10000.0
-    x = x / (SUMOReal) 100000.0;
-    y = y / (SUMOReal) 100000.0;
-    SUMOReal ys = y;
-    x = (x-myInitX);
-    y = (y-myInitY);
-    SUMOReal x1 = (SUMOReal) (x * 111.320*1000.);
-    SUMOReal y1 = (SUMOReal) (y * 111.136*1000.);
-    x1 *= (SUMOReal) cos(ys*PI/180.0);
-//    y1 *= 4.0/2.0;
-
-    NBNode *n = new NBNode(id, Position2D(x1, y1));
+    projUV p;
+    p.u = x / 100000.0 * DEG_TO_RAD;
+    p.v = y / 100000.0 * DEG_TO_RAD;
+    if(myProjection!=0) {
+        p = pj_fwd(p, myProjection);
+    } else {
+        x = x / (SUMOReal) 100000.0;
+        y = y / (SUMOReal) 100000.0;
+        SUMOReal ys = y;
+        if(myInitX=-1) {
+            myInitX = x;
+            myInitY = y;
+        }
+        x = (x-myInitX);
+        y = (y-myInitY);
+        p.u = (SUMOReal) (x * 111.320*1000.);
+        p.v = (SUMOReal) (y * 111.136*1000.);
+        p.u *= (SUMOReal) cos(ys*PI/180.0);
+    }
+    NBNode *n = new NBNode(id, Position2D((SUMOReal) p.u, (SUMOReal) p.v));
     if(!myNodeCont.insert(n)) {
         delete n;
-        MsgHandler::getErrorInstance()->inform(
-            string("Could not add node '") + id + string("'."));
+        MsgHandler::getErrorInstance()->inform("Could not add node '" + id + "'.");
         throw ProcessError();
     }
     return true;

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/03/08 13:02:26  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.17  2006/02/23 11:22:33  dkrajzew
 // changed shape reading import
 //
@@ -272,7 +275,8 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("arcview.use-defaults-on-failure", new Option_Bool(false)); // !!! describe, document
     oc.doRegister("arcview.guess-projection", new Option_Bool(false)); // !!! describe, document
 
-
+    oc.doRegister("use-projection", new Option_Bool(false));
+    oc.doRegister("proj", new Option_String("+proj=utm +zone=33 +ellps=bessel +units=m"));
 
 
     oc.doRegister("output-file", 'o', new Option_FileName("net.net.xml"));

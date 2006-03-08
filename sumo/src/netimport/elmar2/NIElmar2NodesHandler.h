@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2006/03/08 13:02:27  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.5  2006/01/19 09:26:04  dkrajzew
 // adapted to the current version
 //
@@ -53,9 +56,11 @@
 #endif
 #endif // HAVE_CONFIG_H
 
+#include <proj_api.h>
 #include <string>
 #include <utils/importio/LineHandler.h>
 #include <utils/common/FileErrorReporter.h>
+
 
 /* =========================================================================
  * class definitions
@@ -71,7 +76,7 @@ class NIElmar2NodesHandler : public LineHandler,
 public:
     /// constructor
     NIElmar2NodesHandler(NBNodeCont &nc, const std::string &file,
-        SUMOReal xmin, SUMOReal ymin, std::map<std::string, Position2DVector> &geoms);
+        std::map<std::string, Position2DVector> &geoms, projPJ pj);
 
     /// destructor
     ~NIElmar2NodesHandler();
@@ -87,6 +92,8 @@ protected:
     NBNodeCont &myNodeCont;
 
     std::map<std::string, Position2DVector> &myGeoms;
+
+    projPJ myProjection;
 
 };
 

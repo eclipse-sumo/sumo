@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/03/08 13:02:27  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.11  2006/02/23 11:23:53  dkrajzew
 // VISION import added
 //
@@ -279,10 +282,10 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getWeightedBool(
  * ----------------------------------------------------------------------- */
 NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
                              const std::string &file,
-                             NBCapacity2Lanes capacity2Lanes)
+                             NBCapacity2Lanes capacity2Lanes, projPJ pj)
     : FileErrorReporter("visum-network", file),
     _capacity2Lanes(capacity2Lanes),
-    myTLLogicCont(nb.getTLLogicCont())
+    myTLLogicCont(nb.getTLLogicCont()), myProjection(pj)
 
 {
     // the order of process is important!
@@ -292,9 +295,9 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
     mySingleDataParsers.push_back(
         new NIVisumParser_Types(*this, nb.getTypeCont(), "STRECKENTYP", _capacity2Lanes));
     mySingleDataParsers.push_back(
-        new NIVisumParser_Nodes(*this, nb.getNodeCont(), "KNOTEN"));
+        new NIVisumParser_Nodes(*this, nb.getNodeCont(), pj, "KNOTEN"));
     mySingleDataParsers.push_back(
-        new NIVisumParser_Districts(*this, nb.getDistrictCont(), "BEZIRK"));
+        new NIVisumParser_Districts(*this, nb.getDistrictCont(), pj, "BEZIRK"));
     // set2
         // two types of "strecke"
     mySingleDataParsers.push_back(
@@ -310,7 +313,7 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
     mySingleDataParsers.push_back(
         new NIVisumParser_Turns(*this, nb.getNodeCont(), "ABBIEGER", myVSysTypes));
     mySingleDataParsers.push_back(
-        new NIVisumParser_EdgePolys(*this, nb.getNodeCont(), "STRECKENPOLY"));
+        new NIVisumParser_EdgePolys(*this, nb.getNodeCont(), pj, "STRECKENPOLY"));
 	// set4
 	mySingleDataParsers.push_back(
 		new NIVisumParser_TrafficLights(*this, "LSA", myNIVisumTLs));

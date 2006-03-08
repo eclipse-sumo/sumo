@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/03/08 13:02:27  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.14  2006/01/11 12:02:08  dkrajzew
 // debugged node type specification (unfinished)
 //
@@ -160,10 +163,10 @@ using namespace std;
  * ======================================================================= */
 NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont &nc,
 									 NBTrafficLightLogicCont &tlc,
-									 OptionsCont &options)
+									 OptionsCont &options, projPJ pj)
     : SUMOSAXHandler("xml-nodes - file"),
     _options(options),
-    myNodeCont(nc), myTLLogicCont(tlc)
+    myNodeCont(nc), myTLLogicCont(tlc), myProjection(pj)
 {
 }
 
@@ -206,11 +209,18 @@ NIXMLNodesHandler::myStartElement(int element, const std::string &tag,
     }
     // check whether there is a traffic light to assign this node to
     // build the node
+    projUV p;
+    if(myProjection!=0) {
+        p.u = myPosition.x() * DEG_TO_RAD;
+        p.v = myPosition.y() * DEG_TO_RAD;
+        p = pj_fwd(p, myProjection);
+        myPosition.set((SUMOReal) p.u, (SUMOReal) p.v);
+    }
     NBNode *node = new NBNode(myID, myPosition, type);
     // insert the node
     if(!myNodeCont.insert(node)) {
         if(myNodeCont.retrieve(myPosition)!=0) {
-            addError(string("Duplicate node occured. ID='") + myID + string("'"));
+            addError("Duplicate node occured. ID='" + myID + "'");
         }
     }
     // process traffic light definition
@@ -228,14 +238,20 @@ NIXMLNodesHandler::setPosition(const Attributes &attrs)
     try {
         SUMOReal x = getFloat(attrs, SUMO_ATTR_X);
         SUMOReal y = getFloat(attrs, SUMO_ATTR_Y);
-        myPosition.set(x, y);
+        if(myProjection!=0) {
+            projUV p;
+            p.u = x / 100000.0 * DEG_TO_RAD;
+            p.v = y / 100000.0 * DEG_TO_RAD;
+            p = pj_fwd(p, myProjection);
+            myPosition.set((SUMOReal) p.u, (SUMOReal) p.v); // !!!! in multiple of degrees!!!
+        } else {
+            myPosition.set(x, y);
+        }
     } catch (NumberFormatException) {
-        addError(string("Not numeric value for position (at node ID='") + myID
-            + string("')."));
+        addError("Not numeric value for position (at node ID='" + myID + "').");
         return false;
     } catch (EmptyData) {
-        addError(string("Node position (at node ID='") + myID
-            + string("') is not given."));
+        addError("Node position (at node ID='" + myID + "') is not given.");
         return false;
     }
     // check whether the y-axis shall be flipped

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/03/08 13:02:27  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.9  2006/02/13 07:20:23  dkrajzew
 // code beautifying
 //
@@ -97,9 +100,10 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NITigerLoader::NITigerLoader(NBEdgeCont &ec, NBNodeCont &nc,
-                             const std::string &file)
+                             const std::string &file, projPJ pj)
     : FileErrorReporter("tiger-network", file),
-    myWasSet(false), myInitX(-1), myInitY(-1), myEdgeCont(ec), myNodeCont(nc)
+    myWasSet(false), myInitX(-1), myInitY(-1), myEdgeCont(ec), myNodeCont(nc),
+    myProjection(pj)
 {
 }
 
@@ -209,21 +213,27 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
         try {
             SUMOReal x = TplConvert<char>::_2SUMOReal(p1.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(p2.c_str());
-            x = x / (SUMOReal) 100000.0;
-            y = y / (SUMOReal) 100000.0;
-            SUMOReal ys = y;
-            if(!myWasSet) {
-                myWasSet = true;
-                myInitX = x;
-                myInitY = y;
+            projUV p;
+            p.u = x / 100000.0 * DEG_TO_RAD;
+            p.v = y / 100000.0 * DEG_TO_RAD;
+            if(myProjection!=0) {
+                p = pj_fwd(p, myProjection);
+            } else {
+                x = x / (SUMOReal) 100000.0;
+                y = y / (SUMOReal) 100000.0;
+                SUMOReal ys = y;
+                if(!myWasSet) {
+                    myWasSet = true;
+                    myInitX = x;
+                    myInitY = y;
+                }
+                x = (x-myInitX);
+                y = (y-myInitY);
+                p.u = (SUMOReal) (x * 111.320*1000.);
+                p.v = (SUMOReal) (y * 111.136*1000.);
+                p.u *= (SUMOReal) cos(ys*PI/180.0);
             }
-            x = (x-myInitX);
-            y = (y-myInitY);
-            SUMOReal x1 = (SUMOReal) (x * 111.320*1000.);
-            SUMOReal y1 = (SUMOReal) (y * 111.136*1000.);
-            x1 *= (SUMOReal) cos(ys*PI/180.0);
-            Position2D p(x1, y1);
-            ret.push_back(p);
+            ret.push_back(Position2D((SUMOReal) p.u, (SUMOReal) p.v));
         } catch(NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform(
                 "Could not convert position '" + p1 + "/" + p2 + "'.");

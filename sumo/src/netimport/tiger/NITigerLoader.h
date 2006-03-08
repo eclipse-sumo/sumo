@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2006/03/08 13:02:27  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.6  2005/10/07 11:39:57  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -57,6 +60,7 @@
 
 #include <string>
 #include <map>
+#include <proj_api.h>
 #include <netbuild/NBCapacity2Lanes.h>
 #include <utils/importio/LineHandler.h>
 #include <utils/importio/LineReader.h>
@@ -84,7 +88,7 @@ class NITigerLoader :
 public:
     /// constructor
     NITigerLoader(NBEdgeCont &ec, NBNodeCont &nc,
-        const std::string &file);
+        const std::string &file, projPJ pj);
 
     /// destructor
     ~NITigerLoader();
@@ -108,6 +112,8 @@ protected:
     SUMOReal myInitX, myInitY;
     NBEdgeCont &myEdgeCont;
     NBNodeCont &myNodeCont;
+
+    projPJ myProjection;
 
 };
 

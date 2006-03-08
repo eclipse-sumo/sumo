@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/03/08 13:02:27  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.8  2006/02/23 11:23:53  dkrajzew
 // VISION import added
 //
@@ -86,9 +89,9 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVisumParser_Districts::NIVisumParser_Districts(NIVisumLoader &parent,
-        NBDistrictCont &dc, const std::string &dataName)
+        NBDistrictCont &dc, projPJ projection, const std::string &dataName)
     : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-	myDistrictCont(dc)
+	myDistrictCont(dc), myProjection(projection)
 {
 }
 
@@ -116,19 +119,20 @@ NIVisumParser_Districts::myDependentReport()
             TplConvert<char>::_2SUMOReal(myLineParser.get("XKoord").c_str());
         SUMOReal y =
             TplConvert<char>::_2SUMOReal(myLineParser.get("YKoord").c_str());
+        projUV p;
+        if(myProjection!=0) {
+            p.u = x / 100000.0 * DEG_TO_RAD;
+            p.v = y / 100000.0 * DEG_TO_RAD;
+            p = pj_fwd(p, myProjection);
+            x = (SUMOReal) p.u;
+            y = (SUMOReal) p.v;
+        }
         // build the district
         NBDistrict *district = new NBDistrict(id, name, x, y);
         if(!myDistrictCont.insert(district)) {
             addError(" Duplicate district occured ('" + id + "').");
             delete district;
         }
-/*            // use a special name for the node
-            id = string("DistrictCenter_") + id;
-            // try to add the node
-            if(!NBNodeCont::insert(id, x, y)) {
-                addError("visum-file",
-                    "Ups, this should not happen: A district lies on a node.");
-            }*/
     } catch (OutOfBoundsException) {
         addError2("BEZIRK", id, "OutOfBounds");
     } catch (NumberFormatException) {
@@ -137,7 +141,6 @@ NIVisumParser_Districts::myDependentReport()
         addError2("BEZIRK", id, "UnknownElement");
     }
 }
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

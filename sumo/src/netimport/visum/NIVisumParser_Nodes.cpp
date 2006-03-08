@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/03/08 13:02:27  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.9  2006/02/23 11:23:53  dkrajzew
 // VISION import added
 //
@@ -88,9 +91,9 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVisumParser_Nodes::NIVisumParser_Nodes(NIVisumLoader &parent,
-        NBNodeCont &nc, const std::string &dataName)
+        NBNodeCont &nc, projPJ projection, const std::string &dataName)
     : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-	myNodeCont(nc)
+	myNodeCont(nc), myProjection(projection)
 {
 }
 
@@ -110,6 +113,14 @@ NIVisumParser_Nodes::myDependentReport()
         // get the position
         SUMOReal x = TplConvert<char>::_2SUMOReal(myLineParser.get("XKoord").c_str());
         SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKoord").c_str());
+        projUV p;
+        if(myProjection!=0) {
+            p.u = x / 100000.0 * DEG_TO_RAD;
+            p.v = y / 100000.0 * DEG_TO_RAD;
+            p = pj_fwd(p, myProjection);
+            x = (SUMOReal) p.u;
+            y = (SUMOReal) p.v;
+        }
         // add to the list
         if(!myNodeCont.insert(id, Position2D(x, y))) {
             addError(" Duplicate node occured ('" + id + "').");

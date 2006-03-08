@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/03/08 13:02:26  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.14  2006/02/23 11:22:33  dkrajzew
 // changed shape reading import
 //
@@ -77,6 +80,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
+#include <proj_api.h>
 #include <utils/common/FileErrorReporter.h>
 #include <utils/importio/LineHandler.h>
 #include <utils/importio/LineReader.h>
@@ -102,7 +106,7 @@ public:
     NIArcView_Loader(OptionsCont &oc,
         NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
         const std::string &dbf_name, const std::string &shp_name,
-        bool speedInKMH, bool useNewLaneNumberInfoPlain);
+        bool speedInKMH, bool useNewLaneNumberInfoPlain, projPJ pj);
 
     /// Destructor
     ~NIArcView_Loader();
@@ -144,6 +148,7 @@ private:
     NBTypeCont &myTypeCont;
     bool mySpeedInKMH;
 	bool myUseNewLaneNumberInfoPlain;
+    projPJ myProjection;
 
     int myRunningNodeID;
 

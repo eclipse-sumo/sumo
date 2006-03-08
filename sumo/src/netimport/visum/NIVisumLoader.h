@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2006/03/08 13:02:27  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.7  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -67,6 +70,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <proj_api.h>
 #include <netbuild/NBCapacity2Lanes.h>
 #include <utils/importio/LineHandler.h>
 #include <utils/importio/LineReader.h>
@@ -74,11 +78,13 @@
 #include <utils/common/FileErrorReporter.h>
 #include "NIVisumTL.h"
 
+
 /* =========================================================================
  * class declaration
  * ======================================================================= */
 class OptionsCont;
 class NBNetBuilder;
+
 
 /* =========================================================================
  * class declaration
@@ -100,7 +106,7 @@ public:
 public:
     /// constructor
     NIVisumLoader(NBNetBuilder &nb, const std::string &file,
-		NBCapacity2Lanes capacity2Lanes);
+		NBCapacity2Lanes capacity2Lanes, projPJ pj);
 
     /// destructor
     ~NIVisumLoader();
@@ -255,6 +261,7 @@ private:
     bool checkForPosition(const std::string &line);
 
     NBTrafficLightLogicCont &myTLLogicCont;
+    projPJ myProjection;
 
 };
 

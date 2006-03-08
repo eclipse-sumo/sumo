@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/03/08 13:02:27  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.6  2006/01/31 10:59:35  dkrajzew
 // extracted common used methods; optional usage of old lane number information in navteq-networks import added
 //
@@ -170,13 +173,11 @@ NIElmar2EdgesHandler::report(const std::string &result)
     NBNode *from = myNodeCont.retrieve(fromID);
     NBNode *to = myNodeCont.retrieve(toID);
     if(from==0) {
-        MsgHandler::getErrorInstance()->inform(
-            "The from-node '" + fromID + "' of edge '" + id + "' could not be found");
+        MsgHandler::getErrorInstance()->inform("The from-node '" + fromID + "' of edge '" + id + "' could not be found");
         throw ProcessError();
     }
     if(to==0) {
-        MsgHandler::getErrorInstance()->inform(
-            "The to-node '" + toID + "' of edge '" + id + "' could not be found");
+        MsgHandler::getErrorInstance()->inform("The to-node '" + toID + "' of edge '" + id + "' could not be found");
         throw ProcessError();
     }
 
@@ -191,12 +192,12 @@ NIElmar2EdgesHandler::report(const std::string &result)
             geoms.push_front(from->getPosition());
             geoms.push_back(to->getPosition());
             e = new NBEdge(id, id, from, to, "DEFAULT",
-                speed, nolanes, length, priority, geoms);
+                speed, nolanes, length, priority, geoms, NBEdge::LANESPREAD_CENTER);
         } else {
             geoms.push_front(from->getPosition());
             geoms.push_back(to->getPosition());
             e = new NBEdge(id, id, from, to, "DEFAULT",
-                speed, nolanes, length, priority, geoms);
+                speed, nolanes, length, priority, geoms, NBEdge::LANESPREAD_CENTER);
         }
     }
 
@@ -207,6 +208,7 @@ NIElmar2EdgesHandler::report(const std::string &result)
     }
     return true;
 }
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

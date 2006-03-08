@@ -10,6 +10,7 @@ netgen \
 od2trips \
 routeremapper \
 sumo \
+x_libforeign_proj \
 y_libgui \
 y_libguinetload \
 y_libguisim \

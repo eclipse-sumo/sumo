@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/03/08 13:02:27  dkrajzew
+// some further work on converting geo-coordinates
+//
 // Revision 1.7  2006/02/23 11:23:53  dkrajzew
 // VISION import added
 //
@@ -91,9 +94,9 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVisumParser_EdgePolys::NIVisumParser_EdgePolys(NIVisumLoader &parent,
-        NBNodeCont &nc, const std::string &dataName)
+        NBNodeCont &nc, projPJ projection, const std::string &dataName)
     : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-    myNodeCont(nc)
+    myNodeCont(nc), myProjection(projection)
 {
 }
 
@@ -130,10 +133,17 @@ NIVisumParser_EdgePolys::myDependentReport()
             x = TplConvert<char>::_2SUMOReal(myLineParser.get("XKoord").c_str());
             y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKoord").c_str());
         } catch(NumberFormatException&) {
-            MsgHandler::getErrorInstance()->inform(
-                "Error in geometry description from node '" + from->getID()
+            MsgHandler::getErrorInstance()->inform("Error in geometry description from node '" + from->getID()
                 + "' to node '" + to->getID() + "'.");
             return;
+        }
+        projUV p;
+        if(myProjection!=0) {
+            p.u = x / 100000.0 * DEG_TO_RAD;
+            p.v = y / 100000.0 * DEG_TO_RAD;
+            p = pj_fwd(p, myProjection);
+            x = (SUMOReal) p.u;
+            y = (SUMOReal) p.v;
         }
         NBEdge *e = from->getConnectionTo(to);
         if(e!=0) {
@@ -154,14 +164,10 @@ NIVisumParser_EdgePolys::myDependentReport()
                 ||
                 OptionsSubSys::getOptions().isSet("keep-edges")) {
 
-                WRITE_WARNING(\
-                    "Could not set geometry between node '" + from->getID()\
-                    + "' and node '" + to->getID() + "'.");
+                WRITE_WARNING("Could not set geometry between node '" + from->getID() + "' and node '" + to->getID() + "'.");
             } else {
                 // ... in the other case we report this to the error instance
-                MsgHandler::getErrorInstance()->inform(
-                    "There is no edge from node '" + from->getID()
-                    + "' to node '" + to->getID() + "'.");
+                MsgHandler::getErrorInstance()->inform("There is no edge from node '" + from->getID() + "' to node '" + to->getID() + "'.");
             }
         }
     } catch (OutOfBoundsException) {
