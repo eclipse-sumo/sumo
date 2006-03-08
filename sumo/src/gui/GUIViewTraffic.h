@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.28  2006/03/08 13:09:11  dkrajzew
+// possibility to insert pois on the gui added (danilo tet-boyom)
+//
 // Revision 1.27  2006/02/23 11:25:19  dkrajzew
 // adding pois on the gui implemented (Danilot Tete Boyom)
 //
@@ -180,6 +183,8 @@ public:
     long onCmdShowFullGeom(FXObject*,FXSelector,void*);
     long onCmdChangeColorScheme(FXObject*,FXSelector sel,void*);
     long onLeftBtnPress(FXObject *o,FXSelector sel,void *data);
+    long onLeftBtnRelease(FXObject*,FXSelector,void*);
+	long onMouseMove(FXObject *o,FXSelector sel,void *data);
 
 
     void centerTo(GUIGlObject *o);
@@ -196,10 +201,6 @@ public:
     virtual long onCmdEditView(FXObject*,FXSelector,void*);
 
 protected:
-    void draw(const MSRoute &r);
-public:
-
-protected:
     void doPaintGL(int mode, SUMOReal scale);
 
     void doInit();
@@ -208,6 +209,10 @@ protected:
     RGBColor getEdgeColor(GUIEdge *edge) const;
 
     void drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken);
+
+    void setPointToMove(PointOfInterest *p);
+    void setIdToMove(unsigned int id);
+    void draw(const MSRoute &r);
 
 protected:
     /** @brief Instances of the vehicle drawers
@@ -251,6 +256,11 @@ protected:
     size_t _edges2ShowSize, _junctions2ShowSize, _additional2ShowSize;
 
     GUIColoringSchemesMap<GUILaneWrapper> myLaneColoringSchemes;
+
+
+    PointOfInterest *_pointToMove;
+	unsigned int _IdToMove;  // for deleting the _pointToMove also into gIDStorage
+	bool _leftButtonPressed; // set to true if the left Button is pressed and keep pressed
 
 	GUINet *_net;
 

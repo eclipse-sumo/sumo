@@ -16,25 +16,21 @@
 
 class ShapeContainer {
 public:
-    ShapeContainer() { }
-    virtual ~ShapeContainer()
-    {
-    }
+    ShapeContainer();
+    virtual ~ShapeContainer();
 
-    bool add(Polygon2D *p) {
-        return myPolygons.add(p->getName(), p);
-    }
+    bool add(Polygon2D *p);
 
-    bool add(PointOfInterest *p) {
-        return myPOIs.add(p->getID(), p);
-    }
+    bool add(PointOfInterest *p);
 
-    const NamedObjectCont<Polygon2D*> &getPolygonCont() const { return myPolygons; }
-    const NamedObjectCont<PointOfInterest*> &getPOICont() const { return myPOIs; }
+	bool save(const std::string &file);
+
+     NamedObjectCont<Polygon2D*> &getPolygonCont() const;
+     NamedObjectCont<PointOfInterest*> &getPOICont() const;
 
 private:
-    NamedObjectCont<Polygon2D*> myPolygons;
-    NamedObjectCont<PointOfInterest*> myPOIs;
+    mutable NamedObjectCont<Polygon2D*> myPolygons;
+    mutable NamedObjectCont<PointOfInterest*> myPOIs;
 
 
 };

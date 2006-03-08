@@ -249,6 +249,9 @@
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath="..\..\..\src\utils\shapes\ShapeContainer.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"

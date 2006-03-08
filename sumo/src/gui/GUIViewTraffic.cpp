@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.49  2006/03/08 13:09:11  dkrajzew
+// possibility to insert pois on the gui added (danilo tet-boyom)
+//
 // Revision 1.48  2006/02/23 11:25:19  dkrajzew
 // adding pois on the gui implemented (Danilot Tete Boyom)
 //
@@ -280,8 +283,8 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
                                GUINet &net, FXGLVisual *glVis)
 	: GUISUMOAbstractView(p, app, parent, net._grid, glVis),
     myTrackedID(-1), myUseFullGeom(true),
-    _edges2Show(0), _junctions2Show(0), _additional2Show(0),
-	_net(&net)
+    _edges2Show(0), _junctions2Show(0), _additional2Show(0), _pointToMove(0),_IdToMove(0),
+	_leftButtonPressed(false), _net(&net)
 {
     init(net);
 }
@@ -294,7 +297,7 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
                                FXGLCanvas *share)
     : GUISUMOAbstractView(p, app, parent, net._grid, glVis, share),
     myTrackedID(-1), myUseFullGeom(true),
-    _edges2Show(0), _junctions2Show(0), _additional2Show(0),
+    _edges2Show(0), _junctions2Show(0), _additional2Show(0), _pointToMove(0),
 	_net(&net)
 {
     init(net);
@@ -376,9 +379,9 @@ GUIViewTraffic::init(GUINet &net)
 
 	myLaneColoringSchemes.add("by current density (lanewise)",
 		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
-            0, (SUMOReal) .8,
+            0, (SUMOReal) .95,
             RGBColor(0, 1, 0), RGBColor(1, 0, 0),
-            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::myMagic)); // !!!
+            (SUMOReal (GUILaneWrapper::*)() const) &GUILaneWrapper::getDensity));
 
 	myLaneColoringSchemes.add("by first vehicle waiting time (lanewise)",
 		new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
@@ -653,7 +656,7 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
         _junctionColScheme);
     myLaneDrawer[drawerToUse]->drawGLLanes(_edges2Show, _edges2ShowSize, width,
         *myLaneColoringSchemes.getColorer(myVisualizationSettings.laneEdgeMode),
-        myVisualizationSettings.laneShowBorders);
+        myVisualizationSettings);
     myDetectorDrawer[drawerToUse]->drawGLDetectors(_additional2Show, _additional2ShowSize,
         width, myVisualizationSettings.addExaggeration);
     myROWDrawer[drawerToUse]->drawGLROWs(*_net, _edges2Show, _edges2ShowSize, width,
@@ -904,19 +907,82 @@ GUIViewTraffic::onCmdEditView(FXObject*,FXSelector,void*)
 long
 GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
 {
-    long ret = GUISUMOAbstractView::onLeftBtnPress(o, sel, data);
     FXEvent *e = (FXEvent*) data;
+	_leftButtonPressed=true;
     if((e->state&SHIFTMASK)!=0) {
-		std::pair<SUMOReal, SUMOReal> point = getPositionInformation();
-		std::string Id= toString(point.first) +  "," + toString(point.second);
-		GUIPointOfInterest *p = new GUIPointOfInterest(gIDStorage, Id, "point",
-            Position2D(point.first, point.second),RGBColor(0,0,0) );
-		_net->getShapeContainer().add(p);
-		 update();
-	}
+        _lock.lock();
+         // try to get the object-id if so
+        if(makeCurrent()) {
+            unsigned int id = getObjectUnderCursor();
+            setIdToMove(id);
+            makeNonCurrent();
+            if(id!=0){
+                GUIGlObject *o = gIDStorage.getObjectBlocking(id);
+                std::string n= o->getFullName();
+                std::string name = n.substr(n.find(":")+1,n.length());
+                GUIPointOfInterest *p= static_cast<GUIPointOfInterest *>
+                    (_net->getShapeContainer().getPOICont().get(name));
+                setPointToMove(p);
+            } else {
+                std::pair<SUMOReal, SUMOReal> point = getPositionInformation();
+                std::string Id= toString(point.first) +  "," + toString(point.second);
+                GUIPointOfInterest *p = new GUIPointOfInterest(gIDStorage, Id, "point",
+                    Position2D(point.first, point.second),RGBColor(0,0,0) );
+                _net->getShapeContainer().add(p);
+                update();
+            }
+        }
+        _lock.unlock();
+        return 1;
+    }
+    return GUISUMOAbstractView::onLeftBtnPress(o, sel, data);
+}
+
+
+void
+GUIViewTraffic::setPointToMove(PointOfInterest *p)
+{
+	_pointToMove = p;
+}
+
+
+void
+GUIViewTraffic::setIdToMove(unsigned int id)
+{
+	_IdToMove = id;
+}
+
+
+
+long
+GUIViewTraffic::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
+{
+    long ret = GUISUMOAbstractView::onLeftBtnRelease(o, sel, data);
+	_leftButtonPressed=false;
     return ret;
 }
 
+
+long
+GUIViewTraffic::onMouseMove(FXObject *o,FXSelector sel,void *data)
+{
+    SUMOReal xpos = _changer->getXPos();
+    SUMOReal ypos = _changer->getYPos();
+    SUMOReal zoom = _changer->getZoom();
+	FXEvent *e=(FXEvent*)data;
+
+	if(_pointToMove!=0 && e->state&SHIFTMASK ){
+		// Keep Color Informations
+		std::pair<SUMOReal, SUMOReal> point = getPositionInformation(e->win_x, e->win_y);
+        _pointToMove->set(point.first, point.second);
+		if(!_leftButtonPressed){
+			_pointToMove=0;
+		}
+        updatePositionInformation();
+		update();
+    }
+    return GUISUMOAbstractView::onMouseMove(o, sel, data);
+}
 
 /*
 void
