@@ -34,13 +34,34 @@
 <!-- Text area here -->
 
 <center>
-	<h2>Documentation - More Inormation</h2>
+	<h2>Documentation - More Information</h2>
 </center>
 
 <p>
 Here, you may find some additional information about SUMO structures.
-The <b>"More On..."</b>-chapters describe some subsystems and structures more deeply while the <b>"HowTos"</b> are brief descriptions how extensions can be made.<br>
+The <b>"HowTos"</b> are brief descriptions how to handle a certain problem while the
+<b>"More On..."</b>-chapters describe some subsystems and structures more deeply.<br>
 </p>
+<p>
+<table border="1" cellpadding="2" width="100%">
+	<tr>
+		<th valign="top">Document</th>
+		<th valign="top">Contents</th>
+		<th valign="top">Audience</th>
+	</tr>
+	<tr>
+		<td valign="top"><pre><a href="gen/sumo_howto_building.shtml" class="SUMOInLineLink">HowTo... Build</a></pre></td>
+		<td valign="top">Describes how to obtain SUMO-sources and how to build them</td>
+		<td valign="top"><i>Developer</i></td>
+	</tr>
+	<tr>
+		<td valign="top"><pre><a href="gen/sumo_howto_global_output_file.shtml" class="SUMOInLineLink">HowTo... Add a global output File</a></pre></td>
+		<td valign="top">Description how an optional output file can be added to the simulation</td>
+		<td valign="top"><i>Developer</i></td>
+	</tr>
+</table>
+</p>
+
 <p>
 <table border="1" cellpadding="2" width="100%">
 	<tr>
@@ -61,20 +82,6 @@ The <b>"More On..."</b>-chapters describe some subsystems and structures more de
 	<tr>
 		<td valign="top"><pre><a href="gen/sumo_moreon_tests.shtml" class="SUMOInLineLink">More On... Software Tests</a></pre></td>
 		<td valign="top">Introduction to the test suite we use and a list of what the tests cover</td>
-		<td valign="top"><i>Developer</i></td>
-	</tr>
-</table>
-</p>
-<p>
-<table border="1" cellpadding="2" width="100%">
-	<tr>
-		<th valign="top">Document</th>
-		<th valign="top">Contents</th>
-		<th valign="top">Audience</th>
-	</tr>
-	<tr>
-		<td valign="top"><pre><a href="gen/sumo_howto_global_output_file.shtml" class="SUMOInLineLink">HowTo... Add a global output File</a></pre></td>
-		<td valign="top">Description how an optional output file can be added to the simulation</td>
 		<td valign="top"><i>Developer</i></td>
 	</tr>
 </table>

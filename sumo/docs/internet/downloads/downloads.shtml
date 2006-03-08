@@ -51,7 +51,7 @@
 
 							<hr>
 							<p>
-								<h2>SUMO - Latest Developer Release (Version 0.9.3)</h2>
+								<h2>SUMO - Latest Developer Release (Version 0.9.4)</h2>
 								<br>
 								This is the version we are currently working on.<br>
 								Please report bugs to
@@ -76,7 +76,7 @@
 										The MS Windows binaries.
 										<br>
 										Contains the binaries, all dlls needed and some examples.<br>
-										Download as: <a class="SUMOInLineLink" href="sumo-winbin-0.9.3.zip">[sumo-winbin-0.9.3.zip,
+										Download as: <a class="SUMOInLineLink" href="sumo-winbin-0.9.4.zip">[sumo-winbin-0.9.4.zip,
 											~4.7MB]</a><br>
 										<br>
 									<li>
@@ -87,8 +87,8 @@
 										The last stable source-tarball. This one was built on 07.10.2005. Includes
 										sources, examples, Linux-Makefiles and MSVC++ 6.0 and MS Visual Studio
 										.net-project workspace.<br>
-										Download as: <a class="SUMOInLineLink" href="sumo-src-0.9.3.tar.gz">[sumo-src-0.9.3.tar.gz,
-											~3MB]</a> <a class="SUMOInLineLink" href="sumo-src-0.9.3.zip">[sumo-src-0.9.3.zip,
+										Download as: <a class="SUMOInLineLink" href="sumo-src-0.9.4.tar.gz">[sumo-src-0.9.4.tar.gz,
+											~3MB]</a> <a class="SUMOInLineLink" href="sumo-src-0.9.4.zip">[sumo-src-0.9.4.zip,
 											~5.1MB]</a><br>
 										<br>
 									<li>
@@ -99,6 +99,7 @@
 											<li>
 												<a class="SUMOInLineLink" href="http://xml.apache.org/xerces-c/index.html">Xerces</a>
 												(XML-parser)<br>
+												Needed version: 2.7<br>
 												Windows: <a class="SUMOInLineLink" href="xerces-c_2_7_0-windows_2000-msvc_60.zip">
 													[.zip] (xerces-c_2_7_0-windows_2000-msvc_60.zip, ~10MB)</a><br>
 												Source Code: <a class="SUMOInLineLink" href="xerces-c-current.tar.gz">
@@ -107,12 +108,28 @@
 											<li>
 												<a class="SUMOInLineLink" href="http://www.fox-toolkit.org">FOX-Toolkit</a> (GUI
 												Toolkit)<br>
-												<img src="../images/attention_small.gif" border="0" width="15" height="16"><b>You <font color="red">
-														must</font> download the version 1.4.x. SUMO 0.9 does not compile with versions
-													below 1.4 and possibly also not with versions higher than 1.4.</b><br>
+												Needed version: 1.4<br>
 												Source Code: <a class="SUMOInLineLink" href="fox-1.4.29.zip">[.zip]
 													(fox-1.4.29.zip, ~4.5MB)</a> or <a class="SUMOInLineLink" href="fox-1.4.29.tar.gz">[.tar.gz]
 													(fox-1.4.29.tar.gz, ~4MB)</a><br>
+												Sorry, no binaries are available...<br>
+												<br>
+											<li>
+												<a class="SUMOInLineLink" href="http://www.remotesensing.org/proj/">PROJ.4</a> (Cartographic
+												Projections Library)<br>
+												Needed version: 4.4<br>
+												Windows: <a class="SUMOInLineLink" href="proj446_win32_bin.zip">
+													[.zip] (proj446_win32_bin.zip, !!!)</a><br>
+												Source Code: <a class="SUMOInLineLink" href="proj-4.4.9.zip">[.zip]
+													(proj-4.4.9.zip, ~!!!)</a> or <a class="SUMOInLineLink" href="proj-4.4.9.tar.gz">[.tar.gz]
+													(proj-4.4.9.tar.gz, ~!!!B)</a><br>
+												<br>
+											<li>
+												<a class="SUMOInLineLink" href="http://www.remotesensing.org/gdal/">GDAL</a> (Geospatial
+												Data Abstraction Library)<br>
+												Needed version: 1.3<br>
+												Source Code: <a class="SUMOInLineLink" href="gdal131.zip ">[.zip]
+													(gdal131.zip, ~!!!)</a><br>
 												Sorry, no binaries are available...<br>
 												<br>
 										</ul>
