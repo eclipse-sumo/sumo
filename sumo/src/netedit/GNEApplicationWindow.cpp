@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/03/08 13:11:11  dkrajzew
+// code beautifying
+//
 // Revision 1.25  2006/02/27 12:09:11  dkrajzew
 // code beautifying
 //
@@ -353,11 +356,6 @@ GNEApplicationWindow::create()
     if(getApp()->reg().readIntEntry("SETTINGS","maximized", 0)==1) {
         maximize();
     }
-    // recheck the maximum sizes
-
-//!!!!    FXWindow *root = getApp()->getRootWindow();
-//!!!!    myGLWidth = myGLWidth < root->getWidth() ? myGLWidth : root->getWidth();
-//!!!!    myGLHeight = myGLHeight < root->getHeight() ? myGLHeight : root->getHeight();
 }
 
 
@@ -1341,15 +1339,7 @@ GNEApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         _wasStarted = false;
         // initialise views
         myViewNumber = 0;
-#ifdef HAVE_MESOSIM
-    if(MSGlobals::gUseMesoSim) {
-        openNewView(GUISUMOViewParent::EDGE_MESO_VIEW);
-    } else {
         openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
-    }
-#else
-        openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
-#endif
         // set simulation name on the caption
         string caption = string("SUMO ") + string(version)
             + string(" - ") + ec->_file;

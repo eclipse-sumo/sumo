@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.51  2006/03/08 13:09:53  dkrajzew
+// code beautifying
+//
 // Revision 1.50  2006/01/09 11:50:20  dkrajzew
 // new visualization settings implemented
 //
@@ -413,11 +416,6 @@ GUIApplicationWindow::create()
     if(getApp()->reg().readIntEntry("SETTINGS","maximized", 0)==1) {
         maximize();
     }
-    // recheck the maximum sizes
-
-//!!!!    FXWindow *root = getApp()->getRootWindow();
-//!!!!    myGLWidth = myGLWidth < root->getWidth() ? myGLWidth : root->getWidth();
-//!!!!    myGLHeight = myGLHeight < root->getHeight() ? myGLHeight : root->getHeight();
 }
 
 
