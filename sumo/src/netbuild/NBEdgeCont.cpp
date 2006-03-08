@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.45  2006/03/08 13:14:15  dkrajzew
+// debugging on/off-ramp geometries
+//
 // Revision 1.44  2006/02/13 07:17:35  dkrajzew
 // code beautifying; added pois output of built tls
 //
@@ -935,6 +938,26 @@ NBEdgeCont::splitGeometry(NBNodeCont &nc)
         (*i).second->splitGeometry(*this, nc);
     }
     return true;
+}
+
+
+void
+NBEdgeCont::recheckLaneSpread()
+{
+    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); ++i) {
+        string oppositeID;
+        if((*i).first[0]=='-') {
+            oppositeID = (*i).first.substr(1);
+        } else {
+            oppositeID = "-" + (*i).first;
+        }
+        if(_edges.find(oppositeID)!=_edges.end()) {
+            (*i).second->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
+            _edges.find(oppositeID)->second->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
+        } else {
+            (*i).second->setLaneSpreadFunction(NBEdge::LANESPREAD_CENTER);
+        }
+    }
 }
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/03/08 13:14:15  dkrajzew
+// debugging on/off-ramp geometries
+//
 // Revision 1.19  2006/02/13 07:17:36  dkrajzew
 // code beautifying; added pois output of built tls
 //
@@ -853,7 +856,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             cont->invalidateConnections(true);
             if(cont->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                 Position2DVector g = cont->getGeometry();
-                g.move2side(-SUMO_const_halfLaneAndOffset);
+                g.move2side(SUMO_const_halfLaneAndOffset);
                 cont->setGeometry(g);
             }
         }
@@ -893,7 +896,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                 }
                 if(added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                     Position2DVector g = added_ramp->getGeometry();
-                    g.move2side(-SUMO_const_halfLaneAndOffset);
+                    g.move2side(SUMO_const_halfLaneAndOffset);
                     added_ramp->setGeometry(g);
                 }
             } else {
@@ -963,7 +966,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
             }
             if(prev->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                 Position2DVector g = prev->getGeometry();
-                g.move2side(-SUMO_const_halfLaneAndOffset);
+                g.move2side(SUMO_const_halfLaneAndOffset);
                 prev->setGeometry(g);
             }
         }
@@ -1003,7 +1006,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                 }
                 if(added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                     Position2DVector g = added_ramp->getGeometry();
-                    g.move2side(-SUMO_const_halfLaneAndOffset);
+                    g.move2side(SUMO_const_halfLaneAndOffset);
                     added_ramp->setGeometry(g);
                 }
             } else {

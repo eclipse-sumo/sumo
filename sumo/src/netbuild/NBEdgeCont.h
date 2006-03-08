@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.27  2006/03/08 13:14:15  dkrajzew
+// debugging on/off-ramp geometries
+//
 // Revision 1.26  2006/01/17 14:11:52  dkrajzew
 // "split-geometry" - option added (unfinsihed, rename)
 //
@@ -287,6 +290,8 @@ public:
     bool recomputeLaneShapes();
 
     bool splitGeometry(NBNodeCont &nc);
+
+    void recheckLaneSpread();
 
 private:
     std::vector<std::string> buildPossibilities(
