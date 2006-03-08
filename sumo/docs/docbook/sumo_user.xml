@@ -833,6 +833,17 @@
             </imageobject>
           </mediaobject>
         </figure>
+
+        <para>Since version 0.9.4 you can also give the <sgmltag>x</sgmltag>-
+        and <sgmltag>y</sgmltag>-coordinates using geocoordinates. In this
+        case, the coordinates will be interpreted as long/lat in degrees. Read
+        more on this in "!!!".</para>
+
+        <caution>
+          <para>Please keep in mind that this feature is quite new and that du
+          to this some things may not work as suspected and may get changed in
+          the near future.</para>
+        </caution>
       </sect2>
 
       <sect2 id="user_chp04-xml_descriptions-edges">
@@ -5570,12 +5581,100 @@
     <sect1 id="user_chp06-vehicle_handling">
       <title>Vehicles Handling Revisited</title>
 
-      <para>... tbd ...</para>
+      <para>In the normal case, SUMO is meant to simulate urban areas where
+      vehicles may start their trips from any edge. Still, there also some
+      other approaches to feed a simulation with a demand and some of them
+      where implemented in SUMO. You have the following possibilities to add
+      vehicles into your network: </para>
+
+      <itemizedlist spacing="compact">
+        <listitem>
+          <para>Insert vehicles on any edge</para>
+
+          <para>In this case, a vehicle from the list will be inserted at the
+          given time into the edge his route starts at. The position of the
+          insertion is random (by now), the rightmost lane will be
+          used.</para>
+        </listitem>
+
+        <listitem>
+          <para>Insert vehicles on feeding edges</para>
+
+          <para>This is approach is often used in conjunction with
+          od-matrices; each of the districts described in such od-matrices
+          contains a list of "feeding" or "source" edges. If you use feeding
+          edges, your vehicles will be inserted similar to insertion on normal
+          edges as described above, but they will be always inserted at the
+          end of the edge and all lanes of the feeding edge will be
+          used.</para>
+        </listitem>
+
+        <listitem>
+          <para>Using emitter</para>
+
+          <para>Emitter are used to insert vehicles into the network at a well
+          defined position. An emitter may be placed on a certain lane and
+          gets a list of vehicles (or a flow amount) to emit. We use this
+          approach often to insert vehicles into the network at places where
+          induct loops have measured the flows.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>We will now describe the emitters more deeply.</para>
 
       <sect2>
         <title>Emitter</title>
 
-        <para>... tbd ...</para>
+        <para>You can place an emitter onto a lane by adding the following
+        declaration to your additional-file:</para>
+
+        <programlisting><sgmltag>&lt;trigger id="<replaceable>&lt;ID&gt;</replaceable>" objecttype="emitter" pos="<replaceable>&lt;POS&gt;</replaceable>" objectid="<replaceable>&lt;LANE_ID&gt;</replaceable>" \
+   [friendly_pos="x"] file="<replaceable>&lt;DEFINITION_FILE&gt;</replaceable>"/&gt;</sgmltag></programlisting>
+
+        <para>The fields have the following meanings:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para><sgmltag>id</sgmltag>: A string holding the id of the
+            emitter.</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>objecttype</sgmltag>: Always
+            "<sgmltag>lane</sgmltag>"; indicates that the trigger changes a
+            lane</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>pos</sgmltag>: Position on the lane in meters; if
+            positive, then the following must be ensured:
+            0&lt;=<sgmltag><replaceable>&lt;POS&gt;</replaceable></sgmltag>&lt;&lt;LANE_LENGTH&gt;.
+            If negative, then 0&gt;&lt;POS&gt;&gt;-&lt;LANE_LENGTH&gt;; in
+            this case the position will be counted from the lane's end.</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>objectid</sgmltag>: The id of the lane the emitter
+            shall placed on</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>friendly_pos</sgmltag>: optional; if this is set
+            and the position (<sgmltag>pos</sgmltag>) is not valid, the
+            detector will be placed at the lane's end (0.1meter away from
+            it).</para>
+          </listitem>
+
+          <listitem>
+            <para><sgmltag>file</sgmltag>: The file the emitter shall read the
+            definition of what/how/when to emit from</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>As you can see, an emitter needs further information about what
+        to do.</para>
+
+        <para>!!!</para>
       </sect2>
     </sect1>
 
@@ -5657,6 +5756,12 @@
               <sgmltag>subkey</sgmltag> since version 0.9.4</para>
             </listitem>
           </itemizedlist>
+
+          <caution>
+            <para>Please keep in mind that this feature is quite new and that
+            du to this some things may not work as suspected and may get
+            changed in the near future.</para>
+          </caution>
         </sect3>
 
         <sect3 id="user_chp06-output-detectors-e23">
@@ -5768,6 +5873,12 @@
               <para>WAUTs are implemented since version 0.9.4</para>
             </listitem>
           </itemizedlist>
+
+          <caution>
+            <para>Please keep in mind that this feature is quite new and that
+            du to this some things may not work as suspected and may get
+            changed in the near future.</para>
+          </caution>
         </sect3>
       </sect2>
 
