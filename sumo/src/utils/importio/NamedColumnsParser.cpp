@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/03/08 13:18:24  dkrajzew
+// debugging
+//
 // Revision 1.11  2006/02/23 11:36:23  dkrajzew
 // VISION import added
 //
@@ -148,9 +151,9 @@ NamedColumnsParser::get(const std::string &name, bool prune) const
         if(myAmCaseInsensitive) {
             i = myDefinitionsMap.find(StringUtils::to_lower_case(name));
         }
-    }
-    if(i==myDefinitionsMap.end()) {
-        throw UnknownElement();
+        if(i==myDefinitionsMap.end()) {
+            throw UnknownElement();
+        }
     }
     size_t pos = (*i).second;
     if(myLineParser.size()<=pos) {

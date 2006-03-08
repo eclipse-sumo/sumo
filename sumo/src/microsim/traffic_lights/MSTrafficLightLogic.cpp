@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/03/08 13:13:20  dkrajzew
+// debugging
+//
 // Revision 1.9  2006/02/27 12:06:17  dkrajzew
 // parameter-API and raknet-support added
 //
@@ -110,6 +113,12 @@ namespace
 #include <microsim/MSEventControl.h>
 #include "MSTLLogicControl.h"
 #include <utils/helpers/DiscreteCommand.h>
+
+#ifdef RAKNET_DEMO
+#include <raknet_demo/ampel.h>
+#include <raknet_demo/constants.h>
+#include <utils/geom/Line2D.h>
+#endif
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -359,28 +368,30 @@ MSTrafficLightLogic::onSwitch()
         }
     }
 #ifdef RAKNET_DEMO
-    // get the current traffic light signal combination
-    const std::bitset<64> &allowedLinks = allowed();
-    const std::bitset<64> &yellowLinks = yellowMask();
-    // go through the links
-    for(size_t i=0; i<myLinks.size(); i++) {
-        // set the states for assigned links
-        if(!allowedLinks.test(i)) {
-            if(yellowLinks.test(i)) {
-                const LinkVector &currGroup = myLinks[i];
-                for(LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-					myAmpel->setTrafficLightState(myIDs[id()]*1000 + i, TRAFFIC_SIGN_YELLOW);
+    {
+        // get the current traffic light signal combination
+        const std::bitset<64> &allowedLinks = allowed();
+        const std::bitset<64> &yellowLinks = yellowMask();
+        // go through the links
+        for(size_t i=0; i<myLinks.size(); i++) {
+            // set the states for assigned links
+            if(!allowedLinks.test(i)) {
+                if(yellowLinks.test(i)) {
+                    const LinkVector &currGroup = myLinks[i];
+                    for(LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+					    myAmpel->setTrafficLightState(myIDs[id()]*1000 + i, TRAFFIC_SIGN_YELLOW);
+                    }
+                } else {
+                    const LinkVector &currGroup = myLinks[i];
+                    for(LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+			    		myAmpel->setTrafficLightState(myIDs[id()]*1000 + i, TRAFFIC_SIGN_RED);
+                    }
                 }
             } else {
                 const LinkVector &currGroup = myLinks[i];
                 for(LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-					myAmpel->setTrafficLightState(myIDs[id()]*1000 + i, TRAFFIC_SIGN_RED);
+				    myAmpel->setTrafficLightState(myIDs[id()]*1000 + i, TRAFFIC_SIGN_GREEN);
                 }
-            }
-        } else {
-            const LinkVector &currGroup = myLinks[i];
-            for(LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-				myAmpel->setTrafficLightState(myIDs[id()]*1000 + i, TRAFFIC_SIGN_GREEN);
             }
         }
     }

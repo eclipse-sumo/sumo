@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/03/08 13:15:28  dkrajzew
+// debugging
+//
 // Revision 1.25  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -194,9 +197,7 @@ ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
         MsgHandler::getErrorInstance()->inform("The network file '" + file + "' could not be found.");
         return 0;
     }
-    if(_options.getBool("v")) {
-        MsgHandler::getMessageInstance()->inform("Loading net... ");
-    }
+    MsgHandler::getMessageInstance()->inform("Loading net... ");
     RONet *net = new RONet(_options.isSet("sumo-input"));
     RONetHandler handler(_options, *net, eb);
     handler.setFileName(file);

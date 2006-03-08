@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/03/08 13:13:20  dkrajzew
+// debugging
+//
 // Revision 1.9  2006/02/27 12:05:32  dkrajzew
 // WAUTs and WAUT-API added
 //
@@ -374,7 +377,7 @@ MSTLLogicControl::switchTo(const std::string &id, const std::string &subid)
     MSTrafficLightLogic *touse = (*i).second.ltVariants[subid];
     std::vector<MSTrafficLightLogic*>::iterator j =
         find(myActiveLogics.begin(), myActiveLogics.end(), (*i).second.defaultTL);
-    if(j!=myActiveLogics.end()) {
+    if(j==myActiveLogics.end()) {
         return false;
     }
     *j = touse;
