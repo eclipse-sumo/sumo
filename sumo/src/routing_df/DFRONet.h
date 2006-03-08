@@ -12,6 +12,8 @@
 #include <routing_df/DFDetector.h>
 #include <routing_df/DFRORouteDesc.h>
 #include <routing_df/DFRORouteCont.h>
+#include <utils/common/StdDefs.h>
+#include <utils/common/SUMOTime.h>
 
 class DFRONet
 
@@ -30,6 +32,9 @@ public:
     void buildRoutes(DFDetectorCon &det) const;
 	SUMOReal getAbsPos(const DFDetector &det) const;
 
+    void buildEdgeFlowMap(const DFDetectorFlows &flows,
+        const DFDetectorCon &detectors,
+		SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 
 protected:
     bool isSource(const DFDetector &det,
@@ -62,6 +67,8 @@ protected:
 
 	bool hasInBetweenDetectorsOnly(ROEdge *edge,
 		const DFDetectorCon &detectors) const;
+
+
 
 protected:
     class DFRouteDescByTimeComperator {
@@ -105,7 +112,7 @@ private:
 */
 
 	bool myAmInHighwayMode;
-
+    mutable size_t mySourceNumber, mySinkNumber, myInBetweenNumber, myInvalidNumber;
 };
 
 #endif

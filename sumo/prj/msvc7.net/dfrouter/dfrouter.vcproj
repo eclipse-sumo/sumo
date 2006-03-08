@@ -220,6 +220,9 @@ copy Release\dfrouter.exe ..\..\..\bin\dfrouter.exe
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\routing_df\RODFEdge.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\routing_df\RODFEdgeBuilder.cpp">
 			</File>
 			<File
@@ -264,6 +267,9 @@ copy Release\dfrouter.exe ..\..\..\bin\dfrouter.exe
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\ReferencedItem.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\routing_df\RODFEdge.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\routing_df\RODFEdgeBuilder.h">

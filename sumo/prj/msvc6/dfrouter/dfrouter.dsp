@@ -133,6 +133,10 @@ SOURCE=..\..\..\src\utils\gfx\RGBColor.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\routing_df\RODFEdge.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\routing_df\RODFEdgeBuilder.cpp
 # End Source File
 # Begin Source File
@@ -210,6 +214,10 @@ SOURCE=..\..\..\src\utils\common\NamedObjectCont.h
 # Begin Source File
 
 SOURCE=..\..\..\src\router\ReferencedItem.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_df\RODFEdge.h
 # End Source File
 # Begin Source File
 

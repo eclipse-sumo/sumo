@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/03/08 12:51:29  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.8  2006/02/13 07:27:06  dkrajzew
 // current work on the DFROUTER added (unfinished)
 //
@@ -104,6 +107,8 @@ RODFFrame::fillOptions(OptionsCont &oc)
 
     oc.doRegister("detector-flows-file", 'f', new Option_FileName());
     oc.addSynonyme("detector-flows-file", "detflows");
+    oc.doRegister("fast-flows", new Option_Bool(false));
+
 
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
@@ -116,6 +121,9 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("detectors-output", new Option_FileName());
     oc.doRegister("detectors-poi-output", new Option_FileName());
 	oc.doRegister("emitters-output", new Option_FileName());
+	oc.doRegister("speed-trigger-output", new Option_FileName());
+	oc.doRegister("validation-output", new Option_FileName());
+	oc.doRegister("validation-output.add-sources", new Option_Bool(false));
 
 
 

@@ -1,12 +1,12 @@
-#ifndef DFDetFlowLoader_h
-#define DFDetFlowLoader_h
+#ifndef RODFEdge_h
+#define RODFEdge_h
 //---------------------------------------------------------------------------//
-//                        DFDetFlowLoader.h -
-//  A handler for Artemis-files
+//                        RODFEdge.h -
+//  An edge the router may route through
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Wed, 12 Mar 2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
+//  begin                : Wed, 01.03.2006
+//  copyright            : (C) 2006 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
@@ -20,14 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.3  2006/03/08 12:51:29  dkrajzew
+// Revision 1.1  2006/03/08 12:51:29  dkrajzew
 // further work on the dfrouter
 //
-// Revision 1.2  2006/02/13 07:27:06  dkrajzew
-// current work on the DFROUTER added (unfinished)
-//
-// Revision 1.1  2006/01/19 17:42:59  ericnicolay
-// base classes for the reading of the detectorflows
 //
 /* =========================================================================
  * compiler pragmas
@@ -47,68 +42,51 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
+#include <map>
 #include <vector>
-#include <utils/importio/NamedColumnsParser.h>
-#include <utils/importio/LineHandler.h>
-#include <utils/importio/LineReader.h>
-#include <utils/router/IDSupplier.h>
-#include <routing_df/DFDetector.h>
-#include <routing_df/DFDetectorFlow.h>
+#include <router/ROEdge.h>
+#include "DFDetectorFlow.h"
 
 
 /* =========================================================================
  * class declarations
  * ======================================================================= */
-class Options;
+class ROLane;
+
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- * @class DFDetFlowLoader
- * A loader for Detector Flows
+ * @class RODFEdge
+ * A router's edge extended by the definition about the probability a
+ *  vehicle's probabilities to choose a certain following edge over time.
  */
-class DFDetFlowLoader :
-            public LineHandler{
+class RODFEdge : public ROEdge {
 public:
     /// Constructor
-	///!!!DFDetFlowLoader();
-	DFDetFlowLoader(DFDetectorCon *detcon,
-        SUMOTime startTime, SUMOTime endTime,
-        SUMOTime stepOffset);
+    RODFEdge(const std::string &id, int index);
 
-    /// Destructor
-    ~DFDetFlowLoader();
+    /// Desturctor
+    ~RODFEdge();
 
-	DFDetectorFlows *read(const std::string &file, bool fast);
+    /// Adds information about a connected edge
+    void addFollower(ROEdge *s);
 
-    /* ----- from the LineHandler - "interface" ----- */
-    /** @brief Receives input from a line reader (watch full description!)
-        Here, either input from the route file or from the route index file
-        (when existing) is received. In the first case, the list of route
-        indices is build - and read in the second case */
-    bool report(const std::string &result);
+    void setFlows(const std::vector<FlowDef> &flows);
 
-protected:
-    bool parseFast(const std::string &file);
+    const std::vector<FlowDef> &getFlows() const;
 
 private:
-    /// Information whether the next line is the first one
-    bool myFirstLine;
+    std::vector<FlowDef> myFlows;
 
-    /// The used reader
-    LineReader myReader;
+private:
+    /// we made the copy constructor invalid
+    RODFEdge(const RODFEdge &src);
 
-    /// The value extractor
-    NamedColumnsParser myLineHandler;
+    /// we made the assignment operator invalid
+    RODFEdge &operator=(const RODFEdge &src);
 
-    /// Supplier for route ids
-    IDSupplier myRouteIDSupplier;
-
-    /// The path information is found under
-    //std::string fname;
-	DFDetectorFlows * mydetFlows;
-	DFDetectorCon *detcon;
 };
 
 

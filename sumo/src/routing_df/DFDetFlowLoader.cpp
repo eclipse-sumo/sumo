@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/03/08 12:51:29  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.2  2006/02/13 07:27:06  dkrajzew
 // current work on the DFROUTER added (unfinished)
 //
@@ -76,9 +79,11 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-DFDetFlowLoader::DFDetFlowLoader(DFDetectorCon *DetCon)
+DFDetFlowLoader::DFDetFlowLoader(DFDetectorCon *DetCon,
+                                 SUMOTime startTime, SUMOTime endTime,
+                                 SUMOTime stepOffset)
 {
-	mydetFlows = new DFDetectorFlows();
+	mydetFlows = new DFDetectorFlows(startTime, endTime, stepOffset);
 	detcon = DetCon;
 }
 
@@ -90,12 +95,41 @@ DFDetFlowLoader::~DFDetFlowLoader()
 
 
 DFDetectorFlows *
-DFDetFlowLoader::read(const std::string &file)
+DFDetFlowLoader::read(const std::string &file, bool fast)
 {
-    myFirstLine = true;
-    myReader.setFileName(file);
-    myReader.readAll(*this);
+    if(fast) {
+        parseFast(file);
+    } else {
+        myFirstLine = true;
+        myReader.setFileName(file);
+        myReader.readAll(*this);
+    }
 	return mydetFlows;
+}
+
+
+bool
+DFDetFlowLoader::parseFast(const std::string &file)
+{
+    ifstream strm(file.c_str());
+    if(!strm.good()) {
+        MsgHandler::getErrorInstance()->inform("Could not open '" + file + "'.");
+        return false;
+    }
+    while(strm.good()) {
+		FlowDef fd;
+        string detName;
+        int time;
+		fd.isLKW = 0;
+		strm >> time;
+		strm >> detName;
+		strm >> fd.qPKW;
+		strm >> fd.qLKW;
+		strm >> fd.vPKW;
+		strm >> fd.vLKW;
+        mydetFlows->addFlow( detName, time, fd );
+    }
+    return true;
 }
 
 
@@ -104,25 +138,24 @@ DFDetFlowLoader::report(const std::string &result)
 {
     // parse the flows
     if(myFirstLine) {
-		myLineHandler.reinit(result, ";", ";", true); // !!!
+		myLineHandler.reinit(result, ";", ";", true, false); // !!!
         myFirstLine = false;
     } else {
 		myLineHandler.parseLine(result);
 		string detName = myLineHandler.get("Detector");
-		FlowDef fd;
-		fd.time = TplConvert<char>::_2int((myLineHandler.get("Time").c_str()));
+        int time = TplConvert<char>::_2int((myLineHandler.get("Time").c_str()));
+        FlowDef fd;
 //		fd.det = myLineHandler.get("Detector");
 		fd.isLKW = 0;
 		fd.qPKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("qPKW").c_str());
 		fd.vPKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("vPKW").c_str());
 		fd.qLKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("qLKW").c_str());
 		fd.vLKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("vLKW").c_str());
-        if ( fd.qLKW!=0 && fd.qPKW!=0 ) {
-			fd.fLKW = fd.qLKW / fd.qPKW ;
-        } else {
-			fd.fLKW = 0;
-		}
-		mydetFlows->addFlow( detName, fd.time, fd );
+        if(false) { // !!!!
+            assert(fd.qPKW>=fd.qLKW);
+            fd.qPKW -= fd.qLKW;
+        }
+		mydetFlows->addFlow( detName, time, fd );
 	}
 
     return true;

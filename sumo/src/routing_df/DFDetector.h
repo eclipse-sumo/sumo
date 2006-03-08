@@ -45,6 +45,7 @@ class DFDetector
 public:
 	DFDetector(const std::string &Id, const std::string &laneId,
         SUMOReal pos, const dfdetector_type type);
+	DFDetector(const std::string &Id, const DFDetector &f);
 	~DFDetector();
     const std::string &getID() const { return myID; };
 	const std::string &getLaneID() const { return myLaneID; };
@@ -58,6 +59,9 @@ public:
 	bool hasRoutes() const;
 	bool writeRoutes(std::vector<std::string> &saved,
 		std::ostream &os);
+	void writeSingleSpeedTrigger(const std::string &file,
+		const DFDetectorFlows &flows,
+		SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 
 protected:
     void buildDestinationDistribution(const DFDetectorCon &detectors,
@@ -95,9 +99,15 @@ public:
 		SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
 		bool writeCalibrators);
 
+	void writeSpeedTrigger(const std::string &file,
+		const DFDetectorFlows &flows,
+		SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
+
+	void writeValidationDetectors(const std::string &file,
+        bool includeSources, bool singleFile, bool friendly);
+
     int getFlowFor(const ROEdge *edge, SUMOTime time,
         const DFDetectorFlows &flows) const;
-
 
 
 protected:

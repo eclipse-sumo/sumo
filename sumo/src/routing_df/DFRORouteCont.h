@@ -14,7 +14,7 @@
 class DFRORouteCont {
 public:
     DFRORouteCont();
-	DFRORouteCont(const DFRORouteCont &s);
+//	DFRORouteCont(const DFRORouteCont &s);
     ~DFRORouteCont();
     void addRouteDesc(DFRORouteDesc *desc);
     bool readFrom(const std::string &file);

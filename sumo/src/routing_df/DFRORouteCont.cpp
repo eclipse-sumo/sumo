@@ -18,17 +18,30 @@ DFRORouteCont::DFRORouteCont()
 {
 }
 
-
+/*
 DFRORouteCont::DFRORouteCont(const DFRORouteCont &s)
 {
-	for(std::vector<DFRORouteDesc*>::const_iterator j=s.myRoutes.begin(); j!=s.myRoutes.end(); ++j) {
-		DFRORouteDesc *desc = (*j);
-		myRoutes.push_back(desc);
-	}
+    {
+    	for(std::vector<DFRORouteDesc*>::const_iterator j=s.myRoutes.begin(); j!=s.myRoutes.end(); ++j) {
+	    	DFRORouteDesc *desc = new DFRORouteDesc(*(*j));
+		    myRoutes.push_back(desc);
+	    }
+    }
+    {
+    	for(std::map<ROEdge*, std::vector<ROEdge*> >::const_iterator j=s.myDets2Follow.begin(); j!=s.myDets2Follow.end(); ++j) {
+		    myDets2Follow[(*j).first] = (*j).second;
+	    }
+    }
 }
+*/
 
 DFRORouteCont::~DFRORouteCont()
 {
+    {
+    	for(std::vector<DFRORouteDesc*>::const_iterator j=myRoutes.begin(); j!=myRoutes.end(); ++j) {
+	    	delete (*j);
+	    }
+    }
 }
 
 

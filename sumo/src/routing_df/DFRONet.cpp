@@ -12,6 +12,11 @@
 #include "DFRONet.h"
 #include <routing_df/DFDetector.h>
 #include <routing_df/DFRORouteDesc.h>
+#include "DFDetectorFlow.h"
+#include "RODFEdge.h"
+#include <cmath>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 
 using namespace std;
 
@@ -21,7 +26,8 @@ DFRONet::DFRONet()
 }
 
 DFRONet::DFRONet(RONet * Ro, bool amInHighwayMode)
-	: myAmInHighwayMode(amInHighwayMode)
+	: myAmInHighwayMode(amInHighwayMode),
+    mySourceNumber(0), mySinkNumber(0), myInBetweenNumber(0), myInvalidNumber(0)
 {
 	ro = Ro;
 }
@@ -155,12 +161,15 @@ DFRONet::computeTypes(DFDetectorCon &detcont) const
 			}
             if(isSource(**i, detcont)) {
                 (*i)->setType(SOURCE_DETECTOR);
+                mySourceNumber++;
             }
             if(isDestination(**i, detcont)) {
                 (*i)->setType(SINK_DETECTOR);
+                mySinkNumber++;
             }
             if((*i)->getType()==TYPE_NOT_DEFINED) {
                 (*i)->setType(BETWEEN_DETECTOR);
+                myInBetweenNumber++;
             }
         }
     }
@@ -172,9 +181,17 @@ DFRONet::computeTypes(DFDetectorCon &detcont) const
 			}
 			if(isFalseSource(**i, detcont)) {
                 (*i)->setType(DISCARDED_DETECTOR);
+                myInvalidNumber++;
+                mySourceNumber--;
             }
         }
     }
+    // print results
+    MsgHandler::getMessageInstance()->inform("Computed detector types:");
+    MsgHandler::getMessageInstance()->inform(" " + toString(mySourceNumber) + " source detectors");
+    MsgHandler::getMessageInstance()->inform(" " + toString(mySinkNumber) + " sink detectors");
+    MsgHandler::getMessageInstance()->inform(" " + toString(myInBetweenNumber) + " in-between detectors");
+    MsgHandler::getMessageInstance()->inform(" " + toString(myInvalidNumber) + " invalid detectors");
 }
 
 
@@ -307,6 +324,10 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
 		// ... else: loop over the next edges
 		const std::vector<ROEdge*> &appr  = myApproachedEdges.find(last)->second;
 		for(size_t i=0; i<appr.size(); i++) {
+            if(find(current->edges2Pass.begin(), current->edges2Pass.end(), appr[i])!=current->edges2Pass.end()) {
+                // do not append an edge twice (do not build loops)
+                continue;
+            }
 			DFRORouteDesc *t = new DFRORouteDesc(*current);
 			t->duration += (last->getLength()/last->getSpeed());//!!!
             t->distance += last->getLength();
@@ -742,7 +763,9 @@ DFRONet::isFalseSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*>
 						return true;
 					}
 				}
-			}
+            }/* else if(edge->getSpeed()<19.) {
+                return false;
+            }*/
 		}
 	}
 
@@ -761,3 +784,71 @@ DFRONet::isFalseSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*>
 	}
     return isall;
 }
+
+
+void
+DFRONet::buildEdgeFlowMap(const DFDetectorFlows &flows,
+                          const DFDetectorCon &detectors,
+                          SUMOTime startTime, SUMOTime endTime,
+                          SUMOTime stepOffset)
+{
+    std::map<ROEdge*, std::vector<std::string> >::iterator i;
+    for(i=myDetectorsOnEdges.begin(); i!=myDetectorsOnEdges.end(); ++i) {
+        ROEdge *into = (*i).first;
+        const std::vector<std::string> &dets = (*i).second;
+        std::map<SUMOReal, std::vector<std::string> > cliques;
+        size_t maxCliqueSize = 0;
+        for(std::vector<std::string>::const_iterator j=dets.begin(); j!=dets.end(); ++j) {
+            if(!flows.knows(*j)) {
+                continue;
+            }
+            const DFDetector &det = detectors.getDetector(*j);
+            bool found = false;
+            for(std::map<SUMOReal, std::vector<std::string> >::iterator k=cliques.begin(); !found&&k!=cliques.end(); ++k) {
+                if(fabs((*k).first-det.getPos())<1) {
+                    (*k).second.push_back(*j);
+                    maxCliqueSize = MAX2(maxCliqueSize, (*k).second.size());
+                    found = true;
+                }
+            }
+            if(!found) {
+                cliques[det.getPos()] = std::vector<std::string>();
+                cliques[det.getPos()].push_back(*j);
+                maxCliqueSize = MAX2(maxCliqueSize, (*k).second.size());
+            }
+        }
+        std::vector<std::string> firstClique;
+        for(std::map<SUMOReal, std::vector<std::string> >::iterator m=cliques.begin(); firstClique.size()==0&&m!=cliques.end(); ++m) {
+            if((*m).second.size()==maxCliqueSize) {
+                firstClique = (*m).second;
+            }
+        }
+        std::vector<FlowDef> mflows; // !!! reserve
+        SUMOTime t;
+        for(t=startTime; t<endTime; t+=stepOffset) {
+            FlowDef fd;
+            fd.qPKW = 0;
+            fd.qLKW = 0;
+            fd.vLKW = 0;
+            fd.vPKW = 0;
+            fd.fLKW = 0;
+            fd.isLKW = 0;
+            mflows.push_back(fd);
+        }
+        for(std::vector<std::string>::iterator l=firstClique.begin(); l!=firstClique.end(); ++l) {
+            const std::vector<FlowDef> &dflows = flows.getFlowDefs(*l);
+            for(t=startTime; t<endTime; t+=stepOffset) {
+                const FlowDef &srcFD = dflows[(int) (t/stepOffset) - startTime];
+                FlowDef &fd = mflows[(int) (t/stepOffset) - startTime];
+                fd.qPKW += srcFD.qPKW;
+                fd.qLKW += srcFD.qLKW;
+                fd.vLKW += (srcFD.vLKW / (SUMOReal) firstClique.size());
+                fd.vPKW += (srcFD.vPKW / (SUMOReal) firstClique.size());
+                fd.fLKW += (srcFD.fLKW / (SUMOReal) firstClique.size());
+                fd.isLKW += (srcFD.isLKW / (SUMOReal) firstClique.size());
+            }
+        }
+        static_cast<RODFEdge*>(into)->setFlows(mflows);
+    }
+}
+

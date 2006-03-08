@@ -31,25 +31,34 @@ struct FlowDef {
     // Mean velocity of heavy duty vehicles within the described time
     SUMOReal vLKW;
     // begin time (in s)
-    int time;
+//    int time;
     // probability for having a heavy duty vehicle(qKFZ!=0 ? (qLKW / qKFZ) : 0;)
     SUMOReal fLKW;
     // initialise with 0
-    SUMOReal isLKW;
+    mutable SUMOReal isLKW;
+    //
+    bool firstSet;
 };
 
 class DFDetectorFlows
 {
 public:
-	DFDetectorFlows();
+	DFDetectorFlows(SUMOTime startTime, SUMOTime endTime,
+        SUMOTime stepOffset);
 	~DFDetectorFlows();
-	void addFlow(std::string detector_id, int timestamp, FlowDef fd );
-	const FlowDef &getFlowDef(const std::string &det_id, SUMOTime timestamp) const;
-	const std::map< int, FlowDef > &getFlowDefs( const std::string &id ) const;
+	void addFlow(const std::string &detector_id, int timestamp,
+        const FlowDef &fd );
+	//const FlowDef &getFlowDef(const std::string &det_id, SUMOTime timestamp) const;
+	//const std::map< int, FlowDef > &getFlowDefs( const std::string &id ) const;
+
+    const std::vector<FlowDef> &getFlowDefs( const std::string &id ) const;
     bool knows( const std::string &det_id ) const;
     bool knows( const std::string &det_id, SUMOTime time ) const;
+    //void buildFastAccess(SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 protected:
-    std::map<std::string, std::map<SUMOTime, FlowDef> > myCurrFlows;
+//    std::map<std::string, std::map<SUMOTime, FlowDef> > myCurrentFlows;
+    std::map<std::string, std::vector<FlowDef> > myFastAccessFlows;
+    SUMOTime myBeginTime, myEndTime, myStepOffset;
 
 };
 

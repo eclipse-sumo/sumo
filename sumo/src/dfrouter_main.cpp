@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/03/08 12:51:28  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.11  2006/02/13 07:35:04  dkrajzew
 // current work on the DFROUTER added (unfinished)
 //
@@ -163,11 +166,13 @@ readDetectors(OptionsCont &oc)
         MsgHandler::getErrorInstance()->inform("The detector file is not given or can not be opened.");
         throw ProcessError();
     }
+    MsgHandler::getMessageInstance()->inform("Loading detector definitions... ");
     DFDetectorCon *cont = new DFDetectorCon();
     DFDetectorHandler handler(oc, *cont);
     SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
     try {
         parser->parse(oc.getString("detectors-file").c_str());
+        MsgHandler::getMessageInstance()->inform("done.");
     } catch (SAXException &e) {
         delete cont;
         cont = 0;
@@ -186,7 +191,7 @@ readDetectorFlows( OptionsCont &oc, DFDetectorCon * dc)
 {
 	if(!oc.isSet("detector-flows-file")) {
 		// ok, not given, return an empty container
-		return new DFDetectorFlows();
+		return new DFDetectorFlows(oc.getInt("begin"), oc.getInt("end"), 60); // !!!
 	}
 	// check whether the file exists
 	if(!FileHelpers::exists(oc.getString("detector-flows-file"))) {
@@ -194,15 +199,13 @@ readDetectorFlows( OptionsCont &oc, DFDetectorCon * dc)
 		throw ProcessError();
 	}
 	// parse
-	DFDetFlowLoader dfl(dc);
-	DFDetectorFlows *df = dfl.read(oc.getString("detector-flows-file"));
+    MsgHandler::getMessageInstance()->inform("Loading flows... ");
+	DFDetFlowLoader dfl(dc, oc.getInt("begin"), oc.getInt("end"), 60); // !!!
+	DFDetectorFlows *df = dfl.read(
+        oc.getString("detector-flows-file"), oc.getBool("fast-flows"));
+//    df->buildFastAccess(oc.getInt("begin"), oc.getInt("end"), 60); // !!!
+    MsgHandler::getMessageInstance()->inform("done.");
 	return df;
-}
-
-
-void
-buildVehicleEmissions(const std::string &file)
-{
 }
 
 
@@ -233,11 +236,15 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
     if(optNet!=0) {
         // compute the detector types (optionally)
         if(!detectors->detectorsHaveCompleteTypes()||oc.isSet("revalidate-detectors")) {
+            MsgHandler::getMessageInstance()->inform("Computing detector types...");
             optNet->computeTypes(*detectors);
+            MsgHandler::getMessageInstance()->inform("done.");
         }
         // compute routes between the detectors (optionally)
         if(!detectors->detectorsHaveRoutes()||oc.isSet("revalidate-routes")) {
+            MsgHandler::getMessageInstance()->inform("Computing routes...");
             optNet->buildRoutes(*detectors);
+            MsgHandler::getMessageInstance()->inform("done.");
         }
     }
 
@@ -270,9 +277,26 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
 	// !!!
 	// save emitters if wished
 	if(oc.isSet("emitters-output")) {
+        MsgHandler::getMessageInstance()->inform("Writing emitters...");
+        optNet->buildEdgeFlowMap(*flows, *detectors, 0, 86400, 60); // !!!
 		detectors->writeEmitters(oc.getString("emitters-output"), *flows,
 			0, 86400, 60,
 			oc.getBool("write-calibrators"));
+        MsgHandler::getMessageInstance()->inform("done.");
+	}
+    // save end speed trigger if wished
+	if(oc.isSet("speed-trigger-output")) {
+        MsgHandler::getMessageInstance()->inform("Writing speed triggers...");
+		detectors->writeSpeedTrigger(oc.getString("speed-trigger-output"), *flows,
+			0, 86400, 60);
+        MsgHandler::getMessageInstance()->inform("done.");
+	}
+    // save checking detectors if wished
+	if(oc.isSet("validation-output")) {
+        MsgHandler::getMessageInstance()->inform("Writing validation detectors...");
+		detectors->writeValidationDetectors(oc.getString("validation-output"),
+            oc.getBool("validation-output.add-sources"), true, true); // !!!
+        MsgHandler::getMessageInstance()->inform("done.");
 	}
 	/*
     // save the emission definitions

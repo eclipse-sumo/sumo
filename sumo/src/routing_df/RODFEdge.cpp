@@ -1,10 +1,10 @@
 //---------------------------------------------------------------------------//
-//                        RODFEdgeBuilder.cpp -
-//      The builder for dua-edges
+//                        RODFEdge.cpp -
+//  An edge the router may route through
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Tue, 20 Jan 2004
-//  copyright            : (C) 2004 by Daniel Krajzewicz
+//  begin                : Wed, 01.03.2006
+//  copyright            : (C) 2006 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
@@ -23,26 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.2  2006/03/08 12:51:29  dkrajzew
+// Revision 1.1  2006/03/08 12:51:29  dkrajzew
 // further work on the dfrouter
 //
-// Revision 1.1  2005/12/08 12:59:41  ericnicolay
-// *** empty log message ***
-//
-// Revision 1.5  2005/10/07 11:42:28  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
-//
-// Revision 1.4  2005/09/15 12:05:23  dkrajzew
-// LARGE CODE RECHECK
-//
-// Revision 1.3  2005/05/04 08:57:12  dkrajzew
-// level 3 warnings removed; a certain SUMOTime time description added
-//
-// Revision 1.2  2004/07/02 09:40:36  dkrajzew
-// debugging while working on INVENT; preparation of classes to be derived for an online-routing (lane index added)
-//
-// Revision 1.1  2004/01/26 06:08:38  dkrajzew
-// initial commit for dua-classes
 //
 /* =========================================================================
  * compiler pragmas
@@ -61,8 +44,9 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <router/ROEdge.h>
-#include "RODFEdgeBuilder.h"
+#include <algorithm>
+#include <cassert>
+#include <utils/common/MsgHandler.h>
 #include "RODFEdge.h"
 
 #ifdef _DEBUG
@@ -71,22 +55,43 @@ namespace
 
 
 /* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
+
+
+/* =========================================================================
  * method definitions
  * ======================================================================= */
-RODFEdgeBuilder::RODFEdgeBuilder()
+RODFEdge::RODFEdge(const std::string &id, int index)
+    : ROEdge(id, index)
 {
 }
 
 
-RODFEdgeBuilder::~RODFEdgeBuilder()
+RODFEdge::~RODFEdge()
 {
 }
 
 
-ROEdge *
-RODFEdgeBuilder::buildEdge(const std::string &name)
+void
+RODFEdge::addFollower(ROEdge *s)
 {
-    return new RODFEdge(name, getCurrentIndex());
+    ROEdge::addFollower(s);
+}
+
+
+void
+RODFEdge::setFlows(const std::vector<FlowDef> &flows)
+{
+    myFlows = flows;
+}
+
+
+const std::vector<FlowDef> &
+RODFEdge::getFlows() const
+{
+    return myFlows;
 }
 
 
@@ -95,4 +100,5 @@ RODFEdgeBuilder::buildEdge(const std::string &name)
 // Local Variables:
 // mode:C++
 // End:
+
 
