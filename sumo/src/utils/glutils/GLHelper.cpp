@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/03/08 13:16:23  dkrajzew
+// some work on lane visualization
+//
 // Revision 1.10  2006/01/09 13:36:09  dkrajzew
 // further visualization options added
 //
@@ -128,12 +131,71 @@ GLHelper::drawBoxLine(const Position2D &beg, SUMOReal rot, SUMOReal visLength,
     glPopMatrix();
 }
 
+void
+GLHelper::drawBoxLine(const Position2D &beg1, const Position2D &beg2,
+                      SUMOReal rot, SUMOReal visLength,
+                      SUMOReal width)
+{
+    glPushMatrix();
+    glTranslated((beg2.x()+beg1.x())*.5, (beg2.y()+beg1.y())*.5, 0);
+//    glTranslated(beg1.x(), beg1.y(), 0);
+    glRotated( rot, 0, 0, 1 );
+    glBegin(GL_QUADS);
+    glVertex2d(-width, 0);
+    glVertex2d(-width, -visLength);
+    glVertex2d(width, -visLength);
+    glVertex2d(width, 0);
+    glEnd();
+    glBegin(GL_LINES);
+    glVertex2d(0, 0);
+    glVertex2d(0, -visLength);
+    glEnd();
+    glPopMatrix();
+}
+
+/*
+void
+GLHelper::drawBoxLine(const Position2D &beg1, const Position2D &beg2,
+                      SUMOReal rot, SUMOReal visLength)
+{
+    SUMOReal width = GeomHelper::distance(beg1, beg2);
+    glPushMatrix();
+    glTranslated(beg1.x(), beg1.y(), 0);
+    glRotated( rot, 0, 0, 1 );
+    glBegin(GL_QUADS);
+    glVertex2d(-width, 0);
+    glVertex2d(-width, -visLength);
+    glVertex2d(width, -visLength);
+    glVertex2d(width, 0);
+    glEnd();
+    glBegin(GL_LINES);
+    glVertex2d(0, 0);
+    glVertex2d(0, -visLength);
+    glEnd();
+    glPopMatrix();
+}
+*/
 
 void
 GLHelper::drawLine(const Position2D &beg, SUMOReal rot, SUMOReal visLength)
 {
     glPushMatrix();
     glTranslated(beg.x(), beg.y(), 0);
+    glRotated( rot, 0, 0, 1 );
+    glBegin(GL_LINES);
+    glVertex2d(0, 0);
+    glVertex2d(0, -visLength);
+    glEnd();
+    glPopMatrix();
+}
+
+
+void
+GLHelper::drawLine(const Position2D &beg1, const Position2D &beg2,
+                   SUMOReal rot, SUMOReal visLength)
+{
+    glPushMatrix();
+    glTranslated((beg2.x()+beg1.x())*.5, (beg2.y()+beg1.y())*.5, 0);
     glRotated( rot, 0, 0, 1 );
     glBegin(GL_LINES);
     glVertex2d(0, 0);

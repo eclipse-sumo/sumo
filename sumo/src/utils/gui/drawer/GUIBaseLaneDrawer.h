@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/03/08 13:16:23  dkrajzew
+// some work on lane visualization
+//
 // Revision 1.7  2006/01/19 08:49:46  dkrajzew
 // debugging for the next release
 //
@@ -105,7 +108,7 @@ class GUIBaseLaneDrawer {
 public:
     /// constructor
     GUIBaseLaneDrawer(const std::vector<_E1*> &edges)
-		: myEdges(edges), myUseExponential(true) { }
+		: myEdges(edges) { }
 
 
     /// destructor
@@ -113,7 +116,8 @@ public:
 
 
     virtual void drawGLLanes(size_t *which, size_t maxEdges,
-        SUMOReal width, GUIBaseColorer<_L1> &colorer, bool showBoxes)
+        SUMOReal width, GUIBaseColorer<_L1> &colorer,
+        GUISUMOAbstractView::VisualizationSettings &settings)
 	{
 	    // initialise drawing
 		initStep();
@@ -127,7 +131,7 @@ public:
 				if((which[i]&pos)!=0) {
 					_E2 *edge = static_cast<_E2*>(myEdges[j+(i<<5)]);
 	                size_t noLanes = edge->nLanes();
-                    if(showBoxes&&width>1.) {
+                    if(settings.laneShowBorders&&width>1.) {
 		                glPushName(edge->getGlID());
                         glColor3d(1,1,1);
                         // draw white boundings
@@ -166,23 +170,30 @@ public:
 	                    glPopName();
                     }
 		            // go through the current edge's lanes
-			        for(size_t k=0; k<noLanes; k++) {
-				        const _L1 &lane = edge->getLaneGeometry(k);
-						colorer.setGlColor(lane);
-//					      if(lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
-						drawLane(lane, width);
-	  /*                  } else {
-		                    drawLane(lane, scheme, 0.1);
-			            }*/
-				    }
+                    if(true) {
+        			        for(size_t k=0; k<noLanes; k++) {
+	        			        const _L1 &lane = edge->getLaneGeometry(k);
+		        				colorer.setGlColor(lane);
+//			        		      if(lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+                                if(width>1.) {
+				        		    drawLane(lane, 1.);
+                                } else {
+                                    drawLine(lane);
+                                }
+    	  /*                          } else {
+	    	                        drawLane(lane, scheme, 0.1);
+    		    	            }*/
+                            }
+                    } else {
+                        if(width>1.) {
+                            drawEdge(*edge, 1.);
+                        } else {
+                            drawLine(*edge);
+                        }
+                    }
 	            }
 		    }
 	    }
-	}
-
-
-	void setUseExponential(bool val) {
-	    myUseExponential = val;
 	}
 
 protected:
@@ -193,15 +204,19 @@ protected:
 		glColor3d(0, 0, 0);
 	}
 
-    /// draws a single vehicle
-    virtual void drawLane(const _L1 &lane, SUMOReal width) const = 0;
+    /// draws a single lane as a box
+    virtual void drawLane(const _L1 &lane, SUMOReal mult) const = 0;
+
+    /// draws a single edge as a box
+    virtual void drawEdge(const _E2 &edge, SUMOReal mult) const = 0;
+
+    /// draws a single lane/edge as a line
+    virtual void drawLine(const _L1 &lane) const = 0;
+    virtual void drawLine(const _E2 &edge) const = 0;
 
 protected:
     /// The list of edges to consider at drawing
     const std::vector<_E1*> &myEdges;
-
-private:
-    bool myUseExponential;
 
 };
 

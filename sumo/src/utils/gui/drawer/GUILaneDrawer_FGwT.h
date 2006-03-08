@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/03/08 13:16:23  dkrajzew
+// some work on lane visualization
+//
 // Revision 1.5  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -86,24 +89,44 @@ public:
 	~GUILaneDrawer_FGwT() { }
 
 private:
-    /// draws a single vehicle;
-    void drawLane(const _L1 &lane, SUMOReal width) const
+    /// draws a single lane as a box
+    void drawLane(const _L1 &lane, SUMOReal mult) const
 	{
 		glPushName(lane.getGlID());
 		const DoubleVector &rots = lane.getShapeRotations();
 		const DoubleVector &lengths = lane.getShapeLengths();
 		const Position2DVector &geom = lane.getShape();
-	    if(width>1.0) {
-		    for(size_t i=0; i<geom.size()-1; i++) {
-			    GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], SUMO_const_halfLaneWidth);
-	        }
-		} else {
-			for(size_t i=0; i<geom.size()-1; i++) {
-				GLHelper::drawLine(geom.at(i), rots[i], lengths[i]);
-	        }
+        for(size_t i=0; i<geom.size()-1; i++) {
+		    GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], SUMO_const_halfLaneWidth*mult);
 		}
 	    glPopName();
 	}
+
+    /// draws a single lane as a box
+    void drawEdge(const _E2 &edge, SUMOReal mult) const
+	{
+        throw 1;
+	}
+
+    /// draws a single lane as a box
+    void drawLine(const _L1 &lane) const
+	{
+		glPushName(lane.getGlID());
+		const DoubleVector &rots = lane.getShapeRotations();
+		const DoubleVector &lengths = lane.getShapeLengths();
+		const Position2DVector &geom = lane.getShape();
+        for(size_t i=0; i<geom.size()-1; i++) {
+		    GLHelper::drawLine(geom.at(i), rots[i], lengths[i]);
+		}
+	    glPopName();
+	}
+
+    /// draws a single edge as a box
+    void drawLine(const _E2 &lane) const
+	{
+        throw 1;
+	}
+
 
 };
 

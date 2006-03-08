@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/03/08 13:16:23  dkrajzew
+// some work on lane visualization
+//
 // Revision 1.5  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -82,41 +85,57 @@ public:
 		: GUIBaseLaneDrawer<_E1, _E2, _L1>(edges) { }
 
     /// destructor
-		~GUILaneDrawer_SGwT() { }
+    ~GUILaneDrawer_SGwT() { }
 
 private:
-    /// draws a single vehicle;
-    void drawLane(const _L1 &lane, SUMOReal width) const
+    /// draws a lane as a box
+    void drawLane(const _L1 &lane, SUMOReal mult) const
 	{
 	    glPushName(lane.getGlID());
-		if(width>1.0) {
-	        glPushMatrix();
-		    const Position2D &beg = lane.getBegin();
-			glTranslated(beg.x(), beg.y(), 0);
-	        glRotated( lane.getRotation(), 0, 0, 1 );
-		    SUMOReal visLength = -lane.visLength();
-			glBegin( GL_QUADS );
-	        glVertex2d(-SUMO_const_halfLaneWidth, 0);
-		    glVertex2d(-SUMO_const_halfLaneWidth, visLength);
-			glVertex2d(SUMO_const_halfLaneWidth, visLength);
-	        glVertex2d(SUMO_const_halfLaneWidth, 0);
-		    glEnd();
-	        glBegin( GL_LINES);
-		    // without the substracted offsets, lines are partially longer
-	        //  than the boxes
-		    glVertex2d(0, 0-.1);
-			glVertex2d(0, visLength-.1);
-	        glEnd();
-		    glPopMatrix();
-	    } else {
-		    const Position2D &begin = lane.getBegin();
-	        const Position2D &end = lane.getEnd();
-		    glBegin( GL_LINES);
-	        glVertex2d(begin.x(), begin.y());
-		    glVertex2d(end.x(), end.y());
-	        glEnd();
-	    }
+        glPushMatrix();
+		const Position2D &beg = lane.getBegin();
+		glTranslated(beg.x(), beg.y(), 0);
+	    glRotated( lane.getRotation(), 0, 0, 1 );
+		SUMOReal visLength = -lane.visLength();
+		glBegin( GL_QUADS );
+	    glVertex2d(-SUMO_const_halfLaneWidth*mult, 0);
+		glVertex2d(-SUMO_const_halfLaneWidth*mult, visLength);
+		glVertex2d(SUMO_const_halfLaneWidth*mult, visLength);
+	    glVertex2d(SUMO_const_halfLaneWidth*mult, 0);
+        glEnd();
+	    glBegin( GL_LINES);
+		// without the substracted offsets, lines are partially longer
+	    //  than the boxes
+		glVertex2d(0, 0-.1);
+		glVertex2d(0, visLength-.1);
+	    glEnd();
+		glPopMatrix();
 		glPopName();
+	}
+
+    /// draws an edge as a box
+    void drawEdge(const _E2 &edge, SUMOReal mult) const
+	{
+        throw 1;
+	}
+
+    /// draws a lane as a line
+    void drawLine(const _L1 &lane) const
+	{
+	    glPushName(lane.getGlID());
+        const Position2D &begin = lane.getBegin();
+	    const Position2D &end = lane.getEnd();
+		glBegin( GL_LINES);
+	    glVertex2d(begin.x(), begin.y());
+		glVertex2d(end.x(), end.y());
+	    glEnd();
+		glPopName();
+	}
+
+    /// draws an edge as a line
+    void drawLine(const _E2 &edge) const
+	{
+        throw 1;
 	}
 
 

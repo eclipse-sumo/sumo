@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/03/08 13:16:23  dkrajzew
+// some work on lane visualization
+//
 // Revision 1.7  2006/01/09 13:36:09  dkrajzew
 // further visualization options added
 //
@@ -73,8 +76,15 @@ public:
     static void drawBoxLine(const Position2D &beg, SUMOReal rot,
         SUMOReal visLength, SUMOReal width);
 
+    static void drawBoxLine(const Position2D &beg1, const Position2D &beg2,
+        SUMOReal rot, SUMOReal visLength, SUMOReal width);
+
+
     static void drawLine(const Position2D &beg, SUMOReal rot,
         SUMOReal visLength);
+
+    static void drawLine(const Position2D &beg1, const Position2D &beg2,
+        SUMOReal rot, SUMOReal visLength);
 
     static void drawFilledCircle(SUMOReal width, int steps=8);
 

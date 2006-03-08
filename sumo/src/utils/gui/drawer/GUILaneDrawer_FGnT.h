@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/03/08 13:16:23  dkrajzew
+// some work on lane visualization
+//
 // Revision 1.5  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -87,21 +90,55 @@ public:
 
 private:
     /// draws a single vehicle
-    void drawLane(const _L1 &lane, SUMOReal width) const
+    void drawLane(const _L1 &lane, SUMOReal mult) const
 	{
 		const DoubleVector &rots = lane.getShapeRotations();
 	    const DoubleVector &lengths = lane.getShapeLengths();
 		const Position2DVector &geom = lane.getShape();
-	    if(width>1.0) {
-		    for(size_t i=0; i<geom.size()-1; i++) {
-				GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], SUMO_const_halfLaneWidth);
-	        }
-		} else {
-			for(size_t i=0; i<geom.size()-1; i++) {
-				GLHelper::drawLine(geom.at(i), rots[i], lengths[i]);
-	        }
+        for(size_t i=0; i<geom.size()-1; i++) {
+		    GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], SUMO_const_halfLaneWidth*mult);
 		}
 	}
+
+    /// draws a single vehicle
+    void drawEdge(const _E2 &edge, SUMOReal mult) const
+	{
+        const _L1 &lane1 = edge.getLaneGeometry((size_t) 0);
+        const _L1 &lane2 = edge.getLaneGeometry(edge.nLanes()-1);
+		const DoubleVector &rots = lane1.getShapeRotations();
+	    const DoubleVector &lengths = lane1.getShapeLengths();
+		const Position2DVector &geom1 = lane1.getShape();
+        const Position2DVector &geom2 = lane2.getShape();
+        for(size_t i=0; i<geom1.size()-1; i++) {
+		    GLHelper::drawBoxLine(geom1.at(i), geom2.at(i), rots[i], lengths[i], (SUMOReal) edge.nLanes()*SUMO_const_halfLaneWidth*mult);
+		}
+	}
+
+    /// draws a lane as a line
+    void drawLine(const _L1 &lane) const
+	{
+		const DoubleVector &rots = lane.getShapeRotations();
+	    const DoubleVector &lengths = lane.getShapeLengths();
+		const Position2DVector &geom = lane.getShape();
+        for(size_t i=0; i<geom.size()-1; i++) {
+		    GLHelper::drawLine(geom.at(i), rots[i], lengths[i]);
+		}
+	}
+
+    /// draws an edge as a line
+    void drawLine(const _E2 &edge) const
+	{
+        const _L1 &lane1 = edge.getLaneGeometry((size_t) 0);
+        const _L1 &lane2 = edge.getLaneGeometry(edge.nLanes()-1);
+		const DoubleVector &rots = lane1.getShapeRotations();
+	    const DoubleVector &lengths = lane1.getShapeLengths();
+		const Position2DVector &geom1 = lane1.getShape();
+        const Position2DVector &geom2 = lane2.getShape();
+        for(size_t i=0; i<geom1.size()-1; i++) {
+		    GLHelper::drawLine(geom1.at(i), geom2.at(i), rots[i], lengths[i]);
+		}
+	}
+
 
 };
 
