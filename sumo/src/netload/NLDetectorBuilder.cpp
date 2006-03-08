@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.33  2006/03/08 13:15:00  dkrajzew
+// friendly_pos usage debugged
+//
 // Revision 1.32  2006/02/27 12:09:49  dkrajzew
 // variants container named properly
 //
@@ -182,11 +185,6 @@ namespace
 #include "NLDetectorBuilder.h"
 #include <microsim/output/MSDetectorControl.h>
 
-#ifdef HAVE_MESOSIM
-#include <mesosim/MEInductLoop.h>
-#include <mesosim/MELoop.h>
-#endif
-
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
@@ -246,18 +244,15 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
         OutputDevice *device, bool friendly_pos,
 		const std::string &/*style*/)
 {
-#ifdef HAVE_MESOSIM
-    if(!MSGlobals::gUseMesoSim) {
-#endif
-     // get the output style
-//   MSDetector::OutputStyle cstyle = convertStyle(id, style);
-     // check whether the file must be converted into a relative path
     // get and check the lane
     MSLane *clane = getLaneChecking(lane, id);
-    // compute position
     if(pos<0) {
         pos = clane->length() + pos;
     }
+     // get the output style
+//   MSDetector::OutputStyle cstyle = convertStyle(id, style);
+     // check whether the file must be converted into a relative path
+    // compute position
     if(pos>clane->length()) {
 		if(friendly_pos) {
 			pos = clane->length() - (SUMOReal) 0.1;
@@ -269,23 +264,6 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
     MSInductLoop *loop = createInductLoop(id, clane, pos, splInterval);
     // add the file output
     myNet.getDetectorControl().add(loop, device, splInterval);
-#ifdef HAVE_MESOSIM
-    } else {
-        MSLane *clane = getLaneChecking(lane, id);
-        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&(clane->edge()));
-        MESegment *prev = 0;
-        SUMOReal cpos = 0;
-        while(cpos<pos&&s!=0) {
-            prev = s;
-            cpos += s->getLength();
-            s = s->getNextSegment();
-        }
-        SUMOReal rpos = pos-cpos-prev->getLength();
-        MEInductLoop *loop =
-            createMEInductLoop(id, prev, rpos, splInterval);
-        myNet.getDetectorControl().add(loop, device, splInterval);
-    }
-#endif
 }
 
 
@@ -387,8 +365,8 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
     MSLink *link = MSLinkContHelper::getConnectingLink(*clane, *ctoLane);
     if(link==0) {
         throw InvalidArgument(
-            string("The detector output can not be build as no connection between lanes '")
-            + lane + string("' and '") + tolane + string("' exists."));
+            "The detector output can not be build as no connection between lanes '"
+            + lane + "' and '" + tolane + "' exists.");
     }
     // check whether the detector may lie over more than one lane
     MSDetectorFileOutput *det = 0;
@@ -440,9 +418,7 @@ NLDetectorBuilder::convUncontE2PosLength(const std::string &id,
         length = clane->length() - (SUMOReal) 0.1 - pos;
     }
     if(length<=0) {
-        throw InvalidArgument(
-            string("The length of detector '")
-            + id + string("' is not positive."));
+        throw InvalidArgument("The length of detector '" + id + "' is not positive.");
     }
 }
 
@@ -668,15 +644,6 @@ NLDetectorBuilder::createInductLoop(const std::string &id,
 }
 
 
-#ifdef HAVE_MESOSIM
-MEInductLoop *
-NLDetectorBuilder::createMEInductLoop(const std::string &id,
-                                      MESegment *s, SUMOReal pos,
-                                      int splInterval)
-{
-    return new MEInductLoop(id, s, pos, splInterval);
-}
-#endif
 
 
 MSE2Collector *
@@ -742,10 +709,8 @@ NLDetectorBuilder::getLaneChecking(const std::string &id,
     // get and check the lane
     MSLane *clane = MSLane::dictionary(id);
     if(clane==0) {
-        throw InvalidArgument(
-            string("While building detector '") + detid + ("':\n")
-            + string("The lane with the id '") + id
-            + string("' is not known."));
+        throw InvalidArgument("While building detector '" + detid + "':\n"
+            + "The lane with the id '" + id + "' is not known.");
     }
     return clane;
 }

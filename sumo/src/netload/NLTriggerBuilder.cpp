@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/03/08 13:15:00  dkrajzew
+// friendly_pos usage debugged
+//
 // Revision 1.13  2006/01/09 12:00:28  dkrajzew
 // bus stops implemented
 //
@@ -183,17 +186,13 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net,
     while(st.hasNext()) {
         MSLane *lane = MSLane::dictionary(st.next());
         if(lane==0) {
-            MsgHandler::getErrorInstance()->inform(
-                string("The lane to use within MSLaneSpeedTrigger '")
-                + id + string("' is not known."));
+            MsgHandler::getErrorInstance()->inform("The lane to use within MSLaneSpeedTrigger '" + id + "' is not known.");
             throw ProcessError();
         }
         lanes.push_back(lane);
     }
     if(lanes.size()==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("No lane defined for MSLaneSpeedTrigger '")
-            + id + string("'."));
+        MsgHandler::getErrorInstance()->inform("No lane defined for MSLaneSpeedTrigger '" + id + "'.");
         throw ProcessError();
     }
     return buildLaneSpeedTrigger(net, id, lanes, file);
@@ -214,16 +213,22 @@ NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net,
     }
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
+    bool friendly_pos = helper.getBoolSecure(attrs, "friendly_pos", false);
     MSLane *lane = MSLane::dictionary(objectid);
     if(lane==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The lane to use within MSEmitter '")
-            + id + string("' is not known."));
+        MsgHandler::getErrorInstance()->inform("The lane to use within MSEmitter '" + id + "' is not known.");
         throw ProcessError();
     }
     SUMOReal pos = helper.getFloat(attrs, SUMO_ATTR_POS);
     if(pos<0) {
         pos = lane->length() + pos;
+    }
+    if(pos>lane->length()) {
+		if(friendly_pos) {
+			pos = lane->length() - (SUMOReal) 0.1;
+		} else {
+			throw InvalidArgument("The position of detector '" + id + "' lies beyond the lane's '" + lane->id() + "' length.");
+		}
     }
     return buildLaneEmitTrigger(net, id, lane, pos, file);
 }
@@ -296,9 +301,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
     string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
     MSLane *lane = MSLane::dictionary(objectid);
     if(lane==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The lane to use within MSEmitter '")
-            + id + string("' is not known."));
+        MsgHandler::getErrorInstance()->inform("The lane to use within MSEmitter '" + id + "' is not known.");
         throw ProcessError();
     }
     SUMOReal pos = helper.getFloat(attrs, SUMO_ATTR_POS);
@@ -338,17 +341,13 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
     while(st.hasNext()) {
         MSEdge *edge = MSEdge::dictionary(st.next());
         if(edge==0) {
-            MsgHandler::getErrorInstance()->inform(
-                string("The edge to use within MSTriggeredRerouter '")
-                + id + string("' is not known."));
+            MsgHandler::getErrorInstance()->inform("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
             throw ProcessError();
         }
         edges.push_back(edge);
     }
     if(edges.size()==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("No edges found for MSTriggeredRerouter '")
-            + id + string("'."));
+        MsgHandler::getErrorInstance()->inform("No edges found for MSTriggeredRerouter '" + id + "'.");
         throw ProcessError();
     }
 
@@ -356,9 +355,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
     try {
         prob = helper.getFloatSecure(attrs, SUMO_ATTR_PROB, 1);
     } catch(NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Invalid probability in definition of MSTriggeredRerouter '")
-            + id + string("'."));
+        MsgHandler::getErrorInstance()->inform("Invalid probability in definition of MSTriggeredRerouter '" + id + "'.");
         throw ProcessError();
     }
     MSTriggeredRerouter *ret = buildRerouter(net, id, edges, prob, file);
