@@ -270,6 +270,7 @@ prj/msvc6/netgen/Makefile
 prj/msvc6/od2trips/Makefile
 prj/msvc6/routeremapper/Makefile
 prj/msvc6/sumo/Makefile
+prj/msvc6/x_libforeign_proj/Makefile
 prj/msvc6/y_libgui/Makefile
 prj/msvc6/y_libguinetload/Makefile
 prj/msvc6/y_libguisim/Makefile
@@ -309,6 +310,7 @@ prj/msvc7.net/netgen/Makefile
 prj/msvc7.net/od2trips/Makefile
 prj/msvc7.net/sumo/Makefile
 prj/msvc7.net/routeremapper/Makefile
+prj/msvc7.net/x_libforeign_proj/Makefile
 prj/msvc7.net/y_libgui/Makefile
 prj/msvc7.net/y_libguinetload/Makefile
 prj/msvc7.net/y_libguisim/Makefile
@@ -430,6 +432,7 @@ docs/man/Makefile
 src/Makefile
 src/foreign/Makefile
 src/foreign/nvwa/Makefile
+src/foreign/proj/Makefile
 src/gui/Makefile
 src/gui/dialogs/Makefile
 src/gui/drawerimpl/Makefile
