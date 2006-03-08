@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/03/08 13:17:56  dkrajzew
+// possibility to insert pois on the gui added (danilot tete-boyom)
+//
 // Revision 1.16  2006/02/27 12:12:37  dkrajzew
 // code beautifying
 //
@@ -424,19 +427,24 @@ GUISUMOAbstractView::updateToolTip()
 std::pair<SUMOReal, SUMOReal>
 GUISUMOAbstractView::getPositionInformation() const
 {
+    return getPositionInformation(_changer->getMouseXPosition(), _changer->getMouseYPosition());
+}
+
+
+std::pair<SUMOReal, SUMOReal>
+GUISUMOAbstractView::getPositionInformation(int mx, int my) const
+{
     const Boundary &nb = myGrid->getBoundary();
     SUMOReal width = nb.getWidth();
     SUMOReal height = nb.getHeight();
 
-        SUMOReal mzoom = _changer->getZoom();
-
-        // compute the offset
-        SUMOReal cy = _changer->getYPos();//cursorY;
-        SUMOReal cx = _changer->getXPos();//cursorY;
-
-        // compute the visible area in horizontal direction
-        SUMOReal mratioX;
-        SUMOReal mratioY;
+    SUMOReal mzoom = _changer->getZoom();
+    // compute the offset
+    SUMOReal cy = _changer->getYPos();//cursorY;
+    SUMOReal cx = _changer->getXPos();//cursorY;
+    // compute the visible area in horizontal direction
+    SUMOReal mratioX;
+    SUMOReal mratioY;
         SUMOReal xs = ((SUMOReal) _widthInPixels / (SUMOReal) myApp->getMaxGLWidth())
             / (myGrid->getBoundary().getWidth() / myNetScale) * _ratio;
         SUMOReal ys = ((SUMOReal) _heightInPixels / (SUMOReal) myApp->getMaxGLHeight())
@@ -465,23 +473,23 @@ GUISUMOAbstractView::getPositionInformation() const
         symax -= cy;
 
         SUMOReal sx, sy;
-        if(width<height) {
-            sx = sxmin
-                + (sxmax-sxmin)
-                * (SUMOReal) _changer->getMouseXPosition()
-                / (SUMOReal) _widthInPixels;
-            sy = symin
-                + (symax-symin)
-                * ((SUMOReal) _heightInPixels - (SUMOReal) _changer->getMouseYPosition())
-                / (SUMOReal) _heightInPixels;
-        } else {
-            sx = sxmin
-                + (sxmax-sxmin)
-                * (SUMOReal) _changer->getMouseXPosition()
+    if(width<height) {
+        sx = sxmin
+            + (sxmax-sxmin)
+            * (SUMOReal) mx
             / (SUMOReal) _widthInPixels;
         sy = symin
             + (symax-symin)
-            * ((SUMOReal) _heightInPixels - (SUMOReal) _changer->getMouseYPosition())
+            * ((SUMOReal) _heightInPixels - (SUMOReal) my)
+            / (SUMOReal) _heightInPixels;
+    } else {
+        sx = sxmin
+            + (sxmax-sxmin)
+            * (SUMOReal) mx
+            / (SUMOReal) _widthInPixels;
+        sy = symin
+            + (symax-symin)
+            * ((SUMOReal) _heightInPixels - (SUMOReal) my)
             / (SUMOReal) _heightInPixels;
     }
     return make_pair<SUMOReal, SUMOReal>(sx, sy);
@@ -1307,7 +1315,7 @@ GUISUMOAbstractView::setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos)
 
 
 void
-GUISUMOAbstractView::drawShapes(const ShapeContainer &sc) const
+GUISUMOAbstractView::drawShapes(const ShapeContainer &sc)
 {
     {
         const std::vector<Polygon2D*> &pv = sc.getPolygonCont().buildAndGetStaticVector();

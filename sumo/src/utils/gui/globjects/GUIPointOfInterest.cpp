@@ -8,6 +8,12 @@
 
 #include "GUIPointOfInterest.h"
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
+#include <utils/foxtools/MFXMenuHeader.h>
+#include <utils/gui/windows/GUIMainWindow.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -35,16 +41,15 @@ GUIGLObjectPopupMenu *
 GUIPointOfInterest::getPopUpMenu(GUIMainWindow &app,
                                  GUISUMOAbstractView &parent)
 {
-    throw 1;
-    /*
+
     GUIGLObjectPopupMenu *ret =
-        new GUITriggeredRerouterPopupMenu(app, parent, *this);
+        new GUIGLObjectPopupMenu(app, parent, *this);
     new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
     new FXMenuSeparator(ret);
     //
     new FXMenuCommand(ret, "Center",
         GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
-    /*
+
     new FXMenuSeparator(ret);
     //
     new FXMenuCommand(ret, "Open Manipulator...",
@@ -62,7 +67,29 @@ GUIPointOfInterest::getPopUpMenu(GUIMainWindow &app,
     new FXMenuCommand(ret, "Show Parameter",
         GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
 
-    return ret;*/
+    new FXMenuSeparator(ret);
+	//
+    new FXMenuCommand(ret, "Delete",
+        GUIIconSubSys::getIcon(ICON_CUT_SWELL), ret, MID_CUTSWELL);
+
+
+    /* wird bei manipulator geöffnet
+    new FXMenuCommand(ret, "Rename",
+        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
+	    new FXMenuSeparator(ret);
+    //
+    new FXMenuCommand(ret, "Delete",
+        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
+
+	new FXMenuCommand(ret, "Change Color",
+        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
+	    new FXMenuSeparator(ret);
+    //
+    new FXMenuCommand(ret, "Change Type",
+        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
+    **/
+
+    return ret;
 }
 
 

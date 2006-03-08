@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/03/08 13:17:56  dkrajzew
+// possibility to insert pois on the gui added (danilot tete-boyom)
+//
 // Revision 1.13  2006/02/23 11:37:55  dkrajzew
 // adding pois on the gui implemented (Danilot Tete Boyom)
 //
@@ -274,7 +277,7 @@ public:
     /// Builds the popup-menu containing the location-menu
     virtual FXPopup *getLocatorPopup(GUIGlChildWindow &p);
 
-    void drawShapes(const ShapeContainer &sc) const;
+    void drawShapes(const ShapeContainer &sc) ;
 
     void remove(GUIDialog_EditViewport *d) { myViewportChooser = 0; }
 
@@ -352,6 +355,9 @@ public:
         bool laneShowBorders;
         std::vector<RGBColor> laneGradient;
         bool showLinkDecals;
+        int laneEdgeExaggMode;
+        SUMOReal minExagg;
+        SUMOReal maxExagg;
 
         int vehicleMode;
         float minVehicleSize;
@@ -388,6 +394,8 @@ protected:
     void updatePositionInformation() const;
 
     std::pair<SUMOReal, SUMOReal> getPositionInformation() const;
+
+    std::pair<SUMOReal, SUMOReal> getPositionInformation(int x, int y) const;
 
 protected:
     virtual void doPaintGL(int mode, SUMOReal scale) { }
