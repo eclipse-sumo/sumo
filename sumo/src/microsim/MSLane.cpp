@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.60  2006/03/08 13:12:29  dkrajzew
+// real density visualization added (slow, unfinished)
+//
 // Revision 1.59  2006/02/27 12:06:56  dkrajzew
 // raknet-support added
 //
@@ -1491,6 +1494,17 @@ const std::string &
 MSLane::getID() const
 {
     return myID;
+}
+
+
+SUMOReal
+MSLane::getDensity() const
+{
+    SUMOReal ret = 0;
+    for(VehCont::const_iterator i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
+        ret += (*i)->length();
+    }
+    return ret / myLength;
 }
 
 

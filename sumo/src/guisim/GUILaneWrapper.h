@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.24  2006/03/08 13:12:29  dkrajzew
+// real density visualization added (slow, unfinished)
+//
 // Revision 1.23  2006/01/31 10:56:14  dkrajzew
 // new visualization scheme for lanes added
 //
@@ -192,7 +195,7 @@ public:
     SUMOReal maxSpeed() const;
 
     SUMOReal firstWaitingTime() const;
-    SUMOReal myMagic() const;
+    SUMOReal getDensity() const;
 
     /// Returns the fastest known lane speed
     static SUMOReal getOverallMaxSpeed();

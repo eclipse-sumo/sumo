@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2006/03/08 13:12:29  dkrajzew
+// real density visualization added (slow, unfinished)
+//
 // Revision 1.29  2006/01/31 10:56:14  dkrajzew
 // new visualization scheme for lanes added
 //
@@ -599,9 +602,9 @@ GUILaneWrapper::firstWaitingTime() const
 
 
 SUMOReal
-GUILaneWrapper::myMagic() const
+GUILaneWrapper::getDensity() const
 {
-    return (SUMOReal) myLane.myVehicles.size() * (SUMOReal) 5. / myLane.length();
+    return myLane.getDensity();
 }
 
 

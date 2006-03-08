@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.35  2006/03/08 13:12:29  dkrajzew
+// real density visualization added (slow, unfinished)
+//
 // Revision 1.34  2006/01/09 11:55:52  dkrajzew
 // shape retrival added
 //
@@ -517,6 +520,9 @@ public:
     }
 
     const Position2DVector &getShape() const { return myShape; }
+
+    SUMOReal getDensity() const;
+
 
 protected:
     /** @brief Function Object for use with Function Adapter on vehicle containers.
