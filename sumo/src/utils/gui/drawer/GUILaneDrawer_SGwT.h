@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/03/09 10:58:53  dkrajzew
+// reworking the drawers
+//
 // Revision 1.6  2006/03/08 13:16:23  dkrajzew
 // some work on lane visualization
 //
@@ -116,7 +119,27 @@ private:
     /// draws an edge as a box
     void drawEdge(const _E2 &edge, SUMOReal mult) const
 	{
-        throw 1;
+	    glPushName(edge.getGlID());
+        glPushMatrix();
+        const _L1 &lane1 = edge.getLaneGeometry((size_t) 0);
+        const _L1 &lane2 = edge.getLaneGeometry(edge.nLanes()-1);
+	    const Position2D &beg1 = lane1.getBegin();
+        const Position2D &beg2 = lane2.getBegin();
+        glTranslated((beg2.x()+beg1.x())*.5, (beg2.y()+beg1.y())*.5, 0);
+		glRotated( lane1.getRotation(), 0, 0, 1 );
+	    SUMOReal visLength = -lane1.visLength();
+		glBegin( GL_QUADS );
+		glVertex2d(-SUMO_const_halfLaneWidth*mult, 0);
+	    glVertex2d(-SUMO_const_halfLaneWidth*mult, visLength);
+		glVertex2d(SUMO_const_halfLaneWidth*mult, visLength);
+	    glVertex2d(SUMO_const_halfLaneWidth*mult, 0);
+		glEnd();
+		glBegin( GL_LINES);
+	    glVertex2d(0, 0);
+		glVertex2d(0, visLength);
+		glEnd();
+	    glPopMatrix();
+		glPopName();
 	}
 
     /// draws a lane as a line
@@ -135,9 +158,19 @@ private:
     /// draws an edge as a line
     void drawLine(const _E2 &edge) const
 	{
-        throw 1;
+	    glPushName(edge.getGlID());
+        const _L1 &lane1 = edge.getLaneGeometry((size_t) 0);
+        const _L1 &lane2 = edge.getLaneGeometry(edge.nLanes()-1);
+	    const Position2D &beg1 = lane1.getBegin();
+        const Position2D &beg2 = lane2.getBegin();
+	    const Position2D &end1 = lane1.getEnd();
+        const Position2D &end2 = lane2.getEnd();
+		glBegin( GL_LINES);
+	    glVertex2d((beg1.x()+beg2.x())*.5, (beg1.y()+beg2.y())*.5);
+		glVertex2d((end1.x()+end2.x())*.5, (end1.y()+end1.y())*.5);
+	    glEnd();
+		glPopName();
 	}
-
 
 };
 

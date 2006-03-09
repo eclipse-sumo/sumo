@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/03/09 10:58:53  dkrajzew
+// reworking the drawers
+//
 // Revision 1.6  2006/03/08 13:16:23  dkrajzew
 // some work on lane visualization
 //
@@ -105,7 +108,17 @@ private:
     /// draws a single lane as a box
     void drawEdge(const _E2 &edge, SUMOReal mult) const
 	{
-        throw 1;
+		glPushName(edge.getGlID());
+        const _L1 &lane1 = edge.getLaneGeometry((size_t) 0);
+        const _L1 &lane2 = edge.getLaneGeometry(edge.nLanes()-1);
+		const DoubleVector &rots = lane1.getShapeRotations();
+	    const DoubleVector &lengths = lane1.getShapeLengths();
+		const Position2DVector &geom1 = lane1.getShape();
+        const Position2DVector &geom2 = lane2.getShape();
+        for(size_t i=0; i<geom1.size()-1; i++) {
+		    GLHelper::drawBoxLine(geom1.at(i), geom2.at(i), rots[i], lengths[i], (SUMOReal) edge.nLanes()*SUMO_const_halfLaneWidth*mult);
+		}
+	    glPopName();
 	}
 
     /// draws a single lane as a box
@@ -122,9 +135,19 @@ private:
 	}
 
     /// draws a single edge as a box
-    void drawLine(const _E2 &lane) const
+    void drawLine(const _E2 &edge) const
 	{
-        throw 1;
+		glPushName(edge.getGlID());
+        const _L1 &lane1 = edge.getLaneGeometry((size_t) 0);
+        const _L1 &lane2 = edge.getLaneGeometry(edge.nLanes()-1);
+		const DoubleVector &rots = lane1.getShapeRotations();
+	    const DoubleVector &lengths = lane1.getShapeLengths();
+		const Position2DVector &geom1 = lane1.getShape();
+        const Position2DVector &geom2 = lane2.getShape();
+        for(size_t i=0; i<geom1.size()-1; i++) {
+		    GLHelper::drawLine(geom1.at(i), geom2.at(i), rots[i], lengths[i]);
+		}
+	    glPopName();
 	}
 
 
