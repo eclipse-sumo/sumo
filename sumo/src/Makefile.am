@@ -69,6 +69,7 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netimport/NINavTeqHelper.o \
 ./netbuild/libnetbuild.a \
 ./netbuild/nodes/libnodesnetbuild.a \
+./foreign/proj/libproj.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/distribution/libdistribution.a \
 ./utils/geom/libgeom.a \
@@ -78,7 +79,7 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./utils/importio/libimportio.a \
 ./utils/xml/libxml.a \
 $(MEM_LIBS) \
--l$(LIB_XERCES)
+-l$(LIB_XERCES) -l$(LIB_GDAL)
 
 
 
@@ -228,7 +229,7 @@ endif
 
 
 AM_CPPFLAGS = -I$(XERCES_INCLUDES) -I$(XERCES_INCLUDES_PRIOR_1_7) \
-$(GUI_INCS)
+$(GUI_INCS) -I$(top_srcdir)/src/foreign/proj
 
 
 SUBDIRS = foreign microsim multimodal \

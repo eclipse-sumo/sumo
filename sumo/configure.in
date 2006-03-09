@@ -246,6 +246,79 @@ AC_SUBST(FOX_INCLUDES)
 AM_CONDITIONAL([WITH_GUI], [test x"$ac_fox_includes" != x && test x"$ac_fox_lib_path" != x])
 
 
+dnl - - - - - - - - - - - - - - - - - - - - - - -
+dnl  ... for gdal
+dnl   ... for libs
+AC_ARG_WITH(gdal-libraries,
+    [  --with-gdal-libraries=DIR where the GDAL library is installed.],
+    [  ac_gdal_libraries="$withval"
+    ])
+
+AC_MSG_CHECKING([for gdal-libraries])
+if test x"$ac_gdal_libraries" = x; then
+   if test -e /usr/lib/libgdal.so; then
+      AC_MSG_RESULT([yes])
+      ac_gdal_lib_path=/usr/lib
+      ac_gdallib=gdal
+   elif test -e /usr/local/lib/libgdal.so; then
+      AC_MSG_RESULT([yes])
+      ac_gdal_lib_path=/usr/local/lib
+      ac_gdallib=gdal
+   elif test -e /usr/local/gdal/lib/libgdal.so; then
+      AC_MSG_RESULT([yes])
+      ac_gdal_lib_path=/usr/local/gdal/lib/
+      ac_gdallib=gdal
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_RESULT([gdal-lib not found.])
+      AC_MSG_ERROR([Specify path with option --with-gdal-libraries=DIR.])
+   fi
+else
+   if test -e "$ac_gdal_libraries/libgdal.so"; then
+      AC_MSG_RESULT([yes])
+      ac_gdal_lib_path="$ac_gdal_libraries"
+      ac_gdallib=gdal
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([gdal-lib not found in "$ac_gdal_libraries".])
+   fi
+fi
+GDAL_LDFLAGS="$ac_gdal_lib_path"
+AC_SUBST(GDAL_LDFLAGS)
+LIB_GDAL="$ac_gdallib"
+AC_SUBST(LIB_GDAL)
+
+dnl   ... for includes
+AC_ARG_WITH(gdal-includes,
+    [  --with-gdal-includes=DIR  where the GDAL includes are. ],
+    [
+       ac_gdal_includes="$withval"
+    ])
+AC_MSG_CHECKING([for gdal-includes])
+if test x"$ac_gdal_includes" = x; then
+   if test -e /usr/include/gdal; then
+      AC_MSG_RESULT([yes])
+      ac_gdal_includes=/usr/include/gdal
+   elif test -e /usr/local/include/gdal; then
+      AC_MSG_RESULT([yes])
+      ac_gdal_includes=/usr/local/include/gdal
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_RESULT([gdal-includes not found.])
+      AC_MSG_RESULT([Specify path with option --with-gdal-includes=DIR.])
+   fi
+else
+   if test -e "$ac_gdal_includes/ogr/ogr_api.h"; then
+      AC_MSG_RESULT([yes])
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([gdal-includes not found in "$ac_gdal_includes".])
+   fi
+fi
+GDAL_INCLUDES="$ac_gdal_includes"
+AC_SUBST(GDAL_INCLUDES)
+
+
 dnl ---------------------------------------------
 
 

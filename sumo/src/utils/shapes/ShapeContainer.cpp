@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/03/09 07:42:42  dkrajzew
+// building patched
+//
 // Revision 1.1  2006/03/08 13:09:12  dkrajzew
 // possibility to insert pois on the gui added (danilo tet-boyom)
 //

@@ -1,28 +1,10 @@
-bin_PROGRAMS =	proj nad2nad nad2bin geod cs2cs
-
-INCLUDES =	-DPROJ_LIB=\"$(pkgdatadir)\"
-
 include_HEADERS = projects.h nad_list.h proj_api.h org_proj4_Projections.h
 
-EXTRA_DIST = makefile.vc proj.def
+EXTRA_DIST =
 
-proj_SOURCES = proj.c gen_cheb.c p_series.c
-cs2cs_SOURCES = cs2cs.c gen_cheb.c p_series.c
-nad2nad_SOURCES = nad2nad.c
-nad2bin_SOURCES = nad2bin.c
-geod_SOURCES = geod.c geod_set.c geod_for.c geod_inv.c geodesic.h
+noinst_LIBRARIES = libproj.a
 
-proj_LDADD = libproj.la
-cs2cs_LDADD = libproj.la
-nad2nad_LDADD = libproj.la
-nad2bin_LDADD = libproj.la
-geod_LDADD = libproj.la
-
-lib_LTLIBRARIES = libproj.la
-
-libproj_la_LDFLAGS = -version-info 5:0:5
-
-libproj_la_SOURCES = \
+libproj_a_SOURCES = \
 	projects.h pj_list.h \
 	PJ_aeqd.c PJ_gnom.c PJ_laea.c PJ_mod_ster.c \
 	PJ_nsper.c PJ_nzmg.c PJ_ortho.c PJ_stere.c PJ_sterea.c \
@@ -58,12 +40,7 @@ libproj_la_SOURCES = \
 	\
 	nad_cvt.c nad_init.c nad_intr.c emess.c emess.h \
 	pj_apply_gridshift.c pj_datums.c pj_datum_set.c pj_transform.c \
-	geocent.c geocent.h pj_utils.c pj_gridinfo.c pj_gridlist.c \
-	jniproj.c
+	geocent.c geocent.h pj_utils.c pj_gridinfo.c pj_gridlist.c
 
 
-install-exec-local:
-	rm -f $(DESTDIR)$(bindir)/invproj$(EXEEXT)
-	(cd $(DESTDIR)$(bindir); ln -s proj$(EXEEXT) invproj$(EXEEXT))
-	rm -f $(DESTDIR)$(bindir)/invgeod$(EXEEXT)
-	(cd $(DESTDIR)$(bindir); ln -s geod$(EXEEXT) invgeod$(EXEEXT))
+
