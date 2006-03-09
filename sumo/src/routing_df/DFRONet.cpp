@@ -814,7 +814,7 @@ DFRONet::buildEdgeFlowMap(const DFDetectorFlows &flows,
             if(!found) {
                 cliques[det.getPos()] = std::vector<std::string>();
                 cliques[det.getPos()].push_back(*j);
-                maxCliqueSize = MAX2(maxCliqueSize, cliques[det.getPos()].size());
+                maxCliqueSize = MAX2(maxCliqueSize, (size_t) 1);
             }
         }
         std::vector<std::string> firstClique;

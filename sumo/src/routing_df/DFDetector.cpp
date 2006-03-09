@@ -433,6 +433,7 @@ DFDetectorCon::~DFDetectorCon()
 {
 }
 
+
 bool
 DFDetectorCon::addDetector(DFDetector *dfd )
 {

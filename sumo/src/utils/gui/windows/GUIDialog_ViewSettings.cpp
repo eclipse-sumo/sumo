@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/03/09 10:59:25  dkrajzew
+// debugging
+//
 // Revision 1.3  2006/01/31 11:02:37  dkrajzew
 // added the possibility to exaggerate pois
 //
@@ -425,9 +428,11 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*,FXSelector,void*)
     mySettings->laneShowBorders = myShowLaneBorders->getCheck()!=0;
     mySettings->showLinkDecals = myShowLaneDecals->getCheck()!=0;
 
-    mySettings->vehicleMode = myVehicleColorMode->getCurrentItem();
-    mySettings->vehicleExaggeration = (SUMOReal) myVehicleUpscaleDialer->getValue();
-    mySettings->minVehicleSize = (SUMOReal) myVehicleMinSizeDialer->getValue();
+    if(myVehicleColoringInfoSource!=0) {
+        mySettings->vehicleMode = myVehicleColorMode->getCurrentItem();
+        mySettings->vehicleExaggeration = (SUMOReal) myVehicleUpscaleDialer->getValue();
+        mySettings->minVehicleSize = (SUMOReal) myVehicleMinSizeDialer->getValue();
+    }
 
     mySettings->addExaggeration = (SUMOReal) myDetectorUpscaleDialer->getValue();
     mySettings->minAddSize = (SUMOReal) myDetectorMinSizeDialer->getValue();
