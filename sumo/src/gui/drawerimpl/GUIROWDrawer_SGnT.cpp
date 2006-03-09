@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/03/09 10:57:00  dkrajzew
+// beautifying
+//
 // Revision 1.12  2006/01/11 11:54:35  dkrajzew
 // reworked possible link states; new link coloring
 //
@@ -82,8 +85,6 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <iostream>
-#include <string>
 #include <microsim/MSEdge.h>
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIEdge.h>

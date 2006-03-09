@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.50  2006/03/09 10:57:00  dkrajzew
+// beautifying
+//
 // Revision 1.49  2006/03/08 13:09:11  dkrajzew
 // possibility to insert pois on the gui added (danilo tet-boyom)
 //
@@ -478,15 +481,10 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
         GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEWPORT,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
     new FXButton(&toolbar,
-        "\tEdit Viewport...\tOpens a menu which lets you edit the viewport.",
+        "\tEdit Coloring Schemes...\tOpens a menu which lets you edit the coloring schemes.",
         GUIIconSubSys::getIcon(ICON_COLORWHEEL), this, MID_EDITVIEW,
         ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-    /*
-    new FXButton(&toolbar,
-        "\tEdit Viewport...\tOpens a menu which lets you edit the viewport.",
-        GUIIconSubSys::getIcon(ICON_EDITVIEWPORT), this, MID_EDITVIEW,
-        ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-*/
+
     new FXToolBarGrip(&toolbar,NULL,0,TOOLBARGRIP_SINGLE);
 
     // add toggle button for grid on/off
@@ -698,56 +696,9 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
             *GUIBaseVehicleDrawer::getSchemesMap().getColorer(myVisualizationSettings.vehicleMode),
             myVisualizationSettings.vehicleExaggeration);
     }
-
-/*
-    if(!TexturesInitialised) {
-        TexturesInitialised = true;
-        FXImage *i = MFXImageHelper::loadimage(getApp(), "D:\\koeln_fastlane.gif");
-        TextureNo = GUITexturesHelper::add(i);
-/*
-        FXIcon *i = GUIIconSubSys::getIcon(ICON_APP_BREAKPOINTS);
-        glEnable(GL_TEXTURE_2D);
-        glGenTextures( 1, &TextureNo );
-        glBindTexture(GL_TEXTURE_2D, TextureNo);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexImage2D(GL_TEXTURE_2D, 0, 4, i->getWidth(), i->getHeight(), 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, i->getData());
-            */
-//    }
-
-/*
-    glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, TextureNo);
-	glBegin(GL_QUADS);
-	glColor3f(0.0f, 1.0f, 1.0f);
-
-    glTexCoord2f(0.0f, 0.0f); glVertex2d(0, 0);
-    glTexCoord2f(1.0f, 0.0f); glVertex2d(150, 0);
-    glTexCoord2f(1.0f, 1.0f); glVertex2d(150, 150);
-    glTexCoord2f(0.0f, 1.0f); glVertex2d(0, 150);
-
-    glTexCoord2f(0.0f, 0.0f); glVertex2d(200+0, 0);
-    glTexCoord2f(1.0f, 0.0f); glVertex2d(200+0, 150);
-    glTexCoord2f(1.0f, 1.0f); glVertex2d(200+150, 150);
-    glTexCoord2f(0.0f, 1.0f); glVertex2d(200+150, 0);
-
-    glDisable(GL_TEXTURE_2D);
-
-    glEnd();
-*/
-    /*
-    glPushMatrix();
-    glTranslated(100, 100, 0);
-    GUITexturesHelper::drawTexturedBox(TextureNo, 20);
-    glPopMatrix();
-    */
-    // !!!!
-
     glPopMatrix();
 }
+
 
 RGBColor
 GUIViewTraffic::getEdgeColor(GUIEdge *edge) const
@@ -984,24 +935,6 @@ GUIViewTraffic::onMouseMove(FXObject *o,FXSelector sel,void *data)
     return GUISUMOAbstractView::onMouseMove(o, sel, data);
 }
 
-/*
-void
-GUIViewTraffic::savePointOfInterest(PointOfInterest *p)
-{
-    ofstream out("PointOfInt.txt", ios::app);
-    if (!out) {
-        cerr << "cannot open file: " <<endl;
-        exit(-1);
-	}
-	out.write((" ID  "+ p->getID()+" ").c_str(), sizeof((" ID  "+ p->getID()+" ").c_str())*4);
-    out.write((" Type  "+ p->getType()+" ").c_str(), sizeof((" Type  "+ p->getType()+" ").c_str())*3);
-	out.write((" Xpos "+ toString(p->x()) +" ").c_str(), sizeof((" Xpos "+ toString(p->x())+" ").c_str())*3);
-	out.write((" Ypos "+ toString(p->y()) +" ").c_str(),sizeof((" Ypos "+ toString(p->y())+" ").c_str())*3);
-
-	out.write("\n",sizeof("\n"));
-	out.close();
-}
-*/
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
