@@ -245,7 +245,6 @@ FOX_INCLUDES="$ac_fox_includes"
 AC_SUBST(FOX_INCLUDES)
 AM_CONDITIONAL([WITH_GUI], [test x"$ac_fox_includes" != x && test x"$ac_fox_lib_path" != x])
 
-
 dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for gdal
 dnl   ... for libs

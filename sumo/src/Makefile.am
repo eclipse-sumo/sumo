@@ -51,7 +51,7 @@ $(MEM_LIBS) \
 sumo_netconvert_SOURCES = netconvert_main.cpp netconvert_help.h \
 sumo_version.cpp sumo_version.h netconvert_build.h
 
-sumo_netconvert_LDFLAGS = -L$(XERCES_LDFLAGS)
+sumo_netconvert_LDFLAGS = -L$(XERCES_LDFLAGS) -L$(GDAL_LDFLAGS)
 
 sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netimport/cell/libcellimport.a \
@@ -79,7 +79,7 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./utils/importio/libimportio.a \
 ./utils/xml/libxml.a \
 $(MEM_LIBS) \
--l$(LIB_XERCES) -l$(LIB_GDAL)
+-l$(LIB_GDAL) -l$(LIB_XERCES)
 
 
 
