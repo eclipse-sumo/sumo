@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.19  2006/03/15 09:26:09  dkrajzew
+// documentation patched
+//
 // Revision 1.18  2006/01/16 13:38:22  dkrajzew
 // help and error handling patched
 //
@@ -156,6 +159,14 @@ char *help[] = {
     "  --vissim-default-speed FLOAT   Default speed for edges (vissim only)",
     "  --vissim-offset DOUBLE         Specifies the structure join offset within",
     "                                   vissim-import",
+    "  --arcview.street-id STRING     Defines column to use as the edge-id",
+    "  --arcview.from-id STRING       Defines column to use as starting node name",
+    "  --arcview.to-id STRING         Defines column to use as ending node name",
+    "  --arcview.type-id STRING       Defines column to use as edge type id",
+    "  --arcview.use-defaults-on-failure    Uses edge type defaults on problems",
+    "  --arcview.all-bidi             Forces insertion of edges in both directions",
+    "  --arcview.utm INT              Defines the network's UTM-zone",
+    "  --arcview.guess-projection     Guesses the proper projection",
     "  -N, --capacity-norm FLOAT      The factor for flow to no. lanes conv.",
     "  --edges-min-speed FLOAT        Specifies the minimum speed of edges in order",
     "                                  to be imported",

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/03/15 09:26:09  dkrajzew
+// documentation patched
+//
 // Revision 1.18  2006/03/08 13:02:26  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -266,14 +269,14 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.doRegister("artemis-path", new Option_FileName());
 
     oc.doRegister("arcview", new Option_FileName());
-    oc.doRegister("arcview.street-id", new Option_String()); // !!! describe, document
-    oc.doRegister("arcview.from-id", new Option_String()); // !!! describe, document
-    oc.doRegister("arcview.to-id", new Option_String()); // !!! describe, document
-    oc.doRegister("arcview.type-id", new Option_String()); // !!! describe, document
-    oc.doRegister("arcview.all-bidi", new Option_Bool(false)); // !!! describe, document
-    oc.doRegister("arcview.utm", new Option_Integer(32)); // !!! describe, document
-    oc.doRegister("arcview.use-defaults-on-failure", new Option_Bool(false)); // !!! describe, document
-    oc.doRegister("arcview.guess-projection", new Option_Bool(false)); // !!! describe, document
+    oc.doRegister("arcview.street-id", new Option_String());
+    oc.doRegister("arcview.from-id", new Option_String());
+    oc.doRegister("arcview.to-id", new Option_String());
+    oc.doRegister("arcview.type-id", new Option_String());
+    oc.doRegister("arcview.use-defaults-on-failure", new Option_Bool(false));
+    oc.doRegister("arcview.all-bidi", new Option_Bool(false));
+    oc.doRegister("arcview.utm", new Option_Integer(32));
+    oc.doRegister("arcview.guess-projection", new Option_Bool(false));
 
     oc.doRegister("use-projection", new Option_Bool(false));
     oc.doRegister("proj", new Option_String("+proj=utm +zone=33 +ellps=bessel +units=m"));
