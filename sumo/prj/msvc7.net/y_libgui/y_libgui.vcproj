@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="y_libgui"
+	ProjectGUID="{369F5F01-B269-46A5-AD7D-450E4AC74895}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>

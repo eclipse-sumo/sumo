@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="z_libutils_iodevices"
+	ProjectGUID="{F6C375A8-58FB-45D9-842B-41113D6C6A3D}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>

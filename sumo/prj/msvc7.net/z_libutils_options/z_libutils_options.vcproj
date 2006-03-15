@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="z_libutils_options"
+	ProjectGUID="{D5E591E9-BC89-477A-A45D-A576D8332C04}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>

@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="z_libutils_sumoxml"
+	ProjectGUID="{5F8D4CD0-E704-44E6-970A-4B07974A3F38}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>

@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="z_libutils_geom"
+	ProjectGUID="{6FC38A51-A748-449D-B0C7-A62E21E5CCBD}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>

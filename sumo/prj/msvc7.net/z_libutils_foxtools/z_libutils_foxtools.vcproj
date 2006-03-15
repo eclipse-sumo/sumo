@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="z_libutils_foxtools"
+	ProjectGUID="{E5588BF3-EA0B-4767-9114-DB4FDCB37F53}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>

@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="z_libmicrosim_output"
+	ProjectGUID="{4F83EA20-C1A9-4C46-A59A-FF81386F547E}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>

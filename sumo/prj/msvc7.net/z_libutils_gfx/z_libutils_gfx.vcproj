@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="z_libutils_gfx"
+	ProjectGUID="{D6525326-E0A4-4C9D-A630-B53C3BAF8D18}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>

@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="z_libmicrosim_tls"
+	ProjectGUID="{E7992392-B349-4707-8369-C821A8D5465E}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
