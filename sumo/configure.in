@@ -580,5 +580,7 @@ tests/Makefile
 tools/Makefile
 tools/dua_tools/Makefile
 tools/route_tools/Makefile
+tools/tls_tools/Makefile
+tools/trip_tools/Makefile
 Makefile)
 

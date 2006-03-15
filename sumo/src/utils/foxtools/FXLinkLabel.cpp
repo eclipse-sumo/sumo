@@ -31,8 +31,7 @@ FXint fxexecute(FXString link){
         while(!software.empty()){
             software = FXFile::search(path, software);
             if(software.length())
-                return system( FXString().format( "%s \"%s\" >/dev/null
-2>&1 & ",
+                return system( FXString().format( "%s \"%s\" >/dev/null 2>&1 & ",
                     software.text(),link.text()).text())>0?0:1;
             index++;
             software = list.section("\t",index);
