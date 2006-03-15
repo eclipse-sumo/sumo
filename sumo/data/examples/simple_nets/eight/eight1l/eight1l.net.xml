@@ -6,7 +6,7 @@
 
    <edge id="a1" Length="993.50" Speed="36.00" Name="a1" NoLanes="1" XFrom="0.00" YFrom="1000.00" XTo="0.00" YTo="0.00" From="1" To="2" Priority="15" Angle="0.00" Type="" function="normal">
       <lanes>
-         <lane id="a1_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">-1.65,996.75 -1.65,3.25</lane>
+         <lane id="a1_0" depart="1" vclasses="" maxspeed="36.00" length="993.50" changeurge="0">-1.65,996.75 -1.65,3.25</lane>
       </lanes>
       <cedge id="a2" via=":2">a1_0</cedge>
       <cedge id="b8" via=":2">a1_0</cedge>
@@ -14,7 +14,7 @@
 
    <edge id="a2" Length="993.50" Speed="36.00" Name="a2" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="1000.00" YTo="0.00" From="2" To="3" Priority="15" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="a2_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">3.25,-1.65 996.75,-1.65</lane>
+         <lane id="a2_0" depart="1" vclasses="" maxspeed="36.00" length="993.50" changeurge="0">3.25,-1.65 996.75,-1.65</lane>
       </lanes>
       <cedge id="a3" via=":3">a2_0</cedge>
       <cedge id="b7" via=":3">a2_0</cedge>
@@ -22,7 +22,7 @@
 
    <edge id="a3" Length="992.00" Speed="36.00" Name="a3" NoLanes="1" XFrom="1000.00" YFrom="0.00" XTo="1000.00" YTo="1000.00" From="3" To="4" Priority="15" Angle="180.00" Type="" function="normal">
       <lanes>
-         <lane id="a3_0" depart="1" maxspeed="36.00" length="992.00" changeurge="0">1001.65,3.25 1001.65,995.25</lane>
+         <lane id="a3_0" depart="1" vclasses="" maxspeed="36.00" length="992.00" changeurge="0">1001.65,3.25 1001.65,995.25</lane>
       </lanes>
       <cedge id="b2" via=":4">a3_0</cedge>
       <cedge id="a4" via=":4">a3_0</cedge>
@@ -32,7 +32,7 @@
 
    <edge id="a4" Length="992.00" Speed="36.00" Name="a4" NoLanes="1" XFrom="1000.00" YFrom="1000.00" XTo="1000.00" YTo="2000.00" From="4" To="5" Priority="15" Angle="180.00" Type="" function="normal">
       <lanes>
-         <lane id="a4_0" depart="1" maxspeed="36.00" length="992.00" changeurge="0">1001.65,1004.75 1001.65,1996.75</lane>
+         <lane id="a4_0" depart="1" vclasses="" maxspeed="36.00" length="992.00" changeurge="0">1001.65,1004.75 1001.65,1996.75</lane>
       </lanes>
       <cedge id="a5" via=":5">a4_0</cedge>
       <cedge id="b5" via=":5">a4_0</cedge>
@@ -40,7 +40,7 @@
 
    <edge id="a5" Length="993.50" Speed="36.00" Name="a5" NoLanes="1" XFrom="1000.00" YFrom="2000.00" XTo="2000.00" YTo="2000.00" From="5" To="6" Priority="15" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="a5_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">1003.25,1998.35 1996.75,1998.35</lane>
+         <lane id="a5_0" depart="1" vclasses="" maxspeed="36.00" length="993.50" changeurge="0">1003.25,1998.35 1996.75,1998.35</lane>
       </lanes>
       <cedge id="a6" via=":6">a5_0</cedge>
       <cedge id="b4" via=":6">a5_0</cedge>
@@ -48,7 +48,7 @@
 
    <edge id="a6" Length="993.50" Speed="36.00" Name="a6" NoLanes="1" XFrom="2000.00" YFrom="2000.00" XTo="2000.00" YTo="1000.00" From="6" To="7" Priority="15" Angle="0.00" Type="" function="normal">
       <lanes>
-         <lane id="a6_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">1998.35,1996.75 1998.35,1003.25</lane>
+         <lane id="a6_0" depart="1" vclasses="" maxspeed="36.00" length="993.50" changeurge="0">1998.35,1996.75 1998.35,1003.25</lane>
       </lanes>
       <cedge id="a7" via=":7">a6_0</cedge>
       <cedge id="b3" via=":7">a6_0</cedge>
@@ -56,7 +56,7 @@
 
    <edge id="a7" Length="992.00" Speed="36.00" Name="a7" NoLanes="1" XFrom="2000.00" YFrom="1000.00" XTo="1000.00" YTo="1000.00" From="7" To="4" Priority="15" Angle="90.00" Type="" function="normal">
       <lanes>
-         <lane id="a7_0" depart="1" maxspeed="36.00" length="992.00" changeurge="0">1996.75,1001.65 1004.75,1001.65</lane>
+         <lane id="a7_0" depart="1" vclasses="" maxspeed="36.00" length="992.00" changeurge="0">1996.75,1001.65 1004.75,1001.65</lane>
       </lanes>
       <cedge id="a4" via=":4">a7_0</cedge>
       <cedge id="a8" via=":4">a7_0</cedge>
@@ -66,7 +66,7 @@
 
    <edge id="a8" Length="992.00" Speed="36.00" Name="a8" NoLanes="1" XFrom="1000.00" YFrom="1000.00" XTo="0.00" YTo="1000.00" From="4" To="1" Priority="15" Angle="90.00" Type="" function="normal">
       <lanes>
-         <lane id="a8_0" depart="1" maxspeed="36.00" length="992.00" changeurge="0">995.25,1001.65 3.25,1001.65</lane>
+         <lane id="a8_0" depart="1" vclasses="" maxspeed="36.00" length="992.00" changeurge="0">995.25,1001.65 3.25,1001.65</lane>
       </lanes>
       <cedge id="a1" via=":1">a8_0</cedge>
       <cedge id="b1" via=":1">a8_0</cedge>
@@ -74,7 +74,7 @@
 
    <edge id="b1" Length="992.00" Speed="36.00" Name="b1" NoLanes="1" XFrom="0.00" YFrom="1000.00" XTo="1000.00" YTo="1000.00" From="1" To="4" Priority="15" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="b1_0" depart="1" maxspeed="36.00" length="992.00" changeurge="0">3.25,998.35 995.25,998.35</lane>
+         <lane id="b1_0" depart="1" vclasses="" maxspeed="36.00" length="992.00" changeurge="0">3.25,998.35 995.25,998.35</lane>
       </lanes>
       <cedge id="b6" via=":4">b1_0</cedge>
       <cedge id="b2" via=":4">b1_0</cedge>
@@ -84,7 +84,7 @@
 
    <edge id="b2" Length="992.00" Speed="36.00" Name="b2" NoLanes="1" XFrom="1000.00" YFrom="1000.00" XTo="2000.00" YTo="1000.00" From="4" To="7" Priority="15" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="b2_0" depart="1" maxspeed="36.00" length="992.00" changeurge="0">1004.75,998.35 1996.75,998.35</lane>
+         <lane id="b2_0" depart="1" vclasses="" maxspeed="36.00" length="992.00" changeurge="0">1004.75,998.35 1996.75,998.35</lane>
       </lanes>
       <cedge id="b3" via=":7">b2_0</cedge>
       <cedge id="a7" via=":7">b2_0</cedge>
@@ -92,7 +92,7 @@
 
    <edge id="b3" Length="993.50" Speed="36.00" Name="b3" NoLanes="1" XFrom="2000.00" YFrom="1000.00" XTo="2000.00" YTo="2000.00" From="7" To="6" Priority="15" Angle="180.00" Type="" function="normal">
       <lanes>
-         <lane id="b3_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">2001.65,1003.25 2001.65,1996.75</lane>
+         <lane id="b3_0" depart="1" vclasses="" maxspeed="36.00" length="993.50" changeurge="0">2001.65,1003.25 2001.65,1996.75</lane>
       </lanes>
       <cedge id="b4" via=":6">b3_0</cedge>
       <cedge id="a6" via=":6">b3_0</cedge>
@@ -100,7 +100,7 @@
 
    <edge id="b4" Length="993.50" Speed="36.00" Name="b4" NoLanes="1" XFrom="2000.00" YFrom="2000.00" XTo="1000.00" YTo="2000.00" From="6" To="5" Priority="15" Angle="90.00" Type="" function="normal">
       <lanes>
-         <lane id="b4_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">1996.75,2001.65 1003.25,2001.65</lane>
+         <lane id="b4_0" depart="1" vclasses="" maxspeed="36.00" length="993.50" changeurge="0">1996.75,2001.65 1003.25,2001.65</lane>
       </lanes>
       <cedge id="b5" via=":5">b4_0</cedge>
       <cedge id="a5" via=":5">b4_0</cedge>
@@ -108,7 +108,7 @@
 
    <edge id="b5" Length="992.00" Speed="36.00" Name="b5" NoLanes="1" XFrom="1000.00" YFrom="2000.00" XTo="1000.00" YTo="1000.00" From="5" To="4" Priority="15" Angle="0.00" Type="" function="normal">
       <lanes>
-         <lane id="b5_0" depart="1" maxspeed="36.00" length="992.00" changeurge="0">998.35,1996.75 998.35,1004.75</lane>
+         <lane id="b5_0" depart="1" vclasses="" maxspeed="36.00" length="992.00" changeurge="0">998.35,1996.75 998.35,1004.75</lane>
       </lanes>
       <cedge id="a8" via=":4">b5_0</cedge>
       <cedge id="b6" via=":4">b5_0</cedge>
@@ -118,7 +118,7 @@
 
    <edge id="b6" Length="992.00" Speed="36.00" Name="b6" NoLanes="1" XFrom="1000.00" YFrom="1000.00" XTo="1000.00" YTo="0.00" From="4" To="3" Priority="15" Angle="0.00" Type="" function="normal">
       <lanes>
-         <lane id="b6_0" depart="1" maxspeed="36.00" length="992.00" changeurge="0">998.35,995.25 998.35,3.25</lane>
+         <lane id="b6_0" depart="1" vclasses="" maxspeed="36.00" length="992.00" changeurge="0">998.35,995.25 998.35,3.25</lane>
       </lanes>
       <cedge id="b7" via=":3">b6_0</cedge>
       <cedge id="a3" via=":3">b6_0</cedge>
@@ -126,7 +126,7 @@
 
    <edge id="b7" Length="993.50" Speed="36.00" Name="b7" NoLanes="1" XFrom="1000.00" YFrom="0.00" XTo="0.00" YTo="0.00" From="3" To="2" Priority="15" Angle="90.00" Type="" function="normal">
       <lanes>
-         <lane id="b7_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">996.75,1.65 3.25,1.65</lane>
+         <lane id="b7_0" depart="1" vclasses="" maxspeed="36.00" length="993.50" changeurge="0">996.75,1.65 3.25,1.65</lane>
       </lanes>
       <cedge id="b8" via=":2">b7_0</cedge>
       <cedge id="a2" via=":2">b7_0</cedge>
@@ -134,7 +134,7 @@
 
    <edge id="b8" Length="993.50" Speed="36.00" Name="b8" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="0.00" YTo="1000.00" From="2" To="1" Priority="15" Angle="180.00" Type="" function="normal">
       <lanes>
-         <lane id="b8_0" depart="1" maxspeed="36.00" length="993.50" changeurge="0">1.65,3.25 1.65,996.75</lane>
+         <lane id="b8_0" depart="1" vclasses="" maxspeed="36.00" length="993.50" changeurge="0">1.65,3.25 1.65,996.75</lane>
       </lanes>
       <cedge id="b1" via=":1">b8_0</cedge>
       <cedge id="a1" via=":1">b8_0</cedge>

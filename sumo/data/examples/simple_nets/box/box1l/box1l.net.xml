@@ -6,28 +6,28 @@
 
    <edge id="0" Length="493.50" Speed="36.00" Name="0" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="0.00" YTo="500.00" From="0" To="1" Priority="1" Angle="180.00" Type="" function="normal">
       <lanes>
-         <lane id="0_0" depart="1" maxspeed="36.00" length="493.50" changeurge="0">1.65,3.25 1.65,496.75</lane>
+         <lane id="0_0" depart="1" vclasses="" maxspeed="36.00" length="493.50" changeurge="0">1.65,3.25 1.65,496.75</lane>
       </lanes>
       <cedge id="1" via=":1">0_0</cedge>
    </edge>
 
    <edge id="1" Length="493.50" Speed="36.00" Name="1" NoLanes="1" XFrom="0.00" YFrom="500.00" XTo="500.00" YTo="500.00" From="1" To="2" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
-         <lane id="1_0" depart="1" maxspeed="36.00" length="493.50" changeurge="0">3.25,498.35 496.75,498.35</lane>
+         <lane id="1_0" depart="1" vclasses="" maxspeed="36.00" length="493.50" changeurge="0">3.25,498.35 496.75,498.35</lane>
       </lanes>
       <cedge id="2" via=":2">1_0</cedge>
    </edge>
 
    <edge id="2" Length="493.50" Speed="36.00" Name="2" NoLanes="1" XFrom="500.00" YFrom="500.00" XTo="500.00" YTo="0.00" From="2" To="3" Priority="1" Angle="0.00" Type="" function="normal">
       <lanes>
-         <lane id="2_0" depart="1" maxspeed="36.00" length="493.50" changeurge="0">498.35,496.75 498.35,3.25</lane>
+         <lane id="2_0" depart="1" vclasses="" maxspeed="36.00" length="493.50" changeurge="0">498.35,496.75 498.35,3.25</lane>
       </lanes>
       <cedge id="3" via=":3">2_0</cedge>
    </edge>
 
    <edge id="3" Length="493.50" Speed="36.00" Name="3" NoLanes="1" XFrom="500.00" YFrom="0.00" XTo="0.00" YTo="0.00" From="3" To="0" Priority="1" Angle="90.00" Type="" function="normal">
       <lanes>
-         <lane id="3_0" depart="1" maxspeed="36.00" length="493.50" changeurge="0">496.75,1.65 3.25,1.65</lane>
+         <lane id="3_0" depart="1" vclasses="" maxspeed="36.00" length="493.50" changeurge="0">496.75,1.65 3.25,1.65</lane>
       </lanes>
       <cedge id="0" via=":0">3_0</cedge>
    </edge>
@@ -73,7 +73,7 @@
 
    <junction id="0" type="priority" x="0.00" y="0.00">
       <inclanes>3_0</inclanes>
-      <shape>0.05,3.25 3.25,3.25 3.25,0.05</shape>
+      <shape>3.25,3.25 3.25,0.05 0.05,3.25 3.25,3.25</shape>
    </junction>
 
    <junction id="1" type="priority" x="0.00" y="500.00">
