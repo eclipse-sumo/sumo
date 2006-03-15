@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.73  2006/03/15 09:25:45  dkrajzew
+// beautifying
+//
 // Revision 1.72  2006/02/27 12:07:33  dkrajzew
 // WAUTs added
 //
@@ -558,11 +561,13 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     MSCORN::setVehicleDeviceTOSS2Output(streams[OS_DEVICE_TO_SS2]);
     myOutputStreams = streams;
     myMeanData = meanData;
+
     // we may add it before the network is loaded
     if(myEdges!=0) {
         myEdges->insertMeanData(myMeanData.size());
     }
 
+    // save the time the network state shall be saved at
     myStateDumpTimes = stateDumpTimes;
     myStateDumpFiles = stateDumpFiles;
 

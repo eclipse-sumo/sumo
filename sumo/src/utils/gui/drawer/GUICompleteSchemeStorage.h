@@ -38,6 +38,10 @@ public:
 
     void init();
 
+    const std::map<std::string, GUISUMOAbstractView::VisualizationSettings> &getItems() const {
+        return mySettings;
+    }
+
 protected:
     std::map<std::string, GUISUMOAbstractView::VisualizationSettings> mySettings;
     std::vector<std::string> mySortedSchemeNames;
