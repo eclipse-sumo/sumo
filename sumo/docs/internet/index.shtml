@@ -47,7 +47,7 @@
 <p>It is developed by employees of the Centre for Applied Informatics (ZAIK) and the Institute of Transport Research at the German Aerospace Centre.</p>
 <p>You may find the application and some examples within the <a class="SUMOInLineLink" href="downloads/downloads.shtml">download</a>-section.</p>
 
-<hr>
+<hr class="thin"/>
 
 <p><b>News</b><br>
 01.02.2006: fixed some broken links<br/>
@@ -59,14 +59,14 @@
 07.09.2005: "stable" version 0.8.2.2 released
 </p>
 
-<hr>
+<hr class="thin"/>
 
 <p></p>
 <p><div align="center">
 <a href="screens/koeln_fastlane.gif"><img width="300" src="screens/koeln_fastlane_sml.gif"></a><br>
 <i>Simulation of the City of Cologne</i>
 </div></p>
-<p>You may see some more pictures within the <a class="SUMOInLineLink" href="screenshots.shtml">screenshots</a>-section</p>
+<p>You may see some more pictures within the <a class="SUMOInLineLink" href="screens/screenshots.shtml">screenshots</a>-section</p>
 
 <!-- End of Text area -->
 		</div>

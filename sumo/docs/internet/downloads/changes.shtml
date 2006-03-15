@@ -37,90 +37,82 @@
 	<h2>Changes</h2>
 </center>
 
-<b>Changes from 0.9.2 to 0.9.3</b>
+<b>Changes from 0.9.3 to 0.9.4</b>
 <p>
-User-relevant changes<br>
+This release is rather a snapshot. Many things have changed and some will require some further revalidation. There are three major changes/extensions:<br>
+<br>
+<b>1.</b> The TLS-subsystem now allows having more than a single logic for a traffic light. One can describe the switch times and switch between them on the GUI. The user-description on this may be found under <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-trigger-traffic_lights">Traffic Lights</a>. There is no developer documentation on this, yet.<br>
+If you are parsing the networks by your own, you will see that traffic lights definitions have changed slightly. Instead of the sgmltag "logicno" a tag named "subkey" is used by now. Also, "inclanes" has been removed.<br>
+<br>
+<b>2.</b> A full support to import networks with positions encoded in geocoordinates. This makes the usage of two further libraries necessary, PROJ.4 and GDAL. The new building process is described here <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/sumo_howto_building.shtml">here</a>.
+A description about how to import geocoordinated files (despite of ArcView-files) can be found <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-further_options-geocoordinates">here</a>.<br>
+Together with this extension, the import of ArcView-files has been rechecked and now allows to import networks stored in other schemes than the one NavTeq uses.
+The new options are described <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-other_input-arcview">here</a>.
+ Some further comments on importing ArcView-files are available <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/sumo_moreon_arcview.shtml">here</a>. By now, they include only some comments on importing an open-source network of Osnabrück. You can take a look at this <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/screens/frida.shtml">here</a> and also download it from <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/downloads/add_data.shtml">here</a>.<br><br>
+
+<b>3.</b> The developer documentation has been split into several parts. It seems to be unmanageable to write a complete developer documentation. Due to this, we now offer some additional documentation on certain topics. Topics that were previously a part of the developer documentation may be now found within the <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/moredocs.shtml">More Docs</a> section.<br>
+
+<br><br><br>
+There are also some further changes which do not yet show their potentials, but are quite promising:<br>
+<br>
+<b>1.</b> The routing interface has been made abstract. This allows to use routing algorithms in both the simulation as in the routing applications and will hopefully yield implementations of some further routing algorithms - by now Dijkstra and a turning ration algorithm are available.<br><br>
+
+<b>2.</b> Some first steps towards making SUMO be aware of vehicle types have been done. It is now possible to allow/disallow vehicles by class to use certain lanes. This is now implemented in the NETCONVERT application and within DUAROUTER, but not yet in the simulation itself and due to this not yet documented. But, as you can see, we are working towards making SUMO multi-modal...<br><br>
+
+The complete list of changes:
 <ul>
-    <li>GUI
-    <ul>
-		<li>cursor position output added
-		<li>new visualization settings implemented
-		<li>decals added (but should be reworked and documented)
-		<li>debugged using tables
-		<li>renamed some mispelled output
+	<li>Multimodality
+	<ul>
+		<li>made lanes storing vehicle classes (additional XML-definition for lanes, Router is aware of vehicle classes) (undocumented)
+	</ul>
+	<li>Routing Interface
+	<ul>
+		<li>Router have been made abstract
+	</ul>
+	<li>GUI
+	<ul>
+		<li>the Grid now handles networks with negative positions
+		<li>debugging the visualization grid (unfinished)
+		<li>glu is now used to draw polygons in order to allo concave polygons
+		<li>pois may now be added and moved (using shift)
+		<li>Emitter may show their routes
+		<li>added option to change the exaggeratioln of POIs
 	</ul>
 	<li>Simulation
 	<ul>
-		<li>added a minimum simulation speed definition before the simulation ends (unfinished)
-		<li>viewport dialog debugged
-		<li>renamed some mispelled output
-		<li><b>microsim outputs patched</b>
-		<ul>
-			<li>in emissions output: renamed attribute "id" to "time"
-			<li>in tripinfo output: renamed attribute "id" to "vehicle_id"
-		</ul>
-		<li>debugged variable speed signs
-		<li>patched the documentation on raw dump (was named output within the documentation) (was [sumo-Bugs-1180985])
-		<li>bus stops implemented
+		<li>detector position may now be "friendly" (see <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-output-detectors-e1">E1-Detectors (Induct Loops)</a>)
+		<li>documentation on variable speed signs added (see <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-management-vss">Variable Speed Signs (VSS)</a>)
 	</ul>
-	<li>Netconvert
+	<li>NETCONVERT
 	<ul>
-		<li>removed warning if no types are defined (was [sumo-Bugs-1369190])
-		<li>network geometry reworked (unfinished)
-		<li>plain-output now saves edge geometries (if longer than only the from/to node-positions) (was [sumo-Bugs-1369193])
-		<li>split-geometry option added (unfinished)
-		<li>debugged setting new connections over user-given
-		<li>added several new features to the ArcView importer (see documentation)
-		<li>some work on CELL-import
-		<li>new Elmar-format adapted
-		<li>XML-import
-		<ul>
-			<li>import of shapes debugged
-			<li>node-type import debugged
-		</ul>
-		<li><b>--type-file renamed to --xml-type-files</b>
-		<li><b>arcview-import now requires the file name begin only</b>
-		<li><b>switched from --append-turnarounds to --no-turnarounds</b>
-		<li><b>switched from --no-node-removal to --remove-geometry</b>
+		<li>Improved ArcView-import
+		<li>Additional option for importing NavTeq-networks (using ArcView/Elmar/Elmar2): new navteq lane number information may be now only used if not differing too much from the previous !!!
+		<li>ramp-guessing improved: no lanes are appended if there are enough
+		<li>Vision import added (see <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-other_input-visum">Importing VISUM-networks</a>
+		<li>Positions of guessed TLS may now be saved as POIs (undocumented, yet)
+		<li>The edge function can be given (undocumented, yet)
 	</ul>
-	<li>DUARouter
+	<li>JTRROUTER
 	<ul>
-		<li>debugged vehicle type processing
-		<li>debugged colors processing
+		<li>default-percentages may now contain more than three items
+		<li>Examples added
+		<li>renamed "percentage" to probability
+		<li>Documentation updated (see <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-own_routes-jtr">Using the Junction Turning Ratio - Router</a>
 	</ul>
 	<li>All
+		<li>documentation on meta information added (see <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp03.shtml#user_chp03-sumo-meta">Available Meta-Information</a>)
 	<ul>
-		<li>errors are now printed to stderr (was [sumo-Bugs-1373537])
-		<li>reworked error handling (were [sumo-Bugs-1371531] and  [sumo-Bugs-1373540])
-	</ul>
-	<li>Documentation
-	<ul>
-		<li>complete recheck of user-docs for NETCONVERT/NETGEN/DUAROUTER
-		<li>updated all man-pages
-		<li>updated all help-pages
-		<li>many examples described and added
 	</ul>
 </ul>
-Developer-relevant changes
-<ul>
-	<li>All
-	<ul>
-		<li>added support for enabling explicite geometry checking under Linux
-		<li>geometry computation now uses constants for lane width
-		<li>final try/catch is now only used in the release version (to be reworked)
-	</ul>
-	<li>Simulation
-	<ul>
-		<li>debugged setting globals in false order
-	</ul>
-</ul>
+
 Previous changes for version 0.9:<br>
-<a class="SUMOInLineLink" target="new" href="changes_091_092.shtml">from 0.9.1 to 0.9.2</a><br>
-<a class="SUMOInLineLink" target="new" href="changes_090_091.shtml">from 0.9.0 to 0.9.1</a><br>
-<a class="SUMOInLineLink" target="new" href="changes_08x_090.shtml">from 0.8.x to 0.9.0</a><br>
+<a class="SUMOInLineLink" href="changes_092_093.shtml">from 0.9.2 to 0.9.3</a><br>
+<a class="SUMOInLineLink" href="changes_091_092.shtml">from 0.9.1 to 0.9.2</a><br>
+<a class="SUMOInLineLink" href="changes_090_091.shtml">from 0.9.0 to 0.9.1</a><br>
+<a class="SUMOInLineLink" href="changes_08x_090.shtml">from 0.8.x to 0.9.0</a><br>
 <br/>
 
-<hr/>
+<hr class="thin"/>
 
 <b>Changes from 0.8.3 to 0.8.4</b>
 <p>
@@ -137,15 +129,15 @@ User-relevant changes
 	</ul>
 </ul>
 Previous changes for version 0.8:<br>
-<a class="SUMOInLineLink" target="new" href="changes_0822_083.shtml">from 0.8.2.2 to 0.8.3</a><br>
-<a class="SUMOInLineLink" target="new" href="changes_0821_0822.shtml">from 0.8.2.1 to 0.8.2.2</a><br>
-<a class="SUMOInLineLink" target="new" href="changes_0802_0821.shtml">from 0.8.0.2 to 0.8.2.1</a><br>
-<a class="SUMOInLineLink" target="new" href="changes_0801_0802.shtml">from 0.8.0.1 to 0.8.0.2</a><br>
-<a class="SUMOInLineLink" target="new" href="changes_080_0801.shtml">from 0.8.0 to 0.8.0.1</a><br>
-<a class="SUMOInLineLink" target="new" href="changes_pre083_080.shtml">from pre0.8.3 to 0.8.0</a><br>
-<a class="SUMOInLineLink" target="new" href="changes_pre082_pre083.shtml">from pre0.8.2 to pre0.8.3</a><br>
-<a class="SUMOInLineLink" target="new" href="changes_pre08_pre082.shtml">from pre0.8 to pre0.8.2</a><br>
-<a class="SUMOInLineLink" target="new" href="changes_070_pre08.shtml">from 0.7 to pre0.8</a><br>
+<a class="SUMOInLineLink" href="changes_0822_083.shtml">from 0.8.2.2 to 0.8.3</a><br>
+<a class="SUMOInLineLink" href="changes_0821_0822.shtml">from 0.8.2.1 to 0.8.2.2</a><br>
+<a class="SUMOInLineLink" href="changes_0802_0821.shtml">from 0.8.0.2 to 0.8.2.1</a><br>
+<a class="SUMOInLineLink" href="changes_0801_0802.shtml">from 0.8.0.1 to 0.8.0.2</a><br>
+<a class="SUMOInLineLink" href="changes_080_0801.shtml">from 0.8.0 to 0.8.0.1</a><br>
+<a class="SUMOInLineLink" href="changes_pre083_080.shtml">from pre0.8.3 to 0.8.0</a><br>
+<a class="SUMOInLineLink" href="changes_pre082_pre083.shtml">from pre0.8.2 to pre0.8.3</a><br>
+<a class="SUMOInLineLink" href="changes_pre08_pre082.shtml">from pre0.8 to pre0.8.2</a><br>
+<a class="SUMOInLineLink" href="changes_070_pre08.shtml">from 0.7 to pre0.8</a><br>
 
 
 <!-- End of Text area -->

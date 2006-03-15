@@ -296,7 +296,7 @@
 
       <para>Please let us know when either the document remains at any point
       unclear or any of the applications does not behave as expected. We would
-      be very happy if you report broken links or mispelled words. We also
+      be very happy if you report broken links or misspelled words. We also
       seek for some participants and further users, not only to share the
       development tasks, but also to gain some feedback and critics or some
       usage examples.</para>
@@ -788,9 +788,9 @@
         embed your node definitions into an opening and a closing "tag". A
         complete file should like the example below, which is the node file
         "<filename>cross3l.nod.xml</filename>" for the examples
-        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/cross_usingtypes/</filename>"
+        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/types/cross_usingtypes/</filename>"
         and
-        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/cross_notypes/</filename>"
+        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/types/cross_notypes/</filename>"
         example.</para>
 
         <programlisting><sgmltag>&lt;nodes&gt;</sgmltag> <sgmltag>&lt;!-- The opening tag --&gt;</sgmltag>
@@ -1039,7 +1039,7 @@
 
         <para>Also the definitions of edges must be embedded into an opening
         and a closing tag and for the example
-        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/cross_notypes/</filename>"
+        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/types/cross_notypes/</filename>"
         the whole edges-file looks like this
         ("<filename>cross3l.edg.xml</filename>"):</para>
 
@@ -1116,7 +1116,7 @@
         set within the edge's attributes.</para>
 
         <para>An example of using types may be found in
-        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/cross_usingtypes/</filename>".
+        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/types/cross_usingtypes/</filename>".
         Instead of explicit parameter edges reference types:</para>
 
         <programlisting><sgmltag>&lt;edges&gt;</sgmltag>
@@ -1155,7 +1155,7 @@
         "b", and "c" and have generated a description for each of these
         classes. Doing this, the generated net is similar to the one generated
         using the settings described above (example
-        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/cross_notypes/</filename>"
+        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/types/cross_notypes/</filename>"
         ).</para>
       </sect2>
 
@@ -1235,7 +1235,7 @@
 
         <para>There are two examples within the distribution. Both use the
         nodes and edges descriptions from the example located in
-        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/cross_notypes/</filename>".
+        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/types/cross_notypes/</filename>".
         The junction in the center of this example looks like shown within the
         next figure. We will now call it the "unconstrained network" because
         all connections and turnarounds are computed using the default
@@ -1358,13 +1358,13 @@
         connections file you should run <application>NETCONVERT</application>
         to build the network. The call should look like:</para>
 
-        <screen>netconvert --xml-nodes-files=MyNodes.nod.xml --xml-edge-files=MyEdges.edg.xml \
+        <screen>netconvert --xml-node-files=MyNodes.nod.xml --xml-edge-files=MyEdges.edg.xml \
    --output-file=MySUMONet.net.xml</screen>
 
         <para>if you only use edges and nodes. Types and connections may be
         given as:</para>
 
-        <screen>netconvert --xml-nodes-files=MyNodes.nod.xml --xml-edge-files=MyEdges.edg.xml \
+        <screen>netconvert --xml-node-files=MyNodes.nod.xml --xml-edge-files=MyEdges.edg.xml \
    --xml-connection-files=MyConnections.con.xml --type-file=MyTypes.typ.xml \
    --output-file=MySUMONet.net.xml</screen>
 
@@ -1477,6 +1477,12 @@
             <para>"<ulink url="#user_chp04-further_options-turnarounds">Adding
             Turnarounds</ulink>"</para>
           </listitem>
+
+          <listitem>
+            <para><link
+            linkend="user_chp04-further_options-geocoordinates">Converting
+            from Geocoordinates</link></para>
+          </listitem>
         </itemizedlist>
 
         <para>Examples:</para>
@@ -1492,11 +1498,11 @@
 
             <itemizedlist>
               <listitem>
-                <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/cross_notypes/</filename></para>
+                <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/types/cross_notypes/</filename></para>
               </listitem>
 
               <listitem>
-                <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/cross_usingtypes/</filename></para>
+                <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/types/cross_usingtypes/</filename></para>
               </listitem>
             </itemizedlist>
           </listitem>
@@ -1533,6 +1539,13 @@
             <para><option>--xml-type-files</option> was named
             <option>--type-file</option> in versions earlier than 0.9.2</para>
           </listitem>
+
+          <listitem>
+            <para>In the previous examples the option for nodes inclusion was
+            misspelled (<option>--xml-nodes-files</option> is incorrect,
+            <option>--xml-node-files</option> is right). Thanks to Leander
+            Verhofstadt to recognize this.</para>
+          </listitem>
         </itemizedlist>
       </sect2>
     </sect1>
@@ -1557,10 +1570,11 @@
         at least three files: a file with the extension
         "<filename>.dbf</filename>", one with the extension
         ".<filename>shp</filename>" and one with the extension
-        "<filename>.shx</filename>". Since version 0.9.2 we do not suply the
-        possibility to use different names for the files, so all files should
-        have the same name besides the extension. To build your network from
-        an ArcView-database use the option
+        "<filename>.shx</filename>". Additionally, having a projection file
+        with the extension ".proj" is of benefit. Since version 0.9.2 we do
+        not suply the possibility to use different names for the files, so all
+        files should have the same name besides the extension. To build your
+        network from an ArcView-database use the option
         "<option>--arcview=&lt;FILENAME_WITHOUT_EXTENSION&gt;</option>":</para>
 
         <screen>netconvert --arcview=MyArcViewDB --output-file=MySUMONet.net.xml</screen>
@@ -1568,23 +1582,12 @@
         <para>This call will force <application>NETCONVERT</application> to
         read the files "<filename>MyArcViewDB.dbf</filename>",
         "<filename>MyArcViewDB.shx</filename>", and
-        "<filename>MyArcViewDB.shp</filename>" and to generate a network named
-        "<filename>MySUMONet.net.xml</filename>".</para>
-
-        <para><caution>
-            <para>Please remark that the possibility to import shapelib output
-            files is not longer supperted using the
-            <option>--arcview</option>-option.</para>
-          </caution><caution>
-            <para>Please remark that the options
-            "<option>--arcview-dbf</option>" and
-            "<option>--arcview-shp</option>" are no valid.</para>
-          </caution></para>
-
-        <para>We have been asked which fields are read from ArcView-files. As
-        said before, the reader was build to read ArcView-files containing
-        road networks from NavTech. Due to this the following fields are
-        used:</para>
+        "<filename>MyArcViewDB.shp</filename>" (and possibly
+        "<filename>MyArcViewDB.proj</filename>" and to generate a network
+        named "<filename>MySUMONet.net.xml</filename>". We have been asked
+        which fields are read from ArcView-files. As said before, the reader
+        was build to read ArcView-files containing road networks from NavTech.
+        Due to this the following fields are used as default:</para>
 
         <table>
           <title>Entries read by NETCONVERT</title>
@@ -1650,8 +1653,26 @@
           </tgroup>
         </table>
 
+        <para>The problem is, that not all networks stored as
+        ArcView-databases also use this naming scheme. During some further
+        work with ArcView-networks, some further options got necessary which
+        allow to name the fields the used database contains. The column the
+        street name shall be read from may be specified using
+        <option>--arcview.street-id
+        <replaceable>&lt;STREET_NAME_COLUMN_NAME&gt;</replaceable></option>.
+        You can also name the columns the names of the edges' origin and
+        destination nodes shall be read from using <option>--arcview.from-id
+        <replaceable>&lt;START_NODE_ID_COLUMN_NAME&gt;</replaceable></option>
+        and <option>--arcview.to-id
+        <replaceable>&lt;END_NODE_ID_COLUMN_NAME&gt;</replaceable></option>.
+        If the no information about the starting/ending nodes is given and
+        your database does not contain the columns "REF_IN_ID" and
+        "NREF_IN_ID", nodes will be placed into the network at the positions
+        the streets end.</para>
+
         <para>Since version 0.9.2 we also allow to override the rather "fuzzy"
-        information from NavTech using own fields:</para>
+        information about an edge's attributes from NavTech using own
+        fields:</para>
 
         <table>
           <title>Possible entries to override NavTech-information</title>
@@ -1681,6 +1702,12 @@
               </row>
 
               <row>
+                <entry>rnol</entry>
+
+                <entry>The number of lanes</entry>
+              </row>
+
+              <row>
                 <entry>PRIORITY</entry>
 
                 <entry>The priority</entry>
@@ -1690,6 +1717,34 @@
         </table>
 
         <para>This idea came from John Michael Calandrino.</para>
+
+        <para>Some databases do not contain explicite information about the
+        edges' attributes (number of lanes, priority, allowed speed) at all.
+        Since version 0.9.4 you can use types as described in <link
+        linkend="???">Types Descriptions</link> to describe your edges'
+        attributes. You have to name the column to retrieve the information
+        about a street's type from using <option>--arcview.type-id
+        <replaceable>&lt;TYPE_ID_COLUMN_NAME&gt;</replaceable></option>. Of
+        course, you have then to supply a type-file using
+        <option>--xml-type-files
+        <replaceable>&lt;TYPES_FILE&gt;</replaceable></option> (or
+        <option>--types</option> or <option>-t</option> ). If something fails
+        with the types or the explicite values, you can catch it using
+        <option>--arcview.use-defaults-on-failure</option>.</para>
+
+        <para>ArcView-networks are (mostly?) encoded using geocoordinates
+        which have to be converted to the cartesian coordinates system used by
+        SUMO. Our current implementation is not yet fully developed, it works
+        for the most cases, but you should not be surprised if it fails with a
+        certain network. Contact us in this case, please. To describe how to
+        convert the coordinates, you should know in which UTM-zone your
+        network is located. Pass this to <application>NETCONVERT</application>
+        using <option>--arcview.utm
+        <replaceable>&lt;ORIGINAL_UTM_ZONE&gt;</replaceable></option>. If the
+        conversion can not be initialised, you may additionally use
+        <option>--arcview.guess-projection</option> to let
+        <application>NETCONVERT</application> guess the conversion by him
+        own.</para>
 
         <para>Some remarks:</para>
 
@@ -1725,6 +1780,109 @@
               "<filename><replaceable>&lt;ARCVIEW_PREFIX&gt;</replaceable>.shx</filename>".
               <remark>Optional, type:filename-prefix, default:
               none</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--arcview.street-id
+            <replaceable>&lt;STREET_NAME_COLUMN_NAME&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>This option tells <application>NETCONVERT</application>
+              which of the columns within the ArcView-database to read shall
+              be used as the source of street names. If given, your database
+              must contain this column, and the values must be unique for each
+              street. <remark>Optional, type:string, default:
+              none</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--arcview.from-id
+            <replaceable>&lt;START_NODE_ID_COLUMN_NAME&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>This option tells <application>NETCONVERT</application>
+              which of the columns within the ArcView-database to read shall
+              be used as the source of the information from which node the
+              street starts. If given, your database must contain this column.
+              <remark>Optional, type:string, default: none</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--arcview.to-id
+            <replaceable>&lt;END_NODE_ID_COLUMN_NAME&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>This option tells <application>NETCONVERT</application>
+              which of the columns within the ArcView-database to read shall
+              be used as the source of the information at which node the
+              street ends. If given, your database must contain this column.
+              <remark>Optional, type:string, default: none</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--arcview.type-id
+            <replaceable>&lt;TYPE_ID_COLUMN_NAME&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>This option tells <application>NETCONVERT</application>
+              which of the columns within the ArcView-database to read shall
+              be used as the source of the information about the edge's type.
+              Using this information, you can use type definitions as
+              described in <link linkend="???">Types Descriptions</link> to
+              determine your edges' attributes. If given, your database must
+              contain this column. <remark>Optional, type:string, default:
+              none</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--arcview.use-defaults-on-failure</option></term>
+
+            <listitem>
+              <para>If a type could not be resolved or is invalid or any of
+              the explicite information about an edge was invalid, this option
+              forces NETCONVERT to use the default type values for the current
+              street. If not set, and one of the cases occures, the
+              application's behaviour is not determined. <remark>Optional,
+              type:bool, default: false</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--arcview.all-bidi</option></term>
+
+            <listitem>
+              <para>Forces <application>NETCONVERT</application> to insert all
+              edges bidirectional. <remark>Optional (pregiven), type:bool,
+              default: false</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--arcview.utm
+            <replaceable>&lt;ORIGINAL_UTM_ZONE&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>This value describes in which UTM-zone your network is
+              located. The default is 32 being a place somwhere in western
+              Germany. You should change this value if importing networks
+              located somewhere else in the world. <remark>Optional
+              (pregiven), type:int, default: 32</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--arcview.guess-projection</option></term>
+
+            <listitem>
+              <para>If building a converter using the given UTM-zone fails,
+              this option tries to guess the project if set. Of course, this
+              may also fail... <remark>Optional (pregiven), type:bool,
+              default: false</remark></para>
             </listitem>
           </varlistentry>
         </variablelist>
@@ -1766,6 +1924,13 @@
             "<option>--arcview-dbf</option>" and
             "<option>--arcview-shp</option>". This was abondonned, because of
             the need to use .shx-files, also.</para>
+          </listitem>
+
+          <listitem>
+            <para>ArcView-import has been completely redesigned for version
+            0.9.4. All options but "<option>--arcview
+            <replaceable>&lt;ARCVIEW_PREFIX&gt;</replaceable></option>" are
+            not available in versions prior to 0.9.4</para>
           </listitem>
         </itemizedlist>
       </sect2>
@@ -1963,6 +2128,12 @@
             <para>"<ulink url="#user_chp04-further_options-turnarounds">Adding
             Turnarounds</ulink>"</para>
           </listitem>
+
+          <listitem>
+            <para><link
+            linkend="user_chp04-further_options-geocoordinates">Converting
+            from Geocoordinates</link></para>
+          </listitem>
         </itemizedlist>
 
         <para>Examples: none yet (we do not own a network we could give away
@@ -2075,17 +2246,18 @@
       <sect2 id="user_chp04-other_input-visum">
         <title>Importing VISUM-networks</title>
 
-        <para>Visum is a macroscopic simulation developed by ptv. As the
-        network description does not possess any information about the number
-        of lanes, we have to generate it from the street's flow. The
-        computation is done by dividing the flow through a fix value, 2000 by
-        default. This yields in a realistic network but fails on 'feeder
-        roads' where vehicles are emitted. Some further parameter allow fixing
-        the problem.</para>
-
-        <para>An usage example could be this one:</para>
+        <para>Visum is a macroscopic simulation developed by ptv.
+        <application>NETCONVERT</application> is capable to read
+        VISUM-networks written as <filename class="extension">.net</filename>
+        files. An usage import call could be this one:</para>
 
         <screen>netconvert --visum=<replaceable>&lt;VISUM_FILE&gt;</replaceable> --output-file=<replaceable>MySUMOFile.net.xml</replaceable></screen>
+
+        <para>As the network description may not contain any information about
+        the number of lanes, we have to generate it from the street's flow.
+        The computation is done by dividing the flow through a fix value, 2000
+        by default. This yields in a realistic network but fails on 'feeder
+        roads' where vehicles are emitted.</para>
 
         <para>Specific options:</para>
 
@@ -2121,10 +2293,28 @@
             <para>"<ulink url="#user_chp04-further_options-turnarounds">Adding
             Turnarounds</ulink>"</para>
           </listitem>
+
+          <listitem>
+            <para><link
+            linkend="user_chp04-further_options-geocoordinates">Converting
+            from Geocoordinates</link></para>
+          </listitem>
         </itemizedlist>
 
         <para>Examples: none yet (we do not own a network we could give away
         for legal reasons)</para>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>Since version 0.9.4, <application>NETCONVERT</application>
+            can also convert VISION-networks (VISUM version 0.9.3). Please
+            remark for this case, that we do not have a VISION-network which
+            contains TLS-definitions and due to this the import of these may
+            fail.</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
 
       <sect2 id="user_chp04-other_input-elmar">
@@ -2190,6 +2380,12 @@
             <para>"<ulink url="#user_chp04-further_options-turnarounds">Adding
             Turnarounds</ulink>"</para>
           </listitem>
+
+          <listitem>
+            <para><link
+            linkend="user_chp04-further_options-geocoordinates">Converting
+            from Geocoordinates</link></para>
+          </listitem>
         </itemizedlist>
 
         <para>Examples: none yet (we do not own a network we could give away
@@ -2223,6 +2419,12 @@
           <listitem>
             <para>"<ulink url="#user_chp04-further_options-turnarounds">Adding
             Turnarounds</ulink>"</para>
+          </listitem>
+
+          <listitem>
+            <para><link
+            linkend="user_chp04-further_options-geocoordinates">Converting
+            from Geocoordinates</link></para>
           </listitem>
         </itemizedlist>
 
@@ -2784,6 +2986,77 @@
         <para>Examples: none yet</para>
       </sect2>
 
+      <sect2 id="user_chp04-further_options-geocoordinates">
+        <title>Converting from Geocoordinates</title>
+
+        <para>Most professional networks are not stored using cartesian, but
+        geo-coordinates. Since version 0.9.4 NETCONVERT is able to deal with
+        such positions. NETCONVERT uses herefor the projection library
+        "PROJ.4". This is important for you as a user, because you may have to
+        describe the original projection of your file and when doing this, you
+        have to describe it using the options offered by PROJ.4. In order to
+        enable the reprojection use the option
+        <option>--use-projection</option>. You can then add parameter for the
+        projection using <option>--proj
+        <replaceable>&lt;STRING&gt;</replaceable></option>. The default for
+        the projection is "+proj=utm +zone=33 +ellps=bessel +units=m". That
+        means, that NETCONVERT assumes the network is a part of the UTM zone
+        33 and is described using the Bessel ellipsoid. Please remark, that
+        when giving own description, you should embed it into "" for passing
+        all the arguments to PROJ.4.</para>
+
+        <para>Specific options:</para>
+
+        <variablelist>
+          <varlistentry>
+            <term><option><option>--use-projection</option></option></term>
+
+            <listitem>
+              <para>Enables reprojection of the network's coordinates.
+              <remark>Optional, type:bool, default: false</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option><option>--proj
+            <replaceable>&lt;STRING&gt;</replaceable></option></option></term>
+
+            <listitem>
+              <para>Defines projection. <remark>Optional (pregiven),
+              type:string, default: "+proj=utm +zone=33 +ellps=bessel
+              +units=m"</remark></para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+
+        <para>These options may be used in conjunction with the following
+        import formats:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>Elmar &amp; Elmar2</para>
+          </listitem>
+
+          <listitem>
+            <para>ArcView</para>
+          </listitem>
+
+          <listitem>
+            <para>Tiger</para>
+          </listitem>
+
+          <listitem>
+            <para>Visum</para>
+          </listitem>
+
+          <listitem>
+            <para>XML</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Examples: none yet</para>
+      </sect2>
+
       <sect2 id="user_chp04-further_options-additional_output">
         <title>Additional Output</title>
 
@@ -3319,7 +3592,7 @@
       network using the <option>--net-file</option> (or <option>--net</option>
       or <option>-n</option> for short) option. Additionally, you should let
       the application know which time interval is to be used. Route/trip/flow
-      definiiotns will be imported within the interval given by the options
+      definitions will be imported within the interval given by the options
       <option>--begin</option> (<option>-b</option>) and
       <option>--end</option> (<option>-e</option>). Definitions with departure
       time earlier than the one specified by <option>--begin</option> or later
@@ -4567,12 +4840,12 @@
           <para>An induct loop is described either this way:</para>
 
           <programlisting><sgmltag>&lt;detector id="<replaceable>&lt;ID&gt;</replaceable>" type="(induct_loop|E1)" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>"
-   freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [style="xml"] file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>"/&gt;</sgmltag></programlisting>
+   freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [style="xml"] file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [friendly_pos="x"]/&gt;</sgmltag></programlisting>
 
           <para>or this way:</para>
 
           <programlisting><sgmltag>&lt;e1-detector id="<replaceable>&lt;ID&gt;</replaceable>" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>" freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>"
-   [style="xml"] file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>"/&gt;</sgmltag></programlisting>
+   [style="xml"] file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [friendly_pos="x"]/&gt;</sgmltag></programlisting>
 
           <para>The id is any string that let's you know which detector is
           meant. The type indicates that a induct loop shall be build, here.
@@ -4635,6 +4908,21 @@
             <listitem>
               <para><sgmltag>file</sgmltag>: The path to the output file. The
               path may be relative.</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>friendly_pos</sgmltag>: If set, no error will be
+              reported if the detector is placed behind the lane. Instead, the
+              detector will be place 0.1 meters from the lane's end.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Recent changes:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para>The attribute <sgmltag>friendly_pos</sgmltag> is available
+              since version 0.9.4</para>
             </listitem>
           </itemizedlist>
         </sect3>
@@ -5585,7 +5873,7 @@
       vehicles may start their trips from any edge. Still, there also some
       other approaches to feed a simulation with a demand and some of them
       where implemented in SUMO. You have the following possibilities to add
-      vehicles into your network: </para>
+      vehicles into your network:</para>
 
       <itemizedlist spacing="compact">
         <listitem>
@@ -5685,7 +5973,7 @@
       public transport etc. The structures are normally defined within
       additional files.</para>
 
-      <sect2 id="user_chp06-output-detectors">
+      <sect2 id="user_chp06-management-traffic_lights">
         <title>Traffic Lights</title>
 
         <para>Normally, <application>NETCONVERT</application> will generate
@@ -5703,7 +5991,7 @@
         - More on... Traffic Lights</ulink>", exists which describes the usage
         of traffic lights more deeply.</para>
 
-        <sect3 id="user_chp06-output-detectors-e1">
+        <sect3 id="user_chp06-management-traffic_lights-add_programs">
           <title>Adding new Programs</title>
 
           <para>Since version 0.9.4 you may attach a new program to a tls
@@ -5764,7 +6052,7 @@
           </caution>
         </sect3>
 
-        <sect3 id="user_chp06-output-detectors-e23">
+        <sect3 id="user_chp06-management-traffic_lights-switch_procedure">
           <title>Defining the switch Times and Procedure</title>
 
           <para>In the reality, a tls often uses different programs during a
@@ -5882,7 +6170,7 @@
         </sect3>
       </sect2>
 
-      <sect2 id="user_chp06-trigger-public">
+      <sect2 id="user_chp06-management-public">
         <title>Public Transport</title>
 
         <para>Possibilities to simulate public transport were firstly added in
@@ -6066,7 +6354,8 @@
       </sect2>
 
       <sect2>
-        <title>Variable Speed Signs (VSS)</title>
+        <title id="user_chp06-management-vss">Variable Speed Signs
+        (VSS)</title>
 
         <para>One of the trigger objects that may be specified within an
         additional file allows the simulation of variable speed signs. The
@@ -6106,7 +6395,7 @@
       </sect2>
 
       <sect2>
-        <title>Rerouter</title>
+        <title id="user_chp06-management-rerouter">Rerouter</title>
 
         <para>Rerouter change the route of vehicles as soon as a vehicle moves
         on a specified edge. Although implemented earlier, were firstly

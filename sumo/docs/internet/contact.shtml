@@ -65,13 +65,13 @@ There are four lists available:
 </ul>
 </p>
 
-<hr/>
+<hr class="thin"/>
 
 <p>If you have found a bug within one of the applications, please let us know by using
 the project's bug tracking service at
 <a class="SUMOInLineLink" href="http://sourceforge.net/tracker/?group_id=45607">sourceforge</a>.</p>
 
-<hr/>
+<hr class="thin"/>
 
 <p><b>Our institute's address:<br></b></p>
 <p><center>
@@ -85,7 +85,7 @@ Germany<br>
 <a class="SUMOInLineLink" href="http://ivf.dlr.de">http://ivf.dlr.de</a>.</p>
 </center></p>
 
-<hr/>
+<hr class="thin"/>
 
 <p>If you want us to use SUMO within your project, you can also contact us directly. The responsible person's email address is:
 <script language="JavaScript"  type="text/javascript">

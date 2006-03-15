@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <book>
   <bookinfo>
-    <title>SUMO - More on... Traffic Lights</title>
+    <title id="more_tls">SUMO - More on... Traffic Lights</title>
 
     <author>
       <firstname>Daniel</firstname>
@@ -24,7 +24,7 @@
 
   <toc></toc>
 
-  <chapter id="more_tests">
+  <chapter id="more_tls-intro">
     <title>Introduction</title>
 
     <sect1>
@@ -65,12 +65,10 @@
 
       <para>At first, a description about how traffic lights work in SUMO is
       given.</para>
-
-      <para></para>
     </sect1>
   </chapter>
 
-  <chapter id="more_tls">
+  <chapter id="more_tls-right_of_way">
     <title>Right-Of-Way Rules in SUMO</title>
 
     <sect1>
@@ -293,7 +291,7 @@
     </sect1>
   </chapter>
 
-  <chapter id="more_tls">
+  <chapter id="more_tls-existing_algorithms">
     <title>Existing LSA-Algorithms in SUMO</title>
 
     <sect1>
@@ -327,7 +325,7 @@ MSSimpleTrafficLightLogic::trySwitch()
     </sect1>
   </chapter>
 
-  <chapter id="more_tls">
+  <chapter id="more_tls-implement_own">
     <title>Implementing Own TLS-Logics</title>
 
     <sect1>
@@ -361,7 +359,7 @@ MSSimpleTrafficLightLogic::trySwitch()
     </sect1>
   </chapter>
 
-  <chapter id="more_tls">
+  <chapter id="more_tls-loading">
     <title>Loading of TLS- and ROW-logics</title>
 
     <para>Within the next subchapters, we will describe what all these

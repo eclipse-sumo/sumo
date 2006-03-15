@@ -13,6 +13,24 @@ hr {
 	color:#954835;
 }
 
+hr.thin {
+	display: block;
+	height: 1px;
+	background-repeat: no-repeat;
+	background-position: left center;
+	background:#d58875;
+	color:#d58875;
+}
+
+hr.medium {
+	display: block;
+	height: 2px;
+	background-repeat: no-repeat;
+	background-position: left center;
+	background:#d58875;
+	color:#d58875;
+}
+
 
 h1 {
 	font-family:Helvetica,Arial,Palatino;

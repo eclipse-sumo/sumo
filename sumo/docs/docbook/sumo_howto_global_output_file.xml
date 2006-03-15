@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <book>
   <bookinfo>
-    <title>SUMO - HowTo... Add a global output File</title>
+    <title id="howto_global_output">SUMO - HowTo... Add a global output
+    File</title>
 
     <author>
       <firstname>Daniel</firstname>
@@ -38,7 +39,7 @@
 
   <toc></toc>
 
-  <chapter id="more_tests">
+  <chapter id="howto_global_output-intro">
     <title>Introduction</title>
 
     <sect1>
@@ -84,7 +85,7 @@
     </sect1>
   </chapter>
 
-  <chapter>
+  <chapter id="howto_global_output-goal">
     <title>Description of the Goal</title>
 
     <para>For the TrafficOnline project, vehicles should be equipped with
@@ -95,7 +96,7 @@
   </chapter>
 
   <chapter>
-    <title>Implementation</title>
+    <title id="howto_global_output-implementation">Implementation</title>
 
     <para>For the TrafficOnline project, vehicles should be equipped with
     cellphones which report their states into an output.</para>

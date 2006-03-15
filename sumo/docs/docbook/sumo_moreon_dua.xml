@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <book>
   <bookinfo>
-    <title>SUMO - More on... Dynamic User Assignment</title>
+    <title id="more_dua">SUMO - More on... Dynamic User Assignment</title>
 
     <author>
       <firstname>Daniel</firstname>
@@ -24,7 +24,7 @@
 
   <toc></toc>
 
-  <chapter id="more_tests">
+  <chapter id="more_dua-intro">
     <title>Introduction</title>
 
     <sect1>
@@ -71,7 +71,7 @@
     </sect1>
   </chapter>
 
-  <chapter id="more_dua">
+  <chapter id="more_dua-magdeburg">
     <title>DUA on the City of Magdeburg from the INVENT Project</title>
 
     <sect1>
@@ -413,7 +413,7 @@ gnuplot&gt; plot "emissions_30.txt" u 1:8 w l, "emissions_31.txt" u 1:8 w l, \
     </sect1>
   </chapter>
 
-  <chapter id="more_tests">
+  <chapter id="more_dua-tools">
     <title>Tools</title>
 
     <para>A tool which performs the Dynamic User Assignement automatically is

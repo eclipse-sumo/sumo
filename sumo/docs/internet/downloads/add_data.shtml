@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<link rel="stylesheet" type="text/css" href="../css/sumo.css">
+		<head>
+			<title>SUMO - Simulation of Urban MObility - Downloads</title>
+			<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+			<META NAME="DC.Title" CONTENT="SUMO - Simulation of Urban MObility  -  Additional Data">
+			<META NAME="DC.Creator.PersonalName" CONTENT="Krajzewicz, Daniel">
+			<META NAME="DC.Subject" CONTENT="road traffic simulation package SUMO (Simulation of Urban MObility)">
+			<META NAME="DC.Description" CONTENT="">
+			<META NAME="DC.Publisher" CONTENT="Institute of Transport Research at the German Aerospace Centre">
+			<META NAME="DC.Contributor" CONTENT="Center for Applied Informatics, Cologne">
+			<META NAME="DC.Type" CONTENT="Text">
+			<META NAME="DC.Format" SCHEME="IMT" CONTENT="text/html">
+			<META NAME="DC.Identifier" CONTENT="http://sumo.sourceforge.net">
+			<META NAME="DC.Language" SCHEME="ISO639-1" CONTENT="en">
+			<META NAME="DC.Relation" SCHEME="URL" CONTENT="http://sumo.sourceforge.net/downloads.html">
+			<META NAME="DC.Coverage" CONTENT="Additional Data">
+			<META NAME="DC.Rights" CONTENT="(c) IVF/DLR">
+			<META NAME="DC.Date.X-MetadataLastModified" SCHEME="ISO8601" CONTENT="2003-07-10">
+		</head>
+		<body>
+			<img src="../images/sumo_logo.gif" width="72" height="17">&nbsp;&nbsp;&nbsp;<img src="../images/sumo_full.gif" width="211" height="16"><br>
+			<hr>
+
+<!--#include virtual="../menus/down_menu.html"-->
+
+					<td valign="top">
+						<div class="SUMOMainText">
+
+
+							<!-- Text area here -->
+							<center>
+								<h1>Additional Data</h1>
+							</center>
+							<p>Here, you will find some additional data packages for SUMO.</p>
+
+
+							<hr class="thin"/>
+
+							<p>
+								<h2>Additional data for Version 0.9.4</h2>
+								<br>
+								<ul>
+									<li><a name="frida">SUMO-Frida 0.9.4</a><br>
+										The converted network from the city of Osnabrück from the <a class="SUMOInLineLink" href="http://frida.intevation.org/">Frida</a> project.<br>
+										This data contain the converted network only. There is no demand that could be put onto it.<br>
+										It is just an example of converting networks from shape-files. Read more on the problems in
+											<a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/sumo_moreon_tls.shtml#sumo_moreon-arcview-frida">Importing the Network of Osnabrück from the Frida-project</a>.<br>
+										Download as: <a class="SUMOInLineLink" href="sumo-frida-built-0.9.4.zip">.zip [sumo-frida-built-0.9.4.zip, ~6.0MB]</a>
+										or as: <a class="SUMOInLineLink" href="sumo-frida-built-0.9.4.tar.gz">.tar.gz [sumo-frida-built-0.9.4.tar.gz, ~5.7MB]</a><br><br>
+
+										You can also download the source together with the NETCONVERT-configurations and the additional types file which was described in
+											<a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/sumo_moreon_tls.shtml#sumo_moreon-arcview-frida">Importing the Network of Osnabrück from the Frida-project</a>.<br>
+										Download as: <a class="SUMOInLineLink" href="sumo-frida-src-0.9.4.zip">.zip [sumo-frida-src-0.9.4.zip, ~640kB]</a>
+										or as: <a class="SUMOInLineLink" href="sumo-frida-src-0.9.4.tar.gz">.tar.gz [sumo-frida-src-0.9.4.tar.gz, ~620kB]</a><br><br>
+
+								</ul>
+							</p>
+							<!-- End of Text area -->
+						</div>
+					</td>
+				</tr>
+			</table>
+			<p></p>
+			<hr>
+
+<p><div align="right" class="SUMOPageInfo">last change: <!--#flastmod file="./downloads.shtml"--><!--#exec cgi="/cgi-bin/saveenv.pl"--></div></p>
+
+		</body>
+</html>

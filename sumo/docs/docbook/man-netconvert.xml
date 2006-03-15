@@ -406,6 +406,125 @@
         </varlistentry>
 
         <varlistentry>
+          <term><option>--arcview.street-id
+          <replaceable>&lt;STREET_NAME_COLUMN_NAME&gt;</replaceable></option></term>
+
+          <listitem>
+            <para>Scope: ArcView-import</para>
+
+            <para>This option tells <application>NETCONVERT</application>
+            which of the columns within the ArcView-database to read shall be
+            used as the source of street names. If given, your database must
+            contain this column, and the values must be unique for each
+            street. <remark>Optional, type:string, default:
+            none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><option>--arcview.from-id
+          <replaceable>&lt;START_NODE_ID_COLUMN_NAME&gt;</replaceable></option></term>
+
+          <listitem>
+            <para>Scope: ArcView-import</para>
+
+            <para>This option tells <application>NETCONVERT</application>
+            which of the columns within the ArcView-database to read shall be
+            used as the source of the information from which node the street
+            starts. If given, your database must contain this column.
+            <remark>Optional, type:string, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><option>--arcview.to-id
+          <replaceable>&lt;END_NODE_ID_COLUMN_NAME&gt;</replaceable></option></term>
+
+          <listitem>
+            <para>Scope: ArcView-import</para>
+
+            <para>This option tells <application>NETCONVERT</application>
+            which of the columns within the ArcView-database to read shall be
+            used as the source of the information at which node the street
+            ends. If given, your database must contain this column.
+            <remark>Optional, type:string, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><option>--arcview.type-id
+          <replaceable>&lt;TYPE_ID_COLUMN_NAME&gt;</replaceable></option></term>
+
+          <listitem>
+            <para>Scope: ArcView-import</para>
+
+            <para>This option tells <application>NETCONVERT</application>
+            which of the columns within the ArcView-database to read shall be
+            used as the source of the information about the edge's type. Using
+            this information, you can use type definitions as described in
+            <link linkend="???">Types Descriptions</link> to determine your
+            edges' attributes. If given, your database must contain this
+            column. <remark>Optional, type:string, default:
+            none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><option>--arcview.use-defaults-on-failure</option></term>
+
+          <listitem>
+            <para>Scope: ArcView-import</para>
+
+            <para>If a type could not be resolved or is invalid or any of the
+            explicite information about an edge was invalid, this option
+            forces NETCONVERT to use the default type values for the current
+            street. If not set, and one of the cases occures, the
+            application's behaviour is not determined. <remark>Optional,
+            type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><option>--arcview.all-bidi</option></term>
+
+          <listitem>
+            <para>Scope: ArcView-import</para>
+
+            <para>Forces <application>NETCONVERT</application> to insert all
+            edges bidirectional. <remark>Optional (pregiven), type:bool,
+            default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><option>--arcview.utm
+          <replaceable>&lt;ORIGINAL_UTM_ZONE&gt;</replaceable></option></term>
+
+          <listitem>
+            <para>Scope: ArcView-import</para>
+
+            <para>This value describes in which UTM-zone your network is
+            located. The default is 32 being a place somwhere in western
+            Germany. You should change this value if importing networks
+            located somewhere else in the world. <remark>Optional (pregiven),
+            type:int, default: 32</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><option>--arcview.guess-projection</option></term>
+
+          <listitem>
+            <para>Scope: ArcView-import</para>
+
+            <para>If building a converter using the given UTM-zone fails, this
+            option tries to guess the project if set. Of course, this may also
+            fail... <remark>Optional (pregiven), type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>--vissim-speed-norm <replaceable
           class="parameter">&lt;SPEED_NORM_FACTOR&gt;</replaceable></term>
 
@@ -665,6 +784,32 @@
             <para>Sets the length of the ramps to build in meters.
             <remark>Optional (pregiven), type:float, defaults:
             100</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
+      <title>Geocoordinates Projection:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term><option><option>--use-projection</option></option></term>
+
+          <listitem>
+            <para>Enables reprojection of the network's coordinates.
+            <remark>Optional, type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><option><option>--proj
+          <replaceable>&lt;STRING&gt;</replaceable></option></option></term>
+
+          <listitem>
+            <para>Defines projection. <remark>Optional (pregiven),
+            type:string, default: "+proj=utm +zone=33 +ellps=bessel
+            +units=m"</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
