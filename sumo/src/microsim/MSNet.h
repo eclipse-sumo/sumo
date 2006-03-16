@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.58  2006/03/16 15:19:35  ericnicolay
+// add ss2 interface for cells and LAs
+//
 // Revision 1.57  2006/02/23 11:31:09  dkrajzew
 // TO SS2 output added
 //
@@ -403,6 +406,8 @@ public:
         OS_VEHROUTE,
         /// TrafficOnline-SS2 output
         OS_DEVICE_TO_SS2,
+		OS_CELL_TO_SS2,
+		OS_LA_TO_SS2,
         /// maximum value
         OS_MAX
     };

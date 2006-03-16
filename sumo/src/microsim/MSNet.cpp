@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.74  2006/03/16 15:19:35  ericnicolay
+// add ss2 interface for cells and LAs
+//
 // Revision 1.73  2006/03/15 09:25:45  dkrajzew
 // beautifying
 //
@@ -559,6 +562,8 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     MSCORN::setTripDurationsOutput(streams[OS_TRIPDURATIONS]);
 	MSCORN::setVehicleRouteOutput(streams[OS_VEHROUTE]);
     MSCORN::setVehicleDeviceTOSS2Output(streams[OS_DEVICE_TO_SS2]);
+	MSCORN::setCellTOSS2Output(streams[OS_CELL_TO_SS2]);
+	MSCORN::setLATOSS2Output( streams[OS_LA_TO_SS2]);
     myOutputStreams = streams;
     myMeanData = meanData;
 
@@ -670,6 +675,12 @@ MSNet::initialiseSimulation()
     // ... the same for TrafficOnline-SS2 information
     if ( myOutputStreams[OS_DEVICE_TO_SS2]!=0 ) {
         MSCORN::setWished(MSCORN::CORN_OUT_DEVICE_TO_SS2);
+    }
+	if ( myOutputStreams[OS_CELL_TO_SS2]!=0 ) {
+        MSCORN::setWished(MSCORN::CORN_OUT_CELL_TO_SS2);
+    }
+	if ( myOutputStreams[OS_LA_TO_SS2]!=0 ) {
+        MSCORN::setWished(MSCORN::CORN_OUT_LA_TO_SS2);
     }
 }
 

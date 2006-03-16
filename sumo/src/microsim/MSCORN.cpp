@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/03/16 15:19:35  ericnicolay
+// add ss2 interface for cells and LAs
+//
 // Revision 1.7  2006/02/23 11:31:09  dkrajzew
 // TO SS2 output added
 //
@@ -69,6 +72,8 @@ using namespace std;
 OutputDevice *MSCORN::myTripDurationsOutput = 0;
 OutputDevice *MSCORN::myVehicleRouteOutput = 0;
 OutputDevice *MSCORN::myVehicleDeviceTOSS2Output = 0;
+OutputDevice *MSCORN::myCellTOSS2Output = 0;
+OutputDevice *MSCORN::myLATOSS2Output = 0;
 
 bool MSCORN::myWished[CORN_MAX];
 
@@ -82,6 +87,8 @@ MSCORN::init()
     myTripDurationsOutput = 0;
 	myVehicleRouteOutput = 0;
     myVehicleDeviceTOSS2Output = 0;
+	myCellTOSS2Output = 0;
+	myLATOSS2Output = 0;
     for(int i=0; i<CORN_MAX; i++) {
         myWished[i] = false;
     }
@@ -94,6 +101,8 @@ MSCORN::clear()
 	delete myTripDurationsOutput;
 	delete myVehicleRouteOutput;
     delete myVehicleDeviceTOSS2Output;
+	delete myCellTOSS2Output;
+	delete myLATOSS2Output;
 }
 
 
@@ -158,6 +167,18 @@ MSCORN::setVehicleDeviceTOSS2Output(OutputDevice *s)
     myVehicleDeviceTOSS2Output = s;
 }
 
+void
+MSCORN::setCellTOSS2Output(OutputDevice *s)
+{
+    myCellTOSS2Output = s;
+}
+
+void
+MSCORN::setLATOSS2Output(OutputDevice *s)
+{
+    myLATOSS2Output = s;
+}
+
 
 
 void
@@ -204,6 +225,32 @@ MSCORN::saveTOSS2_CalledPositionData(SUMOTime time, int callID,
         myVehicleDeviceTOSS2Output->getOStream()
             << "01;" << time << ';' << callID << ';' << pos << ';' << quality << "\n"; // !!! check <CR><LF>-combination
     }
+}
+	
+
+void
+MSCORN::saveTOSS2_CellStateData(SUMOTime time, 
+		int Cell_Id, int Calls_In, int Calls_Out, int Dyn_Calls_In, 
+		int Dyn_Calls_Out, int Sum_Calls, int Intervall)
+{
+	if(myCellTOSS2Output!=0)
+	{
+		myCellTOSS2Output->getOStream()
+			<< "02;" << time << ';' << Cell_Id << ';' << Calls_In << ';' << Calls_Out << ';' << 
+			Dyn_Calls_In << ';' << Dyn_Calls_Out << ';' << Sum_Calls << ';' << Intervall << "\n";
+	}
+}
+	
+void
+MSCORN::saveTOSS2_LA_ChangesData(SUMOTime time, int position_id, 
+        int dir, int sum_changes, int quality_id, int intervall)
+{
+	if(myLATOSS2Output!=0)
+	{
+		myLATOSS2Output->getOStream() 
+			<< "03;" << ';' << time << ';' << position_id << ';' << dir << ';' << sum_changes
+			<< ';' << quality_id << ';' << intervall << "\n";
+	}
 }
 
 
