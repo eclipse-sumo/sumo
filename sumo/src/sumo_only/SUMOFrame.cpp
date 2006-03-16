@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.40  2006/03/16 15:22:24  ericnicolay
+// add param for the ss2-interface
+//
 // Revision 1.39  2006/02/23 11:33:26  dkrajzew
 // TO SS2 output added
 //
@@ -268,8 +271,9 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("device", new Option_Float(0.5));//!!! check, describe
     oc.doRegister("knownveh", new Option_String("444_4"));//!!! check, describe
     oc.doRegister("ss2-output", new Option_FileName());//!!! check, describe
-
-
+	oc.doRegister("ss2-cell-output", new Option_FileName());
+	oc.doRegister("ss2-la-output", new Option_FileName());
+    
     oc.doRegister("device.cell-phone.probability", new Option_Float(0.));//!!! check, describe
     oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));//!!! check, describe
     oc.doRegister("device.cell-phone.amount.max", new Option_Float(1.));//!!! check, describe
@@ -294,6 +298,8 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
     ret[MSNet::OS_TRIPDURATIONS] = buildStream(oc, "tripinfo-output");
 	ret[MSNet::OS_VEHROUTE] = buildStream(oc, "vehroute-output");
 	ret[MSNet::OS_DEVICE_TO_SS2] = buildStream(oc, "ss2-output");
+	ret[MSNet::OS_CELL_TO_SS2] = buildStream(oc, "ss2-cell-output");
+	ret[MSNet::OS_LA_TO_SS2] = buildStream(oc, "ss2-la-output");
     return ret;
 }
 
