@@ -1,25 +1,29 @@
 #ifndef DFDetFlowLoader_h
 #define DFDetFlowLoader_h
-//---------------------------------------------------------------------------//
-//                        DFDetFlowLoader.h -
-//  A handler for Artemis-files
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Wed, 12 Mar 2003
-//  copyright            : (C) 2003 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
+/***************************************************************************
+                          DFDetFlowLoader.h
+    A loader for detector flows
+                             -------------------
+    project              : SUMO
+    begin                : Thu, 16.03.2006
+    copyright            : (C) 2006 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
 
-//---------------------------------------------------------------------------//
-//
-//   This program is free software; you can redistribute it and/or modify
-//   it under the terms of the GNU General Public License as published by
-//   the Free Software Foundation; either version 2 of the License, or
-//   (at your option) any later version.
-//
-//---------------------------------------------------------------------------//
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
 // $Log$
+// Revision 1.4  2006/03/17 09:04:26  dkrajzew
+// class-documentation added/patched
+//
 // Revision 1.3  2006/03/08 12:51:29  dkrajzew
 // further work on the dfrouter
 //

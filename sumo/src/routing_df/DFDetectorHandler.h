@@ -1,25 +1,29 @@
 #ifndef DFDetectorHandler_h
 #define DFDetectorHandler_h
-//---------------------------------------------------------------------------//
-//                        DFDetectorHandler.h -
-//  The handler for SUMO-Networks
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
+/***************************************************************************
+                          DFDetector.h
+    A handler for loading detector descriptions
+                             -------------------
+    project              : SUMO
+    begin                : Thu, 16.03.2006
+    copyright            : (C) 2006 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
 
-//---------------------------------------------------------------------------//
-//
-//   This program is free software; you can redistribute it and/or modify
-//   it under the terms of the GNU General Public License as published by
-//   the Free Software Foundation; either version 2 of the License, or
-//   (at your option) any later version.
-//
-//---------------------------------------------------------------------------//
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
 // $Log$
+// Revision 1.6  2006/03/17 09:04:25  dkrajzew
+// class-documentation added/patched
+//
 // Revision 1.5  2006/01/31 11:00:47  dkrajzew
 // added the possibility to write detector positions as pois; debugging
 //
@@ -63,8 +67,7 @@
  * ======================================================================= */
 /**
  * @class DFDetectorHandler
- * SAX2-Handler for SUMO-network loading. As this class is used for both
- *  the dua- and the jp-router, a reference to the edge builder is given.
+ * @brief SAX2-Handler for loading DFROUTER-detector definitions
  */
 class DFDetectorHandler : public SUMOSAXHandler {
 public:

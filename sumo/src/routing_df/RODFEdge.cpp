@@ -23,9 +23,11 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/03/17 09:04:26  dkrajzew
+// class-documentation added/patched
+//
 // Revision 1.1  2006/03/08 12:51:29  dkrajzew
 // further work on the dfrouter
-//
 //
 /* =========================================================================
  * compiler pragmas

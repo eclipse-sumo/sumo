@@ -1,28 +1,31 @@
 #ifndef RODFEdge_h
 #define RODFEdge_h
-//---------------------------------------------------------------------------//
-//                        RODFEdge.h -
-//  An edge the router may route through
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Wed, 01.03.2006
-//  copyright            : (C) 2006 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
+/***************************************************************************
+                          RODFEdge.h
+    An edge within the DFROUTER
+                             -------------------
+    project              : SUMO
+    begin                : Thu, 16.03.2006
+    copyright            : (C) 2006 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
 
-//---------------------------------------------------------------------------//
-//
-//   This program is free software; you can redistribute it and/or modify
-//   it under the terms of the GNU General Public License as published by
-//   the Free Software Foundation; either version 2 of the License, or
-//   (at your option) any later version.
-//
-//---------------------------------------------------------------------------//
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
 // $Log$
-// Revision 1.1  2006/03/08 12:51:29  dkrajzew
-// further work on the dfrouter
+// Revision 1.2  2006/03/17 09:04:26  dkrajzew
+// class-documentation added/patched
 //
+// Revision 1.1  2006/03/08 12:51:06  dksumo
+// further work on the dfrouter
 //
 /* =========================================================================
  * compiler pragmas
@@ -59,8 +62,6 @@ class ROLane;
  * ======================================================================= */
 /**
  * @class RODFEdge
- * A router's edge extended by the definition about the probability a
- *  vehicle's probabilities to choose a certain following edge over time.
  */
 class RODFEdge : public ROEdge {
 public:

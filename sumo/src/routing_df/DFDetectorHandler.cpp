@@ -1,28 +1,31 @@
-//---------------------------------------------------------------------------//
-//                        DFDetectorHandler.cpp -
-//  The handler for SUMO-Networks
-//                           -------------------
-//  project              : SUMO - Simulation of Urban MObility
-//  begin                : Sept 2002
-//  copyright            : (C) 2002 by Daniel Krajzewicz
-//  organisation         : IVF/DLR http://ivf.dlr.de
-//  email                : Daniel.Krajzewicz@dlr.de
-//---------------------------------------------------------------------------//
+/***************************************************************************
+                          DFDetectorHandler.cpp
+    A handler for loading detector descriptions
+                             -------------------
+    project              : SUMO
+    begin                : Thu, 16.03.2006
+    copyright            : (C) 2006 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
 
-//---------------------------------------------------------------------------//
-//
-//   This program is free software; you can redistribute it and/or modify
-//   it under the terms of the GNU General Public License as published by
-//   the Free Software Foundation; either version 2 of the License, or
-//   (at your option) any later version.
-//
-//---------------------------------------------------------------------------//
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 namespace
 {
     const char rcsid[] =
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/03/17 09:04:25  dkrajzew
+// class-documentation added/patched
+//
 // Revision 1.6  2006/02/13 07:27:06  dkrajzew
 // current work on the DFROUTER added (unfinished)
 //
@@ -77,7 +80,6 @@ namespace
  * ======================================================================= */
 using namespace std;
 
-//#ifdef HALLIGALLI
 
 /* =========================================================================
  * method definitions

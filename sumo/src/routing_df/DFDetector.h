@@ -1,12 +1,39 @@
 #ifndef DFDETECTOR_h
 #define DFDETECTOR_h
+/***************************************************************************
+                          DFDetector.h
+                          Class representing a detector within the DFROUTER
+                             -------------------
+    project              : SUMO
+    begin                : Thu, 16.03.2006
+    copyright            : (C) 2006 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
 
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+// $Log$
+// Revision 1.12  2006/03/17 09:04:25  dkrajzew
+// class-documentation added/patched
+//
+//
 /* =========================================================================
  * compiler pragmas
  * ======================================================================= */
 #pragma warning(disable: 4786)
 
 
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
@@ -22,12 +49,23 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/helpers/RandomDistributor.h>
 
+
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
 class DFRORouteCont;
 class DFDetectorFlows;
 class ROEdge;
 class DFDetectorCon;
 
 
+/* =========================================================================
+ * enumerations
+ * ======================================================================= */
+/**
+ * @enum dfdetector_type
+ * @brief Numerical representation of different detector types
+ */
 enum dfdetector_type
 {
     TYPE_NOT_DEFINED = 0,
@@ -40,6 +78,13 @@ enum dfdetector_type
 };
 
 
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
+/**
+ * @class DFDetector
+ * @brief Class representing a detector within the DFROUTER
+ */
 class DFDetector
 {
 public:
@@ -79,6 +124,11 @@ protected:
 
 };
 
+
+/**
+ * @class DFDetectorCon
+ * @brief A container for DFDetectors
+ */
 class DFDetectorCon
 {
 public:
@@ -117,5 +167,12 @@ protected:
 
 };
 
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
 #endif
+
+// Local Variables:
+// mode:C++
+// End:
 
