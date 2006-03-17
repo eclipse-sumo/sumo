@@ -80,7 +80,7 @@
 										<br>
 										Contains the binaries, all dlls needed and some examples.<br>
 										Download as: <a class="SUMOInLineLink" href="sumo-winbin-0.9.4.zip">[sumo-winbin-0.9.4.zip,
-											~4.7MB]</a><br>
+											~5.0MB]</a><br>
 										<br>
 									<li>
 										The last stable Linux binaries.<br>
@@ -91,8 +91,8 @@
 										sources, examples, Linux-Makefiles and MSVC++ 6.0 and MS Visual Studio
 										.net-project workspace.<br>
 										Download as: <a class="SUMOInLineLink" href="sumo-src-0.9.4.tar.gz">[sumo-src-0.9.4.tar.gz,
-											~3MB]</a> <a class="SUMOInLineLink" href="sumo-src-0.9.4.zip">[sumo-src-0.9.4.zip,
-											~5.1MB]</a><br>
+											~5MB]</a> <a class="SUMOInLineLink" href="sumo-src-0.9.4.zip">[sumo-src-0.9.4.zip,
+											~5.5MB]</a><br>
 										<br>
 									<li>
 										<b>Needed Libraries</b><br>
@@ -122,17 +122,16 @@
 												Projections Library)<br>
 												Needed version: 4.4<br>
 												Windows: <a class="SUMOInLineLink" href="proj446_win32_bin.zip">
-													[.zip] (proj446_win32_bin.zip, !!!)</a><br>
-												Source Code: <a class="SUMOInLineLink" href="proj-4.4.9.zip">[.zip]
-													(proj-4.4.9.zip, ~!!!)</a> or <a class="SUMOInLineLink" href="proj-4.4.9.tar.gz">[.tar.gz]
-													(proj-4.4.9.tar.gz, ~!!!B)</a><br>
+													[.zip] (proj446_win32_bin.zip, 2.3MB)</a><br>
+												Source Code: <a class="SUMOInLineLink" href="proj-4.4.9.zip">[.zip] (proj-4.4.9.zip, ~720kB)</a>
+													or <a class="SUMOInLineLink" href="proj-4.4.9.tar.gz">[.tar.gz] (proj-4.4.9.tar.gz, ~600kB)</a><br>
 												<br>
 											<li>
 												<a class="SUMOInLineLink" href="http://www.remotesensing.org/gdal/">GDAL</a> (Geospatial
 												Data Abstraction Library)<br>
 												Needed version: 1.3<br>
-												Source Code: <a class="SUMOInLineLink" href="gdal131.zip ">[.zip]
-													(gdal131.zip, ~!!!)</a><br>
+												Source Code: <a class="SUMOInLineLink" href="gdal131.zip">[.zip] (gdal131.zip, ~7.9MB)</a>
+													or <a class="SUMOInLineLink" href="gdal131.tar.gz">[.tar.gz] (gdal131.tar.gz, ~6.7MB)</a><br>
 												Sorry, no binaries are available...<br>
 												<br>
 										</ul>

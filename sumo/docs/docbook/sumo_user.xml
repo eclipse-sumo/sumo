@@ -500,17 +500,20 @@
 
           <para>Build your own movements using either by a) describing
           explicit vehicle routes (see chapter 5, "<ulink
-          url="#user_chp05-explicit">Using Trip Definitions</ulink>"), b)
-          using flows and turning percentages only (see chapter 5, "<ulink
+          url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-explicit">Using
+          Trip Definitions</ulink>"), b) using flows and turning percentages
+          only (see chapter 5, "<ulink
           url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-own_routes-jtr">Using
           the Junction Turning Ratio - Router</ulink>"), c) generating random
           routes (see chapter 5, "<ulink
           url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-own_routes-random">Generating
           random Routes</ulink>"), d) importing OD-matrices (see chapter
-          "<ulink url="#user_chp05-od2trips">Using OD2TRIPS</ulink>" or
-          "<ulink url="#user_chp05-explicite-flows">Using Flow
-          Definitions</ulink>"), or e) importing routes you own (see chapter
-          5, "<ulink
+          "<ulink
+          url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-od2trips">Using
+          OD2TRIPS</ulink>" or "<ulink
+          url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-explicite-flows">Using
+          Flow Definitions</ulink>"), or e) importing routes you own (see
+          chapter 5, "<ulink
           url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml#user_chp05-import_routes">Importing
           Routes</ulink>").</para>
         </step>

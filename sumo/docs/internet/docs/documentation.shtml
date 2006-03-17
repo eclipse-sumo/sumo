@@ -44,8 +44,8 @@
 	<li><img src="../images/under_c_small.gif" border="0" width="20" height="20" align="top"><a class="SUMOInLineLink" href="userdocs.shtml">User Documentation</a><br>
 		A complete documentation of how to use SUMO and its applications. Status: In work<br><br>
 
-	<li><img src="../images/under_c_small.gif" border="0" width="20" height="20" align="top"><a class="SUMOInLineLink" href="devdocs.shtml">Developer Documentation</a><br>
-		A detailed description of the mechanisms of SUMO. Status: In work<br><br>
+<!--	<li><img src="../images/under_c_small.gif" border="0" width="20" height="20" align="top"><a class="SUMOInLineLink" href="devdocs.shtml">Developer Documentation</a><br>
+		A detailed description of the mechanisms of SUMO. Status: In work<br><br> -->
 
 	<li><img src="../images/under_c_small.gif" border="0" width="20" height="20" align="top"><a class="SUMOInLineLink" href="moredocs.shtml">More On...</a><br>
 		Some additional information on special subjects (traffic lights, ...). Status: In work<br><br>
@@ -58,7 +58,7 @@
 
 	<li><img src="../images/under_c_small.gif" border="0" width="20" height="20" align="top"><a class="SUMOInLineLink" href="gen/faq.shtml">Frequently Questions and Answers (FAQ)</a><br>
 		Some other things that have not found their way into the documentation. Status: In work<br>
-		Take also a look into our <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/cgi-bin/moin.cgi">Wiki</a> and into our <a class="SUMOInLineLink" href="http://sourceforge.net/mail/?group_id=45607">Mailing Lists</a>.<br><br>
+		Take also a look into our <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki">Wiki</a> and into our <a class="SUMOInLineLink" href="http://sourceforge.net/mail/?group_id=45607">Mailing Lists</a>.<br><br>
 
 	<li><a class="SUMOInLineLink" href="manpages.shtml">Man pages for the command line applications</a><br><br>
 

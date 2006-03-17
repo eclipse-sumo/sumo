@@ -41,13 +41,13 @@
 	<!-- li><a class="SUMOInLineLink" href="links/sumoweb.shtml">SUMO on the Web</a><br>
 		Some links to people who mention SUMO.<br -->
 
-	<li><a class="SUMOInLineLink" href="links/development.shtml">Development</a><br>
+	<li><a class="SUMOInLineLink" href="development.shtml">Development</a><br>
 		Some links to sources for information on development, tools and libraries.<br>
 
-	<li><a class="SUMOInLineLink" href="links/simulations.shtml">Simulations</a><br>
+	<li><a class="SUMOInLineLink" href="simulations.shtml">Simulations</a><br>
 		Some links to other (traffic related) simulation ressources<br>
 
-	<li><a class="SUMOInLineLink" href="links/links.shtml">Links to Link Lists related to Traffic research</a><br>
+	<li><a class="SUMOInLineLink" href="links.shtml">Links to Link Lists related to Traffic research</a><br>
 		Some links to some links...<br>
 
 </ul>

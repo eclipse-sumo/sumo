@@ -36,18 +36,39 @@
       traffic simulation. It can be found under <ulink
       url="http://sumo.sourceforge.net/">http://sumo.sourceforge.net/</ulink>.</para>
 
-      <para>This document fits to version 0.9.4 We will try to keep it
+      <para>This document fits to version 0.9.4. We will try to keep it
       up-to-date with the next versions.</para>
     </sect1>
 
     <sect1>
       <title>Document Scope</title>
 
-      <para>Within this first chapter, we will describe how traffic lights are
-      implemented and used within SUMO. As basically, traffic lights affect
-      the right-of-way rules at a junction, we will first describe how
-      right-of-way rules are implemented within SUMO. Afterwards, the
-      additional concept of traffic lights is given.</para>
+      <para>Herein, we will describe how traffic lights are implemented and
+      used within SUMO. This document has the following structure:</para>
+
+      <orderedlist>
+        <listitem>
+          <para>As basically traffic lights affect the right-of-way rules at a
+          junction, we will first describe how right-of-way rules are
+          implemented within SUMO and how traffic lights are implemented as an
+          extension to this concept.</para>
+        </listitem>
+
+        <listitem>
+          <para>Algorithms already implemented in SUMO are described and it is
+          shown how they work.</para>
+        </listitem>
+
+        <listitem>
+          <para>An introduction about how to implement own traffic light
+          algorithms is given.</para>
+        </listitem>
+
+        <listitem>
+          <para>It is described, how traffic light logics and row-logics are
+          loaded and instantiiated.</para>
+        </listitem>
+      </orderedlist>
     </sect1>
 
     <sect1>

@@ -56,7 +56,7 @@ The <b>"HowTos"</b> are brief descriptions how to handle a certain problem while
 		<td valign="top"><i>User</i></td>
 	</tr>
 	<tr>
-		<td valign="top"><pre><a href="gen/sumo_moreon_arcview.shtml" class="SUMOInLineLink">More On... Importing ArcView networks</a></pre></td>
+		<td valign="top"><pre><a href="gen/sumo_moreon_arcview.shtml" class="SUMOInLineLink">More On... Parsing ArcView Files</a></pre></td>
 		<td valign="top">Shows how to import networks coded as ArcView-files by example.</td>
 		<td valign="top"><i>User</i></td>
 	</tr>
