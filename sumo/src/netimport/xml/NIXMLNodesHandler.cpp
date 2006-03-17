@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/03/17 11:04:14  dkrajzew
+// debugged double projection
+//
 // Revision 1.15  2006/03/08 13:02:27  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -209,13 +212,6 @@ NIXMLNodesHandler::myStartElement(int element, const std::string &tag,
     }
     // check whether there is a traffic light to assign this node to
     // build the node
-    projUV p;
-    if(myProjection!=0) {
-        p.u = myPosition.x() * DEG_TO_RAD;
-        p.v = myPosition.y() * DEG_TO_RAD;
-        p = pj_fwd(p, myProjection);
-        myPosition.set((SUMOReal) p.u, (SUMOReal) p.v);
-    }
     NBNode *node = new NBNode(myID, myPosition, type);
     // insert the node
     if(!myNodeCont.insert(node)) {
