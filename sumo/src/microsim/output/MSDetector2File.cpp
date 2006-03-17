@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/03/17 08:56:21  dkrajzew
+// changed the Event-interface (event handlers are non-static)
+//
 // Revision 1.9  2005/10/07 11:37:46  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -150,7 +153,7 @@ MSDetector2File::addDetectorAndInterval( MSDetectorFileOutput* det,
         Command* writeData =
             new OneArgumentCommand< MSDetector2File, IntervalsKey >
             ( this, &MSDetector2File::write2file, key );
-        MSEventControl::getEndOfTimestepEvents()->addEvent(
+        MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
             writeData,
             OptionsSubSys::getOptions().getInt("begin") + interval,
             MSEventControl::ADAPT_AFTER_EXECUTION );
