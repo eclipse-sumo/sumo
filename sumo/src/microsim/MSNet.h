@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.59  2006/03/17 09:02:19  dkrajzew
+// .icc-files removed, changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.58  2006/03/16 15:19:35  ericnicolay
 // add ss2 interface for cells and LAs
 //
@@ -348,6 +351,7 @@
 #include "MSInterface_NetRun.h"
 #include "output/meandata/MSMeanData_Net_Cont.h"
 #include "MSVehicleControl.h"
+#include "MSEventControl.h"
 #include <utils/common/SUMOTime.h>
 
 
@@ -358,7 +362,6 @@ class MSEdge;
 class MSEdgeControl;
 class MSJunctionControl;
 class MSEmitControl;
-class MSEventControl;
 class MSRouteLoaderControl;
 class Event;
 class RGBColor;
@@ -406,7 +409,9 @@ public:
         OS_VEHROUTE,
         /// TrafficOnline-SS2 output
         OS_DEVICE_TO_SS2,
+        /// TrafficOnline-SS2 Cell output
 		OS_CELL_TO_SS2,
+        /// TrafficOnline-SS2 LA output
 		OS_LA_TO_SS2,
         /// maximum value
         OS_MAX
@@ -472,7 +477,10 @@ public:
     static void clearAll();
 
     /// Returns the timestep-length in seconds.
-    static SUMOReal deltaT();
+    static SUMOReal deltaT() {
+        return myDeltaT;
+    }
+
 
     /**
      * Get the models cellLength in meter
@@ -488,7 +496,10 @@ public:
 
     /** @brief Returns the current simulation time in seconds.
         Current means start-time plus runtime. */
-    SUMOTime simSeconds();
+    SUMOTime simSeconds() {
+        return (SUMOTime) (myStep * myDeltaT);
+    }
+
 
     /** @brief Returns the number of unique mean-data-dump-intervalls.
         In vehicles and lanes you will need one element more for the
@@ -618,6 +629,14 @@ public:
 
     SUMOReal getTooSlowRTF() const;
 
+    MSEventControl &getBeginOfTimestepEvents() {
+        return myBeginOfTimestepEvents;
+    }
+
+    MSEventControl &getEndOfTimestepEvents() {
+        return myEndOfTimestepEvents;
+    }
+
 protected:
 
     /** initialises the MeanData-container */
@@ -671,6 +690,8 @@ protected:
     MSVehicleControl *myVehicleControl;
     MSDetectorControl *myDetectorControl;
     MSTriggerControl *myTriggerControl;
+    MSEventControl myBeginOfTimestepEvents;
+    MSEventControl myEndOfTimestepEvents;
     ShapeContainer *myShapeContainer; // could be a direct member
     /// List of output (files)
     std::vector<OutputDevice*> myOutputStreams;
@@ -705,10 +726,6 @@ private:
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
-#ifndef DISABLE_INLINE
-#include "MSNet.icc"
-#endif
 
 #endif
 

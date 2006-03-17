@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.75  2006/03/17 09:02:19  dkrajzew
+// .icc-files removed, changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.74  2006/03/16 15:19:35  ericnicolay
 // add ss2 interface for cells and LAs
 //
@@ -722,7 +725,7 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
     if(myLogExecutionTime) {
         mySimStepBegin = SysUtils::getCurrentMillis();
     }
-    MSEventControl::getBeginOfTimestepEvents()->execute(myStep);
+    myBeginOfTimestepEvents.execute(myStep);
     // load routes
     myEmitter->moveFrom(myRouteLoaders->loadNext(step));
     // emit Vehicles
@@ -781,7 +784,7 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
     long ve = SysUtils::getCurrentMillis();
     writeOutput();
     // execute endOfTimestepEvents
-    MSEventControl::getEndOfTimestepEvents()->execute(myStep);
+    myEndOfTimestepEvents.execute(myStep);
 
     // check state dumps
     if(find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep)!=myStateDumpTimes.end()) {
@@ -805,7 +808,6 @@ MSNet::clearAll()
     // clear container
     MSEdge::clear();
     MSEmitControl::clear();
-    MSEventControl::clear();
     MSJunction::clear();
     MSJunctionControl::clear();
     MSJunctionLogic::clear();
@@ -976,10 +978,6 @@ MSNet::getTooSlowRTF() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-#ifdef DISABLE_INLINE
-#include "MSNet.icc"
-#endif
 
 // Local Variables:
 // mode:C++
