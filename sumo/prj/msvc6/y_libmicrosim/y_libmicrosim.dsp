@@ -279,10 +279,6 @@ SOURCE=..\..\..\src\microsim\MSVehicleType.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\actions\Action.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\microsim\logging\CastingFunctionBinding.h
 # End Source File
 # Begin Source File

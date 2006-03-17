@@ -879,9 +879,6 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath="..\..\..\src\microsim\actions\Action.h">
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\logging\CastingFunctionBinding.h">
 			</File>
 			<File
