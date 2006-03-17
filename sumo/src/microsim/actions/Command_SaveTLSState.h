@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/03/17 08:53:17  dkrajzew
+// "Action" removed - was the same as Command; changed the Event-interface (execute now gets the current simulation time)
+//
 // Revision 1.7  2006/02/27 12:03:23  dkrajzew
 // variants container named properly
 //
@@ -39,6 +42,12 @@
 // e2-link-dependent detectors added
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -52,7 +61,6 @@
 #include <string>
 #include <fstream>
 #include <map>
-#include "Action.h"
 #include <utils/helpers/Command.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 
@@ -82,7 +90,7 @@ public:
     ~Command_SaveTLSState();
 
     /// Executes the action
-    SUMOTime execute();
+    SUMOTime execute(SUMOTime currentTime);
 
 private:
     /// The file to write to
@@ -90,9 +98,6 @@ private:
 
     /// The traffic light logic to use
     const MSTLLogicControl::TLSLogicVariants &myLogics;
-
-    /// The time this action is executed
-    SUMOTime myExecTime;
 
 };
 

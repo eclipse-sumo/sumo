@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/03/17 08:53:17  dkrajzew
+// "Action" removed - was the same as Command; changed the Event-interface (execute now gets the current simulation time)
+//
 // Revision 1.9  2006/02/27 12:03:23  dkrajzew
 // variants container named properly
 //
@@ -48,6 +51,12 @@ namespace
 // e2-link-dependent detectors added
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -58,7 +67,6 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
-#include "Action.h"
 #include "Command_SaveTLSState.h"
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/MSEventControl.h>
@@ -84,8 +92,10 @@ Command_SaveTLSState::Command_SaveTLSState(
             const std::string &file)
     : myLogics(logics)
 {
+    /*
     myExecTime = MSEventControl::getBeginOfTimestepEvents()->addEvent(this,
         0, MSEventControl::ADAPT_AFTER_EXECUTION);
+        */
     myFile.open(file.c_str());
     if(!myFile.good()) {
         MsgHandler::getErrorInstance()->inform("The file '" + file + "'to save the tl-states into could not be opened.");
@@ -102,14 +112,14 @@ Command_SaveTLSState::~Command_SaveTLSState()
 
 
 SUMOTime
-Command_SaveTLSState::execute()
+Command_SaveTLSState::execute(SUMOTime currentTime)
 {
     throw 1;
-    /* !!!!
-    myFile << "   <tlsstate time=\"" << myExecTime++
+    /*
+    myFile << "   <tlsstate time=\"" << currentTime
         << "\" state=\"" << myLogic->buildStateList() << "\"/>" << endl;
+        */
     return 1;
-    */
 }
 
 

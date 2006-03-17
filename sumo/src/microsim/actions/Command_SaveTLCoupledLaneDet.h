@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/03/17 08:53:17  dkrajzew
+// "Action" removed - was the same as Command; changed the Event-interface (execute now gets the current simulation time)
+//
 // Revision 1.6  2006/02/27 12:03:23  dkrajzew
 // variants container named properly
 //
@@ -38,6 +41,12 @@
 // Revision 1.1  2004/02/16 14:03:46  dkrajzew
 // e2-link-dependent detectors added
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -77,7 +86,7 @@ public:
     ~Command_SaveTLCoupledLaneDet();
 
     /// Executes the command (see above)
-    bool execute();
+    bool execute(SUMOTime currentTime);
 
 private:
     /// The link to check
