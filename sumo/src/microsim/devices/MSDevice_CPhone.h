@@ -64,7 +64,7 @@ protected:
 
         /** Execute the command and return an offset for recurring commands
             or 0 for single-execution commands. */
-        virtual SUMOTime execute();
+        virtual SUMOTime execute(SUMOTime currentTime);
 
         void setInactivated();
 
