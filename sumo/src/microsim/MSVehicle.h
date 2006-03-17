@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.50  2006/03/17 09:01:12  dkrajzew
+// .icc-files removed
+//
 // Revision 1.49  2006/02/27 12:08:15  dkrajzew
 // raknet-support added
 //
@@ -331,6 +334,9 @@
 #include <deque>
 #include <map>
 #include <string>
+#include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
+#include "MSVehicleType.h"
 
 #ifdef RAKNET_DEMO
 #include <raknet_demo/vehicle.h>
@@ -341,7 +347,6 @@
  * class declarations
  * ======================================================================= */
 class MSLane;
-class MSVehicleType;
 class MSMoveReminder;
 class MSLaneChanger;
 class MSVehicleTransfer;
@@ -501,11 +506,24 @@ public:
 
     /** Returns the gap between pred and this vehicle. Assumes they
      * are on parallel lanes. Requires a positive gap. */
-    SUMOReal gap2pred( const MSVehicle& pred ) const;
+    SUMOReal gap2pred( const MSVehicle& pred ) const {
+        SUMOReal gap = pred.pos() - pred.length() - pos();
+        if(gap<0&&gap>-1.0e-12) {
+            gap = 0;
+        }
+        if(gap<0) {
+            MsgHandler::getWarningInstance()->inform("Vehicle " + id() + " collides with pred in " + toString(MSNet::getInstance()->getCurrentTimeStep()));
+            gap = 0;
+        }
+        assert( gap >= SUMOReal( 0 ) );
+        return gap;
+    }
 
     /** Returns the gap between pred and this vehicle. Assumes they
      * are on parallel lanes. Requires a positive gap. */
-    SUMOReal gap2predSec( const MSVehicle& pred ) const;
+    SUMOReal gap2predSec( const MSVehicle& pred ) const {
+        return pred.pos() - pred.length() - pos();
+    }
 
     /** Returns the vehicels driving distance during one timestep when
         driving with speed. */
@@ -562,13 +580,22 @@ public:
     bool endsOn(const MSLane &lane) const;
 
     /// timeconstant (driver reaction time)
-    static SUMOReal tau();
+    static SUMOReal tau() { // !!!
+        return myTau;
+    }
+
 
     /// Get the vehicle's position.
-    SUMOReal pos() const;
+    SUMOReal pos() const {
+        return myState.myPos;
+    }
+
 
     /// Get the vehicle's length.
-    SUMOReal length() const;
+    SUMOReal length() const {
+        return myType->length();
+    }
+
 
     /** @brief Inserts a MSVehicle into the static dictionary
         Returns true if the key id isn't already in the dictionary.
@@ -604,11 +631,20 @@ public:
     bool onAllowed( ) const;
 
     /** Returns true if the two vehicles overlap. */
-    static bool overlap( const MSVehicle* veh1, const MSVehicle* veh2 );
+    static bool overlap( const MSVehicle* veh1, const MSVehicle* veh2 ) {
+        if ( veh1->myState.myPos < veh2->myState.myPos ) {
+            return veh2->myState.myPos - veh2->myType->myLength < veh1->myState.myPos;
+        }
+        return veh1->myState.myPos - veh1->myType->myLength < veh2->myState.myPos;
+    }
+
 
     /** Returns true if vehicle's speed is below 60km/h. This is only relevant
         on highways. Overtaking on the right is allowed then. */
-    bool congested() const;
+    bool congested() const {
+        return myState.mySpeed < SUMOReal(60) / SUMOReal(3.6);
+    }
+
 
     /// Returns current speed
     SUMOReal speed() const;
@@ -634,7 +670,11 @@ public:
     @param A speed.
     @return The distance driven with speed in the
     next timestep.*/
-    SUMOReal timeHeadWayGap( SUMOReal speed ) const;
+    SUMOReal timeHeadWayGap( SUMOReal speed ) const {
+        assert( speed >= 0 );
+        return SPEED2DIST(speed);
+    }
+
 
 
     /** Checks if Krauss' timeHeadWay condition "gap >= vPred *
@@ -701,7 +741,34 @@ public:
 
     /** Returns the SK-vsafe. */
     SUMOReal vsafe( SUMOReal currentSpeed, SUMOReal decelAbility,
-                  SUMOReal gap2pred, SUMOReal predSpeed ) const;
+                  SUMOReal gap2pred, SUMOReal predSpeed ) const {
+        // Calculate the Stefan Krauss (SK) vsafe.
+        if(predSpeed==0&&gap2pred<0.01) { // !!!
+            return 0;
+        }
+        assert( currentSpeed     >= SUMOReal(0) );
+        assert( gap2pred  >= SUMOReal(0) );
+        assert( predSpeed >= SUMOReal(0) );
+    //if(gap2pred<SUMOReal(0.01)) {
+        SUMOReal vsafe = predSpeed +
+            ( ( gap2pred - predSpeed * myTau ) /
+            ( ( ( predSpeed + currentSpeed ) * myType->inversTwoDecel() ) + myTau ) );
+        assert( vsafe >= 0 );
+        return vsafe;
+    /*} else {
+        SUMOReal vsafe = predSpeed +
+            ( ( gap2pred - 0.01 - predSpeed * myTau ) /
+              ( ( ( predSpeed + speed ) * myType->inversTwoDecel() ) + myTau ) );
+        assert( vsafe >= 0 );
+
+        return vsafe;
+    }*/
+    // This assertion has not the intended meaning because of floating inaccuracy.
+    //    assert( vsafe <= gap2pred ); // Collision-free condition.
+    // This is not the solution, because vsafe allows this vehicle to overlap at
+    // time t+1 with pred at time t.
+    //    assert( vsafe <= gap2pred + 0.01 );
+    }
 
     void vsafeCriticalCont( SUMOReal minVSafe );
 
@@ -709,12 +776,32 @@ public:
     SUMOReal vaccel( const MSLane* lane ) const;
 
     /** Dawdle according the vehicles dawdle parameter. Return value >= 0 */
-    SUMOReal dawdle( SUMOReal speed ) const;
+    SUMOReal dawdle( SUMOReal speed ) const {
+        // generate random number out of [0,1]
+        SUMOReal random = SUMOReal( rand() ) / SUMOReal( RAND_MAX );
+        // Dawdle.
+        // TODO:
+        // We already have a safe speed, if we dawdle max, is it possible
+        // to reduce the speed 2*decel?
+        speed -= myType->dawdle() * myType->accelSpeed(speed) * random;
+        return MAX2( SUMOReal( 0 ), speed );
+    }
+
 
     /** @brief Dawdle according the vehicles dawdle parameter in case of starting
         Regards that the vehicle should not dawdle more than his acceleration
         Return value >= 0 */
-    SUMOReal dawdle2( SUMOReal speed ) const;
+    SUMOReal dawdle2( SUMOReal speed ) const {
+        // generate random number out of [0,1]
+        SUMOReal random = SUMOReal( rand() ) / SUMOReal( RAND_MAX );
+        // Dawdle.
+        // TODO:
+        // We already have a safe speed, if we dawdle max, is it possible
+        // to reduce the speed 2*decel?
+        speed -= myType->dawdle() * speed * random;
+        return MAX2( SUMOReal( 0 ), speed );
+    }
+
 
     MSLane *getTargetLane() const;
 
@@ -815,7 +902,10 @@ protected:
 
 
     /** Returns the minimum of four SUMOReals. */
-    SUMOReal vMin( SUMOReal v1, SUMOReal v2, SUMOReal v3, SUMOReal v4 ) const;
+    SUMOReal vMin( SUMOReal v1, SUMOReal v2, SUMOReal v3, SUMOReal v4 ) const {
+        return MIN4(v1,v2,v3,v4);
+    }
+
 
     void initDevices();
 
@@ -916,10 +1006,6 @@ private:
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
-#ifndef DISABLE_INLINE
-#include "MSVehicle.icc"
-#endif
 
 #endif
 

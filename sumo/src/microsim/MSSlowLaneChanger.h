@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.4  2006/03/17 09:01:12  dkrajzew
+// .icc-files removed
+//
 // Revision 1.3  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -106,7 +109,10 @@ public:
 
     /** Returns true if the target's lane is an allowed lane
         for the candidate's vehicle . */
-    bool candiOnAllowed( ChangerIt target );
+    bool candiOnAllowed( ChangerIt target ) {
+        assert( veh( myCandi ) != 0 );
+        return veh( myCandi )->onAllowed( target->lane );
+    }
 
     /** Returns true if change to the right (left for people driving on
         the "wrong" side ;-) ) is possible & diserable. */
@@ -145,7 +151,16 @@ public:
 
     /** Returns true if candidate overlaps with a vehicle, that
         already changed the lane.*/
-    bool overlapWithHopped( ChangerIt target );
+    bool overlapWithHopped( ChangerIt target ) {
+        MSVehicle *v1 = target->hoppedVeh;
+        MSVehicle *v2 = veh( myCandi );
+        if ( v1!=0 && v2!=0 ) {
+            v2->getLaneChangeModel().setState(
+                v2->getLaneChangeModel().getState()|LCA_OVERLAPPING);
+            return MSVehicle::overlap( v1, v2 );
+        }
+        return false;
+    }
 
     bool change2RightPossible();
     bool change2LeftPossible();
@@ -165,9 +180,6 @@ private:
 };
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-#ifndef DISABLE_INLINE
-#include "MSSlowLaneChanger.icc"
-#endif
 
 #endif
 

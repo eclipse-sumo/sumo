@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/03/17 09:01:12  dkrajzew
+// .icc-files removed
+//
 // Revision 1.24  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -993,9 +996,6 @@ MSLaneChanger::getChangePreference()
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-#ifdef DISABLE_INLINE
-#include "MSLaneChanger.icc"
-#endif
 
 // Local Variables:
 // mode:C++

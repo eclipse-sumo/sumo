@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/03/17 09:01:12  dkrajzew
+// .icc-files removed
+//
 // Revision 1.20  2006/01/09 11:57:05  dkrajzew
 // bus stops implemented
 //
@@ -113,6 +116,7 @@ namespace
 #include <microsim/MSEdge.h>
 #include <microsim/MSEmitControl.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSLane.h>
 #include "MSRouteHandler.h"
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/sumoxml/SUMOSAXHandler.h>

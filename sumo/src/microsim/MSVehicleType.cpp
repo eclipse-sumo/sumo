@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.12  2006/03/17 09:01:12  dkrajzew
+// .icc-files removed
+//
 // Revision 1.11  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -151,10 +154,6 @@ namespace
 #include "MSNet.h"
 #include <cassert>
 
-#ifdef DISABLE_INLINE
-#include "MSVehicleType.icc"
-#endif
-
 
 /* =========================================================================
  * used namespaces
@@ -168,6 +167,7 @@ using namespace std;
 MSVehicleType::DictType MSVehicleType::myDict;
 SUMOReal MSVehicleType::myMinDecel  = 0;
 SUMOReal MSVehicleType::myMaxLength = 0;
+
 
 /* =========================================================================
  * method definitions
@@ -248,6 +248,7 @@ MSVehicleType::clear()
 MSVehicleType*
 MSVehicleType::dict_Random()
 {
+    // !!!
     assert(myDict.size()!=0);
     size_t r = (size_t) ((SUMOReal) rand() / RAND_MAX * myDict.size());
     if(r>=myDict.size()) {

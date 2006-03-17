@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2006/03/17 09:01:12  dkrajzew
+// .icc-files removed
+//
 // Revision 1.12  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -128,6 +131,7 @@
 
 #include <map>
 #include <string>
+#include <utils/common/SUMOTime.h>
 
 
 /* =========================================================================
@@ -156,43 +160,70 @@ public:
     virtual ~MSVehicleType();
 
     /// Get vehicle type's length [m].
-    SUMOReal length() const;
+    SUMOReal length() const {
+        return myLength;
+    }
 
     /// Get vehicle type's maximum speed [m/s].
-    SUMOReal maxSpeed() const;
+    SUMOReal maxSpeed() const {
+        return myMaxSpeed;
+    }
 
     /// Get the vehicle type's maximum acceleration [m/s^2]
-    SUMOReal accel(SUMOReal v) const;
+    SUMOReal accel(SUMOReal v) const {
+        return (SUMOReal) (myAccel * (1.0 - (v/myMaxSpeed)));
+    }
 
     /// Get the vehicle type's maximum deceleration [m/s^2]
-    SUMOReal decel() const;
+    SUMOReal decel() const {
+        return myDecel;
+    }
 
     /// Get the vehicle type's dawdle-probability. Out of [0,1]
-    SUMOReal dawdle() const;
+    SUMOReal dawdle() const {
+        return myDawdle;
+    }
 
     /// Returns the minimum deceleration-ability of all vehicle-types.
-    static SUMOReal minDecel();
+    static SUMOReal minDecel() {
+        return myMinDecel;
+    }
 
     /// Returns the maximum length of all vehicle-types.
-    static SUMOReal maxLength();
+    static SUMOReal maxLength() {
+        return myMaxLength;
+    }
 
     /// Returns precomputed accel * deltaT
-    SUMOReal accelSpeed( SUMOReal v ) const;
+    SUMOReal accelSpeed( SUMOReal v ) const {
+        return (SUMOReal) (ACCEL2SPEED(myAccel * (1.0 - (v/(myMaxSpeed*2.0)))));
+    }
 
     /// Returns precomputed decel * deltaT
-    SUMOReal decelSpeed( void ) const;
+    SUMOReal decelSpeed( void ) const {
+        return myDecelSpeed;
+    }
 
     /// Returns precomputed ( accel + decel ) * deltaT
-    SUMOReal accelPlusDecelSpeed( SUMOReal v ) const;
+    SUMOReal accelPlusDecelSpeed( SUMOReal v ) const {
+	    return ACCEL2SPEED( accel(v) + myDecel );
+    //    return myAccelPlusDecelSpeed;
+    }
 
     /// Returns precomputed 1 / ( 2 * decel )
-    SUMOReal inversTwoDecel( void ) const;
+    SUMOReal inversTwoDecel( void ) const {
+        return myInversTwoDecel;
+    }
 
     /// Returns precomputed accel * deltaT^2
-    SUMOReal accelDist( SUMOReal v ) const;
+    SUMOReal accelDist( SUMOReal v ) const {
+        return ACCEL2DIST(accel(v));
+    }
 
     /// Returns precomputed decel * deltaT^2
-    SUMOReal decelDist( void ) const;
+    SUMOReal decelDist( void ) const {
+        return myDecelDist;
+    }
 
     /** Inserts a MSVehicleType into the static dictionary and returns true
         if the key id isn't already in the dictionary. Otherwise returns
@@ -262,10 +293,6 @@ private:
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
-#ifndef DISABLE_INLINE
-#include "MSVehicleType.icc"
-#endif
 
 #endif
 

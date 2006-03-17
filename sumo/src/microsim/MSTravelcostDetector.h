@@ -166,7 +166,7 @@ public:
             Command* writeData =
                 new OneArgumentCommand< MSTravelcostDetector, int >
                 ( this, &MSTravelcostDetector::write2file, intervalInSteps );
-            MSEventControl::getEndOfTimestepEvents()->addEvent(
+            MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
                 writeData,
                 intervalInSteps - 1,
                 MSEventControl::ADAPT_AFTER_EXECUTION );

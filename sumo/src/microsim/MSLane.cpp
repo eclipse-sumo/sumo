@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.61  2006/03/17 09:01:12  dkrajzew
+// .icc-files removed
+//
 // Revision 1.60  2006/03/08 13:12:29  dkrajzew
 // real density visualization added (slow, unfinished)
 //
@@ -1509,10 +1512,6 @@ MSLane::getDensity() const
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-#ifdef DISABLE_INLINE
-#include "MSLane.icc"
-#endif
 
 // Local Variables:
 // mode:C++

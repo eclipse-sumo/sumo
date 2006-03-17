@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.75  2006/03/17 09:01:12  dkrajzew
+// .icc-files removed
+//
 // Revision 1.74  2006/02/27 12:08:14  dkrajzew
 // raknet-support added
 //
@@ -498,10 +501,6 @@ namespace
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
-
-#ifdef DISABLE_INLINE
-#include "MSVehicle.icc"
-#endif
 
 
 #define BUS_STOP_OFFSET 0.5

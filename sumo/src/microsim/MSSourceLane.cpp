@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/03/17 09:01:12  dkrajzew
+// .icc-files removed
+//
 // Revision 1.12  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -260,11 +263,6 @@ MSSourceLane::enoughSpace( MSVehicle& veh,
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
-
-#ifdef DISABLE_INLINE
-#include "MSSourceLane.icc"
-#endif
-
 
 // Local Variables:
 // mode:C++

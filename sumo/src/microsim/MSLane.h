@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.36  2006/03/17 09:01:12  dkrajzew
+// .icc-files removed
+//
 // Revision 1.35  2006/03/08 13:12:29  dkrajzew
 // real density visualization added (slow, unfinished)
 //
@@ -397,16 +400,26 @@ public:
     //-------------- End of junction-used methods --------------------------------
 
     /// Returns true if there is not a single vehicle on the lane.
-    bool empty() const;
+    bool empty() const {
+        assert( myVehBuffer == 0 );
+        return myVehicles.empty();
+    }
 
     /// Returns the lane's maximum speed.
-    SUMOReal maxSpeed() const;
+    SUMOReal maxSpeed() const {
+        assert(myMaxSpeed>=0);
+        return myMaxSpeed;
+    }
 
     /// Returns the lane's length.
-    SUMOReal length() const;
+    SUMOReal length() const {
+        return myLength;
+    }
 
     /// Returns the lane's Edge.
-    const MSEdge& edge() const;
+    const MSEdge& edge() const { // !!!
+        return *myEdge;
+    }
 
     /** @brief Inserts a MSLane into the static dictionary
         Returns true if the key id isn't already in the dictionary.
@@ -671,10 +684,6 @@ private:
 
 
 /**************** DO NOT DECLARE ANYTHING AFTER THE INCLUDE ****************/
-
-#ifndef DISABLE_INLINE
-#include "MSLane.icc"
-#endif
 
 #endif
 

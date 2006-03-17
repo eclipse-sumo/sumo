@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.6  2006/03/17 09:01:12  dkrajzew
+// .icc-files removed
+//
 // Revision 1.5  2006/01/09 11:56:21  dkrajzew
 // includes debugged
 //
@@ -189,10 +192,6 @@ namespace
 
 #ifdef ABS_DEBUG
 #include "MSDebugHelper.h"
-#endif
-
-#ifdef DISABLE_INLINE
-#include "MSSlowLaneChanger.icc"
 #endif
 
 #ifdef _DEBUG
