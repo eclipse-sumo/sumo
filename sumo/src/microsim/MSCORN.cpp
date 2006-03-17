@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/03/17 09:04:10  dkrajzew
+// beautifying
+//
 // Revision 1.8  2006/03/16 15:19:35  ericnicolay
 // add ss2 interface for cells and LAs
 //
@@ -226,33 +229,32 @@ MSCORN::saveTOSS2_CalledPositionData(SUMOTime time, int callID,
             << "01;" << time << ';' << callID << ';' << pos << ';' << quality << "\n"; // !!! check <CR><LF>-combination
     }
 }
-	
+
 
 void
-MSCORN::saveTOSS2_CellStateData(SUMOTime time, 
-		int Cell_Id, int Calls_In, int Calls_Out, int Dyn_Calls_In, 
+MSCORN::saveTOSS2_CellStateData(SUMOTime time,
+		int Cell_Id, int Calls_In, int Calls_Out, int Dyn_Calls_In,
 		int Dyn_Calls_Out, int Sum_Calls, int Intervall)
 {
 	if(myCellTOSS2Output!=0)
 	{
 		myCellTOSS2Output->getOStream()
-			<< "02;" << time << ';' << Cell_Id << ';' << Calls_In << ';' << Calls_Out << ';' << 
+			<< "02;" << time << ';' << Cell_Id << ';' << Calls_In << ';' << Calls_Out << ';' <<
 			Dyn_Calls_In << ';' << Dyn_Calls_Out << ';' << Sum_Calls << ';' << Intervall << "\n";
 	}
 }
-	
+
 void
-MSCORN::saveTOSS2_LA_ChangesData(SUMOTime time, int position_id, 
+MSCORN::saveTOSS2_LA_ChangesData(SUMOTime time, int position_id,
         int dir, int sum_changes, int quality_id, int intervall)
 {
 	if(myLATOSS2Output!=0)
 	{
-		myLATOSS2Output->getOStream() 
+		myLATOSS2Output->getOStream()
 			<< "03;" << ';' << time << ';' << position_id << ';' << dir << ';' << sum_changes
 			<< ';' << quality_id << ';' << intervall << "\n";
 	}
 }
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
