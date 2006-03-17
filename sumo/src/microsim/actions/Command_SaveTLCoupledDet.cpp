@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/03/17 08:52:27  dkrajzew
+// "Action" removed - was the same as Command
+//
 // Revision 1.8  2006/02/27 12:03:23  dkrajzew
 // variants container named properly
 //
@@ -45,6 +48,12 @@ namespace
 // e2-link-dependent detectors added
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -55,7 +64,6 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
-#include "Action.h"
 #include "Command_SaveTLCoupledDet.h"
 #include <microsim/MSNet.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>

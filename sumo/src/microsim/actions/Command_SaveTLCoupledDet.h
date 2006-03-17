@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/03/17 08:52:27  dkrajzew
+// "Action" removed - was the same as Command
+//
 // Revision 1.7  2006/02/27 12:03:23  dkrajzew
 // variants container named properly
 //
@@ -39,6 +42,12 @@
 // e2-link-dependent detectors added
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -51,7 +60,6 @@
 
 #include <string>
 #include <fstream>
-#include "Action.h"
 #include <microsim/MSNet.h>
 #include <utils/helpers/DiscreteCommand.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>

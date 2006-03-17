@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/03/17 08:52:27  dkrajzew
+// "Action" removed - was the same as Command
+//
 // Revision 1.6  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -47,9 +50,18 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <utils/common/SUMOTime.h>
 
-class Action;
 
+/* =========================================================================
+ * class declarations
+ * ======================================================================= */
+class Command;
+
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 class MSDiscreteEventControl {
 public:
     enum EventType {
@@ -74,13 +86,13 @@ public:
 
     MSDiscreteEventControl();
     ~MSDiscreteEventControl();
-    bool hasAnyFor(EventType et);
-    void execute(EventType et);
+    bool hasAnyFor(EventType et, SUMOTime currentTime);
+    void execute(EventType et, SUMOTime currentTime);
     friend class NLDiscreteEventBuilder;
 private:
-    void add(EventType et, Action *a);
-    typedef std::vector<Action*> ActionVector;
-    typedef std::map<EventType, ActionVector> TypedEvents;
+    void add(EventType et, Command *a);
+    typedef std::vector<Command*> CommandVector;
+    typedef std::map<EventType, CommandVector> TypedEvents;
     TypedEvents myEventsForAll;
 
 };

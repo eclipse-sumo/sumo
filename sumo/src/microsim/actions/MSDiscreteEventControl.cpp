@@ -37,7 +37,7 @@
 #endif // HAVE_CONFIG_H
 
 #include "MSDiscreteEventControl.h"
-#include "Action.h"
+#include <utils/helpers/Command.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -58,20 +58,20 @@ MSDiscreteEventControl::~MSDiscreteEventControl()
 
 
 bool
-MSDiscreteEventControl::hasAnyFor(EventType et)
+MSDiscreteEventControl::hasAnyFor(EventType et, SUMOTime currentTime)
 {
     return myEventsForAll.find(et)!=myEventsForAll.end();
 }
 
 
 void
-MSDiscreteEventControl::execute(EventType et/*, const std::string &id*/)
+MSDiscreteEventControl::execute(EventType et, SUMOTime currentTime)
 {
     TypedEvents::iterator i = myEventsForAll.find(et);
     if(i!=myEventsForAll.end()) {
-        const ActionVector &av = (*i).second;
-        for(ActionVector::const_iterator j=av.begin(); j!=av.end(); j++) {
-            (*j)->execute();
+        const CommandVector &av = (*i).second;
+        for(CommandVector::const_iterator j=av.begin(); j!=av.end(); j++) {
+            (*j)->execute(currentTime);
         }
     }
 }
@@ -79,10 +79,10 @@ MSDiscreteEventControl::execute(EventType et/*, const std::string &id*/)
 
 
 void
-MSDiscreteEventControl::add(EventType et, Action *a)
+MSDiscreteEventControl::add(EventType et, Command *a)
 {
     if(myEventsForAll.find(et)==myEventsForAll.end()) {
-        myEventsForAll[et] = ActionVector();
+        myEventsForAll[et] = CommandVector();
     }
     myEventsForAll[et].push_back(a);
 }
