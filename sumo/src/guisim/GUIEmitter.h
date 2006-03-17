@@ -19,6 +19,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/03/17 09:15:11  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.4  2006/02/27 12:01:42  dkrajzew
 // routes visualization for simple geometry added
 //
@@ -147,7 +150,7 @@ protected:
             MSEmitter_FileTriggeredChild &s, MSEmitter &parent,
             SUMOReal flow);
         virtual ~GUIEmitterChild_UserTriggeredChild();
-        SUMOTime execute();
+        SUMOTime execute(SUMOTime currentTime);
         SUMOReal getUserFlow() const;
 
     protected:

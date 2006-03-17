@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.41  2006/03/17 09:15:11  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.40  2006/03/16 15:22:24  ericnicolay
 // add param for the ss2-interface
 //
@@ -273,7 +276,7 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("ss2-output", new Option_FileName());//!!! check, describe
 	oc.doRegister("ss2-cell-output", new Option_FileName());
 	oc.doRegister("ss2-la-output", new Option_FileName());
-    
+
     oc.doRegister("device.cell-phone.probability", new Option_Float(0.));//!!! check, describe
     oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));//!!! check, describe
     oc.doRegister("device.cell-phone.amount.max", new Option_Float(1.));//!!! check, describe

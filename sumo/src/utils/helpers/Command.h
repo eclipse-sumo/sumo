@@ -28,11 +28,11 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.2  2005/10/07 11:46:23  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+// Revision 1.3  2006/03/17 09:15:11  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
-// Revision 1.1  2005/09/15 12:20:44  dkrajzew
-// LARGE CODE RECHECK
+// Revision 1.2  2005/10/06 13:39:50  dksumo
+// using of a configuration file rechecked
 //
 // Revision 1.1  2005/09/09 12:56:07  dksumo
 // helpers added
@@ -105,28 +105,36 @@
  * class definitions
  * ======================================================================= */
 /**
- * Base class for all Command classes. A concrete command will hold a
- * receiver and an operation on the receiver. This operation will be performed
- * when execute() is called.
+ * @brief Base class for all Command classes.
+ *
+ * When executed, the current time step will be given to the command.
+ * The command must then return the time to the next call in simulation
+ *  seconds. If zero is returned, this command will be descheduled and
+ *  deleted by the event handler.
+ *
  * @see Design Patterns, Gamma et al.
- * @see SimpleCommand
+ * @see WrappingCommand
  * @see OneArgumentCommand
  * @see MSEventControl
  */
 class Command
 {
 public:
+    Command() { }
+
     /// Destructor.
-    virtual ~Command( void ) {};
+    virtual ~Command() { }
 
     /**
-     * Execute the command.
+     * @brief Executes the command.
+     *
+     * @param currentTime The current simulation time
      *
      * @return The receivers operation should return the next interval
      * in steps for recurring commands and 0 for single-execution
      * commands.
      */
-    virtual SUMOTime execute() = 0;
+    virtual SUMOTime execute(SUMOTime currentTime) = 0;
 
 };
 

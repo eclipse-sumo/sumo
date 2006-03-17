@@ -23,11 +23,11 @@
 
 
 // $Log$
-// Revision 1.2  2005/10/07 11:46:23  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+// Revision 1.3  2006/03/17 09:15:11  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
-// Revision 1.1  2005/09/15 12:20:44  dkrajzew
-// LARGE CODE RECHECK
+// Revision 1.2  2005/10/06 13:39:50  dksumo
+// using of a configuration file rechecked
 //
 // Revision 1.1  2005/09/09 12:56:08  dksumo
 // helpers added
@@ -99,10 +99,8 @@ public:
      *
      * @return Pointer to the created OneArgumentCommand.
      */
-    OneArgumentCommand( T* receiver, Operation operation, Arg argument ) :
-        myReceiver( receiver ),
-        myOperation( operation ),
-        myArgument( argument )
+    OneArgumentCommand( T* receiver, Operation operation, Arg argument )
+        : myReceiver( receiver ), myOperation( operation ), myArgument( argument )
         {
         }
 
@@ -119,7 +117,7 @@ public:
      * in steps for recurring commands and 0 for single-execution
      * commands.
      */
-    SUMOTime execute()
+    SUMOTime execute(SUMOTime currentTime)
         {
             return ( myReceiver->*myOperation )( myArgument );
         }

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/03/17 09:15:11  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.9  2006/03/08 13:11:22  dkrajzew
 // debugging routes visualization
 //
@@ -172,7 +175,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::GUIEmitterChild_UserTriggeredChi
     myVehicle(0), mySource(s), myDescheduleVehicle(false)
 {
     if(myUserFlow>0) {
-        MSEventControl::getBeginOfTimestepEvents()->addEvent(
+        MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             this, (SUMOTime) (1. / (flow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
         MSNet::getInstance()->getVehicleControl().newUnbuildVehicleLoaded();
@@ -190,7 +193,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::~GUIEmitterChild_UserTriggeredCh
 
 
 SUMOTime
-GUIEmitter::GUIEmitterChild_UserTriggeredChild::execute()
+GUIEmitter::GUIEmitterChild_UserTriggeredChild::execute(SUMOTime currentTime)
 {
     if(myUserFlow<=0) {
         return 0;

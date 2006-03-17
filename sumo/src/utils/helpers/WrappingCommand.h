@@ -1,7 +1,7 @@
-#ifndef SimpleCommand_H
-#define SimpleCommand_H
+#ifndef WrappingCommand_H
+#define WrappingCommand_H
 /***************************************************************************
-                          SimpleCommand.h  -  Command-pattern-class for
+                          WrappingCommand.h  -  Command-pattern-class for
                           simple commands, that need no parameters and no
                           undo.
                              -------------------
@@ -11,12 +11,12 @@
  ***************************************************************************/
 
 /**
- * @file   SimpleCommand.h
+ * @file   WrappingCommand.h
  * @author Christian Roessel
  * @date   Started Thu, 20 Dec 2001
  * $Revision$ from $Date$ by $Author$
  *
- * @brief  Contains the implementation of SimpleCommand
+ * @brief  Contains the implementation of WrappingCommand
  */
 
 /***************************************************************************
@@ -29,11 +29,11 @@
  ***************************************************************************/
 
 // $Log$
-// Revision 1.2  2005/10/07 11:46:23  dkrajzew
-// THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
+// Revision 1.1  2006/03/17 09:15:11  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
-// Revision 1.1  2005/09/15 12:20:44  dkrajzew
-// LARGE CODE RECHECK
+// Revision 1.2  2005/10/06 13:39:50  dksumo
+// using of a configuration file rechecked
 //
 // Revision 1.1  2005/09/09 12:56:08  dksumo
 // helpers added
@@ -125,11 +125,11 @@
  * @see MSEventControl
  */
 template< class T  >
-class SimpleCommand : public Command
+class WrappingCommand : public Command
 {
 public:
     /// Type of the function to execute.
-    typedef SUMOTime ( T::* Operation )();
+    typedef SUMOTime ( T::* Operation )(SUMOTime);
 
     /**
      * Constructor.
@@ -139,15 +139,14 @@ public:
      * @param operation The objects' method that will be called if execute()
      * is called.
      *
-     * @return Pointer to the created SimpleCommand.
+     * @return Pointer to the created WrappingCommand.
      */
-    SimpleCommand( T* receiver, Operation operation ) :
-        myReceiver( receiver ),
-        myOperation( operation )
+    WrappingCommand( T* receiver, Operation operation )
+        : myReceiver( receiver ), myOperation( operation )
         {}
 
     /// Destructor.
-    ~SimpleCommand()
+    ~WrappingCommand()
         {}
 
     /**
@@ -158,9 +157,9 @@ public:
      * in steps for recurring commands and 0 for single-execution
      * commands.
      */
-    SUMOTime execute()
+    SUMOTime execute(SUMOTime currentTime)
         {
-            return ( myReceiver->*myOperation )();
+            return ( myReceiver->*myOperation )(currentTime);
         }
 
 protected:
@@ -176,7 +175,7 @@ private:
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
-#endif // SimpleCommand_H
+#endif // WrappingCommand_H
 
 // Local Variables:
 // mode:C++
