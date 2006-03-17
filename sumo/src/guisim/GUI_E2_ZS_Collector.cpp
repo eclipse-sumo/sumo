@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/03/17 11:03:02  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.15  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -189,8 +192,8 @@ GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
     myShapeRotations.reserve(myFullGeometry.size()-1);
     myShapeLengths.reserve(myFullGeometry.size()-1);
     for(size_t i=0; i<myFullGeometry.size()-1; i++) {
-        const Position2D &f = myFullGeometry.at(i);
-        const Position2D &s = myFullGeometry.at(i+1);
+        const Position2D &f = myFullGeometry[i];
+        const Position2D &s = myFullGeometry[i+1];
         myShapeLengths.push_back(GeomHelper::distance(f, s));
         myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265);
     }
@@ -336,12 +339,12 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(SUMOReal scale, SUMOReal upscale)
     if(width*upscale>1.0) {
         glScaled(upscale, upscale, upscale);
         for(size_t i=0; i<myFullGeometry.size()-1; i++) {
-            GLHelper::drawBoxLine(myFullGeometry.at(i),
+            GLHelper::drawBoxLine(myFullGeometry[i],
                 myShapeRotations[i], myShapeLengths[i], myWidth);
         }
     } else {
         for(size_t i=0; i<myFullGeometry.size()-1; i++) {
-            GLHelper::drawLine(myFullGeometry.at(i),
+            GLHelper::drawLine(myFullGeometry[i],
                 myShapeRotations[i], myShapeLengths[i]);
         }
     }

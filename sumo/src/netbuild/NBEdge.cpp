@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.63  2006/03/17 11:03:04  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.62  2006/01/26 08:49:44  dkrajzew
 // debugging of vehicle class handling
 //
@@ -888,25 +891,25 @@ NBEdge::computeLaneShape(size_t lane)
 
     for(size_t i=0; i<myGeom.size(); i++) {
         if(/*i==myGeom.size()-2||*/i==0) {
-            Position2D from = myGeom.at(i);
-            Position2D to = myGeom.at(i+1);
+            Position2D from = myGeom[i];
+            Position2D to = myGeom[i+1];
             std::pair<SUMOReal, SUMOReal> offsets =
                 laneOffset(from, to, SUMO_const_laneWidthAndOffset, _nolanes-1-lane);
             shape.push_back_noDoublePos(//.push_back(
                 // (methode umbenennen; was heisst hier "-")
                 Position2D(from.x()-offsets.first, from.y()-offsets.second));
         } else if(i==myGeom.size()-1) {
-            Position2D from = myGeom.at(i-1);
-            Position2D to = myGeom.at(i);
+            Position2D from = myGeom[i-1];
+            Position2D to = myGeom[i];
             std::pair<SUMOReal, SUMOReal> offsets =
                 laneOffset(from, to, SUMO_const_laneWidthAndOffset, _nolanes-1-lane);
             shape.push_back_noDoublePos(//.push_back(
                 // (methode umbenennen; was heisst hier "-")
                 Position2D(to.x()-offsets.first, to.y()-offsets.second));
         } else {
-            Position2D from = myGeom.at(i-1);
-            Position2D me = myGeom.at(i);
-            Position2D to = myGeom.at(i+1);
+            Position2D from = myGeom[i-1];
+            Position2D me = myGeom[i];
+            Position2D to = myGeom[i+1];
             std::pair<SUMOReal, SUMOReal> offsets =
                 laneOffset(from, me, SUMO_const_laneWidthAndOffset, _nolanes-1-lane);
             std::pair<SUMOReal, SUMOReal> offsets2 =
@@ -2004,14 +2007,14 @@ NBEdge::getMinLaneOffsetPositionAt(NBNode *node, SUMOReal width)
         Position2D pos =
             myLaneGeoms[myLaneGeoms.size()-1].positionAtLengthPosition(width);
             GeomHelper::transfer_to_side(pos,
-                myLaneGeoms[myLaneGeoms.size()-1].at(0), myLaneGeoms[myLaneGeoms.size()-1].at(myLaneGeoms[0].size()-1),
+                myLaneGeoms[myLaneGeoms.size()-1][0], myLaneGeoms[myLaneGeoms.size()-1][myLaneGeoms[0].size()-1], // !!!!
                 SUMO_const_halfLaneAndOffset);
         return pos;
     } else {
         Position2D pos =
             myLaneGeoms[0].positionAtLengthPosition(myLaneGeoms[0].length() - width);
             GeomHelper::transfer_to_side(pos,
-                myLaneGeoms[0].at(myLaneGeoms[0].size()-1), myLaneGeoms[0].at(0),
+                myLaneGeoms[0][myLaneGeoms[0].size()-1], myLaneGeoms[0][0],
                 SUMO_const_halfLaneAndOffset);
         return pos;
     }
@@ -2035,13 +2038,13 @@ NBEdge::getMaxLaneOffsetPositionAt(NBNode *node, SUMOReal width)
     if(node==_from) {
         Position2D pos = myLaneGeoms[0].positionAtLengthPosition(width);
             GeomHelper::transfer_to_side(pos,
-                myLaneGeoms[0].at(0), myLaneGeoms[0].at(myLaneGeoms[0].size()-1),
+                myLaneGeoms[0][0], myLaneGeoms[0][myLaneGeoms[0].size()-1],
                 -SUMO_const_halfLaneAndOffset);
         return pos;
     } else {
         Position2D pos = myLaneGeoms[myLaneGeoms.size()-1].positionAtLengthPosition(myLaneGeoms[myLaneGeoms.size()-1].length() - width);
             GeomHelper::transfer_to_side(pos,
-                myLaneGeoms[myLaneGeoms.size()-1].at(myLaneGeoms[myLaneGeoms.size()-1].size()-1), myLaneGeoms[myLaneGeoms.size()-1].at(0),
+                myLaneGeoms[myLaneGeoms.size()-1][myLaneGeoms[myLaneGeoms.size()-1].size()-1], myLaneGeoms[myLaneGeoms.size()-1][0],
                 -SUMO_const_halfLaneAndOffset);
         return pos;
     }
@@ -2388,12 +2391,8 @@ NBEdge::computeEdgeShape()
     size_t i;
     for(i=0; i<_nolanes; i++) {
         // get lane begin and end
-        Line2D lb = Line2D(
-            myLaneGeoms[i].at(0),
-            myLaneGeoms[i].at(1));
-        Line2D le = Line2D(
-            myLaneGeoms[i].at(myLaneGeoms[i].size()-1),
-            myLaneGeoms[i].at(myLaneGeoms[i].size()-2));
+        Line2D lb = Line2D(myLaneGeoms[i][0], myLaneGeoms[i][1]);
+        Line2D le = Line2D(myLaneGeoms[i][-1], myLaneGeoms[i][-2]);
         lb.extrapolateBy(100.0);
         le.extrapolateBy(100.0);
         //
@@ -2613,7 +2612,7 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
         // build the node first
         if(i!=myGeom.size()-2) {
             string nodename = _id + "_in_between#" + toString(i);
-            if(!nc.insert(nodename, myGeom.at(i))) {
+            if(!nc.insert(nodename, myGeom[i])) {
                 MsgHandler::getErrorInstance()->inform("Error on adding in-between node '" + nodename + "'.");
                 throw ProcessError();
             }

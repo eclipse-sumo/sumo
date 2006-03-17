@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.46  2006/03/17 11:03:04  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.45  2006/03/08 13:14:15  dkrajzew
 // debugging on/off-ramp geometries
 //
@@ -508,12 +511,12 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     // build the new edges' geometries
     std::pair<Position2DVector, Position2DVector> geoms =
         edge->getGeometry().splitAt(pos);
-    if(geoms.first.at(-1)!=node->getPosition()) {
+    if(geoms.first[-1]!=node->getPosition()) {
         geoms.first.pop_back();
         geoms.first.push_back(node->getPosition());
     }
 
-    if(geoms.second.at(0)!=node->getPosition()) {
+    if(geoms.second[0]!=node->getPosition()) {
         geoms.second.pop_front();
         geoms.second.push_front(node->getPosition());
     }

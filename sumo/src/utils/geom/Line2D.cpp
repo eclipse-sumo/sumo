@@ -12,6 +12,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/03/17 11:03:07  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.16  2006/02/27 12:12:08  dkrajzew
 // warnings removed
 //
@@ -157,7 +160,7 @@ Line2D::intersectsAtLengths(const Position2DVector &v)
     Position2DVector p = v.intersectsAtPoints(myP1, myP2);
     DoubleVector ret;
     for(size_t i=0; i<p.size(); i++) {
-        ret.push_back(GeomHelper::distance(myP1, p.at(i)));
+        ret.push_back(GeomHelper::distance(myP1, p[i]));
     }
     return ret;
 }

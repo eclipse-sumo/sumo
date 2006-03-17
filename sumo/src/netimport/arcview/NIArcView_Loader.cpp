@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/03/17 11:03:05  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.23  2006/03/08 13:02:26  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -278,7 +281,7 @@ NIArcView_Loader::load(OptionsCont &)
 
 
         // build from-node
-        Position2D from_pos = shape.at(0);
+        Position2D from_pos = shape[0];
         if(!myNodeCont.insert(from_node, from_pos)) {
             from = new NBNode(from_node + "___" + toString<int>(myNameAddition++),
                 from_pos);
@@ -287,7 +290,7 @@ NIArcView_Loader::load(OptionsCont &)
             from = myNodeCont.retrieve(from_pos);
         }
         // build to-node
-        Position2D to_pos = shape.at(-1);
+        Position2D to_pos = shape[-1];
         if(!myNodeCont.insert(to_node, to_pos)) {
             to = new NBNode(to_node + "___" + toString<int>(myNameAddition++),
                 to_pos);

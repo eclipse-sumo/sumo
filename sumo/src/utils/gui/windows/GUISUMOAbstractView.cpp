@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/03/17 11:03:07  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.17  2006/03/08 13:17:56  dkrajzew
 // possibility to insert pois on the gui added (danilot tete-boyom)
 //
@@ -1207,11 +1210,11 @@ GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
 	gluTessBeginPolygon(tobj, NULL);
 		gluTessBeginContour(tobj);
         for(int i=0; i!=polygon.getPosition2DVector().size(); ++i) {
-            points[3*i]  = polygon.getPosition2DVector().at(i).x();
-            points[3*i+1]  = polygon.getPosition2DVector().at(i).y();
+            points[3*i]  = polygon.getPosition2DVector()[i].x();
+            points[3*i+1]  = polygon.getPosition2DVector()[i].y();
             points[3*i+2]  = 0;
-            glvert[0] = polygon.getPosition2DVector().at(i).x();
-            glvert[1] = polygon.getPosition2DVector().at(i).y();
+            glvert[0] = polygon.getPosition2DVector()[i].x();
+            glvert[1] = polygon.getPosition2DVector()[i].y();
             glvert[2] = 0;
             glvert[3] = 1;
             glvert[4] = 1;

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2006/03/17 11:03:06  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.30  2005/10/07 11:40:10  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -579,7 +582,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
 
     if(fromNode==0) {
         fromInf.first = 0;
-        Position2D pos = myGeom.at(0);
+        Position2D pos = myGeom[0];
         fromNode =
             new NBNode(toString<int>(myID) + string("-SourceNode"),
                 pos, NBNode::NODETYPE_NOJUNCTION);
@@ -591,7 +594,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     }*/
     if(toNode==0) {
         toInf.first = 0;
-        Position2D pos = myGeom.at(myGeom.size()-1);
+        Position2D pos = myGeom[-1];
         toNode =
             new NBNode(toString<int>(myID) + string("-DestinationNode"),
                 pos, NBNode::NODETYPE_NOJUNCTION);
@@ -1096,17 +1099,17 @@ NIVissimEdge::addToConnectionCluster(NIVissimConnectionCluster *c)
 }
 
 
-Position2D
+Position2D // !!! reference?
 NIVissimEdge::getBegin2D() const
 {
-    return myGeom.at(0);
+    return myGeom[0];
 }
 
 
-Position2D
+Position2D // !!! reference?
 NIVissimEdge::getEnd2D() const
 {
-    return myGeom.at(myGeom.size()-1);
+    return myGeom[-1];
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/03/17 11:03:04  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.23  2006/01/26 08:28:53  dkrajzew
 // patched MSEdge in order to work with a generic router
 //
@@ -233,7 +236,7 @@ GUIEdge::getBoundary() const
     for(LaneWrapperVector::const_iterator i=_laneGeoms.begin(); i!=_laneGeoms.end(); ++i) {
         const Position2DVector &g = (*i)->getShape();
         for(unsigned int j=0; j<g.size(); j++) {
-            ret.add(g.at(j));
+            ret.add(g[j]);
         }
     }
     ret.grow(10);

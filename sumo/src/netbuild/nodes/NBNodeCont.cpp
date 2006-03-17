@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/03/17 11:03:05  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.20  2006/03/08 13:14:15  dkrajzew
 // debugging on/off-ramp geometries
 //
@@ -1147,14 +1150,14 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
             checkHighwayRampOrder(inc_highway, inc_ramp);
             checkHighwayRampOrder(out_highway, out_ramp);
 
-            if(100>GeomHelper::distance(inc_highway->getToNode()->getPosition(), inc_ramp->getGeometry().at(-1))) {
+            if(100>GeomHelper::distance(inc_highway->getToNode()->getPosition(), inc_ramp->getGeometry()[-1])) {
                 Position2DVector tmp = inc_ramp->getGeometry();
                 tmp.eraseAt(-1);
                 inc_ramp->setGeometry(tmp);
             }
             SUMOReal pos =
                 inc_highway->getGeometry().nearest_position_on_line_to_point(
-                    inc_ramp->getGeometry().at(-1));
+                    inc_ramp->getGeometry()[-1]);
             if(pos<0) {
                 continue;
             }

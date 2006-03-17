@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/03/17 11:03:06  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.10  2005/10/07 11:40:10  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -113,26 +116,24 @@ NIVissimAbstractEdge::getGeomPosition(SUMOReal pos) const
 {
     if(myGeom.length()<pos) {
         SUMOReal amount = pos - myGeom.length();
-        Line2D l(myGeom.at(myGeom.size()-2),
-            GeomHelper::extrapolate_second(
-                myGeom.at(myGeom.size()-2), myGeom.at(myGeom.size()-1), amount*2));
+        Line2D l(myGeom[-2], GeomHelper::extrapolate_second(myGeom[-2], myGeom[-1], amount*2));
         return l.getPositionAtDistance(pos);
     }
     return myGeom.positionAtLengthPosition(pos);
 }
 
 
-Position2D
+Position2D // !!! reference?
 NIVissimAbstractEdge::getBeginPosition() const
 {
-    return myGeom.at(0);
+    return myGeom[0];
 }
 
 
-Position2D
+Position2D // !!! reference?
 NIVissimAbstractEdge::getEndPosition() const
 {
-    return myGeom.at(myGeom.size()-1);
+    return myGeom[-1];
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/03/17 11:03:01  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.10  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -114,7 +117,7 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
     const DoubleVector &lengths = lane.getShapeLengths();
     const DoubleVector &rots = lane.getShapeRotations();
     const Position2DVector &geom = lane.getShape();
-    const Position2D &laneBeg = geom.at(0);
+    const Position2D &laneBeg = geom[0];
 
     glPushMatrix();
     glTranslated(laneBeg.x(), laneBeg.y(), 0);
@@ -133,7 +136,7 @@ GUIVehicleDrawer_FGnTasTriangle::drawLanesVehicles(GUILaneWrapper &lane,
             positionOffset += lengths[shapePos];
             shapePos++;
             glPushMatrix();
-            glTranslated(geom.at(shapePos).x(), geom.at(shapePos).y(), 0);
+            glTranslated(geom[shapePos].x(), geom[shapePos].y(), 0);
             glRotated(rots[shapePos], 0, 0, 1);
         }
         glPushMatrix();

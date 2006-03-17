@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/03/17 11:03:04  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.10  2006/03/17 09:15:11  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -568,7 +571,7 @@ GUIEmitter::drawGL_FG(SUMOReal scale, SUMOReal upscale)
 		const DoubleVector &lengths = lane.getShapeLengths();
 		const Position2DVector &geom = lane.getShape();
         for(size_t i=0; i<geom.size()-1; i++) {
-		    GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], 0.5);
+		    GLHelper::drawBoxLine(geom[i], rots[i], lengths[i], 0.5);
         }// !!! all this is also done in lane drawer
     }
 }

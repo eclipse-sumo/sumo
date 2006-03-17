@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/03/17 11:03:06  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.10  2006/03/08 13:02:27  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -150,8 +153,8 @@ NITigerLoader::load(OptionsCont &options)
         assert(poses.size()>1);
         Position2DVector cposes = convertShape(poses);
         assert(cposes.size()>1);
-        NBNode *from = getNode(cposes.at(0));
-        NBNode *to = getNode(cposes.at(cposes.size()-1));
+        NBNode *from = getNode(cposes[0]);
+        NBNode *to = getNode(cposes[-1]);
         if(from==0||to==0) {
             if(from==0) {
                 MsgHandler::getErrorInstance()->inform("Could not find start node of edge '" + eid + "'.");

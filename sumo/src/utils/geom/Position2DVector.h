@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.24  2006/03/17 11:03:07  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.23  2005/11/09 06:45:15  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -177,7 +180,8 @@ public:
 
     /** @brief returns the position at the given index
         !!! exceptions?*/
-    const Position2D &at(int i) const;
+    const Position2D &operator[](int index) const;
+    Position2D &operator[](int index);
 
     /// returns the number of points making up the line vector
     size_t size() const;

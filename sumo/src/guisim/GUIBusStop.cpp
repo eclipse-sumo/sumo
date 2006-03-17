@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/03/17 11:03:03  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.1  2006/01/09 11:53:00  dkrajzew
 // bus stops implemented
 //
@@ -335,8 +338,8 @@ GUIBusStop::GUIBusStop(const std::string &id, MSNet &net,
         myFGShapeRotations.reserve(myFGShape.size()-1);
         myFGShapeLengths.reserve(myFGShape.size()-1);
         for(size_t i=0; i<myFGShape.size()-1; i++) {
-            const Position2D &f = myFGShape.at(i);
-            const Position2D &s = myFGShape.at(i+1);
+            const Position2D &f = myFGShape[i];
+            const Position2D &s = myFGShape[i+1];
             myFGShapeLengths.push_back(GeomHelper::distance(f, s));
             myFGShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265);
         }
@@ -346,15 +349,15 @@ GUIBusStop::GUIBusStop(const std::string &id, MSNet &net,
     }
     // simple geometry
     {
-        mySGShape.push_back(lane.getShape().at(0));
-        mySGShape.push_back(lane.getShape().at(-1));
+        mySGShape.push_back(lane.getShape()[0]);
+        mySGShape.push_back(lane.getShape()[-1]);
         mySGShape.move2side((SUMOReal) 1.65);
         mySGShape = mySGShape.getSubpart(frompos, topos);
         myFGShapeRotations.reserve(mySGShape.size()-1);
         myFGShapeLengths.reserve(mySGShape.size()-1);
         for(size_t i=0; i<mySGShape.size()-1; i++) {
-            const Position2D &f = mySGShape.at(i);
-            const Position2D &s = mySGShape.at(i+1);
+            const Position2D &f = mySGShape[i];
+            const Position2D &s = mySGShape[i+1];
             mySGShapeLengths.push_back(GeomHelper::distance(f, s));
             mySGShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265);
         }
@@ -451,7 +454,7 @@ GUIBusStop::doPaint(const Position2DVector &shape,
     glColor3f((SUMOReal) (76./255.), (SUMOReal) (170./255.), (SUMOReal) (50./255.));
     size_t i;
     for(i=0; i<myFGShape.size()-1; i++) {
-	    GLHelper::drawBoxLine(shape.at(i), rots[i], lengths[i], (SUMOReal) .4);
+	    GLHelper::drawBoxLine(shape[i], rots[i], lengths[i], (SUMOReal) .4);
     }
     /*
     if(myLastFreePos!=myEndPos) {

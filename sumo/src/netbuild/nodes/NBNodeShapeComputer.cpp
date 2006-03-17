@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/03/17 11:03:05  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.20  2006/01/09 11:57:50  dkrajzew
 // using definitions of lane widths instead of hard-coded values
 //
@@ -104,7 +107,7 @@ NBNodeShapeComputer::compute()
             for(int i=0; i<(int) ret.size(); ++i) {
                 (*myOut) << "   <poi id=\"end_" << myNode.getID() << "_"
                     << toString(i) << "\" type=\"nodeshape.end\" color=\"1,0,1\""
-                    << " x=\"" << ret.at(i).x() << "\" y=\"" << ret.at(i).y() << "\"/>"
+                    << " x=\"" << ret[i].x() << "\" y=\"" << ret[i].y() << "\"/>"
                     << endl;
             }
         }
@@ -145,7 +148,7 @@ NBNodeShapeComputer::addInternalGeometry()
 void
 computeSameEnd(Position2DVector& l1, Position2DVector &l2)
 {
-    Line2D sub(l1.lineAt(0).getPositionAtDistance(100), l1.at(1));
+    Line2D sub(l1.lineAt(0).getPositionAtDistance(100), l1[1]);
     Line2D tmp(sub);
     tmp.rotateDegAtP1(90);
     tmp.extrapolateBy(100);
@@ -153,7 +156,7 @@ computeSameEnd(Position2DVector& l1, Position2DVector &l2)
         SUMOReal offset1 = l1.intersectsAtLengths(tmp)[0];
         Line2D tl1 = Line2D(
             l1.lineAt(0).getPositionAtDistance(offset1),
-            l1.at(1));
+            l1[1]);
         tl1.extrapolateBy(100);
         l1.replaceAt(0, tl1.p1());
     }
@@ -161,7 +164,7 @@ computeSameEnd(Position2DVector& l1, Position2DVector &l2)
         SUMOReal offset2 = l2.intersectsAtLengths(tmp)[0];
         Line2D tl2 = Line2D(
             l2.lineAt(0).getPositionAtDistance(offset2),
-            l2.at(1));
+            l2[1]);
         tl2.extrapolateBy(100);
         l2.replaceAt(0, tl2.p1());
     }
@@ -175,13 +178,13 @@ replaceLastChecking(Position2DVector &g, bool decenter,
 {
     counter.extrapolate(100);
     Position2D counterPos = counter.positionAtLengthPosition(counterDist);
-    if(GeomHelper::distance(g.at(-1), counterPos)<SUMO_const_laneWidth*(SUMOReal) counterLanes) {
+    if(GeomHelper::distance(g[-1], counterPos)<SUMO_const_laneWidth*(SUMOReal) counterLanes) {
         g.replaceAt(g.size()-1, counterPos);
     } else {
         g.push_back_noDoublePos(counterPos);
     }
     if(decenter) {
-        Line2D l(g.at(-2), g.at(-1));
+        Line2D l(g[-2], g[-1]);
         l.move2side(-SUMO_const_halfLaneAndOffset);
         g.replaceAt(g.size()-1, l.p2());
     }
@@ -195,13 +198,13 @@ replaceFirstChecking(Position2DVector &g, bool decenter,
 {
     counter.extrapolate(100);
     Position2D counterPos = counter.positionAtLengthPosition(counterDist);
-    if(GeomHelper::distance(g.at(0), counterPos)<SUMO_const_laneWidth*(SUMOReal) counterLanes) {
+    if(GeomHelper::distance(g[0], counterPos)<SUMO_const_laneWidth*(SUMOReal) counterLanes) {
         g.replaceAt(0, counterPos);
     } else {
         g.push_front_noDoublePos(counterPos);
     }
     if(decenter) {
-        Line2D l(g.at(0), g.at(1));
+        Line2D l(g[0], g[1]);
         l.move2side(-SUMO_const_halfLaneAndOffset);
         g.replaceAt(0, l.p1());
     }
@@ -388,29 +391,29 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
             // compute the mean position between both edges ends ...
             Position2D p;
             if(myExtended.find(*ccwi)!=myExtended.end()) {
-                    p = geomsCCW[*ccwi].at(0);
-                    p.add(geomsCW[*ccwi].at(0));
+                    p = geomsCCW[*ccwi][0];
+                    p.add(geomsCW[*ccwi][0]);
                     p.mul(0.5);
                     /*
                 if(myNode.hasIncoming(*ccwi)) {
-                    p = geomsCCW[*ccwi].at(0);
-                    p.add(geomsCW[*ccwi].at(0));
+                    p = geomsCCW[*ccwi][0];
+                    p.add(geomsCW[*ccwi][0]);
                 } else {
-                    p = (*ccwi)->getGeometry().at(0);
+                    p = (*ccwi)->getGeometry()[0];
                 }
                 */
             } else {
-                    p = geomsCCW[*ccwi].at(0);
-                    p.add(geomsCW[*ccwi].at(0));
-                    p.add(geomsCCW[*i].at(0));
-                    p.add(geomsCW[*i].at(0));
+                    p = geomsCCW[*ccwi][0];
+                    p.add(geomsCW[*ccwi][0]);
+                    p.add(geomsCCW[*i][0]);
+                    p.add(geomsCW[*i][0]);
                     p.mul(0.25);
                     /*
                 if(myNode.hasIncoming(*i)) {
                     p = (*i)->getGeometry().at(-1);
-                    p.add((*ccwi)->getGeometry().at(0));
+                    p.add((*ccwi)->getGeometry()[0]);
                 } else {
-                    p = (*i)->getGeometry().at(0);
+                    p = (*i)->getGeometry()[0];
                     p.add((*ccwi)->getGeometry().at(-1));
                 }
                 p.mul(.5);
@@ -619,7 +622,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                             (*ccwi)->getGeometry().reverse(), (*ccwi)->getNoLanes(), distances[*ccwi]);
                         /*
                         counter.extrapolate(100);
-                        if(GeomHelper::distance(g.at(0), counter.positionAtLengthPosition(distances[*ccwi]))<3.*(*ccwi)->getNoLanes()) {
+                        if(GeomHelper::distance(g[0], counter.positionAtLengthPosition(distances[*ccwi]))<3.*(*ccwi)->getNoLanes()) {
                             g.replaceAt(0, counter.positionAtLengthPosition(distances[*ccwi]));
                         } else {
                         g.push_front_noDoublePos(
@@ -635,7 +638,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                             counter, (*cwi)->getNoLanes(), distances[*cwi]);
                         /*
                         counter.extrapolate(100);
-                        if(GeomHelper::distance(g.at(0), counter.positionAtLengthPosition(distances[*cwi]))<3.*(*cwi)->getNoLanes()) {
+                        if(GeomHelper::distance(g[0], counter.positionAtLengthPosition(distances[*cwi]))<3.*(*cwi)->getNoLanes()) {
                             g.replaceAt(0, counter.positionAtLengthPosition(distances[*cwi]));
                         } else {
                         g.push_front_noDoublePos(
@@ -668,7 +671,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                         replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
                             counter, (*cwi)->getNoLanes(), distances[*cwi]);
                         /*
-                        if(GeomHelper::distance(g.at(0), counter.positionAtLengthPosition(distances[*cwi]))<3.*(*cwi)->getNoLanes()) {
+                        if(GeomHelper::distance(g[0], counter.positionAtLengthPosition(distances[*cwi]))<3.*(*cwi)->getNoLanes()) {
                             g.replaceAt(0, counter.positionAtLengthPosition(distances[*cwi]));
                         } else {
                         g.push_front_noDoublePos(
@@ -709,7 +712,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
                         replaceFirstChecking(g,(*i)->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER,
                             counter, (*cwi)->getNoLanes(), distances[*cwi]);
 /*
-                        if(GeomHelper::distance(g.at(0), counter.positionAtLengthPosition(distances[*cwi]))<3.*(*cwi)->getNoLanes()) {
+                        if(GeomHelper::distance(g[0], counter.positionAtLengthPosition(distances[*cwi]))<3.*(*cwi)->getNoLanes()) {
                             g.replaceAt(0, counter.positionAtLengthPosition(distances[*cwi]));
                         } else {
                         g.push_front_noDoublePos(
@@ -779,13 +782,13 @@ rotateAround(const Position2DVector &what, const Position2D &at, SUMOReal rot)
     Position2DVector ret = what;
     ret.resetBy(-at.x(), -at.y());
     {
-    SUMOReal x = ret.at(0).x() * cos(rot) + ret.at(0).y() * sin(rot);
-    SUMOReal y = ret.at(0).y() * cos(rot) - ret.at(0).x() * sin(rot);
+    SUMOReal x = ret[0].x() * cos(rot) + ret[0].y() * sin(rot);
+    SUMOReal y = ret[0].y() * cos(rot) - ret[0].x() * sin(rot);
     rret.push_back(Position2D(x, y));
     }
     {
-    SUMOReal x = ret.at(1).x() * cos(rot) + ret.at(1).y() * sin(rot);
-    SUMOReal y = ret.at(1).y() * cos(rot) - ret.at(1).x() * sin(rot);
+    SUMOReal x = ret[1].x() * cos(rot) + ret[1].y() * sin(rot);
+    SUMOReal y = ret[1].y() * cos(rot) - ret[1].x() * sin(rot);
     rret.push_back(Position2D(x, y));
     }
     rret.resetBy(at.x(), at.y());
@@ -802,8 +805,8 @@ NBNodeShapeComputer::computeNodeShapeByCrosses()
         {
             Position2DVector edgebound = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
             Position2DVector cross;
-            cross.push_back(edgebound.at(0));
-            cross.push_back(edgebound.at(1));
+            cross.push_back(edgebound[0]);
+            cross.push_back(edgebound[1]);
             cross = rotateAround(cross, myNode.getPosition(), (SUMOReal) (90/180.*3.1415926535897932384626433832795));
             if(cross.intersects(edgebound)) {
                 ret.push_back_noDoublePos(cross.intersectsAtPoint(edgebound));
@@ -819,8 +822,8 @@ NBNodeShapeComputer::computeNodeShapeByCrosses()
         {
             Position2DVector edgebound = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
             Position2DVector cross;
-            cross.push_back(edgebound.at(0));
-            cross.push_back_noDoublePos(edgebound.at(1));
+            cross.push_back(edgebound[0]);
+            cross.push_back_noDoublePos(edgebound[1]);
             cross = rotateAround(cross, myNode.getPosition(), (SUMOReal) (90/180.*3.1415926535897932384626433832795));
             if(cross.intersects(edgebound)) {
                 ret.push_back_noDoublePos(cross.intersectsAtPoint(edgebound));
@@ -839,7 +842,7 @@ NBNodeShapeComputer::computeNodeShapeByCrosses()
             for(int i=0; i<(int) ret.size(); ++i) {
                 (*myOut) << "   <poi id=\"cross1_" << myNode.getID() << "_" <<
                     toString(i) << "\" type=\"nodeshape.cross1\" color=\"0,0,1\""
-                    << " x=\"" << ret.at(i).x() << "\" y=\"" << ret.at(i).y() << "\"/>"
+                    << " x=\"" << ret[i].x() << "\" y=\"" << ret[i].y() << "\"/>"
                     << endl;
             }
         }

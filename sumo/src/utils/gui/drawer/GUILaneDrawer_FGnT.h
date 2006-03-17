@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/03/17 11:03:07  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.6  2006/03/08 13:16:23  dkrajzew
 // some work on lane visualization
 //
@@ -96,7 +99,7 @@ private:
 	    const DoubleVector &lengths = lane.getShapeLengths();
 		const Position2DVector &geom = lane.getShape();
         for(size_t i=0; i<geom.size()-1; i++) {
-		    GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], SUMO_const_halfLaneWidth*mult);
+		    GLHelper::drawBoxLine(geom[i], rots[i], lengths[i], SUMO_const_halfLaneWidth*mult);
 		}
 	}
 
@@ -110,7 +113,7 @@ private:
 		const Position2DVector &geom1 = lane1.getShape();
         const Position2DVector &geom2 = lane2.getShape();
         for(size_t i=0; i<geom1.size()-1; i++) {
-		    GLHelper::drawBoxLine(geom1.at(i), geom2.at(i), rots[i], lengths[i], (SUMOReal) edge.nLanes()*SUMO_const_halfLaneWidth*mult);
+		    GLHelper::drawBoxLine(geom1[i], geom2[i], rots[i], lengths[i], (SUMOReal) edge.nLanes()*SUMO_const_halfLaneWidth*mult);
 		}
 	}
 
@@ -121,7 +124,7 @@ private:
 	    const DoubleVector &lengths = lane.getShapeLengths();
 		const Position2DVector &geom = lane.getShape();
         for(size_t i=0; i<geom.size()-1; i++) {
-		    GLHelper::drawLine(geom.at(i), rots[i], lengths[i]);
+		    GLHelper::drawLine(geom[i], rots[i], lengths[i]);
 		}
 	}
 
@@ -135,7 +138,7 @@ private:
 		const Position2DVector &geom1 = lane1.getShape();
         const Position2DVector &geom2 = lane2.getShape();
         for(size_t i=0; i<geom1.size()-1; i++) {
-		    GLHelper::drawLine(geom1.at(i), geom2.at(i), rots[i], lengths[i]);
+		    GLHelper::drawLine(geom1[i], geom2[i], rots[i], lengths[i]);
 		}
 	}
 

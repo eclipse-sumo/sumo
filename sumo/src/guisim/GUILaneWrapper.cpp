@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2006/03/17 11:03:04  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.30  2006/03/08 13:12:29  dkrajzew
 // real density visualization added (slow, unfinished)
 //
@@ -177,10 +180,10 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
     : GUILaneRepresentation(idStorage, string("lane:")+lane.id()),
     myLane(lane), myShape(shape), myAggregatedValues(0)
 {
-    SUMOReal x1 = shape.at(0).x();
-    SUMOReal y1 = shape.at(0).y();
-    SUMOReal x2 = shape.at(shape.size()-1).x();
-    SUMOReal y2 = shape.at(shape.size()-1).y();
+    SUMOReal x1 = shape[0].x();
+    SUMOReal y1 = shape[0].y();
+    SUMOReal x2 = shape[-1].x();
+    SUMOReal y2 = shape[-1].y();
     SUMOReal length = getLength();
     _begin = Position2D(x1, y1);
     _end = Position2D(x2, y2);
@@ -200,8 +203,8 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
     myShapeRotations.reserve(myShape.size()-1);
     myShapeLengths.reserve(myShape.size()-1);
     for(size_t i=0; i<myShape.size()-1; i++) {
-        const Position2D &f = myShape.at(i);
-        const Position2D &s = myShape.at(i+1);
+        const Position2D &f = myShape[i];
+        const Position2D &s = myShape[i+1];
         myShapeLengths.push_back(GeomHelper::distance(f, s));
         myShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265);
     }
@@ -584,11 +587,6 @@ GUILaneWrapper::selectSucessors()
         p.add(sin(i)*30+random1*20, cos(i)*30+random1*20);
         poly.push_back(p);
     }
-    /*
-    GUINet::getInstance()->addPoly("bla", "bla", RGBColor(1, 0.7, 0));
-    Polygon2D *ptr = MSNet::getInstance()->poly_dic["bla"];
-    ptr->addPolyPosition(poly);
-    */
 }
 
 

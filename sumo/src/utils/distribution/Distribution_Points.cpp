@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/03/17 11:03:07  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.7  2005/10/07 11:43:51  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -81,7 +84,7 @@ SUMOReal
 Distribution_Points::getMax() const
 {
     assert(myPoints.size()>0);
-    const Position2D &p = myPoints.at(myPoints.size()-1);
+    const Position2D &p = myPoints[-1];
     return p.x();
 }
 

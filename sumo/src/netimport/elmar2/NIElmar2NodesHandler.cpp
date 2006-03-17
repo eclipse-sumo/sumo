@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/03/17 11:03:06  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.6  2006/03/08 13:02:27  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -170,11 +173,10 @@ NIElmar2NodesHandler::report(const std::string &result)
     }
 
     if(intermediate==0) {
-        NBNode *n = new NBNode(id, geoms.at(0));
+        NBNode *n = new NBNode(id, geoms[0]);
         if(!myNodeCont.insert(n)) {
             delete n;
-            MsgHandler::getErrorInstance()->inform(
-                string("Could not add node '") + id + string("'."));
+            MsgHandler::getErrorInstance()->inform("Could not add node '" + id + "'.");
             throw ProcessError();
         }
     } else {

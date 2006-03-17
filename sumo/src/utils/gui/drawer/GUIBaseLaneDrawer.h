@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/03/17 11:03:07  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.8  2006/03/08 13:16:23  dkrajzew
 // some work on lane visualization
 //
@@ -142,7 +145,7 @@ public:
 	                        const DoubleVector &lengths = lane.getShapeLengths();
 		                    const Position2DVector &geom = lane.getShape();
                             for(size_t i=0; i<geom.size()-1; i++) {
-				                GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], SUMO_const_halfLaneAndOffset);
+				                GLHelper::drawBoxLine(geom[i], rots[i], lengths[i], SUMO_const_halfLaneAndOffset);
 	                        }
                         }
                         // draw black boxes
@@ -154,7 +157,7 @@ public:
 		                    const Position2DVector &geom = lane.getShape();
                             for(size_t i=0; i<geom.size()-1; i++) {
                                 glPushMatrix();
-                                glTranslated(geom.at(i).x(), geom.at(i).y(), 0);
+                                glTranslated(geom[i].x(), geom[i].y(), 0);
                                 glRotated( rots[i], 0, 0, 1 );
                                 for(SUMOReal t=0; t<lengths[i]; t+=2) {
                                     glBegin(GL_QUADS);

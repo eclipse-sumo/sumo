@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/03/17 11:03:04  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.16  2006/01/31 10:55:27  dkrajzew
 // unneeded inclusions removed
 //
@@ -212,7 +215,7 @@ GUIJunctionWrapper::getBoundary() const
     Boundary boundary;
     size_t shapeLength = myShape.size();
     for(size_t i=0; i<shapeLength; i++) {
-        const Position2D &pos = myShape.at(i);
+        const Position2D &pos = myShape[i];
         boundary.add(pos.x(), pos.y());
     }
     return boundary;

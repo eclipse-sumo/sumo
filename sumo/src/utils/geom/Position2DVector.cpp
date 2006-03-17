@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2006/03/17 11:03:07  dkrajzew
+// made access to positions in Position2DVector c++ compliant
+//
 // Revision 1.33  2005/11/29 13:33:09  dkrajzew
 // debugging
 //
@@ -334,12 +337,23 @@ Position2DVector::clear()
 
 
 const Position2D &
-Position2DVector::at(int i) const
+Position2DVector::operator[](int index) const
 {
-    if(i>=0) {
-        return myCont[i];
+    if(index>=0) {
+        return myCont[index];
     } else {
-        return myCont[myCont.size()+i];
+        return myCont[myCont.size()+index];
+    }
+}
+
+
+Position2D &
+Position2DVector::operator[](int index)
+{
+    if(index>=0) {
+        return myCont[index];
+    } else {
+        return myCont[myCont.size()+index];
     }
 }
 
@@ -540,7 +554,7 @@ Position2DVector::resettedBy(SUMOReal x, SUMOReal y) const
 {
     Position2DVector ret;
     for(size_t i=0; i<size(); i++) {
-        Position2D pos = at(i);
+        Position2D pos = myCont[i];
         pos.add(x, y);
         ret.push_back(pos);
     }
