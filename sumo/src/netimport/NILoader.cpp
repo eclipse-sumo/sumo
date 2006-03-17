@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/03/17 11:03:47  dkrajzew
+// xml-types are now read prior to other formats (other Xml-description afterwards)
+//
 // Revision 1.22  2006/03/08 13:02:26  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -257,8 +260,15 @@ NILoader::load(OptionsCont &oc)
             throw ProcessError();
         }
     }
+    // load types first
+    // load types
+    if(oc.isUsableFileList("xml-type-files")) {
+	    NIXMLTypesHandler *handler =
+		    new NIXMLTypesHandler(myNetBuilder.getTypeCont());
+        loadXMLType(handler, oc.getString("xml-type-files"), "types");
+        myNetBuilder.getTypeCont().report();
+    }
     // try to load using different methods
-    loadXML(oc, pj);
     loadSUMO(oc);
     loadCell(oc);
     loadVisum(oc, pj);
@@ -267,6 +277,7 @@ NILoader::load(OptionsCont &oc)
     loadVissim(oc);
     loadElmar(oc, pj);
     loadTiger(oc, pj);
+    loadXML(oc, pj);
     // check the loaded structures
     if(myNetBuilder.getNodeCont().size()==0) {
         MsgHandler::getErrorInstance()->inform("No nodes loaded.");
@@ -316,14 +327,6 @@ NILoader::loadSUMOFiles(OptionsCont &oc, LoadFilter what, const string &files,
 void
 NILoader::loadXML(OptionsCont &oc, projPJ pj)
 {
-    // load types
-    if(oc.isUsableFileList("xml-type-files")) {
-	    NIXMLTypesHandler *handler =
-		    new NIXMLTypesHandler(myNetBuilder.getTypeCont());
-        loadXMLType(handler, oc.getString("xml-type-files"), "types");
-        myNetBuilder.getTypeCont().report();
-    }
-
     // load nodes
     if(oc.isUsableFileList("xml-node-files")) {
         NIXMLNodesHandler *handler =
