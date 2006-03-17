@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/03/17 08:58:36  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.6  2006/01/31 10:57:12  dkrajzew
 // debugging
 //
@@ -110,7 +113,8 @@ public:
     /** destructor */
     virtual ~MSLaneSpeedTrigger();
 
-    /** the implementation of the MSTriggeredReader-processNextEntryReaderTriggered method */
+    SUMOTime execute(SUMOTime currentTime);
+
     SUMOTime processCommand(bool move2next);
 
     SUMOReal getDefaultSpeed() const;
@@ -138,30 +142,6 @@ protected:
     /** the implementation of the SAX-handler interface for reading
         element ends */
     void myEndElement(int element, const std::string &name);
-
-        /**
-     * Class realising the switch between the traffic light states (phases
-     */
-    class MyCommand : public Command {
-    public:
-        /// Constructor
-        MyCommand(MSLaneSpeedTrigger *vss)
-            : myVSS(vss) { }
-
-        /// Destructor
-        ~MyCommand() { }
-
-        /** @brief Executes this event
-            Executes the regarded junction's "trySwitch"- method */
-        SUMOTime execute() {
-            return myVSS->processCommand(true);
-        }
-
-    private:
-        /// The logic to be executed on a switch
-        MSLaneSpeedTrigger *myVSS;
-
-    };
 
 
 protected:

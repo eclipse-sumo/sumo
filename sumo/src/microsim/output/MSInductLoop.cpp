@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/03/17 08:57:15  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.11  2005/10/07 11:37:46  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -57,7 +60,7 @@ namespace
 #include <cassert>
 #include <numeric>
 #include <utility>
-#include <utils/helpers/SimpleCommand.h>
+#include <utils/helpers/WrappingCommand.h>
 #include <utils/common/ToString.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSLane.h>
@@ -112,12 +115,10 @@ MSInductLoop::MSInductLoop( const string& id,
 {
     assert( posM >= 0 && posM <= laneM->length() );
     // start old-data removal through MSEventControl
-    Command* deleteOldData = new SimpleCommand< MSInductLoop >(
+    Command* deleteOldData = new WrappingCommand< MSInductLoop >(
         this, &MSInductLoop::deleteOldData );
-    MSEventControl::getEndOfTimestepEvents()->addEvent(
-        deleteOldData,
-        deleteDataAfterStepsM,
-        MSEventControl::ADAPT_AFTER_EXECUTION );
+    MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
+        deleteOldData, deleteDataAfterStepsM, MSEventControl::ADAPT_AFTER_EXECUTION );
 }
 
 
@@ -369,7 +370,7 @@ MSInductLoop::leaveDetectorByLaneChange( MSVehicle& veh )
 
 
 SUMOTime
-MSInductLoop::deleteOldData( void )
+MSInductLoop::deleteOldData(SUMOTime currentTime)
 {
     SUMOReal deleteBeforeTimestep =
         (SUMOReal) (MSNet::getInstance()->getCurrentTimeStep() - deleteDataAfterStepsM);

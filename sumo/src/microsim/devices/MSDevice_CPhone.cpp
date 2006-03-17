@@ -16,6 +16,7 @@
 #include "../MSCORN.h"
 #include "../MSNet.h"
 #include "../MSVehicle.h"
+#include "../MSLane.h"
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -41,7 +42,7 @@ MSDevice_CPhone::MyCommand::~MyCommand( void )
 
 
 SUMOTime
-MSDevice_CPhone::MyCommand::execute()
+MSDevice_CPhone::MyCommand::execute(SUMOTime currentTime)
 {
     if(myAmActive) {
         return myParent.changeState();
@@ -223,7 +224,7 @@ MSDevice_CPhone::onDepart()
     }
     //
     myCommand = new MyCommand(*this);
-    MSEventControl::getBeginOfTimestepEvents()->addEvent(
+    MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         myCommand, t1, MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 

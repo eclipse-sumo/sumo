@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/03/17 08:58:36  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.4  2005/11/09 06:37:52  dkrajzew
 // trigger reworked
 //
@@ -111,7 +114,7 @@ protected:
 
         /** Execute the command and return an offset for recurring commands
             or 0 for single-execution commands. */
-        virtual SUMOTime execute();
+        virtual SUMOTime execute(SUMOTime currentTime);
 
     private:
         /// The parent reader

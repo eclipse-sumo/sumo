@@ -42,7 +42,7 @@
 #include "MSPredicates.h"
 #include "MSTDDetectorInterface.h"
 #include <microsim/MSEventControl.h>
-#include <utils/helpers/SimpleCommand.h>
+#include <utils/helpers/WrappingCommand.h>
 #include <deque>
 #include <string>
 #include <algorithm>
@@ -164,9 +164,9 @@ namespace TD // timestep data
         void startOldDataRemoval( void )
             {
                 // start old-data removal through MSEventControl
-                Command* deleteData = new SimpleCommand< MSDetector >(
+                Command* deleteData = new WrappingCommand< MSDetector >(
                     this, &MSDetector::freeContainer );
-                MSEventControl::getEndOfTimestepEvents()->addEvent(
+                MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
                     deleteData,
                     deleteDataAfterStepsM,
                     MSEventControl::ADAPT_AFTER_EXECUTION );
@@ -208,7 +208,7 @@ namespace TD // timestep data
         /// @return deleteDataAfterStepsM to restart this removal via
         /// the MSEventControl mechanism.
         ///
-        SUMOTime freeContainer( void )
+        SUMOTime freeContainer(SUMOTime currentTime)
             {
                 AggregatesContIter end = aggregatesM.end();
                 if ( aggregatesM.size() > deleteDataAfterStepsM ) {

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/03/17 08:57:51  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.10  2006/02/27 12:06:17  dkrajzew
 // parameter-API and raknet-support added
 //
@@ -251,7 +254,7 @@ private:
 
         /** @brief Executes this event
             Executes the regarded junction's "trySwitch"- method */
-        SUMOTime execute();
+        SUMOTime execute(SUMOTime currentTime);
 
     private:
         MSTLLogicControl &myTLControl;

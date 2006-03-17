@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2006/03/17 08:59:18  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.13  2005/10/17 08:58:24  dkrajzew
 // trigger rework#1
 //
@@ -152,9 +155,8 @@ class Command;
 class MSEventControl
 {
 public:
-    /// Get the two instances of this class
-    static MSEventControl* getBeginOfTimestepEvents( void );
-    static MSEventControl* getEndOfTimestepEvents( void );
+    /// Default constructor.
+    MSEventControl();
 
     /// Events that should be executed at time.
     typedef std::pair< Command*, SUMOTime > Event;
@@ -180,7 +182,8 @@ public:
     ~MSEventControl();
 
     /** @brief Adds an Event.
-        Returns the time the event will be executed, really */
+     *
+     * Returns the time the event will be executed, really */
     SUMOTime addEvent( Command* operation, SUMOTime execTimeStep,
         AdaptType type );
 
@@ -189,37 +192,13 @@ public:
         etc. */
     void execute( SUMOTime time );
 
-    /** @brief Inserts eventcontrol into the static dictionary.
-        Returns if the key id isn't already in the dictionary. Otherwise
-        returns
-        false (the control is not inserted then). */
-    static bool dictionary( std::string id, MSEventControl* event );
-
-    /** @brief Returns the MSEdgeControl associated to the key id if exists,
-        Otherwise returns 0. */
-    static MSEventControl* dictionary( std::string id );
-
-    /** Clears the dictionary */
-    static void clear();
-
 private:
-    static MSEventControl* myBeginOfTimestepEvents;
-    static MSEventControl* myEndOfTimestepEvents;
     /// Container for time-dependant events, e.g. traffic-light-change.
     typedef std::priority_queue< Event, std::vector< Event >,
                                  EventSortCrit > EventCont;
 
     /// Event-container, holds executable events.
     EventCont myEvents;
-
-    /// definitions of the static dictionary type
-    typedef std::map< std::string, MSEventControl* > DictType;
-
-    /// Static dictionary to associate string-ids with objects.
-    static DictType myDict;
-
-    /// Default constructor.
-    MSEventControl();
 
     /// Copy constructor.
     MSEventControl(const MSEventControl&);

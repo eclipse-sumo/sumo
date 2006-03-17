@@ -23,6 +23,9 @@
 
 // $Id$
 // $Log$
+// Revision 1.8  2006/03/17 08:57:15  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.7  2005/10/07 11:37:46  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -427,7 +430,7 @@ protected:
      *
      * @see MSEventControl
      */
-    SUMOTime deleteOldData( void );
+    SUMOTime deleteOldData(SUMOTime currentTime);
 
     typedef std::deque< VehicleData > VehicleDataCont; /**< Type of
                                                         * vehicleDataContM. */

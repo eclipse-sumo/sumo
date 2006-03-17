@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/03/17 08:57:51  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.10  2006/03/08 13:13:20  dkrajzew
 // debugging
 //
@@ -156,7 +159,7 @@ MSTrafficLightLogic::SwitchCommand::~SwitchCommand()
 
 
 SUMOTime
-MSTrafficLightLogic::SwitchCommand::execute()
+MSTrafficLightLogic::SwitchCommand::execute(SUMOTime currentTime)
 {
     bool isActive = myTLControl.isActive(myTLLogic);
     size_t step1 = myTLLogic->getStepNo();
@@ -182,7 +185,7 @@ MSTrafficLightLogic::MSTrafficLightLogic(MSNet &net,
                                          size_t delay)
     : myID(id), mySubID(subid), myNet(net)
 {
-    MSEventControl::getBeginOfTimestepEvents()->addEvent(
+    MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         new SwitchCommand(tlcontrol, this), delay, MSEventControl::ADAPT_AFTER_EXECUTION);
 #ifdef RAKNET_DEMO
 	if(myAmpel==0) {

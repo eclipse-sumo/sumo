@@ -43,7 +43,7 @@
 #include <microsim/MSUnit.h>
 #include "MSLDDetectorInterface.h"
 #include <microsim/MSEventControl.h>
-#include <utils/helpers/SimpleCommand.h>
+#include <utils/helpers/WrappingCommand.h>
 #include <string>
 #include <algorithm>
 
@@ -212,9 +212,9 @@ namespace LD
         void startOldDataRemoval( void )
             {
                 // start old-data removal through MSEventControl
-                Command* deleteData = new SimpleCommand< MSDetector >(
+                Command* deleteData = new WrappingCommand< MSDetector >(
                     this, &MSDetector::freeContainer );
-                MSEventControl::getEndOfTimestepEvents()->addEvent(
+                MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
                     deleteData,
                     deleteDataAfterStepsM,
                     MSEventControl::ADAPT_AFTER_EXECUTION );
@@ -227,7 +227,7 @@ namespace LD
         /// @return deleteDataAfterStepsM to restart this removal via
         /// the MSEventControl mechanism.
         ///
-        SUMOTime freeContainer( void )
+        SUMOTime freeContainer(SUMOTime currentTime)
             {
                 AggregatesContIter end =
                     getAggrContStartIterator( (MSUnit::Steps) deleteDataAfterStepsM );

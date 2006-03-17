@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.17  2006/03/17 08:59:18  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.16  2005/10/17 08:58:24  dkrajzew
 // trigger rework#1
 //
@@ -178,40 +181,11 @@ using namespace std;
 
 
 /* =========================================================================
- * static member definitions
- * ======================================================================= */
-MSEventControl::DictType MSEventControl::myDict;
-MSEventControl* MSEventControl::myBeginOfTimestepEvents = 0;
-MSEventControl* MSEventControl::myEndOfTimestepEvents = 0;
-
-
-/* =========================================================================
  * member definitions
  * ======================================================================= */
 /* -------------------------------------------------------------------------
  * methods from MSEventControl
  * ----------------------------------------------------------------------- */
-
-
-MSEventControl*
-MSEventControl::getBeginOfTimestepEvents( void )
-{
-    if ( myBeginOfTimestepEvents == 0 ) {
-        myBeginOfTimestepEvents = new MSEventControl();
-    }
-    return myBeginOfTimestepEvents;
-}
-
-MSEventControl*
-MSEventControl::getEndOfTimestepEvents( void )
-{
-    if ( myEndOfTimestepEvents == 0 ) {
-        myEndOfTimestepEvents = new MSEventControl();
-    }
-    return myEndOfTimestepEvents;
-}
-
-
 MSEventControl::MSEventControl( ) :
     myEvents()
 {
@@ -256,16 +230,13 @@ MSEventControl::execute(SUMOTime execTime)
 
             Command *command = currEvent.first;
             myEvents.pop();
-            SUMOTime time = command->execute( );
+            SUMOTime time = command->execute(execTime);
 
             // Delete nonrecurring events, reinsert recurring ones
             // with new execution time = execTime + returned offset.
             if ( time == 0 ) {
-
                 delete currEvent.first;
-            }
-            else {
-
+            } else {
                 assert( time > 0 );
                 currEvent.second = execTime + time;
                 myEvents.push( currEvent );
@@ -282,45 +253,6 @@ MSEventControl::execute(SUMOTime execTime)
             }
         }
     }
-}
-
-
-bool
-MSEventControl::dictionary(string id, MSEventControl* ptr)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        myDict.insert(DictType::value_type(id, ptr));
-        return true;
-    }
-    return false;
-}
-
-
-MSEventControl*
-MSEventControl::dictionary(string id)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        return 0;
-    }
-    return it->second;
-}
-
-
-void
-MSEventControl::clear()
-{
-    delete myBeginOfTimestepEvents;
-    delete myEndOfTimestepEvents;
-    myBeginOfTimestepEvents = 0;
-    myEndOfTimestepEvents = 0;
-    for(DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        delete (*i).second;
-    }
-    myDict.clear();
 }
 
 

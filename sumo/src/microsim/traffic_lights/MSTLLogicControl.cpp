@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/03/17 08:57:51  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.10  2006/03/08 13:13:20  dkrajzew
 // debugging
 //
@@ -86,6 +89,7 @@ namespace
 #include "MSTrafficLightLogic.h"
 #include "MSTLLogicControl.h"
 #include <microsim/MSEventControl.h>
+#include <microsim/MSNet.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
 
@@ -398,6 +402,7 @@ MSTLLogicControl::addWAUT(SUMOTime refTime, const std::string &id,
     w.refTime = refTime;
     w.startProg = startProg;
     myWAUTs[id] = w;
+    return true;
 }
 
 
@@ -413,7 +418,7 @@ MSTLLogicControl::addWAUTSwitch(const std::string &wautid,
     s.when = when;
     myWAUTs[wautid].switches.push_back(s);
     if(myWAUTs[wautid].switches.size()==1) {
-        MSEventControl::getBeginOfTimestepEvents()->addEvent(
+        MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             new SwitchInitCommand(*this, wautid),
             when-myWAUTs[wautid].refTime, MSEventControl::NO_CHANGE);
     }

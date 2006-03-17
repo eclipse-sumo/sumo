@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/03/17 08:58:36  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.4  2005/11/09 06:37:52  dkrajzew
 // trigger reworked
 //
@@ -91,12 +94,11 @@ MSTriggeredReader::MSTriggerCommand::~MSTriggerCommand( void )
 
 
 SUMOTime
-MSTriggeredReader::MSTriggerCommand::execute()
+MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current)
 {
     if(!_parent.isInitialised()) {
         _parent.init();
     }
-    SUMOTime current = _parent._offset;
     SUMOTime next = current;
     // loop until the next action lies in the future
     while(current==next) {
@@ -117,11 +119,11 @@ MSTriggeredReader::MSTriggerCommand::execute()
         }
     }
     // come back if the next action shall be executed
-    if(_parent._offset - MSNet::getInstance()->getCurrentTimeStep()<=0) {
+    if(_parent._offset - current<=0) {
         // current is delayed;
         return 1;
     }
-    return _parent._offset - MSNet::getInstance()->getCurrentTimeStep();
+    return _parent._offset - current;
 }
 
 

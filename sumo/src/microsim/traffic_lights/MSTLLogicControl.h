@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/03/17 08:57:51  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.8  2006/02/27 12:05:32  dkrajzew
 // WAUTs and WAUT-API added
 //
@@ -203,7 +206,7 @@ protected:
          *
          * The control will ask for the index and increment it.
          */
-        SUMOTime execute() {
+        SUMOTime execute(SUMOTime currentTime) {
             return myParent.initWautSwitch(*this);
         }
 

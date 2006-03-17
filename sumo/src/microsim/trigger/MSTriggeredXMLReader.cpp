@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/03/17 08:58:36  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.5  2005/11/09 06:37:52  dkrajzew
 // trigger reworked
 //
@@ -109,7 +112,7 @@ MSTriggeredXMLReader::MSTriggeredXMLReader(MSNet &net,
     SUMOSAXHandler("sumo-trigger values", filename),
     myHaveMore(true), myParser(0)
 {
-    MSEventControl::getBeginOfTimestepEvents()->addEvent(
+    MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         new MSTriggerCommand(*this), net.getCurrentTimeStep(),
             MSEventControl::NO_CHANGE);
 }

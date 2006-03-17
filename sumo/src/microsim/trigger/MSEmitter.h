@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2006/03/17 08:58:36  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.3  2006/02/23 11:30:01  dkrajzew
 // emitters may now show their routes
 //
@@ -157,7 +160,7 @@ protected:
         /** the implementation of the MSTriggeredReader-processNextEntryReaderTriggered method */
         bool processNextEntryReaderTriggered();
 
-        SUMOTime execute();
+        SUMOTime execute(SUMOTime currentTime);
 
         SUMOReal getLoadedFlow() const;
 

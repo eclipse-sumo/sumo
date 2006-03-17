@@ -192,9 +192,9 @@ namespace ED
         void startOldDataRemoval( void )
             {
                 // start old-data removal through MSEventControl
-                Command* deleteData = new SimpleCommand< MSDetector >(
+                Command* deleteData = new WrappingCommand< MSDetector >(
                     this, &MSDetector::freeContainer );
-                MSEventControl::getEndOfTimestepEvents()->addEvent(
+                MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
                     deleteData,
                     deleteDataAfterStepsM,
                     MSEventControl::ADAPT_AFTER_EXECUTION );
@@ -207,7 +207,7 @@ namespace ED
         /// @return deleteDataAfterStepsM to restart this removal via
         /// the MSEventControl mechanism.
         ///
-        SUMOTime freeContainer( void )
+        SUMOTime freeContainer(SUMOTime currentTime)
             {
                 AggregatesContIter end =
                     getAggrContStartIterator( (MSUnit::Seconds) deleteDataAfterStepsM );

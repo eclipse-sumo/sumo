@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/03/17 08:58:36  dkrajzew
+// changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
+//
 // Revision 1.3  2006/02/13 07:52:43  dkrajzew
 // debugging
 //
@@ -65,7 +68,7 @@ namespace
 #include <string>
 #include <utils/common/MsgHandler.h>
 #include <utils/helpers/Command.h>
-#include <utils/helpers/SimpleCommand.h>
+#include <utils/helpers/WrappingCommand.h>
 #include <microsim/MSLane.h>
 #include <utils/sumoxml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>
@@ -105,7 +108,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::~MSEmitter_FileTriggeredChild()
 
 
 SUMOTime
-MSEmitter::MSEmitter_FileTriggeredChild::execute()
+MSEmitter::MSEmitter_FileTriggeredChild::execute(SUMOTime currentTime)
 {
     if(myParent.childCheckEmit(this)) {
         buildAndScheduleFlowVehicle();
@@ -241,8 +244,8 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int element, const std::
         if(end==-1||end>=MSNet::getInstance()->getCurrentTimeStep()) {
             if(myFlow>0) {
                 buildAndScheduleFlowVehicle();
-                MSEventControl::getBeginOfTimestepEvents()->addEvent(
-								     new SimpleCommand<MSEmitter::MSEmitter_FileTriggeredChild>(this, &MSEmitter::MSEmitter_FileTriggeredChild::execute),
+                MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+                    new WrappingCommand<MSEmitter::MSEmitter_FileTriggeredChild>(this, &MSEmitter::MSEmitter_FileTriggeredChild::execute),
                     (SUMOTime) (1. / (myFlow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
                     MSEventControl::ADAPT_AFTER_EXECUTION);
                 myHaveInitialisedFlow = true;
@@ -350,8 +353,8 @@ MSEmitter::MSEmitter_FileTriggeredChild::inputEndReached()
 {
     if(myFlow>0&&!myHaveInitialisedFlow) {
         buildAndScheduleFlowVehicle();
-        MSEventControl::getBeginOfTimestepEvents()->addEvent(
-							     new SimpleCommand<MSEmitter::MSEmitter_FileTriggeredChild>(this, &MSEmitter::MSEmitter_FileTriggeredChild::execute),
+        MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+            new WrappingCommand<MSEmitter::MSEmitter_FileTriggeredChild>(this, &MSEmitter::MSEmitter_FileTriggeredChild::execute),
             (SUMOTime) (1. / (myFlow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
         myHaveInitialisedFlow = true;
