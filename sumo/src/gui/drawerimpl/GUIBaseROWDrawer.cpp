@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/03/20 07:22:56  dkrajzew
+// added missing files
+//
 // Revision 1.10  2006/01/11 11:54:35  dkrajzew
 // reworked possible link states; new link coloring
 //
@@ -208,8 +211,8 @@ GUIBaseROWDrawer::drawGLROWs_WithConnections(const GUINet &net,
                         const MSLane *connected = lane.getLinkLane(i);
                         if(connected!=0) {
                             glBegin(GL_LINES);
-                            const Position2D &p1 = lane.getShape().at(-1);
-                            const Position2D &p2 = connected->getShape().at(0);
+                            const Position2D &p1 = lane.getShape()[-1];
+                            const Position2D &p2 = connected->getShape()[0];
                             glVertex2f(p1.x(), p1.y());
                             glVertex2f(p2.x(), p2.y());
                             glEnd();

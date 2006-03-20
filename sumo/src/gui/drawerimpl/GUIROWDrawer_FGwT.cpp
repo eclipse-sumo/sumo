@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/03/20 07:22:56  dkrajzew
+// added missing files
+//
 // Revision 1.14  2006/01/31 10:52:01  dkrajzew
 // unneeded inclusions removed
 //
@@ -136,7 +139,7 @@ GUIROWDrawer_FGwT::drawLinkRules(const GUINet &net,
     SUMOReal visLength = -lane.visLength();
     const Position2DVector &g = lane.getShape();
     const Position2D &end = g.getEnd();
-    const Position2D &f = g.at(lane.getShape().size()-2);
+    const Position2D &f = g[-2];
     const Position2D &s = end;
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
     if(noLinks==0) {
@@ -205,7 +208,7 @@ GUIROWDrawer_FGwT::drawArrows(const GUILaneWrapper &lane)
     }
     // draw all links
     const Position2D &end = lane.getShape().getEnd();
-    const Position2D &f = lane.getShape().at(lane.getShape().size()-2);
+    const Position2D &f = lane.getShape()[-2];
     const Position2D &s = end;
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
     glPushMatrix();

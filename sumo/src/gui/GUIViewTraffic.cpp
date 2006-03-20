@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.51  2006/03/20 07:22:56  dkrajzew
+// added missing files
+//
 // Revision 1.50  2006/03/09 10:57:00  dkrajzew
 // beautifying
 //
@@ -789,7 +792,7 @@ GUIViewTraffic::draw(const MSRoute &r)
         const DoubleVector &lengths = lane.getShapeLengths();
         const Position2DVector &geom = lane.getShape();
         for(size_t i=0; i<geom.size()-1; i++) {
-			GLHelper::drawBoxLine(geom.at(i), rots[i], lengths[i], 1.0);
+			GLHelper::drawBoxLine(geom[i], rots[i], lengths[i], 1.0);
         }
     }
 }
