@@ -21,6 +21,7 @@
 #include <utils/shapes/ShapeContainer.h>
 #include "GUIGeomShapeBuilder.h"
 #include <utils/common/MsgHandler.h>
+#include <microsim/MSNet.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -45,8 +46,7 @@ GUIGeomShapeBuilder::polygonEnd(const Position2DVector &shape)
     GUIPolygon2D *p =
         new GUIPolygon2D(myIdStorage, myCurrentName, myCurrentType,
             myCurrentColor, shape);
-    if(!myShapeContainer.add(p)) {
-
+    if(!myShapeContainer.add(myCurrentLayer, p)) {
         MsgHandler::getErrorInstance()->inform("A duplicate of the polygon '" + myCurrentName + "' occured.");
         delete p;
     }
@@ -54,16 +54,15 @@ GUIGeomShapeBuilder::polygonEnd(const Position2DVector &shape)
 
 void
 GUIGeomShapeBuilder::addPoint(const std::string &name,
+                              int layer,
                              const std::string &type,
                              const RGBColor &c,
                              SUMOReal x, SUMOReal y,
 							 const std::string &lane, SUMOReal posOnLane)
 {
-    GUIPointOfInterest *p =
-        new GUIPointOfInterest(myIdStorage, name, type,
-            getPointPosition(x, y, lane, posOnLane), c);
-    if(!myShapeContainer.add(p)) {
-
+    Position2D pos = getPointPosition(x, y, lane, posOnLane);
+    GUIPointOfInterest *p = new GUIPointOfInterest(myIdStorage, name, type, pos, c);
+    if(!myShapeContainer.add(1, p)) {
         MsgHandler::getErrorInstance()->inform("A duplicate of the POI '" + name + "' occured.");
         delete p;
     }

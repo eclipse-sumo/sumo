@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/03/27 07:23:36  dkrajzew
+// shape layers added
+//
 // Revision 1.6  2006/01/31 10:53:44  dkrajzew
 // pois may be now placed on lane positions
 //
@@ -95,18 +98,19 @@ NLGeomShapeBuilder::NLGeomShapeBuilder(MSNet &net)
 
 NLGeomShapeBuilder::~NLGeomShapeBuilder()
 {
-//    delete myShapeContainer;
 }
 
 
 void
 NLGeomShapeBuilder::polygonBegin(const std::string &name,
+                                 int layer,
                                  const std::string &type,
                                  const RGBColor &c)
 {
     myCurrentName = name;
     myCurrentType = type;
     myCurrentColor = c;
+    myCurrentLayer = layer;
 }
 
 
@@ -115,8 +119,7 @@ NLGeomShapeBuilder::polygonEnd(const Position2DVector &shape)
 {
     Polygon2D *p =
         new Polygon2D(myCurrentName, myCurrentType, myCurrentColor, shape);
-    if(!myShapeContainer.add(p)) {
-
+    if(!myShapeContainer.add(myCurrentLayer, p)) {
         MsgHandler::getErrorInstance()->inform("A duplicate of the polygon '" + myCurrentName + "' occured.");
         delete p;
     }
@@ -124,15 +127,15 @@ NLGeomShapeBuilder::polygonEnd(const Position2DVector &shape)
 
 void
 NLGeomShapeBuilder::addPoint(const std::string &name,
+                             int layer,
                              const std::string &type,
                              const RGBColor &c,
                              SUMOReal x, SUMOReal y,
 							 const std::string &lane, SUMOReal posOnLane)
 {
-    PointOfInterest *p =
-		new PointOfInterest(name, type, getPointPosition(x, y, lane, posOnLane), c);
-    if(!myShapeContainer.add(p)) {
-
+    Position2D pos = getPointPosition(x, y, lane, posOnLane);
+    PointOfInterest *p = new PointOfInterest(name, type, pos, c);
+    if(!myShapeContainer.add(layer, p)) {
         MsgHandler::getErrorInstance()->inform("A duplicate of the POI '" + name + "' occured.");
         delete p;
     }

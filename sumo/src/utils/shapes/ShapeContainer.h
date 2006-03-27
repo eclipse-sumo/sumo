@@ -19,19 +19,24 @@ public:
     ShapeContainer();
     virtual ~ShapeContainer();
 
-    bool add(Polygon2D *p);
+    bool add(int layer, Polygon2D *p);
 
-    bool add(PointOfInterest *p);
+    bool add(int layer, PointOfInterest *p);
 
 	bool save(const std::string &file);
 
-     NamedObjectCont<Polygon2D*> &getPolygonCont() const;
-     NamedObjectCont<PointOfInterest*> &getPOICont() const;
+    NamedObjectCont<Polygon2D*> &getPolygonCont(int layer) const;
+    NamedObjectCont<PointOfInterest*> &getPOICont(int layer) const;
+
+    int getMinLayer() const;
+    int getMaxLayer() const;
+
 
 private:
-    mutable NamedObjectCont<Polygon2D*> myPolygons;
-    mutable NamedObjectCont<PointOfInterest*> myPOIs;
-
+    mutable std::map<int, NamedObjectCont<Polygon2D*> > myPolygonLayers;
+    mutable std::map<int, NamedObjectCont<PointOfInterest*> > myPOILayers;
+    int myCurrentLayer;
+    mutable int myMinLayer, myMaxLayer;
 
 };
 

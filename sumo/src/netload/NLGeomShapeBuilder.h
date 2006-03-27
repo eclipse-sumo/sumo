@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.7  2006/03/27 07:23:36  dkrajzew
+// shape layers added
+//
 // Revision 1.6  2006/01/31 10:53:44  dkrajzew
 // pois may be now placed on lane positions
 //
@@ -90,14 +93,14 @@ public:
     /** @brief Called when a polygon begins
         The values are stored in order to allocate the complete polygon after
         the shape has been parsed, too */
-    virtual void polygonBegin(const std::string &name,
+    virtual void polygonBegin(const std::string &name, int layer,
         const std::string &type, const RGBColor &c);
 
     /** @brief Ends the parsing of the polygon allocating it. */
     virtual void polygonEnd(const Position2DVector &shape);
 
     /// Adds the described PointOfInterest to the geometry container
-    virtual void addPoint(const std::string &name,
+    virtual void addPoint(const std::string &name, int layer,
         const std::string &type, const RGBColor &c,
 		SUMOReal x, SUMOReal y, const std::string &lane, SUMOReal posOnLane);
 
@@ -117,6 +120,9 @@ protected:
 
     /// The current polygon's color
     RGBColor myCurrentColor;
+
+    /// The layer thepolygon shall be added to
+    int myCurrentLayer;
 
     /// The shape container
     ShapeContainer &myShapeContainer;

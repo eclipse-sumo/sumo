@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/03/27 07:23:36  dkrajzew
+// shape layers added
+//
 // Revision 1.2  2006/03/09 07:42:42  dkrajzew
 // building patched
 //
@@ -61,6 +64,7 @@ namespace
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StdDefs.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -70,33 +74,71 @@ namespace
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
 
+
 /* =========================================================================
  * used namespaces
  * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ShapeContainer::ShapeContainer()
+    : myCurrentLayer(-10), myMinLayer(100), myMaxLayer(-100)
 {
 }
+
 
 ShapeContainer::~ShapeContainer()
 {
 }
 
+
 bool
-ShapeContainer::add(Polygon2D *p) {
-    return myPolygons.add(p->getName(), p);
+ShapeContainer::add(int layer, Polygon2D *p)
+{
+    if(myPolygonLayers.find(layer)==myPolygonLayers.end()) {
+        myPolygonLayers[layer] = NamedObjectCont<Polygon2D*>();
+        myMinLayer = MIN2(layer, myMinLayer);
+        myMaxLayer = MAX2(layer, myMaxLayer);
+    }
+    return myPolygonLayers[layer].add(p->getName(), p);
 }
 
+
 bool
-ShapeContainer::add(PointOfInterest *p) {
-    return myPOIs.add(p->getID(), p);
+ShapeContainer::add(int layer, PointOfInterest *p)
+{
+    if(myPOILayers.find(layer)==myPOILayers.end()) {
+        myPOILayers[layer] = NamedObjectCont<PointOfInterest*>();
+        myMinLayer = MIN2(layer, myMinLayer);
+        myMaxLayer = MAX2(layer, myMaxLayer);
+    }
+    return myPOILayers[layer].add(p->getID(), p);
+}
+
+/*
+bool
+ShapeContainer::add(Polygon2D *p)
+{
+    return add(myCurrentLayer, p);
 }
 
 
 bool
-ShapeContainer::save(const std::string &file) {
+ShapeContainer::add(PointOfInterest *p)
+{
+    return add(myCurrentLayer, p);
+}
+*/
 
+
+bool
+ShapeContainer::save(const std::string &file)
+{
+
+    /*
 	ofstream out(file.c_str());
 
     if (!out) {
@@ -139,22 +181,49 @@ ShapeContainer::save(const std::string &file) {
     out<<"</PointOfInterests>";
     out.flush();
    	out.close();
+    */
 	return 1;
 
 }
 
 
 NamedObjectCont<Polygon2D*> &
-ShapeContainer::getPolygonCont() const
+ShapeContainer::getPolygonCont(int layer) const
 {
-    return myPolygons;
+    if(myPolygonLayers.find(layer)==myPolygonLayers.end()) {
+        myPolygonLayers[layer] = NamedObjectCont<Polygon2D*>();
+        myMinLayer = MIN2(layer, myMinLayer);
+        myMaxLayer = MAX2(layer, myMaxLayer);
+    }
+    return myPolygonLayers[layer];
 }
 
+
 NamedObjectCont<PointOfInterest*> &
-ShapeContainer::getPOICont() const
+ShapeContainer::getPOICont(int layer) const
 {
-    return myPOIs;
+    if(myPOILayers.find(layer)==myPOILayers.end()) {
+        myPOILayers[layer] = NamedObjectCont<PointOfInterest*>();
+        myMinLayer = MIN2(layer, myMinLayer);
+        myMaxLayer = MAX2(layer, myMaxLayer);
+    }
+    return myPOILayers[layer];
 }
+
+
+int
+ShapeContainer::getMinLayer() const
+{
+    return myMinLayer;
+}
+
+
+int
+ShapeContainer::getMaxLayer() const
+{
+    return myMaxLayer;
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
