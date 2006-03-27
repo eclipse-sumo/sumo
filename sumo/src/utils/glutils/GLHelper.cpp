@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/03/27 07:24:45  dkrajzew
+// extracted drawing of lane geometries
+//
 // Revision 1.11  2006/03/08 13:16:23  dkrajzew
 // some work on lane visualization
 //
@@ -175,6 +178,45 @@ GLHelper::drawBoxLine(const Position2D &beg1, const Position2D &beg2,
     glPopMatrix();
 }
 */
+
+
+void
+GLHelper::drawBoxLines(const Position2DVector &geom,
+                       const std::vector<SUMOReal> &rots,
+                       const std::vector<SUMOReal> &lengths,
+                       SUMOReal width)
+{
+    for(size_t i=0; i<geom.size()-1; i++) {
+	    drawBoxLine(geom[i], rots[i], lengths[i], width);
+    }
+}
+
+
+void
+GLHelper::drawBoxLines(const Position2DVector &geom1,
+                       const Position2DVector &geom2,
+                       const std::vector<SUMOReal> &rots,
+                       const std::vector<SUMOReal> &lengths,
+                       SUMOReal width)
+{
+    for(size_t i=0; i<geom1.size()-1; i++) {
+	    GLHelper::drawBoxLine(geom1[i], geom2[i], rots[i], lengths[i], width);
+    }
+}
+
+void
+GLHelper::drawBoxLines(const Position2DVector &geom, SUMOReal width)
+{
+    for(size_t i=0; i<geom.size()-1; i++) {
+        const Position2D &f = geom[i];
+        const Position2D &s = geom[i+1];
+	    drawBoxLine(f,
+            (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265,
+            GeomHelper::distance(f, s),
+            width);
+    }
+}
+
 
 void
 GLHelper::drawLine(const Position2D &beg, SUMOReal rot, SUMOReal visLength)

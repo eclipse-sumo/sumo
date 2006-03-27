@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/03/27 07:24:45  dkrajzew
+// extracted drawing of lane geometries
+//
 // Revision 1.2  2006/03/17 11:03:03  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -453,15 +456,7 @@ GUIBusStop::doPaint(const Position2DVector &shape,
     // draw the area
     glColor3f((SUMOReal) (76./255.), (SUMOReal) (170./255.), (SUMOReal) (50./255.));
     size_t i;
-    for(i=0; i<myFGShape.size()-1; i++) {
-	    GLHelper::drawBoxLine(shape[i], rots[i], lengths[i], (SUMOReal) .4);
-    }
-    /*
-    if(myLastFreePos!=myEndPos) {
-        glColor3f((SUMOReal) .3, (SUMOReal) .3, (SUMOReal) .3);
-        GLHelper::drawBoxLine(shape.at(0), rots[0], myLastFreePos-myBegPos, (SUMOReal) .4); // !!! hack
-    }
-    */
+    GLHelper::drawBoxLines(shape, rots, lengths, 1.0);
     // draw the lines
     if(scale>=35) {
         glColor3f((SUMOReal) (76./255.), (SUMOReal) (170./255.), (SUMOReal) (50./255.));

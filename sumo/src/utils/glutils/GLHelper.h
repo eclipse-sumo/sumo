@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/03/27 07:24:45  dkrajzew
+// extracted drawing of lane geometries
+//
 // Revision 1.8  2006/03/08 13:16:23  dkrajzew
 // some work on lane visualization
 //
@@ -78,6 +81,17 @@ public:
 
     static void drawBoxLine(const Position2D &beg1, const Position2D &beg2,
         SUMOReal rot, SUMOReal visLength, SUMOReal width);
+
+    static void drawBoxLines(const Position2DVector &geom,
+        const std::vector<SUMOReal> &rots, const std::vector<SUMOReal> &lengths,
+        SUMOReal width);
+
+    static void drawBoxLines(const Position2DVector &geom1,
+        const Position2DVector &geom2,
+        const std::vector<SUMOReal> &rots, const std::vector<SUMOReal> &lengths,
+        SUMOReal width);
+
+    static void drawBoxLines(const Position2DVector &geom, SUMOReal width);
 
 
     static void drawLine(const Position2D &beg, SUMOReal rot,

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/03/27 07:24:45  dkrajzew
+// extracted drawing of lane geometries
+//
 // Revision 1.16  2006/03/17 11:03:02  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -338,10 +341,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL_FG(SUMOReal scale, SUMOReal upscale)
     SUMOReal width=2; // !!!
     if(width*upscale>1.0) {
         glScaled(upscale, upscale, upscale);
-        for(size_t i=0; i<myFullGeometry.size()-1; i++) {
-            GLHelper::drawBoxLine(myFullGeometry[i],
-                myShapeRotations[i], myShapeLengths[i], myWidth);
-        }
+        GLHelper::drawBoxLines(myFullGeometry, myShapeRotations, myShapeLengths, myWidth);
     } else {
         for(size_t i=0; i<myFullGeometry.size()-1; i++) {
             GLHelper::drawLine(myFullGeometry[i],

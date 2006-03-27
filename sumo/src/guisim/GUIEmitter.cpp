@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/03/27 07:24:45  dkrajzew
+// extracted drawing of lane geometries
+//
 // Revision 1.11  2006/03/17 11:03:04  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -567,12 +570,7 @@ GUIEmitter::drawGL_FG(SUMOReal scale, SUMOReal upscale)
         const MSEdge *e = (*k).first;
 		const GUIEdge *ge = static_cast<const GUIEdge*>(e);
 		const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
-		const DoubleVector &rots = lane.getShapeRotations();
-		const DoubleVector &lengths = lane.getShapeLengths();
-		const Position2DVector &geom = lane.getShape();
-        for(size_t i=0; i<geom.size()-1; i++) {
-		    GLHelper::drawBoxLine(geom[i], rots[i], lengths[i], 0.5);
-        }// !!! all this is also done in lane drawer
+        GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), 0.5);
     }
 }
 
