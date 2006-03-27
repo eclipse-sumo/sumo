@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/03/27 07:33:01  dkrajzew
+// added projection information to the network
+//
 // Revision 1.6  2005/10/07 11:44:16  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -49,6 +52,7 @@
 
 #include <string>
 #include <utils/geom/Position2DVector.h>
+#include <utils/geom/Boundary.h>
 
 
 /* =========================================================================
@@ -61,9 +65,16 @@
 class GeomConvHelper {
 public:
     /** @brief This method builds a Position2DVector from a string representation
-        It is assumed, the vector is stored as "x,y{ x,y}*" where x and y are
-        SUMOReals. */
+     *
+     * It is assumed, the vector is stored as "x,y{ x,y}*" where x and y are SUMOReals. */
     static Position2DVector parseShape(const std::string &shpdef);
+
+    /** @brief This method builds a boundary from its string representation
+     *
+     * It is assumed that the boundary is stored as a quadruple of SUMOReal, divided by
+     * ','
+     */
+    static Boundary parseBoundary(const std::string &def);
 
 };
 

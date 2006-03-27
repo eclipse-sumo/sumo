@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.25  2006/03/27 07:33:01  dkrajzew
+// added projection information to the network
+//
 // Revision 1.24  2006/03/17 11:03:07  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -318,6 +321,8 @@ public:
     void push_front_noDoublePos(const Position2D &p, float eps=.1);
 
     void replaceAt(size_t index, const Position2D &by);
+
+    bool isClosed() const;
 
 private:
 

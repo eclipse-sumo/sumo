@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/03/27 07:33:01  dkrajzew
+// added projection information to the network
+//
 // Revision 1.4  2005/10/07 11:44:16  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -277,6 +280,16 @@ Boundary::set(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax)
     _ymin = ymin;
     _xmax = xmax;
     _ymax = ymax;
+}
+
+
+void
+Boundary::moveby(SUMOReal x, SUMOReal y)
+{
+    _xmin += x;
+    _ymin += y;
+    _xmax += x;
+    _ymax += y;
 }
 
 

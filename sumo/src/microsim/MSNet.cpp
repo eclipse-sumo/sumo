@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.76  2006/03/27 07:25:55  dkrajzew
+// added projection information to the network
+//
 // Revision 1.75  2006/03/17 09:02:19  dkrajzew
 // .icc-files removed, changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -974,6 +977,50 @@ SUMOReal
 MSNet::getTooSlowRTF() const
 {
     return myTooSlowRTF;
+}
+
+
+
+void
+MSNet::setOffset(const Position2D &p)
+{
+    myOffset = p;
+}
+
+
+void
+MSNet::setOrigBoundary(const Boundary &p)
+{
+    myOrigBoundary = p;
+}
+
+
+void
+MSNet::setConvBoundary(const Boundary &p)
+{
+    myConvBoundary = p;
+}
+
+
+
+const Position2D &
+MSNet::getOffset() const
+{
+    return myOffset;
+}
+
+
+const Boundary &
+MSNet::getOrigBoundary() const
+{
+    return myOrigBoundary;
+}
+
+
+const Boundary &
+MSNet::getConvBoundary() const
+{
+    return myConvBoundary;
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/03/27 07:30:19  dkrajzew
+// added projection information to the network
+//
 // Revision 1.24  2006/03/17 11:03:05  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -231,12 +234,9 @@ NIArcView_Loader::load(OptionsCont &)
             to_node = toString(myRunningNodeID++);
         }
         string type = poFeature->GetFieldAsString("ST_TYP_AFT");
-        SUMOReal speed = 0;
-        size_t nolanes = 0;
-        int priority = 0;
-        speed = getSpeed(*poFeature, id);
-        nolanes = getLaneNo(*poFeature, id, speed, myUseNewLaneNumberInfoPlain);
-        priority = getPriority(*poFeature, id);
+        SUMOReal speed = getSpeed(*poFeature, id);
+        size_t nolanes = getLaneNo(*poFeature, id, speed, myUseNewLaneNumberInfoPlain);
+        int priority = getPriority(*poFeature, id);
         if(nolanes==0||speed==0) {
             if(myOptions.getBool("arcview.use-defaults-on-failure")) {
                 nolanes = myTypeCont.getDefaultNoLanes();
@@ -260,6 +260,11 @@ NIArcView_Loader::load(OptionsCont &)
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
         assert(gtype==wkbLineString);
         OGRLineString *cgeom = (OGRLineString*) poGeometry;//;dynamic_cast<OGRLineString*>(poGeometry);
+
+        int j;
+        for(j=0; j<cgeom->getNumPoints(); j++) {
+            myNodeCont.addGeoreference(Position2D((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j)));
+        }
         bool try_transform2 = true;
         if(poCT!=0) {
             cgeom->transform(poCT);
@@ -267,7 +272,7 @@ NIArcView_Loader::load(OptionsCont &)
         }
 
         Position2DVector shape;
-        for(int j=0; j<cgeom->getNumPoints(); j++) {
+        for(j=0; j<cgeom->getNumPoints(); j++) {
             if(!try_transform2||myProjection==0) {
                 shape.push_back_noDoublePos(Position2D((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j))); // !!!
             } else {

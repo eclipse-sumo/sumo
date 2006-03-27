@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/03/27 07:30:20  dkrajzew
+// added projection information to the network
+//
 // Revision 1.7  2006/03/17 11:03:06  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -150,6 +153,9 @@ NIElmar2NodesHandler::report(const std::string &result)
             MsgHandler::getErrorInstance()->inform("Non-numerical value for node-y-position occured.");
             throw ProcessError();
         }
+
+        myNodeCont.addGeoreference(Position2D((SUMOReal) x / 100000.0, (SUMOReal) y / 100000.0));
+
         projUV p;
         p.u = x / 100000.0 * DEG_TO_RAD;
         p.v = y / 100000.0 * DEG_TO_RAD;

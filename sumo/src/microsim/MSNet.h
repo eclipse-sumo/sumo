@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.60  2006/03/27 07:25:55  dkrajzew
+// added projection information to the network
+//
 // Revision 1.59  2006/03/17 09:02:19  dkrajzew
 // .icc-files removed, changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -352,6 +355,8 @@
 #include "output/meandata/MSMeanData_Net_Cont.h"
 #include "MSVehicleControl.h"
 #include "MSEventControl.h"
+#include <utils/geom/Boundary.h>
+#include <utils/geom/Position2D.h>
 #include <utils/common/SUMOTime.h>
 
 
@@ -637,6 +642,16 @@ public:
         return myEndOfTimestepEvents;
     }
 
+    void setOffset(const Position2D &p);
+    void setOrigBoundary(const Boundary &p);
+    void setConvBoundary(const Boundary &p);
+
+    const Position2D &getOffset() const;
+    const Boundary &getOrigBoundary() const;
+    const Boundary &getConvBoundary() const;
+
+
+
 protected:
 
     /** initialises the MeanData-container */
@@ -714,6 +729,9 @@ protected:
     std::string myStateDumpFiles;
 
     SUMOReal myTooSlowRTF;
+
+    Position2D myOffset;
+    Boundary myOrigBoundary, myConvBoundary;
 
 private:
     /// Copy constructor.

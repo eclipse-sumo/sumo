@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/03/27 07:30:20  dkrajzew
+// added projection information to the network
+//
 // Revision 1.10  2006/03/08 13:02:27  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -115,6 +118,9 @@ NIVisumParser_Nodes::myDependentReport()
         SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKoord").c_str());
         projUV p;
         if(myProjection!=0) {
+
+            myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
+
             p.u = x / 100000.0 * DEG_TO_RAD;
             p.v = y / 100000.0 * DEG_TO_RAD;
             p = pj_fwd(p, myProjection);

@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/03/27 07:25:55  dkrajzew
+// added projection information to the network
+//
 // Revision 1.10  2006/02/27 12:10:41  dkrajzew
 // WAUTs added
 //
@@ -564,6 +567,7 @@ NLHandler::addPOI(const Attributes &attrs)
         std::string name = getString(attrs, SUMO_ATTR_ID);
         try {
             myShapeBuilder.addPoint(name,
+                getIntSecure(attrs, "layer", 1),//!!!
                 getString(attrs, SUMO_ATTR_TYPE),
                 GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
                 getFloatSecure(attrs, SUMO_ATTR_X, INVALID_POSITION),
@@ -590,6 +594,7 @@ NLHandler::addPoly(const Attributes &attrs)
         std::string name = getString(attrs, SUMO_ATTR_ID);
         try {
             myShapeBuilder.polygonBegin(name,
+                getIntSecure(attrs, "layer", -1),//!!!
                 getString(attrs, SUMO_ATTR_TYPE),
                 GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)));
         } catch (XMLIdAlreadyUsedException &e) {
@@ -1235,6 +1240,15 @@ NLHandler::myCharacters(int element, const std::string &name,
         default:
             break;
         }
+        if(name=="net-offset") { // !!!!6 change to tag*
+            setNetOffset(chars);
+        }
+        if(name=="conv") { // !!!!6 change to tag*
+            setNetConv(chars);
+        }
+        if(name=="orig") { // !!!!6 change to tag*
+            setNetOrig(chars);
+        }
     }
     if(wanted(LOADFILTER_DYNAMIC)) {
         MSRouteHandler::myCharacters(element, name, chars);
@@ -1364,6 +1378,47 @@ NLHandler::setOffset(const std::string &chars)
         return;
     }
 }
+
+
+void
+NLHandler::setNetOffset(const std::string &chars)
+{
+    try {
+        Position2DVector s = GeomConvHelper::parseShape(chars);
+        myNet.setOffset(s[0]);
+    } catch (NumberFormatException) {
+        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
+        return;
+    }
+}
+
+
+void
+NLHandler::setNetConv(const std::string &chars)
+{
+    try {
+        Boundary s = GeomConvHelper::parseBoundary(chars);
+        myNet.setConvBoundary(s);
+    } catch (NumberFormatException) {
+        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
+        return;
+    }
+}
+
+
+void
+NLHandler::setNetOrig(const std::string &chars)
+{
+    try {
+        Boundary s = GeomConvHelper::parseBoundary(chars);
+        myNet.setOrigBoundary(s);
+    } catch (NumberFormatException) {
+        MsgHandler::getErrorInstance()->inform("Invalid network offset.");
+        return;
+    }
+}
+
+
 
 
 void

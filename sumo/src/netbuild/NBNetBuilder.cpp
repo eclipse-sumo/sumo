@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2006/03/27 07:26:32  dkrajzew
+// added projection information to the network
+//
 // Revision 1.31  2006/02/13 07:17:35  dkrajzew
 // code beautifying; added pois output of built tls
 //
@@ -130,11 +133,18 @@ NBNetBuilder::buildLoaded()
     // perform the computation
     OptionsCont &oc = OptionsSubSys::getOptions();
     compute(oc);
-    // save network when wished
-    ofstream res(oc.getString("o").c_str());
-    if(res.good()) {
-        save(res, oc);
+    // save network
+    bool ok = true;
+    if(!oc.getBool("binary-output")) {
+        ofstream res(oc.getString("o").c_str());
+        if(res.good()) {
+            save(res, oc);
+        } else {
+            ok = false;
+        }
     } else {
+    }
+    if(!ok) {
         MsgHandler::getErrorInstance()->inform("Could not save net to '" + oc.getString("o") + "'.");
         throw ProcessError();
     }
@@ -444,38 +454,49 @@ NBNetBuilder::checkPrint(OptionsCont &oc)
 bool
 NBNetBuilder::save(ostream &res, OptionsCont &oc)
 {
-    // print the computed values
-    res << "<net>" << endl << endl;
-    res.setf( ios::fixed, ios::floatfield );
-    res << setprecision( 2 );
-    // write the numbers of some elements
-    std::vector<std::string> ids;
-    if(oc.getBool("add-internal-links")) {
-        ids = myNodeCont.getInternalNamesList();
-    }
-    myEdgeCont.writeXMLEdgeList(res, ids);
-    if(oc.getBool("add-internal-links")) {
-        myNodeCont.writeXMLInternalLinks(res);
-    }
+    if(!oc.getBool("binary")) {
+        // print the computed values
+        res << "<net>" << endl << endl;
+        res.setf( ios::fixed, ios::floatfield );
+        res << setprecision( 2 );
+        // write network offsets
+       res << "   <net-offset>" << myNodeCont.getNetworkOffset() << "</net-offset>" << endl;
+       res << "   <conv>" << myNodeCont.getConvBoundary() << "</conv>" << endl;
+       res << "   <orig>" << myNodeCont.getOrigBoundary() << "</orig>" << endl;
+       res << endl;
 
-        // write the number of nodes
-    myNodeCont.writeXMLNumber(res);
-    res << endl;
-    // write the districts
-    myDistrictCont.writeXML(res);
-    // write edges with lanes and connected edges
-    myEdgeCont.writeXMLStep1(res);
-    // write the logics
-    myJunctionLogicCont.writeXML(res);
-    myTLLCont.writeXML(res);
-    // write the nodes
-    myNodeCont.writeXML(res);
-    // write the successors of lanes
-    myEdgeCont.writeXMLStep2(res);
-    if(oc.getBool("add-internal-links")) {
-        myNodeCont.writeXMLInternalSuccInfos(res);
+        // write the numbers of some elements
+           // edges
+        std::vector<std::string> ids;
+        if(oc.getBool("add-internal-links")) {
+            ids = myNodeCont.getInternalNamesList();
+        }
+        myEdgeCont.writeXMLEdgeList(res, ids);
+        if(oc.getBool("add-internal-links")) {
+            myNodeCont.writeXMLInternalLinks(res);
+        }
+
+            // write the number of nodes
+        myNodeCont.writeXMLNumber(res);
+        res << endl;
+        // write the districts
+        myDistrictCont.writeXML(res);
+        // write edges with lanes and connected edges
+        myEdgeCont.writeXMLStep1(res);
+        // write the logics
+        myJunctionLogicCont.writeXML(res);
+        myTLLCont.writeXML(res);
+        // write the nodes
+        myNodeCont.writeXML(res);
+        // write the successors of lanes
+        myEdgeCont.writeXMLStep2(res);
+        if(oc.getBool("add-internal-links")) {
+            myNodeCont.writeXMLInternalSuccInfos(res);
+        }
+        res << "</net>" << endl;
+    } else {
+//        res << setmode(os::binary);
     }
-    res << "</net>" << endl;
     return true;
 }
 

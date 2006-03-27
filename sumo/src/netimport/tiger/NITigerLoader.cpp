@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/03/27 07:30:20  dkrajzew
+// added projection information to the network
+//
 // Revision 1.11  2006/03/17 11:03:06  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -216,6 +219,9 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
         try {
             SUMOReal x = TplConvert<char>::_2SUMOReal(p1.c_str());
             SUMOReal y = TplConvert<char>::_2SUMOReal(p2.c_str());
+
+            myNodeCont.addGeoreference(Position2D((SUMOReal) x / 100000.0, (SUMOReal) y / 100000.0));
+
             projUV p;
             p.u = x / 100000.0 * DEG_TO_RAD;
             p.v = y / 100000.0 * DEG_TO_RAD;

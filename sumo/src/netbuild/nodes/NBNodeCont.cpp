@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/03/27 07:26:32  dkrajzew
+// added projection information to the network
+//
 // Revision 1.21  2006/03/17 11:03:05  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -278,6 +281,7 @@ NBNodeCont::insert(const std::string &id, const Position2D &position,
     }
     NBNode *node = new NBNode(id, position, district);
     _nodes[id] = node;
+    myConvBoundary.add(position);
     return true;
 }
 
@@ -295,6 +299,7 @@ NBNodeCont::insert(const string &id, const Position2D &position)
     }
     NBNode *node = new NBNode(id, position);
     _nodes[id] = node;
+    myConvBoundary.add(position);
     return true;
 }
 
@@ -323,6 +328,7 @@ NBNodeCont::insert(const string &id) // !!! really needed
     pair<SUMOReal, SUMOReal> ret(-1.0, -1.0);
     NodeCont::iterator i = _nodes.find(id);
     if(i!=_nodes.end()) {
+        myConvBoundary.add((*i).second->getPosition());
         return (*i).second->getPosition();
     } else {
         NBNode *node = new NBNode(id, Position2D(-1.0, -1.0));
@@ -345,6 +351,7 @@ NBNodeCont::insert(NBNode *node)
         return false;
     }
     _nodes[id] = node;
+    myConvBoundary.add(node->getPosition());
     return true;
 }
 
@@ -389,23 +396,20 @@ NBNodeCont::erase(NBNode *node)
 }
 
 
-
 bool
 NBNodeCont::normaliseNodePositions()
 {
     // compute the boundary
     Boundary boundary;
     NodeCont::iterator i;
-    for(i=_nodes.begin(); i!=_nodes.end(); i++) {
-        boundary.add((*i).second->getPosition());
-    }
     // reformat
-    SUMOReal xmin = boundary.xmin() * -1;
-    SUMOReal ymin = boundary.ymin() * -1;
+    SUMOReal xmin = myConvBoundary.xmin() * -1;
+    SUMOReal ymin = myConvBoundary.ymin() * -1;
     for(i=_nodes.begin(); i!=_nodes.end(); i++) {
         (*i).second->resetby(xmin, ymin);
     }
     myNetworkOffset = Position2D(xmin, ymin);
+    myConvBoundary.moveby(xmin, ymin);
     return true;
 }
 
@@ -416,6 +420,7 @@ NBNodeCont::reshiftNodePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         (*i).second->reshiftPosition(xoff, yoff, rot);
     }
+    myConvBoundary.moveby(xoff, yoff); // !!! rotation
     return true;
 }
 
@@ -675,11 +680,12 @@ NBNodeCont::getFreeID()
 }
 
 
-Position2D
+const Position2D &
 NBNodeCont::getNetworkOffset() const
 {
     return myNetworkOffset;
 }
+
 
 bool
 NBNodeCont::computeNodeShapes(OptionsCont &oc)
@@ -1360,6 +1366,14 @@ NBNodeCont::writeTLSasPOIs(const std::string &file)
     res << "</pois>" << endl;
     return res.good();
 }
+
+
+void
+NBNodeCont::addGeoreference(const Position2D &p)
+{
+    myOrigBoundary.add(p);
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

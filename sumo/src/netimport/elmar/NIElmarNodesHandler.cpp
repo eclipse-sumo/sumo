@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/03/27 07:30:19  dkrajzew
+// added projection information to the network
+//
 // Revision 1.9  2006/03/08 13:02:27  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -119,10 +122,8 @@ NIElmarNodesHandler::report(const std::string &result)
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
     // check
     if(st.size()<3) {
-        MsgHandler::getErrorInstance()->inform(
-            "Something is wrong with the following data line");
-        MsgHandler::getErrorInstance()->inform(
-            result);
+        MsgHandler::getErrorInstance()->inform("Something is wrong with the following data line");
+        MsgHandler::getErrorInstance()->inform(result);
         throw ProcessError();
     }
     // parse
@@ -130,18 +131,18 @@ NIElmarNodesHandler::report(const std::string &result)
     try {
         x = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            "Non-numerical value for node-x-position occured.");
+        MsgHandler::getErrorInstance()->inform("Non-numerical value for node-x-position occured.");
         throw ProcessError();
     }
     try {
         y = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            "Non-numerical value for node-y-position occured.");
+        MsgHandler::getErrorInstance()->inform("Non-numerical value for node-y-position occured.");
         throw ProcessError();
     }
     // geo->metric
+    myNodeCont.addGeoreference(Position2D((SUMOReal) x / 100000.0, (SUMOReal) y / 100000.0));
+
     projUV p;
     p.u = x / 100000.0 * DEG_TO_RAD;
     p.v = y / 100000.0 * DEG_TO_RAD;

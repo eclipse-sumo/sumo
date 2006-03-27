@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2006/03/27 07:33:01  dkrajzew
+// added projection information to the network
+//
 // Revision 1.34  2006/03/17 11:03:07  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -1292,6 +1295,13 @@ Position2DVector::replaceAt(size_t index, const Position2D &by)
 {
     assert(size()>index);
     myCont[index] = by;
+}
+
+
+bool
+Position2DVector::isClosed() const
+{
+    return myCont.size()>=2&&myCont[0]==myCont[myCont.size()-1];
 }
 
 

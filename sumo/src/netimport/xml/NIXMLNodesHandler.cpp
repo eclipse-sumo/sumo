@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/03/27 07:30:20  dkrajzew
+// added projection information to the network
+//
 // Revision 1.16  2006/03/17 11:04:14  dkrajzew
 // debugged double projection
 //
@@ -235,6 +238,9 @@ NIXMLNodesHandler::setPosition(const Attributes &attrs)
         SUMOReal x = getFloat(attrs, SUMO_ATTR_X);
         SUMOReal y = getFloat(attrs, SUMO_ATTR_Y);
         if(myProjection!=0) {
+
+            myNodeCont.addGeoreference(Position2D((SUMOReal) x / 100000.0, (SUMOReal) y / 100000.0));
+
             projUV p;
             p.u = x / 100000.0 * DEG_TO_RAD;
             p.v = y / 100000.0 * DEG_TO_RAD;

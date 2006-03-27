@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2006/03/27 07:26:32  dkrajzew
+// added projection information to the network
+//
 // Revision 1.11  2006/02/13 07:17:36  dkrajzew
 // code beautifying; added pois output of built tls
 //
@@ -275,7 +278,7 @@ public:
     std::string getFreeID();
 
     /// Returns the minimum position
-    Position2D getNetworkOffset() const;
+    const Position2D &getNetworkOffset() const;
 
     bool computeNodeShapes(OptionsCont &oc);
 
@@ -293,6 +296,16 @@ public:
     bool savePlain(const std::string &file);
 
     bool writeTLSasPOIs(const std::string &file);
+
+    const Boundary &getOrigBoundary() const {
+        return myOrigBoundary;
+    }
+
+    const Boundary &getConvBoundary() const {
+        return myConvBoundary;
+    };
+
+    void addGeoreference(const Position2D &p);
 
 private:
     bool mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const;
@@ -314,6 +327,9 @@ private:
 
     /// The minimum network position
     Position2D myNetworkOffset;
+
+    /// Boundaries of the network (original, converted)
+    Boundary myOrigBoundary, myConvBoundary;
 
 private:
     /** invalid copy constructor */

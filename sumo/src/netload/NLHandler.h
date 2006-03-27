@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/03/27 07:25:55  dkrajzew
+// added projection information to the network
+//
 // Revision 1.5  2006/02/27 12:10:41  dkrajzew
 // WAUTs added
 //
@@ -389,6 +392,11 @@ private:
 
     /// Sets the offset a tl-logic shall be fired the first time after
     void setOffset(const std::string &chars);
+
+
+    void setNetOffset(const std::string &chars);
+    void setNetConv(const std::string &chars);
+    void setNetOrig(const std::string &chars);
 
 
 

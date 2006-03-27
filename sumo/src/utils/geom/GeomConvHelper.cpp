@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/03/27 07:33:01  dkrajzew
+// added projection information to the network
+//
 // Revision 1.6  2005/10/07 11:44:16  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -57,6 +60,7 @@ namespace
 
 #include <string>
 #include <utils/geom/Position2DVector.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/TplConvert.h>
 #include "GeomConvHelper.h"
@@ -82,6 +86,22 @@ GeomConvHelper::parseShape(const std::string &shpdef)
             Position2D(x, y));
     }
     return shape;
+}
+
+
+Boundary
+GeomConvHelper::parseBoundary(const std::string &def)
+{
+    StringTokenizer st(def, ",");
+    if(st.size()!=4) {
+        MsgHandler::getErrorInstance()->inform("Could not parse '" + def + "' as boundary.");
+        throw ProcessError();
+    }
+    SUMOReal xmin = TplConvert<char>::_2SUMOReal(st.next().c_str());
+    SUMOReal ymin = TplConvert<char>::_2SUMOReal(st.next().c_str());
+    SUMOReal xmax = TplConvert<char>::_2SUMOReal(st.next().c_str());
+    SUMOReal ymax = TplConvert<char>::_2SUMOReal(st.next().c_str());
+    return Boundary(xmin, ymin, xmax, ymax);
 }
 
 

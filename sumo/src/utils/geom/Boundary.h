@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/03/27 07:33:01  dkrajzew
+// added projection information to the network
+//
 // Revision 1.4  2005/10/07 11:44:16  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -107,6 +110,7 @@ public:
     Boundary &grow(SUMOReal by);
     void flipY();
     void set(SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax);
+    void moveby(SUMOReal x, SUMOReal y);
 
     friend std::ostream &operator<<(std::ostream &os, const Boundary &b);
 private:
