@@ -231,6 +231,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\trigger\MSE1VehicleActor.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSEdge.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -928,6 +931,9 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\actions\MSDiscreteEventControl.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\trigger\MSE1VehicleActor.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSEdge.h">
