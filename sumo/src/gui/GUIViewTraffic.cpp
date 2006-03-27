@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.51  2006/03/20 07:22:56  dkrajzew
-// added missing files
+// Revision 1.52  2006/03/27 07:22:07  dkrajzew
+// shape layers added; extracted drawing of lane geometries
 //
 // Revision 1.50  2006/03/09 10:57:00  dkrajzew
 // beautifying
@@ -652,6 +652,7 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
         }
         myDecalsLock.unlock();
     }
+    drawShapes(_net->getShapeContainer(), 0);
 
     myJunctionDrawer[drawerToUse]->drawGLJunctions(_junctions2Show, _junctions2ShowSize,
         _junctionColScheme);
@@ -692,7 +693,7 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
         }
     }
     // draw the Polygons
-    drawShapes(_net->getShapeContainer());
+    drawShapes(_net->getShapeContainer(), 10);
     // draw vehicles only when they're visible
     if(scale*m2p(3)>myVisualizationSettings.minVehicleSize) {
         myVehicleDrawer[drawerToUse]->drawGLVehicles(_edges2Show, _edges2ShowSize,
@@ -788,12 +789,7 @@ GUIViewTraffic::draw(const MSRoute &r)
         const MSEdge *e = *i;
         const GUIEdge *ge = static_cast<const GUIEdge*>(e);
         const GUILaneWrapper &lane = ge->getLaneGeometry((size_t) 0);
-        const DoubleVector &rots = lane.getShapeRotations();
-        const DoubleVector &lengths = lane.getShapeLengths();
-        const Position2DVector &geom = lane.getShape();
-        for(size_t i=0; i<geom.size()-1; i++) {
-			GLHelper::drawBoxLine(geom[i], rots[i], lengths[i], 1.0);
-        }
+        GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), 1.0);
     }
 }
 
@@ -875,14 +871,14 @@ GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
                 std::string n= o->getFullName();
                 std::string name = n.substr(n.find(":")+1,n.length());
                 GUIPointOfInterest *p= static_cast<GUIPointOfInterest *>
-                    (_net->getShapeContainer().getPOICont().get(name));
+                    (_net->getShapeContainer().getPOICont(1).get(name));
                 setPointToMove(p);
             } else {
                 std::pair<SUMOReal, SUMOReal> point = getPositionInformation();
                 std::string Id= toString(point.first) +  "," + toString(point.second);
                 GUIPointOfInterest *p = new GUIPointOfInterest(gIDStorage, Id, "point",
                     Position2D(point.first, point.second),RGBColor(0,0,0) );
-                _net->getShapeContainer().add(p);
+                _net->getShapeContainer().add(1, p);
                 update();
             }
         }
