@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/03/27 07:20:28  dkrajzew
+// vehicle actors added, joined some commonly used functions, documentation added
+//
 // Revision 1.14  2006/03/08 13:15:00  dkrajzew
 // friendly_pos usage debugged
 //
@@ -97,6 +100,7 @@ namespace
 #include <microsim/trigger/MSTriggerControl.h>
 #include <microsim/trigger/MSTriggeredRerouter.h>
 #include <microsim/trigger/MSBusStop.h>
+#include <microsim/trigger/MSE1VehicleActor.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/FileHelpers.h>
@@ -153,6 +157,8 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
         t = parseAndBuildRerouter(net, attrs, base, helper);
     } else if(type=="bus_stop") {
         t = parseAndBuildBusStop(net, attrs, base, helper);
+    } else if(type=="vehicle_actor") {
+        t = parseAndBuildVehicleActor(net, attrs, base, helper);
     }
 #ifdef HAVE_MESOSIM
     else if(type=="calibrator") {
@@ -166,6 +172,8 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
 }
 
 
+
+
 MSLaneSpeedTrigger *
 NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net,
                                                 const Attributes &attrs,
@@ -173,11 +181,7 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net,
                                                 const NLHandler &helper)
 {
     // get the file name to read further definitions from
-    string file = helper.getString(attrs, SUMO_ATTR_FILE);
-        // check whether absolute or relative filenames are given
-    if(!FileHelpers::isAbsolute(file)) {
-        file = FileHelpers::getConfigurationRelative(base, file);
-    }
+    string file = getFileName(attrs, base, helper);
     // lane speed trigger
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
@@ -206,30 +210,10 @@ NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net,
                                                const NLHandler &helper)
 {
     // get the file name to read further definitions from
-    string file = helper.getString(attrs, SUMO_ATTR_FILE);
-        // check whether absolute or relative filenames are given
-    if(!FileHelpers::isAbsolute(file)) {
-        file = FileHelpers::getConfigurationRelative(base, file);
-    }
+    string file = getFileName(attrs, base, helper);
     string id = helper.getString(attrs, SUMO_ATTR_ID);
-    string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
-    bool friendly_pos = helper.getBoolSecure(attrs, "friendly_pos", false);
-    MSLane *lane = MSLane::dictionary(objectid);
-    if(lane==0) {
-        MsgHandler::getErrorInstance()->inform("The lane to use within MSEmitter '" + id + "' is not known.");
-        throw ProcessError();
-    }
-    SUMOReal pos = helper.getFloat(attrs, SUMO_ATTR_POS);
-    if(pos<0) {
-        pos = lane->length() + pos;
-    }
-    if(pos>lane->length()) {
-		if(friendly_pos) {
-			pos = lane->length() - (SUMOReal) 0.1;
-		} else {
-			throw InvalidArgument("The position of detector '" + id + "' lies beyond the lane's '" + lane->id() + "' length.");
-		}
-    }
+    MSLane *lane = getLane(attrs, helper, "emitter", id);
+    SUMOReal pos = getPosition(attrs, helper, lane, "emitter", id);
     return buildLaneEmitTrigger(net, id, lane, pos, file);
 }
 
@@ -243,11 +227,7 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net,
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     // get the lane
     string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
-    MSLane *lane = MSLane::dictionary(objectid);
-    if(lane==0) {
-        MsgHandler::getErrorInstance()->inform("The lane to use within MSEmitter '" + id + "' is not known.");
-        throw ProcessError();
-    }
+    MSLane *lane = getLane(attrs, helper, "bus_stop", id);
     // get the positions
     SUMOReal frompos, topos;
     try {
@@ -278,6 +258,19 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net,
 }
 
 
+MSE1VehicleActor *
+NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net,
+                                            const Attributes &attrs,
+                                            const std::string &base,
+                                            const NLHandler &helper)
+{
+    string id = helper.getString(attrs, SUMO_ATTR_ID);
+    MSLane *lane = getLane(attrs, helper, "vehicle_actor", id);
+    SUMOReal pos = getPosition(attrs, helper, lane, "vehicle_actor", id);
+    return buildVehicleActor(net, id, lane, pos);
+}
+
+
 #ifdef HAVE_MESOSIM
 METriggeredCalibrator *
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
@@ -286,11 +279,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
                                           const NLHandler &helper)
 {
     // get the file name to read further definitions from
-    string file = helper.getString(attrs, SUMO_ATTR_FILE);
-        // check whether absolute or relative filenames are given
-    if(!FileHelpers::isAbsolute(file)) {
-        file = FileHelpers::getConfigurationRelative(base, file);
-    }
+    string file = getFileName(attrs, base, helper);
 
     string rfile = helper.getStringSecure(attrs, "rfile", "");
     if(rfile.length()!=0&&!FileHelpers::isAbsolute(rfile)) {
@@ -298,13 +287,8 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
     }
 
     string id = helper.getString(attrs, SUMO_ATTR_ID);
-    string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
-    MSLane *lane = MSLane::dictionary(objectid);
-    if(lane==0) {
-        MsgHandler::getErrorInstance()->inform("The lane to use within MSEmitter '" + id + "' is not known.");
-        throw ProcessError();
-    }
-    SUMOReal pos = helper.getFloat(attrs, SUMO_ATTR_POS);
+    MSLane *lane = getLane(attrs, helper, "calibrator", id);
+    SUMOReal pos = getPosition(attrs, helper, lane, "emitter", id);
 
 
         MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&(lane->edge()));
@@ -329,11 +313,8 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
                                         const NLHandler &helper)
 {
     // get the file name to read further definitions from
-    string file = helper.getString(attrs, SUMO_ATTR_FILE);
-        // check whether absolute or relative filenames are given
-    if(!FileHelpers::isAbsolute(file)) {
-        file = FileHelpers::getConfigurationRelative(base, file);
-    }
+    string file = getFileName(attrs, base, helper);
+
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
     std::vector<MSEdge*> edges;
@@ -413,7 +394,7 @@ NLTriggerBuilder::buildRerouter(MSNet &net, const std::string &id,
 }
 
 
-MSBusStop*
+MSBusStop *
 NLTriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
                                const std::vector<std::string> &lines,
                                MSLane *lane,
@@ -422,6 +403,68 @@ NLTriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
     return new MSBusStop(id, std::vector<std::string>(), *lane, frompos, topos);
 }
 
+
+MSE1VehicleActor *
+NLTriggerBuilder::buildVehicleActor(MSNet &net, const std::string &id,
+                                    MSLane *lane, SUMOReal pos)
+{
+    return new MSE1VehicleActor(id, lane, pos);
+}
+
+
+
+
+std::string
+NLTriggerBuilder::getFileName(const Attributes &attrs,
+                              const std::string &base,
+                              const NLHandler &helper)
+{
+    // get the file name to read further definitions from
+    string file = helper.getString(attrs, SUMO_ATTR_FILE);
+        // check whether absolute or relative filenames are given
+    if(!FileHelpers::isAbsolute(file)) {
+        return FileHelpers::getConfigurationRelative(base, file);
+    }
+    return file;
+}
+
+
+MSLane *
+NLTriggerBuilder::getLane(const Attributes &attrs,
+                          const NLHandler &helper,
+                          const std::string &tt,
+                          const std::string &tid)
+{
+    string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
+    MSLane *lane = MSLane::dictionary(objectid);
+    if(lane==0) {
+        MsgHandler::getErrorInstance()->inform("The lane to use within the " + tt + " '" + tid + "' is not known.");
+        throw ProcessError();
+    }
+    return lane;
+}
+
+
+SUMOReal
+NLTriggerBuilder::getPosition(const Attributes &attrs, const NLHandler &helper,
+                              MSLane *lane,
+                              const std::string &tt, const std::string &tid)
+{
+
+    SUMOReal pos = helper.getFloat(attrs, SUMO_ATTR_POS);
+    bool friendly_pos = helper.getBoolSecure(attrs, "friendly_pos", false);
+    if(pos<0) {
+        pos = lane->length() + pos;
+    }
+    if(pos>lane->length()) {
+		if(friendly_pos) {
+			pos = lane->length() - (SUMOReal) 0.1;
+		} else {
+			throw InvalidArgument("The position of " + tt + " '" + tid + "' lies beyond the lane's '" + lane->id() + "' length.");
+		}
+    }
+    return pos;
+}
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
