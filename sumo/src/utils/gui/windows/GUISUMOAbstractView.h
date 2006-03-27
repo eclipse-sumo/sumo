@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/03/27 07:34:19  dkrajzew
+// shape layers added
+//
 // Revision 1.14  2006/03/08 13:17:56  dkrajzew
 // possibility to insert pois on the gui added (danilot tete-boyom)
 //
@@ -277,7 +280,7 @@ public:
     /// Builds the popup-menu containing the location-menu
     virtual FXPopup *getLocatorPopup(GUIGlChildWindow &p);
 
-    void drawShapes(const ShapeContainer &sc) ;
+    void drawShapes(const ShapeContainer &sc, int maxLayer) ;
 
     void remove(GUIDialog_EditViewport *d) { myViewportChooser = 0; }
 
@@ -396,6 +399,9 @@ protected:
     std::pair<SUMOReal, SUMOReal> getPositionInformation() const;
 
     std::pair<SUMOReal, SUMOReal> getPositionInformation(int x, int y) const;
+
+    void drawShapesLayer(const ShapeContainer &sc, int layer);
+
 
 protected:
     virtual void doPaintGL(int mode, SUMOReal scale) { }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/03/27 07:34:19  dkrajzew
+// shape layers added
+//
 // Revision 1.18  2006/03/17 11:03:07  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -1200,32 +1203,36 @@ GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
 	RGBColor color = polygon.getColor();
 	glColor3d(color.red(), color.green(), color.blue());
 	double *points = new double[polygon.getPosition2DVector().size()*3];
-	GLUtesselator *tobj = gluNewTess();
-	gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid (CALLBACK*) ()) &glVertex3dv);
-	gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid (CALLBACK*) ()) &beginCallback);
-	gluTessCallback(tobj, GLU_TESS_END, (GLvoid (CALLBACK*) ()) &endCallback);
-	//gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (CALLBACK*) ()) &errorCallback);
-	gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid (CALLBACK*) ()) &combineCallback);
-	gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
-	gluTessBeginPolygon(tobj, NULL);
-		gluTessBeginContour(tobj);
-        for(int i=0; i!=polygon.getPosition2DVector().size(); ++i) {
-            points[3*i]  = polygon.getPosition2DVector()[i].x();
-            points[3*i+1]  = polygon.getPosition2DVector()[i].y();
-            points[3*i+2]  = 0;
-            glvert[0] = polygon.getPosition2DVector()[i].x();
-            glvert[1] = polygon.getPosition2DVector()[i].y();
-            glvert[2] = 0;
-            glvert[3] = 1;
-            glvert[4] = 1;
-            glvert[5] = 1;
-			gluTessVertex( tobj, points+3*i, points+3*i) ;
-        }
-		gluTessEndContour(tobj);
+    if(polygon.getPosition2DVector().isClosed()) {
+	    GLUtesselator *tobj = gluNewTess();
+	    gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid (CALLBACK*) ()) &glVertex3dv);
+	    gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid (CALLBACK*) ()) &beginCallback);
+	    gluTessCallback(tobj, GLU_TESS_END, (GLvoid (CALLBACK*) ()) &endCallback);
+	    //gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (CALLBACK*) ()) &errorCallback);
+	    gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid (CALLBACK*) ()) &combineCallback);
+	    gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
+	    gluTessBeginPolygon(tobj, NULL);
+		    gluTessBeginContour(tobj);
+            for(int i=0; i!=polygon.getPosition2DVector().size(); ++i) {
+                points[3*i]  = polygon.getPosition2DVector()[i].x();
+                points[3*i+1]  = polygon.getPosition2DVector()[i].y();
+                points[3*i+2]  = 0;
+                glvert[0] = polygon.getPosition2DVector()[i].x();
+                glvert[1] = polygon.getPosition2DVector()[i].y();
+                glvert[2] = 0;
+                glvert[3] = 1;
+                glvert[4] = 1;
+                glvert[5] = 1;
+			    gluTessVertex( tobj, points+3*i, points+3*i) ;
+            }
+		    gluTessEndContour(tobj);
 
-	gluTessEndPolygon(tobj);
-	gluDeleteTess(tobj);
-	delete[] points;
+	    gluTessEndPolygon(tobj);
+	    gluDeleteTess(tobj);
+	    delete[] points;
+    } else {
+        GLHelper::drawBoxLines(polygon.getPosition2DVector(), 1.);
+    }
 
     if(_useToolTips) {
         glPopName();
@@ -1318,20 +1325,36 @@ GUISUMOAbstractView::setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos)
 
 
 void
-GUISUMOAbstractView::drawShapes(const ShapeContainer &sc)
+GUISUMOAbstractView::drawShapesLayer(const ShapeContainer &sc, int layer)
 {
     {
-        const std::vector<Polygon2D*> &pv = sc.getPolygonCont().buildAndGetStaticVector();
+        const std::vector<Polygon2D*> &pv = sc.getPolygonCont(layer).buildAndGetStaticVector();
         std::vector<Polygon2D*>::const_iterator pi = pv.begin();
         for(; pi!=pv.end(); pi++) {
-             drawPolygon2D(**pi);
+            drawPolygon2D(**pi);
         }
     }
     {
-        const std::vector<PointOfInterest*> &pv = sc.getPOICont().buildAndGetStaticVector();
+        const std::vector<PointOfInterest*> &pv = sc.getPOICont(layer).buildAndGetStaticVector();
         std::vector<PointOfInterest*>::const_iterator pi = pv.begin();
         for(; pi!=pv.end(); pi++) {
-             drawPOI2D(**pi);
+            drawPOI2D(**pi);
+        }
+    }
+}
+
+
+void
+GUISUMOAbstractView::drawShapes(const ShapeContainer &sc, int maxLayer)
+{
+    if(maxLayer<=0&&sc.getMinLayer()<=0) {
+        for(int i=sc.getMinLayer(); i<=0; i++) {
+            drawShapesLayer(sc, i);
+        }
+    }
+    if(maxLayer>0&&sc.getMaxLayer()>0) {
+        for(int i=0; i<=sc.getMaxLayer(); i++) {
+            drawShapesLayer(sc, i);
         }
     }
 }
