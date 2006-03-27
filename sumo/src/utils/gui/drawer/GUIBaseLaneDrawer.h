@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/03/27 07:33:38  dkrajzew
+// extracted drawing of lane geometries
+//
 // Revision 1.9  2006/03/17 11:03:07  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -141,12 +144,7 @@ public:
                         size_t k;
                         for(k=0; k<noLanes; k++) {
                             const _L1 &lane = edge->getLaneGeometry(k);
-		                    const DoubleVector &rots = lane.getShapeRotations();
-	                        const DoubleVector &lengths = lane.getShapeLengths();
-		                    const Position2DVector &geom = lane.getShape();
-                            for(size_t i=0; i<geom.size()-1; i++) {
-				                GLHelper::drawBoxLine(geom[i], rots[i], lengths[i], SUMO_const_halfLaneAndOffset);
-	                        }
+                            GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), SUMO_const_halfLaneAndOffset);
                         }
                         // draw black boxes
                         for(k=1; k<noLanes; k++) {

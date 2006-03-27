@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/03/27 07:33:38  dkrajzew
+// extracted drawing of lane geometries
+//
 // Revision 1.8  2006/03/17 11:03:07  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -99,12 +102,7 @@ private:
     void drawLane(const _L1 &lane, SUMOReal mult) const
 	{
 		glPushName(lane.getGlID());
-		const DoubleVector &rots = lane.getShapeRotations();
-		const DoubleVector &lengths = lane.getShapeLengths();
-		const Position2DVector &geom = lane.getShape();
-        for(size_t i=0; i<geom.size()-1; i++) {
-		    GLHelper::drawBoxLine(geom[i], rots[i], lengths[i], SUMO_const_halfLaneWidth*mult);
-		}
+        GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), SUMO_const_halfLaneWidth*mult);
 	    glPopName();
 	}
 
@@ -114,13 +112,7 @@ private:
 		glPushName(edge.getGlID());
         const _L1 &lane1 = edge.getLaneGeometry((size_t) 0);
         const _L1 &lane2 = edge.getLaneGeometry(edge.nLanes()-1);
-		const DoubleVector &rots = lane1.getShapeRotations();
-	    const DoubleVector &lengths = lane1.getShapeLengths();
-		const Position2DVector &geom1 = lane1.getShape();
-        const Position2DVector &geom2 = lane2.getShape();
-        for(size_t i=0; i<geom1.size()-1; i++) {
-		    GLHelper::drawBoxLine(geom1[i], geom2[i], rots[i], lengths[i], (SUMOReal) edge.nLanes()*SUMO_const_halfLaneWidth*mult);
-		}
+        GLHelper::drawBoxLines(lane1.getShape(), lane2.getShape(), lane1.getShapeRotations(), lane1.getShapeLengths(), (SUMOReal) edge.nLanes()*SUMO_const_halfLaneAndOffset*mult);
 	    glPopName();
 	}
 
