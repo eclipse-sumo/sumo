@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/03/27 07:31:42  dkrajzew
+// starting binary network output
+//
 // Revision 1.19  2006/03/15 09:26:09  dkrajzew
 // documentation patched
 //
@@ -295,6 +298,7 @@ NIOptionsIO::fillOptions(OptionsCont &oc)
     oc.addSynonyme("artemis-path", "artemis");
     oc.addSynonyme("output-file", "output");
     oc.addSynonyme("configuration-file", "configuration");
+    oc.doRegister("binary-output", new Option_Bool(false));
     // register computation variables
     oc.doRegister("capacity-norm", 'N', new Option_Float((SUMOReal) 20000));
     // register further vissim-options
