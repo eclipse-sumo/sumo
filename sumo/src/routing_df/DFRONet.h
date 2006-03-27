@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.8  2006/03/27 07:32:15  dkrajzew
+// some further work...
+//
 // Revision 1.7  2006/03/17 09:04:26  dkrajzew
 // class-documentation added/patched
 //
@@ -71,12 +74,14 @@ public:
     const std::vector<ROEdge*> &getEdgesAfter(ROEdge *edge) const;
 
     void computeTypes(DFDetectorCon &dets) const;
-    void buildRoutes(DFDetectorCon &det) const;
+    void buildRoutes(DFDetectorCon &det, bool allEndFollower,
+        bool keepUnfoundEnds) const;
 	SUMOReal getAbsPos(const DFDetector &det) const;
 
     void buildEdgeFlowMap(const DFDetectorFlows &flows,
         const DFDetectorCon &detectors,
 		SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
+
 
 protected:
     bool isSource(const DFDetector &det,
@@ -95,6 +100,7 @@ protected:
 		const DFDetectorCon &detectors) const;
 
     void computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
+        bool allEndFollower, bool keepUnfoundEnds,
         std::vector<ROEdge*> &visited, const DFDetector &det,
         DFRORouteCont &into, const DFDetectorCon &detectors,
 		std::vector<ROEdge*> &seen) const;

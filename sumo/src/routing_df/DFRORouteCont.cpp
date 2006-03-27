@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/03/27 07:32:15  dkrajzew
+// some further work...
+//
 // Revision 1.6  2006/03/17 09:04:26  dkrajzew
 // class-documentation added/patched
 //
@@ -105,6 +108,18 @@ DFRORouteCont::addRouteDesc(DFRORouteDesc *desc)
 
 
 bool
+DFRORouteCont::removeRouteDesc(DFRORouteDesc *desc)
+{
+    std::vector<DFRORouteDesc*>::const_iterator j =
+        find(myRoutes.begin(), myRoutes.end(), desc);
+    if(j==myRoutes.end()) {
+        return false;
+    }
+    return true;
+}
+
+
+bool
 DFRORouteCont::readFrom(const std::string &file)
 {
     throw 1;
@@ -183,6 +198,7 @@ DFRORouteCont::getDets2Follow() const
 {
     return myDets2Follow;
 }
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

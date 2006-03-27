@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.13  2006/03/27 07:32:15  dkrajzew
+// some further work...
+//
 // Revision 1.12  2006/03/17 09:04:25  dkrajzew
 // class-documentation added/patched
 //
@@ -107,6 +110,7 @@ public:
 	void writeSingleSpeedTrigger(const std::string &file,
 		const DFDetectorFlows &flows,
 		SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
+    void writeEndRerouterDetectors(const std::string &file);
 
 protected:
     void buildDestinationDistribution(const DFDetectorCon &detectors,
@@ -155,6 +159,7 @@ public:
 
 	void writeValidationDetectors(const std::string &file,
         bool includeSources, bool singleFile, bool friendly);
+    void writeEndRerouterDetectors(const std::string &file);
 
     int getFlowFor(const ROEdge *edge, SUMOTime time,
         const DFDetectorFlows &flows) const;

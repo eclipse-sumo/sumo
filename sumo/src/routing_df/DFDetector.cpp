@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/03/27 07:32:15  dkrajzew
+// some further work...
+//
 // Revision 1.12  2006/03/17 09:04:25  dkrajzew
 // class-documentation added/patched
 //
@@ -105,6 +108,15 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                                          SUMOTime stepOffset,
                                          std::map<size_t, RandomDistributor<size_t>* > &into) const
 {
+    std::vector<DFRORouteDesc*>::const_iterator ri;
+    const std::vector<DFRORouteDesc*> &descs = myRoutes->get();
+    /*
+    std::map<const ROEdge *, int> lastDetNo;
+    for(ri=descs.begin(); ri!=descs.end(); ++ri) {
+        DFRORouteDesc *rd = *ri;
+        rd->lastDetectorEdge
+    }
+*/
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
     const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
     // iterate through time (in output interval steps)
@@ -113,9 +125,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
         // get the number of vehicles to emit
         const FlowDef &srcFD = mflows[(int) (time/stepOffset) - startTime];// !!! check stepOffset
         SUMOReal toEmit = (SUMOReal) (srcFD.qLKW + srcFD.qPKW);
-        const std::vector<DFRORouteDesc*> &descs = myRoutes->get();
         // iterate through the routes
-        std::vector<DFRORouteDesc*>::const_iterator ri;
         size_t index = 0;
         for(ri=descs.begin(); ri!=descs.end()&&toEmit>=0; ++ri, index++) {
             DFRORouteDesc *rd = *ri;
@@ -745,6 +755,29 @@ DFDetectorCon::writeSpeedTrigger(const std::string &file,
                 << " file=\"" << filename << "\"/>"
                 << endl;
             det->writeSingleSpeedTrigger(filename, flows, startTime, endTime, stepOffset);
+        }
+    }
+    strm << "</additional>" << endl;
+}
+
+
+void
+DFDetectorCon::writeEndRerouterDetectors(const std::string &file)
+{
+	ofstream strm(file.c_str());
+	if(!strm.good()) {
+		MsgHandler::getErrorInstance()->inform("Could not open file '" + file + "'.");
+		throw ProcessError();
+	}
+	strm << "<additional>" << endl;
+	for(std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+		DFDetector *det = *i;
+		// write the declaration into the file
+		if(det->getType()==SINK_DETECTOR) {
+            strm << "   <trigger id=\"endrerouter_" << det->getID()
+                << "\" objecttype=\"rerouter\" objectid=\"" <<
+                det->getLaneID() << "\" attr=\"reroute\" pos=\"0\" file=\"endrerouter_"
+                << det->getID() << ".def.xml\"/>" << endl;
         }
     }
     strm << "</additional>" << endl;

@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/03/27 07:34:54  dkrajzew
+// some further work...
+//
 // Revision 1.12  2006/03/08 12:51:28  dkrajzew
 // further work on the dfrouter
 //
@@ -243,7 +246,8 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
         // compute routes between the detectors (optionally)
         if(!detectors->detectorsHaveRoutes()||oc.isSet("revalidate-routes")) {
             MsgHandler::getMessageInstance()->inform("Computing routes...");
-            optNet->buildRoutes(*detectors);
+            optNet->buildRoutes(*detectors,
+                oc.getBool("all-end-follower"), oc.getBool("keep-unfound-ends"));
             MsgHandler::getMessageInstance()->inform("done.");
         }
     }
@@ -296,6 +300,12 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
         MsgHandler::getMessageInstance()->inform("Writing validation detectors...");
 		detectors->writeValidationDetectors(oc.getString("validation-output"),
             oc.getBool("validation-output.add-sources"), true, true); // !!!
+        MsgHandler::getMessageInstance()->inform("done.");
+	}
+    // build global rerouter on end if wished
+	if(oc.isSet("end-reroute-output")) {
+        MsgHandler::getMessageInstance()->inform("Writing highway end rerouter...");
+		detectors->writeEndRerouterDetectors(oc.getString("end-reroute-output")); // !!!
         MsgHandler::getMessageInstance()->inform("done.");
 	}
 	/*

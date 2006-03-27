@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/03/27 07:32:15  dkrajzew
+// some further work...
+//
 // Revision 1.10  2006/03/17 09:04:26  dkrajzew
 // class-documentation added/patched
 //
@@ -135,6 +138,8 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("revalidate-routes", new Option_Bool(false));
     oc.doRegister("revalidate-detectors", new Option_Bool(false));
 	oc.doRegister("write-calibrators", new Option_Bool(false));
+    oc.doRegister("all-end-follower", new Option_Bool(false));
+    oc.doRegister("keep-unfound-ends", new Option_Bool(false));
 
 
 

@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2006/03/27 07:32:15  dkrajzew
+// some further work...
+//
 // Revision 1.5  2006/03/17 09:04:26  dkrajzew
 // class-documentation added/patched
 //
@@ -60,6 +63,7 @@ public:
 //	DFRORouteCont(const DFRORouteCont &s);
     ~DFRORouteCont();
     void addRouteDesc(DFRORouteDesc *desc);
+    bool removeRouteDesc(DFRORouteDesc *desc);
     bool readFrom(const std::string &file);
     bool save(std::vector<std::string> &saved,
 		const std::string &prependix, std::ostream &os/*const std::string &file*/);

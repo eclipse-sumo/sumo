@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/03/27 07:32:15  dkrajzew
+// some further work...
+//
 // Revision 1.13  2006/03/17 09:04:26  dkrajzew
 // class-documentation added/patched
 //
@@ -271,11 +274,13 @@ DFRONet::hasInBetweenDetectorsOnly(ROEdge *edge,
 
 void
 DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
+                          bool allEndFollower, bool keepUnfoundEnds,
                           std::vector<ROEdge*> &visited,
                           const DFDetector &det, DFRORouteCont &into,
 						  const DFDetectorCon &detectors,
 						  std::vector<ROEdge*> &seen) const
 {
+    std::vector<DFRORouteDesc*> unfoundEnds;
     priority_queue<DFRORouteDesc*, vector<DFRORouteDesc*>, DFRouteDescByTimeComperator> toSolve;
     std::map<ROEdge*, std::vector<ROEdge*> > dets2Follow;
     dets2Follow[edge] = std::vector<ROEdge*>();
@@ -363,6 +368,9 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
 			if(current->passedNo>15) { // !!!
 				// mark not to process any further
 				cout << "Could not find destinations for '" << det.getID() << "'" << endl;
+                if(!keepUnfoundEnds) {
+                    unfoundEnds.push_back(current);
+                }
 				current->routename = buildRouteID(*current);
 				into.addRouteDesc(current);
 				continue; // !!!
@@ -370,6 +378,7 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
 		}
 		// ... else: loop over the next edges
 		const std::vector<ROEdge*> &appr  = myApproachedEdges.find(last)->second;
+        bool hadOne = false;
 		for(size_t i=0; i<appr.size(); i++) {
             if(find(current->edges2Pass.begin(), current->edges2Pass.end(), appr[i])!=current->edges2Pass.end()) {
                 // do not append an edge twice (do not build loops)
@@ -383,12 +392,31 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
 				t->passedNo = t->passedNo + 1;
 				toSolve.push(t);
 			} else {
-				t->routename = buildRouteID(*t);
-				into.addRouteDesc(t);
+                if(!hadOne||allEndFollower) {
+    				t->routename = buildRouteID(*t);
+	    			into.addRouteDesc(t);
+                    hadOne = true;
+                }
 			}
 		}
 	}
     into.setDets2Follow(dets2Follow);
+    //
+    if(!keepUnfoundEnds) {
+        std::vector<DFRORouteDesc*>::iterator i;
+        std::vector<const ROEdge*> lastDetEdges;
+        for(i=unfoundEnds.begin(); i!=unfoundEnds.end(); ++i) {
+            if(find(lastDetEdges.begin(), lastDetEdges.end(), (*i)->lastDetectorEdge)==lastDetEdges.end()) {
+                lastDetEdges.push_back((*i)->lastDetectorEdge);
+            } else {
+                bool ok = into.removeRouteDesc(*i);
+                assert(ok);
+            }
+        }
+
+//        forunfoundEnds;
+    }
+
     /*
     // ok, we have built the routes;
     //  now, we have to compute the relationships between them
@@ -505,7 +533,8 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
 
 
 void
-DFRONet::buildRoutes(DFDetectorCon &detcont) const
+DFRONet::buildRoutes(DFDetectorCon &detcont, bool allEndFollower,
+                     bool keepUnfoundEnds) const
 {
     // build needed information first
     buildDetectorEdgeDependencies(detcont);
@@ -546,7 +575,8 @@ DFRONet::buildRoutes(DFDetectorCon &detcont) const
 
         std::vector<ROEdge*> visited;
         visited.push_back(e);
-        computeRoutesFor(e, rd, 0, visited, **i, *routes, detcont, seen);
+        computeRoutesFor(e, rd, 0, allEndFollower, keepUnfoundEnds,
+            visited, **i, *routes, detcont, seen);
 		(*i)->addRoutes(routes);
 		//cout << (*i)->getID() << " : " << routes->get().size() << endl;
 
