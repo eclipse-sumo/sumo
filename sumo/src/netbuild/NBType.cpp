@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/03/27 07:27:13  dkrajzew
+// edge types may now store the edge function
+//
 // Revision 1.7  2005/10/17 09:02:44  dkrajzew
 // got rid of the old MSVC memory leak checker; memory leaks removed
 //
@@ -104,9 +107,10 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-NBType::NBType(const string &name, int noLanes, SUMOReal speed, int priority)
-    : _name(StringUtils::convertUmlaute(name)), _noLanes(noLanes),
-    _speed(speed), _priority(priority)
+NBType::NBType(const string &name, int noLanes, SUMOReal speed, int priority,
+               NBEdge::EdgeBasicFunction function)
+    : myName(StringUtils::convertUmlaute(name)), myNoLanes(noLanes),
+    mySpeed(speed), myPriority(priority), myFunction(function)
 {
 }
 

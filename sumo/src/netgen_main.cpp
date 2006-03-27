@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/03/27 07:28:43  dkrajzew
+// edge types may now store the edge function
+//
 // Revision 1.27  2006/01/16 13:38:22  dkrajzew
 // help and error handling patched
 //
@@ -382,9 +385,7 @@ main(int argc, char **argv)
         // initialise the (default) types
         OptionsCont &oc = OptionsSubSys::getOptions();
         NBNetBuilder nb;
-        nb.getTypeCont().setDefaults(
-            oc.getString("T"), oc.getInt("L"), oc.getFloat("S"),
-            oc.getInt("P"));
+        nb.getTypeCont().setDefaults(oc.getInt("L"), oc.getFloat("S"), oc.getInt("P"));
         // build the netgen-network description
         TNGNet *net = buildNetwork(nb);
         // ... and we have to do this...

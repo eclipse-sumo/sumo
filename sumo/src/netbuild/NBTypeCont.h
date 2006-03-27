@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2006/03/27 07:27:14  dkrajzew
+// edge types may now store the edge function
+//
 // Revision 1.10  2005/10/07 11:38:19  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -119,7 +122,7 @@ public:
     ~NBTypeCont();
 
     /** sets the default values */
-    void setDefaults(const std::string &formatName, int defaultNoLanes,
+    void setDefaults(int defaultNoLanes,
         SUMOReal defaultSpeed, int defaultPriority);
 
     /** adds a possible type into the list */
@@ -133,12 +136,12 @@ public:
         (the default value if the type does not exist) */
     SUMOReal getSpeed(const std::string &type);
 
+    /// Returns the function streets of the named type have
+    NBEdge::EdgeBasicFunction getFunction(const std::string &type);
+
     /** returns the priority of the section/edge with the given type
         (the default value if the type does not exist) */
     int getPriority(const std::string &type);
-
-    /** returns the name of the used format */
-    std::string getFormatName();
 
     /** returns the default number of lanes */
     int getDefaultNoLanes();
@@ -166,23 +169,20 @@ private:
     typedef std::map<std::string, NBType*> TypesCont;
 
 private:
-    /** the name of the used format */
-    std::string              _formatName;
-
     /** the default number of lanes of a section/edge */
-    int                      _defaultNoLanes;
+    int myDefaultNoLanes;
 
     /** the default maximal velocity on a section/edge in m/s */
-    SUMOReal                   _defaultSpeed;
+    SUMOReal myDefaultSpeed;
 
     /** the default priority of a section/edge */
-    int                      _defaultPriority;
+    int myDefaultPriority;
 
     /** the container of types */
-    TypesCont                _types;
+    TypesCont myTypes;
 
     /** the matrix of roads to junction type mappings */
-    NBJunctionTypesMatrix    _junctionTypes;
+    NBJunctionTypesMatrix myJunctionTypes;
 
 private:
     /** invalid copy constructor */

@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.8  2006/03/27 07:27:13  dkrajzew
+// edge types may now store the edge function
+//
 // Revision 1.7  2005/10/07 11:38:19  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -78,6 +81,8 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
+#include "NBEdge.h"
+
 
 /* =========================================================================
  * class declarations
@@ -89,7 +94,8 @@
 class NBType {
 public:
     /** parameterised constructor */
-    NBType(const std::string &name, int noLanes, SUMOReal speed, int priority);
+    NBType(const std::string &name, int noLanes, SUMOReal speed, int priority,
+        NBEdge::EdgeBasicFunction function);
 
     /** destructor */
     ~NBType();
@@ -99,16 +105,19 @@ public:
 
 private:
     /** the name of the type */
-    std::string _name;
+    std::string myName;
 
     /** the number of lanes of this type */
-    int       _noLanes;
+    int myNoLanes;
 
     /** the speed on a section/edge of this type */
-    SUMOReal    _speed;
+    SUMOReal mySpeed;
 
     /** the priority of the edge/section of this type */
-    int       _priority;
+    int myPriority;
+
+    /// The street's function
+    NBEdge::EdgeBasicFunction myFunction;
 
 };
 

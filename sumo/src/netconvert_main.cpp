@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2006/03/27 07:28:43  dkrajzew
+// edge types may now store the edge function
+//
 // Revision 1.35  2006/02/23 11:38:47  dkrajzew
 // VISION import added
 //
@@ -265,9 +268,7 @@ main(int argc, char **argv)
         OptionsCont &oc = OptionsSubSys::getOptions();
         NBNetBuilder nb;
         // initialise the (default) types
-        nb.getTypeCont().setDefaults(
-            oc.getString("T"), oc.getInt("L"), oc.getFloat("S"),
-            oc.getInt("P"));
+        nb.getTypeCont().setDefaults(oc.getInt("L"), oc.getFloat("S"), oc.getInt("P"));
         // load data
         nb.preCheckOptions(oc);
         NILoader nl(nb);

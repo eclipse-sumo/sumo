@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/03/27 07:30:56  dkrajzew
+// edge types may now store the edge function
+//
 // Revision 1.6  2006/02/23 11:23:53  dkrajzew
 // VISION import added
 //
@@ -115,7 +118,8 @@ NIVisumParser_Types::myDependentReport()
             : TplConvert<char>::_2SUMOReal(myLineParser.get("KAPIV").c_str());
         int nolanes = myCap2Lanes.get(cap);
         // insert the type
-        NBType *type = new NBType(id, nolanes, speed/(SUMOReal) 3.6, 100-priority);
+        NBType *type = new NBType(id, nolanes, speed/(SUMOReal) 3.6, 100-priority,
+            NBEdge::EDGEFUNCTION_NORMAL);
         if(!myTypeCont.insert(type)) {
             addError(" Duplicate type occured ('" + id + "').");
             delete type;

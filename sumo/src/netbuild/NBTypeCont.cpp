@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/03/27 07:27:14  dkrajzew
+// edge types may now store the edge function
+//
 // Revision 1.11  2005/10/17 09:02:44  dkrajzew
 // got rid of the old MSVC memory leak checker; memory leaks removed
 //
@@ -139,24 +142,24 @@ NBTypeCont::~NBTypeCont()
 
 
 void
-NBTypeCont::setDefaults(const string &formatName, int defaultNoLanes,
-                        SUMOReal defaultSpeed, int defaultPriority)
+NBTypeCont::setDefaults(int defaultNoLanes,
+                        SUMOReal defaultSpeed,
+                        int defaultPriority)
 {
-    _formatName = formatName;
-    _defaultNoLanes = defaultNoLanes;
-    _defaultSpeed = defaultSpeed;
-    _defaultPriority = defaultPriority;
+    myDefaultNoLanes = defaultNoLanes;
+    myDefaultSpeed = defaultSpeed;
+    myDefaultPriority = defaultPriority;
 }
 
 
 bool
 NBTypeCont::insert(NBType *type)
 {
-    TypesCont::iterator i=_types.find(type->_name);
-    if(i!=_types.end()) {
+    TypesCont::iterator i = myTypes.find(type->myName);
+    if(i!=myTypes.end()) {
         return false;
     }
-    _types[type->_name] = type;
+    myTypes[type->myName] = type;
     return true;
 }
 
@@ -164,88 +167,89 @@ NBTypeCont::insert(NBType *type)
 int
 NBTypeCont::getNoLanes(const string &type)
 {
-    TypesCont::iterator i = _types.find(type);
-    if(i==_types.end()) {
-        return NBTypeCont::_defaultNoLanes;
+    TypesCont::iterator i = myTypes.find(type);
+    if(i==myTypes.end()) {
+        return NBTypeCont::myDefaultNoLanes;
     }
-    int nolanes = (*i).second->_noLanes;
-    return nolanes;
+    return (*i).second->myNoLanes;
 }
 
 
 SUMOReal
 NBTypeCont::getSpeed(const string &type)
 {
-    TypesCont::iterator i = _types.find(type);
-    if(i==_types.end()) {
-        return NBTypeCont::_defaultSpeed;
+    TypesCont::iterator i = myTypes.find(type);
+    if(i==myTypes.end()) {
+        return NBTypeCont::myDefaultSpeed;
     }
-    SUMOReal speed = (*i).second->_speed;
-    return speed;
+    return (*i).second->mySpeed;
+}
+
+
+NBEdge::EdgeBasicFunction
+NBTypeCont::getFunction(const std::string &type)
+{
+    TypesCont::iterator i = myTypes.find(type);
+    if(i==myTypes.end()) {
+        return NBEdge::EDGEFUNCTION_NORMAL;
+    }
+    return (*i).second->myFunction;
 }
 
 
 int
 NBTypeCont::getPriority(const string &type)
 {
-    TypesCont::iterator i = _types.find(type);
-    if(i==_types.end()) {
-        return NBTypeCont::_defaultPriority;
+    TypesCont::iterator i = myTypes.find(type);
+    if(i==myTypes.end()) {
+        return NBTypeCont::myDefaultPriority;
     }
-    int priority = (*i).second->_priority;
-    return priority;
-}
-
-
-string
-NBTypeCont::getFormatName()
-{
-    return _formatName;
+    return (*i).second->myPriority;
 }
 
 
 int
 NBTypeCont::getDefaultNoLanes()
 {
-    return NBTypeCont::_defaultNoLanes;
+    return NBTypeCont::myDefaultNoLanes;
 }
 
 
 int
 NBTypeCont::getDefaultPriority()
 {
-    return NBTypeCont::_defaultPriority;
+    return NBTypeCont::myDefaultPriority;
 }
 
 
 SUMOReal
 NBTypeCont::getDefaultSpeed()
 {
-    return NBTypeCont::_defaultSpeed;
+    return NBTypeCont::myDefaultSpeed;
 }
 
 
 size_t
 NBTypeCont::getNo()
 {
-    return _types.size();
+    return myTypes.size();
 }
 
 
 NBNode::BasicNodeType
 NBTypeCont::getJunctionType(int edgetype1, int edgetype2) const
 {
-    return _junctionTypes.getType(edgetype1, edgetype2);
+    return myJunctionTypes.getType(edgetype1, edgetype2);
 }
 
 
 void
 NBTypeCont::clear()
 {
-    for(TypesCont::iterator i=_types.begin(); i!=_types.end(); i++) {
+    for(TypesCont::iterator i=myTypes.begin(); i!=myTypes.end(); i++) {
         delete((*i).second);
     }
-    _types.clear();
+    myTypes.clear();
 }
 
 

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/03/27 07:28:43  dkrajzew
+// edge types may now store the edge function
+//
 // Revision 1.9  2005/10/17 09:18:44  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -163,35 +166,37 @@ NIXMLTypesHandler::myStartElement(int element, const std::string &name,
                 priority = getIntSecure(attrs, SUMO_ATTR_PRIORITY,
                     myTypeCont.getDefaultPriority());
             } catch (NumberFormatException) {
-                addError(
-                    string("Not numeric value for Priority (at tag ID='")
-                    + id + string("')."));
+                addError("Not numeric value for Priority (at tag ID='" + id + "').");
             }
             // get the number of lanes
             try {
                 noLanes = getIntSecure(attrs, SUMO_ATTR_NOLANES,
                     myTypeCont.getDefaultNoLanes());
             } catch (NumberFormatException) {
-                addError(
-                    string("Not numeric value for NoLanes (at tag ID='")
-                    + id + string("')."));
+                addError("Not numeric value for NoLanes (at tag ID='" + id + "').");
             }
             // get the speed
             try {
                 speed = getFloatSecure(attrs, SUMO_ATTR_SPEED,
                     (SUMOReal) myTypeCont.getDefaultSpeed());
             } catch (NumberFormatException) {
-                addError(
-                    string("Not numeric value for Speed (at tag ID='")
-                    + id + string("')."));
+                addError("Not numeric value for Speed (at tag ID='" + id + "').");
+            }
+            // get the function
+            NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_NORMAL;
+            string functionS = getStringSecure(attrs, SUMO_ATTR_FUNC, "normal");
+            if(functionS=="source") {
+                function = NBEdge::EDGEFUNCTION_SOURCE;
+            } else if(functionS=="sink") {
+                function = NBEdge::EDGEFUNCTION_SINK;
+            } else if(functionS!="normal"&&functionS!="") {
+                addError("Unknown function '" + functionS + "' occured.");
             }
             // build the type
             if(!MsgHandler::getErrorInstance()->wasInformed()) {
-                NBType *type = new NBType(id, noLanes, speed, priority);
+                NBType *type = new NBType(id, noLanes, speed, priority, function);
                 if(!myTypeCont.insert(type)) {
-                    addError(
-                        string("Duplicate type occured. ID='")
-                        + id + string("'"));
+                    addError("Duplicate type occured. ID='" + id + "'");
                     delete type;
                 }
             }

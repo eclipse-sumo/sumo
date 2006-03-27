@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2006/03/27 07:28:43  dkrajzew
+// edge types may now store the edge function
+//
 // Revision 1.12  2006/02/13 07:21:04  dkrajzew
 // parsing of edge function added
 //
@@ -204,6 +207,9 @@ private:
     /// The current edge's number of lanes
     int myCurrentLaneNo;
 
+    /// The current edge's function
+    NBEdge::EdgeBasicFunction myCurrentEdgeFunction;
+
     /// The current edge's type
     std::string myCurrentType;
 
@@ -230,8 +236,6 @@ private:
 	NBEdgeCont &myEdgeCont;
 
 	NBTypeCont &myTypeCont;
-
-    NBEdge::EdgeBasicFunction myFunction;
 
 private:
     /** invalid copy constructor */

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/03/27 07:28:43  dkrajzew
+// edge types may now store the edge function
+//
 // Revision 1.24  2006/02/13 07:21:04  dkrajzew
 // parsing of edge function added
 //
@@ -232,6 +235,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
         myCurrentSpeed = myTypeCont.getDefaultSpeed();
         myCurrentPriority = myTypeCont.getDefaultPriority();
         myCurrentLaneNo = myTypeCont.getDefaultNoLanes();
+        myCurrentEdgeFunction = NBEdge::EDGEFUNCTION_NORMAL;
         // check whether a type's values shall be used
         checkType(attrs);
         // speed, priority and the number of lanes have now default values;
@@ -262,7 +266,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
                     myFromNode, myToNode,
                     myCurrentType, myCurrentSpeed,
                     myCurrentLaneNo, myLength, myCurrentPriority, myLanesSpread,
-                    myFunction);
+                    myCurrentEdgeFunction);
             } else {
                 edge = new NBEdge(
                     myCurrentID, myCurrentName,
@@ -270,7 +274,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
                     myCurrentType, myCurrentSpeed,
                     myCurrentLaneNo, myLength, myCurrentPriority,
                     myShape, myLanesSpread,
-                    myFunction);
+                    myCurrentEdgeFunction);
             }
             // insert the edge
             if(!myEdgeCont.insert(edge)) {
@@ -340,12 +344,14 @@ void
 NIXMLEdgesHandler::checkType(const Attributes &attrs)
 {
     // try to get the type and maybe to overwrite default values for speed, priority and th enumber of lanes
+    myCurrentEdgeFunction = NBEdge::EDGEFUNCTION_NORMAL;
     myCurrentType = "";
     try {
         myCurrentType = getString(attrs, SUMO_ATTR_TYPE);
         myCurrentSpeed = myTypeCont.getSpeed(myCurrentType);
         myCurrentPriority = myTypeCont.getPriority(myCurrentType);
         myCurrentLaneNo = myTypeCont.getNoLanes(myCurrentType);
+        myCurrentEdgeFunction = myTypeCont.getFunction(myCurrentType);
     } catch (EmptyData) {
         myCurrentType = "";
     }
@@ -402,14 +408,13 @@ NIXMLEdgesHandler::setGivenType(const Attributes &attrs)
 {
     // try to get the tpe
     string func = getStringSecure(attrs, SUMO_ATTR_FUNC, "");
-    myFunction = NBEdge::EDGEFUNCTION_NORMAL;
     if(func=="") {
         return;
     }
     if(func=="source") {
-        myFunction = NBEdge::EDGEFUNCTION_SOURCE;
+        myCurrentEdgeFunction = NBEdge::EDGEFUNCTION_SOURCE;
     } else if(func=="sink") {
-        myFunction = NBEdge::EDGEFUNCTION_SINK;
+        myCurrentEdgeFunction = NBEdge::EDGEFUNCTION_SINK;
     } else if(func!="normal") {
         addError("Unknown edge function '" + func + "' in edge '" + myCurrentID + "'.");
     }
