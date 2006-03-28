@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.52  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.51  2006/03/08 13:09:53  dkrajzew
 // code beautifying
 //
@@ -1032,7 +1035,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
     // check whether the loading was successfull
     if(ec->_net==0) {
         // report failure
-        string text = string("Loading of '") + ec->_file + string("' failed!");
+        string text = "Loading of '" + ec->_file + "' failed!";
         myStatusbar->getStatusLine()->setText(text.c_str());
         myStatusbar->getStatusLine()->setNormalText(text.c_str());
     } else {
@@ -1040,7 +1043,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         gSimInfo = new GUISimInfo(*(ec->_net));
         gNetWrapper = ec->_net->getWrapper();
         // report success
-        string text = string("'") + ec->_file + string("' loaded.");
+        string text = "'" + ec->_file + "' loaded.";
         myStatusbar->getStatusLine()->setText(text.c_str());
         myStatusbar->getStatusLine()->setNormalText(text.c_str());
         // initialise simulation thread
@@ -1141,7 +1144,7 @@ GUIApplicationWindow::load(const std::string &file)
     myAmLoading = true;
     closeAllWindows();
     myLoadThread->load(file);
-    string text = string("Loading '") + file + string("'.");
+    string text = "Loading '" + file + "'.";
     myStatusbar->getStatusLine()->setText(text.c_str());
     myStatusbar->getStatusLine()->setNormalText(text.c_str());
     update();
@@ -1156,7 +1159,7 @@ GUIApplicationWindow::openNewView(GUISUMOViewParent::ViewType type)
         myStatusbar->getStatusLine()->setText("No simulation loaded!");
         return;
     }
-    string caption = string("View #") + toString(myViewNumber++);
+    string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
     GUISUMOViewParent* w = 0;
     if(myMDIClient->numChildren()==0) {

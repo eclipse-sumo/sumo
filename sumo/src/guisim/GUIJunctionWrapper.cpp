@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.17  2006/03/17 11:03:04  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -128,7 +131,7 @@ using namespace std;
 GUIJunctionWrapper::GUIJunctionWrapper( GUIGlObjectStorage &idStorage,
         MSJunction &junction,
         const Position2DVector &shape)
-    : GUIGlObject(idStorage, string("junction:")+junction.id()),
+    : GUIGlObject(idStorage, "junction:"+junction.id()),
     myJunction(junction), myShape(shape)
 {
 }

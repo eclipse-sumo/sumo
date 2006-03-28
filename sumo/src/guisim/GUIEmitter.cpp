@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.12  2006/03/27 07:24:45  dkrajzew
 // extracted drawing of lane geometries
 //
@@ -208,7 +211,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::execute(SUMOTime currentTime)
         mySource.init();
     }
     if(myVehicle==0) {
-        string aVehicleId = myParent.getID() + string( "_user_" ) +  toString(MSNet::getInstance()->getCurrentTimeStep());
+        string aVehicleId = myParent.getID() + "_user_" +  toString(MSNet::getInstance()->getCurrentTimeStep());
         MSRoute *aRoute = myRouteDist.getOverallProb()!=0
             ? myRouteDist.get()
             : mySource.hasRoutes()
@@ -397,8 +400,7 @@ GUIEmitter::GUIEmitter(const std::string &id,
             const std::string &aXMLFilename)
     : MSEmitter(id, net, destLanes, pos, aXMLFilename),
     GUIGlObject_AbstractAdd(gIDStorage,
-        string("emitter:") + id, GLO_TRIGGER), myUserFlow(-1),
-		myDrawRoutes(false)
+        "emitter:" + id, GLO_TRIGGER), myUserFlow(-1), myDrawRoutes(false)
 {
     const GUIEdge *edge = static_cast<const GUIEdge*>(&destLanes->edge());
     const Position2DVector &v =

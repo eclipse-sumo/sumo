@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.14  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -112,7 +115,7 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 GUINetWrapper::GUINetWrapper( GUIGlObjectStorage &idStorage, GUINet &net)
-    : GUIGlObject(idStorage, string("network")),
+    : GUIGlObject(idStorage, "network"),
     myNet(net)
 {
 }

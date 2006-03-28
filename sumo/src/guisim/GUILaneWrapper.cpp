@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.31  2006/03/17 11:03:04  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -177,7 +180,7 @@ size_t GUILaneWrapper::myAggregationSizes[] = {
  * ======================================================================= */
 GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
                                MSLane &lane, const Position2DVector &shape)
-    : GUILaneRepresentation(idStorage, string("lane:")+lane.id()),
+    : GUILaneRepresentation(idStorage, "lane:"+lane.id()),
     myLane(lane), myShape(shape), myAggregatedValues(0)
 {
     SUMOReal x1 = shape[0].x();

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.24  2006/03/17 11:03:04  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -126,7 +129,6 @@ namespace
 #include <algorithm>
 #include <microsim/MSEdge.h>
 #include <microsim/MSJunction.h>
-#include <microsim/MSSlowLaneChanger.h>
 #include <microsim/MSLaneChanger.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/geom/GeomHelper.h>
@@ -147,7 +149,7 @@ using namespace std;
 GUIEdge::GUIEdge(const std::string &id, size_t numericalID,
                  GUIGlObjectStorage &idStorage)
     : MSEdge(id, numericalID),
-    GUIGlObject(idStorage, string("edge:") + id)
+    GUIGlObject(idStorage, "edge:" + id)
 {
 }
 

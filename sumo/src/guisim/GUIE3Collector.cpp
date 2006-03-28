@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.11  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -108,7 +111,7 @@ using namespace std;
  * ----------------------------------------------------------------------- */
 GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector &detector,
                                      GUIGlObjectStorage &idStorage)
-    : GUIDetectorWrapper(idStorage, string("E3 detector:")+detector.getId()),
+    : GUIDetectorWrapper(idStorage, "E3 detector:"+detector.getId()),
     myDetector(detector)
 {
     const Detector::CrossSections &entries = detector.getEntries();

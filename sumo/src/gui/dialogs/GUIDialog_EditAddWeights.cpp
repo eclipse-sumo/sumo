@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.10  2006/01/09 11:44:40  dkrajzew
 // debugging the editable table
 //
@@ -443,9 +446,8 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
     switch(i->col) {
     case 0:
         if(MSEdge::dictionary(value)==0) {
-            string msg = string("The edge '") + value + string("' is not known.");
-            FXMessageBox::error(this, MBOX_OK, "Invalid Edge Name",
-                msg.c_str());
+            string msg = "The edge '" + value + "' is not known.";
+            FXMessageBox::error(this, MBOX_OK, "Invalid Edge Name", msg.c_str());
         } else {
             aw.edgeID = value;
         }
@@ -463,9 +465,8 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
                 }
             }
         } catch (NumberFormatException) {
-            string msg = string("The value must be an int, is:") + value;
-            FXMessageBox::error(this, MBOX_OK, "Number format error",
-                msg.c_str());
+            string msg = "The value must be an int, is:" + value;
+            FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
     case 2:
@@ -481,36 +482,32 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
                 }
             }
         } catch (NumberFormatException) {
-            string msg = string("The value must be an int, is:") + value;
-            FXMessageBox::error(this, MBOX_OK, "Number format error",
-                msg.c_str());
+            string msg = "The value must be an int, is:" + value;
+            FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
     case 3:
         try {
             aw.abs = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException) {
-            string msg = string("The value must be a SUMOReal, is:") + value;
-            FXMessageBox::error(this, MBOX_OK, "Number format error",
-                msg.c_str());
+            string msg = "The value must be a SUMOReal, is:" + value;
+            FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
     case 4:
         try {
             aw.add = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException) {
-            string msg = string("The value must be a SUMOReal, is:") + value;
-            FXMessageBox::error(this, MBOX_OK, "Number format error",
-                msg.c_str());
+            string msg = "The value must be a SUMOReal, is:" + value;
+            FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
     case 5:
         try {
             aw.mult = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException) {
-            string msg = string("The value must be a SUMOReal, is:") + value;
-            FXMessageBox::error(this, MBOX_OK, "Number format error",
-                msg.c_str());
+            string msg = "The value must be a SUMOReal, is:" + value;
+            FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
     default:

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.7  2005/10/07 11:36:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -113,13 +116,13 @@ GUISupplementaryWeightsHandler::myStartElement( int
                                                , const std::string& name
                                                , const Attributes& attrs )
 {
-    if ( name == string( "supplementary-weights" ) ) {
+    if ( name == "supplementary-weights"  ) {
         startParseSupplementaryWeights( attrs );
     }
-    else if ( name == string( "interval" ) ) {
+    else if ( name == "interval" ) {
         startParseInterval( attrs );
     }
-    else if ( name == string( "weight" ) ) {
+    else if ( name == "weight" ) {
         startParseWeight( attrs );
     }
 /*    else {
@@ -134,10 +137,10 @@ GUISupplementaryWeightsHandler::myStartElement( int
 void
 GUISupplementaryWeightsHandler::myEndElement( int, const std::string& name )
 {
-    if ( name == string( "interval" ) ) {
+    if ( name == "interval" ) {
         stopParseInterval();
     }
-    else if ( name == string( "weight" ) ) {
+    else if ( name == "weight" ) {
         stopParseWeight();
     }
 /*    else {
@@ -193,19 +196,19 @@ GUISupplementaryWeightsHandler::startParseWeight( const Attributes& attrs )
         const string attrValue(
             TplConvert<XMLCh>::_2str( attrs.getValue( index ) ) );
 
-        if ( attrName == string( "edge-id" ) ){
+        if ( attrName == "edge-id" ){
             edgeIdM      = attrValue;
             isEdgeIdSetM = true;
         }
-        else if ( attrName == string( "absolut" ) ){
+        else if ( attrName == "absolut" ){
             absolutValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str());
             isAbsolutValueSetM = true;
         }
-        else if ( attrName == string( "mult" ) ){
+        else if ( attrName == "mult" ){
             multValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str() );
             isMultValueSetM = true;
         }
-        else if ( attrName == string( "add" ) ){
+        else if ( attrName == "add" ){
             addValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str() );
             isAddValueSetM = true;
         }

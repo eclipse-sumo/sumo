@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.11  2006/02/27 12:03:22  dkrajzew
 // variants container named properly
 //
@@ -164,7 +167,7 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTL
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapper(
         GUIGlObjectStorage &idStorage,
         MSTLLogicControl &control, MSTrafficLightLogic &tll)
-    : GUIGlObject(idStorage, string("tl-logic:")+tll.id()),
+    : GUIGlObject(idStorage, "tl-logic:"+tll.id()),
     myTLLogicControl(control), myTLLogic(tll)
 {
 }

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.11  2006/01/09 11:44:40  dkrajzew
 // debugging the editable table
 //
@@ -255,8 +258,7 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*,FXSelector,void*)
                 int value = TplConvert<char>::_2int(val.c_str());
                 gBreakpoints.push_back(value);
             } catch (NumberFormatException&) {
-                MsgHandler::getErrorInstance()->inform(
-                    string(" A breakpoint-value must be an int, is:") + val);
+                MsgHandler::getErrorInstance()->inform(" A breakpoint-value must be an int, is:" + val);
             } catch (EmptyData&) {
             }
         }
@@ -377,9 +379,8 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*,FXSelector,void*data)
         try {
             gBreakpoints[row] = TplConvert<char>::_2int(value.c_str());
         } catch (NumberFormatException) {
-            string msg = string("The value must be an int, is:") + value;
-            FXMessageBox::error(this, MBOX_OK, "Number format error",
-                msg.c_str());
+            string msg = "The value must be an int, is:" + value;
+            FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
     default:

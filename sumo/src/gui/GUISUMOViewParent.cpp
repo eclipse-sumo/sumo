@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.19  2006/01/09 11:50:20  dkrajzew
 // new visualization settings implemented
 //
@@ -330,7 +333,7 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*sender,FXSelector,void*)
         MFXImageHelper::saveimage(getApp(), file,
             _view->getWidth(), _view->getHeight(), buf);
     } catch (...) {
-        string msg = string("Could not save '") + file + ("'.\nMaybe the extension is unknown.");
+        string msg = "Could not save '" + file + "'.\nMaybe the extension is unknown.";
         FXMessageBox::error(this, MBOX_OK, "Saving failed.",
             msg.c_str());
     }

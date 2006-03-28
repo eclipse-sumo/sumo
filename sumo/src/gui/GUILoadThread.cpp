@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.35  2005/12/01 07:31:30  dkrajzew
 // debugged setting globals in false order
 //
@@ -363,8 +366,7 @@ GUILoadThread::submitEndAndCleanup(GUINet *net,
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetreiver);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    GUIEvent *e = new GUIEvent_SimulationLoaded( net, simStartTime, simEndTime,
-        string(_file));
+    GUIEvent *e = new GUIEvent_SimulationLoaded( net, simStartTime, simEndTime, _file);
     myEventQue.add(e);
     myEventThrow.signal();
 }

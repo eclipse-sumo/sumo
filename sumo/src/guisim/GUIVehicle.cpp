@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.36  2006/02/27 12:14:36  dkrajzew
 // further work on the dfrouter
 //
@@ -273,7 +276,7 @@ GUIVehicle::GUIVehicle( GUIGlObjectStorage &idStorage,
                        size_t noMeanData,
                        int repNo, int repOffset)
     : MSVehicle(id, route, departTime, type, noMeanData, repNo, repOffset),
-    GUIGlObject(idStorage, string("vehicle:")+id)
+    GUIGlObject(idStorage, "vehicle:"+id)
 #ifdef NETWORKING_BLA
     ,networking_globalConns(0)
 #endif

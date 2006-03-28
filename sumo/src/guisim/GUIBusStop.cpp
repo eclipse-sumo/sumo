@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.3  2006/03/27 07:24:45  dkrajzew
 // extracted drawing of lane geometries
 //
@@ -331,7 +334,7 @@ GUIBusStop::GUIBusStop(const std::string &id, MSNet &net,
         const std::vector<std::string> &lines, MSLane &lane,
         SUMOReal frompos, SUMOReal topos)
     : MSBusStop(id, lines, lane, frompos, topos),
-    GUIGlObject_AbstractAdd(gIDStorage, string("bus_stop:") + id, GLO_TRIGGER)
+    GUIGlObject_AbstractAdd(gIDStorage, "bus_stop:" + id, GLO_TRIGGER)
 {
     // full geometry
     {

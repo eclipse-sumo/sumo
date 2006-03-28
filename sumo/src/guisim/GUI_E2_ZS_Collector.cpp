@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.17  2006/03/27 07:24:45  dkrajzew
 // extracted drawing of lane geometries
 //
@@ -161,7 +164,7 @@ GUI_E2_ZS_Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
 GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector,
                                           GUIGlObjectStorage &idStorage,
                                           GUILaneWrapper &wrapper)
-    : GUIDetectorWrapper(idStorage, string("E2 detector:")+detector.getId()),
+    : GUIDetectorWrapper(idStorage, "E2 detector:"+detector.getId()),
     myDetector(detector)
 {
     myConstruct(detector, wrapper);
@@ -172,7 +175,7 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(
         GUI_E2_ZS_Collector &detector, GUIGlObjectStorage &idStorage,
         size_t glID, GUI_E2_ZS_CollectorOverLanes &mustBe,
         GUILaneWrapper &wrapper)
-    : GUIDetectorWrapper(idStorage, string("E2 detector:")+detector.getId(), glID),
+    : GUIDetectorWrapper(idStorage, "E2 detector:"+detector.getId(), glID),
     myDetector(detector)
 {
     myConstruct(detector, wrapper);

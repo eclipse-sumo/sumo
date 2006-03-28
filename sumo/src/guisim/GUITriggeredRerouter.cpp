@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.5  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -289,8 +292,7 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string &id,
             MSNet &net, const std::vector<MSEdge*> &edges,
             SUMOReal prob, const std::string &aXMLFilename)
     : MSTriggeredRerouter(id, net, edges, prob, aXMLFilename),
-    GUIGlObject_AbstractAdd(gIDStorage,
-        string("rerouter:") + id, GLO_TRIGGER)
+    GUIGlObject_AbstractAdd(gIDStorage, "rerouter:" + id, GLO_TRIGGER)
 {
     size_t k;
     size_t no = 0;

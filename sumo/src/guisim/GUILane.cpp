@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2006/03/28 06:12:54  dkrajzew
+// unneeded string wrapping removed
+//
 // Revision 1.34  2006/01/31 10:55:27  dkrajzew
 // unneeded inclusions removed
 //
@@ -263,7 +266,7 @@ GUILane::push( MSVehicle* veh )
     if( myVehBuffer != 0 || (last!=0 && last->pos() < veh->pos()) ) {
         MSVehicle *prev = myVehBuffer!=0
             ? myVehBuffer : last;
-        WRITE_WARNING(string("Vehicle '") + veh->id()+ string("' beamed due to a collision on push!\n")+ string("  Lane: '") + id() + string("', previous vehicle: '")+ prev->id() + string("', time: ")+ toString<SUMOTime>(MSNet::getInstance()->getCurrentTimeStep())+ string("."));
+        WRITE_WARNING("Vehicle '" + veh->id() + "' beamed due to a collision on push!\n" + "  Lane: '" + id() + "', previous vehicle: '" + prev->id() + "', time: " + toString<SUMOTime>(MSNet::getInstance()->getCurrentTimeStep()) + ".");
        veh->onTripEnd(/* *this*/);
         resetApproacherDistance(); // !!! correct? is it (both lines) really necessary during this simulation part?
         veh->removeApproachingInformationOnKill(/*this*/);
