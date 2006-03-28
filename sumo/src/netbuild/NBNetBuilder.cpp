@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2006/03/28 06:14:38  dkrajzew
+// debugging
+//
 // Revision 1.32  2006/03/27 07:26:32  dkrajzew
 // added projection information to the network
 //
@@ -454,16 +457,16 @@ NBNetBuilder::checkPrint(OptionsCont &oc)
 bool
 NBNetBuilder::save(ostream &res, OptionsCont &oc)
 {
-    if(!oc.getBool("binary")) {
+    if(!oc.getBool("binary-output")) {
         // print the computed values
         res << "<net>" << endl << endl;
         res.setf( ios::fixed, ios::floatfield );
-        res << setprecision( 2 );
         // write network offsets
-       res << "   <net-offset>" << myNodeCont.getNetworkOffset() << "</net-offset>" << endl;
-       res << "   <conv>" << myNodeCont.getConvBoundary() << "</conv>" << endl;
-       res << "   <orig>" << myNodeCont.getOrigBoundary() << "</orig>" << endl;
-       res << endl;
+        res << "   <net-offset>" << myNodeCont.getNetworkOffset() << "</net-offset>" << endl;
+        res << "   <conv>" << myNodeCont.getConvBoundary() << "</conv>" << endl;
+        res << "   <orig>" << myNodeCont.getOrigBoundary() << "</orig>" << endl;
+        res << endl;
+        res << setprecision( 2 );
 
         // write the numbers of some elements
            // edges

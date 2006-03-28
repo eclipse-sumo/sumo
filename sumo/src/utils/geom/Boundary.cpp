@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/03/28 06:17:49  dkrajzew
+// debugging
+//
 // Revision 1.5  2006/03/27 07:33:01  dkrajzew
 // added projection information to the network
 //
@@ -266,9 +269,7 @@ Boundary::flipY()
 std::ostream &
 operator<<(std::ostream &os, const Boundary &b)
 {
-    os << "((" << b._xmin << ", " << b._ymin
-        << "), (" << b._xmax << ", " << b._ymax
-        << "))";
+    os << b._xmin << "," << b._ymin << "," << b._xmax << "," << b._ymax;
     return os;
 }
 
