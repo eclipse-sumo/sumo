@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.37  2006/03/28 06:20:43  dkrajzew
+// removed the unneded slow lane changer
+//
 // Revision 1.36  2006/03/17 09:01:12  dkrajzew
 // .icc-files removed
 //
@@ -317,7 +320,6 @@ class MSLane
 public:
     /// needs access to myTmpVehicles (this maybe should be done via SUMOReal-buffering!!!)
     friend class MSLaneChanger;
-    friend class MSSlowLaneChanger;
 
     /// needs access to myTmpVehicles (this maybe should be done via SUMOReal-buffering!!!)
     friend class GUILaneChanger;

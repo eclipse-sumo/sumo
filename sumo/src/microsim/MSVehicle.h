@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.51  2006/03/28 06:20:43  dkrajzew
+// removed the unneded slow lane changer
+//
 // Revision 1.50  2006/03/17 09:01:12  dkrajzew
 // .icc-files removed
 //
@@ -372,7 +375,6 @@ public:
 
     /// the lane changer sets myLastLaneChangeOffset
     friend class MSLaneChanger;
-	friend class MSSlowLaneChanger;
 
     /** container that holds the vehicles driving state. May vary from
         model to model. here: SK, holds position and speed. */
@@ -381,7 +383,6 @@ public:
         /// vehicle sets states directly
         friend class MSVehicle;
         friend class MSLaneChanger;
-		friend class MSSlowLaneChanger;
 
     public:
         /// Default constructor. Members are initialized to 0.

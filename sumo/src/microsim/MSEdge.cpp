@@ -23,6 +23,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.25  2006/03/28 06:20:43  dkrajzew
+// removed the unneded slow lane changer
+//
 // Revision 1.24  2006/01/26 08:30:29  dkrajzew
 // patched MSEdge in order to work with a generic router
 //
@@ -178,7 +181,6 @@ namespace
 #include "MSEdge.h"
 #include "MSLane.h"
 #include "MSLaneChanger.h"
-#include "MSSlowLaneChanger.h"
 #include "MSGlobals.h"
 #include <algorithm>
 #include <iostream>
@@ -241,25 +243,10 @@ MSEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
     _function = function;
 
     if ( myLanes->size() > 1 && function!=EDGEFUNCTION_INTERNAL ) {
-//		if((*(getLanes()))[0]->maxSpeed()>70/3.6) {
-			myLaneChanger = new MSLaneChanger( myLanes );
-/*		} else {
-			myLaneChanger = new MSSlowLaneChanger( myLanes );
-		}*/
+        myLaneChanger = new MSLaneChanger( myLanes );
     }
 }
 
-/*
-void
-MSEdge::detectCollisions( SUMOTime timestep )
-{
-    // Ask lanes about collisions.
-    for (LaneCont::iterator lane = myLanes->begin();
-         lane != myLanes->end(); ++lane) {
-        (*lane)->detectCollisions( timestep );
-    }
-}
-*/
 
 const MSEdge::LaneCont*
 MSEdge::allowedLanes(const MSEdge& destination) const
@@ -370,66 +357,6 @@ MSEdge::getID() const
     return myID;
 }
 
-/*
-MSLinkCont::const_iterator
-MSEdge::succLink(const MSEdge* nRouteEdge,
-        const MSLane& succLinkSource) const
-{
-    LaneCont::const_iterator i = find(myLanes->begin(), myLanes->end(), &succLinkSource);
-    assert(i!=myLanes->end());
-    int offset = 1;
-    int pos = distance(static_cast<LaneCont::const_iterator>(myLanes->begin()), i);
-    while(true) {
-        // look to the right
-        if(pos-offset>=0) {
-            MSLinkCont::const_iterator ret = (*(i-offset))->succLinkOneLane(nRouteEdge, *(*(i-offset)));
-            if(!((*(i-offset))->isLinkEnd(ret))) {
-                return ret;
-            }
-        }
-        // look to the left
-        if(pos+offset<myLanes->size()) {
-            MSLinkCont::const_iterator ret = (*(i+offset))->succLinkOneLane(nRouteEdge, *(*(i+offset)));
-            if(!((*(i+offset))->isLinkEnd(ret))) {
-                return ret;
-            }
-        }
-        assert(pos+offset<myLanes->size() || pos-offset>0);
-        offset++;
-    }
-}
-
-
-MSLinkCont::const_iterator
-MSEdge::succLinkSec(const MSEdge* nRouteEdge,
-        const MSLane& succLinkSource) const
-{
-    LaneCont::const_iterator i = find(myLanes->begin(), myLanes->end(), &succLinkSource);
-    assert(i!=myLanes->end());
-    int offset = 1;
-    int pos = distance(static_cast<LaneCont::const_iterator>(myLanes->begin()), i);
-    while(true) {
-        // look to the right
-        if(pos-offset>=0) {
-            MSLinkCont::const_iterator ret = (*(i-offset))->succLinkOneLane(nRouteEdge, *(*(i-offset)));
-            if(!((*(i-offset))->isLinkEnd(ret))) {
-                return ret;
-            }
-        }
-        // look to the left
-        if(pos+offset<myLanes->size()) {
-            MSLinkCont::const_iterator ret = (*(i+offset))->succLinkOneLane(nRouteEdge, *(*(i+offset)));
-            if(!((*(i+offset))->isLinkEnd(ret))) {
-                return ret;
-            }
-        }
-        if(!(pos+offset<myLanes->size() || pos-offset>0)) {
-            return succLinkSource.getLinkCont().begin();
-        }
-        offset++;
-    }
-}
-*/
 
 MSEdge::EdgeBasicFunction
 MSEdge::getPurpose() const
