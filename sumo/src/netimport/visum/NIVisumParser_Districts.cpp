@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/03/28 06:15:48  dkrajzew
+// refactoring and extending the Visum-import
+//
 // Revision 1.9  2006/03/08 13:02:27  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -115,10 +118,8 @@ NIVisumParser_Districts::myDependentReport()
         bool sourcesWeighted = getWeightedBool("Proz_Q");
         bool destWeighted = getWeightedBool("Proz_Z");
         // get the node information
-        SUMOReal x =
-            TplConvert<char>::_2SUMOReal(myLineParser.get("XKoord").c_str());
-        SUMOReal y =
-            TplConvert<char>::_2SUMOReal(myLineParser.get("YKoord").c_str());
+        SUMOReal x = TplConvert<char>::_2SUMOReal(myLineParser.get("XKoord").c_str());
+        SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKoord").c_str());
         projUV p;
         if(myProjection!=0) {
             p.u = x / 100000.0 * DEG_TO_RAD;

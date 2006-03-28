@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/03/28 06:15:48  dkrajzew
+// refactoring and extending the Visum-import
+//
 // Revision 1.12  2006/02/23 11:23:53  dkrajzew
 // VISION import added
 //
@@ -120,17 +123,9 @@ NIVisumParser_Edges::myDependentReport()
         // get the id
         id = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
         // get the from- & to-node and validate them
-        string from_id =
-            myLineParser.know("VonKnot")
-            ? myLineParser.get("VonKnot")
-            : myLineParser.get("VonKnotNr");
-        NBNode *from = myNodeCont.retrieve(NBHelpers::normalIDRepresentation(from_id));
-        string to_id =
-            myLineParser.know("NachKnot")
-            ? myLineParser.get("NachKnot")
-            : myLineParser.get("NachKnotNr");
-        NBNode *to = myNodeCont.retrieve(NBHelpers::normalIDRepresentation(to_id));
-        if(!checkNodes(from, to)) {
+        NBNode *from = getNamedNode(myNodeCont, "STRECKE", "VonKnot", "VonKnotNr");
+        NBNode *to = getNamedNode(myNodeCont, "STRECKE", "NachKnot", "NachKnotNr");
+        if(from==0||to==0||!checkNodes(from, to)) {
             return;
         }
         // get the type

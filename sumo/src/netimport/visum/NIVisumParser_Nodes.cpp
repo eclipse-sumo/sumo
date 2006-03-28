@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/03/28 06:15:48  dkrajzew
+// refactoring and extending the Visum-import
+//
 // Revision 1.11  2006/03/27 07:30:20  dkrajzew
 // added projection information to the network
 //
@@ -119,7 +122,7 @@ NIVisumParser_Nodes::myDependentReport()
         projUV p;
         if(myProjection!=0) {
 
-            myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
+            myNodeCont.addGeoreference(Position2D((SUMOReal) x / 100000.0, (SUMOReal) y / 100000.0));
 
             p.u = x / 100000.0 * DEG_TO_RAD;
             p.v = y / 100000.0 * DEG_TO_RAD;

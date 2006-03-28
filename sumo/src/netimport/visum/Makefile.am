@@ -6,6 +6,8 @@ libvisumimport_a_SOURCES = NIVisumLoader.cpp NIVisumLoader.h \
 NIVisumParser_Connectors.cpp NIVisumParser_Connectors.h \
 NIVisumParser_Districts.cpp NIVisumParser_Districts.h \
 NIVisumParser_Edges.cpp NIVisumParser_Edges.h \
+NIVisumParser_Lanes.cpp NIVisumParser_Lanes.h \
+NIVisumParser_LanesConnections.cpp NIVisumParser_LanesConnections.h \
 NIVisumParser_Nodes.cpp NIVisumParser_Nodes.h \
 NIVisumParser_NodesToTrafficLights.cpp NIVisumParser_NodesToTrafficLights.h \
 NIVisumParser_Phases.cpp NIVisumParser_Phases.h \

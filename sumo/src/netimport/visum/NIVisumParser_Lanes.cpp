@@ -1,0 +1,163 @@
+/***************************************************************************
+                          NIVisumParser_Lanes.cpp
+              Parser for visum-lanes
+                             -------------------
+    project              : SUMO
+    begin                : TThu, 23 Mar 2006
+    copyright            : (C) 2006 by DLR/IVF http://ivf.dlr.de/
+    author               : Daniel Krajzewicz
+    email                : Daniel.Krajzewicz@dlr.de
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+namespace
+{
+    const char rcsid[] =
+    "$Id$";
+}
+// $Log$
+// Revision 1.1  2006/03/28 06:15:49  dkrajzew
+// refactoring and extending the Visum-import
+//
+//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
+#ifdef HAVE_CONFIG_H
+#ifdef WIN32
+#include <windows_config.h>
+#else
+#include <config.h>
+#endif
+#endif // HAVE_CONFIG_H
+
+#include <netbuild/NBHelpers.h>
+#include <netbuild/nodes/NBNodeCont.h>
+#include <netbuild/nodes/NBNode.h>
+#include <utils/common/TplConvert.h>
+#include <utils/common/TplConvertSec.h>
+#include "NIVisumLoader.h"
+#include "NIVisumParser_Lanes.h"
+
+#ifdef _DEBUG
+#include <utils/dev/debug_new.h>
+#endif // _DEBUG
+
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
+using namespace std;
+
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
+NIVisumParser_Lanes::NIVisumParser_Lanes(NIVisumLoader &parent,
+        NBNodeCont &nc, NBEdgeCont &ec, const std::string &dataName)
+    : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
+    myNodeCont(nc), myEdgeCont(ec)
+{
+}
+
+
+NIVisumParser_Lanes::~NIVisumParser_Lanes()
+{
+}
+
+
+void
+NIVisumParser_Lanes::myDependentReport()
+{
+    try {
+        // get the node
+        NBNode *node = getNamedNode(myNodeCont, "FAHRSTREIFEN", "KNOTNR");
+        // get the edge
+        NBEdge *edge = getNamedEdge(myEdgeCont, "FAHRSTREIFEN", "STRNR");
+        // check
+        if(node==0||edge==0) {
+            return;
+        }
+        // get the lane
+        string laneS =
+            NBHelpers::normalIDRepresentation(myLineParser.get("FSNR"));
+        int lane = -1;
+        try {
+            lane = TplConvert<char>::_2int(laneS.c_str());
+        } catch (NumberFormatException) {
+            addError("A lane number for edge '" + edge->getID() + "' is not numeric (" + laneS + ").");
+            return;
+        }
+        lane -= 1;
+        if(lane<0) {
+            addError("A lane number for edge '" + edge->getID() + "' is not positive (" + laneS + ").");
+            return;
+        }
+        // get the direction
+        string dirS =
+            NBHelpers::normalIDRepresentation(myLineParser.get("RICHTTYP"));
+        if( (dirS=="1"&&!node->hasIncoming(edge)) || (dirS=="0"&&!node->hasOutgoing(edge)) ) {
+            string sid;
+            if(edge->getID()[0]=='-') {
+                sid = edge->getID().substr(1);
+            } else {
+                sid = "-" + edge->getID();
+            }
+            edge = myEdgeCont.retrieve(sid);
+        }
+        // get the length
+        string lengthS =
+            NBHelpers::normalIDRepresentation(myLineParser.get("LAENGE"));
+        SUMOReal length = -1;
+        try {
+            length = TplConvert<char>::_2SUMOReal(lengthS.c_str());
+        } catch (NumberFormatException) {
+            addError("A lane length for edge '" + edge->getID() + "' is not numeric (" + lengthS + ").");
+            return;
+        }
+        if(length<0) {
+            addError("A lane length for edge '" + edge->getID() + "' is not positive (" + lengthS + ").");
+            return;
+        }
+
+        //
+        if(length==0) {
+            if(edge->getNoLanes()>lane) {
+                // ok, we know this already...
+                return;
+            }
+            // increment by one
+            edge->incLaneNo(1);
+        } else {
+            addError("Lane length are not yet supplied");
+        }
+    } catch (OutOfBoundsException) {
+        addError2("FAHRSTREIFEN", "", "OutOfBounds");
+    } catch (NumberFormatException) {
+        addError2("FAHRSTREIFEN", "", "NumberFormat");
+    } catch (UnknownElement) {
+        addError2("FAHRSTREIFEN", "", "UnknownElement");
+    }
+}
+
+
+/**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+// Local Variables:
+// mode:C++
+// End:
+
+

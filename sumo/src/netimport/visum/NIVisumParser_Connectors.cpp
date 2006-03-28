@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/03/28 06:15:48  dkrajzew
+// refactoring and extending the Visum-import
+//
 // Revision 1.18  2006/03/08 13:02:27  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -138,20 +141,16 @@ NIVisumParser_Connectors::myDependentReport()
 {
     try {
         // get the source district
-        string bez =
-            NBHelpers::normalIDRepresentation(myLineParser.get("BezNr"));
+        string bez = NBHelpers::normalIDRepresentation(myLineParser.get("BezNr"));
         // get the destination node
-        string node =
-            NBHelpers::normalIDRepresentation(myLineParser.get("KnotNr"));
-        NBNode *dest = myNodeCont.retrieve(node);
+        NBNode *dest = getNamedNode(myNodeCont, "ANBINDUNG", "KnotNr");
         if(dest==0) {
-            addError("The node '" + bez + "' is not known.");
             return;
         }
         // get the weight of the connection
         SUMOReal proz = getWeightedFloat("Proz");
         if(proz>0) {
-            proz /= 100;
+            proz /= 100.;
         } else {
             proz = 1;
         }
@@ -167,7 +166,7 @@ NIVisumParser_Connectors::myDependentReport()
             ? NBHelpers::normalIDRepresentation(myLineParser.get("Typ"))
             : "";
         // add the connectors as an edge
-        string id = bez + "-" + node;
+        string id = bez + "-" + dest->getID();
         // get the information whether this is a sink or a source
         string dir = myLineParser.get("Richtung");
         if(dir.length()==0) {
@@ -175,34 +174,29 @@ NIVisumParser_Connectors::myDependentReport()
         }
         // build the source when needed
         if(dir.find('Q')!=string::npos) {
-            NBNode *src = buildDistrictNode(bez, dest,
-                NBEdge::EDGEFUNCTION_SOURCE);
+            NBNode *src = buildDistrictNode(bez, dest, NBEdge::EDGEFUNCTION_SOURCE);
             if(src==0) {
-                addError("The district '" + bez + "' is not known.");
+                addError("The district '" + bez + "' could not be built.");
                 return;
             }
             NBEdge *edge = new NBEdge(id, id, src, dest, "VisumConnector",
-                100, 3/*nolanes*/, 2000.0, 0, NBEdge::LANESPREAD_RIGHT,
-                NBEdge::EDGEFUNCTION_SOURCE);
+                100, 3/*nolanes*/, 2000.0, 0, NBEdge::LANESPREAD_RIGHT, NBEdge::EDGEFUNCTION_SOURCE);
             if(!myEdgeCont.insert(edge)) {
-                addError(
-                    "A duplicate edge id occured (ID='" + id + "').");
+                addError("A duplicate edge id occured (ID='" + id + "').");
             } else {
                 myDistrictCont.addSource(bez, edge, proz);
             }
         }
         // build the sink when needed
         if(dir.find('Z')!=string::npos) {
-            NBNode *src = buildDistrictNode(bez, dest,
-                NBEdge::EDGEFUNCTION_SINK);
+            NBNode *src = buildDistrictNode(bez, dest, NBEdge::EDGEFUNCTION_SINK);
             if(src==0) {
-                addError("The district '" + bez + "' is not known.");
+                addError("The district '" + bez + "' could not be built.");
                 return;
             }
             id = "-" + id;
             NBEdge *edge = new NBEdge(id, id, dest, src, "VisumConnector",
-                100, 3/*nolanes*/, 2000.0, 0, NBEdge::LANESPREAD_RIGHT,
-                NBEdge::EDGEFUNCTION_SINK);
+                100, 3/*nolanes*/, 2000.0, 0, NBEdge::LANESPREAD_RIGHT, NBEdge::EDGEFUNCTION_SINK);
             if(!myEdgeCont.insert(edge)) {
                 addError("A duplicate edge id occured (ID='" + id + "').");
             } else {
@@ -253,8 +247,7 @@ NIVisumParser_Connectors::buildDistrictNode(const std::string &id,
         x += (SUMOReal) 0.1;
         y -= (SUMOReal) 0.1;
         if(!myNodeCont.insert(nid, Position2D(x, y), dist)) {
-            addError(
-                "Ups, this should not happen: A district lies on a node.");
+            addError("Ups, this should not happen: A district lies on a node.");
             return 0;
         }
     }

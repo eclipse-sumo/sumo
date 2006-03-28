@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/03/28 06:15:49  dkrajzew
+// refactoring and extending the Visum-import
+//
 // Revision 1.7  2006/02/23 11:23:53  dkrajzew
 // VISION import added
 //
@@ -100,23 +103,10 @@ NIVisumParser_Turns::myDependentReport()
 {
     try {
         // retrieve the nodes
-        string from_node_row = myLineParser.know("VonKnot") ? "VonKnot" : "VonKnotNr";
-        NBNode *from =
-            myNodeCont.retrieve(NBHelpers::normalIDRepresentation(myLineParser.get(from_node_row)));
-
-        string via_node_row = myLineParser.know("UeberKnot") ? "UeberKnot" : "UeberKnotNr";
-        NBNode *via =
-            myNodeCont.retrieve(NBHelpers::normalIDRepresentation(myLineParser.get(via_node_row)));
-
-        string to_node_row = myLineParser.know("NachKnot") ? "NachKnot" : "NachKnotNr";
-        NBNode *to =
-            myNodeCont.retrieve(NBHelpers::normalIDRepresentation(myLineParser.get(to_node_row)));
-
-        // check the nodes
-        bool ok = checkNode(from, "from", from_node_row) &&
-            checkNode(via, "via", via_node_row) &&
-            checkNode(to, "to", to_node_row);
-        if(!ok) {
+        NBNode *from = getNamedNode(myNodeCont, "STRECKE", "VonKnot", "VonKnotNr");
+        NBNode *via = getNamedNode(myNodeCont, "STRECKE", "UeberKnot", "UeberKnotNr");
+        NBNode *to = getNamedNode(myNodeCont, "STRECKE", "NachKnot", "NachKnotNr");
+        if(from==0||via==0||to==0) {
             return;
         }
         // all nodes are known
@@ -131,19 +121,6 @@ NIVisumParser_Turns::myDependentReport()
     } catch (UnknownElement) {
         addError2("ABBIEGEBEZIEHUNG", "", "UnknownElement");
     }
-}
-
-
-
-bool
-NIVisumParser_Turns::checkNode(NBNode *node, const std::string &type,
-                               const std::string &nodeTypeName)
-{
-    if(node==0) {
-        addError("The " + type + "-node '" + NBHelpers::normalIDRepresentation(myLineParser.get(nodeTypeName)) + "' is not known inside the net.");
-        return false;
-    }
-    return true;
 }
 
 

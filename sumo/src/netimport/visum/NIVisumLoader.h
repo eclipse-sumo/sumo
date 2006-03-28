@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.9  2006/03/28 06:15:48  dkrajzew
+// refactoring and extending the Visum-import
+//
 // Revision 1.8  2006/03/08 13:02:27  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -84,14 +87,19 @@
  * ======================================================================= */
 class OptionsCont;
 class NBNetBuilder;
+class NBNodeCont;
+class NBEdgeCont;
+class NBNode;
+class NBEdge;
 
 
 /* =========================================================================
  * class declaration
  * ======================================================================= */
 /**
- * NIVisumLoader
- * This class parses the given visum file.
+ * @class NIVisumLoader
+ * @brief This class parses the given visum file.
+ *
  * When the edge definition is before the node and the type definitions, it
  * will be parsed using a second step; otherwise this class parses the file
  * using a single step.
@@ -116,8 +124,8 @@ public:
 
 public:
     /**
-     * NIVisumSingleDataTypeParser
-     * The class that parses entries of a certain data type, like edges, edge
+     * @class NIVisumSingleDataTypeParser
+     * @brief The class that parses entries of a certain data type, like edges, edge
      * connections etc.
      */
     class NIVisumSingleDataTypeParser :
@@ -133,11 +141,13 @@ public:
         virtual ~NIVisumSingleDataTypeParser();
 
         /** @brief Sets the position of the data-type within the visum-file
-            The position is saved as a byte-offset within the file */
+         *
+         * The position is saved as a byte-offset within the file */
         void setStreamPosition(long pos);
 
         /** @brief Returns the information whether the data type was found within the visum-file
-            This method returns valid values only after the first step - the scanning process */
+         *
+         * This method returns valid values only after the first step - the scanning process */
         bool positionKnown() const;
 
         /// Reads the data-type from the visum-file using the given reader
@@ -147,7 +157,8 @@ public:
         const std::string &getDataName() const;
 
         /** @brief LineHandler-interface
-            Returns values from the visum-file; Checks whether the data type is over */
+         *
+         * Returns values from the visum-file; Checks whether the data type is over */
         bool report(const std::string &line);
 
         /// Initialises the line parser
@@ -155,30 +166,62 @@ public:
 
     protected:
         /** @brief builds structures from read data
-            When this method which must be implemented by derived classes, each
-            loading a certain type of visum-data, the line parser contains the
-            values of the next data line.
-            This method is called only for data of a single data type, without
-            the head and the tail */
+         *
+         * When this method which must be implemented by derived classes, each
+         * loading a certain type of visum-data, the line parser contains the
+         * values of the next data line.
+         * This method is called only for data of a single data type, without
+         * the head and the tail */
         virtual void myDependentReport() = 0;
 
         /** @brief Builds and reports an error
-            We had to name it this way, as otherwise it may be ambigous with the
-            method from FileErrorReporter */
+         *
+         * We had to name it this way, as otherwise it may be ambigous with the
+         * method from FileErrorReporter */
         void addError2(const std::string &type, const std::string &id,
             const std::string &exception);
 
         /** @brief tries to get a SUMOReal which is possibly assigned to a certain modality
-            When the SUMOReal cannot be extracted using the given name, "IV" is
-            appended to the begin of the name. Remark that this function does not
-            yet support public traffic. */
+         *
+         * When the SUMOReal cannot be extracted using the given name, "IV" is
+         * appended to the begin of the name. Remark that this function does not
+         * yet support public traffic. */
         SUMOReal getWeightedFloat(const std::string &name);
 
         /** @brief tries to get a bool which is possibly assigned to a certain modality
-            When the bool cannot be extracted using the given name, "IV" is
-            appended to the begin of the name. Remark that this function does not
-            yet support public traffic. */
+         *
+         * When the bool cannot be extracted using the given name, "IV" is
+         * appended to the begin of the name. Remark that this function does not
+         * yet support public traffic. */
         bool getWeightedBool(const std::string &name);
+
+        /** @brief Tries to get the node which name is stored in the given field
+         *
+         * If either the "fieldName" does not occure within the currently loaded
+         *  data line or the node was not loaded before, an error is generated and
+         *  0 is returned.
+         * The "dataName" is used to report errors.
+         */
+        NBNode *getNamedNode(NBNodeCont &nc, const std::string &dataName,
+            const std::string &fieldName);
+
+        /** @brief The same, but two different names for the field are allowed */
+        NBNode *getNamedNode(NBNodeCont &nc, const std::string &dataName,
+            const std::string &fieldName1, const std::string &fieldName2);
+
+        /** @brief Tries to get the edge which name is stored in the given field
+         *
+         * If either the "fieldName" does not occure within the currently loaded
+         *  data line or the edge was not loaded before, an error is generated and
+         *  0 is returned.
+         * The "dataName" is used to report errors.
+         */
+        NBEdge *getNamedEdge(NBEdgeCont &nc, const std::string &dataName,
+            const std::string &fieldName);
+
+        /** @brief The same, but two different names for the field are allowed */
+        NBEdge *getNamedEdge(NBEdgeCont &nc, const std::string &dataName,
+            const std::string &fieldName1, const std::string &fieldName2);
 
     protected:
         /// The line parser to use
@@ -204,8 +247,9 @@ private:
     /// the line reader to read from the file
     LineReader myLineReader;
 
-    /** the parser to parse the information from the data lines
-        the visum format seems to vary, so a named parser is needed */
+    /** @brief the parser to parse the information from the data lines
+     *
+     * the visum format seems to vary, so a named parser is needed */
     NamedColumnsParser _lineParser;
 
     /// the converter to compute the lane number of edges from their capacity
@@ -225,9 +269,8 @@ private:
     NIVisumTL_Map myNIVisumTLs;
 private:
     /**
-     * PositionSetter
-     * Used within the scanning step for setting the positions of
-     * the data
+     * @class PositionSetter
+     * @brief Used within the scanning step for setting the positions of the data
      */
     class PositionSetter : public LineHandler
     {
@@ -243,21 +286,25 @@ private:
 
     private:
         /** @brief The loader to inform about the occurence of a new data type begin
-            The positions are not set within the PositionSetter itself. Rather, the Loader performs this. */
+         *
+         * The positions are not set within the PositionSetter itself.
+         * Rather, the Loader performs this. */
         NIVisumLoader &myParent;
 
     };
 
 public:
-    /** The PositionSetter is an internal class for retrieving data positions
-        It shall have access to "checkForPosition" */
+    /** @brief The PositionSetter is an internal class for retrieving data positions
+     *
+     * It shall have access to "checkForPosition" */
     friend class PositionSetter;
 
 private:
     /** @brief Sets the begin of known data
-        Checks whether the current line is the begin of one of the known data
-        and saves the current position within the stream into the data type loader
-        if so */
+     *
+     * Checks whether the current line is the begin of one of the known data
+     * and saves the current position within the stream into the data type loader
+     * if so */
     bool checkForPosition(const std::string &line);
 
     NBTrafficLightLogicCont &myTLLogicCont;

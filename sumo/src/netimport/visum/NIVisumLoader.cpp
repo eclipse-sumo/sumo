@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/03/28 06:15:48  dkrajzew
+// refactoring and extending the Visum-import
+//
 // Revision 1.12  2006/03/08 13:02:27  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -106,6 +109,8 @@ namespace
 #include "NIVisumParser_TurnsToSignalGroups.h"
 #include "NIVisumParser_EdgePolys.h"
 #include "NIVisumParser_Phases.h"
+#include "NIVisumParser_LanesConnections.h"
+#include "NIVisumParser_Lanes.h"
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -251,8 +256,7 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getWeightedFloat(
     } catch (...) {
     }
     try {
-        return
-            TplConvert<char>::_2SUMOReal(myLineParser.get((name+"(IV)")).c_str());
+        return TplConvert<char>::_2SUMOReal(myLineParser.get((name+"(IV)")).c_str());
     } catch (...) {
     }
     return -1;
@@ -268,13 +272,85 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getWeightedBool(
     } catch (...) {
     }
     try {
-        return
-            TplConvert<char>::_2bool(myLineParser.get((name+"(IV)")).c_str());
+        return TplConvert<char>::_2bool(myLineParser.get((name+"(IV)")).c_str());
     } catch (...) {
     }
     return false;
 }
 
+
+NBNode *
+NIVisumLoader::NIVisumSingleDataTypeParser::getNamedNode(NBNodeCont &nc,
+                                                         const std::string &dataName,
+                                                         const std::string &fieldName)
+{
+    try {
+        string nodeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
+        NBNode *node = nc.retrieve(nodeS);
+        if(node==0) {
+            addError("The node '" + nodeS + "' is not known.");
+        }
+        return node;
+    } catch (OutOfBoundsException) {
+        addError2(dataName, "", "OutOfBounds");
+    } catch (NumberFormatException) {
+        addError2(dataName, "", "NumberFormat");
+    } catch (UnknownElement) {
+        addError2(dataName, "", "UnknownElement");
+    }
+    return 0;
+}
+
+
+NBNode *
+NIVisumLoader::NIVisumSingleDataTypeParser::getNamedNode(NBNodeCont &nc,
+                                                         const std::string &dataName,
+                                                         const std::string &fieldName1,
+                                                         const std::string &fieldName2)
+{
+    if(myLineParser.know(fieldName1)) {
+        return getNamedNode(nc, dataName, fieldName1);
+    } else {
+        return getNamedNode(nc, dataName, fieldName2);
+    }
+}
+
+
+NBEdge *
+NIVisumLoader::NIVisumSingleDataTypeParser::getNamedEdge(NBEdgeCont &nc,
+                                                         const std::string &dataName,
+                                                         const std::string &fieldName)
+{
+    try {
+        string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
+        NBEdge *edge = nc.retrieve(edgeS);
+        if(edge==0) {
+            addError("The edge '" + edgeS + "' is not known.");
+        }
+        return edge;
+    } catch (OutOfBoundsException) {
+        addError2(dataName, "", "OutOfBounds");
+    } catch (NumberFormatException) {
+        addError2(dataName, "", "NumberFormat");
+    } catch (UnknownElement) {
+        addError2(dataName, "", "UnknownElement");
+    }
+    return 0;
+}
+
+
+NBEdge *
+NIVisumLoader::NIVisumSingleDataTypeParser::getNamedEdge(NBEdgeCont &nc,
+                                                         const std::string &dataName,
+                                                         const std::string &fieldName1,
+                                                         const std::string &fieldName2)
+{
+    if(myLineParser.know(fieldName1)) {
+        return getNamedEdge(nc, dataName, fieldName1);
+    } else {
+        return getNamedEdge(nc, dataName, fieldName2);
+    }
+}
 
 
  /* -------------------------------------------------------------------------
@@ -314,6 +390,8 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
         new NIVisumParser_Turns(*this, nb.getNodeCont(), "ABBIEGER", myVSysTypes));
     mySingleDataParsers.push_back(
         new NIVisumParser_EdgePolys(*this, nb.getNodeCont(), pj, "STRECKENPOLY"));
+    mySingleDataParsers.push_back(
+        new NIVisumParser_Lanes(*this, nb.getNodeCont(), nb.getEdgeCont(), "FAHRSTREIFEN"));
 	// set4
 	mySingleDataParsers.push_back(
 		new NIVisumParser_TrafficLights(*this, "LSA", myNIVisumTLs));
@@ -327,6 +405,8 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
 		new NIVisumParser_Phases(*this, "LSAPHASE", myNIVisumTLs));
 	mySingleDataParsers.push_back(
 		new NIVisumParser_SignalGroupsToPhases(*this, "LSASIGNALGRUPPEZULSAPHASE", myNIVisumTLs));
+    mySingleDataParsers.push_back(
+        new NIVisumParser_LanesConnections(*this, nb.getNodeCont(), nb.getEdgeCont(), "FAHRSTREIFENABBIEGER"));
 
 }
 
