@@ -4,6 +4,7 @@ noinst_LIBRARIES = libmicrosimtrigger.a
 EXTRA_DIST =
 
 libmicrosimtrigger_a_SOURCES = MSBusStop.cpp MSBusStop.h \
+MSE1VehicleActor.cpp MSE1VehicleActor.h \
 MSLaneSpeedTrigger.cpp MSLaneSpeedTrigger.h \
 MSTrigger.h \
 MSTriggerControl.cpp MSTriggerControl.h \
