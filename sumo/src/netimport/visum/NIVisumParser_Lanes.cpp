@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/03/28 09:12:43  dkrajzew
+// lane connections for unsplitted lanes implemented, further refactoring
+//
 // Revision 1.1  2006/03/28 06:15:49  dkrajzew
 // refactoring and extending the Visum-import
 //
@@ -49,6 +52,7 @@ namespace
 #include <netbuild/nodes/NBNode.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/TplConvertSec.h>
+#include <utils/common/MsgHandler.h>
 #include "NIVisumLoader.h"
 #include "NIVisumParser_Lanes.h"
 
@@ -67,9 +71,10 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVisumParser_Lanes::NIVisumParser_Lanes(NIVisumLoader &parent,
-        NBNodeCont &nc, NBEdgeCont &ec, const std::string &dataName)
+        NBNodeCont &nc, NBEdgeCont &ec, NBDistrictCont &dc,
+        const std::string &dataName)
     : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-    myNodeCont(nc), myEdgeCont(ec)
+    myNodeCont(nc), myEdgeCont(ec), myDistrictCont(dc)
 {
 }
 
@@ -109,6 +114,7 @@ NIVisumParser_Lanes::myDependentReport()
         // get the direction
         string dirS =
             NBHelpers::normalIDRepresentation(myLineParser.get("RICHTTYP"));
+        int prevLaneNo = edge->getNoLanes();
         if( (dirS=="1"&&!node->hasIncoming(edge)) || (dirS=="0"&&!node->hasOutgoing(edge)) ) {
             string sid;
             if(edge->getID()[0]=='-') {
@@ -134,6 +140,11 @@ NIVisumParser_Lanes::myDependentReport()
         }
 
         //
+        if(dirS=="1") {
+            lane -= prevLaneNo;
+        }
+
+        //
         if(length==0) {
             if(edge->getNoLanes()>lane) {
                 // ok, we know this already...
@@ -142,7 +153,20 @@ NIVisumParser_Lanes::myDependentReport()
             // increment by one
             edge->incLaneNo(1);
         } else {
-            addError("Lane length are not yet supplied");
+            if(myNodeCont.retrieve(edge->getID() + "_s")!=0) {
+                edge = myEdgeCont.retrieve(edge->getID() + "_s");
+                edge->incLaneNo(1);
+                return;
+            }
+            // ok, we have to split the edge...
+            Position2D p = edge->getGeometry().positionAtLengthPosition(edge->getLength()-length);
+            NBNode *rn = new NBNode(edge->getID() + "_s", p);
+            if(!myNodeCont.insert(rn)) {
+                MsgHandler::getErrorInstance()->inform("Ups - could not insert node!");
+                throw ProcessError();
+            }
+            myEdgeCont.splitAt(myDistrictCont, edge, edge->getLength()-length, rn,
+                edge->getID(), edge->getID() + "_s", edge->getNoLanes(), edge->getNoLanes()+1);
         }
     } catch (OutOfBoundsException) {
         addError2("FAHRSTREIFEN", "", "OutOfBounds");

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/03/28 09:12:43  dkrajzew
+// lane connections for unsplitted lanes implemented, further refactoring
+//
 // Revision 1.6  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -100,11 +103,14 @@ NIVisumParser_TrafficLights::myDependentReport()
         // get the id
         id = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
         // cycle time
-        SUMOReal CycleTime = TplConvert<char>::_2SUMOReal(myLineParser.get("Umlaufzeit").c_str());
+        SUMOReal CycleTime = getNamedFloat("Umlaufzeit", "UMLZEIT");
 		// IntermediateTime
-        SUMOReal IntermediateTime = TplConvert<char>::_2SUMOReal(myLineParser.get("StdZwischenzeit").c_str());
+        SUMOReal IntermediateTime = getNamedFloat("StdZwischenzeit", "STDZWZEIT");
 		// PhaseBased
-        bool PhaseBased = TplConvert<char>::_2bool(myLineParser.get("PhasenBasiert").c_str());
+        bool PhaseBased =
+            myLineParser.know("PhasenBasiert")
+            ? TplConvert<char>::_2bool(myLineParser.get("PhasenBasiert").c_str())
+            : false;
         // add to the list
 		myNIVisumTLs[id] = new NIVisumTL(id, (SUMOTime) CycleTime, (SUMOTime) IntermediateTime, PhaseBased);
     } catch (OutOfBoundsException) {

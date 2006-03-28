@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/03/28 09:12:43  dkrajzew
+// lane connections for unsplitted lanes implemented, further refactoring
+//
 // Revision 1.19  2006/03/28 06:15:48  dkrajzew
 // refactoring and extending the Visum-import
 //
@@ -157,7 +160,7 @@ NIVisumParser_Connectors::myDependentReport()
         // get the duration to wait
         SUMOReal retard = -1;
         if(myLineParser.know("t0-IV")) {
-            retard = TplConvertSec<char>::_2SUMORealSec(myLineParser.get("t0-IV").c_str(), -1);
+            retard = getNamedFloat("t0-IV", -1);
         }
         // get the type;
         //  use a standard type with a large speed when a type is not given

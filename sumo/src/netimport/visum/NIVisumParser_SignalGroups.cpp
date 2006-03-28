@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/03/28 09:12:43  dkrajzew
+// lane connections for unsplitted lanes implemented, further refactoring
+//
 // Revision 1.6  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -102,9 +105,9 @@ NIVisumParser_SignalGroups::myDependentReport()
         id = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
         LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
         // StartTime
-        SUMOReal StartTime = TplConvert<char>::_2SUMOReal(myLineParser.get("GzStart").c_str());
+        SUMOReal StartTime = getNamedFloat("GzStart", "GRUENANF");
 		// EndTime
-        SUMOReal EndTime = TplConvert<char>::_2SUMOReal(myLineParser.get("GzEnd").c_str());
+        SUMOReal EndTime = getNamedFloat("GzEnd", "GRUENENDE");
 		// add to the list
 		(*myNIVisumTLs.find(LSAid)).second->AddSignalGroup(id, (SUMOTime) StartTime, (SUMOTime) EndTime);
     } catch (OutOfBoundsException) {

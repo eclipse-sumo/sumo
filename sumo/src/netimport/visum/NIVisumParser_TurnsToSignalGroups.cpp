@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/03/28 09:12:43  dkrajzew
+// lane connections for unsplitted lanes implemented, further refactoring
+//
 // Revision 1.6  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -80,10 +83,10 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 NIVisumParser_TurnsToSignalGroups::NIVisumParser_TurnsToSignalGroups(
-    NIVisumLoader &parent, NBNodeCont &nc,
+    NIVisumLoader &parent, NBNodeCont &nc, NBEdgeCont &ec,
 	const std::string &dataName, NIVisumLoader::NIVisumTL_Map &NIVisumTLs)
     : NIVisumLoader::NIVisumSingleDataTypeParser(parent, dataName),
-	myNIVisumTLs(NIVisumTLs), myNodeCont(nc)
+	myNIVisumTLs(NIVisumTLs), myNodeCont(nc), myEdgeCont(ec)
 {
 }
 
@@ -110,19 +113,48 @@ NIVisumParser_TurnsToSignalGroups::myDependentReport()
 	std::string LSAid;
     try {
         // get the id
-        SGid = NBHelpers::normalIDRepresentation(myLineParser.get("SGNR"));
-        LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
+        SGid = getNamedString("SGNR", "SIGNALGRUPPENNR");
+        LSAid = getNamedString("LsaNr");
         // nodes
-        NBNode *FromNode = myNodeCont.retrieve(myLineParser.get("VonKnot").c_str());
-        NBNode *OverNode = myNodeCont.retrieve(myLineParser.get("UeberKnot").c_str());
-        NBNode *ToNode = myNodeCont.retrieve(myLineParser.get("NachKnot").c_str());
+        NBNode *from = myLineParser.know("VonKnot") ? getNamedNode(myNodeCont, "TurnsToSignalGroups", "VonKnot") : 0;
+        NBNode *via = getNamedNode(myNodeCont, "TurnsToSignalGroups", "UeberKnot", "UeberKnotNr");
+        NBNode *to = myLineParser.know("NachKnot") ? getNamedNode(myNodeCont, "TurnsToSignalGroups", "NachKnot") : 0;
+        // edges
+		NBEdge *edg1 = 0;
+		NBEdge *edg2 = 0;
+        if(from==0&&to==0) {
+            edg1 = getNamedEdge(myEdgeCont, "TurnsToSignalGroups", "VONSTRNR");
+            edg2 = getNamedEdge(myEdgeCont, "TurnsToSignalGroups", "NACHSTRNR");
+        } else {
+		    edg1 = getEdge(from, via);
+		    edg2 = getEdge(via, to);
+        }
 		// add to the list
 		NIVisumTL::SignalGroup *SG;
 		SG = (*myNIVisumTLs.find(LSAid)).second->GetSignalGroup(SGid);
-		NBEdge *Edg1 = getEdge(FromNode, OverNode);
-		NBEdge *Edg2 = getEdge(OverNode, ToNode);
-		if ( (Edg1 != 0) && (Edg2!=0)) {
-			SG->GetConnections()->push_back(NBConnection(Edg1, Edg2));
+		if (edg1!=0 && edg2!=0) {
+
+            if(!via->hasIncoming(edg1)) {
+                string sid;
+                if(edg1->getID()[0]=='-') {
+                    sid = edg1->getID().substr(1);
+                } else {
+                    sid = "-" + edg1->getID();
+                }
+                edg1 = myEdgeCont.retrieve(sid);
+            }
+            if(!via->hasOutgoing(edg2)) {
+                string sid;
+                if(edg2->getID()[0]=='-') {
+                    sid = edg2->getID().substr(1);
+                } else {
+                    sid = "-" + edg2->getID();
+                }
+                edg2 = myEdgeCont.retrieve(sid);
+            }
+
+
+			SG->GetConnections()->push_back(NBConnection(edg1, edg2));
 		}
     } catch (OutOfBoundsException) {
         addError2("TurnsToSignalGroups", "LSA:" + LSAid + " SignalGroup:" + SGid, "OutOfBounds");

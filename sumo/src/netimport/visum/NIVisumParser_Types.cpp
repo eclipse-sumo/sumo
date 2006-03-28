@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/03/28 09:12:43  dkrajzew
+// lane connections for unsplitted lanes implemented, further refactoring
+//
 // Revision 1.7  2006/03/27 07:30:56  dkrajzew
 // edge types may now store the edge function
 //
@@ -105,17 +108,11 @@ NIVisumParser_Types::myDependentReport()
         // get the id
         id = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
         // get the maximum speed
-        SUMOReal speed =
-            myLineParser.know("v0-IV")
-            ? TplConvert<char>::_2SUMOReal(myLineParser.get("v0-IV").c_str())
-            : TplConvert<char>::_2SUMOReal(myLineParser.get("V0IV").c_str());
+        SUMOReal speed = getNamedFloat("v0-IV", "V0IV");
         // get the priority
         int priority = TplConvert<char>::_2int(myLineParser.get("Rang").c_str());
         // try to retrieve the number of lanes
-        SUMOReal cap =
-            myLineParser.know("Kap-IV")
-            ? TplConvert<char>::_2SUMOReal(myLineParser.get("Kap-IV").c_str())
-            : TplConvert<char>::_2SUMOReal(myLineParser.get("KAPIV").c_str());
+        SUMOReal cap = getNamedFloat("Kap-IV", "KAPIV");
         int nolanes = myCap2Lanes.get(cap);
         // insert the type
         NBType *type = new NBType(id, nolanes, speed/(SUMOReal) 3.6, 100-priority,

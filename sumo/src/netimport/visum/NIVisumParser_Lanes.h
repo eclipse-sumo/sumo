@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.2  2006/03/28 09:12:43  dkrajzew
+// lane connections for unsplitted lanes implemented, further refactoring
+//
 // Revision 1.1  2006/03/28 06:15:49  dkrajzew
 // refactoring and extending the Visum-import
 //
@@ -58,7 +61,8 @@ class NIVisumParser_Lanes :
 public:
     /// Constructor
     NIVisumParser_Lanes(NIVisumLoader &parent,
-        NBNodeCont &nc, NBEdgeCont &ec, const std::string &dataName);
+        NBNodeCont &nc, NBEdgeCont &ec, NBDistrictCont &dc,
+        const std::string &dataName);
 
     /// Destructor
     ~NIVisumParser_Lanes();
@@ -71,6 +75,7 @@ protected:
 private:
     NBNodeCont &myNodeCont;
     NBEdgeCont &myEdgeCont;
+    NBDistrictCont &myDistrictCont;
 
 };
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/03/28 09:12:43  dkrajzew
+// lane connections for unsplitted lanes implemented, further refactoring
+//
 // Revision 1.12  2006/03/28 06:15:48  dkrajzew
 // refactoring and extending the Visum-import
 //
@@ -117,8 +120,8 @@ NIVisumParser_Nodes::myDependentReport()
         // get the id
         id = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
         // get the position
-        SUMOReal x = TplConvert<char>::_2SUMOReal(myLineParser.get("XKoord").c_str());
-        SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKoord").c_str());
+        SUMOReal x = getNamedFloat("XKoord");
+        SUMOReal y = getNamedFloat("YKoord");
         projUV p;
         if(myProjection!=0) {
 

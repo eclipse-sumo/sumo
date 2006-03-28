@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2006/03/28 09:12:43  dkrajzew
+// lane connections for unsplitted lanes implemented, further refactoring
+//
 // Revision 1.4  2005/10/07 11:41:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -64,7 +67,7 @@ class NIVisumParser_TurnsToSignalGroups :
 public:
     /// Constructor
     NIVisumParser_TurnsToSignalGroups(NIVisumLoader &parent,
-        NBNodeCont &nc,
+        NBNodeCont &nc, NBEdgeCont &ec,
         const std::string &dataName, NIVisumLoader::NIVisumTL_Map &NIVisumTLs);
 
     /// Destructor
@@ -80,6 +83,7 @@ private:
 
 protected:
     NBNodeCont &myNodeCont;
+    NBEdgeCont &myEdgeCont;
 
 };
 

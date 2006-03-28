@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/03/28 09:12:43  dkrajzew
+// lane connections for unsplitted lanes implemented, further refactoring
+//
 // Revision 1.10  2006/03/28 06:15:48  dkrajzew
 // refactoring and extending the Visum-import
 //
@@ -128,8 +131,8 @@ NIVisumParser_EdgePolys::myDependentReport()
         SUMOReal x, y;
         try {
             index = TplConvert<char>::_2int(myLineParser.get("INDEX").c_str());
-            x = TplConvert<char>::_2SUMOReal(myLineParser.get("XKoord").c_str());
-            y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKoord").c_str());
+            x = getNamedFloat("XKoord");
+            y = getNamedFloat("YKoord");
         } catch(NumberFormatException&) {
             MsgHandler::getErrorInstance()->inform("Error in geometry description from node '" + from->getID()
                 + "' to node '" + to->getID() + "'.");

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/03/28 09:12:43  dkrajzew
+// lane connections for unsplitted lanes implemented, further refactoring
+//
 // Revision 1.13  2006/03/28 06:15:48  dkrajzew
 // refactoring and extending the Visum-import
 //
@@ -353,6 +356,72 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getNamedEdge(NBEdgeCont &nc,
 }
 
 
+SUMOReal
+NIVisumLoader::NIVisumSingleDataTypeParser::getNamedFloat(const std::string &fieldName)
+{
+    string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
+    return TplConvert<char>::_2SUMOReal(valS.c_str());
+}
+
+
+SUMOReal
+NIVisumLoader::NIVisumSingleDataTypeParser::getNamedFloat(const std::string &fieldName,
+                                                          SUMOReal defaultValue)
+{
+    try {
+        string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
+        return TplConvert<char>::_2SUMOReal(valS.c_str());
+    } catch(...) {
+        return defaultValue;
+    }
+}
+
+
+SUMOReal
+NIVisumLoader::NIVisumSingleDataTypeParser::getNamedFloat(const std::string &fieldName1,
+                                                          const std::string &fieldName2)
+{
+    if(myLineParser.know(fieldName1)) {
+        return getNamedFloat(fieldName1);
+    } else {
+        return getNamedFloat(fieldName2);
+    }
+}
+
+
+SUMOReal
+NIVisumLoader::NIVisumSingleDataTypeParser::getNamedFloat(const std::string &fieldName1,
+                                                          const std::string &fieldName2,
+                                                          SUMOReal defaultValue)
+{
+    if(myLineParser.know(fieldName1)) {
+        return getNamedFloat(fieldName1, defaultValue);
+    } else {
+        return getNamedFloat(fieldName2, defaultValue);
+    }
+}
+
+
+std::string
+NIVisumLoader::NIVisumSingleDataTypeParser::getNamedString(const std::string &fieldName)
+{
+    return NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
+}
+
+
+std::string
+NIVisumLoader::NIVisumSingleDataTypeParser::getNamedString(const std::string &fieldName1,
+                                                           const std::string &fieldName2)
+{
+    if(myLineParser.know(fieldName1)) {
+        return getNamedString(fieldName1);
+    } else {
+        return getNamedString(fieldName2);
+    }
+}
+
+
+
  /* -------------------------------------------------------------------------
  * methods from NIVisumLoader
  * ----------------------------------------------------------------------- */
@@ -374,12 +443,16 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
         new NIVisumParser_Nodes(*this, nb.getNodeCont(), pj, "KNOTEN"));
     mySingleDataParsers.push_back(
         new NIVisumParser_Districts(*this, nb.getDistrictCont(), pj, "BEZIRK"));
+
+
     // set2
         // two types of "strecke"
     mySingleDataParsers.push_back(
         new NIVisumParser_Edges(*this, nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), "STRECKE"));
     mySingleDataParsers.push_back(
         new NIVisumParser_Edges(*this, nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), "STRECKEN"));
+
+
     // set3
     mySingleDataParsers.push_back(
         new NIVisumParser_Connectors(*this, nb.getNodeCont(), nb.getEdgeCont(), nb.getTypeCont(), nb.getDistrictCont(), "ANBINDUNG"));
@@ -388,21 +461,40 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
         new NIVisumParser_Turns(*this, nb.getNodeCont(), "ABBIEGEBEZIEHUNG", myVSysTypes));
     mySingleDataParsers.push_back(
         new NIVisumParser_Turns(*this, nb.getNodeCont(), "ABBIEGER", myVSysTypes));
+
     mySingleDataParsers.push_back(
         new NIVisumParser_EdgePolys(*this, nb.getNodeCont(), pj, "STRECKENPOLY"));
     mySingleDataParsers.push_back(
-        new NIVisumParser_Lanes(*this, nb.getNodeCont(), nb.getEdgeCont(), "FAHRSTREIFEN"));
+        new NIVisumParser_Lanes(*this, nb.getNodeCont(), nb.getEdgeCont(), nb.getDistrictCont(), "FAHRSTREIFEN"));
+
+
 	// set4
+        // two types of lsa
 	mySingleDataParsers.push_back(
 		new NIVisumParser_TrafficLights(*this, "LSA", myNIVisumTLs));
 	mySingleDataParsers.push_back(
+		new NIVisumParser_TrafficLights(*this, "SIGNALANLAGE", myNIVisumTLs));
+        // two types of knotenzulsa
+	mySingleDataParsers.push_back(
 		new NIVisumParser_NodesToTrafficLights(*this, nb.getNodeCont(), "KNOTENZULSA", myNIVisumTLs));
+	mySingleDataParsers.push_back(
+		new NIVisumParser_NodesToTrafficLights(*this, nb.getNodeCont(), "SIGNALANLAGEZUKNOTEN", myNIVisumTLs));
+        // two types of signalgruppe
 	mySingleDataParsers.push_back(
 		new NIVisumParser_SignalGroups(*this, "LSASIGNALGRUPPE", myNIVisumTLs));
 	mySingleDataParsers.push_back(
-		new NIVisumParser_TurnsToSignalGroups(*this, nb.getNodeCont(), "ABBZULSASIGNALGRUPPE", myNIVisumTLs));
+		new NIVisumParser_SignalGroups(*this, "SIGNALGRUPPE", myNIVisumTLs));
+        // two types of ABBZULSASIGNALGRUPPE
+    mySingleDataParsers.push_back(
+		new NIVisumParser_TurnsToSignalGroups(*this, nb.getNodeCont(), nb.getEdgeCont(), "ABBZULSASIGNALGRUPPE", myNIVisumTLs));
+    mySingleDataParsers.push_back(
+		new NIVisumParser_TurnsToSignalGroups(*this, nb.getNodeCont(), nb.getEdgeCont(), "SIGNALGRUPPEZUABBIEGER", myNIVisumTLs));
+        // two types of LSAPHASE
 	mySingleDataParsers.push_back(
 		new NIVisumParser_Phases(*this, "LSAPHASE", myNIVisumTLs));
+	mySingleDataParsers.push_back(
+		new NIVisumParser_Phases(*this, "PHASE", myNIVisumTLs));
+
 	mySingleDataParsers.push_back(
 		new NIVisumParser_SignalGroupsToPhases(*this, "LSASIGNALGRUPPEZULSAPHASE", myNIVisumTLs));
     mySingleDataParsers.push_back(

@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2006/03/28 09:12:43  dkrajzew
+// lane connections for unsplitted lanes implemented, further refactoring
+//
 // Revision 1.9  2006/03/28 06:15:48  dkrajzew
 // refactoring and extending the Visum-import
 //
@@ -209,6 +212,7 @@ public:
         NBNode *getNamedNode(NBNodeCont &nc, const std::string &dataName,
             const std::string &fieldName1, const std::string &fieldName2);
 
+
         /** @brief Tries to get the edge which name is stored in the given field
          *
          * If either the "fieldName" does not occure within the currently loaded
@@ -222,6 +226,28 @@ public:
         /** @brief The same, but two different names for the field are allowed */
         NBEdge *getNamedEdge(NBEdgeCont &nc, const std::string &dataName,
             const std::string &fieldName1, const std::string &fieldName2);
+
+
+        /** @brief Returns the named value as a float
+         */
+        SUMOReal getNamedFloat(const std::string &fieldName);
+        SUMOReal getNamedFloat(const std::string &fieldName, SUMOReal defaultValue);
+
+        /** @brief The same, but two different names for the field are allowed */
+        SUMOReal getNamedFloat(const std::string &fieldName1,
+            const std::string &fieldName2);
+        SUMOReal getNamedFloat(const std::string &fieldName1,
+            const std::string &fieldName2, SUMOReal defaultValue);
+
+
+        /** @brief Returns the named value as a string
+         */
+        std::string getNamedString(const std::string &fieldName);
+
+        /** @brief The same, but two different names for the field are allowed */
+        std::string getNamedString(const std::string &fieldName1,
+            const std::string &fieldName2);
+
 
     protected:
         /// The line parser to use

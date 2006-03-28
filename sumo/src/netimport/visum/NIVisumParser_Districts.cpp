@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/03/28 09:12:43  dkrajzew
+// lane connections for unsplitted lanes implemented, further refactoring
+//
 // Revision 1.10  2006/03/28 06:15:48  dkrajzew
 // refactoring and extending the Visum-import
 //
@@ -118,8 +121,8 @@ NIVisumParser_Districts::myDependentReport()
         bool sourcesWeighted = getWeightedBool("Proz_Q");
         bool destWeighted = getWeightedBool("Proz_Z");
         // get the node information
-        SUMOReal x = TplConvert<char>::_2SUMOReal(myLineParser.get("XKoord").c_str());
-        SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKoord").c_str());
+        SUMOReal x = getNamedFloat("XKoord");
+        SUMOReal y = getNamedFloat("YKoord");
         projUV p;
         if(myProjection!=0) {
             p.u = x / 100000.0 * DEG_TO_RAD;
