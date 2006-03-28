@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.3  2006/03/28 06:17:18  dkrajzew
+// extending the dfrouter by distance/length factors
+//
 // Revision 1.2  2006/03/17 09:04:26  dkrajzew
 // class-documentation added/patched
 //
@@ -48,6 +51,7 @@
 #include <map>
 #include <vector>
 #include <router/ROEdge.h>
+#include <utils/geom/Position2D.h>
 #include "DFDetectorFlow.h"
 
 
@@ -78,8 +82,16 @@ public:
 
     const std::vector<FlowDef> &getFlows() const;
 
+    void setFromPosition(const Position2D &p);
+    void setToPosition(const Position2D &p);
+
+    const Position2D &getFromPosition() const;
+    const Position2D &getToPosition() const;
+
 private:
     std::vector<FlowDef> myFlows;
+
+    Position2D myFromPosition, myToPosition;
 
 private:
     /// we made the copy constructor invalid

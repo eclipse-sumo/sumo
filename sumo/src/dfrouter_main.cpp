@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/03/28 06:18:43  dkrajzew
+// extending the dfrouter by distance/length factors
+//
 // Revision 1.13  2006/03/27 07:34:54  dkrajzew
 // some further work...
 //
@@ -103,6 +106,7 @@ namespace
 #include <utils/common/HelpPrinter.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
+#include <routing_df/RODFLoader.h>
 #include <routing_df/RODFFrame.h>
 #include <routing_df/DFRONet.h>
 #include <routing_df/DFDetector.h>
@@ -146,11 +150,10 @@ loadNet(OptionsCont &oc)
         return 0;
     }
     ROVehicleBuilder vb;
-    ROLoader *loader = new ROLoader(oc, vb, false);
+    RODFLoader loader(oc, vb, false);
     // load the net
     RODFEdgeBuilder builder;
-	RONet *ronet =  loader->loadNet( builder );
-    delete loader;
+	RONet *ronet =  loader.loadNet( builder );
 	if(ronet==0) {
         throw ProcessError();
     }

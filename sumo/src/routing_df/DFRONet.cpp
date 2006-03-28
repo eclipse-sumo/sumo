@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/03/28 06:17:18  dkrajzew
+// extending the dfrouter by distance/length factors
+//
 // Revision 1.14  2006/03/27 07:32:15  dkrajzew
 // some further work...
 //
@@ -250,6 +253,9 @@ DFRONet::buildRouteID(const DFRORouteDesc &desc) const
 {
 	ROEdge *first = *(desc.edges2Pass.begin());
     ROEdge *last = *(desc.edges2Pass.end()-1);
+    if("-51094511_to_51136242"==first->getID() + "_to_" + last->getID()) {
+        int bla = 0;
+    }
 	return first->getID() + "_to_" + last->getID();
 }
 
@@ -307,6 +313,7 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
 		if(find(seen.begin(), seen.end(), last)!=seen.end()) {
 			// ... but keep the way to it
 			current->routename = buildRouteID(*current);
+            current->factor = 1.;
 			into.addRouteDesc(current);
 			continue;
 		}
@@ -315,6 +322,7 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
 		if(!hasApproached(last)) {
 			// ok, no further connections to follow
 			current->routename = buildRouteID(*current);
+            current->factor = 1.;
 			into.addRouteDesc(current);
 			continue;
 		}
@@ -368,10 +376,9 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
 			if(current->passedNo>15) { // !!!
 				// mark not to process any further
 				cout << "Could not find destinations for '" << det.getID() << "'" << endl;
-                if(!keepUnfoundEnds) {
-                    unfoundEnds.push_back(current);
-                }
+                unfoundEnds.push_back(current);
 				current->routename = buildRouteID(*current);
+                current->factor = 1.;
 				into.addRouteDesc(current);
 				continue; // !!!
 			}
@@ -394,6 +401,11 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
 			} else {
                 if(!hadOne||allEndFollower) {
     				t->routename = buildRouteID(*t);
+                    if(allEndFollower) {
+                        t->factor = 1. / (SUMOReal) appr.size();
+                    } else {
+                        t->factor = 1.;
+                    }
 	    			into.addRouteDesc(t);
                     hadOne = true;
                 }
@@ -415,6 +427,8 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
         }
 
 //        forunfoundEnds;
+    } else {
+        // !!! patch the factors
     }
 
     /*

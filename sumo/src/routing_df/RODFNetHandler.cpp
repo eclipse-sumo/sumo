@@ -1,9 +1,9 @@
 //---------------------------------------------------------------------------//
-//                        RODFEdge.cpp -
-//  An edge the router may route through
+//                        RODFNetHandler.cpp -
+//  The handler for SUMO-Networks
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Wed, 01.03.2006
+//  begin                : Mon, 27.03.2006
 //  copyright            : (C) 2006 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
@@ -23,14 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.3  2006/03/28 06:17:18  dkrajzew
+// Revision 1.1  2006/03/28 06:17:18  dkrajzew
 // extending the dfrouter by distance/length factors
 //
-// Revision 1.2  2006/03/17 09:04:26  dkrajzew
-// class-documentation added/patched
-//
-// Revision 1.1  2006/03/08 12:51:29  dkrajzew
-// further work on the dfrouter
 //
 /* =========================================================================
  * compiler pragmas
@@ -49,9 +44,16 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <algorithm>
-#include <cassert>
+#include <string>
+#include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/sumoxml/SUMOXMLDefinitions.h>
+#include <utils/geom/Position2DVector.h>
+#include <utils/geom/GeomConvHelper.h>
+#include "RODFNetHandler.h"
 #include "RODFEdge.h"
 
 #ifdef _DEBUG
@@ -68,65 +70,35 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-RODFEdge::RODFEdge(const std::string &id, int index)
-    : ROEdge(id, index)
+RODFNetHandler::RODFNetHandler(OptionsCont &oc, RONet &net,
+                           ROAbstractEdgeBuilder &eb)
+    : RONetHandler(oc, net, eb)
 {
 }
 
 
-RODFEdge::~RODFEdge()
+RODFNetHandler::~RODFNetHandler()
 {
 }
 
 
 void
-RODFEdge::addFollower(ROEdge *s)
+RODFNetHandler::myCharacters(int element, const std::string&name,
+                           const std::string &chars)
 {
-    ROEdge::addFollower(s);
+    RONetHandler::myCharacters(element, name, chars);
+    switch(element) {
+    case SUMO_TAG_LANE:
+        {
+            Position2DVector p = GeomConvHelper::parseShape(chars);
+            static_cast<RODFEdge*>(_currentEdge)->setFromPosition(p[0]);
+            static_cast<RODFEdge*>(_currentEdge)->setToPosition(p[-1]);
+        }
+        break;
+    default:
+        break;
+    }
 }
-
-
-void
-RODFEdge::setFlows(const std::vector<FlowDef> &flows)
-{
-    myFlows = flows;
-}
-
-
-const std::vector<FlowDef> &
-RODFEdge::getFlows() const
-{
-    return myFlows;
-}
-
-
-void
-RODFEdge::setFromPosition(const Position2D &p)
-{
-    myFromPosition = p;
-}
-
-
-void
-RODFEdge::setToPosition(const Position2D &p)
-{
-    myToPosition = p;
-}
-
-
-const Position2D &
-RODFEdge::getFromPosition() const
-{
-    return myFromPosition;
-}
-
-
-const Position2D &
-RODFEdge::getToPosition() const
-{
-    return myToPosition;
-}
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

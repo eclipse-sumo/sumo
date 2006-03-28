@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/03/28 06:17:18  dkrajzew
+// extending the dfrouter by distance/length factors
+//
 // Revision 1.13  2006/03/27 07:32:15  dkrajzew
 // some further work...
 //
@@ -59,6 +62,7 @@ namespace
 #include "DFDetectorFlow.h"
 #include <utils/helpers/RandomDistributor.h>
 #include <utils/common/StdDefs.h>
+#include <utils/geom/GeomHelper.h>
 
 
 /* =========================================================================
@@ -100,6 +104,20 @@ DFDetector::setType(dfdetector_type type)
 }
 
 
+SUMOReal
+DFDetector::computeDistanceFactor(const DFRORouteDesc &rd) const
+{
+    SUMOReal distance = GeomHelper::distance(
+        static_cast<RODFEdge*>(rd.edges2Pass[0])->getFromPosition(),
+        static_cast<RODFEdge*>(rd.edges2Pass[rd.edges2Pass.size()-1])->getToPosition());
+    SUMOReal length = 0;
+    for(std::vector<ROEdge*>::const_iterator i=rd.edges2Pass.begin(); i!=rd.edges2Pass.end(); ++i) {
+        length += (*i)->getLength();
+    }
+    return (distance/length);
+}
+
+
 void
 DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                                          const DFDetectorFlows &flows,
@@ -129,6 +147,9 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
         size_t index = 0;
         for(ri=descs.begin(); ri!=descs.end()&&toEmit>=0; ++ri, index++) {
             DFRORouteDesc *rd = *ri;
+
+            SUMOReal distanceFactor = computeDistanceFactor(*rd);
+
             // the current probability is 1
             SUMOReal ovProb = 1.;
             bool hadMissing = false;
@@ -166,6 +187,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                 }
                 ++i;
             }
+            ovProb *= (rd->factor * distanceFactor);
             into[time]->add(ovProb, index);
             (*ri)->overallProb += ovProb;
         }
@@ -819,8 +841,6 @@ DFDetectorCon::writeValidationDetectors(const std::string &file,
     }
     strm << "</additional>" << endl;
 }
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -1,10 +1,12 @@
+#ifndef RODFLoader_h
+#define RODFLoader_h
 //---------------------------------------------------------------------------//
-//                        RODFEdge.cpp -
-//  An edge the router may route through
+//                        RODFLoader.h -
+//  Loader used while online-routing
 //                           -------------------
 //  project              : SUMO - Simulation of Urban MObility
-//  begin                : Wed, 01.03.2006
-//  copyright            : (C) 2006 by Daniel Krajzewicz
+//  begin                : Thu, 17 Jun 2004
+//  copyright            : (C) 2004 by Daniel Krajzewicz
 //  organisation         : IVF/DLR http://ivf.dlr.de
 //  email                : Daniel.Krajzewicz@dlr.de
 //---------------------------------------------------------------------------//
@@ -17,20 +19,10 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
-namespace
-{
-    const char rcsid[] =
-    "$Id$";
-}
 // $Log$
-// Revision 1.3  2006/03/28 06:17:18  dkrajzew
+// Revision 1.1  2006/03/28 06:17:18  dkrajzew
 // extending the dfrouter by distance/length factors
 //
-// Revision 1.2  2006/03/17 09:04:26  dkrajzew
-// class-documentation added/patched
-//
-// Revision 1.1  2006/03/08 12:51:29  dkrajzew
-// further work on the dfrouter
 //
 /* =========================================================================
  * compiler pragmas
@@ -49,90 +41,31 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
-#include <algorithm>
-#include <cassert>
-#include <utils/common/MsgHandler.h>
-#include "RODFEdge.h"
-
-#ifdef _DEBUG
-#include <utils/dev/debug_new.h>
-#endif // _DEBUG
+#include <router/ROLoader.h>
 
 
 /* =========================================================================
- * used namespaces
+ * class definitions
  * ======================================================================= */
-using namespace std;
+class RODFLoader : public ROLoader {
+public:
+    /// Constructor
+    RODFLoader(OptionsCont &oc, ROVehicleBuilder &vb,
+        bool emptyDestinationsAllowed);
 
+    /// Destructor
+    ~RODFLoader();
 
-/* =========================================================================
- * method definitions
- * ======================================================================= */
-RODFEdge::RODFEdge(const std::string &id, int index)
-    : ROEdge(id, index)
-{
-}
+    /// Builds the ROONet
+    RONet *loadNet(ROAbstractEdgeBuilder &eb);
 
-
-RODFEdge::~RODFEdge()
-{
-}
-
-
-void
-RODFEdge::addFollower(ROEdge *s)
-{
-    ROEdge::addFollower(s);
-}
-
-
-void
-RODFEdge::setFlows(const std::vector<FlowDef> &flows)
-{
-    myFlows = flows;
-}
-
-
-const std::vector<FlowDef> &
-RODFEdge::getFlows() const
-{
-    return myFlows;
-}
-
-
-void
-RODFEdge::setFromPosition(const Position2D &p)
-{
-    myFromPosition = p;
-}
-
-
-void
-RODFEdge::setToPosition(const Position2D &p)
-{
-    myToPosition = p;
-}
-
-
-const Position2D &
-RODFEdge::getFromPosition() const
-{
-    return myFromPosition;
-}
-
-
-const Position2D &
-RODFEdge::getToPosition() const
-{
-    return myToPosition;
-}
-
-
+};
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
+
+#endif
 
 // Local Variables:
 // mode:C++
 // End:
-
 

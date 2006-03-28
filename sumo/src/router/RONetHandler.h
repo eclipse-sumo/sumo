@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/03/28 06:17:18  dkrajzew
+// extending the dfrouter by distance/length factors
+//
 // Revision 1.8  2006/01/26 08:42:50  dkrajzew
 // made lanes and edges being aware to vehicle classes
 //
@@ -90,15 +93,15 @@ public:
 
 protected:
     /** the user-impemlented handler method for an opening tag */
-    void myStartElement(int element, const std::string &name,
+    virtual void myStartElement(int element, const std::string &name,
         const Attributes &attrs);
 
     /** the user-implemented handler method for characters */
-    void myCharacters(int element, const std::string &name,
+    virtual void myCharacters(int element, const std::string &name,
         const std::string &chars);
 
     /** the user-implemented handler method for a closing tag */
-    void myEndElement(int element, const std::string &name);
+    virtual void myEndElement(int element, const std::string &name);
 
 protected:
     /// Parses an edge

@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.14  2006/03/28 06:17:18  dkrajzew
+// extending the dfrouter by distance/length factors
+//
 // Revision 1.13  2006/03/27 07:32:15  dkrajzew
 // some further work...
 //
@@ -60,6 +63,7 @@ class DFRORouteCont;
 class DFDetectorFlows;
 class ROEdge;
 class DFDetectorCon;
+struct DFRORouteDesc;
 
 
 /* =========================================================================
@@ -118,6 +122,7 @@ protected:
         SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
         std::map<size_t, RandomDistributor<size_t>* > &into) const;
     int getFlowFor(const ROEdge *edge, SUMOTime time) const;
+    SUMOReal computeDistanceFactor(const DFRORouteDesc &rd) const;
 
 protected:
 	std::string myID;
