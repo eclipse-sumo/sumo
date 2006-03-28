@@ -723,9 +723,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSSlowLaneChanger.cpp">
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSSourceLane.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -1024,9 +1021,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSRouteLoaderControl.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSSlowLaneChanger.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSSourceLane.h">

@@ -145,6 +145,14 @@ SOURCE=..\..\..\src\routing_df\RODFFrame.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\routing_df\RODFLoader.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_df\RODFNetHandler.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\sumo_version.cpp
 # End Source File
 # Begin Source File
@@ -226,6 +234,14 @@ SOURCE=..\..\..\src\routing_df\RODFEdgeBuilder.h
 # Begin Source File
 
 SOURCE=..\..\..\src\routing_df\RODFFrame.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_df\RODFLoader.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\routing_df\RODFNetHandler.h
 # End Source File
 # Begin Source File
 

@@ -231,10 +231,6 @@ SOURCE=..\..\..\src\microsim\MSRouteLoaderControl.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\microsim\MSSlowLaneChanger.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\microsim\MSSourceLane.cpp
 # End Source File
 # Begin Source File
@@ -480,10 +476,6 @@ SOURCE=..\..\..\src\microsim\MSRouteLoaderControl.h
 # Begin Source File
 
 SOURCE=..\..\..\src\microsim\MSSaveState.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\microsim\MSSlowLaneChanger.h
 # End Source File
 # Begin Source File
 

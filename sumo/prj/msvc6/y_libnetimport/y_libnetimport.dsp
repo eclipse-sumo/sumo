@@ -519,6 +519,14 @@ SOURCE=..\..\..\src\netimport\visum\NIVisumParser_Edges.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\netimport\visum\NIVisumParser_Lanes.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netimport\visum\NIVisumParser_LanesConnections.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\netimport\visum\NIVisumParser_Nodes.cpp
 # End Source File
 # Begin Source File
@@ -1028,6 +1036,14 @@ SOURCE=..\..\..\src\netimport\visum\NIVisumParser_EdgePolys.h
 # Begin Source File
 
 SOURCE=..\..\..\src\netimport\visum\NIVisumParser_Edges.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netimport\visum\NIVisumParser_Lanes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\src\netimport\visum\NIVisumParser_LanesConnections.h
 # End Source File
 # Begin Source File
 

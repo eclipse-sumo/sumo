@@ -2213,6 +2213,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\visum\NIVisumParser_Lanes.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\visum\NIVisumParser_LanesConnections.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\visum\NIVisumParser_Nodes.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -2851,6 +2857,12 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\visum\NIVisumParser_Edges.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\visum\NIVisumParser_Lanes.h">
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\visum\NIVisumParser_LanesConnections.h">
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\visum\NIVisumParser_Nodes.h">
