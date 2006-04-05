@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/04/05 05:28:49  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.9  2006/03/17 09:04:10  dkrajzew
 // beautifying
 //
@@ -190,7 +193,7 @@ MSCORN::compute_TripDurationsOutput(MSVehicle *v)
     SUMOTime realDepart = (SUMOTime) v->getCORNDoubleValue(CORN_VEH_REALDEPART);
     SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     myTripDurationsOutput->getOStream()
-        << "   <tripinfo vehicle_id=\"" << v->id() << "\" "
+        << "   <tripinfo vehicle_id=\"" << v->getID() << "\" "
         << "start=\"" << realDepart << "\" "
         << "wished=\"" << v->desiredDepart() << "\" "
         << "end=\"" << time << "\" "
@@ -204,7 +207,7 @@ void
 MSCORN::compute_VehicleRouteOutput(MSVehicle *v)
 {
 	myVehicleRouteOutput->getOStream() <<
-		"   <vehicle id=\"" << v->id() << "\" emitedAt=\""
+		"   <vehicle id=\"" << v->getID() << "\" emitedAt=\""
         << v->getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART)
         << "\" endedAt=\"" << MSNet::getInstance()->getCurrentTimeStep()
         << "\">" << endl;

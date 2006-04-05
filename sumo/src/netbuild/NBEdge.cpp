@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.64  2006/04/05 05:30:42  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.63  2006/03/17 11:03:04  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -815,12 +818,10 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
 	}
     // some further information
     if(myLaneSpeeds[lane]==0) {
-        WRITE_WARNING(string("Lane #") + toString<size_t>(lane) + string(" of edge '") + _id + string("' has a maximum velocity of 0."));
+        WRITE_WARNING("Lane #" + toString<size_t>(lane) + " of edge '" + _id + "' has a maximum velocity of 0.");
     } else if(myLaneSpeeds[lane]<0) {
         MsgHandler::getErrorInstance()->inform(
-            string("Negative velocity (") + toString<SUMOReal>(myLaneSpeeds[lane])
-            + string(" on edge '") + _id + string("' lane#")
-            + toString<size_t>(lane) + string("."));
+            "Negative velocity (" + toString<SUMOReal>(myLaneSpeeds[lane]) + " on edge '" + _id + "' lane#" + toString<size_t>(lane) + ".");
         throw ProcessError();
     }
     into << " maxspeed=\"" << myLaneSpeeds[lane] << "\" length=\"" << _length <<
@@ -2095,7 +2096,7 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
                 no++;
             } else {
                 if(connection.tlID!=tlID&&connection.tlLinkNo==tlPos) {
-                    WRITE_WARNING(string("The lane ") + toString<int>(connection.lane)+ string(" on edge ") + connection.edge->getID()+ string(" already had a traffic light signal."));
+                    WRITE_WARNING("The lane " + toString<int>(connection.lane)+ " on edge " + connection.edge->getID()+ " already had a traffic light signal.");
                     hadError = true;
                 }
             }
@@ -2104,7 +2105,7 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
         }
     }
     if(hadError&&no==0) {
-        WRITE_WARNING(string("Could not set any signal of the traffic light '")+ tlID + string("' (unknown group)"));
+        WRITE_WARNING("Could not set any signal of the traffic light '" + tlID + "' (unknown group)");
     }
 }
 
@@ -2494,7 +2495,7 @@ std::string
 NBEdge::getLaneID(size_t lane)
 {
     assert(lane<_nolanes);
-    return _id + string("_") + toString<size_t>(lane);
+    return _id + "_" + toString<size_t>(lane);
 }
 
 
@@ -2569,8 +2570,11 @@ NBEdge::copyConnectionsFrom(NBEdge *src)
     _step = src->_step;
     _connectedEdges = src->_connectedEdges;
     _ToEdges = src->_ToEdges;
-    _reachable = src->_reachable;
+    for(size_t i=0; i<src->_reachable.size(); i++) {
+        _reachable[i] = src->_reachable[i];
+    }
     _succeedinglanes = src->_succeedinglanes;
+    assert(_reachable.size()==_nolanes);
 }
 
 

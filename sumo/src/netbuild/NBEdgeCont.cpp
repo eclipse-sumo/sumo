@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.47  2006/04/05 05:30:42  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.46  2006/03/17 11:03:04  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -463,7 +466,7 @@ NBEdgeCont::report()
 {
     WRITE_MESSAGE("   " + toString<int>(getNo()) + " edges loaded.");
     if(EdgesSplit>0) {
-        WRITE_WARNING("Warning: The split of edges was performed "+ toString<int>(EdgesSplit) + " times.");
+        WRITE_WARNING("The split of edges was performed "+ toString<int>(EdgesSplit) + " times.");
     }
 }
 

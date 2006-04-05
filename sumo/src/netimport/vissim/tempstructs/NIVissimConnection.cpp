@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/04/05 05:32:27  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.23  2006/01/11 12:01:03  dkrajzew
 // patched reassignment of explicite connections
 //
@@ -417,7 +420,7 @@ NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont &ec)
                     toString<int>(c->getToEdgeID()),
                     true);
 
-                WRITE_WARNING(string("Could not build connection between '")+ toString<int>(c->getFromEdgeID())+ string("' and '")+ toString<int>(c->getToEdgeID())+ string("'."));
+                WRITE_WARNING("Could not build connection between '" + toString<int>(c->getFromEdgeID())+ "' and '" + toString<int>(c->getToEdgeID())+ "'.");
 			    ref++;
                 continue;
             }
@@ -460,7 +463,7 @@ NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont &ec)
         }
     }
 	if(ref!=0) {
-        WRITE_WARNING(toString<size_t>(ref) + string(" of ")+ toString<size_t>(myDict.size())+ string(" connections could not be assigned."));
+        WRITE_WARNING(toString<size_t>(ref) + " of " + toString<size_t>(myDict.size())+ " connections could not be assigned.");
 	}
 }
 

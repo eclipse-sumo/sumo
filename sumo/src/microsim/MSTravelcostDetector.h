@@ -150,7 +150,7 @@ public:
                  intervalsAndFilesM.end() ) {
 
                 WRITE_WARNING("MSTravelcostDetector::addSampleInterval ");
-                WRITE_WARNING(string("intervalLength ")+ toString<SUMOTime>(intervalInSeconds)+ string(" s already added. Ignoring."));
+                WRITE_WARNING("intervalLength " + toString<SUMOTime>(intervalInSeconds)+ " s already added. Ignoring.");
                 return;
             }
             // open file

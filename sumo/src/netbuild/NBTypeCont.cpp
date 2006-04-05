@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/04/05 05:30:42  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.12  2006/03/27 07:27:14  dkrajzew
 // edge types may now store the edge function
 //
@@ -256,7 +259,7 @@ NBTypeCont::clear()
 void
 NBTypeCont::report()
 {
-    WRITE_MESSAGE(string("   ") + toString<int>(getNo()) + string(" types loaded."));
+    WRITE_MESSAGE("   " + toString<int>(getNo()) + " types loaded.");
 }
 
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/04/05 05:32:27  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.17  2005/11/09 06:42:07  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -165,9 +168,7 @@ NIVissimNodeCluster::getNodeName() const
     if(myTLID==-1) {
         return toString<int>(myID);
     } else {
-        return toString<int>(myID)
-            + string("LSA ")
-            + toString<int>(myTLID);
+        return toString<int>(myID) + "LSA " + toString<int>(myTLID);
     }
 }
 

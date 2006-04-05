@@ -34,6 +34,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/04/05 05:34:08  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.14  2005/09/23 06:04:23  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -95,7 +98,7 @@ int Get_rand (int number,int maxele, int start, int *input, int *output, bool in
 	if(number>=maxele)
 	{
         number = maxele-1;
-        WRITE_WARNING(string("More random numbers requiered as elements!")+ string("\n")+ toString<int>(initial-number) + string(" cars get lost"));
+        WRITE_WARNING("More random numbers requiered as elements!\n"+ toString<int>(initial-number) + " cars get lost");
 	    for(k=0;k<maxele;k++) *(output+k)=k+start;
 		return (number);
 	}
@@ -113,8 +116,7 @@ int Get_rand (int number,int maxele, int start, int *input, int *output, bool in
 			{
 				*(input+i)=*(input+i+1);
 				if(	*(input+i)<0) {
-                    MsgHandler::getErrorInstance()->inform(
-                        string("was faul at ") + toString<int>(i));
+                    MsgHandler::getErrorInstance()->inform("was faul at " + toString<int>(i));
 					throw ProcessError();
 				}
 			}

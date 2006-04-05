@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/05 05:34:08  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.11  2005/10/07 11:42:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -128,9 +131,7 @@ ODDistrict::getRandom(const WeightedEdgeIDCont &cont) const
 {
     // check whether at least one elements exists
     if(cont.size()==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Trying to use a not existing source/sink at district: ")
-            + string(getID()));
+        MsgHandler::getErrorInstance()->inform("Trying to use a not existing source/sink at district: " + getID());
         throw 1;//ProcessError();
     }
     // compute which item to retrieve

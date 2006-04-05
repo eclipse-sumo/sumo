@@ -29,6 +29,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/05 05:34:08  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.11  2005/10/07 11:42:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -92,8 +95,7 @@ ODWrite (string OD_outfile, vector<OD_OUT>& od_out, long int total_cars,
 	int ferror = 0;
 	std::ofstream fsSrc (OD_outfile.c_str ());
 	if (!fsSrc) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Could not open ") + OD_outfile + string("."));
+        MsgHandler::getErrorInstance()->inform("Could not open " + OD_outfile + ".");
 		throw ProcessError();
 	}
     fsSrc << "<tripdefs>" << endl;

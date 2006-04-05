@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2006/04/05 05:30:42  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.35  2006/01/11 11:59:20  dkrajzew
 // patched reassignment of explicite connections
 //
@@ -295,7 +298,7 @@ NBRequest::NBRequest(const NBEdgeCont &ec,
                 string ptID = prohibited.getTo()!=0 ? prohibited.getTo()->getID() : "UNKNOWN";
                 string bfID = sprohibiting.getFrom()!=0 ? sprohibiting.getFrom()->getID() : "UNKNOWN";
                 string btID = sprohibiting.getTo()!=0 ? sprohibiting.getTo()->getID() : "UNKNOWN";
-                WRITE_WARNING(string("could not prohibit ")+ pfID + string("->") + ptID+ string(" by ")+ bfID + string("->") + ptID);
+                WRITE_WARNING("could not prohibit " + pfID + "->" + ptID+ " by "+ bfID + "->" + ptID);
                 myNotBuild++;
             }
         }
@@ -552,7 +555,7 @@ NBRequest::bitsetToXML(string key)
     }
     os << "      </logic>" << endl;
     os << "   </row-logic>" << endl;
-    return string(os.str());
+    return os.str();
 }
 
 
@@ -858,7 +861,7 @@ NBRequest::reportWarnings()
 {
     // check if any errors occured on build the link prohibitions
     if(myNotBuild!=0) {
-        WRITE_WARNING(toString<int>(myNotBuild) + string(" of ")+ toString<int>(myNotBuild+myGoodBuilds)+ string(" prohibitions were not build."));
+        WRITE_WARNING(toString<int>(myNotBuild) + " of " + toString<int>(myNotBuild+myGoodBuilds)+ " prohibitions were not build.");
     }
 }
 

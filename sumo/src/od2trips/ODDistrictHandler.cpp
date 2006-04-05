@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/04/05 05:34:08  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.7  2005/10/07 11:42:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -166,20 +169,13 @@ ODDistrictHandler::getValues(const Attributes &attrs, const std::string &type)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            string("A ") + type
-            + string(" without an id occured within district '")
-            + _current->getID() + string("'."));
+        MsgHandler::getErrorInstance()->inform("A " + type + " without an id occured within district '" + _current->getID() + "'.");
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the weight
     SUMOReal weight = getFloatSecure(attrs, SUMO_ATTR_WEIGHT, -1);
     if(weight==-1) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The weight of the ") + type + string(" '") + id
-            + string("' within district '")
-            + _current->getID()
-            + string("' is not numeric."));
+        MsgHandler::getErrorInstance()->inform("The weight of the " + type + " '" + id + "' within district '" + _current->getID() + "' is not numeric.");
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // return the values

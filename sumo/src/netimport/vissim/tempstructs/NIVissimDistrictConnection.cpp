@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/04/05 05:32:27  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.25  2005/10/07 11:40:10  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -278,8 +281,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont &dc,
             // retrieve the current district
         NBDistrict *district =
             dc.retrieve(toString<int>((*k).first));
-        NBNode *districtNode = nc.retrieve(
-            string("District") + district->getID());
+        NBNode *districtNode = nc.retrieve("District" + district->getID());
         assert(district!=0&&districtNode!=0);
 
         for(IntVector::const_iterator l=connections.begin(); l!=connections.end(); l++) {
@@ -292,7 +294,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont &dc,
                     c->myPosition);
             }
             assert(e!=0);
-            string id = string("ParkingPlace") + toString<int>(*l);
+            string id = "ParkingPlace" + toString<int>(*l);
             NBNode *parkingPlace = nc.retrieve(id);
             if(parkingPlace==0) {
                 SUMOReal pos = c->getPosition();
@@ -311,9 +313,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont &dc,
 
             // build the connection to the source
             if(e->getFromNode()==parkingPlace) {
-                id = string("VissimFromParkingplace")
-                    + toString<int>((*k).first) + "-"
-                    + toString<int>(c->myID);
+                id = "VissimFromParkingplace" + toString<int>((*k).first) + "-" + toString<int>(c->myID);
                 NBEdge *source =
                     new NBEdge(id, id, districtNode, parkingPlace,
                     "Connection", c->getMeanSpeed(/*distc*/)/(SUMOReal) 3.6, 3, 100, 0,
@@ -331,9 +331,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont &dc,
 
             // build the connection to the destination
             if(e->getToNode()==parkingPlace) {
-                id = string("VissimToParkingplace")
-                    + toString<int>((*k).first) + "-"
-                    + toString<int>(c->myID);
+                id = "VissimToParkingplace"  + toString<int>((*k).first) + "-" + toString<int>(c->myID);
                 NBEdge *destination =
                     new NBEdge(id, id, parkingPlace, districtNode,
                     "Connection", (SUMOReal) 100/(SUMOReal) 3.6, 2, 100, 0,

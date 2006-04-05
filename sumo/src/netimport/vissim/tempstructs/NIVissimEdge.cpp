@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2006/04/05 05:32:27  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.31  2006/03/17 11:03:06  dkrajzew
 // made access to positions in Position2DVector c++ compliant
 //
@@ -584,8 +587,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
         fromInf.first = 0;
         Position2D pos = myGeom[0];
         fromNode =
-            new NBNode(toString<int>(myID) + string("-SourceNode"),
-                pos, NBNode::NODETYPE_NOJUNCTION);
+            new NBNode(toString<int>(myID) + "-SourceNode", pos, NBNode::NODETYPE_NOJUNCTION);
         if(!nc.insert(fromNode)) {
             throw 1;
         }
@@ -596,8 +598,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
         toInf.first = 0;
         Position2D pos = myGeom[-1];
         toNode =
-            new NBNode(toString<int>(myID) + string("-DestinationNode"),
-                pos, NBNode::NODETYPE_NOJUNCTION);
+            new NBNode(toString<int>(myID) + "-DestinationNode", pos, NBNode::NODETYPE_NOJUNCTION);
         if(!nc.insert(toNode)) {
             throw 1;
         }
@@ -731,7 +732,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     int i;
     for(i=0; i<(int) myNoLanes; i++) {
         if(myLaneSpeeds.size()<=(size_t) i||myLaneSpeeds[i]==-1) {
-            WRITE_WARNING(string("Unset speed on edge:") + toString<int>(myID) + string(", lane:") + toString<int>(i));
+            WRITE_WARNING("Unset speed on edge:" + toString<int>(myID) + ", lane:" + toString<int>(i));
             WRITE_WARNING(". Using default.");
             avgSpeed += OptionsSubSys::getOptions().getFloat("vissim-default-speed");
         } else {
@@ -926,7 +927,7 @@ NIVissimEdge::remapOneOfNodes(NBNodeCont &nc,
                               NIVissimDistrictConnection *d,
                               NBNode *fromNode, NBNode *toNode)
 {
-    string nid = string("ParkingPlace") + toString<int>(d->getID());
+    string nid = "ParkingPlace" + toString<int>(d->getID());
     if( GeomHelper::distance(d->geomPosition(), fromNode->getPosition())
         <
         GeomHelper::distance(d->geomPosition(), toNode->getPosition()) ) {
@@ -962,7 +963,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont &nc, SUMOReal offset,
         SUMOReal position = d->getPosition();
         // the district is at the begin of the edge
         if(myGeom.length()-position>position) {
-            string nid = string("ParkingPlace") + toString<int>(d->getID());
+            string nid = "ParkingPlace" + toString<int>(d->getID());
             NBNode *node = nc.retrieve(nid);
             if(node==0) {
                 node = new NBNode(nid,
@@ -975,7 +976,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont &nc, SUMOReal offset,
         }
         // the district is at the end of the edge
         else {
-            string nid = string("ParkingPlace") + toString<int>(d->getID());
+            string nid = "ParkingPlace" + toString<int>(d->getID());
             NBNode *node = nc.retrieve(nid);
             if(node==0) {
                 node = new NBNode(nid,

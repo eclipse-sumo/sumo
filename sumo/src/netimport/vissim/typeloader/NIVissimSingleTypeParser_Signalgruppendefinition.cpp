@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/04/05 05:32:27  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.16  2005/10/07 11:40:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -141,14 +144,9 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream &from)
     from >> lsaid;
     NIVissimTL *tl = NIVissimTL::dictionary(lsaid);
     if(tl==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("A traffic light group with an unknown traffic light occured."));
-        MsgHandler::getErrorInstance()->inform(
-            string("  Group-ID: ") + toString<int>(id)
-            );
-        MsgHandler::getErrorInstance()->inform(
-            string("  TrafficLight-ID: ") + toString<int>(lsaid)
-            );
+        MsgHandler::getErrorInstance()->inform("A traffic light group with an unknown traffic light occured.");
+        MsgHandler::getErrorInstance()->inform("  Group-ID: " + toString<int>(id));
+        MsgHandler::getErrorInstance()->inform("  TrafficLight-ID: " + toString<int>(lsaid));
         return false;
     }
     string type = tl->getType();
@@ -170,8 +168,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream &from)
     } if(type=="pos") {
         return parsePOS(id, name, lsaid, from);
     }
-    MsgHandler::getErrorInstance()->inform(
-        string("Unsupported LSA-Type '") + type + string("' occured."));
+    MsgHandler::getErrorInstance()->inform("Unsupported LSA-Type '" + type + "' occured.");
     return false;
 }
 
@@ -222,7 +219,7 @@ bool
 NIVissimSingleTypeParser_Signalgruppendefinition::parseVAS(
         int id, const std::string &name, int lsaid, std::istream &from)
 {
-    WRITE_WARNING(string("VAS traffic lights are not supported (lsa=")+ toString<int>(lsaid) + string(")"));
+    WRITE_WARNING("VAS traffic lights are not supported (lsa=" + toString<int>(lsaid) + ")");
     string tag;
     while(tag!="detektoren") {
         tag = myRead(from);
@@ -235,7 +232,7 @@ bool
 NIVissimSingleTypeParser_Signalgruppendefinition::parseVSPLUS(
         int id, const std::string &, int lsaid, std::istream &)
 {
-    WRITE_WARNING(string("VSPLUS traffic lights are not supported (lsa=")+ toString<int>(lsaid) + string(")"));
+    WRITE_WARNING("VSPLUS traffic lights are not supported (lsa="+ toString<int>(lsaid) + ")");
     return true;
 }
 
@@ -244,7 +241,7 @@ bool
 NIVissimSingleTypeParser_Signalgruppendefinition::parseTRENDS(
         int id, const std::string &, int lsaid, std::istream &)
 {
-    WRITE_WARNING(string("TRENDS traffic lights are not supported (lsa=")+ toString<int>(lsaid) + string(")"));
+    WRITE_WARNING("TRENDS traffic lights are not supported (lsa="+ toString<int>(lsaid) + ")");
     return true;
 }
 
@@ -253,7 +250,7 @@ bool
 NIVissimSingleTypeParser_Signalgruppendefinition::parseVAP(
         int id, const std::string &, int lsaid, std::istream &)
 {
-    WRITE_WARNING(string("VAS traffic lights are not supported (lsa=")+ toString<int>(lsaid) + string(")"));
+    WRITE_WARNING("VAS traffic lights are not supported (lsa="+ toString<int>(lsaid) + ")");
     return true;
 }
 
@@ -262,7 +259,7 @@ bool
 NIVissimSingleTypeParser_Signalgruppendefinition::parseTL(
         int id, const std::string &, int lsaid, std::istream &)
 {
-    WRITE_WARNING(string("TL traffic lights are not supported (lsa=")+ toString<int>(lsaid) + string(")"));
+    WRITE_WARNING("TL traffic lights are not supported (lsa="+ toString<int>(lsaid) + ")");
     return true;
 }
 
@@ -271,7 +268,7 @@ bool
 NIVissimSingleTypeParser_Signalgruppendefinition::parsePOS(
         int id, const std::string &, int lsaid, std::istream &)
 {
-    WRITE_WARNING(string("POS traffic lights are not supported (lsa=")+ toString<int>(lsaid) + string(")"));
+    WRITE_WARNING("POS traffic lights are not supported (lsa="+ toString<int>(lsaid) + ")");
     return true;
 }
 
@@ -280,7 +277,7 @@ bool
 NIVissimSingleTypeParser_Signalgruppendefinition::parseExternFixedTime(
         int id, const std::string &, int lsaid, std::istream &)
 {
-    WRITE_WARNING(string("externally defined traffic lights are not supported (lsa=")+ toString<int>(lsaid) + string(")"));
+    WRITE_WARNING("externally defined traffic lights are not supported (lsa="+ toString<int>(lsaid) + ")");
     return true;
 }
 

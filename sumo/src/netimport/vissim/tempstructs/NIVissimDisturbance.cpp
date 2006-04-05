@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/04/05 05:32:27  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.17  2005/10/07 11:40:10  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -203,18 +206,12 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
         // Both competing abstract edges are normal edges
         // We have to find a crossing point, build a node here,
         //  split both edges and add the connections
-        NIVissimEdge *e1 = NIVissimEdge::dictionary(
-            myEdge.getEdgeID());
-        NIVissimEdge *e2 = NIVissimEdge::dictionary(
-            myDisturbance.getEdgeID());
-        WRITE_WARNING(string("Ugly split to prohibit '") + toString<int>(e1->getID())+ string("' by '") + toString<int>(e2->getID())+ string("'."));
+        NIVissimEdge *e1 = NIVissimEdge::dictionary(myEdge.getEdgeID());
+        NIVissimEdge *e2 = NIVissimEdge::dictionary(myDisturbance.getEdgeID());
+        WRITE_WARNING("Ugly split to prohibit '" + toString<int>(e1->getID())+ "' by '" + toString<int>(e2->getID())+ "'.");
         Position2D pos = e1->crossesEdgeAtPoint(e2);
-        string id1 =
-            toString<int>(e1->getID()) + string("x")
-            + toString<int>(e2->getID());
-        string id2 =
-            toString<int>(e2->getID()) + string("x")
-            + toString<int>(e1->getID());
+        string id1 = toString<int>(e1->getID()) + "x" + toString<int>(e2->getID());
+        string id2 = toString<int>(e2->getID()) + "x" + toString<int>(e1->getID());
         NBNode *node1 = nc.retrieve(id1);
         NBNode *node2 = nc.retrieve(id2);
         NBNode *node = 0;
@@ -240,14 +237,10 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
                     node);
 			// !!! in some cases, one of the edges is not being build because it's too short
 			// !!! what to do in these cases?
-			NBEdge *mayDriveFrom = ec.retrieve(
-				toString<int>(e1->getID()) + string("[0]"));
-			NBEdge *mayDriveTo = ec.retrieve(
-				toString<int>(e1->getID()) + string("[1]"));
-			NBEdge *mustStopFrom = ec.retrieve(
-				toString<int>(e2->getID()) + string("[0]"));
-			NBEdge *mustStopTo = ec.retrieve(
-				toString<int>(e2->getID()) + string("[1]"));
+			NBEdge *mayDriveFrom = ec.retrieve(toString<int>(e1->getID()) + "[0]");
+			NBEdge *mayDriveTo = ec.retrieve(toString<int>(e1->getID()) + "[1]");
+			NBEdge *mustStopFrom = ec.retrieve(toString<int>(e2->getID()) + "[0]");
+			NBEdge *mustStopTo = ec.retrieve(toString<int>(e2->getID()) + "[1]");
 			if(mayDriveFrom!=0&&mayDriveTo!=0&&mustStopFrom!=0&&mustStopTo!=0) {
 	            node->addSortedLinkFoes(
 					NBConnection(mayDriveFrom, mayDriveTo),
@@ -267,7 +260,7 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
         NBEdge *e = ec.retrievePossiblySplitted(
             toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
         if(e->getFromNode()==e->getToNode()) {
-            WRITE_WARNING(string("Could not prohibit '")+ toString<int>(myEdge.getEdgeID()) + string("' by '")+ toString<int>(myDisturbance.getEdgeID())+ string("'."));
+            WRITE_WARNING("Could not prohibit '"+ toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID())+ "'.");
             refusedProhibits++;
             // What to do with dummy edges?
             return false;
@@ -290,7 +283,7 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
                     NBConnection(pcoe, pcie));
             }
         } else {
-            WRITE_WARNING(string("Would have to split edge '")+ e->getID() + string("' to build a prohibition"));
+            WRITE_WARNING("Would have to split edge '" + e->getID() + "' to build a prohibition");
             refusedProhibits++;
             // quite ugly - why was it not build?
             return false;
@@ -320,7 +313,7 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
         string nid1 = e->getID() + "[0]";
         string nid2 = e->getID() + "[1]";
         if( e->getFromNode()==e->getToNode()) {
-            WRITE_WARNING(string("Could not prohibit '")+ toString<int>(myEdge.getEdgeID()) + string("' by '")+ toString<int>(myDisturbance.getEdgeID())+ string("'."));
+            WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID())+ "'.");
             refusedProhibits++;
             // What to do with dummy edges?
             return false;
@@ -343,7 +336,7 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
                     NBConnection(e, *i));
             }
         } else {
-            WRITE_WARNING(string("Would have to split edge '")+ e->getID() + string("' to build a prohibition"));
+            WRITE_WARNING("Would have to split edge '" + e->getID() + "' to build a prohibition");
             refusedProhibits++;
             return false;
             /*
@@ -425,7 +418,7 @@ void
 NIVissimDisturbance::reportRefused()
 {
     if(refusedProhibits>0) {
-        WRITE_WARNING(string("Warning: Could not build ") + toString<size_t>(refusedProhibits)+ string(" of ") + toString<size_t>(myDict.size())+ string(" disturbances."));
+        WRITE_WARNING("Could not build " + toString<size_t>(refusedProhibits)+ " of " + toString<size_t>(myDict.size())+ " disturbances.");
     }
 }
 

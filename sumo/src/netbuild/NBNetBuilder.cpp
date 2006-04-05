@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2006/04/05 05:30:42  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.33  2006/03/28 06:14:38  dkrajzew
 // debugging
 //
@@ -153,8 +156,8 @@ NBNetBuilder::buildLoaded()
     }
     // save plain nodes/edges/connections
     if(oc.isSet("plain-output")) {
-        myNodeCont.savePlain(oc.getString("plain-output") + string(".nod.xml"));
-        myEdgeCont.savePlain(oc.getString("plain-output") + string(".edg.xml"));
+        myNodeCont.savePlain(oc.getString("plain-output") + ".nod.xml");
+        myEdgeCont.savePlain(oc.getString("plain-output") + ".edg.xml");
     }
     // save the mapping information when wished
     if(oc.isSet("map-output")) {
@@ -171,7 +174,7 @@ NBNetBuilder::buildLoaded()
 void
 NBNetBuilder::inform(int &step, const std::string &about)
 {
-    WRITE_MESSAGE(string("Computing step ") + toString<int>(step)+ string(": ") + about);
+    WRITE_MESSAGE("Computing step " + toString<int>(step)+ ": " + about);
     step++;
 }
 

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/04/05 05:32:27  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.10  2006/01/11 12:01:03  dkrajzew
 // patched reassignment of explicite connections
 //
@@ -137,15 +140,11 @@ NIXMLConnectionsHandler::myStartElement(int element, const std::string &name,
         NBEdge *toEdge = myEdgeCont.retrieve(to);
         // check whether they are valid
         if(fromEdge==0) {
-            addError(
-                string("The connection-source edge '")
-                + from + string("' is not known."));
+            addError("The connection-source edge '" + from + "' is not known.");
             return;
         }
         if(toEdge==0) {
-            addError(
-                string("The connection-destination edge '")
-                + to + string("' is not known."));
+            addError("The connection-destination edge '" + to + "' is not known.");
             return;
         }
         // parse the id
@@ -171,8 +170,7 @@ NIXMLConnectionsHandler::parseEdgeBound(const Attributes &attrs,
     try {
         noLanes = getIntSecure(attrs, SUMO_ATTR_NOLANES, -1);
     } catch (NumberFormatException e) {
-        addError(
-            string("Not numeric lane in connection"));
+        addError("Not numeric lane in connection");
         return;
     }
     if(noLanes<0) {
@@ -217,8 +215,7 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
                     + "'.");
             }
         } catch (NumberFormatException) {
-            addError(
-                string("At least one of the defined lanes was not numeric"));
+            addError("At least one of the defined lanes was not numeric");
         }
     }
 }

@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/04/05 05:30:42  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.9  2005/10/17 09:02:44  dkrajzew
 // got rid of the old MSVC memory leak checker; memory leaks removed
 //
@@ -159,7 +162,7 @@ void
 NBJunctionLogicCont::add(const std::string &key,
                          const std::string &xmlDescription)
 {
-    string nkey = string("b.")+key;
+    string nkey = "b." + key; // !!! nkey?
     LogicMap::iterator i=_map.find(nkey);
     if(i!=_map.end()) {
         string tmp = (*i).second;

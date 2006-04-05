@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/04/05 05:30:42  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.20  2006/01/26 08:49:15  dkrajzew
 // removed uneeded variables
 //
@@ -839,8 +842,7 @@ NBNode::getInternalNamesList()
     size_t noInternalLanes = countInternalLanes();
     if(noInternalLanes!=0) {
         for(size_t i=0; i<noInternalLanes; i++) {
-            ret.push_back(
-                string(":") + _id + string("_") + toString<size_t>(i));
+            ret.push_back(":" + _id + "_" + toString<size_t>(i));
         }
     }
     return ret;
@@ -874,7 +876,7 @@ NBNode::writeXMLInternalLinks(ostream &into)
     if(countInternalLanes()==0) {
         return;
     }
-    string id = string(":") + _id;
+    string id = ":" + _id;
     size_t lno = 0;
     EdgeVector::iterator i;
     for(i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
@@ -894,8 +896,7 @@ NBNode::writeXMLInternalLinks(ostream &into)
                     / (SUMOReal) 2.0 / (SUMOReal) PI;
                 vmax = MIN2(vmax, (((*i)->getSpeed()+(*k).edge->getSpeed())/(SUMOReal) 2.0));
                 //
-                string id =
-                   string(":") + _id + string("_") + toString<size_t>(lno);
+                string id = ":" + _id + "_" + toString<size_t>(lno);
                 Position2D end = (*k).edge->getLaneShape((*k).lane).getBegin();
                 Position2D beg = (*i)->getLaneShape(j).getEnd();
                 SUMOReal length = GeomHelper::distance(beg, end);
@@ -1049,8 +1050,7 @@ NBNode::writeXMLInternalSuccInfos(ostream &into)
                 if((*k).edge==0) {
                     continue;
                 }
-                string id =
-                   string(":") + _id + string("_") + toString<size_t>(lno);
+                string id = ":" + _id + "_" + toString<size_t>(lno);
                 into << "   <succ edge=\"" << id << "\" "
                     << "lane=\"" << id << "_"
                     << 0 << "\" junction=\"" << _id << "\">"
@@ -1209,9 +1209,9 @@ NBNode::setType(BasicNodeType type)
 void
 NBNode::reportBuild()
 {
-    WRITE_MESSAGE( string("No Junctions (converted)    : ") + toString<int>(_noNoJunctions));
-    WRITE_MESSAGE(string("Priority Junctions          : ") + toString<int>(_noPriorityJunctions));
-    WRITE_MESSAGE(string("Right Before Left Junctions : ") + toString<int>(_noRightBeforeLeftJunctions));
+    WRITE_MESSAGE("No Junctions (converted)    : " + toString<int>(_noNoJunctions));
+    WRITE_MESSAGE("Priority Junctions          : " + toString<int>(_noPriorityJunctions));
+    WRITE_MESSAGE("Right Before Left Junctions : " + toString<int>(_noRightBeforeLeftJunctions));
 }
 
 
@@ -1425,12 +1425,10 @@ NBNode::setTurningDefinition(NBNode *from, NBNode *to)
             OptionsSubSys::getOptions().isSet("keep-edges")) {
 
             MsgHandler::getWarningInstance()->inform(
-                string("Could not set connection from node '") + from->getID()
-                + string("' to node '") + getID() + string("'."));
+                "Could not set connection from node '" + from->getID() + "' to node '" + getID() + "'.");
         } else {
             MsgHandler::getErrorInstance()->inform(
-                string("There is no edge from node '") + from->getID()
-                + string("' to node '") + getID() + string("'."));
+                "There is no edge from node '" + from->getID() + "' to node '" + getID() + "'.");
         }
         return;
     }
@@ -1440,12 +1438,10 @@ NBNode::setTurningDefinition(NBNode *from, NBNode *to)
             OptionsSubSys::getOptions().isSet("keep-edges")) {
 
             MsgHandler::getWarningInstance()->inform(
-                string("Could not set connection from node '") + getID()
-                + string("' to node '") + to->getID() + string("'."));
+                "Could not set connection from node '" + getID() + "' to node '" + to->getID() + "'.");
         } else {
             MsgHandler::getErrorInstance()->inform(
-                string("There is no edge from node '") + getID()
-                + string("' to node '") + to->getID() + string("'."));
+                "There is no edge from node '" + getID() + "' to node '" + to->getID() + "'.");
         }
         return;
     }
@@ -1740,7 +1736,7 @@ NBNode::eraseDummies(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont
         // an edge with both its origin and destination being the current
         //  node should be removed
         NBEdge *dummy = *j;
-        WRITE_WARNING(string(" Removing dummy edge '") + dummy->getID() + string("'"));
+        WRITE_WARNING(" Removing dummy edge '" + dummy->getID() + "'");
         // get the list of incoming edges connected to the dummy
         EdgeVector incomingConnected;
         EdgeVector::const_iterator i;
@@ -2201,8 +2197,7 @@ NBNode::getInternalLaneID(NBEdge *from, size_t fromlane, NBEdge *to) const
                     continue;
                 }
                 if((from==*i)&&(j==fromlane)&&((*k).edge==to)) {
-                    return string(":") + _id + string("_") +
-                        toString<size_t>(l);
+                    return ":" + _id + "_" + toString<size_t>(l);
                 }
                 l++;
             }

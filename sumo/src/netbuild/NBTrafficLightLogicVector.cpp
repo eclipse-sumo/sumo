@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/04/05 05:30:42  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.13  2005/10/07 11:38:19  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -145,7 +148,7 @@ NBTrafficLightLogicVector::writeXML(std::ostream &os) const
     set<string> inLanes;
     for(NBConnectionVector::const_iterator j=myInLinks.begin(); j!=myInLinks.end(); j++) {
         assert((*j).getFromLane()>=0&&(*j).getFrom()!=0);
-        string id = (*j).getFrom()->getID() + string("_") + toString<int>((*j).getFromLane());
+        string id = (*j).getFrom()->getID() + "_" + toString<int>((*j).getFromLane());
         inLanes.insert(id);
     }
     size_t pos = 0;

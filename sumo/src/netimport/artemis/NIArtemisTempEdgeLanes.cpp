@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/04/05 05:32:25  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.14  2006/01/11 12:01:03  dkrajzew
 // patched reassignment of explicite connections
 //
@@ -203,9 +206,7 @@ NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
         // get the edge and check it
         NBEdge *edge = ec.retrieve(name);
         if(edge==0) {
-            MsgHandler::getErrorInstance()->inform(
-                string("Trying to assign lanes to the unknown edge '")
-                + name + string("'."));
+            MsgHandler::getErrorInstance()->inform("Trying to assign lanes to the unknown edge '" + name + "'.");
             continue;
         }
         // retrieve the number of maximum lanes
@@ -233,7 +234,7 @@ NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
         SUMOReal lengthRemoved = 0;
         for(size_t k=1; k<setLanes.size()-1; k++) {
             // get the position of the lane changing
-            string nodename = name + toString<int>(k-1) + string("x") + name + toString<int>(k);
+            string nodename = name + toString<int>(k-1) + "x" + name + toString<int>(k);
             assert(edge->getLength()>(poses[k]-lengthRemoved));
             Position2D pos =
                 edge->getGeometry().positionAtLengthPosition(poses[k]-lengthRemoved);
@@ -243,18 +244,14 @@ NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
             if(node==0) {
                 node = new NBNode(nodename, pos, NBNode::NODETYPE_PRIORITY_JUNCTION);
                 if(!nc.insert(node)) {
-                    MsgHandler::getErrorInstance()->inform(
-                        string("Problems on adding a lane-splitting node for edge '")
-                        + name + string("'."));
+                    MsgHandler::getErrorInstance()->inform("Problems on adding a lane-splitting node for edge '" + name + "'.");
                     delete node;
                     return;
                 }
             }
             // split the edge
-            string name1 =
-                name + string("[") + toString<int>(k-1) + string("]");
-            string name2 =
-                name + string("[") + toString<int>(k) + string("]");
+            string name1 = name + "[" + toString<int>(k-1) + "]";
+            string name2 = name + "[" + toString<int>(k) + "]";
             size_t laneNo1 = count(setLanes[k-1]);
             size_t laneNo2 = count(setLanes[k]);
             ec.splitAt(dc,

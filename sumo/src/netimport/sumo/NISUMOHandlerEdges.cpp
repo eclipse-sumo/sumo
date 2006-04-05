@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/04/05 05:32:26  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.7  2005/10/07 11:39:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -150,15 +153,11 @@ NISUMOHandlerEdges::getNode(const Attributes &attrs, unsigned int id,
         string nodename = getString(attrs, id);
         NBNode *node = myNodeCont.retrieve(nodename);
         if(node==0) {
-            addError(
-                string("The ") + dir + string("-node '") + nodename +
-                string("' used within edge '") + name + string("' is not known."));
+            addError("The " + dir + "-node '" + nodename + "' used within edge '" + name + "' is not known.");
         }
         return node;
     } catch (EmptyData) {
-        addError(
-            string("Missing ") + dir + string("-node name for edge with id '")
-            + name + string("'"));
+        addError("Missing " + dir + "-node name for edge with id '" + name + "'");
     }
     return 0;
 }
@@ -171,13 +170,9 @@ NISUMOHandlerEdges::getFloatReporting(const Attributes &attrs,
     try {
         return getFloat(attrs, id);
     } catch (EmptyData) {
-        addError(
-            string("The ") + name + string(" is not given within the object '")
-            + objid + string("'."));
+        addError("The " + name + " is not given within the object '" + objid + "'.");
     } catch (NumberFormatException) {
-        addError(
-            string("The ") + name + string(" is not numeric within the object '")
-            + objid + string("'."));
+        addError("The " + name + " is not numeric within the object '" + objid + "'.");
     }
     return -1;
 }
@@ -191,13 +186,9 @@ NISUMOHandlerEdges::getIntReporting(const Attributes &attrs,
     try {
         return getInt(attrs, id);
     } catch (EmptyData) {
-        addError(
-            string("The ") + name + string(" is not given within the object '")
-            + objid + string("'."));
+        addError("The " + name + " is not given within the object '" + objid + "'.");
     } catch (NumberFormatException) {
-        addError(
-            string("The ") + name + string(" is not numeric within the object '")
-            + objid + string("'."));
+        addError("The " + name + " is not numeric within the object '" + objid + "'.");
     }
     return -1;
 }

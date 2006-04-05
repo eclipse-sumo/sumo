@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/04/05 05:30:42  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.22  2006/03/27 07:26:32  dkrajzew
 // added projection information to the network
 //
@@ -536,7 +539,7 @@ NBNodeCont::clear()
 void
 NBNodeCont::report()
 {
-    WRITE_MESSAGE(string("   ") + toString<int>(getNo()) + string(" nodes loaded."));
+    WRITE_MESSAGE("   " + toString<int>(getNo()) + " nodes loaded.");
 }
 
 
@@ -645,7 +648,7 @@ NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
         no += (*i).second->eraseDummies(dc, ec, tc);
     }
     if(no!=0) {
-        WRITE_WARNING(toString<int>(no) + string(" dummy edges removed."));
+        WRITE_WARNING(toString<int>(no) + " dummy edges removed.");
     }
     return true;
 }
@@ -711,10 +714,7 @@ NBNodeCont::printNodePositions()
 {
     for(NodeCont::iterator i=_nodes.begin(); i!=_nodes.end(); i++) {
         string ni = (*i).second->getID();
-        ni += string(":")
-            + toString<SUMOReal>((*i).second->getPosition().x())
-            + string(", ")
-            + toString<SUMOReal>((*i).second->getPosition().y());
+        ni += ":" + toString<SUMOReal>((*i).second->getPosition().x()) + ", " + toString<SUMOReal>((*i).second->getPosition().y());
         MsgHandler::getMessageInstance()->inform(ni);
     }
 }
@@ -774,7 +774,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
     for(std::vector<NBNode*>::iterator j=toRemove.begin(); j!=toRemove.end(); j++) {
         erase(*j);
     }
-    WRITE_MESSAGE(string("   ") + toString<int>(no) + string(" nodes removed."));
+    WRITE_MESSAGE("   " + toString<int>(no) + " nodes removed.");
     return true;
 }
 
@@ -1234,8 +1234,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
             string name = st.next();
             NBNode *n = NBNodeCont::retrieve(name);
             if(n==0) {
-                MsgHandler::getErrorInstance()->inform(
-                    string(" The node '") + name + string("' to set as not-controlled is not known."));
+                MsgHandler::getErrorInstance()->inform(" The node '" + name + "' to set as not-controlled is not known.");
                 throw ProcessError();
             }
             ncontrolled.push_back(n);
@@ -1303,20 +1302,15 @@ NBNodeCont::setAsTLControlled(const std::string &name,
 {
     NBNode *node = retrieve(name);
     if(node==0) {
-        MsgHandler::getWarningInstance()->inform(
-            string("Building a tl-logic for node '") + name
-            + string("' is not possible."));
-        MsgHandler::getWarningInstance()->inform(
-            string(" The node '") + name + string("' is not known."));
+        MsgHandler::getWarningInstance()->inform("Building a tl-logic for node '" + name + "' is not possible.");
+        MsgHandler::getWarningInstance()->inform(" The node '" + name + "' is not known.");
         return;
     }
     NBTrafficLightDefinition *tlDef =
         new NBOwnTLDef(name, node);
     if(!tlc.insert(name, tlDef)) {
         // actually, nothing should fail here
-        MsgHandler::getWarningInstance()->inform(
-            string("Building a tl-logic for node '") + name
-            + string("' twice is not possible."));
+        MsgHandler::getWarningInstance()->inform("Building a tl-logic for node '" + name + "' twice is not possible.");
         delete tlDef;
         return;
     }
@@ -1345,7 +1339,6 @@ NBNodeCont::savePlain(const std::string &file)
 
 bool
 NBNodeCont::writeTLSasPOIs(const std::string &file)
-
 {
     // try to build the output file
     ofstream res(file.c_str());

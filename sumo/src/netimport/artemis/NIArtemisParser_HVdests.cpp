@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/05 05:32:25  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.11  2005/10/07 11:39:05  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -119,13 +122,11 @@ NIArtemisParser_HVdests::myDependentReport()
     NBNode *node2 = myNodeCont.retrieve(destid);
     // check
     if(node1==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Could not find node '") + origid + string("'"));
+        MsgHandler::getErrorInstance()->inform("Could not find node '" + origid + "'");
         return;
     }
     if(node2==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Could not find node '") + destid + string("'"));
+        MsgHandler::getErrorInstance()->inform("Could not find node '" + destid + "'");
         return;
     }
     // try to build a source into node1

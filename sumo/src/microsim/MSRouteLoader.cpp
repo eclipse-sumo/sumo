@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.10  2006/04/05 05:28:49  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.9  2005/12/01 07:37:35  dkrajzew
 // introducing bus stops: eased building vehicles; vehicles may now have nested elements
 //
@@ -99,9 +102,7 @@ MSRouteLoader::init()
 {
     _moreAvailable = true;
     if(!myParser->parseFirst(myHandler->getFileName().c_str(), myToken)) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Can not read XML-file '")
-            + myHandler->getFileName() + string("'."));
+        MsgHandler::getErrorInstance()->inform("Can not read XML-file '" + myHandler->getFileName() + "'.");
         throw ProcessError();
     }
 }

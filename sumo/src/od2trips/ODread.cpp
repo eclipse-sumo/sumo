@@ -28,6 +28,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/04/05 05:34:08  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.12  2005/09/23 06:04:23  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -77,8 +80,7 @@ int ODread (string OD_filename,vector<OD_IN>& od_in, SUMOTime *maxele,
     int i;
 	std::ifstream fsSrc (OD_filename.c_str ());
 	if (!fsSrc) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Could not open ") + OD_filename + string("."));
+        MsgHandler::getErrorInstance()->inform("Could not open " + OD_filename + ".");
 		throw ProcessError();
 	}
 	n = 0;
@@ -106,8 +108,7 @@ int ODread (string OD_filename,vector<OD_IN>& od_in, SUMOTime *maxele,
 		>> tmp.to
 		>> tmp.how_many))
 		{
-            MsgHandler::getErrorInstance()->inform(
-                string("Invalid data set encountered: ") + cLine);
+            MsgHandler::getErrorInstance()->inform("Invalid data set encountered: " + cLine);
 			throw ProcessError();
 		}
         od_in.push_back(tmp);

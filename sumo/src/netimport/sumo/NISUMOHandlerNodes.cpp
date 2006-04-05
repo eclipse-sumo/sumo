@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/04/05 05:32:26  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.10  2005/10/07 11:39:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -131,9 +134,7 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
         try {
             typestr = getString(attrs, SUMO_ATTR_TYPE);
         } catch (EmptyData) {
-            addError(
-                string("The type of the junction '") + id +
-                string("' is not given."));
+            addError("The type of the junction '" + id + "' is not given.");
             return;
         }
         // check whether the type string is valid by converting it to the known
@@ -149,9 +150,7 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
             type = NBNode::NODETYPE_DEAD_END;
         }
         if(type<0) {
-            addError(
-                string("The type '") + typestr + string("' of junction '") +
-                id + string("is not known."));
+            addError("The type '" + typestr + "' of junction '" + id + "is not known.");
             return;
         }
         // get the position of the node
@@ -160,14 +159,10 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
         y = getFloatSecure(attrs, SUMO_ATTR_Y, -1);
         if(x<0||y<0) {
             if(x<0) {
-                addError(
-                    string("The x-position of the junction '") +
-                    id + string("' is not valid."));
+                addError("The x-position of the junction '" + id + "' is not valid.");
             }
             if(y<0) {
-                addError(
-                    string("The y-position of the junction '") +
-                    id + string("' is not valid."));
+                addError("The y-position of the junction '" + id + "' is not valid.");
             }
             return;
         }
@@ -176,9 +171,7 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
         try {
             key = getString(attrs, SUMO_ATTR_KEY);
         } catch (EmptyData) {
-            addError(
-                string("The key is missing for junction '") + id
-                + string("'."));
+            addError("The key is missing for junction '" + id + "'.");
         }
         // build the node
         throw 1; // !!! deprecated

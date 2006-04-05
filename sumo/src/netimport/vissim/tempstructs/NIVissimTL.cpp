@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/04/05 05:32:27  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.16  2005/10/07 11:40:10  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -483,7 +486,7 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont &tlc,
         NBLoadedTLDef *def = new NBLoadedTLDef(id);
         if(!tlc.insert(id, def)) {
             MsgHandler::getErrorInstance()->inform("Error on adding a traffic light");
-            MsgHandler::getErrorInstance()->inform(string(" Must be a multiple id ('") + id + string("')"));
+            MsgHandler::getErrorInstance()->inform(" Must be a multiple id ('" + id + "')");
             continue;
         }
 		def->setCycleDuration((size_t) tl->myAbsDuration);
@@ -492,7 +495,7 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont &tlc,
         SGroupDictType sgs = NIVissimTLSignalGroup::getGroupsFor(tl->getID());
         for(SGroupDictType::const_iterator j=sgs.begin(); j!=sgs.end(); j++) {
             if(!(*j).second->addTo(def)) {
-                WRITE_WARNING(string("The signal group '") + toString<int>((*j).first)+ string("' could not be assigned to tl '")+ toString<int>(tl->myID) + string("'."));
+                WRITE_WARNING("The signal group '" + toString<int>((*j).first)+ "' could not be assigned to tl '"+ toString<int>(tl->myID) + "'.");
 				ref_groups++;
 			}
 			no_groups++;
@@ -501,20 +504,20 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont &tlc,
         SSignalDictType signals = NIVissimTLSignal::getSignalsFor(tl->getID());
         for(SSignalDictType::const_iterator k=signals.begin(); k!=signals.end(); k++) {
             if(!(*k).second->addTo(ec, def)) {
-                WRITE_WARNING(string("The signal '") + toString<int>((*k).first)+ string("' could not be assigned to tl '")+ toString<int>(tl->myID) + string("'."));
+                WRITE_WARNING("The signal '" + toString<int>((*k).first)+ "' could not be assigned to tl '" + toString<int>(tl->myID) + "'.");
 				ref_signals++;
 			}
 			no_signals++;
         }
     }
 	if(ref!=0) {
-        WRITE_WARNING(string("Could not set ") + toString<size_t>(ref)+ string(" of ") + toString<size_t>(myDict.size())+ string(" traffic lights."));
+        WRITE_WARNING("Could not set " + toString<size_t>(ref)+ " of " + toString<size_t>(myDict.size())+ " traffic lights.");
 	}
 	if(ref_groups!=0) {
-        WRITE_WARNING(string("Could not set ") + toString<size_t>(ref_groups)+ string(" of ") + toString<size_t>(no_groups)+ string(" groups."));
+        WRITE_WARNING("Could not set " + toString<size_t>(ref_groups)+ " of " + toString<size_t>(no_groups)+ " groups.");
 	}
 	if(ref_signals!=0) {
-        WRITE_WARNING(string("Could not set ") + toString<size_t>(ref_signals)+ string(" of ") + toString<size_t>(no_signals)+ string(" signals."));
+        WRITE_WARNING("Could not set " + toString<size_t>(ref_signals)+ " of " + toString<size_t>(no_signals)+ " signals.");
 	}
     return true;
 

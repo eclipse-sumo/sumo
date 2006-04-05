@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/04/05 05:30:42  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.16  2005/11/09 06:40:49  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -123,7 +126,7 @@ void
 NBLoadedTLDef::SignalGroup::patchTYellow(SUMOTime tyellow)
 {
     if(myTYellow<tyellow) {
-        WRITE_WARNING(string("TYellow of signal group '") + getID()+ string("' was less than the computed one; patched (was:")+ toString<SUMOTime>(myTYellow) + string(", is:")+ toString<int>(tyellow) + string(")"));
+        WRITE_WARNING("TYellow of signal group '" + getID()+ "' was less than the computed one; patched (was:" + toString<SUMOTime>(myTYellow) + ", is:" + toString<int>(tyellow) + ")");
         myTYellow = tyellow;
     }
 }
@@ -462,8 +465,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string 
     // check whether any warnings were printed
     if(MsgHandler::getWarningInstance()->wasInformed()) {
         MsgHandler::getWarningInstance()->finalizeInform(
-            string("During computation of traffic light '")
-            + getID() + string("'."));
+            "During computation of traffic light '" + getID() + "'.");
     }
     logic->closeBuilding();
     // returns the build logic
@@ -492,7 +494,7 @@ NBLoadedTLDef::setTLControllingInformation(const NBEdgeCont &ec) const
                     conn.getFromLane(), conn.getTo(), conn.getToLane(),
                     getID(), pos++);
             } else {
-                WRITE_WARNING(string("Could not set signal on connection (signal: ")+ getID() + string(", group: ") + group->getID()+ string(")"));
+                WRITE_WARNING("Could not set signal on connection (signal: " + getID() + ", group: " + group->getID()+ ")");
             }
         }
     }

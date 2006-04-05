@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/04/05 05:28:49  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.21  2006/03/17 09:01:12  dkrajzew
 // .icc-files removed
 //
@@ -455,8 +458,7 @@ MSRouteHandler::addRouteElements(const std::string &name,
 {
     StringTokenizer st(chars);
     if(st.size()==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Empty route (") + name + string(")"));
+        MsgHandler::getErrorInstance()->inform("Empty route (" + name + ")");
         return;
     }
     MSEdge *edge = 0;
@@ -465,11 +467,8 @@ MSRouteHandler::addRouteElements(const std::string &name,
         edge = MSEdge::dictionary(set);
         // check whether the edge exists
         if(edge==0) {
-            MsgHandler::getErrorInstance()->inform(
-                string("The edge '") + set + string("' within route '")
-                + myActiveRouteID + string("' is not known."));
-            MsgHandler::getErrorInstance()->inform(
-                " The route can not be build.");
+            MsgHandler::getErrorInstance()->inform("The edge '" + set + "' within route '" + myActiveRouteID + "' is not known.");
+            MsgHandler::getErrorInstance()->inform(" The route can not be build.");
             throw ProcessError();
         }
         myActiveRoute.push_back(edge);

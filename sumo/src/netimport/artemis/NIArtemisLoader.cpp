@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/04/05 05:32:25  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.10  2005/10/07 11:39:05  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -124,13 +127,12 @@ NIArtemisLoader::NIArtemisSingleDataTypeParser::~NIArtemisSingleDataTypeParser()
 bool
 NIArtemisLoader::NIArtemisSingleDataTypeParser::parse()
 {
-    WRITE_MESSAGE(string("Parsing ") + getDataName() + string("... "));
+    WRITE_MESSAGE("Parsing " + getDataName() + "... ");
     string file = myParent.getFileName() + getDataName();
     LineReader reader(file);
     if(!reader.good()) {
         if(!amOptional()) {
-            MsgHandler::getErrorInstance()->inform(
-                string("Problems on parsing '") + file + string("'."));
+            MsgHandler::getErrorInstance()->inform("Problems on parsing '" + file + "'.");
             return false;
         } else {
             WRITE_MESSAGE("not supplied (no error).");
@@ -199,20 +201,12 @@ NIArtemisLoader::NIArtemisSingleDataTypeParser::addError2(
 {
     if(id.length()!=0) {
         if(exception.length()!=0) {
-            addError(
-                string("The definition of the ") + type + string(" '")
-                + id
-                + string("' is malicious (") + exception + string(")."));
+            addError("The definition of the " + type + " '" + id + "' is malicious (" + exception + ").");
         } else {
-            addError(
-                string("The definition of the ") + type + string(" '")
-                + id
-                + string("' is malicious."));
+            addError("The definition of the " + type + " '" + id + "' is malicious.");
         }
     } else {
-        addError(
-            string("Something is wrong with a ") + type
-            + string(" (unknown id)."));
+        addError("Something is wrong with a " + type + " (unknown id).");
     }
 }
 

@@ -28,6 +28,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/04/05 05:34:08  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.10  2005/09/23 06:04:23  dkrajzew
 // SECOND LARGE CODE RECHECK: converted doubles and floats to SUMOReal
 //
@@ -80,8 +83,7 @@ void ODInpread (string OD_filename, std::vector<std::string> &infiles,
 	std::ifstream fsSrc (OD_filename.c_str ());
 
 	if (!fsSrc) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Could not open ") + OD_filename + string("."));
+        MsgHandler::getErrorInstance()->inform("Could not open " + OD_filename + ".");
 		throw ProcessError();
 	}
 

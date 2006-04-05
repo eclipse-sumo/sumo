@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/04/05 05:34:39  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.9  2006/01/26 08:37:23  dkrajzew
 // removed warnings 4786
 //
@@ -135,9 +138,7 @@ void
 ROAbstractRouteDefLoader::readRoutesAtLeastUntil(SUMOTime time)
 {
     if(!myReadRoutesAtLeastUntil(time)) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Problems on parsing ") + getDataName() +
-            string(" file."));
+        MsgHandler::getErrorInstance()->inform("Problems on parsing " + getDataName() + " file.");
         throw ProcessError();
     }
 }

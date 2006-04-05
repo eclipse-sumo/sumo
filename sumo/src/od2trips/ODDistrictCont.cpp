@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/05 05:34:08  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.11  2005/10/07 11:42:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -103,8 +106,7 @@ ODDistrictCont::getRandomSourceFromDistrict(const std::string &name) const
 {
     ODDistrict *district = get(name);
     if(district==0) {
-        throw InvalidArgument(
-            string("There is no district '") + name + string("'."));
+        throw InvalidArgument("There is no district '" + name + "'.");
     }
     return district->getRandomSource();
 }
@@ -115,8 +117,7 @@ ODDistrictCont::getRandomSinkFromDistrict(const std::string &name) const
 {
     ODDistrict *district = get(name);
     if(district==0) {
-        throw InvalidArgument(
-            string("There is no district '") + name + string("'."));
+        throw InvalidArgument("There is no district '" + name + "'.");
     }
     return district->getRandomSink();
 }
@@ -137,8 +138,7 @@ ODDistrictCont::getDistrictColor(const std::string &name) const
 {
     ODDistrict *district = get(name);
     if(district==0) {
-        throw InvalidArgument(
-            string("There is no district '") + name + string("'."));
+        throw InvalidArgument("There is no district '" + name + "'.");
     }
     return district->getColor();
 }

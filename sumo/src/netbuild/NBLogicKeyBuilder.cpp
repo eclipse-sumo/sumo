@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/04/05 05:30:42  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.7  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -98,7 +101,7 @@ NBLogicKeyBuilder::buildKey(NBNode *junction, const EdgeVector * const edges)
         // for every edge
         appendEdgeDescription(key, junction, edges, i);
     }
-    return string(key.str());
+    return key.str();
 }
 
 

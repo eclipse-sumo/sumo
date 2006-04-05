@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/04/05 05:32:25  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.10  2005/10/07 11:39:05  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -129,20 +132,17 @@ NIArtemisParser_SignalGroups::myDependentReport()
     NBNode *toNode = myNodeCont.retrieve(to);
         // check whether the node is valid
     if(node==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The node '") + nodeid + string("' is not known within a signal group."));
+        MsgHandler::getErrorInstance()->inform("The node '" + nodeid + "' is not known within a signal group.");
         return;
     }
         // check whether the incoming edge is valid
     if(fromNode==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The from node '") + from + string("' is not known within a signal group."));
+        MsgHandler::getErrorInstance()->inform("The from node '" + from + "' is not known within a signal group.");
         return;
     }
         // check whether the outgoing edge is valid
     if(toNode==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The to node '") + to + string("' is not known within a signal group."));
+        MsgHandler::getErrorInstance()->inform("The to node '" + to + "' is not known within a signal group.");
         return;
     }
     NBEdge *fromEdge =
@@ -152,21 +152,16 @@ NIArtemisParser_SignalGroups::myDependentReport()
         NBContHelper::findConnectingEdge(
             node->getOutgoingEdges(), node, toNode);
     if(fromEdge==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Could not find connection between '") + from
-            + string("' and '") + nodeid + string("' within a signal group."));
+        MsgHandler::getErrorInstance()->inform("Could not find connection between '" + from + "' and '" + nodeid + "' within a signal group.");
         return;
     }
     if(toEdge==0) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Could not find connection between '") + nodeid
-            + string("' and '") + to + string("' within a signal group."));
+        MsgHandler::getErrorInstance()->inform("Could not find connection between '" + nodeid + "' and '" + to + "' within a signal group.");
         return;
     }
     // compute the phases
     NBConnection c(fromEdge, toEdge);
-    NIArtemisTempSignal::addConnectionPhases(c, startPhase, endPhase,
-        group);
+    NIArtemisTempSignal::addConnectionPhases(c, startPhase, endPhase, group);
 }
 
 void

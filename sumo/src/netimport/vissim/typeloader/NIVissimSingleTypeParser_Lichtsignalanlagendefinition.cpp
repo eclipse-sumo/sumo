@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/04/05 05:32:27  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.9  2005/10/07 11:40:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -133,8 +136,7 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parse(std::istream &from)
     } if(type=="extern") {
         return parseRestActuated(id, name, from, type);
     }
-    MsgHandler::getErrorInstance()->inform(
-        string("Unsupported LSA-Type '") + type + string("' occured."));
+    MsgHandler::getErrorInstance()->inform("Unsupported LSA-Type '" + type + "' occured.");
     return false;
 }
 

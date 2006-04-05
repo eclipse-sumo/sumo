@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/04/05 05:30:42  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.17  2005/10/17 09:02:44  dkrajzew
 // got rid of the old MSVC memory leak checker; memory leaks removed
 //
@@ -194,12 +197,12 @@ NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc)
         // and insert the result after coputation
         if(!insert((*i).first, def->compute(ec, oc))) {
             // should not happen
-            WRITE_WARNING(string("Could not build traffic lights '") + def->getID()+ string("'"));
+            WRITE_WARNING("Could not build traffic lights '" + def->getID()+ "'");
         } else {
             no++;
         }
     }
-    WRITE_MESSAGE(toString<int>(no) + string(" traffic light(s) computed."));
+    WRITE_MESSAGE(toString<int>(no) + " traffic light(s) computed.");
     return true;
 }
 
