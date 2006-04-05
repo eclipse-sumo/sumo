@@ -22,6 +22,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.12  2006/04/05 05:27:34  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.11  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -194,8 +197,9 @@ MSJunction::postloadInitContainer()
     }
 }
 
-std::string
-MSJunction::id() const
+
+const std::string &
+MSJunction::getID() const
 {
     return myID;
 }

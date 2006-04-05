@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/04/05 05:27:37  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.13  2006/02/27 12:04:40  dkrajzew
 // eased the initialisation API
 //
@@ -174,7 +177,7 @@ MSAgentbasedTrafficLightLogic::init(
         for(i=lanes.begin(); i!=lanes.end(); i++) {
             MSLane *lane = (*i);
             // Build the lane state detetcor and set it into the container
-            std::string id = "TL_" + myID + "_" + mySubID + "_E2OverLanesDetectorStartingAt_" + lane->id();
+            std::string id = "TL_" + myID + "_" + mySubID + "_E2OverLanesDetectorStartingAt_" + lane->getID();
 
             if ( myE2Detectors.find(lane)==myE2Detectors.end()){
                 MS_E2_ZS_CollectorOverLanes* det =

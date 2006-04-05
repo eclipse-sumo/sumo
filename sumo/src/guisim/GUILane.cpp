@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2006/04/05 05:22:36  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.35  2006/03/28 06:12:54  dkrajzew
 // unneeded string wrapping removed
 //
@@ -266,7 +269,7 @@ GUILane::push( MSVehicle* veh )
     if( myVehBuffer != 0 || (last!=0 && last->pos() < veh->pos()) ) {
         MSVehicle *prev = myVehBuffer!=0
             ? myVehBuffer : last;
-        WRITE_WARNING("Vehicle '" + veh->id() + "' beamed due to a collision on push!\n" + "  Lane: '" + id() + "', previous vehicle: '" + prev->id() + "', time: " + toString<SUMOTime>(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+        WRITE_WARNING("Vehicle '" + veh->getID() + "' beamed due to a collision on push!\n" + "  Lane: '" + getID() + "', previous vehicle: '" + prev->getID() + "', time: " + toString<SUMOTime>(MSNet::getInstance()->getCurrentTimeStep()) + ".");
        veh->onTripEnd(/* *this*/);
         resetApproacherDistance(); // !!! correct? is it (both lines) really necessary during this simulation part?
         veh->removeApproachingInformationOnKill(/*this*/);

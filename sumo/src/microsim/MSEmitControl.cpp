@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.16  2006/04/05 05:27:34  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.15  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -255,7 +258,7 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
                 myNewPeriodicalAdds.push_back(nextPeriodical);
                 // !!! add some kind of a check and an error
                 //  handler, here
-                MSVehicle::dictionary(nextPeriodical->id(), nextPeriodical);
+                MSVehicle::dictionary(nextPeriodical->getID(), nextPeriodical);
             }
         }
     } else {

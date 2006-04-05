@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/04/05 05:27:37  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.4  2006/03/17 08:58:36  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -424,7 +427,7 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
             MSNet::getInstance()->getVehicleControl().vehiclesEmitted(1);
             veh->onDepart();
             // insert vehicle into the dictionary
-            if(!MSVehicle::dictionary(veh->id(), veh)) {
+            if(!MSVehicle::dictionary(veh->getID(), veh)) {
                 // !!!
                 throw 1;
             }
@@ -438,7 +441,7 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
         veh->onDepart();
         MSNet::getInstance()->getVehicleControl().vehiclesEmitted(1);
         // insert vehicle into the dictionary
-        if(!MSVehicle::dictionary(veh->id(), veh)) {
+        if(!MSVehicle::dictionary(veh->getID(), veh)) {
             // !!!
             throw 1;
         }

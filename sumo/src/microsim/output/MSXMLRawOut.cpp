@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/04/05 05:27:34  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.7  2006/01/26 08:30:29  dkrajzew
 // patched MSEdge in order to work with a generic router
 //
@@ -167,7 +170,7 @@ MSXMLRawOut::writeVehicle(OutputDevice* of, const MSVehicle &veh,
                           unsigned int intend)
 {
     string indent( intend , ' ' );
-    of->getOStream() << indent << "<vehicle id=\"" << veh.id() << "\" pos=\""
+    of->getOStream() << indent << "<vehicle id=\"" << veh.getID() << "\" pos=\""
        << veh.pos() << "\" speed=\"" << veh.speed()
        << "\"/>" << endl;
 }

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/04/05 05:22:36  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.18  2006/03/28 06:12:54  dkrajzew
 // unneeded string wrapping removed
 //
@@ -256,7 +259,7 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
         myDetector.getEndPos()-myDetector.getStartPos());
     ret->mkItem("position [m]", false,
         myDetector.getStartPos());
-    ret->mkItem("lane", false, myDetector.getLane()->id());
+    ret->mkItem("lane", false, myDetector.getLane()->getID());
     // close building
     ret->closeBuilding();
     return ret;

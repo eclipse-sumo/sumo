@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/04/05 05:27:34  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.13  2006/03/17 09:01:12  dkrajzew
 // .icc-files removed
 //
@@ -179,7 +182,7 @@ MSSourceLane::emitTry( MSVehicle& veh )
     veh.moveSetState( state );
     assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
-    if(debug_searched2==veh.id()||debug_searched2==veh.id()) {
+    if(debug_searched2==veh.getID()||debug_searched2==veh.getID()) {
         DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << debug_globaltime << endl;
     }
 #endif
@@ -212,7 +215,7 @@ MSSourceLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
         assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
-    if(debug_searched1==veh.id()||debug_searched2==veh.id()) {
+    if(debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
         DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << debug_globaltime << endl;
     }
 #endif

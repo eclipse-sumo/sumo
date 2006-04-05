@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/04/05 05:27:36  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.12  2006/01/26 08:30:29  dkrajzew
 // patched MSEdge in order to work with a generic router
 //
@@ -159,7 +162,7 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
         haltingTimeThresholdM(haltingTimeThreshold),
         haltingSpeedThresholdM(haltingSpeedThreshold),
         jamDistThresholdM(jamDistThreshold),
-        myID(id), myStartLaneID(lane->id()),
+        myID(id), myStartLaneID(lane->getID()),
         myUsage(usage)
 {
 }
@@ -328,7 +331,7 @@ MSE2Collector *
 MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
                                             SUMOReal start, SUMOReal end)
 {
-    string id = makeID(l->id(), c, r);
+    string id = makeID(l->getID(), c, r);
     if(start+end<l->length()) {
         start = l->length() - end - (SUMOReal) 0.1;
     }

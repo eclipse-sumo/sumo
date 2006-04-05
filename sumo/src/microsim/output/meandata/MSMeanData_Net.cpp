@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/04/05 05:27:37  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.14  2006/01/26 08:30:29  dkrajzew
 // patched MSEdge in order to work with a generic router
 //
@@ -279,7 +282,7 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
             (SUMOReal) (stopTime-startTime+1) / lane.myLength;
     }
 
-    dev.writeString("      <lane id=\"").writeString(lane.id()).writeString(
+    dev.writeString("      <lane id=\"").writeString(lane.getID()).writeString(
         "\" traveltime=\"").writeString(toString(traveltime)).writeString(
         "\" noVehContrib=\"").writeString(toString(meanData.nVehContributed)).writeString(
         "\" density=\"").writeString(toString(meanDensity)).writeString(

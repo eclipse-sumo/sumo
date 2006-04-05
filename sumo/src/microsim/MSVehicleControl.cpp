@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/04/05 05:27:34  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.10  2005/12/01 07:37:35  dkrajzew
 // introducing bus stops: eased building vehicles; vehicles may now have nested elements
 //
@@ -137,7 +140,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
 void
 MSVehicleControl::removeVehicle(MSVehicle *v)
 {
-    MSVehicle::remove(v->id());
+    MSVehicle::remove(v->getID());
 }
 
 

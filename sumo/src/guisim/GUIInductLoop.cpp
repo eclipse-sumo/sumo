@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/04/05 05:22:36  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.18  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -194,7 +197,7 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
             &(getLoop()), &GUIInductLoop::getTimestepsSinceLastDetection));
     //
     ret->mkItem("position [m]", false, myPosition);
-    ret->mkItem("lane", false, myDetector.getLane()->id());
+    ret->mkItem("lane", false, myDetector.getLane()->getID());
     // close building
     ret->closeBuilding();
     return ret;

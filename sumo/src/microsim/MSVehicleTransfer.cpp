@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/04/05 05:27:34  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.18  2006/01/26 08:30:29  dkrajzew
 // patched MSEdge in order to work with a generic router
 //
@@ -114,7 +117,7 @@ MSVehicleTransfer::addVeh(MSVehicle *veh)
 {
     // get the current edge of the vehicle
     MSEdge *e = MSEdge::dictionary(veh->getEdge()->getID());
-    WRITE_WARNING("Vehicle '" + veh->id() + "' will be teleported; edge '" + e->getID() + "'.");
+    WRITE_WARNING("Vehicle '" + veh->getID() + "' will be teleported; edge '" + e->getID() + "'.");
     // let the vehicle be on the one
     const MSLane &lane = veh->getLane();
     veh->leaveLaneAtLaneChange();
@@ -144,7 +147,7 @@ MSVehicleTransfer::checkEmissions(SUMOTime time)
         // check whether the vehicle may be emitted onto a following edge
         if(e->emit(*(desc.myVeh), time)) {
             // remove from this if so
-            WRITE_WARNING("Vehicle '" + desc.myVeh->id()+ "' ends teleporting on edge '" + e->getID()+ "'.");
+            WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on edge '" + e->getID()+ "'.");
             i = myVehicles.erase(i);
         } else {
             // otherwise, check whether a consecutive edge may be used
@@ -156,7 +159,7 @@ MSVehicleTransfer::checkEmissions(SUMOTime time)
                 MSEdge *nextEdge = MSEdge::dictionary(desc.myVeh->succEdge(1)->getID());
                 // let the vehicle move to the next edge
                 if(desc.myVeh->proceedVirtualReturnWhetherEnded(nextEdge)) {
-                    WRITE_WARNING("Vehicle '" + desc.myVeh->id()+ "' ends teleporting on end edge '" + e->getID()+ "'.");
+                    WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on end edge '" + e->getID()+ "'.");
                     MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
                     i = myVehicles.erase(i);
                     continue;

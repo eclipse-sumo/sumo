@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/04/05 05:27:34  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.10  2005/10/07 11:37:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -133,7 +136,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     }
     */
 #ifdef ABS_DEBUG
-    if(debug_globaltime>=debug_searchedtime && (myVehicle.id()==debug_searched1||myVehicle.id()==debug_searched2)) {
+    if(debug_globaltime>=debug_searchedtime && (myVehicle.getID()==debug_searched1||myVehicle.getID()==debug_searched2)) {
         DEBUG_OUT << "bla" << endl;
     }
 #endif
@@ -304,7 +307,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     }
     */
 #ifdef ABS_DEBUG
-    if(debug_globaltime>=debug_searchedtime && (myVehicle.id()==debug_searched1||myVehicle.id()==debug_searched2)) {
+    if(debug_globaltime>=debug_searchedtime && (myVehicle.getID()==debug_searched1||myVehicle.getID()==debug_searched2)) {
         DEBUG_OUT << "bla" << endl;
     }
 #endif

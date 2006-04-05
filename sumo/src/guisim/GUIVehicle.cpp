@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.38  2006/04/05 05:22:36  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.37  2006/03/28 06:12:54  dkrajzew
 // unneeded string wrapping removed
 //
@@ -388,7 +391,7 @@ GUIVehicle::~GUIVehicle()
 		}
 
         networking_endOut
-            << id() << ";" << MSNet::globaltime << ";"
+            << myID << ";" << MSNet::globaltime << ";"
             << networking_myKnownEdges.size() << ";"
 			<< networking_globalConns << ";"
 			<< networking_mySeenGlobal.size() << ";"
@@ -543,7 +546,7 @@ GUIVehicle::getType() const
 std::string
 GUIVehicle::microsimID() const
 {
-    return id();
+    return getID();
 }
 
 
@@ -805,7 +808,7 @@ void
 GUIVehicle::networking_End()
 {
     networking_stepOut
-        << id() << ";" << MSNet::globaltime << ";"
+        << myID << ";" << MSNet::globaltime << ";"
         << networking_myKnownEdges.size() << ";"
 		<< networking_mySeenThisTime.size() << endl;
     if(id()==OptionsSubSys::getOptions().getString("knownveh")) {

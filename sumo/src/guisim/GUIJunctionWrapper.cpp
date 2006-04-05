@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.19  2006/04/05 05:22:36  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.18  2006/03/28 06:12:54  dkrajzew
 // unneeded string wrapping removed
 //
@@ -131,7 +134,7 @@ using namespace std;
 GUIJunctionWrapper::GUIJunctionWrapper( GUIGlObjectStorage &idStorage,
         MSJunction &junction,
         const Position2DVector &shape)
-    : GUIGlObject(idStorage, "junction:"+junction.id()),
+    : GUIGlObject(idStorage, "junction:"+junction.getID()),
     myJunction(junction), myShape(shape)
 {
 }
@@ -208,7 +211,7 @@ GUIJunctionWrapper::getType() const
 std::string
 GUIJunctionWrapper::microsimID() const
 {
-    return myJunction.id();
+    return myJunction.getID();
 }
 
 

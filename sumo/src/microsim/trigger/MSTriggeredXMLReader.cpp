@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/04/05 05:27:37  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.6  2006/03/17 08:58:36  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -142,8 +145,7 @@ MSTriggeredXMLReader::myInit()
     try {
         myParser = XMLHelpers::getSAXReader(*this);
         if(!myParser->parseFirst(_file.c_str(), myToken)) {
-            MsgHandler::getErrorInstance()->inform(
-                string("Can not read XML-file '") + _file + string("'."));
+            MsgHandler::getErrorInstance()->inform("Can not read XML-file '" + _file + "'.");
             throw ProcessError();
         }
     } catch (SAXException &e) {

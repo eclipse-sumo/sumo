@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.76  2006/04/05 05:27:34  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.75  2006/03/17 09:01:12  dkrajzew
 // .icc-files removed
 //
@@ -947,7 +950,7 @@ MSVehicle::move( MSLane* lane,
     myTarget = 0;
 #ifdef ABS_DEBUG
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
-        DEBUG_OUT << "movea/1:" << debug_globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
+        DEBUG_OUT << "movea/1:" << debug_globaltime << ": " << myID << " at " << myLane->getID() << ": " << pos() << ", " << speed() << endl;
     }
 #endif
     SUMOReal gap = gap2pred(*pred);
@@ -1061,7 +1064,7 @@ MSVehicle::move( MSLane* lane,
     myState.mySpeed = vNext;
 #ifdef ABS_DEBUG
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
-        DEBUG_OUT << "movea/2:" << debug_globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
+        DEBUG_OUT << "movea/2:" << debug_globaltime << ": " << myID << " at " << myLane->getID() << ": " << pos() << ", " << speed() << endl;
     }
 #endif
     // !!! remove this! make this somewhere else!
@@ -1084,7 +1087,7 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
 {
 #ifdef ABS_DEBUG
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
-        DEBUG_OUT << "moveb/1:" << debug_globaltime << ": " << myID << " at " << myLane->id() << ": " << pos() << ", " << speed() << endl;
+        DEBUG_OUT << "moveb/1:" << debug_globaltime << ": " << myID << " at " << myLane->getID() << ": " << pos() << ", " << speed() << endl;
     }
 #endif
     myLFLinkLanes.clear();
@@ -1346,7 +1349,7 @@ MSVehicle::moveFirstChecked()
     assert(myTarget!=0);
 #ifdef ABS_DEBUG
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
-        DEBUG_OUT << "moveb/1:" << debug_globaltime << ": " << id() << " at " << getLane().id() << ": " << myState.myPos << ", " << myState.mySpeed << endl;
+        DEBUG_OUT << "moveb/1:" << debug_globaltime << ": " << myID << " at " << getLane().getID() << ": " << myState.myPos << ", " << myState.mySpeed << endl;
     }
 #endif
 #ifdef RAKNET_DEMO
@@ -1671,8 +1674,8 @@ Position2D MSVehicle::position() const
 
 /////////////////////////////////////////////////////////////////////////////
 
-string
-MSVehicle::id() const
+const string &
+MSVehicle::getID() const
 {
     return myID;
 }

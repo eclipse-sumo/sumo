@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.14  2006/04/05 05:27:34  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.13  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -157,7 +160,7 @@ public:
     const Position2D &getPosition() const;
 
     /// Returns the id of the junction
-    std::string id() const;
+    const std::string &getID() const;
 
     // valid for gui-version only
     virtual GUIJunctionWrapper *buildJunctionWrapper(

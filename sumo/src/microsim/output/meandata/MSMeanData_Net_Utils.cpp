@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/04/05 05:27:37  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.10  2006/01/16 13:35:52  dkrajzew
 // output formats updated for the next release
 //
@@ -135,8 +138,7 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
                 SharedOutputDevices::getInstance()->getOutputDevice( fileName );
             if( dev==0 ) {
                 MsgHandler::getErrorInstance()->inform(
-                    string("The following file containing aggregated values could not been build:\n")
-                    + fileName);
+                    "The following file containing aggregated values could not been build:\n" + fileName);
                 throw ProcessError();
             }
             // Write xml-comment

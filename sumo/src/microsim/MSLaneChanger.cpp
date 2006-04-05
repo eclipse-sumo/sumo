@@ -21,6 +21,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/04/05 05:27:34  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.25  2006/03/17 09:01:12  dkrajzew
 // .icc-files removed
 //
@@ -321,8 +324,8 @@ MSLaneChanger::change()
     */
 
 #ifdef ABS_DEBUG
-    if(debug_globaltime>=debug_searchedtime && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
-        DEBUG_OUT << "change:" << vehicle->id() << ": " << vehicle->pos() << ", " << vehicle->speed() << endl;
+    if(debug_globaltime>=debug_searchedtime && (vehicle->getID()==debug_searched1||vehicle->getID()==debug_searched2)) {
+        DEBUG_OUT << "change:" << vehicle->getID() << ": " << vehicle->pos() << ", " << vehicle->speed() << endl;
     }
 #endif
     pair<int, SUMOReal> changePreference = getChangePreference();
@@ -356,7 +359,7 @@ MSLaneChanger::change()
         vehicle->enterLaneAtLaneChange( ( myCandi - 1 )->lane );
         vehicle->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
-    if(debug_globaltime>debug_searchedtime && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
+    if(debug_globaltime>debug_searchedtime && (vehicle->getID()==debug_searched1||vehicle->getID()==debug_searched2)) {
         DEBUG_OUT << "changed2right" << endl;
     }
 #endif
@@ -374,7 +377,7 @@ MSLaneChanger::change()
             &&
             currentLaneDist<MSGlobals::gMinVehDist4FalseLaneTeleport ) {
 
-            WRITE_WARNING(string("Teleporting '") + veh(myCandi)->id()+ string("' due to failed lane changing."));
+            WRITE_WARNING("Teleporting '" + veh(myCandi)->getID()+ "' due to failed lane changing.");
             MSVehicleTransfer::getInstance()->addVeh(veh(myCandi));
             return true;
         }
@@ -401,7 +404,7 @@ MSLaneChanger::change()
         vehicle->enterLaneAtLaneChange( ( myCandi + 1 )->lane );
         vehicle->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
-    if(debug_globaltime>debug_searchedtime-5 && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
+    if(debug_globaltime>debug_searchedtime-5 && (vehicle->getID()==debug_searched1||vehicle->getID()==debug_searched2)) {
         DEBUG_OUT << "changed2left" << endl;
     }
 #endif
@@ -419,7 +422,7 @@ MSLaneChanger::change()
             &&
             currentLaneDist<MSGlobals::gMinVehDist4FalseLaneTeleport ) {
 
-            WRITE_WARNING(string("Teleporting '") + veh(myCandi)->id()+ string("' due to failed lane changing."));
+            WRITE_WARNING("Teleporting '" + veh(myCandi)->getID()+ "' due to failed lane changing.");
             MSVehicleTransfer::getInstance()->addVeh(veh(myCandi));
             return true;
         }
@@ -507,11 +510,11 @@ MSLaneChanger::change()
                 prohibitor->getLaneChangeModel().changed();
                 prohibitor->myLastLaneChangeOffset = 0;
 #ifdef ABS_DEBUG
-    if(debug_globaltime>debug_searchedtime-5 && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
+    if(debug_globaltime>debug_searchedtime-5 && (vehicle->getID()==debug_searched1||vehicle->getID()==debug_searched2)) {
         DEBUG_OUT << "swapped:"
-            << vehicle->id() << ": at" << vehicle->getLane().id() << ", " << vehicle->pos() << ", " << vehicle->speed()
+            << vehicle->getID() << ": at" << vehicle->getLane().getID() << ", " << vehicle->pos() << ", " << vehicle->speed()
             << " with:"
-            << prohibitor->id() << ": at" << prohibitor->getLane().id() << ", " << prohibitor->pos() << ", " << vehicle->speed()
+            << prohibitor->getID() << ": at" << prohibitor->getLane().getID() << ", " << prohibitor->pos() << ", " << vehicle->speed()
             << endl;
     }
 #endif
@@ -524,7 +527,7 @@ MSLaneChanger::change()
     myCandi->lane->myTmpVehicles.push_front( veh ( myCandi ) );
     vehicle->myLastLaneChangeOffset++;
 #ifdef ABS_DEBUG
-    if(debug_globaltime>debug_searchedtime-5 && (vehicle->id()==debug_searched1||vehicle->id()==debug_searched2)) {
+    if(debug_globaltime>debug_searchedtime-5 && (vehicle->getID()==debug_searched1||vehicle->getID()==debug_searched2)) {
         DEBUG_OUT << "kept" << endl;
     }
 #endif

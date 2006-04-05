@@ -553,7 +553,7 @@ public:
     void writeXMLDetectorInfoStart( XMLDevice &dev ) const
         {
             dev.writeString("<detector type=\"E2_Collector\" id=\"").writeString(
-                idM).writeString("\" lane=\"").writeString(laneM->id()).writeString(
+                idM).writeString("\" lane=\"").writeString(laneM->getID()).writeString(
                 "\" startpos=\"").writeString(toString(startPosM)).writeString(
                 "\" length=\"").writeString(toString(endPosM - startPosM)).writeString(
                 "\" >\n");

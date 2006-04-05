@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/04/05 05:27:34  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.12  2006/03/17 08:57:15  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -293,7 +296,7 @@ void
 MSInductLoop::writeXMLDetectorInfoStart( XMLDevice &dev ) const
 {
     dev.writeString("<detector type=\"inductionloop\" id=\"" + idM +
-        "\" lane=\"" + laneM->id() + "\" pos=\"" +
+        "\" lane=\"" + laneM->getID() + "\" pos=\"" +
         toString( MSNet::getMeters( posM ) ) + "\" >");
 }
 

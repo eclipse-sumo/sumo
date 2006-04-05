@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.33  2006/04/05 05:22:36  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.32  2006/03/28 06:12:54  dkrajzew
 // unneeded string wrapping removed
 //
@@ -180,7 +183,7 @@ size_t GUILaneWrapper::myAggregationSizes[] = {
  * ======================================================================= */
 GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
                                MSLane &lane, const Position2DVector &shape)
-    : GUILaneRepresentation(idStorage, "lane:"+lane.id()),
+    : GUILaneRepresentation(idStorage, "lane:"+lane.getID()),
     myLane(lane), myShape(shape), myAggregatedValues(0)
 {
     SUMOReal x1 = shape[0].x();
@@ -349,7 +352,7 @@ GUILaneWrapper::getType() const
 std::string
 GUILaneWrapper::microsimID() const
 {
-    return myLane.id();
+    return myLane.getID();
 }
 
 

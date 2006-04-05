@@ -382,14 +382,14 @@ public:
             for ( crossSec = entriesM.begin(); crossSec != entriesM.end();
                   ++crossSec ) {
                 dev.writeString("  <entry lane=\"").writeString(
-                    crossSec->laneM->id()).writeString("\" pos=\"").writeString(
+                    crossSec->laneM->getID()).writeString("\" pos=\"").writeString(
                     toString( crossSec->posM )).writeString("\" />\n");
             }
             std::string exits;
             for ( crossSec = exitsM.begin(); crossSec != exitsM.end();
                   ++crossSec ) {
                 dev.writeString("  <exit lane=\"").writeString(
-                    crossSec->laneM->id()).writeString("\" pos=\"").writeString(
+                    crossSec->laneM->getID()).writeString("\" pos=\"").writeString(
                     toString( crossSec->posM )).writeString("\" />\n");
             }
         }

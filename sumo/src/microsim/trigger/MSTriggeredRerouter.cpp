@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/04/05 05:27:37  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.8  2006/02/13 07:52:53  dkrajzew
 // made dijkstra-router checking for closures optionally
 //
@@ -156,7 +159,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
         std::vector<MSLane*> *destLanes = (*j)->getLanes();
         std::vector<MSLane*>::const_iterator i;
         for(i=destLanes->begin(); i!=destLanes->end(); ++i) {
-            string sid = id + "_at_" + (*i)->id();
+            string sid = id + "_at_" + (*i)->getID();
             mySetter.push_back(new Setter(this, (*i), sid));
         }
     }

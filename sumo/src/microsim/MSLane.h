@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.38  2006/04/05 05:27:34  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.37  2006/03/28 06:20:43  dkrajzew
 // removed the unneded slow lane changer
 //
@@ -442,9 +445,6 @@ public:
 
     /// Container for vehicles.
     typedef std::deque< MSVehicle* > VehCont;
-
-    /// Returns the objects id.
-    const std::string &id() const;
 
     /* Adds Data for MeanValue calculation. Use this if vehicle
         leaves a lane during move ( hasFinishedLane=true) or during

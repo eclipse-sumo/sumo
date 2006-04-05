@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.62  2006/04/05 05:27:34  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.61  2006/03/17 09:01:12  dkrajzew
 // .icc-files removed
 //
@@ -623,13 +626,13 @@ MSLane::detectCollisions( SUMOTime timestep )
         VehCont::iterator pred = veh + 1;
         SUMOReal gap = ( *pred )->pos() - ( *pred )->length() - ( *veh )->pos();
 #ifdef ABS_DEBUG
-    if(debug_globaltime>=21868 && ((*veh)->id()==debug_searched1||(*veh)->id()==debug_searched2)) {
+    if(debug_globaltime>=21868 && ((*veh)->getID()==debug_searched1||(*veh)->getID()==debug_searched2)) {
         DEBUG_OUT << gap << endl;
     }
 #endif
         if ( gap < 0 ) {
 #ifdef ABS_DEBUG
-    if(debug_globaltime>debug_searchedtime-5 && ((*veh)->id()==debug_searched1||(*veh)->id()==debug_searched2)) {
+    if(debug_globaltime>debug_searchedtime-5 && ((*veh)->getID()==debug_searched1||(*veh)->getID()==debug_searched2)) {
         int blb = 0;
     }
 #endif
@@ -642,10 +645,7 @@ MSLane::detectCollisions( SUMOTime timestep )
                 handler = MsgHandler::getErrorInstance();
             }
             handler->inform(
-                string("MSLane::detectCollision: Collision of ")
-                + ( *veh )->id() + string(" with ") + ( *pred )->id()
-                + string(" on MSLane ") + myID
-                + string(" during timestep ") + toString<int>(timestep));
+               "MSLane::detectCollision: Collision of " + ( *veh )->getID() + " with " + ( *pred )->getID() + " on MSLane " + myID +" during timestep " + toString<int>(timestep));
 //            DEBUG_OUT << ( *veh )->id() << ":" << ( *veh )->pos() << ", " << ( *veh )->speed() << endl;
 //            DEBUG_OUT << ( *pred )->id() << ":" << ( *pred )->pos() << ", " << ( *pred )->speed() << endl;
             if(OptionsSubSys::getOptions().getBool("quit-on-accident")) {
@@ -773,7 +773,7 @@ MSLane::emitTry( MSVehicle& veh )
         assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
-    if(debug_searched1==veh.id()||debug_searched2==veh.id()) {
+    if(debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
         DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << debug_globaltime << endl;
     }
 #endif
@@ -809,7 +809,7 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
             assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
-    if(debug_searched1==veh.id()||debug_searched2==veh.id()) {
+    if(debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
         DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << debug_globaltime << endl;
     }
 #endif
@@ -841,7 +841,7 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
             myUseDefinition->noVehicles++;
             assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
-    if(debug_searched1==veh.id()||debug_searched2==veh.id()) {
+    if(debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
         DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/2:" << debug_globaltime << endl;
     }
 #endif
@@ -876,7 +876,7 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh )
         myUseDefinition->noVehicles++;
         assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
-    if(debug_searched1==veh.id()||debug_searched2==veh.id()) {
+    if(debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
         DEBUG_OUT << "Using emitTry( VehCont::iterator followIt, MSVehicle& veh )/1:" << debug_globaltime << endl;
     }
 #endif
@@ -914,7 +914,7 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
         myUseDefinition->noVehicles++;
         assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
-    if(debug_searched1==veh.id()||debug_searched2==veh.id()) {
+    if(debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
         DEBUG_OUT << "Using emitTry( followIt, veh, leaderIt )/1:" << debug_globaltime << endl;
     }
 #endif
@@ -1027,8 +1027,8 @@ MSLane::push(MSVehicle* veh)
 #ifdef ABS_DEBUG
     if(myVehBuffer!=0) {
         DEBUG_OUT << "Push Failed on Lane:" << myID << endl;
-        DEBUG_OUT << myVehBuffer->id() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
-        DEBUG_OUT << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
+        DEBUG_OUT << myVehBuffer->getID() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
+        DEBUG_OUT << veh->getID() << ", " << veh->pos() << ", " << veh->speed() << endl;
     }
 #endif
     MSVehicle *last = myVehicles.size()!=0
@@ -1040,7 +1040,7 @@ MSLane::push(MSVehicle* veh)
     if( myVehBuffer != 0 || (last!=0 && last->pos() < veh->pos()) ) {
         MSVehicle *prev = myVehBuffer!=0
             ? myVehBuffer : last;
-        WRITE_WARNING(string("Vehicle '") + veh->id()+ string("' beamed due to a collision on push!\n")+ string("  Lane: '") + id() + string("', previous vehicle: '")+ prev->id() + string("', time: ")+ toString<SUMOTime>(MSNet::getInstance()->getCurrentTimeStep())+ string("."));
+        WRITE_WARNING("Vehicle '" + veh->getID()+ "' beamed due to a collision on push!\n" + "  Lane: '" + myID + "', previous vehicle: '" + prev->getID() +"', time: " + toString<SUMOTime>(MSNet::getInstance()->getCurrentTimeStep())+ ".");
         veh->onTripEnd(/* *this*/);
         resetApproacherDistance();
         veh->removeApproachingInformationOnKill(/*this*/);
@@ -1322,7 +1322,7 @@ MSLane::init()
 */
 
 const std::string &
-MSLane::id() const
+MSLane::getID() const
 {
     return myID;
 }
@@ -1490,13 +1490,6 @@ MSLane::getLastVehicle(MSLaneChanger &lc) const
         return 0;
     }
     return *myVehicles.begin();
-}
-
-
-const std::string &
-MSLane::getID() const
-{
-    return myID;
 }
 
 

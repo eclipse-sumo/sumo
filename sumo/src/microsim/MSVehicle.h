@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.52  2006/04/05 05:27:34  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.51  2006/03/28 06:20:43  dkrajzew
 // removed the unneded slow lane changer
 //
@@ -513,7 +516,7 @@ public:
             gap = 0;
         }
         if(gap<0) {
-            MsgHandler::getWarningInstance()->inform("Vehicle " + id() + " collides with pred in " + toString(MSNet::getInstance()->getCurrentTimeStep()));
+            MsgHandler::getWarningInstance()->inform("Vehicle " + getID() + " collides with pred in " + toString(MSNet::getInstance()->getCurrentTimeStep()));
             gap = 0;
         }
         assert( gap >= SUMOReal( 0 ) );
@@ -617,7 +620,7 @@ public:
     static void clear();
 
     /// Returns the name of the vehicle
-    std::string id() const;
+    const std::string &getID() const;
 
     /// Prints the vehicle's name
     friend std::ostream& operator<<(std::ostream& os, const MSVehicle& veh);
