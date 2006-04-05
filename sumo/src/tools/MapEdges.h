@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2006/04/05 05:35:54  dkrajzew
+// debugging
+//
 // Revision 1.3  2005/10/07 11:42:59  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -98,14 +101,9 @@ public:
     void convertA(void);
     void convertB(void);
 
-	void result(void);
+    void result(const std::string &file);
 
-	// return the min or max values
-	SUMOReal minValue(SUMOReal a, SUMOReal b, SUMOReal c);
-	SUMOReal maxValue(SUMOReal a, SUMOReal b, SUMOReal c);
-
-	public:
-
+protected:
     /// the Name of the net-file-A
     const char *net_a;
 

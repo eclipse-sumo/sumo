@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/04/05 05:35:54  dkrajzew
+// debugging
+//
 // Revision 1.3  2005/10/07 11:42:59  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -56,6 +59,7 @@ namespace
 #include <stdlib.h>
 #include <direct.h>
 #include <math.h>
+#include <utils/common/StdDefs.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -67,10 +71,15 @@ namespace
  * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * static variables
+ * ======================================================================= */
 MapEdges::DictTypeJunction MapEdges::myJunctionDictA;
 MapEdges::DictTypeJunction MapEdges::myJunctionDictB;
 std::map<std::string, std::string> MapEdges::myEdge2JunctionAMap;
 std::map<std::string, std::string> MapEdges::myEdge2JunctionBMap;
+
 
 /* =========================================================================
  * member definitions
@@ -84,20 +93,25 @@ MapEdges::MapEdges(const char *netA, const char *netB)
 {
 }
 
+
 MapEdges::~MapEdges()
 {
 }
 
+
 //////////////////////////////////////////////////////////////////////
 // Definitions of the Methods
 //////////////////////////////////////////////////////////////////////
-
 /// load net-file and save the Position into a dictionnary
 void
 MapEdges::load(void)
 {
+    cout << "Parsing network#1 ('" << net_a << "')..." << endl;
 	loadNet(net_a,1);
+    cout << "done." << endl;
+    cout << "Parsing network#1 ('" << net_b << "')..." << endl;
 	loadNet(net_b,2);
+    cout << "done." << endl;
 
 }
 
@@ -117,17 +131,13 @@ MapEdges::loadNet(const char *net, int dic)
 {
 	char buffer[_MAX_PATH];
 	getcwd(buffer,_MAX_PATH);
-	cout<<"Current directory is "<<buffer<<endl;
-
 	ifstream out(net);
-
     if (!out) {
-      cerr << "cannot open file: " << net <<endl;
-      exit(-1);
+        cerr << "cannot open file: " << net << endl;
+        exit(-1);
 	}
 
 	std::string buff;
-    cout<<endl<<"=====================Loading "<<net<< "============================="<<endl;
 	int l = 0;
 	while(!out.eof()) {
 		getline(out,buff);
@@ -136,14 +146,12 @@ MapEdges::loadNet(const char *net, int dic)
 			std::string id = buff.substr(buff.find("=")+2,buff.find(" t")-buff.find("=")-3);
 			MapEdges::Junction *junction = new Junction(id);
        		std::string rest = buff.substr(buff.find("x=")+2,buff.find(">")-buff.find("x="));
-			cout<<l<<". Junction ID = "<<id<<endl;
 
 			std::string  pos1 = rest.substr(1,rest.find(" ")-2);
 			std::string  pos2 = rest.substr(rest.find("y=")+3,rest.find(">")-rest.find("y=")-4);
 
 			Position2D pos(atof(pos1.c_str()),atof(pos2.c_str()));
 			junction->pos = pos;
-			cout <<"       Position: x = "<<pos1<<" y = "<<pos2<<endl;
 
 			if (dic == 1){
 				myJunctionDictA[id] = junction;
@@ -187,55 +195,47 @@ MapEdges::setJunctionB(std::string a,std::string b,std::string c)
 void
 MapEdges::convertA(void)
 {
-	cout <<"==============convertA=================="<<endl;
-
+    cout << "Resetting positions for first network" << endl;
 	DictTypeJunction::iterator i;
+
 	i = myJunctionDictA.find(juncA1);
     if(i==myJunctionDictA.end()) {
-        cout << "Could not find junction '" << juncA1 << "'!" << endl;
+        cerr << "Could not find junction '" << juncA1 << "'!" << endl;
         throw 1;
     }
 	Junction *j1 = (*i).second;
 
 	i = myJunctionDictA.find(juncA2);
     if(i==myJunctionDictA.end()) {
-        cout << "Could not find junction '" << juncA2 << "'!" << endl;
+        cerr << "Could not find junction '" << juncA2 << "'!" << endl;
         throw 1;
     }
 	Junction *j2 = (*i).second;
 
 	i = myJunctionDictA.find(juncA3);
     if(i==myJunctionDictA.end()) {
-        cout << "Could not find junction '" << juncA3 << "'!" << endl;
+        cerr << "Could not find junction '" << juncA3 << "'!" << endl;
         throw 1;
     }
 	Junction *j3 = (*i).second;
 
-	SUMOReal xmin = minValue(j1->pos.x(),j2->pos.x(),j3->pos.x());
-	SUMOReal xmax = maxValue(j1->pos.x(),j2->pos.x(),j3->pos.x());
+	SUMOReal xmin = MIN3(j1->pos.x(),j2->pos.x(),j3->pos.x());
+	SUMOReal xmax = MAX3(j1->pos.x(),j2->pos.x(),j3->pos.x());
 	SUMOReal xw   = xmax - xmin ;
-	cout <<" xminValue "<<xmin<<endl;
-	cout <<" xmaxValue "<<xmax<<endl;
-    cout <<" xwidth "<<xw<<endl;
+    cout << "first network sizes " << endl;
+    cout << " (xmin, xmax, width):" <<  xmin << ", " << xmax << ", " << xw << endl;
 
-    SUMOReal ymin = minValue(j1->pos.y(),j2->pos.y(),j3->pos.y());
-	SUMOReal ymax = maxValue(j1->pos.y(),j2->pos.y(),j3->pos.y());
+    SUMOReal ymin = MIN3(j1->pos.y(),j2->pos.y(),j3->pos.y());
+	SUMOReal ymax = MAX3(j1->pos.y(),j2->pos.y(),j3->pos.y());
 	SUMOReal yw   = ymax - ymin ;
-    cout <<" yminValue "<<ymin<<endl;
-	cout <<" ymaxValue "<<ymax<<endl;
-    cout <<" xwidth "<<xw<<endl;
+    cout << " (ymin, ymax, height):" <<  ymin << ", " << ymax << ", " << yw << endl;
 
 	for(DictTypeJunction::iterator j=myJunctionDictA.begin(); j!=myJunctionDictA.end(); j++) {
-		cout<<"----------------------------------------------"<<endl;
-		cout <<"Junction ID = "<<(*j).second->id<<endl;
-		cout <<"     alte x= "<< (*j).second->pos.x() <<" alte y= "<<(*j).second->pos.y()<<endl;
 		SUMOReal nx = ((*j).second->pos.x() -xmin)/xw;
 		SUMOReal ny = ((*j).second->pos.y() -ymin)/yw;
-        cout <<"     neue x = "<< nx <<" neue y = "<< ny<<endl;
         ((*j).second->pos).set(nx,ny);
 	}
-
-
+    cout << "Finished conversion the first network." << endl << endl;
 }
 
 /// compare all value to find the MapEdges point
@@ -243,7 +243,7 @@ MapEdges::convertA(void)
 void
 MapEdges::convertB(void)
 {
-	cout <<"===============convertB=================="<<endl;
+    cout << "Resetting positions for second network" << endl;
 
 	DictTypeJunction::iterator i;
 	i = myJunctionDictB.find(juncB1);
@@ -267,35 +267,33 @@ MapEdges::convertB(void)
     }
 	Junction *j3 = (*i).second;
 
-	SUMOReal xmin = minValue(j1->pos.x(),j2->pos.x(),j3->pos.x());
-	SUMOReal xmax = maxValue(j1->pos.x(),j2->pos.x(),j3->pos.x());
+	SUMOReal xmin = MIN3(j1->pos.x(),j2->pos.x(),j3->pos.x());
+	SUMOReal xmax = MAX3(j1->pos.x(),j2->pos.x(),j3->pos.x());
 	SUMOReal xw   = xmax - xmin ;
-	cout <<" xmin "<<xmin<<endl;
-	cout <<" xmax "<<xmax<<endl;
-    cout <<" xwidth "<<xw<<endl;
+    cout << "second network sizes " << endl;
+    cout << " (xmin, xmax, width):" <<  xmin << ", " << xmax << ", " << xw << endl;
 
-    SUMOReal ymin = minValue(j1->pos.y(),j2->pos.y(),j3->pos.y());
-	SUMOReal ymax = maxValue(j1->pos.y(),j2->pos.y(),j3->pos.y());
+    SUMOReal ymin = MIN3(j1->pos.y(),j2->pos.y(),j3->pos.y());
+	SUMOReal ymax = MAX3(j1->pos.y(),j2->pos.y(),j3->pos.y());
 	SUMOReal yw   = ymax - ymin ;
-    cout <<" ymin "<<ymin<<endl;
-	cout <<" ymax "<<ymax<<endl;
-    cout <<" ywidth "<<yw<<endl;
+    cout << " (ymin, ymax, height):" <<  ymin << ", " << ymax << ", " << yw << endl;
 
 	for(DictTypeJunction::iterator j=myJunctionDictB.begin(); j!=myJunctionDictB.end(); j++) {
-		cout<<"-----------------------------------------"<<endl;
-		cout <<"Junction ID = "<<(*j).second->id<<endl;
-		cout <<"       alte x "<< (*j).second->pos.x() <<" alte y "<<(*j).second->pos.y()<<endl;
 		SUMOReal nx = ((*j).second->pos.x() -xmin)/xw;
 		SUMOReal ny = ((*j).second->pos.y() -ymin)/yw;
-        cout <<"       neue x= "<< nx <<" alte y= "<< ny<<endl;
         ((*j).second->pos).set(nx,ny);
 	}
-
+    cout << "Finished conversion the first network." << endl << endl;
 }
 
+
 void
-MapEdges::result(void){
-	ofstream out("result.txt");
+MapEdges::result(const std::string &file){
+	ofstream out(file.c_str());
+    if(!out.good()) {
+        cerr << "Could not open '" << file << "'." << endl;
+        return;
+    }
 	for(std::map<std::string, std::string>::iterator i=myEdge2JunctionAMap.begin(); i!=myEdge2JunctionAMap.end(); i++) {
 		 SUMOReal minAbstand = 77777;
 		 std::string id = "";
@@ -311,70 +309,33 @@ MapEdges::result(void){
 			 }
 		 }
 		 out<< (*i).first << ";" << id <<endl;
-		 cout <<(*i).first <<"    Aequivalent zu    "<< id <<endl;
+		 cout <<(*i).first <<";"<< id <<endl;
 	}
 	out.close();
 }
 
-SUMOReal
-MapEdges::maxValue(SUMOReal a, SUMOReal b, SUMOReal c)
-{
-	if(a>=b){
-		if(a>=c){
-			return a;
-		}else{
-			return c;
-		}
-	}else{
-		if(b>=c){
-			return b;
-		}else{
-			return c;
-		}
-	}
 
-}
-
-SUMOReal
-MapEdges::minValue(SUMOReal a, SUMOReal b, SUMOReal c)
-{
-	if(a<=b){
-		if(a<=c){
-			return a;
-		}else{
-			return c;
-		}
-	}else{
-		if(b<=c){
-			return b;
-		}else{
-			return c;
-		}
-	}
-}
 
 /* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
 int main(int argc, char** argv)
 {
-	/*
-	if (argc<8) {
-    cerr << " syntax error please use:
-	     <<   MapEdges <netA> <netB> <junctionA1> <junctionA2> <junctionA3> "
-         << "            <junctionB1> <junctionB2> <junctionB3> " << endl;
+	if (argc<9) {
+        cerr << "Syntax-Error!" << endl;
+        cerr << "Syntax: MapEdges <NET_A> <NET_B> <JUNCTION_A1> <JUNCTION_A2> <JUNCTION_A3> \\"
+            << endl
+            << "   <JUNCTION_B1> <JUNCTION_B2> <JUNCTION_B3> <OUTPUT_FILE>" << endl;
       return -1;
     }
-	*/
 
-	MapEdges *app = new MapEdges("ivvnet.net.xml", "wjt2005.net.xml");//argv[1],argv[2]);
-//	app->setJunctionA("53127760", "568052308", "53073921"); //argv[2],argv[3] argv[4]);
-	app->setJunctionA("66072613", "27049614", "140446"); //argv[5],argv[6] argv[7]);
-	app->setJunctionB("53084179", "53035727", "52768669"); //argv[2],argv[3] argv[4]);
+	MapEdges *app = new MapEdges(argv[1], argv[2]);
+	app->setJunctionA(argv[3], argv[4], argv[5]);
+	app->setJunctionB(argv[6], argv[7], argv[8]);
 	app->load();
 	app->convertA();
 	app->convertB();
-	app->result();
+	app->result(argv[9]);
 	return 0;
 }
 
