@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.53  2006/04/05 05:20:32  dkrajzew
+// code beautifying
+//
 // Revision 1.52  2006/03/28 06:12:54  dkrajzew
 // unneeded string wrapping removed
 //
@@ -436,7 +439,6 @@ GUIApplicationWindow::~GUIApplicationWindow()
     // delete some non-parented windows
     delete myToolBarDrag1;
     //
-//!!!!    myRunThread->yield();
     delete myRunThread;
     delete myFileMenu;
     delete myEditMenu;
