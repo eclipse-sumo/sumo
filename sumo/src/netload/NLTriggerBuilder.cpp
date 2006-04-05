@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/04/05 05:33:45  dkrajzew
+// retrieval of microsim ids is now also done using getID() instead of id()
+//
 // Revision 1.15  2006/03/27 07:20:28  dkrajzew
 // vehicle actors added, joined some commonly used functions, documentation added
 //
@@ -460,7 +463,7 @@ NLTriggerBuilder::getPosition(const Attributes &attrs, const NLHandler &helper,
 		if(friendly_pos) {
 			pos = lane->length() - (SUMOReal) 0.1;
 		} else {
-			throw InvalidArgument("The position of " + tt + " '" + tid + "' lies beyond the lane's '" + lane->id() + "' length.");
+			throw InvalidArgument("The position of " + tt + " '" + tid + "' lies beyond the lane's '" + lane->getID() + "' length.");
 		}
     }
     return pos;
