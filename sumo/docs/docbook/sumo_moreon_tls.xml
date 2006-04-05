@@ -823,4 +823,43 @@ MSSimpleTrafficLightLogic::trySwitch()
       the tls logic is build in accordace to the read type.</para>
     </sect1>
   </chapter>
+
+  <chapter id="more_tls-loading">
+    <title>Further</title>
+
+    <para>You can find some further questions posted by users herein.</para>
+
+    <sect1>
+      <title>Questions &amp; Answers</title>
+
+      <sect2>
+        <title>Changing the duration of Cycles and Phases</title>
+
+        <para><emphasis>Question:</emphasis> I want to study the effects of
+        changing the periods of the traffic light. (time green
+        left/straight/right in both directions and the "dead time" = all
+        directions have red); how do I change the period of the traffic
+        light?</para>
+
+        <para><emphasis>Answer:</emphasis> If you have a network that contains
+        traffic lights, you can open it with a text editor. Then search for
+        "tl-logic". You will find the definition(s) of your traffic light(s).
+        Now, you can see a set of "phase"-definitions within each of the
+        traffic lights definitions. You can change the time for each phase
+        directly in here.</para>
+      </sect2>
+
+      <sect2>
+        <title>Coupling Traffic Lights</title>
+
+        <para><emphasis>Question:</emphasis> Is it possible to "connect" two
+        traffic lights? In other words, is it possible to say that one light
+        has to become green x seconds after the other?</para>
+
+        <para><emphasis>Answer:</emphasis> Is it possible to "connect" two
+        traffic lights? In other words, is it possible to say that one light
+        has to become green x seconds after the other?</para>
+      </sect2>
+    </sect1>
+  </chapter>
 </book>

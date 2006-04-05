@@ -176,6 +176,20 @@
               </row>
 
               <row>
+                <entry><application>DFROUTER</application></entry>
+
+                <entry>dfrouter.exe</entry>
+
+                <entry>sumo-dfrouter</entry>
+
+                <entry>A router using detector flows</entry>
+
+                <entry><ulink
+                url="http://sumo.sourceforge.net/docs/gen/user_chp05.shtml">Chapter
+                5</ulink></entry>
+              </row>
+
+              <row>
                 <entry><application>DUAROUTER</application></entry>
 
                 <entry>duarouter.exe</entry>
@@ -301,7 +315,8 @@
       development tasks, but also to gain some feedback and critics or some
       usage examples.</para>
 
-      <para>To summarize: every help is appreciated. Thank you.</para>
+      <para><emphasis>To summarize: every help is appreciated. Thank
+      you.</emphasis></para>
     </sect1>
   </chapter>
 
@@ -840,7 +855,9 @@
         <para>Since version 0.9.4 you can also give the <sgmltag>x</sgmltag>-
         and <sgmltag>y</sgmltag>-coordinates using geocoordinates. In this
         case, the coordinates will be interpreted as long/lat in degrees. Read
-        more on this in "!!!".</para>
+        more on this in "<link
+        linkend="user_chp04-further_options-geocoordinates">Converting from
+        Geocoordinates</link>".</para>
 
         <caution>
           <para>Please keep in mind that this feature is quite new and that du
@@ -869,8 +886,8 @@
         length="<replaceable>&lt;FLOAT&gt;</replaceable>")]
         [shape="<replaceable>&lt;2D_POINT&gt; </replaceable>[
         <replaceable>&lt;2D_POINT&gt;</replaceable>]*
-        <replaceable>&lt;2D_POINT&gt;</replaceable>"]
-        [spread_type="center"]/&gt;</sgmltag>.</para>
+        <replaceable>&lt;2D_POINT&gt;</replaceable>"] [spread_type="center"]
+        [function=( "source" | "sink" | "normal" ) ]/&gt;</sgmltag>.</para>
 
         <para>What does it mean? Every one who knows how XML-files look like
         should have noticed brackets ('(' and ')') and pipes ('|') within the
@@ -919,7 +936,14 @@
         <application>NETCONVERT</application> to spread lanes to both sides of
         the connection between the begin node and the end node or from the
         list of lines making up the shape. If not given, lanes are spread to
-        right, as default.</para>
+        right, as default. Using <sgmltag>function</sgmltag> you can define
+        whether the edge is a "<sgmltag>normal</sgmltag>" edge, a
+        "<sgmltag>source</sgmltag>", or a "<sgmltag>sink</sgmltag>" edge. The
+        default is "<sgmltag>normal</sgmltag>", of course. This information is
+        used for routing purposes (see !!!) and for vehicle emission (see
+        !!!). Briefly, vehicles may be inserted on normal and source edges
+        (although the insertion procedure changes, see !!!) and may leave the
+        network on normal and sink edges.</para>
 
         <para>Let's list an edge's attributes again:</para>
 
@@ -1035,6 +1059,13 @@
                 </listitem>
               </itemizedlist>
             </listitem>
+
+            <listitem>
+              <para><sgmltag>function</sgmltag>: Information whether the edge
+              is a plain edge, a source edge, or a sink edge. The value must
+              be one of "<sgmltag>normal</sgmltag>",
+              "<sgmltag>sink</sgmltag>", "<sgmltag>source</sgmltag>".</para>
+            </listitem>
           </itemizedlist>The priority (... TBD ...) plays a role during the
         computation of the way-giving rules of a node. Larger values for the
         priority of an edge allow vehicles using it to pass without waiting -
@@ -1079,6 +1110,15 @@
           used as list divider), '*' (star, used as wildcard), ':' (used as
           marker for internal lanes).</para>
         </caution>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>The <sgmltag>function</sgmltag>-tag was added for version
+            0.9.4 and was validated for version 0.9.5</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
 
       <sect2 id="user_chp04-xml_descriptions-types">
@@ -1089,7 +1129,13 @@
         should include information about the number of lanes, the maximum
         speed allowed on this edge and the edge's priority. To avoid the
         explicit definition of each parameter for every edge, one can use road
-        types, which encapsulate these parameter under a given name.</para>
+        types, which encapsulate these parameter under a given name. The
+        format of this definition is: <sgmltag>&lt;type
+        id="<replaceable>&lt;STRING&gt;</replaceable>"
+        nolanes="<replaceable>&lt;INT&gt;</replaceable>"
+        speed="<replaceable>&lt;FLOAT&gt;</replaceable>"
+        priority="<replaceable>&lt;FLOAT&gt;</replaceable>" [function=(
+        "source" | "sink" | "normal" )]/&gt;</sgmltag>.</para>
 
         <para>The attributes of a type are of course exactly the same as for
         edges themselves:</para>
@@ -1114,13 +1160,17 @@
               <para><sgmltag>priority</sgmltag>: The priority of the
               referencing edge; must be an integer value</para>
             </listitem>
+
+            <listitem>
+              <para><sgmltag>function</sgmltag>: The function of the
+              referencing edge; must be one of "<sgmltag>source</sgmltag>",
+              "<sgmltag>sink</sgmltag>", or "<sgmltag>normal</sgmltag>".
+              "<sgmltag>normal</sgmltag>" is the default.</para>
+            </listitem>
           </itemizedlist>The information about the nodes the edge starts and
         ends at is not given within the types' descriptions. They can only be
-        set within the edge's attributes.</para>
-
-        <para>An example of using types may be found in
-        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/types/cross_usingtypes/</filename>".
-        Instead of explicit parameter edges reference types:</para>
+        set within the edge's attributes. Here's an example on referencing
+        types in edge definitions:</para>
 
         <programlisting><sgmltag>&lt;edges&gt;</sgmltag>
 
@@ -1143,7 +1193,7 @@
 <sgmltag>&lt;/edges&gt;</sgmltag>
 </programlisting>
 
-        <para>and the according types file looks like this:</para>
+        <para>The according types file looks like this:</para>
 
         <programlisting><sgmltag>&lt;types&gt;</sgmltag>
 
@@ -1160,6 +1210,28 @@
         using the settings described above (example
         "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/types/cross_notypes/</filename>"
         ).</para>
+
+        <para>Examples:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>!!!The <sgmltag>function</sgmltag>-tag was added for version
+            0.9.5</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>!!!An example of using types may be found in
+        "<filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/netbuild/types/cross_usingtypes/</filename>".
+        Instead of explicit parameter edges reference types:</para>
+
+        <para>Recent changes:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>The <sgmltag>function</sgmltag>-tag was added for version
+            0.9.5</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
 
       <sect2 id="user_chp04-xml_descriptions-connections">
@@ -1733,7 +1805,12 @@
         <replaceable>&lt;TYPES_FILE&gt;</replaceable></option> (or
         <option>--types</option> or <option>-t</option> ). If something fails
         with the types or the explicite values, you can catch it using
-        <option>--arcview.use-defaults-on-failure</option>.</para>
+        <option>--arcview.use-defaults-on-failure</option>. Besides this, you
+        can specify your own connections using <option>--xml-connection-files
+        <replaceable>&lt;CONNECTIONS_FILE&gt;</replaceable></option> (or
+        <option>--xml-connections</option> or <option>-x</option>, see "<ulink
+        url="#user_chp04-xml_descriptions-connections">Connection
+        Descriptions</ulink>").</para>
 
         <para>ArcView-networks are (mostly?) encoded using geocoordinates
         which have to be converted to the cartesian coordinates system used by
@@ -1914,6 +1991,17 @@
             <para>"<ulink url="#user_chp04-further_options-turnarounds">Adding
             Turnarounds</ulink>"</para>
           </listitem>
+
+          <listitem>
+            <para>"<ulink url="#user_chp04-xml_descriptions-types">Types
+            Descriptions</ulink>"</para>
+          </listitem>
+
+          <listitem>
+            <para>"<ulink
+            url="#user_chp04-xml_descriptions-connections">Connection
+            Descriptions</ulink>"</para>
+          </listitem>
         </itemizedlist>
 
         <para>Examples: none yet</para>
@@ -2075,6 +2163,16 @@
         as EDGE_CAPACITY/NORM. You may change the norm from its default of
         20000 using the option <option>--capacity-norm</option>.</para>
 
+        <para>You can also supply a type-file using <option>--xml-type-files
+        <replaceable>&lt;TYPES_FILE&gt;</replaceable></option> (or
+        <option>--types</option> or <option>-t</option>, see "<ulink
+        url="#user_chp04-xml_descriptions-types">Types Descriptions</ulink>" )
+        and specify your own connections using <option>--xml-connection-files
+        <replaceable>&lt;CONNECTIONS_FILE&gt;</replaceable></option> (or
+        <option>--xml-connections</option> or <option>-x</option>, see "<ulink
+        url="#user_chp04-xml_descriptions-connections">Connection
+        Descriptions</ulink>").</para>
+
         <para>Specific options:</para>
 
         <variablelist>
@@ -2136,6 +2234,17 @@
             <para><link
             linkend="user_chp04-further_options-geocoordinates">Converting
             from Geocoordinates</link></para>
+          </listitem>
+
+          <listitem>
+            <para>"<ulink url="#user_chp04-xml_descriptions-types">Types
+            Descriptions</ulink>"</para>
+          </listitem>
+
+          <listitem>
+            <para>"<ulink
+            url="#user_chp04-xml_descriptions-connections">Connection
+            Descriptions</ulink>"</para>
           </listitem>
         </itemizedlist>
 
@@ -2262,6 +2371,467 @@
         by default. This yields in a realistic network but fails on 'feeder
         roads' where vehicles are emitted.</para>
 
+        <para>You can also specify your own connections using
+        <option>--xml-connection-files
+        <replaceable>&lt;CONNECTIONS_FILE&gt;</replaceable></option> (or
+        <option>--xml-connections</option> or <option>-x</option>, see "<ulink
+        url="#user_chp04-xml_descriptions-connections">Connection
+        Descriptions</ulink>").</para>
+
+        <para>Not all parts of the Visum-Format are read; below you'll find a
+        table which contains the information which Visum-tables are
+        imported.</para>
+
+        <table>
+          <title>Imported VISUM-tables</title>
+
+          <tgroup cols="3">
+            <thead>
+              <row>
+                <entry>Table Name</entry>
+
+                <entry>Description</entry>
+
+                <entry>Imported values</entry>
+              </row>
+            </thead>
+
+            <tbody>
+              <row>
+                <entry>VSYS</entry>
+
+                <entry>Traffic modes</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>VSysCode (CODE)</entry>
+                    </row>
+
+                    <row>
+                      <entry>VSysMode (TYP)</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry>STRECKENTYP</entry>
+
+                <entry>Edge types</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>Nr</entry>
+                    </row>
+
+                    <row>
+                      <entry>v0-IV (V0IV)</entry>
+                    </row>
+
+                    <row>
+                      <entry>Rang</entry>
+                    </row>
+
+                    <row>
+                      <entry>Kap-IV (KAPIV)</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry>KNOTEN</entry>
+
+                <entry>Nodes</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>Nr</entry>
+                    </row>
+
+                    <row>
+                      <entry>XKoord</entry>
+                    </row>
+
+                    <row>
+                      <entry>YKoord</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry>BEZIRK</entry>
+
+                <entry>Districts</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>Nr</entry>
+                    </row>
+
+                    <row>
+                      <entry>NAME (unused later)</entry>
+                    </row>
+
+                    <row>
+                      <entry>Proz_Q</entry>
+                    </row>
+
+                    <row>
+                      <entry>Proz_Z</entry>
+                    </row>
+
+                    <row>
+                      <entry>XKoord</entry>
+                    </row>
+
+                    <row>
+                      <entry>YKoord</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry>STRECKE (STRECKEN)</entry>
+
+                <entry>Edges</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>Nr</entry>
+                    </row>
+
+                    <row>
+                      <entry>VonKnot (VonKnotNr)</entry>
+                    </row>
+
+                    <row>
+                      <entry>NachKnot (NachKnotNr)</entry>
+                    </row>
+
+                    <row>
+                      <entry>Typ (TypNr)</entry>
+                    </row>
+
+                    <row>
+                      <entry>Einbahn</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry>ANBINDUNG</entry>
+
+                <entry>District connections</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>BezNr</entry>
+                    </row>
+
+                    <row>
+                      <entry>KnotNr</entry>
+                    </row>
+
+                    <row>
+                      <entry>Proz</entry>
+                    </row>
+
+                    <row>
+                      <entry>t0-IV</entry>
+                    </row>
+
+                    <row>
+                      <entry>Typ</entry>
+                    </row>
+
+                    <row>
+                      <entry>Richtung</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry>ABBIEGEBEZIEHUNG (ABBIEGER)</entry>
+
+                <entry>Edge Connections (!!!)</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>VonKnot (VonKnotNr)</entry>
+                    </row>
+
+                    <row>
+                      <entry>UeberKnot (UeberKnotNr)</entry>
+                    </row>
+
+                    <row>
+                      <entry>NachKnot (NachKnotNr)</entry>
+                    </row>
+
+                    <row>
+                      <entry>VSysCode (VSYSSET)</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry>STRECKENPOLY</entry>
+
+                <entry>Edge geometries</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>VonKnot (VonKnotNr)</entry>
+                    </row>
+
+                    <row>
+                      <entry>NachKnot (NachKnotNr)</entry>
+                    </row>
+
+                    <row>
+                      <entry>INDEX</entry>
+                    </row>
+
+                    <row>
+                      <entry>XKoord</entry>
+                    </row>
+
+                    <row>
+                      <entry>YKoord</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry>FAHRSTREIFEN</entry>
+
+                <entry>Lane descriptions</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>KNOTNR</entry>
+                    </row>
+
+                    <row>
+                      <entry>STRNR</entry>
+                    </row>
+
+                    <row>
+                      <entry>FSNR</entry>
+                    </row>
+
+                    <row>
+                      <entry>RICHTTYP</entry>
+                    </row>
+
+                    <row>
+                      <entry>LAENGE</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry>LSA (SIGNALANLAGE)</entry>
+
+                <entry>TLS</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>Nr</entry>
+                    </row>
+
+                    <row>
+                      <entry>Umlaufzeit (UMLZEIT)</entry>
+                    </row>
+
+                    <row>
+                      <entry>StdZwischenzeit (STDZWZEIT)</entry>
+                    </row>
+
+                    <row>
+                      <entry>PhasenBasiert</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry>KNOTENZULSA (SIGNALANLAGEZUKNOTEN)</entry>
+
+                <entry>Nodes-&gt;TLS</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>KnotNr</entry>
+                    </row>
+
+                    <row>
+                      <entry>LsaNr</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry>LSASIGNALGRUPPE (SIGNALGRUPPE)</entry>
+
+                <entry>Signal groups</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>Nr</entry>
+                    </row>
+
+                    <row>
+                      <entry>LsaNr</entry>
+                    </row>
+
+                    <row>
+                      <entry>GzStart (GRUENANF)</entry>
+                    </row>
+
+                    <row>
+                      <entry>GzEnd (GRUENENDE)</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry>ABBZULSASIGNALGRUPPE (SIGNALGRUPPEZUABBIEGER)</entry>
+
+                <entry>Edge connections-&gt;TLS</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>SGNR (SIGNALGRUPPENNR)</entry>
+                    </row>
+
+                    <row>
+                      <entry>LsaNr</entry>
+                    </row>
+
+                    <row>
+                      <entry>VonKnot / VONSTRNR</entry>
+                    </row>
+
+                    <row>
+                      <entry>NachKnot / NACHSTRNR</entry>
+                    </row>
+
+                    <row>
+                      <entry>UeberKnot (UeberKnotNr)</entry>
+                    </row>
+
+                    <row>
+                      <entry>LsaNr</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry>LSAPHASE (PHASE)</entry>
+
+                <entry>Signal phases</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>Nr</entry>
+                    </row>
+
+                    <row>
+                      <entry>LsaNr</entry>
+                    </row>
+
+                    <row>
+                      <entry>GzStart (GRUENANF)</entry>
+                    </row>
+
+                    <row>
+                      <entry>GzEnd (GRUENENDE)</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry>LSASIGNALGRUPPEZULSAPHASE</entry>
+
+                <entry>Signal groups-&gt;phases</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>PsNr</entry>
+                    </row>
+
+                    <row>
+                      <entry>LsaNr</entry>
+                    </row>
+
+                    <row>
+                      <entry>SGNR</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+
+              <row>
+                <entry>FAHRSTREIFENABBIEGER</entry>
+
+                <entry>Lane-to-lane descriptions</entry>
+
+                <entrytbl cols="1">
+                  <tbody>
+                    <row>
+                      <entry>KNOT (KNOTNR)</entry>
+                    </row>
+
+                    <row>
+                      <entry>VONSTR (VONSTRNR)</entry>
+                    </row>
+
+                    <row>
+                      <entry>NACHSTR (NACHSTRNR)</entry>
+                    </row>
+
+                    <row>
+                      <entry>VONFSNR</entry>
+                    </row>
+
+                    <row>
+                      <entry>NACHFSNR</entry>
+                    </row>
+                  </tbody>
+                </entrytbl>
+              </row>
+            </tbody>
+          </tgroup>
+        </table>
+
         <para>Specific options:</para>
 
         <variablelist>
@@ -2302,6 +2872,12 @@
             linkend="user_chp04-further_options-geocoordinates">Converting
             from Geocoordinates</link></para>
           </listitem>
+
+          <listitem>
+            <para>"<ulink
+            url="#user_chp04-xml_descriptions-connections">Connection
+            Descriptions</ulink>"</para>
+          </listitem>
         </itemizedlist>
 
         <para>Examples: none yet (we do not own a network we could give away
@@ -2337,6 +2913,13 @@
         <para>Imports the descriptions of nodes from
         "<filename>berlin_nodes.txt</filename>" and the edges from
         "<filename>berlin_links.txt</filename>".</para>
+
+        <para>You can also specify your own connections using
+        <option>--xml-connection-files
+        <replaceable>&lt;CONNECTIONS_FILE&gt;</replaceable></option> (or
+        <option>--xml-connections</option> or <option>-x</option>, see "<ulink
+        url="#user_chp04-xml_descriptions-connections">Connection
+        Descriptions</ulink>").</para>
 
         <para>Specific options:</para>
 
@@ -2389,6 +2972,12 @@
             linkend="user_chp04-further_options-geocoordinates">Converting
             from Geocoordinates</link></para>
           </listitem>
+
+          <listitem>
+            <para>"<ulink
+            url="#user_chp04-xml_descriptions-connections">Connection
+            Descriptions</ulink>"</para>
+          </listitem>
         </itemizedlist>
 
         <para>Examples: none yet (we do not own a network we could give away
@@ -2403,6 +2992,13 @@
         advice whether the import work as expected. You still may try it out
         using the option
         <option>--tiger=<replaceable>&lt;FILE_PREFIX&gt;</replaceable></option>.</para>
+
+        <para>You can also specify your own connections using
+        <option>--xml-connection-files
+        <replaceable>&lt;CONNECTIONS_FILE&gt;</replaceable></option> (or
+        <option>--xml-connections</option> or <option>-x</option>, see "<ulink
+        url="#user_chp04-xml_descriptions-connections">Connection
+        Descriptions</ulink>").</para>
 
         <para>See also:</para>
 
@@ -2428,6 +3024,12 @@
             <para><link
             linkend="user_chp04-further_options-geocoordinates">Converting
             from Geocoordinates</link></para>
+          </listitem>
+
+          <listitem>
+            <para>"<ulink
+            url="#user_chp04-xml_descriptions-connections">Connection
+            Descriptions</ulink>"</para>
           </listitem>
         </itemizedlist>
 
@@ -2701,6 +3303,16 @@
         list of node names divided by ';' as parameter. The behaviour when a
         node is in both lists is undefined.</para>
 
+        <para>If you want to know where traffic lights have been inserted and
+        your network is too large to evaluate this by hand, you can force
+        <application>NETCONVERT</application> to write a list of POIs where
+        each POI is placed on a tls-controlled junction. This allows you to
+        tae a look at all the positions tls have been inserted at. The option
+        for doing this is <option>--tls-poi-output
+        <replaceable>&lt;FILENAME&gt;</replaceable></option> where
+        <replaceable>&lt;FILENAME&gt;</replaceable> is the filename to write
+        the POIs into.</para>
+
         <para>Normally, only one traffic lights logic (phases definition) is
         computed per a traffic lights controlled junction, but the algorithm
         we use is able to compute several logics. To force the computation of
@@ -2880,6 +3492,18 @@
               default: none</remark></para>
             </listitem>
           </varlistentry>
+
+          <varlistentry>
+            <term><option>--tls-poi-output
+            <replaceable>&lt;FILENAME&gt;</replaceable></option></term>
+
+            <listitem>
+              <para>If given, <application>NETCONVERT</application> will write
+              position of nodes equipped with tls into
+              <replaceable>&lt;FILENAME&gt;</replaceable>. <remark>Optional,
+              type:filename, default: none</remark></para>
+            </listitem>
+          </varlistentry>
         </variablelist>
 
         <para>These options may be used while importing the following
@@ -2896,6 +3520,14 @@
 
             <listitem>
               <para>XML-descriptions</para>
+            </listitem>
+
+            <listitem>
+              <para>Elmar-files</para>
+            </listitem>
+
+            <listitem>
+              <para>VISUM-networks</para>
             </listitem>
           </itemizedlist></para>
 
@@ -3078,7 +3710,7 @@
         the previously imported edges.</para>
 
         <para>The option <option>--map-output</option> (or <option>-M</option>
-        fo short) generates a file which contains the information about which
+        for short) generates a file which contains the information about which
         edges have been joined (see chapter "<ulink
         url="#user_chp04-further_options-turnarounds">Removing Geometry
         Nodes</ulink>"). ... TBD ... format</para>
@@ -4589,6 +5221,19 @@
       the current edge and time) and than by the loaded addend (value of the
       "<sgmltag>add</sgmltag>"-attribute for the current edge and
       time).</para>
+    </sect1>
+
+    <sect1 id="user_chp05-closing">
+      <title>Using Detectors and DFROUTER</title>
+
+      <para>Since version 0.9.5, the SUMO-package contains a further routing
+      module named <application>DFROUTER</application>. The idea behind this
+      router is that nowadays, most highways are well equipped with induct
+      loops, measuring each of the highways' entering and leaving flows. Given
+      this information one may assume that the flows on the highway can are
+      completely known. <application>DFROUTER</application> uses directly the
+      information collected from induct loops to rebuild the vehicle amounts
+      and routes.</para>
     </sect1>
 
     <sect1 id="user_chp05-closing">

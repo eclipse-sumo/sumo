@@ -735,6 +735,18 @@
             default: none</remark></para>
           </listitem>
         </varlistentry>
+
+        <varlistentry>
+          <term><option>--tls-poi-output
+          <replaceable>&lt;FILENAME&gt;</replaceable></option></term>
+
+          <listitem>
+            <para>If given, <application>NETCONVERT</application> will write
+            position of nodes equipped with tls into
+            <replaceable>&lt;FILENAME&gt;</replaceable>. <remark>Optional,
+            type:filename, default: none</remark></para>
+          </listitem>
+        </varlistentry>
       </variablelist>
     </refsect2>
 

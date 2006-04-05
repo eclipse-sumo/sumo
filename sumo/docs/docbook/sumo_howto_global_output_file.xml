@@ -336,8 +336,8 @@ MSCORN::saveTOSS2_CalledPositionData(SUMOTime time, int callID,
         (<methodname>getOStream()</methodname>).</para>
 
         <para>Now we can write data into the stream from our devices. Data
-        shall be written as soon as a call begins. As soon as one of our cell
-        phone devices switches to the state
+        shall be written as soon as a call begins. To do this, as soon as one
+        of our cell phone devices switches to the state
         "<constant>STATE_CONNECTED</constant>", we'll jump into
         <methodname>void MSCORN::saveTOSS2_CalledPositionData(SUMOTime time,
         int callID, const std::string &amp;pos, int quality);</methodname>
@@ -351,6 +351,9 @@ MSCORN::saveTOSS2_CalledPositionData(SUMOTime time, int callID,
             myVehicle.getLane().edge().getID(), 0);
     }
 ...</programlisting>
+
+        <para>That's the position where we write our data into the stream for
+        this example.</para>
 
         <para><emphasis>That's all folks!</emphasis></para>
       </sect2>

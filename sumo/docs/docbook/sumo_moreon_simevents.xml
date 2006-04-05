@@ -171,7 +171,7 @@ MSEventControl &amp;timestepEndEvents = net-&gt;getEndOfTimestepEvents();</progr
 
       <para>We have described that an event is deleted by the event handler as
       soon as it is no longer valid or if the simulation ends. Now, you maybe
-      want to write a class which represents a structure </para>
+      want to write a class which represents a structure</para>
 
       <sect2>
         <title>WrappingCommand</title>
@@ -197,6 +197,18 @@ MSEventControl &amp;timestepEndEvents = net-&gt;getEndOfTimestepEvents();</progr
         herein) as following:</para>
 
         <programlisting>Command *event = new WrappingCommand&lt;Bar&gt;(barInstance, &amp;Bar::foo)</programlisting>
+      </sect2>
+
+      <sect2>
+        <title>One...Command</title>
+
+        <para>!!!</para>
+      </sect2>
+
+      <sect2>
+        <title>DiscreteCommand</title>
+
+        <para>!!!</para>
       </sect2>
     </sect1>
   </chapter>
