@@ -1,5 +1,5 @@
 Microsoft Developer Studio Workspace File, Format Version 6.00
-# WARNUNG: DIESE ARBEITSBEREICHSDATEI DARF NICHT BEARBEITET ODER GELÖSCHT WERDEN!
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
 
 ###############################################################################
 
@@ -34,6 +34,9 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name z_libutils_dev
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_geom
     End Project Dependency
 }}}
 
