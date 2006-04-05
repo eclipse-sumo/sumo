@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/04/05 05:33:04  dkrajzew
+// further work on lane connection import
+//
 // Revision 1.8  2006/03/28 06:15:49  dkrajzew
 // refactoring and extending the Visum-import
 //
@@ -103,9 +106,9 @@ NIVisumParser_Turns::myDependentReport()
 {
     try {
         // retrieve the nodes
-        NBNode *from = getNamedNode(myNodeCont, "STRECKE", "VonKnot", "VonKnotNr");
-        NBNode *via = getNamedNode(myNodeCont, "STRECKE", "UeberKnot", "UeberKnotNr");
-        NBNode *to = getNamedNode(myNodeCont, "STRECKE", "NachKnot", "NachKnotNr");
+        NBNode *from = getNamedNode(myNodeCont, "ABBIEGEBEZIEHUNG", "VonKnot", "VonKnotNr");
+        NBNode *via = getNamedNode(myNodeCont, "ABBIEGEBEZIEHUNG", "UeberKnot", "UeberKnotNr");
+        NBNode *to = getNamedNode(myNodeCont, "ABBIEGEBEZIEHUNG", "NachKnot", "NachKnotNr");
         if(from==0||via==0||to==0) {
             return;
         }

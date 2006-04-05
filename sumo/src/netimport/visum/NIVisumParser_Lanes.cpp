@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/04/05 05:33:04  dkrajzew
+// further work on lane connection import
+//
 // Revision 1.2  2006/03/28 09:12:43  dkrajzew
 // lane connections for unsplitted lanes implemented, further refactoring
 //
@@ -153,20 +156,24 @@ NIVisumParser_Lanes::myDependentReport()
             // increment by one
             edge->incLaneNo(1);
         } else {
-            if(myNodeCont.retrieve(edge->getID() + "_s")!=0) {
-                edge = myEdgeCont.retrieve(edge->getID() + "_s");
+            if(myNodeCont.retrieve(edge->getID() + "_s_" + node->getID())!=0) {
+                edge = myEdgeCont.retrieve(edge->getID() + "_s_" + node->getID());
                 edge->incLaneNo(1);
                 return;
             }
             // ok, we have to split the edge...
-            Position2D p = edge->getGeometry().positionAtLengthPosition(edge->getLength()-length);
-            NBNode *rn = new NBNode(edge->getID() + "_s", p);
+            Position2D p =
+                node->hasOutgoing(edge)
+                ? edge->getGeometry().positionAtLengthPosition(edge->getLength()-length)
+                : edge->getGeometry().positionAtLengthPosition(length);
+            NBNode *rn = new NBNode(edge->getID() + "_s_" + node->getID(), p);
             if(!myNodeCont.insert(rn)) {
                 MsgHandler::getErrorInstance()->inform("Ups - could not insert node!");
                 throw ProcessError();
             }
             myEdgeCont.splitAt(myDistrictCont, edge, edge->getLength()-length, rn,
-                edge->getID(), edge->getID() + "_s", edge->getNoLanes(), edge->getNoLanes()+1);
+                edge->getID(), edge->getID() + "_s_" + node->getID(),
+                edge->getNoLanes(), edge->getNoLanes()+1);
         }
     } catch (OutOfBoundsException) {
         addError2("FAHRSTREIFEN", "", "OutOfBounds");
