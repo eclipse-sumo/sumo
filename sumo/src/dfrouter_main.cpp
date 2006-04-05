@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/04/05 05:36:54  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.14  2006/03/28 06:18:43  dkrajzew
 // extending the dfrouter by distance/length factors
 //
@@ -240,6 +243,11 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
 
     // if a network was loaded... (mode1)
     if(optNet!=0) {
+        if(oc.getBool("remove-empty-detectors")) {
+            MsgHandler::getMessageInstance()->inform("Removing empty detectors...");
+            optNet->removeEmptyDetectors(*detectors, *flows, 0, 86400, 60);
+            MsgHandler::getMessageInstance()->inform("done.");
+        }
         // compute the detector types (optionally)
         if(!detectors->detectorsHaveCompleteTypes()||oc.isSet("revalidate-detectors")) {
             MsgHandler::getMessageInstance()->inform("Computing detector types...");
@@ -286,6 +294,11 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
 	if(oc.isSet("emitters-output")) {
         MsgHandler::getMessageInstance()->inform("Writing emitters...");
         optNet->buildEdgeFlowMap(*flows, *detectors, 0, 86400, 60); // !!!
+        if(oc.getBool("revalidate-flows")) {
+            MsgHandler::getMessageInstance()->inform("Rechecking loaded flows...");
+            optNet->revalidateFlows(*detectors, *flows, 0, 86400, 60);
+            MsgHandler::getMessageInstance()->inform("done.");
+        }
 		detectors->writeEmitters(oc.getString("emitters-output"), *flows,
 			0, 86400, 60,
 			oc.getBool("write-calibrators"));

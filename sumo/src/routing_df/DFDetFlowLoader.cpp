@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/04/05 05:35:27  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.4  2006/03/17 09:04:26  dkrajzew
 // class-documentation added/patched
 //
@@ -130,6 +133,12 @@ DFDetFlowLoader::parseFast(const std::string &file)
 		strm >> fd.qLKW;
 		strm >> fd.vPKW;
 		strm >> fd.vLKW;
+        if(fd.qLKW<0) {
+            fd.qLKW = 0;
+        }
+        if(fd.qPKW<0) {
+            fd.qPKW = 0;
+        }
         mydetFlows->addFlow( detName, time, fd );
     }
     return true;
@@ -154,6 +163,12 @@ DFDetFlowLoader::report(const std::string &result)
 		fd.vPKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("vPKW").c_str());
 		fd.qLKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("qLKW").c_str());
 		fd.vLKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("vLKW").c_str());
+        if(fd.qLKW<0) {
+            fd.qLKW = 0;
+        }
+        if(fd.qPKW<0) {
+            fd.qPKW = 0;
+        }
         if(false) { // !!!!
             assert(fd.qPKW>=fd.qLKW);
             fd.qPKW -= fd.qLKW;

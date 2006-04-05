@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/04/05 05:35:26  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.14  2006/03/28 06:17:18  dkrajzew
 // extending the dfrouter by distance/length factors
 //
@@ -138,7 +141,8 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
     const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
     // iterate through time (in output interval steps)
-    for(int time=startTime; time<endTime; time+=stepOffset) {
+    int time;
+    for(time=startTime; time<endTime; time+=stepOffset) {
         into[time] = new RandomDistributor<size_t>();
         // get the number of vehicles to emit
         const FlowDef &srcFD = mflows[(int) (time/stepOffset) - startTime];// !!! check stepOffset
@@ -164,7 +168,21 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                         SUMOReal sumFlows = 0;
                         SUMOReal myFlow = 0;
                         for(std::vector<ROEdge*>::const_iterator k=possNext.begin(); k!=possNext.end(); ++k) {
-                            SUMOReal cflow = (SUMOReal) detectors.getFlowFor(*k, (time/*!!! + desc->duration2Last*/), flows);
+                            SUMOReal cflow = 0;
+                            if(true) { // !!!
+                                cflow = detectors.getAggFlowFor(*k, time, 30*60, flows);
+                                /*
+                                for(SUMOTime t2 = 0; t2<30*60&&t2+time<endTime; t2+=stepOffset) { // !!!
+                                    SUMOReal tmpFlow = (SUMOReal) detectors.getFlowFor(*k, (t2+time/*!!! + desc->duration2Last/), flows);
+                                    if(tmpFlow<0) {
+                                        tmpFlow = 0;
+                                    }
+                                    cflow += tmpFlow;
+                                }
+                                */
+                            } else {
+                                cflow = (SUMOReal) detectors.getFlowFor(*k, (time/*!!! + desc->duration2Last*/), flows);
+                            }
                             if(cflow<0) {
                                 cflow = 0; // !!!
                             }
@@ -175,9 +193,12 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                             sumFlows += cflow;
                         }
 
-                        SUMOReal cProb = 1;
+                        SUMOReal cProb = 1.;
                         if(sumFlows!=0) {
                             cProb = (myFlow / sumFlows);
+                        } else {
+                            // myFlow should be of course==0 so let's keep the previous probability
+                            cProb = 1.;
                         }
                         ovProb *= cProb;
                         hadMissing = false;
@@ -187,6 +208,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                 }
                 ++i;
             }
+            distanceFactor = 1.;
             ovProb *= (rd->factor * distanceFactor);
             into[time]->add(ovProb, index);
             (*ri)->overallProb += ovProb;
@@ -389,6 +411,10 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 		// go through the simulation seconds
 		for(int time=startTime; time<endTime; time+=stepOffset) {
 			// get own (departure flow)
+            if(mflows.size()<=(int) (time/stepOffset) - startTime) {
+                cout << mflows.size() << ":" << (int) (time/stepOffset) - startTime << endl;
+                throw 1;
+            }
             const FlowDef &srcFD = mflows[(int) (time/stepOffset) - startTime]; // !!! check stepOffset
 			// get flows at end
             RandomDistributor<size_t> *destDist = dists[time];
@@ -398,7 +424,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 				// get the vehicle parameter
 				string type = "test";
                 SUMOReal v;
-				size_t destIndex = destDist->get();
+                int destIndex = destDist->getOverallProb()>0 ? destDist->get() : -1;
 //!!! micro srcIndex = srcDist.get();
 //				std::vector<std::string> route = droutes[destIndex]->edges2Pass;
 				if(srcFD.isLKW>1) {
@@ -427,9 +453,11 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 				}
 				strm << "_" << ctime  << "\"" // !!! running
 					<< " time=\"" << ctime << "\""
-                    << " speed=\"" << v << "\""
-                    << " route=\"" << myRoutes->get()[destIndex]->routename << "\"" // !!! optional
-                    << " vehtype=\"" << type << "\"/>" << endl;
+                    << " speed=\"" << v << "\"";
+                if(destIndex>=0) {
+                    strm << " route=\"" << myRoutes->get()[destIndex]->routename << "\""; // !!! optional
+                }
+                strm << " vehtype=\"" << type << "\"/>" << endl;
 				srcFD.isLKW += srcFD.fLKW;
 			}
 			delete destDist;
@@ -730,7 +758,7 @@ DFDetectorCon::getFlowFor(const ROEdge *edge, SUMOTime time,
     const std::vector<FlowDef> &flows = static_cast<const RODFEdge*>(edge)->getFlows();
     if(flows.size()!=0) {
         const FlowDef &srcFD = flows[(int) (time/stepOffset) - startTime];
-        return srcFD.qLKW + srcFD.qPKW;
+        return MAX2(srcFD.qLKW, (SUMOReal) 0.) + MAX2(srcFD.qPKW, (SUMOReal) 0.);
     }
     /*
     const std::vector<DFDetector*> &detsOnEdge = myDetectorEdgeMap.find(edge->getID())->second;
@@ -749,6 +777,31 @@ DFDetectorCon::getFlowFor(const ROEdge *edge, SUMOTime time,
         return (int) (ret / (SUMOReal) counted);
     }
     */
+    return -1;
+}
+
+
+int
+DFDetectorCon::getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime period,
+                             const DFDetectorFlows &) const
+{
+    SUMOReal stepOffset = 60; // !!!
+    SUMOReal startTime = 0; // !!!
+    assert(myDetectorEdgeMap.find(edge->getID())!=myDetectorEdgeMap.end());
+    const std::vector<FlowDef> &flows = static_cast<const RODFEdge*>(edge)->getFlows();
+    if(flows.size()!=0) {
+        int agg = 0;
+        for(SUMOTime t=0; t<period; t+=stepOffset) {
+            const FlowDef &srcFD = flows[(int) (time/stepOffset) - startTime];
+            if(srcFD.qLKW>=0) {
+                agg += srcFD.qLKW;
+            }
+            if(srcFD.qPKW>=0) {
+                agg += srcFD.qPKW;
+            }
+        }
+        return agg;
+    }
     return -1;
 }
 
@@ -840,6 +893,32 @@ DFDetectorCon::writeValidationDetectors(const std::string &file,
         }
     }
     strm << "</additional>" << endl;
+}
+
+
+void
+DFDetectorCon::removeDetector(const std::string &id)
+{
+        //
+        std::map<std::string, DFDetector*>::iterator ri1 = myDetectorMap.find(id);
+        DFDetector *oldDet = (*ri1).second;
+        myDetectorMap.erase(ri1);
+        //
+        std::vector<DFDetector*>::iterator ri2 =
+            find(myDetectors.begin(), myDetectors.end(), oldDet);
+        myDetectors.erase(ri2);
+        //
+        bool found = false;
+        for(std::map<std::string, std::vector<DFDetector*> >::iterator rr3=myDetectorEdgeMap.begin(); !found&&rr3!=myDetectorEdgeMap.end(); ++rr3) {
+            std::vector<DFDetector*> &dets = (*rr3).second;
+            for(std::vector<DFDetector*>::iterator ri3=dets.begin(); !found&&ri3!=dets.end(); ++ri3) {
+                if(*ri3==oldDet) {
+                    found = true;
+                    dets.erase(ri3);
+                }
+            }
+        }
+        delete oldDet;
 }
 
 

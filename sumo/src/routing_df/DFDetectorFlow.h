@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2006/04/05 05:35:26  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.6  2006/03/17 09:04:25  dkrajzew
 // class-documentation added/patched
 //
@@ -90,12 +93,15 @@ public:
 	~DFDetectorFlows();
 	void addFlow(const std::string &detector_id, int timestamp,
         const FlowDef &fd );
+	void removeFlow(const std::string &detector_id);
+	void setFlows(const std::string &detector_id, std::vector<FlowDef> & );
 	//const FlowDef &getFlowDef(const std::string &det_id, SUMOTime timestamp) const;
 	//const std::map< int, FlowDef > &getFlowDefs( const std::string &id ) const;
 
     const std::vector<FlowDef> &getFlowDefs( const std::string &id ) const;
     bool knows( const std::string &det_id ) const;
     bool knows( const std::string &det_id, SUMOTime time ) const;
+
     //void buildFastAccess(SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 protected:
 //    std::map<std::string, std::map<SUMOTime, FlowDef> > myCurrentFlows;

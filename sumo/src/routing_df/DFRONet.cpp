@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/04/05 05:35:27  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.15  2006/03/28 06:17:18  dkrajzew
 // extending the dfrouter by distance/length factors
 //
@@ -312,9 +315,11 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
 		// do not process an edge twice
 		if(find(seen.begin(), seen.end(), last)!=seen.end()) {
 			// ... but keep the way to it
+            /*
 			current->routename = buildRouteID(*current);
             current->factor = 1.;
 			into.addRouteDesc(current);
+            */
 			continue;
 		}
 		seen.push_back(last);
@@ -337,14 +342,14 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
 					// -> let's add this edge and the following, but not any further
 					addNextNoFurther = true;
 					current->lastDetectorEdge = last;
-                    current->duration2Last = (SUMOTime) current->duration;
+                    current->duration2Last = (SUMOTime) current->duration_2;
                     current->distance2Last = current->distance;
 					current->endDetectorEdge = last;
 				} else {
 					// ... if it's an in-between-detector
 					// -> mark the current route as to be continued
 					current->passedNo = 0;
-                    current->duration2Last = (SUMOTime) current->duration;
+                    current->duration2Last = (SUMOTime) current->duration_2;
                     current->distance2Last = current->distance;
 					current->lastDetectorEdge = last;
 				}
@@ -392,8 +397,8 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
                 continue;
             }
 			DFRORouteDesc *t = new DFRORouteDesc(*current);
-			t->duration += (last->getLength()/last->getSpeed());//!!!
-            t->distance += last->getLength();
+			t->duration_2 += (appr[i]->getLength()/appr[i]->getSpeed());//!!!
+            t->distance += appr[i]->getLength();
 			t->edges2Pass.push_back(appr[i]);
 			if(!addNextNoFurther) {
 				t->passedNo = t->passedNo + 1;
@@ -578,10 +583,10 @@ DFRONet::buildRoutes(DFDetectorCon &detcont, bool allEndFollower,
         doneEdges[e] = routes;
         DFRORouteDesc *rd = new DFRORouteDesc();
         rd->edges2Pass.push_back(e);
-        rd->duration = 0;
+        rd->duration_2 = (e->getLength()/e->getSpeed());//!!!;
 		rd->endDetectorEdge = 0;
 		rd->lastDetectorEdge = 0;
-		rd->distance = 0;
+		rd->distance = e->getLength();
 		rd->distance2Last = 0;
 		rd->duration2Last = 0;
 
@@ -596,6 +601,215 @@ DFRONet::buildRoutes(DFDetectorCon &detcont, bool allEndFollower,
 
     }
 }
+
+void
+DFRONet::revalidateFlows(const DFDetector *detector,
+                         DFDetectorFlows &flows,
+                         SUMOTime startTime, SUMOTime endTime,
+                         SUMOTime stepOffset)
+{
+    {
+        if(flows.knows(detector->getID())) {
+            const std::vector<FlowDef> &detFlows = flows.getFlowDefs(detector->getID());
+            for(std::vector<FlowDef>::const_iterator j=detFlows.begin(); j!=detFlows.end(); ++j) {
+                if((*j).qPKW>0||(*j).qLKW>0) {
+                    return;
+                }
+            }
+        }
+    }
+    // ok, there is no information for the whole time;
+    //  lets find preceding detectors and rebuild the flows if possible
+    MsgHandler::getWarningInstance()->inform("Detector '" + detector->getID() + "' has no flows.");
+    MsgHandler::getWarningInstance()->inform(" Trying to rebuild.");
+    // go back and collect flows
+    std::vector<ROEdge*> previous;
+    {
+        std::vector<IterationEdge> missing;
+        IterationEdge ie;
+        ie.depth = 0;
+        ie.edge = getDetectorEdge(*detector);
+        missing.push_back(ie);
+        bool maxDepthReached = false;
+        while(!missing.empty()&&!maxDepthReached) {
+            IterationEdge last = missing.back();
+            missing.pop_back();
+            std::vector<ROEdge*> approaching = myApproachingEdges[last.edge];
+            for(std::vector<ROEdge*>::const_iterator j=approaching.begin(); j!=approaching.end(); ++j) {
+                if(hasDetector(*j)) {
+                    previous.push_back(*j);
+                } else {
+                    ie.depth = last.depth + 1;
+                    ie.edge = *j;
+                    missing.push_back(ie);
+                    if(ie.depth>5) {
+                        maxDepthReached = true;
+                    }
+                }
+            }
+        }
+        if(maxDepthReached) {
+            MsgHandler::getWarningInstance()->inform(" Could not build list of previous flows.");
+        }
+    }
+    if(detector->getID()=="227_226_225") {
+        for(std::vector<ROEdge*>::const_iterator j=previous.begin(); j!=previous.end(); ++j) {
+            cout << (*j)->getID() << ", ";
+        }
+        cout << endl;
+    }
+    // Edges with previous detectors are now in "previous";
+    //  compute following
+    std::vector<ROEdge*> latter;
+    {
+        std::vector<IterationEdge> missing;
+        for(std::vector<ROEdge*>::const_iterator k=previous.begin(); k!=previous.end(); ++k) {
+            IterationEdge ie;
+            ie.depth = 0;
+            ie.edge = *k;
+            missing.push_back(ie);
+        }
+        bool maxDepthReached = false;
+        while(!missing.empty()&&!maxDepthReached) {
+            IterationEdge last = missing.back();
+            missing.pop_back();
+            std::vector<ROEdge*> approached = myApproachedEdges[last.edge];
+            for(std::vector<ROEdge*>::const_iterator j=approached.begin(); j!=approached.end(); ++j) {
+                if(*j==getDetectorEdge(*detector)) {
+                    continue;
+                }
+                if(hasDetector(*j)) {
+                    latter.push_back(*j);
+                } else {
+                    IterationEdge ie;
+                    ie.depth = last.depth + 1;
+                    ie.edge = *j;
+                    missing.push_back(ie);
+                    if(ie.depth>5) {
+                        maxDepthReached = true;
+                    }
+                }
+            }
+        }
+        if(maxDepthReached) {
+            MsgHandler::getWarningInstance()->inform(" Could not build list of latter flows.");
+            return;
+        }
+    }
+    if(detector->getID()=="227_226_225") {
+        for(std::vector<ROEdge*>::const_iterator j=latter.begin(); j!=latter.end(); ++j) {
+            cout << (*j)->getID() << ", ";
+        }
+        cout << endl;
+    }
+    // Edges with latter detectors are now in "latter";
+
+    // lets not validate them by now - surely this should be done
+    // for each time step: collect incoming flows; collect outgoing;
+    std::vector<FlowDef> mflows;
+    for(SUMOTime t=startTime; t<endTime; t+=stepOffset) {
+        FlowDef inFlow;
+        inFlow.qLKW = 0;
+        inFlow.qPKW = 0;
+        inFlow.vLKW = 0;
+        inFlow.vPKW = 0;
+        // collect incoming
+        {
+            // !! time difference is missing
+            for(std::vector<ROEdge*>::iterator i=previous.begin(); i!=previous.end(); ++i) {
+                const std::vector<FlowDef> &flows = static_cast<const RODFEdge*>(*i)->getFlows();
+                if(flows.size()!=0) {
+                    const FlowDef &srcFD = flows[(int) (t/stepOffset) - startTime];
+                    inFlow.qLKW += srcFD.qLKW;
+                    inFlow.qPKW += srcFD.qPKW;
+                    inFlow.vLKW += srcFD.vLKW;
+                    inFlow.vPKW += srcFD.vPKW;
+                }
+            }
+        }
+        inFlow.vLKW /= (SUMOReal) previous.size();
+        inFlow.vPKW /= (SUMOReal) previous.size();
+        // collect outgoing
+        FlowDef outFlow;
+        outFlow.qLKW = 0;
+        outFlow.qPKW = 0;
+        outFlow.vLKW = 0;
+        outFlow.vPKW = 0;
+        {
+            // !! time difference is missing
+            for(std::vector<ROEdge*>::iterator i=latter.begin(); i!=latter.end(); ++i) {
+                const std::vector<FlowDef> &flows = static_cast<const RODFEdge*>(*i)->getFlows();
+                if(flows.size()!=0) {
+                    const FlowDef &srcFD = flows[(int) (t/stepOffset) - startTime];
+                    outFlow.qLKW += srcFD.qLKW;
+                    outFlow.qPKW += srcFD.qPKW;
+                    outFlow.vLKW += srcFD.vLKW;
+                    outFlow.vPKW += srcFD.vPKW;
+                }
+            }
+        }
+        outFlow.vLKW /= (SUMOReal) latter.size();
+        outFlow.vPKW /= (SUMOReal) latter.size();
+        //
+        FlowDef mFlow;
+        mFlow.qLKW = inFlow.qLKW - outFlow.qLKW;
+        mFlow.qPKW = inFlow.qPKW - outFlow.qPKW;
+        mFlow.vLKW = (inFlow.vLKW + outFlow.vLKW) / 2.;
+        mFlow.vPKW = (inFlow.vPKW + outFlow.vPKW) / 2.;
+        if(detector->getID()=="227_226_225") {
+            cout << t << ";" << inFlow.qLKW << ";" << outFlow.qLKW << ";" << inFlow.qPKW << ";" << outFlow.qPKW << ";" << mFlow.qLKW << ";" << mFlow.qPKW << endl;
+        }
+        mflows.push_back(mFlow);
+    }
+    static_cast<RODFEdge*>(getDetectorEdge(*detector))->setFlows(mflows);
+    flows.setFlows(detector->getID(), mflows);
+}
+
+
+void
+DFRONet::revalidateFlows(const DFDetectorCon &detectors,
+                         DFDetectorFlows &flows,
+                         SUMOTime startTime, SUMOTime endTime,
+                         SUMOTime stepOffset)
+{
+    const std::vector<DFDetector*> &dets = detectors.getDetectors();
+    for(std::vector<DFDetector*>::const_iterator i=dets.begin(); i!=dets.end(); ++i) {
+        // check whether there is at least one entry with a flow larger than zero
+        revalidateFlows(*i, flows, startTime, endTime, stepOffset);
+    }
+}
+
+
+
+void
+DFRONet::removeEmptyDetectors(DFDetectorCon &detectors,
+                         DFDetectorFlows &flows,
+                         SUMOTime startTime, SUMOTime endTime,
+                         SUMOTime stepOffset)
+{
+    const std::vector<DFDetector*> &dets = detectors.getDetectors();
+    for(std::vector<DFDetector*>::const_iterator i=dets.begin(); i!=dets.end(); ) {
+        bool remove = true;
+        // check whether there is at least one entry with a flow larger than zero
+        if(flows.knows((*i)->getID())) {
+            const std::vector<FlowDef> &detFlows = flows.getFlowDefs((*i)->getID());
+            for(std::vector<FlowDef>::const_iterator j=detFlows.begin(); remove&&j!=detFlows.end(); ++j) {
+                if((*j).qPKW>0||(*j).qLKW>0) {
+                    remove = false;
+                }
+            }
+        }
+        if(remove) {
+            cout << "Removed '" << (*i)->getID() << "'." << endl;
+            flows.removeFlow((*i)->getID());
+            detectors.removeDetector((*i)->getID());
+            i = dets.begin();
+        } else {
+            i++;
+        }
+    }
+}
+
 
 
 ROEdge *
@@ -837,6 +1051,7 @@ bool
 DFRONet::isFalseSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> seen,
 					   const DFDetectorCon &detectors) const
 {
+    seen.push_back(edge);
 	if(edge!=getDetectorEdge(det)) {
 		// ok, we are at one of the edges coming behind
 		if(myAmInHighwayMode) {
@@ -854,16 +1069,15 @@ DFRONet::isFalseSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*>
 						return true;
 					}
 				}
-            }/* else if(edge->getSpeed()<19.) {
-                return false;
-            }*/
+            } else if(edge->getSpeed()<19.) { // !!!! war ausgeklammert
+                return false;// !!!
+            }
 		}
 	}
 
 
     const std::vector<ROEdge*> &appr  = myApproachedEdges.find(edge)->second;
     bool isall = false;
-    seen.push_back(edge);
     for(size_t i=0; i<appr.size()&&!isall; i++) {
         //printf("checking %s->\n", appr[i].c_str());
         bool had = std::find(seen.begin(), seen.end(), appr[i])!=seen.end();

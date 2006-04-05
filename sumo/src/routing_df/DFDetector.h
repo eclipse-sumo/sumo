@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.15  2006/04/05 05:35:26  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.14  2006/03/28 06:17:18  dkrajzew
 // extending the dfrouter by distance/length factors
 //
@@ -145,6 +148,7 @@ public:
 	~DFDetectorCon();
 	//bool isDetector(std::string id);
 	bool addDetector(DFDetector *dfd );
+    void removeDetector(const std::string &id);
     bool detectorsHaveCompleteTypes() const;
     bool detectorsHaveRoutes() const;
     const std::vector<DFDetector*> &getDetectors() const;
@@ -167,6 +171,9 @@ public:
     void writeEndRerouterDetectors(const std::string &file);
 
     int getFlowFor(const ROEdge *edge, SUMOTime time,
+        const DFDetectorFlows &flows) const;
+
+    int getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime period,
         const DFDetectorFlows &flows) const;
 
 

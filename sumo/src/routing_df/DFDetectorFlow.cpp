@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/04/05 05:35:26  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.4  2006/03/17 09:04:25  dkrajzew
 // class-documentation added/patched
 //
@@ -69,6 +72,7 @@ DFDetectorFlows::~DFDetectorFlows()
 
 }
 
+
 void
 DFDetectorFlows::addFlow( const std::string &id, int t, const FlowDef &fd )
 {
@@ -102,6 +106,33 @@ DFDetectorFlows::addFlow( const std::string &id, int t, const FlowDef &fd )
 	    ofd.fLKW = ofd.qLKW / ofd.qPKW ;
     } else {
 	    ofd.fLKW = 0;
+    }
+}
+
+
+
+
+void
+DFDetectorFlows::setFlows(const std::string &detector_id,
+                          std::vector<FlowDef> &flows)
+{
+    for(std::vector<FlowDef>::iterator i=flows.begin(); i<flows.end(); ++i) {
+        FlowDef &ofd = *i;
+        if ( ofd.qLKW!=0 && ofd.qPKW!=0 ) {
+	        ofd.fLKW = ofd.qLKW / ofd.qPKW ;
+        } else {
+	        ofd.fLKW = 0;
+        }
+    }
+    myFastAccessFlows[detector_id] = flows;
+}
+
+
+void
+DFDetectorFlows::removeFlow(const std::string &detector_id)
+{
+    if(myFastAccessFlows.find(detector_id)!=myFastAccessFlows.end()) {
+        myFastAccessFlows.erase(myFastAccessFlows.find(detector_id));
     }
 }
 

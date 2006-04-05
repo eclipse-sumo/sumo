@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/05 05:35:27  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.11  2006/03/27 07:32:15  dkrajzew
 // some further work...
 //
@@ -140,6 +143,9 @@ RODFFrame::fillOptions(OptionsCont &oc)
 	oc.doRegister("write-calibrators", new Option_Bool(false));
     oc.doRegister("all-end-follower", new Option_Bool(false));
     oc.doRegister("keep-unfound-ends", new Option_Bool(false));
+    oc.doRegister("revalidate-flows", new Option_Bool(false));
+    oc.doRegister("remove-empty-detectors", new Option_Bool(false));
+
 
 
 

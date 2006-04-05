@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2006/04/05 05:35:27  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.5  2006/03/28 06:17:18  dkrajzew
 // extending the dfrouter by distance/length factors
 //
@@ -67,7 +70,7 @@ class DFDetector;
 struct DFRORouteDesc {
     std::vector<ROEdge*> edges2Pass;
     std::string routename;
-    SUMOReal duration;
+    SUMOReal duration_2;
     SUMOReal distance;
 //	std::vector<std::pair<SUMOReal, SUMOReal> > myProbabilities;
 	int passedNo;

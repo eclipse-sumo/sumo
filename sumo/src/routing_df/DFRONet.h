@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.9  2006/04/05 05:35:27  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.8  2006/03/27 07:32:15  dkrajzew
 // some further work...
 //
@@ -82,8 +85,20 @@ public:
         const DFDetectorCon &detectors,
 		SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 
+    void revalidateFlows(const DFDetectorCon &detectors,
+        DFDetectorFlows &flows,
+		SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
+
+
+    void removeEmptyDetectors(DFDetectorCon &detectors,
+        DFDetectorFlows &flows,  SUMOTime startTime, SUMOTime endTime,
+        SUMOTime stepOffset);
+
 
 protected:
+    void revalidateFlows(const DFDetector *detector,
+        DFDetectorFlows &flows,
+		SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
     bool isSource(const DFDetector &det,
 		const DFDetectorCon &detectors) const;
     bool isFalseSource(const DFDetector &det,
@@ -116,7 +131,10 @@ protected:
 	bool hasInBetweenDetectorsOnly(ROEdge *edge,
 		const DFDetectorCon &detectors) const;
 
-
+    struct IterationEdge {
+        int depth;
+        ROEdge *edge;
+    };
 
 protected:
     class DFRouteDescByTimeComperator {
@@ -129,7 +147,7 @@ protected:
 
         /// Comparing method
         bool operator()(const DFRORouteDesc *nod1, const DFRORouteDesc *nod2) const {
-            return nod1->duration>nod2->duration;
+            return nod1->duration_2>nod2->duration_2;
         }
     };
 
