@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/04/07 05:25:15  dkrajzew
+// complete od2trips rework
+//
 // Revision 1.7  2005/10/07 11:42:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -59,6 +62,7 @@
 #include <string>
 #include <utility>
 #include <utils/common/Named.h>
+#include <utils/helpers/RandomDistributor.h>
 
 
 /* =========================================================================
@@ -78,13 +82,15 @@ public:
     ~ODDistrict();
 
     /** @brief Adds a source connection
-        A source is an edge where vehicles leave the district from to reach
-        the network */
+     *
+     * A source is an edge where vehicles leave the district from to reach
+     * the network */
     void addSource(const std::string &id, SUMOReal weight);
 
     /** @brief Adds a sink connection
-        A sink connection is an edge which is used by vehicles to leave the
-        network and reach the district */
+     *
+     * A sink connection is an edge which is used by vehicles to leave the
+     * network and reach the district */
     void addSink(const std::string &id, SUMOReal weight);
 
     /// Returns the name of a source to use
@@ -100,22 +106,13 @@ public:
     SUMOReal getColor() const;
 
 private:
-    /// A name together with a weight (possibility to be chosen)
-    typedef std::pair<std::string, SUMOReal> WeightedName;
+    /// Container of weighted sources
+    RandomDistributor<std::string> mySources;
 
-    /// List of string/value pairs
-    typedef std::vector<WeightedName> WeightedEdgeIDCont;
-
-    /// List of weighted sources
-    WeightedEdgeIDCont _sources;
-
-    /// List of weighted sinks
-    WeightedEdgeIDCont _sinks;
+    /// Container of weighted sinks
+    RandomDistributor<std::string> mySinks;
 
 private:
-    /// Returns a member of the given container by random
-    std::string getRandom(const WeightedEdgeIDCont &cont) const;
-
     /// The abstract color of the district
     SUMOReal myColor;
 

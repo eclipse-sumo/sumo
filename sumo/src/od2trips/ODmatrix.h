@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/04/07 05:25:15  dkrajzew
+// complete od2trips rework
+//
 // Revision 1.12  2005/10/07 11:42:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -48,6 +51,12 @@
 // updated
 //
 /* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
  * included modules
  * ======================================================================= */
 #ifdef HAVE_CONFIG_H
@@ -58,60 +67,136 @@
 #endif
 #endif // HAVE_CONFIG_H
 
-# include <iostream>
-# include <sstream>
-# include <fstream>
-# include <vector>
-# include <cstdlib>
-# include <ctime>
-# include <string>
+#include <iostream>
+#include <sstream>
+#include <fstream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <algorithm>
+#include <string>
 #include <utils/common/SUMOTime.h>
-
-typedef int (*CMPFUN)(SUMOTime, SUMOTime);
+#include <utils/gfx/RGBColor.h>
+#include "ODCell.h"
+#include "ODDistrictCont.h"
+#include <utils/distribution/Distribution_Points.h>
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
 /**
- *
+ * @class ODMatrix
+ * This class is the iternal representation of the loaded matrix.
+ * It also computes and writes the trips.
  */
-/// OD attributes input
-class OD_IN {
+class ODMatrix {
 public:
-    // source district name
-    std::string from;
-    /// destination district name
-    std::string to;
+    /// Constructor
+    ODMatrix();
 
-    unsigned short int how_many;
+    /// Destrctor
+    ~ODMatrix();
+
+    /** @brief Adds a loaded matrix cell
+     *
+     * The matrix will get the owner of the cell, the cell must not be deleted
+     *  somewhere else
+     */
+    void add(ODCell *cell);
+
+    /// Writes the vehicles stored in the matrix
+    void write(SUMOTime begin, SUMOTime end,
+        std::ofstream &strm, const ODDistrictCont &dc, bool uniform);
+
+
+    /// Returns the number of loaded vehicles
+    SUMOReal getNoLoaded() const;
+
+    /// Returns the number of written vehicles
+    SUMOReal getNoWritten() const;
+
+    /// Splits the stored cells dividing them on the given time line
+    void applyCurve(const Distribution_Points &ps);
+
+protected:
+    /**
+     * @struct ODVehicle
+     * An internal representation of a single vehicle to write
+     */
+    struct ODVehicle {
+        /// The id of the vehicle
+        std::string id;
+        /// The departure time of the vehicle
+        SUMOTime depart;
+        /// The type of the vehicle
+        std::string type;
+        /// The edge the vehicles shall start at
+        std::string from;
+        /// The edge the vehicles shall end at
+        std::string to;
+        /// The color of the vehicle
+        RGBColor color;
+    };
+
+    /// Definition of a container for cells
+    typedef std::vector<ODCell*> CellVector;
+
+protected:
+    /// Computes the emissions stored in the given cell and writes them to "into"
+    void computeEmissions(const ODDistrictCont &dc, ODCell *cell,
+        size_t &vehName, std::vector<ODVehicle> &into, bool uniform);
+
+    /** @brief Splits the given cell dividing it on the given time line and
+     *      stores the results in the given container
+     */
+    void applyCurve(const Distribution_Points &ps, ODCell *cell,
+        CellVector &newCells);
+
+protected:
+    /// The loaded cells
+    CellVector myContainer;
+
+    /// Number of loaded vehicles
+    SUMOReal myNoLoaded;
+
+    /// Number of written vehicles
+    SUMOReal myNoWritten;
+
+    /**
+     * @class cell_by_begin_sorter
+     * Used for sorting the cells by the begin time they describe
+     */
+    class cell_by_begin_sorter {
+    public:
+        /// constructor
+        explicit cell_by_begin_sorter() { }
+
+    public:
+        /// comparing operation
+        int operator() (ODCell *p1, ODCell *p2) const {
+            return p1->begin<p2->begin;
+        }
+
+    };
+
+    /**
+     * @class descending_departure_comperator
+     * Used for sorting vehicles by their departure (latest first)
+     */
+    class descending_departure_comperator {
+    public:
+        /// constructor
+        descending_departure_comperator() { }
+
+        /// comparing operation
+        bool operator() (const ODVehicle &p1, const ODVehicle &p2) const {
+            return p1.depart>p2.depart;
+        }
+
+    };
+
 };
-
-/// OD attributes output
-class OD_OUT {
-public:
-    // source district name
-    std::string from;
-    /// destination district name
-    std::string to;
-    SUMOTime type;
-    SUMOTime time;
-};
-
-/// Meta data input
-const int MAX_CARTYPES=100;
-const int MAX_INFILES=200;
-const int MAX_LINELENGTH=500;
-const int MAX_CONTENT=200;
-
-typedef struct content {
-    int id;
-    int max;
-    int cartype[MAX_CARTYPES];
-    SUMOReal fraction[MAX_CARTYPES];
-} ODContent;
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/04/07 05:25:15  dkrajzew
+// complete od2trips rework
+//
 // Revision 1.8  2006/04/05 05:34:08  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -76,11 +79,19 @@ namespace
 #include <utils/dev/debug_new.h>
 #endif // _DEBUG
 
+
+/* =========================================================================
+ * used namespaces
+ * ======================================================================= */
 using namespace std;
 
+
+/* =========================================================================
+ * method definitions
+ * ======================================================================= */
 ODDistrictHandler::ODDistrictHandler(ODDistrictCont &cont)
     : SUMOSAXHandler("sumo-districts"),
-    _cont(cont), _current(0)
+    myContainer(cont), myCurrentDistrict(0)
 {
 }
 
@@ -127,9 +138,9 @@ ODDistrictHandler::myCharacters(int element, const std::string &name,
 void
 ODDistrictHandler::openDistrict(const Attributes &attrs)
 {
-    _current = 0;
+    myCurrentDistrict = 0;
     try {
-        _current = new ODDistrict(getString(attrs, SUMO_ATTR_ID));
+        myCurrentDistrict = new ODDistrict(getString(attrs, SUMO_ATTR_ID));
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("A district without an id occured.");
     }
@@ -141,7 +152,7 @@ ODDistrictHandler::addSource(const Attributes &attrs)
 {
     std::pair<std::string, SUMOReal> vals = getValues(attrs, "source");
     if(vals.second>=0) {
-        _current->addSource(vals.first, vals.second);
+        myCurrentDistrict->addSource(vals.first, vals.second);
     }
 }
 
@@ -151,7 +162,7 @@ ODDistrictHandler::addSink(const Attributes &attrs)
 {
     std::pair<std::string, SUMOReal> vals = getValues(attrs, "sink");
     if(vals.second>=0) {
-        _current->addSink(vals.first, vals.second);
+        myCurrentDistrict->addSink(vals.first, vals.second);
     }
 }
 
@@ -161,7 +172,7 @@ std::pair<std::string, SUMOReal>
 ODDistrictHandler::getValues(const Attributes &attrs, const std::string &type)
 {
     // check the current district first
-    if(_current==0) {
+    if(myCurrentDistrict==0) {
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the id first
@@ -169,13 +180,13 @@ ODDistrictHandler::getValues(const Attributes &attrs, const std::string &type)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform("A " + type + " without an id occured within district '" + _current->getID() + "'.");
+        MsgHandler::getErrorInstance()->inform("A " + type + " without an id occured within district '" + myCurrentDistrict->getID() + "'.");
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the weight
     SUMOReal weight = getFloatSecure(attrs, SUMO_ATTR_WEIGHT, -1);
     if(weight==-1) {
-        MsgHandler::getErrorInstance()->inform("The weight of the " + type + " '" + id + "' within district '" + _current->getID() + "' is not numeric.");
+        MsgHandler::getErrorInstance()->inform("The weight of the " + type + " '" + id + "' within district '" + myCurrentDistrict->getID() + "' is not numeric.");
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // return the values
@@ -186,7 +197,7 @@ ODDistrictHandler::getValues(const Attributes &attrs, const std::string &type)
 void
 ODDistrictHandler::closeDistrict()
 {
-    _cont.add(_current->getID(), _current);
+    myContainer.add(myCurrentDistrict->getID(), myCurrentDistrict);
 }
 
 

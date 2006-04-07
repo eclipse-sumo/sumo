@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/04/07 05:25:15  dkrajzew
+// complete od2trips rework
+//
 // Revision 1.12  2006/04/05 05:34:08  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -71,10 +74,11 @@ namespace
 #endif // HAVE_CONFIG_H
 
 #include <string>
-#include <utils/common/UtilExceptions.h>
 #include "ODDistrict.h"
-#include <utils/helpers/NamedObjectCont.h>
 #include "ODDistrictCont.h"
+#include <utils/common/MsgHandler.h>
+#include <utils/common/UtilExceptions.h>
+#include <utils/helpers/NamedObjectCont.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -106,7 +110,8 @@ ODDistrictCont::getRandomSourceFromDistrict(const std::string &name) const
 {
     ODDistrict *district = get(name);
     if(district==0) {
-        throw InvalidArgument("There is no district '" + name + "'.");
+        MsgHandler::getErrorInstance()->inform("There is no district '" + name + "'.");
+        throw ProcessError();
     }
     return district->getRandomSource();
 }
@@ -117,7 +122,8 @@ ODDistrictCont::getRandomSinkFromDistrict(const std::string &name) const
 {
     ODDistrict *district = get(name);
     if(district==0) {
-        throw InvalidArgument("There is no district '" + name + "'.");
+        MsgHandler::getErrorInstance()->inform("There is no district '" + name + "'.");
+        throw ProcessError();
     }
     return district->getRandomSink();
 }
@@ -133,12 +139,14 @@ ODDistrictCont::colorize()
     }
 }
 
+
 SUMOReal
 ODDistrictCont::getDistrictColor(const std::string &name) const
 {
     ODDistrict *district = get(name);
     if(district==0) {
-        throw InvalidArgument("There is no district '" + name + "'.");
+        MsgHandler::getErrorInstance()->inform("There is no district '" + name + "'.");
+        throw ProcessError();
     }
     return district->getColor();
 }

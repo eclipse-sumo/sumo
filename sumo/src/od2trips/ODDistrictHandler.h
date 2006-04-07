@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/04/07 05:25:15  dkrajzew
+// complete od2trips rework
+//
 // Revision 1.7  2005/10/07 11:42:00  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -113,10 +116,10 @@ private:
 
 private:
     /// The container to add read districts to
-    ODDistrictCont &_cont;
+    ODDistrictCont &myContainer;
 
     /// The currently parsed district
-    ODDistrict *_current;
+    ODDistrict *myCurrentDistrict;
 
 };
 

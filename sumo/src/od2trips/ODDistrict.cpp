@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/04/07 05:25:13  dkrajzew
+// complete od2trips rework
+//
 // Revision 1.12  2006/04/05 05:34:08  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -101,52 +104,36 @@ ODDistrict::~ODDistrict()
 void
 ODDistrict::addSource(const std::string &id, SUMOReal weight)
 {
-    _sources.push_back(std::pair<std::string, SUMOReal>(id, weight));
+    mySources.add(weight, id);
 }
 
 
 void
 ODDistrict::addSink(const std::string &id, SUMOReal weight)
 {
-    _sinks.push_back(std::pair<std::string, SUMOReal>(id, weight));
+    mySinks.add(weight, id);
 }
 
 
 std::string
 ODDistrict::getRandomSource() const
 {
-    return getRandom(_sources);
+    if(mySources.getOverallProb()==0) {
+        MsgHandler::getErrorInstance()->inform("There is no source for district '" + getID() + "'.");
+        throw ProcessError();
+    }
+    return mySources.get();
 }
 
 
 std::string
 ODDistrict::getRandomSink() const
 {
-    return getRandom(_sinks);
-}
-
-
-std::string
-ODDistrict::getRandom(const WeightedEdgeIDCont &cont) const
-{
-    // check whether at least one elements exists
-    if(cont.size()==0) {
-        MsgHandler::getErrorInstance()->inform("Trying to use a not existing source/sink at district: " + getID());
-        throw 1;//ProcessError();
+    if(mySinks.getOverallProb()==0) {
+        MsgHandler::getErrorInstance()->inform("There is no sink for district '" + getID() + "'.");
+        throw ProcessError();
     }
-    // compute which item to retrieve
-    SUMOReal val = rand() /
-        ( static_cast<SUMOReal>(RAND_MAX) + 1);
-    // go through the list to retrieve the item
-    for(WeightedEdgeIDCont::const_iterator i=cont.begin(); i!=cont.end(); i++) {
-        val -= (*i).second;
-        if(val<=0) {
-            return (*i).first;
-        }
-    }
-    // return the last item when no other was found
-    //  !!! maybe a warning should be printed
-    return (*(cont.end()-1)).first;
+    return mySinks.get();
 }
 
 

@@ -57,9 +57,11 @@
 #include "od2trips_build.h"
 #include "sumo_version.h"
 #include <od2trips/ODmatrix.h>
-#include <od2trips/ODsubroutines.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/StringTokenizer.h>
 #include <utils/common/HelpPrinter.h>
+#include <utils/importio/LineReader.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -85,11 +87,10 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("net-file", 'n', new Option_FileName());
 	oc.addSynonyme("net-file", "net");
 
-    oc.doRegister("od-file", 'd', new Option_FileName());
-	oc.addSynonyme("od-file", "od");
+    oc.doRegister("od-files", 'd', new Option_FileName());
+	oc.addSynonyme("od-files", "od");
 
-	oc.doRegister("od-path", 'i', new Option_FileName());
-	oc.addSynonyme("od-path", "path");
+	oc.doRegister("vissim", new Option_FileName());
 
     oc.doRegister("output-file", 'o', new Option_FileName());
 	oc.addSynonyme("output-file", "output");
@@ -102,10 +103,12 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("log-file", 'l', new Option_FileName());
 
     // register the data processing options
-    oc.doRegister("begin", 'b', new Option_Long(0));
-    oc.doRegister("end", 'e', new Option_Long(86400));
+    oc.doRegister("begin", 'b', new Option_Integer(0));
+    oc.doRegister("end", 'e', new Option_Integer(86400));
     oc.doRegister("scale", 's', new Option_Float(1));
     oc.doRegister("no-color", new Option_Bool(false));
+    oc.doRegister("spread.uniform", new Option_Bool(false));
+
 
     // add rand and dev options
     DevHelper::insertDevOptions(oc);
@@ -117,25 +120,21 @@ bool
 checkOptions(OptionsCont &oc)
 {
     bool ok = true;
-    if(!oc.isSet("n")) {
-        MsgHandler::getErrorInstance()->inform(
-            "No net input file (-n) specified.");
+    if(!oc.isSet("net-file")) {
+        MsgHandler::getErrorInstance()->inform("No net input file (-n) specified.");
         ok = false;
     }
-    if(!oc.isSet("d")) {
-        MsgHandler::getErrorInstance()->inform(
-            "No OD input file (-d) specified.");
+    if(!oc.isSet("od-files")&&!oc.isSet("vissim")) {
+        MsgHandler::getErrorInstance()->inform("No input specified.");
         ok = false;
     }
     if(!oc.isSet("o")) {
-        MsgHandler::getErrorInstance()->inform(
-            "No trip table output file (-o) specified.");
+        MsgHandler::getErrorInstance()->inform("No trip table output file (-o) specified.");
         ok = false;
     }
     //
     return ok;
 }
-
 
 
 ODDistrictCont *
@@ -164,36 +163,147 @@ loadDistricts(OptionsCont &oc)
 }
 
 
-int
-cmpfun(int a, int b)
+std::vector<std::string>
+getVissimDynUMLMatrices(const std::string file)
 {
-	if (a > b)
-		return 1;
-	else if (a < b)
-		return -1;
-	else
-		return 0;
+    std::vector<std::string> ret;
+    LineReader lr(file);
+    if(!lr.good()) {
+        MsgHandler::getErrorInstance()->inform("Could not open vissim-file '" + file + "'.");
+        throw ProcessError();
+    }
+    bool haveAll = false;
+    while(!haveAll&&lr.hasMore()) {
+        string line = lr.readLine();
+        if(line.find("MATRIXDATEI")!=string::npos) {
+            string name = line.substr(line.find("MATRIXDATEI"));
+            name = name.substr(name.find('"')+1);
+            name = name.substr(0, name.find('"'));
+            ret.push_back(name);
+        } else {
+            // do not process the whole file if we have seen all matrices
+            if(ret.size()!=0&&line.find("--------------------------")!=string::npos) {
+                haveAll = true;
+            }
+        }
+    }
+    return ret;
 }
 
 
-int
-getFMatType(const std::string &file)
+string
+getNextNonCommentLine(LineReader &lr)
 {
-    if (file.find(".inp") != string::npos) {
-        return 1; // new format: vissim type
-    }
-    if (file.find(".fma") != string::npos) {
-        return 2; // old fma format
-    }
-    MsgHandler::getErrorInstance()->inform("Error: Wrong od-file in *.cfg!");
+    string line;
+    do {
+        line = lr.readLine();
+        if(line[0]!='*') {
+            return line;
+        }
+    } while(lr.good());
     throw ProcessError();
+}
+
+SUMOTime
+parseTime(const std::string &time)
+{
+    string hours = time.substr(0, time.find('.'));
+    string minutes = time.substr(time.find('.')+1);
+    return TplConvert<char>::_2int(hours.c_str()) * 3600 + TplConvert<char>::_2int(minutes.c_str());
+}
+
+void
+readVMR(LineReader &lr, ODMatrix &into, float scale)
+{
+    MsgHandler::getMessageInstance()->inform("Reading matrix '" + lr.getFileName() + "' stored as VMR");
+    // parse first defs
+    string line = getNextNonCommentLine(lr);
+    int type = TplConvert<char>::_2int(line.c_str());
+    line = getNextNonCommentLine(lr);
+    StringTokenizer st(line, StringTokenizer::WHITECHARS);
+    int begin = parseTime(st.next());
+    int end = parseTime(st.next());
+    line = getNextNonCommentLine(lr);
+    SUMOReal factor = TplConvert<char>::_2SUMOReal(line.c_str()) * scale;
+    line = getNextNonCommentLine(lr);
+    int districtNo = TplConvert<char>::_2int(line.c_str());
+    // parse district names (normally ints)
+    std::vector<std::string> names;
+    line = getNextNonCommentLine(lr);
+    do {
+        StringTokenizer st2(line, StringTokenizer::WHITECHARS);
+        while(st2.hasNext()) {
+            names.push_back(st2.next());
+        }
+        line = lr.readLine();
+    } while(line[0]!='*');
+    assert(names.size()==districtNo);
+    // parse the cells
+    for(std::vector<std::string>::iterator si=names.begin(); si!=names.end(); ++si) {
+        std::vector<std::string>::iterator di = names.begin();
+        //
+        line = getNextNonCommentLine(lr);
+        do {
+            StringTokenizer st2(line, StringTokenizer::WHITECHARS);
+            while(st2.hasNext()) {
+                assert(di!=names.end());
+                float vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
+                if(vehNumber!=0) {
+                    ODCell *cell = new ODCell();
+                    cell->begin = begin;
+                    cell->end = end;
+                    cell->origin = *si;
+                    cell->destination = *di;
+                    cell->vehicleType = toString(type);
+                    cell->vehicleNumber = vehNumber;
+                    into.add(cell);
+                }
+                di++;
+            }
+            line = lr.readLine();
+        } while(line[0]!='*'&&lr.hasMore());
+    }
+    MsgHandler::getMessageInstance()->inform("done.");
+}
+
+
+void
+loadMatrix(OptionsCont &oc, ODMatrix &into)
+{
+    std::vector<std::string> files;
+    // check whether the filenames shall be read from a vissim file
+    if(oc.isSet("vissim")) {
+        files = getVissimDynUMLMatrices(oc.getString("vissim"));
+    } else {
+        string fileS = oc.getString("od-files");
+        StringTokenizer st(fileS, ";");
+        files = st.getVector();
+    }
+
+    // ok, we now should have a list of files to parse
+    //  check
+    if(files.size()==0) {
+        MsgHandler::getErrorInstance()->inform("No files to parse are given.");
+        throw ProcessError();
+    }
+    //  parse
+    for(std::vector<std::string>::iterator i=files.begin(); i!=files.end(); ++i) {
+        LineReader lr(*i);
+        if(!lr.good()) {
+            MsgHandler::getErrorInstance()->inform("Could not open '" + (*i) + "'.");
+            throw ProcessError();
+        }
+        string type = lr.readLine();
+        if(type=="$VMR") {
+            readVMR(lr, into, oc.getFloat("scale"));
+        }
+    }
 }
 
 
 /* -------------------------------------------------------------------------
  * main
  * ----------------------------------------------------------------------- */
-
 int
 main(int argc, char **argv)
 {
@@ -224,158 +334,27 @@ main(int argc, char **argv)
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
-        string OD_filename = oc.getString("d");
-        //
-		int fmatype = getFMatType(OD_filename);
-		string OD_outfile = oc.getString("o");
-		string OD_path = oc.getString("i");
-        std::vector<ODContent> content;
-        std::vector<std::string> infiles;
-		// reads out some metadata from *.inp
-		if( fmatype == 1) {
-            WRITE_MESSAGE("**** VISSIM input data format **** ");
-			ODInpread (OD_filename, infiles, content/*,&maxfiles*/);
-		} else {
-            infiles.push_back(OD_filename);
-            WRITE_MESSAGE("**** Original input data format **** ");
-		}
-		long maxele=50000; // initial number of ODs, finally derived from OD-inputfile
-		long int total_cars=0;  // total number of cars, finally derived from OD-inputfile
-		long int i, j;
-		SUMOReal factor;
-		SUMOTime  start, finish;
-		bool ok_begin = oc.isDefault("begin");
-		bool ok_end = oc.isDefault("end");
-		// load districts
+        // load the districts
 		ODDistrictCont *districts = loadDistricts(oc);
         if(districts==0) {
             MsgHandler::getErrorInstance()->inform("No districts loaded...");
             throw ProcessError();
         }
-		int od_next=0;
-		// define dimensions
-		long int max_cars=3000000; // maximum number of cars
-		// temporary storage space
-		SUMOTime *when_all = new SUMOTime[max_cars];
-		string *source = new string [max_cars];
-		string *sink = 	new string [max_cars];
-		int *cartype = 	new int [max_cars];
-		SUMOTime *old_index= new SUMOTime[max_cars]; // holds the old index after sorting
-		int index, tmpk, k;
-		SUMOTime begin, end, period;
-		bool ini;
-		SUMOReal tmprand, maxrand;
-		SUMOReal scale, rest;
-		ini=true; // initialize random numbers with time, only first call
-		for (size_t ifile=0;ifile<infiles.size();ifile++) { // proceed for all *.fma files
-			// OD list
-			vector<OD_IN> od_in;
-			vector<OD_IN>::iterator it1;
-			if (fmatype == 1) {
-				OD_filename = OD_path + infiles[ifile];
-				WRITE_MESSAGE("Processing " + OD_filename);
-			    // Reads the OD Matrix
-			    ODPtvread ( OD_filename, od_in, &maxele, &total_cars, &start, &finish, &factor );
-			    // use settings if provided
-            } else {
-                ODPtvread ( OD_filename, od_in, &maxele, &total_cars, &start, &finish, &factor );
-//				ODread ( OD_filename, od_in, &maxele, &total_cars, &start, &finish, &factor );
-            }
-            //
-			if(ok_begin) {
-				if(oc.getLong("begin") > start) start = oc.getLong("begin");
-			}
-			if(ok_end) {
-				if(oc.getLong("end") < finish) finish = oc.getLong("end");
-			}
-			// check permitted range
-			if( (start>finish) || (start<0) || (finish>86400) ) {
-				MsgHandler::getErrorInstance()->inform(
-				    "Wrong time range (begin/end)");
-				throw ProcessError();
-			}
-			period = finish - start;
-			// scale input
-			scale = oc.getFloat("scale");
-			scale = scale / factor;
-			total_cars=0;
-			for(it1=od_in.begin(); it1!=od_in.end(); it1++) {
-				rest = (SUMOReal) (fmod ( SUMOReal((*it1).how_many), SUMOReal(scale)) / SUMOReal(scale));
-				if(rest <= 0.5)
-					(*it1).how_many = int(SUMOReal((*it1).how_many) / scale);
-				else
-					(*it1).how_many = int(SUMOReal((*it1).how_many) / scale)+1;
-			}
-			// recompute total_cars
-			total_cars = 0;
-			for(it1=od_in.begin(); it1!=od_in.end(); it1++) {
-				total_cars += (*it1).how_many;
-			}
-			if(fmatype == 2) {
-                WRITE_MESSAGE("Total number of cars computed: " + toString<long int>(total_cars));
-			}
-			int *when = new int [period];
-			int *elements = new int [period];
-			// temporary variables with initial values
-			begin=0;
-			end=0;
-			for(i=0;i<period;i++) *(when+i)=0;
-			// loop over all ODs
-			for(i=0;i<maxele;i++) {
-				//OD_IN tmp = od_in[i];
-				end = od_in[i].how_many;
-				if(end!=0) {
-					// Gets random numbers which are the release times for the cars
-					end = Get_rand( end, period, start, elements, when, ini);
-					ini = false;
-					end = begin+end;
-					for(j=begin;j<end;j++)
-					{
-						*(old_index+j+od_next)=j+od_next; // initial order for index
-						// find dsource, dsink
-						//string pp=od_in[i].from;
-						//string p2=od_in[i].to;
-						*(source+j+od_next) = od_in[i].from;//
-						*(sink+j+od_next) = od_in[i].to;//
-						*(when_all+j+od_next) = *(when+j-begin);
-						// determine car type for VISSIM format
-						if (fmatype == 1) {
-							maxrand=0.;
-							for (k=0;k<content[ifile].max;k++) {
-								tmprand= rand() * content[ifile].fraction[k];
-									if (maxrand<tmprand) {
-										maxrand=tmprand;
-										tmpk=k;
-									}
-							}
-							*(cartype+j+od_next) = content[ifile].cartype[tmpk];
-						} else *(cartype+j+od_next) = 0; // cartype=0 for old format
-					}
-					begin=end;
-				}
-			}
-			total_cars = begin;
-			od_next = od_next + total_cars;
-			delete [] when; delete [] elements;
-		}
-		total_cars = od_next;
-        WRITE_MESSAGE("Total number of released cars: " + toString<int>(total_cars));
-		// sorts the time
-        WRITE_MESSAGE("Sorting ...");
-		IndexSort(when_all, old_index, cmpfun, total_cars);
-		std::vector<OD_OUT> source_sink(max_cars); // output OD data
-		for(i=0;i<total_cars;i++)
-		{
-			index = old_index[i];
-			source_sink[i].from = *(source+index);
-			source_sink[i].to = *(sink+index);
-			source_sink[i].time = *(when_all+i);
-			source_sink[i].type = *(cartype+index);
-		}
-		// writes output to file
-		ODWrite( OD_outfile, source_sink, total_cars, *districts );
-		delete [] source; delete [] sink;
-		delete [] when_all; delete [] cartype;
+        // load the matrix
+        ODMatrix matrix;
+        loadMatrix(oc, matrix);
+        MsgHandler::getMessageInstance()->inform(toString(matrix.getNoLoaded()) + " vehicles loaded.");
+        // process
+        ofstream ostrm(oc.getString("output").c_str());
+        if(!ostrm.good()) {
+            MsgHandler::getErrorInstance()->inform("Could not open output file '" + oc.getString("output") + "'.");
+            throw ProcessError();
+        }
+        ostrm << "<tripdefs>" << endl;
+        matrix.write(oc.getInt("begin"), oc.getInt("end"), ostrm, *districts,
+            oc.getBool("spread.uniform"));
+        ostrm << "</tripdefs>" << endl;
+        MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");
 #ifndef _DEBUG
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
