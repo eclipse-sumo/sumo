@@ -22,6 +22,9 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2006/04/07 10:42:44  dkrajzew
+// speeded up trip definition loading
+//
 // Revision 1.11  2005/10/07 11:47:41  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -134,6 +137,9 @@ public:
     /** @brief method to assign an id to a name;
         the name will be transcoded into unicode */
     void add(int id, const std::string &name);
+
+    bool hasAttribute(const Attributes &attrs, int id);
+    bool hasAttribute(const Attributes &attrs, const std::string &id);
 
     /** returns the named (by id) attribute as a bool */
     bool getBool(const Attributes &attrs, int id) const;

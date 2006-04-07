@@ -24,6 +24,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/04/07 10:42:44  dkrajzew
+// speeded up trip definition loading
+//
 // Revision 1.7  2005/10/07 11:47:41  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -131,6 +134,25 @@ AttributesHandler::add(int id, const std::string &name)
 {
    check(id);
    myPredefinedTags.insert(AttrMap::value_type(id, convert(name)));
+}
+
+
+bool
+AttributesHandler::hasAttribute(const Attributes &attrs, int id)
+{
+    AttrMap::const_iterator i=myPredefinedTags.find(id);
+    if(i==myPredefinedTags.end()) {
+        return false;
+    }
+    return attrs.getIndex((*i).second)>=0;
+}
+
+
+bool
+AttributesHandler::hasAttribute(const Attributes &attrs,
+                                const std::string &id)
+{
+    return attrs.getIndex(getAttributeNameSecure(id))>=0;
 }
 
 

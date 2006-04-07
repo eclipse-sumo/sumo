@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/04/07 10:42:44  dkrajzew
+// speeded up trip definition loading
+//
 // Revision 1.10  2006/01/24 13:43:53  dkrajzew
 // added vehicle classes to the routing modules
 //
@@ -272,18 +275,16 @@ RORDLoader_TripDefs::getEdge(const Attributes &attrs,
         }
     } catch(EmptyData) {
         if(!emptyAllowed) {
-            MsgHandler::getErrorInstance()->inform(string("Missing ") +
-                purpose + string(" edge in description of a route."));
+            MsgHandler::getErrorInstance()->inform("Missing " + purpose + " edge in description of a route.");
         }
     }
     if(e==0) {
         if(!emptyAllowed) {
-            MsgHandler::getErrorInstance()->inform(string("The edge '") +
-                id + string("' is not known."));
+            MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known.");
         }
     }
     if(vid.length()!=0&&!emptyAllowed) {
-        MsgHandler::getErrorInstance()->inform(string(" Vehicle id='") + vid + string("'."));
+        MsgHandler::getErrorInstance()->inform(" Vehicle id='" + vid + "'.");
     }
     return 0;
 }
@@ -306,15 +307,16 @@ RORDLoader_TripDefs::getOptionalFloat(const Attributes &attrs,
                                       AttrEnum which,
                                       const std::string &place)
 {
+    if(!hasAttribute(attrs, which)) {
+        return -1;
+    }
     try {
         return getFloat(attrs, SUMO_ATTR_POS);
     } catch (EmptyData) {
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(string("The value of '") + name +
-            string("' should be numeric but is not."));
+        MsgHandler::getErrorInstance()->inform("The value of '" + name + "' should be numeric but is not.");
         if(place.length()!=0)
-            MsgHandler::getErrorInstance()->inform(string(" Route id='") +
-            place + string("')"));
+            MsgHandler::getErrorInstance()->inform(" Route id='" + place + "')");
     }
     return -1;
 }
@@ -330,11 +332,11 @@ RORDLoader_TripDefs::getTime(const Attributes &attrs, AttrEnum which,
     } catch(EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing time in description of a route.");
         if(id.length()!=0)
-            MsgHandler::getErrorInstance()->inform(string(" Vehicle id='") + id + string("'."));
+            MsgHandler::getErrorInstance()->inform(" Vehicle id='" + id + "'.");
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("The value of the departure time should be numeric but is not.");
         if(id.length()!=0)
-            MsgHandler::getErrorInstance()->inform(string(" Route id='") + id + string("'"));
+            MsgHandler::getErrorInstance()->inform(" Route id='" + id + "'");
     }
     return -1;
 }
@@ -344,6 +346,9 @@ int
 RORDLoader_TripDefs::getPeriod(const Attributes &attrs,
                                const std::string &id)
 {
+    if(!hasAttribute(attrs, SUMO_ATTR_PERIOD)) {
+        return -1;
+    }
     // get the repetition period
     try {
         return getInt(attrs, SUMO_ATTR_PERIOD);
@@ -352,7 +357,7 @@ RORDLoader_TripDefs::getPeriod(const Attributes &attrs,
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("The value of the period should be numeric but is not.");
         if(id.length()!=0)
-            MsgHandler::getErrorInstance()->inform(string(" Route id='") + id + string("'"));
+            MsgHandler::getErrorInstance()->inform(" Route id='" + id + "'");
     }
     return -1;
 }
@@ -362,6 +367,9 @@ int
 RORDLoader_TripDefs::getRepetitionNumber(const Attributes &attrs,
                                          const std::string &id)
 {
+    if(!hasAttribute(attrs, SUMO_ATTR_REPNUMBER)) {
+        return -1;
+    }
     // get the repetition period
     try {
         return getInt(attrs, SUMO_ATTR_REPNUMBER);
@@ -370,7 +378,7 @@ RORDLoader_TripDefs::getRepetitionNumber(const Attributes &attrs,
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("The number of cars that shall be emitted with the same parameter must be numeric.");
         if(id.length()!=0)
-            MsgHandler::getErrorInstance()->inform(string(" Route id='") + id + string("'"));
+            MsgHandler::getErrorInstance()->inform(" Route id='" + id + "'");
     }
     return -1;
 }
@@ -398,9 +406,7 @@ RORDLoader_TripDefs::myCharacters(int element, const std::string &name,
             string id = st.next();
             ROEdge *edge = _net.getEdge(id);
             if(edge==0) {
-                MsgHandler::getErrorInstance()->inform(
-                    string("Could not find edge '") + id
-                    + string("' wihtin route '") + myID + string("'."));
+                MsgHandler::getErrorInstance()->inform("Could not find edge '" + id + "' within route '" + myID + "'.");
                 return;
             }
             myEdges.add(edge);
@@ -465,8 +471,7 @@ RORDLoader_TripDefs::getRGBColorReporting(const Attributes &attrs,
         return GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR));
     } catch (EmptyData) {
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(string("Color in vehicle '")
-            + id + string("' is not numeric."));
+        MsgHandler::getErrorInstance()->inform("Color in vehicle '" + id + "' is not numeric.");
     }
     return RGBColor(-1, -1, -1);
 }
