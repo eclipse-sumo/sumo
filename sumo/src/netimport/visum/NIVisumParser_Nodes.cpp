@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/04/07 05:28:50  dkrajzew
+// finished lane-2-lane connections setting
+//
 // Revision 1.13  2006/03/28 09:12:43  dkrajzew
 // lane connections for unsplitted lanes implemented, further refactoring
 //
@@ -125,7 +128,7 @@ NIVisumParser_Nodes::myDependentReport()
         projUV p;
         if(myProjection!=0) {
 
-            myNodeCont.addGeoreference(Position2D((SUMOReal) x / 100000.0, (SUMOReal) y / 100000.0));
+            myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
 
             p.u = x / 100000.0 * DEG_TO_RAD;
             p.v = y / 100000.0 * DEG_TO_RAD;

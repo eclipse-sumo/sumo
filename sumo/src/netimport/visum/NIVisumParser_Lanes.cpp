@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/04/07 05:28:50  dkrajzew
+// finished lane-2-lane connections setting
+//
 // Revision 1.3  2006/04/05 05:33:04  dkrajzew
 // further work on lane connection import
 //
@@ -99,6 +102,8 @@ NIVisumParser_Lanes::myDependentReport()
         if(node==0||edge==0) {
             return;
         }
+        NBEdge *edge2 = myEdgeCont.retrieve(edge->getID() + "_s_" + node->getID());
+        if(edge2==0) edge2 = edge;
         // get the lane
         string laneS =
             NBHelpers::normalIDRepresentation(myLineParser.get("FSNR"));
@@ -118,7 +123,7 @@ NIVisumParser_Lanes::myDependentReport()
         string dirS =
             NBHelpers::normalIDRepresentation(myLineParser.get("RICHTTYP"));
         int prevLaneNo = edge->getNoLanes();
-        if( (dirS=="1"&&!node->hasIncoming(edge)) || (dirS=="0"&&!node->hasOutgoing(edge)) ) {
+        if( (dirS=="1"&&!(node->hasIncoming(edge)||node->hasIncoming(edge2))) || (dirS=="0"&&!(node->hasOutgoing(edge)||node->hasOutgoing(edge2))) ) {
             string sid;
             if(edge->getID()[0]=='-') {
                 sid = edge->getID().substr(1);
@@ -162,10 +167,18 @@ NIVisumParser_Lanes::myDependentReport()
                 return;
             }
             // ok, we have to split the edge...
-            Position2D p =
-                node->hasOutgoing(edge)
-                ? edge->getGeometry().positionAtLengthPosition(edge->getLength()-length)
-                : edge->getGeometry().positionAtLengthPosition(length);
+            Position2D p;
+            if(dirS!="1") {
+                p =
+                    node->hasOutgoing(edge)
+                    ? edge->getGeometry().positionAtLengthPosition(edge->getLength()-length)
+                    : edge->getGeometry().positionAtLengthPosition(length);
+            } else {
+                p =
+                    node->hasIncoming(edge)
+                    ? edge->getGeometry().positionAtLengthPosition(edge->getLength()-length)
+                    : edge->getGeometry().positionAtLengthPosition(length);
+            }
             NBNode *rn = new NBNode(edge->getID() + "_s_" + node->getID(), p);
             if(!myNodeCont.insert(rn)) {
                 MsgHandler::getErrorInstance()->inform("Ups - could not insert node!");

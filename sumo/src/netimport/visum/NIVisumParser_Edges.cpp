@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/04/07 05:28:50  dkrajzew
+// finished lane-2-lane connections setting
+//
 // Revision 1.13  2006/03/28 06:15:48  dkrajzew
 // refactoring and extending the Visum-import
 //
@@ -134,7 +137,7 @@ NIVisumParser_Edges::myDependentReport()
             ? myLineParser.get("Typ")
             : myLineParser.get("TypNr");
         // get the street length
-        SUMOReal length = getLength(from, to);
+        SUMOReal length = -1;//getLength(from, to); !!! we have to recompute the length!
         // get the speed
         SUMOReal speed = getSpeed(type);
         // get the information whether the edge is a one-way

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/04/07 05:28:50  dkrajzew
+// finished lane-2-lane connections setting
+//
 // Revision 1.3  2006/04/05 05:33:04  dkrajzew
 // further work on lane connection import
 //
@@ -231,11 +234,11 @@ NIVisumParser_LanesConnections::myDependentReport()
 
 
         //
-        if(fromEdge2->getNoLanes()<=fromLane) {
+        if((int) fromEdge2->getNoLanes()<=fromLane) {
             addError("A from-lane number for edge '" + fromEdge2->getID() + "' is larger than the edge's lane number (" + fromLaneS + ").");
             return;
         }
-        if(toEdge2->getNoLanes()<=toLane) {
+        if((int) toEdge2->getNoLanes()<=toLane) {
             addError("A to-lane number for edge '" + toEdge2->getID() + "' is larger than the edge's lane number (" + toLaneS + ").");
             return;
         }
