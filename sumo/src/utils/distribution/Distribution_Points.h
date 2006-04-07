@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/04/07 05:30:53  dkrajzew
+// distribution spread computation added (undocumented)
+//
 // Revision 1.7  2005/10/07 11:43:51  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -75,10 +78,19 @@ public:
     /// Returns the maximum value of this distribution
     SUMOReal getMax() const;
 
+    size_t getAreaNo() const;
+    SUMOReal getAreaBegin(size_t index) const;
+    SUMOReal getAreaEnd(size_t index) const;
+    SUMOReal getAreaPerc(size_t index) const;
+
+
 protected:
     /// The list of points that describe the distribution
     Position2DVector myPoints;
 
+    mutable bool myProbabilitiesAreComputed;
+
+    mutable std::vector<SUMOReal> myProbabilities;
 };
 
 
