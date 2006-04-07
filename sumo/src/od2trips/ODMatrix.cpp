@@ -23,9 +23,11 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/04/07 13:37:16  dkrajzew
+// debugging building under linux
+//
 // Revision 1.1  2006/04/07 05:25:15  dkrajzew
 // complete od2trips rework
-//
 //
 /* =========================================================================
  * compiler pragmas
@@ -36,7 +38,7 @@ namespace
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include "ODMatrix.h"
+#include "ODmatrix.h"
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/StdDefs.h>

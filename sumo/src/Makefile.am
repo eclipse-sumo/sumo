@@ -130,6 +130,7 @@ sumo_dfrouter_LDADD   = ./routing_df/libdfrouting.a \
 ./router/librouter.a \
 ./utils/router/librouter.a \
 ./utils/options/liboptions.a \
+./utils/geom/libgeom.a \
 ./utils/common/libcommon.a \
 ./utils/gfx/libgfx.a \
 ./utils/sumoxml/libsumoxml.a \
@@ -167,8 +168,11 @@ sumo_od2trips_LDFLAGS = -L$(XERCES_LDFLAGS)
 sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 ./utils/sumoxml/libsumoxml.a \
 ./utils/options/liboptions.a \
+./utils/distribution/libdistribution.a \
+./utils/geom/libgeom.a \
 ./utils/common/libcommon.a \
 ./utils/importio/libimportio.a \
+./utils/gfx/libgfx.a \
 ./utils/xml/libxml.a \
 $(MEM_LIBS) \
 -l$(LIB_XERCES)
