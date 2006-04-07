@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.77  2006/04/07 05:28:07  dkrajzew
+// debugging
+//
 // Revision 1.76  2006/04/05 05:27:34  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -1637,8 +1640,8 @@ MSVehicle::remove(const std::string &id)
 {
     DictType::iterator i = myDict.find(id);
     MSVehicle *veh = (*i).second;
-    delete (*i).second;
     myDict.erase(id);
+    delete veh;
 }
 
 
@@ -2593,7 +2596,7 @@ MSVehicle::dict_saveState(std::ostream &os, long what)
 void
 MSVehicle::saveState(std::ostream &os, long what)
 {
-    FileHelpers::writeString(os, id());
+    FileHelpers::writeString(os, myID);
     FileHelpers::writeInt(os, myLastLaneChangeOffset);
     FileHelpers::writeUInt(os, myWaitingTime);
     FileHelpers::writeInt(os, myRepetitionNumber);
