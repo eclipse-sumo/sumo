@@ -1,24 +1,24 @@
 # Microsoft Developer Studio Project File - Name="od2trips" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** NICHT BEARBEITEN **
+# ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 CFG=od2trips - Win32 Debug
-!MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
-!MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
+!MESSAGE This is not a valid makefile. To build this project using NMAKE,
+!MESSAGE use the Export Makefile command and run
 !MESSAGE 
 !MESSAGE NMAKE /f "od2trips.mak".
 !MESSAGE 
-!MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
-!MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
+!MESSAGE You can specify a configuration when running NMAKE
+!MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
 !MESSAGE NMAKE /f "od2trips.mak" CFG="od2trips - Win32 Debug"
 !MESSAGE 
-!MESSAGE Für die Konfiguration stehen zur Auswahl:
+!MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "od2trips - Win32 Release" (basierend auf  "Win32 (x86) Console Application")
-!MESSAGE "od2trips - Win32 Debug" (basierend auf  "Win32 (x86) Console Application")
+!MESSAGE "od2trips - Win32 Release" (based on "Win32 (x86) Console Application")
+!MESSAGE "od2trips - Win32 Debug" (based on "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
@@ -113,27 +113,7 @@ SOURCE=..\..\..\src\od2trips\ODDistrictHandler.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\od2trips\ODGetRand.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\od2trips\ODIndexSort.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\od2trips\ODInpread.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\od2trips\ODPtvread.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\od2trips\ODread.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\od2trips\ODwrite.cpp
+SOURCE=..\..\..\src\od2trips\ODMatrix.cpp
 # End Source File
 # Begin Source File
 
@@ -169,6 +149,10 @@ SOURCE=..\..\..\src\od2trips_help.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\od2trips\ODCell.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\od2trips\ODDistrict.h
 # End Source File
 # Begin Source File
@@ -185,15 +169,7 @@ SOURCE=..\..\..\src\od2trips\ODmatrix.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\src\od2trips\ODsubroutines.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\..\src\utils\convert\TplConvert.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\src\utils\convert\TplConvertSec.h
 # End Source File
 # End Group
 # Begin Group "Ressourcendateien"

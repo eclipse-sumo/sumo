@@ -479,6 +479,15 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name z_libutils_dev
     End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_distribution
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_geom
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name z_libutils_gfx
+    End Project Dependency
 }}}
 
 ###############################################################################
