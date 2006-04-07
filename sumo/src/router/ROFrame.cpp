@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/04/07 10:41:47  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.10  2006/01/26 08:37:23  dkrajzew
 // removed warnings 4786
 //
@@ -168,8 +171,7 @@ ROFrame::checkOptions(OptionsCont &oc)
     }
     //
     if(oc.getInt("max-alternatives")<2) {
-        MsgHandler::getErrorInstance()->inform(
-            string("At least two alternatives should be enabled"));
+        MsgHandler::getErrorInstance()->inform("At least two alternatives should be enabled");
         return false;
     }
     //

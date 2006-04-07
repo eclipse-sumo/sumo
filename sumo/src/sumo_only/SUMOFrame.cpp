@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.42  2006/04/07 10:41:48  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.41  2006/03/17 09:15:11  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -317,11 +320,8 @@ SUMOFrame::buildStream(const OptionsCont &oc,
     ofstream *ret = new ofstream(oc.getString(optionName).c_str(),
         ios::out|ios::trunc);
     if(!ret->good()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The output file '") + oc.getString(optionName)
-            + string("' could not be built."));
-        MsgHandler::getErrorInstance()->inform(
-            string(" (Used for '") + optionName + string("')."));
+        MsgHandler::getErrorInstance()->inform("The output file '" + oc.getString(optionName) + "' could not be built.");
+        MsgHandler::getErrorInstance()->inform(" (Used for '" + optionName + "').");
         MsgHandler::getErrorInstance()->inform("Simulation failed.");
         throw ProcessError();
     }

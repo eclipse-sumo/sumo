@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/04/07 10:41:47  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.1  2005/10/10 12:09:36  dkrajzew
 // renamed ROJP*-classes to ROJTR*
 //
@@ -89,8 +92,7 @@ ROJTRHelpers::parseROJTREdges(RONet &net, std::set<ROJTREdge*> &into,
 		string name = st.next();
 		ROJTREdge *edge = static_cast<ROJTREdge*>(net.getEdge(name));
 		if(edge==0) {
-			MsgHandler::getErrorInstance()->inform(
-				string("The edge '") + name + string(" declared as a sink was not found in the network."));
+			MsgHandler::getErrorInstance()->inform("The edge '" + name + " declared as a sink was not found in the network.");
 			throw ProcessError();
 		}
 		into.insert(edge);

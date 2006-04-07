@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/04/07 10:41:47  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.2  2006/01/31 11:01:40  dkrajzew
 // patching incoherences; added possibility to end on non-sink-edges
 //
@@ -130,9 +133,7 @@ ROJTREdge::addFollowerProbability(ROJTREdge *follower, SUMOTime begTime,
 {
     FollowerUsageCont::iterator i = myFollowingDefs.find(follower);
     if(i==myFollowingDefs.end()) {
-        MsgHandler::getErrorInstance()->inform(
-            string("The edges '") + getID() + string("' and '")
-            + follower->getID() + string("' are not connected."));
+        MsgHandler::getErrorInstance()->inform("The edges '" + getID() + "' and '" + follower->getID() + "' are not connected.");
         return;
     }
 	(*i).second->add(begTime, endTime, probability);

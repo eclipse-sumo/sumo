@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/04/07 10:41:50  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.14  2006/01/16 13:38:23  dkrajzew
 // help and error handling patched
 //
@@ -427,7 +430,7 @@ OptionsCont::reportDoubleSetting(const string &arg) const
             s << ", ";
         }
     }
-    MsgHandler::getErrorInstance()->inform(string(s.str()));
+    MsgHandler::getErrorInstance()->inform(s.str());
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/04/07 10:41:47  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.19  2005/11/29 13:31:16  dkrajzew
 // debugging
 //
@@ -188,7 +191,7 @@ NBTrafficLightDefinition::compute(const NBEdgeCont &ec, OptionsCont &oc)
 {
     // it is not really a traffic light if no incoming edge exists
     if(_incoming.size()==0) {
-        WRITE_WARNING(string("The traffic light '") + getID() +string("' has no incoming edges; it will not be build."));
+        WRITE_WARNING("The traffic light '" + getID() + "' has no incoming edges; it will not be build.");
         return 0;
     }
     // compute the time needed to brake

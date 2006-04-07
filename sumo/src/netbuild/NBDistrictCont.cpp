@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/07 10:41:47  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.11  2005/10/17 09:02:44  dkrajzew
 // got rid of the old MSVC memory leak checker; memory leaks removed
 //
@@ -154,7 +157,7 @@ NBDistrictCont::clear()
 void
 NBDistrictCont::report()
 {
-    WRITE_MESSAGE(string("   ") + toString<int>(size()) + string(" districts loaded."));
+    WRITE_MESSAGE("   " + toString<int>(size()) + " districts loaded.");
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/04/07 10:43:08  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.13  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -177,17 +180,12 @@ ROWeightsHandler::parseEdge(const Attributes &attrs)
         myAggValue = getFloat(attrs, SUMO_ATTR_VALUE);
         myNoLanes = 1;
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(string("Missing value '")
-            + _scheme + string("' in edge '") + id + string("'."));
+        MsgHandler::getErrorInstance()->inform("Missing value '" + _scheme + "' in edge '" + id + "'.");
         MsgHandler::getErrorInstance()->inform("Contact your weight data supplier.");
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(string("The value should be numeric, but is not ('") +
-            getString(attrs, SUMO_ATTR_VALUE) +
-            string("'"));
+        MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + getString(attrs, SUMO_ATTR_VALUE) + "'");
         if(id.length()!=0)
-            MsgHandler::getErrorInstance()->inform(string(" In edge '") + id
-                + string("' at time step ") + toString<long>(_currentTimeBeg)
-                + string("."));
+            MsgHandler::getErrorInstance()->inform(" In edge '" + id + "' at time step " + toString<long>(_currentTimeBeg) + ".");
     }
 }
 
@@ -211,17 +209,12 @@ ROWeightsHandler::parseLane(const Attributes &attrs)
     try {
         value = getFloat(attrs, SUMO_ATTR_VALUE);
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(string("Missing value '")
-            + _scheme + string("' in lane '") + id + string("'."));
+        MsgHandler::getErrorInstance()->inform("Missing value '" + _scheme + "' in lane '" + id + "'.");
         MsgHandler::getErrorInstance()->inform("Contact your weight data supplier.");
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(string("The value should be numeric, but is not ('") +
-            getString(attrs, SUMO_ATTR_VALUE) +
-            string("'"));
+        MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + getString(attrs, SUMO_ATTR_VALUE) + "'");
         if(id.length()!=0)
-            MsgHandler::getErrorInstance()->inform(string(" In lane '") + id
-                + string("' at time step ") + toString<long>(_currentTimeBeg)
-                + string("."));
+            MsgHandler::getErrorInstance()->inform(" In lane '" + id + "' at time step " + toString<long>(_currentTimeBeg) + ".");
     }
     // set the values when retrieved (no errors)
     if(id.length()!=0&&value>=0&&_currentEdge!=0) {

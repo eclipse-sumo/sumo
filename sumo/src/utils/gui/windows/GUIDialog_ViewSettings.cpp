@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/04/07 10:41:49  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.4  2006/03/09 10:59:25  dkrajzew
 // debugging
 //
@@ -719,7 +722,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
             SUMOReal width = d.right - d.left;
             myDecalsTable->setItemText(i->row, 5, toString(width).c_str());
         } catch (NumberFormatException) {
-            string msg = string("The value must be a float, is:") + value;
+            string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
@@ -729,7 +732,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
             SUMOReal height = d.bottom - d.top;
             myDecalsTable->setItemText(i->row, 6, toString(height).c_str());
         } catch (NumberFormatException) {
-            string msg = string("The value must be a float, is:") + value;
+            string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
@@ -739,7 +742,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
             SUMOReal width = d.right - d.left;
             myDecalsTable->setItemText(i->row, 5, toString(width).c_str());
         } catch (NumberFormatException) {
-            string msg = string("The value must be a float, is:") + value;
+            string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
@@ -749,7 +752,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
             SUMOReal height = d.bottom - d.top;
             myDecalsTable->setItemText(i->row, 6, toString(height).c_str());
         } catch (NumberFormatException) {
-            string msg = string("The value must be a float, is:") + value;
+            string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
@@ -759,7 +762,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
             d.right = width + d.left;
             myDecalsTable->setItemText(i->row, 3, toString(d.right).c_str());
         } catch (NumberFormatException) {
-            string msg = string("The value must be a float, is:") + value;
+            string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
@@ -769,7 +772,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
             d.bottom = height + d.top;
             myDecalsTable->setItemText(i->row, 4, toString(d.bottom).c_str());
         } catch (NumberFormatException) {
-            string msg = string("The value must be a float, is:") + value;
+            string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;
@@ -777,7 +780,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
         try {
             d.rot = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException) {
-            string msg = string("The value must be a float, is:") + value;
+            string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
         break;

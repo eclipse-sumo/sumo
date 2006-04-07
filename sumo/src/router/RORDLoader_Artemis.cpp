@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/04/07 10:41:47  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.8  2005/10/17 09:21:57  dkrajzew
 // c4503 warning removed
 //
@@ -134,8 +137,8 @@ RORDLoader_Artemis::RORDLoader_Artemis(ROVehicleBuilder &vb, RONet &net,
                                        SUMOTime begin, SUMOTime end,
                                        string file)
     : ROAbstractRouteDefLoader(vb, net, begin, end),
-    myRouteIDSupplier(string("ARTEMIS_"), 0),
-    myVehIDSupplier(string("ARTEMIS_"), 0),
+    myRouteIDSupplier("ARTEMIS_", 0),
+    myVehIDSupplier("ARTEMIS_", 0),
     myPath(file), myCurrentTime(0)
 {
 }
@@ -179,18 +182,16 @@ RORDLoader_Artemis::myReadRoutesAtLeastUntil(SUMOTime time)
                 // use the current node if the probability indicates it
                 if(prob<0) {
                     // retrieve the edges
-                    string fromname = orig + string("SOURCE");
-                    string toname = (*j).first + string("SINK");
+                    string fromname = orig + "SOURCE";
+                    string toname = (*j).first + "SINK";
                     ROEdge *from = _net.getEdge(fromname);
                     ROEdge *to = _net.getEdge(toname);
                     if(from==0) {
-                        MsgHandler::getErrorInstance()->inform(
-                            string("The origin edge '") + fromname + string("'is not known"));
+                        MsgHandler::getErrorInstance()->inform("The origin edge '" + fromname + "'is not known");
                         return false;
                     }
                     if(to==0) {
-                        MsgHandler::getErrorInstance()->inform(
-                            string("The destination edge '") + toname + string("'is not known"));
+                        MsgHandler::getErrorInstance()->inform("The destination edge '" + toname + "'is not known");
                         return false;
                     }
                     if(time>=myBegin&&time<myEnd) {

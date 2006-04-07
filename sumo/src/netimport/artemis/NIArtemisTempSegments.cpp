@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/04/07 10:41:47  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.8  2005/10/07 11:39:05  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -134,9 +137,7 @@ NIArtemisTempSegments::close(NBEdgeCont &ec)
         string name = (*i).first;
         NBEdge *edge = ec.retrieve(name);
         if(edge==0) {
-            MsgHandler::getErrorInstance()->inform(
-                string("Trying to parse the geometry for the unknown edge '")
-                + name + string("'."));
+            MsgHandler::getErrorInstance()->inform("Trying to parse the geometry for the unknown edge '" + name + "'.");
         } else {
             edge->setGeometry(geom);
         }

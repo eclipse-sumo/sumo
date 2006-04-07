@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/04/07 10:41:50  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.6  2005/10/07 11:46:44  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -130,8 +133,7 @@ SharedOutputDevices::getOutputDevice(const std::string &name)
     std::ofstream *strm = new std::ofstream(name.c_str());
     if(!strm->good()) {
         delete strm;
-        throw FileBuildError(
-            string("Could not build output file '") + name + string("'.") );
+        throw FileBuildError("Could not build output file '" + name + "'.");
     }
     OutputDevice *dev = new OutputDevice_File(strm);
     myOutputDevices[name] = dev;

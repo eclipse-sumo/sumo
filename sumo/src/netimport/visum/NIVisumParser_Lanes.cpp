@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/04/07 10:41:47  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.4  2006/04/07 05:28:50  dkrajzew
 // finished lane-2-lane connections setting
 //
@@ -154,7 +157,7 @@ NIVisumParser_Lanes::myDependentReport()
 
         //
         if(length==0) {
-            if(edge->getNoLanes()>lane) {
+            if((int) edge->getNoLanes()>lane) {
                 // ok, we know this already...
                 return;
             }

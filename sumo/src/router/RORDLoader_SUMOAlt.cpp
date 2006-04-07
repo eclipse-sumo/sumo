@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/07 10:41:47  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.11  2006/01/26 08:37:24  dkrajzew
 // removed warnings 4786
 //
@@ -186,25 +189,16 @@ RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
         myCost = getFloat(attrs, SUMO_ATTR_COST);
     } catch (NumberFormatException) {
         getErrorHandlerMarkInvalid()->inform(
-            string("Invalid cost in alternative for route '")
-            + myCurrentAlternatives->getID() + string("' (")
-            + getString(attrs, SUMO_ATTR_COST)//toString<SUMOReal>(myCost)
-            + string(")."));
+            "Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + getString(attrs, SUMO_ATTR_COST) + ").");
         mySkipCurrent = true;
         return;
     } catch (EmptyData) {
-        getErrorHandlerMarkInvalid()->inform(
-            string("Missing cost in alternative for route '")
-            + myCurrentAlternatives->getID() + string("'."));
+        getErrorHandlerMarkInvalid()->inform("Missing cost in alternative for route '" + myCurrentAlternatives->getID() + "'.");
         mySkipCurrent = true;
         return;
     }
     if(myCost<0) {
-        getErrorHandlerMarkInvalid()->inform(
-            string("Invalid cost in alternative for route '")
-            + myCurrentAlternatives->getID() + string("' (")
-            + toString<SUMOReal>(myCost)
-            + string(")."));
+        getErrorHandlerMarkInvalid()->inform("Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myCost) + ").");
         mySkipCurrent = true;
         return;
     }
@@ -212,26 +206,16 @@ RORDLoader_SUMOAlt::startRoute(const Attributes &attrs)
     try {
         myProbability = getFloatSecure(attrs, SUMO_ATTR_PROB, -10000);
     } catch (NumberFormatException) {
-        getErrorHandlerMarkInvalid()->inform(
-            string("Invalid probability in alternative for route '")
-            + myCurrentAlternatives->getID() + string("' (")
-            + toString<SUMOReal>(myProbability)
-            + string(")."));
+        getErrorHandlerMarkInvalid()->inform("Invalid probability in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myProbability) + ").");
         mySkipCurrent = true;
         return;
     } catch (EmptyData) {
-        getErrorHandlerMarkInvalid()->inform(
-            string("Missing probability in alternative for route '")
-            + myCurrentAlternatives->getID() + string("'."));
+        getErrorHandlerMarkInvalid()->inform("Missing probability in alternative for route '" + myCurrentAlternatives->getID() + "'.");
         mySkipCurrent = true;
         return;
     }
     if(myProbability<0) {
-        getErrorHandlerMarkInvalid()->inform(
-            string("Invalid probability in alternative for route '")
-            + myCurrentAlternatives->getID() + string("' (")
-            + toString<SUMOReal>(myProbability)
-            + string(")."));
+        getErrorHandlerMarkInvalid()->inform("Invalid probability in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myProbability) + ").");
         mySkipCurrent = true;
         return;
     }
@@ -261,10 +245,7 @@ RORDLoader_SUMOAlt::myCharacters(int element, const std::string &name,
         if(edge!=0) {
             list->add(edge);
         } else {
-            getErrorHandlerMarkInvalid()->inform(
-                string("The route '") + myCurrentAlternatives->getID() +
-                string("' contains the unknown edge '") + id +
-                string("'."));
+            getErrorHandlerMarkInvalid()->inform("The route '" + myCurrentAlternatives->getID() + "' contains the unknown edge '" + id + "'.");
             ok = false;
         }
     }
@@ -318,7 +299,7 @@ RORDLoader_SUMOAlt::startAlternative(const Attributes &attrs)
     // try to get the index of the last element
     int index = getIntSecure(attrs, SUMO_ATTR_LAST, -1);
     if(index<0) {
-        getErrorHandlerMarkInvalid()->inform(string("Missing or non-numeric index of a route alternative (id='") + id + string("'."));
+        getErrorHandlerMarkInvalid()->inform("Missing or non-numeric index of a route alternative (id='" + id + "'.");
         return;
     }
     myCurrentColor = parseColor(*this, attrs, "route", myCurrentRouteName);

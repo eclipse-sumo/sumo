@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/04/07 10:41:50  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.2  2006/01/26 08:54:59  dkrajzew
 // missing files added
 //
@@ -84,9 +87,9 @@ SUMOBaseRouteHandler::getFloatReporting(SUMOSAXHandler &helper,
     try {
         return helper.getFloat(attrs, attr);
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(string("Missing ") + name + string(" in vehicle '") + id + string("'."));
+        MsgHandler::getErrorInstance()->inform("Missing " + name + " in vehicle '" + id + "'.");
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(name + string(" in vehicle '") + id + string("' is not numeric."));
+        MsgHandler::getErrorInstance()->inform(name + " in vehicle '" + id + "' is not numeric.");
     }
     return -1;
 }

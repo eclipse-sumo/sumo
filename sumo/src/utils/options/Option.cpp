@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/04/07 10:41:50  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.10  2005/10/17 09:25:12  dkrajzew
 // got rid of the old MSVC memory leak checker
 //
@@ -337,7 +340,7 @@ Option_Integer::getValue() const
 {
     ostringstream s;
     s << _value;
-    return string(s.str());
+    return s.str();
 }
 
 
@@ -406,7 +409,7 @@ Option_Long::getValue() const
 {
     ostringstream s;
     s << _value;
-    return string(s.str());
+    return s.str();
 }
 
 
@@ -536,7 +539,7 @@ Option_Float::getValue() const
 {
     ostringstream s;
     s << _value;
-    return string(s.str());
+    return s.str();
 }
 
 
@@ -599,9 +602,9 @@ string
 Option_Bool::getValue() const
 {
     if(_value) {
-        return string("true");
+        return "true";
     }
-    return string("false");
+    return "false";
 }
 
 
@@ -727,7 +730,7 @@ Option_IntVector::getValue() const
         }
         s << (*i);
     }
-    return string(s.str());
+    return s.str();
 }
 
 

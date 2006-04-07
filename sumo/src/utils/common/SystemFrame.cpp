@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/04/07 10:41:48  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.13  2006/01/16 13:38:23  dkrajzew
 // help and error handling patched
 //
@@ -173,10 +176,7 @@ SystemFrame::init(bool gui, int argc, char **argv,
         if(!myLogFile->good()) {
             delete myLogFile;
             myLogFile = 0;
-            MsgHandler::getErrorInstance()->inform(
-                string("Could not build logging file '")
-                + OptionsSubSys::getOptions().getString("log-file")
-                + string("'"));
+            MsgHandler::getErrorInstance()->inform("Could not build logging file '" + OptionsSubSys::getOptions().getString("log-file") + "'");
             return 1;
         } else {
             MsgHandler::getErrorInstance()->addRetriever(myLogFile);

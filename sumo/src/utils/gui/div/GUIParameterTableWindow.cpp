@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/04/07 10:41:48  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.6  2005/10/17 09:23:47  dkrajzew
 // memory leaks removed
 //
@@ -134,7 +137,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow &app,
                                                  GUIGlObject &o,
                                                  size_t noRows )
     : FXMainWindow(
-        app.getApp() ,string(o.getFullName() + " Parameter").c_str(),
+        app.getApp(), (o.getFullName() + " Parameter").c_str(),
         NULL,NULL,DECOR_ALL,20,20,300,noRows*20+60),
     myObject(&o),
     myApplication(&app), myCurrentPos(0)

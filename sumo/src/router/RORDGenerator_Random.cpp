@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/04/07 10:41:47  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.10  2006/01/26 08:37:24  dkrajzew
 // removed warnings 4786
 //
@@ -143,9 +146,7 @@ RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
         SUMOReal b = TplConvert<char>::_2SUMOReal(st.next().c_str());
         myColor = RGBColor(r, g, b);
     } catch (...) {
-        MsgHandler::getErrorInstance()->inform(
-            string("Something is wrong with the color definition for random routes\n")
-            + string(" Option: 'random-route-color'"));
+        MsgHandler::getErrorInstance()->inform("Something is wrong with the color definition for random routes\n Option: 'random-route-color'");
     }
 }
 

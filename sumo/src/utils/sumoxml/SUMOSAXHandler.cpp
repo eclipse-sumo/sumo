@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/04/07 10:41:50  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.9  2005/10/07 11:47:29  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -106,15 +109,8 @@ SUMOSAXHandler::~SUMOSAXHandler()
 void
 SUMOSAXHandler::warning(const SAXParseException& exception)
 {
-    MsgHandler::getErrorInstance()->inform(
-        string("Warning: ")
-        + TplConvert<XMLCh>::_2str(exception.getMessage()));
-    MsgHandler::getErrorInstance()->inform(
-        string(" (At line/column ")
-        + toString<int>(exception.getLineNumber()+1)
-        + string("/")
-        + toString<int>(exception.getColumnNumber())
-        + string(")."));
+    MsgHandler::getErrorInstance()->inform("Warning: " + TplConvert<XMLCh>::_2str(exception.getMessage()));
+    MsgHandler::getErrorInstance()->inform(" (At line/column " + toString<int>(exception.getLineNumber()+1) + "/" + toString<int>(exception.getColumnNumber()) + ").");
     throw XMLBuildingException();
 }
 
@@ -122,14 +118,8 @@ SUMOSAXHandler::warning(const SAXParseException& exception)
 void
 SUMOSAXHandler::error(const SAXParseException& exception)
 {
-    MsgHandler::getErrorInstance()->inform(
-        TplConvert<XMLCh>::_2str(exception.getMessage()));
-    MsgHandler::getErrorInstance()->inform(
-        string(" (At line/column ")
-        + toString<int>(exception.getLineNumber()+1)
-        + string("/")
-        + toString<int>(exception.getColumnNumber())
-        + string(")."));
+    MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(exception.getMessage()));
+    MsgHandler::getErrorInstance()->inform(" (At line/column " + toString<int>(exception.getLineNumber()+1) + "/" + toString<int>(exception.getColumnNumber()) + ").");
     throw XMLBuildingException();
 }
 
@@ -137,14 +127,8 @@ SUMOSAXHandler::error(const SAXParseException& exception)
 void
 SUMOSAXHandler::fatalError(const SAXParseException& exception)
 {
-    MsgHandler::getErrorInstance()->inform(
-        TplConvert<XMLCh>::_2str(exception.getMessage()));
-    MsgHandler::getErrorInstance()->inform(
-        string(" (At line/column ")
-        + toString<int>(exception.getLineNumber()+1)
-        + string("/")
-        + toString<int>(exception.getColumnNumber())
-        + string(")."));
+    MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(exception.getMessage()));
+    MsgHandler::getErrorInstance()->inform(" (At line/column " + toString<int>(exception.getLineNumber()+1) + "/" + toString<int>(exception.getColumnNumber()) + ").");
     throw XMLBuildingException();
 }
 

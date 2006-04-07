@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/04/07 10:43:08  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.9  2005/10/07 11:42:15  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -126,41 +129,25 @@ ROSupplementaryWeightsHandler::myStartElement( int
                                                , const std::string& name
                                                , const Attributes& attrs )
 {
-    if ( name == string( "supplementary-weights" ) ) {
+    if(name=="supplementary-weights") {
         startParseSupplementaryWeights( attrs );
-    }
-    else if ( name == string( "interval" ) ) {
+    } else if (name=="interval") {
         startParseInterval( attrs );
-    }
-    else if ( name == string( "weight" ) ) {
+    } else if (name=="weight") {
         startParseWeight( attrs );
     }
-/*    else {
-        WRITE_WARNING("ROSupplementaryWeightsHandler::myStartElement wrong ");
-        WRITE_WARNING(
-
-             << "attribute " << name << endl;
-        assert( false );
-    }*/
 }
 
 void
 ROSupplementaryWeightsHandler::myEndElement( int, const std::string& name )
 {
-    if ( name == string( "supplementary-weights" ) ) {
+    if(name=="supplementary-weights") {
         stopParseSupplementaryWeights();
-    }
-    else if ( name == string( "interval" ) ) {
+    } else if(name=="interval") {
         stopParseInterval();
-    }
-    else if ( name == string( "weight" ) ) {
+    } else if(name=="weight") {
         stopParseWeight();
     }
-/*    else {
-        err << "ROSupplementaryWeightsHandler::myEndElement wrong "
-             << "attribute \"" << name << "\"." << endl;
-        assert( false );
-    }*/
 }
 
 void
@@ -209,27 +196,19 @@ ROSupplementaryWeightsHandler::startParseWeight( const Attributes& attrs )
         const string attrValue(
             TplConvert<XMLCh>::_2str( attrs.getValue( index ) ) );
 
-        if ( attrName == string( "edge-id" ) ){
+        if (attrName=="edge-id"){
             edgeIdM      = attrValue;
             isEdgeIdSetM = true;
-        }
-        else if ( attrName == string( "absolut" ) ){
+        } else if (attrName=="absolut"){
             absolutValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str());
             isAbsolutValueSetM = true;
-        }
-        else if ( attrName == string( "mult" ) ){
+        } else if (attrName=="mult"){
             multValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str() );
             isMultValueSetM = true;
-        }
-        else if ( attrName == string( "add" ) ){
+        } else if (attrName=="add"){
             addValueM      = TplConvert<char>::_2SUMOReal( attrValue.c_str() );
             isAddValueSetM = true;
         }
-/*        else {
-            err << "ROSupplementaryWeightsHandler::startParseWeight wrong "
-                 << "attribute name \"" << attrName << "\"." << endl;
-            assert( false );
-        }*/
     }
 
     assert( isEdgeIdSetM );
@@ -331,6 +310,8 @@ ROSupplementaryWeightsHandler::stopParseWeight( void )
     isMultValueSetM    = false;
     isAddValueSetM     = false;
 }
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 // Local Variables:
