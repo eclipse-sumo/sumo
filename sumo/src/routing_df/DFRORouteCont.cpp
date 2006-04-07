@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/04/07 05:29:39  dkrajzew
+// removed some warnings
+//
 // Revision 1.7  2006/03/27 07:32:15  dkrajzew
 // some further work...
 //
@@ -197,6 +200,32 @@ const std::map<ROEdge*, std::vector<ROEdge*> > &
 DFRORouteCont::getDets2Follow() const
 {
     return myDets2Follow;
+}
+
+
+void
+DFRORouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals)
+{
+    for(std::vector<DFRORouteDesc*>::iterator i=myRoutes.begin(); i!=myRoutes.end(); ) {
+        DFRORouteDesc *desc = *i;
+        bool remove = false;
+        for(std::vector<std::vector<ROEdge*> >::const_iterator j=illegals.begin(); !remove&&j!=illegals.end(); ++j) {
+            int noFound = 0;
+            for(std::vector<ROEdge*>::const_iterator k=(*j).begin(); !remove&&k!=(*j).end(); ++k) {
+                if(find(desc->edges2Pass.begin(), desc->edges2Pass.end(), *k)!=desc->edges2Pass.end()) {
+                    noFound++;
+                    if(noFound>1) {
+                        remove = true;
+                    }
+                }
+            }
+        }
+        if(remove) {
+            i = myRoutes.erase(i);
+        } else {
+            ++i;
+        }
+    }
 }
 
 

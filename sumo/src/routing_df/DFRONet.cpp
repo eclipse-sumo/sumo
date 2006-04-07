@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/04/07 05:29:39  dkrajzew
+// removed some warnings
+//
 // Revision 1.16  2006/04/05 05:35:27  dkrajzew
 // further work on the dfrouter
 //
@@ -407,9 +410,9 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
                 if(!hadOne||allEndFollower) {
     				t->routename = buildRouteID(*t);
                     if(allEndFollower) {
-                        t->factor = 1. / (SUMOReal) appr.size();
+                        t->factor = (SUMOReal) 1. / (SUMOReal) appr.size();
                     } else {
-                        t->factor = 1.;
+                        t->factor = (SUMOReal) 1.;
                     }
 	    			into.addRouteDesc(t);
                     hadOne = true;
@@ -555,6 +558,7 @@ void
 DFRONet::buildRoutes(DFDetectorCon &detcont, bool allEndFollower,
                      bool keepUnfoundEnds) const
 {
+    std::vector<std::vector<ROEdge*> > illegals;
     // build needed information first
     buildDetectorEdgeDependencies(detcont);
     // then build the routes
@@ -596,11 +600,13 @@ DFRONet::buildRoutes(DFDetectorCon &detcont, bool allEndFollower,
         visited.push_back(e);
         computeRoutesFor(e, rd, 0, allEndFollower, keepUnfoundEnds,
             visited, **i, *routes, detcont, seen);
+        routes->removeIllegal(illegals);
 		(*i)->addRoutes(routes);
 		//cout << (*i)->getID() << " : " << routes->get().size() << endl;
 
     }
 }
+
 
 void
 DFRONet::revalidateFlows(const DFDetector *detector,
@@ -754,8 +760,8 @@ DFRONet::revalidateFlows(const DFDetector *detector,
         FlowDef mFlow;
         mFlow.qLKW = inFlow.qLKW - outFlow.qLKW;
         mFlow.qPKW = inFlow.qPKW - outFlow.qPKW;
-        mFlow.vLKW = (inFlow.vLKW + outFlow.vLKW) / 2.;
-        mFlow.vPKW = (inFlow.vPKW + outFlow.vPKW) / 2.;
+        mFlow.vLKW = (inFlow.vLKW + outFlow.vLKW) / (SUMOReal) 2.;
+        mFlow.vPKW = (inFlow.vPKW + outFlow.vPKW) / (SUMOReal) 2.;
         if(detector->getID()=="227_226_225") {
             cout << t << ";" << inFlow.qLKW << ";" << outFlow.qLKW << ";" << inFlow.qPKW << ";" << outFlow.qPKW << ";" << mFlow.qLKW << ";" << mFlow.qPKW << endl;
         }
@@ -1034,12 +1040,14 @@ DFRONet::isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*>
     }
     const std::vector<ROEdge*> &appr  = myApproachedEdges.find(edge)->second;
     bool isall = true;
+    size_t no = 0;
     seen.push_back(edge);
     for(size_t i=0; i<appr.size()&&isall; i++) {
         //printf("checking %s->\n", appr[i].c_str());
         bool had = std::find(seen.begin(), seen.end(), appr[i])!=seen.end();
         if(!had) {
             if(!isDestination(det, appr[i], seen, detectors)) {
+                no++;
                 isall = false;
             }
         }

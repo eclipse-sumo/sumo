@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/04/07 05:28:24  dkrajzew
+// removed some warnings
+//
 // Revision 1.8  2006/03/27 07:30:20  dkrajzew
 // added projection information to the network
 //
@@ -154,7 +157,7 @@ NIElmar2NodesHandler::report(const std::string &result)
             throw ProcessError();
         }
 
-        myNodeCont.addGeoreference(Position2D((SUMOReal) x / 100000.0, (SUMOReal) y / 100000.0));
+        myNodeCont.addGeoreference(Position2D((SUMOReal) (x / 100000.0), (SUMOReal) (y / 100000.0)));
 
         projUV p;
         p.u = x / 100000.0 * DEG_TO_RAD;

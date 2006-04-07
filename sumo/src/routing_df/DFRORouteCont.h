@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2006/04/07 05:29:39  dkrajzew
+// removed some warnings
+//
 // Revision 1.6  2006/03/27 07:32:15  dkrajzew
 // some further work...
 //
@@ -72,6 +75,7 @@ public:
     void sortByDistance();
     void setDets2Follow(const std::map<ROEdge*, std::vector<ROEdge*> > &d2f);
     const std::map<ROEdge*, std::vector<ROEdge*> > &getDets2Follow() const;
+    void removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals);
 
 
 protected:
