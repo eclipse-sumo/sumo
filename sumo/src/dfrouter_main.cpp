@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/04/07 10:44:56  dkrajzew
+// multiple detector and flows definitions can be read
+//
 // Revision 1.15  2006/04/05 05:36:54  dkrajzew
 // further work on the dfrouter
 //
@@ -171,25 +174,37 @@ loadNet(OptionsCont &oc)
 DFDetectorCon *
 readDetectors(OptionsCont &oc)
 {
-    if(!oc.isSet("detectors-file")||!FileHelpers::exists(oc.getString("detectors-file"))) {
-        MsgHandler::getErrorInstance()->inform("The detector file is not given or can not be opened.");
+    if(!oc.isSet("detector-files")) {
+        MsgHandler::getErrorInstance()->inform("No detector file given (use --detector-files <FILE>).");
         throw ProcessError();
     }
-    MsgHandler::getMessageInstance()->inform("Loading detector definitions... ");
     DFDetectorCon *cont = new DFDetectorCon();
-    DFDetectorHandler handler(oc, *cont);
-    SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
-    try {
-        parser->parse(oc.getString("detectors-file").c_str());
-        MsgHandler::getMessageInstance()->inform("done.");
-    } catch (SAXException &e) {
-        delete cont;
-        cont = 0;
-        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
-    } catch (XMLException &e) {
-        delete cont;
-        cont = 0;
-        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
+    string files = oc.getString("detector-files");
+    StringTokenizer st(files, ";");
+    while(st.hasNext()) {
+        string file = st.next();
+        if(!FileHelpers::exists(file)) {
+            MsgHandler::getErrorInstance()->inform("Could not open '" + file + "'");
+            delete cont;
+            throw ProcessError();
+        }
+        MsgHandler::getMessageInstance()->inform("Loading detector definitions from '" + file + "'... ");
+        DFDetectorHandler handler(oc, *cont);
+        SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
+        try {
+            parser->parse(file.c_str());
+            MsgHandler::getMessageInstance()->inform("done.");
+        } catch (SAXException &e) {
+            delete cont;
+            cont = 0;
+            MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
+            throw ProcessError();
+        } catch (XMLException &e) {
+            delete cont;
+            cont = 0;
+            MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
+            throw ProcessError();
+        }
     }
     return cont;
 }
@@ -198,23 +213,27 @@ readDetectors(OptionsCont &oc)
 DFDetectorFlows *
 readDetectorFlows( OptionsCont &oc, DFDetectorCon * dc)
 {
-	if(!oc.isSet("detector-flows-file")) {
+    DFDetectorFlows *ret = new DFDetectorFlows(oc.getInt("begin"), oc.getInt("end"), 60); // !!!
+	if(!oc.isSet("detector-flow-files")) {
 		// ok, not given, return an empty container
-		return new DFDetectorFlows(oc.getInt("begin"), oc.getInt("end"), 60); // !!!
+		return ret;
 	}
 	// check whether the file exists
-	if(!FileHelpers::exists(oc.getString("detector-flows-file"))) {
-        MsgHandler::getErrorInstance()->inform("The detector-flows-file '" + oc.getString("detector-flows-file") + "' can not be opened.");
-		throw ProcessError();
-	}
-	// parse
-    MsgHandler::getMessageInstance()->inform("Loading flows... ");
-	DFDetFlowLoader dfl(dc, oc.getInt("begin"), oc.getInt("end"), 60); // !!!
-	DFDetectorFlows *df = dfl.read(
-        oc.getString("detector-flows-file"), oc.getBool("fast-flows"));
-//    df->buildFastAccess(oc.getInt("begin"), oc.getInt("end"), 60); // !!!
-    MsgHandler::getMessageInstance()->inform("done.");
-	return df;
+    string files = oc.getString("detector-flow-files");
+    StringTokenizer st(files, ";");
+    while(st.hasNext()) {
+        string file = st.next();
+	    if(!FileHelpers::exists(file)) {
+            MsgHandler::getErrorInstance()->inform("The detector-flow-file '" + file + "' can not be opened.");
+		    throw ProcessError();
+	    }
+	    // parse
+        MsgHandler::getMessageInstance()->inform("Loading flows from '" + file + "'... ");
+	    DFDetFlowLoader dfl(dc, *ret, oc.getInt("begin"), oc.getInt("end"), 60); // !!!
+	    dfl.read(file, oc.getBool("fast-flows"));
+        MsgHandler::getMessageInstance()->inform("done.");
+    }
+	return ret;
 }
 
 
@@ -240,6 +259,7 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
     }
 	*/
 	DFDetectorFlows *flows = readDetectorFlows(oc, detectors);
+
 
     // if a network was loaded... (mode1)
     if(optNet!=0) {

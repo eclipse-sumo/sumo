@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/04/07 10:44:18  dkrajzew
+// multiple detector and flows definitions can be read
+//
 // Revision 1.5  2006/04/05 05:35:27  dkrajzew
 // further work on the dfrouter
 //
@@ -86,10 +89,11 @@ using namespace std;
  * method definitions
  * ======================================================================= */
 DFDetFlowLoader::DFDetFlowLoader(DFDetectorCon *DetCon,
+                                 DFDetectorFlows &into,
                                  SUMOTime startTime, SUMOTime endTime,
                                  SUMOTime stepOffset)
+    : myStorage(into)
 {
-	mydetFlows = new DFDetectorFlows(startTime, endTime, stepOffset);
 	detcon = DetCon;
 }
 
@@ -100,7 +104,7 @@ DFDetFlowLoader::~DFDetFlowLoader()
 }
 
 
-DFDetectorFlows *
+void
 DFDetFlowLoader::read(const std::string &file, bool fast)
 {
     if(fast) {
@@ -110,7 +114,6 @@ DFDetFlowLoader::read(const std::string &file, bool fast)
         myReader.setFileName(file);
         myReader.readAll(*this);
     }
-	return mydetFlows;
 }
 
 
@@ -139,7 +142,7 @@ DFDetFlowLoader::parseFast(const std::string &file)
         if(fd.qPKW<0) {
             fd.qPKW = 0;
         }
-        mydetFlows->addFlow( detName, time, fd );
+        myStorage.addFlow( detName, time, fd );
     }
     return true;
 }
@@ -173,7 +176,7 @@ DFDetFlowLoader::report(const std::string &result)
             assert(fd.qPKW>=fd.qLKW);
             fd.qPKW -= fd.qLKW;
         }
-		mydetFlows->addFlow( detName, time, fd );
+		myStorage.addFlow( detName, time, fd );
 	}
 
     return true;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/04/07 10:44:18  dkrajzew
+// multiple detector and flows definitions can be read
+//
 // Revision 1.12  2006/04/05 05:35:27  dkrajzew
 // further work on the dfrouter
 //
@@ -111,11 +114,11 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("routes-input", 'r', new Option_FileName());
 
 
-    oc.doRegister("detectors-file", 'd', new Option_FileName());
-    oc.addSynonyme("detectors-file", "detectors");
+    oc.doRegister("detector-files", 'd', new Option_FileName());
+    oc.addSynonyme("detector-files", "detectors");
 
-    oc.doRegister("detector-flows-file", 'f', new Option_FileName());
-    oc.addSynonyme("detector-flows-file", "detflows");
+    oc.doRegister("detector-flow-files", 'f', new Option_FileName());
+    oc.addSynonyme("detector-flow-files", "detflows");
     oc.doRegister("fast-flows", new Option_Bool(false));
 
 

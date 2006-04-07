@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.6  2006/04/07 10:44:18  dkrajzew
+// multiple detector and flows definitions can be read
+//
 // Revision 1.5  2006/04/05 05:35:27  dkrajzew
 // further work on the dfrouter
 //
@@ -81,14 +84,14 @@ class DFDetFlowLoader :
 public:
     /// Constructor
 	///!!!DFDetFlowLoader();
-	DFDetFlowLoader(DFDetectorCon *detcon,
+	DFDetFlowLoader(DFDetectorCon *detcon, DFDetectorFlows &into,
         SUMOTime startTime, SUMOTime endTime,
         SUMOTime stepOffset);
 
     /// Destructor
     ~DFDetFlowLoader();
 
-	DFDetectorFlows *read(const std::string &file, bool fast);
+	void read(const std::string &file, bool fast);
 
     /* ----- from the LineHandler - "interface" ----- */
     /** @brief Receives input from a line reader (watch full description!)
@@ -115,7 +118,8 @@ private:
 
     /// The path information is found under
     //std::string fname;
-	DFDetectorFlows * mydetFlows;
+//	DFDetectorFlows * mydetFlows;
+    DFDetectorFlows &myStorage;
 	DFDetectorCon *detcon;
 };
 

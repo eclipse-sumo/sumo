@@ -23,12 +23,14 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/04/07 10:44:18  dkrajzew
+// multiple detector and flows definitions can be read
+//
 // Revision 1.5  2006/04/05 05:35:26  dkrajzew
 // further work on the dfrouter
 //
 // Revision 1.4  2006/03/17 09:04:25  dkrajzew
 // class-documentation added/patched
-//
 //
 /* =========================================================================
  * compiler pragmas
