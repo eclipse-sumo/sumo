@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.20  2006/04/07 05:31:41  dkrajzew
+// documentation patched
+//
 // Revision 1.19  2006/03/15 09:26:09  dkrajzew
 // documentation patched
 //
@@ -196,6 +199,7 @@ char *help[] = {
     "                                  shall be tls-controlled."
     "  --explicite-no-tls JID[;JID]*  Specifies which junctions named by their ids",
     "                                  shall not be tls-controlled."
+    "  --tls-poi-output FILENAME      Writes positions of tls-junctions.",
     " ",
     " Highway On-/Off-Ramps Building:",
     "  --guess-ramps                  Turn on on-/off-ramp guessing",

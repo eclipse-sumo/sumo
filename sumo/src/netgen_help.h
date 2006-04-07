@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/04/07 05:31:41  dkrajzew
+// documentation patched
+//
 // Revision 1.13  2006/01/16 13:38:22  dkrajzew
 // help and error handling patched
 //
@@ -161,6 +164,7 @@ char *help[] =
     "                                  shall be tls-controlled."
     "  --explicite-no-tls JID[;JID]*  Specifies which junctions named by their ids",
     "                                  shall not be tls-controlled."
+    "  --tls-poi-output FILENAME      Writes positions of tls-junctions.",
     " ",
     " Random Number Options:",
     "  --srand INT                     Initialises the random number generator",
