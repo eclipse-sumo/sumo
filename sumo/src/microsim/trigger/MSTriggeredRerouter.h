@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/04/11 11:02:32  dkrajzew
+// patched the distribution usage; added possibility o load predefined routes
+//
 // Revision 1.5  2006/01/31 10:57:12  dkrajzew
 // debugging
 //
@@ -59,6 +62,7 @@
 #include <microsim/MSMoveReminder.h>
 #include "MSTrigger.h"
 #include <utils/sumoxml/SUMOSAXHandler.h>
+#include <utils/helpers/RandomDistributor.h>
 
 
 /* =========================================================================
@@ -73,6 +77,11 @@ class MSLane;
  * ======================================================================= */
 /**
  * @class MSTriggeredRerouter
+ * A rerouter can be positioned on a list of edges and gives vehicles which
+ *  arrive one of these edges a new route.
+ * The new route may be either chosen from a set of routes where each is
+ *  chosen with a certain probability, or newly computed, either by keeping
+ *  the old destination or by choosing a new one from a set of existing ones.
  */
 class MSTriggeredRerouter : public MSTrigger, public SUMOSAXHandler {
 public:
@@ -84,46 +93,80 @@ public:
     /** destructor */
     virtual ~MSTriggeredRerouter();
 
+    /**
+     * @class Setter
+     * Responsible for setting a new route to a vehicle which arrives a single lane
+     */
     class Setter : public MSMoveReminder {
     public:
+        /// Constructor
         Setter(MSTriggeredRerouter *parent, MSLane *lane,
             const std::string &id);
 
+        /// Destructor
         ~Setter();
 
+        /// Returns whether the vehicle has to be aware of this setter in the next step
         bool isStillActive( MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
             SUMOReal newSpeed );
 
+        /// Removes from the list of move reminders to be aware of
         void dismissByLaneChange( MSVehicle& veh );
 
+        /// Returns whether the vehicle shall be aware of this move reminder
         bool isActivatedByEmitOrLaneChange( MSVehicle& veh );
 
     private:
+        /// The rerouter used for rerouting the vehicle
         MSTriggeredRerouter *myParent;
+
     };
 
+    /**
+     * @struct RerouteInterval
+     * Describes the rerouting definitions valid for an interval
+     */
     struct RerouteInterval {
+        /// The begin time these definitions are valid
         SUMOTime begin;
+        /// The end time these definitions are valid
         SUMOTime end;
+        /// The list of closed edges
         std::vector<MSEdge*> closed;
-        std::vector<MSEdge*> dests;
-        std::vector<std::pair<SUMOReal, MSEdge*> > prob;
+        /// The distributions of new destinations to use
+        RandomDistributor<MSEdge*> edgeProbs;
+        /// The distributions of new routes to use
+        RandomDistributor<MSRoute*> routeProbs;
     };
 
+    /// Reroutes a vehicle
     void reroute(MSVehicle &veh, const MSEdge *src);
 
+    /// Returns whether a rerouting definition is valid for the given time and vehicle
     bool hasCurrentReroute(SUMOTime time, MSVehicle &veh) const;
 
+    /// Returns the rerouting definition valid for the given time and vehicle
     const RerouteInterval &getCurrentReroute(SUMOTime time, MSVehicle &veh) const;
 
+    /// Returns whether a rerouting definition is valid for the given time
     bool hasCurrentReroute(SUMOTime time) const;
 
+    /// Returns the rerouting definition valid for the given time and vehicle
     const RerouteInterval &getCurrentReroute(SUMOTime time) const;
 
+    /// Sets whether the process is currently steered by the user
     void setUserMode(bool val);
+
+    /// Sets the probability with which a vehicle is rerouted given by the user
     void setUserUsageProbability(SUMOReal prob);
+
+    /// Returns whether the user is setting the rerouting probability
     bool inUserMode() const;
+
+    /// Returns the rerouting probability
     SUMOReal getProbability() const;
+
+    /// Returns the rerouting probability given by the user
     SUMOReal getUserProbability() const;
 
 protected:
@@ -141,17 +184,29 @@ protected:
         element ends */
     void myEndElement(int element, const std::string &name);
 
-    bool nextRead();
-
 protected:
+    /// List of lane-based vehicle informing children
     std::vector<Setter*> mySetter;
+
+    /// List of rerouting definition intervals
     std::vector<RerouteInterval> myIntervals;
-    SUMOTime myCurrentIntervalBegin, myCurrentIntervalEnd;
-    std::vector<MSEdge*> myCurrentClosed;
-    std::vector<MSEdge*> myCurrentDests;
-    std::vector<std::pair<SUMOReal, MSEdge*> > myCurrentProb;
+
+    /// The probability and the user-given probability
     SUMOReal myProbability, myUserProbability;
+
+    /// Information whether the current rerouting probability is the user-given
     bool myAmInUserMode;
+
+    //{ members used during loading
+    /// The first and the last time steps of the interval
+    SUMOTime myCurrentIntervalBegin, myCurrentIntervalEnd;
+    /// List of closed edges
+    std::vector<MSEdge*> myCurrentClosed;
+    /// new destinations with probabilities
+    RandomDistributor<MSEdge*> myCurrentEdgeProb;
+    /// new routes with probabilities
+    RandomDistributor<MSRoute*> myCurrentRouteProb;
+    //}
 
 };
 

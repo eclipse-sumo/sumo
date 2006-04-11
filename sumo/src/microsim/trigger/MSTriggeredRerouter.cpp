@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/04/11 11:02:32  dkrajzew
+// patched the distribution usage; added possibility o load predefined routes
+//
 // Revision 1.9  2006/04/05 05:27:37  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -96,6 +99,9 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
+/* -------------------------------------------------------------------------
+ * MSTriggeredRerouter::Setter - methods
+ * ----------------------------------------------------------------------- */
 MSTriggeredRerouter::Setter::Setter(MSTriggeredRerouter *parent,
                                     MSLane *lane,
                                     const std::string &id)
@@ -132,7 +138,9 @@ MSTriggeredRerouter::Setter::isActivatedByEmitOrLaneChange( MSVehicle& veh )
 }
 
 
-
+/* -------------------------------------------------------------------------
+ * MSTriggeredRerouter - methods
+ * ----------------------------------------------------------------------- */
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
                                          MSNet &net,
                                          const std::vector<MSEdge*> &edges,
@@ -176,7 +184,7 @@ MSTriggeredRerouter::~MSTriggeredRerouter()
     }
 }
 
-
+// ------------ loading begin
 void
 MSTriggeredRerouter::myStartElement(int element, const std::string &name,
                                    const Attributes &attrs)
@@ -185,8 +193,8 @@ MSTriggeredRerouter::myStartElement(int element, const std::string &name,
         myCurrentIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, -1);
         myCurrentIntervalEnd = getIntSecure(attrs, SUMO_ATTR_END, -1);
     }
-    // maybe by percentage
-    if(name=="prob_reroute") {
+    // maybe by giving probabilities of new destinations
+    if(name=="dest_prob_reroute") {
         string dest = getStringSecure(attrs, SUMO_ATTR_DEST, "");
         MSEdge *to = MSEdge::dictionary(dest);
         if(to==0) {
@@ -207,7 +215,7 @@ MSTriggeredRerouter::myStartElement(int element, const std::string &name,
             MsgHandler::getErrorInstance()->inform("Negative probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + _file + "'.");
             return;
         }
-        myCurrentProb.push_back(std::pair<SUMOReal, MSEdge*>(prob, to));
+        myCurrentEdgeProb.add(prob, to);
     }
     // maybe by closing
     if(name=="closing_reroute") {
@@ -220,22 +228,31 @@ MSTriggeredRerouter::myStartElement(int element, const std::string &name,
         myCurrentClosed.push_back(to);
         string destid = getStringSecure(attrs, SUMO_ATTR_TO, "");
         MSEdge *dest = MSEdge::dictionary(destid);
-        if(dest!=0) {
-            myCurrentDests.push_back(dest);
-        }
     }
-    /*
-    // maybe by explicite
-    if(name=="explicite_reroute") {
-        string dest = getStringSecure(attrs, SUMO_ATTR_DESTINATION, "");
-        MSEdge *to = MSEdge::dictionary(dest);
-        if(to==0) {
-            MsgHandler::getErrorInstance()->inform(string("Could not find edge '") + dest + string("' to reroute in '") + _file "'.");
+    // maybe by giving probabilities of new routes
+    if(name=="route_prob_reroute") {
+        string routeID = getStringSecure(attrs, "route", "");
+        MSRoute *route = MSRoute::dictionary(routeID);
+        if(route==0) {
+            MsgHandler::getErrorInstance()->inform("Could not find route '" + routeID + "' to reroute in '" + _file + "'.");
             return;
         }
-        myCurrentExplicite.push_back(to);
+        SUMOReal prob = -1;
+        try {
+            prob = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
+        } catch(EmptyData &) {
+            MsgHandler::getErrorInstance()->inform("Missing probability in '" + _file + "'.");
+            return;
+        } catch(NumberFormatException &) {
+            MsgHandler::getErrorInstance()->inform("No numeric probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + _file + "'.");
+            return;
+        }
+        if(prob<0) {
+            MsgHandler::getErrorInstance()->inform("Negative probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + _file + "'.");
+            return;
+        }
+        myCurrentRouteProb.add(prob, route);
     }
-    */
 }
 
 
@@ -254,21 +271,21 @@ MSTriggeredRerouter::myEndElement(int , const std::string &name)
         ri.begin = myCurrentIntervalBegin;
         ri.end = myCurrentIntervalEnd;
         ri.closed = myCurrentClosed;
-        ri.dests = myCurrentDests;
-        ri.prob = myCurrentProb;
+        ri.edgeProbs = myCurrentEdgeProb;
+        ri.routeProbs = myCurrentRouteProb;
         myCurrentClosed.clear();
-        myCurrentProb.clear();
-        myCurrentDests.clear();
+        myCurrentEdgeProb.clear();
+        myCurrentRouteProb.clear();
         myIntervals.push_back(ri);
     }
 }
+// ------------ loading end
 
 
 bool
 MSTriggeredRerouter::hasCurrentReroute(SUMOTime time, MSVehicle &veh) const
 {
-    std::vector<RerouteInterval>::const_iterator i =
-        myIntervals.begin();
+    std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     const MSRoute &route = veh.getRoute();
     while(i!=myIntervals.end()) {
         if((*i).begin<=time && (*i).end>=time) {
@@ -285,8 +302,7 @@ MSTriggeredRerouter::hasCurrentReroute(SUMOTime time, MSVehicle &veh) const
 bool
 MSTriggeredRerouter::hasCurrentReroute(SUMOTime time) const
 {
-    std::vector<RerouteInterval>::const_iterator i =
-        myIntervals.begin();
+    std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     while(i!=myIntervals.end()) {
         if((*i).begin<=time && (*i).end>=time) {
             return true;
@@ -300,8 +316,7 @@ MSTriggeredRerouter::hasCurrentReroute(SUMOTime time) const
 const MSTriggeredRerouter::RerouteInterval &
 MSTriggeredRerouter::getCurrentReroute(SUMOTime time, MSVehicle &veh) const
 {
-    std::vector<RerouteInterval>::const_iterator i =
-        myIntervals.begin();
+    std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     const MSRoute &route = veh.getRoute();
     while(i!=myIntervals.end()) {
         if((*i).begin<=time && (*i).end>=time) {
@@ -318,8 +333,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, MSVehicle &veh) const
 const MSTriggeredRerouter::RerouteInterval &
 MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const
 {
-    std::vector<RerouteInterval>::const_iterator i =
-        myIntervals.begin();
+    std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     while(i!=myIntervals.end()) {
         if((*i).begin<=time && (*i).end>=time) {
             return *i;
@@ -334,48 +348,59 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const
 void
 MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
 {
+    // check whether the vehicle shall be rerouted
     SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
-    if(hasCurrentReroute(time, veh)) {
-        SUMOReal prob =
-            myAmInUserMode ? myUserProbability : myProbability;
-        if((SUMOReal) rand()/(SUMOReal) (RAND_MAX-1) > prob) {
-            return;
-        }
-        const MSTriggeredRerouter::RerouteInterval &rerouteDef =
-            getCurrentReroute(time, veh);
-        const MSRoute &route = veh.getRoute();
-        const MSEdge *lastEdge = route.getLastEdge();
-        if(rerouteDef.dests.size()!=0) {
-            lastEdge = rerouteDef.dests[0]; // !!!!
-        }
-        if(route.inFurtherUse()) {
-            string nid = _id + "_re_"
-                + src->getID()
-                + "_" + route.getID();
-            if(MSRoute::dictionary(nid)!=0) {
-                MSRoute *rep = MSRoute::dictionary(nid);
-                veh.replaceRoute(rep,
-                    MSNet::getInstance()->getCurrentTimeStep());
-            } else {
-                SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > router(MSEdge::dictSize(), true);
-                router.prohibit(rerouteDef.closed);
-                std::vector<const MSEdge*> edges;
-				router.compute(src, lastEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
-                MSRoute *rep = new MSRoute(nid, edges, true);
-                if(!MSRoute::dictionary(nid, rep)) {
-                    cout << "Error: Could not insert route ''" << endl;
-                    return;
-                }
-                veh.replaceRoute(rep,
-                    MSNet::getInstance()->getCurrentTimeStep());
-            }
+    if(!hasCurrentReroute(time, veh)) {
+        return;
+    }
+
+    SUMOReal prob = myAmInUserMode ? myUserProbability : myProbability;
+    if((SUMOReal) rand()/(SUMOReal) (RAND_MAX-1) > prob) {
+        return;
+    }
+
+    // get vehicle params
+    const MSRoute &route = veh.getRoute();
+    const MSEdge *lastEdge = route.getLastEdge();
+    // get rerouting params
+    const MSTriggeredRerouter::RerouteInterval &rerouteDef = getCurrentReroute(time, veh);
+    MSRoute *newRoute = rerouteDef.routeProbs.getOverallProb()>0 ? rerouteDef.routeProbs.get() : 0;
+    // we will use the route if given rather than calling our own dijskatra...
+    if(newRoute!=0) {
+        veh.replaceRoute(newRoute, time);
+        return;
+    }
+    // ok, try using a new destination
+    MSEdge *newEdge = rerouteDef.edgeProbs.getOverallProb()>0 ? rerouteDef.edgeProbs.get() : 0;
+    if(newEdge==0) {
+        MsgHandler::getWarningInstance()->inform("Empty rerouting definition for rerouter '" + getID() + "' in time " + toString(time) + ".");
+    }
+
+    // we have a new destination, let's replace the vehicle route
+    if(route.inFurtherUse()) {
+        string nid = _id + "_re_" + src->getID() + "_" + route.getID();
+        if(MSRoute::dictionary(nid)!=0) {
+            MSRoute *rep = MSRoute::dictionary(nid);
+            veh.replaceRoute(rep, MSNet::getInstance()->getCurrentTimeStep());
         } else {
             SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > router(MSEdge::dictSize(), true);
             router.prohibit(rerouteDef.closed);
-            MSEdgeVector edges;
+            std::vector<const MSEdge*> edges;
 			router.compute(src, lastEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
-            veh.replaceRoute(edges, time);
+            MSRoute *rep = new MSRoute(nid, edges, true);
+            if(!MSRoute::dictionary(nid, rep)) {
+                cout << "Error: Could not insert route ''" << endl;
+                return;
+            }
+            veh.replaceRoute(rep, MSNet::getInstance()->getCurrentTimeStep());
         }
+    } else {
+        // we can simply replace the vehicle route
+        SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > router(MSEdge::dictSize(), true);
+        router.prohibit(rerouteDef.closed);
+		MSEdgeVector edges;
+		router.compute(src, lastEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+        veh.replaceRoute(edges, time);
     }
 }
 
@@ -413,8 +438,6 @@ MSTriggeredRerouter::getUserProbability() const
 {
     return myUserProbability;
 }
-
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
