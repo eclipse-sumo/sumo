@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.13  2006/03/28 06:12:54  dkrajzew
 // unneeded string wrapping removed
 //
@@ -506,7 +509,7 @@ GUIEmitter::getParameterWindow(GUIMainWindow &app,
 }
 
 
-std::string
+const std::string &
 GUIEmitter::microsimID() const
 {
     return getID();

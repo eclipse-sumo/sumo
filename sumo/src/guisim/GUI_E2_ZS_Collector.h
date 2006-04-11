@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.16  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -167,7 +170,7 @@ public:
             GUIMainWindow &app, GUISUMOAbstractView &parent);
 
         /// returns the id of the object as known to microsim
-        std::string microsimID() const;
+        const std::string &microsimID() const;
 
         /// Needed to set the id
         friend class GUIGlObjectStorage;

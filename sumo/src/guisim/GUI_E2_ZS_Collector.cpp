@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.19  2006/04/05 05:22:36  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -167,7 +170,7 @@ GUI_E2_ZS_Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
 GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector,
                                           GUIGlObjectStorage &idStorage,
                                           GUILaneWrapper &wrapper)
-    : GUIDetectorWrapper(idStorage, "E2 detector:"+detector.getId()),
+    : GUIDetectorWrapper(idStorage, "E2 detector:"+detector.getID()),
     myDetector(detector)
 {
     myConstruct(detector, wrapper);
@@ -178,7 +181,7 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(
         GUI_E2_ZS_Collector &detector, GUIGlObjectStorage &idStorage,
         size_t glID, GUI_E2_ZS_CollectorOverLanes &mustBe,
         GUILaneWrapper &wrapper)
-    : GUIDetectorWrapper(idStorage, "E2 detector:"+detector.getId(), glID),
+    : GUIDetectorWrapper(idStorage, "E2 detector:"+detector.getID(), glID),
     myDetector(detector)
 {
     myConstruct(detector, wrapper);
@@ -280,10 +283,10 @@ GUI_E2_ZS_Collector::MyWrapper::myMkExistingItem(GUIParameterTableWindow &ret,
 }
 
 
-std::string
+const std::string &
 GUI_E2_ZS_Collector::MyWrapper::microsimID() const
 {
-    return myDetector.getId();
+    return myDetector.getID();
 }
 
 

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.19  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.18  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -144,9 +147,6 @@ public:
     /// Returns the street's geometry
     Boundary getBoundary() const;
 
-    /// returns the id of the edge (!!! not already implemented in MSEdge?)
-    std::string getID() const;
-
     /// returns the enumerated lane (!!! why not private with a friend?)
     MSLane &getLane(size_t laneNo);
 
@@ -189,7 +189,7 @@ public:
     GUIGlObjectType getType() const;
 
     /// returns the id of the object as known to microsim
-    std::string microsimID() const;
+    const std::string &microsimID() const;
 
     bool active() const;
 

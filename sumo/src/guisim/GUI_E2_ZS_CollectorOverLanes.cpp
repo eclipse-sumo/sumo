@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.15  2006/01/31 10:54:29  dkrajzew
 // debugged bad edge retrieval
 //
@@ -182,7 +185,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
         GUI_E2_ZS_CollectorOverLanes &detector,
         GUIGlObjectStorage &idStorage,
         const LaneDetMap &detectors)
-    : GUIDetectorWrapper(idStorage, string("E2OverLanes detector:")+detector.getId()),
+    : GUIDetectorWrapper(idStorage, "E2OverLanes detector:"+detector.getID()),
     myDetector(detector)
 {
     size_t glID = idStorage.getUniqueID();
@@ -271,10 +274,10 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::myMkExistingItem(GUIParameterTableWindo
 }
 
 
-std::string
+const std::string &
 GUI_E2_ZS_CollectorOverLanes::MyWrapper::microsimID() const
 {
-    return myDetector.getId();
+    return myDetector.getID();
 }
 
 

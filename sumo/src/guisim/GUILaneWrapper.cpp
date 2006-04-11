@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.34  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.33  2006/04/05 05:22:36  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -349,7 +352,7 @@ GUILaneWrapper::getType() const
 }
 
 
-std::string
+const std::string &
 GUILaneWrapper::microsimID() const
 {
     return myLane.getID();

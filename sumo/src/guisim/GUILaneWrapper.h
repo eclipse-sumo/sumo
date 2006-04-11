@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.25  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.24  2006/03/08 13:12:29  dkrajzew
 // real density visualization added (slow, unfinished)
 //
@@ -161,7 +164,7 @@ public:
         GUIMainWindow &app, GUISUMOAbstractView &parent);
 
     /// returns the id of the object as known to microsim
-    std::string microsimID() const;
+    const std::string &microsimID() const;
 
     /** returns the length of the lane */
     SUMOReal getLength() const;

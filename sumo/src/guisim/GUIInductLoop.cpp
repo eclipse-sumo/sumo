@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.19  2006/04/05 05:22:36  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -143,7 +146,7 @@ GUIInductLoop::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
                                     GUIGlObjectStorage &idStorage,
                                     GUILaneWrapper &wrapper, SUMOReal pos)
-    : GUIDetectorWrapper(idStorage, string("induct loop:")+detector.getId()),
+    : GUIDetectorWrapper(idStorage, "induct loop:"+detector.getID()),
     myDetector(detector), myPosition(pos)
 {
     const Position2DVector &v = wrapper.getShape();
@@ -204,10 +207,10 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
 }
 
 
-std::string
+const std::string &
 GUIInductLoop::MyWrapper::microsimID() const
 {
-    return myDetector.getId();
+    return myDetector.getID();
 }
 
 

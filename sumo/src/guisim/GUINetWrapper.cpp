@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.15  2006/03/28 06:12:54  dkrajzew
 // unneeded string wrapping removed
 //
@@ -220,7 +223,7 @@ GUINetWrapper::getType() const
 }
 
 
-std::string
+const std::string &
 GUINetWrapper::microsimID() const
 {
     return "";

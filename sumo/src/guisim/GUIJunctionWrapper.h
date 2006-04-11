@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.13  2005/11/09 06:35:34  dkrajzew
 // debugging
 //
@@ -126,7 +129,7 @@ public:
         GUIMainWindow &app, GUISUMOAbstractView &parent);
 
     /// returns the id of the object as known to microsim
-    std::string microsimID() const;
+    const std::string &microsimID() const;
 
     /// Returns the type of the object as coded in GUIGlObjectType
     GUIGlObjectType getType() const;

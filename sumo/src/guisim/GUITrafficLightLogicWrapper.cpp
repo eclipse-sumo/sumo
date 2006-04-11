@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.12  2006/03/28 06:12:54  dkrajzew
 // unneeded string wrapping removed
 //
@@ -167,7 +170,7 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTL
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapper(
         GUIGlObjectStorage &idStorage,
         MSTLLogicControl &control, MSTrafficLightLogic &tll)
-    : GUIGlObject(idStorage, "tl-logic:"+tll.id()),
+    : GUIGlObject(idStorage, "tl-logic:"+tll.getID()),
     myTLLogicControl(control), myTLLogic(tll)
 {
 }
@@ -192,12 +195,12 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
         GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
     new FXMenuSeparator(ret);
     //
-    const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.id());
+    const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.getID());
     std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
     size_t index = 0;
     for(i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {
         if((*i).second!=vars.defaultTL) {
-            new FXMenuCommand(ret, ("Switch to '" + (*i).second->subid() + "'").c_str(),
+            new FXMenuCommand(ret, ("Switch to '" + (*i).second->getSubID() + "'").c_str(),
                 GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_SWITCH+index);
         }
     }
@@ -273,10 +276,10 @@ GUITrafficLightLogicWrapper::active() const
 }
 
 
-std::string
+const std::string &
 GUITrafficLightLogicWrapper::microsimID() const
 {
-    return myTLLogic.id();
+    return myTLLogic.getID();
 }
 
 Boundary
@@ -289,12 +292,12 @@ GUITrafficLightLogicWrapper::getCenteringBoundary() const
 void
 GUITrafficLightLogicWrapper::switchTLSLogic(int to)
 {
-    const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.id());
+    const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.getID());
     std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
     size_t index = 0;
     for(i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {
         if(index==to) {
-            myTLLogicControl.switchTo((*i).second->id(), (*i).second->subid());
+            myTLLogicControl.switchTo((*i).second->getID(), (*i).second->getSubID());
             return;
         }
     }

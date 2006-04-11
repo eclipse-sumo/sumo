@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.25  2006/03/28 06:12:54  dkrajzew
 // unneeded string wrapping removed
 //
@@ -246,13 +249,6 @@ GUIEdge::getBoundary() const
 }
 
 
-std::string
-GUIEdge::getID() const
-{
-    return myID;
-}
-
-
 void
 GUIEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
                    LaneCont* lanes, EdgeBasicFunction function)
@@ -304,7 +300,7 @@ GUIEdge::getType() const
 }
 
 
-std::string
+const std::string &
 GUIEdge::microsimID() const
 {
     return getID();

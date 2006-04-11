@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.8  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -111,7 +114,7 @@ public:
         GUISUMOAbstractView &parent);
 
     /// returns the id of the object as known to microsim
-    std::string microsimID() const;
+    const std::string &microsimID() const;
 
     /// Returns the information whether this object is still active
     bool active() const;

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.26  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.25  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -186,7 +189,7 @@ public:
 #endif
 
     /// returns the id of the object as known to microsim
-    std::string microsimID() const;
+    const std::string &microsimID() const;
 
 
 #ifdef NETWORKING_BLA

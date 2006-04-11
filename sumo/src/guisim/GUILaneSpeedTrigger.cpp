@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.14  2006/01/31 10:55:42  dkrajzew
 // debugged bad edge retrieval
 //
@@ -441,7 +444,7 @@ GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow &app,
 }
 
 
-std::string
+const std::string &
 GUILaneSpeedTrigger::microsimID() const
 {
     return getID();

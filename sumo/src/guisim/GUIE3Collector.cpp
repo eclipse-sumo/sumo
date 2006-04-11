@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.12  2006/03/28 06:12:54  dkrajzew
 // unneeded string wrapping removed
 //
@@ -111,7 +114,7 @@ using namespace std;
  * ----------------------------------------------------------------------- */
 GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector &detector,
                                      GUIGlObjectStorage &idStorage)
-    : GUIDetectorWrapper(idStorage, "E3 detector:"+detector.getId()),
+    : GUIDetectorWrapper(idStorage, "E3 detector:"+detector.getID()),
     myDetector(detector)
 {
     const Detector::CrossSections &entries = detector.getEntries();
@@ -198,10 +201,10 @@ GUIE3Collector::MyWrapper::myMkExistingItem(GUIParameterTableWindow &ret,
 }
 
 
-std::string
+const std::string &
 GUIE3Collector::MyWrapper::microsimID() const
 {
-    return myDetector.getId();
+    return myDetector.getID();
 }
 
 

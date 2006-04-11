@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.50  2006/04/11 10:56:32  dkrajzew
+// microsimID() now returns a const reference
+//
 // Revision 1.49  2006/02/23 11:27:56  dkrajzew
 // tls may have now several programs
 //
@@ -421,7 +424,7 @@ GUINet::initTLMap()
         for(j=links.begin(); j!=links.end(); j++) {
             MSTrafficLightLogic::LinkVector::const_iterator j2;
             for(j2=(*j).begin(); j2!=(*j).end(); j2++) {
-                myLinks2Logic[*j2] = tll->id();
+                myLinks2Logic[*j2] = tll->getID();
             }
         }
         myLogics2Wrapper[tll] = tllw;
