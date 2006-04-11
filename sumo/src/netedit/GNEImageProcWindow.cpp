@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/04/11 11:00:43  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.12  2005/12/01 07:38:40  dkrajzew
 // debugged setting globals in false order
 //
@@ -519,7 +522,7 @@ GNEImageProcWindow::onCmdCreateGraph(FXObject*,FXSelector,void*)
                 RandHelper::initRandGlobal(oc);
                 GUIEvent *e =
                     new GUIEvent_SimulationLoaded(
-                        net, 0, 86400, string("hallo"/*!!!*/));
+                        net, 0, 86400, "hallo"/*!!!*/);
                 myParent->handleEvent_SimulationLoaded(e);
             } catch (RandHelper &) {
             }

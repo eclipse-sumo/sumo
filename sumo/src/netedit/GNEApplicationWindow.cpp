@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/04/11 11:00:43  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.26  2006/03/08 13:11:11  dkrajzew
 // code beautifying
 //
@@ -318,8 +321,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a,
     myStatusbar->getStatusLine()->setText("Ready.");
 
     // set the caption
-    string caption = string("SUMO ") + string(version)
-        + string(" - no simulation loaded");
+    string caption = "SUMO " + string(version) + " - no simulation loaded";
     setTitle(caption.c_str());
 
     // start the simulation-thread
@@ -766,7 +768,7 @@ GNEApplicationWindow::onCmdOpen(FXObject*,FXSelector,void*)
     }
     if(opendialog.execute()){
         gCurrentFolder = opendialog.getDirectory().text();
-        string file = string(opendialog.getFilename().text());
+        string file = opendialog.getFilename().text();
         load(file);
         myRecentFiles.appendFile(file.c_str());
     }
@@ -811,7 +813,7 @@ GNEApplicationWindow::onCmdOpenRecent(FXObject*,FXSelector,void *data)
         myStatusbar->getStatusLine()->setText("Already loading!");
         return 1;
     }
-    string file = string((const char*)data);
+    string file = (const char*)data;
     load(file);
     return 1;
 }
@@ -981,10 +983,10 @@ GNEApplicationWindow::onCmdSaveEdgesNodes(FXObject*,FXSelector,void*)
             }
         }
         if(saveNodes) {
-            myNetBuilder.getNodeCont().savePlain(filestr + string(".nod.xml"));
+            myNetBuilder.getNodeCont().savePlain(filestr + ".nod.xml");
         }
         if(saveEdges) {
-            myNetBuilder.getEdgeCont().savePlain(filestr + string(".edg.xml"));
+            myNetBuilder.getEdgeCont().savePlain(filestr + ".edg.xml");
         }
     }
     return 1;
@@ -1016,7 +1018,7 @@ GNEApplicationWindow::onCmdSaveNet(FXObject*,FXSelector,void*)
                 return 1;
             }
         }
-        ofstream out((filestr + string(".net.xml")).c_str());
+        ofstream out((filestr + ".net.xml").c_str());
         OptionsCont &oc = OptionsSubSys::getOptions();
         oc.clear();
         myNetBuilder.insertNetBuildOptions(oc);
@@ -1323,7 +1325,7 @@ GNEApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
     // check whether the loading was successfull
     if(ec->_net==0) {
         // report failure
-        string text = string("Loading of '") + ec->_file + string("' failed!");
+        string text = "Loading of '" + ec->_file + "' failed!";
         myStatusbar->getStatusLine()->setText(text.c_str());
         myStatusbar->getStatusLine()->setNormalText(text.c_str());
     } else {
@@ -1331,7 +1333,7 @@ GNEApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         gSimInfo = new GUISimInfo(*(ec->_net));
         gNetWrapper = ec->_net->getWrapper();
         // report success
-        string text = string("'") + ec->_file + string("' loaded.");
+        string text = "'" + ec->_file + "' loaded.";
         myStatusbar->getStatusLine()->setText(text.c_str());
         myStatusbar->getStatusLine()->setNormalText(text.c_str());
         // initialise simulation thread
@@ -1341,8 +1343,7 @@ GNEApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         myViewNumber = 0;
         openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
         // set simulation name on the caption
-        string caption = string("SUMO ") + string(version)
-            + string(" - ") + ec->_file;
+        string caption = "SUMO " + string(version) + " - " + ec->_file;
         setTitle( caption.c_str());
         ostringstream str;
         // set simulation step begin information
@@ -1432,7 +1433,7 @@ GNEApplicationWindow::load(const std::string &file)
     myAmLoading = true;
     closeAllWindows();
     myLoadThread->load(file);
-    string text = string("Loading '") + file + string("'.");
+    string text = "Loading '" + file + "'.";
     myStatusbar->getStatusLine()->setText(text.c_str());
     myStatusbar->getStatusLine()->setNormalText(text.c_str());
     update();
@@ -1447,7 +1448,7 @@ GNEApplicationWindow::openNewView(GUISUMOViewParent::ViewType type)
         myStatusbar->getStatusLine()->setText("No simulation loaded!");
         return;
     }
-    string caption = string("View #") + toString(myViewNumber++);
+    string caption = "View #" + toString(myViewNumber++);
     FXuint opts = MDI_TRACKING;
     GUISUMOViewParent* w = 0;
     if(myMDIClient->numChildren()==0) {
@@ -1501,8 +1502,7 @@ GNEApplicationWindow::closeAllWindows()
     delete gSimInfo;
     gSimInfo = 0;
     // reset the caption
-    string caption = string("SUMO ") + string(version)
-        + string(" - no simulation loaded");
+    string caption = "SUMO " + string(version) + " - no simulation loaded";
     setTitle( caption.c_str());
     // delete other children
     while(mySubWindows.size()!=0) {
