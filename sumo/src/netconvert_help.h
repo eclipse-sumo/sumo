@@ -20,6 +20,10 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.21  2006/04/11 13:59:57  t-bohn
+// added option: disable-normalize-node-positions
+// disable use of net-offset
+//
 // Revision 1.20  2006/04/07 05:31:41  dkrajzew
 // documentation patched
 //
@@ -143,6 +147,8 @@ char *help[] = {
     "  -o, --output-file FILE         The generated net will be written to FILE",
     "  --map-output FILE              File to write joined edges information to",
     "  --plain-output FILE            Prefix of files to write node and edge",
+    "  --disable-normalize-node-positions",
+    "                                 Turn off normalizing node positions",
     "                                   information to",
     "  --node-geometry-dump FILE      Writes node corner positions to FILE",
     " ",

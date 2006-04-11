@@ -24,6 +24,10 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2006/04/11 14:00:10  t-bohn
+// added option: disable-normalize-node-positions
+// disable use of net-offset
+//
 // Revision 1.34  2006/04/05 05:30:42  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -418,7 +422,7 @@ NBNetBuilder::compute(OptionsCont &oc)
         if(ok) ok = removeUnwishedNodes(step, oc);
     }
     if(ok) ok = splitGeometry(step, oc);
-    if(ok) ok = normaliseNodePositions(step);
+    if(ok&&!oc.getBool("disable-normalize-node-positions")) ok = normaliseNodePositions(step);
     if(ok) ok = myEdgeCont.recomputeLaneShapes(); // !!!!!
     if(ok) ok = guessRamps(step, oc);
     if(ok) ok = guessTLs(step, oc);
@@ -530,6 +534,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("node-geometry-dump", new Option_FileName());
     oc.doRegister("map-output", 'M', new Option_FileName());
     oc.doRegister("tls-poi-output", new Option_FileName()); // !!! describe
+    oc.doRegister("disable-normalize-node-positions", new Option_Bool(false));
 
     // register building defaults
     oc.doRegister("type", 'T', new Option_String("Unknown"));
