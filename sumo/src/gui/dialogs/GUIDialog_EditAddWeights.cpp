@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/11 10:54:56  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.11  2006/03/28 06:12:54  dkrajzew
 // unneeded string wrapping removed
 //
@@ -303,7 +306,7 @@ GUIDialog_EditAddWeights::onCmdLoad(FXObject*,FXSelector,void*)
     }
     if(opendialog.execute()){
         gCurrentFolder = opendialog.getDirectory().text();
-        string file = string(opendialog.getFilename().text());
+        string file = opendialog.getFilename().text();
         GUISupplementaryWeightsHandler handler(file);
         XMLHelpers::runParser(handler, file);
         rebuildList();
@@ -324,7 +327,7 @@ GUIDialog_EditAddWeights::onCmdSave(FXObject*,FXSelector,void*)
     }
     if(opendialog.execute()){
         gCurrentFolder = opendialog.getDirectory().text();
-        string file = string(opendialog.getFilename().text());
+        string file = opendialog.getFilename().text();
         string content = encode2XML();
         ofstream strm(file.c_str());
         strm << content;

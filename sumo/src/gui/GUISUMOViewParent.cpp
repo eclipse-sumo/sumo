@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/04/11 10:54:52  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.20  2006/03/28 06:12:54  dkrajzew
 // unneeded string wrapping removed
 //
@@ -327,7 +330,7 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*sender,FXSelector,void*)
         return 1;
     }
     gCurrentFolder = opendialog.getDirectory().text();
-    string file = string(opendialog.getFilename().text());
+    string file = opendialog.getFilename().text();
     FXColor *buf = _view->getSnapshot();
     try {
         MFXImageHelper::saveimage(getApp(), file,

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.54  2006/04/11 10:54:52  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.53  2006/04/05 05:20:32  dkrajzew
 // code beautifying
 //
@@ -386,8 +389,7 @@ GUIApplicationWindow::dependentBuild(GUIThreadFactory &threadFactory)
         new FXProgressBar(myStatusbar, 0, 0, PROGRESSBAR_NORMAL|LAYOUT_FILL_X, 200);
 */
     // set the caption
-    string caption = string("SUMO ") + string(version)
-        + string(" - no simulation loaded");
+    string caption = "SUMO " + string(version) + " - no simulation loaded";
     setTitle(caption.c_str());
 
     // start the simulation-thread
@@ -742,7 +744,7 @@ GUIApplicationWindow::onCmdOpen(FXObject*,FXSelector,void*)
     }
     if(opendialog.execute()){
         gCurrentFolder = opendialog.getDirectory().text();
-        string file = string(opendialog.getFilename().text());
+        string file = opendialog.getFilename().text();
         load(file);
         myRecentFiles.appendFile(file.c_str());
     }
@@ -1055,8 +1057,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         myViewNumber = 0;
         openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
         // set simulation name on the caption
-        string caption = string("SUMO ") + string(version)
-            + string(" - ") + ec->_file;
+        string caption = "SUMO " + string(version) + " - " + ec->_file;
         setTitle( caption.c_str());
         ostringstream str;
         // set simulation step begin information
@@ -1215,8 +1216,7 @@ GUIApplicationWindow::closeAllWindows()
     delete gSimInfo;
     gSimInfo = 0;
     // reset the caption
-    string caption = string("SUMO ") + string(version)
-        + string(" - no simulation loaded");
+    string caption = "SUMO " + string(version) + " - no simulation loaded";
     setTitle( caption.c_str());
     // delete other children
     while(mySubWindows.size()!=0) {
