@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/04/11 10:59:39  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.21  2006/04/05 05:30:42  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -538,7 +541,7 @@ NBNode::addOutgoingEdge(NBEdge *edge)
 }
 
 
-string
+const std::string &
 NBNode::getID() const
 {
     return _id;

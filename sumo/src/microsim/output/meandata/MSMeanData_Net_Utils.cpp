@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/11 10:59:07  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.11  2006/04/05 05:27:37  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -132,8 +135,7 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
                   dumpMeanDataIntervalls.begin();
               it != dumpMeanDataIntervalls.end(); ++it ) {
 
-            string fileName   = baseNameDumpFiles + "_" + toString( *it ) +
-                string(".xml");
+            string fileName   = baseNameDumpFiles + "_" + toString( *it ) + ".xml";
             OutputDevice* dev =
                 SharedOutputDevices::getInstance()->getOutputDevice( fileName );
             if( dev==0 ) {

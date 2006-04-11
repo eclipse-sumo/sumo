@@ -18,6 +18,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.23  2006/04/11 10:59:06  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.22  2006/01/26 08:30:29  dkrajzew
 // patched MSEdge in order to work with a generic router
 //
@@ -312,7 +315,7 @@ public:
 
     std::vector<MSEdge*> getIncomingEdges() const;
 
-    std::string getID() { return myID; }
+    const std::string &getID() { return myID; }
 
     SUMOReal getEffort(SUMOTime time) const;
 

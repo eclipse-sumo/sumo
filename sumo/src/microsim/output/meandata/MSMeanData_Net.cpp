@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/04/11 10:59:07  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.15  2006/04/05 05:27:37  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -296,7 +299,7 @@ MSMeanData_Net::writeLane(XMLDevice &dev,
 std::string
 MSMeanData_Net::getNamePrefix( void ) const
 {
-    return string("WeightsDump");
+    return "WeightsDump"; // !!!
 }
 
 

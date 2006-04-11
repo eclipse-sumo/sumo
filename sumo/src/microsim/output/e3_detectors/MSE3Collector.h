@@ -293,7 +293,7 @@ public:
             }
             // requested type not present
             // create it and return nonsens value for the first access
-            addDetector( type, std::string("") );
+            addDetector(type, "");
             return -1;
         }
 
@@ -301,7 +301,7 @@ public:
     ///
     /// @return Th detectors unique id.
     ///
-    const std::string& getId() const
+    const std::string& getID() const
         {
             return idM;
         }
@@ -333,7 +333,7 @@ public:
     ///
     std::string  getNamePrefix( void ) const
         {
-            return std::string("MSE3Collector");
+            return "MSE3Collector";
         }
 
     /// Get a header for file output which shall contain some

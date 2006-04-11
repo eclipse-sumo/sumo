@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/04/11 10:59:06  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.9  2005/11/09 06:36:06  dkrajzew
 // changing the LSA-API: MSEdgeContinuation added
 //
@@ -110,7 +113,7 @@ public:
     void addDetector( E2::DetType type, std::string detId = "" );
 
 	/// Returns this detector's id
-    const std::string &getId() const;
+    const std::string &getID() const;
 
 	/// Returns the id of the lane this detector starts at
     const std::string &getStartLaneID() const;
@@ -130,7 +133,7 @@ public:
      */
     std::string  getNamePrefix( void ) const
         {
-            return std::string("MS_E2_ZS_CollectorOverLanes");
+            return "MS_E2_ZS_CollectorOverLanes";
         }
 
     /**

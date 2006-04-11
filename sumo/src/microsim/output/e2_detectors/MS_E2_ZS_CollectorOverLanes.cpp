@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/04/11 10:59:06  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.13  2006/04/05 05:27:36  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -144,7 +147,7 @@ MS_E2_ZS_CollectorOverLanes::xmlHeaderM(
 "- haltingDurationMean [s]\n"
 "-->\n\n");
 
-std::string MS_E2_ZS_CollectorOverLanes::infoEndM = std::string("</detector>");
+std::string MS_E2_ZS_CollectorOverLanes::infoEndM = "</detector>";
 
 
 /* =========================================================================
@@ -486,7 +489,7 @@ string ret =  baseID + add + toString<size_t>(bla++);
 
 
 const std::string &
-MS_E2_ZS_CollectorOverLanes::getId() const
+MS_E2_ZS_CollectorOverLanes::getID() const
 {
     return myID;
 }

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.65  2006/04/11 10:59:39  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.64  2006/04/05 05:30:42  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -588,7 +591,7 @@ NBEdge::setJunctionPriority(NBNode *node, int prio)
 }
 
 
-string
+const string &
 NBEdge::getID() const
 {
     return _id;

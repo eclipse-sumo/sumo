@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.45  2006/04/11 10:59:39  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.44  2006/01/26 08:49:44  dkrajzew
 // debugging of vehicle class handling
 //
@@ -335,7 +338,7 @@ public:
     const EdgeLaneVector * const getEdgeLanesFromLane(size_t lane) const;
 
     /// returns the id of the edge
-    std::string getID() const;
+    const std::string &getID() const;
 
     /// returns the name of the edge
     std::string getName() const;

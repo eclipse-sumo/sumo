@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/04/11 11:03:18  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.25  2006/02/13 07:24:11  dkrajzew
 // usage of vehicle classes revalidated
 //
@@ -324,7 +327,7 @@ ROEdge::getDuration(SUMOTime time) const
 }
 
 
-std::string
+const std::string &
 ROEdge::getID() const
 {
     return _id;

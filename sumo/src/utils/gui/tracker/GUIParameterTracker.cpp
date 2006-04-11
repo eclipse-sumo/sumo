@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/04/11 11:05:55  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.10  2005/10/17 09:24:15  dkrajzew
 // memory leaks removed
 //
@@ -361,7 +364,7 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*)
     }
     if(opendialog.execute()){
         gCurrentFolder = opendialog.getDirectory().text();
-        string file = string(opendialog.getFilename().text());
+        string file = opendialog.getFilename().text();
         ofstream strm(file.c_str());
         if(!strm.good()) {
             return 1; // !!! inform the user

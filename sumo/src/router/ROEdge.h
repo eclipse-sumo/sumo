@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2006/04/11 11:03:18  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.19  2006/01/26 08:42:50  dkrajzew
 // made lanes and edges being aware to vehicle classes
 //
@@ -161,7 +164,7 @@ public:
     bool addConnection(ROEdge *to, SUMOReal effort);
 
     /// Returns the id of the edge
-    std::string getID() const;
+    const std::string &getID() const;
 
     /// Sets the type of te edge
     void setType(EdgeType type);

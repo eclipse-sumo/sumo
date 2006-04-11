@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/04/11 10:59:06  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.4  2006/01/23 10:25:29  dkrajzew
 // post-release changes
 //
@@ -139,11 +142,9 @@ MSDetectorControl::add(MSInductLoop *il,
                       int splInterval)
 {
     // insert object into dictionary
-    if ( ! myLoops.add( il->getId(), il ) ) {
-        MsgHandler::getErrorInstance()->inform(
-            "induct loop '" + il->getId() + "' could not be build;");
-        MsgHandler::getErrorInstance()->inform(
-            " (declared twice?)");
+    if ( ! myLoops.add( il->getID(), il ) ) {
+        MsgHandler::getErrorInstance()->inform("induct loop '" + il->getID() + "' could not be build;");
+        MsgHandler::getErrorInstance()->inform(" (declared twice?)");
         throw ProcessError();
     }
     myDetector2File.addDetectorAndInterval(il, device, splInterval); // !!! test
@@ -157,11 +158,9 @@ MSDetectorControl::add(MSE2Collector *e2,
                       int splInterval)
 {
     // insert object into dictionary
-    if ( ! myE2Detectors.add( e2->getId(), e2 ) ) {
-        MsgHandler::getErrorInstance()->inform(
-            "e2-detector '" + e2->getId() + "' could not be build;");
-        MsgHandler::getErrorInstance()->inform(
-            " (declared twice?)");
+    if ( ! myE2Detectors.add( e2->getID(), e2 ) ) {
+        MsgHandler::getErrorInstance()->inform("e2-detector '" + e2->getID() + "' could not be build;");
+        MsgHandler::getErrorInstance()->inform(" (declared twice?)");
         throw ProcessError();
     }
     myDetector2File.addDetectorAndInterval(e2, device, splInterval); // !!! test
@@ -174,11 +173,9 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol,
                       int splInterval)
 {
     // insert object into dictionary
-    if ( ! myE2OverLanesDetectors.add( e2ol->getId(), e2ol ) ) {
-        MsgHandler::getErrorInstance()->inform(
-            "e2-overlanes-detector '" + e2ol->getId() + "' could not be build;");
-        MsgHandler::getErrorInstance()->inform(
-            " (declared twice?)");
+    if ( ! myE2OverLanesDetectors.add( e2ol->getID(), e2ol ) ) {
+        MsgHandler::getErrorInstance()->inform("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;");
+        MsgHandler::getErrorInstance()->inform(" (declared twice?)");
         throw ProcessError();
     }
     myDetector2File.addDetectorAndInterval(e2ol, device, splInterval); // !!! test
@@ -189,11 +186,9 @@ void
 MSDetectorControl::add(MSE2Collector *e2)
 {
     // insert object into dictionary
-    if ( ! myE2Detectors.add( e2->getId(), e2 ) ) {
-        MsgHandler::getErrorInstance()->inform(
-            "e2-detector '" + e2->getId() + "' could not be build;");
-        MsgHandler::getErrorInstance()->inform(
-            " (declared twice?)");
+    if ( ! myE2Detectors.add( e2->getID(), e2 ) ) {
+        MsgHandler::getErrorInstance()->inform("e2-detector '" + e2->getID() + "' could not be build;");
+        MsgHandler::getErrorInstance()->inform(" (declared twice?)");
         throw ProcessError();
     }
 }
@@ -203,11 +198,9 @@ void
 MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol)
 {
     // insert object into dictionary
-    if ( ! myE2OverLanesDetectors.add( e2ol->getId(), e2ol ) ) {
-        MsgHandler::getErrorInstance()->inform(
-            "e2-overlanes-detector '" + e2ol->getId() + "' could not be build;");
-        MsgHandler::getErrorInstance()->inform(
-            " (declared twice?)");
+    if ( ! myE2OverLanesDetectors.add( e2ol->getID(), e2ol ) ) {
+        MsgHandler::getErrorInstance()->inform("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;");
+        MsgHandler::getErrorInstance()->inform(" (declared twice?)");
         throw ProcessError();
     }
 }
@@ -219,11 +212,9 @@ MSDetectorControl::add(MSE3Collector *e3,
                       int splInterval)
 {
     // insert object into dictionary
-    if ( ! myE3Detectors.add( e3->getId(), e3 ) ){
-        MsgHandler::getErrorInstance()->inform(
-            "e3-detector '" + e3->getId() + "' could not be build;");
-        MsgHandler::getErrorInstance()->inform(
-            " (declared twice?)");
+    if ( ! myE3Detectors.add( e3->getID(), e3 ) ){
+        MsgHandler::getErrorInstance()->inform("e3-detector '" + e3->getID() + "' could not be build;");
+        MsgHandler::getErrorInstance()->inform(" (declared twice?)");
         throw ProcessError();
     }
     myDetector2File.addDetectorAndInterval(e3, device, splInterval); // !!! test

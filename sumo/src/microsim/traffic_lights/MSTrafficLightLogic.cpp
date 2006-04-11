@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/11 10:59:07  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.11  2006/03/17 08:57:51  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -332,14 +335,14 @@ MSTrafficLightLogic::getLinksAt(size_t i) const
 
 
 const std::string &
-MSTrafficLightLogic::id() const
+MSTrafficLightLogic::getID() const
 {
     return myID;
 }
 
 
 const std::string &
-MSTrafficLightLogic::subid() const
+MSTrafficLightLogic::getSubID() const
 {
     return mySubID;
 }

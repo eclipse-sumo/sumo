@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/04/11 11:05:55  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.9  2006/02/23 11:37:01  dkrajzew
 // made the tls visualisation adaptive
 //
@@ -151,7 +154,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
             0,0,0,0,0,0,0,0);
     myPanel = new
         GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
-    setTitle((logic.id() + " - " + logic.subid() + " - tracker").c_str());
+    setTitle((logic.getID() + " - " + logic.getSubID() + " - tracker").c_str());
     setIcon( GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER) );
 }
 
@@ -177,7 +180,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
             0,0,0,0,0,0,0,0);
     myPanel = new
         GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
-    setTitle((logic.id() + " - " + logic.subid() + " - tracker").c_str());
+    setTitle((logic.getID() + " - " + logic.getSubID() + " - tracker").c_str());
     setIcon( GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER) );
 }
 

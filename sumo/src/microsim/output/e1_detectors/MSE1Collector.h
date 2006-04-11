@@ -22,6 +22,9 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.12  2006/04/11 10:59:06  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.11  2006/04/05 05:27:36  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -233,7 +236,7 @@ public:
             }
             // requested type not present
             // create it and return nonsens value for the first access
-            addDetector( type, std::string("") );
+            addDetector(type, "");
             return -1;
         }
 
@@ -241,7 +244,7 @@ public:
     ///
     /// @return The detectors unique id.
     ///
-    const std::string& getId() const
+    const std::string& getID() const
         {
             return idM;
         }
@@ -258,7 +261,7 @@ public:
     ///
     std::string  getNamePrefix( void ) const
         {
-            return std::string("MSE1Collector");
+            return "MSE1Collector";
         }
 
     /// Get a header for file output which shall contain some

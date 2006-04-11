@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/04/11 10:59:07  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.6  2005/10/07 11:37:46  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -69,7 +72,7 @@ std::string MSE3Collector::xmlHeaderM(
 "-->\n\n");
 
 
-std::string MSE3Collector::infoEndM = std::string("</detector>");
+std::string MSE3Collector::infoEndM = "</detector>";
 
 namespace E3
 {

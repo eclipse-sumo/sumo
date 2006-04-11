@@ -264,7 +264,7 @@ public:
             }
             // requested type not present
             // create it and return nonsens value for the first access
-            addDetector( type, std::string("") );
+            addDetector(type, "");
             return -1;
         }
 
@@ -291,7 +291,7 @@ public:
 
             // requested type not present
             // create it and return nonsens value for the first access
-            addDetector( type, std::string("") );
+            addDetector(type, "");
             return -1;
         }
 
@@ -501,7 +501,7 @@ public:
     ///
     std::string getNamePrefix( void ) const
         {
-            return std::string("MSE2Collector");
+            return "MSE2Collector";
         }
 
     /// Get a header for file output which shall contain some

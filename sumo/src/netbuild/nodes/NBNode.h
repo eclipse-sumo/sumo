@@ -21,6 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2006/04/11 10:59:39  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.10  2006/01/26 08:49:15  dkrajzew
 // removed uneeded variables
 //
@@ -310,7 +313,7 @@ public:
     Position2D getPosition() const;
 
     /** returns the id of the node */
-    std::string getID() const;
+    const std::string &getID() const;
 
     /// adds an incoming edge
     void addIncomingEdge(NBEdge *edge);

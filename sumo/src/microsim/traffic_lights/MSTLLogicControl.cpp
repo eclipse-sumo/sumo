@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/11 10:59:07  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.11  2006/03/17 08:57:51  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -352,7 +355,7 @@ MSTLLogicControl::markNetLoadingClosed()
 bool
 MSTLLogicControl::isActive(const MSTrafficLightLogic *tl) const
 {
-    std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(tl->id());
+    std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(tl->getID());
     if(i==myLogics.end()) {
         return false;
     }
@@ -445,7 +448,7 @@ MSTLLogicControl::addWAUTJunction(const std::string &wautid,
     myWAUTs[wautid].junctions.push_back(j);
     // set the current program
     TLSLogicVariants &vars = myLogics.find(junc)->second;
-    switchTo(vars.defaultTL->id(), myWAUTs[wautid].startProg);
+    switchTo(vars.defaultTL->getID(), myWAUTs[wautid].startProg);
     return true;
 }
 
@@ -494,7 +497,7 @@ MSTLLogicControl::check2Switch()
         const WAUTSwitchProcess &proc = *i;
         if(proc.proc->trySwitch()) {
             delete proc.proc;
-            switchTo((*i).to->id(), (*i).to->subid());
+            switchTo((*i).to->getID(), (*i).to->getSubID());
             i = myCurrentlySwitched.erase(i);
         } else {
             ++i;

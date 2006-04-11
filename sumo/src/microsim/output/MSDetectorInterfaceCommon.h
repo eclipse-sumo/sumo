@@ -63,7 +63,7 @@ public:
     ///
     /// @return The member idM.
     ///
-    const std::string& getId( void ) const
+    const std::string& getID( void ) const
         {
             return idM;
         }

@@ -23,6 +23,9 @@
 //---------------------------------------------------------------------------//
 
 // $Log$
+// Revision 1.18  2006/04/11 10:59:06  dkrajzew
+// all structures now return their id via getID()
+//
 // Revision 1.17  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -167,7 +170,7 @@ public:
      *
      * @return The reminders id.
      */
-    const std::string getId( void ) const
+    const std::string &getID( void ) const
         {
             return idM;
         }
