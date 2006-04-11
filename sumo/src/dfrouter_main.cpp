@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/04/11 11:08:13  dkrajzew
+// debugging
+//
 // Revision 1.16  2006/04/07 10:44:56  dkrajzew
 // multiple detector and flows definitions can be read
 //
@@ -188,7 +191,7 @@ readDetectors(OptionsCont &oc)
             delete cont;
             throw ProcessError();
         }
-        MsgHandler::getMessageInstance()->inform("Loading detector definitions from '" + file + "'... ");
+        MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + file + "'... ");
         DFDetectorHandler handler(oc, *cont);
         SAX2XMLReader* parser = XMLHelpers::getSAXReader(handler);
         try {
@@ -228,7 +231,7 @@ readDetectorFlows( OptionsCont &oc, DFDetectorCon * dc)
 		    throw ProcessError();
 	    }
 	    // parse
-        MsgHandler::getMessageInstance()->inform("Loading flows from '" + file + "'... ");
+        MsgHandler::getMessageInstance()->beginProcessMsg("Loading flows from '" + file + "'... ");
 	    DFDetFlowLoader dfl(dc, *ret, oc.getInt("begin"), oc.getInt("end"), 60); // !!!
 	    dfl.read(file, oc.getBool("fast-flows"));
         MsgHandler::getMessageInstance()->inform("done.");
@@ -264,19 +267,19 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
     // if a network was loaded... (mode1)
     if(optNet!=0) {
         if(oc.getBool("remove-empty-detectors")) {
-            MsgHandler::getMessageInstance()->inform("Removing empty detectors...");
+            MsgHandler::getMessageInstance()->beginProcessMsg("Removing empty detectors...");
             optNet->removeEmptyDetectors(*detectors, *flows, 0, 86400, 60);
             MsgHandler::getMessageInstance()->inform("done.");
         }
         // compute the detector types (optionally)
         if(!detectors->detectorsHaveCompleteTypes()||oc.isSet("revalidate-detectors")) {
-            MsgHandler::getMessageInstance()->inform("Computing detector types...");
+            MsgHandler::getMessageInstance()->beginProcessMsg("Computing detector types...");
             optNet->computeTypes(*detectors);
             MsgHandler::getMessageInstance()->inform("done.");
         }
         // compute routes between the detectors (optionally)
         if(!detectors->detectorsHaveRoutes()||oc.isSet("revalidate-routes")) {
-            MsgHandler::getMessageInstance()->inform("Computing routes...");
+            MsgHandler::getMessageInstance()->beginProcessMsg("Computing routes...");
             optNet->buildRoutes(*detectors,
                 oc.getBool("all-end-follower"), oc.getBool("keep-unfound-ends"));
             MsgHandler::getMessageInstance()->inform("done.");
@@ -312,13 +315,13 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
 	// !!!
 	// save emitters if wished
 	if(oc.isSet("emitters-output")) {
-        MsgHandler::getMessageInstance()->inform("Writing emitters...");
         optNet->buildEdgeFlowMap(*flows, *detectors, 0, 86400, 60); // !!!
         if(oc.getBool("revalidate-flows")) {
-            MsgHandler::getMessageInstance()->inform("Rechecking loaded flows...");
+            MsgHandler::getMessageInstance()->beginProcessMsg("Rechecking loaded flows...");
             optNet->revalidateFlows(*detectors, *flows, 0, 86400, 60);
             MsgHandler::getMessageInstance()->inform("done.");
         }
+        MsgHandler::getMessageInstance()->beginProcessMsg("Writing emitters...");
 		detectors->writeEmitters(oc.getString("emitters-output"), *flows,
 			0, 86400, 60,
 			oc.getBool("write-calibrators"));
@@ -326,21 +329,21 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
 	}
     // save end speed trigger if wished
 	if(oc.isSet("speed-trigger-output")) {
-        MsgHandler::getMessageInstance()->inform("Writing speed triggers...");
+        MsgHandler::getMessageInstance()->beginProcessMsg("Writing speed triggers...");
 		detectors->writeSpeedTrigger(oc.getString("speed-trigger-output"), *flows,
 			0, 86400, 60);
         MsgHandler::getMessageInstance()->inform("done.");
 	}
     // save checking detectors if wished
 	if(oc.isSet("validation-output")) {
-        MsgHandler::getMessageInstance()->inform("Writing validation detectors...");
+        MsgHandler::getMessageInstance()->beginProcessMsg("Writing validation detectors...");
 		detectors->writeValidationDetectors(oc.getString("validation-output"),
             oc.getBool("validation-output.add-sources"), true, true); // !!!
         MsgHandler::getMessageInstance()->inform("done.");
 	}
     // build global rerouter on end if wished
 	if(oc.isSet("end-reroute-output")) {
-        MsgHandler::getMessageInstance()->inform("Writing highway end rerouter...");
+        MsgHandler::getMessageInstance()->beginProcessMsg("Writing highway end rerouter...");
 		detectors->writeEndRerouterDetectors(oc.getString("end-reroute-output")); // !!!
         MsgHandler::getMessageInstance()->inform("done.");
 	}

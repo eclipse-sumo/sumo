@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/04/11 11:08:13  dkrajzew
+// debugging
+//
 // Revision 1.13  2006/04/07 10:44:18  dkrajzew
 // multiple detector and flows definitions can be read
 //
@@ -134,6 +137,8 @@ RODFFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("detectors-poi-output", new Option_FileName());
 	oc.doRegister("emitters-output", new Option_FileName());
 	oc.doRegister("speed-trigger-output", new Option_FileName());
+    oc.doRegister("end-reroute-output", new Option_FileName());
+	oc.doRegister("validation-output", new Option_FileName());
 	oc.doRegister("validation-output", new Option_FileName());
 	oc.doRegister("validation-output.add-sources", new Option_Bool(false));
 

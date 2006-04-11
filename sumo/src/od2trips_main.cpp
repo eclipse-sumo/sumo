@@ -215,7 +215,7 @@ parseTime(const std::string &time)
 void
 readVMR(LineReader &lr, ODMatrix &into, float scale)
 {
-    MsgHandler::getMessageInstance()->inform("Reading matrix '" + lr.getFileName() + "' stored as VMR");
+    MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as VMR");
     // parse first defs
     string line = getNextNonCommentLine(lr);
     int type = TplConvert<char>::_2int(line.c_str());

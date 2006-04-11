@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/04/11 11:08:13  dkrajzew
+// debugging
+//
 // Revision 1.16  2006/04/07 05:29:39  dkrajzew
 // removed some warnings
 //
@@ -211,7 +214,7 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
                 }
                 ++i;
             }
-            distanceFactor = 1.;
+            distanceFactor = distanceFactor * distanceFactor;
             ovProb *= (rd->factor * distanceFactor);
             into[time]->add(ovProb, index);
             (*ri)->overallProb += ovProb;
