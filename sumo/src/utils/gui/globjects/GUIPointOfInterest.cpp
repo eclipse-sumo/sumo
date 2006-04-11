@@ -27,7 +27,7 @@ GUIPointOfInterest::GUIPointOfInterest(GUIGlObjectStorage &idStorage,
                                        const Position2D &p,
                                        const RGBColor &c)
     : PointOfInterest(id, type, p, c),
-    GUIGlObject(idStorage, string("poi:")+id)
+    GUIGlObject(idStorage, "poi:"+id)
 {
 }
 
@@ -117,7 +117,7 @@ GUIPointOfInterest::getType() const
 }
 
 
-std::string
+const std::string &
 GUIPointOfInterest::microsimID() const
 {
     throw 1;

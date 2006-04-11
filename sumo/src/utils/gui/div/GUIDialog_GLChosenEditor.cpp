@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/04/11 11:05:44  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.7  2006/01/09 13:36:47  dkrajzew
 // removed unneeded includes
 //
@@ -219,7 +222,7 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*,FXSelector,void*)
     }
     if(opendialog.execute()){
         gCurrentFolder = opendialog.getDirectory().text();
-        string file = string(opendialog.getFilename().text());
+        string file = opendialog.getFilename().text();
         myParent->loadSelection(file);
         rebuildList();
         update();
@@ -240,7 +243,7 @@ GUIDialog_GLChosenEditor::onCmdSave(FXObject*,FXSelector,void*)
     }
     if(opendialog.execute()){
         gCurrentFolder = opendialog.getDirectory().text();
-        string file = string(opendialog.getFilename().text());
+        string file = opendialog.getFilename().text();
         gSelected.save(-1, file);
     }
     return 1;

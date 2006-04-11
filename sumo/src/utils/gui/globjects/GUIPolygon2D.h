@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/04/11 11:05:44  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.2  2005/10/07 11:45:32  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -83,7 +86,7 @@ public:
     GUIGlObjectType getType() const;
 
     /// returns the id of the object as known to microsim
-    std::string microsimID() const;
+    const std::string &microsimID() const;
 
     /// Returns the information whether this object is still active
     bool active() const;

@@ -32,7 +32,7 @@ GUIPolygon2D::GUIPolygon2D(GUIGlObjectStorage &idStorage,
                            const std::string name, const std::string type,
                            const RGBColor &color,
                            const Position2DVector &Pos)
-    : Polygon2D(name, type, color, Pos), GUIGlObject(idStorage, string("poly:")+name)
+    : Polygon2D(name, type, color, Pos), GUIGlObject(idStorage, "poly:"+name)
 {
 }
 
@@ -103,7 +103,7 @@ GUIPolygon2D::getType() const
 }
 
 
-std::string
+const std::string &
 GUIPolygon2D::microsimID() const
 {
     throw 1;

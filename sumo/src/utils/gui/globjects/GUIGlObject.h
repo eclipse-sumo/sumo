@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2006/04/11 11:05:44  dkrajzew
+// code beautifying: embedding string in strings removed
+//
 // Revision 1.3  2005/10/07 11:45:32  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -125,7 +128,7 @@ public:
     virtual GUIGlObjectType getType() const = 0;
 
     /// returns the id of the object as known to microsim
-    virtual std::string microsimID() const = 0;
+    virtual const std::string &microsimID() const = 0;
 
     /// Needed to set the id
     friend class GUIGlObjectStorage;

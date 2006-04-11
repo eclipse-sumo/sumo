@@ -36,7 +36,7 @@ public:
     GUIGlObjectType getType() const;
 
     /// returns the id of the object as known to microsim
-    std::string microsimID() const;
+   const std::string &microsimID() const;
 
     /// Returns the information whether this object is still active
     bool active() const;
