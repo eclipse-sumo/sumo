@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/11 11:01:37  dkrajzew
+// extended the message-API to (re)allow process output
+//
 // Revision 1.11  2006/04/05 05:32:25  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -127,7 +130,7 @@ NIArtemisLoader::NIArtemisSingleDataTypeParser::~NIArtemisSingleDataTypeParser()
 bool
 NIArtemisLoader::NIArtemisSingleDataTypeParser::parse()
 {
-    WRITE_MESSAGE("Parsing " + getDataName() + "... ");
+    MsgHandler::getMessageInstance()->beginProcessMsg("Parsing " + getDataName() + "...");
     string file = myParent.getFileName() + getDataName();
     LineReader reader(file);
     if(!reader.good()) {

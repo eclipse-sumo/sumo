@@ -22,6 +22,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.10  2006/04/11 11:04:28  dkrajzew
+// extended the message-API to (re)allow process output
+//
 // Revision 1.9  2006/01/09 13:30:45  dkrajzew
 // debugging error handling
 //
@@ -123,12 +126,15 @@ public:
     static void cleanupOnEnd();
 
     /// adds a new error to the list
-    void inform(std::string error, bool addType=true);
+    void inform(const std::string &msg, bool addType=true);
 
     /// closes a sublist of information
-    void finalizeInform(std::string msg) {
+    void finalizeInform(const std::string &msg) {
         inform(msg);
     }
+
+    /// Writes a process information
+    void beginProcessMsg(const std::string &msg, bool addType=true);
 
     /// Clears information whether an error occured previously
     void clear();
@@ -139,7 +145,7 @@ public:
     /// Removes the retriever from the
     void removeRetriever(MsgRetriever *retriever);
 
-    /// Sets the information whether stdout shall be used as output device, too
+    /// Sets the information whether stdout shall be used as output device
     void report2cout(bool value);
 
     /// Sets the information whether stderr shall be used as output device
@@ -151,6 +157,27 @@ public:
     /** @brief Sets the lock to use
         The lock will not be deleted */
     void assignLock(AbstractMutex *lock);
+
+protected:
+    /// Builds the string which includes the mml-message type
+    inline std::string build(const std::string &msg, bool addType) {
+        if(addType) {
+            switch(myType) {
+            case MT_MESSAGE:
+                break;
+            case MT_WARNING:
+                return "Warning: " + msg;
+                break;
+            case MT_ERROR:
+                return "Error: " + msg;
+                break;
+            default:
+                break;
+            }
+        }
+        return msg;
+    }
+
 
 private:
     /// standard constructor
@@ -191,6 +218,9 @@ private:
     /** @brief The lock if any has to be used
         The lock will not be deleted */
     AbstractMutex *myLock;
+
+    /// Information whether a process information was sent as last
+    bool myAmProcessingProcess;
 
 private:
     /** invalid copy constructor */

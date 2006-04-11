@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/04/11 11:03:53  dkrajzew
+// extended the message-API to (re)allow process output
+//
 // Revision 1.26  2006/03/08 13:15:28  dkrajzew
 // debugging
 //
@@ -197,7 +200,7 @@ ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
         MsgHandler::getErrorInstance()->inform("The network file '" + file + "' could not be found.");
         return 0;
     }
-    MsgHandler::getMessageInstance()->inform("Loading net... ");
+    MsgHandler::getMessageInstance()->beginProcessMsg("Loading net...");
     RONet *net = new RONet(_options.isSet("sumo-input"));
     RONetHandler handler(_options, *net, eb);
     handler.setFileName(file);
@@ -485,7 +488,7 @@ ROLoader::loadWeights(RONet &net, const std::string &file,
     }
     // build and prepare the weights handler
     ROWeightsHandler handler(_options, net, file, useLanes);
-    MsgHandler::getMessageInstance()->inform("Loading precomputed net weights.");
+    MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed net weights...");
     // build and prepare the parser
     XMLHelpers::runParser(handler, file);
     bool ok = !MsgHandler::getErrorInstance()->wasInformed();
@@ -507,11 +510,8 @@ ROLoader::loadSupplementaryWeights( RONet& net )
         MsgHandler::getErrorInstance()->inform("The supplementary-weights file '" + filename + "' does not exist!" );
         throw ProcessError();
     }
-
     ROSupplementaryWeightsHandler handler( _options, net, filename );
-    MsgHandler::getMessageInstance()->inform(
-        "Loading precomputed supplementary net-weights." );
-
+    MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed supplementary net-weights." );
     XMLHelpers::runParser( handler, filename );
     if ( ! MsgHandler::getErrorInstance()->wasInformed() ) {
         MsgHandler::getMessageInstance()->inform( "done." );

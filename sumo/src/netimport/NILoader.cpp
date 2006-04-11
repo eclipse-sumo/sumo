@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/04/11 11:01:37  dkrajzew
+// extended the message-API to (re)allow process output
+//
 // Revision 1.23  2006/03/17 11:03:47  dkrajzew
 // xml-types are now read prior to other formats (other Xml-description afterwards)
 //
@@ -396,7 +399,7 @@ NILoader::loadCell(OptionsCont &oc)
     LineReader lr;
     // load nodes
     if(oc.isSet("cell-node-file")) {
-        WRITE_MESSAGE("Loading nodes... ");
+        MsgHandler::getMessageInstance()->beginProcessMsg("Loading nodes... ");
         string file = oc.getString("cell-node-file");
         NICellNodesHandler handler(myNetBuilder.getNodeCont(), file);
         if(!useLineReader(lr, file, handler)) {
@@ -407,7 +410,7 @@ NILoader::loadCell(OptionsCont &oc)
     }
     // load edges
     if(oc.isSet("cell-edge-file")) {
-        WRITE_MESSAGE("Loading edges... ");
+        MsgHandler::getMessageInstance()->beginProcessMsg("Loading edges... ");
         string file = oc.getString("cell-edge-file");
         // parse the file
         NICellEdgesHandler handler(myNetBuilder.getNodeCont(),
@@ -529,7 +532,7 @@ NILoader::loadElmar(OptionsCont &oc, projPJ pj)
     LineReader lr;
     // load nodes
     std::map<std::string, Position2DVector> myGeoms;
-    WRITE_MESSAGE("Loading nodes... ");
+    MsgHandler::getMessageInstance()->beginProcessMsg("Loading nodes...");
     if(!unsplitted) {
         string file = oc.getString(opt) + "_nodes.txt";
         NIElmarNodesHandler handler1(myNetBuilder.getNodeCont(), file, pj);
@@ -547,7 +550,7 @@ NILoader::loadElmar(OptionsCont &oc, projPJ pj)
     myNetBuilder.getNodeCont().report();
 
     // load edges
-    WRITE_MESSAGE("Loading edges... ");
+    MsgHandler::getMessageInstance()->beginProcessMsg("Loading edges...");
     if(!unsplitted) {
         std::string file = oc.getString(opt) + "_links.txt";
         // parse the file

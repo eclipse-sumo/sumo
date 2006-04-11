@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/11 11:03:53  dkrajzew
+// extended the message-API to (re)allow process output
+//
 // Revision 1.11  2006/02/13 07:23:40  dkrajzew
 // code beautifying
 //
@@ -301,7 +304,7 @@ RORDLoader_Cell::init(OptionsCont &options)
     _lineReader.readAll(*this);
     // save the index file when wished
     if(!_hasIndexFile&&options.getBool("save-cell-rindex")) {
-        MsgHandler::getMessageInstance()->inform("Saving the cell-rindex file '" + _routeIdxFile + "'... ");
+        MsgHandler::getMessageInstance()->beginProcessMsg("Saving the cell-rindex file '" + _routeIdxFile + "'...");
         std::ofstream out(_routeIdxFile.c_str());
         for(std::vector<unsigned long>::iterator i=_routes.begin(); i!=_routes.end(); i++) {
             out << (*i) << endl;

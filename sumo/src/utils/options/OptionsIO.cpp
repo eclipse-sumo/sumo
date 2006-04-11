@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/04/11 11:06:09  dkrajzew
+// extended the message-API to (re)allow process output
+//
 // Revision 1.15  2006/01/09 13:38:04  dkrajzew
 // debugging error handling
 //
@@ -214,7 +217,7 @@ OptionsIO::loadConfiguration(OptionsCont *oc)
         MsgHandler::getErrorInstance()->inform("Could not find configuration '" + oc->getString("c") + "'.");
         return false;
     }
-    WRITE_MESSAGE("Loading configuration...");
+    MsgHandler::getMessageInstance()->beginProcessMsg("Loading configuration...");
     // build parser
     SAXParser parser;
     parser.setValidationScheme(SAXParser::Val_Auto);

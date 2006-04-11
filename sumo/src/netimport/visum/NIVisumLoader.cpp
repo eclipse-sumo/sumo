@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/04/11 11:01:37  dkrajzew
+// extended the message-API to (re)allow process output
+//
 // Revision 1.14  2006/03/28 09:12:43  dkrajzew
 // lane connections for unsplitted lanes implemented, further refactoring
 //
@@ -186,7 +189,7 @@ NIVisumLoader::NIVisumSingleDataTypeParser::readUsing(LineReader &reader)
     if(myPosition==-1) {
         return false;
     }
-    WRITE_MESSAGE("Parsing " + getDataName() + "... ");
+    MsgHandler::getMessageInstance()->beginProcessMsg("Parsing " + getDataName() + "...");
     reader.reinit();
     reader.setPos(myPosition);
     reader.readAll(*this);

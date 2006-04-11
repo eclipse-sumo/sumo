@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.10  2006/04/11 11:04:28  dkrajzew
+// extended the message-API to (re)allow process output
+//
 // Revision 1.9  2006/01/09 13:30:45  dkrajzew
 // debugging error handling
 //
@@ -139,39 +142,63 @@ MsgHandler::getErrorInstance()
 
 
 void
-MsgHandler::inform(std::string error, bool addType)
+MsgHandler::inform(const std::string &msg, bool addType)
 {
     if(myLock!=0) {
         myLock->lock();
     }
-    if(addType) {
-        switch(myType) {
-        case MT_MESSAGE:
-            break;
-        case MT_WARNING:
-            error = "Warning: " + error;
-            break;
-        case MT_ERROR:
-            error = "Error: " + error;
-            break;
-        default:
-            throw 1;
-        }
-    }
+    build(msg, addType);
     // report to cout if wished
     if(myReport2COUT) {
-        cout << error << endl;
+        if(myAmProcessingProcess) {
+            cout << endl;
+        }
+        cout << msg << endl;
     }
     // report to cerr if wished
     if(myReport2CERR) {
-        cerr << error << endl;
+        if(myAmProcessingProcess) {
+            cout << endl;
+        }
+        cerr << msg << endl;
     }
     // inform all other receivers
     for(RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
-        (*i)->inform(error);
+        (*i)->inform(msg);
     }
     // set the information that something occured
     myWasInformed = true;
+    myAmProcessingProcess = false;
+    if(myLock!=0) {
+        myLock->unlock();
+    }
+}
+
+
+void
+MsgHandler::beginProcessMsg(const std::string &msg, bool addType)
+{
+    if(myLock!=0) {
+        myLock->lock();
+    }
+    build(msg, addType);
+    // report to cout if wished
+    if(myReport2COUT) {
+        cout << msg;
+        cout.flush();
+    }
+    // report to cerr if wished
+    if(myReport2CERR) {
+        cerr << msg;
+        cerr.flush();
+    }
+    // inform all other receivers
+    for(RetrieverVector::iterator i=myRetrievers.begin(); i!=myRetrievers.end(); i++) {
+        (*i)->inform(msg);
+    }
+    // set the information that something occured
+    myWasInformed = true;
+    myAmProcessingProcess = true;
     if(myLock!=0) {
         myLock->unlock();
     }
@@ -269,7 +296,8 @@ MsgHandler::cleanupOnEnd()
 
 MsgHandler::MsgHandler(MsgType type)
     : myType(type), myWasInformed(false), myReport2COUT(true),
-    myReport2CERR(false), myLock(0)
+    myReport2CERR(false), myLock(0), myAmProcessingProcess(false)
+
 {
 }
 
