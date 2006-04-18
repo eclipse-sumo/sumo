@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.22  2006/04/18 08:22:06  dkrajzew
+// added missing colon
+//
 // Revision 1.21  2006/04/11 13:59:57  t-bohn
 // added option: disable-normalize-node-positions
 // disable use of net-offset
@@ -204,7 +207,7 @@ char *help[] = {
     "  --explicite-tls JID[;JID]*     Specifies which junctions named by their ids",
     "                                  shall be tls-controlled."
     "  --explicite-no-tls JID[;JID]*  Specifies which junctions named by their ids",
-    "                                  shall not be tls-controlled."
+    "                                  shall not be tls-controlled.",
     "  --tls-poi-output FILENAME      Writes positions of tls-junctions.",
     " ",
     " Highway On-/Off-Ramps Building:",
