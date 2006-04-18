@@ -17,6 +17,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.12  2006/04/18 08:13:00  dkrajzew
+// debugging return of a local reference
+//
 // Revision 1.11  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -85,6 +88,12 @@
  * used namespaces
  * ======================================================================= */
 using namespace std;
+
+
+/* =========================================================================
+ * static member definitions
+ * ======================================================================= */
+std::string StringUtils::emptyString;
 
 
 /* =========================================================================

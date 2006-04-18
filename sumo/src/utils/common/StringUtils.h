@@ -19,6 +19,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.12  2006/04/18 08:13:00  dkrajzew
+// debugging return of a local reference
+//
 // Revision 1.11  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -107,6 +110,9 @@ public:
 
     /// Converts the given string to upper characters
     static void upper(std::string &str);
+
+    /// An empty string
+    static std::string emptyString;
 
 };
 
