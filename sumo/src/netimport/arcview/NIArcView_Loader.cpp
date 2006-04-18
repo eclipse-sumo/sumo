@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/04/18 17:02:14  t-bohn
+// debug: linux build problems
+//
 // Revision 1.26  2006/04/18 08:05:44  dkrajzew
 // beautifying: output consolidation
 //
@@ -127,7 +130,11 @@ namespace
 #include <netbuild/nodes/NBNodeCont.h>
 #include "NIArcView_Loader.h"
 #include <netimport/NINavTeqHelper.h>
+#ifdef WIN32
 #include <ogrsf_frmts/ogrsf_frmts.h>
+#else
+#include <ogrsf_frmts.h>
+#endif
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
