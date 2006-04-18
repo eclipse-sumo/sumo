@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/04/18 08:15:49  dkrajzew
+// removal of loops added
+//
 // Revision 1.12  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -143,6 +146,7 @@ public:
 
     const ROEdgeVector &getEdgeVector() const;
 
+    void recheckForLoops();
 
 private:
     /// The costs of the route

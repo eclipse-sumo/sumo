@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/18 08:15:49  dkrajzew
+// removal of loops added
+//
 // Revision 1.11  2006/04/07 10:41:47  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -157,6 +160,7 @@ ROFrame::fillOptions(OptionsCont &oc)
     // add possibility to insert random vehicles
     oc.doRegister("random-per-second", 'R', new Option_Float());
     oc.doRegister("prune-random", new Option_Bool(false));
+    oc.doRegister("remove-loops", new Option_Bool(false)); // !!! undescibed
 }
 
 

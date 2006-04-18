@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/04/18 08:15:49  dkrajzew
+// removal of loops added
+//
 // Revision 1.6  2006/01/26 08:37:24  dkrajzew
 // removed warnings 4786
 //
@@ -53,6 +56,7 @@
 #endif // HAVE_CONFIG_H
 
 #include <string>
+#include <utils/common/Named.h>
 #include "ROEdgeVector.h"
 
 
@@ -64,17 +68,13 @@
  * Not used yet, but kept as later on, nodes may be handled as vehicle
  *  decelerators that do affect the travelling speed.
  */
-class RONode {
+class RONode : public Named {
 public:
     /// Constructor
-    RONode(const std::string &id, const ROEdgeVector &edges);
+    RONode(const std::string &id);
 
     /// Destructor
     ~RONode();
-
-private:
-    /// The list of edges that do participate in this junction
-    ROEdgeVector _edges;
 
 };
 

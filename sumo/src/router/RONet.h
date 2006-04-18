@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2006/04/18 08:15:49  dkrajzew
+// removal of loops added
+//
 // Revision 1.19  2006/02/13 07:26:05  dkrajzew
 // made dijkstra-router checking for closures optionally
 //
@@ -152,7 +155,10 @@ public:
     ROEdge *getEdge(const std::string &name) const;
 
     /// Adds a read node to the network
-    void addNode(const std::string &name, RONode *node);
+    void addNode(RONode *node);
+
+    /// Retrieves a node from the network
+    RONode *getNode(const std::string &id) const;
 
     /// Returns the information whether the named vehicle is already in the network
     bool isKnownVehicleID(const std::string &id) const;
@@ -212,12 +218,6 @@ public:
     /// Returns the number of edges thenetwork contains
     unsigned int getEdgeNo() const;
 
-
-
-	static RONet* getNetInstance();
-
-	static void setNetInstance(RONet *net);
-
     ROEdgeCont *getMyEdgeCont();
 
     /** @brief Removes the route from the net when no further usage is needed */
@@ -242,9 +242,6 @@ protected:
 
 
 protected:
-    /// a Unique Instance of a RONet#
-	static RONet* myInstance;
-
     /// Container for known vehicle ids
     typedef std::vector<std::string> VehIDCont; // should be something else
 

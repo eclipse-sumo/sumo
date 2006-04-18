@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/04/18 08:15:49  dkrajzew
+// removal of loops added
+//
 // Revision 1.15  2006/02/13 07:24:49  dkrajzew
 // debugging missing spaces on linux
 //
@@ -248,6 +251,59 @@ const ROEdgeVector::EdgeVector &
 ROEdgeVector::getEdges() const
 {
     return _edges;
+}
+
+
+bool isTurnaround(const ROEdge *e1, const ROEdge *e2) {
+    return e1->getFromNode()==e2->getToNode() && e1->getToNode()==e2->getFromNode();
+}
+
+void
+ROEdgeVector::recheckForLoops()
+{
+    // forward
+    {
+        int lastReversed = 0;
+        bool found = false;
+        for(int i=0; i<(int) _edges.size()/2+1; i++) {
+            for(int j=i+1; j<(int) _edges.size()/2+1; j++) {
+                if(isTurnaround(_edges[i], _edges[j])&&lastReversed<j) {
+                    lastReversed = j;
+                    found = true;
+                }
+            }
+        }
+        if(found) {
+//            cout << "Erasing from begin to " << lastReversed << endl;
+            _edges.erase(_edges.begin(), _edges.begin()+lastReversed-1);
+        }
+    }
+    //
+    if(_edges.size()<2) {
+        return;
+    }
+    // backward
+    {
+        int lastReversed = _edges.size()-1;
+        bool found = false;
+        for(int i=_edges.size()-1; i>=0; i--) {
+            for(int j=i-1; j>=0; j--) {
+                if(isTurnaround(_edges[i], _edges[j])&&lastReversed>i) {
+//                    cout << endl << _edges[i]->getID() << " " << _edges[j]->getID() << endl;
+                    lastReversed = i;
+                    found = true;
+                }
+            }
+        }
+        if(found) {
+//            cout << endl;
+//            cout << (*this) << endl;
+//            cout << "Erasing from "<< lastReversed << " to end " << endl;
+            _edges.erase(_edges.begin()+lastReversed, _edges.end());
+//            cout << (*this) << endl;
+//            cout << "-----------" << endl;
+        }
+    }
 }
 
 

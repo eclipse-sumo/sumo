@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/04/18 08:15:49  dkrajzew
+// removal of loops added
+//
 // Revision 1.6  2006/01/26 08:37:24  dkrajzew
 // removed warnings 4786
 //
@@ -67,8 +70,8 @@ namespace
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-RONode::RONode(const std::string &id, const ROEdgeVector &edges)
-    : _edges(edges)
+RONode::RONode(const std::string &id)
+    : Named(id)
 {
 }
 

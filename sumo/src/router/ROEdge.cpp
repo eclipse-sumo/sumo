@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/04/18 08:15:49  dkrajzew
+// removal of loops added
+//
 // Revision 1.26  2006/04/11 11:03:18  dkrajzew
 // all structures now return their id via getID()
 //
@@ -465,6 +468,29 @@ ROEdge::prohibits(const ROVehicle * const vehicle) const
 	//  is not among them
 	return true;
 }
+
+
+void
+ROEdge::setNodes(RONode *from, RONode *to)
+{
+    myFromNode = from;
+    myToNode = to;
+}
+
+
+RONode *
+ROEdge::getFromNode() const
+{
+    return myFromNode;
+}
+
+
+RONode *
+ROEdge::getToNode() const
+{
+    return myToNode;
+}
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

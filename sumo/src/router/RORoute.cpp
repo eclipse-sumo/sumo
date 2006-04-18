@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/04/18 08:15:49  dkrajzew
+// removal of loops added
+//
 // Revision 1.14  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -223,6 +226,13 @@ const ROEdgeVector &
 RORoute::getEdgeVector() const
 {
     return _route;
+}
+
+
+void
+RORoute::recheckForLoops()
+{
+    _route.recheckForLoops();
 }
 
 

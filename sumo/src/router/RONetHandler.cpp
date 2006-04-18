@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/04/18 08:15:49  dkrajzew
+// removal of loops added
+//
 // Revision 1.15  2006/02/13 07:26:05  dkrajzew
 // made dijkstra-router checking for closures optionally
 //
@@ -179,6 +182,18 @@ RONetHandler::parseEdge(const Attributes &attrs)
         } else {
             throw 1; // !!!
         }
+        //
+        string from = getString(attrs, "From");
+        if(_net.getNode(from)==0) {
+            RONode *n = new RONode(from);
+            _net.addNode(n);
+        }
+        string to = getString(attrs, "To");
+        if(_net.getNode(to)==0) {
+            RONode *n = new RONode(to);
+            _net.addNode(n);
+        }
+        _currentEdge->setNodes(_net.getNode(from), _net.getNode(from));
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("An edge without an id occured within '" + _file + ".");
     }
@@ -195,24 +210,20 @@ RONetHandler::parseLane(const Attributes &attrs)
     try {
         maxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform(
-            "A lane without a maxspeed definition occured within '" + _file + "', edge '" + _currentName + "'.");
+        MsgHandler::getErrorInstance()->inform("A lane without a maxspeed definition occured within '" + _file + "', edge '" + _currentName + "'.");
         return;
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            "A lane with a nonnumerical maxspeed definition occured within '" + _file + "', edge '" + _currentName + "'.");
+        MsgHandler::getErrorInstance()->inform("A lane with a nonnumerical maxspeed definition occured within '" + _file + "', edge '" + _currentName + "'.");
         return;
     }
     // get the length
     try {
         length = getFloat(attrs, SUMO_ATTR_LENGTH);
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform(
-            "A lane without a length definition occured within '" + _file + "', edge '" + _currentName + "'.");
+        MsgHandler::getErrorInstance()->inform("A lane without a length definition occured within '" + _file + "', edge '" + _currentName + "'.");
         return;
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            "A lane with a nonnumerical length definition occured within '" + _file + "', edge '" + _currentName + "'.");
+        MsgHandler::getErrorInstance()->inform("A lane with a nonnumerical length definition occured within '" + _file + "', edge '" + _currentName + "'.");
         return;
     }
 	// get the id
@@ -250,7 +261,6 @@ RONetHandler::parseJunction(const Attributes &attrs)
         _currentName = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("A junction without an id occured within '" + _file + "'.");
-        MsgHandler::getErrorInstance()->inform("Contact your net supplier!");
     }
 }
 

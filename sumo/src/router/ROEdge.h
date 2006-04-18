@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.21  2006/04/18 08:15:49  dkrajzew
+// removal of loops added
+//
 // Revision 1.20  2006/04/11 11:03:18  dkrajzew
 // all structures now return their id via getID()
 //
@@ -98,6 +101,7 @@
 #include <vector>
 #include <utils/router/FloatValueTimeLine.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include "RONode.h"
 
 
 /* =========================================================================
@@ -226,6 +230,11 @@ static ROEdge* dictionary2(std::string id);
 
 	bool prohibits(const ROVehicle * const vehicle) const;
 
+    void setNodes(RONode *from, RONode *to);
+
+    RONode *getFromNode() const;
+    RONode *getToNode() const;
+
 protected:
     /// The id of the edge
     std::string _id;
@@ -275,6 +284,9 @@ protected:
 
 	/// The list of disallowed vehicle classes
 	std::vector<SUMOVehicleClass> myDisAllowedClasses;
+
+    /// The nodes this edge is connecting
+    RONode *myFromNode, *myToNode;
 
 
 private:

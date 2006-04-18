@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.30  2006/04/18 08:15:49  dkrajzew
+// removal of loops added
+//
 // Revision 1.29  2006/02/13 07:26:05  dkrajzew
 // made dijkstra-router checking for closures optionally
 //
@@ -162,9 +165,6 @@ namespace
 using namespace std;
 
 
-RONet *RONet::myInstance;
-
-
 /* =========================================================================
  * method definitions
  * ======================================================================= */
@@ -204,10 +204,18 @@ RONet::getEdge(const std::string &name) const
 
 
 void
-RONet::addNode(const std::string &name, RONode *node)
+RONet::addNode(RONode *node)
 {
-    _nodes.add(name, node);
+    _nodes.add(node->getID(), node);
 }
+
+
+RONode *
+RONet::getNode(const std::string &name) const
+{
+    return _nodes.get(name);
+}
+
 
 
 bool
@@ -323,24 +331,6 @@ RONet::addVehicle(const std::string &id, ROVehicle *veh)
     myReadRouteNo++;
 }
 
-void
-RONet::setNetInstance(RONet *net)
-{
-	myInstance = net;
-
-}
-
-
-RONet *
-RONet::getNetInstance()
-{
-	if(myInstance == 0){
-		return 0;
-	}
-	return myInstance;
-}
-
-
 const RORouteDef * const
 RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
                     ROVehicle *veh)
@@ -365,6 +355,10 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
     if(current==0) {
         return 0;
     }
+    // check whether we have to evaluate the route for not containing loops
+    if(options.getBool("remove-loops")) {
+        current->recheckForLoops();
+    }
     // check whether the route is valid and does not end on the starting edge
     if(current->size()<2) {
         // check whether the route ends at the starting edge
@@ -381,8 +375,7 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
     // check whether the vehicle is able to start at this edge
     //  (the edge must be longer than the vehicle)
     while(current->getFirst()->getLength()<=veh->getType()->getLength()) {
-        mh->inform("The vehicle '" + veh->getID() + "' is too long to start at edge '"
-            + current->getFirst()->getID() + "'.");
+        mh->inform("The vehicle '" + veh->getID() + "' is too long to start at edge '" + current->getFirst()->getID() + "'.");
         if(!options.getBool("move-on-short")||current->size()<3) {
             mh->inform(" Discarded.");
             delete current;
@@ -402,10 +395,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
                                 SUMOTime time)
 {
     // sort the list of route definitions
-    priority_queue<ROVehicle*,
-        std::vector<ROVehicle*>,
-        ROHelper::VehicleByDepartureComperator>
-        &sortedVehicles = _vehicles.sort();
+    priority_queue<ROVehicle*, std::vector<ROVehicle*>, ROHelper::VehicleByDepartureComperator> &sortedVehicles = _vehicles.sort();
     SUMOTime lastTime = -1;
     // write all vehicles (and additional structures)
     while(!sortedVehicles.empty()) {
@@ -419,14 +409,8 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
         // check whether to print the output
         if(lastTime!=currentTime&&lastTime!=-1) {
             // report writing progress
-            if( options.getInt("stats-period")>=0
-                &&
-                (currentTime%options.getInt("stats-period"))==0) {
-
-                WRITE_MESSAGE(\
-                    "Read: " + toString<int>(myReadRouteNo)\
-                    + ",  Discarded: " + toString<int>(myDiscardedRouteNo)\
-                    + ",  Written: " + toString<int>(myWrittenRouteNo));
+            if( options.getInt("stats-period")>=0 && (currentTime%options.getInt("stats-period"))==0) {
+                WRITE_MESSAGE("Read: " + toString<int>(myReadRouteNo) + ",  Discarded: " + toString<int>(myDiscardedRouteNo) + ",  Written: " + toString<int>(myWrittenRouteNo));
             }
         }
         lastTime = currentTime;
@@ -437,8 +421,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
         const RORouteDef * const route = computeRoute(options, router, veh);
         if(route!=0) {
             // write the route
-            veh->saveAllAsXML(myRoutesOutput, myRouteAlternativesOutput,
-                *_vehicleTypes.getDefault(), route);
+            veh->saveAllAsXML(myRoutesOutput, myRouteAlternativesOutput, *_vehicleTypes.getDefault(), route);
             myWrittenRouteNo++;
         } else {
             myDiscardedRouteNo++;
