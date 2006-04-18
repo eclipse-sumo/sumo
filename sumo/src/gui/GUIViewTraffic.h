@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.29  2006/04/18 08:08:21  dkrajzew
+// added Danilot Tete-Boyoms poi-interaction
+//
 // Revision 1.28  2006/03/08 13:09:11  dkrajzew
 // possibility to insert pois on the gui added (danilo tet-boyom)
 //
@@ -188,6 +191,11 @@ public:
 
 
     void centerTo(GUIGlObject *o);
+    void rename(GUIGlObject *o);
+    void moveTo(GUIGlObject *o);
+    void changeCol(GUIGlObject *o);
+    void changeTyp(GUIGlObject *o);
+    void deleteObj(GUIGlObject *o);
 
     /// shows a vehicle route
     void showRoute(GUIVehicle *v, int index=-1);
@@ -213,6 +221,8 @@ protected:
     void setPointToMove(PointOfInterest *p);
     void setIdToMove(unsigned int id);
     void draw(const MSRoute &r);
+	void setFirstPoint(PointOfInterest *p);
+	void setSecondPoint(PointOfInterest *p);
 
 protected:
     /** @brief Instances of the vehicle drawers
@@ -259,6 +269,8 @@ protected:
 
 
     PointOfInterest *_pointToMove;
+	PointOfInterest *_secondPoint; // first's Line Point
+	PointOfInterest *_firstPoint;  // second's Line Point
 	unsigned int _IdToMove;  // for deleting the _pointToMove also into gIDStorage
 	bool _leftButtonPressed; // set to true if the left Button is pressed and keep pressed
 

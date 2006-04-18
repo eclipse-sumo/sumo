@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/04/18 08:08:21  dkrajzew
+// added Danilot Tete-Boyoms poi-interaction
+//
 // Revision 1.4  2005/10/07 11:45:32  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -117,6 +120,22 @@ public:
 
     // Called if the object's consecutives shall be added to the list of selected objects
     long onCmdAddSuccessorsSelected(FXObject*,FXSelector,void*);
+
+    /// Called if the assigned objects shall be centered
+	long onCmdRename(FXObject*,FXSelector,void*);
+
+	/// Called if the assigned objects shall be moved
+	long onCmdMoveTo(FXObject*,FXSelector,void*);
+
+	/// Called if the assigned objects shall be recolored
+	long onCmdChangeCol(FXObject*,FXSelector,void*);
+
+	/// Called if the assigned objects shall be changed in typ
+	long onCmdChangeTyp(FXObject*,FXSelector,void*);
+
+	/// Called if the assigned objects shall be deleted
+	long onCmdDelete(FXObject*,FXSelector,void*);
+
 
 protected:
     /// The parent window

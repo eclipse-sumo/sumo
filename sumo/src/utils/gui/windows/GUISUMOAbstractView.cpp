@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.20  2006/04/18 08:08:21  dkrajzew
+// added Danilot Tete-Boyoms poi-interaction
+//
 // Revision 1.19  2006/03/27 07:34:19  dkrajzew
 // shape layers added
 //
@@ -1371,6 +1374,32 @@ SUMOReal
 GUISUMOAbstractView::getGridHeight() const
 {
     return myGrid->getBoundary().getHeight();
+}
+
+
+void
+GUISUMOAbstractView::rename(GUIGlObject *o)
+{
+}
+
+void
+GUISUMOAbstractView::moveTo(GUIGlObject *o)
+{
+}
+
+void
+GUISUMOAbstractView::changeCol(GUIGlObject *o)
+{
+}
+
+void
+GUISUMOAbstractView::changeTyp(GUIGlObject *o)
+{
+}
+
+void
+GUISUMOAbstractView::deleteObj(GUIGlObject *o)
+{
 }
 
 

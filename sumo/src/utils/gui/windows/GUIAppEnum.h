@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/04/18 08:08:21  dkrajzew
+// added Danilot Tete-Boyoms poi-interaction
+//
 // Revision 1.14  2006/02/23 11:37:40  dkrajzew
 // emitters may now show their routes
 //
@@ -304,6 +307,16 @@ enum {
     MID_SHOW_ALLROUTES,
     /// Hide all vehicle's routes
     MID_HIDE_ALLROUTES,
+    /// Rename the object
+	MID_RENAME,
+    /// Move object to another position
+    MID_MOVETO,
+    /// Change the color of an object
+    MID_CHANGECOL,
+    /// Change the type of an object
+    MID_CHANGETYPE,
+    /// Delete an object
+    MID_DELETE,
     //@}
 
     //@{ IDs used by Trackers

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/04/18 08:08:21  dkrajzew
+// added Danilot Tete-Boyoms poi-interaction
+//
 // Revision 1.4  2005/10/07 11:45:32  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -113,6 +116,11 @@ FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[]=
     FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,      GUIGLObjectPopupMenu::onCmdAddSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT_SUCC, GUIGLObjectPopupMenu::onCmdAddSuccessorsSelected),
     FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,   GUIGLObjectPopupMenu::onCmdRemoveSelected),
+	FXMAPFUNC(SEL_COMMAND,  MID_RENAME,         GUIGLObjectPopupMenu::onCmdRename),
+    FXMAPFUNC(SEL_COMMAND,  MID_MOVETO,         GUIGLObjectPopupMenu::onCmdMoveTo),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHANGECOL,      GUIGLObjectPopupMenu::onCmdChangeCol),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHANGETYPE,     GUIGLObjectPopupMenu::onCmdChangeTyp),
+    FXMAPFUNC(SEL_COMMAND,  MID_DELETE,         GUIGLObjectPopupMenu::onCmdDelete)
 };
 
 // Object implementation
@@ -177,6 +185,46 @@ GUIGLObjectPopupMenu::onCmdRemoveSelected(FXObject*,FXSelector,void*)
 {
     gSelected.deselect(myObject->getType(), myObject->getGlID());
     myParent->update();
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdRename(FXObject*,FXSelector,void*)
+{
+    myParent->rename(myObject);
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdMoveTo(FXObject*,FXSelector,void*)
+{
+    myParent->moveTo(myObject);
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdChangeCol(FXObject*,FXSelector,void*)
+{
+    myParent->changeCol(myObject);
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdChangeTyp(FXObject*,FXSelector,void*)
+{
+    myParent->changeTyp(myObject);
+    return 1;
+}
+
+
+long
+GUIGLObjectPopupMenu::onCmdDelete(FXObject*,FXSelector,void*)
+{
+    myParent->deleteObj(myObject);
     return 1;
 }
 

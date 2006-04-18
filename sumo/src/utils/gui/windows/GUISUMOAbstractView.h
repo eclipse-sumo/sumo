@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.16  2006/04/18 08:08:21  dkrajzew
+// added Danilot Tete-Boyoms poi-interaction
+//
 // Revision 1.15  2006/03/27 07:34:19  dkrajzew
 // shape layers added
 //
@@ -221,6 +224,21 @@ public:
 
     /// centers to the chosen artifact
     virtual void centerTo(GUIGlObject *o);
+
+    /// rename the chosen artifact
+    virtual void rename(GUIGlObject *o);
+
+    /// move the chosen artifact
+    virtual void moveTo(GUIGlObject *o);
+
+    /// change the color of the chosen artifact
+    virtual void changeCol(GUIGlObject *o);
+
+    /// change typ of the chosen artifact
+    virtual void changeTyp(GUIGlObject *o);
+
+    /// delete the chosen artifact
+    virtual void deleteObj(GUIGlObject *o);
 
     /// applies the given viewport settings
     virtual void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos);

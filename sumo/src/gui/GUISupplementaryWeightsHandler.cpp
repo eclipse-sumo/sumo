@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/04/18 08:08:21  dkrajzew
+// added Danilot Tete-Boyoms poi-interaction
+//
 // Revision 1.8  2006/03/28 06:12:54  dkrajzew
 // unneeded string wrapping removed
 //
@@ -175,8 +178,7 @@ GUISupplementaryWeightsHandler::startParseInterval( const Attributes& attrs )
         intervalEndM   = getLong( attrs, SUMO_ATTR_END );
     }
     catch (...) {
-        MsgHandler::getErrorInstance()->inform(
-            "Problems with timestep value.");
+        MsgHandler::getErrorInstance()->inform("Problems with timestep value.");
     }
 }
 
