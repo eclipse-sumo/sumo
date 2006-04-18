@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.78  2006/04/18 08:13:52  dkrajzew
+// debugging rerouting
+//
 // Revision 1.77  2006/04/07 05:28:07  dkrajzew
 // debugging
 //
@@ -2299,6 +2302,9 @@ MSVehicle::replaceRoute(MSRoute *newRoute, size_t simTime)
 #endif
     MSRoute *otherr = 0;
     const MSEdge *currentEdge = *myCurrEdge;
+    if(newRoute->find(currentEdge)==newRoute->end()) {
+        return false;
+    }
     // check whether the information shall be saved
     if(MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
         otherr = new MSRoute(*myRoute);
@@ -2335,6 +2341,7 @@ MSVehicle::replaceRoute(MSRoute *newRoute, size_t simTime)
         DEBUG_OUT << "-------------" << endl;
     }
 #endif
+    assert((MSEdge*)succEdge(1)!=0);
     return true;
 }
 

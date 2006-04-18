@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/04/18 08:13:52  dkrajzew
+// debugging rerouting
+//
 // Revision 1.10  2006/04/11 11:02:32  dkrajzew
 // patched the distribution usage; added possibility o load predefined routes
 //
@@ -289,7 +292,7 @@ MSTriggeredRerouter::hasCurrentReroute(SUMOTime time, MSVehicle &veh) const
     const MSRoute &route = veh.getRoute();
     while(i!=myIntervals.end()) {
         if((*i).begin<=time && (*i).end>=time) {
-            if(route.containsAnyOf((*i).closed)) {
+            if((*i).edgeProbs.getOverallProb()!=0||(*i).routeProbs.getOverallProb()!=0||route.containsAnyOf((*i).closed)) {
                 return true;
             }
         }
@@ -305,7 +308,9 @@ MSTriggeredRerouter::hasCurrentReroute(SUMOTime time) const
     std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     while(i!=myIntervals.end()) {
         if((*i).begin<=time && (*i).end>=time) {
-            return true;
+            if((*i).edgeProbs.getOverallProb()!=0||(*i).routeProbs.getOverallProb()!=0) {
+                return true;
+            }
         }
         i++;
     }
@@ -320,7 +325,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time, MSVehicle &veh) const
     const MSRoute &route = veh.getRoute();
     while(i!=myIntervals.end()) {
         if((*i).begin<=time && (*i).end>=time) {
-            if(route.containsAnyOf((*i).closed)) {
+            if((*i).edgeProbs.getOverallProb()!=0||(*i).routeProbs.getOverallProb()!=0||route.containsAnyOf((*i).closed)) {
                 return *i;
             }
         }
@@ -335,7 +340,7 @@ MSTriggeredRerouter::getCurrentReroute(SUMOTime time) const
 {
     std::vector<RerouteInterval>::const_iterator i = myIntervals.begin();
     while(i!=myIntervals.end()) {
-        if((*i).begin<=time && (*i).end>=time) {
+        if((*i).edgeProbs.getOverallProb()!=0||(*i).routeProbs.getOverallProb()!=0) {
             return *i;
         }
         i++;
@@ -355,7 +360,7 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
     }
 
     SUMOReal prob = myAmInUserMode ? myUserProbability : myProbability;
-    if((SUMOReal) rand()/(SUMOReal) (RAND_MAX-1) > prob) {
+    if((double) rand()/(double) (RAND_MAX) > prob) {
         return;
     }
 
@@ -373,7 +378,7 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
     // ok, try using a new destination
     MSEdge *newEdge = rerouteDef.edgeProbs.getOverallProb()>0 ? rerouteDef.edgeProbs.get() : 0;
     if(newEdge==0) {
-        MsgHandler::getWarningInstance()->inform("Empty rerouting definition for rerouter '" + getID() + "' in time " + toString(time) + ".");
+        WRITE_WARNING("Empty rerouting definition for rerouter '" + getID() + "' in time " + toString(time) + ".");
     }
 
     // we have a new destination, let's replace the vehicle route

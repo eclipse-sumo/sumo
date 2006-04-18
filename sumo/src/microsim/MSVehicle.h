@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.53  2006/04/18 08:13:52  dkrajzew
+// debugging rerouting
+//
 // Revision 1.52  2006/04/05 05:27:34  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -516,7 +519,7 @@ public:
             gap = 0;
         }
         if(gap<0) {
-            MsgHandler::getWarningInstance()->inform("Vehicle " + getID() + " collides with pred in " + toString(MSNet::getInstance()->getCurrentTimeStep()));
+            WRITE_WARNING("Vehicle " + getID() + " collides with pred in " + toString(MSNet::getInstance()->getCurrentTimeStep()));
             gap = 0;
         }
         assert( gap >= SUMOReal( 0 ) );
