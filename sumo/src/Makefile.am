@@ -197,8 +197,8 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./utils/gui/images/libguiutilsimages.a \
 ./utils/gui/tracker/libguiutilstracker.a \
 ./utils/gui/windows/libguiutilsWindows.a \
-./utils/foxtools/libfoxtools.a \
 ./utils/gui/globjects/libguiutilsglobjects.a \
+./utils/foxtools/libfoxtools.a \
 ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
 ./microsim/devices/libmicrosimdevs.a \
@@ -248,9 +248,4 @@ guisim.rc \
 netedit_build.h netedit_help.h netedit_main.cpp \
 tagreader.cpp \
 windows_config.h
-
-
-
-
-
 
