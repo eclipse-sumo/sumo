@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/04/18 08:14:30  dkrajzew
+// removed not needed members
+//
 // Revision 1.15  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -112,14 +115,14 @@ NBDistrict::NBDistrict(const std::string &id, const std::string &name,
                        SUMOReal x, SUMOReal y)
     : Named(StringUtils::convertUmlaute(id)),
     _name(StringUtils::convertUmlaute(name)),
-    myPosition(x, y), _posKnown(true)
+    myPosition(x, y)
 {
 }
 
 
 NBDistrict::NBDistrict(const std::string &id, const std::string &name)
     : Named(id), _name(name),
-    myPosition(0, 0), _posKnown(true) // !!! (true???)
+    myPosition(0, 0)
 {
 }
 
@@ -132,8 +135,7 @@ NBDistrict::~NBDistrict()
 bool
 NBDistrict::addSource(NBEdge *source, SUMOReal weight)
 {
-    EdgeVector::iterator i =
-        find(_sources.begin(), _sources.end(), source);
+    EdgeVector::iterator i = find(_sources.begin(), _sources.end(), source);
     if(i!=_sources.end()) {
         return false;
     }
@@ -147,8 +149,7 @@ NBDistrict::addSource(NBEdge *source, SUMOReal weight)
 bool
 NBDistrict::addSink(NBEdge *sink, SUMOReal weight)
 {
-    EdgeVector::iterator i =
-        find(_sinks.begin(), _sinks.end(), sink);
+    EdgeVector::iterator i = find(_sinks.begin(), _sinks.end(), sink);
     if(i!=_sinks.end()) {
         return false;
     }
@@ -162,12 +163,8 @@ NBDistrict::addSink(NBEdge *sink, SUMOReal weight)
 void
 NBDistrict::writeXML(std::ostream &into)
 {
-//    assert(_sourceWeights.size()>0);
-//    assert(_sinkWeights.size()>0);
     DoubleVectorHelper::normalise(_sourceWeights, 1.0);
     DoubleVectorHelper::normalise(_sinkWeights, 1.0);
-//    assert(DoubleVectorHelper::sum(_sourceWeights)==1);
-//    assert(DoubleVectorHelper::sum(_sinkWeights)==1);
     // write the head and the id of the district
     into << "   " << "<district id=\"" << _id << "\">" << endl;
     size_t i;
@@ -263,21 +260,6 @@ NBDistrict::replaceOutgoing(const EdgeVector &which, NBEdge *by)
 }
 
 
-
-
-/*void
-NBDistrict::normalise(DoubleVector &dv, size_t num)
-{
-    // normalise sources
-    if(_sourceConnectorsWeighted) {
-        DoubleVectorHelper::normalise(dv);
-    } else {
-        dv = DoubleVector(1.0 / (SUMOReal) num);
-    }
-}
-*/
-
-
 const Position2D &
 NBDistrict::getPosition() const
 {
@@ -302,7 +284,6 @@ NBDistrict::removeFromSinksAndSources(NBEdge *e)
         }
     }
 }
-
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

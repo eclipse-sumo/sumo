@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/04/18 08:14:30  dkrajzew
+// removed not needed members
+//
 // Revision 1.11  2005/10/07 11:38:18  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -156,10 +159,6 @@ private:
 
     /// the position of the distrct (it's mass-middle-point)
     Position2D myPosition;
-
-
-    /// Information whether the position is given
-    bool _posKnown;
 
 };
 
