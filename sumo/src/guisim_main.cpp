@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2006/04/18 08:21:48  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.13  2006/01/09 13:33:30  dkrajzew
 // debugging error handling
 //
@@ -371,8 +374,7 @@ main(int argc, char **argv)
         OptionsCont &oc = OptionsSubSys::getOptions();
         int minor, major;
         if(!FXGLVisual::supported(&application, major, minor)) {
-            MsgHandler::getErrorInstance()->inform(
-                "This system has no OpenGL support. Exiting." );
+            MsgHandler::getErrorInstance()->inform("This system has no OpenGL support. Exiting." );
             throw ProcessError();
         }
         // initialise global settings

@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/04/18 08:21:48  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.15  2006/01/31 11:04:10  dkrajzew
 // debugging
 //
@@ -218,8 +221,7 @@ getTurningDefaults(OptionsCont &oc)
         string def = oc.getString("turn-defaults");
         StringTokenizer st(def, ";");
 		if(st.size()<2) {
-            MsgHandler::getErrorInstance()->inform(
-                "The defaults for turnings must be a tuple of at least two numbers divided by ';'");
+            MsgHandler::getErrorInstance()->inform("The defaults for turnings must be a tuple of at least two numbers divided by ';'");
             throw ProcessError();
 		}
 		while(st.hasNext()) {
@@ -331,12 +333,10 @@ main(int argc, char **argv)
                 loadJPDefinitions(*net, oc);
                 startComputation(*net, loader, oc);
             } catch (SAXParseException &e) {
-                MsgHandler::getErrorInstance()->inform(
-                    toString<int>(e.getLineNumber()));
+                MsgHandler::getErrorInstance()->inform(toString<int>(e.getLineNumber()));
                 ret = 1;
             } catch (SAXException &e) {
-                MsgHandler::getErrorInstance()->inform(
-                    TplConvert<XMLCh>::_2str(e.getMessage()));
+                MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
                 ret = 1;
             }
         } else {

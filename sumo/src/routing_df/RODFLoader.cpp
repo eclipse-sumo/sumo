@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/04/18 08:17:11  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.1  2006/03/28 06:17:18  dkrajzew
 // extending the dfrouter by distance/length factors
 //
@@ -89,7 +92,7 @@ RODFLoader::loadNet(ROAbstractEdgeBuilder &eb)
 {
     RONet *net = new RONet(true);
     std::string file = _options.getString("n");
-    WRITE_MESSAGE("Loading net... ");
+    MsgHandler::getMessageInstance()->beginProcessMsg("Loading net...");
     RODFNetHandler handler(_options, *net, eb);
 	handler.setFileName(file);
 	XMLHelpers::runParser(handler, file);
