@@ -298,9 +298,15 @@ if test x"$ac_gdal_includes" = x; then
    if test -e /usr/include/gdal; then
       AC_MSG_RESULT([yes])
       ac_gdal_includes=/usr/include/gdal
+   elif test -e /usr/include/gdal.h; then
+      AC_MSG_RESULT([yes])
+      ac_gdal_includes=/usr/include
    elif test -e /usr/local/include/gdal; then
       AC_MSG_RESULT([yes])
       ac_gdal_includes=/usr/local/include/gdal
+   elif test -e /usr/local/include/gdal.h; then
+      AC_MSG_RESULT([yes])
+      ac_gdal_includes=/usr/local/include
    else
       AC_MSG_RESULT([no])
       AC_MSG_RESULT([gdal-includes not found.])
@@ -308,6 +314,8 @@ if test x"$ac_gdal_includes" = x; then
    fi
 else
    if test -e "$ac_gdal_includes/ogr/ogr_api.h"; then
+      AC_MSG_RESULT([yes])
+   elif test -e "$ac_gdal_includes/ogr_api.h"; then
       AC_MSG_RESULT([yes])
    else
       AC_MSG_RESULT([no])
