@@ -19,12 +19,14 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.3  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.2  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
 // Revision 1.1  2006/01/09 11:53:00  dkrajzew
 // bus stops implemented
-//
 //
 /* =========================================================================
  * compiler pragmas

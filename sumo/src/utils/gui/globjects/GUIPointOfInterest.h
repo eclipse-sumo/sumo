@@ -24,13 +24,14 @@ public:
     virtual ~GUIPointOfInterest();
 
 
-    /// Returns an own popup-menu
-    GUIGLObjectPopupMenu *getPopUpMenu(
-        GUIMainWindow &app, GUISUMOAbstractView &parent);
+    //@{ From GUIGlObject
+    /// Returns the popup-menu
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
+        GUISUMOAbstractView &parent);
 
-    /// Returns an own parameter window
-    GUIParameterTableWindow *getParameterWindow(
-        GUIMainWindow &app, GUISUMOAbstractView &parent);
+    /// Returns the parameter window
+    GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
+        GUISUMOAbstractView &parent);
 
     /// Returns the type of the object as coded in GUIGlObjectType
     GUIGlObjectType getType() const;

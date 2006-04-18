@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.16  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -93,14 +96,13 @@ namespace
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_IntParam.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/foxtools/MFXMenuHeader.h>
 #include <gui/GUIApplicationWindow.h>
 
 #ifdef _DEBUG
@@ -134,13 +136,9 @@ GUINetWrapper::getPopUpMenu(GUIMainWindow &app,
                                  GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
-    new FXMenuSeparator(ret);
-    new FXMenuCommand(ret, "Center",
-        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
-    new FXMenuSeparator(ret);
-    new FXMenuCommand(ret, "Show Parameter",
-        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    buildShowParamsPopupEntry(ret, false);
     return ret;
 }
 
@@ -153,61 +151,44 @@ GUINetWrapper::getParameterWindow(GUIMainWindow &app,
         new GUIParameterTableWindow(app, *this, 13);
     // add items
     ret->mkItem("vehicles running [#]", true,
-        new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(
-            &(getNet().getVehicleControl()),
-            &MSVehicleControl::getRunningVehicleNo));
+        new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getRunningVehicleNo));
     ret->mkItem("vehicles ended [#]", true,
-        new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(
-            &(getNet().getVehicleControl()),
-            &MSVehicleControl::getEndedVehicleNo));
+        new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getEndedVehicleNo));
     ret->mkItem("vehicles emitted [#]", true,
-        new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(
-            &(getNet().getVehicleControl()),
-            &MSVehicleControl::getEmittedVehicleNo));
+        new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getEmittedVehicleNo));
     ret->mkItem("vehicles loaded [#]", true,
-        new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(
-            &(getNet().getVehicleControl()),
-            &MSVehicleControl::getLoadedVehicleNo));
+        new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getLoadedVehicleNo));
     ret->mkItem("vehicles waiting [#]", true,
-        new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(
-            &(getNet().getVehicleControl()),
-            &MSVehicleControl::getWaitingVehicleNo));
+        new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getWaitingVehicleNo));
     ret->mkItem("end time [s]", false,
         (SUMOReal) OptionsSubSys::getOptions().getInt("e"));
     ret->mkItem("begin time [s]", false,
         (SUMOReal) OptionsSubSys::getOptions().getInt("b"));
     ret->mkItem("time step [s]", true,
-        new CastingFunctionBinding<GUINet, SUMOReal, int>(
-            &(getNet()), &GUINet::getCurrentTimeStep));
+        new CastingFunctionBinding<GUINet, SUMOReal, int>(&(getNet()), &GUINet::getCurrentTimeStep));
     if(getNet().logSimulationDuration()) {
         ret->mkItem("step duration [ms]", true,
-            new CastingFunctionBinding<GUINet, SUMOReal, int>(
-                &(getNet()), &GUINet::getWholeDuration));
+            new CastingFunctionBinding<GUINet, SUMOReal, int>(&(getNet()), &GUINet::getWholeDuration));
         ret->mkItem("simulation duration [ms]", true,
-            new CastingFunctionBinding<GUINet, SUMOReal, int>(
-                &(getNet()), &GUINet::getSimDuration));
+            new CastingFunctionBinding<GUINet, SUMOReal, int>(&(getNet()), &GUINet::getSimDuration));
         /*
         ret->mkItem("visualisation duration [ms]", true,
             new CastingFunctionBinding<GUINet, SUMOReal, int>(
                 &(getNet()), &GUINet::getVisDuration));
         */
         ret->mkItem("idle duration [ms]", true,
-            new CastingFunctionBinding<GUINet, SUMOReal, int>(
-                &(getNet()), &GUINet::getIdleDuration));
+            new CastingFunctionBinding<GUINet, SUMOReal, int>(&(getNet()), &GUINet::getIdleDuration));
         ret->mkItem("duration factor []", true,
-            new FunctionBinding<GUINet, SUMOReal>(
-                &(getNet()), &GUINet::getRTFactor));
+            new FunctionBinding<GUINet, SUMOReal>(&(getNet()), &GUINet::getRTFactor));
         /*
         ret->mkItem("mean duration factor []", true,
             new FuncBinding_IntParam<GUINet, SUMOReal>(
                 &(getNet()), &GUINet::getMeanRTFactor), 1);
                 */
         ret->mkItem("ups [#]", true,
-            new FunctionBinding<GUINet, SUMOReal>(
-                &(getNet()), &GUINet::getUPS));
+            new FunctionBinding<GUINet, SUMOReal>(&(getNet()), &GUINet::getUPS));
         ret->mkItem("mean ups [#]", true,
-            new FunctionBinding<GUINet, SUMOReal>(
-                &(getNet()), &GUINet::getMeanUPS));
+            new FunctionBinding<GUINet, SUMOReal>(&(getNet()), &GUINet::getMeanUPS));
     }
     // close building
     ret->closeBuilding();
@@ -226,7 +207,14 @@ GUINetWrapper::getType() const
 const std::string &
 GUINetWrapper::microsimID() const
 {
-    return "";
+    return StringUtils::emptyString;
+}
+
+
+bool
+GUINetWrapper::active() const
+{
+    return true;
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.20  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -113,10 +116,8 @@ namespace
 #include <gui/GUIGlobals.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include "GUIJunctionWrapper.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 
@@ -153,20 +154,9 @@ GUIJunctionWrapper::getPopUpMenu(GUIMainWindow &app,
                                  GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
-    new FXMenuSeparator(ret);
-    //
-    new FXMenuCommand(ret, "Center",
-        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
-    new FXMenuSeparator(ret);
-    //
-    if(gSelected.isSelected(GLO_JUNCTION, getGlID())) {
-        new FXMenuCommand(ret, "Remove From Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
-    } else {
-        new FXMenuCommand(ret, "Add To Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
-    }
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    buildSelectionPopupEntry(ret);
     return ret;
 }
 
@@ -215,6 +205,13 @@ const std::string &
 GUIJunctionWrapper::microsimID() const
 {
     return myJunction.getID();
+}
+
+
+bool
+GUIJunctionWrapper::active() const
+{
+    return true;
 }
 
 

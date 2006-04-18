@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/04/18 08:12:05  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.4  2005/10/07 11:45:32  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -78,6 +81,11 @@ namespace
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include "GUIGlObject.h"
 #include "GUIGlObjectStorage.h"
+#include <utils/foxtools/MFXMenuHeader.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <gui/GUIApplicationWindow.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -127,6 +135,73 @@ GUIGlObject::setGlID(size_t id)
 {
     myGlID = id;
 }
+
+
+
+void
+GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu *ret,
+                              GUIMainWindow &app,
+                              bool addSeparator)
+{
+    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
+    if(addSeparator) {
+        new FXMenuSeparator(ret);
+    }
+}
+
+
+void
+GUIGlObject::buildCenterPopupEntry(GUIGLObjectPopupMenu *ret,
+                                   bool addSeparator)
+{
+    new FXMenuCommand(ret, "Center",
+        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
+    if(addSeparator) {
+        new FXMenuSeparator(ret);
+    }
+}
+
+
+void
+GUIGlObject::buildSelectionPopupEntry(GUIGLObjectPopupMenu *ret,
+                                      bool addSeparator)
+{
+    if(gSelected.isSelected(getType(), getGlID())) {
+        new FXMenuCommand(ret, "Remove From Selected",
+            GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
+    } else {
+        new FXMenuCommand(ret, "Add To Selected",
+            GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
+    }
+    if(addSeparator) {
+        new FXMenuSeparator(ret);
+    }
+}
+
+
+void
+GUIGlObject::buildShowParamsPopupEntry(GUIGLObjectPopupMenu *ret,
+                                       bool addSeparator)
+{
+    new FXMenuCommand(ret, "Show Parameter",
+        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
+    if(addSeparator) {
+        new FXMenuSeparator(ret);
+    }
+}
+
+
+void
+GUIGlObject::buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu *ret,
+                                            bool addSeparator)
+{
+    new FXMenuCommand(ret, "Open Manipulator...",
+        GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_MANIP);
+    if(addSeparator) {
+        new FXMenuSeparator(ret);
+    }
+}
+
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

@@ -19,6 +19,7 @@
 #include "GUIPolygon2D.h"
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -47,35 +48,11 @@ GUIGLObjectPopupMenu *
 GUIPolygon2D::getPopUpMenu(GUIMainWindow &app,
                                  GUISUMOAbstractView &parent)
 {
-    throw 1;
-    /*
-    GUIGLObjectPopupMenu *ret =
-        new GUITriggeredRerouterPopupMenu(app, parent, *this);
-    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
-    new FXMenuSeparator(ret);
-    //
-    new FXMenuCommand(ret, "Center",
-        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
-    /*
-    new FXMenuSeparator(ret);
-    //
-    new FXMenuCommand(ret, "Open Manipulator...",
-        GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_MANIP);
-    //
-    if(gSelected.isSelected(GLO_TRIGGER, getGlID())) {
-        new FXMenuCommand(ret, "Remove From Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
-    } else {
-        new FXMenuCommand(ret, "Add To Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
-    }
-    new FXMenuSeparator(ret);
-    //
-    new FXMenuCommand(ret, "Show Parameter",
-        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
-
+    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    buildSelectionPopupEntry(ret);
     return ret;
-    */
 }
 
 
@@ -83,16 +60,7 @@ GUIParameterTableWindow *
 GUIPolygon2D::getParameterWindow(GUIMainWindow &app,
                                        GUISUMOAbstractView &parent)
 {
-    GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this, 7);
-    // add items
-    /*
-    ret->mkItem("speed [m/s]", true,
-        new FunctionBinding<GUITriggeredRerouter, SUMOReal>(this, &GUITriggeredRerouter::getCurrentSpeed));
-        */
-    // close building
-    ret->closeBuilding();
-    return ret;
+    return 0;
 }
 
 

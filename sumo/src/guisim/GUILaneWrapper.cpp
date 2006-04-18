@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.35  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.34  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -162,7 +165,6 @@ namespace
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <gui/GUIApplicationWindow.h>
-#include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 
 
@@ -306,26 +308,14 @@ GUILaneWrapper::getPopUpMenu(GUIMainWindow &app,
                              GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    //
+    buildSelectionPopupEntry(ret, false);
+    new FXMenuCommand(ret, "Add Successors To Selected", GUIIconSubSys::getIcon(ICON_EXT), ret, MID_ADDSELECT_SUCC);
     new FXMenuSeparator(ret);
     //
-    new FXMenuCommand(ret, "Center",
-        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
-    new FXMenuSeparator(ret);
-    //
-    if(gSelected.isSelected(GLO_LANE, getGlID())) {
-        new FXMenuCommand(ret, "Remove From Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
-    } else {
-        new FXMenuCommand(ret, "Add To Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
-    }
-    new FXMenuCommand(ret, "Add Successors To Selected",
-        GUIIconSubSys::getIcon(ICON_EXT), ret, MID_ADDSELECT_SUCC);
-    new FXMenuSeparator(ret);
-    //
-    new FXMenuCommand(ret, "Show Parameter",
-        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
+    buildShowParamsPopupEntry(ret, false);
     return ret;
 }
 
@@ -357,6 +347,26 @@ GUILaneWrapper::microsimID() const
 {
     return myLane.getID();
 }
+
+
+bool
+GUILaneWrapper::active() const
+{
+    return true;
+}
+
+
+Boundary
+GUILaneWrapper::getCenteringBoundary() const
+{
+	Boundary b;
+	b.add(_begin);
+	b.add(_end);
+	b.grow(20);
+	return b;
+}
+
+
 
 
 const Position2DVector &
@@ -522,16 +532,6 @@ GUILaneWrapper::getMSEdge() const
     return myLane.edge();
 }
 
-
-Boundary
-GUILaneWrapper::getCenteringBoundary() const
-{
-	Boundary b;
-	b.add(_begin);
-	b.add(_end);
-	b.grow(20);
-	return b;
-}
 
 
 

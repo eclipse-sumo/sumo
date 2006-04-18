@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.27  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.26  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -146,17 +149,6 @@ public:
     /// destructor
     ~GUIVehicle();
 
-    /// returns the popup-menu for vehicles
-    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-        GUISUMOAbstractView &parent);
-
-    GUIParameterTableWindow *getParameterWindow(
-        GUIMainWindow &app, GUISUMOAbstractView &parent);
-
-    /// Returns the type of the object as coded in GUIGlObjectType
-    GUIGlObjectType getType() const;
-
-
     inline void setOwnDefinedColor() const {
         if(hasCORNDoubleValue(MSCORN::CORN_VEH_OWNCOL_RED)) {
             glColor3d(
@@ -188,8 +180,27 @@ public:
     bool networking_hasDevice();
 #endif
 
+    //@{ From GUIGlObject
+    /// returns the popup-menu for vehicles
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
+        GUISUMOAbstractView &parent);
+
+    // Returns the parameter window
+    GUIParameterTableWindow *getParameterWindow(
+        GUIMainWindow &app, GUISUMOAbstractView &parent);
+
+    /// Returns the type of the object as coded in GUIGlObjectType
+    GUIGlObjectType getType() const;
+
     /// returns the id of the object as known to microsim
     const std::string &microsimID() const;
+
+    /// Returns the information whether this object is still active
+    bool active() const;
+
+    /// Returns the boundary to which the object shall be centered
+    Boundary getCenteringBoundary() const;
+    //@}
 
 
 #ifdef NETWORKING_BLA
@@ -224,15 +235,7 @@ public:
         the same settings */
     virtual MSVehicle *getNextPeriodical() const;
 
-	//{
-	Boundary getCenteringBoundary() const;
-	//}
-
-//    virtual size_t getTableParameterNo() const;
-
-// GUINet is allowed to build vehicles
     friend class GUIVehicleControl;
-	bool active() const;
 
 	void setRemoved();
 

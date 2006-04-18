@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.9  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -86,11 +89,12 @@ public:
     /// Destructor
     ~GUITrafficLightLogicWrapper();
 
-    /// Returns an own popup-menu
+    //@{ From GUIGlObject
+    /// Returns the popup-menu
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
-    /// Returns an own parameter window
+    /// Returns the parameter window
     GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
@@ -103,6 +107,10 @@ public:
     /// Returns the information whether this object is still active
 	bool active() const;
 
+    /// Returns the boundary to which the object shall be centered
+	Boundary getCenteringBoundary() const;
+    //@}
+
     /// Returns the current phase definition
     CompletePhaseDef getPhaseDef() const;
 
@@ -114,10 +122,6 @@ public:
 
     /// Builds a GUITLLogicPhasesTrackerWindow which displays the phase diagram
     void switchTLSLogic(int to);
-
-	//{
-	Boundary getCenteringBoundary() const;
-	//}
 
 public:
     /**

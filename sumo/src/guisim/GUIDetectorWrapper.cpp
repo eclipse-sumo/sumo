@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.12  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -64,10 +67,8 @@ namespace
 #include <gui/GUIGlobals.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/foxtools/MFXMenuHeader.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -102,24 +103,10 @@ GUIDetectorWrapper::getPopUpMenu(GUIMainWindow &app,
                                  GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
-    new FXMenuSeparator(ret);
-    //
-    new FXMenuCommand(ret, "Center",
-        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
-    new FXMenuSeparator(ret);
-    //
-    if(gSelected.isSelected(GLO_DETECTOR, getGlID())) {
-        new FXMenuCommand(ret, "Remove From Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
-    } else {
-        new FXMenuCommand(ret, "Add To Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
-    }
-    new FXMenuSeparator(ret);
-    //
-    new FXMenuCommand(ret, "Show Parameter",
-        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    buildSelectionPopupEntry(ret);
+    buildShowParamsPopupEntry(ret, false);
     return ret;
 }
 

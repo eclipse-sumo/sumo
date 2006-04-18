@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.14  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -119,20 +122,27 @@ public:
     /// destructor
     virtual ~GUIJunctionWrapper();
 
+    //@{ From GUIGlObject
     /// Returns a popup-menu
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
-    /** @brief Build this gl-object's parameter window
-        Throws an exception in fact as junctions do not have any parameter */
+    /// Returns the parameter window
     GUIParameterTableWindow *getParameterWindow(
         GUIMainWindow &app, GUISUMOAbstractView &parent);
+
+    /// Returns the type of the object as coded in GUIGlObjectType
+    GUIGlObjectType getType() const;
 
     /// returns the id of the object as known to microsim
     const std::string &microsimID() const;
 
-    /// Returns the type of the object as coded in GUIGlObjectType
-    GUIGlObjectType getType() const;
+    /// Returns the information whether this object is still active
+	bool active() const;
+
+    /// Returns the boundary to which the object shall be centered
+	Boundary getCenteringBoundary() const;
+    //@}
 
     /// returns the shape of the junction
     const Position2DVector &getShape() const;
@@ -140,16 +150,8 @@ public:
     /// Returns the boundary of the junction
     Boundary getBoundary() const;
 
-	//{
-	Boundary getCenteringBoundary() const;
-	//}
 
 	MSJunction &getJunction() const;
-
-protected:
-
-    /// returns the information whether this item is still an active part of the sim
-	bool active() const { return true; }
 
 protected:
 

@@ -24,6 +24,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.13  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -175,12 +178,9 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 3);
     // add items
-    myMkExistingItem(*ret, "mean travel time [s]",
-        E3::MEAN_TRAVELTIME);
-    myMkExistingItem(*ret, "mean halting number [n]",
-        E3::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE);
-    myMkExistingItem(*ret, "vehicle number [n]",
-        E3::NUMBER_OF_VEHICLES);
+    myMkExistingItem(*ret, "mean travel time [s]", E3::MEAN_TRAVELTIME);
+    myMkExistingItem(*ret, "mean halting number [n]", E3::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE);
+    myMkExistingItem(*ret, "vehicle number [n]", E3::NUMBER_OF_VEHICLES);
     // close building
     ret->closeBuilding();
     return ret;

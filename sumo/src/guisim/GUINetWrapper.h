@@ -21,6 +21,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.6  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -82,33 +85,33 @@ public:
     /// destructor
     virtual ~GUINetWrapper();
 
-    /// Returns a popup-menu
+    //@{ From GUIGlObject
+    /// Returns the popup-menu
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
+    /// Returns the parameter window
     GUIParameterTableWindow *getParameterWindow(
         GUIMainWindow &app, GUISUMOAbstractView &parent);
+
+    /// Returns the type of the object as coded in GUIGlObjectType
+    GUIGlObjectType getType() const;
 
     /// returns the id of the object as known to microsim
     const std::string &microsimID() const;
 
-    /// Returns the type of the object as coded in GUIGlObjectType
-    GUIGlObjectType getType() const;
+    /// Returns the information whether this object is still active
+    bool active() const;
+
+    /// Returns the boundary to which the object shall be centered
+	Boundary getCenteringBoundary() const;
+    //@}
 
     Boundary getBoundary() const;
 
     GUINet &getNet() const;
 
-	//{
-	Boundary getCenteringBoundary() const;
-	//}
-
 protected:
-
-	bool active() const { return true; }
-
-protected:
-
     GUINet &myNet;
 
 };

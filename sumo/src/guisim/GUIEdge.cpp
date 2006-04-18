@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.26  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -134,6 +137,7 @@ namespace
 #include <microsim/MSJunction.h>
 #include <microsim/MSLaneChanger.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/geom/GeomHelper.h>
 #include "GUIEdge.h"
 #include "GUINet.h"
@@ -291,6 +295,18 @@ GUIEdge::fill(std::vector<GUIEdge*> &netsWrappers)
     }
 }
 
+
+
+GUIGLObjectPopupMenu *
+GUIEdge::getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent)
+{
+    GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    buildSelectionPopupEntry(ret, false);
+//    buildShowParamsPopupEntry(ret, false);
+    return ret;
+}
 
 
 GUIGlObjectType

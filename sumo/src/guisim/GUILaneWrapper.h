@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.26  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.25  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -156,15 +159,27 @@ public:
     /// destructor
     virtual ~GUILaneWrapper();
 
+    //@{ From GUIGlObject
     /// Returns a popup-menu for lanes
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
         GUISUMOAbstractView &parent);
 
-    GUIParameterTableWindow *getParameterWindow(
-        GUIMainWindow &app, GUISUMOAbstractView &parent);
+    /// Returns the parameter window
+    GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
+        GUISUMOAbstractView &parent);
+
+    /// Returns the type of the object as coded in GUIGlObjectType
+    GUIGlObjectType getType() const;
 
     /// returns the id of the object as known to microsim
     const std::string &microsimID() const;
+
+    /// Returns the information whether this object is still active
+    bool active() const;
+
+    /// Returns the boundary to which the object shall be centered
+	Boundary getCenteringBoundary() const;
+    //@}
 
     /** returns the length of the lane */
     SUMOReal getLength() const;
@@ -206,8 +221,6 @@ public:
     /// Returns true if the given lane id the lane this wrapper wraps the geometry of
     bool forLane(const MSLane &lane) const;
 
-    /// Returns the type of the object as coded in GUIGlObjectType
-    GUIGlObjectType getType() const;
 
 
     const MSLane::VehCont &getVehiclesSecure();
@@ -235,14 +248,8 @@ public:
 
     SUMOReal getEdgeLaneNumber() const;
 
-	//{
-	Boundary getCenteringBoundary() const;
-	//}
-
     void selectSucessors();
 
-protected:
-    bool active() const { return true; }
 
 private:
     void buildAggregatedValuesStorage();

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.13  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -84,7 +87,6 @@ namespace
 #include <microsim/logging/FunctionBinding.h>
 #include <utils/gui/tracker/GUITLLogicPhasesTrackerWindow.h>
 #include "GUITrafficLightLogicWrapper.h"
-#include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 
 #ifdef _DEBUG
@@ -186,37 +188,27 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
                                           GUISUMOAbstractView &parent)
 {
     myApp = &app;
-    GUIGLObjectPopupMenu *ret =
-        new GUITrafficLightLogicWrapperPopupMenu(app, parent, *this);
-    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
-    new FXMenuSeparator(ret);
-    //
-    new FXMenuCommand(ret, "Center",
-        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
-    new FXMenuSeparator(ret);
+    GUIGLObjectPopupMenu *ret = new GUITrafficLightLogicWrapperPopupMenu(app, parent, *this);
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
     //
     const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.getID());
-    std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
-    size_t index = 0;
-    for(i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {
-        if((*i).second!=vars.defaultTL) {
-            new FXMenuCommand(ret, ("Switch to '" + (*i).second->getSubID() + "'").c_str(),
-                GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_SWITCH+index);
+    if(vars.ltVariants.size()>1) {
+        std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
+        size_t index = 0;
+        for(i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {
+            if((*i).second!=vars.defaultTL) {
+                new FXMenuCommand(ret, ("Switch to '" + (*i).second->getSubID() + "'").c_str(),
+                    GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_SWITCH+index);
+            }
         }
+        new FXMenuSeparator(ret);
     }
-    new FXMenuSeparator(ret);
-    //
-    if(gSelected.isSelected(GLO_TLLOGIC, getGlID())) {
-        new FXMenuCommand(ret, "Remove From Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
-    } else {
-        new FXMenuCommand(ret, "Add To Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
-    }
-    new FXMenuSeparator(ret);
-    //
     new FXMenuCommand(ret, "Track Phases", 0, ret, MID_TRACKPHASES);
     new FXMenuCommand(ret, "Show Phases", 0, ret, MID_SHOWPHASES);
+    new FXMenuSeparator(ret);
+    //
+    buildSelectionPopupEntry(ret, false);
     return ret;
 }
 

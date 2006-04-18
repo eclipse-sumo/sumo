@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.20  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -235,33 +238,20 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 14);
     // add items
-    myMkExistingItem(*ret, "density [?]",
-        E2::DENSITY);
-    myMkExistingItem(*ret, "jam lengths [veh]",
-        E2::MAX_JAM_LENGTH_IN_VEHICLES);
-    myMkExistingItem(*ret, "jam length [m]",
-        E2::MAX_JAM_LENGTH_IN_METERS);
-    myMkExistingItem(*ret, "jam len sum [veh]",
-        E2::JAM_LENGTH_SUM_IN_VEHICLES);
-    myMkExistingItem(*ret, "jam len sum [m]",
-        E2::JAM_LENGTH_SUM_IN_METERS);
-    myMkExistingItem(*ret, "queue length [veh]",
-        E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES);
-    myMkExistingItem(*ret, "queue length [m]",
-        E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS);
-    myMkExistingItem(*ret, "vehicles [veh]",
-        E2::N_VEHICLES);
-    myMkExistingItem(*ret, "occupancy degree [?]",
-        E2::OCCUPANCY_DEGREE);
-    myMkExistingItem(*ret, "space mean speed [?]",
-        E2::SPACE_MEAN_SPEED);
-    myMkExistingItem(*ret, "halting duration [?]",
-        E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE);
+    myMkExistingItem(*ret, "density [?]", E2::DENSITY);
+    myMkExistingItem(*ret, "jam lengths [veh]", E2::MAX_JAM_LENGTH_IN_VEHICLES);
+    myMkExistingItem(*ret, "jam length [m]", E2::MAX_JAM_LENGTH_IN_METERS);
+    myMkExistingItem(*ret, "jam len sum [veh]", E2::JAM_LENGTH_SUM_IN_VEHICLES);
+    myMkExistingItem(*ret, "jam len sum [m]", E2::JAM_LENGTH_SUM_IN_METERS);
+    myMkExistingItem(*ret, "queue length [veh]", E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES);
+    myMkExistingItem(*ret, "queue length [m]", E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS);
+    myMkExistingItem(*ret, "vehicles [veh]", E2::N_VEHICLES);
+    myMkExistingItem(*ret, "occupancy degree [?]", E2::OCCUPANCY_DEGREE);
+    myMkExistingItem(*ret, "space mean speed [?]", E2::SPACE_MEAN_SPEED);
+    myMkExistingItem(*ret, "halting duration [?]", E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE);
     //
-    ret->mkItem("length [m]", false,
-        myDetector.getEndPos()-myDetector.getStartPos());
-    ret->mkItem("position [m]", false,
-        myDetector.getStartPos());
+    ret->mkItem("length [m]", false, myDetector.getEndPos()-myDetector.getStartPos());
+    ret->mkItem("position [m]", false, myDetector.getStartPos());
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // close building
     ret->closeBuilding();

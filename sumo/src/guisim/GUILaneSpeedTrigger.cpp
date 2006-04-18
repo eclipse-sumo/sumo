@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.15  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -109,14 +112,12 @@ namespace
 #include <guisim/GUIEdge.h>
 #include "GUILaneSpeedTrigger.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <gui/GUIApplicationWindow.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <microsim/logging/FunctionBinding.h>
-#include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <utils/glutils/polyfonts.h>
@@ -402,29 +403,12 @@ GUIGLObjectPopupMenu *
 GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow &app,
                                   GUISUMOAbstractView &parent)
 {
-    GUIGLObjectPopupMenu *ret =
-        new GUILaneSpeedTriggerPopupMenu(app, parent, *this);
-    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
-    new FXMenuSeparator(ret);
-    //
-    new FXMenuCommand(ret, "Center",
-        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
-    new FXMenuSeparator(ret);
-    //
-    new FXMenuCommand(ret, "Open Manipulator...",
-        GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_MANIP);
-    //
-    if(gSelected.isSelected(GLO_TRIGGER, getGlID())) {
-        new FXMenuCommand(ret, "Remove From Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
-    } else {
-        new FXMenuCommand(ret, "Add To Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
-    }
-    new FXMenuSeparator(ret);
-    //
-    new FXMenuCommand(ret, "Show Parameter",
-        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
+    GUIGLObjectPopupMenu *ret = new GUILaneSpeedTriggerPopupMenu(app, parent, *this);
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    buildShowManipulatorPopupEntry(ret);
+    buildSelectionPopupEntry(ret);
+    buildShowParamsPopupEntry(ret, false);
     return ret;
 }
 
@@ -434,7 +418,7 @@ GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow &app,
                                         GUISUMOAbstractView &parent)
 {
     GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this, 7);
+        new GUIParameterTableWindow(app, *this, 1);
     // add items
     ret->mkItem("speed [m/s]", true,
         new FunctionBinding<GUILaneSpeedTrigger, SUMOReal>(this, &GUILaneSpeedTrigger::getCurrentSpeed));
@@ -517,7 +501,6 @@ GUILaneSpeedTrigger::doPaint(const PosCont &poss, const RotCont rots,
         SUMOReal value = (SUMOReal) getCurrentSpeed();
         if(myShowAsKMH) {
             value *= 3.6f;
-            // !!!
             if(((int) value+1)%10==0) {
                 value = (SUMOReal) (((int) value+1) / 10 * 10);
             }

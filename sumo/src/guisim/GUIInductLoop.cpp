@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.20  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -184,20 +187,15 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
         new GUIParameterTableWindow(app, *this, 7);
     // add items
     ret->mkItem("flow [veh/h]", true,
-        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(
-            &(getLoop()), &GUIInductLoop::getFlow, 1));
+        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getFlow, 1));
     ret->mkItem("mean speed [m/s]", true,
-        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(
-            &(getLoop()), &GUIInductLoop::getMeanSpeed, 1));
+        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getMeanSpeed, 1));
     ret->mkItem("occupancy [%]", true,
-        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(
-            &(getLoop()), &GUIInductLoop::getOccupancy, 1));
+        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getOccupancy, 1));
     ret->mkItem("mean vehicle length [m]", true,
-        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(
-            &(getLoop()), &GUIInductLoop::getMeanVehicleLength, 1));
+        new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getMeanVehicleLength, 1));
     ret->mkItem("empty time [s]", true,
-        new FunctionBinding<GUIInductLoop, SUMOReal>(
-            &(getLoop()), &GUIInductLoop::getTimestepsSinceLastDetection));
+        new FunctionBinding<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getTimestepsSinceLastDetection));
     //
     ret->mkItem("position [m]", false, myPosition);
     ret->mkItem("lane", false, myDetector.getLane()->getID());

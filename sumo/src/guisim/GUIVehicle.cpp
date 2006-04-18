@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.40  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.39  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -171,11 +174,9 @@ namespace
 #include <gui/GUIGlobals.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
-#include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <gui/GUIViewTraffic.h>
 #include <guisim/GUIVehicleType.h>
@@ -479,20 +480,10 @@ GUIVehicle::getPopUpMenu(GUIMainWindow &app,
                          GUISUMOAbstractView &parent)
 {
     GUIGLObjectPopupMenu *ret = new GUIVehiclePopupMenu(app, parent, *this);
-    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
-    new FXMenuSeparator(ret);
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    buildSelectionPopupEntry(ret);
     //
-    new FXMenuCommand(ret, "Center",
-        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
-    new FXMenuSeparator(ret);
-    //
-    if(gSelected.isSelected(GLO_VEHICLE, getGlID())) {
-        new FXMenuCommand(ret, "Remove From Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
-    } else {
-        new FXMenuCommand(ret, "Add To Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
-    }
     if(static_cast<GUIViewTraffic&>(parent).amShowingRouteFor(this, 0)) {
         new FXMenuCommand(ret, "Hide Current Route", 0, ret, MID_HIDE_CURRENTROUTE);
     } else {
@@ -505,8 +496,7 @@ GUIVehicle::getPopUpMenu(GUIMainWindow &app,
     }
     new FXMenuSeparator(ret);
     //
-    new FXMenuCommand(ret, "Show Parameter",
-        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
+    buildShowParamsPopupEntry(ret, false);
     return ret;
 }
 
@@ -522,11 +512,9 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
     ret->mkItem("left same route [#]", false, (SUMOReal) getRepetitionNo());
     ret->mkItem("emission period [s]", false, (SUMOReal) getPeriod());
     ret->mkItem("waiting time [s]", true,
-        new CastingFunctionBinding<MSVehicle, SUMOReal, size_t>(
-            this, &MSVehicle::getWaitingTime));
+        new CastingFunctionBinding<MSVehicle, SUMOReal, size_t>(this, &MSVehicle::getWaitingTime));
     ret->mkItem("last lane change [s]", true,
-        new CastingFunctionBinding<GUIVehicle, SUMOReal, size_t>(
-        this, &GUIVehicle::getLastLaneChangeOffset));
+        new CastingFunctionBinding<GUIVehicle, SUMOReal, size_t>(this, &GUIVehicle::getLastLaneChangeOffset));
     ret->mkItem("desired depart [s]", false, (SUMOReal) getDesiredDepart());
     ret->mkItem("position [m]", true,
         new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::pos));

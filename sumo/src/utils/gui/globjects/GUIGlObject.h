@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.5  2006/04/18 08:12:05  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.4  2006/04/11 11:05:44  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -116,11 +119,16 @@ public:
     /// Returns the numerical id of the object
     size_t getGlID() const;
 
-    /// Returns an own popup-menu
+    /// Needed to set the id
+    friend class GUIGlObjectStorage;
+
+
+    //@{ The following methods needs to be implemented by derived classes
+    /// Returns the popup-menu
     virtual GUIGLObjectPopupMenu *getPopUpMenu(
         GUIMainWindow &app, GUISUMOAbstractView &parent) = 0;
 
-    /// Returns an own parameter window
+    /// Returns the parameter window
     virtual GUIParameterTableWindow *getParameterWindow(
         GUIMainWindow &app, GUISUMOAbstractView &parent) = 0;
 
@@ -130,19 +138,38 @@ public:
     /// returns the id of the object as known to microsim
     virtual const std::string &microsimID() const = 0;
 
-    /// Needed to set the id
-    friend class GUIGlObjectStorage;
-
     /// Returns the information whether this object is still active
     virtual bool active() const = 0;
 
-    /// Returns the boundary to which the object shall be centered
-    virtual Boundary getCenteringBoundary() const = 0;
+	/// Returns the boundary to which the object shall be centered
+	virtual Boundary getCenteringBoundary() const = 0;
+    //@}
+
+protected:
+    //@{ Helper methods for building popup-menus
+    /// Builds the header
+    void buildPopupHeader(GUIGLObjectPopupMenu *ret,
+        GUIMainWindow &app, bool addSeparator=true);
+
+    /// Builds an entry which allows to center to the object
+    void buildCenterPopupEntry(GUIGLObjectPopupMenu *ret, bool addSeparator=true);
+
+    /// Builds an entry which allows to (de)select the object
+    void buildSelectionPopupEntry(GUIGLObjectPopupMenu *ret,
+        bool addSeparator=true);
+
+    /// Builds an entry which allows to open the parameter window
+    void buildShowParamsPopupEntry(GUIGLObjectPopupMenu *ret,
+        bool addSeparator=true);
+
+    /// Builds an entry which allows to open the manipulator window
+    void buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu *ret,
+        bool addSeparator=true);
+    //@}
 
 private:
     /// Sets the id of the object
     void setGlID(size_t id);
-
 
 private:
     /// The numerical id of the object

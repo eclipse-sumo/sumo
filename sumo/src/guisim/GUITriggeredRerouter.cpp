@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.7  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -87,14 +90,12 @@ namespace
 #include <guisim/GUIEdge.h>
 #include "GUITriggeredRerouter.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <gui/GUIApplicationWindow.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <microsim/logging/FunctionBinding.h>
-#include <utils/foxtools/MFXMenuHeader.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <utils/glutils/polyfonts.h>
@@ -334,29 +335,12 @@ GUIGLObjectPopupMenu *
 GUITriggeredRerouter::getPopUpMenu(GUIMainWindow &app,
                                   GUISUMOAbstractView &parent)
 {
-    GUIGLObjectPopupMenu *ret =
-        new GUITriggeredRerouterPopupMenu(app, parent, *this);
-    new MFXMenuHeader(ret, app.getBoldFont(), getFullName().c_str(), 0, 0, 0);
-    new FXMenuSeparator(ret);
-    //
-    new FXMenuCommand(ret, "Center",
-        GUIIconSubSys::getIcon(ICON_RECENTERVIEW), ret, MID_CENTER);
-    new FXMenuSeparator(ret);
-    //
-    new FXMenuCommand(ret, "Open Manipulator...",
-        GUIIconSubSys::getIcon(ICON_MANIP), ret, MID_MANIP);
-    //
-    if(gSelected.isSelected(GLO_TRIGGER, getGlID())) {
-        new FXMenuCommand(ret, "Remove From Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_REMOVESELECT);
-    } else {
-        new FXMenuCommand(ret, "Add To Selected",
-            GUIIconSubSys::getIcon(ICON_FLAG_PLUS), ret, MID_ADDSELECT);
-    }
-    new FXMenuSeparator(ret);
-    //
-    new FXMenuCommand(ret, "Show Parameter",
-        GUIIconSubSys::getIcon(ICON_APP_TABLE), ret, MID_SHOWPARS);
+    GUIGLObjectPopupMenu *ret = new GUITriggeredRerouterPopupMenu(app, parent, *this);
+    buildPopupHeader(ret, app);
+    buildCenterPopupEntry(ret);
+    buildShowManipulatorPopupEntry(ret, false);
+    buildSelectionPopupEntry(ret, false);
+    //(nothing to show, see below) buildShowParamsPopupEntry(ret, false);
     return ret;
 }
 
@@ -365,16 +349,7 @@ GUIParameterTableWindow *
 GUITriggeredRerouter::getParameterWindow(GUIMainWindow &app,
                                         GUISUMOAbstractView &parent)
 {
-    GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this, 7);
-    // add items
-    /*
-    ret->mkItem("speed [m/s]", true,
-        new FunctionBinding<GUITriggeredRerouter, SUMOReal>(this, &GUITriggeredRerouter::getCurrentSpeed));
-        */
-    // close building
-    ret->closeBuilding();
-    return ret;
+    return 0;
 }
 
 

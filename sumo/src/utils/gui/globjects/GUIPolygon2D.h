@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2006/04/18 08:12:05  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.3  2006/04/11 11:05:44  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -74,13 +77,13 @@ public:
 
 
 
-    /// Returns an own popup-menu
-    GUIGLObjectPopupMenu *getPopUpMenu(
-        GUIMainWindow &app, GUISUMOAbstractView &parent);
+    /// Returns the popup-menu
+    GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
+        GUISUMOAbstractView &parent);
 
-    /// Returns an own parameter window
-    GUIParameterTableWindow *getParameterWindow(
-        GUIMainWindow &app, GUISUMOAbstractView &parent);
+    /// Returns the parameter window
+    GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
+        GUISUMOAbstractView &parent);
 
     /// Returns the type of the object as coded in GUIGlObjectType
     GUIGlObjectType getType() const;
@@ -93,6 +96,7 @@ public:
 
 	/// Returns the boundary to which the object shall be centered
 	Boundary getCenteringBoundary() const;
+    //@}
 
 };
 

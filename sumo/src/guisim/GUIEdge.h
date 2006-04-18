@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.20  2006/04/18 08:12:04  dkrajzew
+// consolidation of interaction with gl-objects
+//
 // Revision 1.19  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -175,14 +178,14 @@ public:
     static void fill(std::vector<GUIEdge*> &netsWrappers);
 
 
-    /// Returns an own popup-menu
-    virtual GUIGLObjectPopupMenu *getPopUpMenu(
-        GUIMainWindow &app, GUISUMOAbstractView &parent)
-        { throw 1; }
+    //@{ From GUIGlObject
+    /// Returns a popup-menu
+    virtual GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
+        GUISUMOAbstractView &parent);
 
-    /// Returns an own parameter window
-    virtual GUIParameterTableWindow *getParameterWindow(
-        GUIMainWindow &app, GUISUMOAbstractView &parent)
+    /// Returns the parameter window
+    virtual GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
+        GUISUMOAbstractView &parent)
         { throw 1; }
 
     /// Returns the type of the object as coded in GUIGlObjectType
@@ -191,11 +194,13 @@ public:
     /// returns the id of the object as known to microsim
     const std::string &microsimID() const;
 
+    /// Returns the information whether this object is still active
     bool active() const;
 
-	//{
+    /// Returns the boundary to which the object shall be centered
 	Boundary getCenteringBoundary() const;
-	//}
+    //@}
+
 
 private:
     /// Definition of the lane's positions vector
