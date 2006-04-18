@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.22  2006/02/27 12:10:41  dkrajzew
 // WAUTs added
 //
@@ -465,8 +468,7 @@ NLJunctionControlBuilder::addLogicItem(int request,
                                        const std::string &foes)
 {
     if(myRequestSize<=0) {
-        MsgHandler::getErrorInstance()->inform(
-            "The request size,  the response size or the number of lanes is not given! Contact your net supplier");
+        MsgHandler::getErrorInstance()->inform("The request size,  the response size or the number of lanes is not given! Contact your net supplier");
         return;
     }
     // add the read response for the given request index

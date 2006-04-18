@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.27  2006/04/11 11:03:53  dkrajzew
 // extended the message-API to (re)allow process output
 //
@@ -297,9 +300,7 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
     }
     time = end;
     writeStats(time, start, absNo);
-    MsgHandler::getMessageInstance()->inform(
-        "Routes found between time steps " + toString<int>(firstStep)
-        + " and " + toString<int>(lastStep) + ".");
+    MsgHandler::getMessageInstance()->inform("Routes found between time steps " + toString<int>(firstStep) + " and " + toString<int>(lastStep) + ".");
 }
 
 
@@ -402,8 +403,7 @@ ROLoader::addToHandlerList(const std::string &optionName,
             buildNamedHandler(optionName, file, net);
         if(!instance->init(_options)) {
             delete instance;
-            MsgHandler::getErrorInstance()->inform("The loader for "
-                + optionName + " from file '" + file + "' could not be initialised.");
+            MsgHandler::getErrorInstance()->inform("The loader for " + optionName + " from file '" + file + "' could not be initialised.");
             throw ProcessError();
         }
         _handler.push_back(instance);

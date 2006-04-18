@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.11  2006/04/07 05:28:24  dkrajzew
 // removed some warnings
 //
@@ -125,8 +128,7 @@ NIElmarNodesHandler::report(const std::string &result)
     StringTokenizer st(result, StringTokenizer::WHITECHARS);
     // check
     if(st.size()<3) {
-        MsgHandler::getErrorInstance()->inform("Something is wrong with the following data line");
-        MsgHandler::getErrorInstance()->inform(result);
+        MsgHandler::getErrorInstance()->inform("Something is wrong with the following data line\n" + result);
         throw ProcessError();
     }
     // parse

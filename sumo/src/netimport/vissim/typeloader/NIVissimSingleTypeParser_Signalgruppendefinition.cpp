@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.17  2006/04/05 05:32:27  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -144,9 +147,8 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream &from)
     from >> lsaid;
     NIVissimTL *tl = NIVissimTL::dictionary(lsaid);
     if(tl==0) {
-        MsgHandler::getErrorInstance()->inform("A traffic light group with an unknown traffic light occured.");
-        MsgHandler::getErrorInstance()->inform("  Group-ID: " + toString<int>(id));
-        MsgHandler::getErrorInstance()->inform("  TrafficLight-ID: " + toString<int>(lsaid));
+        MsgHandler::getErrorInstance()->inform("A traffic light group with an unknown traffic light occured.\n  Group-ID: " + toString<int>(id)
+            + "\n  TrafficLight-ID: " + toString<int>(lsaid));
         return false;
     }
     string type = tl->getType();

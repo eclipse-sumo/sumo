@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.15  2006/01/26 08:44:14  dkrajzew
 // adapted the new router API
 //
@@ -315,10 +318,7 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const Attributes &attrs)
     }
     myVehicle2EmitNumber = getTime(attrs, SUMO_ATTR_NO, myID);
     if(myIntervalEnd<=myIntervalBegin) {
-        MsgHandler::getErrorInstance()->inform("The interval must be larger than 0.");
-        MsgHandler::getErrorInstance()->inform(
-            "The current values are: begin=" + toString<unsigned int>(myIntervalBegin)
-            + " end=" + toString<unsigned int>(myIntervalEnd));
+        MsgHandler::getErrorInstance()->inform("The interval must be larger than 0.\n The current values are: begin=" + toString<unsigned int>(myIntervalBegin) + " end=" + toString<unsigned int>(myIntervalEnd));
         return;
     }
     myPeriodTime = -1;

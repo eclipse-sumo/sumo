@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.11  2006/03/27 07:25:55  dkrajzew
 // added projection information to the network
 //
@@ -484,8 +487,7 @@ NLHandler::chooseEdge(const Attributes &attrs)
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Error in description: missing id of an edge-object.");
     } catch (XMLIdNotKnownException &e) {
-        MsgHandler::getErrorInstance()->inform(
-            e.getMessage("edge", id));
+        MsgHandler::getErrorInstance()->inform(e.getMessage("edge", id));
     }
     // get the function
     string func;
@@ -547,15 +549,12 @@ NLHandler::addLane(const Attributes &attrs)
         } catch (XMLDepartLaneDuplicationException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("lane", id));
         } catch (EmptyData) {
-            MsgHandler::getErrorInstance()->inform(
-                "Error in description: missing attribute in an edge-object.");
+            MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in an edge-object.");
         } catch (NumberFormatException) {
-            MsgHandler::getErrorInstance()->inform(
-                "Error in description: one of an edge's attributes must be numeric but is not.");
+            MsgHandler::getErrorInstance()->inform("Error in description: one of an edge's attributes must be numeric but is not.");
         }
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of an edge-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing id of an edge-object.");
     }
 }
 
@@ -605,8 +604,7 @@ NLHandler::addPoly(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' misses an attribute.");
         }
     } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing name of an poly-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing name of an poly-object.");
     }
 }
 
@@ -631,8 +629,7 @@ NLHandler::openAllowedEdge(const Attributes &attrs)
     } catch (XMLIdNotKnownException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("cedge", id));
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of an cedge-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing id of an cedge-object.");
     }
 }
 
@@ -647,8 +644,7 @@ NLHandler::addLogicItem(const Attributes &attrs)
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing request key...");
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: one of the request keys is not numeric.");
+        MsgHandler::getErrorInstance()->inform("Error in description: one of the request keys is not numeric.");
     }
     // parse the response
     string response;
@@ -735,13 +731,11 @@ NLHandler::addPhase(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing phase duration...");
         return;
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(
-            "The phase duration is not numeric.");
+        MsgHandler::getErrorInstance()->inform("The phase duration is not numeric.");
         return;
     }
     if(duration==0) {
-        MsgHandler::getErrorInstance()->inform(
-            "The duration of a tls-logic must not be zero. Is in '" + m_Key + "'.");
+        MsgHandler::getErrorInstance()->inform("The duration of a tls-logic must not be zero. Is in '" + m_Key + "'.");
         return;
     }
     // if the traffic light is an actuated traffic light, try to get
@@ -751,15 +745,13 @@ NLHandler::addPhase(const Attributes &attrs)
     try {
         min = getIntSecure(attrs, SUMO_ATTR_MINDURATION, -1);
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(
-            "The phase minimum duration is not numeric.");
+        MsgHandler::getErrorInstance()->inform("The phase minimum duration is not numeric.");
         return;
     }
     try {
         max = getIntSecure(attrs, SUMO_ATTR_MAXDURATION, -1);
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(
-            "The phase maximum duration is not numeric.");
+        MsgHandler::getErrorInstance()->inform("The phase maximum duration is not numeric.");
         return;
     }
     // build the brake mask
@@ -783,8 +775,7 @@ NLHandler::openJunction(const Attributes &attrs)
                 getFloat(attrs, SUMO_ATTR_X),
                 getFloat(attrs, SUMO_ATTR_Y));
         } catch (EmptyData) {
-            MsgHandler::getErrorInstance()->inform(
-                "Error in description: missing attribute in a junction-object.");
+            MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a junction-object.");
         }
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform(
@@ -802,8 +793,7 @@ NLHandler::addDetector(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of a detector-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
         return;
     }
     // try to get the type
@@ -838,8 +828,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
     try {
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of a detector-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
         return;
     }
     try {
@@ -965,8 +954,7 @@ NLHandler::beginE3Detector(const Attributes &attrs)
         id = getString(attrs, SUMO_ATTR_ID);
         m_Key = id;
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of a detector-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
         return;
     }
     try {
@@ -1016,8 +1004,7 @@ NLHandler::addE3Exit(const Attributes &attrs)
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "The description of the detector '" + m_Key + "' does not contain a needed value.");
+        MsgHandler::getErrorInstance()->inform("The description of the detector '" + m_Key + "' does not contain a needed value.");
     } catch (FileBuildError &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
     }
@@ -1042,12 +1029,10 @@ NLHandler::addSource(const Attributes &attrs)
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.msg());
         } catch (EmptyData) {
-            MsgHandler::getErrorInstance()->inform(
-                "The description of trigger '" + id + "' does not contain a needed value.");
+            MsgHandler::getErrorInstance()->inform("The description of trigger '" + id + "' does not contain a needed value.");
         }
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of a detector-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a detector-object.");
     } catch (FileBuildError &e) {
         MsgHandler::getErrorInstance()->inform(e.msg());
     }
@@ -1068,14 +1053,12 @@ NLHandler::addTrigger(const Attributes &attrs)
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.msg());
         } catch (EmptyData) {
-            MsgHandler::getErrorInstance()->inform(
-                "The description of the trigger '" + id + "' does not contain a needed value.");
+            MsgHandler::getErrorInstance()->inform("The description of the trigger '" + id + "' does not contain a needed value.");
         } catch (FileBuildError &e) {
             MsgHandler::getErrorInstance()->inform(e.msg());
         }
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of a trigger-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a trigger-object.");
     }
 }
 
@@ -1087,8 +1070,7 @@ NLHandler::openSucc(const Attributes &attrs)
         string id = getString(attrs, SUMO_ATTR_LANE);
         m_pSLB.openSuccLane(id);
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of a succ-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a succ-object.");
     }
 }
 
@@ -1120,11 +1102,10 @@ NLHandler::addSuccLane(const Attributes &attrs)
                 getBoolSecure(attrs, SUMO_ATTR_INTERNALEND, false));
         }
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing attribute in a succlane-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a succlane-object.");
     } catch (XMLIdNotKnownException &e) {
-        MsgHandler::getErrorInstance()->inform(e.getMessage("", ""));
-        MsgHandler::getErrorInstance()->inform(" While building lane '" + m_pSLB.getSuccingLaneName() + "'");
+        MsgHandler::getErrorInstance()->inform(e.getMessage("", "") +
+            "\n While building lane '" + m_pSLB.getSuccingLaneName() + "'");
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("Something is wrong with the definition of a link");
     }
@@ -1286,11 +1267,9 @@ NLHandler::setNodeNumber(const std::string &chars)
     try {
         myJunctionControlBuilder.prepare(TplConvert<char>::_2int(chars.c_str()));
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing number of nodes.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing number of nodes.");
     } catch(NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: non-digit number of nodes.");
+        MsgHandler::getErrorInstance()->inform("Error in description: non-digit number of nodes.");
     }
 }
 
@@ -1324,8 +1303,7 @@ NLHandler::setRequestSize(const std::string &chars)
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing request size.");
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: one of an edge's attributes must be numeric but is not.");
+        MsgHandler::getErrorInstance()->inform("Error in description: one of an edge's attributes must be numeric but is not.");
     }
 }
 
@@ -1338,8 +1316,7 @@ NLHandler::setLaneNumber(const std::string &chars)
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing lane number.");
     } catch (NumberFormatException) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: one of an edge's attributes must be numeric but is not.");
+        MsgHandler::getErrorInstance()->inform("Error in description: one of an edge's attributes must be numeric but is not.");
     }
 }
 
@@ -1656,8 +1633,7 @@ void
 NLHandler::setError(const string &type,
                        const SAXParseException& exception)
 {
-    MsgHandler::getErrorInstance()->inform(
-        buildErrorMessage(_file, type, exception));
+    MsgHandler::getErrorInstance()->inform(buildErrorMessage(_file, type, exception));
 }
 
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.14  2006/04/07 10:43:08  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -168,7 +171,6 @@ ROWeightsHandler::parseEdge(const Attributes &attrs)
         myNoLanes = 0;
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("An edge without an id occured.");
-        MsgHandler::getErrorInstance()->inform(" Contact your weight data supplier.");
         return;
     }
     // return if the lanes shall be used
@@ -181,7 +183,6 @@ ROWeightsHandler::parseEdge(const Attributes &attrs)
         myNoLanes = 1;
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing value '" + _scheme + "' in edge '" + id + "'.");
-        MsgHandler::getErrorInstance()->inform("Contact your weight data supplier.");
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + getString(attrs, SUMO_ATTR_VALUE) + "'");
         if(id.length()!=0)
@@ -203,14 +204,12 @@ ROWeightsHandler::parseLane(const Attributes &attrs)
         id = getString(attrs, SUMO_ATTR_ID);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("A lane without an id occured.");
-        MsgHandler::getErrorInstance()->inform(" Contact your weight data supplier.");
     }
     // try to get the lane value - depending on the used scheme
     try {
         value = getFloat(attrs, SUMO_ATTR_VALUE);
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("Missing value '" + _scheme + "' in lane '" + id + "'.");
-        MsgHandler::getErrorInstance()->inform("Contact your weight data supplier.");
     } catch (NumberFormatException) {
         MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + getString(attrs, SUMO_ATTR_VALUE) + "'");
         if(id.length()!=0)

@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/04/18 08:05:44  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.22  2006/04/05 05:28:49  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -280,15 +283,12 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("vehicletype", id));
         } catch (EmptyData) {
-            MsgHandler::getErrorInstance()->inform(
-                "Error in description: missing attribute in a vehicletype-object.");
+            MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a vehicletype-object.");
         } catch (NumberFormatException) {
-            MsgHandler::getErrorInstance()->inform(
-                "Error in description: one of an vehtype's attributes must be numeric but is not.");
+            MsgHandler::getErrorInstance()->inform("Error in description: one of an vehtype's attributes must be numeric but is not.");
         }
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of a vehicle-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a vehicle-object.");
     }
 }
 
@@ -325,8 +325,7 @@ MSRouteHandler::openRoute(const Attributes &attrs)
             myActiveRouteID = getString(attrs, SUMO_ATTR_ID);
         }
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of a route-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a route-object.");
         return;
     } catch (XMLIdNotKnownException &e) {
         MsgHandler::getErrorInstance()->inform(e.getMessage("route", "(ID_UNKNOWN!)"));
@@ -467,8 +466,8 @@ MSRouteHandler::addRouteElements(const std::string &name,
         edge = MSEdge::dictionary(set);
         // check whether the edge exists
         if(edge==0) {
-            MsgHandler::getErrorInstance()->inform("The edge '" + set + "' within route '" + myActiveRouteID + "' is not known.");
-            MsgHandler::getErrorInstance()->inform(" The route can not be build.");
+            MsgHandler::getErrorInstance()->inform("The edge '" + set + "' within route '" + myActiveRouteID + "' is not known."
+                + "\n The route can not be build.");
             throw ProcessError();
         }
         myActiveRoute.push_back(edge);
@@ -486,11 +485,9 @@ MSRouteHandler::myEndElement(int element, const std::string &)
         try {
             closeRoute();
         } catch (XMLListEmptyException &e) {
-            MsgHandler::getErrorInstance()->inform(
-                e.getMessage("route", ""));
+            MsgHandler::getErrorInstance()->inform(e.getMessage("route", ""));
         } catch (XMLIdAlreadyUsedException &e) {
-            MsgHandler::getErrorInstance()->inform(
-                e.getMessage("route", ""));
+            MsgHandler::getErrorInstance()->inform(e.getMessage("route", ""));
         }
         break;
     case SUMO_TAG_VEHICLE:

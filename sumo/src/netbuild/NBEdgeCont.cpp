@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.48  2006/04/18 08:05:44  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.47  2006/04/05 05:30:42  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -565,7 +568,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     size_t noLanes = one->getNoLanes();
     for(i=0; i<one->getNoLanes()&&i<two->getNoLanes(); i++) {
         if(!one->addLane2LaneConnection(i, two, i, false)) {// !!! Bresenham, here!!!
-            MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+            MsgHandler::getErrorInstance()->inform("Could not set connection!");
             throw ProcessError();
         }
     }

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.14  2005/10/07 11:40:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -147,7 +150,7 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
         //
     } else {
         from >> tag; // strecke
-        WRITE_WARNING("Omitting unknown traffic light!!!");
+        WRITE_WARNING("Omitting unknown traffic light.");
         return true;
     }
 

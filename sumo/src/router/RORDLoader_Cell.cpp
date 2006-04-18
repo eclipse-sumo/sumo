@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.12  2006/04/11 11:03:53  dkrajzew
 // extended the message-API to (re)allow process output
 //
@@ -199,7 +202,7 @@ RORDLoader_Cell::myReadRoutesAtLeastUntil(SUMOTime time)
         // get the route-number
         int routeNo = _driverParser.getRouteNo();
         if(routeNo<0) {
-            MsgHandler::getWarningInstance()->inform("Skipping Route: " + toString<int>(routeNo));
+            WRITE_WARNING("Skipping Route: " + toString<int>(routeNo));
             return true; // !!!
         }
         // add the route when it is not yet known

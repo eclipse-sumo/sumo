@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/04/18 08:05:44  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.23  2006/04/05 05:30:42  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -855,11 +858,11 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             if(!pot_highway->addLane2LaneConnections(0, cont, pot_ramp->getNoLanes(),
                 MIN2(cont->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), false, true)) {
 
-                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                MsgHandler::getErrorInstance()->inform("Could not set connection!");
                 throw ProcessError();
             }
             if(!pot_ramp->addLane2LaneConnections(0, cont, 0, pot_ramp->getNoLanes(), false, true)) {
-                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                MsgHandler::getErrorInstance()->inform("Could not set connection!");
                 throw ProcessError();
             }
             cont->invalidateConnections(true);
@@ -879,9 +882,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                 cont->getGeometry().positionAtLengthPosition(
                 oc.getFloat("ramp-guess.ramp-length")));
         if(!insert(rn)) {
-            MsgHandler::getErrorInstance()->inform(
-                "Ups - could not build on-ramp for edge '"
-                + pot_highway->getID() + "' (node could not be build)!");
+            MsgHandler::getErrorInstance()->inform("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "' (node could not be build)!");
             throw ProcessError();
         }
         string name = cont->getID();
@@ -889,9 +890,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             cont->getID()+"-AddedOnRampEdge", cont->getID(),
             cont->getNoLanes()+toAdd, cont->getNoLanes());
         if(!ok) {
-            MsgHandler::getErrorInstance()->inform(
-                "Ups - could not build on-ramp for edge '"
-                + pot_highway->getID() + "'!");
+            MsgHandler::getErrorInstance()->inform("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "'!");
                 return;
         } else {
             NBEdge *added_ramp = ec.retrieve(name+"-AddedOnRampEdge");
@@ -900,7 +899,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             if(added_ramp->getNoLanes()!=added->getNoLanes()) {
                 int off = added_ramp->getNoLanes()-added->getNoLanes();
                 if(!added_ramp->addLane2LaneConnections(off, added, 0, added->getNoLanes(), false, true)) {
-                    MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                    MsgHandler::getErrorInstance()->inform("Could not set connection!");
                     throw ProcessError();
                 }
                 if(added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
@@ -910,18 +909,18 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                 }
             } else {
                 if(!added_ramp->addLane2LaneConnections(0, added, 0, added_ramp->getNoLanes(), false, true)) {
-                    MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                    MsgHandler::getErrorInstance()->inform("Could not set connection!");
                     throw ProcessError();
                 }
             }
             if(!pot_highway->addLane2LaneConnections(0, added_ramp, pot_ramp->getNoLanes(),
                 MIN2(added_ramp->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), false, false)) {
 
-                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                MsgHandler::getErrorInstance()->inform("Could not set connection!");
                 throw ProcessError();
             }
             if(!pot_ramp->addLane2LaneConnections(0, added_ramp, 0, pot_ramp->getNoLanes(), false, true)) {
-                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                MsgHandler::getErrorInstance()->inform("Could not set connection!");
                 throw ProcessError();
             }
             Position2DVector p = pot_ramp->getGeometry();
@@ -966,11 +965,11 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
             if(!prev->addLane2LaneConnections(pot_ramp->getNoLanes(), pot_highway, 0,
                 MIN2(prev->getNoLanes()-1, pot_highway->getNoLanes()), false, true)) {
 
-                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                MsgHandler::getErrorInstance()->inform("Could not set connection!");
                 throw ProcessError();
             }
             if(!prev->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNoLanes(), false, false)) {
-                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                MsgHandler::getErrorInstance()->inform("Could not set connection!");
                 throw ProcessError();
             }
             if(prev->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
@@ -989,9 +988,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                 prev->getGeometry().positionAtLengthPosition(
                     prev->getGeometry().length()-oc.getFloat("ramp-guess.ramp-length")));
         if(!insert(rn)) {
-            MsgHandler::getErrorInstance()->inform(
-                "Ups - could not build off-ramp for edge '"
-                + pot_highway->getID() + "' (node could not be build)!");
+            MsgHandler::getErrorInstance()->inform("Ups - could not build off-ramp for edge '" + pot_highway->getID() + "' (node could not be build)!");
             throw ProcessError();
         }
         string name = prev->getID();
@@ -999,9 +996,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
             prev->getID(), prev->getID()+"-AddedOffRampEdge",
             prev->getNoLanes(), prev->getNoLanes()+toAdd);
         if(!ok) {
-            MsgHandler::getErrorInstance()->inform(
-                "Ups - could not build on-ramp for edge '"
-                + pot_highway->getID() + "'!");
+            MsgHandler::getErrorInstance()->inform("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "'!");
             return;
         } else {
             NBEdge *added_ramp = ec.retrieve(name+"-AddedOffRampEdge");
@@ -1010,7 +1005,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                 incremented.push_back(added_ramp);
                 int off = added_ramp->getNoLanes()-added->getNoLanes();
                 if(!added->addLane2LaneConnections(0, added_ramp, off, added->getNoLanes(), false, true)) {
-                    MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                    MsgHandler::getErrorInstance()->inform("Could not set connection!");
                     throw ProcessError();
                 }
                 if(added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
@@ -1020,18 +1015,18 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                 }
             } else {
                 if(!added->addLane2LaneConnections(0, added_ramp, 0, added_ramp->getNoLanes(), false, true)) {
-                    MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                    MsgHandler::getErrorInstance()->inform("Could not set connection!");
                     throw ProcessError();
                 }
             }
             if(!added_ramp->addLane2LaneConnections(pot_ramp->getNoLanes(), pot_highway, 0,
                 MIN2(added_ramp->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), false, true)) {
 
-                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                MsgHandler::getErrorInstance()->inform("Could not set connection!");
                 throw ProcessError();
             }
             if(!added_ramp->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNoLanes(), false, false)) {
-                MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                MsgHandler::getErrorInstance()->inform("Could not set connection!");
                 throw ProcessError();
             }
             Position2DVector p = pot_ramp->getGeometry();
@@ -1171,9 +1166,7 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
             NBNode *rn =
                 new NBNode(inc_highway->getID() + "-AddedAntiObscureNode", p);
             if(!insert(rn)) {
-                MsgHandler::getErrorInstance()->inform(
-                    "Ups - could not build anti-obscure node '"
-                    + inc_highway->getID() + "'!");
+                MsgHandler::getErrorInstance()->inform("Ups - could not build anti-obscure node '" + inc_highway->getID() + "'!");
                 throw ProcessError();
             }
             string name = inc_highway->getID();
@@ -1181,9 +1174,7 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
                 inc_highway->getID(), inc_highway->getID()+"-AddedInBetweenEdge",
                 inc_highway->getNoLanes(), inc_highway->getNoLanes());
             if(!ok) {
-                MsgHandler::getErrorInstance()->inform(
-                    "Ups - could not build anti-obscure edge '"
-                    + inc_highway->getID() + "'!");
+                MsgHandler::getErrorInstance()->inform("Ups - could not build anti-obscure edge '" + inc_highway->getID() + "'!");
                 throw ProcessError();
             } else {
                 NBEdge *added_cont = ec.retrieve(name+"-AddedInBetweenEdge");
@@ -1302,15 +1293,15 @@ NBNodeCont::setAsTLControlled(const std::string &name,
 {
     NBNode *node = retrieve(name);
     if(node==0) {
-        MsgHandler::getWarningInstance()->inform("Building a tl-logic for node '" + name + "' is not possible.");
-        MsgHandler::getWarningInstance()->inform(" The node '" + name + "' is not known.");
+        WRITE_WARNING("Building a tl-logic for node '" + name + "' is not possible."
+            + "\n The node '" + name + "' is not known.");
         return;
     }
     NBTrafficLightDefinition *tlDef =
         new NBOwnTLDef(name, node);
     if(!tlc.insert(name, tlDef)) {
         // actually, nothing should fail here
-        MsgHandler::getWarningInstance()->inform("Building a tl-logic for node '" + name + "' twice is not possible.");
+        WRITE_WARNING("Building a tl-logic for node '" + name + "' twice is not possible.");
         delete tlDef;
         return;
     }

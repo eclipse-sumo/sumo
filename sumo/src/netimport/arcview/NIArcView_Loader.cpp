@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/04/18 08:05:44  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.25  2006/03/27 07:30:19  dkrajzew
 // added projection information to the network
 //
@@ -199,7 +202,7 @@ NIArcView_Loader::load(OptionsCont &)
             poCT = OGRCreateCoordinateTransformation( &origTransf2, &destTransf );
         }
         if(poCT==0) {
-            MsgHandler::getWarningInstance()->inform("Could not create geocoordinates converter; check whether proj.4 is installed.");
+            WRITE_WARNING("Could not create geocoordinates converter; check whether proj.4 is installed.");
         }
     }
 

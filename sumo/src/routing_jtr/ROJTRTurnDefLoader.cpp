@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.2  2006/01/31 11:01:40  dkrajzew
 // patching incoherences; added possibility to end on non-sink-edges
 //
@@ -202,15 +205,13 @@ ROJTRTurnDefLoader::report(const std::string &line)
             string id = getSecure("from");
             myEdge = static_cast<ROJTREdge*>(myNet.getEdge(id));
             if(myEdge==0) {
-                MsgHandler::getErrorInstance()->inform(
-                    "The edge '" + id + "' is not known within the network (within a 'from-edge' tag).");
+                MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known within the network (within a 'from-edge' tag).");
                 return false;
             }
             id = getSecure("to");
             ROJTREdge *edge = static_cast<ROJTREdge*>(myNet.getEdge(id));
             if(edge==0) {
-                MsgHandler::getErrorInstance()->inform(
-                    "The edge '" + id + "' is not known within the network (within a 'to-edge' tag).");
+                MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known within the network (within a 'to-edge' tag).");
                 return false;
             }
             SUMOReal probability;
@@ -251,8 +252,7 @@ ROJTRTurnDefLoader::beginInterval(const Attributes &attrs)
     try {
         myIntervalBegin = getInt(attrs, SUMO_ATTR_BEGIN);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            "The attribute 'from' is not numeric ('" + getString(attrs, SUMO_ATTR_FROM) + "').");
+        MsgHandler::getErrorInstance()->inform("The attribute 'from' is not numeric ('" + getString(attrs, SUMO_ATTR_FROM) + "').");
         return;
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The 'from'-attribute is not given.");
@@ -261,8 +261,7 @@ ROJTRTurnDefLoader::beginInterval(const Attributes &attrs)
     try {
         myIntervalEnd = getInt(attrs, SUMO_ATTR_END);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            "The attribute 'to' is not numeric ('" + getString(attrs, SUMO_ATTR_FROM) + "').");
+        MsgHandler::getErrorInstance()->inform("The attribute 'to' is not numeric ('" + getString(attrs, SUMO_ATTR_FROM) + "').");
         return;
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The 'to'-attribute is not given.");
@@ -304,16 +303,14 @@ ROJTRTurnDefLoader::addToEdge(const Attributes &attrs)
     //
     ROJTREdge *edge = static_cast<ROJTREdge*>(myNet.getEdge(id));
     if(edge==0) {
-        MsgHandler::getErrorInstance()->inform(
-            "The edge '" + id + "' is not known within the network (within a 'to-edge' tag).");
+        MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known within the network (within a 'to-edge' tag).");
         return;
     }
     try {
         SUMOReal probability = getFloat(attrs, SUMO_ATTR_PROB);
         myEdge->addFollowerProbability(edge, myIntervalBegin, myIntervalEnd, probability);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            "The attribute 'probability' is not numeric ('" + getString(attrs, SUMO_ATTR_PROB) + "').");
+        MsgHandler::getErrorInstance()->inform("The attribute 'probability' is not numeric ('" + getString(attrs, SUMO_ATTR_PROB) + "').");
         return;
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The 'probability'-attribute is not given.");

@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/04/18 08:05:44  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.3  2006/01/09 11:51:30  dkrajzew
 // usage of vehicle and route coloring debugged
 //
@@ -241,15 +244,12 @@ GUIHandler::addVehicleType(const Attributes &attrs)
         } catch (XMLIdAlreadyUsedException &e) {
             MsgHandler::getErrorInstance()->inform(e.getMessage("vehicletype", id));
         } catch (EmptyData) {
-            MsgHandler::getErrorInstance()->inform(
-                "Error in description: missing attribute in a vehicletype-object.");
+            MsgHandler::getErrorInstance()->inform("Error in description: missing attribute in a vehicletype-object.");
         } catch (NumberFormatException) {
-            MsgHandler::getErrorInstance()->inform(
-                "Error in description: one of an vehtype's attributes must be numeric but is not.");
+            MsgHandler::getErrorInstance()->inform("Error in description: one of an vehtype's attributes must be numeric but is not.");
         }
     } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of a vehicle-object.");
+        MsgHandler::getErrorInstance()->inform("Error in description: missing id of a vehicle-object.");
     }
 }
 

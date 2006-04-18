@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.10  2006/01/26 08:37:23  dkrajzew
 // removed warnings 4786
 //
@@ -132,8 +135,7 @@ CellDriverInfoParser::computeRouteNo()
             buf << "An invalid route index occured in a .driver file ("
                 << _driver.lastroute << " at " << _routeNo << ").";
             MsgHandler::getErrorInstance()->inform(buf.str());
-            MsgHandler::getErrorInstance()->inform(
-                " Retry with a combination of '--intel-cell' and '--no-last-cell'");
+            MsgHandler::getErrorInstance()->inform(" Retry with a combination of '--intel-cell' and '--no-last-cell'");
             throw ProcessError();
         }
         _routeNo = _driver.route[_driver.lastroute];

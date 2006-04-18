@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/04/18 08:05:44  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.7  2006/04/05 05:27:37  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -149,12 +152,10 @@ MSTriggeredXMLReader::myInit()
             throw ProcessError();
         }
     } catch (SAXException &e) {
-        MsgHandler::getErrorInstance()->inform(
-            TplConvert<XMLCh>::_2str(e.getMessage()));
+        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
         throw ProcessError();
     } catch (XMLException &e) {
-        MsgHandler::getErrorInstance()->inform(
-            TplConvert<XMLCh>::_2str(e.getMessage()));
+        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
         throw ProcessError();
     }
 

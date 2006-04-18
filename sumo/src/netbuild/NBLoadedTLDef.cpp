@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/04/18 08:05:44  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.17  2006/04/05 05:30:42  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -464,8 +467,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string 
     }
     // check whether any warnings were printed
     if(MsgHandler::getWarningInstance()->wasInformed()) {
-        MsgHandler::getWarningInstance()->finalizeInform(
-            "During computation of traffic light '" + getID() + "'.");
+        WRITE_WARNING("During computation of traffic light '" + getID() + "'.");
     }
     logic->closeBuilding();
     // returns the build logic

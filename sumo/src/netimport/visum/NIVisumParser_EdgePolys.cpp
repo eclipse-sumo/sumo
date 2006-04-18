@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.12  2006/04/07 05:28:50  dkrajzew
 // finished lane-2-lane connections setting
 //
@@ -137,8 +140,7 @@ NIVisumParser_EdgePolys::myDependentReport()
             x = getNamedFloat("XKoord");
             y = getNamedFloat("YKoord");
         } catch(NumberFormatException&) {
-            MsgHandler::getErrorInstance()->inform("Error in geometry description from node '" + from->getID()
-                + "' to node '" + to->getID() + "'.");
+            MsgHandler::getErrorInstance()->inform("Error in geometry description from node '" + from->getID() + "' to node '" + to->getID() + "'.");
             return;
         }
         projUV p;

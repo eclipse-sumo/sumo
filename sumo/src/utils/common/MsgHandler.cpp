@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.11  2006/04/18 08:05:46  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.10  2006/04/11 11:04:28  dkrajzew
 // extended the message-API to (re)allow process output
 //
@@ -142,12 +145,12 @@ MsgHandler::getErrorInstance()
 
 
 void
-MsgHandler::inform(const std::string &msg, bool addType)
+MsgHandler::inform(string msg, bool addType)
 {
     if(myLock!=0) {
         myLock->lock();
     }
-    build(msg, addType);
+    msg = build(msg, addType);
     // report to cout if wished
     if(myReport2COUT) {
         if(myAmProcessingProcess) {
@@ -176,12 +179,12 @@ MsgHandler::inform(const std::string &msg, bool addType)
 
 
 void
-MsgHandler::beginProcessMsg(const std::string &msg, bool addType)
+MsgHandler::beginProcessMsg(std::string msg, bool addType)
 {
     if(myLock!=0) {
         myLock->lock();
     }
-    build(msg, addType);
+    msg = build(msg, addType);
     // report to cout if wished
     if(myReport2COUT) {
         cout << msg;

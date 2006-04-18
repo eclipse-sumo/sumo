@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.23  2006/04/18 08:05:44  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.22  2006/04/11 10:59:39  dkrajzew
 // all structures now return their id via getID()
 //
@@ -1427,11 +1430,9 @@ NBNode::setTurningDefinition(NBNode *from, NBNode *to)
             ||
             OptionsSubSys::getOptions().isSet("keep-edges")) {
 
-            MsgHandler::getWarningInstance()->inform(
-                "Could not set connection from node '" + from->getID() + "' to node '" + getID() + "'.");
+            WRITE_WARNING("Could not set connection from node '" + from->getID() + "' to node '" + getID() + "'.");
         } else {
-            MsgHandler::getErrorInstance()->inform(
-                "There is no edge from node '" + from->getID() + "' to node '" + getID() + "'.");
+            MsgHandler::getErrorInstance()->inform("There is no edge from node '" + from->getID() + "' to node '" + getID() + "'.");
         }
         return;
     }
@@ -1440,11 +1441,9 @@ NBNode::setTurningDefinition(NBNode *from, NBNode *to)
             ||
             OptionsSubSys::getOptions().isSet("keep-edges")) {
 
-            MsgHandler::getWarningInstance()->inform(
-                "Could not set connection from node '" + getID() + "' to node '" + to->getID() + "'.");
+            WRITE_WARNING("Could not set connection from node '" + getID() + "' to node '" + to->getID() + "'.");
         } else {
-            MsgHandler::getErrorInstance()->inform(
-                "There is no edge from node '" + getID() + "' to node '" + to->getID() + "'.");
+            MsgHandler::getErrorInstance()->inform("There is no edge from node '" + getID() + "' to node '" + to->getID() + "'.");
         }
         return;
     }

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.17  2006/04/05 05:32:27  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -485,8 +488,7 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont &tlc,
         string id = toString<int>(tl->myID);
         NBLoadedTLDef *def = new NBLoadedTLDef(id);
         if(!tlc.insert(id, def)) {
-            MsgHandler::getErrorInstance()->inform("Error on adding a traffic light");
-            MsgHandler::getErrorInstance()->inform(" Must be a multiple id ('" + id + "')");
+            MsgHandler::getErrorInstance()->inform("Error on adding a traffic light\n Must be a multiple id ('" + id + "')");
             continue;
         }
 		def->setCycleDuration((size_t) tl->myAbsDuration);

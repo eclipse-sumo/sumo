@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.7  2006/03/17 09:04:25  dkrajzew
 // class-documentation added/patched
 //
@@ -105,28 +108,24 @@ DFDetectorHandler::myStartElement(int element, const std::string&name,
         try {
             id = getString(attrs, SUMO_ATTR_ID);
         } catch (EmptyData&) {
-            MsgHandler::getErrorInstance()->inform(
-                "A detector without an id occured within '" + _file + ".");
+            MsgHandler::getErrorInstance()->inform("A detector without an id occured within '" + _file + ".");
             return;
         }
         string lane;
         try {
             lane = getString(attrs, SUMO_ATTR_LANE);
         } catch (EmptyData&) {
-            MsgHandler::getErrorInstance()->inform(
-                "A detector without a lane information occured within '" + _file + "' (detector id='" + id + ").");
+            MsgHandler::getErrorInstance()->inform("A detector without a lane information occured within '" + _file + "' (detector id='" + id + ").");
             return;
         }
         SUMOReal pos;
         try {
             pos = getFloat(attrs, SUMO_ATTR_POS);
         } catch (EmptyData&) {
-            MsgHandler::getErrorInstance()->inform(
-                "A detector without a lane position occured within '" + _file + "' (detector id='" + id + ").");
+            MsgHandler::getErrorInstance()->inform("A detector without a lane position occured within '" + _file + "' (detector id='" + id + ").");
             return;
         } catch (NumberFormatException&) {
-            MsgHandler::getErrorInstance()->inform(
-                "Not numeric lane position within '" + _file + "' (detector id='" + id + ").");
+            MsgHandler::getErrorInstance()->inform("Not numeric lane position within '" + _file + "' (detector id='" + id + ").");
             return;
         }
         string mml_type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
@@ -142,8 +141,7 @@ DFDetectorHandler::myStartElement(int element, const std::string&name,
         }
         DFDetector *detector = new DFDetector(id, lane, pos, type);
         if(!myContainer.addDetector(detector)) {
-            MsgHandler::getErrorInstance()->inform(
-                "Could not add detector '" + id + "' (probably the id is already used).");
+            MsgHandler::getErrorInstance()->inform("Could not add detector '" + id + "' (probably the id is already used).");
 			delete detector;
         }
     }

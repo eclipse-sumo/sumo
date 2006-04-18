@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/04/18 08:05:44  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.24  2006/04/11 11:01:37  dkrajzew
 // extended the message-API to (re)allow process output
 //
@@ -374,8 +377,8 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const std::string &files,
             loadXMLFile(*parser, file, type);
         }
     } catch (const XMLException& toCatch) {
-        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(toCatch.getMessage()));
-        MsgHandler::getErrorInstance()->inform("  The " + type  + " could not be loaded from '" + handler->getFileName() + "'.");
+        MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(toCatch.getMessage())
+            + "\n  The " + type  + " could not be loaded from '" + handler->getFileName() + "'.");
         delete handler;
         throw ProcessError();
     }

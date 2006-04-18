@@ -68,8 +68,7 @@ NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS,
             }
         }
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            "Non-numerical value for an edge's lane number occured (edge '" + id + "'.");
+        MsgHandler::getErrorInstance()->inform("Non-numerical value for an edge's lane number occured (edge '" + id + "'.");
         throw ProcessError();
     }
 	throw ProcessError();

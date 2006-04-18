@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.21  2006/04/18 08:05:44  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.20  2006/03/27 07:31:42  dkrajzew
 // starting binary network output
 //
@@ -378,8 +381,7 @@ NIOptionsIO::checkEdges(OptionsCont &oc)
         oc.isSet("sumo-net") ) {
         return true;
     }
-    MsgHandler::getErrorInstance()->inform(
-        "Either sections or edges must be supplied.");
+    MsgHandler::getErrorInstance()->inform("Either sections or edges must be supplied.");
     return false;
 }
 

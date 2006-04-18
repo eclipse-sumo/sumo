@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.36  2006/04/18 08:05:44  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.35  2006/04/11 14:00:10  t-bohn
 // added option: disable-normalize-node-positions
 // disable use of net-offset
@@ -629,9 +632,7 @@ NBNetBuilder::preCheckOptions(OptionsCont &oc)
     if(oc.isSet("keep-edges.input-file")) {
         ifstream strm(oc.getString("keep-edges.input-file").c_str());
         if(!strm.good()) {
-            MsgHandler::getErrorInstance()->inform(
-                "Could not load names of edges too keep from '"
-                + oc.getString("keep-edges.input-file") + "'.");
+            MsgHandler::getErrorInstance()->inform("Could not load names of edges too keep from '" + oc.getString("keep-edges.input-file") + "'.");
             throw ProcessError();
         }
         std::ostringstream oss;

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/04/18 08:05:44  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.12  2006/04/11 10:59:07  dkrajzew
 // all structures now return their id via getID()
 //
@@ -139,8 +142,7 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
             OutputDevice* dev =
                 SharedOutputDevices::getInstance()->getOutputDevice( fileName );
             if( dev==0 ) {
-                MsgHandler::getErrorInstance()->inform(
-                    "The following file containing aggregated values could not been build:\n" + fileName);
+                MsgHandler::getErrorInstance()->inform("The following file containing aggregated values could not been build:\n" + fileName);
                 throw ProcessError();
             }
             // Write xml-comment

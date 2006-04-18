@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.13  2006/04/07 05:28:24  dkrajzew
 // removed some warnings
 //
@@ -247,8 +250,7 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
             }
             ret.push_back(Position2D((SUMOReal) p.u, (SUMOReal) p.v));
         } catch(NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform(
-                "Could not convert position '" + p1 + "/" + p2 + "'.");
+            MsgHandler::getErrorInstance()->inform("Could not convert position '" + p1 + "/" + p2 + "'.");
             throw ProcessError();
         }
     }

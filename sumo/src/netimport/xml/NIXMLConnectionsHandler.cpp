@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.11  2006/04/05 05:32:27  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -207,12 +210,7 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
             fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
             toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
             if(!from->addLane2LaneConnection(fromLane, to, toLane, false)) {
-                MsgHandler::getWarningInstance()->inform(
-                    "Could not set loaded connection from '"
-                    + from->getID() + "_" + toString<int>(fromLane)
-                    + "' to '"
-                    + to->getID() + "_" + toString<int>(toLane)
-                    + "'.");
+                WRITE_WARNING("Could not set loaded connection from '" + from->getID() + "_" + toString<int>(fromLane) + "' to '" + to->getID() + "_" + toString<int>(toLane) + "'.");
             }
         } catch (NumberFormatException) {
             addError("At least one of the defined lanes was not numeric");

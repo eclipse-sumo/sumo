@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/04/18 08:05:44  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.15  2006/04/05 05:32:25  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -270,7 +273,7 @@ NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
                 // if both lanes exist, connect
                 if(setLanes[k-1].test(l)&&setLanes[k].test(l)) {
                     if(!edge1->addLane2LaneConnection(runLaneNo1, edge2, runLaneNo2, false)) {
-                        MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                        MsgHandler::getErrorInstance()->inform("Could not set connection!");
                         throw ProcessError();
                     }
                 }
@@ -279,14 +282,14 @@ NIArtemisTempEdgeLanes::close(NBDistrictCont &dc,
                     // lane is a new rightmost lane
                     if(l>0&&setLanes[k-1].test(l-1)) {
                         if(!edge1->addLane2LaneConnection(0, edge2, runLaneNo2, false)) {
-                            MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                            MsgHandler::getErrorInstance()->inform("Could not set connection!");
                             throw ProcessError();
                         }
                     }
                     // lane is a new leftmost lane
                     if(setLanes[k-1].test(l+1)) {
                         if(!edge1->addLane2LaneConnection(edge1->getNoLanes()-1, edge2, runLaneNo2, false)) {
-                            MsgHandler::getErrorInstance()->inform("Could not set connection!!!");
+                            MsgHandler::getErrorInstance()->inform("Could not set connection!");
                             throw ProcessError();
                         }
                     }

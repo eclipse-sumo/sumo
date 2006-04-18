@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.11  2006/02/27 12:09:49  dkrajzew
 // variants container named properly
 //
@@ -118,8 +121,7 @@ NLDiscreteEventBuilder::addAction(const Attributes &attrs,
     string type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
     // check whether the type was given
     if(type=="") {
-        MsgHandler::getErrorInstance()->inform(
-            "An action's type is not given.");
+        MsgHandler::getErrorInstance()->inform("An action's type is not given.");
         return;
     }
     // get the numerical representation
@@ -150,8 +152,7 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(const Attributes &attrs,
     string source = getStringSecure(attrs, SUMO_ATTR_SOURCE, "*");
     // check the parameter
     if(dest==""||source=="") {
-        MsgHandler::getErrorInstance()->inform(
-            "Incomplete description of an 'SaveTLSState'-action occured.");
+        MsgHandler::getErrorInstance()->inform("Incomplete description of an 'SaveTLSState'-action occured.");
         return 0;
     }
     if(!FileHelpers::isAbsolute(dest)) {

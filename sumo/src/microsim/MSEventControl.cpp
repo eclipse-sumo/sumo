@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.18  2006/04/18 08:05:44  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.17  2006/03/17 08:59:18  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -245,7 +248,7 @@ MSEventControl::execute(SUMOTime execTime)
         else {
             if ( currEvent.second < execTime ) {
                 // !!! more verbose information
-                MsgHandler::getWarningInstance()->inform("Could not execute scheduled event.");
+                WRITE_WARNING("Could not execute scheduled event.");
                 delete currEvent.first;
                 myEvents.pop();
             } else {

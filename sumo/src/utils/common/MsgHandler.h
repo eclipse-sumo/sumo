@@ -22,6 +22,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.11  2006/04/18 08:05:46  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.10  2006/04/11 11:04:28  dkrajzew
 // extended the message-API to (re)allow process output
 //
@@ -126,15 +129,10 @@ public:
     static void cleanupOnEnd();
 
     /// adds a new error to the list
-    void inform(const std::string &msg, bool addType=true);
-
-    /// closes a sublist of information
-    void finalizeInform(const std::string &msg) {
-        inform(msg);
-    }
+    void inform(std::string msg, bool addType=true);
 
     /// Writes a process information
-    void beginProcessMsg(const std::string &msg, bool addType=true);
+    void beginProcessMsg(std::string msg, bool addType=true);
 
     /// Clears information whether an error occured previously
     void clear();
@@ -237,6 +235,7 @@ private:
  * ======================================================================= */
 #define WRITE_WARNING(command) if(!gSuppressWarnings) { MsgHandler::getWarningInstance()->inform(command); }
 #define WRITE_MESSAGE(command) if(!gSuppressMessages) { MsgHandler::getMessageInstance()->inform(command); }
+#define WRITE_ERROR(command)   MsgHandler::getErrorInstance()->inform(command);
 
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/

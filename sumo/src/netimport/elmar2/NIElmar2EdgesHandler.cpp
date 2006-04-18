@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/04/18 08:05:45  dkrajzew
+// beautifying: output consolidation
+//
 // Revision 1.7  2006/03/08 13:02:27  dkrajzew
 // some further work on converting geo-coordinates
 //
@@ -138,8 +141,7 @@ NIElmar2EdgesHandler::report(const std::string &result)
     try {
         length = TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform(
-            "Non-numerical value for an edge's length occured (edge '" + id + "'.");
+        MsgHandler::getErrorInstance()->inform("Non-numerical value for an edge's length occured (edge '" + id + "'.");
         throw ProcessError();
     }
         // vehicle_type
