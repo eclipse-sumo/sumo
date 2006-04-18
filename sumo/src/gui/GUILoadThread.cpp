@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2006/04/18 07:54:32  dkrajzew
+// unifying threads
+//
 // Revision 1.36  2006/03/28 06:12:54  dkrajzew
 // unneeded string wrapping removed
 //
@@ -198,24 +201,13 @@ using namespace FXEX;
  * ======================================================================= */
 GUILoadThread::GUILoadThread(MFXInterThreadEventClient *mw,
                              MFXEventQue &eq, FXEX::FXThreadEvent &ev)
-    : FXSingleEventThread(gFXApp, mw), /*myParent(mw), */myEventQue(eq),
-    myEventThrow(ev)
+    : GUIAbstractLoadThread(mw, eq, ev)
 {
-    myErrorRetriever = new MsgRetrievingFunction<GUILoadThread>(this,
-        &GUILoadThread::retrieveError);
-    myMessageRetriever = new MsgRetrievingFunction<GUILoadThread>(this,
-        &GUILoadThread::retrieveMessage);
-    myWarningRetreiver = new MsgRetrievingFunction<GUILoadThread>(this,
-        &GUILoadThread::retrieveWarning);
-    MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
 }
 
 
 GUILoadThread::~GUILoadThread()
 {
-    delete myErrorRetriever;
-    delete myMessageRetriever;
-    delete myWarningRetreiver;
 }
 
 
@@ -322,41 +314,6 @@ GUILoadThread::initDevices()
 
 
 void
-GUILoadThread::load(const std::string &file)
-{
-    _file = file;
-    start();
-}
-
-
-void
-GUILoadThread::retrieveMessage(const std::string &msg)
-{
-    GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_MESSAGE, msg);
-    myEventQue.add(e);
-    myEventThrow.signal();
-}
-
-
-void
-GUILoadThread::retrieveWarning(const std::string &msg)
-{
-    GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_WARNING, msg);
-    myEventQue.add(e);
-    myEventThrow.signal();
-}
-
-
-void
-GUILoadThread::retrieveError(const std::string &msg)
-{
-    GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_ERROR, msg);
-    myEventQue.add(e);
-    myEventThrow.signal();
-}
-
-
-void
 GUILoadThread::submitEndAndCleanup(GUINet *net,
                                    int simStartTime,
                                    int simEndTime)
@@ -369,13 +326,6 @@ GUILoadThread::submitEndAndCleanup(GUINet *net,
     GUIEvent *e = new GUIEvent_SimulationLoaded( net, simStartTime, simEndTime, _file);
     myEventQue.add(e);
     myEventThrow.signal();
-}
-
-
-const std::string &
-GUILoadThread::getFileName() const
-{
-    return _file;
 }
 
 

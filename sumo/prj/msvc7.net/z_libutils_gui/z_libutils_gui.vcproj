@@ -110,6 +110,9 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath="..\..\..\src\utils\gui\windows\GUIAbstractLoadThread.cpp">
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIAppGlobals.cpp">
 			</File>
 			<File
@@ -222,6 +225,9 @@
 			Name="Headerdateien"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			<File
+				RelativePath="..\..\..\src\utils\gui\windows\GUIAbstractLoadThread.h">
+			</File>
 			<File
 				RelativePath="..\..\..\src\utils\gui\windows\GUIAppGlobals.h">
 			</File>

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.4  2006/04/18 07:54:32  dkrajzew
+// unifying threads
+//
 // Revision 1.3  2005/10/10 12:11:33  dkrajzew
 // debugging
 //
@@ -124,12 +127,6 @@ namespace
 
 #include <sumo_version.h>
 #include <iostream>
-#include <guisim/GUINet.h>
-#include <guinetload/GUINetBuilder.h>
-#include <guinetload/GUIEdgeControlBuilder.h>
-#include <guinetload/GUIJunctionControlBuilder.h>
-#include <guisim/GUIVehicleControl.h>
-#include <microsim/output/MSDetectorControl.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/XMLBuildingExceptions.h>
 #include <utils/options/OptionsCont.h>
@@ -140,14 +137,12 @@ namespace
 #include <utils/foxtools/MFXEventQue.h>
 #include <sumo_only/SUMOFrame.h>
 #include <utils/common/MsgRetrievingFunction.h>
-#include "GUIMainWindow.h"
 #include "GUIAbstractLoadThread.h"
-#include "GUIGlobals.h"
-#include "GUIEvent_SimulationLoaded.h"
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/events/GUIEvent_SimulationEnded.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
+#include <utils/gui/windows/GUIAppGlobals.h>
 
 #include <ctime>
 
@@ -166,7 +161,7 @@ using namespace FXEX;
 /* =========================================================================
  * member method definitions
  * ======================================================================= */
-GUIAbstractLoadThread::GUIAbstractLoadThread(GUIMainWindow *mw,
+GUIAbstractLoadThread::GUIAbstractLoadThread(MFXInterThreadEventClient *mw,
                              MFXEventQue &eq, FXEX::FXThreadEvent &ev)
     : FXSingleEventThread(gFXApp, mw), myParent(mw), myEventQue(eq),
     myEventThrow(ev)
@@ -186,12 +181,6 @@ GUIAbstractLoadThread::~GUIAbstractLoadThread()
     delete myErrorRetriever;
     delete myMessageRetriever;
     delete myWarningRetreiver;
-}
-
-
-FXint
-GUIAbstractLoadThread::run()
-{
 }
 
 
@@ -230,25 +219,10 @@ GUIAbstractLoadThread::retrieveError(const std::string &msg)
 }
 
 
-void
-GUIAbstractLoadThread::submitEndAndCleanup(GUINet *net,
-                                   int simStartTime,
-                                   int simEndTime)
-{
-}
-
-
 const std::string &
 GUIAbstractLoadThread::getFileName() const
 {
     return _file;
-}
-
-
-bool
-GUIAbstractLoadThread::initOptions()
-{
-    return false;
 }
 
 

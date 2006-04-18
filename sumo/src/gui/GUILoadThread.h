@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/04/18 07:54:32  dkrajzew
+// unifying threads
+//
 // Revision 1.12  2005/10/07 11:36:47  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -74,36 +77,25 @@
 #include <vector>
 #include <fx.h>
 #include <FXThread.h>
-#include <utils/foxtools/FXSingleEventThread.h>
+#include <utils/gui/windows/GUIAbstractLoadThread.h>
 #include <utils/foxtools/FXThreadEvent.h>
 
 
  /* =========================================================================
  * class declarations
  * ======================================================================= */
-class GUIApplicationWindow;
-class MsgRetriever;
-class MFXEventQue;
 class GUIEdgeControlBuilder;
-class NLEdgeControlBuilder;
-class NLJunctionControlBuilder;
-class GUINetBuilder;
 class OptionsCont;
 class GUIVehicleControl;
 class GUINet;
-class NLDetectorBuilder;
-class NLTriggerBuilder;
-class NLGeomShapeBuilder;
-class MSNet;
 
 
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-class GUILoadThread : public FXSingleEventThread
+class GUILoadThread : public GUIAbstractLoadThread
 {
 public:
-
     /// constructor
     GUILoadThread(MFXInterThreadEventClient *mw, MFXEventQue &eq,
         FXEX::FXThreadEvent &ev);
@@ -111,23 +103,9 @@ public:
     /// destructor
     virtual ~GUILoadThread();
 
-    /// begins the loading of the given file
-    void load(const std::string &file);
-
     /** starts the thread
         the thread ends after the net has been loaded */
     FXint run();
-
-    /// Retrieves messages from the loading module
-    void retrieveMessage(const std::string &msg);
-
-    /// Retrieves warnings from the loading module
-    void retrieveWarning(const std::string &msg);
-
-    /// Retrieves error from the loading module
-    void retrieveError(const std::string &msg);
-
-    const std::string &getFileName() const;
 
 protected:
     virtual GUIEdgeControlBuilder *buildEdgeBuilder();
@@ -143,21 +121,6 @@ protected:
         application is informed about the loading */
     void submitEndAndCleanup(GUINet *net,
         int simStartTime, int simEndTime);
-
-protected:
-    /// the parent window to inform about the loading
-//    GUIApplicationWindow *myParent;
-
-    /// the path to load the simulation from
-    std::string _file;
-
-    /** @brief The instances of message retriever encapsulations
-        Needed to be deleted from the handler later on */
-    MsgRetriever *myErrorRetriever, *myMessageRetriever, *myWarningRetreiver;
-
-    MFXEventQue &myEventQue;
-
-    FXEX::FXThreadEvent &myEventThrow;
 
 };
 

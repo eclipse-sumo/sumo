@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.4  2006/04/18 07:54:32  dkrajzew
+// unifying threads
+//
 // Revision 1.3  2005/10/10 12:11:33  dkrajzew
 // debugging
 //
@@ -93,9 +96,8 @@ class GUINet;
 class GUIAbstractLoadThread : public FXSingleEventThread
 {
 public:
-
     /// constructor
-    GUIAbstractLoadThread(GUIMainWindow *mw, MFXEventQue &eq,
+    GUIAbstractLoadThread(MFXInterThreadEventClient *mw, MFXEventQue &eq,
         FXEX::FXThreadEvent &ev);
 
     /// destructor
@@ -106,7 +108,7 @@ public:
 
     /** starts the thread
         the thread ends after the net has been loaded */
-    virtual FXint run();
+    virtual FXint run() = 0;
 
     /// Retrieves messages from the loading module
     void retrieveMessage(const std::string &msg);
@@ -120,11 +122,8 @@ public:
     const std::string &getFileName() const;
 
 protected:
-    virtual bool initOptions();
-
-protected:
     /// the parent window to inform about the loading
-    GUIMainWindow *myParent;
+    MFXInterThreadEventClient *myParent;
 
     /// the path to load the simulation from
     std::string _file;
