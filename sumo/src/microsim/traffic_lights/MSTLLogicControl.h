@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/05/05 07:53:40  jringel
+// *** empty log message ***
+//
 // Revision 1.9  2006/03/17 08:57:51  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -73,6 +76,7 @@
 #include <vector>
 #include <map>
 #include "MSTrafficLightLogic.h"
+#include "MSSimpleTrafficLightLogic.h"
 #include <utils/helpers/Command.h>
 
 

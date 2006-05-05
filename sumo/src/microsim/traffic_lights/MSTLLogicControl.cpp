@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.12  2006/04/11 10:59:07  dkrajzew
-// all structures now return their id via getID()
+// Revision 1.13  2006/05/05 07:53:40  jringel
+// *** empty log message ***
 //
 // Revision 1.11  2006/03/17 08:57:51  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
@@ -90,6 +90,7 @@ namespace
 #include <algorithm>
 #include <cassert>
 #include "MSTrafficLightLogic.h"
+#include "MSSimpleTrafficLightLogic.h"
 #include "MSTLLogicControl.h"
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
@@ -151,9 +152,35 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::~WAUTSwitchProcedure_GSP()
 bool
 MSTLLogicControl::WAUTSwitchProcedure_GSP::trySwitch()
 {
-    SUMOReal gsp = getGSPValue(myFrom);
-    int bla = 0;
-    return true;
+	SUMOTime actTime = MSNet::getInstance()->getCurrentTimeStep();
+	MSSimpleTrafficLightLogic *LogicFrom = (MSSimpleTrafficLightLogic*) myFrom;
+	size_t StepFrom = myFrom->getStepNo();
+	size_t CycleTimeFrom = LogicFrom->getCycleTime();
+	SUMOReal gspFrom = getGSPValue(myFrom);
+	/// position of the active signalprogramm
+	size_t posFrom = 0;
+	///calculates the position of the active signalprogramm
+	if (StepFrom > 0)	{
+		for (size_t i=0; i < StepFrom; i++)	{
+			posFrom = posFrom + LogicFrom->getPhaseFromStep(i).duration;
+		}
+	}
+	posFrom = posFrom + actTime - LogicFrom->getPhaseFromStep(StepFrom)._lastSwitch;
+	///some idiotchecks	
+	if (posFrom>=CycleTimeFrom)	{
+		posFrom = posFrom - CycleTimeFrom;
+	}
+	if (gspFrom == CycleTimeFrom)	{
+		gspFrom = 0;
+	}
+	///compares the position of the active programm with the GSP (GSP = "Günstiger SchaltPunkt")
+	///switch to the next programm if the GSP is reached
+	if (gspFrom == posFrom) {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 
@@ -355,7 +382,7 @@ MSTLLogicControl::markNetLoadingClosed()
 bool
 MSTLLogicControl::isActive(const MSTrafficLightLogic *tl) const
 {
-    std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(tl->getID());
+    std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(tl->id());
     if(i==myLogics.end()) {
         return false;
     }
@@ -448,7 +475,7 @@ MSTLLogicControl::addWAUTJunction(const std::string &wautid,
     myWAUTs[wautid].junctions.push_back(j);
     // set the current program
     TLSLogicVariants &vars = myLogics.find(junc)->second;
-    switchTo(vars.defaultTL->getID(), myWAUTs[wautid].startProg);
+    switchTo(vars.defaultTL->id(), myWAUTs[wautid].startProg);
     return true;
 }
 
@@ -497,7 +524,7 @@ MSTLLogicControl::check2Switch()
         const WAUTSwitchProcess &proc = *i;
         if(proc.proc->trySwitch()) {
             delete proc.proc;
-            switchTo((*i).to->getID(), (*i).to->getSubID());
+            switchTo((*i).to->id(), (*i).to->subid());
             i = myCurrentlySwitched.erase(i);
         } else {
             ++i;

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.10  2006/05/05 07:53:40  jringel
+// *** empty log message ***
+//
 // Revision 1.9  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -155,8 +158,14 @@ public:
 	/// returns the current step
 	size_t getStepNo() const;
 
+	/// returns the cycletime
+	size_t getCycleTime() ;
+
     /// Returns the phases of this tls
     const Phases &getPhases() const;
+
+	/// Returns the phase of a given step 
+    const MSPhaseDefinition &getPhaseFromStep(size_t givenstep) const;
 
 protected:
     /// the list of phases this logic uses
@@ -164,6 +173,9 @@ protected:
 
     /// The current step
     size_t myStep;
+
+	/// the cycletime
+    size_t myCycleTime;
 
 };
 

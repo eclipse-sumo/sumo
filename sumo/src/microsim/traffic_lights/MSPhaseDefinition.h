@@ -10,6 +10,8 @@
 #endif // HAVE_CONFIG_H
 
 #include <utils/common/SUMOTime.h>
+#include <utils/options/OptionsSubSys.h>
+#include <utils/options/OptionsCont.h>
 
 /**
  * The definition of a single phase */
@@ -18,13 +20,17 @@ public:
     /// the duration of the phase
     SUMOTime          duration;
 
+	/// stores the timestep of the last on-switched of the phase
+    SUMOTime _lastSwitch;
+
     /// constructor
     MSPhaseDefinition(size_t durationArg, const std::bitset<64> &driveMaskArg,
             const std::bitset<64> &breakMaskArg,
             const std::bitset<64> &yellowMaskArg)
         : duration(durationArg), driveMask(driveMaskArg),
-            breakMask(breakMaskArg), yellowMask(yellowMaskArg)
+            breakMask(breakMaskArg), yellowMask(yellowMaskArg), _lastSwitch(0)
     {
+		_lastSwitch = OptionsSubSys::getOptions().getInt("b");
     }
 
     /// destructor

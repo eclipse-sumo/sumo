@@ -23,8 +23,8 @@ namespace
     "$Id$";
 }
 // $Log$
-// Revision 1.14  2006/04/05 05:27:37  dkrajzew
-// retrieval of microsim ids is now also done using getID() instead of id()
+// Revision 1.15  2006/05/05 07:53:40  jringel
+// *** empty log message ***
 //
 // Revision 1.13  2006/02/27 12:04:40  dkrajzew
 // eased the initialisation API
@@ -215,7 +215,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
                 ilpos = 0;
             }
             // Build the induct loop and set it into the container
-            std::string id = "TLS" + myID + "_" + mySubID + "_InductLoopOn_" + lane->getID();
+            std::string id = "TLS" + myID + "_" + mySubID + "_InductLoopOn_" + lane->id();
             if(myInductLoops.find(lane)==myInductLoops.end()) {
                 myInductLoops[lane] =
                     nb.createInductLoop(id, lane, ilpos, inductLoopInterval);
@@ -232,7 +232,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
             }
             SUMOReal lspos = length - lslen;
             // Build the lane state detetcor and set it into the container
-            std::string id = "TLS" + myID + "_" + mySubID + "_LaneStateOff_" + lane->getID();
+            std::string id = "TLS" + myID + "_" + mySubID + "_LaneStateOff_" + lane->id();
             /*!!!!
 
         if(myLaneStates.find(lane)==myLaneStates.end()) {
@@ -331,7 +331,7 @@ MSActuatedTrafficLightLogic::trySwitch(bool)
         myStep = 0;
     }
     //stores the time the phase started
-    static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->_lastSwitch =
+    static_cast<MSPhaseDefinition*>(myPhases[myStep])->_lastSwitch =
         MSNet::getInstance()->getCurrentTimeStep();
     // set the next event
     return duration();
@@ -363,7 +363,7 @@ MSActuatedTrafficLightLogic::gapControl()
 
     // Checks, if the maxDuration is kept. No phase should longer send than maxDuration.
     SUMOTime actDuration =
-        MSNet::getInstance()->getCurrentTimeStep() - static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->_lastSwitch;
+        MSNet::getInstance()->getCurrentTimeStep() - static_cast<MSPhaseDefinition*>(myPhases[myStep])->_lastSwitch;
     if (actDuration >= currentPhaseDef()->maxDuration) {
         _continue = false;
         return;

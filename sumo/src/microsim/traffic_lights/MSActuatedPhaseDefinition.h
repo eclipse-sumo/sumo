@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/05/05 07:53:40  jringel
+// *** empty log message ***
+//
 // Revision 1.6  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -73,10 +76,7 @@ public:
 
     /// The maximum duration of the phase
     SUMOTime maxDuration;
-
-    /// stores the timestep of the last on-switched of the phase
-    SUMOTime _lastSwitch;
-
+  
     /// constructor
     MSActuatedPhaseDefinition(size_t durationArg,
         const std::bitset<64> &driveMaskArg, const std::bitset<64> &breakMaskArg,
@@ -84,10 +84,8 @@ public:
         int minDurationArg, int maxDurationArg)
         : MSPhaseDefinition(durationArg, driveMaskArg,
             breakMaskArg, yellowMaskArg),
-        minDuration(minDurationArg), maxDuration(maxDurationArg),
-        _lastSwitch(0)
+        minDuration(minDurationArg), maxDuration(maxDurationArg)
     {
-        _lastSwitch = OptionsSubSys::getOptions().getInt("b");
         // defines minDuration
         size_t minDurationDefault = 10;
         if  (minDurationArg < 0) {
