@@ -20,7 +20,7 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.7  2006/05/05 07:53:40  jringel
+// Revision 1.8  2006/05/05 09:53:55  jringel
 // *** empty log message ***
 //
 // Revision 1.6  2005/10/07 11:37:45  dkrajzew
@@ -76,7 +76,7 @@ public:
 
     /// The maximum duration of the phase
     SUMOTime maxDuration;
-  
+
     /// constructor
     MSActuatedPhaseDefinition(size_t durationArg,
         const std::bitset<64> &driveMaskArg, const std::bitset<64> &breakMaskArg,
@@ -84,7 +84,7 @@ public:
         int minDurationArg, int maxDurationArg)
         : MSPhaseDefinition(durationArg, driveMaskArg,
             breakMaskArg, yellowMaskArg),
-        minDuration(minDurationArg), maxDuration(maxDurationArg)
+        minDuration(minDurationArg), maxDuration(maxDurationArg)        
     {
         // defines minDuration
         size_t minDurationDefault = 10;

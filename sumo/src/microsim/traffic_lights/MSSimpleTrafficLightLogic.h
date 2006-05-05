@@ -20,7 +20,7 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.10  2006/05/05 07:53:40  jringel
+// Revision 1.11  2006/05/05 09:53:55  jringel
 // *** empty log message ***
 //
 // Revision 1.9  2006/02/23 11:27:57  dkrajzew
@@ -174,7 +174,7 @@ protected:
     /// The current step
     size_t myStep;
 
-	/// the cycletime
+		/// the cycletime
     size_t myCycleTime;
 
 };

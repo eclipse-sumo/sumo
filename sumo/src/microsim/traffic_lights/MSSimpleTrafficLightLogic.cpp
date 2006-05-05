@@ -18,7 +18,7 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.10  2006/05/05 07:53:40  jringel
+// Revision 1.11  2006/05/05 09:53:55  jringel
 // *** empty log message ***
 //
 // Revision 1.9  2006/02/23 11:27:57  dkrajzew
@@ -120,7 +120,7 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSNet &net,
                                                      size_t step,
                                                      size_t delay)
     : MSTrafficLightLogic(net, tlcontrol, id, subid, delay), myPhases(phases),
-    myStep(step)
+    myStep(step), myCycleTime(0)
 {
 	myCycleTime=getCycleTime(); 
 }
@@ -168,8 +168,8 @@ MSSimpleTrafficLightLogic::trySwitch(bool )
         // ... set the index to the first phase
         myStep = 0;
     }
-	assert(myPhases.size()>myStep);
-    //stores the time the phase started
+    assert(myPhases.size()>myStep);
+	//stores the time the phase started
     myPhases[myStep]->_lastSwitch = MSNet::getInstance()->getCurrentTimeStep();
 	// return offset to the next switch
     return myPhases[myStep]->duration;
@@ -182,7 +182,6 @@ MSSimpleTrafficLightLogic::getStepNo() const
     return myStep;
 }
 
-
 size_t
 MSSimpleTrafficLightLogic::getCycleTime() 
 {
@@ -193,13 +192,11 @@ MSSimpleTrafficLightLogic::getCycleTime()
 	return myCycleTime;
 }
 
-
 const MSSimpleTrafficLightLogic::Phases &
 MSSimpleTrafficLightLogic::getPhases() const
 {
     return myPhases;
 }
-
 
 const MSPhaseDefinition &
 MSSimpleTrafficLightLogic::getPhaseFromStep(size_t givenStep) const
@@ -208,6 +205,7 @@ MSSimpleTrafficLightLogic::getPhaseFromStep(size_t givenStep) const
 	assert(givenStep>=0);
     return *myPhases[givenStep];
 }
+
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

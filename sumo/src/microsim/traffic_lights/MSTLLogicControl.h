@@ -20,7 +20,7 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
-// Revision 1.10  2006/05/05 07:53:40  jringel
+// Revision 1.11  2006/05/05 09:53:55  jringel
 // *** empty log message ***
 //
 // Revision 1.9  2006/03/17 08:57:51  dkrajzew
@@ -76,7 +76,6 @@
 #include <vector>
 #include <map>
 #include "MSTrafficLightLogic.h"
-#include "MSSimpleTrafficLightLogic.h"
 #include <utils/helpers/Command.h>
 
 
