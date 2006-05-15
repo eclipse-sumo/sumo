@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/05/15 05:50:40  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
+// Revision 1.12  2006/05/08 11:02:12  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
 // Revision 1.11  2006/04/05 05:27:34  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -601,7 +607,7 @@ MSLCM_DK2004::informBlocker(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
             neighFollow.second
             + SPEED2DIST(myVehicle.speed()) * (SUMOReal) 2.0
             - MAX2(nv->speed() - nv->decelAbility() * (SUMOReal) 2.0, (SUMOReal) 0);
-        if(neighFollow.second>0&&decelGap>0&&nv->isSafeChange_WithDistance(decelGap, myVehicle, &nv->getLane())) {
+        if(neighFollow.second>0&&decelGap>0&&nv->hasSafeGap(nv->speed(), decelGap, myVehicle.speed(), nv->getLane().maxSpeed())) {//isSafeChange_WithDistance(decelGap, myVehicle, &nv->getLane())) {
             SUMOReal vsafe = myVehicle.vsafe(myVehicle.speed(), myVehicle.decelAbility(),
                 neighFollow.second, neighFollow.first->speed());
             msgPass.informNeighFollower(

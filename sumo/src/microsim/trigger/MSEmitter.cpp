@@ -24,6 +24,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/05/15 05:51:33  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
+// Revision 1.6  2006/05/08 11:04:54  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
 // Revision 1.5  2006/04/05 05:27:37  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -415,10 +421,9 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
     MSVehicle *veh = myToEmit[child].first;
     SUMOReal speed = myToEmit[child].second;
     // check whether the speed shall be patched
+    MSVehicle::State state(myPos, myDestLane->maxSpeed());
     if(speed>=0) {
-        veh->moveSetState( MSVehicle::State( myPos, speed ) );
-    } else {
-        veh->moveSetState( MSVehicle::State( myPos, myDestLane->maxSpeed() ) );
+        state = MSVehicle::State( myPos, speed );
     }
     // try to emit
 #ifdef HAVE_MESOSIM
@@ -437,7 +442,8 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
         }
     } else {
 #endif
-    if ( myDestLane->isEmissionSuccess( veh ) ) {
+    if ( myDestLane->isEmissionSuccess( veh, state ) ) {
+        veh->enterLaneAtEmit(myDestLane, state);
         veh->onDepart();
         MSNet::getInstance()->getVehicleControl().vehiclesEmitted(1);
         // insert vehicle into the dictionary

@@ -21,6 +21,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/05/15 05:50:40  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
+// Revision 1.27  2006/05/08 11:08:33  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
 // Revision 1.26  2006/04/05 05:27:34  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -907,9 +913,9 @@ MSLaneChanger::setIsSafeChange(const std::pair<MSVehicle*, SUMOReal> &neighLead,
     if((blocked&LCA_BLOCKEDBY_FOLLOWER)==0) {
         if(neighFollow.first!=0) {
             MSLane* targetLane = target->lane;
-            if(!neighFollow.first->isSafeChange_WithDistance(
-                neighFollow.second, *vehicle, targetLane)) { // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-
+            // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
+            if(!neighFollow.first->hasSafeGap(neighFollow.first->speed(), neighFollow.second, vehicle->speed(), targetLane->maxSpeed())) {
+//                neighFollow.second, *vehicle, targetLane)) {
                 blocked |= LCA_BLOCKEDBY_FOLLOWER;
             }
         }
@@ -919,9 +925,9 @@ MSLaneChanger::setIsSafeChange(const std::pair<MSVehicle*, SUMOReal> &neighLead,
     if((blocked&LCA_BLOCKEDBY_LEADER)==0) {
         if(neighLead.first!=0) {
             MSLane* targetLane = target->lane;
-            if(!vehicle->isSafeChange_WithDistance(
-                neighLead.second, *neighLead.first, targetLane)) { // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
-
+            // !!! eigentlich: vsafe braucht die Max. Geschwindigkeit beider Spuren
+            if(!vehicle->hasSafeGap(vehicle->speed(), neighLead.second, neighLead.first->speed(), targetLane->maxSpeed())) {
+//                neighLead.second, *neighLead.first, targetLane)) {
                 blocked |= LCA_BLOCKEDBY_LEADER;
             }
         }

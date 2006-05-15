@@ -20,6 +20,12 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.39  2006/05/15 05:50:40  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
+// Revision 1.39  2006/05/08 10:59:34  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
 // Revision 1.38  2006/04/05 05:27:34  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -383,7 +389,7 @@ public:
 
     /** @brief Try to emit a vehicle with speed > 0
         i.e. from a source with initial speed values. */
-    virtual bool isEmissionSuccess( MSVehicle* aVehicle );
+    virtual bool isEmissionSuccess( MSVehicle* aVehicle, const MSVehicle::State &vstate );
 
     /** Moves the critical vehicles
         This step is done after the responds have been set */

@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/05/15 05:50:40  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
+// Revision 1.14  2006/05/08 10:59:34  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
 // Revision 1.13  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -153,10 +159,10 @@ GUISourceLane::emit( MSVehicle& newVeh )
 
 
 bool
-GUISourceLane::isEmissionSuccess( MSVehicle* aVehicle )
+GUISourceLane::isEmissionSuccess( MSVehicle* aVehicle, const MSVehicle::State &vstate )
 {
     _lock.lock();//Display();
-    bool ret = MSSourceLane::isEmissionSuccess(aVehicle);
+    bool ret = MSSourceLane::isEmissionSuccess(aVehicle, vstate);
     _lock.unlock();//Display();
     return ret;
 }

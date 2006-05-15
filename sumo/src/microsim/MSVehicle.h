@@ -20,6 +20,12 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.54  2006/05/15 05:50:40  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
+// Revision 1.54  2006/05/08 11:09:36  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
 // Revision 1.53  2006/04/18 08:13:52  dkrajzew
 // debugging rerouting
 //
@@ -367,309 +373,79 @@ class MSBusStop;
 /* =========================================================================
  * class definitions
  * ======================================================================= */
-/**
- * @class MSVehicle
- * A single vehicle. Holds model-methods, io-methods and methods which compute
- * standard physical values such as the gap needed to stop.
- */
-class MSVehicle
-#ifdef RAKNET_DEMO
-  : public Vehicle
-#endif
-{
+
+class MSModel {
 public:
-
-    /// the lane changer sets myLastLaneChangeOffset
-    friend class MSLaneChanger;
-
-    /** container that holds the vehicles driving state. May vary from
-        model to model. here: SK, holds position and speed. */
-    class State
-    {
-        /// vehicle sets states directly
-        friend class MSVehicle;
-        friend class MSLaneChanger;
-
-    public:
-        /// Default constructor. Members are initialized to 0.
-        State();
-
-        /// Copy constructor.
-        State( const State& state );
-
-        /// Assignment operator.
-        State& operator=( const State& state );
-
-        /// Operator !=
-        bool operator!=( const State& state );
-
-        /// Position of this state.
-        SUMOReal pos() const;
-
-        /// Set position of this state.
-        void setPos( SUMOReal pos );
-
-        /// Return true if vehicle would prefer preferState.
-        static bool advantage( const State& preferState,
-                               const State& compareState );
-
-        /// Speed of this state
-        SUMOReal speed() const { return mySpeed; };
-
-        /// Constructor.
-        State( SUMOReal pos, SUMOReal speed );
-
-    private:
-        /// the stored position
-        SUMOReal myPos;
-
-        /// the stored speed
-        SUMOReal mySpeed;
-
-    };
-
-
-
-    /// Destructor.
-    virtual ~MSVehicle();
-
-    /// Returns the vehicles current state.
-    State state() const;
-
-    /// Returns the lanes the vehicle may be emitted onto
-    const MSEdge::LaneCont& departLanes();
-
-    /// returns the edge the vehicle starts from
-    const MSEdge &departEdge();
-
-    /// moves the vehicles after their responds (right-of-way rules) are known
-    void moveFirstChecked();
-
-    /// Returns the desired departure time.
-    SUMOTime desiredDepart() const;
-
-    /** Returns the nSuccs'th successor of the vehicles current
-        route-edge or 0 if there is no nSucc'th edge. */
-    const MSEdge* succEdge( unsigned int nSuccs ) const;
-
-    /** Returns true if nSuccs'th successor of the vehicles current
-        route-edge exists. */
-    bool hasSuccEdge( unsigned int nSuccs ) const;
-
-    /** Returns true if vehicle is going to enter it's destination
-        edge. False otherwise. Adjusts in both cases the route
-        iterator and the allowedLanes-container. */
-    bool destReached( const MSEdge* targetEdge );
+    MSModel(const MSVehicleType* type) : myType(type), myTau(1) { }
+    virtual ~MSModel() { }
 
     /** In "gap2predecessor < brakeGap" region interaction between
         vehicle and predecessor with speed == 0 takes place. If
         vehicle has no predecessor, it has to search within brakeGap
         for collision-free driving. */
-    SUMOReal brakeGap( const MSLane* lane ) const;
+    virtual SUMOReal brakeGap( SUMOReal speed ) const {
+        return speed * speed * myType->inversTwoDecel() + speed * myTau;
+    }
 
-    SUMOReal brakeGap( SUMOReal speed ) const;
-
-    /// minimum brake gap
-    SUMOReal rigorousBrakeGap(const SUMOReal &state) const;
-
-    /** @brief An position assertion
-        (needed as state and lane are not accessable) */
-    void _assertPos() const;
-
-    /** In "gap2predecessor < interactionGap" region interaction between
+   /** In "gap2predecessor < interactionGap" region interaction between
         vehicle and predecessor with speed != 0 takes place. Else vehicle
         drives freely. */
-    SUMOReal interactionGap( const MSLane* lane, const MSVehicle& pred ) const;
+    virtual SUMOReal interactionGap( SUMOReal vF, SUMOReal laneMaxSpeed/*const MSLane* lane */, SUMOReal vL ) const
+    {
+        // Resolve the vsafe equation to gap. Assume predecessor has
+        // speed != 0 and that vsafe will be the current speed plus acceleration,
+        // i.e that with this gap there will be no interaction.
+        SUMOReal vNext = vaccel( vF, laneMaxSpeed );
+        SUMOReal gap = ( vNext - vL  ) *
+            ( ( vF + vL ) * myType->inversTwoDecel() + myTau ) +
+            vL * myTau;
 
-    /** Checks if this vehicle and pred will be in a safe state if one
-     * changes to the others lane. */
-    bool isSafeChange( const MSVehicle& pred, const MSLane* lane ) const;
-
-
-    bool isSafeChange_WithDistance( SUMOReal dist,
-        const MSVehicle& pred, const MSLane* lane ) const;
-
-    SUMOReal getSecureGap( const MSLane &lane,
-        const MSVehicle &pred ) const;
+        // Don't allow timeHeadWay < deltaT situations.
+        return MAX2( gap, timeHeadWayGap( vNext ) );
+    }
 
     /** Checks if the gap between this vehicle and pred is sufficient
      * for safe driving. */
-    bool hasSafeGap( const MSVehicle& pred,
-                     const MSLane* lane,
-                     SUMOReal gap ) const;
-
-    bool hasSafeGap(  SUMOReal gap, SUMOReal predSpeed, const MSLane* lane) const;
+    bool hasSafeGap(  SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed/*const MSLane* lane */) const
+    {
+        SUMOReal vSafe = vsafe( speed, myType->decel(), gap, predSpeed );
+        SUMOReal vNext = MIN3( vaccel( speed, laneMaxSpeed ), vSafe, myType->maxSpeed() );
+        return (vNext >=speed - myType->decelSpeed()
+            &&
+            gap   >= timeHeadWayGap( predSpeed ) );
+    }
 
     /** Returns the minimum gap between this driving vehicle and a
      * possibly emitted vehicle with speed 0. */
-    SUMOReal safeEmitGap( void ) const;
-
-
-    /** Returns the velocity that is neccessary to match the positions
-     * of the two vehicles assuming that the neighbour will keep his
-     * speed. Because overtaking on the right is forbidden, this
-     * vehicle is not allowed to drive faster than vNeighEqualPos. */
-    SUMOReal vNeighEqualPos( const MSVehicle& neigh );
-
-    /** Returns the gap between pred and this vehicle. Assumes they
-     * are on parallel lanes. Requires a positive gap. */
-    SUMOReal gap2pred( const MSVehicle& pred ) const {
-        SUMOReal gap = pred.pos() - pred.length() - pos();
-        if(gap<0&&gap>-1.0e-12) {
-            gap = 0;
-        }
-        if(gap<0) {
-            WRITE_WARNING("Vehicle " + getID() + " collides with pred in " + toString(MSNet::getInstance()->getCurrentTimeStep()));
-            gap = 0;
-        }
-        assert( gap >= SUMOReal( 0 ) );
-        return gap;
+    SUMOReal safeEmitGap( SUMOReal speed) const
+    {
+        SUMOReal vNextMin = MAX2( speed - myType->decelSpeed(),
+                               SUMOReal( 0 ) ); // ok, minimum next speed
+        SUMOReal safeGap  = vNextMin *
+            ( speed * myType->inversTwoDecel() + myTau );
+        return MAX2(
+            safeGap,
+            timeHeadWayGap( speed ) ) + myType->accelDist(speed);
     }
 
-    /** Returns the gap between pred and this vehicle. Assumes they
-     * are on parallel lanes. Requires a positive gap. */
-    SUMOReal gap2predSec( const MSVehicle& pred ) const {
-        return pred.pos() - pred.length() - pos();
+    SUMOReal accelDist(SUMOReal speed) const
+    {
+        return myType->accelDist(speed);
     }
-
-    /** Returns the vehicels driving distance during one timestep when
-        driving with speed. */
-    SUMOReal driveDist( State state ) const;
-
-    /** Returns the distance-difference between driving at constant
-        speed and maximum braking in one timestep. */
-    SUMOReal decelDist() const;
-
-	// -----------------------------
-
-
-
-	void interactWith(const std::vector<MSVehicle*> &vehicles);
-	// -----------------------------
-
-    /// Return the vehicles state after maximum acceleration.
-    State accelState( const MSLane* lane ) const;
-
-    /// The amount the vehicle can decelerate with
-    SUMOReal decelAbility() const;
-
-    /// The amount the vehicle can accelerate with
-    SUMOReal accelAbility() const;
-
-    /// The amount the vehicle can accelerate with
-    SUMOReal accelDist() const;
-
-
-    SUMOReal getCORNDoubleValue(MSCORN::Function f) const;
-    void *getCORNPointerValue(MSCORN::Pointer p) const;
-    bool hasCORNDoubleValue(MSCORN::Function f) const;
-
-
-    /** moves a vehicle if it is not meant to be running out of the lane
-        If there is no neigh, pass 0 to neigh.
-        If neigh is on curr lane, pass 0 to gap2neigh,
-        otherwise gap.
-        Updates drive parameters. */
-    void move( MSLane* lane,
-               const MSVehicle* pred,
-               const MSVehicle* neigh );
-
-    /** Moves vehicles which may run out of the lane
-        Same semantics as move */
-    void moveRegardingCritical( MSLane* lane,
-        const MSVehicle* pred, const MSVehicle* neigh );
-
-    /// Use this move for first vehicles that will leave it's lane.
-    void moveSetState( const State newState );
-
-///////////////////////////////////////////////////////////////////////////
-    /// Returns the information whether the route ends on the given lane
-    bool endsOn(const MSLane &lane) const;
 
     /// timeconstant (driver reaction time)
-    static SUMOReal tau() { // !!!
+    SUMOReal tau() const {
         return myTau;
     }
 
-
-    /// Get the vehicle's position.
-    SUMOReal pos() const {
-        return myState.myPos;
+    SUMOReal vaccel( SUMOReal speed, SUMOReal laneMaxSpeed/*const MSLane* lane */) const
+    {
+        // Accelerate until vehicle's max speed reached.
+        SUMOReal vVehicle =
+            MIN2( speed + myType->accelSpeed(speed), myType->maxSpeed() );
+        // But don't drive faster than max lane speed.
+        return MIN2( vVehicle, laneMaxSpeed );
     }
-
-
-    /// Get the vehicle's length.
-    SUMOReal length() const {
-        return myType->length();
-    }
-
-
-    /** @brief Inserts a MSVehicle into the static dictionary
-        Returns true if the key id isn't already in the dictionary.
-        Otherwise returns false. */
-    static bool dictionary( std::string id, MSVehicle* veh );
-
-    /** @brief Returns the MSVehicle associated to the key id if exists
-        Otherwise returns 0. */
-    static MSVehicle* dictionary( std::string id );
-
-    /// Removes the named vehicle from the dictionary and deletes it
-    static void remove(const std::string &id);
-
-    /// Removes the named vehicle from the dictionary; it will not be deleted
-    static MSVehicle *detach(const std::string &id);
-
-    /** Clears the dictionary */
-    static void clear();
-
-    /// Returns the name of the vehicle
-    const std::string &getID() const;
-
-    /// Prints the vehicle's name
-    friend std::ostream& operator<<(std::ostream& os, const MSVehicle& veh);
-
-    /** Return true if the lane is allowed */
-    bool onAllowed( const MSLane* lane ) const;
-
-    /** Return true if the lane is allowed */
-    bool onAllowed( const MSLane* lane, size_t offset ) const;
-
-    /** Return true if vehicle is on an allowed lane. */
-    bool onAllowed( ) const;
-
-    /** Returns true if the two vehicles overlap. */
-    static bool overlap( const MSVehicle* veh1, const MSVehicle* veh2 ) {
-        if ( veh1->myState.myPos < veh2->myState.myPos ) {
-            return veh2->myState.myPos - veh2->myType->myLength < veh1->myState.myPos;
-        }
-        return veh1->myState.myPos - veh1->myType->myLength < veh2->myState.myPos;
-    }
-
-
-    /** Returns true if vehicle's speed is below 60km/h. This is only relevant
-        on highways. Overtaking on the right is allowed then. */
-    bool congested() const {
-        return myState.mySpeed < SUMOReal(60) / SUMOReal(3.6);
-    }
-
-
-    /// Returns current speed
-    SUMOReal speed() const;
-
-
-	/// Return current Position
-	Position2D position() const;
-
-
-    static void dict_saveState(std::ostream &os, long what);
-    void saveState(std::ostream &os, long what);
-    static void dict_loadState(BinaryInputDevice &bis, long what);
-
-    /** Return true if prioritized first vehicle will brake too much
-    during lane-change calculations. This is a problem because the
-    lane-changer doesn't look beyond the lane but will assume the
-    vehicle has to slow down towards the lane end.*/
-//    bool laneChangeBrake2much( const State brakeState );
 
     /** timeHeadWay < deltaT situations may cause crashes because two
     vehicles want to leave the same lane in one timestep. These
@@ -682,70 +458,6 @@ public:
         return SPEED2DIST(speed);
     }
 
-
-
-    /** Checks if Krauss' timeHeadWay condition "gap >= vPred *
-    deltaT" is true. If you want to insert (emit or lanechenage) a vehicle
-    behind a predecessor, this condition must be true for collision-free
-    driving.
-    @see isInsertBrakeCond
-    @param Predecessors speed.
-    @param Gap to predecessor.
-    @return gap2pred >= vPred * deltaT */
-    bool isInsertTimeHeadWayCond( SUMOReal aPredSpeed, SUMOReal aGap2Pred );
-
-    /** Checks if Krauss' timeHeadWay condition "gap >= vPred *
-    deltaT" is true. If you want to insert (emit or lanechenage) a vehicle
-    behind a predecessor, this condition must be true for collision-free
-    driving.
-    @see isInsertBrakeCond
-    @param The vehicle's predecessor.
-    @return gap2pred >= vPred * deltaT */
-    bool isInsertTimeHeadWayCond( MSVehicle& aPred );
-
-    /** Checks if Krauss' dont't brake too much condition "vsafe >= v
-    - decel * deltaT" is true. If you want to insert (emit or
-    lanechenage) a vehicle behind a predecessor, this condition must
-    be true for collision-free driving.
-    @see isInsertTimeHeadWayCond
-    @param Predecessors speed.
-    @param Gap to predecessor.
-    @return vsafe >= v - decel * deltaT */
-    bool isInsertBrakeCond( SUMOReal aPredSpeed, SUMOReal aGap2Pred );
-
-    /** Checks if Krauss' dont't brake too much condition "vsafe >= v
-    - decel * deltaT" is true. If you want to insert (emit or
-    lanechenage) a vehicle behind a predecessor, this condition must
-    be true for collision-free driving.
-    @see isInsertTimeHeadWayCond
-    @param The vehicle's predecessor.
-    @return vsafe >= v - decel * deltaT */
-    bool isInsertBrakeCond( MSVehicle& aPred );
-
-    const MSEdge * const getEdge() const;
-    /** Update of members if vehicle enters a new lane in the move step.
-        @param Pointer to the entered Lane. */
-    void enterLaneAtMove( MSLane* enteredLane, SUMOReal driven );
-
-    /** Update of members if vehicle enters a new lane in the emit step.
-        @param Pointer to the entered Lane. */
-    void enterLaneAtEmit( MSLane* enteredLane );
-
-    /** Update of members if vehicle enters a new lane in the laneChange step.
-        @param Pointer to the entered Lane. */
-    void enterLaneAtLaneChange( MSLane* enteredLane );
-
-    /** Update of members if vehicle leaves a new lane in the move step. */
-    void leaveLaneAtMove( SUMOReal driven );
-
-    /** Update of members if vehicle leaves a new lane in the
-        laneChange step. */
-    void leaveLaneAtLaneChange( void );
-
-    bool reachingCritical(SUMOReal laneLength) const;
-
-    friend class MSVehicleControl;
-
     /** Returns the SK-vsafe. */
     SUMOReal vsafe( SUMOReal currentSpeed, SUMOReal decelAbility,
                   SUMOReal gap2pred, SUMOReal predSpeed ) const {
@@ -756,31 +468,13 @@ public:
         assert( currentSpeed     >= SUMOReal(0) );
         assert( gap2pred  >= SUMOReal(0) );
         assert( predSpeed >= SUMOReal(0) );
-    //if(gap2pred<SUMOReal(0.01)) {
         SUMOReal vsafe = predSpeed +
             ( ( gap2pred - predSpeed * myTau ) /
             ( ( ( predSpeed + currentSpeed ) * myType->inversTwoDecel() ) + myTau ) );
         assert( vsafe >= 0 );
         return vsafe;
-    /*} else {
-        SUMOReal vsafe = predSpeed +
-            ( ( gap2pred - 0.01 - predSpeed * myTau ) /
-              ( ( ( predSpeed + speed ) * myType->inversTwoDecel() ) + myTau ) );
-        assert( vsafe >= 0 );
-
-        return vsafe;
-    }*/
-    // This assertion has not the intended meaning because of floating inaccuracy.
-    //    assert( vsafe <= gap2pred ); // Collision-free condition.
-    // This is not the solution, because vsafe allows this vehicle to overlap at
-    // time t+1 with pred at time t.
-    //    assert( vsafe <= gap2pred + 0.01 );
     }
 
-    void vsafeCriticalCont( SUMOReal minVSafe );
-
-    /** Return the vehicle's maximum possible speed after acceleration. */
-    SUMOReal vaccel( const MSLane* lane ) const;
 
     /** Dawdle according the vehicles dawdle parameter. Return value >= 0 */
     SUMOReal dawdle( SUMOReal speed ) const {
@@ -809,12 +503,347 @@ public:
         return MAX2( SUMOReal( 0 ), speed );
     }
 
+    SUMOReal decelSpeed() const {
+        return myType->decelSpeed();
+    }
+
+    SUMOReal decel() const {
+        return myType->decel();
+    }
+
+    /// Get the vehicle type's maximum acceleration [m/s^2]
+    SUMOReal accel(SUMOReal v) const {
+        return myType->accel(v);
+    }
+
+    SUMOReal accelSpeed( SUMOReal v ) const {
+        return myType->accelSpeed(v);
+    }
+
+    SUMOReal length() const {
+        return myType->length();
+    }
+
+    SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) {
+        return MIN2(vsafe(speed, decel(), gap2pred, predSpeed), speed + myType->accelSpeed(speed) );
+    }
+
+    SUMOReal getSecureGap( SUMOReal speed, SUMOReal predSpeed, SUMOReal predLength ) const {
+        SUMOReal safeSpace2 = brakeGap(speed);
+        SUMOReal vSafe = vsafe(0, ACCEL2SPEED(decel()), 0, predSpeed);
+        SUMOReal safeSpace3 =
+            ( (vSafe - predSpeed)
+            * (SUMOReal) ((vSafe+predSpeed) / 2.0 / (2.0 * MSVehicleType::minDecel()) + myTau) )
+            + predSpeed * myTau;
+        SUMOReal safeSpace = safeSpace2 > safeSpace3 ? safeSpace2 : safeSpace3;
+        safeSpace = safeSpace > ACCEL2SPEED(decel()) ? safeSpace : ACCEL2SPEED(decel());
+        safeSpace += predLength;
+        safeSpace += ACCEL2SPEED(accel(speed));
+        return safeSpace;
+    }
+
+protected:
+    const MSVehicleType* myType;
+    /// Reaction time [sec]
+    SUMOReal myTau;
+
+
+};
+
+/**
+ * @class MSVehicle
+ * A single vehicle. Holds model-methods, io-methods and methods which compute
+ * standard physical values such as the gap needed to stop.
+ */
+ class MSVehicle : public MSModel
+#ifdef RAKNET_DEMO
+  , public Vehicle
+#endif
+{
+public:
+
+    /// the lane changer sets myLastLaneChangeOffset
+    friend class MSLaneChanger;
+
+    /** container that holds the vehicles driving state. May vary from
+        model to model. here: SK, holds position and speed. */
+    class State
+    {
+        /// vehicle sets states directly
+        friend class MSVehicle;
+        friend class MSLaneChanger;
+
+    public:
+        /// Constructor.
+        State( SUMOReal pos, SUMOReal speed );
+
+        /// Default constructor. Members are initialized to 0.
+        //State();
+
+        /// Copy constructor.
+        State( const State& state );
+
+        /// Assignment operator.
+        State& operator=( const State& state );
+
+        /// Operator !=
+        bool operator!=( const State& state );
+
+        /// Position of this state.
+        SUMOReal pos() const;
+
+        /// Speed of this state
+        SUMOReal speed() const { return mySpeed; };
+
+    private:
+        /// the stored position
+        SUMOReal myPos;
+
+        /// the stored speed
+        SUMOReal mySpeed;
+
+    };
+
+    /// Destructor.
+    virtual ~MSVehicle();
+
+
+    //@{ needed during the emission
+    /// returns the edge the vehicle starts from
+    const MSEdge &departEdge();
+
+    /// Returns the lanes the vehicle may be emitted onto
+    const MSEdge::LaneCont& departLanes();
+
+    /// Returns the desired departure time.
+    SUMOTime desiredDepart() const;
+    //@}
+
+
+    //@{ interaction with the route
+    /** Returns the nSuccs'th successor of the vehicles current
+        route-edge or 0 if there is no nSucc'th edge. */
+    const MSEdge* succEdge( unsigned int nSuccs ) const;
+
+    /** Returns true if nSuccs'th successor of the vehicles current
+        route-edge exists. */
+    bool hasSuccEdge( unsigned int nSuccs ) const;
+
+    /** Returns true if vehicle is going to enter it's destination
+        edge. False otherwise. Adjusts in both cases the route
+        iterator and the allowedLanes-container. */
+    bool destReached( const MSEdge* targetEdge );
+
+    /// Returns the information whether the route ends on the given lane
+    bool endsOn(const MSLane &lane) const;
+
+    /// Moves vehicle one edge forward, returns true if the route has ended
+    bool proceedVirtualReturnWhetherEnded(const MSEdge *const to);
+
+    /// Returns the current route
+    const MSRoute &getRoute() const;
+
+    /// Returns the current or a prior route
+    const MSRoute &getRoute(int index) const;
+
+    /// Replaces the current route by the given edges
+    bool replaceRoute(const MSEdgeVector &edges, size_t simTime);
+
+    /// Replaces the current route by the given route
+    bool replaceRoute(MSRoute *r, size_t simTime);
+    //@}
+
+
+    /// moves the vehicles after their responds (right-of-way rules) are known
+    void moveFirstChecked();
+
+    /** @brief An position assertion
+        (needed as state and lane are not accessable) */
+    void _assertPos() const;
+
+
+    /** Returns the gap between pred and this vehicle. Assumes they
+     * are on parallel lanes. Requires a positive gap. */
+    SUMOReal gap2pred( const MSVehicle& pred ) const {
+        SUMOReal gap = pred.pos() - pred.length() - pos();
+        if(gap<0&&gap>-1.0e-12) {
+            gap = 0;
+        }
+        if(gap<0) {
+            WRITE_WARNING("Vehicle " + getID() + " collides with pred in " + toString(MSNet::getInstance()->getCurrentTimeStep()));
+            gap = 0;
+        }
+        assert( gap >= SUMOReal( 0 ) );
+        return gap;
+    }
+
+    /** Returns the gap between pred and this vehicle. Assumes they
+     * are on parallel lanes. Requires a positive gap. */
+    SUMOReal gap2predSec( const MSVehicle& pred ) const {
+        return pred.pos() - pred.length() - pos();
+    }
+
+    static inline SUMOReal gap(SUMOReal predPos, SUMOReal predLength, SUMOReal pos) {
+        return predPos - predLength - pos;
+    }
+
+
+
+
+	void interactWith(const std::vector<MSVehicle*> &vehicles);
+
+    /// The amount the vehicle can decelerate with
+    SUMOReal decelAbility() const;
+
+    /// The amount the vehicle can accelerate with
+    SUMOReal accelAbility() const;
+
+
+    //@{ Retrieval and setting of CORN values
+    /// Gets the named CORN double value
+    SUMOReal getCORNDoubleValue(MSCORN::Function f) const;
+
+    /// Gets the named CORN pointer value
+    void *getCORNPointerValue(MSCORN::Pointer p) const;
+
+    /// Returns whether this vehicle has the named value stored
+    bool hasCORNDoubleValue(MSCORN::Function f) const;
+    //@}
+
+
+    /** moves a vehicle if it is not meant to be running out of the lane
+        If there is no neigh, pass 0 to neigh.
+        If neigh is on curr lane, pass 0 to gap2neigh,
+        otherwise gap.
+        Updates drive parameters. */
+    void move( MSLane* lane,
+               const MSVehicle* pred,
+               const MSVehicle* neigh );
+
+    /** Moves vehicles which may run out of the lane
+        Same semantics as move */
+    void moveRegardingCritical( MSLane* lane,
+        const MSVehicle* pred, const MSVehicle* neigh );
+
+
+    //@{ State setter/getter
+    /// Returns the vehicle state
+    const State &getState() const {
+        return myState;
+    }
+
+    /// Get the vehicle's position.
+    SUMOReal pos() const {
+        return myState.myPos;
+    }
+
+    /// Returns current speed
+    SUMOReal speed() const {
+        return myState.mySpeed;
+    }
+    //@}
+
+
+    //@{ Access to the vehicle dictionary
+    /** @brief Inserts a MSVehicle into the static dictionary
+        Returns true if the key id isn't already in the dictionary.
+        Otherwise returns false. */
+    static bool dictionary( std::string id, MSVehicle* veh );
+
+    /** @brief Returns the MSVehicle associated to the key id if exists
+        Otherwise returns 0. */
+    static MSVehicle* dictionary( std::string id );
+
+    /// Removes the named vehicle from the dictionary and deletes it
+    static void remove(const std::string &id);
+
+    /// Removes the named vehicle from the dictionary; it will not be deleted
+    static MSVehicle *detach(const std::string &id);
+
+    /** Clears the dictionary */
+    static void clear();
+    //@}
+
+
+    /// Returns the name of the vehicle
+    const std::string &getID() const;
+
+    /** Return true if the lane is allowed */
+    bool onAllowed( const MSLane* lane ) const;
+
+    /** Return true if the lane is allowed */
+    bool onAllowed( const MSLane* lane, size_t offset ) const;
+
+    /** Return true if vehicle is on an allowed lane. */
+    bool onAllowed( ) const;
+
+
+    /** Returns true if the two vehicles overlap. */
+    static bool overlap( const MSVehicle* veh1, const MSVehicle* veh2 ) {
+        if ( veh1->myState.myPos < veh2->myState.myPos ) {
+            return veh2->myState.myPos - veh2->length() < veh1->myState.myPos;
+        }
+        return veh1->myState.myPos - veh1->length() < veh2->myState.myPos;
+    }
+
+
+    /** Returns true if vehicle's speed is below 60km/h. This is only relevant
+        on highways. Overtaking on the right is allowed then. */
+    bool congested() const {
+        return myState.mySpeed < SUMOReal(60) / SUMOReal(3.6);
+    }
+
+	/// Return current Position
+	Position2D position() const;
+
+
+    //@{ State IO
+    /// Saves the states of all vehicles
+    static void dict_saveState(std::ostream &os, long what);
+
+    /// Saves the states of a vehicle
+    void saveState(std::ostream &os, long what);
+
+    /// Loads vehicle state
+    static void dict_loadState(BinaryInputDevice &bis, long what);
+    //@}
+
+
+    const MSEdge * const getEdge() const;
+
+
+    /** Update of members if vehicle enters a new lane in the move step.
+        @param Pointer to the entered Lane. */
+    void enterLaneAtMove( MSLane* enteredLane, SUMOReal driven );
+
+    /** Update of members if vehicle enters a new lane in the emit step.
+        @param Pointer to the entered Lane. */
+    void enterLaneAtEmit( MSLane* enteredLane, const State &state );
+
+    /** Update of members if vehicle enters a new lane in the laneChange step.
+        @param Pointer to the entered Lane. */
+    void enterLaneAtLaneChange( MSLane* enteredLane );
+
+    /** Update of members if vehicle leaves a new lane in the move step. */
+    void leaveLaneAtMove( SUMOReal driven );
+
+    /** Update of members if vehicle leaves a new lane in the
+        laneChange step. */
+    void leaveLaneAtLaneChange( void );
+
+    bool reachingCritical(SUMOReal laneLength) const;
+
+    friend class MSVehicleControl;
+
+    void vsafeCriticalCont( SUMOReal minVSafe );
 
     MSLane *getTargetLane() const;
 
     /// Returns the lane the vehicle is on
     const MSLane &getLane() const;
 
+
+    //@{ Usage of multiple vehicle emissions
     /// Returns the information whether further vehicles of this type shall be emitted periodically
     bool periodical() const;
 
@@ -825,8 +854,8 @@ public:
         We have to duplicate the vehicle if a further has to be emitted with
         the same settings */
     virtual MSVehicle *getNextPeriodical() const;
+    //@}
 
-    bool proceedVirtualReturnWhetherEnded(const MSEdge *const to);
 
     /** @brief returns the number of steps waited
         A vehicle is meant to be "waiting" when it's speed is less than 0.1
@@ -859,27 +888,15 @@ public:
     int countAllowedContinuations(const MSLane *lane, int dir) const;
     SUMOReal allowedContinuationsLength(const MSLane *lane, int dir) const;
 
-    MSUnit::Cells getMovedDistance( void ) const
+    SUMOReal getMovedDistance( void ) const
         {
         return SPEED2DIST(myState.mySpeed);
         }
 
-    const MSRoute &getRoute() const;
-
-    const MSRoute &getRoute(int index) const;
-
-    bool replaceRoute(const MSEdgeVector &edges, size_t simTime);
-    bool replaceRoute(MSRoute *r, size_t simTime);
-
     const MSVehicleType &getVehicleType() const;
 
     void setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue);
-/*
-    struct StopDefinition {
-        MSLane *lane;
-        SUMOReal pos;
-    };
-*/
+
 public:
     void onDepart();
 
@@ -907,14 +924,7 @@ protected:
         const MSVehicleType* type, size_t noMeanData,
         int repNo, int repOffset);
 
-
-    /** Returns the minimum of four SUMOReals. */
-    SUMOReal vMin( SUMOReal v1, SUMOReal v2, SUMOReal v3, SUMOReal v4 ) const {
-        return MIN4(v1,v2,v3,v4);
-    }
-
-
-    void initDevices();
+     void initDevices();
 
     /// information how long ago the vehicle has performed a lane-change
     SUMOTime myLastLaneChangeOffset;
@@ -945,7 +955,7 @@ protected:
     SUMOTime myDesiredDepart;
 
     /// Vehicle-type.
-    const MSVehicleType* myType;
+    //const MSVehicleType* myType;
 
     /// Vehicles driving state. here: pos and speed
     State myState;
@@ -956,9 +966,6 @@ protected:
     MSAbstractLaneChangeModel *myLaneChangeModel;
 
 private:
-
-    /// Reaction time [sec]
-    static SUMOReal myTau;
 
     /** Iterator to current route-edge.  */
     MSRouteIterator myCurrEdge;

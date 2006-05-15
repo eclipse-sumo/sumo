@@ -20,6 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/05/15 05:50:40  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
+// Revision 1.9  2006/05/08 10:59:34  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
 // Revision 1.8  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -115,7 +121,7 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    bool isEmissionSuccess( MSVehicle* aVehicle );
+    bool isEmissionSuccess( MSVehicle* aVehicle, const MSVehicle::State &vstate );
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
@@ -128,10 +134,6 @@ public:
     const VehCont &getVehiclesSecure();
 
     GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
-
-    friend class GUILaneChanger;
-
-    friend class GUILaneWrapper;
 
 protected:
     /** the same as in MSLane, but locks the access for the visualisation

@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.37  2006/05/15 05:50:40  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
+// Revision 1.37  2006/05/08 10:59:34  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
 // Revision 1.36  2006/04/05 05:22:36  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -240,10 +246,10 @@ GUILane::emit( MSVehicle& newVeh )
 
 
 bool
-GUILane::isEmissionSuccess( MSVehicle* aVehicle )
+GUILane::isEmissionSuccess( MSVehicle* aVehicle, const MSVehicle::State &vstate )
 {
     _lock.lock();//Display();
-    bool ret = MSLane::isEmissionSuccess(aVehicle);
+    bool ret = MSLane::isEmissionSuccess(aVehicle, vstate);
     _lock.unlock();//Display();
     return ret;
 }
@@ -256,8 +262,8 @@ GUILane::push( MSVehicle* veh )
 #ifdef ABS_DEBUG
     if(myVehBuffer!=0) {
         DEBUG_OUT << MSNet::globaltime << ":Push Failed on Lane:" << myID << endl;
-        DEBUG_OUT << myVehBuffer->id() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
-        DEBUG_OUT << veh->id() << ", " << veh->pos() << ", " << veh->speed() << endl;
+        DEBUG_OUT << myVehBuffer->getID() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
+        DEBUG_OUT << veh->getID() << ", " << veh->pos() << ", " << veh->speed() << endl;
     }
 #endif
     MSVehicle *last = myVehicles.size()!=0

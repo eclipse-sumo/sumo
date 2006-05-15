@@ -22,6 +22,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.79  2006/05/15 05:50:40  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
+// Revision 1.79  2006/05/08 11:09:36  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
 // Revision 1.78  2006/04/18 08:13:52  dkrajzew
 // debugging rerouting
 //
@@ -531,12 +537,6 @@ using namespace std;
  * static member variables
  * ======================================================================= */
 MSVehicle::DictType MSVehicle::myDict;
-SUMOReal MSVehicle::myTau = 1;
-
-// It is possible to get collisions because of arithmetic-inaccuracy
-// at small gaps. Therefore we introduce "dontMoveGap"; if gap2pred is
-// smaller, than vehicle will keep it's state.
-const SUMOReal dontMoveGap = (SUMOReal) 0.01;
 
 
 /* =========================================================================
@@ -545,12 +545,6 @@ const SUMOReal dontMoveGap = (SUMOReal) 0.01;
 /* -------------------------------------------------------------------------
  * methods of MSVehicle::State
  * ----------------------------------------------------------------------- */
-MSVehicle::State::State() : myPos( 0 ), mySpeed( 0 )
-{
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
 MSVehicle::State::State( const State& state )
 {
     myPos = state.myPos;
@@ -586,24 +580,6 @@ MSVehicle::State::pos() const
 
 /////////////////////////////////////////////////////////////////////////////
 
-void
-MSVehicle::State::setPos( SUMOReal pos )
-{
-    assert( pos >= 0 );
-    myPos = pos;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-bool
-MSVehicle::State::advantage( const State& preferState,
-                             const State& compareState )
-{
-    return preferState.mySpeed >= compareState.mySpeed;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
 MSVehicle::State::State( SUMOReal pos, SUMOReal speed ) :
     myPos( pos ), mySpeed( speed )
 {
@@ -620,6 +596,7 @@ MSVehicle::~MSVehicle()
         (*i)->removeOnTripEnd(this);
     }
     //myWaitingPersons.clear();
+    myRoute->decReferenceCnt();
     if(!myRoute->inFurtherUse()) {
         MSRoute::erase(myRoute->getID());
     }
@@ -650,6 +627,7 @@ MSVehicle::MSVehicle( string id,
                       const MSVehicleType* type,
                       size_t noMeanData,
                       int repNo, int repOffset) :
+    MSModel(type),
 #ifdef RAKNET_DEMO
     Vehicle(),
 #endif
@@ -661,8 +639,7 @@ MSVehicle::MSVehicle( string id,
     myID(id),
     myRoute(route),
     myDesiredDepart(departTime),
-    myType(type),
-    myState(),
+    myState(0, 0),
     myLane( 0 ),
     myCurrEdge(0),
     myAllowedLanes(0),
@@ -700,14 +677,6 @@ MSVehicle::initDevices()
 
 /////////////////////////////////////////////////////////////////////////////
 
-MSVehicle::State
-MSVehicle::state() const
-{
-    return myState;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
 const MSEdge &
 MSVehicle::departEdge()
 {
@@ -737,8 +706,7 @@ MSVehicle::succEdge(unsigned int nSuccs) const
 {
     if ( hasSuccEdge( nSuccs ) ) {
         return *( myCurrEdge + nSuccs );
-    }
-    else {
+    } else {
         return 0;
     }
 }
@@ -748,7 +716,6 @@ MSVehicle::succEdge(unsigned int nSuccs) const
 bool
 MSVehicle::hasSuccEdge(unsigned int nSuccs) const
 {
-    // MSNet::RouteIterator myCurrEdge must be a random access iterator.
     if (myCurrEdge + nSuccs >= myRoute->end()) {
         return false;
     }
@@ -767,15 +734,11 @@ MSVehicle::destReached( const MSEdge* targetEdge )
     // only one iteration. Only for very short edges a vehicle can
     // "jump" over one ore more edges in one timestep.
     MSRouteIterator edgeIt = myCurrEdge;
-
     while ( *edgeIt != targetEdge ) {
-
         ++edgeIt;
         assert( edgeIt != myRoute->end() );
     }
-
     myCurrEdge = edgeIt;
-
     // Check if destination-edge is reached. Update allowedLanes makes
     // only sense if destination isn't reached.
     MSRouteIterator destination = myRoute->end() - 1;
@@ -789,182 +752,31 @@ MSVehicle::destReached( const MSEdge* targetEdge )
 
 /////////////////////////////////////////////////////////////////////////////
 
-SUMOReal
-MSVehicle::brakeGap( const MSLane* lane ) const
-{
-    return myState.mySpeed * myState.mySpeed * myType->inversTwoDecel()
-        + myState.mySpeed * myTau;
-}
-
-
-SUMOReal
-MSVehicle::brakeGap( SUMOReal speed ) const
-{
-    return speed * speed * myType->inversTwoDecel()
-        + speed * myTau;
-}
-
-SUMOReal
-MSVehicle::rigorousBrakeGap(const SUMOReal &speed) const
-{
-    throw 1; // !!!
-    return speed * speed * myType->inversTwoDecel();
-}
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-
-SUMOReal
-MSVehicle::interactionGap( const MSLane* lane, const MSVehicle& pred ) const
-{
-    // Resolve the vsafe equation to gap. Assume predecessor has
-    // speed != 0 and that vsafe will be the current speed plus acceleration,
-    // i.e that with this gap there will be no interaction.
-    SUMOReal vF = myState.mySpeed;
-    SUMOReal vL = pred.myState.mySpeed;
-    SUMOReal vNext = vaccel( lane );
-    SUMOReal gap = ( vNext - vL  ) *
-        ( ( vF + vL ) * myType->inversTwoDecel() + myTau ) +
-        vL * myTau;
-
-    // Don't allow timeHeadWay < deltaT situations.
-    return MAX2( gap, timeHeadWayGap( vNext ) );
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
 bool
-MSVehicle::isSafeChange( const MSVehicle& pred, const MSLane* lane ) const
+MSVehicle::endsOn(const MSLane &lane) const
 {
-    SUMOReal gap   = gap2pred( pred );
-    return hasSafeGap( pred, lane, gap );
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-bool
-MSVehicle::isSafeChange_WithDistance( SUMOReal distance,
-                                     const MSVehicle& pred,
-                                     const MSLane* lane ) const
-{
-    return hasSafeGap( pred, lane, distance );
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-bool
-MSVehicle::hasSafeGap( const MSVehicle& pred,
-                       const MSLane* lane,
-                       SUMOReal gap ) const
-{
-    SUMOReal vSafe = vsafe( speed(), myType->decel(), gap, pred.speed() );
-    SUMOReal vNext = MIN3( vaccel( lane ), vSafe, myType->maxSpeed() );
-    return (vNext >= speed() - myType->decelSpeed()
-            &&
-            gap   >= timeHeadWayGap( pred.speed() ) );
-}
-
-
-bool
-MSVehicle::hasSafeGap(  SUMOReal gap, SUMOReal predSpeed,
-                       const MSLane* lane) const
-{
-    SUMOReal vSafe = vsafe( speed(), myType->decel(), gap, predSpeed );
-    SUMOReal vNext = MIN3( vaccel( lane ), vSafe, myType->maxSpeed() );
-    return (vNext >=speed() - myType->decelSpeed()
-            &&
-            gap   >= timeHeadWayGap( predSpeed ) );
-}
-
-
-/////////////////////////////////////////////////////////////////////////////
-
-SUMOReal
-MSVehicle::safeEmitGap( void ) const
-{
-    SUMOReal vNextMin = MAX2( speed() - myType->decelSpeed(),
-                           SUMOReal( 0 ) ); // ok, minimum next speed
-    SUMOReal safeGap  = vNextMin *
-        ( speed() * myType->inversTwoDecel() + myTau );
-    return MAX2(
-        safeGap,
-        timeHeadWayGap( myState.mySpeed ) ) +
-            myType->accelDist(myState.mySpeed);
-}
-
-
-SUMOReal
-MSVehicle::accelDist() const
-{
-    return myType->accelDist(myState.mySpeed);
-}
-
-
-/////////////////////////////////////////////////////////////////////////////
-
-SUMOReal
-MSVehicle::vNeighEqualPos( const MSVehicle& neigh )
-{
-    SUMOReal v = DIST2SPEED( neigh.pos() - pos() + SPEED2DIST(neigh.speed()) );
-    assert( v >= 0 );
-    // Don't break too hard.
-    if ( v < speed() - SPEED2DIST(myType->decel()) ) {
-        return speed() - myType->decelSpeed();
-    }
-
-    // Be able to slow down to neighbours speed in following timesteps.
-    if ( v >= neigh.speed() + myType->decelSpeed() ) {
-        return neigh.speed() + myType->decelSpeed();
-    }
-    else {
-        return v;
-    }
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-SUMOReal
-MSVehicle::driveDist( State state ) const
-{
-    return SPEED2DIST(state.mySpeed);
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-SUMOReal
-MSVehicle::decelDist() const
-{
-    return myType->decelDist();
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-MSVehicle::State
-MSVehicle::accelState( const MSLane* lane ) const
-{
-    return State( 0, vaccel( lane ) );
+    return lane.inEdge(myRoute->getLastEdge());
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSVehicle::move( MSLane* lane,
-                 const MSVehicle* pred,
-                 const MSVehicle* neigh )
+MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
 {
+    // reset move information
     myTarget = 0;
 #ifdef ABS_DEBUG
     if(debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         DEBUG_OUT << "movea/1:" << debug_globaltime << ": " << myID << " at " << myLane->getID() << ": " << pos() << ", " << speed() << endl;
     }
 #endif
+    // compute gap to use
     SUMOReal gap = gap2pred(*pred);
     if(gap<0.1) {
         assert(gap>-0.1);
         gap = 0;
     }
-    SUMOReal vAccel = vaccel( lane );
+    SUMOReal vAccel = vaccel( myState.mySpeed, lane->maxSpeed() );
     SUMOReal vSafe  =
         vsafe( myState.mySpeed, myType->decel(), gap, pred->speed() );
     if(!myStops.empty()) {
@@ -1004,6 +816,8 @@ MSVehicle::move( MSLane* lane,
         }
     }
 
+
+
     SUMOReal vNext;
 
     // !!! non - Krauß brake when urgent lane changing failed
@@ -1016,20 +830,22 @@ MSVehicle::move( MSLane* lane,
             // lane-change interaction
     ///* !!!!!
       //      */
+    /*
         if ( neigh != 0 ) {
 
             vNext = dawdle( MIN3( vAccel, vSafe, vNeighEqualPos( *neigh ) ) );
         }
         else {
+        */
             vNext = dawdle( MIN2( vAccel, vSafe ) );
-        }
+        //}
     vNext =
         myLaneChangeModel->patchSpeed(
             MAX2((SUMOReal) 0, ACCEL2SPEED(myState.mySpeed-myType->decel())),
             vNext,
-            MIN2(vSafe, vaccel(myLane)),
+            MIN2(vSafe, vaccel(myState.mySpeed, myLane->maxSpeed())),
             vSafe);
-    vNext = MIN3(vNext, vSafe, vaccel(myLane));
+    vNext = MIN3(vNext, vSafe, vaccel(myState.mySpeed, myLane->maxSpeed()));
 //    }
     // check needed for the Krauss-model
     /*!!!
@@ -1046,14 +862,8 @@ MSVehicle::move( MSLane* lane,
 
         vNext = MIN2(vNext, DIST2SPEED(gap));
     }
-
-    // check whether the driver wants to let someone in
-    //  but only if the vehicle is far enough from the lane's end
-    /*
-    if(myState.myPos+MSVehicleType::maxLength()-2<myLane->length()) {
-//        vNext = myLaneChangeState.modifySpeed(vNext, myState.mySpeed-decelAbility());
-    }
-    */
+//    }
+//    */
     vNext = MAX2((SUMOReal) 0, vNext);
     if(vNext<=0.1) {
         myWaitingTime++;
@@ -1117,19 +927,15 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
                 seen-(lane->length()-myStops.begin()->pos), 0);
             vWish = MIN2(vWish, vsafeStop);
         }
-        // !!!
         vWish = MAX2((SUMOReal) 0, vWish);
-        // check whether the driver wants to let someone in
         /*
-        if(myState.myPos+MSVehicleType::maxLength()-2<myLane->length()) {
-//            vWish = myLaneChangeState.modifySpeed(vWish, myState.mySpeed-decelAbility());
         }
         */
         myLFLinkLanes.push_back(
             DriveProcessItem(0, vWish, vWish));
     } else {
         // compute other values as in move
-        SUMOReal vBeg = vaccel( lane );
+        SUMOReal vBeg = vaccel( myState.mySpeed, lane->maxSpeed() );
         if(pred!=0) {
             SUMOReal vSafe =
                 vsafe(myState.mySpeed, myType->decel(),
@@ -1139,11 +945,6 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
             vBeg = MIN2(vBeg, vSafe);
         }
         // check whether the driver wants to let someone in
-        /*
-        if(myState.myPos+MSVehicleType::maxLength()-2<myLane->length()) {
-//            vBeg = myLaneChangeState.modifySpeed(vBeg, myState.mySpeed-decelAbility());
-        }
-        */
         // set next links, computing possible speeds
         vsafeCriticalCont(vBeg);
     }
@@ -1154,8 +955,6 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
     }
     // !!! remove this! make this somewhere else!
 }
-
-
 
 
 void
@@ -1219,7 +1018,7 @@ MSVehicle::moveFirstChecked()
                 if(link->opened()) {
                     vSafe = (*i).myVLinkPass;
                 } else {
-                    if(vSafe<myState.mySpeed-myType->decelSpeed()&&link->amYellow()) {
+                    if(vSafe<myState.mySpeed-decelSpeed()&&link->amYellow()) {
                         vSafe = (*i).myVLinkPass;
                     } else {
                         vSafe = (*i).myVLinkWait;
@@ -1236,21 +1035,21 @@ MSVehicle::moveFirstChecked()
     }
     // compute vNext in considering dawdling
     SUMOReal vNext;
-    if(myState.speed()==0&&vSafe<myType->accelSpeed(0)) {
+    if(myState.speed()==0&&vSafe<accelSpeed(0)) {
         // do not dawdle too much on short segments
-        vNext = MAX2(SUMOReal(0), dawdle2( MIN2(vSafe, vaccel(myLane)) ));
+        vNext = MAX2(SUMOReal(0), dawdle2( MIN2(vSafe, vaccel(myState.mySpeed, myLane->maxSpeed())) ));
     } else {
         // lane-change interaction
         ///* !!!!!
         //*/
-        vNext = MAX2(SUMOReal(0), dawdle( MIN2(vSafe, vaccel(myLane)) ));
+        vNext = MAX2(SUMOReal(0), dawdle( MIN2(vSafe, vaccel(myState.mySpeed, myLane->maxSpeed())) ));
     vNext =
         myLaneChangeModel->patchSpeed(
-            MAX2((SUMOReal) 0, ACCEL2SPEED(myState.mySpeed-myType->decel())),
+            MAX2((SUMOReal) 0, ACCEL2SPEED(myState.mySpeed-decel())),
             vNext,
-            MIN2(vSafe, vaccel(myLane)),
+            MIN2(vSafe, vaccel(myState.mySpeed, myLane->maxSpeed())),
             vSafe);
-    vNext = MIN3(vNext, vSafe, vaccel(myLane));
+    vNext = MIN3(vNext, vSafe, vaccel(myState.mySpeed, myLane->maxSpeed()));
     }
 
     // visit waiting time
@@ -1382,13 +1181,13 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
         DEBUG_OUT << "vsafeCriticalCont/" << debug_globaltime << ":" << myID << endl;
     }
 #endif
-    SUMOReal decelAbility = myType->decel();
+    SUMOReal decelAbility = decel();
     // the vehicle may have just to look into the next lane
     //  compute this information and use it only once in the next loop
     SUMOReal seen = myLane->length() - myState.myPos;
     MSLane *nextLane = myLane;
     // compute the way the vehicle may drive when accelerating
-    SUMOReal dist = boundVSafe + brakeGap(myLane);
+    SUMOReal dist = boundVSafe + brakeGap(myState.mySpeed);
     SUMOReal vLinkPass = boundVSafe;
     SUMOReal vLinkWait = vLinkPass;
 
@@ -1480,7 +1279,7 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
             //  (the check whether other incoming vehicles may stop this one is done later)
             // then let it pass
             if(seen<decelAbility&&dist2Pred>0) {
-                vLinkPass = MIN2(vLinkPass, vaccel(myLane)); // otherwise vsafe may become incredibly large
+                vLinkPass = MIN2(vLinkPass, vaccel(myState.mySpeed, myLane->maxSpeed())); // otherwise vsafe may become incredibly large
                 (*link)->setApproaching(this);
             } else {
                 // let it wait in the other cases
@@ -1508,96 +1307,22 @@ MSVehicle::vsafeCriticalCont( SUMOReal boundVSafe )
     }
 }
 
-
-bool
-MSVehicle::endsOn(const MSLane &lane) const
+SUMOReal
+MSVehicle::decelAbility() const
 {
-    return lane.inEdge(myRoute->getLastEdge());
+    return ACCEL2SPEED(decel()); // !!! really the speed?
 }
+
+
+SUMOReal
+MSVehicle::accelAbility() const
+{
+    return ACCEL2SPEED(accel(myState.mySpeed)); // !!! really the speed?
+}
+
+
 
 ////////////////////////////////////////////////////////////////////////////
-/*
-void
-MSVehicle::moveDecel2laneEnd( MSLane* lane )
-{
-    SUMOReal gap = lane->length() - myState.myPos; // !!!
-
-    // Slow down and dawdle.
-    SUMOReal vAccel = vaccel(myLane);
-    SUMOReal vSafe  = vsafe( myState.mySpeed, myType->decel(), gap, 0 );
-    SUMOReal vNext  = dawdle( MIN2(vSafe, vAccel) );
-    if(vNext<myState.mySpeed-myType->decelSpeed()) {
-        vNext = myState.mySpeed-myType->decelSpeed();
-    }
-    // update position and speed
-    myState.myPos  += SPEED2DIST(vNext);
-    myState.mySpeed = vNext;
-}
-*/
-////////////////////////////////////////////////////////////////////////////
-
-/*
-void
-MSVehicle::moveUpdateState( const State newState )
-{
-    myState.myPos  += SPEED2DIST(newState.mySpeed);
-    assert( myState.myPos >= 0 );
-    myState.mySpeed = newState.mySpeed;
-    assert( myState.mySpeed >= 0 );
-}
-*/
-////////////////////////////////////////////////////////////////////////////
-
-void
-MSVehicle::moveSetState( const State newState )
-{
-    myState = newState;
-    assert( myState.myPos >= 0 );
-    assert( myState.mySpeed >= 0 );
-}
-
-/////////////////////////////////////////////////////////////////////////////
-/*
-MSVehicle::State
-MSVehicle::nextState( MSLane* lane, SUMOReal gap ) const
-{
-    // Don't move if gap < dontMoveGap to handle arithmetic inaccuracy.
-    if ( gap < dontMoveGap ) {
-        return State( myState.pos(), 0 );
-    }
-
-    // TODO
-    // If we know that we will slow down, is there still the need to dawdle?
-    SUMOReal vAccel  = vaccel( lane );
-    SUMOReal vSafe   = vsafe( myState.mySpeed, myType->decel(), gap, 0 );
-    SUMOReal vNext   = dawdle( MIN2( vSafe, vAccel ) );
-    if(vNext<myState.mySpeed-myType->decelSpeed()) {
-        vNext = myState.mySpeed-myType->decelSpeed();
-    }
-    SUMOReal nextPos = myState.myPos + SPEED2DIST(vNext); // Will be
-    // overridden if veh leaves lane.
-    return State( nextPos, vNext );
-}
-*/
-/////////////////////////////////////////////////////////////////////////////
-/*
-MSVehicle::State
-MSVehicle::nextStateCompete( MSLane* lane,
-                             State predState,
-                             SUMOReal gap2pred ) const
-{
-    SUMOReal vAccel   = vaccel( lane );
-    SUMOReal vSafe    = vsafe( myState.mySpeed, myType->decel(),
-                             gap2pred, predState.mySpeed );
-    SUMOReal vNext    = dawdle( MIN2( vAccel, vSafe ) );
-    if(vNext<myState.mySpeed-myType->decelSpeed()) {
-        vNext = myState.mySpeed-myType->decelSpeed();
-    }
-    SUMOReal nextPos  = myState.myPos + SPEED2DIST(vNext);
-    return State( nextPos, vNext );
-}
-*/
-/////////////////////////////////////////////////////////////////////////////
 
 bool
 MSVehicle::dictionary(string id, MSVehicle* ptr)
@@ -1665,15 +1390,8 @@ MSVehicle::detach(const std::string &id)
 
 /////////////////////////////////////////////////////////////////////////////
 
-SUMOReal
-MSVehicle::speed() const
-{
-    return myState.mySpeed;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-Position2D MSVehicle::position() const
+Position2D
+MSVehicle::position() const
 {
 	return (myLane->myShape).positionAtLengthPosition(myState.pos());
 }
@@ -1684,27 +1402,6 @@ const string &
 MSVehicle::getID() const
 {
     return myID;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-ostream&
-operator<<( ostream& os, const MSVehicle& veh )
-{
-    os << "MSVehicle: Id = " << veh.myID << endl;
-    return os;
-}
-
-
-/////////////////////////////////////////////////////////////////////////////
-
-SUMOReal
-MSVehicle::vaccel( const MSLane* lane ) const
-{
-    // Accelerate until vehicle's max speed reached.
-    SUMOReal vVehicle = MIN2( myState.mySpeed + myType->accelSpeed(myState.mySpeed), myType->myMaxSpeed );
-    // But don't drive faster than max lane speed.
-    return MIN2( vVehicle, lane->maxSpeed() );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1756,40 +1453,6 @@ MSVehicle::onAllowed( ) const
     return ( compare != myAllowedLanes[0]->end() );
 }
 
-
-/////////////////////////////////////////////////////////////////////////////
-
-bool
-MSVehicle::isInsertTimeHeadWayCond( SUMOReal predSpeed, SUMOReal gap2pred )
-{
-    return gap2pred >= timeHeadWayGap( predSpeed );
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-bool
-MSVehicle::isInsertTimeHeadWayCond( MSVehicle& aPred )
-{
-    return gap2predSec( aPred ) >= timeHeadWayGap( aPred.speed() );
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-bool
-MSVehicle::isInsertBrakeCond( SUMOReal predSpeed, SUMOReal gap2pred )
-{
-    return vsafe( speed(), myType->decel(), gap2pred, predSpeed )
-        >= speed() - myType->decelSpeed();
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-bool
-MSVehicle::isInsertBrakeCond( MSVehicle& aPred )
-{
-    return vsafe( speed(), myType->decel(), gap2pred( aPred ), aPred.speed() )
-        >= speed() - myType->decelSpeed();
-}
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -1856,8 +1519,11 @@ MSVehicle::enterLaneAtLaneChange( MSLane* enteredLane )
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSVehicle::enterLaneAtEmit( MSLane* enteredLane )
+MSVehicle::enterLaneAtEmit( MSLane* enteredLane, const State &state )
 {
+    myState = state;
+    assert( myState.myPos >= 0 );
+    assert( myState.mySpeed >= 0 );
     myWaitingTime = 0;
     myLane = enteredLane;
     // set and activate the new lane's reminders
@@ -1883,13 +1549,11 @@ MSVehicle::leaveLaneAtLaneChange( void )
     // dismiss the old lane's reminders
     SUMOReal savePos = myState.myPos; // have to do this due to SUMOReal-precision errors
     vector< MSMoveReminder* >::iterator rem;
-    for ( rem = myMoveReminders.begin();
-          rem != myMoveReminders.end(); ++rem ){
+    for(rem=myMoveReminders.begin(); rem != myMoveReminders.end(); ++rem ){
         (*rem)->dismissByLaneChange( *this );
     }
     std::vector<SUMOReal>::iterator off = myOldLaneMoveReminderOffsets.begin();
-    for ( rem = myOldLaneMoveReminders.begin();
-          rem != myOldLaneMoveReminders.end(); ++rem, ++off  ){
+    for(rem=myOldLaneMoveReminders.begin(); rem!=myOldLaneMoveReminders.end(); ++rem, ++off) {
         myState.myPos += (*off);
         (*rem)->dismissByLaneChange( *this );
         myState.myPos -= (*off);
@@ -1914,22 +1578,8 @@ bool
 MSVehicle::reachingCritical(SUMOReal laneLength) const
 {
     // check whether the vehicle will run over the lane when accelerating
-    return (laneLength - myState.myPos - brakeGap(myLane))
+    return (laneLength - myState.myPos - brakeGap(myState.mySpeed))
         <= 0;
-}
-
-
-SUMOReal
-MSVehicle::decelAbility() const
-{
-    return ACCEL2SPEED(myType->decel()); // !!! really the speed?
-}
-
-
-SUMOReal
-MSVehicle::accelAbility() const
-{
-    return ACCEL2SPEED(myType->accel(myState.mySpeed)); // !!! really the speed?
 }
 
 
@@ -1974,24 +1624,6 @@ MSVehicle::running() const
 }
 
 
-SUMOReal
-MSVehicle::getSecureGap( const MSLane &lane, const MSVehicle &pred ) const
-{
-    SUMOReal safeSpace2 = brakeGap(myLane);
-    SUMOReal vSafe = vsafe(0, decelAbility(), 0, pred.speed());
-    SUMOReal safeSpace3 =
-        ( (vSafe - pred.speed())
-        * (SUMOReal) ((vSafe+pred.speed()) / 2.0 / (2.0 * MSVehicleType::minDecel()) + MSVehicle::tau()) )
-        + pred.speed() * MSVehicle::tau();
-    SUMOReal safeSpace = safeSpace2 > safeSpace3
-        ? safeSpace2 : safeSpace3;
-    safeSpace = safeSpace > decelAbility()
-        ? safeSpace : decelAbility();
-    safeSpace += pred.length();
-    safeSpace += accelAbility();
-    return safeSpace;
-
-}
 
 
 void
@@ -2005,26 +1637,21 @@ MSVehicle::workOnMoveReminders( SUMOReal oldPos, SUMOReal newPos, SUMOReal newSp
 #endif
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
-    for ( MoveReminderContIt rem = myMoveReminders.begin();
-          rem != myMoveReminders.end(); /* empty */ ) {
-        if ( ! (*rem)->isStillActive( *this, oldPos, newPos, newSpeed ) ) {
-            rem = myMoveReminders.erase( rem );
-        }
-        else {
+    for (MoveReminderContIt rem=myMoveReminders.begin(); rem!=myMoveReminders.end(); ) {
+        if (!(*rem)->isStillActive(*this, oldPos, newPos, newSpeed)) {
+            rem = myMoveReminders.erase(rem);
+        } else {
             ++rem;
         }
     }
-    if ( mode != CURRENT ) {
-        OffsetVector::iterator off = myOldLaneMoveReminderOffsets.begin();
-        for ( MoveReminderContIt rem = myOldLaneMoveReminders.begin();
-              rem != myOldLaneMoveReminders.end(); /* empty */ ) {
+    if(mode!=CURRENT) {
+        OffsetVector::iterator off=myOldLaneMoveReminderOffsets.begin();
+        for (MoveReminderContIt rem=myOldLaneMoveReminders.begin(); rem!=myOldLaneMoveReminders.end(); ) {
             SUMOReal oldLaneLength = *off;
-            if ( ! (*rem)->isStillActive( *this, oldLaneLength + oldPos,
-                                          oldLaneLength + newPos, newSpeed) ) {
+            if (!(*rem)->isStillActive(*this, oldLaneLength+oldPos, oldLaneLength+newPos, newSpeed) ) {
                 rem = myOldLaneMoveReminders.erase( rem );
                 off = myOldLaneMoveReminderOffsets.erase(off);
-            }
-            else {
+            } else {
                 ++rem;
                 ++off;
             }
@@ -2038,12 +1665,10 @@ MSVehicle::activateRemindersByEmitOrLaneChange()
 {
     // This erasure-idiom works for all stl-sequence-containers
     // See Meyers: Effective STL, Item 9
-    for ( MoveReminderContIt rem = myMoveReminders.begin();
-          rem != myMoveReminders.end(); /* empty */ ) {
-        if ( ! (*rem)->isActivatedByEmitOrLaneChange( *this ) ) {
+    for (MoveReminderContIt rem=myMoveReminders.begin(); rem!=myMoveReminders.end(); ) {
+        if (!(*rem)->isActivatedByEmitOrLaneChange( *this )) {
             rem = myMoveReminders.erase( rem );
-        }
-        else {
+        } else {
             ++rem;
         }
     }
@@ -2082,24 +1707,22 @@ MSVehicle::proceedVirtualReturnWhetherEnded(const MSEdge *const newEdge)
 
 
 void
-MSVehicle::onTripEnd(/*MSLane &caller, */bool wasAlreadySet)
+MSVehicle::onTripEnd(bool wasAlreadySet)
 {
     SUMOReal pspeed = myState.mySpeed;
     SUMOReal pos = myState.myPos;
     SUMOReal oldPos = pos - SPEED2DIST(pspeed);
-    if ( pos - myType->length() < 0 ) {
-        SUMOReal pdist = (SUMOReal) (myType->length() + 0.01) - oldPos;
+    if ( pos - length() < 0 ) {
+        SUMOReal pdist = (SUMOReal) (length() + 0.01) - oldPos;
         pspeed = DIST2SPEED(pdist);
-        pos = (SUMOReal) (myType->length() + 0.1);
+        pos = (SUMOReal) (length() + 0.1);
     }
     pos += myLane->length();
     oldPos += myLane->length();
-
     // process reminder
         // current
     vector< MSMoveReminder* >::iterator rem;
-    for ( rem = myMoveReminders.begin();
-          rem != myMoveReminders.end(); ++rem ) {
+    for (rem=myMoveReminders.begin(); rem!=myMoveReminders.end(); ++rem) {
         // the vehicle may only be at the entry occupancy correction
         if( (*rem)->isStillActive( *this, oldPos, pos, pspeed) ) {
             assert(false);
@@ -2108,11 +1731,10 @@ MSVehicle::onTripEnd(/*MSLane &caller, */bool wasAlreadySet)
         // old
     rem = myOldLaneMoveReminders.begin();
     OffsetVector::iterator off = myOldLaneMoveReminderOffsets.begin();
-    for (; rem != myOldLaneMoveReminders.end(); ++rem, ++off ) {
+    for (;rem!=myOldLaneMoveReminders.end(); ++rem, ++off) {
         SUMOReal oldLaneLength = *off;
-        if( (*rem)->isStillActive( *this,
-                oldPos+oldLaneLength, pos+oldLaneLength, pspeed) ) {
-            assert(false);
+        if( (*rem)->isStillActive( *this, oldPos+oldLaneLength, pos+oldLaneLength, pspeed) ) {
+            assert(false); // !!!
         }
     }
     // remove from structures to be informed about it
@@ -2352,23 +1974,6 @@ MSVehicle::getVehicleType() const
     return *myType;
 }
 
-// !!!!
-
-/*
-    class edge_finder {
-    public:
-        /// constructor
-        edge_finder(const MSEdge *edge) : myEdge(edge) { }
-
-        bool operator() (const MSVehicle::StopDefinition &sd) const {
-            return &(sd.lane->edge())==(myEdge);
-        }
-
-    private:
-        const MSEdge*myEdge;
-
-    };
-*/
 
 void
 MSVehicle::rebuildAllowedLanes()
@@ -2401,21 +2006,6 @@ MSVehicle::rebuildAllowedLanes()
         }
     }
 }
-
-/*
-        if(!vehicle->myStops.empty()&&&(vehicle->myStops.begin()->lane->edge())==&(lane->edge())) {
-            if(lane!=vehicle->myStops.begin()->lane) {
-                if(maxNo==-1) {
-                    maxNo = 0;
-                    maxIdx = 0;
-                }
-                return pair<int, SUMOReal>(
-                    maxIdx-distance(myChanger.begin(), myCandi),
-                    vehicle->allowedContinuationsLength((*(myChanger.begin()+maxIdx)).lane, -(midx-maxIdx))
-                    );
-            }
-        }
-*/
 
 
 int
@@ -2572,6 +2162,7 @@ MSVehicle::writeXMLRoute(std::ostream &os, int index) const
     os << "</route>" << endl;
 }
 
+
 void
 MSVehicle::interactWith(const std::vector<MSVehicle*> &vehicles)
 {
@@ -2600,6 +2191,12 @@ MSVehicle::dict_saveState(std::ostream &os, long what)
 }
 
 
+#ifdef HAVE_MESOSIM
+#include <mesosim/MESegment.h>
+#include <mesosim/MELoop.h>
+#include "MSGlobals.h"
+#endif
+
 void
 MSVehicle::saveState(std::ostream &os, long what)
 {
@@ -2610,9 +2207,22 @@ MSVehicle::saveState(std::ostream &os, long what)
     FileHelpers::writeInt(os, myPeriod);
     FileHelpers::writeString(os, myRoute->getID());
     FileHelpers::writeUInt(os, myDesiredDepart);
-    FileHelpers::writeString(os, myType->id());
+    FileHelpers::writeString(os, myType->getID());
     FileHelpers::writeUInt(os, myRoute->posInRoute(myCurrEdge));
     FileHelpers::writeUInt(os, (unsigned int) getCORNDoubleValue(MSCORN::CORN_VEH_REALDEPART));
+#ifdef HAVE_MESOSIM
+    // !!! several things may be missing
+    if(seg==0) {
+        FileHelpers::writeUInt(os, 0);
+        FileHelpers::writeFloat(os, tEvent);
+        FileHelpers::writeFloat(os, tLastEntry);
+    } else {
+        FileHelpers::writeUInt(os, seg->get_index());
+        FileHelpers::writeFloat(os, tEvent);
+        FileHelpers::writeFloat(os, tLastEntry);
+    }
+    FileHelpers::writeByte(os, inserted);
+#endif
 }
 
 
@@ -2624,6 +2234,9 @@ MSVehicle::dict_loadState(BinaryInputDevice &bis, long what)
     string id;
     do {
         bis >> id;
+    if(id=="98786") {
+        int bla = 0;
+    }
         if(id!="-----------------end---------------") {
             SUMOTime lastLaneChangeOffset;
             bis >> lastLaneChangeOffset; // !!! check type= FileHelpers::readInt(os);
@@ -2662,7 +2275,6 @@ MSVehicle::dict_loadState(BinaryInputDevice &bis, long what)
             assert(route!=0);
             type = MSVehicleType::dictionary(typeID);
             assert(type!=0);
-            type = MSVehicleType::dictionary(typeID);
         //if(wasEmitted!=0) {
             if(dictionary(id)!=0) {
                 DEBUG_OUT << "Error: vehicle was already added" << endl;
@@ -2676,7 +2288,21 @@ MSVehicle::dict_loadState(BinaryInputDevice &bis, long what)
                 v->myCurrEdge++;
                 routeOffset--;
             }
-            dictionary(id, v);
+#ifdef HAVE_MESOSIM
+            v->seg = MSGlobals::gMesoNet->getSegmentForEdge(*(v->myCurrEdge));
+            while(v->seg->get_index()!=segIndex) {
+                v->seg = MSGlobals::gMesoNet->next_segment(v->seg, v);
+            }
+            v->tEvent = tEvent;
+            v->tLastEntry = tLastEntry;
+            bool inserted;
+            bis >> inserted;
+            v->inserted = inserted!=0;
+#endif
+            if(!dictionary(id, v)) {
+                cout << "Could not build vehicle!!!" << endl;
+                throw 1;
+            }
             //
         //}
             size--;

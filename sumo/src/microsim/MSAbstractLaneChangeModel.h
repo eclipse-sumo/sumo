@@ -20,6 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.7  2006/05/15 05:52:23  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
+// Revision 1.7  2006/05/08 11:02:12  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
 // Revision 1.6  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -192,7 +198,7 @@ protected:
             return false;
         }
         SUMOReal gap = leader->pos() - leader->length() - myVehicle.pos();
-        return gap < myVehicle.interactionGap( &myVehicle.getLane(), *leader );
+        return gap < myVehicle.interactionGap( myVehicle.speed(), myVehicle.getLane().maxSpeed(), leader->speed() );
     }
 
 

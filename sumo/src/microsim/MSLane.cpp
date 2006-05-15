@@ -24,6 +24,12 @@ namespace
 }
 
 // $Log$
+// Revision 1.63  2006/05/15 05:50:40  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
+// Revision 1.63  2006/05/08 10:59:34  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
 // Revision 1.62  2006/04/05 05:27:34  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -553,7 +559,7 @@ MSLane::moveNonCritical()
     assert(myVehicles.size()!=0);
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     // Set the information about the last vehicle
-    myLastState = (*myVehicles.begin())->myState;
+    myLastState = (*myVehicles.begin())->getState();
     myFirstUnsafe = 0;
 
     // Move vehicles except first and all vehicles that may reach something
@@ -722,31 +728,32 @@ MSLane::emit( MSVehicle& veh )
 /////////////////////////////////////////////////////////////////////////////
 
 bool
-MSLane::isEmissionSuccess( MSVehicle* aVehicle )
+MSLane::isEmissionSuccess(MSVehicle* aVehicle,
+                          const MSVehicle::State &vstate )
 {
 //    aVehicle->departLane();
     MSLane::VehCont::iterator predIt =
-        find_if( myVehicles.begin(), myVehicles.end(),
-                 bind2nd( VehPosition(), aVehicle->pos() ) );
-
+        find_if( myVehicles.begin(), myVehicles.end(), bind2nd( VehPosition(), aVehicle->pos() ) );
     if ( predIt != myVehicles.end() ) {
-
         MSVehicle* pred = *predIt;
-        if ( ! aVehicle->isInsertTimeHeadWayCond( *pred ) ||
-             ! aVehicle->isInsertBrakeCond( *pred ) ) {
-
+        SUMOReal headWay = aVehicle->timeHeadWayGap( pred->speed() ); // !!!??
+        SUMOReal gap = MSVehicle::gap(pred->pos(), pred->length(), vstate.pos());
+        if(gap<headWay) {
+            return false;
+        }
+        SUMOReal vsafe = aVehicle->vsafe(vstate.speed(), aVehicle->decel(), gap, pred->speed());
+        SUMOReal brakeWay = vstate.speed() - aVehicle->decelSpeed();
+        if (vsafe<brakeWay) {
             return false;
         }
 
         // emit
-        aVehicle->enterLaneAtEmit( this );
         myVehicles.insert( predIt, aVehicle );
         myUseDefinition->noVehicles++;
         assert(myVehicles.size()==myUseDefinition->noVehicles);
         return true;
     }
     // emit
-    aVehicle->enterLaneAtEmit( this );
     myVehicles.push_back( aVehicle );
     myUseDefinition->noVehicles++;
     assert(myVehicles.size()==myUseDefinition->noVehicles);
@@ -761,13 +768,11 @@ MSLane::emitTry( MSVehicle& veh )
     SUMOReal safeSpace =
         myApproaching==0
             ? 0
-            : myApproaching->getSecureGap(*this, veh);
+            : myApproaching->getSecureGap(myApproaching->speed(), veh.speed(), veh.length());
     safeSpace = MAX2( safeSpace, veh.length() );
     if ( safeSpace<length() ) {
-        MSVehicle::State state;
-        state.setPos(safeSpace);
-        veh.moveSetState( state );
-        veh.enterLaneAtEmit( this );
+        MSVehicle::State state(safeSpace, 0);
+        veh.enterLaneAtEmit( this, state );
         myVehicles.push_front( &veh );
         myUseDefinition->noVehicles++;
         assert(myUseDefinition->noVehicles==myVehicles.size());
@@ -794,16 +799,14 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
         // get invoked vehicles' positions
         SUMOReal leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
         // get secure gaps
-        SUMOReal frontGapNeeded = veh.getSecureGap(*this, *leader);
+        SUMOReal frontGapNeeded = veh.getSecureGap(veh.speed(), leader->speed(), leader->length());
         // compute needed room
         SUMOReal frontMax = leaderPos - frontGapNeeded;
         // check whether there is enough room
         if(frontMax>0) {
             // emit vehicle if so
-            MSVehicle::State state;
-            state.setPos(frontMax);
-            veh.moveSetState( state );
-            veh.enterLaneAtEmit( this );
+            MSVehicle::State state(frontMax, 0);
+            veh.enterLaneAtEmit( this, state );
             myVehicles.push_front( &veh );
             myUseDefinition->noVehicles++;
             assert(myUseDefinition->noVehicles==myVehicles.size());
@@ -825,18 +828,16 @@ MSLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
         SUMOReal followPos = follow->pos();
         SUMOReal leaderPos = leader->pos() - leader->length();
         // get secure gaps
-        SUMOReal frontGapNeeded = veh.getSecureGap(*this, *leader);
-        SUMOReal backGapNeeded = follow->getSecureGap(*this, veh);
+        SUMOReal frontGapNeeded = veh.getSecureGap(veh.speed(), leader->speed(), leader->length());
+        SUMOReal backGapNeeded = follow->getSecureGap(follow->speed(), veh.speed(), veh.length());
         // compute needed room
         SUMOReal frontMax = leaderPos - frontGapNeeded;
         SUMOReal backMin = followPos + backGapNeeded + veh.length();
         // check whether there is enough room
         if(frontMax>0 && backMin<frontMax) {
             // emit vehicle if so
-            MSVehicle::State state;
-            state.setPos((frontMax+backMin)/(SUMOReal) 2.0);
-            veh.moveSetState( state );
-            veh.enterLaneAtEmit( this );
+            MSVehicle::State state((frontMax+backMin)/(SUMOReal) 2.0, 0);
+            veh.enterLaneAtEmit( this, state );
             myVehicles.insert( leaderIt, &veh );
             myUseDefinition->noVehicles++;
             assert(myUseDefinition->noVehicles==myVehicles.size());
@@ -862,16 +863,14 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh )
     // get invoked vehicles' positions
     SUMOReal followPos = follow->pos();
     // get secure gaps
-    SUMOReal backGapNeeded = follow->getSecureGap(*this, veh);
+    SUMOReal backGapNeeded = follow->getSecureGap(follow->speed(), veh.speed(), veh.length());
     // compute needed room
     SUMOReal backMin = followPos + backGapNeeded + veh.length();
     // check whether there is enough room
     if(backMin<length()) {
         // emit vehicle if so
-        MSVehicle::State state;
-        state.setPos(backMin);
-        veh.moveSetState( state );
-        veh.enterLaneAtEmit( this );
+        MSVehicle::State state(backMin, 0);
+        veh.enterLaneAtEmit( this, state );
         myVehicles.push_back( &veh );
         myUseDefinition->noVehicles++;
         assert(myUseDefinition->noVehicles==myVehicles.size());
@@ -898,18 +897,16 @@ MSLane::emitTry( VehCont::iterator followIt, MSVehicle& veh,
     SUMOReal followPos = follow->pos();
     SUMOReal leaderPos = leader->pos() - leader->length();
     // get secure gaps
-    SUMOReal frontGapNeeded = veh.getSecureGap(*this, *leader);
-    SUMOReal backGapNeeded = follow->getSecureGap(*this, veh);
+    SUMOReal frontGapNeeded = veh.getSecureGap(veh.speed(), leader->speed(), leader->length());
+    SUMOReal backGapNeeded = follow->getSecureGap(follow->speed(), veh.speed(), veh.length());
     // compute needed room
     SUMOReal frontMax = leaderPos - frontGapNeeded;
     SUMOReal backMin = followPos + backGapNeeded + veh.length();
     // check whether there is enough room
     if(frontMax>0 && backMin<frontMax) {
         // emit vehicle if so
-        MSVehicle::State state;
-        state.setPos((frontMax + backMin) / (SUMOReal) 2.0);
-        veh.moveSetState( state );
-        veh.enterLaneAtEmit( this );
+        MSVehicle::State state((frontMax + backMin) / (SUMOReal) 2.0, 0);
+        veh.enterLaneAtEmit( this, state );
         myVehicles.insert( leaderIt, &veh );
         myUseDefinition->noVehicles++;
         assert(myUseDefinition->noVehicles==myVehicles.size());
@@ -1196,9 +1193,9 @@ MSLane::findNeigh( MSVehicle* veh,
                    MSEdge::LaneCont::const_iterator first,
                    MSEdge::LaneCont::const_iterator last )
 {
+    /* !!!
     MSVehicle* neighbour = veh;
     SUMOReal vNeighEqual( 0 );
-
     for ( MSEdge::LaneCont::const_iterator neighLane = first;
           neighLane != last; ++neighLane ) {
 
@@ -1210,12 +1207,10 @@ MSLane::findNeigh( MSVehicle* veh,
 
             continue;
         }
-
         // neighbour found
         if ( (*tmpNeighbour)-> congested() ) {
             continue;
         }
-
         SUMOReal tmpVNeighEqual = veh->vNeighEqualPos( **tmpNeighbour );
         if ( neighbour == veh || tmpVNeighEqual < vNeighEqual ) {
 
@@ -1224,6 +1219,8 @@ MSLane::findNeigh( MSVehicle* veh,
         }
     }
     return neighbour;
+    */
+    throw 1;
 }
 
 /////////////////////////////////////////////////////////////////////////////

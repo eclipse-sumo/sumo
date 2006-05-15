@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/05/15 05:53:56  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
+// Revision 1.15  2006/05/08 10:59:34  dkrajzew
+// began with the extraction of the car-following-model from MSVehicle
+//
 // Revision 1.14  2006/04/05 05:27:34  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -174,12 +180,11 @@ bool
 MSSourceLane::emitTry( MSVehicle& veh )
 {
     // on sources, no vehicles may arrive from the back
-    veh.enterLaneAtEmit( this );
+    veh.enterLaneAtEmit( this, MSVehicle::State(0, 0) );
     myVehicles.push_front( &veh );
     myUseDefinition->noVehicles++;
-    MSVehicle::State state;
-    state.setPos( myLength>1 ? (SUMOReal) (myLength - 1.) : 0 );
-    veh.moveSetState( state );
+    MSVehicle::State state( myLength>1 ? (SUMOReal) (myLength - 1.) : 0, 0 );
+    veh.enterLaneAtEmit( this, state );
     assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
     if(debug_searched2==veh.getID()||debug_searched2==veh.getID()) {
@@ -200,16 +205,14 @@ MSSourceLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
     // get invoked vehicles' positions
     SUMOReal leaderPos = (*leaderIt)->pos() - (*leaderIt)->length();
     // get secure gaps
-    SUMOReal frontGapNeeded = veh.getSecureGap(*this, *leader);
+    SUMOReal frontGapNeeded = veh.getSecureGap(veh.speed(), leader->speed(), leader->length());
     // compute needed room
     SUMOReal frontMax = leaderPos - frontGapNeeded;
     // check whether there is enough room
     if(frontMax>0) {
         // emit vehicle if so
-        MSVehicle::State state;
-        state.setPos(frontMax);
-        veh.moveSetState( state );
-        veh.enterLaneAtEmit( this );
+        MSVehicle::State state(frontMax, 0);
+        veh.enterLaneAtEmit( this, state );
         myVehicles.push_front( &veh );
         myUseDefinition->noVehicles++;
         assert(myUseDefinition->noVehicles==myVehicles.size());
