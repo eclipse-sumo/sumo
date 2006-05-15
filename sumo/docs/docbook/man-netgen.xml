@@ -634,6 +634,23 @@
     </refsect2>
 
     <refsect2>
+      <title>Geocoordinates Projection and Network Geometry:</title>
+
+      <variablelist>
+        <varlistentry>
+          <term><option><option>--disable-normalize-node-positions</option></option></term>
+
+          <listitem>
+            <para>Disables moving the network in a way that his boundary
+            begins at (0,0). May yield in problems when using guisim.
+            <remark>Optional (pregiven), type:bool, default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </refsect2>
+
+    <refsect2>
       <title>Random Number Options:</title>
 
       <variablelist>

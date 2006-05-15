@@ -802,7 +802,7 @@
     </refsect2>
 
     <refsect2>
-      <title>Geocoordinates Projection:</title>
+      <title>Geocoordinates Projection and Network Geometry:</title>
 
       <variablelist>
         <varlistentry>
@@ -819,9 +819,21 @@
           <replaceable>&lt;STRING&gt;</replaceable></option></option></term>
 
           <listitem>
-            <para>Defines projection. <remark>Optional (pregiven),
-            type:string, default: "+proj=utm +zone=33 +ellps=bessel
+            <para>Defines projection. Please consult the PROJ-manual for
+            further details. <remark>Optional (pregiven), type:string,
+            default: "+proj=utm +zone=33 +ellps=bessel
             +units=m"</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term><option><option>--disable-normalize-node-positions</option></option></term>
+
+          <listitem>
+            <para>Disables moving the network in a way that his boundary
+            begins at (0,0). May yield in problems when using guisim.
+            <remark>Optional (pregiven), type:bool, default:
+            false</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -978,6 +990,10 @@
     <para>There are some bigger problems when importing ARTEMIS-networks. We
     have stopped to continue the development of this importer, so we do not
     know whether this issue will be reworked.</para>
+
+    <para>There are also sometimes issues when importing Vissim-networks. We
+    will try to fix them in the future. If you encounter a problem when
+    importing a Vissim-network, please let us know.</para>
   </refsect1>
 
   <refsect1>
