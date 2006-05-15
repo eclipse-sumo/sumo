@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.23  2006/05/15 05:41:09  dkrajzew
+// moved description of "disable-normalize-node-positions" to another place joined with other geometry options
+//
 // Revision 1.22  2006/04/18 08:22:06  dkrajzew
 // added missing colon
 //
@@ -150,9 +153,6 @@ char *help[] = {
     "  -o, --output-file FILE         The generated net will be written to FILE",
     "  --map-output FILE              File to write joined edges information to",
     "  --plain-output FILE            Prefix of files to write node and edge",
-    "  --disable-normalize-node-positions",
-    "                                 Turn off normalizing node positions",
-    "                                   information to",
     "  --node-geometry-dump FILE      Writes node corner positions to FILE",
     " ",
     " Building Defaults:",
@@ -215,6 +215,11 @@ char *help[] = {
     "  --ramp-guess.max-ramp-speed FLOAT     The maximum velocity for ramps",
     "  --ramp-guess.min-highway-speed FLOAT  The minimum velocity for highways",
     "  --ramp-guess.ramp-length FLOAT        The length of ramps to build",
+    " ",
+    " Geocoordinates Projection and Network Geometry:",
+    "  --use-projection               Enables reprojection of network coordinates",
+    "  --proj PROJ_DEF                Defines the projection used by PROJ",
+    "  --disable-normalize-node-positions   Turn off normalizing node positions",
     " ",
     " Random Number Options:",
     "  --srand INT                     Initialises the random number generator",

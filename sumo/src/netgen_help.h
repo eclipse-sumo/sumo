@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/05/15 05:41:09  dkrajzew
+// moved description of "disable-normalize-node-positions" to another place joined with other geometry options
+//
 // Revision 1.14  2006/04/07 05:31:41  dkrajzew
 // documentation patched
 //
@@ -165,6 +168,9 @@ char *help[] =
     "  --explicite-no-tls JID[;JID]*  Specifies which junctions named by their ids",
     "                                  shall not be tls-controlled."
     "  --tls-poi-output FILENAME      Writes positions of tls-junctions.",
+    " ",
+    " Network Geometry:",
+    "  --disable-normalize-node-positions   Turn off normalizing node positions",
     " ",
     " Random Number Options:",
     "  --srand INT                     Initialises the random number generator",
