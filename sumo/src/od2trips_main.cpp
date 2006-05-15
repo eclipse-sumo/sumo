@@ -108,11 +108,55 @@ fillOptions(OptionsCont &oc)
     oc.doRegister("scale", 's', new Option_Float(1));
     oc.doRegister("no-color", new Option_Bool(false));
     oc.doRegister("spread.uniform", new Option_Bool(false));
-
+    oc.doRegister("vtype", new Option_String(""));
+    oc.doRegister("prefix", new Option_String(""));
+    oc.doRegister("timeline", new Option_String(""));
+    oc.doRegister("timeline.day-in-hours", new Option_Bool(false));
 
     // add rand and dev options
     DevHelper::insertDevOptions(oc);
     RandHelper::insertRandOptions(oc);
+}
+
+
+Distribution_Points
+parseTimeLine(const std::string &def, bool timelineDayInHours)
+{
+    bool interpolating = !timelineDayInHours;
+    Position2DVector points;
+    StringTokenizer st(def, ";");
+    if(timelineDayInHours&&st.size()!=24) {
+        MsgHandler::getErrorInstance()->inform("Assuming 24 entries for a day timeline, but got " + toString(st.size()) + ".");
+        throw ProcessError();
+    }
+    int chour = 0;
+    SUMOReal prob;
+    while(st.hasNext()) {
+        string hourval = st.next();
+        StringTokenizer st2(hourval, ",");
+        int time = chour * 3600;
+        // parse time if the time line is assumed to contain this
+        if(!timelineDayInHours) {
+            if(st2.size()!=2) {
+                MsgHandler::getErrorInstance()->inform("Broken time line definition: missing a value in '" + hourval + "'.");
+                throw ProcessError();
+            }
+            time = TplConvert<char>::_2int(st2.next().c_str());
+        }
+        // check otherwise
+        if(timelineDayInHours&&st2.size()!=1) {
+            MsgHandler::getErrorInstance()->inform("Broken time line definition: missing a value in '" + hourval + "'.");
+            throw ProcessError();
+        }
+        // get the distribution value
+        prob = TplConvert<char>::_2SUMOReal(st2.next().c_str());
+        points.push_back(Position2D(time, prob));
+        chour++;
+    }
+    if(timelineDayInHours) {
+        points.push_back(Position2D(chour*3600, prob));
+    }
+    return Distribution_Points("N/A", points, interpolating);
 }
 
 
@@ -149,6 +193,7 @@ loadDistricts(OptionsCont &oc)
     ODDistrictCont *ret = new ODDistrictCont();
     // get the file name and set it
     string file = oc.getString("n");
+    MsgHandler::getMessageInstance()->beginProcessMsg("Loading districts from '" + file + "'...");
     // build the xml-parser and handler
     ODDistrictHandler handler(*ret);
     handler.setFileName(file);
@@ -156,9 +201,11 @@ loadDistricts(OptionsCont &oc)
     // check whether the loading was ok
 	if(ret->size()==0||MsgHandler::getErrorInstance()->wasInformed()) {
         delete ret;
+        MsgHandler::getMessageInstance()->endProcessMsg("failed.");
         return 0;
     }
     ret->colorize();
+    MsgHandler::getMessageInstance()->endProcessMsg("done.");
     return ret;
 }
 
@@ -204,6 +251,7 @@ getNextNonCommentLine(LineReader &lr)
     throw ProcessError();
 }
 
+
 SUMOTime
 parseTime(const std::string &time)
 {
@@ -212,13 +260,18 @@ parseTime(const std::string &time)
     return TplConvert<char>::_2int(hours.c_str()) * 3600 + TplConvert<char>::_2int(minutes.c_str());
 }
 
+
 void
-readVMR(LineReader &lr, ODMatrix &into, float scale)
+readVMR(LineReader &lr, ODMatrix &into, float scale,
+        std::string vehType)
 {
-    MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as VMR");
+    MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as VMR...");
     // parse first defs
     string line = getNextNonCommentLine(lr);
     int type = TplConvert<char>::_2int(line.c_str());
+    if(vehType=="") {
+        vehType = toString(type);
+    }
     line = getNextNonCommentLine(lr);
     StringTokenizer st(line, StringTokenizer::WHITECHARS);
     int begin = parseTime(st.next());
@@ -254,7 +307,7 @@ readVMR(LineReader &lr, ODMatrix &into, float scale)
                     cell->end = end;
                     cell->origin = *si;
                     cell->destination = *di;
-                    cell->vehicleType = toString(type);
+                    cell->vehicleType = vehType;
                     cell->vehicleNumber = vehNumber;
                     into.add(cell);
                 }
@@ -262,6 +315,42 @@ readVMR(LineReader &lr, ODMatrix &into, float scale)
             }
             line = lr.readLine();
         } while(line[0]!='*'&&lr.hasMore());
+    }
+    MsgHandler::getMessageInstance()->endProcessMsg("done.");
+}
+
+
+void
+readOR(LineReader &lr, ODMatrix &into, float scale,
+       std::string vehType)
+{
+    MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as OR...");
+    // parse first defs
+    string line = getNextNonCommentLine(lr);
+//    int type = TplConvert<char>::_2int(line.c_str());
+//    line = getNextNonCommentLine(lr);
+    StringTokenizer st(line, StringTokenizer::WHITECHARS);
+    int begin = parseTime(st.next());
+    int end = parseTime(st.next());
+    line = getNextNonCommentLine(lr);
+    SUMOReal factor = TplConvert<char>::_2SUMOReal(line.c_str()) * scale;
+    // parse the cells
+    while(lr.hasMore()) {
+        line = getNextNonCommentLine(lr);
+        StringTokenizer st2(line, StringTokenizer::WHITECHARS);
+        string sourceD = st2.next();
+        string destD = st2.next();
+        float vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
+        if(vehNumber!=0) {
+            ODCell *cell = new ODCell();
+            cell->begin = begin;
+            cell->end = end;
+            cell->origin = sourceD;
+            cell->destination = destD;
+            cell->vehicleType = vehType;
+            cell->vehicleNumber = vehNumber;
+            into.add(cell);
+        }
     }
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
 }
@@ -294,8 +383,18 @@ loadMatrix(OptionsCont &oc, ODMatrix &into)
             throw ProcessError();
         }
         string type = lr.readLine();
+        // get the type only
+        if(type.find(';')!=string::npos) {
+            type = type.substr(0, type.find(';'));
+        }
+        // parse type-dependant
         if(type=="$VMR") {
-            readVMR(lr, into, oc.getFloat("scale"));
+            readVMR(lr, into, oc.getFloat("scale"), oc.getString("vtype"));
+        } else if(type=="$OR") {
+            readOR(lr, into, oc.getFloat("scale"), oc.getString("vtype"));
+        } else {
+            MsgHandler::getErrorInstance()->inform("Unknown matrix type '" + type + "'.");
+            throw ProcessError();
         }
     }
 }
@@ -344,15 +443,19 @@ main(int argc, char **argv)
         ODMatrix matrix;
         loadMatrix(oc, matrix);
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoLoaded()) + " vehicles loaded.");
-        // process
+        // apply a curve if wished
+        if(oc.isSet("timeline")) {
+            matrix.applyCurve(parseTimeLine(oc.getString("timeline"), oc.getBool("timeline.day-in-hours")));
+        }
+        // write
         ofstream ostrm(oc.getString("output").c_str());
         if(!ostrm.good()) {
             MsgHandler::getErrorInstance()->inform("Could not open output file '" + oc.getString("output") + "'.");
             throw ProcessError();
         }
         ostrm << "<tripdefs>" << endl;
-        matrix.write(oc.getInt("begin"), oc.getInt("end"), ostrm, *districts,
-            oc.getBool("spread.uniform"));
+        matrix.write(oc.getInt("begin"), oc.getInt("end"),
+            ostrm, *districts, oc.getBool("spread.uniform"), oc.getString("prefix"));
         ostrm << "</tripdefs>" << endl;
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");
 #ifndef _DEBUG
