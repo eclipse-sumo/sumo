@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/05/15 05:57:45  dkrajzew
+// further work on dfrouter
+//
+// Revision 1.7  2006/05/08 11:15:01  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.6  2006/04/07 10:44:18  dkrajzew
 // multiple detector and flows definitions can be read
 //
@@ -88,13 +94,13 @@ using namespace std;
 /* =========================================================================
  * method definitions
  * ======================================================================= */
-DFDetFlowLoader::DFDetFlowLoader(DFDetectorCon *DetCon,
+DFDetFlowLoader::DFDetFlowLoader(DFDetectorCon &dets,
                                  DFDetectorFlows &into,
                                  SUMOTime startTime, SUMOTime endTime,
-                                 SUMOTime stepOffset)
-    : myStorage(into)
+                                 int timeOffset)
+    : myStorage(into), myTimeOffset(timeOffset),
+    myStartTime(startTime), myEndTime(endTime), myDetectorContainer(dets)
 {
-	detcon = DetCon;
 }
 
 
@@ -131,11 +137,15 @@ DFDetFlowLoader::parseFast(const std::string &file)
         int time;
 		fd.isLKW = 0;
 		strm >> time;
+        time -= myTimeOffset;
 		strm >> detName;
 		strm >> fd.qPKW;
 		strm >> fd.qLKW;
 		strm >> fd.vPKW;
 		strm >> fd.vLKW;
+        if(time<myStartTime||time>myEndTime) {
+            continue;
+        }
         if(fd.qLKW<0) {
             fd.qLKW = 0;
         }
@@ -159,6 +169,10 @@ DFDetFlowLoader::report(const std::string &result)
 		myLineHandler.parseLine(result);
 		string detName = myLineHandler.get("Detector");
         int time = TplConvert<char>::_2int((myLineHandler.get("Time").c_str()));
+        time -= myTimeOffset;
+        if(time<myStartTime||time>myEndTime) {
+            return true;
+        }
         FlowDef fd;
 //		fd.det = myLineHandler.get("Detector");
 		fd.isLKW = 0;

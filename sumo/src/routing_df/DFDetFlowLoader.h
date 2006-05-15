@@ -21,6 +21,12 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.7  2006/05/15 05:57:45  dkrajzew
+// further work on dfrouter
+//
+// Revision 1.7  2006/05/08 11:15:01  dkrajzew
+// further work on the dfrouter
+//
 // Revision 1.6  2006/04/07 10:44:18  dkrajzew
 // multiple detector and flows definitions can be read
 //
@@ -84,9 +90,9 @@ class DFDetFlowLoader :
 public:
     /// Constructor
 	///!!!DFDetFlowLoader();
-	DFDetFlowLoader(DFDetectorCon *detcon, DFDetectorFlows &into,
+	DFDetFlowLoader(DFDetectorCon &dets, DFDetectorFlows &into,
         SUMOTime startTime, SUMOTime endTime,
-        SUMOTime stepOffset);
+        int timeOffset);
 
     /// Destructor
     ~DFDetFlowLoader();
@@ -120,7 +126,11 @@ private:
     //std::string fname;
 //	DFDetectorFlows * mydetFlows;
     DFDetectorFlows &myStorage;
-	DFDetectorCon *detcon;
+	DFDetectorCon &myDetectorContainer;
+
+    int myTimeOffset;
+
+    SUMOTime myStartTime, myEndTime;
 };
 
 
