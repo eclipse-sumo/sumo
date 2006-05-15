@@ -20,6 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.35  2006/05/15 05:45:17  dkrajzew
+// beautifying: dead code removed
+//
+// Revision 1.35  2006/05/08 10:48:50  dkrajzew
+// beautifying: removed dead code
+//
 // Revision 1.34  2006/01/09 11:50:20  dkrajzew
 // new visualization settings implemented
 //
@@ -299,8 +305,6 @@ private:
 protected:
     /// FOX needs this for static members
     GUIApplicationWindow() { }
-    /** called when an event occures */
-//    bool event(QEvent *e);
 
 protected:
     /// Builds the menu bar

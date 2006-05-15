@@ -20,6 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.17  2006/05/15 05:45:18  dkrajzew
+// beautifying: dead code removed
+//
+// Revision 1.17  2006/05/08 10:48:50  dkrajzew
+// beautifying: removed dead code
+//
 // Revision 1.16  2006/01/09 11:50:20  dkrajzew
 // new visualization settings implemented
 //
@@ -216,12 +222,6 @@ private:
 	FXTextField *LengthTextField;
     /// the artifact chooser
     GUIDialog_GLObjChooser *_chooser;
-
-    /// The tool bar
-//    FXToolBar *myToolBar;
-
-   /// The thing that makes the toolbar SUMOReal
-//    FXToolBarShell *myToolBarDrag;
 
 protected:
     GUISUMOViewParent() { }

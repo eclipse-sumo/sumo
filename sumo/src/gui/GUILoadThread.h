@@ -20,6 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/05/15 05:45:18  dkrajzew
+// beautifying: dead code removed
+//
+// Revision 1.14  2006/05/08 10:48:50  dkrajzew
+// beautifying: removed dead code
+//
 // Revision 1.13  2006/04/18 07:54:32  dkrajzew
 // unifying threads
 //
@@ -116,11 +122,11 @@ protected:
 
 
     /** @brief Closes the loading process
-        This method is called both on success and failure.
-        All message callbacks to this instance are removed and the parent
-        application is informed about the loading */
-    void submitEndAndCleanup(GUINet *net,
-        int simStartTime, int simEndTime);
+     *
+     * This method is called both on success and failure.
+     * All message callbacks to this instance are removed and the parent
+     * application is informed about the loading */
+    void submitEndAndCleanup(GUINet *net, int simStartTime, int simEndTime);
 
 };
 
