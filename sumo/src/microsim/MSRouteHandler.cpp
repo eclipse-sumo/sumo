@@ -22,6 +22,12 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/05/15 05:53:33  dkrajzew
+// debugging saving/loading of states
+//
+// Revision 1.24  2006/05/08 11:09:27  dkrajzew
+// debugging loading/saving of states
+//
 // Revision 1.23  2006/04/18 08:05:44  dkrajzew
 // beautifying: output consolidation
 //
@@ -138,6 +144,7 @@ namespace
 
 #include <microsim/trigger/MSTriggerControl.h>
 #include <microsim/trigger/MSBusStop.h>
+#include <microsim/MSGlobals.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -298,13 +305,11 @@ MSRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
                                     const SUMOReal maxspeed, const SUMOReal bmax,
                                     const SUMOReal dmax, const SUMOReal sigma)
 {
-    MSVehicleType *vtype =
-        new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma);
+    MSVehicleType *vtype = new MSVehicleType(id, length, maxspeed, bmax, dmax, sigma);
     if(!MSVehicleType::dictionary(id, vtype)) {
-        if(false) { //!!!
+        delete vtype;
+        if(!MSGlobals::gStateLoaded) {
             throw XMLIdAlreadyUsedException("VehicleType", id);
-        } else {
-            delete vtype;
         }
     }
 }
@@ -341,98 +346,6 @@ MSRouteHandler::openRoute(const Attributes &attrs)
     m_IsMultiReferenced = multiReferenced;
 }
 
-/*
-void
-MSRouteHandler::openVehicle(const Attributes &attrs)
-{
-    myAmInEmbeddedMode = true;
-    /*
-    RGBColor col =
-        GfxConvHelper::parseColor(
-            getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
-    // !!! unsecure
-    // try to get the id first
-            /
-    try {
-        myActiveVehicleID = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing id of a vehicle-object.");
-        return;
-    }
-    // try to get some optional values
-    myRepOffset = getIntSecure(attrs, SUMO_ATTR_PERIOD, -1);
-    myRepNumber = getIntSecure(attrs, SUMO_ATTR_REPNUMBER, -1);
-    // now try to build the rest of the vehicle
-    MSVehicle *vehicle = 0;
-    try {
-        myCurrentVType = getString(attrs, SUMO_ATTR_TYPE);
-        myCurrentRouteName = getStringSecure(attrs, SUMO_ATTR_ROUTE, "");
-        myCurrentDepart = getInt(attrs, SUMO_ATTR_DEPART);
-    } catch (EmptyData) {
-        MsgHandler::getErrorInstance()->inform(
-            "Error in description: missing attribute in a vehicle-object.");
-        return;
-    } catch(XMLIdNotKnownException &e) {
-        MsgHandler::getErrorInstance()->inform(e.getMessage("", ""));
-        return;
-    } catch(XMLIdAlreadyUsedException &e) {
-        MsgHandler::getErrorInstance()->inform(e.getMessage("vehicle", myActiveVehicleID));
-        return;
-    }
-}
-*/
-
-/*
-MSVehicle *
-MSRouteHandler::addParsedVehicle(const string &id, const string &vtypeid,
-                                 const string &routeid, const long &depart,
-                                 int repNumber, int repOffset, RGBColor &c)
-{
-    /*
-    if(MSVehicle::dictionary(id)==0&&depart<beginTime_3) { //!!! only if multiple vehicles allowed
-        MSRoute *r = MSRoute::dictionary(routeid);
-        if(r!=0&&!r->inFurtherUse()) {
-            MSRoute::erase(routeid);
-        }
-    }
-
-    if(MSVehicle::dictionary(id)!=0||depart<beginTime_3) { //!!! only if multiple vehicles allowed
-        /*
-        MSRoute *r = MSRoute::dictionary(routeid);
-        if(r!=0&&lastUnadded!=) {
-            if(!r->inFurtherUse()) {
-                MSRoute::erase(routeid);
-            }
-        }
-        /
-        eturn 0;
-    }
-    /
-    MSVehicleType *vtype = MSVehicleType::dictionary(vtypeid);
-    if(vtype==0) {
-        throw XMLIdNotKnownException("vtype", vtypeid);
-    }
-    MSRoute *route = MSRoute::dictionary(routeid);
-    if(route==0) {
-        throw XMLIdNotKnownException("route", routeid);
-    }
-    MSVehicle *vehicle =
-        MSNet::getInstance()->getVehicleControl().buildVehicle(id,
-            route, depart, vtype, repNumber, repOffset, c);
-    if(!MSVehicle::dictionary(id, vehicle)) {
-        if(false) { // !!!
-            throw XMLIdAlreadyUsedException("vehicle", id);
-        } else {
-            delete vehicle;
-            vehicle = 0;
-            return vehicle;
-        }
-    }
-    myLastDepart = depart;
-    return vehicle;
-}
-*/
 
 // ----------------------------------
 
@@ -508,15 +421,11 @@ MSRouteHandler::closeRoute()
     myActiveRoute.clear();
     if(!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
-        throw XMLIdAlreadyUsedException("route", myActiveRouteID);
-        /*
-        if(false) {//!!!
-            delete route;
+        if(!MSGlobals::gStateLoaded) {
             throw XMLIdAlreadyUsedException("route", myActiveRouteID);
         } else {
-            delete route;
+            route = MSRoute::dictionary(myActiveRouteID);
         }
-        */
     }
     if(myAmInEmbeddedMode) {
         myCurrentEmbeddedRoute = route;
@@ -577,16 +486,11 @@ MSRouteHandler::closeVehicle()
     }
     if(!MSVehicle::dictionary(myActiveVehicleID, vehicle)) {
         delete vehicle;
-        throw XMLIdAlreadyUsedException("vehicle", myActiveVehicleID);
-        /*
-        if(false) { // !!!
-            throw XMLIdAlreadyUsedException("vehicle", id);
+        if(!MSGlobals::gStateLoaded) {
+            throw XMLIdAlreadyUsedException("vehicle", myActiveVehicleID);
         } else {
-            delete vehicle;
             vehicle = 0;
-            return vehicle;
         }
-        */
     }
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer

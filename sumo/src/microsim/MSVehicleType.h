@@ -19,6 +19,12 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2006/05/15 05:54:11  dkrajzew
+// debugging saving/loading of states
+//
+// Revision 1.14  2006/05/08 11:06:59  dkrajzew
+// debugging loading/saving of states
+//
 // Revision 1.13  2006/03/17 09:01:12  dkrajzew
 // .icc-files removed
 //
@@ -107,7 +113,8 @@
 // Set default values in the constructor.
 //
 // Revision 1.2  2001/07/16 12:55:47  croessel
-// Changed id type from unsigned int to string. Added string-pointer dictionaries and dictionary methods.
+// Changed id type from unsigned int to string.
+//  Added string-pointer dictionaries and dictionary methods.
 //
 // Revision 1.1.1.1  2001/07/11 15:51:13  traffic
 // new start
@@ -138,6 +145,7 @@
  * class declarations
  * ======================================================================= */
 class MSLane;
+class BinaryInputDevice;
 
 
 /* =========================================================================
@@ -220,11 +228,6 @@ public:
         return ACCEL2DIST(accel(v));
     }
 
-    /// Returns precomputed decel * deltaT^2
-    SUMOReal decelDist( void ) const {
-        return myDecelDist;
-    }
-
     /** Inserts a MSVehicleType into the static dictionary and returns true
         if the key id isn't already in the dictionary. Otherwise returns
         false. */
@@ -239,8 +242,17 @@ public:
     /** Clears the dictionary */
     static void clear();
 
+    /// Saves the states of all vehicles
+    static void dict_saveState(std::ostream &os, long what);
+
+    /// Saves the states of a vehicle
+    void saveState(std::ostream &os, long what);
+
+    /// Loads vehicle state
+    static void dict_loadState(BinaryInputDevice &bis, long what);
+
     /// returns the name of the vehicle type
-    const std::string &id() const;
+    const std::string &getID() const;
 
 private:
     /// Unique ID.
@@ -261,13 +273,8 @@ private:
     /// The vehicle type's dawdle-parameter. 0 for no dawdling, 1 for max.
     SUMOReal myDawdle;
 
-
-//    SUMOReal myAccelSpeed;
     SUMOReal myDecelSpeed;
-//    SUMOReal myAccelPlusDecelSpeed;
     SUMOReal myInversTwoDecel;
-//    SUMOReal myAccelDist;
-    SUMOReal myDecelDist;
 
     /// Minimum deceleration-ability of all vehicle-types.
     static SUMOReal myMinDecel;

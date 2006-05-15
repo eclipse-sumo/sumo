@@ -20,6 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/05/15 05:53:33  dkrajzew
+// debugging saving/loading of states
+//
+// Revision 1.11  2006/05/08 11:10:44  dkrajzew
+// debugging loading/saving of states
+//
 // Revision 1.10  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -133,6 +139,10 @@ public:
 
     void incReferenceCnt() {
         myReferenceNo++;
+    }
+
+    void decReferenceCnt() {
+        myReferenceNo--;
     }
 
 

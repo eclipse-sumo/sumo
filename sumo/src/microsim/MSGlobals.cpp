@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/05/15 05:52:55  dkrajzew
+// debugging saving/loading of states
+//
+// Revision 1.10  2006/05/08 11:06:59  dkrajzew
+// debugging loading/saving of states
+//
 // Revision 1.9  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -84,6 +90,8 @@ SUMOReal MSGlobals::gMaxVehV4FalseLaneTeleport;
 SUMOReal MSGlobals::gMinVehDist4FalseLaneTeleport;
 
 bool MSGlobals::gCheck4Accidents;
+
+bool MSGlobals::gStateLoaded;
 
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 

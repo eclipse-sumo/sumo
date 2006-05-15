@@ -22,6 +22,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/05/15 05:54:11  dkrajzew
+// debugging saving/loading of states
+//
+// Revision 1.12  2006/05/08 11:06:59  dkrajzew
+// debugging loading/saving of states
+//
 // Revision 1.11  2006/04/05 05:27:34  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -259,7 +265,7 @@ MSVehicleControl::saveState(std::ostream &os, long what)
 
     FileHelpers::writeInt(os, myAbsVehWaitingTime);
     FileHelpers::writeInt(os, myAbsVehTravelTime);
-//    MSVehicleType::saveState(os, what);
+    MSVehicleType::dict_saveState(os, what);
     MSRoute::dict_saveState(os, what);
     MSVehicle::dict_saveState(os, what);
 }
@@ -277,6 +283,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
 
 //    long t;
     //os >> t;
+    MSVehicleType::dict_loadState(bis, what);
     MSRoute::dict_loadState(bis, what);
     MSVehicle::dict_loadState(bis, what);
     MSRoute::clearLoadedState();

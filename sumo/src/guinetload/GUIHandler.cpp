@@ -24,6 +24,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/05/15 05:49:06  dkrajzew
+// debugging saving/loading of states
+//
+// Revision 1.5  2006/05/08 10:56:21  dkrajzew
+// debugging loading/saving of states
+//
 // Revision 1.4  2006/04/18 08:05:44  dkrajzew
 // beautifying: output consolidation
 //
@@ -158,6 +164,7 @@ namespace
 #include "GUIHandler.h"
 #include <guisim/GUIVehicleType.h>
 #include <guisim/GUIRoute.h>
+#include <microsim/MSGlobals.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -263,7 +270,10 @@ GUIHandler::addParsedVehicleType(const string &id, const SUMOReal length,
     GUIVehicleType *vtype =
         new GUIVehicleType(c, id, length, maxspeed, bmax, dmax, sigma);
     if(!MSVehicleType::dictionary(id, vtype)) {
-        throw XMLIdAlreadyUsedException("VehicleType", id);
+        delete vtype;
+        if(!MSGlobals::gStateLoaded) {
+            throw XMLIdAlreadyUsedException("VehicleType", id);
+        }
     }
 }
 
@@ -290,7 +300,9 @@ GUIHandler::closeRoute()
     myActiveRoute.clear();
     if(!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
-        throw XMLIdAlreadyUsedException("route", myActiveRouteID);
+        if(!MSGlobals::gStateLoaded) {
+            throw XMLIdAlreadyUsedException("route", myActiveRouteID);
+        }
     }
     if(myAmInEmbeddedMode) {
         myCurrentEmbeddedRoute = route;

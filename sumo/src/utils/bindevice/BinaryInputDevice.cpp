@@ -86,7 +86,7 @@ BinaryInputDevice &
 operator>>(BinaryInputDevice &os, std::string &s)
 {
     unsigned int size;
-    os.myStream >> size;
+    os >> size;
     if(size<BUF_MAX) {
         os.myStream.read((char*) &gBinaryInputDeviceBuf, sizeof(char)*size);
         gBinaryInputDeviceBuf[size] = 0;

@@ -18,6 +18,12 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.24  2006/05/15 05:52:55  dkrajzew
+// debugging saving/loading of states
+//
+// Revision 1.24  2006/05/08 11:05:58  dkrajzew
+// debugging: removed dead code
+//
 // Revision 1.23  2006/04/11 10:59:06  dkrajzew
 // all structures now return their id via getID()
 //
@@ -220,14 +226,6 @@ public:
     /// for access to the dictionary
     friend class GUIEdgeGrid;
     friend class GUIGrid;
-    /// for data collection
-    friend class MSMeanData_Edge;
-
-
-    /// output operator for XML-mean-data output
-    friend OutputDevice& operator<<( OutputDevice& os,
-                                     const MSMeanData_Edge& obj );
-
 
     /// Constructor.
     MSEdge( const std::string &id, size_t numericalID );

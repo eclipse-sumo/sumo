@@ -20,6 +20,12 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2006/05/15 05:52:55  dkrajzew
+// debugging saving/loading of states
+//
+// Revision 1.11  2006/05/08 11:06:59  dkrajzew
+// debugging loading/saving of states
+//
 // Revision 1.10  2005/10/07 11:37:45  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -97,6 +103,9 @@ public:
 
     /** information whether the network shall check for collisions */
     static bool gCheck4Accidents;
+
+    /// Information whether a state has been loaded
+    static bool gStateLoaded;
 
 };
 

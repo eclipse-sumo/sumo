@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/05/15 05:53:33  dkrajzew
+// debugging saving/loading of states
+//
+// Revision 1.11  2006/05/08 11:10:44  dkrajzew
+// debugging loading/saving of states
+//
 // Revision 1.10  2006/01/26 08:30:29  dkrajzew
 // patched MSEdge in order to work with a generic router
 //
@@ -186,7 +192,7 @@ MSRoute::erase(std::string id)
 bool
 MSRoute::inFurtherUse() const
 {
-    return _multipleReferenced;
+    return _multipleReferenced||myReferenceNo>0;
 }
 
 

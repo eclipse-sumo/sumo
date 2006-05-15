@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.43  2006/05/15 05:58:08  dkrajzew
+// debugging saving/loading of states
+//
+// Revision 1.43  2006/05/08 11:15:30  dkrajzew
+// debugging loading/saving of states
+//
 // Revision 1.42  2006/04/07 10:41:48  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -370,30 +376,21 @@ SUMOFrame::setMSGlobals(OptionsCont &oc)
 {
     // pre-initialise the network
      // set whether empty edges shall be printed on dump
-    MSGlobals::gOmitEmptyEdgesOnDump =
-        !oc.getBool("dump-empty-edges");
+    MSGlobals::gOmitEmptyEdgesOnDump = !oc.getBool("dump-empty-edges");
     // set whether internal lanes shall be used
-    MSGlobals::gUsingInternalLanes =
-        oc.getBool("use-internal-links");
+    MSGlobals::gUsingInternalLanes = oc.getBool("use-internal-links");
     // set the grid lock time
-    MSGlobals::gTimeToGridlock =
-        oc.getInt("time-to-teleport")<0
+    MSGlobals::gTimeToGridlock = oc.getInt("time-to-teleport")<0
         ? 0
         : oc.getInt("time-to-teleport");
     // set the vehicle teleport on false lane options
-    MSGlobals::gMinLaneVMax4FalseLaneTeleport =
-        oc.getFloat("lc-teleport.lane-min-vmax");
-    MSGlobals::gMaxVehV4FalseLaneTeleport =
-        oc.getFloat("lc-teleport.veh-maxv");
-    MSGlobals::gMinVehDist4FalseLaneTeleport =
-        oc.getFloat("lc-teleport.min-dist");
+    MSGlobals::gMinLaneVMax4FalseLaneTeleport = oc.getFloat("lc-teleport.lane-min-vmax");
+    MSGlobals::gMaxVehV4FalseLaneTeleport = oc.getFloat("lc-teleport.veh-maxv");
+    MSGlobals::gMinVehDist4FalseLaneTeleport = oc.getFloat("lc-teleport.min-dist");
     //
-    MSGlobals::gCheck4Accidents =
-        oc.getBool("check-accidents");
+    MSGlobals::gCheck4Accidents = oc.getBool("check-accidents");
+    MSGlobals::gStateLoaded = oc.isSet("load-state");
     //
-#ifdef HAVE_MESOSIM
-    MSGlobals::gUseMesoSim = oc.getBool("mesosim");
-#endif
 }
 
 

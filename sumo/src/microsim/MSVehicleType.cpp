@@ -24,6 +24,12 @@ namespace
 }
 
 // $Log$
+// Revision 1.13  2006/05/15 05:54:11  dkrajzew
+// debugging saving/loading of states
+//
+// Revision 1.13  2006/05/08 11:06:59  dkrajzew
+// debugging loading/saving of states
+//
 // Revision 1.12  2006/03/17 09:01:12  dkrajzew
 // .icc-files removed
 //
@@ -153,6 +159,8 @@ namespace
 #include "MSVehicleType.h"
 #include "MSNet.h"
 #include <cassert>
+#include <utils/bindevice/BinaryInputDevice.h>
+#include <utils/common/FileHelpers.h>
 
 
 /* =========================================================================
@@ -200,13 +208,8 @@ MSVehicleType::MSVehicleType(string id, SUMOReal length, SUMOReal maxSpeed,
 
         myMaxLength = myLength;
     }
-
-//    myAccelSpeed          = myAccel * MSNet::deltaT();
     myDecelSpeed          = myDecel * MSNet::deltaT();
-//    myAccelPlusDecelSpeed = ( myAccel + myDecel ) * MSNet::deltaT();
     myInversTwoDecel      = SUMOReal( 1 ) / ( SUMOReal( 2 ) * myDecel );
-//    myAccelDist           = myAccel * MSNet::deltaT() * MSNet::deltaT();
-    myDecelDist           = myDecel * MSNet::deltaT() * MSNet::deltaT();
 }
 
 
@@ -264,9 +267,51 @@ MSVehicleType::dict_Random()
 
 
 const std::string &
-MSVehicleType::id() const
+MSVehicleType::getID() const
 {
     return myID;
+}
+
+
+void
+MSVehicleType::dict_saveState(std::ostream &os, long what)
+{
+    FileHelpers::writeUInt(os, myDict.size());
+    for(DictType::iterator it=myDict.begin(); it!=myDict.end(); ++it) {
+        (*it).second->saveState(os, what);
+    }
+}
+
+
+void
+MSVehicleType::saveState(std::ostream &os, long what)
+{
+    FileHelpers::writeString(os, myID);
+    FileHelpers::writeFloat(os, myLength);
+    FileHelpers::writeFloat(os, myMaxSpeed);
+    FileHelpers::writeFloat(os, myAccel);
+    FileHelpers::writeFloat(os, myDecel);
+    FileHelpers::writeFloat(os, myDawdle);
+}
+
+
+void
+MSVehicleType::dict_loadState(BinaryInputDevice &bis, long what)
+{
+    unsigned int size;
+    bis >> size;
+    while(size-->0) {
+        string id;
+        SUMOReal length, maxSpeed, accel, decel, dawdle;
+        bis >> id;
+        bis >> length;
+        bis >> maxSpeed;
+        bis >> accel;
+        bis >> decel;
+        bis >> dawdle;
+        MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle);
+        dictionary(id, t);
+    }
 }
 
 
