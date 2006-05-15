@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.29  2006/05/15 05:57:06  dkrajzew
+// added consective process messages
+//
+// Revision 1.29  2006/05/08 11:13:50  dkrajzew
+// added consective process messages
+//
 // Revision 1.28  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -213,7 +219,7 @@ ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
         delete net;
         return 0;
     } else {
-        MsgHandler::getMessageInstance()->inform("done.");
+        MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     // build and prepare the parser
     return net;
@@ -316,10 +322,8 @@ ROLoader::makeSingleStep(SUMOTime end, RONet &net, ROAbstractRouter &router)
 			// save the routes
 			net.saveAndRemoveRoutesUntil(_options, router, end);
     	}
-
         return MsgHandler::getErrorInstance()->wasInformed();
     } else {
-        cout<<"ROLoader::makeSingleStep: _handler ist leer \n"; // !!!
         return false;
     }
 }
@@ -494,9 +498,9 @@ ROLoader::loadWeights(RONet &net, const std::string &file,
     bool ok = !MsgHandler::getErrorInstance()->wasInformed();
     // report whe wished
     if(ok) {
-        MsgHandler::getMessageInstance()->inform("done.");
+        MsgHandler::getMessageInstance()->endProcessMsg("done.");
     } else {
-        MsgHandler::getMessageInstance()->inform("failed.");
+        MsgHandler::getMessageInstance()->endProcessMsg("failed.");
     }
     return ok;
 }
@@ -514,9 +518,9 @@ ROLoader::loadSupplementaryWeights( RONet& net )
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading precomputed supplementary net-weights." );
     XMLHelpers::runParser( handler, filename );
     if ( ! MsgHandler::getErrorInstance()->wasInformed() ) {
-        MsgHandler::getMessageInstance()->inform( "done." );
+        MsgHandler::getMessageInstance()->endProcessMsg( "done." );
     } else {
-        MsgHandler::getMessageInstance()->inform( "failed." );
+        MsgHandler::getMessageInstance()->endProcessMsg( "failed." );
 		throw ProcessError();
     }
 }
@@ -530,9 +534,8 @@ ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo)
             (SUMOReal) (time-start) / (SUMOReal) absNo;
         cout.setf ( ios::fixed , ios::floatfield ) ; // use decimal format
         cout.setf ( ios::showpoint ) ; // print decimal point
-        cout << "Reading time step: " << time
-            << "  (" << (time-start) << "/" <<  absNo
-        << " = " << setprecision( 2 ) << perc * 100 << "% done)       " << (char) 13;
+        cout << setprecision( 2 );
+        MsgHandler::getMessageInstance()->progressMsg("Reading time step: " + toString(time) + "  (" + toString(time-start) + "/" + toString(absNo) + " = " + toString(perc * 100) + "% done)       ");
     }
 }
 

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.31  2006/05/15 05:57:06  dkrajzew
+// added consective process messages
+//
 // Revision 1.30  2006/04/18 08:15:49  dkrajzew
 // removal of loops added
 //
@@ -365,7 +368,6 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
         //  unbuild routes due to missing connections are reported within the
         //  router
         if(current->size()!=0) {
-            cout << endl;
             mh->inform("The route '" + routeDef->getID() + "' is too short, propably ending at the starting edge.");
             WRITE_WARNING("Skipping...");
         }
@@ -438,7 +440,7 @@ RONet::removeRouteSecure(const RORouteDef * const route)
 {
     // !!! later, a counter should be used to keep computed routes in the memory
     if(!_routes.erase(route->getID())) {
-        cout << "Could not remove " << route->getID() << endl;
+        MsgHandler::getWarningInstance()->inform("Could not remove " + route->getID());
 	}
 }
 

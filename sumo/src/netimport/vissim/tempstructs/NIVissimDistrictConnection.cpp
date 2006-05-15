@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/05/15 05:55:26  dkrajzew
+// added consective process messages
+//
 // Revision 1.26  2006/04/05 05:32:27  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -452,8 +455,7 @@ NIVissimDistrictConnection::getMeanSpeed(/*NBDistribution &dc*/) const
 {
     //assert(myAssignedVehicles.size()!=0);
     if(myAssignedVehicles.size()==0) {
-        cout << "No streams assigned at district'" << myID << "'." << endl;
-        cout << " Using default speed 200km/h" << endl;
+        MsgHandler::getWarningInstance()->inform("No streams assigned at district'" + toString(myID) + "'.\n Using default speed 200km/h");
         return (SUMOReal) 200/(SUMOReal) 3.6;
     }
     SUMOReal speed = 0;

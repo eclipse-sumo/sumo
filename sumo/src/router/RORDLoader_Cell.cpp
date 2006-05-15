@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/05/15 05:57:06  dkrajzew
+// added consective process messages
+//
+// Revision 1.14  2006/05/08 11:13:50  dkrajzew
+// added consective process messages
+//
 // Revision 1.13  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -312,7 +318,7 @@ RORDLoader_Cell::init(OptionsCont &options)
         for(std::vector<unsigned long>::iterator i=_routes.begin(); i!=_routes.end(); i++) {
             out << (*i) << endl;
         }
-        MsgHandler::getMessageInstance()->inform("done.");
+        MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     // prepare the .driver file for reading
     return initDriverFile();

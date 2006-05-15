@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/05/15 05:55:26  dkrajzew
+// added consective process messages
+//
+// Revision 1.16  2006/05/08 11:13:50  dkrajzew
+// added consective process messages
+//
 // Revision 1.15  2006/04/11 11:01:37  dkrajzew
 // extended the message-API to (re)allow process output
 //
@@ -193,7 +199,7 @@ NIVisumLoader::NIVisumSingleDataTypeParser::readUsing(LineReader &reader)
     reader.reinit();
     reader.setPos(myPosition);
     reader.readAll(*this);
-    WRITE_MESSAGE("done.");
+    MsgHandler::getMessageInstance()->endProcessMsg("done.");
     return true;
 }
 

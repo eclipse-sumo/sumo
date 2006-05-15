@@ -21,6 +21,12 @@
     version 2.1 of the License, or (at your option) any later version.
  ***************************************************************************/
 // $Log$
+// Revision 1.3  2006/05/15 05:59:44  dkrajzew
+// added consective process messages
+//
+// Revision 1.3  2006/05/08 11:16:25  dkrajzew
+// added missing inclusion
+//
 // Revision 1.2  2005/10/07 11:43:30  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -77,6 +83,7 @@
 #include <string>
 #include <cmath>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/StdDefs.h>
 
 
 /* =========================================================================

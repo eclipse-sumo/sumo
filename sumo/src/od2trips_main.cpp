@@ -263,7 +263,7 @@ readVMR(LineReader &lr, ODMatrix &into, float scale)
             line = lr.readLine();
         } while(line[0]!='*'&&lr.hasMore());
     }
-    MsgHandler::getMessageInstance()->inform("done.");
+    MsgHandler::getMessageInstance()->endProcessMsg("done.");
 }
 
 

@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.27  2006/05/15 05:55:26  dkrajzew
+// added consective process messages
+//
 // Revision 1.26  2005/11/09 06:42:07  dkrajzew
 // complete geometry building rework (unfinished)
 //
@@ -95,6 +98,7 @@ namespace
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/IntVector.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 #include "NIVissimConnection.h"
 #include "NIVissimDisturbance.h"
 #include "NIVissimNodeCluster.h"
@@ -332,7 +336,7 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset)
             joinAble.clear();
         } else {
             i++;
-            cout << "Checked(1): " << pos << "/" << myClusters.size() << "         " << (char) 13;
+            MsgHandler::getMessageInstance()->progressMsg("Checked(1): " + toString(pos) + "/" + toString(myClusters.size()) + "         ");
             pos++;
         }
     }
@@ -367,7 +371,7 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset)
         } else {
             i++;
             pos++;
-            cout << "Checked(2): " << pos << "/" << myClusters.size() << "         " << (char) 13;
+            MsgHandler::getMessageInstance()->progressMsg("Checked(2): " + toString(pos) + "/" + toString(myClusters.size()) + "         ");
         }
     }
     // check for weak district connections
@@ -403,7 +407,7 @@ NIVissimConnectionCluster::joinBySameEdges(SUMOReal offset)
         } else {
             i++;
             pos++;
-            cout << "Checked(3): " << pos << "/" << myClusters.size() << "         " << (char) 13;
+            MsgHandler::getMessageInstance()->progressMsg("Checked(3): " + toString(pos) + "/" + toString(myClusters.size()) + "         ");
         }
     }
 /* !_!   // check for connection clusters lying beyond the edge

@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/05/15 05:55:26  dkrajzew
+// added consective process messages
+//
+// Revision 1.13  2006/05/08 11:13:50  dkrajzew
+// added consective process messages
+//
 // Revision 1.12  2006/04/11 11:01:37  dkrajzew
 // extended the message-API to (re)allow process output
 //
@@ -146,7 +152,7 @@ NIArtemisLoader::NIArtemisSingleDataTypeParser::parse()
     myInitialise();
     // skip/set names
     reader.readAll(*this);
-    WRITE_MESSAGE("done.");
+    MsgHandler::getMessageInstance()->endProcessMsg("done.");
     // parser-dependent close
     myClose();
     return true;

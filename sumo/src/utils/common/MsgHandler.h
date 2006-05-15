@@ -22,6 +22,12 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.12  2006/05/15 05:59:33  dkrajzew
+// added consective process messages
+//
+// Revision 1.12  2006/05/08 11:13:50  dkrajzew
+// added consective process messages
+//
 // Revision 1.11  2006/04/18 08:05:46  dkrajzew
 // beautifying: output consolidation
 //
@@ -131,8 +137,23 @@ public:
     /// adds a new error to the list
     void inform(std::string msg, bool addType=true);
 
-    /// Writes a process information
+    /** @brief Begins a process information
+     *
+     * When a longer action is started, this method should be used to inform the user about it.
+     * There will be no newline printed, but the message handler will be informed that
+     *  a process message has been begun. If an error occures, a newline will be printed.
+     * After the action has been performed, use endProcessMsg to inform the user about it.
+     */
     void beginProcessMsg(std::string msg, bool addType=true);
+
+    /// Ends a process information
+    void endProcessMsg(std::string msg);
+
+    /** @brief Writes a progress message
+     *
+     * Writes the message and closes it with a (char) 13
+     */
+    void progressMsg(std::string msg, bool addType=true);
 
     /// Clears information whether an error occured previously
     void clear();

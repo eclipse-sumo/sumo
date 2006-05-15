@@ -25,6 +25,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/05/15 05:55:26  dkrajzew
+// added consective process messages
+//
+// Revision 1.26  2006/05/08 11:13:50  dkrajzew
+// added consective process messages
+//
 // Revision 1.25  2006/04/18 08:05:44  dkrajzew
 // beautifying: output consolidation
 //
@@ -408,7 +414,7 @@ NILoader::loadCell(OptionsCont &oc)
         if(!useLineReader(lr, file, handler)) {
             throw ProcessError();
         }
-        WRITE_MESSAGE("done.");
+        MsgHandler::getMessageInstance()->endProcessMsg("done.");
         myNetBuilder.getNodeCont().report();
     }
     // load edges
@@ -423,7 +429,7 @@ NILoader::loadCell(OptionsCont &oc)
         if(!useLineReader(lr, file, handler)) {
             throw ProcessError();
         }
-        WRITE_MESSAGE("done.");
+        MsgHandler::getMessageInstance()->endProcessMsg("done.");
         myNetBuilder.getEdgeCont().report();
     }
 }
@@ -549,7 +555,7 @@ NILoader::loadElmar(OptionsCont &oc, projPJ pj)
             throw ProcessError();
         }
     }
-    WRITE_MESSAGE("done.");
+    MsgHandler::getMessageInstance()->endProcessMsg("done.");
     myNetBuilder.getNodeCont().report();
 
     // load edges
@@ -574,7 +580,7 @@ NILoader::loadElmar(OptionsCont &oc, projPJ pj)
         }
     }
     myNetBuilder.getEdgeCont().recheckLaneSpread();
-    WRITE_MESSAGE("done.");
+    MsgHandler::getMessageInstance()->endProcessMsg("done.");
     myNetBuilder.getEdgeCont().report();
 }
 
