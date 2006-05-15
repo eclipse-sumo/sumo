@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.41  2006/05/15 05:51:04  dkrajzew
+// debugged the id retrieval usage
+//
+// Revision 1.41  2006/05/08 11:01:17  dkrajzew
+// debugging: all structures now return their id via getID()
+//
 // Revision 1.40  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -508,7 +514,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 9);
     // add items
-    ret->mkItem("type [NAME]", false, myType->id());
+    ret->mkItem("type [NAME]", false, myType->getID());
     ret->mkItem("left same route [#]", false, (SUMOReal) getRepetitionNo());
     ret->mkItem("emission period [s]", false, (SUMOReal) getPeriod());
     ret->mkItem("waiting time [s]", true,
