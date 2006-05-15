@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/05/15 05:52:00  dkrajzew
+// the reader does not shut down the application if an error occures
+//
+// Revision 1.9  2006/05/08 11:05:30  dkrajzew
+// made false emitter definitions not shutting down the application
+//
 // Revision 1.8  2006/04/18 08:05:44  dkrajzew
 // beautifying: output consolidation
 //
@@ -132,10 +138,13 @@ MSTriggeredXMLReader::~MSTriggeredXMLReader()
 bool
 MSTriggeredXMLReader::readNextTriggered()
 {
-    while(myHaveMore&&myParser->parseNext(myToken)) {
-        if(nextRead()) {
-            return true;
+    try {
+        while(myHaveMore&&myParser->parseNext(myToken)) {
+            if(nextRead()) {
+                return true;
+            }
         }
+    } catch (ProcessError &) {
     }
     myHaveMore = false;
     return false;
