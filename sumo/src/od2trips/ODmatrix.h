@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/05/15 05:56:24  dkrajzew
+// debugged splitting of matrices
+//
 // Revision 1.13  2006/04/07 05:25:15  dkrajzew
 // complete od2trips rework
 //
@@ -107,7 +110,8 @@ public:
 
     /// Writes the vehicles stored in the matrix
     void write(SUMOTime begin, SUMOTime end,
-        std::ofstream &strm, const ODDistrictCont &dc, bool uniform);
+        std::ofstream &strm, const ODDistrictCont &dc, bool uniform,
+        const std::string &prefix);
 
 
     /// Returns the number of loaded vehicles
@@ -144,8 +148,9 @@ protected:
 
 protected:
     /// Computes the emissions stored in the given cell and writes them to "into"
-    void computeEmissions(const ODDistrictCont &dc, ODCell *cell,
-        size_t &vehName, std::vector<ODVehicle> &into, bool uniform);
+    SUMOReal computeEmissions(const ODDistrictCont &dc, ODCell *cell,
+        size_t &vehName, std::vector<ODVehicle> &into, bool uniform,
+        const std::string &prefix);
 
     /** @brief Splits the given cell dividing it on the given time line and
      *      stores the results in the given container

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/05/15 05:59:57  dkrajzew
+// debugged splitting of matrices
+//
 // Revision 1.8  2006/04/07 05:30:53  dkrajzew
 // distribution spread computation added (undocumented)
 //
@@ -70,7 +73,7 @@ class Distribution_Points :
 public:
     /// Constructor
     Distribution_Points(const std::string &id,
-        const Position2DVector &points);
+        const Position2DVector &points, bool interpolating=false);
 
     /// Destructor
     virtual ~Distribution_Points();
@@ -91,6 +94,9 @@ protected:
     mutable bool myProbabilitiesAreComputed;
 
     mutable std::vector<SUMOReal> myProbabilities;
+
+    bool myInterpolateDist;
+
 };
 
 

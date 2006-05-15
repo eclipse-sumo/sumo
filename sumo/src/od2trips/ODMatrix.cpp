@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.3  2006/05/15 05:56:24  dkrajzew
+// debugged splitting of matrices
+//
 // Revision 1.2  2006/04/07 13:37:16  dkrajzew
 // debugging building under linux
 //
@@ -85,18 +88,26 @@ ODMatrix::add(ODCell *cell)
 }
 
 
-void
+SUMOReal
 ODMatrix::computeEmissions(const ODDistrictCont &dc, ODCell *cell,
                            size_t &vehName, std::vector<ODVehicle> &into,
-                           bool uniform)
+                           bool uniform, const std::string &prefix)
 {
-    SUMOReal offset = (SUMOReal) (cell->end - cell->begin) / (SUMOReal) cell->vehicleNumber / (SUMOReal) 2.;
-    for(size_t i=0; i<cell->vehicleNumber; i++) {
+    int vehicles2emit = (int) cell->vehicleNumber;
+    // compute whether the fraction forces an additional vehicle emission
+    SUMOReal mrand = rand()/(double) RAND_MAX;
+    SUMOReal mprob = (SUMOReal)cell->vehicleNumber-(SUMOReal) vehicles2emit;
+    if(mrand<mprob) {
+        vehicles2emit++;
+    }
+
+    SUMOReal offset = (SUMOReal) (cell->end - cell->begin) / (SUMOReal) vehicles2emit / (SUMOReal) 2.;
+    for(size_t i=0; i<vehicles2emit; i++) {
         ODVehicle veh;
-        veh.id = toString(vehName++);
+        veh.id = prefix + toString(vehName++);
 
         if(uniform) {
-            veh.depart = (int) (offset + cell->begin + ((SUMOReal) (cell->end - cell->begin) * (SUMOReal) i / (SUMOReal) cell->vehicleNumber));
+            veh.depart = (int) (offset + cell->begin + ((SUMOReal) (cell->end - cell->begin) * (SUMOReal) i / (SUMOReal) vehicles2emit));
         } else {
             veh.depart = (int) (cell->begin + (SUMOReal) ((double) rand() / (double) RAND_MAX) * (double) (cell->end - cell->begin));
         }
@@ -110,14 +121,17 @@ ODMatrix::computeEmissions(const ODDistrictCont &dc, ODCell *cell,
         veh.color = RGBColor(red, green, blue);
         into.push_back(veh);
     }
+    return cell->vehicleNumber - vehicles2emit;
 }
 
 
 void
 ODMatrix::write(SUMOTime begin, SUMOTime end,
                 std::ofstream &strm, const ODDistrictCont &dc,
-                bool uniform)
+                bool uniform,
+                const std::string &prefix)
 {
+    std::map<std::pair<std::string, std::string>, SUMOReal> fractionLeft;
     size_t vehName = 0;
     sort(myContainer.begin(), myContainer.end(), cell_by_begin_sorter());
     // recheck begin time
@@ -128,16 +142,33 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
     std::vector<ODVehicle> vehicles;
     // go through the time steps
     for(SUMOTime t=begin; t!=end; t++) {
-        MsgHandler::getMessageInstance()->inform("Parsing time " + toString(t));
+        MsgHandler::getMessageInstance()->progressMsg("Parsing time " + toString(t));
         // recheck whether a new cell got valid
         bool changed = false;
         while(next!=myContainer.end()&&(*next)->begin<=t&&(*next)->end>t) {
+            std::pair<std::string, std::string> odID = make_pair((*next)->origin, (*next)->destination);
+            // check whether the current cell must be extended by the last fraction
+            if(fractionLeft.find(odID)!=fractionLeft.end()) {
+                (*next)->vehicleNumber += fractionLeft[odID];
+                fractionLeft[odID] = 0;
+            }
+            // get the new emissions (into tmp)
             std::vector<ODVehicle> tmp;
-            computeEmissions(dc, *next, vehName, tmp, uniform);
+            SUMOReal fraction = computeEmissions(dc, *next, vehName, tmp, uniform, prefix);
+            // copy new emissions if any
             if(tmp.size()!=0) {
                 copy(tmp.begin(), tmp.end(), back_inserter(vehicles));
                 changed = true;
             }
+            // save the fraction
+            if(fraction!=0) {
+                if(fractionLeft.find(odID)==fractionLeft.end()) {
+                    fractionLeft[odID] = fraction;
+                } else {
+                    fractionLeft[odID] += fraction;
+                }
+            }
+            //
             ++next;
         }
         if(changed) {
@@ -149,9 +180,11 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
     		strm << "   <tripdef id=\"" << (*i).id << "\" depart=\"" << t << "\" ";
 	    	strm << "from=\"" << (*i).from << "\" ";
 		    strm << "to=\"" << (*i).to << "\" ";
-            strm << "type=\"" << (*i).type << "\"";
+            if((*i).type.length()!=0) {
+                strm << "type=\"" << (*i).type << "\" ";
+            }
             if(!OptionsSubSys::getOptions().getBool("no-color")) {
-                strm << " color=\"" << (*i).color << "\"";
+                strm << "color=\"" << (*i).color << "\" ";
             }
             strm << "/>"<< endl;
         }
@@ -180,14 +213,14 @@ void
 ODMatrix::applyCurve(const Distribution_Points &ps, ODCell *cell, CellVector &newCells)
 {
     for(size_t i=0; i<ps.getAreaNo(); i++) {
-        ODCell *cell = new ODCell();
-        cell->begin = (SUMOTime) ps.getAreaBegin(i);
-        cell->end = (SUMOTime) ps.getAreaEnd(i);
-        cell->origin = cell->origin;
-        cell->destination = cell->destination;
-        cell->vehicleType = cell->vehicleType;
-        cell->vehicleNumber = cell->vehicleNumber * ps.getAreaPerc(i);
-        newCells.push_back(cell);
+        ODCell *ncell = new ODCell();
+        ncell->begin = (SUMOTime) ps.getAreaBegin(i);
+        ncell->end = (SUMOTime) ps.getAreaEnd(i);
+        ncell->origin = cell->origin;
+        ncell->destination = cell->destination;
+        ncell->vehicleType = cell->vehicleType;
+        ncell->vehicleNumber = cell->vehicleNumber * ps.getAreaPerc(i);
+        newCells.push_back(ncell);
     }
 }
 
