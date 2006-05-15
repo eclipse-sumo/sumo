@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.54  2006/05/15 05:45:45  dkrajzew
+// removed not needed messages
+//
 // Revision 1.53  2006/04/18 08:08:21  dkrajzew
 // added Danilot Tete-Boyoms poi-interaction
 //
@@ -934,7 +937,6 @@ GUIViewTraffic::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
 		_lock.lock();
 		if(makeCurrent()) {
 			unsigned int id = getObjectUnderCursor();
-			cout<<"onLeftBtnRelease ID ist "<<id<<endl;
 			if(id==-1){
 				GUIGlObject *o = gIDStorage.getObjectBlocking(id);
 				std::string n= o->getFullName();
