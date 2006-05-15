@@ -1,6 +1,38 @@
-#ifndef MSMSPhaseDefinition_h
-#define MSMSPhaseDefinition_h
+#ifndef MSPhaseDefinition_h
+#define MSPhaseDefinition_h
+//---------------------------------------------------------------------------//
+//                        MSPhaseDefinition.h -
+//  The definition of a single phase of a tls logic
+//                           -------------------
+//  project              : SUMO - Simulation of Urban MObility
+//  begin                : Jan 2004
+//  copyright            : (C) 2004 by Daniel Krajzewicz
+//  organisation         : IVF/DLR http://ivf.dlr.de
+//  email                : Daniel.Krajzewicz@dlr.de
+//---------------------------------------------------------------------------//
 
+//---------------------------------------------------------------------------//
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
+//---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.6  2006/05/15 06:01:51  dkrajzew
+// added the possibility to stretch/change the current phase and consecutive phases
+//
+//
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
+/* =========================================================================
+ * included modules
+ * ======================================================================= */
 #ifdef HAVE_CONFIG_H
 #ifdef WIN32
 #include <windows_config.h>
@@ -13,6 +45,10 @@
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
 
+
+/* =========================================================================
+ * class definitions
+ * ======================================================================= */
 /**
  * The definition of a single phase */
 class MSPhaseDefinition {

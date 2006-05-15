@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/05/15 06:01:51  dkrajzew
+// added the possibility to stretch/change the current phase and consecutive phases
+//
 // Revision 1.11  2006/05/05 09:53:55  jringel
 // *** empty log message ***
 //
@@ -184,7 +187,7 @@ public:
      *
      * Called from MSNet::simulationStep
      */
-    void check2Switch();
+    void check2Switch(SUMOTime step);
 
 protected:
     /**
@@ -262,7 +265,7 @@ protected:
          *
          * If a switch shall be done, this method should return true.
          */
-        virtual bool trySwitch() = 0;
+        virtual bool trySwitch(SUMOTime step) = 0;
 
     protected:
         /// The current program of the tls to switch
@@ -294,7 +297,7 @@ protected:
          *
          * This implementation alsways returns true
          */
-        bool trySwitch();
+        bool trySwitch(SUMOTime step);
 
     };
 
@@ -314,7 +317,7 @@ protected:
 
         /** @brief Determines whether a switch is possible.
          */
-        bool trySwitch();
+        bool trySwitch(SUMOTime step);
 
     protected:
         /// Returns the GSP-value which should be within the tls program definition
@@ -338,7 +341,7 @@ protected:
 
         /** @brief Determines whether a switch is possible.
          */
-        bool trySwitch();
+        bool trySwitch(SUMOTime step);
 
     protected:
         /** @struct StretchBereichDef

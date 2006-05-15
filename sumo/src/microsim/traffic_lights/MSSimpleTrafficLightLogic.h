@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/05/15 06:01:51  dkrajzew
+// added the possibility to stretch/change the current phase and consecutive phases
+//
 // Revision 1.11  2006/05/05 09:53:55  jringel
 // *** empty log message ***
 //
@@ -164,8 +167,11 @@ public:
     /// Returns the phases of this tls
     const Phases &getPhases() const;
 
-	/// Returns the phase of a given step 
+	/// Returns the phase of a given step
     const MSPhaseDefinition &getPhaseFromStep(size_t givenstep) const;
+
+    void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep,
+        int step, SUMOTime stepDuration);
 
 protected:
     /// the list of phases this logic uses

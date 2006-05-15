@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/05/15 06:01:51  dkrajzew
+// added the possibility to stretch/change the current phase and consecutive phases
+//
 // Revision 1.14  2006/05/05 09:53:55  jringel
 // *** empty log message ***
 //
@@ -130,7 +133,7 @@ MSTLLogicControl::WAUTSwitchProcedure_JustSwitch::~WAUTSwitchProcedure_JustSwitc
 
 
 bool
-MSTLLogicControl::WAUTSwitchProcedure_JustSwitch::trySwitch()
+MSTLLogicControl::WAUTSwitchProcedure_JustSwitch::trySwitch(SUMOTime step)
 {
     return true;
 }
@@ -153,7 +156,7 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::~WAUTSwitchProcedure_GSP()
 
 
 bool
-MSTLLogicControl::WAUTSwitchProcedure_GSP::trySwitch()
+MSTLLogicControl::WAUTSwitchProcedure_GSP::trySwitch(SUMOTime step)
 {
     SUMOTime actTime = MSNet::getInstance()->getCurrentTimeStep();
 	MSSimpleTrafficLightLogic *LogicFrom = (MSSimpleTrafficLightLogic*) myFrom;
@@ -169,7 +172,7 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::trySwitch()
 		}
 	}
 	posFrom = posFrom + actTime - LogicFrom->getPhaseFromStep(StepFrom)._lastSwitch;
-	///some idiotchecks	
+	///some idiotchecks
 	if (posFrom>=CycleTimeFrom)	{
 		posFrom = posFrom - CycleTimeFrom;
 	}
@@ -215,7 +218,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::~WAUTSwitchProcedure_Stretch()
 
 
 bool
-MSTLLogicControl::WAUTSwitchProcedure_Stretch::trySwitch()
+MSTLLogicControl::WAUTSwitchProcedure_Stretch::trySwitch(SUMOTime step)
 {
     int noBereiche = getStretchBereicheNo(myFrom);
     for(int i=0; i<noBereiche; i++) {
@@ -487,7 +490,7 @@ SUMOTime
 MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand &cmd)
 {
     const std::string &wautid = cmd.getWAUTID();
-    int index = cmd.getIndex();
+    int &index = cmd.getIndex();
     WAUTSwitch s = myWAUTs[wautid].switches[index];
     for(std::vector<WAUTJunction>::iterator i=myWAUTs[wautid].junctions.begin(); i!=myWAUTs[wautid].junctions.end(); ++i) {
 
@@ -521,11 +524,11 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand &cmd)
 
 
 void
-MSTLLogicControl::check2Switch()
+MSTLLogicControl::check2Switch(SUMOTime step)
 {
     for(std::vector<WAUTSwitchProcess>::iterator i=myCurrentlySwitched.begin(); i!=myCurrentlySwitched.end(); ) {
         const WAUTSwitchProcess &proc = *i;
-        if(proc.proc->trySwitch()) {
+        if(proc.proc->trySwitch(step)) {
             delete proc.proc;
             switchTo((*i).to->getID(), (*i).to->getSubID());
             i = myCurrentlySwitched.erase(i);

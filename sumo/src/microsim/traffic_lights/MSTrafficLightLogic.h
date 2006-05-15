@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/05/15 06:01:51  dkrajzew
+// added the possibility to stretch/change the current phase and consecutive phases
+//
 // Revision 1.12  2006/04/11 10:59:07  dkrajzew
 // all structures now return their id via getID()
 //
@@ -220,9 +223,45 @@ public:
 
     std::string getParameterValue(const std::string &key) const;
 
+    void addOverridingDuration(SUMOTime duration);
+    void setCurrentDurationIncrement(SUMOTime delay);
+    virtual void changeStepAndDuration(MSTLLogicControl &tlcontrol,
+        SUMOTime simStep, int step, SUMOTime stepDuration) = 0;
+
 protected:
     /// Adds a link on building
     void addLink(MSLink *link, MSLane *lane, size_t pos);
+
+private:
+    /**
+     * @class SwitchCommand
+     * Class realising the switch between the traffic light states (phases
+     */
+    class SwitchCommand : public Command {
+    public:
+        /// Constructor
+        SwitchCommand(MSTLLogicControl &tlcontrol,
+            MSTrafficLightLogic *tlLogic);
+
+        /// Destructor
+        ~SwitchCommand();
+
+        /** @brief Executes this event
+            Executes the regarded junction's "trySwitch"- method */
+        SUMOTime execute(SUMOTime currentTime);
+
+        void deschedule(MSTrafficLightLogic *tlLogic);
+
+    private:
+        MSTLLogicControl &myTLControl;
+
+        /// The logic to be executed on a switch
+        MSTrafficLightLogic *myTLLogic;
+
+        /// Information whether this switch command is still valid
+        bool myAmValid;
+
+    };
 
 protected:
     /// given parameter
@@ -240,32 +279,16 @@ protected:
     LaneVectorVector myLanes;
 
     /// The list of actions/commands to execute on switch
-    std::vector<DiscreteCommand*> mySwitchCommands;
+    std::vector<DiscreteCommand*> myOnSwitchActions;
 
-private:
-    /**
-     * Class realising the switch between the traffic light states (phases
-     */
-    class SwitchCommand : public Command {
-    public:
-        /// Constructor
-        SwitchCommand(MSTLLogicControl &tlcontrol,
-            MSTrafficLightLogic *tlLogic);
+    /// A list of duration overrides
+    std::vector<SUMOTime> myOverridingTimes;
 
-        /// Destructor
-        ~SwitchCommand();
+    /// A value for enlarge the current duration
+    SUMOTime myCurrentDurationIncrement;
 
-        /** @brief Executes this event
-            Executes the regarded junction's "trySwitch"- method */
-        SUMOTime execute(SUMOTime currentTime);
-
-    private:
-        MSTLLogicControl &myTLControl;
-
-        /// The logic to be executed on a switch
-        MSTrafficLightLogic *myTLLogic;
-
-    };
+    /// The current switch command
+    SwitchCommand *mySwitchCommand;
 
 private:
     /// invalidated copy constructor

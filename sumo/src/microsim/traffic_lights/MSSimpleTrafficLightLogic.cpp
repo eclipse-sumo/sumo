@@ -18,6 +18,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.12  2006/05/15 06:01:51  dkrajzew
+// added the possibility to stretch/change the current phase and consecutive phases
+//
 // Revision 1.11  2006/05/05 09:53:55  jringel
 // *** empty log message ***
 //
@@ -122,7 +125,7 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSNet &net,
     : MSTrafficLightLogic(net, tlcontrol, id, subid, delay), myPhases(phases),
     myStep(step), myCycleTime(0)
 {
-	myCycleTime=getCycleTime(); 
+	myCycleTime=getCycleTime();
 }
 
 
@@ -161,6 +164,13 @@ MSSimpleTrafficLightLogic::allowed() const
 SUMOTime
 MSSimpleTrafficLightLogic::trySwitch(bool )
 {
+    // check whether the current duration shall be increased
+    if(myCurrentDurationIncrement>0) {
+        SUMOTime delay = myCurrentDurationIncrement;
+        myCurrentDurationIncrement = 0;
+        return delay;
+    }
+
     // increment the index
     myStep++;
     // if the last phase was reached ...
@@ -171,6 +181,12 @@ MSSimpleTrafficLightLogic::trySwitch(bool )
     assert(myPhases.size()>myStep);
 	//stores the time the phase started
     myPhases[myStep]->_lastSwitch = MSNet::getInstance()->getCurrentTimeStep();
+    // check whether the next duration was overridden
+    if(myOverridingTimes.size()>0) {
+        SUMOTime nextDuration = myOverridingTimes[0];
+        myOverridingTimes.erase(myOverridingTimes.begin());
+        return nextDuration;
+    }
 	// return offset to the next switch
     return myPhases[myStep]->duration;
 }
@@ -183,7 +199,7 @@ MSSimpleTrafficLightLogic::getStepNo() const
 }
 
 size_t
-MSSimpleTrafficLightLogic::getCycleTime() 
+MSSimpleTrafficLightLogic::getCycleTime()
 {
     myCycleTime = 0;
 	for(size_t i=0; i<myPhases.size(); i++) {
@@ -204,6 +220,21 @@ MSSimpleTrafficLightLogic::getPhaseFromStep(size_t givenStep) const
 	assert(myPhases.size()>givenStep);
 	assert(givenStep>=0);
     return *myPhases[givenStep];
+}
+
+
+void
+MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl &tlcontrol,
+                                                 SUMOTime simStep,
+                                                 int step,
+                                                 SUMOTime stepDuration)
+{
+    mySwitchCommand->deschedule(this);
+    mySwitchCommand = new SwitchCommand(tlcontrol, this);
+    myStep = step;
+    MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+        mySwitchCommand, stepDuration+simStep,
+        MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 
 

@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/05/15 06:01:51  dkrajzew
+// added the possibility to stretch/change the current phase and consecutive phases
+//
+// Revision 1.13  2006/05/08 11:03:44  dkrajzew
+// debugging: all structures now return their id via getID()
+//
 // Revision 1.12  2006/04/11 10:59:07  dkrajzew
 // all structures now return their id via getID()
 //
@@ -121,7 +127,7 @@ namespace
 #include <utils/helpers/DiscreteCommand.h>
 
 #ifdef RAKNET_DEMO
-#include <raknet_demo/ampel.h>
+#include <raknet_demo/sumo_add/ampel.h>
 #include <raknet_demo/constants.h>
 #include <utils/geom/Line2D.h>
 #endif
@@ -149,8 +155,8 @@ int myAmpelRunningID = 0;
  * member method definitions
  * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::SwitchCommand::SwitchCommand(MSTLLogicControl &tlcontrol,
-                             MSTrafficLightLogic *tlLogic)
-    : myTLControl(tlcontrol), myTLLogic(tlLogic)
+                                                  MSTrafficLightLogic *tlLogic)
+    : myTLControl(tlcontrol), myTLLogic(tlLogic), myAmValid(true)
 {
 }
 
@@ -164,6 +170,11 @@ MSTrafficLightLogic::SwitchCommand::~SwitchCommand()
 SUMOTime
 MSTrafficLightLogic::SwitchCommand::execute(SUMOTime currentTime)
 {
+    // check whether this command has been descheduled
+    if(!myAmValid) {
+        return 0;
+    }
+    //
     bool isActive = myTLControl.isActive(myTLLogic);
     size_t step1 = myTLLogic->getStepNo();
     SUMOTime next = myTLLogic->trySwitch(isActive);
@@ -178,6 +189,15 @@ MSTrafficLightLogic::SwitchCommand::execute(SUMOTime currentTime)
 }
 
 
+void
+MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic *tlLogic)
+{
+    if(tlLogic==myTLLogic) {
+        myAmValid = false;
+    }
+}
+
+
 /* -------------------------------------------------------------------------
  * member method definitions
  * ----------------------------------------------------------------------- */
@@ -186,10 +206,11 @@ MSTrafficLightLogic::MSTrafficLightLogic(MSNet &net,
                                          const std::string &id,
                                          const std::string &subid,
                                          size_t delay)
-    : myID(id), mySubID(subid), myNet(net)
+    : myID(id), mySubID(subid), myNet(net), myCurrentDurationIncrement(-1)
 {
+    mySwitchCommand = new SwitchCommand(tlcontrol, this);
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-        new SwitchCommand(tlcontrol, this), delay, MSEventControl::ADAPT_AFTER_EXECUTION);
+        mySwitchCommand, delay, MSEventControl::ADAPT_AFTER_EXECUTION);
 #ifdef RAKNET_DEMO
 	if(myAmpel==0) {
 		myAmpel = new Ampel();
@@ -234,8 +255,8 @@ MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, size_t pos)
     myLanes[pos].push_back(lane);
 
 #ifdef RAKNET_DEMO
-	myAmpel->addTrafficLight(myIDs[id()]*1000 + pos,
-		lane->getShape().at(-1).x(), 0, lane->getShape().at(-1).y(), lane->getShape().getEndLine().atan2DegreeAngle());
+	myAmpel->addTrafficLight(myIDs[getID()]*1000 + pos,
+		lane->getShape()[-1].x(), 0, lane->getShape()[-1].y(), lane->getShape().getEndLine().atan2DegreeAngle());
 #endif
 }
 
@@ -358,16 +379,16 @@ MSTrafficLightLogic::getLinks() const
 void
 MSTrafficLightLogic::addSwitchAction(DiscreteCommand *a)
 {
-    mySwitchCommands.push_back(a);
+    myOnSwitchActions.push_back(a);
 }
 
 
 void
 MSTrafficLightLogic::onSwitch()
 {
-    for(std::vector<DiscreteCommand*>::iterator i=mySwitchCommands.begin(); i!=mySwitchCommands.end(); ) {
+    for(std::vector<DiscreteCommand*>::iterator i=myOnSwitchActions.begin(); i!=myOnSwitchActions.end(); ) {
         if(!(*i)->execute()) {
-            i = mySwitchCommands.erase(i);
+            i = myOnSwitchActions.erase(i);
             // !!! delete???
         } else {
             i++;
@@ -385,18 +406,18 @@ MSTrafficLightLogic::onSwitch()
                 if(yellowLinks.test(i)) {
                     const LinkVector &currGroup = myLinks[i];
                     for(LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-					    myAmpel->setTrafficLightState(myIDs[id()]*1000 + i, TRAFFIC_SIGN_YELLOW);
+					    myAmpel->setTrafficLightState(myIDs[getID()]*1000 + i, TRAFFIC_SIGN_YELLOW);
                     }
                 } else {
                     const LinkVector &currGroup = myLinks[i];
                     for(LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-			    		myAmpel->setTrafficLightState(myIDs[id()]*1000 + i, TRAFFIC_SIGN_RED);
+			    		myAmpel->setTrafficLightState(myIDs[getID()]*1000 + i, TRAFFIC_SIGN_RED);
                     }
                 }
             } else {
                 const LinkVector &currGroup = myLinks[i];
                 for(LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-				    myAmpel->setTrafficLightState(myIDs[id()]*1000 + i, TRAFFIC_SIGN_GREEN);
+				    myAmpel->setTrafficLightState(myIDs[getID()]*1000 + i, TRAFFIC_SIGN_GREEN);
                 }
             }
         }
@@ -429,6 +450,20 @@ MSTrafficLightLogic::getParameterValue(const std::string &key) const
         return "";
     }
     return myParameter.find(key)->second;
+}
+
+
+void
+MSTrafficLightLogic::addOverridingDuration(SUMOTime duration)
+{
+    myOverridingTimes.push_back(duration);
+}
+
+
+void
+MSTrafficLightLogic::setCurrentDurationIncrement(SUMOTime delay)
+{
+    myCurrentDurationIncrement = delay;
 }
 
 

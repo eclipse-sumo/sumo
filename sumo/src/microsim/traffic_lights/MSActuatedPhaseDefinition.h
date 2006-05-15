@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.9  2006/05/15 06:01:51  dkrajzew
+// added the possibility to stretch/change the current phase and consecutive phases
+//
 // Revision 1.8  2006/05/05 09:53:55  jringel
 // *** empty log message ***
 //
@@ -56,8 +59,6 @@
 #endif // HAVE_CONFIG_H
 
 #include "MSPhaseDefinition.h"
-#include <utils/options/OptionsSubSys.h>
-#include <utils/options/OptionsCont.h>
 
 
 /* =========================================================================
@@ -84,7 +85,7 @@ public:
         int minDurationArg, int maxDurationArg)
         : MSPhaseDefinition(durationArg, driveMaskArg,
             breakMaskArg, yellowMaskArg),
-        minDuration(minDurationArg), maxDuration(maxDurationArg)        
+        minDuration(minDurationArg), maxDuration(maxDurationArg)
     {
         // defines minDuration
         size_t minDurationDefault = 10;

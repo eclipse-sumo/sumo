@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/05/15 06:01:51  dkrajzew
+// added the possibility to stretch/change the current phase and consecutive phases
+//
+// Revision 1.6  2006/05/08 11:03:44  dkrajzew
+// debugging: all structures now return their id via getID()
+//
 // Revision 1.5  2006/02/23 11:27:57  dkrajzew
 // tls may have now several programs
 //
@@ -214,7 +220,7 @@ MSUnboundActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
             ilpos = 0;
         }
         // Build the induct loop and set it into the container
-        std::string id = "TLS" + _id + "_InductLoopOn_" + lane->id();
+        std::string id = "TLS" + _id + "_InductLoopOn_" + lane->getID();
         if(myInductLoops.find(lane)==myInductLoops.end()) {
             myInductLoops[lane] =
                 nb.createInductLoop(id, lane, ilpos, inductLoopInterval);
@@ -231,7 +237,7 @@ MSUnboundActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
         }
         SUMOReal lspos = length - lslen;
         // Build the lane state detetcor and set it into the container
-        std::string id = "TLS" + _id + "_LaneStateOff_" + lane->id();
+        std::string id = "TLS" + _id + "_LaneStateOff_" + lane->getID();
         if(myLaneStates.find(lane)==myLaneStates.end()) {
             MSLaneState* loop =
                 new MSLaneState( id, lane, lspos, lslen,
