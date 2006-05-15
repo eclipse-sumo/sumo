@@ -20,6 +20,12 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.5  2006/05/15 06:01:07  dkrajzew
+// removed warnings
+//
+// Revision 1.5  2006/05/08 11:16:57  dkrajzew
+// warnings removed
+//
 // Revision 1.4  2005/10/07 11:46:34  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -32,6 +38,12 @@
 // Revision 1.1  2004/01/26 07:22:46  dkrajzew
 // added a class theat allows to use csv-files more easily
 //
+/* =========================================================================
+ * compiler pragmas
+ * ======================================================================= */
+#pragma warning(disable: 4786)
+
+
 /* =========================================================================
  * included modules
  * ======================================================================= */
