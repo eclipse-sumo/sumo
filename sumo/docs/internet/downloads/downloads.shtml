@@ -34,7 +34,8 @@
 								<h1>Download Section</h1>
 							</center>
 							<p>Here, you will find SUMO both as sources and as compiled binaries (for MS
-								Windows only) and also the libraries needed to compile and run it.</p>
+								Windows only) and also the libraries needed to compile and run it. <b>Please remark that we can not longer
+								provide a direct download due to sourceforge's disc quotas.</b></p>
 							<p>As the program is still under development and is extended continuously, we
 								advice you to use the latest sources from our <a href="http://sourceforge.net/projects/sumo/cvs" class="SUMOInLineLink">
 									cvs</a>. Normally, they should compile and be newer than the
@@ -79,7 +80,7 @@
 										The MS Windows binaries.
 										<br>
 										Contains the binaries, all dlls needed and some examples.<br>
-										Download as: <a class="SUMOInLineLink" href="sumo-winbin-0.9.4.zip">[sumo-winbin-0.9.4.zip,
+										Download as: <a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-winbin-0.9.4.zip?download">[sumo-winbin-0.9.4.zip,
 											~5.0MB]</a><br>
 										<br>
 									<li>
@@ -90,9 +91,9 @@
 										The last stable source-tarball. This one was built on 07.10.2005. Includes
 										sources, examples, Linux-Makefiles and MSVC++ 6.0 and MS Visual Studio
 										.net-project workspace.<br>
-										Download as: <a class="SUMOInLineLink" href="sumo-src-0.9.4.tar.gz">[sumo-src-0.9.4.tar.gz,
-											~5MB]</a> <a class="SUMOInLineLink" href="sumo-src-0.9.4.zip">[sumo-src-0.9.4.zip,
-											~5.5MB]</a><br>
+										Download as:
+											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-src-0.9.4.tar.gz?download">[sumo-src-0.9.4.tar.gz, ~5MB]</a>
+											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-src-0.9.4.zip?download">[sumo-src-0.9.4.zip, ~5.5MB]</a><br>
 										<br>
 									<li>
 										<b>Needed Libraries</b><br>
@@ -103,35 +104,41 @@
 												<a class="SUMOInLineLink" href="http://xml.apache.org/xerces-c/index.html">Xerces</a>
 												(XML-parser)<br>
 												Needed version: 2.7<br>
-												Windows: <a class="SUMOInLineLink" href="xerces-c_2_7_0-windows_2000-msvc_60.zip">
-													[.zip] (xerces-c_2_7_0-windows_2000-msvc_60.zip, ~10MB)</a><br>
-												Source Code: <a class="SUMOInLineLink" href="xerces-c-current.tar.gz">
-													[.zip] (xerces-c-current.tar.gz ~7.5MB)</a><br>
+												Windows:
+													<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/xerces-c_2_7_0-windows_2000-msvc_60.zip?download">[.zip] (xerces-c_2_7_0-windows_2000-msvc_60.zip, ~10MB)</a><br>
+												Source Code:
+													<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/xerces-c-current.zip?download">[.zip] (xerces-c-current.zip ~11.5MB)</a>
+													<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/xerces-c-current.tar.gz?download">[.zip] (xerces-c-current.tar.gz ~7.5MB)</a><br>
 												<br>
 											<li>
 												<a class="SUMOInLineLink" href="http://www.fox-toolkit.org">FOX-Toolkit</a> (GUI
 												Toolkit)<br>
 												Needed version: 1.4<br>
-												Source Code: <a class="SUMOInLineLink" href="fox-1.4.29.zip">[.zip]
-													(fox-1.4.29.zip, ~4.5MB)</a> or <a class="SUMOInLineLink" href="fox-1.4.29.tar.gz">[.tar.gz]
-													(fox-1.4.29.tar.gz, ~4MB)</a><br>
+												Source Code:
+													<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/fox-1.4.29.zip?download">[.zip] (fox-1.4.29.zip, ~4.5MB)</a>
+													or
+													<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/fox-1.4.29.tar.gz?download">[.tar.gz] (fox-1.4.29.tar.gz, ~4MB)</a><br>
 												Sorry, no binaries are available...<br>
 												<br>
 											<li>
 												<a class="SUMOInLineLink" href="http://www.remotesensing.org/proj/">PROJ.4</a> (Cartographic
 												Projections Library)<br>
 												Needed version: 4.4<br>
-												Windows: <a class="SUMOInLineLink" href="proj446_win32_bin.zip">
-													[.zip] (proj446_win32_bin.zip, 2.3MB)</a><br>
-												Source Code: <a class="SUMOInLineLink" href="proj-4.4.9.zip">[.zip] (proj-4.4.9.zip, ~720kB)</a>
-													or <a class="SUMOInLineLink" href="proj-4.4.9.tar.gz">[.tar.gz] (proj-4.4.9.tar.gz, ~600kB)</a><br>
+												Windows:
+													<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/proj446_win32_bin.zip?download"> [.zip] (proj446_win32_bin.zip, 2.3MB)</a><br>
+												Source Code:
+													<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/proj-4.4.9.zip?download">[.zip] (proj-4.4.9.zip, ~720kB)</a>
+													or
+													<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/proj-4.4.9.tar.gz?download">[.tar.gz] (proj-4.4.9.tar.gz, ~600kB)</a><br>
 												<br>
 											<li>
 												<a class="SUMOInLineLink" href="http://www.remotesensing.org/gdal/">GDAL</a> (Geospatial
 												Data Abstraction Library)<br>
 												Needed version: 1.3<br>
-												Source Code: <a class="SUMOInLineLink" href="gdal131.zip">[.zip] (gdal131.zip, ~7.9MB)</a>
-													or <a class="SUMOInLineLink" href="gdal131.tar.gz">[.tar.gz] (gdal131.tar.gz, ~6.7MB)</a><br>
+												Source Code:
+													<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/gdal131.zip?download">[.zip] (gdal131.zip, ~7.9MB)</a>
+													or
+													<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/gdal131.tar.gz?download">[.tar.gz] (gdal131.tar.gz, ~6.7MB)</a><br>
 												Sorry, no binaries are available...<br>
 												<br>
 										</ul>
@@ -181,8 +188,8 @@
 										The MS Windows binaries.
 										<br>
 										Contains the binaries, all dlls needed and some examples.<br>
-										Download as: <a class="SUMOInLineLink" href="sumo-winbin-0.8.3.zip">[sumo-winbin-0.8.3.zip,
-											~4.4MB]</a><br>
+										Download as:
+											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-winbin-0.8.3.zip?download">[sumo-winbin-0.8.3.zip, ~4.4MB]</a><br>
 										<br>
 									<li>
 										The last stable Linux binaries.<br>
@@ -192,9 +199,10 @@
 										The last stable source-tarball. This one was built on 06.10.2005. Includes
 										sources, examples, Linux-Makefiles and MSVC++ 6.0 and MS Visual Studio
 										.net-project workspace.<br>
-										Download as: <a class="SUMOInLineLink" href="sumo-src-0.8.3.tar.gz">[sumo-src-0.8.3.tar.gz,
-											~2.6MB]</a> <a class="SUMOInLineLink" href="sumo-src-0.8.3.zip">[sumo-src-0.8.3.zip,
-											~4.2MB]</a><br>
+										Download as:
+											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-src-0.8.3.tar.gz?download">[sumo-src-0.8.3.tar.gz, ~2.6MB]</a>
+											or
+											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-src-0.8.3.zip?download">[sumo-src-0.8.3.zip, ~4.2MB]</a><br>
 										<br>
 									<li>
 										<b>Needed Libraries</b><br>
