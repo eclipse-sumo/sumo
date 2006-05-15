@@ -24,6 +24,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/05/15 05:48:35  dkrajzew
+// debugging the raknet-demo
+//
+// Revision 1.16  2006/05/08 10:55:36  dkrajzew
+// debugging the raknet-extension
+//
 // Revision 1.15  2006/02/27 13:16:34  dkrajzew
 // raknet-support added
 //
@@ -100,7 +106,7 @@ namespace
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 
 #ifdef RAKNET_DEMO
-#include <raknet_demo/street.h>
+#include <raknet_demo/sumo_add/street.h>
 #endif
 
 #ifdef _DEBUG
