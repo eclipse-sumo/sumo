@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/05/15 11:16:32  ericnicolay
+// remove the private flag before SwitchCommand, now its protected
+//
 // Revision 1.13  2006/05/15 06:01:51  dkrajzew
 // added the possibility to stretch/change the current phase and consecutive phases
 //
@@ -232,7 +235,6 @@ protected:
     /// Adds a link on building
     void addLink(MSLink *link, MSLane *lane, size_t pos);
 
-private:
     /**
      * @class SwitchCommand
      * Class realising the switch between the traffic light states (phases
