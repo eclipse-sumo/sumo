@@ -57,8 +57,7 @@ class MSLane;
 class MSCrossSection
 {
 public:
-    MSCrossSection( MSLane* lane
-                    , MSUnit::Meters pos )
+    MSCrossSection( MSLane* lane, SUMOReal pos )
         : laneM( lane )
         , posM( pos )
         {}
@@ -80,7 +79,7 @@ public:
     */
 
     MSLane* laneM;
-    MSUnit::Meters posM;
+    SUMOReal posM;
 };
 
 namespace Detector

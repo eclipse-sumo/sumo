@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.2  2006/05/15 05:47:50  dkrajzew
+// got rid of the cell-to-meter conversions
+//
+// Revision 1.2  2006/05/08 10:54:42  dkrajzew
+// got rid of the cell-to-meter conversions
+//
 // Revision 1.1  2006/03/27 07:19:47  dkrajzew
 // vehicle actors added
 //
@@ -72,7 +78,7 @@ using namespace std;
 MSE1VehicleActor::MSE1VehicleActor( const string& id, MSLane* lane,
                                    SUMOReal positionInMeters)
     : MSMoveReminder( lane, id ), MSTrigger(id),
-    posM( MSNet::getCells( positionInMeters ) )
+    posM(positionInMeters)
 {
     assert( posM >= 0 && posM <= laneM->length() );
 }

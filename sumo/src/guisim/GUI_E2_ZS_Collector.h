@@ -21,6 +21,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.18  2006/05/15 05:49:29  dkrajzew
+// got rid of the cell-to-meter conversions
+//
+// Revision 1.18  2006/05/08 10:54:42  dkrajzew
+// got rid of the cell-to-meter conversions
+//
 // Revision 1.17  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -116,10 +122,10 @@ class GUI_E2_ZS_Collector : public MSE2Collector
 public:
     /// Constructor
     GUI_E2_ZS_Collector(std::string id, DetectorUsage usage, MSLane* lane,
-        MSUnit::Meters startPos, MSUnit::Meters detLength,
-        MSUnit::Seconds haltingTimeThreshold,
+        SUMOReal startPos, SUMOReal detLength,
+        SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Meters jamDistThreshold,
+        SUMOReal jamDistThreshold,
         SUMOTime deleteDataAfterSeconds);
 
     /// Destructor
@@ -171,9 +177,6 @@ public:
 
         /// returns the id of the object as known to microsim
         const std::string &microsimID() const;
-
-        /// Needed to set the id
-        friend class GUIGlObjectStorage;
 
         /// Returns the information whether this detector is still active
         bool active() const;

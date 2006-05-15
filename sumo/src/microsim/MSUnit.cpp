@@ -36,8 +36,8 @@
 
 MSUnit* MSUnit::instanceM = 0;
 
-const MSUnit::Meters oneKM = 1000.0;
-const MSUnit::Seconds oneHour = 3600.0;
+const SUMOReal oneKM = 1000.0;
+const SUMOReal oneHour = 3600.0;
 
 // Local Variables:
 // mode:C++

@@ -19,6 +19,12 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2006/05/15 05:47:50  dkrajzew
+// got rid of the cell-to-meter conversions
+//
+// Revision 1.12  2006/05/08 10:54:42  dkrajzew
+// got rid of the cell-to-meter conversions
+//
 // Revision 1.11  2005/10/07 11:37:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -105,24 +111,24 @@ protected:
     /// Creates the instance of a single-lane-e2-detector (gui-version)
     virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
-        MSUnit::Seconds haltingTimeThreshold,
+        SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Meters jamDistThreshold,
+        SUMOReal jamDistThreshold,
         SUMOTime deleteDataAfterSeconds);
 
     /// Creates the instance of a multi-lane-e2-detector (gui-version)
     virtual MS_E2_ZS_CollectorOverLanes *createMultiLaneE2Detector(
         const std::string &id, DetectorUsage usage, MSLane *lane, SUMOReal pos,
-        MSUnit::Seconds haltingTimeThreshold,
+        SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Meters jamDistThreshold,
+        SUMOReal jamDistThreshold,
         SUMOTime deleteDataAfterSeconds);
 
     /// Creates the instance of an e3-detector (gui version)
     virtual MSE3Collector *createE3Detector(const std::string &id,
         const Detector::CrossSections &entries,
         const Detector::CrossSections &exits,
-        MSUnit::Seconds haltingTimeThreshold,
+        SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
         SUMOTime deleteDataAfterSeconds);
 

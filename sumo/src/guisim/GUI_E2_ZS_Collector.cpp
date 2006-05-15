@@ -24,6 +24,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.22  2006/05/15 05:49:29  dkrajzew
+// got rid of the cell-to-meter conversions
+//
+// Revision 1.22  2006/05/08 10:54:42  dkrajzew
+// got rid of the cell-to-meter conversions
+//
 // Revision 1.21  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -132,10 +138,10 @@ using namespace std;
  * GUI_E2_ZS_Collector-methods
  * ----------------------------------------------------------------------- */
 GUI_E2_ZS_Collector::GUI_E2_ZS_Collector( std::string id, DetectorUsage usage,
-        MSLane* lane, MSUnit::Meters startPos, MSUnit::Meters detLength,
-        MSUnit::Seconds haltingTimeThreshold,
+        MSLane* lane, SUMOReal startPos, SUMOReal detLength,
+        SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Meters jamDistThreshold,
+        SUMOReal jamDistThreshold,
         SUMOTime deleteDataAfterSeconds)
     : MSE2Collector(id, usage, lane, startPos, detLength, haltingTimeThreshold,
             haltingSpeedThreshold, jamDistThreshold, deleteDataAfterSeconds)

@@ -77,8 +77,9 @@ protected:
         }
 
 private:
-    const MSUnit::Meters detectorLengthM;
+    const SUMOReal detectorLengthM;
     const Container& containerWrapperM;
+
 };
 
 namespace

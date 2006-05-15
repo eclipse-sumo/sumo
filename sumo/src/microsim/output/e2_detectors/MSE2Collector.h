@@ -171,10 +171,10 @@ public:
     MSE2Collector(
         std::string id,
         DetectorUsage usage,
-        MSLane* lane, MSUnit::Meters startPos, MSUnit::Meters detLength,
+        MSLane* lane, SUMOReal startPos, SUMOReal detLength,
         MSUnit::Seconds haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Meters jamDistThreshold,
+        SUMOReal jamDistThreshold,
         SUMOTime deleteDataAfterSeconds)
         : MSMoveReminder( lane, id ),
           startPosM( startPos ),
@@ -184,8 +184,7 @@ public:
                                      haltingTimeThreshold ) ),
           haltingSpeedThresholdM( MSUnit::getInstance()->getCellsPerStep(
                                       haltingSpeedThreshold ) ),
-          jamDistThresholdM( MSUnit::getInstance()->getCells(
-                                 jamDistThreshold ) ),
+          jamDistThresholdM(jamDistThreshold),
           detectorsTDM(11),
           detectorsEDM(2),
           detectorsLDM(1),
@@ -195,8 +194,7 @@ public:
           myUsage(usage)
         {
             assert( laneM != 0 );
-            MSUnit::Meters laneLength =
-                MSUnit::getInstance()->getMeters( laneM->length() );
+            SUMOReal laneLength = laneM->length();
             assert( startPosM >= 0 &&
                     startPosM < laneLength );
             assert( endPosM - startPosM > 0 && endPosM < laneLength );
@@ -584,7 +582,7 @@ public:
     ///
     /// @return The menber startPosM [meter].
     ///
-    MSUnit::Meters getStartPos() const
+    SUMOReal getStartPos() const
         {
             return startPosM;
         }
@@ -593,7 +591,7 @@ public:
     ///
     /// @return The menber endPosM [meter].
     ///
-    MSUnit::Meters getEndPos() const
+    SUMOReal getEndPos() const
         {
             return endPosM;
         }
@@ -645,8 +643,8 @@ protected:
         }
 
 private:
-    MSUnit::Meters startPosM;   ///< Start position.
-    MSUnit::Meters endPosM;     ///< End position.
+    SUMOReal startPosM;   ///< Start position.
+    SUMOReal endPosM;     ///< End position.
 
     SUMOTime deleteDataAfterSecondsM; ///< Data removal interval.
     MSUnit::Steps haltingTimeThresholdM; ///< Time-theshold to
@@ -656,7 +654,7 @@ private:
                                                  ///to determine if a
                                                  ///vehicle is
                                                  ///halting.
-    MSUnit::Cells jamDistThresholdM; ///< Distance-theshold to
+    SUMOReal jamDistThresholdM; ///< Distance-theshold to
                                      ///determine if two halting
                                      ///vehicles are "in jam".
 

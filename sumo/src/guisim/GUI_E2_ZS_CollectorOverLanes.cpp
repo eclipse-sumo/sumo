@@ -24,6 +24,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/05/15 05:49:29  dkrajzew
+// got rid of the cell-to-meter conversions
+//
+// Revision 1.18  2006/05/08 10:54:42  dkrajzew
+// got rid of the cell-to-meter conversions
+//
 // Revision 1.17  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -134,10 +140,10 @@ using namespace std;
  * GUI_E2_ZS_CollectorOverLanes-methods
  * ----------------------------------------------------------------------- */
 GUI_E2_ZS_CollectorOverLanes::GUI_E2_ZS_CollectorOverLanes( std::string id,
-        DetectorUsage usage, MSLane* lane, MSUnit::Meters startPos,
-        MSUnit::Seconds haltingTimeThreshold,
+        DetectorUsage usage, MSLane* lane, SUMOReal startPos,
+        SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Meters jamDistThreshold,
+        SUMOReal jamDistThreshold,
         SUMOTime deleteDataAfterSeconds)
     : MS_E2_ZS_CollectorOverLanes(id, usage, lane, startPos,
         haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold,

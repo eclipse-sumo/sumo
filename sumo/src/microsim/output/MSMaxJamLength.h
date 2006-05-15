@@ -156,7 +156,7 @@ protected:
                     startVeh = 0;
                 }
             }
-            return MSUnit::getInstance()->getMeters( maxDist );
+            return maxDist;
         }
 
     static std::string getDetectorName( void )

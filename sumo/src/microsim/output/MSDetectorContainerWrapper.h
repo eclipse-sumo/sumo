@@ -145,7 +145,7 @@ struct MSDetectorMapWrapper
 
     void write()  {
         for(ContainerIt i=containerM.begin(); i!=containerM.end(); i++) {
-            std::cout << (*i).first->id() << (*i).first << " " << this << std::endl;
+            std::cout << (*i).first->getID() << (*i).first << " " << this << std::endl;
         }
     }
 

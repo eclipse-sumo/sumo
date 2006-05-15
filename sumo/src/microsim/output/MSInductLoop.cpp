@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.14  2006/05/15 05:47:50  dkrajzew
+// got rid of the cell-to-meter conversions
+//
+// Revision 1.14  2006/05/08 10:54:42  dkrajzew
+// got rid of the cell-to-meter conversions
+//
 // Revision 1.13  2006/04/05 05:27:34  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -110,7 +116,7 @@ MSInductLoop::MSInductLoop( const string& id,
                             SUMOReal positionInMeters,
                             SUMOTime deleteDataAfterSeconds )
     : MSMoveReminder( lane, id ),
-      posM( MSNet::getCells( positionInMeters ) ),
+      posM(positionInMeters),
       deleteDataAfterStepsM( MSNet::getSteps( (SUMOReal) deleteDataAfterSeconds ) ),
       lastLeaveTimestepM( 0 ),
       vehiclesOnDetM(),
@@ -254,7 +260,7 @@ MSInductLoop::getMeanVehicleLength( SUMOTime lastNTimesteps ) const
                                  vehicleDataContM.end(),
                                  (SUMOReal) 0.0,
                                  lengthSum );
-    return MSNet::getMeters( lengthS / nVeh );
+    return lengthS / nVeh;
 }
 
 
@@ -297,7 +303,7 @@ MSInductLoop::writeXMLDetectorInfoStart( XMLDevice &dev ) const
 {
     dev.writeString("<detector type=\"inductionloop\" id=\"" + idM +
         "\" lane=\"" + laneM->getID() + "\" pos=\"" +
-        toString( MSNet::getMeters( posM ) ) + "\" >");
+        toString(posM) + "\" >");
 }
 
 

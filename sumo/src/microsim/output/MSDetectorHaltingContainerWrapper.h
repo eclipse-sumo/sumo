@@ -75,7 +75,7 @@ namespace DetectorContainer
               haltingDurationM( 0 )
             {}
         MSVehicle* vehM;
-        MSUnit::Cells posM;
+        SUMOReal posM;
         MSUnit::Steps timeBelowSpeedThresholdM;
         bool isHaltingM;
         bool isInJamM;
@@ -92,7 +92,7 @@ namespace DetectorContainer
             , haltingDurationM( 0 )
             , nHalts( 0 )
             {}
-        MSUnit::Cells posM;
+        SUMOReal posM;
         MSUnit::Steps timeBelowSpeedThresholdM;
         bool isHaltingM;
         MSUnit::Steps haltingDurationM;
@@ -139,7 +139,7 @@ struct MSDetectorHaltingContainerWrapper
         MSLane &lane,
         MSUnit::Steps timeThreshold,
         MSUnit::CellsPerStep speedThreshold,
-        MSUnit::Cells jamDistThreshold )
+        SUMOReal jamDistThreshold )
         : MSDetectorContainerWrapper< WrappedContainer >(),
           MSUpdateEachTimestep<
           MSDetectorHaltingContainerWrapper< WrappedContainer > >(),
@@ -154,7 +154,7 @@ struct MSDetectorHaltingContainerWrapper
         const MSDetectorOccupancyCorrection& occupancyCorrection,
         MSUnit::Steps timeThreshold,
         MSUnit::CellsPerStep speedThreshold,
-        MSUnit::Cells jamDistThreshold )
+        SUMOReal jamDistThreshold )
         : MSDetectorContainerWrapper< WrappedContainer >( occupancyCorrection),
           MSUpdateEachTimestep<
           MSDetectorHaltingContainerWrapper< WrappedContainer > >(),
@@ -255,7 +255,7 @@ struct MSDetectorHaltingContainerWrapper
 
     MSUnit::Steps timeThresholdM;
     MSUnit::CellsPerStep speedThresholdM;
-    MSUnit::Cells jamDistThresholdM;
+    SUMOReal jamDistThresholdM;
     MSLane &myLane;
 };
 
@@ -348,7 +348,7 @@ struct MSDetectorHaltingMapWrapper
 
     MSUnit::Steps timeThresholdM;
     MSUnit::CellsPerStep speedThresholdM;
-    MSUnit::Cells jamDistThresholdM;
+    SUMOReal jamDistThresholdM;
 //    MSLane &myLane;
 };
 

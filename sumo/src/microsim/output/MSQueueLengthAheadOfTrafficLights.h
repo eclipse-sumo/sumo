@@ -121,7 +121,7 @@ protected:
             if ( helperAggr > maxJamLengthM ) {
                 maxJamLengthM = helperAggr;
             }
-            return MSUnit::getInstance()->getMeters( maxJamLengthM );
+            return maxJamLengthM;
         }
 
     void resetMax( void )
@@ -136,8 +136,10 @@ protected:
 
 private:
     const TD::MSDetectorInterface& helperDetectorM;
-    MSUnit::Cells maxJamLengthM;
+    SUMOReal maxJamLengthM;
 };
+
+
 /**************** DO NOT DEFINE ANYTHING AFTER THE INCLUDE *****************/
 
 

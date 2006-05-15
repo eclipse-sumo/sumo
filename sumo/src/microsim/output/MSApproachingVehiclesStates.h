@@ -21,8 +21,15 @@
 //   (at your option) any later version.
 //
 //---------------------------------------------------------------------------//
+// $Log$
+// Revision 1.5  2006/05/15 05:47:50  dkrajzew
+// got rid of the cell-to-meter conversions
 //
-
+// Revision 1.5  2006/05/08 10:54:42  dkrajzew
+// got rid of the cell-to-meter conversions
+//
+//
+//
 /* =========================================================================
  * included modules
  * ======================================================================= */
@@ -54,15 +61,12 @@ public:
     class VehicleState
     {
     public:
-        VehicleState( MSUnit::Cells gap2DetectorEnd,
+        VehicleState( SUMOReal gap2DetectorEnd,
                       MSUnit::CellsPerStep speed )
-            : gap2DetectorEndM(
-                MSUnit::getInstance()->getMeters( gap2DetectorEnd ) )
-            , speedM(
-                MSUnit::getInstance()->getMetersPerSecond( speed ) )
+            : gap2DetectorEndM(gap2DetectorEnd), speedM(MSUnit::getInstance()->getMetersPerSecond( speed ) )
             {}
 
-        MSUnit::Meters getGap2DetectorEnd( void ) const
+        SUMOReal getGap2DetectorEnd( void ) const
             {
                 return gap2DetectorEndM;
             }
@@ -73,8 +77,9 @@ public:
             }
 
     private:
-        MSUnit::Meters gap2DetectorEndM;
+        SUMOReal gap2DetectorEndM;
         MSUnit::MetersPerSecond speedM;
+
     };
 
     // the first element of the container corresponds to first vehicle
@@ -85,9 +90,9 @@ protected:
     typedef DetectorContainer::VehiclesList Container;
     typedef Container::InnerContainer VehicleCont;
 
-    MSApproachingVehiclesStates( MSUnit::Meters detectorEndPos,
+    MSApproachingVehiclesStates( SUMOReal detectorEndPos,
                                  const Container& vehicleCont )
-        : detectorEndPosM( MSUnit::getInstance()->getCells( detectorEndPos ) ),
+        : detectorEndPosM(detectorEndPos),
           containerM( vehicleCont.containerM ),
           statesM()
         {}
@@ -128,7 +133,7 @@ protected:
         }
 
 private:
-    MSUnit::Cells detectorEndPosM;
+    SUMOReal detectorEndPosM;
     const VehicleCont& containerM;
     DetectorAggregate statesM;
 };

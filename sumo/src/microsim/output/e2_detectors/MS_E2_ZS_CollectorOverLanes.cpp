@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/05/15 05:47:50  dkrajzew
+// got rid of the cell-to-meter conversions
+//
+// Revision 1.15  2006/05/08 10:54:42  dkrajzew
+// got rid of the cell-to-meter conversions
+//
 // Revision 1.14  2006/04/11 10:59:06  dkrajzew
 // all structures now return their id via getID()
 //
@@ -155,10 +161,10 @@ std::string MS_E2_ZS_CollectorOverLanes::infoEndM = "</detector>";
  * ======================================================================= */
 MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
         std::string id, DetectorUsage usage, MSLane* lane,
-        MSUnit::Meters startPos,
-        MSUnit::Seconds haltingTimeThreshold,
+        SUMOReal startPos,
+        SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Meters jamDistThreshold,
+        SUMOReal jamDistThreshold,
         SUMOTime deleteDataAfterSeconds)
         : startPosM(startPos),
         deleteDataAfterSecondsM(deleteDataAfterSeconds),
@@ -174,7 +180,7 @@ MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
 void
 MS_E2_ZS_CollectorOverLanes::init(
         MSLane *lane,
-        MSUnit::Meters detLength,
+        SUMOReal detLength,
         const MSEdgeContinuations &edgeContinuations)
 {
     myLength = detLength;

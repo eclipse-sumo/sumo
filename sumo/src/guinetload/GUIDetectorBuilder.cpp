@@ -21,6 +21,12 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/05/15 05:47:50  dkrajzew
+// got rid of the cell-to-meter conversions
+//
+// Revision 1.15  2006/05/08 10:54:42  dkrajzew
+// got rid of the cell-to-meter conversions
+//
 // Revision 1.14  2005/10/07 11:37:01  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -134,9 +140,9 @@ GUIDetectorBuilder::createInductLoop(const std::string &id,
 MSE2Collector *
 GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
-        MSUnit::Seconds haltingTimeThreshold,
+        SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Meters jamDistThreshold,
+        SUMOReal jamDistThreshold,
         SUMOTime deleteDataAfterSeconds)
 {
     return new GUI_E2_ZS_Collector(id, usage, lane, pos, length,
@@ -149,9 +155,9 @@ GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
 MS_E2_ZS_CollectorOverLanes *
 GUIDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos,
-        MSUnit::Seconds haltingTimeThreshold,
+        SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Meters jamDistThreshold,
+        SUMOReal jamDistThreshold,
         SUMOTime deleteDataAfterSeconds)
 {
     return new GUI_E2_ZS_CollectorOverLanes( id, usage, lane, pos,

@@ -21,6 +21,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/05/15 05:49:29  dkrajzew
+// got rid of the cell-to-meter conversions
+//
+// Revision 1.14  2006/05/08 10:56:58  dkrajzew
+// beautifying: removed dead code
+//
 // Revision 1.13  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -144,9 +150,6 @@ public:
 
         /// returns the id of the object as known to microsim
         const std::string &microsimID() const;
-
-        /// Needed to set the id
-        friend class GUIGlObjectStorage;
 
         /// Returns the information whether this detector is still active
         bool active() const;

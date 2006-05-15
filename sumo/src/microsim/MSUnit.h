@@ -41,9 +41,7 @@
 class MSUnit
 {
 public:
-    typedef SUMOReal Meters;
     typedef SUMOReal Seconds;
-    typedef SUMOReal Cells;
     typedef SUMOReal Steps;
     typedef unsigned int IntSteps;
     typedef SUMOReal MetersPerSecond;
@@ -85,21 +83,6 @@ public:
     Steps getSteps( Seconds seconds ) const
         {
             return static_cast<Steps>( seconds / secondsPerStepM );
-        }
-
-    Meters getMeters( Cells cells ) const
-        {
-            return static_cast<Meters>( cells * metersPerCellM );
-        }
-
-    Cells getIntegerCells( Meters meters ) const
-        {
-            return static_cast<Cells>( floor( meters / metersPerCellM ) );
-        }
-
-    Cells getCells( Meters meters ) const
-        {
-            return static_cast<Cells>( meters / metersPerCellM );
         }
 
     MetersPerSecond getMetersPerSecond( CellsPerStep cellsPerStep ) const
@@ -158,8 +141,8 @@ private:
     const MetersPerCell metersPerCellM;
     const SecondsPerStep secondsPerStepM;
     static MSUnit* instanceM;
-    static const Meters oneKM;
-    static const Seconds oneHour;
+    static const SUMOReal oneKM;
+    static const SUMOReal oneHour;
 };
 
 

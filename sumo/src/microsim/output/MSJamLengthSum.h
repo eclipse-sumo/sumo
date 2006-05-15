@@ -149,7 +149,7 @@ protected:
                 }
             }
             assert (distSum >= 0);
-            return MSUnit::getInstance()->getMeters( distSum );
+            return distSum;
         }
 
     static std::string getDetectorName( void )

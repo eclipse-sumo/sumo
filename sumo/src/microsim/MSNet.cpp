@@ -23,6 +23,12 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.77  2006/05/15 05:53:13  dkrajzew
+// got rid of the cell-to-meter conversions
+//
+// Revision 1.77  2006/05/08 11:07:45  dkrajzew
+// got rid of the cell-to-meter conversions
+//
 // Revision 1.76  2006/03/27 07:25:55  dkrajzew
 // added projection information to the network
 //
@@ -487,7 +493,6 @@ using namespace std;
  * ======================================================================= */
 MSNet* MSNet::myInstance = 0;
 SUMOReal MSNet::myDeltaT = 1;
-SUMOReal MSNet::myCellLength = 1;
 
 
 /* =========================================================================
@@ -778,7 +783,7 @@ MSNet::simulationStep( SUMOTime start, SUMOTime step )
     myEdges->changeLanes();
 
     // check whether the tls shall be switched
-    myLogics->check2Switch();
+    myLogics->check2Switch(myStep);
 
     if(MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions( step );

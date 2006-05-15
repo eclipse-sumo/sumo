@@ -21,6 +21,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.15  2006/05/15 05:49:29  dkrajzew
+// got rid of the cell-to-meter conversions
+//
+// Revision 1.15  2006/05/08 10:54:42  dkrajzew
+// got rid of the cell-to-meter conversions
+//
 // Revision 1.14  2006/04/11 10:56:32  dkrajzew
 // microsimID() now returns a const reference
 //
@@ -121,10 +127,10 @@ public:
 
     /// Constructor
     GUI_E2_ZS_CollectorOverLanes( std::string id, DetectorUsage usage,
-        MSLane* lane, MSUnit::Meters startPos,
-        MSUnit::Seconds haltingTimeThreshold,
+        MSLane* lane, SUMOReal startPos,
+        SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Meters jamDistThreshold,
+        SUMOReal jamDistThreshold,
         SUMOTime deleteDataAfterSeconds);
 
     /// Destructor

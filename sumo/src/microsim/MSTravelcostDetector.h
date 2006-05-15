@@ -193,12 +193,12 @@ public:
                 << "\" end=\"" << timeInSeconds << ">\n";
             for ( EdgeLaneCostContIt elc = edgeLaneCostsM.begin();
                   elc != edgeLaneCostsM.end(); ++elc ) {
-                ofs << "  <edge id=\"" << elc->first->id() << "\">\n";
+                ofs << "  <edge id=\"" << elc->first->getID() << "\">\n";
                 for ( laneCostContIt lc = elc->second.begin();
                       lc != elc->second.end(); ++lc ) {
                     MSLane* lane = lc->first;
                     Cost*   cost = lc->second;
-                    ofs << "    <lane id=\"" << lane->id() << "\" "
+                    ofs << "    <lane id=\"" << lane->getID() << "\" "
                         << cost->getXMLOutput( intervalInSteps )
                         << "/>\n";
                 }
@@ -236,11 +236,8 @@ protected:
                       laneIt != lanes->end(); ++laneIt ){
                     MSLane* lane = *laneIt;
                     // create detector for lane
-                    std::string id = Cost::getNamePrefix() + "_" + lane->id();
-                    Cost* cost = new Cost( id,
-                                           lane,
-                                           0, MSNet::getMeters(lane->length()),
-                                           maxIntervalInSeconds );
+                    std::string id = Cost::getNamePrefix() + "_" + lane->getID();
+                    Cost* cost = new Cost( id, lane, 0, lane->length(), maxIntervalInSeconds );
                     lc.push_back( std::make_pair( lane, cost ) );
                 }
                 edgeLaneCostsM.push_back( std::make_pair( *edge, lc ) );

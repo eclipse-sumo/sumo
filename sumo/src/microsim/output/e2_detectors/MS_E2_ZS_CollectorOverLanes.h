@@ -20,6 +20,12 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/05/15 05:47:50  dkrajzew
+// got rid of the cell-to-meter conversions
+//
+// Revision 1.11  2006/05/08 10:54:42  dkrajzew
+// got rid of the cell-to-meter conversions
+//
 // Revision 1.10  2006/04/11 10:59:06  dkrajzew
 // all structures now return their id via getID()
 //
@@ -84,17 +90,17 @@ public:
 
 	/// Constructor
     MS_E2_ZS_CollectorOverLanes( std::string id,
-        DetectorUsage usage, MSLane* lane, MSUnit::Meters startPos,
-        MSUnit::Seconds haltingTimeThreshold,
+        DetectorUsage usage, MSLane* lane, SUMOReal startPos,
+        SUMOReal haltingTimeThreshold,
         MSUnit::MetersPerSecond haltingSpeedThreshold,
-        MSUnit::Meters jamDistThreshold,
+        SUMOReal jamDistThreshold,
         SUMOTime deleteDataAfterSeconds);
 
 	/** @brief Builds the consecutive E2-detectors
 		This is not done within the constructor to allow overriding of
 		most functions but the building of detectors itself which in fact
 		is depending on whether the normal or the gui-version is used */
-    void init(MSLane *lane, MSUnit::Meters detLength,
+    void init(MSLane *lane, SUMOReal detLength,
         const MSEdgeContinuations &edgeContinuations);
 
 	/// Destructor
@@ -104,7 +110,7 @@ public:
     SUMOReal getCurrent( E2::DetType type );
 
 	/// Returns this detector's aggregated value for the given measure
-    SUMOReal getAggregate( E2::DetType type, MSUnit::Seconds lastNSeconds );
+    SUMOReal getAggregate( E2::DetType type, SUMOReal lastNSeconds );
 
 	/// Returns the information whether the given type is computed
     bool hasDetector( E2::DetType type );
@@ -174,7 +180,7 @@ public:
     //@}
 
 	/// Returns this detector's length
-    MSUnit::Meters getLength() const {
+    SUMOReal getLength() const {
         return myLength;
     }
 
@@ -199,10 +205,10 @@ protected:
 
 protected:
 	/// The position the collector starts at
-    MSUnit::Meters startPosM;
+    SUMOReal startPosM;
 
 	/// The length of the collector
-    MSUnit::Meters myLength;
+    SUMOReal myLength;
 
 	/// The information for how many seconds data shall be saved
     SUMOTime deleteDataAfterSecondsM;
@@ -214,7 +220,7 @@ protected:
     MSUnit::CellsPerStep haltingSpeedThresholdM;
 
 	/// Describes how long a jam must be before being recognized
-    MSUnit::Cells jamDistThresholdM;
+    SUMOReal jamDistThresholdM;
 
 	/// Definition of a lane storage
     typedef std::vector<MSLane*> LaneVector;

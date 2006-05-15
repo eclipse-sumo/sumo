@@ -20,6 +20,12 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.61  2006/05/15 05:53:13  dkrajzew
+// got rid of the cell-to-meter conversions
+//
+// Revision 1.61  2006/05/08 11:07:45  dkrajzew
+// got rid of the cell-to-meter conversions
+//
 // Revision 1.60  2006/03/27 07:25:55  dkrajzew
 // added projection information to the network
 //
@@ -486,19 +492,6 @@ public:
         return myDeltaT;
     }
 
-
-    /**
-     * Get the models cellLength in meter
-     *
-     *
-     * @return The model's cellLength in meter
-     */
-    static SUMOReal getCellLength( void )
-        {
-            return myCellLength;
-        }
-
-
     /** @brief Returns the current simulation time in seconds.
         Current means start-time plus runtime. */
     SUMOTime simSeconds() {
@@ -547,22 +540,12 @@ public:
 
     static SUMOReal getMeterPerSecond( SUMOReal cellsPerTimestep )
         {
-            return cellsPerTimestep * myCellLength / myDeltaT;
-        }
-
-    static SUMOReal getMeters( SUMOReal cells )
-        {
-            return cells * myCellLength;
-        }
-
-    static SUMOReal getCells( SUMOReal meter )
-        {
-            return meter / myCellLength;
+            return cellsPerTimestep / myDeltaT;
         }
 
     static SUMOReal getVehPerKm( SUMOReal vehPerCell )
         {
-            return (SUMOReal) (vehPerCell * 1000.0 / myCellLength);
+            return (SUMOReal) (vehPerCell * 1000.0);
         }
 
     static SUMOReal getVehPerHour( SUMOReal vehPerStep )
@@ -687,9 +670,6 @@ protected:
 
     /// Timestep [sec]
     static SUMOReal myDeltaT;
-
-    /// CellLength [m]. Is 1 for space-continous models like SK
-    static SUMOReal myCellLength;
 
     /// Current time step.
     SUMOTime myStep;

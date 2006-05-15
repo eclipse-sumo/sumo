@@ -77,7 +77,7 @@ public:
         )
         : MSMoveReminder(  crossSection.laneM, id )
           , collectorM( collector )
-          , posM( MSUnit::getInstance()->getCells( crossSection.posM ) )
+          , posM(crossSection.posM)
         {}
 
     bool isStillActive(
@@ -173,7 +173,7 @@ private:
         }
 
     MSE1Collector& collectorM;
-    MSUnit::Cells posM;
+    SUMOReal posM;
 };
 
 namespace Detector
