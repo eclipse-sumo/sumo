@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/05/16 08:14:23  dkrajzew
+// debugging
+//
 // Revision 1.12  2005/10/07 11:46:34  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -219,6 +222,7 @@ LineReader::readLine()
                 _read += 1024;
             } else {
                 toReport = _strBuffer;
+                _rread += 1024; // toReport.length()
                 moreAvailable = false;
                 if(toReport=="") {
                    return toReport;
