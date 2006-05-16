@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/05/16 07:48:29  dkrajzew
+// code beautifying
+//
 // Revision 1.7  2005/10/07 11:36:48  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -93,8 +96,7 @@ public:
 
 private:
     /// Function to draw the link rules
-    void drawLinkRules(const GUINet &net,
-        const GUILaneWrapper &lane);
+    void drawLinkRules(const GUINet &net, const GUILaneWrapper &lane);
 
     /// Function to draw the direction arrows
     void drawArrows(const GUILaneWrapper &lane);

@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.11  2006/05/16 07:48:29  dkrajzew
+// code beautifying
+//
 // Revision 1.10  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -111,8 +114,7 @@ private:
     virtual void initStep();
 
     /// Function that realises the drawing of lik rules
-    virtual void drawLinkRules(const GUINet &net,
-        const GUILaneWrapper &lane) = 0;
+    virtual void drawLinkRules(const GUINet &net, const GUILaneWrapper &lane) = 0;
 
     void initTexture(size_t no);
 
