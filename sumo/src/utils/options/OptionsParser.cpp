@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/05/16 08:15:08  dkrajzew
+// catching empty parameters patched
+//
 // Revision 1.8  2006/01/16 13:38:23  dkrajzew
 // help and error handling patched
 //
@@ -256,9 +259,19 @@ OptionsParser::processNonBooleanSingleSwitch(OptionsCont *oc, char *arg)
 {
     bool error = false;
     if(arg[1]=='=') {
-        error = !oc->set(convert(arg[0]), string(arg+2));
+        if(strlen(arg)<3) {
+            MsgHandler::getErrorInstance()->inform("Missing value for parameter '" + string(arg).substr(0, 1) + "'.");
+            error = true;
+        } else {
+            error = !oc->set(convert(arg[0]), string(arg+2));
+        }
     } else {
-        error = !oc->set(convert(arg[0]), string(arg+1));
+        if(strlen(arg)<2) {
+            MsgHandler::getErrorInstance()->inform("Missing value for parameter '" + string(arg) + "'.");
+            error = true;
+        } else {
+            error = !oc->set(convert(arg[0]), string(arg+1));
+        }
     }
     if(error) {
         return -1;
