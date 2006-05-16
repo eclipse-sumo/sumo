@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/05/16 08:13:54  dkrajzew
+// error on empty name patched
+//
 // Revision 1.8  2006/01/09 13:30:28  dkrajzew
 // debugging
 //
@@ -131,6 +134,9 @@ char gBuf[BUF_MAX];
 bool
 FileHelpers::exists(string path)
 {
+    if(path.length()==0) {
+        return false;
+    }
     while(path.at(path.length()-1)=='/'||path.at(path.length()-1)=='\\') {
         path.erase(path.end()-1);
     }
