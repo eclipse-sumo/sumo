@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.32  2006/05/16 08:11:36  dkrajzew
+// spelling patched
+//
 // Revision 1.31  2006/05/15 05:57:06  dkrajzew
 // added consective process messages
 //
@@ -368,7 +371,7 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
         //  unbuild routes due to missing connections are reported within the
         //  router
         if(current->size()!=0) {
-            mh->inform("The route '" + routeDef->getID() + "' is too short, propably ending at the starting edge.");
+            mh->inform("The route '" + routeDef->getID() + "' is too short, probably ending at the starting edge.");
             WRITE_WARNING("Skipping...");
         }
         delete current;

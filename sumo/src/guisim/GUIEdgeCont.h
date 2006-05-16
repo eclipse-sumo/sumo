@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.6  2006/05/16 08:11:36  dkrajzew
+// spelling patched
+//
 // Revision 1.5  2005/10/07 11:37:17  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -56,7 +59,7 @@ class GUIEdge;
  * class definitions
  * ======================================================================= */
 /**
- * This is simply a std::vector of GUIEdges; It propably should be changed
+ * This is simply a std::vector of GUIEdges; It probably should be changed
  * to "GUIEdgeVector" !!!
  */
 typedef std::vector<GUIEdge*> GUIEdgeCont;

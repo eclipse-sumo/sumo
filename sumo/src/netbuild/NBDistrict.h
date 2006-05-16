@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/05/16 08:11:36  dkrajzew
+// spelling patched
+//
 // Revision 1.12  2006/04/18 08:14:30  dkrajzew
 // removed not needed members
 //
@@ -127,7 +130,7 @@ public:
         Throws an exception when a center was already given */
     void setCenter(SUMOReal x, SUMOReal y);
 
-    /** @brief normalises the districts connection usage propabilities */
+    /** @brief normalises the districts connection usage probabilities */
     void normalise(DoubleVector &dv, size_t num);
 
     /// replaces incoming edges from the vector (sinks) by the given edge

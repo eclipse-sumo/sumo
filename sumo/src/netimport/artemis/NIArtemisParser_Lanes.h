@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.6  2006/05/16 08:11:36  dkrajzew
+// spelling patched
+//
 // Revision 1.5  2005/10/07 11:39:05  dkrajzew
 // THIRD LARGE CODE RECHECK: patched problems on Linux/Windows configs
 //
@@ -78,7 +81,7 @@ protected:
     void myDependentReport();
 
     /** @brief Called after loading all segment definitions
-        Inserts lane definitions into the edges, propably splitting them */
+        Inserts lane definitions into the edges, probably splitting them */
     void myClose();
 
 protected:

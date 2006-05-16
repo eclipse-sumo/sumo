@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.26  2006/05/16 08:11:36  dkrajzew
+// spelling patched
+//
 // Revision 1.25  2006/03/27 07:28:43  dkrajzew
 // edge types may now store the edge function
 //
@@ -283,7 +286,7 @@ NIXMLEdgesHandler::myStartElement(int element, const std::string &tag,
             }
         } catch (...) {
             addError(
-                "Important information (propably the source or the destination node) missing in edge '"
+                "Important information (probably the source or the destination node) missing in edge '"
 				+ myCurrentID + "'.");
         }
     }
