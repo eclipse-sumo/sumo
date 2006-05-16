@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/05/16 07:47:26  dkrajzew
+// debugged loop removal
+//
 // Revision 1.16  2006/04/18 08:15:49  dkrajzew
 // removal of loops added
 //
@@ -193,7 +196,7 @@ RONetHandler::parseEdge(const Attributes &attrs)
             RONode *n = new RONode(to);
             _net.addNode(n);
         }
-        _currentEdge->setNodes(_net.getNode(from), _net.getNode(from));
+        _currentEdge->setNodes(_net.getNode(from), _net.getNode(to));
     } catch (EmptyData) {
         MsgHandler::getErrorInstance()->inform("An edge without an id occured within '" + _file + ".");
     }

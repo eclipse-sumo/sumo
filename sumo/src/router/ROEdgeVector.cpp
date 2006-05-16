@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/05/16 07:47:26  dkrajzew
+// debugged loop removal
+//
 // Revision 1.16  2006/04/18 08:15:49  dkrajzew
 // removal of loops added
 //
@@ -288,9 +291,9 @@ ROEdgeVector::recheckForLoops()
         bool found = false;
         for(int i=_edges.size()-1; i>=0; i--) {
             for(int j=i-1; j>=0; j--) {
-                if(isTurnaround(_edges[i], _edges[j])&&lastReversed>i) {
+                if(isTurnaround(_edges[i], _edges[j])&&lastReversed>j) {
 //                    cout << endl << _edges[i]->getID() << " " << _edges[j]->getID() << endl;
-                    lastReversed = i;
+                    lastReversed = j;
                     found = true;
                 }
             }
