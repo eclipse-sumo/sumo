@@ -69,6 +69,15 @@
 -->
 </ul>
 
+<hr class="thin"/>
+
+<center><b>Documentation from other contributors</b></center>
+<ul>
+	<li><a class="SUMOInLineLink" href="http://www.auto-nomos.de/sumodoku/">Doxygen Class Documentation</a><br>
+		A daily refreshed doxygen class documentation. Contributed by the <a class="SUMOInLineLink" href="http://www.itm.uni-luebeck.de/index.html">Institute of Telematics at the L&uuml;beck University</a>.<br>
+		It comes with a <a class="SUMOInLineLink" href="http://www.auto-nomos.de/sumodoku/sumo_doxygen_lastrun.log">Log-file</a> for those who want to add some missing documentation.<br><br>
+
+
 </p>
 
 <!-- End of Text area -->
