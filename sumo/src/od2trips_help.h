@@ -21,6 +21,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.16  2006/05/17 06:04:58  dkrajzew
+// new version of OD2TRIPS described
+//
 // Revision 1.15  2006/01/16 13:38:22  dkrajzew
 // help and error handling patched
 //
@@ -73,8 +76,8 @@ char *help[] = {
     " Input files and pathes:",
     "   -c, --configuration-file FILE  FILE will be used as configuration",
     "   -n, --net-file FILE            Net definitions in XML-format",
-    "   -d, --od-file FILE             Meta file (VISSIM) *.inp",
-    "   -i, --od-path PATH             Path to OD input files *.fma",
+    "   -d, --od-files FILE[;FILE]*    Matrices to read",
+    "   --vissim FILE                  Vissim file to read matrix list from",
     " ",
     " Output files:",
     "   -o, --output-file FILE         The generated trip table will be written"
@@ -83,16 +86,20 @@ char *help[] = {
     " Processing Options:",
     "   -b, --begin INT                Time to begin with (in s)",
     "   -e, --end INT                  Time to end with (in s)",
-    "   -s, --scale FLOAT              Norming factor",
-    "                                   The number of trips is =",
-    "                                           number of read/factor",
-    "   --no-color                     Suppresses color saving.",
+    "   -s, --scale FLOAT              Amount factor",
+    "   --spread.uniform               Spreads departure times uniformly",
+    "   --vtype STRING                 Adds name vehicle type info to vehicles",
+    "   --prefix STRING                Prepends given string to vehicle names",
+    "   --no-color                     Does not add color information to vehicles",
+    " ",
+    "   --timeline.day-in-hours        Given timeline describes each hour of a day",
+    "   --timeline                     The timeline to split the cells by",
     " ",
     " Random Number Options:",
-    "   --srand INT                 Initialises the random number generator",
-    "                                 with the given value",
-    "   --abs-rand                  Set this when the current time shall be",
-    "                                 used for random number initialisation",
+    "   --srand INT                   Initialises the random number generator",
+    "                                   with the given value",
+    "   --abs-rand                    Set this when the current time shall be",
+    "                                   used for random number initialisation",
     " Report options:",
     "   -v, --verbose                  SUMO-OD2TRIPS will report what it does",
     "   -W, --suppress-warnings        No warnings will be printed",

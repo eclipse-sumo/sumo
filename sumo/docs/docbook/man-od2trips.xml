@@ -43,11 +43,12 @@
   <refsect1>
     <title>DESCRIPTION</title>
 
-    <para><application>od2trips</application> obtains a network generated from
-    a Vissim or a Visum-network and a set of od-files stored in Vissim/Visum
-    format. This information is used to generate single vehicle trips by
-    dividing the od-matrix into the amounts of vehicles with a certain origin
-    and destination and writing each of such vehicle trip information into the
+    <para><application>od2trips</application> obtains either a network
+    generated from a Vissim or a Visum-network or a manually generated
+    district table, and a set of od-files stored in Vissim/Visum format. This
+    information is used to generate single vehicle trips by dividing the
+    od-matrix into the amounts of vehicles with a certain origin and
+    destination and writing each of these vehicle trip information into the
     named output file.</para>
   </refsect1>
 
@@ -77,7 +78,7 @@
         </varlistentry>
 
         <varlistentry>
-          <term>( --net-file | -n ) <replaceable
+          <term>( --net-file | --net | -n ) <replaceable
           class="parameter">&lt;SUMO_NET_FILE&gt;</replaceable></term>
 
           <listitem>
@@ -87,23 +88,22 @@
         </varlistentry>
 
         <varlistentry>
-          <term>( --od-file | -d ) <replaceable
-          class="parameter">&lt;VISSIM_NETWORK_FILE&gt;</replaceable></term>
+          <term>( --od-files | --od | -d ) <replaceable
+          class="parameter">&lt;OD_FILE&gt;[;&lt;OD_FILE&gt;]*</replaceable></term>
 
           <listitem>
-            <para>The meta file (VISSIM, *.inp) which contains the definition
-            about which matrices shall be processed. <remark>Optional,
-            type:filename, default: none</remark></para>
+            <para>A list of matrices to read. <remark>Optional, type:filename,
+            default: none</remark></para>
           </listitem>
         </varlistentry>
 
         <varlistentry>
-          <term>( --od-path | -i ) <replaceable
-          class="parameter">&lt;MATRICES_PATH&gt;</replaceable></term>
+          <term>--vissim <replaceable
+          class="parameter">&lt;VISSIM_SIMULATION_FILE&gt;</replaceable></term>
 
           <listitem>
-            <para>Path to OD input files *.fma. <remark>Optional,
-            type:filename, default: none</remark></para>
+            <para>The Vissim-network to read the list of matrices from.
+            <remark>Optional, type:filename, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
@@ -131,6 +131,37 @@
 
       <variablelist>
         <varlistentry>
+          <term>--vtype
+          <replaceable>&lt;VEHICLE_TYPE_NAME&gt;</replaceable></term>
+
+          <listitem>
+            <para>Will force OD2TRIPS to add the given type information to the
+            generated trips. <remark>Optional, type:string, default:
+            none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--prefix
+          <replaceable>&lt;VEHICLE_NAME_PREFIX</replaceable><replaceable>&gt;</replaceable></term>
+
+          <listitem>
+            <para>Will prepend the given prefix to the vehicle names.
+            <remark>Optional, type:string, default: none</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--spread.uniform</term>
+
+          <listitem>
+            <para>Will spread vehicle departures uniformly over each cell's
+            period. <remark>Optional (pregiven), type:bool; default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
           <term>( --scale | -s ) <replaceable
           class="parameter">&lt;SCALE&gt;</replaceable></term>
 
@@ -147,6 +178,32 @@
           <listitem>
             <para>Disables color building. <remark>Optional (pregiven),
             type:bool, default: false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--timeline.day-in-hours</term>
+
+          <listitem>
+            <para>Says OD2TRIPS that the timeline is a list of amount per
+            hour. <remark>Optional (pregiven), type:bool; default:
+            false</remark></para>
+          </listitem>
+        </varlistentry>
+
+        <varlistentry>
+          <term>--timeline
+          <replaceable>&lt;TIMELINE_DEFINITION&gt;</replaceable></term>
+
+          <listitem>
+            <para>If --timeline.day-in-hours is set, the string should contain
+            24 floating point values, divided by ';', each describing the
+            probability with which a vehicle is emitted into the network
+            during the according hour. Otherwise, the string should contain a
+            list of time/probability pairs, divided by ';', each describing
+            the begin time and the probability for the interval defined by
+            this and the next entry. Time and probability are divided by ','.
+            <remark>Optional, type: string, default: none</remark></para>
           </listitem>
         </varlistentry>
       </variablelist>
