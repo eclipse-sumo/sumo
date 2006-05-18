@@ -23,6 +23,12 @@ AM_PROG_LIBTOOL
 
 
 dnl Check for enable-features that shall go into config.h
+AC_ARG_ENABLE(rpc,
+              [  --enable-rpc          enable compilation of rpc features [default=no].],
+              [AC_DEFINE(_RPC, 1,
+                         [Define to 1 in order to enable sumo debugging code.])
+	      ])
+	      
 AC_ARG_ENABLE(geomcheck,
               [  --enable-geomcheck          enable compilation of geometry checks [default=no].],
               [AC_DEFINE(CHECK_UNIQUE_POINTS_GEOMETRY, 1,

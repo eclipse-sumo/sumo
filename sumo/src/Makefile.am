@@ -16,6 +16,7 @@ sumo-od2trips $(GUI_APPS)
 EXTRA_PROGRAMS =
 
 sumo_SOURCES = sumo_main.cpp sumo_help.h \
+RemoteServer.h \
 sumo_version.cpp sumo_version.h sumo_build.h
 
 sumo_LDFLAGS = -L$(XERCES_LDFLAGS)

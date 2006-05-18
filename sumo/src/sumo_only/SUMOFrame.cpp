@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.44  2006/05/18 13:09:14  awegener
+// *** empty log message ***
+//
 // Revision 1.43  2006/05/15 05:58:08  dkrajzew
 // debugging saving/loading of states
 //
@@ -294,6 +297,9 @@ SUMOFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("track", new Option_Float(0.));
 
     //
+
+	//remote port 0 if not used 
+	oc.doRegister("remote-port", new Option_Integer(0));
 
     // add rand and dev options
     RandHelper::insertRandOptions(oc);

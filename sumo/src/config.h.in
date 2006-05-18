@@ -1,5 +1,11 @@
 /* src/config.h.in.  Generated from configure.in by autoheader.  */
 
+/* Undefine in order to enable memory checks. */
+#undef CHECK_MEMORY_LEAKS
+
+/* Undefine in order to enable geometry checking. */
+#undef CHECK_UNIQUE_POINTS_GEOMETRY
+
 /* Define to 1 in order to disable inlining. */
 #undef DISABLE_INLINE
 
@@ -69,6 +75,9 @@
 
 /* Define to 1 in order to enable sumo debugging code. */
 #undef _DEBUG
+
+/* Define to 1 in order to enable sumo debugging code. */
+#undef _RPC
 
 /* Define to 1 in order to enable simulation-speed checking. */
 #undef _SPEEDCHECK

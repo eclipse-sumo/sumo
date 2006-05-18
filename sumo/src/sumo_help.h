@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.22  2006/05/18 13:09:14  awegener
+// *** empty log message ***
+//
 // Revision 1.21  2006/01/31 11:04:10  dkrajzew
 // debugging
 //
@@ -191,6 +194,11 @@ char *help[] = {
     "   -p, --print-options             Prints option values before processing",
     "   -?, --help                      This screen",
     "   --version                       Prints the program version",
+    " ",
+    " ",
+    " RemoteServer Options:",
+    "   --remote-port                   server port(inital value is 0 if not used)",
+    
     0
 };
 

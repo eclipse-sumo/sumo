@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.41  2006/05/18 13:09:14  awegener
+// *** empty log message ***
+//
 // Revision 1.40  2006/01/16 13:38:22  dkrajzew
 // help and error handling patched
 //
@@ -233,6 +236,9 @@ namespace
 #endif
 #endif // HAVE_CONFIG_H
 
+// ITM Features
+//#define _RPC
+
 #include <ctime>
 #include <string>
 #include <iostream>
@@ -267,6 +273,11 @@ namespace
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/iodevices/SharedOutputDevices.h>
 #include <utils/common/HelpPrinter.h>
+
+#ifdef _RPC
+#include <RemoteServer.h>
+//class RemoteServer;
+#endif
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -317,6 +328,7 @@ load(OptionsCont &oc)
 int
 main(int argc, char **argv)
 {
+
     size_t rand_init = 10551;
     int ret = 0;
 #ifndef _DEBUG
@@ -344,18 +356,36 @@ main(int argc, char **argv)
         }
         // retrieve the options
         OptionsCont &oc = OptionsSubSys::getOptions();
+
         // load the net
-        MSNet *net = load(oc);
-        if(net!=0) {
-            // report the begin when wished
-            WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("b")));
-            // simulate
-            net->simulate(oc.getInt("b"), oc.getInt("e"));
-            // report the end when wished
-            WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
-            delete net;
-            delete SharedOutputDevices::getInstance();
-        }
+		MSNet *net = load(oc);
+	if(net!=0) {
+#ifdef _RPC
+		if (oc.getInt("remote-port") != 0)
+		{
+			cout <<endl<< "oc.remote-port: " <<oc.getInt("remote-port")<< endl;
+			cout <<"Run from "<<oc.getInt("b")<<" To 0"<<endl;
+			net->simulate(oc.getInt("b"), 0);
+			cout << "Done!"<<endl;
+			RemoteServer *rs = new RemoteServer(oc.getInt("remote-port"),oc.getInt("e"));
+		}
+		else
+		{
+#endif
+			// reporto the begin when wished
+			WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("b")));
+			// simulate
+			net->simulate(oc.getInt("b"), oc.getInt("e"));
+			// report the end when wished
+			WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
+#ifdef _RPC
+		}
+#endif
+	delete net;
+	delete SharedOutputDevices::getInstance();
+	}
+
+
 #ifndef _DEBUG
     } catch (...) {
         MSNet::clearAll();
