@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.23  2006/05/19 12:34:19  awegener
+// --remote-port added
+//
 // Revision 1.22  2006/05/18 13:09:14  awegener
 // *** empty log message ***
 //
@@ -197,7 +200,7 @@ char *help[] = {
     " ",
     " ",
     " RemoteServer Options:",
-    "   --remote-port                   server port(inital value is 0 if not used)",
+    "   --remote-port INT               Server port for remote controlled simulation runs",
     
     0
 };
