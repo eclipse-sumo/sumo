@@ -331,6 +331,81 @@ fi
 GDAL_INCLUDES="$ac_gdal_includes"
 AC_SUBST(GDAL_INCLUDES)
 
+dnl - - - - - - - - - - - - - - - - - - - - - - -
+dnl  ... for XmlRpc++
+dnl   ... for libs
+AC_ARG_WITH(xmlrpc-libraries,
+    [  --with-xmlrpc-libraries=DIR where the XmlRpc++ library is installed.],
+    [  ac_xmlrpc_libraries="$withval"
+    ])
+
+AC_MSG_CHECKING([for xmlrpc-libraries])
+if test x"$ac_xmlrpc_libraries" = x; then
+   if test -e /usr/lib/libXmlRpc.a; then
+      AC_MSG_RESULT([yes])
+      ac_xmlrpc_lib_path=/usr/lib
+      ac_xmlrpclib=xmlrpc
+   elif test -e /usr/local/lib/libXmlRpc.a; then
+      AC_MSG_RESULT([yes])
+      ac_xmlrpc_lib_path=/usr/local/lib
+      ac_xmlrpclib=xmlrpc
+   elif test -e /usr/local/lib/xmlrpc/libXmlRpc.a; then
+      AC_MSG_RESULT([yes])
+      ac_xmlrpc_lib_path=/usr/local/lib/xmlrpc
+      ac_xmlrpclib=xmlrpc
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_RESULT([xmlrpc-lib not found.])
+      AC_MSG_RESULT([Specify path with option --with-xmlrpc-libraries=DIR.])
+   fi
+else
+   if test -e "$ac_xmlrpc_libraries/libXmlRpc.a"; then
+      AC_MSG_RESULT([yes])
+      ac_xmlrpc_lib_path="$ac_xmlrpc_libraries"
+      ac_xmlrpclib=xmlrpc
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([xmlrpc-lib not found in "$ac_xmlrpc_libraries".])
+   fi
+fi
+XMLRPC_LDFLAGS="$ac_xmlrpc_lib_path"
+AC_SUBST(XMLRPC_LDFLAGS)
+LIB_XMLRPC="$ac_xmlrpclib"
+AC_SUBST(LIB_XMLRPC)
+
+dnl   ... for includes
+AC_ARG_WITH(xmlrpc-includes,
+    [  --with-xmlrpc-includes=DIR  where the XmlRpc++ includes are. ],
+    [
+       ac_xmlrpc_includes="$withval"
+    ])
+AC_MSG_CHECKING([for xmlrpc-includes])
+if test x"$ac_xmlrpc_includes" = x; then
+   if test -e /usr/local/include/xmlrpc/XmlRpc.h; then
+      AC_MSG_RESULT([yes])
+      ac_xmlrpc_includes=/usr/local/include/xmlrpc
+   elif test -e /usr/include/XmlRpc.h; then
+      AC_MSG_RESULT([yes])
+      ac_xmlrpc_includes=/usr/include
+   elif test -e /usr/local/include/XmlRpc.h; then
+      AC_MSG_RESULT([yes])
+      ac_xmlrpc_includes=/usr/local/include
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_RESULT([xmlrpc-includes not found.])
+      AC_MSG_RESULT([Specify path with option --with-xmlrpc-includes=DIR.])
+   fi
+else
+   if test -e "$ac_xmlrpc_includes/XmlRpc.h"; then
+      AC_MSG_RESULT([yes])
+   else
+      AC_MSG_RESULT([no])
+      AC_MSG_ERROR([gdal-includes not found in "$ac_gdal_includes".])
+   fi
+fi
+XMLRPC_INCLUDES="$ac_xmlrpc_includes"
+AC_SUBST(XMLRPC_INCLUDES)
+
 
 dnl ---------------------------------------------
 

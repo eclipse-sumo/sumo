@@ -19,7 +19,7 @@ sumo_SOURCES = sumo_main.cpp sumo_help.h \
 RemoteServer.h \
 sumo_version.cpp sumo_version.h sumo_build.h
 
-sumo_LDFLAGS = -L$(XERCES_LDFLAGS)
+sumo_LDFLAGS = -L$(XERCES_LDFLAGS) 
 
 sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/libmicrosim.a \
@@ -45,7 +45,8 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./utils/iodevices/libiodevices.a \
 ./utils/common/SUMOVehicleClass.o \
 $(MEM_LIBS) \
--l$(LIB_XERCES)
+$(XMLRPC_LDFLAGS)/libXmlRpc.a \
+-l$(LIB_XERCES) 
 
 
 
