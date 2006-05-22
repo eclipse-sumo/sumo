@@ -22,6 +22,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.80  2006/05/22 13:27:15  dkrajzew
+// debugged phone device usage
+//
 // Revision 1.79  2006/05/15 05:50:40  dkrajzew
 // began with the extraction of the car-following-model from MSVehicle
 //
@@ -611,9 +614,11 @@ MSVehicle::~MSVehicle()
         // devices
     {
         // cell phones
-        size_t no = (size_t) myDoubleCORNMap[(MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE];
-        for(size_t np=0; np<no; np++) {
-    	    delete ((MSDevice_CPhone*) myPointerCORNMap[(MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np)]);
+        if(myDoubleCORNMap.find((MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE)!=myDoubleCORNMap.end()) {
+            size_t no = (size_t) myDoubleCORNMap[(MSCORN::Function) MSCORN::CORN_VEH_DEV_NO_CPHONE];
+            for(size_t np=0; np<no; np++) {
+        	    delete ((MSDevice_CPhone*) myPointerCORNMap[(MSCORN::Pointer) (MSCORN::CORN_P_VEH_DEV_CPHONE+np)]);
+            }
         }
     }
     delete myLaneChangeModel;

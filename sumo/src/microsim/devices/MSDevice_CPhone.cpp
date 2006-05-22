@@ -44,10 +44,19 @@ MSDevice_CPhone::MyCommand::~MyCommand( void )
 SUMOTime
 MSDevice_CPhone::MyCommand::execute(SUMOTime currentTime)
 {
+    SUMOTime ret = 0;
     if(myAmActive) {
-        return myParent.changeState();
+        ret = myParent.changeState();
+    } else {
+        // inactivated -> the cell phone is not longer simulated
+        return 0;
     }
-    return 0;
+    // assert that this device is not removed from the event handler
+    if(ret==0) {
+        ret = 1;
+    }
+    // return the time to next call
+    return ret;
 }
 
 
@@ -73,11 +82,9 @@ MSDevice_CPhone::~MSDevice_CPhone()
     if(myCommand!=0) {
         myCommand->setInactivated();
     }
-    vector<CPhoneBroadcastCell*>::iterator iter = m_ProvidedCells.begin();
-    while(iter != m_ProvidedCells.end())
-    {
-        delete *iter;
-        iter++;
+    vector<CPhoneBroadcastCell*>::iterator i;
+    for(i=m_ProvidedCells.begin(); i!=m_ProvidedCells.end(); ++i) {
+        delete *i;
     }
 }
 
@@ -209,8 +216,7 @@ MSDevice_CPhone::onDepart()
         t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // stop telephoning after some time
         gCallID++;
     }
-    for(int i=0;i<7;i++)
-    {
+    for(int i=0; i<7; i++) {
         CPhoneBroadcastCell* TempCell = new CPhoneBroadcastCell;
         TempCell->m_CellID = 0;
         TempCell->m_LoS = -1;
