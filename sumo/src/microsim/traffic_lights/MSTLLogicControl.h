@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.13  2006/05/23 10:29:55  dkrajzew
+// added retrieval of the waut reference time
+//
 // Revision 1.12  2006/05/15 06:01:51  dkrajzew
 // added the possibility to stretch/change the current phase and consecutive phases
 //
@@ -248,129 +251,6 @@ public:
 
 protected:
     /**
-     * @class WAUTSwitchProcedure
-     * @brief This is the abstract base class for switching from one tls program to another.
-     */
-    class WAUTSwitchProcedure {
-    public:
-        /// Constructor
-        WAUTSwitchProcedure(MSTrafficLightLogic *from, MSTrafficLightLogic *to,
-            bool synchron)
-            : myFrom(from), myTo(to), mySwitchSynchron(synchron) { }
-
-        /// Destructor
-        virtual ~WAUTSwitchProcedure() { }
-
-        /** @brief Determines whether a switch is possible.
-         *
-         * If a switch shall be done, this method should return true.
-         */
-        virtual bool trySwitch(SUMOTime step) = 0;
-
-    protected:
-        /// The current program of the tls to switch
-        MSTrafficLightLogic *myFrom;
-
-        /// The program to switch the tls to
-        MSTrafficLightLogic *myTo;
-
-        /// Information whether to switch synchron (?)
-        bool mySwitchSynchron;
-
-    };
-
-
-    /**
-     * @class WAUTSwitchProcedure_JustSwitch
-     * @brief This class simply switches to the next program
-     */
-    class WAUTSwitchProcedure_JustSwitch : public WAUTSwitchProcedure {
-    public:
-        /// Constructor
-        WAUTSwitchProcedure_JustSwitch(MSTrafficLightLogic *from, MSTrafficLightLogic *to,
-            bool synchron);
-
-        /// Destructor
-        ~WAUTSwitchProcedure_JustSwitch();
-
-        /** @brief Determines whether a switch is possible.
-         *
-         * This implementation alsways returns true
-         */
-        bool trySwitch(SUMOTime step);
-
-    };
-
-
-    /**
-     * @class WAUTSwitchProcedure_GSP
-     * @brief This class switches using the GSP algorithm.
-     */
-    class WAUTSwitchProcedure_GSP : public WAUTSwitchProcedure {
-    public:
-        /// Constructor
-        WAUTSwitchProcedure_GSP(MSTrafficLightLogic *from, MSTrafficLightLogic *to,
-            bool synchron);
-
-        /// Destructor
-        ~WAUTSwitchProcedure_GSP();
-
-        /** @brief Determines whether a switch is possible.
-         */
-        bool trySwitch(SUMOTime step);
-
-    protected:
-        /// Returns the GSP-value which should be within the tls program definition
-        SUMOReal getGSPValue(MSTrafficLightLogic *from) const;
-
-    };
-
-
-    /**
-     * @class WAUTSwitchProcedure_Stretch
-     * @brief This class switches using the GSP algorithm.
-     */
-    class WAUTSwitchProcedure_Stretch : public WAUTSwitchProcedure {
-    public:
-        /// Constructor
-        WAUTSwitchProcedure_Stretch(MSTrafficLightLogic *from, MSTrafficLightLogic *to,
-            bool synchron);
-
-        /// Destructor
-        ~WAUTSwitchProcedure_Stretch();
-
-        /** @brief Determines whether a switch is possible.
-         */
-        bool trySwitch(SUMOTime step);
-
-    protected:
-        /** @struct StretchBereichDef
-         * @brief A definition of a stretch - Bereich
-         */
-        struct StretchBereichDef {
-            /// The begin of a Bereich (?)
-            SUMOReal begin;
-
-            /// The end of a Bereich (?)
-            SUMOReal end;
-
-            /// The factor of a Bereich (?)
-            SUMOReal fac;
-        };
-
-        /// Returns the number of given Stretch-Bereiche(?) for the given program
-        int getStretchBereicheNo(MSTrafficLightLogic *from) const;
-
-        /** @brief Returns the numbered Stretch-Bereich for the given program
-         *
-         * The first bereich has normally the number "1", not "0"!
-         */
-        StretchBereichDef getStretchBereichDef(MSTrafficLightLogic *from, int index) const;
-
-    };
-
-
-    /**
      * @struct WAUTSwitch
      * @brief Storage for a WAUTs switch point
      */
@@ -412,6 +292,132 @@ protected:
     };
 
     /**
+     * @class WAUTSwitchProcedure
+     * @brief This is the abstract base class for switching from one tls program to another.
+     */
+    class WAUTSwitchProcedure {
+    public:
+        /// Constructor
+        WAUTSwitchProcedure(WAUT &waut, MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+            bool synchron)
+            : myFrom(from), myTo(to), mySwitchSynchron(synchron), myWAUT(waut) { }
+
+        /// Destructor
+        virtual ~WAUTSwitchProcedure() { }
+
+        /** @brief Determines whether a switch is possible.
+         *
+         * If a switch shall be done, this method should return true.
+         */
+        virtual bool trySwitch(SUMOTime step) = 0;
+
+    protected:
+        /// The current program of the tls to switch
+        MSTrafficLightLogic *myFrom;
+
+        /// The program to switch the tls to
+        MSTrafficLightLogic *myTo;
+
+        /// Information whether to switch synchron (?)
+        bool mySwitchSynchron;
+
+        /// The WAUT responsible for switching
+        WAUT &myWAUT;
+
+    };
+
+
+    /**
+     * @class WAUTSwitchProcedure_JustSwitch
+     * @brief This class simply switches to the next program
+     */
+    class WAUTSwitchProcedure_JustSwitch : public WAUTSwitchProcedure {
+    public:
+        /// Constructor
+        WAUTSwitchProcedure_JustSwitch(WAUT &waut, MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+            bool synchron);
+
+        /// Destructor
+        ~WAUTSwitchProcedure_JustSwitch();
+
+        /** @brief Determines whether a switch is possible.
+         *
+         * This implementation alsways returns true
+         */
+        bool trySwitch(SUMOTime step);
+
+    };
+
+
+    /**
+     * @class WAUTSwitchProcedure_GSP
+     * @brief This class switches using the GSP algorithm.
+     */
+    class WAUTSwitchProcedure_GSP : public WAUTSwitchProcedure {
+    public:
+        /// Constructor
+        WAUTSwitchProcedure_GSP(WAUT &waut, MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+            bool synchron);
+
+        /// Destructor
+        ~WAUTSwitchProcedure_GSP();
+
+        /** @brief Determines whether a switch is possible.
+         */
+        bool trySwitch(SUMOTime step);
+
+    protected:
+        /// Returns the GSP-value which should be within the tls program definition
+        SUMOReal getGSPValue(MSTrafficLightLogic *from) const;
+
+    };
+
+
+    /**
+     * @class WAUTSwitchProcedure_Stretch
+     * @brief This class switches using the GSP algorithm.
+     */
+    class WAUTSwitchProcedure_Stretch : public WAUTSwitchProcedure {
+    public:
+        /// Constructor
+        WAUTSwitchProcedure_Stretch(WAUT &waut, MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+            bool synchron);
+
+        /// Destructor
+        ~WAUTSwitchProcedure_Stretch();
+
+        /** @brief Determines whether a switch is possible.
+         */
+        bool trySwitch(SUMOTime step);
+
+    protected:
+        /** @struct StretchBereichDef
+         * @brief A definition of a stretch - Bereich
+         */
+        struct StretchBereichDef {
+            /// The begin of a Bereich (?)
+            SUMOReal begin;
+
+            /// The end of a Bereich (?)
+            SUMOReal end;
+
+            /// The factor of a Bereich (?)
+            SUMOReal fac;
+        };
+
+        /// Returns the number of given Stretch-Bereiche(?) for the given program
+        int getStretchBereicheNo(MSTrafficLightLogic *from) const;
+
+        /** @brief Returns the numbered Stretch-Bereich for the given program
+         *
+         * The first bereich has normally the number "1", not "0"!
+         */
+        StretchBereichDef getStretchBereichDef(MSTrafficLightLogic *from, int index) const;
+
+    };
+
+
+    /**
      * @struct WAUTSwitchProcess
      * @brief An initialised switch process
      */
@@ -427,7 +433,7 @@ protected:
     };
 
     /// A map of ids to corresponding WAUTs
-    std::map<std::string, WAUT> myWAUTs;
+    std::map<std::string, WAUT*> myWAUTs;
 
     /// A list of currently running switching procedures
     std::vector<WAUTSwitchProcess> myCurrentlySwitched;

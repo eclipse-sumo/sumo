@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.16  2006/05/23 10:29:55  dkrajzew
+// added retrieval of the waut reference time
+//
 // Revision 1.15  2006/05/15 06:01:51  dkrajzew
 // added the possibility to stretch/change the current phase and consecutive phases
 //
@@ -121,8 +124,8 @@ using namespace std;
  * method definitions for the Switching Procedures
  * ----------------------------------------------------------------------- */
 MSTLLogicControl::WAUTSwitchProcedure_JustSwitch::WAUTSwitchProcedure_JustSwitch(
-        MSTrafficLightLogic *from, MSTrafficLightLogic *to, bool synchron)
-    : MSTLLogicControl::WAUTSwitchProcedure(from, to, synchron)
+        WAUT &waut, MSTrafficLightLogic *from, MSTrafficLightLogic *to, bool synchron)
+    : MSTLLogicControl::WAUTSwitchProcedure(waut, from, to, synchron)
 {
 }
 
@@ -144,8 +147,8 @@ MSTLLogicControl::WAUTSwitchProcedure_JustSwitch::trySwitch(SUMOTime step)
 
 
 MSTLLogicControl::WAUTSwitchProcedure_GSP::WAUTSwitchProcedure_GSP(
-        MSTrafficLightLogic *from, MSTrafficLightLogic *to, bool synchron)
-    : MSTLLogicControl::WAUTSwitchProcedure(from, to, synchron)
+        WAUT &waut, MSTrafficLightLogic *from, MSTrafficLightLogic *to, bool synchron)
+    : MSTLLogicControl::WAUTSwitchProcedure(waut, from, to, synchron)
 {
 }
 
@@ -206,8 +209,8 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::getGSPValue(MSTrafficLightLogic *from
 
 
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::WAUTSwitchProcedure_Stretch(
-        MSTrafficLightLogic *from, MSTrafficLightLogic *to, bool synchron)
-    : MSTLLogicControl::WAUTSwitchProcedure(from, to, synchron)
+        WAUT &waut, MSTrafficLightLogic *from, MSTrafficLightLogic *to, bool synchron)
+    : MSTLLogicControl::WAUTSwitchProcedure(waut, from, to, synchron)
 {
 }
 
@@ -433,10 +436,10 @@ MSTLLogicControl::addWAUT(SUMOTime refTime, const std::string &id,
     if(myWAUTs.find(id)!=myWAUTs.end()) {
         return false;
     }
-    WAUT w;
-    w.id = id;
-    w.refTime = refTime;
-    w.startProg = startProg;
+    WAUT *w = new WAUT;
+    w->id = id;
+    w->refTime = refTime;
+    w->startProg = startProg;
     myWAUTs[id] = w;
     return true;
 }
@@ -452,11 +455,11 @@ MSTLLogicControl::addWAUTSwitch(const std::string &wautid,
     WAUTSwitch s;
     s.to = to;
     s.when = when;
-    myWAUTs[wautid].switches.push_back(s);
-    if(myWAUTs[wautid].switches.size()==1) {
+    myWAUTs[wautid]->switches.push_back(s);
+    if(myWAUTs[wautid]->switches.size()==1) {
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             new SwitchInitCommand(*this, wautid),
-            when-myWAUTs[wautid].refTime, MSEventControl::NO_CHANGE);
+            when-myWAUTs[wautid]->refTime, MSEventControl::NO_CHANGE);
     }
     return true;
 }
@@ -478,10 +481,10 @@ MSTLLogicControl::addWAUTJunction(const std::string &wautid,
     j.junction = junc;
     j.procedure = proc;
     j.synchron = synchron;
-    myWAUTs[wautid].junctions.push_back(j);
+    myWAUTs[wautid]->junctions.push_back(j);
     // set the current program
     TLSLogicVariants &vars = myLogics.find(junc)->second;
-    switchTo(vars.defaultTL->getID(), myWAUTs[wautid].startProg);
+    switchTo(vars.defaultTL->getID(), myWAUTs[wautid]->startProg);
     return true;
 }
 
@@ -491,8 +494,8 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand &cmd)
 {
     const std::string &wautid = cmd.getWAUTID();
     int &index = cmd.getIndex();
-    WAUTSwitch s = myWAUTs[wautid].switches[index];
-    for(std::vector<WAUTJunction>::iterator i=myWAUTs[wautid].junctions.begin(); i!=myWAUTs[wautid].junctions.end(); ++i) {
+    WAUTSwitch s = myWAUTs[wautid]->switches[index];
+    for(std::vector<WAUTJunction>::iterator i=myWAUTs[wautid]->junctions.begin(); i!=myWAUTs[wautid]->junctions.end(); ++i) {
 
         TLSLogicVariants &vars = myLogics.find((*i).junction)->second;
         MSTrafficLightLogic *from = vars.defaultTL;
@@ -500,11 +503,11 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand &cmd)
 
         WAUTSwitchProcedure *proc = 0;
         if((*i).procedure=="GSP") {
-            proc = new WAUTSwitchProcedure_GSP(from, to, (*i).synchron);
+            proc = new WAUTSwitchProcedure_GSP(*myWAUTs[wautid], from, to, (*i).synchron);
         } else if((*i).procedure=="Stretch") {
-            proc = new WAUTSwitchProcedure_Stretch(from, to, (*i).synchron);
+            proc = new WAUTSwitchProcedure_Stretch(*myWAUTs[wautid], from, to, (*i).synchron);
         } else {
-            proc = new WAUTSwitchProcedure_JustSwitch(from, to, (*i).synchron);
+            proc = new WAUTSwitchProcedure_JustSwitch(*myWAUTs[wautid], from, to, (*i).synchron);
         }
 
         WAUTSwitchProcess p;
@@ -516,10 +519,10 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand &cmd)
         myCurrentlySwitched.push_back(p);
     }
     index++;
-    if(index==myWAUTs[wautid].switches.size()) {
+    if(index==myWAUTs[wautid]->switches.size()) {
         return 0;
     }
-    return myWAUTs[wautid].switches[index].when - myWAUTs[wautid].switches[index-1].when;
+    return myWAUTs[wautid]->switches[index].when - myWAUTs[wautid]->switches[index-1].when;
 }
 
 
