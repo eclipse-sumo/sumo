@@ -17,7 +17,10 @@ void *
 MFXEventQue::top()
 {
     assert(size()!=0);
-    return *(myEvents.begin());
+    myMutex.lock();
+    void *ret = *(myEvents.begin());
+    myMutex.unlock();
+    return ret;
 }
 
 
@@ -52,7 +55,10 @@ MFXEventQue::size()
 bool
 MFXEventQue::empty()
 {
-    return size()==0;
+    myMutex.lock();
+    bool ret = size()==0;
+    myMutex.unlock();
+    return ret;
 }
 
 
