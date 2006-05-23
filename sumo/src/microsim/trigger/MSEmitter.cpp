@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/05/23 10:30:38  dkrajzew
+// Message corrected
+//
 // Revision 1.6  2006/05/15 05:51:33  dkrajzew
 // began with the extraction of the car-following-model from MSVehicle
 //
@@ -277,7 +280,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(int element, const std::
             aVehicleId = myParent.getID() +  "_" + toString(myRunningID++);
             veh = MSVehicle::dictionary( aVehicleId );
             if ( veh != 0 ) {
-                WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + aVehicleId + " does already exist. ");
+                WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + aVehicleId + " already exists.");
                 WRITE_WARNING("Continuing with next element.");
                 return;// false;
             }
