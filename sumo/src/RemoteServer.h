@@ -36,10 +36,23 @@ result = s1+(string)params[1];
 XmlRpcServer s;
 int nodeNumber;
 
+
+class SetCarsNumber : public XmlRpcServerMethod
+{
+public:
+    SetCarsNumber(XmlRpcServer *s): XmlRpcServerMethod("SetCarsNumber",s){}
+
+    void execute(XmlRpcValue & params, XmlRpcValue & result)
+    {
+    	 nodeNumber = int(params[0]);
+    }
+};
+
+
 class RemoteSimuStep : public XmlRpcServerMethod
 {
 public:
-	RemoteSimuStep(XmlRpcServer *ss): XmlRpcServerMethod("RemoteSimuStep",ss){}
+	RemoteSimuStep(XmlRpcServer *s): XmlRpcServerMethod("RemoteSimuStep",s){}
 
 	void execute(XmlRpcValue & params, XmlRpcValue & result)
 	{
@@ -89,6 +102,7 @@ public:
 			if(nodeId == -1)
 			{//return the positions for all cars
 				//RemoteServer::carsNumber
+				cout<< nodeNumber <<"nnnnnnnnnnnnn"<<endl;
 				for(int i = 0; i < nodeNumber; i++)
 					{
 						result[i]["carCondition"] = 0;
@@ -110,10 +124,11 @@ public:
 					int index = atoi(veh->getID().c_str());
 					if(veh->getState().pos()==0 && veh->getState().speed() == 0)
 					{
-						//carCondition 0:car's pos and speed are all 0
-						//             1:normal car
+						//carCondition 0:no such car
+						//             1:car's pos and speed are all 0
+						//             2:normal car
 						
-						result[index]["carCondition"] = 0;
+						result[index]["carCondition"] = 1;
 						//result[index]["carID"]   = veh->getID();
 						result[index]["carPos"]   = 0;
 						result[index]["carPos_X"] = 0;
@@ -123,7 +138,7 @@ public:
 					else
 					{
 						Position2D p2d = veh->position();
-						result[index]["carCondition"] = 1;
+						result[index]["carCondition"] = 2;
 						//result[index]["carID"]   = veh->getID();
 						result[index]["carPos"]   = veh->pos();
 						result[index]["carPos_X"] = p2d.x();
@@ -199,6 +214,7 @@ public:
 		RemoteSimuStep *rss = new RemoteSimuStep(&s);
 		CloseServer *cs = new CloseServer(&s);
 		RemoteGetPositions *rgp = new RemoteGetPositions(&s);
+		SetCarsNumber *sCarNum = new SetCarsNumber(&s);
 
 		//MSNet::getInstance()->initialiseSimulation();
 		//MSNet::getInstance()->simulationStep(0,0);
@@ -214,13 +230,14 @@ public:
 		this->net = MSNet::getInstance();
 		//when SumoTime is 0; the cars' number is biggest
 		//RemoteServer::TotalCarsNumber = MSVehicle::myDict.size();
-		nodeNumber = MSVehicle::myDict.size();
+		//nodeNumber = MSVehicle::myDict.size();
+		//nodeNumber = 800;
 	}
 	~RemoteServer(void) {};
 	
 	
 public:	
-	static int TotalCarsNumber;
+	//static int TotalCarsNumber;
 
 private:
 	MSNet *net;
