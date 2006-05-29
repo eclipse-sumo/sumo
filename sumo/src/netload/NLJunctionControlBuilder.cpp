@@ -24,6 +24,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.24  2006/05/29 12:58:04  dkrajzew
+// debugged step offset computation
+//
 // Revision 1.23  2006/04/18 08:05:45  dkrajzew
 // beautifying: output consolidation
 //
@@ -375,7 +378,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic()
     size_t step = computeInitTLSStep();
     size_t firstEventOffset = computeInitTLSEventOffset();
     if(myActiveSubKey=="") {
-        myActiveSubKey = "<default>";
+        myActiveSubKey = "default";
     }
     MSTrafficLightLogic *tlLogic = 0;
     // build the tls-logic in dependance to its type
@@ -436,11 +439,10 @@ NLJunctionControlBuilder::computeInitTLSEventOffset()  const
 {
     assert(myActivePhases.size()!=0);
     SUMOTime offset = myOffset % myAbsDuration;
-    MSSimpleTrafficLightLogic::Phases::const_iterator i
-        = myActivePhases.begin();
+    MSSimpleTrafficLightLogic::Phases::const_iterator i = myActivePhases.begin();
     while(true) {
         if(offset<(*i)->duration) {
-            return offset;
+            return (*i)->duration - offset;
         }
         offset -= (*i)->duration;
         ++i;
