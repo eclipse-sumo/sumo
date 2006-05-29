@@ -24,6 +24,9 @@ namespace
 }
 
 // $Log$
+// Revision 1.19  2006/05/29 12:57:13  dkrajzew
+// debugged tls-state output
+//
 // Revision 1.18  2006/04/18 08:05:44  dkrajzew
 // beautifying: output consolidation
 //
@@ -213,7 +216,7 @@ MSEventControl::addEvent( Command* operation,
 {
     SUMOTime currTimeStep = MSNet::getInstance()->getCurrentTimeStep();
     if ( type == ADAPT_AFTER_EXECUTION && execTimeStep <= currTimeStep ) {
-        execTimeStep = currTimeStep + 1;
+        execTimeStep = currTimeStep;
     }
     Event newEvent = Event( operation, execTimeStep );
     myEvents.push( newEvent );

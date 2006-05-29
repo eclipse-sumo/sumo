@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.11  2006/05/29 12:57:13  dkrajzew
+// debugged tls-state output
+//
 // Revision 1.10  2006/03/17 08:53:17  dkrajzew
 // "Action" removed - was the same as Command; changed the Event-interface (execute now gets the current simulation time)
 //
@@ -70,6 +73,7 @@ namespace
 #include "Command_SaveTLSState.h"
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/MSEventControl.h>
+#include <microsim/MSNet.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 
@@ -92,33 +96,33 @@ Command_SaveTLSState::Command_SaveTLSState(
             const std::string &file)
     : myLogics(logics)
 {
-    /*
-    myExecTime = MSEventControl::getBeginOfTimestepEvents()->addEvent(this,
+    MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
         0, MSEventControl::ADAPT_AFTER_EXECUTION);
-        */
     myFile.open(file.c_str());
     if(!myFile.good()) {
-        MsgHandler::getErrorInstance()->inform("The file '" + file + "'to save the tl-states into could not be opened.");
+        MsgHandler::getErrorInstance()->inform("The file '" + file + "' to save the tl-states into could not be opened.");
         throw ProcessError();
     }
-    myFile << "<sumo-output>" << endl;
+    myFile << "<tls-states>" << endl;
 }
 
 
 Command_SaveTLSState::~Command_SaveTLSState()
 {
-    myFile << "</sumo-output>" << endl;
+    myFile << "</tls-states>" << endl;
 }
 
 
 SUMOTime
 Command_SaveTLSState::execute(SUMOTime currentTime)
 {
-    throw 1;
-    /*
-    myFile << "   <tlsstate time=\"" << currentTime
-        << "\" state=\"" << myLogic->buildStateList() << "\"/>" << endl;
-        */
+    for(std::map<std::string, MSTrafficLightLogic*>::const_iterator i=myLogics.ltVariants.begin(); i!=myLogics.ltVariants.end(); ++i) {
+        string subid = (*i).second->getSubID();
+        myFile << "   <tlsstate time=\"" << currentTime
+            << "\" id=\"" << (*i).second->getID()
+            << "\" subid=\"" << subid << "\">"
+            << (*i).second->buildStateList() << "</tlsstate>" << endl;
+    }
     return 1;
 }
 
