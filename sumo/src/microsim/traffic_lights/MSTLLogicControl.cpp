@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/05/29 12:57:44  dkrajzew
+// added a reference to the tlcontrols to switch procedures
+//
 // Revision 1.16  2006/05/23 10:29:55  dkrajzew
 // added retrieval of the waut reference time
 //
@@ -124,8 +127,9 @@ using namespace std;
  * method definitions for the Switching Procedures
  * ----------------------------------------------------------------------- */
 MSTLLogicControl::WAUTSwitchProcedure_JustSwitch::WAUTSwitchProcedure_JustSwitch(
-        WAUT &waut, MSTrafficLightLogic *from, MSTrafficLightLogic *to, bool synchron)
-    : MSTLLogicControl::WAUTSwitchProcedure(waut, from, to, synchron)
+        MSTLLogicControl &control, WAUT &waut,
+        MSTrafficLightLogic *from, MSTrafficLightLogic *to, bool synchron)
+    : MSTLLogicControl::WAUTSwitchProcedure(control, waut, from, to, synchron)
 {
 }
 
@@ -147,8 +151,9 @@ MSTLLogicControl::WAUTSwitchProcedure_JustSwitch::trySwitch(SUMOTime step)
 
 
 MSTLLogicControl::WAUTSwitchProcedure_GSP::WAUTSwitchProcedure_GSP(
-        WAUT &waut, MSTrafficLightLogic *from, MSTrafficLightLogic *to, bool synchron)
-    : MSTLLogicControl::WAUTSwitchProcedure(waut, from, to, synchron)
+        MSTLLogicControl &control, WAUT &waut,
+        MSTrafficLightLogic *from, MSTrafficLightLogic *to, bool synchron)
+    : MSTLLogicControl::WAUTSwitchProcedure(control, waut, from, to, synchron)
 {
 }
 
@@ -209,8 +214,9 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::getGSPValue(MSTrafficLightLogic *from
 
 
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::WAUTSwitchProcedure_Stretch(
-        WAUT &waut, MSTrafficLightLogic *from, MSTrafficLightLogic *to, bool synchron)
-    : MSTLLogicControl::WAUTSwitchProcedure(waut, from, to, synchron)
+        MSTLLogicControl &control, WAUT &waut,
+        MSTrafficLightLogic *from, MSTrafficLightLogic *to, bool synchron)
+    : MSTLLogicControl::WAUTSwitchProcedure(control, waut, from, to, synchron)
 {
 }
 
@@ -503,11 +509,11 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand &cmd)
 
         WAUTSwitchProcedure *proc = 0;
         if((*i).procedure=="GSP") {
-            proc = new WAUTSwitchProcedure_GSP(*myWAUTs[wautid], from, to, (*i).synchron);
+            proc = new WAUTSwitchProcedure_GSP(*this, *myWAUTs[wautid], from, to, (*i).synchron);
         } else if((*i).procedure=="Stretch") {
-            proc = new WAUTSwitchProcedure_Stretch(*myWAUTs[wautid], from, to, (*i).synchron);
+            proc = new WAUTSwitchProcedure_Stretch(*this, *myWAUTs[wautid], from, to, (*i).synchron);
         } else {
-            proc = new WAUTSwitchProcedure_JustSwitch(*myWAUTs[wautid], from, to, (*i).synchron);
+            proc = new WAUTSwitchProcedure_JustSwitch(*this, *myWAUTs[wautid], from, to, (*i).synchron);
         }
 
         WAUTSwitchProcess p;

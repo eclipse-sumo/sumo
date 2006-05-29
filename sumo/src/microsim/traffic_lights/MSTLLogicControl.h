@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.14  2006/05/29 12:57:44  dkrajzew
+// added a reference to the tlcontrols to switch procedures
+//
 // Revision 1.13  2006/05/23 10:29:55  dkrajzew
 // added retrieval of the waut reference time
 //
@@ -298,9 +301,10 @@ protected:
     class WAUTSwitchProcedure {
     public:
         /// Constructor
-        WAUTSwitchProcedure(WAUT &waut, MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+        WAUTSwitchProcedure(MSTLLogicControl &control, WAUT &waut,
+            MSTrafficLightLogic *from, MSTrafficLightLogic *to,
             bool synchron)
-            : myFrom(from), myTo(to), mySwitchSynchron(synchron), myWAUT(waut) { }
+            : myFrom(from), myTo(to), mySwitchSynchron(synchron), myWAUT(waut), myControl(control) { }
 
         /// Destructor
         virtual ~WAUTSwitchProcedure() { }
@@ -324,6 +328,9 @@ protected:
         /// The WAUT responsible for switching
         WAUT &myWAUT;
 
+        /// The control the logic belongs to
+        MSTLLogicControl &myControl;
+
     };
 
 
@@ -334,7 +341,8 @@ protected:
     class WAUTSwitchProcedure_JustSwitch : public WAUTSwitchProcedure {
     public:
         /// Constructor
-        WAUTSwitchProcedure_JustSwitch(WAUT &waut, MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+        WAUTSwitchProcedure_JustSwitch(MSTLLogicControl &control, WAUT &waut,
+            MSTrafficLightLogic *from, MSTrafficLightLogic *to,
             bool synchron);
 
         /// Destructor
@@ -356,7 +364,8 @@ protected:
     class WAUTSwitchProcedure_GSP : public WAUTSwitchProcedure {
     public:
         /// Constructor
-        WAUTSwitchProcedure_GSP(WAUT &waut, MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+        WAUTSwitchProcedure_GSP(MSTLLogicControl &control, WAUT &waut,
+            MSTrafficLightLogic *from, MSTrafficLightLogic *to,
             bool synchron);
 
         /// Destructor
@@ -380,7 +389,8 @@ protected:
     class WAUTSwitchProcedure_Stretch : public WAUTSwitchProcedure {
     public:
         /// Constructor
-        WAUTSwitchProcedure_Stretch(WAUT &waut, MSTrafficLightLogic *from, MSTrafficLightLogic *to,
+        WAUTSwitchProcedure_Stretch(MSTLLogicControl &control, WAUT &waut,
+            MSTrafficLightLogic *from, MSTrafficLightLogic *to,
             bool synchron);
 
         /// Destructor
@@ -397,12 +407,11 @@ protected:
         struct StretchBereichDef {
             /// The begin of a Bereich (?)
             SUMOReal begin;
-
             /// The end of a Bereich (?)
             SUMOReal end;
-
             /// The factor of a Bereich (?)
             SUMOReal fac;
+
         };
 
         /// Returns the number of given Stretch-Bereiche(?) for the given program
