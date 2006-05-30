@@ -34,9 +34,9 @@ result = s1+(string)params[1];
 */
 
 XmlRpcServer s;
-int nodeNumber;
+//int nodeNumber;
 
-
+/*
 class SetCarsNumber : public XmlRpcServerMethod
 {
 public:
@@ -47,7 +47,7 @@ public:
     	 nodeNumber = int(params[0]);
     }
 };
-
+*/
 
 class RemoteSimuStep : public XmlRpcServerMethod
 {
@@ -60,12 +60,12 @@ public:
 		//do SimulationStep with parameter target time
 		SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
 		SUMOTime targetTimeStep = (SUMOTime)targetTime;
-		//MSNet::getInstance()->simulate(currentTime,(SUMOTime)targetTime);
-		for(SUMOTime step = currentTime+1 ;step<=targetTimeStep;step++)
+		MSNet::getInstance()->simulate(currentTime,(SUMOTime)targetTime);
+		/*for(SUMOTime step = currentTime+1 ;step<=targetTimeStep;step++)
 		{
 			MSNet::getInstance()->simulationStep(0,step);
 		}
-
+     */
 		result = "true";
 	}
 };
@@ -102,50 +102,55 @@ public:
 			if(nodeId == -1)
 			{//return the positions for all cars
 				//RemoteServer::carsNumber
-				cout<< nodeNumber <<"nnnnnnnnnnnnn"<<endl;
+				//cout<< nodeNumber <<"nnnnnnnnnnnnn"<<endl;
+				/*
 				for(int i = 0; i < nodeNumber; i++)
 					{
 						result[i]["carCondition"] = 0;
-						//result[i]["carID"]   = veh->getID();
+						result[i]["carID"]    = 0;
 						result[i]["carPos"]   = 0;
 						result[i]["carPos_X"] = 0;
 						result[i]["carPos_Y"] = 0;
 						result[i]["carSpeed"] = 0;
 					}
+					*/
 				if(MSVehicle::myDict.size() == 0)
 				{
 					// There is no car in the sumo
 					//result["resultCode"] = 0;
 					return;
 				}
+				int index = 0;
 				for(DictType::iterator i=MSVehicle::myDict.begin(); i!=MSVehicle::myDict.end(); i++) 
 				{
 					MSVehicle *veh = (*i).second;
-					int index = atoi(veh->getID().c_str());
+					//int index = atoi(veh->getID().c_str());
 					if(veh->getState().pos()==0 && veh->getState().speed() == 0)
 					{
 						//carCondition 0:no such car
-						//             1:car's pos and speed are all 0
+						//             1:car's pos and speed are both 0
 						//             2:normal car
-						
+						/*
 						result[index]["carCondition"] = 1;
-						//result[index]["carID"]   = veh->getID();
+						result[index]["carID"]   = veh->getID();
 						result[index]["carPos"]   = 0;
 						result[index]["carPos_X"] = 0;
 						result[index]["carPos_Y"] = 0;
 						result[index]["carSpeed"] = 0;
+						*/
 					}
 					else
 					{
 						Position2D p2d = veh->position();
 						result[index]["carCondition"] = 2;
-						//result[index]["carID"]   = veh->getID();
+						result[index]["carID"]   =  veh->getID();
 						result[index]["carPos"]   = veh->pos();
 						result[index]["carPos_X"] = p2d.x();
 						result[index]["carPos_Y"] = p2d.y();
 						result[index]["carSpeed"] = veh->speed();
+						index++;
 					}		
-					index++;
+					
 					//cout<<endl<<index<<"     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"<<endl;
 				}
 				/*if (i == MSVehicle::myDict.end())
@@ -172,7 +177,7 @@ public:
 
 					if(veh->getState().pos()==0 && veh->getState().speed() == 0)
 					{
-						result[0]["carCondition"] = 0;  //the car is found,but the pos and speed are both zero.
+						result[0]["carCondition"] = 1;  //the car is found,but the pos and speed are both zero.
 						result[0]["carID"]   = veh->getID();
 						result[0]["carPos"]   = 0;
 						result[0]["carPos_X"] = 0;
@@ -186,7 +191,7 @@ public:
 					return;
 					}*/
 					Position2D p2d = veh->position();
-					result[0]["carCondition"] = 0;
+					result[0]["carCondition"] = 2;
 					result[0]["carID"]   = veh->getID();
 					result[0]["carPos"]   = veh->pos();
 					result[0]["carPos_X"] = p2d.x();
@@ -214,7 +219,7 @@ public:
 		RemoteSimuStep *rss = new RemoteSimuStep(&s);
 		CloseServer *cs = new CloseServer(&s);
 		RemoteGetPositions *rgp = new RemoteGetPositions(&s);
-		SetCarsNumber *sCarNum = new SetCarsNumber(&s);
+		//SetCarsNumber *sCarNum = new SetCarsNumber(&s);
 
 		//MSNet::getInstance()->initialiseSimulation();
 		//MSNet::getInstance()->simulationStep(0,0);
