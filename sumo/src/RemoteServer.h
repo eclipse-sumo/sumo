@@ -81,12 +81,12 @@ public:
 		//do SimulationStep with parameter target time
 		SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
 		SUMOTime targetTimeStep = (SUMOTime)targetTime;
-		//MSNet::getInstance()->simulate(currentTime,(SUMOTime)targetTime);
-		for(SUMOTime step = currentTime+1 ;step<=targetTimeStep;step++)
+		MSNet::getInstance()->simulate(currentTime,(SUMOTime)targetTime);
+		/*for(SUMOTime step = currentTime+1 ;step<=targetTimeStep;step++)
 		{
 			MSNet::getInstance()->simulationStep(0,step);
 		}
-
+     */
 		result = "true";
 	}
 };
@@ -134,12 +134,14 @@ public:
 						result[i]["carPos_Y"] = 0;
 						result[i]["carSpeed"] = 0;
 					}
+					*/
 				if(MSVehicle::myDict.size() == 0)
 				{
 					// There is no car in the sumo
 					//result["resultCode"] = 0;
 					return;
 				}
+				int index = 0;
 				for(DictType::iterator i=MSVehicle::myDict.begin(); i!=MSVehicle::myDict.end(); i++) 
 				{
 					MSVehicle *veh = (*i).second;
@@ -167,8 +169,9 @@ public:
 						result[index]["carPos_X"] = p2d.x();
 						result[index]["carPos_Y"] = p2d.y();
 						result[index]["carSpeed"] = veh->speed();
+						index++;
 					}		
-					index++;
+					
 					//cout<<endl<<index<<"     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"<<endl;
 				}
 				/*if (i == MSVehicle::myDict.end())
