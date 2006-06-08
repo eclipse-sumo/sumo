@@ -245,7 +245,7 @@ public:
 		//MSNet::getInstance()->initialiseSimulation();
 		//MSNet::getInstance()->simulationStep(0,0);
 
-		XmlRpc::setVerbosity(5);
+		XmlRpc::setVerbosity(1);
 		// Create the server socket on the specified port
 		s.bindAndListen(port);
 		// Enable introspection

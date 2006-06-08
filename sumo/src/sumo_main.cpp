@@ -24,6 +24,10 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.42  2006/06/08 09:19:43  awegener
+// modify XmlRpc::setVerbosity(5) to XmlRpc::setVerbosity(1)
+// decrease the output of xmlRpc detail.
+//
 // Revision 1.41  2006/05/18 13:09:14  awegener
 // *** empty log message ***
 //
@@ -363,7 +367,7 @@ main(int argc, char **argv)
 #ifdef _RPC
 		if (oc.getInt("remote-port") != 0)
 		{
-			cout <<endl<< "oc.remote-port: " <<oc.getInt("remote-port")<< endl;
+			//cout <<endl<< "oc.remote-port: " <<oc.getInt("remote-port")<< endl;
 			cout <<"Run from "<<oc.getInt("b")<<" To 0"<<endl;
 			net->simulate(oc.getInt("b"), 0);
 			cout << "Done!"<<endl;
