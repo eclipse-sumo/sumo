@@ -33,11 +33,14 @@
 #include <map>
 #include <string>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
+#include <utils/geom/Position2DVector.h>
 
 using namespace XmlRpc;
 using namespace std;
 
-typedef std::map< std::string, MSVehicle* > DictType;
+//typedef std::map< std::string, MSVehicle* > DictType;
 //class RemoteServer;
 /*
 class forrest : public XmlRpcServerMethod
@@ -109,6 +112,83 @@ public:
 	}
 };
 
+class GetRoadPos : public XmlRpcServerMethod
+{
+public:
+	GetRoadPos(XmlRpcServer *s): XmlRpcServerMethod("GetRoadPos",s){}
+
+//#define ROAD_WIDTH 3 //meter 
+
+  SUMOReal GetPos(Position2DVector & myCont)
+  {
+  	  SUMOReal shortestDist = 10000000;
+      SUMOReal nearestPos = 10000;
+      SUMOReal seen = 0;
+      for(ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
+          SUMOReal pos = seen +
+              GeomHelper::nearest_position_on_line_to_point(*i, *(i+1), p);
+         SUMOReal dist =
+             GeomHelper::distance(p, myCont.positionAtLengthPosition(pos));
+          //
+          if(shortestDist>dist) {
+              nearestPos = pos;
+              shortestDist = dist;
+          }
+          //
+      }
+     if(shortestDist==10000000) {
+          return -1;
+      }
+     return nearestPos;
+	}
+	
+	
+	void execute(XmlRpcValue & params, XmlRpcValue & result)
+	{
+		//s.exit();
+		 bool IsPosInRoad = false;
+     double x = double(params[0]);	
+     double y = double(params[1]);
+     Position2D *p = new Position2D(x,y);
+     
+     cout<<x<<"  "<<y<<endl;
+     vector<MSEdge*> edgeVector = MSEdge::getEdgeVector();
+     
+     for(vector<MSEdge*>::iterator i=edgeVector.begin(); i!=edgeVector.end();i++)
+     {
+         MSEdge * myEdge = *i;
+         MSEdge::LaneCont * myLanes = myEdge->getLanes();
+         for(MSEdge::LaneCont::iterator laneIndex=myLanes->begin(); laneIndex!=myLanes->end();laneIndex++)
+         {
+             MSLane * myLane = *laneIndex;
+             const Position2DVector & myShp = myLane->getShape();
+             
+             const Position2DVector::ContType & points = myShp.getCont();
+             cout<<myLane->getID()<<endl;
+             for (Position2DVector::ContType::const_iterator i=points.begin(); i!=points.end(); i++) 
+             	{
+             		cout<<"x:"<<(*i).x()<<"  y:"<<(*i).y()<<endl;
+             	}
+             	
+             	if(points.distance() <= ROAD_WIDTH/2)      		
+             	{
+             		  result[1] = myEdge->getID();    		  
+             		  result[0] = GetPos(points); 
+             		  IsPosInRoad = true;
+             		  break;
+             	}        	
+         }
+         if(IsPosInRoad == false)
+         	{
+         		   result[0] = -1;   	
+             	 result[1] = "not in road";         	 	
+         	}
+         		   
+     }
+	}
+};
+
+
 
 class RemoteGetPositions : public XmlRpcServerMethod
 {
@@ -142,7 +222,7 @@ public:
 					return;
 				}
 				int index = 0;
-				for(DictType::iterator i=MSVehicle::myDict.begin(); i!=MSVehicle::myDict.end(); i++) 
+				for(MSVehicle::DictType::iterator i=MSVehicle::myDict.begin(); i!=MSVehicle::myDict.end(); i++) 
 				{
 					MSVehicle *veh = (*i).second;
 					//int index = atoi(veh->getID().c_str());
@@ -188,7 +268,7 @@ public:
         sprintf(buf, "%d\n", nodeId);
 				//std::string s = new string(buf);
 				string s(buf);
-				DictType::iterator it = MSVehicle::myDict.find(s);
+				MSVehicle::DictType::iterator it = MSVehicle::myDict.find(s);
 				if (it == MSVehicle::myDict.end()) 
 				{	// id not in myDict(car not find or no such car)
 					return;
@@ -240,6 +320,7 @@ public:
 		RemoteSimuStep *rss = new RemoteSimuStep(&s);
 		CloseServer *cs = new CloseServer(&s);
 		RemoteGetPositions *rgp = new RemoteGetPositions(&s);
+		GetRoadPos *getRpos = new GetRoadPos(&s);
 		//SetCarsNumber *sCarNum = new SetCarsNumber(&s);
 
 		//MSNet::getInstance()->initialiseSimulation();
