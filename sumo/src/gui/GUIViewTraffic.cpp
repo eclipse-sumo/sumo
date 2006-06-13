@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.55  2006/06/13 13:12:55  dkrajzew
+// made static comboboxes really static
+//
 // Revision 1.54  2006/05/15 05:45:45  dkrajzew
 // removed not needed messages
 //
@@ -449,7 +452,7 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow &v)
     // build coloring tools
     {
         FXComboBox *myColoringSchemes =
-            new FXComboBox(&toolbar, 12, this, MID_COLOURSCHEMECHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
+            new FXComboBox(&toolbar, 12, this, MID_COLOURSCHEMECHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
         const std::vector<std::string> &names = gSchemeStorage.getNames();
         for(std::vector<std::string>::const_iterator i=names.begin(); i!=names.end(); ++i) {
             myColoringSchemes->appendItem((*i).c_str());

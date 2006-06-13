@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/06/13 13:14:14  dkrajzew
+// made static comboboxes really static
+//
 // Revision 1.5  2006/04/07 10:41:49  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -118,7 +121,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
         new FXVerticalFrame(this, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
         0,0,0,0, 0,0,0,0, 5,5);
     //
-    mySchemeName = new FXComboBox(contentFrame, 20, this, MID_SIMPLE_VIEW_NAMECHANGE, COMBOBOX_INSERT_LAST|FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
+    mySchemeName = new FXComboBox(contentFrame, 20, this, MID_SIMPLE_VIEW_NAMECHANGE, COMBOBOX_INSERT_LAST|FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
     const std::vector<std::string> &names = gSchemeStorage.getNames();
     for(std::vector<std::string>::const_iterator i=names.begin(); i!=names.end(); ++i) {
         mySchemeName->appendItem((*i).c_str());
@@ -152,7 +155,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
             new FXMatrix(s2,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                 0,0,0,0, 10,10,10,10, 5,5);
         new FXLabel(m21, "Color by", 0, LAYOUT_CENTER_Y);
-        myLaneEdgeColorMode = new FXComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
+        myLaneEdgeColorMode = new FXComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
         laneEdgeModeSource->fill(*myLaneEdgeColorMode);
         /*
         c1->appendItem("single color");
@@ -189,7 +192,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
                 new FXMatrix(frame3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                     0,0,0,0, 10,10,10,10, 5,5);
             new FXLabel(m31, "Show As", 0, LAYOUT_CENTER_Y);
-            FXComboBox *c31 = new FXComboBox(m31, 20, 0, 0, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
+            FXComboBox *c31 = new FXComboBox(m31, 20, 0, 0, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
             c31->appendItem("triangles");
             c31->appendItem("boxes");
             c31->appendItem("simple shapes");
@@ -202,7 +205,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
                 new FXMatrix(s3,2,LAYOUT_FILL_X|LAYOUT_TOP|LAYOUT_LEFT|MATRIX_BY_COLUMNS,
                     0,0,0,0, 10,10,10,10, 5,5);
             new FXLabel(m32, "Color By", 0, LAYOUT_CENTER_Y);
-            myVehicleColorMode = new FXComboBox(m32, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
+            myVehicleColorMode = new FXComboBox(m32, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
             myVehicleColoringInfoSource->fill(*myVehicleColorMode);
             myVehicleColorMode->setNumVisible(10);
             myVehicleColorSettingFrame =

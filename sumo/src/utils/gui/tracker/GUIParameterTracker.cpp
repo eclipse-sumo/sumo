@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.12  2006/06/13 13:14:14  dkrajzew
+// made static comboboxes really static
+//
 // Revision 1.11  2006/04/11 11:05:55  dkrajzew
 // all structures now return their id via getID()
 //
@@ -269,7 +272,7 @@ GUIParameterTracker::buildToolBar()
     // aggregation interval combo
     myAggregationInterval =
         new FXComboBox(myToolBar, 8, this, MID_AGGREGATIONINTERVAL,
-            FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP);
+            FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
     myAggregationInterval->appendItem("1s");
     myAggregationInterval->appendItem("1min");
     myAggregationInterval->appendItem("5min");

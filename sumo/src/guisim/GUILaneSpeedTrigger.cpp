@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/06/13 13:14:14  dkrajzew
+// made static comboboxes really static
+//
 // Revision 1.16  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -216,7 +219,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::GUIManip_LaneSpeedTrigger(
             0, 0, 0, 0,   2, 2, 0, 0);
         myPredefinedValues =
             new FXComboBox(gf2, 10, this, MID_PRE_DEF,
-                ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP|LAYOUT_CENTER_Y);
+                ICON_BEFORE_TEXT|LAYOUT_SIDE_TOP|LAYOUT_CENTER_Y|COMBOBOX_STATIC);
         myPredefinedValues->appendItem("20 km/h");
         myPredefinedValues->appendItem("40 km/h");
         myPredefinedValues->appendItem("60 km/h");
