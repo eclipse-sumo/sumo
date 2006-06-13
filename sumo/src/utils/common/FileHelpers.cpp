@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.10  2006/06/13 13:18:29  dkrajzew
+// added an error if a file to determine his type does not exist
+//
 // Revision 1.9  2006/05/16 08:13:54  dkrajzew
 // error on empty name patched
 //
@@ -360,6 +363,7 @@ FileHelpers::checkFileType(const std::string &filename)
 {
     ifstream strm(filename.c_str());
     if(!strm.good()) {
+        MsgHandler::getErrorInstance()->inform("File '" + filename + "' could not be found.");
         return INVALID;
     }
     string l;
