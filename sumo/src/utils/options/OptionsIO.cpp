@@ -25,6 +25,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/06/13 13:19:11  dkrajzew
+// made output about loading the configuration more pretty
+//
 // Revision 1.16  2006/04/11 11:06:09  dkrajzew
 // extended the message-API to (re)allow process output
 //
@@ -237,15 +240,13 @@ OptionsIO::loadConfiguration(OptionsCont *oc)
     }
     if(oc->getBool("verbose")) {
         if(ok) {
-            WRITE_MESSAGE("done.");
+            MsgHandler::getMessageInstance()->endProcessMsg("done.");
         } else {
-            WRITE_MESSAGE("failed.");
+            MsgHandler::getMessageInstance()->endProcessMsg("failed.");
         }
     }
     if(!ok) {
-        MsgHandler::getErrorInstance()->inform(
-            "Could not load configuration '"
-            + path + "'.");
+        MsgHandler::getErrorInstance()->inform("Could not load configuration '" + path + "'.");
     }
     return ok;
 }
