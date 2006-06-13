@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.15  2006/06/13 13:16:00  dkrajzew
+// patching problems on loading split lanes and tls
+//
 // Revision 1.14  2006/04/07 05:28:50  dkrajzew
 // finished lane-2-lane connections setting
 //
@@ -132,10 +135,7 @@ NIVisumParser_Edges::myDependentReport()
             return;
         }
         // get the type
-        string type =
-            myLineParser.know("Typ")
-            ? myLineParser.get("Typ")
-            : myLineParser.get("TypNr");
+        string type = myLineParser.know("Typ") ? myLineParser.get("Typ") : myLineParser.get("TypNr");
         // get the street length
         SUMOReal length = -1;//getLength(from, to); !!! we have to recompute the length!
         // get the speed

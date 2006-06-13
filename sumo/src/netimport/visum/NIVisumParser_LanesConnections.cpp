@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.5  2006/06/13 13:16:00  dkrajzew
+// patching problems on loading split lanes and tls
+//
 // Revision 1.4  2006/04/07 05:28:50  dkrajzew
 // finished lane-2-lane connections setting
 //
@@ -97,19 +100,24 @@ NIVisumParser_LanesConnections::myDependentReport()
             return;
         }
         // get the from-edge
-        NBEdge *fromEdge = getNamedEdge(myEdgeCont, "FAHRSTREIFENABBIEGER", "VONSTRNR", "VONSTR");
-        NBEdge *fromEdge2 = myEdgeCont.retrieve(fromEdge->getID() + "_s_" + node->getID());
-        if(fromEdge2==0) fromEdge2 = fromEdge;
-        NBEdge *toEdge = getNamedEdge(myEdgeCont, "FAHRSTREIFENABBIEGER", "NACHSTRNR", "NACHSTR");
-        NBEdge *toEdge2 = myEdgeCont.retrieve(toEdge->getID() + "_s_" + node->getID());
-        if(toEdge2==0) toEdge2 = toEdge;
+        NBEdge *fromEdge = getNamedEdgeContinuating(myEdgeCont, "FAHRSTREIFENABBIEGER", "VONSTRNR", "VONSTR", node);
+        if(fromEdge->getID().substr(0, string("905002548").length())=="905002548") {
+            int bla = 0;
+        }
+//        NBEdge *fromEdge2 = myEdgeCont.retrieve(fromEdge->getID() + "_s_" + node->getID());
+//        if(fromEdge2==0) fromEdge2 = fromEdge;
+        NBEdge *toEdge = getNamedEdgeContinuating(myEdgeCont, "FAHRSTREIFENABBIEGER", "NACHSTRNR", "NACHSTR", node);
+//        NBEdge *toEdge2 = myEdgeCont.retrieve(toEdge->getID() + "_s_" + node->getID());
+//        if(toEdge2==0) toEdge2 = toEdge;
         if(fromEdge==0||toEdge==0) {
             return;
         }
 
         int fromLaneOffset = 0;//fromEdge->getNoLanes();
-        if(!node->hasIncoming(fromEdge2)) {
-            fromLaneOffset = fromEdge2->getNoLanes();
+        if(!node->hasIncoming(fromEdge)) {
+            fromLaneOffset = fromEdge->getNoLanes();
+            fromEdge = getReversedContinuating(myEdgeCont, fromEdge, node);
+            /*
             string sid;
             if(fromEdge->getID()[0]=='-') {
                 sid = fromEdge->getID().substr(1);
@@ -130,6 +138,7 @@ NIVisumParser_LanesConnections::myDependentReport()
             }
             */
         } else {
+            /*
             string sid;
             if(fromEdge->getID()[0]=='-') {
                 sid = fromEdge->getID().substr(1);
@@ -139,12 +148,17 @@ NIVisumParser_LanesConnections::myDependentReport()
             NBEdge *tmp = myEdgeCont.retrieve(sid);
             NBEdge *tmp2 = myEdgeCont.retrieve(tmp->getID() + "_s_" + node->getID());
             if(tmp2!=0) tmp = tmp2;
+            */
+            fromEdge = getReversedContinuating(myEdgeCont, fromEdge, node);
+            NBEdge *tmp = myEdgeCont.retrieve(fromEdge->getID().substr(0, fromEdge->getID().find('_')));
             fromLaneOffset = tmp->getNoLanes();
         }
 
         int toLaneOffset = 0;//toEdge->getNoLanes();
-        if(!node->hasOutgoing(toEdge2)) {
-            int toLaneOffset = toEdge2->getNoLanes();
+        if(!node->hasOutgoing(toEdge)) {
+            toLaneOffset = toEdge->getNoLanes();
+            toEdge = getReversedContinuating(myEdgeCont, toEdge, node);
+            /*
             string sid;
             if(toEdge->getID()[0]=='-') {
                 sid = toEdge->getID().substr(1);
@@ -165,6 +179,8 @@ NIVisumParser_LanesConnections::myDependentReport()
             }
             */
         } else {
+//            toEdge = getReversedContinuating(myEdgeCont, toEdge, node);
+            /*
             string sid;
             if(toEdge->getID()[0]=='-') {
                 sid = toEdge->getID().substr(1);
@@ -174,6 +190,8 @@ NIVisumParser_LanesConnections::myDependentReport()
             NBEdge *tmp = myEdgeCont.retrieve(sid);
             NBEdge *tmp2 = myEdgeCont.retrieve(tmp->getID() + "_s_" + node->getID());
             if(tmp2!=0) tmp = tmp2;
+            */
+            NBEdge *tmp = myEdgeCont.retrieve(toEdge->getID().substr(0, toEdge->getID().find('_')));
             toLaneOffset = tmp->getNoLanes();
         }
         //
@@ -224,28 +242,28 @@ NIVisumParser_LanesConnections::myDependentReport()
         if(fromLane-fromLaneOffset<0) {
             fromLaneOffset = 0;
         } else {
-            fromLane = fromEdge2->getNoLanes() - (fromLane-fromLaneOffset) - 1;
+            fromLane = fromEdge->getNoLanes() - (fromLane-fromLaneOffset) - 1;
         }
         if(toLane-toLaneOffset<0) {
             toLaneOffset = 0;
         } else {
-            toLane = toEdge2->getNoLanes() - (toLane-toLaneOffset) - 1;
+            toLane = toEdge->getNoLanes() - (toLane-toLaneOffset) - 1;
         }
 
 
         //
-        if((int) fromEdge2->getNoLanes()<=fromLane) {
-            addError("A from-lane number for edge '" + fromEdge2->getID() + "' is larger than the edge's lane number (" + fromLaneS + ").");
+        if((int) fromEdge->getNoLanes()<=fromLane) {
+            addError("A from-lane number for edge '" + fromEdge->getID() + "' is larger than the edge's lane number (" + fromLaneS + ").");
             return;
         }
-        if((int) toEdge2->getNoLanes()<=toLane) {
-            addError("A to-lane number for edge '" + toEdge2->getID() + "' is larger than the edge's lane number (" + toLaneS + ").");
+        if((int) toEdge->getNoLanes()<=toLane) {
+            addError("A to-lane number for edge '" + toEdge->getID() + "' is larger than the edge's lane number (" + toLaneS + ").");
             return;
         }
 
 
         //
-        fromEdge2->addLane2LaneConnection(fromLane, toEdge2, toLane, false);
+        fromEdge->addLane2LaneConnection(fromLane, toEdge, toLane, false);
     } catch (OutOfBoundsException) {
         addError2("FAHRSTREIFENABBIEGER", "", "OutOfBounds");
     } catch (NumberFormatException) {

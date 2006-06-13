@@ -20,6 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.11  2006/06/13 13:16:00  dkrajzew
+// patching problems on loading split lanes and tls
+//
 // Revision 1.10  2006/03/28 09:12:43  dkrajzew
 // lane connections for unsplitted lanes implemented, further refactoring
 //
@@ -228,6 +231,27 @@ public:
             const std::string &fieldName1, const std::string &fieldName2);
 
 
+        /** @brief Tries to get the edge which name is stored in the given field
+         * continuating the search for a subedge that ends at the given node
+         *
+         * If either the "fieldName" does not occure within the currently loaded
+         *  data line or the edge was not loaded before, an error is generated and
+         *  0 is returned.
+         * The "dataName" is used to report errors.
+         */
+        NBEdge *getNamedEdgeContinuating(NBEdgeCont &nc, const std::string &dataName,
+            const std::string &fieldName, NBNode *node);
+
+        /** @brief The same, but two different names for the field are allowed */
+        NBEdge *getNamedEdgeContinuating(NBEdgeCont &nc, const std::string &dataName,
+            const std::string &fieldName1, const std::string &fieldName2,
+            NBNode *node);
+
+        /** @brief The same, but the search is started at a named edge */
+        NBEdge *getNamedEdgeContinuating(NBEdgeCont &nc, const std::string &name,
+            NBNode *node);
+
+
         /** @brief Returns the named value as a float
          */
         SUMOReal getNamedFloat(const std::string &fieldName);
@@ -247,6 +271,16 @@ public:
         /** @brief The same, but two different names for the field are allowed */
         std::string getNamedString(const std::string &fieldName1,
             const std::string &fieldName2);
+
+        /** @brief Returns the opposite direction of the given edge
+         * till its begin
+         */
+        NBEdge *getReversedContinuating(NBEdgeCont &nc, NBEdge *edge,
+            NBNode *node);
+
+    private:
+        /// Continues the search for a matching edge continuation
+        NBEdge *getNamedEdgeContinuating(NBEdge *begin, NBNode *node);
 
 
     protected:

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.6  2006/06/13 13:16:00  dkrajzew
+// patching problems on loading split lanes and tls
+//
 // Revision 1.5  2006/04/07 10:41:47  dkrajzew
 // code beautifying: embedding string in strings removed
 //
@@ -62,6 +65,7 @@ namespace
 #include <utils/common/TplConvert.h>
 #include <utils/common/TplConvertSec.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/common/ToString.h>
 #include "NIVisumLoader.h"
 #include "NIVisumParser_Lanes.h"
 
@@ -100,16 +104,13 @@ NIVisumParser_Lanes::myDependentReport()
         // get the node
         NBNode *node = getNamedNode(myNodeCont, "FAHRSTREIFEN", "KNOTNR");
         // get the edge
-        NBEdge *edge = getNamedEdge(myEdgeCont, "FAHRSTREIFEN", "STRNR");
+        NBEdge *edge = getNamedEdgeContinuating(myEdgeCont, "FAHRSTREIFEN", "STRNR", node);
         // check
         if(node==0||edge==0) {
             return;
         }
-        NBEdge *edge2 = myEdgeCont.retrieve(edge->getID() + "_s_" + node->getID());
-        if(edge2==0) edge2 = edge;
         // get the lane
-        string laneS =
-            NBHelpers::normalIDRepresentation(myLineParser.get("FSNR"));
+        string laneS = NBHelpers::normalIDRepresentation(myLineParser.get("FSNR"));
         int lane = -1;
         try {
             lane = TplConvert<char>::_2int(laneS.c_str());
@@ -126,18 +127,12 @@ NIVisumParser_Lanes::myDependentReport()
         string dirS =
             NBHelpers::normalIDRepresentation(myLineParser.get("RICHTTYP"));
         int prevLaneNo = edge->getNoLanes();
-        if( (dirS=="1"&&!(node->hasIncoming(edge)||node->hasIncoming(edge2))) || (dirS=="0"&&!(node->hasOutgoing(edge)||node->hasOutgoing(edge2))) ) {
-            string sid;
-            if(edge->getID()[0]=='-') {
-                sid = edge->getID().substr(1);
-            } else {
-                sid = "-" + edge->getID();
-            }
-            edge = myEdgeCont.retrieve(sid);
+        if( (dirS=="1"&&!(node->hasIncoming(edge))) || (dirS=="0"&&!(node->hasOutgoing(edge))) ) {
+            // get the last part of the turnaround direction
+            edge = getReversedContinuating(myEdgeCont, edge, node);
         }
         // get the length
-        string lengthS =
-            NBHelpers::normalIDRepresentation(myLineParser.get("LAENGE"));
+        string lengthS = NBHelpers::normalIDRepresentation(myLineParser.get("LAENGE"));
         SUMOReal length = -1;
         try {
             length = TplConvert<char>::_2SUMOReal(lengthS.c_str());
@@ -164,12 +159,38 @@ NIVisumParser_Lanes::myDependentReport()
             // increment by one
             edge->incLaneNo(1);
         } else {
-            if(myNodeCont.retrieve(edge->getID() + "_s_" + node->getID())!=0) {
-                edge = myEdgeCont.retrieve(edge->getID() + "_s_" + node->getID());
-                edge->incLaneNo(1);
-                return;
+            // check whether this edge already has been created
+            if(edge->getID().substr(edge->getID().length()-node->getID().length()-1)=="_" + node->getID()) {
+                if(edge->getID().substr(edge->getID().find('_'))=="_" + toString(length) + "_" + node->getID()) {
+                    edge->incLaneNo(1);
+                    return;
+                }
             }
-            // ok, we have to split the edge...
+            // nope, we have to split the edge...
+            //  maybe it is not the proper edge to split - VISUM seems not to sort the splits...
+            bool mustRecheck = true;
+            while(mustRecheck) {
+                if(edge->getID().substr(edge->getID().length()-node->getID().length()-1)=="_" + node->getID()) {
+                    // ok, we have a previously created edge here
+                    string sub = edge->getID();
+                    sub = sub.substr(sub.rfind('_', sub.rfind('_')-1));
+                    sub = sub.substr(1, sub.find('_', 1)-1);
+                    SUMOReal dist = TplConvert<char>::_2SUMOReal(sub.c_str());
+                    if(dist>length) {
+                        if(dirS=="1") {
+                            // incoming -> move back
+                            edge = edge->getFromNode()->getIncomingEdges()[0];
+                        } else {
+                            // outgoing -> move forward
+                            edge = edge->getToNode()->getOutgoingEdges()[0];
+                        }
+                    }
+                } else {
+                    // we have the center edge - do not continue...
+                    mustRecheck = false;
+                }
+            }
+            // compute position
             Position2D p;
             if(dirS!="1") {
                 p =
@@ -182,13 +203,13 @@ NIVisumParser_Lanes::myDependentReport()
                     ? edge->getGeometry().positionAtLengthPosition(edge->getLength()-length)
                     : edge->getGeometry().positionAtLengthPosition(length);
             }
-            NBNode *rn = new NBNode(edge->getID() + "_s_" + node->getID(), p);
+            NBNode *rn = new NBNode(edge->getID() + "_" +  toString(length) + "_" + node->getID(), p);
             if(!myNodeCont.insert(rn)) {
                 MsgHandler::getErrorInstance()->inform("Ups - could not insert node!");
                 throw ProcessError();
             }
             myEdgeCont.splitAt(myDistrictCont, edge, edge->getLength()-length, rn,
-                edge->getID(), edge->getID() + "_s_" + node->getID(),
+                edge->getID(), edge->getID() + "_" +  toString(length) + "_" + node->getID(),
                 edge->getNoLanes(), edge->getNoLanes()+1);
         }
     } catch (OutOfBoundsException) {

@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/06/13 13:16:00  dkrajzew
+// patching problems on loading split lanes and tls
+//
 // Revision 1.7  2006/03/28 09:12:43  dkrajzew
 // lane connections for unsplitted lanes implemented, further refactoring
 //
@@ -99,10 +102,10 @@ NIVisumParser_TurnsToSignalGroups::~NIVisumParser_TurnsToSignalGroups()
 NBEdge* NIVisumParser_TurnsToSignalGroups::getEdge(NBNode *FromNode, NBNode *ToNode)
 {
 	EdgeVector::const_iterator i;
-	for (i = FromNode->getOutgoingEdges().begin();
-	i != FromNode->getOutgoingEdges().end(); i++) {
+	for (i = FromNode->getOutgoingEdges().begin(); i != FromNode->getOutgoingEdges().end(); i++) {
 		if (ToNode == (*i)->getToNode()) return (*i);
 	}
+    //!!!
 	return 0;
 }
 
@@ -123,8 +126,8 @@ NIVisumParser_TurnsToSignalGroups::myDependentReport()
 		NBEdge *edg1 = 0;
 		NBEdge *edg2 = 0;
         if(from==0&&to==0) {
-            edg1 = getNamedEdge(myEdgeCont, "TurnsToSignalGroups", "VONSTRNR");
-            edg2 = getNamedEdge(myEdgeCont, "TurnsToSignalGroups", "NACHSTRNR");
+            edg1 = getNamedEdgeContinuating(myEdgeCont, "TurnsToSignalGroups", "VONSTRNR", via);
+            edg2 = getNamedEdgeContinuating(myEdgeCont, "TurnsToSignalGroups", "NACHSTRNR", via);
         } else {
 		    edg1 = getEdge(from, via);
 		    edg2 = getEdge(via, to);
@@ -141,7 +144,10 @@ NIVisumParser_TurnsToSignalGroups::myDependentReport()
                 } else {
                     sid = "-" + edg1->getID();
                 }
-                edg1 = myEdgeCont.retrieve(sid);
+                if(sid.find('_')!=string::npos) {
+                    sid = sid.substr(0, sid.find('_'));
+                }
+                edg1 = getNamedEdgeContinuating(myEdgeCont, sid,  via);
             }
             if(!via->hasOutgoing(edg2)) {
                 string sid;
@@ -150,7 +156,10 @@ NIVisumParser_TurnsToSignalGroups::myDependentReport()
                 } else {
                     sid = "-" + edg2->getID();
                 }
-                edg2 = myEdgeCont.retrieve(sid);
+                if(sid.find('_')!=string::npos) {
+                    sid = sid.substr(0, sid.find('_'));
+                }
+                edg2 = getNamedEdgeContinuating(myEdgeCont, sid,  via);
             }
 
 

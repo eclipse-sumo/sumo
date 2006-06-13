@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/06/13 13:16:00  dkrajzew
+// patching problems on loading split lanes and tls
+//
 // Revision 1.16  2006/05/15 05:55:26  dkrajzew
 // added consective process messages
 //
@@ -365,6 +368,129 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getNamedEdge(NBEdgeCont &nc,
 }
 
 
+
+NBEdge *
+NIVisumLoader::NIVisumSingleDataTypeParser::getReversedContinuating(
+        NBEdgeCont &nc, NBEdge *edge, NBNode *node)
+{
+    string sid;
+    if(edge->getID()[0]=='-') {
+        sid = edge->getID().substr(1);
+    } else {
+        sid = "-" + edge->getID();
+    }
+    if(sid.find('_')!=string::npos) {
+        sid = sid.substr(0, sid.find('_'));
+    }
+    return getNamedEdgeContinuating(nc, sid,  node);
+}
+
+
+NBEdge *
+NIVisumLoader::NIVisumSingleDataTypeParser::getNamedEdgeContinuating(
+        NBEdge *begin, NBNode *node)
+{
+    NBEdge *ret = begin;
+    string edgeID = ret->getID();
+    // hangle forward
+    while(ret!=0) {
+        // ok, this is the edge we are looking for
+        if(ret->getToNode()==node) {
+            return ret;
+        }
+        const EdgeVector &nedges = ret->getToNode()->getOutgoingEdges();
+        if(nedges.size()!=1) {
+            // too many edges follow
+            ret = 0;
+            continue;
+        }
+        NBEdge *next = nedges[0];
+        if(ret->getID().substr(0, edgeID.length())!=next->getID().substr(0, edgeID.length())) {
+            // ok, another edge is next...
+            ret = 0;
+            continue;
+        }
+        if(next->getID().substr(next->getID().length()-node->getID().length())!=node->getID()) {
+            ret = 0;
+            continue;
+        }
+        ret = next;
+    }
+
+    ret = begin;
+    // hangle backward
+    while(ret!=0) {
+        // ok, this is the edge we are looking for
+        if(ret->getFromNode()==node) {
+            return ret;
+        }
+        const EdgeVector &nedges = ret->getFromNode()->getIncomingEdges();
+        if(nedges.size()!=1) {
+            // too many edges follow
+            ret = 0;
+            continue;
+        }
+        NBEdge *next = nedges[0];
+        if(ret->getID().substr(0, edgeID.length())!=next->getID().substr(0, edgeID.length())) {
+            // ok, another edge is next...
+            ret = 0;
+            continue;
+        }
+        if(next->getID().substr(next->getID().length()-node->getID().length())!=node->getID()) {
+            ret = 0;
+            continue;
+        }
+        ret = next;
+    }
+    return 0;
+}
+
+
+NBEdge *
+NIVisumLoader::NIVisumSingleDataTypeParser::getNamedEdgeContinuating(
+        NBEdgeCont &nc, const std::string &name, NBNode *node)
+{
+    return getNamedEdgeContinuating(nc.retrieve(name), node);
+}
+
+
+NBEdge *
+NIVisumLoader::NIVisumSingleDataTypeParser::getNamedEdgeContinuating(
+        NBEdgeCont &nc, const std::string &dataName, const std::string &fieldName,
+        NBNode *node)
+{
+    try {
+        string edgeS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
+        NBEdge *edge = nc.retrieve(edgeS);
+        if(edge==0) {
+            addError("The edge '" + edgeS + "' is not known.");
+        }
+        return getNamedEdgeContinuating(edge, node);
+    } catch (OutOfBoundsException) {
+        addError2(dataName, "", "OutOfBounds");
+    } catch (NumberFormatException) {
+        addError2(dataName, "", "NumberFormat");
+    } catch (UnknownElement) {
+        addError2(dataName, "", "UnknownElement");
+    }
+    return 0;
+}
+
+
+NBEdge *
+NIVisumLoader::NIVisumSingleDataTypeParser::getNamedEdgeContinuating(
+        NBEdgeCont &nc, const std::string &dataName,
+        const std::string &fieldName1, const std::string &fieldName2,
+        NBNode *node)
+{
+    if(myLineParser.know(fieldName1)) {
+        return getNamedEdgeContinuating(nc, dataName, fieldName1, node);
+    } else {
+        return getNamedEdgeContinuating(nc, dataName, fieldName2, node);
+    }
+}
+
+
 SUMOReal
 NIVisumLoader::NIVisumSingleDataTypeParser::getNamedFloat(const std::string &fieldName)
 {
@@ -567,7 +693,7 @@ NIVisumLoader::checkForPosition(const std::string &line)
             WRITE_MESSAGE("Found: " + dataName + " at " + toString<int>(myLineReader.getPosition()));
         }
     }
-    // it is not necessary to rea the whole file
+    // it is not necessary to read the whole file
     //  only the position of all needed types must be known
     // mark all are known
     size_t noUnknown = 0;
