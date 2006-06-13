@@ -22,6 +22,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.17  2006/06/13 13:17:48  dkrajzew
+// removed unneeded code
+//
 // Revision 1.16  2006/04/05 05:33:45  dkrajzew
 // retrieval of microsim ids is now also done using getID() instead of id()
 //
@@ -163,11 +166,6 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
     } else if(type=="vehicle_actor") {
         t = parseAndBuildVehicleActor(net, attrs, base, helper);
     }
-#ifdef HAVE_MESOSIM
-    else if(type=="calibrator") {
-        t = parseAndBuildCalibrator(net, attrs, base, helper);
-    }
-#endif
     if(t!=0) {
         net.getTriggerControl().addTrigger(t);
     }
@@ -274,41 +272,6 @@ NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net,
 }
 
 
-#ifdef HAVE_MESOSIM
-METriggeredCalibrator *
-NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
-                                          const Attributes &attrs,
-                                          const std::string &base,
-                                          const NLHandler &helper)
-{
-    // get the file name to read further definitions from
-    string file = getFileName(attrs, base, helper);
-
-    string rfile = helper.getStringSecure(attrs, "rfile", "");
-    if(rfile.length()!=0&&!FileHelpers::isAbsolute(rfile)) {
-        rfile = FileHelpers::getConfigurationRelative(base, rfile);
-    }
-
-    string id = helper.getString(attrs, SUMO_ATTR_ID);
-    MSLane *lane = getLane(attrs, helper, "calibrator", id);
-    SUMOReal pos = getPosition(attrs, helper, lane, "emitter", id);
-
-
-        MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&(lane->edge()));
-        MESegment *prev = s;
-        SUMOReal cpos = 0;
-        while(cpos<pos&&s!=0) {
-            prev = s;
-            cpos += s->getLength();
-            s = s->getNextSegment();
-        }
-        SUMOReal rpos = pos-cpos-prev->getLength();
-
-    return buildCalibrator(net, id, prev, rpos, rfile, file);
-}
-#endif
-
-
 MSTriggeredRerouter *
 NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
                                         const Attributes &attrs,
@@ -373,19 +336,6 @@ NLTriggerBuilder::buildLaneEmitTrigger(MSNet &net,
 {
     return new MSEmitter(id, net, destLane, pos, file);
 }
-
-
-#ifdef HAVE_MESOSIM
-METriggeredCalibrator *
-NLTriggerBuilder::buildCalibrator(MSNet &net,
-                                  const std::string &id,
-                                  MESegment *edge, SUMOReal pos,
-                                  const std::string &rfile,
-                                  const std::string &file)
-{
-    return new METriggeredCalibrator(id, net, edge, rfile, file);
-}
-#endif
 
 
 MSTriggeredRerouter *

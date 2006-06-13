@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.12  2006/06/13 13:17:48  dkrajzew
+// removed unneeded code
+//
 // Revision 1.11  2006/03/27 07:20:28  dkrajzew
 // vehicle actors added, joined some commonly used functions, documentation added
 //
@@ -137,13 +140,6 @@ protected:
     MSE1VehicleActor *parseAndBuildVehicleActor(MSNet &net,
         const Attributes &attrs, const std::string &base,
         const NLHandler &helper);
-
-#ifdef HAVE_MESOSIM
-    /// Builds a mesoscopic calibrator
-    METriggeredCalibrator *parseAndBuildCalibrator(MSNet &net,
-        const Attributes &attrs, const std::string &base,
-        const NLHandler &helper);
-#endif
     //}
 
 protected:
@@ -169,13 +165,6 @@ protected:
     virtual MSBusStop* buildBusStop(MSNet &net,
         const std::string &id, const std::vector<std::string> &lines,
         MSLane *lane, SUMOReal frompos, SUMOReal topos);
-
-#ifdef HAVE_MESOSIM
-    /// builds a calibrator
-    virtual METriggeredCalibrator *buildCalibrator(MSNet &net,
-        const std::string &id, MESegment *edge, SUMOReal pos,
-        const std::string &rfile, const std::string &file);
-#endif
 
     /// builds a rerouter
     virtual MSTriggeredRerouter *buildRerouter(MSNet &net,
