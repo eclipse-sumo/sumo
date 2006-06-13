@@ -23,6 +23,9 @@ namespace
          "$Id$";
 }
 // $Log$
+// Revision 1.8  2006/06/13 13:16:49  dkrajzew
+// made output about loading a saved state more pretty
+//
 // Revision 1.7  2006/02/13 07:21:48  dkrajzew
 // code beautifying
 //
@@ -314,7 +317,9 @@ NLBuilder::build()
             MsgHandler::getErrorInstance()->inform("Could not read state from '" + m_pOptions.getString("load-state") + "'!");
             ok = false;
         } else {
+            MsgHandler::getMessageInstance()->beginProcessMsg("Loading state from '" + m_pOptions.getString("load-state") + "'...");
             myNet.loadState(strm, (long) 0xfffffff);
+            MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
     }
     // load routes
