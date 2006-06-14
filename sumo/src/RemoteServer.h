@@ -32,46 +32,19 @@
 #include <deque>
 #include <map>
 #include <string>
-#include <microsim/MSVehicle.h>
-#include <microsim/MSEdge.h>
-#include <microsim/MSLane.h>
-#include <utils/geom/Position2DVector.h>
+#include "microsim/MSVehicle.h"
+#include "microsim/MSEdge.h"
+#include "microsim/MSLane.h"
+#include "utils/geom/Position2DVector.h"
+#include "utils/geom/Position2D.h" 
+#include "utils/geom/GeomHelper.h"
+#include "utils/geom/Line2D.h"
+
 
 using namespace XmlRpc;
 using namespace std;
 
-//typedef std::map< std::string, MSVehicle* > DictType;
-//class RemoteServer;
-/*
-class forrest : public XmlRpcServerMethod
-{
-public:
-forrest(XmlRpcServer *ss): XmlRpcServerMethod("forrest",ss){}
-
-void execute(XmlRpcValue & params, XmlRpcValue & result)
-{
-string s1 = (string)params[0];
-result = s1+(string)params[1];
-
-}
-}forrest(&s);
-*/
-
 XmlRpcServer s;
-//int nodeNumber;
-
-/*
-class SetCarsNumber : public XmlRpcServerMethod
-{
-public:
-    SetCarsNumber(XmlRpcServer *s): XmlRpcServerMethod("SetCarsNumber",s){}
-
-    void execute(XmlRpcValue & params, XmlRpcValue & result)
-    {
-    	 nodeNumber = int(params[0]);
-    }
-};
-*/
 
 class RemoteSimuStep : public XmlRpcServerMethod
 {
@@ -103,12 +76,8 @@ public:
 	void execute(XmlRpcValue & params, XmlRpcValue & result)
 	{
 		s.exit();
-
-		//delete MSNet::getInstance();
-		//delete SharedOutputDevices::getInstance();
-
+    cout<<"Server closed!"<<endl;
 		result = "true";
-
 	}
 };
 
@@ -117,32 +86,8 @@ class GetRoadPos : public XmlRpcServerMethod
 public:
 	GetRoadPos(XmlRpcServer *s): XmlRpcServerMethod("GetRoadPos",s){}
 
-//#define ROAD_WIDTH 3 //meter 
+#define HALF_ROAD_WIDTH 1.5 //so the width of lane is 3 meters. 
 
-  SUMOReal GetPos(Position2DVector & myCont)
-  {
-  	  SUMOReal shortestDist = 10000000;
-      SUMOReal nearestPos = 10000;
-      SUMOReal seen = 0;
-      for(ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
-          SUMOReal pos = seen +
-              GeomHelper::nearest_position_on_line_to_point(*i, *(i+1), p);
-         SUMOReal dist =
-             GeomHelper::distance(p, myCont.positionAtLengthPosition(pos));
-          //
-          if(shortestDist>dist) {
-              nearestPos = pos;
-              shortestDist = dist;
-          }
-          //
-      }
-     if(shortestDist==10000000) {
-          return -1;
-      }
-     return nearestPos;
-	}
-	
-	
 	void execute(XmlRpcValue & params, XmlRpcValue & result)
 	{
 		//s.exit();
@@ -170,112 +115,100 @@ public:
              		cout<<"x:"<<(*i).x()<<"  y:"<<(*i).y()<<endl;
              	}
              	
-             	if(points.distance() <= ROAD_WIDTH/2)      		
+             	if(myShp.distance((*p)) <= HALF_ROAD_WIDTH)      		
              	{
-             		  result[1] = myEdge->getID();    		  
-             		  result[0] = GetPos(points); 
+             		  result[0] = myShp.nearest_position_on_line_to_point(*p); 
+             		  result[1] = myEdge->getID(); 
+             		  result[2] = myLane->getID();   
              		  IsPosInRoad = true;
              		  break;
-             	}        	
-         }
-         if(IsPosInRoad == false)
+             	}              	     	
+         } 
+         if(IsPosInRoad == true)
+         	   break;   		   
+     }
+     
+     
+     if(IsPosInRoad == false)
          	{
          		   result[0] = -1;   	
-             	 result[1] = "not in road";         	 	
+             	 result[1] = "not in road";   
+             	 result[2] = "not in lane";         	 	
          	}
-         		   
-     }
+         	
 	}
 };
 
 
 
-class RemoteGetPositions : public XmlRpcServerMethod
+class RemoteGetAllCarPositions : public XmlRpcServerMethod
 {
 public:
-	RemoteGetPositions(XmlRpcServer *ss): XmlRpcServerMethod("RemoteGetPositions",ss){}
+	RemoteGetAllCarPositions(XmlRpcServer *ss): XmlRpcServerMethod("RemoteGetAllCarPositions",ss){}
 
 	void execute(XmlRpcValue & params, XmlRpcValue & result)
-	{
+	{//return the positions for all cars			
 		try
-		{	
-			int nodeId = int(params[0]);	
-			if(nodeId == -1)
-			{//return the positions for all cars
-				//RemoteServer::carsNumber
-				//cout<< nodeNumber <<"nnnnnnnnnnnnn"<<endl;
-				/*
-				for(int i = 0; i < nodeNumber; i++)
-					{
-						result[i]["carCondition"] = 0;
-						result[i]["carID"]    = 0;
-						result[i]["carPos"]   = 0;
-						result[i]["carPos_X"] = 0;
-						result[i]["carPos_Y"] = 0;
-						result[i]["carSpeed"] = 0;
-					}
-					*/
-				if(MSVehicle::myDict.size() == 0)
+		{		
+			 if(MSVehicle::myDict.size() == 0)
 				{
-					// There is no car in the sumo
-					//result["resultCode"] = 0;
+					cout<<"There is no car in the sumo"<<endl;
 					return;
 				}
 				int index = 0;
 				for(MSVehicle::DictType::iterator i=MSVehicle::myDict.begin(); i!=MSVehicle::myDict.end(); i++) 
 				{
 					MSVehicle *veh = (*i).second;
-					//int index = atoi(veh->getID().c_str());
 					if(veh->getState().pos()==0 && veh->getState().speed() == 0)
 					{
 						//carCondition 0:no such car
 						//             1:car's pos and speed are both 0
 						//             2:normal car
-						/*
-						result[index]["carCondition"] = 1;
-						result[index]["carID"]   = veh->getID();
-						result[index]["carPos"]   = 0;
-						result[index]["carPos_X"] = 0;
-						result[index]["carPos_Y"] = 0;
-						result[index]["carSpeed"] = 0;
-						*/
 					}
 					else
 					{
 						Position2D p2d = veh->position();
 						result[index]["carCondition"] = 2;
-						result[index]["carID"]   =  veh->getID();
+						result[index]["carID"]    = veh->getID();
 						result[index]["carPos"]   = veh->pos();
 						result[index]["carPos_X"] = p2d.x();
 						result[index]["carPos_Y"] = p2d.y();
 						result[index]["carSpeed"] = veh->speed();
 						index++;
 					}		
-					
-					//cout<<endl<<index<<"     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"<<endl;
-				}
-				/*if (i == MSVehicle::myDict.end())
-				{
-				result[index] = "no car";
-				return;
-				}		*/
+				}//end for
+		}//end try
+		catch (...)
+		{     
+			cout<<" some error happen in RemoteGetAllCarPositions.execute()"<<endl;
+			//result["resultCode"] = -1;
+			return;
+		}
+	}//end execute
+};
+
+class RemoteGetOneCarPos : public XmlRpcServerMethod
+{
+public:
+	RemoteGetOneCarPos(XmlRpcServer *ss): XmlRpcServerMethod("RemoteGetOneCarPos",ss){}
+
+  void execute(XmlRpcValue & params, XmlRpcValue & result)
+	{// return the car's positions whose ID is the "nodeId" 
+		  string s = string(params);
+		  MSVehicle::DictType::iterator it = MSVehicle::myDict.find(s);
+			if (it == MSVehicle::myDict.end()) 
+			{	// id not in myDict(car not find or no such car)
+				 result[0]["carCondition"] = 0;  
+				 result[0]["carID"]    = 0;
+				 result[0]["carPos"]   = 0;
+				 result[0]["carPos_X"] = 0;
+				 result[0]["carPos_Y"] = 0;
+				 result[0]["carSpeed"] = 0;
+				 return;
 			}
 			else
-			{  // return the car's positions whose ID is the "nodeId" 
-				//MSNet::getInstance()->myVehicleControl-			
-				char buf[20];
-				//itoa(nodeId, buf, 10); because linux has no itoa
-        sprintf(buf, "%d\n", nodeId);
-				//std::string s = new string(buf);
-				string s(buf);
-				MSVehicle::DictType::iterator it = MSVehicle::myDict.find(s);
-				if (it == MSVehicle::myDict.end()) 
-				{	// id not in myDict(car not find or no such car)
-					return;
-				}else
-				{
-					MSVehicle *veh = (*it).second;
-
+			{
+				  MSVehicle *veh = (*it).second;
 					if(veh->getState().pos()==0 && veh->getState().speed() == 0)
 					{
 						result[0]["carCondition"] = 1;  //the car is found,but the pos and speed are both zero.
@@ -285,31 +218,18 @@ public:
 						result[0]["carPos_Y"] = 0;
 						result[0]["carSpeed"] = 0;
 						return;
-					}
-					/*if(veh == NULL)
-					{
-					result = "no find";
-					return;
-					}*/
+					}				
 					Position2D p2d = veh->position();
 					result[0]["carCondition"] = 2;
-					result[0]["carID"]   = veh->getID();
+					result[0]["carID"]    = veh->getID();
 					result[0]["carPos"]   = veh->pos();
 					result[0]["carPos_X"] = p2d.x();
 					result[0]["carPos_Y"] = p2d.y();
-					result[0]["carSpeed"] = veh->speed();
-				}
-
-			}//end if
-		}//end try
-		catch (...)
-		{     // -1 means some error happen
-			//result["resultCode"] = -1;
-			return;
-		}
+					result[0]["carSpeed"] = veh->speed();				
+		 }
 	}//end execute
-
 };
+
 
 class RemoteServer
 {
@@ -319,32 +239,21 @@ public:
 	{
 		RemoteSimuStep *rss = new RemoteSimuStep(&s);
 		CloseServer *cs = new CloseServer(&s);
-		RemoteGetPositions *rgp = new RemoteGetPositions(&s);
+		RemoteGetAllCarPositions *getAllPos = new RemoteGetAllCarPositions(&s);
 		GetRoadPos *getRpos = new GetRoadPos(&s);
-		//SetCarsNumber *sCarNum = new SetCarsNumber(&s);
-
-		//MSNet::getInstance()->initialiseSimulation();
-		//MSNet::getInstance()->simulationStep(0,0);
+		RemoteGetOneCarPos *getOnePos = new RemoteGetOneCarPos(&s);
 
 		XmlRpc::setVerbosity(1);
-		// Create the server socket on the specified port
-		s.bindAndListen(port);
-		// Enable introspection
-		s.enableIntrospection(true);
-		// Wait for requests indefinitely
-		s.work(-1.0);
-
+		s.bindAndListen(port);  // Create the server socket on the specified port	
+		s.enableIntrospection(true);  // Enable introspection	
+		s.work(-1.0);   // Wait for requests indefinitely
+		
 		this->net = MSNet::getInstance();
-		//when SumoTime is 0; the cars' number is biggest
-		//RemoteServer::TotalCarsNumber = MSVehicle::myDict.size();
-		//nodeNumber = MSVehicle::myDict.size();
-		//nodeNumber = 800;
+	
 	}
 	~RemoteServer(void) {};
 	
-	
 public:	
-	//static int TotalCarsNumber;
 
 private:
 	MSNet *net;
