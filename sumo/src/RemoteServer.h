@@ -88,15 +88,10 @@ public:
 
 #define HALF_ROAD_WIDTH 1.5 //so the width of lane is 3 meters. 
 
-	void execute(XmlRpcValue & params, XmlRpcValue & result)
-	{
-		//s.exit();
-		 bool IsPosInRoad = false;
-     double x = double(params[0]);	
-     double y = double(params[1]);
-     Position2D *p = new Position2D(x,y);
-     
-     cout<<x<<"  "<<y<<endl;
+
+  void roadPos(Position2D * p, XmlRpcValue & result)
+  {
+  	 bool IsPosInRoad = false;
      vector<MSEdge*> edgeVector = MSEdge::getEdgeVector();
      
      for(vector<MSEdge*>::iterator i=edgeVector.begin(); i!=edgeVector.end();i++)
@@ -109,12 +104,7 @@ public:
              const Position2DVector & myShp = myLane->getShape();
              
              const Position2DVector::ContType & points = myShp.getCont();
-             cout<<myLane->getID()<<endl;
-             for (Position2DVector::ContType::const_iterator i=points.begin(); i!=points.end(); i++) 
-             	{
-             		cout<<"x:"<<(*i).x()<<"  y:"<<(*i).y()<<endl;
-             	}
-             	
+            
              	if(myShp.distance((*p)) <= HALF_ROAD_WIDTH)      		
              	{
              		  result[0] = myShp.nearest_position_on_line_to_point(*p); 
@@ -127,15 +117,23 @@ public:
          if(IsPosInRoad == true)
          	   break;   		   
      }
-     
-     
+        
      if(IsPosInRoad == false)
          	{
-         		   result[0] = -1;   	
+         		   result[0] = -1.0;   //double	
              	 result[1] = "not in road";   
              	 result[2] = "not in lane";         	 	
-         	}
-         	
+         	} 
+  }
+  
+	void execute(XmlRpcValue & params, XmlRpcValue & result)
+	{
+		
+     double x = double(params[0]);	
+     double y = double(params[1]);
+     Position2D *p = new Position2D(x,y);
+     
+     roadPos(p,result);        	
 	}
 };
 
