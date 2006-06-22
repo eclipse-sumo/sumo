@@ -20,6 +20,9 @@
 //
 //---------------------------------------------------------------------------//
 // $Log$
+// Revision 1.8  2006/06/22 07:18:01  dkrajzew
+// handling of fase values added
+//
 // Revision 1.7  2006/01/09 11:50:21  dkrajzew
 // new visualization settings implemented
 //
@@ -86,7 +89,7 @@ public:
 	void setGlColor(const _T& i) const {
         SUMOReal val = (i.*myOperation)() - myMin;
         if(val==-1) {
-            glColor3f(0.5, 0.5, 0.5);
+            glColor3f(0.8f, 0.8f, 0.8f);
         } else {
             if(val<myMin) {
                 val = myMin; // !!! Aua!!!
@@ -101,15 +104,19 @@ public:
 	}
 
 	void setGlColor(SUMOReal val) const {
-        if(val<myMin) {
-            val = myMin; // !!! Aua!!!
-        } else if(val>myMax) {
-            val = myMax; // !!! Aua!!!
+        if(val==-1) {
+            glColor3f(0.8f, 0.8f, 0.8f);
+        } else {
+            if(val<myMin) {
+                val = myMin; // !!! Aua!!!
+            } else if(val>myMax) {
+                val = myMax; // !!! Aua!!!
+            }
+            val = val * myScale;
+            RGBColor c =
+                (myMinColor * ((SUMOReal) 1.0 - val)) + (myMaxColor * val);
+            glColor3d(c.red(), c.green(), c.blue());
         }
-        val = val * myScale;
-        RGBColor c =
-            (myMinColor * ((SUMOReal) 1.0 - val)) + (myMaxColor * val);
-        glColor3d(c.red(), c.green(), c.blue());
     }
 
     virtual ColorSetType getSetType() const {
