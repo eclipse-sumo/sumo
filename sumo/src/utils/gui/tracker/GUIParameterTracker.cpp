@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.13  2006/06/22 07:18:33  dkrajzew
+// false position of current value in the plot patched
+//
 // Revision 1.12  2006/06/13 13:14:14  dkrajzew
 // made static comboboxes really static
 //
@@ -581,8 +584,9 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc &desc,
     // draw current value
     glRotated(180, 1, 0, 0);
         pfSetPosition(0, 0);
-        SUMOReal p = (SUMOReal) -0.8 + ((SUMOReal) 1.6 / (desc.getMax()-desc.getMin()) * latest);
-        glTranslated(-0.98, -p+.02, 0);
+        SUMOReal p = (SUMOReal) 0.8 -
+            ((SUMOReal) 1.6 / (desc.getMax()-desc.getMin()) * latest);
+        glTranslated(-0.98, p+.02, 0);
         pfDrawString(StringUtils::trim(latest, 2).c_str());
         glTranslated(0.98, p-.02, 0);
     glRotated(-180, 1, 0, 0);
