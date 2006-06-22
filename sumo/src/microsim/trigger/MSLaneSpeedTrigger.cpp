@@ -24,6 +24,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/06/22 07:13:51  dkrajzew
+// debugged interaction between user-defined and loaded values
+//
 // Revision 1.6  2006/03/17 08:58:36  dkrajzew
 // changed the Event-interface (execute now gets the current simulation time, event handlers are non-static)
 //
@@ -248,10 +251,10 @@ MSLaneSpeedTrigger::setOverridingValue(SUMOReal val)
 SUMOReal
 MSLaneSpeedTrigger::getLoadedSpeed()
 {
-    if(myCurrentEntry!=myLoadedSpeeds.end()) {
-        return (*myCurrentEntry).second;
-    } else {
+    if(myCurrentEntry!=myLoadedSpeeds.begin()) {
         return (*(myCurrentEntry-1)).second;
+    } else {
+        return (*myCurrentEntry).second;
     }
 }
 

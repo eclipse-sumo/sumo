@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.18  2006/06/22 07:13:51  dkrajzew
+// debugged interaction between user-defined and loaded values
+//
 // Revision 1.17  2006/06/13 13:14:14  dkrajzew
 // made static comboboxes really static
 //
@@ -331,7 +334,7 @@ GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdChangeOption(FXObject*,FXSe
     }
     static_cast<GUILaneSpeedTrigger*>(myObject)->setOverridingValue(mySpeed);
     myParent->updateChildren();
-    if(myChosenValue==12) {
+    if(myChosenValue==1) {
         // !!! lock in between
         static_cast<GUILaneSpeedTrigger*>(myObject)->setOverriding(false);
     }
