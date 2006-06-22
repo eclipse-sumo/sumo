@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.7  2006/06/22 07:19:02  dkrajzew
+// set the correct number of visible items
+//
 // Revision 1.6  2006/06/13 13:14:14  dkrajzew
 // made static comboboxes really static
 //
@@ -126,6 +129,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(FXMainWindow* mainWindow,
     for(std::vector<std::string>::const_iterator i=names.begin(); i!=names.end(); ++i) {
         mySchemeName->appendItem((*i).c_str());
     }
+    mySchemeName->setNumVisible(5);
     //
     FXTabBook *tabbook =
         new FXTabBook(contentFrame,0,0,PACK_UNIFORM_WIDTH|PACK_UNIFORM_HEIGHT|LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_RIGHT);
@@ -364,6 +368,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
     }
     myBackup = gSchemeStorage.get(dataS.text());
     (*mySettings) = gSchemeStorage.get(dataS.text());
+    rebuildColorMatrices(true);
 
     myBackgroundColor->setRGBA(convert(mySettings->backgroundColor));
 
