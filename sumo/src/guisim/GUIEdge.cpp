@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.28  2006/06/22 07:12:35  dkrajzew
+// code beautifying
+//
 // Revision 1.27  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -205,8 +208,7 @@ GUILaneWrapper &
 GUIEdge::getLaneGeometry(const MSLane *lane) const
 {
     LaneWrapperVector::const_iterator i=
-        find_if(_laneGeoms.begin(), _laneGeoms.end(),
-            lane_wrapper_finder(*lane));
+        find_if(_laneGeoms.begin(), _laneGeoms.end(), lane_wrapper_finder(*lane));
     assert(i!=_laneGeoms.end());
     return *(*i);
 }
@@ -217,8 +219,7 @@ GUIEdge::getNames()
 {
     std::vector<std::string> ret;
     ret.reserve(MSEdge::myDict.size());
-    for(MSEdge::DictType::iterator i=MSEdge::myDict.begin();
-        i!=MSEdge::myDict.end(); i++) {
+    for(MSEdge::DictType::iterator i=MSEdge::myDict.begin(); i!=MSEdge::myDict.end(); i++) {
         ret.push_back((*i).first);
     }
     return ret;
@@ -230,8 +231,7 @@ GUIEdge::getIDs()
 {
     std::vector<size_t> ret;
     ret.reserve(MSEdge::myDict.size());
-    for(MSEdge::DictType::iterator i=MSEdge::myDict.begin();
-        i!=MSEdge::myDict.end(); i++) {
+    for(MSEdge::DictType::iterator i=MSEdge::myDict.begin();i!=MSEdge::myDict.end(); i++) {
         ret.push_back(static_cast<GUIEdge*>((*i).second)->getGlID());
     }
     return ret;
