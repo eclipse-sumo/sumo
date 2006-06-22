@@ -22,6 +22,9 @@ namespace
      const char rcsid[] = "$Id$";
 }
 // $Log$
+// Revision 1.25  2006/06/22 07:14:56  dkrajzew
+// debugged handling of previously loaded vehicles when loading states
+//
 // Revision 1.24  2006/05/15 05:53:33  dkrajzew
 // debugging saving/loading of states
 //
@@ -475,17 +478,19 @@ MSRouteHandler::closeVehicle()
         throw XMLIdNotKnownException("route", myCurrentRouteName);
     }
     //
-    MSVehicle *vehicle =
-        MSNet::getInstance()->getVehicleControl().buildVehicle(myActiveVehicleID,
-            route, myCurrentDepart, vtype, myRepNumber, myRepOffset);
-    if(myWantVehicleColor&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
-        vehicle->setCORNColor(
-            myCurrentVehicleColor.red(),
-            myCurrentVehicleColor.green(),
-            myCurrentVehicleColor.blue());
-    }
-    if(!MSVehicle::dictionary(myActiveVehicleID, vehicle)) {
-        delete vehicle;
+    MSVehicle *vehicle = 0;
+    if(MSVehicle::dictionary(myActiveVehicleID)==0) {
+        vehicle =
+            MSNet::getInstance()->getVehicleControl().buildVehicle(myActiveVehicleID,
+                route, myCurrentDepart, vtype, myRepNumber, myRepOffset);
+        if(myWantVehicleColor&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
+            vehicle->setCORNColor(
+                myCurrentVehicleColor.red(),
+                myCurrentVehicleColor.green(),
+                myCurrentVehicleColor.blue());
+        }
+        MSVehicle::dictionary(myActiveVehicleID, vehicle);
+    } else {
         if(!MSGlobals::gStateLoaded) {
             throw XMLIdAlreadyUsedException("vehicle", myActiveVehicleID);
         } else {

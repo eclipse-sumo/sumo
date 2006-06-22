@@ -23,6 +23,9 @@ namespace
         "$Id$";
 }
 // $Log$
+// Revision 1.9  2006/06/22 07:14:56  dkrajzew
+// debugged handling of previously loaded vehicles when loading states
+//
 // Revision 1.8  2006/04/18 08:12:04  dkrajzew
 // consolidation of interaction with gl-objects
 //
@@ -86,6 +89,7 @@ namespace
 #include <utils/gfx/GfxConvHelper.h>
 #include <utils/options/OptionsSubSys.h>
 #include <utils/options/OptionsCont.h>
+#include <microsim/MSGlobals.h>
 
 #ifdef _DEBUG
 #include <utils/dev/debug_new.h>
@@ -152,7 +156,9 @@ GUIRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
     GUIVehicleType *vtype =
         new GUIVehicleType(c, id, length, maxspeed, bmax, dmax, sigma);
     if(!MSVehicleType::dictionary(id, vtype)) {
-        throw XMLIdAlreadyUsedException("VehicleType", id);
+        if(!MSGlobals::gStateLoaded) {
+            throw XMLIdAlreadyUsedException("VehicleType", id);
+        }
     }
 }
 
@@ -168,8 +174,13 @@ GUIRouteHandler::closeRoute()
         new GUIRoute(myColor, myActiveRouteID, myActiveRoute, m_IsMultiReferenced);
     myActiveRoute.clear();
     if(!MSRoute::dictionary(myActiveRouteID, route)) {
+
         delete route;
-        throw XMLIdAlreadyUsedException("route", myActiveRouteID);
+        if(!MSGlobals::gStateLoaded) {
+            throw XMLIdAlreadyUsedException("route", myActiveRouteID);
+        } else {
+            route = static_cast<GUIRoute*>(MSRoute::dictionary(myActiveRouteID));
+        }
     }
     if(myAmInEmbeddedMode) {
         myCurrentEmbeddedRoute = route;
