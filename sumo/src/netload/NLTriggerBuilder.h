@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.13  2006/06/22 07:17:27  dkrajzew
+// removed unneeded class declarations
+//
 // Revision 1.12  2006/06/13 13:17:48  dkrajzew
 // removed unneeded code
 //
@@ -83,11 +86,6 @@ class MSLane;
 class MSEdge;
 class MSBusStop;
 class MSE1VehicleActor;
-
-#ifdef HAVE_MESOSIM
-class METriggeredCalibrator;
-class MESegment;
-#endif
 
 
 /* =========================================================================
