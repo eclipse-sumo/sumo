@@ -19,6 +19,9 @@
  *                                                                         *
  ***************************************************************************/
 // $Log$
+// Revision 1.14  2006/07/05 11:45:43  ericnicolay
+// change code in buildVehicleActor
+//
 // Revision 1.13  2006/06/22 07:17:27  dkrajzew
 // removed unneeded class declarations
 //
@@ -171,7 +174,8 @@ protected:
 
     /// builds a vehicle actor
     virtual MSE1VehicleActor *buildVehicleActor(MSNet &net,
-        const std::string &id, MSLane *lane, SUMOReal pos);
+        const std::string &id, MSLane *lane, SUMOReal pos,
+		unsigned int type, unsigned int areaid);
 
     //}
 
