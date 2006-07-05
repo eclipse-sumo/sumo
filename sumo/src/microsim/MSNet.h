@@ -20,6 +20,9 @@
  ***************************************************************************/
 
 // $Log$
+// Revision 1.62  2006/07/05 10:47:39  ericnicolay
+// add loading and removing of msphonenet
+//
 // Revision 1.61  2006/05/15 05:53:13  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -364,6 +367,7 @@
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
 #include <utils/common/SUMOTime.h>
+#include "MSPhoneNet.h"
 
 
 /* =========================================================================
@@ -633,10 +637,12 @@ public:
     const Boundary &getOrigBoundary() const;
     const Boundary &getConvBoundary() const;
 
-
+	/////////////////////////////////////////////
+	MSPhoneNet * getMSPhoneNet() { return myMSPhoneNet; } ;
+	/////////////////////////////////////////////
 
 protected:
-
+	MSPhoneNet * myMSPhoneNet;
     /** initialises the MeanData-container */
     static void initMeanData( TimeVector dumpMeanDataIntervalls,
         std::string baseNameDumpFiles);

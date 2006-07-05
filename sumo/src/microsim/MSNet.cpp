@@ -23,6 +23,9 @@ namespace
     "$Id$";
 }
 // $Log$
+// Revision 1.78  2006/07/05 10:47:39  ericnicolay
+// add loading and removing of msphonenet
+//
 // Revision 1.77  2006/05/15 05:53:13  dkrajzew
 // got rid of the cell-to-meter conversions
 //
@@ -525,7 +528,7 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
     myLogics = 0;
     myTriggerControl = new MSTriggerControl();
     myShapeContainer = new ShapeContainer();
-
+	myMSPhoneNet = new MSPhoneNet();
 
     myInstance = this;
 }
@@ -549,7 +552,7 @@ MSNet::MSNet(SUMOTime startTimeStep, SUMOTime stopTimeStep,
     myLogics = 0;
     myTriggerControl = new MSTriggerControl();
     myShapeContainer = new ShapeContainer();
-
+	myMSPhoneNet = new MSPhoneNet();
 
     myInstance = this;
 }
@@ -613,6 +616,8 @@ MSNet::~MSNet()
     delete myVehicleControl;
     delete myShapeContainer;
     delete myTriggerControl;
+	delete myMSPhoneNet;
+	myMSPhoneNet = 0;
     clearAll();
 }
 
@@ -873,6 +878,9 @@ MSNet::writeOutput()
         myOutputStreams[OS_EMISSIONS]->getOStream()
             << "/>" << endl;
     }
+	if ( myOutputStreams[OS_CELL_TO_SS2] != 0 ){
+		myMSPhoneNet->writeOutput( myStep );
+	}
 }
 
 
