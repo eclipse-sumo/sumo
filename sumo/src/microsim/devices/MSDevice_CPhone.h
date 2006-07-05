@@ -33,7 +33,8 @@ public:
     enum State {
         STATE_OFF,
         STATE_IDLE,
-        STATE_CONNECTED
+        STATE_CONNECTED_IN,
+		STATE_CONNECTED_OUT
     };
 
     struct CPhoneBroadcastCell {
@@ -46,12 +47,13 @@ public:
     const std::vector<CPhoneBroadcastCell*> &GetProvidedCells() const;
     State GetState() const;
     int SetProvidedCells(const std::vector<CPhoneBroadcastCell*> &ActualCells);
-    //int SetState(int ActualState);
-
+    int SetState(int ActualState);
     SUMOTime changeState();
-
+	void setCurrentCellId( unsigned int id ){ mycurrentCellId = id; };
+	int getCurrentCellId(){return mycurrentCellId;};
     void onDepart();
-
+	void setId(std::string id){myId=id;};
+	std::string getId(){return myId;};
 protected:
     class MyCommand : public Command
     {
@@ -77,11 +79,12 @@ protected:
     };
 
 private:
-
+	std::string myId;
   //the State the cellphone (if available) is in
   //0: no cellphone; 1: turned off; 2: idle ; 3: connected
     int m_PhoneCount;
     State m_State;
+
   //the best 6 of the available broadcast cells; index "0" represents the actual serving cell
     std::vector<CPhoneBroadcastCell*> m_ProvidedCells;
     MSVehicle &myVehicle;
@@ -90,5 +93,8 @@ private:
 
     MyCommand *myCommand;
 
+	/*this id reminds the cell-id the phone is currently in*/
+	/*if it is -1 the car still not cross a cellborder*/
+	int mycurrentCellId;
 };
 #endif
