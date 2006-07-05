@@ -21,6 +21,9 @@
 //---------------------------------------------------------------------------//
 // $Id$
 // $Log$
+// Revision 1.2  2006/07/05 11:23:39  ericnicolay
+// add code for change state of cphones and register them to the cells and las
+//
 // Revision 1.1  2006/03/27 07:19:47  dkrajzew
 // vehicle actors added
 //
@@ -52,6 +55,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <utils/iodevices/XMLDevice.h>
+#include <microsim/devices/MSDevice_CPhone.h>
 
 
 /* =========================================================================
@@ -62,6 +66,10 @@ class GUIDetectorWrapper;
 class GUIGlObjectStorage;
 class GUILaneWrapper;
 
+enum ActorType{
+	LA,
+	CELL
+};
 
 /* =========================================================================
  * class definitions
@@ -83,7 +91,7 @@ public:
      * @param deleteDataAfterSeconds Dismiss-time for collected data.
      */
     MSE1VehicleActor( const std::string& id, MSLane* lane,
-        SUMOReal positionInMeters);
+        SUMOReal positionInMeters, ActorType at, unsigned int areaid );
 
 
     /// Destructor. Clears containers.
@@ -146,6 +154,8 @@ public:
 
 protected:
     const SUMOReal posM;          /**< Detector's position on lane [cells]. */
+	const ActorType _type;
+	unsigned int _AreaId;
 
 private:
 
